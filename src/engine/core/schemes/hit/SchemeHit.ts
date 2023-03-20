@@ -21,7 +21,7 @@ export class SchemeHit extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -34,7 +34,7 @@ export class SchemeHit extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
     const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[scheme] as ISchemeHitState;
@@ -45,7 +45,7 @@ export class SchemeHit extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeHitState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);

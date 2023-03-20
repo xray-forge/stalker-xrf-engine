@@ -15,7 +15,7 @@ export class ItemWeaponAutomaticShotgun extends cse_alife_item_weapon_auto_shotg
   public secret_item: Optional<boolean> = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -24,7 +24,7 @@ export class ItemWeaponAutomaticShotgun extends cse_alife_item_weapon_auto_shotg
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_unregister(): void {
     unregisterStoryLinkByObjectId(this.id);
@@ -32,7 +32,7 @@ export class ItemWeaponAutomaticShotgun extends cse_alife_item_weapon_auto_shotg
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override can_switch_online(): boolean {
     if (this.secret_item) {

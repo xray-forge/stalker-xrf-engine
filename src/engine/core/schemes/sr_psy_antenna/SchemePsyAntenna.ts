@@ -33,7 +33,7 @@ export class SchemePsyAntenna extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemePsyAntennaState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);

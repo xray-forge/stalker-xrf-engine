@@ -20,7 +20,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   public antennaManager: PsyAntennaManager = PsyAntennaManager.getInstance();
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(loading?: boolean): void {
     if (loading) {
@@ -37,7 +37,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override deactivate(): void {
     if (this.antennaState === state_inside) {
@@ -46,7 +46,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     const actor = registry.actor;
@@ -59,7 +59,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public switch_state(actor: XR_game_object): void {
     if (this.antennaState !== state_inside) {
@@ -78,7 +78,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public zone_enter(): void {
     this.antennaState = state_inside;
@@ -122,7 +122,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public zone_leave(): void {
     this.antennaState = state_outside;
@@ -148,7 +148,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public save(): void {
     pstor_store(this.object, "inside", this.antennaState);

@@ -99,7 +99,7 @@ export class TravelManager extends AbstractCoreManager {
   private travelSquad: Optional<Squad> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     for (const it of $range(0, TRAVEL_MANAGER_LTX.line_count(TravelManager.LOCATIONS_LTX_SECTION) - 1)) {
@@ -188,7 +188,7 @@ export class TravelManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public canStartTravelingDialogs(actor: XR_game_object, npc: XR_game_object): boolean {
     const squad: Optional<Squad> = getObjectSquad(npc);
@@ -207,7 +207,7 @@ export class TravelManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public isEnemyWithSquadMember(squad: Squad): boolean {
     const actorId: TNumberId = alife().actor().id;
@@ -222,7 +222,7 @@ export class TravelManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getSquadCurrentActionDescription(
     actor: XR_game_object,
@@ -264,7 +264,7 @@ export class TravelManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public canActorMoveWithSquad(
     actor: XR_game_object,
@@ -278,7 +278,7 @@ export class TravelManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public canSquadTakeActor(
     npc: XR_game_object,
@@ -294,7 +294,7 @@ export class TravelManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public cannotSquadTakeActor(
     npc: XR_game_object,
@@ -306,7 +306,7 @@ export class TravelManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public isSmartAvailableToReach(smartName: TName, smartTable: ITravelRouteDescriptor, squad: Squad): boolean {
     if (smartTable.level !== level.name()) {
@@ -332,7 +332,7 @@ export class TravelManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public canSquadTravel(npc: XR_game_object, actor: XR_game_object, dialogId: TStringId, phraseId: TStringId): boolean {
     const squad: Squad = getObjectSquad(npc)!;
@@ -348,14 +348,14 @@ export class TravelManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public cannotSquadTravel(npc: XR_game_object, actor: XR_game_object, dialogId: TStringId, phraseId: TStringId) {
     return !this.canSquadTravel(npc, actor, dialogId, phraseId);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public canNegotiateTravelToSmart(
     actor: XR_game_object,
@@ -378,14 +378,14 @@ export class TravelManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getTravelPriceByDistance(distance: TDistance): TCount {
     return math.ceil(distance / 50) * 50;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getTravelConst(actor: XR_game_object, npc: XR_game_object, dialogId: TStringId, phraseId: TStringId): TLabel {
     const simBoard: SimulationBoardManager = SimulationBoardManager.getInstance();
@@ -400,7 +400,7 @@ export class TravelManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public isEnoughMoneyToTravel(
     actor: XR_game_object,
@@ -419,7 +419,7 @@ export class TravelManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public isNotEnoughMoneyToTravel(
     actor: XR_game_object,

@@ -13,7 +13,7 @@ export class ActionMeetWait extends action_base {
   public readonly state: ISchemeMeetState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeMeetState) {
     super(null, ActionMeetWait.__name);
@@ -21,7 +21,7 @@ export class ActionMeetWait extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -31,7 +31,7 @@ export class ActionMeetWait extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();

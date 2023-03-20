@@ -46,12 +46,7 @@ import { abort } from "@/engine/core/utils/debug";
 import { setSaveMarker } from "@/engine/core/utils/game_save";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import {
-  getConfigBoolean,
-  getConfigNumber,
-  getConfigString,
-  getTwoNumbers,
-} from "@/engine/core/utils/ini/getters";
+import { getConfigBoolean, getConfigNumber, getConfigString, getTwoNumbers } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
 import { parseConditionsList, parseNames, TConditionList } from "@/engine/core/utils/parse";
@@ -148,7 +143,7 @@ export class Squad<
   public props!: AnyObject;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(section: TSection) {
     super(section);
@@ -158,7 +153,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public init_squad(): void {
     this.player_id = getConfigString(SYSTEM_INI, this.settings_id, "faction", this, true, "") as TCommunity;
@@ -186,7 +181,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public init_squad_on_load(): void {
     logger.info("Init squad on load:", this.name());
@@ -202,7 +197,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set_squad_behaviour(): void {
     this.behaviour = new LuaTable();
@@ -231,7 +226,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_script_target(): Optional<TNumberId> {
     const new_target: Optional<string> = pickSectionFromCondList(
@@ -278,14 +273,14 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public pick_next_target(): StringOptional<TName> {
     return this.parsed_targets.get(this.next_target as TNumberId);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public check_squad_come_to_point(): boolean {
     if (this.parsed_targets === null) {
@@ -306,7 +301,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update_current_action(): boolean {
     const is_finished = this.current_action!.update(false);
@@ -319,7 +314,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     super.update();
@@ -386,14 +381,14 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public clear_assigned_target(): void {
     this.assigned_target_id = null;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public assigned_target_avaliable(): boolean {
     const targetObject: Optional<TSimulationObject> =
@@ -407,7 +402,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public generic_update(): void {
     this.soundManager.update();
@@ -463,7 +458,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_next_action(under_simulation: boolean): void {
     const squad_target = alife().object<SmartTerrain>(this.assigned_target_id!);
@@ -494,7 +489,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onRemoveSquadFromSimulation(): void {
     logger.info("Remove squad:", this.name());
@@ -519,7 +514,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public remove_npc(objectId: TNumberId): void {
     const npc = alife().object<XR_cse_alife_creature_abstract>(objectId)!;
@@ -531,7 +526,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public on_npc_death(object: XR_cse_alife_creature_abstract): void {
     logger.info("On npc death:", this.name(), object.name());
@@ -560,7 +555,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public assign_squad_member_to_smart(
     memberId: TNumberId,
@@ -594,7 +589,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public assign_smart(smart: Optional<SmartTerrain>) {
     logger.info("Assign squad to smart:", this.name(), smart?.name());
@@ -609,7 +604,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public check_invulnerability(): void {
     if (this.squad_online !== true) {
@@ -637,7 +632,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set_location_types_section(section: string): void {
     if (SMART_TERRAIN_MASKS_LTX.section_exist(section)) {
@@ -648,7 +643,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set_location_types(newSmartName?: TName): void {
     logger.info("Set location types:", this.name(), newSmartName);
@@ -685,7 +680,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public add_squad_member(
     spawn_section: TSection,
@@ -731,7 +726,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public createSquadMembers(spawnSmartTerrain: SmartTerrain): void {
     logger.info("Create squad members:", this.name(), spawnSmartTerrain?.name());
@@ -802,7 +797,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set_squad_sympathy(sympathy?: Optional<TCount>): void {
     const squadSympathy = sympathy || this.sympathy;
@@ -842,7 +837,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set_squad_position(position: XR_vector): void {
     if (this.online === false) {
@@ -864,7 +859,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public has_detector(): boolean {
     for (const k of this.squad_members()) {
@@ -879,7 +874,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_squad_community(): TCommunity {
     const squad_community = squadCommunityByBehaviour[this.player_id as any as TCommunity];
@@ -892,7 +887,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
@@ -908,7 +903,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
@@ -950,7 +945,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -962,7 +957,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_unregister(): void {
     super.on_unregister();
@@ -986,7 +981,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public refresh(): void {
     if (this.commander_id() === null) {
@@ -999,7 +994,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public hide(): void {
     if (this.current_spot_id === null || this.spot_section === null) {
@@ -1013,7 +1008,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public show(): void {
     if (this.show_disabled) {
@@ -1076,7 +1071,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_squad_props() {
     if (gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) {
@@ -1116,14 +1111,14 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_location(): LuaMultiReturn<[XR_vector, TNumberId, TNumberId]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override get_current_task(): XR_CALifeSmartTerrainTask {
     if (this.assigned_target_id !== null && alife().object(this.assigned_target_id) !== null) {
@@ -1147,19 +1142,19 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public am_i_reached(squad: Squad): boolean {
     return this.npc_count() === 0;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public on_after_reach(squad: Squad): void {}
 
   /**
-   * todo;
+   * todo: Description.
    */
   public on_reach_target(squad: Squad): void {
     squad.set_location_types();
@@ -1172,14 +1167,14 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getAlifeSmartTerrainTask(): XR_CALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public isSimulationAvailable(): boolean {
     if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== STRINGIFIED_TRUE) {
@@ -1229,7 +1224,7 @@ export class Squad<
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public target_precondition(squad: Squad): boolean {
     const squad_params = simulation_activities[squad.player_id];

@@ -27,14 +27,14 @@ export class ArtefactBinder extends object_binder {
   public isInitializing: boolean = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object) {
     super(object);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
@@ -66,7 +66,7 @@ export class ArtefactBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_destroy(): void {
     unregisterObject(this.object);
@@ -74,7 +74,7 @@ export class ArtefactBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: TDuration): void {
     this.delta += delta;

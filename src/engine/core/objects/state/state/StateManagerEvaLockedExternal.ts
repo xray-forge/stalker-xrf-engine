@@ -17,7 +17,7 @@ export class StateManagerEvaLockedExternal extends property_evaluator {
   private readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaLockedExternal.__name);
@@ -25,7 +25,7 @@ export class StateManagerEvaLockedExternal extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return this.stateManager.combat || this.stateManager.alife;

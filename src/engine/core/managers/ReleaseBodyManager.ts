@@ -51,7 +51,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   public keepItemsRegistry: LuaArray<TStringId> = new LuaTable();
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize() {
     if (!DEATH_GENERIC_LTX.section_exist(ReleaseBodyManager.KEEP_ITEMS_LTX_SECTION)) {
@@ -68,7 +68,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public addDeadBody(object: XR_game_object): void {
     if (this.inspectionResult(object)) {
@@ -86,7 +86,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public tryToReleaseCorpses(): void {
     logger.info("Try to release dead bodies:", this.releaseObjectRegistry.length(), ReleaseBodyManager.MAX_BODY_COUNT);
@@ -119,7 +119,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   protected inspectionResult(object: XR_game_object): boolean {
     if (getStoryIdByObjectId(object.id()) !== null) {
@@ -146,7 +146,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   protected checkForKnownInfo(object: XR_game_object): boolean {
     let char_ini: Optional<XR_ini_file> = null;
@@ -172,7 +172,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   protected findNearestObjectToRelease(releaseObjectsRegistry: LuaArray<IReleaseDescriptor>): Optional<TIndex> {
     const actorPosition: XR_vector = registry.actor.position();
@@ -203,7 +203,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, ReleaseBodyManager.name);
@@ -224,7 +224,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, ReleaseBodyManager.name);

@@ -146,7 +146,7 @@ export class StatisticsManager extends AbstractCoreManager {
   };
 
   /**
-   * todo;
+   * todo: Description.
    */
   public incrementSurgesCount(): void {
     logger.info("Increment surges count");
@@ -154,7 +154,7 @@ export class StatisticsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public incrementCompletedQuestsCount(): void {
     logger.info("Increment completed quests count");
@@ -162,7 +162,7 @@ export class StatisticsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public incrementKilledMonstersCount(): void {
     logger.info("Increment killed monsters count");
@@ -170,7 +170,7 @@ export class StatisticsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public incrementKilledStalkersCount(): void {
     logger.info("Increment killed stalkers count");
@@ -178,7 +178,7 @@ export class StatisticsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public incrementCollectedArtefactsCount(artefact: XR_game_object): void {
     logger.info("Increment collected artefacts count");
@@ -199,7 +199,7 @@ export class StatisticsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public incrementCollectedSecretsCount(): void {
     logger.info("Increment collected secrets count");
@@ -207,7 +207,7 @@ export class StatisticsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public updateBestWeapon(hitAmount: TCount): void {
     const active_item = registry.actor.active_item();
@@ -248,7 +248,7 @@ export class StatisticsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public updateBestMonsterKilled(object: XR_game_object): void {
     if (isStalker(object)) {
@@ -316,7 +316,7 @@ export class StatisticsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     this.actor_statistic = {} as IActorStatistics;
@@ -370,7 +370,7 @@ export class StatisticsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     packet.w_u16(this.actor_statistic.surges);

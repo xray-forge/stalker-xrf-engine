@@ -34,7 +34,7 @@ export class DevDebugUiSection extends CUIWindow {
   public texturesListSquareMiniDisplay!: XR_CUIStatic;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(owner: XR_CUIScriptWnd) {
     super();
@@ -47,7 +47,7 @@ export class DevDebugUiSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initControls(): void {
     logger.info("Init controls");
@@ -70,7 +70,7 @@ export class DevDebugUiSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initCallBacks(): void {
     logger.info("Init callbacks");
@@ -80,7 +80,7 @@ export class DevDebugUiSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public InitData(): void {
     logger.info("Init data");
@@ -88,7 +88,7 @@ export class DevDebugUiSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initTexturesList(): void {
     const filterMask: string = this.texturesListFilter.GetText();
@@ -107,7 +107,7 @@ export class DevDebugUiSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public updateTexturesList(): void {
     this.texturesList.ClearList();
@@ -115,7 +115,7 @@ export class DevDebugUiSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onTextureListChange(): void {
     const texture: string = this.texturesList.GetText();

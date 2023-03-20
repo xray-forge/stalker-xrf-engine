@@ -8,7 +8,7 @@ import { PhantomManager } from "@/engine/core/managers/PhantomManager";
 @LuabindClass()
 export class PhantomBinder extends object_binder {
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object) {
     super(object);
@@ -16,21 +16,21 @@ export class PhantomBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_destroy(): void {
     PhantomManager.getInstance().remove_phantom();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public spawn_phantom(position: XR_vector): void {
     PhantomManager.getInstance().spawn_phantom(position);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public phantom_count(): number {
     return PhantomManager.getInstance().phantom_count;

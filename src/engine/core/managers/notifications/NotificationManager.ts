@@ -32,7 +32,7 @@ export class NotificationManager extends AbstractCoreManager {
   public static readonly DEFAULT_NOTIFICATION_SHOW_DURATION: TDuration = 5_000;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public sendMoneyRelocatedNotification(actor: Optional<XR_game_object>, type: "in" | "out", amount: TCount): void {
     logger.info("Show relocate money message:", type, amount, amount);
@@ -68,7 +68,7 @@ export class NotificationManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public sendTreasureNotification(param: 0 | 1 | 2): void {
     logger.info("Show send treasure:", param);
@@ -97,7 +97,7 @@ export class NotificationManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public sendTaskNotification(
     actor: Optional<XR_game_object>,
@@ -198,7 +198,7 @@ export class NotificationManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public sendSoundNotification(
     object: Optional<XR_game_object>,
@@ -271,7 +271,7 @@ export class NotificationManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public sendItemRelocatedNotification(
     actor: XR_game_object,
@@ -332,14 +332,14 @@ export class NotificationManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   protected getItemInventoryName(section: TSection): TName {
     return SYSTEM_INI.r_string(section, "inv_name");
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   protected playPdaNotificationSound(): void {
     GlobalSoundManager.getInstance().setSoundPlaying(registry.actor.id(), script_sounds.pda_task, null, null);

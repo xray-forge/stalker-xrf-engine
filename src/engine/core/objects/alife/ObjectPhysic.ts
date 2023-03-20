@@ -15,7 +15,7 @@ export class ObjectPhysic extends cse_alife_object_physic {
   public secret_item: Optional<boolean> = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -26,7 +26,7 @@ export class ObjectPhysic extends cse_alife_object_physic {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_unregister(): void {
     unregisterStoryLinkByObjectId(this.id);
@@ -34,14 +34,14 @@ export class ObjectPhysic extends cse_alife_object_physic {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override keep_saved_data_anyway(): boolean {
     return true;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override can_switch_online(): boolean {
     if (this.secret_item) {

@@ -14,7 +14,7 @@ export class EvaluatorNeedCompanion extends property_evaluator {
   public readonly state: ISchemeCompanionState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(storage: ISchemeCompanionState) {
     super(null, EvaluatorNeedCompanion.__name);
@@ -22,7 +22,7 @@ export class EvaluatorNeedCompanion extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return isActiveSection(this.object, this.state.section);

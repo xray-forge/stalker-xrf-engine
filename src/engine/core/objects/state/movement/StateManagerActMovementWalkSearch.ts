@@ -18,7 +18,7 @@ export class StateManagerActMovementWalkSearch extends action_base {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActMovementWalkSearch.__name);
@@ -26,7 +26,7 @@ export class StateManagerActMovementWalkSearch extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -35,14 +35,14 @@ export class StateManagerActMovementWalkSearch extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     super.finalize();

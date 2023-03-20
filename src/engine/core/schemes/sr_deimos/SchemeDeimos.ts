@@ -21,7 +21,7 @@ export class SchemeDeimos extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -34,7 +34,7 @@ export class SchemeDeimos extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeDeimosState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
@@ -57,7 +57,7 @@ export class SchemeDeimos extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static checkIntensityDelta(state: IRegistryObjectState): boolean {
     if (state.active_scheme === SchemeDeimos.SCHEME_SECTION) {
@@ -75,7 +75,7 @@ export class SchemeDeimos extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static checkDisableBound(state: IRegistryObjectState): boolean {
     if (state.active_scheme === SchemeDeimos.SCHEME_SECTION) {
@@ -88,7 +88,7 @@ export class SchemeDeimos extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static checkLowerBound(state: IRegistryObjectState): boolean {
     if (state.active_scheme === SchemeDeimos.SCHEME_SECTION) {
@@ -101,7 +101,7 @@ export class SchemeDeimos extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static checkUpperBound(state: IRegistryObjectState): boolean {
     if (state.active_scheme === SchemeDeimos.SCHEME_SECTION) {

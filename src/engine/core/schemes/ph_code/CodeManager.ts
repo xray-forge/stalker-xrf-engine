@@ -12,14 +12,14 @@ import { TLabel } from "@/engine/lib/types";
  */
 export class CodeManager extends AbstractSchemeManager<ISchemeCodeState> {
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     this.object.set_nonscript_usable(false);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public use_callback(object: XR_game_object, who: XR_game_object): void {
     const numPadWindow: NumPadWindow = new NumPadWindow(this);
@@ -28,7 +28,7 @@ export class CodeManager extends AbstractSchemeManager<ISchemeCodeState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public OnNumberReceive(text: TLabel): void {
     if (this.state.code) {
@@ -47,7 +47,7 @@ export class CodeManager extends AbstractSchemeManager<ISchemeCodeState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override deactivate(): void {
     this.object.set_tip_text("");

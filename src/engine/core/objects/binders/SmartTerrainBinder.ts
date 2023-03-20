@@ -16,7 +16,7 @@ export class SmartTerrainBinder extends object_binder {
   public se_smart_terrain!: SmartTerrain;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
@@ -31,7 +31,7 @@ export class SmartTerrainBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_destroy(): void {
     GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
@@ -42,7 +42,7 @@ export class SmartTerrainBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: TDuration): void {
     super.update(delta);

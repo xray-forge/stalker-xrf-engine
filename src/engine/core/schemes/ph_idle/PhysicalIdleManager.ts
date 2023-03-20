@@ -17,28 +17,28 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalIdleState> {
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     this.object.set_nonscript_usable(this.state.nonscript_usable);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     trySwitchToAnotherSection(this.object, this.state, registry.actor);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override deactivate(): void {
     this.object.set_tip_text("");
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public hit_callback(
     object: XR_game_object,
@@ -61,7 +61,7 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public use_callback(): Optional<boolean> {
     logger.info("Idle use:", this.object.name());

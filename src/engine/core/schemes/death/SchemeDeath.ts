@@ -21,7 +21,7 @@ export class SchemeDeath extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -34,14 +34,14 @@ export class SchemeDeath extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     AbstractScheme.assignStateAndBind(object, ini, scheme, section);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override resetScheme(
     object: XR_game_object,

@@ -20,7 +20,7 @@ export class StateManagerActWeaponStrapp extends action_base {
   private readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActWeaponStrapp.__name);
@@ -28,7 +28,7 @@ export class StateManagerActWeaponStrapp extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -43,14 +43,14 @@ export class StateManagerActWeaponStrapp extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     super.finalize();

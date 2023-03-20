@@ -14,7 +14,7 @@ export class EvaluatorNeedAnimpoint extends property_evaluator {
   public readonly state: ISchemeAnimpointState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeAnimpointState) {
     super(null, EvaluatorNeedAnimpoint.__name);
@@ -22,7 +22,7 @@ export class EvaluatorNeedAnimpoint extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return isActiveSection(this.object, this.state.section);

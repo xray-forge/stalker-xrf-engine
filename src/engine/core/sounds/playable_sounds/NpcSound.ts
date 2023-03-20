@@ -208,7 +208,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override callback(objectId: TNumberId): void {
     this.played_time = time_global();
@@ -248,7 +248,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public play(objectId: TNumberId, faction: string, point: Optional<string>, message: TLabel): boolean {
     const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;

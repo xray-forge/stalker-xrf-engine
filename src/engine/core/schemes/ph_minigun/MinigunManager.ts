@@ -65,7 +65,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   public on_target_nvis: Optional<{ v1: XR_game_object; condlist: TConditionList; name: TName }> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object, state: ISchemeMinigunState) {
     super(object, state);
@@ -79,7 +79,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     this.start_delaying_time = time_global();
@@ -202,14 +202,14 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set_shooting(shooting: number): void {
     this.mgun.Action(CCar.eWpnFire, shooting);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public check_fire_time(): void {
     if (this.state.fire_rep === -1) {
@@ -234,12 +234,12 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public save(): void {}
 
   /**
-   * todo;
+   * todo: Description.
    */
   public rot_to_firedir(direction: Optional<XR_vector>): void {
     if (direction) {
@@ -248,7 +248,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public rot_to_firepoint(pt: Optional<XR_vector>): void {
     if (pt) {
@@ -257,7 +257,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public fastcall(): boolean {
     if (isActiveSection(this.object, this.state.section)) {
@@ -270,7 +270,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
@@ -287,7 +287,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public fast_update(): boolean {
     if (this.mgun.GetfHealth() <= 0) {
@@ -427,7 +427,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public destroy_car(): void {
     this.state_cannon = state_none;
@@ -446,7 +446,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public angle_xz(npc: XR_game_object, target_pos: XR_vector, start_direction: XR_vector): number {
     const dir1 = start_direction;

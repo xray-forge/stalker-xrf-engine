@@ -15,7 +15,7 @@ export class EvaluatorCombatZombied extends property_evaluator {
   public readonly state: ISchemeCombatState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeCombatState) {
     super(null, EvaluatorCombatZombied.__name);
@@ -23,7 +23,7 @@ export class EvaluatorCombatZombied extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return getCharacterCommunity(this.object) === communities.zombied;

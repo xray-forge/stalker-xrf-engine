@@ -40,7 +40,7 @@ export class ActionZombieGoToDanger extends action_base {
   public enemy_last_seen_vid: Optional<number> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeCombatState) {
     super(null, ActionZombieGoToDanger.__name);
@@ -48,7 +48,7 @@ export class ActionZombieGoToDanger extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -66,7 +66,7 @@ export class ActionZombieGoToDanger extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public setState(state: string, bestEnemy: Optional<XR_game_object>, pos: Optional<XR_vector>): void {
     if (state !== this.last_state) {
@@ -78,7 +78,7 @@ export class ActionZombieGoToDanger extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -112,7 +112,7 @@ export class ActionZombieGoToDanger extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     super.finalize();
@@ -120,7 +120,7 @@ export class ActionZombieGoToDanger extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public hit_callback(
     object: XR_game_object,

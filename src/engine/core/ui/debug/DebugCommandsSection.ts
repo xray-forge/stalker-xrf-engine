@@ -29,7 +29,7 @@ export class DebugCommandsSection extends CUIWindow {
   public commandsList!: XR_CUIScrollView;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(owner: XR_CUIScriptWnd) {
     super();
@@ -42,7 +42,7 @@ export class DebugCommandsSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initControls(): void {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
@@ -57,19 +57,19 @@ export class DebugCommandsSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initCallBacks(): void {}
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initState(): void {
     logger.info("Initialized state");
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initEntry(name: string, xml: XR_CScriptXmlInit, console: XR_CConsole, type: "numeric" | "boolean"): void {
     logger.info("Init item:", name);
@@ -91,7 +91,7 @@ export class DebugCommandsSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onCheckboxChange(check: XR_CUICheckButton, name: string, type: "numeric" | "boolean"): void {
     const isEnabled: boolean = check.GetCheck();

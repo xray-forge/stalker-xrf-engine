@@ -33,7 +33,7 @@ export class ActionWalkerActivity extends action_base {
   public camp: Optional<CampStoryManager> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeWalkerState, object: XR_game_object) {
     super(null, ActionWalkerActivity.__name);
@@ -53,7 +53,7 @@ export class ActionWalkerActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -63,7 +63,7 @@ export class ActionWalkerActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public activateScheme(isLoading: boolean, object: XR_game_object): void {
     this.state.signals = new LuaTable();
@@ -71,7 +71,7 @@ export class ActionWalkerActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public resetScheme(loading: Optional<boolean>, npc: XR_game_object): void {
     if (this.state.path_walk_info === null) {
@@ -97,7 +97,7 @@ export class ActionWalkerActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -123,7 +123,7 @@ export class ActionWalkerActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update(): void {
     if (this.camp === null) {
@@ -143,7 +143,7 @@ export class ActionWalkerActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     this.moveManager.finalize();
@@ -157,14 +157,14 @@ export class ActionWalkerActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public position_riched(): boolean {
     return this.moveManager.arrived_to_first_waypoint();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public net_destroy(npc: XR_game_object): void {
     if (this.in_camp === true) {

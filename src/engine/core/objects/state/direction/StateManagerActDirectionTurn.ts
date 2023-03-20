@@ -20,7 +20,7 @@ export class StateManagerActDirectionTurn extends action_base {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(st: StateManager) {
     super(null, StateManagerActDirectionTurn.__name);
@@ -29,7 +29,7 @@ export class StateManagerActDirectionTurn extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -37,7 +37,7 @@ export class StateManagerActDirectionTurn extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -45,14 +45,14 @@ export class StateManagerActDirectionTurn extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     super.finalize();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public turn(): void {
     this.stateManager.point_obj_dir = look_object_type(this.object, this.stateManager);

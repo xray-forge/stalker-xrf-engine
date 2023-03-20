@@ -6,12 +6,13 @@ import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { dynamicMusicThemes } from "@/engine/core/sounds/dynamic_music_themes";
 import { StereoSound } from "@/engine/core/sounds/playable_sounds/StereoSound";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { clampNumber } from "@/engine/core/utils/number";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { TSound } from "@/engine/lib/constants/sound/sounds";
-import { Optional, TDistance } from "@/engine/lib/types";
+import { Optional, TDistance, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -66,6 +67,9 @@ export class DynamicMusicManager {
   public forceFade: boolean = false;
   public wasInSilence: boolean = false;
 
+  /**
+   * todo: Description.
+   */
   public initialize(): void {
     logger.info("Initialize dynamic music manager");
 
@@ -77,14 +81,23 @@ export class DynamicMusicManager {
     eventsManager.registerCallback(EGameEvent.MAIN_MENU_OFF, this.onMainMenuOff, this);
   }
 
+  /**
+   * todo: Description.
+   */
   public isThemeFading(): boolean {
     return m_theme_volume !== FadeTo_theme;
   }
 
+  /**
+   * todo: Description.
+   */
   public isAmbientFading(): boolean {
     return m_ambient_vol !== FadeTo_ambient;
   }
 
+  /**
+   * todo: Description.
+   */
   public isActorInSilenceZone(): boolean {
     const actorPosition: XR_vector = registry.actor.position();
 
@@ -97,6 +110,9 @@ export class DynamicMusicManager {
     return false;
   }
 
+  /**
+   * todo: Description.
+   */
   public selectNextTrack(): void {
     logger.info("Select next track for playback");
 
@@ -120,6 +136,9 @@ export class DynamicMusicManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public initializeThemes(): void {
     logger.info("Initialize themes");
 
@@ -150,6 +169,9 @@ export class DynamicMusicManager {
     areThemesInitialized = true;
   }
 
+  /**
+   * todo: Description.
+   */
   public getThemeState(): Optional<EDynamicMusicState> {
     const actor: XR_game_object = registry.actor;
 
@@ -232,14 +254,17 @@ export class DynamicMusicManager {
     return null;
   }
 
+  /**
+   * todo: Description.
+   */
   public fadeTheme(): void {
-    const g_time: number = time_global();
+    const now: TTimestamp = time_global();
 
-    if (g_time - prev_fade_time <= DynamicMusicManager.THEME_FADE_UPDATE_DELTA) {
+    if (now - prev_fade_time <= DynamicMusicManager.THEME_FADE_UPDATE_DELTA) {
       return;
     }
 
-    prev_fade_time = g_time;
+    prev_fade_time = now;
 
     FadeTo_theme = clampNumber(FadeTo_theme, 0, ambientVolume);
 
@@ -262,14 +287,17 @@ export class DynamicMusicManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public fadeAmbient(): void {
-    const g_time: number = time_global();
+    const now: TTimestamp = time_global();
 
-    if (g_time - prev_fade_time <= DynamicMusicManager.AMBIENT_FADE_UPDATE_DELTA) {
+    if (now - prev_fade_time <= DynamicMusicManager.AMBIENT_FADE_UPDATE_DELTA) {
       return;
     }
 
-    prev_fade_time = g_time;
+    prev_fade_time = now;
     FadeTo_ambient = clampNumber(FadeTo_ambient, 0, ambientVolume);
 
     if (m_ambient_vol > FadeTo_ambient) {
@@ -293,6 +321,9 @@ export class DynamicMusicManager {
     this.setSoundVolume(m_ambient_vol);
   }
 
+  /**
+   * todo: Description.
+   */
   public stopTheme(): void {
     logger.info("Stop theme");
 
@@ -303,6 +334,9 @@ export class DynamicMusicManager {
     areThemesInitialized = false;
   }
 
+  /**
+   * todo: Description.
+   */
   public startTheme(): void {
     m_ambient_vol = 0;
     this.setSoundVolume(m_ambient_vol);
@@ -326,8 +360,8 @@ export class DynamicMusicManager {
   /**
    * todo: Description.
    */
-  public setSoundVolume(volume: number): void {
-    get_console().execute(console_commands.snd_volume_music + " " + volume);
+  public setSoundVolume(volume: TRate): void {
+    executeConsoleCommand(console_commands.snd_volume_music, volume);
   }
 
   /**

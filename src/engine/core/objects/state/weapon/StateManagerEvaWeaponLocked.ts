@@ -18,7 +18,7 @@ export class StateManagerEvaWeaponLocked extends property_evaluator {
   private readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaWeaponLocked.__name);
@@ -26,7 +26,7 @@ export class StateManagerEvaWeaponLocked extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     const weapon_strapped: boolean = this.object.weapon_strapped();

@@ -110,7 +110,7 @@ export class SurgeManager extends AbstractCoreManager {
   public surge_task_sect: string = "";
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     this.isStarted = false;
@@ -161,7 +161,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initializeSurgeCovers(): void {
     for (const it of $range(0, SURGE_MANAGER_LTX.line_count("list") - 1)) {
@@ -182,7 +182,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getNearestAvailableCoverId(): Optional<TNumberId> {
     logger.info("Getting nearest cover");
@@ -249,7 +249,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public isActorInCover(): boolean {
     const coverObjectId: Optional<TNumberId> = this.getNearestAvailableCoverId();
@@ -265,21 +265,21 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public setSurgeTask(task: string): void {
     this.surge_task_sect = task;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public setSurgeMessage(message: TLabel): void {
     this.surge_message = message;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getTaskTarget(): Optional<number> {
     if (this.isActorInCover()) {
@@ -290,14 +290,14 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public isKillingAll(): boolean {
     return this.isStarted && this.ui_disabled;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public requestSurgeStart(): void {
     logger.info("Request surge start");
@@ -310,7 +310,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public requestSurgeStop(): void {
     logger.info("Request surge stop");
@@ -355,7 +355,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public skipSurge(): void {
     logger.info("Skip surge");
@@ -398,7 +398,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public endSurge(manual?: boolean): void {
     logger.info("Ending surge:", manual);
@@ -455,7 +455,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public kill_all_unhided(): void {
     logger.info("Kill all surge unhided");
@@ -558,7 +558,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   protected kill_all_unhided_after_actor_death(): void {
     const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
@@ -599,7 +599,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public respawnArtefactsAndReplaceAnomalyZones(): void {
     const lvl_nm: TLevel = level.name();
@@ -616,7 +616,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public processAnabioticItemUsage(): void {
     disableGameUiOnly(registry.actor);
@@ -634,7 +634,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   protected giveSurgeHideTask(): void {
     if (this.surge_task_sect !== "empty") {
@@ -652,7 +652,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   protected launch_rockets(): void {
     logger.info("Launch rockets");
@@ -665,7 +665,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     if (device().precache_frame > 1) {
@@ -839,7 +839,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, SurgeManager.name);
@@ -869,7 +869,7 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, SurgeManager.name);

@@ -29,7 +29,7 @@ export class SignalLightBinder extends object_binder {
   public start_time: Optional<number> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override reinit(): void {
     super.reinit();
@@ -39,7 +39,7 @@ export class SignalLightBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: TDuration): void {
     super.update(delta);
@@ -99,7 +99,7 @@ export class SignalLightBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
@@ -112,7 +112,7 @@ export class SignalLightBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
@@ -122,7 +122,7 @@ export class SignalLightBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public launch(): boolean {
     const actor: Optional<XR_game_object> = registry.actor;
@@ -149,7 +149,7 @@ export class SignalLightBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public slow_fly(): void {
     this.slow_fly_started = true;
@@ -157,7 +157,7 @@ export class SignalLightBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public stop_light(): void {
     const obj: XR_game_object = this.object;
@@ -169,28 +169,28 @@ export class SignalLightBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public stop(): void {
     this.start_time = null;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public is_flying(): boolean {
     return this.start_time !== null;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_save_relevant(): boolean {
     return true;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, SignalLightBinder.__name);
@@ -209,7 +209,7 @@ export class SignalLightBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, SignalLightBinder.__name);

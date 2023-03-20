@@ -25,7 +25,7 @@ export class CampStoryManager {
   public static readonly SCHEME_SECTION: EScheme = EScheme.CAMP;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static get_current_camp(position: Optional<XR_vector>): Optional<CampStoryManager> {
     if (position === null) {
@@ -43,7 +43,7 @@ export class CampStoryManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static start_guitar(object: XR_game_object): void {
     const campId: Optional<TNumberId> = registry.objects.get(object.id()).registred_camp;
@@ -61,7 +61,7 @@ export class CampStoryManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static start_harmonica(object: XR_game_object): void {
     const campId: Optional<TNumberId> = registry.objects.get(object.id()).registred_camp;
@@ -111,7 +111,7 @@ export class CampStoryManager {
   >;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object, ini: XR_ini_file) {
     this.object = object;
@@ -184,7 +184,7 @@ export class CampStoryManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update(): void {
     if (!this.sound_manager.is_finished()) {
@@ -256,7 +256,7 @@ export class CampStoryManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set_next_state(): void {
     const transitions = this.states.get(this.active_state).transitions;
@@ -284,7 +284,7 @@ export class CampStoryManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_director(): Optional<boolean> {
     if (this.active_state === "idle") {
@@ -331,7 +331,7 @@ export class CampStoryManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set_story(): void {
     if (this.active_state === "story") {
@@ -344,7 +344,7 @@ export class CampStoryManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_camp_action(npc_id: number): LuaMultiReturn<[Optional<string>, Optional<boolean>]> {
     if (npc_id === null) {
@@ -359,7 +359,7 @@ export class CampStoryManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public register_npc(objectId: TNumberId): void {
     this.npc.set(objectId, { state: this.active_state });
@@ -384,7 +384,7 @@ export class CampStoryManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public unregister_npc(objectId: TNumberId): void {
     if (this.director === objectId) {
@@ -404,7 +404,7 @@ export class CampStoryManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_npc_role(objectId: TNumberId, state: TName): number {
     const schemeState: Optional<ISchemeAnimpointState> = registry.objects.get(objectId)[

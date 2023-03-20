@@ -17,7 +17,7 @@ export class StateManagerEvaAnimationStateIdleNow extends property_evaluator {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaAnimationStateIdleNow.__name);
@@ -25,7 +25,7 @@ export class StateManagerEvaAnimationStateIdleNow extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return this.stateManager.animstate.states.current_state === null;

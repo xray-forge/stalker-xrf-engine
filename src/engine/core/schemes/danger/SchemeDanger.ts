@@ -34,7 +34,7 @@ export class SchemeDanger extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -55,14 +55,14 @@ export class SchemeDanger extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     AbstractScheme.assignStateAndBind(object, ini, scheme, section);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override resetScheme(
     object: XR_game_object,
@@ -72,7 +72,7 @@ export class SchemeDanger extends AbstractScheme {
   ): void {}
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static isDangerObject(object: XR_game_object): boolean {
     const bestDanger: Optional<XR_danger_object> = object.best_danger();
@@ -156,7 +156,7 @@ export class SchemeDanger extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static get_danger_name(best_danger: XR_danger_object): string {
     let best_danger_object: Optional<XR_game_object> = best_danger.object();
@@ -170,7 +170,7 @@ export class SchemeDanger extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static get_danger_time(danger: XR_danger_object): number {
     if (danger.type() === danger_object.entity_corpse) {

@@ -15,7 +15,7 @@ export class StateManagerEvaAnimation extends property_evaluator {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaAnimation.__name);
@@ -23,7 +23,7 @@ export class StateManagerEvaAnimation extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return states.get(this.stateManager.target_state).animation === this.stateManager.animation.states.current_state;

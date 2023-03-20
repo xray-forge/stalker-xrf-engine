@@ -82,7 +82,7 @@ export class TradeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public updateForObject(object: XR_game_object): void {
     const tradeDescriptor: Optional<ITradeManagerDescriptor> = registry.trade.get(object.id());
@@ -164,7 +164,7 @@ export class TradeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getSellDiscountForObject(objectId: TNumberId): number {
     const tradeManagerDescriptor: ITradeManagerDescriptor = registry.trade.get(objectId);
@@ -180,7 +180,7 @@ export class TradeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public saveObjectState(object: XR_game_object, packet: XR_net_packet): void {
     const tradeDescriptor: ITradeManagerDescriptor = registry.trade.get(object.id());
@@ -233,7 +233,7 @@ export class TradeManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public loadObjectState(object: XR_game_object, packet: XR_reader): void {
     setLoadMarker(packet, false, TradeManager.name);

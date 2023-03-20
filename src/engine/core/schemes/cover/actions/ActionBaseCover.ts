@@ -22,7 +22,7 @@ export class ActionBaseCover extends action_base {
   public cover_position!: XR_vector;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeCoverState) {
     super(null, ActionBaseCover.__name);
@@ -30,7 +30,7 @@ export class ActionBaseCover extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -38,7 +38,7 @@ export class ActionBaseCover extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public activateScheme(): void {
     this.state.signals = new LuaTable();
@@ -94,7 +94,7 @@ export class ActionBaseCover extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     if (this.cover_position.distance_to_sqr(this.object.position()) <= 0.4) {
@@ -114,7 +114,7 @@ export class ActionBaseCover extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public position_reached(): boolean {
     return this.cover_position.distance_to_sqr(this.object.position()) <= 0.4;

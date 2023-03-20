@@ -24,7 +24,7 @@ export class StateManagerEvaDirection extends property_evaluator {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaDirection.__name);
@@ -32,7 +32,7 @@ export class StateManagerEvaDirection extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     if (this.stateManager.target_state === "smartcover") {
@@ -96,7 +96,7 @@ export class StateManagerEvaDirection extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public callback(): void {
     if (this.stateManager.callback !== null && this.stateManager.callback.turn_end_func !== null) {

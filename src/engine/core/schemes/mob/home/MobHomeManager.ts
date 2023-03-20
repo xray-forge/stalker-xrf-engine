@@ -16,7 +16,7 @@ const def_max_radius: number = 70;
  */
 export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     setMobState(this.object, registry.actor, this.state.state);
@@ -87,7 +87,7 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override deactivate(): void {
     this.object.remove_home();

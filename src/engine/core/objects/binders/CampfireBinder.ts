@@ -17,7 +17,7 @@ export class CampfireBinder extends object_binder {
   public readonly campfire: XR_CZoneCampfire;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object) {
     super(object);
@@ -25,7 +25,7 @@ export class CampfireBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {

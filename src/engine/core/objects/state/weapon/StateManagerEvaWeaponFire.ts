@@ -18,7 +18,7 @@ export class StateManagerEvaWeaponFire extends property_evaluator {
   private readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaWeaponFire.__name);
@@ -26,7 +26,7 @@ export class StateManagerEvaWeaponFire extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return (

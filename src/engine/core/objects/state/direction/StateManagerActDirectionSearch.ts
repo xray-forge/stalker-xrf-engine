@@ -19,7 +19,7 @@ export class StateManagerActDirectionSearch extends action_base {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActDirectionSearch.__name);
@@ -27,7 +27,7 @@ export class StateManagerActDirectionSearch extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -43,14 +43,14 @@ export class StateManagerActDirectionSearch extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     super.finalize();

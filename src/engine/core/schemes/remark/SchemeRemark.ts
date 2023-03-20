@@ -25,7 +25,7 @@ export class SchemeRemark extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -64,7 +64,7 @@ export class SchemeRemark extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override setScheme(
     object: XR_game_object,

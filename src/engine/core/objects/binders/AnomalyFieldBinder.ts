@@ -14,7 +14,7 @@ export const FIELDS_BY_NAME: LuaTable<string, AnomalyFieldBinder> = new LuaTable
 @LuabindClass()
 export class AnomalyFieldBinder extends object_binder {
   /**
-   * todo;
+   * todo: Description.
    */
   public override reinit(): void {
     super.reinit();
@@ -22,7 +22,7 @@ export class AnomalyFieldBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
@@ -39,7 +39,7 @@ export class AnomalyFieldBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
@@ -53,7 +53,7 @@ export class AnomalyFieldBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set_enable(enabled: boolean): void {
     if (enabled) {
@@ -64,7 +64,7 @@ export class AnomalyFieldBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_save_relevant(): boolean {
     return true;

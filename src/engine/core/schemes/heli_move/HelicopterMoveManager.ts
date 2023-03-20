@@ -39,7 +39,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   public stop_point: Optional<XR_vector> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object, state: ISchemeHelicopterMoveState) {
     super(object, state);
@@ -52,7 +52,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(loading?: boolean): void {
     this.state.signals = new LuaTable();
@@ -160,7 +160,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public save(): void {
     pstor_store(this.object, "st", this.heliState);
@@ -172,7 +172,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: number): void {
     const actor: XR_game_object = registry.actor;
@@ -215,7 +215,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update_movement_state(): void {
     // --'printf("update_movement_state()")
@@ -275,7 +275,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update_look_state(): void {
     // --'    printf("update_look_state()")
@@ -284,7 +284,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public waypoint_callback(object: XR_game_object, action_type: string, index: number): void {
     if (!this._flag_to_wp_callback) {

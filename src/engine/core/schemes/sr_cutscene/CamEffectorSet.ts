@@ -96,7 +96,7 @@ export class CamEffectorSet {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public select_effect(): Optional<ICamEffectorSetDescriptorItem> {
     const state = this.state;

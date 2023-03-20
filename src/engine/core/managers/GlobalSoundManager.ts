@@ -16,7 +16,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class GlobalSoundManager extends AbstractCoreManager {
   /**
-   * todo;
+   * todo: Description.
    */
   public setSoundPlaying(
     objectId: TNumberId,
@@ -57,7 +57,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public stopSoundsByObjectId(objectId: TNumberId): void {
     logger.info("Stop sound play:", objectId);
@@ -80,7 +80,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public updateForObjectId(objectId: TNumberId): void {
     const playableSound: Optional<AbstractPlayableSound> = registry.sounds.generic.get(objectId);
@@ -94,7 +94,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public playLoopedSound(objectId: TNumberId, sound: TName): void {
     const soundTheme: Optional<AbstractPlayableSound> = registry.sounds.themes.get(sound);
@@ -124,7 +124,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public stopLoopedSound(objectId: TNumberId, sound: Optional<TName>): void {
     const looped_item = registry.sounds.looped.get(objectId);
@@ -151,7 +151,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public setLoopedSoundVolume(objectId: TNumberId, sound: TName, volume: TRate): void {
     const loopedSound = registry.sounds.looped.get(objectId);
@@ -166,7 +166,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public stopAllSounds(): void {
     for (const [k, v] of registry.sounds.generic) {
@@ -185,14 +185,14 @@ export class GlobalSoundManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public reset(): void {
     registry.sounds.generic = new LuaTable();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public saveActor(packet: XR_net_packet): void {
     setSaveMarker(packet, false, GlobalSoundManager.name + "Actor");
@@ -251,7 +251,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, GlobalSoundManager.name);
@@ -313,7 +313,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public loadActor(reader: XR_reader): void {
     setLoadMarker(reader, false, GlobalSoundManager.name + "Actor");
@@ -354,7 +354,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public saveForObjectId(packet: XR_net_packet, objectId: TNumberId): void {
     setSaveMarker(packet, false, GlobalSoundManager.name + "Object");
@@ -367,7 +367,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public loadForObjectId(reader: XR_reader, objectId: TNumberId): void {
     setLoadMarker(reader, false, GlobalSoundManager.name + "Object");

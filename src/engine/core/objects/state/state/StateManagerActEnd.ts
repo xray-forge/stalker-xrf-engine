@@ -21,7 +21,7 @@ export class StateManagerActEnd extends action_base {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActEnd.__name);
@@ -29,14 +29,14 @@ export class StateManagerActEnd extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -44,14 +44,14 @@ export class StateManagerActEnd extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     super.finalize();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public weapon_update(): void {
     if (this.stateManager.callback !== null) {

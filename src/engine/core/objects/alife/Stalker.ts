@@ -38,7 +38,7 @@ export class Stalker extends cse_alife_human_stalker {
   public sim_forced_online: boolean = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(section: TSection) {
     super(section);
@@ -46,7 +46,7 @@ export class Stalker extends cse_alife_human_stalker {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override can_switch_offline(): boolean {
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
@@ -57,7 +57,7 @@ export class Stalker extends cse_alife_human_stalker {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override can_switch_online(): boolean {
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
@@ -68,7 +68,7 @@ export class Stalker extends cse_alife_human_stalker {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Write(packet: XR_net_packet) {
     super.STATE_Write(packet);
@@ -84,7 +84,7 @@ export class Stalker extends cse_alife_human_stalker {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Read(packet: XR_net_packet, size: number) {
     super.STATE_Read(packet, size);
@@ -100,7 +100,7 @@ export class Stalker extends cse_alife_human_stalker {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -126,7 +126,7 @@ export class Stalker extends cse_alife_human_stalker {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_unregister(): void {
     logger.info("Unregister:", this.name());
@@ -147,7 +147,7 @@ export class Stalker extends cse_alife_human_stalker {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_spawn(): void {
     logger.info("Spawn:", this.name());
@@ -155,7 +155,7 @@ export class Stalker extends cse_alife_human_stalker {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_death(killer: XR_cse_alife_creature_abstract): void {
     super.on_death(killer);

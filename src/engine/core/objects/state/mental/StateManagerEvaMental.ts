@@ -15,7 +15,7 @@ export class StateManagerEvaMental extends property_evaluator {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaMental.__name);
@@ -23,7 +23,7 @@ export class StateManagerEvaMental extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return (

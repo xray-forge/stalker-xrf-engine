@@ -29,7 +29,7 @@ export class DebugGeneralSection extends CUIWindow {
   public uiLuaJitLabel!: XR_CUIStatic;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(owner: XR_CUIScriptWnd) {
     super();
@@ -42,7 +42,7 @@ export class DebugGeneralSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initControls(): void {
     const xml: XR_CScriptXmlInit = resolveXmlFile(base);
@@ -66,7 +66,7 @@ export class DebugGeneralSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initCallBacks(): void {
     this.owner.AddCallback(
@@ -98,7 +98,7 @@ export class DebugGeneralSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initState(): void {
     const profilingManager: ProfilingManager = ProfilingManager.getInstance();
@@ -113,7 +113,7 @@ export class DebugGeneralSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onCollectMemoryButtonClick(): void {
     logger.info("Collect memory garbage");
@@ -123,7 +123,7 @@ export class DebugGeneralSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onToggleProfilingButtonClick(): void {
     const profilingManager: ProfilingManager = ProfilingManager.getInstance();
@@ -141,7 +141,7 @@ export class DebugGeneralSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onLogProfilingStatsButtonClick(): void {
     const profilingManager: ProfilingManager = ProfilingManager.getInstance();
@@ -154,7 +154,7 @@ export class DebugGeneralSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onRefreshMemoryButtonClick(): void {
     logger.info("Collect memory usage");
@@ -163,7 +163,7 @@ export class DebugGeneralSection extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getUsedMemoryLabel(): string {
     return string.format("RAM: %.03f MB", ProfilingManager.getInstance().getLuaMemoryUsed() / 1024);

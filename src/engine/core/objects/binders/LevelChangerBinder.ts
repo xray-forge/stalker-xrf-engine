@@ -28,21 +28,21 @@ export class LevelChangerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: number): void {
     super.update(delta);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override reload(section: TSection): void {
     super.reload(section);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override reinit(): void {
     super.reinit();
@@ -50,7 +50,7 @@ export class LevelChangerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_spawn(cse_object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(cse_object)) {
@@ -76,7 +76,7 @@ export class LevelChangerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
@@ -85,14 +85,14 @@ export class LevelChangerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_save_relevant(): boolean {
     return true;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, LevelChangerBinder.__name);
@@ -104,7 +104,7 @@ export class LevelChangerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, LevelChangerBinder.__name);

@@ -17,7 +17,7 @@ export class StateManagerActBodyStateStanding extends action_base {
   private readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActBodyStateStanding.__name);
@@ -25,7 +25,7 @@ export class StateManagerActBodyStateStanding extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -33,14 +33,14 @@ export class StateManagerActBodyStateStanding extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     super.finalize();

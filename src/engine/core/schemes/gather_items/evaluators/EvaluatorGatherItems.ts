@@ -10,7 +10,7 @@ export class EvaluatorGatherItems extends property_evaluator {
   public readonly state: ISchemeGatherItemsState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeGatherItemsState) {
     super(null, EvaluatorGatherItems.__name);
@@ -18,7 +18,7 @@ export class EvaluatorGatherItems extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     if (this.state.gather_items_enabled !== true) {

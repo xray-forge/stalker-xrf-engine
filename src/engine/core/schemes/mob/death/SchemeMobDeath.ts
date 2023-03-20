@@ -18,7 +18,7 @@ export class SchemeMobDeath extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -31,7 +31,7 @@ export class SchemeMobDeath extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeMobDeathState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);

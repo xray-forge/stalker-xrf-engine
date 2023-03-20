@@ -206,7 +206,7 @@ export class DropManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   protected releaseItem(object: XR_game_object, item: XR_game_object): void {
     const section: TSection = item.section();
@@ -259,7 +259,7 @@ export class DropManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   protected checkItemDependentDrops(object: XR_game_object, section: TSection): boolean {
     if (!this.itemsDependencies.has(section)) {

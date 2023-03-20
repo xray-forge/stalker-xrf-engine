@@ -13,7 +13,7 @@ export class EvaluatorReachAnimpoint extends property_evaluator {
   public readonly state: ISchemeAnimpointState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(storage: ISchemeAnimpointState) {
     super(null, EvaluatorReachAnimpoint.__name);
@@ -21,7 +21,7 @@ export class EvaluatorReachAnimpoint extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return this.state.animpoint.position_riched();

@@ -13,14 +13,14 @@ export class PPEffector extends effector {
   public readonly params: XR_effector_params = new effector_params();
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(idNumber: TNumberId) {
     super(idNumber, 10000000);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override process(effector_params: XR_effector_params): boolean {
     effector_params.assign(this.params);

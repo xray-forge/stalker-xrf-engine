@@ -45,7 +45,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
   public lp_check_remember_me!: XR_CUICheckButton;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(owner: MainMenu) {
     super();
@@ -57,7 +57,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initControls(): void {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
@@ -96,7 +96,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initCallbacks(): void {
     this.AddCallback("btn_login", ui_events.BUTTON_CLICKED, () => this.onBtnLogin(), this);
@@ -107,7 +107,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onBtnLogin(): void {
     logger.info("On button login");
@@ -119,7 +119,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public loginOperationResult(profile: Optional<XR_profile>, description: string) {
     logger.info("Login operation result:", type(profile), type(description));
@@ -153,14 +153,14 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onMsgOk(): void {
     logger.info("On message ok");
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onBtnCancel(): void {
     logger.info("On button cancel");
@@ -170,7 +170,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onBtnRememberMe(): void {
     logger.info("On button remember me");
@@ -178,14 +178,14 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onEditLPNicknameChanged(): void {
     this.onBtnLogin();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event) {
     super.OnKeyboard(key, event);

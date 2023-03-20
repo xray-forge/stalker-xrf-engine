@@ -17,7 +17,7 @@ export class StateManagerEvaMovementStandNow extends property_evaluator {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaMovementStandNow.__name);
@@ -25,7 +25,7 @@ export class StateManagerEvaMovementStandNow extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return this.object.target_movement_type() === move.stand;

@@ -17,7 +17,7 @@ export class ActionPostCombatIdleWait extends action_base {
   public anim_started: boolean = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemePostCombatIdleState) {
     super(null, ActionPostCombatIdleWait.__name);
@@ -25,7 +25,7 @@ export class ActionPostCombatIdleWait extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -49,7 +49,7 @@ export class ActionPostCombatIdleWait extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -66,7 +66,7 @@ export class ActionPostCombatIdleWait extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), "post_combat_relax", null, null);

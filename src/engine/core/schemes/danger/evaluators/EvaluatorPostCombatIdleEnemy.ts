@@ -17,7 +17,7 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
   public readonly state: ISchemePostCombatIdleState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemePostCombatIdleState) {
     super(null, EvaluatorPostCombatIdleEnemy.__name);
@@ -26,7 +26,7 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     const bestEnemy: Optional<XR_game_object> = this.object.best_enemy();

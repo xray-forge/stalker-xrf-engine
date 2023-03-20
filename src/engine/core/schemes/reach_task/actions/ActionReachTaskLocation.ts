@@ -48,14 +48,14 @@ export class ActionReachTaskLocation extends action_base {
   public time_to_update!: number;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor() {
     super(null, ActionReachTaskLocation.__name);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -92,7 +92,7 @@ export class ActionReachTaskLocation extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     if (this.object.id() === getObjectSquad(this.object)!.commander_id()) {
@@ -105,7 +105,7 @@ export class ActionReachTaskLocation extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     this.object.set_movement_selection_type(game_object.alifeMovementTypeRandom);
@@ -113,7 +113,7 @@ export class ActionReachTaskLocation extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public commander_execute(): void {
     const squad: Squad = getObjectSquad(this.object)!;
@@ -161,7 +161,7 @@ export class ActionReachTaskLocation extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public soldier_execute(): void {
     if (this.time_to_update! - time_global() > 0) {
@@ -221,7 +221,7 @@ export class ActionReachTaskLocation extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public death_callback(object: XR_game_object): void {
     if (this.target_id !== null) {
@@ -230,7 +230,7 @@ export class ActionReachTaskLocation extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public net_destroy(object: XR_game_object): void {
     if (this.target_id !== null) {

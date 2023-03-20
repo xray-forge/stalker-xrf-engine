@@ -10,7 +10,7 @@ export class EvaluatorAbuse extends property_evaluator {
   public readonly state: ISchemeAbuseState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(storage: ISchemeAbuseState) {
     super(null, EvaluatorAbuse.__name);
@@ -18,7 +18,7 @@ export class EvaluatorAbuse extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return this.state.abuse_manager.update();

@@ -101,7 +101,7 @@ export class ActorBinder extends object_binder {
   protected readonly weatherManager: WeatherManager = WeatherManager.getInstance();
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_spawn(data: XR_cse_alife_creature_actor): boolean {
     logger.info("Net spawn:", data.name());
@@ -141,7 +141,7 @@ export class ActorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
@@ -188,7 +188,7 @@ export class ActorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override reinit(): void {
     super.reinit();
@@ -206,26 +206,26 @@ export class ActorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onTakeItemFromBox(box: XR_game_object, item: XR_game_object): void {
     logger.info("Take item from box:", box.name(), item.name());
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onInfoUpdate(object: XR_game_object, info: string): void {
     logger.info("Info update:", info);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onTrade(item: XR_game_object, sell_bye: boolean, money: number): void {}
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onItemTake(object: XR_game_object): void {
     logger.info("On item take:", object.name());
@@ -250,12 +250,12 @@ export class ActorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onItemDrop(object: XR_game_object): void {}
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onUseInventoryItem(object: Optional<XR_game_object>): void {
     if (object === null) {
@@ -271,7 +271,7 @@ export class ActorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onTaskUpdate(task_object: XR_CGameTask, state: TXR_TaskState): void {
     if (state !== task.fail) {
@@ -286,7 +286,7 @@ export class ActorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: TDuration): void {
     super.update(delta);
@@ -375,7 +375,7 @@ export class ActorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, ActorBinder.__name);
@@ -435,7 +435,7 @@ export class ActorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, ActorBinder.__name);

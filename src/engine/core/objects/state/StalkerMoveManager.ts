@@ -48,7 +48,7 @@ const sync: LuaTable<string, LuaTable<number, boolean>> = new LuaTable();
  */
 export class StalkerMoveManager {
   /**
-   * todo;
+   * todo: Description.
    */
   public static choose_look_point(
     patrol_look: XR_patrol,
@@ -129,7 +129,7 @@ export class StalkerMoveManager {
   public move_cb_info: Optional<{ obj: AnyObject; func: AnyCallable }> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object) {
     if (object === null) {
@@ -140,7 +140,7 @@ export class StalkerMoveManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initialize(): StalkerMoveManager {
     this.object.set_callback(callback.patrol_path_in_point, this.waypoint_callback, this as any);
@@ -149,7 +149,7 @@ export class StalkerMoveManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public reset(
     path_walk: string,
@@ -264,14 +264,14 @@ export class StalkerMoveManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public continue(): void {
     this.setup_movement_by_patrol_path();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update(): void {
     if (this.syn_signal && time_global() >= this.syn_signal_set_tm) {
@@ -318,21 +318,21 @@ export class StalkerMoveManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public arrived_to_first_waypoint() {
     return this.last_index !== null;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update_movement_state(): void {
     set_state(this.object, this.cur_state_moving, null, null, null, null);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update_standing_state(look_pos: XR_vector): void {
     set_state(
@@ -346,7 +346,7 @@ export class StalkerMoveManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public finalize(): void {
     if (this.team) {
@@ -379,7 +379,7 @@ export class StalkerMoveManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public standing_on_terminal_waypoint(): LuaMultiReturn<[boolean, Optional<number>]> {
     for (const idx of $range(0, this.patrol_walk!.count() - 1)) {
@@ -392,7 +392,7 @@ export class StalkerMoveManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public sync_ok(): boolean {
     if (this.team) {
@@ -415,7 +415,7 @@ export class StalkerMoveManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public scheme_set_signal(sig: TName): void {
     const npc_id = this.object.id();
@@ -431,7 +431,7 @@ export class StalkerMoveManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public time_callback(): void {
     const sigtm = this.path_look_info!.get(this.last_look_index!)["sigtm"];
@@ -479,7 +479,7 @@ export class StalkerMoveManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public turn_end_callback(): void {
     const syn = this.path_look_info!.get(this.last_look_index!)["syn"];
@@ -543,7 +543,7 @@ export class StalkerMoveManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public extrapolate_callback(object: XR_game_object): void {
     this.can_use_get_current_point_index = true;
@@ -552,7 +552,7 @@ export class StalkerMoveManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public waypoint_callback(obj: XR_game_object, action_type: Optional<number>, index: Optional<number>): void {
     if (index === -1 || index === null) {

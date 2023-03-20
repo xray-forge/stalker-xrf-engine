@@ -15,7 +15,7 @@ export class SquadStayOnTargetAction {
   public squadId: TNumberId;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(squad: Squad) {
     this.squadId = squad.id;
@@ -28,12 +28,12 @@ export class SquadStayOnTargetAction {
   );
 
   /**
-   * todo;
+   * todo: Description.
    */
   public finalize(): void {}
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update(isUnderSimulation: boolean): boolean {
     if (!isUnderSimulation) {
@@ -44,7 +44,7 @@ export class SquadStayOnTargetAction {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public make(isUnderSimulation: boolean): void {
     this.actionStartTime = game.get_game_time();

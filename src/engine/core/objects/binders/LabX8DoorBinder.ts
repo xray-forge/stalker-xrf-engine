@@ -51,7 +51,7 @@ export class LabX8DoorBinder extends object_binder {
   public on_start!: TConditionList;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object) {
     super(object);
@@ -141,7 +141,7 @@ export class LabX8DoorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override reinit(): void {
     super.reinit();
@@ -149,7 +149,7 @@ export class LabX8DoorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
@@ -167,7 +167,7 @@ export class LabX8DoorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_destroy(): void {
     if (this.idle_snd) {
@@ -188,7 +188,7 @@ export class LabX8DoorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: number): void {
     super.update(delta);
@@ -227,7 +227,7 @@ export class LabX8DoorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public anim_forward(): void {
     if (this.idle_snd) {
@@ -256,7 +256,7 @@ export class LabX8DoorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public anim_backward(): void {
     if (this.idle_snd) {
@@ -284,7 +284,7 @@ export class LabX8DoorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public anim_stop(): void {
     this.object.get_physics_object().stop_anim();
@@ -298,7 +298,7 @@ export class LabX8DoorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public animation_end_callback(is_end?: boolean): void {
     if (is_end) {
@@ -313,21 +313,21 @@ export class LabX8DoorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public use_callback(object: XR_game_object): void {
     pickSectionFromCondList(registry.actor, object, this.on_use);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_save_relevant(): boolean {
     return true;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, LabX8DoorBinder.__name);
@@ -342,7 +342,7 @@ export class LabX8DoorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, LabX8DoorBinder.__name);

@@ -17,7 +17,7 @@ export class StateManagerEvaAnimationStateLocked extends property_evaluator {
   private readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaAnimationStateLocked.__name);
@@ -25,7 +25,7 @@ export class StateManagerEvaAnimationStateLocked extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return (

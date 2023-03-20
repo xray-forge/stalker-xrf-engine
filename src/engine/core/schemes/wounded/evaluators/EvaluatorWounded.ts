@@ -17,7 +17,7 @@ export class EvaluatorWounded extends property_evaluator {
   public actionPlanner: Optional<XR_action_planner> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeWoundedState) {
     super(null, EvaluatorWounded.__name);
@@ -25,7 +25,7 @@ export class EvaluatorWounded extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     if (this.object.in_smart_cover()) {

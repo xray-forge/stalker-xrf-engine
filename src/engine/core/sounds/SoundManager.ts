@@ -14,7 +14,7 @@ const sound_managers: LuaTable<string, SoundManager> = new LuaTable();
  * todo;
  */
 export class SoundManager {
-  public id: string;
+  public id: TStringId;
   public npc: LuaTable<number, { npc_id: number }>;
   public storyteller: Optional<number>;
   public story: Optional<SoundStory>;

@@ -23,7 +23,7 @@ export abstract class AbstractScheme {
   public static readonly SCHEME_TYPE: ESchemeType;
 
   /**
-   * todo;
+   * todo: Description.
    */
   protected static assignStateAndBind<T extends IBaseSchemeState>(
     object: XR_game_object,
@@ -54,7 +54,7 @@ export abstract class AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static setScheme(
     object: XR_game_object,
@@ -80,7 +80,7 @@ export abstract class AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static resetScheme(
     object: XR_game_object,
@@ -92,7 +92,7 @@ export abstract class AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static disableScheme(object: XR_game_object, scheme: EScheme): void {
     abort("Called not implemented disableScheme method: %s, %s", object.name(), scheme);

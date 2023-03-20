@@ -67,20 +67,20 @@ export class ProfilingManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public collectLuaGarbage(): void {
     collectgarbage("collect");
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getLuaMemoryUsed(): TCount {
     return collectgarbage("count");
   }
   /**
-   * todo;
+   * todo: Description.
    */
   public getFunctionName(info: debug.FunctionInfo): string {
     return string.format("[%s]:%s (%s:%s)", info.short_src, info.linedefined, info.what, info.name);
@@ -167,7 +167,7 @@ export class ProfilingManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public setupHook(mode: string = this.mode, skipLogs?: boolean): void {
     this.mode = mode;
@@ -194,7 +194,7 @@ export class ProfilingManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public clearHook(): void {
     if (this.isProfilingStarted === false) {
@@ -210,7 +210,7 @@ export class ProfilingManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   protected hook(context: string, line_number?: number): void {
     const caller = debug.getinfo(3, "f")!;

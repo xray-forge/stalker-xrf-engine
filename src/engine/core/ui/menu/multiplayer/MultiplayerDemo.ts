@@ -62,7 +62,7 @@ export class MultiplayerDemo extends CUIWindow {
   public players_list!: XR_CUIListBox;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: MultiplayerMenu): void {
     this.SetAutoDelete(true);
@@ -128,7 +128,7 @@ export class MultiplayerDemo extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public fillList(): void {
     this.demo_list.RemoveAll();
@@ -152,7 +152,7 @@ export class MultiplayerDemo extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public addItemToList(file_name: string, date_time: string): void {
     const demoLoadItem: MultiplayerDemoLoadItem = new MultiplayerDemoLoadItem(
@@ -171,7 +171,7 @@ export class MultiplayerDemo extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getRankTextureName(playerInfo: MultiplayerDemoPlayerInfo): string {
     let texture_name = "ui_hud_status_";
@@ -192,7 +192,7 @@ export class MultiplayerDemo extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getMapTextureName(mapName: TName): string {
     const textureName: TName = "intro\\intro_map_pic_" + mapName;
@@ -205,7 +205,7 @@ export class MultiplayerDemo extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public addPlayerToStats(player_stats: MultiplayerDemoPlayerInfo): void {
     logger.info("Add player to stats");
@@ -234,7 +234,7 @@ export class MultiplayerDemo extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public selectDemoFile(): void {
     logger.info("Select demo file");
@@ -254,7 +254,7 @@ export class MultiplayerDemo extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public playSelectedDemo() {
     const item: Optional<MultiplayerDemoLoadItem> = this.demo_list.GetSelectedItem();
@@ -269,7 +269,7 @@ export class MultiplayerDemo extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public deleteSelectedDemo(): void {
     logger.info("Delete selected demo");
@@ -294,7 +294,7 @@ export class MultiplayerDemo extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onRenameDemo(): void {
     logger.info("Rename demo");
@@ -336,7 +336,7 @@ export class MultiplayerDemo extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onMsgBoxYes(): void {
     logger.info("Confirm message box");
@@ -383,7 +383,7 @@ export class MultiplayerDemo extends CUIWindow {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public updateDemoInfo(file_name: TName) {
     this.players_list.RemoveAll();

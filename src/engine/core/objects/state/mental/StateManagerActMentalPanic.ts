@@ -17,7 +17,7 @@ export class StateManagerActMentalPanic extends action_base {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerActMentalPanic.__name);
@@ -25,7 +25,7 @@ export class StateManagerActMentalPanic extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -33,7 +33,7 @@ export class StateManagerActMentalPanic extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -41,7 +41,7 @@ export class StateManagerActMentalPanic extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     super.finalize();

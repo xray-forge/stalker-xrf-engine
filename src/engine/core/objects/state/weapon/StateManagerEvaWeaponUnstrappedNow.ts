@@ -18,7 +18,7 @@ export class StateManagerEvaWeaponUnstrappedNow extends property_evaluator {
   private readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaWeaponUnstrappedNow.__name);
@@ -26,7 +26,7 @@ export class StateManagerEvaWeaponUnstrappedNow extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     const activeItem: Optional<XR_game_object> = this.object.active_item();

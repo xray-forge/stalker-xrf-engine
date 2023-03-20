@@ -81,7 +81,7 @@ export class MainMenu extends CUIScriptWnd {
   public uiGameDebugDialog: Optional<DebugDialog> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor() {
     super();
@@ -98,7 +98,7 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initControls(): void {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
@@ -124,7 +124,7 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initCallBacks(): void {
     this.AddCallback(
@@ -182,7 +182,7 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onStartNewGame(difficulty: TGameDifficulty): void {
     executeConsoleCommand(console_commands.g_game_difficulty, difficulty);
@@ -198,21 +198,21 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onMessageBoxOk(): void {
     this.modalBoxMode = EMainMenuModalMode.OFF;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onMessageBoxCancel(): void {
     this.modalBoxMode = EMainMenuModalMode.OFF;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onLoadLastSavedGame(): void {
     executeConsoleCommand(console_commands.main_menu, "off");
@@ -220,7 +220,7 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickLastSave(): void {
     if (alife() === null) {
@@ -238,14 +238,14 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickGameCredits(): void {
     game.start_tutorial(game_tutorials.credits_seq);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickQuiteGameToWindows(): void {
     this.uiModalBox.InitMessageBox("message_box_quit_windows");
@@ -253,7 +253,7 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickDisconnect(): void {
     this.uiModalBox.InitMessageBox("message_box_quit_game");
@@ -267,21 +267,21 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickQuitGameConfirm(): void {
     executeConsoleCommand(console_commands.disconnect);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickQuiteGame(): void {
     executeConsoleCommand(console_commands.quit);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickReturnToGame(): void {
     executeConsoleCommand(console_commands.main_menu, "off");
@@ -289,7 +289,7 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickSaveGame(): void {
     if (this.uiGameSavesSaveDialog === null) {
@@ -303,7 +303,7 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickOptions(): void {
     if (this.uiGameOptionsDialog === null) {
@@ -318,7 +318,7 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickDevelopmentDebug(): void {
     if (gameConfig.DEBUG.IS_ENABLED) {
@@ -340,7 +340,7 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickLoadGame(): void {
     if (this.uiGameSavesLoadDialog === null) {
@@ -354,14 +354,14 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickNetworkGame(): void {
     this.xrMenuPageController.ShowPage(CUIMMShniaga.epi_new_network_game);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickMultiplayer(): void {
     logger.info("Button multiplayer clicked, profile");
@@ -388,7 +388,7 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickLogout(): void {
     // -- assert(this.gs_profile)
@@ -404,7 +404,7 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickInternet(): void {
     logger.info("Button internet clicked");
@@ -423,7 +423,7 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onButtonClickLocalnet(): void {
     if (!this.uiLocalnetDialog) {
@@ -441,7 +441,7 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onMessageBoxConfirm(): void {
     if (this.modalBoxMode === EMainMenuModalMode.CONFIRM_LOAD_SAVE) {
@@ -452,21 +452,21 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onMessageBoxDecline(): void {
     this.modalBoxMode = EMainMenuModalMode.OFF;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override Show(isVisible: boolean): void {
     this.xrMenuPageController.SetVisibleMagnifier(isVisible);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override Dispatch(command: TNumberId): boolean {
     if (command === 2) {
@@ -477,7 +477,7 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
     super.OnKeyboard(key, event);

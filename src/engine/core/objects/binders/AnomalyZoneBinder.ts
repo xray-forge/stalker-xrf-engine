@@ -82,7 +82,7 @@ export class AnomalyZoneBinder extends object_binder {
   public minesTable: LuaTable<string, LuaTable<number, string>> = new LuaTable();
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object) {
     super(object);
@@ -276,7 +276,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public turn_off(): void {
     logger.info("Turn off zone:", this.object.name());
@@ -297,7 +297,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public turn_on(forceRespawn: Optional<boolean>): void {
     logger.info("Turn on zone:", this.object.name());
@@ -313,7 +313,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public disableAnomalyFields(): void {
     logger.info("Disable anomaly fields:", this.object.name());
@@ -373,7 +373,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public respawnArtefactsAndReplaceAnomalyZones(): void {
     logger.info("Respawn artefacts and replace anomaly zone:", this.object.name());
@@ -420,7 +420,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public spawnRandomArtefact(): void {
     logger.info("Spawn random artefact:", this.object.name(), this.currentZoneLayer);
@@ -488,7 +488,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getRandomArtefactPath(): string {
     logger.info("Get artefact path:", this.object.name());
@@ -519,7 +519,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public setForcedSpawnOverride(artefactName: string): void {
     logger.info("Set force override:", this.object.name());
@@ -531,7 +531,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override reinit(): void {
     super.reinit();
@@ -539,7 +539,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
@@ -552,7 +552,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_destroy(): void {
     unregisterAnomaly(this);
@@ -562,7 +562,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: TDuration): void {
     this.delta += delta;
@@ -603,7 +603,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onArtefactTaken(object: XR_game_object | XR_cse_alife_item_artefact): void {
     logger.info("On artefact take:", this.object.name());
@@ -623,14 +623,14 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_save_relevant(): boolean {
     return true;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, AnomalyZoneBinder.__name);
@@ -701,7 +701,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, AnomalyZoneBinder.__name);
@@ -748,7 +748,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getArtefactsListForSection(section: string, defaultArtefacts: Optional<string>): LuaTable<number, string> {
     const baseArtefactsList: Optional<string> = getConfigString(

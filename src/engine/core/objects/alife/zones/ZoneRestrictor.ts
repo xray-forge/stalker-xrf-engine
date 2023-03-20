@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class ZoneRestrictor extends cse_alife_space_restrictor {
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -22,7 +22,7 @@ export class ZoneRestrictor extends cse_alife_space_restrictor {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override keep_saved_data_anyway(): boolean {
     return true;

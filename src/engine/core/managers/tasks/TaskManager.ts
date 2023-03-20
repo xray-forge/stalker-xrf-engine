@@ -21,7 +21,7 @@ export class TaskManager extends AbstractCoreManager {
   public readonly taskInfo: LuaTable<TStringId, TaskObject> = new LuaTable();
 
   /**
-   * todo;
+   * todo: Description.
    */
   public giveTask(taskId: TStringId): void {
     logger.info("Give new task:", taskId);
@@ -35,7 +35,7 @@ export class TaskManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onTaskCompleted(taskId: string): boolean {
     const task: Optional<TaskObject> = this.taskInfo.get(taskId);
@@ -57,7 +57,7 @@ export class TaskManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onTaskFailed(task_id: string): boolean {
     const task: Optional<TaskObject> = this.taskInfo.get(task_id);
@@ -72,7 +72,7 @@ export class TaskManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onTaskCallback(task: XR_CGameTask, isCompleted: boolean): void {
     const taskId: TStringId = task.get_id();
@@ -84,7 +84,7 @@ export class TaskManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, TaskManager.name);
@@ -102,7 +102,7 @@ export class TaskManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, TaskManager.name);

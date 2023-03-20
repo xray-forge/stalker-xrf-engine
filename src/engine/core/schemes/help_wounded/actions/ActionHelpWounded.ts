@@ -14,7 +14,7 @@ export class ActionHelpWounded extends action_base {
   public readonly state: ISchemeHelpWoundedState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeHelpWoundedState) {
     super(null, ActionHelpWounded.__name);
@@ -22,7 +22,7 @@ export class ActionHelpWounded extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -35,7 +35,7 @@ export class ActionHelpWounded extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();

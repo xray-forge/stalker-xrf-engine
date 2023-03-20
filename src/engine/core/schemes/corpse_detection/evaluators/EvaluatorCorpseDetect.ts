@@ -16,7 +16,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
   public readonly state: ISchemeCorpseDetectionState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeCorpseDetectionState) {
     super(null, EvaluatorCorpseDetect.__name);
@@ -24,7 +24,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     if (!this.object.alive()) {

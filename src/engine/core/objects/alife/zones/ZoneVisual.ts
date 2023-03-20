@@ -19,7 +19,7 @@ export class ZoneVisual extends cse_zone_visual {
   public artefact_spawn_rnd: number = 0;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -40,7 +40,7 @@ export class ZoneVisual extends cse_zone_visual {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     super.update();
@@ -60,7 +60,7 @@ export class ZoneVisual extends cse_zone_visual {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
@@ -78,7 +78,7 @@ export class ZoneVisual extends cse_zone_visual {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);

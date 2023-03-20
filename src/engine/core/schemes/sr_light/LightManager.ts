@@ -15,7 +15,7 @@ export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
   public active: boolean = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     logger.info("Reset scheme for:", this.object.name());
@@ -23,7 +23,7 @@ export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
@@ -38,7 +38,7 @@ export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public check_stalker(object: XR_game_object): LuaMultiReturn<[boolean, boolean]> {
     if (!this.active) {

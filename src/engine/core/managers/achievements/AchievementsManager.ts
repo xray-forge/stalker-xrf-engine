@@ -29,7 +29,7 @@ export class AchievementsManager extends AbstractCoreManager {
   public lastMutantHunterAchievementSpawnTime: Optional<XR_CTime> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchieved(achievement: EAchievement): boolean {
     switch (achievement) {
@@ -81,7 +81,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedPioneer(): boolean {
     if (!hasAlifeInfo(info_portions.pioneer_achievement_gained)) {
@@ -106,7 +106,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedMutantHunter(): boolean {
     if (!hasAlifeInfo(info_portions.mutant_hunter_achievement_gained)) {
@@ -131,7 +131,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedDetective(): boolean {
     if (!hasAlifeInfo(info_portions.detective_achievement_gained)) {
@@ -152,7 +152,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedOneOfLads(): boolean {
     if (!hasAlifeInfo(info_portions.one_of_the_lads_gained)) {
@@ -173,7 +173,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedKingpin(): boolean {
     if (!hasAlifeInfo(info_portions.kingpin_gained)) {
@@ -197,7 +197,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedHeraldOfJustice(): boolean {
     if (!hasAlifeInfo(info_portions.herald_of_justice_achievement_gained)) {
@@ -222,7 +222,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedSeeker(): boolean {
     if (hasAlifeInfo(info_portions.sim_bandit_attack_harder)) {
@@ -254,7 +254,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedBattleSystemsMaster(): boolean {
     if (!hasAlifeInfo(info_portions.battle_systems_master_achievement_gained)) {
@@ -275,7 +275,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedHighTechMaster(): boolean {
     if (!hasAlifeInfo(info_portions.high_tech_master_achievement_gained)) {
@@ -300,7 +300,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedSkilledStalker(): boolean {
     if (!hasAlifeInfo(info_portions.skilled_stalker_achievement_gained)) {
@@ -321,7 +321,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedLeader(): boolean {
     if (!hasAlifeInfo(info_portions.leader_achievement_gained)) {
@@ -346,7 +346,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedDiplomat(): boolean {
     if (!hasAlifeInfo(info_portions.diplomat_achievement_gained)) {
@@ -388,7 +388,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedResearchMan(): boolean {
     if (hasAlifeInfo(info_portions.research_man_gained)) {
@@ -432,7 +432,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedFriendOfDuty(): boolean {
     if (!hasAlifeInfo(info_portions.sim_duty_help_harder)) {
@@ -458,7 +458,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedFriendOfFreedom(): boolean {
     if (!hasAlifeInfo(info_portions.sim_freedom_help_harder)) {
@@ -484,7 +484,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedBalanceAdvocate(): boolean {
     if (!hasAlifeInfo(info_portions.balance_advocate_gained)) {
@@ -509,7 +509,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedWealthy(): boolean {
     if (registry.actor.money() >= 100_000 && !hasAlifeInfo(info_portions.actor_wealthy)) {
@@ -528,7 +528,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedKeeperOfSecrets(): boolean {
     if (!hasAlifeInfo(info_portions.keeper_of_secrets_achievement_gained)) {
@@ -549,7 +549,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedMarkedByZone(): boolean {
     if (hasAlifeInfo(info_portions.actor_marked_by_zone_3_times)) {
@@ -574,7 +574,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedInformationDealer(): boolean {
     if (hasAlifeInfo(info_portions.actor_information_dealer)) {
@@ -624,7 +624,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public checkAchievedFriendOfStalkers(): boolean {
     if (!hasAlifeInfo(info_portions.sim_stalker_help_harder)) {
@@ -655,7 +655,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: TDuration): void {
     this.updateDetectiveAchievementRewardSpawn();
@@ -663,7 +663,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   protected updateDetectiveAchievementRewardSpawn(): void {
     if (!hasAlifeInfo(info_portions.detective_achievement_gained)) {
@@ -696,7 +696,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   protected updateMutantHunterAchievementSpawn(): void {
     if (!hasAlifeInfo(info_portions.mutant_hunter_achievement_gained)) {
@@ -749,7 +749,7 @@ export class AchievementsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     const hasSpawnedDetectiveLoot: boolean = reader.r_bool();

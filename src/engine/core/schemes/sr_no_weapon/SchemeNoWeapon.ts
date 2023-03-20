@@ -20,7 +20,7 @@ export class SchemeNoWeapon extends AbstractScheme {
   public static NO_WEAPON_ZONES_STATE: LuaTable<TNumberId, boolean> = new LuaTable();
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -33,7 +33,7 @@ export class SchemeNoWeapon extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeNoWeaponState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
@@ -42,7 +42,7 @@ export class SchemeNoWeapon extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static isInWeaponRestrictionZone(): boolean {
     for (const [id, isActive] of SchemeNoWeapon.NO_WEAPON_ZONES_STATE) {

@@ -16,7 +16,7 @@ export class StateManagerActToIdle extends action_base {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager, name?: TName) {
     super(null, name || StateManagerActToIdle.__name);
@@ -24,7 +24,7 @@ export class StateManagerActToIdle extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -51,7 +51,7 @@ export class StateManagerActToIdle extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     this.stateManager.current_object = -1;
@@ -59,7 +59,7 @@ export class StateManagerActToIdle extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());

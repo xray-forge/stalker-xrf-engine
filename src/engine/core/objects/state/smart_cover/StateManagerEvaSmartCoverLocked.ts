@@ -20,7 +20,7 @@ export class StateManagerEvaSmartCoverLocked extends property_evaluator {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaSmartCoverLocked.__name);
@@ -28,7 +28,7 @@ export class StateManagerEvaSmartCoverLocked extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     const smartCoverState: Optional<ISchemeSmartCoverState> = registry.objects.get(this.object.id())[

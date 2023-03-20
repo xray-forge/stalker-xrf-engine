@@ -15,7 +15,7 @@ export class InventoryBox extends cse_alife_inventory_box {
   public secret_item: Optional<boolean> = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -24,7 +24,7 @@ export class InventoryBox extends cse_alife_inventory_box {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_unregister(): void {
     unregisterStoryLinkByObjectId(this.id);
@@ -32,7 +32,7 @@ export class InventoryBox extends cse_alife_inventory_box {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override can_switch_online(): boolean {
     if (this.secret_item) {

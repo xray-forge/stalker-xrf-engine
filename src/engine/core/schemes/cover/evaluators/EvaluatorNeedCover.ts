@@ -14,7 +14,7 @@ export class EvaluatorNeedCover extends property_evaluator {
   public readonly state: ISchemeCoverState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeCoverState) {
     super(null, EvaluatorNeedCover.__name);
@@ -22,7 +22,7 @@ export class EvaluatorNeedCover extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return isSchemeActive(this.object, this.state);

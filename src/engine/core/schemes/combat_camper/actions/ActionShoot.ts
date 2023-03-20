@@ -14,7 +14,7 @@ export class ActionShoot extends action_base {
   public readonly state: ISchemeCombatState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeCombatState) {
     super(null, ActionShoot.__name);
@@ -22,7 +22,7 @@ export class ActionShoot extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -38,7 +38,7 @@ export class ActionShoot extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     super.finalize();

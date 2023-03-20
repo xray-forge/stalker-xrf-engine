@@ -31,7 +31,7 @@ export class ActionSchemeHear extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER; // And monsters.
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override resetScheme(
     object: XR_game_object,
@@ -66,7 +66,7 @@ export class ActionSchemeHear extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static onObjectHearSound(
     object: XR_game_object,

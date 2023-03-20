@@ -53,7 +53,7 @@ export class MapDisplayManager extends AbstractCoreManager {
   public lastUpdateAt: TTimestamp = 0;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public updateObjectMapSpot(
     object: XR_game_object,
@@ -130,7 +130,7 @@ export class MapDisplayManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public removeObjectMapSpot(object: XR_game_object, state: IRegistryObjectState): void {
     logger.info("Remove object spot:", object.name());
@@ -173,7 +173,7 @@ export class MapDisplayManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public updatePrimaryObjectsDisplay(): void {
     primaryMapSpotObjects.forEach((it) => {
@@ -189,7 +189,7 @@ export class MapDisplayManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public updateSleepZonesDisplay(): void {
     for (const [index, sleepZone] of sleepZones) {
@@ -212,7 +212,7 @@ export class MapDisplayManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public updateAnomalyZonesDisplay(): void {
     if (hasAlifeInfo(info_portions.jup_b32_scanner_reward)) {
@@ -257,7 +257,7 @@ export class MapDisplayManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     const now: TTimestamp = time_global();

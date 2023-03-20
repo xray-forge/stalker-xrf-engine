@@ -64,7 +64,7 @@ export class TreasureManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     const totalSecretsCount: number = SECRETS_LTX.line_count("list");
@@ -120,7 +120,7 @@ export class TreasureManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public fill(se_obj: XR_cse_alife_object, treasureId: TTreasure): Optional<boolean> {
     if (this.secrets.get(treasureId) !== null) {
@@ -151,7 +151,7 @@ export class TreasureManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public registerAlifeItem(alifeObject: XR_cse_alife_object): Optional<boolean> {
     const spawn_ini: XR_ini_file = alifeObject.spawn_ini();
@@ -177,7 +177,7 @@ export class TreasureManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public registerAlifeRestrictor(alifeObject: XR_cse_alife_object): void {
     const spawnIni: XR_ini_file = alifeObject.spawn_ini();
@@ -188,7 +188,7 @@ export class TreasureManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   protected spawnTreasure(treasureId: TTreasure): void {
     logger.info("Spawn treasure ID:", treasureId);
@@ -232,7 +232,7 @@ export class TreasureManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public giveActorTreasureCoordinates(treasureId: TTreasure, spawn: boolean = false): void {
     logger.info("Give treasure:", treasureId, spawn);
@@ -262,7 +262,7 @@ export class TreasureManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public giveActorRandomTreasureCoordinates(): void {
     logger.info("Give random treasure");
@@ -283,7 +283,7 @@ export class TreasureManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public on_item_take(objectId: TNumberId): void {
     const restrId: Optional<TNumberId> = this.items_from_secrets.get(objectId);
@@ -317,7 +317,7 @@ export class TreasureManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     if (!this.items_spawned) {
@@ -364,7 +364,7 @@ export class TreasureManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, TreasureManager.name);
@@ -408,7 +408,7 @@ export class TreasureManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, TreasureManager.name);

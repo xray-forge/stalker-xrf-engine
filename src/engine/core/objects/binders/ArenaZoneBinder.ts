@@ -28,7 +28,7 @@ export class ArenaZoneBinder extends object_binder {
   public saved_obj: LuaTable<number, boolean> = new LuaTable();
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object) {
     super(object);
@@ -36,7 +36,7 @@ export class ArenaZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
@@ -50,7 +50,7 @@ export class ArenaZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_destroy(): void {
     this.object.set_callback(callback.zone_enter, null);
@@ -60,7 +60,7 @@ export class ArenaZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public purge_items(): void {
     const sim: XR_alife_simulator = alife();
@@ -73,7 +73,7 @@ export class ArenaZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     super.save(packet);
@@ -90,7 +90,7 @@ export class ArenaZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     super.load(reader);
@@ -107,7 +107,7 @@ export class ArenaZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public on_enter(zone: XR_game_object, object: XR_game_object): void {
     if (
@@ -123,7 +123,7 @@ export class ArenaZoneBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public on_exit(zone: XR_game_object, object: XR_game_object): void {
     if (

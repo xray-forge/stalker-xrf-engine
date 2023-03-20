@@ -11,7 +11,7 @@ import { Optional } from "@/engine/lib/types";
  */
 export class PhysicalDeathManager extends AbstractSchemeManager<ISchemePhysicalOnDeathState> {
   /**
-   * todo;
+   * todo: Description.
    */
   public death_callback(object: XR_game_object, who: Optional<XR_game_object>): void {
     if (registry.objects.get(this.object.id()).active_scheme) {

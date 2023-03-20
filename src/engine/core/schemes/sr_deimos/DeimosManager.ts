@@ -21,7 +21,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
   public phase: number = 0;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object, state: ISchemeDeimosState) {
     super(object, state);
@@ -30,7 +30,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     const actor: Optional<XR_game_object> = registry.actor;

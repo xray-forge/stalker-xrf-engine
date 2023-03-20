@@ -60,7 +60,7 @@ export class HelicopterBinder extends object_binder {
   public heliObject!: XR_CHelicopter;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object, ini: XR_ini_file) {
     super(object);
@@ -70,7 +70,7 @@ export class HelicopterBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override reinit(): void {
     super.reinit();
@@ -98,7 +98,7 @@ export class HelicopterBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: number): void {
     super.update(delta);
@@ -128,7 +128,7 @@ export class HelicopterBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
@@ -141,7 +141,7 @@ export class HelicopterBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_destroy(): void {
     unregisterHelicopter(this.object);
@@ -150,14 +150,14 @@ export class HelicopterBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_save_relevant(): boolean {
     return true;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     super.save(packet);
@@ -170,7 +170,7 @@ export class HelicopterBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     this.loaded = true;
@@ -186,7 +186,7 @@ export class HelicopterBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public check_health(): void {
     const heli = this.heliObject;
@@ -209,7 +209,7 @@ export class HelicopterBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public on_hit(power: TRate, impulse: TRate, hit_type: TNumberId, enemy_id: TNumberId): void {
     const enemy: Optional<XR_game_object> = level.object_by_id(enemy_id);
@@ -231,7 +231,7 @@ export class HelicopterBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public on_point(distance: TDistance, position: XR_vector, path_idx: TIndex): void {
     if (this.state.active_section !== null) {

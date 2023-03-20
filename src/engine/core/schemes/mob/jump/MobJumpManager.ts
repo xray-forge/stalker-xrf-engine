@@ -21,7 +21,7 @@ export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
   public state_current: Optional<number> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     mobCapture(this.object, true, MobJumpManager.name);
@@ -48,7 +48,7 @@ export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: number): void {
     if (this.state_current === STATE_START_LOOK) {

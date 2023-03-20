@@ -16,7 +16,7 @@ export class OscillateManager extends AbstractSchemeManager<ISchemeOscillateStat
   public pause: boolean = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     this.time = device().time_global();
@@ -28,7 +28,7 @@ export class OscillateManager extends AbstractSchemeManager<ISchemeOscillateStat
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     const now: TTimestamp = time_global();

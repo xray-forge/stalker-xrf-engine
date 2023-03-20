@@ -55,7 +55,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   public path_look_info: Optional<LuaTable<number, IWaypointData>> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     setMobState(this.object, registry.actor, this.state.state);
@@ -105,7 +105,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     if (!mobCaptured(this.object)) {
@@ -131,14 +131,14 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public arrived_to_first_waypoint(): boolean {
     return this.last_index !== null;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public waypoint_callback(obj: XR_game_object, action_type: Optional<string>, index: Optional<TIndex>): void {
     if (index === -1 || index === null) {
@@ -248,7 +248,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update_movement_state(): void {
     mobCapture(this.object, true);
@@ -280,7 +280,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     }
   }
   /**
-   * todo;
+   * todo: Description.
    */
 
   public update_standing_state(): void {
@@ -300,7 +300,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override deactivate(): void {
     mobCapture(this.object, true);
@@ -308,7 +308,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public look_at_waypoint(pt: number): void {
     if (!this.patrol_look) {

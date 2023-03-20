@@ -26,7 +26,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   public current_distance: Optional<string> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public updateState(): void {
     const actor: XR_game_object = registry.actor;
@@ -66,7 +66,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public setStartDistance(): void {
     const actor: Optional<XR_game_object> = registry.actor;
@@ -113,7 +113,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     const actor: XR_game_object = registry.actor;

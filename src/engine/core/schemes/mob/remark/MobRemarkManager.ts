@@ -21,7 +21,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
   public action_end_signalled: Optional<boolean> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     setMobState(this.object, registry.actor, this.state.state);
@@ -117,7 +117,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     const actor = registry.actor;

@@ -13,7 +13,7 @@ export class PhysicalForceManager extends AbstractSchemeManager<ISchemePhysicalF
   public process: boolean = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     if (this.state.delay !== 0) {
@@ -24,7 +24,7 @@ export class PhysicalForceManager extends AbstractSchemeManager<ISchemePhysicalF
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {

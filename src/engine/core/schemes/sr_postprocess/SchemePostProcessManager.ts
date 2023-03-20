@@ -30,7 +30,7 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
   public intensity_inertion: number = 0;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     this.actor_inside = false;
@@ -52,14 +52,14 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override deactivate(): void {
     abort("Called not expected method, not implemented originally");
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: TDuration): void {
     const actor = registry.actor;
@@ -113,7 +113,7 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update_hit(delta: number): void {
     if (this.actor_inside === false) {

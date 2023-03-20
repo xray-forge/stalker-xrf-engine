@@ -14,7 +14,7 @@ export class EvaluatorNeedSmartCover extends property_evaluator {
   public readonly state: ISchemeSmartCoverState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeSmartCoverState) {
     super(null, EvaluatorNeedSmartCover.__name);
@@ -22,7 +22,7 @@ export class EvaluatorNeedSmartCover extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return isActiveSection(this.object, this.state.section);

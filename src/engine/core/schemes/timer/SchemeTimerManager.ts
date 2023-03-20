@@ -13,14 +13,14 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
  */
 export class SchemeTimerManager extends AbstractSchemeManager<ISchemeTimerState> {
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object, state: ISchemeTimerState) {
     super(object, state);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     const actor = registry.actor;
@@ -47,7 +47,7 @@ export class SchemeTimerManager extends AbstractSchemeManager<ISchemeTimerState>
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override deactivate(): void {
     this.state.ui.RemoveCustomStatic(this.state.timer_id);

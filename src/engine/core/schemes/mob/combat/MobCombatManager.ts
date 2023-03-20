@@ -8,7 +8,7 @@ import { ISchemeMobCombatState } from "@/engine/core/schemes/mob/combat/ISchemeM
  */
 export class MobCombatManager extends AbstractSchemeManager<ISchemeMobCombatState> {
   /**
-   * todo;
+   * todo: Description.
    */
   // todo: Is it needed at all?
   public combat_callback(): void {

@@ -26,7 +26,7 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
   public activeMode: EActorMenuMode = EActorMenuMode.UNDEFINED;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public setActiveMode(nextMode: EActorMenuMode): void {
     if (nextMode === EActorMenuMode.UNDEFINED || nextMode === EActorMenuMode.TALK_DIALOG_HIDE) {
@@ -37,7 +37,7 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public closeActorMenu(): void {
     switch (this.activeMode) {
@@ -57,7 +57,7 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public openActorMenu(mode: EActorMenuMode): void {
     switch (mode) {
@@ -77,14 +77,14 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public isActiveMode(mode: EActorMenuMode): boolean {
     return this.activeMode === mode;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initQuickSlotItems(): void {
     const ini: XR_ini_file = system_ini();
@@ -97,21 +97,21 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onItemDropped(): void {
     logger.info("Actor menu inventory item dropped");
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onWindowOpen(mode: EActorMenuMode) {
     logger.info("Actor menu open:", EActorMenuMode[mode]);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onWindowClosed(mode: EActorMenuMode) {
     logger.info("Actor menu close:", EActorMenuMode[mode]);

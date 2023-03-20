@@ -15,7 +15,7 @@ export class ItemEatable extends cse_alife_item {
   public secret_item: Optional<boolean> = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -24,7 +24,7 @@ export class ItemEatable extends cse_alife_item {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_unregister(): void {
     unregisterStoryLinkByObjectId(this.id);
@@ -32,7 +32,7 @@ export class ItemEatable extends cse_alife_item {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override can_switch_online(): boolean {
     if (this.secret_item) {

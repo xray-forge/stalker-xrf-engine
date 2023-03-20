@@ -16,28 +16,28 @@ export class AbuseManager extends AbstractSchemeManager<ISchemeAbuseState> {
   public last_update: Optional<TTimestamp> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object, state: ISchemeAbuseState) {
     super(object, state);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public setAbuseRate(rate: TRate): void {
     this.abuse_rate = rate;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public isAbused(): boolean {
     return this.abuse_value >= this.abuse_threshold;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): boolean {
     if (this.last_update === null) {
@@ -64,7 +64,7 @@ export class AbuseManager extends AbstractSchemeManager<ISchemeAbuseState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public addAbuse(value: TCount): void {
     if (this.enable) {
@@ -73,21 +73,21 @@ export class AbuseManager extends AbstractSchemeManager<ISchemeAbuseState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public clearAbuse(): void {
     this.abuse_value = 0;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public disableAbuse(): void {
     this.enable = false;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public enableAbuse(): void {
     this.enable = true;

@@ -23,7 +23,7 @@ export class SchemeHelpWounded extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -63,7 +63,7 @@ export class SchemeHelpWounded extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override resetScheme(
     object: XR_game_object,
@@ -82,7 +82,7 @@ export class SchemeHelpWounded extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static isUnderHelpWounded(object: XR_game_object): boolean {
     const actionManager: XR_action_planner = object.motivation_action_manager();
@@ -95,14 +95,14 @@ export class SchemeHelpWounded extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static setHelpWounded(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: Optional<TSection>) {
     AbstractScheme.assignStateAndBind(object, ini, scheme, section);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static helpWounded(object: XR_game_object): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());

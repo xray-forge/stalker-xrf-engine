@@ -10,7 +10,7 @@ import { ISchemePhysicalHitState } from "@/engine/core/schemes/ph_hit/ISchemePhy
  */
 export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalHitState> {
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     const p1: XR_vector = new patrol(this.state.dir_path).point(0);
@@ -28,7 +28,7 @@ export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalHit
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     trySwitchToAnotherSection(this.object, this.state, registry.actor);

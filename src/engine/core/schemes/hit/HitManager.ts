@@ -14,7 +14,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class HitManager extends AbstractSchemeManager<ISchemeHitState> {
   /**
-   * todo;
+   * todo: Description.
    */
   public hit_callback(
     object: XR_game_object,

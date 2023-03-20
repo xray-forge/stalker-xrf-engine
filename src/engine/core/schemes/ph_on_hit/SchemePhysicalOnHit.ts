@@ -20,7 +20,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.ITEM;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -33,7 +33,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemePhysicalOnHitState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
@@ -43,7 +43,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
     const state: Optional<ISchemePhysicalOnHitState> = registry.objects.get(object.id())[

@@ -18,7 +18,7 @@ export class StateManagerEvaMentalDanger extends property_evaluator {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaMentalDanger.__name);
@@ -26,7 +26,7 @@ export class StateManagerEvaMentalDanger extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return states.get(this.stateManager.target_state).mental === anim.danger;

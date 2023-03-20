@@ -17,7 +17,7 @@ export class StateManagerEvaMentalPanicNow extends property_evaluator {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaMentalPanicNow.__name);
@@ -25,7 +25,7 @@ export class StateManagerEvaMentalPanicNow extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return this.object.target_mental_state() === anim.panic;

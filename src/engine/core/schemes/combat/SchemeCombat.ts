@@ -26,7 +26,7 @@ export class SchemeCombat extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -48,7 +48,7 @@ export class SchemeCombat extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
     const state: Optional<ISchemeCombatState> = registry.objects.get(object.id())[scheme] as ISchemeCombatState;
@@ -59,7 +59,7 @@ export class SchemeCombat extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static setCombatType(object: XR_game_object, actor: XR_game_object, target: Optional<AnyObject>): void {
     if (target === null) {
@@ -85,7 +85,7 @@ export class SchemeCombat extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static setCombatChecker(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const isZombied: boolean = getCharacterCommunity(object) === communities.zombied;

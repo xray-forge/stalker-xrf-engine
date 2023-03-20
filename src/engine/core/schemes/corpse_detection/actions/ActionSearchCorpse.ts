@@ -12,7 +12,7 @@ export class ActionSearchCorpse extends action_base {
   public readonly state: ISchemeCorpseDetectionState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeCorpseDetectionState) {
     super(null, ActionSearchCorpse.__name);
@@ -20,7 +20,7 @@ export class ActionSearchCorpse extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     if (this.state.selected_corpse_id !== null && registry.objects.has(this.state.selected_corpse_id)) {
@@ -31,7 +31,7 @@ export class ActionSearchCorpse extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -49,7 +49,7 @@ export class ActionSearchCorpse extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();

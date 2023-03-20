@@ -24,7 +24,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
   public static override SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -70,7 +70,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static setCorpseDetection(
     object: XR_game_object,
@@ -82,7 +82,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override resetScheme(
     object: XR_game_object,
@@ -101,7 +101,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static isUnderCorpseDetection(object: XR_game_object): boolean {
     const manager = object.motivation_action_manager();
@@ -114,7 +114,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static getAllFromCorpse(object: XR_game_object): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());

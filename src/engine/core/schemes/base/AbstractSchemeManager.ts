@@ -19,33 +19,33 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update(delta: TCount): void {}
 
   /**
-   * todo;
+   * todo: Description.
    */
   public resetScheme(): void {
     logger.info("Reset scheme:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public deactivate(): void {
     logger.info("Deactivate:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public net_spawn(): void {
     logger.info("Net spawn:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public net_destroy(): void {
     logger.info("Net destroy:", this.constructor.prototype.SCHEME_SECTION, this.object.name());

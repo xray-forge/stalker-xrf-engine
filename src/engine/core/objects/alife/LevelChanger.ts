@@ -16,14 +16,14 @@ export class LevelChanger extends cse_alife_level_changer {
   public hint: string = "level_changer_invitation";
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(section: TSection) {
     super(section);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -33,7 +33,7 @@ export class LevelChanger extends cse_alife_level_changer {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_unregister(): void {
     logger.info("Unregister:", this.name());
@@ -42,7 +42,7 @@ export class LevelChanger extends cse_alife_level_changer {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
@@ -54,7 +54,7 @@ export class LevelChanger extends cse_alife_level_changer {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);

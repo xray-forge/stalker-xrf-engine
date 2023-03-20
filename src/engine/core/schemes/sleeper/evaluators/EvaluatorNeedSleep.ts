@@ -14,7 +14,7 @@ export class EvaluatorNeedSleep extends property_evaluator {
   public state: ISchemeSleeperState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeSleeperState) {
     super(null, EvaluatorNeedSleep.__name);
@@ -22,7 +22,7 @@ export class EvaluatorNeedSleep extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return isSchemeActive(this.object, this.state);

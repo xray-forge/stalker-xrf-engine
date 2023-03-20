@@ -64,7 +64,7 @@ export class DebugDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initControls(): void {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
@@ -83,7 +83,7 @@ export class DebugDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initSections(): void {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
@@ -155,7 +155,7 @@ export class DebugDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initCallBacks(): void {
     this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.onCancelButtonAction(), this);
@@ -163,14 +163,14 @@ export class DebugDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initState(): void {
     this.tab.SetActiveTab(EDebugSection.GENERAL);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onCancelButtonAction(): void {
     logger.info("Cancel action");
@@ -182,7 +182,7 @@ export class DebugDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onTabChange(): void {
     logger.info("Tab change:", this.tab.GetActiveId());
@@ -224,7 +224,7 @@ export class DebugDialog extends CUIScriptWnd {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
     const result: boolean = super.OnKeyboard(key, event);

@@ -44,7 +44,7 @@ export class ActionCamperPatrol extends action_base {
   public enemy_position: Optional<XR_vector> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeCamperState, object: XR_game_object) {
     super(null, ActionCamperPatrol.__name);
@@ -55,7 +55,7 @@ export class ActionCamperPatrol extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -68,7 +68,7 @@ export class ActionCamperPatrol extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public resetScheme(): void {
     set_state(this.object, "patrol", null, null, null, null);
@@ -133,14 +133,14 @@ export class ActionCamperPatrol extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public activateScheme(): void {
     this.resetScheme();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public can_shoot(): boolean {
     if (this.state.shoot === "always") {
@@ -163,7 +163,7 @@ export class ActionCamperPatrol extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -345,7 +345,7 @@ export class ActionCamperPatrol extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public process_danger(): boolean {
     if (!SchemeDanger.isDangerObject(this.object)) {
@@ -393,7 +393,7 @@ export class ActionCamperPatrol extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public scan(flag: number): void {
     if (this.state.scan_table!.get(flag) === null) {
@@ -457,7 +457,7 @@ export class ActionCamperPatrol extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_next_point(flag: number): ICampPoint {
     let next = false;
@@ -498,14 +498,14 @@ export class ActionCamperPatrol extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public process_point(): boolean {
     return false;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     this.moveManager.finalize();
@@ -513,7 +513,7 @@ export class ActionCamperPatrol extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public on_place(): boolean {
     if (this.state.no_retreat === true) {

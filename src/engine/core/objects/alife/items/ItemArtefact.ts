@@ -12,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class ItemArtefact extends cse_alife_item_artefact {
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -20,7 +20,7 @@ export class ItemArtefact extends cse_alife_item_artefact {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_unregister(): void {
     unregisterStoryLinkByObjectId(this.id);
@@ -28,7 +28,7 @@ export class ItemArtefact extends cse_alife_item_artefact {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override can_switch_offline(): boolean {
     const actor: Optional<XR_cse_alife_creature_actor> = alife()?.actor();

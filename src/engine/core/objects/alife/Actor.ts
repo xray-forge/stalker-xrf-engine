@@ -41,7 +41,7 @@ export class Actor extends cse_alife_creature_actor {
   protected readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -55,7 +55,7 @@ export class Actor extends cse_alife_creature_actor {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_unregister(): void {
     super.on_unregister();
@@ -67,7 +67,7 @@ export class Actor extends cse_alife_creature_actor {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
@@ -78,7 +78,7 @@ export class Actor extends cse_alife_creature_actor {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
@@ -91,21 +91,21 @@ export class Actor extends cse_alife_creature_actor {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_location(): LuaMultiReturn<[XR_vector, number, number]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public am_i_reached(): boolean {
     return !level.object_by_id(this.id)!.alive();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public on_after_reach(squad: any): void {
     /**
@@ -114,7 +114,7 @@ export class Actor extends cse_alife_creature_actor {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public on_reach_target(squad: Squad): void {
     squad.set_location_types();
@@ -127,14 +127,14 @@ export class Actor extends cse_alife_creature_actor {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getAlifeSmartTerrainTask(): XR_CALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public isSimulationAvailable(): boolean {
     if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== STRINGIFIED_TRUE) {
@@ -181,7 +181,7 @@ export class Actor extends cse_alife_creature_actor {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public target_precondition(squad: Squad): boolean {
     const squad_params = simulation_activities[squad.player_id];

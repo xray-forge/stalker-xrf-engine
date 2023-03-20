@@ -221,7 +221,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public alreadySpawned!: LuaTable<TSection, { num: TCount }>;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_before_register(): void {
     super.on_before_register();
@@ -232,7 +232,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -263,7 +263,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_unregister(): void {
     super.on_unregister();
@@ -283,7 +283,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public read_params(): void {
     this.ini = this.spawn_ini();
@@ -406,7 +406,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public createObjectSmartJobDescriptor(object: XR_cse_alife_creature_abstract): IObjectJobDescriptor {
     logger.info("Create object job descriptor:", object.name());
@@ -443,7 +443,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override register_npc(object: XR_cse_alife_creature_abstract): void {
     logger.info("Register object in smart:", this.name(), object.name());
@@ -470,7 +470,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public register_delayed_npc(): void {
     logger.info("Registering delayed NPCs:", this.name(), this.objectsToRegister.length);
@@ -483,7 +483,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override unregister_npc(object: XR_cse_alife_creature_abstract): void {
     logger.info("Unregister npc:", this.name(), object.name());
@@ -522,7 +522,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onObjectDeath(object: XR_cse_alife_creature_abstract): void {
     logger.info("Clear dead:", this.name(), object.name());
@@ -548,7 +548,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override task(object: XR_cse_alife_creature_abstract): Optional<XR_CALifeSmartTerrainTask> {
     logger.info("Task:", this.name(), object.name());
@@ -561,7 +561,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public load_jobs(): void {
     logger.info("Load jobs:", this.name());
@@ -668,7 +668,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update_jobs(): void {
     this.check_alarm();
@@ -690,7 +690,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public select_npc_job(npcInfo: IObjectJobDescriptor): void {
     const [selected_job_id, selected_job_prior, selected_job_link] = job_iterator(this.jobs, npcInfo, 0, this);
@@ -738,7 +738,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public setup_logic(object: XR_game_object): void {
     logger.info("Setup logic:", this.name(), object.name());
@@ -760,21 +760,21 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getJob(objectId: TNumberId): Optional<ISmartTerrainJob> {
     return this.objectJobDescriptors.get(objectId) && this.jobsData.get(this.objectJobDescriptors.get(objectId).job_id);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public idNPCOnJob(jobName: TName): TNumberId {
     return this.objectByJobSection.get(jobName);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public switch_to_desired_job(object: XR_game_object): void {
     logger.info("Switch to desired job:", this.name(), object.name());
@@ -837,7 +837,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
@@ -927,7 +927,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
@@ -1021,7 +1021,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public init_npc_after_load(): void {
     logger.info("Init npc after load:", this.name());
@@ -1078,7 +1078,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_smart_props(): string {
     let props: Optional<TName> = this.getNameCaption();
@@ -1133,7 +1133,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public show(): void {
     let spot: TRelation = "neutral";
@@ -1185,14 +1185,14 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public refresh(): void {
     this.show();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public hide(): void {
     if (this.smrt_showed_spot === null) {
@@ -1206,7 +1206,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     super.update();
@@ -1272,14 +1272,14 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set_alarm(): void {
     this.smartAlarmStartedAt = game.get_game_time();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public check_alarm(): void {
     if (this.smartAlarmStartedAt === null) {
@@ -1292,14 +1292,14 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_location(): LuaMultiReturn<[XR_vector, number, number]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public am_i_reached(squad: Squad): boolean {
     const [squad_pos, squad_lv_id, squad_gv_id] = squad.get_location();
@@ -1317,7 +1317,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public on_after_reach(squad: Squad): void {
     for (const squadMember of squad.squad_members()) {
@@ -1328,7 +1328,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public on_reach_target(squad: Squad): void {
     squad.set_location_types(this.name());
@@ -1340,14 +1340,14 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getAlifeSmartTerrainTask(): XR_CALifeSmartTerrainTask {
     return this.smartTerrainAlifeTask;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public applyRespawnSection(respawnSection: TSection): void {
     this.isRespawnPoint = true;
@@ -1409,7 +1409,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public respawnSquad(): void {
     logger.info("Respawn squad in smart:", this.name());
@@ -1445,7 +1445,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public tryRespawnSquad(): void {
     const currentTime: XR_CTime = game.get_game_time();
@@ -1472,7 +1472,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public isSimulationAvailable(): boolean {
     if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== STRINGIFIED_TRUE) {
@@ -1485,7 +1485,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public target_precondition(squad: Squad, isPopulationDecreaseNeeded?: boolean): boolean {
     if (this.isRespawnOnlySmart) {

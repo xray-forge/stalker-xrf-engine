@@ -18,7 +18,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   public first_played: boolean = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     if (this.state.mode === 2) {
@@ -63,7 +63,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     const time: number = time_global();
@@ -107,7 +107,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public is_end(): boolean {
     if (this.state.looped === true || this.first_played) {
@@ -134,7 +134,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update_mode_1(): void {
     if (this.particles.get(1).particle.playing() === false && this.state.looped === true) {
@@ -143,7 +143,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update_mode_2(): void {
     const size = this.particles.length();
@@ -179,7 +179,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override deactivate(): void {
     const size: TCount = this.particles.length();

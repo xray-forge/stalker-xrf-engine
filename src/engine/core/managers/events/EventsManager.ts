@@ -27,7 +27,7 @@ export class EventsManager extends AbstractCoreManager {
   };
 
   /**
-   * todo;
+   * todo: Description.
    */
   public registerCallback<T>(
     event: EGameEvent,
@@ -41,7 +41,7 @@ export class EventsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public unregisterCallback(event: EGameEvent, func: AnyCallable): void {
     logger.info("Unregister callback:", event);
@@ -51,7 +51,7 @@ export class EventsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public emitEvent(event: EGameEvent, ...data: AnyArgs): void {
     for (const [func, config] of this.callbacks[event]) {

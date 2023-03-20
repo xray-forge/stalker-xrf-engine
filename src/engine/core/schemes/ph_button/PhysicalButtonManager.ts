@@ -19,7 +19,7 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
   public last_hit_tm: Optional<number> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     this.object.play_cycle(this.state.anim, this.state.blending);
@@ -28,14 +28,14 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     trySwitchToAnotherSection(this.object, this.state, registry.actor);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public try_switch(): boolean {
     if (isActiveSection(this.object, this.state.section) && this.state.on_press) {
@@ -54,7 +54,7 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public hit_callback(
     object: XR_object,
@@ -84,7 +84,7 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public use_callback(object: XR_game_object, who: Optional<XR_game_object>): void {
     logger.info("Button used:", object.name(), who?.name());

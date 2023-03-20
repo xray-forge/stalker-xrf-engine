@@ -14,7 +14,7 @@ export class EvaluatorNeedWalker extends property_evaluator {
   public readonly state: ISchemeWalkerState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(storage: ISchemeWalkerState) {
     super(null, EvaluatorNeedWalker.__name);
@@ -22,7 +22,7 @@ export class EvaluatorNeedWalker extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return isSchemeActive(this.object, this.state);

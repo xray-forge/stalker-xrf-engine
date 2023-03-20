@@ -23,14 +23,14 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   public wound_state!: string;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object, state: ISchemeWoundedState) {
     super(object, state);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     const hp: TCount = 100 * this.object.health;
@@ -62,14 +62,14 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public unlockMedkit(): void {
     this.can_use_medkit = true;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public eatMedkit(): void {
     if (this.can_use_medkit) {
@@ -102,7 +102,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public processFight(hp: TRate): string {
     const key = this.getKeyFromDistance(this.state.hp_fight, hp);
@@ -117,7 +117,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public process_victim(hp: TRate): string {
     const key = this.getKeyFromDistance(this.state.hp_victim, hp);
@@ -132,7 +132,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public process_hp_wound(hp: TRate): LuaMultiReturn<[string, string]> {
     const key = this.getKeyFromDistance(this.state.hp_state, hp);
@@ -166,7 +166,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public process_psy_wound(hp: number): LuaMultiReturn<[string, string]> {
     const key = this.getKeyFromDistance(this.state.psy_state, hp);
@@ -190,7 +190,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getKeyFromDistance(t: LuaArray<any>, hp: TRate): Optional<number> {
     let key: Optional<number> = null;
@@ -207,7 +207,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public hit_callback(): void {
     if (!this.object.alive()) {

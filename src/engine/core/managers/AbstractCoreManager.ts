@@ -9,57 +9,57 @@ import { IConstructor, Optional, TDuration } from "@/engine/lib/types";
  */
 export abstract class AbstractCoreManager {
   /**
-   * todo;
+   * todo: Description.
    */
   public static getInstance<T extends AbstractCoreManager>(this: IConstructor<T>, initialize: boolean = true): T {
     return getManagerInstance(this, initialize);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static getWeakInstance<T extends AbstractCoreManager>(this: IConstructor<T>): Optional<T> {
     return getWeakManagerInstance(this);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static dispose<T extends AbstractCoreManager>(this: IConstructor<T>): void {
     return disposeManager(this);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public isDestroyed: boolean = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initialize(): void {}
 
   /**
-   * todo;
+   * todo: Description.
    */
   public destroy(): void {}
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update(delta: TDuration): void {
     abort("Update method is not implemented.");
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public save(packet: XR_net_packet): void {
     abort("Save method is not implemented.");
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public load(reader: TXR_net_processor): void {
     abort("Load method is not implemented.");

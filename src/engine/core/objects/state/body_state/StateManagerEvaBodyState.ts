@@ -15,7 +15,7 @@ export class StateManagerEvaBodyState extends property_evaluator {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaBodyState.__name);
@@ -23,7 +23,7 @@ export class StateManagerEvaBodyState extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return (

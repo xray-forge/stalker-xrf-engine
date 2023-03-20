@@ -26,7 +26,7 @@ export class SchemeReachTask extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -44,14 +44,14 @@ export class SchemeReachTask extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
     const state: ISchemeReachTaskState = AbstractScheme.assignStateAndBind(object, ini, scheme, null);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static addReachTaskSchemeAction(object: XR_game_object): void {
     const actionPlanner: XR_action_planner = object.motivation_action_manager();

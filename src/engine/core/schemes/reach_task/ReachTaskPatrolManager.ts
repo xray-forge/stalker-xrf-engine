@@ -74,14 +74,14 @@ export class ReachTaskPatrolManager {
   public npc_count: number = 0;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(targetId: TNumberId) {
     this.target_name = targetId;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public add_npc(object: XR_game_object): void {
     if (object === null || !object.alive() || this.npc_list.has(object.id())) {
@@ -103,7 +103,7 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public remove_npc(object: XR_game_object): void {
     if (object === null) {
@@ -124,7 +124,7 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public reset_positions(): void {
     const form_ = formations[this.formation as "back"];
@@ -155,7 +155,7 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set_formation(formation: TName): void {
     if (formation === null) {
@@ -171,7 +171,7 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_commander(object: XR_game_object): XR_game_object {
     if (object === null) {
@@ -196,7 +196,7 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_npc_command(object: XR_game_object): LuaMultiReturn<[number, XR_vector, Optional<string>]> {
     if (object === null) {
@@ -265,7 +265,7 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set_command(object: XR_game_object, command: string, formation: TName): void {
     if (object === null || !object.alive()) {
@@ -289,14 +289,14 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public is_commander(npc_id: number): boolean {
     return npc_id === this.commander_id;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public is_commander_in_meet(): boolean {
     if (this.commander_id === -1) {

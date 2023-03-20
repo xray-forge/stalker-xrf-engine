@@ -18,7 +18,7 @@ export class EvaluatorContact extends property_evaluator {
   public actionPlanner: Optional<XR_action_planner> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeMeetState) {
     super(null, EvaluatorContact.__name);
@@ -26,7 +26,7 @@ export class EvaluatorContact extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     if (this.state.meet_set !== true) {

@@ -23,7 +23,7 @@ export class TeleportManager extends AbstractSchemeManager<ISchemeTeleportState>
   public timer: Optional<TDuration> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     const actor: Optional<XR_game_object> = registry.actor;
@@ -73,7 +73,7 @@ export class TeleportManager extends AbstractSchemeManager<ISchemeTeleportState>
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public teleportActor(actor: XR_game_object, teleportPoint: ITeleportPoint): void {
     logger.info("Teleporting actor:", teleportPoint.point);

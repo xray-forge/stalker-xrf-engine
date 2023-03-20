@@ -19,7 +19,7 @@ export class StateManagerActAnimationStop extends action_base {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: StateManager) {
     super(null, StateManagerActAnimationStop.__name);
@@ -27,7 +27,7 @@ export class StateManagerActAnimationStop extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -40,14 +40,14 @@ export class StateManagerActAnimationStop extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     super.finalize();

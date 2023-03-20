@@ -23,7 +23,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   protected scheme: typeof SchemeNoWeapon;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object, state: ISchemeNoWeaponState, scheme: typeof SchemeNoWeapon) {
     super(object, state);
@@ -31,7 +31,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     this.currentActorState = EActorZoneState.NOWHERE;
@@ -79,7 +79,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public showCanUseWeaponLabelOnUI(): void {
     if (this.isNoWeaponZoneLeftLabelVisible) {
@@ -97,7 +97,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public removeCanUseWeaponLabelOnUI(): void {
     if (!this.isNoWeaponZoneLeftLabelVisible) {
@@ -115,7 +115,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onZoneEnter(): void {
     logger.info("Entering no weapon zone");
@@ -127,7 +127,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onZoneLeave(): void {
     logger.info("Leaving no weapon zone");

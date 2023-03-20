@@ -33,7 +33,7 @@ export class ActionSleeperActivity extends action_base {
   };
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeSleeperState, object: XR_game_object) {
     super(null, ActionSleeperActivity.__name);
@@ -44,7 +44,7 @@ export class ActionSleeperActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -56,7 +56,7 @@ export class ActionSleeperActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public resetScheme(): void {
     this.timer = {
@@ -121,14 +121,14 @@ export class ActionSleeperActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public activateScheme(): void {
     this.was_reset = false;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public callback(mode: number, number: number): boolean {
     this.sleeping_state = state_sleeping;
@@ -146,7 +146,7 @@ export class ActionSleeperActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -168,7 +168,7 @@ export class ActionSleeperActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     // --  GlobalSound:set_sound(this.object, null)

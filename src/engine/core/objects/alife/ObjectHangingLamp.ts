@@ -15,7 +15,7 @@ export class ObjectHangingLamp extends cse_alife_object_hanging_lamp {
   public secret_item: Optional<boolean> = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -25,7 +25,7 @@ export class ObjectHangingLamp extends cse_alife_object_hanging_lamp {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_unregister(): void {
     unregisterStoryLinkByObjectId(this.id);
@@ -33,14 +33,14 @@ export class ObjectHangingLamp extends cse_alife_object_hanging_lamp {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override keep_saved_data_anyway(): boolean {
     return true;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override can_switch_online(): boolean {
     if (this.secret_item) {

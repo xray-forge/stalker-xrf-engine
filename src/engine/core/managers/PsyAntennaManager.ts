@@ -37,7 +37,7 @@ export interface IPsyPostProcessDescriptor {
  */
 export class PsyAntennaManager extends AbstractCoreManager {
   /**
-   * todo;
+   * todo: Description.
    */
   public static load(reader: XR_reader): void {
     setLoadMarker(reader, false, PsyAntennaManager.name + "_static");
@@ -54,7 +54,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static save(net_packet: XR_net_packet): void {
     setSaveMarker(net_packet, false, PsyAntennaManager.name + "_static");
@@ -107,7 +107,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   public hit_freq: number = 5000;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor() {
     super();
@@ -117,7 +117,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override destroy(): void {
     this.sound_obj_right.stop();
@@ -127,7 +127,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update_psy_hit(dt: number): void {
     const hud: XR_CUIGameCustom = get_hud();
@@ -178,7 +178,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public generate_phantoms(): void {
     if (this.phantom_idle === null) {
@@ -205,7 +205,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update_sound(): void {
     if (!this.sound_initialized) {
@@ -238,7 +238,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update_postprocess(pp: IPsyPostProcessDescriptor): boolean {
     if (pp.intensity === 0) {
@@ -254,7 +254,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: TDuration): void {
     this.eff_time = this.eff_time + delta;
@@ -289,7 +289,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, PsyAntennaManager.name);
@@ -315,7 +315,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, PsyAntennaManager.name);

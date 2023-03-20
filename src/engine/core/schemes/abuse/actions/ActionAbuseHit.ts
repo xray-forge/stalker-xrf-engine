@@ -11,7 +11,7 @@ export class ActionAbuseHit extends action_base {
   public readonly state: ISchemeAbuseState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeAbuseState) {
     super(null, ActionAbuseHit.__name);
@@ -19,7 +19,7 @@ export class ActionAbuseHit extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -34,7 +34,7 @@ export class ActionAbuseHit extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();

@@ -20,7 +20,7 @@ export class StateManagerEvaSmartCover extends property_evaluator {
   private readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaSmartCover.__name);
@@ -28,7 +28,7 @@ export class StateManagerEvaSmartCover extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     if (this.stateManager.target_state !== EScheme.SMARTCOVER) {

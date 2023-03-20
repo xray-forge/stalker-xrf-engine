@@ -43,7 +43,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   public appear_snd!: XR_sound_object;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     this.is_actor_inside = false;
@@ -59,7 +59,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: number): void {
     const actor = registry.actor;
@@ -144,7 +144,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public on_enter(): void {
     this.reset_path();
@@ -152,7 +152,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public reset_path(): void {
     this.cur_point = 0;
@@ -178,7 +178,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public next_point(): number {
     if (this.cur_point! + 1 < this.state.path.count()) {
@@ -189,7 +189,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set_positions(): void {
     if (this.next_point() === 0) {

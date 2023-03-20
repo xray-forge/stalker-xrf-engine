@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class PostCombatIdle {
   /**
-   * todo;
+   * todo: Description.
    */
   public static addPostCombatIdleWait(object: XR_game_object): void {
     logger.info("Add post-combat idle for:", object.name());

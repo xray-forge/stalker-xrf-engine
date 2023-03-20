@@ -14,7 +14,7 @@ export class EvaluatorCombatCamper extends property_evaluator {
   public readonly state: ISchemeCombatState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeCombatState) {
     super(null, EvaluatorCombatCamper.__name);
@@ -22,7 +22,7 @@ export class EvaluatorCombatCamper extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     // todo: Probably get from this.state? Maybe invalid.

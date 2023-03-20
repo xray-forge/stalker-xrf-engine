@@ -9,14 +9,14 @@ import { TCount } from "@/engine/lib/types";
  */
 export class IdleManager extends AbstractSchemeManager<ISchemeIdleState> {
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     this.state.signals = new LuaTable();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: TCount): void {
     trySwitchToAnotherSection(this.object, this.state, registry.actor);

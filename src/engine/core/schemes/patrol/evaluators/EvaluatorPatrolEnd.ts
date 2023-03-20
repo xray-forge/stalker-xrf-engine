@@ -14,7 +14,7 @@ export class EvaluatorPatrolEnd extends property_evaluator {
   public readonly state: ISchemePatrolState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemePatrolState) {
     super(null, EvaluatorPatrolEnd.__name);
@@ -22,7 +22,7 @@ export class EvaluatorPatrolEnd extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return !isActiveSection(this.object, this.state.section);

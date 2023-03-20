@@ -42,21 +42,21 @@ export class PhysicObjectBinder extends object_binder {
   public state!: IRegistryObjectState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object) {
     super(object);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override reload(section: string): void {
     super.reload(section);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override reinit(): void {
     super.reinit();
@@ -64,7 +64,7 @@ export class PhysicObjectBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_destroy(): void {
     if (level.map_has_object_spot(this.object.id(), "ui_pda2_actor_box_location") !== 0) {
@@ -97,14 +97,14 @@ export class PhysicObjectBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_save_relevant(): boolean {
     return true;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     super.save(packet);
@@ -115,7 +115,7 @@ export class PhysicObjectBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     this.loaded = true;
@@ -128,7 +128,7 @@ export class PhysicObjectBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public use_callback(object: XR_game_object, who: XR_game_object): void {
     if (this.state.active_section) {
@@ -137,7 +137,7 @@ export class PhysicObjectBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public hit_callback(
     obj: XR_game_object,
@@ -174,7 +174,7 @@ export class PhysicObjectBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public death_callback(victim: XR_game_object, who: XR_game_object): void {
     if (this.state.active_section) {
@@ -191,7 +191,7 @@ export class PhysicObjectBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
@@ -218,7 +218,7 @@ export class PhysicObjectBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: TDuration): void {
     super.update(delta);

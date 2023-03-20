@@ -28,7 +28,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   public sceneState!: string;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object, state: ISchemeCutsceneState) {
     super(object, state);
@@ -37,7 +37,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     this.sceneState = "";
@@ -48,7 +48,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: number): void {
     const sceneState = this.sceneState;
@@ -71,7 +71,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public zone_enter(): void {
     logger.info("Zone enter:", this.object.name());

@@ -19,7 +19,7 @@ export class StateManagerEvaIdleAlife extends property_evaluator {
   private currentActionId: Optional<number> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaIdleAlife.__name);
@@ -27,7 +27,7 @@ export class StateManagerEvaIdleAlife extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     if (!this.object.alive()) {

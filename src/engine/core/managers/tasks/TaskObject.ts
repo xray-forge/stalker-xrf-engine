@@ -126,7 +126,7 @@ export class TaskObject {
   public on_reversed: TConditionList;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(task_ini: XR_ini_file, id: TStringId) {
     this.task_ini = task_ini;
@@ -198,7 +198,7 @@ export class TaskObject {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public give_task(): void {
     const t = new XR_CGameTask();
@@ -245,7 +245,7 @@ export class TaskObject {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public check_task(): void {
     const global_time = time_global();
@@ -326,7 +326,7 @@ export class TaskObject {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public give_reward(): void {
     logger.info("Give quest rewards:", this.id, this.t?.get_id());
@@ -363,14 +363,14 @@ export class TaskObject {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public reverse_task(): void {
     this.last_check_task = ETaskState.REVERSED;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public deactivate_task(task: XR_CGameTask): void {
     logger.info("Deactivate task:", this.title);
@@ -388,7 +388,7 @@ export class TaskObject {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public check_level(target: Optional<TNumberId>): void {
     if (!target || registry.actor.is_active_task(this.t as XR_CGameTask)) {
@@ -437,7 +437,7 @@ export class TaskObject {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public remove_guider_spot(): void {
     if (!guiders_by_level.get(level.name())) {
@@ -460,7 +460,7 @@ export class TaskObject {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, TaskObject.name);

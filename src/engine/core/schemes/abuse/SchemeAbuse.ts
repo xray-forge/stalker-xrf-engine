@@ -19,7 +19,7 @@ export class SchemeAbuse extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -58,14 +58,14 @@ export class SchemeAbuse extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     AbstractScheme.assignStateAndBind(object, ini, scheme, section);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static addAbuse(object: XR_game_object, value: number): void {
     const abuseState: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
@@ -76,7 +76,7 @@ export class SchemeAbuse extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override resetScheme(
     object: XR_game_object,
@@ -86,7 +86,7 @@ export class SchemeAbuse extends AbstractScheme {
   ): void {}
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static clearAbuse(object: XR_game_object): void {
     const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
@@ -97,7 +97,7 @@ export class SchemeAbuse extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static disableAbuse(object: XR_game_object): void {
     const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
@@ -108,7 +108,7 @@ export class SchemeAbuse extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static enableAbuse(object: XR_game_object): void {
     const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
@@ -119,7 +119,7 @@ export class SchemeAbuse extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static isAbuse(object: XR_game_object): boolean {
     const state = registry.objects.get(object.id())[SchemeAbuse.SCHEME_SECTION] as ISchemeAbuseState;

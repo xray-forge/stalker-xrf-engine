@@ -33,7 +33,7 @@ export class CrowBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: TDuration): void {
     super.update(delta);
@@ -51,7 +51,7 @@ export class CrowBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override reinit(): void {
     super.reinit();
@@ -62,7 +62,7 @@ export class CrowBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
@@ -84,7 +84,7 @@ export class CrowBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_destroy(): void {
     logger.info("Crow net destroy");
@@ -100,7 +100,7 @@ export class CrowBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public death_callback(victim: XR_game_object, killer: XR_game_object): void {
     logger.info("Crow death registered");
@@ -111,14 +111,14 @@ export class CrowBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_save_relevant(): boolean {
     return true;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, CrowBinder.__name);
@@ -131,7 +131,7 @@ export class CrowBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, CrowBinder.__name);

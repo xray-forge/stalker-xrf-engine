@@ -20,7 +20,7 @@ export class CrowSpawnerManager extends AbstractSchemeManager<ISchemeCrowSpawner
   public spawned_count: Optional<TCount> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(): void {
     for (const [k, v] of this.state.path_table!) {
@@ -29,7 +29,7 @@ export class CrowSpawnerManager extends AbstractSchemeManager<ISchemeCrowSpawner
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     // -- check for spawn crows on level
@@ -50,7 +50,7 @@ export class CrowSpawnerManager extends AbstractSchemeManager<ISchemeCrowSpawner
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public check_for_spawn_new_crow(): void {
     const path_table: LuaTable<number, string> = new LuaTable();

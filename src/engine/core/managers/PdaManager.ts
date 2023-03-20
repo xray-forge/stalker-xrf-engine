@@ -71,7 +71,7 @@ export class PdaManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getBestKilledMonster() {
     const bestKilledMonster: Optional<TMonster> = StatisticsManager.getInstance().actor_statistic.best_monster;
@@ -80,28 +80,28 @@ export class PdaManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getMonsterBackground(): TLabel {
     return this.getBestKilledMonster()?.back || "";
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getMonsterIcon(): TLabel {
     return this.getBestKilledMonster()?.icon || "";
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getFavoriteWeapon(): TWeapon {
     return StatisticsManager.getInstance().actor_statistic.favorite_weapon_sect || weapons.wpn_knife;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public fillFactionState(state: Record<string, any>): void {
     logger.info("Fill faction state");

@@ -18,7 +18,7 @@ export class StateManagerEvaLogicActive extends property_evaluator {
   private readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state_manager: StateManager) {
     super(null, StateManagerEvaLogicActive.__name);
@@ -27,7 +27,7 @@ export class StateManagerEvaLogicActive extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return registry.objects.get(this.object.id()).active_section !== null;

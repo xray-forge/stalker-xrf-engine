@@ -14,7 +14,7 @@ export class EvaluatorCheckCombat extends property_evaluator {
   public readonly state: ISchemeCombatState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeCombatState) {
     super(null, EvaluatorCheckCombat.__name);
@@ -22,7 +22,7 @@ export class EvaluatorCheckCombat extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     const state = this.state;

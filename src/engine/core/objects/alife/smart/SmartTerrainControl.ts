@@ -41,7 +41,7 @@ export class SmartTerrainControl {
   public alarm_time: Optional<XR_CTime> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(smart: SmartTerrain, ini: XR_ini_file, section: TSection) {
     this.noweap_zone = getConfigString(ini, section, "noweap_zone", this, true, "");
@@ -55,7 +55,7 @@ export class SmartTerrainControl {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update(): void {
     if (this.status === ESmartTerrainStatus.ALARM) {
@@ -84,7 +84,7 @@ export class SmartTerrainControl {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_actor_treat(): boolean {
     const zone = registry.zones.get(this.noweap_zone);
@@ -111,7 +111,7 @@ export class SmartTerrainControl {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public actor_attack(): void {
     logger.info("Actor attacked smart:", this.smart.name());
@@ -134,14 +134,14 @@ export class SmartTerrainControl {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_status(): ESmartTerrainStatus {
     return this.status;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, SmartTerrainControl.name);
@@ -153,7 +153,7 @@ export class SmartTerrainControl {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public load(reader: TXR_net_processor): void {
     setLoadMarker(reader, false, SmartTerrainControl.name);

@@ -15,7 +15,7 @@ export class EvaluatorCanFight extends property_evaluator {
   public readonly state: ISchemeWoundedState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeWoundedState) {
     super(null, EvaluatorCanFight.__name);
@@ -23,7 +23,7 @@ export class EvaluatorCanFight extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     if (this.object.critically_wounded()) {

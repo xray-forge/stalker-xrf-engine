@@ -19,7 +19,7 @@ export class AnomalousZone extends cse_anomalous_zone {
   public last_spawn_time: Optional<XR_CTime> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -41,7 +41,7 @@ export class AnomalousZone extends cse_anomalous_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     super.update();
@@ -60,7 +60,7 @@ export class AnomalousZone extends cse_anomalous_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
@@ -78,7 +78,7 @@ export class AnomalousZone extends cse_anomalous_zone {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);

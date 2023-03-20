@@ -15,7 +15,7 @@ export class EvaluatorNeedRemark extends property_evaluator {
   public readonly state: ISchemeRemarkState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeRemarkState) {
     super(null, EvaluatorNeedRemark.__name);
@@ -23,7 +23,7 @@ export class EvaluatorNeedRemark extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return isActiveSection(this.object, this.state.section);

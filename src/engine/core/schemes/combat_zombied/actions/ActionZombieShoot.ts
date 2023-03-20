@@ -44,7 +44,7 @@ export class ActionZombieShoot extends action_base {
   public enemy_last_accessible_position: Optional<XR_vector> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeCombatState) {
     super(null, ActionZombieShoot.__name);
@@ -52,7 +52,7 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -77,7 +77,7 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -148,7 +148,7 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set_state(state: string, bestEnemy: Optional<XR_game_object>, position: Optional<XR_vector>): void {
     this.targetStateDescriptor.look_object = bestEnemy;
@@ -165,7 +165,7 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public calc_random_direction(): XR_vector {
     const ang = math.pi * 2 * math.random();
@@ -178,7 +178,7 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     super.finalize();
@@ -186,7 +186,7 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public hit_callback(
     object: XR_game_object,

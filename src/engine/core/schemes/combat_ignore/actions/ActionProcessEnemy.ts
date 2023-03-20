@@ -101,7 +101,7 @@ export class ActionProcessEnemy {
   public readonly state: ISchemeCombatIgnoreState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object, state: ISchemeCombatIgnoreState) {
     this.object = object;
@@ -109,7 +109,7 @@ export class ActionProcessEnemy {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public enemy_callback(object: XR_game_object, enemy: XR_game_object): boolean {
     if (enemy.id() === registry.actor.id()) {
@@ -156,7 +156,7 @@ export class ActionProcessEnemy {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public hit_callback(
     object: XR_game_object,

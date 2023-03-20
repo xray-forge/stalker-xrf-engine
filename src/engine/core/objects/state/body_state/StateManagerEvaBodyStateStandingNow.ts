@@ -17,7 +17,7 @@ export class StateManagerEvaBodyStateStandingNow extends property_evaluator {
   public readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaBodyStateStandingNow.__name);
@@ -25,7 +25,7 @@ export class StateManagerEvaBodyStateStandingNow extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return this.object.target_body_state() === move.standing;

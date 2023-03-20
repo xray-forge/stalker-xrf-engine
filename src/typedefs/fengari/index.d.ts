@@ -1,26 +1,26 @@
 declare module "fengari" {
   /**
-   * todo;
+   * todo: Description.
    */
   interface ILuaString {
 
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   interface ILuaState {
 
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   interface ILuaConf {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   interface ILua {
     lua_getglobal(state: ILuaState, name: string): unknown;
@@ -37,14 +37,14 @@ declare module "fengari" {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   interface ILualib {
     luaL_openlibs(state: ILuaState): void;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   interface ILauxlib {
     luaL_newstate(): ILuaState;

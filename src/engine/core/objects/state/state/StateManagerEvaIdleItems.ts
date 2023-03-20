@@ -16,7 +16,7 @@ export class StateManagerEvaIdleItems extends property_evaluator {
   private readonly stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaIdleItems.__name);
@@ -24,7 +24,7 @@ export class StateManagerEvaIdleItems extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     if (!this.object.alive()) {

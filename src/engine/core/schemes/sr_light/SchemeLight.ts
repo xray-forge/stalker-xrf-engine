@@ -24,7 +24,7 @@ export class SchemeLight extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -37,7 +37,7 @@ export class SchemeLight extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeLightState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
@@ -47,7 +47,7 @@ export class SchemeLight extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override resetScheme(): void {
     logger.info("Reset light zones");
@@ -55,7 +55,7 @@ export class SchemeLight extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static checkObjectLight(object: XR_game_object): void {
     if (object === null) {

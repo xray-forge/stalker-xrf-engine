@@ -15,14 +15,14 @@ export class ItemAmmo extends cse_alife_item_ammo {
   public secret_item: Optional<boolean> = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(section: TSection) {
     super(section);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -31,7 +31,7 @@ export class ItemAmmo extends cse_alife_item_ammo {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_unregister(): void {
     unregisterStoryLinkByObjectId(this.id);
@@ -39,7 +39,7 @@ export class ItemAmmo extends cse_alife_item_ammo {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override can_switch_online(): boolean {
     if (this.secret_item) {

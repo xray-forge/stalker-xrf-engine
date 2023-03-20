@@ -66,49 +66,49 @@ export class SimulationBoardManager extends AbstractCoreManager {
   protected temporaryEnteredSquads: LuaTable<TNumberId, LuaArray<Squad>> = new LuaTable();
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getFactions(): LuaArray<ISimulationFactionDescriptor> {
     return this.factions;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getSquads(): LuaTable<TNumberId, Squad> {
     return this.squads;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getSmartTerrainDescriptors(): LuaTable<TNumberId, ISmartTerrainDescriptor> {
     return this.smartTerrains;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getSmartTerrainByName(name: TName): Optional<SmartTerrain> {
     return this.smartTerrainsByName.get(name);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getSmartTerrainDescriptorById(smartTerrainId: TNumberId): Optional<ISmartTerrainDescriptor> {
     return this.smartTerrains.get(smartTerrainId);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getSmartTerrainPopulation(smart: SmartTerrain): TCount {
     return this.smartTerrains.get(smart.id).stayingSquadsCount;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getSmartTerrainActiveSquads(smartTerrainId: TNumberId): TCount {
     let count: TCount = 0;
@@ -166,21 +166,21 @@ export class SimulationBoardManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public registerSquad(squad: Squad): void {
     this.squads.set(squad.id, squad);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public unRegisterSquad(squad: Squad): void {
     this.squads.set(squad.id, squad);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public registerSmartTerrain(object: SmartTerrain): void {
     if (this.smartTerrains.get(object.id) !== null) {
@@ -192,7 +192,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initializeSmartTerrain(object: SmartTerrain): void {
     if (this.temporaryAssignedSquads.has(object.id)) {
@@ -213,7 +213,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public unregisterSmartTerrain(object: SmartTerrain): void {
     if (!this.smartTerrains.has(object.id)) {
@@ -224,7 +224,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public createSmartSquad(smartTerrain: SmartTerrain, squadId: TStringId): Squad {
     const squad: Squad = alife().create<Squad>(
@@ -249,7 +249,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onRemoveSquad(squad: Squad): void {
     logger.info("Remove squad:", squad.name());
@@ -261,7 +261,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public assignSquadToSmartTerrain(squad: Squad, smartTerrainId: Optional<TNumberId>): void {
     if (smartTerrainId !== null && !this.smartTerrains.has(smartTerrainId)) {
@@ -299,7 +299,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public exitSmartTerrain(squad: Squad, smartTerrainId: Optional<TNumberId>): void {
     if (smartTerrainId === null) {
@@ -323,7 +323,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public enterSmartTerrain(squad: Squad, smartTerrainId: TNumberId): void {
     if (!this.smartTerrains.has(smartTerrainId)) {
@@ -390,7 +390,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getSquadSimulationTarget(squad: Squad): Optional<TSimulationObject> {
     const availableTargets: LuaArray<{ prior: TRate; target: TSimulationObject }> = new LuaTable();
@@ -424,7 +424,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onNetworkDestroy(): void {
     if (this.factions !== null) {
@@ -435,21 +435,21 @@ export class SimulationBoardManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onNetworkRegister(): void {
     this.initializeDefaultSimulationSquads();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     packet.w_bool(this.areDefaultSimulationSquadsSpawned);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: TXR_net_processor): void {
     this.areDefaultSimulationSquadsSpawned = reader.r_bool();

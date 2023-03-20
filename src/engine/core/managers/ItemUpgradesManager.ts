@@ -30,28 +30,28 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   public currentPriceDiscountRate: TRate = 1;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getCurrentSpeaker(): Optional<XR_game_object> {
     return this.currentSpeaker;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public setCurrentTech(object: XR_game_object): void {
     this.currentSpeaker = object;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public setCurrentHints(hints: LuaArray<TCaption>): void {
     this.upgradeHints = hints;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public setupDiscounts(): void {
     if (STALKER_UPGRADE_INFO.line_exist(this.currentMechanicName, "discount_condlist")) {
@@ -63,7 +63,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getRepairPrice(itemName: TName, itemCondition: TRate): TCount {
     const cost: TCount = SYSTEM_INI.r_u32(itemName, "cost");
@@ -74,14 +74,14 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getRepairItemPayment(itemName: TName, itemCondition: TRate): void {
     registry.actor.give_money(-this.getRepairPrice(itemName, itemCondition));
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getUpgradeCost(section: TSection): TLabel {
     if (registry.actor !== null) {
@@ -94,7 +94,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getPossibilitiesLabel(mechanicName: TName, possibilities: TConditionList): TLabel {
     let hintsLabel: TLabel = "";
@@ -113,7 +113,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public canUpgradeItem(itemName: TName, mechanicName: TName): boolean {
     this.currentMechanicName = mechanicName;
@@ -131,14 +131,14 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public setCurrentPriceDiscount(percent: TRate): void {
     this.currentPriceDiscountRate = percent;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public isAbleToRepairItem(itemName: TName, itemCondition: number, mechanicName: TName): boolean {
     if (itemName === quest_items.pri_a17_gauss_rifle) {
@@ -149,7 +149,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getRepairItemAskReplicLabel(
     itemName: TName,
@@ -187,7 +187,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getPreconditionFunctorA(name: TName, section: TSection): TItemUpgradeBranch {
     if (STALKER_UPGRADE_INFO.line_exist(this.currentMechanicName + "_upgr", section)) {
@@ -226,7 +226,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getPreRequirementsFunctorA(name: TName, section: TSection): TLabel {
     const actor: XR_game_object = registry.actor;
@@ -264,7 +264,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public useEffectFunctorA(name: TName, section: TSection, loading: number): void {
     if (loading === 0) {
@@ -275,7 +275,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getPropertyFunctorA(data: string, name: TName): TLabel {
     const prorerty_name = ITEM_UPGRADES.r_string(name, "name");
@@ -340,21 +340,21 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getPropertyFunctorB(data: string, name: TName): TName {
     return this.issueProperty(data, name);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public getPropertyFunctorC(data: string, name: TName): TName {
     return this.issueProperty(data, name);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public issueProperty(data: string, name: TName): TName {
     const propertyName: TName = game.translate_string(ITEM_UPGRADES.r_string(name, "name"));

@@ -19,7 +19,7 @@ export class ActionLookAround extends action_base {
   public change_dir_time: TTimestamp = 0;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeCombatState) {
     super(null, ActionLookAround.__name);
@@ -27,7 +27,7 @@ export class ActionLookAround extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -38,7 +38,7 @@ export class ActionLookAround extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public reset(): void {
     this.forget_time = device().time_global() + 30_000;
@@ -52,7 +52,7 @@ export class ActionLookAround extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -89,7 +89,7 @@ export class ActionLookAround extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     super.finalize();
@@ -99,7 +99,7 @@ export class ActionLookAround extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public hit_callback(
     object: XR_game_object,

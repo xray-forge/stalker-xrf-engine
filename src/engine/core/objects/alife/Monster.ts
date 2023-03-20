@@ -36,7 +36,7 @@ export class Monster extends cse_alife_monster_base {
   public isRegistered: boolean = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(section: TSection) {
     super(section);
@@ -44,7 +44,7 @@ export class Monster extends cse_alife_monster_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override can_switch_offline(): boolean {
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
@@ -55,7 +55,7 @@ export class Monster extends cse_alife_monster_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override can_switch_online(): boolean {
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
@@ -66,7 +66,7 @@ export class Monster extends cse_alife_monster_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override switch_online(): void {
     logger.info("Switch online:", this.name());
@@ -74,7 +74,7 @@ export class Monster extends cse_alife_monster_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override switch_offline(): void {
     logger.info("Switch offline:", this.name());
@@ -82,7 +82,7 @@ export class Monster extends cse_alife_monster_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
@@ -99,7 +99,7 @@ export class Monster extends cse_alife_monster_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
@@ -115,7 +115,7 @@ export class Monster extends cse_alife_monster_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -142,7 +142,7 @@ export class Monster extends cse_alife_monster_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_unregister(): void {
     logger.info("Unregister:", this.name());
@@ -163,7 +163,7 @@ export class Monster extends cse_alife_monster_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_death(killer: XR_cse_alife_creature_abstract): void {
     logger.info("On death:", this.name(), killer?.name());

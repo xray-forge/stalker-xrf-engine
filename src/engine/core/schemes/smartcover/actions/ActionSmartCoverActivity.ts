@@ -37,7 +37,7 @@ export class ActionSmartCoverActivity extends action_base {
   public target_path!: string;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeSmartCoverState) {
     super(null, ActionSleeperActivity.__name);
@@ -45,7 +45,7 @@ export class ActionSmartCoverActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -56,7 +56,7 @@ export class ActionSmartCoverActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public target_selector(obj: XR_game_object): void {
     if (!obj.alive()) {
@@ -80,7 +80,7 @@ export class ActionSmartCoverActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public activateScheme(): void {
     this.state.signals = new LuaTable();
@@ -124,7 +124,7 @@ export class ActionSmartCoverActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public check_target_selector(): void {
     /**
@@ -142,7 +142,7 @@ export class ActionSmartCoverActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public check_target(): boolean {
     const object = this.object;
@@ -187,7 +187,7 @@ export class ActionSmartCoverActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -226,7 +226,7 @@ export class ActionSmartCoverActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     this.initialized = false;
@@ -234,14 +234,14 @@ export class ActionSmartCoverActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public position_riched(): boolean {
     return this.object.in_smart_cover();
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public deactivate(): void {
     this.state.cover_name = null;

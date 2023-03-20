@@ -14,7 +14,7 @@ export class ActionReachAnimpoint extends action_base {
   public readonly state: ISchemeAnimpointState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeAnimpointState) {
     super(null, ActionReachAnimpoint.__name);
@@ -22,7 +22,7 @@ export class ActionReachAnimpoint extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -30,7 +30,7 @@ export class ActionReachAnimpoint extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();

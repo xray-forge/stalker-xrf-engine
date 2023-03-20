@@ -9,7 +9,7 @@ export class MockVector {
   public z: number = 0;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set(x: number, y: number, z: number): void {
     this.x = x;

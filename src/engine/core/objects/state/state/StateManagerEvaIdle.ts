@@ -19,7 +19,7 @@ export class StateManagerEvaIdle extends property_evaluator {
   private combatPlanner: Optional<XR_action_planner> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaIdle.__name);
@@ -27,7 +27,7 @@ export class StateManagerEvaIdle extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     const t =

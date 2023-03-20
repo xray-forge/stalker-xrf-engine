@@ -14,7 +14,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class RestrictorManager {
   /**
-   * todo;
+   * todo: Description.
    */
   public static forObject(object: XR_game_object): RestrictorManager {
     logger.info("Get restrictor manager for npc:", object.name());
@@ -36,7 +36,7 @@ export class RestrictorManager {
   public out_restrictions: LuaTable<number, string>;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object) {
     this.object = object;
@@ -56,7 +56,7 @@ export class RestrictorManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public reset_restrictions(st: IRegistryObjectState, section: string): void {
     logger.info("Reset restrictions:", this.object.name(), section);

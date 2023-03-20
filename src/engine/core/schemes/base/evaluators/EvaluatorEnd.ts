@@ -14,7 +14,7 @@ export class EvaluatorEnd extends property_evaluator {
   public readonly state: IBaseSchemeState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(storage: IBaseSchemeState) {
     super(null, EvaluatorEnd.__name);
@@ -22,7 +22,7 @@ export class EvaluatorEnd extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return !isActiveSection(this.object, this.state.section);

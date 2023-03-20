@@ -23,7 +23,7 @@ export class RestrictorBinder extends object_binder {
   public state!: IRegistryObjectState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override reinit(): void {
     super.reinit();
@@ -31,7 +31,7 @@ export class RestrictorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
@@ -55,7 +55,7 @@ export class RestrictorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
@@ -75,7 +75,7 @@ export class RestrictorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: TDuration): void {
     const activeSection: Optional<TSection> = this.state.active_section as Optional<TSection>;
@@ -103,14 +103,14 @@ export class RestrictorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_save_relevant(): boolean {
     return true;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, RestrictorBinder.__name);
@@ -121,7 +121,7 @@ export class RestrictorBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, RestrictorBinder.__name);

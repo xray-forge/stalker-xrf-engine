@@ -33,7 +33,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public hi_limits: number = 0;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override resetScheme(loading?: boolean): void {
     this.state.signals = new LuaTable();
@@ -78,7 +78,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     // --printf("_bp: action_door:update()", delta)
@@ -92,7 +92,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public fastcall(): boolean {
     if (!this.initialized) {
@@ -110,7 +110,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public open_fastcall(): boolean {
     if (!this.initialized) {
@@ -128,7 +128,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public close_action(): void {
     if (this.state.no_force === true) {
@@ -156,7 +156,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public open_door(disableSound?: boolean): void {
     if (!disableSound) {
@@ -195,7 +195,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public is_closed(): boolean {
     const angle = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
@@ -204,7 +204,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public is_open(): boolean {
     const angle = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
@@ -213,7 +213,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public close_door(disable_snd: boolean): void {
     if (!disable_snd) {
@@ -251,7 +251,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public try_switch(): boolean {
     if (this.state.on_use) {
@@ -270,7 +270,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public use_callback(target: XR_game_object, who: Optional<XR_game_object>): void {
     if (this.state.locked) {
@@ -283,7 +283,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public hit_callback(
     object: XR_game_object,
@@ -306,7 +306,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override deactivate(): void {
     this.object.set_tip_text("");

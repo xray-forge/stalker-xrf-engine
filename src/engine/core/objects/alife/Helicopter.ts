@@ -11,7 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class Helicopter extends cse_alife_helicopter {
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -19,7 +19,7 @@ export class Helicopter extends cse_alife_helicopter {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_unregister(): void {
     unregisterStoryLinkByObjectId(this.id);
@@ -27,7 +27,7 @@ export class Helicopter extends cse_alife_helicopter {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override keep_saved_data_anyway(): boolean {
     return true;

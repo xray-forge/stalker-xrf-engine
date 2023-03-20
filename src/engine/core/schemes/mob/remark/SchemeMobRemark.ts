@@ -20,7 +20,7 @@ export class SchemeMobRemark extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -33,7 +33,7 @@ export class SchemeMobRemark extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override setScheme(
     object: XR_game_object,

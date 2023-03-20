@@ -27,7 +27,7 @@ export class ActionPatrol extends action_base {
   public time_to_update: number = time_global() + 1000;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemePatrolState, object: XR_game_object) {
     super(null, ActionPatrol.__name);
@@ -36,7 +36,7 @@ export class ActionPatrol extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -48,7 +48,7 @@ export class ActionPatrol extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public activateScheme(): void {
     this.state.signals = new LuaTable();
@@ -76,7 +76,7 @@ export class ActionPatrol extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -108,7 +108,7 @@ export class ActionPatrol extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     if (this.object.alive()) {
@@ -119,26 +119,26 @@ export class ActionPatrol extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public formation_callback(mode: number, number: number, index: number): void {}
 
   /**
-   * todo;
+   * todo: Description.
    */
   public death_callback(npc: XR_game_object): void {
     registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public deactivate(npc: XR_game_object): void {
     registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public net_destroy(npc: XR_game_object): void {
     this.deactivate(npc);

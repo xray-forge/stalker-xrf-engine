@@ -76,7 +76,7 @@ export class StateManager {
   }> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(npc: XR_game_object) {
     this.npc = npc;
@@ -89,7 +89,7 @@ export class StateManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public set_state(
     state_name: TName,
@@ -191,14 +191,14 @@ export class StateManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_state(): Optional<string> {
     return this.target_state;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update(): void {
     if (this.animation.states.current_state === states.get(this.target_state).animation) {
@@ -241,7 +241,7 @@ export class StateManager {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public __tostring(): string {
     return `StateManager #npc: ${this.npc.name()} #target_state: ${this.target_state} #combat: ${

@@ -42,7 +42,7 @@ export class ActionCompanionActivity extends action_base {
   public last_state: string = "guard_na";
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(storage: ISchemeCompanionState) {
     super(null, ActionCompanionActivity.__name);
@@ -50,7 +50,7 @@ export class ActionCompanionActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -68,7 +68,7 @@ export class ActionCompanionActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public beh_walk_simple(): void {
     const actor: Optional<XR_game_object> = registry.actor;
@@ -131,7 +131,7 @@ export class ActionCompanionActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public beh_wait_simple(): void {
     const new_state = "threat";
@@ -153,7 +153,7 @@ export class ActionCompanionActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -166,7 +166,7 @@ export class ActionCompanionActivity extends action_base {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override finalize(): void {
     super.finalize();

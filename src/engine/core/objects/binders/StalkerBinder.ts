@@ -92,14 +92,14 @@ export class StalkerBinder extends object_binder {
   public e_index: Optional<number> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object) {
     super(object);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override reinit(): void {
     super.reinit();
@@ -110,7 +110,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public extrapolate_callback(currentPoint: TNumberId): boolean {
     if (this.state.active_section) {
@@ -122,7 +122,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_spawn(object: XR_cse_alife_creature_abstract): boolean {
     const visual = getConfigString(system_ini(), this.object.section(), "set_visual", object, false, "");
@@ -240,7 +240,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_destroy(): void {
     DynamicMusicManager.NPC_TABLE.delete(this.object.id());
@@ -282,7 +282,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public clear_callbacks(): void {
     this.object.set_patrol_extrapolate_callback(null);
@@ -292,7 +292,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onHit(
     object: XR_game_object,
@@ -378,7 +378,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onDeath(victim: XR_game_object, who: Optional<XR_game_object>): void {
     this.onHit(victim, 1, new vector().set(0, 0, 0), who, "from_death_callback");
@@ -440,7 +440,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onUse(object: XR_game_object, who: XR_game_object): void {
     if (this.object.alive()) {
@@ -456,7 +456,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(delta: TDuration): void {
     super.update(delta);
@@ -554,14 +554,14 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override net_save_relevant(): boolean {
     return true;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, StalkerBinder.__name);
@@ -576,7 +576,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override load(reader: XR_reader): void {
     this.loaded = true;
@@ -593,7 +593,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public onHearSound(
     target: XR_game_object,

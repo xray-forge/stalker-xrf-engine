@@ -17,7 +17,7 @@ export class StateManagerEvaEnd extends property_evaluator {
   private combatPlanner: Optional<XR_action_planner> = null;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaEnd.__name);
@@ -25,7 +25,7 @@ export class StateManagerEvaEnd extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     if (this.actionPlanner === null) {

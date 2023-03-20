@@ -22,7 +22,7 @@ export class SquadReachTargetAction {
   public actionIdleTime!: number;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(squad: Squad) {
     this.simulationBoardManager = squad.simulationBoardManager;
@@ -30,12 +30,12 @@ export class SquadReachTargetAction {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public finalize(): void {}
 
   /**
-   * todo;
+   * todo: Description.
    */
   public update(isUnderSimulation: boolean): boolean {
     const squad = alife().object<Squad>(this.squadId)!;
@@ -61,7 +61,7 @@ export class SquadReachTargetAction {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public make(isUnderSimulation: boolean): void {
     const squad: Squad = alife().object<Squad>(this.squadId) as Squad;

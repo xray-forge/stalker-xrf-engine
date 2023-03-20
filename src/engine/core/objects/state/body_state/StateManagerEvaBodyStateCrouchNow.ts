@@ -17,7 +17,7 @@ export class StateManagerEvaBodyStateCrouchNow extends property_evaluator {
   public stateManager: StateManager;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(stateManager: StateManager) {
     super(null, StateManagerEvaBodyStateCrouchNow.__name);
@@ -25,7 +25,7 @@ export class StateManagerEvaBodyStateCrouchNow extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     return this.object.target_body_state() === move.crouch;

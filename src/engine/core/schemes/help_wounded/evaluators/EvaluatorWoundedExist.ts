@@ -18,7 +18,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
   public readonly state: ISchemeHelpWoundedState;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(storage: ISchemeHelpWoundedState) {
     super(null, EvaluatorWoundedExist.__name);
@@ -26,7 +26,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     const object: XR_game_object = this.object;

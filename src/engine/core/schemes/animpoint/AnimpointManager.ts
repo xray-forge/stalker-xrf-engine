@@ -64,7 +64,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   public started: boolean = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(object: XR_game_object, state: ISchemeAnimpointState) {
     super(object, state);
@@ -72,7 +72,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public initialize(): void {
     this.state.base_action = null;
@@ -89,7 +89,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public activateScheme(loading: boolean, object: XR_game_object, switching_scheme: boolean): void {
     this.state.signals = new LuaTable();
@@ -120,7 +120,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public calculate_position(): void {
     const smartcover = registry.smartCovers.get(this.state.cover_name);
@@ -182,14 +182,14 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_animation_params(): LuaMultiReturn<[Optional<XR_vector>, Optional<XR_vector>]> {
     return $multi(this.position, this.smart_direction);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public position_riched(): boolean {
     if (this.current_action !== null) {
@@ -217,7 +217,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public fill_approved_actions(): void {
     const is_in_camp = this.camp !== null;
@@ -249,7 +249,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public start(): void {
     if (this.state.use_camp) {
@@ -269,7 +269,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public stop(): void {
     if (this.camp !== null) {
@@ -281,14 +281,14 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public get_action(): Optional<string> {
     return this.current_action;
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override update(): void {
     const tmp_actions: LuaTable<number, string> = new LuaTable();

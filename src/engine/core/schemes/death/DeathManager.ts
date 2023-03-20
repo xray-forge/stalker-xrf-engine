@@ -11,7 +11,7 @@ import { EScheme, Optional } from "@/engine/lib/types";
  */
 export class DeathManager extends AbstractSchemeManager<ISchemeDeathState> {
   /**
-   * todo;
+   * todo: Description.
    */
   public death_callback(victim: XR_game_object, who: Optional<XR_game_object>): void {
     (registry.objects.get(victim.id())[EScheme.DEATH] as ISchemeDeathState).killer = who === null ? -1 : who.id();

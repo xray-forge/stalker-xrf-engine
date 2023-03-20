@@ -20,7 +20,7 @@ export class SmartCover extends cse_smart_cover {
   public last_description: string = "";
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(section: TSection) {
     super(section);
@@ -31,7 +31,7 @@ export class SmartCover extends cse_smart_cover {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_before_register(): void {
     super.on_before_register();
@@ -39,7 +39,7 @@ export class SmartCover extends cse_smart_cover {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_register(): void {
     super.on_register();
@@ -49,7 +49,7 @@ export class SmartCover extends cse_smart_cover {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override on_unregister(): void {
     unregisterStoryLinkByObjectId(this.id);
@@ -59,7 +59,7 @@ export class SmartCover extends cse_smart_cover {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override FillProps(pref: string, items: LuaTable<number>): void {
     super.FillProps(pref, items);
@@ -97,7 +97,7 @@ export class SmartCover extends cse_smart_cover {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
@@ -119,7 +119,7 @@ export class SmartCover extends cse_smart_cover {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override STATE_Read(packet: XR_net_packet, size: TCount): void {
     super.STATE_Read(packet, size);

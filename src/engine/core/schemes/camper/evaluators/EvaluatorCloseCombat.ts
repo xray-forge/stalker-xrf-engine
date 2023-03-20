@@ -18,7 +18,7 @@ export class EvaluatorCloseCombat extends property_evaluator {
   public isCloseCombat: boolean = false;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public constructor(state: ISchemeCamperState) {
     super(null, EvaluatorCloseCombat.__name);
@@ -26,7 +26,7 @@ export class EvaluatorCloseCombat extends property_evaluator {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public override evaluate(): boolean {
     if (!isActiveSection(this.object, this.state.section)) {

@@ -34,7 +34,7 @@ export class SchemeMeet extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override addToBinder(
     object: XR_game_object,
@@ -91,14 +91,14 @@ export class SchemeMeet extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     AbstractScheme.assignStateAndBind(object, ini, scheme, section);
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override resetScheme(
     object: XR_game_object,
@@ -115,7 +115,7 @@ export class SchemeMeet extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());
@@ -124,7 +124,7 @@ export class SchemeMeet extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static initMeetScheme(
     object: XR_game_object,
@@ -276,7 +276,7 @@ export class SchemeMeet extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static updateObjectInteractionAvailability(object: XR_game_object): void {
     if (isObjectWounded(object)) {
@@ -315,7 +315,7 @@ export class SchemeMeet extends AbstractScheme {
   }
 
   /**
-   * todo;
+   * todo: Description.
    */
   public static onMeetWithObject(victim: XR_game_object, who: XR_game_object): void {
     if (!victim.alive()) {
