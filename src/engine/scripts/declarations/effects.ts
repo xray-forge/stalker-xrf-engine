@@ -1749,10 +1749,8 @@ export function clear_smart_terrain(actor: XR_game_object, object: XR_game_objec
  * todo;
  */
 export function give_task(actor: XR_game_object, obj: XR_game_object, p: [Optional<string>]) {
-  logger.info("Give actor task");
-
   if (p[0] === null) {
-    abort("No parameter in give_task function.");
+    abort("No parameter in give_task effect.");
   }
 
   TaskManager.getInstance().giveTask(p[0]);
@@ -1762,13 +1760,13 @@ export function give_task(actor: XR_game_object, obj: XR_game_object, p: [Option
  * todo;
  */
 export function set_active_task(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
-  logger.info("Set active task");
+  logger.info("Set active task:", p[0]);
 
   if (p[0]) {
-    const t: Optional<XR_CGameTask> = actor.get_task(tostring(p[0]), true);
+    const task: Optional<XR_CGameTask> = actor.get_task(tostring(p[0]), true);
 
-    if (t) {
-      actor.set_active_task(t);
+    if (task) {
+      actor.set_active_task(task);
     }
   }
 }
@@ -2242,24 +2240,9 @@ export function remove_item(actor: XR_game_object, npc: XR_game_object, p: [stri
 
 /**
  * todo;
- * todo: Shared game_save util.
  */
-export function scenario_autosave(actor: XR_game_object, npc: XR_game_object, p: [string]) {
-  const newSaveFileName = p[0];
-
-  if (newSaveFileName === null) {
-    abort("You are trying to use scenario_autosave without save name");
-  }
-
-  if (IsImportantSave()) {
-    const saveParameter: string = user_name() + " - " + game.translate_string(newSaveFileName);
-
-    logger.info("Performing auto-save, detected as important.", newSaveFileName, saveParameter);
-
-    executeConsoleCommand(console_commands.save, saveParameter);
-  } else {
-    logger.info("Not important save, skip.", newSaveFileName);
-  }
+export function scenario_autosave(actor: XR_game_object, npc: XR_game_object, p: [TName]): void {
+  createScenarioAutoSave(p[0] as TName);
 }
 
 /**
