@@ -34,14 +34,21 @@ export function stringifyAsJson(
     }
 
     let result: string = "{";
+    let index: number = 0;
 
     for (const [k, v] of pairs(target)) {
+      if (index !== 0) {
+        result += "," + separator;
+      }
+
       result += string.format(
-        '"%s": %s,%s',
+        '"%s": %s',
         stringifyKey(k),
         stringifyAsJson(v, separator, depth + 1, maxDepth, circular),
         separator
       );
+
+      index++;
     }
 
     return result + "}";

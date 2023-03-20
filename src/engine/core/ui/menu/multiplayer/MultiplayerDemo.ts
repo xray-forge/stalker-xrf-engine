@@ -19,6 +19,7 @@ import {
   XR_CUITextWnd,
   XR_CUIWindow,
   XR_FS,
+  XR_FS_file_list_ex,
   XR_vector2,
 } from "xray16";
 
@@ -27,8 +28,9 @@ import { MultiplayerDemoPlayerInfo } from "@/engine/core/ui/menu/multiplayer/Mul
 import { MultiplayerDemoPlayerStatItem } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemoPlayerStatItem";
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { roots } from "@/engine/lib/constants/roots";
 import { textures } from "@/engine/lib/constants/textures";
-import { Optional, TName } from "@/engine/lib/types";
+import { Optional, TCount, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -133,14 +135,18 @@ export class MultiplayerDemo extends CUIWindow {
   public fillList(): void {
     this.demo_list.RemoveAll();
 
-    const f = getFS();
-    const flist = f.file_list_open_ex("$logs$", bit_or(FS.FS_ListFiles, FS.FS_RootOnly), "*.demo");
-    const f_cnt = flist.Size();
+    const fs: XR_FS = getFS();
+    const filesList: XR_FS_file_list_ex = fs.file_list_open_ex(
+      roots.logs,
+      bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
+      "*.demo"
+    );
+    const filesCount: TCount = filesList.Size();
 
-    flist.Sort(FS.FS_sort_by_modif_down);
+    filesList.Sort(FS.FS_sort_by_modif_down);
 
-    for (let it = 0; it < f_cnt; it += 1) {
-      const file = flist.GetAt(it);
+    for (let it = 0; it < filesCount; it += 1) {
+      const file = filesList.GetAt(it);
       const file_name: string = string.sub(file.NameFull(), 0, string.len(file.NameFull()) - 5);
       const date_time: string = "[" + file.ModifDigitOnly() + "]";
 
@@ -197,7 +203,7 @@ export class MultiplayerDemo extends CUIWindow {
   public getMapTextureName(mapName: TName): string {
     const textureName: TName = "intro\\intro_map_pic_" + mapName;
 
-    if (getFS().exist("$game_textures$", textureName + ".dds") !== null) {
+    if (getFS().exist(roots.gameTextures, textureName + ".dds") !== null) {
       return textureName;
     }
 
@@ -351,9 +357,9 @@ export class MultiplayerDemo extends CUIWindow {
     }
 
     if (this.on_yes_action === "delete") {
-      const file_name_to_delete: string = fs.update_path("$logs$", item.fn.GetText() + ".demo");
+      const filenameToDelete: TName = fs.update_path(roots.logs, item.fn.GetText() + ".demo");
 
-      fs.file_delete(file_name_to_delete);
+      fs.file_delete(filenameToDelete);
       this.fillList();
       this.on_yes_action = "";
 
@@ -361,8 +367,8 @@ export class MultiplayerDemo extends CUIWindow {
     }
 
     if (this.on_yes_action === "rename") {
-      const old_file_name = fs.update_path("$logs$", item.fn.GetText() + ".demo");
-      const new_file_name = fs.update_path("$logs$", this.file_name_to_rename + ".demo");
+      const old_file_name = fs.update_path(roots.logs, item.fn.GetText() + ".demo");
+      const new_file_name = fs.update_path(roots.logs, this.file_name_to_rename + ".demo");
 
       if (old_file_name === new_file_name) {
         this.on_yes_action = "";

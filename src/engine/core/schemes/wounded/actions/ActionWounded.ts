@@ -7,7 +7,7 @@ import { set_state } from "@/engine/core/objects/state/StateManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { NIL, TRUE } from "@/engine/lib/constants/words";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -73,7 +73,7 @@ export class ActionWounded extends action_base {
     const woundManagerState: string = pstor_retrieve(this.object, "wounded_state")!;
     const woundManagerSound: string = pstor_retrieve(this.object, "wounded_sound")!;
 
-    if (woundManagerState === STRINGIFIED_TRUE) {
+    if (woundManagerState === TRUE) {
       const h = new hit();
 
       h.power = 0;
@@ -88,7 +88,7 @@ export class ActionWounded extends action_base {
         woundManager.eatMedkit();
       }
 
-      if (tostring(woundManagerState) === STRINGIFIED_NIL) {
+      if (tostring(woundManagerState) === NIL) {
         abort("Wrong wounded animation %s", this.object.name());
       }
 
@@ -96,7 +96,7 @@ export class ActionWounded extends action_base {
       set_state(this.object, woundManagerState, null, null, { look_object: null, look_position: null }, null);
     }
 
-    if (woundManagerSound === STRINGIFIED_NIL) {
+    if (woundManagerSound === NIL) {
       GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), null, null, null);
     } else {
       GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), woundManagerSound, null, null);

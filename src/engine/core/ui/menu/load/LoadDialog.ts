@@ -39,8 +39,9 @@ import { deleteGameSave, gatFileDataForGameSave, isGameSaveFileExist } from "@/e
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { roots } from "@/engine/lib/constants/roots";
 import { textures } from "@/engine/lib/constants/textures";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TLabel, TName } from "@/engine/lib/types";
 
 const base: string = "menu\\LoadDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -131,22 +132,22 @@ export class LoadDialog extends CUIScriptWnd {
     this.listBox.RemoveAll();
 
     const fs: XR_FS = getFS();
-    const flist: XR_FS_file_list_ex = fs.file_list_open_ex(
-      "$game_saves$",
+    const fileList: XR_FS_file_list_ex = fs.file_list_open_ex(
+      roots.gameSaves,
       bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
       "*" + gameConfig.GAME_SAVE_EXTENSION
     );
 
-    flist.Sort(FS.FS_sort_by_modif_down);
+    fileList.Sort(FS.FS_sort_by_modif_down);
 
-    for (let it = 0; it < flist.Size(); it += 1) {
-      const file: XR_FS_item = flist.GetAt(it);
-      const filename: string = string.sub(
+    for (let it = 0; it < fileList.Size(); it += 1) {
+      const file: XR_FS_item = fileList.GetAt(it);
+      const filename: TName = string.sub(
         file.NameFull(),
         0,
         string.len(file.NameFull()) - string.len(gameConfig.GAME_SAVE_EXTENSION)
       );
-      const datetime: string = "[" + file.ModifDigitOnly() + "]";
+      const datetime: TLabel = "[" + file.ModifDigitOnly() + "]";
 
       this.AddItemToList(filename, datetime);
     }

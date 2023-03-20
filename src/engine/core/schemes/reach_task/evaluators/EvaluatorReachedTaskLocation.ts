@@ -26,8 +26,8 @@ export class EvaluatorReachedTaskLocation extends property_evaluator {
   public override evaluate(): boolean {
     const squad = getObjectSquad(this.object);
 
-    if (squad && squad.current_action && squad.current_action.name === "reach_target") {
-      const squad_target = alife().object<Actor | SmartTerrain | Squad>(squad.assigned_target_id!);
+    if (squad && squad.currentAction && squad.currentAction.name === "reach_target") {
+      const squad_target = alife().object<Actor | SmartTerrain | Squad>(squad.assignedTargetId!);
 
       if (squad_target === null) {
         return false;

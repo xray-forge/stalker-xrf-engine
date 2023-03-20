@@ -145,13 +145,13 @@ export class MonsterBinder extends object_binder {
     if (squad !== null) {
       this.object.info_add("squad_id: " + squad.section_name());
 
-      if (squad.current_action !== null) {
+      if (squad.currentAction !== null) {
         const target =
-          squad.assigned_target_id &&
-          alife().object(squad.assigned_target_id) &&
-          alife().object(squad.assigned_target_id)!.name();
+          squad.assignedTargetId &&
+          alife().object(squad.assignedTargetId) &&
+          alife().object(squad.assignedTargetId)!.name();
 
-        this.object.info_add("current_action: " + squad.current_action.name + "[" + tostring(target) + "]");
+        this.object.info_add("current_action: " + squad.currentAction.name + "[" + tostring(target) + "]");
       }
     }
 
@@ -163,8 +163,8 @@ export class MonsterBinder extends object_binder {
       return;
     }
 
-    if (squad && squad.current_action && squad.current_action.name === "reach_target") {
-      const squad_target = registry.simulationObjects.get(squad.assigned_target_id!);
+    if (squad && squad.currentAction && squad.currentAction.name === "reach_target") {
+      const squad_target = registry.simulationObjects.get(squad.assignedTargetId!);
 
       if (squad_target === null) {
         return;

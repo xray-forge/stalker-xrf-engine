@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { isObjectWounded } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { STRINGIFIED_FALSE } from "@/engine/lib/constants/words";
+import { FALSE } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -53,7 +53,7 @@ export class EvaluatorContact extends property_evaluator {
       }
 
       if (this.actionPlanner.evaluator(stalker_ids.property_enemy).evaluate()) {
-        this.state.meet_manager.use = STRINGIFIED_FALSE;
+        this.state.meet_manager.use = FALSE;
         this.object.disable_talk();
 
         return false;

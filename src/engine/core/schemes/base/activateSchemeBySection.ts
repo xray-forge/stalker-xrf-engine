@@ -11,7 +11,7 @@ import { getObjectConfigOverrides } from "@/engine/core/utils/ini/config";
 import { getSchemeByIniSection } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { Optional, TNumberId } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -43,9 +43,9 @@ export function activateSchemeBySection(
     registry.objects.get(objectId).activation_game_time = game.get_game_time();
   }
 
-  if (section === STRINGIFIED_NIL) {
+  if (section === NIL) {
     registry.objects.get(objectId).overrides = null;
-    resetGenericSchemesOnSchemeSwitch(object, EScheme.NIL, STRINGIFIED_NIL);
+    resetGenericSchemesOnSchemeSwitch(object, EScheme.NIL, NIL);
     registry.objects.get(objectId).active_section = null;
     registry.objects.get(objectId).active_scheme = null;
 

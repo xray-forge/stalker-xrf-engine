@@ -7,7 +7,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseNames, TConditionList } from "@/engine/core/utils/parse";
 import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { quest_items } from "@/engine/lib/constants/items/quest_items";
-import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TCount, TLabel, TName, TRate } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
@@ -194,9 +194,9 @@ export class ItemUpgradesManager extends AbstractCoreManager {
       const param: string = STALKER_UPGRADE_INFO.r_string(this.currentMechanicName + "_upgr", section);
 
       if (param !== null) {
-        if (param === STRINGIFIED_FALSE) {
+        if (param === FALSE) {
           return 1;
-        } else if (param !== STRINGIFIED_TRUE) {
+        } else if (param !== TRUE) {
           const possibility_table = parseConditionsList(param);
           const possibility: Optional<TSection> = pickSectionFromCondList(
             registry.actor,
@@ -204,7 +204,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
             possibility_table
           );
 
-          if (!possibility || possibility === STRINGIFIED_FALSE) {
+          if (!possibility || possibility === FALSE) {
             return 2;
           }
         }
@@ -236,7 +236,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
       const param: string = STALKER_UPGRADE_INFO.r_string(this.currentMechanicName + "_upgr", section);
 
       if (param !== null) {
-        if (param === STRINGIFIED_FALSE) {
+        if (param === FALSE) {
           return label;
         } else {
           this.upgradeHints = null;
@@ -244,7 +244,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
           const possibility_table = parseConditionsList(param);
           const possibility = pickSectionFromCondList(actor, this.currentSpeaker, possibility_table);
 
-          if (!possibility || possibility === STRINGIFIED_FALSE) {
+          if (!possibility || possibility === FALSE) {
             label = label + this.getPossibilitiesLabel(this.currentMechanicName, possibility_table);
           }
         }

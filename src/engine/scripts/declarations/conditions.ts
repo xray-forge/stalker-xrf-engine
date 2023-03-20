@@ -67,7 +67,7 @@ import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { relations } from "@/engine/lib/constants/relations";
-import { STRINGIFIED_FALSE } from "@/engine/lib/constants/words";
+import { FALSE } from "@/engine/lib/constants/words";
 import { zones } from "@/engine/lib/constants/zones";
 import {
   AnyArgs,
@@ -308,7 +308,7 @@ export function one_obj_in_zone(actor: XR_game_object, zone: XR_game_object, par
   if (obj1) {
     return zone.inside(alife().object(obj1)!.position);
   } else {
-    return params[1] !== STRINGIFIED_FALSE;
+    return params[1] !== FALSE;
   }
 }
 
@@ -1543,7 +1543,7 @@ export function object_exist(actor: XR_game_object, npc: XR_game_object, params:
  * todo;
  */
 export function squad_curr_action(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
-  return getObjectSquad(npc)!.current_action?.name === p[0];
+  return getObjectSquad(npc)!.currentAction?.name === p[0];
 }
 
 /**

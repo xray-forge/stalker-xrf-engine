@@ -67,10 +67,10 @@ export class ActionReachTaskLocation extends action_base {
       "Initialize reach location action:",
       objectSquad.name(),
       this.object.name(),
-      objectSquad.assigned_target_id
+      objectSquad.assignedTargetId
     );
 
-    this.reachTargetId = objectSquad.assigned_target_id!;
+    this.reachTargetId = objectSquad.assignedTargetId!;
     this.squadId = objectSquad.id;
     this.currentState = "patrol";
     this.formation = "back";
@@ -117,16 +117,16 @@ export class ActionReachTaskLocation extends action_base {
 
     const objectSquad: Squad = getObjectSquad(this.object) as Squad;
 
-    if (objectSquad.assigned_target_id !== this.reachTargetId) {
-      logger.info("Updating reach task target:", this.reachTargetId, "->", objectSquad.assigned_target_id, "$");
+    if (objectSquad.assignedTargetId !== this.reachTargetId) {
+      logger.info("Updating reach task target:", this.reachTargetId, "->", objectSquad.assignedTargetId, "$");
 
-      this.reachTargetId = objectSquad.assigned_target_id!;
+      this.reachTargetId = objectSquad.assignedTargetId!;
     }
 
-    let squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(objectSquad.assigned_target_id!);
+    let squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(objectSquad.assignedTargetId!);
 
     if (squadTarget === null && objectSquad.get_script_target() !== null) {
-      squadTarget = alife().object(objectSquad.assigned_target_id!);
+      squadTarget = alife().object(objectSquad.assignedTargetId!);
     }
 
     if (this.object.id() === (getObjectSquad(this.object) as Squad).commander_id()) {

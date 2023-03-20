@@ -26,7 +26,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { action } from "@/engine/core/utils/object";
 import { IWaypointData, parsePathWaypoints } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
-import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { NIL, TRUE } from "@/engine/lib/constants/words";
 import { EScheme, LuaArray, Optional, TIndex, TName } from "@/engine/lib/types";
 
 const default_wait_time: number = 5000;
@@ -155,7 +155,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
     const suggested_crouch = this.path_walk_info!.get(index).get("c");
 
-    if (suggested_crouch === STRINGIFIED_TRUE) {
+    if (suggested_crouch === TRUE) {
       this.crouch = true;
     } else {
       this.crouch = false;
@@ -163,7 +163,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
     const suggested_running = this.path_walk_info!.get(index).get("r");
 
-    if (suggested_running === STRINGIFIED_TRUE) {
+    if (suggested_running === TRUE) {
       this.running = true;
     } else {
       this.running = false;
@@ -216,7 +216,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       let suggested_anim_set = this.path_look_info!.get(pt_chosen_idx)["a"];
 
       if (suggested_anim_set) {
-        if (suggested_anim_set === STRINGIFIED_NIL) {
+        if (suggested_anim_set === NIL) {
           suggested_anim_set = null;
         }
 

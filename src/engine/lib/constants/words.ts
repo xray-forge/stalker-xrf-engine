@@ -1,17 +1,17 @@
 /**
  * Null stringified by lua.
  */
-export const STRINGIFIED_NIL = "nil" as const;
+export const NIL = "nil" as const;
 
 /**
  * True stringified by lua.
  */
-export const STRINGIFIED_TRUE = "true" as const;
+export const TRUE = "true" as const;
 
 /**
  * False stringified by lua.
  */
-export const STRINGIFIED_FALSE = "false" as const;
+export const FALSE = "false" as const;
 
 /**
  * Constant string for options / configurations.

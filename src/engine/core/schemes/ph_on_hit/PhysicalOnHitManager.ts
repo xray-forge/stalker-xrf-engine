@@ -5,7 +5,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractScheme
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/ph_on_hit/ISchemePhysicalOnHitState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { Optional, TCount, TIndex, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -24,7 +24,7 @@ export class PhysicalOnHitManager extends AbstractSchemeManager<ISchemePhysicalO
     who: Optional<XR_game_object>,
     boneIndex: TIndex
   ): void {
-    const whoName: TName = who ? who.name() : STRINGIFIED_NIL;
+    const whoName: TName = who ? who.name() : NIL;
 
     logger.info("Object hit:", object.name(), "<-", whoName, amount);
 

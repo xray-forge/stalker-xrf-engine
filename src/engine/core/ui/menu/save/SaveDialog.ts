@@ -37,6 +37,7 @@ import { deleteGameSave } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { roots } from "@/engine/lib/constants/roots";
 import { Optional } from "@/engine/lib/types";
 
 const base: string = "menu\\SaveDialog.component";
@@ -128,16 +129,16 @@ export class SaveDialog extends CUIScriptWnd {
 
     this.listBox.RemoveAll();
 
-    const flist: XR_FS_file_list_ex = getFS().file_list_open_ex(
-      "$game_saves$",
+    const fileList: XR_FS_file_list_ex = getFS().file_list_open_ex(
+      roots.gameSaves,
       FS.FS_ListFiles,
       "*" + gameConfig.GAME_SAVE_EXTENSION
     );
 
-    flist.Sort(FS.FS_sort_by_modif_down);
+    fileList.Sort(FS.FS_sort_by_modif_down);
 
-    for (let it = 0; it < flist.Size(); it += 1) {
-      const file: XR_FS_item = flist.GetAt(it);
+    for (let it = 0; it < fileList.Size(); it += 1) {
+      const file: XR_FS_item = fileList.GetAt(it);
       const file_name: string = string.sub(
         file.NameFull(),
         0,
@@ -238,10 +239,10 @@ export class SaveDialog extends CUIScriptWnd {
     }
 
     const fs: XR_FS = getFS();
-    const fileList: XR_FS_file_list = fs.file_list_open("$game_saves$", FS.FS_ListFiles);
-    const file_struct: unknown = fs.exist("$game_saves$", this.newSave + gameConfig.GAME_SAVE_EXTENSION);
+    const fileList: XR_FS_file_list = fs.file_list_open(roots.gameSaves, FS.FS_ListFiles);
+    const fileExists: Optional<number> = fs.exist(roots.gameSaves, this.newSave + gameConfig.GAME_SAVE_EXTENSION);
 
-    if (file_struct !== null) {
+    if (fileExists !== null) {
       logger.info("File already exists");
 
       this.modalBoxMode = 1;

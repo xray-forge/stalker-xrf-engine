@@ -5,10 +5,14 @@ import { AbstractPlayableSound } from "@/engine/core/sounds/playable_sounds/Abst
 import { EPlayableSound } from "@/engine/core/sounds/playable_sounds/EPlayableSound";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
+import { roots } from "@/engine/lib/constants/roots";
+import { Optional, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
+/**
+ * todo: Description.
+ */
 export class LoopedSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound.LOOPED;
 
@@ -16,17 +20,23 @@ export class LoopedSound extends AbstractPlayableSound {
 
   public sound: string;
 
-  public constructor(snd_ini: XR_ini_file, section: string) {
-    super(snd_ini, section);
+  /**
+   * todo: Description.
+   */
+  public constructor(soundIni: XR_ini_file, section: TSection) {
+    super(soundIni, section);
 
-    if (getFS().exist("$game_sounds$", this.path + ".ogg") !== null) {
+    if (getFS().exist(roots.gameSounds, this.path + ".ogg") !== null) {
       this.sound = this.path;
     } else {
       abort("There are no looped sound with path: %s", this.path);
     }
   }
 
-  public play(objectId: number): boolean {
+  /**
+   * todo: Description.
+   */
+  public play(objectId: TNumberId): boolean {
     const object: Optional<XR_game_object> = registry.objects.get(objectId).object!;
 
     if (object === null) {

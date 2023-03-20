@@ -27,7 +27,7 @@ import { captions } from "@/engine/lib/constants/captions";
 import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
 import { levels } from "@/engine/lib/constants/levels";
 import { npc_map_marks, TMapMark } from "@/engine/lib/constants/npc_map_marks";
-import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   EScheme,
   Maybe,
@@ -72,14 +72,14 @@ export class MapDisplayManager extends AbstractCoreManager {
 
     let spotSection;
 
-    if (scheme === null || scheme === STRINGIFIED_NIL) {
+    if (scheme === null || scheme === NIL) {
       spotSection = getConfigString(state.ini, state.section_logic, "show_spot", object, false, "");
     } else {
       spotSection = getConfigString(state.ini, section, "show_spot", object, false, "");
     }
 
     if (spotSection === null) {
-      spotSection = STRINGIFIED_TRUE;
+      spotSection = TRUE;
     }
 
     const actor: XR_game_object = registry.actor;
@@ -107,7 +107,7 @@ export class MapDisplayManager extends AbstractCoreManager {
     const obj: Optional<XR_cse_alife_object> = sim.object(object.id());
 
     if (obj?.online) {
-      obj.visible_for_map(spot !== STRINGIFIED_FALSE);
+      obj.visible_for_map(spot !== FALSE);
 
       if (mapSpot !== null) {
         const descriptor = mapNpcMarks[mapSpot];

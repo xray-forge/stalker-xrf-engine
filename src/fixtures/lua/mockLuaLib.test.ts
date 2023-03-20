@@ -28,6 +28,12 @@ describe("'lua' VM mocks to test libraries", () => {
     expect(string.find("abcd54abc", "%d+")).toEqual([5, 6, ""]);
   });
 
+  it("string format mock should be applied", () => {
+    expect(string.format("abc%s", "54")).toBe("abc54");
+    expect(string.format("%s-to-%s", "1", 1)).toBe("1-to-1");
+    expect(string.format("%s:%s:%s and %s", "a", 1, true, null)).toBe("a:1:true and nil");
+  });
+
   it("string len mock should be applied", () => {
     expect(string.len("")).toBe(0);
     expect(string.len("a")).toBe(1);

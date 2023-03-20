@@ -18,7 +18,7 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import {
   AnyCallablesModule,
   AnyObject,
@@ -270,11 +270,11 @@ export function getObjectConfigOverrides(ini: XR_ini_file, section: TSection, ob
 
   if (ini.line_exist(section, "on_offline")) {
     overrides.on_offline_condlist = parseConditionsList(
-      getConfigString(ini, section, "on_offline", object, false, "", STRINGIFIED_NIL)
+      getConfigString(ini, section, "on_offline", object, false, "", NIL)
     );
   } else {
     overrides.on_offline_condlist = parseConditionsList(
-      getConfigString(ini, state.section_logic, "on_offline", object, false, "", STRINGIFIED_NIL)
+      getConfigString(ini, state.section_logic, "on_offline", object, false, "", NIL)
     );
   }
 

@@ -9,7 +9,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorSeenByObject } from "@/engine/core/utils/object";
 import { getDistanceBetween } from "@/engine/core/utils/physics";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TDistance, TDuration, TName, TNumberId, TTimestamp } from "@/engine/lib/types";
 import { ESchemeCondition } from "@/engine/lib/types/scheme";
 
@@ -19,10 +19,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 const SCHEME_LOGIC_SWITCH: Record<
-  ESchemeCondition | typeof STRINGIFIED_NIL,
+  ESchemeCondition | typeof NIL,
   (actor: XR_game_object, object: XR_game_object, state: IBaseSchemeState, logic: IBaseSchemeLogic) => boolean
 > = {
-  [STRINGIFIED_NIL]: () => abort("WARNING: try_switch_to_another_section: unknown condition encountered"),
+  [NIL]: () => abort("WARNING: try_switch_to_another_section: unknown condition encountered"),
   [ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN]: (actor, object, state, logic) =>
     isActorSeenByObject(object) &&
     getDistanceBetween(actor, object) <= (logic.v1 as TDistance) &&
@@ -89,8 +89,7 @@ export function trySwitchToAnotherSection(
   }
 
   for (const [index, condition] of logic) {
-    const conditionName: ESchemeCondition =
-      (string.match(condition.name, "([%a_]*)")[0] as ESchemeCondition) || STRINGIFIED_NIL;
+    const conditionName: ESchemeCondition = (string.match(condition.name, "([%a_]*)")[0] as ESchemeCondition) || NIL;
 
     if (SCHEME_LOGIC_SWITCH[conditionName](actor, object, state, condition)) {
       return true;

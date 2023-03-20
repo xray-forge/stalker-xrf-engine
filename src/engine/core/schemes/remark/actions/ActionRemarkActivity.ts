@@ -9,7 +9,7 @@ import { abort } from "@/engine/core/utils/debug";
 import { getSmartTerrainByName } from "@/engine/core/utils/gulag";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { Optional, TNumberId } from "@/engine/lib/types";
 
 const state_initial = 0;
@@ -235,7 +235,7 @@ export function init_target(
   let targetId: Optional<TNumberId> = null;
   let isTargetInitialized: boolean = false;
 
-  if (targetString === STRINGIFIED_NIL) {
+  if (targetString === NIL) {
     return $multi(targetPosition, targetId, isTargetInitialized);
   } else if (targetString === null) {
     instruction(obj, "");

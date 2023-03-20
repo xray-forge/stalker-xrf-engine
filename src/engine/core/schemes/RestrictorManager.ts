@@ -5,7 +5,7 @@ import { getParamString } from "@/engine/core/utils/ini/config";
 import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseNames } from "@/engine/core/utils/parse";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -98,7 +98,7 @@ export class RestrictorManager {
         }
       }
 
-      if (exist_rest === false && v !== STRINGIFIED_NIL) {
+      if (exist_rest === false && v !== NIL) {
         table.insert(ins_restr, v);
       }
     }
@@ -146,7 +146,7 @@ export class RestrictorManager {
         }
       }
 
-      if (exist_rest === false && v !== STRINGIFIED_NIL) {
+      if (exist_rest === false && v !== NIL) {
         table.insert(ins_restr, v);
       }
     }

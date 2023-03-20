@@ -28,9 +28,9 @@ import * as stateManagement from "@/engine/core/objects/state/state";
 import * as weaponManagement from "@/engine/core/objects/state/weapon";
 import { get_weapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
 import { abort } from "@/engine/core/utils/debug";
-import { stringifyAsJson } from "@/engine/core/utils/json";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorCmp } from "@/engine/core/utils/physics";
+import { stringifyAsJson } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { AnyCallable, AnyObject, Optional, TDuration, TName } from "@/engine/lib/types";
 

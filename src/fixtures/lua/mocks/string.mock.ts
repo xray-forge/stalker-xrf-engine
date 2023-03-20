@@ -1,13 +1,25 @@
 import { ILuaString, lauxlib, lua, lualib, to_jsstring, to_luastring } from "fengari";
 
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export const string = {
-  format: (base: string) => base,
+  format: (base: string, ...replacements: Array<unknown>) => {
+    let result: string = base;
+
+    for (const replacement of replacements) {
+      if (base.indexOf("%s") === -1) {
+        throw new Error("String format error - no target for interpolation found.");
+      }
+
+      result = result.replace("%s", tostring(replacement));
+    }
+
+    return result;
+  },
   find: (
     target: string,
     pattern: string,
@@ -35,7 +47,7 @@ export const string = {
     const matchData: Optional<ILuaString> = lauxlib.luaL_tolstring(L, -1);
     const match: Optional<string> = matchData ? to_jsstring(matchData) : null;
 
-    return [start, end, match === STRINGIFIED_NIL ? null : match];
+    return [start, end, match === NIL ? null : match];
   },
   gfind: (target: string, pattern: string) => string.gmatch(target, pattern),
   gmatch: (target: string, pattern: string): Array<string> => {

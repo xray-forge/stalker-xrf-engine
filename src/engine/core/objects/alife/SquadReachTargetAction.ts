@@ -39,10 +39,10 @@ export class SquadReachTargetAction {
    */
   public update(isUnderSimulation: boolean): boolean {
     const squad = alife().object<Squad>(this.squadId)!;
-    let squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assigned_target_id!);
+    let squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
 
     if (!isUnderSimulation) {
-      squadTarget = alife().object(squad.assigned_target_id!)!;
+      squadTarget = alife().object(squad.assignedTargetId!)!;
     }
 
     if (squadTarget === null) {
@@ -65,20 +65,16 @@ export class SquadReachTargetAction {
    */
   public make(isUnderSimulation: boolean): void {
     const squad: Squad = alife().object<Squad>(this.squadId) as Squad;
-    let squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assigned_target_id!);
+    const target: Optional<TSimulationObject> = isUnderSimulation
+      ? registry.simulationObjects.get(squad.assignedTargetId!)
+      : alife().object(squad.assignedTargetId!);
 
-    if (!isUnderSimulation) {
-      squadTarget = alife().object(squad.assigned_target_id!)!;
-    }
-
-    if (squadTarget !== null) {
-      squadTarget.on_reach_target(squad);
+    if (target !== null) {
+      target.on_reach_target(squad);
     }
 
     for (const squadMember of squad.squad_members()) {
-      if (squadMember.object !== null) {
-        this.simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
-      }
+      this.simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
     }
   }
 }

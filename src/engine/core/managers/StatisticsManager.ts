@@ -20,7 +20,7 @@ import { TInventoryItem } from "@/engine/lib/constants/items";
 import { TArtefact } from "@/engine/lib/constants/items/artefacts";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
 import { TMonster } from "@/engine/lib/constants/monsters";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { Optional, PartialRecord, StringOptional, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -330,11 +330,11 @@ export class StatisticsManager extends AbstractCoreManager {
 
     const bestMonster: StringOptional<TMonster> = reader.r_stringZ();
 
-    this.actor_statistic.best_monster = bestMonster === STRINGIFIED_NIL ? null : bestMonster;
+    this.actor_statistic.best_monster = bestMonster === NIL ? null : bestMonster;
 
     const favoriteWeapon: StringOptional<TWeapon> = reader.r_stringZ();
 
-    this.actor_statistic.favorite_weapon_sect = favoriteWeapon === STRINGIFIED_NIL ? null : favoriteWeapon;
+    this.actor_statistic.favorite_weapon_sect = favoriteWeapon === NIL ? null : favoriteWeapon;
 
     weaponsTable = new LuaTable();
 

@@ -16,4 +16,3 @@ Also you can utilize your IDE to create RUN options and execute all the scripts 
 ### Example: only LTX config changed
 
 - run `npm run build:configs`, rebuild only UI forms
-

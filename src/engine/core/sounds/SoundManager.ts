@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SoundStory } from "@/engine/core/sounds/SoundStory";
 import { getObjectSquad } from "@/engine/core/utils/object";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TDuration, TNumberId, TStringId, TTimestamp } from "@/engine/lib/types";
 
 // todo: Move to db.
@@ -169,7 +169,7 @@ export class SoundManager {
 
     this.last_playing_npc = npcId;
 
-    if (next_phrase.theme !== STRINGIFIED_NIL) {
+    if (next_phrase.theme !== NIL) {
       if (this.story && this.story.id === "squad_counter_attack") {
         const npc = alife().object<XR_cse_alife_creature_abstract>(npcId);
 
@@ -234,7 +234,7 @@ export class SoundManager {
   }
 }
 
-export function get_sound_manager(id: TStringId) {
+export function getSoundManagerForId(id: TStringId) {
   if (sound_managers.get(id) === null) {
     sound_managers.set(id, new SoundManager(id));
   }

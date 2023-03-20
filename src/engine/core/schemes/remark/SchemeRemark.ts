@@ -12,7 +12,7 @@ import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini/gette
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -85,7 +85,7 @@ export class SchemeRemark extends AbstractScheme {
       state.sender = getConfigString(ini, section, "tips_sender", object, false, "");
     }
 
-    state.target = getConfigString(ini, section, "target", object, false, "", STRINGIFIED_NIL);
+    state.target = getConfigString(ini, section, "target", object, false, "", NIL);
     state.target_id = null;
     state.target_position = null;
   }

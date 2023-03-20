@@ -12,7 +12,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { communities } from "@/engine/lib/constants/communities";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { AnyObject, Optional } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -75,7 +75,7 @@ export class SchemeCombat extends AbstractScheme {
     if (target.combat_type !== null) {
       script_combat_type = pickSectionFromCondList(actor, object, target.combat_type.condlist);
 
-      if (script_combat_type === STRINGIFIED_NIL) {
+      if (script_combat_type === NIL) {
         script_combat_type = null;
       }
     }

@@ -21,7 +21,7 @@ import { abort } from "@/engine/core/utils/debug";
 import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TName, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -93,8 +93,8 @@ export class Stalker extends cse_alife_human_stalker {
     const oldSection: StringOptional = packet.r_stringZ();
     const offlineObject: IStoredOfflineObject = registerOfflineObject(this.id);
 
-    offlineObject.active_section = oldSection === STRINGIFIED_NIL ? null : oldSection;
-    offlineObject.level_vertex_id = oldSection === STRINGIFIED_NIL ? null : (tonumber(oldLevelId) as number);
+    offlineObject.active_section = oldSection === NIL ? null : oldSection;
+    offlineObject.level_vertex_id = oldSection === NIL ? null : (tonumber(oldLevelId) as number);
 
     this.isCorpseLootDropped = packet.r_bool();
   }

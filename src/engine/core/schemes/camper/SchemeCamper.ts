@@ -9,7 +9,7 @@ import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { STRINGIFIED_FALSE } from "@/engine/lib/constants/words";
+import { FALSE } from "@/engine/lib/constants/words";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -125,7 +125,7 @@ export class SchemeCamper extends AbstractScheme {
     state.scantime_free = getConfigNumber(ini, section, "scantime_free", object, false, 60000);
     state.attack_sound = getConfigString(ini, section, "attack_sound", object, false, "", "fight_attack");
 
-    if (state.attack_sound === STRINGIFIED_FALSE) {
+    if (state.attack_sound === FALSE) {
       state.attack_sound = null;
     }
 

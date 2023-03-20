@@ -7,7 +7,7 @@ import {
   parseParameters,
   parseSpawnDetails,
 } from "@/engine/core/utils/parse";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { luaTableToArray } from "@/fixtures/lua/mocks/utils";
 
 describe("'ini_data' parsing utils", () => {
@@ -53,7 +53,7 @@ describe("'ini_data' parsing utils", () => {
   });
 
   it("Should correctly parse call parameters", () => {
-    expect(luaTableToArray(parseParameters(STRINGIFIED_NIL))).toEqual([STRINGIFIED_NIL]);
+    expect(luaTableToArray(parseParameters(NIL))).toEqual([NIL]);
     expect(luaTableToArray(parseParameters("abcd"))).toEqual(["abcd"]);
     expect(luaTableToArray(parseParameters("a|b|c|d"))).toEqual(["a", "b", "c", "d"]);
   });

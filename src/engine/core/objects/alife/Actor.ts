@@ -25,7 +25,7 @@ import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
-import { ACTOR, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { ACTOR, TRUE } from "@/engine/lib/constants/words";
 import { AnyObject, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -35,7 +35,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class Actor extends cse_alife_creature_actor {
-  public isSimulationAvailableConditionList: TConditionList = parseConditionsList(STRINGIFIED_TRUE);
+  public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
   public props!: AnyObject;
 
   protected readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
@@ -137,7 +137,7 @@ export class Actor extends cse_alife_creature_actor {
    * todo: Description.
    */
   public isSimulationAvailable(): boolean {
-    if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== STRINGIFIED_TRUE) {
+    if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== TRUE) {
       return false;
     }
 

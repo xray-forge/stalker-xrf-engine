@@ -1,7 +1,10 @@
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { math } from "@/fixtures/lua/mocks/math.mocks";
+import { mockPairs } from "@/fixtures/lua/mocks/pairs.mock";
 import { string } from "@/fixtures/lua/mocks/string.mock";
 import { table } from "@/fixtures/lua/mocks/table.mock";
+import { mockToString } from "@/fixtures/lua/mocks/tostring.mock";
+import { mockType } from "@/fixtures/lua/mocks/type.mock";
 
 /**
  * todo;
@@ -27,7 +30,11 @@ export function mockLuaLib(): void {
     }
   };
   // @ts-ignore
-  global.type = (value: unknown): string => typeof value;
+  global.tostring = jest.fn(mockToString);
+  // @ts-ignore
+  global.type = jest.fn(mockType);
+  // @ts-ignore
+  global.pairs = jest.fn(mockPairs);
   // @ts-ignore
   global.error = (message: string): string => {
     throw new Error(message);

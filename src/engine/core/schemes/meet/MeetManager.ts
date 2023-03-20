@@ -8,7 +8,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractScheme
 import { ISchemeMeetState } from "@/engine/core/schemes/meet/ISchemeMeetState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { isObjectInCombat } from "@/engine/core/utils/object";
-import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { Optional, TDistance, TStringId } from "@/engine/lib/types";
 
 /**
@@ -42,7 +42,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
       victimStoryId = pickSectionFromCondList(actor as XR_game_object, this.object, this.state.far_victim);
     }
 
-    if (tostring(victimStoryId) === STRINGIFIED_NIL) {
+    if (tostring(victimStoryId) === NIL) {
       victimStoryId = null;
     } else {
       if (alife() !== null) {
@@ -50,7 +50,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
       }
     }
 
-    if (tostring(state) !== STRINGIFIED_NIL) {
+    if (tostring(state) !== NIL) {
       if (victim === null) {
         set_state(this.object, state!, null, null, null, null);
       } else {
@@ -60,7 +60,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
     const snd = pickSectionFromCondList(actor, this.object, this.state.far_snd);
 
-    if (tostring(snd) !== STRINGIFIED_NIL) {
+    if (tostring(snd) !== NIL) {
       GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), snd, null, null);
     }
   }
@@ -125,7 +125,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
         if (this.hello_passed === false) {
           const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_hello);
 
-          if (tostring(snd) !== STRINGIFIED_NIL && !isObjectInCombat(this.object)) {
+          if (tostring(snd) !== NIL && !isObjectInCombat(this.object)) {
             GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), snd, null, null);
           }
 
@@ -136,7 +136,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
           if (this.bye_passed === false) {
             const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_bye);
 
-            if (tostring(snd) !== STRINGIFIED_NIL && !isObjectInCombat(this.object)) {
+            if (tostring(snd) !== NIL && !isObjectInCombat(this.object)) {
               GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), snd, null, null);
             }
 
@@ -169,8 +169,8 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
     const allow_break = pickSectionFromCondList(actor, this.object, this.state.allow_break);
 
-    if (this.allow_break !== (allow_break === STRINGIFIED_TRUE)) {
-      this.allow_break = allow_break === STRINGIFIED_TRUE;
+    if (this.allow_break !== (allow_break === TRUE)) {
+      this.allow_break = allow_break === TRUE;
     }
 
     if (this.state.meet_dialog !== null) {
@@ -178,7 +178,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
       if (this.startdialog !== start_dialog) {
         this.startdialog = start_dialog;
-        if (start_dialog === null || start_dialog === STRINGIFIED_NIL) {
+        if (start_dialog === null || start_dialog === NIL) {
           this.object.restore_default_start_dialog();
         } else {
           this.object.set_start_dialog(start_dialog);
@@ -193,7 +193,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     let use = pickSectionFromCondList(actor, this.object, this.state.use);
 
     if (this.npc_is_camp_director === true) {
-      use = STRINGIFIED_FALSE;
+      use = FALSE;
     }
 
     if (this.use !== use) {
@@ -212,7 +212,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
     const shouldUseText = pickSectionFromCondList(actor, this.object, this.state.use_text)!;
 
-    if (shouldUseText !== STRINGIFIED_NIL) {
+    if (shouldUseText !== NIL) {
       this.object.set_tip_text(shouldUseText);
     } else {
       if (this.object.is_talk_enabled()) {
@@ -235,7 +235,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     const abuse = pickSectionFromCondList(actor, this.object, this.state.abuse);
 
     if (this.abuse_mode !== abuse) {
-      if (abuse === STRINGIFIED_TRUE) {
+      if (abuse === TRUE) {
         SchemeAbuse.enableAbuse(this.object);
       } else {
         SchemeAbuse.disableAbuse(this.object);

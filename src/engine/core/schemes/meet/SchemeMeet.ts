@@ -20,7 +20,7 @@ import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
-import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -107,7 +107,7 @@ export class SchemeMeet extends AbstractScheme {
     section: TSection
   ): void {
     const meetSection: TSection =
-      scheme === null || scheme === STRINGIFIED_NIL
+      scheme === null || scheme === NIL
         ? getConfigString(state.ini, state.section_logic, SchemeMeet.SCHEME_SECTION, object, false, "")
         : getConfigString(state.ini, section, SchemeMeet.SCHEME_SECTION, object, false, "");
 
@@ -133,7 +133,7 @@ export class SchemeMeet extends AbstractScheme {
     state: ISchemeMeetState,
     scheme: EScheme
   ): void {
-    if (tostring(section) === state.meet_section && tostring(section) !== STRINGIFIED_NIL) {
+    if (tostring(section) === state.meet_section && tostring(section) !== NIL) {
       return;
     }
 
@@ -144,24 +144,24 @@ export class SchemeMeet extends AbstractScheme {
 
     if (relation === game_object.enemy) {
       def.close_distance = "0";
-      def.close_anim = STRINGIFIED_NIL;
+      def.close_anim = NIL;
       def.close_snd_distance = "0";
-      def.close_snd_hello = STRINGIFIED_NIL;
-      def.close_snd_bye = STRINGIFIED_NIL;
-      def.close_victim = STRINGIFIED_NIL;
+      def.close_snd_hello = NIL;
+      def.close_snd_bye = NIL;
+      def.close_victim = NIL;
       def.far_distance = "0";
-      def.far_anim = STRINGIFIED_NIL;
+      def.far_anim = NIL;
       def.far_snd_distance = "0";
-      def.far_snd = STRINGIFIED_NIL;
-      def.far_victim = STRINGIFIED_NIL;
-      def.snd_on_use = STRINGIFIED_NIL;
-      def.use = STRINGIFIED_FALSE;
-      def.meet_dialog = STRINGIFIED_NIL;
-      def.abuse = STRINGIFIED_FALSE;
-      def.trade_enable = STRINGIFIED_TRUE;
-      def.allow_break = STRINGIFIED_TRUE;
-      def.meet_on_talking = STRINGIFIED_FALSE;
-      def.use_text = STRINGIFIED_NIL;
+      def.far_snd = NIL;
+      def.far_victim = NIL;
+      def.snd_on_use = NIL;
+      def.use = FALSE;
+      def.meet_dialog = NIL;
+      def.abuse = FALSE;
+      def.trade_enable = TRUE;
+      def.allow_break = TRUE;
+      def.meet_on_talking = FALSE;
+      def.use_text = NIL;
     } else {
       def.close_distance = "{=is_wounded} 0, {!is_squad_commander} 0, 3";
       def.close_anim = "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_has_weapon} threat_na, talk_default";
@@ -173,46 +173,46 @@ export class SchemeMeet extends AbstractScheme {
         "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} nil, meet_hello";
       def.close_victim = "{=is_wounded} nil, {!is_squad_commander} nil, actor";
       def.far_distance = "{=is_wounded} 0, {!is_squad_commander} 0, 5";
-      def.far_anim = STRINGIFIED_NIL;
+      def.far_anim = NIL;
       def.far_snd_distance = "{=is_wounded} 0, {!is_squad_commander} 0, 5";
-      def.far_snd = STRINGIFIED_NIL;
-      def.far_victim = STRINGIFIED_NIL;
+      def.far_snd = NIL;
+      def.far_victim = NIL;
       def.snd_on_use =
         "{=is_wounded} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_enemy} nil," +
         " {=has_enemy} meet_use_no_fight, {=actor_has_weapon} meet_use_no_weapon, {!dist_to_actor_le(3)} v";
       def.use =
         "{=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false," +
         " {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false";
-      def.meet_dialog = STRINGIFIED_NIL;
+      def.meet_dialog = NIL;
       def.abuse = "{=has_enemy} false, true";
-      def.trade_enable = STRINGIFIED_TRUE;
-      def.allow_break = STRINGIFIED_TRUE;
-      def.meet_on_talking = STRINGIFIED_TRUE;
-      def.use_text = STRINGIFIED_NIL;
+      def.trade_enable = TRUE;
+      def.allow_break = TRUE;
+      def.meet_on_talking = TRUE;
+      def.use_text = NIL;
     }
 
     if (tostring(section) === "no_meet") {
       state.close_distance = parseConditionsList("0");
-      state.close_anim = parseConditionsList(STRINGIFIED_NIL);
+      state.close_anim = parseConditionsList(NIL);
       state.close_snd_distance = parseConditionsList("0");
-      state.close_snd_hello = parseConditionsList(STRINGIFIED_NIL);
-      state.close_snd_bye = parseConditionsList(STRINGIFIED_NIL);
-      state.close_victim = parseConditionsList(STRINGIFIED_NIL);
+      state.close_snd_hello = parseConditionsList(NIL);
+      state.close_snd_bye = parseConditionsList(NIL);
+      state.close_victim = parseConditionsList(NIL);
 
       state.far_distance = parseConditionsList("0");
-      state.far_anim = parseConditionsList(STRINGIFIED_NIL);
+      state.far_anim = parseConditionsList(NIL);
       state.far_snd_distance = parseConditionsList("0");
-      state.far_snd = parseConditionsList(STRINGIFIED_NIL);
-      state.far_victim = parseConditionsList(STRINGIFIED_NIL);
+      state.far_snd = parseConditionsList(NIL);
+      state.far_victim = parseConditionsList(NIL);
 
-      state.snd_on_use = parseConditionsList(STRINGIFIED_NIL);
-      state.use = parseConditionsList(STRINGIFIED_FALSE);
-      state.meet_dialog = parseConditionsList(STRINGIFIED_NIL);
-      state.abuse = parseConditionsList(STRINGIFIED_FALSE);
-      state.trade_enable = parseConditionsList(STRINGIFIED_TRUE);
-      state.allow_break = parseConditionsList(STRINGIFIED_TRUE);
-      state.meet_on_talking = parseConditionsList(STRINGIFIED_FALSE);
-      state.use_text = parseConditionsList(STRINGIFIED_NIL);
+      state.snd_on_use = parseConditionsList(NIL);
+      state.use = parseConditionsList(FALSE);
+      state.meet_dialog = parseConditionsList(NIL);
+      state.abuse = parseConditionsList(FALSE);
+      state.trade_enable = parseConditionsList(TRUE);
+      state.allow_break = parseConditionsList(TRUE);
+      state.meet_on_talking = parseConditionsList(FALSE);
+      state.use_text = parseConditionsList(NIL);
 
       state.reset_distance = 30;
       state.meet_only_at_path = true;
@@ -300,13 +300,13 @@ export class SchemeMeet extends AbstractScheme {
     const state: ISchemeMeetState = registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState;
     const use: Optional<string> = state.meet_manager.use;
 
-    if (use === STRINGIFIED_TRUE) {
+    if (use === TRUE) {
       if (SchemeCorpseDetection.isUnderCorpseDetection(object) || SchemeHelpWounded.isUnderHelpWounded(object)) {
         object.disable_talk();
       } else {
         object.enable_talk();
       }
-    } else if (use === STRINGIFIED_FALSE) {
+    } else if (use === FALSE) {
       object.disable_talk();
       if (object.is_talking()) {
         object.stop_talk();
@@ -331,15 +331,15 @@ export class SchemeMeet extends AbstractScheme {
     const actor: XR_game_object = registry.actor;
     const sound = pickSectionFromCondList(actor, victim, state.snd_on_use);
 
-    if (tostring(sound) !== STRINGIFIED_NIL) {
+    if (tostring(sound) !== NIL) {
       GlobalSoundManager.getInstance().setSoundPlaying(victim.id(), sound, null, null);
     }
 
     const meet_manager = state.meet_manager;
 
     if (
-      meet_manager.use === STRINGIFIED_FALSE &&
-      meet_manager.abuse_mode === STRINGIFIED_TRUE &&
+      meet_manager.use === FALSE &&
+      meet_manager.abuse_mode === TRUE &&
       getObjectsRelationSafe(victim, registry.actor) === game_object.friend
     ) {
       SchemeAbuse.addAbuse(victim, 1);

@@ -13,7 +13,7 @@ import { abort } from "@/engine/core/utils/debug";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { TConditionList } from "@/engine/core/utils/parse";
 import { yaw } from "@/engine/core/utils/physics";
-import { ACTOR, STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { Optional, TName, TStringId } from "@/engine/lib/types";
 
 const state_cannon_rotate: number = 1;
@@ -278,7 +278,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     }
 
     if (this.destroyed) {
-      switchToSection(this.object, this.state.ini!, STRINGIFIED_NIL);
+      switchToSection(this.object, this.state.ini!, NIL);
 
       return;
     }

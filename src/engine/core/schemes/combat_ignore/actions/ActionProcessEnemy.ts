@@ -9,7 +9,7 @@ import { isObjectInZone } from "@/engine/core/utils/check/check";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
-import { STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { TRUE } from "@/engine/lib/constants/words";
 import { AnyObject, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -87,7 +87,7 @@ export class ActionProcessEnemy {
     if (overrides && overrides.combat_ignore) {
       const ret_value = pickSectionFromCondList(enemy, object, overrides.combat_ignore.condlist);
 
-      if (ret_value === STRINGIFIED_TRUE) {
+      if (ret_value === TRUE) {
         return false;
       }
 

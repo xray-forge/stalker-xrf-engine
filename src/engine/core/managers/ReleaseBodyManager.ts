@@ -25,7 +25,18 @@ import { abort } from "@/engine/core/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { LuaArray, Optional, TCount, TIndex, TNumberId, TSection, TStringId, TTimestamp } from "@/engine/lib/types";
+import { roots } from "@/engine/lib/constants/roots";
+import {
+  LuaArray,
+  Optional,
+  TCount,
+  TIndex,
+  TName,
+  TNumberId,
+  TSection,
+  TStringId,
+  TTimestamp,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -149,26 +160,26 @@ export class ReleaseBodyManager extends AbstractCoreManager {
    * todo: Description.
    */
   protected checkForKnownInfo(object: XR_game_object): boolean {
-    let char_ini: Optional<XR_ini_file> = null;
-    const spawn_ini: Optional<XR_ini_file> = object.spawn_ini();
-    const filename: Optional<string> =
-      spawn_ini === null ? null : getConfigString(spawn_ini, "logic", "cfg", object, false, "");
+    let characterIni: Optional<XR_ini_file> = null;
+    const objectSpawnIni: Optional<XR_ini_file> = object.spawn_ini();
+    const filename: Optional<TName> =
+      objectSpawnIni === null ? null : getConfigString(objectSpawnIni, "logic", "cfg", object, false, "");
 
     if (filename !== null) {
-      if (!getFS().exist("$game_config$", filename)) {
+      if (!getFS().exist(roots.gameConfig, filename)) {
         abort("There is no configuration file [%s] in [%s]", filename, object.name());
       }
 
-      char_ini = new ini_file(filename);
+      characterIni = new ini_file(filename);
     } else {
-      char_ini = object.spawn_ini() || DUMMY_LTX;
+      characterIni = object.spawn_ini() || DUMMY_LTX;
     }
 
     const state: IRegistryObjectState = registry.objects.get(object.id());
-    const knownInfo: string =
-      getConfigString(char_ini, state.section_logic, "known_info", object, false, "", null) || "known_info";
+    const knownInfo: TSection =
+      getConfigString(characterIni, state.section_logic, "known_info", object, false, "", null) || "known_info";
 
-    return char_ini.section_exist(knownInfo);
+    return characterIni.section_exist(knownInfo);
   }
 
   /**

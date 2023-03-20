@@ -7,7 +7,7 @@ import { ESchemeEvent } from "@/engine/core/schemes/base";
 import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
-import { get_sound_manager, SoundManager } from "@/engine/core/sounds/SoundManager";
+import { getSoundManagerForId, SoundManager } from "@/engine/core/sounds/SoundManager";
 import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigString } from "@/engine/core/utils/ini/getters";
@@ -141,7 +141,7 @@ export class CampStoryManager {
     this.guitar_table = parseNames(guitars);
     this.harmonica_table = parseNames(harmonicas);
 
-    this.sound_manager = get_sound_manager(CampStoryManager.SCHEME_SECTION + this.object.id());
+    this.sound_manager = getSoundManagerForId(CampStoryManager.SCHEME_SECTION + this.object.id());
 
     this.states = {
       idle: {

@@ -3,7 +3,7 @@ import { LuabindClass, property_evaluator, stalker_ids, XR_action_planner } from
 import { pstor_retrieve } from "@/engine/core/database/portable_store";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { NIL, TRUE } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -46,11 +46,11 @@ export class EvaluatorWounded extends property_evaluator {
 
     if (
       this.actionPlanner.evaluator(stalker_ids.property_enemy).evaluate() &&
-      pstor_retrieve(this.object, "wounded_fight") === STRINGIFIED_TRUE
+      pstor_retrieve(this.object, "wounded_fight") === TRUE
     ) {
       return false;
     }
 
-    return tostring(pstor_retrieve(this.object, "wounded_state")) !== STRINGIFIED_NIL;
+    return tostring(pstor_retrieve(this.object, "wounded_state")) !== NIL;
   }
 }

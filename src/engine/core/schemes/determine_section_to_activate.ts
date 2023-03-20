@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/debug";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { getConfigConditionList } from "@/engine/core/utils/ini/getters";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { TSection } from "@/engine/lib/types/scheme";
 
 /**
@@ -20,7 +20,7 @@ export function determine_section_to_activate(
   actor: XR_game_object
 ): TSection {
   if (!ini.section_exist(sectionLogic)) {
-    return STRINGIFIED_NIL;
+    return NIL;
   }
 
   if (registry.offlineObjects.get(object.id())?.active_section !== null) {
@@ -47,6 +47,6 @@ export function determine_section_to_activate(
 
     return section;
   } else {
-    return STRINGIFIED_NIL;
+    return NIL;
   }
 }

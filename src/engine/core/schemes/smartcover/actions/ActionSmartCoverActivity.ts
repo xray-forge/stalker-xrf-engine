@@ -13,7 +13,7 @@ import { abort } from "@/engine/core/utils/debug";
 import { getParamString, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -134,7 +134,7 @@ export class ActionSmartCoverActivity extends action_base {
      *   --}
      */
 
-    if (this.cover_state === STRINGIFIED_NIL) {
+    if (this.cover_state === NIL) {
       this.object.set_smart_cover_target_selector();
     } else {
       this.object.set_smart_cover_target_selector((object) => this.target_selector(object), this);
@@ -149,12 +149,12 @@ export class ActionSmartCoverActivity extends action_base {
 
     const target_path_section = pickSectionFromCondList(registry.actor, this.object, this.target_path_condlist);
 
-    if (target_path_section !== STRINGIFIED_NIL && target_path_section !== null) {
+    if (target_path_section !== NIL && target_path_section !== null) {
       const [target_path, used] = getParamString(target_path_section, object);
 
       this.target_path = target_path;
 
-      if (this.target_path !== STRINGIFIED_NIL) {
+      if (this.target_path !== NIL) {
         if (level.patrol_path_exists(this.target_path)) {
           // --printf("target_selector:using fire_point[%s] for npc[%s]!!!", this.target_path, this.object.name())
           object.set_smart_cover_target(new patrol(this.target_path).point(0));

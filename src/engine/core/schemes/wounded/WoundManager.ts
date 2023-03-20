@@ -7,7 +7,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractScheme
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWoundedState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { drugs } from "@/engine/lib/constants/items/drugs";
-import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TCount, TRate } from "@/engine/lib/types";
 
 /**
@@ -41,7 +41,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
     this.wound_state = nState;
     this.sound = nSound;
 
-    if (this.wound_state === STRINGIFIED_NIL && this.sound === STRINGIFIED_NIL) {
+    if (this.wound_state === NIL && this.sound === NIL) {
       const [state, sound] = this.process_hp_wound(hp);
 
       this.wound_state = state;
@@ -50,9 +50,9 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       this.fight = this.processFight(hp);
       this.victim = this.process_victim(hp);
     } else {
-      this.fight = STRINGIFIED_FALSE;
-      this.cover = STRINGIFIED_FALSE;
-      this.victim = STRINGIFIED_NIL;
+      this.fight = FALSE;
+      this.cover = FALSE;
+      this.victim = NIL;
     }
 
     pstor_store(this.object, "wounded_state", this.wound_state);
@@ -113,7 +113,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       }
     }
 
-    return STRINGIFIED_TRUE;
+    return TRUE;
   }
 
   /**
@@ -128,7 +128,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       }
     }
 
-    return STRINGIFIED_NIL;
+    return NIL;
   }
 
   /**
@@ -162,7 +162,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       return $multi(tostring(r1), tostring(r2));
     }
 
-    return $multi(STRINGIFIED_NIL, STRINGIFIED_NIL);
+    return $multi(NIL, NIL);
   }
 
   /**
@@ -186,7 +186,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       return $multi(tostring(r1), tostring(r2));
     }
 
-    return $multi(STRINGIFIED_NIL, STRINGIFIED_NIL);
+    return $multi(NIL, NIL);
   }
 
   /**

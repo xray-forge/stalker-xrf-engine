@@ -14,7 +14,7 @@ import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { TLevel } from "@/engine/lib/constants/levels";
-import { STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { TRUE } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TCount, TProbability, TSection, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -148,7 +148,7 @@ export class DropManager extends AbstractCoreManager {
     for (const it of $range(0, keepItemsSectionItemsCount - 1)) {
       const [result, id, value] = DEATH_GENERIC_LTX.r_line(DropManager.KEEP_ITEMS_LTX_SECTION, it, "", "");
 
-      if (value === STRINGIFIED_TRUE) {
+      if (value === TRUE) {
         this.itemsAlwaysKept.set(id, true);
       }
     }

@@ -4,6 +4,7 @@ import {
   sound_object,
   time_global,
   vector,
+  XR_FS,
   XR_ini_file,
   XR_net_packet,
   XR_reader,
@@ -18,8 +19,9 @@ import { abort } from "@/engine/core/utils/debug";
 import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseNames } from "@/engine/core/utils/parse";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { roots } from "@/engine/lib/constants/roots";
+import { NIL } from "@/engine/lib/constants/words";
+import { Optional, TDuration, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -35,8 +37,8 @@ export class ObjectSound extends AbstractPlayableSound {
 
   public pda_snd_obj: Optional<XR_sound_object> = null;
 
-  public min_idle: number;
-  public max_idle: number;
+  public min_idle: TDuration;
+  public max_idle: TDuration;
   public rnd: number;
 
   public can_play_sound: boolean;
@@ -47,7 +49,7 @@ export class ObjectSound extends AbstractPlayableSound {
   public msg: string;
 
   public idle_time: Optional<number> = null;
-  public played_time: Optional<number> = null;
+  public played_time: Optional<TDuration> = null;
 
   public constructor(snd_ini: XR_ini_file, section: string) {
     super(snd_ini, section);
@@ -69,14 +71,14 @@ export class ObjectSound extends AbstractPlayableSound {
     this.point = getConfigString(snd_ini, section, "point", null, false, "", "");
     this.msg = getConfigString(snd_ini, section, "message", null, false, "", "");
 
-    const f = getFS();
+    const fs: XR_FS = getFS();
 
-    if (f.exist("$game_sounds$", this.path + ".ogg") !== null) {
+    if (fs.exist(roots.gameSounds, this.path + ".ogg") !== null) {
       this.sound.set(1, this.path);
     } else {
       let num = 1;
 
-      while (f.exist("$game_sounds$", this.path + num + ".ogg")) {
+      while (fs.exist(roots.gameSounds, this.path + num + ".ogg")) {
         this.sound.set(num, this.path + num);
         num = num + 1;
       }
@@ -112,11 +114,11 @@ export class ObjectSound extends AbstractPlayableSound {
 
     // --    printf("object played_id = %s", this.played_id)
     const snd = this.sound.get(this.played_id!);
-    const f = getFS();
+    const fs: XR_FS = getFS();
 
     if (
       snd &&
-      f.exist("$game_sounds$", snd + "_pda.ogg") !== null &&
+      fs.exist(roots.gameSounds, snd + "_pda.ogg") !== null &&
       obj.position().distance_to_sqr(registry.actor.position()) >= 5
     ) {
       this.pda_snd_obj = new sound_object(snd + "_pda");
@@ -149,7 +151,7 @@ export class ObjectSound extends AbstractPlayableSound {
   public override load(reader: XR_reader): void {
     const id = reader.r_stringZ();
 
-    if (id !== STRINGIFIED_NIL) {
+    if (id !== NIL) {
       this.played_id = tonumber(id)!;
     } else {
       this.played_id = null;

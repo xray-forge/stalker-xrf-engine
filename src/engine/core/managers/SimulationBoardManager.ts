@@ -371,8 +371,8 @@ export class SimulationBoardManager extends AbstractCoreManager {
 
     let smartTerrain: Optional<SmartTerrain> = null;
 
-    if (squad.current_action !== null && squad.current_action.name === "reach_target") {
-      smartTerrain = alife().object<SmartTerrain>(squad.assigned_target_id!);
+    if (squad.currentAction !== null && squad.currentAction.name === "reach_target") {
+      smartTerrain = alife().object<SmartTerrain>(squad.assignedTargetId!);
     } else if (squad.smart_id !== null) {
       smartTerrain = alife().object<SmartTerrain>(squad.smart_id);
     }

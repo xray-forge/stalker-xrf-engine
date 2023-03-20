@@ -13,6 +13,7 @@ import { registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { roots } from "@/engine/lib/constants/roots";
 import { TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -47,7 +48,7 @@ export function resolveXmlFormPath(path: TPath, hasWideScreenSupport: boolean = 
     }
   }
 
-  const resolved: TPath = canBeWide && getFS().exist("$game_config$", "ui\\" + wideBase) ? wideBase : base + ".xml";
+  const resolved: TPath = canBeWide && getFS().exist(roots.gameConfig, "ui\\" + wideBase) ? wideBase : base + ".xml";
 
   logger.info("Resolved XML to:", resolved);
 

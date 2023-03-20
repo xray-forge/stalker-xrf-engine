@@ -31,7 +31,7 @@ import { wait } from "@/engine/core/utils/time";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
-import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   EScheme,
   LuaArray,
@@ -315,13 +315,13 @@ export function initializeObjectCanSelectWeaponState(
   let data: string = getConfigString(state.ini, section, "can_select_weapon", object, false, "", "");
 
   if (data === "") {
-    data = getConfigString(state.ini, state.section_logic, "can_select_weapon", object, false, "", STRINGIFIED_TRUE);
+    data = getConfigString(state.ini, state.section_logic, "can_select_weapon", object, false, "", TRUE);
   }
 
   const conditionsList: TConditionList = parseConditionsList(data);
   const canSelectSection: TSection = pickSectionFromCondList(registry.actor, object, conditionsList)!;
 
-  object.can_select_weapon(canSelectSection === STRINGIFIED_TRUE);
+  object.can_select_weapon(canSelectSection === TRUE);
 }
 
 /**
@@ -343,7 +343,7 @@ export function isObjectInvulnerabilityNeeded(object: XR_game_object): boolean {
     return false;
   }
 
-  return pickSectionFromCondList(registry.actor, object, parseConditionsList(invulnerability)) === STRINGIFIED_TRUE;
+  return pickSectionFromCondList(registry.actor, object, parseConditionsList(invulnerability)) === TRUE;
 }
 
 /**
@@ -385,7 +385,7 @@ export function resetObjectThreshold(
   section: TSection
 ): void {
   const threshold_section: Optional<TSection> =
-    scheme === null || scheme === STRINGIFIED_NIL
+    scheme === null || scheme === NIL
       ? getConfigString(state.ini, state.section_logic, "threshold", object, false, "")
       : getConfigString(state.ini, section, "threshold", object, false, "");
 

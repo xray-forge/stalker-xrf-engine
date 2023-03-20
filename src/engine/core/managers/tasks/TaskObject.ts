@@ -28,7 +28,7 @@ import { parseConditionsList, parseNames, TConditionList } from "@/engine/core/u
 import { giveMoneyToActor, relocateQuestItemSection } from "@/engine/core/utils/quest_reward";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { AnyCallablesModule, LuaArray, Optional, TCount, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -483,7 +483,7 @@ export class TaskObject {
     this.current_descr = reader.r_stringZ();
     this.current_target = reader.r_stringZ();
 
-    if (this.current_target === STRINGIFIED_NIL) {
+    if (this.current_target === NIL) {
       this.current_target = null;
     } else {
       this.current_target = tonumber(this.current_target);

@@ -20,7 +20,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseSpawnDetails, TConditionList } from "@/engine/core/utils/parse";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { TTreasure } from "@/engine/lib/constants/treasures";
-import { STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { TRUE } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TCount, TNumberId, TProbability, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -341,7 +341,7 @@ export class TreasureManager extends AbstractCoreManager {
         if (v.empty) {
           const sect = pickSectionFromCondList(registry.actor, null, v.empty as any);
 
-          if (sect === STRINGIFIED_TRUE && !v.checked) {
+          if (sect === TRUE && !v.checked) {
             level.map_remove_object_spot(this.secret_restrs.get(k), "treasure");
             StatisticsManager.getInstance().incrementCollectedSecretsCount();
             v.empty = null;
@@ -352,7 +352,7 @@ export class TreasureManager extends AbstractCoreManager {
         } else if (v.refreshing && v.checked) {
           const sect = pickSectionFromCondList(registry.actor, null, v.refreshing);
 
-          if (sect === STRINGIFIED_TRUE) {
+          if (sect === TRUE) {
             v.given = false;
             v.checked = false;
 

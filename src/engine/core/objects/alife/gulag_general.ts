@@ -26,8 +26,9 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseWaypointData, TConditionList } from "@/engine/core/utils/parse";
 import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities } from "@/engine/lib/constants/communities";
+import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECT } from "@/engine/lib/constants/sections";
-import { AnyObject, EJobType, EScheme, JobTypeByScheme, Optional, TName, TSection } from "@/engine/lib/types";
+import { AnyObject, EJobType, EScheme, JobTypeByScheme, Optional, TName, TPath, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -1083,21 +1084,19 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
  * todo;
  */
 function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini_file, job_table: LuaTable): void {
-  const work = getConfigString(smart_ini, sect, work_field, null, false, "");
+  const work: Optional<string> = getConfigString(smart_ini, sect, work_field, null, false, "");
 
   if (work === null) {
     return;
   }
 
-  const ini_path = "scripts\\" + work;
+  const iniPath: TPath = "scripts\\" + work;
 
-  const fs = getFS();
-
-  if (fs.exist("$game_config$", ini_path) === null) {
-    abort("there is no configuration file [%s]", ini_path);
+  if (getFS().exist(roots.gameConfig, iniPath) === null) {
+    abort("there is no configuration file [%s]", iniPath);
   }
 
-  const job_ini_file = new ini_file(ini_path);
+  const job_ini_file = new ini_file(iniPath);
   const job_online = getConfigString(
     job_ini_file,
     "logic@" + work_field,
@@ -1127,7 +1126,7 @@ function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini
       _precondition_is_monster: is_monster,
       job_id: {
         section: "logic@" + work_field,
-        ini_path: ini_path,
+        ini_path: iniPath,
         online: job_online,
         ini_file: job_ini_file,
         job_type: job_type,
@@ -1146,7 +1145,7 @@ function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini
     _precondition_is_monster: is_monster,
     job_id: {
       section: "logic@" + work_field,
-      ini_path: ini_path,
+      ini_path: iniPath,
       ini_file: job_ini_file,
       online: job_online,
       job_type: job_type,

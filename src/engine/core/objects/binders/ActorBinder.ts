@@ -61,7 +61,7 @@ import { info_portions } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { TLevel } from "@/engine/lib/constants/levels";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { AnyCallablesModule, Optional, TDuration, TIndex, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -463,7 +463,7 @@ export class ActorBinder extends object_binder {
 
     const n = reader.r_stringZ();
 
-    if (n !== STRINGIFIED_NIL) {
+    if (n !== NIL) {
       this.lastLevelName = n;
     }
 

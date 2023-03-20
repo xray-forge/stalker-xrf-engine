@@ -43,7 +43,7 @@ import { captions } from "@/engine/lib/constants/captions";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions } from "@/engine/lib/constants/info_portions";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
-import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { Optional, PartialRecord, TLabel, TNumberId } from "@/engine/lib/types";
 
 export const surge_shock_pp_eff_id: TNumberId = 1;
@@ -137,7 +137,7 @@ export class SurgeManager extends AbstractCoreManager {
     this.surgeManagerCondlist = new LuaTable();
     this.surgeSurviveCondlist = new LuaTable();
 
-    let conditionString: string = STRINGIFIED_TRUE;
+    let conditionString: string = TRUE;
 
     if (SURGE_MANAGER_LTX.line_exist("settings", "condlist")) {
       conditionString = SURGE_MANAGER_LTX.r_string("settings", "condlist");
@@ -145,7 +145,7 @@ export class SurgeManager extends AbstractCoreManager {
 
     this.surgeManagerCondlist = parseConditionsList(conditionString);
 
-    conditionString = STRINGIFIED_FALSE;
+    conditionString = FALSE;
 
     if (SURGE_MANAGER_LTX.line_exist("settings", "survive")) {
       conditionString = SURGE_MANAGER_LTX.r_string("settings", "survive");
@@ -543,7 +543,7 @@ export class SurgeManager extends AbstractCoreManager {
 
         disableGameUiOnly(registry.actor);
 
-        if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveCondlist) !== STRINGIFIED_TRUE) {
+        if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveCondlist) !== TRUE) {
           this.kill_all_unhided_after_actor_death();
           registry.actor.kill(registry.actor);
 

@@ -11,7 +11,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { parseData, parseSynData } from "@/engine/core/utils/parse";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { AnyObject, Maybe, Optional, TNumberId } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -111,7 +111,7 @@ export class SchemeWounded extends AbstractScheme {
   ): void {
     logger.info("Init wounded:", object.name(), section, scheme);
 
-    if (tostring(section) === state.wounded_section && tostring(section) !== STRINGIFIED_NIL) {
+    if (tostring(section) === state.wounded_section && tostring(section) !== NIL) {
       return;
     }
 
@@ -169,7 +169,7 @@ export class SchemeWounded extends AbstractScheme {
     }
 
     // Initialize state:
-    if (tostring(section) === STRINGIFIED_NIL) {
+    if (tostring(section) === NIL) {
       state.hp_state = parseData(object, defaults.hp_state);
       state.hp_state_see = parseData(object, defaults.hp_state_see);
       state.psy_state = parseData(object, defaults.psy_state);

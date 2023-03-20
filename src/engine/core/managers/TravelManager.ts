@@ -35,7 +35,7 @@ import { post_processors } from "@/engine/lib/constants/animation/post_processor
 import { captions } from "@/engine/lib/constants/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ERelation } from "@/engine/lib/constants/relations";
-import { STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { TRUE } from "@/engine/lib/constants/words";
 import { zones } from "@/engine/lib/constants/zones";
 import {
   Optional,
@@ -231,16 +231,16 @@ export class TravelManager extends AbstractCoreManager {
     phraseId?: TStringId
   ): TLabel {
     const squad: Squad = getObjectSquad(npc)!;
-    const squadTargetId: Optional<TNumberId> = squad.assigned_target_id;
+    const squadTargetId: Optional<TNumberId> = squad.assignedTargetId;
 
-    if (squad.current_action === null || squad.current_action.name === "stay_point") {
+    if (squad.currentAction === null || squad.currentAction.name === "stay_point") {
       return "dm_" + "stalker" + "_doing_nothing_" + tostring(math.random(1, 3)); // -- npc:character_community()
     }
 
     const targetSquadObject: Optional<TSimulationObject> = alife().object(squadTargetId!);
 
     if (targetSquadObject === null) {
-      abort("SIM TARGET NOT EXIST %s, action_name %s", tostring(squadTargetId), tostring(squad.current_action.name));
+      abort("SIM TARGET NOT EXIST %s, action_name %s", tostring(squadTargetId), tostring(squad.currentAction.name));
     }
 
     const targetClsId: TXR_class_id = targetSquadObject.clsid();
@@ -274,7 +274,7 @@ export class TravelManager extends AbstractCoreManager {
   ): boolean {
     const squad: Squad = getObjectSquad(npc)!;
 
-    return !(squad.current_action === null || squad.current_action.name === "stay_point");
+    return !(squad.currentAction === null || squad.currentAction.name === "stay_point");
   }
 
   /**
@@ -287,7 +287,7 @@ export class TravelManager extends AbstractCoreManager {
     phraseId?: TStringId
   ): boolean {
     const squad: Squad = getObjectSquad(npc)!;
-    const squadTargetObject: XR_cse_alife_object = alife().object(squad.assigned_target_id!)!;
+    const squadTargetObject: XR_cse_alife_object = alife().object(squad.assignedTargetId!)!;
     const squadTargetClsId: TXR_class_id = squadTargetObject.clsid();
 
     return squadTargetClsId === clsid.smart_terrain;
@@ -320,7 +320,7 @@ export class TravelManager extends AbstractCoreManager {
       abort("Error in travel manager. Smart [%s] doesnt exist.", tostring(smartName));
     }
 
-    if (pickSectionFromCondList(registry.actor, smartTerrain, smartTable.condlist) !== STRINGIFIED_TRUE) {
+    if (pickSectionFromCondList(registry.actor, smartTerrain, smartTable.condlist) !== TRUE) {
       return false;
     }
 
@@ -487,7 +487,7 @@ export class TravelManager extends AbstractCoreManager {
     createScenarioAutoSave(captions.st_save_uni_travel_generic);
 
     const squad: Squad = getObjectSquad(npc)!;
-    const squadTargetId = squad.assigned_target_id;
+    const squadTargetId = squad.assignedTargetId;
     const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(squadTargetId!)!;
 
     npc.stop_talk();

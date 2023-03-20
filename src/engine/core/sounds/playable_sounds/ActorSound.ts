@@ -20,7 +20,8 @@ import { abort } from "@/engine/core/utils/debug";
 import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseNames } from "@/engine/core/utils/parse";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { roots } from "@/engine/lib/constants/roots";
+import { NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TNumberId, TSection, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -81,12 +82,12 @@ export class ActorSound extends AbstractPlayableSound {
 
     const fs: XR_FS = getFS();
 
-    if (fs.exist("$game_sounds$", this.path + ".ogg") !== null) {
+    if (fs.exist(roots.gameSounds, this.path + ".ogg") !== null) {
       this.sound.set(1, this.path);
     } else {
       let num: number = 1;
 
-      while (fs.exist("$game_sounds$", this.path + num + ".ogg")) {
+      while (fs.exist(roots.gameSounds, this.path + num + ".ogg")) {
         this.sound.set(num, this.path + num);
         num = num + 1;
       }
@@ -234,7 +235,7 @@ export class ActorSound extends AbstractPlayableSound {
   public override load(reader: XR_reader): void {
     const id: StringOptional<TStringId> = reader.r_stringZ();
 
-    if (id !== STRINGIFIED_NIL) {
+    if (id !== NIL) {
       this.played_id = tonumber(id)!;
     } else {
       this.played_id = null;

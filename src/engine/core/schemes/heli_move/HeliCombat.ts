@@ -21,7 +21,7 @@ import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/cor
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { distanceBetween2d } from "@/engine/core/utils/physics";
-import { ACTOR, STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -184,7 +184,7 @@ export class HeliCombat {
         } else {
           this.forget_enemy();
         }
-      } else if (combat_enemy === STRINGIFIED_NIL) {
+      } else if (combat_enemy === NIL) {
         this.forget_enemy();
       } else {
         this.enemy_id = getIdBySid(tonumber(combat_enemy)!);

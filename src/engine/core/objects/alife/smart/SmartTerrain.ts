@@ -41,6 +41,7 @@ import { loadGulagJobs } from "@/engine/core/objects/alife/gulag_general";
 import { ISimulationActivityDescriptor, simulation_activities } from "@/engine/core/objects/alife/SimulationActivity";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
 import { Squad } from "@/engine/core/objects/alife/Squad";
+import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import {
   turnOffCampfiresBySmartTerrainName,
   turnOnCampfiresBySmartName,
@@ -68,8 +69,9 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { TCaption } from "@/engine/lib/constants/captions";
 import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_8_BIT } from "@/engine/lib/constants/memory";
 import { TRelation } from "@/engine/lib/constants/relations";
+import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECT } from "@/engine/lib/constants/sections";
-import { STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   AnyCallable,
   AnyObject,
@@ -171,7 +173,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public isRegistered: boolean = false;
   public isRespawnPoint: boolean = false;
   public isObjectsInitializationNeeded: boolean = true; // Whether after game start / load.
-  public isSimulationAvailableConditionList: TConditionList = parseConditionsList(STRINGIFIED_TRUE);
+  public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
   public isMutantDisabled: boolean = false;
   public isMutantLair: boolean = false;
   public isRespawnOnlySmart: boolean = false;
@@ -292,11 +294,10 @@ export class SmartTerrain extends cse_alife_smart_zone {
       abort("[smart_terrain %s] no configuration!", this.name());
     }
 
-    const filename: string = getConfigString(this.ini, SMART_TERRAIN_SECT, "cfg", this, false, "");
-    const fs = getFS();
+    const filename: TName = getConfigString(this.ini, SMART_TERRAIN_SECT, "cfg", this, false, "");
 
     if (filename !== null) {
-      if (fs.exist("$game_config$", filename)) {
+      if (getFS().exist(roots.gameConfig, filename)) {
         this.ini = new ini_file(filename);
       } else {
         abort("There is no configuration file [%s] in smart_terrain [%s]", filename, this.name());
@@ -416,7 +417,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     return {
       se_obj: object,
       is_monster: !isObjectStalker,
-      need_job: STRINGIFIED_NIL,
+      need_job: NIL,
       job_prior: -1,
       job_link: null,
       job_id: -1,
@@ -716,7 +717,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
       const obj_storage = registry.objects.get(npcInfo.se_obj.id);
 
       if (obj_storage !== null) {
-        switchToSection(obj_storage.object!, this.ltxConfig, STRINGIFIED_NIL);
+        switchToSection(obj_storage.object!, this.ltxConfig, NIL);
       }
     }
 
@@ -752,7 +753,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     const sect: TSection = determine_section_to_activate(object, ltx, job.section, registry.actor);
 
-    if (getSchemeByIniSection(job.section) === STRINGIFIED_NIL) {
+    if (getSchemeByIniSection(job.section) === NIL) {
       abort("[smart_terrain %s] section=%s, don't use section 'null'!", this.name(), sect);
     }
 
@@ -819,7 +820,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     objectInfo.begin_job = true;
 
     objectInfo.job_link = selectedJobLink;
-    objectInfo.need_job = STRINGIFIED_NIL;
+    objectInfo.need_job = NIL;
 
     const objectStorage = registry.objects.get(objectId);
 
@@ -1140,7 +1141,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     if (
       this.isSimulationAvailableConditionList === null ||
-      pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) === STRINGIFIED_TRUE
+      pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) === TRUE
     ) {
       spot = "friend";
     } else {
@@ -1324,7 +1325,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
       squad.simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
     }
 
-    squad.current_target_id = this.id;
+    squad.currentTargetId = this.id;
   }
 
   /**
@@ -1453,7 +1454,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     if (this.lastRespawnUpdatedAt === null || currentTime.diffSec(this.lastRespawnUpdatedAt) > RESPAWN_IDLE) {
       this.lastRespawnUpdatedAt = currentTime;
 
-      if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== STRINGIFIED_TRUE) {
+      if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== TRUE) {
         return;
       }
 
@@ -1475,7 +1476,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
    * todo: Description.
    */
   public isSimulationAvailable(): boolean {
-    if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== STRINGIFIED_TRUE) {
+    if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== TRUE) {
       return false;
     }
 
@@ -1684,16 +1685,16 @@ function onObjectArrivedToSmart(object: XR_cse_alife_creature_abstract, smartTer
   if (object.group_id !== null) {
     const squad = smartTerrain.simulationBoardManager.getSquads().get(object.group_id);
 
-    if (squad !== null && squad.current_action) {
-      if (squad.current_action.name === "reach_target") {
-        const squad_target = registry.simulationObjects.get(squad.assigned_target_id!);
+    if (squad !== null && squad.currentAction) {
+      if (squad.currentAction.name === "reach_target") {
+        const squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
 
-        if (squad_target !== null) {
-          return squad_target.am_i_reached(squad);
+        if (squadTarget !== null) {
+          return squadTarget.am_i_reached(squad);
         } else {
-          return alife().object<SmartTerrain>(squad.assigned_target_id!)!.am_i_reached(squad);
+          return alife().object<SmartTerrain>(squad.assignedTargetId!)!.am_i_reached(squad);
         }
-      } else if (squad.current_action.name === "stay_point") {
+      } else if (squad.currentAction.name === "stay_point") {
         return true;
       }
     }

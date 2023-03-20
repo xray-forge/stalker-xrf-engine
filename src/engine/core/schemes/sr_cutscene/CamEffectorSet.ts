@@ -8,10 +8,10 @@ import {
 } from "@/engine/core/schemes/sr_cutscene/cam_effector_sets";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { stringifyAsJson } from "@/engine/core/utils/json";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
-import { STRINGIFIED_FALSE } from "@/engine/lib/constants/words";
+import { stringifyAsJson } from "@/engine/core/utils/transform/json";
+import { FALSE } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -81,7 +81,7 @@ export class CamEffectorSet {
       if (eff && eff.looped !== false) {
         const cond = pickSectionFromCondList(registry.actor, null, this.condlist);
 
-        if (cond === STRINGIFIED_FALSE) {
+        if (cond === FALSE) {
           this.looped = false;
           // --                this.stop_effect()
         }
@@ -114,7 +114,7 @@ export class CamEffectorSet {
         if (type(this.set.start.get(cur_effect).enabled) === "string") {
           const conditionsList: TConditionList = parseConditionsList(this.set.start.get(cur_effect).enabled!);
 
-          if (pickSectionFromCondList(actor, null, conditionsList) === STRINGIFIED_FALSE) {
+          if (pickSectionFromCondList(actor, null, conditionsList) === FALSE) {
             return this.select_effect();
           }
         }
@@ -138,7 +138,7 @@ export class CamEffectorSet {
         if (type(this.set.idle.get(cur_effect).enabled) === "string") {
           const conditionsList: TConditionList = parseConditionsList(this.set.idle.get(cur_effect).enabled as any);
 
-          if (pickSectionFromCondList(actor, null, conditionsList) === STRINGIFIED_FALSE) {
+          if (pickSectionFromCondList(actor, null, conditionsList) === FALSE) {
             return this.select_effect();
           }
         }

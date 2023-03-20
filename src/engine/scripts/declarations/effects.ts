@@ -109,7 +109,7 @@ import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { relations, TRelation } from "@/engine/lib/constants/relations";
 import { script_sounds } from "@/engine/lib/constants/sound/script_sounds";
 import { TTreasure } from "@/engine/lib/constants/treasures";
-import { STRINGIFIED_FALSE, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
+import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { TZone, zones } from "@/engine/lib/constants/zones";
 import {
   EScheme,
@@ -802,7 +802,7 @@ export function make_enemy(actor: XR_game_object, npc: XR_game_object, p: [strin
  * todo;
  */
 export function sniper_fire_mode(actor: XR_game_object, npc: XR_game_object, p: [string]): void {
-  if (p[0] === STRINGIFIED_TRUE) {
+  if (p[0] === TRUE) {
     npc.sniper_fire_mode(true);
   } else {
     npc.sniper_fire_mode(false);
@@ -1086,7 +1086,7 @@ export function set_weather(actor: XR_game_object, npc: XR_game_object, p: [stri
   logger.info("Set weather:", p[0]);
 
   if (p[0]) {
-    if (p[1] === STRINGIFIED_TRUE) {
+    if (p[1] === TRUE) {
       level.set_weather(p[0], true);
     } else {
       level.set_weather(p[0], false);
@@ -1732,7 +1732,7 @@ export function clear_smart_terrain(actor: XR_game_object, object: XR_game_objec
   const smartTerrainId: TNumberId = smartTerrain.id;
 
   for (const [k, v] of simulationBoardManager.getSmartTerrainDescriptorById(smartTerrainId)!.assignedSquads) {
-    if (p[1] && p[1] === STRINGIFIED_FALSE) {
+    if (p[1] && p[1] === FALSE) {
       // todo: Probably unreachable condition / cast
       if (!getObjectIdByStoryId(v.id as unknown as string)) {
         simulationBoardManager.exitSmartTerrain(v, smartTerrainId);

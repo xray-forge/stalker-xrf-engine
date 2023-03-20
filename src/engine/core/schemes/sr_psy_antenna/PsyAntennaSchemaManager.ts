@@ -6,7 +6,7 @@ import { PsyAntennaManager } from "@/engine/core/managers/PsyAntennaManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemePsyAntennaState } from "@/engine/core/schemes/sr_psy_antenna/ISchemePsyAntennaState";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 
 const state_outside: number = 0;
 const state_inside: number = 1;
@@ -97,7 +97,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
     this.antennaManager.hit_type = this.state.hit_type;
     this.antennaManager.hit_freq = this.state.hit_freq;
 
-    if (this.state.postprocess === STRINGIFIED_NIL) {
+    if (this.state.postprocess === NIL) {
       return;
     }
 
@@ -137,7 +137,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
     this.antennaManager.phantom_spawn_probability =
       this.antennaManager.phantom_spawn_probability - this.state.phantom_prob;
 
-    if (this.state.postprocess === STRINGIFIED_NIL) {
+    if (this.state.postprocess === NIL) {
       return;
     }
 

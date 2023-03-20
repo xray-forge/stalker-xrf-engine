@@ -25,7 +25,8 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { parseNames } from "@/engine/core/utils/parse";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { roots } from "@/engine/lib/constants/roots";
+import { NIL } from "@/engine/lib/constants/words";
 import { AnyObject, Optional, TLabel, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -177,13 +178,13 @@ export class NpcSound extends AbstractPlayableSound {
 
     const fs: XR_FS = getFS();
 
-    if (fs.exist("$game_sounds$", npc.sound_prefix() + this.path + ".ogg") !== null) {
+    if (fs.exist(roots.gameSounds, npc.sound_prefix() + this.path + ".ogg") !== null) {
       this.sound_path.get(npc_id)[1] = npc.sound_prefix() + this.path;
       // --        printf("adding sound ["..npc:sound_prefix()..this.path.."]")
     } else {
       let num = 1;
 
-      while (fs.exist("$game_sounds$", npc.sound_prefix() + this.path + num + ".ogg")) {
+      while (fs.exist(roots.gameSounds, npc.sound_prefix() + this.path + num + ".ogg")) {
         // --            printf("adding sound [" + npcюsound_prefix() + this.path + num +"] to table id = " + num)
         this.sound_path.get(npc_id)[num] = npc.sound_prefix() + this.path + num;
         num = num + 1;
@@ -295,7 +296,7 @@ export class NpcSound extends AbstractPlayableSound {
 
     if (
       snd &&
-      fs.exist("$game_sounds$", snd + "_pda.ogg") !== null &&
+      fs.exist(roots.gameSounds, snd + "_pda.ogg") !== null &&
       object.position().distance_to_sqr(registry.actor.position()) >= 100
     ) {
       if (this.pda_snd_obj !== null && this.pda_snd_obj.playing()) {
@@ -413,7 +414,7 @@ export class NpcSound extends AbstractPlayableSound {
   public override load(reader: XR_reader): void {
     const id: string = reader.r_stringZ();
 
-    this.played_id = id === STRINGIFIED_NIL ? null : tonumber(id)!;
+    this.played_id = id === NIL ? null : tonumber(id)!;
 
     if (this.group_snd) {
       this.can_play_group_sound = reader.r_bool();

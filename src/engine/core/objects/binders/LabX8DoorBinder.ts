@@ -21,7 +21,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 
 const ANIMATED_OBJECT_SECT: string = "animated_object";
@@ -101,15 +101,15 @@ export class LabX8DoorBinder extends object_binder {
       "device\\airtight_door_stop"
     );
 
-    if (idle_snd !== null && idle_snd !== STRINGIFIED_NIL) {
+    if (idle_snd !== null && idle_snd !== NIL) {
       this.idle_snd = new sound_object(idle_snd);
     }
 
-    if (start_snd !== null && start_snd !== STRINGIFIED_NIL) {
+    if (start_snd !== null && start_snd !== NIL) {
       this.start_snd = new sound_object(start_snd);
     }
 
-    if (stop_snd !== null && stop_snd !== STRINGIFIED_NIL) {
+    if (stop_snd !== null && stop_snd !== NIL) {
       this.stop_snd = new sound_object(stop_snd);
     }
 

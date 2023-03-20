@@ -8,7 +8,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseIniSectionToArray, TConditionList } from "@/engine/core/utils/parse";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -272,7 +272,7 @@ export class WeatherManager extends AbstractCoreManager {
 
     const str = reader.r_stringZ();
 
-    if (str !== STRINGIFIED_NIL) {
+    if (str !== NIL) {
       this.weather_fx = str;
       this.wfx_time = reader.r_float();
     }

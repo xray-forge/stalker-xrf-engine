@@ -6,7 +6,7 @@ import { ESchemeEvent } from "@/engine/core/schemes/base";
 import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TName, TNumberId, TPath, TSection, TTimestamp } from "@/engine/lib/types";
 
 /**
@@ -124,7 +124,7 @@ export function loadObject(obj: XR_game_object, reader: XR_reader): void {
   let active_section: StringOptional = reader.r_stringZ();
 
   if (active_section === "") {
-    active_section = STRINGIFIED_NIL;
+    active_section = NIL;
   }
 
   const gulag_name: TName = reader.r_stringZ();

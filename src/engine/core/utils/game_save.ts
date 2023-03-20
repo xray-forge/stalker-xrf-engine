@@ -20,22 +20,22 @@ import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { console_commands } from "@/engine/lib/constants/console_commands";
-import { Optional, TName } from "@/engine/lib/types";
+import { roots } from "@/engine/lib/constants/roots";
+import { Optional, TCount, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo
  */
-export function isGameSaveFileExist(filename: string): boolean {
-  const fs: XR_FS = getFS();
-  const flist: XR_FS_file_list_ex = fs.file_list_open_ex(
-    "$game_saves$",
+export function isGameSaveFileExist(filename: TName): boolean {
+  const filesList: XR_FS_file_list_ex = getFS().file_list_open_ex(
+    roots.gameSaves,
     bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
     filename
   );
 
-  return flist.Size() > 0;
+  return filesList.Size() > 0;
 }
 
 /**
@@ -47,10 +47,10 @@ export function deleteGameSave(filename: string): void {
 
   const fs: XR_FS = getFS();
 
-  fs.file_delete("$game_saves$", save_file);
+  fs.file_delete(roots.gameSaves, save_file);
 
   if (isGameSaveFileExist(dds_file)) {
-    fs.file_delete("$game_saves$", dds_file);
+    fs.file_delete(roots.gameSaves, dds_file);
   }
 }
 
@@ -71,7 +71,7 @@ function AddTimeDigit(str: string, dig: number): string {
 export function gatFileDataForGameSave(filename: string) {
   const fs: XR_FS = getFS();
   const flist: XR_FS_file_list_ex = fs.file_list_open_ex(
-    "$game_saves$",
+    roots.gameSaves,
     bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
     filename + gameConfig.GAME_SAVE_EXTENSION
   );
@@ -120,14 +120,14 @@ export function gatFileDataForGameSave(filename: string) {
  * todo
  */
 export function setSaveMarker(packet: XR_net_packet, check: boolean, prefix: TName): void {
-  const result: TName = "_" + prefix;
+  const markerName: TName = "_" + prefix;
 
   if (check) {
-    if (registry.saveMarkers.get(result) === null) {
-      abort("Trying to check without marker: " + result);
+    if (registry.saveMarkers.get(markerName) === null) {
+      abort("Trying to check without marker: " + markerName);
     }
 
-    const dif = packet.w_tell() - registry.saveMarkers.get(result);
+    const dif = packet.w_tell() - registry.saveMarkers.get(markerName);
 
     // log.info("Set save marker result:", result, dif, mode);
 
@@ -146,7 +146,7 @@ export function setSaveMarker(packet: XR_net_packet, check: boolean, prefix: TNa
     return;
   } else {
     // log.info("Set save marker result:", result, p.w_tell(), mode);
-    registry.saveMarkers.set(result, packet.w_tell());
+    registry.saveMarkers.set(markerName, packet.w_tell());
 
     if (packet.w_tell() > 16_000) {
       abort("You are saving too much in %s", prefix);
@@ -158,32 +158,33 @@ export function setSaveMarker(packet: XR_net_packet, check: boolean, prefix: TNa
  * todo
  */
 export function setLoadMarker(reader: TXR_net_processor, check: boolean, prefix: TName): void {
-  const result: TName = "_" + prefix;
+  const markerName: TName = "_" + prefix;
 
   if (check) {
-    if (registry.saveMarkers.get(result) === null) {
-      abort("Trying to check without marker: " + result);
+    if (registry.saveMarkers.get(markerName) === null) {
+      abort("Trying to check without marker: " + markerName);
     }
 
-    const c_dif: number = reader.r_tell() - registry.saveMarkers.get(result);
-    const dif: number = reader.r_u16();
+    const c_dif: TCount = reader.r_tell() - registry.saveMarkers.get(markerName);
+    const dif: TCount = reader.r_u16();
 
     if (dif !== c_dif) {
-      abort("INCORRECT LOAD [%s].[%s][%s]", result, dif, c_dif);
+      abort("INCORRECT LOAD [][%s].[%s][%s]", markerName, dif, c_dif);
     } else {
       // log.info("Set save marker result:", result, dif, mode);
     }
   } else {
     // log.info("Set save marker result:", result, p.r_tell(), mode);
-    registry.saveMarkers.set(result, reader.r_tell());
+    registry.saveMarkers.set(markerName, reader.r_tell());
   }
 }
 
 /**
  * Save game on some scenario moments automatically.
+ *
  * @param saveName - name of the file / record to save, will be translated.
  */
-export function createScenarioAutoSave(saveName: Optional<string>): void {
+export function createScenarioAutoSave(saveName: Optional<TName>): void {
   if (saveName === null) {
     abort("You are trying to use scenario_autosave without save name.");
   }

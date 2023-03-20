@@ -1,6 +1,6 @@
 import { log, print_stack, time_global } from "xray16";
 
-import { stringifyAsJson } from "@/engine/core/utils/json";
+import { stringifyAsJson } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { AnyArgs, AnyObject } from "@/engine/lib/types";
 

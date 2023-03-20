@@ -20,7 +20,7 @@ import { TCommunity } from "@/engine/lib/constants/communities";
 import { lootable_table_exclude, TLootableExcludeItem } from "@/engine/lib/constants/items/lootable_table";
 import { TLevel } from "@/engine/lib/constants/levels";
 import { ERelation } from "@/engine/lib/constants/relations";
-import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
+import { NIL } from "@/engine/lib/constants/words";
 import { EScheme, Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
@@ -131,7 +131,7 @@ export function isObjectWounded(object: XR_game_object): boolean {
   if (state === null) {
     return false;
   } else if (state[EScheme.WOUNDED] !== null) {
-    return tostring((state[EScheme.WOUNDED] as ISchemeWoundedState).wound_manager.wound_state) !== STRINGIFIED_NIL;
+    return tostring((state[EScheme.WOUNDED] as ISchemeWoundedState).wound_manager.wound_state) !== NIL;
   } else {
     return false;
   }
@@ -161,7 +161,7 @@ export function isHeavilyWounded(objectId: TNumberId): boolean {
 
   return (
     state[EScheme.WOUNDED] !== null &&
-    tostring((state[EScheme.WOUNDED] as ISchemeWoundedState).wound_manager.wound_state) !== STRINGIFIED_NIL
+    tostring((state[EScheme.WOUNDED] as ISchemeWoundedState).wound_manager.wound_state) !== NIL
   );
 }
 
