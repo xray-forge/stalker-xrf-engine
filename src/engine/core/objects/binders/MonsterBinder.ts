@@ -12,6 +12,7 @@ import {
   TXR_class_id,
   TXR_snd_type,
   vector,
+  XR_CALifeSmartTerrainTask,
   XR_cse_alife_creature_abstract,
   XR_cse_alife_object,
   XR_game_object,
@@ -24,7 +25,7 @@ import {
 import { IRegistryObjectState, registerObject, registry, resetObject, unregisterObject } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
-import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
+import { setupSmartJobsAndLogicOnSpawn, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/core/objects/alife/Squad";
 import { ESchemeEvent } from "@/engine/core/schemes/base";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
@@ -38,6 +39,7 @@ import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { action, getObjectSquad } from "@/engine/core/utils/object";
+import { TConditionList } from "@/engine/core/utils/parse";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import {
   EScheme,
@@ -220,50 +222,57 @@ export class MonsterBinder extends object_binder {
   /**
    * todo;
    */
-  public override net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: XR_cse_alife_creature_abstract): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
 
     logger.info("Net spawn:", object.name());
 
-    const st = registry.objects.get(this.object.id());
-    const on_offline_condlist = st !== null && st.overrides && st.overrides.on_offline_condlist;
+    const state: IRegistryObjectState = registry.objects.get(this.object.id());
+    const onOfflineConditionsList: Optional<TConditionList> =
+      state !== null && state.overrides && state.overrides.on_offline_condlist;
 
-    if (on_offline_condlist !== null) {
-      pickSectionFromCondList(registry.actor, this.object, on_offline_condlist as any);
+    if (onOfflineConditionsList !== null) {
+      pickSectionFromCondList(registry.actor, this.object, onOfflineConditionsList as any);
     }
 
     if (!this.object.alive()) {
       return true;
     }
 
+    // todo: Is it possible?
     if (alife().object(this.object.id()) === null) {
       return false;
     }
 
     registerObject(this.object);
 
-    const se_obj = alife().object<XR_cse_alife_creature_abstract>(this.object.id())!;
+    // todo: Just use parameter?
+    const serverObject: XR_cse_alife_creature_abstract = alife().object<XR_cse_alife_creature_abstract>(
+      this.object.id()
+    )!;
 
-    if (registry.spawnedVertexes.has(se_obj.id)) {
-      this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(se_obj.id)));
-      registry.spawnedVertexes.delete(se_obj.id);
-    } else if (registry.offlineObjects.get(se_obj.id)?.level_vertex_id !== null) {
+    if (registry.spawnedVertexes.has(serverObject.id)) {
+      this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(serverObject.id)));
+      registry.spawnedVertexes.delete(serverObject.id);
+    } else if (registry.offlineObjects.get(serverObject.id)?.level_vertex_id !== null) {
       this.object.set_npc_position(
-        level.vertex_position(registry.offlineObjects.get(se_obj.id).level_vertex_id as TNumberId)
+        level.vertex_position(registry.offlineObjects.get(serverObject.id).level_vertex_id as TNumberId)
       );
-    } else if (se_obj.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {
-      const smart_terrain: Optional<SmartTerrain> = alife().object<SmartTerrain>(se_obj.m_smart_terrain_id);
+    } else if (serverObject.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {
+      const smartTerrain: Optional<SmartTerrain> = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id);
 
-      if (smart_terrain !== null && smart_terrain.arriving_npc.get(se_obj.id) === null) {
-        const smart_task = smart_terrain.job_data.get(smart_terrain.npc_info.get(se_obj.id).job_id).alife_task;
+      if (smartTerrain !== null && smartTerrain.arrivingObjects.get(serverObject.id) === null) {
+        const smartTask: XR_CALifeSmartTerrainTask = smartTerrain.jobsData.get(
+          smartTerrain.objectJobDescriptors.get(serverObject.id).job_id
+        ).alife_task;
 
-        this.object.set_npc_position(smart_task.position());
+        this.object.set_npc_position(smartTask.position());
       }
     }
 
-    setup_gulag_and_logic_on_spawn(this.object, this.state, object, ESchemeType.MONSTER, this.isLoaded);
+    setupSmartJobsAndLogicOnSpawn(this.object, this.state, object, ESchemeType.MONSTER, this.isLoaded);
 
     return true;
   }

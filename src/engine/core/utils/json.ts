@@ -5,7 +5,8 @@ export function stringifyAsJson(
   target: unknown,
   separator: string = " ",
   depth: number = 0,
-  maxDepth: number = 7
+  maxDepth: number = 7,
+  circular: LuaTable<AnyNotNil, boolean> = new LuaTable()
 ): string {
   if (depth >= maxDepth) {
     return "<depth_limit>";
@@ -26,13 +27,19 @@ export function stringifyAsJson(
   } else if (targetType === "userdata") {
     return "<userdata>";
   } else if (targetType === "table") {
+    if (circular.has(target as AnyNotNil)) {
+      return "<circular_reference>";
+    } else {
+      circular.set(target as AnyNotNil, true);
+    }
+
     let result: string = "{";
 
     for (const [k, v] of pairs(target)) {
       result += string.format(
-        "\"%s\": %s,%s",
+        '"%s": %s,%s',
         stringifyKey(k),
-        stringifyAsJson(v, separator, depth + 1, maxDepth),
+        stringifyAsJson(v, separator, depth + 1, maxDepth, circular),
         separator
       );
     }

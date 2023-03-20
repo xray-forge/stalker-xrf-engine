@@ -328,11 +328,6 @@ export class TravelManager extends AbstractCoreManager {
       return false;
     }
 
-    // --     const squad_count = SmartTerrain.smart_terrain_squad_count(board.smarts[smart.id].squads)
-    // --     if squad_count !== null and (smart.max_population <= squad_count) then
-    // --         return false
-    // --     end
-
     return true;
   }
 
@@ -471,8 +466,8 @@ export class TravelManager extends AbstractCoreManager {
     this.isTravelTeleported = false;
     this.isTraveling = true;
 
-    this.travelActorPath = smartTerrain.traveler_actor_path;
-    this.travelSquadPath = smartTerrain.traveler_squad_path;
+    this.travelActorPath = smartTerrain.travelerActorPath;
+    this.travelSquadPath = smartTerrain.travelerSquadPath;
     this.travelToSmartId = smartTerrain.id;
     this.travelSquad = squad;
     this.travelDistance = distance;
@@ -505,8 +500,8 @@ export class TravelManager extends AbstractCoreManager {
     this.isTraveling = true;
 
     this.travelDistance = getServerDistanceBetween(squad, smartTerrain);
-    this.travelActorPath = smartTerrain.traveler_actor_path;
-    this.travelSquadPath = smartTerrain.traveler_squad_path;
+    this.travelActorPath = smartTerrain.travelerActorPath;
+    this.travelSquadPath = smartTerrain.travelerSquadPath;
     this.travelToSmartId = smartTerrain.id;
     this.travelSquad = squad;
     this.travelingStartedAt = time_global();

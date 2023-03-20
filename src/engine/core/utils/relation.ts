@@ -166,7 +166,7 @@ export function setGulagRelationActor(gulagName: TName, relation: TRelation): vo
     goodwill = ERelation.FRIENDS;
   }
 
-  for (const [index, npcInfo] of gulag.npc_info) {
+  for (const [index, npcInfo] of gulag.objectJobDescriptors) {
     const object: Optional<XR_game_object> = registry.objects.get(npcInfo.se_obj.id)?.object;
 
     if (object !== null) {
@@ -187,7 +187,7 @@ export function getGulagRelationToActor(gulagName: TName, relation: TRelation): 
     let goodwill: TCount = 0;
     let npcCount: TCount = 0;
 
-    for (const [id, npcInfo] of gulag.npc_info) {
+    for (const [id, npcInfo] of gulag.objectJobDescriptors) {
       const object = registry.objects.get(npcInfo.se_obj.id)?.object;
 
       if (object !== null && actor !== null) {

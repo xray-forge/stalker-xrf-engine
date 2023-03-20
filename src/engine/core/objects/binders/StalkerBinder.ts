@@ -15,8 +15,10 @@ import {
   time_global,
   TXR_snd_type,
   vector,
+  XR_action_planner,
+  XR_CALifeSmartTerrainTask,
+  XR_cse_alife_creature_abstract,
   XR_cse_alife_human_abstract,
-  XR_cse_alife_object,
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
@@ -43,7 +45,7 @@ import { ReleaseBodyManager } from "@/engine/core/managers/ReleaseBodyManager";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { TradeManager } from "@/engine/core/managers/TradeManager";
-import { setup_gulag_and_logic_on_spawn, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
+import { setupSmartJobsAndLogicOnSpawn, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { bind_state_manager } from "@/engine/core/objects/state/bind_state_manager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ESchemeEvent } from "@/engine/core/schemes/base";
@@ -122,8 +124,8 @@ export class StalkerBinder extends object_binder {
   /**
    * todo;
    */
-  public override net_spawn(obj: XR_cse_alife_object): boolean {
-    const visual = getConfigString(system_ini(), this.object.section(), "set_visual", obj, false, "");
+  public override net_spawn(object: XR_cse_alife_creature_abstract): boolean {
+    const visual = getConfigString(system_ini(), this.object.section(), "set_visual", object, false, "");
     const actor: XR_game_object = registry.actor;
 
     if (visual !== null && visual !== "") {
@@ -136,7 +138,7 @@ export class StalkerBinder extends object_binder {
 
     DynamicMusicManager.NPC_TABLE.set(this.object.id(), this.object.id());
 
-    if (!super.net_spawn(obj)) {
+    if (!super.net_spawn(object)) {
       return false;
     }
 
@@ -194,43 +196,45 @@ export class StalkerBinder extends object_binder {
     SoundTheme.init_npc_sound(this.object);
 
     if (getStoryIdByObjectId(this.object.id()) === "zat_b53_artefact_hunter_1") {
-      const manager = this.object.motivation_action_manager();
+      const actionPlanner: XR_action_planner = this.object.motivation_action_manager();
 
-      manager.remove_evaluator(stalker_ids.property_anomaly);
-      manager.add_evaluator(stalker_ids.property_anomaly, new property_evaluator_const(false));
+      actionPlanner.remove_evaluator(stalker_ids.property_anomaly);
+      actionPlanner.add_evaluator(stalker_ids.property_anomaly, new property_evaluator_const(false));
     }
 
     SchemeReachTask.addReachTaskSchemeAction(this.object);
 
     // todo: Why? Already same in callback?
-    const se_obj = alife().object<XR_cse_alife_human_abstract>(this.object.id());
+    const serverObject: Optional<XR_cse_alife_human_abstract> = alife().object(this.object.id());
 
-    if (se_obj !== null) {
-      if (registry.spawnedVertexes.get(se_obj.id) !== null) {
-        this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(se_obj.id)));
-        registry.spawnedVertexes.delete(se_obj.id);
-      } else if (registry.offlineObjects.get(se_obj.id)?.level_vertex_id !== null) {
+    if (serverObject !== null) {
+      if (registry.spawnedVertexes.get(serverObject.id) !== null) {
+        this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(serverObject.id)));
+        registry.spawnedVertexes.delete(serverObject.id);
+      } else if (registry.offlineObjects.get(serverObject.id)?.level_vertex_id !== null) {
         this.object.set_npc_position(
-          level.vertex_position(registry.offlineObjects.get(se_obj.id).level_vertex_id as TNumberId)
+          level.vertex_position(registry.offlineObjects.get(serverObject.id).level_vertex_id as TNumberId)
         );
-      } else if (se_obj.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {
-        const smart_terrain: SmartTerrain = alife().object<SmartTerrain>(se_obj.m_smart_terrain_id)!;
+      } else if (serverObject.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {
+        const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!;
 
-        if (smart_terrain.arriving_npc.get(se_obj.id) === null) {
-          const smart_task = smart_terrain.job_data.get(smart_terrain.npc_info.get(se_obj.id).job_id).alife_task;
+        if (smartTerrain.arrivingObjects.get(serverObject.id) === null) {
+          const smartTask: XR_CALifeSmartTerrainTask = smartTerrain.jobsData.get(
+            smartTerrain.objectJobDescriptors.get(serverObject.id).job_id
+          ).alife_task;
 
-          this.object.set_npc_position(smart_task.position());
+          this.object.set_npc_position(smartTask.position());
         }
       }
     }
 
-    setup_gulag_and_logic_on_spawn(this.object, this.state, obj, ESchemeType.STALKER, this.loaded);
+    setupSmartJobsAndLogicOnSpawn(this.object, this.state, object, ESchemeType.STALKER, this.loaded);
 
     if (getCharacterCommunity(this.object) !== communities.zombied) {
       PostCombatIdle.addPostCombatIdleWait(this.object);
     }
 
-    this.object.group_throw_time_interval(2000);
+    this.object.group_throw_time_interval(2_000);
 
     return true;
   }
@@ -303,16 +307,16 @@ export class StalkerBinder extends object_binder {
     if (who?.id() === actor.id()) {
       StatisticsManager.getInstance().updateBestWeapon(amount);
       if (amount > 0) {
-        for (const [k, v] of SimulationBoardManager.getInstance().getSmartTerrainDescriptors()) {
-          const smartTerrain = v.smartTerrain;
+        for (const [, descriptor] of SimulationBoardManager.getInstance().getSmartTerrainDescriptors()) {
+          const smartTerrain: SmartTerrain = descriptor.smartTerrain;
 
-          if (smartTerrain.base_on_actor_control !== null) {
+          if (smartTerrain.smartTerrainActorControl !== null) {
             const levelId: TNumberId = game_graph().vertex(smartTerrain.m_game_vertex_id).level_id();
             const actorLevelId: TNumberId = game_graph().vertex(alife().actor().m_game_vertex_id).level_id();
 
             if (levelId === actorLevelId && actor.position().distance_to_sqr(smartTerrain.position) <= 6400) {
               if (this.object.relation(actor) !== game_object.enemy) {
-                smartTerrain.base_on_actor_control.actor_attack();
+                smartTerrain.smartTerrainActorControl.actor_attack();
               }
             }
           }

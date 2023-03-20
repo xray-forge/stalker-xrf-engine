@@ -81,9 +81,9 @@ export class ActionReachTaskLocation extends action_base {
     this.object.set_mental_state(anim.free);
     this.object.set_movement_type(move.walk);
 
-    const squad_target = alife().object(this.target_id)!;
+    const squadTarget: TSimulationObject = alife().object(this.target_id)!;
 
-    this.object.set_dest_game_vertex_id(squad_target.m_game_vertex_id);
+    this.object.set_dest_game_vertex_id(squadTarget.m_game_vertex_id);
     this.object.set_path_type(game_object.game_path);
     this.object.inactualize_patrol_path();
     this.object.set_sight(look.path_dir, null, 0);

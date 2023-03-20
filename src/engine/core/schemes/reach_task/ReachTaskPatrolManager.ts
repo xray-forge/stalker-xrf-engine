@@ -6,7 +6,7 @@ import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";
 import { vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/physics";
-import { Optional, TName, TNumberId } from "@/engine/lib/types";
+import { Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -47,11 +47,11 @@ const accel_by_curtype = {
  * todo;
  */
 export class ReachTaskPatrolManager {
-  public static add_to_reach_patrol(object: XR_game_object, targetId: number): void {
-    logger.info("Add to patrol:", object.name());
+  public static add_to_reach_patrol(object: XR_game_object, targetId: TNumberId): void {
+    const squadId: TNumberId = getObjectSquad(object)!.id;
+    const patrolId: TStringId = targetId + "_to_" + squadId;
 
-    const squadId: number = getObjectSquad(object)!.id;
-    const patrolId: string = targetId + "_to_" + squadId;
+    logger.info("Add to patrol:", object.name(), squadId, patrolId, targetId);
 
     if (registry.patrols.reachTask.get(patrolId) === null) {
       registry.patrols.reachTask.set(patrolId, new ReachTaskPatrolManager(targetId));

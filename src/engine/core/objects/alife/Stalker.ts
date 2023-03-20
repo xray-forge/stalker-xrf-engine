@@ -16,7 +16,7 @@ import {
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
-import { on_death, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
+import { onSmartTerrainObjectDeath, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigString } from "@/engine/core/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -162,7 +162,7 @@ export class Stalker extends cse_alife_human_stalker {
 
     logger.info("On death:", this.name(), killer.id, killer?.name());
 
-    on_death(this);
+    onSmartTerrainObjectDeath(this);
 
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
       const squad: any = alife().object(this.group_id);

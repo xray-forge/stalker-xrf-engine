@@ -233,7 +233,7 @@ export class Squad<
   /**
    * todo;
    */
-  public get_script_target(): Optional<number> {
+  public get_script_target(): Optional<TNumberId> {
     const new_target: Optional<string> = pickSectionFromCondList(
       registry.actor,
       this,
@@ -344,31 +344,31 @@ export class Squad<
 
     this.soundManager.update();
 
-    let need_to_find_new_action: boolean = false;
+    let shouldFindNewAction: boolean = false;
 
     if (this.assigned_target_id !== null && this.assigned_target_id === script_target) {
       if (this.current_action !== null) {
         if (this.current_action.name === "stay_point") {
           if (this.check_squad_come_to_point()) {
-            need_to_find_new_action = true;
+            shouldFindNewAction = true;
           } else {
-            need_to_find_new_action = this.update_current_action();
+            shouldFindNewAction = this.update_current_action();
           }
         } else {
           if (this.update_current_action()) {
             this.check_squad_come_to_point();
-            need_to_find_new_action = true;
+            shouldFindNewAction = true;
           }
         }
       } else {
         this.check_squad_come_to_point();
-        need_to_find_new_action = true;
+        shouldFindNewAction = true;
       }
     } else {
-      need_to_find_new_action = true;
+      shouldFindNewAction = true;
     }
 
-    if (need_to_find_new_action) {
+    if (shouldFindNewAction) {
       this.assigned_target_id = script_target;
 
       if (this.current_action !== null) {
@@ -396,13 +396,14 @@ export class Squad<
    * todo;
    */
   public assigned_target_avaliable(): boolean {
-    const target_obj = (this.assigned_target_id && alife().object(this.assigned_target_id)) as SmartTerrain;
+    const targetObject: Optional<TSimulationObject> =
+      this.assigned_target_id === null ? null : alife().object<TSimulationObject>(this.assigned_target_id);
 
-    if (target_obj === null) {
+    if (targetObject === null) {
       return false;
     }
 
-    return target_obj.target_precondition(this, true);
+    return targetObject.target_precondition(this, true);
   }
 
   /**
@@ -566,26 +567,28 @@ export class Squad<
     smartTerrain: Optional<SmartTerrain>,
     oldSmartTerrainId: Optional<TNumberId>
   ): void {
-    logger.info("Assign squad member to squad:", this.name(), smartTerrain?.name(), memberId);
+    const object: Optional<XR_cse_alife_creature_abstract> = alife().object<XR_cse_alife_creature_abstract>(memberId);
 
-    const obj = alife().object<XR_cse_alife_creature_abstract>(memberId);
+    if (object !== null) {
+      logger.info("Assign squad member to squad:", this.name(), smartTerrain?.name(), object.name());
 
-    if (obj !== null) {
-      if (obj.m_smart_terrain_id === this.smart_id) {
+      if (object.m_smart_terrain_id === this.smart_id) {
         return;
       }
 
       if (
-        obj.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT &&
+        object.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT &&
         oldSmartTerrainId !== null &&
-        obj.m_smart_terrain_id === oldSmartTerrainId &&
+        object.m_smart_terrain_id === oldSmartTerrainId &&
         this.simulationBoardManager.getSmartTerrainDescriptorById(oldSmartTerrainId) !== null
       ) {
-        this.simulationBoardManager.getSmartTerrainDescriptorById(oldSmartTerrainId)!.smartTerrain.unregister_npc(obj);
+        this.simulationBoardManager
+          .getSmartTerrainDescriptorById(oldSmartTerrainId)!
+          .smartTerrain.unregister_npc(object);
       }
 
       if (smartTerrain !== null) {
-        smartTerrain.register_npc(obj);
+        smartTerrain.register_npc(object);
       }
     }
   }
@@ -594,14 +597,14 @@ export class Squad<
    * todo;
    */
   public assign_smart(smart: Optional<SmartTerrain>) {
-    logger.info("Assign smart:", this.name(), smart?.name());
+    logger.info("Assign squad to smart:", this.name(), smart?.name());
 
-    const old_smart = this.smart_id!;
+    const oldSmartId: TNumberId = this.smart_id!;
 
     this.smart_id = smart && smart.id;
 
-    for (const k of this.squad_members()) {
-      this.assign_squad_member_to_smart(k.id, smart, old_smart);
+    for (const squadMember of this.squad_members()) {
+      this.assign_squad_member_to_smart(squadMember.id, smart, oldSmartId);
     }
   }
 
@@ -647,8 +650,8 @@ export class Squad<
   /**
    * todo;
    */
-  public set_location_types(new_smart_name?: string): void {
-    logger.info("Set location types:", this.name(), new_smart_name);
+  public set_location_types(newSmartName?: TName): void {
+    logger.info("Set location types:", this.name(), newSmartName);
 
     const default_location = "stalker_terrain";
 
@@ -663,8 +666,8 @@ export class Squad<
         this.set_location_types_section(old_smart_name);
       }
 
-      if (new_smart_name) {
-        this.set_location_types_section(new_smart_name);
+      if (newSmartName) {
+        this.set_location_types_section(newSmartName);
       }
     } else {
       this.set_location_types_section("squad_terrain");
@@ -684,7 +687,12 @@ export class Squad<
   /**
    * todo;
    */
-  public add_squad_member(spawn_section: TSection, spawn_position: XR_vector, lv_id: number, gv_id: number): number {
+  public add_squad_member(
+    spawn_section: TSection,
+    spawn_position: XR_vector,
+    lv_id: TNumberId,
+    gv_id: TNumberId
+  ): TNumberId {
     logger.info("Add squad member:", this.name());
 
     const spawn_sections_ltx = system_ini();
@@ -706,20 +714,20 @@ export class Squad<
     }
 
     const position = spawn_position;
-    const obj = alife().create(spawn_section, position, lv_id, gv_id);
+    const serverObject = alife().create(spawn_section, position, lv_id, gv_id);
 
-    this.register_member(obj.id);
-    this.soundManager.register_npc(obj.id);
+    this.register_member(serverObject.id);
+    this.soundManager.register_npc(serverObject.id);
 
     if (
-      areObjectsOnSameLevel(obj, alife().actor()) &&
+      areObjectsOnSameLevel(serverObject, alife().actor()) &&
       position.distance_to_sqr(alife().actor().position) <= alife().switch_distance() * alife().switch_distance()
     ) {
       // todo: Delete also, same as with stalkers and monsters??? Memory leak probable
-      registry.spawnedVertexes.set(obj.id, lv_id);
+      registry.spawnedVertexes.set(serverObject.id, lv_id);
     }
 
-    return obj.id;
+    return serverObject.id;
   }
 
   /**
@@ -755,10 +763,10 @@ export class Squad<
         base_lvi = new patrol(spawnPoint).level_vertex_id(0);
         base_gvi = new patrol(spawnPoint).game_vertex_id(0);
       }
-    } else if (spawnSmartTerrain.spawn_point !== null) {
-      base_spawn_position = new patrol(spawnSmartTerrain.spawn_point).point(0);
-      base_lvi = new patrol(spawnSmartTerrain.spawn_point).level_vertex_id(0);
-      base_gvi = new patrol(spawnSmartTerrain.spawn_point).game_vertex_id(0);
+    } else if (spawnSmartTerrain.spawnPointName !== null) {
+      base_spawn_position = new patrol(spawnSmartTerrain.spawnPointName).point(0);
+      base_lvi = new patrol(spawnSmartTerrain.spawnPointName).level_vertex_id(0);
+      base_gvi = new patrol(spawnSmartTerrain.spawnPointName).game_vertex_id(0);
     }
 
     if (spawnSections.length() !== 0) {
@@ -972,8 +980,8 @@ export class Squad<
         return;
       }
 
-      smart.already_spawned.get(this.respawn_point_prop_section!).num =
-        smart.already_spawned.get(this.respawn_point_prop_section!).num - 1;
+      smart.alreadySpawned.get(this.respawn_point_prop_section!).num =
+        smart.alreadySpawned.get(this.respawn_point_prop_section!).num - 1;
     }
   }
 
@@ -1119,23 +1127,23 @@ export class Squad<
    */
   public override get_current_task(): XR_CALifeSmartTerrainTask {
     if (this.assigned_target_id !== null && alife().object(this.assigned_target_id) !== null) {
-      const smart_terrain = alife().object<SmartTerrain>(this.assigned_target_id)!;
+      const smartTerrain: Optional<SmartTerrain> = alife().object<SmartTerrain>(this.assigned_target_id)!;
 
       if (
-        smart_terrain.arriving_npc !== null &&
-        smart_terrain.arriving_npc.get(this.commander_id()) === null &&
-        smart_terrain.npc_info &&
-        smart_terrain.npc_info.get(this.commander_id()) &&
-        smart_terrain.npc_info.get(this.commander_id()).job_id &&
-        smart_terrain.job_data.get(smart_terrain.npc_info.get(this.commander_id()).job_id)
+        smartTerrain.arrivingObjects !== null &&
+        smartTerrain.arrivingObjects.get(this.commander_id()) === null &&
+        smartTerrain.objectJobDescriptors &&
+        smartTerrain.objectJobDescriptors.get(this.commander_id()) &&
+        smartTerrain.objectJobDescriptors.get(this.commander_id()).job_id &&
+        smartTerrain.jobsData.get(smartTerrain.objectJobDescriptors.get(this.commander_id()).job_id)
       ) {
-        return smart_terrain.job_data.get(smart_terrain.npc_info.get(this.commander_id()).job_id).alife_task;
+        return smartTerrain.jobsData.get(smartTerrain.objectJobDescriptors.get(this.commander_id()).job_id).alife_task;
       }
 
-      return alife().object<TSimulationObject>(this.assigned_target_id)!.get_alife_task();
+      return alife().object<TSimulationObject>(this.assigned_target_id)!.getAlifeSmartTerrainTask();
     }
 
-    return this.get_alife_task();
+    return this.getAlifeSmartTerrainTask();
   }
 
   /**
@@ -1166,7 +1174,7 @@ export class Squad<
   /**
    * todo;
    */
-  public get_alife_task(): XR_CALifeSmartTerrainTask {
+  public getAlifeSmartTerrainTask(): XR_CALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
   }
 
@@ -1186,8 +1194,8 @@ export class Squad<
 
         if (
           smart &&
-          smart.base_on_actor_control !== null &&
-          smart.base_on_actor_control.status !== ESmartTerrainStatus.ALARM
+          smart.smartTerrainActorControl !== null &&
+          smart.smartTerrainActorControl.status !== ESmartTerrainStatus.ALARM
         ) {
           return false;
         }
@@ -1205,10 +1213,13 @@ export class Squad<
       return false;
     }
 
-    if (smart.base_on_actor_control !== null && smart.base_on_actor_control.status !== ESmartTerrainStatus.NORMAL) {
+    if (
+      smart.smartTerrainActorControl !== null &&
+      smart.smartTerrainActorControl.status !== ESmartTerrainStatus.NORMAL
+    ) {
       if (
-        registry.zones.get(smart.base_on_actor_control.noweap_zone) === null ||
-        !registry.zones.get(smart.base_on_actor_control.noweap_zone).inside(this.position)
+        registry.zones.get(smart.smartTerrainActorControl.noweap_zone) === null ||
+        !registry.zones.get(smart.smartTerrainActorControl.noweap_zone).inside(this.position)
       ) {
         return false;
       }

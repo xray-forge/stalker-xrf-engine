@@ -108,6 +108,21 @@ export class SimulationBoardManager extends AbstractCoreManager {
   }
 
   /**
+   * todo;
+   */
+  public getSmartTerrainActiveSquads(smartTerrainId: TNumberId): TCount {
+    let count: TCount = 0;
+
+    for (const [k, squad] of this.smartTerrains.get(smartTerrainId).assignedSquads) {
+      if (squad.get_script_target() !== null) {
+        count = count + 1;
+      }
+    }
+
+    return count;
+  }
+
+  /**
    * Initialize game squads on game start, spawn all pre-defined squads.
    * todo;
    */
@@ -133,16 +148,16 @@ export class SimulationBoardManager extends AbstractCoreManager {
         const [, id, value] = SIMULATION_LTX.r_line(levelSectionName, it, "", "");
         const smartTerrainsNames: LuaArray<TName> = parseNames(value);
 
-        for (const [k, v] of smartTerrainsNames) {
-          const smart = this.smartTerrainsByName.get(v);
+        for (const [, name] of smartTerrainsNames) {
+          const smartTerrain: Optional<SmartTerrain> = this.smartTerrainsByName.get(name);
 
-          if (smart === null) {
-            abort("Wrong smart name [%s] in start position", tostring(v));
+          if (smartTerrain === null) {
+            abort("Wrong smart name [%s] in start position", tostring(name));
           }
 
-          const squad = this.createSmartSquad(smart, id as any);
+          const squad = this.createSmartSquad(smartTerrain, id);
 
-          this.enterSmartTerrain(squad, smart.id);
+          this.enterSmartTerrain(squad, smartTerrain.id);
         }
       }
     }
@@ -368,7 +383,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
     let objectSquadId: TNumberId = 0;
 
     if (smartTerrain.clsid() === clsid.smart_terrain) {
-      objectSquadId = smartTerrain.squad_id;
+      objectSquadId = smartTerrain.squadId;
     }
 
     changeTeamSquadGroup(object, object.team, objectSquadId, object.group);

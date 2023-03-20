@@ -251,13 +251,13 @@ export class NpcSound extends AbstractPlayableSound {
    * todo;
    */
   public play(objectId: TNumberId, faction: string, point: Optional<string>, message: TLabel): boolean {
-    logger.info("Play:", objectId, faction, point, message, "#");
-
     const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
 
     if (object === null) {
       return false;
     }
+
+    logger.info("Play npc sound:", object.name(), faction, point, message, "#");
 
     if (this.group_snd) {
       if (!this.can_play_group_sound) {

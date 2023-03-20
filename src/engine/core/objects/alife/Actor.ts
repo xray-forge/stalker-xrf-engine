@@ -129,7 +129,7 @@ export class Actor extends cse_alife_creature_actor {
   /**
    * todo;
    */
-  public get_alife_task(): XR_CALifeSmartTerrainTask {
+  public getAlifeSmartTerrainTask(): XR_CALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
   }
 
@@ -157,7 +157,7 @@ export class Actor extends cse_alife_creature_actor {
       if (zone !== null && zone.inside(this.position)) {
         const smart = SimulationBoardManager.getInstance().getSmartTerrainByName(v);
 
-        if (smart !== null && smart.base_on_actor_control.status !== ESmartTerrainStatus.ALARM) {
+        if (smart !== null && smart.smartTerrainActorControl.status !== ESmartTerrainStatus.ALARM) {
           return false;
         }
       }
@@ -170,9 +170,9 @@ export class Actor extends cse_alife_creature_actor {
     const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(getCurrentSmartId()!)!;
 
     if (
-      smartTerrain.base_on_actor_control !== null &&
-      smartTerrain.base_on_actor_control.status === ESmartTerrainStatus.NORMAL &&
-      registry.zones.get(smartTerrain.base_on_actor_control.noweap_zone).inside(this.position)
+      smartTerrain.smartTerrainActorControl !== null &&
+      smartTerrain.smartTerrainActorControl.status === ESmartTerrainStatus.NORMAL &&
+      registry.zones.get(smartTerrain.smartTerrainActorControl.noweap_zone).inside(this.position)
     ) {
       return false;
     }

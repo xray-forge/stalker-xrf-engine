@@ -3,7 +3,7 @@ import { LuabindClass, object_binder, XR_cse_alife_object, XR_CZoneCampfire, XR_
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isEmpty } from "@/engine/core/utils/table";
-import { TName, TNumberId } from "@/engine/lib/types";
+import { Optional, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -53,13 +53,14 @@ export class CampfireBinder extends object_binder {
 /**
  * todo;
  */
-export function turn_on_campfires_by_smart_name(smartName: TName): void {
-  logger.info("Turn on campfires for:", smartName);
+export function turnOnCampfiresBySmartName(smartTerrainName: TName): void {
+  logger.info("Turn on campfires for:", smartTerrainName);
 
-  const smart_campfires: LuaTable<number, XR_CZoneCampfire> = campfire_table_by_smart_names.get(smartName);
+  const smartTerrainCampfires: Optional<LuaTable<TNumberId, XR_CZoneCampfire>> =
+    campfire_table_by_smart_names.get(smartTerrainName);
 
-  if (smart_campfires !== null && !isEmpty(smart_campfires)) {
-    for (const [k, v] of smart_campfires) {
+  if (smartTerrainCampfires !== null && !isEmpty(smartTerrainCampfires)) {
+    for (const [k, v] of smartTerrainCampfires) {
       if (!v.is_on()) {
         v.turn_on();
       }
@@ -70,10 +71,11 @@ export function turn_on_campfires_by_smart_name(smartName: TName): void {
 /**
  * todo;
  */
-export function turn_off_campfires_by_smart_name(smart_name: string): void {
-  logger.info("Turn off campfires for:", smart_name);
+export function turnOffCampfiresBySmartTerrainName(smartTerrainName: TName): void {
+  logger.info("Turn off campfires for:", smartTerrainName);
 
-  const smartTerrainCampfires: LuaTable<TNumberId, XR_CZoneCampfire> = campfire_table_by_smart_names.get(smart_name);
+  const smartTerrainCampfires: Optional<LuaTable<TNumberId, XR_CZoneCampfire>> =
+    campfire_table_by_smart_names.get(smartTerrainName);
 
   if (smartTerrainCampfires !== null && !isEmpty(smartTerrainCampfires)) {
     for (const [id, campfire] of smartTerrainCampfires) {

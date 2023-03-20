@@ -1599,7 +1599,7 @@ export function create_squad_member(
       const data: string = getConfigString(SYSTEM_INI, squad.section_name(), "spawn_point", object, false, "");
       const condlist: LuaArray<IConfigSwitchCondition> =
         data === "" || data === null
-          ? parseConditionsList(squadSmartTerrain.spawn_point as string)
+          ? parseConditionsList(squadSmartTerrain.spawnPointName as string)
           : parseConditionsList(data);
 
       spawn_point = pickSectionFromCondList(actor, object, condlist) as TStringId;

@@ -201,14 +201,14 @@ export class NotificationManager extends AbstractCoreManager {
    * todo;
    */
   public sendSoundNotification(
-    npc: Optional<XR_game_object>,
+    object: Optional<XR_game_object>,
     faction: Optional<string>,
     point: Optional<string>,
     str: string,
     str2: Optional<string>,
     delay: Optional<TDuration>
   ): void {
-    logger.info("Send sound:", npc?.id(), str, str2, faction);
+    logger.info("Send sound:", object?.name(), str, str2, faction);
 
     if (faction === null) {
       return;
@@ -244,8 +244,8 @@ export class NotificationManager extends AbstractCoreManager {
 
     let texture: string = texturesIngame.ui_iconsTotal_grouping;
 
-    if (npc !== null && isStalkerClassId(npc.clsid())) {
-      texture = npc.character_icon();
+    if (object !== null && isStalkerClassId(object.clsid())) {
+      texture = object.character_icon();
     } else {
       if (notificationManagerIcons[faction as TNotificationIconKey] !== null) {
         texture = notificationManagerIcons[faction as TNotificationIconKey];

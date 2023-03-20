@@ -131,11 +131,11 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
       "use_attack_direction = false\n" +
       "anim = {!npc_community(zombied)} sit, guard\n";
 
-    if (smart.def_restr !== null) {
-      job_ltx = job_ltx + "out_restr = " + smart.def_restr + "\n";
+    if (smart.defendRestrictor !== null) {
+      job_ltx = job_ltx + "out_restr = " + smart.defendRestrictor + "\n";
     }
 
-    if (smart.base_on_actor_control !== null && smart.base_on_actor_control.ignore_zone !== null) {
+    if (smart.smartTerrainActorControl !== null && smart.smartTerrainActorControl.ignore_zone !== null) {
       job_ltx =
         job_ltx +
         "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" +
@@ -194,14 +194,14 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
       job_ltx = job_ltx + "path_look = surge_" + it + "_look\n";
     }
 
-    if (smart.def_restr !== null) {
-      job_ltx = job_ltx + "out_restr = " + smart.def_restr + "\n";
+    if (smart.defendRestrictor !== null) {
+      job_ltx = job_ltx + "out_restr = " + smart.defendRestrictor + "\n";
     }
 
     if (
-      smart.base_on_actor_control !== null &&
-      smart.base_on_actor_control.ignore_zone !== null &&
-      isJobInRestrictor(smart, smart.base_on_actor_control.ignore_zone, wayName)
+      smart.smartTerrainActorControl !== null &&
+      smart.smartTerrainActorControl.ignore_zone !== null &&
+      isJobInRestrictor(smart, smart.smartTerrainActorControl.ignore_zone, wayName)
     ) {
       job_ltx =
         job_ltx +
@@ -251,16 +251,16 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
           return false;
         }
 
-        if (smart.smart_alarm_time === null) {
+        if (smart.smartAlarmStartedAt === null) {
           return true;
         }
 
-        if (smart.safe_restr === null) {
+        if (smart.safeRestrictor === null) {
           return true;
         }
 
         if (precond_params.is_safe_job === null) {
-          precond_params.is_safe_job = isJobInRestrictor(smart, smart.safe_restr, way_name);
+          precond_params.is_safe_job = isJobInRestrictor(smart, smart.safeRestrictor, way_name);
         }
 
         return precond_params.is_safe_job !== false;
@@ -283,18 +283,18 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
       it +
       "\n";
 
-    if (smart.safe_restr !== null && isJobInRestrictor(smart, smart.safe_restr, way_name)) {
+    if (smart.safeRestrictor !== null && isJobInRestrictor(smart, smart.safeRestrictor, way_name)) {
       job_ltx = job_ltx + "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
-    if (smart.def_restr !== null) {
-      job_ltx = job_ltx + "out_restr = " + smart.def_restr + "\n";
+    if (smart.defendRestrictor !== null) {
+      job_ltx = job_ltx + "out_restr = " + smart.defendRestrictor + "\n";
     }
 
     if (
-      smart.base_on_actor_control !== null &&
-      smart.base_on_actor_control.ignore_zone !== null &&
-      isJobInRestrictor(smart, smart.base_on_actor_control.ignore_zone, way_name)
+      smart.smartTerrainActorControl !== null &&
+      smart.smartTerrainActorControl.ignore_zone !== null &&
+      isJobInRestrictor(smart, smart.smartTerrainActorControl.ignore_zone, way_name)
     ) {
       job_ltx =
         job_ltx +
@@ -390,18 +390,18 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
       job_ltx = job_ltx + "path_look = collector_" + it + "_look\n";
     }
 
-    if (smart.safe_restr !== null && isJobInRestrictor(smart, smart.safe_restr, way_name)) {
+    if (smart.safeRestrictor !== null && isJobInRestrictor(smart, smart.safeRestrictor, way_name)) {
       job_ltx = job_ltx + "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
-    if (smart.def_restr !== null) {
-      job_ltx = job_ltx + "out_restr = " + smart.def_restr + "\n";
+    if (smart.defendRestrictor !== null) {
+      job_ltx = job_ltx + "out_restr = " + smart.defendRestrictor + "\n";
     }
 
     if (
-      smart.base_on_actor_control !== null &&
-      smart.base_on_actor_control.ignore_zone !== null &&
-      isJobInRestrictor(smart, smart.base_on_actor_control.ignore_zone, way_name)
+      smart.smartTerrainActorControl !== null &&
+      smart.smartTerrainActorControl.ignore_zone !== null &&
+      isJobInRestrictor(smart, smart.smartTerrainActorControl.ignore_zone, way_name)
     ) {
       job_ltx =
         job_ltx +
@@ -440,16 +440,16 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
       },
       _precondition_params: {},
       _precondition_function: function (se_obj: XR_cse_alife_object, smart: SmartTerrain, precond_params: AnyObject) {
-        if (smart.smart_alarm_time === null) {
+        if (smart.smartAlarmStartedAt === null) {
           return true;
         }
 
-        if (smart.safe_restr === null) {
+        if (smart.safeRestrictor === null) {
           return true;
         }
 
         if (precond_params.is_safe_job === null) {
-          precond_params.is_safe_job = isJobInRestrictor(smart, smart.safe_restr, way_name);
+          precond_params.is_safe_job = isJobInRestrictor(smart, smart.safeRestrictor, way_name);
         }
 
         return precond_params.is_safe_job !== false;
@@ -479,18 +479,18 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
       job_ltx = job_ltx + "path_look = walker_" + it + "_look\n";
     }
 
-    if (smart.safe_restr !== null && isJobInRestrictor(smart, smart.safe_restr, way_name)) {
+    if (smart.safeRestrictor !== null && isJobInRestrictor(smart, smart.safeRestrictor, way_name)) {
       job_ltx = job_ltx + "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
-    if (smart.def_restr !== null) {
-      job_ltx = job_ltx + "out_restr = " + smart.def_restr + "\n";
+    if (smart.defendRestrictor !== null) {
+      job_ltx = job_ltx + "out_restr = " + smart.defendRestrictor + "\n";
     }
 
     if (
-      smart.base_on_actor_control !== null &&
-      smart.base_on_actor_control.ignore_zone !== null &&
-      isJobInRestrictor(smart, smart.base_on_actor_control.ignore_zone, way_name)
+      smart.smartTerrainActorControl !== null &&
+      smart.smartTerrainActorControl.ignore_zone !== null &&
+      isJobInRestrictor(smart, smart.smartTerrainActorControl.ignore_zone, way_name)
     ) {
       job_ltx =
         job_ltx +
@@ -542,16 +542,16 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
             return false;
           }
 
-          if (smart.smart_alarm_time === null) {
+          if (smart.smartAlarmStartedAt === null) {
             return true;
           }
 
-          if (smart.safe_restr === null) {
+          if (smart.safeRestrictor === null) {
             return true;
           }
 
           if (precond_params.is_safe_job === null) {
-            precond_params.is_safe_job = isJobInRestrictor(smart, smart.safe_restr, way_name);
+            precond_params.is_safe_job = isJobInRestrictor(smart, smart.safeRestrictor, way_name);
           }
 
           return precond_params.is_safe_job !== false;
@@ -581,12 +581,12 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
       job_ltx = job_ltx + "path_look = patrol_" + it + "_look\n";
     }
 
-    if (smart.safe_restr !== null && isJobInRestrictor(smart, smart.safe_restr, way_name)) {
+    if (smart.safeRestrictor !== null && isJobInRestrictor(smart, smart.safeRestrictor, way_name)) {
       job_ltx = job_ltx + "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
-    if (smart.def_restr !== null) {
-      job_ltx = job_ltx + "out_restr = " + smart.def_restr + "\n";
+    if (smart.defendRestrictor !== null) {
+      job_ltx = job_ltx + "out_restr = " + smart.defendRestrictor + "\n";
     }
 
     ltx = ltx + job_ltx;
@@ -638,16 +638,16 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
       smartcover_name +
       "\n";
 
-    if (smart.def_restr !== null) {
-      job_ltx = job_ltx + "out_restr = " + smart.def_restr + "\n";
+    if (smart.defendRestrictor !== null) {
+      job_ltx = job_ltx + "out_restr = " + smart.defendRestrictor + "\n";
     }
 
     // todo: Bad path name?
-    if (smart.safe_restr !== null && isJobInRestrictor(smart, smart.safe_restr, null as any)) {
+    if (smart.safeRestrictor !== null && isJobInRestrictor(smart, smart.safeRestrictor, null as any)) {
       job_ltx = job_ltx + "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
-    if (smart.base_on_actor_control !== null && smart.base_on_actor_control.ignore_zone !== null) {
+    if (smart.smartTerrainActorControl !== null && smart.smartTerrainActorControl.ignore_zone !== null) {
       job_ltx =
         job_ltx +
         "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n" +
@@ -681,16 +681,16 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
         smart: SmartTerrain,
         precond_params: AnyObject
       ) {
-        if (smart.smart_alarm_time === null) {
+        if (smart.smartAlarmStartedAt === null) {
           return true;
         }
 
-        if (smart.safe_restr === null) {
+        if (smart.safeRestrictor === null) {
           return true;
         }
 
         if (precond_params.is_safe_job === null) {
-          precond_params.is_safe_job = isJobInRestrictor(smart, smart.safe_restr, way_name);
+          precond_params.is_safe_job = isJobInRestrictor(smart, smart.safeRestrictor, way_name);
         }
 
         return precond_params.is_safe_job !== false;
@@ -716,12 +716,12 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
       it +
       "_look\n";
 
-    if (smart.safe_restr !== null && isJobInRestrictor(smart, smart.safe_restr, way_name)) {
+    if (smart.safeRestrictor !== null && isJobInRestrictor(smart, smart.safeRestrictor, way_name)) {
       job_ltx = job_ltx + "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
-    if (smart.def_restr !== null) {
-      job_ltx = job_ltx + "out_restr = " + smart.def_restr + "\n";
+    if (smart.defendRestrictor !== null) {
+      job_ltx = job_ltx + "out_restr = " + smart.defendRestrictor + "\n";
     }
 
     let job1_ltx =
@@ -747,19 +747,19 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
       way_name +
       "\n";
 
-    if (smart.safe_restr !== null && isJobInRestrictor(smart, smart.safe_restr, way_name)) {
+    if (smart.safeRestrictor !== null && isJobInRestrictor(smart, smart.safeRestrictor, way_name)) {
       job1_ltx = job1_ltx + "invulnerable = {=npc_in_zone(smart.safe_restr)} true\n";
     }
 
-    if (smart.def_restr !== null) {
-      job1_ltx = job1_ltx + "out_restr = " + smart.def_restr + "\n";
+    if (smart.defendRestrictor !== null) {
+      job1_ltx = job1_ltx + "out_restr = " + smart.defendRestrictor + "\n";
     }
 
     job1_ltx =
       job1_ltx + "[remark@" + way_name + "]\n" + "anim = wait_na\n" + "target = logic@follower_" + way_name + "\n";
 
-    if (smart.def_restr !== null) {
-      job1_ltx = job1_ltx + "out_restr = " + smart.def_restr + "\n";
+    if (smart.defendRestrictor !== null) {
+      job1_ltx = job1_ltx + "out_restr = " + smart.defendRestrictor + "\n";
     }
 
     t = {
@@ -803,8 +803,8 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
       way_name +
       "\n";
 
-    if (smart.def_restr !== null) {
-      follower_ltx = follower_ltx + "out_restr = " + smart.def_restr + "\n";
+    if (smart.defendRestrictor !== null) {
+      follower_ltx = follower_ltx + "out_restr = " + smart.defendRestrictor + "\n";
     }
 
     follower_ltx =
@@ -818,8 +818,8 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
       "\n" +
       "on_timer = 2000 | %=switch_to_desired_job%\n";
 
-    if (smart.def_restr !== null) {
-      follower_ltx = follower_ltx + "out_restr = " + smart.def_restr + "\n";
+    if (smart.defendRestrictor !== null) {
+      follower_ltx = follower_ltx + "out_restr = " + smart.defendRestrictor + "\n";
     }
 
     ltx = ltx + job_ltx + job1_ltx + follower_ltx;
@@ -897,8 +897,8 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
       state +
       "_fire\n";
 
-    if (smart.def_restr !== null) {
-      job_ltx = job_ltx + "out_restr = " + smart.def_restr + "," + get_job_restrictor(way_name) + "\n";
+    if (smart.defendRestrictor !== null) {
+      job_ltx = job_ltx + "out_restr = " + smart.defendRestrictor + "," + get_job_restrictor(way_name) + "\n";
     }
 
     ltx = ltx + job_ltx;
@@ -982,8 +982,8 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
       job_ltx = job_ltx + "path_look = camper_" + it + "_look\n";
     }
 
-    if (smart.def_restr !== null) {
-      job_ltx = job_ltx + "out_restr = " + smart.def_restr + "," + get_job_restrictor(way_name) + "\n";
+    if (smart.defendRestrictor !== null) {
+      job_ltx = job_ltx + "out_restr = " + smart.defendRestrictor + "," + get_job_restrictor(way_name) + "\n";
     }
 
     ltx = ltx + job_ltx;
@@ -1042,8 +1042,8 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
       home_max_radius +
       "\n";
 
-    if (smart.def_restr !== null) {
-      job_ltx = job_ltx + "out_restr = " + smart.def_restr + "\n";
+    if (smart.defendRestrictor !== null) {
+      job_ltx = job_ltx + "out_restr = " + smart.defendRestrictor + "\n";
     }
 
     ltx = ltx + job_ltx;

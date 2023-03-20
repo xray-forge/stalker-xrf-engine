@@ -20,13 +20,16 @@ export interface ISimActivityPrecondition {
 
 export type TSimActivitySmartType = "surge" | "base" | "resource" | "territory" | "lair";
 
-export interface ISimActivityDescriptor {
+/**
+ * todo;
+ */
+export interface ISimulationActivityDescriptor {
   squad: Optional<PartialRecord<TCommunity, Optional<ISimActivityPrecondition>>>;
   smart: Optional<PartialRecord<TSimActivitySmartType, Optional<ISimActivityPrecondition>>>;
   actor: Optional<ISimActivityPrecondition>;
 }
 
-export const simulation_activities: Record<TCommunity, ISimActivityDescriptor> = {
+export const simulation_activities: Record<TCommunity, ISimulationActivityDescriptor> = {
   [communities.none]: {
     squad: null,
     smart: null,

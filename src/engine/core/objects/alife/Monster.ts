@@ -17,7 +17,7 @@ import {
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
-import { on_death, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
+import { onSmartTerrainObjectDeath, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigString } from "@/engine/core/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -170,7 +170,7 @@ export class Monster extends cse_alife_monster_base {
 
     super.on_death(killer);
 
-    on_death(this);
+    onSmartTerrainObjectDeath(this);
 
     if (this.group_id !== MAX_UNSIGNED_16_BIT) {
       const squad: any = alife().object(this.group_id);

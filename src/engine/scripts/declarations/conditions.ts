@@ -247,8 +247,8 @@ export function dist_to_actor_ge(actor: XR_game_object, npc: XR_game_object, par
 export function distance_to_obj_on_job_le(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
   const smart: SmartTerrain = getObjectBoundSmart(npc)!;
 
-  for (const [k, v] of smart.npc_info) {
-    const npc_job = smart.job_data.get(v.job_id);
+  for (const [k, v] of smart.objectJobDescriptors) {
+    const npc_job = smart.jobsData.get(v.job_id);
 
     if (npc_job.section === params[0]) {
       return npc.position().distance_to_sqr(v.se_obj.position) <= params[1] * params[1];
@@ -271,8 +271,8 @@ export function is_obj_on_job(actor: XR_game_object, npc: XR_game_object, params
     return false;
   }
 
-  for (const [k, v] of smart.npc_info) {
-    const npc_job = smart.job_data.get(v.job_id);
+  for (const [k, v] of smart.objectJobDescriptors) {
+    const npc_job = smart.jobsData.get(v.job_id);
 
     if (npc_job.section === params[0]) {
       return true;
@@ -769,7 +769,7 @@ export function check_smart_alarm_status(
   }
 
   const smart: SmartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(smartName)!;
-  const smartControl: SmartTerrainControl = smart.base_on_actor_control;
+  const smartControl: SmartTerrainControl = smart.smartTerrainActorControl;
 
   if (smartControl === null) {
     abort("Cannot calculate 'check_smart_alarm_status' for smart %s", tostring(smartName));

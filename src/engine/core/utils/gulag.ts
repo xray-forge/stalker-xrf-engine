@@ -128,11 +128,11 @@ export function free_object(obj: XR_game_object): void {
 export function find_stalker_for_job(obj: XR_game_object, need_job: string): void {
   const smart = getObjectBoundSmart(obj)!;
 
-  for (const [k, v] of smart.npc_info) {
-    const objectJob = smart.job_data.get(v.job_id);
+  for (const [k, v] of smart.objectJobDescriptors) {
+    const objectJob = smart.jobsData.get(v.job_id);
 
     if (objectJob !== null && objectJob.reserve_job === true) {
-      const selected_npc_data = smart.npc_info.get(k);
+      const selected_npc_data = smart.objectJobDescriptors.get(k);
 
       selected_npc_data.need_job = need_job;
 

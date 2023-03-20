@@ -63,8 +63,8 @@ export class ActionProcessEnemy {
 
           if (
             smart &&
-            smart.base_on_actor_control !== null &&
-            smart.base_on_actor_control.status !== ESmartTerrainStatus.ALARM
+            smart.smartTerrainActorControl !== null &&
+            smart.smartTerrainActorControl.status !== ESmartTerrainStatus.ALARM
           ) {
             return false;
           }
@@ -131,8 +131,8 @@ export class ActionProcessEnemy {
 
         smartTerrain.set_alarm();
 
-        if (enemy.id() === registry.actor.id() && smartTerrain.base_on_actor_control !== null) {
-          smartTerrain.base_on_actor_control.actor_attack();
+        if (enemy.id() === registry.actor.id() && smartTerrain.smartTerrainActorControl !== null) {
+          smartTerrain.smartTerrainActorControl.actor_attack();
         }
       }
 
