@@ -7,7 +7,7 @@ import { AchievementsManager } from "@/engine/core/managers/achievements/Achieve
 import { EAchievement } from "@/engine/core/managers/achievements/EAchievement";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
-import { loadScreenManager } from "@/engine/core/managers/LoadScreenManager";
+import { LoadScreenManager } from "@/engine/core/managers/LoadScreenManager";
 import { PdaManager } from "@/engine/core/managers/PdaManager";
 import { sleep_cam_eff_id, SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { TaskManager } from "@/engine/core/managers/tasks";
@@ -139,8 +139,8 @@ extern("engine.task_callback", (target: XR_CGameTask, state: TXR_TaskState): voi
 });
 
 extern("loadscreen", {
-  get_tip_number: (levelName: string) => loadScreenManager.get_tip_number(levelName),
-  get_mp_tip_number: (levelName: string) => loadScreenManager.get_mp_tip_number(levelName),
+  get_tip_number: (levelName: TName) => LoadScreenManager.getInstance().getRandomTipIndex(levelName),
+  get_mp_tip_number: (levelName: TName) => LoadScreenManager.getInstance().getRandomMultiplayerTipIndex(levelName),
 });
 
 extern("trade_manager", {

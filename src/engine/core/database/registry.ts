@@ -63,6 +63,10 @@ export const registry = {
     idBySid: new LuaTable<TStringId, TNumberId>(),
   },
   /**
+   * Alive stalkers.
+   */
+  stalkers: new LuaTable<TNumberId, boolean>(),
+  /**
    * State of trade.
    */
   trade: new LuaTable<TNumberId, ITradeManagerDescriptor>(),
@@ -157,7 +161,7 @@ export const registry = {
    */
   patrols: {
     generic: new LuaTable<TStringId, PatrolManager>(),
-    reachTask: new LuaTable<TName, ReachTaskPatrolManager>(),
+    reachTask: new LuaTable<TNumberId, ReachTaskPatrolManager>(),
   },
   /**
    * State of active sounds.

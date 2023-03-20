@@ -1,6 +1,6 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it, jest } from "@jest/globals";
 
-import { executeConsoleCommand } from "@/engine/core/utils/console";
+import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { game_difficulties } from "@/engine/lib/constants/game_difficulties";
 import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
@@ -19,5 +19,13 @@ describe("'console' utils", () => {
     resetMethodMock(gameConsole.execute);
     executeConsoleCommand(console_commands.start, "server(all/single/alife/new)", "client(localhost)");
     expect(gameConsole.execute).toHaveBeenCalledWith("start server(all/single/alife/new) client(localhost)");
+  });
+
+  it("'snd_volume_music' should correctly generate commands", () => {
+    resetMethodMock(gameConsole.get_float);
+    gameConsole.get_float = jest.fn((cmd: string) => (cmd === "snd_volume_eff" ? 50.4 : -1));
+
+    expect(getConsoleFloatCommand(console_commands.snd_volume_eff)).toBe(50.4);
+    expect(gameConsole.get_float).toHaveBeenCalledWith("snd_volume_eff");
   });
 });

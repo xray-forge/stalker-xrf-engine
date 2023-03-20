@@ -10,7 +10,6 @@ import {
   LuabindClass,
   move,
   patrol,
-  system_ini,
   XR_CALifeSmartTerrainTask,
   XR_cse_alife_creature_abstract,
   XR_game_object,
@@ -117,7 +116,7 @@ export class Squad<
 
   public current_action: Optional<SquadStayOnTargetAction | SquadReachTargetAction> = null;
   public current_target_id: Optional<any> = null;
-  public assigned_target_id: Optional<number> = null;
+  public assigned_target_id: Optional<TNumberId> = null;
 
   public soundManager: SoundManager = get_sound_manager("squad_" + this.section_name());
   public settings_id: TSection = this.section_name();
@@ -384,6 +383,8 @@ export class Squad<
    * todo: Description.
    */
   public clear_assigned_target(): void {
+    logger.info("Clear squad assigned target:", this.name());
+
     this.assigned_target_id = null;
   }
 
@@ -411,6 +412,7 @@ export class Squad<
     const help_target_id = get_help_target_id(this);
 
     if (help_target_id) {
+      logger.info("Assign squad new help target_id:", this.name(), help_target_id);
       this.assigned_target_id = help_target_id;
       this.current_action = null;
       this.get_next_action(false);
@@ -423,10 +425,10 @@ export class Squad<
       alife().object(this.assigned_target_id)! &&
       alife().object(this.assigned_target_id)!.clsid() !== clsid.online_offline_group_s
     ) {
-      const squad_target = this.simulationBoardManager.getSquadSimulationTarget(this)!;
+      const target: TSimulationObject = this.simulationBoardManager.getSquadSimulationTarget(this)!;
 
-      if (squad_target.clsid() === clsid.online_offline_group_s) {
-        this.assigned_target_id = squad_target.id;
+      if (target.clsid() === clsid.online_offline_group_s) {
+        this.assigned_target_id = target.id;
         this.current_action = null;
         this.get_next_action(true);
 
@@ -682,18 +684,12 @@ export class Squad<
   /**
    * todo: Description.
    */
-  public add_squad_member(
-    spawn_section: TSection,
-    spawn_position: XR_vector,
-    lv_id: TNumberId,
-    gv_id: TNumberId
-  ): TNumberId {
+  public addSquadMember(spawnSection: TSection, spawnPosition: XR_vector, lvi: TNumberId, gvi: TNumberId): TNumberId {
     logger.info("Add squad member:", this.name());
 
-    const spawn_sections_ltx = system_ini();
-    const custom_data = getConfigString(
-      spawn_sections_ltx,
-      spawn_section,
+    const customData = getConfigString(
+      SYSTEM_INI,
+      spawnSection,
       "custom_data",
       this,
       false,
@@ -701,25 +697,21 @@ export class Squad<
       "default_custom_data.ltx"
     );
 
-    if (custom_data !== "default_custom_data.ltx") {
-      logger.info(
-        "INCORRECT npc_spawn_section USED [%s]. You cannot use npc with custom_data in squads",
-        spawn_section
-      );
+    if (customData !== "default_custom_data.ltx") {
+      logger.warn("INCORRECT npc_spawn_section USED [%s]. You cannot use npc with custom_data in squads", spawnSection);
     }
 
-    const position = spawn_position;
-    const serverObject = alife().create(spawn_section, position, lv_id, gv_id);
+    const serverObject = alife().create(spawnSection, spawnPosition, lvi, gvi);
 
     this.register_member(serverObject.id);
-    this.soundManager.register_npc(serverObject.id);
+    this.soundManager.registerObject(serverObject.id);
 
     if (
       areObjectsOnSameLevel(serverObject, alife().actor()) &&
-      position.distance_to_sqr(alife().actor().position) <= alife().switch_distance() * alife().switch_distance()
+      spawnPosition.distance_to_sqr(alife().actor().position) <= alife().switch_distance() * alife().switch_distance()
     ) {
       // todo: Delete also, same as with stalkers and monsters??? Memory leak probable
-      registry.spawnedVertexes.set(serverObject.id, lv_id);
+      registry.spawnedVertexes.set(serverObject.id, lvi);
     }
 
     return serverObject.id;
@@ -766,7 +758,7 @@ export class Squad<
 
     if (spawnSections.length() !== 0) {
       for (const [k, v] of spawnSections) {
-        this.add_squad_member(v, base_spawn_position, base_lvi, base_gvi);
+        this.addSquadMember(v, base_spawn_position, base_lvi, base_gvi);
       }
     }
 
@@ -786,7 +778,7 @@ export class Squad<
       for (const it of $range(1, randomCount)) {
         const random_id = math.random(1, randomSpawn!.length());
 
-        this.add_squad_member(randomSpawn!.get(random_id), base_spawn_position, base_lvi, base_gvi);
+        this.addSquadMember(randomSpawn!.get(random_id), base_spawn_position, base_lvi, base_gvi);
       }
     } else if (spawnSections.length() === 0) {
       abort("You are trying to spawn an empty squad [%s]!", this.settings_id);

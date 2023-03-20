@@ -1,63 +1,81 @@
-import { ini_file, XR_ini_file } from "xray16";
-
+import { SOUND_STORIES_LTX } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseNames } from "@/engine/core/utils/parse";
-
-const story_ltx: XR_ini_file = new ini_file("misc\\sound_stories.ltx");
+import { LuaArray, TCount, TIndex, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
+/**
+ * todo: Description.
+ */
 export interface IReplicDescriptor {
   who: string;
   theme: string;
   timeout: number;
 }
 
+/**
+ * todo: Description.
+ */
 export class SoundStory {
   public id: string;
-  public max_phrase_count: number;
-  public next_phrase: number;
 
-  public replics: LuaTable<number, IReplicDescriptor> = new LuaTable();
+  public maxPhrasesCount: TCount;
+  public nextPhraseIndex: TIndex = 0;
 
-  public constructor(story_id: string) {
-    if (!story_ltx.section_exist(story_id)) {
-      abort("There is no story [%s] in sound_stories.ltx", tostring(story_id));
+  public replicasCount: LuaTable<TIndex, IReplicDescriptor> = new LuaTable(); // 0 based array.
+
+  /**
+   * todo: Description.
+   */
+  public constructor(storyId: TStringId) {
+    logger.info("New sound story:", storyId);
+
+    if (!SOUND_STORIES_LTX.section_exist(storyId)) {
+      abort("There is no story [%s] in sound_stories.ltx", tostring(storyId));
     }
 
-    const n = story_ltx.line_count(story_id);
+    const storyLinesCount: TCount = SOUND_STORIES_LTX.line_count(storyId);
 
-    for (const i of $range(0, n - 1)) {
-      const [result, id, value] = story_ltx.r_line(story_id, i, "", "");
+    this.id = tostring(storyId)!;
+    this.maxPhrasesCount = storyLinesCount - 1;
 
-      const t = parseNames(value);
-      const firstField: string = t.get(1);
+    for (const it of $range(0, storyLinesCount - 1)) {
+      const [result, id, value] = SOUND_STORIES_LTX.r_line(storyId, it, "", "");
 
-      if (firstField !== "teller" && firstField !== "reaction" && firstField !== "reaction_all") {
-        abort("Wrong first field [%s] in story [%s]", tostring(firstField), tostring(story_id));
+      const params: LuaArray<string> = parseNames(value);
+      const who: string = params.get(1);
+
+      if (who !== "teller" && who !== "reaction" && who !== "reaction_all") {
+        abort("Wrong first field [%s] in story [%s]", tostring(who), tostring(storyId));
       }
 
-      this.replics.set(i, { who: firstField, theme: t.get(2), timeout: tonumber(t.get(3))! });
+      this.replicasCount.set(it, { who: who, theme: params.get(2), timeout: tonumber(params.get(3))! });
     }
-
-    this.id = tostring(story_id)!;
-    this.max_phrase_count = n - 1;
-    this.next_phrase = 0;
   }
 
-  public is_finished(): boolean {
-    return this.next_phrase > this.max_phrase_count;
+  /**
+   * todo: Description.
+   */
+  public isFinished(): boolean {
+    return this.nextPhraseIndex > this.maxPhrasesCount;
   }
 
-  public reset_story(): void {
-    this.next_phrase = 0;
+  /**
+   * todo: Description.
+   */
+  public reset(): void {
+    this.nextPhraseIndex = 0;
   }
 
-  public get_next_phrase(): IReplicDescriptor {
-    const phrase = this.replics.get(this.next_phrase);
+  /**
+   * todo: Description.
+   */
+  public getNextPhraseDescriptor(): IReplicDescriptor {
+    const phrase: IReplicDescriptor = this.replicasCount.get(this.nextPhraseIndex);
 
-    this.next_phrase = this.next_phrase + 1;
+    this.nextPhraseIndex += 1;
 
     return phrase;
   }

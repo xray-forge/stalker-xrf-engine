@@ -3,7 +3,7 @@ import { level, vector, XR_game_object, XR_vector } from "xray16";
 import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { abort } from "@/engine/core/utils/debug";
 import { vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/physics";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TNumberId } from "@/engine/lib/types";
 
 const formations = {
   line: [
@@ -232,7 +232,7 @@ export class PatrolManager {
     this.update();
   }
 
-  public is_commander(npc_id: number): boolean {
+  public is_commander(npc_id: TNumberId): boolean {
     return npc_id === this.commander_id;
   }
 

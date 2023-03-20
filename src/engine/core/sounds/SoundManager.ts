@@ -5,51 +5,51 @@ import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SoundStory } from "@/engine/core/sounds/SoundStory";
 import { getObjectSquad } from "@/engine/core/utils/object";
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
-import { Optional, TNumberId, TStringId } from "@/engine/lib/types";
+import { LuaArray, Optional, TDuration, TNumberId, TStringId, TTimestamp } from "@/engine/lib/types";
 
 // todo: Move to db.
-const sound_managers: LuaTable<string, SoundManager> = new LuaTable();
+const sound_managers: LuaTable<TStringId, SoundManager> = new LuaTable();
 
 /**
  * todo;
  */
 export class SoundManager {
   public id: TStringId;
-  public npc: LuaTable<number, { npc_id: number }>;
-  public storyteller: Optional<number>;
-  public story: Optional<SoundStory>;
-  public last_playing_npc: Optional<number>;
-  public phrase_timeout: Optional<number>;
-  public phrase_idle: number;
+  public npc: LuaArray<{ npc_id: number }> = new LuaTable();
+  public storyteller: Optional<TNumberId> = null;
+  public story: Optional<SoundStory> = null;
+  public last_playing_npc: Optional<number> = null;
+  public phrase_timeout: Optional<TDuration> = null;
+  public phrase_idle: TDuration = 0;
 
   public constructor(id: TStringId) {
     this.id = tostring(id);
-    this.npc = new LuaTable();
-    this.storyteller = null;
-    this.story = null;
-    this.last_playing_npc = null;
-    this.phrase_timeout = null;
-    this.phrase_idle = 0;
   }
 
-  public register_npc(npc_id: number): void {
-    table.insert(this.npc, { npc_id: npc_id });
+  /**
+   * todo: Description.
+   */
+  public registerObject(objectId: TNumberId): void {
+    table.insert(this.npc, { npc_id: objectId });
   }
 
-  public unregister_npc(npc_id: number): void {
-    if (this.last_playing_npc === npc_id && registry.sounds.generic.get(this.last_playing_npc)) {
+  /**
+   * todo: Description.
+   */
+  public unregister_npc(objectId: TNumberId): void {
+    if (this.last_playing_npc === objectId && registry.sounds.generic.get(this.last_playing_npc)) {
       this.story = null;
-      registry.sounds.generic.get(this.last_playing_npc).stop(npc_id);
+      registry.sounds.generic.get(this.last_playing_npc).stop(objectId);
     }
 
-    if (this.storyteller === npc_id) {
+    if (this.storyteller === objectId) {
       this.storyteller = null;
     }
 
     let remove_id: Optional<number> = null;
 
     for (const [k, v] of this.npc) {
-      if (v.npc_id === npc_id) {
+      if (v.npc_id === objectId) {
         remove_id = k;
         break;
       }
@@ -60,10 +60,16 @@ export class SoundManager {
     }
   }
 
-  public set_storyteller(npc_id: Optional<number>): void {
-    this.storyteller = npc_id;
+  /**
+   * todo: Description.
+   */
+  public set_storyteller(objectId: Optional<TNumberId>): void {
+    this.storyteller = objectId;
   }
 
+  /**
+   * todo: Description.
+   */
   public update(): void {
     if (this.story === null) {
       return;
@@ -80,17 +86,17 @@ export class SoundManager {
       return;
     }
 
-    const t_global: number = time_global();
+    const now: TTimestamp = time_global();
 
     if (this.phrase_timeout === null) {
-      this.phrase_timeout = t_global;
+      this.phrase_timeout = now;
     }
 
-    if (t_global - this.phrase_timeout < this.phrase_idle) {
+    if (now - this.phrase_timeout < this.phrase_idle) {
       return;
     }
 
-    const next_phrase = this.story.get_next_phrase();
+    const next_phrase = this.story.getNextPhraseDescriptor();
 
     if (next_phrase === null) {
       return;
@@ -202,24 +208,33 @@ export class SoundManager {
     this.phrase_idle = next_phrase.timeout * 1000;
   }
 
+  /**
+   * todo: Description.
+   */
   public choose_random_storyteller(): void {
     this.storyteller = this.npc.get(math.random(1, this.npc.length())).npc_id;
   }
 
+  /**
+   * todo: Description.
+   */
   public is_finished(): boolean {
     if (this.story === null) {
       return true;
     }
 
-    return this.story!.is_finished();
+    return this.story.isFinished();
   }
 
-  public set_story(story_id: string): void {
-    this.story = new SoundStory(story_id);
+  /**
+   * todo: Description.
+   */
+  public set_story(storyId: TStringId): void {
+    this.story = new SoundStory(storyId);
   }
 }
 
-export function get_sound_manager(id: string) {
+export function get_sound_manager(id: TStringId) {
   if (sound_managers.get(id) === null) {
     sound_managers.set(id, new SoundManager(id));
   }

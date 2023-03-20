@@ -378,7 +378,7 @@ export class CampStoryManager {
       this.npc.get(objectId)[k] = role;
     }
 
-    this.sound_manager.register_npc(objectId);
+    this.sound_manager.registerObject(objectId);
 
     issueSchemeEvent(state.object!, state[state.active_scheme!]!, ESchemeEvent.UPDATE);
   }

@@ -37,6 +37,7 @@ import {
   unregisterHelicopterEnemy,
   unregisterObject,
 } from "@/engine/core/database";
+import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { DropManager } from "@/engine/core/managers/DropManager";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
@@ -72,7 +73,19 @@ import { TConditionList } from "@/engine/core/utils/parse";
 import { setObjectsRelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { communities } from "@/engine/lib/constants/communities";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
-import { EScheme, Optional, TDuration, TNumberId, TRate, TSection } from "@/engine/lib/types";
+import { TRelation } from "@/engine/lib/constants/relations";
+import {
+  EScheme,
+  Optional,
+  TCount,
+  TDuration,
+  TIndex,
+  TName,
+  TNumberId,
+  TRate,
+  TSection,
+  TTimestamp,
+} from "@/engine/lib/types";
 import { ESchemeType } from "@/engine/lib/types/scheme";
 import { disabled_phrases, loadNpcDialogs, saveNpcDialogs } from "@/engine/scripts/declarations/dialogs/dialog_manager";
 
@@ -85,18 +98,12 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class StalkerBinder extends object_binder {
-  public state!: IRegistryObjectState;
-  public loaded: boolean = false;
-  public last_update: number = 0;
-  public first_update: boolean = false;
-  public e_index: Optional<number> = null;
+  public lastUpdatedAt: TTimestamp = 0;
+  public isFirstUpdate: boolean = false;
+  public isLoaded: boolean = false;
 
-  /**
-   * todo: Description.
-   */
-  public constructor(object: XR_game_object) {
-    super(object);
-  }
+  public state!: IRegistryObjectState;
+  public helicopterEnemyIndex: Optional<TIndex> = null; // todo: create binding somewhere in DB.
 
   /**
    * todo: Description.
@@ -125,8 +132,11 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public override net_spawn(object: XR_cse_alife_creature_abstract): boolean {
-    const visual = getConfigString(system_ini(), this.object.section(), "set_visual", object, false, "");
+    const objectId: TNumberId = this.object.id();
     const actor: XR_game_object = registry.actor;
+    const visual: TName = getConfigString(system_ini(), this.object.section(), "set_visual", object, false, "");
+
+    logger.info("Stalker net spawn:", objectId, this.object.name());
 
     if (visual !== null && visual !== "") {
       if (visual === "actor_visual") {
@@ -136,7 +146,7 @@ export class StalkerBinder extends object_binder {
       }
     }
 
-    DynamicMusicManager.NPC_TABLE.set(this.object.id(), this.object.id());
+    registerStalker(objectId); // todo: Probably register with object?
 
     if (!super.net_spawn(object)) {
       return false;
@@ -144,31 +154,24 @@ export class StalkerBinder extends object_binder {
 
     registerObject(this.object);
 
-    this.object.set_patrol_extrapolate_callback(this.extrapolate_callback, this);
-    this.object.set_callback(callback.hit, this.onHit, this);
-    this.object.set_callback(callback.death, this.onDeath, this);
-    this.object.set_callback(callback.use_object, this.onUse, this);
-    this.object.set_callback(callback.sound, this.onHearSound, this);
+    this.setupCallbacks();
 
     this.object.apply_loophole_direction_distance(1.0);
 
-    if (!this.loaded) {
-      let char_ini: Optional<XR_ini_file> = null;
-      // todo: Can be null?
-      const spawn_ini: Optional<XR_ini_file> = this.object.spawn_ini();
-      let filename = null;
+    if (!this.isLoaded) {
+      const spawnIni: Optional<XR_ini_file> = this.object.spawn_ini();
 
-      if (spawn_ini !== null) {
-        filename = getConfigString(spawn_ini, "logic", "cfg", this.object, false, "");
-      }
+      const stalkerIniFilename: Optional<TName> =
+        spawnIni === null ? null : getConfigString(spawnIni, "logic", "cfg", this.object, false, "");
+      let stalkerIni: Optional<XR_ini_file> = null;
 
-      if (filename !== null) {
-        char_ini = new ini_file(filename);
+      if (stalkerIniFilename !== null) {
+        stalkerIni = new ini_file(stalkerIniFilename);
       } else {
-        char_ini = this.object.spawn_ini() || DUMMY_LTX;
+        stalkerIni = this.object.spawn_ini() || DUMMY_LTX;
       }
 
-      loadInfo(this.object, char_ini, null);
+      loadInfo(this.object, stalkerIni, null);
     }
 
     if (!this.object.alive()) {
@@ -178,24 +181,25 @@ export class StalkerBinder extends object_binder {
       return true;
     }
 
-    const relation = registry.goodwill.relations.get(this.object.id());
+    const relation: Optional<TRelation> = registry.goodwill.relations.get(objectId);
 
     if (relation !== null && actor) {
       setObjectsRelation(this.object, actor, relation);
     }
 
-    const sympathy = registry.goodwill.sympathy.get(this.object.id());
+    const sympathy: Optional<TCount> = registry.goodwill.sympathy.get(objectId);
 
     if (sympathy !== null) {
       setObjectSympathy(this.object, sympathy);
     }
 
     registerHelicopterEnemy(this.object);
-    this.e_index = registry.helicopter.enemiesCount - 1;
+    this.helicopterEnemyIndex = registry.helicopter.enemiesCount - 1;
 
     SoundTheme.init_npc_sound(this.object);
 
-    if (getStoryIdByObjectId(this.object.id()) === "zat_b53_artefact_hunter_1") {
+    // todo: Separate place.
+    if (getStoryIdByObjectId(objectId) === "zat_b53_artefact_hunter_1") {
       const actionPlanner: XR_action_planner = this.object.motivation_action_manager();
 
       actionPlanner.remove_evaluator(stalker_ids.property_anomaly);
@@ -204,8 +208,8 @@ export class StalkerBinder extends object_binder {
 
     SchemeReachTask.addReachTaskSchemeAction(this.object);
 
-    // todo: Why? Already same in callback?
-    const serverObject: Optional<XR_cse_alife_human_abstract> = alife().object(this.object.id());
+    // todo: Why? Already same ref in parameter?
+    const serverObject: Optional<XR_cse_alife_human_abstract> = alife().object(objectId);
 
     if (serverObject !== null) {
       if (registry.spawnedVertexes.get(serverObject.id) !== null) {
@@ -228,7 +232,7 @@ export class StalkerBinder extends object_binder {
       }
     }
 
-    setupSmartJobsAndLogicOnSpawn(this.object, this.state, object, ESchemeType.STALKER, this.loaded);
+    setupSmartJobsAndLogicOnSpawn(this.object, this.state, object, ESchemeType.STALKER, this.isLoaded);
 
     if (getCharacterCommunity(this.object) !== communities.zombied) {
       PostCombatIdle.addPostCombatIdleWait(this.object);
@@ -243,12 +247,14 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public override net_destroy(): void {
-    DynamicMusicManager.NPC_TABLE.delete(this.object.id());
+    logger.info("Stalker net destroy:", this.object.name());
 
-    registry.actorCombat.delete(this.object.id());
-    GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
+    const objectId: TNumberId = this.object.id();
 
-    const state: IRegistryObjectState = registry.objects.get(this.object.id());
+    registry.actorCombat.delete(objectId);
+    GlobalSoundManager.getInstance().stopSoundsByObjectId(objectId);
+
+    const state: IRegistryObjectState = registry.objects.get(objectId);
 
     if (state.active_scheme) {
       issueSchemeEvent(this.object, state[state.active_scheme]!, ESchemeEvent.NET_DESTROY, this.object);
@@ -264,18 +270,18 @@ export class StalkerBinder extends object_binder {
       pickSectionFromCondList(registry.actor, this.object, on_offline_condlist);
     }
 
-    if (registry.offlineObjects.get(this.object.id()) !== null) {
-      registry.offlineObjects.get(this.object.id()).level_vertex_id = this.object.level_vertex_id();
-      registry.offlineObjects.get(this.object.id()).active_section = registry.objects.get(this.object.id())
-        .active_section as TSection;
+    if (registry.offlineObjects.get(objectId) !== null) {
+      registry.offlineObjects.get(objectId).level_vertex_id = this.object.level_vertex_id();
+      registry.offlineObjects.get(objectId).active_section = registry.objects.get(objectId).active_section as TSection;
     }
 
     unregisterObject(this.object);
+    unregisterStalker(objectId);
 
-    this.clear_callbacks();
+    this.resetCallbacks();
 
-    if (this.e_index !== null) {
-      unregisterHelicopterEnemy(this.e_index);
+    if (this.helicopterEnemyIndex !== null) {
+      unregisterHelicopterEnemy(this.helicopterEnemyIndex);
     }
 
     super.net_destroy();
@@ -284,7 +290,18 @@ export class StalkerBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public clear_callbacks(): void {
+  public setupCallbacks(): void {
+    this.object.set_patrol_extrapolate_callback(this.extrapolate_callback, this);
+    this.object.set_callback(callback.hit, this.onHit, this);
+    this.object.set_callback(callback.death, this.onDeath, this);
+    this.object.set_callback(callback.use_object, this.onUse, this);
+    this.object.set_callback(callback.sound, this.onHearSound, this);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public resetCallbacks(): void {
     this.object.set_patrol_extrapolate_callback(null);
     this.object.set_callback(callback.hit, null);
     this.object.set_callback(callback.death, null);
@@ -381,9 +398,10 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public onDeath(victim: XR_game_object, who: Optional<XR_game_object>): void {
+    logger.info("Stalker death:", this.object.name());
+
     this.onHit(victim, 1, new vector().set(0, 0, 0), who, "from_death_callback");
 
-    DynamicMusicManager.NPC_TABLE.delete(this.object.id());
     registry.actorCombat.delete(this.object.id());
 
     const st = registry.objects.get(this.object.id());
@@ -422,9 +440,11 @@ export class StalkerBinder extends object_binder {
 
     SchemeLight.checkObjectLight(this.object);
     DropManager.getInstance().createCorpseReleaseItems(this.object);
-    unregisterHelicopterEnemy(this.e_index!);
 
-    this.clear_callbacks();
+    unregisterHelicopterEnemy(this.helicopterEnemyIndex!);
+    unregisterStalker(this.object.id());
+
+    this.resetCallbacks();
 
     if (actor_stats.remove_from_ranking !== null) {
       const community = getCharacterCommunity(this.object);
@@ -443,6 +463,8 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public onUse(object: XR_game_object, who: XR_game_object): void {
+    logger.info("Stalker use:", this.object.name(), "by", who.name());
+
     if (this.object.alive()) {
       ItemUpgradesManager.getInstance().setCurrentTech(object);
       SchemeMeet.onMeetWithObject(object, who);
@@ -470,17 +492,17 @@ export class StalkerBinder extends object_binder {
 
     update_logic(object);
 
-    if (this.first_update === false) {
+    if (this.isFirstUpdate === false) {
       if (isObjectAlive === false) {
         DropManager.getInstance().createCorpseReleaseItems(this.object);
       }
 
-      this.first_update = true;
+      this.isFirstUpdate = true;
     }
 
-    if (time_global() - this.last_update > 1000) {
+    if (time_global() - this.lastUpdatedAt > 1000) {
       SchemeLight.checkObjectLight(object);
-      this.last_update = time_global();
+      this.lastUpdatedAt = time_global();
     }
 
     if (this.state.state_mgr) {
@@ -579,7 +601,7 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public override load(reader: XR_reader): void {
-    this.loaded = true;
+    this.isLoaded = true;
 
     setLoadMarker(reader, false, StalkerBinder.__name);
 
@@ -610,6 +632,9 @@ export class StalkerBinder extends object_binder {
   }
 }
 
+/**
+ * todo: Description.
+ */
 export function update_logic(object: XR_game_object): void {
   const object_alive = object.alive();
   const st = registry.objects.get(object.id());
@@ -650,16 +675,19 @@ export function update_logic(object: XR_game_object): void {
   }
 }
 
-function loadInfo(npc: XR_game_object, char_ini: XR_ini_file, known_info: Optional<string>) {
-  known_info = known_info === null ? "known_info" : known_info;
+/**
+ * todo: Description.
+ */
+function loadInfo(object: XR_game_object, characterIni: XR_ini_file, knownInfoSection: Optional<TSection>): void {
+  knownInfoSection = knownInfoSection === null ? "known_info" : knownInfoSection;
 
-  if (char_ini.section_exist(known_info)) {
-    const n = char_ini.line_count(known_info);
+  if (characterIni.section_exist(knownInfoSection)) {
+    const knownInfosCount: TCount = characterIni.line_count(knownInfoSection);
 
-    for (const i of $range(0, n - 1)) {
-      const [result, id, value] = char_ini.r_line(known_info, i, "", "");
+    for (const it of $range(0, knownInfosCount - 1)) {
+      const [result, infoPortion, value] = characterIni.r_line(knownInfoSection, it, "", "");
 
-      npc.give_info_portion(id);
+      object.give_info_portion(infoPortion);
     }
   }
 }

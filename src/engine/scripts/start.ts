@@ -40,7 +40,6 @@ extern("start", {
     GlobalSoundManager.getInstance().reset(); // todo: Just reset the manager.
 
     fillPhrasesTable();
-    DynamicMusicManager.getInstance().initialize();
 
     resetSchemeHard(EScheme.SR_LIGHT);
 

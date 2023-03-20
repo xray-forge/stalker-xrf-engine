@@ -1620,7 +1620,7 @@ export function create_squad_member(
     game_vertex_id = commander.m_game_vertex_id;
   }
 
-  const newSquadMemberId: TNumberId = squad.add_squad_member(
+  const newSquadMemberId: TNumberId = squad.addSquadMember(
     squad_member_sect,
     position,
     level_vertex_id,

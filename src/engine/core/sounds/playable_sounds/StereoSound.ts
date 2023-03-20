@@ -3,17 +3,23 @@ import { sound_object, time_global, XR_game_object, XR_sound_object } from "xray
 import { registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TPath, TRate, TStringId, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
+/**
+ * todo: Description.
+ */
 export class StereoSound {
   public soundObject: Optional<XR_sound_object> = null;
   public soundPath: Optional<string> = null;
   public soundEndTime: Optional<number> = null;
 
-  public initialize(soundPath: string, volume: number): void {
-    logger.info("Init sound object:", soundPath, volume);
+  /**
+   * todo: Description.
+   */
+  public initialize(soundPath: TPath, volume: TRate): void {
+    logger.info("Init stereo sound:", soundPath, volume);
 
     if (this.soundObject) {
       this.stop();
@@ -30,11 +36,17 @@ export class StereoSound {
     this.soundObject.volume = volume;
   }
 
+  /**
+   * todo: Description.
+   */
   public isPlaying(): boolean {
     return (this.soundObject && this.soundObject.playing()) === true;
   }
 
-  public play(): number {
+  /**
+   * todo: Description.
+   */
+  public play(): TTimestamp {
     const actor: Optional<XR_game_object> = registry.actor;
 
     if (!actor) {
@@ -51,7 +63,10 @@ export class StereoSound {
     return this.soundEndTime;
   }
 
-  public playAtTime(time: number, sound: string, volume: Optional<number>): number {
+  /**
+   * todo: Description.
+   */
+  public playAtTime(time: TTimestamp, sound: TStringId, volume: Optional<TRate>): TTimestamp {
     logger.info("Play sound at time:", sound);
 
     this.soundEndTime = null;
@@ -72,19 +87,28 @@ export class StereoSound {
     return this.soundEndTime;
   }
 
-  public update(volume: number): void {
+  /**
+   * todo: Description.
+   */
+  public update(volume: TRate): void {
     if (this.isPlaying()) {
       this.setVolume(volume);
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public stop(): void {
     if (this.soundObject && this.soundObject.playing()) {
       this.soundObject.stop();
     }
   }
 
-  public setVolume(volume: number): void {
+  /**
+   * todo: Description.
+   */
+  public setVolume(volume: TRate): void {
     if (this.soundObject) {
       this.soundObject.volume = volume;
     }

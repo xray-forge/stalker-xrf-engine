@@ -3,6 +3,9 @@ import type { XR_CConsole } from "xray16";
 
 import { mockLuabindBase } from "@/fixtures/xray/mocks/luabind.mock";
 
+/**
+ * todo;
+ */
 export function mockConsole({
   show = jest.fn(),
   hide = jest.fn(),
@@ -30,8 +33,14 @@ export function mockConsole({
   };
 }
 
+/**
+ * todo;
+ */
 export const gameConsole: XR_CConsole = mockConsole();
 
+/**
+ * todo;
+ */
 export function mockGetConsole(): XR_CConsole {
   return gameConsole;
 }

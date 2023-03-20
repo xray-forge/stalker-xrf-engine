@@ -19,6 +19,7 @@ import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { changeTeamSquadGroup } from "@/engine/core/utils/object";
 import { parseNames } from "@/engine/core/utils/parse";
+import { getTableSize } from "@/engine/core/utils/table";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { LuaArray, Optional, TCount, TName, TNumberId, TRate, TSection, TStringId } from "@/engine/lib/types";
@@ -395,6 +396,8 @@ export class SimulationBoardManager extends AbstractCoreManager {
   public getSquadSimulationTarget(squad: Squad): Optional<TSimulationObject> {
     const availableTargets: LuaArray<{ prior: TRate; target: TSimulationObject }> = new LuaTable();
     let mostPriorityTask: Optional<TSimulationObject> = null;
+
+    logger.info("Getting squad simulation target for:", squad.name(), getTableSize(registry.simulationObjects));
 
     for (const [id, simulationObject] of registry.simulationObjects) {
       let currentPriority: TRate = 0;
