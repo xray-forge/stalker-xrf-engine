@@ -30,7 +30,7 @@ export function activateSchemeBySection(
   additional: Optional<string>,
   loading: boolean
 ): void {
-  logger.info("Activate by section:", object.name(), section, additional);
+  logger.info("Activate scheme:", section, "->", object.name(), additional);
 
   if (loading === null) {
     abort("core/logic: activateBySection: loading field is null, true || false expected");
@@ -84,7 +84,7 @@ export function activateSchemeBySection(
     abort("core/logic: scheme '%s' is !registered in modules.script", scheme);
   }
 
-  logger.info("Set active scheme:", object.name(), scheme, section, additional);
+  logger.info("Set active scheme:", scheme, "->", object.name(), section, additional);
   schemeImplementation.setScheme(object, ini, scheme, section as TSection, additional);
 
   registry.objects.get(objectId).active_section = section;

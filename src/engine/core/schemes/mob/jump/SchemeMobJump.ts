@@ -9,7 +9,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini_config/config
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini_config/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseNames } from "@/engine/core/utils/parse";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, LuaArray, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -49,10 +49,10 @@ export class SchemeMobJump extends AbstractScheme {
     state.jump_path_name = getConfigString(ini, section, "path_jump", object, false, additional);
     state.ph_jump_factor = getConfigNumber(ini, section, "ph_jump_factor", object, false, 1.8);
 
-    const offset_str = getConfigString(ini, section, "offset", object, true, "");
-    const elems = parseNames(offset_str);
+    const offsetsData: string = getConfigString(ini, section, "offset", object, true, "");
+    const offsets: LuaArray<string> = parseNames(offsetsData);
 
-    state.offset = new vector().set(tonumber(elems.get(1))!, tonumber(elems.get(2))!, tonumber(elems.get(3))!);
+    state.offset = new vector().set(tonumber(offsets.get(1))!, tonumber(offsets.get(2))!, tonumber(offsets.get(3))!);
 
     if (!ini.line_exist(section, "on_signal")) {
       abort("Bad jump scheme usage! 'on_signal' line must be specified.");

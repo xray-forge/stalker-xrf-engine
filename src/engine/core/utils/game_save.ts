@@ -15,19 +15,14 @@ import {
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { console_commands } from "@/engine/lib/constants/console_commands";
 import { Optional, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo
- */
-export function fileExists(folderAlias: string, filename: string): boolean {
-  return getFS().exist(folderAlias, filename) !== null;
-}
 
 /**
  * todo
@@ -194,8 +189,11 @@ export function createScenarioAutoSave(saveName: Optional<string>): void {
   }
 
   if (IsImportantSave()) {
-    logger.info("Performing auto-save, detected as important:", saveName);
-    get_console().execute("save " + user_name() + " - " + game.translate_string(saveName));
+    const saveParameter: string = user_name() + " - " + game.translate_string(saveName);
+
+    logger.info("Performing auto-save, detected as important:", saveParameter);
+
+    executeConsoleCommand(console_commands.save, saveParameter);
   } else {
     logger.info("Not important save, skip.", saveName);
   }

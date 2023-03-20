@@ -24,7 +24,7 @@ export class TaskManager extends AbstractCoreManager {
    * todo;
    */
   public giveTask(taskId: TStringId): void {
-    logger.info("Give actor task:", taskId);
+    logger.info("Give new task:", taskId);
 
     if (!this.taskIni.section_exist(taskId)) {
       abort("There is no task [%s] in task ini_file or ini_file is not included.", taskId);

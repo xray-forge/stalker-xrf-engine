@@ -24,7 +24,7 @@ export function initializeGameObject(
   actor: XR_game_object,
   schemeType: ESchemeType
 ): void {
-  logger.info("Initialize game object:", object.name(), ESchemeType[schemeType], isLoaded);
+  logger.info("Initialize object:", object.name(), ESchemeType[schemeType], isLoaded);
 
   if (!isLoaded) {
     const iniFilename: TName = "<customdata>";

@@ -65,7 +65,7 @@ export class DebugCommandsSection extends CUIWindow {
    * todo;
    */
   public initState(): void {
-    logger.info("Init state");
+    logger.info("Initialized state");
   }
 
   /**

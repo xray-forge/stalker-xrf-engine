@@ -9,7 +9,7 @@ export const config = {
   alife: {
     schedule_min: newIntegerField(1, { comment: "milliseconds" }),
     schedule_max: newIntegerField(1, { comment: "milliseconds" }),
-    process_time: newIntegerField(10000, { comment: "microseconds" }),
+    process_time: newIntegerField(10_000, { comment: "microseconds, 10ms" }),
     update_monster_factor: newFloatField(0.1),
     time_factor: newIntegerField(10),
     normal_time_factor: newIntegerField(10),

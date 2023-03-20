@@ -32,12 +32,5 @@ export function extern(key: string, value: unknown, target: AnyObject = _G): voi
  * @param target - object to get value, global _G by default
  */
 export function getExtern<T>(key: string, target: AnyObject = _G): T {
-  const matches = key.split(".");
-  let value = target[matches[0]];
-
-  for (const match of matches.slice(1)) {
-    value = value[match];
-  }
-
-  return value;
+  return target[key];
 }

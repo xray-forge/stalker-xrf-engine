@@ -26,7 +26,6 @@ import { MultiplayerDemoLoadItem } from "@/engine/core/ui/menu/multiplayer/Multi
 import { MultiplayerDemoPlayerInfo } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemoPlayerInfo";
 import { MultiplayerDemoPlayerStatItem } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemoPlayerStatItem";
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
-import { fileExists } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { textures } from "@/engine/lib/constants/textures";
 import { Optional, TName } from "@/engine/lib/types";
@@ -195,11 +194,11 @@ export class MultiplayerDemo extends CUIWindow {
   /**
    * todo;
    */
-  public getMapTextureName(map_name: TName): string {
-    const texture_name: string = "intro\\intro_map_pic_" + map_name;
+  public getMapTextureName(mapName: TName): string {
+    const textureName: TName = "intro\\intro_map_pic_" + mapName;
 
-    if (fileExists("$game_textures$", texture_name + ".dds")) {
-      return texture_name;
+    if (getFS().exist("$game_textures$", textureName + ".dds") !== null) {
+      return textureName;
     }
 
     return textures.ui_ui_noise;

@@ -123,20 +123,20 @@ export class ReleaseBodyManager extends AbstractCoreManager {
    */
   protected inspectionResult(object: XR_game_object): boolean {
     if (getStoryIdByObjectId(object.id()) !== null) {
-      logger.info("Ignore release, present in story:", object.name());
+      logger.info("Ignore corpse release, present in story:", object.name());
 
       return false;
     }
 
     if (this.checkForKnownInfo(object)) {
-      logger.info("Ignore release, present in known info:", object.name());
+      logger.info("Ignore corpse release, present in known info:", object.name());
 
       return false;
     }
 
     for (const [k, v] of this.keepItemsRegistry) {
       if (object.object(this.keepItemsRegistry.get(k)) !== null) {
-        logger.info("Ignore release, contains keep item:", object.name(), k);
+        logger.info("Ignore corpse release, contains keep item:", object.name(), k);
 
         return false;
       }

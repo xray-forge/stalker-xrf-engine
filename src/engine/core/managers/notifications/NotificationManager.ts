@@ -104,7 +104,7 @@ export class NotificationManager extends AbstractCoreManager {
     type: TNotificationTaskDescriptionKey,
     task: XR_CGameTask
   ): void {
-    logger.info("Show send task:", type, task.get_id(), task.get_title());
+    logger.info("Show task notification:", type, task.get_id(), task.get_title());
 
     // todo: Move to configs.
     let durationOnScreen = 10_000;

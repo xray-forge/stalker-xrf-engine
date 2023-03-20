@@ -16,9 +16,9 @@ describe("'binding' utils", () => {
 
   it("'binding' utils should correctly work in pair with complex examples", () => {
     extern("sample4.deep.nested", 10);
-    expect(getExtern("sample4.deep.nested")).toBe(10);
+    expect(getExtern("nested", getExtern("deep", getExtern("sample4")))).toBe(10);
 
     extern("sample5.deep.nested", { a: 1, b: 2, c: 3 });
-    expect(getExtern("sample5.deep.nested")).toStrictEqual({ a: 1, b: 2, c: 3 });
+    expect(getExtern("nested", getExtern("deep", getExtern("sample5")))).toStrictEqual({ a: 1, b: 2, c: 3 });
   });
 });

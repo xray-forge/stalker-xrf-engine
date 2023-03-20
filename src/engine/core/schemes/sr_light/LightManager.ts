@@ -14,8 +14,11 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
   public active: boolean = false;
 
+  /**
+   * todo;
+   */
   public override resetScheme(): void {
-    logger.info("Reset scheme:", this.object.id());
+    logger.info("Reset scheme for:", this.object.name());
     registry.lightZones.set(this.object.id(), this);
   }
 

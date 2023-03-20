@@ -1,11 +1,12 @@
 import { profile_timer, XR_profile_timer } from "xray16";
 
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getLuaMemoryUsed } from "@/engine/core/utils/ram";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { AnyCallable, Optional } from "@/engine/lib/types";
+import { console_commands } from "@/engine/lib/constants/console_commands";
+import { AnyCallable, Optional, TCount } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -65,6 +66,22 @@ export class ProfilingManager extends AbstractCoreManager {
     this.clear();
   }
 
+  /**
+   * todo;
+   */
+  public collectLuaGarbage(): void {
+    collectgarbage("collect");
+  }
+
+  /**
+   * todo;
+   */
+  public getLuaMemoryUsed(): TCount {
+    return collectgarbage("count");
+  }
+  /**
+   * todo;
+   */
   public getFunctionName(info: debug.FunctionInfo): string {
     return string.format("[%s]:%s (%s:%s)", info.short_src, info.linedefined, info.what, info.name);
   }
@@ -83,85 +100,10 @@ export class ProfilingManager extends AbstractCoreManager {
     this.profilingTimer = new profile_timer();
   }
 
-  public logProfilingStats(): void {
-    if (!this.isProfilingStarted) {
-      return logger.warn("Profiler hook wasn't setup, no stats found");
-    }
-
-    this.clearHook();
-
-    logger.info("Profiler statistics");
-
-    const sort_stats: LuaTable<string, IProfileSnapshotDescriptor> = new LuaTable();
-
-    for (const [func, snapshot] of this.countersMap) {
-      const n = this.getFunctionName(this.namesMap.get(func));
-      const existingSnapshot: Optional<IProfileSnapshotDescriptor> = sort_stats.get(n);
-
-      if (existingSnapshot === null) {
-        sort_stats.set(n, snapshot);
-      } else {
-        existingSnapshot.count = existingSnapshot.count + snapshot.count;
-        existingSnapshot.currentTimer = (existingSnapshot.currentTimer as any) + snapshot.currentTimer;
-        existingSnapshot.childTimer = (existingSnapshot.childTimer as any) + snapshot.childTimer;
-      }
-    }
-
-    let script: XR_profile_timer = new profile_timer();
-    let count: number = 0;
-    const out_stats = new LuaTable();
-
-    for (const [i, j] of sort_stats) {
-      let k: string = i;
-
-      if (k === "[[C]]:-1") {
-        k = "#uncrecognized C/C++ stuff";
-      }
-
-      table.insert(out_stats, { name: k, count: j });
-
-      script = (script as any) + j.currentTimer;
-      count = count + j.count;
-    }
-
-    table.sort(out_stats, (a, b) => a.count.timer < b.count.timer);
-
-    logger.info("Total_time (pecent)  child_time [total_call_count][average_call_time]");
-
-    for (const [n, c] of out_stats) {
-      logger.info(
-        string.format(
-          "%9.2fms (%5.2f%%) %9.2fms [%8d][%9.2fmks] : %s",
-          c.count.timer.time() / 1000,
-          (c.count.timer.time() * 100) / script.time(),
-          c.count.child_timer.time() / 1000,
-          c.count.count,
-          c.count.timer.time() / c.count.count,
-          c.name
-        )
-      );
-    }
-
-    logger.info("");
-    logger.info("pure time:   %%%%   :  children  :   count  : function name");
-    logger.info("");
-    logger.info(string.format("profile time: %8.2fms", this.profilingTimer.time() / 1000));
-    logger.info(
-      string.format(
-        "script time: %8.2fms (%5.2f%%)",
-        script.time() / 1000,
-        (script.time() * 100) / this.profilingTimer.time()
-      )
-    );
-    logger.info("call count: ", count);
-
-    this.setupHook(this.mode, true);
-  }
-
   /**
    * Print calls measurement stats.
    */
-  public logCallsCountStats(limit: number = 64): void {
+  public logCallsCountStats(limit: TCount = 64): void {
     if (!this.isProfilingStarted) {
       return logger.warn("Profiler hook wasn't setup, no stats found");
     }
@@ -196,7 +138,7 @@ export class ProfilingManager extends AbstractCoreManager {
     logger.info("Total calls stat, limit:", limit, "JIT:", jit !== null);
     logger.info("==================================================================================================");
 
-    let printedCount: number = 0;
+    let printedCount: TCount = 0;
 
     // Print top stats from list (controlled by limit)
     for (const [idx, stat] of outStats) {
@@ -215,13 +157,18 @@ export class ProfilingManager extends AbstractCoreManager {
     logger.info("Total function calls / sec:", totalCallsCount / (this.profilingTimer.time() / 1000 / 1000));
     logger.info("Total unique LUA functions called:", outStats.length());
     logger.info("Profiling time:", this.profilingTimer.time() / 1000);
-    logger.info("RAM used:", getLuaMemoryUsed() / 1024, "MB");
+    logger.info("RAM used:", this.getLuaMemoryUsed() / 1024, "MB");
     logger.info("==================================================================================================");
     logger.pushEmptyLine();
+
+    executeConsoleCommand(console_commands.flush);
 
     this.setupHook(this.mode, true);
   }
 
+  /**
+   * todo;
+   */
   public setupHook(mode: string = this.mode, skipLogs?: boolean): void {
     this.mode = mode;
 
@@ -246,6 +193,9 @@ export class ProfilingManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo;
+   */
   public clearHook(): void {
     if (this.isProfilingStarted === false) {
       logger.info("Profiler hook wasn't setup!");
@@ -259,6 +209,9 @@ export class ProfilingManager extends AbstractCoreManager {
     this.isProfilingStarted = false;
   }
 
+  /**
+   * todo;
+   */
   protected hook(context: string, line_number?: number): void {
     const caller = debug.getinfo(3, "f")!;
     const functionInfo: debug.FunctionInfo = debug.getinfo(2)!;

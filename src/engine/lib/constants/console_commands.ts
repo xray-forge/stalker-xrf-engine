@@ -15,7 +15,6 @@
  * CMD1(CCC_ALifeSave, "save"); // save game
  * CMD1(CCC_ALifeLoadFrom, "load"); // load game from ...
  * CMD1(CCC_LoadLastSave, "load_last_save"); // load last saved game from ...
- * CMD1(CCC_FlushLog, "flush"); // flush log
  * CMD1(CCC_ClearLog, "clear_log");
  * CMD1(CCC_DemoPlay, "demo_play");
  * CMD1(CCC_DemoRecord, "demo_record");
@@ -413,6 +412,7 @@ export const console_commands = {
    * Disconnect from server / game session.
    */
   disconnect: "disconnect",
+  flush: "flush",
   g_always_run: "g_always_run",
   g_autopickup: "g_autopickup",
   /**

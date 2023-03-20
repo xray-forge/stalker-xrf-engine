@@ -142,7 +142,7 @@ export function stopObjectPlayingSound(object: XR_game_object): void {
  * todo;
  * @param serverObject - alife server object to change team parameters
  * @param teamId - ?
- * @param squadId - id of the parent squad
+ * @param squadId - id of the parent squad, bound to spawning smart
  * @param groupId - id of the level group
  *
  */

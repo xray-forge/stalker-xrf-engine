@@ -24,7 +24,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
     faction: Optional<string>,
     point: Optional<TNumberId>
   ): Optional<XR_sound_object> {
-    logger.info("Set sound play:", objectId, sound, faction, point);
+    logger.info("Start sound play:", objectId, sound, faction, point);
 
     if (sound === null) {
       return null;

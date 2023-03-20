@@ -10,7 +10,6 @@ import {
 
 import { ProfilingManager } from "@/engine/core/managers/ProfilingManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { collectLuaGarbage, getLuaMemoryUsed } from "@/engine/core/utils/ram";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 
 const base: string = "menu\\debug\\DebugGeneralSection.component";
@@ -119,7 +118,7 @@ export class DebugGeneralSection extends CUIWindow {
   public onCollectMemoryButtonClick(): void {
     logger.info("Collect memory garbage");
 
-    collectLuaGarbage();
+    ProfilingManager.getInstance().collectLuaGarbage();
     this.uiMemoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());
   }
 
@@ -167,6 +166,6 @@ export class DebugGeneralSection extends CUIWindow {
    * todo;
    */
   public getUsedMemoryLabel(): string {
-    return string.format("RAM: %.03f MB", getLuaMemoryUsed() / 1024);
+    return string.format("RAM: %.03f MB", ProfilingManager.getInstance().getLuaMemoryUsed() / 1024);
   }
 }
