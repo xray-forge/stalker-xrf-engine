@@ -14,7 +14,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchT
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/ph_door/ISchemePhysicalDoorState";
 import { switchToSection } from "@/engine/core/schemes/switchToSection";
 import { abort } from "@/engine/core/utils/debug";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { Optional, TCount, TIndex } from "@/engine/lib/types";
 
 /**

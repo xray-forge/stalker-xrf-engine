@@ -31,7 +31,7 @@ import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { disableGameUiOnly } from "@/engine/core/utils/control";
 import { createScenarioAutoSave, setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { copyTable } from "@/engine/core/utils/table";

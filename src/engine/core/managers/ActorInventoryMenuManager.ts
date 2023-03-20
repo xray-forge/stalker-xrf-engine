@@ -3,7 +3,7 @@ import { system_ini, XR_game_object, XR_ini_file } from "xray16";
 import { registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
-import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { ACTOR } from "@/engine/lib/constants/words";

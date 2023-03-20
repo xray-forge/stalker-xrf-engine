@@ -20,7 +20,7 @@ import { NotificationManager } from "@/engine/core/managers/notifications/Notifi
 import { AbstractPlayableSound } from "@/engine/core/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/engine/core/sounds/playable_sounds/EPlayableSound";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { parseNames } from "@/engine/core/utils/parse";

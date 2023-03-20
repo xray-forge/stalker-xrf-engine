@@ -3,7 +3,7 @@ import { game, XR_game_object } from "xray16";
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { captions } from "@/engine/lib/constants/captions";
 import { Optional, TSection, TStringId } from "@/engine/lib/types";

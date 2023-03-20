@@ -4,7 +4,7 @@ import { IRegistryObjectState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/gather_items/evaluators";
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/gather_items/ISchemeGatherItemsState";
-import { getConfigBoolean } from "@/engine/core/utils/ini_config/getters";
+import { getConfigBoolean } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 

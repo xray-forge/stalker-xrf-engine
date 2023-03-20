@@ -5,8 +5,8 @@ import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { HelicopterMoveManager } from "@/engine/core/schemes/heli_move/HelicopterMoveManager";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/heli_move/ISchemeHelicopterMoveState";
 import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini_config/config";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
+import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 

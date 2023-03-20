@@ -5,7 +5,7 @@ import { activateSchemeBySection } from "@/engine/core/schemes/base/activateSche
 import { configureObjectSchemes } from "@/engine/core/schemes/base/configureObjectSchemes";
 import { determine_section_to_activate } from "@/engine/core/schemes/determine_section_to_activate";
 import { getCustomDataOrIniFile } from "@/engine/core/schemes/getCustomDataOrIniFile";
-import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TName } from "@/engine/lib/types";
 import { ESchemeType, TSection } from "@/engine/lib/types/scheme";

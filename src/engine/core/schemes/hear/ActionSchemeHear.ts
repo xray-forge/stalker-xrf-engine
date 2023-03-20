@@ -4,7 +4,7 @@ import { getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/c
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { IActionSchemeHearState } from "@/engine/core/schemes/hear/IActionSchemeHearState";
 import { switchToSection } from "@/engine/core/schemes/switchToSection";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseParameters } from "@/engine/core/utils/parse";
 import { mapSndTypeToSoundType } from "@/engine/core/utils/sound";

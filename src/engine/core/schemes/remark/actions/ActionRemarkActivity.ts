@@ -7,7 +7,7 @@ import { set_state } from "@/engine/core/objects/state/StateManager";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark";
 import { abort } from "@/engine/core/utils/debug";
 import { getSmartTerrainByName } from "@/engine/core/utils/gulag";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { Optional, TNumberId } from "@/engine/lib/types";

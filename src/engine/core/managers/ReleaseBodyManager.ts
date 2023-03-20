@@ -23,7 +23,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager"
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { abort } from "@/engine/core/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
-import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { LuaArray, Optional, TCount, TIndex, TNumberId, TSection, TStringId, TTimestamp } from "@/engine/lib/types";
 

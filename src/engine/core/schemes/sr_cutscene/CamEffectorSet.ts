@@ -7,7 +7,7 @@ import {
   TCamEffectorSetDescriptor,
 } from "@/engine/core/schemes/sr_cutscene/cam_effector_sets";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { stringifyAsJson } from "@/engine/core/utils/json";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";

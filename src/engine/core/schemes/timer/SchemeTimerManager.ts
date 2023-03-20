@@ -6,7 +6,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchT
 import { switchToSection } from "@/engine/core/schemes/switchToSection";
 import { ISchemeTimerState } from "@/engine/core/schemes/timer/ISchemeTimerState";
 import { timeToString } from "@/engine/core/utils/general";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 
 /**
  * todo;

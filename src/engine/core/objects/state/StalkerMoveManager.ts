@@ -14,7 +14,7 @@ import {
 import { registry } from "@/engine/core/database";
 import { set_state } from "@/engine/core/objects/state/StateManager";
 import { abort } from "@/engine/core/utils/debug";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { IWaypointData, parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";

@@ -6,8 +6,8 @@ import { EvaluatorCheckCombat } from "@/engine/core/schemes/combat/evaluators/Ev
 import { ISchemeCombatState } from "@/engine/core/schemes/combat/ISchemeCombatState";
 import { SchemeCombatCamper } from "@/engine/core/schemes/combat_camper/SchemeCombatCamper";
 import { SchemeCombatZombied } from "@/engine/core/schemes/combat_zombied/SchemeCombatZombied";
-import { getConfigSwitchConditions, pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
-import { getConfigConditionList } from "@/engine/core/utils/ini_config/getters";
+import { getConfigSwitchConditions, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { getConfigConditionList } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { parseConditionsList } from "@/engine/core/utils/parse";

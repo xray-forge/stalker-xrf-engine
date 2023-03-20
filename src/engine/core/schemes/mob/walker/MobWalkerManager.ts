@@ -22,7 +22,7 @@ import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob/walker/ISchemeM
 import { mobCapture } from "@/engine/core/schemes/mobCapture";
 import { mobCaptured } from "@/engine/core/schemes/mobCaptured";
 import { abort } from "@/engine/core/utils/debug";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { action } from "@/engine/core/utils/object";
 import { IWaypointData, parsePathWaypoints } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";

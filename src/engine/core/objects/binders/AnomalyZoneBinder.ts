@@ -18,8 +18,8 @@ import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager"
 import { FIELDS_BY_NAME } from "@/engine/core/objects/binders/AnomalyFieldBinder";
 import { abort } from "@/engine/core/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
-import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseNames, parseNumbers, TConditionList } from "@/engine/core/utils/parse";
 import { MAX_UNSIGNED_8_BIT } from "@/engine/lib/constants/memory";

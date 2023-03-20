@@ -6,8 +6,8 @@ import { EvaluatorNeedAnimpoint, EvaluatorReachAnimpoint } from "@/engine/core/s
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { AbstractScheme, action_ids, evaluators_id } from "@/engine/core/schemes/base";
 import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini_config/config";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
+import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseNames } from "@/engine/core/utils/parse";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";

@@ -2,7 +2,7 @@ import { cse_anomalous_zone, editor, game, LuabindClass, system_ini, XR_CTime, X
 
 import { registerObjectStoryLinks } from "@/engine/core/database";
 import { isSinglePlayerGame } from "@/engine/core/utils/general";
-import { getConfigNumber } from "@/engine/core/utils/ini_config/getters";
+import { getConfigNumber } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { Optional } from "@/engine/lib/types";

@@ -15,7 +15,7 @@ import { NotificationManager } from "@/engine/core/managers/notifications/Notifi
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { abort } from "@/engine/core/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseSpawnDetails, TConditionList } from "@/engine/core/utils/parse";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";

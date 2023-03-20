@@ -6,7 +6,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchT
 import { ISchemePhysicalButtonState } from "@/engine/core/schemes/ph_button/ISchemePhysicalButtonState";
 import { switchToSection } from "@/engine/core/schemes/switchToSection";
 import { isActiveSection } from "@/engine/core/utils/check/is";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TIndex } from "@/engine/lib/types";
 

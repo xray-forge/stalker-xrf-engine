@@ -7,7 +7,7 @@ import { ISchemeHitState } from "@/engine/core/schemes/hit/ISchemeHitState";
 import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { unsubscribeActionFromEvents } from "@/engine/core/schemes/unsubscribeActionFromEvents";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini_config/config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
 

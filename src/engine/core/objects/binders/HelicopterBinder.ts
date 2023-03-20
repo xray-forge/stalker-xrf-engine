@@ -33,7 +33,7 @@ import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
 import { loadObject, saveObject } from "@/engine/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { getObjectClassId } from "@/engine/core/utils/id";
-import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ESchemeType, Optional, TDistance, TIndex, TNumberId, TRate } from "@/engine/lib/types";
 

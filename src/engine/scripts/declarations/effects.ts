@@ -80,8 +80,8 @@ import { abort } from "@/engine/core/utils/debug";
 import { createScenarioAutoSave } from "@/engine/core/utils/game_save";
 import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob } from "@/engine/core/utils/gulag";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
-import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { IConfigSwitchCondition, parseConditionsList } from "@/engine/core/utils/parse";
 import {

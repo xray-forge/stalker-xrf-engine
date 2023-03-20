@@ -19,7 +19,7 @@ import {
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { onSmartTerrainObjectDeath, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";

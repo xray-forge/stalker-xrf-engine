@@ -5,8 +5,8 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { DeimosManager } from "@/engine/core/schemes/sr_deimos/DeimosManager";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos/ISchemeDeimosState";
 import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini_config/config";
-import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
+import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TRate, TSection } from "@/engine/lib/types";
 

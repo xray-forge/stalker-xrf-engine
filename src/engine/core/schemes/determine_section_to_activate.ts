@@ -2,8 +2,8 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/debug";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
-import { getConfigConditionList } from "@/engine/core/utils/ini_config/getters";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { getConfigConditionList } from "@/engine/core/utils/ini/getters";
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";
 import { TSection } from "@/engine/lib/types/scheme";
 

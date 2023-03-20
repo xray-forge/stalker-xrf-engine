@@ -5,7 +5,7 @@ import { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes/base/i
 import { switchToSection } from "@/engine/core/schemes/switchToSection";
 import { isObjectInZone } from "@/engine/core/utils/check/check";
 import { abort } from "@/engine/core/utils/debug";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorSeenByObject } from "@/engine/core/utils/object";
 import { getDistanceBetween } from "@/engine/core/utils/physics";

@@ -5,8 +5,8 @@ import { getMobState } from "@/engine/core/schemes/mob/MobStateManager";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/mob/remark/ISchemeMobRemarkState";
 import { MobRemarkManager } from "@/engine/core/schemes/mob/remark/MobRemarkManager";
 import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini_config/config";
-import { getConfigBoolean, getConfigConditionList, getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
+import { getConfigBoolean, getConfigConditionList, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 

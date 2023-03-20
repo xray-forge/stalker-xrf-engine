@@ -5,7 +5,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/mob/combat/ISchemeMobCombatState";
 import { MobCombatManager } from "@/engine/core/schemes/mob/combat/MobCombatManager";
 import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini_config/config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
 

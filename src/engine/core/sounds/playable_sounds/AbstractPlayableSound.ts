@@ -1,7 +1,7 @@
 import { XR_ini_file, XR_net_packet, XR_reader, XR_sound_object } from "xray16";
 
 import { EPlayableSound } from "@/engine/core/sounds/playable_sounds/EPlayableSound";
-import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { AnyArgs, Optional } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 

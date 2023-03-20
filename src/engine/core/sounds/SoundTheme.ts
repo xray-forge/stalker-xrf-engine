@@ -7,7 +7,7 @@ import { LoopedSound } from "@/engine/core/sounds/playable_sounds/LoopedSound";
 import { NpcSound } from "@/engine/core/sounds/playable_sounds/NpcSound";
 import { ObjectSound } from "@/engine/core/sounds/playable_sounds/ObjectSound";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { resetTable } from "@/engine/core/utils/table";

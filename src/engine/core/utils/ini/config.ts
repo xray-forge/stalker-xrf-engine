@@ -14,7 +14,7 @@ import {
   getConfigStringAndConditionList,
   getConfigTwoStringsAndConditionsList,
   getTwoNumbers,
-} from "@/engine/core/utils/ini_config/getters";
+} from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";

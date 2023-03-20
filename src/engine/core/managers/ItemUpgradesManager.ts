@@ -2,7 +2,7 @@ import { game, XR_game_object } from "xray16";
 
 import { ITEM_UPGRADES, registry, STALKER_UPGRADE_INFO, SYSTEM_INI } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseNames, TConditionList } from "@/engine/core/utils/parse";
 import { captions, TCaption } from "@/engine/lib/constants/captions";

@@ -8,7 +8,7 @@ import { enable_generic_schemes } from "@/engine/core/schemes/enable_generic_sch
 import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
 import { abort } from "@/engine/core/utils/debug";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
-import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { spawnDefaultObjectItems } from "@/engine/core/utils/spawn";
 import { ESchemeType, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
 

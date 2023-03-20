@@ -27,7 +27,7 @@ import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import { abort } from "@/engine/core/utils/debug";
 import { createScenarioAutoSave } from "@/engine/core/utils/game_save";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getAlifeCharacterCommunity, getObjectSquad, getServerDistanceBetween } from "@/engine/core/utils/object";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";

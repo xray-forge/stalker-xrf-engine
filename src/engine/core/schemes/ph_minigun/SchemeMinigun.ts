@@ -4,13 +4,13 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMinigunState";
 import { MinigunManager } from "@/engine/core/schemes/ph_minigun/MinigunManager";
 import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini_config/config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import {
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
   getConfigStringAndCondList,
-} from "@/engine/core/utils/ini_config/getters";
+} from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 

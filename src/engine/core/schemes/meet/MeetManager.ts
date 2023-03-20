@@ -6,7 +6,7 @@ import { set_state } from "@/engine/core/objects/state/StateManager";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet/ISchemeMeetState";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { isObjectInCombat } from "@/engine/core/utils/object";
 import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
 import { Optional, TDistance, TStringId } from "@/engine/lib/types";

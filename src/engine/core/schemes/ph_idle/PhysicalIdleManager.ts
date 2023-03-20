@@ -5,7 +5,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractScheme
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/ph_idle/ISchemePhysicalIdleState";
 import { switchToSection } from "@/engine/core/schemes/switchToSection";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TConditionList } from "@/engine/core/utils/parse";
 import { Optional, TCount, TIndex, TSection } from "@/engine/lib/types";

@@ -4,8 +4,8 @@ import { DYNAMIC_WEATHER_GRAPHS, GAME_LTX, registry } from "@/engine/core/databa
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { abort } from "@/engine/core/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
-import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseIniSectionToArray, TConditionList } from "@/engine/core/utils/parse";
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";

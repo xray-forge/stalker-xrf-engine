@@ -12,7 +12,7 @@ import {
 import { registry } from "@/engine/core/database";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
-import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional } from "@/engine/lib/types";
 

@@ -5,7 +5,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { set_state } from "@/engine/core/objects/state/StateManager";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { vectorCmp } from "@/engine/core/utils/physics";
 import { Optional } from "@/engine/lib/types";
 

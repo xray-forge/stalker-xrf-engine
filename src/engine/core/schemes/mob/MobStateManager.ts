@@ -2,7 +2,7 @@ import { clsid, TXR_class_id, XR_game_object, XR_ini_file } from "xray16";
 
 import { abort } from "@/engine/core/utils/debug";
 import { getObjectClassId } from "@/engine/core/utils/id";
-import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional } from "@/engine/lib/types";
 

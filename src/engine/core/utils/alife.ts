@@ -8,7 +8,7 @@ import { TDistance, TRate } from "@/engine/lib/types";
 /**
  * todo;
  */
-export function evaluateSimulationPriorityByDistance(target: XR_cse_alife_object, squad: TSimulationObject): TRate {
+export function evaluateSimulationPriorityByDistance(target: XR_cse_alife_object, squad: XR_cse_alife_object): TRate {
   const distance: TDistance = math.max(getServerDistanceBetween(target, squad), 1);
 
   return 1 + 1 / distance;

@@ -4,12 +4,16 @@ This directory contains the source code for the XRTS engine modification templat
 
 ## engine
 
-This directory contains the source code for the engine mod.
+Contains engine source code.
+
+## fixtures
+
+Contains code related to test mocks and utilities.
 
 ## resources
 
-This directory contains all assets that should be copied to the target root folder when building the engine modification.
+Contains all assets that should be copied to the target root folder when building the engine modification.
 
 ## typedefs
 
-This directory contains all types definitions used in project.
+Contains all types definitions used in project.

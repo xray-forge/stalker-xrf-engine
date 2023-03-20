@@ -6,7 +6,7 @@ import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/ph_on_hit/ISche
 import { PhysicalOnHitManager } from "@/engine/core/schemes/ph_on_hit/PhysicalOnHitManager";
 import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { unsubscribeActionFromEvents } from "@/engine/core/schemes/unsubscribeActionFromEvents";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini_config/config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
 

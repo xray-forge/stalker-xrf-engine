@@ -6,7 +6,7 @@ import { ActionWounded } from "@/engine/core/schemes/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/wounded/evaluators";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWoundedState";
 import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
-import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { parseData, parseSynData } from "@/engine/core/utils/parse";

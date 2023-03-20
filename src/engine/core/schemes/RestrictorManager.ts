@@ -1,8 +1,8 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { getParamString } from "@/engine/core/utils/ini_config/config";
-import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getParamString } from "@/engine/core/utils/ini/config";
+import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseNames } from "@/engine/core/utils/parse";
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";

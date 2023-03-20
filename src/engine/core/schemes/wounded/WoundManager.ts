@@ -5,7 +5,7 @@ import { pstor_retrieve, pstor_store } from "@/engine/core/database/portable_sto
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWoundedState";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { STRINGIFIED_FALSE, STRINGIFIED_NIL, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TCount, TRate } from "@/engine/lib/types";

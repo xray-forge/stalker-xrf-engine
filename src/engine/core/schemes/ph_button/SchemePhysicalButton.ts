@@ -4,8 +4,8 @@ import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemePhysicalButtonState } from "@/engine/core/schemes/ph_button/ISchemePhysicalButtonState";
 import { PhysicalButtonManager } from "@/engine/core/schemes/ph_button/PhysicalButtonManager";
 import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini_config/config";
-import { getConfigBoolean, getConfigConditionList, getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
+import { getConfigBoolean, getConfigConditionList, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 

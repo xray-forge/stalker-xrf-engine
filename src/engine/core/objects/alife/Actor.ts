@@ -22,7 +22,7 @@ import { nearest_to_actor_smart, SmartTerrain } from "@/engine/core/objects/alif
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
 import { Squad } from "@/engine/core/objects/alife/Squad";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { ACTOR, STRINGIFIED_TRUE } from "@/engine/lib/constants/words";

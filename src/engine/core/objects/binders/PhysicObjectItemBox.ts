@@ -2,7 +2,7 @@ import { level, XR_game_object, XR_ini_file } from "xray16";
 
 import { PH_BOX_GENERIC_LTX } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseNames, parseNumbers } from "@/engine/core/utils/parse";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";

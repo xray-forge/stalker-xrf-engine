@@ -5,7 +5,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeSilenceState } from "@/engine/core/schemes/sr_silence/ISchemeSilenceState";
 import { SilenceManager } from "@/engine/core/schemes/sr_silence/SilenceManager";
 import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini_config/config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 

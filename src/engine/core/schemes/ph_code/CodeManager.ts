@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
 import { ISchemeCodeState } from "@/engine/core/schemes/ph_code/ISchemeCodeState";
 import { NumPadWindow } from "@/engine/core/ui/game/NumPadWindow";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { TLabel } from "@/engine/lib/types";
 
 /**

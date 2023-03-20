@@ -15,13 +15,13 @@ import { SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { accessible_job, get_job_restrictor } from "@/engine/core/objects/alife/combat_restrictor";
 import type { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { abort } from "@/engine/core/utils/debug";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import {
   getConfigBoolean,
   getConfigNumber,
   getConfigString,
   getSchemeByIniSection,
-} from "@/engine/core/utils/ini_config/getters";
+} from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseWaypointData, TConditionList } from "@/engine/core/utils/parse";
 import { isInTimeInterval } from "@/engine/core/utils/time";

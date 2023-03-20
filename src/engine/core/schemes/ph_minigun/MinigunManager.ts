@@ -10,7 +10,7 @@ import { switchToSection } from "@/engine/core/schemes/switchToSection";
 import { isHeavilyWounded } from "@/engine/core/utils/check/check";
 import { isActiveSection } from "@/engine/core/utils/check/is";
 import { abort } from "@/engine/core/utils/debug";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { TConditionList } from "@/engine/core/utils/parse";
 import { yaw } from "@/engine/core/utils/physics";
 import { ACTOR, STRINGIFIED_NIL } from "@/engine/lib/constants/words";

@@ -11,8 +11,8 @@ import { ISchemePatrolState } from "@/engine/core/schemes/patrol/ISchemePatrolSt
 import { PatrolManager } from "@/engine/core/schemes/patrol/PatrolManager";
 import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini_config/config";
-import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
+import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";

@@ -2,7 +2,7 @@ import { alife, system_ini, XR_game_object, XR_ini_file } from "xray16";
 
 import { IRegistryObjectState } from "@/engine/core/database";
 import { isAmmoSection } from "@/engine/core/utils/check/is";
-import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectPositioning } from "@/engine/core/utils/object";
 import { TInventoryItem } from "@/engine/lib/constants/items";

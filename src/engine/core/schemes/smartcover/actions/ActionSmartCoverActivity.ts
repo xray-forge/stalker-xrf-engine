@@ -10,7 +10,7 @@ import {
   ISchemeSmartCoverState,
 } from "@/engine/core/schemes/smartcover/ISchemeSmartCoverState";
 import { abort } from "@/engine/core/utils/debug";
-import { getParamString, pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { getParamString, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { STRINGIFIED_NIL } from "@/engine/lib/constants/words";

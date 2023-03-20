@@ -10,7 +10,7 @@ import { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
 import { get_sound_manager, SoundManager } from "@/engine/core/sounds/SoundManager";
 import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseNames } from "@/engine/core/utils/parse";
 import { EScheme, LuaArray, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";

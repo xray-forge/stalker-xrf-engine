@@ -1,9 +1,11 @@
 import { jest } from "@jest/globals";
+import { game_graph } from "xray16";
 
 import { MockActionBase } from "@/fixtures/xray/mocks/actions/ActionBase.mock";
 import { MockAnim } from "@/fixtures/xray/mocks/actions/anim.mock";
 import { MockLook } from "@/fixtures/xray/mocks/actions/look.mock";
 import { MockMove } from "@/fixtures/xray/mocks/actions/move.mock";
+import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { mockGetConsole } from "@/fixtures/xray/mocks/console.mock";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
@@ -31,6 +33,7 @@ export function mockXRay16({
   effector = MockEffector,
   danger_object = MockDangerObject,
   game = mockGameInterface,
+  game_graph = () => new MockCGameGraph(),
   get_console = mockGetConsole,
   ini_file = IniFile,
   look = MockLook,
@@ -52,6 +55,7 @@ export function mockXRay16({
     effector,
     danger_object,
     game,
+    game_graph,
     get_console,
     ini_file,
     look,

@@ -21,7 +21,7 @@ import { initializeGameObject } from "@/engine/core/schemes/initializeGameObject
 import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
 import { loadObject, saveObject } from "@/engine/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini_config/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TConditionList } from "@/engine/core/utils/parse";
 import { EScheme, ESchemeType, Optional, TCount, TDuration, TIndex } from "@/engine/lib/types";

@@ -6,7 +6,7 @@ import { DeathManager } from "@/engine/core/schemes/death/DeathManager";
 import { ISchemeDeathState } from "@/engine/core/schemes/death/ISchemeDeathState";
 import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigString } from "@/engine/core/utils/ini_config/getters";
+import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";

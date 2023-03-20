@@ -4,13 +4,13 @@ import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { CodeManager } from "@/engine/core/schemes/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/engine/core/schemes/ph_code/ISchemeCodeState";
 import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini_config/config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import {
   getConfigConditionList,
   getConfigNumber,
   getConfigString,
   getConfigStringAndCondList,
-} from "@/engine/core/utils/ini_config/getters";
+} from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TIndex, TName, TSection } from "@/engine/lib/types";
 
