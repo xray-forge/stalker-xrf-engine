@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { registerObject, registry, resetObject, unregisterObject } from "@/engine/core/database";
-import { loadObject, saveObject } from "@/engine/core/schemes/storing";
+import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TDuration, TNumberId } from "@/engine/lib/types";
@@ -124,7 +124,7 @@ export class CrowBinder extends object_binder {
     setSaveMarker(packet, false, CrowBinder.__name);
 
     super.save(packet);
-    saveObject(this.object, packet);
+    saveObjectLogic(this.object, packet);
     packet.w_u32(this.bodyDisposalTimer);
 
     setSaveMarker(packet, true, CrowBinder.__name);
@@ -136,7 +136,7 @@ export class CrowBinder extends object_binder {
   public override load(reader: XR_reader): void {
     setLoadMarker(reader, false, CrowBinder.__name);
     super.load(reader);
-    loadObject(this.object, reader);
+    loadObjectLogic(this.object, reader);
 
     this.bodyDisposalTimer = reader.r_u32();
     setLoadMarker(reader, true, CrowBinder.__name);

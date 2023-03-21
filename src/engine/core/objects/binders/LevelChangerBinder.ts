@@ -10,8 +10,8 @@ import {
 } from "xray16";
 
 import { registerObject, resetObject, unregisterObject } from "@/engine/core/database";
+import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { LevelChanger } from "@/engine/core/objects/alife/LevelChanger";
-import { loadObject, saveObject } from "@/engine/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TSection } from "@/engine/lib/types/scheme";
@@ -98,7 +98,7 @@ export class LevelChangerBinder extends object_binder {
     setSaveMarker(packet, false, LevelChangerBinder.__name);
 
     super.save(packet);
-    saveObject(this.object, packet);
+    saveObjectLogic(this.object, packet);
 
     setSaveMarker(packet, true, LevelChangerBinder.__name);
   }
@@ -110,7 +110,7 @@ export class LevelChangerBinder extends object_binder {
     setLoadMarker(reader, false, LevelChangerBinder.__name);
 
     super.load(reader);
-    loadObject(this.object, reader);
+    loadObjectLogic(this.object, reader);
 
     setLoadMarker(reader, true, LevelChangerBinder.__name);
   }

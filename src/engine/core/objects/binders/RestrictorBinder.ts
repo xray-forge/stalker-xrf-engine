@@ -1,11 +1,11 @@
 import { LuabindClass, object_binder, XR_cse_alife_object, XR_net_packet, XR_reader } from "xray16";
 
 import { IRegistryObjectState, registerZone, registry, resetObject, unregisterZone } from "@/engine/core/database";
+import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { ESchemeEvent } from "@/engine/core/schemes/base";
 import { initializeGameObject } from "@/engine/core/schemes/initializeGameObject";
 import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
-import { loadObject, saveObject } from "@/engine/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TDuration, TNumberId } from "@/engine/lib/types";
@@ -114,9 +114,10 @@ export class RestrictorBinder extends object_binder {
    */
   public override save(packet: XR_net_packet): void {
     setSaveMarker(packet, false, RestrictorBinder.__name);
-    super.save(packet);
 
-    saveObject(this.object, packet);
+    super.save(packet);
+    saveObjectLogic(this.object, packet);
+
     setSaveMarker(packet, true, RestrictorBinder.__name);
   }
 
@@ -124,13 +125,13 @@ export class RestrictorBinder extends object_binder {
    * todo: Description.
    */
   public override load(reader: XR_reader): void {
-    setLoadMarker(reader, false, RestrictorBinder.__name);
-
     this.isLoaded = true;
 
-    super.load(reader);
+    setLoadMarker(reader, false, RestrictorBinder.__name);
 
-    loadObject(this.object, reader);
+    super.load(reader);
+    loadObjectLogic(this.object, reader);
+
     setLoadMarker(reader, true, RestrictorBinder.__name);
   }
 }

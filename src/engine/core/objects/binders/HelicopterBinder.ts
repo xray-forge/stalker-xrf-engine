@@ -23,6 +23,7 @@ import {
   resetObject,
   unregisterHelicopter,
 } from "@/engine/core/database";
+import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base";
 import { get_heli_health } from "@/engine/core/schemes/heli_move/heli_utils";
@@ -30,7 +31,6 @@ import { HeliCombat } from "@/engine/core/schemes/heli_move/HeliCombat";
 import { get_heli_firer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
 import { initializeGameObject } from "@/engine/core/schemes/initializeGameObject";
 import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
-import { loadObject, saveObject } from "@/engine/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { getObjectClassId } from "@/engine/core/utils/id";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
@@ -164,7 +164,7 @@ export class HelicopterBinder extends object_binder {
     setSaveMarker(packet, false, HelicopterBinder.__name);
     // --printf( "heli_binder: save")
 
-    saveObject(this.object, packet);
+    saveObjectLogic(this.object, packet);
     setSaveMarker(packet, true, HelicopterBinder.__name);
     (this.state.combat as unknown as HeliCombat).save(packet);
   }
@@ -180,7 +180,7 @@ export class HelicopterBinder extends object_binder {
 
     // --printf( "heli_binder: load")
 
-    loadObject(this.object, reader);
+    loadObjectLogic(this.object, reader);
     setLoadMarker(reader, true, HelicopterBinder.__name);
     (this.state.combat as unknown as HeliCombat).load(reader);
   }

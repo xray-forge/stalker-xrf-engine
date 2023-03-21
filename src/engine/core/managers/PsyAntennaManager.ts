@@ -4,12 +4,12 @@ import {
   level,
   sound_object,
   time_global,
+  TXR_net_processor,
   TXR_sound_object_type,
   vector,
   XR_CUIGameCustom,
   XR_game_object,
   XR_net_packet,
-  XR_reader,
   XR_sound_object,
   XR_StaticDrawableWrapper,
 } from "xray16";
@@ -39,7 +39,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public static load(reader: XR_reader): void {
+  public static load(reader: TXR_net_processor): void {
     setLoadMarker(reader, false, PsyAntennaManager.name + "_static");
 
     if (reader.r_bool()) {
@@ -56,20 +56,20 @@ export class PsyAntennaManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public static save(net_packet: XR_net_packet): void {
-    setSaveMarker(net_packet, false, PsyAntennaManager.name + "_static");
+  public static save(packet: XR_net_packet): void {
+    setSaveMarker(packet, false, PsyAntennaManager.name + "_static");
 
     const manager: Optional<PsyAntennaManager> = getWeakManagerInstance(PsyAntennaManager);
 
     if (manager && !isLevelChanging()) {
-      net_packet.w_bool(true);
+      packet.w_bool(true);
 
-      manager.save(net_packet);
+      manager.save(packet);
     } else {
-      net_packet.w_bool(false);
+      packet.w_bool(false);
     }
 
-    setSaveMarker(net_packet, true, PsyAntennaManager.name + "_static");
+    setSaveMarker(packet, true, PsyAntennaManager.name + "_static");
   }
 
   public readonly sound_obj_right: XR_sound_object = new sound_object(sounds.anomaly_psy_voices_1_r);
@@ -317,8 +317,9 @@ export class PsyAntennaManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override load(reader: XR_reader): void {
+  public override load(reader: TXR_net_processor): void {
     setLoadMarker(reader, false, PsyAntennaManager.name);
+
     this.hit_intensity = reader.r_float();
     this.sound_intensity = reader.r_float();
     this.sound_intensity_base = reader.r_float();
@@ -332,10 +333,10 @@ export class PsyAntennaManager extends AbstractCoreManager {
 
     this.postprocess = new LuaTable();
     for (const it of $range(1, this.postprocess_count)) {
-      const k = reader.r_stringZ();
-      const ii = reader.r_float();
-      const ib = reader.r_float();
-      const idx = reader.r_u16();
+      const k: string = reader.r_stringZ();
+      const ii: number = reader.r_float();
+      const ib: number = reader.r_float();
+      const idx: number = reader.r_u16();
 
       this.postprocess.set(k, { intensity_base: ib, intensity: ii, idx: idx });
       level.add_pp_effector(k, idx, true);

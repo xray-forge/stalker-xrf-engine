@@ -23,6 +23,7 @@ import {
 } from "xray16";
 
 import { IRegistryObjectState, registerObject, registry, resetObject, unregisterObject } from "@/engine/core/database";
+import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { setupSmartJobsAndLogicOnSpawn, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
@@ -34,7 +35,6 @@ import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
 import { mobCapture } from "@/engine/core/schemes/mobCapture";
 import { mobCaptured } from "@/engine/core/schemes/mobCaptured";
 import { mobRelease } from "@/engine/core/schemes/mobRelease";
-import { loadObject, saveObject } from "@/engine/core/schemes/storing";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -201,7 +201,7 @@ export class MonsterBinder extends object_binder {
     setSaveMarker(packet, false, MonsterBinder.__name);
 
     super.save(packet);
-    saveObject(this.object, packet);
+    saveObjectLogic(this.object, packet);
 
     setSaveMarker(packet, true, MonsterBinder.__name);
   }
@@ -213,8 +213,9 @@ export class MonsterBinder extends object_binder {
     this.isLoaded = true;
 
     setLoadMarker(reader, false, MonsterBinder.__name);
+
     super.load(reader);
-    loadObject(this.object, reader);
+    loadObjectLogic(this.object, reader);
 
     setLoadMarker(reader, true, MonsterBinder.__name);
   }

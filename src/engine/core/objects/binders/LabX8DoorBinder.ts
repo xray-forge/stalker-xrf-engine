@@ -15,7 +15,7 @@ import {
 
 import { registry, resetObject } from "@/engine/core/database";
 import { registerDoorObject, unregisterDoorObject } from "@/engine/core/database/doors";
-import { loadObject, saveObject } from "@/engine/core/schemes/storing";
+import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
@@ -333,7 +333,7 @@ export class LabX8DoorBinder extends object_binder {
     setSaveMarker(packet, false, LabX8DoorBinder.__name);
 
     super.save(packet);
-    saveObject(this.object, packet);
+    saveObjectLogic(this.object, packet);
     packet.w_bool(this.is_idle);
     packet.w_bool(this.is_play_fwd);
     packet.w_float(this.object.get_physics_object().anim_time_get());
@@ -348,7 +348,7 @@ export class LabX8DoorBinder extends object_binder {
     setLoadMarker(reader, false, LabX8DoorBinder.__name);
 
     super.load(reader);
-    loadObject(this.object, reader);
+    loadObjectLogic(this.object, reader);
     this.is_idle = reader.r_bool();
     this.is_play_fwd = reader.r_bool();
     this.anim_time = reader.r_float();

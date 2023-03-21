@@ -84,7 +84,7 @@ export function portableStoreGet<T extends TPortableStoreValue>(
  * todo;
  * todo;
  */
-export function portableStoreSave(object: XR_game_object, packet: XR_net_packet): void {
+export function savePortableStore(object: XR_game_object, packet: XR_net_packet): void {
   const objectId: TNumberId = object.id();
   let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).pstor;
 
@@ -121,7 +121,7 @@ export function portableStoreSave(object: XR_game_object, packet: XR_net_packet)
  * todo
  * todo
  */
-export function portableStoreLoad(object: XR_game_object, reader: TXR_net_processor): void {
+export function loadPortableStore(object: XR_game_object, reader: TXR_net_processor): void {
   const objectId: TNumberId = object.id();
   let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).pstor;
 

@@ -37,6 +37,7 @@ import {
   unregisterHelicopterEnemy,
   unregisterObject,
 } from "@/engine/core/database";
+import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { DropManager } from "@/engine/core/managers/DropManager";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
@@ -60,9 +61,7 @@ import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
 import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTask";
 import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
-import { loadObject, saveObject } from "@/engine/core/schemes/storing";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
-import { DynamicMusicManager } from "@/engine/core/sounds/DynamicMusicManager";
 import { SoundTheme } from "@/engine/core/sounds/SoundTheme";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
@@ -589,7 +588,7 @@ export class StalkerBinder extends object_binder {
     setSaveMarker(packet, false, StalkerBinder.__name);
 
     super.save(packet);
-    saveObject(this.object, packet);
+    saveObjectLogic(this.object, packet);
     TradeManager.getInstance().saveObjectState(this.object, packet);
     GlobalSoundManager.getInstance().saveForObjectId(packet, this.object.id());
     saveNpcDialogs(packet, this.object.id());
@@ -606,7 +605,7 @@ export class StalkerBinder extends object_binder {
     setLoadMarker(reader, false, StalkerBinder.__name);
 
     super.load(reader);
-    loadObject(this.object, reader);
+    loadObjectLogic(this.object, reader);
     TradeManager.getInstance().loadObjectState(this.object, reader);
     GlobalSoundManager.getInstance().loadForObjectId(reader, this.object.id());
     loadNpcDialogs(reader, this.object.id());

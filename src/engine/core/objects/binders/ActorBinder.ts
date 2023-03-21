@@ -22,7 +22,7 @@ import {
 
 import { IRegistryObjectState, registry, resetObject } from "@/engine/core/database";
 import { registerActor, unregisterActor } from "@/engine/core/database/actor";
-import { portableStoreLoad, portableStoreSave } from "@/engine/core/database/portable_store";
+import { loadPortableStore, savePortableStore } from "@/engine/core/database/portable_store";
 import { updateSimulationObjectAvailability } from "@/engine/core/database/simulation";
 import { AchievementsManager } from "@/engine/core/managers/achievements";
 import { DropManager } from "@/engine/core/managers/DropManager";
@@ -62,7 +62,7 @@ import { TInventoryItem } from "@/engine/lib/constants/items";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { TLevel } from "@/engine/lib/constants/levels";
 import { NIL } from "@/engine/lib/constants/words";
-import { AnyCallablesModule, Optional, TDuration, TIndex, TName } from "@/engine/lib/types";
+import { AnyCallablesModule, Optional, StringOptional, TCount, TDuration, TIndex, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -94,6 +94,7 @@ export class ActorBinder extends object_binder {
   protected readonly newsManager: NotificationManager = NotificationManager.getInstance();
   protected readonly releaseBodyManager: ReleaseBodyManager = ReleaseBodyManager.getInstance();
   protected readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+  protected readonly statisticsManager: StatisticsManager = StatisticsManager.getInstance();
   protected readonly surgeManager: SurgeManager = SurgeManager.getInstance();
   protected readonly taskManager: TaskManager = TaskManager.getInstance();
   protected readonly travelManager: TravelManager = TravelManager.getInstance();
@@ -243,7 +244,7 @@ export class ActorBinder extends object_binder {
 
       artefact.FollowByPath("NULL", 0, new vector().set(500, 500, 500));
 
-      StatisticsManager.getInstance().incrementCollectedArtefactsCount(object);
+      this.statisticsManager.incrementCollectedArtefactsCount(object);
     }
 
     this.treasureManager.on_item_take(object.id());
@@ -391,7 +392,8 @@ export class ActorBinder extends object_binder {
       writeCTimeToPacket(packet, this.state.disable_input_time);
     }
 
-    portableStoreSave(this.object, packet);
+    savePortableStore(this.object, packet);
+
     this.weatherManager.save(packet);
     this.releaseBodyManager.save(packet);
     this.surgeManager.save(packet);
@@ -399,12 +401,12 @@ export class ActorBinder extends object_binder {
 
     this.globalSoundManager.saveActor(packet);
     packet.w_stringZ(tostring(this.lastLevelName));
-    StatisticsManager.getInstance().save(packet);
+    this.statisticsManager.save(packet);
     this.treasureManager.save(packet);
 
-    const n = getTableSize(registry.scriptSpawned);
+    const scriptSpawnedCount: TCount = getTableSize(registry.scriptSpawned);
 
-    packet.w_u8(n);
+    packet.w_u8(scriptSpawnedCount);
 
     for (const [k, v] of registry.scriptSpawned) {
       packet.w_u16(k);
@@ -415,17 +417,17 @@ export class ActorBinder extends object_binder {
 
     packet.w_u8(this.object.active_slot());
 
-    let deimos_exist = false;
+    let isDeimosExisting: boolean = false;
 
     for (const [k, v] of registry.zones) {
       if (registry.objects.get(v.id()) && registry.objects.get(v.id()).active_section === SchemeDeimos.SCHEME_SECTION) {
-        deimos_exist = true;
+        isDeimosExisting = true;
         packet.w_bool(true);
         packet.w_float((registry.objects.get(v.id())[SchemeDeimos.SCHEME_SECTION] as ISchemeDeimosState).intensity);
       }
     }
 
-    if (!deimos_exist) {
+    if (!isDeimosExisting) {
       packet.w_bool(false);
     }
 
@@ -446,32 +448,29 @@ export class ActorBinder extends object_binder {
 
     executeConsoleCommand(console_commands.g_game_difficulty, game_difficulties_by_number[gameDifficulty]);
 
-    const storedInputTime = reader.r_bool();
+    const isStoredDisableInputTime: boolean = reader.r_bool();
 
-    if (storedInputTime) {
+    if (isStoredDisableInputTime) {
       this.state.disable_input_time = readCTimeFromPacket(reader);
     }
 
-    portableStoreLoad(this.object, reader);
+    loadPortableStore(this.object, reader);
     this.weatherManager.load(reader);
     this.releaseBodyManager.load(reader);
-
     this.surgeManager.load(reader);
     PsyAntennaManager.load(reader);
-
     this.globalSoundManager.loadActor(reader);
 
-    const n = reader.r_stringZ();
+    const lastLevelName: StringOptional<TName> = reader.r_stringZ();
 
-    if (n !== NIL) {
-      this.lastLevelName = n;
+    if (lastLevelName !== NIL) {
+      this.lastLevelName = lastLevelName;
     }
 
-    StatisticsManager.getInstance().load(reader);
-
+    this.statisticsManager.load(reader);
     this.treasureManager.load(reader);
 
-    const count = reader.r_u8();
+    const count: TCount = reader.r_u8();
 
     for (const it of $range(1, count)) {
       registry.scriptSpawned.set(reader.r_u16(), reader.r_stringZ());
