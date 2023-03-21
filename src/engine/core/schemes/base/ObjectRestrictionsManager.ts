@@ -6,26 +6,34 @@ import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseNames } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
+import { TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
-export class RestrictorManager {
+export class ObjectRestrictionsManager {
   /**
    * todo: Description.
    */
-  public static forObject(object: XR_game_object): RestrictorManager {
-    logger.info("Get restrictor manager for npc:", object.name());
+  public static initializeForObject(object: XR_game_object): ObjectRestrictionsManager {
+    logger.info("Get restrictor manager for object:", object.name());
 
     const state: IRegistryObjectState = registry.objects.get(object.id());
 
-    if (state.restrictor_manager === null) {
-      state.restrictor_manager = new RestrictorManager(object);
+    if (state.restrictionsManager === null) {
+      state.restrictionsManager = new ObjectRestrictionsManager(object);
     }
 
-    return state.restrictor_manager!;
+    return state.restrictionsManager!;
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static resetForObject(object: XR_game_object, state: IRegistryObjectState, section: TSection): void {
+    return ObjectRestrictionsManager.initializeForObject(object).reset(state, section);
   }
 
   public object: XR_game_object;
@@ -58,10 +66,10 @@ export class RestrictorManager {
   /**
    * todo: Description.
    */
-  public reset_restrictions(st: IRegistryObjectState, section: string): void {
+  public reset(state: IRegistryObjectState, section: TSection): void {
     logger.info("Reset restrictions:", this.object.name(), section);
 
-    const actual_ini: XR_ini_file = st.ini!;
+    const actual_ini: XR_ini_file = state.ini!;
     const [out_restr_string] = getParamString(
       getConfigString(actual_ini, section, "out_restr", null, false, "", ""),
       this.object

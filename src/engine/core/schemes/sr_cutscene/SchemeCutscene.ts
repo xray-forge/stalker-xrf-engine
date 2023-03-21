@@ -4,7 +4,6 @@ import { AbstractScheme, ESchemeEvent } from "@/engine/core/schemes/base";
 import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
 import { CutsceneManager } from "@/engine/core/schemes/sr_cutscene/CutsceneManager";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -34,7 +33,7 @@ export class SchemeCutscene extends AbstractScheme {
     const cutsceneManager: CutsceneManager = new CutsceneManager(object, state);
 
     state.cutscene_action = cutsceneManager;
-    subscribeActionForEvents(object, state, cutsceneManager);
+    SchemeCutscene.subscribeToSchemaEvents(object, state, cutsceneManager);
   }
 
   /**

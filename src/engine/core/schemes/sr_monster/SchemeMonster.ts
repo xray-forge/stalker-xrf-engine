@@ -3,7 +3,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeMonsterState } from "@/engine/core/schemes/sr_monster/ISchemeMonsterState";
 import { MonsterManager } from "@/engine/core/schemes/sr_monster/MonsterManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -29,7 +28,7 @@ export class SchemeMonster extends AbstractScheme {
     section: TSection,
     state: ISchemeMonsterState
   ): void {
-    subscribeActionForEvents(object, state, new MonsterManager(object, state));
+    SchemeMonster.subscribeToSchemaEvents(object, state, new MonsterManager(object, state));
   }
 
   /**

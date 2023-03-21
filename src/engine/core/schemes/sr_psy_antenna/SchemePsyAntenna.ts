@@ -3,7 +3,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemePsyAntennaState } from "@/engine/core/schemes/sr_psy_antenna/ISchemePsyAntennaState";
 import { PsyAntennaSchemaManager } from "@/engine/core/schemes/sr_psy_antenna/PsyAntennaSchemaManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -29,7 +28,7 @@ export class SchemePsyAntenna extends AbstractScheme {
     section: TSection,
     state: ISchemePsyAntennaState
   ): void {
-    subscribeActionForEvents(object, state, new PsyAntennaSchemaManager(object, state));
+    SchemePsyAntenna.subscribeToSchemaEvents(object, state, new PsyAntennaSchemaManager(object, state));
   }
 
   /**

@@ -4,9 +4,7 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ActionProcessEnemy } from "@/engine/core/schemes/combat_ignore/actions/ActionProcessEnemy";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore/ISchemeCombatIgnoreState";
-import { generic_scheme_overrides } from "@/engine/core/schemes/generic_scheme_overrides";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
-import { unsubscribeActionFromEvents } from "@/engine/core/schemes/unsubscribeActionFromEvents";
+import { getObjectGenericSchemeOverrides } from "@/engine/core/schemes/utils/getObjectGenericSchemeOverrides";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
 
@@ -50,7 +48,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
     ] as ISchemeCombatIgnoreState;
 
     if (schemeState !== null) {
-      unsubscribeActionFromEvents(object, schemeState, schemeState.action);
+      SchemeCombatIgnore.unsubscribeFromSchemaEvents(object, schemeState, schemeState.action);
     }
   }
 
@@ -63,13 +61,13 @@ export class SchemeCombatIgnore extends AbstractScheme {
     state: IRegistryObjectState,
     section: TSection
   ): void {
-    const schemeState = state.combat_ignore as any;
+    const schemeState: ISchemeCombatIgnoreState = state.combat_ignore as ISchemeCombatIgnoreState;
 
     object.set_enemy_callback(schemeState.action.enemy_callback, schemeState.action);
 
-    subscribeActionForEvents(object, schemeState, schemeState.action);
+    SchemeCombatIgnore.subscribeToSchemaEvents(object, schemeState, schemeState.action);
 
-    schemeState.overrides = generic_scheme_overrides(object);
+    schemeState.overrides = getObjectGenericSchemeOverrides(object);
     schemeState.enabled = true;
   }
 }

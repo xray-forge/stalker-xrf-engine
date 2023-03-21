@@ -4,7 +4,6 @@ import { AbstractScheme, action_ids, evaluators_id } from "@/engine/core/schemes
 import { ActionCompanionActivity } from "@/engine/core/schemes/companion/actions";
 import { EvaluatorNeedCompanion } from "@/engine/core/schemes/companion/evaluators";
 import { ISchemeCompanionState } from "@/engine/core/schemes/companion/ISchemeCompanionState";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
@@ -51,7 +50,7 @@ export class SchemeCompanion extends AbstractScheme {
     actionCompanionActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_companion, actionCompanionActivity);
 
-    subscribeActionForEvents(object, state, actionCompanionActivity);
+    SchemeCompanion.subscribeToSchemaEvents(object, state, actionCompanionActivity);
 
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_companion, false));
   }

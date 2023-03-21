@@ -3,7 +3,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeNoWeaponState } from "@/engine/core/schemes/sr_no_weapon/ISchemeNoWeaponState";
 import { NoWeaponManager } from "@/engine/core/schemes/sr_no_weapon/NoWeaponManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TNumberId, TSection } from "@/engine/lib/types";
@@ -29,7 +28,7 @@ export class SchemeNoWeapon extends AbstractScheme {
     section: TSection,
     state: ISchemeNoWeaponState
   ): void {
-    subscribeActionForEvents(object, state, new NoWeaponManager(object, state, this));
+    SchemeNoWeapon.subscribeToSchemaEvents(object, state, new NoWeaponManager(object, state, this));
   }
 
   /**

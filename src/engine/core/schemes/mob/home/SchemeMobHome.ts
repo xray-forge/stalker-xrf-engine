@@ -4,7 +4,6 @@ import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/mob/home/ISchemeMobHomeState";
 import { MobHomeManager } from "@/engine/core/schemes/mob/home/MobHomeManager";
 import { getMobState } from "@/engine/core/schemes/mob/MobStateManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -29,7 +28,7 @@ export class SchemeMobHome extends AbstractScheme {
     section: TSection,
     state: ISchemeMobHomeState
   ): void {
-    subscribeActionForEvents(object, state, new MobHomeManager(object, state));
+    SchemeMobHome.subscribeToSchemaEvents(object, state, new MobHomeManager(object, state));
   }
 
   /**

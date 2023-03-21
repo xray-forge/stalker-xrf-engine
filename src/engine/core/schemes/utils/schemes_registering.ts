@@ -85,8 +85,11 @@ export function loadSchemeImplementations(schemeImplementations: Array<TAbstract
   schemeImplementations.forEach((it) => loadSchemeImplementation(it));
 }
 
-export function initializeModules(): void {
-  logger.info("Initialize modules");
+/**
+ * todo;
+ */
+export function registerSchemeModules(): void {
+  logger.info("Initialize scheme modules");
 
   // Stalkers schemes.
   loadSchemeImplementations([

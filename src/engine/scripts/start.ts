@@ -4,8 +4,8 @@ import { ActorInventoryMenuManager } from "@/engine/core/managers/ActorInventory
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { TaskManager } from "@/engine/core/managers/tasks";
-import { initializeModules } from "@/engine/core/schemes/schemes_registering";
-import { resetSchemeHard } from "@/engine/core/schemes/schemes_resetting";
+import { registerSchemeModules } from "@/engine/core/schemes/utils/schemes_registering";
+import { resetSchemeHard } from "@/engine/core/schemes/utils/schemes_resetting";
 import { DynamicMusicManager } from "@/engine/core/sounds/DynamicMusicManager";
 import { SoundTheme } from "@/engine/core/sounds/SoundTheme";
 import { extern } from "@/engine/core/utils/binding";
@@ -31,7 +31,7 @@ extern("start", {
 
     math.randomseed(device().time_global());
 
-    initializeModules();
+    registerSchemeModules();
 
     TaskManager.dispose();
     SimulationBoardManager.dispose();

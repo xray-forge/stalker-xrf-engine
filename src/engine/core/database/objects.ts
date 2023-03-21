@@ -4,9 +4,9 @@ import { registry } from "@/engine/core/database/registry";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { StateManager } from "@/engine/core/objects/state/StateManager";
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
+import { ObjectRestrictionsManager } from "@/engine/core/schemes/base/ObjectRestrictionsManager";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/danger/ISchemePostCombatIdleState";
 import { IActionSchemeHearState } from "@/engine/core/schemes/hear";
-import { RestrictorManager } from "@/engine/core/schemes/RestrictorManager";
 import {
   AnyObject,
   EScheme,
@@ -27,6 +27,11 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   ini: XR_ini_file;
   ini_filename: Optional<TName>;
 
+  /**
+   * Dynamically stored flags / variables.
+   */
+  portableStore: Optional<LuaTable<TName>>;
+
   active_section: Optional<TSection>;
   active_scheme: Optional<EScheme>;
   section_logic: Optional<TName>;
@@ -37,10 +42,9 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   activation_time: TTimestamp;
   activation_game_time: XR_CTime;
 
-  pstor: Optional<LuaTable<TName>>;
   moveManager: Optional<StalkerMoveManager>;
   state_mgr: Optional<StateManager>;
-  restrictor_manager: Optional<RestrictorManager>;
+  restrictionsManager: Optional<ObjectRestrictionsManager>;
   hearInfo: Optional<IActionSchemeHearState>;
 
   // Todo: Try to avoid globals if possible.

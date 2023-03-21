@@ -55,12 +55,12 @@ import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchT
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
 import { PostCombatIdle } from "@/engine/core/schemes/danger/PostCombatIdle";
 import { SchemeDanger } from "@/engine/core/schemes/danger/SchemeDanger";
-import { generic_scheme_overrides } from "@/engine/core/schemes/generic_scheme_overrides";
 import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
 import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
 import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTask";
 import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
+import { getObjectGenericSchemeOverrides } from "@/engine/core/schemes/utils/getObjectGenericSchemeOverrides";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { SoundTheme } from "@/engine/core/sounds/SoundTheme";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
@@ -645,7 +645,7 @@ export function update_logic(object: XR_game_object): void {
     const manager = object.motivation_action_manager();
 
     if (manager.initialized() && manager.current_action_id() === stalker_ids.action_combat_planner) {
-      const overrides = generic_scheme_overrides(object);
+      const overrides = getObjectGenericSchemeOverrides(object);
 
       if (overrides !== null) {
         if (overrides.get("on_combat")) {

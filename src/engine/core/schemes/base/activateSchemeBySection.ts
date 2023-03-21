@@ -2,9 +2,9 @@ import { game, time_global, XR_game_object, XR_ini_file } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import { ESchemeEvent } from "@/engine/core/schemes/base/index";
+import { ESchemeEvent, TAbstractSchemeConstructor } from "@/engine/core/schemes/base/index";
 import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
-import { resetGenericSchemesOnSchemeSwitch } from "@/engine/core/schemes/resetGenericSchemesOnSchemeSwitch";
+import { resetObjectSchemesOnSectionSwitch } from "@/engine/core/schemes/utils/resetObjectSchemesOnSectionSwitch";
 import { abort } from "@/engine/core/utils/debug";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { getObjectConfigOverrides } from "@/engine/core/utils/ini/config";
@@ -45,7 +45,7 @@ export function activateSchemeBySection(
 
   if (section === NIL) {
     registry.objects.get(objectId).overrides = null;
-    resetGenericSchemesOnSchemeSwitch(object, EScheme.NIL, NIL);
+    resetObjectSchemesOnSectionSwitch(object, EScheme.NIL, NIL);
     registry.objects.get(objectId).active_section = null;
     registry.objects.get(objectId).active_scheme = null;
 
@@ -76,9 +76,9 @@ export function activateSchemeBySection(
 
   registry.objects.get(objectId).overrides = getObjectConfigOverrides(ini, section, object) as any;
 
-  resetGenericSchemesOnSchemeSwitch(object, scheme, section);
+  resetObjectSchemesOnSectionSwitch(object, scheme, section);
 
-  const schemeImplementation = registry.schemes.get(scheme);
+  const schemeImplementation: Optional<TAbstractSchemeConstructor> = registry.schemes.get(scheme);
 
   if (schemeImplementation === null) {
     abort("core/logic: scheme '%s' is !registered in modules.script", scheme);

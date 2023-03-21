@@ -3,7 +3,6 @@ import { vector, XR_game_object, XR_ini_file } from "xray16";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/mob/jump/ISchemeMobJumpState";
 import { MobJumpManager } from "@/engine/core/schemes/mob/jump/MobJumpManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
@@ -30,7 +29,7 @@ export class SchemeMobJump extends AbstractScheme {
     section: TSection,
     state: ISchemeMobJumpState
   ): void {
-    subscribeActionForEvents(object, state, new MobJumpManager(object, state));
+    SchemeMobJump.subscribeToSchemaEvents(object, state, new MobJumpManager(object, state));
   }
 
   /**

@@ -3,7 +3,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeOscillateState } from "@/engine/core/schemes/ph_oscillate/ISchemeOscillateState";
 import { OscillateManager } from "@/engine/core/schemes/ph_oscillate/OscillateManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
@@ -29,7 +28,7 @@ export class SchemeOscillate extends AbstractScheme {
     section: TSection,
     state: ISchemeOscillateState
   ): void {
-    subscribeActionForEvents(object, state, new OscillateManager(object, state));
+    SchemeOscillate.subscribeToSchemaEvents(object, state, new OscillateManager(object, state));
   }
 
   /**

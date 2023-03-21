@@ -47,11 +47,11 @@ export function portableStoreSet<T extends TPortableStoreValue>(object: XR_game_
 
   const objectId: TNumberId = object.id();
 
-  if (registry.objects.get(objectId).pstor === null) {
-    registry.objects.get(objectId).pstor = new LuaTable();
+  if (registry.objects.get(objectId).portableStore === null) {
+    registry.objects.get(objectId).portableStore = new LuaTable();
   }
 
-  registry.objects.get(objectId)!.pstor!.set(key, value);
+  registry.objects.get(objectId)!.portableStore!.set(key, value);
 }
 
 /**
@@ -68,8 +68,8 @@ export function portableStoreGet<T extends TPortableStoreValue>(
 ): Optional<T> {
   const objectId: TNumberId = object.id();
 
-  if (registry.objects.get(objectId).pstor !== null) {
-    const value: Optional<T> = registry.objects.get(objectId).pstor!.get(key);
+  if (registry.objects.get(objectId).portableStore !== null) {
+    const value: Optional<T> = registry.objects.get(objectId).portableStore!.get(key);
 
     if (value !== null) {
       return value;
@@ -86,11 +86,11 @@ export function portableStoreGet<T extends TPortableStoreValue>(
  */
 export function savePortableStore(object: XR_game_object, packet: XR_net_packet): void {
   const objectId: TNumberId = object.id();
-  let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).pstor;
+  let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).portableStore;
 
   if (portableStore === null) {
     portableStore = new LuaTable<string>();
-    registry.objects.get(objectId).pstor = portableStore;
+    registry.objects.get(objectId).portableStore = portableStore;
   }
 
   packet.w_u32(getTableSize(portableStore));
@@ -123,11 +123,11 @@ export function savePortableStore(object: XR_game_object, packet: XR_net_packet)
  */
 export function loadPortableStore(object: XR_game_object, reader: TXR_net_processor): void {
   const objectId: TNumberId = object.id();
-  let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).pstor;
+  let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).portableStore;
 
   if (portableStore === null) {
     portableStore = new LuaTable();
-    registry.objects.get(objectId).pstor = portableStore;
+    registry.objects.get(objectId).portableStore = portableStore;
   }
 
   const count: TCount = reader.r_u32();

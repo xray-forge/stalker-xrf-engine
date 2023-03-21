@@ -48,8 +48,8 @@ import {
 } from "@/engine/core/objects/binders/CampfireBinder";
 import { activateSchemeBySection } from "@/engine/core/schemes/base/activateSchemeBySection";
 import { configureObjectSchemes } from "@/engine/core/schemes/base/configureObjectSchemes";
-import { determine_section_to_activate } from "@/engine/core/schemes/determine_section_to_activate";
-import { initializeGameObject } from "@/engine/core/schemes/initializeGameObject";
+import { getObjectSectionToActivate } from "@/engine/core/schemes/utils/getObjectSectionToActivate";
+import { initializeObjectSchemeLogic } from "@/engine/core/schemes/utils/initializeObjectSchemeLogic";
 import { switchObjectSchemeToSection } from "@/engine/core/schemes/utils/switchObjectSchemeToSection";
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { abort } from "@/engine/core/utils/debug";
@@ -434,7 +434,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
       schemeType = ESchemeType.STALKER;
     }
 
-    initializeGameObject(
+    initializeObjectSchemeLogic(
       registry.objects.get(object.id).object!,
       registry.objects.get(object.id),
       false,
@@ -506,7 +506,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
           stype = ESchemeType.STALKER;
         }
 
-        initializeGameObject(registryObject, registry.objects.get(object.id), false, registry.actor, stype);
+        initializeObjectSchemeLogic(registryObject, registry.objects.get(object.id), false, registry.actor, stype);
       }
 
       return;
@@ -761,7 +761,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     configureObjectSchemes(object, ltx, ltx_name, npc_data.stype, job.section, job.prefix_name || this.name());
 
-    const sect: TSection = determine_section_to_activate(object, ltx, job.section, registry.actor);
+    const sect: TSection = getObjectSectionToActivate(object, ltx, job.section, registry.actor);
 
     if (getSchemeByIniSection(job.section) === NIL) {
       abort("[smart_terrain %s] section=%s, don't use section 'null'!", this.name(), sect);
@@ -1593,13 +1593,13 @@ export function setupSmartJobsAndLogicOnSpawn(
       if (need_setup_logic) {
         smartTerrain.setup_logic(object);
       } else {
-        initializeGameObject(object, state, isLoaded, registry.actor, schemeType);
+        initializeObjectSchemeLogic(object, state, isLoaded, registry.actor, schemeType);
       }
     } else {
-      initializeGameObject(object, state, isLoaded, registry.actor, schemeType);
+      initializeObjectSchemeLogic(object, state, isLoaded, registry.actor, schemeType);
     }
   } else {
-    initializeGameObject(object, state, isLoaded, registry.actor, schemeType);
+    initializeObjectSchemeLogic(object, state, isLoaded, registry.actor, schemeType);
   }
 }
 

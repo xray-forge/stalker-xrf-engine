@@ -3,7 +3,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { CodeManager } from "@/engine/core/schemes/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/engine/core/schemes/ph_code/ISchemeCodeState";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import {
   getConfigConditionList,
@@ -33,7 +32,7 @@ export class SchemeCode extends AbstractScheme {
     section: TSection,
     state: ISchemeCodeState
   ): void {
-    subscribeActionForEvents(object, state, new CodeManager(object, state));
+    SchemeCode.subscribeToSchemaEvents(object, state, new CodeManager(object, state));
   }
 
   /**

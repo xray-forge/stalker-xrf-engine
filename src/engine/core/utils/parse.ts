@@ -531,6 +531,30 @@ export function parseData(
   return collection;
 }
 
+// todo: Probably same as parseData?
+export function parseTimerData(
+  object: XR_game_object,
+  str: Optional<string>
+): LuaArray<{ dist: TDistance; state: Optional<LuaArray<IConfigSwitchCondition>> }> {
+  const data: LuaArray<{ dist: TDistance; state: Optional<LuaArray<IConfigSwitchCondition>> }> = new LuaTable();
+
+  if (str) {
+    for (const name of string.gfind(str, "(%|*%d+%|[^%|]+)%p*")) {
+      const [t_pos] = string.find(name, "|", 1, true);
+
+      const dist: Optional<string> = string.sub(name, 1, t_pos - 1);
+      const state: Optional<string> = string.sub(name, t_pos + 1);
+
+      table.insert(data, {
+        dist: tonumber(dist) as TDistance,
+        state: state === null ? null : parseConditionsList(state),
+      });
+    }
+  }
+
+  return data;
+}
+
 /**
  * todo;
  */

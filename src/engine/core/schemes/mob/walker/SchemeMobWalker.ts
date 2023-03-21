@@ -4,7 +4,6 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { getMobState } from "@/engine/core/schemes/mob/MobStateManager";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob/walker/ISchemeMobWalkerState";
 import { MobWalkerManager } from "@/engine/core/schemes/mob/walker/MobWalkerManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini/getters";
@@ -30,7 +29,7 @@ export class SchemeMobWalker extends AbstractScheme {
     section: TSection,
     state: ISchemeMobWalkerState
   ): void {
-    subscribeActionForEvents(object, state, new MobWalkerManager(object, state));
+    SchemeMobWalker.subscribeToSchemaEvents(object, state, new MobWalkerManager(object, state));
   }
 
   /**

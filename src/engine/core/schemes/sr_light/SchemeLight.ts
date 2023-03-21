@@ -4,7 +4,6 @@ import { registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeLightState } from "@/engine/core/schemes/sr_light/ISchemeLightState";
 import { LightManager } from "@/engine/core/schemes/sr_light/LightManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { isUndergroundLevel } from "@/engine/core/utils/check/is";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean } from "@/engine/core/utils/ini/getters";
@@ -33,7 +32,7 @@ export class SchemeLight extends AbstractScheme {
     section: TSection,
     state: ISchemeLightState
   ): void {
-    subscribeActionForEvents(object, state, new LightManager(object, state));
+    SchemeLight.subscribeToSchemaEvents(object, state, new LightManager(object, state));
   }
 
   /**

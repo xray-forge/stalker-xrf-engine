@@ -3,7 +3,7 @@ import { patrol, XR_game_object, XR_ini_file } from "xray16";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalForceState } from "@/engine/core/schemes/ph_force/ISchemePhysicalForceState";
 import { PhysicalForceManager } from "@/engine/core/schemes/ph_force/PhysicalForceManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
+import { subscribeToSchemaEvents } from "@/engine/core/schemes/subscribeToSchemaEvents";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
@@ -29,7 +29,7 @@ export class SchemePhysicalForce extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalForceState
   ): void {
-    subscribeActionForEvents(object, state, new PhysicalForceManager(object, state));
+    subscribeToSchemaEvents(object, state, new PhysicalForceManager(object, state));
   }
 
   /**

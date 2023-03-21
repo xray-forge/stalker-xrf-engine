@@ -3,7 +3,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/mob/death/ISchemeMobDeathState";
 import { MobDeathManager } from "@/engine/core/schemes/mob/death/MobDeathManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
@@ -27,7 +26,7 @@ export class SchemeMobDeath extends AbstractScheme {
     section: TSection,
     state: ISchemeMobDeathState
   ): void {
-    subscribeActionForEvents(object, state, new MobDeathManager(object, state));
+    SchemeMobDeath.subscribeToSchemaEvents(object, state, new MobDeathManager(object, state));
   }
 
   /**

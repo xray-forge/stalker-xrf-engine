@@ -1,15 +1,13 @@
 import { get_hud, XR_game_object, XR_ini_file } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { ISchemeTimerState } from "@/engine/core/schemes/timer/ISchemeTimerState";
 import { SchemeTimerManager } from "@/engine/core/schemes/timer/SchemeTimerManager";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList } from "@/engine/core/utils/parse";
-import { LuaArray, Optional, TDistance } from "@/engine/lib/types";
+import { parseTimerData } from "@/engine/core/utils/parse";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -31,7 +29,7 @@ export class SchemeTimer extends AbstractScheme {
     section: TSection,
     state: ISchemeTimerState
   ): void {
-    subscribeActionForEvents(object, state, new SchemeTimerManager(object, state));
+    SchemeTimer.subscribeToSchemaEvents(object, state, new SchemeTimerManager(object, state));
   }
 
   /**
@@ -53,7 +51,7 @@ export class SchemeTimer extends AbstractScheme {
       state.start_value = getConfigNumber(ini, section, "start_value", object, false, 0);
     }
 
-    state.on_value = parse_data(object, getConfigString(ini, section, "on_value", object, false, ""));
+    state.on_value = parseTimerData(object, getConfigString(ini, section, "on_value", object, false, ""));
     state.timer_id = getConfigString(ini, section, "timer_id", object, false, "", "hud_timer");
     state.string = getConfigString(ini, section, "string", object, false, "");
 
@@ -66,25 +64,4 @@ export class SchemeTimer extends AbstractScheme {
       state.ui.GetCustomStatic("hud_timer_text")!.wnd().TextControl().SetTextST(state.string);
     }
   }
-}
-
-// todo: Probably same in utils?
-function parse_data(object: XR_game_object, str: Optional<string>): LuaArray<{ dist: TDistance; state: any }> {
-  const data: LuaArray<any> = new LuaTable();
-
-  if (str) {
-    for (const name of string.gfind(str, "(%|*%d+%|[^%|]+)%p*")) {
-      const [t_pos] = string.find(name, "|", 1, true);
-
-      const dist: Optional<string> = string.sub(name, 1, t_pos - 1);
-      const state: Optional<string> = string.sub(name, t_pos + 1);
-
-      table.insert(data, {
-        dist: tonumber(dist)!,
-        state: state === null ? null : parseConditionsList(state),
-      });
-    }
-  }
-
-  return data;
 }

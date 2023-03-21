@@ -4,13 +4,13 @@ import { AbstractScheme, action_ids, evaluators_id } from "@/engine/core/schemes
 import { ActionCamperPatrol } from "@/engine/core/schemes/camper/actions";
 import { EvaluatorCloseCombat, EvaluatorEnd } from "@/engine/core/schemes/camper/evaluators";
 import { ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { RADIAN } from "@/engine/lib/constants/math";
 import { FALSE } from "@/engine/lib/constants/words";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -65,7 +65,7 @@ export class SchemeCamper extends AbstractScheme {
     actionPatrol.add_effect(new world_property(stalker_ids.property_enemy, false));
     actionPatrol.add_effect(new world_property(properties.state_mgr_logic_active, false));
     manager.add_action(operators.patrol, actionPatrol);
-    subscribeActionForEvents(object, state, actionPatrol);
+    SchemeCamper.subscribeToSchemaEvents(object, state, actionPatrol);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.end, true));
     manager.action(stalker_ids.action_gather_items).add_precondition(new world_property(properties.end, true));
@@ -88,13 +88,13 @@ export class SchemeCamper extends AbstractScheme {
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    gulag_name: string
+    additional: string
   ): void {
     const state: ISchemeCamperState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
-    state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);
-    state.path_look = getConfigString(ini, section, "path_look", object, true, gulag_name);
+    state.path_walk = getConfigString(ini, section, "path_walk", object, true, additional);
+    state.path_look = getConfigString(ini, section, "path_look", object, true, additional);
 
     if (state.path_walk === state.path_look) {
       abort(
@@ -114,24 +114,27 @@ export class SchemeCamper extends AbstractScheme {
     }
 
     state.radius = getConfigNumber(ini, section, "radius", object, false, 20);
+
+    const campering: Optional<string> = getConfigString(ini, section, "def_state_campering", object, false);
+
     state.suggested_state = {
-      moving: getConfigString(ini, section, "def_state_moving", object, false, ""),
-      moving_fire: getConfigString(ini, section, "def_state_moving_fire", object, false, ""),
-      campering: getConfigString(ini, section, "def_state_campering", object, false, ""),
-      standing: getConfigString(ini, section, "def_state_standing", object, false, "", state.suggested_state.campering),
-      campering_fire: getConfigString(ini, section, "def_state_campering_fire", object, false, ""),
+      moving: getConfigString(ini, section, "def_state_moving", object, false),
+      moving_fire: getConfigString(ini, section, "def_state_moving_fire", object, false),
+      campering: campering,
+      standing: getConfigString(ini, section, "def_state_standing", object, false, "", campering),
+      campering_fire: getConfigString(ini, section, "def_state_campering_fire", object, false),
     };
 
-    state.scantime_free = getConfigNumber(ini, section, "scantime_free", object, false, 60000);
+    state.scantime_free = getConfigNumber(ini, section, "scantime_free", object, false, 60_000);
     state.attack_sound = getConfigString(ini, section, "attack_sound", object, false, "", "fight_attack");
 
     if (state.attack_sound === FALSE) {
       state.attack_sound = null;
     }
 
-    state.idle = getConfigNumber(ini, section, "enemy_idle", object, false, 60000);
-    state.post_enemy_wait = 5000;
-    state.enemy_disp = 7 / 57.2957;
+    state.idle = getConfigNumber(ini, section, "enemy_idle", object, false, 60_000);
+    state.post_enemy_wait = 5_000;
+    state.enemy_disp = 7 / RADIAN;
 
     state.scandelta = 30;
     state.timedelta = 4000;

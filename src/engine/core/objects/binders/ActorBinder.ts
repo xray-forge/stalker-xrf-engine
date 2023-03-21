@@ -128,8 +128,8 @@ export class ActorBinder extends object_binder {
     }
 
     // todo: If needed
-    if (this.state.pstor === null) {
-      this.state.pstor = new LuaTable();
+    if (this.state.portableStore === null) {
+      this.state.portableStore = new LuaTable();
     }
 
     this.weatherManager.reset();
@@ -195,7 +195,7 @@ export class ActorBinder extends object_binder {
     super.reinit();
 
     this.state = resetObject(this.object);
-    this.state.pstor = null!;
+    this.state.portableStore = null!;
 
     this.object.set_callback(callback.inventory_info, this.onInfoUpdate, this);
     this.object.set_callback(callback.on_item_take, this.onItemTake, this);

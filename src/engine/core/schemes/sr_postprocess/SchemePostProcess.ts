@@ -3,7 +3,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePostProcessState } from "@/engine/core/schemes/sr_postprocess/ISchemePostProcessState";
 import { SchemePostProcessManager } from "@/engine/core/schemes/sr_postprocess/SchemePostProcessManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigNumber } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -28,7 +27,7 @@ export class SchemePostProcess extends AbstractScheme {
     section: TSection,
     state: ISchemePostProcessState
   ): void {
-    subscribeActionForEvents(object, state, new SchemePostProcessManager(object, state));
+    SchemePostProcess.subscribeToSchemaEvents(object, state, new SchemePostProcessManager(object, state));
   }
 
   /**

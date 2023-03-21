@@ -3,7 +3,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemePhysicalButtonState } from "@/engine/core/schemes/ph_button/ISchemePhysicalButtonState";
 import { PhysicalButtonManager } from "@/engine/core/schemes/ph_button/PhysicalButtonManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigConditionList, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -28,7 +27,7 @@ export class SchemePhysicalButton extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalButtonState
   ): void {
-    subscribeActionForEvents(object, state, new PhysicalButtonManager(object, state));
+    SchemePhysicalButton.subscribeToSchemaEvents(object, state, new PhysicalButtonManager(object, state));
   }
 
   /**

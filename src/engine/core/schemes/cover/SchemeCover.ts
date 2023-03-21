@@ -4,7 +4,6 @@ import { AbstractScheme, action_ids, evaluators_id } from "@/engine/core/schemes
 import { ActionBaseCover } from "@/engine/core/schemes/cover/actions";
 import { EvaluatorNeedCover } from "@/engine/core/schemes/cover/evaluators";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover/ISchemeCoverState";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
@@ -56,7 +55,7 @@ export class SchemeCover extends AbstractScheme {
     new_action.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_cover, new_action);
 
-    subscribeActionForEvents(object, state, new_action);
+    SchemeCover.subscribeToSchemaEvents(object, state, new_action);
 
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_cover, false));
   }

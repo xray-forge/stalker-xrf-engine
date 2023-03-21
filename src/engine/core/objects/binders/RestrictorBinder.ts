@@ -4,8 +4,8 @@ import { IRegistryObjectState, registerZone, registry, resetObject, unregisterZo
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { ESchemeEvent } from "@/engine/core/schemes/base";
-import { initializeGameObject } from "@/engine/core/schemes/initializeGameObject";
 import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
+import { initializeObjectSchemeLogic } from "@/engine/core/schemes/utils/initializeObjectSchemeLogic";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TDuration, TNumberId } from "@/engine/lib/types";
@@ -84,7 +84,7 @@ export class RestrictorBinder extends object_binder {
     if (!this.isInitialized) {
       this.isInitialized = true;
 
-      initializeGameObject(this.object, this.state, this.isLoaded, registry.actor, ESchemeType.RESTRICTOR);
+      initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, registry.actor, ESchemeType.RESTRICTOR);
     }
 
     this.object.info_clear();

@@ -6,7 +6,6 @@ import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
 import { ActionRemarkActivity } from "@/engine/core/schemes/remark/actions/ActionRemarkActivity";
 import { EvaluatorNeedRemark } from "@/engine/core/schemes/remark/evaluators/EvaluatorNeedRemark";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark/ISchemeRemarkState";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -59,7 +58,7 @@ export class SchemeRemark extends AbstractScheme {
     actionRemarkActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_remark, actionRemarkActivity);
 
-    subscribeActionForEvents(object, state, actionRemarkActivity);
+    SchemeRemark.subscribeToSchemaEvents(object, state, actionRemarkActivity);
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_remark, false));
   }
 

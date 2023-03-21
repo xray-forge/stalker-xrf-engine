@@ -6,7 +6,6 @@ import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
 import { ActionSmartCoverActivity } from "@/engine/core/schemes/smartcover/actions";
 import { EvaluatorNeedSmartCover, EvaluatorUseSmartCoverInCombat } from "@/engine/core/schemes/smartcover/evaluators";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/smartcover/ISchemeSmartCoverState";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -64,7 +63,7 @@ export class SchemeSmartCover extends AbstractScheme {
     // --new_action.add_effect (new world_property(stalker_ids.property_danger,false))
     manager.add_action(operators.action_smartcover, actionSmartCoverActivity);
 
-    subscribeActionForEvents(object, state, actionSmartCoverActivity);
+    SchemeSmartCover.subscribeToSchemaEvents(object, state, actionSmartCoverActivity);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_smartcover, false));
     manager
@@ -97,9 +96,9 @@ export class SchemeSmartCover extends AbstractScheme {
     state.exit_body_state = getConfigString(ini, section, "exit_body_state", object, false, "", "stand");
     state.use_precalc_cover = getConfigBoolean(ini, section, "use_precalc_cover", object, false, false);
     state.use_in_combat = getConfigBoolean(ini, section, "use_in_combat", object, false, false);
-    state.weapon_type = getConfigString(ini, section, "weapon_type", object, false, false);
+    state.weapon_type = getConfigString(ini, section, "weapon_type", object, false);
     state.moving = getConfigString(ini, section, "def_state_moving", object, false, "", "sneak");
-    state.sound_idle = getConfigString(ini, section, "sound_idle", object, false, "");
+    state.sound_idle = getConfigString(ini, section, "sound_idle", object, false);
 
     /**
      *   --[[

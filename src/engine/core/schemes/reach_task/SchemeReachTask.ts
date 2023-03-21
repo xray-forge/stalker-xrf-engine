@@ -12,7 +12,6 @@ import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ActionReachTaskLocation } from "@/engine/core/schemes/reach_task/actions";
 import { EvaluatorReachedTaskLocation } from "@/engine/core/schemes/reach_task/evaluators";
 import { ISchemeReachTaskState } from "@/engine/core/schemes/reach_task/ISchemeReachTaskState";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
@@ -40,7 +39,7 @@ export class SchemeReachTask extends AbstractScheme {
     const alifeActionPlanner: XR_action_planner = cast_planner(alifeAction);
     const newAction: XR_action_base = alifeActionPlanner.action(stalker_ids.action_smart_terrain_task);
 
-    subscribeActionForEvents(object, state, newAction);
+    SchemeReachTask.subscribeToSchemaEvents(object, state, newAction);
   }
 
   /**

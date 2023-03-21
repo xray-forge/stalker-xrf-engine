@@ -6,7 +6,6 @@ import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
 import { ActionSleeperActivity } from "@/engine/core/schemes/sleeper/actions/ActionSleeperActivity";
 import { EvaluatorNeedSleep } from "@/engine/core/schemes/sleeper/evaluators/EvaluatorNeedSleep";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper/ISchemeSleeperState";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -60,7 +59,7 @@ export class SchemeSleeper extends AbstractScheme {
 
     actionPlanner.add_action(operators.action_sleeper, actionSleeper);
 
-    subscribeActionForEvents(object, state, actionSleeper);
+    SchemeSleeper.subscribeToSchemaEvents(object, state, actionSleeper);
 
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_sleeper, false));
   }

@@ -8,6 +8,6 @@ import { Optional } from "@/engine/lib/types";
  * todo;
  * todo;
  */
-export function generic_scheme_overrides(object: XR_game_object): Optional<LuaTable<string>> {
+export function getObjectGenericSchemeOverrides(object: XR_game_object): Optional<LuaTable<string>> {
   return registry.objects.get(object.id()).overrides as unknown as LuaTable<string>;
 }

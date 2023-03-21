@@ -3,7 +3,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/ph_idle/ISchemePhysicalIdleState";
 import { PhysicalIdleManager } from "@/engine/core/schemes/ph_idle/PhysicalIdleManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigConditionList, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -29,7 +28,7 @@ export class SchemePhysicalIdle extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalIdleState
   ): void {
-    subscribeActionForEvents(object, state, new PhysicalIdleManager(object, state));
+    SchemePhysicalIdle.subscribeToSchemaEvents(object, state, new PhysicalIdleManager(object, state));
   }
 
   /**

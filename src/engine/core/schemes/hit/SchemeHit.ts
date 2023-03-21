@@ -4,8 +4,6 @@ import { registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { HitManager } from "@/engine/core/schemes/hit/HitManager";
 import { ISchemeHitState } from "@/engine/core/schemes/hit/ISchemeHitState";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
-import { unsubscribeActionFromEvents } from "@/engine/core/schemes/unsubscribeActionFromEvents";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -40,7 +38,7 @@ export class SchemeHit extends AbstractScheme {
     const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[scheme] as ISchemeHitState;
 
     if (state !== null) {
-      unsubscribeActionFromEvents(object, state, state.action);
+      SchemeHit.unsubscribeFromSchemaEvents(object, state, state.action);
     }
   }
 
@@ -56,6 +54,6 @@ export class SchemeHit extends AbstractScheme {
 
     state.logic = getConfigSwitchConditions(ini, section, object);
 
-    subscribeActionForEvents(object, state, state.action);
+    SchemeHit.subscribeToSchemaEvents(object, state, state.action);
   }
 }

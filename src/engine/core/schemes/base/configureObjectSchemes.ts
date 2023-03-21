@@ -3,9 +3,9 @@ import { ini_file, XR_game_object, XR_ini_file } from "xray16";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { TradeManager } from "@/engine/core/managers/TradeManager";
 import { ESchemeEvent } from "@/engine/core/schemes/base/index";
-import { disableGenericSchemes } from "@/engine/core/schemes/disableGenericSchemes";
-import { enable_generic_schemes } from "@/engine/core/schemes/enable_generic_schemes";
 import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
+import { disableObjectGenericSchemes } from "@/engine/core/schemes/utils/disableObjectGenericSchemes";
+import { enableObjectGenericSchemes } from "@/engine/core/schemes/utils/enableObjectGenericSchemes";
 import { abort } from "@/engine/core/utils/debug";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { getConfigString } from "@/engine/core/utils/ini/getters";
@@ -78,8 +78,8 @@ export function configureObjectSchemes(
     }
   }
 
-  disableGenericSchemes(object, schemeType);
-  enable_generic_schemes(actualIni, object, schemeType, sectionLogic);
+  disableObjectGenericSchemes(object, schemeType);
+  enableObjectGenericSchemes(actualIni, object, schemeType, sectionLogic);
 
   state.active_section = null;
   state.active_scheme = null;

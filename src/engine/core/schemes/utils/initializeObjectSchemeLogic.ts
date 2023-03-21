@@ -3,11 +3,12 @@ import { game_object, XR_game_object, XR_ini_file } from "xray16";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { activateSchemeBySection } from "@/engine/core/schemes/base/activateSchemeBySection";
 import { configureObjectSchemes } from "@/engine/core/schemes/base/configureObjectSchemes";
-import { determine_section_to_activate } from "@/engine/core/schemes/determine_section_to_activate";
 import { getCustomDataOrIniFile } from "@/engine/core/schemes/getCustomDataOrIniFile";
+import { getObjectSectionToActivate } from "@/engine/core/schemes/utils/getObjectSectionToActivate";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TName } from "@/engine/lib/types";
+import { TRelation } from "@/engine/lib/constants/relations";
+import { Optional, TCount, TName } from "@/engine/lib/types";
 import { ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -17,7 +18,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  * todo;
  */
-export function initializeGameObject(
+export function initializeObjectSchemeLogic(
   object: XR_game_object,
   state: IRegistryObjectState,
   isLoaded: boolean,
@@ -37,36 +38,34 @@ export function initializeGameObject(
       ""
     );
 
-    const section: TSection = determine_section_to_activate(object, iniFile, "logic", actor);
+    const section: TSection = getObjectSectionToActivate(object, iniFile, "logic", actor);
 
     activateSchemeBySection(object, iniFile, section, state.gulag_name, false);
 
-    const relation = getConfigString(iniFile, "logic", "relation", object, false, "");
+    const relation: Optional<TRelation> = getConfigString(iniFile, "logic", "relation", object, false, "") as TRelation;
 
     if (relation !== null) {
-      // todo: NO index of global?
-      object.set_relation((game_object as any)[relation], registry.actor);
+      object.set_relation(game_object[relation as TRelation], registry.actor);
     }
 
-    const sympathy = getConfigNumber(iniFile, "logic", "sympathy", object, false);
+    const sympathy: Optional<TCount> = getConfigNumber(iniFile, "logic", "sympathy", object, false);
 
     if (sympathy !== null) {
       object.set_sympathy(sympathy);
     }
   } else {
-    const iniFilename: Optional<string> = state.loaded_ini_filename;
+    const iniFilename: Optional<TName> = state.loaded_ini_filename;
 
     if (iniFilename !== null) {
-      let iniFile: XR_ini_file = getCustomDataOrIniFile(object, iniFilename);
-
-      iniFile = configureObjectSchemes(
+      const iniFile: XR_ini_file = configureObjectSchemes(
         object,
-        iniFile,
+        getCustomDataOrIniFile(object, iniFilename),
         iniFilename,
         schemeType,
         state.loaded_section_logic as TSection,
         state.loaded_gulag_name
       );
+
       activateSchemeBySection(object, iniFile, state.loaded_active_section as TSection, state.loaded_gulag_name, true);
     }
   }

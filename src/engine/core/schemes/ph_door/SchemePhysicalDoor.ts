@@ -3,7 +3,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/ph_door/ISchemePhysicalDoorState";
 import { PhysicalDoorManager } from "@/engine/core/schemes/ph_door/PhysicalDoorManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigConditionList, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -31,7 +30,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
   ): void {
     object.register_door_for_npc();
 
-    subscribeActionForEvents(object, state, new PhysicalDoorManager(object, state));
+    SchemePhysicalDoor.subscribeToSchemaEvents(object, state, new PhysicalDoorManager(object, state));
   }
 
   /**

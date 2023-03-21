@@ -6,7 +6,6 @@ import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ActionZombieGoToDanger, ActionZombieShoot } from "@/engine/core/schemes/combat_zombied/actions";
 import { EvaluatorCombatZombied } from "@/engine/core/schemes/combat_zombied/evaluators";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
@@ -50,7 +49,7 @@ export class SchemeCombatZombied extends AbstractScheme {
     actionZombieShoot.add_effect(new world_property(properties.state_mgr_logic_active, false));
     planner.add_action(action_ids.combat_zombied_base, actionZombieShoot);
 
-    subscribeActionForEvents(object, state, actionZombieShoot);
+    SchemeCombatZombied.subscribeToSchemaEvents(object, state, actionZombieShoot);
 
     const actionZombieGoToDanger: ActionZombieGoToDanger = new ActionZombieGoToDanger(state);
 
@@ -62,6 +61,6 @@ export class SchemeCombatZombied extends AbstractScheme {
     actionZombieGoToDanger.add_effect(new world_property(properties.state_mgr_logic_active, false));
     planner.add_action(action_ids.combat_zombied_base + 1, actionZombieGoToDanger);
 
-    subscribeActionForEvents(object, state, actionZombieGoToDanger);
+    SchemeCombatZombied.subscribeToSchemaEvents(object, state, actionZombieGoToDanger);
   }
 }

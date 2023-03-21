@@ -11,6 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo: Description
  * todo: Add signature with null if default is not provided.
+ * todo: Support optional.
  */
 export function getConfigString<D = string>(
   ini: XR_ini_file,
@@ -18,10 +19,10 @@ export function getConfigString<D = string>(
   field: TName,
   object: Optional<XR_cse_abstract | XR_game_object | AnyObject>,
   mandatory: boolean,
-  prefix: Optional<string> | false,
-  defaultVal?: D
+  prefix: Optional<string> = null,
+  defaultVal: D = null as unknown as D
 ): string | D {
-  if (mandatory === null || prefix === null) {
+  if (mandatory === null) {
     abort("section '%s': wrong arguments order in call to cfg_get_string", section);
   }
 

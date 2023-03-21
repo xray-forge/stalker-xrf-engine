@@ -378,38 +378,44 @@ export function updateObjectInvulnerability(object: XR_game_object): void {
 /**
  * todo
  */
-export function resetObjectThreshold(
+export function resetObjectIgnoreThreshold(
   object: XR_game_object,
   scheme: Optional<EScheme>,
   state: IRegistryObjectState,
   section: TSection
 ): void {
-  const threshold_section: Optional<TSection> =
+  const thresholdSection: Optional<TSection> =
     scheme === null || scheme === NIL
       ? getConfigString(state.ini, state.section_logic, "threshold", object, false, "")
       : getConfigString(state.ini, section, "threshold", object, false, "");
 
-  if (threshold_section !== null) {
-    const maxIgnoreDistance = getConfigNumber(state.ini, threshold_section, "max_ignore_distance", object, false);
+  if (thresholdSection !== null) {
+    const maxIgnoreDistance: Optional<TDistance> = getConfigNumber(
+      state.ini,
+      thresholdSection,
+      "max_ignore_distance",
+      object,
+      false
+    );
 
-    if (maxIgnoreDistance !== null) {
-      object.max_ignore_monster_distance(maxIgnoreDistance);
-    } else {
+    if (maxIgnoreDistance === null) {
       object.restore_max_ignore_monster_distance();
+    } else {
+      object.max_ignore_monster_distance(maxIgnoreDistance);
     }
 
     const ignoreMonster: Optional<TNumberId> = getConfigNumber(
       state.ini,
-      threshold_section,
+      thresholdSection,
       "ignore_monster",
       object,
       false
     );
 
-    if (ignoreMonster !== null) {
-      object.ignore_monster_threshold(ignoreMonster);
-    } else {
+    if (ignoreMonster === null) {
       object.restore_ignore_monster_threshold();
+    } else {
+      object.ignore_monster_threshold(ignoreMonster);
     }
   }
 }

@@ -18,8 +18,8 @@ import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { PhysicObjectItemBox } from "@/engine/core/objects/binders/PhysicObjectItemBox";
 import { ESchemeEvent } from "@/engine/core/schemes/base";
-import { initializeGameObject } from "@/engine/core/schemes/initializeGameObject";
 import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
+import { initializeObjectSchemeLogic } from "@/engine/core/schemes/utils/initializeObjectSchemeLogic";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -225,7 +225,7 @@ export class PhysicObjectBinder extends object_binder {
 
     if (!this.initialized) {
       this.initialized = true;
-      initializeGameObject(this.object, this.state, this.loaded, registry.actor, ESchemeType.ITEM);
+      initializeObjectSchemeLogic(this.object, this.state, this.loaded, registry.actor, ESchemeType.ITEM);
     }
 
     this.object.info_clear();

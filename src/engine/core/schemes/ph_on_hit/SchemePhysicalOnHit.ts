@@ -2,10 +2,9 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
+import { SchemePhysicalHit } from "@/engine/core/schemes/ph_hit";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/ph_on_hit/ISchemePhysicalOnHitState";
 import { PhysicalOnHitManager } from "@/engine/core/schemes/ph_on_hit/PhysicalOnHitManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
-import { unsubscribeActionFromEvents } from "@/engine/core/schemes/unsubscribeActionFromEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
@@ -39,7 +38,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
     const state: ISchemePhysicalOnHitState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
-    subscribeActionForEvents(object, state, state.action);
+    SchemePhysicalHit.subscribeToSchemaEvents(object, state, state.action);
   }
 
   /**
@@ -51,7 +50,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
     ] as ISchemePhysicalOnHitState;
 
     if (state !== null) {
-      unsubscribeActionFromEvents(object, state, state.action);
+      SchemePhysicalHit.unsubscribeFromSchemaEvents(object, state, state.action);
     }
   }
 }

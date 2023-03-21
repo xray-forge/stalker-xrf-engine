@@ -5,7 +5,6 @@ import { AnimpointManager } from "@/engine/core/schemes/animpoint/AnimpointManag
 import { EvaluatorNeedAnimpoint, EvaluatorReachAnimpoint } from "@/engine/core/schemes/animpoint/evaluators";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { AbstractScheme, action_ids, evaluators_id } from "@/engine/core/schemes/base";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -49,7 +48,7 @@ export class SchemeAnimpoint extends AbstractScheme {
 
     schemeState.animpoint = new AnimpointManager(object, schemeState);
 
-    subscribeActionForEvents(object, schemeState, schemeState.animpoint);
+    SchemeAnimpoint.subscribeToSchemaEvents(object, schemeState, schemeState.animpoint);
 
     const actionReachAnimpoint: ActionReachAnimpoint = new ActionReachAnimpoint(schemeState);
 
@@ -62,7 +61,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     actionReachAnimpoint.add_effect(new world_property(properties.need_animpoint, false));
     actionReachAnimpoint.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_reach_animpoint, actionReachAnimpoint);
-    subscribeActionForEvents(object, schemeState, actionReachAnimpoint);
+    SchemeAnimpoint.subscribeToSchemaEvents(object, schemeState, actionReachAnimpoint);
 
     const actionAnimpoint: ActionAnimpoint = new ActionAnimpoint(schemeState);
 
@@ -75,7 +74,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     actionAnimpoint.add_effect(new world_property(properties.need_animpoint, false));
     actionAnimpoint.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_animpoint, actionAnimpoint);
-    subscribeActionForEvents(object, schemeState, actionAnimpoint);
+    SchemeAnimpoint.subscribeToSchemaEvents(object, schemeState, actionAnimpoint);
 
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_animpoint, false));
   }

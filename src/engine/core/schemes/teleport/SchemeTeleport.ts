@@ -1,7 +1,6 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { ISchemeTeleportState, ITeleportPoint } from "@/engine/core/schemes/teleport/ISchemeTeleportState";
 import { TeleportManager } from "@/engine/core/schemes/teleport/TeleportManager";
 import { abort } from "@/engine/core/utils/debug";
@@ -29,7 +28,7 @@ export class SchemeTeleport extends AbstractScheme {
     section: TSection,
     state: ISchemeTeleportState
   ): void {
-    subscribeActionForEvents(object, state, new TeleportManager(object, state));
+    SchemeTeleport.subscribeToSchemaEvents(object, state, new TeleportManager(object, state));
   }
 
   /**

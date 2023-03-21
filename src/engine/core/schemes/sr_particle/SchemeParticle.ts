@@ -3,7 +3,6 @@ import { XR_game_object, XR_ini_file } from "xray16";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeParticleState } from "@/engine/core/schemes/sr_particle/ISchemeParticleState";
 import { ParticleManager } from "@/engine/core/schemes/sr_particle/ParticleManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
@@ -29,7 +28,7 @@ export class SchemeParticle extends AbstractScheme {
     section: TSection,
     state: ISchemeParticleState
   ): void {
-    subscribeActionForEvents(object, state, new ParticleManager(object, state));
+    SchemeParticle.subscribeToSchemaEvents(object, state, new ParticleManager(object, state));
   }
 
   /**

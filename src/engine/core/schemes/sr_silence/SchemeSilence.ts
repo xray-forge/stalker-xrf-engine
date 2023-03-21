@@ -4,7 +4,6 @@ import { registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeSilenceState } from "@/engine/core/schemes/sr_silence/ISchemeSilenceState";
 import { SilenceManager } from "@/engine/core/schemes/sr_silence/SilenceManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
@@ -28,7 +27,7 @@ export class SchemeSilence extends AbstractScheme {
     section: TSection,
     state: ISchemeSilenceState
   ): void {
-    subscribeActionForEvents(object, state, new SilenceManager(object, state));
+    SchemeSilence.subscribeToSchemaEvents(object, state, new SilenceManager(object, state));
   }
 
   /**

@@ -12,7 +12,6 @@ import { ActionMeetWait } from "@/engine/core/schemes/meet/actions";
 import { EvaluatorContact } from "@/engine/core/schemes/meet/evaluators";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet/ISchemeMeetState";
 import { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { isObjectWounded } from "@/engine/core/utils/check/check";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
@@ -87,7 +86,7 @@ export class SchemeMeet extends AbstractScheme {
 
     state.meet_manager = new MeetManager(object, state);
 
-    subscribeActionForEvents(object, state, state.meet_manager);
+    SchemeMeet.subscribeToSchemaEvents(object, state, state.meet_manager);
   }
 
   /**

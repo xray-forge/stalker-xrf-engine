@@ -4,7 +4,6 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { DeimosManager } from "@/engine/core/schemes/sr_deimos/DeimosManager";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos/ISchemeDeimosState";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -30,7 +29,7 @@ export class SchemeDeimos extends AbstractScheme {
     section: TSection,
     state: ISchemeDeimosState
   ): void {
-    subscribeActionForEvents(object, state, new DeimosManager(object, state));
+    SchemeDeimos.subscribeToSchemaEvents(object, state, new DeimosManager(object, state));
   }
 
   /**

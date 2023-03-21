@@ -29,8 +29,8 @@ import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base";
 import { get_heli_health } from "@/engine/core/schemes/heli_move/heli_utils";
 import { HeliCombat } from "@/engine/core/schemes/heli_move/HeliCombat";
 import { get_heli_firer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
-import { initializeGameObject } from "@/engine/core/schemes/initializeGameObject";
 import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
+import { initializeObjectSchemeLogic } from "@/engine/core/schemes/utils/initializeObjectSchemeLogic";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { getObjectClassId } from "@/engine/core/utils/id";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
@@ -107,7 +107,7 @@ export class HelicopterBinder extends object_binder {
 
     if (!this.initialized && actor) {
       this.initialized = true;
-      initializeGameObject(this.object, this.state, this.loaded, actor, ESchemeType.HELI);
+      initializeObjectSchemeLogic(this.object, this.state, this.loaded, actor, ESchemeType.HELI);
     }
 
     if (this.state.active_section !== null) {

@@ -4,7 +4,6 @@ import { AbstractScheme, action_ids, evaluators_id } from "@/engine/core/schemes
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ActionLookAround, ActionShoot } from "@/engine/core/schemes/combat_camper/actions";
 import { EvaluatorCombatCamper, EvaluatorSee } from "@/engine/core/schemes/combat_camper/evaluator";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
@@ -67,7 +66,7 @@ export class SchemeCombatCamper extends AbstractScheme {
     lookAroundAction.add_effect(new world_property(properties.state_mgr_logic_active, false));
     planner.add_action(act_look_around, lookAroundAction);
 
-    subscribeActionForEvents(object, state, lookAroundAction);
+    SchemeCombatCamper.subscribeToSchemaEvents(object, state, lookAroundAction);
 
     state.camper_combat_action = false;
   }

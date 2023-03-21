@@ -3,7 +3,6 @@ import { level, stalker_ids, world_property, XR_action_planner, XR_game_object, 
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { action_ids } from "@/engine/core/schemes/base/actions_id";
 import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { ActionWalkerActivity } from "@/engine/core/schemes/walker/actions";
 import { EvaluatorNeedWalker } from "@/engine/core/schemes/walker/evaluators";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker/ISchemeWalkerState";
@@ -62,7 +61,7 @@ export class SchemeWalker extends AbstractScheme {
 
     actionPlanner.add_action(operators.action_walker, actionWalkerActivity);
 
-    subscribeActionForEvents(object, state, actionWalkerActivity);
+    SchemeWalker.subscribeToSchemaEvents(object, state, actionWalkerActivity);
 
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_walker, false));
   }

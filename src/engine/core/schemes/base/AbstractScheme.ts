@@ -5,7 +5,7 @@ import { IBaseSchemeState } from "@/engine/core/schemes/base/IBaseSchemeState";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional } from "@/engine/lib/types";
+import { AnyObject, Optional, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -96,5 +96,31 @@ export abstract class AbstractScheme {
    */
   public static disableScheme(object: XR_game_object, scheme: EScheme): void {
     abort("Called not implemented disableScheme method: %s, %s", object.name(), scheme);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static subscribeToSchemaEvents(
+    object: XR_game_object,
+    state: IBaseSchemeState,
+    newAction: TName | AnyObject | LuaTable
+  ): void {
+    if (!state.actions) {
+      state.actions = new LuaTable();
+    }
+
+    state.actions.set(newAction as any, true);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static unsubscribeFromSchemaEvents(object: XR_game_object, state: IBaseSchemeState, action: AnyObject): void {
+    if (state.actions) {
+      state.actions.delete(action);
+    } else {
+      state.actions = new LuaTable();
+    }
   }
 }

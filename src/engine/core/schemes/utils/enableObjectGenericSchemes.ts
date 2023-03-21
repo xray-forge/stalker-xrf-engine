@@ -26,7 +26,7 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
  * todo
  * todo
  */
-export function enable_generic_schemes(
+export function enableObjectGenericSchemes(
   ini: XR_ini_file,
   object: XR_game_object,
   schemeType: ESchemeType,

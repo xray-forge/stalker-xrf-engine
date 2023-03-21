@@ -9,7 +9,6 @@ import { ActionCommander, ActionPatrol } from "@/engine/core/schemes/patrol/acti
 import { EvaluatorPatrolComm, EvaluatorPatrolEnd } from "@/engine/core/schemes/patrol/evaluators";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol/ISchemePatrolState";
 import { PatrolManager } from "@/engine/core/schemes/patrol/PatrolManager";
-import { subscribeActionForEvents } from "@/engine/core/schemes/subscribeActionForEvents";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini/getters";
@@ -66,7 +65,7 @@ export class SchemePatrol extends AbstractScheme {
     actionCommander.add_effect(new world_property(properties.patrol_end, true));
     actionCommander.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_commander, actionCommander);
-    subscribeActionForEvents(object, state, actionCommander);
+    SchemePatrol.subscribeToSchemaEvents(object, state, actionCommander);
 
     const actionPatrol: ActionPatrol = new ActionPatrol(state, object);
 
@@ -80,7 +79,7 @@ export class SchemePatrol extends AbstractScheme {
     actionPatrol.add_effect(new world_property(properties.patrol_end, true));
     actionPatrol.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_patrol, actionPatrol);
-    subscribeActionForEvents(object, state, actionPatrol);
+    SchemePatrol.subscribeToSchemaEvents(object, state, actionPatrol);
 
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.patrol_end, true));
   }
