@@ -7,17 +7,102 @@ import { disableGameUiOnly } from "@/engine/core/utils/control";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { game_tutorials } from "@/engine/lib/constants/game_tutorials";
+import { info_portions } from "@/engine/lib/constants/info_portions";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
-import { AnyCallablesModule, Optional } from "@/engine/lib/types";
+import { AnyCallablesModule, Optional, TName, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-const volume_max: number = 1.0;
-const volume_min: number = 0.3;
+const volume_max: TRate = 1.0;
+const volume_min: TRate = 0.3;
 
 /**
  * todo
  */
 export class GameOutroManager extends AbstractCoreManager {
+  /**
+   * todo;
+   * todo: Use utils to check multiple
+   */
+  public static readonly OUTRO_CONDITIONS: Record<TName, () => boolean> = {
+    // -- 4a
+    skadovsk_bad_cond: () => hasAlifeInfo(info_portions.kingpin_gained),
+    // -- 4b
+    skadovsk_good_cond: () => hasAlifeInfo(info_portions.one_of_the_lads_gained),
+    // -- 4c
+    skadovsk_neutral_cond: () =>
+      !hasAlifeInfo(info_portions.kingpin_gained) && !hasAlifeInfo(info_portions.one_of_the_lads_gained),
+    // -- 5a
+    bloodsucker_live_cond: () => !hasAlifeInfo(info_portions.zat_b57_bloodsucker_lair_clear),
+    // -- 5b
+    bloodsucker_dead_cond: () => hasAlifeInfo(info_portions.zat_b57_bloodsucker_lair_clear),
+    // -- 6a
+    dolg_die_cond: () => hasAlifeInfo(info_portions.sim_freedom_help_harder),
+    // -- 6b
+    freedom_die_cond: () => hasAlifeInfo(info_portions.sim_duty_help_harder),
+    // -- 6c
+    dolg_n_freedom_cond: () =>
+      !hasAlifeInfo(info_portions.sim_freedom_help_harder) && !hasAlifeInfo(info_portions.sim_duty_help_harder),
+    // -- 7a
+    scientist_good_cond: () => hasAlifeInfo(info_portions.research_man_gained),
+    // -- 7b
+    scientist_bad_cond: () => !hasAlifeInfo(info_portions.research_man_gained),
+    // -- 8a
+    garik_good_cond: () => hasAlifeInfo(info_portions.pri_a28_army_leaved_alive),
+    // -- 8b
+    garik_bad_cond: () => !hasAlifeInfo(info_portions.pri_a28_army_leaved_alive),
+    // -- 9
+    oasis_cond: () => hasAlifeInfo(info_portions.jup_b16_oasis_artefact_to_scientist),
+    // -- 10
+    mercenarys_cond: () => hasAlifeInfo(info_portions.pri_b35_task_running),
+    // -- 11a
+    yanov_good_cond: () => hasAlifeInfo(info_portions.mutant_hunter_achievement_gained),
+    // -- 11b
+    yanov_bad_cond: () => !hasAlifeInfo(info_portions.mutant_hunter_achievement_gained),
+    // -- 12a
+    zuluz_good_cond: () => hasAlifeInfo(info_portions.pri_b301_save_zulus_complete),
+    // -- 12b
+    zuluz_bad_cond: () => !hasAlifeInfo(info_portions.pri_b301_save_zulus_complete),
+    // -- 13a
+    vano_good_cond: () =>
+      hasAlifeInfo(info_portions.jup_a10_vano_agree_go_und) &&
+      hasAlifeInfo(info_portions.pri_a16_vano_was_alive_when_removed),
+    // -- 13b
+    vano_bad_cond: () =>
+      hasAlifeInfo(info_portions.jup_a10_vano_agree_go_und) &&
+      !hasAlifeInfo(info_portions.pri_a16_vano_was_alive_when_removed),
+    // -- 14a
+    brodyaga_good_cond: () =>
+      hasAlifeInfo(info_portions.jup_b218_monolith_hired) &&
+      hasAlifeInfo(info_portions.pri_a16_wanderer_was_alive_when_removed),
+    // -- 14b
+    brodyaga_bad_cond: () =>
+      hasAlifeInfo(info_portions.jup_b218_monolith_hired) &&
+      !hasAlifeInfo(info_portions.pri_a16_wanderer_was_alive_when_removed),
+    // -- 15a
+    sokolov_good_cond: () =>
+      hasAlifeInfo(info_portions.jup_b218_soldier_hired) && hasAlifeInfo(info_portions.pri_a28_sokolov_left_alive),
+    // -- 15b
+    sokolov_bad_cond: () =>
+      hasAlifeInfo(info_portions.jup_b218_soldier_hired) && !hasAlifeInfo(info_portions.pri_a28_sokolov_left_alive),
+    // -- 16
+    sich_cond: () => hasAlifeInfo(info_portions.balance_advocate_gained),
+    // -- 17
+    noahs_ark_cond: () =>
+      hasAlifeInfo(info_portions.zat_b18_noah_met) && !hasAlifeInfo(info_portions.zat_b18_noah_dead),
+    // -- 18a
+    kardan_good_cond: () => hasAlifeInfo(info_portions.zat_b44_tech_buddies_both_told),
+    // -- 18b
+    kardan_bad_cond: () => !hasAlifeInfo(info_portions.zat_b44_tech_buddies_both_told),
+    // --19a
+    strelok_live_cond: () => !hasAlifeInfo(info_portions.pri_a28_strelok_dead),
+    // -- 19b
+    strelok_die_cond: () => hasAlifeInfo(info_portions.pri_a28_strelok_dead),
+    // -- 20a
+    kovalski_live_cond: () => !hasAlifeInfo(info_portions.pri_a28_koval_dead),
+    // -- 20b
+    kovalski_die_cond: () => hasAlifeInfo(info_portions.pri_a28_koval_dead),
+  };
+
   public static calc_fade(
     factor: number,
     fade1_pos: number,
@@ -46,77 +131,6 @@ export class GameOutroManager extends AbstractCoreManager {
 
     return f;
   }
-
-  public conditions: Record<string, () => boolean> = {
-    // -- 4a
-    skadovsk_bad_cond: () => hasAlifeInfo("kingpin_gained"),
-    // -- 4b
-    skadovsk_good_cond: () => hasAlifeInfo("one_of_the_lads_gained"),
-    // -- 4c
-    skadovsk_neutral_cond: () => !hasAlifeInfo("kingpin_gained") && !hasAlifeInfo("one_of_the_lads_gained"),
-    // -- 5a
-    bloodsucker_live_cond: () => !hasAlifeInfo("zat_b57_bloodsucker_lair_clear"),
-    // -- 5b
-    bloodsucker_dead_cond: () => hasAlifeInfo("zat_b57_bloodsucker_lair_clear"),
-    // -- 6a
-    dolg_die_cond: () => hasAlifeInfo("sim_freedom_help_harder"),
-    // -- 6b
-    freedom_die_cond: () => hasAlifeInfo("sim_duty_help_harder"),
-    // -- 6c
-    dolg_n_freedom_cond: () => !hasAlifeInfo("sim_freedom_help_harder") && !hasAlifeInfo("sim_duty_help_harder"),
-    // -- 7a
-    scientist_good_cond: () => hasAlifeInfo("research_man_gained"),
-    // -- 7b
-    scientist_bad_cond: () => !hasAlifeInfo("research_man_gained"),
-    // -- 8a
-    garik_good_cond: () => hasAlifeInfo("pri_a28_army_leaved_alive"),
-    // -- 8b
-    garik_bad_cond: () => !hasAlifeInfo("pri_a28_army_leaved_alive"),
-    // -- 9
-    oasis_cond: () => hasAlifeInfo("jup_b16_oasis_artefact_to_scientist"),
-    // -- 10
-    mercenarys_cond: () => hasAlifeInfo("pri_b35_task_running"),
-    // -- 11a
-    yanov_good_cond: () => hasAlifeInfo("mutant_hunter_achievement_gained"),
-    // -- 11b
-    yanov_bad_cond: () => !hasAlifeInfo("mutant_hunter_achievement_gained"),
-    // -- 12a
-    zuluz_good_cond: () => hasAlifeInfo("pri_b301_save_zulus_complete"),
-    // -- 12b
-    zuluz_bad_cond: () => !hasAlifeInfo("pri_b301_save_zulus_complete"),
-    // -- 13a
-    vano_good_cond: () =>
-      hasAlifeInfo("jup_a10_vano_agree_go_und") && hasAlifeInfo("pri_a16_vano_was_alive_when_removed"),
-    // -- 13b
-    vano_bad_cond: () =>
-      hasAlifeInfo("jup_a10_vano_agree_go_und") && !hasAlifeInfo("pri_a16_vano_was_alive_when_removed"),
-    // -- 14a
-    brodyaga_good_cond: () =>
-      hasAlifeInfo("jup_b218_monolith_hired") && hasAlifeInfo("pri_a16_wanderer_was_alive_when_removed"),
-    // -- 14b
-    brodyaga_bad_cond: () =>
-      hasAlifeInfo("jup_b218_monolith_hired") && !hasAlifeInfo("pri_a16_wanderer_was_alive_when_removed"),
-    // -- 15a
-    sokolov_good_cond: () => hasAlifeInfo("jup_b218_soldier_hired") && hasAlifeInfo("pri_a28_sokolov_left_alive"),
-    // -- 15b
-    sokolov_bad_cond: () => hasAlifeInfo("jup_b218_soldier_hired") && !hasAlifeInfo("pri_a28_sokolov_left_alive"),
-    // -- 16
-    sich_cond: () => hasAlifeInfo("balance_advocate_gained"),
-    // -- 17
-    noahs_ark_cond: () => hasAlifeInfo("zat_b18_noah_met") && !hasAlifeInfo("zat_b18_noah_dead"),
-    // -- 18a
-    kardan_good_cond: () => hasAlifeInfo("zat_b44_tech_buddies_both_told"),
-    // -- 18b
-    kardan_bad_cond: () => !hasAlifeInfo("zat_b44_tech_buddies_both_told"),
-    // --19a
-    strelok_live_cond: () => !hasAlifeInfo("pri_a28_strelok_dead"),
-    // -- 19b
-    strelok_die_cond: () => hasAlifeInfo("pri_a28_strelok_dead"),
-    // -- 20a
-    kovalski_live_cond: () => !hasAlifeInfo("pri_a28_koval_dead"),
-    // -- 20b
-    kovalski_die_cond: () => hasAlifeInfo("pri_a28_koval_dead"),
-  };
 
   public snd: Optional<XR_sound_object> = null;
 

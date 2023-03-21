@@ -15,7 +15,13 @@ import { TCount } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
+/**
+ * todo: check.
+ */
 export class SoundTheme {
+  /**
+   * todo: check.
+   */
   public static loadSound(): void {
     if (!SCRIPT_SOUND_LTX.section_exist("list")) {
       abort("There is no section [list] in script_sound.ltx");
@@ -60,6 +66,9 @@ export class SoundTheme {
     }
   }
 
+  /**
+   * todo: check.
+   */
   public static init_npc_sound(npc: XR_game_object): void {
     for (const [key, sound] of registry.sounds.themes) {
       if (sound.type === NpcSound.type) {

@@ -588,15 +588,19 @@ export class Squad<
   /**
    * todo: Description.
    */
-  public assign_smart(smart: Optional<SmartTerrain>) {
-    logger.info("Assign squad to smart:", this.name(), smart?.name());
+  public assign_smart(smartTerrain: Optional<SmartTerrain>) {
+    if (smartTerrain) {
+      logger.info("Assign squad to smart terrain:", this.name(), smartTerrain.name());
+    } else {
+      logger.info("Unassign squad from smart:", this.name());
+    }
 
     const oldSmartId: TNumberId = this.smart_id!;
 
-    this.smart_id = smart && smart.id;
+    this.smart_id = smartTerrain && smartTerrain.id;
 
     for (const squadMember of this.squad_members()) {
-      this.assign_squad_member_to_smart(squadMember.id, smart, oldSmartId);
+      this.assign_squad_member_to_smart(squadMember.id, smartTerrain, oldSmartId);
     }
   }
 

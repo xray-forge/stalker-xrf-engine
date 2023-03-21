@@ -1,7 +1,22 @@
+import { jest } from "@jest/globals";
+
 /**
  * todo;
  */
 export class MockLuaTable<K, V> extends Map<K, V> {
+  /**
+   * Mock to get rid of undefined and copy lua behaviour.
+   */
+  public override get = jest.fn((key: K): V | undefined => {
+    const value = super.get(key);
+
+    if (value === undefined) {
+      return null as V;
+    }
+
+    return value;
+  });
+
   public length(): number {
     return this.size;
   }

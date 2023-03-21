@@ -265,8 +265,6 @@ export class ReachTaskPatrolManager {
       return; // --abort ("NPC %s is not commander in PatrolManager[%s]", npc.name (), this.target_name)
     }
 
-    logger.info("Set object orders:", object.name(), command, formation);
-
     this.current_state = command;
 
     if (this.formation !== formation) {

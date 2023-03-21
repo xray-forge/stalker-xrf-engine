@@ -187,13 +187,6 @@ export class GlobalSoundManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public reset(): void {
-    registry.sounds.generic = new LuaTable();
-  }
-
-  /**
-   * todo: Description.
-   */
   public saveActor(packet: XR_net_packet): void {
     setSaveMarker(packet, false, GlobalSoundManager.name + "Actor");
 

@@ -25,6 +25,7 @@ import { registerActor, unregisterActor } from "@/engine/core/database/actor";
 import { loadPortableStore, savePortableStore } from "@/engine/core/database/portable_store";
 import { updateSimulationObjectAvailability } from "@/engine/core/database/simulation";
 import { AchievementsManager } from "@/engine/core/managers/achievements";
+import { ActorInventoryMenuManager } from "@/engine/core/managers/ActorInventoryMenuManager";
 import { DropManager } from "@/engine/core/managers/DropManager";
 import { EGameEvent } from "@/engine/core/managers/events/EGameEvent";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
@@ -86,6 +87,7 @@ export class ActorBinder extends object_binder {
   public state!: IRegistryObjectState;
 
   protected readonly achievementsManager: AchievementsManager = AchievementsManager.getInstance();
+  protected readonly actorInventoryMenuManager: ActorInventoryMenuManager = ActorInventoryMenuManager.getInstance();
   protected readonly dropManager: DropManager = DropManager.getInstance();
   protected readonly dynamicMusicManager: DynamicMusicManager = DynamicMusicManager.getInstance();
   protected readonly eventsManager: EventsManager = EventsManager.getInstance();

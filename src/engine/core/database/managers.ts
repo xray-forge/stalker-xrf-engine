@@ -7,17 +7,21 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Get initialized manager singleton.
+ *
+ * @param managerClass - manager class statics reference, used as key in registry to get singletons
+ * @param initialize - whether initialization lifecycle should be called, 'true' by default
+ * @returns manager instance singleton
  */
 export function getManagerInstance<T extends TAbstractCoreManagerConstructor>(
-  it: T,
+  managerClass: T,
   initialize: boolean = true
 ): InstanceType<T> {
-  if (!registry.managers.get(it)) {
-    logger.info("Initialize manager:", it.name);
+  if (!registry.managers.get(managerClass)) {
+    logger.info("Initialize manager:", managerClass.name);
 
-    const instance: AbstractCoreManager = new it();
+    const instance: AbstractCoreManager = new managerClass();
 
-    registry.managers.set(it, instance);
+    registry.managers.set(managerClass, instance);
 
     if (initialize) {
       instance.initialize();
@@ -26,35 +30,57 @@ export function getManagerInstance<T extends TAbstractCoreManagerConstructor>(
     return instance as InstanceType<T>;
   }
 
-  return registry.managers.get(it) as InstanceType<T>;
+  return registry.managers.get(managerClass) as InstanceType<T>;
 }
 
 /**
- * Get manager instance without init gate.
+ * Get manager instance without initialization if it does not exist.
+ *
+ * @param managerClass - manager class statics reference, used as key in registry to get singletons
+ * @returns manager singleton if it is initialized, 'null' otherwise
  */
-export function getWeakManagerInstance<T extends TAbstractCoreManagerConstructor>(it: T): Optional<InstanceType<T>> {
-  return registry.managers.get(it) as InstanceType<T>;
+export function getWeakManagerInstance<T extends TAbstractCoreManagerConstructor>(
+  managerClass: T
+): Optional<InstanceType<T>> {
+  return registry.managers.get(managerClass) as InstanceType<T>;
 }
 
 /**
  * Check whether manager instance is already initialized.
+ *
+ * @param managerClass - manager class statics reference, used as key in registry to get singletons
+ * @returns whether manager class singleton is initialized and stored in registry
  */
-export function isManagerInitialized<T extends TAbstractCoreManagerConstructor>(it: T): boolean {
-  return registry.managers.has(it);
+export function isManagerInitialized<T extends TAbstractCoreManagerConstructor>(managerClass: T): boolean {
+  return registry.managers.has(managerClass);
 }
 
 /**
  * Destroy and remove manager from registry.
+ *
+ * @param managerClass - manager class statics reference, used as key in registry to get singletons
  */
-export function disposeManager<T extends TAbstractCoreManagerConstructor>(it: T): void {
-  const manager: Optional<AbstractCoreManager> = registry.managers.get(it);
+export function disposeManager<T extends TAbstractCoreManagerConstructor>(managerClass: T): void {
+  const manager: Optional<AbstractCoreManager> = registry.managers.get(managerClass);
 
   if (manager !== null) {
-    logger.info("Dispose manager:", it.name);
+    logger.info("Dispose manager:", managerClass.name);
 
     manager.destroy();
     manager.isDestroyed = true;
 
-    registry.managers.delete(it);
+    registry.managers.delete(managerClass);
+  }
+}
+
+/**
+ * Destroy and remove all managers from registry to clean up scope.
+ * Each manager lifecycle methods are expected to be called in the process.
+ */
+export function disposeManagers(): void {
+  logger.info("Dispose existing managers:", registry.managers.length());
+
+  for (const [implementation] of registry.managers) {
+    disposeManager(implementation);
   }
 }

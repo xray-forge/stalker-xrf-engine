@@ -6,6 +6,10 @@ import { Optional, TCount } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
+ * todo: Add utility to check object of 'active' + object 'inactive' properties to check complex lists.
+ */
+
+/**
  * todo;
  */
 export function giveInfo(infoId?: Optional<TInfoPortion>): void {

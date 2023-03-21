@@ -49,6 +49,11 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 logger.info("Resolve and bind externals");
 
+/**
+ * todo: Smaller registration files instead of one big file.
+ * todo: Docblocks.
+ */
+
 extern("xr_conditions", require("@/engine/scripts/declarations/conditions"));
 extern("xr_effects", require("@/engine/scripts/declarations/effects"));
 extern("dialogs_pripyat", require("@/engine/scripts/declarations/dialogs/dialogs_pripyat"));
@@ -330,7 +335,7 @@ extern(
  * Outro conditions for game ending based on alife information.
  */
 extern("outro", {
-  conditions: GameOutroManager.getInstance().conditions,
+  conditions: GameOutroManager.OUTRO_CONDITIONS,
   start_bk_sound: () => GameOutroManager.getInstance().start_bk_sound(),
   stop_bk_sound: () => GameOutroManager.getInstance().stop_bk_sound(),
   update_bk_sound_fade_start: (factor: number) => GameOutroManager.getInstance().update_bk_sound_fade_start(factor),

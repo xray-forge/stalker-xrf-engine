@@ -10,6 +10,9 @@ import { ACTOR } from "@/engine/lib/constants/words";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
+/**
+ * Current state of actor menu interaction.
+ */
 export enum EActorMenuMode {
   UNDEFINED = 0,
   INVENTORY = 1,
@@ -24,6 +27,21 @@ export enum EActorMenuMode {
 // todo: .CUIActorMenu_OnItemDropped handler
 export class ActorInventoryMenuManager extends AbstractCoreManager {
   public activeMode: EActorMenuMode = EActorMenuMode.UNDEFINED;
+
+  /**
+   * todo: Description.
+   */
+  public override initialize(): void {
+    logger.info("Initialize actor inventory quick items slots");
+
+    const ini: XR_ini_file = system_ini();
+    const actor: XR_game_object = registry.actor;
+
+    executeConsoleCommand(console_commands.slot_0, getConfigString(ini, ACTOR, "quick_item_1", actor, false, "", ""));
+    executeConsoleCommand(console_commands.slot_1, getConfigString(ini, ACTOR, "quick_item_2", actor, false, "", ""));
+    executeConsoleCommand(console_commands.slot_2, getConfigString(ini, ACTOR, "quick_item_3", actor, false, "", ""));
+    executeConsoleCommand(console_commands.slot_3, getConfigString(ini, ACTOR, "quick_item_4", actor, false, "", ""));
+  }
 
   /**
    * todo: Description.
@@ -81,19 +99,6 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
    */
   public isActiveMode(mode: EActorMenuMode): boolean {
     return this.activeMode === mode;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public initQuickSlotItems(): void {
-    const ini: XR_ini_file = system_ini();
-    const actor: XR_game_object = registry.actor;
-
-    executeConsoleCommand(console_commands.slot_0, getConfigString(ini, ACTOR, "quick_item_1", actor, false, "", ""));
-    executeConsoleCommand(console_commands.slot_1, getConfigString(ini, ACTOR, "quick_item_2", actor, false, "", ""));
-    executeConsoleCommand(console_commands.slot_2, getConfigString(ini, ACTOR, "quick_item_3", actor, false, "", ""));
-    executeConsoleCommand(console_commands.slot_3, getConfigString(ini, ACTOR, "quick_item_4", actor, false, "", ""));
   }
 
   /**

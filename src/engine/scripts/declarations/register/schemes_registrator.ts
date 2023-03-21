@@ -1,7 +1,7 @@
 import { registry } from "@/engine/core/database";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { SchemeAnimpoint } from "@/engine/core/schemes/animpoint";
-import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base/index";
+import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import { SchemeCamper } from "@/engine/core/schemes/camper";
 import { SchemeCombat } from "@/engine/core/schemes/combat";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore";
