@@ -21,7 +21,23 @@ export class SchemeCompanion extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    additional: string
+  ): void {
+    const state: ISchemeCompanionState = AbstractScheme.assign(object, ini, scheme, section);
+
+    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.behavior = 0; // beh_walk_simple
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -50,21 +66,8 @@ export class SchemeCompanion extends AbstractScheme {
     actionCompanionActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_companion, actionCompanionActivity);
 
-    SchemeCompanion.subscribeToSchemaEvents(object, state, actionCompanionActivity);
+    SchemeCompanion.subscribe(object, state, actionCompanionActivity);
 
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_companion, false));
-  }
-
-  public static override setScheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    additional: string
-  ): void {
-    const state: ISchemeCompanionState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
-
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.behavior = 0; // beh_walk_simple
   }
 }

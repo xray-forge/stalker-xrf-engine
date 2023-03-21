@@ -21,21 +21,8 @@ export class SchemeMonster extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemeMonsterState
-  ): void {
-    SchemeMonster.subscribeToSchemaEvents(object, state, new MonsterManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeMonsterState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemeMonsterState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.snd_obj = getConfigString(ini, section, "snd", object, false, "", null);
@@ -47,5 +34,18 @@ export class SchemeMonster extends AbstractScheme {
     state.path_table = parseNames(path);
     state.monster = getConfigString(ini, section, "monster_section", object, false, "", null);
     state.sound_slide_vel = getConfigNumber(ini, section, "slide_velocity", object, false, 7);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeMonsterState
+  ): void {
+    SchemeMonster.subscribe(object, state, new MonsterManager(object, state));
   }
 }

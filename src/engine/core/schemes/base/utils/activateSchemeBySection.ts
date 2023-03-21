@@ -85,7 +85,7 @@ export function activateSchemeBySection(
   }
 
   logger.info("Set active scheme:", scheme, "->", object.name(), section, additional);
-  schemeImplementation.setScheme(object, ini, scheme, section as TSection, additional);
+  schemeImplementation.activate(object, ini, scheme, section as TSection, additional);
 
   registry.objects.get(objectId).active_section = section;
   registry.objects.get(objectId).active_scheme = scheme;

@@ -20,26 +20,26 @@ export class SchemePhysicalHit extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemePhysicalHitState
-  ): void {
-    SchemePhysicalHit.subscribeToSchemaEvents(object, state, new PhysicalHitManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemePhysicalHitState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemePhysicalHitState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.power = getConfigNumber(ini, section, "power", object, false, 0);
     state.impulse = getConfigNumber(ini, section, "impulse", object, false, 1000);
     state.bone = getConfigString(ini, section, "bone", object, true, "");
     state.dir_path = getConfigString(ini, section, "dir_path", object, true, "");
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemePhysicalHitState
+  ): void {
+    SchemePhysicalHit.subscribe(object, state, new PhysicalHitManager(object, state));
   }
 }

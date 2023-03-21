@@ -23,24 +23,8 @@ export class SchemeCutscene extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemeCutsceneState
-  ): void {
-    const cutsceneManager: CutsceneManager = new CutsceneManager(object, state);
-
-    state.cutscene_action = cutsceneManager;
-    SchemeCutscene.subscribeToSchemaEvents(object, state, cutsceneManager);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeCutsceneState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemeCutsceneState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.point = getConfigString(ini, section, "point", object, true, "", "none");
@@ -51,6 +35,21 @@ export class SchemeCutscene extends AbstractScheme {
     state.fov = getConfigNumber(ini, section, "fov", object, true);
     state.enable_ui_on_end = getConfigBoolean(ini, section, "enable_ui_on_end", object, false, true);
     state.outdoor = getConfigBoolean(ini, section, "outdoor", object, false, false);
+  }
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeCutsceneState
+  ): void {
+    const cutsceneManager: CutsceneManager = new CutsceneManager(object, state);
+
+    state.cutscene_action = cutsceneManager;
+    SchemeCutscene.subscribe(object, state, cutsceneManager);
   }
 
   /**

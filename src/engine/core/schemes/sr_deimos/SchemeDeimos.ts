@@ -22,21 +22,8 @@ export class SchemeDeimos extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemeDeimosState
-  ): void {
-    SchemeDeimos.subscribeToSchemaEvents(object, state, new DeimosManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeDeimosState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemeDeimosState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.movement_speed = getConfigNumber(ini, section, "movement_speed", object, false, 100);
@@ -53,6 +40,19 @@ export class SchemeDeimos extends AbstractScheme {
     state.disable_bound = getConfigNumber(ini, section, "disable_bound", object, false, 0.1);
     state.switch_lower_bound = getConfigNumber(ini, section, "switch_lower_bound", object, false, 0.5);
     state.switch_upper_bound = getConfigNumber(ini, section, "switch_upper_bound", object, false, 0.75);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeDeimosState
+  ): void {
+    SchemeDeimos.subscribe(object, state, new DeimosManager(object, state));
   }
 
   /**

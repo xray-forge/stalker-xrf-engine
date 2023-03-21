@@ -20,24 +20,24 @@ export class SchemeSilence extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemeSilenceState = AbstractScheme.assign(object, ini, scheme, section);
+
+    state.logic = getConfigSwitchConditions(ini, section, object);
+
+    registry.silenceZones.set(object.id(), object.name());
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeSilenceState
   ): void {
-    SchemeSilence.subscribeToSchemaEvents(object, state, new SilenceManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeSilenceState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
-
-    state.logic = getConfigSwitchConditions(ini, section, object);
-
-    registry.silenceZones.set(object.id(), object.name());
+    SchemeSilence.subscribe(object, state, new SilenceManager(object, state));
   }
 }

@@ -20,25 +20,25 @@ export class SchemePostProcess extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemePostProcessState = AbstractScheme.assign(object, ini, scheme, section);
+
+    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.intensity = getConfigNumber(ini, section, "intensity", object, true) * 0.01;
+    state.intensity_speed = getConfigNumber(ini, section, "intensity_speed", object, true) * 0.01;
+    state.hit_intensity = getConfigNumber(ini, section, "hit_intensity", object, true);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemePostProcessState
   ): void {
-    SchemePostProcess.subscribeToSchemaEvents(object, state, new SchemePostProcessManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemePostProcessState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
-
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.intensity = getConfigNumber(ini, section, "intensity", object, true) * 0.01;
-    state.intensity_speed = getConfigNumber(ini, section, "intensity_speed", object, true) * 0.01;
-    state.hit_intensity = getConfigNumber(ini, section, "hit_intensity", object, true);
+    SchemePostProcess.subscribe(object, state, new SchemePostProcessManager(object, state));
   }
 }

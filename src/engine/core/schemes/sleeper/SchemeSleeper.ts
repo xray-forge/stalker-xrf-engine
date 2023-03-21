@@ -24,7 +24,28 @@ export class SchemeSleeper extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    additional: string
+  ): void {
+    const state: ISchemeSleeperState = AbstractScheme.assign(object, ini, scheme, section);
+
+    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.path_main = getConfigString(ini, section, "path_main", object, true, additional);
+    state.wakeable = getConfigBoolean(ini, section, "wakeable", object, false);
+    state.path_walk = null;
+    state.path_walk_info = null;
+    state.path_look = null;
+    state.path_look_info = null;
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -59,29 +80,8 @@ export class SchemeSleeper extends AbstractScheme {
 
     actionPlanner.add_action(operators.action_sleeper, actionSleeper);
 
-    SchemeSleeper.subscribeToSchemaEvents(object, state, actionSleeper);
+    SchemeSleeper.subscribe(object, state, actionSleeper);
 
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_sleeper, false));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    additional: string
-  ): void {
-    const state: ISchemeSleeperState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
-
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.path_main = getConfigString(ini, section, "path_main", object, true, additional);
-    state.wakeable = getConfigBoolean(ini, section, "wakeable", object, false);
-    state.path_walk = null;
-    state.path_walk_info = null;
-    state.path_look = null;
-    state.path_look_info = null;
   }
 }

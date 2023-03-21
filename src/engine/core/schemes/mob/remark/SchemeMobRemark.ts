@@ -21,27 +21,14 @@ export class SchemeMobRemark extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
-    state: ISchemeMobRemarkState
+    additional: string
   ): void {
-    SchemeMobRemark.subscribeToSchemaEvents(object, state, new MobRemarkManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    gulag_name: string
-  ): void {
-    const state: ISchemeMobRemarkState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+    const state: ISchemeMobRemarkState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.state = getMobState(ini, section, object);
@@ -53,5 +40,18 @@ export class SchemeMobRemark extends AbstractScheme {
     state.tip = getConfigString(ini, section, "tip", object, false, "");
     state.snd = getConfigString(ini, section, "snd", object, false, "");
     state.time = getConfigString(ini, section, "time", object, false, "");
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeMobRemarkState
+  ): void {
+    SchemeMobRemark.subscribe(object, state, new MobRemarkManager(object, state));
   }
 }

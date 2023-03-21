@@ -30,27 +30,14 @@ export class SchemeMinigun extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemeMinigunState
-  ): void {
-    SchemeMinigun.subscribeToSchemaEvents(object, state, new MinigunManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(
+  public static override activate(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     additional: string
   ): void {
-    const state: ISchemeMinigunState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+    const state: ISchemeMinigunState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.path_fire = getConfigString(ini, section, "path_fire", object, false, additional, null);
@@ -64,5 +51,18 @@ export class SchemeMinigun extends AbstractScheme {
     state.shoot_only_on_visible = getConfigBoolean(ini, section, "shoot_only_on_visible", object, false, true);
     state.on_target_vis = getConfigStringAndCondList(ini, section, "on_target_vis", object);
     state.on_target_nvis = getConfigStringAndCondList(ini, section, "on_target_nvis", object);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeMinigunState
+  ): void {
+    SchemeMinigun.subscribe(object, state, new MinigunManager(object, state));
   }
 }

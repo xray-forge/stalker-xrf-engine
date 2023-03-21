@@ -24,7 +24,32 @@ export class SchemeAnimpoint extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    additional: string
+  ): void {
+    const state: ISchemeAnimpointState = AbstractScheme.assign(object, ini, scheme, section);
+
+    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.cover_name = getConfigString(ini, section, "cover_name", object, false, "", "$script_id$_cover");
+    state.use_camp = getConfigBoolean(ini, section, "use_camp", object, false, true);
+    state.reach_movement = getConfigString(ini, section, "reach_movement", object, false, "", "walk");
+    state.reach_distance = getConfigNumber(ini, section, "reach_distance", object, false, 0.75);
+
+    // Calculate for sqr comparison.
+    state.reach_distance = state.reach_distance * state.reach_distance;
+
+    const rawAvailableAnimations = getConfigString(ini, section, "avail_animations", object, false, "", null);
+
+    state.avail_animations = rawAvailableAnimations === null ? null : parseNames(rawAvailableAnimations);
+  }
+  /**
+   * todo: Description.
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -48,7 +73,7 @@ export class SchemeAnimpoint extends AbstractScheme {
 
     schemeState.animpoint = new AnimpointManager(object, schemeState);
 
-    SchemeAnimpoint.subscribeToSchemaEvents(object, schemeState, schemeState.animpoint);
+    SchemeAnimpoint.subscribe(object, schemeState, schemeState.animpoint);
 
     const actionReachAnimpoint: ActionReachAnimpoint = new ActionReachAnimpoint(schemeState);
 
@@ -61,7 +86,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     actionReachAnimpoint.add_effect(new world_property(properties.need_animpoint, false));
     actionReachAnimpoint.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_reach_animpoint, actionReachAnimpoint);
-    SchemeAnimpoint.subscribeToSchemaEvents(object, schemeState, actionReachAnimpoint);
+    SchemeAnimpoint.subscribe(object, schemeState, actionReachAnimpoint);
 
     const actionAnimpoint: ActionAnimpoint = new ActionAnimpoint(schemeState);
 
@@ -74,34 +99,8 @@ export class SchemeAnimpoint extends AbstractScheme {
     actionAnimpoint.add_effect(new world_property(properties.need_animpoint, false));
     actionAnimpoint.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_animpoint, actionAnimpoint);
-    SchemeAnimpoint.subscribeToSchemaEvents(object, schemeState, actionAnimpoint);
+    SchemeAnimpoint.subscribe(object, schemeState, actionAnimpoint);
 
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_animpoint, false));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    additional: string
-  ): void {
-    const state: ISchemeAnimpointState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
-
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.cover_name = getConfigString(ini, section, "cover_name", object, false, "", "$script_id$_cover");
-    state.use_camp = getConfigBoolean(ini, section, "use_camp", object, false, true);
-    state.reach_movement = getConfigString(ini, section, "reach_movement", object, false, "", "walk");
-    state.reach_distance = getConfigNumber(ini, section, "reach_distance", object, false, 0.75);
-
-    // Calculate for sqr comparison.
-    state.reach_distance = state.reach_distance * state.reach_distance;
-
-    const rawAvailableAnimations = getConfigString(ini, section, "avail_animations", object, false, "", null);
-
-    state.avail_animations = rawAvailableAnimations === null ? null : parseNames(rawAvailableAnimations);
   }
 }

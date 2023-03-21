@@ -22,27 +22,14 @@ export class SchemeMobWalker extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemeMobWalkerState
-  ): void {
-    SchemeMobWalker.subscribeToSchemaEvents(object, state, new MobWalkerManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(
+  public static override activate(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     gulag_name: string
   ): void {
-    const state: ISchemeMobWalkerState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+    const state: ISchemeMobWalkerState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.state = getMobState(ini, section, object);
@@ -60,5 +47,18 @@ export class SchemeMobWalker extends AbstractScheme {
 
     state.path_walk_info = null;
     state.path_look_info = null;
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeMobWalkerState
+  ): void {
+    SchemeMobWalker.subscribe(object, state, new MobWalkerManager(object, state));
   }
 }

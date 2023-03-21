@@ -19,7 +19,7 @@ export function resetScheme(
   const schemeImplementation: Optional<TAbstractSchemeConstructor> = registry.schemes.get(scheme);
 
   if (schemeImplementation !== null) {
-    schemeImplementation.resetScheme(object, schemeToSwitch, state, section);
+    schemeImplementation.reset(object, schemeToSwitch, state, section);
   } else {
     abort("Could not find implementation for provided scheme: '%s'.", scheme);
   }
@@ -33,7 +33,7 @@ export function resetSchemeHard(scheme: EScheme): void {
 
   // Do not pass params and just do it hard way.
   if (schemeImplementation !== null) {
-    (schemeImplementation as AnyObject).resetScheme();
+    (schemeImplementation as AnyObject).reset();
   } else {
     abort("Could not find implementation for provided scheme: '%s'.", scheme);
   }

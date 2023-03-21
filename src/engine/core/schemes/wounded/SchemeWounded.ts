@@ -33,7 +33,16 @@ export class SchemeWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemeWoundedState = AbstractScheme.assign(object, ini, scheme, section);
+
+    state.wound_manager = new WoundManager(object, state);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -74,16 +83,7 @@ export class SchemeWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeWoundedState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
-
-    state.wound_manager = new WoundManager(object, state);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override resetScheme(
+  public static override reset(
     object: XR_game_object,
     scheme: EScheme,
     state: IRegistryObjectState,
@@ -94,7 +94,7 @@ export class SchemeWounded extends AbstractScheme {
         ? getConfigString(state.ini, state.section_logic, "wounded", object, false, "")
         : getConfigString(state.ini, section, "wounded", object, false, "");
 
-    SchemeWounded.initWounded(object, state.ini, woundedSection, state.wounded as ISchemeWoundedState, scheme);
+    SchemeWounded.initialize(object, state.ini, woundedSection, state.wounded as ISchemeWoundedState, scheme);
 
     (state[SchemeWounded.SCHEME_SECTION] as ISchemeWoundedState).wound_manager.hit_callback();
   }
@@ -102,7 +102,7 @@ export class SchemeWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static initWounded(
+  public static initialize(
     object: XR_game_object,
     ini: XR_ini_file,
     section: TSection,

@@ -22,7 +22,7 @@ export class SchemeCombatZombied extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -31,7 +31,7 @@ export class SchemeCombatZombied extends AbstractScheme {
     planner?: XR_action_planner
   ): void {
     if (!planner) {
-      abort("Expected planner to be provided for addToBinder method call.");
+      abort("Expected planner to be provided for add method call.");
     }
 
     const properties = {
@@ -49,7 +49,7 @@ export class SchemeCombatZombied extends AbstractScheme {
     actionZombieShoot.add_effect(new world_property(properties.state_mgr_logic_active, false));
     planner.add_action(action_ids.combat_zombied_base, actionZombieShoot);
 
-    SchemeCombatZombied.subscribeToSchemaEvents(object, state, actionZombieShoot);
+    SchemeCombatZombied.subscribe(object, state, actionZombieShoot);
 
     const actionZombieGoToDanger: ActionZombieGoToDanger = new ActionZombieGoToDanger(state);
 
@@ -61,6 +61,6 @@ export class SchemeCombatZombied extends AbstractScheme {
     actionZombieGoToDanger.add_effect(new world_property(properties.state_mgr_logic_active, false));
     planner.add_action(action_ids.combat_zombied_base + 1, actionZombieGoToDanger);
 
-    SchemeCombatZombied.subscribeToSchemaEvents(object, state, actionZombieGoToDanger);
+    SchemeCombatZombied.subscribe(object, state, actionZombieGoToDanger);
   }
 }

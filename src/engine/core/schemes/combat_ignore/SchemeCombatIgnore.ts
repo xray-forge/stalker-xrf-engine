@@ -20,7 +20,29 @@ export class SchemeCombatIgnore extends AbstractScheme {
   /**
    * todo
    */
-  public static override addToBinder(
+  public static override disable(object: XR_game_object, scheme: EScheme): void {
+    object.set_enemy_callback(null);
+
+    const schemeState: Optional<ISchemeCombatIgnoreState> = registry.objects.get(object.id())[
+      scheme
+    ] as ISchemeCombatIgnoreState;
+
+    if (schemeState !== null) {
+      SchemeCombatIgnore.unsubscribe(object, schemeState, schemeState.action);
+    }
+  }
+
+  /**
+   * todo
+   */
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
+    AbstractScheme.assign(object, ini, scheme, null);
+  }
+
+  /**
+   * todo
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -33,29 +55,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
   /**
    * todo
    */
-  public static setCombatIgnoreChecker(object: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
-    AbstractScheme.assignStateAndBind(object, ini, scheme, null);
-  }
-
-  /**
-   * todo
-   */
-  public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
-    object.set_enemy_callback(null);
-
-    const schemeState: Optional<ISchemeCombatIgnoreState> = registry.objects.get(object.id())[
-      scheme
-    ] as ISchemeCombatIgnoreState;
-
-    if (schemeState !== null) {
-      SchemeCombatIgnore.unsubscribeFromSchemaEvents(object, schemeState, schemeState.action);
-    }
-  }
-
-  /**
-   * todo
-   */
-  public static override resetScheme(
+  public static override reset(
     object: XR_game_object,
     scheme: EScheme,
     state: IRegistryObjectState,
@@ -65,7 +65,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
 
     object.set_enemy_callback(schemeState.action.enemy_callback, schemeState.action);
 
-    SchemeCombatIgnore.subscribeToSchemaEvents(object, schemeState, schemeState.action);
+    SchemeCombatIgnore.subscribe(object, schemeState, schemeState.action);
 
     schemeState.overrides = getObjectGenericSchemeOverrides(object);
     schemeState.enabled = true;

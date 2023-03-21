@@ -25,7 +25,51 @@ export class SchemeWalker extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    gulag_name: string
+  ): void {
+    const state: ISchemeWalkerState = AbstractScheme.assign(object, ini, scheme, section);
+
+    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);
+
+    if (!level.patrol_path_exists(state.path_walk)) {
+      abort("there is no patrol path %s", state.path_walk);
+    }
+
+    state.path_look = getConfigString(ini, section, "path_look", object, false, gulag_name);
+
+    if (state.path_walk === state.path_look) {
+      abort(
+        "You are trying to set 'path_look' equal to 'path_walk' in section [%s] for npc [%s]",
+        section,
+        object.name()
+      );
+    }
+
+    state.team = getConfigString(ini, section, "team", object, false, gulag_name);
+    state.sound_idle = getConfigString(ini, section, "sound_idle", object, false, "");
+    state.use_camp = getConfigBoolean(ini, section, "use_camp", object, false, false);
+
+    const baseMoving = getConfigString(ini, section, "def_state_moving1", object, false, "");
+
+    state.suggested_state = {
+      standing: getConfigString(ini, section, "def_state_standing", object, false, ""),
+      moving: getConfigString(ini, section, "def_state_moving", object, false, "", baseMoving),
+    };
+
+    state.path_walk_info = null;
+    state.path_look_info = null;
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -61,52 +105,8 @@ export class SchemeWalker extends AbstractScheme {
 
     actionPlanner.add_action(operators.action_walker, actionWalkerActivity);
 
-    SchemeWalker.subscribeToSchemaEvents(object, state, actionWalkerActivity);
+    SchemeWalker.subscribe(object, state, actionWalkerActivity);
 
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_walker, false));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    gulag_name: string
-  ): void {
-    const state: ISchemeWalkerState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
-
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);
-
-    if (!level.patrol_path_exists(state.path_walk)) {
-      abort("there is no patrol path %s", state.path_walk);
-    }
-
-    state.path_look = getConfigString(ini, section, "path_look", object, false, gulag_name);
-
-    if (state.path_walk === state.path_look) {
-      abort(
-        "You are trying to set 'path_look' equal to 'path_walk' in section [%s] for npc [%s]",
-        section,
-        object.name()
-      );
-    }
-
-    state.team = getConfigString(ini, section, "team", object, false, gulag_name);
-    state.sound_idle = getConfigString(ini, section, "sound_idle", object, false, "");
-    state.use_camp = getConfigBoolean(ini, section, "use_camp", object, false, false);
-
-    const baseMoving = getConfigString(ini, section, "def_state_moving1", object, false, "");
-
-    state.suggested_state = {
-      standing: getConfigString(ini, section, "def_state_standing", object, false, ""),
-      moving: getConfigString(ini, section, "def_state_moving", object, false, "", baseMoving),
-    };
-
-    state.path_walk_info = null;
-    state.path_look_info = null;
   }
 }

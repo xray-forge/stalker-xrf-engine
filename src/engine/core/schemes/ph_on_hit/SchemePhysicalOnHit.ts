@@ -21,7 +21,17 @@ export class SchemePhysicalOnHit extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemePhysicalOnHitState = AbstractScheme.assign(object, ini, scheme, section);
+
+    state.logic = getConfigSwitchConditions(ini, section, object);
+    SchemePhysicalHit.subscribe(object, state, state.action);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -34,23 +44,13 @@ export class SchemePhysicalOnHit extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemePhysicalOnHitState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
-
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    SchemePhysicalHit.subscribeToSchemaEvents(object, state, state.action);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
+  public static override disable(object: XR_game_object, scheme: EScheme): void {
     const state: Optional<ISchemePhysicalOnHitState> = registry.objects.get(object.id())[
       scheme
     ] as ISchemePhysicalOnHitState;
 
     if (state !== null) {
-      SchemePhysicalHit.unsubscribeFromSchemaEvents(object, state, state.action);
+      SchemePhysicalHit.unsubscribe(object, state, state.action);
     }
   }
 }

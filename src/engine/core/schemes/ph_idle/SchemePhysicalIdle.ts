@@ -21,21 +21,8 @@ export class SchemePhysicalIdle extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemePhysicalIdleState
-  ): void {
-    SchemePhysicalIdle.subscribeToSchemaEvents(object, state, new PhysicalIdleManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemePhysicalIdleState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemePhysicalIdleState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.hit_on_bone = parseData1v(object, getConfigString(ini, section, "hit_on_bone", object, false, ""));
@@ -44,5 +31,18 @@ export class SchemePhysicalIdle extends AbstractScheme {
     state.tips = getConfigString(ini, section, "tips", object, false, "", "");
 
     object.set_tip_text(state.tips);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemePhysicalIdleState
+  ): void {
+    SchemePhysicalIdle.subscribe(object, state, new PhysicalIdleManager(object, state));
   }
 }

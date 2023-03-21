@@ -21,21 +21,8 @@ export class SchemeTeleport extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemeTeleportState
-  ): void {
-    SchemeTeleport.subscribeToSchemaEvents(object, state, new TeleportManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeTeleportState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemeTeleportState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.timeout = getConfigNumber(ini, section, "timeout", object, false, 900);
@@ -58,5 +45,18 @@ export class SchemeTeleport extends AbstractScheme {
     if (state.points.length() === 0) {
       abort("Wrong point in teleport scheme: [%s].", tostring(section));
     }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeTeleportState
+  ): void {
+    SchemeTeleport.subscribe(object, state, new TeleportManager(object, state));
   }
 }

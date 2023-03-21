@@ -21,27 +21,27 @@ export class SchemeOscillate extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeOscillateState
   ): void {
-    SchemeOscillate.subscribeToSchemaEvents(object, state, new OscillateManager(object, state));
+    SchemeOscillate.subscribe(object, state, new OscillateManager(object, state));
   }
 
   /**
    * todo: Description.
    */
-  public static override setScheme(
+  public static override activate(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     gulagName: TName
   ): void {
-    const state: ISchemeOscillateState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+    const state: ISchemeOscillateState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.joint = getConfigString(ini, section, "joint", object, true, gulagName);

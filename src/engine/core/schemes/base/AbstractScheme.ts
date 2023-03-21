@@ -25,7 +25,27 @@ export abstract class AbstractScheme {
   /**
    * todo: Description.
    */
-  protected static assignStateAndBind<T extends IBaseSchemeState>(
+  public static disable(object: XR_game_object, scheme: EScheme): void {
+    abort("Called not implemented 'disable' method: %s, %s.", object.name(), scheme);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static activate(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    additional: Optional<string>
+  ): void {
+    abort("Called not implemented 'activate' method: %s, %s", object.name(), scheme);
+  }
+
+  /**
+   * todo: Description.
+   */
+  protected static assign<T extends IBaseSchemeState>(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -43,7 +63,7 @@ export abstract class AbstractScheme {
 
       objectState[scheme] = schemeState;
 
-      registry.schemes.get(scheme).addToBinder(object, ini, scheme, section as TSection, schemeState);
+      registry.schemes.get(scheme).add(object, ini, scheme, section as TSection, schemeState);
     }
 
     schemeState.scheme = scheme;
@@ -54,54 +74,29 @@ export abstract class AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Add scheme state to client object.
    */
-  public static setScheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    additional: Optional<string>
-  ): void {
-    abort("Called not implemented setScheme method: %s, %s", object.name(), scheme);
-  }
-
-  /**
-   * Add scheme to object binder for initialization.
-   */
-  public static addToBinder(
+  public static add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     schemeState: IBaseSchemeState
   ): void {
-    abort("Called not implemented addToBinder method: %s, %s", object.name(), scheme);
+    abort("Called not implemented 'add' method: %s, %s, %s.", object.name(), scheme, section);
   }
 
   /**
    * todo: Description.
    */
-  public static resetScheme(
-    object: XR_game_object,
-    scheme: EScheme,
-    state: IRegistryObjectState,
-    section: TSection
-  ): void {
-    abort("Called not implemented resetScheme method: %s, %s", object.name(), scheme);
+  public static reset(object: XR_game_object, scheme: EScheme, state: IRegistryObjectState, section: TSection): void {
+    abort("Called not implemented 'reset' method: %s, %s, %s.", object.name(), scheme, section);
   }
 
   /**
    * todo: Description.
    */
-  public static disableScheme(object: XR_game_object, scheme: EScheme): void {
-    abort("Called not implemented disableScheme method: %s, %s", object.name(), scheme);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static subscribeToSchemaEvents(
+  public static subscribe(
     object: XR_game_object,
     state: IBaseSchemeState,
     newAction: TName | AnyObject | LuaTable
@@ -116,7 +111,7 @@ export abstract class AbstractScheme {
   /**
    * todo: Description.
    */
-  public static unsubscribeFromSchemaEvents(object: XR_game_object, state: IBaseSchemeState, action: AnyObject): void {
+  public static unsubscribe(object: XR_game_object, state: IBaseSchemeState, action: AnyObject): void {
     if (state.actions) {
       state.actions.delete(action);
     } else {

@@ -24,7 +24,37 @@ export class SchemeSmartCover extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    additional: string
+  ): void {
+    const state: ISchemeSmartCoverState = AbstractScheme.assign(object, ini, scheme, section);
+
+    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.cover_name = getConfigString(ini, section, "cover_name", object, false, "", "$script_id$_cover");
+    state.loophole_name = getConfigString(ini, section, "loophole_name", object, false, "", null);
+    state.cover_state = getConfigString(ini, section, "cover_state", object, false, "", "default_behaviour");
+    state.target_enemy = getConfigString(ini, section, "target_enemy", object, false, "", null);
+    state.target_path = getConfigString(ini, section, "target_path", object, false, "", NIL);
+    state.idle_min_time = getConfigNumber(ini, section, "idle_min_time", object, false, 6);
+    state.idle_max_time = getConfigNumber(ini, section, "idle_max_time", object, false, 10);
+    state.lookout_min_time = getConfigNumber(ini, section, "lookout_min_time", object, false, 6);
+    state.lookout_max_time = getConfigNumber(ini, section, "lookout_max_time", object, false, 10);
+    state.exit_body_state = getConfigString(ini, section, "exit_body_state", object, false, "", "stand");
+    state.use_precalc_cover = getConfigBoolean(ini, section, "use_precalc_cover", object, false, false);
+    state.use_in_combat = getConfigBoolean(ini, section, "use_in_combat", object, false, false);
+    state.weapon_type = getConfigString(ini, section, "weapon_type", object, false);
+    state.moving = getConfigString(ini, section, "def_state_moving", object, false, "", "sneak");
+    state.sound_idle = getConfigString(ini, section, "sound_idle", object, false);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -63,58 +93,11 @@ export class SchemeSmartCover extends AbstractScheme {
     // --new_action.add_effect (new world_property(stalker_ids.property_danger,false))
     manager.add_action(operators.action_smartcover, actionSmartCoverActivity);
 
-    SchemeSmartCover.subscribeToSchemaEvents(object, state, actionSmartCoverActivity);
+    SchemeSmartCover.subscribe(object, state, actionSmartCoverActivity);
 
     manager.action(action_ids.alife).add_precondition(new world_property(properties.need_smartcover, false));
     manager
       .action(stalker_ids.action_combat_planner)
       .add_precondition(new world_property(properties.use_smartcover_in_combat, false));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    additional: string
-  ): void {
-    const state: ISchemeSmartCoverState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
-
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.cover_name = getConfigString(ini, section, "cover_name", object, false, "", "$script_id$_cover");
-    state.loophole_name = getConfigString(ini, section, "loophole_name", object, false, "", null);
-    state.cover_state = getConfigString(ini, section, "cover_state", object, false, "", "default_behaviour");
-    state.target_enemy = getConfigString(ini, section, "target_enemy", object, false, "", null);
-    state.target_path = getConfigString(ini, section, "target_path", object, false, "", NIL);
-    state.idle_min_time = getConfigNumber(ini, section, "idle_min_time", object, false, 6);
-    state.idle_max_time = getConfigNumber(ini, section, "idle_max_time", object, false, 10);
-    state.lookout_min_time = getConfigNumber(ini, section, "lookout_min_time", object, false, 6);
-    state.lookout_max_time = getConfigNumber(ini, section, "lookout_max_time", object, false, 10);
-    state.exit_body_state = getConfigString(ini, section, "exit_body_state", object, false, "", "stand");
-    state.use_precalc_cover = getConfigBoolean(ini, section, "use_precalc_cover", object, false, false);
-    state.use_in_combat = getConfigBoolean(ini, section, "use_in_combat", object, false, false);
-    state.weapon_type = getConfigString(ini, section, "weapon_type", object, false);
-    state.moving = getConfigString(ini, section, "def_state_moving", object, false, "", "sneak");
-    state.sound_idle = getConfigString(ini, section, "sound_idle", object, false);
-
-    /**
-     *   --[[
-     *     if st.use_precalc_cover == true then
-     *       const smart = sim_board.get_sim_board():get_smart_by_name(gulag_name)
-     *       const tcover = cover_manager.get_cover(npc, smart)
-     *       if tcover ~= null and tcover.is_smart_cover then
-     *         const level_id = game_graph():vertex(smart.m_game_vertex_id):level_id()
-     *         printf("precalc cover:lvl_id[%s] vertex_id[%s]", tostring(level_id), tostring(tcover.cover_vertex_id))
-     *         cover = se_smart_cover.registered_smartcovers_by_lv_id[level_id][tcover.cover_vertex_id]
-     *         printf("precalc cover_name [%s]", cover:name())
-     *         st.cover_name = cover:name()
-     *         st.target_position = tcover.look_pos
-     *       end
-     *     end
-     *   ]]--
-     */
   }
 }

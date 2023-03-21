@@ -21,21 +21,8 @@ export class SchemeHelicopterMove extends AbstractScheme {
   /**
    * todo
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemeHelicopterMoveState
-  ): void {
-    SchemeHelicopterMove.subscribeToSchemaEvents(object, state, new HelicopterMoveManager(object, state));
-  }
-
-  /**
-   * todo
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeHelicopterMoveState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemeHelicopterMoveState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.path_move = getConfigString(ini, section, "path_move", object, true, "");
@@ -60,5 +47,18 @@ export class SchemeHelicopterMove extends AbstractScheme {
     objectState.invulnerable = getConfigBoolean(ini, section, "invulnerable", object, false, false);
     objectState.immortal = getConfigBoolean(ini, section, "immortal", object, false, false);
     objectState.mute = getConfigBoolean(ini, section, "mute", object, false, false);
+  }
+
+  /**
+   * todo
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeHelicopterMoveState
+  ): void {
+    SchemeHelicopterMove.subscribe(object, state, new HelicopterMoveManager(object, state));
   }
 }

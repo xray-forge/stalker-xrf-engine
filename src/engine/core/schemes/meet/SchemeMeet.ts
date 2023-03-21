@@ -35,7 +35,14 @@ export class SchemeMeet extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    AbstractScheme.assign(object, ini, scheme, section);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -86,20 +93,13 @@ export class SchemeMeet extends AbstractScheme {
 
     state.meet_manager = new MeetManager(object, state);
 
-    SchemeMeet.subscribeToSchemaEvents(object, state, state.meet_manager);
+    SchemeMeet.subscribe(object, state, state.meet_manager);
   }
 
   /**
    * todo: Description.
    */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    AbstractScheme.assignStateAndBind(object, ini, scheme, section);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override resetScheme(
+  public static override reset(
     object: XR_game_object,
     scheme: EScheme,
     state: IRegistryObjectState,
@@ -116,7 +116,7 @@ export class SchemeMeet extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
+  public static override disable(object: XR_game_object, scheme: EScheme): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());
 
     state[EScheme.ACTOR_DIALOGS] = null;

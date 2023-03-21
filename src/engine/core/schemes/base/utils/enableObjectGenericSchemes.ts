@@ -34,12 +34,12 @@ export function enableObjectGenericSchemes(
 ): void {
   switch (schemeType) {
     case ESchemeType.STALKER: {
-      SchemeDanger.setScheme(object, ini, SchemeDanger.SCHEME_SECTION, "danger");
-      SchemeGatherItems.setGatherItems(object, ini, SchemeGatherItems.SCHEME_SECTION, "gather_items");
+      SchemeDanger.activate(object, ini, SchemeDanger.SCHEME_SECTION, "danger");
+      SchemeGatherItems.activate(object, ini, SchemeGatherItems.SCHEME_SECTION, "gather_items");
 
       const combatSection: TSection = getConfigString(ini, section, "on_combat", object, false, "");
 
-      SchemeCombat.setCombatChecker(object, ini, EScheme.COMBAT, combatSection);
+      SchemeCombat.activate(object, ini, EScheme.COMBAT, combatSection);
 
       resetObjectInvulnerability(object);
 
@@ -52,7 +52,7 @@ export function enableObjectGenericSchemes(
       const hitSection: Optional<string> = getConfigString(ini, section, "on_hit", object, false, "");
 
       if (hitSection !== null) {
-        SchemeHit.setScheme(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
+        SchemeHit.activate(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
       }
 
       /*
@@ -67,20 +67,20 @@ export function enableObjectGenericSchemes(
 
       const woundedSection: TSection = getConfigString(ini, section, "wounded", object, false, "");
 
-      SchemeWounded.setScheme(object, ini, EScheme.WOUNDED, woundedSection);
-      SchemeAbuse.setScheme(object, ini, EScheme.ABUSE, section);
-      SchemeHelpWounded.setHelpWounded(object, ini, EScheme.HELP_WOUNDED, null);
-      SchemeCorpseDetection.setCorpseDetection(object, ini, EScheme.CORPSE_DETECTION, null);
+      SchemeWounded.activate(object, ini, EScheme.WOUNDED, woundedSection);
+      SchemeAbuse.activate(object, ini, EScheme.ABUSE, section);
+      SchemeHelpWounded.activate(object, ini, EScheme.HELP_WOUNDED, null);
+      SchemeCorpseDetection.activate(object, ini, EScheme.CORPSE_DETECTION, null);
 
       const meetSection: TSection = getConfigString(ini, section, "meet", object, false, "");
 
-      SchemeMeet.setScheme(object, ini, EScheme.MEET, meetSection);
+      SchemeMeet.activate(object, ini, EScheme.MEET, meetSection);
 
       const deathSection: TSection = getConfigString(ini, section, "on_death", object, false, "");
 
-      SchemeDeath.setScheme(object, ini, EScheme.DEATH, deathSection);
-      SchemeCombatIgnore.setCombatIgnoreChecker(object, ini, EScheme.COMBAT_IGNORE);
-      SchemeReachTask.setScheme(object, ini, EScheme.REACH_TASK);
+      SchemeDeath.activate(object, ini, EScheme.DEATH, deathSection);
+      SchemeCombatIgnore.activate(object, ini, EScheme.COMBAT_IGNORE);
+      SchemeReachTask.activate(object, ini, EScheme.REACH_TASK);
 
       return;
     }
@@ -89,13 +89,13 @@ export function enableObjectGenericSchemes(
       const combatSection: Optional<TSection> = getConfigString(ini, section, "on_combat", object, false, "");
 
       if (combatSection !== null) {
-        SchemeMobCombat.setScheme(object, ini, EScheme.MOB_COMBAT, combatSection);
+        SchemeMobCombat.activate(object, ini, EScheme.MOB_COMBAT, combatSection);
       }
 
       const deathSection: Optional<TSection> = getConfigString(ini, section, "on_death", object, false, "");
 
       if (deathSection !== null) {
-        SchemeMobDeath.setScheme(object, ini, EScheme.MOB_DEATH, deathSection);
+        SchemeMobDeath.activate(object, ini, EScheme.MOB_DEATH, deathSection);
       }
 
       resetObjectInvulnerability(object);
@@ -103,10 +103,10 @@ export function enableObjectGenericSchemes(
       const hitSection: Optional<TSection> = getConfigString(ini, section, "on_hit", object, false, "");
 
       if (hitSection !== null) {
-        SchemeHit.setScheme(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
+        SchemeHit.activate(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
       }
 
-      SchemeCombatIgnore.setCombatIgnoreChecker(object, ini, EScheme.COMBAT_IGNORE);
+      SchemeCombatIgnore.activate(object, ini, EScheme.COMBAT_IGNORE);
 
       return;
     }
@@ -115,7 +115,7 @@ export function enableObjectGenericSchemes(
       const hitSection: Optional<TSection> = getConfigString(ini, section, "on_hit", object, false, "");
 
       if (hitSection !== null) {
-        SchemePhysicalOnHit.setScheme(object, ini, SchemePhysicalOnHit.SCHEME_SECTION, hitSection);
+        SchemePhysicalOnHit.activate(object, ini, SchemePhysicalOnHit.SCHEME_SECTION, hitSection);
       }
 
       return;
@@ -125,7 +125,7 @@ export function enableObjectGenericSchemes(
       const hitSection: Optional<TSection> = getConfigString(ini, section, "on_hit", object, false, "");
 
       if (hitSection !== null) {
-        SchemeHit.setScheme(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
+        SchemeHit.activate(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
       }
 
       return;

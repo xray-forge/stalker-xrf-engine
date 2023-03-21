@@ -21,32 +21,19 @@ export class SchemeHit extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    storage: ISchemeHitState
-  ): void {
-    storage.action = new HitManager(object, storage);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override disableScheme(object: XR_game_object, scheme: EScheme): void {
+  public static override disable(object: XR_game_object, scheme: EScheme): void {
     const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[scheme] as ISchemeHitState;
 
     if (state !== null) {
-      SchemeHit.unsubscribeFromSchemaEvents(object, state, state.action);
+      SchemeHit.unsubscribe(object, state, state.action);
     }
   }
 
   /**
    * todo: Description.
    */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeHitState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemeHitState = AbstractScheme.assign(object, ini, scheme, section);
 
     if (!ini.section_exist(section)) {
       abort("There is no section [%s] for npc [%s]", section, object.name());
@@ -54,6 +41,19 @@ export class SchemeHit extends AbstractScheme {
 
     state.logic = getConfigSwitchConditions(ini, section, object);
 
-    SchemeHit.subscribeToSchemaEvents(object, state, state.action);
+    SchemeHit.subscribe(object, state, state.action);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    storage: ISchemeHitState
+  ): void {
+    storage.action = new HitManager(object, storage);
   }
 }

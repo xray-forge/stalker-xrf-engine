@@ -21,21 +21,8 @@ export class SchemeParticle extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemeParticleState
-  ): void {
-    SchemeParticle.subscribeToSchemaEvents(object, state, new ParticleManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeParticleState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemeParticleState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.name = getConfigString(ini, section, "name", object, true, "", null) as TName;
@@ -50,5 +37,18 @@ export class SchemeParticle extends AbstractScheme {
     if (state.mode !== 1 && state.mode !== 2) {
       abort("SR_PARTICLE : invalid mode");
     }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeParticleState
+  ): void {
+    SchemeParticle.subscribe(object, state, new ParticleManager(object, state));
   }
 }

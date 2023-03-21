@@ -20,21 +20,8 @@ export class SchemePhysicalButton extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemePhysicalButtonState
-  ): void {
-    SchemePhysicalButton.subscribeToSchemaEvents(object, state, new PhysicalButtonManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemePhysicalButtonState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemePhysicalButtonState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.on_press = getConfigConditionList(ini, section, "on_press", object);
@@ -51,5 +38,18 @@ export class SchemePhysicalButton extends AbstractScheme {
     if (state.blending === null) {
       state.blending = true;
     }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemePhysicalButtonState
+  ): void {
+    SchemePhysicalButton.subscribe(object, state, new PhysicalButtonManager(object, state));
   }
 }

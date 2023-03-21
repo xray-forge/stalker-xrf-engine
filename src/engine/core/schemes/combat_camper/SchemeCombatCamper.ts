@@ -25,7 +25,7 @@ export class SchemeCombatCamper extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -34,7 +34,7 @@ export class SchemeCombatCamper extends AbstractScheme {
     planner?: XR_action_planner
   ): void {
     if (!planner) {
-      abort("Expected planner to be provided for addToBinder method call.");
+      abort("Expected planner to be provided for add method call.");
     }
 
     const properties = {
@@ -66,7 +66,7 @@ export class SchemeCombatCamper extends AbstractScheme {
     lookAroundAction.add_effect(new world_property(properties.state_mgr_logic_active, false));
     planner.add_action(act_look_around, lookAroundAction);
 
-    SchemeCombatCamper.subscribeToSchemaEvents(object, state, lookAroundAction);
+    SchemeCombatCamper.subscribe(object, state, lookAroundAction);
 
     state.camper_combat_action = false;
   }

@@ -22,27 +22,14 @@ export class SchemeMobJump extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemeMobJumpState
-  ): void {
-    SchemeMobJump.subscribeToSchemaEvents(object, state, new MobJumpManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(
+  public static override activate(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     additional: string
   ): void {
-    const state: ISchemeMobJumpState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+    const state: ISchemeMobJumpState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.jump_path_name = getConfigString(ini, section, "path_jump", object, false, additional);
@@ -56,5 +43,18 @@ export class SchemeMobJump extends AbstractScheme {
     if (!ini.line_exist(section, "on_signal")) {
       abort("Bad jump scheme usage! 'on_signal' line must be specified.");
     }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeMobJumpState
+  ): void {
+    SchemeMobJump.subscribe(object, state, new MobJumpManager(object, state));
   }
 }

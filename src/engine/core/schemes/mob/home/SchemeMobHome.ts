@@ -21,20 +21,7 @@ export class SchemeMobHome extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemeMobHomeState
-  ): void {
-    SchemeMobHome.subscribeToSchemaEvents(object, state, new MobHomeManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(
+  public static override activate(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -43,7 +30,7 @@ export class SchemeMobHome extends AbstractScheme {
   ): void {
     logger.info("Set scheme:", object.name(), scheme, section);
 
-    const state: ISchemeMobHomeState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+    const state: ISchemeMobHomeState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.state = getMobState(ini, section, object);
@@ -53,5 +40,18 @@ export class SchemeMobHome extends AbstractScheme {
     state.home_mid_radius = getConfigNumber(ini, section, "home_mid_radius", object, false); // --, 0)
     state.home_max_radius = getConfigNumber(ini, section, "home_max_radius", object, false); // --, 40)
     state.aggressive = getConfigBoolean(ini, section, "aggressive", object, false, false);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeMobHomeState
+  ): void {
+    SchemeMobHome.subscribe(object, state, new MobHomeManager(object, state));
   }
 }

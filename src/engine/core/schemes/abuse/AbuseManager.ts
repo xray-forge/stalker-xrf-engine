@@ -18,13 +18,6 @@ export class AbuseManager extends AbstractSchemeManager<ISchemeAbuseState> {
   /**
    * todo: Description.
    */
-  public constructor(object: XR_game_object, state: ISchemeAbuseState) {
-    super(object, state);
-  }
-
-  /**
-   * todo: Description.
-   */
   public setAbuseRate(rate: TRate): void {
     this.abuse_rate = rate;
   }

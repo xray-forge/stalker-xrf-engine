@@ -33,7 +33,7 @@ export class ActionSchemeHear extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override resetScheme(
+  public static override reset(
     object: XR_game_object,
     scheme: EScheme,
     state: IRegistryObjectState,

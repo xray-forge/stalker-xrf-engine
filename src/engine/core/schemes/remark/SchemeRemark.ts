@@ -26,7 +26,34 @@ export class SchemeRemark extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    additional: string
+  ): void {
+    const state: ISchemeRemarkState = AbstractScheme.assign(object, ini, scheme, section);
+
+    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.snd_anim_sync = getConfigBoolean(ini, section, "snd_anim_sync", object, false);
+    state.snd = getConfigString(ini, section, "snd", object, false, "", null);
+    state.anim = parseConditionsList(getConfigString(ini, section, "anim", object, false, "", "wait"));
+    state.tips_id = getConfigString(ini, section, "tips", object, false, "");
+
+    if (state.tips_id !== null) {
+      state.sender = getConfigString(ini, section, "tips_sender", object, false, "");
+    }
+
+    state.target = getConfigString(ini, section, "target", object, false, "", NIL);
+    state.target_id = null;
+    state.target_position = null;
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -58,34 +85,7 @@ export class SchemeRemark extends AbstractScheme {
     actionRemarkActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_remark, actionRemarkActivity);
 
-    SchemeRemark.subscribeToSchemaEvents(object, state, actionRemarkActivity);
+    SchemeRemark.subscribe(object, state, actionRemarkActivity);
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_remark, false));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    additional: string
-  ): void {
-    const state: ISchemeRemarkState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
-
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.snd_anim_sync = getConfigBoolean(ini, section, "snd_anim_sync", object, false);
-    state.snd = getConfigString(ini, section, "snd", object, false, "", null);
-    state.anim = parseConditionsList(getConfigString(ini, section, "anim", object, false, "", "wait"));
-    state.tips_id = getConfigString(ini, section, "tips", object, false, "");
-
-    if (state.tips_id !== null) {
-      state.sender = getConfigString(ini, section, "tips_sender", object, false, "");
-    }
-
-    state.target = getConfigString(ini, section, "target", object, false, "", NIL);
-    state.target_id = null;
-    state.target_position = null;
   }
 }

@@ -3,7 +3,6 @@ import { patrol, XR_game_object, XR_ini_file } from "xray16";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalForceState } from "@/engine/core/schemes/ph_force/ISchemePhysicalForceState";
 import { PhysicalForceManager } from "@/engine/core/schemes/ph_force/PhysicalForceManager";
-import { subscribeToSchemaEvents } from "@/engine/core/schemes/subscribeToSchemaEvents";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
@@ -22,21 +21,8 @@ export class SchemePhysicalForce extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemePhysicalForceState
-  ): void {
-    subscribeToSchemaEvents(object, state, new PhysicalForceManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemePhysicalForceState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemePhysicalForceState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.force = getConfigNumber(ini, section, "force", object, true, 0);
@@ -65,5 +51,18 @@ export class SchemePhysicalForce extends AbstractScheme {
     }
 
     state.point = path.point(index);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemePhysicalForceState
+  ): void {
+    AbstractScheme.subscribe(object, state, new PhysicalForceManager(object, state));
   }
 }

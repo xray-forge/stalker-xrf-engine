@@ -21,23 +21,8 @@ export class SchemePhysicalDoor extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemePhysicalDoorState
-  ): void {
-    object.register_door_for_npc();
-
-    SchemePhysicalDoor.subscribeToSchemaEvents(object, state, new PhysicalDoorManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemePhysicalDoorState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemePhysicalDoorState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.closed = getConfigBoolean(ini, section, "closed", object, false, true);
@@ -74,5 +59,20 @@ export class SchemePhysicalDoor extends AbstractScheme {
     }
 
     state.hit_on_bone = parseData1v(object, getConfigString(ini, section, "hit_on_bone", object, false, ""));
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemePhysicalDoorState
+  ): void {
+    object.register_door_for_npc();
+
+    SchemePhysicalDoor.subscribe(object, state, new PhysicalDoorManager(object, state));
   }
 }

@@ -27,7 +27,14 @@ export class SchemeReachTask extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
+    const state: ISchemeReachTaskState = AbstractScheme.assign(object, ini, scheme, null);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -39,14 +46,7 @@ export class SchemeReachTask extends AbstractScheme {
     const alifeActionPlanner: XR_action_planner = cast_planner(alifeAction);
     const newAction: XR_action_base = alifeActionPlanner.action(stalker_ids.action_smart_terrain_task);
 
-    SchemeReachTask.subscribeToSchemaEvents(object, state, newAction);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
-    const state: ISchemeReachTaskState = AbstractScheme.assignStateAndBind(object, ini, scheme, null);
+    SchemeReachTask.subscribe(object, state, newAction);
   }
 
   /**

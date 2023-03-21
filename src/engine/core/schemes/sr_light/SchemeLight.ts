@@ -25,21 +25,21 @@ export class SchemeLight extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeLightState
   ): void {
-    SchemeLight.subscribeToSchemaEvents(object, state, new LightManager(object, state));
+    SchemeLight.subscribe(object, state, new LightManager(object, state));
   }
 
   /**
    * todo: Description.
    */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeLightState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemeLightState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.light = getConfigBoolean(ini, section, "light_on", object, false, false);
@@ -48,7 +48,7 @@ export class SchemeLight extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override resetScheme(): void {
+  public static override reset(): void {
     logger.info("Reset light zones");
     resetTable(registry.lightZones);
   }

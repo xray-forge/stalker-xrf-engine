@@ -22,27 +22,27 @@ export class SchemeDeath extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    AbstractScheme.assign(object, ini, scheme, section);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeDeathState
   ): void {
-    SchemeDeath.subscribeToSchemaEvents(object, state, new DeathManager(object, state));
+    SchemeDeath.subscribe(object, state, new DeathManager(object, state));
   }
 
   /**
    * todo: Description.
    */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    AbstractScheme.assignStateAndBind(object, ini, scheme, section);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override resetScheme(
+  public static override reset(
     object: XR_game_object,
     scheme: EScheme,
     objectState: IRegistryObjectState,

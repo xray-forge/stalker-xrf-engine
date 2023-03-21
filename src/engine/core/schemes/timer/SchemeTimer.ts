@@ -20,23 +20,10 @@ export class SchemeTimer extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   /**
-   * Add scheme to object binder for initialization.
-   */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemeTimerState
-  ): void {
-    SchemeTimer.subscribeToSchemaEvents(object, state, new SchemeTimerManager(object, state));
-  }
-
-  /**
    * todo: Description.
    */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeTimerState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemeTimerState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.type = getConfigString(ini, section, "type", object, false, "", "inc");
@@ -63,5 +50,18 @@ export class SchemeTimer extends AbstractScheme {
       state.ui.AddCustomStatic("hud_timer_text", true);
       state.ui.GetCustomStatic("hud_timer_text")!.wnd().TextControl().SetTextST(state.string);
     }
+  }
+
+  /**
+   * Add scheme to object binder for initialization.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeTimerState
+  ): void {
+    SchemeTimer.subscribe(object, state, new SchemeTimerManager(object, state));
   }
 }

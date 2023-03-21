@@ -19,23 +19,10 @@ export class SchemePsyAntenna extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
   /**
-   * Add scheme to object binder for initialization.
-   */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemePsyAntennaState
-  ): void {
-    SchemePsyAntenna.subscribeToSchemaEvents(object, state, new PsyAntennaSchemaManager(object, state));
-  }
-
-  /**
    * todo: Description.
    */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemePsyAntennaState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemePsyAntennaState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.intensity = getConfigNumber(ini, section, "eff_intensity", object, true) * 0.01;
@@ -47,5 +34,18 @@ export class SchemePsyAntenna extends AbstractScheme {
     state.no_mumble = getConfigBoolean(ini, section, "no_mumble", object, false, false);
     state.hit_type = getConfigString(ini, section, "hit_type", object, false, "", "wound");
     state.hit_freq = getConfigNumber(ini, section, "hit_freq", object, false, 5000);
+  }
+
+  /**
+   * Add scheme to object binder for initialization.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemePsyAntennaState
+  ): void {
+    SchemePsyAntenna.subscribe(object, state, new PsyAntennaSchemaManager(object, state));
   }
 }

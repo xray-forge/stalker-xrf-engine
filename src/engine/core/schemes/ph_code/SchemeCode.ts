@@ -25,21 +25,8 @@ export class SchemeCode extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemeCodeState
-  ): void {
-    SchemeCode.subscribeToSchemaEvents(object, state, new CodeManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeCodeState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemeCodeState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.tips = getConfigString(ini, section, "tips", object, false, "", "st_codelock");
@@ -62,5 +49,18 @@ export class SchemeCode extends AbstractScheme {
         cc = getConfigStringAndCondList(ini, section, "on_check_code" + it, object);
       }
     }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeCodeState
+  ): void {
+    SchemeCode.subscribe(object, state, new CodeManager(object, state));
   }
 }

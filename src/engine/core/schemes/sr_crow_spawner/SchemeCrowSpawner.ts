@@ -21,21 +21,8 @@ export class SchemeCrowSpawner extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemeCrowSpawnerState
-  ): void {
-    SchemeCrowSpawner.subscribeToSchemaEvents(object, state, new CrowSpawnerManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    const state: ISchemeCrowSpawnerState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    const state: ISchemeCrowSpawnerState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.max_crows_on_level = getConfigNumber(ini, section, "max_crows_on_level", object, false, 16);
@@ -43,5 +30,18 @@ export class SchemeCrowSpawner extends AbstractScheme {
     const path: Optional<string> = getConfigString(ini, section, "spawn_path", object, false, "", null);
 
     state.path_table = parseNames(path as string);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeCrowSpawnerState
+  ): void {
+    SchemeCrowSpawner.subscribe(object, state, new CrowSpawnerManager(object, state));
   }
 }

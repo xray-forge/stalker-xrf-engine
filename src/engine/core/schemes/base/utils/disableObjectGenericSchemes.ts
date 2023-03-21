@@ -17,28 +17,28 @@ import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 export function disableObjectGenericSchemes(object: XR_game_object, schemeType: ESchemeType): void {
   switch (schemeType) {
     case ESchemeType.STALKER:
-      SchemeCombat.disableScheme(object, EScheme.COMBAT);
-      SchemeHit.disableScheme(object, SchemeHit.SCHEME_SECTION);
-      SchemeMeet.disableScheme(object, EScheme.ACTOR_DIALOGS);
-      SchemeCombatIgnore.disableScheme(object, EScheme.COMBAT_IGNORE);
+      SchemeCombat.disable(object, EScheme.COMBAT);
+      SchemeHit.disable(object, SchemeHit.SCHEME_SECTION);
+      SchemeMeet.disable(object, EScheme.ACTOR_DIALOGS);
+      SchemeCombatIgnore.disable(object, EScheme.COMBAT_IGNORE);
       disableObjectInvulnerability(object);
 
       return;
 
     case ESchemeType.MONSTER:
-      SchemeMobCombat.disableScheme(object, EScheme.MOB_COMBAT);
-      SchemeCombatIgnore.disableScheme(object, EScheme.COMBAT_IGNORE);
+      SchemeMobCombat.disable(object, EScheme.MOB_COMBAT);
+      SchemeCombatIgnore.disable(object, EScheme.COMBAT_IGNORE);
       disableObjectInvulnerability(object);
 
       return;
 
     case ESchemeType.ITEM:
-      SchemePhysicalOnHit.disableScheme(object, SchemePhysicalOnHit.SCHEME_SECTION);
+      SchemePhysicalOnHit.disable(object, SchemePhysicalOnHit.SCHEME_SECTION);
 
       return;
 
     case ESchemeType.HELI:
-      SchemeHit.disableScheme(object, SchemeHit.SCHEME_SECTION);
+      SchemeHit.disable(object, SchemeHit.SCHEME_SECTION);
 
       return;
   }

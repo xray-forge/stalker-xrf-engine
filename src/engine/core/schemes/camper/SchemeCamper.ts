@@ -24,73 +24,14 @@ export class SchemeCamper extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    state: ISchemeCamperState
-  ): void {
-    const operators = {
-      patrol: action_ids.stohe_camper_base + 1,
-      search_corpse: action_ids.corpse_exist,
-      help_wounded: action_ids.wounded_exist,
-    };
-    const properties = {
-      end: evaluators_id.stohe_camper_base + 1,
-      can_fight: evaluators_id.sidor_wounded_base + 1,
-      close_combat: evaluators_id.stohe_camper_base + 2,
-      state_mgr_logic_active: evaluators_id.state_mgr + 4,
-    };
-
-    const manager = object.motivation_action_manager();
-
-    manager.add_evaluator(properties.end, new EvaluatorEnd(state));
-    manager.add_evaluator(properties.close_combat, new EvaluatorCloseCombat(state));
-
-    const actionPatrol: ActionCamperPatrol = new ActionCamperPatrol(state, object);
-
-    actionPatrol.add_precondition(new world_property(stalker_ids.property_alive, true));
-    actionPatrol.add_precondition(new world_property(properties.end, false));
-    actionPatrol.add_precondition(new world_property(properties.close_combat, false));
-    actionPatrol.add_precondition(new world_property(properties.can_fight, true));
-    actionPatrol.add_precondition(new world_property(stalker_ids.property_danger, false));
-    actionPatrol.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-
-    actionPatrol.add_precondition(new world_property(evaluators_id.stohe_meet_base + 1, false));
-    actionPatrol.add_precondition(new world_property(evaluators_id.sidor_wounded_base + 0, false));
-    actionPatrol.add_precondition(new world_property(evaluators_id.abuse_base, false));
-
-    actionPatrol.add_effect(new world_property(properties.end, true));
-    actionPatrol.add_effect(new world_property(stalker_ids.property_enemy, false));
-    actionPatrol.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    manager.add_action(operators.patrol, actionPatrol);
-    SchemeCamper.subscribeToSchemaEvents(object, state, actionPatrol);
-
-    manager.action(action_ids.alife).add_precondition(new world_property(properties.end, true));
-    manager.action(stalker_ids.action_gather_items).add_precondition(new world_property(properties.end, true));
-    manager.action(operators.search_corpse).add_precondition(new world_property(properties.end, true));
-    manager.action(operators.help_wounded).add_precondition(new world_property(properties.end, true));
-
-    const actionCombatPlanner: XR_action_base = manager.action(stalker_ids.action_combat_planner);
-
-    actionCombatPlanner.add_precondition(new world_property(properties.close_combat, true));
-    actionCombatPlanner.add_effect(new world_property(properties.close_combat, false));
-    actionCombatPlanner.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    actionCombatPlanner.add_effect(new world_property(properties.end, true));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(
+  public static override activate(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
     section: TSection,
     additional: string
   ): void {
-    const state: ISchemeCamperState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
+    const state: ISchemeCamperState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.path_walk = getConfigString(ini, section, "path_walk", object, true, additional);
@@ -139,5 +80,63 @@ export class SchemeCamper extends AbstractScheme {
     state.scandelta = 30;
     state.timedelta = 4000;
     state.time_scan_delta = state.timedelta / state.scandelta;
+  }
+  /**
+   * todo: Description.
+   */
+  public static override add(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    state: ISchemeCamperState
+  ): void {
+    const operators = {
+      patrol: action_ids.stohe_camper_base + 1,
+      search_corpse: action_ids.corpse_exist,
+      help_wounded: action_ids.wounded_exist,
+    };
+    const properties = {
+      end: evaluators_id.stohe_camper_base + 1,
+      can_fight: evaluators_id.sidor_wounded_base + 1,
+      close_combat: evaluators_id.stohe_camper_base + 2,
+      state_mgr_logic_active: evaluators_id.state_mgr + 4,
+    };
+
+    const manager = object.motivation_action_manager();
+
+    manager.add_evaluator(properties.end, new EvaluatorEnd(state));
+    manager.add_evaluator(properties.close_combat, new EvaluatorCloseCombat(state));
+
+    const actionPatrol: ActionCamperPatrol = new ActionCamperPatrol(state, object);
+
+    actionPatrol.add_precondition(new world_property(stalker_ids.property_alive, true));
+    actionPatrol.add_precondition(new world_property(properties.end, false));
+    actionPatrol.add_precondition(new world_property(properties.close_combat, false));
+    actionPatrol.add_precondition(new world_property(properties.can_fight, true));
+    actionPatrol.add_precondition(new world_property(stalker_ids.property_danger, false));
+    actionPatrol.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+
+    actionPatrol.add_precondition(new world_property(evaluators_id.stohe_meet_base + 1, false));
+    actionPatrol.add_precondition(new world_property(evaluators_id.sidor_wounded_base + 0, false));
+    actionPatrol.add_precondition(new world_property(evaluators_id.abuse_base, false));
+
+    actionPatrol.add_effect(new world_property(properties.end, true));
+    actionPatrol.add_effect(new world_property(stalker_ids.property_enemy, false));
+    actionPatrol.add_effect(new world_property(properties.state_mgr_logic_active, false));
+    manager.add_action(operators.patrol, actionPatrol);
+    SchemeCamper.subscribe(object, state, actionPatrol);
+
+    manager.action(action_ids.alife).add_precondition(new world_property(properties.end, true));
+    manager.action(stalker_ids.action_gather_items).add_precondition(new world_property(properties.end, true));
+    manager.action(operators.search_corpse).add_precondition(new world_property(properties.end, true));
+    manager.action(operators.help_wounded).add_precondition(new world_property(properties.end, true));
+
+    const actionCombatPlanner: XR_action_base = manager.action(stalker_ids.action_combat_planner);
+
+    actionCombatPlanner.add_precondition(new world_property(properties.close_combat, true));
+    actionCombatPlanner.add_effect(new world_property(properties.close_combat, false));
+    actionCombatPlanner.add_effect(new world_property(properties.state_mgr_logic_active, false));
+    actionCombatPlanner.add_effect(new world_property(properties.end, true));
   }
 }

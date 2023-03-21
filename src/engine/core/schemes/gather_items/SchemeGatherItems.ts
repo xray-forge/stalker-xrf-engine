@@ -20,7 +20,14 @@ export class SchemeGatherItems extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+    AbstractScheme.assign(object, ini, scheme, section);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -36,14 +43,7 @@ export class SchemeGatherItems extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static setGatherItems(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
-    AbstractScheme.assignStateAndBind(object, ini, scheme, section);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override resetScheme(
+  public static override reset(
     object: XR_game_object,
     scheme: EScheme,
     state: IRegistryObjectState,

@@ -23,7 +23,34 @@ export class SchemeCover extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override addToBinder(
+  public static override activate(
+    object: XR_game_object,
+    ini: XR_ini_file,
+    scheme: EScheme,
+    section: TSection,
+    additional: string
+  ): void {
+    const state: ISchemeCoverState = AbstractScheme.assign(object, ini, scheme, section);
+
+    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.smart = getConfigString(ini, section, "smart", object, false, "");
+    state.anim = parseConditionsList(getConfigString(ini, section, "anim", object, false, "", "hide"));
+    state.sound_idle = getConfigString(ini, section, "sound_idle", object, false, "");
+
+    if (state.smart === null) {
+      abort("There is no path_walk and smart in ActionCover.");
+    }
+
+    state.use_attack_direction = getConfigBoolean(ini, section, "use_attack_direction", object, false, true);
+
+    state.radius_min = getConfigNumber(ini, section, "radius_min", object, false, 3);
+    state.radius_max = getConfigNumber(ini, section, "radius_max", object, false, 5);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public static override add(
     object: XR_game_object,
     ini: XR_ini_file,
     scheme: EScheme,
@@ -55,35 +82,8 @@ export class SchemeCover extends AbstractScheme {
     new_action.add_effect(new world_property(properties.state_mgr_logic_active, false));
     actionPlanner.add_action(operators.action_cover, new_action);
 
-    SchemeCover.subscribeToSchemaEvents(object, state, new_action);
+    SchemeCover.subscribe(object, state, new_action);
 
     actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_cover, false));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static override setScheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: TSection,
-    additional: string
-  ): void {
-    const state: ISchemeCoverState = AbstractScheme.assignStateAndBind(object, ini, scheme, section);
-
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.smart = getConfigString(ini, section, "smart", object, false, "");
-    state.anim = parseConditionsList(getConfigString(ini, section, "anim", object, false, "", "hide"));
-    state.sound_idle = getConfigString(ini, section, "sound_idle", object, false, "");
-
-    if (state.smart === null) {
-      abort("There is no path_walk and smart in ActionCover.");
-    }
-
-    state.use_attack_direction = getConfigBoolean(ini, section, "use_attack_direction", object, false, true);
-
-    state.radius_min = getConfigNumber(ini, section, "radius_min", object, false, 3);
-    state.radius_max = getConfigNumber(ini, section, "radius_max", object, false, 5);
   }
 }
