@@ -1,8 +1,8 @@
 import { color, hit, noise, time_global, vector, XR_game_object, XR_hit, XR_noise } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePostProcessState } from "@/engine/core/schemes/sr_postprocess/ISchemePostProcessState";
 import { PPEffector } from "@/engine/core/schemes/sr_postprocess/PPEffector";
 import { abort } from "@/engine/core/utils/debug";

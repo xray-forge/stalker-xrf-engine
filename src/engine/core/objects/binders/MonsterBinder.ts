@@ -27,17 +27,19 @@ import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { setupSmartJobsAndLogicOnSpawn, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/core/objects/alife/Squad";
-import { ESchemeEvent } from "@/engine/core/schemes/base";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
+import { ESchemeEvent } from "@/engine/core/schemes";
+import { emitSchemeEvent, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
-import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
-import { mobCapture } from "@/engine/core/schemes/mobCapture";
-import { mobCaptured } from "@/engine/core/schemes/mobCaptured";
-import { mobRelease } from "@/engine/core/schemes/mobRelease";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { action, getObjectSquad } from "@/engine/core/utils/object";
+import {
+  action,
+  getObjectSquad,
+  isObjectScriptCaptured,
+  scriptCaptureObject,
+  scriptReleaseObject,
+} from "@/engine/core/utils/object";
 import { TConditionList } from "@/engine/core/utils/parse";
 import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
 import {
@@ -139,8 +141,8 @@ export class MonsterBinder extends object_binder {
     }
 
     if (this.object.get_enemy()) {
-      if (mobCaptured(this.object)) {
-        mobRelease(this.object, MonsterBinder.__name);
+      if (isObjectScriptCaptured(this.object)) {
+        scriptReleaseObject(this.object, MonsterBinder.__name);
       }
 
       return;
@@ -155,7 +157,7 @@ export class MonsterBinder extends object_binder {
 
       const [targetPosition] = squad_target.get_location();
 
-      mobCapture(this.object, true, MonsterBinder.__name);
+      scriptCaptureObject(this.object, true, MonsterBinder.__name);
 
       if (squad.commander_id() === this.object.id()) {
         action(this.object, new move(move.walk_with_leader, targetPosition), new cond(cond.move_end));
@@ -173,7 +175,7 @@ export class MonsterBinder extends object_binder {
     }
 
     if (this.state.active_section !== null) {
-      issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
+      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
     }
   }
 
@@ -276,7 +278,7 @@ export class MonsterBinder extends object_binder {
     registry.actorCombat.delete(this.object.id());
 
     if (this.state.active_scheme !== null) {
-      issueSchemeEvent(this.object, this.state[this.state.active_scheme]!, ESchemeEvent.NET_DESTROY);
+      emitSchemeEvent(this.object, this.state[this.state.active_scheme]!, ESchemeEvent.NET_DESTROY);
     }
 
     const offlineObject = registry.offlineObjects.get(this.object.id());
@@ -304,7 +306,7 @@ export class MonsterBinder extends object_binder {
    */
   public waypoint_callback(object: XR_game_object, action_type: number, index: TIndex): void {
     if (this.state.active_section !== null) {
-      issueSchemeEvent(
+      emitSchemeEvent(
         this.object,
         this.state[this.state.active_scheme!]!,
         ESchemeEvent.WAYPOINT,
@@ -333,11 +335,11 @@ export class MonsterBinder extends object_binder {
     }
 
     if (this.state[EScheme.MOB_DEATH]) {
-      issueSchemeEvent(this.object, this.state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, victim, killer);
+      emitSchemeEvent(this.object, this.state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, victim, killer);
     }
 
     if (this.state.active_section) {
-      issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, killer);
+      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, killer);
     }
 
     const hitObject: XR_hit = new hit();
@@ -379,7 +381,7 @@ export class MonsterBinder extends object_binder {
     }
 
     if (this.state[EScheme.HIT]) {
-      issueSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
+      emitSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
     }
   }
 

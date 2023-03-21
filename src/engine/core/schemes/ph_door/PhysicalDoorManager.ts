@@ -9,10 +9,9 @@ import {
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/ph_door/ISchemePhysicalDoorState";
-import { switchObjectSchemeToSection } from "@/engine/core/schemes/utils/switchObjectSchemeToSection";
 import { abort } from "@/engine/core/utils/debug";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { Optional, TCount, TIndex } from "@/engine/lib/types";

@@ -1,4 +1,4 @@
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeSilenceState } from "@/engine/core/schemes/sr_silence/ISchemeSilenceState";
 
 /**

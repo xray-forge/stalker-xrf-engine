@@ -1,6 +1,6 @@
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils/trySwitchToAnotherSection";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/mob/combat/ISchemeMobCombatState";
 
 /**

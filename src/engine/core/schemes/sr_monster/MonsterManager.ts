@@ -14,12 +14,10 @@ import {
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
-import { mobCapture } from "@/engine/core/schemes/mobCapture";
-import { mobRelease } from "@/engine/core/schemes/mobRelease";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeMonsterState } from "@/engine/core/schemes/sr_monster/ISchemeMonsterState";
-import { action } from "@/engine/core/utils/object";
+import { action, scriptCaptureObject, scriptReleaseObject } from "@/engine/core/utils/object";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
 import { AnyObject, Optional } from "@/engine/lib/types";
 
@@ -91,7 +89,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
         this.monster_obj!.position().distance_to(this.state.path.point(this.state.path.count() - 1)) <= 1)
     ) {
       if (registry.objects.has(this.monster!.id)) {
-        mobRelease(this.monster_obj!, MonsterManager.name);
+        scriptReleaseObject(this.monster_obj!, MonsterManager.name);
       }
 
       alife().release(this.monster, true);
@@ -130,7 +128,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
     ) {
       this.monster_obj = registry.objects.get(this.monster.id).object!;
 
-      mobCapture(this.monster_obj, true, MonsterManager.name);
+      scriptCaptureObject(this.monster_obj, true, MonsterManager.name);
 
       action(
         this.monster_obj,

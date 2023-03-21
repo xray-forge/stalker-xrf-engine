@@ -1,10 +1,9 @@
 import { time_global, XR_game_object, XR_object, XR_vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePhysicalButtonState } from "@/engine/core/schemes/ph_button/ISchemePhysicalButtonState";
-import { switchObjectSchemeToSection } from "@/engine/core/schemes/utils/switchObjectSchemeToSection";
 import { isActiveSection } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";

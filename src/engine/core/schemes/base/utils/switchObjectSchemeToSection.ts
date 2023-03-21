@@ -1,9 +1,9 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { ESchemeEvent } from "@/engine/core/schemes/base";
-import { activateSchemeBySection } from "@/engine/core/schemes/base/activateSchemeBySection";
-import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
+import { ESchemeEvent } from "@/engine/core/schemes";
+import { activateSchemeBySection } from "@/engine/core/schemes/base/utils/activateSchemeBySection";
+import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
 import { EScheme, Maybe, TSection } from "@/engine/lib/types";
 
 /**
@@ -26,7 +26,7 @@ export function switchObjectSchemeToSection(object: XR_game_object, ini: XR_ini_
 
   // Notify schemes about deactivation.
   if (activeSection !== null) {
-    issueSchemeEvent(object, state[activeSection]!, ESchemeEvent.DEACTIVATE, object);
+    emitSchemeEvent(object, state[activeSection]!, ESchemeEvent.DEACTIVATE, object);
   }
 
   state.active_section = null;

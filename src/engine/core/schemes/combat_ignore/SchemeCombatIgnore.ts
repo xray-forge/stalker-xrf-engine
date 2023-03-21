@@ -1,10 +1,10 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
+import { AbstractScheme } from "@/engine/core/schemes";
+import { getObjectGenericSchemeOverrides } from "@/engine/core/schemes/base/utils/getObjectGenericSchemeOverrides";
 import { ActionProcessEnemy } from "@/engine/core/schemes/combat_ignore/actions/ActionProcessEnemy";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore/ISchemeCombatIgnoreState";
-import { getObjectGenericSchemeOverrides } from "@/engine/core/schemes/utils/getObjectGenericSchemeOverrides";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
 

@@ -1,8 +1,8 @@
 import { level, patrol, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils/trySwitchToAnotherSection";
 import { EEffectorState, effector_sets } from "@/engine/core/schemes/sr_cutscene/cam_effector_sets";
 import { CamEffectorSet } from "@/engine/core/schemes/sr_cutscene/CamEffectorSet";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";

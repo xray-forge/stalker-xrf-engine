@@ -1,7 +1,7 @@
 import { XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeDeathState } from "@/engine/core/schemes/death/ISchemeDeathState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { EScheme, Optional } from "@/engine/lib/types";

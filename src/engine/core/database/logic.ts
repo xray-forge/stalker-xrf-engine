@@ -1,9 +1,8 @@
 import { time_global, TXR_net_processor, XR_CTime, XR_game_object, XR_net_packet } from "xray16";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database/index";
-import { loadPortableStore, savePortableStore } from "@/engine/core/database/portable_store";
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base";
-import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
+import { IRegistryObjectState, loadPortableStore, registry, savePortableStore } from "@/engine/core/database";
+import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
+import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { NIL } from "@/engine/lib/constants/words";
@@ -61,7 +60,7 @@ export function saveObjectLogic(object: XR_game_object, packet: XR_net_packet): 
   saveSchemeActivationDetails(object, packet);
 
   if (state.active_scheme) {
-    issueSchemeEvent(object, state[state.active_scheme] as IBaseSchemeState, ESchemeEvent.SAVE);
+    emitSchemeEvent(object, state[state.active_scheme] as IBaseSchemeState, ESchemeEvent.SAVE);
   }
 
   savePortableStore(object, packet);

@@ -1,8 +1,8 @@
 import { particles_object, patrol, time_global, XR_patrol } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeParticleState } from "@/engine/core/schemes/sr_particle/ISchemeParticleState";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
 import { Optional, TCount, TTimestamp } from "@/engine/lib/types";

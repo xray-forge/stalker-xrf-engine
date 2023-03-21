@@ -17,9 +17,9 @@ import { IRegistryObjectState, registerObject, registry, resetObject, unregister
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { PhysicObjectItemBox } from "@/engine/core/objects/binders/PhysicObjectItemBox";
-import { ESchemeEvent } from "@/engine/core/schemes/base";
-import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
-import { initializeObjectSchemeLogic } from "@/engine/core/schemes/utils/initializeObjectSchemeLogic";
+import { ESchemeEvent } from "@/engine/core/schemes";
+import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
+import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -76,7 +76,7 @@ export class PhysicObjectBinder extends object_binder {
     const state: IRegistryObjectState = registry.objects.get(this.object.id());
 
     if (state.active_scheme) {
-      issueSchemeEvent(this.object, state[state.active_scheme]!, ESchemeEvent.NET_DESTROY);
+      emitSchemeEvent(this.object, state[state.active_scheme]!, ESchemeEvent.NET_DESTROY);
     }
 
     const on_offline_condlist: Optional<TConditionList> = state?.overrides?.on_offline_condlist;
@@ -132,7 +132,7 @@ export class PhysicObjectBinder extends object_binder {
    */
   public use_callback(object: XR_game_object, who: XR_game_object): void {
     if (this.state.active_section) {
-      issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.USE, object, this);
+      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.USE, object, this);
     }
   }
 
@@ -147,7 +147,7 @@ export class PhysicObjectBinder extends object_binder {
     bone_index: TIndex
   ): void {
     if (this.state[EScheme.HIT]) {
-      issueSchemeEvent(
+      emitSchemeEvent(
         this.object,
         this.state[EScheme.HIT]!,
         ESchemeEvent.HIT,
@@ -160,7 +160,7 @@ export class PhysicObjectBinder extends object_binder {
     }
 
     if (this.state.active_section) {
-      issueSchemeEvent(
+      emitSchemeEvent(
         this.object,
         this.state[this.state.active_scheme!]!,
         ESchemeEvent.HIT,
@@ -178,7 +178,7 @@ export class PhysicObjectBinder extends object_binder {
    */
   public death_callback(victim: XR_game_object, who: XR_game_object): void {
     if (this.state.active_section) {
-      issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, who);
+      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, who);
     }
 
     if (this.particle !== null) {
@@ -241,7 +241,7 @@ export class PhysicObjectBinder extends object_binder {
     const spawn_ini: Optional<XR_ini_file> = this.object.spawn_ini();
 
     if (this.state.active_section !== null || (spawn_ini !== null && spawn_ini.section_exist("drop_box"))) {
-      issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
+      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
       this.object.set_callback(callback.hit, this.hit_callback, this);
       this.object.set_callback(callback.death, this.death_callback, this);
       this.object.set_callback(callback.use_object, this.use_callback, this);

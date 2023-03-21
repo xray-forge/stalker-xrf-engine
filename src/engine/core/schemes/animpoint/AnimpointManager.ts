@@ -2,9 +2,9 @@ import { level, vector, XR_game_object, XR_vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { states } from "@/engine/core/objects/state/lib/state_lib";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { associations } from "@/engine/core/schemes/animpoint/animpoint_predicates";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaArray, Optional, TNumberId } from "@/engine/lib/types";

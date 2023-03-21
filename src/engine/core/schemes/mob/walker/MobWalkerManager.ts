@@ -16,14 +16,12 @@ import {
 
 import { registry } from "@/engine/core/database";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { setMobState } from "@/engine/core/schemes/mob/MobStateManager";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob/walker/ISchemeMobWalkerState";
-import { mobCapture } from "@/engine/core/schemes/mobCapture";
-import { mobCaptured } from "@/engine/core/schemes/mobCaptured";
 import { abort } from "@/engine/core/utils/debug";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { action } from "@/engine/core/utils/object";
+import { action, isObjectScriptCaptured, scriptCaptureObject } from "@/engine/core/utils/object";
 import { IWaypointData, parsePathWaypoints } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
@@ -61,7 +59,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     setMobState(this.object, registry.actor, this.state.state);
 
     this.state.signals = new LuaTable();
-    mobCapture(this.object, true);
+    scriptCaptureObject(this.object, true);
 
     this.patrol_walk = new patrol(this.state.path_walk);
 
@@ -108,7 +106,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
    * todo: Description.
    */
   public override update(): void {
-    if (!mobCaptured(this.object)) {
+    if (!isObjectScriptCaptured(this.object)) {
       this.resetScheme();
 
       return;
@@ -251,7 +249,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
    * todo: Description.
    */
   public update_movement_state(): void {
-    mobCapture(this.object, true);
+    scriptCaptureObject(this.object, true);
 
     let m;
 
@@ -284,7 +282,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
    */
 
   public update_standing_state(): void {
-    mobCapture(this.object, true);
+    scriptCaptureObject(this.object, true);
 
     if (this.scheduled_snd) {
       action(
@@ -303,7 +301,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
    * todo: Description.
    */
   public override deactivate(): void {
-    mobCapture(this.object, true);
+    scriptCaptureObject(this.object, true);
     action(this.object, new move(move.steal, this.patrol_walk!.point(0)), new cond(cond.move_end));
   }
 
@@ -320,7 +318,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     look_pt.normalize();
     // --this.object:set_sight(look.direction, look_pt, 0)
 
-    mobCapture(this.object, true);
+    scriptCaptureObject(this.object, true);
     action(this.object, new look(look.direction, look_pt), new cond(cond.look_end));
 
     this.last_look_index = pt;

@@ -3,9 +3,9 @@ import { LuabindClass, object_binder, XR_cse_alife_object, XR_net_packet, XR_rea
 import { IRegistryObjectState, registerZone, registry, resetObject, unregisterZone } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { ESchemeEvent } from "@/engine/core/schemes/base";
-import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
-import { initializeObjectSchemeLogic } from "@/engine/core/schemes/utils/initializeObjectSchemeLogic";
+import { ESchemeEvent } from "@/engine/core/schemes";
+import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
+import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TDuration, TNumberId } from "@/engine/lib/types";
@@ -65,7 +65,7 @@ export class RestrictorBinder extends object_binder {
     const state: IRegistryObjectState = this.state;
 
     if (state.active_scheme !== null) {
-      issueSchemeEvent(this.object, state[state.active_scheme!]!, ESchemeEvent.NET_DESTROY);
+      emitSchemeEvent(this.object, state[state.active_scheme!]!, ESchemeEvent.NET_DESTROY);
     }
 
     unregisterZone(this.object);
@@ -96,7 +96,7 @@ export class RestrictorBinder extends object_binder {
     this.object.info_add("name: [" + this.object.name() + "] id [" + objectId + "]");
 
     if (this.state.active_section !== null) {
-      issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
+      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
     }
 
     GlobalSoundManager.getInstance().updateForObjectId(objectId);

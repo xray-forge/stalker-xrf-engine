@@ -25,12 +25,12 @@ import {
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base";
+import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
+import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
+import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { get_heli_health } from "@/engine/core/schemes/heli_move/heli_utils";
 import { HeliCombat } from "@/engine/core/schemes/heli_move/HeliCombat";
 import { get_heli_firer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
-import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
-import { initializeObjectSchemeLogic } from "@/engine/core/schemes/utils/initializeObjectSchemeLogic";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { getObjectClassId } from "@/engine/core/utils/id";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
@@ -111,7 +111,7 @@ export class HelicopterBinder extends object_binder {
     }
 
     if (this.state.active_section !== null) {
-      issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
+      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
     }
 
     this.object.info_clear();
@@ -220,7 +220,7 @@ export class HelicopterBinder extends object_binder {
 
     if (enemy_cls_id === clsid.actor || enemy_cls_id === clsid.script_stalker) {
       if (this.state.hit) {
-        issueSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, this.object, power, null, enemy, null);
+        emitSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, this.object, power, null, enemy, null);
       }
     }
 
@@ -235,7 +235,7 @@ export class HelicopterBinder extends object_binder {
    */
   public on_point(distance: TDistance, position: XR_vector, path_idx: TIndex): void {
     if (this.state.active_section !== null) {
-      issueSchemeEvent(
+      emitSchemeEvent(
         this.object,
         this.state[this.state.active_scheme!]!,
         ESchemeEvent.WAYPOINT,

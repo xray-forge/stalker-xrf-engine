@@ -1,7 +1,7 @@
 import { time_global, XR_game_object } from "xray16";
 
+import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeAbuseState } from "@/engine/core/schemes/abuse/ISchemeAbuseState";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
 import { Optional, TCount, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**

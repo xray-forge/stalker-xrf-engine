@@ -1,10 +1,9 @@
 import { time_global, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeTimerState } from "@/engine/core/schemes/timer/ISchemeTimerState";
-import { switchObjectSchemeToSection } from "@/engine/core/schemes/utils/switchObjectSchemeToSection";
 import { timeToString } from "@/engine/core/utils/general";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 

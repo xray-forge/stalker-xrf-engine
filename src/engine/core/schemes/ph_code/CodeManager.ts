@@ -1,7 +1,7 @@
 import { XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeCodeState } from "@/engine/core/schemes/ph_code/ISchemeCodeState";
 import { NumPadWindow } from "@/engine/core/ui/game/NumPadWindow";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";

@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { AbstractScheme, ESchemeEvent } from "@/engine/core/schemes/base";
-import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
+import { AbstractScheme, ESchemeEvent } from "@/engine/core/schemes";
+import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
 import { CutsceneManager } from "@/engine/core/schemes/sr_cutscene/CutsceneManager";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
@@ -57,6 +57,6 @@ export class SchemeCutscene extends AbstractScheme {
    * todo: Description.
    */
   public static onCutsceneEnd(): void {
-    issueSchemeEvent(CutsceneManager.object_cutscene!, CutsceneManager.storage_scene!, ESchemeEvent.CUTSCENE);
+    emitSchemeEvent(CutsceneManager.object_cutscene!, CutsceneManager.storage_scene!, ESchemeEvent.CUTSCENE);
   }
 }

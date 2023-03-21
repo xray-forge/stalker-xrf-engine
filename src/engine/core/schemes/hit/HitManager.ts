@@ -1,8 +1,8 @@
 import { XR_game_object, XR_vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils/trySwitchToAnotherSection";
 import { ISchemeHitState } from "@/engine/core/schemes/hit/ISchemeHitState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, Optional, TCount, TIndex } from "@/engine/lib/types";

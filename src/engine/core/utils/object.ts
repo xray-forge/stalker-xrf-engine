@@ -506,3 +506,46 @@ export function anomalyHasArtefact(
 export function isObjectAsleep(object: XR_game_object): boolean {
   return registry.objects.get(object.id()).state_mgr!.animstate.states.current_state === "sleep";
 }
+
+/**
+ * todo;
+ * todo;
+ * todo;
+ */
+export function scriptReleaseObject(object: XR_game_object, scriptName: TName = $filename): void {
+  if (object.get_script()) {
+    object.script(false, scriptName);
+  }
+}
+
+/**
+ * todo;
+ * todo;
+ * todo;
+ */
+export function scriptCaptureObject(
+  object: XR_game_object,
+  resetActions: Optional<boolean>,
+  scriptName: TName = $filename
+): void {
+  if (resetActions === null) {
+    abort("mob_capture: reset_actions parameter's value is !specified");
+  }
+
+  if (resetActions !== null) {
+    resetObjectAction(object, scriptName);
+  } else {
+    if (!object.get_script()) {
+      object.script(true, scriptName);
+    }
+  }
+}
+
+/**
+ * todo;
+ * todo;
+ * todo;
+ */
+export function isObjectScriptCaptured(object: XR_game_object): boolean {
+  return object.get_script() !== null;
+}

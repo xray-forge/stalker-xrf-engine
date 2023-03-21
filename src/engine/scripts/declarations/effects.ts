@@ -56,7 +56,7 @@ import { Squad } from "@/engine/core/objects/alife/Squad";
 import { Stalker } from "@/engine/core/objects/alife/Stalker";
 import { update_logic } from "@/engine/core/objects/binders/StalkerBinder";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse/SchemeAbuse";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/mob/combat";
@@ -65,7 +65,6 @@ import { showFreeplayDialog } from "@/engine/core/ui/game/FreeplayDialog";
 import { sleep as startSleeping } from "@/engine/core/ui/interaction/SleepDialog";
 import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { isStalker } from "@/engine/core/utils/check/is";
-import { executeConsoleCommand } from "@/engine/core/utils/console";
 import {
   disableActorNightVision,
   disableActorTorch,
@@ -93,7 +92,6 @@ import {
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";

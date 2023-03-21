@@ -2,10 +2,10 @@ import { ini_file, XR_game_object, XR_ini_file } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { TradeManager } from "@/engine/core/managers/TradeManager";
-import { ESchemeEvent } from "@/engine/core/schemes/base/index";
-import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
-import { disableObjectGenericSchemes } from "@/engine/core/schemes/utils/disableObjectGenericSchemes";
-import { enableObjectGenericSchemes } from "@/engine/core/schemes/utils/enableObjectGenericSchemes";
+import { ESchemeEvent } from "@/engine/core/schemes";
+import { disableObjectGenericSchemes } from "@/engine/core/schemes/base/utils/disableObjectGenericSchemes";
+import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
+import { enableObjectGenericSchemes } from "@/engine/core/schemes/base/utils/enableObjectGenericSchemes";
 import { abort } from "@/engine/core/utils/debug";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { getConfigString } from "@/engine/core/utils/ini/getters";
@@ -29,7 +29,7 @@ export function configureObjectSchemes(
   const state: IRegistryObjectState = registry.objects.get(objectId);
 
   if (state.active_section) {
-    issueSchemeEvent(object, state[state.active_scheme!]!, ESchemeEvent.DEACTIVATE, object);
+    emitSchemeEvent(object, state[state.active_scheme!]!, ESchemeEvent.DEACTIVATE, object);
   }
 
   let actualIni: XR_ini_file;

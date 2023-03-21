@@ -1,7 +1,7 @@
 import { alife, patrol, XR_cse_alife_creature_abstract } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/mob/home/ISchemeMobHomeState";
 import { setMobState } from "@/engine/core/schemes/mob/MobStateManager";
 import { abort } from "@/engine/core/utils/debug";

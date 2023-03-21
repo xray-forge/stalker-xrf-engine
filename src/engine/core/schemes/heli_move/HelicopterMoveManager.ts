@@ -1,9 +1,8 @@
 import { level, patrol, XR_CHelicopter, XR_game_object, XR_patrol, XR_vector } from "xray16";
 
-import { registry } from "@/engine/core/database";
-import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
+import { portableStoreGet, portableStoreSet, registry } from "@/engine/core/database";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { get_heli_firer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
 import { get_heli_flyer, HeliFly } from "@/engine/core/schemes/heli_move/HeliFly";
 import { get_heli_looker, HeliLook } from "@/engine/core/schemes/heli_move/HeliLook";

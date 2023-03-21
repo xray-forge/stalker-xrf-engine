@@ -1,18 +1,18 @@
 import { ini_file, XR_game_object, XR_ini_file } from "xray16";
 
 import { DUMMY_LTX, IRegistryObjectState, loadDynamicLtx, registry } from "@/engine/core/database";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TName } from "@/engine/lib/types";
 
 /**
  * todo;
  * todo;
  * todo;
  */
-export function getCustomDataOrIniFile(npc: XR_game_object, filename: string): XR_ini_file {
-  const state: IRegistryObjectState = registry.objects.get(npc.id());
+export function getObjectSchemeCustomDataOrIniFile(object: XR_game_object, filename: TName): XR_ini_file {
+  const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (filename === "<customdata>") {
-    const ini: Optional<XR_ini_file> = npc.spawn_ini();
+    const ini: Optional<XR_ini_file> = object.spawn_ini();
 
     return ini !== null ? ini : DUMMY_LTX;
 

@@ -3,7 +3,7 @@ import { XR_CTime, XR_game_object, XR_ini_file } from "xray16";
 import { registry } from "@/engine/core/database/registry";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { StateManager } from "@/engine/core/objects/state/StateManager";
-import { IBaseSchemeState } from "@/engine/core/schemes/base";
+import { IBaseSchemeState } from "@/engine/core/schemes";
 import { ObjectRestrictionsManager } from "@/engine/core/schemes/base/ObjectRestrictionsManager";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/danger/ISchemePostCombatIdleState";
 import { IActionSchemeHearState } from "@/engine/core/schemes/hear";

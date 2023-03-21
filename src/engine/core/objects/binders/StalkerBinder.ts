@@ -50,17 +50,19 @@ import { TradeManager } from "@/engine/core/managers/TradeManager";
 import { setupSmartJobsAndLogicOnSpawn, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { bind_state_manager } from "@/engine/core/objects/state/bind_state_manager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { ESchemeEvent } from "@/engine/core/schemes/base";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
+import { ESchemeEvent } from "@/engine/core/schemes";
+import {
+  emitSchemeEvent,
+  getObjectGenericSchemeOverrides,
+  trySwitchToAnotherSection,
+} from "@/engine/core/schemes/base/utils";
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
 import { PostCombatIdle } from "@/engine/core/schemes/danger/PostCombatIdle";
 import { SchemeDanger } from "@/engine/core/schemes/danger/SchemeDanger";
 import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
-import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
 import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTask";
 import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
-import { getObjectGenericSchemeOverrides } from "@/engine/core/schemes/utils/getObjectGenericSchemeOverrides";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { SoundTheme } from "@/engine/core/sounds/SoundTheme";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
@@ -120,7 +122,7 @@ export class StalkerBinder extends object_binder {
    */
   public extrapolate_callback(currentPoint: TNumberId): boolean {
     if (this.state.active_section) {
-      issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.EXTRAPOLATE);
+      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.EXTRAPOLATE);
       this.state.moveManager!.extrapolate_callback(this.object);
     }
 
@@ -256,11 +258,11 @@ export class StalkerBinder extends object_binder {
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
     if (state.active_scheme) {
-      issueSchemeEvent(this.object, state[state.active_scheme]!, ESchemeEvent.NET_DESTROY, this.object);
+      emitSchemeEvent(this.object, state[state.active_scheme]!, ESchemeEvent.NET_DESTROY, this.object);
     }
 
     if (this.state[EScheme.REACH_TASK]) {
-      issueSchemeEvent(this.object, this.state[EScheme.REACH_TASK], ESchemeEvent.NET_DESTROY, this.object);
+      emitSchemeEvent(this.object, this.state[EScheme.REACH_TASK], ESchemeEvent.NET_DESTROY, this.object);
     }
 
     const on_offline_condlist: Optional<TConditionList> = state.overrides?.on_offline_condlist;
@@ -341,7 +343,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (this.state.active_section) {
-      issueSchemeEvent(
+      emitSchemeEvent(
         this.object,
         this.state[this.state.active_scheme!]!,
         ESchemeEvent.HIT,
@@ -355,7 +357,7 @@ export class StalkerBinder extends object_binder {
 
     // Probably should be reversed?
     if (this.state.combat_ignore) {
-      issueSchemeEvent(
+      emitSchemeEvent(
         this.object,
         this.state.combat_ignore,
         ESchemeEvent.HIT,
@@ -368,7 +370,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (this.state.combat) {
-      issueSchemeEvent(
+      emitSchemeEvent(
         this.object,
         this.state.combat,
         ESchemeEvent.HIT,
@@ -381,7 +383,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (this.state.hit) {
-      issueSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, local_direction, who, boneIndex);
+      emitSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, local_direction, who, boneIndex);
     }
 
     if (boneIndex !== 15 && amount > this.object.health * 100) {
@@ -426,15 +428,15 @@ export class StalkerBinder extends object_binder {
     }
 
     if (this.state[EScheme.REACH_TASK]) {
-      issueSchemeEvent(this.object, this.state[EScheme.REACH_TASK], ESchemeEvent.DEATH, victim, who);
+      emitSchemeEvent(this.object, this.state[EScheme.REACH_TASK], ESchemeEvent.DEATH, victim, who);
     }
 
     if (this.state[EScheme.DEATH]) {
-      issueSchemeEvent(this.object, this.state[EScheme.DEATH], ESchemeEvent.DEATH, victim, who);
+      emitSchemeEvent(this.object, this.state[EScheme.DEATH], ESchemeEvent.DEATH, victim, who);
     }
 
     if (this.state.active_section) {
-      issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, who);
+      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, who);
     }
 
     SchemeLight.checkObjectLight(this.object);
@@ -471,7 +473,7 @@ export class StalkerBinder extends object_binder {
       disabled_phrases.delete(object.id());
 
       if (this.state.active_section) {
-        issueSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.USE, object, who);
+        emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.USE, object, who);
       }
     }
   }

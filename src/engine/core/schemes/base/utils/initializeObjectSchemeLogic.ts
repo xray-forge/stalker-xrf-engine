@@ -1,10 +1,10 @@
 import { game_object, XR_game_object, XR_ini_file } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { activateSchemeBySection } from "@/engine/core/schemes/base/activateSchemeBySection";
-import { configureObjectSchemes } from "@/engine/core/schemes/base/configureObjectSchemes";
-import { getCustomDataOrIniFile } from "@/engine/core/schemes/getCustomDataOrIniFile";
-import { getObjectSectionToActivate } from "@/engine/core/schemes/utils/getObjectSectionToActivate";
+import { activateSchemeBySection } from "@/engine/core/schemes/base/utils/activateSchemeBySection";
+import { configureObjectSchemes } from "@/engine/core/schemes/base/utils/configureObjectSchemes";
+import { getObjectSchemeCustomDataOrIniFile } from "@/engine/core/schemes/base/utils/getObjectSchemeCustomDataOrIniFile";
+import { getObjectSectionToActivate } from "@/engine/core/schemes/base/utils/getObjectSectionToActivate";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TRelation } from "@/engine/lib/constants/relations";
@@ -31,7 +31,7 @@ export function initializeObjectSchemeLogic(
     const iniFilename: TName = "<customdata>";
     const iniFile: XR_ini_file = configureObjectSchemes(
       object,
-      getCustomDataOrIniFile(object, iniFilename),
+      getObjectSchemeCustomDataOrIniFile(object, iniFilename),
       iniFilename,
       schemeType,
       "logic",
@@ -59,7 +59,7 @@ export function initializeObjectSchemeLogic(
     if (iniFilename !== null) {
       const iniFile: XR_ini_file = configureObjectSchemes(
         object,
-        getCustomDataOrIniFile(object, iniFilename),
+        getObjectSchemeCustomDataOrIniFile(object, iniFilename),
         iniFilename,
         schemeType,
         state.loaded_section_logic as TSection,

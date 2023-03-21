@@ -2,9 +2,9 @@ import { time_global, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { ESchemeEvent } from "@/engine/core/schemes";
 import { IAnimpointAction, ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
-import { ESchemeEvent } from "@/engine/core/schemes/base";
-import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
+import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
 import { getSoundManagerForId, SoundManager } from "@/engine/core/sounds/SoundManager";
@@ -219,7 +219,7 @@ export class CampStoryManager {
       for (const [k, v] of this.npc) {
         if (registry.objects.get(k) !== null) {
           // todo: Optimize call.
-          issueSchemeEvent(
+          emitSchemeEvent(
             registry.objects.get(k).object!,
             registry.objects.get(k)[registry.objects.get(k).active_scheme!]!,
             ESchemeEvent.UPDATE
@@ -380,7 +380,7 @@ export class CampStoryManager {
 
     this.sound_manager.registerObject(objectId);
 
-    issueSchemeEvent(state.object!, state[state.active_scheme!]!, ESchemeEvent.UPDATE);
+    emitSchemeEvent(state.object!, state[state.active_scheme!]!, ESchemeEvent.UPDATE);
   }
 
   /**

@@ -2,9 +2,8 @@ import { callback, clsid, XR_game_object } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
-import { ObjectRestrictionsManager } from "@/engine/core/schemes/base/ObjectRestrictionsManager";
-import { mobRelease } from "@/engine/core/schemes/mobRelease";
-import { resetScheme } from "@/engine/core/schemes/utils/schemes_resetting";
+import { ObjectRestrictionsManager } from "@/engine/core/schemes";
+import { resetScheme } from "@/engine/core/schemes/base/utils/schemes_reset";
 import { getObjectClassId } from "@/engine/core/utils/id";
 import {
   initializeObjectCanSelectWeaponState,
@@ -12,6 +11,7 @@ import {
   resetObjectGroup,
   resetObjectIgnoreThreshold,
   resetObjectInvulnerability,
+  scriptReleaseObject,
 } from "@/engine/core/utils/object";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -21,7 +21,7 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
  * todo;
  * todo;
  */
-export function resetObjectSchemesOnSectionSwitch(
+export function resetObjectGenericSchemesOnSectionSwitch(
   object: XR_game_object,
   schemeToSwitch: EScheme,
   section: TSection
@@ -58,7 +58,7 @@ export function resetObjectSchemesOnSectionSwitch(
     }
 
     case ESchemeType.MONSTER: {
-      mobRelease(object, ""); // ???
+      scriptReleaseObject(object, ""); // ???
       if (getObjectClassId(object) === clsid.bloodsucker_s) {
         object.set_manual_invisibility(schemeToSwitch !== EScheme.NIL);
       }
@@ -75,8 +75,9 @@ export function resetObjectSchemesOnSectionSwitch(
       object.set_callback(callback.use_object, null);
       object.set_nonscript_usable(true);
       if (getObjectClassId(object) === clsid.car) {
+        // todo: What is this?
         (object as any).destroy_car();
-        mobRelease(object, "");
+        scriptReleaseObject(object, "");
       }
 
       return;

@@ -1,8 +1,8 @@
 import { XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/mob/death/ISchemeMobDeathState";
 import { EScheme, Optional } from "@/engine/lib/types";

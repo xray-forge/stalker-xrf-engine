@@ -1,16 +1,14 @@
 import { CCar, level, move, patrol, time_global, vector, XR_CCar, XR_game_object, XR_vector } from "xray16";
 
 import { getObjectByStoryId, registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
-import { mobCaptured } from "@/engine/core/schemes/mobCaptured";
-import { mobRelease } from "@/engine/core/schemes/mobRelease";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMinigunState";
-import { switchObjectSchemeToSection } from "@/engine/core/schemes/utils/switchObjectSchemeToSection";
 import { isHeavilyWounded } from "@/engine/core/utils/check/check";
 import { isActiveSection } from "@/engine/core/utils/check/is";
 import { abort } from "@/engine/core/utils/debug";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { isObjectScriptCaptured, scriptReleaseObject } from "@/engine/core/utils/object";
 import { TConditionList } from "@/engine/core/utils/parse";
 import { yaw } from "@/engine/core/utils/physics";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
@@ -316,7 +314,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     }
 
     if (this.state_cannon === state_cannon_stop && this.state_firetarget === state_none) {
-      if (mobCaptured(this.object) && !this.object.action()) {
+      if (isObjectScriptCaptured(this.object) && !this.object.action()) {
         this.destroy_car();
 
         return true;
@@ -436,7 +434,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     this.mgun.Action(CCar.eWpnAutoFire, 0);
     this.set_shooting(this.state_shooting);
 
-    mobRelease(this.object, MinigunManager.name);
+    scriptReleaseObject(this.object, MinigunManager.name);
 
     if (this.state.on_death_info !== null) {
       registry.actor.give_info_portion(this.state.on_death_info);

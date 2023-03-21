@@ -9,7 +9,7 @@ import { AnyArgs, AnyCallable } from "@/engine/lib/types";
  * todo
  * todo
  */
-export function issueSchemeEvent(
+export function emitSchemeEvent(
   object: XR_game_object,
   state: IBaseSchemeState,
   event: ESchemeEvent,

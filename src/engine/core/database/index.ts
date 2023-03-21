@@ -10,3 +10,4 @@ export * from "@/engine/core/database/smart_terrains";
 export * from "@/engine/core/database/zones";
 export * from "@/engine/core/database/ini";
 export * from "@/engine/core/database/story_objects";
+export * from "@/engine/core/database/portable_store";

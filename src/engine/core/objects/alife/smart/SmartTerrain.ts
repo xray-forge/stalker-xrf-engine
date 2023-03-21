@@ -46,11 +46,13 @@ import {
   turnOffCampfiresBySmartTerrainName,
   turnOnCampfiresBySmartName,
 } from "@/engine/core/objects/binders/CampfireBinder";
-import { activateSchemeBySection } from "@/engine/core/schemes/base/activateSchemeBySection";
-import { configureObjectSchemes } from "@/engine/core/schemes/base/configureObjectSchemes";
-import { getObjectSectionToActivate } from "@/engine/core/schemes/utils/getObjectSectionToActivate";
-import { initializeObjectSchemeLogic } from "@/engine/core/schemes/utils/initializeObjectSchemeLogic";
-import { switchObjectSchemeToSection } from "@/engine/core/schemes/utils/switchObjectSchemeToSection";
+import {
+  activateSchemeBySection,
+  getObjectSectionToActivate,
+  switchObjectSchemeToSection,
+} from "@/engine/core/schemes/base/utils";
+import { configureObjectSchemes } from "@/engine/core/schemes/base/utils/configureObjectSchemes";
+import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { abort } from "@/engine/core/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";

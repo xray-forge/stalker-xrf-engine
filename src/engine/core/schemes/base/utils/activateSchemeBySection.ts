@@ -2,9 +2,9 @@ import { game, time_global, XR_game_object, XR_ini_file } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import { ESchemeEvent, TAbstractSchemeConstructor } from "@/engine/core/schemes/base/index";
-import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
-import { resetObjectSchemesOnSectionSwitch } from "@/engine/core/schemes/utils/resetObjectSchemesOnSectionSwitch";
+import { ESchemeEvent, TAbstractSchemeConstructor } from "@/engine/core/schemes";
+import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
+import { resetObjectGenericSchemesOnSectionSwitch } from "@/engine/core/schemes/base/utils/resetObjectGenericSchemesOnSectionSwitch";
 import { abort } from "@/engine/core/utils/debug";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { getObjectConfigOverrides } from "@/engine/core/utils/ini/config";
@@ -45,7 +45,7 @@ export function activateSchemeBySection(
 
   if (section === NIL) {
     registry.objects.get(objectId).overrides = null;
-    resetObjectSchemesOnSectionSwitch(object, EScheme.NIL, NIL);
+    resetObjectGenericSchemesOnSectionSwitch(object, EScheme.NIL, NIL);
     registry.objects.get(objectId).active_section = null;
     registry.objects.get(objectId).active_scheme = null;
 
@@ -76,7 +76,7 @@ export function activateSchemeBySection(
 
   registry.objects.get(objectId).overrides = getObjectConfigOverrides(ini, section, object) as any;
 
-  resetObjectSchemesOnSectionSwitch(object, scheme, section);
+  resetObjectGenericSchemesOnSectionSwitch(object, scheme, section);
 
   const schemeImplementation: Optional<TAbstractSchemeConstructor> = registry.schemes.get(scheme);
 
@@ -92,8 +92,8 @@ export function activateSchemeBySection(
 
   if (registry.objects.get(objectId).stype === ESchemeType.STALKER) {
     sendToNearestAccessibleVertex(object, object.level_vertex_id());
-    issueSchemeEvent(object, registry.objects.get(objectId)[scheme]!, ESchemeEvent.ACTIVATE_SCHEME, loading, object);
+    emitSchemeEvent(object, registry.objects.get(objectId)[scheme]!, ESchemeEvent.ACTIVATE_SCHEME, loading, object);
   } else {
-    issueSchemeEvent(object, registry.objects.get(objectId)[scheme]!, ESchemeEvent.RESET_SCHEME, loading, object);
+    emitSchemeEvent(object, registry.objects.get(objectId)[scheme]!, ESchemeEvent.RESET_SCHEME, loading, object);
   }
 }

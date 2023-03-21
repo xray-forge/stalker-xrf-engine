@@ -2,16 +2,15 @@ import { anim, cond, MonsterSpace, sound, TXR_MonsterBodyStateKey, XR_cond } fro
 
 import { registry } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { setMobState } from "@/engine/core/schemes/mob/MobStateManager";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/mob/remark/ISchemeMobRemarkState";
-import { mobCapture } from "@/engine/core/schemes/mobCapture";
 import { getExtern } from "@/engine/core/utils/binding";
 import { abort } from "@/engine/core/utils/debug";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { action } from "@/engine/core/utils/object";
+import { action, scriptCaptureObject } from "@/engine/core/utils/object";
 import { parseNames } from "@/engine/core/utils/parse";
-import { AnyCallablesModule, Optional } from "@/engine/lib/types";
+import { AnyCallablesModule, LuaArray, Optional, TName } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -28,9 +27,9 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
 
     this.object.disable_talk();
 
-    mobCapture(this.object, !this.state.no_reset);
+    scriptCaptureObject(this.object, !this.state.no_reset);
 
-    const anims = parseNames(this.state.anim);
+    const animationsList: LuaArray<TName> = parseNames(this.state.anim);
 
     let snds;
 
@@ -52,7 +51,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
     let tm: number;
     let cnd: XR_cond;
 
-    for (const [num, an] of anims) {
+    for (const [num, an] of animationsList) {
       sndset = snds.get(num);
       if (times.get(num) !== null) {
         tm = tonumber(times.get(num))!;

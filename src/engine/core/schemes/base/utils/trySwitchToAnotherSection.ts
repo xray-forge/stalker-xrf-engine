@@ -1,8 +1,8 @@
 import { game, level, time_global, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes/base/index";
-import { switchObjectSchemeToSection } from "@/engine/core/schemes/utils/switchObjectSchemeToSection";
+import { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes";
+import { switchObjectSchemeToSection } from "@/engine/core/schemes/base/utils/switchObjectSchemeToSection";
 import { isObjectInZone } from "@/engine/core/utils/check/check";
 import { abort } from "@/engine/core/utils/debug";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";

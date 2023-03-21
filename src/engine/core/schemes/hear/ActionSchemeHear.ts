@@ -1,9 +1,9 @@
 import { TXR_snd_type, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/core/database";
-import { AbstractScheme } from "@/engine/core/schemes/base";
+import { AbstractScheme } from "@/engine/core/schemes";
+import { switchObjectSchemeToSection } from "@/engine/core/schemes/base/utils";
 import { IActionSchemeHearState } from "@/engine/core/schemes/hear/IActionSchemeHearState";
-import { switchObjectSchemeToSection } from "@/engine/core/schemes/utils/switchObjectSchemeToSection";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseParameters } from "@/engine/core/utils/parse";
