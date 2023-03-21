@@ -1,7 +1,7 @@
 import { alife, game, XR_CTime, XR_net_packet, XR_reader } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
-import { pstor_retrieve } from "@/engine/core/database/portable_store";
+import { portableStoreGet } from "@/engine/core/database/portable_store";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { achievementIcons } from "@/engine/core/managers/achievements/AchievementIcons";
 import { achievementRewards } from "@/engine/core/managers/achievements/AchievementRewards";
@@ -556,7 +556,7 @@ export class AchievementsManager extends AbstractCoreManager {
       return true;
     }
 
-    if (pstor_retrieve(registry.actor, "actor_marked_by_zone_cnt", 0) > 2) {
+    if (portableStoreGet(registry.actor, "actor_marked_by_zone_cnt", 0) > 2) {
       giveInfo(info_portions.actor_marked_by_zone_3_times);
       NotificationManager.getInstance().sendTipNotification(
         registry.actor,

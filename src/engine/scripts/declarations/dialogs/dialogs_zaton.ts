@@ -3,7 +3,7 @@
 import { alife, game, level, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { pstor_retrieve, pstor_store } from "@/engine/core/database/portable_store";
+import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
 import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
 import { TreasureManager } from "@/engine/core/managers/TreasureManager";
 import { getExtern } from "@/engine/core/utils/binding";
@@ -574,7 +574,7 @@ export function zat_b33_set_counter_10(first_speaker: XR_game_object, second_spe
 export function zat_b33_counter_ge_2(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return pstor_retrieve(actor, "zat_b33_items", 0 as number) >= 2;
+  return portableStoreGet(actor, "zat_b33_items", 0 as number) >= 2;
 }
 
 /**
@@ -583,7 +583,7 @@ export function zat_b33_counter_ge_2(first_speaker: XR_game_object, second_speak
 export function zat_b33_counter_ge_4(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return pstor_retrieve(actor, "zat_b33_items", 0 as number) >= 4;
+  return portableStoreGet(actor, "zat_b33_items", 0 as number) >= 4;
 }
 
 /**
@@ -592,7 +592,7 @@ export function zat_b33_counter_ge_4(first_speaker: XR_game_object, second_speak
 export function zat_b33_counter_ge_8(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return pstor_retrieve(actor, "zat_b33_items", 0 as number) >= 8;
+  return portableStoreGet(actor, "zat_b33_items", 0 as number) >= 8;
 }
 
 /**
@@ -649,7 +649,7 @@ export function zat_b33_counter_de_8(first_speaker: XR_game_object, second_speak
 export function zat_b33_counter_eq_10(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return pstor_retrieve(actor, "zat_b33_items", 0 as number) === 10;
+  return portableStoreGet(actor, "zat_b33_items", 0 as number) === 10;
 }
 
 /**
@@ -1032,10 +1032,10 @@ export function zat_b29_actor_exchange(first_speaker: XR_game_object, second_spe
 export function zat_b30_transfer_percent(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   const actor: XR_game_object = registry.actor;
   const amount: number = math.random(5, 25) * 100;
-  const days: number = pstor_retrieve(actor, "zat_b30_days_cnt", 0);
+  const days: number = portableStoreGet(actor, "zat_b30_days_cnt", 0);
 
   giveMoneyToActor(amount * days);
-  pstor_store(actor, "zat_b30_days_cnt", 0);
+  portableStoreSet(actor, "zat_b30_days_cnt", 0);
 }
 
 /**
@@ -1529,7 +1529,7 @@ export function if_actor_has_toolkit_2(first_speaker: XR_game_object, second_spe
 export function zat_b215_counter_greater_3(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor: XR_game_object = getActorSpeaker(first_speaker, second_speaker);
 
-  return pstor_retrieve(actor, "zat_a9_way_to_pripyat_counter", 0 as number) > 3;
+  return portableStoreGet(actor, "zat_a9_way_to_pripyat_counter", 0 as number) > 3;
 }
 
 /**
@@ -1777,7 +1777,7 @@ export function zat_b30_transfer_af_from_actor(first_speaker: XR_game_object, se
  */
 export function zat_b30_barmen_has_percent(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
-  const cnt = pstor_retrieve(actor, "zat_b30_days_cnt", 0);
+  const cnt = portableStoreGet(actor, "zat_b30_days_cnt", 0);
 
   return cnt > 0;
 }
@@ -1790,7 +1790,7 @@ export function zat_b30_barmen_do_not_has_percent(
   second_speaker: XR_game_object
 ): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
-  const cnt = pstor_retrieve(actor, "zat_b30_days_cnt", 0);
+  const cnt = portableStoreGet(actor, "zat_b30_days_cnt", 0);
 
   return cnt < 1;
 }

@@ -41,7 +41,7 @@ import {
   SYSTEM_INI,
   unregisterHelicopter,
 } from "@/engine/core/database";
-import { pstor_retrieve, pstor_store } from "@/engine/core/database/portable_store";
+import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
@@ -843,9 +843,9 @@ export function remove_npc(actor: XR_game_object, npc: XR_game_object, p: [Optio
 export function inc_counter(actor: XR_game_object, npc: XR_game_object, p: [Optional<string>, number]) {
   if (p[0]) {
     const inc_value = p[1] || 1;
-    const new_value = pstor_retrieve(actor, p[0], 0) + inc_value;
+    const new_value = portableStoreGet(actor, p[0], 0) + inc_value;
 
-    pstor_store(actor, p[0], new_value);
+    portableStoreSet(actor, p[0], new_value);
   }
 }
 
@@ -855,13 +855,13 @@ export function inc_counter(actor: XR_game_object, npc: XR_game_object, p: [Opti
 export function dec_counter(actor: XR_game_object, npc: XR_game_object, p: [Optional<string>, number]) {
   if (p[0]) {
     const dec_value = p[1] || 1;
-    let new_value = pstor_retrieve(actor, p[0], 0) - dec_value;
+    let new_value = portableStoreGet(actor, p[0], 0) - dec_value;
 
     if (new_value < 0) {
       new_value = 0;
     }
 
-    pstor_store(actor, p[0], new_value);
+    portableStoreSet(actor, p[0], new_value);
   }
 }
 
@@ -874,7 +874,7 @@ export function set_counter(
   params: [Optional<string>, Optional<number>]
 ): void {
   if (params[0]) {
-    pstor_store(actor, params[0], params[1] || 0);
+    portableStoreSet(actor, params[0], params[1] || 0);
   }
 }
 
@@ -2537,7 +2537,7 @@ export function jup_b10_spawn_drunk_dead_items(actor: XR_game_object, npc: XR_ga
   } as unknown as LuaArray<LuaTable<string, number>>;
 
   if (params && params[0] !== null) {
-    const cnt = pstor_retrieve(actor, "jup_b10_ufo_counter", 0);
+    const cnt = portableStoreGet(actor, "jup_b10_ufo_counter", 0);
 
     if (cnt > 2) {
       return;
@@ -2765,7 +2765,7 @@ export function jup_b221_play_main(actor: XR_game_object, npc: XR_game_object, p
     const theme_to_play = reachable_theme.get(math.random(1, reachable_theme.length()));
 
     disableInfo(info_need_reply);
-    pstor_store(actor, "jup_b221_played_main_theme", tostring(theme_to_play));
+    portableStoreSet(actor, "jup_b221_played_main_theme", tostring(theme_to_play));
     giveInfo((main_theme + tostring(theme_to_play) + "_played") as TInfoPortion);
 
     if (theme_to_play !== 0) {
@@ -2774,7 +2774,7 @@ export function jup_b221_play_main(actor: XR_game_object, npc: XR_game_object, p
       abort("No such theme_to_play in function 'jup_b221_play_main'");
     }
   } else {
-    const theme_to_play = tonumber(pstor_retrieve(actor, "jup_b221_played_main_theme", 0))!;
+    const theme_to_play = tonumber(portableStoreGet(actor, "jup_b221_played_main_theme", 0))!;
 
     giveInfo(info_need_reply);
 
@@ -2784,7 +2784,7 @@ export function jup_b221_play_main(actor: XR_game_object, npc: XR_game_object, p
       abort("No such theme_to_play in function 'jup_b221_play_main'");
     }
 
-    pstor_store(actor, "jup_b221_played_main_theme", "0");
+    portableStoreSet(actor, "jup_b221_played_main_theme", "0");
   }
 }
 
@@ -3492,7 +3492,7 @@ export function pri_a28_check_zones(): void {
 /**
  * todo;
  */
-export function eat_vodka_script() {
+export function eat_vodka_script(): void {
   const actor: XR_game_object = registry.actor;
 
   if (actor.object("vodka_script") !== null) {
@@ -3516,7 +3516,7 @@ const materialsTable: LuaArray<TStringId> = [
  * todo;
  */
 export function jup_b200_count_found(actor: XR_game_object): void {
-  let cnt = 0;
+  let count: TCount = 0;
 
   for (const [index, materialId] of materialsTable) {
     const materialObject: Optional<XR_game_object> = getObjectByStoryId(materialId);
@@ -3528,12 +3528,12 @@ export function jup_b200_count_found(actor: XR_game_object): void {
         const parentId: TNumberId = parent.id();
 
         if (parentId !== MAX_UNSIGNED_16_BIT && parentId === actor.id()) {
-          cnt = cnt + 1;
+          count = count + 1;
         }
       }
     }
   }
 
-  cnt = cnt + pstor_retrieve(actor, "jup_b200_tech_materials_brought_counter", 0);
-  pstor_store(actor, "jup_b200_tech_materials_found_counter", cnt);
+  count = count + portableStoreGet(actor, "jup_b200_tech_materials_brought_counter", 0);
+  portableStoreSet(actor, "jup_b200_tech_materials_found_counter", count);
 }

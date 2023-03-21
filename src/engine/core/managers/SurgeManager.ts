@@ -14,7 +14,7 @@ import {
 } from "xray16";
 
 import { registry, SURGE_MANAGER_LTX } from "@/engine/core/database";
-import { pstor_retrieve, pstor_store } from "@/engine/core/database/portable_store";
+import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
@@ -536,9 +536,9 @@ export class SurgeManager extends AbstractCoreManager {
       ) {
         if (hasAlifeInfo(info_portions.anabiotic_in_process)) {
           const counter_name = "actor_marked_by_zone_cnt";
-          const cnt_value: number = pstor_retrieve(registry.actor, counter_name, 0);
+          const cnt_value: number = portableStoreGet(registry.actor, counter_name, 0);
 
-          pstor_store(registry.actor, counter_name, cnt_value + 1);
+          portableStoreSet(registry.actor, counter_name, cnt_value + 1);
         }
 
         disableGameUiOnly(registry.actor);

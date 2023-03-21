@@ -1,7 +1,7 @@
 import { level, patrol, XR_CHelicopter, XR_game_object, XR_patrol, XR_vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { pstor_retrieve, pstor_store } from "@/engine/core/database/portable_store";
+import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
 import { get_heli_firer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
@@ -84,12 +84,12 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     this.max_velocity = this.state.max_velocity;
 
     if (loading) {
-      this.heliState = pstor_retrieve(this.object, "st");
+      this.heliState = portableStoreGet(this.object, "st");
 
-      this.last_index = pstor_retrieve(this.object, "li") || null;
-      this.next_index = pstor_retrieve(this.object, "ni") || null;
+      this.last_index = portableStoreGet(this.object, "li") || null;
+      this.next_index = portableStoreGet(this.object, "ni") || null;
 
-      this.was_callback = pstor_retrieve(this.object, "wc");
+      this.was_callback = portableStoreGet(this.object, "wc");
     } else {
       this.last_index = null;
       this.next_index = null;
@@ -163,12 +163,12 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
    * todo: Description.
    */
   public save(): void {
-    pstor_store(this.object, "st", this.heliState);
+    portableStoreSet(this.object, "st", this.heliState);
     // ---
-    pstor_store(this.object, "li", this.last_index || false);
-    pstor_store(this.object, "ni", this.next_index || false);
+    portableStoreSet(this.object, "li", this.last_index || false);
+    portableStoreSet(this.object, "ni", this.next_index || false);
     // ---
-    pstor_store(this.object, "wc", this.was_callback);
+    portableStoreSet(this.object, "wc", this.was_callback);
   }
 
   /**

@@ -3,7 +3,7 @@
 import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { pstor_retrieve } from "@/engine/core/database/portable_store";
+import { portableStoreGet } from "@/engine/core/database/portable_store";
 import { TreasureManager } from "@/engine/core/managers/TreasureManager";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/AnomalyZoneBinder";
 import { getExtern } from "@/engine/core/utils/binding";
@@ -1728,7 +1728,7 @@ export function jup_b43_reward_for_both_artefacts(first_speaker: XR_game_object,
 export function jup_b218_counter_not_3(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return pstor_retrieve(actor, "jup_b218_squad_members_count", 0 as number) !== 3;
+  return portableStoreGet(actor, "jup_b218_squad_members_count", 0 as number) !== 3;
 }
 
 /**
@@ -1737,7 +1737,7 @@ export function jup_b218_counter_not_3(first_speaker: XR_game_object, second_spe
 export function jup_b218_counter_equal_3(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return pstor_retrieve(actor, "jup_b218_squad_members_count", 0 as number) === 3;
+  return portableStoreGet(actor, "jup_b218_squad_members_count", 0 as number) === 3;
 }
 
 /**
@@ -1747,7 +1747,7 @@ export function jup_b218_counter_not_0(first_speaker: XR_game_object, second_spe
   const npc = getNpcSpeaker(first_speaker, second_speaker);
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  return pstor_retrieve(actor, "jup_b218_squad_members_count", 0 as number) !== 0;
+  return portableStoreGet(actor, "jup_b218_squad_members_count", 0 as number) !== 0;
 }
 
 /**

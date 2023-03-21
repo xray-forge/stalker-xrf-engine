@@ -1,5 +1,5 @@
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyObject, Optional } from "@/engine/lib/types";
+import { AnyObject, Optional, TCount } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -37,9 +37,9 @@ export function isEmpty(container: Optional<LuaTable<any>>): boolean {
  * todo: description
  */
 export function getTableSize(collection: LuaTable<any, any>): number {
-  let count: number = 0;
+  let count: TCount = 0;
 
-  for (const [k, v] of collection) {
+  for (const [key, value] of collection) {
     count += 1;
   }
 

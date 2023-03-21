@@ -21,7 +21,7 @@ import {
   IRegistryObjectState,
   registry,
 } from "@/engine/core/database";
-import { pstor_retrieve } from "@/engine/core/database/portable_store";
+import { portableStoreGet } from "@/engine/core/database/portable_store";
 import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
@@ -687,7 +687,7 @@ export function counter_greater(
   p: [Optional<string>, Optional<number>]
 ): boolean {
   if (p[0] && p[1]) {
-    return pstor_retrieve(actor, p[0], 0) > p[1];
+    return portableStoreGet(actor, p[0], 0) > p[1];
   } else {
     return false;
   }
@@ -702,7 +702,7 @@ export function counter_equal(
   p: [Optional<string>, Optional<number>]
 ): boolean {
   if (p[0] && p[1]) {
-    return pstor_retrieve(actor, p[0], 0) === p[1];
+    return portableStoreGet(actor, p[0], 0) === p[1];
   } else {
     return false;
   }

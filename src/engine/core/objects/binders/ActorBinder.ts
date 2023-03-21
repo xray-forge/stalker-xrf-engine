@@ -22,7 +22,7 @@ import {
 
 import { IRegistryObjectState, registry, resetObject } from "@/engine/core/database";
 import { registerActor, unregisterActor } from "@/engine/core/database/actor";
-import { pstor_load_all, pstor_save_all } from "@/engine/core/database/portable_store";
+import { portableStoreLoad, portableStoreSave } from "@/engine/core/database/portable_store";
 import { updateSimulationObjectAvailability } from "@/engine/core/database/simulation";
 import { AchievementsManager } from "@/engine/core/managers/achievements";
 import { DropManager } from "@/engine/core/managers/DropManager";
@@ -391,7 +391,7 @@ export class ActorBinder extends object_binder {
       writeCTimeToPacket(packet, this.state.disable_input_time);
     }
 
-    pstor_save_all(this.object, packet);
+    portableStoreSave(this.object, packet);
     this.weatherManager.save(packet);
     this.releaseBodyManager.save(packet);
     this.surgeManager.save(packet);
@@ -452,7 +452,7 @@ export class ActorBinder extends object_binder {
       this.state.disable_input_time = readCTimeFromPacket(reader);
     }
 
-    pstor_load_all(this.object, reader);
+    portableStoreLoad(this.object, reader);
     this.weatherManager.load(reader);
     this.releaseBodyManager.load(reader);
 

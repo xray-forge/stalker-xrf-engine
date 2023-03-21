@@ -1,23 +1,38 @@
-import { XR_game_object, XR_net_packet, XR_reader } from "xray16";
+import { TXR_net_processor, XR_game_object, XR_net_packet } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Maybe, Optional, TNumberId } from "@/engine/lib/types";
+import { getTableSize } from "@/engine/core/utils/table";
+import { Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const pstor_number = 0;
-const pstor_string = 1;
-const pstor_boolean = 2;
+/**
+ * Valid type representation stored in portable store.
+ */
+export type TPortableStoreValue = Optional<string | number | boolean>;
 
 /**
- * todo;
- * todo;
- * todo;
+ * Check whether provided value is correct for saving in portable store.
  */
-export function pstor_is_registered_type(tv: unknown): boolean {
-  return !(tv !== "boolean" && tv !== "string" && tv !== "number");
+export enum EPortableStoreType {
+  NUMBER = 0,
+  STRING = 1,
+  BOOLEAN = 2,
+}
+
+/**
+ * Check whether provided value is correct for saving in portable store.
+ */
+export function isValidPortableStoreValue(value: unknown): boolean {
+  if (value === null) {
+    return true;
+  }
+
+  const valueType: string = type(value);
+
+  return valueType === "string" || valueType === "number" || valueType === "boolean";
 }
 
 /**
@@ -25,86 +40,77 @@ export function pstor_is_registered_type(tv: unknown): boolean {
  * todo;
  * todo;
  */
-export function pstor_store<T>(object: XR_game_object, varname: string, val: T): void {
-  const npc_id = object.id();
-
-  if (registry.objects.get(npc_id).pstor === null) {
-    registry.objects.get(npc_id).pstor = new LuaTable();
+export function portableStoreSet<T extends TPortableStoreValue>(object: XR_game_object, key: TName, value: T): void {
+  if (!isValidPortableStoreValue(value)) {
+    abort("database/portable store: not registered type tried to set: [%s]:[%s].", key, type(value));
   }
 
-  const tv = type(val);
-
-  if (val !== null && !pstor_is_registered_type(tv)) {
-    abort("db/pstor: pstor_store: !registered type '%s' encountered, %s", tv, varname);
-  }
-
-  registry.objects.get(npc_id)!.pstor!.set(varname, val);
-}
-
-/**
- * todo;
- * todo;
- * todo;
- */
-export function pstor_retrieve<T>(obj: XR_game_object, varname: string): Optional<T>;
-export function pstor_retrieve<T>(obj: XR_game_object, varname: string, defval: T): T;
-export function pstor_retrieve<T>(obj: XR_game_object, varname: string, defval?: T): Optional<T> {
-  const npc_id = obj.id();
-
-  if (registry.objects.get(npc_id).pstor !== null) {
-    const val = registry.objects.get(npc_id).pstor!.get(varname);
-
-    if (val !== null) {
-      return val;
-    }
-  }
-
-  if (defval !== null) {
-    return defval as T;
-  }
-
-  // --abort("db/pstor: pstor_retrieve: variable '%s' does !exist", varname)
-  return null;
-}
-
-/**
- * todo;
- * todo;
- * todo;
- */
-export function pstor_save_all(object: XR_game_object, packet: XR_net_packet): void {
   const objectId: TNumberId = object.id();
-  let pstor: Maybe<LuaTable<string>> = registry.objects.get(objectId).pstor;
 
-  if (!pstor) {
-    pstor = new LuaTable<string>();
-    registry.objects.get(objectId).pstor = pstor;
+  if (registry.objects.get(objectId).pstor === null) {
+    registry.objects.get(objectId).pstor = new LuaTable();
   }
 
-  let ctr: number = 0;
+  registry.objects.get(objectId)!.pstor!.set(key, value);
+}
 
-  for (const [k, v] of pstor) {
-    ctr = ctr + 1;
+/**
+ * todo;
+ * todo;
+ * todo;
+ */
+export function portableStoreGet<T extends TPortableStoreValue>(object: XR_game_object, key: TName): Optional<T>;
+export function portableStoreGet<T extends TPortableStoreValue>(object: XR_game_object, key: TName, defaultValue: T): T;
+export function portableStoreGet<T extends TPortableStoreValue>(
+  object: XR_game_object,
+  key: TName,
+  defaultValue?: T
+): Optional<T> {
+  const objectId: TNumberId = object.id();
+
+  if (registry.objects.get(objectId).pstor !== null) {
+    const value: Optional<T> = registry.objects.get(objectId).pstor!.get(key);
+
+    if (value !== null) {
+      return value;
+    }
   }
 
-  packet.w_u32(ctr);
+  return defaultValue as T;
+}
 
-  for (const [k, v] of pstor) {
-    packet.w_stringZ(k);
+/**
+ * todo;
+ * todo;
+ * todo;
+ */
+export function portableStoreSave(object: XR_game_object, packet: XR_net_packet): void {
+  const objectId: TNumberId = object.id();
+  let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).pstor;
 
-    const tv = type(v);
+  if (portableStore === null) {
+    portableStore = new LuaTable<string>();
+    registry.objects.get(objectId).pstor = portableStore;
+  }
 
-    if (tv === "number") {
-      packet.w_u8(pstor_number);
-      packet.w_float(v);
-    } else if (tv === "string") {
-      packet.w_u8(pstor_string);
-      packet.w_stringZ(v);
-    } else if (tv === "boolean") {
-      packet.w_u8(pstor_boolean);
-      packet.w_bool(v);
+  packet.w_u32(getTableSize(portableStore));
+
+  for (const [key, value] of portableStore) {
+    packet.w_stringZ(key);
+
+    const valueType: string = type(value);
+
+    if (valueType === "number") {
+      packet.w_u8(EPortableStoreType.NUMBER);
+      packet.w_float(value);
+    } else if (valueType === "string") {
+      packet.w_u8(EPortableStoreType.STRING);
+      packet.w_stringZ(value);
+    } else if (valueType === "boolean") {
+      packet.w_u8(EPortableStoreType.BOOLEAN);
+      packet.w_bool(value);
     } else {
-      abort("db/pstor: pstor_save_all: !registered type '%s' encountered", tv);
+      abort("database/portable store: not registered type tried to save: [%s]:[%s].", key, type(value));
     }
   }
 }
@@ -115,29 +121,29 @@ export function pstor_save_all(object: XR_game_object, packet: XR_net_packet): v
  * todo
  * todo
  */
-export function pstor_load_all(obj: XR_game_object, reader: XR_reader) {
-  const npc_id = obj.id();
-  let pstor = registry.objects.get(npc_id).pstor;
+export function portableStoreLoad(object: XR_game_object, reader: TXR_net_processor): void {
+  const objectId: TNumberId = object.id();
+  let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).pstor;
 
-  if (!pstor) {
-    pstor = new LuaTable();
-    registry.objects.get(npc_id).pstor = pstor;
+  if (portableStore === null) {
+    portableStore = new LuaTable();
+    registry.objects.get(objectId).pstor = portableStore;
   }
 
-  const ctr = reader.r_u32();
+  const count: TCount = reader.r_u32();
 
-  for (const i of $range(1, ctr)) {
-    const varname = reader.r_stringZ();
-    const tn = reader.r_u8();
+  for (const it of $range(1, count)) {
+    const key: TName = reader.r_stringZ();
+    const type: EPortableStoreType = reader.r_u8();
 
-    if (tn === pstor_number) {
-      pstor.set(varname, reader.r_float());
-    } else if (tn === pstor_string) {
-      pstor.set(varname, reader.r_stringZ());
-    } else if (tn === pstor_boolean) {
-      pstor.set(varname, reader.r_bool());
+    if (type === EPortableStoreType.NUMBER) {
+      portableStore.set(key, reader.r_float());
+    } else if (type === EPortableStoreType.STRING) {
+      portableStore.set(key, reader.r_stringZ());
+    } else if (type === EPortableStoreType.BOOLEAN) {
+      portableStore.set(key, reader.r_bool());
     } else {
-      abort("db/pstor: pstor_load_all: !registered type N %d encountered", tn);
+      abort("database/portable store: not registered type tried to load: [%s]:[%s].", key, type);
     }
   }
 }

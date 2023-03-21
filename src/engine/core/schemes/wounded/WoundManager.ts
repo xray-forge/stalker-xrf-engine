@@ -1,7 +1,7 @@
 import { alife, time_global, XR_alife_simulator, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { pstor_retrieve, pstor_store } from "@/engine/core/database/portable_store";
+import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWoundedState";
@@ -55,10 +55,10 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       this.victim = NIL;
     }
 
-    pstor_store(this.object, "wounded_state", this.wound_state);
-    pstor_store(this.object, "wounded_sound", this.sound);
-    pstor_store(this.object, "wounded_fight", this.fight);
-    pstor_store(this.object, "wounded_victim", this.victim);
+    portableStoreSet(this.object, "wounded_state", this.wound_state);
+    portableStoreSet(this.object, "wounded_sound", this.sound);
+    portableStoreSet(this.object, "wounded_fight", this.fight);
+    portableStoreSet(this.object, "wounded_victim", this.victim);
   }
 
   /**
@@ -88,13 +88,13 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       }
 
       const current_time: number = time_global();
-      const begin_wounded: Optional<number> = pstor_retrieve(this.object, "begin_wounded");
+      const begin_wounded: Optional<number> = portableStoreGet(this.object, "begin_wounded");
 
       if (begin_wounded !== null && current_time - begin_wounded <= 60000) {
         GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), "help_thanks", null, null);
       }
 
-      pstor_store(this.object, "begin_wounded", null);
+      portableStoreSet(this.object, "begin_wounded", null);
     }
 
     this.can_use_medkit = false;

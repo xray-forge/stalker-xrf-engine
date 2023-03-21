@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { pstor_retrieve } from "@/engine/core/database/portable_store";
+import { portableStoreGet } from "@/engine/core/database/portable_store";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { FALSE } from "@/engine/lib/constants/words";
@@ -30,6 +30,6 @@ export class EvaluatorCanFight extends property_evaluator {
       return true;
     }
 
-    return pstor_retrieve(this.object, "wounded_fight") !== FALSE;
+    return portableStoreGet(this.object, "wounded_fight") !== FALSE;
   }
 }

@@ -1,7 +1,7 @@
 import { action_base, alife, hit, LuabindClass, time_global, XR_alife_simulator } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { pstor_retrieve, pstor_store } from "@/engine/core/database/portable_store";
+import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { set_state } from "@/engine/core/objects/state/StateManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
@@ -56,11 +56,11 @@ export class ActionWounded extends action_base {
 
     if (this.state.autoheal === true) {
       if (woundManager.can_use_medkit !== true) {
-        const begin_wounded: number = pstor_retrieve(this.object, "begin_wounded")!;
+        const begin_wounded: number = portableStoreGet(this.object, "begin_wounded")!;
         const current_time: number = time_global();
 
         if (begin_wounded === null) {
-          pstor_store(this.object, "begin_wounded", current_time);
+          portableStoreSet(this.object, "begin_wounded", current_time);
         } else if (current_time - begin_wounded > 60000) {
           const npc = this.object;
 
@@ -70,8 +70,8 @@ export class ActionWounded extends action_base {
       }
     }
 
-    const woundManagerState: string = pstor_retrieve(this.object, "wounded_state")!;
-    const woundManagerSound: string = pstor_retrieve(this.object, "wounded_sound")!;
+    const woundManagerState: string = portableStoreGet(this.object, "wounded_state")!;
+    const woundManagerSound: string = portableStoreGet(this.object, "wounded_sound")!;
 
     if (woundManagerState === TRUE) {
       const h = new hit();

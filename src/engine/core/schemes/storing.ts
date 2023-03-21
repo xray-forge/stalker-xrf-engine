@@ -1,7 +1,7 @@
 import { time_global, XR_CTime, XR_game_object, XR_net_packet, XR_reader } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { pstor_load_all, pstor_save_all } from "@/engine/core/database/portable_store";
+import { portableStoreLoad, portableStoreSave } from "@/engine/core/database/portable_store";
 import { ESchemeEvent } from "@/engine/core/schemes/base";
 import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
@@ -89,7 +89,7 @@ export function saveObject(object: XR_game_object, packet: XR_net_packet): void 
     issueSchemeEvent(object, state[state.active_scheme!]!, ESchemeEvent.SAVE);
   }
 
-  pstor_save_all(object, packet);
+  portableStoreSave(object, packet);
   setSaveMarker(packet, true, "object" + object.name());
 }
 
@@ -137,6 +137,6 @@ export function loadObject(obj: XR_game_object, reader: XR_reader): void {
 
   loadLogic(obj, reader);
 
-  pstor_load_all(obj, reader);
+  portableStoreLoad(obj, reader);
   setLoadMarker(reader, true, "object" + obj.name());
 }
