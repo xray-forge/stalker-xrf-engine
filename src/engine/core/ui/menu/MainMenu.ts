@@ -42,9 +42,9 @@ import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions";
 import { console_commands } from "@/engine/lib/constants/console_commands";
-import { game_difficulties, TGameDifficulty } from "@/engine/lib/constants/game_difficulties";
-import { game_tutorials } from "@/engine/lib/constants/game_tutorials";
-import { game_types } from "@/engine/lib/constants/game_types";
+import { gameDifficulties, TGameDifficulty } from "@/engine/lib/constants/game_difficulties";
+import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
+import { gameTypes } from "@/engine/lib/constants/game_types";
 import { Optional, TNumberId } from "@/engine/lib/types";
 
 export const base: string = "menu\\MainMenu.component";
@@ -130,25 +130,25 @@ export class MainMenu extends CUIScriptWnd {
     this.AddCallback(
       "btn_novice",
       ui_events.BUTTON_CLICKED,
-      () => this.onStartNewGame(game_difficulties.gd_novice),
+      () => this.onStartNewGame(gameDifficulties.gd_novice),
       this
     );
     this.AddCallback(
       "btn_stalker",
       ui_events.BUTTON_CLICKED,
-      () => this.onStartNewGame(game_difficulties.gd_stalker),
+      () => this.onStartNewGame(gameDifficulties.gd_stalker),
       this
     );
     this.AddCallback(
       "btn_veteran",
       ui_events.BUTTON_CLICKED,
-      () => this.onStartNewGame(game_difficulties.gd_veteran),
+      () => this.onStartNewGame(gameDifficulties.gd_veteran),
       this
     );
     this.AddCallback(
       "btn_master",
       ui_events.BUTTON_CLICKED,
-      () => this.onStartNewGame(game_difficulties.gd_master),
+      () => this.onStartNewGame(gameDifficulties.gd_master),
       this
     );
     this.AddCallback("btn_options", ui_events.BUTTON_CLICKED, () => this.onButtonClickOptions(), this);
@@ -241,7 +241,7 @@ export class MainMenu extends CUIScriptWnd {
    * todo: Description.
    */
   public onButtonClickGameCredits(): void {
-    game.start_tutorial(game_tutorials.credits_seq);
+    game.start_tutorial(gameTutorials.credits_seq);
   }
 
   /**
@@ -259,9 +259,7 @@ export class MainMenu extends CUIScriptWnd {
     this.uiModalBox.InitMessageBox("message_box_quit_game");
 
     this.uiModalBox.SetText(
-      level.game_id() === game_types.eGameIDSingle
-        ? captions.ui_mm_quit_game_message
-        : captions.ui_mm_disconnect_message
+      level.game_id() === gameTypes.eGameIDSingle ? captions.ui_mm_quit_game_message : captions.ui_mm_disconnect_message
     );
     this.uiModalBox.ShowDialog(true);
   }

@@ -1,4 +1,4 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 import { jupiter_info_portions } from "@/engine/lib/constants/info_portions/jupiter_info_portions";
 import { pripyat_info_portions } from "@/engine/lib/constants/info_portions/pripyat_info_portions";

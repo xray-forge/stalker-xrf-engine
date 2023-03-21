@@ -9,7 +9,7 @@ import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeC
 import { getExtern } from "@/engine/core/utils/binding";
 import { disableGameUi, enableGameUi } from "@/engine/core/utils/control";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { post_processors } from "@/engine/lib/constants/animation/post_processors";
+import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { AnyCallablesModule, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -82,7 +82,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
 
     getExtern<AnyCallablesModule>("xr_effects").teleport_actor(actor, this.object, [this.state.point, this.state.look]);
 
-    if (this.state.pp_effector !== post_processors.nil) {
+    if (this.state.pp_effector !== postProcessors.nil) {
       level.add_pp_effector(this.state.pp_effector, 234, false);
     }
 

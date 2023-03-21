@@ -73,7 +73,7 @@ import { getCharacterCommunity, getObjectSquad, updateObjectInvulnerability } fr
 import { TConditionList } from "@/engine/core/utils/parse";
 import { setObjectsRelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { communities } from "@/engine/lib/constants/communities";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { TRelation } from "@/engine/lib/constants/relations";
 import {
   EScheme,
@@ -220,7 +220,7 @@ export class StalkerBinder extends object_binder {
         this.object.set_npc_position(
           level.vertex_position(registry.offlineObjects.get(serverObject.id).level_vertex_id as TNumberId)
         );
-      } else if (serverObject.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {
+      } else if (serverObject.m_smart_terrain_id !== MAX_U16) {
         const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!;
 
         if (smartTerrain.arrivingObjects.get(serverObject.id) === null) {

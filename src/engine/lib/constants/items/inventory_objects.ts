@@ -1,5 +1,8 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+/**
+ * todo;
+ */
 export const inventory_objects = {
   inventory_box_s: "inventory_box_s",
   obj_antirad: "obj_antirad",
@@ -22,6 +25,12 @@ export const inventory_objects = {
   obj_pda_s: "obj_pda_s",
 } as const;
 
+/**
+ * todo;
+ */
 export type TInventoryObjects = typeof inventory_objects;
 
+/**
+ * todo;
+ */
 export type TInventoryObject = TInventoryObjects[keyof TInventoryObjects];

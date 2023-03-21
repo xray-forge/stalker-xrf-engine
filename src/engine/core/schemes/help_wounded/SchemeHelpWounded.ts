@@ -9,7 +9,7 @@ import { ISchemeHelpWoundedState } from "@/engine/core/schemes/help_wounded/ISch
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { getConfigBoolean } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { script_sounds } from "@/engine/lib/constants/sound/script_sounds";
+import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { Optional, TNumberId } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -131,6 +131,6 @@ export class SchemeHelpWounded extends AbstractScheme {
 
     registry.objects.get(selectedId).wounded_already_selected = -1;
 
-    GlobalSoundManager.getInstance().setSoundPlaying(object.id(), script_sounds.wounded_medkit, null, null);
+    GlobalSoundManager.getInstance().setSoundPlaying(object.id(), scriptSounds.wounded_medkit, null, null);
   }
 }

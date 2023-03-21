@@ -6,7 +6,7 @@ import { abort } from "@/engine/core/utils/debug";
 import { parseNames } from "@/engine/core/utils/parse";
 import { getTableSize } from "@/engine/core/utils/table";
 import { info_portions } from "@/engine/lib/constants/info_portions";
-import { names } from "@/engine/lib/constants/names";
+import { storyNames } from "@/engine/lib/constants/story_names";
 import { LuaArray, Optional, TName } from "@/engine/lib/types";
 
 const weap_table: LuaTable<number, string> = [
@@ -62,7 +62,7 @@ function strap_weapon(npc: XR_game_object): void {
 }
 
 function break_fence(): void {
-  registry.animatedDoors.get(names.pri_a15_door).anim_forward();
+  registry.animatedDoors.get(storyNames.pri_a15_door).anim_forward();
 }
 
 function lights_off(): void {

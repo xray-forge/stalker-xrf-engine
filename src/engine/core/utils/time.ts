@@ -11,7 +11,7 @@ import {
 } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { MAX_UNSIGNED_8_BIT } from "@/engine/lib/constants/memory";
+import { MAX_U8 } from "@/engine/lib/constants/memory";
 import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -97,7 +97,7 @@ export function writeCTimeToPacket(packet: XR_net_packet, time: Optional<XR_CTim
 export function readCTimeFromPacket(reader: XR_reader | XR_net_packet): Optional<XR_CTime> {
   const Y = reader.r_u8();
 
-  if (Y === MAX_UNSIGNED_8_BIT) {
+  if (Y === MAX_U8) {
     return null;
   }
 

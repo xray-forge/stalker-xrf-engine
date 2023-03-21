@@ -1,5 +1,8 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+/**
+ * todo;
+ */
 export const communities = {
   army: "army",
   bandit: "bandit",
@@ -20,6 +23,12 @@ export const communities = {
   zombied: "zombied",
 } as const;
 
+/**
+ * todo;
+ */
 export type TCommunities = typeof communities;
 
+/**
+ * todo;
+ */
 export type TCommunity = TCommunities[keyof TCommunities];

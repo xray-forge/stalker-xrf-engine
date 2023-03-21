@@ -59,11 +59,10 @@ import { isEmpty } from "@/engine/core/utils/table";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { goodwill } from "@/engine/lib/constants/goodwill";
 import { info_portions } from "@/engine/lib/constants/info_portions";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
-import { relations, TRelation } from "@/engine/lib/constants/relations";
-import { SMART_TERRAIN_SECT } from "@/engine/lib/constants/sections";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { goodwill, relations, TRelation } from "@/engine/lib/constants/relations";
+import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   AnyCallablesModule,
@@ -74,7 +73,6 @@ import {
   TCount,
   TName,
   TNumberId,
-  TRate,
 } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
@@ -569,7 +567,7 @@ export class Squad<
       }
 
       if (
-        object.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT &&
+        object.m_smart_terrain_id !== MAX_U16 &&
         oldSmartTerrainId !== null &&
         object.m_smart_terrain_id === oldSmartTerrainId &&
         this.simulationBoardManager.getSmartTerrainDescriptorById(oldSmartTerrainId) !== null
@@ -729,7 +727,7 @@ export class Squad<
     );
     const spawnPointData =
       getConfigString(SYSTEM_INI, sectionName, "spawn_point", this, false, "", "self") ||
-      getConfigString(spawnSmartTerrain.ini, SMART_TERRAIN_SECT, "spawn_point", this, false, "", "self");
+      getConfigString(spawnSmartTerrain.ini, SMART_TERRAIN_SECTION, "spawn_point", this, false, "", "self");
 
     const spawnPoint: Optional<TName> = pickSectionFromCondList(
       registry.actor,

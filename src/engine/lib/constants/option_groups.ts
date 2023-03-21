@@ -1,6 +1,9 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
-export const option_groups = {
+/**
+ * todo;
+ */
+export const optionGroups = {
   key_binding: "key_binding",
   mm_mp_client: "mm_mp_client",
   mm_mp_server: "mm_mp_server",
@@ -13,6 +16,9 @@ export const option_groups = {
   mm_opt_video_preset: "mm_opt_video_preset",
 } as const;
 
-export const option_groups_messages = {
+/**
+ * todo;
+ */
+export const optionGroupsMessages = {
   set_default_value: "set_default_value",
 } as const;

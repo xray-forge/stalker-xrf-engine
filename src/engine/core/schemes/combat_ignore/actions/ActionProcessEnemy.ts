@@ -8,7 +8,7 @@ import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { isObjectInZone } from "@/engine/core/utils/check/check";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { TRUE } from "@/engine/lib/constants/words";
 import { AnyObject, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 
@@ -126,7 +126,7 @@ export class ActionProcessEnemy {
       /**
        * Set alarm if object is in smart zone.
        */
-      if (seObject && seObject.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {
+      if (seObject && seObject.m_smart_terrain_id !== MAX_U16) {
         const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(seObject.m_smart_terrain_id)!;
 
         smartTerrain.set_alarm();
@@ -141,9 +141,9 @@ export class ActionProcessEnemy {
 
       if (seObject && serverEnemyObject) {
         if (
-          seObject.group_id !== MAX_UNSIGNED_16_BIT &&
+          seObject.group_id !== MAX_U16 &&
           registry.simulationObjects.get(seObject.group_id) !== null &&
-          serverEnemyObject.group_id !== MAX_UNSIGNED_16_BIT &&
+          serverEnemyObject.group_id !== MAX_U16 &&
           registry.simulationObjects.get(serverEnemyObject.group_id) === null &&
           seObject.position.distance_to_sqr(serverEnemyObject.position) > 900
         ) {

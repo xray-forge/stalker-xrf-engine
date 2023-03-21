@@ -2,7 +2,7 @@ import { EAchievement } from "@/engine/core/managers/achievements/EAchievement";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { drugs } from "@/engine/lib/constants/items/drugs";
-import { names } from "@/engine/lib/constants/names";
+import { storyNames } from "@/engine/lib/constants/story_names";
 import { LuaArray } from "@/engine/lib/types";
 
 /**
@@ -11,8 +11,8 @@ import { LuaArray } from "@/engine/lib/types";
 export const achievementRewards = {
   ACHIEVEMENT_REWARD_SPAWN_PERIOD: 43_200,
   REWARD_BOXES: {
-    JUPITER: names.jup_b202_actor_treasure,
-    ZATON: names.zat_a2_actor_treasure,
+    JUPITER: storyNames.jup_b202_actor_treasure,
+    ZATON: storyNames.zat_a2_actor_treasure,
   },
   ITEMS: {
     [EAchievement.MUTANT_HUNTER]: [

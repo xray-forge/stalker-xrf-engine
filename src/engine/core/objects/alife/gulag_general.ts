@@ -27,7 +27,7 @@ import { parseConditionsList, parseWaypointData, TConditionList } from "@/engine
 import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities } from "@/engine/lib/constants/communities";
 import { roots } from "@/engine/lib/constants/roots";
-import { SMART_TERRAIN_SECT } from "@/engine/lib/constants/sections";
+import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { AnyObject, EJobType, EScheme, JobTypeByScheme, Optional, TName, TPath, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -1053,23 +1053,23 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
   table.insert(job_table, monster_jobs);
 
   // ===================================================================================================================
-  const smart_ini = smart.ini;
+  const smartTerrainIni: XR_ini_file = smart.ini;
 
-  if (smart_ini.section_exist(SMART_TERRAIN_SECT)) {
+  if (smartTerrainIni.section_exist(SMART_TERRAIN_SECTION)) {
     logger.info("Exclusive jobs load:", smartName);
-    if (smart_ini.section_exist("exclusive")) {
-      const n = smart_ini.line_count("exclusive");
+    if (smartTerrainIni.section_exist("exclusive")) {
+      const n = smartTerrainIni.line_count("exclusive");
 
       for (const i of $range(0, n - 1)) {
-        const [result, id, value] = smart_ini.r_line("exclusive", i, "", "");
+        const [result, id, value] = smartTerrainIni.r_line("exclusive", i, "", "");
 
-        add_exclusive_job("exclusive", id, smart_ini, job_table);
+        add_exclusive_job("exclusive", id, smartTerrainIni, job_table);
       }
     } else {
       let num = 1;
 
-      while (smart_ini.line_exist(SMART_TERRAIN_SECT, "work" + num)) {
-        add_exclusive_job(SMART_TERRAIN_SECT, "work" + num, smart_ini, job_table);
+      while (smartTerrainIni.line_exist(SMART_TERRAIN_SECTION, "work" + num)) {
+        add_exclusive_job(SMART_TERRAIN_SECTION, "work" + num, smartTerrainIni, job_table);
         num = num + 1;
       }
     }

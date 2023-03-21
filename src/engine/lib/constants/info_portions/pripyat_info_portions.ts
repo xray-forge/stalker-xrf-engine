@@ -1,4 +1,4 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 export const pripyat_info_portions = {
   pri_a12_stalker_prisoner_free: "pri_a12_stalker_prisoner_free",

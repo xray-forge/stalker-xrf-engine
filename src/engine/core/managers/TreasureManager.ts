@@ -18,7 +18,7 @@ import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseSpawnDetails, TConditionList } from "@/engine/core/utils/parse";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { TTreasure } from "@/engine/lib/constants/treasures";
 import { TRUE } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TCount, TNumberId, TProbability, TSection } from "@/engine/lib/types";
@@ -441,7 +441,7 @@ export class TreasureManager extends AbstractCoreManager {
       const isChecked: boolean = reader.r_bool();
       const isToFind: number = reader.r_u8();
 
-      if (id !== MAX_UNSIGNED_16_BIT && this.secrets.get(id as any)) {
+      if (id !== MAX_U16 && this.secrets.get(id as any)) {
         const secret = this.secrets.get(id as any);
 
         secret.given = isGiven;

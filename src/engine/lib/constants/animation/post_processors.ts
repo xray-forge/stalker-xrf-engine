@@ -1,6 +1,9 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
-export const post_processors = {
+/**
+ * todo;
+ */
+export const postProcessors = {
   acidic: "acidic.ppe",
   acidic_mine: "acidic_mine.ppe",
   alcohol: "alcohol.ppe",
@@ -42,6 +45,12 @@ export const post_processors = {
   thermal: "thermal.ppe",
 } as const;
 
-export type TPostProcessors = typeof post_processors;
+/**
+ * todo;
+ */
+export type TPostProcessors = typeof postProcessors;
 
+/**
+ * todo;
+ */
 export type TPostProcessor = TPostProcessors[keyof TPostProcessors];

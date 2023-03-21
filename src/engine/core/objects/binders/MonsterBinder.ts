@@ -41,7 +41,7 @@ import {
   scriptReleaseObject,
 } from "@/engine/core/utils/object";
 import { TConditionList } from "@/engine/core/utils/parse";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   EScheme,
   ESchemeType,
@@ -246,7 +246,7 @@ export class MonsterBinder extends object_binder {
       this.object.set_npc_position(
         level.vertex_position(registry.offlineObjects.get(serverObject.id).level_vertex_id as TNumberId)
       );
-    } else if (serverObject.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {
+    } else if (serverObject.m_smart_terrain_id !== MAX_U16) {
       const smartTerrain: Optional<SmartTerrain> = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id);
 
       if (smartTerrain !== null && smartTerrain.arrivingObjects.get(serverObject.id) === null) {

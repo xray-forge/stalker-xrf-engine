@@ -51,7 +51,7 @@ import { MultiplayerServer } from "@/engine/core/ui/menu/multiplayer/Multiplayer
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { option_groups } from "@/engine/lib/constants/option_groups";
+import { optionGroups } from "@/engine/lib/constants/option_groups";
 import { Optional } from "@/engine/lib/types";
 
 const baseOnline: string = "menu\\multiplayer\\MultiplayerOnline.component";
@@ -248,13 +248,13 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public UpdateControls(): void {
     const opt: XR_COptionsManager = new COptionsManager();
 
-    opt.SetCurrentValues(option_groups.mm_mp_client);
-    opt.SetCurrentValues(option_groups.mm_mp_server);
-    opt.SetCurrentValues(option_groups.mm_mp_srv_filter);
+    opt.SetCurrentValues(optionGroups.mm_mp_client);
+    opt.SetCurrentValues(optionGroups.mm_mp_server);
+    opt.SetCurrentValues(optionGroups.mm_mp_srv_filter);
 
-    opt.SaveBackupValues(option_groups.mm_mp_client);
-    opt.SaveBackupValues(option_groups.mm_mp_server);
-    opt.SaveBackupValues(option_groups.mm_mp_srv_filter);
+    opt.SaveBackupValues(optionGroups.mm_mp_client);
+    opt.SaveBackupValues(optionGroups.mm_mp_server);
+    opt.SaveBackupValues(optionGroups.mm_mp_srv_filter);
 
     this.map_list.ClearList();
     this.map_list.OnModeChange();
@@ -827,9 +827,9 @@ export class MultiplayerMenu extends CUIScriptWnd {
 
     const opt: XR_COptionsManager = new COptionsManager();
 
-    opt.SaveValues(option_groups.mm_mp_client);
-    opt.SaveValues(option_groups.mm_mp_server);
-    opt.SaveValues(option_groups.mm_mp_srv_filter);
+    opt.SaveValues(optionGroups.mm_mp_client);
+    opt.SaveValues(optionGroups.mm_mp_server);
+    opt.SaveValues(optionGroups.mm_mp_srv_filter);
 
     this.server_list.SetPlayerName(this.owner.xrGameSpyProfile!.unique_nick()); // --this.player_name.GetText())
     this.server_list.ConnectToSelected();

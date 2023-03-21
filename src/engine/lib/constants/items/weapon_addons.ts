@@ -1,4 +1,4 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 export const weapon_addons = {
   scope_contrast: "scope_contrast",

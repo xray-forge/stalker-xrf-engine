@@ -1,4 +1,9 @@
-export const script_sounds = {
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
+
+/**
+ * todo;
+ */
+export const scriptSounds = {
   alarm: "alarm",
   bloodsucker_growl: "bloodsucker_growl",
   bloodsucker_hit: "bloodsucker_hit",
@@ -65,6 +70,12 @@ export const script_sounds = {
   wounded_medkit: "wounded_medkit",
 } as const;
 
-export type TScriptSounds = typeof script_sounds;
+/**
+ * todo;
+ */
+export type TScriptSounds = typeof scriptSounds;
 
+/**
+ * todo;
+ */
 export type TScriptSound = TScriptSounds[keyof TScriptSounds];

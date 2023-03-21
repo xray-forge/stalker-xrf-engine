@@ -1,5 +1,8 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+/**
+ * todo;
+ */
 export const animations = {
   artefact_test_fireball_1_cam: "artefact_test_fireball_1_cam.anm",
   artefact_test_fireball_2_cam: "artefact_test_fireball_2_cam.anm",
@@ -173,16 +176,16 @@ export const animations = {
   camera_effects_sleep: "camera_effects\\sleep.anm",
   camera_effects_surge_01: "camera_effects\\surge_01.anm",
   camera_effects_surge_02: "camera_effects\\surge_02.anm",
-  camera_effects_weapon_abakan_idle_bore: "camera_effects\\weapon\\abakan_idle_bore.anm1",
-  camera_effects_weapon_abakan_idle_bore2: "camera_effects\\weapon\\abakan_idle_bore2.anm1",
+  camera_effects_weapon_abakan_idle_bore: "camera_effects\\weapon\\abakan_idle_bore.anm",
+  camera_effects_weapon_abakan_idle_bore2: "camera_effects\\weapon\\abakan_idle_bore2.anm",
   camera_effects_weapon_abakan_reload: "camera_effects\\weapon\\abakan_reload.anm",
   camera_effects_weapon_abakan_reload_grenade: "camera_effects\\weapon\\abakan_reload_grenade.anm",
   camera_effects_weapon_abakan_reload_w_gl: "camera_effects\\weapon\\abakan_reload_w_gl.anm",
   camera_effects_weapon_abakan_shoot: "camera_effects\\weapon\\abakan_shoot.anm",
   camera_effects_weapon_abakan_switch_off: "camera_effects\\weapon\\abakan_switch_off.anm",
   camera_effects_weapon_abakan_switch_on: "camera_effects\\weapon\\abakan_switch_on.anm",
-  camera_effects_weapon_ak74_idle_bore: "camera_effects\\weapon\\ak74_idle_bore.anm1",
-  camera_effects_weapon_ak74_idle_bore2: "camera_effects\\weapon\\ak74_idle_bore2.anm1",
+  camera_effects_weapon_ak74_idle_bore: "camera_effects\\weapon\\ak74_idle_bore.anm",
+  camera_effects_weapon_ak74_idle_bore2: "camera_effects\\weapon\\ak74_idle_bore2.anm",
   camera_effects_weapon_ak74_reload: "camera_effects\\weapon\\ak74_reload.anm",
   camera_effects_weapon_ak74_reload_grenade: "camera_effects\\weapon\\ak74_reload_grenade.anm",
   camera_effects_weapon_ak74_reload_w_gl: "camera_effects\\weapon\\ak74_reload_w_gl.anm",
@@ -198,8 +201,8 @@ export const animations = {
   camera_effects_weapon_bm16_shoot_r: "camera_effects\\weapon\\bm16_shoot_r.anm",
   camera_effects_weapon_colt1911_reload: "camera_effects\\weapon\\colt1911_reload.anm",
   camera_effects_weapon_desert_eagle_reload: "camera_effects\\weapon\\desert_eagle_reload.anm",
-  camera_effects_weapon_fn_2000_idle_bore: "camera_effects\\weapon\\fn_2000_idle_bore.anm1",
-  camera_effects_weapon_fn_2000_idle_bore2: "camera_effects\\weapon\\fn_2000_idle_bore2.anm1",
+  camera_effects_weapon_fn_2000_idle_bore: "camera_effects\\weapon\\fn_2000_idle_bore.anm",
+  camera_effects_weapon_fn_2000_idle_bore2: "camera_effects\\weapon\\fn_2000_idle_bore2.anm",
   camera_effects_weapon_fn_2000_reload: "camera_effects\\weapon\\fn_2000_reload.anm",
   camera_effects_weapon_fn_2000_reload_grenade: "camera_effects\\weapon\\fn_2000_reload_grenade.anm",
   camera_effects_weapon_fn_2000_reload_w_gl: "camera_effects\\weapon\\fn_2000_reload_w_gl.anm",
@@ -207,7 +210,7 @@ export const animations = {
   camera_effects_weapon_fn_2000_switch_off: "camera_effects\\weapon\\fn_2000_switch_off.anm",
   camera_effects_weapon_fn_2000_switch_on: "camera_effects\\weapon\\fn_2000_switch_on.anm",
   camera_effects_weapon_fort_reload: "camera_effects\\weapon\\fort_reload.anm",
-  camera_effects_weapon_g36_reload: "camera_effects\\weapon\\g36_reload.anm1",
+  camera_effects_weapon_g36_reload: "camera_effects\\weapon\\g36_reload.anm",
   camera_effects_weapon_g36_reload_grenade: "camera_effects\\weapon\\g36_reload_grenade.anm",
   camera_effects_weapon_g36_reload_w_gl: "camera_effects\\weapon\\g36_reload_w_gl.anm",
   camera_effects_weapon_g36_switch_off: "camera_effects\\weapon\\g36_switch_off.anm",
@@ -219,11 +222,11 @@ export const animations = {
   camera_effects_weapon_groza_switch_off: "camera_effects\\weapon\\groza_switch_off.anm",
   camera_effects_weapon_groza_switch_on: "camera_effects\\weapon\\groza_switch_on.anm",
   camera_effects_weapon_hpsa_reload: "camera_effects\\weapon\\hpsa_reload.anm",
-  camera_effects_weapon_knife_idle_bore: "camera_effects\\weapon\\knife_idle_bore.anm1",
+  camera_effects_weapon_knife_idle_bore: "camera_effects\\weapon\\knife_idle_bore.anm",
   camera_effects_weapon_knife_kick_start1: "camera_effects\\weapon\\knife_kick_start1.anm",
   camera_effects_weapon_knife_kick_start2: "camera_effects\\weapon\\knife_kick_start2.anm",
-  camera_effects_weapon_l85_idle_bore: "camera_effects\\weapon\\l85_idle_bore.anm1",
-  camera_effects_weapon_l85_idle_bore2: "camera_effects\\weapon\\l85_idle_bore2.anm1",
+  camera_effects_weapon_l85_idle_bore: "camera_effects\\weapon\\l85_idle_bore.anm",
+  camera_effects_weapon_l85_idle_bore2: "camera_effects\\weapon\\l85_idle_bore2.anm",
   camera_effects_weapon_l85_reload: "camera_effects\\weapon\\l85_reload.anm",
   camera_effects_weapon_l85_reload_grenade: "camera_effects\\weapon\\l85_reload_grenade.anm",
   camera_effects_weapon_l85_reload_w_gl: "camera_effects\\weapon\\l85_reload_w_gl.anm",
@@ -242,28 +245,34 @@ export const animations = {
   camera_effects_weapon_pkm_reload: "camera_effects\\weapon\\pkm_reload.anm",
   camera_effects_weapon_pm_reload: "camera_effects\\weapon\\pm_reload.anm",
   camera_effects_weapon_sig220_reload: "camera_effects\\weapon\\sig220_reload.anm",
-  camera_effects_weapon_sig550_idle_bore: "camera_effects\\weapon\\sig550_idle_bore.anm1",
-  camera_effects_weapon_sig550_idle_bore2: "camera_effects\\weapon\\sig550_idle_bore2.anm1",
+  camera_effects_weapon_sig550_idle_bore: "camera_effects\\weapon\\sig550_idle_bore.anm",
+  camera_effects_weapon_sig550_idle_bore2: "camera_effects\\weapon\\sig550_idle_bore2.anm",
   camera_effects_weapon_sig550_reload: "camera_effects\\weapon\\sig550_reload.anm",
   camera_effects_weapon_sig550_reload_grenade: "camera_effects\\weapon\\sig550_reload_grenade.anm",
   camera_effects_weapon_sig550_reload_w_gl: "camera_effects\\weapon\\sig550_reload_w_gl.anm",
   camera_effects_weapon_sig550_shoot: "camera_effects\\weapon\\sig550_shoot.anm",
   camera_effects_weapon_sig550_switch_off: "camera_effects\\weapon\\sig550_switch_off.anm",
   camera_effects_weapon_sig550_switch_on: "camera_effects\\weapon\\sig550_switch_on.anm",
-  camera_effects_weapon_spas12_reload: "camera_effects\\weapon\\spas12_reload.anm1",
-  camera_effects_weapon_svd_idle_bore: "camera_effects\\weapon\\svd_idle_bore.anm1",
-  camera_effects_weapon_svd_idle_bore2: "camera_effects\\weapon\\svd_idle_bore2.anm1",
+  camera_effects_weapon_spas12_reload: "camera_effects\\weapon\\spas12_reload.anm",
+  camera_effects_weapon_svd_idle_bore: "camera_effects\\weapon\\svd_idle_bore.anm",
+  camera_effects_weapon_svd_idle_bore2: "camera_effects\\weapon\\svd_idle_bore2.anm",
   camera_effects_weapon_toz_reload_l: "camera_effects\\weapon\\toz_reload_l.anm",
   camera_effects_weapon_toz_reload_lr: "camera_effects\\weapon\\toz_reload_lr.anm",
   camera_effects_weapon_usp45_reload: "camera_effects\\weapon\\usp45_reload.anm",
   camera_effects_weapon_val_reload: "camera_effects\\weapon\\val_reload.anm",
   camera_effects_weapon_vintorez_reload: "camera_effects\\weapon\\vintorez_reload.anm",
   camera_effects_weapon_walter99_reload: "camera_effects\\weapon\\walter99_reload.anm",
-  camera_effects_weapon_winchester1300_reload: "camera_effects\\weapon\\winchester1300_reload.anm1",
+  camera_effects_weapon_winchester1300_reload: "camera_effects\\weapon\\winchester1300_reload.anm",
   helicopter_aaa: "helicopter\\aaa.anm",
   thermal_mine: "thermal_mine.ppe",
 } as const;
 
+/**
+ * todo;
+ */
 export type TAnimations = typeof animations;
 
+/**
+ * todo;
+ */
 export type TAnimation = TAnimations[keyof TAnimations];

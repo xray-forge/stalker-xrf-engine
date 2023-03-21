@@ -6,7 +6,7 @@ import { PsyAntennaSchemaManager } from "@/engine/core/schemes/sr_psy_antenna/Ps
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { post_processors } from "@/engine/lib/constants/animation/post_processors";
+import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -26,7 +26,7 @@ export class SchemePsyAntenna extends AbstractScheme {
 
     state.logic = getConfigSwitchConditions(ini, section, object);
     state.intensity = getConfigNumber(ini, section, "eff_intensity", object, true) * 0.01;
-    state.postprocess = getConfigString(ini, section, "postprocess", object, false, "", post_processors.psy_antenna);
+    state.postprocess = getConfigString(ini, section, "postprocess", object, false, "", postProcessors.psy_antenna);
     state.hit_intensity = getConfigNumber(ini, section, "hit_intensity", object, true) * 0.01;
     state.phantom_prob = getConfigNumber(ini, section, "phantom_prob", object, false, 0) * 0.01;
     state.mute_sound_threshold = getConfigNumber(ini, section, "mute_sound_threshold", object, false, 0);

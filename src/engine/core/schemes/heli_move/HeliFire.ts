@@ -15,7 +15,7 @@ import { getIdBySid, registry } from "@/engine/core/database";
 import { randomChoice } from "@/engine/core/utils/general";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { distanceBetween2d } from "@/engine/core/utils/physics";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 
@@ -214,7 +214,7 @@ export class HeliFire {
   public update_enemy_arr(): void {
     const heli: XR_CHelicopter = this.object.get_helicopter();
     let index: number = 0;
-    let min_dist2D: number = MAX_UNSIGNED_16_BIT;
+    let min_dist2D: number = MAX_U16;
 
     while (index < registry.helicopter.enemiesCount) {
       if (registry.helicopter.enemies.has(index)) {

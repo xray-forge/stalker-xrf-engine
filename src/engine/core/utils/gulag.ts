@@ -4,7 +4,7 @@ import { getObjectIdByStoryId } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { Optional, TName, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -44,7 +44,7 @@ export function getObjectBoundSmart(obj: XR_game_object): Optional<SmartTerrain>
     return null;
   }
 
-  return se_obj.m_smart_terrain_id === MAX_UNSIGNED_16_BIT ? null : alife().object(se_obj.m_smart_terrain_id);
+  return se_obj.m_smart_terrain_id === MAX_U16 ? null : alife().object(se_obj.m_smart_terrain_id);
 }
 
 /**

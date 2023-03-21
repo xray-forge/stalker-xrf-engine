@@ -1,5 +1,8 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+/**
+ * todo;
+ */
 export const textures = {
   $alphadxt1: "$alphadxt1",
   $noalphadxt5: "$noalphadxt5",
@@ -3606,6 +3609,12 @@ export const texturesIngame = {
   ui_slider_e: "ui_slider_e",
 } as const;
 
+/**
+ * todo;
+ */
 export type TTextures = typeof textures & typeof texturesIngame;
 
+/**
+ * todo;
+ */
 export type TTexture = TTextures[keyof TTextures];

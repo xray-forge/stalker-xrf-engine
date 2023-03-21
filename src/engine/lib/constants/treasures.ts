@@ -1,5 +1,8 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+/**
+ * todo;
+ */
 export const treasures = {
   jup_hiding_place_1: "jup_hiding_place_1",
   jup_hiding_place_10: "jup_hiding_place_10",
@@ -108,6 +111,12 @@ export const treasures = {
   zat_hiding_place_9: "zat_hiding_place_9",
 } as const;
 
+/**
+ * todo;
+ */
 export type TTreasures = typeof treasures;
 
+/**
+ * todo;
+ */
 export type TTreasure = TTreasures[keyof TTreasures];

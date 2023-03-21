@@ -29,7 +29,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";
-import { post_processors } from "@/engine/lib/constants/animation/post_processors";
+import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { captions } from "@/engine/lib/constants/captions";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
@@ -208,7 +208,7 @@ export class SleepDialog extends CUIScriptWnd {
     disableGameUi(registry.actor);
 
     level.add_cam_effector(animations.camera_effects_sleep, 10, false, "engine.dream_callback");
-    level.add_pp_effector(post_processors.sleep_fade, 11, false);
+    level.add_pp_effector(postProcessors.sleep_fade, 11, false);
 
     giveInfo(info_portions.actor_is_sleeping);
 

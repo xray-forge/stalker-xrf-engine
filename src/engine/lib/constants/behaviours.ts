@@ -1,6 +1,9 @@
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { PartialRecord } from "@/engine/lib/types";
 
+/**
+ * todo;
+ */
 export const squadCommunityByBehaviour: Record<TCommunity, TCommunity> = {
   [communities.none]: null as any,
   [communities.stalker]: communities.stalker,
@@ -21,6 +24,9 @@ export const squadCommunityByBehaviour: Record<TCommunity, TCommunity> = {
   [communities.monster_special]: communities.monster,
 };
 
+/**
+ * todo;
+ */
 export const squadMonsters: PartialRecord<TCommunity, boolean> = {
   [communities.monster_predatory_day]: true,
   [communities.monster_predatory_night]: true,

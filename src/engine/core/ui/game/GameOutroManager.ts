@@ -6,7 +6,7 @@ import { getExtern } from "@/engine/core/utils/binding";
 import { disableGameUiOnly } from "@/engine/core/utils/control";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { game_tutorials } from "@/engine/lib/constants/game_tutorials";
+import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
 import { info_portions } from "@/engine/lib/constants/info_portions";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
 import { AnyCallablesModule, Optional, TName, TRate } from "@/engine/lib/types";
@@ -136,7 +136,7 @@ export class GameOutroManager extends AbstractCoreManager {
 
   public start_outro(): void {
     logger.info("Starting game outro");
-    game.start_tutorial(game_tutorials.outro_game);
+    game.start_tutorial(gameTutorials.outro_game);
   }
 
   public startSound(): void {

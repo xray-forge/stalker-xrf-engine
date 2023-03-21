@@ -26,7 +26,7 @@ import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { captions } from "@/engine/lib/constants/captions";
 import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
 import { levels } from "@/engine/lib/constants/levels";
-import { npc_map_marks, TMapMark } from "@/engine/lib/constants/npc_map_marks";
+import { EMapMarkType, mapMarks } from "@/engine/lib/constants/map_marks";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   EScheme,
@@ -83,17 +83,17 @@ export class MapDisplayManager extends AbstractCoreManager {
     }
 
     const actor: XR_game_object = registry.actor;
-    let mapSpot: Optional<TMapMark> = getConfigString(
+    let mapSpot: Optional<EMapMarkType> = getConfigString(
       state.ini,
       state.section_logic,
       "level_spot",
       object,
       false,
       ""
-    ) as TMapMark;
+    ) as EMapMarkType;
 
     if (mapSpot === null) {
-      mapSpot = getConfigString(state.ini!, section, "level_spot", object, false, "") as TMapMark;
+      mapSpot = getConfigString(state.ini!, section, "level_spot", object, false, "") as EMapMarkType;
     }
 
     if (mapSpot !== null) {
@@ -120,7 +120,7 @@ export class MapDisplayManager extends AbstractCoreManager {
           level.map_add_object_spot(npcId, descriptor.map_location, descriptor.hint);
         }
       } else {
-        Object.values(npc_map_marks).forEach((it) => {
+        Object.values(mapMarks).forEach((it) => {
           if (level.map_has_object_spot(npcId, it) !== 0) {
             level.map_remove_object_spot(npcId, it);
           }
@@ -142,18 +142,25 @@ export class MapDisplayManager extends AbstractCoreManager {
     }
 
     const objectId: Maybe<TNumberId> = sim.object(object.id())?.id;
-    let mapSpot: Optional<TMapMark> = getConfigString<TMapMark>(
+    let mapSpot: Optional<EMapMarkType> = getConfigString<EMapMarkType>(
       state.ini,
       state.section_logic,
       "level_spot",
       object,
       false,
       ""
-    ) as TMapMark;
+    ) as EMapMarkType;
 
     // todo: Retry, probably not needed at all.
     if (mapSpot === null) {
-      mapSpot = getConfigString<TMapMark>(state.ini, state.active_section, "level_spot", object, false, "") as TMapMark;
+      mapSpot = getConfigString<EMapMarkType>(
+        state.ini,
+        state.active_section,
+        "level_spot",
+        object,
+        false,
+        ""
+      ) as EMapMarkType;
     }
 
     if (mapSpot !== null) {
@@ -199,13 +206,12 @@ export class MapDisplayManager extends AbstractCoreManager {
       if (objectId && storedObject && storedObject.object) {
         const actorPosition: XR_vector = registry.actor.position();
         const distanceFromActor: TDistance = storedObject.object.position().distance_to(actorPosition);
-        const hasSleepSpot: boolean =
-          level.map_has_object_spot(objectId, npc_map_marks.ui_pda2_actor_sleep_location) !== 0;
+        const hasSleepSpot: boolean = level.map_has_object_spot(objectId, mapMarks.ui_pda2_actor_sleep_location) !== 0;
 
         if (distanceFromActor <= MapDisplayManager.DISTANCE_TO_SHOW_MAP_MARKS && !hasSleepSpot) {
-          level.map_add_object_spot(objectId, npc_map_marks.ui_pda2_actor_sleep_location, sleepZone.hint);
+          level.map_add_object_spot(objectId, mapMarks.ui_pda2_actor_sleep_location, sleepZone.hint);
         } else if (distanceFromActor > MapDisplayManager.DISTANCE_TO_SHOW_MAP_MARKS && hasSleepSpot) {
-          level.map_remove_object_spot(objectId, npc_map_marks.ui_pda2_actor_sleep_location);
+          level.map_remove_object_spot(objectId, mapMarks.ui_pda2_actor_sleep_location);
         }
       }
     }

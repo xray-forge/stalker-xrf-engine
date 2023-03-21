@@ -1,4 +1,4 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
  * todo;
@@ -29,6 +29,12 @@ export const zones = {
   zat_b33_tutor: "zat_b33_tutor",
 } as const;
 
+/**
+ * todo;
+ */
 export type TZones = typeof zones;
 
+/**
+ * todo;
+ */
 export type TZone = TZones[keyof TZones];

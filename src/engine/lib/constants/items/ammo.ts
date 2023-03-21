@@ -1,5 +1,8 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+/**
+ * todo;
+ */
 export const ammo = {
   "ammo_11.43x23_fmj": "ammo_11.43x23_fmj",
   "ammo_11.43x23_hydro": "ammo_11.43x23_hydro",
@@ -26,6 +29,12 @@ export const ammo = {
   "ammo_vog-25": "ammo_vog-25",
 } as const;
 
+/**
+ * todo;
+ */
 export type TAmmoItems = typeof ammo;
 
+/**
+ * todo;
+ */
 export type TAmmoItem = TAmmoItems[keyof TAmmoItems];

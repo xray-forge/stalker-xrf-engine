@@ -20,7 +20,7 @@ import { onSmartTerrainObjectDeath, SmartTerrain } from "@/engine/core/objects/a
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TName, TNumberId, TSection } from "@/engine/lib/types";
 
@@ -49,7 +49,7 @@ export class Stalker extends cse_alife_human_stalker {
    * todo: Description.
    */
   public override can_switch_offline(): boolean {
-    if (this.group_id !== MAX_UNSIGNED_16_BIT) {
+    if (this.group_id !== MAX_U16) {
       return true;
     }
 
@@ -60,7 +60,7 @@ export class Stalker extends cse_alife_human_stalker {
    * todo: Description.
    */
   public override can_switch_online(): boolean {
-    if (this.group_id !== MAX_UNSIGNED_16_BIT) {
+    if (this.group_id !== MAX_U16) {
       return true;
     }
 
@@ -133,7 +133,7 @@ export class Stalker extends cse_alife_human_stalker {
 
     const smartTerrainId: TNumberId = this.smart_terrain_id();
 
-    if (smartTerrainId !== MAX_UNSIGNED_16_BIT) {
+    if (smartTerrainId !== MAX_U16) {
       const smart: Optional<SmartTerrain> = alife().object(smartTerrainId);
 
       if (smart !== null) {
@@ -164,7 +164,7 @@ export class Stalker extends cse_alife_human_stalker {
 
     onSmartTerrainObjectDeath(this);
 
-    if (this.group_id !== MAX_UNSIGNED_16_BIT) {
+    if (this.group_id !== MAX_U16) {
       const squad: any = alife().object(this.group_id);
 
       if (squad === null) {

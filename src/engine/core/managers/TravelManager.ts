@@ -31,7 +31,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getAlifeCharacterCommunity, getObjectSquad, getServerDistanceBetween } from "@/engine/core/utils/object";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
-import { post_processors } from "@/engine/lib/constants/animation/post_processors";
+import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { captions } from "@/engine/lib/constants/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ERelation } from "@/engine/lib/constants/relations";
@@ -454,7 +454,7 @@ export class TravelManager extends AbstractCoreManager {
 
     level.disable_input();
     level.hide_indicators_safe();
-    level.add_pp_effector(post_processors.fade_in_out, 613, false);
+    level.add_pp_effector(postProcessors.fade_in_out, 613, false);
 
     // todo: Alife distance vs abs distance.
     const distance: TDistance = getServerDistanceBetween(squad!, smartTerrain);
@@ -494,7 +494,7 @@ export class TravelManager extends AbstractCoreManager {
 
     level.disable_input();
     level.hide_indicators_safe();
-    level.add_pp_effector(post_processors.fade_in_out, 613, false);
+    level.add_pp_effector(postProcessors.fade_in_out, 613, false);
 
     this.isTravelTeleported = false;
     this.isTraveling = true;

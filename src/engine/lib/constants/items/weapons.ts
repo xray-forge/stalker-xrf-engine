@@ -1,5 +1,8 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+/**
+ * todo;
+ */
 export const pistols = {
   wpn_beretta: "wpn_beretta",
   wpn_colt1911: "wpn_colt1911",
@@ -12,10 +15,19 @@ export const pistols = {
   wpn_walther: "wpn_walther",
 } as const;
 
+/**
+ * todo;
+ */
 export type TPistols = typeof pistols;
 
+/**
+ * todo;
+ */
 export type TPistol = TPistols[keyof TPistols];
 
+/**
+ * todo;
+ */
 export const weapons = {
   ...pistols,
   grenade_f1: "grenade_f1",
@@ -111,6 +123,12 @@ export const weapons = {
   wpn_wmaggl: "wpn_wmaggl",
 } as const;
 
+/**
+ * todo;
+ */
 export type TWeapons = typeof weapons;
 
+/**
+ * todo;
+ */
 export type TWeapon = TWeapons[keyof TWeapons];

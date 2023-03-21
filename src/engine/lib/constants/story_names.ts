@@ -1,6 +1,9 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
-export const story_ids = {
+/**
+ * todo;
+ */
+export const storyNames = {
   jup_a10_spot: "jup_a10_spot",
   jup_a12_spot: "jup_a12_spot",
   jup_a6_spot: "jup_a6_spot",
@@ -10,6 +13,7 @@ export const story_ids = {
   jup_b1_spot: "jup_b1_spot",
   jup_b200_spot: "jup_b200_spot",
   jup_b201_spot: "jup_b201_spot",
+  jup_b202_actor_treasure: "jup_b202_actor_treasure",
   jup_b202_spot: "jup_b202_spot",
   jup_b205_spot: "jup_b205_spot",
   jup_b206_spot: "jup_b206_spot",
@@ -22,6 +26,7 @@ export const story_ids = {
   jup_b46_spot: "jup_b46_spot",
   jup_b6_spot: "jup_b6_spot",
   jup_b9_spot: "jup_b9_spot",
+  pri_a15_door: "pri_a15_door",
   pri_a16_spot: "pri_a16_spot",
   pri_a16_sr_sleep_id: "pri_a16_sr_sleep_id",
   pri_a17_spot: "pri_a17_spot",
@@ -35,6 +40,7 @@ export const story_ids = {
   pri_b306_spot: "pri_b306_spot",
   pri_b35_spot: "pri_b35_spot",
   pri_b36_spot: "pri_b36_spot",
+  zat_a2_actor_treasure: "zat_a2_actor_treasure",
   zat_a2_spot: "zat_a2_spot",
   zat_a2_sr_sleep_id: "zat_a2_sr_sleep_id",
   zat_b100_spot: "zat_b100_spot",

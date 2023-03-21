@@ -14,12 +14,7 @@ import { getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/debug";
 import { getObjectClassId } from "@/engine/core/utils/id";
 import { squadMonsters } from "@/engine/lib/constants/behaviours";
-import {
-  artefact_class_ids,
-  monster_class_ids,
-  stalker_class_ids,
-  weapon_class_ids,
-} from "@/engine/lib/constants/class_ids";
+import { artefactClassIds, monsterClassIds, stalkerClassIds, weaponClassIds } from "@/engine/lib/constants/class_ids";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import { lootable_table, TLootableItem } from "@/engine/lib/constants/items/lootable_table";
@@ -42,7 +37,7 @@ export function isMonster(
 ): object is XR_cse_alife_monster_abstract {
   const id: TXR_class_id = class_id || getObjectClassId(object);
 
-  return monster_class_ids[id] === true;
+  return monsterClassIds[id] === true;
 }
 
 /**
@@ -59,7 +54,7 @@ export function isStalker(
   object: XR_game_object | XR_cse_abstract,
   class_id?: Maybe<TXR_class_id>
 ): object is XR_cse_alife_human_stalker {
-  return stalker_class_ids[class_id || getObjectClassId(object)] === true;
+  return stalkerClassIds[class_id || getObjectClassId(object)] === true;
 }
 
 /**
@@ -79,7 +74,7 @@ export function isWeapon(object: Optional<XR_game_object | XR_cse_abstract>, cla
 
   const id: TXR_class_id = classId || getObjectClassId(object);
 
-  return weapon_class_ids[id] === true;
+  return weaponClassIds[id] === true;
 }
 
 /**
@@ -104,7 +99,7 @@ export function isArtefact(
 ): object is XR_cse_alife_item_artefact {
   const id: TXR_class_id = class_id || getObjectClassId(object);
 
-  return artefact_class_ids[id] === true;
+  return artefactClassIds[id] === true;
 }
 
 /**

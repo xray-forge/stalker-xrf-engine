@@ -9,7 +9,7 @@ import {
   ITeleportPoint,
 } from "@/engine/core/schemes/teleport/ISchemeTeleportState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { post_processors } from "@/engine/lib/constants/animation/post_processors";
+import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
 import { Optional, TDuration } from "@/engine/lib/types";
 
@@ -36,7 +36,7 @@ export class TeleportManager extends AbstractSchemeManager<ISchemeTeleportState>
       if (this.object.inside(actor.position())) {
         this.teleportState = ETeleportState.ACTIVATED;
         this.timer = time_global();
-        level.add_pp_effector(post_processors.teleport, 2006, false);
+        level.add_pp_effector(postProcessors.teleport, 2006, false);
         // --set_postprocess("scripts\\teleport.ltx")
       }
     }

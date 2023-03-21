@@ -33,10 +33,11 @@ import { ZoneTorrid } from "@/engine/core/objects/alife/zones/ZoneTorrid";
 import { ZoneVisual } from "@/engine/core/objects/alife/zones/ZoneVisual";
 import { MainMenu } from "@/engine/core/ui/menu/MainMenu";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EClientObjectClass } from "@/engine/lib/constants/EClientObjectClass";
+import { EClientObjectClass } from "@/engine/lib/constants/class_ids";
 import { inventory_objects } from "@/engine/lib/constants/items/inventory_objects";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { weapons } from "@/engine/lib/constants/items/weapons";
+import { TName } from "@/engine/lib/types";
 
 /**
  * client_object_class - class from C++ code
@@ -53,8 +54,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 function clientServerRegister(
   factory: XR_object_factory,
   clientObjectClass: EClientObjectClass,
-  serverObjectClass: string,
-  clsId: string,
+  serverObjectClass: TName,
+  clsId: TName,
   scriptClsId: TXR_class_key
 ): void {
   logger.info(

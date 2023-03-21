@@ -27,3 +27,13 @@ export enum ERelation {
   ENEMIES = -1000,
   WORST_ENEMIES = -5000,
 }
+
+/**
+ * todo;
+ * todo: Probably duplicates ERelation.
+ */
+export const goodwill = {
+  enemy: -1000,
+  friend: 1000,
+  neutral: 0,
+} as const;

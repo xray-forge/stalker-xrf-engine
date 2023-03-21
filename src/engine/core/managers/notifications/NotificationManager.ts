@@ -18,7 +18,7 @@ import { isHeavilyWounded } from "@/engine/core/utils/check/check";
 import { isStalkerClassId } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { captions, TCaption } from "@/engine/lib/constants/captions";
-import { script_sounds } from "@/engine/lib/constants/sound/script_sounds";
+import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { texturesIngame } from "@/engine/lib/constants/textures";
 import { Maybe, Optional, TCount, TDuration, TLabel, TName, TSection, TStringId, TTimestamp } from "@/engine/lib/types";
 
@@ -342,6 +342,6 @@ export class NotificationManager extends AbstractCoreManager {
    * todo: Description.
    */
   protected playPdaNotificationSound(): void {
-    GlobalSoundManager.getInstance().setSoundPlaying(registry.actor.id(), script_sounds.pda_task, null, null);
+    GlobalSoundManager.getInstance().setSoundPlaying(registry.actor.id(), scriptSounds.pda_task, null, null);
   }
 }

@@ -34,7 +34,7 @@ import { OptionsVideo } from "@/engine/core/ui/menu/options/OptionsVideo";
 import { OptionsVideoAdvanced } from "@/engine/core/ui/menu/options/OptionsVideoAdvanced";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
-import { option_groups, option_groups_messages } from "@/engine/lib/constants/option_groups";
+import { optionGroups, optionGroupsMessages } from "@/engine/lib/constants/option_groups";
 
 const base: string = "menu\\OptionsDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -142,24 +142,24 @@ export class OptionsDialog extends CUIScriptWnd {
 
     const opt = new COptionsManager();
 
-    opt.SetCurrentValues(option_groups.mm_opt_video_preset);
-    opt.SaveBackupValues(option_groups.mm_opt_video_preset);
+    opt.SetCurrentValues(optionGroups.mm_opt_video_preset);
+    opt.SaveBackupValues(optionGroups.mm_opt_video_preset);
 
-    opt.SetCurrentValues(option_groups.mm_opt_video);
-    opt.SaveBackupValues(option_groups.mm_opt_video);
+    opt.SetCurrentValues(optionGroups.mm_opt_video);
+    opt.SaveBackupValues(optionGroups.mm_opt_video);
 
-    opt.SetCurrentValues(option_groups.mm_opt_video_adv);
-    opt.SaveBackupValues(option_groups.mm_opt_video_adv);
+    opt.SetCurrentValues(optionGroups.mm_opt_video_adv);
+    opt.SaveBackupValues(optionGroups.mm_opt_video_adv);
 
-    opt.SetCurrentValues(option_groups.mm_opt_gameplay);
-    opt.SaveBackupValues(option_groups.mm_opt_gameplay);
+    opt.SetCurrentValues(optionGroups.mm_opt_gameplay);
+    opt.SaveBackupValues(optionGroups.mm_opt_gameplay);
 
-    opt.SetCurrentValues(option_groups.mm_opt_sound);
-    opt.SaveBackupValues(option_groups.mm_opt_sound);
+    opt.SetCurrentValues(optionGroups.mm_opt_sound);
+    opt.SaveBackupValues(optionGroups.mm_opt_sound);
 
-    opt.SetCurrentValues(option_groups.mm_opt_controls);
+    opt.SetCurrentValues(optionGroups.mm_opt_controls);
 
-    opt.SetCurrentValues(option_groups.key_binding);
+    opt.SetCurrentValues(optionGroups.key_binding);
 
     this.UpdateDependControls();
   }
@@ -213,26 +213,26 @@ export class OptionsDialog extends CUIScriptWnd {
 
     const opt: XR_COptionsManager = new COptionsManager();
 
-    opt.SetCurrentValues(option_groups.mm_opt_controls);
-    opt.SetCurrentValues(option_groups.key_binding);
+    opt.SetCurrentValues(optionGroups.mm_opt_controls);
+    opt.SetCurrentValues(optionGroups.key_binding);
   }
 
   public OnPresetChanged(): void {
     const opt: XR_COptionsManager = new COptionsManager();
 
-    opt.SetCurrentValues(option_groups.mm_opt_video_adv);
+    opt.SetCurrentValues(optionGroups.mm_opt_video_adv);
   }
 
   public OnBtnDefGraph(): void {
     const opt: XR_COptionsManager = new COptionsManager();
 
-    opt.SendMessage2Group(option_groups.mm_opt_video, option_groups_messages.set_default_value);
+    opt.SendMessage2Group(optionGroups.mm_opt_video, optionGroupsMessages.set_default_value);
   }
 
   public OnBtnDefSound(): void {
     const opt: XR_COptionsManager = new COptionsManager();
 
-    opt.SendMessage2Group(option_groups.mm_opt_video, option_groups_messages.set_default_value);
+    opt.SendMessage2Group(optionGroups.mm_opt_video, optionGroupsMessages.set_default_value);
   }
 
   public OnBtnAccept(): void {
@@ -269,10 +269,10 @@ export class OptionsDialog extends CUIScriptWnd {
   public OnBtnCancel(): void {
     const opt: XR_COptionsManager = new COptionsManager();
 
-    opt.UndoGroup(option_groups.mm_opt_video_preset);
-    opt.UndoGroup(option_groups.mm_opt_video);
-    opt.UndoGroup(option_groups.mm_opt_video_adv);
-    opt.UndoGroup(option_groups.mm_opt_sound);
+    opt.UndoGroup(optionGroups.mm_opt_video_preset);
+    opt.UndoGroup(optionGroups.mm_opt_video);
+    opt.UndoGroup(optionGroups.mm_opt_video_adv);
+    opt.UndoGroup(optionGroups.mm_opt_sound);
     opt.OptionsPostAccept();
 
     this.owner.ShowDialog(true);

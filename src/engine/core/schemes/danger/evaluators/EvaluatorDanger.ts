@@ -12,7 +12,7 @@ import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { ISchemeDangerState } from "@/engine/core/schemes/danger";
 import { SchemeDanger } from "@/engine/core/schemes/danger/SchemeDanger";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { Optional } from "@/engine/lib/types";
 
 /**
@@ -59,7 +59,7 @@ export class EvaluatorDanger extends property_evaluator {
 
     const serverObject = alife().object<XR_cse_alife_creature_abstract>(this.object.id());
 
-    if (serverObject && serverObject.m_smart_terrain_id !== MAX_UNSIGNED_16_BIT) {
+    if (serverObject && serverObject.m_smart_terrain_id !== MAX_U16) {
       alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!.set_alarm();
     }
 

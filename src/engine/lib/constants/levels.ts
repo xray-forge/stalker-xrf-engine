@@ -1,5 +1,8 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+/**
+ * todo;
+ */
 export const levels = {
   jupiter: "jupiter",
   jupiter_underground: "jupiter_underground",
@@ -8,6 +11,12 @@ export const levels = {
   zaton: "zaton",
 } as const;
 
+/**
+ * todo;
+ */
 export type TLevels = typeof levels;
 
+/**
+ * todo;
+ */
 export type TLevel = TLevels[keyof TLevels];

@@ -1,9 +1,11 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
+
+import { TNumberId } from "@/engine/lib/types";
 
 /**
  * todo;
  */
-export const game_difficulties = {
+export const gameDifficulties = {
   gd_master: "gd_master",
   gd_novice: "gd_novice",
   gd_stalker: "gd_stalker",
@@ -13,7 +15,7 @@ export const game_difficulties = {
 /**
  * todo;
  */
-export type TGameDifficulties = typeof game_difficulties;
+export type TGameDifficulties = typeof gameDifficulties;
 
 /**
  * todo;
@@ -23,9 +25,9 @@ export type TGameDifficulty = TGameDifficulties[keyof TGameDifficulties];
 /**
  * todo;
  */
-export const game_difficulties_by_number: Record<number, TGameDifficulty> = {
-  0: game_difficulties.gd_novice,
-  1: game_difficulties.gd_stalker,
-  2: game_difficulties.gd_veteran,
-  3: game_difficulties.gd_master,
+export const gameDifficultiesByNumber: Record<TNumberId, TGameDifficulty> = {
+  0: gameDifficulties.gd_novice,
+  1: gameDifficulties.gd_stalker,
+  2: gameDifficulties.gd_veteran,
+  3: gameDifficulties.gd_master,
 } as const;

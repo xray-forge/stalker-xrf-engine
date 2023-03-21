@@ -30,7 +30,7 @@ import { graphDistance } from "@/engine/core/utils/physics";
 import { wait } from "@/engine/core/utils/time";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   EScheme,
@@ -74,7 +74,7 @@ export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_cr
     type(object.id) === "function" ? (object as XR_game_object).id() : (object as XR_cse_alife_creature_abstract).id;
   const serverObject: Optional<XR_cse_alife_creature_abstract> = alife().object(objectId);
 
-  if (serverObject && serverObject.group_id !== MAX_UNSIGNED_16_BIT) {
+  if (serverObject && serverObject.group_id !== MAX_U16) {
     return alife().object<Squad>(serverObject.group_id);
   }
 

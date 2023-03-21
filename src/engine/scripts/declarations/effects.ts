@@ -103,9 +103,9 @@ import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { MAX_UNSIGNED_16_BIT } from "@/engine/lib/constants/memory";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { relations, TRelation } from "@/engine/lib/constants/relations";
-import { script_sounds } from "@/engine/lib/constants/sound/script_sounds";
+import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { TTreasure } from "@/engine/lib/constants/treasures";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { TZone, zones } from "@/engine/lib/constants/zones";
@@ -3289,7 +3289,7 @@ export function zat_b33_pic_snag_container(actor: XR_game_object, npc: XR_game_o
     give_actor(actor, npc, [quest_items.zat_b33_safe_container]);
     giveInfo(info_portions.zat_b33_find_package);
     if (!hasAlifeInfo(info_portions.zat_b33_safe_container)) {
-      play_sound(actor, registry.zones.get(zones.zat_b33_tutor), [script_sounds.pda_news, null, null]);
+      play_sound(actor, registry.zones.get(zones.zat_b33_tutor), [scriptSounds.pda_news, null, null]);
     }
   }
 }
@@ -3525,7 +3525,7 @@ export function jup_b200_count_found(actor: XR_game_object): void {
       if (parent !== null) {
         const parentId: TNumberId = parent.id();
 
-        if (parentId !== MAX_UNSIGNED_16_BIT && parentId === actor.id()) {
+        if (parentId !== MAX_U16 && parentId === actor.id()) {
           count = count + 1;
         }
       }

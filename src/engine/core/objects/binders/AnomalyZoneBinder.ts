@@ -22,7 +22,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseNames, parseNumbers, TConditionList } from "@/engine/core/utils/parse";
-import { MAX_UNSIGNED_8_BIT } from "@/engine/lib/constants/memory";
+import { MAX_U8 } from "@/engine/lib/constants/memory";
 import { Optional, TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -692,7 +692,7 @@ export class AnomalyZoneBinder extends object_binder {
     if (layerNumber !== null) {
       packet.w_u8(layerNumber);
     } else {
-      packet.w_u8(MAX_UNSIGNED_8_BIT);
+      packet.w_u8(MAX_U8);
     }
 
     packet.w_bool(this.isTurnedOff);
@@ -738,7 +738,7 @@ export class AnomalyZoneBinder extends object_binder {
 
     const currentLayer: number = reader.r_u8();
 
-    if (currentLayer !== MAX_UNSIGNED_8_BIT) {
+    if (currentLayer !== MAX_U8) {
       this.currentZoneLayer = ANOMAL_ZONE_LAYER + currentLayer;
     }
 

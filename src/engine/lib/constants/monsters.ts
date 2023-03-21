@@ -1,5 +1,8 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+/**
+ * todo;
+ */
 export const monsters = {
   bloodsucker_normal: "bloodsucker_normal",
   bloodsucker_strong: "bloodsucker_strong",
@@ -24,6 +27,12 @@ export const monsters = {
   tushkano: "tushkano",
 } as const;
 
+/**
+ * todo;
+ */
 export type TMonsters = typeof monsters;
 
+/**
+ * todo;
+ */
 export type TMonster = TMonsters[keyof TMonsters];

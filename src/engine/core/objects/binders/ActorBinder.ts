@@ -57,7 +57,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { console_commands } from "@/engine/lib/constants/console_commands";
-import { game_difficulties_by_number } from "@/engine/lib/constants/game_difficulties";
+import { gameDifficultiesByNumber } from "@/engine/lib/constants/game_difficulties";
 import { info_portions } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { drugs } from "@/engine/lib/constants/items/drugs";
@@ -448,7 +448,7 @@ export class ActorBinder extends object_binder {
 
     const gameDifficulty: TXR_game_difficulty = reader.r_u8() as TXR_game_difficulty;
 
-    executeConsoleCommand(console_commands.g_game_difficulty, game_difficulties_by_number[gameDifficulty]);
+    executeConsoleCommand(console_commands.g_game_difficulty, gameDifficultiesByNumber[gameDifficulty]);
 
     const isStoredDisableInputTime: boolean = reader.r_bool();
 

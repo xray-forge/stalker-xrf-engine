@@ -69,10 +69,10 @@ import { IConfigSwitchCondition, parseConditionsList, parseNames, TConditionList
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { TCaption } from "@/engine/lib/constants/captions";
-import { MAX_UNSIGNED_16_BIT, MAX_UNSIGNED_8_BIT } from "@/engine/lib/constants/memory";
+import { MAX_U16, MAX_U8 } from "@/engine/lib/constants/memory";
 import { TRelation } from "@/engine/lib/constants/relations";
 import { roots } from "@/engine/lib/constants/roots";
-import { SMART_TERRAIN_SECT } from "@/engine/lib/constants/sections";
+import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   AnyCallable,
@@ -292,11 +292,11 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public read_params(): void {
     this.ini = this.spawn_ini();
 
-    if (!this.ini.section_exist(SMART_TERRAIN_SECT)) {
+    if (!this.ini.section_exist(SMART_TERRAIN_SECTION)) {
       abort("[smart_terrain %s] no configuration!", this.name());
     }
 
-    const filename: TName = getConfigString(this.ini, SMART_TERRAIN_SECT, "cfg", this, false, "");
+    const filename: TName = getConfigString(this.ini, SMART_TERRAIN_SECTION, "cfg", this, false, "");
 
     if (filename !== null) {
       if (getFS().exist(roots.gameConfig, filename)) {
@@ -310,7 +310,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     this.simulationType = getConfigString(
       ini,
-      SMART_TERRAIN_SECT,
+      SMART_TERRAIN_SECTION,
       "sim_type",
       this,
       false,
@@ -322,12 +322,12 @@ export class SmartTerrain extends cse_alife_smart_zone {
       abort("Wrong sim_type value [%s] in smart [%s]", this.simulationType, this.name());
     }
 
-    this.squadId = getConfigNumber(ini, SMART_TERRAIN_SECT, "squad_id", this, false, 0);
-    this.respawnRadius = getConfigNumber(ini, SMART_TERRAIN_SECT, "respawn_radius", this, false, this.respawnRadius);
+    this.squadId = getConfigNumber(ini, SMART_TERRAIN_SECTION, "squad_id", this, false, 0);
+    this.respawnRadius = getConfigNumber(ini, SMART_TERRAIN_SECTION, "respawn_radius", this, false, this.respawnRadius);
 
     let respawnSectorData: Optional<string> = getConfigString(
       ini,
-      SMART_TERRAIN_SECT,
+      SMART_TERRAIN_SECTION,
       "respawn_sector",
       this,
       false,
@@ -344,30 +344,38 @@ export class SmartTerrain extends cse_alife_smart_zone {
       this.respawn_sector = null;
     }
 
-    this.isMutantLair = getConfigBoolean(ini, SMART_TERRAIN_SECT, "mutant_lair", this, false);
-    this.isMutantDisabled = getConfigBoolean(ini, SMART_TERRAIN_SECT, "no_mutant", this, false);
+    this.isMutantLair = getConfigBoolean(ini, SMART_TERRAIN_SECTION, "mutant_lair", this, false);
+    this.isMutantDisabled = getConfigBoolean(ini, SMART_TERRAIN_SECTION, "no_mutant", this, false);
 
     if (this.isMutantDisabled) {
       logger.info("Found no mutant point:", this.name());
     }
 
-    this.forbidden_point = getConfigString(ini, SMART_TERRAIN_SECT, "forbidden_point", this, false, "");
-    this.defendRestrictor = getConfigString(ini, SMART_TERRAIN_SECT, "def_restr", this, false, "", null);
-    this.attackRestrictor = getConfigString(ini, SMART_TERRAIN_SECT, "att_restr", this, false, "", null);
-    this.safeRestrictor = getConfigString(ini, SMART_TERRAIN_SECT, "safe_restr", this, false, "", null);
-    this.spawnPointName = getConfigString(ini, SMART_TERRAIN_SECT, "spawn_point", this, false, "");
-    this.arrivalDistance = getConfigNumber(ini, SMART_TERRAIN_SECT, "arrive_dist", this, false, 30);
+    this.forbidden_point = getConfigString(ini, SMART_TERRAIN_SECTION, "forbidden_point", this, false, "");
+    this.defendRestrictor = getConfigString(ini, SMART_TERRAIN_SECTION, "def_restr", this, false, "", null);
+    this.attackRestrictor = getConfigString(ini, SMART_TERRAIN_SECTION, "att_restr", this, false, "", null);
+    this.safeRestrictor = getConfigString(ini, SMART_TERRAIN_SECTION, "safe_restr", this, false, "", null);
+    this.spawnPointName = getConfigString(ini, SMART_TERRAIN_SECTION, "spawn_point", this, false, "");
+    this.arrivalDistance = getConfigNumber(ini, SMART_TERRAIN_SECTION, "arrive_dist", this, false, 30);
 
-    const maxPopulationData: string = getConfigString(ini, SMART_TERRAIN_SECT, "max_population", this, false, "", "0");
+    const maxPopulationData: string = getConfigString(
+      ini,
+      SMART_TERRAIN_SECTION,
+      "max_population",
+      this,
+      false,
+      "",
+      "0"
+    );
     const parsedConditionsList: LuaArray<IConfigSwitchCondition> = parseConditionsList(maxPopulationData);
 
     this.maxPopulation = tonumber(pickSectionFromCondList(registry.actor, null, parsedConditionsList)) as TCount;
 
-    this.isRespawnOnlySmart = getConfigBoolean(ini, SMART_TERRAIN_SECT, "respawn_only_smart", this, false, false);
+    this.isRespawnOnlySmart = getConfigBoolean(ini, SMART_TERRAIN_SECTION, "respawn_only_smart", this, false, false);
 
     const respawnSection: Optional<TSection> = getConfigString(
       ini,
-      SMART_TERRAIN_SECT,
+      SMART_TERRAIN_SECTION,
       "respawn_params",
       this,
       false,
@@ -376,7 +384,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     );
     const smartControlSection: Optional<TSection> = getConfigString(
       ini,
-      SMART_TERRAIN_SECT,
+      SMART_TERRAIN_SECTION,
       "smart_control",
       this,
       false,
@@ -981,7 +989,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
       npc_info.job_id = packet.r_u8();
 
-      if (npc_info.job_id === MAX_UNSIGNED_8_BIT) {
+      if (npc_info.job_id === MAX_U8) {
         npc_info.job_id = -1;
       }
 
@@ -1585,7 +1593,7 @@ export function setupSmartJobsAndLogicOnSpawn(
   if (alifeSimulator !== null && serverObject !== null) {
     const smartTerrainId: TNumberId = serverObject.m_smart_terrain_id;
 
-    if (smartTerrainId !== null && smartTerrainId !== MAX_UNSIGNED_16_BIT) {
+    if (smartTerrainId !== null && smartTerrainId !== MAX_U16) {
       const smartTerrain: SmartTerrain = alifeSimulator.object(smartTerrainId) as SmartTerrain;
       const need_setup_logic =
         !isLoaded &&
@@ -1747,7 +1755,7 @@ export function onSmartTerrainObjectDeath(object: XR_cse_alife_creature_abstract
 
     const smartTerrainId: TNumberId = object.smart_terrain_id();
 
-    if (smartTerrainId !== MAX_UNSIGNED_16_BIT) {
+    if (smartTerrainId !== MAX_U16) {
       logger.info("Clear smart terrain dead object:", object.name());
       (alifeSimulator.object(smartTerrainId) as SmartTerrain).onObjectDeath(object);
     }

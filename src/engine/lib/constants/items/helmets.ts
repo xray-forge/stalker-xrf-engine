@@ -1,5 +1,8 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+/**
+ * todo;
+ */
 export const helmets = {
   helm_battle: "helm_battle",
   helm_hardhat: "helm_hardhat",
@@ -10,6 +13,12 @@ export const helmets = {
   helm_tactic: "helm_tactic",
 } as const;
 
+/**
+ * todo;
+ */
 export type THelmets = typeof helmets;
 
+/**
+ * todo;
+ */
 export type THelmet = THelmets[keyof THelmets];

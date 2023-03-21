@@ -38,7 +38,7 @@ import { copyTable } from "@/engine/core/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";
-import { post_processors } from "@/engine/lib/constants/animation/post_processors";
+import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { captions } from "@/engine/lib/constants/captions";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions } from "@/engine/lib/constants/info_portions";
@@ -550,7 +550,7 @@ export class SurgeManager extends AbstractCoreManager {
           return;
         } else {
           level.add_cam_effector(animations.camera_effects_surge_02, sleep_cam_eff_id, false, "engine.surge_callback");
-          level.add_pp_effector(post_processors.surge_fade, sleep_fade_pp_eff_id, false);
+          level.add_pp_effector(postProcessors.surge_fade, sleep_fade_pp_eff_id, false);
           registry.actor.health = registry.actor.health - 0.05;
         }
       }
@@ -622,7 +622,7 @@ export class SurgeManager extends AbstractCoreManager {
     disableGameUiOnly(registry.actor);
 
     level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "engine.anabiotic_callback");
-    level.add_pp_effector(post_processors.surge_fade, 11, false);
+    level.add_pp_effector(postProcessors.surge_fade, 11, false);
 
     giveInfo(info_portions.anabiotic_in_process);
 
@@ -742,7 +742,7 @@ export class SurgeManager extends AbstractCoreManager {
           }
 
           if (this.isEffectorSet) {
-            level.add_pp_effector(post_processors.surge_shock, surge_shock_pp_eff_id, true);
+            level.add_pp_effector(postProcessors.surge_shock, surge_shock_pp_eff_id, true);
           }
 
           if (this.second_message_given) {
@@ -814,7 +814,7 @@ export class SurgeManager extends AbstractCoreManager {
           level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
           this.second_message_given = true;
         } else if (surgeDuration >= 100 && !this.isEffectorSet) {
-          level.add_pp_effector(post_processors.surge_shock, surge_shock_pp_eff_id, true);
+          level.add_pp_effector(postProcessors.surge_shock, surge_shock_pp_eff_id, true);
           // --                level.set_pp_effector_factor(surge_shock_pp_eff, 0, 10)
           this.isEffectorSet = true;
         } else if (surgeDuration >= 35 && !this.blowout_sound) {

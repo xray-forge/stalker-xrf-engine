@@ -2,14 +2,14 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { console_commands } from "@/engine/lib/constants/console_commands";
-import { game_difficulties } from "@/engine/lib/constants/game_difficulties";
+import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
 import { resetMethodMock } from "@/fixtures/xray/mocks/utils.mock";
 
 describe("'console' utils", () => {
   it("'executeConsoleCommand' should correctly generate commands", () => {
     resetMethodMock(gameConsole.execute);
-    executeConsoleCommand(console_commands.g_game_difficulty, game_difficulties.gd_master);
+    executeConsoleCommand(console_commands.g_game_difficulty, gameDifficulties.gd_master);
     expect(gameConsole.execute).toHaveBeenCalledWith("g_game_difficulty gd_master");
 
     resetMethodMock(gameConsole.execute);

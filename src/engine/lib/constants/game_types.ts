@@ -1,7 +1,7 @@
 /**
  * todo;
  */
-export const game_types = {
+export const gameTypes = {
   // -- game internal types, do not change
   eGameIDNoGame: 0,
   eGameIDSingle: 1, // --u32(1) << 0,

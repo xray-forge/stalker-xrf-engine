@@ -1,4 +1,4 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error"*/
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 export const zaton_info_portions = {
   zat_a1_tutorial_end: "zat_a1_tutorial_end",

@@ -1,21 +1,26 @@
+/* eslint sort-keys-fix/sort-keys-fix: "error" */
+
+/**
+ * todo;
+ */
 export enum ESoundType {
-  NIL = "NIL",
-  WPN = "WPN",
-  WPN_shoot = "WPN_shoot",
-  WPN_empty = "WPN_empty",
-  WPN_hit = "WPN_hit",
-  WPN_reload = "WPN_reload",
   ITM = "ITM",
-  ITM_pckup = "ITM_pckup",
   ITM_drop = "ITM_drop",
   ITM_hide = "ITM_hide",
+  ITM_pckup = "ITM_pckup",
   ITM_take = "ITM_take",
   ITM_use = "ITM_use",
   MST = "MST",
-  MST_die = "MST_die",
+  MST_attack = "MST_attack",
   MST_damage = "MST_damage",
+  MST_die = "MST_die",
+  MST_eat = "MST_eat",
   MST_step = "MST_step",
   MST_talk = "MST_talk",
-  MST_attack = "MST_attack",
-  MST_eat = "MST_eat",
+  NIL = "NIL",
+  WPN = "WPN",
+  WPN_empty = "WPN_empty",
+  WPN_hit = "WPN_hit",
+  WPN_reload = "WPN_reload",
+  WPN_shoot = "WPN_shoot",
 }
