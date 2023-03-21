@@ -190,13 +190,8 @@ export function pickSectionFromCondList<T extends TSection>(
  * todo;
  * todo;
  */
-export function getConfigObjectAndZone(
-  ini: XR_ini_file,
-  section: TSection,
-  field: TName,
-  object: XR_game_object
-): Optional<IBaseSchemeLogic> {
-  const target: Optional<IBaseSchemeLogic> = getConfigTwoStringsAndConditionsList(ini, section, field, object);
+export function getConfigObjectAndZone(ini: XR_ini_file, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
+  const target: Optional<IBaseSchemeLogic> = getConfigTwoStringsAndConditionsList(ini, section, field);
 
   if (target !== null) {
     const simulator: Optional<XR_alife_simulator> = alife();
@@ -207,13 +202,7 @@ export function getConfigObjectAndZone(
       if (serverObject) {
         target.npc_id = serverObject.id;
       } else {
-        abort(
-          "object '%s': section '%s': field '%s': there is no object with story_id '%s'",
-          object.name(),
-          section,
-          field,
-          target.v1
-        );
+        abort("Section '%s': field '%s': there is no object with story_id '%s'", section, field, target.v1);
       }
     } else {
       target.npc_id = -1;
@@ -231,22 +220,21 @@ export function getConfigObjectAndZone(
  */
 export function getObjectConfigOverrides(ini: XR_ini_file, section: TSection, object: XR_game_object): AnyObject {
   const overrides: AnyObject = {};
-  const heliHunter: Optional<string> = getConfigString(ini, section, "heli_hunter", object, false, "");
+  const heliHunter: Optional<string> = getConfigString(ini, section, "heli_hunter", false, "");
 
   if (heliHunter !== null) {
     overrides.heli_hunter = parseConditionsList(heliHunter);
   }
 
-  overrides.combat_ignore = getConfigConditionList(ini, section, "combat_ignore_cond", object);
+  overrides.combat_ignore = getConfigConditionList(ini, section, "combat_ignore_cond");
   overrides.combat_ignore_keep_when_attacked = getConfigBoolean(
     ini,
     section,
     "combat_ignore_keep_when_attacked",
-    object,
     false
   );
-  overrides.combat_type = getConfigConditionList(ini, section, "combat_type", object);
-  overrides.on_combat = getConfigConditionList(ini, section, "on_combat", object);
+  overrides.combat_type = getConfigConditionList(ini, section, "combat_type");
+  overrides.on_combat = getConfigConditionList(ini, section, "on_combat");
 
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
@@ -269,16 +257,14 @@ export function getObjectConfigOverrides(ini: XR_ini_file, section: TSection, ob
   }
 
   if (ini.line_exist(section, "on_offline")) {
-    overrides.on_offline_condlist = parseConditionsList(
-      getConfigString(ini, section, "on_offline", object, false, "", NIL)
-    );
+    overrides.on_offline_condlist = parseConditionsList(getConfigString(ini, section, "on_offline", false, "", NIL));
   } else {
     overrides.on_offline_condlist = parseConditionsList(
-      getConfigString(ini, state.section_logic, "on_offline", object, false, "", NIL)
+      getConfigString(ini, state.section_logic, "on_offline", false, "", NIL)
     );
   }
 
-  overrides.soundgroup = getConfigString(ini, section, "soundgroup", object, false, "");
+  overrides.soundgroup = getConfigString(ini, section, "soundgroup", false, "");
 
   return overrides;
 }
@@ -288,11 +274,7 @@ export function getObjectConfigOverrides(ini: XR_ini_file, section: TSection, ob
  * todo
  * todo
  */
-export function getConfigSwitchConditions(
-  ini: XR_ini_file,
-  section: TSection,
-  object: XR_game_object
-): Optional<LuaArray<IBaseSchemeLogic>> {
+export function getConfigSwitchConditions(ini: XR_ini_file, section: TSection): Optional<LuaArray<IBaseSchemeLogic>> {
   const conditionsList: LuaArray<IBaseSchemeLogic> = new LuaTable();
   let index: TIndex = 1;
 
@@ -303,15 +285,15 @@ export function getConfigSwitchConditions(
   const linesCount: TCount = ini.line_count(section);
 
   function add_conditions(
-    func: (ini: XR_ini_file, section: TSection, id: TStringId, npc: XR_game_object) => Optional<IBaseSchemeLogic>,
+    func: (ini: XR_ini_file, section: TSection, id: TStringId) => Optional<IBaseSchemeLogic>,
     cond: ESchemeCondition
   ) {
     for (const line_number of $range(0, linesCount - 1)) {
-      const [result, id, value] = ini.r_line(section, line_number, "", "");
+      const [, id, value] = ini.r_line(section, line_number, "", "");
       const [search_index] = string.find(id, "^" + cond + "%d*$");
 
       if (search_index !== null) {
-        index = addCondition(conditionsList, index, func(ini, section, id, object));
+        index = addCondition(conditionsList, index, func(ini, section, id));
       }
     }
   }

@@ -24,10 +24,10 @@ export class SchemeCrowSpawner extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeCrowSpawnerState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.max_crows_on_level = getConfigNumber(ini, section, "max_crows_on_level", object, false, 16);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.max_crows_on_level = getConfigNumber(ini, section, "max_crows_on_level", false, 16);
 
-    const path: Optional<string> = getConfigString(ini, section, "spawn_path", object, false, "", null);
+    const path: Optional<string> = getConfigString(ini, section, "spawn_path", false, "", null);
 
     state.path_table = parseNames(path as string);
   }

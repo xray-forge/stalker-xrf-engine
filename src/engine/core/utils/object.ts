@@ -258,13 +258,10 @@ export function areObjectsOnSameLevel(first: XR_cse_alife_object, second: XR_cse
  * todo;
  */
 export function setObjectInfo(object: XR_game_object, ini: XR_ini_file, section: TSection): void {
-  const inInfosList: LuaArray<TInfoPortion> = getInfosFromData(
-    object,
-    getConfigString(ini, section, "in", object, false, "")
-  );
+  const inInfosList: LuaArray<TInfoPortion> = getInfosFromData(object, getConfigString(ini, section, "in", false, ""));
   const outInfosList: LuaArray<TInfoPortion> = getInfosFromData(
     object,
-    getConfigString(ini, section, "out", object, false, "")
+    getConfigString(ini, section, "out", false, "")
   );
 
   for (const [index, infoPortion] of inInfosList) {
@@ -280,7 +277,7 @@ export function setObjectInfo(object: XR_game_object, ini: XR_ini_file, section:
  * todo: rename, update
  */
 export function resetObjectGroup(object: XR_game_object, ini: XR_ini_file, section: TSection): void {
-  const group: TNumberId = getConfigNumber(ini, section, "group", object, false, -1);
+  const group: TNumberId = getConfigNumber(ini, section, "group", false, -1);
 
   if (group !== -1) {
     object.change_team(object.team(), object.squad(), group);
@@ -297,8 +294,8 @@ export function initializeObjectTakeItemsEnabledState(
   section: TSection
 ): void {
   const isTakeItemsEnabled: boolean = state.ini.line_exist(section, "take_items")
-    ? getConfigBoolean(state.ini, section, "take_items", object, false, true)
-    : getConfigBoolean(state.ini, state.section_logic, "take_items", object, false, true);
+    ? getConfigBoolean(state.ini, section, "take_items", false, true)
+    : getConfigBoolean(state.ini, state.section_logic, "take_items", false, true);
 
   object.take_items_enabled(isTakeItemsEnabled);
 }
@@ -312,10 +309,10 @@ export function initializeObjectCanSelectWeaponState(
   state: IRegistryObjectState,
   section: TSection
 ): void {
-  let data: string = getConfigString(state.ini, section, "can_select_weapon", object, false, "", "");
+  let data: string = getConfigString(state.ini, section, "can_select_weapon", false, "", "");
 
   if (data === "") {
-    data = getConfigString(state.ini, state.section_logic, "can_select_weapon", object, false, "", TRUE);
+    data = getConfigString(state.ini, state.section_logic, "can_select_weapon", false, "", TRUE);
   }
 
   const conditionsList: TConditionList = parseConditionsList(data);
@@ -333,7 +330,6 @@ export function isObjectInvulnerabilityNeeded(object: XR_game_object): boolean {
     state.ini,
     state.active_section,
     "invulnerable",
-    object,
     false,
     "",
     null
@@ -386,15 +382,14 @@ export function resetObjectIgnoreThreshold(
 ): void {
   const thresholdSection: Optional<TSection> =
     scheme === null || scheme === NIL
-      ? getConfigString(state.ini, state.section_logic, "threshold", object, false, "")
-      : getConfigString(state.ini, section, "threshold", object, false, "");
+      ? getConfigString(state.ini, state.section_logic, "threshold", false, "")
+      : getConfigString(state.ini, section, "threshold", false, "");
 
   if (thresholdSection !== null) {
     const maxIgnoreDistance: Optional<TDistance> = getConfigNumber(
       state.ini,
       thresholdSection,
       "max_ignore_distance",
-      object,
       false
     );
 
@@ -404,13 +399,7 @@ export function resetObjectIgnoreThreshold(
       object.max_ignore_monster_distance(maxIgnoreDistance);
     }
 
-    const ignoreMonster: Optional<TNumberId> = getConfigNumber(
-      state.ini,
-      thresholdSection,
-      "ignore_monster",
-      object,
-      false
-    );
+    const ignoreMonster: Optional<TNumberId> = getConfigNumber(state.ini, thresholdSection, "ignore_monster", false);
 
     if (ignoreMonster === null) {
       object.restore_ignore_monster_threshold();
@@ -462,7 +451,7 @@ export function sendToNearestAccessibleVertex(object: XR_game_object, vertexId: 
  */
 export function anomalyHasArtefact(
   actor: XR_game_object,
-  npc: Optional<XR_game_object>,
+  object: Optional<XR_game_object>,
   params: [TName, Optional<TName>]
 ): LuaMultiReturn<[boolean, Optional<LuaArray<TName>>]> {
   const az_name = params && params[0];
@@ -478,17 +467,17 @@ export function anomalyHasArtefact(
   }
 
   if (af_name === null) {
-    const af_table: LuaArray<string> = new LuaTable();
+    const artefactsList: LuaArray<TName> = new LuaTable();
 
     for (const [k, v] of registry.artefacts.ways) {
       const artefactObject: Optional<XR_cse_alife_object> = alife().object(tonumber(k)!);
 
       if (artefactObject) {
-        table.insert(af_table, artefactObject.section_name());
+        table.insert(artefactsList, artefactObject.section_name());
       }
     }
 
-    return $multi(true, af_table);
+    return $multi(true, artefactsList);
   }
 
   for (const [artefactId] of registry.artefacts.ways) {

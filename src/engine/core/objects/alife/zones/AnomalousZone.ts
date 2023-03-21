@@ -5,7 +5,7 @@ import { isSinglePlayerGame } from "@/engine/core/utils/general";
 import { getConfigNumber } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -14,7 +14,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class AnomalousZone extends cse_anomalous_zone {
-  public artefact_spawn_idle: number = 0;
+  public artefact_spawn_idle: TDuration = 0;
   public artefact_spawn_rnd: number = 0;
   public last_spawn_time: Optional<XR_CTime> = null;
 
@@ -29,15 +29,8 @@ export class AnomalousZone extends cse_anomalous_zone {
     registerObjectStoryLinks(this);
 
     this.artefact_spawn_idle =
-      60 * 60 * 1000 * getConfigNumber(system_ini(), this.section_name(), "artefact_spawn_idle", this, false, 24);
-    this.artefact_spawn_rnd = getConfigNumber(
-      system_ini(),
-      this.section_name(),
-      "artefact_spawn_rnd",
-      this,
-      false,
-      100
-    );
+      60 * 60 * 1000 * getConfigNumber(system_ini(), this.section_name(), "artefact_spawn_idle", false, 24);
+    this.artefact_spawn_rnd = getConfigNumber(system_ini(), this.section_name(), "artefact_spawn_rnd", false, 100);
   }
 
   /**

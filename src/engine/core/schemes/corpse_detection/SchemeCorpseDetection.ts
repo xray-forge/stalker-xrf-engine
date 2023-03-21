@@ -94,7 +94,6 @@ export class SchemeCorpseDetection extends AbstractScheme {
       state.ini!,
       section,
       "corpse_detection_enabled",
-      object,
       false,
       true
     );

@@ -154,24 +154,19 @@ export class Squad<
   public init_squad(): void {
     const sectionName: TSection = this.section_name();
 
-    this.player_id = getConfigString(SYSTEM_INI, sectionName, "faction", this, true, "") as TCommunity;
-    this.action_condlist = parseConditionsList(
-      getConfigString(SYSTEM_INI, sectionName, "target_smart", this, false, "", "")
-    );
-    this.death_condlist = parseConditionsList(
-      getConfigString(SYSTEM_INI, sectionName, "on_death", this, false, "", "")
-    );
+    this.player_id = getConfigString(SYSTEM_INI, sectionName, "faction", true, "") as TCommunity;
+    this.action_condlist = parseConditionsList(getConfigString(SYSTEM_INI, sectionName, "target_smart", false, "", ""));
+    this.death_condlist = parseConditionsList(getConfigString(SYSTEM_INI, sectionName, "on_death", false, "", ""));
     this.invulnerability = parseConditionsList(
-      getConfigString(SYSTEM_INI, sectionName, "invulnerability", this, false, "", "")
+      getConfigString(SYSTEM_INI, sectionName, "invulnerability", false, "", "")
     );
     this.relationship =
-      this.relationship ||
-      (getConfigString(SYSTEM_INI, sectionName, "relationship", this, false, "", null) as TRelation);
-    this.sympathy = getConfigNumber(SYSTEM_INI, sectionName, "sympathy", this, false, null);
-    this.show_spot = parseConditionsList(getConfigString(SYSTEM_INI, sectionName, "show_spot", this, false, "", FALSE));
+      this.relationship || (getConfigString(SYSTEM_INI, sectionName, "relationship", false, "", null) as TRelation);
+    this.sympathy = getConfigNumber(SYSTEM_INI, sectionName, "sympathy", false, null);
+    this.show_spot = parseConditionsList(getConfigString(SYSTEM_INI, sectionName, "show_spot", false, "", FALSE));
 
-    this.always_walk = getConfigBoolean(SYSTEM_INI, sectionName, "always_walk", this, false);
-    this.always_arrived = getConfigBoolean(SYSTEM_INI, sectionName, "always_arrived", this, false);
+    this.always_walk = getConfigBoolean(SYSTEM_INI, sectionName, "always_walk", false);
+    this.always_arrived = getConfigBoolean(SYSTEM_INI, sectionName, "always_arrived", false);
     this.set_location_types_section("stalker_terrain");
     this.set_squad_sympathy();
   }
@@ -198,15 +193,7 @@ export class Squad<
   public set_squad_behaviour(): void {
     this.behaviour = new LuaTable();
 
-    const behaviour_section = getConfigString(
-      SYSTEM_INI,
-      this.section_name(),
-      "behaviour",
-      this,
-      false,
-      "",
-      this.player_id
-    );
+    const behaviour_section = getConfigString(SYSTEM_INI, this.section_name(), "behaviour", false, "", this.player_id);
 
     if (!SQUAD_BEHAVIOURS_LTX.section_exist(behaviour_section)) {
       abort("There is no section [" + behaviour_section + "] in 'squad_behaviours.ltx'");
@@ -621,8 +608,7 @@ export class Squad<
 
         if (
           object.invulnerable() !== invulnerability &&
-          getConfigString(objectState.ini, objectState.active_section!, "invulnerable", object, false, "", null) ===
-            null
+          getConfigString(objectState.ini, objectState.active_section!, "invulnerable", false, "", null) === null
         ) {
           object.invulnerable(invulnerability);
         }
@@ -684,15 +670,7 @@ export class Squad<
   public addSquadMember(spawnSection: TSection, spawnPosition: XR_vector, lvi: TNumberId, gvi: TNumberId): TNumberId {
     logger.info("Add squad member:", this.name());
 
-    const customData = getConfigString(
-      SYSTEM_INI,
-      spawnSection,
-      "custom_data",
-      this,
-      false,
-      "",
-      "default_custom_data.ltx"
-    );
+    const customData = getConfigString(SYSTEM_INI, spawnSection, "custom_data", false, "", "default_custom_data.ltx");
 
     if (customData !== "default_custom_data.ltx") {
       logger.warn("INCORRECT npc_spawn_section USED [%s]. You cannot use npc with custom_data in squads", spawnSection);
@@ -723,11 +701,11 @@ export class Squad<
     const sectionName: TName = this.section_name();
 
     const spawnSections: LuaArray<TSection> = parseNames(
-      getConfigString(SYSTEM_INI, sectionName, "npc", this, false, "", "")
+      getConfigString(SYSTEM_INI, sectionName, "npc", false, "", "")
     );
     const spawnPointData =
-      getConfigString(SYSTEM_INI, sectionName, "spawn_point", this, false, "", "self") ||
-      getConfigString(spawnSmartTerrain.ini, SMART_TERRAIN_SECTION, "spawn_point", this, false, "", "self");
+      getConfigString(SYSTEM_INI, sectionName, "spawn_point", false, "", "self") ||
+      getConfigString(spawnSmartTerrain.ini, SMART_TERRAIN_SECTION, "spawn_point", false, "", "self");
 
     const spawnPoint: Optional<TName> = pickSectionFromCondList(
       registry.actor,
@@ -761,7 +739,7 @@ export class Squad<
       }
     }
 
-    const randomSpawnConfig = getConfigString(SYSTEM_INI, sectionName, "npc_random", this, false, "", null);
+    const randomSpawnConfig = getConfigString(SYSTEM_INI, sectionName, "npc_random", false, "", null);
 
     if (randomSpawnConfig !== null) {
       const randomSpawn: LuaArray<string> = parseNames(randomSpawnConfig)!;

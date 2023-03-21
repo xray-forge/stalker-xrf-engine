@@ -34,14 +34,14 @@ export class SchemeWalker extends AbstractScheme {
   ): void {
     const state: ISchemeWalkerState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.path_walk = getConfigString(ini, section, "path_walk", true, gulag_name);
 
     if (!level.patrol_path_exists(state.path_walk)) {
       abort("there is no patrol path %s", state.path_walk);
     }
 
-    state.path_look = getConfigString(ini, section, "path_look", object, false, gulag_name);
+    state.path_look = getConfigString(ini, section, "path_look", false, gulag_name);
 
     if (state.path_walk === state.path_look) {
       abort(
@@ -51,15 +51,15 @@ export class SchemeWalker extends AbstractScheme {
       );
     }
 
-    state.team = getConfigString(ini, section, "team", object, false, gulag_name);
-    state.sound_idle = getConfigString(ini, section, "sound_idle", object, false, "");
-    state.use_camp = getConfigBoolean(ini, section, "use_camp", object, false, false);
+    state.team = getConfigString(ini, section, "team", false, gulag_name);
+    state.sound_idle = getConfigString(ini, section, "sound_idle", false, "");
+    state.use_camp = getConfigBoolean(ini, section, "use_camp", false, false);
 
-    const baseMoving = getConfigString(ini, section, "def_state_moving1", object, false, "");
+    const baseMoving = getConfigString(ini, section, "def_state_moving1", false, "");
 
     state.suggested_state = {
-      standing: getConfigString(ini, section, "def_state_standing", object, false, ""),
-      moving: getConfigString(ini, section, "def_state_moving", object, false, "", baseMoving),
+      standing: getConfigString(ini, section, "def_state_standing", false, ""),
+      moving: getConfigString(ini, section, "def_state_moving", false, "", baseMoving),
     };
 
     state.path_walk_info = null;

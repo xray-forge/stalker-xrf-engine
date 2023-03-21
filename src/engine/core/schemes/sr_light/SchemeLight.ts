@@ -41,8 +41,8 @@ export class SchemeLight extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeLightState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.light = getConfigBoolean(ini, section, "light_on", object, false, false);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.light = getConfigBoolean(ini, section, "light_on", false, false);
   }
 
   /**

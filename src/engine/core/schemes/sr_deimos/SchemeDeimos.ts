@@ -25,21 +25,20 @@ export class SchemeDeimos extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeDeimosState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.movement_speed = getConfigNumber(ini, section, "movement_speed", object, false, 100);
-    state.growing_koef = getConfigNumber(ini, section, "growing_koef", object, false, 0.1);
-    state.lowering_koef = getConfigNumber(ini, section, "lowering_koef", object, false, state.growing_koef);
-    state.pp_effector = getConfigString(ini, section, "pp_effector", object, false, null);
-    state.cam_effector = getConfigString(ini, section, "cam_effector", object, false, "");
-    state.pp_effector2 = getConfigString(ini, section, "pp_effector2", object, false, "");
-    state.cam_effector_repeating_time =
-      getConfigNumber(ini, section, "cam_effector_repeating_time", object, false, 10) * 1000;
-    state.noise_sound = getConfigString(ini, section, "noise_sound", object, false, "");
-    state.heartbeet_sound = getConfigString(ini, section, "heartbeet_sound", object, false, "");
-    state.health_lost = getConfigNumber(ini, section, "health_lost", object, false, 0.01);
-    state.disable_bound = getConfigNumber(ini, section, "disable_bound", object, false, 0.1);
-    state.switch_lower_bound = getConfigNumber(ini, section, "switch_lower_bound", object, false, 0.5);
-    state.switch_upper_bound = getConfigNumber(ini, section, "switch_upper_bound", object, false, 0.75);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.movement_speed = getConfigNumber(ini, section, "movement_speed", false, 100);
+    state.growing_koef = getConfigNumber(ini, section, "growing_koef", false, 0.1);
+    state.lowering_koef = getConfigNumber(ini, section, "lowering_koef", false, state.growing_koef);
+    state.pp_effector = getConfigString(ini, section, "pp_effector", false, null);
+    state.cam_effector = getConfigString(ini, section, "cam_effector", false, "");
+    state.pp_effector2 = getConfigString(ini, section, "pp_effector2", false, "");
+    state.cam_effector_repeating_time = getConfigNumber(ini, section, "cam_effector_repeating_time", false, 10) * 1000;
+    state.noise_sound = getConfigString(ini, section, "noise_sound", false, "");
+    state.heartbeet_sound = getConfigString(ini, section, "heartbeet_sound", false, "");
+    state.health_lost = getConfigNumber(ini, section, "health_lost", false, 0.01);
+    state.disable_bound = getConfigNumber(ini, section, "disable_bound", false, 0.1);
+    state.switch_lower_bound = getConfigNumber(ini, section, "switch_lower_bound", false, 0.5);
+    state.switch_upper_bound = getConfigNumber(ini, section, "switch_upper_bound", false, 0.75);
   }
 
   /**

@@ -37,10 +37,10 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
     const ini: XR_ini_file = system_ini();
     const actor: XR_game_object = registry.actor;
 
-    executeConsoleCommand(console_commands.slot_0, getConfigString(ini, ACTOR, "quick_item_1", actor, false, "", ""));
-    executeConsoleCommand(console_commands.slot_1, getConfigString(ini, ACTOR, "quick_item_2", actor, false, "", ""));
-    executeConsoleCommand(console_commands.slot_2, getConfigString(ini, ACTOR, "quick_item_3", actor, false, "", ""));
-    executeConsoleCommand(console_commands.slot_3, getConfigString(ini, ACTOR, "quick_item_4", actor, false, "", ""));
+    executeConsoleCommand(console_commands.slot_0, getConfigString(ini, ACTOR, "quick_item_1", false, "", ""));
+    executeConsoleCommand(console_commands.slot_1, getConfigString(ini, ACTOR, "quick_item_2", false, "", ""));
+    executeConsoleCommand(console_commands.slot_2, getConfigString(ini, ACTOR, "quick_item_3", false, "", ""));
+    executeConsoleCommand(console_commands.slot_3, getConfigString(ini, ACTOR, "quick_item_4", false, "", ""));
   }
 
   /**

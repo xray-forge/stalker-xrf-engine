@@ -23,11 +23,11 @@ export class SchemePhysicalHit extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemePhysicalHitState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.power = getConfigNumber(ini, section, "power", object, false, 0);
-    state.impulse = getConfigNumber(ini, section, "impulse", object, false, 1000);
-    state.bone = getConfigString(ini, section, "bone", object, true, "");
-    state.dir_path = getConfigString(ini, section, "dir_path", object, true, "");
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.power = getConfigNumber(ini, section, "power", false, 0);
+    state.impulse = getConfigNumber(ini, section, "impulse", false, 1000);
+    state.bone = getConfigString(ini, section, "bone", true, "");
+    state.dir_path = getConfigString(ini, section, "dir_path", true, "");
   }
 
   /**

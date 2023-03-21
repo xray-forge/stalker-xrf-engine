@@ -73,9 +73,9 @@ export class MapDisplayManager extends AbstractCoreManager {
     let spotSection;
 
     if (scheme === null || scheme === NIL) {
-      spotSection = getConfigString(state.ini, state.section_logic, "show_spot", object, false, "");
+      spotSection = getConfigString(state.ini, state.section_logic, "show_spot", false, "");
     } else {
-      spotSection = getConfigString(state.ini, section, "show_spot", object, false, "");
+      spotSection = getConfigString(state.ini, section, "show_spot", false, "");
     }
 
     if (spotSection === null) {
@@ -87,13 +87,12 @@ export class MapDisplayManager extends AbstractCoreManager {
       state.ini,
       state.section_logic,
       "level_spot",
-      object,
       false,
       ""
     ) as EMapMarkType;
 
     if (mapSpot === null) {
-      mapSpot = getConfigString(state.ini!, section, "level_spot", object, false, "") as EMapMarkType;
+      mapSpot = getConfigString(state.ini!, section, "level_spot", false, "") as EMapMarkType;
     }
 
     if (mapSpot !== null) {
@@ -102,8 +101,8 @@ export class MapDisplayManager extends AbstractCoreManager {
       mapSpot = pickSectionFromCondList(actor, object, spotConditionList);
     }
 
-    const spot_condlist = parseConditionsList(spotSection);
-    const spot: TSection = pickSectionFromCondList(actor, object, spot_condlist)!;
+    const spotConditionsList: TConditionList = parseConditionsList(spotSection);
+    const spot: TSection = pickSectionFromCondList(actor, object, spotConditionsList)!;
     const obj: Optional<XR_cse_alife_object> = sim.object(object.id());
 
     if (obj?.online) {
@@ -146,21 +145,13 @@ export class MapDisplayManager extends AbstractCoreManager {
       state.ini,
       state.section_logic,
       "level_spot",
-      object,
       false,
       ""
     ) as EMapMarkType;
 
     // todo: Retry, probably not needed at all.
     if (mapSpot === null) {
-      mapSpot = getConfigString<EMapMarkType>(
-        state.ini,
-        state.active_section,
-        "level_spot",
-        object,
-        false,
-        ""
-      ) as EMapMarkType;
+      mapSpot = getConfigString<EMapMarkType>(state.ini, state.active_section, "level_spot", false, "") as EMapMarkType;
     }
 
     if (mapSpot !== null) {

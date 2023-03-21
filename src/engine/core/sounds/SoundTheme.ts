@@ -38,7 +38,6 @@ export class SoundTheme {
         SCRIPT_SOUND_LTX,
         section,
         "type",
-        registry.actor,
         true,
         ""
       ) as EPlayableSound;

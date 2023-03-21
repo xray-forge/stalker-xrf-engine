@@ -48,7 +48,7 @@ export function configureObjectSchemes(
       );
     }
   } else {
-    const filename: Optional<TName> = getConfigString(ini, sectionLogic, "cfg", object, false, "");
+    const filename: Optional<TName> = getConfigString(ini, sectionLogic, "cfg", false, "");
 
     if (filename !== null) {
       actualIniFilename = filename;
@@ -91,15 +91,7 @@ export function configureObjectSchemes(
   state.section_logic = sectionLogic;
 
   if (schemeType === ESchemeType.STALKER) {
-    const tradeIni = getConfigString(
-      actualIni,
-      sectionLogic,
-      "trade",
-      object,
-      false,
-      "",
-      "misc\\trade\\trade_generic.ltx"
-    );
+    const tradeIni = getConfigString(actualIni, sectionLogic, "trade", false, "", "misc\\trade\\trade_generic.ltx");
 
     TradeManager.getInstance().initForObject(object, tradeIni);
     spawnDefaultObjectItems(object, state);

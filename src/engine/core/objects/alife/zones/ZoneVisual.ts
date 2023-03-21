@@ -28,15 +28,8 @@ export class ZoneVisual extends cse_zone_visual {
     registerObjectStoryLinks(this);
 
     this.artefact_spawn_idle =
-      60 * 60 * 1000 * getConfigNumber(system_ini(), this.section_name(), "artefact_spawn_idle", this, false, 24);
-    this.artefact_spawn_rnd = getConfigNumber(
-      system_ini(),
-      this.section_name(),
-      "artefact_spawn_rnd",
-      this,
-      false,
-      100
-    );
+      60 * 60 * 1000 * getConfigNumber(system_ini(), this.section_name(), "artefact_spawn_idle", false, 24);
+    this.artefact_spawn_rnd = getConfigNumber(system_ini(), this.section_name(), "artefact_spawn_rnd", false, 100);
   }
 
   /**

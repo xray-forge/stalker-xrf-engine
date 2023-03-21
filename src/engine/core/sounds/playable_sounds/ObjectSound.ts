@@ -54,9 +54,9 @@ export class ObjectSound extends AbstractPlayableSound {
   public constructor(snd_ini: XR_ini_file, section: string) {
     super(snd_ini, section);
 
-    this.shuffle = getConfigString(snd_ini, section, "shuffle", null, false, "", "rnd");
+    this.shuffle = getConfigString(snd_ini, section, "shuffle", false, "", "rnd");
 
-    const interval = parseNames(getConfigString(snd_ini, section, "idle", null, false, "", "3,5,100"));
+    const interval = parseNames(getConfigString(snd_ini, section, "idle", false, "", "3,5,100"));
 
     this.min_idle = tonumber(interval.get(1))!;
     this.max_idle = tonumber(interval.get(2))!;
@@ -67,9 +67,9 @@ export class ObjectSound extends AbstractPlayableSound {
     this.can_play_sound = true;
     this.section = section;
     this.played_id = null;
-    this.faction = getConfigString(snd_ini, section, "faction", null, false, "", "");
-    this.point = getConfigString(snd_ini, section, "point", null, false, "", "");
-    this.msg = getConfigString(snd_ini, section, "message", null, false, "", "");
+    this.faction = getConfigString(snd_ini, section, "faction", false, "", "");
+    this.point = getConfigString(snd_ini, section, "point", false, "", "");
+    this.msg = getConfigString(snd_ini, section, "message", false, "", "");
 
     const fs: XR_FS = getFS();
 

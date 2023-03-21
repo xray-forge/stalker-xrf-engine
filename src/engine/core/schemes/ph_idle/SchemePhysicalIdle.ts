@@ -24,11 +24,11 @@ export class SchemePhysicalIdle extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemePhysicalIdleState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.hit_on_bone = parseData1v(object, getConfigString(ini, section, "hit_on_bone", object, false, ""));
-    state.nonscript_usable = getConfigBoolean(ini, section, "nonscript_usable", object, false);
-    state.on_use = getConfigConditionList(ini, section, "on_use", object);
-    state.tips = getConfigString(ini, section, "tips", object, false, "", "");
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.hit_on_bone = parseData1v(object, getConfigString(ini, section, "hit_on_bone", false, ""));
+    state.nonscript_usable = getConfigBoolean(ini, section, "nonscript_usable", false);
+    state.on_use = getConfigConditionList(ini, section, "on_use");
+    state.tips = getConfigString(ini, section, "tips", false, "", "");
 
     object.set_tip_text(state.tips);
   }

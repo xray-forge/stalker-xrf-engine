@@ -39,7 +39,7 @@ export class SchemeHit extends AbstractScheme {
       abort("There is no section [%s] for npc [%s]", section, object.name());
     }
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section);
 
     SchemeHit.subscribe(object, state, state.action);
   }

@@ -23,7 +23,7 @@ import { getConfigString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, StringOptional, TSection } from "@/engine/lib/types";
+import { Optional, StringOptional, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -130,8 +130,8 @@ export class Monster extends cse_alife_monster_base {
 
     this.brain().can_choose_alife_tasks(false);
 
-    const obj_ini = this.spawn_ini();
-    const smart = getConfigString(obj_ini, "logic", "smart_terrain", this, false, "", "");
+    const objectIni = this.spawn_ini();
+    const smart = getConfigString(objectIni, "logic", "smart_terrain", false, "", "");
     const smart_obj = board.getSmartTerrainByName(smart);
 
     if (smart_obj === null) {
@@ -147,10 +147,10 @@ export class Monster extends cse_alife_monster_base {
   public override on_unregister(): void {
     logger.info("Unregister:", this.name());
 
-    const strn_id = this.smart_terrain_id();
+    const smartTerrainId: TNumberId = this.smart_terrain_id();
 
-    if (strn_id !== MAX_U16) {
-      const smart: any = alife().object(strn_id);
+    if (smartTerrainId !== MAX_U16) {
+      const smart: any = alife().object(smartTerrainId);
 
       if (smart !== null) {
         smart.unregister_npc(this);

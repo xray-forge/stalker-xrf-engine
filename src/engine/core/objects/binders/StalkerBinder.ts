@@ -135,7 +135,7 @@ export class StalkerBinder extends object_binder {
   public override net_spawn(object: XR_cse_alife_creature_abstract): boolean {
     const objectId: TNumberId = this.object.id();
     const actor: XR_game_object = registry.actor;
-    const visual: TName = getConfigString(system_ini(), this.object.section(), "set_visual", object, false, "");
+    const visual: TName = getConfigString(system_ini(), this.object.section(), "set_visual", false, "");
 
     logger.info("Stalker net spawn:", objectId, this.object.name());
 
@@ -163,7 +163,7 @@ export class StalkerBinder extends object_binder {
       const spawnIni: Optional<XR_ini_file> = this.object.spawn_ini();
 
       const stalkerIniFilename: Optional<TName> =
-        spawnIni === null ? null : getConfigString(spawnIni, "logic", "cfg", this.object, false, "");
+        spawnIni === null ? null : getConfigString(spawnIni, "logic", "cfg", false, "");
       let stalkerIni: Optional<XR_ini_file> = null;
 
       if (stalkerIniFilename !== null) {
@@ -405,11 +405,11 @@ export class StalkerBinder extends object_binder {
 
     registry.actorCombat.delete(this.object.id());
 
-    const st = registry.objects.get(this.object.id());
+    const state = registry.objects.get(this.object.id());
     const npc = this.object;
     const actor = registry.actor;
 
-    MapDisplayManager.getInstance().removeObjectMapSpot(npc, st);
+    MapDisplayManager.getInstance().removeObjectMapSpot(npc, state);
 
     if (who?.id() === actor.id()) {
       const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
@@ -419,9 +419,9 @@ export class StalkerBinder extends object_binder {
       statisticsManager.updateBestMonsterKilled(npc);
     }
 
-    const known_info = getConfigString(st.ini!, st.section_logic, "known_info", this.object, false, "", null);
+    const known_info = getConfigString(state.ini!, state.section_logic, "known_info", false, "", null);
 
-    loadInfo(this.object, st.ini!, known_info);
+    loadInfo(this.object, state.ini!, known_info);
 
     if (this.state.state_mgr !== null) {
       this.state.state_mgr!.animation.set_state(null, true);

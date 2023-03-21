@@ -39,18 +39,18 @@ export class SchemeMinigun extends AbstractScheme {
   ): void {
     const state: ISchemeMinigunState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.path_fire = getConfigString(ini, section, "path_fire", object, false, additional, null);
-    state.auto_fire = getConfigBoolean(ini, section, "auto_fire", object, false, false);
-    state.fire_time = getConfigNumber(ini, section, "fire_time", object, false, def_min_fire_time);
-    state.fire_rep = getConfigNumber(ini, section, "fire_repeat", object, false, def_fire_rep);
-    state.fire_range = getConfigNumber(ini, section, "fire_range", object, false, def_fire_range);
-    state.fire_target = getConfigString(ini, section, "target", object, false, additional, "points");
-    state.fire_track_target = getConfigBoolean(ini, section, "track_target", object, false, false);
-    state.fire_angle = getConfigNumber(ini, section, "fire_angle", object, false, def_fire_angle);
-    state.shoot_only_on_visible = getConfigBoolean(ini, section, "shoot_only_on_visible", object, false, true);
-    state.on_target_vis = getConfigStringAndCondList(ini, section, "on_target_vis", object);
-    state.on_target_nvis = getConfigStringAndCondList(ini, section, "on_target_nvis", object);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.path_fire = getConfigString(ini, section, "path_fire", false, additional, null);
+    state.auto_fire = getConfigBoolean(ini, section, "auto_fire", false, false);
+    state.fire_time = getConfigNumber(ini, section, "fire_time", false, def_min_fire_time);
+    state.fire_rep = getConfigNumber(ini, section, "fire_repeat", false, def_fire_rep);
+    state.fire_range = getConfigNumber(ini, section, "fire_range", false, def_fire_range);
+    state.fire_target = getConfigString(ini, section, "target", false, additional, "points");
+    state.fire_track_target = getConfigBoolean(ini, section, "track_target", false, false);
+    state.fire_angle = getConfigNumber(ini, section, "fire_angle", false, def_fire_angle);
+    state.shoot_only_on_visible = getConfigBoolean(ini, section, "shoot_only_on_visible", false, true);
+    state.on_target_vis = getConfigStringAndCondList(ini, section, "on_target_vis");
+    state.on_target_nvis = getConfigStringAndCondList(ini, section, "on_target_nvis");
   }
 
   /**

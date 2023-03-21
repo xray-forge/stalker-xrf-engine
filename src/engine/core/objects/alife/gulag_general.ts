@@ -28,7 +28,17 @@ import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities } from "@/engine/lib/constants/communities";
 import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
-import { AnyObject, EJobType, EScheme, JobTypeByScheme, Optional, TName, TPath, TSection } from "@/engine/lib/types";
+import {
+  AnyObject,
+  EJobType,
+  EScheme,
+  JobTypeByScheme,
+  Optional,
+  TCount,
+  TName,
+  TPath,
+  TSection,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -1084,7 +1094,7 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
  * todo;
  */
 function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini_file, job_table: LuaTable): void {
-  const work: Optional<string> = getConfigString(smart_ini, sect, work_field, null, false, "");
+  const work: Optional<string> = getConfigString(smart_ini, sect, work_field, false, "");
 
   if (work === null) {
     return;
@@ -1097,25 +1107,17 @@ function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini
   }
 
   const job_ini_file = new ini_file(iniPath);
-  const job_online = getConfigString(
-    job_ini_file,
-    "logic@" + work_field,
-    "job_online",
-    registry.actor,
-    false,
-    "",
-    null
-  );
-  const new_prior = getConfigNumber(job_ini_file, "logic@" + work_field, "prior", null, false, 45);
-  const job_suitable = getConfigString(job_ini_file, "logic@" + work_field, "suitable", null, false, "");
-  const is_monster = getConfigBoolean(job_ini_file, "logic@" + work_field, "monster_job", null, false, false);
-  const active_section = getConfigString(job_ini_file, "logic@" + work_field, "active", null, false, "");
+  const job_online = getConfigString(job_ini_file, "logic@" + work_field, "job_online", false, "", null);
+  const new_prior = getConfigNumber(job_ini_file, "logic@" + work_field, "prior", false, 45);
+  const job_suitable = getConfigString(job_ini_file, "logic@" + work_field, "suitable", false, "");
+  const is_monster = getConfigBoolean(job_ini_file, "logic@" + work_field, "monster_job", false, false);
+  const active_section = getConfigString(job_ini_file, "logic@" + work_field, "active", false, "");
   const scheme = getSchemeByIniSection(active_section);
 
   let job_type = JobTypeByScheme[scheme];
 
   if (scheme === EScheme.MOB_HOME) {
-    if (getConfigBoolean(job_ini_file, active_section, "gulag_point", null, false, false)) {
+    if (getConfigBoolean(job_ini_file, active_section, "gulag_point", false, false)) {
       job_type = EJobType.POINT_JOB;
     }
   }
@@ -1193,9 +1195,9 @@ export function isJobInRestrictor(smart: SmartTerrain, restrictorName: TName, wa
   }
 
   const ptrl: XR_patrol = new patrol(wayName);
-  const cnt: number = ptrl.count();
+  const count: TCount = ptrl.count();
 
-  for (const pt of $range(0, cnt - 1)) {
+  for (const pt of $range(0, count - 1)) {
     if (!restrictor.inside(ptrl.point(pt))) {
       return false;
     }

@@ -42,13 +42,13 @@ export function initializeObjectSchemeLogic(
 
     activateSchemeBySection(object, iniFile, section, state.gulag_name, false);
 
-    const relation: Optional<TRelation> = getConfigString(iniFile, "logic", "relation", object, false, "") as TRelation;
+    const relation: Optional<TRelation> = getConfigString(iniFile, "logic", "relation", false, "") as TRelation;
 
     if (relation !== null) {
       object.set_relation(game_object[relation as TRelation], registry.actor);
     }
 
-    const sympathy: Optional<TCount> = getConfigNumber(iniFile, "logic", "sympathy", object, false);
+    const sympathy: Optional<TCount> = getConfigNumber(iniFile, "logic", "sympathy", false);
 
     if (sympathy !== null) {
       object.set_sympathy(sympathy);

@@ -117,21 +117,12 @@ export class CampStoryManager {
     this.object = object;
     this.ini = ini;
 
-    const stories = getConfigString(ini, CampStoryManager.SCHEME_SECTION, "stories", null, false, "", "test_story");
-    const guitars = getConfigString(
-      ini,
-      CampStoryManager.SCHEME_SECTION,
-      "guitar_themes",
-      null,
-      false,
-      "",
-      "test_guitar"
-    );
+    const stories = getConfigString(ini, CampStoryManager.SCHEME_SECTION, "stories", false, "", "test_story");
+    const guitars = getConfigString(ini, CampStoryManager.SCHEME_SECTION, "guitar_themes", false, "", "test_guitar");
     const harmonicas = getConfigString(
       ini,
       CampStoryManager.SCHEME_SECTION,
       "harmonica_themes",
-      null,
       false,
       "",
       "test_harmonica"

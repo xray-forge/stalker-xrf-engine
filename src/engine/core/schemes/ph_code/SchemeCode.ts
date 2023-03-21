@@ -28,25 +28,25 @@ export class SchemeCode extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeCodeState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.tips = getConfigString(ini, section, "tips", object, false, "", "st_codelock");
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.tips = getConfigString(ini, section, "tips", false, "", "st_codelock");
 
     object.set_tip_text(state.tips);
 
-    state.code = getConfigNumber(ini, section, "code", object, false);
+    state.code = getConfigNumber(ini, section, "code", false);
 
     if (state.code) {
-      state.on_code = getConfigConditionList(ini, section, "on_code", object);
+      state.on_code = getConfigConditionList(ini, section, "on_code");
     } else {
       state.on_check_code = new LuaTable();
 
       let it: TIndex = 1;
-      let cc = getConfigStringAndCondList(ini, section, "on_check_code" + it, object);
+      let cc = getConfigStringAndCondList(ini, section, "on_check_code" + it);
 
       while (cc) {
         state.on_check_code.set(cc.v1 as TName, cc.condlist);
         it += 1;
-        cc = getConfigStringAndCondList(ini, section, "on_check_code" + it, object);
+        cc = getConfigStringAndCondList(ini, section, "on_check_code" + it);
       }
     }
   }

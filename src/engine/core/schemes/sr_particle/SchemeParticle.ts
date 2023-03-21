@@ -24,11 +24,11 @@ export class SchemeParticle extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeParticleState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.name = getConfigString(ini, section, "name", object, true, "", null) as TName;
-    state.path = getConfigString(ini, section, "path", object, true, "", null) as TName;
-    state.mode = getConfigNumber(ini, section, "mode", object, true);
-    state.looped = getConfigBoolean(ini, section, "looped", object, false);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.name = getConfigString(ini, section, "name", true, "", null) as TName;
+    state.path = getConfigString(ini, section, "path", true, "", null) as TName;
+    state.mode = getConfigNumber(ini, section, "mode", true);
+    state.looped = getConfigBoolean(ini, section, "looped", false);
 
     if (state.path === null || state.path === "") {
       abort("SR_PARTICLE : invalid path name");

@@ -53,7 +53,6 @@ export class SchemeGatherItems extends AbstractScheme {
       state.ini!,
       section,
       "gather_items_enabled",
-      object,
       false,
       true
     );

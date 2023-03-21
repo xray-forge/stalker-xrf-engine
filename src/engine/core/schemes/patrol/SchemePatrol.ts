@@ -39,10 +39,10 @@ export class SchemePatrol extends AbstractScheme {
   ): void {
     const state: ISchemePatrolState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.path_name = getConfigString(ini, section, "path_walk", object, true, gulagName);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.path_name = getConfigString(ini, section, "path_walk", true, gulagName);
     state.path_walk = state.path_name;
-    state.path_look = getConfigString(ini, section, "path_look", object, false, gulagName);
+    state.path_look = getConfigString(ini, section, "path_look", false, gulagName);
 
     if (state.path_walk === state.path_look) {
       abort(
@@ -52,32 +52,31 @@ export class SchemePatrol extends AbstractScheme {
       );
     }
 
-    state.formation = getConfigString(ini, section, "formation", object, false, "");
-    state.silent = getConfigBoolean(ini, section, "silent", object, false, false);
+    state.formation = getConfigString(ini, section, "formation", false, "");
+    state.silent = getConfigBoolean(ini, section, "silent", false, false);
     if (state.formation === null) {
       state.formation = "back";
     }
 
-    state.move_type = getConfigString(ini, section, "move_type", object, false, "");
+    state.move_type = getConfigString(ini, section, "move_type", false, "");
     if (state.move_type === null) {
       state.move_type = "patrol";
     }
 
     state.suggested_state = {} as any;
-    state.suggested_state.standing = getConfigString(ini, section, "def_state_standing", object, false, "");
-    state.suggested_state.moving = getConfigString(ini, section, "def_state_moving1", object, false, "");
+    state.suggested_state.standing = getConfigString(ini, section, "def_state_standing", false, "");
+    state.suggested_state.moving = getConfigString(ini, section, "def_state_moving1", false, "");
     state.suggested_state.moving = getConfigString(
       ini,
       section,
       "def_state_moving",
-      object,
       false,
       "",
       state.suggested_state.moving
     );
     state.path_walk_info = null;
     state.path_look_info = null;
-    state.commander = getConfigBoolean(ini, section, "commander", object, false, false);
+    state.commander = getConfigBoolean(ini, section, "commander", false, false);
     state.patrol_key = state.path_name;
 
     const squad: Optional<Squad> = getObjectSquad(object);

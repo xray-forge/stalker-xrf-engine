@@ -23,7 +23,7 @@ export class SchemeSilence extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeSilenceState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section);
 
     registry.silenceZones.set(object.id(), object.name());
   }

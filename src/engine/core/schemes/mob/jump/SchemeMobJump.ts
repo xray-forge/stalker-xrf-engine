@@ -31,11 +31,11 @@ export class SchemeMobJump extends AbstractScheme {
   ): void {
     const state: ISchemeMobJumpState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.jump_path_name = getConfigString(ini, section, "path_jump", object, false, additional);
-    state.ph_jump_factor = getConfigNumber(ini, section, "ph_jump_factor", object, false, 1.8);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.jump_path_name = getConfigString(ini, section, "path_jump", false, additional);
+    state.ph_jump_factor = getConfigNumber(ini, section, "ph_jump_factor", false, 1.8);
 
-    const offsetsData: string = getConfigString(ini, section, "offset", object, true, "");
+    const offsetsData: string = getConfigString(ini, section, "offset", true, "");
     const offsets: LuaArray<string> = parseNames(offsetsData);
 
     state.offset = new vector().set(tonumber(offsets.get(1))!, tonumber(offsets.get(2))!, tonumber(offsets.get(3))!);

@@ -88,13 +88,13 @@ export class HelicopterBinder extends object_binder {
 
     const ltx: XR_ini_file = system_ini();
 
-    this.flame_start_health = getConfigNumber(ltx, "helicopter", "flame_start_health", this.object, true);
+    this.flame_start_health = getConfigNumber(ltx, "helicopter", "flame_start_health", true);
 
     const object_ini = this.object.spawn_ini();
 
-    this.snd_hit = getConfigString(object_ini, "helicopter", "snd_hit", this.object, false, "", "heli_hit");
-    this.snd_damage = getConfigString(object_ini, "helicopter", "snd_damage", this.object, false, "", "heli_damaged");
-    this.snd_down = getConfigString(object_ini, "helicopter", "snd_down", this.object, false, "", "heli_down");
+    this.snd_hit = getConfigString(object_ini, "helicopter", "snd_hit", false, "", "heli_hit");
+    this.snd_damage = getConfigString(object_ini, "helicopter", "snd_damage", false, "", "heli_damaged");
+    this.snd_down = getConfigString(object_ini, "helicopter", "snd_down", false, "", "heli_down");
   }
 
   /**

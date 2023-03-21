@@ -29,7 +29,16 @@ import { giveMoneyToActor, relocateQuestItemSection } from "@/engine/core/utils/
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { NIL } from "@/engine/lib/constants/words";
-import { AnyCallablesModule, LuaArray, Optional, TCount, TName, TNumberId, TStringId } from "@/engine/lib/types";
+import {
+  AnyCallablesModule,
+  LuaArray,
+  Optional,
+  TCount,
+  TIndex,
+  TName,
+  TNumberId,
+  TStringId,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -132,42 +141,41 @@ export class TaskObject {
     this.task_ini = task_ini;
     this.id = id;
 
-    this.title = getConfigString(task_ini, id, "title", null, false, "", "TITLE_DOESNT_EXIST");
-    this.title_functor = getConfigString(task_ini, id, "title_functor", null, false, "", "condlist");
+    this.title = getConfigString(task_ini, id, "title", false, "", "TITLE_DOESNT_EXIST");
+    this.title_functor = getConfigString(task_ini, id, "title_functor", false, "", "condlist");
 
-    this.descr = getConfigString(task_ini, id, "descr", null, false, "", "DESCR_DOESNT_EXIST");
-    this.descr_functor = getConfigString(task_ini, id, "descr_functor", null, false, "", "condlist");
+    this.descr = getConfigString(task_ini, id, "descr", false, "", "DESCR_DOESNT_EXIST");
+    this.descr_functor = getConfigString(task_ini, id, "descr_functor", false, "", "condlist");
 
-    this.target = getConfigString(task_ini, id, "target", null, false, "", "DESCR_DOESNT_EXIST");
-    this.target_functor = getConfigString(task_ini, id, "target_functor", null, false, "", "target_condlist");
+    this.target = getConfigString(task_ini, id, "target", false, "", "DESCR_DOESNT_EXIST");
+    this.target_functor = getConfigString(task_ini, id, "target_functor", false, "", "target_condlist");
 
-    this.icon = getConfigString(task_ini, id, "icon", null, false, "", "ui_pda2_mtask_overlay");
-    this.prior = getConfigNumber(task_ini, id, "prior", null, false, 0);
-    this.storyline = getConfigBoolean(task_ini, id, "storyline", null, false, true);
+    this.icon = getConfigString(task_ini, id, "icon", false, "", "ui_pda2_mtask_overlay");
+    this.prior = getConfigNumber(task_ini, id, "prior", false, 0);
+    this.storyline = getConfigBoolean(task_ini, id, "storyline", false, true);
 
-    let i: number = 0;
+    let it: TIndex = 0;
 
     this.condlist = new LuaTable();
 
-    while (task_ini.line_exist(id, "condlist_" + i)) {
-      this.condlist.set(i, parseConditionsList(task_ini.r_string(id, "condlist_" + i)));
+    while (task_ini.line_exist(id, "condlist_" + it)) {
+      this.condlist.set(it, parseConditionsList(task_ini.r_string(id, "condlist_" + it)));
 
-      i = i + 1;
+      it = it + 1;
     }
 
-    this.on_init = parseConditionsList(getConfigString(task_ini, id, "on_init", null, false, "", ""));
-    this.on_complete = parseConditionsList(getConfigString(task_ini, id, "on_complete", null, false, "", ""));
-    this.on_reversed = parseConditionsList(getConfigString(task_ini, id, "on_reversed", null, false, "", ""));
+    this.on_init = parseConditionsList(getConfigString(task_ini, id, "on_init", false, "", ""));
+    this.on_complete = parseConditionsList(getConfigString(task_ini, id, "on_complete", false, "", ""));
+    this.on_reversed = parseConditionsList(getConfigString(task_ini, id, "on_reversed", false, "", ""));
 
-    this.reward_money = parseConditionsList(getConfigString(task_ini, id, "reward_money", null, false, "", ""));
-    this.reward_item = parseConditionsList(getConfigString(task_ini, id, "reward_item", null, false, "", ""));
+    this.reward_money = parseConditionsList(getConfigString(task_ini, id, "reward_money", false, "", ""));
+    this.reward_item = parseConditionsList(getConfigString(task_ini, id, "reward_item", false, "", ""));
 
-    this.community_relation_delta_fail = getConfigNumber(task_ini, id, "community_relation_delta_fail", null, false, 0);
+    this.community_relation_delta_fail = getConfigNumber(task_ini, id, "community_relation_delta_fail", false, 0);
     this.community_relation_delta_complete = getConfigNumber(
       task_ini,
       id,
       "community_relation_delta_complete",
-      null,
       false,
       0
     );
@@ -194,7 +202,7 @@ export class TaskObject {
     }
 
     this.current_target = (TaskFunctor as AnyCallablesModule)[this.target_functor](this.id, "target", this.target);
-    this.dont_send_update_news = getConfigBoolean(task_ini, id, "dont_send_update_news", null, false, false);
+    this.dont_send_update_news = getConfigBoolean(task_ini, id, "dont_send_update_news", false, false);
   }
 
   /**

@@ -27,11 +27,14 @@ import { parseNames } from "@/engine/core/utils/parse";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { roots } from "@/engine/lib/constants/roots";
 import { NIL } from "@/engine/lib/constants/words";
-import { AnyObject, Optional, TLabel, TName, TNumberId } from "@/engine/lib/types";
+import { AnyObject, LuaArray, Optional, TLabel, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const nstl = 64;
 
+/**
+ * todo;
+ */
 export class NpcSound extends AbstractPlayableSound {
   // todo: probably can be simplified to increment removal
   public static getNextId(): number {
@@ -73,36 +76,35 @@ export class NpcSound extends AbstractPlayableSound {
   public can_play_group_sound: boolean = true;
   public pda_snd_obj: Optional<XR_sound_object> = null;
 
-  public constructor(snd_ini: XR_ini_file, section: string) {
-    super(snd_ini, section);
+  public constructor(soundIni: XR_ini_file, section: string) {
+    super(soundIni, section);
 
-    this.prefix = getConfigBoolean(snd_ini, section, "npc_prefix", null, false, false);
-    this.shuffle = getConfigString(snd_ini, section, "shuffle", null, false, "", "rnd");
-    this.group_snd = getConfigBoolean(snd_ini, section, "group_snd", null, false, false);
-    this.play_always = getConfigBoolean(snd_ini, section, "play_always", null, false, false);
-    this.is_combat_sound = getConfigBoolean(snd_ini, section, "is_combat_sound", null, false, false);
+    this.prefix = getConfigBoolean(soundIni, section, "npc_prefix", false, false);
+    this.shuffle = getConfigString(soundIni, section, "shuffle", false, "", "rnd");
+    this.group_snd = getConfigBoolean(soundIni, section, "group_snd", false, false);
+    this.play_always = getConfigBoolean(soundIni, section, "play_always", false, false);
+    this.is_combat_sound = getConfigBoolean(soundIni, section, "is_combat_sound", false, false);
     this.section = section;
 
-    this.delay_sound = getConfigNumber(snd_ini, section, "delay_sound", this.npc, false, 0);
+    this.delay_sound = getConfigNumber(soundIni, section, "delay_sound", false, 0);
 
     const interval: LuaTable<number, string> = parseNames(
-      getConfigString(snd_ini, section, "idle", null, false, "", "3,5,100")
+      getConfigString(soundIni, section, "idle", false, "", "3,5,100")
     );
 
     this.min_idle = tonumber(interval.get(1))!;
     this.max_idle = tonumber(interval.get(2))!;
     this.rnd = tonumber(interval.get(3))!;
 
-    this.faction = getConfigString(snd_ini, section, "faction", null, false, "", "");
-    this.point = getConfigString(snd_ini, section, "point", null, false, "", "");
-    this.msg = getConfigString(snd_ini, section, "message", null, false, "", "");
+    this.faction = getConfigString(soundIni, section, "faction", false, "", "");
+    this.point = getConfigString(soundIni, section, "point", false, "", "");
+    this.msg = getConfigString(soundIni, section, "message", false, "", "");
 
-    const avail_communities: LuaTable<number, TCommunity> = parseNames<TCommunity>(
+    const availableCommunities: LuaArray<TCommunity> = parseNames<TCommunity>(
       getConfigString(
-        snd_ini,
+        soundIni,
         section,
         "avail_communities",
-        null,
         false,
         "",
         string.format(
@@ -120,11 +122,14 @@ export class NpcSound extends AbstractPlayableSound {
       )
     );
 
-    for (const [k, v] of avail_communities) {
+    for (const [k, v] of availableCommunities) {
       this.avail_communities.set(v, true);
     }
   }
 
+  /**
+   * todo;
+   */
   public override reset(objectId: TNumberId): void {
     const npc: Optional<XR_game_object> = registry.objects.get(objectId) && registry.objects.get(objectId).object!;
 
@@ -144,6 +149,9 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
+  /**
+   * todo;
+   */
   public override is_playing(objectId: TNumberId): boolean {
     const obj: Optional<XR_game_object> = registry.objects.get(objectId) && registry.objects.get(objectId).object!;
 
@@ -154,6 +162,9 @@ export class NpcSound extends AbstractPlayableSound {
     return obj.active_sound_count() !== 0 || this.pda_snd_obj?.playing() === true;
   }
 
+  /**
+   * todo;
+   */
   public init_npc(npc: XR_game_object): void {
     const npc_id = npc.id();
     const npcObj: AnyObject = {};
@@ -337,6 +348,9 @@ export class NpcSound extends AbstractPlayableSound {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public select_next_sound(objectId: TNumberId): number {
     const npc_data = this.npc.get(objectId);
 
@@ -389,6 +403,9 @@ export class NpcSound extends AbstractPlayableSound {
     abort("Unexpected shuffle type provided: %s,", this.shuffle);
   }
 
+  /**
+   * todo;
+   */
   public override stop(objectId: TNumberId): void {
     const npc: Optional<XR_game_object> = registry.objects.get(objectId)?.object as Optional<XR_game_object>;
 
@@ -403,6 +420,9 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
+  /**
+   * todo;
+   */
   public override save(net_packet: XR_net_packet): void {
     net_packet.w_stringZ(tostring(this.played_id));
 
@@ -411,6 +431,9 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
+  /**
+   * todo;
+   */
   public override load(reader: XR_reader): void {
     const id: string = reader.r_stringZ();
 
@@ -421,15 +444,21 @@ export class NpcSound extends AbstractPlayableSound {
     }
   }
 
-  public override save_npc(net_packet: XR_net_packet, npcId: number): void {
+  /**
+   * todo;
+   */
+  public override save_npc(net_packet: XR_net_packet, objectId: TNumberId): void {
     if (!this.group_snd) {
-      net_packet.w_bool(this.can_play_sound.get(npcId) === true);
+      net_packet.w_bool(this.can_play_sound.get(objectId) === true);
     }
   }
 
-  public override load_npc(reader: XR_reader, npcId: number): void {
+  /**
+   * todo;
+   */
+  public override load_npc(reader: XR_reader, objectId: TNumberId): void {
     if (!this.group_snd) {
-      this.can_play_sound.set(npcId, reader.r_bool());
+      this.can_play_sound.set(objectId, reader.r_bool());
     }
   }
 }

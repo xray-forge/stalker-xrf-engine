@@ -23,14 +23,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class CampBinder extends object_binder {
-  public constructor(object: XR_game_object) {
-    super(object);
-  }
-
-  public override reload(section: string): void {
-    super.reload(section);
-  }
-
   public override reinit(): void {
     super.reinit();
 
@@ -52,15 +44,7 @@ export class CampBinder extends object_binder {
     const ini: XR_ini_file = this.object.spawn_ini();
 
     if (ini.section_exist(CampStoryManager.SCHEME_SECTION)) {
-      const filename: Optional<string> = getConfigString(
-        ini,
-        CampStoryManager.SCHEME_SECTION,
-        "cfg",
-        null,
-        false,
-        "",
-        null
-      );
+      const filename: Optional<string> = getConfigString(ini, CampStoryManager.SCHEME_SECTION, "cfg", false, "", null);
 
       registry.camps.stories.set(
         this.object.id(),

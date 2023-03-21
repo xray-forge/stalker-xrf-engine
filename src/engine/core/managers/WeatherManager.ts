@@ -38,8 +38,8 @@ export class WeatherManager extends AbstractCoreManager {
    * todo: Description.
    */
   public reset(): void {
-    const weather: string = getConfigString(GAME_LTX, level.name(), "weathers", registry.actor, false, "", "[default]");
-    const postprocess: string = getConfigString(GAME_LTX, level.name(), "postprocess", registry.actor, false, "");
+    const weather: string = getConfigString(GAME_LTX, level.name(), "weathers", false, "", "[default]");
+    const postprocess: string = getConfigString(GAME_LTX, level.name(), "postprocess", false, "");
 
     if (postprocess !== null) {
       level.add_pp_effector(postprocess, 999, true);

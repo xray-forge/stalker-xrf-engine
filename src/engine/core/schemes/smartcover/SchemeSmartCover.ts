@@ -33,22 +33,22 @@ export class SchemeSmartCover extends AbstractScheme {
   ): void {
     const state: ISchemeSmartCoverState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.cover_name = getConfigString(ini, section, "cover_name", object, false, "", "$script_id$_cover");
-    state.loophole_name = getConfigString(ini, section, "loophole_name", object, false, "", null);
-    state.cover_state = getConfigString(ini, section, "cover_state", object, false, "", "default_behaviour");
-    state.target_enemy = getConfigString(ini, section, "target_enemy", object, false, "", null);
-    state.target_path = getConfigString(ini, section, "target_path", object, false, "", NIL);
-    state.idle_min_time = getConfigNumber(ini, section, "idle_min_time", object, false, 6);
-    state.idle_max_time = getConfigNumber(ini, section, "idle_max_time", object, false, 10);
-    state.lookout_min_time = getConfigNumber(ini, section, "lookout_min_time", object, false, 6);
-    state.lookout_max_time = getConfigNumber(ini, section, "lookout_max_time", object, false, 10);
-    state.exit_body_state = getConfigString(ini, section, "exit_body_state", object, false, "", "stand");
-    state.use_precalc_cover = getConfigBoolean(ini, section, "use_precalc_cover", object, false, false);
-    state.use_in_combat = getConfigBoolean(ini, section, "use_in_combat", object, false, false);
-    state.weapon_type = getConfigString(ini, section, "weapon_type", object, false);
-    state.moving = getConfigString(ini, section, "def_state_moving", object, false, "", "sneak");
-    state.sound_idle = getConfigString(ini, section, "sound_idle", object, false);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.cover_name = getConfigString(ini, section, "cover_name", false, "", "$script_id$_cover");
+    state.loophole_name = getConfigString(ini, section, "loophole_name", false, "", null);
+    state.cover_state = getConfigString(ini, section, "cover_state", false, "", "default_behaviour");
+    state.target_enemy = getConfigString(ini, section, "target_enemy", false, "", null);
+    state.target_path = getConfigString(ini, section, "target_path", false, "", NIL);
+    state.idle_min_time = getConfigNumber(ini, section, "idle_min_time", false, 6);
+    state.idle_max_time = getConfigNumber(ini, section, "idle_max_time", false, 10);
+    state.lookout_min_time = getConfigNumber(ini, section, "lookout_min_time", false, 6);
+    state.lookout_max_time = getConfigNumber(ini, section, "lookout_max_time", false, 10);
+    state.exit_body_state = getConfigString(ini, section, "exit_body_state", false, "", "stand");
+    state.use_precalc_cover = getConfigBoolean(ini, section, "use_precalc_cover", false, false);
+    state.use_in_combat = getConfigBoolean(ini, section, "use_in_combat", false, false);
+    state.weapon_type = getConfigString(ini, section, "weapon_type", false);
+    state.moving = getConfigString(ini, section, "def_state_moving", false, "", "sneak");
+    state.sound_idle = getConfigString(ini, section, "sound_idle", false);
   }
 
   /**

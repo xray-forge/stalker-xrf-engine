@@ -35,17 +35,17 @@ export class SchemeRemark extends AbstractScheme {
   ): void {
     const state: ISchemeRemarkState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.snd_anim_sync = getConfigBoolean(ini, section, "snd_anim_sync", object, false);
-    state.snd = getConfigString(ini, section, "snd", object, false, "", null);
-    state.anim = parseConditionsList(getConfigString(ini, section, "anim", object, false, "", "wait"));
-    state.tips_id = getConfigString(ini, section, "tips", object, false, "");
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.snd_anim_sync = getConfigBoolean(ini, section, "snd_anim_sync", false);
+    state.snd = getConfigString(ini, section, "snd", false, "", null);
+    state.anim = parseConditionsList(getConfigString(ini, section, "anim", false, "", "wait"));
+    state.tips_id = getConfigString(ini, section, "tips", false, "");
 
     if (state.tips_id !== null) {
-      state.sender = getConfigString(ini, section, "tips_sender", object, false, "");
+      state.sender = getConfigString(ini, section, "tips_sender", false, "");
     }
 
-    state.target = getConfigString(ini, section, "target", object, false, "", NIL);
+    state.target = getConfigString(ini, section, "target", false, "", NIL);
     state.target_id = null;
     state.target_position = null;
   }

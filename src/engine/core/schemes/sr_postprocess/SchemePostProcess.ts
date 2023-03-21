@@ -23,10 +23,10 @@ export class SchemePostProcess extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemePostProcessState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.intensity = getConfigNumber(ini, section, "intensity", object, true) * 0.01;
-    state.intensity_speed = getConfigNumber(ini, section, "intensity_speed", object, true) * 0.01;
-    state.hit_intensity = getConfigNumber(ini, section, "hit_intensity", object, true);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.intensity = getConfigNumber(ini, section, "intensity", true) * 0.01;
+    state.intensity_speed = getConfigNumber(ini, section, "intensity_speed", true) * 0.01;
+    state.hit_intensity = getConfigNumber(ini, section, "hit_intensity", true);
   }
 
   /**

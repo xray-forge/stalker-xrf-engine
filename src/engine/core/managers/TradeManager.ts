@@ -46,7 +46,7 @@ export class TradeManager extends AbstractCoreManager {
     registry.trade.get(objectId).cfg_ltx = configFilePath;
     registry.trade.get(objectId).config = new ini_file(configFilePath);
 
-    let data = getConfigString(registry.trade.get(objectId).config, "trader", "buy_condition", object, true, "");
+    let data = getConfigString(registry.trade.get(objectId).config, "trader", "buy_condition", true, "");
 
     if (data === null) {
       abort("Incorrect trader settings. Cannot find buy_condition. [%s]->[%s]", object.name(), configFilePath);
@@ -54,14 +54,14 @@ export class TradeManager extends AbstractCoreManager {
 
     registry.trade.get(objectId).buy_condition = parseConditionsList(data);
 
-    data = getConfigString(registry.trade.get(objectId).config, "trader", "sell_condition", object, true, "");
+    data = getConfigString(registry.trade.get(objectId).config, "trader", "sell_condition", true, "");
     if (data === null) {
       abort("Incorrect trader settings. Cannot find sell_condition. [%s]->[%s]", object.name(), configFilePath);
     }
 
     registry.trade.get(objectId).sell_condition = parseConditionsList(data);
 
-    data = getConfigString(registry.trade.get(objectId).config, "trader", "buy_supplies", object, false, "");
+    data = getConfigString(registry.trade.get(objectId).config, "trader", "buy_supplies", false, "");
     if (data !== null) {
       registry.trade.get(objectId).buy_supplies = parseConditionsList(data);
     }
@@ -71,11 +71,11 @@ export class TradeManager extends AbstractCoreManager {
       registry.trade.get(objectId).config,
       "trader",
       "buy_item_condition_factor",
-      object,
       false,
       "",
       "0.7"
     );
+
     if (data !== null) {
       registry.trade.get(objectId).buy_item_condition_factor = parseConditionsList(data);
     }
@@ -152,7 +152,7 @@ export class TradeManager extends AbstractCoreManager {
 
   public getBuyDiscountForObject(objectId: TNumberId): number {
     const tradeDescriptor: ITradeManagerDescriptor = registry.trade.get(objectId);
-    const data: string = getConfigString(tradeDescriptor.config, "trader", "discounts", null, false, "", "");
+    const data: string = getConfigString(tradeDescriptor.config, "trader", "discounts", false, "", "");
 
     if (data === "") {
       return 1;
@@ -160,7 +160,7 @@ export class TradeManager extends AbstractCoreManager {
 
     const section: TSection = pickSectionFromCondList(registry.actor, null, parseConditionsList(data))!;
 
-    return getConfigNumber(tradeDescriptor.config, section, "buy", null, false, 1);
+    return getConfigNumber(tradeDescriptor.config, section, "buy", false, 1);
   }
 
   /**
@@ -168,7 +168,7 @@ export class TradeManager extends AbstractCoreManager {
    */
   public getSellDiscountForObject(objectId: TNumberId): number {
     const tradeManagerDescriptor: ITradeManagerDescriptor = registry.trade.get(objectId);
-    const data: string = getConfigString(tradeManagerDescriptor.config, "trader", "discounts", null, false, "", "");
+    const data: string = getConfigString(tradeManagerDescriptor.config, "trader", "discounts", false, "", "");
 
     if (data === "") {
       return 1;
@@ -176,7 +176,7 @@ export class TradeManager extends AbstractCoreManager {
 
     const section: TSection = pickSectionFromCondList(registry.actor, null, parseConditionsList(data))!;
 
-    return getConfigNumber(tradeManagerDescriptor.config, section, "sell", null, false, 1);
+    return getConfigNumber(tradeManagerDescriptor.config, section, "sell", false, 1);
   }
 
   /**

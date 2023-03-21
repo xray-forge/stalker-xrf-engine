@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { getMobState } from "@/engine/core/schemes/mob/MobStateManager";
+import { getMonsterState } from "@/engine/core/schemes/mob/MobStateManager";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/mob/remark/ISchemeMobRemarkState";
 import { MobRemarkManager } from "@/engine/core/schemes/mob/remark/MobRemarkManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
@@ -30,16 +30,16 @@ export class SchemeMobRemark extends AbstractScheme {
   ): void {
     const state: ISchemeMobRemarkState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.state = getMobState(ini, section, object);
-    state.dialog_cond = getConfigConditionList(ini, section, "dialog_cond", object);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.state = getMonsterState(ini, section);
+    state.dialog_cond = getConfigConditionList(ini, section, "dialog_cond");
     state.no_reset = true;
-    state.anim = getConfigString(ini, section, "anim", object, false, "");
-    state.anim_movement = getConfigBoolean(ini, section, "anim_movement", object, false, false);
-    state.anim_head = getConfigString(ini, section, "anim_head", object, false, "");
-    state.tip = getConfigString(ini, section, "tip", object, false, "");
-    state.snd = getConfigString(ini, section, "snd", object, false, "");
-    state.time = getConfigString(ini, section, "time", object, false, "");
+    state.anim = getConfigString(ini, section, "anim", false, "");
+    state.anim_movement = getConfigBoolean(ini, section, "anim_movement", false, false);
+    state.anim_head = getConfigString(ini, section, "anim_head", false, "");
+    state.tip = getConfigString(ini, section, "tip", false, "");
+    state.snd = getConfigString(ini, section, "snd", false, "");
+    state.time = getConfigString(ini, section, "time", false, "");
   }
 
   /**

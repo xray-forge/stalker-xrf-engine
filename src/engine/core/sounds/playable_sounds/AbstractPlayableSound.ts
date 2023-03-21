@@ -22,7 +22,7 @@ export abstract class AbstractPlayableSound {
    * todo: Description.
    */
   public constructor(snd_ini: XR_ini_file, section: TSection) {
-    this.path = getConfigString(snd_ini, section, "path", null, true, "");
+    this.path = getConfigString(snd_ini, section, "path", true, "");
     this.section = section;
   }
 

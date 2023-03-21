@@ -71,7 +71,7 @@ export class ObjectRestrictionsManager {
 
     const actual_ini: XR_ini_file = state.ini!;
     const [out_restr_string] = getParamString(
-      getConfigString(actual_ini, section, "out_restr", null, false, "", ""),
+      getConfigString(actual_ini, section, "out_restr", false, "", ""),
       this.object
     );
 
@@ -120,7 +120,7 @@ export class ObjectRestrictionsManager {
     }
 
     const [in_restr_string] = getParamString(
-      getConfigString(actual_ini, section, "in_restr", null, false, "", ""),
+      getConfigString(actual_ini, section, "in_restr", false, "", ""),
       this.object
     );
     const new_in_restr = parseNames(in_restr_string);

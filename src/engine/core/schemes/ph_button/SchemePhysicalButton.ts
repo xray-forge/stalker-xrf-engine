@@ -23,9 +23,9 @@ export class SchemePhysicalButton extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemePhysicalButtonState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.on_press = getConfigConditionList(ini, section, "on_press", object);
-    state.tooltip = getConfigString(ini, section, "tooltip", object, false, "");
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.on_press = getConfigConditionList(ini, section, "on_press");
+    state.tooltip = getConfigString(ini, section, "tooltip", false, "");
 
     if (state.tooltip) {
       object.set_tip_text(state.tooltip);
@@ -33,8 +33,8 @@ export class SchemePhysicalButton extends AbstractScheme {
       object.set_tip_text("");
     }
 
-    state.anim = getConfigString(ini, section, "anim", object, true, "");
-    state.blending = getConfigBoolean(ini, section, "anim_blend", object, false, true);
+    state.anim = getConfigString(ini, section, "anim", true, "");
+    state.blending = getConfigBoolean(ini, section, "anim_blend", false, true);
     if (state.blending === null) {
       state.blending = true;
     }

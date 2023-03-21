@@ -30,7 +30,7 @@ export class SchemeCompanion extends AbstractScheme {
   ): void {
     const state: ISchemeCompanionState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section);
     state.behavior = 0; // beh_walk_simple
   }
 

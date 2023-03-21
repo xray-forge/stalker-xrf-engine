@@ -1,10 +1,10 @@
-import { XR_cse_abstract, XR_cse_alife_object, XR_game_object, XR_ini_file } from "xray16";
+import { XR_ini_file } from "xray16";
 
 import { IBaseSchemeLogic } from "@/engine/core/schemes/base";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseNames, parseParameters } from "@/engine/core/utils/parse";
-import { AnyObject, EScheme, LuaArray, Optional, TIndex, TName, TSection } from "@/engine/lib/types";
+import { EScheme, LuaArray, Optional, TIndex, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -17,7 +17,6 @@ export function getConfigString<D = string>(
   ini: XR_ini_file,
   section: Optional<TSection>,
   field: TName,
-  object: Optional<XR_cse_abstract | XR_game_object | AnyObject>,
   mandatory: boolean,
   prefix: Optional<string> = null,
   defaultVal: D = null as unknown as D
@@ -49,7 +48,6 @@ export function getConfigNumber<T = number>(
   ini: XR_ini_file,
   section: TSection,
   field: TName,
-  object: Optional<AnyObject>,
   mandatory: boolean,
   defaultVal?: T
 ): number | T {
@@ -75,7 +73,6 @@ export function getConfigBoolean(
   char_ini: XR_ini_file,
   section: Optional<TSection>,
   field: TName,
-  object: Optional<XR_game_object | XR_cse_alife_object>,
   mandatory: boolean,
   default_val?: boolean
 ): boolean {
@@ -95,12 +92,7 @@ export function getConfigBoolean(
     return false;
   }
 
-  abort(
-    "Object '%s': attempt to read a non-existent boolean field '%s' in section '%s'",
-    object?.name(),
-    field,
-    section
-  );
+  abort("Attempt to read a non-existent boolean field '%s' in section '%s'", field, section);
 }
 
 /**
@@ -132,13 +124,8 @@ export function getTwoNumbers(
 /**
  * todo
  */
-export function getConfigConditionList(
-  ini: XR_ini_file,
-  section: TSection,
-  field: TName,
-  object: XR_game_object
-): Optional<IBaseSchemeLogic> {
-  const data: Optional<string> = getConfigString(ini, section, field, object, false, "");
+export function getConfigConditionList(ini: XR_ini_file, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
+  const data: Optional<string> = getConfigString(ini, section, field, false, "");
 
   if (!data) {
     return null;
@@ -147,7 +134,7 @@ export function getConfigConditionList(
   const parameters: LuaArray<string> = parseParameters(data);
 
   if (!parameters.get(1)) {
-    abort("Invalid syntax in condlist");
+    abort("Invalid syntax in conditions list.");
   }
 
   return {
@@ -165,10 +152,9 @@ export function getConfigConditionList(
 export function getConfigStringAndCondList(
   ini: XR_ini_file,
   section: TSection,
-  field: TName,
-  object: XR_game_object
+  field: TName
 ): Optional<IBaseSchemeLogic> {
-  const data: string = getConfigString(ini, section, field, object, false, "");
+  const data: string = getConfigString(ini, section, field, false, "");
 
   if (!data) {
     return null;
@@ -214,10 +200,9 @@ export function getSchemeByIniSection(section: TSection): EScheme {
 export function getConfigNumberAndConditionList(
   ini: XR_ini_file,
   section: TSection,
-  field: TName,
-  object: XR_game_object
+  field: TName
 ): Optional<IBaseSchemeLogic> {
-  const data: Optional<string> = getConfigString(ini, section, field, object, false, "");
+  const data: Optional<string> = getConfigString(ini, section, field, false, "");
 
   if (!data) {
     return null;
@@ -246,10 +231,9 @@ export function getConfigNumberAndConditionList(
 export function getConfigStringAndConditionList(
   ini: XR_ini_file,
   section: TSection,
-  field: TName,
-  object: XR_game_object
+  field: TName
 ): Optional<IBaseSchemeLogic> {
-  const data: Optional<string> = getConfigString(ini, section, field, object, false, "");
+  const data: Optional<string> = getConfigString(ini, section, field, false, "");
 
   if (!data) {
     return null;
@@ -278,10 +262,9 @@ export function getConfigStringAndConditionList(
 export function getConfigTwoStringsAndConditionsList(
   ini: XR_ini_file,
   section: TSection,
-  field: TName,
-  object: XR_game_object
+  field: TName
 ): Optional<IBaseSchemeLogic> {
-  const data: string = getConfigString(ini, section, field, object, false, "");
+  const data: string = getConfigString(ini, section, field, false, "");
 
   if (!data) {
     return null;

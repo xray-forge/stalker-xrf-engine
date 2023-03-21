@@ -1594,7 +1594,7 @@ export function create_squad_member(
     let spawn_point: TStringId;
 
     if (params[2] === "simulation_point") {
-      const data: string = getConfigString(SYSTEM_INI, squad.section_name(), "spawn_point", object, false, "");
+      const data: string = getConfigString(SYSTEM_INI, squad.section_name(), "spawn_point", false, "");
       const condlist: LuaArray<IConfigSwitchCondition> =
         data === "" || data === null
           ? parseConditionsList(squadSmartTerrain.spawnPointName as string)

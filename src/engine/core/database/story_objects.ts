@@ -30,7 +30,7 @@ export function registerObjectStoryLinks(serverObject: XR_cse_abstract): void {
   }
 
   const spawnSection: TName = serverObject.section_name();
-  const storyId: Optional<TStringId> = getConfigString(SYSTEM_INI, spawnSection, "story_id", null, false, "", null);
+  const storyId: Optional<TStringId> = getConfigString(SYSTEM_INI, spawnSection, "story_id", false, "", null);
 
   if (storyId !== null) {
     registerStoryLink(serverObject.id, storyId);

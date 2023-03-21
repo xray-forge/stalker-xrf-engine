@@ -33,16 +33,16 @@ export class SchemeAnimpoint extends AbstractScheme {
   ): void {
     const state: ISchemeAnimpointState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.cover_name = getConfigString(ini, section, "cover_name", object, false, "", "$script_id$_cover");
-    state.use_camp = getConfigBoolean(ini, section, "use_camp", object, false, true);
-    state.reach_movement = getConfigString(ini, section, "reach_movement", object, false, "", "walk");
-    state.reach_distance = getConfigNumber(ini, section, "reach_distance", object, false, 0.75);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.cover_name = getConfigString(ini, section, "cover_name", false, "", "$script_id$_cover");
+    state.use_camp = getConfigBoolean(ini, section, "use_camp", false, true);
+    state.reach_movement = getConfigString(ini, section, "reach_movement", false, "", "walk");
+    state.reach_distance = getConfigNumber(ini, section, "reach_distance", false, 0.75);
 
     // Calculate for sqr comparison.
     state.reach_distance = state.reach_distance * state.reach_distance;
 
-    const rawAvailableAnimations = getConfigString(ini, section, "avail_animations", object, false, "", null);
+    const rawAvailableAnimations = getConfigString(ini, section, "avail_animations", false, "", null);
 
     state.avail_animations = rawAvailableAnimations === null ? null : parseNames(rawAvailableAnimations);
   }

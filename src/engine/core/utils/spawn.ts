@@ -102,7 +102,6 @@ export function spawnDefaultObjectItems(object: XR_game_object, state: IRegistry
     state.ini,
     state.section_logic,
     "spawn",
-    object,
     false,
     "",
     null

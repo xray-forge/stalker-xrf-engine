@@ -24,16 +24,16 @@ export class SchemeMonster extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeMonsterState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.snd_obj = getConfigString(ini, section, "snd", object, false, "", null);
-    state.delay = getConfigNumber(ini, section, "delay", object, false, 0);
-    state.idle = getConfigNumber(ini, section, "idle", object, false, 30) * 10000;
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.snd_obj = getConfigString(ini, section, "snd", false, "", null);
+    state.delay = getConfigNumber(ini, section, "delay", false, 0);
+    state.idle = getConfigNumber(ini, section, "idle", false, 30) * 10000;
 
-    const path: string = getConfigString(ini, section, "sound_path", object, false, "", null)!;
+    const path: string = getConfigString(ini, section, "sound_path", false, "", null)!;
 
     state.path_table = parseNames(path);
-    state.monster = getConfigString(ini, section, "monster_section", object, false, "", null);
-    state.sound_slide_vel = getConfigNumber(ini, section, "slide_velocity", object, false, 7);
+    state.monster = getConfigString(ini, section, "monster_section", false, "", null);
+    state.sound_slide_vel = getConfigNumber(ini, section, "slide_velocity", false, 7);
   }
 
   /**

@@ -22,7 +22,7 @@ export class SchemeMobDeath extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeMobDeathState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
+    state.logic = getConfigSwitchConditions(ini, section);
   }
 
   /**

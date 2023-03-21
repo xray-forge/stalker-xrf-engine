@@ -32,19 +32,19 @@ export class SchemeCover extends AbstractScheme {
   ): void {
     const state: ISchemeCoverState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.smart = getConfigString(ini, section, "smart", object, false, "");
-    state.anim = parseConditionsList(getConfigString(ini, section, "anim", object, false, "", "hide"));
-    state.sound_idle = getConfigString(ini, section, "sound_idle", object, false, "");
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.smart = getConfigString(ini, section, "smart", false, "");
+    state.anim = parseConditionsList(getConfigString(ini, section, "anim", false, "", "hide"));
+    state.sound_idle = getConfigString(ini, section, "sound_idle", false, "");
 
     if (state.smart === null) {
       abort("There is no path_walk and smart in ActionCover.");
     }
 
-    state.use_attack_direction = getConfigBoolean(ini, section, "use_attack_direction", object, false, true);
+    state.use_attack_direction = getConfigBoolean(ini, section, "use_attack_direction", false, true);
 
-    state.radius_min = getConfigNumber(ini, section, "radius_min", object, false, 3);
-    state.radius_max = getConfigNumber(ini, section, "radius_max", object, false, 5);
+    state.radius_min = getConfigNumber(ini, section, "radius_min", false, 3);
+    state.radius_max = getConfigNumber(ini, section, "radius_max", false, 5);
   }
 
   /**

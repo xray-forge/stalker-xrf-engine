@@ -25,22 +25,22 @@ export class SchemeTimer extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeTimerState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.type = getConfigString(ini, section, "type", object, false, "", "inc");
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.type = getConfigString(ini, section, "type", false, "", "inc");
 
     if (state.type !== "inc" && state.type !== "dec") {
       abort("ERROR: wrong sr_timer type. Section [%s], Restrictor [%s]", section, object.name());
     }
 
     if (state.type === "dec") {
-      state.start_value = getConfigNumber(ini, section, "start_value", object, true);
+      state.start_value = getConfigNumber(ini, section, "start_value", true);
     } else {
-      state.start_value = getConfigNumber(ini, section, "start_value", object, false, 0);
+      state.start_value = getConfigNumber(ini, section, "start_value", false, 0);
     }
 
-    state.on_value = parseTimerData(object, getConfigString(ini, section, "on_value", object, false, ""));
-    state.timer_id = getConfigString(ini, section, "timer_id", object, false, "", "hud_timer");
-    state.string = getConfigString(ini, section, "string", object, false, "");
+    state.on_value = parseTimerData(object, getConfigString(ini, section, "on_value", false, ""));
+    state.timer_id = getConfigString(ini, section, "timer_id", false, "", "hud_timer");
+    state.string = getConfigString(ini, section, "string", false, "");
 
     state.ui = get_hud();
     state.ui.AddCustomStatic(state.timer_id, true);

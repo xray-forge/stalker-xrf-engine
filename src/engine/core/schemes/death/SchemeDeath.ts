@@ -52,7 +52,6 @@ export class SchemeDeath extends AbstractScheme {
       objectState.ini!,
       objectState.section_logic,
       "on_death",
-      object,
       false,
       "",
       null
@@ -66,29 +65,13 @@ export class SchemeDeath extends AbstractScheme {
       }
 
       const state: ISchemeDeathState = objectState[SchemeDeath.SCHEME_SECTION] as ISchemeDeathState;
-      const onInfo: Optional<string> = getConfigString(
-        objectState.ini!,
-        deathSection,
-        "on_info",
-        object,
-        false,
-        "",
-        null
-      );
+      const onInfo: Optional<string> = getConfigString(objectState.ini!, deathSection, "on_info", false, "", null);
 
       if (onInfo !== null) {
         state!.info = parseConditionsList(onInfo);
       }
 
-      const onInfo2: Optional<string> = getConfigString(
-        objectState.ini!,
-        deathSection,
-        "on_info2",
-        object,
-        false,
-        "",
-        null
-      );
+      const onInfo2: Optional<string> = getConfigString(objectState.ini!, deathSection, "on_info2", false, "", null);
 
       if (onInfo2 !== null) {
         state!.info2 = parseConditionsList(onInfo2);

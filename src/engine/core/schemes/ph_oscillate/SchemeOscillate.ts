@@ -43,22 +43,22 @@ export class SchemeOscillate extends AbstractScheme {
   ): void {
     const state: ISchemeOscillateState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.joint = getConfigString(ini, section, "joint", object, true, gulagName);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.joint = getConfigString(ini, section, "joint", true, gulagName);
 
     if (state.joint === null) {
       abort("Invalid joint definition for object %s", object.name());
     }
 
-    state.period = getConfigNumber(ini, section, "period", object, true, 0);
-    state.force = getConfigNumber(ini, section, "force", object, true, 0);
+    state.period = getConfigNumber(ini, section, "period", true, 0);
+    state.force = getConfigNumber(ini, section, "force", true, 0);
 
     // todo: is real with 0s as default values?
     if (state.period === null || state.force === null) {
       abort("[ActionOscillate] Error : Force or period not defined");
     }
 
-    state.angle = getConfigNumber(ini, section, "correct_angle", object, false, 0);
+    state.angle = getConfigNumber(ini, section, "correct_angle", false, 0);
 
     // todo: is real with 0s as default values?
     if (state.angle === null) {

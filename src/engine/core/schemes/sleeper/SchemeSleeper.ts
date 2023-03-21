@@ -33,9 +33,9 @@ export class SchemeSleeper extends AbstractScheme {
   ): void {
     const state: ISchemeSleeperState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.path_main = getConfigString(ini, section, "path_main", object, true, additional);
-    state.wakeable = getConfigBoolean(ini, section, "wakeable", object, false);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.path_main = getConfigString(ini, section, "path_main", true, additional);
+    state.wakeable = getConfigBoolean(ini, section, "wakeable", false);
     state.path_walk = null;
     state.path_walk_info = null;
     state.path_look = null;

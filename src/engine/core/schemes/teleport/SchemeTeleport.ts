@@ -24,15 +24,15 @@ export class SchemeTeleport extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeTeleportState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.timeout = getConfigNumber(ini, section, "timeout", object, false, 900);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.timeout = getConfigNumber(ini, section, "timeout", false, 900);
     state.points = new LuaTable();
 
     for (const it of $range(1, 10)) {
       const teleportPoint: ITeleportPoint = {
-        point: getConfigString(ini, section, "point" + tostring(it), object, false, "", "none"),
-        look: getConfigString(ini, section, "look" + tostring(it), object, false, "", "none"),
-        prob: getConfigNumber(ini, section, "prob" + tostring(it), object, false, 100),
+        point: getConfigString(ini, section, "point" + tostring(it), false, "", "none"),
+        look: getConfigString(ini, section, "look" + tostring(it), false, "", "none"),
+        prob: getConfigNumber(ini, section, "prob" + tostring(it), false, 100),
       };
 
       if (teleportPoint.point === "none" || teleportPoint.look === "none") {

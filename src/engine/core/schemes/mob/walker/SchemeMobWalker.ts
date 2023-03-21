@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/schemes/base";
-import { getMobState } from "@/engine/core/schemes/mob/MobStateManager";
+import { getMonsterState } from "@/engine/core/schemes/mob/MobStateManager";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob/walker/ISchemeMobWalkerState";
 import { MobWalkerManager } from "@/engine/core/schemes/mob/walker/MobWalkerManager";
 import { abort } from "@/engine/core/utils/debug";
@@ -31,11 +31,11 @@ export class SchemeMobWalker extends AbstractScheme {
   ): void {
     const state: ISchemeMobWalkerState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.state = getMobState(ini, section, object);
-    state.no_reset = getConfigBoolean(ini, section, "no_reset", object, false);
-    state.path_walk = getConfigString(ini, section, "path_walk", object, true, gulag_name);
-    state.path_look = getConfigString(ini, section, "path_look", object, false, gulag_name);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.state = getMonsterState(ini, section);
+    state.no_reset = getConfigBoolean(ini, section, "no_reset", false);
+    state.path_walk = getConfigString(ini, section, "path_walk", true, gulag_name);
+    state.path_look = getConfigString(ini, section, "path_look", false, gulag_name);
 
     if (state.path_walk === state.path_look) {
       abort(

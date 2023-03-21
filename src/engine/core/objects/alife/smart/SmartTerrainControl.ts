@@ -44,11 +44,11 @@ export class SmartTerrainControl {
    * todo: Description.
    */
   public constructor(smart: SmartTerrain, ini: XR_ini_file, section: TSection) {
-    this.noweap_zone = getConfigString(ini, section, "noweap_zone", this, true, "");
-    this.ignore_zone = getConfigString(ini, section, "ignore_zone", this, false, "");
+    this.noweap_zone = getConfigString(ini, section, "noweap_zone", true, "");
+    this.ignore_zone = getConfigString(ini, section, "ignore_zone", false, "");
 
-    this.alarm_start_sound = parseConditionsList(getConfigString(ini, section, "alarm_start_sound", this, false, ""));
-    this.alarm_stop_sound = parseConditionsList(getConfigString(ini, section, "alarm_stop_sound", this, false, ""));
+    this.alarm_start_sound = parseConditionsList(getConfigString(ini, section, "alarm_start_sound", false, ""));
+    this.alarm_stop_sound = parseConditionsList(getConfigString(ini, section, "alarm_stop_sound", false, ""));
 
     this.smart = smart;
     this.status = ESmartTerrainStatus.NORMAL;

@@ -87,7 +87,6 @@ export class SchemeHelpWounded extends AbstractScheme {
       state.ini!,
       section,
       "help_wounded_enabled",
-      object,
       false,
       true
     );

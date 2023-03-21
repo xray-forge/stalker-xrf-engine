@@ -22,7 +22,7 @@ import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getter
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TName } from "@/engine/lib/types";
 
 const ANIMATED_OBJECT_SECT: string = "animated_object";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -64,7 +64,7 @@ export class LabX8DoorBinder extends object_binder {
       return;
     }
 
-    const filename = getConfigString(ini, ANIMATED_OBJECT_SECT, "cfg", null, false, "", null);
+    const filename: Optional<TName> = getConfigString(ini, ANIMATED_OBJECT_SECT, "cfg", false, "", null);
 
     if (filename) {
       ini = new ini_file(filename);
@@ -77,7 +77,6 @@ export class LabX8DoorBinder extends object_binder {
       ini,
       ANIMATED_OBJECT_SECT,
       "idle_snd",
-      null,
       false,
       "",
       "device\\airtight_door_idle"
@@ -86,7 +85,6 @@ export class LabX8DoorBinder extends object_binder {
       ini,
       ANIMATED_OBJECT_SECT,
       "start_snd",
-      null,
       false,
       "",
       "device\\airtight_door_start"
@@ -95,7 +93,6 @@ export class LabX8DoorBinder extends object_binder {
       ini,
       ANIMATED_OBJECT_SECT,
       "stop_snd",
-      null,
       false,
       "",
       "device\\airtight_door_stop"
@@ -113,7 +110,7 @@ export class LabX8DoorBinder extends object_binder {
       this.stop_snd = new sound_object(stop_snd);
     }
 
-    this.tip = parseConditionsList(getConfigString(ini, ANIMATED_OBJECT_SECT, "tip", null, false, "", "none"));
+    this.tip = parseConditionsList(getConfigString(ini, ANIMATED_OBJECT_SECT, "tip", false, "", "none"));
 
     let on_use = "true";
     let on_start = "true";
@@ -136,8 +133,8 @@ export class LabX8DoorBinder extends object_binder {
     }
 
     this.on_stop = parseConditionsList(on_stop);
-    this.idle_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "idle_delay", null, false, 2000);
-    this.start_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "start_delay", null, false, 0);
+    this.idle_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "idle_delay", false, 2000);
+    this.start_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "start_delay", false, 0);
   }
 
   /**

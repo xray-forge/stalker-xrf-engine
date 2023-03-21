@@ -42,7 +42,7 @@ export function getObjectSectionToActivate(
     }
   }
 
-  const activeSectionCond: Optional<IBaseSchemeLogic> = getConfigConditionList(ini, sectionLogic, "active", object);
+  const activeSectionCond: Optional<IBaseSchemeLogic> = getConfigConditionList(ini, sectionLogic, "active");
 
   if (activeSectionCond === null) {
     return NIL;

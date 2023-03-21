@@ -45,10 +45,10 @@ export class SchemeCombat extends AbstractScheme {
     if (section || isZombied) {
       const state: ISchemeCombatState = AbstractScheme.assign(object, ini, scheme, section);
 
-      state.logic = getConfigSwitchConditions(ini, section, object);
+      state.logic = getConfigSwitchConditions(ini, section);
       state.enabled = true;
 
-      state.combat_type = getConfigConditionList(ini, section, "combat_type", object);
+      state.combat_type = getConfigConditionList(ini, section, "combat_type");
 
       if ((state.combat_type as any) === communities.monolith) {
         state.combat_type = null;
