@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/ph_idle/ISchemePhysicalIdleState";
-import { switchToSection } from "@/engine/core/schemes/switchToSection";
+import { switchObjectSchemeToSection } from "@/engine/core/schemes/utils/switchObjectSchemeToSection";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TConditionList } from "@/engine/core/utils/parse";
@@ -56,7 +56,7 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
         this.state.hit_on_bone.get(bone_index).state as TConditionList
       )!;
 
-      switchToSection(object, this.state.ini!, section);
+      switchObjectSchemeToSection(object, this.state.ini!, section);
     }
   }
 
@@ -68,7 +68,7 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
 
     if (this.state.on_use) {
       if (
-        switchToSection(
+        switchObjectSchemeToSection(
           this.object,
           this.state.ini!,
           pickSectionFromCondList(registry.actor, this.object, this.state.on_use.condlist)!

@@ -3,7 +3,7 @@ import { TXR_snd_type, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 import { getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { IActionSchemeHearState } from "@/engine/core/schemes/hear/IActionSchemeHearState";
-import { switchToSection } from "@/engine/core/schemes/switchToSection";
+import { switchObjectSchemeToSection } from "@/engine/core/schemes/utils/switchObjectSchemeToSection";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseParameters } from "@/engine/core/utils/parse";
@@ -97,7 +97,7 @@ export class ActionSchemeHear extends AbstractScheme {
         );
 
         if (nextSection !== null && nextSection !== "") {
-          switchToSection(object, state.ini!, nextSection);
+          switchObjectSchemeToSection(object, state.ini!, nextSection);
         } else if (nextSection === "") {
           state.hearInfo[storyId][soundClassType] = null;
         }

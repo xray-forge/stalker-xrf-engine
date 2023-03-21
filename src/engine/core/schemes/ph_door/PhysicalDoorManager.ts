@@ -12,7 +12,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/ph_door/ISchemePhysicalDoorState";
-import { switchToSection } from "@/engine/core/schemes/switchToSection";
+import { switchObjectSchemeToSection } from "@/engine/core/schemes/utils/switchObjectSchemeToSection";
 import { abort } from "@/engine/core/utils/debug";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { Optional, TCount, TIndex } from "@/engine/lib/types";
@@ -256,7 +256,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public try_switch(): boolean {
     if (this.state.on_use) {
       if (
-        switchToSection(
+        switchObjectSchemeToSection(
           this.object,
           this.state.ini!,
           pickSectionFromCondList(registry.actor, this.object, this.state.on_use.condlist)!
@@ -299,7 +299,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
         this.state.hit_on_bone.get(boneIndex).state!
       );
 
-      switchToSection(object, this.state.ini!, section!);
+      switchObjectSchemeToSection(object, this.state.ini!, section!);
 
       return;
     }

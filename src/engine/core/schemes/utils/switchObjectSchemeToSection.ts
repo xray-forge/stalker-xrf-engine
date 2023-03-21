@@ -7,12 +7,12 @@ import { issueSchemeEvent } from "@/engine/core/schemes/issueSchemeEvent";
 import { EScheme, Maybe, TSection } from "@/engine/lib/types";
 
 /**
- * todo
- * todo
- * todo
- * todo
+ * Explicitly switch object active scheme to new section.
+ * Force active scheme to deactivate if it exists and is active.
+ *
+ * todo: docblock;
  */
-export function switchToSection(object: XR_game_object, ini: XR_ini_file, section: TSection): boolean {
+export function switchObjectSchemeToSection(object: XR_game_object, ini: XR_ini_file, section: TSection): boolean {
   if (section === "" || section === null) {
     return false;
   }
@@ -24,6 +24,7 @@ export function switchToSection(object: XR_game_object, ini: XR_ini_file, sectio
     return false;
   }
 
+  // Notify schemes about deactivation.
   if (activeSection !== null) {
     issueSchemeEvent(object, state[activeSection]!, ESchemeEvent.DEACTIVATE, object);
   }

@@ -6,7 +6,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchT
 import { mobCaptured } from "@/engine/core/schemes/mobCaptured";
 import { mobRelease } from "@/engine/core/schemes/mobRelease";
 import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMinigunState";
-import { switchToSection } from "@/engine/core/schemes/switchToSection";
+import { switchObjectSchemeToSection } from "@/engine/core/schemes/utils/switchObjectSchemeToSection";
 import { isHeavilyWounded } from "@/engine/core/utils/check/check";
 import { isActiveSection } from "@/engine/core/utils/check/is";
 import { abort } from "@/engine/core/utils/debug";
@@ -278,7 +278,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     }
 
     if (this.destroyed) {
-      switchToSection(this.object, this.state.ini!, NIL);
+      switchObjectSchemeToSection(this.object, this.state.ini!, NIL);
 
       return;
     }
@@ -330,7 +330,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
         const new_section = pickSectionFromCondList(registry.actor, this.object, this.on_target_vis.condlist);
 
         if (new_section) {
-          switchToSection(this.object, this.state.ini!, new_section);
+          switchObjectSchemeToSection(this.object, this.state.ini!, new_section);
         }
       }
 
@@ -338,7 +338,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
         const new_section = pickSectionFromCondList(registry.actor, this.object, this.on_target_nvis.condlist);
 
         if (new_section) {
-          switchToSection(this.object, this.state.ini!, new_section);
+          switchObjectSchemeToSection(this.object, this.state.ini!, new_section);
         }
       }
 

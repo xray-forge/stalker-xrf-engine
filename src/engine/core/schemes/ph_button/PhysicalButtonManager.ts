@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
 import { ISchemePhysicalButtonState } from "@/engine/core/schemes/ph_button/ISchemePhysicalButtonState";
-import { switchToSection } from "@/engine/core/schemes/switchToSection";
+import { switchObjectSchemeToSection } from "@/engine/core/schemes/utils/switchObjectSchemeToSection";
 import { isActiveSection } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -40,7 +40,7 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
   public try_switch(): boolean {
     if (isActiveSection(this.object, this.state.section) && this.state.on_press) {
       if (
-        switchToSection(
+        switchObjectSchemeToSection(
           this.object,
           this.state.ini!,
           pickSectionFromCondList(registry.actor, this.object, this.state.on_press.condlist)!

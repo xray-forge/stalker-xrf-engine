@@ -8,7 +8,6 @@ import {
   LuabindClass,
   move,
   object_binder,
-  patrol,
   TXR_class_id,
   TXR_snd_type,
   vector,
@@ -51,7 +50,6 @@ import {
   TLabel,
   TNumberId,
   TRate,
-  TSection,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -62,22 +60,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class MonsterBinder extends object_binder {
   public isLoaded: boolean = false;
-
   public state!: IRegistryObjectState;
-
-  /**
-   * todo: Description.
-   */
-  public constructor(object: XR_game_object) {
-    super(object);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override reload(section: TSection): void {
-    super.reload(section);
-  }
 
   /**
    * todo: Description.
@@ -122,16 +105,16 @@ export class MonsterBinder extends object_binder {
 
     this.object.info_clear();
 
-    const active_section = this.state.active_section;
+    const activeSection = this.state.active_section;
 
-    if (active_section !== null) {
-      this.object.info_add("section: " + active_section);
+    if (activeSection !== null) {
+      this.object.info_add("section: " + activeSection);
     }
 
-    const best_enemy = this.object.best_enemy();
+    const bestEnemy: Optional<XR_game_object> = this.object.best_enemy();
 
-    if (best_enemy) {
-      this.object.info_add("enemy: " + best_enemy.name());
+    if (bestEnemy) {
+      this.object.info_add("enemy: " + bestEnemy.name());
     }
 
     this.object.info_add(
@@ -170,19 +153,19 @@ export class MonsterBinder extends object_binder {
         return;
       }
 
-      const [target_pos] = squad_target.get_location();
+      const [targetPosition] = squad_target.get_location();
 
       mobCapture(this.object, true, MonsterBinder.__name);
 
       if (squad.commander_id() === this.object.id()) {
-        action(this.object, new move(move.walk_with_leader, target_pos), new cond(cond.move_end));
+        action(this.object, new move(move.walk_with_leader, targetPosition), new cond(cond.move_end));
       } else {
-        const commander_pos = alife().object(squad.commander_id())!.position;
+        const commanderPosition: XR_vector = alife().object(squad.commander_id())!.position;
 
-        if (commander_pos.distance_to(this.object.position()) > 10) {
-          action(this.object, new move(move.run_with_leader, target_pos), new cond(cond.move_end));
+        if (commanderPosition.distance_to_sqr(this.object.position()) > 100) {
+          action(this.object, new move(move.run_with_leader, targetPosition), new cond(cond.move_end));
         } else {
-          action(this.object, new move(move.walk_with_leader, target_pos), new cond(cond.move_end));
+          action(this.object, new move(move.walk_with_leader, targetPosition), new cond(cond.move_end));
         }
       }
 
@@ -319,32 +302,6 @@ export class MonsterBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public extrapolate_callback(): Optional<boolean> {
-    if (registry.objects.get(this.object.id()) === null || registry.objects.get(this.object.id()).object === null) {
-      return null;
-    }
-
-    if (this.object.get_script() === false) {
-      return false;
-    }
-
-    const cur_pt = this.object.get_current_point_index();
-    const patrol_path = this.object.patrol()!;
-
-    if (!level.patrol_path_exists(patrol_path)) {
-      return false;
-    }
-
-    if (new patrol(patrol_path).flags(cur_pt).get() === 0) {
-      return true;
-    }
-
-    return false;
-  }
-
-  /**
-   * todo: Description.
-   */
   public waypoint_callback(object: XR_game_object, action_type: number, index: TIndex): void {
     if (this.state.active_section !== null) {
       issueSchemeEvent(
@@ -362,6 +319,8 @@ export class MonsterBinder extends object_binder {
    * todo: Description.
    */
   public death_callback(victim: XR_game_object, killer: XR_game_object): void {
+    logger.info("Monster death:", this.object.name());
+
     registry.actorCombat.delete(this.object.id());
 
     this.hit_callback(victim, 1, new vector().set(0, 0, 0), killer, "from_death_callback");
@@ -389,6 +348,7 @@ export class MonsterBinder extends object_binder {
     hitObject.bone("pelvis");
     hitObject.power = 1;
     hitObject.impulse = 10;
+
     this.object.hit(hitObject);
 
     const objectClsId: TXR_class_id = this.object.clsid();
@@ -396,10 +356,10 @@ export class MonsterBinder extends object_binder {
     if (objectClsId === clsid.poltergeist_s) {
       logger.info("Releasing poltergeist_s:", this.object.name());
 
-      const target_object: Optional<XR_cse_alife_object> = alife().object(this.object.id());
+      const targetServerObject: Optional<XR_cse_alife_object> = alife().object(this.object.id());
 
-      if (target_object !== null) {
-        alife().release(target_object, true);
+      if (targetServerObject !== null) {
+        alife().release(targetServerObject, true);
       }
     }
   }

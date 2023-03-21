@@ -3,8 +3,8 @@ import { time_global, XR_game_object } from "xray16";
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/trySwitchToAnotherSection";
-import { switchToSection } from "@/engine/core/schemes/switchToSection";
 import { ISchemeTimerState } from "@/engine/core/schemes/timer/ISchemeTimerState";
+import { switchObjectSchemeToSection } from "@/engine/core/schemes/utils/switchObjectSchemeToSection";
 import { timeToString } from "@/engine/core/utils/general";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 
@@ -41,7 +41,11 @@ export class SchemeTimerManager extends AbstractSchemeManager<ISchemeTimerState>
 
     for (const [k, v] of this.state.on_value!) {
       if ((this.state.type === "dec" && value_time <= v.dist) || (this.state.type === "inc" && value_time >= v.dist)) {
-        switchToSection(this.object, this.state.ini!, pickSectionFromCondList(registry.actor, this.object, v.state)!);
+        switchObjectSchemeToSection(
+          this.object,
+          this.state.ini!,
+          pickSectionFromCondList(registry.actor, this.object, v.state)!
+        );
       }
     }
   }

@@ -50,7 +50,7 @@ import { activateSchemeBySection } from "@/engine/core/schemes/base/activateSche
 import { configureObjectSchemes } from "@/engine/core/schemes/base/configureObjectSchemes";
 import { determine_section_to_activate } from "@/engine/core/schemes/determine_section_to_activate";
 import { initializeGameObject } from "@/engine/core/schemes/initializeGameObject";
-import { switchToSection } from "@/engine/core/schemes/switchToSection";
+import { switchObjectSchemeToSection } from "@/engine/core/schemes/utils/switchObjectSchemeToSection";
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { abort } from "@/engine/core/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
@@ -693,47 +693,57 @@ export class SmartTerrain extends cse_alife_smart_zone {
   /**
    * todo: Description.
    */
-  public select_npc_job(npcInfo: IObjectJobDescriptor): void {
-    const [selected_job_id, selected_job_prior, selected_job_link] = job_iterator(this.jobs, npcInfo, 0, this);
+  public select_npc_job(objectJobDescriptor: IObjectJobDescriptor): void {
+    const [selected_job_id, selected_job_prior, selected_job_link] = job_iterator(
+      this.jobs,
+      objectJobDescriptor,
+      0,
+      this
+    );
 
     if (selected_job_id === null) {
-      abort("Insufficient smart_terrain jobs: %s, %s, %s", this.name(), npcInfo.se_obj.id, this.simulationType);
+      abort(
+        "Insufficient smart_terrain jobs: %s, %s, %s",
+        this.name(),
+        objectJobDescriptor.se_obj.id,
+        this.simulationType
+      );
     }
 
-    if (selected_job_id !== npcInfo.job_id && selected_job_link !== null) {
-      if (npcInfo.job_link !== null) {
-        this.objectByJobSection.delete(this.jobsData.get(npcInfo.job_link.job_id).section);
-        npcInfo.job_link.npc_id = null;
+    if (selected_job_id !== objectJobDescriptor.job_id && selected_job_link !== null) {
+      if (objectJobDescriptor.job_link !== null) {
+        this.objectByJobSection.delete(this.jobsData.get(objectJobDescriptor.job_link.job_id).section);
+        objectJobDescriptor.job_link.npc_id = null;
       }
 
-      selected_job_link.npc_id = npcInfo.se_obj.id;
+      selected_job_link.npc_id = objectJobDescriptor.se_obj.id;
       this.objectByJobSection.set(this.jobsData.get(selected_job_link.job_id).section, selected_job_link.npc_id);
 
-      npcInfo.job_id = selected_job_link.job_id;
-      npcInfo.job_prior = selected_job_link._prior;
-      npcInfo.begin_job = false;
-      npcInfo.job_link = selected_job_link;
+      objectJobDescriptor.job_id = selected_job_link.job_id;
+      objectJobDescriptor.job_prior = selected_job_link._prior;
+      objectJobDescriptor.begin_job = false;
+      objectJobDescriptor.job_link = selected_job_link;
 
-      const obj_storage = registry.objects.get(npcInfo.se_obj.id);
+      const objectState: Optional<IRegistryObjectState> = registry.objects.get(objectJobDescriptor.se_obj.id);
 
-      if (obj_storage !== null) {
-        switchToSection(obj_storage.object!, this.ltxConfig, NIL);
+      if (objectState !== null) {
+        switchObjectSchemeToSection(objectState.object!, this.ltxConfig, NIL);
       }
     }
 
-    if (npcInfo.begin_job !== true) {
-      const job_data = this.jobsData.get(npcInfo.job_id);
+    if (!objectJobDescriptor.begin_job) {
+      const job_data = this.jobsData.get(objectJobDescriptor.job_id);
 
-      logger.info("Begin job in smart", this.name(), npcInfo.se_obj.name(), job_data.section);
+      logger.info("Begin job in smart", this.name(), objectJobDescriptor.se_obj.name(), job_data.section);
 
-      hardResetOfflineObject(npcInfo.se_obj.id);
+      hardResetOfflineObject(objectJobDescriptor.se_obj.id);
 
-      npcInfo.begin_job = true;
+      objectJobDescriptor.begin_job = true;
 
-      const obj_storage = registry.objects.get(npcInfo.se_obj.id);
+      const objectState: Optional<IRegistryObjectState> = registry.objects.get(objectJobDescriptor.se_obj.id);
 
-      if (obj_storage !== null) {
-        this.setup_logic(obj_storage.object!);
+      if (objectState !== null) {
+        this.setup_logic(objectState.object!);
       }
     }
   }
@@ -1561,7 +1571,7 @@ export function setupSmartJobsAndLogicOnSpawn(
   state: IRegistryObjectState,
   serverObject: Optional<XR_cse_alife_creature_abstract>,
   schemeType: ESchemeType,
-  loaded: boolean
+  isLoaded: boolean
 ): void {
   logger.info("Setup smart terrain logic on spawn:", object.name(), schemeType);
 
@@ -1576,20 +1586,20 @@ export function setupSmartJobsAndLogicOnSpawn(
     if (smartTerrainId !== null && smartTerrainId !== MAX_UNSIGNED_16_BIT) {
       const smartTerrain: SmartTerrain = alifeSimulator.object(smartTerrainId) as SmartTerrain;
       const need_setup_logic =
-        !loaded &&
+        !isLoaded &&
         smartTerrain.objectJobDescriptors.get(object.id()) &&
         smartTerrain.objectJobDescriptors.get(object.id()).begin_job === true;
 
       if (need_setup_logic) {
         smartTerrain.setup_logic(object);
       } else {
-        initializeGameObject(object, state, loaded, registry.actor, schemeType);
+        initializeGameObject(object, state, isLoaded, registry.actor, schemeType);
       }
     } else {
-      initializeGameObject(object, state, loaded, registry.actor, schemeType);
+      initializeGameObject(object, state, isLoaded, registry.actor, schemeType);
     }
   } else {
-    initializeGameObject(object, state, loaded, registry.actor, schemeType);
+    initializeGameObject(object, state, isLoaded, registry.actor, schemeType);
   }
 }
 

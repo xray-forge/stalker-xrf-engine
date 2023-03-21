@@ -397,8 +397,6 @@ export class SimulationBoardManager extends AbstractCoreManager {
     const availableTargets: LuaArray<{ prior: TRate; target: TSimulationObject }> = new LuaTable();
     let mostPriorityTask: Optional<TSimulationObject> = null;
 
-    logger.info("Getting squad simulation target for:", squad.name(), getTableSize(registry.simulationObjects));
-
     for (const [id, simulationObject] of registry.simulationObjects) {
       let currentPriority: TRate = 0;
 
