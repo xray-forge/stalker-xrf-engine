@@ -6,7 +6,7 @@ import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob/walker/ISchemeM
 import { MobWalkerManager } from "@/engine/core/schemes/mob/walker/MobWalkerManager";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
@@ -33,9 +33,9 @@ export class SchemeMobWalker extends AbstractScheme {
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.state = getMonsterState(ini, section);
-    state.no_reset = getConfigBoolean(ini, section, "no_reset", false);
-    state.path_walk = getConfigString(ini, section, "path_walk", true, gulag_name);
-    state.path_look = getConfigString(ini, section, "path_look", false, gulag_name);
+    state.no_reset = readIniBoolean(ini, section, "no_reset", false);
+    state.path_walk = readIniString(ini, section, "path_walk", true, gulag_name);
+    state.path_look = readIniString(ini, section, "path_look", false, gulag_name);
 
     if (state.path_walk === state.path_look) {
       abort(

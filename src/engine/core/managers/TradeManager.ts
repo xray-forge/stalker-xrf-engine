@@ -5,7 +5,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager"
 import { abort } from "@/engine/core/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { Optional, TNumberId, TSection } from "@/engine/lib/types";
@@ -46,7 +46,7 @@ export class TradeManager extends AbstractCoreManager {
     registry.trade.get(objectId).cfg_ltx = configFilePath;
     registry.trade.get(objectId).config = new ini_file(configFilePath);
 
-    let data = getConfigString(registry.trade.get(objectId).config, "trader", "buy_condition", true, "");
+    let data = readIniString(registry.trade.get(objectId).config, "trader", "buy_condition", true, "");
 
     if (data === null) {
       abort("Incorrect trader settings. Cannot find buy_condition. [%s]->[%s]", object.name(), configFilePath);
@@ -54,27 +54,20 @@ export class TradeManager extends AbstractCoreManager {
 
     registry.trade.get(objectId).buy_condition = parseConditionsList(data);
 
-    data = getConfigString(registry.trade.get(objectId).config, "trader", "sell_condition", true, "");
+    data = readIniString(registry.trade.get(objectId).config, "trader", "sell_condition", true, "");
     if (data === null) {
       abort("Incorrect trader settings. Cannot find sell_condition. [%s]->[%s]", object.name(), configFilePath);
     }
 
     registry.trade.get(objectId).sell_condition = parseConditionsList(data);
 
-    data = getConfigString(registry.trade.get(objectId).config, "trader", "buy_supplies", false, "");
+    data = readIniString(registry.trade.get(objectId).config, "trader", "buy_supplies", false, "");
     if (data !== null) {
       registry.trade.get(objectId).buy_supplies = parseConditionsList(data);
     }
 
     // -- buy_item_condition_factor
-    data = getConfigString(
-      registry.trade.get(objectId).config,
-      "trader",
-      "buy_item_condition_factor",
-      false,
-      "",
-      "0.7"
-    );
+    data = readIniString(registry.trade.get(objectId).config, "trader", "buy_item_condition_factor", false, "", "0.7");
 
     if (data !== null) {
       registry.trade.get(objectId).buy_item_condition_factor = parseConditionsList(data);
@@ -152,7 +145,7 @@ export class TradeManager extends AbstractCoreManager {
 
   public getBuyDiscountForObject(objectId: TNumberId): number {
     const tradeDescriptor: ITradeManagerDescriptor = registry.trade.get(objectId);
-    const data: string = getConfigString(tradeDescriptor.config, "trader", "discounts", false, "", "");
+    const data: string = readIniString(tradeDescriptor.config, "trader", "discounts", false, "", "");
 
     if (data === "") {
       return 1;
@@ -160,7 +153,7 @@ export class TradeManager extends AbstractCoreManager {
 
     const section: TSection = pickSectionFromCondList(registry.actor, null, parseConditionsList(data))!;
 
-    return getConfigNumber(tradeDescriptor.config, section, "buy", false, 1);
+    return readIniNumber(tradeDescriptor.config, section, "buy", false, 1);
   }
 
   /**
@@ -168,7 +161,7 @@ export class TradeManager extends AbstractCoreManager {
    */
   public getSellDiscountForObject(objectId: TNumberId): number {
     const tradeManagerDescriptor: ITradeManagerDescriptor = registry.trade.get(objectId);
-    const data: string = getConfigString(tradeManagerDescriptor.config, "trader", "discounts", false, "", "");
+    const data: string = readIniString(tradeManagerDescriptor.config, "trader", "discounts", false, "", "");
 
     if (data === "") {
       return 1;
@@ -176,7 +169,7 @@ export class TradeManager extends AbstractCoreManager {
 
     const section: TSection = pickSectionFromCondList(registry.actor, null, parseConditionsList(data))!;
 
-    return getConfigNumber(tradeManagerDescriptor.config, section, "sell", false, 1);
+    return readIniNumber(tradeManagerDescriptor.config, section, "sell", false, 1);
   }
 
   /**

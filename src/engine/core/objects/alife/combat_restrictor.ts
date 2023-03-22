@@ -2,7 +2,7 @@ import { patrol, XR_cse_alife_object, XR_game_object, XR_vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseNames } from "@/engine/core/utils/parse";
+import { parseStringsList } from "@/engine/core/utils/parse";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const combat_sectors: LuaTable<string, XR_game_object> = new LuaTable();
@@ -24,7 +24,7 @@ export function apply_combat_restrictor(npc: XR_game_object): void {
 }
 
 export function clear_combat_restrictor(npc: XR_game_object): void {
-  const out_restr = parseNames(npc.out_restrictions());
+  const out_restr = parseStringsList(npc.out_restrictions());
 
   for (const [k, v] of out_restr) {
     if (combat_sectors.has(v)) {

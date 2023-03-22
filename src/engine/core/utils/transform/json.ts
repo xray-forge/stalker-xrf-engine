@@ -42,7 +42,7 @@ export function stringifyAsJson(
       }
 
       result += string.format(
-        "\"%s\": %s",
+        '"%s": %s',
         stringifyKey(k),
         stringifyAsJson(v, separator, depth + 1, maxDepth, circular),
         separator

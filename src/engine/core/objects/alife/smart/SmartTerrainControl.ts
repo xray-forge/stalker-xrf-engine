@@ -7,7 +7,7 @@ import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { isWeapon } from "@/engine/core/utils/check/is";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { setSquadGoodwill } from "@/engine/core/utils/relation";
@@ -44,11 +44,11 @@ export class SmartTerrainControl {
    * todo: Description.
    */
   public constructor(smart: SmartTerrain, ini: XR_ini_file, section: TSection) {
-    this.noweap_zone = getConfigString(ini, section, "noweap_zone", true, "");
-    this.ignore_zone = getConfigString(ini, section, "ignore_zone", false, "");
+    this.noweap_zone = readIniString(ini, section, "noweap_zone", true, "");
+    this.ignore_zone = readIniString(ini, section, "ignore_zone", false, "");
 
-    this.alarm_start_sound = parseConditionsList(getConfigString(ini, section, "alarm_start_sound", false, ""));
-    this.alarm_stop_sound = parseConditionsList(getConfigString(ini, section, "alarm_stop_sound", false, ""));
+    this.alarm_start_sound = parseConditionsList(readIniString(ini, section, "alarm_start_sound", false, ""));
+    this.alarm_stop_sound = parseConditionsList(readIniString(ini, section, "alarm_stop_sound", false, ""));
 
     this.smart = smart;
     this.status = ESmartTerrainStatus.NORMAL;

@@ -4,7 +4,7 @@ import { ITEM_UPGRADES, registry, STALKER_UPGRADE_INFO, SYSTEM_INI } from "@/eng
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList, parseNames, TConditionList } from "@/engine/core/utils/parse";
+import { parseConditionsList, parseStringsList, TConditionList } from "@/engine/core/utils/parse";
 import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
@@ -280,7 +280,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   public getPropertyFunctorA(data: string, name: TName): TLabel {
     const prorerty_name = ITEM_UPGRADES.r_string(name, "name");
     const t_prorerty_name = game.translate_string(prorerty_name);
-    const section_table: LuaArray<TSection> = parseNames(data);
+    const section_table: LuaArray<TSection> = parseStringsList(data);
     const section_table_n = section_table.length();
 
     if (section_table_n === 0) {
@@ -358,7 +358,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
    */
   public issueProperty(data: string, name: TName): TName {
     const propertyName: TName = game.translate_string(ITEM_UPGRADES.r_string(name, "name"));
-    const value_table: LuaArray<string> = parseNames(data);
+    const value_table: LuaArray<string> = parseStringsList(data);
     const section = value_table.get(1);
 
     if (section !== null) {

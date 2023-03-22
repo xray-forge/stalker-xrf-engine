@@ -2,18 +2,18 @@ import { describe, expect, it } from "@jest/globals";
 
 import {
   parseConditionsList,
-  parseNames,
-  parseNumbers,
+  parseNumbersList,
   parseParameters,
   parseSpawnDetails,
+  parseStringsList,
 } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
 import { luaTableToArray } from "@/fixtures/lua/mocks/utils";
 
 describe("'ini_data' parsing utils", () => {
   it("Should correctly parse names array", () => {
-    expect(luaTableToArray(parseNames("a, b, c"))).toEqual(["a", "b", "c"]);
-    expect(luaTableToArray(parseNames("name_1, example_b, name_complex_here"))).toEqual([
+    expect(luaTableToArray(parseStringsList("a, b, c"))).toEqual(["a", "b", "c"]);
+    expect(luaTableToArray(parseStringsList("name_1, example_b, name_complex_here"))).toEqual([
       "name_1",
       "example_b",
       "name_complex_here",
@@ -21,9 +21,9 @@ describe("'ini_data' parsing utils", () => {
   });
 
   it("Should correctly parse numbers array", () => {
-    expect(luaTableToArray(parseNumbers("1, 2, 3, 4"))).toEqual([1, 2, 3, 4]);
-    expect(luaTableToArray(parseNumbers("1.5, 2.33, 3.0"))).toEqual([1.5, 2.33, 3.0]);
-    expect(luaTableToArray(parseNumbers("15, 0, -43, 9999"))).toEqual([15, 0, -43, 9999]);
+    expect(luaTableToArray(parseNumbersList("1, 2, 3, 4"))).toEqual([1, 2, 3, 4]);
+    expect(luaTableToArray(parseNumbersList("1.5, 2.33, 3.0"))).toEqual([1.5, 2.33, 3.0]);
+    expect(luaTableToArray(parseNumbersList("15, 0, -43, 9999"))).toEqual([15, 0, -43, 9999]);
   });
 
   it("Should correctly parse spawn details", () => {

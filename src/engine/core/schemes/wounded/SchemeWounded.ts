@@ -6,7 +6,7 @@ import { ActionWounded } from "@/engine/core/schemes/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/wounded/evaluators";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWoundedState";
 import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
-import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { parseData, parseSynData } from "@/engine/core/utils/parse";
@@ -91,8 +91,8 @@ export class SchemeWounded extends AbstractScheme {
   ): void {
     const woundedSection: TSection =
       scheme === null || scheme === EScheme.NIL
-        ? getConfigString(state.ini, state.section_logic, "wounded", false, "")
-        : getConfigString(state.ini, section, "wounded", false, "");
+        ? readIniString(state.ini, state.section_logic, "wounded", false, "")
+        : readIniString(state.ini, section, "wounded", false, "");
 
     SchemeWounded.initialize(object, state.ini, woundedSection, state.wounded as ISchemeWoundedState, scheme);
 
@@ -184,22 +184,22 @@ export class SchemeWounded extends AbstractScheme {
       state.enable_talk = true;
       state.not_for_help = defaults.not_for_help;
     } else {
-      state.hp_state = parseData(object, getConfigString(ini, section, "hp_state", false, "", defaults.hp_state));
+      state.hp_state = parseData(object, readIniString(ini, section, "hp_state", false, "", defaults.hp_state));
       state.hp_state_see = parseData(
         object,
-        getConfigString(ini, section, "hp_state_see", false, "", defaults.hp_state_see)
+        readIniString(ini, section, "hp_state_see", false, "", defaults.hp_state_see)
       );
-      state.psy_state = parseData(object, getConfigString(ini, section, "psy_state", false, "", defaults.psy_state));
-      state.hp_victim = parseData(object, getConfigString(ini, section, "hp_victim", false, "", defaults.hp_victim));
-      state.hp_cover = parseData(object, getConfigString(ini, section, "hp_cover", false, "", defaults.hp_cover));
-      state.hp_fight = parseData(object, getConfigString(ini, section, "hp_fight", false, "", defaults.hp_fight));
-      state.syndata = parseSynData(object, getConfigString(ini, section, "syndata", false, "", defaults.syndata));
-      state.help_dialog = getConfigString(ini, section, "help_dialog", false, "", defaults.help_dialog);
-      state.help_start_dialog = getConfigString(ini, section, "help_start_dialog", false, "", null);
-      state.use_medkit = getConfigBoolean(ini, section, "use_medkit", false, defaults.use_medkit);
-      state.autoheal = getConfigBoolean(ini, section, "autoheal", false, true);
-      state.enable_talk = getConfigBoolean(ini, section, "enable_talk", false, true);
-      state.not_for_help = getConfigBoolean(ini, section, "not_for_help", false, defaults.not_for_help);
+      state.psy_state = parseData(object, readIniString(ini, section, "psy_state", false, "", defaults.psy_state));
+      state.hp_victim = parseData(object, readIniString(ini, section, "hp_victim", false, "", defaults.hp_victim));
+      state.hp_cover = parseData(object, readIniString(ini, section, "hp_cover", false, "", defaults.hp_cover));
+      state.hp_fight = parseData(object, readIniString(ini, section, "hp_fight", false, "", defaults.hp_fight));
+      state.syndata = parseSynData(object, readIniString(ini, section, "syndata", false, "", defaults.syndata));
+      state.help_dialog = readIniString(ini, section, "help_dialog", false, "", defaults.help_dialog);
+      state.help_start_dialog = readIniString(ini, section, "help_start_dialog", false, "", null);
+      state.use_medkit = readIniBoolean(ini, section, "use_medkit", false, defaults.use_medkit);
+      state.autoheal = readIniBoolean(ini, section, "autoheal", false, true);
+      state.enable_talk = readIniBoolean(ini, section, "enable_talk", false, true);
+      state.not_for_help = readIniBoolean(ini, section, "not_for_help", false, defaults.not_for_help);
     }
 
     state.wounded_set = true;

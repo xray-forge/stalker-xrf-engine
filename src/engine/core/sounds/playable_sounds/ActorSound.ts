@@ -17,9 +17,9 @@ import { IBaseSchemeState } from "@/engine/core/schemes/base";
 import { AbstractPlayableSound } from "@/engine/core/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/engine/core/sounds/playable_sounds/EPlayableSound";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseNames } from "@/engine/core/utils/parse";
+import { parseStringsList } from "@/engine/core/utils/parse";
 import { roots } from "@/engine/lib/constants/roots";
 import { NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TNumberId, TSection, TStringId } from "@/engine/lib/types";
@@ -57,17 +57,17 @@ export class ActorSound extends AbstractPlayableSound {
   public constructor(snd_ini: XR_ini_file, section: TSection) {
     super(snd_ini, section);
 
-    this.stereo = getConfigBoolean(snd_ini, section, "actor_stereo", false, false);
-    this.prefix = getConfigBoolean(snd_ini, section, "npc_prefix", false, false);
-    this.shuffle = getConfigString(snd_ini, section, "shuffle", false, "", "rnd");
-    this.play_always = getConfigBoolean(snd_ini, section, "play_always", false, false);
+    this.stereo = readIniBoolean(snd_ini, section, "actor_stereo", false, false);
+    this.prefix = readIniBoolean(snd_ini, section, "npc_prefix", false, false);
+    this.shuffle = readIniString(snd_ini, section, "shuffle", false, "", "rnd");
+    this.play_always = readIniBoolean(snd_ini, section, "play_always", false, false);
     this.section = section;
 
     if (this.prefix) {
       this.path = "characters_voice\\" + this.path;
     }
 
-    const interval = parseNames(getConfigString(snd_ini, section, "idle", false, "", "3,5,100"));
+    const interval = parseStringsList(readIniString(snd_ini, section, "idle", false, "", "3,5,100"));
 
     this.min_idle = tonumber(interval.get(1))!;
     this.max_idle = tonumber(interval.get(2))!;
@@ -76,9 +76,9 @@ export class ActorSound extends AbstractPlayableSound {
     this.sound = new LuaTable();
     this.snd_obj = null;
     this.can_play_sound = true;
-    this.faction = getConfigString(snd_ini, section, "faction", false, "", "");
-    this.point = getConfigString(snd_ini, section, "point", false, "", "");
-    this.msg = getConfigString(snd_ini, section, "message", false, "", "");
+    this.faction = readIniString(snd_ini, section, "faction", false, "", "");
+    this.point = readIniString(snd_ini, section, "point", false, "", "");
+    this.msg = readIniString(snd_ini, section, "message", false, "", "");
 
     const fs: XR_FS = getFS();
 

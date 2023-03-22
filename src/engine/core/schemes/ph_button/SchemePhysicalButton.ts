@@ -4,7 +4,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemePhysicalButtonState } from "@/engine/core/schemes/ph_button/ISchemePhysicalButtonState";
 import { PhysicalButtonManager } from "@/engine/core/schemes/ph_button/PhysicalButtonManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigConditionList, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
@@ -24,8 +24,8 @@ export class SchemePhysicalButton extends AbstractScheme {
     const state: ISchemePhysicalButtonState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.on_press = getConfigConditionList(ini, section, "on_press");
-    state.tooltip = getConfigString(ini, section, "tooltip", false, "");
+    state.on_press = readIniConditionList(ini, section, "on_press");
+    state.tooltip = readIniString(ini, section, "tooltip", false, "");
 
     if (state.tooltip) {
       object.set_tip_text(state.tooltip);
@@ -33,8 +33,8 @@ export class SchemePhysicalButton extends AbstractScheme {
       object.set_tip_text("");
     }
 
-    state.anim = getConfigString(ini, section, "anim", true, "");
-    state.blending = getConfigBoolean(ini, section, "anim_blend", false, true);
+    state.anim = readIniString(ini, section, "anim", true, "");
+    state.blending = readIniBoolean(ini, section, "anim_blend", false, true);
     if (state.blending === null) {
       state.blending = true;
     }

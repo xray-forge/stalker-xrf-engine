@@ -18,7 +18,7 @@ import { registerDoorObject, unregisterDoorObject } from "@/engine/core/database
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
@@ -64,7 +64,7 @@ export class LabX8DoorBinder extends object_binder {
       return;
     }
 
-    const filename: Optional<TName> = getConfigString(ini, ANIMATED_OBJECT_SECT, "cfg", false, "", null);
+    const filename: Optional<TName> = readIniString(ini, ANIMATED_OBJECT_SECT, "cfg", false, "", null);
 
     if (filename) {
       ini = new ini_file(filename);
@@ -73,7 +73,7 @@ export class LabX8DoorBinder extends object_binder {
     // -- this.idle = 5000
     // -- this.idle_end = 0
 
-    const idle_snd: string = getConfigString(
+    const idle_snd: string = readIniString(
       ini,
       ANIMATED_OBJECT_SECT,
       "idle_snd",
@@ -81,7 +81,7 @@ export class LabX8DoorBinder extends object_binder {
       "",
       "device\\airtight_door_idle"
     );
-    const start_snd: string = getConfigString(
+    const start_snd: string = readIniString(
       ini,
       ANIMATED_OBJECT_SECT,
       "start_snd",
@@ -89,7 +89,7 @@ export class LabX8DoorBinder extends object_binder {
       "",
       "device\\airtight_door_start"
     );
-    const stop_snd: string = getConfigString(
+    const stop_snd: string = readIniString(
       ini,
       ANIMATED_OBJECT_SECT,
       "stop_snd",
@@ -110,7 +110,7 @@ export class LabX8DoorBinder extends object_binder {
       this.stop_snd = new sound_object(stop_snd);
     }
 
-    this.tip = parseConditionsList(getConfigString(ini, ANIMATED_OBJECT_SECT, "tip", false, "", "none"));
+    this.tip = parseConditionsList(readIniString(ini, ANIMATED_OBJECT_SECT, "tip", false, "", "none"));
 
     let on_use = "true";
     let on_start = "true";
@@ -133,8 +133,8 @@ export class LabX8DoorBinder extends object_binder {
     }
 
     this.on_stop = parseConditionsList(on_stop);
-    this.idle_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "idle_delay", false, 2000);
-    this.start_delay = getConfigNumber(ini, ANIMATED_OBJECT_SECT, "start_delay", false, 0);
+    this.idle_delay = readIniNumber(ini, ANIMATED_OBJECT_SECT, "idle_delay", false, 2000);
+    this.start_delay = readIniNumber(ini, ANIMATED_OBJECT_SECT, "start_delay", false, 0);
   }
 
   /**

@@ -1,7 +1,7 @@
 import { SOUND_STORIES_LTX } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseNames } from "@/engine/core/utils/parse";
+import { parseStringsList } from "@/engine/core/utils/parse";
 import { LuaArray, TCount, TIndex, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -44,7 +44,7 @@ export class SoundStory {
     for (const it of $range(0, storyLinesCount - 1)) {
       const [result, id, value] = SOUND_STORIES_LTX.r_line(storyId, it, "", "");
 
-      const params: LuaArray<string> = parseNames(value);
+      const params: LuaArray<string> = parseStringsList(value);
       const who: string = params.get(1);
 
       if (who !== "teller" && who !== "reaction" && who !== "reaction_all") {

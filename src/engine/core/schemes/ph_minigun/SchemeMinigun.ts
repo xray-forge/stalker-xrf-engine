@@ -5,10 +5,10 @@ import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMin
 import { MinigunManager } from "@/engine/core/schemes/ph_minigun/MinigunManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import {
-  getConfigBoolean,
-  getConfigNumber,
-  getConfigString,
   getConfigStringAndCondList,
+  readIniBoolean,
+  readIniNumber,
+  readIniString,
 } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
@@ -40,15 +40,15 @@ export class SchemeMinigun extends AbstractScheme {
     const state: ISchemeMinigunState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_fire = getConfigString(ini, section, "path_fire", false, additional, null);
-    state.auto_fire = getConfigBoolean(ini, section, "auto_fire", false, false);
-    state.fire_time = getConfigNumber(ini, section, "fire_time", false, def_min_fire_time);
-    state.fire_rep = getConfigNumber(ini, section, "fire_repeat", false, def_fire_rep);
-    state.fire_range = getConfigNumber(ini, section, "fire_range", false, def_fire_range);
-    state.fire_target = getConfigString(ini, section, "target", false, additional, "points");
-    state.fire_track_target = getConfigBoolean(ini, section, "track_target", false, false);
-    state.fire_angle = getConfigNumber(ini, section, "fire_angle", false, def_fire_angle);
-    state.shoot_only_on_visible = getConfigBoolean(ini, section, "shoot_only_on_visible", false, true);
+    state.path_fire = readIniString(ini, section, "path_fire", false, additional, null);
+    state.auto_fire = readIniBoolean(ini, section, "auto_fire", false, false);
+    state.fire_time = readIniNumber(ini, section, "fire_time", false, def_min_fire_time);
+    state.fire_rep = readIniNumber(ini, section, "fire_repeat", false, def_fire_rep);
+    state.fire_range = readIniNumber(ini, section, "fire_range", false, def_fire_range);
+    state.fire_target = readIniString(ini, section, "target", false, additional, "points");
+    state.fire_track_target = readIniBoolean(ini, section, "track_target", false, false);
+    state.fire_angle = readIniNumber(ini, section, "fire_angle", false, def_fire_angle);
+    state.shoot_only_on_visible = readIniBoolean(ini, section, "shoot_only_on_visible", false, true);
     state.on_target_vis = getConfigStringAndCondList(ini, section, "on_target_vis");
     state.on_target_nvis = getConfigStringAndCondList(ini, section, "on_target_nvis");
   }

@@ -4,7 +4,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/ph_door/ISchemePhysicalDoorState";
 import { PhysicalDoorManager } from "@/engine/core/schemes/ph_door/PhysicalDoorManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigConditionList, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseData1v } from "@/engine/core/utils/parse";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
@@ -25,20 +25,20 @@ export class SchemePhysicalDoor extends AbstractScheme {
     const state: ISchemePhysicalDoorState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.closed = getConfigBoolean(ini, section, "closed", false, true);
-    state.locked = getConfigBoolean(ini, section, "locked", false);
-    state.no_force = getConfigBoolean(ini, section, "no_force", false, false);
-    state.not_for_npc = getConfigBoolean(ini, section, "not_for_npc", false, false);
-    state.show_tips = getConfigBoolean(ini, section, "show_tips", false, true);
-    state.tip_open = getConfigString(ini, section, "tip_open", false, "", "tip_door_open");
-    state.tip_unlock = getConfigString(ini, section, "tip_open", false, "", "tip_door_locked");
-    state.tip_close = getConfigString(ini, section, "tip_close", false, "", "tip_door_close");
-    state.slider = getConfigBoolean(ini, section, "slider", false, false);
+    state.closed = readIniBoolean(ini, section, "closed", false, true);
+    state.locked = readIniBoolean(ini, section, "locked", false);
+    state.no_force = readIniBoolean(ini, section, "no_force", false, false);
+    state.not_for_npc = readIniBoolean(ini, section, "not_for_npc", false, false);
+    state.show_tips = readIniBoolean(ini, section, "show_tips", false, true);
+    state.tip_open = readIniString(ini, section, "tip_open", false, "", "tip_door_open");
+    state.tip_unlock = readIniString(ini, section, "tip_open", false, "", "tip_door_locked");
+    state.tip_close = readIniString(ini, section, "tip_close", false, "", "tip_door_close");
+    state.slider = readIniBoolean(ini, section, "slider", false, false);
     // --    st.snd_init        = getConfigString(ini, section, "snd_init", npc, false, "")
-    state.snd_open_start = getConfigString(ini, section, "snd_open_start", false, "", "trader_door_open_start");
-    state.snd_close_start = getConfigString(ini, section, "snd_close_start", false, "", "trader_door_close_start");
-    state.snd_close_stop = getConfigString(ini, section, "snd_close_stop", false, "", "trader_door_close_stop");
-    state.on_use = getConfigConditionList(ini, section, "on_use");
+    state.snd_open_start = readIniString(ini, section, "snd_open_start", false, "", "trader_door_open_start");
+    state.snd_close_start = readIniString(ini, section, "snd_close_start", false, "", "trader_door_close_start");
+    state.snd_close_stop = readIniString(ini, section, "snd_close_stop", false, "", "trader_door_close_stop");
+    state.on_use = readIniConditionList(ini, section, "on_use");
 
     if (state.locked === true || state.not_for_npc === true) {
       if (!object.is_door_locked_for_npc()) {
@@ -50,7 +50,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
       }
     }
 
-    state.hit_on_bone = parseData1v(object, getConfigString(ini, section, "hit_on_bone", false, ""));
+    state.hit_on_bone = parseData1v(object, readIniString(ini, section, "hit_on_bone", false, ""));
   }
 
   /**

@@ -1,6 +1,6 @@
 import { system_ini, XR_ini_file } from "xray16";
 
-import { parseNames } from "@/engine/core/utils/parse";
+import { parseStringsList } from "@/engine/core/utils/parse";
 
 export class WeaponParams {
   public static GetRPM(wpn_section: string, upgr_sections: string): number {
@@ -42,7 +42,7 @@ export class WeaponParams {
       return result;
     }
 
-    for (const [k, sect] of parseNames(upgr_sections)) {
+    for (const [k, sect] of parseStringsList(upgr_sections)) {
       if (param === "hit_power") {
         if (result < WeaponParams.read_if_exist(sect, param, 0)) {
           result = WeaponParams.read_if_exist(sect, param, 0);

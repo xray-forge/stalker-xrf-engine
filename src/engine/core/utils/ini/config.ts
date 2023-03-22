@@ -7,13 +7,13 @@ import { abort } from "@/engine/core/utils/debug";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import {
   addCondition,
-  getConfigBoolean,
-  getConfigConditionList,
   getConfigNumberAndConditionList,
-  getConfigString,
   getConfigStringAndConditionList,
   getConfigTwoStringsAndConditionsList,
   getTwoNumbers,
+  readIniBoolean,
+  readIniConditionList,
+  readIniString,
 } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
@@ -220,21 +220,16 @@ export function getConfigObjectAndZone(ini: XR_ini_file, section: TSection, fiel
  */
 export function getObjectConfigOverrides(ini: XR_ini_file, section: TSection, object: XR_game_object): AnyObject {
   const overrides: AnyObject = {};
-  const heliHunter: Optional<string> = getConfigString(ini, section, "heli_hunter", false, "");
+  const heliHunter: Optional<string> = readIniString(ini, section, "heli_hunter", false, "");
 
   if (heliHunter !== null) {
     overrides.heli_hunter = parseConditionsList(heliHunter);
   }
 
-  overrides.combat_ignore = getConfigConditionList(ini, section, "combat_ignore_cond");
-  overrides.combat_ignore_keep_when_attacked = getConfigBoolean(
-    ini,
-    section,
-    "combat_ignore_keep_when_attacked",
-    false
-  );
-  overrides.combat_type = getConfigConditionList(ini, section, "combat_type");
-  overrides.on_combat = getConfigConditionList(ini, section, "on_combat");
+  overrides.combat_ignore = readIniConditionList(ini, section, "combat_ignore_cond");
+  overrides.combat_ignore_keep_when_attacked = readIniBoolean(ini, section, "combat_ignore_keep_when_attacked", false);
+  overrides.combat_type = readIniConditionList(ini, section, "combat_type");
+  overrides.on_combat = readIniConditionList(ini, section, "on_combat");
 
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
@@ -257,14 +252,14 @@ export function getObjectConfigOverrides(ini: XR_ini_file, section: TSection, ob
   }
 
   if (ini.line_exist(section, "on_offline")) {
-    overrides.on_offline_condlist = parseConditionsList(getConfigString(ini, section, "on_offline", false, "", NIL));
+    overrides.on_offline_condlist = parseConditionsList(readIniString(ini, section, "on_offline", false, "", NIL));
   } else {
     overrides.on_offline_condlist = parseConditionsList(
-      getConfigString(ini, state.section_logic, "on_offline", false, "", NIL)
+      readIniString(ini, state.section_logic, "on_offline", false, "", NIL)
     );
   }
 
-  overrides.soundgroup = getConfigString(ini, section, "soundgroup", false, "");
+  overrides.soundgroup = readIniString(ini, section, "soundgroup", false, "");
 
   return overrides;
 }
@@ -304,13 +299,13 @@ export function getConfigSwitchConditions(ini: XR_ini_file, section: TSection): 
   add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN);
   add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE);
   add_conditions(getConfigStringAndConditionList, ESchemeCondition.ON_SIGNAL);
-  add_conditions(getConfigConditionList, ESchemeCondition.ON_INFO);
+  add_conditions(readIniConditionList, ESchemeCondition.ON_INFO);
   add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_TIMER);
   add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_GAME_TIMER);
   add_conditions(getConfigStringAndConditionList, ESchemeCondition.ON_ACTOR_IN_ZONE);
   add_conditions(getConfigStringAndConditionList, ESchemeCondition.ON_ACTOR_NOT_IN_ZONE);
-  add_conditions(getConfigConditionList, ESchemeCondition.ON_ACTOR_INSIDE);
-  add_conditions(getConfigConditionList, ESchemeCondition.ON_ACTOR_OUTSIDE);
+  add_conditions(readIniConditionList, ESchemeCondition.ON_ACTOR_INSIDE);
+  add_conditions(readIniConditionList, ESchemeCondition.ON_ACTOR_OUTSIDE);
   add_conditions(getConfigObjectAndZone, ESchemeCondition.ON_NPC_IN_ZONE);
   add_conditions(getConfigObjectAndZone, ESchemeCondition.ON_NPC_NOT_IN_ZONE);
 

@@ -5,7 +5,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager"
 import { abort } from "@/engine/core/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseIniSectionToArray, TConditionList } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
@@ -38,8 +38,8 @@ export class WeatherManager extends AbstractCoreManager {
    * todo: Description.
    */
   public reset(): void {
-    const weather: string = getConfigString(GAME_LTX, level.name(), "weathers", false, "", "[default]");
-    const postprocess: string = getConfigString(GAME_LTX, level.name(), "postprocess", false, "");
+    const weather: string = readIniString(GAME_LTX, level.name(), "weathers", false, "", "[default]");
+    const postprocess: string = readIniString(GAME_LTX, level.name(), "postprocess", false, "");
 
     if (postprocess !== null) {
       level.add_pp_effector(postprocess, 999, true);

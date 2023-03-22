@@ -3,26 +3,32 @@ import { XR_ini_file } from "xray16";
 import { IBaseSchemeLogic } from "@/engine/core/schemes/base";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList, parseNames, parseParameters } from "@/engine/core/utils/parse";
-import { EScheme, LuaArray, Optional, TIndex, TName, TSection } from "@/engine/lib/types";
+import { parseConditionsList, parseParameters, parseStringsList } from "@/engine/core/utils/parse";
+import { EScheme, LuaArray, Optional, TCount, TIndex, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo: Description
- * todo: Add signature with null if default is not provided.
- * todo: Support optional.
+ * Read string field from provided ini file section.
+ *
+ * @param ini - config file to read
+ * @param section - config section to read
+ * @param field - section field to read
+ * @param required - whether field is required, throw exception if field is required and not present
+ * @param prefix - ?, probably to remove
+ * @param defaultValue - value to use in case if ini field is missing
+ * @returns value from ini file section or default value if section is not declared in ini
  */
-export function getConfigString<D = string>(
+export function readIniString<D = string>(
   ini: XR_ini_file,
   section: Optional<TSection>,
   field: TName,
-  mandatory: boolean,
+  required: boolean,
   prefix: Optional<string> = null,
-  defaultVal: D = null as unknown as D
+  defaultValue: D = null as unknown as D
 ): string | D {
-  if (mandatory === null) {
-    abort("section '%s': wrong arguments order in call to cfg_get_string", section);
+  if (required === null) {
+    return abort("Section '%s', wrong arguments order in call to 'readConfigString'.", section);
   }
 
   // todo: Resolve prefix.
@@ -34,59 +40,74 @@ export function getConfigString<D = string>(
     }
   }
 
-  if (!mandatory) {
-    return defaultVal as string;
+  if (!required) {
+    return defaultValue as string;
   }
 
-  return abort("'Attempt to read a non-existent string field '" + field + "' in section '" + section + "'");
+  return abort("Attempt to read a non-existent string field '%s' in section '%s'.", field, section);
 }
 
 /**
- * todo;
+ * Read string field from provided ini file section.
+ *
+ * @param ini - config file to read
+ * @param section - config section to read
+ * @param field - section field to read
+ * @param required - whether field is required, throw exception if field is required and not present
+ * @param defaultValue - value to use in case if ini field is missing
+ * @returns value from ini file section or default value if section is not declared in ini
  */
-export function getConfigNumber<T = number>(
+export function readIniNumber<D = number>(
   ini: XR_ini_file,
   section: TSection,
   field: TName,
-  mandatory: boolean,
-  defaultVal?: T
-): number | T {
-  if (mandatory === null) {
-    abort("section '%s': wrong arguments order in call to cfg_get_number", section);
+  required: boolean,
+  defaultValue: D = null as unknown as D
+): number | D {
+  if (required === null) {
+    return abort("Section '%s', wrong arguments order in call to 'readIniNumber'.", section);
   }
 
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
     return ini.r_float(section, field);
   }
 
-  if (!mandatory) {
-    return defaultVal as number;
+  if (!required) {
+    return defaultValue as number;
   }
 
-  return null as any;
+  // todo: Throw error?
+  return null as unknown as D;
 }
 
 /**
- * todo; cfg_get_bool
+ * Read string field from provided ini file section.
+ *
+ * @param ini - config file to read
+ * @param section - config section to read
+ * @param field - section field to read
+ * @param required - whether field is required, throw exception if field is required and not present
+ * @param defaultValue - value to use in case if ini field is missing
+ * @returns value from ini file section or default value if section is not declared in ini
  */
-export function getConfigBoolean(
-  char_ini: XR_ini_file,
+export function readIniBoolean(
+  ini: XR_ini_file,
   section: Optional<TSection>,
   field: TName,
-  mandatory: boolean,
-  default_val?: boolean
+  required: boolean,
+  defaultValue: Optional<boolean> = null
 ): boolean {
-  if (mandatory === null) {
-    abort("section '%s': wrong arguments order in call to cfg_get_bool", section);
+  if (required === null) {
+    return abort("Section '%s', wrong arguments order in call to 'readIniBoolean'.", section);
   }
 
-  if (section && char_ini.section_exist(section) && char_ini.line_exist(section, field)) {
-    return char_ini.r_bool(section, field);
+  if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
+    return ini.r_bool(section, field);
   }
 
-  if (!mandatory) {
-    if (default_val !== undefined) {
-      return default_val;
+  if (!required) {
+    if (defaultValue !== null) {
+      return defaultValue;
     }
 
     return false;
@@ -106,8 +127,8 @@ export function getTwoNumbers(
   default2: number
 ): LuaMultiReturn<[number, number]> {
   if (iniFile.line_exist(section, line)) {
-    const stringList: LuaArray<string> = parseNames(iniFile.r_string(section as TName, line));
-    const count = stringList.length();
+    const stringList: LuaArray<string> = parseStringsList(iniFile.r_string(section as TName, line));
+    const count: TCount = stringList.length();
 
     if (count === 0) {
       return $multi(default1, default2);
@@ -124,8 +145,8 @@ export function getTwoNumbers(
 /**
  * todo
  */
-export function getConfigConditionList(ini: XR_ini_file, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
-  const data: Optional<string> = getConfigString(ini, section, field, false, "");
+export function readIniConditionList(ini: XR_ini_file, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
+  const data: Optional<string> = readIniString(ini, section, field, false, "");
 
   if (!data) {
     return null;
@@ -154,7 +175,7 @@ export function getConfigStringAndCondList(
   section: TSection,
   field: TName
 ): Optional<IBaseSchemeLogic> {
-  const data: string = getConfigString(ini, section, field, false, "");
+  const data: string = readIniString(ini, section, field, false, "");
 
   if (!data) {
     return null;
@@ -202,7 +223,7 @@ export function getConfigNumberAndConditionList(
   section: TSection,
   field: TName
 ): Optional<IBaseSchemeLogic> {
-  const data: Optional<string> = getConfigString(ini, section, field, false, "");
+  const data: Optional<string> = readIniString(ini, section, field, false, "");
 
   if (!data) {
     return null;
@@ -233,7 +254,7 @@ export function getConfigStringAndConditionList(
   section: TSection,
   field: TName
 ): Optional<IBaseSchemeLogic> {
-  const data: Optional<string> = getConfigString(ini, section, field, false, "");
+  const data: Optional<string> = readIniString(ini, section, field, false, "");
 
   if (!data) {
     return null;
@@ -264,7 +285,7 @@ export function getConfigTwoStringsAndConditionsList(
   section: TSection,
   field: TName
 ): Optional<IBaseSchemeLogic> {
-  const data: string = getConfigString(ini, section, field, false, "");
+  const data: string = readIniString(ini, section, field, false, "");
 
   if (!data) {
     return null;

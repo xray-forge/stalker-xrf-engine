@@ -12,7 +12,7 @@ import {
 import { registry } from "@/engine/core/database";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional } from "@/engine/lib/types";
 
@@ -44,7 +44,7 @@ export class CampBinder extends object_binder {
     const ini: XR_ini_file = this.object.spawn_ini();
 
     if (ini.section_exist(CampStoryManager.SCHEME_SECTION)) {
-      const filename: Optional<string> = getConfigString(ini, CampStoryManager.SCHEME_SECTION, "cfg", false, "", null);
+      const filename: Optional<string> = readIniString(ini, CampStoryManager.SCHEME_SECTION, "cfg", false, "", null);
 
       registry.camps.stories.set(
         this.object.id(),

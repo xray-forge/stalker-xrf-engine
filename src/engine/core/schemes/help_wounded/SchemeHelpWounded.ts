@@ -7,7 +7,7 @@ import { ActionHelpWounded } from "@/engine/core/schemes/help_wounded/actions";
 import { EvaluatorWoundedExist } from "@/engine/core/schemes/help_wounded/evaluators";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/help_wounded/ISchemeHelpWoundedState";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
-import { getConfigBoolean } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { Optional, TNumberId } from "@/engine/lib/types";
@@ -83,7 +83,7 @@ export class SchemeHelpWounded extends AbstractScheme {
     state: IRegistryObjectState,
     section: TSection
   ) {
-    (state[SchemeHelpWounded.SCHEME_SECTION] as ISchemeHelpWoundedState).help_wounded_enabled = getConfigBoolean(
+    (state[SchemeHelpWounded.SCHEME_SECTION] as ISchemeHelpWoundedState).help_wounded_enabled = readIniBoolean(
       state.ini!,
       section,
       "help_wounded_enabled",

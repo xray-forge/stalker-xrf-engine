@@ -23,7 +23,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager"
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { abort } from "@/engine/core/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";
 import {
@@ -163,7 +163,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
     let characterIni: Optional<XR_ini_file> = null;
     const objectSpawnIni: Optional<XR_ini_file> = object.spawn_ini();
     const filename: Optional<TName> =
-      objectSpawnIni === null ? null : getConfigString(objectSpawnIni, "logic", "cfg", false, "");
+      objectSpawnIni === null ? null : readIniString(objectSpawnIni, "logic", "cfg", false, "");
 
     if (filename !== null) {
       if (!getFS().exist(roots.gameConfig, filename)) {
@@ -177,7 +177,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
 
     const state: IRegistryObjectState = registry.objects.get(object.id());
     const knownInfo: TSection =
-      getConfigString(characterIni, state.section_logic, "known_info", false, "", null) || "known_info";
+      readIniString(characterIni, state.section_logic, "known_info", false, "", null) || "known_info";
 
     return characterIni.section_exist(knownInfo);
   }

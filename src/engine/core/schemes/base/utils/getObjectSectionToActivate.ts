@@ -4,7 +4,7 @@ import { IStoredOfflineObject, registry } from "@/engine/core/database";
 import { IBaseSchemeLogic } from "@/engine/core/schemes/base";
 import { abort } from "@/engine/core/utils/debug";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getConfigConditionList } from "@/engine/core/utils/ini/getters";
+import { readIniConditionList } from "@/engine/core/utils/ini/getters";
 import { NIL } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
@@ -42,7 +42,7 @@ export function getObjectSectionToActivate(
     }
   }
 
-  const activeSectionCond: Optional<IBaseSchemeLogic> = getConfigConditionList(ini, sectionLogic, "active");
+  const activeSectionCond: Optional<IBaseSchemeLogic> = readIniConditionList(ini, sectionLogic, "active");
 
   if (activeSectionCond === null) {
     return NIL;

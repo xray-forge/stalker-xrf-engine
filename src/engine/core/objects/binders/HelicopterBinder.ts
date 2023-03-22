@@ -33,7 +33,7 @@ import { HeliCombat } from "@/engine/core/schemes/heli_move/HeliCombat";
 import { get_heli_firer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { getObjectClassId } from "@/engine/core/utils/id";
-import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ESchemeType, Optional, TDistance, TIndex, TNumberId, TRate } from "@/engine/lib/types";
 
@@ -88,13 +88,13 @@ export class HelicopterBinder extends object_binder {
 
     const ltx: XR_ini_file = system_ini();
 
-    this.flame_start_health = getConfigNumber(ltx, "helicopter", "flame_start_health", true);
+    this.flame_start_health = readIniNumber(ltx, "helicopter", "flame_start_health", true);
 
     const object_ini = this.object.spawn_ini();
 
-    this.snd_hit = getConfigString(object_ini, "helicopter", "snd_hit", false, "", "heli_hit");
-    this.snd_damage = getConfigString(object_ini, "helicopter", "snd_damage", false, "", "heli_damaged");
-    this.snd_down = getConfigString(object_ini, "helicopter", "snd_down", false, "", "heli_down");
+    this.snd_hit = readIniString(object_ini, "helicopter", "snd_hit", false, "", "heli_hit");
+    this.snd_damage = readIniString(object_ini, "helicopter", "snd_damage", false, "", "heli_damaged");
+    this.snd_down = readIniString(object_ini, "helicopter", "snd_down", false, "", "heli_down");
   }
 
   /**

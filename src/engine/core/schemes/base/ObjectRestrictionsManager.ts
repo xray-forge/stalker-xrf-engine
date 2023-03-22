@@ -2,9 +2,9 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { getParamString } from "@/engine/core/utils/ini/config";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseNames } from "@/engine/core/utils/parse";
+import { parseStringsList } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
 import { TSection } from "@/engine/lib/types";
 
@@ -50,13 +50,13 @@ export class ObjectRestrictionsManager {
     this.object = object;
     this.base_out_restrictions = new LuaTable();
     this.base_in_restrictions = new LuaTable();
-    this.out_restrictions = parseNames(this.object.out_restrictions());
+    this.out_restrictions = parseStringsList(this.object.out_restrictions());
 
     for (const [k, v] of this.out_restrictions) {
       this.base_out_restrictions.set(v, true);
     }
 
-    this.in_restrictions = parseNames(this.object.in_restrictions());
+    this.in_restrictions = parseStringsList(this.object.in_restrictions());
 
     for (const [k, v] of this.in_restrictions) {
       this.base_in_restrictions.set(v, true);
@@ -71,12 +71,12 @@ export class ObjectRestrictionsManager {
 
     const actual_ini: XR_ini_file = state.ini!;
     const [out_restr_string] = getParamString(
-      getConfigString(actual_ini, section, "out_restr", false, "", ""),
+      readIniString(actual_ini, section, "out_restr", false, "", ""),
       this.object
     );
 
-    const new_out_restr = parseNames(out_restr_string);
-    const old_out_restr = parseNames(this.object.out_restrictions());
+    const new_out_restr = parseStringsList(out_restr_string);
+    const old_out_restr = parseStringsList(this.object.out_restrictions());
     let ins_restr: LuaTable<number, string> = new LuaTable();
     let del_restr: LuaTable<number, string> = new LuaTable();
 
@@ -120,11 +120,11 @@ export class ObjectRestrictionsManager {
     }
 
     const [in_restr_string] = getParamString(
-      getConfigString(actual_ini, section, "in_restr", false, "", ""),
+      readIniString(actual_ini, section, "in_restr", false, "", ""),
       this.object
     );
-    const new_in_restr = parseNames(in_restr_string);
-    const old_in_restr = parseNames(this.object.in_restrictions());
+    const new_in_restr = parseStringsList(in_restr_string);
+    const old_in_restr = parseStringsList(this.object.in_restrictions());
 
     ins_restr = new LuaTable();
     del_restr = new LuaTable();

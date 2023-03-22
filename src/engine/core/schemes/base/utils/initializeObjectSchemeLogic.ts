@@ -5,7 +5,7 @@ import { activateSchemeBySection } from "@/engine/core/schemes/base/utils/activa
 import { configureObjectSchemes } from "@/engine/core/schemes/base/utils/configureObjectSchemes";
 import { getObjectSchemeCustomDataOrIniFile } from "@/engine/core/schemes/base/utils/getObjectSchemeCustomDataOrIniFile";
 import { getObjectSectionToActivate } from "@/engine/core/schemes/base/utils/getObjectSectionToActivate";
-import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TRelation } from "@/engine/lib/constants/relations";
 import { Optional, TCount, TName } from "@/engine/lib/types";
@@ -42,13 +42,13 @@ export function initializeObjectSchemeLogic(
 
     activateSchemeBySection(object, iniFile, section, state.gulag_name, false);
 
-    const relation: Optional<TRelation> = getConfigString(iniFile, "logic", "relation", false, "") as TRelation;
+    const relation: Optional<TRelation> = readIniString(iniFile, "logic", "relation", false, "") as TRelation;
 
     if (relation !== null) {
       object.set_relation(game_object[relation as TRelation], registry.actor);
     }
 
-    const sympathy: Optional<TCount> = getConfigNumber(iniFile, "logic", "sympathy", false);
+    const sympathy: Optional<TCount> = readIniNumber(iniFile, "logic", "sympathy", false);
 
     if (sympathy !== null) {
       object.set_sympathy(sympathy);

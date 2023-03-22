@@ -1,7 +1,7 @@
 import { XR_ini_file, XR_net_packet, XR_reader, XR_sound_object } from "xray16";
 
 import { EPlayableSound } from "@/engine/core/sounds/playable_sounds/EPlayableSound";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { AnyArgs, Optional, TNumberId, TRate } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
@@ -22,7 +22,7 @@ export abstract class AbstractPlayableSound {
    * todo: Description.
    */
   public constructor(snd_ini: XR_ini_file, section: TSection) {
-    this.path = getConfigString(snd_ini, section, "path", true, "");
+    this.path = readIniString(snd_ini, section, "path", true, "");
     this.section = section;
   }
 

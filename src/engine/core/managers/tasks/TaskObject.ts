@@ -22,9 +22,9 @@ import * as TaskFunctor from "@/engine/core/managers/tasks/TaskFunctor";
 import { abort } from "@/engine/core/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList, parseNames, TConditionList } from "@/engine/core/utils/parse";
+import { parseConditionsList, parseStringsList, TConditionList } from "@/engine/core/utils/parse";
 import { giveMoneyToActor, relocateQuestItemSection } from "@/engine/core/utils/quest_reward";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
@@ -141,18 +141,18 @@ export class TaskObject {
     this.task_ini = task_ini;
     this.id = id;
 
-    this.title = getConfigString(task_ini, id, "title", false, "", "TITLE_DOESNT_EXIST");
-    this.title_functor = getConfigString(task_ini, id, "title_functor", false, "", "condlist");
+    this.title = readIniString(task_ini, id, "title", false, "", "TITLE_DOESNT_EXIST");
+    this.title_functor = readIniString(task_ini, id, "title_functor", false, "", "condlist");
 
-    this.descr = getConfigString(task_ini, id, "descr", false, "", "DESCR_DOESNT_EXIST");
-    this.descr_functor = getConfigString(task_ini, id, "descr_functor", false, "", "condlist");
+    this.descr = readIniString(task_ini, id, "descr", false, "", "DESCR_DOESNT_EXIST");
+    this.descr_functor = readIniString(task_ini, id, "descr_functor", false, "", "condlist");
 
-    this.target = getConfigString(task_ini, id, "target", false, "", "DESCR_DOESNT_EXIST");
-    this.target_functor = getConfigString(task_ini, id, "target_functor", false, "", "target_condlist");
+    this.target = readIniString(task_ini, id, "target", false, "", "DESCR_DOESNT_EXIST");
+    this.target_functor = readIniString(task_ini, id, "target_functor", false, "", "target_condlist");
 
-    this.icon = getConfigString(task_ini, id, "icon", false, "", "ui_pda2_mtask_overlay");
-    this.prior = getConfigNumber(task_ini, id, "prior", false, 0);
-    this.storyline = getConfigBoolean(task_ini, id, "storyline", false, true);
+    this.icon = readIniString(task_ini, id, "icon", false, "", "ui_pda2_mtask_overlay");
+    this.prior = readIniNumber(task_ini, id, "prior", false, 0);
+    this.storyline = readIniBoolean(task_ini, id, "storyline", false, true);
 
     let it: TIndex = 0;
 
@@ -164,21 +164,15 @@ export class TaskObject {
       it = it + 1;
     }
 
-    this.on_init = parseConditionsList(getConfigString(task_ini, id, "on_init", false, "", ""));
-    this.on_complete = parseConditionsList(getConfigString(task_ini, id, "on_complete", false, "", ""));
-    this.on_reversed = parseConditionsList(getConfigString(task_ini, id, "on_reversed", false, "", ""));
+    this.on_init = parseConditionsList(readIniString(task_ini, id, "on_init", false, "", ""));
+    this.on_complete = parseConditionsList(readIniString(task_ini, id, "on_complete", false, "", ""));
+    this.on_reversed = parseConditionsList(readIniString(task_ini, id, "on_reversed", false, "", ""));
 
-    this.reward_money = parseConditionsList(getConfigString(task_ini, id, "reward_money", false, "", ""));
-    this.reward_item = parseConditionsList(getConfigString(task_ini, id, "reward_item", false, "", ""));
+    this.reward_money = parseConditionsList(readIniString(task_ini, id, "reward_money", false, "", ""));
+    this.reward_item = parseConditionsList(readIniString(task_ini, id, "reward_item", false, "", ""));
 
-    this.community_relation_delta_fail = getConfigNumber(task_ini, id, "community_relation_delta_fail", false, 0);
-    this.community_relation_delta_complete = getConfigNumber(
-      task_ini,
-      id,
-      "community_relation_delta_complete",
-      false,
-      0
-    );
+    this.community_relation_delta_fail = readIniNumber(task_ini, id, "community_relation_delta_fail", false, 0);
+    this.community_relation_delta_complete = readIniNumber(task_ini, id, "community_relation_delta_complete", false, 0);
 
     this.status = "normal";
 
@@ -202,7 +196,7 @@ export class TaskObject {
     }
 
     this.current_target = (TaskFunctor as AnyCallablesModule)[this.target_functor](this.id, "target", this.target);
-    this.dont_send_update_news = getConfigBoolean(task_ini, id, "dont_send_update_news", false, false);
+    this.dont_send_update_news = readIniBoolean(task_ini, id, "dont_send_update_news", false, false);
   }
 
   /**
@@ -356,7 +350,7 @@ export class TaskObject {
     if (itemsList !== null) {
       const rewardItems: LuaTable<TName, TCount> = new LuaTable();
 
-      for (const [index, name] of parseNames(itemsList)) {
+      for (const [index, name] of parseStringsList(itemsList)) {
         if (!rewardItems.has(name)) {
           rewardItems.set(name, 1);
         } else {

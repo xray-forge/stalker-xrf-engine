@@ -57,15 +57,15 @@ import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { abort } from "@/engine/core/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import {
-  getConfigBoolean,
-  getConfigNumber,
-  getConfigString,
-  getSchemeByIniSection,
-} from "@/engine/core/utils/ini/getters";
+import { getSchemeByIniSection, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
-import { IConfigSwitchCondition, parseConditionsList, parseNames, TConditionList } from "@/engine/core/utils/parse";
+import {
+  IConfigSwitchCondition,
+  parseConditionsList,
+  parseStringsList,
+  TConditionList,
+} from "@/engine/core/utils/parse";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { TCaption } from "@/engine/lib/constants/captions";
@@ -296,7 +296,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
       abort("[smart_terrain %s] no configuration!", this.name());
     }
 
-    const filename: TName = getConfigString(this.ini, SMART_TERRAIN_SECTION, "cfg", false, "");
+    const filename: TName = readIniString(this.ini, SMART_TERRAIN_SECTION, "cfg", false, "");
 
     if (filename !== null) {
       if (getFS().exist(roots.gameConfig, filename)) {
@@ -308,7 +308,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     const ini: XR_ini_file = this.ini;
 
-    this.simulationType = getConfigString(
+    this.simulationType = readIniString(
       ini,
       SMART_TERRAIN_SECTION,
       "sim_type",
@@ -321,10 +321,10 @@ export class SmartTerrain extends cse_alife_smart_zone {
       abort("Wrong sim_type value [%s] in smart [%s]", this.simulationType, this.name());
     }
 
-    this.squadId = getConfigNumber(ini, SMART_TERRAIN_SECTION, "squad_id", false, 0);
-    this.respawnRadius = getConfigNumber(ini, SMART_TERRAIN_SECTION, "respawn_radius", false, this.respawnRadius);
+    this.squadId = readIniNumber(ini, SMART_TERRAIN_SECTION, "squad_id", false, 0);
+    this.respawnRadius = readIniNumber(ini, SMART_TERRAIN_SECTION, "respawn_radius", false, this.respawnRadius);
 
-    let respawnSectorData: Optional<string> = getConfigString(ini, SMART_TERRAIN_SECTION, "respawn_sector", false, "");
+    let respawnSectorData: Optional<string> = readIniString(ini, SMART_TERRAIN_SECTION, "respawn_sector", false, "");
 
     if (respawnSectorData !== null) {
       if (respawnSectorData === "default") {
@@ -336,28 +336,28 @@ export class SmartTerrain extends cse_alife_smart_zone {
       this.respawn_sector = null;
     }
 
-    this.isMutantLair = getConfigBoolean(ini, SMART_TERRAIN_SECTION, "mutant_lair", false);
-    this.isMutantDisabled = getConfigBoolean(ini, SMART_TERRAIN_SECTION, "no_mutant", false);
+    this.isMutantLair = readIniBoolean(ini, SMART_TERRAIN_SECTION, "mutant_lair", false);
+    this.isMutantDisabled = readIniBoolean(ini, SMART_TERRAIN_SECTION, "no_mutant", false);
 
     if (this.isMutantDisabled) {
       logger.info("Found no mutant point:", this.name());
     }
 
-    this.forbidden_point = getConfigString(ini, SMART_TERRAIN_SECTION, "forbidden_point", false, "");
-    this.defendRestrictor = getConfigString(ini, SMART_TERRAIN_SECTION, "def_restr", false, "", null);
-    this.attackRestrictor = getConfigString(ini, SMART_TERRAIN_SECTION, "att_restr", false, "", null);
-    this.safeRestrictor = getConfigString(ini, SMART_TERRAIN_SECTION, "safe_restr", false, "", null);
-    this.spawnPointName = getConfigString(ini, SMART_TERRAIN_SECTION, "spawn_point", false, "");
-    this.arrivalDistance = getConfigNumber(ini, SMART_TERRAIN_SECTION, "arrive_dist", false, 30);
+    this.forbidden_point = readIniString(ini, SMART_TERRAIN_SECTION, "forbidden_point", false, "");
+    this.defendRestrictor = readIniString(ini, SMART_TERRAIN_SECTION, "def_restr", false, "", null);
+    this.attackRestrictor = readIniString(ini, SMART_TERRAIN_SECTION, "att_restr", false, "", null);
+    this.safeRestrictor = readIniString(ini, SMART_TERRAIN_SECTION, "safe_restr", false, "", null);
+    this.spawnPointName = readIniString(ini, SMART_TERRAIN_SECTION, "spawn_point", false, "");
+    this.arrivalDistance = readIniNumber(ini, SMART_TERRAIN_SECTION, "arrive_dist", false, 30);
 
-    const maxPopulationData: string = getConfigString(ini, SMART_TERRAIN_SECTION, "max_population", false, "", "0");
+    const maxPopulationData: string = readIniString(ini, SMART_TERRAIN_SECTION, "max_population", false, "", "0");
     const parsedConditionsList: LuaArray<IConfigSwitchCondition> = parseConditionsList(maxPopulationData);
 
     this.maxPopulation = tonumber(pickSectionFromCondList(registry.actor, null, parsedConditionsList)) as TCount;
 
-    this.isRespawnOnlySmart = getConfigBoolean(ini, SMART_TERRAIN_SECTION, "respawn_only_smart", false, false);
+    this.isRespawnOnlySmart = readIniBoolean(ini, SMART_TERRAIN_SECTION, "respawn_only_smart", false, false);
 
-    const respawnSection: Optional<TSection> = getConfigString(
+    const respawnSection: Optional<TSection> = readIniString(
       ini,
       SMART_TERRAIN_SECTION,
       "respawn_params",
@@ -365,7 +365,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
       "",
       null
     );
-    const smartControlSection: Optional<TSection> = getConfigString(
+    const smartControlSection: Optional<TSection> = readIniString(
       ini,
       SMART_TERRAIN_SECTION,
       "smart_control",
@@ -1378,8 +1378,8 @@ export class SmartTerrain extends cse_alife_smart_zone {
         );
       }
 
-      const squadsCount: Optional<string> = getConfigString(this.ini, sectionName, "spawn_num", false, "", null);
-      const squadsToSpawn: Optional<string> = getConfigString(this.ini, sectionName, "spawn_squads", false, "", null);
+      const squadsCount: Optional<string> = readIniString(this.ini, sectionName, "spawn_num", false, "", null);
+      const squadsToSpawn: Optional<string> = readIniString(this.ini, sectionName, "spawn_squads", false, "", null);
 
       if (squadsToSpawn === null) {
         abort(
@@ -1398,7 +1398,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
       this.alreadySpawned.set(sectionName, { num: 0 });
       this.respawnConfiguration.set(sectionName, {
         num: parseConditionsList(squadsCount),
-        squads: parseNames(squadsToSpawn),
+        squads: parseStringsList(squadsToSpawn),
       });
     }
   }

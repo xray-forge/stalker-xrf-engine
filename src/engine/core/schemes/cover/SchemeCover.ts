@@ -6,7 +6,7 @@ import { EvaluatorNeedCover } from "@/engine/core/schemes/cover/evaluators";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover/ISchemeCoverState";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
@@ -33,18 +33,18 @@ export class SchemeCover extends AbstractScheme {
     const state: ISchemeCoverState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.smart = getConfigString(ini, section, "smart", false, "");
-    state.anim = parseConditionsList(getConfigString(ini, section, "anim", false, "", "hide"));
-    state.sound_idle = getConfigString(ini, section, "sound_idle", false, "");
+    state.smart = readIniString(ini, section, "smart", false, "");
+    state.anim = parseConditionsList(readIniString(ini, section, "anim", false, "", "hide"));
+    state.sound_idle = readIniString(ini, section, "sound_idle", false, "");
 
     if (state.smart === null) {
       abort("There is no path_walk and smart in ActionCover.");
     }
 
-    state.use_attack_direction = getConfigBoolean(ini, section, "use_attack_direction", false, true);
+    state.use_attack_direction = readIniBoolean(ini, section, "use_attack_direction", false, true);
 
-    state.radius_min = getConfigNumber(ini, section, "radius_min", false, 3);
-    state.radius_max = getConfigNumber(ini, section, "radius_max", false, 5);
+    state.radius_min = readIniNumber(ini, section, "radius_min", false, 3);
+    state.radius_max = readIniNumber(ini, section, "radius_max", false, 5);
   }
 
   /**

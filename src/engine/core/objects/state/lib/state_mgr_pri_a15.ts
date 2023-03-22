@@ -3,7 +3,7 @@ import { anim, CSightParams, move, XR_game_object } from "xray16";
 import { registry } from "@/engine/core/database";
 import { IStateDescriptor } from "@/engine/core/objects/state/lib/state_lib";
 import { abort } from "@/engine/core/utils/debug";
-import { parseNames } from "@/engine/core/utils/parse";
+import { parseStringsList } from "@/engine/core/utils/parse";
 import { getTableSize } from "@/engine/core/utils/table";
 import { info_portions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";
@@ -617,7 +617,7 @@ const cutscene: Record<
 };
 
 function check_availability(precondition: LuaArray<string>, existing_npc: string): boolean {
-  const check_names = parseNames(existing_npc);
+  const check_names = parseStringsList(existing_npc);
 
   for (const [k, v] of precondition) {
     for (const [kk, vv] of check_names) {

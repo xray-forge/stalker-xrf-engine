@@ -6,7 +6,7 @@ import { EvaluatorCloseCombat, EvaluatorEnd } from "@/engine/core/schemes/camper
 import { ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { RADIAN } from "@/engine/lib/constants/math";
 import { FALSE } from "@/engine/lib/constants/words";
@@ -34,8 +34,8 @@ export class SchemeCamper extends AbstractScheme {
     const state: ISchemeCamperState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_walk = getConfigString(ini, section, "path_walk", true, additional);
-    state.path_look = getConfigString(ini, section, "path_look", true, additional);
+    state.path_walk = readIniString(ini, section, "path_walk", true, additional);
+    state.path_look = readIniString(ini, section, "path_look", true, additional);
 
     if (state.path_walk === state.path_look) {
       abort(
@@ -45,35 +45,35 @@ export class SchemeCamper extends AbstractScheme {
       );
     }
 
-    state.sniper = getConfigBoolean(ini, section, "sniper", false);
-    state.no_retreat = getConfigBoolean(ini, section, "no_retreat", false);
-    state.shoot = getConfigString(ini, section, "shoot", false, "", "always");
-    state.sniper_anim = getConfigString(ini, section, "sniper_anim", false, "hide_na");
+    state.sniper = readIniBoolean(ini, section, "sniper", false);
+    state.no_retreat = readIniBoolean(ini, section, "no_retreat", false);
+    state.shoot = readIniString(ini, section, "shoot", false, "", "always");
+    state.sniper_anim = readIniString(ini, section, "sniper_anim", false, "hide_na");
 
     if (state.sniper === true && state.no_retreat === true) {
       abort("ERROR: NPC [%s] Section [%s]. No_retreat not available for SNIPER.", object.name(), section);
     }
 
-    state.radius = getConfigNumber(ini, section, "radius", false, 20);
+    state.radius = readIniNumber(ini, section, "radius", false, 20);
 
-    const campering: Optional<string> = getConfigString(ini, section, "def_state_campering", false);
+    const campering: Optional<string> = readIniString(ini, section, "def_state_campering", false);
 
     state.suggested_state = {
-      moving: getConfigString(ini, section, "def_state_moving", false),
-      moving_fire: getConfigString(ini, section, "def_state_moving_fire", false),
+      moving: readIniString(ini, section, "def_state_moving", false),
+      moving_fire: readIniString(ini, section, "def_state_moving_fire", false),
       campering: campering,
-      standing: getConfigString(ini, section, "def_state_standing", false, "", campering),
-      campering_fire: getConfigString(ini, section, "def_state_campering_fire", false),
+      standing: readIniString(ini, section, "def_state_standing", false, "", campering),
+      campering_fire: readIniString(ini, section, "def_state_campering_fire", false),
     };
 
-    state.scantime_free = getConfigNumber(ini, section, "scantime_free", false, 60_000);
-    state.attack_sound = getConfigString(ini, section, "attack_sound", false, "", "fight_attack");
+    state.scantime_free = readIniNumber(ini, section, "scantime_free", false, 60_000);
+    state.attack_sound = readIniString(ini, section, "attack_sound", false, "", "fight_attack");
 
     if (state.attack_sound === FALSE) {
       state.attack_sound = null;
     }
 
-    state.idle = getConfigNumber(ini, section, "enemy_idle", false, 60_000);
+    state.idle = readIniNumber(ini, section, "enemy_idle", false, 60_000);
     state.post_enemy_wait = 5_000;
     state.enemy_disp = 7 / RADIAN;
 

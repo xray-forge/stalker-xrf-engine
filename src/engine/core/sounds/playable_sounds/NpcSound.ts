@@ -20,10 +20,10 @@ import { NotificationManager } from "@/engine/core/managers/notifications/Notifi
 import { AbstractPlayableSound } from "@/engine/core/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/engine/core/sounds/playable_sounds/EPlayableSound";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
-import { parseNames } from "@/engine/core/utils/parse";
+import { parseStringsList } from "@/engine/core/utils/parse";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { roots } from "@/engine/lib/constants/roots";
 import { NIL } from "@/engine/lib/constants/words";
@@ -79,29 +79,29 @@ export class NpcSound extends AbstractPlayableSound {
   public constructor(soundIni: XR_ini_file, section: string) {
     super(soundIni, section);
 
-    this.prefix = getConfigBoolean(soundIni, section, "npc_prefix", false, false);
-    this.shuffle = getConfigString(soundIni, section, "shuffle", false, "", "rnd");
-    this.group_snd = getConfigBoolean(soundIni, section, "group_snd", false, false);
-    this.play_always = getConfigBoolean(soundIni, section, "play_always", false, false);
-    this.is_combat_sound = getConfigBoolean(soundIni, section, "is_combat_sound", false, false);
+    this.prefix = readIniBoolean(soundIni, section, "npc_prefix", false, false);
+    this.shuffle = readIniString(soundIni, section, "shuffle", false, "", "rnd");
+    this.group_snd = readIniBoolean(soundIni, section, "group_snd", false, false);
+    this.play_always = readIniBoolean(soundIni, section, "play_always", false, false);
+    this.is_combat_sound = readIniBoolean(soundIni, section, "is_combat_sound", false, false);
     this.section = section;
 
-    this.delay_sound = getConfigNumber(soundIni, section, "delay_sound", false, 0);
+    this.delay_sound = readIniNumber(soundIni, section, "delay_sound", false, 0);
 
-    const interval: LuaTable<number, string> = parseNames(
-      getConfigString(soundIni, section, "idle", false, "", "3,5,100")
+    const interval: LuaTable<number, string> = parseStringsList(
+      readIniString(soundIni, section, "idle", false, "", "3,5,100")
     );
 
     this.min_idle = tonumber(interval.get(1))!;
     this.max_idle = tonumber(interval.get(2))!;
     this.rnd = tonumber(interval.get(3))!;
 
-    this.faction = getConfigString(soundIni, section, "faction", false, "", "");
-    this.point = getConfigString(soundIni, section, "point", false, "", "");
-    this.msg = getConfigString(soundIni, section, "message", false, "", "");
+    this.faction = readIniString(soundIni, section, "faction", false, "", "");
+    this.point = readIniString(soundIni, section, "point", false, "", "");
+    this.msg = readIniString(soundIni, section, "message", false, "", "");
 
-    const availableCommunities: LuaArray<TCommunity> = parseNames<TCommunity>(
-      getConfigString(
+    const availableCommunities: LuaArray<TCommunity> = parseStringsList<TCommunity>(
+      readIniString(
         soundIni,
         section,
         "avail_communities",

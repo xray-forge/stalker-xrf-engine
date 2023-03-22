@@ -15,7 +15,7 @@ import { SchemeMobDeath } from "@/engine/core/schemes/mob/death/SchemeMobDeath";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/ph_on_hit/SchemePhysicalOnHit";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTask";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { resetObjectInvulnerability, setObjectInfo } from "@/engine/core/utils/object";
 import { Optional } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
@@ -37,19 +37,19 @@ export function enableObjectGenericSchemes(
       SchemeDanger.activate(object, ini, SchemeDanger.SCHEME_SECTION, "danger");
       SchemeGatherItems.activate(object, ini, SchemeGatherItems.SCHEME_SECTION, "gather_items");
 
-      const combatSection: TSection = getConfigString(ini, section, "on_combat", false, "");
+      const combatSection: TSection = readIniString(ini, section, "on_combat", false, "");
 
       SchemeCombat.activate(object, ini, EScheme.COMBAT, combatSection);
 
       resetObjectInvulnerability(object);
 
-      const infoSection: Optional<TSection> = getConfigString(ini, section, "info", false, "");
+      const infoSection: Optional<TSection> = readIniString(ini, section, "info", false, "");
 
       if (infoSection !== null) {
         setObjectInfo(object, ini, infoSection);
       }
 
-      const hitSection: Optional<string> = getConfigString(ini, section, "on_hit", false, "");
+      const hitSection: Optional<string> = readIniString(ini, section, "on_hit", false, "");
 
       if (hitSection !== null) {
         SchemeHit.activate(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
@@ -65,18 +65,18 @@ export function enableObjectGenericSchemes(
       }
      */
 
-      const woundedSection: TSection = getConfigString(ini, section, "wounded", false, "");
+      const woundedSection: TSection = readIniString(ini, section, "wounded", false, "");
 
       SchemeWounded.activate(object, ini, EScheme.WOUNDED, woundedSection);
       SchemeAbuse.activate(object, ini, EScheme.ABUSE, section);
       SchemeHelpWounded.activate(object, ini, EScheme.HELP_WOUNDED, null);
       SchemeCorpseDetection.activate(object, ini, EScheme.CORPSE_DETECTION, null);
 
-      const meetSection: TSection = getConfigString(ini, section, "meet", false, "");
+      const meetSection: TSection = readIniString(ini, section, "meet", false, "");
 
       SchemeMeet.activate(object, ini, EScheme.MEET, meetSection);
 
-      const deathSection: TSection = getConfigString(ini, section, "on_death", false, "");
+      const deathSection: TSection = readIniString(ini, section, "on_death", false, "");
 
       SchemeDeath.activate(object, ini, EScheme.DEATH, deathSection);
       SchemeCombatIgnore.activate(object, ini, EScheme.COMBAT_IGNORE);
@@ -86,13 +86,13 @@ export function enableObjectGenericSchemes(
     }
 
     case ESchemeType.MONSTER: {
-      const combatSection: Optional<TSection> = getConfigString(ini, section, "on_combat", false, "");
+      const combatSection: Optional<TSection> = readIniString(ini, section, "on_combat", false, "");
 
       if (combatSection !== null) {
         SchemeMobCombat.activate(object, ini, EScheme.MOB_COMBAT, combatSection);
       }
 
-      const deathSection: Optional<TSection> = getConfigString(ini, section, "on_death", false, "");
+      const deathSection: Optional<TSection> = readIniString(ini, section, "on_death", false, "");
 
       if (deathSection !== null) {
         SchemeMobDeath.activate(object, ini, EScheme.MOB_DEATH, deathSection);
@@ -100,7 +100,7 @@ export function enableObjectGenericSchemes(
 
       resetObjectInvulnerability(object);
 
-      const hitSection: Optional<TSection> = getConfigString(ini, section, "on_hit", false, "");
+      const hitSection: Optional<TSection> = readIniString(ini, section, "on_hit", false, "");
 
       if (hitSection !== null) {
         SchemeHit.activate(object, ini, SchemeHit.SCHEME_SECTION, hitSection);
@@ -112,7 +112,7 @@ export function enableObjectGenericSchemes(
     }
 
     case ESchemeType.ITEM: {
-      const hitSection: Optional<TSection> = getConfigString(ini, section, "on_hit", false, "");
+      const hitSection: Optional<TSection> = readIniString(ini, section, "on_hit", false, "");
 
       if (hitSection !== null) {
         SchemePhysicalOnHit.activate(object, ini, SchemePhysicalOnHit.SCHEME_SECTION, hitSection);
@@ -122,7 +122,7 @@ export function enableObjectGenericSchemes(
     }
 
     case ESchemeType.HELI: {
-      const hitSection: Optional<TSection> = getConfigString(ini, section, "on_hit", false, "");
+      const hitSection: Optional<TSection> = readIniString(ini, section, "on_hit", false, "");
 
       if (hitSection !== null) {
         SchemeHit.activate(object, ini, SchemeHit.SCHEME_SECTION, hitSection);

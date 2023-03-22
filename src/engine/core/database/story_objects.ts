@@ -3,7 +3,7 @@ import { alife, level, XR_cse_abstract, XR_cse_alife_online_offline_group, XR_ga
 import { SYSTEM_INI } from "@/engine/core/database/ini";
 import { registry } from "@/engine/core/database/registry";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
@@ -30,7 +30,7 @@ export function registerObjectStoryLinks(serverObject: XR_cse_abstract): void {
   }
 
   const spawnSection: TName = serverObject.section_name();
-  const storyId: Optional<TStringId> = getConfigString(SYSTEM_INI, spawnSection, "story_id", false, "", null);
+  const storyId: Optional<TStringId> = readIniString(SYSTEM_INI, spawnSection, "story_id", false, "", null);
 
   if (storyId !== null) {
     registerStoryLink(serverObject.id, storyId);

@@ -5,7 +5,7 @@ import { ISchemeParticleState } from "@/engine/core/schemes/sr_particle/ISchemeP
 import { ParticleManager } from "@/engine/core/schemes/sr_particle/ParticleManager";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TName, TSection } from "@/engine/lib/types";
 
@@ -25,10 +25,10 @@ export class SchemeParticle extends AbstractScheme {
     const state: ISchemeParticleState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.name = getConfigString(ini, section, "name", true, "", null) as TName;
-    state.path = getConfigString(ini, section, "path", true, "", null) as TName;
-    state.mode = getConfigNumber(ini, section, "mode", true);
-    state.looped = getConfigBoolean(ini, section, "looped", false);
+    state.name = readIniString(ini, section, "name", true, "", null) as TName;
+    state.path = readIniString(ini, section, "path", true, "", null) as TName;
+    state.mode = readIniNumber(ini, section, "mode", true);
+    state.looped = readIniBoolean(ini, section, "looped", false);
 
     if (state.path === null || state.path === "") {
       abort("SR_PARTICLE : invalid path name");

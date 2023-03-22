@@ -10,9 +10,9 @@ import { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
 import { getSoundManagerForId, SoundManager } from "@/engine/core/sounds/SoundManager";
 import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseNames } from "@/engine/core/utils/parse";
+import { parseStringsList } from "@/engine/core/utils/parse";
 import { EScheme, LuaArray, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -117,9 +117,9 @@ export class CampStoryManager {
     this.object = object;
     this.ini = ini;
 
-    const stories = getConfigString(ini, CampStoryManager.SCHEME_SECTION, "stories", false, "", "test_story");
-    const guitars = getConfigString(ini, CampStoryManager.SCHEME_SECTION, "guitar_themes", false, "", "test_guitar");
-    const harmonicas = getConfigString(
+    const stories = readIniString(ini, CampStoryManager.SCHEME_SECTION, "stories", false, "", "test_story");
+    const guitars = readIniString(ini, CampStoryManager.SCHEME_SECTION, "guitar_themes", false, "", "test_guitar");
+    const harmonicas = readIniString(
       ini,
       CampStoryManager.SCHEME_SECTION,
       "harmonica_themes",
@@ -128,9 +128,9 @@ export class CampStoryManager {
       "test_harmonica"
     );
 
-    this.story_table = parseNames(stories);
-    this.guitar_table = parseNames(guitars);
-    this.harmonica_table = parseNames(harmonicas);
+    this.story_table = parseStringsList(stories);
+    this.guitar_table = parseStringsList(guitars);
+    this.harmonica_table = parseStringsList(harmonicas);
 
     this.sound_manager = getSoundManagerForId(CampStoryManager.SCHEME_SECTION + this.object.id());
 

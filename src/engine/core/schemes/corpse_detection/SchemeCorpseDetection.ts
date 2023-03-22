@@ -9,7 +9,7 @@ import { ActionSearchCorpse } from "@/engine/core/schemes/corpse_detection/actio
 import { EvaluatorCorpseDetect } from "@/engine/core/schemes/corpse_detection/evaluators";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection/ISchemeCorpseDetectionState";
 import { isLootableItem } from "@/engine/core/utils/check/is";
-import { getConfigBoolean } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TNumberId } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
@@ -90,7 +90,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
     state: IRegistryObjectState,
     section: TSection
   ): void {
-    (state[EScheme.CORPSE_DETECTION] as ISchemeCorpseDetectionState).corpse_detection_enabled = getConfigBoolean(
+    (state[EScheme.CORPSE_DETECTION] as ISchemeCorpseDetectionState).corpse_detection_enabled = readIniBoolean(
       state.ini!,
       section,
       "corpse_detection_enabled",

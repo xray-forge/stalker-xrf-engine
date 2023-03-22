@@ -5,7 +5,7 @@ import { ISchemeTimerState } from "@/engine/core/schemes/timer/ISchemeTimerState
 import { SchemeTimerManager } from "@/engine/core/schemes/timer/SchemeTimerManager";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseTimerData } from "@/engine/core/utils/parse";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
@@ -26,21 +26,21 @@ export class SchemeTimer extends AbstractScheme {
     const state: ISchemeTimerState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.type = getConfigString(ini, section, "type", false, "", "inc");
+    state.type = readIniString(ini, section, "type", false, "", "inc");
 
     if (state.type !== "inc" && state.type !== "dec") {
       abort("ERROR: wrong sr_timer type. Section [%s], Restrictor [%s]", section, object.name());
     }
 
     if (state.type === "dec") {
-      state.start_value = getConfigNumber(ini, section, "start_value", true);
+      state.start_value = readIniNumber(ini, section, "start_value", true);
     } else {
-      state.start_value = getConfigNumber(ini, section, "start_value", false, 0);
+      state.start_value = readIniNumber(ini, section, "start_value", false, 0);
     }
 
-    state.on_value = parseTimerData(object, getConfigString(ini, section, "on_value", false, ""));
-    state.timer_id = getConfigString(ini, section, "timer_id", false, "", "hud_timer");
-    state.string = getConfigString(ini, section, "string", false, "");
+    state.on_value = parseTimerData(object, readIniString(ini, section, "on_value", false, ""));
+    state.timer_id = readIniString(ini, section, "timer_id", false, "", "hud_timer");
+    state.string = readIniString(ini, section, "string", false, "");
 
     state.ui = get_hud();
     state.ui.AddCustomStatic(state.timer_id, true);

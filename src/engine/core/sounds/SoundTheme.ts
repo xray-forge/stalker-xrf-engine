@@ -7,7 +7,7 @@ import { LoopedSound } from "@/engine/core/sounds/playable_sounds/LoopedSound";
 import { NpcSound } from "@/engine/core/sounds/playable_sounds/NpcSound";
 import { ObjectSound } from "@/engine/core/sounds/playable_sounds/ObjectSound";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { resetTable } from "@/engine/core/utils/table";
@@ -34,7 +34,7 @@ export class SoundTheme {
     for (const i of $range(0, linesCount - 1)) {
       const [result, section, value] = SCRIPT_SOUND_LTX.r_line("list", i, "", "");
 
-      const type: EPlayableSound = getConfigString<EPlayableSound>(
+      const type: EPlayableSound = readIniString<EPlayableSound>(
         SCRIPT_SOUND_LTX,
         section,
         "type",

@@ -9,7 +9,7 @@ import { getExtern } from "@/engine/core/utils/binding";
 import { abort } from "@/engine/core/utils/debug";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { action, scriptCaptureObject } from "@/engine/core/utils/object";
-import { parseNames } from "@/engine/core/utils/parse";
+import { parseStringsList } from "@/engine/core/utils/parse";
 import { AnyCallablesModule, LuaArray, Optional, TName } from "@/engine/lib/types";
 
 /**
@@ -29,12 +29,12 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
 
     scriptCaptureObject(this.object, !this.state.no_reset);
 
-    const animationsList: LuaArray<TName> = parseNames(this.state.anim);
+    const animationsList: LuaArray<TName> = parseStringsList(this.state.anim);
 
     let snds;
 
     if (this.state.snd) {
-      snds = parseNames(this.state.snd);
+      snds = parseStringsList(this.state.snd);
     } else {
       snds = new LuaTable();
     }
@@ -43,7 +43,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
     let times;
 
     if (this.state.time) {
-      times = parseNames(this.state.time);
+      times = parseStringsList(this.state.time);
     } else {
       times = new LuaTable();
     }

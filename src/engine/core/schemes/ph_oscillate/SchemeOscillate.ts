@@ -5,7 +5,7 @@ import { ISchemeOscillateState } from "@/engine/core/schemes/ph_oscillate/ISchem
 import { OscillateManager } from "@/engine/core/schemes/ph_oscillate/OscillateManager";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TName, TSection } from "@/engine/lib/types";
 
@@ -44,21 +44,21 @@ export class SchemeOscillate extends AbstractScheme {
     const state: ISchemeOscillateState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.joint = getConfigString(ini, section, "joint", true, gulagName);
+    state.joint = readIniString(ini, section, "joint", true, gulagName);
 
     if (state.joint === null) {
       abort("Invalid joint definition for object %s", object.name());
     }
 
-    state.period = getConfigNumber(ini, section, "period", true, 0);
-    state.force = getConfigNumber(ini, section, "force", true, 0);
+    state.period = readIniNumber(ini, section, "period", true, 0);
+    state.force = readIniNumber(ini, section, "force", true, 0);
 
     // todo: is real with 0s as default values?
     if (state.period === null || state.force === null) {
       abort("[ActionOscillate] Error : Force or period not defined");
     }
 
-    state.angle = getConfigNumber(ini, section, "correct_angle", false, 0);
+    state.angle = readIniNumber(ini, section, "correct_angle", false, 0);
 
     // todo: is real with 0s as default values?
     if (state.angle === null) {

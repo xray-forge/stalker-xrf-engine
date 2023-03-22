@@ -17,7 +17,7 @@ import { isLevelChanging } from "@/engine/core/utils/check/check";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { randomChoice } from "@/engine/core/utils/general";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { distanceBetween2d } from "@/engine/core/utils/physics";
@@ -117,25 +117,25 @@ export class HeliCombat {
 
     const ltx: XR_ini_file = system_ini();
 
-    this.flyby_attack_dist = getConfigNumber(ltx, "helicopter", "flyby_attack_dist", true);
-    this.search_attack_dist = getConfigNumber(ltx, "helicopter", "search_attack_dist", true);
-    this.default_safe_altitude = getConfigNumber(ltx, "helicopter", "safe_altitude", true) + this.level_max_y;
-    this.m_max_mgun_dist = getConfigNumber(ltx, "helicopter", "max_mgun_attack_dist", true);
+    this.flyby_attack_dist = readIniNumber(ltx, "helicopter", "flyby_attack_dist", true);
+    this.search_attack_dist = readIniNumber(ltx, "helicopter", "search_attack_dist", true);
+    this.default_safe_altitude = readIniNumber(ltx, "helicopter", "safe_altitude", true) + this.level_max_y;
+    this.m_max_mgun_dist = readIniNumber(ltx, "helicopter", "max_mgun_attack_dist", true);
 
-    this.default_velocity = getConfigNumber(ltx, "helicopter", "velocity", true);
-    this.search_velocity = getConfigNumber(ltx, "helicopter", "search_velocity", true);
-    this.round_velocity = getConfigNumber(ltx, "helicopter", "round_velocity", true);
+    this.default_velocity = readIniNumber(ltx, "helicopter", "velocity", true);
+    this.search_velocity = readIniNumber(ltx, "helicopter", "search_velocity", true);
+    this.round_velocity = readIniNumber(ltx, "helicopter", "round_velocity", true);
 
-    this.vis_time_quant = getConfigNumber(ltx, "helicopter", "vis_time_quant", true);
-    this.vis_threshold = getConfigNumber(ltx, "helicopter", "vis_threshold", true);
-    this.vis_inc = getConfigNumber(ltx, "helicopter", "vis_inc", true) * this.vis_time_quant * 0.001;
-    this.vis_dec = getConfigNumber(ltx, "helicopter", "vis_dec", true) * this.vis_time_quant * 0.001;
+    this.vis_time_quant = readIniNumber(ltx, "helicopter", "vis_time_quant", true);
+    this.vis_threshold = readIniNumber(ltx, "helicopter", "vis_threshold", true);
+    this.vis_inc = readIniNumber(ltx, "helicopter", "vis_inc", true) * this.vis_time_quant * 0.001;
+    this.vis_dec = readIniNumber(ltx, "helicopter", "vis_dec", true) * this.vis_time_quant * 0.001;
     this.vis = 0;
     this.vis_next_time = 0;
 
-    this.forget_timeout = getConfigNumber(ltx, "helicopter", "forget_timeout", true) * 1000;
+    this.forget_timeout = readIniNumber(ltx, "helicopter", "forget_timeout", true) * 1000;
 
-    this.flame_start_health = getConfigNumber(ltx, "helicopter", "flame_start_health", true);
+    this.flame_start_health = readIniNumber(ltx, "helicopter", "flame_start_health", true);
 
     this.attack_before_retreat = false;
     this.enemy_forgetable = true;
@@ -143,10 +143,10 @@ export class HeliCombat {
   }
 
   public read_custom_data(ini: XR_ini_file, section: string): void {
-    this.combat_use_rocket = getConfigBoolean(ini, section, "combat_use_rocket", false, true);
-    this.combat_use_mgun = getConfigBoolean(ini, section, "combat_use_mgun", false, true);
+    this.combat_use_rocket = readIniBoolean(ini, section, "combat_use_rocket", false, true);
+    this.combat_use_mgun = readIniBoolean(ini, section, "combat_use_mgun", false, true);
 
-    const combat_ignore: Optional<string> = getConfigString(ini, section, "combat_ignore", false, "", null);
+    const combat_ignore: Optional<string> = readIniString(ini, section, "combat_ignore", false, "", null);
 
     if (combat_ignore !== null) {
       this.combat_ignore = parseConditionsList(combat_ignore);
@@ -154,12 +154,12 @@ export class HeliCombat {
       this.combat_ignore = null;
     }
 
-    const combat_enemy: Optional<string> = getConfigString(ini, section, "combat_enemy", false, "", null);
+    const combat_enemy: Optional<string> = readIniString(ini, section, "combat_enemy", false, "", null);
 
     this.set_enemy_from_custom_data(combat_enemy);
-    this.max_velocity = getConfigNumber(ini, section, "combat_velocity", false, this.default_velocity);
+    this.max_velocity = readIniNumber(ini, section, "combat_velocity", false, this.default_velocity);
     this.safe_altitude =
-      getConfigNumber(ini, section, "combat_safe_altitude", false, this.default_safe_altitude) + this.level_max_y;
+      readIniNumber(ini, section, "combat_safe_altitude", false, this.default_safe_altitude) + this.level_max_y;
 
     this.section_changed = true;
   }

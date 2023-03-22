@@ -7,7 +7,7 @@ import { ActionSleeperActivity } from "@/engine/core/schemes/sleeper/actions/Act
 import { EvaluatorNeedSleep } from "@/engine/core/schemes/sleeper/evaluators/EvaluatorNeedSleep";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper/ISchemeSleeperState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
@@ -34,8 +34,8 @@ export class SchemeSleeper extends AbstractScheme {
     const state: ISchemeSleeperState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_main = getConfigString(ini, section, "path_main", true, additional);
-    state.wakeable = getConfigBoolean(ini, section, "wakeable", false);
+    state.path_main = readIniString(ini, section, "path_main", true, additional);
+    state.wakeable = readIniBoolean(ini, section, "wakeable", false);
     state.path_walk = null;
     state.path_walk_info = null;
     state.path_look = null;

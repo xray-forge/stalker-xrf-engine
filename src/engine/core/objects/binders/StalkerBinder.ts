@@ -67,7 +67,7 @@ import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { SoundTheme } from "@/engine/core/sounds/SoundTheme";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity, getObjectSquad, updateObjectInvulnerability } from "@/engine/core/utils/object";
 import { TConditionList } from "@/engine/core/utils/parse";
@@ -135,7 +135,7 @@ export class StalkerBinder extends object_binder {
   public override net_spawn(object: XR_cse_alife_creature_abstract): boolean {
     const objectId: TNumberId = this.object.id();
     const actor: XR_game_object = registry.actor;
-    const visual: TName = getConfigString(system_ini(), this.object.section(), "set_visual", false, "");
+    const visual: TName = readIniString(system_ini(), this.object.section(), "set_visual", false, "");
 
     logger.info("Stalker net spawn:", objectId, this.object.name());
 
@@ -163,7 +163,7 @@ export class StalkerBinder extends object_binder {
       const spawnIni: Optional<XR_ini_file> = this.object.spawn_ini();
 
       const stalkerIniFilename: Optional<TName> =
-        spawnIni === null ? null : getConfigString(spawnIni, "logic", "cfg", false, "");
+        spawnIni === null ? null : readIniString(spawnIni, "logic", "cfg", false, "");
       let stalkerIni: Optional<XR_ini_file> = null;
 
       if (stalkerIniFilename !== null) {
@@ -419,7 +419,7 @@ export class StalkerBinder extends object_binder {
       statisticsManager.updateBestMonsterKilled(npc);
     }
 
-    const known_info = getConfigString(state.ini!, state.section_logic, "known_info", false, "", null);
+    const known_info = readIniString(state.ini!, state.section_logic, "known_info", false, "", null);
 
     loadInfo(this.object, state.ini!, known_info);
 

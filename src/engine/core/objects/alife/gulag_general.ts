@@ -16,12 +16,7 @@ import { accessible_job, get_job_restrictor } from "@/engine/core/objects/alife/
 import type { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { abort } from "@/engine/core/utils/debug";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import {
-  getConfigBoolean,
-  getConfigNumber,
-  getConfigString,
-  getSchemeByIniSection,
-} from "@/engine/core/utils/ini/getters";
+import { getSchemeByIniSection, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseWaypointData, TConditionList } from "@/engine/core/utils/parse";
 import { isInTimeInterval } from "@/engine/core/utils/time";
@@ -1094,7 +1089,7 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
  * todo;
  */
 function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini_file, job_table: LuaTable): void {
-  const work: Optional<string> = getConfigString(smart_ini, sect, work_field, false, "");
+  const work: Optional<string> = readIniString(smart_ini, sect, work_field, false, "");
 
   if (work === null) {
     return;
@@ -1107,17 +1102,17 @@ function add_exclusive_job(sect: TSection, work_field: string, smart_ini: XR_ini
   }
 
   const job_ini_file = new ini_file(iniPath);
-  const job_online = getConfigString(job_ini_file, "logic@" + work_field, "job_online", false, "", null);
-  const new_prior = getConfigNumber(job_ini_file, "logic@" + work_field, "prior", false, 45);
-  const job_suitable = getConfigString(job_ini_file, "logic@" + work_field, "suitable", false, "");
-  const is_monster = getConfigBoolean(job_ini_file, "logic@" + work_field, "monster_job", false, false);
-  const active_section = getConfigString(job_ini_file, "logic@" + work_field, "active", false, "");
+  const job_online = readIniString(job_ini_file, "logic@" + work_field, "job_online", false, "", null);
+  const new_prior = readIniNumber(job_ini_file, "logic@" + work_field, "prior", false, 45);
+  const job_suitable = readIniString(job_ini_file, "logic@" + work_field, "suitable", false, "");
+  const is_monster = readIniBoolean(job_ini_file, "logic@" + work_field, "monster_job", false, false);
+  const active_section = readIniString(job_ini_file, "logic@" + work_field, "active", false, "");
   const scheme = getSchemeByIniSection(active_section);
 
   let job_type = JobTypeByScheme[scheme];
 
   if (scheme === EScheme.MOB_HOME) {
-    if (getConfigBoolean(job_ini_file, active_section, "gulag_point", false, false)) {
+    if (readIniBoolean(job_ini_file, active_section, "gulag_point", false, false)) {
       job_type = EJobType.POINT_JOB;
     }
   }

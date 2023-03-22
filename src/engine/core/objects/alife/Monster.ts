@@ -19,7 +19,7 @@ import {
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { onSmartTerrainObjectDeath, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
@@ -131,7 +131,7 @@ export class Monster extends cse_alife_monster_base {
     this.brain().can_choose_alife_tasks(false);
 
     const objectIni = this.spawn_ini();
-    const smart = getConfigString(objectIni, "logic", "smart_terrain", false, "", "");
+    const smart = readIniString(objectIni, "logic", "smart_terrain", false, "", "");
     const smart_obj = board.getSmartTerrainByName(smart);
 
     if (smart_obj === null) {

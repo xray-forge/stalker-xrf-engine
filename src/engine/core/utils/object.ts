@@ -23,7 +23,7 @@ import { Squad } from "@/engine/core/objects/alife/Squad";
 import { isCseAlifeObject, isStalker } from "@/engine/core/utils/check/is";
 import { abort } from "@/engine/core/utils/debug";
 import { getInfosFromData, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { graphDistance } from "@/engine/core/utils/physics";
@@ -258,11 +258,8 @@ export function areObjectsOnSameLevel(first: XR_cse_alife_object, second: XR_cse
  * todo;
  */
 export function setObjectInfo(object: XR_game_object, ini: XR_ini_file, section: TSection): void {
-  const inInfosList: LuaArray<TInfoPortion> = getInfosFromData(object, getConfigString(ini, section, "in", false, ""));
-  const outInfosList: LuaArray<TInfoPortion> = getInfosFromData(
-    object,
-    getConfigString(ini, section, "out", false, "")
-  );
+  const inInfosList: LuaArray<TInfoPortion> = getInfosFromData(object, readIniString(ini, section, "in", false, ""));
+  const outInfosList: LuaArray<TInfoPortion> = getInfosFromData(object, readIniString(ini, section, "out", false, ""));
 
   for (const [index, infoPortion] of inInfosList) {
     object.give_info_portion(infoPortion);
@@ -277,7 +274,7 @@ export function setObjectInfo(object: XR_game_object, ini: XR_ini_file, section:
  * todo: rename, update
  */
 export function resetObjectGroup(object: XR_game_object, ini: XR_ini_file, section: TSection): void {
-  const group: TNumberId = getConfigNumber(ini, section, "group", false, -1);
+  const group: TNumberId = readIniNumber(ini, section, "group", false, -1);
 
   if (group !== -1) {
     object.change_team(object.team(), object.squad(), group);
@@ -294,8 +291,8 @@ export function initializeObjectTakeItemsEnabledState(
   section: TSection
 ): void {
   const isTakeItemsEnabled: boolean = state.ini.line_exist(section, "take_items")
-    ? getConfigBoolean(state.ini, section, "take_items", false, true)
-    : getConfigBoolean(state.ini, state.section_logic, "take_items", false, true);
+    ? readIniBoolean(state.ini, section, "take_items", false, true)
+    : readIniBoolean(state.ini, state.section_logic, "take_items", false, true);
 
   object.take_items_enabled(isTakeItemsEnabled);
 }
@@ -309,10 +306,10 @@ export function initializeObjectCanSelectWeaponState(
   state: IRegistryObjectState,
   section: TSection
 ): void {
-  let data: string = getConfigString(state.ini, section, "can_select_weapon", false, "", "");
+  let data: string = readIniString(state.ini, section, "can_select_weapon", false, "", "");
 
   if (data === "") {
-    data = getConfigString(state.ini, state.section_logic, "can_select_weapon", false, "", TRUE);
+    data = readIniString(state.ini, state.section_logic, "can_select_weapon", false, "", TRUE);
   }
 
   const conditionsList: TConditionList = parseConditionsList(data);
@@ -326,7 +323,7 @@ export function initializeObjectCanSelectWeaponState(
  */
 export function isObjectInvulnerabilityNeeded(object: XR_game_object): boolean {
   const state: IRegistryObjectState = registry.objects.get(object.id());
-  const invulnerability: Optional<string> = getConfigString(
+  const invulnerability: Optional<string> = readIniString(
     state.ini,
     state.active_section,
     "invulnerable",
@@ -382,11 +379,11 @@ export function resetObjectIgnoreThreshold(
 ): void {
   const thresholdSection: Optional<TSection> =
     scheme === null || scheme === NIL
-      ? getConfigString(state.ini, state.section_logic, "threshold", false, "")
-      : getConfigString(state.ini, section, "threshold", false, "");
+      ? readIniString(state.ini, state.section_logic, "threshold", false, "")
+      : readIniString(state.ini, section, "threshold", false, "");
 
   if (thresholdSection !== null) {
-    const maxIgnoreDistance: Optional<TDistance> = getConfigNumber(
+    const maxIgnoreDistance: Optional<TDistance> = readIniNumber(
       state.ini,
       thresholdSection,
       "max_ignore_distance",
@@ -399,7 +396,7 @@ export function resetObjectIgnoreThreshold(
       object.max_ignore_monster_distance(maxIgnoreDistance);
     }
 
-    const ignoreMonster: Optional<TNumberId> = getConfigNumber(state.ini, thresholdSection, "ignore_monster", false);
+    const ignoreMonster: Optional<TNumberId> = readIniNumber(state.ini, thresholdSection, "ignore_monster", false);
 
     if (ignoreMonster === null) {
       object.restore_ignore_monster_threshold();

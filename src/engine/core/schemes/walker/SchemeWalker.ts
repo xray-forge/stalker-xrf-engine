@@ -8,7 +8,7 @@ import { EvaluatorNeedWalker } from "@/engine/core/schemes/walker/evaluators";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker/ISchemeWalkerState";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
@@ -35,13 +35,13 @@ export class SchemeWalker extends AbstractScheme {
     const state: ISchemeWalkerState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_walk = getConfigString(ini, section, "path_walk", true, gulag_name);
+    state.path_walk = readIniString(ini, section, "path_walk", true, gulag_name);
 
     if (!level.patrol_path_exists(state.path_walk)) {
       abort("there is no patrol path %s", state.path_walk);
     }
 
-    state.path_look = getConfigString(ini, section, "path_look", false, gulag_name);
+    state.path_look = readIniString(ini, section, "path_look", false, gulag_name);
 
     if (state.path_walk === state.path_look) {
       abort(
@@ -51,15 +51,15 @@ export class SchemeWalker extends AbstractScheme {
       );
     }
 
-    state.team = getConfigString(ini, section, "team", false, gulag_name);
-    state.sound_idle = getConfigString(ini, section, "sound_idle", false, "");
-    state.use_camp = getConfigBoolean(ini, section, "use_camp", false, false);
+    state.team = readIniString(ini, section, "team", false, gulag_name);
+    state.sound_idle = readIniString(ini, section, "sound_idle", false, "");
+    state.use_camp = readIniBoolean(ini, section, "use_camp", false, false);
 
-    const baseMoving = getConfigString(ini, section, "def_state_moving1", false, "");
+    const baseMoving = readIniString(ini, section, "def_state_moving1", false, "");
 
     state.suggested_state = {
-      standing: getConfigString(ini, section, "def_state_standing", false, ""),
-      moving: getConfigString(ini, section, "def_state_moving", false, "", baseMoving),
+      standing: readIniString(ini, section, "def_state_standing", false, ""),
+      moving: readIniString(ini, section, "def_state_moving", false, "", baseMoving),
     };
 
     state.path_walk_info = null;

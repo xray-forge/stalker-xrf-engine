@@ -11,7 +11,7 @@ import { ISchemePatrolState } from "@/engine/core/schemes/patrol/ISchemePatrolSt
 import { PatrolManager } from "@/engine/core/schemes/patrol/PatrolManager";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
@@ -40,9 +40,9 @@ export class SchemePatrol extends AbstractScheme {
     const state: ISchemePatrolState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_name = getConfigString(ini, section, "path_walk", true, gulagName);
+    state.path_name = readIniString(ini, section, "path_walk", true, gulagName);
     state.path_walk = state.path_name;
-    state.path_look = getConfigString(ini, section, "path_look", false, gulagName);
+    state.path_look = readIniString(ini, section, "path_look", false, gulagName);
 
     if (state.path_walk === state.path_look) {
       abort(
@@ -52,21 +52,21 @@ export class SchemePatrol extends AbstractScheme {
       );
     }
 
-    state.formation = getConfigString(ini, section, "formation", false, "");
-    state.silent = getConfigBoolean(ini, section, "silent", false, false);
+    state.formation = readIniString(ini, section, "formation", false, "");
+    state.silent = readIniBoolean(ini, section, "silent", false, false);
     if (state.formation === null) {
       state.formation = "back";
     }
 
-    state.move_type = getConfigString(ini, section, "move_type", false, "");
+    state.move_type = readIniString(ini, section, "move_type", false, "");
     if (state.move_type === null) {
       state.move_type = "patrol";
     }
 
     state.suggested_state = {} as any;
-    state.suggested_state.standing = getConfigString(ini, section, "def_state_standing", false, "");
-    state.suggested_state.moving = getConfigString(ini, section, "def_state_moving1", false, "");
-    state.suggested_state.moving = getConfigString(
+    state.suggested_state.standing = readIniString(ini, section, "def_state_standing", false, "");
+    state.suggested_state.moving = readIniString(ini, section, "def_state_moving1", false, "");
+    state.suggested_state.moving = readIniString(
       ini,
       section,
       "def_state_moving",
@@ -76,7 +76,7 @@ export class SchemePatrol extends AbstractScheme {
     );
     state.path_walk_info = null;
     state.path_look_info = null;
-    state.commander = getConfigBoolean(ini, section, "commander", false, false);
+    state.commander = readIniBoolean(ini, section, "commander", false, false);
     state.patrol_key = state.path_name;
 
     const squad: Optional<Squad> = getObjectSquad(object);

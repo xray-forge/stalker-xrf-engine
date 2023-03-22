@@ -5,10 +5,10 @@ import { CodeManager } from "@/engine/core/schemes/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/engine/core/schemes/ph_code/ISchemeCodeState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import {
-  getConfigConditionList,
-  getConfigNumber,
-  getConfigString,
   getConfigStringAndCondList,
+  readIniConditionList,
+  readIniNumber,
+  readIniString,
 } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TIndex, TName, TSection } from "@/engine/lib/types";
@@ -29,14 +29,14 @@ export class SchemeCode extends AbstractScheme {
     const state: ISchemeCodeState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.tips = getConfigString(ini, section, "tips", false, "", "st_codelock");
+    state.tips = readIniString(ini, section, "tips", false, "", "st_codelock");
 
     object.set_tip_text(state.tips);
 
-    state.code = getConfigNumber(ini, section, "code", false);
+    state.code = readIniNumber(ini, section, "code", false);
 
     if (state.code) {
-      state.on_code = getConfigConditionList(ini, section, "on_code");
+      state.on_code = readIniConditionList(ini, section, "on_code");
     } else {
       state.on_check_code = new LuaTable();
 

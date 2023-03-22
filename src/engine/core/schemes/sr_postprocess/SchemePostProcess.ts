@@ -4,7 +4,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePostProcessState } from "@/engine/core/schemes/sr_postprocess/ISchemePostProcessState";
 import { SchemePostProcessManager } from "@/engine/core/schemes/sr_postprocess/SchemePostProcessManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigNumber } from "@/engine/core/utils/ini/getters";
+import { readIniNumber } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
@@ -24,9 +24,9 @@ export class SchemePostProcess extends AbstractScheme {
     const state: ISchemePostProcessState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.intensity = getConfigNumber(ini, section, "intensity", true) * 0.01;
-    state.intensity_speed = getConfigNumber(ini, section, "intensity_speed", true) * 0.01;
-    state.hit_intensity = getConfigNumber(ini, section, "hit_intensity", true);
+    state.intensity = readIniNumber(ini, section, "intensity", true) * 0.01;
+    state.intensity_speed = readIniNumber(ini, section, "intensity_speed", true) * 0.01;
+    state.hit_intensity = readIniNumber(ini, section, "hit_intensity", true);
   }
 
   /**

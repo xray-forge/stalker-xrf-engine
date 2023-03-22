@@ -6,7 +6,7 @@ import { ISchemeLightState } from "@/engine/core/schemes/sr_light/ISchemeLightSt
 import { LightManager } from "@/engine/core/schemes/sr_light/LightManager";
 import { isUndergroundLevel } from "@/engine/core/utils/check/is";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resetTable } from "@/engine/core/utils/table";
 import { misc } from "@/engine/lib/constants/items/misc";
@@ -42,7 +42,7 @@ export class SchemeLight extends AbstractScheme {
     const state: ISchemeLightState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.light = getConfigBoolean(ini, section, "light_on", false, false);
+    state.light = readIniBoolean(ini, section, "light_on", false, false);
   }
 
   /**

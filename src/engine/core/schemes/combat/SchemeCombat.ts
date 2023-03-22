@@ -7,7 +7,7 @@ import { ISchemeCombatState } from "@/engine/core/schemes/combat/ISchemeCombatSt
 import { SchemeCombatCamper } from "@/engine/core/schemes/combat_camper/SchemeCombatCamper";
 import { SchemeCombatZombied } from "@/engine/core/schemes/combat_zombied/SchemeCombatZombied";
 import { getConfigSwitchConditions, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getConfigConditionList } from "@/engine/core/utils/ini/getters";
+import { readIniConditionList } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { parseConditionsList } from "@/engine/core/utils/parse";
@@ -48,7 +48,7 @@ export class SchemeCombat extends AbstractScheme {
       state.logic = getConfigSwitchConditions(ini, section);
       state.enabled = true;
 
-      state.combat_type = getConfigConditionList(ini, section, "combat_type");
+      state.combat_type = readIniConditionList(ini, section, "combat_type");
 
       if ((state.combat_type as any) === communities.monolith) {
         state.combat_type = null;

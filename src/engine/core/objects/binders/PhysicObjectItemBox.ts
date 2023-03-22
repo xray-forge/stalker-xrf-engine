@@ -2,9 +2,9 @@ import { level, XR_game_object, XR_ini_file } from "xray16";
 
 import { PH_BOX_GENERIC_LTX } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseNames, parseNumbers } from "@/engine/core/utils/parse";
+import { parseNumbersList, parseStringsList } from "@/engine/core/utils/parse";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { LuaArray, Optional, TCount, TProbability, TSection } from "@/engine/lib/types";
@@ -37,7 +37,7 @@ export class PhysicObjectItemBox {
     obj: XR_game_object
   ): Optional<LuaTable<string, { section: TInventoryItem; count: TCount }>> {
     if (spawn_ini.line_exist(section, line)) {
-      const t: LuaArray<TInventoryItem> = parseNames(spawn_ini.r_string(section, line));
+      const t: LuaArray<TInventoryItem> = parseStringsList(spawn_ini.r_string(section, line));
       const n: TCount = t.length();
 
       const ret_table: LuaTable<string, { section: TInventoryItem; count: TCount }> = new LuaTable();
@@ -112,7 +112,7 @@ export class PhysicObjectItemBox {
     for (const i of $range(0, PH_BOX_GENERIC_LTX.line_count(item_count_section) - 1)) {
       const [result, id, value] = PH_BOX_GENERIC_LTX.r_line(item_count_section, i, "", "");
 
-      const nums = parseNumbers(value);
+      const nums = parseNumbersList(value);
 
       if (nums.get(1) === null) {
         abort("Error on [PH_BOX_GENERIC_LTX] declaration. Section [%s], line [%s]", item_count_section, tostring(id));
@@ -143,7 +143,7 @@ export class PhysicObjectItemBox {
     const currentBoxItems = PhysicObjectItemBox.readBoxItemList(ini, "drop_box", "items", this.object);
 
     if (currentBoxItems === null) {
-      const community = getConfigString(ini, "drop_box", "community", false, "", "def_box");
+      const community = readIniString(ini, "drop_box", "community", false, "", "def_box");
       const boxItemsToSpawn: LuaTable<TInventoryItem, TProbability> =
         item_by_community.get(community) ?? item_by_community.get("def_box");
 

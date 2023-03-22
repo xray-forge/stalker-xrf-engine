@@ -8,7 +8,7 @@ import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
-import { parseInfoPortions1, parseNames } from "@/engine/core/utils/parse";
+import { parseInfoPortions1, parseStringsList } from "@/engine/core/utils/parse";
 import { getNpcSpeaker } from "@/engine/core/utils/quest_reward";
 import { captions } from "@/engine/lib/constants/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
@@ -117,13 +117,13 @@ export function fillPhrasesTable(): void {
         name: id,
         // -- npc community. all || {dolg,freedom,bandit,military,zombied,ecolog,killer,monolith,csky...}
         npc_community: DIALOG_MANAGER_LTX.line_exist(id, "npc_community")
-          ? parseNames(dm_ini_file.r_string(id, "npc_community"))
+          ? parseStringsList(dm_ini_file.r_string(id, "npc_community"))
           : "not_set",
         // -- level. all || level name
-        level: dm_ini_file.line_exist(id, "level") ? parseNames(dm_ini_file.r_string(id, "level")) : "not_set",
+        level: dm_ini_file.line_exist(id, "level") ? parseStringsList(dm_ini_file.r_string(id, "level")) : "not_set",
         // -- actor community. all || {actor_dolg, actor, ...}
         actor_community: dm_ini_file.line_exist(id, "actor_community")
-          ? parseNames(dm_ini_file.r_string(id, "actor_community"))
+          ? parseStringsList(dm_ini_file.r_string(id, "actor_community"))
           : "not_set",
         // -- is npc wounded? true, false
         wounded: dm_ini_file.line_exist(id, "wounded") ? dm_ini_file.r_string(id, "wounded") : "false",

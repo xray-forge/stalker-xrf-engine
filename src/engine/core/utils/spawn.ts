@@ -2,7 +2,7 @@ import { alife, system_ini, XR_game_object, XR_ini_file } from "xray16";
 
 import { IRegistryObjectState } from "@/engine/core/database";
 import { isAmmoSection } from "@/engine/core/utils/check/is";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectPositioning } from "@/engine/core/utils/object";
 import { TInventoryItem } from "@/engine/lib/constants/items";
@@ -98,14 +98,7 @@ export function spawnDefaultObjectItems(object: XR_game_object, state: IRegistry
   logger.info("Spawn default items for object:", object.name());
 
   const itemsToSpawn: LuaTable<TInventoryItem, TCount> = new LuaTable();
-  const spawnItemsSection: Optional<TSection> = getConfigString(
-    state.ini,
-    state.section_logic,
-    "spawn",
-    false,
-    "",
-    null
-  );
+  const spawnItemsSection: Optional<TSection> = readIniString(state.ini, state.section_logic, "spawn", false, "", null);
 
   if (spawnItemsSection === null) {
     return;

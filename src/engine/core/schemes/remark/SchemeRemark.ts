@@ -7,7 +7,7 @@ import { ActionRemarkActivity } from "@/engine/core/schemes/remark/actions/Actio
 import { EvaluatorNeedRemark } from "@/engine/core/schemes/remark/evaluators/EvaluatorNeedRemark";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark/ISchemeRemarkState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
@@ -36,16 +36,16 @@ export class SchemeRemark extends AbstractScheme {
     const state: ISchemeRemarkState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.snd_anim_sync = getConfigBoolean(ini, section, "snd_anim_sync", false);
-    state.snd = getConfigString(ini, section, "snd", false, "", null);
-    state.anim = parseConditionsList(getConfigString(ini, section, "anim", false, "", "wait"));
-    state.tips_id = getConfigString(ini, section, "tips", false, "");
+    state.snd_anim_sync = readIniBoolean(ini, section, "snd_anim_sync", false);
+    state.snd = readIniString(ini, section, "snd", false, "", null);
+    state.anim = parseConditionsList(readIniString(ini, section, "anim", false, "", "wait"));
+    state.tips_id = readIniString(ini, section, "tips", false, "");
 
     if (state.tips_id !== null) {
-      state.sender = getConfigString(ini, section, "tips_sender", false, "");
+      state.sender = readIniString(ini, section, "tips_sender", false, "");
     }
 
-    state.target = getConfigString(ini, section, "target", false, "", NIL);
+    state.target = readIniString(ini, section, "target", false, "", NIL);
     state.target_id = null;
     state.target_position = null;
   }

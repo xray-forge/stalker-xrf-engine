@@ -5,7 +5,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { DeathManager } from "@/engine/core/schemes/death/DeathManager";
 import { ISchemeDeathState } from "@/engine/core/schemes/death/ISchemeDeathState";
 import { abort } from "@/engine/core/utils/debug";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
@@ -48,7 +48,7 @@ export class SchemeDeath extends AbstractScheme {
     objectState: IRegistryObjectState,
     section: TSection
   ): void {
-    const deathSection: Optional<TSection> = getConfigString(
+    const deathSection: Optional<TSection> = readIniString(
       objectState.ini!,
       objectState.section_logic,
       "on_death",
@@ -65,13 +65,13 @@ export class SchemeDeath extends AbstractScheme {
       }
 
       const state: ISchemeDeathState = objectState[SchemeDeath.SCHEME_SECTION] as ISchemeDeathState;
-      const onInfo: Optional<string> = getConfigString(objectState.ini!, deathSection, "on_info", false, "", null);
+      const onInfo: Optional<string> = readIniString(objectState.ini!, deathSection, "on_info", false, "", null);
 
       if (onInfo !== null) {
         state!.info = parseConditionsList(onInfo);
       }
 
-      const onInfo2: Optional<string> = getConfigString(objectState.ini!, deathSection, "on_info2", false, "", null);
+      const onInfo2: Optional<string> = readIniString(objectState.ini!, deathSection, "on_info2", false, "", null);
 
       if (onInfo2 !== null) {
         state!.info2 = parseConditionsList(onInfo2);

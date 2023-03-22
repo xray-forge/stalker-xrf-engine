@@ -18,7 +18,7 @@ import { evaluateSimulationPriority } from "@/engine/core/utils/alife";
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { changeTeamSquadGroup } from "@/engine/core/utils/object";
-import { parseNames } from "@/engine/core/utils/parse";
+import { parseStringsList } from "@/engine/core/utils/parse";
 import { getTableSize } from "@/engine/core/utils/table";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
@@ -147,7 +147,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
 
       for (const it of $range(0, levelSquadsCount - 1)) {
         const [, id, value] = SIMULATION_LTX.r_line(levelSectionName, it, "", "");
-        const smartTerrainsNames: LuaArray<TName> = parseNames(value);
+        const smartTerrainsNames: LuaArray<TName> = parseStringsList(value);
 
         for (const [, name] of smartTerrainsNames) {
           const smartTerrain: Optional<SmartTerrain> = this.smartTerrainsByName.get(name);

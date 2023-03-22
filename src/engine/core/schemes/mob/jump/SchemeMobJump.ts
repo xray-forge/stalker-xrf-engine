@@ -5,9 +5,9 @@ import { ISchemeMobJumpState } from "@/engine/core/schemes/mob/jump/ISchemeMobJu
 import { MobJumpManager } from "@/engine/core/schemes/mob/jump/MobJumpManager";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseNames } from "@/engine/core/utils/parse";
+import { parseStringsList } from "@/engine/core/utils/parse";
 import { EScheme, ESchemeType, LuaArray, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -32,11 +32,11 @@ export class SchemeMobJump extends AbstractScheme {
     const state: ISchemeMobJumpState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.jump_path_name = getConfigString(ini, section, "path_jump", false, additional);
-    state.ph_jump_factor = getConfigNumber(ini, section, "ph_jump_factor", false, 1.8);
+    state.jump_path_name = readIniString(ini, section, "path_jump", false, additional);
+    state.ph_jump_factor = readIniNumber(ini, section, "ph_jump_factor", false, 1.8);
 
-    const offsetsData: string = getConfigString(ini, section, "offset", true, "");
-    const offsets: LuaArray<string> = parseNames(offsetsData);
+    const offsetsData: string = readIniString(ini, section, "offset", true, "");
+    const offsets: LuaArray<string> = parseStringsList(offsetsData);
 
     state.offset = new vector().set(tonumber(offsets.get(1))!, tonumber(offsets.get(2))!, tonumber(offsets.get(3))!);
 

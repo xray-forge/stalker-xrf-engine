@@ -4,7 +4,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/ph_idle/ISchemePhysicalIdleState";
 import { PhysicalIdleManager } from "@/engine/core/schemes/ph_idle/PhysicalIdleManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigConditionList, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseData1v } from "@/engine/core/utils/parse";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
@@ -25,10 +25,10 @@ export class SchemePhysicalIdle extends AbstractScheme {
     const state: ISchemePhysicalIdleState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.hit_on_bone = parseData1v(object, getConfigString(ini, section, "hit_on_bone", false, ""));
-    state.nonscript_usable = getConfigBoolean(ini, section, "nonscript_usable", false);
-    state.on_use = getConfigConditionList(ini, section, "on_use");
-    state.tips = getConfigString(ini, section, "tips", false, "", "");
+    state.hit_on_bone = parseData1v(object, readIniString(ini, section, "hit_on_bone", false, ""));
+    state.nonscript_usable = readIniBoolean(ini, section, "nonscript_usable", false);
+    state.on_use = readIniConditionList(ini, section, "on_use");
+    state.tips = readIniString(ini, section, "tips", false, "", "");
 
     object.set_tip_text(state.tips);
   }

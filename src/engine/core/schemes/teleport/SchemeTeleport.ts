@@ -5,7 +5,7 @@ import { ISchemeTeleportState, ITeleportPoint } from "@/engine/core/schemes/tele
 import { TeleportManager } from "@/engine/core/schemes/teleport/TeleportManager";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -25,14 +25,14 @@ export class SchemeTeleport extends AbstractScheme {
     const state: ISchemeTeleportState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.timeout = getConfigNumber(ini, section, "timeout", false, 900);
+    state.timeout = readIniNumber(ini, section, "timeout", false, 900);
     state.points = new LuaTable();
 
     for (const it of $range(1, 10)) {
       const teleportPoint: ITeleportPoint = {
-        point: getConfigString(ini, section, "point" + tostring(it), false, "", "none"),
-        look: getConfigString(ini, section, "look" + tostring(it), false, "", "none"),
-        prob: getConfigNumber(ini, section, "prob" + tostring(it), false, 100),
+        point: readIniString(ini, section, "point" + tostring(it), false, "", "none"),
+        look: readIniString(ini, section, "look" + tostring(it), false, "", "none"),
+        prob: readIniNumber(ini, section, "prob" + tostring(it), false, 100),
       };
 
       if (teleportPoint.point === "none" || teleportPoint.look === "none") {

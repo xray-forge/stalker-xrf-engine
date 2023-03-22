@@ -80,7 +80,7 @@ import { createScenarioAutoSave } from "@/engine/core/utils/game_save";
 import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob } from "@/engine/core/utils/gulag";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { IConfigSwitchCondition, parseConditionsList } from "@/engine/core/utils/parse";
 import {
@@ -1594,7 +1594,7 @@ export function create_squad_member(
     let spawn_point: TStringId;
 
     if (params[2] === "simulation_point") {
-      const data: string = getConfigString(SYSTEM_INI, squad.section_name(), "spawn_point", false, "");
+      const data: string = readIniString(SYSTEM_INI, squad.section_name(), "spawn_point", false, "");
       const condlist: LuaArray<IConfigSwitchCondition> =
         data === "" || data === null
           ? parseConditionsList(squadSmartTerrain.spawnPointName as string)

@@ -5,7 +5,7 @@ import { getMonsterState } from "@/engine/core/schemes/mob/MobStateManager";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/mob/remark/ISchemeMobRemarkState";
 import { MobRemarkManager } from "@/engine/core/schemes/mob/remark/MobRemarkManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigConditionList, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -32,14 +32,14 @@ export class SchemeMobRemark extends AbstractScheme {
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.state = getMonsterState(ini, section);
-    state.dialog_cond = getConfigConditionList(ini, section, "dialog_cond");
+    state.dialog_cond = readIniConditionList(ini, section, "dialog_cond");
     state.no_reset = true;
-    state.anim = getConfigString(ini, section, "anim", false, "");
-    state.anim_movement = getConfigBoolean(ini, section, "anim_movement", false, false);
-    state.anim_head = getConfigString(ini, section, "anim_head", false, "");
-    state.tip = getConfigString(ini, section, "tip", false, "");
-    state.snd = getConfigString(ini, section, "snd", false, "");
-    state.time = getConfigString(ini, section, "time", false, "");
+    state.anim = readIniString(ini, section, "anim", false, "");
+    state.anim_movement = readIniBoolean(ini, section, "anim_movement", false, false);
+    state.anim_head = readIniString(ini, section, "anim_head", false, "");
+    state.tip = readIniString(ini, section, "tip", false, "");
+    state.snd = readIniString(ini, section, "snd", false, "");
+    state.time = readIniString(ini, section, "time", false, "");
   }
 
   /**

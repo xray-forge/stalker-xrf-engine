@@ -8,7 +8,7 @@ import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEven
 import { enableObjectGenericSchemes } from "@/engine/core/schemes/base/utils/enableObjectGenericSchemes";
 import { abort } from "@/engine/core/utils/debug";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { spawnDefaultObjectItems } from "@/engine/core/utils/spawn";
 import { ESchemeType, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
 
@@ -48,7 +48,7 @@ export function configureObjectSchemes(
       );
     }
   } else {
-    const filename: Optional<TName> = getConfigString(ini, sectionLogic, "cfg", false, "");
+    const filename: Optional<TName> = readIniString(ini, sectionLogic, "cfg", false, "");
 
     if (filename !== null) {
       actualIniFilename = filename;
@@ -91,7 +91,7 @@ export function configureObjectSchemes(
   state.section_logic = sectionLogic;
 
   if (schemeType === ESchemeType.STALKER) {
-    const tradeIni = getConfigString(actualIni, sectionLogic, "trade", false, "", "misc\\trade\\trade_generic.ltx");
+    const tradeIni = readIniString(actualIni, sectionLogic, "trade", false, "", "misc\\trade\\trade_generic.ltx");
 
     TradeManager.getInstance().initForObject(object, tradeIni);
     spawnDefaultObjectItems(object, state);

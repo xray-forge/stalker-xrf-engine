@@ -8,7 +8,7 @@ import { isAmmoItem, isArtefact, isGrenade, isLootableItem, isWeapon } from "@/e
 import { abort } from "@/engine/core/utils/debug";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity, setItemCondition } from "@/engine/core/utils/object";
-import { parseNames, parseNumbers } from "@/engine/core/utils/parse";
+import { parseNumbersList, parseStringsList } from "@/engine/core/utils/parse";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TInventoryItem } from "@/engine/lib/constants/items";
@@ -95,7 +95,7 @@ export class DropManager extends AbstractCoreManager {
       const [result, id, value] = DEATH_GENERIC_LTX.r_line(DropManager.DEPENDENT_ITEMS_LTX_SECTION, it, "", "");
       const itemDependencies: LuaTable<TStringId, boolean> = new LuaTable();
 
-      const dependantItems: LuaArray<TStringId> = parseNames(value);
+      const dependantItems: LuaArray<TStringId> = parseStringsList(value);
 
       for (const [k, v] of dependantItems) {
         itemDependencies.set(v, true);
@@ -122,7 +122,7 @@ export class DropManager extends AbstractCoreManager {
 
     for (const it of $range(0, itemsDropCountByDifficulty - 1)) {
       const [result, id, value] = DEATH_GENERIC_LTX.r_line(itemsDropSectionByDifficulty, it, "", "");
-      const sectionDropCount: [Optional<TProbability>, Optional<TProbability>] = parseNumbers(value);
+      const sectionDropCount: [Optional<TProbability>, Optional<TProbability>] = parseNumbersList(value);
 
       if (sectionDropCount[0] === null) {
         abort("Error on [death_ini] declaration. Section [%s], line [%s]", itemsDropSectionByDifficulty, tostring(id));

@@ -58,7 +58,7 @@ export type TConditionList = LuaArray<IConfigSwitchCondition>;
 /**
  * todo;
  */
-export function parseNames<T extends TName = TName>(data: string): LuaArray<T> {
+export function parseStringsList<T extends string = string>(data: string): LuaArray<T> {
   const result: LuaArray<T> = new LuaTable();
 
   for (const it of string.gfind(data, "([%w_%-.\\]+)%p*")) {
@@ -74,8 +74,8 @@ export function parseNames<T extends TName = TName>(data: string): LuaArray<T> {
  * @param base - string to parse.
  * @returns parsed array of numbers.
  */
-export function parseNumbers<T = LuaArray<number>>(base: string): T;
-export function parseNumbers(data: string): LuaArray<number> {
+export function parseNumbersList<T = LuaArray<number>>(base: string): T;
+export function parseNumbersList(data: string): LuaArray<number> {
   const result: LuaArray<number> = new LuaTable();
 
   for (const it of string.gfind(data, "([%-%d%.]+)%,*")) {
@@ -94,7 +94,7 @@ export function parseNumbers(data: string): LuaArray<number> {
  * - "1,0.5,1,1"
  */
 export function parseSpawnDetails(data: string): LuaArray<{ count: number; probability: number }> {
-  const t: LuaArray<TName> = parseNames(data);
+  const t: LuaArray<TName> = parseStringsList(data);
   const n = t.length();
 
   const result: LuaArray<{ count: TCount; probability: TProbability }> = new LuaTable();

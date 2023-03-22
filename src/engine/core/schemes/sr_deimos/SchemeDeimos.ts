@@ -5,7 +5,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { DeimosManager } from "@/engine/core/schemes/sr_deimos/DeimosManager";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos/ISchemeDeimosState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TRate, TSection } from "@/engine/lib/types";
 
@@ -26,19 +26,19 @@ export class SchemeDeimos extends AbstractScheme {
     const state: ISchemeDeimosState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.movement_speed = getConfigNumber(ini, section, "movement_speed", false, 100);
-    state.growing_koef = getConfigNumber(ini, section, "growing_koef", false, 0.1);
-    state.lowering_koef = getConfigNumber(ini, section, "lowering_koef", false, state.growing_koef);
-    state.pp_effector = getConfigString(ini, section, "pp_effector", false, null);
-    state.cam_effector = getConfigString(ini, section, "cam_effector", false, "");
-    state.pp_effector2 = getConfigString(ini, section, "pp_effector2", false, "");
-    state.cam_effector_repeating_time = getConfigNumber(ini, section, "cam_effector_repeating_time", false, 10) * 1000;
-    state.noise_sound = getConfigString(ini, section, "noise_sound", false, "");
-    state.heartbeet_sound = getConfigString(ini, section, "heartbeet_sound", false, "");
-    state.health_lost = getConfigNumber(ini, section, "health_lost", false, 0.01);
-    state.disable_bound = getConfigNumber(ini, section, "disable_bound", false, 0.1);
-    state.switch_lower_bound = getConfigNumber(ini, section, "switch_lower_bound", false, 0.5);
-    state.switch_upper_bound = getConfigNumber(ini, section, "switch_upper_bound", false, 0.75);
+    state.movement_speed = readIniNumber(ini, section, "movement_speed", false, 100);
+    state.growing_koef = readIniNumber(ini, section, "growing_koef", false, 0.1);
+    state.lowering_koef = readIniNumber(ini, section, "lowering_koef", false, state.growing_koef);
+    state.pp_effector = readIniString(ini, section, "pp_effector", false, null);
+    state.cam_effector = readIniString(ini, section, "cam_effector", false, "");
+    state.pp_effector2 = readIniString(ini, section, "pp_effector2", false, "");
+    state.cam_effector_repeating_time = readIniNumber(ini, section, "cam_effector_repeating_time", false, 10) * 1000;
+    state.noise_sound = readIniString(ini, section, "noise_sound", false, "");
+    state.heartbeet_sound = readIniString(ini, section, "heartbeet_sound", false, "");
+    state.health_lost = readIniNumber(ini, section, "health_lost", false, 0.01);
+    state.disable_bound = readIniNumber(ini, section, "disable_bound", false, 0.1);
+    state.switch_lower_bound = readIniNumber(ini, section, "switch_lower_bound", false, 0.5);
+    state.switch_upper_bound = readIniNumber(ini, section, "switch_upper_bound", false, 0.75);
   }
 
   /**

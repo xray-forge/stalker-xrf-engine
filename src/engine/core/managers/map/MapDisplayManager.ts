@@ -19,7 +19,7 @@ import {
 } from "@/engine/core/managers/map/MapDisplayManagerObjects";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { anomalyHasArtefact } from "@/engine/core/utils/object";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
@@ -73,9 +73,9 @@ export class MapDisplayManager extends AbstractCoreManager {
     let spotSection;
 
     if (scheme === null || scheme === NIL) {
-      spotSection = getConfigString(state.ini, state.section_logic, "show_spot", false, "");
+      spotSection = readIniString(state.ini, state.section_logic, "show_spot", false, "");
     } else {
-      spotSection = getConfigString(state.ini, section, "show_spot", false, "");
+      spotSection = readIniString(state.ini, section, "show_spot", false, "");
     }
 
     if (spotSection === null) {
@@ -83,7 +83,7 @@ export class MapDisplayManager extends AbstractCoreManager {
     }
 
     const actor: XR_game_object = registry.actor;
-    let mapSpot: Optional<EMapMarkType> = getConfigString(
+    let mapSpot: Optional<EMapMarkType> = readIniString(
       state.ini,
       state.section_logic,
       "level_spot",
@@ -92,7 +92,7 @@ export class MapDisplayManager extends AbstractCoreManager {
     ) as EMapMarkType;
 
     if (mapSpot === null) {
-      mapSpot = getConfigString(state.ini!, section, "level_spot", false, "") as EMapMarkType;
+      mapSpot = readIniString(state.ini!, section, "level_spot", false, "") as EMapMarkType;
     }
 
     if (mapSpot !== null) {
@@ -141,7 +141,7 @@ export class MapDisplayManager extends AbstractCoreManager {
     }
 
     const objectId: Maybe<TNumberId> = sim.object(object.id())?.id;
-    let mapSpot: Optional<EMapMarkType> = getConfigString<EMapMarkType>(
+    let mapSpot: Optional<EMapMarkType> = readIniString<EMapMarkType>(
       state.ini,
       state.section_logic,
       "level_spot",
@@ -151,7 +151,7 @@ export class MapDisplayManager extends AbstractCoreManager {
 
     // todo: Retry, probably not needed at all.
     if (mapSpot === null) {
-      mapSpot = getConfigString<EMapMarkType>(state.ini, state.active_section, "level_spot", false, "") as EMapMarkType;
+      mapSpot = readIniString<EMapMarkType>(state.ini, state.active_section, "level_spot", false, "") as EMapMarkType;
     }
 
     if (mapSpot !== null) {

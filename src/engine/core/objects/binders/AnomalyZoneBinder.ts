@@ -19,9 +19,9 @@ import { FIELDS_BY_NAME } from "@/engine/core/objects/binders/AnomalyFieldBinder
 import { abort } from "@/engine/core/utils/debug";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList, parseNames, parseNumbers, TConditionList } from "@/engine/core/utils/parse";
+import { parseConditionsList, parseNumbersList, parseStringsList, TConditionList } from "@/engine/core/utils/parse";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
 import { Optional, TCount, TDuration, TRate, TSection } from "@/engine/lib/types";
 
@@ -97,7 +97,7 @@ export class AnomalyZoneBinder extends object_binder {
       return;
     }
 
-    const filename: Optional<string> = getConfigString(this.ini, ANOMAL_ZONE_SECTION, "cfg", false, "", null);
+    const filename: Optional<string> = readIniString(this.ini, ANOMAL_ZONE_SECTION, "cfg", false, "", null);
 
     logger.info("Init anomaly zone from file:", object.name(), filename);
 
@@ -107,27 +107,20 @@ export class AnomalyZoneBinder extends object_binder {
 
     const ini: XR_ini_file = this.ini;
 
-    this.zoneLayersCount = getConfigNumber(ini, ANOMAL_ZONE_SECTION, "layers_count", false, 1);
+    this.zoneLayersCount = readIniNumber(ini, ANOMAL_ZONE_SECTION, "layers_count", false, 1);
     this.isCustomPlacement = this.zoneLayersCount > 1;
     this.currentZoneLayer = ANOMAL_ZONE_LAYER + math.random(1, this.zoneLayersCount); // Pick one of possible layers.
 
-    const defaultRespawnTries: TCount = getConfigNumber(ini, ANOMAL_ZONE_SECTION, "respawn_tries", false, 2);
-    const defaultMaxArtefacts: TCount = getConfigNumber(ini, ANOMAL_ZONE_SECTION, "max_artefacts", false, 3);
-    const defaultForceXZ: TRate = getConfigNumber(ini, ANOMAL_ZONE_SECTION, "applying_force_xz", false, 200);
-    const defaultForceY: TRate = getConfigNumber(ini, ANOMAL_ZONE_SECTION, "applying_force_y", false, 400);
-    const defaultArtefacts: Optional<string> = getConfigString(ini, ANOMAL_ZONE_SECTION, "artefacts", false, "", null);
-    const defaultSpawned: Optional<string> = getConfigString(
-      ini,
-      ANOMAL_ZONE_SECTION,
-      "start_artefact",
-      false,
-      "",
-      null
-    );
-    const defaultWays: Optional<string> = getConfigString(ini, ANOMAL_ZONE_SECTION, "artefact_ways", false, "", null);
-    const defaultFieldName: Optional<string> = getConfigString(ini, ANOMAL_ZONE_SECTION, "field_name", false, "", null);
-    const defaultCoeffs: Optional<string> = getConfigString(ini, ANOMAL_ZONE_SECTION, "coeff", false, "", null);
-    const defaultCoeffSectionName: string = getConfigString(
+    const defaultRespawnTries: TCount = readIniNumber(ini, ANOMAL_ZONE_SECTION, "respawn_tries", false, 2);
+    const defaultMaxArtefacts: TCount = readIniNumber(ini, ANOMAL_ZONE_SECTION, "max_artefacts", false, 3);
+    const defaultForceXZ: TRate = readIniNumber(ini, ANOMAL_ZONE_SECTION, "applying_force_xz", false, 200);
+    const defaultForceY: TRate = readIniNumber(ini, ANOMAL_ZONE_SECTION, "applying_force_y", false, 400);
+    const defaultArtefacts: Optional<string> = readIniString(ini, ANOMAL_ZONE_SECTION, "artefacts", false, "", null);
+    const defaultSpawned: Optional<string> = readIniString(ini, ANOMAL_ZONE_SECTION, "start_artefact", false, "", null);
+    const defaultWays: Optional<string> = readIniString(ini, ANOMAL_ZONE_SECTION, "artefact_ways", false, "", null);
+    const defaultFieldName: Optional<string> = readIniString(ini, ANOMAL_ZONE_SECTION, "field_name", false, "", null);
+    const defaultCoeffs: Optional<string> = readIniString(ini, ANOMAL_ZONE_SECTION, "coeff", false, "", null);
+    const defaultCoeffSectionName: string = readIniString(
       ini,
       ANOMAL_ZONE_SECTION,
       "coeffs_section",
@@ -145,22 +138,22 @@ export class AnomalyZoneBinder extends object_binder {
 
       this.layersRespawnTriesTable.set(
         section,
-        getConfigNumber(ini, section, "artefact_count", false, defaultRespawnTries)
+        readIniNumber(ini, section, "artefact_count", false, defaultRespawnTries)
       );
 
       this.layersRespawnTriesTable.set(
         section,
-        getConfigNumber(ini, section, "respawn_tries", false, this.layersRespawnTriesTable.get(section))
+        readIniNumber(ini, section, "respawn_tries", false, this.layersRespawnTriesTable.get(section))
       );
 
       this.layersMaxArtefactsTable.set(
         section,
-        getConfigNumber(ini, section, "max_artefacts", false, defaultMaxArtefacts)
+        readIniNumber(ini, section, "max_artefacts", false, defaultMaxArtefacts)
       );
 
       this.layersForcesTable.set(section, {
-        xz: getConfigNumber(ini, section, "applying_force_xz", false, defaultForceXZ),
-        y: getConfigNumber(ini, section, "applying_force_y", false, defaultForceY),
+        xz: readIniNumber(ini, section, "applying_force_xz", false, defaultForceXZ),
+        y: readIniNumber(ini, section, "applying_force_y", false, defaultForceY),
       });
 
       const listOfAvailableArtefacts: LuaTable<number, string> = this.getArtefactsListForSection(
@@ -170,7 +163,7 @@ export class AnomalyZoneBinder extends object_binder {
 
       this.artefactsSpawnList.set(section, listOfAvailableArtefacts);
 
-      const initialArtefacts: Optional<string> = getConfigString(
+      const initialArtefacts: Optional<string> = readIniString(
         ini,
         section,
         "start_artefact",
@@ -181,38 +174,38 @@ export class AnomalyZoneBinder extends object_binder {
 
       if (initialArtefacts !== null) {
         this.isForcedToSpawn = true;
-        this.artefactsStartList.set(section, parseNames(initialArtefacts));
+        this.artefactsStartList.set(section, parseStringsList(initialArtefacts));
       }
 
-      const coeffsSection: string = getConfigString(ini, section, "coeffs_section", false, "", defaultCoeffSectionName);
+      const coeffsSection: string = readIniString(ini, section, "coeffs_section", false, "", defaultCoeffSectionName);
       const conditionsList: TConditionList = parseConditionsList(coeffsSection);
       const coeffsSectionName = pickSectionFromCondList(registry.actor, null, conditionsList)!;
-      const coeffs: Optional<string> = getConfigString(ini, section, coeffsSectionName, false, "", defaultCoeffs);
+      const coeffs: Optional<string> = readIniString(ini, section, coeffsSectionName, false, "", defaultCoeffs);
       /**
        * end todo;
        */
 
-      this.artefactsSpawnCoefficients.set(section, coeffs === null ? new LuaTable() : parseNumbers(coeffs));
+      this.artefactsSpawnCoefficients.set(section, coeffs === null ? new LuaTable() : parseNumbersList(coeffs));
 
-      const path: Optional<string> = getConfigString(ini, section, "artefact_ways", false, "", defaultWays);
+      const path: Optional<string> = readIniString(ini, section, "artefact_ways", false, "", defaultWays);
 
       if (path === null) {
         abort("There is no field 'artefact_ways' in section [%s] in obj [%s]", section, object.name());
       }
 
-      this.artefactsPathsList.set(section, parseNames(path));
+      this.artefactsPathsList.set(section, parseStringsList(path));
 
       if (this.isCustomPlacement) {
-        const field: Optional<string> = getConfigString(ini, section, "field_name", false, "", defaultFieldName);
+        const field: Optional<string> = readIniString(ini, section, "field_name", false, "", defaultFieldName);
 
         if (field === null) {
           this.fieldsTable.set(section, new LuaTable());
           // --abort("There is no field 'field_name' in section [%s] in obj [%s]", section, obj:name())
         } else {
-          this.fieldsTable.set(section, parseNames(field));
+          this.fieldsTable.set(section, parseStringsList(field));
         }
 
-        const minesSection: Optional<TSection> = getConfigString(ini, section, "mines_section", true, "", null);
+        const minesSection: Optional<TSection> = readIniString(ini, section, "mines_section", true, "", null);
 
         if (minesSection === null) {
           abort("There is no field 'mines_section' in section [%s] in obj [%s]", section, object.name());
@@ -716,7 +709,7 @@ export class AnomalyZoneBinder extends object_binder {
    * todo: Description.
    */
   public getArtefactsListForSection(section: string, defaultArtefacts: Optional<string>): LuaTable<number, string> {
-    const baseArtefactsList: Optional<string> = getConfigString(
+    const baseArtefactsList: Optional<string> = readIniString(
       this.ini,
       section,
       "artefacts",
@@ -729,6 +722,6 @@ export class AnomalyZoneBinder extends object_binder {
       abort("There is no field 'artefacts' in section [%s] in obj [%s]", section, this.object.name());
     }
 
-    return parseNames(baseArtefactsList);
+    return parseStringsList(baseArtefactsList);
   }
 }

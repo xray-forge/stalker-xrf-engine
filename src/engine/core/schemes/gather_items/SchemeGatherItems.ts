@@ -4,7 +4,7 @@ import { IRegistryObjectState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/gather_items/evaluators";
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/gather_items/ISchemeGatherItemsState";
-import { getConfigBoolean } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
@@ -49,7 +49,7 @@ export class SchemeGatherItems extends AbstractScheme {
     state: IRegistryObjectState,
     section: TSection
   ): void {
-    (state[EScheme.GATHER_ITEMS] as ISchemeGatherItemsState).gather_items_enabled = getConfigBoolean(
+    (state[EScheme.GATHER_ITEMS] as ISchemeGatherItemsState).gather_items_enabled = readIniBoolean(
       state.ini!,
       section,
       "gather_items_enabled",

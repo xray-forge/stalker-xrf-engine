@@ -6,9 +6,9 @@ import { EvaluatorNeedAnimpoint, EvaluatorReachAnimpoint } from "@/engine/core/s
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { AbstractScheme, action_ids, evaluators_id } from "@/engine/core/schemes/base";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigBoolean, getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseNames } from "@/engine/core/utils/parse";
+import { parseStringsList } from "@/engine/core/utils/parse";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -34,17 +34,17 @@ export class SchemeAnimpoint extends AbstractScheme {
     const state: ISchemeAnimpointState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.cover_name = getConfigString(ini, section, "cover_name", false, "", "$script_id$_cover");
-    state.use_camp = getConfigBoolean(ini, section, "use_camp", false, true);
-    state.reach_movement = getConfigString(ini, section, "reach_movement", false, "", "walk");
-    state.reach_distance = getConfigNumber(ini, section, "reach_distance", false, 0.75);
+    state.cover_name = readIniString(ini, section, "cover_name", false, "", "$script_id$_cover");
+    state.use_camp = readIniBoolean(ini, section, "use_camp", false, true);
+    state.reach_movement = readIniString(ini, section, "reach_movement", false, "", "walk");
+    state.reach_distance = readIniNumber(ini, section, "reach_distance", false, 0.75);
 
     // Calculate for sqr comparison.
     state.reach_distance = state.reach_distance * state.reach_distance;
 
-    const rawAvailableAnimations = getConfigString(ini, section, "avail_animations", false, "", null);
+    const rawAvailableAnimations = readIniString(ini, section, "avail_animations", false, "", null);
 
-    state.avail_animations = rawAvailableAnimations === null ? null : parseNames(rawAvailableAnimations);
+    state.avail_animations = rawAvailableAnimations === null ? null : parseStringsList(rawAvailableAnimations);
   }
   /**
    * todo: Description.

@@ -5,7 +5,7 @@ import { ISchemePhysicalForceState } from "@/engine/core/schemes/ph_force/ISchem
 import { PhysicalForceManager } from "@/engine/core/schemes/ph_force/PhysicalForceManager";
 import { abort } from "@/engine/core/utils/debug";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { getConfigNumber, getConfigString } from "@/engine/core/utils/ini/getters";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
@@ -25,12 +25,12 @@ export class SchemePhysicalForce extends AbstractScheme {
     const state: ISchemePhysicalForceState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section, object);
-    state.force = getConfigNumber(ini, section, "force", object, true, 0);
-    state.time = getConfigNumber(ini, section, "time", object, true, 0);
-    state.delay = getConfigNumber(ini, section, "delay", object, false, 0);
+    state.force = readIniNumber(ini, section, "force", object, true, 0);
+    state.time = readIniNumber(ini, section, "time", object, true, 0);
+    state.delay = readIniNumber(ini, section, "delay", object, false, 0);
 
-    const path_name = getConfigString(ini, section, "point", object, true, "");
-    const index = getConfigNumber(ini, section, "point_index", object, false, 0);
+    const path_name = readIniString(ini, section, "point", object, true, "");
+    const index = readIniNumber(ini, section, "point_index", object, false, 0);
 
     if (state.force === null || state.force <= 0) {
       abort("PH_FORCE : invalid force !");
