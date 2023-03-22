@@ -2,13 +2,13 @@ import { describe, expect, it } from "@jest/globals";
 
 import { AnyObject } from "@/engine/lib/types";
 
-describe("'interface' effects declaration", () => {
+describe("'actor' effects declaration", () => {
   const checkBinding = (name: string, container: AnyObject = global) => {
     expect(container["xr_effects"][name]).toBeDefined();
   };
 
   it("should correctly inject external methods for game", () => {
-    require("@/engine/scripts/declarations/effects/interface");
+    require("@/engine/scripts/declarations/effects/actor");
 
     checkBinding("disable_ui");
     checkBinding("disable_ui_only");
