@@ -66,6 +66,7 @@ import {
   parseStringsList,
   TConditionList,
 } from "@/engine/core/utils/parse";
+import { getTableSize } from "@/engine/core/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { TCaption } from "@/engine/lib/constants/captions";
@@ -174,7 +175,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
   public isRegistered: boolean = false;
   public isRespawnPoint: boolean = false;
-  public isObjectsInitializationNeeded: boolean = true; // Whether after game start / load.
+  public isObjectsInitializationNeeded: boolean = false; // Whether after game start / load.
   public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
   public isMutantDisabled: boolean = false;
   public isMutantLair: boolean = false;
@@ -214,7 +215,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
   public smartTerrainAlifeTask!: XR_CALifeSmartTerrainTask;
 
-  public jobs: any;
+  public jobs!: LuaTable;
   public jobsData: LuaArray<ISmartTerrainJob> = new LuaTable();
   public jobDeadTimeById: LuaTable<TNumberId, XR_CTime> = new LuaTable(); // job id -> time
 
@@ -257,9 +258,9 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     this.simulationBoardManager.initializeSmartTerrain(this);
 
-    if (this.isObjectsInitializationNeeded === true) {
+    if (this.isObjectsInitializationNeeded) {
       this.isObjectsInitializationNeeded = false;
-      this.init_npc_after_load();
+      this.initializeObjectsAfterLoad();
     }
 
     this.register_delayed_npc();
@@ -566,7 +567,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
     this.ltxConfig = ltx;
     this.ltxConfigName = ltx_name;
 
-    const sort_jobs = (jobs: LuaTable<string>) => {
+    const sort_jobs = (jobs: LuaTable) => {
       for (const [k, v] of jobs) {
         if (v.jobs !== null) {
           sort_jobs(v.jobs);
@@ -622,21 +623,21 @@ export class SmartTerrain extends cse_alife_smart_zone {
           }
         }
 
-        let path_name = ltx.r_string(active_section, path_field);
+        let pathName = ltx.r_string(active_section, path_field);
 
         if (job.prefix_name !== null) {
-          path_name = job.prefix_name + "_" + path_name;
+          pathName = job.prefix_name + "_" + pathName;
         } else {
-          path_name = this.name() + "_" + path_name;
+          pathName = this.name() + "_" + pathName;
         }
 
-        if (path_name === "center_point") {
-          if (level.patrol_path_exists(path_name + "_task")) {
-            path_name = path_name + "_task";
+        if (pathName === "center_point") {
+          if (level.patrol_path_exists(pathName + "_task")) {
+            pathName = pathName + "_task";
           }
         }
 
-        job.alife_task = new CALifeSmartTerrainTask(path_name);
+        job.alife_task = new CALifeSmartTerrainTask(pathName);
       } else if (job.job_type === "smartcover_job") {
         const smartcover_name = ltx.r_string(active_section, "cover_name");
         const smartcover = registry.smartCovers.get(smartcover_name);
@@ -675,7 +676,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
       }
     }
 
-    table.sort(this.objectJobDescriptors as any, (a: any, b: any) => a.job_prior < b.job_prior);
+    table.sort(this.objectJobDescriptors, (a, b) => a.job_prior < b.job_prior);
 
     for (const [k, v] of this.objectJobDescriptors) {
       this.select_npc_job(v);
@@ -847,25 +848,13 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     setSaveMarker(packet, false, SmartTerrain.__name);
 
-    let n = 0;
-
-    for (const [k, v] of this.arrivingObjects) {
-      n = n + 1;
-    }
-
-    packet.w_u8(n);
+    packet.w_u8(getTableSize(this.arrivingObjects));
 
     for (const [k, v] of this.arrivingObjects) {
       packet.w_u16(k);
     }
 
-    n = 0;
-
-    for (const [k, v] of this.objectJobDescriptors) {
-      n = n + 1;
-    }
-
-    packet.w_u8(n);
+    packet.w_u8(getTableSize(this.objectJobDescriptors));
 
     for (const [k, v] of this.objectJobDescriptors) {
       packet.w_u16(k);
@@ -875,13 +864,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
       packet.w_stringZ(v.need_job);
     }
 
-    n = 0;
-
-    for (const [k, v] of this.jobDeadTimeById) {
-      n = n + 1;
-    }
-
-    packet.w_u8(n);
+    packet.w_u8(getTableSize(this.jobDeadTimeById));
 
     for (const [k, v] of this.jobDeadTimeById) {
       packet.w_u8(k);
@@ -897,13 +880,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     if (this.isRespawnPoint) {
       packet.w_bool(true);
-
-      n = 0;
-      for (const [k, v] of this.alreadySpawned) {
-        n = n + 1;
-      }
-
-      packet.w_u8(n);
+      packet.w_u8(getTableSize(this.alreadySpawned));
 
       for (const [k, v] of this.alreadySpawned) {
         packet.w_stringZ(k);
@@ -942,47 +919,47 @@ export class SmartTerrain extends cse_alife_smart_zone {
     setLoadMarker(packet, false, SmartTerrain.__name);
     this.read_params();
 
-    const alifeSimulator: XR_alife_simulator = alife();
-    let n = packet.r_u8();
+    let count: TCount = packet.r_u8();
 
     this.arrivingObjects = new LuaTable();
 
-    for (const it of $range(1, n)) {
+    for (const it of $range(1, count)) {
       const id: TNumberId = packet.r_u16();
 
-      this.arrivingObjects.set(id, alifeSimulator.object(id) as XR_cse_alife_creature_abstract);
+      // Will be updated with init.
+      this.arrivingObjects.set(id, false as unknown as XR_cse_alife_creature_abstract);
     }
 
-    n = packet.r_u8();
+    count = packet.r_u8();
     this.objectJobDescriptors = new LuaTable();
 
-    for (const it of $range(1, n)) {
+    for (const it of $range(1, count)) {
       const id = packet.r_u16();
 
-      const npc_info: IObjectJobDescriptor = {} as IObjectJobDescriptor;
+      const jobDescriptor: IObjectJobDescriptor = {} as IObjectJobDescriptor;
 
-      this.objectJobDescriptors.set(id, npc_info);
+      this.objectJobDescriptors.set(id, jobDescriptor);
 
-      npc_info.job_prior = packet.r_u8();
+      jobDescriptor.job_prior = packet.r_u8();
 
-      if (npc_info.job_prior === 255) {
-        npc_info.job_prior = -1;
+      if (jobDescriptor.job_prior === MAX_U8) {
+        jobDescriptor.job_prior = -1;
       }
 
-      npc_info.job_id = packet.r_u8();
+      jobDescriptor.job_id = packet.r_u8();
 
-      if (npc_info.job_id === MAX_U8) {
-        npc_info.job_id = -1;
+      if (jobDescriptor.job_id === MAX_U8) {
+        jobDescriptor.job_id = -1;
       }
 
-      npc_info.begin_job = packet.r_bool();
-      npc_info.need_job = packet.r_stringZ();
+      jobDescriptor.begin_job = packet.r_bool();
+      jobDescriptor.need_job = packet.r_stringZ();
     }
 
-    n = packet.r_u8();
+    count = packet.r_u8();
     this.jobDeadTimeById = new LuaTable();
 
-    for (const it of $range(1, n)) {
+    for (const it of $range(1, count)) {
       const job_id = packet.r_u8();
       const dead_time = readCTimeFromPacket(packet)!;
 
@@ -1000,8 +977,8 @@ export class SmartTerrain extends cse_alife_smart_zone {
     const respawn_point = packet.r_bool();
 
     if (respawn_point) {
-      n = packet.r_u8();
-      for (const it of $range(1, n)) {
+      count = packet.r_u8();
+      for (const it of $range(1, count)) {
         const id = packet.r_stringZ();
         const num = packet.r_u8();
 
@@ -1026,20 +1003,18 @@ export class SmartTerrain extends cse_alife_smart_zone {
   /**
    * todo: Description.
    */
-  public init_npc_after_load(): void {
-    logger.info("Init npc after load:", this.name());
+  public initializeObjectsAfterLoad(): void {
+    logger.info("Initialize objects after load:", this.name());
 
-    const findNewJob = (jobs: LuaTable<number, any>, objectJobDescriptor: IObjectJobDescriptor) => {
-      for (const [k, v] of jobs) {
-        if (v.jobs !== null) {
-          findNewJob(v.jobs, objectJobDescriptor);
-        } else {
-          if (v.job_id === objectJobDescriptor.job_id) {
-            objectJobDescriptor.job_link = v;
-            v.npc_id = objectJobDescriptor.se_obj.id;
+    const findNewJob = (jobs: LuaTable, objectJobDescriptor: IObjectJobDescriptor) => {
+      for (const [, job] of jobs) {
+        if (job.jobs !== null) {
+          findNewJob(job.jobs, objectJobDescriptor);
+        } else if (job.job_id === objectJobDescriptor.job_id) {
+          objectJobDescriptor.job_link = job;
+          job.npc_id = objectJobDescriptor.se_obj.id;
 
-            return;
-          }
+          return logger.info("Update job:", this.name(), job.npc_id);
         }
       }
     };
@@ -1059,7 +1034,12 @@ export class SmartTerrain extends cse_alife_smart_zone {
     for (const [objectId, jobDescriptor] of this.objectJobDescriptors) {
       const serverObject: Optional<XR_cse_alife_creature_abstract> = alifeSimulator.object(objectId);
 
-      if (serverObject !== null) {
+      if (serverObject === null) {
+        logger.info("Discard job for object:", this.name(), objectId);
+        this.objectJobDescriptors.delete(objectId);
+      } else {
+        logger.info("Re-init job for object:", this.name(), objectId);
+
         const newJobDescriptor: IObjectJobDescriptor = this.createObjectSmartJobDescriptor(serverObject);
 
         newJobDescriptor.job_prior = jobDescriptor.job_prior;
@@ -1074,8 +1054,6 @@ export class SmartTerrain extends cse_alife_smart_zone {
         if (newJobDescriptor.job_link !== null) {
           this.objectByJobSection.set(this.jobsData.get(newJobDescriptor.job_link.job_id).section, objectId);
         }
-      } else {
-        this.objectJobDescriptors.delete(objectId);
       }
     }
   }

@@ -455,7 +455,7 @@ export class AnimationManager {
 
     // Play sound.
     if (actionTable.get("s") !== null) {
-      GlobalSoundManager.getInstance().setSoundPlaying(this.npc.id(), actionTable.get("s"), null, null);
+      GlobalSoundManager.getInstance().playSound(this.npc.id(), actionTable.get("s"), null, null);
     }
 
     // Hit actor.

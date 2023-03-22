@@ -169,7 +169,7 @@ export function setLoadMarker(reader: TXR_net_processor, check: boolean, prefix:
     const dif: TCount = reader.r_u16();
 
     if (dif !== c_dif) {
-      abort("INCORRECT LOAD [][%s].[%s][%s]", markerName, dif, c_dif);
+      abort("Incorrect load '%s': <dif: %s>, <cdif: %s>.", markerName, dif, c_dif);
     } else {
       // log.info("Set save marker result:", result, dif, mode);
     }

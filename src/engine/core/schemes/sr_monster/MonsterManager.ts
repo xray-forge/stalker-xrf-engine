@@ -116,7 +116,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
         this.current = new vector().set(target_pos);
       }
 
-      this.snd_obj = GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.snd_obj, null, null);
+      this.snd_obj = GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_obj, null, null);
       if (this.snd_obj && this.snd_obj.playing()) {
         this.snd_obj.set_position(this.current);
       }

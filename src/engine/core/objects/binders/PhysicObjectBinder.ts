@@ -71,7 +71,7 @@ export class PhysicObjectBinder extends object_binder {
       level.map_remove_object_spot(this.object.id(), "ui_pda2_actor_box_location");
     }
 
-    GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
+    GlobalSoundManager.getInstance().stopSoundByObjectId(this.object.id());
 
     const state: IRegistryObjectState = registry.objects.get(this.object.id());
 
@@ -251,6 +251,6 @@ export class PhysicObjectBinder extends object_binder {
       this.object.set_callback(callback.use_object, this.use_callback, this);
     }
 
-    GlobalSoundManager.getInstance().updateForObjectId(this.object.id());
+    GlobalSoundManager.getInstance().update(this.object.id());
   }
 }

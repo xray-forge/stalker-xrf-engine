@@ -124,7 +124,7 @@ export class HelicopterBinder extends object_binder {
 
     this.check_health();
 
-    GlobalSoundManager.getInstance().updateForObjectId(this.object.id());
+    GlobalSoundManager.getInstance().update(this.object.id());
   }
 
   /**

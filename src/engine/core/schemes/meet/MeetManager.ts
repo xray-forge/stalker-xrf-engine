@@ -61,7 +61,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     const snd = pickSectionFromCondList(actor, this.object, this.state.far_snd);
 
     if (tostring(snd) !== NIL) {
-      GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), snd, null, null);
+      GlobalSoundManager.getInstance().playSound(this.object.id(), snd, null, null);
     }
   }
 
@@ -126,7 +126,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
           const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_hello);
 
           if (tostring(snd) !== NIL && !isObjectInCombat(this.object)) {
-            GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), snd, null, null);
+            GlobalSoundManager.getInstance().playSound(this.object.id(), snd, null, null);
           }
 
           this.hello_passed = true;
@@ -137,7 +137,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
             const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_bye);
 
             if (tostring(snd) !== NIL && !isObjectInCombat(this.object)) {
-              GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), snd, null, null);
+              GlobalSoundManager.getInstance().playSound(this.object.id(), snd, null, null);
             }
 
             this.bye_passed = true;

@@ -62,6 +62,6 @@ export class ActionSearchCorpse extends action_base {
     const { set_state } = require("@/engine/core/objects/state/StateManager");
 
     set_state(this.object, "search_corpse", null, null, { look_position: this.state.vertex_position }, null);
-    GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), "corpse_loot_begin", null, null);
+    GlobalSoundManager.getInstance().playSound(this.object.id(), "corpse_loot_begin", null, null);
   }
 }

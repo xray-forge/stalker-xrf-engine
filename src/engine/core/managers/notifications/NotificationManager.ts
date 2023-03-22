@@ -343,6 +343,6 @@ export class NotificationManager extends AbstractCoreManager {
    * todo: Description.
    */
   protected playPdaNotificationSound(): void {
-    GlobalSoundManager.getInstance().setSoundPlaying(registry.actor.id(), scriptSounds.pda_task, null, null);
+    GlobalSoundManager.getInstance().playSound(registry.actor.id(), scriptSounds.pda_task, null, null);
   }
 }

@@ -34,7 +34,7 @@ export class SmartTerrainBinder extends object_binder {
    * todo: Description.
    */
   public override net_destroy(): void {
-    GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
+    GlobalSoundManager.getInstance().stopSoundByObjectId(this.object.id());
 
     unregisterSmartTerrain(this.object, this.se_smart_terrain);
 

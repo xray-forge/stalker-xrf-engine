@@ -97,9 +97,9 @@ export class ActionWounded extends action_base {
     }
 
     if (woundManagerSound === NIL) {
-      GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), null, null, null);
+      GlobalSoundManager.getInstance().playSound(this.object.id(), null, null, null);
     } else {
-      GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), woundManagerSound, null, null);
+      GlobalSoundManager.getInstance().playSound(this.object.id(), woundManagerSound, null, null);
     }
   }
 

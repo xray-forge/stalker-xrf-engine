@@ -91,7 +91,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       const begin_wounded: Optional<number> = portableStoreGet(this.object, "begin_wounded");
 
       if (begin_wounded !== null && current_time - begin_wounded <= 60000) {
-        GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), "help_thanks", null, null);
+        GlobalSoundManager.getInstance().playSound(this.object.id(), "help_thanks", null, null);
       }
 
       portableStoreSet(this.object, "begin_wounded", null);

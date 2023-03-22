@@ -107,7 +107,7 @@ export class ActionBaseCover extends action_base {
     }
 
     if (this.state.sound_idle !== null) {
-      GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.sound_idle, null, null);
+      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sound_idle, null, null);
     }
 
     super.execute();

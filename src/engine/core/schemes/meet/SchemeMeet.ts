@@ -319,7 +319,7 @@ export class SchemeMeet extends AbstractScheme {
     const sound = pickSectionFromCondList(actor, victim, state.snd_on_use);
 
     if (tostring(sound) !== NIL) {
-      GlobalSoundManager.getInstance().setSoundPlaying(victim.id(), sound, null, null);
+      GlobalSoundManager.getInstance().playSound(victim.id(), sound, null, null);
     }
 
     const meet_manager = state.meet_manager;

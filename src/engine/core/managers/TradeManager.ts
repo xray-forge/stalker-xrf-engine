@@ -1,4 +1,12 @@
-import { ini_file, time_global, XR_game_object, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
+import {
+  ini_file,
+  time_global,
+  TXR_net_processor,
+  XR_game_object,
+  XR_ini_file,
+  XR_net_packet,
+  XR_reader,
+} from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
@@ -8,7 +16,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
-import { Optional, TNumberId, TSection } from "@/engine/lib/types";
+import { Optional, TNumberId, TSection, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -228,10 +236,10 @@ export class TradeManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public loadObjectState(object: XR_game_object, packet: XR_reader): void {
-    setLoadMarker(packet, false, TradeManager.name);
+  public loadObjectState(reader: TXR_net_processor, object: XR_game_object): void {
+    setLoadMarker(reader, false, TradeManager.name);
 
-    const hasTrade = packet.r_bool();
+    const hasTrade = reader.r_bool();
 
     if (hasTrade === false) {
       return;
@@ -241,24 +249,24 @@ export class TradeManager extends AbstractCoreManager {
 
     registry.trade.set(object.id(), tt);
 
-    tt.cfg_ltx = packet.r_stringZ();
+    tt.cfg_ltx = reader.r_stringZ();
     tt.config = new ini_file(tt.cfg_ltx);
 
-    let a = packet.r_stringZ();
+    let a = reader.r_stringZ();
 
     if (a !== "") {
       tt.current_buy_condition = a;
       object.buy_condition(tt.config, a);
     }
 
-    a = packet.r_stringZ();
+    a = reader.r_stringZ();
 
     if (a !== "") {
       tt.current_sell_condition = a;
       object.sell_condition(tt.config, a);
     }
 
-    a = packet.r_stringZ();
+    a = reader.r_stringZ();
 
     if (a !== "") {
       tt.current_buy_supplies = a;
@@ -266,18 +274,18 @@ export class TradeManager extends AbstractCoreManager {
 
     const cur_tm = time_global();
 
-    const updTime: number = packet.r_s32();
+    const updTime: number = reader.r_s32();
 
     if (updTime !== -1) {
       tt.update_time = cur_tm + updTime;
     }
 
-    const resuplyTime: number = packet.r_s32();
+    const resuplyTime: TTimestamp = reader.r_s32();
 
     if (resuplyTime !== -1) {
       tt.resuply_time = cur_tm + resuplyTime;
     }
 
-    setLoadMarker(packet, true, TradeManager.name);
+    setLoadMarker(reader, true, TradeManager.name);
   }
 }

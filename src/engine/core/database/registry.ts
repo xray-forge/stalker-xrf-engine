@@ -13,12 +13,13 @@ import {
   SmartTerrain,
   Squad,
 } from "@/engine/core/objects";
+import type { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
+import { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
 import type { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import type { CampStoryManager } from "@/engine/core/schemes/camper";
 import type { PatrolManager } from "@/engine/core/schemes/patrol";
 import type { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task";
 import type { LightManager } from "@/engine/core/schemes/sr_light";
-import type { AbstractPlayableSound } from "@/engine/core/sounds/playable_sounds/AbstractPlayableSound";
 import type { TRelation } from "@/engine/lib/constants/relations";
 import type { EScheme, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
@@ -172,5 +173,6 @@ export const registry = {
     generic: new LuaTable<TNumberId, AbstractPlayableSound>(),
     looped: new LuaTable<TNumberId, LuaTable<TName, AbstractPlayableSound>>(),
     themes: new LuaTable<TName, AbstractPlayableSound>(),
+    managers: new LuaTable<TStringId, SoundManager>(),
   },
 };

@@ -2,7 +2,7 @@ import { SOUND_STORIES_LTX } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseStringsList } from "@/engine/core/utils/parse";
-import { LuaArray, TCount, TIndex, TStringId } from "@/engine/lib/types";
+import { LuaArray, TCount, TDuration, TIndex, TName, TPath, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -10,16 +10,16 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo: Description.
  */
 export interface IReplicDescriptor {
-  who: string;
-  theme: string;
-  timeout: number;
+  who: TName;
+  theme: TPath;
+  timeout: TDuration;
 }
 
 /**
  * todo: Description.
  */
 export class SoundStory {
-  public id: string;
+  public id: TStringId;
 
   public maxPhrasesCount: TCount;
   public nextPhraseIndex: TIndex = 0;

@@ -149,7 +149,7 @@ export class ActionRemarkActivity extends action_base {
     } else if (this.state === state_sound) {
       if (this.snd_scheduled === true) {
         this.snd_started = true;
-        GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.st.snd, null, null);
+        GlobalSoundManager.getInstance().playSound(this.object.id(), this.st.snd, null, null);
       }
 
       // --' ������ ������ ������ anim_end

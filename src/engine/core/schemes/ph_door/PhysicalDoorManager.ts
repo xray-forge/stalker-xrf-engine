@@ -150,7 +150,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     this.block = false;
 
     if (!this.soundless_block && this.state.snd_close_stop) {
-      GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.snd_close_stop, null, null);
+      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_close_stop, null, null);
     }
   }
 
@@ -160,7 +160,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public open_door(disableSound?: boolean): void {
     if (!disableSound) {
       if (this.state.snd_open_start) {
-        GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.snd_open_start, null, null);
+        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_open_start, null, null);
       }
     }
 
@@ -217,7 +217,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public close_door(disable_snd: boolean): void {
     if (!disable_snd) {
       if (this.state.snd_close_start !== null) {
-        GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.snd_close_start, null, null);
+        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_close_start, null, null);
       }
     }
 
@@ -274,7 +274,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public use_callback(target: XR_game_object, who: Optional<XR_game_object>): void {
     if (this.state.locked) {
       if (this.state.snd_open_start) {
-        GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.snd_open_start, null, null);
+        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_open_start, null, null);
       }
     }
 

@@ -1,9 +1,9 @@
 import { getFS, sound_object, TXR_sound_object_type, XR_game_object, XR_ini_file } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractPlayableSound } from "@/engine/core/sounds/playable_sounds/AbstractPlayableSound";
-import { EPlayableSound } from "@/engine/core/sounds/playable_sounds/EPlayableSound";
-import { abort } from "@/engine/core/utils/assertion";
+import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
+import { EPlayableSound } from "@/engine/core/objects/sounds/types";
+import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";
 import { Optional, TNumberId, TSection } from "@/engine/lib/types";
@@ -18,19 +18,14 @@ export class LoopedSound extends AbstractPlayableSound {
 
   public readonly type: EPlayableSound = LoopedSound.type;
 
-  public sound: string;
+  public constructor(ini: XR_ini_file, section: TSection) {
+    super(ini, section);
 
-  /**
-   * todo: Description.
-   */
-  public constructor(soundIni: XR_ini_file, section: TSection) {
-    super(soundIni, section);
-
-    if (getFS().exist(roots.gameSounds, this.path + ".ogg") !== null) {
-      this.sound = this.path;
-    } else {
-      abort("There are no looped sound with path: %s", this.path);
-    }
+    assert(
+      getFS().exist(roots.gameSounds, this.path + ".ogg") !== null,
+      "There are no looped sound with path: '%s'",
+      this.path
+    );
   }
 
   /**
@@ -42,8 +37,8 @@ export class LoopedSound extends AbstractPlayableSound {
     if (object === null) {
       return false;
     } else {
-      this.snd_obj = new sound_object(this.sound);
-      this.snd_obj.play_at_pos(
+      this.soundObject = new sound_object(this.path);
+      this.soundObject.play_at_pos(
         object,
         object.position(),
         0,

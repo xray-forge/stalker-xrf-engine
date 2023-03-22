@@ -228,7 +228,7 @@ export class ActionCamperPatrol extends action_base {
           }
         }
 
-        GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.attack_sound, null, null);
+        GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.attack_sound, null, null);
       } else {
         const memory_position = this.object.memory_position(this.enemy);
 

@@ -62,14 +62,14 @@ export class ActionPostCombatIdleWait extends action_base {
       }
     }
 
-    GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), "post_combat_wait", null, null);
+    GlobalSoundManager.getInstance().playSound(this.object.id(), "post_combat_wait", null, null);
   }
 
   /**
    * todo: Description.
    */
   public override finalize(): void {
-    GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), "post_combat_relax", null, null);
+    GlobalSoundManager.getInstance().playSound(this.object.id(), "post_combat_relax", null, null);
 
     if (this.anim_started === true) {
       this.state.animation.set_state(null, true);

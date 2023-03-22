@@ -27,6 +27,7 @@ import { updateSimulationObjectAvailability } from "@/engine/core/database/simul
 import { AchievementsManager } from "@/engine/core/managers/achievements";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/ActorInventoryMenuManager";
 import { DropManager } from "@/engine/core/managers/DropManager";
+import { DynamicMusicManager } from "@/engine/core/managers/DynamicMusicManager";
 import { EGameEvent } from "@/engine/core/managers/events/EGameEvent";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
@@ -47,7 +48,6 @@ import { AnomalyZoneBinder } from "@/engine/core/objects/binders/AnomalyZoneBind
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos/SchemeDeimos";
 import { SchemeNoWeapon } from "@/engine/core/schemes/sr_no_weapon";
-import { DynamicMusicManager } from "@/engine/core/sounds/DynamicMusicManager";
 import { getExtern } from "@/engine/core/utils/binding";
 import { isArtefact } from "@/engine/core/utils/check/is";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
@@ -149,7 +149,7 @@ export class ActorBinder extends object_binder {
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
-    this.globalSoundManager.stopSoundsByObjectId(this.object.id());
+    this.globalSoundManager.stopSoundByObjectId(this.object.id());
 
     this.simulationBoardManager.onNetworkDestroy();
 
@@ -301,7 +301,7 @@ export class ActorBinder extends object_binder {
 
     this.weatherManager.update();
     this.achievementsManager.update(delta);
-    this.globalSoundManager.updateForObjectId(this.object.id());
+    this.globalSoundManager.update(this.object.id());
 
     // Handle input disabling.
     if (
@@ -401,14 +401,12 @@ export class ActorBinder extends object_binder {
     this.surgeManager.save(packet);
     PsyAntennaManager.save(packet);
 
-    this.globalSoundManager.saveActor(packet);
+    this.globalSoundManager.save(packet);
     packet.w_stringZ(tostring(this.lastLevelName));
     this.statisticsManager.save(packet);
     this.treasureManager.save(packet);
 
-    const scriptSpawnedCount: TCount = getTableSize(registry.scriptSpawned);
-
-    packet.w_u8(scriptSpawnedCount);
+    packet.w_u8(getTableSize(registry.scriptSpawned));
 
     for (const [k, v] of registry.scriptSpawned) {
       packet.w_u16(k);
@@ -461,20 +459,18 @@ export class ActorBinder extends object_binder {
     this.releaseBodyManager.load(reader);
     this.surgeManager.load(reader);
     PsyAntennaManager.load(reader);
-    this.globalSoundManager.loadActor(reader);
+    this.globalSoundManager.load(reader);
 
     const lastLevelName: StringOptional<TName> = reader.r_stringZ();
 
-    if (lastLevelName !== NIL) {
-      this.lastLevelName = lastLevelName;
-    }
+    this.lastLevelName = lastLevelName === NIL ? null : lastLevelName;
 
     this.statisticsManager.load(reader);
     this.treasureManager.load(reader);
 
-    const count: TCount = reader.r_u8();
+    const scriptsSpawnedCount: TCount = reader.r_u8();
 
-    for (const it of $range(1, count)) {
+    for (const it of $range(1, scriptsSpawnedCount)) {
       registry.scriptSpawned.set(reader.r_u16(), reader.r_stringZ());
     }
 

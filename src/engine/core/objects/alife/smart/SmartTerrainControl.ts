@@ -66,7 +66,7 @@ export class SmartTerrainControl {
       const sound = pickSectionFromCondList(registry.actor, this.smart, this.alarm_stop_sound as any);
 
       if (sound !== null) {
-        GlobalSoundManager.getInstance().setSoundPlaying(registry.actor.id(), sound, null, null);
+        GlobalSoundManager.getInstance().playSound(registry.actor.id(), sound, null, null);
       }
 
       for (const [squad_id, squad] of SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(
@@ -120,7 +120,7 @@ export class SmartTerrainControl {
       const sound = pickSectionFromCondList(registry.actor, this.smart, this.alarm_start_sound as any);
 
       if (sound !== null) {
-        GlobalSoundManager.getInstance().setSoundPlaying(registry.actor.id(), sound, null, null);
+        GlobalSoundManager.getInstance().playSound(registry.actor.id(), sound, null, null);
       }
 
       for (const [squad_id, squad] of SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(this.smart.id)!

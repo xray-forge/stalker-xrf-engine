@@ -25,11 +25,10 @@ extern("start", {
     math.randomseed(device().time_global());
 
     disposeManagers();
+
     registerSchemeModules();
-
     fillPhrasesTable();
-    GlobalSoundManager.loadSoundThemes();
 
-    resetSchemeHard(EScheme.SR_LIGHT);
+    resetSchemeHard(EScheme.SR_LIGHT); // todo: probably not needed
   },
 });

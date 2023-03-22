@@ -430,7 +430,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   public onNetworkDestroy(): void {
     if (this.factions !== null) {
       for (const [index, faction] of this.factions) {
-        GlobalSoundManager.getInstance().stopSoundsByObjectId(faction.id);
+        GlobalSoundManager.getInstance().stopSoundByObjectId(faction.id);
       }
     }
   }

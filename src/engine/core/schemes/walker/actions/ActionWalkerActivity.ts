@@ -118,7 +118,7 @@ export class ActionWalkerActivity extends action_base {
     }
 
     if (!this.in_camp && this.state.sound_idle !== null) {
-      GlobalSoundManager.getInstance().setSoundPlaying(this.object.id(), this.state.sound_idle, null, null);
+      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sound_idle, null, null);
     }
   }
 

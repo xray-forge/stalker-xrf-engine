@@ -274,7 +274,7 @@ export class MonsterBinder extends object_binder {
     this.object.set_callback(callback.hit, null);
     this.object.set_callback(callback.sound, null);
 
-    GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
+    GlobalSoundManager.getInstance().stopSoundByObjectId(this.object.id());
     registry.actorCombat.delete(this.object.id());
 
     if (this.state.active_scheme !== null) {

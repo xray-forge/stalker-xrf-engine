@@ -131,9 +131,9 @@ export class SchemeCorpseDetection extends AbstractScheme {
     }, corpseObject);
 
     if (math.random(100) > 20) {
-      GlobalSoundManager.getInstance().setSoundPlaying(object.id(), "corpse_loot_begin", null, null);
+      GlobalSoundManager.getInstance().playSound(object.id(), "corpse_loot_begin", null, null);
     } else {
-      GlobalSoundManager.getInstance().setSoundPlaying(object.id(), "corpse_loot_bad", null, null);
+      GlobalSoundManager.getInstance().playSound(object.id(), "corpse_loot_bad", null, null);
     }
   }
 }

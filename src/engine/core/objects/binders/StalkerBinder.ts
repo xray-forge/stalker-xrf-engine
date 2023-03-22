@@ -196,7 +196,7 @@ export class StalkerBinder extends object_binder {
     registerHelicopterEnemy(this.object);
     this.helicopterEnemyIndex = registry.helicopter.enemiesCount - 1;
 
-    GlobalSoundManager.init_npc_sound(this.object);
+    GlobalSoundManager.initializeObjectSounds(this.object);
 
     // todo: Separate place.
     if (getStoryIdByObjectId(objectId) === "zat_b53_artefact_hunter_1") {
@@ -223,9 +223,11 @@ export class StalkerBinder extends object_binder {
         const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!;
 
         if (smartTerrain.arrivingObjects.get(serverObject.id) === null) {
-          const smartTask: XR_CALifeSmartTerrainTask = smartTerrain.jobsData.get(
-            smartTerrain.objectJobDescriptors.get(serverObject.id).job_id
-          ).alife_task;
+          const smartName = smartTerrain.name();
+          const jobDatas = smartTerrain.objectJobDescriptors;
+          const arriving = smartTerrain.arrivingObjects;
+          const jobData = smartTerrain.objectJobDescriptors.get(serverObject.id);
+          const smartTask: XR_CALifeSmartTerrainTask = smartTerrain.jobsData.get(jobData?.job_id).alife_task;
 
           this.object.set_npc_position(smartTask.position());
         }
@@ -252,7 +254,7 @@ export class StalkerBinder extends object_binder {
     const objectId: TNumberId = this.object.id();
 
     registry.actorCombat.delete(objectId);
-    GlobalSoundManager.getInstance().stopSoundsByObjectId(objectId);
+    GlobalSoundManager.getInstance().stopSoundByObjectId(objectId);
 
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
@@ -519,7 +521,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (isObjectAlive) {
-      GlobalSoundManager.getInstance().updateForObjectId(object.id());
+      GlobalSoundManager.getInstance().update(object.id());
       SchemeMeet.updateObjectInteractionAvailability(object);
       updateObjectInvulnerability(this.object);
     }
@@ -591,7 +593,7 @@ export class StalkerBinder extends object_binder {
     super.save(packet);
     saveObjectLogic(this.object, packet);
     TradeManager.getInstance().saveObjectState(this.object, packet);
-    GlobalSoundManager.getInstance().saveForObjectId(packet, this.object.id());
+    GlobalSoundManager.getInstance().saveObject(packet, this.object);
     saveNpcDialogs(packet, this.object.id());
 
     setSaveMarker(packet, true, StalkerBinder.__name);
@@ -607,8 +609,8 @@ export class StalkerBinder extends object_binder {
 
     super.load(reader);
     loadObjectLogic(this.object, reader);
-    TradeManager.getInstance().loadObjectState(this.object, reader);
-    GlobalSoundManager.getInstance().loadForObjectId(reader, this.object.id());
+    TradeManager.getInstance().loadObjectState(reader, this.object);
+    GlobalSoundManager.getInstance().loadObject(reader, this.object);
     loadNpcDialogs(reader, this.object.id());
 
     setLoadMarker(reader, true, StalkerBinder.__name);

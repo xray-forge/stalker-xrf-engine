@@ -5,13 +5,12 @@ import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager"
 import { EGameEvent } from "@/engine/core/managers/events/EGameEvent";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
-import { StereoSound } from "@/engine/core/sounds/playable_sounds/StereoSound";
-import { dynamicMusicThemes } from "@/engine/core/sounds/playlists/dynamic_music";
+import { dynamicMusicThemes } from "@/engine/core/objects/sounds/playlists/dynamic_music";
+import { StereoSound } from "@/engine/core/objects/sounds/StereoSound";
 import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { clampNumber } from "@/engine/core/utils/number";
-import { getTableSize } from "@/engine/core/utils/table";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { TSound } from "@/engine/lib/constants/sound/sounds";
 import {
@@ -202,7 +201,6 @@ export class DynamicMusicManager extends AbstractCoreManager {
 
         if (nearestEnemy !== null) {
           if (nearestEnemyDistanceSqr < DynamicMusicManager.MIN_DIST * DynamicMusicManager.MIN_DIST) {
-            logger.info("Check result min:", nearestEnemy?.name(), nearestEnemyDistanceSqr, type(this.theme));
             this.forceFade = true;
             this.fadeToThemeVolume = this.gameAmbientVolume;
             this.fadeToAmbientVolume = 0;

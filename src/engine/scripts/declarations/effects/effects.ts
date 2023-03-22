@@ -1472,14 +1472,14 @@ export function play_sound(
     }
   }
 
-  GlobalSoundManager.getInstance().setSoundPlaying(object.id(), theme, faction, smartTerrainId);
+  GlobalSoundManager.getInstance().playSound(object.id(), theme, faction, smartTerrainId);
 }
 
 /**
  * todo;
  */
 export function stop_sound(actor: XR_game_object, npc: XR_game_object): void {
-  GlobalSoundManager.getInstance().stopSoundsByObjectId(npc.id());
+  GlobalSoundManager.getInstance().stopSoundByObjectId(npc.id());
 }
 
 /**
@@ -1513,7 +1513,7 @@ export function play_sound_by_story(
   );
   const smartTerrainId: TNumberId = smartTerrain !== null ? smartTerrain.id : (p[3] as number);
 
-  GlobalSoundManager.getInstance().setSoundPlaying(storyObjectId as number, theme, faction, smartTerrainId);
+  GlobalSoundManager.getInstance().playSound(storyObjectId as number, theme, faction, smartTerrainId);
 }
 
 /**

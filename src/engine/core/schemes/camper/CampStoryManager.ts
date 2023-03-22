@@ -2,12 +2,12 @@ import { time_global, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { IAnimpointAction, ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
-import { getSoundManagerForId, SoundManager } from "@/engine/core/sounds/SoundManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { readIniString } from "@/engine/core/utils/ini/getters";
@@ -52,8 +52,8 @@ export class CampStoryManager {
 
     const camp: CampStoryManager = registry.camps.stories.get(campId);
 
-    camp.sound_manager.set_storyteller(camp.director);
-    camp.sound_manager.set_story(camp.guitar_table.get(math.random(camp.guitar_table.length())));
+    camp.sound_manager.setStoryTeller(camp.director);
+    camp.sound_manager.setStory(camp.guitar_table.get(math.random(camp.guitar_table.length())));
     camp.sound_manager_started = true;
     camp.sound_manager.update();
   }
@@ -70,8 +70,8 @@ export class CampStoryManager {
 
     const camp: CampStoryManager = registry.camps.stories.get(campId);
 
-    camp.sound_manager.set_storyteller(camp.director);
-    camp.sound_manager.set_story(camp.harmonica_table.get(math.random(camp.harmonica_table.length())));
+    camp.sound_manager.setStoryTeller(camp.director);
+    camp.sound_manager.setStory(camp.harmonica_table.get(math.random(camp.harmonica_table.length())));
     camp.sound_manager_started = true;
     camp.sound_manager.update();
   }
@@ -123,7 +123,7 @@ export class CampStoryManager {
     this.guitar_table = parseStringsList(guitars);
     this.harmonica_table = parseStringsList(harmonicas);
 
-    this.sound_manager = getSoundManagerForId("camp" + this.object.id());
+    this.sound_manager = SoundManager.getSoundManagerForId("camp" + this.object.id());
 
     this.states = {
       idle: {
@@ -169,7 +169,7 @@ export class CampStoryManager {
    * todo: Description.
    */
   public update(): void {
-    if (!this.sound_manager.is_finished()) {
+    if (!this.sound_manager.isFinished()) {
       this.sound_manager.update();
 
       return;
@@ -232,7 +232,7 @@ export class CampStoryManager {
 
       if (npc_count !== 0) {
         this.idle_talker = talkers.get(math.random(talkers.length()));
-        GlobalSoundManager.getInstance().setSoundPlaying(this.idle_talker, "state", null, null);
+        GlobalSoundManager.getInstance().playSound(this.idle_talker, "state", null, null);
       }
     }
   }
@@ -317,8 +317,8 @@ export class CampStoryManager {
    */
   public set_story(): void {
     if (this.active_state === "story") {
-      this.sound_manager.set_storyteller(this.director);
-      this.sound_manager.set_story(this.story_table.get(math.random(this.story_table.length())));
+      this.sound_manager.setStoryTeller(this.director);
+      this.sound_manager.setStory(this.story_table.get(math.random(this.story_table.length())));
       this.sound_manager_started = true;
     } else if (this.active_state === "idle") {
       this.sound_manager_started = true;
@@ -382,7 +382,7 @@ export class CampStoryManager {
 
     registry.objects.get(objectId).registred_camp = null;
     this.npc.delete(objectId);
-    this.sound_manager.unregister_npc(objectId);
+    this.sound_manager.unregisterObject(objectId);
   }
 
   /**

@@ -130,6 +130,6 @@ export class SchemeHelpWounded extends AbstractScheme {
 
     registry.objects.get(selectedId).wounded_already_selected = -1;
 
-    GlobalSoundManager.getInstance().setSoundPlaying(object.id(), scriptSounds.wounded_medkit, null, null);
+    GlobalSoundManager.getInstance().playSound(object.id(), scriptSounds.wounded_medkit, null, null);
   }
 }

@@ -60,7 +60,7 @@ export class RestrictorBinder extends object_binder {
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
-    GlobalSoundManager.getInstance().stopSoundsByObjectId(this.object.id());
+    GlobalSoundManager.getInstance().stopSoundByObjectId(this.object.id());
 
     const state: IRegistryObjectState = this.state;
 
@@ -99,7 +99,7 @@ export class RestrictorBinder extends object_binder {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
     }
 
-    GlobalSoundManager.getInstance().updateForObjectId(objectId);
+    GlobalSoundManager.getInstance().update(objectId);
   }
 
   /**

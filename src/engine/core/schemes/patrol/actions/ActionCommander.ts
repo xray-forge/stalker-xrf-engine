@@ -86,15 +86,15 @@ export class ActionCommander extends action_base {
 
       if (this.state.silent !== true) {
         if (new_state === "sneak") {
-          globalSoundManager.setSoundPlaying(this.object.id(), "patrol_sneak", null, null);
+          globalSoundManager.playSound(this.object.id(), "patrol_sneak", null, null);
         } else if (new_state === "sneak_run") {
-          globalSoundManager.setSoundPlaying(this.object.id(), "patrol_run", null, null);
+          globalSoundManager.playSound(this.object.id(), "patrol_run", null, null);
         } else if (new_state === "run") {
-          globalSoundManager.setSoundPlaying(this.object.id(), "patrol_run", null, null);
+          globalSoundManager.playSound(this.object.id(), "patrol_run", null, null);
         } else if (new_state === "assault") {
-          globalSoundManager.setSoundPlaying(this.object.id(), "patrol_run", null, null);
+          globalSoundManager.playSound(this.object.id(), "patrol_run", null, null);
         } else if (new_state === "rush") {
-          globalSoundManager.setSoundPlaying(this.object.id(), "patrol_run", null, null);
+          globalSoundManager.playSound(this.object.id(), "patrol_run", null, null);
         } else {
           if (
             old_state === "sneak" ||
@@ -103,7 +103,7 @@ export class ActionCommander extends action_base {
             old_state === "assault" ||
             old_state === "rush"
           ) {
-            globalSoundManager.setSoundPlaying(this.object.id(), "patrol_walk", null, null);
+            globalSoundManager.playSound(this.object.id(), "patrol_walk", null, null);
           }
         }
       }

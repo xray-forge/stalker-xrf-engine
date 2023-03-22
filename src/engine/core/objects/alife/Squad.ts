@@ -38,8 +38,8 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/alife/smart/SmartTerr
 import { SquadReachTargetAction } from "@/engine/core/objects/alife/SquadReachTargetAction";
 import { SquadStayOnTargetAction } from "@/engine/core/objects/alife/SquadStayOnTargetAction";
 import { TSimulationObject, TSquadAction } from "@/engine/core/objects/alife/types";
+import { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
 import { StateManager } from "@/engine/core/objects/state/StateManager";
-import { getSoundManagerForId, SoundManager } from "@/engine/core/sounds/SoundManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/check/is";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
@@ -116,7 +116,7 @@ export class Squad<
   public currentTargetId: Optional<TNumberId> = null;
   public assignedTargetId: Optional<TNumberId> = null;
 
-  public soundManager: SoundManager = getSoundManagerForId("squad_" + this.section_name());
+  public soundManager: SoundManager = SoundManager.getSoundManagerForId("squad_" + this.section_name());
 
   public need_free_update: boolean = false;
   public next_target: Optional<number> = null;
@@ -513,7 +513,7 @@ export class Squad<
   public on_npc_death(object: XR_cse_alife_creature_abstract): void {
     logger.info("On npc death:", this.name(), object.name());
 
-    this.soundManager.unregister_npc(object.id);
+    this.soundManager.unregisterObject(object.id);
     this.unregister_member(object.id);
 
     if (this.npc_count() === 0) {

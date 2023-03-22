@@ -27,7 +27,7 @@ export function abort(format: string, ...rest: AnyArgs): never {
  * @param format - c-like formatted string for interpolation
  * @param rest - rest parameters to interpolate into format string
  */
-export function assert(condition: boolean, format: string, ...rest: AnyArgs): asserts condition {
+export function assert<T = boolean>(condition: T, format: string, ...rest: AnyArgs): asserts condition {
   if (!condition) {
     abort(string.format(format, ...rest));
   }

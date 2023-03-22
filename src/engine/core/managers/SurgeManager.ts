@@ -726,11 +726,11 @@ export class SurgeManager extends AbstractCoreManager {
       if (surgeDuration >= surgeConfig.DURATION) {
         if (level !== null) {
           if (level.name() === levels.zaton) {
-            globalSoundManager.setSoundPlaying(registry.actor.id(), "zat_a2_stalker_barmen_after_surge", null, null);
+            globalSoundManager.playSound(registry.actor.id(), "zat_a2_stalker_barmen_after_surge", null, null);
           } else if (level.name() === levels.jupiter) {
-            globalSoundManager.setSoundPlaying(registry.actor.id(), "jup_a6_stalker_medik_after_surge", null, null);
+            globalSoundManager.playSound(registry.actor.id(), "jup_a6_stalker_medik_after_surge", null, null);
           } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
-            globalSoundManager.setSoundPlaying(registry.actor.id(), "pri_a17_kovalsky_after_surge", null, null);
+            globalSoundManager.playSound(registry.actor.id(), "pri_a17_kovalsky_after_surge", null, null);
           }
         }
 
@@ -797,16 +797,11 @@ export class SurgeManager extends AbstractCoreManager {
         } else if (surgeDuration >= 140 && !this.second_message_given) {
           if (level !== null) {
             if (level.name() === levels.zaton) {
-              globalSoundManager.setSoundPlaying(
-                registry.actor.id(),
-                "zat_a2_stalker_barmen_surge_phase_2",
-                null,
-                null
-              );
+              globalSoundManager.playSound(registry.actor.id(), "zat_a2_stalker_barmen_surge_phase_2", null, null);
             } else if (level.name() === levels.jupiter) {
-              globalSoundManager.setSoundPlaying(registry.actor.id(), "jup_a6_stalker_medik_phase_2", null, null);
+              globalSoundManager.playSound(registry.actor.id(), "jup_a6_stalker_medik_phase_2", null, null);
             } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
-              globalSoundManager.setSoundPlaying(registry.actor.id(), "pri_a17_kovalsky_surge_phase_2", null, null);
+              globalSoundManager.playSound(registry.actor.id(), "pri_a17_kovalsky_surge_phase_2", null, null);
             }
           }
 
@@ -818,17 +813,17 @@ export class SurgeManager extends AbstractCoreManager {
           // --                level.set_pp_effector_factor(surge_shock_pp_eff, 0, 10)
           this.isEffectorSet = true;
         } else if (surgeDuration >= 35 && !this.blowout_sound) {
-          globalSoundManager.setSoundPlaying(registry.actor.id(), "blowout_begin", null, null);
+          globalSoundManager.playSound(registry.actor.id(), "blowout_begin", null, null);
           globalSoundManager.playLoopedSound(registry.actor.id(), "blowout_rumble");
           globalSoundManager.setLoopedSoundVolume(registry.actor.id(), "blowout_rumble", 0.25);
           this.blowout_sound = true;
         } else if (surgeDuration >= 0 && !this.task_given) {
           if (level.name() === levels.zaton) {
-            globalSoundManager.setSoundPlaying(registry.actor.id(), "zat_a2_stalker_barmen_surge_phase_1", null, null);
+            globalSoundManager.playSound(registry.actor.id(), "zat_a2_stalker_barmen_surge_phase_1", null, null);
           } else if (level.name() === levels.jupiter) {
-            globalSoundManager.setSoundPlaying(registry.actor.id(), "jup_a6_stalker_medik_phase_1", null, null);
+            globalSoundManager.playSound(registry.actor.id(), "jup_a6_stalker_medik_phase_1", null, null);
           } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
-            globalSoundManager.setSoundPlaying(registry.actor.id(), "pri_a17_kovalsky_surge_phase_1", null, null);
+            globalSoundManager.playSound(registry.actor.id(), "pri_a17_kovalsky_surge_phase_1", null, null);
           }
 
           level.set_weather_fx("fx_surge_day_3");
