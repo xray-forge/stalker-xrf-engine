@@ -5,7 +5,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { set_state } from "@/engine/core/objects/state/StateManager";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { getSmartTerrainByName } from "@/engine/core/utils/gulag";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";

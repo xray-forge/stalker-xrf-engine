@@ -2,7 +2,7 @@ import { action_base, device, LuabindClass, vector, XR_game_object, XR_vector } 
 
 import { set_state } from "@/engine/core/objects/state/StateManager";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/physics";
 import { TCount, TTimestamp } from "@/engine/lib/types";

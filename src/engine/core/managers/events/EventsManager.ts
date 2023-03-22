@@ -1,6 +1,6 @@
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { EGameEvent } from "@/engine/core/managers/events/EGameEvent";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyArgs, AnyCallable, AnyObject, Optional } from "@/engine/lib/types";
 

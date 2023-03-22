@@ -6,7 +6,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { setMobState } from "@/engine/core/schemes/mob/MobStateManager";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/mob/remark/ISchemeMobRemarkState";
 import { getExtern } from "@/engine/core/utils/binding";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { action, scriptCaptureObject } from "@/engine/core/utils/object";
 import { parseStringsList } from "@/engine/core/utils/parse";

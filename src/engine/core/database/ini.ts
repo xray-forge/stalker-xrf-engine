@@ -1,6 +1,6 @@
 import { create_ini_file, ini_file, system_ini, XR_ini_file } from "xray16";
 
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { Optional } from "@/engine/lib/types";
 
 /**

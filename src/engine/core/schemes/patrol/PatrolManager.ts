@@ -1,7 +1,7 @@
 import { level, vector, XR_game_object, XR_vector } from "xray16";
 
 import { isObjectMeeting } from "@/engine/core/utils/check/check";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/physics";
 import { Optional, TNumberId } from "@/engine/lib/types";
 

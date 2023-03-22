@@ -16,7 +16,7 @@ import {
 import { registerAnomaly, registry, resetObject, unregisterAnomaly } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { FIELDS_BY_NAME } from "@/engine/core/objects/binders/AnomalyFieldBinder";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";

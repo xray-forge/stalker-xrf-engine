@@ -16,7 +16,7 @@ import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManag
 import { ITargetStateDescriptor, set_state } from "@/engine/core/objects/state/StateManager";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { SchemeDanger } from "@/engine/core/schemes/danger/SchemeDanger";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
 import { Optional } from "@/engine/lib/types";

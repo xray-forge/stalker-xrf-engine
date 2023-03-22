@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { set_state } from "@/engine/core/objects/state/StateManager";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { IWaypointData, parsePathWaypointsFromArgsList } from "@/engine/core/utils/parse";
 import { AnyCallable, LuaArray, Optional } from "@/engine/lib/types";

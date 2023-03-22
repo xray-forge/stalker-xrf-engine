@@ -7,7 +7,7 @@ import { get_heli_firer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFi
 import { get_heli_flyer, HeliFly } from "@/engine/core/schemes/heli_move/HeliFly";
 import { get_heli_looker, HeliLook } from "@/engine/core/schemes/heli_move/HeliLook";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/heli_move/ISchemeHelicopterMoveState";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
 import { ACTOR } from "@/engine/lib/constants/words";
 import { Optional, TRate } from "@/engine/lib/types";

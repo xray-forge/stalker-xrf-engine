@@ -2,7 +2,7 @@ import { anim, CSightParams, move, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { IStateDescriptor } from "@/engine/core/objects/state/lib/state_lib";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/parse";
 import { getTableSize } from "@/engine/core/utils/table";
 import { info_portions } from "@/engine/lib/constants/info_portions";

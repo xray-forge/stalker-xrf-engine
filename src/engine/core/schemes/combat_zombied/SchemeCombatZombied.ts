@@ -6,7 +6,7 @@ import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ActionZombieGoToDanger, ActionZombieShoot } from "@/engine/core/schemes/combat_zombied/actions";
 import { EvaluatorCombatZombied } from "@/engine/core/schemes/combat_zombied/evaluators";
-import { abort } from "@/engine/core/utils/debug";
+import { assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -30,9 +30,7 @@ export class SchemeCombatZombied extends AbstractScheme {
     state: ISchemeCombatState,
     planner?: XR_action_planner
   ): void {
-    if (!planner) {
-      abort("Expected planner to be provided for add method call.");
-    }
+    assertDefined(planner, "Expected planner to be provided for add method call.");
 
     const properties = {
       state_mgr_logic_active: evaluators_id.state_mgr + 4,

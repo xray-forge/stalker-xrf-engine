@@ -19,7 +19,7 @@ import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager"
 import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
 import { ETaskState } from "@/engine/core/managers/tasks/ETaskState";
 import * as TaskFunctor from "@/engine/core/managers/tasks/TaskFunctor";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";

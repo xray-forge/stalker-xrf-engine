@@ -2,7 +2,7 @@ import { alife, XR_game_object } from "xray16";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";

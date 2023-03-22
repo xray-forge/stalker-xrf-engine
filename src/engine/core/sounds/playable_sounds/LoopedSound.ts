@@ -3,7 +3,7 @@ import { getFS, sound_object, TXR_sound_object_type, XR_game_object, XR_ini_file
 import { registry } from "@/engine/core/database";
 import { AbstractPlayableSound } from "@/engine/core/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/engine/core/sounds/playable_sounds/EPlayableSound";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";
 import { Optional, TNumberId, TSection } from "@/engine/lib/types";

@@ -3,7 +3,7 @@ import { stalker_ids, world_property, XR_action_base, XR_game_object } from "xra
 import { registry } from "@/engine/core/database";
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
 import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 
 /**
  * Check if provided scheme state is active.

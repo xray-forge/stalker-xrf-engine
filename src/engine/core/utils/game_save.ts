@@ -16,7 +16,7 @@ import {
 
 import { registry } from "@/engine/core/database";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { console_commands } from "@/engine/lib/constants/console_commands";

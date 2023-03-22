@@ -2,7 +2,7 @@ import { XR_game_object, XR_ini_file } from "xray16";
 
 import { IStoredOfflineObject, registry } from "@/engine/core/database";
 import { IBaseSchemeLogic } from "@/engine/core/schemes/base";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniConditionList } from "@/engine/core/utils/ini/getters";
 import { NIL } from "@/engine/lib/constants/words";

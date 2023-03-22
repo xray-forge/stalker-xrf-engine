@@ -1,7 +1,7 @@
 import { sound_object, time_global, XR_game_object, XR_sound_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TPath, TRate, TStringId, TTimestamp } from "@/engine/lib/types";
 

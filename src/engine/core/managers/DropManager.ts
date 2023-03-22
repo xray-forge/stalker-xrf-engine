@@ -5,7 +5,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager"
 import { Stalker } from "@/engine/core/objects/alife/Stalker";
 import { isExcludedFromLootDropItem } from "@/engine/core/utils/check/check";
 import { isAmmoItem, isArtefact, isGrenade, isLootableItem, isWeapon } from "@/engine/core/utils/check/is";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity, setItemCondition } from "@/engine/core/utils/object";
 import { parseNumbersList, parseStringsList } from "@/engine/core/utils/parse";

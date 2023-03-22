@@ -27,7 +27,7 @@ import * as smartCoverManagement from "@/engine/core/objects/state/smart_cover";
 import * as stateManagement from "@/engine/core/objects/state/state";
 import * as weaponManagement from "@/engine/core/objects/state/weapon";
 import { get_weapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorCmp } from "@/engine/core/utils/physics";
 import { stringifyAsJson } from "@/engine/core/utils/transform/json";

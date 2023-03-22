@@ -15,7 +15,7 @@ import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/core/objects/alife/Squad";
 import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import { evaluateSimulationPriority } from "@/engine/core/utils/alife";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { changeTeamSquadGroup } from "@/engine/core/utils/object";
 import { parseStringsList } from "@/engine/core/utils/parse";

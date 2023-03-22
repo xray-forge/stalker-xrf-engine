@@ -8,7 +8,7 @@ import { SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { StereoSound } from "@/engine/core/sounds/playable_sounds/StereoSound";
 import { dynamicMusicThemes } from "@/engine/core/sounds/playlists/dynamic_music";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { clampNumber } from "@/engine/core/utils/number";
 import { getTableSize } from "@/engine/core/utils/table";

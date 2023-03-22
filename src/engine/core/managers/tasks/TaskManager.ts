@@ -5,7 +5,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager"
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { ETaskState } from "@/engine/core/managers/tasks/ETaskState";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";

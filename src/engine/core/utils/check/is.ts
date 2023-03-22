@@ -11,7 +11,7 @@ import {
 } from "xray16";
 
 import { getStoryIdByObjectId, registry } from "@/engine/core/database";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { getObjectClassId } from "@/engine/core/utils/id";
 import { squadMonsters } from "@/engine/lib/constants/behaviours";
 import { artefactClassIds, monsterClassIds, stalkerClassIds, weaponClassIds } from "@/engine/lib/constants/class_ids";

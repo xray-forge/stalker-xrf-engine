@@ -9,7 +9,7 @@ import { ActionCommander, ActionPatrol } from "@/engine/core/schemes/patrol/acti
 import { EvaluatorPatrolComm, EvaluatorPatrolEnd } from "@/engine/core/schemes/patrol/evaluators";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol/ISchemePatrolState";
 import { PatrolManager } from "@/engine/core/schemes/patrol/PatrolManager";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";

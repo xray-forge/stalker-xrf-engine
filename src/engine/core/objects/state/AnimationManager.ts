@@ -4,7 +4,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { IAnimationDescriptor } from "@/engine/core/objects/state/lib/state_mgr_animation_list";
 import { IAnimationStateDescriptor } from "@/engine/core/objects/state/lib/state_mgr_animstate_list";
 import { StateManager } from "@/engine/core/objects/state/StateManager";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/physics";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";

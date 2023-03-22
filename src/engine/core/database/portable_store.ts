@@ -1,7 +1,7 @@
 import { TXR_net_processor, XR_game_object, XR_net_packet } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
 import { Optional, TCount, TName, TNumberId } from "@/engine/lib/types";

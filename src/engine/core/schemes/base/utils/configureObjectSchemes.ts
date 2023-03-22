@@ -6,7 +6,7 @@ import { ESchemeEvent } from "@/engine/core/schemes";
 import { disableObjectGenericSchemes } from "@/engine/core/schemes/base/utils/disableObjectGenericSchemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
 import { enableObjectGenericSchemes } from "@/engine/core/schemes/base/utils/enableObjectGenericSchemes";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { spawnDefaultObjectItems } from "@/engine/core/utils/spawn";

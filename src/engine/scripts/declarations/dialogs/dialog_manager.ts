@@ -2,7 +2,7 @@ import { game, level, XR_CPhraseDialog, XR_CPhraseScript, XR_game_object, XR_net
 
 import { DIALOG_MANAGER_LTX, registry } from "@/engine/core/database";
 import { isObjectWounded } from "@/engine/core/utils/check/check";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";

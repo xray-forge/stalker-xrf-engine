@@ -12,7 +12,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/ph_door/ISchemePhysicalDoorState";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { Optional, TCount, TIndex } from "@/engine/lib/types";
 

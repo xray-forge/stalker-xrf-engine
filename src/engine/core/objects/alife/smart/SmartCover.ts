@@ -5,7 +5,7 @@ import {
   ISmartCoverLoopholeDescriptor,
   smart_covers_list,
 } from "@/engine/core/objects/alife/smart/smart_covers/smart_covers_list";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TCount, TSection, TStringId } from "@/engine/lib/types";
 

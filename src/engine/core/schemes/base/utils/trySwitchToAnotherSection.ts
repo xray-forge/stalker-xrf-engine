@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes";
 import { switchObjectSchemeToSection } from "@/engine/core/schemes/base/utils/switchObjectSchemeToSection";
 import { isObjectInZone } from "@/engine/core/utils/check/check";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorSeenByObject } from "@/engine/core/utils/object";

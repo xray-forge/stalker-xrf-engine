@@ -6,7 +6,7 @@ import { EPlayableSound } from "@/engine/core/sounds/playable_sounds/EPlayableSo
 import { LoopedSound } from "@/engine/core/sounds/playable_sounds/LoopedSound";
 import { NpcSound } from "@/engine/core/sounds/playable_sounds/NpcSound";
 import { ObjectSound } from "@/engine/core/sounds/playable_sounds/ObjectSound";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";

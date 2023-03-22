@@ -52,7 +52,7 @@ import {
   isSquadExisting,
 } from "@/engine/core/utils/check/check";
 import { isMonster, isStalker, isWeapon } from "@/engine/core/utils/check/is";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";

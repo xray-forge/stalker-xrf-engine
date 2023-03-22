@@ -1,6 +1,6 @@
 import { clsid, TXR_class_id, XR_game_object, XR_ini_file } from "xray16";
 
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { getObjectClassId } from "@/engine/core/utils/id";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";

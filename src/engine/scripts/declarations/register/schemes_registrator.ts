@@ -52,7 +52,7 @@ import { SchemeTeleport } from "@/engine/core/schemes/teleport";
 import { SchemeTimer } from "@/engine/core/schemes/timer";
 import { SchemeWalker } from "@/engine/core/schemes/walker";
 import { SchemeWounded } from "@/engine/core/schemes/wounded";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 

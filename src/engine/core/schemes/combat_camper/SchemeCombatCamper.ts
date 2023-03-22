@@ -4,7 +4,7 @@ import { AbstractScheme, action_ids, evaluators_id } from "@/engine/core/schemes
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ActionLookAround, ActionShoot } from "@/engine/core/schemes/combat_camper/actions";
 import { EvaluatorCombatCamper, EvaluatorSee } from "@/engine/core/schemes/combat_camper/evaluator";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 

@@ -1,5 +1,5 @@
 import { SOUND_STORIES_LTX } from "@/engine/core/database";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseStringsList } from "@/engine/core/utils/parse";
 import { LuaArray, TCount, TIndex, TStringId } from "@/engine/lib/types";

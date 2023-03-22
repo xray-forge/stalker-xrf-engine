@@ -2,7 +2,7 @@ import { cond, look, patrol, vector, XR_patrol, XR_vector } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/mob/jump/ISchemeMobJumpState";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { action, scriptCaptureObject, scriptReleaseObject } from "@/engine/core/utils/object";
 import { Optional } from "@/engine/lib/types";
 

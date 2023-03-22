@@ -9,7 +9,7 @@ import {
   ECoverState,
   ISchemeSmartCoverState,
 } from "@/engine/core/schemes/smartcover/ISchemeSmartCoverState";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { getParamString, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";

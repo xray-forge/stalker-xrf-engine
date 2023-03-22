@@ -1,6 +1,6 @@
 import { flags32, patrol, XR_flags32, XR_game_object, XR_ini_file, XR_patrol } from "xray16";
 
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trimString } from "@/engine/core/utils/string";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
@@ -203,10 +203,8 @@ export function parseInfoPortions(
     return result;
   }
 
-  let infop_n = 1;
-
   for (const infoPortionRaw of string.gfind(data, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
-    const sign = string.sub(infoPortionRaw, 1, 1);
+    const sign: string = string.sub(infoPortionRaw, 1, 1);
     let infoPortion: TInfoPortion = string.sub(infoPortionRaw, 2) as TInfoPortion;
     let params: Optional<LuaArray<string | number>> = null;
 
@@ -227,25 +225,25 @@ export function parseInfoPortions(
     }
 
     if (sign === "+") {
-      result.set(infop_n, {
+      table.insert(result, {
         name: infoPortion,
         required: true,
       });
     } else if (sign === "-") {
-      result.set(infop_n, {
+      table.insert(result, {
         name: infoPortion,
         required: false,
       });
     } else if (sign === "~") {
-      result.set(infop_n, { prob: tonumber(infoPortion) });
+      table.insert(result, { prob: tonumber(infoPortion) });
     } else if (sign === "=") {
-      result.set(infop_n, {
+      table.insert(result, {
         func: infoPortion,
         expected: true,
         params: params,
       });
     } else if (sign === "!") {
-      result.set(infop_n, {
+      table.insert(result, {
         func: infoPortion,
         expected: false,
         params: params,
@@ -253,8 +251,6 @@ export function parseInfoPortions(
     } else {
       abort("Syntax error in switch condition.");
     }
-
-    infop_n = infop_n + 1;
   }
 
   return result;
@@ -268,39 +264,35 @@ export function parseInfoPortions(
  */
 export function parseInfoPortions1(result: LuaTable, data: Optional<string>): void {
   if (data) {
-    let infop_n = 1;
-
     for (const s of string.gfind(data, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
       const sign: string = string.sub(s, 1, 1);
       const infop_name: string = string.sub(s, 2);
 
       if (sign === "+") {
-        result.set(infop_n, {
+        table.insert(result, {
           name: infop_name,
           required: true,
         });
       } else if (sign === "-") {
-        result.set(infop_n, {
+        table.insert(result, {
           name: infop_name,
           required: false,
         });
       } else if (sign === "~") {
-        result.set(infop_n, { prob: tonumber(infop_name) });
+        table.insert(result, { prob: tonumber(infop_name) });
       } else if (sign === "=") {
-        result.set(infop_n, {
+        table.insert(result, {
           func: infop_name,
           expected: true,
         });
       } else if (sign === "!") {
-        result.set(infop_n, {
+        table.insert(result, {
           func: infop_name,
           expected: false,
         });
       } else {
         abort("Syntax error in condition: %s", data);
       }
-
-      infop_n += 1;
     }
   }
 }

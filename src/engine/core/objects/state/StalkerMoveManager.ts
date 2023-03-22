@@ -13,7 +13,7 @@ import {
 
 import { registry } from "@/engine/core/database";
 import { set_state } from "@/engine/core/objects/state/StateManager";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { IWaypointData, parseConditionsList, TConditionList } from "@/engine/core/utils/parse";

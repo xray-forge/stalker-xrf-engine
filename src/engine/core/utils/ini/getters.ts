@@ -1,7 +1,7 @@
 import { XR_ini_file } from "xray16";
 
 import { IBaseSchemeLogic } from "@/engine/core/schemes/base";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseParameters, parseStringsList } from "@/engine/core/utils/parse";
 import { EScheme, LuaArray, Optional, TCount, TIndex, TName, TSection } from "@/engine/lib/types";

@@ -5,7 +5,7 @@ import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { ESchemeEvent, TAbstractSchemeConstructor } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
 import { resetObjectGenericSchemesOnSectionSwitch } from "@/engine/core/schemes/base/utils/resetObjectGenericSchemesOnSectionSwitch";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { getObjectConfigOverrides } from "@/engine/core/utils/ini/config";
 import { getSchemeByIniSection } from "@/engine/core/utils/ini/getters";

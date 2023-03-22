@@ -14,7 +14,7 @@ import { registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { accessible_job, get_job_restrictor } from "@/engine/core/objects/alife/combat_restrictor";
 import type { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { getSchemeByIniSection, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";

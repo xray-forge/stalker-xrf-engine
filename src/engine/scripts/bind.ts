@@ -22,7 +22,7 @@ import {
   StalkerBinder,
 } from "@/engine/core/objects/binders";
 import { extern } from "@/engine/core/utils/binding";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional } from "@/engine/lib/types";
 

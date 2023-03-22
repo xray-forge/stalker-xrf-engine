@@ -6,7 +6,7 @@ import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine
 import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMinigunState";
 import { isHeavilyWounded } from "@/engine/core/utils/check/check";
 import { isActiveSection } from "@/engine/core/utils/check/is";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { isObjectScriptCaptured, scriptReleaseObject } from "@/engine/core/utils/object";
 import { TConditionList } from "@/engine/core/utils/parse";

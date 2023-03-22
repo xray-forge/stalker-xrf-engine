@@ -13,7 +13,7 @@ import { registry, SECRETS_LTX } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";

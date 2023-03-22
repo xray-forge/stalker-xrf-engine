@@ -6,7 +6,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { associations } from "@/engine/core/schemes/animpoint/animpoint_predicates";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
-import { abort } from "@/engine/core/utils/debug";
+import { abort } from "@/engine/core/utils/assertion";
 import { LuaArray, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
