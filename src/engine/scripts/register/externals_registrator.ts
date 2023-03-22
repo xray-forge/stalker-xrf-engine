@@ -13,14 +13,13 @@ export function registerExternals(): void {
     extern("areExternalsRegistered", true);
   }
 
+  require("@/engine/scripts/declarations/callbacks");
+  require("@/engine/scripts/declarations/conditions");
+  require("@/engine/scripts/declarations/effects");
+
   extern("dialogs_pripyat", require("@/engine/scripts/declarations/dialogs/dialogs_pripyat"));
   extern("dialogs_jupiter", require("@/engine/scripts/declarations/dialogs/dialogs_jupiter"));
   extern("dialogs_zaton", require("@/engine/scripts/declarations/dialogs/dialogs_zaton"));
   extern("dialogs", require("@/engine/scripts/declarations/dialogs/dialogs"));
   extern("dialog_manager", require("@/engine/scripts/declarations/dialogs/dialog_manager"));
-
-  extern("xr_effects", require("@/engine/scripts/declarations/effects/effects"));
-
-  require("@/engine/scripts/declarations/callbacks");
-  require("@/engine/scripts/declarations/conditions");
 }

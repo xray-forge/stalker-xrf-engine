@@ -13,14 +13,13 @@ describe("'extrnals_registrator' entry point", () => {
 
     expect(getExtern("engine")).toBeDefined();
 
+    expect(getExtern("xr_conditions")).toBeDefined();
+    expect(getExtern("xr_effects")).toBeDefined();
+
     expect(getExtern("dialogs")).toBeDefined();
     expect(getExtern("dialog_manager")).toBeDefined();
     expect(getExtern("dialogs_pripyat")).toBeDefined();
     expect(getExtern("dialogs_jupiter")).toBeDefined();
     expect(getExtern("dialogs_zaton")).toBeDefined();
-
-    expect(getExtern("xr_conditions")).toBeDefined();
-    expect(getExtern("xr_effects")).toBeDefined();
-    expect(getExtern("functors")).toBeDefined();
   });
 });
