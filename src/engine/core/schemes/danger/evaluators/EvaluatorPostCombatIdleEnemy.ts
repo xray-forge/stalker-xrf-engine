@@ -5,6 +5,7 @@ import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { ActionProcessEnemy } from "@/engine/core/schemes/combat_ignore/actions/ActionProcessEnemy";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/danger/ISchemePostCombatIdleState";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { combatConfig } from "@/engine/lib/configs/CombatConfig";
 import { EScheme, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -52,8 +53,8 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
 
     if (bestEnemy === null && this.state.timer === null) {
       const overrides = registry.objects.get(this.object.id()).overrides;
-      const min = (overrides && overrides.min_post_combat_time * 1000) || 10_000;
-      const max = (overrides && overrides.max_post_combat_time * 1000) || 15_000;
+      const min = (overrides && overrides.min_post_combat_time * 1000) || combatConfig.POST_COMBAT_IDLE.MIN;
+      const max = (overrides && overrides.max_post_combat_time * 1000) || combatConfig.POST_COMBAT_IDLE.MAX;
 
       if (this.state.last_best_enemy_id === registry.actor.id()) {
         this.state.timer = time_global();

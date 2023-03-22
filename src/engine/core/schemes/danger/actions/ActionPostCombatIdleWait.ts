@@ -13,8 +13,8 @@ import { Optional } from "@/engine/lib/types";
 export class ActionPostCombatIdleWait extends action_base {
   public readonly state: ISchemePostCombatIdleState;
 
-  public anim_st!: { animstate: { states: { anim_marker: null } } };
-  public anim_started: boolean = false;
+  public animationState!: { animstate: { states: { anim_marker: null } } };
+  public isAnimationStarted: boolean = false;
 
   /**
    * todo: Description.
@@ -36,16 +36,16 @@ export class ActionPostCombatIdleWait extends action_base {
     this.object.set_movement_type(move.stand);
     this.object.set_sight(look.danger, null, 0);
 
-    this.anim_st = { animstate: { states: { anim_marker: null } } };
+    this.animationState = { animstate: { states: { anim_marker: null } } };
 
     this.state.animation = new AnimationManager(
       this.object,
-      this.anim_st as any,
+      this.animationState as any,
       "state_mgr_animation_list",
       animations
     );
 
-    this.anim_started = false;
+    this.isAnimationStarted = false;
   }
 
   /**
@@ -55,8 +55,8 @@ export class ActionPostCombatIdleWait extends action_base {
     super.execute();
 
     if (!this.object.in_smart_cover()) {
-      if (this.anim_started === false && !weapon_locked(this.object)) {
-        this.anim_started = true;
+      if (this.isAnimationStarted === false && !isWeaponLocked(this.object)) {
+        this.isAnimationStarted = true;
         this.state.animation.set_state("hide");
         this.state.animation.set_control();
       }
@@ -71,7 +71,7 @@ export class ActionPostCombatIdleWait extends action_base {
   public override finalize(): void {
     GlobalSoundManager.getInstance().playSound(this.object.id(), "post_combat_relax", null, null);
 
-    if (this.anim_started === true) {
+    if (this.isAnimationStarted) {
       this.state.animation.set_state(null, true);
     }
 
@@ -83,7 +83,7 @@ export class ActionPostCombatIdleWait extends action_base {
 /**
  * todo;
  */
-export function weapon_locked(object: XR_game_object): boolean {
+export function isWeaponLocked(object: XR_game_object): boolean {
   const isWeaponStrapped: boolean = object.weapon_strapped();
   const isWeaponUnstrapped: boolean = object.weapon_unstrapped();
 
@@ -101,8 +101,7 @@ export function weapon_locked(object: XR_game_object): boolean {
     return false;
   }
 
-  // todo: From script extension classes
-  const isWeaponGoingToBeStrapped: boolean = (object as any).is_weapon_going_to_be_strapped(bestWeapon);
+  const isWeaponGoingToBeStrapped: boolean = object.is_weapon_going_to_be_strapped(bestWeapon);
 
   if (isWeaponGoingToBeStrapped && !isWeaponStrapped) {
     return true;

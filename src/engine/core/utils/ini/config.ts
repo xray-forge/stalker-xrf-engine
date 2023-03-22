@@ -17,6 +17,7 @@ import {
 } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
+import { combatConfig } from "@/engine/lib/configs/CombatConfig";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NIL } from "@/engine/lib/constants/words";
 import {
@@ -238,14 +239,20 @@ export function getObjectConfigOverrides(ini: XR_ini_file, section: TSection, ob
       ini,
       state.section_logic,
       "post_combat_time",
-      10,
-      15
+      combatConfig.POST_COMBAT_IDLE.MIN / 1000,
+      combatConfig.POST_COMBAT_IDLE.MAX / 1000
     );
 
     overrides.min_post_combat_time = min_post_combat_time;
     overrides.max_post_combat_time = max_post_combat_time;
   } else {
-    const [min_post_combat_time, max_post_combat_time] = getTwoNumbers(ini, section, "post_combat_time", 10, 15);
+    const [min_post_combat_time, max_post_combat_time] = getTwoNumbers(
+      ini,
+      section,
+      "post_combat_time",
+      combatConfig.POST_COMBAT_IDLE.MIN / 1000,
+      combatConfig.POST_COMBAT_IDLE.MAX / 1000
+    );
 
     overrides.min_post_combat_time = min_post_combat_time;
     overrides.max_post_combat_time = max_post_combat_time;
