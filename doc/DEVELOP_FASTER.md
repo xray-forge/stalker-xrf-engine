@@ -17,7 +17,6 @@ Also you can utilize your IDE to create RUN options and execute all the scripts 
 
 - run `npm run build:configs`, rebuild only UI forms
 
-
 ### 🏗️ Use watch mode
 
 For faster development scripts watch mode can be used. <br/>

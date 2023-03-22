@@ -19,9 +19,8 @@ export function registerExternals(): void {
   extern("dialogs", require("@/engine/scripts/declarations/dialogs/dialogs"));
   extern("dialog_manager", require("@/engine/scripts/declarations/dialogs/dialog_manager"));
 
-  extern("xr_conditions", require("@/engine/scripts/declarations/conditions/conditions"));
   extern("xr_effects", require("@/engine/scripts/declarations/effects/effects"));
-  extern("functors", require("@/engine/scripts/declarations/functors/functors"));
 
-  require("@/engine/scripts/declarations/callbacks/index");
+  require("@/engine/scripts/declarations/callbacks");
+  require("@/engine/scripts/declarations/conditions");
 }
