@@ -33,9 +33,9 @@ import { postProcessors } from "@/engine/lib/constants/animation/post_processors
 import { captions } from "@/engine/lib/constants/captions";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TPath } from "@/engine/lib/types";
 
-const base: string = "interaction\\SleepDialog.component";
+const base: TPath = "interaction\\SleepDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
 
 let sleep_control: Optional<SleepDialog> = null;
@@ -64,6 +64,9 @@ export class SleepDialog extends CUIScriptWnd {
     this.InitCallbacks();
   }
 
+  /**
+   * todo;
+   */
   public InitControls(): void {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
 
@@ -98,12 +101,18 @@ export class SleepDialog extends CUIScriptWnd {
     this.Register(this.sleep_mb, "sleep_mb");
   }
 
+  /**
+   * todo;
+   */
   public InitCallbacks(): void {
     this.AddCallback("btn_sleep", ui_events.BUTTON_CLICKED, () => this.OnButtonSleep(), this);
     this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.OnButtonCancel(), this);
     this.AddCallback("sleep_mb", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.OnMessageBoxOk(), this);
   }
 
+  /**
+   * todo;
+   */
   public Initialize(): void {
     const cur_hours: number = level.get_time_hours();
 
@@ -147,6 +156,9 @@ export class SleepDialog extends CUIScriptWnd {
     this.sleep_static2.SetWndPos(pos);
   }
 
+  /**
+   * todo;
+   */
   public TestAndShow(): void {
     logger.info("Test and show");
 
@@ -170,6 +182,9 @@ export class SleepDialog extends CUIScriptWnd {
     }
   }
 
+  /**
+   * todo;
+   */
   public override Update(): void {
     super.Update();
 

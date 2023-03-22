@@ -4,7 +4,7 @@ import { AnyObject } from "@/engine/lib/types";
 
 describe("'register' entry point", () => {
   const checkBinding = (name: string, container: AnyObject = global) => {
-    expect(typeof container["register"]).not.toBeNull();
+    expect(container["register"]).toBeDefined();
     expect(typeof container["register"]).toBe("object");
     expect(typeof container["register"][name]).toBe("function");
   };

@@ -4,7 +4,7 @@ import { AnyObject } from "@/engine/lib/types";
 
 describe("'bind' entry point", () => {
   const checkBinding = (name: string, container: AnyObject = global) => {
-    expect(typeof container["bind"]).not.toBeNull();
+    expect(container["bind"]).toBeDefined();
     expect(typeof container["bind"]).toBe("object");
     expect(typeof container["bind"][name]).toBe("function");
   };

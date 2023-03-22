@@ -3,6 +3,18 @@
 Main entry points of the game. <br/>
 X-ray engine starts code execution of lua scripts from this place.
 
-## Usage
+## start
 
-Main intention of this folder is to register globals and extern different callbacks for engine usage.
+- todo;
+
+## bind
+
+- todo;
+
+## register
+
+- todo;
+
+## declarations
+
+- todo;

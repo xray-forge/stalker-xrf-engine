@@ -23,5 +23,5 @@ export function registerExternals(): void {
   extern("xr_effects", require("@/engine/scripts/declarations/effects/effects"));
   extern("functors", require("@/engine/scripts/declarations/functors/functors"));
 
-  require("@/engine/scripts/declarations/callbacks/callbacks");
+  require("@/engine/scripts/declarations/callbacks/index");
 }

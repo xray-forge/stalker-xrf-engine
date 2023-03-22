@@ -11,6 +11,8 @@ describe("'extrnals_registrator' entry point", () => {
 
     expect(getExtern("areExternalsRegistered")).toBeTruthy();
 
+    expect(getExtern("engine")).toBeDefined();
+
     expect(getExtern("dialogs")).toBeDefined();
     expect(getExtern("dialog_manager")).toBeDefined();
     expect(getExtern("dialogs_pripyat")).toBeDefined();
