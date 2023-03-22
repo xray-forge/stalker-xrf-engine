@@ -10,13 +10,14 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const prop_enable = EEvaluatorId.combat_camper_base + 0;
+const prop_enable = EEvaluatorId.combat_camper_base;
 const prop_see = EEvaluatorId.combat_camper_base + 1;
 const act_shoot = EActionId.combat_camper_base;
 const act_look_around = EActionId.combat_camper_base + 1;
 
 /**
  * todo
+ * Note: not atomic scheme, just sub-implementation
  */
 export class SchemeCombatCamper extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_CAMPER;

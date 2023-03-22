@@ -50,7 +50,7 @@ import { weapons } from "@/engine/lib/constants/items/weapons";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- *  @noSelf
+ * @noSelf
  * src/xrServerEntities/clsid_game.h
  */
 export function registerGameClasses(factory: XR_object_factory): void {

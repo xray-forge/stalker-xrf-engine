@@ -1,8 +1,8 @@
 import { device } from "xray16";
 
 import { disposeManagers } from "@/engine/core/database";
+import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { resetSchemeHard } from "@/engine/core/schemes/base/utils";
-import { SoundTheme } from "@/engine/core/sounds/SoundTheme";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme } from "@/engine/lib/types/scheme";
@@ -28,7 +28,7 @@ extern("start", {
     registerSchemeModules();
 
     fillPhrasesTable();
-    SoundTheme.loadSound();
+    GlobalSoundManager.loadSoundThemes();
 
     resetSchemeHard(EScheme.SR_LIGHT);
   },

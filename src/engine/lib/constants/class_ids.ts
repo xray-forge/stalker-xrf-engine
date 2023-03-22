@@ -304,6 +304,32 @@ export const artefactClassIds = {
 
 /**
  * todo;
+ */
+export const gameClassId = {
+  CL_AHUNT: "CL_AHUNT",
+  CL_CTA: "CL_CTA",
+  CL_DM: "CL_DM",
+  CL_SINGL: "CL_SINGL",
+  CL_TDM: "CL_TDM",
+  SV_AHUNT: "SV_AHUNT",
+  SV_CTA: "SV_CTA",
+  SV_DM: "SV_DM",
+  SV_SINGL: "SV_SINGL",
+  SV_TDM: "SV_TDM",
+  UI_AHUNT: "UI_AHUNT",
+  UI_CTA: "UI_CTA",
+  UI_DM: "UI_DM",
+  UI_SINGL: "UI_SINGL",
+  UI_TDM: "UI_TDM",
+} as const;
+
+/**
+ * todo;
+ */
+export type TGameClassId = (typeof gameClassId)[keyof typeof gameClassId];
+
+/**
+ * todo;
  * C++ declared class identifiers from client side.
  */
 export enum EClientObjectClass {

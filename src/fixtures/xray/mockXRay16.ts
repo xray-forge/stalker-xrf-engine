@@ -4,6 +4,7 @@ import { MockActionBase, MockAnim, MockLook, MockMove } from "@/fixtures/xray/mo
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { mockGetConsole } from "@/fixtures/xray/mocks/console.mock";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
+import { mockRenderDevice } from "@/fixtures/xray/mocks/device.mock";
 import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
 import { mockGameInterface } from "@/fixtures/xray/mocks/gameInterface.mock";
 import { mockSystemIni } from "@/fixtures/xray/mocks/ini.mock";
@@ -94,7 +95,8 @@ export function mockXRay16({
   cse_smart_cover = MockAlifeSmartCover,
   cse_torrid_zone = MockTorridZone,
   danger_object = MockDangerObject,
-  editor = () => false,
+  device = jest.fn(() => mockRenderDevice()),
+  editor = jest.fn(() => false),
   effector = MockEffector,
   game = mockGameInterface,
   game_graph = () => new MockCGameGraph(),
@@ -149,6 +151,7 @@ export function mockXRay16({
     cse_torrid_zone,
     cse_zone_visual,
     danger_object,
+    device,
     editor,
     effector,
     game,

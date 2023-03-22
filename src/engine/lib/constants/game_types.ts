@@ -26,3 +26,14 @@ export const gameTypes = {
   GAME_LASTSTANDING: 100,
   GAME_DUMMY: 255, // --max(unsigned8)
 } as const;
+
+/**
+ * Possible game types supported by engine.
+ */
+export enum EGameType {
+  SINGLE = "single",
+  DEATH_MATCH = "deathmatch",
+  TEAM_DEATH_MATCH = "teamdeathmatch",
+  ARTEFACT_HUNT = "artefacthunt",
+  CAPTURE_THE_ARTEFACT = "capturetheartefact",
+}

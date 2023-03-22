@@ -64,7 +64,6 @@ import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTask";
 import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
-import { SoundTheme } from "@/engine/core/sounds/SoundTheme";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
@@ -197,7 +196,7 @@ export class StalkerBinder extends object_binder {
     registerHelicopterEnemy(this.object);
     this.helicopterEnemyIndex = registry.helicopter.enemiesCount - 1;
 
-    SoundTheme.init_npc_sound(this.object);
+    GlobalSoundManager.init_npc_sound(this.object);
 
     // todo: Separate place.
     if (getStoryIdByObjectId(objectId) === "zat_b53_artefact_hunter_1") {

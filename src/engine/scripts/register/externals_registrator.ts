@@ -10,7 +10,7 @@ export function registerExternals(): void {
   if (getExtern("areExternalsRegistered")) {
     return;
   } else {
-    extern("externalsRegistered", true);
+    extern("areExternalsRegistered", true);
   }
 
   extern("dialogs_pripyat", require("@/engine/scripts/declarations/dialogs/dialogs_pripyat"));

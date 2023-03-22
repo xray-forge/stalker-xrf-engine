@@ -12,7 +12,6 @@ import {
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
 import { AbstractPlayableSound } from "@/engine/core/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/engine/core/sounds/playable_sounds/EPlayableSound";
 import { abort } from "@/engine/core/utils/assertion";
@@ -129,6 +128,9 @@ export class ObjectSound extends AbstractPlayableSound {
     this.snd_obj = new sound_object(snd);
     this.snd_obj.play_at_pos(obj, obj.position(), 0, sound_object.s3d);
     this.can_play_sound = false;
+
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { NotificationManager } = require("@/engine/core/managers/notifications");
 
     NotificationManager.getInstance().sendSoundNotification(null, faction, point, snd, null, null);
 

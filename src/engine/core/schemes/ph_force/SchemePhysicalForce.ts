@@ -24,13 +24,13 @@ export class SchemePhysicalForce extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemePhysicalForceState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.logic = getConfigSwitchConditions(ini, section, object);
-    state.force = readIniNumber(ini, section, "force", object, true, 0);
-    state.time = readIniNumber(ini, section, "time", object, true, 0);
-    state.delay = readIniNumber(ini, section, "delay", object, false, 0);
+    state.logic = getConfigSwitchConditions(ini, section);
+    state.force = readIniNumber(ini, section, "force", true, 0);
+    state.time = readIniNumber(ini, section, "time", true, 0);
+    state.delay = readIniNumber(ini, section, "delay", false, 0);
 
-    const path_name = readIniString(ini, section, "point", object, true, "");
-    const index = readIniNumber(ini, section, "point_index", object, false, 0);
+    const path_name = readIniString(ini, section, "point", true, "");
+    const index = readIniNumber(ini, section, "point_index", false, 0);
 
     if (state.force === null || state.force <= 0) {
       abort("PH_FORCE : invalid force !");

@@ -16,7 +16,6 @@ import {
 } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
 import { AbstractPlayableSound } from "@/engine/core/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/engine/core/sounds/playable_sounds/EPlayableSound";
 import { abort } from "@/engine/core/utils/assertion";
@@ -326,6 +325,9 @@ export class NpcSound extends AbstractPlayableSound {
     } else {
       this.can_play_sound.set(objectId, false);
     }
+
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { NotificationManager } = require("@/engine/core/managers/notifications");
 
     if (game.translate_string(snd_st) !== snd_st) {
       if (!faction) {

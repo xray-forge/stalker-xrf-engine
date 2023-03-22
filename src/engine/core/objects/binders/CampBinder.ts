@@ -3,7 +3,6 @@ import {
   LuabindClass,
   object_binder,
   XR_cse_alife_object,
-  XR_game_object,
   XR_ini_file,
   XR_net_packet,
   XR_reader,
@@ -43,8 +42,8 @@ export class CampBinder extends object_binder {
 
     const ini: XR_ini_file = this.object.spawn_ini();
 
-    if (ini.section_exist(CampStoryManager.SCHEME_SECTION)) {
-      const filename: Optional<string> = readIniString(ini, CampStoryManager.SCHEME_SECTION, "cfg", false, "", null);
+    if (ini.section_exist("camp")) {
+      const filename: Optional<string> = readIniString(ini, "camp", "cfg", false, "", null);
 
       registry.camps.stories.set(
         this.object.id(),

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
+import { abort, assert, assertBoolean, assertDefined } from "@/engine/core/utils/assertion";
 
 describe("'debug' utils", () => {
   it("'abort' should correctly throw exceptions", () => {
@@ -28,5 +28,15 @@ describe("'debug' utils", () => {
     expect(() => assertDefined(true)).not.toThrow();
     expect(() => assertDefined({})).not.toThrow();
     expect(() => assertDefined([])).not.toThrow();
+  });
+
+  it("'assertBoolean' should correctly check and throw exceptions", () => {
+    expect(() => assertBoolean(null)).toThrow();
+    expect(() => assertBoolean({})).toThrow();
+    expect(() => assertBoolean("abc")).toThrow();
+    expect(() => assertBoolean(123)).toThrow();
+    expect(() => assertBoolean([])).toThrow();
+    expect(() => assertDefined(true)).not.toThrow();
+    expect(() => assertDefined(false)).not.toThrow();
   });
 });

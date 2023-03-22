@@ -12,6 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
+ * Note: not atomic scheme, just helper
  */
 export class SchemeCombatZombied extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_ZOMBIED;

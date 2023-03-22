@@ -199,6 +199,7 @@ export class NotificationManager extends AbstractCoreManager {
 
   /**
    * todo: Description.
+   * todo: Probably should be part of sound manager.
    */
   public sendSoundNotification(
     object: Optional<XR_game_object>,

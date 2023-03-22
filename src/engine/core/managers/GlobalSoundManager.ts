@@ -1,13 +1,20 @@
-import { XR_net_packet, XR_reader, XR_sound_object } from "xray16";
+import { XR_game_object, XR_net_packet, XR_reader, XR_sound_object } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { registry, SCRIPT_SOUND_LTX } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { AbstractPlayableSound } from "@/engine/core/sounds/playable_sounds/AbstractPlayableSound";
+import { ActorSound } from "@/engine/core/sounds/playable_sounds/ActorSound";
+import { EPlayableSound } from "@/engine/core/sounds/playable_sounds/EPlayableSound";
 import { LoopedSound } from "@/engine/core/sounds/playable_sounds/LoopedSound";
+import { NpcSound } from "@/engine/core/sounds/playable_sounds/NpcSound";
+import { ObjectSound } from "@/engine/core/sounds/playable_sounds/ObjectSound";
 import { abort } from "@/engine/core/utils/assertion";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
+import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
+import { getCharacterCommunity } from "@/engine/core/utils/object";
+import { resetTable } from "@/engine/core/utils/table";
+import { Optional, TCount, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -15,6 +22,67 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export class GlobalSoundManager extends AbstractCoreManager {
+  /**
+   * todo: check.
+   */
+  public static loadSoundThemes(): void {
+    logger.info("Load sound themes");
+
+    if (!SCRIPT_SOUND_LTX.section_exist("list")) {
+      abort("There is no section [list] in script_sound.ltx");
+    }
+
+    const linesCount: TCount = SCRIPT_SOUND_LTX.line_count("list");
+
+    resetTable(registry.sounds.themes);
+
+    for (const it of $range(0, linesCount - 1)) {
+      const [result, section, value] = SCRIPT_SOUND_LTX.r_line("list", it, "", "");
+
+      const type: EPlayableSound = readIniString<EPlayableSound>(
+        SCRIPT_SOUND_LTX,
+        section,
+        "type",
+        true,
+        ""
+      ) as EPlayableSound;
+
+      switch (type) {
+        case ObjectSound.type:
+          registry.sounds.themes.set(section, new ObjectSound(SCRIPT_SOUND_LTX, section));
+          break;
+
+        case NpcSound.type:
+          registry.sounds.themes.set(section, new NpcSound(SCRIPT_SOUND_LTX, section));
+          break;
+
+        case ActorSound.type:
+          registry.sounds.themes.set(section, new ActorSound(SCRIPT_SOUND_LTX, section));
+          break;
+
+        case LoopedSound.type:
+          registry.sounds.themes.set(section, new LoopedSound(SCRIPT_SOUND_LTX, section));
+          break;
+
+        default:
+          abort("Unexpected sound type provided for loading: %s", type);
+      }
+    }
+  }
+
+  /**
+   * todo: check.
+   */
+  public static init_npc_sound(npc: XR_game_object): void {
+    for (const [key, sound] of registry.sounds.themes) {
+      if (sound.type === NpcSound.type) {
+        if ((sound as NpcSound).avail_communities.has(getCharacterCommunity(npc))) {
+          (sound as NpcSound).init_npc(npc);
+        }
+      }
+    }
+  }
+
   /**
    * todo: Description.
    */

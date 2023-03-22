@@ -12,7 +12,6 @@ import {
 } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
 import { AbstractPlayableSound } from "@/engine/core/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound } from "@/engine/core/sounds/playable_sounds/EPlayableSound";
@@ -54,20 +53,20 @@ export class ActorSound extends AbstractPlayableSound {
 
   public sound: LuaTable;
 
-  public constructor(snd_ini: XR_ini_file, section: TSection) {
-    super(snd_ini, section);
+  public constructor(soundIni: XR_ini_file, section: TSection) {
+    super(soundIni, section);
 
-    this.stereo = readIniBoolean(snd_ini, section, "actor_stereo", false, false);
-    this.prefix = readIniBoolean(snd_ini, section, "npc_prefix", false, false);
-    this.shuffle = readIniString(snd_ini, section, "shuffle", false, "", "rnd");
-    this.play_always = readIniBoolean(snd_ini, section, "play_always", false, false);
+    this.stereo = readIniBoolean(soundIni, section, "actor_stereo", false, false);
+    this.prefix = readIniBoolean(soundIni, section, "npc_prefix", false, false);
+    this.shuffle = readIniString(soundIni, section, "shuffle", false, "", "rnd");
+    this.play_always = readIniBoolean(soundIni, section, "play_always", false, false);
     this.section = section;
 
     if (this.prefix) {
       this.path = "characters_voice\\" + this.path;
     }
 
-    const interval = parseStringsList(readIniString(snd_ini, section, "idle", false, "", "3,5,100"));
+    const interval = parseStringsList(readIniString(soundIni, section, "idle", false, "", "3,5,100"));
 
     this.min_idle = tonumber(interval.get(1))!;
     this.max_idle = tonumber(interval.get(2))!;
@@ -76,9 +75,9 @@ export class ActorSound extends AbstractPlayableSound {
     this.sound = new LuaTable();
     this.snd_obj = null;
     this.can_play_sound = true;
-    this.faction = readIniString(snd_ini, section, "faction", false, "", "");
-    this.point = readIniString(snd_ini, section, "point", false, "", "");
-    this.msg = readIniString(snd_ini, section, "message", false, "", "");
+    this.faction = readIniString(soundIni, section, "faction", false, "", "");
+    this.point = readIniString(soundIni, section, "point", false, "", "");
+    this.msg = readIniString(soundIni, section, "message", false, "", "");
 
     const fs: XR_FS = getFS();
 
@@ -141,6 +140,9 @@ export class ActorSound extends AbstractPlayableSound {
      */
 
     this.can_play_sound = false;
+
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { NotificationManager } = require("@/engine/core/managers/notifications");
 
     NotificationManager.getInstance().sendSoundNotification(null, faction, point, snd, null, null);
 

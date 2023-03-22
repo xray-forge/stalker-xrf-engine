@@ -27,7 +27,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class SchemeMeet extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MEET;
-  public static readonly SCHEME_SECTION_ADDITIONAL: EScheme = EScheme.ACTOR_DIALOGS;
+  public static readonly SCHEME_SECTION_ACTOR_DIALOGS: EScheme = EScheme.ACTOR_DIALOGS;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**

@@ -22,8 +22,6 @@ const E_NPC_ROLE = { noone: 0, listener: 1, director: 2 };
 // todo: Rename to camp story?
 // todo: Move?
 export class CampStoryManager {
-  public static readonly SCHEME_SECTION: EScheme = EScheme.CAMP;
-
   /**
    * todo: Description.
    */
@@ -117,22 +115,15 @@ export class CampStoryManager {
     this.object = object;
     this.ini = ini;
 
-    const stories = readIniString(ini, CampStoryManager.SCHEME_SECTION, "stories", false, "", "test_story");
-    const guitars = readIniString(ini, CampStoryManager.SCHEME_SECTION, "guitar_themes", false, "", "test_guitar");
-    const harmonicas = readIniString(
-      ini,
-      CampStoryManager.SCHEME_SECTION,
-      "harmonica_themes",
-      false,
-      "",
-      "test_harmonica"
-    );
+    const stories = readIniString(ini, "camp", "stories", false, "", "test_story");
+    const guitars = readIniString(ini, "camp", "guitar_themes", false, "", "test_guitar");
+    const harmonicas = readIniString(ini, "camp", "harmonica_themes", false, "", "test_harmonica");
 
     this.story_table = parseStringsList(stories);
     this.guitar_table = parseStringsList(guitars);
     this.harmonica_table = parseStringsList(harmonicas);
 
-    this.sound_manager = getSoundManagerForId(CampStoryManager.SCHEME_SECTION + this.object.id());
+    this.sound_manager = getSoundManagerForId("camp" + this.object.id());
 
     this.states = {
       idle: {

@@ -23,12 +23,15 @@ extern("register", {
    * todo: Description.
    */
   getGameClassId: (gameTypeOption: string, isServer: boolean): void => {
-    (require("@/engine/scripts/register/game_registrator").getGameClassId as AnyCallable)(gameTypeOption, isServer);
+    (require("@/engine/scripts/register/game_class_id_registrator").getGameClassId as AnyCallable)(
+      gameTypeOption,
+      isServer
+    );
   },
   /**
    * todo: Description.
    */
   getUiClassId: (gameType: string): void => {
-    (require("@/engine/scripts/register/ui_registrator").getUiClassId as AnyCallable)(gameType);
+    (require("@/engine/scripts/register/ui_class_id_registrator").getUiClassId as AnyCallable)(gameType);
   },
 });

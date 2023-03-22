@@ -12,7 +12,6 @@ export enum EScheme {
   ABUSE = "abuse",
   ACTOR_DIALOGS = "actor_dialogs",
   ANIMPOINT = "animpoint",
-  CAMP = "camp",
   CAMPER = "camper",
   COMBAT = "combat",
   COMBAT_CAMPER = "combat_camper",

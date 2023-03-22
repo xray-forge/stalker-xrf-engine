@@ -4,6 +4,7 @@ import { SchemeAnimpoint } from "@/engine/core/schemes/animpoint";
 import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import { SchemeCamper } from "@/engine/core/schemes/camper";
 import { SchemeCombat } from "@/engine/core/schemes/combat";
+import { SchemeCombatCamper } from "@/engine/core/schemes/combat_camper";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore";
 import { SchemeCombatZombied } from "@/engine/core/schemes/combat_zombied";
 import { SchemeCompanion } from "@/engine/core/schemes/companion";
@@ -27,6 +28,7 @@ import { SchemePatrol } from "@/engine/core/schemes/patrol/SchemePatrol";
 import { SchemePhysicalButton } from "@/engine/core/schemes/ph_button";
 import { SchemeCode } from "@/engine/core/schemes/ph_code";
 import { SchemePhysicalDoor } from "@/engine/core/schemes/ph_door";
+import { SchemePhysicalForce } from "@/engine/core/schemes/ph_force";
 import { SchemePhysicalHit } from "@/engine/core/schemes/ph_hit";
 import { SchemePhysicalIdle } from "@/engine/core/schemes/ph_idle";
 import { SchemeMinigun } from "@/engine/core/schemes/ph_minigun";
@@ -89,75 +91,64 @@ export function loadSchemeImplementations(schemeImplementations: Array<TAbstract
  * todo;
  */
 export function registerSchemeModules(): void {
-  logger.info("Initialize scheme modules");
+  logger.info("Register scheme modules");
 
-  // Stalkers schemes.
   loadSchemeImplementations([
+    ActionSchemeHear,
     SchemeAbuse,
-    SchemeCorpseDetection,
-    SchemeCover,
-    SchemeDanger,
-    SchemeDeath,
-    SchemeGatherItems,
-    SchemeHit,
     SchemeAnimpoint,
     SchemeCamper,
+    SchemeCode,
     SchemeCombat,
     SchemeCombatIgnore,
     SchemeCombatZombied,
+    SchemeCombatCamper,
     SchemeCompanion,
-    ActionSchemeHear,
+    SchemeCorpseDetection,
+    SchemeCover,
+    SchemeCrowSpawner,
+    SchemeCutscene,
+    SchemeDanger,
+    SchemeDeath,
+    SchemeDeimos,
+    SchemeGatherItems,
+    SchemeHelicopterMove,
     SchemeHelpWounded,
-    SchemePatrol,
-    SchemeReachTask,
-    SchemeRemark,
-    SchemeSmartCover,
-    SchemeSleeper,
-    SchemeWalker,
-    SchemeWounded,
-  ]);
-
-  loadSchemeImplementation(SchemeMeet, SchemeMeet.SCHEME_SECTION);
-  loadSchemeImplementation(SchemeMeet, SchemeMeet.SCHEME_SECTION_ADDITIONAL);
-
-  // Mob schemes.
-  loadSchemeImplementations([
+    SchemeHit,
+    SchemeIdle,
+    SchemeLight,
+    SchemeMeet,
+    SchemeMinigun,
     SchemeMobCombat,
     SchemeMobDeath,
     SchemeMobHome,
     SchemeMobJump,
     SchemeMobRemark,
     SchemeMobWalker,
-  ]);
-
-  // Item schemes.
-  loadSchemeImplementations([
-    SchemePhysicalButton,
-    SchemeCode,
-    SchemePhysicalDoor,
-    SchemeHelicopterMove,
-    SchemePhysicalHit,
-    SchemeMinigun,
-    SchemePhysicalOnDeath,
-    SchemePhysicalOnHit,
-    SchemeOscillate,
-    SchemePhysicalIdle,
-  ]);
-
-  // Restrictor schemes.
-  loadSchemeImplementations([
-    SchemeCrowSpawner,
-    SchemeCutscene,
-    SchemeDeimos,
-    SchemeIdle,
-    SchemeLight,
     SchemeMonster,
     SchemeNoWeapon,
+    SchemeOscillate,
     SchemeParticle,
+    SchemePatrol,
+    SchemePhysicalButton,
+    SchemePhysicalDoor,
+    SchemePhysicalForce,
+    SchemePhysicalHit,
+    SchemePhysicalIdle,
+    SchemePhysicalOnDeath,
+    SchemePhysicalOnHit,
     SchemePostProcess,
     SchemePsyAntenna,
+    SchemeReachTask,
+    SchemeRemark,
     SchemeSilence,
+    SchemeSleeper,
+    SchemeSmartCover,
     SchemeTeleport,
     SchemeTimer,
+    SchemeWalker,
+    SchemeWounded,
   ]);
+
+  loadSchemeImplementation(SchemeMeet, SchemeMeet.SCHEME_SECTION_ACTOR_DIALOGS);
 }
