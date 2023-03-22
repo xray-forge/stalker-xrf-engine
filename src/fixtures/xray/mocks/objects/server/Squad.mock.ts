@@ -3,11 +3,12 @@ import { TXR_class_id } from "xray16";
 
 import { Squad } from "@/engine/core/objects";
 import { mockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
+import { AbstractLuabindClass } from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
 
 /**
  * todo
  */
-export class MockSquad {}
+export class MockSquad extends AbstractLuabindClass {}
 
 /**
  * todo;

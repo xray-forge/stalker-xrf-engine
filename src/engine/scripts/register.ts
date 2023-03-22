@@ -17,21 +17,18 @@ extern("register", {
    * todo: Description.
    */
   registerGameClasses: (factory: XR_object_factory): void => {
-    (require("@/engine/scripts/declarations/register/class_registrator").registerGameClasses as AnyCallable)(factory);
+    (require("@/engine/scripts/register/class_registrator").registerGameClasses as AnyCallable)(factory);
   },
   /**
    * todo: Description.
    */
   getGameClassId: (gameTypeOption: string, isServer: boolean): void => {
-    (require("@/engine/scripts/declarations/register/game_registrator").getGameClassId as AnyCallable)(
-      gameTypeOption,
-      isServer
-    );
+    (require("@/engine/scripts/register/game_registrator").getGameClassId as AnyCallable)(gameTypeOption, isServer);
   },
   /**
    * todo: Description.
    */
   getUiClassId: (gameType: string): void => {
-    (require("@/engine/scripts/declarations/register/ui_registrator").getUiClassId as AnyCallable)(gameType);
+    (require("@/engine/scripts/register/ui_registrator").getUiClassId as AnyCallable)(gameType);
   },
 });

@@ -1,13 +1,12 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { AnyObject } from "@/engine/lib/types";
+
 describe("'bind' entry point", () => {
-  const checkBinding = (name: string) => {
-    // @ts-ignore
-    expect(typeof global["bind"]).not.toBeNull();
-    // @ts-ignore
-    expect(typeof global["bind"]).toBe("object");
-    // @ts-ignore
-    expect(typeof global["bind"][name]).toBe("function");
+  const checkBinding = (name: string, container: AnyObject = global) => {
+    expect(typeof container["bind"]).not.toBeNull();
+    expect(typeof container["bind"]).toBe("object");
+    expect(typeof container["bind"][name]).toBe("function");
   };
 
   it("should correctly inject binding for game objects", () => {

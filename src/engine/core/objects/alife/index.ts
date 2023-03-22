@@ -1,3 +1,6 @@
+export * from "@/engine/core/objects/alife/items";
+export * from "@/engine/core/objects/alife/zones";
+
 export * from "@/engine/core/objects/alife/Actor";
 export * from "@/engine/core/objects/alife/Helicopter";
 export * from "@/engine/core/objects/alife/LevelChanger";

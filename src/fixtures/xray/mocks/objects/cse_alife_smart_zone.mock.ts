@@ -1,4 +1,0 @@
-/**
- * todo;
- */
-export class MockAlifeSmartZone {}

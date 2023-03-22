@@ -378,3 +378,10 @@ export enum EClientObjectClass {
   hanging_lamp = "hanging_lamp",
   smart_cover_object = "smart_cover_object",
 }
+
+/**
+ * todo;
+ */
+export enum EConfigClassId {
+  SMART_TERRAIN = "SMRTTRRN",
+}

@@ -3,8 +3,8 @@ import { describe, expect, it } from "@jest/globals";
 import { evaluateSimulationPriority, evaluateSimulationPriorityByDistance } from "@/engine/core/utils/alife";
 import { mockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { MockCVertex } from "@/fixtures/xray/mocks/CVertex.mock";
-import { mockServerAlifeObject } from "@/fixtures/xray/mocks/objects/cse_alife_object.mock";
-import { mockSquad } from "@/fixtures/xray/mocks/objects/Squad.mock";
+import { mockServerAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
+import { mockSquad } from "@/fixtures/xray/mocks/objects/server/Squad.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("'alife' utils", () => {

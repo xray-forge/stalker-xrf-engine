@@ -1,5 +1,3 @@
-/* eslint @typescript-eslint/no-var-requires: 0 */
-
 import { game, level, task, TXR_TaskState, XR_CGameTask, XR_CPhraseDialog, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
@@ -53,15 +51,6 @@ logger.info("Resolve and bind externals");
  * todo: Smaller registration files instead of one big file.
  * todo: Docblocks.
  */
-
-extern("xr_conditions", require("@/engine/scripts/declarations/conditions"));
-extern("xr_effects", require("@/engine/scripts/declarations/effects"));
-extern("dialogs_pripyat", require("@/engine/scripts/declarations/dialogs/dialogs_pripyat"));
-extern("dialogs_jupiter", require("@/engine/scripts/declarations/dialogs/dialogs_jupiter"));
-extern("dialogs_zaton", require("@/engine/scripts/declarations/dialogs/dialogs_zaton"));
-extern("dialogs", require("@/engine/scripts/declarations/dialogs/dialogs"));
-extern("dialog_manager", require("@/engine/scripts/declarations/dialogs/dialog_manager"));
-extern("functors", require("@/engine/scripts/declarations/functors"));
 
 // todo: Check if needed.
 extern("smart_covers", {
