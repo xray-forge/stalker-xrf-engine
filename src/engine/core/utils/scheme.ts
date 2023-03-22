@@ -1,8 +1,7 @@
 import { stalker_ids, world_property, XR_action_base, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
+import { EEvaluatorId, IBaseSchemeState } from "@/engine/core/schemes";
 import { abort } from "@/engine/core/utils/assertion";
 
 /**
@@ -20,10 +19,10 @@ export function isSchemeActive(object: XR_game_object, state: IBaseSchemeState):
  * Add common preconditions for base action to give priority for other default actions.
  */
 export function addCommonPrecondition(action: XR_action_base): void {
-  action.add_precondition(new world_property(evaluators_id.stohe_meet_base + 1, false));
-  action.add_precondition(new world_property(evaluators_id.sidor_wounded_base + 0, false));
-  action.add_precondition(new world_property(evaluators_id.abuse_base, false));
-  action.add_precondition(new world_property(evaluators_id.wounded_exist, false));
-  action.add_precondition(new world_property(evaluators_id.corpse_exist, false));
+  action.add_precondition(new world_property(EEvaluatorId.stohe_meet_base + 1, false));
+  action.add_precondition(new world_property(EEvaluatorId.sidor_wounded_base + 0, false));
+  action.add_precondition(new world_property(EEvaluatorId.abuse_base, false));
+  action.add_precondition(new world_property(EEvaluatorId.wounded_exist, false));
+  action.add_precondition(new world_property(EEvaluatorId.corpse_exist, false));
   action.add_precondition(new world_property(stalker_ids.property_items, false));
 }

@@ -2,8 +2,8 @@ import { alife, XR_alife_simulator, XR_cse_alife_object, XR_game_object, XR_ini_
 
 import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { IBaseSchemeLogic } from "@/engine/core/schemes";
-import { getExtern } from "@/engine/core/utils/binding";
 import { abort } from "@/engine/core/utils/assertion";
+import { getExtern } from "@/engine/core/utils/binding";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import {
   addCondition,

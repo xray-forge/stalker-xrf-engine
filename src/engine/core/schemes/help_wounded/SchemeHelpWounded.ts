@@ -2,7 +2,7 @@ import { alife, stalker_ids, world_property, XR_action_planner, XR_game_object, 
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { AbstractScheme, action_ids, evaluators_id } from "@/engine/core/schemes/base";
+import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionHelpWounded } from "@/engine/core/schemes/help_wounded/actions";
 import { EvaluatorWoundedExist } from "@/engine/core/schemes/help_wounded/evaluators";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/help_wounded/ISchemeHelpWoundedState";
@@ -45,12 +45,12 @@ export class SchemeHelpWounded extends AbstractScheme {
     state: ISchemeHelpWoundedState
   ): void {
     const operators = {
-      help_wounded: action_ids.wounded_exist,
-      state_mgr_to_idle_alife: action_ids.state_mgr + 2,
+      help_wounded: EActionId.wounded_exist,
+      state_mgr_to_idle_alife: EActionId.state_mgr + 2,
     };
     const properties = {
-      wounded_exist: evaluators_id.wounded_exist,
-      wounded: evaluators_id.sidor_wounded_base,
+      wounded_exist: EEvaluatorId.wounded_exist,
+      wounded: EEvaluatorId.sidor_wounded_base,
     };
 
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
@@ -68,7 +68,7 @@ export class SchemeHelpWounded extends AbstractScheme {
     action.add_effect(new world_property(properties.wounded_exist, false));
 
     actionPlanner.add_action(operators.help_wounded, action);
-    actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.wounded_exist, false));
+    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.wounded_exist, false));
     actionPlanner
       .action(operators.state_mgr_to_idle_alife)
       .add_precondition(new world_property(properties.wounded_exist, false));
@@ -102,7 +102,7 @@ export class SchemeHelpWounded extends AbstractScheme {
       return false;
     }
 
-    return actionManager.current_action_id() === action_ids.wounded_exist;
+    return actionManager.current_action_id() === EActionId.wounded_exist;
   }
 
   /**

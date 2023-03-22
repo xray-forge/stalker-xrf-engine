@@ -1,8 +1,6 @@
 import { level, stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { action_ids } from "@/engine/core/schemes/base/actions_id";
-import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
+import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionWalkerActivity } from "@/engine/core/schemes/walker/actions";
 import { EvaluatorNeedWalker } from "@/engine/core/schemes/walker/evaluators";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker/ISchemeWalkerState";
@@ -77,13 +75,13 @@ export class SchemeWalker extends AbstractScheme {
     state: ISchemeWalkerState
   ): void {
     const operators = {
-      action_walker: action_ids.zmey_walker_base + 1,
+      action_walker: EActionId.zmey_walker_base + 1,
     };
 
     const properties = {
-      event: evaluators_id.reaction,
-      need_walker: evaluators_id.zmey_walker_base + 1,
-      state_mgr_logic_active: evaluators_id.state_mgr + 4,
+      event: EEvaluatorId.REACTION,
+      need_walker: EEvaluatorId.zmey_walker_base + 1,
+      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
     };
 
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
@@ -107,6 +105,6 @@ export class SchemeWalker extends AbstractScheme {
 
     SchemeWalker.subscribe(object, state, actionWalkerActivity);
 
-    actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_walker, false));
+    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.need_walker, false));
   }
 }

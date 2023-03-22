@@ -1,8 +1,7 @@
 import { stalker_ids, world_property, XR_game_object, XR_ini_file } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { action_ids } from "@/engine/core/schemes/base/actions_id";
-import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
+import { EActionId, EEvaluatorId } from "@/engine/core/schemes/base/id";
 import { ActionSmartCoverActivity } from "@/engine/core/schemes/smartcover/actions";
 import { EvaluatorNeedSmartCover, EvaluatorUseSmartCoverInCombat } from "@/engine/core/schemes/smartcover/evaluators";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/smartcover/ISchemeSmartCoverState";
@@ -62,13 +61,13 @@ export class SchemeSmartCover extends AbstractScheme {
     state: ISchemeSmartCoverState
   ): void {
     const operators = {
-      action_smartcover: action_ids.smartcover_action,
-      action_combat_smartcover: action_ids.smartcover_action + 2,
+      action_smartcover: EActionId.smartcover_action,
+      action_combat_smartcover: EActionId.smartcover_action + 2,
     };
     const properties = {
-      need_smartcover: evaluators_id.smartcover_action + 1,
-      use_smartcover_in_combat: evaluators_id.smartcover_action + 2,
-      state_mgr_logic_active: evaluators_id.state_mgr + 4,
+      need_smartcover: EEvaluatorId.smartcover_action + 1,
+      use_smartcover_in_combat: EEvaluatorId.smartcover_action + 2,
+      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
     };
 
     const manager = object.motivation_action_manager();
@@ -84,9 +83,9 @@ export class SchemeSmartCover extends AbstractScheme {
     actionSmartCoverActivity.add_precondition(new world_property(properties.use_smartcover_in_combat, false));
     actionSmartCoverActivity.add_precondition(new world_property(stalker_ids.property_enemy, false));
 
-    actionSmartCoverActivity.add_precondition(new world_property(evaluators_id.stohe_meet_base + 1, false));
-    actionSmartCoverActivity.add_precondition(new world_property(evaluators_id.sidor_wounded_base, false));
-    actionSmartCoverActivity.add_precondition(new world_property(evaluators_id.abuse_base, false));
+    actionSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.stohe_meet_base + 1, false));
+    actionSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.sidor_wounded_base, false));
+    actionSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.abuse_base, false));
 
     actionSmartCoverActivity.add_effect(new world_property(properties.need_smartcover, false));
     actionSmartCoverActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
@@ -95,7 +94,7 @@ export class SchemeSmartCover extends AbstractScheme {
 
     SchemeSmartCover.subscribe(object, state, actionSmartCoverActivity);
 
-    manager.action(action_ids.alife).add_precondition(new world_property(properties.need_smartcover, false));
+    manager.action(EActionId.alife).add_precondition(new world_property(properties.need_smartcover, false));
     manager
       .action(stalker_ids.action_combat_planner)
       .add_precondition(new world_property(properties.use_smartcover_in_combat, false));

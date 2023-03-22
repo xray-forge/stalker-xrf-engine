@@ -1,6 +1,6 @@
 import { stalker_ids, world_property, XR_action_base, XR_game_object, XR_ini_file } from "xray16";
 
-import { AbstractScheme, action_ids, evaluators_id } from "@/engine/core/schemes/base";
+import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionCamperPatrol } from "@/engine/core/schemes/camper/actions";
 import { EvaluatorCloseCombat, EvaluatorEnd } from "@/engine/core/schemes/camper/evaluators";
 import { ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
@@ -92,15 +92,15 @@ export class SchemeCamper extends AbstractScheme {
     state: ISchemeCamperState
   ): void {
     const operators = {
-      patrol: action_ids.stohe_camper_base + 1,
-      search_corpse: action_ids.corpse_exist,
-      help_wounded: action_ids.wounded_exist,
+      patrol: EActionId.stohe_camper_base + 1,
+      search_corpse: EActionId.corpse_exist,
+      help_wounded: EActionId.wounded_exist,
     };
     const properties = {
-      end: evaluators_id.stohe_camper_base + 1,
-      can_fight: evaluators_id.sidor_wounded_base + 1,
-      close_combat: evaluators_id.stohe_camper_base + 2,
-      state_mgr_logic_active: evaluators_id.state_mgr + 4,
+      end: EEvaluatorId.stohe_camper_base + 1,
+      can_fight: EEvaluatorId.sidor_wounded_base + 1,
+      close_combat: EEvaluatorId.stohe_camper_base + 2,
+      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
     };
 
     const manager = object.motivation_action_manager();
@@ -117,9 +117,9 @@ export class SchemeCamper extends AbstractScheme {
     actionPatrol.add_precondition(new world_property(stalker_ids.property_danger, false));
     actionPatrol.add_precondition(new world_property(stalker_ids.property_anomaly, false));
 
-    actionPatrol.add_precondition(new world_property(evaluators_id.stohe_meet_base + 1, false));
-    actionPatrol.add_precondition(new world_property(evaluators_id.sidor_wounded_base + 0, false));
-    actionPatrol.add_precondition(new world_property(evaluators_id.abuse_base, false));
+    actionPatrol.add_precondition(new world_property(EEvaluatorId.stohe_meet_base + 1, false));
+    actionPatrol.add_precondition(new world_property(EEvaluatorId.sidor_wounded_base + 0, false));
+    actionPatrol.add_precondition(new world_property(EEvaluatorId.abuse_base, false));
 
     actionPatrol.add_effect(new world_property(properties.end, true));
     actionPatrol.add_effect(new world_property(stalker_ids.property_enemy, false));
@@ -127,7 +127,7 @@ export class SchemeCamper extends AbstractScheme {
     manager.add_action(operators.patrol, actionPatrol);
     SchemeCamper.subscribe(object, state, actionPatrol);
 
-    manager.action(action_ids.alife).add_precondition(new world_property(properties.end, true));
+    manager.action(EActionId.alife).add_precondition(new world_property(properties.end, true));
     manager.action(stalker_ids.action_gather_items).add_precondition(new world_property(properties.end, true));
     manager.action(operators.search_corpse).add_precondition(new world_property(properties.end, true));
     manager.action(operators.help_wounded).add_precondition(new world_property(properties.end, true));

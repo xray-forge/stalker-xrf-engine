@@ -1,8 +1,8 @@
 import { alife, level, vector, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from "xray16";
 
 import { Squad } from "@/engine/core/objects";
-import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { abort } from "@/engine/core/utils/assertion";
+import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";
 import { vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/physics";

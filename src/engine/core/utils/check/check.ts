@@ -12,7 +12,7 @@ import {
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/alife/Squad";
-import { action_ids } from "@/engine/core/schemes/base/actions_id";
+import { EActionId } from "@/engine/core/schemes/base";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { isStalker } from "@/engine/core/utils/check/is";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
@@ -145,7 +145,7 @@ export function isObjectMeeting(object: XR_game_object): boolean {
 
   if (actionPlanner !== null && actionPlanner.initialized()) {
     // todo: Hardcoded constant.
-    if (actionPlanner.current_action_id() === action_ids.stohe_meet_base + 1) {
+    if (actionPlanner.current_action_id() === EActionId.stohe_meet_base + 1) {
       return true;
     }
   }

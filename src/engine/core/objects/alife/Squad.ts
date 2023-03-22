@@ -40,8 +40,8 @@ import { SquadStayOnTargetAction } from "@/engine/core/objects/alife/SquadStayOn
 import { TSimulationObject, TSquadAction } from "@/engine/core/objects/alife/types";
 import { StateManager } from "@/engine/core/objects/state/StateManager";
 import { getSoundManagerForId, SoundManager } from "@/engine/core/sounds/SoundManager";
-import { isSquadMonsterCommunity } from "@/engine/core/utils/check/is";
 import { abort } from "@/engine/core/utils/assertion";
+import { isSquadMonsterCommunity } from "@/engine/core/utils/check/is";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";

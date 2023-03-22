@@ -6,8 +6,7 @@ import { StateManagerEvaIdleAlife } from "@/engine/core/objects/state/state/Stat
 import { StateManagerEvaIdleItems } from "@/engine/core/objects/state/state/StateManagerEvaIdleItems";
 import { StateManagerEvaLogicActive } from "@/engine/core/objects/state/state/StateManagerEvaLogicActive";
 import { StateManager } from "@/engine/core/objects/state/StateManager";
-import { action_ids } from "@/engine/core/schemes/base/actions_id";
-import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
+import { EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -20,17 +19,17 @@ export function bind_state_manager(object: XR_game_object): StateManager {
   const planner = object.motivation_action_manager();
 
   const properties = {
-    state_mgr_idle_combat: evaluators_id.state_mgr + 1,
-    state_mgr_idle_alife: evaluators_id.state_mgr + 2,
-    state_mgr_idle_smartcover: evaluators_id.state_mgr + 3,
-    state_mgr_logic_active: evaluators_id.state_mgr + 4,
-    state_mgr_idle_items: evaluators_id.state_mgr + 5,
+    state_mgr_idle_combat: EEvaluatorId.state_mgr + 1,
+    state_mgr_idle_alife: EEvaluatorId.state_mgr + 2,
+    state_mgr_idle_smartcover: EEvaluatorId.state_mgr + 3,
+    state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
+    state_mgr_idle_items: EEvaluatorId.state_mgr + 5,
   };
 
   const operators = {
-    state_mgr_to_idle_combat: action_ids.state_mgr + 1,
-    state_mgr_to_idle_alife: action_ids.state_mgr + 2,
-    state_mgr_to_idle_items: action_ids.state_mgr + 3,
+    state_mgr_to_idle_combat: EActionId.state_mgr + 1,
+    state_mgr_to_idle_alife: EActionId.state_mgr + 2,
+    state_mgr_to_idle_items: EActionId.state_mgr + 3,
   };
 
   const stateManager: StateManager = new StateManager(object);
@@ -64,7 +63,7 @@ export function bind_state_manager(object: XR_game_object): StateManager {
 
   planner.add_action(operators.state_mgr_to_idle_alife, action);
 
-  planner.action(action_ids.alife).add_precondition(new world_property(properties.state_mgr_idle_alife, true));
+  planner.action(EActionId.alife).add_precondition(new world_property(properties.state_mgr_idle_alife, true));
 
   planner
     .action(stalker_ids.action_gather_items)

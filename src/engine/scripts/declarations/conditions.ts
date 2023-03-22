@@ -35,6 +35,7 @@ import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAn
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { ISchemeHitState } from "@/engine/core/schemes/hit";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos/SchemeDeimos";
+import { abort } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
 import {
   isActorAlive,
@@ -52,7 +53,6 @@ import {
   isSquadExisting,
 } from "@/engine/core/utils/check/check";
 import { isMonster, isStalker, isWeapon } from "@/engine/core/utils/check/is";
-import { abort } from "@/engine/core/utils/assertion";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";

@@ -1,8 +1,6 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { action_ids } from "@/engine/core/schemes/base/actions_id";
-import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
+import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionSleeperActivity } from "@/engine/core/schemes/sleeper/actions/ActionSleeperActivity";
 import { EvaluatorNeedSleep } from "@/engine/core/schemes/sleeper/evaluators/EvaluatorNeedSleep";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper/ISchemeSleeperState";
@@ -53,12 +51,12 @@ export class SchemeSleeper extends AbstractScheme {
     state: ISchemeSleeperState
   ): void {
     const operators = {
-      action_sleeper: action_ids.zmey_sleeper_base + 1,
+      action_sleeper: EActionId.zmey_sleeper_base + 1,
     };
 
     const properties = {
-      need_sleeper: evaluators_id.zmey_sleeper_base + 1,
-      state_mgr_logic_active: evaluators_id.state_mgr + 4,
+      need_sleeper: EEvaluatorId.zmey_sleeper_base + 1,
+      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
     };
 
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
@@ -82,6 +80,6 @@ export class SchemeSleeper extends AbstractScheme {
 
     SchemeSleeper.subscribe(object, state, actionSleeper);
 
-    actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_sleeper, false));
+    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.need_sleeper, false));
   }
 }

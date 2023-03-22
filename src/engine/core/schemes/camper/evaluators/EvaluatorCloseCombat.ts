@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator, stalker_ids, time_global, XR_action_planner } from "xray16";
 
-import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
+import { EEvaluatorId } from "@/engine/core/schemes";
 import { ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { isActiveSection } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -41,7 +41,7 @@ export class EvaluatorCloseCombat extends property_evaluator {
       return false;
     }
 
-    if (!this.actionPlanner.evaluator(evaluators_id.sidor_wounded_base + 1).evaluate()) {
+    if (!this.actionPlanner.evaluator(EEvaluatorId.sidor_wounded_base + 1).evaluate()) {
       return false;
     }
 

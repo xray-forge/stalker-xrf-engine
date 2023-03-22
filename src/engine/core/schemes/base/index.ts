@@ -3,5 +3,4 @@ export * from "@/engine/core/schemes/base/AbstractSchemeManager";
 export * from "@/engine/core/schemes/base/ESchemeEvent";
 export * from "@/engine/core/schemes/base/IBaseSchemeState";
 export * from "@/engine/core/schemes/base/ObjectRestrictionsManager";
-export * from "@/engine/core/schemes/base/actions_id";
-export * from "@/engine/core/schemes/base/evaluators_id";
+export * from "@/engine/core/schemes/base/id";

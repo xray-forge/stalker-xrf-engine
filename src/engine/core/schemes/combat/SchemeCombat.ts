@@ -1,7 +1,7 @@
 import { stalker_ids, world_property, XR_action_base, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { AbstractScheme, evaluators_id } from "@/engine/core/schemes/base";
+import { AbstractScheme, EEvaluatorId } from "@/engine/core/schemes";
 import { EvaluatorCheckCombat } from "@/engine/core/schemes/combat/evaluators/EvaluatorCheckCombat";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat/ISchemeCombatState";
 import { SchemeCombatCamper } from "@/engine/core/schemes/combat_camper/SchemeCombatCamper";
@@ -76,11 +76,11 @@ export class SchemeCombat extends AbstractScheme {
   ): void {
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(evaluators_id.script_combat, new EvaluatorCheckCombat(state));
+    actionPlanner.add_evaluator(EEvaluatorId.script_combat, new EvaluatorCheckCombat(state));
 
     const action: XR_action_base = actionPlanner.action(stalker_ids.action_combat_planner);
 
-    action.add_precondition(new world_property(evaluators_id.script_combat, false));
+    action.add_precondition(new world_property(EEvaluatorId.script_combat, false));
 
     SchemeCombatZombied.add(object, ini, scheme, section, state, actionPlanner);
     SchemeCombatCamper.add(object, ini, scheme, section, state, actionPlanner);

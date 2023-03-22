@@ -11,8 +11,8 @@ import {
 
 import { registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
-import { isStalker } from "@/engine/core/utils/check/is";
 import { abort } from "@/engine/core/utils/assertion";
+import { isStalker } from "@/engine/core/utils/check/is";
 import { getObjectClassId } from "@/engine/core/utils/id";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";

@@ -8,7 +8,7 @@ import { Optional, TDuration, TIndex } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo; move to registry
+ * todo; move to registry, get rid of globals?
  */
 let uiActiveSlot: TIndex = 0;
 let isActorNightVisionEnabled: boolean = false;

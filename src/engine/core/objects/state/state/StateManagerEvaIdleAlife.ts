@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator, XR_action_planner } from "xray16";
 
 import { EStateManagerProperty } from "@/engine/core/objects/state/EStateManagerProperty";
 import { StateManager } from "@/engine/core/objects/state/StateManager";
-import { action_ids } from "@/engine/core/schemes/base/actions_id";
+import { EActionId } from "@/engine/core/schemes";
 import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -40,7 +40,7 @@ export class StateManagerEvaIdleAlife extends property_evaluator {
 
     if (actionPlanner.initialized()) {
       this.currentActionId = actionPlanner.current_action_id();
-      if (this.currentActionId !== action_ids.alife) {
+      if (this.currentActionId !== EActionId.alife) {
         this.stateManager.alife = false;
       }
     }
@@ -58,11 +58,11 @@ export class StateManagerEvaIdleAlife extends property_evaluator {
         this.stateManager.planner.evaluator(EStateManagerProperty.animation).evaluate() &&
         this.stateManager.planner.evaluator(EStateManagerProperty.smartcover).evaluate();
 
-      if (isAlifeIdle === true) {
+      if (isAlifeIdle) {
         this.stateManager.alife = true;
       }
 
-      if (this.stateManager.alife === true) {
+      if (this.stateManager.alife) {
         return true;
       }
 

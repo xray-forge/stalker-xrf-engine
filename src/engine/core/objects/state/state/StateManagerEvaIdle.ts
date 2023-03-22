@@ -2,7 +2,7 @@ import { cast_planner, LuabindClass, property_evaluator, stalker_ids, XR_action_
 
 import { EStateManagerProperty } from "@/engine/core/objects/state/EStateManagerProperty";
 import { StateManager } from "@/engine/core/objects/state/StateManager";
-import { action_ids } from "@/engine/core/schemes/base/actions_id";
+import { EActionId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { Optional } from "@/engine/lib/types";
@@ -49,7 +49,7 @@ export class StateManagerEvaIdle extends property_evaluator {
     }
 
     if (t === true) {
-      if (this.actionPlanner.current_action_id() === action_ids.state_mgr + 1) {
+      if (this.actionPlanner.current_action_id() === EActionId.state_mgr + 1) {
         this.stateManager.combat = true;
       }
     }

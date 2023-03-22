@@ -1,8 +1,8 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { IdleManager } from "@/engine/core/schemes/idle/IdleManager";
-import { ISchemeIdleState } from "@/engine/core/schemes/idle/ISchemeIdleState";
+import { IdleManager } from "@/engine/core/schemes/sr_idle/IdleManager";
+import { ISchemeIdleState } from "@/engine/core/schemes/sr_idle/ISchemeIdleState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";

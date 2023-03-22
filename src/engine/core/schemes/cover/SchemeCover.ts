@@ -1,6 +1,6 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { AbstractScheme, action_ids, evaluators_id } from "@/engine/core/schemes/base";
+import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionBaseCover } from "@/engine/core/schemes/cover/actions";
 import { EvaluatorNeedCover } from "@/engine/core/schemes/cover/evaluators";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover/ISchemeCoverState";
@@ -58,12 +58,12 @@ export class SchemeCover extends AbstractScheme {
     state: ISchemeCoverState
   ): void {
     const operators = {
-      action_cover: action_ids.stohe_cover_base + 1,
+      action_cover: EActionId.stohe_cover_base + 1,
     };
     const properties = {
-      event: evaluators_id.reaction,
-      need_cover: evaluators_id.stohe_cover_base + 1,
-      state_mgr_logic_active: evaluators_id.state_mgr + 4,
+      event: EEvaluatorId.REACTION,
+      need_cover: EEvaluatorId.stohe_cover_base + 1,
+      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
     };
 
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
@@ -76,7 +76,7 @@ export class SchemeCover extends AbstractScheme {
     new_action.add_precondition(new world_property(stalker_ids.property_danger, false));
     new_action.add_precondition(new world_property(stalker_ids.property_enemy, false));
     new_action.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    new_action.add_precondition(new world_property(evaluators_id.sidor_wounded_base, false));
+    new_action.add_precondition(new world_property(EEvaluatorId.sidor_wounded_base, false));
     new_action.add_precondition(new world_property(properties.need_cover, true));
     new_action.add_effect(new world_property(properties.need_cover, false));
     new_action.add_effect(new world_property(properties.state_mgr_logic_active, false));
@@ -84,6 +84,6 @@ export class SchemeCover extends AbstractScheme {
 
     SchemeCover.subscribe(object, state, new_action);
 
-    actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_cover, false));
+    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.need_cover, false));
   }
 }

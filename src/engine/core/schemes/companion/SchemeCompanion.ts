@@ -1,6 +1,6 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
-import { AbstractScheme, action_ids, evaluators_id } from "@/engine/core/schemes/base";
+import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionCompanionActivity } from "@/engine/core/schemes/companion/actions";
 import { EvaluatorNeedCompanion } from "@/engine/core/schemes/companion/evaluators";
 import { ISchemeCompanionState } from "@/engine/core/schemes/companion/ISchemeCompanionState";
@@ -45,11 +45,11 @@ export class SchemeCompanion extends AbstractScheme {
     state: ISchemeCompanionState
   ): void {
     const operators = {
-      action_companion: action_ids.zmey_companion_base + 1,
+      action_companion: EActionId.zmey_companion_base + 1,
     };
     const properties = {
-      need_companion: evaluators_id.zmey_companion_base + 1,
-      state_mgr_logic_active: evaluators_id.state_mgr + 4,
+      need_companion: EEvaluatorId.zmey_companion_base + 1,
+      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
     };
 
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
@@ -68,6 +68,6 @@ export class SchemeCompanion extends AbstractScheme {
 
     SchemeCompanion.subscribe(object, state, actionCompanionActivity);
 
-    actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_companion, false));
+    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.need_companion, false));
   }
 }

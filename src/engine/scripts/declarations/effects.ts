@@ -63,6 +63,7 @@ import { ISchemeMobCombatState } from "@/engine/core/schemes/mob/combat";
 import { init_target } from "@/engine/core/schemes/remark/actions/ActionRemarkActivity";
 import { showFreeplayDialog } from "@/engine/core/ui/game/FreeplayDialog";
 import { sleep as startSleeping } from "@/engine/core/ui/interaction/SleepDialog";
+import { abort } from "@/engine/core/utils/assertion";
 import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { isStalker } from "@/engine/core/utils/check/is";
 import {
@@ -75,7 +76,6 @@ import {
   enableGameUi,
   setInactiveInputTime,
 } from "@/engine/core/utils/control";
-import { abort } from "@/engine/core/utils/assertion";
 import { createScenarioAutoSave } from "@/engine/core/utils/game_save";
 import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob } from "@/engine/core/utils/gulag";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";

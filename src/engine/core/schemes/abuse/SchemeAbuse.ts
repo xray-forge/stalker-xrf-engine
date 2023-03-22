@@ -1,11 +1,11 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { AbuseManager } from "@/engine/core/schemes/abuse/AbuseManager";
 import { ActionAbuseHit } from "@/engine/core/schemes/abuse/actions/ActionAbuseHit";
 import { EvaluatorAbuse } from "@/engine/core/schemes/abuse/evaluators/EvaluatorAbuse";
 import { ISchemeAbuseState } from "@/engine/core/schemes/abuse/ISchemeAbuseState";
-import { AbstractScheme, action_ids, evaluators_id } from "@/engine/core/schemes/base";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
 
@@ -35,11 +35,11 @@ export class SchemeAbuse extends AbstractScheme {
     state: ISchemeAbuseState
   ): void {
     const operators = {
-      abuse: action_ids.abuse_base,
+      abuse: EActionId.abuse_base,
     };
     const properties = {
-      abuse: evaluators_id.abuse_base,
-      wounded: evaluators_id.sidor_wounded_base,
+      abuse: EEvaluatorId.abuse_base,
+      wounded: EEvaluatorId.sidor_wounded_base,
     };
 
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
@@ -58,7 +58,7 @@ export class SchemeAbuse extends AbstractScheme {
 
     actionPlanner.add_action(operators.abuse, action);
 
-    actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.abuse, false));
+    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.abuse, false));
 
     state.abuse_manager = new AbuseManager(object, state);
   }

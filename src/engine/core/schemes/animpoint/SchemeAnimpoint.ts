@@ -1,10 +1,10 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
+import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionAnimpoint, ActionReachAnimpoint } from "@/engine/core/schemes/animpoint/actions";
 import { AnimpointManager } from "@/engine/core/schemes/animpoint/AnimpointManager";
 import { EvaluatorNeedAnimpoint, EvaluatorReachAnimpoint } from "@/engine/core/schemes/animpoint/evaluators";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
-import { AbstractScheme, action_ids, evaluators_id } from "@/engine/core/schemes/base";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -57,13 +57,13 @@ export class SchemeAnimpoint extends AbstractScheme {
     schemeState: ISchemeAnimpointState
   ): void {
     const operators = {
-      action_animpoint: action_ids.animpoint_action + 1,
-      action_reach_animpoint: action_ids.animpoint_action + 2,
+      action_animpoint: EActionId.animpoint_action + 1,
+      action_reach_animpoint: EActionId.animpoint_action + 2,
     };
     const properties = {
-      need_animpoint: evaluators_id.animpoint_property + 1,
-      reach_animpoint: evaluators_id.animpoint_property + 2,
-      state_mgr_logic_active: evaluators_id.state_mgr + 4,
+      need_animpoint: EEvaluatorId.animpoint_property + 1,
+      reach_animpoint: EEvaluatorId.animpoint_property + 2,
+      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
     };
 
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
@@ -101,6 +101,6 @@ export class SchemeAnimpoint extends AbstractScheme {
     actionPlanner.add_action(operators.action_animpoint, actionAnimpoint);
     SchemeAnimpoint.subscribe(object, schemeState, actionAnimpoint);
 
-    actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.need_animpoint, false));
+    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.need_animpoint, false));
   }
 }

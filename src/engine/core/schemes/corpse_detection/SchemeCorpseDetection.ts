@@ -2,9 +2,7 @@ import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { action_ids } from "@/engine/core/schemes/base/actions_id";
-import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
+import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionSearchCorpse } from "@/engine/core/schemes/corpse_detection/actions";
 import { EvaluatorCorpseDetect } from "@/engine/core/schemes/corpse_detection/evaluators";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection/ISchemeCorpseDetectionState";
@@ -46,12 +44,12 @@ export class SchemeCorpseDetection extends AbstractScheme {
     state: ISchemeCorpseDetectionState
   ): void {
     const operators = {
-      search_corpse: action_ids.corpse_exist,
-      state_mgr_to_idle_alife: action_ids.state_mgr + 2,
+      search_corpse: EActionId.corpse_exist,
+      state_mgr_to_idle_alife: EActionId.state_mgr + 2,
     };
     const properties = {
-      corpse_exist: evaluators_id.corpse_exist,
-      wounded: evaluators_id.sidor_wounded_base,
+      corpse_exist: EEvaluatorId.corpse_exist,
+      wounded: EEvaluatorId.sidor_wounded_base,
     };
 
     const manager: XR_action_planner = object.motivation_action_manager();
@@ -69,12 +67,12 @@ export class SchemeCorpseDetection extends AbstractScheme {
     actionSearchCorpse.add_precondition(new world_property(stalker_ids.property_items, false));
     actionSearchCorpse.add_precondition(new world_property(properties.corpse_exist, true));
     actionSearchCorpse.add_precondition(new world_property(properties.wounded, false));
-    actionSearchCorpse.add_precondition(new world_property(evaluators_id.wounded_exist, false));
+    actionSearchCorpse.add_precondition(new world_property(EEvaluatorId.wounded_exist, false));
     actionSearchCorpse.add_effect(new world_property(properties.corpse_exist, false));
 
     manager.add_action(operators.search_corpse, actionSearchCorpse);
 
-    manager.action(action_ids.alife).add_precondition(new world_property(properties.corpse_exist, false));
+    manager.action(EActionId.alife).add_precondition(new world_property(properties.corpse_exist, false));
 
     manager
       .action(operators.state_mgr_to_idle_alife)
@@ -109,7 +107,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
       return false;
     }
 
-    return manager.current_action_id() === action_ids.corpse_exist;
+    return manager.current_action_id() === EActionId.corpse_exist;
   }
 
   /**

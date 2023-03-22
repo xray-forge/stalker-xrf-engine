@@ -2,10 +2,8 @@ import { game_object, stalker_ids, world_property, XR_action_planner, XR_game_ob
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse/SchemeAbuse";
-import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { action_ids } from "@/engine/core/schemes/base/actions_id";
-import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
 import { SchemeCorpseDetection } from "@/engine/core/schemes/corpse_detection/SchemeCorpseDetection";
 import { SchemeHelpWounded } from "@/engine/core/schemes/help_wounded/SchemeHelpWounded";
 import { ActionMeetWait } from "@/engine/core/schemes/meet/actions";
@@ -50,16 +48,16 @@ export class SchemeMeet extends AbstractScheme {
     state: ISchemeMeetState
   ): void {
     const operators = {
-      contact: action_ids.stohe_meet_base + 1,
-      state_mgr_to_idle_alife: action_ids.state_mgr + 2,
+      contact: EActionId.stohe_meet_base + 1,
+      state_mgr_to_idle_alife: EActionId.state_mgr + 2,
     };
 
     const properties = {
-      contact: evaluators_id.stohe_meet_base + 1,
-      wounded: evaluators_id.sidor_wounded_base,
-      abuse: evaluators_id.abuse_base,
-      wounded_exist: evaluators_id.wounded_exist,
-      corpse_exist: evaluators_id.corpse_exist,
+      contact: EEvaluatorId.stohe_meet_base + 1,
+      wounded: EEvaluatorId.sidor_wounded_base,
+      abuse: EEvaluatorId.abuse_base,
+      wounded_exist: EEvaluatorId.wounded_exist,
+      corpse_exist: EEvaluatorId.corpse_exist,
     };
 
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
@@ -85,7 +83,7 @@ export class SchemeMeet extends AbstractScheme {
     actionMeetWait.add_effect(new world_property(properties.contact, false));
     actionPlanner.add_action(operators.contact, actionMeetWait);
 
-    actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.contact, false));
+    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.contact, false));
 
     actionPlanner
       .action(operators.state_mgr_to_idle_alife)

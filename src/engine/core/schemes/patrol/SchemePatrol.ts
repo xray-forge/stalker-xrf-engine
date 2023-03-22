@@ -2,9 +2,7 @@ import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_
 
 import { registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/alife/Squad";
-import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { action_ids } from "@/engine/core/schemes/base/actions_id";
-import { evaluators_id } from "@/engine/core/schemes/base/evaluators_id";
+import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionCommander, ActionPatrol } from "@/engine/core/schemes/patrol/actions";
 import { EvaluatorPatrolComm, EvaluatorPatrolEnd } from "@/engine/core/schemes/patrol/evaluators";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol/ISchemePatrolState";
@@ -103,14 +101,14 @@ export class SchemePatrol extends AbstractScheme {
     state: ISchemePatrolState
   ): void {
     const operators = {
-      action_patrol: action_ids.sidor_act_patrol,
-      action_commander: action_ids.sidor_act_patrol + 1,
+      action_patrol: EActionId.sidor_act_patrol,
+      action_commander: EActionId.sidor_act_patrol + 1,
     };
     const properties = {
-      event: evaluators_id.reaction,
-      patrol_end: evaluators_id.sidor_patrol_base + 0,
-      patrol_comm: evaluators_id.sidor_patrol_base + 1,
-      state_mgr_logic_active: evaluators_id.state_mgr + 4,
+      event: EEvaluatorId.REACTION,
+      patrol_end: EEvaluatorId.sidor_patrol_base + 0,
+      patrol_comm: EEvaluatorId.sidor_patrol_base + 1,
+      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
     };
 
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
@@ -146,6 +144,6 @@ export class SchemePatrol extends AbstractScheme {
     actionPlanner.add_action(operators.action_patrol, actionPatrol);
     SchemePatrol.subscribe(object, state, actionPatrol);
 
-    actionPlanner.action(action_ids.alife).add_precondition(new world_property(properties.patrol_end, true));
+    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.patrol_end, true));
   }
 }

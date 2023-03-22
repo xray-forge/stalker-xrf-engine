@@ -1,7 +1,7 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { AbstractScheme, action_ids, evaluators_id } from "@/engine/core/schemes/base";
+import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionWounded } from "@/engine/core/schemes/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/wounded/evaluators";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWoundedState";
@@ -50,12 +50,12 @@ export class SchemeWounded extends AbstractScheme {
     state: ISchemeWoundedState
   ): void {
     const operators = {
-      wounded: action_ids.sidor_act_wounded_base,
+      wounded: EActionId.sidor_act_wounded_base,
     };
 
     const properties = {
-      wounded: evaluators_id.sidor_wounded_base,
-      can_fight: evaluators_id.sidor_wounded_base + 1,
+      wounded: EEvaluatorId.sidor_wounded_base,
+      can_fight: EEvaluatorId.sidor_wounded_base + 1,
     };
 
     const manager: XR_action_planner = object.motivation_action_manager();
@@ -73,7 +73,7 @@ export class SchemeWounded extends AbstractScheme {
 
     manager.add_action(operators.wounded, action);
 
-    manager.action(action_ids.alife).add_precondition(new world_property(properties.wounded, false));
+    manager.action(EActionId.alife).add_precondition(new world_property(properties.wounded, false));
     manager.action(stalker_ids.action_gather_items).add_precondition(new world_property(properties.wounded, false));
     manager.action(stalker_ids.action_combat_planner).add_precondition(new world_property(properties.can_fight, true));
     manager.action(stalker_ids.action_danger_planner).add_precondition(new world_property(properties.can_fight, true));
