@@ -1,55 +1,54 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="st_achievement_10_descr">
-		<text>Ihr Gegner muss sich ganz schцn gedemьtigt fьhlen, nachdem er von Ihnen zehn Mal hintereinander getцtet wurde und er Sie in dieser Zeit nicht ein einziges Mal erledigen konnte! Nein, Sie sind nicht grausam - Sie geben ihm einfach nur gute Grьnde, um weiterhin fleiЯig zu ьben.</text>
+		<text>Ihr Gegner muss sich ganz schС†n gedemСЊtigt fСЊhlen, nachdem er von Ihnen zehn Mal hintereinander getС†tet wurde und er Sie in dieser Zeit nicht ein einziges Mal erledigen konnte! Nein, Sie sind nicht grausam - Sie geben ihm einfach nur gute GrСЊnde, um weiterhin fleiРЇig zu СЊben.</text>
 	</string>
 	<string id="st_achievement_10_name">
 		<text>Erntezeit</text>
 	</string>
 	<string id="st_achievement_11_descr">
-		<text>Zwei Fliegen mit einer Klappe geschlagen... Sie sind ja richtig gemeingefдhrlich! Mit Ihrem GauЯgewehr haben Sie beide fцrmlich aufgespieЯt.</text>
+		<text>Zwei Fliegen mit einer Klappe geschlagen... Sie sind ja richtig gemeingefРґhrlich! Mit Ihrem GauРЇgewehr haben Sie beide fС†rmlich aufgespieРЇt.</text>
 	</string>
 	<string id="st_achievement_11_name">
-		<text>GrillspieЯ</text>
+		<text>GrillspieРЇ</text>
 	</string>
 	<string id="st_achievement_12_descr">
-		<text>Ihre kьhle und berechnende Vorgehensweise bringt den Tod ьber Ihre Gegner: Sie konnten mit zwei Schьssen aus Ihrer doppellдufigen Schrotflinte innerhalb von wenigen Sekunden zwei Ziele eliminieren.</text>
+		<text>Ihre kСЊhle und berechnende Vorgehensweise bringt den Tod СЊber Ihre Gegner: Sie konnten mit zwei SchСЊssen aus Ihrer doppellРґufigen Schrotflinte innerhalb von wenigen Sekunden zwei Ziele eliminieren.</text>
 	</string>
 	<string id="st_achievement_12_name">
-		<text>Zwei Schьsse, zwei tцdliche Treffer.</text>
+		<text>Zwei SchСЊsse, zwei tС†dliche Treffer.</text>
 	</string>
 	<string id="st_achievement_13_descr">
-		<text>Sie wissen, was es heiЯt, ein Stalker zu sein. Aus diesem Grund sind Sie der erste Stalker, der den Status einer Legende innehat!</text>
+		<text>Sie wissen, was es heiРЇt, ein Stalker zu sein. Aus diesem Grund sind Sie der erste Stalker, der den Status einer Legende innehat!</text>
 	</string>
 	<string id="st_achievement_13_name">
 		<text>Aufsteiger</text>
 	</string>
 	<string id="st_achievement_14_descr">
-		<text>Mit einem Messer durch ein Exoskelett schneiden? Scheinbar macht es Ihnen SpaЯ, sich hohe Ziele zu setzen und diese auch zu erreichen. </text>
+		<text>Mit einem Messer durch ein Exoskelett schneiden? Scheinbar macht es Ihnen SpaРЇ, sich hohe Ziele zu setzen und diese auch zu erreichen. </text>
 	</string>
 	<string id="st_achievement_14_name">
-		<text>Dosenцffner</text>
+		<text>DosenС†ffner</text>
 	</string>
 	<string id="st_achievement_15_descr">
-		<text>Sie dachten schon, sie haben Sie, aber dann haben Sie ihnen gezeigt, wer hier das Sagen hat: Sie haben fьnf von ihnen getцtet, obwohl der Gevatter Tod schon vor Ihrer eigenen Tьr stand!</text>
+		<text>Sie dachten schon, sie haben Sie, aber dann haben Sie ihnen gezeigt, wer hier das Sagen hat: Sie haben fСЊnf von ihnen getС†tet, obwohl der Gevatter Tod schon vor Ihrer eigenen TСЊr stand!</text>
 	</string>
 	<string id="st_achievement_15_name">
 		<text>Nicht totzukriegen</text>
 	</string>
 	<string id="st_achievement_16_descr">
-		<text>Was fьr ein Gemetzel! Sie haben Ihren Gegner einfach mit einem Kugelhagel ausgelцscht - fьnf an der Zahl innerhalb von fьnf Sekunden! Unglaublich!</text>
+		<text>Was fСЊr ein Gemetzel! Sie haben Ihren Gegner einfach mit einem Kugelhagel ausgelС†scht - fСЊnf an der Zahl innerhalb von fСЊnf Sekunden! Unglaublich!</text>
 	</string>
 	<string id="st_achievement_16_name">
 		<text>Blutrausch</text>
 	</string>
 	<string id="st_achievement_17_descr">
-		<text>Wow, Sie kцnnen wirklich gut zielen! Sie haben zwei Gegner mit einem Schuss direkt ins Auge getцtet, ohne selbst dabei draufzugehen.</text>
+		<text>Wow, Sie kС†nnen wirklich gut zielen! Sie haben zwei Gegner mit einem Schuss direkt ins Auge getС†tet, ohne selbst dabei draufzugehen.</text>
 	</string>
 	<string id="st_achievement_17_name">
 		<text>Auge um Auge</text>
 	</string>
 	<string id="st_achievement_18_descr">
-		<text>Sollen sie Ihnen ruhig hinter der Ecke auflauern - das wird Sie nicht aufhalten. Meine Gьte, Sie treffen ein Ziel in Bewegung sogar, ohne zu zielen!</text>
+		<text>Sollen sie Ihnen ruhig hinter der Ecke auflauern - das wird Sie nicht aufhalten. Meine GСЊte, Sie treffen ein Ziel in Bewegung sogar, ohne zu zielen!</text>
 	</string>
 	<string id="st_achievement_18_name">
 		<text>Blitzartige Reflexe</text>
@@ -61,43 +60,43 @@
 		<text>Weglaufen ist zwecklos</text>
 	</string>
 	<string id="st_achievement_1_descr">
-		<text>Sie haben zwanzig Gegner hintereinander abgeschlachtet, ohne selbst dabei draufzugehen! Wahnsinn, was fьr ein Blutbad!</text>
+		<text>Sie haben zwanzig Gegner hintereinander abgeschlachtet, ohne selbst dabei draufzugehen! Wahnsinn, was fСЊr ein Blutbad!</text>
 	</string>
 	<string id="st_achievement_1_name">
 		<text>Massaker</text>
 	</string>
 	<string id="st_achievement_20_descr">
-		<text>Sie mцgen zu dritt gewesen sein und Scharfschьtzengewehre gehabt haben, aber Ihre Ьberlegenheit hat sie das Leben gekostet.</text>
+		<text>Sie mС†gen zu dritt gewesen sein und ScharfschСЊtzengewehre gehabt haben, aber Ihre Р¬berlegenheit hat sie das Leben gekostet.</text>
 	</string>
 	<string id="st_achievement_20_name">
-		<text>Treffsicherster Schьtze</text>
+		<text>Treffsicherster SchСЊtze</text>
 	</string>
 	<string id="st_achievement_21_descr">
-		<text>Eine brutale Vorgehensweise ьberlassen Sie lieber dem Gegner und zeigen ihm stattdessen, wie man gewinnt, ohne eine einzige Patrone abzufeuern.</text>
+		<text>Eine brutale Vorgehensweise СЊberlassen Sie lieber dem Gegner und zeigen ihm stattdessen, wie man gewinnt, ohne eine einzige Patrone abzufeuern.</text>
 	</string>
 	<string id="st_achievement_21_name">
 		<text>Friedensbote</text>
 	</string>
 	<string id="st_achievement_22_descr">
-		<text>Selbst groЯe Entfernungen sind fьr einen richtigen Scharfschьtzen kein Problem! Sie treffen sogar aus einer Distanz von ьber 120 Metern mitten ins Schwarze.</text>
+		<text>Selbst groРЇe Entfernungen sind fСЊr einen richtigen ScharfschСЊtzen kein Problem! Sie treffen sogar aus einer Distanz von СЊber 120 Metern mitten ins Schwarze.</text>
 	</string>
 	<string id="st_achievement_22_name">
-		<text>Tцdliche Genauigkeit</text>
+		<text>TС†dliche Genauigkeit</text>
 	</string>
 	<string id="st_achievement_23_descr">
-		<text>Ihr Gegner konnte Sie ausschalten, aber Sie haben ihm ein kleines Abschiedsgeschenk in Form einer Handgranate zurьckgelassen!</text>
+		<text>Ihr Gegner konnte Sie ausschalten, aber Sie haben ihm ein kleines Abschiedsgeschenk in Form einer Handgranate zurСЊckgelassen!</text>
 	</string>
 	<string id="st_achievement_23_name">
 		<text>Abschiedsgeschenk</text>
 	</string>
 	<string id="st_achievement_24_descr">
-		<text>Ihre Gegner haben Ihre Freunde getцtet und wurden deshalb zurecht das Opfer Ihrer gnadenlosen VergeltungsmaЯnahmen. Drei gegnerische Leichen fьr drei tote Freunde - das ist ausgleichende Gerechtigkeit.</text>
+		<text>Ihre Gegner haben Ihre Freunde getС†tet und wurden deshalb zurecht das Opfer Ihrer gnadenlosen VergeltungsmaРЇnahmen. Drei gegnerische Leichen fСЊr drei tote Freunde - das ist ausgleichende Gerechtigkeit.</text>
 	</string>
 	<string id="st_achievement_24_name">
-		<text>Rдcher</text>
+		<text>RРґcher</text>
 	</string>
 	<string id="st_achievement_25_descr">
-		<text>Sie sind der Schutzengel Ihres Kameraden. Zwei Mal konnten Sie ihn vor einem Angriff beschьtzen, als er das Artefakt getragen hat.</text>
+		<text>Sie sind der Schutzengel Ihres Kameraden. Zwei Mal konnten Sie ihn vor einem Angriff beschСЊtzen, als er das Artefakt getragen hat.</text>
 	</string>
 	<string id="st_achievement_25_name">
 		<text>Schutzengel</text>
@@ -109,31 +108,31 @@
 		<text>Gerettete Ehre</text>
 	</string>
 	<string id="st_achievement_27_descr">
-		<text>Wissen Sie wirklich, wo das nдchste Artefakt auftaucht? In der Tat, Sie konnten es sich nur wenige Sekunden nach seinem Erscheinen schnappen!</text>
+		<text>Wissen Sie wirklich, wo das nРґchste Artefakt auftaucht? In der Tat, Sie konnten es sich nur wenige Sekunden nach seinem Erscheinen schnappen!</text>
 	</string>
 	<string id="st_achievement_27_name">
 		<text>Intuition eines Stalkers</text>
 	</string>
 	<string id="st_achievement_28_descr">
-		<text>Sie hatten wirklich Glьck - mit der letzten Patrone aus Ihrem Magazin konnten Sie den Gegner erledigen! Lieber er als Sie, das ist klar!</text>
+		<text>Sie hatten wirklich GlСЊck - mit der letzten Patrone aus Ihrem Magazin konnten Sie den Gegner erledigen! Lieber er als Sie, das ist klar!</text>
 	</string>
 	<string id="st_achievement_28_name">
-		<text>Glьckspilz</text>
+		<text>GlСЊckspilz</text>
 	</string>
 	<string id="st_achievement_29_descr">
-		<text>Sie haben acht Gegner hintereinander getцtet und den Feind dadurch gereizt - mal sehen, wie er darauf reagiert.</text>
+		<text>Sie haben acht Gegner hintereinander getС†tet und den Feind dadurch gereizt - mal sehen, wie er darauf reagiert.</text>
 	</string>
 	<string id="st_achievement_29_name">
 		<text>Schwarze Liste</text>
 	</string>
 	<string id="st_achievement_2_descr">
-		<text>Sie sind sehr wachsam und vorsichtig. Aus diesem Grund ist es niemandem gelungen, Sie zu tцten. Kein einziges Mal sind Sie wдhrend des Spiels gestorben und haben ьber fьnfzehn Punkte erzielt.</text>
+		<text>Sie sind sehr wachsam und vorsichtig. Aus diesem Grund ist es niemandem gelungen, Sie zu tС†ten. Kein einziges Mal sind Sie wРґhrend des Spiels gestorben und haben СЊber fСЊnfzehn Punkte erzielt.</text>
 	</string>
 	<string id="st_achievement_2_name">
 		<text>Paranoia</text>
 	</string>
 	<string id="st_achievement_30_descr">
-		<text>Sie erledigen Ihre Arbeit unauffдllig, indem Sie immer einen Schalldдmpfer verwenden. Warum soll man den Gegner wissen lassen, aus welcher Richtung der Tod kommt?</text>
+		<text>Sie erledigen Ihre Arbeit unauffРґllig, indem Sie immer einen SchalldРґmpfer verwenden. Warum soll man den Gegner wissen lassen, aus welcher Richtung der Tod kommt?</text>
 	</string>
 	<string id="st_achievement_30_name">
 		<text>Leiser Tod</text>
@@ -142,28 +141,28 @@
 		<text>Sie haben Ihren Gegner vernichtend geschlagen, weil Sie gewonnen haben und dabei doppelt so viele Punkte erzielen konnten als der beste gegnerische Spieler.</text>
 	</string>
 	<string id="st_achievement_3_name">
-		<text>Erdrьckende Ьberlegenheit</text>
+		<text>ErdrСЊckende Р¬berlegenheit</text>
 	</string>
 	<string id="st_achievement_4_descr">
-		<text>Ihr waghalsiger Plan, das Artefakt sofort zu schnappen, ist aufgegangen und Sie konnten so innerhalb von drei Minuten nach Spielbeginn fьr Ihr Team punkten.</text>
+		<text>Ihr waghalsiger Plan, das Artefakt sofort zu schnappen, ist aufgegangen und Sie konnten so innerhalb von drei Minuten nach Spielbeginn fСЊr Ihr Team punkten.</text>
 	</string>
 	<string id="st_achievement_4_name">
 		<text>Blitzkrieg</text>
 	</string>
 	<string id="st_achievement_5_descr">
-		<text>Sie haben dem Gegner nicht den Hauch einer Chance gelassen und gewonnen, ohne dass er auch nur ein einziges Artefakt aufsammeln konnte. Das war eine Lehrstunde ьber richtiges Teamwork!</text>
+		<text>Sie haben dem Gegner nicht den Hauch einer Chance gelassen und gewonnen, ohne dass er auch nur ein einziges Artefakt aufsammeln konnte. Das war eine Lehrstunde СЊber richtiges Teamwork!</text>
 	</string>
 	<string id="st_achievement_5_name">
 		<text>Zu-Null-Sieg!</text>
 	</string>
 	<string id="st_achievement_6_descr">
-		<text>Sie haben mit den meisten verursachten Kills, den meisten Artefakten und den wenigsten erlittenen Kills die hцchste Punktzahl in allen Bereichen erzielt! Weiter so!</text>
+		<text>Sie haben mit den meisten verursachten Kills, den meisten Artefakten und den wenigsten erlittenen Kills die hС†chste Punktzahl in allen Bereichen erzielt! Weiter so!</text>
 	</string>
 	<string id="st_achievement_6_name">
 		<text>Allrounder</text>
 	</string>
 	<string id="st_achievement_7_descr">
-		<text>Ihr Kampfgeschick mit der Klinge ist beдngstigend! Sie haben innerhalb von zwanzig Sekunden drei Gegner aufgeschlitzt und damit bewiesen, dass Sie selbst ohne Schusswaffen den Tod ьber Ihren Gegner bringen kцnnen.</text>
+		<text>Ihr Kampfgeschick mit der Klinge ist beРґngstigend! Sie haben innerhalb von zwanzig Sekunden drei Gegner aufgeschlitzt und damit bewiesen, dass Sie selbst ohne Schusswaffen den Tod СЊber Ihren Gegner bringen kС†nnen.</text>
 	</string>
 	<string id="st_achievement_7_name">
 		<text>Blutige Klinge</text>
@@ -181,52 +180,52 @@
 		<text>Kugelsicher</text>
 	</string>
 	<string id="st_sp_achievement_1_descr">
-		<text>Sie sind bereit, die neuesten Entwicklungen in der Zone zu erforschen. Sie haben unser Verstдndnis der Zone vorangebracht, indem Sie neue Anomalieformationen entdeckt haben, die die Wissenschaft bis dahin nicht kannte.</text>
+		<text>Sie sind bereit, die neuesten Entwicklungen in der Zone zu erforschen. Sie haben unser VerstРґndnis der Zone vorangebracht, indem Sie neue Anomalieformationen entdeckt haben, die die Wissenschaft bis dahin nicht kannte.</text>
 	</string>
 	<string id="st_sp_achievement_1_name">
 		<text>Pionier</text>
 	</string>
 	<string id="st_sp_achievement_2_hint">
-		<text>Die Stalker halten jetzt mehr von Ihnen.\nIn Wertschдtzung Ihrer Mьhen hinterlegen sie mittlerweile regelmдЯig Munition in Ihrer persцnlichen Kiste in der Janow-Station fьr Sie.</text>
+		<text>Die Stalker halten jetzt mehr von Ihnen.\nIn WertschРґtzung Ihrer MСЊhen hinterlegen sie mittlerweile regelmРґРЇig Munition in Ihrer persС†nlichen Kiste in der Janow-Station fСЊr Sie.</text>
 	</string>
 	<string id="st_sp_achievement_2_descr">
-		<text>Sie scheuen sich nicht vor gefдhrlichen Mutanten - Sie machen Jagd auf sie und Sie sind gut darin! Stalker haben hцchsten Respekt vor guten Jдgern.</text>
+		<text>Sie scheuen sich nicht vor gefРґhrlichen Mutanten - Sie machen Jagd auf sie und Sie sind gut darin! Stalker haben hС†chsten Respekt vor guten JРґgern.</text>
 	</string>
 	<string id="st_sp_achievement_2_name">
-		<text>Mutantenjдger</text>
+		<text>MutantenjРґger</text>
 	</string>
 	<string id="st_sp_achievement_3_hint">
-		<text>Die Stalker halten jetzt mehr von Ihnen.\nAls Zeichen ihres Respekts hinterlegen sie mittlerweile regelmдЯig medizinische Vorrдte in Ihrer persцnlichen Kiste in der Skadowsk-Station fьr Sie.</text>
+		<text>Die Stalker halten jetzt mehr von Ihnen.\nAls Zeichen ihres Respekts hinterlegen sie mittlerweile regelmРґРЇig medizinische VorrРґte in Ihrer persС†nlichen Kiste in der Skadowsk-Station fСЊr Sie.</text>
 	</string>
 	<string id="st_sp_achievement_3_descr">
-		<text>Sie haben das Geheimnis um das Verschwinden der Stalker bei der Skadowsk aufgedeckt: Ьberraschenderweise steckten nicht Mutanten hinter der Sache, sondern ein viel gefдhrlicherer Feind - Menschen. Durch Ihre erfolgreiche Suche nach der Wahrheit haben Sie sich den Respekt der Stalker verdient.</text>
+		<text>Sie haben das Geheimnis um das Verschwinden der Stalker bei der Skadowsk aufgedeckt: Р¬berraschenderweise steckten nicht Mutanten hinter der Sache, sondern ein viel gefРґhrlicherer Feind - Menschen. Durch Ihre erfolgreiche Suche nach der Wahrheit haben Sie sich den Respekt der Stalker verdient.</text>
 	</string>
 	<string id="st_sp_achievement_3_name">
 		<text>Detektiv</text>
 	</string>
 	<string id="st_sp_achievement_4_hint">
-		<text>Die Stalker halten jetzt mehr von Ihnen.\nSie haben den Hдndler Uhu gebeten, Ihnen einen Rabatt zu gewдhren.\nBeard macht Ihnen besonders gute Angebote fьr Artefakte.</text>
+		<text>Die Stalker halten jetzt mehr von Ihnen.\nSie haben den HРґndler Uhu gebeten, Ihnen einen Rabatt zu gewРґhren.\nBeard macht Ihnen besonders gute Angebote fСЊr Artefakte.</text>
 	</string>
 	<string id="st_sp_achievement_4_descr">
-		<text>Sie haben den Banditen und ihrem Anfьhrer Sultan gezeigt, wer hier das Sagen hat, und damit Berьhmtheit unter den Stalkern erlangt. Daher sind Sie auf der Skadowsk stets ein willkommener Gast.</text>
+		<text>Sie haben den Banditen und ihrem AnfСЊhrer Sultan gezeigt, wer hier das Sagen hat, und damit BerСЊhmtheit unter den Stalkern erlangt. Daher sind Sie auf der Skadowsk stets ein willkommener Gast.</text>
 	</string>
 	<string id="st_sp_achievement_4_name">
 		<text>Einer von uns</text>
 	</string>
 	<string id="st_sp_achievement_5_hint">
-		<text>Sie haben sich den Respekt der Banditen verdient.\Aus Furcht davor, dass er Ihr nдchstes Opfer werden kцnnte, gewдhrt Ihnen der Hдndler Uhu Rabatt.\nWie abgemacht erhalten Sie ab jetzt Ihren Anteil an Beards Gewinn.</text>
+		<text>Sie haben sich den Respekt der Banditen verdient.\Aus Furcht davor, dass er Ihr nРґchstes Opfer werden kС†nnte, gewРґhrt Ihnen der HРґndler Uhu Rabatt.\nWie abgemacht erhalten Sie ab jetzt Ihren Anteil an Beards Gewinn.</text>
 	</string>
 	<string id="st_sp_achievement_5_descr">
-		<text>Sie haben Sultan geholfen, die Stalker zu ьberlisten, und die Kontrolle ьber Beards Geschдft ьbernommen. Sie werden jetzt in Zaton gefьrchtet und respektiert.</text>
+		<text>Sie haben Sultan geholfen, die Stalker zu СЊberlisten, und die Kontrolle СЊber Beards GeschРґft СЊbernommen. Sie werden jetzt in Zaton gefСЊrchtet und respektiert.</text>
 	</string>
 	<string id="st_sp_achievement_5_name">
 		<text>Boss</text>
 	</string>
 	<string id="st_sp_achievement_6_hint">
-		<text>Die Stalker haben entschieden, Magpies Beute, die er durch Lug und Trug angehдuft hatte, jemandem zu geben, der sie wirklich verdient. Deswegen haben sie die Sachen in Ihrer persцnlichen Kiste in der Janow-Station deponiert.</text>
+		<text>Die Stalker haben entschieden, Magpies Beute, die er durch Lug und Trug angehРґuft hatte, jemandem zu geben, der sie wirklich verdient. Deswegen haben sie die Sachen in Ihrer persС†nlichen Kiste in der Janow-Station deponiert.</text>
 	</string>
 	<string id="st_sp_achievement_6_descr">
-		<text>Sie haben den Mistkerl Magpie zur Rechenschaft gezogen. Er hatte viele Stalker betrogen und ьbers Ohr gehauen, aber jetzt ist seine Zeit reif fьr eine gerechte Bestrafung.</text>
+		<text>Sie haben den Mistkerl Magpie zur Rechenschaft gezogen. Er hatte viele Stalker betrogen und СЊbers Ohr gehauen, aber jetzt ist seine Zeit reif fСЊr eine gerechte Bestrafung.</text>
 	</string>
 	<string id="st_sp_achievement_6_name">
 		<text>Verfechter der Gerechtigkeit</text>
@@ -238,28 +237,28 @@
 		<text>Sie haben jede Art von Artefakt gefunden, die den Zonenforschern bekannt ist. Dadurch haben Sie den Respekt der Stalker und die besondere Aufmerksamkeit der Banditen gewonnen.</text>
 	</string>
 	<string id="st_sp_achievement_7_name">
-		<text>Artefaktjдger</text>
+		<text>ArtefaktjРґger</text>
 	</string>
 	<string id="st_sp_achievement_8_hint">
-		<text>Kardan kann eine einzigartige Modifikation durchfьhren, indem er hydraulische Servomotorenverstдrker einbaut. Damit kцnnen Sie sich schneller bewegen, wenn Sie ein Exoskelett tragen.</text>
+		<text>Kardan kann eine einzigartige Modifikation durchfСЊhren, indem er hydraulische ServomotorenverstРґrker einbaut. Damit kС†nnen Sie sich schneller bewegen, wenn Sie ein Exoskelett tragen.</text>
 	</string>
 	<string id="st_sp_achievement_8_descr">
-		<text>Jetzt hat Kardan alle Werkzeuge, die er jemals brauchen wird. Dadurch ist er in der Lage, neue und komplexere Verbesserungen durchzufьhren.</text>
+		<text>Jetzt hat Kardan alle Werkzeuge, die er jemals brauchen wird. Dadurch ist er in der Lage, neue und komplexere Verbesserungen durchzufСЊhren.</text>
 	</string>
 	<string id="st_sp_achievement_8_name">
-		<text>Experte fьr Waffensysteme</text>
+		<text>Experte fСЊr Waffensysteme</text>
 	</string>
 	<string id="st_sp_achievement_9_hint">
-		<text>Azot kann eine einzigartige Modifikation am taktischen Helm durchfьhren: ein Infrarotscanner, der Menschen in der Nдhe aufspьrt.</text>
+		<text>Azot kann eine einzigartige Modifikation am taktischen Helm durchfСЊhren: ein Infrarotscanner, der Menschen in der NРґhe aufspСЊrt.</text>
 	</string>
 	<string id="st_sp_achievement_9_descr">
-		<text>Jetzt hat Azot alle Werkzeuge, von denen er je getrдumt hat. Dadurch ist er in der Lage, High-Tech-Modifikationen durchzufьhren.</text>
+		<text>Jetzt hat Azot alle Werkzeuge, von denen er je getrРґumt hat. Dadurch ist er in der Lage, High-Tech-Modifikationen durchzufСЊhren.</text>
 	</string>
 	<string id="st_sp_achievement_9_name">
 		<text>High-Tech-Experte</text>
 	</string>
 	<string id="st_sp_achievement_10_hint">
-		<text>Dank Ihrer Erfahrung finden Sie hдufiger seltene Artefakte.</text>
+		<text>Dank Ihrer Erfahrung finden Sie hРґufiger seltene Artefakte.</text>
 	</string>
 	<string id="st_sp_achievement_10_descr">
 		<text>In der Zone existiert so gut wie kein begehbares Gebiet, in dem Sie nicht bereits waren. Sie haben schon nahezu alle Anomalien mindestens einmal zu Gesicht bekommen.</text>
@@ -268,49 +267,49 @@
 		<text>Erfahrener Stalker</text>
 	</string>
 	<string id="st_sp_achievement_11_hint">
-		<text>Ihre Fьhrungsqualitдten erhцhen die Ьberlebenschancen Ihres Teams.</text>
+		<text>Ihre FСЊhrungsqualitРґten erhС†hen die Р¬berlebenschancen Ihres Teams.</text>
 	</string>
 	<string id="st_sp_achievement_11_descr">
-		<text>Sie hatten einen Teamauftrag zu erfьllen - also haben Sie einfach einen groЯartigen Trupp zusammengestellt und bewiesen, dass Sie der geborene Anfьhrer sind.</text>
+		<text>Sie hatten einen Teamauftrag zu erfСЊllen - also haben Sie einfach einen groРЇartigen Trupp zusammengestellt und bewiesen, dass Sie der geborene AnfСЊhrer sind.</text>
 	</string>
 	<string id="st_sp_achievement_11_name">
-		<text>Anfьhrer</text>
+		<text>AnfСЊhrer</text>
 	</string>
 	<string id="st_sp_achievement_12_hint">
-		<text>Freiheitler, Wдchter, freie Stalker und sogar Banditen haben Ihr Verhandlungsgeschick zu schдtzen gelernt und haben nun grцЯten Respekt vor Ihnen.</text>
+		<text>Freiheitler, WРґchter, freie Stalker und sogar Banditen haben Ihr Verhandlungsgeschick zu schРґtzen gelernt und haben nun grС†РЇten Respekt vor Ihnen.</text>
 	</string>
 	<string id="st_sp_achievement_12_descr">
-		<text>Sie wissen, wie man Probleme friedlich lцst. Warum Gewalt anwenden, wenn ein Streit auch durch Worte geschlichtet werden kann? Dennoch sollten Sie sich vor Leuten vorsehen, die zuerst schieЯen und danach fragen.</text>
+		<text>Sie wissen, wie man Probleme friedlich lС†st. Warum Gewalt anwenden, wenn ein Streit auch durch Worte geschlichtet werden kann? Dennoch sollten Sie sich vor Leuten vorsehen, die zuerst schieРЇen und danach fragen.</text>
 	</string>
 	<string id="st_sp_achievement_12_name">
 		<text>Diplomat</text>
 	</string>
 	<string id="st_sp_achievement_13_descr">
-		<text>Sie haben schon so lange mit den Wissenschaftlern zusammengearbeitet, dass Sie sich eigentlich als wissenschaftlichen Mitarbeiter bezeichnen kцnnten. Jeder im Bunker der Wissenschaftler erachtet Sie als einen Kollegen.</text>
+		<text>Sie haben schon so lange mit den Wissenschaftlern zusammengearbeitet, dass Sie sich eigentlich als wissenschaftlichen Mitarbeiter bezeichnen kС†nnten. Jeder im Bunker der Wissenschaftler erachtet Sie als einen Kollegen.</text>
 	</string>
 	<string id="st_sp_achievement_13_name">
 		<text>Wissenschaftlicher Mitarbeiter</text>
 	</string>
 	<string id="st_sp_achievement_14_hint">
-		<text>Ihr Verhдltnis zu den Wдchtern hat sich gebessert. Wenn Sie in Schwierigkeiten geraten, werden die Kдmpfer der Wдchter versuchen, Ihnen zu helfen.\nAzot, ein Techniker, der den Wдchtern nahe steht, gewдhrt Ihnen Rabatt.\nIhr Verhдltnis zu den Freiheitlern hat sich verschlechtert.\nDer Hawaiianer, der Hдndler, der der Freiheit nahe steht, verlangt jetzt mehr von Ihnen fьr seine Waren.</text>
+		<text>Ihr VerhРґltnis zu den WРґchtern hat sich gebessert. Wenn Sie in Schwierigkeiten geraten, werden die KРґmpfer der WРґchter versuchen, Ihnen zu helfen.\nAzot, ein Techniker, der den WРґchtern nahe steht, gewРґhrt Ihnen Rabatt.\nIhr VerhРґltnis zu den Freiheitlern hat sich verschlechtert.\nDer Hawaiianer, der HРґndler, der der Freiheit nahe steht, verlangt jetzt mehr von Ihnen fСЊr seine Waren.</text>
 	</string>
 	<string id="st_sp_achievement_14_descr">
-		<text>Sie haben den Wдchtern groЯe Hilfe geleistet und sich damit den Respekt von ihnen und ihren Freunden verdient. Vergessen Sie allerdings nicht, dass nicht jeder in der Zone ein Anhдnger der Wдchter ist.</text>
+		<text>Sie haben den WРґchtern groРЇe Hilfe geleistet und sich damit den Respekt von ihnen und ihren Freunden verdient. Vergessen Sie allerdings nicht, dass nicht jeder in der Zone ein AnhРґnger der WРґchter ist.</text>
 	</string>
 	<string id="st_sp_achievement_14_name">
-		<text>Freund der Wдchter</text>
+		<text>Freund der WРґchter</text>
 	</string>
 	<string id="st_sp_achievement_15_hint">
-		<text>Ihr Verhдltnis zu den Freiheitlern hat sich gebessert. Wenn Sie in Schwierigkeiten geraten, werden die Kдmpfer der Freiheit versuchen, Ihnen zu helfen.\nDer Hawaiianer, ein Techniker, der der Freiheit nahe steht, gewдhrt Ihnen Rabatt.\nIhr Verhдltnis zu den Wдchtern hat sich verschlechtert.\nAzot, der Hдndler, der den Wдchtern nahe steht, verlangt jetzt mehr von Ihnen fьr seine Waren.</text>
+		<text>Ihr VerhРґltnis zu den Freiheitlern hat sich gebessert. Wenn Sie in Schwierigkeiten geraten, werden die KРґmpfer der Freiheit versuchen, Ihnen zu helfen.\nDer Hawaiianer, ein Techniker, der der Freiheit nahe steht, gewРґhrt Ihnen Rabatt.\nIhr VerhРґltnis zu den WРґchtern hat sich verschlechtert.\nAzot, der HРґndler, der den WРґchtern nahe steht, verlangt jetzt mehr von Ihnen fСЊr seine Waren.</text>
 	</string>
 	<string id="st_sp_achievement_15_descr">
-		<text>Sie haben den Freiheitlern groЯe Hilfe geleistet und sich damit den Respekt von ihnen und ihren Freunden verdient. Vergessen Sie allerdings nicht, dass nicht jeder in der Zone ein Anhдnger der Freiheit ist.</text>
+		<text>Sie haben den Freiheitlern groРЇe Hilfe geleistet und sich damit den Respekt von ihnen und ihren Freunden verdient. Vergessen Sie allerdings nicht, dass nicht jeder in der Zone ein AnhРґnger der Freiheit ist.</text>
 	</string>
 	<string id="st_sp_achievement_15_name">
 		<text>Freund der Freiheit</text>
 	</string>
 	<string id="st_sp_achievement_16_hint">
-		<text>Die Stalker in der Janow-Station schдtzen ein Gleichgewicht zwischen den Wдchtern und der Freiheit. Aus diesem Grund gewдhren Ihnen sowohl der Techniker als auch der Hдndler von nun an einen Rabatt.</text>
+		<text>Die Stalker in der Janow-Station schРґtzen ein Gleichgewicht zwischen den WРґchtern und der Freiheit. Aus diesem Grund gewРґhren Ihnen sowohl der Techniker als auch der HРґndler von nun an einen Rabatt.</text>
 	</string>
 	<string id="st_sp_achievement_16_descr">
 		<text>Sie haben sich keiner der Fraktionen angeschlossen und immer wie ein freier Stalker gehandelt. Daher haben Sie sich zwar keine Feinde gemacht, aber auch keine neuen Freunde gewonnen.</text>
@@ -319,54 +318,54 @@
 		<text>Mann des Gleichgewichts</text>
 	</string>
 	<string id="st_sp_achievement_17_hint">
-		<text>Hдndler bieten Ihnen seltenere und teurere Waren an.</text>
+		<text>HРґndler bieten Ihnen seltenere und teurere Waren an.</text>
 	</string>
 	<string id="st_sp_achievement_17_descr">
-		<text>Obwohl Sie das Gefьhl kennen, wenn das Geld knapp wird, geht es Ihnen im Moment recht gut. Man kцnnte sogar sagen, dass Sie zeitweise reich sind, und Kunden wie Sie werden von Hдndlern besonders geschдtzt.</text>
+		<text>Obwohl Sie das GefСЊhl kennen, wenn das Geld knapp wird, geht es Ihnen im Moment recht gut. Man kС†nnte sogar sagen, dass Sie zeitweise reich sind, und Kunden wie Sie werden von HРґndlern besonders geschРґtzt.</text>
 	</string>
 	<string id="st_sp_achievement_17_name">
 		<text>Reicher Kunde</text>
 	</string>
 	<string id="st_sp_achievement_18_hint">
-		<text>Nachdem Strelok die Nachrichten bekommen hat, hat er nun eine neue Lebensaufgabe gefunden und will diese um jeden Preis erfьllen.</text>
+		<text>Nachdem Strelok die Nachrichten bekommen hat, hat er nun eine neue Lebensaufgabe gefunden und will diese um jeden Preis erfСЊllen.</text>
 	</string>
 	<string id="st_sp_achievement_18_descr">
-		<text>Ihre Weitsicht hat sich bewдhrt: Nachdem Sie die Nachrichten im Versteck von Streloks Gruppe gefunden haben, haben Sie sie behalten, bis Sie sie dem rechtmдЯigen Besitzer geben konnten.</text>
+		<text>Ihre Weitsicht hat sich bewРґhrt: Nachdem Sie die Nachrichten im Versteck von Streloks Gruppe gefunden haben, haben Sie sie behalten, bis Sie sie dem rechtmРґРЇigen Besitzer geben konnten.</text>
 	</string>
 	<string id="st_sp_achievement_18_name">
 		<text>Bewahrer von Geheimnissen</text>
 	</string>
 	<string id="st_sp_achievement_19_descr">
-		<text>Dank den anabiotischen Pillen konnten Sie eine Emission ьberleben, ohne sich in Sicherheit bringen zu mьssen. Die psychischen Auswirkungen dieser extremen Erfahrung sind jedoch noch nicht ganz ersichtlich - Sie spьren eine seltsame Stille in Ihrem Geist.</text>
+		<text>Dank den anabiotischen Pillen konnten Sie eine Emission СЊberleben, ohne sich in Sicherheit bringen zu mСЊssen. Die psychischen Auswirkungen dieser extremen Erfahrung sind jedoch noch nicht ganz ersichtlich - Sie spСЊren eine seltsame Stille in Ihrem Geist.</text>
 	</string>
 	<string id="st_sp_achievement_19_name">
 		<text>Gezeichnet von der Zone</text>
 	</string>
 	<string id="st_sp_achievement_20_hint">
-		<text>Der Hдndler Uhu gewдhrt Ihnen ab jetzt einen Rabatt, weil Sie sein bester Informant und Partner sind.</text>
+		<text>Der HРґndler Uhu gewРґhrt Ihnen ab jetzt einen Rabatt, weil Sie sein bester Informant und Partner sind.</text>
 	</string>
 	<string id="st_sp_achievement_20_descr">
-		<text>Wenn Sie eine interessante Information aufschnappen, finden Sie immer den richtigen Kдufer dafьr. Natьrlich haben Sie stets Ihren eigenen Gewinn im Sinn, wenn Sie die Informationen an die Leute verkaufen, die sie benцtigen.</text>
+		<text>Wenn Sie eine interessante Information aufschnappen, finden Sie immer den richtigen KРґufer dafСЊr. NatСЊrlich haben Sie stets Ihren eigenen Gewinn im Sinn, wenn Sie die Informationen an die Leute verkaufen, die sie benС†tigen.</text>
 	</string>
 	<string id="st_sp_achievement_20_name">
 		<text>Informationsmakler</text>
 	</string>
 	<string id="st_sp_achievement_21_hint">
-		<text>Ihr Verhдltnis zu den Stalkern hat sich gebessert. Wenn Sie in Schwierigkeiten geraten, werden die Stalker versuchen, Ihnen zu helfen.\nDie Дrzte der Stalker haben sich entschieden, Ihnen medizinische Produkte zum Einkaufspreis zu verkaufen.</text>
+		<text>Ihr VerhРґltnis zu den Stalkern hat sich gebessert. Wenn Sie in Schwierigkeiten geraten, werden die Stalker versuchen, Ihnen zu helfen.\nDie Р”rzte der Stalker haben sich entschieden, Ihnen medizinische Produkte zum Einkaufspreis zu verkaufen.</text>
 	</string>
 	<string id="st_sp_achievement_21_descr">
-		<text>Sie haben Stalkern in Not immer geholfen. Auch wenn die inoffizielle Stalkerbruderschaft nicht sehr eng miteinander verbunden ist, werden sie Ihnen bei Kдmpfen und auch danach zur Seite stehen.</text>
+		<text>Sie haben Stalkern in Not immer geholfen. Auch wenn die inoffizielle Stalkerbruderschaft nicht sehr eng miteinander verbunden ist, werden sie Ihnen bei KРґmpfen und auch danach zur Seite stehen.</text>
 	</string>
 	<string id="st_sp_achievement_21_name">
 		<text>Freund der Stalker</text>
 	</string>
 	<string id="st_sp_achievement_1_hint">
-		<text>Unterschiedliche neue Erkenntnisse haben es den Professoren Hermann und Oserski ermцglicht, in der Zone ein neues experimentelles Prдparat herzustellen, ein Anabiotikum.</text>
+		<text>Unterschiedliche neue Erkenntnisse haben es den Professoren Hermann und Oserski ermС†glicht, in der Zone ein neues experimentelles PrРґparat herzustellen, ein Anabiotikum.</text>
 	</string>
 	<string id="st_sp_achievement_19_hint">
-		<text>Wenn Sie bei voller Gesundheit sind, haben Sie selbst ohne medizinische Mittel eine reelle Ьberlebenschance bei Emissionen.</text>
+		<text>Wenn Sie bei voller Gesundheit sind, haben Sie selbst ohne medizinische Mittel eine reelle Р¬berlebenschance bei Emissionen.</text>
 	</string>
 	<string id="st_sp_achievement_13_hint">
-		<text>Da Sie stets eine groЯe Hilfe sind, bietet Professor Hermann Ihnen medizinische Produkte und Ausrьstung, die ausschlieЯlich fьr das Bunkerpersonal vorgesehen sind, zum Einkaufspreis an.\nNowikow hat Sie so sehr ins Herz geschlossen, dass er Ihnen bei Modifikationen lediglich das Material in Rechnung stellt.</text>
+		<text>Da Sie stets eine groРЇe Hilfe sind, bietet Professor Hermann Ihnen medizinische Produkte und AusrСЊstung, die ausschlieРЇlich fСЊr das Bunkerpersonal vorgesehen sind, zum Einkaufspreis an.\nNowikow hat Sie so sehr ins Herz geschlossen, dass er Ihnen bei Modifikationen lediglich das Material in Rechnung stellt.</text>
 	</string>
 </string_table>

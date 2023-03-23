@@ -1,31 +1,30 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="speech_attack">
 		<text>Wszyscy, do ataku!</text>
 	</string>
 	<string id="speech_covermeartifact">
-		<text>Idк po artefakt! Osіaniaж mnie!</text>
+		<text>IdРє po artefakt! OsС–aniaР¶ mnie!</text>
 	</string>
 	<string id="speech_followme">
-		<text>Za mn№!</text>
+		<text>Za mnв„–!</text>
 	</string>
 	<string id="speech_guardartifact">
 		<text>Na razie pilnuj artefaktu. Jeszcze go nie bierz!</text>
 	</string>
 	<string id="speech_holdingpos">
-		<text>Trzymam pozycjк!</text>
+		<text>Trzymam pozycjРє!</text>
 	</string>
 	<string id="speech_holdpos">
-		<text>Trzymaж pozycje!</text>
+		<text>TrzymaР¶ pozycje!</text>
 	</string>
 	<string id="speech_icoverartifact">
-		<text>Bierz artefakt! Bкdк ciк osіaniaж!</text>
+		<text>Bierz artefakt! BРєdРє ciРє osС–aniaР¶!</text>
 	</string>
 	<string id="speech_needhelp">
-		<text>Potrzebujк pomocy!</text>
+		<text>PotrzebujРє pomocy!</text>
 	</string>
 	<string id="speech_needmoney">
-		<text>Nie mam pieniкdzy - kup wiкcej sprzкtu!</text>
+		<text>Nie mam pieniРєdzy - kup wiРєcej sprzРєtu!</text>
 	</string>
 	<string id="speech_no">
 		<text>Nie.</text>
@@ -34,13 +33,13 @@
 		<text>Czysto!</text>
 	</string>
 	<string id="speech_report">
-		<text>Zgіoњ siк!</text>
+		<text>ZgС–oСљ siРє!</text>
 	</string>
 	<string id="speech_retreat">
-		<text>Odwrуt!</text>
+		<text>OdwrСѓt!</text>
 	</string>
 	<string id="speech_returntheartefact">
-		<text>Odnieњ artefakt!</text>
+		<text>OdnieСљ artefakt!</text>
 	</string>
 	<string id="speech_roger">
 		<text>Rozumiem.</text>
@@ -49,7 +48,7 @@
 		<text>Cicho!</text>
 	</string>
 	<string id="speech_sticktogether">
-		<text>Musimy trzymaж siк razem.</text>
+		<text>Musimy trzymaР¶ siРє razem.</text>
 	</string>
 	<string id="speech_takeartifact">
 		<text>Bierz artefakt!</text>

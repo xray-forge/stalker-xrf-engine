@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="jup_b15_zulus_b301_after_fight_0">
 		<text>Hah! That showed 'em! Thanks for helping me out. If it weren't for you, those bastards would've gobbled me up before long. You know, you're a good stalker, after all... Sorry I got in a huff back there, but you could have told me that you're USS earlier.</text>
@@ -577,19 +576,19 @@
 		<text>Yes. Unfortunately, I don't have them on me.</text>
 	</string>
 	<string id="pri_a25_army_medic_need_health_care_2">
-		<text>Let's have a look... You’re in trouble Major... I mean, you’d probably pass the Space Program medical exam, but apart from that you’re in terrible shape! Hah!</text>
+		<text>Let's have a look... YouвЂ™re in trouble Major... I mean, youвЂ™d probably pass the Space Program medical exam, but apart from that youвЂ™re in terrible shape! Hah!</text>
 	</string>
 	<string id="pri_a17_military_recon_squad_ambush_dialog_21">
-		<text>Come on, Major. The Monolith people won’t wait.</text>
+		<text>Come on, Major. The Monolith people wonвЂ™t wait.</text>
 	</string>
 	<string id="pri_a16_colonel_a21_about_sentry_start_0">
-		<text>Major, we’re missing a sentry - he left his post. His beacon signal is coming from the grocery store but he’s not responding. God knows what happened there. He might have freaked out - the helicopter crash shook the kid up real bad. Will you check out the beacon signal for me?</text>
+		<text>Major, weвЂ™re missing a sentry - he left his post. His beacon signal is coming from the grocery store but heвЂ™s not responding. God knows what happened there. He might have freaked out - the helicopter crash shook the kid up real bad. Will you check out the beacon signal for me?</text>
 	</string>
 	<string id="pri_a16_colonel_a21_about_sentry_start_1">
 		<text>I will.</text>
 	</string>
 	<string id="pri_a16_colonel_a21_about_sentry_start_2">
-		<text>I can’t promise anything.</text>
+		<text>I canвЂ™t promise anything.</text>
 	</string>
 	<string id="pri_a16_military_colonel_a20_find_recon_squd_dialog_0">
 		<text>Major, we need to find the recon unit.</text>
@@ -598,7 +597,7 @@
 		<text>You and the assault squad need to proceed to object A17 - Captain Tarasov will show you. The target is two hospital wings connected by a passage. Monolith fighters are currently in the western wing. You are to set up an ambush in the other wing. They should have the rifle with them, probably carried by the biggest crackpot.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_dialog_1_111">
-		<text>He’s probably that squad’s leader. The boys saw him giving his fighters a sermon. Literally! Be careful - who knows what you can expect from him?</text>
+		<text>HeвЂ™s probably that squadвЂ™s leader. The boys saw him giving his fighters a sermon. Literally! Be careful - who knows what you can expect from him?</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_dialog_1_12">
 		<text>Roger, Colonel.</text>
@@ -607,19 +606,19 @@
 		<text>Greetings. I am Colonel Kovalsky, commander of this unit.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_task_dialog_1">
-		<text>I’m Major Degtyarev, USS. I’m authorized to investigate the failure of Operation Fairway.</text>
+		<text>IвЂ™m Major Degtyarev, USS. IвЂ™m authorized to investigate the failure of Operation Fairway.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_task_dialog_11">
-		<text>I see. Then listen up, Major. Operation Fairway went down the pan together with our choppers. Half my boys are dead and we ain’t got comms with HQ. I want to know why the operation failed as much as you do.</text>
+		<text>I see. Then listen up, Major. Operation Fairway went down the pan together with our choppers. Half my boys are dead and we ainвЂ™t got comms with HQ. I want to know why the operation failed as much as you do.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_task_dialog_111">
 		<text>Any ideas?</text>
 	</string>
 	<string id="pri_a17_military_base_commander_task_dialog_1111">
-		<text>My only idea is that the helicopters were shot down. Shot down using an extremely powerful weapon that we don't know much about. Monolith fighters used one against us during the first assault on the CNPP... I’m planning to capture one of these weapons and investigate. If you want in on the action, the Monolith squad carrying this weapon has been tracked down, and the assault team is waiting for my signal to begin the operation. What do you say?</text>
+		<text>My only idea is that the helicopters were shot down. Shot down using an extremely powerful weapon that we don't know much about. Monolith fighters used one against us during the first assault on the CNPP... IвЂ™m planning to capture one of these weapons and investigate. If you want in on the action, the Monolith squad carrying this weapon has been tracked down, and the assault team is waiting for my signal to begin the operation. What do you say?</text>
 	</string>
 	<string id="pri_a17_military_base_commander_task_dialog_11111">
-		<text>I agree on the condition that you provide me with all the information you’ve got and give me complete freedom of action.</text>
+		<text>I agree on the condition that you provide me with all the information youвЂ™ve got and give me complete freedom of action.</text>
 	</string>
 	<string id="pri_a17_military_colonel_kovalski_a23_about_gauss_labx8_0">
 		<text>I have info on the unidentified weapon, the Gauss rifle.</text>
@@ -628,40 +627,40 @@
 		<text>Wow! How does it work? Can it be used to shoot down a helicopter?</text>
 	</string>
 	<string id="pri_a17_military_colonel_kovalski_a23_about_gauss_labx8_11">
-		<text>Technically it can, but the accelerated bullet would have left holes in the choppers, and there weren’t any.</text>
+		<text>Technically it can, but the accelerated bullet would have left holes in the choppers, and there werenвЂ™t any.</text>
 	</string>
 	<string id="pri_a17_military_colonel_kovalski_a23_about_gauss_labx8_111">
-		<text>Damn... That’s a dead end, then. I don’t have any other ideas. All we can do now is sit on our asses in the middle of this friggin’ Zone and hope that they’ll come for us... OK, that’s enough whining from me. Let’s concern ourselves with things we can affect here and now. Thanks to you we now know that hiding in cover isn’t gonna keep us safe from those accelerated bullets, and that’s already something. So thank you, Major. I’ll contact you if we get anything new.</text>
+		<text>Damn... ThatвЂ™s a dead end, then. I donвЂ™t have any other ideas. All we can do now is sit on our asses in the middle of this frigginвЂ™ Zone and hope that theyвЂ™ll come for us... OK, thatвЂ™s enough whining from me. LetвЂ™s concern ourselves with things we can affect here and now. Thanks to you we now know that hiding in cover isnвЂ™t gonna keep us safe from those accelerated bullets, and thatвЂ™s already something. So thank you, Major. IвЂ™ll contact you if we get anything new.</text>
 	</string>
 	<string id="pri_a17_military_colonel_kovalski_a23_about_gauss_labx8_12">
-		<text>Technically it can, but Stingrays 4 and 5 crashed due to electronic malfunctions. Accelerated bullets couldn’t have done that.</text>
+		<text>Technically it can, but Stingrays 4 and 5 crashed due to electronic malfunctions. Accelerated bullets couldnвЂ™t have done that.</text>
 	</string>
 	<string id="pri_a17_got_gauss_0">
-		<text>How’s the operation going?</text>
+		<text>HowвЂ™s the operation going?</text>
 	</string>
 	<string id="pri_a17_got_gauss_1">
 		<text>Sergeant Morozov was killed. Monolith fighters led us into a trap by sacrificing their own people.</text>
 	</string>
 	<string id="pri_a17_got_gauss_11">
-		<text>Bastards! They couldn’t have known about our plan... So we’ve lost our sniper. What about the aim of the operation?</text>
+		<text>Bastards! They couldnвЂ™t have known about our plan... So weвЂ™ve lost our sniper. What about the aim of the operation?</text>
 	</string>
 	<string id="pri_a17_got_gauss_2">
 		<text>We took some losses... Monolith fighters led us into a trap by sacrificing their own people.</text>
 	</string>
 	<string id="pri_a17_got_gauss_21">
-		<text>Bastards! They couldn’t have known about our plan... So we’ve lost some men. What about the aim of the operation?</text>
+		<text>Bastards! They couldnвЂ™t have known about our plan... So weвЂ™ve lost some men. What about the aim of the operation?</text>
 	</string>
 	<string id="pri_a17_got_gauss_3">
 		<text>The squad is dead... Monolith fighters led us into a trap by sacrificing their own people.</text>
 	</string>
 	<string id="pri_a17_got_gauss_31">
-		<text>Bastards! They couldn’t have known about our plan... So we’ve lost Tarasov and his men. What about the aim of the operation?</text>
+		<text>Bastards! They couldnвЂ™t have known about our plan... So weвЂ™ve lost Tarasov and his men. What about the aim of the operation?</text>
 	</string>
 	<string id="pri_a17_got_gauss_4">
 		<text>I got the weapon. It was damaged during the fighting.</text>
 	</string>
 	<string id="pri_a17_got_gauss_41">
-		<text>So we can’t determine whether it was used to shoot down the helicopters. Listen, Major: you’ve got connections among the stalkers. It’s possible that they’ve come across this weapon before. They should have technicians among them. Will you try talking to them?</text>
+		<text>So we canвЂ™t determine whether it was used to shoot down the helicopters. Listen, Major: youвЂ™ve got connections among the stalkers. ItвЂ™s possible that theyвЂ™ve come across this weapon before. They should have technicians among them. Will you try talking to them?</text>
 	</string>
 	<string id="pri_a17_got_gauss_411">
 		<text>OK.</text>
@@ -670,10 +669,10 @@
 		<text>Good... Oh, by the way. Another stalker made it here from Jupiter - have a chat with him first, if you feel like it.</text>
 	</string>
 	<string id="pri_a17_got_gauss_5">
-		<text>I’m still working on it.</text>
+		<text>IвЂ™m still working on it.</text>
 	</string>
 	<string id="pri_a17_got_gauss_51">
-		<text>I see. Major, we need that weapon. I’m sure you understand how important this is.</text>
+		<text>I see. Major, we need that weapon. IвЂ™m sure you understand how important this is.</text>
 	</string>
 	<string id="pri_a17_got_gauss_511">
 		<text>Uh-huh.</text>
@@ -682,19 +681,19 @@
 		<text>I found your note at the Volkhov AA complex. Take it.</text>
 	</string>
 	<string id="pri_a15_sokolov_evacuation_note_1">
-		<text>Listen... Oh, never mind. I don’t think any of our people will show up at the location anyway. If you do spot any military around here, let me know, OK? Thanks in advance...</text>
+		<text>Listen... Oh, never mind. I donвЂ™t think any of our people will show up at the location anyway. If you do spot any military around here, let me know, OK? Thanks in advance...</text>
 	</string>
 	<string id="pri_a25_army_medic_freezer_0">
-		<text>Major... Thank God! I’m saved!</text>
+		<text>Major... Thank God! IвЂ™m saved!</text>
 	</string>
 	<string id="pri_a25_army_medic_freezer_1">
 		<text>How did you end up here?</text>
 	</string>
 	<string id="pri_a25_army_medic_freezer_11">
-		<text>Err... I don’t remember much... I was so scared I could barely think and I don’t even know what scared me. I just had a feeling I had to hide, so I ran... I remember streets, turnings somewhere... I came to in this hole. The door was locked from the outside... I thought I was gonna die in here. How did you find me? Actually, let’s get the hell out of here and get closer to the base. This place is giving me the willies...</text>
+		<text>Err... I donвЂ™t remember much... I was so scared I could barely think and I donвЂ™t even know what scared me. I just had a feeling I had to hide, so I ran... I remember streets, turnings somewhere... I came to in this hole. The door was locked from the outside... I thought I was gonna die in here. How did you find me? Actually, letвЂ™s get the hell out of here and get closer to the base. This place is giving me the willies...</text>
 	</string>
 	<string id="pri_a25_army_medic_freezer_111">
-		<text>Let’s go.</text>
+		<text>LetвЂ™s go.</text>
 	</string>
 	<string id="pri_a25_army_medic_start_dialog_11">
 		<text>Hi. You need medical assistance? I'm not a doctor, but I can remove bullets and sew up wounds if it comes to that.</text>
@@ -715,7 +714,7 @@
 		<text>Did something unusual happen while the helicopters were in the air?</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_11111">
-		<text>Not until the choppers started crashing. We stuck to the operation plan: took off 90 seconds before the emission, activated our protection system and put the birds on autopilot. We were following the shortest safe route, calculated using the anomaly map. The fact that we had zero visibility shouldn’t have affected the mission because the corridor was wide enough. According to the plan, we should have reached the power plant in twelve and a half minutes. After nine minutes we lost comms with Stingray 4, and then the others started dropping like flies.</text>
+		<text>Not until the choppers started crashing. We stuck to the operation plan: took off 90 seconds before the emission, activated our protection system and put the birds on autopilot. We were following the shortest safe route, calculated using the anomaly map. The fact that we had zero visibility shouldnвЂ™t have affected the mission because the corridor was wide enough. According to the plan, we should have reached the power plant in twelve and a half minutes. After nine minutes we lost comms with Stingray 4, and then the others started dropping like flies.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_111111">
 		<text>I have a few more questions about the operation...</text>
@@ -724,7 +723,7 @@
 		<text>What happened to the helicopters?</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_11121">
-		<text>Not much. Stingray 2 and 4 are a complete mystery. I don’t know where they crashed or what happened to the men on board. Information about the other choppers comes from the men who made it out, so don’t expect an accurate picture. We had other things to worry about.</text>
+		<text>Not much. Stingray 2 and 4 are a complete mystery. I donвЂ™t know where they crashed or what happened to the men on board. Information about the other choppers comes from the men who made it out, so donвЂ™t expect an accurate picture. We had other things to worry about.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_111211">
 		<text>Tell me about Stingray 1.</text>
@@ -733,13 +732,13 @@
 		<text>How did you get here?</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_111211111">
-		<text>We met a stalker not far from the minefield. I think he must have heard the mine exploding. A strange guy... called himself Guide. He didn’t ask any questions and just offered to lead us to Pripyat. That suited our plan, so I agreed. We kept him in our sights just in case, but everything went smoothly... He didn't say a word until we reached the city, and when we did he just disappeared without warning. I ordered my men to leave him be.</text>
+		<text>We met a stalker not far from the minefield. I think he must have heard the mine exploding. A strange guy... called himself Guide. He didnвЂ™t ask any questions and just offered to lead us to Pripyat. That suited our plan, so I agreed. We kept him in our sights just in case, but everything went smoothly... He didn't say a word until we reached the city, and when we did he just disappeared without warning. I ordered my men to leave him be.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_111212">
 		<text>Tell me about Stingray 3.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_1112121">
-		<text>Captain Tarasov says that both engines failed. They had to land on the hill around position B2. They were lucky in that they had a soft landing, but the technician didn’t have time to identify the cause of the malfunction because they were attacked by snorks and lost three men. The others decided not to stick around - they contacted Stingray 5 and went to meet them. They got into a fight with a well-armed enemy squad on the way, but managed to get out of there without taking losses.</text>
+		<text>Captain Tarasov says that both engines failed. They had to land on the hill around position B2. They were lucky in that they had a soft landing, but the technician didnвЂ™t have time to identify the cause of the malfunction because they were attacked by snorks and lost three men. The others decided not to stick around - they contacted Stingray 5 and went to meet them. They got into a fight with a well-armed enemy squad on the way, but managed to get out of there without taking losses.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_11121211">
 		<text>How did they get to Pripyat?</text>
@@ -760,22 +759,22 @@
 		<text>The crews of Stingrays 3 and 5 managed to link up not far from the crash locations near some sort of barge. It was reported to me that the man who lived there was crazy as a loon: when my men tried to detain him, he tried to detain them! I mean, the poor bastard was outnumbered eleven to one. Anyway, chancing upon this stalker turned out to be a fortunate development, as the parties managed to come to an agreement, and he led the whole squad to Pripyat almost unharmed. The only casualty was Lieutenant Stetsenko, who lost a couple of toes in a gravitational anomaly on his way here.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_11122">
-		<text>Not much. Stingray 2 is a complete mystery. I don’t know where it crashed or what happened to the men on board. You should know more about Stingray 4 than I do. Lieutenant Sokolov, the one that came here with you, is the only survivor from that chopper. Information about the other choppers comes from the men who made it out, so don’t expect an accurate picture. We had other things to worry about.</text>
+		<text>Not much. Stingray 2 is a complete mystery. I donвЂ™t know where it crashed or what happened to the men on board. You should know more about Stingray 4 than I do. Lieutenant Sokolov, the one that came here with you, is the only survivor from that chopper. Information about the other choppers comes from the men who made it out, so donвЂ™t expect an accurate picture. We had other things to worry about.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_11123">
-		<text>Not much. Stingray 2 is a complete mystery. I don’t know where it crashed or what happened to the men on board. You can ask Lieutenant Sokolov about Stingray 4 yourself. He’s the only one from that chopper’s crew who made it to Pripyat. Information about the other choppers comes from the men who made it out, so don’t expect an accurate picture. We had other things to worry about.</text>
+		<text>Not much. Stingray 2 is a complete mystery. I donвЂ™t know where it crashed or what happened to the men on board. You can ask Lieutenant Sokolov about Stingray 4 yourself. HeвЂ™s the only one from that chopperвЂ™s crew who made it to Pripyat. Information about the other choppers comes from the men who made it out, so donвЂ™t expect an accurate picture. We had other things to worry about.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_1113">
 		<text>I need other information.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_1114">
-		<text>I don’t have any more questions.</text>
+		<text>I donвЂ™t have any more questions.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_12">
-		<text>What’s the situation in Pripyat?</text>
+		<text>WhatвЂ™s the situation in Pripyat?</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_121">
-		<text>As shitty as it gets. Pripyat is crawling with a mixture of Monolith fanatics and zombies. Emissions hit one after another, and there’s always mutants and anomalies to watch out for... Welcome to Hell.</text>
+		<text>As shitty as it gets. Pripyat is crawling with a mixture of Monolith fanatics and zombies. Emissions hit one after another, and thereвЂ™s always mutants and anomalies to watch out for... Welcome to Hell.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_1211">
 		<text>How are you doing for equipment and supplies?</text>
@@ -784,49 +783,49 @@
 		<text>Tell me about the Monolith.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_131">
-		<text>They’re fanatics, pure and simple. I don’t know what’s spurring them on but they’re constantly looking for a fight. They don’t retreat even if they’re outnumbered and outgunned... And that’s pretty rare for this place. It looks like they’re getting regular reinforcements from the CNPP. Screw them, we’ve already lost some fine men to their attacks...</text>
+		<text>TheyвЂ™re fanatics, pure and simple. I donвЂ™t know whatвЂ™s spurring them on but theyвЂ™re constantly looking for a fight. They donвЂ™t retreat even if theyвЂ™re outnumbered and outgunned... And thatвЂ™s pretty rare for this place. It looks like theyвЂ™re getting regular reinforcements from the CNPP. Screw them, weвЂ™ve already lost some fine men to their attacks...</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_1311">
 		<text>Have you tried interrogating one of them?</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_13111">
-		<text>It’s useless. First of all, they fight to the death. Then our boys managed to get one alive when he was stunned by a grenade, but it didn’t help much. We took our eyes off him for a second and he banged his head against the wall so hard that his skull cracked open like an egg.</text>
+		<text>ItвЂ™s useless. First of all, they fight to the death. Then our boys managed to get one alive when he was stunned by a grenade, but it didnвЂ™t help much. We took our eyes off him for a second and he banged his head against the wall so hard that his skull cracked open like an egg.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_14">
 		<text>What are you going to do now?</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_141">
-		<text>I don’t believe it’s possible to go ahead with Operation Fairway. Your presence here confirms it. My plan is to hold the base until the choppers show up. I have several possible evacuation dates.</text>
+		<text>I donвЂ™t believe itвЂ™s possible to go ahead with Operation Fairway. Your presence here confirms it. My plan is to hold the base until the choppers show up. I have several possible evacuation dates.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_1411">
-		<text>There won’t be any choppers until we know what caused the Stingrays to crash.</text>
+		<text>There wonвЂ™t be any choppers until we know what caused the Stingrays to crash.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_14111">
-		<text>So that’s how it is... Well, we can’t make it out of here on foot! God knows how many miles of this shit, and then the Zone is full of stalkers who aren’t exactly our best buddies. That means our only choice is to conduct our own investigation, and not buy the farm in the process. Major, we're working towards the same goal here.</text>
+		<text>So thatвЂ™s how it is... Well, we canвЂ™t make it out of here on foot! God knows how many miles of this shit, and then the Zone is full of stalkers who arenвЂ™t exactly our best buddies. That means our only choice is to conduct our own investigation, and not buy the farm in the process. Major, we're working towards the same goal here.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_15">
 		<text>Not now.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_start_0">
-		<text>I’m listening, Major.</text>
+		<text>IвЂ™m listening, Major.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_12111">
-		<text>The only equipment we have is what we carried here ourselves. Oh, we also managed to seize some Monolith stuff, mainly ammo. That means we’re extra careful about issuing what we have. Same thing with food - all we got is rations and some chow from the Monolith warehouse.</text>
+		<text>The only equipment we have is what we carried here ourselves. Oh, we also managed to seize some Monolith stuff, mainly ammo. That means weвЂ™re extra careful about issuing what we have. Same thing with food - all we got is rations and some chow from the Monolith warehouse.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_12112">
-		<text>The only equipment we have is what we carried here ourselves. Oh, we also managed to seize some Monolith stuff, mainly ammo. That means we’re extra careful about issuing what we have. As for supplies, it’s pretty much the same thing except I’ve made a deal with Garry. He brings us canned food and we let him stay in the base and look the other way when he’s out looking for artifacts... It’s not like we have any other choice anyway.</text>
+		<text>The only equipment we have is what we carried here ourselves. Oh, we also managed to seize some Monolith stuff, mainly ammo. That means weвЂ™re extra careful about issuing what we have. As for supplies, itвЂ™s pretty much the same thing except IвЂ™ve made a deal with Garry. He brings us canned food and we let him stay in the base and look the other way when heвЂ™s out looking for artifacts... ItвЂ™s not like we have any other choice anyway.</text>
 	</string>
 	<string id="pri_a18_altar_destroyed_soldiers_start_11">
-		<text>We avenged our boys... Do what you need and let’s go back. I don’t feel like hanging around here.</text>
+		<text>We avenged our boys... Do what you need and letвЂ™s go back. I donвЂ™t feel like hanging around here.</text>
 	</string>
 	<string id="pri_a18_altar_destroyed_soldiers_start_12">
-		<text>Let’s not waste any time here, OK? I want to get back to the base, ASAP...</text>
+		<text>LetвЂ™s not waste any time here, OK? I want to get back to the base, ASAP...</text>
 	</string>
 	<string id="pri_a18_altar_destroyed_soldiers_start_111">
 		<text>OK.</text>
 	</string>
 	<string id="pri_a18_altar_destroyed_vano_start_11">
-		<text>There’s that strange thing over there! What do you reckon they need it for? Ah, never mind. Come on, buddy, do your stuff and let’s get back to base.</text>
+		<text>ThereвЂ™s that strange thing over there! What do you reckon they need it for? Ah, never mind. Come on, buddy, do your stuff and letвЂ™s get back to base.</text>
 	</string>
 	<string id="pri_a18_altar_destroyed_vano_start_12">
 		<text>You done here? I vote for heading back to the base and getting some chow...</text>
@@ -838,49 +837,49 @@
 		<text>How are you doing?</text>
 	</string>
 	<string id="pri_a15_sokolov_pripyat_how_are_you_1">
-		<text>Shit. It’s nice to be with your own kind, but I don’t take much heart from being together with other people in one big shithole.</text>
+		<text>Shit. ItвЂ™s nice to be with your own kind, but I donвЂ™t take much heart from being together with other people in one big shithole.</text>
 	</string>
 	<string id="pri_a15_sokolov_acquaintance_after_jorney_0">
-		<text>I’ve not seen you here before. Did you get here recently?</text>
+		<text>IвЂ™ve not seen you here before. Did you get here recently?</text>
 	</string>
 	<string id="pri_a15_sokolov_acquaintance_after_jorney_1">
-		<text>Yes. I’m Lieutenant Sokolov, copilot of Stingray 4.</text>
+		<text>Yes. IвЂ™m Lieutenant Sokolov, copilot of Stingray 4.</text>
 	</string>
 	<string id="pri_a15_sokolov_about_journey_0">
 		<text>How did you get here?</text>
 	</string>
 	<string id="pri_a15_sokolov_about_journey_1">
-		<text>I came with a stalker called Garry. I asked him to take me with him when he was looking for a way to Pripyat. It was some trip, believe you me! It’s a good thing we ran straight into our recon team as soon as we got to Pripyat.</text>
+		<text>I came with a stalker called Garry. I asked him to take me with him when he was looking for a way to Pripyat. It was some trip, believe you me! ItвЂ™s a good thing we ran straight into our recon team as soon as we got to Pripyat.</text>
 	</string>
 	<string id="pri_a15_sokolov_helicopter_0">
 		<text>What happened to Stingray 4?</text>
 	</string>
 	<string id="pri_a15_sokolov_helicopter_1">
-		<text>Who the hell knows? I had a bad feeling about the whole thing... We were flying on autopilot, the equipment was fine, and then suddenly we were flying in a piece of scrap metal with all the electronics disabled. Me and the pilot tried to reach flat ground but it didn’t work. We fell straight into the main workshop of the Jupiter plant, right through the roof... I was the only one who made it.</text>
+		<text>Who the hell knows? I had a bad feeling about the whole thing... We were flying on autopilot, the equipment was fine, and then suddenly we were flying in a piece of scrap metal with all the electronics disabled. Me and the pilot tried to reach flat ground but it didnвЂ™t work. We fell straight into the main workshop of the Jupiter plant, right through the roof... I was the only one who made it.</text>
 	</string>
 	<string id="pri_a22_army_signaller_supply_outfit_0">
 		<text>I need body armor.</text>
 	</string>
 	<string id="pri_a22_army_signaller_supply_outfit_1">
-		<text>OK. Here’s the helmet, to start with... Now armor - I hope it’s your size because we don’t have any other size anyway. I patched it up, so it should hold up.</text>
+		<text>OK. HereвЂ™s the helmet, to start with... Now armor - I hope itвЂ™s your size because we donвЂ™t have any other size anyway. I patched it up, so it should hold up.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_task_dialog_111111">
-		<text>Of course, Major... Given the circumstances, I don't have much of a choice... By the way, go see Lieutenant Kirillov. He’ll issue you with some equipment.</text>
+		<text>Of course, Major... Given the circumstances, I don't have much of a choice... By the way, go see Lieutenant Kirillov. HeвЂ™ll issue you with some equipment.</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_9">
 		<text>About the helis...</text>
 	</string>
 	<string id="pri_a17_military_base_commander_actor_questions_dialog_91">
-		<text>I’m listening.</text>
+		<text>IвЂ™m listening.</text>
 	</string>
 	<string id="pri_a25_army_medic_start_dialog_14">
-		<text>Man, that’s crazy stuff... I can see Kirillov begging me for aspirin later on.</text>
+		<text>Man, thatвЂ™s crazy stuff... I can see Kirillov begging me for aspirin later on.</text>
 	</string>
 	<string id="pri_a17_military_colonel_kovalski_evacuation_start_21">
 		<text>Waiting is the worst part. It just grinds you down like nothing else...</text>
 	</string>
 	<string id="pri_a17_military_colonel_kovalski_evacuation_start_1111">
-		<text>OK, Major, the boys are good to go. Stock up by visiting Rogovets and Kirillov if you need. Let me know when you’re ready. </text>
+		<text>OK, Major, the boys are good to go. Stock up by visiting Rogovets and Kirillov if you need. Let me know when youвЂ™re ready. </text>
 	</string>
 	<string id="pri_a17_military_colonel_kovalski_evacuation_start_11111">
 		<text>OK.</text>
@@ -889,7 +888,7 @@
 		<text>Move out.</text>
 	</string>
 	<string id="pri_a15_sokolov_need_outfit_1">
-		<text>Well, in that case we need it to be rock solid, like the ones the scientists have. Then again, talking Hermann into giving me a suit isn’t going to be easy. I get the feeling he'd rather I walk bare-assed to the edge of the Zone than take up precious room in their bunker... You could ask Ozersky, I guess. He's a bit nicer and he might agree to issue me with a suit.</text>
+		<text>Well, in that case we need it to be rock solid, like the ones the scientists have. Then again, talking Hermann into giving me a suit isnвЂ™t going to be easy. I get the feeling he'd rather I walk bare-assed to the edge of the Zone than take up precious room in their bunker... You could ask Ozersky, I guess. He's a bit nicer and he might agree to issue me with a suit.</text>
 	</string>
 	<string id="pri_a17_military_recon_squad_ambush_dialog_second_0">
 		<text>So, Major?</text>

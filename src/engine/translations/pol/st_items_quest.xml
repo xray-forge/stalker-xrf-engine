@@ -1,319 +1,318 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="jup_a9_conservation_info">
 		<text>Dokumenty z notatkami</text>
 	</string>
 	<string id="jup_a9_conservation_info_desc">
-		<text>Dokumenty mуwi№, їe zgodnie z rozkazem Departamentu 1, po zamkniкciu њluzy transportowej tunel Prypeж 1 zostaі wypeіniony dwutlenkiem wкgla zmieszanym z jak№њ substancj№ chemiczn№. Nastкpnie caіemu personelowi nakazano nosiж ochronne kombinezony z zamkniкtym obiegiem powietrza.</text>
+		<text>Dokumenty mСѓwiв„–, С—e zgodnie z rozkazem Departamentu 1, po zamkniРєciu Сљluzy transportowej tunel PrypeР¶ 1 zostaС– wypeС–niony dwutlenkiem wРєgla zmieszanym z jakв„–Сљ substancjв„– chemicznв„–. NastРєpnie caС–emu personelowi nakazano nosiР¶ ochronne kombinezony z zamkniРєtym obiegiem powietrza.</text>
 	</string>
 	<string id="jup_a9_delivery_info">
-		<text>List dotycz№cy dostaw obiektu 62</text>
+		<text>List dotyczв„–cy dostaw obiektu 62</text>
 	</string>
 	<string id="jup_a9_delivery_info_desc">
-		<text>„Ze wzglкdu na wystкpowanie aktywnoњci anomalnej, transport obiektu 62 przez otwarty teren jest niemoїliwy. Naleїy uїyж podziemnego tunelu Prypeж 1. Plan dostawy i maj№cego po niej nast№piж zamkniкcia tunelu zostaі wysіany do Departamentu 1.”</text>
+		<text>вЂћZe wzglРєdu na wystРєpowanie aktywnoСљci anomalnej, transport obiektu 62 przez otwarty teren jest niemoС—liwy. NaleС—y uС—yР¶ podziemnego tunelu PrypeР¶ 1. Plan dostawy i majв„–cego po niej nastв„–piР¶ zamkniРєcia tunelu zostaС– wysС–any do Departamentu 1.вЂќ</text>
 	</string>
 	<string id="jup_a9_evacuation_info">
 		<text>Teczka z rozkazem</text>
 	</string>
 	<string id="jup_a9_evacuation_info_desc">
-		<text>Dokumenty wspominaj№ o ewakuacji zakіadu produkcyjnego fabryki Jupiter do podziemnych laboratoriуw. Ta kwestia miaіa zostaж omуwiona w czкњci laboratoryjnej.</text>
+		<text>Dokumenty wspominajв„– o ewakuacji zakС–adu produkcyjnego fabryki Jupiter do podziemnych laboratoriСѓw. Ta kwestia miaС–a zostaР¶ omСѓwiona w czРєСљci laboratoryjnej.</text>
 	</string>
 	<string id="jup_a9_losses_info">
 		<text>Harmonogram dostaw</text>
 	</string>
 	<string id="jup_a9_losses_info_desc">
-		<text>„Harmonogram dostaw obiektu 62: 14.07 - 20 jednostek (jedna uszkodzona); 21.07 - 32 jednostki (2 uszkodzone); 28.07 - 26 jednostek (jedna uszkodzona). List przewozowy dotycz№cy strat w wyniku transportu zostaі przesіany do administracji zakіadu, wysіano teї kopiк do warsztatуw naprawczych.”</text>
+		<text>вЂћHarmonogram dostaw obiektu 62: 14.07 - 20 jednostek (jedna uszkodzona); 21.07 - 32 jednostki (2 uszkodzone); 28.07 - 26 jednostek (jedna uszkodzona). List przewozowy dotyczв„–cy strat w wyniku transportu zostaС– przesС–any do administracji zakС–adu, wysС–ano teС— kopiРє do warsztatСѓw naprawczych.вЂќ</text>
 	</string>
 	<string id="jup_a9_meeting_info">
 		<text>Kartka z notesu</text>
 	</string>
 	<string id="jup_a9_meeting_info_desc">
-		<text>Podczas spotkania podjкto nastкpuj№c№ decyzjк: dziaі dostaw ma siк skupiж na ewakuacji kompleksu produkcyjnego obiektu 62.</text>
+		<text>Podczas spotkania podjРєto nastРєpujв„–cв„– decyzjРє: dziaС– dostaw ma siРє skupiР¶ na ewakuacji kompleksu produkcyjnego obiektu 62.</text>
 	</string>
 	<string id="jup_a9_power_info">
 		<text>Raport ze zmiany</text>
 	</string>
 	<string id="jup_a9_power_info_desc">
-		<text>„...18:30 - zakoсczono szczelne zamykanie wszystkich sekcji tunelu P 1. 19:00 - zakoсczono szczelne zamykanie drzwi linii kolejowej. Konieczne byіo ich zaspawanie. 19:45 - zamkniкcie drzwi luku transportowego. Obsіuga mechanizmu drzwi wymagaіa uruchomienia zasilania awaryjnego, poniewaї wczeњniej odciкto juї dopіyw pr№du do tunelu. 20:00 - warsztat chemiczny rozpocz№і wypeіnianie tunelu gazem. 22:00 - zakoсczono dziaіania zmierzaj№ce do zamkniкcia tunelu, wszystkie dokumenty przesіano do Departamentu 1.”</text>
+		<text>вЂћ...18:30 - zakoСЃczono szczelne zamykanie wszystkich sekcji tunelu P 1. 19:00 - zakoСЃczono szczelne zamykanie drzwi linii kolejowej. Konieczne byС–o ich zaspawanie. 19:45 - zamkniРєcie drzwi luku transportowego. ObsС–uga mechanizmu drzwi wymagaС–a uruchomienia zasilania awaryjnego, poniewaС— wczeСљniej odciРєto juС— dopС–yw prв„–du do tunelu. 20:00 - warsztat chemiczny rozpoczв„–С– wypeС–nianie tunelu gazem. 22:00 - zakoСЃczono dziaС–ania zmierzajв„–ce do zamkniРєcia tunelu, wszystkie dokumenty przesС–ano do Departamentu 1.вЂќ</text>
 	</string>
 	<string id="jup_a9_way_info">
 		<text>Plan tuneli</text>
 	</string>
 	<string id="jup_a9_way_info_desc">
-		<text>Plan tuneli Prypeж 1, z ktуrego widaж, їe tunel przebiega pod miastem Prypeж. Dokument zawiera kilka notatek: 1. Zamkn№ж drzwi luku transportowego. 2. Uїyж gazu z warsztatu chemicznego do zamkniкcia tunelu.</text>
+		<text>Plan tuneli PrypeР¶ 1, z ktСѓrego widaР¶, С—e tunel przebiega pod miastem PrypeР¶. Dokument zawiera kilka notatek: 1. Zamknв„–Р¶ drzwi luku transportowego. 2. UС—yР¶ gazu z warsztatu chemicznego do zamkniРєcia tunelu.</text>
 	</string>
 	<string id="jup_b1_half_artifact">
 		<text>Przerobiony izolator</text>
 	</string>
 	<string id="jup_b1_half_artifact_descr">
-		<text>To byі izolator. Teraz prawie zmieniі siк w niestabilny artefakt. To zapewne z niego wydobywaj№ siк sporadyczne emisje psioniczne.</text>
+		<text>To byС– izolator. Teraz prawie zmieniС– siРє w niestabilny artefakt. To zapewne z niego wydobywajв„– siРє sporadyczne emisje psioniczne.</text>
 	</string>
 	<string id="jup_b200_tech_materials_acetone">
 		<text>Puszka kalafonii</text>
 	</string>
 	<string id="jup_b200_tech_materials_acetone_descr">
-		<text>Puszka kalafonii uїywanej do lutowania. Spotyka siк j№ w Zonie doњж rzadko, co tіumaczy, dlaczego miejscowi technicy czкsto uїywaj№ do reperacji zepsutego sprzкtu niebieskiej taњmy elektrycznej.</text>
+		<text>Puszka kalafonii uС—ywanej do lutowania. Spotyka siРє jв„– w Zonie doСљР¶ rzadko, co tС–umaczy, dlaczego miejscowi technicy czРєsto uС—ywajв„– do reperacji zepsutego sprzРєtu niebieskiej taСљmy elektrycznej.</text>
 	</string>
 	<string id="jup_b200_tech_materials_capacitor">
-		<text>Paczka kondensatorуw</text>
+		<text>Paczka kondensatorСѓw</text>
 	</string>
 	<string id="jup_b200_tech_materials_capacitor_descr">
-		<text>Paczka kondensatorуw - jednego z najpowszechniejszych komponentуw elektrycznych. Nie s№ w Zonie rzadkoњci№, jako їe uїywa siк ich w ulepszeniach zaawansowanego sprzкtu, ale taka pojemnoњж nie jest zwykle wymagana.</text>
+		<text>Paczka kondensatorСѓw - jednego z najpowszechniejszych komponentСѓw elektrycznych. Nie sв„– w Zonie rzadkoСљciв„–, jako С—e uС—ywa siРє ich w ulepszeniach zaawansowanego sprzРєtu, ale taka pojemnoСљР¶ nie jest zwykle wymagana.</text>
 	</string>
 	<string id="jup_b200_tech_materials_textolite">
 		<text>Baza tekstolitowa</text>
 	</string>
 	<string id="jup_b200_tech_materials_textolite_descr">
-		<text>Tekstolit to jeden z podstawowych elementуw obwodуw drukowanych. Uczucie, jakiego doњwiadcza radiotechnik-amator na widok nietkniкtej bazy tekstolitowej moїna porуwnaж do tego, co odczuwa pisarz wobec czystej kartki papieru.</text>
+		<text>Tekstolit to jeden z podstawowych elementСѓw obwodСѓw drukowanych. Uczucie, jakiego doСљwiadcza radiotechnik-amator na widok nietkniРєtej bazy tekstolitowej moС—na porСѓwnaР¶ do tego, co odczuwa pisarz wobec czystej kartki papieru.</text>
 	</string>
 	<string id="jup_b200_tech_materials_transistor">
-		<text>Pudeіko tranzystorуw</text>
+		<text>PudeС–ko tranzystorСѓw</text>
 	</string>
 	<string id="jup_b200_tech_materials_transistor_descr">
-		<text>Pudeіko tranzystorуw - pуіprzewodnikуw, ktуre generuj№, przeksztaіcaj№ i zwiкkszaj№ natкїenie impulsуw elektrycznych. Tranzystory to marzenie kaїdego radiotechnika w Zonie.</text>
+		<text>PudeС–ko tranzystorСѓw - pСѓС–przewodnikСѓw, ktСѓre generujв„–, przeksztaС–cajв„– i zwiРєkszajв„– natРєС—enie impulsСѓw elektrycznych. Tranzystory to marzenie kaС—dego radiotechnika w Zonie.</text>
 	</string>
 	<string id="jup_b200_tech_materials_wire">
-		<text>Kікbek miedzianego drutu</text>
+		<text>KС–Рєbek miedzianego drutu</text>
 	</string>
 	<string id="jup_b200_tech_materials_wire_descr">
-		<text>Kікbek miedzianego drutu to znakomity przewodnik i rуwnoczeњnie џrуdіo metalu nieszlachetnego. Ze wzglкdu na tк drug№ cechк taki drut spotyka siк w Zonie bardzo rzadko. Wszystkie jego rezerwy zostaіy odnalezione, stopione i dostarczone do oњrodkуw przetwуrczych jeszcze w latach 90.</text>
+		<text>KС–Рєbek miedzianego drutu to znakomity przewodnik i rСѓwnoczeСљnie СџrСѓdС–o metalu nieszlachetnego. Ze wzglРєdu na tРє drugв„– cechРє taki drut spotyka siРє w Zonie bardzo rzadko. Wszystkie jego rezerwy zostaС–y odnalezione, stopione i dostarczone do oСљrodkСѓw przetwСѓrczych jeszcze w latach 90.</text>
 	</string>
 	<string id="jup_b209_monster_scanner">
-		<text>Wykrywacz mutantуw</text>
+		<text>Wykrywacz mutantСѓw</text>
 	</string>
 	<string id="jup_b209_monster_scanner_descr">
-		<text>To urz№dzenie jest oparte na zwykіym wykrywaczu anomalii, ktуry poі№czono z czujnikiem wykrywaj№cym mutanty na ograniczonym obszarze i elementem pozwalaj№cym na przechowywanie danych. Po zebraniu ich okreњlonej iloњci uruchamia siк przeі№cznik automatycznej dezaktywacji urz№dzenia.</text>
+		<text>To urzв„–dzenie jest oparte na zwykС–ym wykrywaczu anomalii, ktСѓry poС–в„–czono z czujnikiem wykrywajв„–cym mutanty na ograniczonym obszarze i elementem pozwalajв„–cym na przechowywanie danych. Po zebraniu ich okreСљlonej iloСљci uruchamia siРє przeС–в„–cznik automatycznej dezaktywacji urzв„–dzenia.</text>
 	</string>
 	<string id="jup_b47_jupiter_products_info">
 		<text>Dokumenty administracyjne</text>
 	</string>
 	<string id="jup_b47_jupiter_products_info_descr">
-		<text>Plik dokumentуw zawieraj№cych dane czysto administracyjne. Wspomina siк w nich, їe zgodnie z rozkazem z laboratorium centralnego, dokumentacja techniczna obiektu 62 zostaіa przekazana do warsztatu testuj№cego.</text>
+		<text>Plik dokumentСѓw zawierajв„–cych dane czysto administracyjne. Wspomina siРє w nich, С—e zgodnie z rozkazem z laboratorium centralnego, dokumentacja techniczna obiektu 62 zostaС–a przekazana do warsztatu testujв„–cego.</text>
 	</string>
 	<string id="jup_b47_merc_pda">
 		<text>PDA Czarnego</text>
 	</string>
 	<string id="jup_b47_merc_pda_desc">
-		<text>Uwagк zwraca jedna z wiadomoњci. Nadawca nazywa siк Szakal, a tekst brzmi nastкpuj№co: „Mуj czіowiek w instytucie badawczym poleci ciк na dowуdcк ekspedycji. Bкdzie musiaі wynaj№ж twoich chіopakуw do ochrony bunkra. To ci uіatwi dziaіanie. Pamiкtaj, klient nie chce, їeby do naukowcуw dotarіy JAKIEKOLWIEK informacje na temat obsіugi obiektуw X. W przeciwnym wypadku nie bкdziemy mogli opuњciж Zony. Nie zawiedџ mnie, Czarny."</text>
+		<text>UwagРє zwraca jedna z wiadomoСљci. Nadawca nazywa siРє Szakal, a tekst brzmi nastРєpujв„–co: вЂћMСѓj czС–owiek w instytucie badawczym poleci ciРє na dowСѓdcРє ekspedycji. BРєdzie musiaС– wynajв„–Р¶ twoich chС–opakСѓw do ochrony bunkra. To ci uС–atwi dziaС–anie. PamiРєtaj, klient nie chce, С—eby do naukowcСѓw dotarС–y JAKIEKOLWIEK informacje na temat obsС–ugi obiektСѓw X. W przeciwnym wypadku nie bРєdziemy mogli opuСљciР¶ Zony. Nie zawiedСџ mnie, Czarny."</text>
 	</string>
 	<string id="jup_b9_blackbox">
 		<text>Czarna skrzynka</text>
 	</string>
 	<string id="jup_b9_blackbox_descr">
-		<text>Czarna skrzynka z Ogoсczy 1, ocalaіa z katastrofy. Powinna zawieraж informacje na temat ostatnich chwil lotu, bкd№ one jednak zaszyfrowane.</text>
+		<text>Czarna skrzynka z OgoСЃczy 1, ocalaС–a z katastrofy. Powinna zawieraР¶ informacje na temat ostatnich chwil lotu, bРєdв„– one jednak zaszyfrowane.</text>
 	</string>
 	<string id="pri_a25_explosive_charge_descr">
-		<text>Plastikowe materiaіy wybuchowe klasy wojskowej z piкciosekundowym zegarem.</text>
+		<text>Plastikowe materiaС–y wybuchowe klasy wojskowej z piРєciosekundowym zegarem.</text>
 	</string>
 	<string id="pri_a25_explosive_name">
-		<text>Јadunek wybuchowy z zegarem.</text>
+		<text>Р€adunek wybuchowy z zegarem.</text>
 	</string>
 	<string id="st_af_quest_b14_twisted">
-		<text>Przemienione koіo</text>
+		<text>Przemienione koС–o</text>
 	</string>
 	<string id="st_device_flash_snag">
-		<text>PDA Sкka</text>
+		<text>PDA SРєka</text>
 	</string>
 	<string id="st_device_flash_snag_descr">
-		<text>W PDA znajduje siк mapa ze znacznikiem przy podstacji - bez w№tpienia jest tam schowek - oraz kilka fotografii erotycznych. Nic specjalnego.</text>
+		<text>W PDA znajduje siРє mapa ze znacznikiem przy podstacji - bez wв„–tpienia jest tam schowek - oraz kilka fotografii erotycznych. Nic specjalnego.</text>
 	</string>
 	<string id="st_device_pda_port_bandit_leader">
 		<text>PDA bandyty</text>
 	</string>
 	<string id="st_device_pda_port_bandit_leader_descr">
-		<text>Ostatnia wiadomoњж na PDA brzmi: „Zіap tego gnoja Sкka i przyprowadџ go do mnie, musimy sobie powaїnie porozmawiaж. Nie obchodzi mnie, gdzie on jest, znajdџ go. Jeњli bкdzie siк stawiaі, daj mu nauczkк. Suіtan."</text>
+		<text>Ostatnia wiadomoСљР¶ na PDA brzmi: вЂћZС–ap tego gnoja SРєka i przyprowadСџ go do mnie, musimy sobie powaС—nie porozmawiaР¶. Nie obchodzi mnie, gdzie on jest, znajdСџ go. JeСљli bРєdzie siРє stawiaС–, daj mu nauczkРє. SuС–tan."</text>
 	</string>
 	<string id="st_device_pda_zat_b5_dealer_desc">
-		<text>To PDA zawiera informacje na temat klientуw Morgana oraz wspуіrzкdne tajnego magazynu Powinnoњci, z ktуrego wzi№і broс. Nastкpnie sprzedaі j№ najemnikom i nawi№zaі kontakt z kimњ nazywanym „Suіtan”. Aby zatrzeж za sob№ њlady, Morgan postanowiі zdradziж Wolnoњci lokalizacjк magazynu. Informacjк miaі przekazaж jego wspуlnik, Sкp. PDA wspomina teї o czujniku, ktуry moїe wyі№czyж tylko Morgan, a ktуry zaalarmuje Powinnoњж, jeњli schowek zostanie otwarty. Ta informacja na pewno zainteresuje zarуwno Wolnoњж, jak i Powinnoњж.</text>
+		<text>To PDA zawiera informacje na temat klientСѓw Morgana oraz wspСѓС–rzРєdne tajnego magazynu PowinnoСљci, z ktСѓrego wziв„–С– broСЃ. NastРєpnie sprzedaС– jв„– najemnikom i nawiв„–zaС– kontakt z kimСљ nazywanym вЂћSuС–tanвЂќ. Aby zatrzeР¶ za sobв„– Сљlady, Morgan postanowiС– zdradziР¶ WolnoСљci lokalizacjРє magazynu. InformacjРє miaС– przekazaР¶ jego wspСѓlnik, SРєp. PDA wspomina teС— o czujniku, ktСѓry moС—e wyС–в„–czyР¶ tylko Morgan, a ktСѓry zaalarmuje PowinnoСљР¶, jeСљli schowek zostanie otwarty. Ta informacja na pewno zainteresuje zarСѓwno WolnoСљР¶, jak i PowinnoСљР¶.</text>
 	</string>
 	<string id="st_device_pda_zat_b5_dealer_name">
 		<text>PDA Morgana</text>
 	</string>
 	<string id="st_jup_b10_notes_01_desc">
-		<text>Notatka na odwrocie starego dokumentu: „Duch, zabieram swoje rzeczy. Dziкki za karabin szturmowy - przyda mi siк. W zamian za niego zostawiam ci trochк њrodkуw medycznych od Doktora. Najemnik, ktуry mnie њcigaі, wpadі w moj№ puіapkк, wiкc nie bкd№ mi potrzebne... mam nadziejк. Teraz idк siк spotkaж z Kіem. Udaіo mu siк zbudowaж dekoder. Spotkajmy siк tam, gdzie zawsze, jeњli dasz radк. Strieіok.”</text>
+		<text>Notatka na odwrocie starego dokumentu: вЂћDuch, zabieram swoje rzeczy. DziРєki za karabin szturmowy - przyda mi siРє. W zamian za niego zostawiam ci trochРє СљrodkСѓw medycznych od Doktora. Najemnik, ktСѓry mnie СљcigaС–, wpadС– w mojв„– puС–apkРє, wiРєc nie bРєdв„– mi potrzebne... mam nadziejРє. Teraz idРє siРє spotkaР¶ z KС–em. UdaС–o mu siРє zbudowaР¶ dekoder. Spotkajmy siРє tam, gdzie zawsze, jeСљli dasz radРє. StrieС–ok.вЂќ</text>
 	</string>
 	<string id="st_jup_b10_notes_01_name">
-		<text>Wiadomoњж dla Ducha</text>
+		<text>WiadomoСљР¶ dla Ducha</text>
 	</string>
 	<string id="st_jup_b10_notes_02_desc">
-		<text>Notatka na papierze w kratkк: „Strieіok, na wszelki wypadek zostawiіem drugi dekoder w naszym schowku w Prypeci. Ja i Duch idziemy do Agropromu, wiкc zostawimy tu nasz№ dodatkow№ amunicjк. Weџ j№, jeњli ci siк przyda. Pomyњlnych іowуw! Kieі.”</text>
+		<text>Notatka na papierze w kratkРє: вЂћStrieС–ok, na wszelki wypadek zostawiС–em drugi dekoder w naszym schowku w Prypeci. Ja i Duch idziemy do Agropromu, wiРєc zostawimy tu naszв„– dodatkowв„– amunicjРє. WeСџ jв„–, jeСљli ci siРє przyda. PomyСљlnych С–owСѓw! KieС–.вЂќ</text>
 	</string>
 	<string id="st_jup_b10_notes_02_name">
-		<text>Notatka dla Strieіoka</text>
+		<text>Notatka dla StrieС–oka</text>
 	</string>
 	<string id="st_jup_b10_notes_03_desc">
-		<text>Notatka na odwrocie starego dokumentu: „Kieі, nie mogк juї dіuїej na ciebie czekaж - siedzi mi na karku caіy oddziaі. Sam idк do sarkofagu. Zostawiк tu moj№ szczкњliw№ spluwк - i tak nie mam juї do niej nabojуw. Jeњli nie wrуcк, daj j№ Duchowi. Niech zadba o broс, to broс zadba o niego. Trzymaj siк. Strieіok.”</text>
+		<text>Notatka na odwrocie starego dokumentu: вЂћKieС–, nie mogРє juС— dС–uС—ej na ciebie czekaР¶ - siedzi mi na karku caС–y oddziaС–. Sam idРє do sarkofagu. ZostawiРє tu mojв„– szczРєСљliwв„– spluwРє - i tak nie mam juС— do niej nabojСѓw. JeСљli nie wrСѓcРє, daj jв„– Duchowi. Niech zadba o broСЃ, to broСЃ zadba o niego. Trzymaj siРє. StrieС–ok.вЂќ</text>
 	</string>
 	<string id="st_jup_b10_notes_03_name">
-		<text>Wiadomoњж dla Kіa</text>
+		<text>WiadomoСљР¶ dla KС–a</text>
 	</string>
 	<string id="st_jup_b10_ufo_memory_2_desc">
-		<text>Moduі pamiкci z samolotu bezzaіogowego. Nowikow odblokowaі go, dziкki czemu masz dostкp do zebranych przez samolot informacji. S№ poњrуd nich wspуіrzкdne trzech punktуw, z ktуrych dobiegaj№ sygnaіy radiowe.</text>
+		<text>ModuС– pamiРєci z samolotu bezzaС–ogowego. Nowikow odblokowaС– go, dziРєki czemu masz dostРєp do zebranych przez samolot informacji. Sв„– poСљrСѓd nich wspСѓС–rzРєdne trzech punktСѓw, z ktСѓrych dobiegajв„– sygnaС–y radiowe.</text>
 	</string>
 	<string id="st_jup_b10_ufo_memory_2_name">
-		<text>Moduі pamiкci (odblokowany)</text>
+		<text>ModuС– pamiРєci (odblokowany)</text>
 	</string>
 	<string id="st_jup_b10_ufo_memory_desc">
-		<text>Moduі pamiкci z samolotu bezzaіogowego. Pomimo wypadku moduі dziaіa bez zarzutu, ale niestety jest zablokowany.</text>
+		<text>ModuС– pamiРєci z samolotu bezzaС–ogowego. Pomimo wypadku moduС– dziaС–a bez zarzutu, ale niestety jest zablokowany.</text>
 	</string>
 	<string id="st_jup_b10_ufo_memory_name">
-		<text>Moduі pamiкci (zablokowany)</text>
+		<text>ModuС– pamiРєci (zablokowany)</text>
 	</string>
 	<string id="st_jup_b205_sokolov_note_desc">
-		<text>Stara kartka z harmonogramem zmian warty, pod ktуrym widnieje liczba 1421. Na starych zapiskach sporz№dzono flamastrem nastкpuj№c№ notatkк: „Porucznik W. I. Sokoіow. Po katastrofie њmigіowca udaіem siк do punktu ewakuacyjnego B205. Przez dwa dni nie podjкto prуby ewakuacji i dalsze pozostawanie w tym miejscu jest ryzykowne. Postanowiіem wiкc opuњciж B205 i pуjњж do ruchomego laboratorium ekspedycji naukowej. Znajduje siк ono na pуіnocny wschуd od punktu ewakuacyjnego.”</text>
+		<text>Stara kartka z harmonogramem zmian warty, pod ktСѓrym widnieje liczba 1421. Na starych zapiskach sporzв„–dzono flamastrem nastРєpujв„–cв„– notatkРє: вЂћPorucznik W. I. SokoС–ow. Po katastrofie СљmigС–owca udaС–em siРє do punktu ewakuacyjnego B205. Przez dwa dni nie podjРєto prСѓby ewakuacji i dalsze pozostawanie w tym miejscu jest ryzykowne. PostanowiС–em wiРєc opuСљciР¶ B205 i pСѓjСљР¶ do ruchomego laboratorium ekspedycji naukowej. Znajduje siРє ono na pСѓС–nocny wschСѓd od punktu ewakuacyjnego.вЂќ</text>
 	</string>
 	<string id="st_jup_b205_sokolov_note_name">
-		<text>Notatka Sokoіowa</text>
+		<text>Notatka SokoС–owa</text>
 	</string>
 	<string id="st_jup_b206_plant_desc">
-		<text>Roњlina z zagajnika, ktуry zostaі czкњciowo przeksztaіcony w wyniku dziaіania anomalii. Zagajnik agresywnie zareagowaі na wtargniкcie, ale sama roњlina nie wydaje siк byж niebezpieczna.</text>
+		<text>RoСљlina z zagajnika, ktСѓry zostaС– czРєСљciowo przeksztaС–cony w wyniku dziaС–ania anomalii. Zagajnik agresywnie zareagowaС– na wtargniРєcie, ale sama roСљlina nie wydaje siРє byР¶ niebezpieczna.</text>
 	</string>
 	<string id="st_jup_b206_plant_name">
-		<text>Anormalna roњlina</text>
+		<text>Anormalna roСљlina</text>
 	</string>
 	<string id="st_jup_b207_merc_pda_with_contract_desc">
-		<text>Ostatnia wiadomoњж otrzymana na to PDA pochodzi od Morgana. Jest to zlecenie zabуjstwa stalkera nazwiskiem Diegtiariow. Do wiadomoњci doі№czono kilka fotografii. Ostatnie polecenie Morgana mуwi o wykasowaniu wiadomoњci po jej przeczytaniu.</text>
+		<text>Ostatnia wiadomoСљР¶ otrzymana na to PDA pochodzi od Morgana. Jest to zlecenie zabСѓjstwa stalkera nazwiskiem Diegtiariow. Do wiadomoСљci doС–в„–czono kilka fotografii. Ostatnie polecenie Morgana mСѓwi o wykasowaniu wiadomoСљci po jej przeczytaniu.</text>
 	</string>
 	<string id="st_jup_b207_merc_pda_with_contract_name">
 		<text>PDA najemnika</text>
 	</string>
 	<string id="st_jup_b32_scanner_device_desc">
-		<text>W tej skrzynce znajduje siк wykrywacz artefaktуw, bateria i potкїny przekaџnik. Urz№dzenie bкdzie skanowaж anomalie, aby okreњliж liczbк i rodzaj artefaktуw, ktуre siк pojawi№. Wszystkie te informacje zostan№ automatycznie przekazane do bunkra naukowcуw.</text>
+		<text>W tej skrzynce znajduje siРє wykrywacz artefaktСѓw, bateria i potРєС—ny przekaСџnik. Urzв„–dzenie bРєdzie skanowaР¶ anomalie, aby okreСљliР¶ liczbРє i rodzaj artefaktСѓw, ktСѓre siРє pojawiв„–. Wszystkie te informacje zostanв„– automatycznie przekazane do bunkra naukowcСѓw.</text>
 	</string>
 	<string id="st_jup_b32_scanner_device_name">
 		<text>Skaner anomalii</text>
 	</string>
 	<string id="st_jup_b46_duty_founder_pda_desc">
-		<text>Ostatnia wiadomoњж na PDA to nagranie gіosowe:\n„...Ktуrкdy pуjdziemy, zawsze trafiamy w to samo miejsce. Nie mogк przywykn№ж do tej mgіy... Zadziwiaj№ce, jak Czepurny mуgі znikn№ж bez њladu. Moїe znalazі wyjњcie?... \nDzieс szуsty... Skoсczyіa siк woda... Puіkownikowi odbiіo, zastrzeliі dwуch ludzi, a potem siebie... Zostaіem sam w tej przeklкtej anomalii... Gdyby і№cznoњж z baz№ nie siadіa, to pewnie by nas uratowali i Powinnoњж by nie powstaіa. Jak do tego wszystkiego doszіo... Eh, pieprzyж to. Tamten kapitan Taczenko zgin№і dawno temu... A ten generaі Taczenko z Powinnoњci zaraz do niego doі№czy... Sprawiedliwoњci stanie siк zadoњж..."\nNagranie koсczy siк tuї po tym, jak rozlega siк strzaі.</text>
+		<text>Ostatnia wiadomoСљР¶ na PDA to nagranie gС–osowe:\nвЂћ...KtСѓrРєdy pСѓjdziemy, zawsze trafiamy w to samo miejsce. Nie mogРє przywyknв„–Р¶ do tej mgС–y... Zadziwiajв„–ce, jak Czepurny mСѓgС– zniknв„–Р¶ bez Сљladu. MoС—e znalazС– wyjСљcie?... \nDzieСЃ szСѓsty... SkoСЃczyС–a siРє woda... PuС–kownikowi odbiС–o, zastrzeliС– dwСѓch ludzi, a potem siebie... ZostaС–em sam w tej przeklРєtej anomalii... Gdyby С–в„–cznoСљР¶ z bazв„– nie siadС–a, to pewnie by nas uratowali i PowinnoСљР¶ by nie powstaС–a. Jak do tego wszystkiego doszС–o... Eh, pieprzyР¶ to. Tamten kapitan Taczenko zginв„–С– dawno temu... A ten generaС– Taczenko z PowinnoСљci zaraz do niego doС–в„–czy... SprawiedliwoСљci stanie siРє zadoСљР¶..."\nNagranie koСЃczy siРє tuС— po tym, jak rozlega siРє strzaС–.</text>
 	</string>
 	<string id="st_jup_b46_duty_founder_pda_name">
-		<text>PDA generaіa Taczenki</text>
+		<text>PDA generaС–a Taczenki</text>
 	</string>
 	<string id="st_lx8_service_instruction_descr">
-		<text>Ta instrukcja opisuje sposуb korzystania z obiektu 62. Jest wyraџnie podkreњlone, їe nie trzeba wprowadzaж їadnych zmian w zakresie trajektorii kuli czy naci№gu, poniewaї na dystansach, na ktуrych broс jest skuteczna, czynniki te nie maj№ znaczenia.\nTe dokumenty nie mog№ wpaњж w cudze rкce, z pewnoњci№ bardzo zainteresuj№ analitykуw SBU.</text>
+		<text>Ta instrukcja opisuje sposСѓb korzystania z obiektu 62. Jest wyraСџnie podkreСљlone, С—e nie trzeba wprowadzaР¶ С—adnych zmian w zakresie trajektorii kuli czy naciв„–gu, poniewaС— na dystansach, na ktСѓrych broСЃ jest skuteczna, czynniki te nie majв„– znaczenia.\nTe dokumenty nie mogв„– wpaСљР¶ w cudze rРєce, z pewnoСљciв„– bardzo zainteresujв„– analitykСѓw SBU.</text>
 	</string>
 	<string id="st_lx8_service_instruction_name">
-		<text>Instrukcja obsіugi obiektu 62</text>
+		<text>Instrukcja obsС–ugi obiektu 62</text>
 	</string>
 	<string id="st_pri_a19_american_experiment_info_descr">
-		<text>Notes zawiera dokіadny opis eksperymentu zwi№zanego z ocen№ efektu pola psionicznego na obiekty na drugiej pуіkuli. Grupa naukowcуw na Karaibach odebraіa sygnaі, ale byі on znieksztaіcony. Zmiana sygnaіu byіa niezwykіa, zupeіnie, jakby ktoњ go skorygowaі. Moїliwe jest wyjaњnienie mуwi№ce, їe teoria noosfery jest sіuszna i їe zmiany zostaіy wprowadzone przez sam№ noosferк.\nTe dokumenty nie mog№ wpaњж w cudze rкce, z pewnoњci№ bardzo zainteresuj№ analitykуw SBU.</text>
+		<text>Notes zawiera dokС–adny opis eksperymentu zwiв„–zanego z ocenв„– efektu pola psionicznego na obiekty na drugiej pСѓС–kuli. Grupa naukowcСѓw na Karaibach odebraС–a sygnaС–, ale byС– on znieksztaС–cony. Zmiana sygnaС–u byС–a niezwykС–a, zupeС–nie, jakby ktoСљ go skorygowaС–. MoС—liwe jest wyjaСљnienie mСѓwiв„–ce, С—e teoria noosfery jest sС–uszna i С—e zmiany zostaС–y wprowadzone przez samв„– noosferРє.\nTe dokumenty nie mogв„– wpaСљР¶ w cudze rРєce, z pewnoСљciв„– bardzo zainteresujв„– analitykСѓw SBU.</text>
 	</string>
 	<string id="st_pri_a19_american_experiment_info_name">
 		<text>Notes z opisem eksperymentu</text>
 	</string>
 	<string id="st_pri_a19_lab_x10_info_descr">
-		<text>Dokument opisuje wіaњciwoњci techniczne anten i tego, jak rуїni№ siк od zakіadanych wartoњci. Na odwrocie jest notatka, ktуra wskazuje, їe te dokumenty przygotowano w laboratorium X10.\nTe dokumenty nie mog№ wpaњж w cudze rкce, z pewnoњci№ bardzo zainteresuj№ analitykуw SBU.</text>
+		<text>Dokument opisuje wС–aСљciwoСљci techniczne anten i tego, jak rСѓС—niв„– siРє od zakС–adanych wartoСљci. Na odwrocie jest notatka, ktСѓra wskazuje, С—e te dokumenty przygotowano w laboratorium X10.\nTe dokumenty nie mogв„– wpaСљР¶ w cudze rРєce, z pewnoСљciв„– bardzo zainteresujв„– analitykСѓw SBU.</text>
 	</string>
 	<string id="st_pri_a19_lab_x10_info_name">
-		<text>Generator tкczy - gіуwne cechy techniczne</text>
+		<text>Generator tРєczy - gС–Сѓwne cechy techniczne</text>
 	</string>
 	<string id="st_pri_a19_lab_x16_info_descr">
-		<text>Te dokumenty dotycz№ jednego z odkryж pobocznych, ktуre wykazaіo, ze istoty їywe s№ w stanie generowaж emisje psioniczne. Biologiczny emiter pola, bкd№cy wіaњciwie olbrzymim mуzgiem, zostaі wyhodowany w laboratorium X16 w ramach prowadzonych tam badaс.\nTe dokumenty nie mog№ wpaњж w cudze rкce, z pewnoњci№ bardzo zainteresuj№ analitykуw SBU.</text>
+		<text>Te dokumenty dotyczв„– jednego z odkryР¶ pobocznych, ktСѓre wykazaС–o, ze istoty С—ywe sв„– w stanie generowaР¶ emisje psioniczne. Biologiczny emiter pola, bРєdв„–cy wС–aСљciwie olbrzymim mСѓzgiem, zostaС– wyhodowany w laboratorium X16 w ramach prowadzonych tam badaСЃ.\nTe dokumenty nie mogв„– wpaСљР¶ w cudze rРєce, z pewnoСљciв„– bardzo zainteresujв„– analitykСѓw SBU.</text>
 	</string>
 	<string id="st_pri_a19_lab_x16_info_name">
 		<text>Dokumenty badawcze</text>
 	</string>
 	<string id="st_pri_a19_lab_x18_info_descr">
-		<text>Raport szczegуіowo przedstawia badanie prуbek biologicznych przesіanych z laboratorium X18. Prуbki poddano dziaіaniu pуl transferowych o zmiennym natкїeniu. Raport drobiazgowo opisuje mutacje istot їywych wywoіane oddziaіywaniem emisji.\nTe dokumenty nie mog№ wpaњж w cudze rкce, z pewnoњci№ bardzo zainteresuj№ analitykуw SBU.</text>
+		<text>Raport szczegСѓС–owo przedstawia badanie prСѓbek biologicznych przesС–anych z laboratorium X18. PrСѓbki poddano dziaС–aniu pСѓl transferowych o zmiennym natРєС—eniu. Raport drobiazgowo opisuje mutacje istot С—ywych wywoС–ane oddziaС–ywaniem emisji.\nTe dokumenty nie mogв„– wpaСљР¶ w cudze rРєce, z pewnoСљciв„– bardzo zainteresujв„– analitykСѓw SBU.</text>
 	</string>
 	<string id="st_pri_a19_lab_x18_info_name">
-		<text>Raport z badania prуbek</text>
+		<text>Raport z badania prСѓbek</text>
 	</string>
 	<string id="st_pri_a19_lab_x7_info_descr">
-		<text>Dokument odnosi siк do przeniesienia zespoіu badawczego i wszystkich materiaіуw do innego laboratorium, zwanego X7, w ktуrym bкd№ prowadzone badania dotycz№ce wpіywуw noosfery. W skіad zespoіu badawczego wchodz№: N. A. Lebiediew, E. F. Kaіancza i W. I. Susіow.\nTe dokumenty nie mog№ wpaњж w cudze rкce, z pewnoњci№ bardzo zainteresuj№ analitykуw SBU.</text>
+		<text>Dokument odnosi siРє do przeniesienia zespoС–u badawczego i wszystkich materiaС–Сѓw do innego laboratorium, zwanego X7, w ktСѓrym bРєdв„– prowadzone badania dotyczв„–ce wpС–ywСѓw noosfery. W skС–ad zespoС–u badawczego wchodzв„–: N. A. Lebiediew, E. F. KaС–ancza i W. I. SusС–ow.\nTe dokumenty nie mogв„– wpaСљР¶ w cudze rРєce, z pewnoСљciв„– bardzo zainteresujв„– analitykСѓw SBU.</text>
 	</string>
 	<string id="st_pri_a19_lab_x7_info_name">
 		<text>Rozkaz przeniesienia</text>
 	</string>
 	<string id="st_pri_b306_envoy_pda_desc">
-		<text>Ostatnia notatka na PDA brzmi nastкpuj№co: „Znalazіem generator awaryjny na szуstym piкtrze - technicznym. Dwie godziny zabraіo postawienie go na nogi. Bardzo chciaіbym go wі№czyж, ale Serbin zabroniі mi siк wychylaж, dopуki nie sprowadzi jakichњ ludzi."</text>
+		<text>Ostatnia notatka na PDA brzmi nastРєpujв„–co: вЂћZnalazС–em generator awaryjny na szСѓstym piРєtrze - technicznym. Dwie godziny zabraС–o postawienie go na nogi. Bardzo chciaС–bym go wС–в„–czyР¶, ale Serbin zabroniС– mi siРє wychylaР¶, dopСѓki nie sprowadzi jakichСљ ludzi."</text>
 	</string>
 	<string id="st_pri_b306_envoy_pda_name">
 		<text>PDA Barczuka</text>
 	</string>
 	<string id="st_pri_b35_lab_x8_key_desc">
-		<text>Czerwona magnetyczna karta wstкpu oznaczona X8.</text>
+		<text>Czerwona magnetyczna karta wstРєpu oznaczona X8.</text>
 	</string>
 	<string id="st_pri_b35_lab_x8_key_name">
-		<text>Czerwona karta wstкpu X8</text>
+		<text>Czerwona karta wstРєpu X8</text>
 	</string>
 	<string id="st_pri_b36_monolith_hiding_place_pda_desc">
-		<text>PDA zawiera mnуstwo nieistotnych zapiskуw, ale jeden jest inny: „Monolit komunikuje siк z odbiorc№ wiadomoњci i nakazuje mu zebraж nadwyїki amunicji, a potem ukryж je w miejscach nieznanych niedowiarkom. Te miejsca maj№ zostaж zaznaczone symbolem Monolitu. Gdy nadejd№ ciкїkie czasy, ci, ktуrzy sіysz№ Monolit, bкd№ czerpaж korzyњci z jego m№droњci... Przekazaіem wolк Monolitu moim braciom i powiedziaіem im, gdzie umieњciж naboje...”</text>
+		<text>PDA zawiera mnСѓstwo nieistotnych zapiskСѓw, ale jeden jest inny: вЂћMonolit komunikuje siРє z odbiorcв„– wiadomoСљci i nakazuje mu zebraР¶ nadwyС—ki amunicji, a potem ukryР¶ je w miejscach nieznanych niedowiarkom. Te miejsca majв„– zostaР¶ zaznaczone symbolem Monolitu. Gdy nadejdв„– ciРєС—kie czasy, ci, ktСѓrzy sС–yszв„– Monolit, bРєdв„– czerpaР¶ korzyСљci z jego mв„–droСљci... PrzekazaС–em wolРє Monolitu moim braciom i powiedziaС–em im, gdzie umieСљciР¶ naboje...вЂќ</text>
 	</string>
 	<string id="st_pri_b36_monolith_hiding_place_pda_name">
 		<text>PDA bojownika Monolitu</text>
 	</string>
 	<string id="st_toolkit_1_desc">
-		<text>Narzкdzia jak dla dziecka. Raczej nie przydadz№ siк do robуt precyzyjnych, ale bior№c pod uwagк deficyt narzкdzi w Zonie, mog№ byж uїyteczne dla zapobiegliwego technika.</text>
+		<text>NarzРєdzia jak dla dziecka. Raczej nie przydadzв„– siРє do robСѓt precyzyjnych, ale biorв„–c pod uwagРє deficyt narzРєdzi w Zonie, mogв„– byР¶ uС—yteczne dla zapobiegliwego technika.</text>
 	</string>
 	<string id="st_toolkit_1_name">
-		<text>Narzкdzia podstawowe</text>
+		<text>NarzРєdzia podstawowe</text>
 	</string>
 	<string id="st_toolkit_2_desc">
-		<text>Porz№dny zestaw narzкdzi. Wygl№da tak, jakby doњwiadczony technik pieczoіowicie skompletowaі go na wіasny uїytek. S№ stare, ale w dobrym stanie.</text>
+		<text>Porzв„–dny zestaw narzРєdzi. Wyglв„–da tak, jakby doСљwiadczony technik pieczoС–owicie skompletowaС– go na wС–asny uС—ytek. Sв„– stare, ale w dobrym stanie.</text>
 	</string>
 	<string id="st_toolkit_2_name">
-		<text>Narzкdzia do precyzyjnej pracy</text>
+		<text>NarzРєdzia do precyzyjnej pracy</text>
 	</string>
 	<string id="st_toolkit_3_desc">
-		<text>Zestaw profesjonalnych narzкdzi do zaawansowanych robуt ze sprzкtem. Notatka na pojemniku mуwi, їe zestaw pochodzi z Niemiec. Jest w nim wszystko, czego potrzeba do niemal kaїdej pracy kalibracyjnej.</text>
+		<text>Zestaw profesjonalnych narzРєdzi do zaawansowanych robСѓt ze sprzРєtem. Notatka na pojemniku mСѓwi, С—e zestaw pochodzi z Niemiec. Jest w nim wszystko, czego potrzeba do niemal kaС—dej pracy kalibracyjnej.</text>
 	</string>
 	<string id="st_toolkit_3_name">
-		<text>Narzкdzia do kalibracji</text>
+		<text>NarzРєdzia do kalibracji</text>
 	</string>
 	<string id="st_zat_a23_access_card">
-		<text>Stara magnetyczna karta wstкpu</text>
+		<text>Stara magnetyczna karta wstРєpu</text>
 	</string>
 	<string id="st_zat_a23_access_card_descr">
-		<text>Magnetyczna karta wstкpu Kardana. Za jej pomoc№ uzyskiwano dostкp do warsztatu testuj№cego obiekt 62.</text>
+		<text>Magnetyczna karta wstРєpu Kardana. Za jej pomocв„– uzyskiwano dostРєp do warsztatu testujв„–cego obiekt 62.</text>
 	</string>
 	<string id="st_zat_a23_gauss_rifle_docs">
-		<text>Dokumenty dotycz№ce obiektu 62</text>
+		<text>Dokumenty dotyczв„–ce obiektu 62</text>
 	</string>
 	<string id="st_zat_a23_gauss_rifle_docs_descr">
-		<text>Dokumenty opisuj№ce mechanizm i gіуwne wіaњciwoњci techniczne urz№dzenia elektromagnetycznego.\nPoњrуd dokumentуw znajduje siк nastкpuj№ca notatka: „Dokumenty musz№ zostaж zwrуcone do X8, do laboratorium centralnego. Ja bкdк zajкty, wiкc dostarcz je sam. Uїyj karty magnetycznej w centrum usіugowym Jubilejny w Prypeci, їeby zjechaж na drugi poziom pod ziemi№. Stamt№d juї sobie poradzisz. Zaі№czam kartк dostкpu.\nN. Lebiediew.\nTe dokumenty nie mog№ wpaњж w cudze rкce, z pewnoњci№ bardzo zainteresuj№ analitykуw SBU.</text>
+		<text>Dokumenty opisujв„–ce mechanizm i gС–Сѓwne wС–aСљciwoСљci techniczne urzв„–dzenia elektromagnetycznego.\nPoСљrСѓd dokumentСѓw znajduje siРє nastРєpujв„–ca notatka: вЂћDokumenty muszв„– zostaР¶ zwrСѓcone do X8, do laboratorium centralnego. Ja bРєdРє zajРєty, wiРєc dostarcz je sam. UС—yj karty magnetycznej w centrum usС–ugowym Jubilejny w Prypeci, С—eby zjechaР¶ na drugi poziom pod ziemiв„–. Stamtв„–d juС— sobie poradzisz. ZaС–в„–czam kartРє dostРєpu.\nN. Lebiediew.\nTe dokumenty nie mogв„– wpaСљР¶ w cudze rРєce, z pewnoСљciв„– bardzo zainteresujв„– analitykСѓw SBU.</text>
 	</string>
 	<string id="st_zat_a23_labx8_key_name">
-		<text>Їуіta karta wstкpu X8</text>
+		<text>Р‡СѓС–ta karta wstРєpu X8</text>
 	</string>
 	<string id="st_zat_b12_documents_1">
 		<text>Rozkaz nr 562</text>
 	</string>
 	<string id="st_zat_b12_documents_2">
-		<text>Rozkaz wewnкtrzny nr 423</text>
+		<text>Rozkaz wewnРєtrzny nr 423</text>
 	</string>
 	<string id="st_zat_b12_key_1">
 		<text>Klucz A</text>
 	</string>
 	<string id="st_zat_b12_key_1_descr">
-		<text>Zwykіy klucz oznaczony liter№ A.</text>
+		<text>ZwykС–y klucz oznaczony literв„– A.</text>
 	</string>
 	<string id="st_zat_b12_key_2">
 		<text>Klucz B</text>
 	</string>
 	<string id="st_zat_b12_key_2_descr">
-		<text>Zwykіy klucz oznaczony liter№ B.</text>
+		<text>ZwykС–y klucz oznaczony literв„– B.</text>
 	</string>
 	<string id="st_zat_b20_noah_pda_desc">
-		<text>Jedno z nagraс gіosowych brzmi szczegуlnie psychopatycznie: „A wiкc to st№d s№ te cholerne mutanty!... Przebiegіe gnojki wspiкіy siк na pіaskowyї i myњl№, їe Noe ich nie dostanie... Na pewno nie wiedz№, їe mam wіasn№ њcieїkк na gуrк, przy pуіnocnym gospodarstwie... Szykuje siк zabawa, dupki!"</text>
+		<text>Jedno z nagraСЃ gС–osowych brzmi szczegСѓlnie psychopatycznie: вЂћA wiРєc to stв„–d sв„– te cholerne mutanty!... PrzebiegС–e gnojki wspiРєС–y siРє na pС–askowyС— i myСљlв„–, С—e Noe ich nie dostanie... Na pewno nie wiedzв„–, С—e mam wС–asnв„– СљcieС—kРє na gСѓrРє, przy pСѓС–nocnym gospodarstwie... Szykuje siРє zabawa, dupki!"</text>
 	</string>
 	<string id="st_zat_b20_noah_pda_name">
 		<text>PDA Noego</text>
 	</string>
 	<string id="st_zat_b40_notebook_desc">
-		<text>Notes zawiera masк spamu i jedn№ wiadomoњж oznaczon№ jako waїna:\n„Zaіуїcie obуz w pobliїu zakіadu utylizacji odpadуw, a kaїdy, kto ma braж udziaі w tej robocie, przyі№czy siк do was. Nie oczekujcie Czarnego, bo on i jego ludzie bкd№ w Jupiterze z inn№ misj№. Wojsko zawiesiіo wszystkie loty do Zony, wiкc z tej strony nie bкdziemy mieli problemуw. Kiedy stalkerzy znajd№ drogк do Prypeci, wyњlemy przewodnika i poczekamy tam na ludzi klienta - pokaї№ nam, gdzie jest laboratorium.\nSzakal.”</text>
+		<text>Notes zawiera masРє spamu i jednв„– wiadomoСљР¶ oznaczonв„– jako waС—na:\nвЂћZaС–СѓС—cie obСѓz w pobliС—u zakС–adu utylizacji odpadСѓw, a kaС—dy, kto ma braР¶ udziaС– w tej robocie, przyС–в„–czy siРє do was. Nie oczekujcie Czarnego, bo on i jego ludzie bРєdв„– w Jupiterze z innв„– misjв„–. Wojsko zawiesiС–o wszystkie loty do Zony, wiРєc z tej strony nie bРєdziemy mieli problemСѓw. Kiedy stalkerzy znajdв„– drogРє do Prypeci, wyСљlemy przewodnika i poczekamy tam na ludzi klienta - pokaС—в„– nam, gdzie jest laboratorium.\nSzakal.вЂќ</text>
 	</string>
 	<string id="st_zat_b40_notebook_name">
 		<text>Notes najemnika</text>
 	</string>
 	<string id="st_zat_b40_pda_1_desc">
-		<text>Ostatnia nadesіana wiadomoњж brzmi:\n"Czekamy przy jakichњ starych warsztatach. Wysіaіem dwуch chіopakуw przodem, їeby zrobili dla ciebie rozpoznanie drogi. Ale bкdziemy tu czekali, dopуki nie pojawi siк kurier klienta - tu jest o wiele њwieїsze powietrze.\nTasak."</text>
+		<text>Ostatnia nadesС–ana wiadomoСљР¶ brzmi:\n"Czekamy przy jakichСљ starych warsztatach. WysС–aС–em dwСѓch chС–opakСѓw przodem, С—eby zrobili dla ciebie rozpoznanie drogi. Ale bРєdziemy tu czekali, dopСѓki nie pojawi siРє kurier klienta - tu jest o wiele СљwieС—sze powietrze.\nTasak."</text>
 	</string>
 	<string id="st_zat_b40_pda_1_name">
 		<text>PDA najemnika Haka</text>
 	</string>
 	<string id="st_zat_b40_pda_2_name">
-		<text>PDA najemnika Prкgi</text>
+		<text>PDA najemnika PrРєgi</text>
 	</string>
 	<string id="st_zat_b57_gas_desc">
 		<text>Kanister niebezpiecznego chemicznego czynnika nerwowego.</text>
@@ -322,48 +321,48 @@
 		<text>Kanister gazu Perin B3</text>
 	</string>
 	<string id="zat_b33_safe_container_desc">
-		<text>Skrzynka jest zamkniкta za pomoc№ doњж wymyњlnego zamka. Jej waga i dџwiкk, jaki wydaje przy potrz№saniu, kaї№ s№dziж, їe coњ znajduje siк w њrodku.</text>
+		<text>Skrzynka jest zamkniРєta za pomocв„– doСљР¶ wymyСљlnego zamka. Jej waga i dСџwiРєk, jaki wydaje przy potrzв„–saniu, kaС—в„– sв„–dziР¶, С—e coСљ znajduje siРє w Сљrodku.</text>
 	</string>
 	<string id="zat_b33_safe_container_name">
 		<text>Stalowa skrzynka</text>
 	</string>
 	<string id="zat_b39_joker_pda_description">
-		<text>Notatka na PDA: „Jestem pewien, їe artefakt jest na samym drzewie. St№d widaж, їe mуgіbym siк na nie wspi№ж ze wzgуrza. Mam tylko nadziejк, їe na wzgуrzach nie ma mutantуw. Szkoda, їe przyszedіem tu sam po tej awanturze z Kardanem i Stogiem, ale kiedy przyniosк artefakt, zobacz№, їe od pocz№tku miaіem racjк..."</text>
+		<text>Notatka na PDA: вЂћJestem pewien, С—e artefakt jest na samym drzewie. Stв„–d widaР¶, С—e mСѓgС–bym siРє na nie wspiв„–Р¶ ze wzgСѓrza. Mam tylko nadziejРє, С—e na wzgСѓrzach nie ma mutantСѓw. Szkoda, С—e przyszedС–em tu sam po tej awanturze z Kardanem i Stogiem, ale kiedy przyniosРє artefakt, zobaczв„–, С—e od poczв„–tku miaС–em racjРє..."</text>
 	</string>
 	<string id="zat_b39_joker_pda_name">
 		<text>PDA Kawalarza</text>
 	</string>
 	<string id="zat_b44_barge_pda_desc">
-		<text>Ostatnia notatka na tym PDA ujawnia, їe osoba, ktуra j№ wprowadziіa, byіa zdenerwowana: „Kardan, ten stary pijak. Nie doњж, їe jak siк napije, to nic mu siк nie chce - „tu jest dobrze, nigdzie siк nie spieszy” - to jeszcze najechaі na mnie i Kawalarza, їe niby jesteњmy mіodzi i na niczym siк nie znamy... Kawalarz to teї niezіy agregat: wkurzyі siк, zіapaі torbк i poszedі. Kiedy ja uspokajaіem Kardana, znikn№і nie wiadomo gdzie. I co ja mam zrobiж? Piж z tym starym kretynem? Dziкkujк, postojк. Ta jego wуdka to niezіy szajs... Chuj. A pomyњleж, їe na pocz№tku tak dobrze siк zapowiadaіo."</text>
+		<text>Ostatnia notatka na tym PDA ujawnia, С—e osoba, ktСѓra jв„– wprowadziС–a, byС–a zdenerwowana: вЂћKardan, ten stary pijak. Nie doСљР¶, С—e jak siРє napije, to nic mu siРє nie chce - вЂћtu jest dobrze, nigdzie siРє nie spieszyвЂќ - to jeszcze najechaС– na mnie i Kawalarza, С—e niby jesteСљmy mС–odzi i na niczym siРє nie znamy... Kawalarz to teС— niezС–y agregat: wkurzyС– siРє, zС–apaС– torbРє i poszedС–. Kiedy ja uspokajaС–em Kardana, zniknв„–С– nie wiadomo gdzie. I co ja mam zrobiР¶? PiР¶ z tym starym kretynem? DziРєkujРє, postojРє. Ta jego wСѓdka to niezС–y szajs... Chuj. A pomyСљleР¶, С—e na poczв„–tku tak dobrze siРє zapowiadaС–o."</text>
 	</string>
 	<string id="zat_b44_barge_pda_name">
 		<text>PDA Stoga</text>
 	</string>
 	<string id="zat_b22_medic_pda_desc">
-		<text>Wstrz№s prowadziі dziennik w swoim PDA, a najciekawsze s№ jego ostatnie zapiski: „Nagranie 12. Niedіugo skoсczк badania... Ludzie w obozie zaczynaj№ coњ podejrzewaж. Gіuszec i Daniіa chc№ zapolowaж na pijawki... Ciekawe, kiedy siк zorientuj№... Muszк przejrzeж sіoiki z krwi№ i oddzieliж te zakaїone, a resztк ukryж... [szybko:] Ktoњ idzie. [sіychaж, jak urz№dzenie zostaje wyі№czone, a potem wі№czone ponownie.] Nagranie 13... Prawdopodobnie ostatnie... Najpierw ten wњcibski myњliwy, a teraz Gіuszec... Nie ujdzie mi to na sucho. Przyjd№ po mnie... Wiem, o tym. Niewaїne - uzaleїnienie od hemoglobiny i tak by mnie wykoсczyіo. Wolк zgin№ж od kuli niї od choroby...”</text>
+		<text>Wstrzв„–s prowadziС– dziennik w swoim PDA, a najciekawsze sв„– jego ostatnie zapiski: вЂћNagranie 12. NiedС–ugo skoСЃczРє badania... Ludzie w obozie zaczynajв„– coСљ podejrzewaР¶. GС–uszec i DaniС–a chcв„– zapolowaР¶ na pijawki... Ciekawe, kiedy siРє zorientujв„–... MuszРє przejrzeР¶ sС–oiki z krwiв„– i oddzieliР¶ te zakaС—one, a resztРє ukryР¶... [szybko:] KtoСљ idzie. [sС–ychaР¶, jak urzв„–dzenie zostaje wyС–в„–czone, a potem wС–в„–czone ponownie.] Nagranie 13... Prawdopodobnie ostatnie... Najpierw ten wСљcibski myСљliwy, a teraz GС–uszec... Nie ujdzie mi to na sucho. Przyjdв„– po mnie... Wiem, o tym. NiewaС—ne - uzaleС—nienie od hemoglobiny i tak by mnie wykoСЃczyС–o. WolРє zginв„–Р¶ od kuli niС— od choroby...вЂќ</text>
 	</string>
 	<string id="zat_b22_medic_pda">
-		<text>PDA Wstrz№sa</text>
+		<text>PDA Wstrzв„–sa</text>
 	</string>
 	<string id="st_zat_b12_documents_1_descr">
-		<text>Њciњle tajne. Rozkaz nr 562 gіуwnego dowуdcy odpowiedzialnego za bezpieczeсstwo obiektu nr 1, R. J. Dydenki.\nJednostka Zabezpieczenia Chemicznego nr 423: przenieњж z sektora B103 do sektora A19 w celu przeprowadzenia testуw polowych roztworu chemicznego Perin B3 w warunkach zbliїonych do bojowych. Za przeprowadzenie testуw odpowiada puіkownik P. P. Sіawin, dowуdca jednostki. Podpuіkownik K. S. Waіow, zastкpca dowуdcy jednostki, odpowiada za transport i bezpieczeсstwo.</text>
+		<text>РЉciСљle tajne. Rozkaz nr 562 gС–Сѓwnego dowСѓdcy odpowiedzialnego za bezpieczeСЃstwo obiektu nr 1, R. J. Dydenki.\nJednostka Zabezpieczenia Chemicznego nr 423: przenieСљР¶ z sektora B103 do sektora A19 w celu przeprowadzenia testСѓw polowych roztworu chemicznego Perin B3 w warunkach zbliС—onych do bojowych. Za przeprowadzenie testСѓw odpowiada puС–kownik P. P. SС–awin, dowСѓdca jednostki. PodpuС–kownik K. S. WaС–ow, zastРєpca dowСѓdcy jednostki, odpowiada za transport i bezpieczeСЃstwo.</text>
 	</string>
 	<string id="st_zat_b12_documents_2_descr">
-		<text>Њciњle tajne. Rozkaz puіkownika P. P. Sіawina\nZgodnie z tym rozkazem czіonkowie Jednostki Zabezpieczenia Chemicznego nr 423 maj№ siк zapoznaж z nastкpuj№cymi informacjami:\n1. Klucze do pojemnika z roztworem chemicznym Perin B3 znajduj№ siк w posiadaniu puіkownika P. P. Sіawina (klucz A) i podpuіkownika K. S. Waіowa (klucz B).\n2. Porz№dek konwoju zaczynaj№c od przodu: Pojazd zastкpcy dowуdcy jednostki, pojazd eskortuj№cy nr 8, transporter opancerzony nr 1, pojazd transportowy nr 1, transporter opancerzony nr 3, pojazd eskortuj№cy nr 2, pojazd dowуdcy jednostki (P. P. Sіawina).\nKopie rozkazu maj№ zostaж dostarczone podpuіkownikowi K. S. Waіowowi i porucznikowi R. B. Nazarence.</text>
+		<text>РЉciСљle tajne. Rozkaz puС–kownika P. P. SС–awina\nZgodnie z tym rozkazem czС–onkowie Jednostki Zabezpieczenia Chemicznego nr 423 majв„– siРє zapoznaР¶ z nastРєpujв„–cymi informacjami:\n1. Klucze do pojemnika z roztworem chemicznym Perin B3 znajdujв„– siРє w posiadaniu puС–kownika P. P. SС–awina (klucz A) i podpuС–kownika K. S. WaС–owa (klucz B).\n2. Porzв„–dek konwoju zaczynajв„–c od przodu: Pojazd zastРєpcy dowСѓdcy jednostki, pojazd eskortujв„–cy nr 8, transporter opancerzony nr 1, pojazd transportowy nr 1, transporter opancerzony nr 3, pojazd eskortujв„–cy nr 2, pojazd dowСѓdcy jednostki (P. P. SС–awina).\nKopie rozkazu majв„– zostaР¶ dostarczone podpuС–kownikowi K. S. WaС–owowi i porucznikowi R. B. Nazarence.</text>
 	</string>
 	<string id="st_zat_a23_labx8_key_descr">
-		<text>Їуіta magnetyczna karta wstкpu oznaczona X8.\nKarta nie moїe wpaњж w cudze rкce, poniewaї dziкki niej moїna siк dostaж do tajnego laboratorium.</text>
+		<text>Р‡СѓС–ta magnetyczna karta wstРєpu oznaczona X8.\nKarta nie moС—e wpaСљР¶ w cudze rРєce, poniewaС— dziРєki niej moС—na siРє dostaР¶ do tajnego laboratorium.</text>
 	</string>
 	<string id="st_jup_b202_bandit_pda">
-		<text>PDA posіaсca Suіtana</text>
+		<text>PDA posС–aСЃca SuС–tana</text>
 	</string>
 	<string id="st_jup_b202_bandit_pda_descr">
-		<text>Ostatnia wiadomoњж wysіana z tego PDA to nagranie gіosowe: „Suіtan, nieџle daіem popaliж temu miкczakowi! Teraz nie bкdzie juї z nami zadzieraі!"</text>
+		<text>Ostatnia wiadomoСљР¶ wysС–ana z tego PDA to nagranie gС–osowe: вЂћSuС–tan, nieСџle daС–em popaliР¶ temu miРєczakowi! Teraz nie bРєdzie juС— z nami zadzieraС–!"</text>
 	</string>
 	<string id="st_af_quest_b14_twisted_descr">
-		<text>To byіo kiedyњ koіo pogікbiarki. Teraz czкњciowo przeksztaіciіo siк w dziwny artefakt. Jego jedyne zauwaїalne wіaњciwoњci to њwiecenie i lekka radioaktywnoњж.</text>
+		<text>To byС–o kiedyСљ koС–o pogС–Рєbiarki. Teraz czРєСљciowo przeksztaС–ciС–o siРє w dziwny artefakt. Jego jedyne zauwaС—alne wС–aСљciwoСљci to Сљwiecenie i lekka radioaktywnoСљР¶.</text>
 	</string>
 	<string id="st_zat_b40_pda_2_desc">
-		<text>Przysіano nastкpuj№c№ wiadomoњж:\n„Udaіo mi siк zaіatwiж coњ w sprawie broni, ten chciwy іajdak sprzeda nam zapasy swojej frakcji. Wyjdzie caіkiem tanio, ale musimy siк powlec do Jupitera.\nSкp.”</text>
+		<text>PrzysС–ano nastРєpujв„–cв„– wiadomoСљР¶:\nвЂћUdaС–o mi siРє zaС–atwiР¶ coСљ w sprawie broni, ten chciwy С–ajdak sprzeda nam zapasy swojej frakcji. Wyjdzie caС–kiem tanio, ale musimy siРє powlec do Jupitera.\nSРєp.вЂќ</text>
 	</string>
 </string_table>

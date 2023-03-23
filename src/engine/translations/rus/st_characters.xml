@@ -1,336 +1,335 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="jup_a10_bandit_leader_name">
-		<text>Валет</text>
+		<text>Р’Р°Р»РµС‚</text>
 	</string>
 	<string id="jup_a10_stalker_vano">
-		<text>Вано</text>
+		<text>Р’Р°РЅРѕ</text>
 	</string>
 	<string id="jup_a6_duty_leader">
-		<text>Подполковник Шульга</text>
+		<text>РџРѕРґРїРѕР»РєРѕРІРЅРёРє РЁСѓР»СЊРіР°</text>
 	</string>
 	<string id="jup_a6_freedom_leader">
-		<text>Локи</text>
+		<text>Р›РѕРєРё</text>
 	</string>
 	<string id="jup_a6_stalker_barmen">
-		<text>Гаваец</text>
+		<text>Р“Р°РІР°РµС†</text>
 	</string>
 	<string id="jup_a6_stalker_medik">
-		<text>Костоправ</text>
+		<text>РљРѕСЃС‚РѕРїСЂР°РІ</text>
 	</string>
 	<string id="jup_b10_stalker_drunk">
-		<text>Сенька</text>
+		<text>РЎРµРЅСЊРєР°</text>
 	</string>
 	<string id="jup_b15_zulus">
-		<text>Зулус</text>
+		<text>Р—СѓР»СѓСЃ</text>
 	</string>
 	<string id="jup_b19_freedom_yar_name">
-		<text>Дядька Яр</text>
+		<text>Р”СЏРґСЊРєР° РЇСЂ</text>
 	</string>
 	<string id="jup_b1_stalker_1">
-		<text>Тополь</text>
+		<text>РўРѕРїРѕР»СЊ</text>
 	</string>
 	<string id="jup_b1_stalker_2">
-		<text>Булава</text>
+		<text>Р‘СѓР»Р°РІР°</text>
 	</string>
 	<string id="jup_b1_stalker_3">
-		<text>Дух</text>
+		<text>Р”СѓС…</text>
 	</string>
 	<string id="jup_b1_stalker_4">
-		<text>Змей</text>
+		<text>Р—РјРµР№</text>
 	</string>
 	<string id="jup_b207_merc_leader_name">
-		<text>Гриф</text>
+		<text>Р“СЂРёС„</text>
 	</string>
 	<string id="jup_b217_stalker_tech">
-		<text>Азот</text>
+		<text>РђР·РѕС‚</text>
 	</string>
 	<string id="jup_b220_trapper">
-		<text>Зверобой</text>
+		<text>Р—РІРµСЂРѕР±РѕР№</text>
 	</string>
 	<string id="jup_b25_freedom_flint">
-		<text>Флинт</text>
+		<text>Р¤Р»РёРЅС‚</text>
 	</string>
 	<string id="jup_b46_duty_founder_name">
-		<text>Генерал Таченко</text>
+		<text>Р“РµРЅРµСЂР°Р» РўР°С‡РµРЅРєРѕ</text>
 	</string>
 	<string id="jup_b46_duty_founder_squad_02_name">
-		<text>Лейтенант Бунчук</text>
+		<text>Р›РµР№С‚РµРЅР°РЅС‚ Р‘СѓРЅС‡СѓРє</text>
 	</string>
 	<string id="jup_b46_duty_founder_squad_03_name">
-		<text>Полковник Космач</text>
+		<text>РџРѕР»РєРѕРІРЅРёРє РљРѕСЃРјР°С‡</text>
 	</string>
 	<string id="jup_b46_duty_founder_squad_04_name">
-		<text>Лейтенант Захарчук</text>
+		<text>Р›РµР№С‚РµРЅР°РЅС‚ Р—Р°С…Р°СЂС‡СѓРє</text>
 	</string>
 	<string id="jup_b47_merc_01">
-		<text>Чёрный</text>
+		<text>Р§С‘СЂРЅС‹Р№</text>
 	</string>
 	<string id="jup_b47_merc_02">
-		<text>Дуплет</text>
+		<text>Р”СѓРїР»РµС‚</text>
 	</string>
 	<string id="jup_b47_merc_03">
-		<text>Хирург</text>
+		<text>РҐРёСЂСѓСЂРі</text>
 	</string>
 	<string id="jup_b47_merc_04">
-		<text>Череп</text>
+		<text>Р§РµСЂРµРї</text>
 	</string>
 	<string id="jup_b47_merc_05">
-		<text>Кол</text>
+		<text>РљРѕР»</text>
 	</string>
 	<string id="jup_b47_merc_06">
-		<text>Кощей</text>
+		<text>РљРѕС‰РµР№</text>
 	</string>
 	<string id="jup_b47_merc_07">
-		<text>Труп</text>
+		<text>РўСЂСѓРї</text>
 	</string>
 	<string id="jup_b4_monolith_squad_leader_name">
-		<text>Бродяга</text>
+		<text>Р‘СЂРѕРґСЏРіР°</text>
 	</string>
 	<string id="jup_b4_monolith_squad_soldier_1_name">
-		<text>Броня</text>
+		<text>Р‘СЂРѕРЅСЏ</text>
 	</string>
 	<string id="jup_b4_monolith_squad_soldier_2_name">
-		<text>Серп</text>
+		<text>РЎРµСЂРї</text>
 	</string>
 	<string id="jup_b4_monolith_squad_soldier_3_name">
-		<text>Морж</text>
+		<text>РњРѕСЂР¶</text>
 	</string>
 	<string id="jup_b4_monolith_squad_soldier_4_name">
-		<text>Тихий</text>
+		<text>РўРёС…РёР№</text>
 	</string>
 	<string id="jup_b4_monolith_squad_soldier_5_name">
-		<text>Фома</text>
+		<text>Р¤РѕРјР°</text>
 	</string>
 	<string id="jup_b6_scientist_biochemist">
-		<text>Профессор Озёрский</text>
+		<text>РџСЂРѕС„РµСЃСЃРѕСЂ РћР·С‘СЂСЃРєРёР№</text>
 	</string>
 	<string id="jup_b6_scientist_novikov">
-		<text>Новиков</text>
+		<text>РќРѕРІРёРєРѕРІ</text>
 	</string>
 	<string id="jup_b6_scientist_nuclear_physicist">
-		<text>Профессор Герман</text>
+		<text>РџСЂРѕС„РµСЃСЃРѕСЂ Р“РµСЂРјР°РЅ</text>
 	</string>
 	<string id="jup_b9_shliachin_name">
-		<text>Сержант Шлячин</text>
+		<text>РЎРµСЂР¶Р°РЅС‚ РЁР»СЏС‡РёРЅ</text>
 	</string>
 	<string id="pri_a15_military_recon_1_name">
-		<text>Лейтенант Сергеев</text>
+		<text>Р›РµР№С‚РµРЅР°РЅС‚ РЎРµСЂРіРµРµРІ</text>
 	</string>
 	<string id="pri_a15_military_recon_2_name">
-		<text>Сержант Валюшок</text>
+		<text>РЎРµСЂР¶Р°РЅС‚ Р’Р°Р»СЋС€РѕРє</text>
 	</string>
 	<string id="pri_a15_military_recon_3_name">
-		<text>Сержант Островский</text>
+		<text>РЎРµСЂР¶Р°РЅС‚ РћСЃС‚СЂРѕРІСЃРєРёР№</text>
 	</string>
 	<string id="pri_a15_military_recon_leader_name">
-		<text>Капитан Клименко</text>
+		<text>РљР°РїРёС‚Р°РЅ РљР»РёРјРµРЅРєРѕ</text>
 	</string>
 	<string id="pri_a15_sokolov_name">
-		<text>Лейтенант Соколов</text>
+		<text>Р›РµР№С‚РµРЅР°РЅС‚ РЎРѕРєРѕР»РѕРІ</text>
 	</string>
 	<string id="pri_a17_military_captain_tarasov">
-		<text>Капитан Тарасов</text>
+		<text>РљР°РїРёС‚Р°РЅ РўР°СЂР°СЃРѕРІ</text>
 	</string>
 	<string id="pri_a17_military_colonel_kovalski_name">
-		<text>Полковник Ковальский</text>
+		<text>РџРѕР»РєРѕРІРЅРёРє РљРѕРІР°Р»СЊСЃРєРёР№</text>
 	</string>
 	<string id="pri_a17_military_lieutenant_podorojniy">
-		<text>Лейтенант Подорожный</text>
+		<text>Р›РµР№С‚РµРЅР°РЅС‚ РџРѕРґРѕСЂРѕР¶РЅС‹Р№</text>
 	</string>
 	<string id="pri_a18_skorlupko_in_suit_name">
-		<text>Лейтенант Скеля</text>
+		<text>Р›РµР№С‚РµРЅР°РЅС‚ РЎРєРµР»СЏ</text>
 	</string>
 	<string id="pri_a18_vano_in_suit_reserve_name">
-		<text>Сержант Меркулов</text>
+		<text>РЎРµСЂР¶Р°РЅС‚ РњРµСЂРєСѓР»РѕРІ</text>
 	</string>
 	<string id="pri_a21_sentry_lieutenant_stecenko_name">
-		<text>Лейтенант Стеценко</text>
+		<text>Р›РµР№С‚РµРЅР°РЅС‚ РЎС‚РµС†РµРЅРєРѕ</text>
 	</string>
 	<string id="pri_a22_military_yarmoshuk_name">
-		<text>Сержант Ярмошук</text>
+		<text>РЎРµСЂР¶Р°РЅС‚ РЇСЂРјРѕС€СѓРє</text>
 	</string>
 	<string id="pri_a25_army_medic_name">
-		<text>Лейтенант Роговец</text>
+		<text>Р›РµР№С‚РµРЅР°РЅС‚ Р РѕРіРѕРІРµС†</text>
 	</string>
 	<string id="pri_a28_evac_com_name">
-		<text>Лейтенант Смирнов</text>
+		<text>Р›РµР№С‚РµРЅР°РЅС‚ РЎРјРёСЂРЅРѕРІ</text>
 	</string>
 	<string id="pri_b305_strelok_name">
-		<text>Стрелок</text>
+		<text>РЎС‚СЂРµР»РѕРє</text>
 	</string>
 	<string id="pri_b306_envoy_name">
-		<text>Барчук</text>
+		<text>Р‘Р°СЂС‡СѓРє</text>
 	</string>
 	<string id="st_actor_name">
-		<text>Дегтярёв</text>
+		<text>Р”РµРіС‚СЏСЂС‘РІ</text>
 	</string>
 	<string id="st_jup_a12_bandit_cashier">
-		<text>Гном</text>
+		<text>Р“РЅРѕРј</text>
 	</string>
 	<string id="st_jup_a12_bandit_chief">
-		<text>Шишак</text>
+		<text>РЁРёС€Р°Рє</text>
 	</string>
 	<string id="st_jup_a12_stalker_assaulter">
-		<text>Медведь</text>
+		<text>РњРµРґРІРµРґСЊ</text>
 	</string>
 	<string id="st_jup_a12_stalker_diplomat">
-		<text>Торба</text>
+		<text>РўРѕСЂР±Р°</text>
 	</string>
 	<string id="st_jup_a12_stalker_prisoner">
-		<text>Митяй</text>
+		<text>РњРёС‚СЏР№</text>
 	</string>
 	<string id="st_jup_b207_duty_security_squad_leader_name">
-		<text>Лейтенант Гавриленко</text>
+		<text>Р›РµР№С‚РµРЅР°РЅС‚ Р“Р°РІСЂРёР»РµРЅРєРѕ</text>
 	</string>
 	<string id="st_jup_b207_freedom_assault_squad_leader_name">
-		<text>Кремень</text>
+		<text>РљСЂРµРјРµРЅСЊ</text>
 	</string>
 	<string id="st_jup_b207_freedom_recon_squad_leader_name">
-		<text>Гайдук</text>
+		<text>Р“Р°Р№РґСѓРє</text>
 	</string>
 	<string id="st_jup_b43_stalker_assistant">
-		<text>Гарик</text>
+		<text>Р“Р°СЂРёРє</text>
 	</string>
 	<string id="st_pri_a22_army_signaller">
-		<text>Лейтенант Кириллов</text>
+		<text>Р›РµР№С‚РµРЅР°РЅС‚ РљРёСЂРёР»Р»РѕРІ</text>
 	</string>
 	<string id="st_pri_b35_envoy">
-		<text>Сербин</text>
+		<text>РЎРµСЂР±РёРЅ</text>
 	</string>
 	<string id="st_pri_b35_merc_leader">
-		<text>Шакал</text>
+		<text>РЁР°РєР°Р»</text>
 	</string>
 	<string id="st_zat_a2_stalker_nimble_name">
-		<text>Шустрый</text>
+		<text>РЁСѓСЃС‚СЂС‹Р№</text>
 	</string>
 	<string id="st_zat_b106_stalker_crab_name">
-		<text>Краб</text>
+		<text>РљСЂР°Р±</text>
 	</string>
 	<string id="st_zat_b106_stalker_garmata_name">
-		<text>Гармата</text>
+		<text>Р“Р°СЂРјР°С‚Р°</text>
 	</string>
 	<string id="st_zat_b106_stalker_gonta_name">
-		<text>Гонта</text>
+		<text>Р“РѕРЅС‚Р°</text>
 	</string>
 	<string id="st_zat_b29_stalker_rival_1">
-		<text>Кувалда</text>
+		<text>РљСѓРІР°Р»РґР°</text>
 	</string>
 	<string id="st_zat_b29_stalker_rival_2">
-		<text>Гребень</text>
+		<text>Р“СЂРµР±РµРЅСЊ</text>
 	</string>
 	<string id="st_zat_b30_owl_stalker_trader_name">
-		<text>Сыч</text>
+		<text>РЎС‹С‡</text>
 	</string>
 	<string id="st_zat_b38_stalker_cop_name">
-		<text>Глухарь</text>
+		<text>Р“Р»СѓС…Р°СЂСЊ</text>
 	</string>
 	<string id="st_zat_b38_stalker_hunter_name">
-		<text>Данила</text>
+		<text>Р”Р°РЅРёР»Р°</text>
 	</string>
 	<string id="st_zat_b7_bandit_boss_sultan_name">
-		<text>Султан</text>
+		<text>РЎСѓР»С‚Р°РЅ</text>
 	</string>
 	<string id="st_zat_b7_duty_illicit_dealer_name">
-		<text>Морган</text>
+		<text>РњРѕСЂРіР°РЅ</text>
 	</string>
 	<string id="st_zat_b7_stalker_raider_leader">
-		<text>Кастет</text>
+		<text>РљР°СЃС‚РµС‚</text>
 	</string>
 	<string id="st_zat_b7_stalker_squad_leader">
-		<text>Спартак</text>
+		<text>РЎРїР°СЂС‚Р°Рє</text>
 	</string>
 	<string id="zat_a2_stalker_barmen_name">
-		<text>Борода</text>
+		<text>Р‘РѕСЂРѕРґР°</text>
 	</string>
 	<string id="zat_a2_stalker_mechanic_name">
-		<text>Кардан</text>
+		<text>РљР°СЂРґР°РЅ</text>
 	</string>
 	<string id="zat_b103_lost_merc_1_name">
-		<text>Гоблин</text>
+		<text>Р“РѕР±Р»РёРЅ</text>
 	</string>
 	<string id="zat_b103_lost_merc_2_name">
-		<text>Дуб</text>
+		<text>Р”СѓР±</text>
 	</string>
 	<string id="zat_b103_lost_merc_3_name">
-		<text>Пианист</text>
+		<text>РџРёР°РЅРёСЃС‚</text>
 	</string>
 	<string id="zat_b103_lost_merc_4_name">
-		<text>Газон</text>
+		<text>Р“Р°Р·РѕРЅ</text>
 	</string>
 	<string id="zat_b103_lost_merc_5_name">
-		<text>Кирзач</text>
+		<text>РљРёСЂР·Р°С‡</text>
 	</string>
 	<string id="zat_b103_lost_merc_6_name">
-		<text>Танк</text>
+		<text>РўР°РЅРє</text>
 	</string>
 	<string id="zat_b103_lost_merc_7_name">
-		<text>Рыло</text>
+		<text>Р С‹Р»Рѕ</text>
 	</string>
 	<string id="zat_b103_lost_merc_leader_name">
-		<text>Тесак</text>
+		<text>РўРµСЃР°Рє</text>
 	</string>
 	<string id="zat_b14_stalker_1_name">
-		<text>Вобла</text>
+		<text>Р’РѕР±Р»Р°</text>
 	</string>
 	<string id="zat_b18_noah_name">
-		<text>Ной</text>
+		<text>РќРѕР№</text>
 	</string>
 	<string id="zat_b215_stalker_guide_name">
-		<text>Лоцман</text>
+		<text>Р›РѕС†РјР°РЅ</text>
 	</string>
 	<string id="zat_b22_stalker_medic_name">
-		<text>Тремор</text>
+		<text>РўСЂРµРјРѕСЂ</text>
 	</string>
 	<string id="zat_b28_draper_name">
-		<text>Лейтенант Драпей</text>
+		<text>Р›РµР№С‚РµРЅР°РЅС‚ Р”СЂР°РїРµР№</text>
 	</string>
 	<string id="zat_b28_umerov_name">
-		<text>Прапорщик Умеров</text>
+		<text>РџСЂР°РїРѕСЂС‰РёРє РЈРјРµСЂРѕРІ</text>
 	</string>
 	<string id="zat_b33_stalker_snag">
-		<text>Коряга</text>
+		<text>РљРѕСЂСЏРіР°</text>
 	</string>
 	<string id="zat_b40_merc_squad_leader_1_name">
-		<text>Крюк</text>
+		<text>РљСЂСЋРє</text>
 	</string>
 	<string id="zat_b40_merc_squad_leader_2_name">
-		<text>Хребет</text>
+		<text>РҐСЂРµР±РµС‚</text>
 	</string>
 	<string id="zat_b42_mayron_name">
-		<text>Майрон</text>
+		<text>РњР°Р№СЂРѕРЅ</text>
 	</string>
 	<string id="zat_b44_stalker_barge_name">
-		<text>Баржа</text>
+		<text>Р‘Р°СЂР¶Р°</text>
 	</string>
 	<string id="zat_b53_artefact_hunter_1_name">
-		<text>Петруха</text>
+		<text>РџРµС‚СЂСѓС…Р°</text>
 	</string>
 	<string id="zat_b53_artefact_hunter_2_name">
-		<text>Шило</text>
+		<text>РЁРёР»Рѕ</text>
 	</string>
 	<string id="jup_b46_duty_founder_squad_01_name">
-		<text>Майор Чепурной</text>
+		<text>РњР°Р№РѕСЂ Р§РµРїСѓСЂРЅРѕР№</text>
 	</string>
 	<string id="pri_a17_military_prapor_valentyr">
-		<text>Прапорщик Валентир</text>
+		<text>РџСЂР°РїРѕСЂС‰РёРє Р’Р°Р»РµРЅС‚РёСЂ</text>
 	</string>
 	<string id="pri_a17_military_sergeant_morozov">
-		<text>Ст. сержант Морозов</text>
+		<text>РЎС‚. СЃРµСЂР¶Р°РЅС‚ РњРѕСЂРѕР·РѕРІ</text>
 	</string>
 	<string id="zat_b28_smoliak_name">
-		<text>Ст. лейтенант Смоляк</text>
+		<text>РЎС‚. Р»РµР№С‚РµРЅР°РЅС‚ РЎРјРѕР»СЏРє</text>
 	</string>
 	<string id="jup_b25_stalker_senya">
-		<text>Щепка</text>
+		<text>Р©РµРїРєР°</text>
 	</string>
 	<string id="zat_b100_army_1">
-		<text>Сержант Газда</text>
+		<text>РЎРµСЂР¶Р°РЅС‚ Р“Р°Р·РґР°</text>
 	</string>
 	<string id="zat_b100_army_2">
-		<text>Капитан Фуртес</text>
+		<text>РљР°РїРёС‚Р°РЅ Р¤СѓСЂС‚РµСЃ</text>
 	</string>
 	<string id="zat_b100_army_3">
-		<text>Ст. сержант Швейко</text>
+		<text>РЎС‚. СЃРµСЂР¶Р°РЅС‚ РЁРІРµР№РєРѕ</text>
 	</string>
 </string_table>

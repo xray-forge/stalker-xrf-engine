@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="kb_active_jobs">
 		<text>PDA</text>
@@ -13,13 +12,13 @@
 		<text>Artefakt</text>
 	</string>
 	<string id="kb_backward">
-		<text>Rьckwдrts</text>
+		<text>RСЊckwРґrts</text>
 	</string>
 	<string id="kb_binoculars">
 		<text>Fernglas</text>
 	</string>
 	<string id="kb_buy_menu">
-		<text>Kaufmenь</text>
+		<text>KaufmenСЊ</text>
 	</string>
 	<string id="kb_chat">
 		<text>Chat</text>
@@ -49,16 +48,16 @@
 		<text>Fallen lassen</text>
 	</string>
 	<string id="kb_fire">
-		<text>SchieЯen</text>
+		<text>SchieРЇen</text>
 	</string>
 	<string id="kb_firemode_next">
-		<text>Nдchster Feuermodus</text>
+		<text>NРґchster Feuermodus</text>
 	</string>
 	<string id="kb_firemode_prev">
 		<text>Vorheriger Feuermodus</text>
 	</string>
 	<string id="kb_forward">
-		<text>Vorwдrts</text>
+		<text>VorwРґrts</text>
 	</string>
 	<string id="kb_func">
 		<text>Unterlaufgranatwerfer</text>
@@ -94,16 +93,16 @@
 		<text>Nach links lehnen</text>
 	</string>
 	<string id="kb_left_strafe">
-		<text>Seitwдrts nach links</text>
+		<text>SeitwРґrts nach links</text>
 	</string>
 	<string id="kb_map">
 		<text>PDA-Karte</text>
 	</string>
 	<string id="kb_next_slot">
-		<text>Waffe im nдchsten Feld</text>
+		<text>Waffe im nРґchsten Feld</text>
 	</string>
 	<string id="kb_night_vision">
-		<text>Nachtsichtgerдt</text>
+		<text>NachtsichtgerРґt</text>
 	</string>
 	<string id="kb_pause">
 		<text>Pause</text>
@@ -115,7 +114,7 @@
 		<text>Waffe im vorherigen Feld</text>
 	</string>
 	<string id="kb_quit">
-		<text>Zurьck</text>
+		<text>ZurСЊck</text>
 	</string>
 	<string id="kb_reload">
 		<text>Nachladen</text>
@@ -130,7 +129,7 @@
 		<text>Nach rechts lehnen</text>
 	</string>
 	<string id="kb_right_strafe">
-		<text>Seitwдrts nach rechts</text>
+		<text>SeitwРґrts nach rechts</text>
 	</string>
 	<string id="kb_scores">
 		<text>Punkte</text>
@@ -139,13 +138,13 @@
 		<text>Screenshot</text>
 	</string>
 	<string id="kb_skin_menu">
-		<text>Modellauswahlmenь</text>
+		<text>ModellauswahlmenСЊ</text>
 	</string>
 	<string id="kb_sprint">
 		<text>Rennen</text>
 	</string>
 	<string id="kb_team_menu">
-		<text>Teamauswahlmenь</text>
+		<text>TeamauswahlmenСЊ</text>
 	</string>
 	<string id="kb_torch">
 		<text>Taschenlampe</text>

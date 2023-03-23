@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="jup_a10_guard_dialog_11">
 		<text>What do you want?</text>
@@ -655,22 +654,22 @@
 		<text>What do you mean "former" Monolith fighters? In my experience Monolith fighters fit into two categories: current and dead. I've never met any "former" ones.</text>
 	</string>
 	<string id="jup_a6_duty_leader_b4_monolith_squad_dialog_1111">
-		<text>It looks like they were under someone’s control - because they don’t remember what happened to them after they left for the CNPP. Now they’re not aggressive at all and they simply don't know what to do.</text>
+		<text>It looks like they were under someoneвЂ™s control - because they donвЂ™t remember what happened to them after they left for the CNPP. Now theyвЂ™re not aggressive at all and they simply don't know what to do.</text>
 	</string>
 	<string id="jup_a6_duty_leader_b4_monolith_squad_dialog_11111">
-		<text>Well, if they’re not aggressive that's a good thing... I mean, I’d find them something that's easy as pie to do and I’d make sure they’ve got their heads straight, too. I’m just not 100% sure about them at the moment... Can you vouch for them?</text>
+		<text>Well, if theyвЂ™re not aggressive that's a good thing... I mean, IвЂ™d find them something that's easy as pie to do and IвЂ™d make sure theyвЂ™ve got their heads straight, too. IвЂ™m just not 100% sure about them at the moment... Can you vouch for them?</text>
 	</string>
 	<string id="jup_a6_duty_leader_b4_monolith_squad_dialog_111111">
 		<text>Yes. I trust them.</text>
 	</string>
 	<string id="jup_a6_duty_leader_b4_monolith_squad_dialog_1111111">
-		<text>Hrm... Trouble is, I can’t trust you either... yet. Sorry.</text>
+		<text>Hrm... Trouble is, I canвЂ™t trust you either... yet. Sorry.</text>
 	</string>
 	<string id="jup_a6_duty_leader_b4_monolith_squad_dialog_1111112">
 		<text>OK, but remember that if they screw up, you'll answer for it. The fact is they won't make it to Yanov on their own. What you're gonna do is take my boys and lead them to the Monolith squad. They'll talk to them and if everything is cool, they'll be accepted into Duty. Tell me when you're ready to head out.</text>
 	</string>
 	<string id="jup_a6_duty_leader_b4_monolith_squad_dialog_111112">
-		<text>No. I don’t trust them much.</text>
+		<text>No. I donвЂ™t trust them much.</text>
 	</string>
 	<string id="jup_a6_duty_leader_b4_monolith_squad_dialog_3">
 		<text>We don't accept just anybody into our faction.</text>
@@ -862,22 +861,22 @@
 		<text>I met a group of fighters that want to join Freedom.</text>
 	</string>
 	<string id="jup_a6_freedom_leader_b4_monolith_squad_dialog_1">
-		<text>Well, we’re always open to good people. They’re welcome to join if they’re up for it.</text>
+		<text>Well, weвЂ™re always open to good people. TheyвЂ™re welcome to join if theyвЂ™re up for it.</text>
 	</string>
 	<string id="jup_a6_freedom_leader_b4_monolith_squad_dialog_11">
-		<text>There’s a small problem - they’re former Monolith fighters.</text>
+		<text>ThereвЂ™s a small problem - theyвЂ™re former Monolith fighters.</text>
 	</string>
 	<string id="jup_a6_freedom_leader_b4_monolith_squad_dialog_111">
 		<text>A "small" problem? I prefer to see Monolith fighters through my scope. Anything else is out of the question.</text>
 	</string>
 	<string id="jup_a6_freedom_leader_b4_monolith_squad_dialog_1111">
-		<text>These ones are peaceful. It looks like they were under someone’s control - because they don’t remember what happened to them after they left for the CNPP. They simply don't know what to do now.</text>
+		<text>These ones are peaceful. It looks like they were under someoneвЂ™s control - because they donвЂ™t remember what happened to them after they left for the CNPP. They simply don't know what to do now.</text>
 	</string>
 	<string id="jup_a6_freedom_leader_b4_monolith_squad_dialog_11111">
 		<text>Sorry, but I'm still skeptical. What if you're lying to me on purpose?</text>
 	</string>
 	<string id="jup_a6_freedom_leader_b4_monolith_squad_dialog_11112">
-		<text>Well, maybe it wouldn't hurt to talk to them and find out what's what. I’ll send a couple of my boys with you. They’ll have a chat and we’ll accept your Monolith fighters into Freedom if it works out.</text>
+		<text>Well, maybe it wouldn't hurt to talk to them and find out what's what. IвЂ™ll send a couple of my boys with you. TheyвЂ™ll have a chat and weвЂ™ll accept your Monolith fighters into Freedom if it works out.</text>
 	</string>
 	<string id="jup_a6_freedom_leader_b4_monolith_squad_dialog_3">
 		<text>How about you piss off? I can't believe you're suggesting that we accept all kinds of scum into Freedom.</text>
@@ -1639,7 +1638,7 @@
 		<text>What can you tell me about this area?</text>
 	</string>
 	<string id="jup_b1_stalker_lead_info_11161">
-		<text>Well, there is an old military base not far from here... Then Kopachy village to the north of it, and a train station to the east of that, which is where stalkers hang out. Oh, there's also a train on the railroad nearby... That’s not a fun place, believe you me.</text>
+		<text>Well, there is an old military base not far from here... Then Kopachy village to the north of it, and a train station to the east of that, which is where stalkers hang out. Oh, there's also a train on the railroad nearby... ThatвЂ™s not a fun place, believe you me.</text>
 	</string>
 	<string id="jup_b1_stalker_lead_info_111611">
 		<text>Tell me about the old military base.</text>
@@ -2212,7 +2211,7 @@
 		<text>Why don't you hunt anymore?</text>
 	</string>
 	<string id="jup_b220_trapper_about_retire_1">
-		<text>I’m getting old, man. That’s why Fox died... He was my partner and friend. We hunted many a beast together, shoulder to shoulder... Then we ran into these two chimeras by Zaton that haven’t been seen in the Zone for eighteen months... One knocked Fox to the ground before I could even get my shotgun out. When I wounded the other one, they ran off... I hope they burn in hell forever!</text>
+		<text>IвЂ™m getting old, man. ThatвЂ™s why Fox died... He was my partner and friend. We hunted many a beast together, shoulder to shoulder... Then we ran into these two chimeras by Zaton that havenвЂ™t been seen in the Zone for eighteen months... One knocked Fox to the ground before I could even get my shotgun out. When I wounded the other one, they ran off... I hope they burn in hell forever!</text>
 	</string>
 	<string id="jup_b220_trapper_about_stolen_items_0">
 		<text>Who could have stolen things from a personal box?</text>
@@ -2434,7 +2433,7 @@
 		<text>Tell me about your work with the scientists.</text>
 	</string>
 	<string id="jup_b25_flint_argue_scientist_1">
-		<text>I visited their bunker the other day. They were real happy and said, “you're exactly what we need right now, Flint!” It turns out they wanted their devices set up under anomalies. So I was like, “that's a piece of cake” - and I did everything they wanted easy. Getting those nerds to fork up the reward money was the hard part.</text>
+		<text>I visited their bunker the other day. They were real happy and said, вЂњyou're exactly what we need right now, Flint!вЂќ It turns out they wanted their devices set up under anomalies. So I was like, вЂњthat's a piece of cakeвЂќ - and I did everything they wanted easy. Getting those nerds to fork up the reward money was the hard part.</text>
 	</string>
 	<string id="jup_b25_flint_argue_scientist_11">
 		<text>Stop claiming the credit for other people's achievements. I did that, not you!</text>
@@ -2728,19 +2727,19 @@
 		<text>What happened?</text>
 	</string>
 	<string id="jup_b4_monolith_squad_leader_need_help_1">
-		<text>Well... We don’t remember how we got here. I remember that we were a Monolith squad... We had this burning desire to reach the center of the Zone. That’s where the Monolith is - it’s a meteor, that brought the beginnings of new life from other planets... I remember reaching the CNPP together... And then it’s all fragmented. I remember a bright light... cosmic cold... and a clear voice...  Everything was just... perfect. I don't remember what that voice ordered me to do now. Several years of my life... just gone. The boys are the same... We don’t know what to do. We definitely need somewhere to take cover from emissions... and mutants, right? Do you have any ideas about where we would be safe?</text>
+		<text>Well... We donвЂ™t remember how we got here. I remember that we were a Monolith squad... We had this burning desire to reach the center of the Zone. ThatвЂ™s where the Monolith is - itвЂ™s a meteor, that brought the beginnings of new life from other planets... I remember reaching the CNPP together... And then itвЂ™s all fragmented. I remember a bright light... cosmic cold... and a clear voice...  Everything was just... perfect. I don't remember what that voice ordered me to do now. Several years of my life... just gone. The boys are the same... We donвЂ™t know what to do. We definitely need somewhere to take cover from emissions... and mutants, right? Do you have any ideas about where we would be safe?</text>
 	</string>
 	<string id="jup_b4_monolith_squad_leader_need_help_11">
 		<text>There's a stalker base not far from here, I can point it out to you on a map.</text>
 	</string>
 	<string id="jup_b4_monolith_squad_leader_need_help_111">
-		<text>I’m not sure that’s safe... When we were on our way to the CNPP, we were treated with suspicion...  I think we actually killed stalkers afterwards. Do you know how people treat our faction right now? They’ll probably start shooting... Can you help us? Could you tell everyone at the stalker camp that we’re not killers anymore? Could you speak to them and get them to accept us?</text>
+		<text>IвЂ™m not sure thatвЂ™s safe... When we were on our way to the CNPP, we were treated with suspicion...  I think we actually killed stalkers afterwards. Do you know how people treat our faction right now? TheyвЂ™ll probably start shooting... Can you help us? Could you tell everyone at the stalker camp that weвЂ™re not killers anymore? Could you speak to them and get them to accept us?</text>
 	</string>
 	<string id="jup_b4_monolith_squad_leader_need_help_1111">
 		<text>No problem, I'll speak to them the next time I'm at the base.</text>
 	</string>
 	<string id="jup_b4_monolith_squad_leader_need_help_1112">
-		<text>Sorry, I can’t help you.</text>
+		<text>Sorry, I canвЂ™t help you.</text>
 	</string>
 	<string id="jup_b4_monolith_squad_leader_need_help_2_0">
 		<text>What kind of help do you need?</text>
@@ -2749,10 +2748,10 @@
 		<text>We need somewhere to take cover from emissions... and mutants, right? Can you find a place where we would be safe?</text>
 	</string>
 	<string id="jup_b4_monolith_squad_leader_need_help_2_11">
-		<text>OK. I’ll ask the folks at Yanov.</text>
+		<text>OK. IвЂ™ll ask the folks at Yanov.</text>
 	</string>
 	<string id="jup_b4_monolith_squad_leader_need_help_2_12">
-		<text>Sorry, I can’t help you.</text>
+		<text>Sorry, I canвЂ™t help you.</text>
 	</string>
 	<string id="jup_b4_monolith_squad_leader_need_outfit_0">
 		<text>You'll need a suit with a closed-cycle respiratory module to get to Pripyat. </text>
@@ -3511,25 +3510,25 @@
 		<text>I want to leave the Zone.</text>
 	</string>
 	<string id="jup_b43_stalker_assistant_guide_leave_zone_1">
-		<text>You sure? There ain’t no way back.</text>
+		<text>You sure? There ainвЂ™t no way back.</text>
 	</string>
 	<string id="jup_b43_stalker_assistant_guide_leave_zone_11">
-		<text>I’m sure. Let’s go.</text>
+		<text>IвЂ™m sure. LetвЂ™s go.</text>
 	</string>
 	<string id="jup_b43_stalker_assistant_guide_leave_zone_12">
-		<text>Actually... I’ll stay for now.</text>
+		<text>Actually... IвЂ™ll stay for now.</text>
 	</string>
 	<string id="jup_a6_stalker_medik_need_health_care_2">
-		<text>Let’s have a look... Well, your liver is bigger than I'd expect, but that's an occupational hazard, right? Apart from that, you’re as healthy as a burer.</text>
+		<text>LetвЂ™s have a look... Well, your liver is bigger than I'd expect, but that's an occupational hazard, right? Apart from that, youвЂ™re as healthy as a burer.</text>
 	</string>
 	<string id="jup_b1_stalker_lead_info_1116141">
-		<text>It would be just about normal if it didn’t glow. It’s a scary thing, the way it is now. Go have a look for yourself... I doubt you’ll enjoy the visit though.</text>
+		<text>It would be just about normal if it didnвЂ™t glow. ItвЂ™s a scary thing, the way it is now. Go have a look for yourself... I doubt youвЂ™ll enjoy the visit though.</text>
 	</string>
 	<string id="jup_a6_freedom_leader_b4_monolith_squad_dialog_1112">
-		<text>OK, it’s your choice.</text>
+		<text>OK, itвЂ™s your choice.</text>
 	</string>
 	<string id="jup_a6_duty_leader_b4_monolith_squad_dialog_2">
-		<text> "Former" Monolith fighters? Well, it’s your call... Will you vouch for them?</text>
+		<text> "Former" Monolith fighters? Well, itвЂ™s your call... Will you vouch for them?</text>
 	</string>
 	<string id="jup_a6_freedom_leader_b4_monolith_squad_dialog_2">
 		<text> "Former" Monolith fighters? No, thanks. The last thing I need is a rabid mob of fanatics.</text>
@@ -3601,34 +3600,34 @@
 		<text>Oh, just fine. Competent young men, I must say. Please take this. We appreciate your, err, human resources skills.</text>
 	</string>
 	<string id="jup_b15_zulus_about_dialog_31">
-		<text>Wassup, bro? Obviously, I’m glad to see you, but I wouldn’t mind being on my own for a while either.</text>
+		<text>Wassup, bro? Obviously, IвЂ™m glad to see you, but I wouldnвЂ™t mind being on my own for a while either.</text>
 	</string>
 	<string id="jup_a12_bandit_chief_actor_self_dialog_0">
-		<text>I’m here about the captive stalker. I want to buy him out.</text>
+		<text>IвЂ™m here about the captive stalker. I want to buy him out.</text>
 	</string>
 	<string id="jup_a12_bandit_chief_actor_self_dialog_1">
 		<text>And I want respect for the bandits and our rules, buddy, but I ain't interested in unnecessary trouble either... 15,000 or a suitable artifact will do for now... I'm a fair man - I won't take more than I'm owed.</text>
 	</string>
 	<string id="jup_a12_bandit_chief_actor_self_dialog_11">
-		<text>Here’s the cash.</text>
+		<text>HereвЂ™s the cash.</text>
 	</string>
 	<string id="jup_a12_bandit_chief_actor_self_dialog_111">
-		<text>OK... I respect what you’re doing. Take this loser and tell the stalkers that next time the price will be higher.</text>
+		<text>OK... I respect what youвЂ™re doing. Take this loser and tell the stalkers that next time the price will be higher.</text>
 	</string>
 	<string id="jup_a12_bandit_chief_actor_self_dialog_12">
 		<text>I don't have that much on me.</text>
 	</string>
 	<string id="jup_a12_bandit_chief_actor_self_dialog_121">
-		<text>OK, you ain’t got shit, what else is new?</text>
+		<text>OK, you ainвЂ™t got shit, what else is new?</text>
 	</string>
 	<string id="jup_a12_bandit_chief_actor_self_dialog_13">
-		<text>I haven’t got anything suitable at the moment - I’ll come back later.</text>
+		<text>I havenвЂ™t got anything suitable at the moment - IвЂ™ll come back later.</text>
 	</string>
 	<string id="jup_a6_duty_leader_a9_sell_info_1">
-		<text>Let’s have a look... Well, there’s nothing of strategic importance here, but it could come in handy. I’ll buy all of these at 500 per document. Deal?</text>
+		<text>LetвЂ™s have a look... Well, thereвЂ™s nothing of strategic importance here, but it could come in handy. IвЂ™ll buy all of these at 500 per document. Deal?</text>
 	</string>
 	<string id="jup_a6_freedom_leader_b207_hiding_place_3">
-		<text>Let's have a look. Holy crap... This info would damage Duty’s reputation... a lot! I’ll buy it for 4000.</text>
+		<text>Let's have a look. Holy crap... This info would damage DutyвЂ™s reputation... a lot! IвЂ™ll buy it for 4000.</text>
 	</string>
 	<string id="jup_b6_scientist_nuclear_physicist_about_halfartefact_zat_b14_111">
 		<text>Interesting. Well, I would be prepared to purchase it from you for 2000.</text>
@@ -3640,10 +3639,10 @@
 		<text>OK, see you.</text>
 	</string>
 	<string id="jup_b6_scientist_physicist_b1_variable_psi_emission_dialog_1111121">
-		<text>But that’s terrible! What on Earth could have happened to them? Hrm... Mutants are a possibility. I’ll have to ask Ozersky which type of monster it could be... Hrm. Nonetheless, the psy-field needs to be studied. This mission is essential for science in general and for our team in particular. We badly need your help with acquiring a sample. If you have any doubts, go see Ozersky. He will conduct the necessary analysis, which will identify your current resistance to psy-emissions. So, are you willing to aid science?</text>
+		<text>But thatвЂ™s terrible! What on Earth could have happened to them? Hrm... Mutants are a possibility. IвЂ™ll have to ask Ozersky which type of monster it could be... Hrm. Nonetheless, the psy-field needs to be studied. This mission is essential for science in general and for our team in particular. We badly need your help with acquiring a sample. If you have any doubts, go see Ozersky. He will conduct the necessary analysis, which will identify your current resistance to psy-emissions. So, are you willing to aid science?</text>
 	</string>
 	<string id="jup_b6_scientist_physicist_b1_variable_psi_emission_dialog_11111112">
-		<text>I’ll think about it.</text>
+		<text>IвЂ™ll think about it.</text>
 	</string>
 	<string id="jup_b6_scientist_physicist_b1_variable_psi_emission_dialog_111">
 		<text>Our research team, made up of local stalkers, recently found a psy-field that is highly unusual. According to our theories and the measurements taken, the nature of this field is such that it has intermittent psy effects, as opposed to emitting them permanently.</text>
@@ -3652,7 +3651,7 @@
 		<text>Unfortunately, our research team is dead, and until we find a replacement, there's no chance of taking any measurements.</text>
 	</string>
 	<string id="jup_b6_scientist_nuclear_physicist_b32_investigation_anomaly_0">
-		<text>Please wait... Would you be so kind as to give me a moment’s attention?</text>
+		<text>Please wait... Would you be so kind as to give me a momentвЂ™s attention?</text>
 	</string>
 	<string id="jup_b6_scientist_nuclear_physicist_results_0">
 		<text>What are the anomaly scan results?</text>
@@ -3661,19 +3660,19 @@
 		<text>You got any other work for me?</text>
 	</string>
 	<string id="jup_b16_biochemist_oasis_legend_11">
-		<text>I’ve heard of it.</text>
+		<text>IвЂ™ve heard of it.</text>
 	</string>
 	<string id="jup_b16_biochemist_oasis_legend_111">
 		<text>Unfortunately, I have not been able to convince Hermann to equip a search team yet... I admit, the rumors about this phenomenon are too contradictory, but something tells me that the Oasis exists. My intuition rarely lets me down, so if you can find it and bring me proof of its existence, I would be extremely grateful.</text>
 	</string>
 	<string id="jup_b16_biochemist_oasis_legend_1113">
-		<text>I would look for it, but I’ve already been to the Oasis.</text>
+		<text>I would look for it, but IвЂ™ve already been to the Oasis.</text>
 	</string>
 	<string id="jup_b16_biochemist_oasis_legend_11131">
 		<text>Hrm... Err... I think I must have misheard you. What did you say?</text>
 	</string>
 	<string id="jup_a10_stalkers_dialog_debt_0">
-		<text>I'm here to pay Vano’s debt.</text>
+		<text>I'm here to pay VanoвЂ™s debt.</text>
 	</string>
 	<string id="jup_a10_stalkers_dialog_debt_1">
 		<text>Yeah, I remember him. His debt ain't small and with the juice running it's up to 7 Gs.</text>
@@ -3688,55 +3687,55 @@
 		<text>OK.</text>
 	</string>
 	<string id="jup_a10_stalkers_dialog_debt_1112">
-		<text>I don’t have that much.</text>
+		<text>I donвЂ™t have that much.</text>
 	</string>
 	<string id="jup_a10_stalkers_dialog_debt_11121">
 		<text>Come back when you do.</text>
 	</string>
 	<string id="jup_a10_stalkers_dialog_debt_1113">
-		<text>Interest wasn’t part of the deal.</text>
+		<text>Interest wasnвЂ™t part of the deal.</text>
 	</string>
 	<string id="jup_a10_stalkers_dialog_debt_11131">
-		<text>What are you talking about? Do you take me for a sucker - lending out cash without charging interest? It’s 7 Gs and that’s the end of it.</text>
+		<text>What are you talking about? Do you take me for a sucker - lending out cash without charging interest? ItвЂ™s 7 Gs and thatвЂ™s the end of it.</text>
 	</string>
 	<string id="jup_a10_stalkers_dialog_debt_1114">
-		<text>Think carefully now. I’ve got my shooter here and I don’t mind using it... Tell me, what is your corpse gonna do with all that interest?</text>
+		<text>Think carefully now. IвЂ™ve got my shooter here and I donвЂ™t mind using it... Tell me, what is your corpse gonna do with all that interest?</text>
 	</string>
 	<string id="jup_a10_stalkers_dialog_debt_11141">
-		<text>OK, OK, calm down chief! I’m sure we can come to an agreement. Just pay me 5 Gs and that’s his debt settled.</text>
+		<text>OK, OK, calm down chief! IвЂ™m sure we can come to an agreement. Just pay me 5 Gs and thatвЂ™s his debt settled.</text>
 	</string>
 	<string id="jup_a10_stalkers_dialog_debt_11142">
-		<text>Hah... shove that pea shooter up your ass, punk! It’s 7 Gs including interest. End of story.</text>
+		<text>Hah... shove that pea shooter up your ass, punk! ItвЂ™s 7 Gs including interest. End of story.</text>
 	</string>
 	<string id="jup_a10_stalkers_dialog_debt_1115">
-		<text>Did you forget me? I’ve still got the shooter.</text>
+		<text>Did you forget me? IвЂ™ve still got the shooter.</text>
 	</string>
 	<string id="jup_a10_stalkers_dialog_debt_1116">
 		<text>I prefer to shoot you down for free.</text>
 	</string>
 	<string id="jup_a10_stalkers_dialog_debt_1117">
-		<text>I’ll think about it.</text>
+		<text>IвЂ™ll think about it.</text>
 	</string>
 	<string id="jup_a10_stalkers_dialog_debt_2">
 		<text>7 Gs, including interest.</text>
 	</string>
 	<string id="jup_a12_stalker_prisoner_come_with_me_1">
-		<text>I ain’t up for any big jobs right now. I need to get my shit together... You know, I might even go home... find a proper job and forget these damn artifacts... I just don't know how I'd leave Grizzly... and Torba... We're real close now, always helping each other out... I don't know, maybe I just need to rest and get my head on straight...</text>
+		<text>I ainвЂ™t up for any big jobs right now. I need to get my shit together... You know, I might even go home... find a proper job and forget these damn artifacts... I just don't know how I'd leave Grizzly... and Torba... We're real close now, always helping each other out... I don't know, maybe I just need to rest and get my head on straight...</text>
 	</string>
 	<string id="jup_a12_stalker_prisoner_come_with_me_2">
-		<text>I ain’t up for any big jobs right now.  I’m gonna work for the scientists and get my shit together... You know, I might even go home... Find a job on the outside... Ah, I don’t know. I need to just chill and get my head on straight...</text>
+		<text>I ainвЂ™t up for any big jobs right now.  IвЂ™m gonna work for the scientists and get my shit together... You know, I might even go home... Find a job on the outside... Ah, I donвЂ™t know. I need to just chill and get my head on straight...</text>
 	</string>
 	<string id="jup_a12_stalkers_choose_dialog_14">
-		<text>So, you ready to save Mitay? I hope you don’t mind working together with some fellas I hired...</text>
+		<text>So, you ready to save Mitay? I hope you donвЂ™t mind working together with some fellas I hired...</text>
 	</string>
 	<string id="jup_a6_freedom_leader_b207_hiding_place_0">
-		<text>I have the PDA of Duty’s trader, Morgan. You interested?</text>
+		<text>I have the PDA of DutyвЂ™s trader, Morgan. You interested?</text>
 	</string>
 	<string id="jup_a6_duty_leader_b207_merc_pda_0">
 		<text>I have a PDA which proves that Morgan has links to the mercenaries.</text>
 	</string>
 	<string id="jup_b16_biochemist_oasis_give_artefact_12">
-		<text>Actually... I’m gonna keep it.</text>
+		<text>Actually... IвЂ™m gonna keep it.</text>
 	</string>
 	<string id="jup_b6_scientist_nuclear_physicist_scan_anomaly_11211">
 		<text>I knew that the desire to advance science and do good in the world would triumph inside you in the end! All right, here is the plan. A stalker research group will take the measurements. Your job is to escort them, that is to protect them and guide them through difficult terrain. Good luck. The stalkers are waiting for you outside.</text>
@@ -3745,13 +3744,13 @@
 		<text>Howdy, stalker. Surprised to see an old man here? He-he. I came here with the boys for a change of scenery. I fix equipment and sometimes people too...</text>
 	</string>
 	<string id="jup_b19_freedom_yar_pripyat_start_12">
-		<text>Now that you’re here, what can I do for you?</text>
+		<text>Now that youвЂ™re here, what can I do for you?</text>
 	</string>
 	<string id="jup_b19_freedom_yar_pripyat_about_0">
 		<text>How did you get to Pripyat?</text>
 	</string>
 	<string id="jup_b19_freedom_yar_pripyat_about_1">
-		<text>Garry showed me the way. Those stalker fellas have been planning to come here for a long time, but they didn’t feel like dealing with the military. As soon as Garry said the army had taken off, I didn’t think twice about it. Have no fear, Uncle Yar is here! Hah!</text>
+		<text>Garry showed me the way. Those stalker fellas have been planning to come here for a long time, but they didnвЂ™t feel like dealing with the military. As soon as Garry said the army had taken off, I didnвЂ™t think twice about it. Have no fear, Uncle Yar is here! Hah!</text>
 	</string>
 	<string id="jup_b19_freedom_yar_pripyat_healing_0">
 		<text>I need medical assistance.</text>
@@ -3760,7 +3759,7 @@
 		<text>Let this old man have a look...</text>
 	</string>
 	<string id="jup_b19_freedom_yar_pripyat_healing_111">
-		<text>There we go, you’ll live. If you get any swelling, just take a leak on it - I hear that helps.</text>
+		<text>There we go, youвЂ™ll live. If you get any swelling, just take a leak on it - I hear that helps.</text>
 	</string>
 	<string id="jup_b19_freedom_yar_pripyat_healing_2">
 		<text>You look healthy enough to me! You must be pulling an old man's leg, hah...</text>
@@ -3769,19 +3768,19 @@
 		<text>Welcome to my humble abode of pleasure and joy. You after joy, pleasure or both in equal measure?</text>
 	</string>
 	<string id="jup_a12_bandit_payment_dialog_1111">
-		<text>Well, the boys are always saying that I'm too kind, like a fairy godmother, so you best be happy about this... I ain’t gonna be so kind next time. Now get out of here, loser!</text>
+		<text>Well, the boys are always saying that I'm too kind, like a fairy godmother, so you best be happy about this... I ainвЂ™t gonna be so kind next time. Now get out of here, loser!</text>
 	</string>
 	<string id="jup_a10_vano_give_duty_111113">
-		<text>I’ve been there already. The bandits are dead.</text>
+		<text>IвЂ™ve been there already. The bandits are dead.</text>
 	</string>
 	<string id="jup_a10_vano_give_duty_1111131">
-		<text>Wow, you’re hardcore! Thank you so much! Here, take this money - it was meant to pay the debt off but now it’ll go to someone who actually deserves it.</text>
+		<text>Wow, youвЂ™re hardcore! Thank you so much! Here, take this money - it was meant to pay the debt off but now itвЂ™ll go to someone who actually deserves it.</text>
 	</string>
 	<string id="jup_a10_vano_back_1_1">
-		<text>Wow, you’re hardcore! Thank you so much! Keep the money that was meant to pay off the debt. Now it’ll go to someone who deserves it!</text>
+		<text>Wow, youвЂ™re hardcore! Thank you so much! Keep the money that was meant to pay off the debt. Now itвЂ™ll go to someone who deserves it!</text>
 	</string>
 	<string id="jup_b6_scientist_nuclear_physicist_results_1">
-		<text>Our scanners registered unusual activity north of here... Judging by the received data, I expect that the anomalous formation there is unstable. Unfortunately, I can’t say any more than that from here. We need to conduct research in the field... The only thing I can say is that regular stalker detectors won’t be able to detect the anomaly - you’ll need a Svarog, one of our own inventions.</text>
+		<text>Our scanners registered unusual activity north of here... Judging by the received data, I expect that the anomalous formation there is unstable. Unfortunately, I canвЂ™t say any more than that from here. We need to conduct research in the field... The only thing I can say is that regular stalker detectors wonвЂ™t be able to detect the anomaly - youвЂ™ll need a Svarog, one of our own inventions.</text>
 	</string>
 	<string id="jup_b6_scientist_nuclear_physicist_results_2">
 		<text>Scanners continue to register unstable anomalous activity north of here. If you have something better than a regular stalker detector, a Svarog, for example, you could try to conduct research in the field.</text>
@@ -3796,13 +3795,13 @@
 		<text>Of course. I received the full results. To be honest, the volume of data that was produced is so great that it will take weeks if not months to process it fully. Despite this, Novikov has already found excellent practical uses for it. Thank you very much for your help.</text>
 	</string>
 	<string id="jup_a6_stalker_medik_tech_b202_about_stole_1">
-		<text>No, nothing like that has happened here. Hrm... I did see one suspicious guy very recently though. I went for a walk and on my way back I spotted a stalker leaving Yanov. As soon as he clocked me, he started being rude for no reason and said something about knowing where I live or some shit like that. I just ignored him at the time, ‘cause I thought he was drunk or something but now that I think about it, it’s pretty dodgy.</text>
+		<text>No, nothing like that has happened here. Hrm... I did see one suspicious guy very recently though. I went for a walk and on my way back I spotted a stalker leaving Yanov. As soon as he clocked me, he started being rude for no reason and said something about knowing where I live or some shit like that. I just ignored him at the time, вЂcause I thought he was drunk or something but now that I think about it, itвЂ™s pretty dodgy.</text>
 	</string>
 	<string id="jup_a6_stalker_medik_tech_b202_about_stole_11">
 		<text>Where did he go?</text>
 	</string>
 	<string id="jup_a6_stalker_medik_tech_b202_about_stole_111">
-		<text>North-east. I heard some shots being fired over there but that’s pretty normal around here. Ask Zulu - he’s in his tower day and night, so he might have seen something.</text>
+		<text>North-east. I heard some shots being fired over there but thatвЂ™s pretty normal around here. Ask Zulu - heвЂ™s in his tower day and night, so he might have seen something.</text>
 	</string>
 	<string id="jup_a6_stalker_medik_tech_b202_about_stole_112">
 		<text>North-east. He probably went to the substation.</text>
@@ -3811,19 +3810,19 @@
 		<text>I see.</text>
 	</string>
 	<string id="jup_a10_vano_help_dialog_15">
-		<text>What’s up, friend?</text>
+		<text>WhatвЂ™s up, friend?</text>
 	</string>
 	<string id="jup_a10_stalker_vano_pripyat_how_are_you_0">
 		<text>How are you doing?</text>
 	</string>
 	<string id="jup_a10_stalker_vano_pripyat_how_are_you_1">
-		<text>I’m doing good. I mean, it ain’t easy but we’ll make it out of here. Together we can do anything!</text>
+		<text>IвЂ™m doing good. I mean, it ainвЂ™t easy but weвЂ™ll make it out of here. Together we can do anything!</text>
 	</string>
 	<string id="jup_b4_monolith_squad_leader_pripyat_how_are_you_0">
 		<text>How are you doing?</text>
 	</string>
 	<string id="jup_b4_monolith_squad_leader_pripyat_how_are_you_1">
-		<text>I’m not sure... I don’t feel great here. I have a feeling I need to move on. I might leave soon...don’t hold it against me.</text>
+		<text>IвЂ™m not sure... I donвЂ™t feel great here. I have a feeling I need to move on. I might leave soon...donвЂ™t hold it against me.</text>
 	</string>
 	<string id="jup_b220_trapper_bloodsucker_lair_hunted_0">
 		<text>I wiped out the bloodsucker lair at Zaton. Completely.</text>
@@ -3847,37 +3846,37 @@
 		<text>I need measurements to be taken in anomalies.</text>
 	</string>
 	<string id="jup_b217_stalker_tech_drunk_0">
-		<text>Who’s that sleeping beauty?</text>
+		<text>WhoвЂ™s that sleeping beauty?</text>
 	</string>
 	<string id="jup_b43_stalker_assistant_bunker_artefacts_1">
 		<text>You found the artifact?</text>
 	</string>
 	<string id="jup_b43_stalker_assistant_bunker_boredom_1">
-		<text>You bet! There's nothing to do here - all we've got for entertainment is this backgammon board. This isn’t Pripyat... Man, if only I could complete this friggin’ contract, that’s where I’d be!</text>
+		<text>You bet! There's nothing to do here - all we've got for entertainment is this backgammon board. This isnвЂ™t Pripyat... Man, if only I could complete this frigginвЂ™ contract, thatвЂ™s where IвЂ™d be!</text>
 	</string>
 	<string id="jup_b217_stalker_tech_main_info_2">
 		<text>[continue...]</text>
 	</string>
 	<string id="jup_a6_freedom_leader_b106_info_about_soroka_1112">
-		<text>You can go to the quarry - that’s where Splinter died. Just before he passed on he told me that Flint stole his loot and left him to die in an anomaly.</text>
+		<text>You can go to the quarry - thatвЂ™s where Splinter died. Just before he passed on he told me that Flint stole his loot and left him to die in an anomaly.</text>
 	</string>
 	<string id="jup_b25_flint_accuse_1111">
 		<text>His name was Splinter. He walked into a gas anomaly and you ran off with his artifact. As you can see, he was able to tell me everything before he died.</text>
 	</string>
 	<string id="jup_a6_duty_leader_b207_hiding_place_2">
-		<text>I’m not going to ask where you got this from. Let’s make this simple: I’ll buy this PDA from you for 4,000. I’ve long been curious as to what our supply officer is doing when he’s not at work...</text>
+		<text>IвЂ™m not going to ask where you got this from. LetвЂ™s make this simple: IвЂ™ll buy this PDA from you for 4,000. IвЂ™ve long been curious as to what our supply officer is doing when heвЂ™s not at work...</text>
 	</string>
 	<string id="jup_a6_duty_leader_b207_hiding_place_211">
-		<text>Let’s have a look... Wow, what a piece of shit! Not only was he selling them our weapons, he handed the warehouse over to Freedom!!! Damn, we’ll have to organize a friendly meet & greet team right away.</text>
+		<text>LetвЂ™s have a look... Wow, what a piece of shit! Not only was he selling them our weapons, he handed the warehouse over to Freedom!!! Damn, weвЂ™ll have to organize a friendly meet & greet team right away.</text>
 	</string>
 	<string id="jup_a6_freedom_leader_b207_hiding_place_211">
-		<text>Let’s have a look... I don't believe this shit! We knew about the warehouse and we even planned to pay a visit, but we didn't have a clue about the alarm because that scumbag didn’t say a word about it. Wait a second, I’ll warn the boys.</text>
+		<text>LetвЂ™s have a look... I don't believe this shit! We knew about the warehouse and we even planned to pay a visit, but we didn't have a clue about the alarm because that scumbag didnвЂ™t say a word about it. Wait a second, IвЂ™ll warn the boys.</text>
 	</string>
 	<string id="jup_a6_freedom_leader_b207_hiding_place_2">
-		<text>Well, I’ll give you 4,000 out of pure curiosity.</text>
+		<text>Well, IвЂ™ll give you 4,000 out of pure curiosity.</text>
 	</string>
 	<string id="jup_b15_zulus_group_soldier_about_1">
-		<text>Well, he ain't exactly a storm trooper but he can handle a gun just fine. He’s always got a sour look on his face though, as if his rations ain’t nothing but lemons.</text>
+		<text>Well, he ain't exactly a storm trooper but he can handle a gun just fine. HeвЂ™s always got a sour look on his face though, as if his rations ainвЂ™t nothing but lemons.</text>
 	</string>
 	<string id="jup_b6_scientist_nuclear_physicist_bubble_0">
 		<text>I found a strange anomaly at the old cooling tower.</text>

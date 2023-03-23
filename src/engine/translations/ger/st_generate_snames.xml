@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="lname_bandit_0">
 		<text>Grau</text>
@@ -88,7 +87,7 @@
 		<text>Trommel</text>
 	</string>
 	<string id="lname_bandit_124">
-		<text>Mьll</text>
+		<text>MСЊll</text>
 	</string>
 	<string id="lname_bandit_125">
 		<text>Schraube</text>
@@ -136,7 +135,7 @@
 		<text>Frack</text>
 	</string>
 	<string id="lname_bandit_139">
-		<text>Tцdlich</text>
+		<text>TС†dlich</text>
 	</string>
 	<string id="lname_bandit_14">
 		<text>Hocker</text>
@@ -148,7 +147,7 @@
 		<text>Ass</text>
 	</string>
 	<string id="lname_bandit_142">
-		<text>MeiЯel</text>
+		<text>MeiРЇel</text>
 	</string>
 	<string id="lname_bandit_143">
 		<text>Strohhalm</text>
@@ -187,7 +186,7 @@
 		<text>Rambo</text>
 	</string>
 	<string id="lname_bandit_154">
-		<text>Reisfьhrer</text>
+		<text>ReisfСЊhrer</text>
 	</string>
 	<string id="lname_bandit_155">
 		<text>Terminator</text>
@@ -256,7 +255,7 @@
 		<text>Moor</text>
 	</string>
 	<string id="lname_bandit_175">
-		<text>Kьhler</text>
+		<text>KСЊhler</text>
 	</string>
 	<string id="lname_bandit_176">
 		<text>Flop</text>
@@ -295,7 +294,7 @@
 		<text>Unhold</text>
 	</string>
 	<string id="lname_bandit_23">
-		<text>Krьppel</text>
+		<text>KrСЊppel</text>
 	</string>
 	<string id="lname_bandit_24">
 		<text>Kicker</text>
@@ -304,7 +303,7 @@
 		<text>Schiefe</text>
 	</string>
 	<string id="lname_bandit_26">
-		<text>Betrьger</text>
+		<text>BetrСЊger</text>
 	</string>
 	<string id="lname_bandit_27">
 		<text>Schalter</text>
@@ -337,10 +336,10 @@
 		<text>Schnorrer</text>
 	</string>
 	<string id="lname_bandit_36">
-		<text>HeiЯsporn</text>
+		<text>HeiРЇsporn</text>
 	</string>
 	<string id="lname_bandit_37">
-		<text>Blцdmann</text>
+		<text>BlС†dmann</text>
 	</string>
 	<string id="lname_bandit_38">
 		<text>Leiche</text>
@@ -349,7 +348,7 @@
 		<text>Psycho</text>
 	</string>
 	<string id="lname_bandit_4">
-		<text>GroЯmaul</text>
+		<text>GroРЇmaul</text>
 	</string>
 	<string id="lname_bandit_40">
 		<text>Zerrissen</text>
@@ -388,7 +387,7 @@
 		<text>Lahm</text>
 	</string>
 	<string id="lname_bandit_51">
-		<text>Krдftig</text>
+		<text>KrРґftig</text>
 	</string>
 	<string id="lname_bandit_52">
 		<text>Krank</text>
@@ -406,7 +405,7 @@
 		<text>Blutegel</text>
 	</string>
 	<string id="lname_bandit_57">
-		<text>Kьnstler</text>
+		<text>KСЊnstler</text>
 	</string>
 	<string id="lname_bandit_58">
 		<text>Schwindler</text>
@@ -466,7 +465,7 @@
 		<text>Wilder</text>
 	</string>
 	<string id="lname_bandit_75">
-		<text>Wьrger</text>
+		<text>WСЊrger</text>
 	</string>
 	<string id="lname_bandit_76">
 		<text>Ratgeber</text>
@@ -493,7 +492,7 @@
 		<text>Wahnsinnig</text>
 	</string>
 	<string id="lname_bandit_83">
-		<text>Totengrдber</text>
+		<text>TotengrРґber</text>
 	</string>
 	<string id="lname_bandit_84">
 		<text>Metzger</text>
@@ -532,7 +531,7 @@
 		<text>Kamikaze</text>
 	</string>
 	<string id="lname_bandit_95">
-		<text>Zuhдlter</text>
+		<text>ZuhРґlter</text>
 	</string>
 	<string id="lname_bandit_96">
 		<text>Tyrann</text>
@@ -3034,10 +3033,10 @@
 		<text>Gatsula</text>
 	</string>
 	<string id="lname_stalker_0">
-		<text>WeiЯ</text>
+		<text>WeiРЇ</text>
 	</string>
 	<string id="lname_stalker_1">
-		<text>Grьn</text>
+		<text>GrСЊn</text>
 	</string>
 	<string id="lname_stalker_10">
 		<text>Unsterblich</text>
@@ -3055,7 +3054,7 @@
 		<text>Muskelpaket</text>
 	</string>
 	<string id="lname_stalker_104">
-		<text>Schwдtzer</text>
+		<text>SchwРґtzer</text>
 	</string>
 	<string id="lname_stalker_105">
 		<text>Blind</text>
@@ -3091,7 +3090,7 @@
 		<text>Trocken</text>
 	</string>
 	<string id="lname_stalker_115">
-		<text>Glьckspilz</text>
+		<text>GlСЊckspilz</text>
 	</string>
 	<string id="lname_stalker_116">
 		<text>Sprenkel</text>
@@ -3109,7 +3108,7 @@
 		<text>Kaputt</text>
 	</string>
 	<string id="lname_stalker_120">
-		<text>KlugscheiЯer</text>
+		<text>KlugscheiРЇer</text>
 	</string>
 	<string id="lname_stalker_121">
 		<text>Schlitzer</text>
@@ -3127,7 +3126,7 @@
 		<text>Lahm</text>
 	</string>
 	<string id="lname_stalker_126">
-		<text>Krдftig</text>
+		<text>KrРґftig</text>
 	</string>
 	<string id="lname_stalker_127">
 		<text>Knochen</text>
@@ -3154,7 +3153,7 @@
 		<text>Robust</text>
 	</string>
 	<string id="lname_stalker_134">
-		<text>Anfдnger</text>
+		<text>AnfРґnger</text>
 	</string>
 	<string id="lname_stalker_135">
 		<text>Eingeborener</text>
@@ -3175,10 +3174,10 @@
 		<text>Kumpel</text>
 	</string>
 	<string id="lname_stalker_140">
-		<text>Jьnger</text>
+		<text>JСЊnger</text>
 	</string>
 	<string id="lname_stalker_141">
-		<text>Kьnstler</text>
+		<text>KСЊnstler</text>
 	</string>
 	<string id="lname_stalker_142">
 		<text>Asket</text>
@@ -3208,7 +3207,7 @@
 		<text>Athlet</text>
 	</string>
 	<string id="lname_stalker_150">
-		<text>Kдmpfer</text>
+		<text>KРґmpfer</text>
 	</string>
 	<string id="lname_stalker_151">
 		<text>Landstreicher</text>
@@ -3226,7 +3225,7 @@
 		<text>Bourgeois</text>
 	</string>
 	<string id="lname_stalker_156">
-		<text>Bьrokrat</text>
+		<text>BСЊrokrat</text>
 	</string>
 	<string id="lname_stalker_157">
 		<text>Vandale</text>
@@ -3235,7 +3234,7 @@
 		<text>Barbar</text>
 	</string>
 	<string id="lname_stalker_159">
-		<text>Pfцrtner</text>
+		<text>PfС†rtner</text>
 	</string>
 	<string id="lname_stalker_16">
 		<text>Besserwisser</text>
@@ -3271,7 +3270,7 @@
 		<text>Reiter</text>
 	</string>
 	<string id="lname_stalker_17">
-		<text>GroЯmaul</text>
+		<text>GroРЇmaul</text>
 	</string>
 	<string id="lname_stalker_170">
 		<text>Gangster</text>
@@ -3298,10 +3297,10 @@
 		<text>Raffke</text>
 	</string>
 	<string id="lname_stalker_178">
-		<text>Ьberlдufer</text>
+		<text>Р¬berlРґufer</text>
 	</string>
 	<string id="lname_stalker_179">
-		<text>Verkдufer</text>
+		<text>VerkРґufer</text>
 	</string>
 	<string id="lname_stalker_18">
 		<text>Windhund</text>
@@ -3331,10 +3330,10 @@
 		<text>Professor</text>
 	</string>
 	<string id="lname_stalker_188">
-		<text>Wьrger</text>
+		<text>WСЊrger</text>
 	</string>
 	<string id="lname_stalker_189">
-		<text>Wдrter</text>
+		<text>WРґrter</text>
 	</string>
 	<string id="lname_stalker_19">
 		<text>Penner</text>
@@ -3388,13 +3387,13 @@
 		<text>Komantsche</text>
 	</string>
 	<string id="lname_stalker_204">
-		<text>Kцnig</text>
+		<text>KС†nig</text>
 	</string>
 	<string id="lname_stalker_205">
 		<text>Pate</text>
 	</string>
 	<string id="lname_stalker_206">
-		<text>Hдndler</text>
+		<text>HРґndler</text>
 	</string>
 	<string id="lname_stalker_207">
 		<text>Raucher</text>
@@ -3409,13 +3408,13 @@
 		<text>Veteran</text>
 	</string>
 	<string id="lname_stalker_210">
-		<text>Legionдr</text>
+		<text>LegionРґr</text>
 	</string>
 	<string id="lname_stalker_211">
 		<text>Heiler</text>
 	</string>
 	<string id="lname_stalker_212">
-		<text>Fцrster</text>
+		<text>FС†rster</text>
 	</string>
 	<string id="lname_stalker_213">
 		<text>Lord</text>
@@ -3439,10 +3438,10 @@
 		<text>Mechaniker</text>
 	</string>
 	<string id="lname_stalker_22">
-		<text>GroЯer</text>
+		<text>GroРЇer</text>
 	</string>
 	<string id="lname_stalker_220">
-		<text>Totengrдber</text>
+		<text>TotengrРґber</text>
 	</string>
 	<string id="lname_stalker_221">
 		<text>Moderator</text>
@@ -3454,10 +3453,10 @@
 		<text>Metzger</text>
 	</string>
 	<string id="lname_stalker_224">
-		<text>Sцldner</text>
+		<text>SС†ldner</text>
 	</string>
 	<string id="lname_stalker_225">
-		<text>Empfдnger</text>
+		<text>EmpfРґnger</text>
 	</string>
 	<string id="lname_stalker_226">
 		<text>Boss</text>
@@ -3472,7 +3471,7 @@
 		<text>Waffenschmied</text>
 	</string>
 	<string id="lname_stalker_23">
-		<text>Glьcklich</text>
+		<text>GlСЊcklich</text>
 	</string>
 	<string id="lname_stalker_230">
 		<text>Schah</text>
@@ -3502,10 +3501,10 @@
 		<text>Alter</text>
 	</string>
 	<string id="lname_stalker_239">
-		<text>Pflьger</text>
+		<text>PflСЊger</text>
 	</string>
 	<string id="lname_stalker_24">
-		<text>Glьcklicher</text>
+		<text>GlСЊcklicher</text>
 	</string>
 	<string id="lname_stalker_240">
 		<text>Pazifist</text>
@@ -3586,7 +3585,7 @@
 		<text>Rasta</text>
 	</string>
 	<string id="lname_stalker_264">
-		<text>Wдrter</text>
+		<text>WРґrter</text>
 	</string>
 	<string id="lname_stalker_265">
 		<text>Rocker</text>
@@ -3610,7 +3609,7 @@
 		<text>Priester</text>
 	</string>
 	<string id="lname_stalker_271">
-		<text>Sekretдr</text>
+		<text>SekretРґr</text>
 	</string>
 	<string id="lname_stalker_272">
 		<text>Gigolo</text>
@@ -3631,7 +3630,7 @@
 		<text>Kamikaze</text>
 	</string>
 	<string id="lname_stalker_278">
-		<text>Brьter</text>
+		<text>BrСЊter</text>
 	</string>
 	<string id="lname_stalker_279">
 		<text>Lebensretter</text>
@@ -3655,16 +3654,16 @@
 		<text>Giftpilz</text>
 	</string>
 	<string id="lname_stalker_285">
-		<text>Zuhдlter</text>
+		<text>ZuhРґlter</text>
 	</string>
 	<string id="lname_stalker_286">
-		<text>Erbsenzдhler</text>
+		<text>ErbsenzРґhler</text>
 	</string>
 	<string id="lname_stalker_287">
 		<text>Soldat</text>
 	</string>
 	<string id="lname_stalker_288">
-		<text>Tдnzer</text>
+		<text>TРґnzer</text>
 	</string>
 	<string id="lname_stalker_289">
 		<text>Tyrann</text>
@@ -3697,7 +3696,7 @@
 		<text>Quarterback</text>
 	</string>
 	<string id="lname_stalker_298">
-		<text>Schьtze</text>
+		<text>SchСЊtze</text>
 	</string>
 	<string id="lname_stalker_299">
 		<text>Apotheker</text>
@@ -3778,7 +3777,7 @@
 		<text>Bulldogge</text>
 	</string>
 	<string id="lname_stalker_321">
-		<text>Hцrnchen</text>
+		<text>HС†rnchen</text>
 	</string>
 	<string id="lname_stalker_322">
 		<text>Ochse</text>
@@ -3802,7 +3801,7 @@
 		<text>Aasfresser</text>
 	</string>
 	<string id="lname_stalker_329">
-		<text>Betrьger</text>
+		<text>BetrСЊger</text>
 	</string>
 	<string id="lname_stalker_33">
 		<text>Bitter</text>
@@ -3829,7 +3828,7 @@
 		<text>Igel</text>
 	</string>
 	<string id="lname_stalker_337">
-		<text>Kдfer</text>
+		<text>KРґfer</text>
 	</string>
 	<string id="lname_stalker_338">
 		<text>Feldhase</text>
@@ -3898,7 +3897,7 @@
 		<text>Erreger</text>
 	</string>
 	<string id="lname_stalker_358">
-		<text>Mьcke</text>
+		<text>MСЊcke</text>
 	</string>
 	<string id="lname_stalker_359">
 		<text>Ameise</text>
@@ -3907,7 +3906,7 @@
 		<text>Lang</text>
 	</string>
 	<string id="lname_stalker_360">
-		<text>Nervtцter</text>
+		<text>NervtС†ter</text>
 	</string>
 	<string id="lname_stalker_361">
 		<text>Spinne</text>
@@ -4012,13 +4011,13 @@
 		<text>Vakuum</text>
 	</string>
 	<string id="lname_stalker_392">
-		<text>Mьll</text>
+		<text>MСЊll</text>
 	</string>
 	<string id="lname_stalker_393">
 		<text>Kiesel</text>
 	</string>
 	<string id="lname_stalker_394">
-		<text>Lьfter</text>
+		<text>LСЊfter</text>
 	</string>
 	<string id="lname_stalker_395">
 		<text>Beil</text>
@@ -4108,7 +4107,7 @@
 		<text>Fiesling</text>
 	</string>
 	<string id="lname_stalker_420">
-		<text>Schlьssel</text>
+		<text>SchlСЊssel</text>
 	</string>
 	<string id="lname_stalker_421">
 		<text>Peitsche</text>
@@ -4138,7 +4137,7 @@
 		<text>Schaufel</text>
 	</string>
 	<string id="lname_stalker_43">
-		<text>Gestrьpp</text>
+		<text>GestrСЊpp</text>
 	</string>
 	<string id="lname_stalker_430">
 		<text>Joint</text>
@@ -4189,7 +4188,7 @@
 		<text>Rund</text>
 	</string>
 	<string id="lname_stalker_445">
-		<text>Fьnf</text>
+		<text>FСЊnf</text>
 	</string>
 	<string id="lname_stalker_446">
 		<text>Messer</text>
@@ -4249,7 +4248,7 @@
 		<text>Cider</text>
 	</string>
 	<string id="lname_stalker_463">
-		<text>Tцdlich</text>
+		<text>TС†dlich</text>
 	</string>
 	<string id="lname_stalker_464">
 		<text>Schnaps</text>
@@ -4288,7 +4287,7 @@
 		<text>Lampe</text>
 	</string>
 	<string id="lname_stalker_475">
-		<text>MeiЯel</text>
+		<text>MeiРЇel</text>
 	</string>
 	<string id="lname_stalker_476">
 		<text>Juni</text>
@@ -4321,7 +4320,7 @@
 		<text>Schabe</text>
 	</string>
 	<string id="lname_stalker_485">
-		<text>Dьse</text>
+		<text>DСЊse</text>
 	</string>
 	<string id="lname_stalker_486">
 		<text>Stab</text>
@@ -4342,7 +4341,7 @@
 		<text>Hirni</text>
 	</string>
 	<string id="lname_stalker_491">
-		<text>ReiЯzahn</text>
+		<text>ReiРЇzahn</text>
 	</string>
 	<string id="lname_stalker_492">
 		<text>Klaue</text>
@@ -4426,7 +4425,7 @@
 		<text>Kaiser</text>
 	</string>
 	<string id="lname_stalker_516">
-		<text>KloЯ</text>
+		<text>KloРЇ</text>
 	</string>
 	<string id="lname_stalker_517">
 		<text>Kutusow</text>
@@ -4465,7 +4464,7 @@
 		<text>Roquefort</text>
 	</string>
 	<string id="lname_stalker_528">
-		<text>Reisfьhrer</text>
+		<text>ReisfСЊhrer</text>
 	</string>
 	<string id="lname_stalker_529">
 		<text>Terminator</text>
@@ -4531,13 +4530,13 @@
 		<text>Puffer</text>
 	</string>
 	<string id="lname_stalker_548">
-		<text>Knцdel</text>
+		<text>KnС†del</text>
 	</string>
 	<string id="lname_stalker_549">
 		<text>Whist</text>
 	</string>
 	<string id="lname_stalker_55">
-		<text>Sдbel</text>
+		<text>SРґbel</text>
 	</string>
 	<string id="lname_stalker_550">
 		<text>Wundbrand</text>
@@ -4570,7 +4569,7 @@
 		<text>Fubar</text>
 	</string>
 	<string id="lname_stalker_56">
-		<text>Frцstel</text>
+		<text>FrС†stel</text>
 	</string>
 	<string id="lname_stalker_560">
 		<text>Paria</text>
@@ -4594,7 +4593,7 @@
 		<text>Kommodore</text>
 	</string>
 	<string id="lname_stalker_567">
-		<text>Kцnig</text>
+		<text>KС†nig</text>
 	</string>
 	<string id="lname_stalker_568">
 		<text>Joint</text>
@@ -4627,7 +4626,7 @@
 		<text>Mutant</text>
 	</string>
 	<string id="lname_stalker_577">
-		<text>Kьhler</text>
+		<text>KСЊhler</text>
 	</string>
 	<string id="lname_stalker_578">
 		<text>Flop</text>
@@ -4636,10 +4635,10 @@
 		<text>Teich</text>
 	</string>
 	<string id="lname_stalker_58">
-		<text>Krьppel</text>
+		<text>KrСЊppel</text>
 	</string>
 	<string id="lname_stalker_580">
-		<text>Schnьffler</text>
+		<text>SchnСЊffler</text>
 	</string>
 	<string id="lname_stalker_581">
 		<text>Ravioli</text>
@@ -4651,7 +4650,7 @@
 		<text>Gurt</text>
 	</string>
 	<string id="lname_stalker_584">
-		<text>MehlkloЯ</text>
+		<text>MehlkloРЇ</text>
 	</string>
 	<string id="lname_stalker_585">
 		<text>Blase</text>
@@ -4669,7 +4668,7 @@
 		<text>Mondschein</text>
 	</string>
 	<string id="lname_stalker_59">
-		<text>Krьppel</text>
+		<text>KrСЊppel</text>
 	</string>
 	<string id="lname_stalker_590">
 		<text>Morchel</text>
@@ -4717,10 +4716,10 @@
 		<text>Plump</text>
 	</string>
 	<string id="lname_stalker_64">
-		<text>Rьckgrat</text>
+		<text>RСЊckgrat</text>
 	</string>
 	<string id="lname_stalker_65">
-		<text>Betrьger</text>
+		<text>BetrСЊger</text>
 	</string>
 	<string id="lname_stalker_66">
 		<text>Regenbogen</text>
@@ -4780,7 +4779,7 @@
 		<text>Albern</text>
 	</string>
 	<string id="lname_stalker_83">
-		<text>Дrgernis</text>
+		<text>Р”rgernis</text>
 	</string>
 	<string id="lname_stalker_84">
 		<text>Heulsuse</text>
@@ -4798,16 +4797,16 @@
 		<text>Paranoia</text>
 	</string>
 	<string id="lname_stalker_89">
-		<text>HeiЯsporn</text>
+		<text>HeiРЇsporn</text>
 	</string>
 	<string id="lname_stalker_9">
 		<text>Teflon</text>
 	</string>
 	<string id="lname_stalker_90">
-		<text>Rдuber</text>
+		<text>RРґuber</text>
 	</string>
 	<string id="lname_stalker_91">
-		<text>Blцdmann</text>
+		<text>BlС†dmann</text>
 	</string>
 	<string id="lname_stalker_92">
 		<text>Leiche</text>

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="csky_heavy_outfit_name">
 		<text>CS-3a body armor</text>
@@ -106,7 +105,7 @@
 		<text>This early model of the Duty bodysuit is the Spetsnaz PSZ-9 body armor modified for the Zone. The suit is capable of stopping a rifle bullet, however, this level of protection comes at the cost of its weight, bulkiness and virtually non-existent anomaly protection. The suit cannot be modified with an artifact container, but may be upgraded with a combat support system.</text>
 	</string>
 	<string id="csky_heavy_outfit_description">
-		<text>Once used as standard by Clear Sky assault squads, after the faction’s elimination this armor serves as a reminder that even an excellent protective bodysuit cannot guarantee you safety this side of the perimeter. The armor is capable of stopping a pistol bullet, while the wearer is also well protected from anomalies. Comes with a built-in artifact container.</text>
+		<text>Once used as standard by Clear Sky assault squads, after the factionвЂ™s elimination this armor serves as a reminder that even an excellent protective bodysuit cannot guarantee you safety this side of the perimeter. The armor is capable of stopping a pistol bullet, while the wearer is also well protected from anomalies. Comes with a built-in artifact container.</text>
 	</string>
 	<string id="exo_outfit_description">
 		<text>An experimental sample of a military exoskeleton. Was never mass-produced due to extraordinary cost and some design flaws. Despite this, it is in demand due to its ability to take on the weight of all carried equipment, and therefore small batches are made in underground facilities outside Ukraine. Comes with a built-in artifact container.</text>

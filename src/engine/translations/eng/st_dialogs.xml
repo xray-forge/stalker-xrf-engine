@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="about_quests_dialog_bandit_0">
 		<text>Listen, I have a question for you...</text>
@@ -904,19 +903,19 @@
 		<text>See you next time.</text>
 	</string>
 	<string id="about_quests_dialog_stalkers_27">
-		<text>I heard about a few crashing... I don’t know the details - gossip ain’t my thing. Sorry if that doesn’t help you much.</text>
+		<text>I heard about a few crashing... I donвЂ™t know the details - gossip ainвЂ™t my thing. Sorry if that doesnвЂ™t help you much.</text>
 	</string>
 	<string id="about_quests_dialog_stalkers_28">
-		<text>Man, I’ve got other shit to worry about without your choppers... I mean, I bet crashing a heli hurts like hell, but other than that I don’t know what to say.</text>
+		<text>Man, IвЂ™ve got other shit to worry about without your choppers... I mean, I bet crashing a heli hurts like hell, but other than that I donвЂ™t know what to say.</text>
 	</string>
 	<string id="about_quests_dialog_bandit_27">
-		<text>What are you talking about, punk? You have to smoke some real hardcore shit to see a chopper around here, ‘cause real ones don’t got nothin’ to do in this place.</text>
+		<text>What are you talking about, punk? You have to smoke some real hardcore shit to see a chopper around here, вЂcause real ones donвЂ™t got nothinвЂ™ to do in this place.</text>
 	</string>
 	<string id="about_quests_dialog_freedom_27">
-		<text>Huh? Nah, man, I don’t concern myself with shit like that. It don’t help with my mission of disseminating knowledge one bit, you know what I mean?</text>
+		<text>Huh? Nah, man, I donвЂ™t concern myself with shit like that. It donвЂ™t help with my mission of disseminating knowledge one bit, you know what I mean?</text>
 	</string>
 	<string id="about_quests_dialog_dolg_27">
-		<text>Our patrol watched the helicopters descending, but the details of this were reported to the Lieutenant Colonel personally. It’s on a need-to-know basis, and I really don’t need to know this stuff.</text>
+		<text>Our patrol watched the helicopters descending, but the details of this were reported to the Lieutenant Colonel personally. ItвЂ™s on a need-to-know basis, and I really donвЂ™t need to know this stuff.</text>
 	</string>
 	<string id="about_quests_dialog_bandit_50">
 		<text>Where can I find a suit with a closed-cycle respiratory module?</text>

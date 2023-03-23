@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="jup_a9_conservation_info">
 		<text>Documents with notes</text>
@@ -340,30 +339,30 @@
 		<text>Barge's PDA</text>
 	</string>
 	<string id="zat_b22_medic_pda_desc">
-		<text>Tremor kept a diary in his PDA, and his last notes are the most interesting:”Recording 12. My research will be over soon... People at the camp are starting to suspect something. Grouse and Danila are planning to hunt some bloodsuckers ... I wonder when they’ll figure it out... I need to sort the jars of blood to find out which ones have been contaminated, then hide the rest... [quickly:] Someone’s coming. [the sound of the recording device being switched off, then on again]. Recording 13... possibly my last. First that nosy hunter and now Grouse... I won’t get away with this. They’ll come for me, I know it. Doesn’t really matter - this hemoglobin dependency will kill me soon anyway. And I’d rather die from a bullet than a disease...”</text>
+		<text>Tremor kept a diary in his PDA, and his last notes are the most interesting:вЂќRecording 12. My research will be over soon... People at the camp are starting to suspect something. Grouse and Danila are planning to hunt some bloodsuckers ... I wonder when theyвЂ™ll figure it out... I need to sort the jars of blood to find out which ones have been contaminated, then hide the rest... [quickly:] SomeoneвЂ™s coming. [the sound of the recording device being switched off, then on again]. Recording 13... possibly my last. First that nosy hunter and now Grouse... I wonвЂ™t get away with this. TheyвЂ™ll come for me, I know it. DoesnвЂ™t really matter - this hemoglobin dependency will kill me soon anyway. And IвЂ™d rather die from a bullet than a disease...вЂќ</text>
 	</string>
 	<string id="zat_b22_medic_pda">
-		<text>Tremor’s PDA</text>
+		<text>TremorвЂ™s PDA</text>
 	</string>
 	<string id="st_zat_b12_documents_1_descr">
 		<text>Top Secret. Order # 562 of the HQ commander responsible for the security of object # 1 R. Yu. Didenko.\nChemical Protection Unit # 423: relocate from sector B103 to sector A19 to conduct field testing of Perin B3 chemical solution in near combat conditions. Colonel P.P. Slavin, unit commander, is responsible for conducting the tests. Lieutenant Colonel K.S. Valov, deputy unit commander, is responsible for transportation and security.</text>
 	</string>
 	<string id="st_zat_b12_documents_2_descr">
-		<text>Top Secret. Order from Colonel P.P. Slavin.\nIn accordance with this order, members of chemical protection unit # 423 are to be familiarized with the following information:\n1. Keys to the container with Perin B3 chemical solution are held by Colonel P.P. Slavin (key A) and Lieutenant Colonel K.S. Vlasov (Key B).\n2. Convoy order starting from the front: Deputy unit commander’s vehicle, escort vehicle # 8, APC # 1, transportation vehicle # 1, APC # 3, escort vehicle # 2, unit commander’s (P.P. Slavin) vehicle.\nCopies of the order to be handed to Lieutenant Colonel K.S. Vlasov and Senior Lieutenant R.B. Nazarenku.</text>
+		<text>Top Secret. Order from Colonel P.P. Slavin.\nIn accordance with this order, members of chemical protection unit # 423 are to be familiarized with the following information:\n1. Keys to the container with Perin B3 chemical solution are held by Colonel P.P. Slavin (key A) and Lieutenant Colonel K.S. Vlasov (Key B).\n2. Convoy order starting from the front: Deputy unit commanderвЂ™s vehicle, escort vehicle # 8, APC # 1, transportation vehicle # 1, APC # 3, escort vehicle # 2, unit commanderвЂ™s (P.P. Slavin) vehicle.\nCopies of the order to be handed to Lieutenant Colonel K.S. Vlasov and Senior Lieutenant R.B. Nazarenku.</text>
 	</string>
 	<string id="st_zat_a23_labx8_key_descr">
 		<text>A yellow magnetic keycard marked with X8.\nThe card must not fall into anyone else's hands, as it can be used to access the secret laboratory.</text>
 	</string>
 	<string id="st_jup_b202_bandit_pda">
-		<text>Sultan’s messenger’s PDA</text>
+		<text>SultanвЂ™s messengerвЂ™s PDA</text>
 	</string>
 	<string id="st_jup_b202_bandit_pda_descr">
-		<text>The last message sent from this PDA is an audio message: “Sultan, I dealt with that loser real good! ..That’ll teach him not to mess with us!"</text>
+		<text>The last message sent from this PDA is an audio message: вЂњSultan, I dealt with that loser real good! ..ThatвЂ™ll teach him not to mess with us!"</text>
 	</string>
 	<string id="st_af_quest_b14_twisted_descr">
 		<text>This was once the dredge station wheel. It has now half-converted into a strange artifact. No properties are notable, other than active glowing and a little radioactivity.</text>
 	</string>
 	<string id="st_zat_b40_pda_2_desc">
-		<text>Incoming message reads:\n"I managed to arrange something about the weapons and that greedy bastard is going to sell us his faction's stock. It's gonna be fairly cheap but we’ll have to haul ass to Jupiter.\nVulture.”</text>
+		<text>Incoming message reads:\n"I managed to arrange something about the weapons and that greedy bastard is going to sell us his faction's stock. It's gonna be fairly cheap but weвЂ™ll have to haul ass to Jupiter.\nVulture.вЂќ</text>
 	</string>
 </string_table>

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="af_neutral">
 		<text>Artefakt</text>
@@ -16,13 +15,13 @@
 		<text>Tryby</text>
 	</string>
 	<string id="mp_art_destroyed">
-		<text>Artefakt zostaі zniszczony.</text>
+		<text>Artefakt zostaС– zniszczony.</text>
 	</string>
 	<string id="mp_art_spowned">
-		<text>Powstaі artefakt. Zanieњ go do bazy, їeby zdobyж punkt.</text>
+		<text>PowstaС– artefakt. ZanieСљ go do bazy, С—eby zdobyР¶ punkt.</text>
 	</string>
 	<string id="mp_artefact_dropped">
-		<text>Artefakt zostaі utracony.</text>
+		<text>Artefakt zostaС– utracony.</text>
 	</string>
 	<string id="mp_artefact_on_base">
 		<text>Artefakt jest w naszej bazie.</text>
@@ -46,7 +45,7 @@
 		<text>4. Zablokuj</text>
 	</string>
 	<string id="mp_by_anomaly">
-		<text>Wedіug anomalii</text>
+		<text>WedС–ug anomalii</text>
 	</string>
 	<string id="mp_cancel">
 		<text>Anuluj</text>
@@ -55,20 +54,20 @@
 		<text>zdobywa artefakt</text>
 	</string>
 	<string id="mp_change_map">
-		<text>5. Zmieс mapк</text>
+		<text>5. ZmieСЃ mapРє</text>
 	</string>
 	<string id="mp_change_weather">
-		<text>6. Zmieс pogodк 
+		<text>6. ZmieСЃ pogodРє
 </text>
 	</string>
 	<string id="mp_change_weather_header">
-		<text>Zmieс pogodк na</text>
+		<text>ZmieСЃ pogodРє na</text>
 	</string>
 	<string id="mp_chat">
 		<text>Rozmowa</text>
 	</string>
 	<string id="mp_connected">
-		<text>Poі№czono</text>
+		<text>PoС–в„–czono</text>
 	</string>
 	<string id="mp_deaths">
 		<text>Zabici</text>
@@ -77,13 +76,13 @@
 		<text>Opis</text>
 	</string>
 	<string id="mp_disconnected">
-		<text>Rozі№czono</text>
+		<text>RozС–в„–czono</text>
 	</string>
 	<string id="mp_enter_text">
-		<text>Wprowadџ tekst do gіosowania</text>
+		<text>WprowadСџ tekst do gС–osowania</text>
 	</string>
 	<string id="mp_entered_game">
-		<text>doі№cza do gry</text>
+		<text>doС–в„–cza do gry</text>
 	</string>
 	<string id="mp_firestation">
 		<text>Remiza</text>
@@ -107,19 +106,19 @@
 		<text>z</text>
 	</string>
 	<string id="mp_gamemode">
-		<text>7. Zmieс tryb</text>
+		<text>7. ZmieСЃ tryb</text>
 	</string>
 	<string id="mp_garbage">
 		<text>Wysypisko</text>
 	</string>
 	<string id="mp_go">
-		<text>NAPRZУD!</text>
+		<text>NAPRZРЈD!</text>
 	</string>
 	<string id="mp_has_drop_art">
 		<text>traci artefakt %s</text>
 	</string>
 	<string id="mp_has_dropped_artefact">
-		<text>nie ma juї artefaktu</text>
+		<text>nie ma juС— artefaktu</text>
 	</string>
 	<string id="mp_has_tak_art">
 		<text>zabiera artefakt %s</text>
@@ -131,19 +130,19 @@
 		<text>jest teraz</text>
 	</string>
 	<string id="mp_joined">
-		<text>doі№cza</text>
+		<text>doС–в„–cza</text>
 	</string>
 	<string id="mp_kick">
-		<text>3. Wyrzuж</text>
+		<text>3. WyrzuР¶</text>
 	</string>
 	<string id="mp_limansk">
-		<text>Limaсsk</text>
+		<text>LimaСЃsk</text>
 	</string>
 	<string id="mp_loading_awards">
-		<text>Trwa wczytywanie nagrуd...</text>
+		<text>Trwa wczytywanie nagrСѓd...</text>
 	</string>
 	<string id="mp_loading_best_scores">
-		<text>Trwa wczytywanie najlepszych wynikуw...</text>
+		<text>Trwa wczytywanie najlepszych wynikСѓw...</text>
 	</string>
 	<string id="mp_look_at">
 		<text>(wolny widok)</text>
@@ -152,7 +151,7 @@
 		<text>Opis mapy</text>
 	</string>
 	<string id="mp_match_started">
-		<text>Rozpocz№і siк mecz!</text>
+		<text>Rozpoczв„–С– siРє mecz!</text>
 	</string>
 	<string id="mp_military_2">
 		<text>Stara wioska</text>
@@ -167,7 +166,7 @@
 		<text>Dalej</text>
 	</string>
 	<string id="mp_no_voted">
-		<text>Brak oddanych gіosуw</text>
+		<text>Brak oddanych gС–osСѓw</text>
 	</string>
 	<string id="mp_ping">
 		<text>Ping</text>
@@ -179,40 +178,40 @@
 		<text>Gracze</text>
 	</string>
 	<string id="mp_press_fire2spectator">
-		<text>Wciњnij „strzaі”, їeby przeі№czyж siк w tryb widza</text>
+		<text>WciСљnij вЂћstrzaС–вЂќ, С—eby przeС–в„–czyР¶ siРє w tryb widza</text>
 	</string>
 	<string id="mp_press_jump2pay_spaw">
-		<text>Wciњnij „skok”, їeby kupiж natychmiastowe odrodzenie</text>
+		<text>WciСљnij вЂћskokвЂќ, С—eby kupiР¶ natychmiastowe odrodzenie</text>
 	</string>
 	<string id="mp_press_jump2select_skin">
-		<text>Wciњnij „skok”, їeby wybraж skуrkк</text>
+		<text>WciСљnij вЂћskokвЂќ, С—eby wybraР¶ skСѓrkРє</text>
 	</string>
 	<string id="mp_press_jump2select_team">
-		<text>Wciњnij „skok”, їeby wybraж druїyny</text>
+		<text>WciСљnij вЂћskokвЂќ, С—eby wybraР¶ druС—yny</text>
 	</string>
 	<string id="mp_press_jump2spawn">
-		<text>Wciњnij „skok”, їeby siк odrodziж</text>
+		<text>WciСљnij вЂћskokвЂќ, С—eby siРє odrodziР¶</text>
 	</string>
 	<string id="mp_press_jump2start">
-		<text>Wciњnij „skok”, їeby rozpocz№ж</text>
+		<text>WciСљnij вЂћskokвЂќ, С—eby rozpoczв„–Р¶</text>
 	</string>
 	<string id="mp_press_to_buy">
-		<text>Wciњnij ($$ACTION_BUY_MENU$$), їeby otworzyж menu handlu</text>
+		<text>WciСљnij ($$ACTION_BUY_MENU$$), С—eby otworzyР¶ menu handlu</text>
 	</string>
 	<string id="mp_press_yes2pay">
-		<text>Masz: %d$. Moїesz kupiж odrodzenie za: %d$. Kliknij „tak", їeby zapіaciж.</text>
+		<text>Masz: %d$. MoС—esz kupiР¶ odrodzenie za: %d$. Kliknij вЂћtak", С—eby zapС–aciР¶.</text>
 	</string>
 	<string id="mp_ready">
-		<text>Przygotuj siк...</text>
+		<text>Przygotuj siРє...</text>
 	</string>
 	<string id="mp_rembasa">
 		<text>Baza naprawcza</text>
 	</string>
 	<string id="mp_restart">
-		<text>1. Ponowne rozpoczкcie</text>
+		<text>1. Ponowne rozpoczРєcie</text>
 	</string>
 	<string id="mp_restart_fast">
-		<text>2. Szybkie ponowne rozpoczкcie</text>
+		<text>2. Szybkie ponowne rozpoczРєcie</text>
 	</string>
 	<string id="mp_returned_artefact">
 		<text>zwraca artefakt</text>
@@ -221,22 +220,22 @@
 		<text>zdobywa punkt</text>
 	</string>
 	<string id="mp_select_ban">
-		<text>Wybierz gracza, ktуry w gіosowaniu ma zostaж zablokowany</text>
+		<text>Wybierz gracza, ktСѓry w gС–osowaniu ma zostaР¶ zablokowany</text>
 	</string>
 	<string id="mp_select_category">
-		<text>Wybierz kategoriк gіosowania</text>
+		<text>Wybierz kategoriРє gС–osowania</text>
 	</string>
 	<string id="mp_select_kick">
-		<text>Wybierz gracza, ktуry w gіosowaniu ma zostaж wyrzucony</text>
+		<text>Wybierz gracza, ktСѓry w gС–osowaniu ma zostaР¶ wyrzucony</text>
 	</string>
 	<string id="mp_select_kick_player">
-		<text>Wybierz gracza, ktуry w gіosowaniu ma zostaж wyrzucony</text>
+		<text>Wybierz gracza, ktСѓry w gС–osowaniu ma zostaР¶ wyrzucony</text>
 	</string>
 	<string id="mp_select_map">
-		<text>Wybierz mapк do gіosowania</text>
+		<text>Wybierz mapРє do gС–osowania</text>
 	</string>
 	<string id="mp_si_afbearer_cant_sprint">
-		<text>Nie moїna biegaж z artefaktem</text>
+		<text>Nie moС—na biegaР¶ z artefaktem</text>
 	</string>
 	<string id="mp_si_afcount">
 		<text>- Liczba</text>
@@ -263,19 +262,19 @@
 		<text>Artefakty:</text>
 	</string>
 	<string id="mp_si_autoteam_balance">
-		<text>Automatyczny balans druїyn</text>
+		<text>Automatyczny balans druС—yn</text>
 	</string>
 	<string id="mp_si_autoteam_swap">
-		<text>Automatyczna zamiana druїyn</text>
+		<text>Automatyczna zamiana druС—yn</text>
 	</string>
 	<string id="mp_si_battleye">
 		<text>BattlEye</text>
 	</string>
 	<string id="mp_si_disabled">
-		<text>Wyі.</text>
+		<text>WyС–.</text>
 	</string>
 	<string id="mp_si_enabled">
-		<text>Wі.</text>
+		<text>WС–.</text>
 	</string>
 	<string id="mp_si_first_eye">
 		<text>- Pierwsza osoba</text>
@@ -284,7 +283,7 @@
 		<text>Wymuszone odrodzenie</text>
 	</string>
 	<string id="mp_si_fraglimit">
-		<text>Limit fragуw</text>
+		<text>Limit fragСѓw</text>
 	</string>
 	<string id="mp_si_free_fly">
 		<text>- Swobodny widz</text>
@@ -293,22 +292,22 @@
 		<text>- Swobodna kamera</text>
 	</string>
 	<string id="mp_si_friendly_fire">
-		<text>Ostrzaі sojuszniczy</text>
+		<text>OstrzaС– sojuszniczy</text>
 	</string>
 	<string id="mp_si_friendly_indicators">
-		<text>Wskaџniki sojusznikуw</text>
+		<text>WskaСџniki sojusznikСѓw</text>
 	</string>
 	<string id="mp_si_friendly_names">
-		<text>Nicki sojusznikуw</text>
+		<text>Nicki sojusznikСѓw</text>
 	</string>
 	<string id="mp_si_infinite">
-		<text>Nieskoсczony</text>
+		<text>NieskoСЃczony</text>
 	</string>
 	<string id="mp_si_invinsibility">
-		<text>Niewidocznoњж:</text>
+		<text>NiewidocznoСљР¶:</text>
 	</string>
 	<string id="mp_si_invinsibility_indicators">
-		<text>- Wskaџniki</text>
+		<text>- WskaСџniki</text>
 	</string>
 	<string id="mp_si_invinsibility_time">
 		<text>- Czas</text>
@@ -332,7 +331,7 @@
 		<text>Odrodzenie</text>
 	</string>
 	<string id="mp_si_return_players">
-		<text>Gracze wrуcili do baz</text>
+		<text>Gracze wrСѓcili do baz</text>
 	</string>
 	<string id="mp_si_sec">
 		<text>s</text>
@@ -347,7 +346,7 @@
 		<text>Tryby widza:</text>
 	</string>
 	<string id="mp_si_team_only">
-		<text>- Tylko dla druїyny</text>
+		<text>- Tylko dla druС—yny</text>
 	</string>
 	<string id="mp_si_time_limit">
 		<text>Limit czasu</text>
@@ -356,7 +355,7 @@
 		<text>Wersja:</text>
 	</string>
 	<string id="mp_si_voting">
-		<text>Gіosowanie</text>
+		<text>GС–osowanie</text>
 	</string>
 	<string id="mp_si_warmuptime">
 		<text>Rozgrzewka</text>
@@ -365,7 +364,7 @@
 		<text>Tak</text>
 	</string>
 	<string id="mp_skin_selection">
-		<text>Wybуr skуrki</text>
+		<text>WybСѓr skСѓrki</text>
 	</string>
 	<string id="mp_spectator">
 		<text>Widz</text>
@@ -380,16 +379,16 @@
 		<text>Status</text>
 	</string>
 	<string id="mp_switched_to">
-		<text>przeі№cza siк do</text>
+		<text>przeС–в„–cza siРє do</text>
 	</string>
 	<string id="mp_team_free_stalkers">
-		<text>Wolnoњж</text>
+		<text>WolnoСљР¶</text>
 	</string>
 	<string id="mp_team_selection">
-		<text>Wybуr druїyny</text>
+		<text>WybСѓr druС—yny</text>
 	</string>
 	<string id="mp_team_wins">
-		<text>Druїyna %s WYGRYWA!</text>
+		<text>DruС—yna %s WYGRYWA!</text>
 	</string>
 	<string id="mp_text">
 		<text>Tekst</text>
@@ -398,16 +397,16 @@
 		<text>Czas do odrodzenia</text>
 	</string>
 	<string id="mp_time2start">
-		<text>Czas do rozpoczкcia:</text>
+		<text>Czas do rozpoczРєcia:</text>
 	</string>
 	<string id="mp_timeleft">
-		<text>Pozostaіy czas: %d:%d; zgoda: %.2f</text>
+		<text>PozostaС–y czas: %d:%d; zgoda: %.2f</text>
 	</string>
 	<string id="mp_training_camp">
-		<text>Obуz treningowy</text>
+		<text>ObСѓz treningowy</text>
 	</string>
 	<string id="mp_vote_hint">
-		<text>Gіosy ZA - [$$ACTION_VOTE_YES$$]\nGіosy PRZECIW - [$$ACTION_VOTE_NO$$]\nWyniki - [$$ACTION_VOTE$$]</text>
+		<text>GС–osy ZA - [$$ACTION_VOTE_YES$$]\nGС–osy PRZECIW - [$$ACTION_VOTE_NO$$]\nWyniki - [$$ACTION_VOTE$$]</text>
 	</string>
 	<string id="mp_vote_no">
 		<text>Przeciw</text>
@@ -416,7 +415,7 @@
 		<text>Za</text>
 	</string>
 	<string id="mp_voted">
-		<text>Oddany gіos</text>
+		<text>Oddany gС–os</text>
 	</string>
 	<string id="mp_voted_no">
 		<text>Przeciw</text>
@@ -425,13 +424,13 @@
 		<text>Za</text>
 	</string>
 	<string id="mp_voting_broken">
-		<text>Gіosowanie anulowane przez serwer!</text>
+		<text>GС–osowanie anulowane przez serwer!</text>
 	</string>
 	<string id="mp_voting_started">
-		<text>Gіosowanie '%s' rozpoczкte przez %s.</text>
+		<text>GС–osowanie '%s' rozpoczРєte przez %s.</text>
 	</string>
 	<string id="mp_voting_started_msg">
-		<text>Gіosowanie siк rozpoczкіo!</text>
+		<text>GС–osowanie siРє rozpoczРєС–o!</text>
 	</string>
 	<string id="mp_weather_clear">
 		<text>1. Bezchmurnie</text>
@@ -449,49 +448,49 @@
 		<text>Cios w plecy!</text>
 	</string>
 	<string id="mp_with_headshot">
-		<text>Strzaі w gіowк!</text>
+		<text>StrzaС– w gС–owРє!</text>
 	</string>
 	<string id="mp_you_captured_artefact">
-		<text>Udaіo ci siк zdobyж artefakt wroga. Zanieњ go do swojego artefaktu!</text>
+		<text>UdaС–o ci siРє zdobyР¶ artefakt wroga. ZanieСљ go do swojego artefaktu!</text>
 	</string>
 	<string id="mp_you_captured_own_artefact">
-		<text>Udaіo ci siк zdobyж artefakt. Aktywuj go, aby dostarczyж go do bazy!</text>
+		<text>UdaС–o ci siРє zdobyР¶ artefakt. Aktywuj go, aby dostarczyР¶ go do bazy!</text>
 	</string>
 	<string id="mp_your_rank">
-		<text>Masz teraz rangк:</text>
+		<text>Masz teraz rangРє:</text>
 	</string>
 	<string id="self">
 		<text>To ty</text>
 	</string>
 	<string id="st_mp_disabled_voting">
-		<text>Na tym serwerze nie moїna gіosowaж.</text>
+		<text>Na tym serwerze nie moС—na gС–osowaР¶.</text>
 	</string>
 	<string id="st_mp_no_current_voting">
-		<text>Brak aktywnych gіosowaс.</text>
+		<text>Brak aktywnych gС–osowaСЃ.</text>
 	</string>
 	<string id="st_mp_only_one_voting">
-		<text>Dozwolone jest tylko jedno aktywne gіosowanie.</text>
+		<text>Dozwolone jest tylko jedno aktywne gС–osowanie.</text>
 	</string>
 	<string id="st_mp_ready">
-		<text>Gotуw</text>
+		<text>GotСѓw</text>
 	</string>
 	<string id="st_mp_say_to_all">
 		<text>Wszyscy</text>
 	</string>
 	<string id="st_mp_say_to_team">
-		<text>Druїyna</text>
+		<text>DruС—yna</text>
 	</string>
 	<string id="st_mp_voting_failed">
-		<text>Gіosowanie nieudane!</text>
+		<text>GС–osowanie nieudane!</text>
 	</string>
 	<string id="st_mp_voting_succeed">
-		<text>Gіosowanie udane!</text>
+		<text>GС–osowanie udane!</text>
 	</string>
 	<string id="team_base_1">
-		<text>Baza frakcji Wolnoњж</text>
+		<text>Baza frakcji WolnoСљР¶</text>
 	</string>
 	<string id="team_base_2">
-		<text>Baza najemnikуw</text>
+		<text>Baza najemnikСѓw</text>
 	</string>
 	<string id="ui_mp_ah">
 		<text>2. Polowanie na artefakty</text>
@@ -503,7 +502,7 @@
 		<text>1. Wszyscy przeciwko wszystkim</text>
 	</string>
 	<string id="ui_mp_gamespy_creating_new_profile">
-		<text>Utwуrz nowy profil</text>
+		<text>UtwСѓrz nowy profil</text>
 	</string>
 	<string id="ui_mp_gamespy_getting_account_profiles">
 		<text>Uzyskiwanie profili konta</text>
@@ -512,46 +511,46 @@
 		<text>Witam</text>
 	</string>
 	<string id="ui_mp_gamespy_logining_to_profile">
-		<text>Ј№czenie z profilem</text>
+		<text>Р€в„–czenie z profilem</text>
 	</string>
 	<string id="ui_mp_gamespy_profile_created">
-		<text>Profil zostaі pomyњlnie utworzony. Poі№cz siк z nim.</text>
+		<text>Profil zostaС– pomyСљlnie utworzony. PoС–в„–cz siРє z nim.</text>
 	</string>
 	<string id="ui_mp_gamespy_suggesting_unique_name">
 		<text>Trwa weryfikowanie unikatowej nazwy...</text>
 	</string>
 	<string id="ui_mp_gamespy_use_existing_profile">
-		<text>Czy chcesz uїyж istniej№cego profilu o nazwie</text>
+		<text>Czy chcesz uС—yР¶ istniejв„–cego profilu o nazwie</text>
 	</string>
 	<string id="ui_mp_gamespy_verify_account_profiles">
 		<text>Odnaleziono konto. Trwa uzyskiwanie zarejestrowanych profili...</text>
 	</string>
 	<string id="ui_mp_gamespy_verify_account_profiles_error1">
-		<text>Masz juї profil. Poі№cz siк z nim.</text>
+		<text>Masz juС— profil. PoС–в„–cz siРє z nim.</text>
 	</string>
 	<string id="ui_mp_gamespy_verify_email">
 		<text>Trwa weryfikowanie konta...</text>
 	</string>
 	<string id="ui_mp_gamespy_verify_nickname_error1">
-		<text>To unikalne imiк jest juї uїywane. Wprowadџ inne imiк lub wybierz jedno z poniїszej listy rozwijanej.</text>
+		<text>To unikalne imiРє jest juС— uС—ywane. WprowadСџ inne imiРє lub wybierz jedno z poniС—szej listy rozwijanej.</text>
 	</string>
 	<string id="ui_mp_gamespy_verify_password_error1">
-		<text>Hasіa nie s№ zgodne.</text>
+		<text>HasС–a nie sв„– zgodne.</text>
 	</string>
 	<string id="ui_mp_tdm">
-		<text>3. Gra druїynowa</text>
+		<text>3. Gra druС—ynowa</text>
 	</string>
 	<string id="ui_st_btn_copy_url">
-		<text>Kopiuj і№cze</text>
+		<text>Kopiuj С–в„–cze</text>
 	</string>
 	<string id="ui_st_btn_download_map">
-		<text>Wczytaj mapк</text>
+		<text>Wczytaj mapРє</text>
 	</string>
 	<string id="ui_st_description">
 		<text>Opis</text>
 	</string>
 	<string id="ui_st_map_data_corrupted">
-		<text>Niewіaњciwa lub uszkodzona mapa</text>
+		<text>NiewС–aСљciwa lub uszkodzona mapa</text>
 	</string>
 	<string id="ui_st_map_not_found">
 		<text>Nie znaleziono mapy</text>
@@ -563,37 +562,37 @@
 		<text>Najlepsze wyniki</text>
 	</string>
 	<string id="ui_st_mp_check_avaliability">
-		<text>Sprawdџ </text>
+		<text>SprawdСџ </text>
 	</string>
 	<string id="ui_st_mp_confirm_password">
-		<text>Potwierdџ hasіo</text>
+		<text>PotwierdСџ hasС–o</text>
 	</string>
 	<string id="ui_st_mp_email">
 		<text>Adres e-mail</text>
 	</string>
 	<string id="ui_st_mp_forgot_password">
-		<text>Nie pamiкtasz hasіa?</text>
+		<text>Nie pamiРєtasz hasС–a?</text>
 	</string>
 	<string id="ui_st_mp_gamespy_account_creation">
 		<text>Tworzenie profilu GameSpy</text>
 	</string>
 	<string id="ui_st_mp_password">
-		<text>Hasіo</text>
+		<text>HasС–o</text>
 	</string>
 	<string id="ui_st_mp_remember_me">
-		<text>Zapamiкtaj</text>
+		<text>ZapamiРєtaj</text>
 	</string>
 	<string id="ui_st_mp_unique_nickname">
-		<text>Unikalne imiк</text>
+		<text>Unikalne imiРє</text>
 	</string>
 	<string id="ui_st_mp_unique_nickname_change">
-		<text>Pomyњlnie zmieniono unikatow№ nazwк na:</text>
+		<text>PomyСљlnie zmieniono unikatowв„– nazwРє na:</text>
 	</string>
 	<string id="ui_st_team">
-		<text>Druїyna</text>
+		<text>DruС—yna</text>
 	</string>
 	<string id="ui_st_team1_name">
-		<text>Wolnoњж</text>
+		<text>WolnoСљР¶</text>
 	</string>
 	<string id="ui_st_team2_name">
 		<text>Najemnicy</text>
@@ -602,7 +601,7 @@
 		<text>Nowy profil</text>
 	</string>
 	<string id="ui_st_mp_gamespy_login_page">
-		<text>Logowanie do usіugi GameSpy</text>
+		<text>Logowanie do usС–ugi GameSpy</text>
 	</string>
 	<string id="mpd_play">
 		<text>zagraj</text>
@@ -614,13 +613,13 @@
 		<text>zacznij ponownie</text>
 	</string>
 	<string id="mpd_rewind_until_start">
-		<text>do pocz№tku</text>
+		<text>do poczв„–tku</text>
 	</string>
 	<string id="mpd_rewind_until_kill">
 		<text>do zabicia</text>
 	</string>
 	<string id="mpd_rewind_until_die">
-		<text>do њmierci</text>
+		<text>do Сљmierci</text>
 	</string>
 	<string id="mpd_rewind_until_arttake">
 		<text>do zdobycia artefaktu</text>
@@ -656,7 +655,7 @@
 		<text>Konf. dla wybranego gracza </text>
 	</string>
 	<string id="ui_mp_am_kick_selected">
-		<text>Wyrzuж wybranego gracza</text>
+		<text>WyrzuР¶ wybranego gracza</text>
 	</string>
 	<string id="ui_mp_am_ban_selected">
 		<text>Zbanuj wybranego gracza</text>
@@ -668,28 +667,28 @@
 		<text>Szybki restart</text>
 	</string>
 	<string id="ui_mp_am_change_weather">
-		<text>Zmieс pogodк</text>
+		<text>ZmieСЃ pogodРє</text>
 	</string>
 	<string id="ui_mp_am_set_change_rate">
-		<text>Szybkoњж zmiany pogody</text>
+		<text>SzybkoСљР¶ zmiany pogody</text>
 	</string>
 	<string id="ui_mp_am_change_game_type">
-		<text>Zmieс typ gry</text>
+		<text>ZmieСЃ typ gry</text>
 	</string>
 	<string id="ui_mp_am_change_game_limits">
-		<text>Zmieс ustawienia gry</text>
+		<text>ZmieСЃ ustawienia gry</text>
 	</string>
 	<string id="ui_mp_am_stop_cur_voting">
-		<text>Przerwij obecne gіosowanie</text>
+		<text>Przerwij obecne gС–osowanie</text>
 	</string>
 	<string id="ui_mp_am_set_time_limit">
 		<text>Limit czasu (0, 180)</text>
 	</string>
 	<string id="ui_mp_am_set_frag_limit">
-		<text>Limit fragуw (0, 1000)</text>
+		<text>Limit fragСѓw (0, 1000)</text>
 	</string>
 	<string id="ui_mp_am_set_art_limit">
-		<text>Limit artefaktуw (0,100)</text>
+		<text>Limit artefaktСѓw (0,100)</text>
 	</string>
 	<string id="ui_mp_am_set_warm_up_time">
 		<text>Czas rozgrzewki (0, 3600)</text>
@@ -701,10 +700,10 @@
 		<text>Okr. ochronny (0, 600 T/DM) </text>
 	</string>
 	<string id="ui_mp_am_set_reinforcement_time">
-		<text>Opуџ. odrodzenia (-1, 3600)</text>
+		<text>OpСѓСџ. odrodzenia (-1, 3600)</text>
 	</string>
 	<string id="mp_gp_unknown_error_4">
-		<text>Nieznany bі№d profilu (kod:4)</text>
+		<text>Nieznany bС–в„–d profilu (kod:4)</text>
 	</string>
 	<string id="ui_mp_am_10_minutes">
 		<text>10 minut</text>
@@ -719,24 +718,24 @@
 		<text>6 godzin</text>
 	</string>
 	<string id="ui_mp_am_1_day">
-		<text>1 dzieс</text>
+		<text>1 dzieСЃ</text>
 	</string>
 	<string id="ui_mp_am_1_week">
-		<text>1 tydzieс</text>
+		<text>1 tydzieСЃ</text>
 	</string>
 	<string id="ui_mp_am_1_month">
-		<text>1 miesi№c</text>
+		<text>1 miesiв„–c</text>
 	</string>
 	<string id="ui_mp_am_3_monthes">
-		<text>3 miesi№ce</text>
+		<text>3 miesiв„–ce</text>
 	</string>
 	<string id="ui_mp_am_forever">
 		<text>Stale</text>
 	</string>
 	<string id="mp_gp_unique_nick_too_short">
-		<text>Pseudonim jest za krуtki</text>
+		<text>Pseudonim jest za krСѓtki</text>
 	</string>
 	<string id="mp_gp_unknown_error_512">
-		<text>Bі№d profilu</text>
+		<text>BС–в„–d profilu</text>
 	</string>
 </string_table>

@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="csky_heavy_outfit_name">
 		<text>Kamizelka kuloodporna CS-3a</text>
 	</string>
 	<string id="dolg_heavy_outfit_name">
-		<text>Pancerz „Powinnoњci" PSZ-9d</text>
+		<text>Pancerz вЂћPowinnoСљci" PSZ-9d</text>
 	</string>
 	<string id="dolg_outfit_name">
 		<text>PS5-M Uniwersalna ochrona</text>
@@ -13,25 +12,25 @@
 		<text>Egzoszkielet</text>
 	</string>
 	<string id="military_outfit_name">
-		<text>Kombinezon pancerny Buіat</text>
+		<text>Kombinezon pancerny BuС–at</text>
 	</string>
 	<string id="mp_exo_outfit_description">
-		<text>Ten egzoszkielet zapewnia znakomit№ ochronк przed pociskami i odіamkami, kosztem mobilnoњci. Nie chroni przed amunicj№ przeciwpancern№.</text>
+		<text>Ten egzoszkielet zapewnia znakomitв„– ochronРє przed pociskami i odС–amkami, kosztem mobilnoСљci. Nie chroni przed amunicjв„– przeciwpancernв„–.</text>
 	</string>
 	<string id="mp_exo_outfit_name">
 		<text>Egzoszkielet</text>
 	</string>
 	<string id="mp_military_outfit_description">
-		<text>Wojskowy kombinezon pancerny zaprojektowany do operacji szturmowych. Zapewnia znakomit№ ochronк przed amunicj№ FMJ i odіamkami bez ograniczenia mobilnoњci uїytkownika. Nie chroni przed amunicj№ przeciwpancern№.</text>
+		<text>Wojskowy kombinezon pancerny zaprojektowany do operacji szturmowych. Zapewnia znakomitв„– ochronРє przed amunicjв„– FMJ i odС–amkami bez ograniczenia mobilnoСљci uС—ytkownika. Nie chroni przed amunicjв„– przeciwpancernв„–.</text>
 	</string>
 	<string id="mp_military_outfit_name">
 		<text>Pancerz wojskowy</text>
 	</string>
 	<string id="novice_outfit_description">
-		<text>Zwykіy, czarny skуrzany pіaszcz. Nie ma specjalnych wіaњciwoњci poza tym, їe chroni wіaњciciela przed zimnem i zкbami њlepych psуw. Pomimo, їe nie jest specjalnie wygodny, jest czкsto noszony przez bandytуw w Zonie - z jednej strony pozwala im ukrywaж siк w ciemnoњci, ale z drugiej moїe im chodziж tylko o jego „zar№bisty" wygl№d.</text>
+		<text>ZwykС–y, czarny skСѓrzany pС–aszcz. Nie ma specjalnych wС–aСљciwoСљci poza tym, С—e chroni wС–aСљciciela przed zimnem i zРєbami Сљlepych psСѓw. Pomimo, С—e nie jest specjalnie wygodny, jest czРєsto noszony przez bandytСѓw w Zonie - z jednej strony pozwala im ukrywaР¶ siРє w ciemnoСљci, ale z drugiej moС—e im chodziР¶ tylko o jego вЂћzarв„–bisty" wyglв„–d.</text>
 	</string>
 	<string id="novice_outfit_name">
-		<text>Skуrzany pіaszcz</text>
+		<text>SkСѓrzany pС–aszcz</text>
 	</string>
 	<string id="scientific_outfit_name">
 		<text>Kombinezon SEVA</text>
@@ -40,76 +39,76 @@
 		<text>Kombinezon pancerny Berill-5M</text>
 	</string>
 	<string id="st_helm_battle">
-		<text>Heіm M12 Sfera</text>
+		<text>HeС–m M12 Sfera</text>
 	</string>
 	<string id="st_helm_battle_descr">
-		<text>Pokryty tkanin№ aluminiowo-tytanowy heіm wyposaїony w kieszenie na stalowe elementy pancerza i opancerzon№ maskк. Heіm M12 Sfera jest z reguіy uїywany w poі№czeniu z kamizelk№ kuloodporn№ Specnazu PSZ. Jest on doњж popularny w Zonie ze wzglкdu na swoj№ maskк przeciwgazow№ i wbudowany noktowizor pierwszej generacji, a takїe na fakt, їe zapewnia maksymaln№ moїliw№ ochronк gіowy. Posiada teї gniazda na urz№dzenia elektroniczne.</text>
+		<text>Pokryty tkaninв„– aluminiowo-tytanowy heС–m wyposaС—ony w kieszenie na stalowe elementy pancerza i opancerzonв„– maskРє. HeС–m M12 Sfera jest z reguС–y uС—ywany w poС–в„–czeniu z kamizelkв„– kuloodpornв„– Specnazu PSZ. Jest on doСљР¶ popularny w Zonie ze wzglРєdu na swojв„– maskРє przeciwgazowв„– i wbudowany noktowizor pierwszej generacji, a takС—e na fakt, С—e zapewnia maksymalnв„– moС—liwв„– ochronРє gС–owy. Posiada teС— gniazda na urzв„–dzenia elektroniczne.</text>
 	</string>
 	<string id="st_helm_hardhat">
-		<text>Stalowy heіm</text>
+		<text>Stalowy heС–m</text>
 	</string>
 	<string id="st_helm_hardhat_descr">
-		<text>Skrajnie przestarzaіy stalowy heіm wojskowy bez їadnych dodatkуw. Nie chroni przed anomaliami i promieniowaniem, ale moїe odbijaж pociski. Heіm ten nigdy nie byі szczegуlnie popularny w Zonie, z wyj№tkiem krуtkich zbrojnych konfliktуw miкdzy frakcjami.</text>
+		<text>Skrajnie przestarzaС–y stalowy heС–m wojskowy bez С—adnych dodatkСѓw. Nie chroni przed anomaliami i promieniowaniem, ale moС—e odbijaР¶ pociski. HeС–m ten nigdy nie byС– szczegСѓlnie popularny w Zonie, z wyjв„–tkiem krСѓtkich zbrojnych konfliktСѓw miРєdzy frakcjami.</text>
 	</string>
 	<string id="st_helm_protective">
-		<text>Heіm ekranuj№cy</text>
+		<text>HeС–m ekranujв„–cy</text>
 	</string>
 	<string id="st_helm_protective_descr">
-		<text>Lekki heіm z nieprzepuszczaj№c№ powietrza zasіon№, ktуrego zadaniem jest ochrona przed anomaliami. S№dz№c po konstrukcji, zostaі on zbudowany przez ten sam Instytut Badaс Obronnych, co kombinezon SEVA. Najprawdopodobniej przeznaczony do uїytku w poі№czeniu z kombinezonami wojskowymi do dziaіaс w warunkach podwyїszonej aktywnoњci anomalii.</text>
+		<text>Lekki heС–m z nieprzepuszczajв„–cв„– powietrza zasС–onв„–, ktСѓrego zadaniem jest ochrona przed anomaliami. Sв„–dzв„–c po konstrukcji, zostaС– on zbudowany przez ten sam Instytut BadaСЃ Obronnych, co kombinezon SEVA. Najprawdopodobniej przeznaczony do uС—ytku w poС–в„–czeniu z kombinezonami wojskowymi do dziaС–aСЃ w warunkach podwyС—szonej aktywnoСљci anomalii.</text>
 	</string>
 	<string id="st_helm_respirator">
 		<text>Maska przeciwgazowa</text>
 	</string>
 	<string id="st_helm_respirator_descr">
-		<text>Zwykіa maska przeciwgazowa zbudowana z plastiku i gumy. Sіuїy do odfiltrowywania powietrza z radioaktywnych cz№stek i truj№cych substancji. Jest uїywana zarуwno przez nowicjuszy, jak i weteranуw ze wzglкdu na swoj№ funkcjonalnoњж. Nie zapewnia їadnej ochrony fizycznej.</text>
+		<text>ZwykС–a maska przeciwgazowa zbudowana z plastiku i gumy. SС–uС—y do odfiltrowywania powietrza z radioaktywnych czв„–stek i trujв„–cych substancji. Jest uС—ywana zarСѓwno przez nowicjuszy, jak i weteranСѓw ze wzglРєdu na swojв„– funkcjonalnoСљР¶. Nie zapewnia С—adnej ochrony fizycznej.</text>
 	</string>
 	<string id="st_helm_tactic">
-		<text>Heіm taktyczny</text>
+		<text>HeС–m taktyczny</text>
 	</string>
 	<string id="st_helm_tactic_descr">
-		<text>Zachodni model heіmu taktycznego pozbawiony kamuflaїu. Nie wiadomo, w jaki sposуb znalazі siк w Zonie. Jest zaprojektowany tak, aby zapewniж dowуdcy druїyny strategiczn№ przewagк przy uїyciu wielu wbudowanych skanerуw i urz№dzeс do komunikacji satelitarnej, ktуrych ten konkretny egzemplarz nie posiada. Za to moїe siк poszczyciж wielowarstwow№ powіok№ z kevlaru i opancerzon№ konstrukcj№, ktуra ma za zadanie chroniж elementy elektroniczne. Zawiera maskк przeciwgazow№ i noktowizor pierwszej generacji.</text>
+		<text>Zachodni model heС–mu taktycznego pozbawiony kamuflaС—u. Nie wiadomo, w jaki sposСѓb znalazС– siРє w Zonie. Jest zaprojektowany tak, aby zapewniР¶ dowСѓdcy druС—yny strategicznв„– przewagРє przy uС—yciu wielu wbudowanych skanerСѓw i urzв„–dzeСЃ do komunikacji satelitarnej, ktСѓrych ten konkretny egzemplarz nie posiada. Za to moС—e siРє poszczyciР¶ wielowarstwowв„– powС–okв„– z kevlaru i opancerzonв„– konstrukcjв„–, ktСѓra ma za zadanie chroniР¶ elementy elektroniczne. Zawiera maskРє przeciwgazowв„– i noktowizor pierwszej generacji.</text>
 	</string>
 	<string id="stalker_outfit_name">
-		<text>Kombinezon Њwit</text>
+		<text>Kombinezon РЉwit</text>
 	</string>
 	<string id="svoboda_heavy_outfit_name">
-		<text>Kombinezon Straїnik wolnoњci</text>
+		<text>Kombinezon StraС—nik wolnoСљci</text>
 	</string>
 	<string id="svoboda_light_outfit_description">
-		<text>Ten lekki kombinezon stalkerski jest wytwarzany przez rzemieњlnikуw Wolnoњci. Materiaі wykorzystywany w produkcji, jest nasycany specjalnym roztworem o nazwie „Horyzont”, ktуry zostaі opracowany przez tк frakcjк metod№ prуb i bікdуw w celu zwiкkszenia odpornoњci na anomalie. Podobnie jak kombinezon Њwit, posiada wbudowane opancerzenie i pojemniki na artefakty.</text>
+		<text>Ten lekki kombinezon stalkerski jest wytwarzany przez rzemieСљlnikСѓw WolnoСљci. MateriaС– wykorzystywany w produkcji, jest nasycany specjalnym roztworem o nazwie вЂћHoryzontвЂќ, ktСѓry zostaС– opracowany przez tРє frakcjРє metodв„– prСѓb i bС–РєdСѓw w celu zwiРєkszenia odpornoСљci na anomalie. Podobnie jak kombinezon РЉwit, posiada wbudowane opancerzenie i pojemniki na artefakty.</text>
 	</string>
 	<string id="svoboda_light_outfit_name">
-		<text>Kombinezon Powiew wolnoњci</text>
+		<text>Kombinezon Powiew wolnoСљci</text>
 	</string>
 	<string id="dolg_outfit_description">
-		<text>Ta wersja kombinezonu „Powinnoњci” nadaje siк najlepiej dla stalkerуw przyzwyczajonych do lekkich strojуw. W odrуїnieniu od serii PSZ, zapewnia dobr№ ochronк zarуwno przed anomaliami, jak i przed pociskami z pistoletu. Kombinezonu tego nie moїna niestety uzupeіniж o pojemnik na artefakty, ale moїe on za to byж zmodyfikowany poprzez instalacjк systemu wsparcia bojowego.</text>
+		<text>Ta wersja kombinezonu вЂћPowinnoСљciвЂќ nadaje siРє najlepiej dla stalkerСѓw przyzwyczajonych do lekkich strojСѓw. W odrСѓС—nieniu od serii PSZ, zapewnia dobrв„– ochronРє zarСѓwno przed anomaliami, jak i przed pociskami z pistoletu. Kombinezonu tego nie moС—na niestety uzupeС–niР¶ o pojemnik na artefakty, ale moС—e on za to byР¶ zmodyfikowany poprzez instalacjРє systemu wsparcia bojowego.</text>
 	</string>
 	<string id="military_outfit_description">
-		<text>Ten nowoczesny pancerz jest przeznaczony do przeprowadzania operacji szturmowych na obszarach o duїej liczbie anomalii. Skіada siк z wojskowego kombinezonu PSZ-12p, wbudowanego kompensatora i osіony przed anomaliami. Pancerz zapewnia doskonaі№ ochronк przeciwko pociskom i odіamkom bez znacz№cego ograniczenia mobilnoњci wіaњciciela. Nie zawiera pojemnika na artefakty.</text>
+		<text>Ten nowoczesny pancerz jest przeznaczony do przeprowadzania operacji szturmowych na obszarach o duС—ej liczbie anomalii. SkС–ada siРє z wojskowego kombinezonu PSZ-12p, wbudowanego kompensatora i osС–ony przed anomaliami. Pancerz zapewnia doskonaС–в„– ochronРє przeciwko pociskom i odС–amkom bez znaczв„–cego ograniczenia mobilnoСљci wС–aСљciciela. Nie zawiera pojemnika na artefakty.</text>
 	</string>
 	<string id="mp_scientific_outfit_description">
-		<text>Ten kombinezon, przeznaczony do przeprowadzania badaс w Zonie, і№czy moduі oddechowy o zamkniкtym obiegu z zewnкtrznym pokryciem izolacyjnym, dziкki czemu zapewnia znakomit№ ochronк przed anomaliami. Ze wzglкdu na nisk№ odpornoњж na uderzenia, nie zapewnia on dobrej ochrony przed pociskami i odіamkami. Posiada wbudowany pojemnik do transportu artefaktуw.</text>
+		<text>Ten kombinezon, przeznaczony do przeprowadzania badaСЃ w Zonie, С–в„–czy moduС– oddechowy o zamkniРєtym obiegu z zewnРєtrznym pokryciem izolacyjnym, dziРєki czemu zapewnia znakomitв„– ochronРє przed anomaliami. Ze wzglРєdu na niskв„– odpornoСљР¶ na uderzenia, nie zapewnia on dobrej ochrony przed pociskami i odС–amkami. Posiada wbudowany pojemnik do transportu artefaktСѓw.</text>
 	</string>
 	<string id="scientific_outfit_description">
-		<text>Ten kombinezon stanowi њwietn№ alternatywк dla ubraс ochronnych wykonywanych przez samych stalkerуw. Jego pancerz jest w stanie zatrzymaж tylko pocisk z pistoletu, ale system ochrony przed anomaliami i promieniowaniem jest niezrуwnany. Ze wzglкdu na szerokie moїliwoњci modyfikacji i dwa wbudowane pojemniki na artefakty, uїywa go wielu doњwiadczonych stalkerуw.</text>
+		<text>Ten kombinezon stanowi Сљwietnв„– alternatywРє dla ubraСЃ ochronnych wykonywanych przez samych stalkerСѓw. Jego pancerz jest w stanie zatrzymaР¶ tylko pocisk z pistoletu, ale system ochrony przed anomaliami i promieniowaniem jest niezrСѓwnany. Ze wzglРєdu na szerokie moС—liwoСљci modyfikacji i dwa wbudowane pojemniki na artefakty, uС—ywa go wielu doСљwiadczonych stalkerСѓw.</text>
 	</string>
 	<string id="specops_outfit_description">
-		<text>Ten kombinezon to tak naprawdк dostosowana do warunkуw panuj№cych w Zonie wojskowa kamizelka kuloodporna PS5 z berylowym pokryciem. Zostaі on zaprojektowany do stosowania na silnie radioaktywnych obszarach, ale jest nieskuteczny przeciwko anomaliom. Stalkerzy otrzymuj№ te kombinezony od wojska w zamian za іupy. Nie zawiera pojemnika na artefakty.</text>
+		<text>Ten kombinezon to tak naprawdРє dostosowana do warunkСѓw panujв„–cych w Zonie wojskowa kamizelka kuloodporna PS5 z berylowym pokryciem. ZostaС– on zaprojektowany do stosowania na silnie radioaktywnych obszarach, ale jest nieskuteczny przeciwko anomaliom. Stalkerzy otrzymujв„– te kombinezony od wojska w zamian za С–upy. Nie zawiera pojemnika na artefakty.</text>
 	</string>
 	<string id="stalker_outfit_description">
-		<text>Ten samodzielnie wykonywany kombinezon stalkerski zrobiony jest z dwuwarstwowej, gumowanej tkaniny z pleksiglasowym podszyciem i wbudowan№ kamizelk№ kuloodporn№. Mimo їe nie jest zdolny do zatrzymania nawet pocisku z pistoletu, jest popularny ze wzglкdu na nisk№ cenк i moїliwoњci modyfikacji. Posiada wbudowane pojemniki na artefakty.</text>
+		<text>Ten samodzielnie wykonywany kombinezon stalkerski zrobiony jest z dwuwarstwowej, gumowanej tkaniny z pleksiglasowym podszyciem i wbudowanв„– kamizelkв„– kuloodpornв„–. Mimo С—e nie jest zdolny do zatrzymania nawet pocisku z pistoletu, jest popularny ze wzglРєdu na niskв„– cenРє i moС—liwoСљci modyfikacji. Posiada wbudowane pojemniki na artefakty.</text>
 	</string>
 	<string id="svoboda_heavy_outfit_description">
-		<text>Ten kombinezon z wzmocnion№ kamizelk№ kuloodporn№, wykonany przez rzemieњlnikуw Wolnoњci, stanowi udany kompromis miкdzy ochron№ przed pociskami i przed anomaliami. Posiada pіytк pancern№ i dziesiкж warstw kevlaru, co wystarczy, aby zatrzymaж pocisk z pistoletu. Kombinezon uїywa kosztownego preparatu Suweren w celu ochrony przed anomaliami. Zawiera pojemnik na artefakty.</text>
+		<text>Ten kombinezon z wzmocnionв„– kamizelkв„– kuloodpornв„–, wykonany przez rzemieСљlnikСѓw WolnoСљci, stanowi udany kompromis miРєdzy ochronв„– przed pociskami i przed anomaliami. Posiada pС–ytРє pancernв„– i dziesiРєР¶ warstw kevlaru, co wystarczy, aby zatrzymaР¶ pocisk z pistoletu. Kombinezon uС—ywa kosztownego preparatu Suweren w celu ochrony przed anomaliami. Zawiera pojemnik na artefakty.</text>
 	</string>
 	<string id="dolg_heavy_outfit_description">
-		<text>Ten wczesny model kombinezonu Powinnoњci to kamizelka kuloodporna PSZ-9 zmodyfikowana do uїycia w Zonie. Moїe on powstrzymaж pocisk z karabinu, ale tak wysoki stopieс ochrony ma swoj№ cenк - wagк, nieporкcznoњж i niski stopieс ochrony przed anomaliami. Kombinezonu nie moїna uzupeіniж o pojemnik na artefakty, ale moїliwa jest instalacja systemu wsparcia bojowego.</text>
+		<text>Ten wczesny model kombinezonu PowinnoСљci to kamizelka kuloodporna PSZ-9 zmodyfikowana do uС—ycia w Zonie. MoС—e on powstrzymaР¶ pocisk z karabinu, ale tak wysoki stopieСЃ ochrony ma swojв„– cenРє - wagРє, nieporРєcznoСљР¶ i niski stopieСЃ ochrony przed anomaliami. Kombinezonu nie moС—na uzupeС–niР¶ o pojemnik na artefakty, ale moС—liwa jest instalacja systemu wsparcia bojowego.</text>
 	</string>
 	<string id="csky_heavy_outfit_description">
-		<text>Pancerz ten, niegdyњ uїywany jako standardowe wyposaїenie oddziaіуw szturmowych Czystego Nieba, po wyeliminowaniu tej frakcji staі siк namacalnym dowodem tego, їe nawet doskonaіe opancerzenie nie wystarczy do zapewnienia bezpieczeсstwa w Zonie. Jest on zdolny do zatrzymania pocisku z pistoletu, zapewniaj№c przy tym dobr№ ochronк przed anomaliami. Posiada wbudowany pojemnik na artefakty.</text>
+		<text>Pancerz ten, niegdyСљ uС—ywany jako standardowe wyposaС—enie oddziaС–Сѓw szturmowych Czystego Nieba, po wyeliminowaniu tej frakcji staС– siРє namacalnym dowodem tego, С—e nawet doskonaС–e opancerzenie nie wystarczy do zapewnienia bezpieczeСЃstwa w Zonie. Jest on zdolny do zatrzymania pocisku z pistoletu, zapewniajв„–c przy tym dobrв„– ochronРє przed anomaliami. Posiada wbudowany pojemnik na artefakty.</text>
 	</string>
 	<string id="exo_outfit_description">
-		<text>Eksperymentalny egzoszkielet wojskowy. Nigdy nie wszedі do masowej produkcji ze wzglкdu na wysoki koszt i pewne wady konstrukcyjne. Mimo to jest bardzo poszukiwany, poniewaї przejmuje na siebie niesione przez uїytkownika obci№їenie. Dlatego maіe partie s№ nadal produkowane w podziemnych fabrykach poza Ukrain№. Posiada wbudowany pojemnik na artefakty.</text>
+		<text>Eksperymentalny egzoszkielet wojskowy. Nigdy nie wszedС– do masowej produkcji ze wzglРєdu na wysoki koszt i pewne wady konstrukcyjne. Mimo to jest bardzo poszukiwany, poniewaС— przejmuje na siebie niesione przez uС—ytkownika obciв„–С—enie. Dlatego maС–e partie sв„– nadal produkowane w podziemnych fabrykach poza Ukrainв„–. Posiada wbudowany pojemnik na artefakty.</text>
 	</string>
 	<string id="mp_scientific_outfit_name">
 		<text>Kombinezon SEVA</text>

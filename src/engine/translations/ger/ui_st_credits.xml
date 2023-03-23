@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="st_chechin">
 		<text>Sergey Chechin</text>
@@ -28,7 +27,7 @@
 		<text>Grafikabteilung</text>
 	</string>
 	<string id="st_art_director">
-		<text>Kьnstlerische Leitung</text>
+		<text>KСЊnstlerische Leitung</text>
 	</string>
 	<string id="st_atroshenko">
 		<text>Nikita Atroshenko</text>
@@ -256,7 +255,7 @@
 		<text>Leitung Programmierung</text>
 	</string>
 	<string id="st_lead_qa">
-		<text>Leitung Qualitдtssicherung</text>
+		<text>Leitung QualitРґtssicherung</text>
 	</string>
 	<string id="st_lead_specialist">
 		<text>Leitung Experten</text>
@@ -319,13 +318,13 @@
 		<text>Konstantin Mironov</text>
 	</string>
 	<string id="st_mocap">
-		<text>GroЯer Dank an Oleg Fomenko</text>
+		<text>GroРЇer Dank an Oleg Fomenko</text>
 	</string>
 	<string id="st_mocap1">
 		<text>und BuntarMedia</text>
 	</string>
 	<string id="st_mocap3">
-		<text>fьr die MOCAP-Beratung</text>
+		<text>fСЊr die MOCAP-Beratung</text>
 	</string>
 	<string id="st_mopev">
 		<text>Vladimir Morev</text>

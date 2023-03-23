@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="st_chechin">
 		<text>Sergey Chechin</text>
@@ -25,7 +24,7 @@
 		<text>Animacja</text>
 	</string>
 	<string id="st_art_department">
-		<text>Dziaі graficzny</text>
+		<text>DziaС– graficzny</text>
 	</string>
 	<string id="st_art_director">
 		<text>Dyrektor artystyczny</text>
@@ -76,7 +75,7 @@
 		<text>Muzyka</text>
 	</string>
 	<string id="st_davidian">
-		<text>Dmitry “Abe” Davidyan</text>
+		<text>Dmitry вЂњAbeвЂќ Davidyan</text>
 	</string>
 	<string id="st_davies">
 		<text>Aaron Davies</text>
@@ -85,10 +84,10 @@
 		<text>Alexander Demidenko</text>
 	</string>
 	<string id="st_dep_programmers">
-		<text>Dziaі</text>
+		<text>DziaС–</text>
 	</string>
 	<string id="st_dep_programmers1">
-		<text>programistуw</text>
+		<text>programistСѓw</text>
 	</string>
 	<string id="st_derewonko">
 		<text>Lukasz Derewonko</text>
@@ -115,7 +114,7 @@
 		<text>Sergey Eremenko</text>
 	</string>
 	<string id="st_falchenko">
-		<text>Yuri "Dark” Falchenko</text>
+		<text>Yuri "DarkвЂќ Falchenko</text>
 	</string>
 	<string id="st_gabryel">
 		<text>Jakub Gabryel</text>
@@ -124,16 +123,16 @@
 		<text>Cezary Galach</text>
 	</string>
 	<string id="st_gamedesign_department">
-		<text>Dziaі projektantуw gry</text>
+		<text>DziaС– projektantСѓw gry</text>
 	</string>
 	<string id="st_gameplay">
-		<text>Programiњci rozgrywki</text>
+		<text>ProgramiСљci rozgrywki</text>
 	</string>
 	<string id="st_genega_qa">
-		<text>CENEGA (kontrola jakoњci)</text>
+		<text>CENEGA (kontrola jakoСљci)</text>
 	</string>
 	<string id="st_genega_thanks">
-		<text>Szczegуlne podziкkowania dla:</text>
+		<text>SzczegСѓlne podziРєkowania dla:</text>
 	</string>
 	<string id="st_gerasimov">
 		<text>Filip Gerasimov</text>
@@ -154,7 +153,7 @@
 		<text>Tomasz Goscicki</text>
 	</string>
 	<string id="st_graphics">
-		<text>Programiњci grafiki</text>
+		<text>ProgramiСљci grafiki</text>
 	</string>
 	<string id="st_grun">
 		<text>Holger Grun</text>
@@ -190,7 +189,7 @@
 		<text>Aleksander Keska</text>
 	</string>
 	<string id="st_kirienko">
-		<text>Andrey “Darin” Kirienko</text>
+		<text>Andrey вЂњDarinвЂќ Kirienko</text>
 	</string>
 	<string id="st_kobylanski">
 		<text>Lukasz Kobylanski</text>
@@ -244,28 +243,28 @@
 		<text>Szymon Lazarski</text>
 	</string>
 	<string id="st_lead_animator">
-		<text>Gіуwny animator</text>
+		<text>GС–Сѓwny animator</text>
 	</string>
 	<string id="st_lead_artist">
-		<text>Gіуwny grafik</text>
+		<text>GС–Сѓwny grafik</text>
 	</string>
 	<string id="st_lead_game_designer">
-		<text>Gіуwny projektant gry</text>
+		<text>GС–Сѓwny projektant gry</text>
 	</string>
 	<string id="st_lead_programmer">
-		<text>Gіуwny programista</text>
+		<text>GС–Сѓwny programista</text>
 	</string>
 	<string id="st_lead_qa">
-		<text>Gіуwni testerzy</text>
+		<text>GС–Сѓwni testerzy</text>
 	</string>
 	<string id="st_lead_specialist">
-		<text>Gіуwni specjaliњci</text>
+		<text>GС–Сѓwni specjaliСљci</text>
 	</string>
 	<string id="st_level_design">
-		<text>Projektowanie poziomуw</text>
+		<text>Projektowanie poziomСѓw</text>
 	</string>
 	<string id="st_lit_editor">
-		<text>Korekta jкzykowa</text>
+		<text>Korekta jРєzykowa</text>
 	</string>
 	<string id="st_litvinenko">
 		<text>Vladimir Litvinenko</text>
@@ -319,7 +318,7 @@
 		<text>Konstantin Mironov</text>
 	</string>
 	<string id="st_mocap">
-		<text>Serdeczne podziкkowania dla Olega Fomenko</text>
+		<text>Serdeczne podziРєkowania dla Olega Fomenko</text>
 	</string>
 	<string id="st_mocap1">
 		<text>i firmy BuntarMedia</text>
@@ -373,13 +372,13 @@
 		<text>Alexander Plichko</text>
 	</string>
 	<string id="st_pr_department">
-		<text>Dziaі PR</text>
+		<text>DziaС– PR</text>
 	</string>
 	<string id="st_pr_director">
 		<text>Dyrektor ds. PR</text>
 	</string>
 	<string id="st_pr_manager">
-		<text>Menedїerowie dziaіu PR</text>
+		<text>MenedС—erowie dziaС–u PR</text>
 	</string>
 	<string id="st_prishepa">
 		<text>Sergey Prishepa</text>
@@ -421,7 +420,7 @@
 		<text>Lukasz Rynkowski</text>
 	</string>
 	<string id="st_sales_department">
-		<text>Menedїer ds. rozwoju firmy</text>
+		<text>MenedС—er ds. rozwoju firmy</text>
 	</string>
 	<string id="st_samborowski">
 		<text>Piotr Samborowski</text>
@@ -448,13 +447,13 @@
 		<text>Tomasz Sobotka</text>
 	</string>
 	<string id="st_sound_producer">
-		<text>Produkcja dџwiкku</text>
+		<text>Produkcja dСџwiРєku</text>
 	</string>
 	<string id="st_special_thanks">
-		<text>Szczegуlne</text>
+		<text>SzczegСѓlne</text>
 	</string>
 	<string id="st_special_thanks1">
-		<text>podziкkowania dla:</text>
+		<text>podziРєkowania dla:</text>
 	</string>
 	<string id="st_stalchuk">
 		<text>Oleg Stalchuk</text>
@@ -472,13 +471,13 @@
 		<text>Pawel Strzelczyk</text>
 	</string>
 	<string id="st_stuff">
-		<text>Twуrcy gry</text>
+		<text>TwСѓrcy gry</text>
 	</string>
 	<string id="st_stupicev">
 		<text>Konstantin Stupivtsev</text>
 	</string>
 	<string id="st_support">
-		<text>Obsіuga</text>
+		<text>ObsС–uga</text>
 	</string>
 	<string id="st_support1">
 		<text>klienta</text>
@@ -502,19 +501,19 @@
 		<text>Tekstury</text>
 	</string>
 	<string id="st_thanks">
-		<text>Dziкkujemy teї wszystkim</text>
+		<text>DziРєkujemy teС— wszystkim</text>
 	</string>
 	<string id="st_thanks1">
-		<text>osobom, ktуre przyczyniіy siк do ulepszenia gry:</text>
+		<text>osobom, ktСѓre przyczyniС–y siРє do ulepszenia gry:</text>
 	</string>
 	<string id="st_thanks10">
 		<text>Konstantin Morozkov</text>
 	</string>
 	<string id="st_thanks11">
-		<text>Yaroslav “Uncle Yar” Alexandrov</text>
+		<text>Yaroslav вЂњUncle YarвЂќ Alexandrov</text>
 	</string>
 	<string id="st_thanks12">
-		<text>Dmitry “Comandor” Ivanov</text>
+		<text>Dmitry вЂњComandorвЂќ Ivanov</text>
 	</string>
 	<string id="st_thanks13">
 		<text>Oleg Chernov</text>
@@ -526,13 +525,13 @@
 		<text>M. Bystrykhin</text>
 	</string>
 	<string id="st_thanks16">
-		<text>Eugene “Mulder” Khaletskiy</text>
+		<text>Eugene вЂњMulderвЂќ Khaletskiy</text>
 	</string>
 	<string id="st_thanks17">
-		<text>Pavel “Goon” Bolotov</text>
+		<text>Pavel вЂњGoonвЂќ Bolotov</text>
 	</string>
 	<string id="st_thanks18">
-		<text>Alexander “Leks” Abramov</text>
+		<text>Alexander вЂњLeksвЂќ Abramov</text>
 	</string>
 	<string id="st_thanks19">
 		<text>Alexander Novikov</text>
@@ -541,13 +540,13 @@
 		<text>Alexander Poshtaruk, Andrey Oleshk</text>
 	</string>
 	<string id="st_thanks20">
-		<text>Eugene “KRANZ” Goncharenko</text>
+		<text>Eugene вЂњKRANZвЂќ Goncharenko</text>
 	</string>
 	<string id="st_thanks21">
 		<text>Sergey Dvuzhilny</text>
 	</string>
 	<string id="st_thanks22">
-		<text>Aleksey "Don Reba” Badalov</text>
+		<text>Aleksey "Don RebaвЂќ Badalov</text>
 	</string>
 	<string id="st_thanks23">
 		<text>Sergey Dvuzhilny, Tolusha</text>
@@ -565,22 +564,22 @@
 		<text>Alexander Oleinik</text>
 	</string>
 	<string id="st_thanks4">
-		<text>Konstantin “Inquisitor” Kriuchkov</text>
+		<text>Konstantin вЂњInquisitorвЂќ Kriuchkov</text>
 	</string>
 	<string id="st_thanks5">
 		<text>Alexander Shakhovsky, Igor Dolzhenko</text>
 	</string>
 	<string id="st_thanks6">
-		<text>Sergey “Tur” Leshenko</text>
+		<text>Sergey вЂњTurвЂќ Leshenko</text>
 	</string>
 	<string id="st_thanks7">
-		<text>Dmitry “Hill” Gorban</text>
+		<text>Dmitry вЂњHillвЂќ Gorban</text>
 	</string>
 	<string id="st_thanks8">
 		<text>Mikhail Kliuev</text>
 	</string>
 	<string id="st_thanks9">
-		<text>Sergey “Termite” Volchanov</text>
+		<text>Sergey вЂњTermiteвЂќ Volchanov</text>
 	</string>
 	<string id="st_tihomirov">
 		<text>Sergey Tikhomirov</text>
@@ -598,7 +597,7 @@
 		<text>Yuri Uralsky</text>
 	</string>
 	<string id="st_usupov">
-		<text>Denis “Tetri$Zs” Yusupov</text>
+		<text>Denis вЂњTetri$ZsвЂќ Yusupov</text>
 	</string>
 	<string id="st_vander">
 		<text>RandyJ VanderHeyden</text>
@@ -664,13 +663,13 @@
 		<text>Bartosz Zukowski</text>
 	</string>
 	<string id="st_yuhno">
-		<text>Victoria “Morrant” Yukhno</text>
+		<text>Victoria вЂњMorrantвЂќ Yukhno</text>
 	</string>
 	<string id="st_kalintsev">
-		<text>Sergey “ion” Kalintsev</text>
+		<text>Sergey вЂњionвЂќ Kalintsev</text>
 	</string>
 	<string id="st_kulikov">
-		<text>Roman “RVCool” Kulikov</text>
+		<text>Roman вЂњRVCoolвЂќ Kulikov</text>
 	</string>
 	<string id="st_smirnov">
 		<text>Maxim Smirnov</text>

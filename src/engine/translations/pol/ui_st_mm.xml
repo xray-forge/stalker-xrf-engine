@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="Clear">
 		<text>Bezchmurnie</text>
@@ -7,7 +6,7 @@
 		<text>Pochmurno</text>
 	</string>
 	<string id="Default">
-		<text>Њrednie</text>
+		<text>РЉrednie</text>
 	</string>
 	<string id="Extreme">
 		<text>Maksymalne</text>
@@ -46,10 +45,10 @@
 		<text>MAPA</text>
 	</string>
 	<string id="mm_mp_actret_time">
-		<text>Powrуt przez aktywacjк</text>
+		<text>PowrСѓt przez aktywacjРє</text>
 	</string>
 	<string id="mm_mp_allowvoting">
-		<text>Zezwуl na gіosowanie</text>
+		<text>ZezwСѓl na gС–osowanie</text>
 	</string>
 	<string id="mm_mp_anomalytime">
 		<text>Czas trwania anomalii (min)</text>
@@ -61,22 +60,22 @@
 		<text>Powstanie artefaktu</text>
 	</string>
 	<string id="mm_mp_artefnum">
-		<text>Liczba artefaktуw</text>
+		<text>Liczba artefaktСѓw</text>
 	</string>
 	<string id="mm_mp_artefstay">
-		<text>Trwaіoњж artefaktуw</text>
+		<text>TrwaС–oСљР¶ artefaktСѓw</text>
 	</string>
 	<string id="mm_mp_artret_time">
-		<text>Powrуt artefaktu</text>
+		<text>PowrСѓt artefaktu</text>
 	</string>
 	<string id="mm_mp_autoteambalance">
-		<text>Automatyczny balans druїyn</text>
+		<text>Automatyczny balans druС—yn</text>
 	</string>
 	<string id="mm_mp_autoteamswap">
-		<text>Automatyczna zmiana druїyn</text>
+		<text>Automatyczna zmiana druС—yn</text>
 	</string>
 	<string id="mm_mp_avail_maps">
-		<text>DOSTКPNE MAPY</text>
+		<text>DOSTРљPNE MAPY</text>
 	</string>
 	<string id="mm_mp_cancel">
 		<text>Anuluj</text>
@@ -85,22 +84,22 @@
 		<text>Klucz</text>
 	</string>
 	<string id="mm_mp_check_cdkey">
-		<text>Sprawdџ klucz</text>
+		<text>SprawdСџ klucz</text>
 	</string>
 	<string id="mm_mp_client">
 		<text>Klient</text>
 	</string>
 	<string id="mm_mp_create">
-		<text>Utwуrz</text>
+		<text>UtwСѓrz</text>
 	</string>
 	<string id="mm_mp_damageblock">
-		<text>Nieњmiertelnoњж (sek.)</text>
+		<text>NieСљmiertelnoСљР¶ (sek.)</text>
 	</string>
 	<string id="mm_mp_damageblockindicator">
-		<text>Wskaџnik nieњmiertelnoњci</text>
+		<text>WskaСџnik nieСљmiertelnoСљci</text>
 	</string>
 	<string id="mm_mp_deaths">
-		<text>Њmierci</text>
+		<text>РЉmierci</text>
 	</string>
 	<string id="mm_mp_dedicated">
 		<text>Dedykowany</text>
@@ -127,25 +126,25 @@
 		<text>Wymusz. odr. (sek.)</text>
 	</string>
 	<string id="mm_mp_fraglimit">
-		<text>Limit fragуw</text>
+		<text>Limit fragСѓw</text>
 	</string>
 	<string id="mm_mp_frags">
 		<text>Fragi</text>
 	</string>
 	<string id="mm_mp_freezetime">
-		<text>Czas opуџnienia</text>
+		<text>Czas opСѓСџnienia</text>
 	</string>
 	<string id="mm_mp_friendlyfire">
-		<text>Obraїenia od sojusznikуw</text>
+		<text>ObraС—enia od sojusznikСѓw</text>
 	</string>
 	<string id="mm_mp_friendlyindicators">
-		<text>Wskaџniki sojusznikуw</text>
+		<text>WskaСџniki sojusznikСѓw</text>
 	</string>
 	<string id="mm_mp_friendlynames">
-		<text>Imiona sojusznikуw</text>
+		<text>Imiona sojusznikСѓw</text>
 	</string>
 	<string id="mm_mp_full">
-		<text>Peіne</text>
+		<text>PeС–ne</text>
 	</string>
 	<string id="mm_mp_gamemode">
 		<text>Tryb</text>
@@ -157,16 +156,16 @@
 		<text>Internet</text>
 	</string>
 	<string id="mm_mp_join">
-		<text>Poі№cz</text>
+		<text>PoС–в„–cz</text>
 	</string>
 	<string id="mm_mp_lan">
-		<text>Sieж lokalna</text>
+		<text>SieР¶ lokalna</text>
 	</string>
 	<string id="mm_mp_listenservers">
 		<text>Dedykowany</text>
 	</string>
 	<string id="mm_mp_load_demo">
-		<text>Powtуrz</text>
+		<text>PowtСѓrz</text>
 	</string>
 	<string id="mm_mp_mapratation">
 		<text>Lista map</text>
@@ -175,7 +174,7 @@
 		<text>Limit graczy</text>
 	</string>
 	<string id="mm_mp_network_connection">
-		<text>Poі№czenie sieciowe</text>
+		<text>PoС–в„–czenie sieciowe</text>
 	</string>
 	<string id="mm_mp_noanomalies">
 		<text>Brak anomalii</text>
@@ -184,7 +183,7 @@
 		<text>Opcje</text>
 	</string>
 	<string id="mm_mp_password">
-		<text>Hasіo</text>
+		<text>HasС–o</text>
 	</string>
 	<string id="mm_mp_player_name">
 		<text>Nazwa gracza:</text>
@@ -199,16 +198,16 @@
 		<text>Serwer internetowy</text>
 	</string>
 	<string id="mm_mp_quickrefresh">
-		<text>Szybkie odњwieїenie</text>
+		<text>Szybkie odСљwieС—enie</text>
 	</string>
 	<string id="mm_mp_rateofchange">
-		<text>Wspуіczynnik zmiany</text>
+		<text>WspСѓС–czynnik zmiany</text>
 	</string>
 	<string id="mm_mp_refresh">
-		<text>Odњwieї wszystkie</text>
+		<text>OdСљwieС— wszystkie</text>
 	</string>
 	<string id="mm_mp_reinforcement">
-		<text>Posiіki (sek.)</text>
+		<text>PosiС–ki (sek.)</text>
 	</string>
 	<string id="mm_mp_respawnoptions">
 		<text>Opcje odradzania</text>
@@ -220,10 +219,10 @@
 		<text>Serwer</text>
 	</string>
 	<string id="mm_mp_server_list">
-		<text>Lista serwerуw</text>
+		<text>Lista serwerСѓw</text>
 	</string>
 	<string id="mm_mp_server_prop">
-		<text>Wіaњciwoњci serwera</text>
+		<text>WС–aСљciwoСљci serwera</text>
 	</string>
 	<string id="mm_mp_serverinfo">
 		<text>Inform. o serwerze</text>
@@ -256,10 +255,10 @@
 		<text>Ustawienia obserwatora</text>
 	</string>
 	<string id="mm_mp_spectator_teamonly">
-		<text>Tylko druїyna</text>
+		<text>Tylko druС—yna</text>
 	</string>
 	<string id="mm_mp_startweather">
-		<text>Pocz№tkowa pogoda</text>
+		<text>Poczв„–tkowa pogoda</text>
 	</string>
 	<string id="mm_mp_team_stats">
 		<text>Wynik</text>
@@ -277,16 +276,16 @@
 		<text>Brak ostrz. sojuszn.</text>
 	</string>
 	<string id="mm_mp_withoutpassword">
-		<text>Bez hasіa</text>
+		<text>Bez hasС–a</text>
 	</string>
 	<string id="mm_mp_withoutpunkbuster">
 		<text>Brak programu Punkbuster</text>
 	</string>
 	<string id="mm_mp_withpassword">
-		<text>Z hasіem</text>
+		<text>Z hasС–em</text>
 	</string>
 	<string id="mm_offline_mode">
-		<text>Sieж lokalna</text>
+		<text>SieР¶ lokalna</text>
 	</string>
 	<string id="mm_online_mode">
 		<text>Internet</text>
@@ -301,7 +300,7 @@
 		<text>Basen</text>
 	</string>
 	<string id="mp_change_unick_success">
-		<text>Zmiana unikalnej nazwy powiodіa siк!</text>
+		<text>Zmiana unikalnej nazwy powiodС–a siРє!</text>
 	</string>
 	<string id="mp_darkvalley">
 		<text>Mroczna Dolina</text>
@@ -310,22 +309,22 @@
 		<text>Fabryka Jantar</text>
 	</string>
 	<string id="mp_gamespy_atlas_error">
-		<text>bі№d poі№czenia z serwerem statystyk</text>
+		<text>bС–в„–d poС–в„–czenia z serwerem statystyk</text>
 	</string>
 	<string id="mp_gamespy_ws_login_error">
-		<text>bі№d poі№czenia z serwerem logowania</text>
+		<text>bС–в„–d poС–в„–czenia z serwerem logowania</text>
 	</string>
 	<string id="mp_login_success">
-		<text>Uwierzytelnianie powiodіo siк</text>
+		<text>Uwierzytelnianie powiodС–o siРє</text>
 	</string>
 	<string id="mp_lost_village">
-		<text>Opuszczona wieњ</text>
+		<text>Opuszczona wieСљ</text>
 	</string>
 	<string id="mp_military_1">
 		<text>Magazyny wojskowe</text>
 	</string>
 	<string id="mp_nick_name_not_valid">
-		<text>nieprawidіowa nazwa</text>
+		<text>nieprawidС–owa nazwa</text>
 	</string>
 	<string id="mp_pool">
 		<text>Basen</text>
@@ -337,10 +336,10 @@
 		<text>Fabryka Rostok</text>
 	</string>
 	<string id="mp_unique_nick_not_valid">
-		<text>nieprawidіowa unikalna nazwa</text>
+		<text>nieprawidС–owa unikalna nazwa</text>
 	</string>
 	<string id="mp_want_to_delete_demo">
-		<text>Czy na pewno chcesz usun№ж</text>
+		<text>Czy na pewno chcesz usunв„–Р¶</text>
 	</string>
 	<string id="mp_workshop">
 		<text>Opuszczona fabryka</text>
@@ -352,19 +351,19 @@
 		<text>GRACZE</text>
 	</string>
 	<string id="renderer_r1">
-		<text>Oњwietlenie statyczne</text>
+		<text>OСљwietlenie statyczne</text>
 	</string>
 	<string id="renderer_r2">
-		<text>Peіne oњwietlenie dynamiczne</text>
+		<text>PeС–ne oСљwietlenie dynamiczne</text>
 	</string>
 	<string id="renderer_r2.5">
-		<text>Rozsz. peіne oњwietlenie dynam.</text>
+		<text>Rozsz. peС–ne oСљwietlenie dynam.</text>
 	</string>
 	<string id="renderer_r2a">
-		<text>Dynamiczne oњwietlenie obiektуw</text>
+		<text>Dynamiczne oСљwietlenie obiektСѓw</text>
 	</string>
 	<string id="renderer_r3">
-		<text>Rozsz. peіne oњw. dynam. (DX10)</text>
+		<text>Rozsz. peС–ne oСљw. dynam. (DX10)</text>
 	</string>
 	<string id="server name">
 		<text>NAZWA SERWERA</text>
@@ -388,13 +387,13 @@
 		<text>Niska</text>
 	</string>
 	<string id="st_opt_medium">
-		<text>Њrednia</text>
+		<text>РЉrednia</text>
 	</string>
 	<string id="st_opt_off">
-		<text>Wyі№czona</text>
+		<text>WyС–в„–czona</text>
 	</string>
 	<string id="st_rank_experienced">
-		<text>Doњwiadczony</text>
+		<text>DoСљwiadczony</text>
 	</string>
 	<string id="st_rank_legend">
 		<text>Legendarny stalker</text>
@@ -409,10 +408,10 @@
 		<text>Weteran</text>
 	</string>
 	<string id="st_team_deathmatch">
-		<text>Gra druїynowa</text>
+		<text>Gra druС—ynowa</text>
 	</string>
 	<string id="ui_mm_60_hz">
-		<text>Czкstotliwoњж 60 Hz</text>
+		<text>CzРєstotliwoСљР¶ 60 Hz</text>
 	</string>
 	<string id="ui_mm_action">
 		<text>Akcja</text>
@@ -436,7 +435,7 @@
 		<text>Krew</text>
 	</string>
 	<string id="ui_mm_brightness">
-		<text>Jasnoњж</text>
+		<text>JasnoСљР¶</text>
 	</string>
 	<string id="ui_mm_cancel">
 		<text>Anuluj</text>
@@ -451,34 +450,34 @@
 		<text>Sterowanie</text>
 	</string>
 	<string id="ui_mm_credits">
-		<text>Twуrcy</text>
+		<text>TwСѓrcy</text>
 	</string>
 	<string id="ui_mm_crosshair_distance">
-		<text>Pokaї odlegіoњж do celu</text>
+		<text>PokaС— odlegС–oСљР¶ do celu</text>
 	</string>
 	<string id="ui_mm_default">
-		<text>Domyњlne</text>
+		<text>DomyСљlne</text>
 	</string>
 	<string id="ui_mm_delete">
-		<text>Usuс</text>
+		<text>UsuСЃ</text>
 	</string>
 	<string id="ui_mm_delete_existing_file_q">
-		<text>Czy na pewno chcesz usun№ж ten plik?</text>
+		<text>Czy na pewno chcesz usunв„–Р¶ ten plik?</text>
 	</string>
 	<string id="ui_mm_detail_density">
-		<text>Gкstoњж trawy</text>
+		<text>GРєstoСљР¶ trawy</text>
 	</string>
 	<string id="ui_mm_difficulty">
-		<text>Poziom trudnoњci</text>
+		<text>Poziom trudnoСљci</text>
 	</string>
 	<string id="ui_mm_disconnect">
-		<text>Przerwij poі№czenie</text>
+		<text>Przerwij poС–в„–czenie</text>
 	</string>
 	<string id="ui_mm_disconnect_message">
-		<text>Czy na pewno chcesz przerwaж poі№czenie?</text>
+		<text>Czy na pewno chcesz przerwaР¶ poС–в„–czenie?</text>
 	</string>
 	<string id="ui_mm_dof">
-		<text>Gікbokoњж pola widzenia</text>
+		<text>GС–РєbokoСљР¶ pola widzenia</text>
 	</string>
 	<string id="ui_mm_dyn_crosshair">
 		<text>Dynamiczny celownik</text>
@@ -490,7 +489,7 @@
 		<text>EAX</text>
 	</string>
 	<string id="ui_mm_fullscreen">
-		<text>Peіny ekran</text>
+		<text>PeС–ny ekran</text>
 	</string>
 	<string id="ui_mm_gameplay">
 		<text>Gra</text>
@@ -499,7 +498,7 @@
 		<text>Korekcja gamma</text>
 	</string>
 	<string id="ui_mm_geometry_lod">
-		<text>Szczegуіowoњж obiektуw</text>
+		<text>SzczegСѓС–owoСљР¶ obiektСѓw</text>
 	</string>
 	<string id="ui_mm_invert_mouse">
 		<text>Inwersja osi Y</text>
@@ -514,31 +513,31 @@
 		<text>Ostatni zapis</text>
 	</string>
 	<string id="ui_mm_light_distance">
-		<text>Odlegіoњж oњwietlenia</text>
+		<text>OdlegС–oСљР¶ oСљwietlenia</text>
 	</string>
 	<string id="ui_mm_load">
 		<text>Wczytaj</text>
 	</string>
 	<string id="ui_mm_load_game">
-		<text>Wczytaj grк</text>
+		<text>Wczytaj grРє</text>
 	</string>
 	<string id="ui_mm_logout">
-		<text>Wyloguj siк z profilu</text>
+		<text>Wyloguj siРє z profilu</text>
 	</string>
 	<string id="ui_mm_master">
 		<text>Mistrz</text>
 	</string>
 	<string id="ui_mm_master_volume">
-		<text>Gіoњnoњж efektуw dџwiкk.</text>
+		<text>GС–oСљnoСљР¶ efektСѓw dСџwiРєk.</text>
 	</string>
 	<string id="ui_mm_mouse_sense">
-		<text>Czuіoњж myszy</text>
+		<text>CzuС–oСљР¶ myszy</text>
 	</string>
 	<string id="ui_mm_msaa_alphatest">
-		<text>Wygіadzaj obiekty alfa-testowe</text>
+		<text>WygС–adzaj obiekty alfa-testowe</text>
 	</string>
 	<string id="ui_mm_msaa_opt">
-		<text>Optymalizuj wygіadzanie</text>
+		<text>Optymalizuj wygС–adzanie</text>
 	</string>
 	<string id="ui_mm_multiplayer">
 		<text>GRA WIELOOSOBOWA</text>
@@ -547,10 +546,10 @@
 		<text>Gra wieloosobowa</text>
 	</string>
 	<string id="ui_mm_music_volume">
-		<text>Gіoњnoњж muzyki</text>
+		<text>GС–oСљnoСљР¶ muzyki</text>
 	</string>
 	<string id="ui_mm_need_restart">
-		<text>Zmiany wejd№ w їycie po ponownym uruchomieniu gry</text>
+		<text>Zmiany wejdв„– w С—ycie po ponownym uruchomieniu gry</text>
 	</string>
 	<string id="ui_mm_network_game">
 		<text>Gra wieloosobowa</text>
@@ -562,7 +561,7 @@
 		<text>Nowicjusz</text>
 	</string>
 	<string id="ui_mm_npc_torch">
-		<text>Latarki bohaterуw niezal.</text>
+		<text>Latarki bohaterСѓw niezal.</text>
 	</string>
 	<string id="ui_mm_options">
 		<text>OPCJE</text>
@@ -571,43 +570,43 @@
 		<text>Opcje</text>
 	</string>
 	<string id="ui_mm_particles_distance">
-		<text>Odlegіoњж cz№steczek</text>
+		<text>OdlegС–oСљР¶ czв„–steczek</text>
 	</string>
 	<string id="ui_mm_quality_presets">
-		<text>Ustawienia jakoњci</text>
+		<text>Ustawienia jakoСљci</text>
 	</string>
 	<string id="ui_mm_quit2windows">
-		<text>Wyjdџ z gry</text>
+		<text>WyjdСџ z gry</text>
 	</string>
 	<string id="ui_mm_quit_game">
-		<text>Zakoсcz grк</text>
+		<text>ZakoСЃcz grРє</text>
 	</string>
 	<string id="ui_mm_quit_game_message">
-		<text>Czy na pewno chcesz zakoсczyж grк?</text>
+		<text>Czy na pewno chcesz zakoСЃczyР¶ grРє?</text>
 	</string>
 	<string id="ui_mm_quit_windows_message">
-		<text>Czy na pewno chcesz wyjњж z gry?</text>
+		<text>Czy na pewno chcesz wyjСљР¶ z gry?</text>
 	</string>
 	<string id="ui_mm_r2_detail_bump">
-		<text>Mapowanie szczeg. wypukі.</text>
+		<text>Mapowanie szczeg. wypukС–.</text>
 	</string>
 	<string id="ui_mm_r2_steep_parallax">
 		<text>Mapowanie reliefowe</text>
 	</string>
 	<string id="ui_mm_r2_sun">
-		<text>Cienie od sіoсca</text>
+		<text>Cienie od sС–oСЃca</text>
 	</string>
 	<string id="ui_mm_r2_sun_details">
-		<text>Cieс trawy</text>
+		<text>CieСЃ trawy</text>
 	</string>
 	<string id="ui_mm_r2_sun_quality">
-		<text>Jakoњж sіoсca</text>
+		<text>JakoСљР¶ sС–oСЃca</text>
 	</string>
 	<string id="ui_mm_r3_DX10_1">
-		<text>Uїywaj DX10.1</text>
+		<text>UС—ywaj DX10.1</text>
 	</string>
 	<string id="ui_mm_r3_MSAA">
-		<text>Wygіadzanie peіnoekranowe</text>
+		<text>WygС–adzanie peС–noekranowe</text>
 	</string>
 	<string id="ui_mm_r3_dynamic_wet_surfaces">
 		<text>Mokre powierzchnie</text>
@@ -625,61 +624,61 @@
 		<text>Typ renderowania</text>
 	</string>
 	<string id="ui_mm_resolution">
-		<text>Rozdzielczoњж</text>
+		<text>RozdzielczoСљР¶</text>
 	</string>
 	<string id="ui_mm_return_game">
-		<text>Powrуt do gry</text>
+		<text>PowrСѓt do gry</text>
 	</string>
 	<string id="ui_mm_save">
 		<text>Zapisz</text>
 	</string>
 	<string id="ui_mm_save_game">
-		<text>Zapisz grк</text>
+		<text>Zapisz grРє</text>
 	</string>
 	<string id="ui_mm_show_crosshair">
-		<text>Pokaї celownik</text>
+		<text>PokaС— celownik</text>
 	</string>
 	<string id="ui_mm_show_weapon">
-		<text>Pokaї broс</text>
+		<text>PokaС— broСЃ</text>
 	</string>
 	<string id="ui_mm_simply">
 		<text>Podstawowy</text>
 	</string>
 	<string id="ui_mm_snd_device">
-		<text>Urz№dzenie dџwiкkowe</text>
+		<text>Urzв„–dzenie dСџwiРєkowe</text>
 	</string>
 	<string id="ui_mm_soft_particles">
-		<text>Miкkkie cz№steczki</text>
+		<text>MiРєkkie czв„–steczki</text>
 	</string>
 	<string id="ui_mm_soft_water">
-		<text>Miкkka woda</text>
+		<text>MiРєkka woda</text>
 	</string>
 	<string id="ui_mm_sound">
-		<text>Dџwiкk</text>
+		<text>DСџwiРєk</text>
 	</string>
 	<string id="ui_mm_sound_quality">
-		<text>Jakoњж dџwiкku</text>
+		<text>JakoСљР¶ dСџwiРєku</text>
 	</string>
 	<string id="ui_mm_stalker">
 		<text>Stalker</text>
 	</string>
 	<string id="ui_mm_sun_quality">
-		<text>Jakoњж cieni</text>
+		<text>JakoСљР¶ cieni</text>
 	</string>
 	<string id="ui_mm_sun_shafts">
-		<text>Jakoњж promieni sіonecznych</text>
+		<text>JakoСљР¶ promieni sС–onecznych</text>
 	</string>
 	<string id="ui_mm_supersample">
-		<text>Wygіadzanie krawкdzi</text>
+		<text>WygС–adzanie krawРєdzi</text>
 	</string>
 	<string id="ui_mm_switch_torch">
-		<text>SI uїywa latarek</text>
+		<text>SI uС—ywa latarek</text>
 	</string>
 	<string id="ui_mm_texture_quality">
-		<text>Szczegуіowoњж tekstur</text>
+		<text>SzczegСѓС–owoСљР¶ tekstur</text>
 	</string>
 	<string id="ui_mm_tips">
-		<text>Identyfikacja bohaterуw niezal.</text>
+		<text>Identyfikacja bohaterСѓw niezal.</text>
 	</string>
 	<string id="ui_mm_veteran">
 		<text>Weteran</text>
@@ -688,28 +687,28 @@
 		<text>Grafika</text>
 	</string>
 	<string id="ui_mm_vis_distance">
-		<text>Zasiкg widzenia</text>
+		<text>ZasiРєg widzenia</text>
 	</string>
 	<string id="ui_mm_volumetric_light">
-		<text>Њwiatіo wolumetryczne</text>
+		<text>РЉwiatС–o wolumetryczne</text>
 	</string>
 	<string id="ui_mm_vsync">
 		<text>Synchronizacja pionowa</text>
 	</string>
 	<string id="ui_mp_gamespy_changing_unique_nick">
-		<text>Zmieс unikaln№ nazwк</text>
+		<text>ZmieСЃ unikalnв„– nazwРє</text>
 	</string>
 	<string id="ui_mp_gamespy_email_already_exist">
-		<text>Ten adres e-mail jest juї uїywany</text>
+		<text>Ten adres e-mail jest juС— uС—ywany</text>
 	</string>
 	<string id="ui_mp_internet">
 		<text>Przez internet</text>
 	</string>
 	<string id="ui_mp_localnet">
-		<text>Przez sieж lokaln№</text>
+		<text>Przez sieР¶ lokalnв„–</text>
 	</string>
 	<string id="ui_st_backstabks_in_row">
-		<text>Dџgniкcie w plecy</text>
+		<text>DСџgniРєcie w plecy</text>
 	</string>
 	<string id="ui_st_bleed_kills_in_row">
 		<text>Przez wykrwawienie</text>
@@ -721,28 +720,28 @@
 		<text>Trafienie w oko</text>
 	</string>
 	<string id="ui_st_headshots_in_row">
-		<text>Trafienie w gіowк</text>
+		<text>Trafienie w gС–owРє</text>
 	</string>
 	<string id="ui_st_invalid_saved_game">
 		<text>Wersja pliku stanu gry nie pasuje do wersji gry.</text>
 	</string>
 	<string id="ui_st_kills_in_row">
-		<text>Zabici pod rz№d</text>
+		<text>Zabici pod rzв„–d</text>
 	</string>
 	<string id="ui_st_knife_kills_in_row">
-		<text>Noїem</text>
+		<text>NoС—em</text>
 	</string>
 	<string id="ui_st_last_set">
 		<text>Ostatni zestaw</text>
 	</string>
 	<string id="ui_st_mp_local_network_login_page">
-		<text>Rozpocznij grк wieloosobow№</text>
+		<text>Rozpocznij grРє wieloosobowв„–</text>
 	</string>
 	<string id="ui_st_mp_nickname">
 		<text>Nazwa</text>
 	</string>
 	<string id="ui_st_mp_try_change">
-		<text>Zmieс</text>
+		<text>ZmieСЃ</text>
 	</string>
 	<string id="ui_st_preset1">
 		<text>Zestaw 1</text>
@@ -757,13 +756,13 @@
 		<text>Reset</text>
 	</string>
 	<string id="ui_st_sell_all">
-		<text>Sprzedaj caіoњж</text>
+		<text>Sprzedaj caС–oСљР¶</text>
 	</string>
 	<string id="version">
 		<text>Wersja</text>
 	</string>
 	<string id="mp_pripyat">
-		<text>Prypeж</text>
+		<text>PrypeР¶</text>
 	</string>
 	<string id="ui_mm_crouch_toggle">
 		<text>Tryb kucania/wstawania</text>
@@ -772,76 +771,76 @@
 		<text>Autozapis</text>
 	</string>
 	<string id="ui_mm_r1_detail_textures">
-		<text>Szczegуіowe tekstury</text>
+		<text>SzczegСѓС–owe tekstury</text>
 	</string>
 	<string id="mm_mp_demo">
 		<text>Filmy</text>
 	</string>
 	<string id="ui_st_mp_login">
-		<text>Wejdџ</text>
+		<text>WejdСџ</text>
 	</string>
 	<string id="ui_st_mp_logout">
-		<text>Wyjdџ</text>
+		<text>WyjdСџ</text>
 	</string>
 	<string id="ui_st_mp_create">
-		<text>Utwуrz</text>
+		<text>UtwСѓrz</text>
 	</string>
 	<string id="mp_gp_unknown_email_or_bad_password">
-		<text>Nieprawidіowy adres e-mail lub hasіo</text>
+		<text>NieprawidС–owy adres e-mail lub hasС–o</text>
 	</string>
 	<string id="mp_gp_parameter_error">
-		<text>Nieprawidіowy profil</text>
+		<text>NieprawidС–owy profil</text>
 	</string>
 	<string id="mp_gp_network_error">
-		<text>Bі№d poі№czenia</text>
+		<text>BС–в„–d poС–в„–czenia</text>
 	</string>
 	<string id="mp_gp_server_error">
-		<text>Serwer chwilowo niedostкpny</text>
+		<text>Serwer chwilowo niedostРєpny</text>
 	</string>
 	<string id="mp_gp_unknown_error_2">
-		<text>Wymagane zalogowanie siк do profilu</text>
+		<text>Wymagane zalogowanie siРє do profilu</text>
 	</string>
 	<string id="mp_gp_unknown_error_6">
-		<text>Bі№d poі№czenia</text>
+		<text>BС–в„–d poС–в„–czenia</text>
 	</string>
 	<string id="mp_gp_unknown_error_7">
-		<text>Bі№d poі№czenia</text>
+		<text>BС–в„–d poС–в„–czenia</text>
 	</string>
 	<string id="mp_gp_unknown_error_8">
-		<text>Bі№d poі№czenia</text>
+		<text>BС–в„–d poС–в„–czenia</text>
 	</string>
 	<string id="mp_gp_unknown_error_513">
-		<text>Nieprawidіowa nazwa profilu</text>
+		<text>NieprawidС–owa nazwa profilu</text>
 	</string>
 	<string id="mp_gp_unknown_error_514">
-		<text>Nieprawidіowe hasіo</text>
+		<text>NieprawidС–owe hasС–o</text>
 	</string>
 	<string id="mp_gp_unknown_error_515">
-		<text>Nieprawidіowy unikalny pseudonim</text>
+		<text>NieprawidС–owy unikalny pseudonim</text>
 	</string>
 	<string id="mp_gp_unknown_error_516">
-		<text>Unikalny pseudonim jest juї uїywany</text>
+		<text>Unikalny pseudonim jest juС— uС—ywany</text>
 	</string>
 	<string id="mp_first_need_to_login">
-		<text>Proszк najpierw zalogowaж siк do profilu</text>
+		<text>ProszРє najpierw zalogowaР¶ siРє do profilu</text>
 	</string>
 	<string id="mp_first_need_to_logout">
-		<text>Proszк najpierw wylogowaж siк z profilu</text>
+		<text>ProszРє najpierw wylogowaР¶ siРє z profilu</text>
 	</string>
 	<string id="mp_gamespy_http_error">
-		<text>Bі№d poі№czenia z serwerem profili</text>
+		<text>BС–в„–d poС–в„–czenia z serwerem profili</text>
 	</string>
 	<string id="ui_st_you_cannot_delete_profile_after_creation">
-		<text>Po utworzeniu profilu nie bкdzie moїliwe jego usuniкcie</text>
+		<text>Po utworzeniu profilu nie bРєdzie moС—liwe jego usuniРєcie</text>
 	</string>
 	<string id="ui_mm_ssao_quality">
-		<text>Jakoњж SSAO</text>
+		<text>JakoСљР¶ SSAO</text>
 	</string>
 	<string id="ui_mm_ssao_text">
 		<text>Tryb SSAO</text>
 	</string>
 	<string id="ui_mm_ssao">
-		<text>Domyњlny</text>
+		<text>DomyСљlny</text>
 	</string>
 	<string id="ui_mm_hdao">
 		<text>HDAO</text>
@@ -850,13 +849,13 @@
 		<text>HBAO</text>
 	</string>
 	<string id="ui_st_disable_hud">
-		<text>Pokaї interfejs</text>
+		<text>PokaС— interfejs</text>
 	</string>
 	<string id="mp_gp_unique_nick_not_registred">
-		<text>Unikalny pseudonim nie jest zarejestrowany. Proszк go zarejestrowaж.</text>
+		<text>Unikalny pseudonim nie jest zarejestrowany. ProszРє go zarejestrowaР¶.</text>
 	</string>
 	<string id="mp_gp_unique_nick_has_expired">
-		<text>Unikalny pseudonim utraciі waїnoњж. Proszк zarejestrowaж go ponownie.</text>
+		<text>Unikalny pseudonim utraciС– waС—noСљР¶. ProszРє zarejestrowaР¶ go ponownie.</text>
 	</string>
 	<string id="gd_stalker">
 		<text>Stalker</text>
@@ -865,46 +864,46 @@
 		<text>maksymalnie wysokie</text>
 	</string>
 	<string id="renderer_r4">
-		<text>Rozsz. peіne oњw. dynam. (DX11)</text>
+		<text>Rozsz. peС–ne oСљw. dynam. (DX11)</text>
 	</string>
 	<string id="mp_please_login">
-		<text>Proszк siк zalogowaж, aby poі№czyж siк z serwerem zewnкtrznym.</text>
+		<text>ProszРє siРє zalogowaР¶, aby poС–в„–czyР¶ siРє z serwerem zewnРєtrznym.</text>
 	</string>
 	<string id="mp_already_logged_in">
-		<text>To ID GameSpy jest obecnie uїywane. Proszк uїyж innego ID GameSpy.</text>
+		<text>To ID GameSpy jest obecnie uС—ywane. ProszРє uС—yР¶ innego ID GameSpy.</text>
 	</string>
 	<string id="mp_gp_unknown_email">
-		<text>Nieprawidіowy adres e-mail</text>
+		<text>NieprawidС–owy adres e-mail</text>
 	</string>
 	<string id="mp_gp_bad_password">
-		<text>Nieprawidіowe hasіo</text>
+		<text>NieprawidС–owe hasС–o</text>
 	</string>
 	<string id="mp_use_offline_mode">
-		<text>Nie moїna uїyж ID GameSpy do poі№czenia z serwerem lokalnym. Proszк uїyж trybu gry w sieci lokalnej.</text>
+		<text>Nie moС—na uС—yР¶ ID GameSpy do poС–в„–czenia z serwerem lokalnym. ProszРє uС—yР¶ trybu gry w sieci lokalnej.</text>
 	</string>
 	<string id="st_kicked_by_server">
-		<text>Wyrzucono ciк z serwera.</text>
+		<text>Wyrzucono ciРє z serwera.</text>
 	</string>
 	<string id="mp_you_have_been_banned_by">
-		<text>Administrator ciк zbanowaі:</text>
+		<text>Administrator ciРє zbanowaС–:</text>
 	</string>
 	<string id="mp_you_have_been_banned_by_server">
-		<text>Serwer ciк zbanowaі.</text>
+		<text>Serwer ciРє zbanowaС–.</text>
 	</string>
 	<string id="mp_server_info">
 		<text>Inform. o serwerze</text>
 	</string>
 	<string id="mp_gp_email_is_too_big">
-		<text>Ten adres e-mail jest zbyt dіugi. Nie moїna wprowadziж wiкcej niї 50 znakуw.</text>
+		<text>Ten adres e-mail jest zbyt dС–ugi. Nie moС—na wprowadziР¶ wiРєcej niС— 50 znakСѓw.</text>
 	</string>
 	<string id="mp_gp_bad_email">
-		<text>Nieprawidіowy adres e-mail</text>
+		<text>NieprawidС–owy adres e-mail</text>
 	</string>
 	<string id="mp_gp_password_is_too_small">
-		<text>Hasіo jest za krуtkie</text>
+		<text>HasС–o jest za krСѓtkie</text>
 	</string>
 	<string id="mp_gp_password_is_too_big">
-		<text>Hasіo jest za dіugie</text>
+		<text>HasС–o jest za dС–ugie</text>
 	</string>
 	<string id="mp_gp_no_email">
 		<text>Nie znaleziono adresu e-mail</text>
@@ -913,16 +912,16 @@
 		<text>Nie ustawiono unikalnego pseudonimu</text>
 	</string>
 	<string id="mp_gp_unique_nick_is_too_big">
-		<text>Unikalny pseudonim jest za dіugi. Nie moїna wprowadziж wiкcej niї 30 znakуw.</text>
+		<text>Unikalny pseudonim jest za dС–ugi. Nie moС—na wprowadziР¶ wiРєcej niС— 30 znakСѓw.</text>
 	</string>
 	<string id="mp_gp_unique_nick_must_contain_only">
-		<text>Unikalne imiк moїe zawieraж tylko cyfry, litery alfabetu іac. i symbole spec.: "#$&'()*+-./:;<=>?@[]^_`{|}~ </text>
+		<text>Unikalne imiРє moС—e zawieraР¶ tylko cyfry, litery alfabetu С–ac. i symbole spec.: "#$&'()*+-./:;<=>?@[]^_`{|}~ </text>
 	</string>
 	<string id="mp_gp_unique_nick_must_contain_nospaces">
-		<text>Unikalny pseudonim nie moїe zawieraж spacji</text>
+		<text>Unikalny pseudonim nie moС—e zawieraР¶ spacji</text>
 	</string>
 	<string id="mp_gp_unique_nick_bad_first_symbol">
-		<text>Unikalne imiк nie moїe zaczynaж siк od cyfry lub symbolu: "@", "+", ":" lub ‘#’</text>
+		<text>Unikalne imiРє nie moС—e zaczynaР¶ siРє od cyfry lub symbolu: "@", "+", ":" lub вЂ#вЂ™</text>
 	</string>
 	<string id="st_opt_ultra">
 		<text>bardzo wysokie</text>

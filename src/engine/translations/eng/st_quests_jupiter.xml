@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="jup_a10_actor_agree_back_vano_duties_name">
 		<text>Debts: take money to the bandits</text>
@@ -661,10 +660,10 @@
 		<text>You've found the right people for a new research group. Now return to Hermann to collect your reward.</text>
 	</string>
 	<string id="jup_b218_soldier_do_scientist_quest_name">
-		<text>Pripyat 1: complete Ozersky’s mission</text>
+		<text>Pripyat 1: complete OzerskyвЂ™s mission</text>
 	</string>
 	<string id="jup_b218_soldier_do_scientist_quest_text">
-		<text>You need to complete Ozersky’s mission involving the anomalous plant to get a protective suit for Sokolov.</text>
+		<text>You need to complete OzerskyвЂ™s mission involving the anomalous plant to get a protective suit for Sokolov.</text>
 	</string>
 	<string id="jup_b200_tech_materials_inside_text">
 		<text>Nitro needs radio technical materials. You need to find them in the cement factory.</text>
@@ -676,12 +675,12 @@
 		<text>Retribution: avenge Splinter</text>
 	</string>
 	<string id="jup_b25_revenge_senya_text">
-		<text>Find whoever left Splinter to die in an anomaly, having taken the artifact and left. Unfortunately, Splinter didn’t manage to name the villain, so all that’s known about him is that he is a member of Freedom.</text>
+		<text>Find whoever left Splinter to die in an anomaly, having taken the artifact and left. Unfortunately, Splinter didnвЂ™t manage to name the villain, so all thatвЂ™s known about him is that he is a member of Freedom.</text>
 	</string>
 	<string id="zat_b207_depot_reward_task_duty_text">
 		<text>Lieutenant Colonel Shulga has permitted you to take any equipment you want from the Duty warehouse if you manage to capture it.</text>
 	</string>
 	<string id="zat_b207_depot_reward_task_freedom_text">
-		<text>Loki has allowed you to take any equipment you want from the Duty warehouse as long as it’s held by Freedom fighters.</text>
+		<text>Loki has allowed you to take any equipment you want from the Duty warehouse as long as itвЂ™s held by Freedom fighters.</text>
 	</string>
 </string_table>

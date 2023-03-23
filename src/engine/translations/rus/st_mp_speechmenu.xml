@@ -1,57 +1,56 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="speech_attack">
-		<text>Все в атаку!</text>
+		<text>Р’СЃРµ РІ Р°С‚Р°РєСѓ!</text>
 	</string>
 	<string id="speech_covermeartifact">
-		<text>Беру артефакт! Прикройте!</text>
+		<text>Р‘РµСЂСѓ Р°СЂС‚РµС„Р°РєС‚! РџСЂРёРєСЂРѕР№С‚Рµ!</text>
 	</string>
 	<string id="speech_followme">
-		<text>За мной!</text>
+		<text>Р—Р° РјРЅРѕР№!</text>
 	</string>
 	<string id="speech_guardartifact">
-		<text>Охраняем арефакт. Пока не берём!</text>
+		<text>РћС…СЂР°РЅСЏРµРј Р°СЂРµС„Р°РєС‚. РџРѕРєР° РЅРµ Р±РµСЂС‘Рј!</text>
 	</string>
 	<string id="speech_holdingpos">
-		<text>Остаюсь на позиции</text>
+		<text>РћСЃС‚Р°СЋСЃСЊ РЅР° РїРѕР·РёС†РёРё</text>
 	</string>
 	<string id="speech_holdpos">
-		<text>Держим позицию!</text>
+		<text>Р”РµСЂР¶РёРј РїРѕР·РёС†РёСЋ!</text>
 	</string>
 	<string id="speech_icoverartifact">
-		<text>Берите артефакт! Я прикрою!</text>
+		<text>Р‘РµСЂРёС‚Рµ Р°СЂС‚РµС„Р°РєС‚! РЇ РїСЂРёРєСЂРѕСЋ!</text>
 	</string>
 	<string id="speech_needhelp">
-		<text>Нужна помощь!</text>
+		<text>РќСѓР¶РЅР° РїРѕРјРѕС‰СЊ!</text>
 	</string>
 	<string id="speech_needmoney">
-		<text>Нет денег, купите экипировку!</text>
+		<text>РќРµС‚ РґРµРЅРµРі, РєСѓРїРёС‚Рµ СЌРєРёРїРёСЂРѕРІРєСѓ!</text>
 	</string>
 	<string id="speech_no">
-		<text>Нет.</text>
+		<text>РќРµС‚.</text>
 	</string>
 	<string id="speech_noenemy">
-		<text>Никого поблизости.</text>
+		<text>РќРёРєРѕРіРѕ РїРѕР±Р»РёР·РѕСЃС‚Рё.</text>
 	</string>
 	<string id="speech_report">
-		<text>Доложите ситуацию!</text>
+		<text>Р”РѕР»РѕР¶РёС‚Рµ СЃРёС‚СѓР°С†РёСЋ!</text>
 	</string>
 	<string id="speech_retreat">
-		<text>Отступаем!</text>
+		<text>РћС‚СЃС‚СѓРїР°РµРј!</text>
 	</string>
 	<string id="speech_returntheartefact">
-		<text>Верните артефакт!</text>
+		<text>Р’РµСЂРЅРёС‚Рµ Р°СЂС‚РµС„Р°РєС‚!</text>
 	</string>
 	<string id="speech_roger">
-		<text>Вас понял.</text>
+		<text>Р’Р°СЃ РїРѕРЅСЏР».</text>
 	</string>
 	<string id="speech_silence">
-		<text>Заткнитесь!</text>
+		<text>Р—Р°С‚РєРЅРёС‚РµСЃСЊ!</text>
 	</string>
 	<string id="speech_sticktogether">
-		<text>Держимся вместе.</text>
+		<text>Р”РµСЂР¶РёРјСЃСЏ РІРјРµСЃС‚Рµ.</text>
 	</string>
 	<string id="speech_takeartifact">
-		<text>Берём артефакт!</text>
+		<text>Р‘РµСЂС‘Рј Р°СЂС‚РµС„Р°РєС‚!</text>
 	</string>
 </string_table>

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="st_achievement_10_descr">
 		<text>Your enemy must feel humiliated after being killed by you ten times in a row and failing to kill you even once during this time! You are not cruel, though - you're just giving him a reason to keep practicing.</text>
@@ -25,7 +24,7 @@
 		<text>Social Climber</text>
 	</string>
 	<string id="st_achievement_14_descr">
-		<text>Cutting through an exoskeleton with a knife? It looks like you’re the kind who likes to cut right down to the bone.</text>
+		<text>Cutting through an exoskeleton with a knife? It looks like youвЂ™re the kind who likes to cut right down to the bone.</text>
 	</string>
 	<string id="st_achievement_14_name">
 		<text>Tin Opener</text>
@@ -151,7 +150,7 @@
 		<text>Blitzkrieg</text>
 	</string>
 	<string id="st_achievement_5_descr">
-		<text>You annihilated the enemy without giving up a single artifact.  That’ll show them what real team work is all about.</text>
+		<text>You annihilated the enemy without giving up a single artifact.  ThatвЂ™ll show them what real team work is all about.</text>
 	</string>
 	<string id="st_achievement_5_name">
 		<text>Shutout!</text>
@@ -181,7 +180,7 @@
 		<text>Faster Than Bullets</text>
 	</string>
 	<string id="st_sp_achievement_1_descr">
-		<text>You’re willing to research the most recent developments in the Zone. You have advanced our understanding of the Zone by finding new anomalous formations previously unknown to science.</text>
+		<text>YouвЂ™re willing to research the most recent developments in the Zone. You have advanced our understanding of the Zone by finding new anomalous formations previously unknown to science.</text>
 	</string>
 	<string id="st_sp_achievement_1_name">
 		<text>Pioneer</text>
@@ -190,7 +189,7 @@
 		<text>Stalkers think more of you now.\nIn appreciation of your efforts, stalkers have taken to leaving ammo in your personal box at Yanov station.</text>
 	</string>
 	<string id="st_sp_achievement_2_descr">
-		<text>You don’t try to avoid dangerous mutants - you hunt them down and do it well. Good hunters are held in high esteem among stalkers.</text>
+		<text>You donвЂ™t try to avoid dangerous mutants - you hunt them down and do it well. Good hunters are held in high esteem among stalkers.</text>
 	</string>
 	<string id="st_sp_achievement_2_name">
 		<text>Mutant Hunter</text>
@@ -199,7 +198,7 @@
 		<text>Stalkers think more of you now.\nAs a sign of respect, stalkers have taken to leaving medical supplies in your personal box at Skadovsk.</text>
 	</string>
 	<string id="st_sp_achievement_3_descr">
-		<text>You uncovered the secret behind stalker disappearances at Skadovsk: the guilty party weren’t mutants after all, but a far more dangerous foe - man. Your successful pursuit of the truth has earned you the respect of stalkers.</text>
+		<text>You uncovered the secret behind stalker disappearances at Skadovsk: the guilty party werenвЂ™t mutants after all, but a far more dangerous foe - man. Your successful pursuit of the truth has earned you the respect of stalkers.</text>
 	</string>
 	<string id="st_sp_achievement_3_name">
 		<text>Detective</text>
@@ -208,7 +207,7 @@
 		<text>Stalkers think more of you now.\nStalkers have asked Owl the trader to give you a discount. \nBeard is now offering you his best prices for artifacts.</text>
 	</string>
 	<string id="st_sp_achievement_4_descr">
-		<text>You showed the bandits and their leader, Sultan, who’s boss, thus making you a popular man among stalkers. You’re always welcome at Skadovsk.</text>
+		<text>You showed the bandits and their leader, Sultan, whoвЂ™s boss, thus making you a popular man among stalkers. YouвЂ™re always welcome at Skadovsk.</text>
 	</string>
 	<string id="st_sp_achievement_4_name">
 		<text>One of Ours</text>
@@ -217,13 +216,13 @@
 		<text>You have earned the respect of bandits.\nOwl the trader has given you a discount out of fear that he may be your next victim. \nAs agreed, Beard will now pay you a cut of his proceeds.</text>
 	</string>
 	<string id="st_sp_achievement_5_descr">
-		<text>You helped Sultan outmaneuver the stalkers and take Beard’s business under your control. You are now feared and respected at Zaton.</text>
+		<text>You helped Sultan outmaneuver the stalkers and take BeardвЂ™s business under your control. You are now feared and respected at Zaton.</text>
 	</string>
 	<string id="st_sp_achievement_5_name">
 		<text>Boss</text>
 	</string>
 	<string id="st_sp_achievement_6_hint">
-		<text>Stalkers decided to give Magpie’s loot, which he had acquired through lies and deceit, to someone more worthy. They put his stuff in your personal box at Yanov.</text>
+		<text>Stalkers decided to give MagpieвЂ™s loot, which he had acquired through lies and deceit, to someone more worthy. They put his stuff in your personal box at Yanov.</text>
 	</string>
 	<string id="st_sp_achievement_6_descr">
 		<text>You brought the scumbag to justice. Magpie cheated and deceived many a stalker, and now his time has come.</text>
@@ -244,7 +243,7 @@
 		<text>Cardan can perform a unique modification, which will allow you to move quickly while wearing an exoskeleton, by installing hydraulic servomotor boosters.</text>
 	</string>
 	<string id="st_sp_achievement_8_descr">
-		<text>Now Cardan has all the tools he’ll ever need. This will allow him to perform new and more complex upgrades.</text>
+		<text>Now Cardan has all the tools heвЂ™ll ever need. This will allow him to perform new and more complex upgrades.</text>
 	</string>
 	<string id="st_sp_achievement_8_name">
 		<text>Weapon Systems Expert</text>
@@ -262,13 +261,13 @@
 		<text>Your experience allows you to find rare artifacts more often.</text>
 	</string>
 	<string id="st_sp_achievement_10_descr">
-		<text>There are virtually no accessible areas by the center of the Zone that you haven’t been to yet. You’ve been a guest of almost every local anomaly.</text>
+		<text>There are virtually no accessible areas by the center of the Zone that you havenвЂ™t been to yet. YouвЂ™ve been a guest of almost every local anomaly.</text>
 	</string>
 	<string id="st_sp_achievement_10_name">
 		<text>Seasoned Stalker</text>
 	</string>
 	<string id="st_sp_achievement_11_hint">
-		<text>Your leadership qualities improve your team’s chances of survival.</text>
+		<text>Your leadership qualities improve your teamвЂ™s chances of survival.</text>
 	</string>
 	<string id="st_sp_achievement_11_descr">
 		<text>You had a team job to do, so you put a great squad together and proved you're a leader.</text>
@@ -286,7 +285,7 @@
 		<text>Diplomat</text>
 	</string>
 	<string id="st_sp_achievement_13_descr">
-		<text>You’ve worked with the scientists for so long that you could rightfully be called a research assistant. Everyone in the scientists’ bunker considers you one of their own.</text>
+		<text>YouвЂ™ve worked with the scientists for so long that you could rightfully be called a research assistant. Everyone in the scientistsвЂ™ bunker considers you one of their own.</text>
 	</string>
 	<string id="st_sp_achievement_13_name">
 		<text>Research Assistant</text>
@@ -313,7 +312,7 @@
 		<text>Stalkers at Yanov value a balance of power between Duty and Freedom, which is why both the technician and the trader have given you discounts now.</text>
 	</string>
 	<string id="st_sp_achievement_16_descr">
-		<text>You didn’t side with either faction and always acted as a free stalker. You’ve not made any enemies, but you haven’t got any new friends either.</text>
+		<text>You didnвЂ™t side with either faction and always acted as a free stalker. YouвЂ™ve not made any enemies, but you havenвЂ™t got any new friends either.</text>
 	</string>
 	<string id="st_sp_achievement_16_name">
 		<text>A Man of Balance</text>
@@ -322,7 +321,7 @@
 		<text>Traders offer you more rare and expensive goods.</text>
 	</string>
 	<string id="st_sp_achievement_17_descr">
-		<text>Although you know what it’s like to be short of cash, you’re not doing too badly at the moment. In fact, sometimes your wealth can be considerable, and traders value a client of your stature.</text>
+		<text>Although you know what itвЂ™s like to be short of cash, youвЂ™re not doing too badly at the moment. In fact, sometimes your wealth can be considerable, and traders value a client of your stature.</text>
 	</string>
 	<string id="st_sp_achievement_17_name">
 		<text>A Wealthy Client</text>
@@ -331,7 +330,7 @@
 		<text>After getting the notes, Strelok found a new reason to live on and make it to his objective, whatever the cost.</text>
 	</string>
 	<string id="st_sp_achievement_18_descr">
-		<text>Your foresight has served you well: on finding notes in Strelok's group’s stashes, you kept them until you found their rightful owner.</text>
+		<text>Your foresight has served you well: on finding notes in Strelok's groupвЂ™s stashes, you kept them until you found their rightful owner.</text>
 	</string>
 	<string id="st_sp_achievement_18_name">
 		<text>A Keeper of Secrets</text>
@@ -355,7 +354,7 @@
 		<text>Your relations with stalkers have improved. If you find yourself in a pickle, stalkers will try to help you.\nStalker medics have agreed to sell you medical supplies at cost price.</text>
 	</string>
 	<string id="st_sp_achievement_21_descr">
-		<text>You’ve always helped out stalkers in trouble. Although their faction is not very tight-knit, you now have allies in the unofficial stalker brotherhood who will help you in combat and afterwards too.</text>
+		<text>YouвЂ™ve always helped out stalkers in trouble. Although their faction is not very tight-knit, you now have allies in the unofficial stalker brotherhood who will help you in combat and afterwards too.</text>
 	</string>
 	<string id="st_sp_achievement_21_name">
 		<text>A Friend of Stalkers</text>

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="not_enough_money_actor">
 		<text>Not enough money</text>
@@ -73,7 +72,7 @@
 		<text>move to slot</text>
 	</string>
 	<string id="st_no_trade_tip_1">
-		<text>The trader isn’t interested in items like this.</text>
+		<text>The trader isnвЂ™t interested in items like this.</text>
 	</string>
 	<string id="st_no_trade_tip_2">
 		<text>The item is too damaged to be traded.</text>

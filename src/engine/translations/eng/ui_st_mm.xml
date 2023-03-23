@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="Clear">
 		<text>Clear</text>
@@ -922,7 +921,7 @@
 		<text>The unique nickname cannot contain spaces</text>
 	</string>
 	<string id="mp_gp_unique_nick_bad_first_symbol">
-		<text>The unique nickname may not begin with a number or any of the following symbols: '@', '+', ':' or ‘#’</text>
+		<text>The unique nickname may not begin with a number or any of the following symbols: '@', '+', ':' or вЂ#вЂ™</text>
 	</string>
 	<string id="st_opt_ultra">
 		<text>very high</text>

@@ -1,57 +1,56 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="speech_attack">
-		<text>Усі в атаку!</text>
+		<text>РЈСЃС– РІ Р°С‚Р°РєСѓ!</text>
 	</string>
 	<string id="speech_covermeartifact">
-		<text>Беру артефакт! Прикрийте!</text>
+		<text>Р‘РµСЂСѓ Р°СЂС‚РµС„Р°РєС‚! РџСЂРёРєСЂРёР№С‚Рµ!</text>
 	</string>
 	<string id="speech_followme">
-		<text>За мною!</text>
+		<text>Р—Р° РјРЅРѕСЋ!</text>
 	</string>
 	<string id="speech_guardartifact">
-		<text>Охороняємо артефакт. Поки що не беремо!</text>
+		<text>РћС…РѕСЂРѕРЅСЏС”РјРѕ Р°СЂС‚РµС„Р°РєС‚. РџРѕРєРё С‰Рѕ РЅРµ Р±РµСЂРµРјРѕ!</text>
 	</string>
 	<string id="speech_holdingpos">
-		<text>Залишаюся на позиції</text>
+		<text>Р—Р°Р»РёС€Р°СЋСЃСЏ РЅР° РїРѕР·РёС†С–С—</text>
 	</string>
 	<string id="speech_holdpos">
-		<text>Тримаємо позицію!</text>
+		<text>РўСЂРёРјР°С”РјРѕ РїРѕР·РёС†С–СЋ!</text>
 	</string>
 	<string id="speech_icoverartifact">
-		<text>Беріть артефакт! Я прикрию!</text>
+		<text>Р‘РµСЂС–С‚СЊ Р°СЂС‚РµС„Р°РєС‚! РЇ РїСЂРёРєСЂРёСЋ!</text>
 	</string>
 	<string id="speech_needhelp">
-		<text>Потрібна допомога!</text>
+		<text>РџРѕС‚СЂС–Р±РЅР° РґРѕРїРѕРјРѕРіР°!</text>
 	</string>
 	<string id="speech_needmoney">
-		<text>Немає грошей, придбайте спорядження!</text>
+		<text>РќРµРјР°С” РіСЂРѕС€РµР№, РїСЂРёРґР±Р°Р№С‚Рµ СЃРїРѕСЂСЏРґР¶РµРЅРЅСЏ!</text>
 	</string>
 	<string id="speech_no">
-		<text>Ні.</text>
+		<text>РќС–.</text>
 	</string>
 	<string id="speech_noenemy">
-		<text>Нікого поблизу.</text>
+		<text>РќС–РєРѕРіРѕ РїРѕР±Р»РёР·Сѓ.</text>
 	</string>
 	<string id="speech_report">
-		<text>Доповідайте ситуацію!</text>
+		<text>Р”РѕРїРѕРІС–РґР°Р№С‚Рµ СЃРёС‚СѓР°С†С–СЋ!</text>
 	</string>
 	<string id="speech_retreat">
-		<text>Відступаємо!</text>
+		<text>Р’С–РґСЃС‚СѓРїР°С”РјРѕ!</text>
 	</string>
 	<string id="speech_returntheartefact">
-		<text>Поверніть артефакт!</text>
+		<text>РџРѕРІРµСЂРЅС–С‚СЊ Р°СЂС‚РµС„Р°РєС‚!</text>
 	</string>
 	<string id="speech_roger">
-		<text>Вас зрозумів.</text>
+		<text>Р’Р°СЃ Р·СЂРѕР·СѓРјС–РІ.</text>
 	</string>
 	<string id="speech_silence">
-		<text>Стуліть пельку!</text>
+		<text>РЎС‚СѓР»С–С‚СЊ РїРµР»СЊРєСѓ!</text>
 	</string>
 	<string id="speech_sticktogether">
-		<text>Тримаємося разом.</text>
+		<text>РўСЂРёРјР°С”РјРѕСЃСЏ СЂР°Р·РѕРј.</text>
 	</string>
 	<string id="speech_takeartifact">
-		<text>Беремо артефакт!</text>
+		<text>Р‘РµСЂРµРјРѕ Р°СЂС‚РµС„Р°РєС‚!</text>
 	</string>
 </string_table>

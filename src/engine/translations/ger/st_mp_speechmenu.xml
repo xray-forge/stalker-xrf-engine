@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="speech_attack">
 		<text>Alle angreifen!</text>
@@ -25,7 +24,7 @@
 		<text>Ich brauche Hilfe.</text>
 	</string>
 	<string id="speech_needmoney">
-		<text>Kein Geld - kauf mehr Ausrьstung.</text>
+		<text>Kein Geld - kauf mehr AusrСЊstung.</text>
 	</string>
 	<string id="speech_no">
 		<text>Nein.</text>
@@ -37,10 +36,10 @@
 		<text>Meldung, sofort!</text>
 	</string>
 	<string id="speech_retreat">
-		<text>Rьckzug!</text>
+		<text>RСЊckzug!</text>
 	</string>
 	<string id="speech_returntheartefact">
-		<text>Hol das Artefakt zurьck!</text>
+		<text>Hol das Artefakt zurСЊck!</text>
 	</string>
 	<string id="speech_roger">
 		<text>Verstanden.</text>

@@ -1,501 +1,500 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="Btn_Cancel">
-		<text>Отменить</text>
+		<text>РћС‚РјРµРЅРёС‚СЊ</text>
 	</string>
 	<string id="Btn_No">
-		<text>Нет</text>
+		<text>РќРµС‚</text>
 	</string>
 	<string id="Btn_OK">
 		<text>OK</text>
 	</string>
 	<string id="Btn_Yes">
-		<text>Да</text>
+		<text>Р”Р°</text>
 	</string>
 	<string id="bad">
-		<text>Плохо</text>
+		<text>РџР»РѕС…Рѕ</text>
 	</string>
 	<string id="enemy">
-		<text>Враг</text>
+		<text>Р’СЂР°Рі</text>
 	</string>
 	<string id="excellent">
-		<text>Отлично</text>
+		<text>РћС‚Р»РёС‡РЅРѕ</text>
 	</string>
 	<string id="experienced">
-		<text>Опытный</text>
+		<text>РћРїС‹С‚РЅС‹Р№</text>
 	</string>
 	<string id="friendly">
-		<text>Друг</text>
+		<text>Р”СЂСѓРі</text>
 	</string>
 	<string id="global_map">
-		<text>Карта Зоны</text>
+		<text>РљР°СЂС‚Р° Р—РѕРЅС‹</text>
 	</string>
 	<string id="good">
-		<text>Хорошо</text>
+		<text>РҐРѕСЂРѕС€Рѕ</text>
 	</string>
 	<string id="indifferent">
-		<text>Безразлично</text>
+		<text>Р‘РµР·СЂР°Р·Р»РёС‡РЅРѕ</text>
 	</string>
 	<string id="master">
-		<text>Мастер</text>
+		<text>РњР°СЃС‚РµСЂ</text>
 	</string>
 	<string id="mm_mp_pda_hunt">
-		<text>Бонус за КПК</text>
+		<text>Р‘РѕРЅСѓСЃ Р·Р° РљРџРљ</text>
 	</string>
 	<string id="mp_only_one_voting">
-		<text>Разрешено только одно активное голосование</text>
+		<text>Р Р°Р·СЂРµС€РµРЅРѕ С‚РѕР»СЊРєРѕ РѕРґРЅРѕ Р°РєС‚РёРІРЅРѕРµ РіРѕР»РѕСЃРѕРІР°РЅРёРµ</text>
 	</string>
 	<string id="neutral">
-		<text>Нейтрал</text>
+		<text>РќРµР№С‚СЂР°Р»</text>
 	</string>
 	<string id="novice">
-		<text>Новичок</text>
+		<text>РќРѕРІРёС‡РѕРє</text>
 	</string>
 	<string id="st_game">
-		<text>Игра</text>
+		<text>РРіСЂР°</text>
 	</string>
 	<string id="st_item_used">
-		<text>Использовано</text>
+		<text>РСЃРїРѕР»СЊР·РѕРІР°РЅРѕ</text>
 	</string>
 	<string id="st_level">
-		<text>Уровень</text>
+		<text>РЈСЂРѕРІРµРЅСЊ</text>
 	</string>
 	<string id="st_loading_ai_objects">
-		<text>Загрузка ИИ объектов</text>
+		<text>Р—Р°РіСЂСѓР·РєР° РР РѕР±СЉРµРєС‚РѕРІ</text>
 	</string>
 	<string id="st_loading_alife_simulator">
-		<text>Сервер: Загрузка симуляции жизни</text>
+		<text>РЎРµСЂРІРµСЂ: Р—Р°РіСЂСѓР·РєР° СЃРёРјСѓР»СЏС†РёРё Р¶РёР·РЅРё</text>
 	</string>
 	<string id="st_loading_cform">
-		<text>Загрузка формы объектов</text>
+		<text>Р—Р°РіСЂСѓР·РєР° С„РѕСЂРјС‹ РѕР±СЉРµРєС‚РѕРІ</text>
 	</string>
 	<string id="st_loading_details">
-		<text>Загрузка детальных объектов</text>
+		<text>Р—Р°РіСЂСѓР·РєР° РґРµС‚Р°Р»СЊРЅС‹С… РѕР±СЉРµРєС‚РѕРІ</text>
 	</string>
 	<string id="st_loading_geometry">
-		<text>Загрузка геометрии</text>
+		<text>Р—Р°РіСЂСѓР·РєР° РіРµРѕРјРµС‚СЂРёРё</text>
 	</string>
 	<string id="st_loading_saved_game">
-		<text>Загрузка игры</text>
+		<text>Р—Р°РіСЂСѓР·РєР° РёРіСЂС‹</text>
 	</string>
 	<string id="st_loading_sectors_portals">
-		<text>Загрузка секторов и порталов</text>
+		<text>Р—Р°РіСЂСѓР·РєР° СЃРµРєС‚РѕСЂРѕРІ Рё РїРѕСЂС‚Р°Р»РѕРІ</text>
 	</string>
 	<string id="st_loading_shaders">
-		<text>Загрузка шейдеров</text>
+		<text>Р—Р°РіСЂСѓР·РєР° С€РµР№РґРµСЂРѕРІ</text>
 	</string>
 	<string id="st_loading_spatial_db">
-		<text>Загрузка базы пространств</text>
+		<text>Р—Р°РіСЂСѓР·РєР° Р±Р°Р·С‹ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІ</text>
 	</string>
 	<string id="st_loading_textures">
-		<text>Загрузка текстур</text>
+		<text>Р—Р°РіСЂСѓР·РєР° С‚РµРєСЃС‚СѓСЂ</text>
 	</string>
 	<string id="st_mp_direct_ip">
-		<text>Прямой IP</text>
+		<text>РџСЂСЏРјРѕР№ IP</text>
 	</string>
 	<string id="st_no_active_task">
-		<text>Нет активного задания</text>
+		<text>РќРµС‚ Р°РєС‚РёРІРЅРѕРіРѕ Р·Р°РґР°РЅРёСЏ</text>
 	</string>
 	<string id="st_not_enough_money">
-		<text>Недостаточно денег</text>
+		<text>РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґРµРЅРµРі</text>
 	</string>
 	<string id="st_not_enough_money_npc">
-		<text>У NPC недостаточно денег</text>
+		<text>РЈ NPC РЅРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґРµРЅРµРі</text>
 	</string>
 	<string id="st_opening_stream">
-		<text>Открытие потока</text>
+		<text>РћС‚РєСЂС‹С‚РёРµ РїРѕС‚РѕРєР°</text>
 	</string>
 	<string id="st_prefetching_objects">
-		<text>Кэширование объектов</text>
+		<text>РљСЌС€РёСЂРѕРІР°РЅРёРµ РѕР±СЉРµРєС‚РѕРІ</text>
 	</string>
 	<string id="st_rubles">
-		<text>рублей.</text>
+		<text>СЂСѓР±Р»РµР№.</text>
 	</string>
 	<string id="st_server_connecting">
-		<text>Сервер: Соединение</text>
+		<text>РЎРµСЂРІРµСЂ: РЎРѕРµРґРёРЅРµРЅРёРµ</text>
 	</string>
 	<string id="st_server_starting">
-		<text>Сервер: Старт</text>
+		<text>РЎРµСЂРІРµСЂ: РЎС‚Р°СЂС‚</text>
 	</string>
 	<string id="st_validating_cdkey">
-		<text>Проверка ключа</text>
+		<text>РџСЂРѕРІРµСЂРєР° РєР»СЋС‡Р°</text>
 	</string>
 	<string id="st_video">
-		<text>Видео</text>
+		<text>Р’РёРґРµРѕ</text>
 	</string>
 	<string id="terrible">
-		<text>Ужасно</text>
+		<text>РЈР¶Р°СЃРЅРѕ</text>
 	</string>
 	<string id="ui_inv_repair">
-		<text>Починить</text>
+		<text>РџРѕС‡РёРЅРёС‚СЊ</text>
 	</string>
 	<string id="ui_st_cant_run_r2">
-		<text>Вы не можете запустить второй рендер на вашем компьютере</text>
+		<text>Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ Р·Р°РїСѓСЃС‚РёС‚СЊ РІС‚РѕСЂРѕР№ СЂРµРЅРґРµСЂ РЅР° РІР°С€РµРј РєРѕРјРїСЊСЋС‚РµСЂРµ</text>
 	</string>
 	<string id="ui_st_community">
-		<text>Группировка</text>
+		<text>Р“СЂСѓРїРїРёСЂРѕРІРєР°</text>
 	</string>
 	<string id="ui_st_conn_cdkey_disabled">
-		<text>Ошибка соединения: Ваш CD-key заблокирован. Свяжитесь со службой поддержки.</text>
+		<text>РћС€РёР±РєР° СЃРѕРµРґРёРЅРµРЅРёСЏ: Р’Р°С€ CD-key Р·Р°Р±Р»РѕРєРёСЂРѕРІР°РЅ. РЎРІСЏР¶РёС‚РµСЃСЊ СЃРѕ СЃР»СѓР¶Р±РѕР№ РїРѕРґРґРµСЂР¶РєРё.</text>
 	</string>
 	<string id="ui_st_conn_cdkey_in_use">
-		<text>Ошибка соединения: такой CD-key уже используется</text>
+		<text>РћС€РёР±РєР° СЃРѕРµРґРёРЅРµРЅРёСЏ: С‚Р°РєРѕР№ CD-key СѓР¶Рµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ</text>
 	</string>
 	<string id="ui_st_conn_cdkey_invalid">
-		<text>Ошибка соединения: неверный CD-key</text>
+		<text>РћС€РёР±РєР° СЃРѕРµРґРёРЅРµРЅРёСЏ: РЅРµРІРµСЂРЅС‹Р№ CD-key</text>
 	</string>
 	<string id="ui_st_conn_invalid_host">
-		<text>Ошибка соединения: неверный хост</text>
+		<text>РћС€РёР±РєР° СЃРѕРµРґРёРЅРµРЅРёСЏ: РЅРµРІРµСЂРЅС‹Р№ С…РѕСЃС‚</text>
 	</string>
 	<string id="ui_st_conn_invalid_pass">
-		<text>Ошибка соединения: неверный пароль</text>
+		<text>РћС€РёР±РєР° СЃРѕРµРґРёРЅРµРЅРёСЏ: РЅРµРІРµСЂРЅС‹Р№ РїР°СЂРѕР»СЊ</text>
 	</string>
 	<string id="ui_st_conn_new_patch">
-		<text>Доступен новый патч. \n Версия: %s\n %s\n Хотите загрузить его сейчас?</text>
+		<text>Р”РѕСЃС‚СѓРїРµРЅ РЅРѕРІС‹Р№ РїР°С‚С‡. \n Р’РµСЂСЃРёСЏ: %s\n %s\n РҐРѕС‚РёС‚Рµ Р·Р°РіСЂСѓР·РёС‚СЊ РµРіРѕ СЃРµР№С‡Р°СЃ?</text>
 	</string>
 	<string id="ui_st_conn_no_new_patch">
-		<text>Нет новых патчей</text>
+		<text>РќРµС‚ РЅРѕРІС‹С… РїР°С‚С‡РµР№</text>
 	</string>
 	<string id="ui_st_conn_rejected_server">
-		<text>Ошибка соединения: соединение прервано сервером</text>
+		<text>РћС€РёР±РєР° СЃРѕРµРґРёРЅРµРЅРёСЏ: СЃРѕРµРґРёРЅРµРЅРёРµ РїСЂРµСЂРІР°РЅРѕ СЃРµСЂРІРµСЂРѕРј</text>
 	</string>
 	<string id="ui_st_conn_sess_full">
-		<text>Ошибка соединения: сервер заполнен</text>
+		<text>РћС€РёР±РєР° СЃРѕРµРґРёРЅРµРЅРёСЏ: СЃРµСЂРІРµСЂ Р·Р°РїРѕР»РЅРµРЅ</text>
 	</string>
 	<string id="ui_st_conn_version_differs">
-		<text>Ошибка соединения: различные версии</text>
+		<text>РћС€РёР±РєР° СЃРѕРµРґРёРЅРµРЅРёСЏ: СЂР°Р·Р»РёС‡РЅС‹Рµ РІРµСЂСЃРёРё</text>
 	</string>
 	<string id="ui_st_connecting_to_masterserver">
-		<text>Соединение с мастер-сервером</text>
+		<text>РЎРѕРµРґРёРЅРµРЅРёРµ СЃ РјР°СЃС‚РµСЂ-СЃРµСЂРІРµСЂРѕРј</text>
 	</string>
 	<string id="ui_st_days">
-		<text>дн.</text>
+		<text>РґРЅ.</text>
 	</string>
 	<string id="ui_st_error">
-		<text>Ошибка</text>
+		<text>РћС€РёР±РєР°</text>
 	</string>
 	<string id="ui_st_error_loading">
-		<text>Ошибка загрузки</text>
+		<text>РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё</text>
 	</string>
 	<string id="ui_st_file_exist_owerwrite_q">
-		<text>Файл с таким именем уже существует. Перезаписать?</text>
+		<text>Р¤Р°Р№Р» СЃ С‚Р°РєРёРј РёРјРµРЅРµРј СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚. РџРµСЂРµР·Р°РїРёСЃР°С‚СЊ?</text>
 	</string>
 	<string id="ui_st_file_name_is_empty">
-		<text>Имя файла пустое</text>
+		<text>РРјСЏ С„Р°Р№Р»Р° РїСѓСЃС‚РѕРµ</text>
 	</string>
 	<string id="ui_st_hours">
-		<text>час.</text>
+		<text>С‡Р°СЃ.</text>
 	</string>
 	<string id="ui_st_kicked_by_battleye">
-		<text>был отключён защитой BattlEye:</text>
+		<text>Р±С‹Р» РѕС‚РєР»СЋС‡С‘РЅ Р·Р°С‰РёС‚РѕР№ BattlEye:</text>
 	</string>
 	<string id="ui_st_kicked_by_server">
-		<text>Отключён. Причина - </text>
+		<text>РћС‚РєР»СЋС‡С‘РЅ. РџСЂРёС‡РёРЅР° - </text>
 	</string>
 	<string id="ui_st_leave">
-		<text>Уйти</text>
+		<text>РЈР№С‚Рё</text>
 	</string>
 	<string id="ui_st_load_game_confirm">
-		<text>Загрузка игры приведёт к потере несохраненных данных. Желаете продолжить?</text>
+		<text>Р—Р°РіСЂСѓР·РєР° РёРіСЂС‹ РїСЂРёРІРµРґС‘С‚ Рє РїРѕС‚РµСЂРµ РЅРµСЃРѕС…СЂР°РЅРµРЅРЅС‹С… РґР°РЅРЅС‹С…. Р–РµР»Р°РµС‚Рµ РїСЂРѕРґРѕР»Р¶РёС‚СЊ?</text>
 	</string>
 	<string id="ui_st_mins">
-		<text>мин.</text>
+		<text>РјРёРЅ.</text>
 	</string>
 	<string id="ui_st_months">
-		<text>мес.</text>
+		<text>РјРµСЃ.</text>
 	</string>
 	<string id="ui_st_opponent_items">
-		<text>Рюкзак</text>
+		<text>Р СЋРєР·Р°Рє</text>
 	</string>
 	<string id="ui_st_params">
-		<text>Параметры</text>
+		<text>РџР°СЂР°РјРµС‚СЂС‹</text>
 	</string>
 	<string id="ui_st_patch_download_error">
-		<text>Невозможно загрузить патч.</text>
+		<text>РќРµРІРѕР·РјРѕР¶РЅРѕ Р·Р°РіСЂСѓР·РёС‚СЊ РїР°С‚С‡.</text>
 	</string>
 	<string id="ui_st_patch_download_success">
-		<text>Патч успешно загружен. Желаете установить?</text>
+		<text>РџР°С‚С‡ СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅ. Р–РµР»Р°РµС‚Рµ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ?</text>
 	</string>
 	<string id="ui_st_price">
-		<text>Цена</text>
+		<text>Р¦РµРЅР°</text>
 	</string>
 	<string id="ui_st_rank">
-		<text>Ранг</text>
+		<text>Р Р°РЅРі</text>
 	</string>
 	<string id="ui_st_relation">
-		<text>Отношение</text>
+		<text>РћС‚РЅРѕС€РµРЅРёРµ</text>
 	</string>
 	<string id="ui_st_reputation">
-		<text>Репутация</text>
+		<text>Р РµРїСѓС‚Р°С†РёСЏ</text>
 	</string>
 	<string id="ui_st_secs">
-		<text>сек.</text>
+		<text>СЃРµРє.</text>
 	</string>
 	<string id="ui_st_select_one_map">
-		<text>Пожалуйста, выберите хотя бы одну карту</text>
+		<text>РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ С…РѕС‚СЏ Р±С‹ РѕРґРЅСѓ РєР°СЂС‚Сѓ</text>
 	</string>
 	<string id="ui_st_take_all">
-		<text>Взять всё</text>
+		<text>Р’Р·СЏС‚СЊ РІСЃС‘</text>
 	</string>
 	<string id="ui_st_time_remains">
-		<text>Осталось</text>
+		<text>РћСЃС‚Р°Р»РѕСЃСЊ</text>
 	</string>
 	<string id="ui_st_voting_disabled">
-		<text>Голосование отключено</text>
+		<text>Р“РѕР»РѕСЃРѕРІР°РЅРёРµ РѕС‚РєР»СЋС‡РµРЅРѕ</text>
 	</string>
 	<string id="ui_st_want_to_leave_game_q">
-		<text>Вы действительно хотите покинуть игру?</text>
+		<text>Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ РїРѕРєРёРЅСѓС‚СЊ РёРіСЂСѓ?</text>
 	</string>
 	<string id="ui_total_price">
-		<text>Всего</text>
+		<text>Р’СЃРµРіРѕ</text>
 	</string>
 	<string id="very_bad">
-		<text>оч. плохо</text>
+		<text>РѕС‡. РїР»РѕС…Рѕ</text>
 	</string>
 	<string id="very_good">
-		<text>оч. хорошо</text>
+		<text>РѕС‡. С…РѕСЂРѕС€Рѕ</text>
 	</string>
 	<string id="veteran">
-		<text>Ветеран</text>
+		<text>Р’РµС‚РµСЂР°РЅ</text>
 	</string>
 	<string id="ui_st_inv_repair">
-		<text>Ремонт</text>
+		<text>Р РµРјРѕРЅС‚</text>
 	</string>
 	<string id="ui_repair_button_hint">
-		<text>Починить выбранную вещь</text>
+		<text>РџРѕС‡РёРЅРёС‚СЊ РІС‹Р±СЂР°РЅРЅСѓСЋ РІРµС‰СЊ</text>
 	</string>
 	<string id="st_key_notbinded">
 		<text>...</text>
 	</string>
 	<string id="st_save_uni_travel_generic">
-		<text>переход по локации</text>
+		<text>РїРµСЂРµС…РѕРґ РїРѕ Р»РѕРєР°С†РёРё</text>
 	</string>
 	<string id="st_save_uni_travel_zat_to_jup">
-		<text>переход с Затона на «Янов»</text>
+		<text>РїРµСЂРµС…РѕРґ СЃ Р—Р°С‚РѕРЅР° РЅР° В«РЇРЅРѕРІВ»</text>
 	</string>
 	<string id="st_save_uni_travel_zat_to_pri">
-		<text>переход с Затона в Припять</text>
+		<text>РїРµСЂРµС…РѕРґ СЃ Р—Р°С‚РѕРЅР° РІ РџСЂРёРїСЏС‚СЊ</text>
 	</string>
 	<string id="st_save_uni_travel_jup_to_zat">
-		<text>переход с «Янова» на Затон</text>
+		<text>РїРµСЂРµС…РѕРґ СЃ В«РЇРЅРѕРІР°В» РЅР° Р—Р°С‚РѕРЅ</text>
 	</string>
 	<string id="st_save_uni_travel_jup_to_pri">
-		<text>переход с «Янова» в Припять</text>
+		<text>РїРµСЂРµС…РѕРґ СЃ В«РЇРЅРѕРІР°В» РІ РџСЂРёРїСЏС‚СЊ</text>
 	</string>
 	<string id="st_save_uni_travel_pri_to_zat">
-		<text>переход из Припяти на Затон</text>
+		<text>РїРµСЂРµС…РѕРґ РёР· РџСЂРёРїСЏС‚Рё РЅР° Р—Р°С‚РѕРЅ</text>
 	</string>
 	<string id="st_save_uni_travel_pri_to_jup">
-		<text>переход из Припяти на «Янов»</text>
+		<text>РїРµСЂРµС…РѕРґ РёР· РџСЂРёРїСЏС‚Рё РЅР° В«РЇРЅРѕРІВ»</text>
 	</string>
 	<string id="st_save_uni_pri_to_labx8">
-		<text>переход из Припяти в X8</text>
+		<text>РїРµСЂРµС…РѕРґ РёР· РџСЂРёРїСЏС‚Рё РІ X8</text>
 	</string>
 	<string id="st_save_uni_labx8_to_pri">
-		<text>переход из X8 в Припять</text>
+		<text>РїРµСЂРµС…РѕРґ РёР· X8 РІ РџСЂРёРїСЏС‚СЊ</text>
 	</string>
 	<string id="st_save_uni_surge_start">
-		<text>выброс</text>
+		<text>РІС‹Р±СЂРѕСЃ</text>
 	</string>
 	<string id="st_save_zat_a1_game_start">
-		<text>начало игры</text>
+		<text>РЅР°С‡Р°Р»Рѕ РёРіСЂС‹</text>
 	</string>
 	<string id="st_save_zat_a2_reached_skadovsk">
-		<text>прибытие на «Скадовск»</text>
+		<text>РїСЂРёР±С‹С‚РёРµ РЅР° В«РЎРєР°РґРѕРІСЃРєВ»</text>
 	</string>
 	<string id="st_save_jup_b9_searched_heli_1">
-		<text>исследован «Скат-1»</text>
+		<text>РёСЃСЃР»РµРґРѕРІР°РЅ В«РЎРєР°С‚-1В»</text>
 	</string>
 	<string id="st_save_zat_b100_searched_heli_2">
-		<text>исследован «Скат-2»</text>
+		<text>РёСЃСЃР»РµРґРѕРІР°РЅ В«РЎРєР°С‚-2В»</text>
 	</string>
 	<string id="st_save_zat_b28_searched_heli_3">
-		<text>исследован «Скат-3»</text>
+		<text>РёСЃСЃР»РµРґРѕРІР°РЅ В«РЎРєР°С‚-3В»</text>
 	</string>
 	<string id="st_save_jup_b8_searched_heli_4">
-		<text>исследован «Скат-4»</text>
+		<text>РёСЃСЃР»РµРґРѕРІР°РЅ В«РЎРєР°С‚-4В»</text>
 	</string>
 	<string id="st_save_zat_b101_searched_heli_5">
-		<text>исследован «Скат-5»</text>
+		<text>РёСЃСЃР»РµРґРѕРІР°РЅ В«РЎРєР°С‚-5В»</text>
 	</string>
 	<string id="st_save_zat_b18_noah_showed_teleport">
-		<text>путь на плато</text>
+		<text>РїСѓС‚СЊ РЅР° РїР»Р°С‚Рѕ</text>
 	</string>
 	<string id="st_save_jup_b217_arrived_to_jup">
-		<text>прибытие на «Янов»</text>
+		<text>РїСЂРёР±С‹С‚РёРµ РЅР° В«РЇРЅРѕРІВ»</text>
 	</string>
 	<string id="st_save_jup_a9_got_underpass_docs">
-		<text>найден путь в Припять</text>
+		<text>РЅР°Р№РґРµРЅ РїСѓС‚СЊ РІ РџСЂРёРїСЏС‚СЊ</text>
 	</string>
 	<string id="st_save_jup_b15_drunk_with_zulu">
-		<text>к отряду примкнул Зулус</text>
+		<text>Рє РѕС‚СЂСЏРґСѓ РїСЂРёРјРєРЅСѓР» Р—СѓР»СѓСЃ</text>
 	</string>
 	<string id="st_save_jup_a10_gonna_return_debt">
-		<text>возврат долга Вано</text>
+		<text>РІРѕР·РІСЂР°С‚ РґРѕР»РіР° Р’Р°РЅРѕ</text>
 	</string>
 	<string id="st_save_jup_b218_vano_in_squad">
-		<text>к отряду примкнул Вано</text>
+		<text>Рє РѕС‚СЂСЏРґСѓ РїСЂРёРјРєРЅСѓР» Р’Р°РЅРѕ</text>
 	</string>
 	<string id="st_save_jup_b206_got_anomalous_plant">
-		<text>взято аномальное растение</text>
+		<text>РІР·СЏС‚Рѕ Р°РЅРѕРјР°Р»СЊРЅРѕРµ СЂР°СЃС‚РµРЅРёРµ</text>
 	</string>
 	<string id="st_save_jup_b218_sokolov_in_squad">
-		<text>к отряду примкнул Соколов</text>
+		<text>Рє РѕС‚СЂСЏРґСѓ РїСЂРёРјРєРЅСѓР» РЎРѕРєРѕР»РѕРІ</text>
 	</string>
 	<string id="st_save_jup_b218_strider_in_squad">
-		<text>к отряду примкнул Бродяга</text>
+		<text>Рє РѕС‚СЂСЏРґСѓ РїСЂРёРјРєРЅСѓР» Р‘СЂРѕРґСЏРіР°</text>
 	</string>
 	<string id="st_save_jup_b218_travel_jup_to_pas">
-		<text>отряд собран</text>
+		<text>РѕС‚СЂСЏРґ СЃРѕР±СЂР°РЅ</text>
 	</string>
 	<string id="st_save_pas_b400_underpass_start">
-		<text>прибытие в путепровод</text>
+		<text>РїСЂРёР±С‹С‚РёРµ РІ РїСѓС‚РµРїСЂРѕРІРѕРґ</text>
 	</string>
 	<string id="st_save_uni_travel_pas_to_pri">
-		<text>выход в Припять</text>
+		<text>РІС‹С…РѕРґ РІ РџСЂРёРїСЏС‚СЊ</text>
 	</string>
 	<string id="st_save_pri_a16_arrived_to_pri">
-		<text>найдены военные</text>
+		<text>РЅР°Р№РґРµРЅС‹ РІРѕРµРЅРЅС‹Рµ</text>
 	</string>
 	<string id="st_save_pri_a17_hospital_start">
-		<text>захват неизвестного оружия</text>
+		<text>Р·Р°С…РІР°С‚ РЅРµРёР·РІРµСЃС‚РЅРѕРіРѕ РѕСЂСѓР¶РёСЏ</text>
 	</string>
 	<string id="st_save_pri_a20_found_dead_recon">
-		<text>найдена разведгруппа</text>
+		<text>РЅР°Р№РґРµРЅР° СЂР°Р·РІРµРґРіСЂСѓРїРїР°</text>
 	</string>
 	<string id="st_save_pri_a18_met_reinforcement">
-		<text>прибыло подкрепление</text>
+		<text>РїСЂРёР±С‹Р»Рѕ РїРѕРґРєСЂРµРїР»РµРЅРёРµ</text>
 	</string>
 	<string id="st_save_pri_a18_searched_antenna">
-		<text>исследована «антенна»</text>
+		<text>РёСЃСЃР»РµРґРѕРІР°РЅР° В«Р°РЅС‚РµРЅРЅР°В»</text>
 	</string>
 	<string id="st_save_pri_a21_approached_mad_sentry">
-		<text>найден пропавший часовой</text>
+		<text>РЅР°Р№РґРµРЅ РїСЂРѕРїР°РІС€РёР№ С‡Р°СЃРѕРІРѕР№</text>
 	</string>
 	<string id="st_save_pri_a21_killed_controller">
-		<text>убит контролёр возле часового</text>
+		<text>СѓР±РёС‚ РєРѕРЅС‚СЂРѕР»С‘СЂ РІРѕР·Р»Рµ С‡Р°СЃРѕРІРѕРіРѕ</text>
 	</string>
 	<string id="st_save_zat_a23_entered_test_center">
-		<text>вход в испытательный цех</text>
+		<text>РІС…РѕРґ РІ РёСЃРїС‹С‚Р°С‚РµР»СЊРЅС‹Р№ С†РµС…</text>
 	</string>
 	<string id="st_save_zat_a23_got_gauss_docs">
-		<text>найдена документация на гаусс-пушку</text>
+		<text>РЅР°Р№РґРµРЅР° РґРѕРєСѓРјРµРЅС‚Р°С†РёСЏ РЅР° РіР°СѓСЃСЃ-РїСѓС€РєСѓ</text>
 	</string>
 	<string id="st_save_pri_a22_found_dead_squad">
-		<text>найден погибший боец</text>
+		<text>РЅР°Р№РґРµРЅ РїРѕРіРёР±С€РёР№ Р±РѕРµС†</text>
 	</string>
 	<string id="st_save_pri_a25_gonna_place_explosive">
-		<text>вход в детский сад</text>
+		<text>РІС…РѕРґ РІ РґРµС‚СЃРєРёР№ СЃР°Рґ</text>
 	</string>
 	<string id="st_save_pri_a25_freed_medic">
-		<text>спасён военный медик</text>
+		<text>СЃРїР°СЃС‘РЅ РІРѕРµРЅРЅС‹Р№ РјРµРґРёРє</text>
 	</string>
 	<string id="st_save_pri_a28_talked_with_ssu">
-		<text>установлена связь с командованием</text>
+		<text>СѓСЃС‚Р°РЅРѕРІР»РµРЅР° СЃРІСЏР·СЊ СЃ РєРѕРјР°РЅРґРѕРІР°РЅРёРµРј</text>
 	</string>
 	<string id="st_save_pri_a28_evacutaion_start">
-		<text>начало эвакуации из Припяти</text>
+		<text>РЅР°С‡Р°Р»Рѕ СЌРІР°РєСѓР°С†РёРё РёР· РџСЂРёРїСЏС‚Рё</text>
 	</string>
 	<string id="st_save_pri_a28_evacuation_end">
-		<text>достигнуты вертолёты эвакуации</text>
+		<text>РґРѕСЃС‚РёРіРЅСѓС‚С‹ РІРµСЂС‚РѕР»С‘С‚С‹ СЌРІР°РєСѓР°С†РёРё</text>
 	</string>
 	<string id="st_save_uni_zone_to_reality">
-		<text>уход из Зоны</text>
+		<text>СѓС…РѕРґ РёР· Р—РѕРЅС‹</text>
 	</string>
 	<string id="st_save_jup_b209_placed_mutant_scanner">
-		<text>датчик присутствия мутантов</text>
+		<text>РґР°С‚С‡РёРє РїСЂРёСЃСѓС‚СЃС‚РІРёСЏ РјСѓС‚Р°РЅС‚РѕРІ</text>
 	</string>
 	<string id="st_save_jup_a12_gave_artefact_for_hostage">
-		<text>выкуплен заложник</text>
+		<text>РІС‹РєСѓРїР»РµРЅ Р·Р°Р»РѕР¶РЅРёРє</text>
 	</string>
 	<string id="st_save_jup_a12_met_with_liberators">
-		<text>освобождение заложника</text>
+		<text>РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ Р·Р°Р»РѕР¶РЅРёРєР°</text>
 	</string>
 	<string id="st_save_jup_b6_arrived_to_ash_heap">
-		<text>замеры аномалии «Пепелище»</text>
+		<text>Р·Р°РјРµСЂС‹ Р°РЅРѕРјР°Р»РёРё В«РџРµРїРµР»РёС‰РµВ»</text>
 	</string>
 	<string id="st_save_jup_b6_arrived_to_fen">
-		<text>замеры аномалии «Плавни»</text>
+		<text>Р·Р°РјРµСЂС‹ Р°РЅРѕРјР°Р»РёРё В«РџР»Р°РІРЅРёВ»</text>
 	</string>
 	<string id="st_save_zat_b38_met_with_grouse">
-		<text>логово кровососов</text>
+		<text>Р»РѕРіРѕРІРѕ РєСЂРѕРІРѕСЃРѕСЃРѕРІ</text>
 	</string>
 	<string id="st_save_jup_b19_arrived_to_kopachy">
-		<text>отправка в Копачи</text>
+		<text>РѕС‚РїСЂР°РІРєР° РІ РљРѕРїР°С‡Рё</text>
 	</string>
 	<string id="st_save_zat_b40_warned_by_mercs">
-		<text>подход к станции переработки отходов</text>
+		<text>РїРѕРґС…РѕРґ Рє СЃС‚Р°РЅС†РёРё РїРµСЂРµСЂР°Р±РѕС‚РєРё РѕС‚С…РѕРґРѕРІ</text>
 	</string>
 	<string id="st_save_zat_b7_met_with_robbers">
-		<text>наезд на сталкеров</text>
+		<text>РЅР°РµР·Рґ РЅР° СЃС‚Р°Р»РєРµСЂРѕРІ</text>
 	</string>
 	<string id="st_save_zat_b33_got_container">
-		<text>найден контейнер в тайнике</text>
+		<text>РЅР°Р№РґРµРЅ РєРѕРЅС‚РµР№РЅРµСЂ РІ С‚Р°Р№РЅРёРєРµ</text>
 	</string>
 	<string id="st_save_zat_b106_arrived_to_chimera_lair">
-		<text>охота на химеру</text>
+		<text>РѕС…РѕС‚Р° РЅР° С…РёРјРµСЂСѓ</text>
 	</string>
 	<string id="st_save_jup_b16_passed_labyrinth">
-		<text>найден «Оазис»</text>
+		<text>РЅР°Р№РґРµРЅ В«РћР°Р·РёСЃВ»</text>
 	</string>
 	<string id="st_save_pri_b35_ready_to_snipe">
-		<text>начало операции «Один выстрел»</text>
+		<text>РЅР°С‡Р°Р»Рѕ РѕРїРµСЂР°С†РёРё В«РћРґРёРЅ РІС‹СЃС‚СЂРµР»В»</text>
 	</string>
 	<string id="st_save_jup_b1_entered_railroad_tunnel">
-		<text>поиск источника пси-излучения</text>
+		<text>РїРѕРёСЃРє РёСЃС‚РѕС‡РЅРёРєР° РїСЃРё-РёР·Р»СѓС‡РµРЅРёСЏ</text>
 	</string>
 	<string id="st_save_jup_b47_got_admin_docs">
-		<text>административные документы</text>
+		<text>Р°РґРјРёРЅРёСЃС‚СЂР°С‚РёРІРЅС‹Рµ РґРѕРєСѓРјРµРЅС‚С‹</text>
 	</string>
 	<string id="st_save_zat_b103_warned_by_mercs">
-		<text>подход к цехам подстанции</text>
+		<text>РїРѕРґС…РѕРґ Рє С†РµС…Р°Рј РїРѕРґСЃС‚Р°РЅС†РёРё</text>
 	</string>
 	<string id="st_save_zat_b5_met_with_others">
-		<text>сделка возле лесничества</text>
+		<text>СЃРґРµР»РєР° РІРѕР·Р»Рµ Р»РµСЃРЅРёС‡РµСЃС‚РІР°</text>
 	</string>
 	<string id="st_save_jup_b207_arrived_to_duty_depot">
-		<text>склад «Долга»</text>
+		<text>СЃРєР»Р°Рґ В«Р”РѕР»РіР°В»</text>
 	</string>
 	<string id="st_save_zat_b14_got_altered_wheel">
-		<text>найден источник странного свечения</text>
+		<text>РЅР°Р№РґРµРЅ РёСЃС‚РѕС‡РЅРёРє СЃС‚СЂР°РЅРЅРѕРіРѕ СЃРІРµС‡РµРЅРёСЏ</text>
 	</string>
 	<string id="st_save_pri_b301_arrived_to_help_zulu">
-		<text>найден Зулус</text>
+		<text>РЅР°Р№РґРµРЅ Р—СѓР»СѓСЃ</text>
 	</string>
 	<string id="st_save_zat_b42_arrived_to_controler_lair">
-		<text>опасная пещера</text>
+		<text>РѕРїР°СЃРЅР°СЏ РїРµС‰РµСЂР°</text>
 	</string>
 	<string id="ui_st_upgrade">
-		<text>Ремонт/модификация</text>
+		<text>Р РµРјРѕРЅС‚/РјРѕРґРёС„РёРєР°С†РёСЏ</text>
 	</string>
 	<string id="ui_st_buy">
-		<text>Купить</text>
+		<text>РљСѓРїРёС‚СЊ</text>
 	</string>
 	<string id="ui_st_sell">
-		<text>Продать</text>
+		<text>РџСЂРѕРґР°С‚СЊ</text>
 	</string>
 	<string id="ui_st_trade">
-		<text>Торговля</text>
+		<text>РўРѕСЂРіРѕРІР»СЏ</text>
 	</string>
 	<string id="ui_st_exit_hint">
-		<text>Закрыть окно ($$ACTION_USE$$)</text>
+		<text>Р—Р°РєСЂС‹С‚СЊ РѕРєРЅРѕ ($$ACTION_USE$$)</text>
 	</string>
 	<string id="ui_st_trade_hint">
-		<text>Открыть окно торговли ($$ACTION_SPRINT_TOGGLE$$)</text>
+		<text>РћС‚РєСЂС‹С‚СЊ РѕРєРЅРѕ С‚РѕСЂРіРѕРІР»Рё ($$ACTION_SPRINT_TOGGLE$$)</text>
 	</string>
 	<string id="ui_st_upgrade_hint">
-		<text>Открыть окно ремонта и модификации ($$ACTION_SPRINT_TOGGLE$$)</text>
+		<text>РћС‚РєСЂС‹С‚СЊ РѕРєРЅРѕ СЂРµРјРѕРЅС‚Р° Рё РјРѕРґРёС„РёРєР°С†РёРё ($$ACTION_SPRINT_TOGGLE$$)</text>
 	</string>
 	<string id="ui_st_take_all_hint">
-		<text>Переместить все вещи в свой рюкзак ($$ACTION_SPRINT_TOGGLE$$)</text>
+		<text>РџРµСЂРµРјРµСЃС‚РёС‚СЊ РІСЃРµ РІРµС‰Рё РІ СЃРІРѕР№ СЂСЋРєР·Р°Рє ($$ACTION_SPRINT_TOGGLE$$)</text>
 	</string>
 	<string id="ui_st_buy_hint">
-		<text>Купить выбранные вещи</text>
+		<text>РљСѓРїРёС‚СЊ РІС‹Р±СЂР°РЅРЅС‹Рµ РІРµС‰Рё</text>
 	</string>
 	<string id="ui_st_sell_hint">
-		<text>Продать выбранные вещи</text>
+		<text>РџСЂРѕРґР°С‚СЊ РІС‹Р±СЂР°РЅРЅС‹Рµ РІРµС‰Рё</text>
 	</string>
 	<string id="st_save_pri_a28_evacuation_heli">
-		<text>отлёт вертолётов эвакуации</text>
+		<text>РѕС‚Р»С‘С‚ РІРµСЂС‚РѕР»С‘С‚РѕРІ СЌРІР°РєСѓР°С†РёРё</text>
 	</string>
 </string_table>

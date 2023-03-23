@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="actor_inventory_box_use">
 		<text>Open personal box ($$ACTION_USE$$)</text>
 	</string>
 	<string id="cant_walk">
-		<text>You’re too exhausted to move</text>
+		<text>YouвЂ™re too exhausted to move</text>
 	</string>
 	<string id="cant_walk_weight">
-		<text>You’re too overloaded to move</text>
+		<text>YouвЂ™re too overloaded to move</text>
 	</string>
 	<string id="car_character_use">
 		<text>Open door ($$ACTION_USE$$)</text>
@@ -205,10 +204,10 @@
 		<text>A Freedom Guard suit has been placed in the personal box at Yanov for helping Freedom.</text>
 	</string>
 	<string id="st_freeplay_text_ok">
-		<text>You didn’t manage to reach the helicopters and the evacuation team left the Zone without you.</text>
+		<text>You didnвЂ™t manage to reach the helicopters and the evacuation team left the Zone without you.</text>
 	</string>
 	<string id="st_freeplay_text_yes_no">
-		<text>Are you ready to leave the Zone? There’s no way back.</text>
+		<text>Are you ready to leave the Zone? ThereвЂ™s no way back.</text>
 	</string>
 	<string id="st_game_over">
 		<text>Game over.</text>

@@ -1,19 +1,18 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="st_antirad">
 		<text>Leki przeciwpromienne</text>
 	</string>
 	<string id="st_antirad_descr">
-		<text>Oparte na meksaminie leki przeciwpromienne s№ czкsto spotykane w Zonie. Po uїyciu lekarstwo powoduje skurcz obwodowych naczyс krwionoњnych i deprywacjк tlenow№, co pozwala na leczenie i ochronк przed promieniowaniem. Nie ma ono silnych skutkуw ubocznych, ale wiadomo o odosobnionych przypadkach lekkich nudnoњci, zawrotуw gіowy, skurczy i bуlu brzucha.</text>
+		<text>Oparte na meksaminie leki przeciwpromienne sв„– czРєsto spotykane w Zonie. Po uС—yciu lekarstwo powoduje skurcz obwodowych naczyСЃ krwionoСљnych i deprywacjРє tlenowв„–, co pozwala na leczenie i ochronРє przed promieniowaniem. Nie ma ono silnych skutkСѓw ubocznych, ale wiadomo o odosobnionych przypadkach lekkich nudnoСљci, zawrotСѓw gС–owy, skurczy i bСѓlu brzucha.</text>
 	</string>
 	<string id="st_bandage">
-		<text>Bandaї</text>
+		<text>BandaС—</text>
 	</string>
 	<string id="st_bandage_descr">
-		<text>Normalny bandaї elastyczny sіuї№cy do tamowania krwawienia i ochrony przed zakaїeniem ran. W przypadku zwykіego krwawienia, bandaї naleїy naіoїyж bezpoњrednio na ranк. Aby powstrzymaж krwawienie tкtnicze, naleїy szybko obwi№zaж bandaї dookoіa rany.</text>
+		<text>Normalny bandaС— elastyczny sС–uС—в„–cy do tamowania krwawienia i ochrony przed zakaС—eniem ran. W przypadku zwykС–ego krwawienia, bandaС— naleС—y naС–oС—yР¶ bezpoСљrednio na ranРє. Aby powstrzymaР¶ krwawienie tРєtnicze, naleС—y szybko obwiв„–zaР¶ bandaС— dookoС–a rany.</text>
 	</string>
 	<string id="st_binocular_descr">
-		<text>Standardowa wojskowa lornetka o maksymalnym powiкkszeniu wynosz№cym 7,5x. Jej uїytecznoњж w Zonie wynika z faktu, їe pozwala wіaњcicielowi obserwowaж wydarzenia z dystansu.</text>
+		<text>Standardowa wojskowa lornetka o maksymalnym powiРєkszeniu wynoszв„–cym 7,5x. Jej uС—ytecznoСљР¶ w Zonie wynika z faktu, С—e pozwala wС–aСљcicielowi obserwowaР¶ wydarzenia z dystansu.</text>
 	</string>
 	<string id="st_binocular_name">
 		<text>Lornetka</text>
@@ -22,37 +21,37 @@
 		<text>Chleb</text>
 	</string>
 	<string id="st_bread_descr">
-		<text>W Zonie nigdy nie stwierdzono obecnoњci piekarzy, ale ten bochenek chleba nie jest skaїony ani radioaktywny. Wprost przeciwnie, wygl№da na њwieїy i smakowity. Przynajmniej na razie nie pojawiіy siк їadne zaїalenia.</text>
+		<text>W Zonie nigdy nie stwierdzono obecnoСљci piekarzy, ale ten bochenek chleba nie jest skaС—ony ani radioaktywny. Wprost przeciwnie, wyglв„–da na СљwieС—y i smakowity. Przynajmniej na razie nie pojawiС–y siРє С—adne zaС—alenia.</text>
 	</string>
 	<string id="st_conserva">
-		<text>Konserwa „Њniadanie Turysty"</text>
+		<text>Konserwa вЂћРЉniadanie Turysty"</text>
 	</string>
 	<string id="st_conserva_descr">
-		<text>Przypuszczalnie ta konserwa zostaіa zrabowana przez stalkerуw z wojskowego skіadu racji їywnoњciowych. Ciкїko byж pewnym, poniewaї na puszce brakuje etykiety. Niemniej jednak powinna nadal nadawaж siк do zjedzenia, oczywiњcie jeњli wierzyж podanej dacie przydatnoњci do spoїycia.</text>
+		<text>Przypuszczalnie ta konserwa zostaС–a zrabowana przez stalkerСѓw z wojskowego skС–adu racji С—ywnoСљciowych. CiРєС—ko byР¶ pewnym, poniewaС— na puszce brakuje etykiety. Niemniej jednak powinna nadal nadawaР¶ siРє do zjedzenia, oczywiСљcie jeСљli wierzyР¶ podanej dacie przydatnoСљci do spoС—ycia.</text>
 	</string>
 	<string id="st_detector1">
 		<text>Detektor Echo</text>
 	</string>
 	<string id="st_detector1_descr">
-		<text>Ten przestarzaіy detektor anomalii emituje sygnaі ostrzegawczy, kiedy nienormalne cz№steczki dostan№ siк do specjalnej komory podczas zbliїania siк do zjawiska. Moїe on takїe wykrywaж obecnoњж artefaktуw i mierzyж odlegіoњж do najbliїszego z nich. Wskaџnikiem dystansu jest czкstotliwoњж dџwiкku emitowanego przez detektor. Aby przejњж w tryb wykrywania artefaktуw, naleїy otworzyж przedni№ pokrywк urz№dzenia. Ze wzglкdu na prost№ budowк, Echo moїe wykrywaж tylko najbardziej rozpowszechnione rodzaje artefaktуw.</text>
+		<text>Ten przestarzaС–y detektor anomalii emituje sygnaС– ostrzegawczy, kiedy nienormalne czв„–steczki dostanв„– siРє do specjalnej komory podczas zbliС—ania siРє do zjawiska. MoС—e on takС—e wykrywaР¶ obecnoСљР¶ artefaktСѓw i mierzyР¶ odlegС–oСљР¶ do najbliС—szego z nich. WskaСџnikiem dystansu jest czРєstotliwoСљР¶ dСџwiРєku emitowanego przez detektor. Aby przejСљР¶ w tryb wykrywania artefaktСѓw, naleС—y otworzyР¶ przedniв„– pokrywРє urzв„–dzenia. Ze wzglРєdu na prostв„– budowРє, Echo moС—e wykrywaР¶ tylko najbardziej rozpowszechnione rodzaje artefaktСѓw.</text>
 	</string>
 	<string id="st_detector2">
-		<text>Detektor Niedџwiedџ</text>
+		<text>Detektor NiedСџwiedСџ</text>
 	</string>
 	<string id="st_detector3">
 		<text>Detektor Weles</text>
 	</string>
 	<string id="st_detector3_descr">
-		<text>Naukowy detektor nowej generacji. Dziкki trzem zmodernizowanym komorom detekcyjnym, pozycja artefaktуw pokazana jest na specjalnym ekranie. Zamkniкte urz№dzenie rejestruje tylko promieniowanie i anomalie. Aby przeі№czyж je na w tryb poszukiwania anomalii, naleїy otworzyж przedni wyњwietlacz LED. W trybie poszukiwania detektor jest zdolny do zlokalizowania wszystkich artefaktуw znanych nauce.</text>
+		<text>Naukowy detektor nowej generacji. DziРєki trzem zmodernizowanym komorom detekcyjnym, pozycja artefaktСѓw pokazana jest na specjalnym ekranie. ZamkniРєte urzв„–dzenie rejestruje tylko promieniowanie i anomalie. Aby przeС–в„–czyР¶ je na w tryb poszukiwania anomalii, naleС—y otworzyР¶ przedni wyСљwietlacz LED. W trybie poszukiwania detektor jest zdolny do zlokalizowania wszystkich artefaktСѓw znanych nauce.</text>
 	</string>
 	<string id="st_detector4">
-		<text>Prototyp detektora Swarуg</text>
+		<text>Prototyp detektora SwarСѓg</text>
 	</string>
 	<string id="st_detector4_descr">
-		<text>Prototyp detektora anomalii o rozszerzonej funkcjonalnoњci. Urz№dzenie to posiada program, ktуrego celem jest identyfikacja statycznych obszarуw aktywnoњci anomalii, przechowywanych w jego bazie danych, przy zachowaniu moїliwoњci lokalizowania artefaktуw. Pozycja anomalii jest wyњwietlana na specjalnym ekranie. Tryb poszukiwania artefaktуw, ktуry moїna aktywowaж otwieraj№c przedni wyњwietlacz LED, zostaі zmodyfikowany tak, aby mуgі wykrywaж takїe anomalie nieznane nauce.</text>
+		<text>Prototyp detektora anomalii o rozszerzonej funkcjonalnoСљci. Urzв„–dzenie to posiada program, ktСѓrego celem jest identyfikacja statycznych obszarСѓw aktywnoСљci anomalii, przechowywanych w jego bazie danych, przy zachowaniu moС—liwoСљci lokalizowania artefaktСѓw. Pozycja anomalii jest wyСљwietlana na specjalnym ekranie. Tryb poszukiwania artefaktСѓw, ktСѓry moС—na aktywowaР¶ otwierajв„–c przedni wyСљwietlacz LED, zostaС– zmodyfikowany tak, aby mСѓgС– wykrywaР¶ takС—e anomalie nieznane nauce.</text>
 	</string>
 	<string id="st_device_torch_descr">
-		<text>Standardowa latarka zamontowana na heіmie. Jest ona uїyteczna dla stalkerуw, ktуrzy poruszaj№ siк po zmroku, ale niewіaњciwie uїyta moїe przyci№gn№ж niechcian№ uwagк.</text>
+		<text>Standardowa latarka zamontowana na heС–mie. Jest ona uС—yteczna dla stalkerСѓw, ktСѓrzy poruszajв„– siРє po zmroku, ale niewС–aСљciwie uС—yta moС—e przyciв„–gnв„–Р¶ niechcianв„– uwagРє.</text>
 	</string>
 	<string id="st_device_torch_name">
 		<text>Latarka</text>
@@ -64,7 +63,7 @@
 		<text>Antidotum</text>
 	</string>
 	<string id="st_drug_antidot_descr">
-		<text>Antytoksyna IP2 to zіoїone lekarstwo, w skіad ktуrego wchodz№ rуїne rodzaje antidotуw, w tym metoklopramid, tiamina, ryboksyna i inne substancje. Lek wprowadza do krwiobiegu szereg antybiotykуw, ktуrych zadaniem jest neutralizacja naturalnych trucizn, a takїe pochіaniacze trucizn syntetycznych. IP2 nie jest szczegуlnie popularne w Zonie, poniewaї wiкkszoњж stalkerуw woli polegaж na masce przeciwgazowej i kombinezonie ochronnym. S№ jednak tacy, ktуrzy przechowuj№ ukryte opakowanie tego antidotum. Efekty dziaіania tego lekarstwa s№ dіugotrwaіe.</text>
+		<text>Antytoksyna IP2 to zС–oС—one lekarstwo, w skС–ad ktСѓrego wchodzв„– rСѓС—ne rodzaje antidotСѓw, w tym metoklopramid, tiamina, ryboksyna i inne substancje. Lek wprowadza do krwiobiegu szereg antybiotykСѓw, ktСѓrych zadaniem jest neutralizacja naturalnych trucizn, a takС—e pochС–aniacze trucizn syntetycznych. IP2 nie jest szczegСѓlnie popularne w Zonie, poniewaС— wiРєkszoСљР¶ stalkerСѓw woli polegaР¶ na masce przeciwgazowej i kombinezonie ochronnym. Sв„– jednak tacy, ktСѓrzy przechowujв„– ukryte opakowanie tego antidotum. Efekty dziaС–ania tego lekarstwa sв„– dС–ugotrwaС–e.</text>
 	</string>
 	<string id="st_drug_booster">
 		<text>Herkules</text>
@@ -73,22 +72,22 @@
 		<text>Barwinek</text>
 	</string>
 	<string id="st_drug_coagulant_descr">
-		<text>Ukraiсskie Wikasolum - sztuczny odpowiednik witaminy K. Gіуwnym zdaniem tego lekarstwa jest zwiкkszanie tempa krzepniкcia krwi. Jest bardzo poszukiwany przez stalkerуw, ktуrzy chc№, aby wolno goj№ce siк rany zadawane przez mutanty zasklepiaіy siк szybciej. Efekty dziaіania tego lekarstwa s№ dіugotrwaіe.</text>
+		<text>UkraiСЃskie Wikasolum - sztuczny odpowiednik witaminy K. GС–Сѓwnym zdaniem tego lekarstwa jest zwiРєkszanie tempa krzepniРєcia krwi. Jest bardzo poszukiwany przez stalkerСѓw, ktСѓrzy chcв„–, aby wolno gojв„–ce siРє rany zadawane przez mutanty zasklepiaС–y siРє szybciej. Efekty dziaС–ania tego lekarstwa sв„– dС–ugotrwaС–e.</text>
 	</string>
 	<string id="st_drug_psy_blockade">
 		<text>Bloker psioniczny</text>
 	</string>
 	<string id="st_drug_psy_blockade_descr">
-		<text>Lekarstwo, ktуre blokuje lawinowy natіok impulsуw nerwowych. Uїycie go wywoіuje krуtkotrwaі№ utratк wszelkich emocji. Uїywane wyі№cznie w Zonie w celu przeciwdziaіania polom psionicznym obecnym w anomaliach. Efekty dziaіania tego lekarstwa s№ dіugotrwaіe.</text>
+		<text>Lekarstwo, ktСѓre blokuje lawinowy natС–ok impulsСѓw nerwowych. UС—ycie go wywoС–uje krСѓtkotrwaС–в„– utratРє wszelkich emocji. UС—ywane wyС–в„–cznie w Zonie w celu przeciwdziaС–ania polom psionicznym obecnym w anomaliach. Efekty dziaС–ania tego lekarstwa sв„– dС–ugotrwaС–e.</text>
 	</string>
 	<string id="st_drug_radioprotector">
 		<text>Radioprotektor</text>
 	</string>
 	<string id="st_energy_drink">
-		<text>Napуj energetyczny Stalker</text>
+		<text>NapСѓj energetyczny Stalker</text>
 	</string>
 	<string id="st_energy_drink_descr">
-		<text>Czкsto uїywany przez stalkerуw wyruszaj№cych na dіuїsze wyprawy, w trakcie ktуrych nie moїna pozwoliж sobie na odpoczynek. Napуj zawiera іatwostrawne wкglowodany, a takїe substancje powoduj№ce wydzielanie adrenaliny do krwiobiegu.</text>
+		<text>CzРєsto uС—ywany przez stalkerСѓw wyruszajв„–cych na dС–uС—sze wyprawy, w trakcie ktСѓrych nie moС—na pozwoliР¶ sobie na odpoczynek. NapСѓj zawiera С–atwostrawne wРєglowodany, a takС—e substancje powodujв„–ce wydzielanie adrenaliny do krwiobiegu.</text>
 	</string>
 	<string id="st_guitar_descr">
 		<text>Wierna gitara.</text>
@@ -97,10 +96,10 @@
 		<text>Gitara</text>
 	</string>
 	<string id="st_kolbasa">
-		<text>Kieіbasa dietetyczna</text>
+		<text>KieС–basa dietetyczna</text>
 	</string>
 	<string id="st_kolbasa_descr">
-		<text>Na dobre i na zіe, ta kieіbasa - mieszanka kurczaka i sojowego substytutu - czкsto stanowi њniadanie, obiad i kolacjк stalkera w jednym. Moїe byж przechowywana przez dіugi czas ze wzglкdu na wysok№ zawartoњж konserwantуw. </text>
+		<text>Na dobre i na zС–e, ta kieС–basa - mieszanka kurczaka i sojowego substytutu - czРєsto stanowi Сљniadanie, obiad i kolacjРє stalkera w jednym. MoС—e byР¶ przechowywana przez dС–ugi czas ze wzglРєdu na wysokв„– zawartoСљР¶ konserwantСѓw. </text>
 	</string>
 	<string id="st_medkit">
 		<text>Apteczka</text>
@@ -109,48 +108,48 @@
 		<text>Apteczka wojskowa</text>
 	</string>
 	<string id="st_medkit_army_descr">
-		<text>Specjalistyczny zestaw medyczny, zapewniaj№cy pierwsz№ pomoc rannym w walce. Zawiera on њrodki wspomagaj№ce krzepniкcie krwi oparte na menadionie, antybiotyki i immunostymulanty, a takїe narzкdzia sіuї№ce do usuwania pociskуw i odіamkуw z ciaіa. Apteczka ta jest wydawana personelowi wojskowemu jako standardowe wyposaїenie. Niekiedy jest takїe uїywana przez siіy Powinnoњci.</text>
+		<text>Specjalistyczny zestaw medyczny, zapewniajв„–cy pierwszв„– pomoc rannym w walce. Zawiera on Сљrodki wspomagajв„–ce krzepniРєcie krwi oparte na menadionie, antybiotyki i immunostymulanty, a takС—e narzРєdzia sС–uС—в„–ce do usuwania pociskСѓw i odС–amkСѓw z ciaС–a. Apteczka ta jest wydawana personelowi wojskowemu jako standardowe wyposaС—enie. Niekiedy jest takС—e uС—ywana przez siС–y PowinnoСљci.</text>
 	</string>
 	<string id="st_medkit_descr">
-		<text>Jednorazowy zestaw medyczny ogуlnego zastosowania. Sіuїy on do leczenia rozmaitych obraїeс - ran, stіuczeс, zwykіych i chemicznych oparzeс, a takїe rуїnych typуw trucizn. Ceniony przez stalkerуw.</text>
+		<text>Jednorazowy zestaw medyczny ogСѓlnego zastosowania. SС–uС—y on do leczenia rozmaitych obraС—eСЃ - ran, stС–uczeСЃ, zwykС–ych i chemicznych oparzeСЃ, a takС—e rСѓС—nych typСѓw trucizn. Ceniony przez stalkerСѓw.</text>
 	</string>
 	<string id="st_medkit_science">
 		<text>Apteczka naukowa</text>
 	</string>
 	<string id="st_medkit_science_descr">
-		<text>Zestaw medyczny zaprojektowany z myњl№ o uїyciu w Zonie. Zawiera on materiaіy sіuї№ce do leczenia ran, a takїe do ochrony przed zatruciem promieniowaniem i redukcji stopnia napromieniowania organizmu. W odrуїnieniu od innych apteczek, zawiera wikasol, batilol i nafazolinк.</text>
+		<text>Zestaw medyczny zaprojektowany z myСљlв„– o uС—yciu w Zonie. Zawiera on materiaС–y sС–uС—в„–ce do leczenia ran, a takС—e do ochrony przed zatruciem promieniowaniem i redukcji stopnia napromieniowania organizmu. W odrСѓС—nieniu od innych apteczek, zawiera wikasol, batilol i nafazolinРє.</text>
 	</string>
 	<string id="st_pda_descr">
-		<text>Brak danych w pamiкci.</text>
+		<text>Brak danych w pamiРєci.</text>
 	</string>
 	<string id="st_pda_name">
 		<text>PDA</text>
 	</string>
 	<string id="st_vodka">
-		<text>Wуdka „Kozak"</text>
+		<text>WСѓdka вЂћKozak"</text>
 	</string>
 	<string id="st_vodka_descr">
-		<text>Produkt firmy GSC. Wchodzi bez zagryzki i znacznie zmniejsza skutki promieniowania. Naleїy piж j№ z umiarem.</text>
+		<text>Produkt firmy GSC. Wchodzi bez zagryzki i znacznie zmniejsza skutki promieniowania. NaleС—y piР¶ jв„– z umiarem.</text>
 	</string>
 	<string id="st_detector2_descr">
-		<text>Ten detektor anomalii najnowszej generacji posiada takїe panel z kolorowymi diodami, ktуry nie tylko wskazuje poіoїenie artefaktуw, ale takїe dystans dziel№cy od nich uїytkownika. Aby przejњж w tryb poszukiwania artefaktуw, naleїy otworzyж przedni№ pokrywк urz№dzenia. Niestety zaprogramowana lista artefaktуw jest raczej przestarzaіa.</text>
+		<text>Ten detektor anomalii najnowszej generacji posiada takС—e panel z kolorowymi diodami, ktСѓry nie tylko wskazuje poС–oС—enie artefaktСѓw, ale takС—e dystans dzielв„–cy od nich uС—ytkownika. Aby przejСљР¶ w tryb poszukiwania artefaktСѓw, naleС—y otworzyР¶ przedniв„– pokrywРє urzв„–dzenia. Niestety zaprogramowana lista artefaktСѓw jest raczej przestarzaС–a.</text>
 	</string>
 	<string id="st_drug_anabiotic_descr">
-		<text>Eksperymentalny lek stworzony przez prof. Oziorskiego dla zespoіуw badawczych pracuj№cych w Zonie. Jego gіуwnym skіadnikiem jest tetrodotoksyna, zwana potocznie „proszkiem zombi", powoduj№ca caіkowite wstrzymanie dziaіania centralnego ukіadu nerwowego, co umoїliwia przeїycie emisji bez osіony. Lek nie byі testowany klinicznie, dlatego teї jego skutecznoњж i skutki uboczne pozostaj№ nieznane.</text>
+		<text>Eksperymentalny lek stworzony przez prof. Oziorskiego dla zespoС–Сѓw badawczych pracujв„–cych w Zonie. Jego gС–Сѓwnym skС–adnikiem jest tetrodotoksyna, zwana potocznie вЂћproszkiem zombi", powodujв„–ca caС–kowite wstrzymanie dziaС–ania centralnego ukС–adu nerwowego, co umoС—liwia przeС—ycie emisji bez osС–ony. Lek nie byС– testowany klinicznie, dlatego teС— jego skutecznoСљР¶ i skutki uboczne pozostajв„– nieznane.</text>
 	</string>
 	<string id="st_bolt">
-		<text>Њruba</text>
+		<text>РЉruba</text>
 	</string>
 	<string id="st_drug_booster_descr">
-		<text>Gіуwny skіadnik tego њrodka to anaboliczny androgen, sztuczny steryd, ktуrego skіad przypomina testosteron. Jest on czкsto uїywany przez stalkerуw podczas dіuїszych wypraw, aby zmniejszyж zmкczenie miкњni. Znacz№co zwiкksza udџwig. Efekty dziaіania tego lekarstwa s№ dіugotrwaіe.</text>
+		<text>GС–Сѓwny skС–adnik tego Сљrodka to anaboliczny androgen, sztuczny steryd, ktСѓrego skС–ad przypomina testosteron. Jest on czРєsto uС—ywany przez stalkerСѓw podczas dС–uС—szych wypraw, aby zmniejszyР¶ zmРєczenie miРєСљni. Znaczв„–co zwiРєksza udСџwig. Efekty dziaС–ania tego lekarstwa sв„– dС–ugotrwaС–e.</text>
 	</string>
 	<string id="st_drug_radioprotector_descr">
-		<text>Radioprotektor B190, znany teї pod nazw№ indralina, wchodzi w skіad apteczek wydawanych personelowi elektrowni j№drowych. Jest on uїywany w Zonie zamiast silnie toksycznego hydrochlorku cystaminy PC1, ktуrego czкste uїycie moїe spowodowaж њmierж. Osіabia wpіyw promieniowania gamma na їyw№ tkankк. Najlepiej przyj№ж go przed wystawieniem na dziaіanie promieniowania, poniewaї efekty nie s№ natychmiastowe. Efekty dziaіania tego lekarstwa s№ dіugotrwaіe.</text>
+		<text>Radioprotektor B190, znany teС— pod nazwв„– indralina, wchodzi w skС–ad apteczek wydawanych personelowi elektrowni jв„–drowych. Jest on uС—ywany w Zonie zamiast silnie toksycznego hydrochlorku cystaminy PC1, ktСѓrego czРєste uС—ycie moС—e spowodowaР¶ СљmierР¶. OsС–abia wpС–yw promieniowania gamma na С—ywв„– tkankРє. Najlepiej przyjв„–Р¶ go przed wystawieniem na dziaС–anie promieniowania, poniewaС— efekty nie sв„– natychmiastowe. Efekty dziaС–ania tego lekarstwa sв„– dС–ugotrwaС–e.</text>
 	</string>
 	<string id="st_harmonica_name">
 		<text>Harmonijka</text>
 	</string>
 	<string id="st_harmonica_descr">
-		<text>Dla miіoњnikуw bluesa i stylistyki wiкziennej.</text>
+		<text>Dla miС–oСљnikСѓw bluesa i stylistyki wiРєziennej.</text>
 	</string>
 </string_table>

@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="st_zat_b55_name">
 		<text>Anomalia Pazur</text>
 	</string>
 	<string id="st_zat_b100_name">
-		<text>Anomalia Їelazny Las</text>
+		<text>Anomalia Р‡elazny Las</text>
 	</string>
 	<string id="st_zat_b104_name">
 		<text>Tartak</text>
@@ -13,13 +12,13 @@
 		<text>Stacja antenowa Krug</text>
 	</string>
 	<string id="st_zat_b40_name">
-		<text>Zakіad utylizacji odpadуw</text>
+		<text>ZakС–ad utylizacji odpadСѓw</text>
 	</string>
 	<string id="st_zat_b56_name">
 		<text>Anomalia Cyrk</text>
 	</string>
 	<string id="st_zat_b5_name">
-		<text>Leњniczуwka</text>
+		<text>LeСљniczСѓwka</text>
 	</string>
 	<string id="st_zat_a2_name">
 		<text>Skadowsk</text>
@@ -28,7 +27,7 @@
 		<text>Spalone gospodarstwo</text>
 	</string>
 	<string id="st_zat_b53_name">
-		<text>Anomalia Kocioі</text>
+		<text>Anomalia KocioС–</text>
 	</string>
 	<string id="st_zat_b101_name">
 		<text>Bagno</text>
@@ -40,13 +39,13 @@
 		<text>Szewczenko</text>
 	</string>
 	<string id="st_zat_b14_name">
-		<text>Pogікbiarka</text>
+		<text>PogС–Рєbiarka</text>
 	</string>
 	<string id="st_zat_b52_name">
-		<text>Dџwigi portowe</text>
+		<text>DСџwigi portowe</text>
 	</string>
 	<string id="st_zat_b39_name">
-		<text>Anomalia Sosnod№b</text>
+		<text>Anomalia Sosnodв„–b</text>
 	</string>
 	<string id="st_zat_b33_name">
 		<text>Stacja benzynowa</text>
@@ -58,10 +57,10 @@
 		<text>Anomalia Szrama</text>
 	</string>
 	<string id="st_zat_b12_name">
-		<text>Most Przemienienia Paсskiego</text>
+		<text>Most Przemienienia PaСЃskiego</text>
 	</string>
 	<string id="st_zat_b28_name">
-		<text>Pіaskowyї poіudniowy</text>
+		<text>PС–askowyС— poС–udniowy</text>
 	</string>
 	<string id="st_zat_b103_name">
 		<text>Magazyny podstacji</text>
@@ -70,7 +69,7 @@
 		<text>Anomalia Popielisko</text>
 	</string>
 	<string id="st_jup_b46_name">
-		<text>Wieїa chіodnicza</text>
+		<text>WieС—a chС–odnicza</text>
 	</string>
 	<string id="st_jup_b202_name">
 		<text>Podstacja</text>
@@ -85,16 +84,16 @@
 		<text>Kopaczi</text>
 	</string>
 	<string id="st_jup_a6_name">
-		<text>Janуw</text>
+		<text>JanСѓw</text>
 	</string>
 	<string id="st_jup_b25_name">
-		<text>Kamienioіomy</text>
+		<text>KamienioС–omy</text>
 	</string>
 	<string id="st_jup_b6_name">
-		<text>Bunkier naukowcуw</text>
+		<text>Bunkier naukowcСѓw</text>
 	</string>
 	<string id="st_jup_b205_name">
-		<text>Kompleks przeciwlotniczy Woіkow</text>
+		<text>Kompleks przeciwlotniczy WoС–kow</text>
 	</string>
 	<string id="st_jup_b206_name">
 		<text>Zagajnik anomalii</text>
@@ -112,13 +111,13 @@
 		<text>Wschodni tunel</text>
 	</string>
 	<string id="st_jup_a12_name">
-		<text>Magazyn kontenerуw</text>
+		<text>Magazyn kontenerСѓw</text>
 	</string>
 	<string id="st_jup_b212_name">
 		<text>Kompleks wentylacyjny</text>
 	</string>
 	<string id="st_jup_b9_name">
-		<text>L№dowiska dla helikopterуw</text>
+		<text>Lв„–dowiska dla helikopterСѓw</text>
 	</string>
 	<string id="st_jup_b201_name">
 		<text>Anomalia Betonowa Wanna</text>
@@ -133,19 +132,19 @@
 		<text>Port rzeczny</text>
 	</string>
 	<string id="st_pri_b303_name">
-		<text>Stara stacja obsіugi</text>
+		<text>Stara stacja obsС–ugi</text>
 	</string>
 	<string id="st_pri_b301_name">
-		<text>Szkoіa</text>
+		<text>SzkoС–a</text>
 	</string>
 	<string id="st_pri_a17_name">
 		<text>Szpital</text>
 	</string>
 	<string id="st_pri_b306_name">
-		<text>Centrum usіugowe Jubilejny</text>
+		<text>Centrum usС–ugowe Jubilejny</text>
 	</string>
 	<string id="st_pri_a16_name">
-		<text>Pralnia samoobsіugowa</text>
+		<text>Pralnia samoobsС–ugowa</text>
 	</string>
 	<string id="st_pri_a25_name">
 		<text>Przedszkole</text>
@@ -160,12 +159,12 @@
 		<text>Dom towarowy</text>
 	</string>
 	<string id="st_pri_a18_name">
-		<text>Ksiкgarnia</text>
+		<text>KsiРєgarnia</text>
 	</string>
 	<string id="st_pri_b307_name">
 		<text>Anomalia Wulkan</text>
 	</string>
 	<string id="st_pri_b302_name">
-		<text>Anomalia Winoroњl</text>
+		<text>Anomalia WinoroСљl</text>
 	</string>
 </string_table>

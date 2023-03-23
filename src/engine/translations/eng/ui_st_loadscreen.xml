@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="ls_header">
 		<text>100 ZONE SURVIVAL TIPS</text>
@@ -64,7 +63,7 @@
 		<text>You need a detector to search for artifacts. The best detectors make searching easier and may even detect more valuable artifacts.</text>
 	</string>
 	<string id="ls_tip_14">
-		<text>Stalkers don’t let people with their weapons out into their camps. To hide your weapon press the appropriate key ("$$ACTION_WPN_1$$", "$$ACTION_WPN_2$$",  "$$ACTION_WPN_3$$", "$$ACTION_WPN_4$$").</text>
+		<text>Stalkers donвЂ™t let people with their weapons out into their camps. To hide your weapon press the appropriate key ("$$ACTION_WPN_1$$", "$$ACTION_WPN_2$$",  "$$ACTION_WPN_3$$", "$$ACTION_WPN_4$$").</text>
 	</string>
 	<string id="ls_tip_15">
 		<text>You can locate the edges of an anomaly by throwing bolts. To get your bolt out, press "$$ACTION_WPN_6$$".</text>
@@ -82,10 +81,10 @@
 		<text>You can monitor your concealment status using the noise and enemy detection indicators located in the top left-hand corner of the screen.</text>
 	</string>
 	<string id="ls_tip_22">
-		<text>Having a detector in one hand doesn’t stop you from using a knife, pistol or bolt with your other hand.</text>
+		<text>Having a detector in one hand doesnвЂ™t stop you from using a knife, pistol or bolt with your other hand.</text>
 	</string>
 	<string id="ls_tip_23">
-		<text>Some medical products increase the body’s resistance to harmful effects. Using such products can save your life during missions into anomalous areas.</text>
+		<text>Some medical products increase the bodyвЂ™s resistance to harmful effects. Using such products can save your life during missions into anomalous areas.</text>
 	</string>
 	<string id="ls_tip_27">
 		<text>You can bring up the context menu for items in your backpack by placing your mouse over the required item and pressing the right mouse button.</text>
@@ -115,7 +114,7 @@
 		<text>Most stalkers can take you to nearby locations, but only an experienced guide can lead you safely and quickly to distant areas.  Despite this, they will all charge you an arm and a leg for the service.</text>
 	</string>
 	<string id="ls_tip_35">
-		<text>Selling artifacts isn’t the only way to make some cash: offloading unneeded equipment can be a profitable business, too. Keep in mind that traders aren’t usually interested in items that are seriously damaged.</text>
+		<text>Selling artifacts isnвЂ™t the only way to make some cash: offloading unneeded equipment can be a profitable business, too. Keep in mind that traders arenвЂ™t usually interested in items that are seriously damaged.</text>
 	</string>
 	<string id="ls_tip_38">
 		<text>To detach a silencer, scope or underbarrel grenade launcher from your weapon, right-click on the weapon in your backpack and select the appropriate action from the context menu.</text>
@@ -148,10 +147,10 @@
 		<text>Key indicators that show your health and endurance are located in the bottom right-hand corner of the screen.</text>
 	</string>
 	<string id="ls_tip_53">
-		<text>The Zone has a life of its own, which means that there’s always a chance of bumping into mutants or enemy stalkers in areas that you have already cleared. </text>
+		<text>The Zone has a life of its own, which means that thereвЂ™s always a chance of bumping into mutants or enemy stalkers in areas that you have already cleared. </text>
 	</string>
 	<string id="ls_tip_54">
-		<text>Stay alert in the Zone and don’t rely on old information. When you return to an anomalous area you’ve already explored, you may find that the old tested path is no longer available.</text>
+		<text>Stay alert in the Zone and donвЂ™t rely on old information. When you return to an anomalous area youвЂ™ve already explored, you may find that the old tested path is no longer available.</text>
 	</string>
 	<string id="ls_tip_58">
 		<text>Talking to regular stalkers may yield useful information about new areas or recent events.</text>
@@ -175,7 +174,7 @@
 		<text>The night vision device in your helmet can be upgraded to the next-generation version. This will expand its coverage range considerably.</text>
 	</string>
 	<string id="ls_tip_67">
-		<text>When out in the Zone, keep a couple of spare magazines on you - they’re bound to come in handy.</text>
+		<text>When out in the Zone, keep a couple of spare magazines on you - theyвЂ™re bound to come in handy.</text>
 	</string>
 	<string id="ls_tip_68">
 		<text>Remember to save your game regularly - this will prevent you from playing the same parts over and over.</text>
@@ -184,7 +183,7 @@
 		<text>To use drugs appropriately it helps to know what they do. Consult drug descriptions to find out the effects of certain drugs.</text>
 	</string>
 	<string id="ls_tip_70">
-		<text>Use grenades to attack enemies in cover. Keep in mind the grenade’s blast radius to avoid hurting friendly fighters.</text>
+		<text>Use grenades to attack enemies in cover. Keep in mind the grenadeвЂ™s blast radius to avoid hurting friendly fighters.</text>
 	</string>
 	<string id="ls_tip_71">
 		<text>To discard an item from your backpack right-click the item and select the appropriate action from the context menu.</text>
@@ -202,13 +201,13 @@
 		<text>In addition to weapons and ammo, enemy bodies may contain valuable items like PDAs with information on them.</text>
 	</string>
 	<string id="ls_tip_78">
-		<text>Artifacts aren’t just valuable loot: in addition to being light and expensive, they can often have extremely useful effects.</text>
+		<text>Artifacts arenвЂ™t just valuable loot: in addition to being light and expensive, they can often have extremely useful effects.</text>
 	</string>
 	<string id="ls_tip_79">
-		<text>Due to the Zone’s environment, many mutants are radioactive. Approaching them without adequate radiation protection is extremely dangerous.</text>
+		<text>Due to the ZoneвЂ™s environment, many mutants are radioactive. Approaching them without adequate radiation protection is extremely dangerous.</text>
 	</string>
 	<string id="ls_tip_8">
-		<text>You can use a bandage, a military medkit or Vinca drugs to stop bleeding. If you don’t deal with it quickly, bleeding can seriously damage your health.</text>
+		<text>You can use a bandage, a military medkit or Vinca drugs to stop bleeding. If you donвЂ™t deal with it quickly, bleeding can seriously damage your health.</text>
 	</string>
 	<string id="ls_tip_80">
 		<text>Some weapons allow you to install an adjustable long-range scope.  To adjust range, press "$$ACTION_NEXT_SLOT$$" or "$$ACTION_PREV_SLOT$$".</text>
@@ -235,7 +234,7 @@
 		<text>Press "$$ACTION_QUICK_USE_1$$", "$$ACTION_QUICK_USE_2$$", "$$ACTION_QUICK_USE_3$$", "$$ACTION_QUICK_USE_4$$" to use the appropriate item in your quick access panel.</text>
 	</string>
 	<string id="ls_tip_9">
-		<text>Drugs don’t take effect immediately and some last for quite a long time.</text>
+		<text>Drugs donвЂ™t take effect immediately and some last for quite a long time.</text>
 	</string>
 	<string id="ls_tip_90">
 		<text>Your PDA has a map, information about current missions, your personal statistics and a message log. To open your PDA, press "$$ACTION_ACTIVE_JOBS$$".</text>
@@ -289,7 +288,7 @@
 		<text>Some stalkers may offer you services, such as information, exclusive goods, or give you orders for specific artifacts.</text>
 	</string>
 	<string id="ls_tip_59">
-		<text>New artifacts may appear in anomalous areas that you’ve already explored after an emission.</text>
+		<text>New artifacts may appear in anomalous areas that youвЂ™ve already explored after an emission.</text>
 	</string>
 	<string id="ls_tip_74">
 		<text>You can change the game difficulty in the game options menu at any time.</text>
@@ -298,10 +297,10 @@
 		<text>Technicians in stalker camps can upgrade your weapons, suits and helmets.</text>
 	</string>
 	<string id="ls_tip_66">
-		<text>If you want to survive, always keep track of the crackling noise made by the Geiger counter, which warns you of radiation, and the anomaly danger signal that lets you know you’re close to an anomaly.</text>
+		<text>If you want to survive, always keep track of the crackling noise made by the Geiger counter, which warns you of radiation, and the anomaly danger signal that lets you know youвЂ™re close to an anomaly.</text>
 	</string>
 	<string id="ls_tip_26">
-		<text>Your relations with people directly affect the price of goods and services you may wish to purchase. If your relationship is sour, don’t expect a discount. If you’re getting along well, the trader might even be inclined to offer you something special.</text>
+		<text>Your relations with people directly affect the price of goods and services you may wish to purchase. If your relationship is sour, donвЂ™t expect a discount. If youвЂ™re getting along well, the trader might even be inclined to offer you something special.</text>
 	</string>
 	<string id="ls_tip_11">
 		<text>You can unload the weapons you find to get more ammo. To do this, right-click on the weapon in your backpack and select the appropriate action from the context menu.</text>
@@ -373,7 +372,7 @@
 		<text>You should cover the artifact-carrying member of your team at all costs.</text>
 	</string>
 	<string id="ls_mp_tip_38">
-		<text>Use grenades to attack enemies in cover. Keep in mind the grenade’s blast radius to avoid hurting friendly fighters.</text>
+		<text>Use grenades to attack enemies in cover. Keep in mind the grenadeвЂ™s blast radius to avoid hurting friendly fighters.</text>
 	</string>
 	<string id="ls_mp_tip_39">
 		<text>You can communicate with your team using voice messages. To access the voice message menu, press "$$ACTION_SPEECH_MENU_0$$" or "$$ACTION_SPEECH_MENU_1$$".</text>
@@ -454,10 +453,10 @@
 		<text>Some suits have integrated helmets. It is not possible to use other helmets with such suits.</text>
 	</string>
 	<string id="ls_tip_76">
-		<text>Each weapon has unique accuracy, handling, damage and rate of fire characteristics, allowing you to pick one that’s right for you from a large selection.</text>
+		<text>Each weapon has unique accuracy, handling, damage and rate of fire characteristics, allowing you to pick one thatвЂ™s right for you from a large selection.</text>
 	</string>
 	<string id="ls_tip_51">
-		<text>Firing accuracy suffers considerably when you’re on the move. Stand still or crouch to improve it.</text>
+		<text>Firing accuracy suffers considerably when youвЂ™re on the move. Stand still or crouch to improve it.</text>
 	</string>
 	<string id="ls_mp_tip_10">
 		<text>This energy drink temporarily speeds up energy recovery, allowing you to sprint for longer.</text>

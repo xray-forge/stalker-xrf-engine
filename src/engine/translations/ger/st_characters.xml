@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="jup_a10_bandit_leader_name">
 		<text>Jack</text>
@@ -256,7 +255,7 @@
 		<text>Pianist</text>
 	</string>
 	<string id="zat_b103_lost_merc_4_name">
-		<text>Mдher</text>
+		<text>MРґher</text>
 	</string>
 	<string id="zat_b103_lost_merc_5_name">
 		<text>Kirzach</text>

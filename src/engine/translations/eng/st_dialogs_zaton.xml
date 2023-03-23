@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="zat_a2_linker_b14_quest_done_0">
 		<text>There was a strange artifact at the dredge station. Here.</text>
@@ -16,7 +15,7 @@
 		<text>I will.</text>
 	</string>
 	<string id="zat_a2_linker_b14_quest_init_111">
-		<text>Make sure to watch yourself there. I'm warning you, that place is full of radiation. Don't forget your meds — you'll thank me later.</text>
+		<text>Make sure to watch yourself there. I'm warning you, that place is full of radiation. Don't forget your meds вЂ” you'll thank me later.</text>
 	</string>
 	<string id="zat_a2_linker_b14_quest_init_12">
 		<text>Not right now.</text>
@@ -436,7 +435,7 @@
 		<text>Tell me about blind dogs and pseudodogs.</text>
 	</string>
 	<string id="zat_b106_stalker_gonta_about_mutants_11121">
-		<text>Lone canines aren't that dangerous, but packs of them are a real pain in the ass. They only attack if they're hungry... the bad thing is, they're almost always hungry. If you're up against a whole pack, try to pick them off from a high spot, else they'll just run you over. Especially if there are mature pseudodogs among 'em. They ain't much tougher than blind ones, but much more cunning and dangerous... If one suddenly turns into a whole pack, then remember: you’re being attacked by phantoms. The real pseudodog will hang back and only try to bite you now and again... Try to identify it. As soon as the real dog is dead, the phantoms will simply disappear.</text>
+		<text>Lone canines aren't that dangerous, but packs of them are a real pain in the ass. They only attack if they're hungry... the bad thing is, they're almost always hungry. If you're up against a whole pack, try to pick them off from a high spot, else they'll just run you over. Especially if there are mature pseudodogs among 'em. They ain't much tougher than blind ones, but much more cunning and dangerous... If one suddenly turns into a whole pack, then remember: youвЂ™re being attacked by phantoms. The real pseudodog will hang back and only try to bite you now and again... Try to identify it. As soon as the real dog is dead, the phantoms will simply disappear.</text>
 	</string>
 	<string id="zat_b106_stalker_gonta_about_mutants_1113">
 		<text>Tell me about snorks.</text>
@@ -709,7 +708,7 @@
 		<text>Do you know anything about the crashed helicopters?</text>
 	</string>
 	<string id="zat_b18_noah_plateau_way_1">
-		<text>I know something about one of them... I know that it’s on the plateau and the area around it is crawling with snorks. I go shooting at them every couple days... Why are you looking at me like that? Their whole lair can't be taken out in one go.</text>
+		<text>I know something about one of them... I know that itвЂ™s on the plateau and the area around it is crawling with snorks. I go shooting at them every couple days... Why are you looking at me like that? Their whole lair can't be taken out in one go.</text>
 	</string>
 	<string id="zat_b18_noah_plateau_way_11">
 		<text>How do I get to the plateau?</text>
@@ -1000,7 +999,7 @@
 		<text>I'll help you deal with the bandits.</text>
 	</string>
 	<string id="zat_b22_barmen_b5_daring_quest_stalkers_1">
-		<text>Great. Go to the ranger station - that’s where our boys are. They'll give you all the details.</text>
+		<text>Great. Go to the ranger station - thatвЂ™s where our boys are. They'll give you all the details.</text>
 	</string>
 	<string id="zat_b22_stalker_medic_b52_about_nimble_0">
 		<text>What do you know about Nimble? Could he be dealing in stolen arms?</text>
@@ -2890,10 +2889,10 @@
 		<text>Hello.</text>
 	</string>
 	<string id="zat_b106_stalker_gonta_info_about_soroka_gone_0">
-		<text>I found Magpie. He was at Yanov station, posing as 'Flint.' He’s been dealt with.</text>
+		<text>I found Magpie. He was at Yanov station, posing as 'Flint.' HeвЂ™s been dealt with.</text>
 	</string>
 	<string id="zat_b106_stalker_gonta_info_about_soroka_gone_1">
-		<text>Dealt with? That’s a pity. I sure would have loved to hurt that cockroach myself... Oh well, it's good news either way. Here, take this - I’m a man of my word.</text>
+		<text>Dealt with? ThatвЂ™s a pity. I sure would have loved to hurt that cockroach myself... Oh well, it's good news either way. Here, take this - IвЂ™m a man of my word.</text>
 	</string>
 	<string id="zat_b106_stalker_gonta_info_about_soroka_gone_11">
 		<text>Thanks.</text>
@@ -2902,13 +2901,13 @@
 		<text>I want to leave the Zone.</text>
 	</string>
 	<string id="zat_b215_stalker_guide_leave_zone_1">
-		<text>You sure? There ain’t no way back.</text>
+		<text>You sure? There ainвЂ™t no way back.</text>
 	</string>
 	<string id="zat_b215_stalker_guide_leave_zone_11">
-		<text>I’m sure. Let’s go.</text>
+		<text>IвЂ™m sure. LetвЂ™s go.</text>
 	</string>
 	<string id="zat_b215_stalker_guide_leave_zone_12">
-		<text>Actually... I’ll stay for now.</text>
+		<text>Actually... IвЂ™ll stay for now.</text>
 	</string>
 	<string id="zat_b7_stalkers_raiders_dialog_191">
 		<text>OK, take the money. I don't want to fight.</text>
@@ -2923,7 +2922,7 @@
 		<text>No can do!</text>
 	</string>
 	<string id="zat_b22_stalker_medic_need_health_care_2">
-		<text>Let's have a look... With your health? Well, if you’re doing badly, I must be dead or something...</text>
+		<text>Let's have a look... With your health? Well, if youвЂ™re doing badly, I must be dead or something...</text>
 	</string>
 	<string id="zat_b30_owl_stalker_trader_start_dialog_13">
 		<text>Listen, there's some urgent business. A trader I know wants to swing a deal. Only problem is, his customers are the bothersome type, so he's hiring a security guard just in case. You interested?</text>
@@ -2950,7 +2949,7 @@
 		<text>Yeah, sure.</text>
 	</string>
 	<string id="zat_b7_bandit_boss_sultan_b7_give_task_dialog_111">
-		<text>All right, then listen up. We got a mind to shake down a few of Beard's stalkers. It's a real cinch. Late at night, you and our guys come up to Shevchenko, and before these tourists figure out what's going down, you take ‘em for a ride. We get the dough, you get the props... Catch my drift? Alrighty then. See Knuckles standing over there? He'll give you all the details.</text>
+		<text>All right, then listen up. We got a mind to shake down a few of Beard's stalkers. It's a real cinch. Late at night, you and our guys come up to Shevchenko, and before these tourists figure out what's going down, you take вЂem for a ride. We get the dough, you get the props... Catch my drift? Alrighty then. See Knuckles standing over there? He'll give you all the details.</text>
 	</string>
 	<string id="zat_b7_bandit_boss_sultan_b7_give_task_dialog_12">
 		<text>Not really.</text>
@@ -2983,25 +2982,25 @@
 		<text>Need goods? Information?.. Or maybe you want to sell information?</text>
 	</string>
 	<string id="zat_b7_stalkers_raiders_actor_choose_dialog_0">
-		<text>Sultan says you’re planning to fleece the stalkers. Count me in.</text>
+		<text>Sultan says youвЂ™re planning to fleece the stalkers. Count me in.</text>
 	</string>
 	<string id="zat_b7_stalkers_raiders_actor_choose_dialog_2">
-		<text>Great. Get your ass over to Shevchenko after midnight - we'll be waiting for you. Just don’t wait till morning to show up.</text>
+		<text>Great. Get your ass over to Shevchenko after midnight - we'll be waiting for you. Just donвЂ™t wait till morning to show up.</text>
 	</string>
 	<string id="zat_b7_stalkers_raiders_dialog_13">
 		<text>Oh, it's you, bro. So, what did you and Sultan agree on?</text>
 	</string>
 	<string id="zat_b7_stalkers_raiders_dialog_14">
-		<text>So... Get over to the barge after midnight but before the sun comes up - we’ll be waiting for you.</text>
+		<text>So... Get over to the barge after midnight but before the sun comes up - weвЂ™ll be waiting for you.</text>
 	</string>
 	<string id="zat_b7_stalkers_raiders_actor_teleport_dialog_0">
-		<text>I think I better stay with you. We’ll wait for midnight and then you can show me the way to Shevchenko.</text>
+		<text>I think I better stay with you. WeвЂ™ll wait for midnight and then you can show me the way to Shevchenko.</text>
 	</string>
 	<string id="zat_b7_stalkers_raiders_actor_teleport_dialog_1">
-		<text>No problem, stick around. Taking you to the barge ain’t a problem.</text>
+		<text>No problem, stick around. Taking you to the barge ainвЂ™t a problem.</text>
 	</string>
 	<string id="zat_b7_stalkers_raiders_actor_teleport_dialog_12">
-		<text>Actually... I’m gonna go take care of some things.</text>
+		<text>Actually... IвЂ™m gonna go take care of some things.</text>
 	</string>
 	<string id="zat_a2_linker_b29_actor_info_1">
 		<text>I have major customers outside the Zone who regularly order specific artifacts, which must be delivered within a specific period of time. You bring me what I ask and I pay you good money for it. Keep in mind that these orders are very important for me, which is why I try to commission several agents at a time... You get the full fee only if you deliver first.</text>
@@ -3010,7 +3009,7 @@
 		<text>Via the burnt farmstead. Hrm... Who are you, anyway?</text>
 	</string>
 	<string id="zat_b30_owl_stalker_trader_buy_info_15311">
-		<text>They also call that place the Iron Forest. The chopper crashed slap bang into the power pylons. None of the jarheads survived... Even if they did, they'd never make it out alive. Those poltergeists just love chasing people into electric anomalies... Those scumbags respond to the tiniest movement, as I’m sure you know.</text>
+		<text>They also call that place the Iron Forest. The chopper crashed slap bang into the power pylons. None of the jarheads survived... Even if they did, they'd never make it out alive. Those poltergeists just love chasing people into electric anomalies... Those scumbags respond to the tiniest movement, as IвЂ™m sure you know.</text>
 	</string>
 	<string id="zat_b30_owl_stalker_trader_buy_info_15411">
 		<text>Listen... After the chopper came down, five army guys were spotted there. Apparently they even managed to climb out of that swamp successfully... Reaching that place is no big deal, just stay away from water and keep to steady ground. And you'll need chemical protection, too. So, if you're planning on heading out there, buy some antidotes from the medic.</text>
@@ -3022,7 +3021,7 @@
 		<text>Tell me about Joker and Barge.</text>
 	</string>
 	<string id="zat_b30_owl_stalker_trader_choose_task_111213">
-		<text>I’ve already got something from there.</text>
+		<text>IвЂ™ve already got something from there.</text>
 	</string>
 	<string id="zat_b30_owl_stalker_trader_choose_task_1112131">
 		<text>Start talking... Did you get something for me?</text>
@@ -3031,16 +3030,16 @@
 		<text>Well, that explains it. I know him. He's always been a crook, but lately he's gotten really out of hand, scamming stalkers like that... He needs to be put in his place.</text>
 	</string>
 	<string id="zat_b30_owl_stalker_trader_choose_task_116">
-		<text>I need information from the mercenary camp. It’s not as hard as it sounds.</text>
+		<text>I need information from the mercenary camp. ItвЂ™s not as hard as it sounds.</text>
 	</string>
 	<string id="zat_a2_linker_b29_actor_get_adv_task_111">
-		<text>OK, I’ll be waiting... Keep in mind that the job is urgent - it has to be done within two days.</text>
+		<text>OK, IвЂ™ll be waiting... Keep in mind that the job is urgent - it has to be done within two days.</text>
 	</string>
 	<string id="zat_b30_owl_stalker_trader_sell_items_28">
-		<text>Sultan’s messenger’s PDA.</text>
+		<text>SultanвЂ™s messengerвЂ™s PDA.</text>
 	</string>
 	<string id="zat_b30_owl_stalker_trader_sell_items_281">
-		<text>It’s not that interesting. I'll give you 500 for it.</text>
+		<text>ItвЂ™s not that interesting. I'll give you 500 for it.</text>
 	</string>
 	<string id="zat_b30_owl_stalker_trader_sell_items_2811">
 		<text>OK.</text>
@@ -3061,7 +3060,7 @@
 		<text>Heart of the Oasis artifact.</text>
 	</string>
 	<string id="zat_b7_stalkers_raiders_dialog_151">
-		<text>Let’s rock.</text>
+		<text>LetвЂ™s rock.</text>
 	</string>
 	<string id="zat_b7_stalkers_raiders_dialog_152">
 		<text>Wait.</text>
@@ -3070,7 +3069,7 @@
 		<text>A group of stalkers is planning to stick you up. Stay alert.</text>
 	</string>
 	<string id="zat_b7_stalkers_victims_actor_start_dialog_1">
-		<text>Rat bastards... All right, we'll give them a warm welcome... Listen, try to make them think you’re on their side. Do that and you can help us fight them off... We'll make it worth your while...</text>
+		<text>Rat bastards... All right, we'll give them a warm welcome... Listen, try to make them think youвЂ™re on their side. Do that and you can help us fight them off... We'll make it worth your while...</text>
 	</string>
 	<string id="zat_b52_robbery_port_bandits_1_1111">
 		<text>I don't give a shit what you agreed to. Hand it over!</text>
@@ -3088,10 +3087,10 @@
 		<text>Rat bastards... All right, we'll give them a warm welcome... Listen, help us fight them off if you can. We'll make it worth your while...</text>
 	</string>
 	<string id="zat_b7_stalkers_raiders_dialog_21">
-		<text>Popped 'em good, eh! You didn’t get involved, so you ain’t getting a cut. I'll holler atcha if we get any more 'business.'</text>
+		<text>Popped 'em good, eh! You didnвЂ™t get involved, so you ainвЂ™t getting a cut. I'll holler atcha if we get any more 'business.'</text>
 	</string>
 	<string id="zat_b5_stalker_commander_dialog_31">
-		<text>You’re no use... Don’t expect a reward. Well, at least you came to have a chat, That’s something.</text>
+		<text>YouвЂ™re no use... DonвЂ™t expect a reward. Well, at least you came to have a chat, ThatвЂ™s something.</text>
 	</string>
 	<string id="zat_b5_stalker_commander_dialog_311">
 		<text>See ya.</text>
@@ -3100,7 +3099,7 @@
 		<text>Attaboy. Now we put the screws on our little client. I heard Beard gave his stalkers some very powerful detectors designed for finding rare artifacts. So you need to join up with those stalkers and make it so those detectors don't slip past your pocket. Catch my drift?</text>
 	</string>
 	<string id="zat_b7_bandit_boss_sultan_b30_start_actor_dialog_2">
-		<text>No chance of outmuscling him. I tried to squeeze up his supply routes but that bearded scumbag managed to get a Compass anyway. Looks like he’s doing just fine... for now.</text>
+		<text>No chance of outmuscling him. I tried to squeeze up his supply routes but that bearded scumbag managed to get a Compass anyway. Looks like heвЂ™s doing just fine... for now.</text>
 	</string>
 	<string id="zat_b22_stalker_medic_dialog_start_1111211">
 		<text>[continue...]</text>
@@ -3112,6 +3111,6 @@
 		<text>[continue...]</text>
 	</string>
 	<string id="zat_b22_barmen_about_vampire_actor3_0">
-		<text>Grouse is dead. It looks like Tremor killed him... but he’s dead too.</text>
+		<text>Grouse is dead. It looks like Tremor killed him... but heвЂ™s dead too.</text>
 	</string>
 </string_table>

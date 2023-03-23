@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="af_neutral">
 		<text>Artefakt</text>
@@ -16,7 +15,7 @@
 		<text>Modi</text>
 	</string>
 	<string id="mp_art_destroyed">
-		<text>Das Artefakt wurde zerstцrt.</text>
+		<text>Das Artefakt wurde zerstС†rt.</text>
 	</string>
 	<string id="mp_art_spowned">
 		<text>Das Artefakt ist aufgetaucht. Bringen Sie es in die Basis, um zu punkten.</text>
@@ -40,7 +39,7 @@
 		<text>Autom. Auswahl</text>
 	</string>
 	<string id="mp_back">
-		<text>Zurьck</text>
+		<text>ZurСЊck</text>
 	</string>
 	<string id="mp_ban">
 		<text>4. Sperren</text>
@@ -58,10 +57,10 @@
 		<text>5. Karte wechseln</text>
 	</string>
 	<string id="mp_change_weather">
-		<text>6. Wetter дndern</text>
+		<text>6. Wetter Рґndern</text>
 	</string>
 	<string id="mp_change_weather_header">
-		<text>Wetter дndern in</text>
+		<text>Wetter Рґndern in</text>
 	</string>
 	<string id="mp_chat">
 		<text>Chat</text>
@@ -79,7 +78,7 @@
 		<text>Nicht verbunden</text>
 	</string>
 	<string id="mp_enter_text">
-		<text>Text fьr Abstimmung eingeben</text>
+		<text>Text fСЊr Abstimmung eingeben</text>
 	</string>
 	<string id="mp_entered_game">
 		<text>ist dem Spiel beigetreten</text>
@@ -124,7 +123,7 @@
 		<text>hat das Artefakt % genommen</text>
 	</string>
 	<string id="mp_headhuntrs">
-		<text>Sцldner</text>
+		<text>SС†ldner</text>
 	</string>
 	<string id="mp_is_now">
 		<text>ist jetzt</text>
@@ -178,28 +177,28 @@
 		<text>Spieler</text>
 	</string>
 	<string id="mp_press_fire2spectator">
-		<text>Zum Wechseln in den Zuschauermodus "Feuern" drьcken</text>
+		<text>Zum Wechseln in den Zuschauermodus "Feuern" drСЊcken</text>
 	</string>
 	<string id="mp_press_jump2pay_spaw">
-		<text>Zum Kaufen eines sofortigen Respawns "Springen" drьcken</text>
+		<text>Zum Kaufen eines sofortigen Respawns "Springen" drСЊcken</text>
 	</string>
 	<string id="mp_press_jump2select_skin">
-		<text>Zum Auswдhlen eines Skins "Springen" drьcken</text>
+		<text>Zum AuswРґhlen eines Skins "Springen" drСЊcken</text>
 	</string>
 	<string id="mp_press_jump2select_team">
-		<text>Zum Auswдhlen der Teams "Springen" drьcken</text>
+		<text>Zum AuswРґhlen der Teams "Springen" drСЊcken</text>
 	</string>
 	<string id="mp_press_jump2spawn">
-		<text>Zum Spawnen "Springen" drьcken</text>
+		<text>Zum Spawnen "Springen" drСЊcken</text>
 	</string>
 	<string id="mp_press_jump2start">
-		<text>Zum Starten "Springen" drьcken</text>
+		<text>Zum Starten "Springen" drСЊcken</text>
 	</string>
 	<string id="mp_press_to_buy">
-		<text>Zum Цffnen des Kaufmenьs ($$ACTION_BUY_MENU$$) drьcken</text>
+		<text>Zum Р¦ffnen des KaufmenСЊs ($$ACTION_BUY_MENU$$) drСЊcken</text>
 	</string>
 	<string id="mp_press_yes2pay">
-		<text>Sie haben %d$. Fьr %d$ kцnnen Sie respawnen. Klicken Sie auf "Ja", um zu spielen.</text>
+		<text>Sie haben %d$. FСЊr %d$ kС†nnen Sie respawnen. Klicken Sie auf "Ja", um zu spielen.</text>
 	</string>
 	<string id="mp_ready">
 		<text>Bereit...</text>
@@ -214,28 +213,28 @@
 		<text>2. Schneller Neustart</text>
 	</string>
 	<string id="mp_returned_artefact">
-		<text>hat das Artefakt zurьckgebracht</text>
+		<text>hat das Artefakt zurСЊckgebracht</text>
 	</string>
 	<string id="mp_scores">
 		<text>hat einen Punkt erzielt</text>
 	</string>
 	<string id="mp_select_ban">
-		<text>Spieler auswдhlen, der per Abstimmung gesperrt werden soll</text>
+		<text>Spieler auswРґhlen, der per Abstimmung gesperrt werden soll</text>
 	</string>
 	<string id="mp_select_category">
-		<text>Abstimmungskategorie auswдhlen</text>
+		<text>Abstimmungskategorie auswРґhlen</text>
 	</string>
 	<string id="mp_select_kick">
-		<text>Spieler auswдhlen, der per Abstimmung gekickt werden soll</text>
+		<text>Spieler auswРґhlen, der per Abstimmung gekickt werden soll</text>
 	</string>
 	<string id="mp_select_kick_player">
-		<text>Spieler auswдhlen, der per Abstimmung gekickt werden soll</text>
+		<text>Spieler auswРґhlen, der per Abstimmung gekickt werden soll</text>
 	</string>
 	<string id="mp_select_map">
-		<text>Karte auswдhlen, ьber die abgestimmt werden soll</text>
+		<text>Karte auswРґhlen, СЊber die abgestimmt werden soll</text>
 	</string>
 	<string id="mp_si_afbearer_cant_sprint">
-		<text>Rennen mit Artefakt nicht mцglich</text>
+		<text>Rennen mit Artefakt nicht mС†glich</text>
 	</string>
 	<string id="mp_si_afcount">
 		<text>- Count</text>
@@ -331,7 +330,7 @@
 		<text>Respawn</text>
 	</string>
 	<string id="mp_si_return_players">
-		<text>Spieler zurьck in der Basis</text>
+		<text>Spieler zurСЊck in der Basis</text>
 	</string>
 	<string id="mp_si_sec">
 		<text>Sek.</text>
@@ -358,7 +357,7 @@
 		<text>Abstimmung</text>
 	</string>
 	<string id="mp_si_warmuptime">
-		<text>Aufwдrmen</text>
+		<text>AufwРґrmen</text>
 	</string>
 	<string id="mp_si_yes">
 		<text>Ja</text>
@@ -406,7 +405,7 @@
 		<text>Trainingslager</text>
 	</string>
 	<string id="mp_vote_hint">
-		<text>DAFЬR stimmen - [$$ACTION_VOTE_YES$$]\nDAGEGEN stimmen - [$$ACTION_VOTE_NO$$]\nErgebnis - [$$ACTION_VOTE$$]</text>
+		<text>DAFР¬R stimmen - [$$ACTION_VOTE_YES$$]\nDAGEGEN stimmen - [$$ACTION_VOTE_NO$$]\nErgebnis - [$$ACTION_VOTE$$]</text>
 	</string>
 	<string id="mp_vote_no">
 		<text>Nein</text>
@@ -436,7 +435,7 @@
 		<text>1. Klar</text>
 	</string>
 	<string id="mp_weather_cloudy">
-		<text>2. Bewцlkt</text>
+		<text>2. BewС†lkt</text>
 	</string>
 	<string id="mp_weather_night">
 		<text>3. Nacht</text>
@@ -454,7 +453,7 @@
 		<text>Sie haben das gegnerische Artefakt erobert, tragen Sie es jetzt in Ihre Basis!</text>
 	</string>
 	<string id="mp_you_captured_own_artefact">
-		<text>Sie haben das Artefakt. Aktivieren Sie es, um es in Ihre Basis zurьckzubringen!</text>
+		<text>Sie haben das Artefakt. Aktivieren Sie es, um es in Ihre Basis zurСЊckzubringen!</text>
 	</string>
 	<string id="mp_your_rank">
 		<text>Ihr Rang lautet jetzt</text>
@@ -463,7 +462,7 @@
 		<text>Das sind Sie</text>
 	</string>
 	<string id="st_mp_disabled_voting">
-		<text>Auf diesem Server sind Abstimmungen nicht mцglich.</text>
+		<text>Auf diesem Server sind Abstimmungen nicht mС†glich.</text>
 	</string>
 	<string id="st_mp_no_current_voting">
 		<text>Keine laufenden Abstimmungen.</text>
@@ -490,7 +489,7 @@
 		<text>Freiheitsbasis</text>
 	</string>
 	<string id="team_base_2">
-		<text>Sцldnerbasis</text>
+		<text>SС†ldnerbasis</text>
 	</string>
 	<string id="ui_mp_ah">
 		<text>2. Artefaktjagd</text>
@@ -532,10 +531,10 @@
 		<text>Account wird verifiziert...</text>
 	</string>
 	<string id="ui_mp_gamespy_verify_nickname_error1">
-		<text>Dieser eindeutige Name wird bereits verwendet. Bitte wдhlen Sie aus der Auswahlliste eine Alternative aus oder geben Sie einen neuen Namen ein.</text>
+		<text>Dieser eindeutige Name wird bereits verwendet. Bitte wРґhlen Sie aus der Auswahlliste eine Alternative aus oder geben Sie einen neuen Namen ein.</text>
 	</string>
 	<string id="ui_mp_gamespy_verify_password_error1">
-		<text>Passwцrter stimmen nicht ьberein!</text>
+		<text>PasswС†rter stimmen nicht СЊberein!</text>
 	</string>
 	<string id="ui_mp_tdm">
 		<text>3. Teamspiel</text>
@@ -550,7 +549,7 @@
 		<text>Beschreibung</text>
 	</string>
 	<string id="ui_st_map_data_corrupted">
-		<text>Karte nicht korrekt oder beschдdigt</text>
+		<text>Karte nicht korrekt oder beschРґdigt</text>
 	</string>
 	<string id="ui_st_map_not_found">
 		<text>Karte nicht gefunden</text>
@@ -562,10 +561,10 @@
 		<text>Rekorde</text>
 	</string>
 	<string id="ui_st_mp_check_avaliability">
-		<text>Ьberprьfen</text>
+		<text>Р¬berprСЊfen</text>
 	</string>
 	<string id="ui_st_mp_confirm_password">
-		<text>Passwort bestдtigen</text>
+		<text>Passwort bestРґtigen</text>
 	</string>
 	<string id="ui_st_mp_email">
 		<text>E-Mail-Adresse</text>
@@ -586,7 +585,7 @@
 		<text>Eindeutiger Name</text>
 	</string>
 	<string id="ui_st_mp_unique_nickname_change">
-		<text>Eindeutiger Name wurde erfolgreich geдndert in</text>
+		<text>Eindeutiger Name wurde erfolgreich geРґndert in</text>
 	</string>
 	<string id="ui_st_team">
 		<text>Team</text>
@@ -595,7 +594,7 @@
 		<text>Freiheit</text>
 	</string>
 	<string id="ui_st_team2_name">
-		<text>Sцldner</text>
+		<text>SС†ldner</text>
 	</string>
 	<string id="ui_st_mp_create_new_account">
 		<text>Neues Profil</text>
@@ -607,7 +606,7 @@
 		<text>Abspielen</text>
 	</string>
 	<string id="mpd_rewind">
-		<text>Zurьck</text>
+		<text>ZurСЊck</text>
 	</string>
 	<string id="mpd_restart">
 		<text>Neu starten</text>
@@ -640,7 +639,7 @@
 		<text>Screenshot (alle)</text>
 	</string>
 	<string id="ui_mp_am_config_all">
-		<text>Konfigurationen fьr alle</text>
+		<text>Konfigurationen fСЊr alle</text>
 	</string>
 	<string id="ui_mp_am_ping_limit">
 		<text>Pinglimit:</text>
@@ -652,7 +651,7 @@
 		<text>Screens. (ausg. Spieler)</text>
 	</string>
 	<string id="ui_mp_am_config_selected">
-		<text>Konf. fьr ausg. Spieler</text>
+		<text>Konf. fСЊr ausg. Spieler</text>
 	</string>
 	<string id="ui_mp_am_kick_selected">
 		<text>Ausgew. Spieler kicken</text>
@@ -667,16 +666,16 @@
 		<text>Schneller Neustart</text>
 	</string>
 	<string id="ui_mp_am_change_weather">
-		<text>Wetter дndern</text>
+		<text>Wetter Рґndern</text>
 	</string>
 	<string id="ui_mp_am_set_change_rate">
 		<text>Geschwindigk. Wetterwechsel</text>
 	</string>
 	<string id="ui_mp_am_change_game_type">
-		<text>Spielart дndern</text>
+		<text>Spielart Рґndern</text>
 	</string>
 	<string id="ui_mp_am_change_game_limits">
-		<text>Spieleinstellungen дndern</text>
+		<text>Spieleinstellungen Рґndern</text>
 	</string>
 	<string id="ui_mp_am_stop_cur_voting">
 		<text>Laufende Abstimmung stoppen</text>
@@ -691,7 +690,7 @@
 		<text>Artefaktlimit (0, 100)</text>
 	</string>
 	<string id="ui_mp_am_set_warm_up_time">
-		<text>Aufwдrmzeit (0, 3600)</text>
+		<text>AufwРґrmzeit (0, 3600)</text>
 	</string>
 	<string id="ui_mp_am_set_invincible_time">
 		<text>Unverwundbarkeit (0, 60 AE)</text>

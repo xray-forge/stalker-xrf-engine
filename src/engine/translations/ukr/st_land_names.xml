@@ -1,171 +1,170 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="st_zat_b55_name">
-		<text>Аномалія «Пазур»</text>
+		<text>РђРЅРѕРјР°Р»С–СЏ В«РџР°Р·СѓСЂВ»</text>
 	</string>
 	<string id="st_zat_b100_name">
-		<text>Аномалія «Залізний ліс»</text>
+		<text>РђРЅРѕРјР°Р»С–СЏ В«Р—Р°Р»С–Р·РЅРёР№ Р»С–СЃВ»</text>
 	</string>
 	<string id="st_zat_b104_name">
-		<text>Лісопилка</text>
+		<text>Р›С–СЃРѕРїРёР»РєР°</text>
 	</string>
 	<string id="st_zat_b38_name">
-		<text>ВНЗ «Коло»</text>
+		<text>Р’РќР— В«РљРѕР»РѕВ»</text>
 	</string>
 	<string id="st_zat_b40_name">
-		<text>Станція переробляння відходів</text>
+		<text>РЎС‚Р°РЅС†С–СЏ РїРµСЂРµСЂРѕР±Р»СЏРЅРЅСЏ РІС–РґС…РѕРґС–РІ</text>
 	</string>
 	<string id="st_zat_b56_name">
-		<text>Аномалія «Цирк»</text>
+		<text>РђРЅРѕРјР°Р»С–СЏ В«Р¦РёСЂРєВ»</text>
 	</string>
 	<string id="st_zat_b5_name">
-		<text>Лісництво</text>
+		<text>Р›С–СЃРЅРёС†С‚РІРѕ</text>
 	</string>
 	<string id="st_zat_a2_name">
-		<text>«Скадовськ»</text>
+		<text>В«РЎРєР°РґРѕРІСЃСЊРєВ»</text>
 	</string>
 	<string id="st_zat_b20_name">
-		<text>Згорілий хутір</text>
+		<text>Р—РіРѕСЂС–Р»РёР№ С…СѓС‚С–СЂ</text>
 	</string>
 	<string id="st_zat_b53_name">
-		<text>Аномалія «Котел»</text>
+		<text>РђРЅРѕРјР°Р»С–СЏ В«РљРѕС‚РµР»В»</text>
 	</string>
 	<string id="st_zat_b101_name">
-		<text>Драговина</text>
+		<text>Р”СЂР°РіРѕРІРёРЅР°</text>
 	</string>
 	<string id="st_zat_b106_name">
-		<text>«Смарагдове»</text>
+		<text>В«РЎРјР°СЂР°РіРґРѕРІРµВ»</text>
 	</string>
 	<string id="st_zat_b7_name">
-		<text>«Шевченко»</text>
+		<text>В«РЁРµРІС‡РµРЅРєРѕВ»</text>
 	</string>
 	<string id="st_zat_b14_name">
-		<text>Земснаряд</text>
+		<text>Р—РµРјСЃРЅР°СЂСЏРґ</text>
 	</string>
 	<string id="st_zat_b52_name">
-		<text>Портові крани</text>
+		<text>РџРѕСЂС‚РѕРІС– РєСЂР°РЅРё</text>
 	</string>
 	<string id="st_zat_b39_name">
-		<text>Аномалія «Соснодуб»</text>
+		<text>РђРЅРѕРјР°Р»С–СЏ В«РЎРѕСЃРЅРѕРґСѓР±В»</text>
 	</string>
 	<string id="st_zat_b33_name">
-		<text>Заправка</text>
+		<text>Р—Р°РїСЂР°РІРєР°</text>
 	</string>
 	<string id="st_zat_b18_name">
-		<text>Стара баржа</text>
+		<text>РЎС‚Р°СЂР° Р±Р°СЂР¶Р°</text>
 	</string>
 	<string id="st_zat_b54_name">
-		<text>Аномалія «Рубець»</text>
+		<text>РђРЅРѕРјР°Р»С–СЏ В«Р СѓР±РµС†СЊВ»</text>
 	</string>
 	<string id="st_zat_b12_name">
-		<text>Міст ім. Преображенського</text>
+		<text>РњС–СЃС‚ С–Рј. РџСЂРµРѕР±СЂР°Р¶РµРЅСЃСЊРєРѕРіРѕ</text>
 	</string>
 	<string id="st_zat_b28_name">
-		<text>Південне плато</text>
+		<text>РџС–РІРґРµРЅРЅРµ РїР»Р°С‚Рѕ</text>
 	</string>
 	<string id="st_zat_b103_name">
-		<text>Цехи підстанції</text>
+		<text>Р¦РµС…Рё РїС–РґСЃС‚Р°РЅС†С–С—</text>
 	</string>
 	<string id="st_jup_b1_name">
-		<text>Аномалія «Попелище»</text>
+		<text>РђРЅРѕРјР°Р»С–СЏ В«РџРѕРїРµР»РёС‰РµВ»</text>
 	</string>
 	<string id="st_jup_b46_name">
-		<text>Градирня</text>
+		<text>Р“СЂР°РґРёСЂРЅСЏ</text>
 	</string>
 	<string id="st_jup_b202_name">
-		<text>Полустанок</text>
+		<text>РџРѕР»СѓСЃС‚Р°РЅРѕРє</text>
 	</string>
 	<string id="st_jup_b211_name">
-		<text>Аномалія «Плавні»</text>
+		<text>РђРЅРѕРјР°Р»С–СЏ В«РџР»Р°РІРЅС–В»</text>
 	</string>
 	<string id="st_jup_b200_name">
-		<text>Цементний завод</text>
+		<text>Р¦РµРјРµРЅС‚РЅРёР№ Р·Р°РІРѕРґ</text>
 	</string>
 	<string id="st_jup_b19_name">
-		<text>Копачі</text>
+		<text>РљРѕРїР°С‡С–</text>
 	</string>
 	<string id="st_jup_a6_name">
-		<text>«Янів»</text>
+		<text>В«РЇРЅС–РІВ»</text>
 	</string>
 	<string id="st_jup_b25_name">
-		<text>Кар'єр</text>
+		<text>РљР°СЂ'С”СЂ</text>
 	</string>
 	<string id="st_jup_b6_name">
-		<text>Бункер учених</text>
+		<text>Р‘СѓРЅРєРµСЂ СѓС‡РµРЅРёС…</text>
 	</string>
 	<string id="st_jup_b205_name">
-		<text>ЗРК «Волхов»</text>
+		<text>Р—Р Рљ В«Р’РѕР»С…РѕРІВ»</text>
 	</string>
 	<string id="st_jup_b206_name">
-		<text>Аномальний гай</text>
+		<text>РђРЅРѕРјР°Р»СЊРЅРёР№ РіР°Р№</text>
 	</string>
 	<string id="st_jup_b32_name">
-		<text>Стоянка</text>
+		<text>РЎС‚РѕСЏРЅРєР°</text>
 	</string>
 	<string id="st_jup_a10_name">
-		<text>КПП</text>
+		<text>РљРџРџ</text>
 	</string>
 	<string id="st_jup_b209_name">
-		<text>Аномалія «Бітум»</text>
+		<text>РђРЅРѕРјР°Р»С–СЏ В«Р‘С–С‚СѓРјВ»</text>
 	</string>
 	<string id="st_jup_b208_name">
-		<text>Східний тунель</text>
+		<text>РЎС…С–РґРЅРёР№ С‚СѓРЅРµР»СЊ</text>
 	</string>
 	<string id="st_jup_a12_name">
-		<text>Склад контейнерів</text>
+		<text>РЎРєР»Р°Рґ РєРѕРЅС‚РµР№РЅРµСЂС–РІ</text>
 	</string>
 	<string id="st_jup_b212_name">
-		<text>Вентиляційний комплекс</text>
+		<text>Р’РµРЅС‚РёР»СЏС†С–Р№РЅРёР№ РєРѕРјРїР»РµРєСЃ</text>
 	</string>
 	<string id="st_jup_b9_name">
-		<text>Вертолітні майданчики</text>
+		<text>Р’РµСЂС‚РѕР»С–С‚РЅС– РјР°Р№РґР°РЅС‡РёРєРё</text>
 	</string>
 	<string id="st_jup_b201_name">
-		<text>Аномалія «Бетонна ванна»</text>
+		<text>РђРЅРѕРјР°Р»С–СЏ В«Р‘РµС‚РѕРЅРЅР° РІР°РЅРЅР°В»</text>
 	</string>
 	<string id="st_jup_a9_name">
-		<text>Завод «Юпітер»</text>
+		<text>Р—Р°РІРѕРґ В«Р®РїС–С‚РµСЂВ»</text>
 	</string>
 	<string id="st_pri_a28_name">
-		<text>Кінотеатр «Прометей»</text>
+		<text>РљС–РЅРѕС‚РµР°С‚СЂ В«РџСЂРѕРјРµС‚РµР№В»</text>
 	</string>
 	<string id="st_pri_b36_name">
-		<text>Річковий порт</text>
+		<text>Р С–С‡РєРѕРІРёР№ РїРѕСЂС‚</text>
 	</string>
 	<string id="st_pri_b303_name">
-		<text>Старий КБО</text>
+		<text>РЎС‚Р°СЂРёР№ РљР‘Рћ</text>
 	</string>
 	<string id="st_pri_b301_name">
-		<text>Школа</text>
+		<text>РЁРєРѕР»Р°</text>
 	</string>
 	<string id="st_pri_a17_name">
-		<text>Госпіталь</text>
+		<text>Р“РѕСЃРїС–С‚Р°Р»СЊ</text>
 	</string>
 	<string id="st_pri_b306_name">
-		<text>КБО «Ювілейний»</text>
+		<text>РљР‘Рћ В«Р®РІС–Р»РµР№РЅРёР№В»</text>
 	</string>
 	<string id="st_pri_a16_name">
-		<text>Пральня</text>
+		<text>РџСЂР°Р»СЊРЅСЏ</text>
 	</string>
 	<string id="st_pri_a25_name">
-		<text>Дитячий сад</text>
+		<text>Р”РёС‚СЏС‡РёР№ СЃР°Рґ</text>
 	</string>
 	<string id="st_pri_b35_name">
-		<text>Гуртожиток</text>
+		<text>Р“СѓСЂС‚РѕР¶РёС‚РѕРє</text>
 	</string>
 	<string id="st_pri_a21_name">
-		<text>Гастроном</text>
+		<text>Р“Р°СЃС‚СЂРѕРЅРѕРј</text>
 	</string>
 	<string id="st_pri_b304_name">
-		<text>Універмаг</text>
+		<text>РЈРЅС–РІРµСЂРјР°Рі</text>
 	</string>
 	<string id="st_pri_a18_name">
-		<text>Магазин «Книги»</text>
+		<text>РњР°РіР°Р·РёРЅ В«РљРЅРёРіРёВ»</text>
 	</string>
 	<string id="st_pri_b307_name">
-		<text>Аномалія «Вулкан»</text>
+		<text>РђРЅРѕРјР°Р»С–СЏ В«Р’СѓР»РєР°РЅВ»</text>
 	</string>
 	<string id="st_pri_b302_name">
-		<text>Аномалія «Лоза»</text>
+		<text>РђРЅРѕРјР°Р»С–СЏ В«Р›РѕР·Р°В»</text>
 	</string>
 </string_table>

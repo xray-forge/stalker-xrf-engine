@@ -1,126 +1,125 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="mp_autostation">
-		<text>Stacja pojazdуw</text>
+		<text>Stacja pojazdСѓw</text>
 	</string>
 	<string id="ui_map_desc_mp_agroprom_large">
-		<text>Dziwne miejsce. Ten cichy budynek z pewnoњci№ ma swoje sekrety, ale stalkerzy odwiedzaj№ go z innego powodu - dziкki duїej iloњci moїliwych do znalezienia artefaktуw, podjкte ryzyko moїe siк opіacaж. Myњl szybko i dziaіaj zdecydowanie, a szczкњcie z pewnoњci№ bкdzie ci sprzyjaж.</text>
+		<text>Dziwne miejsce. Ten cichy budynek z pewnoСљciв„– ma swoje sekrety, ale stalkerzy odwiedzajв„– go z innego powodu - dziРєki duС—ej iloСљci moС—liwych do znalezienia artefaktСѓw, podjРєte ryzyko moС—e siРє opС–acaР¶. MyСљl szybko i dziaС–aj zdecydowanie, a szczРєСљcie z pewnoСљciв„– bРєdzie ci sprzyjaР¶.</text>
 	</string>
 	<string id="ui_map_desc_mp_agroprom_short">
-		<text>Dziwne miejsce. Ten cichy budynek z pewnoњci№ ma swoje sekrety, ale stalkerzy odwiedzaj№ go z innego powodu - duїej iloњci moїliwych do znalezienia artefaktуw.</text>
+		<text>Dziwne miejsce. Ten cichy budynek z pewnoСљciв„– ma swoje sekrety, ale stalkerzy odwiedzajв„– go z innego powodu - duС—ej iloСљci moС—liwych do znalezienia artefaktСѓw.</text>
 	</string>
 	<string id="ui_map_desc_mp_atp_large">
-		<text>Skіad znajduj№cy siк przy wejњciu do Zony. Znajduj№ce siк w nim ci№gniki, autobusy i ciкїarуwki nigdzie juї nie pojad№… Nie znaleziono tu jeszcze їadnych artefaktуw, ale miejsce to jest popularne wњrуd bandytуw, ktуrzy poluj№ na nowicjuszy dla іupуw. Kryj siк w budynkach i za pojazdami, uwaїaj teї na wrogуw na dachach!</text>
+		<text>SkС–ad znajdujв„–cy siРє przy wejСљciu do Zony. Znajdujв„–ce siРє w nim ciв„–gniki, autobusy i ciРєС—arСѓwki nigdzie juС— nie pojadв„–вЂ¦ Nie znaleziono tu jeszcze С—adnych artefaktСѓw, ale miejsce to jest popularne wСљrСѓd bandytСѓw, ktСѓrzy polujв„– na nowicjuszy dla С–upСѓw. Kryj siРє w budynkach i za pojazdami, uwaС—aj teС— na wrogСѓw na dachach!</text>
 	</string>
 	<string id="ui_map_desc_mp_atp_short">
-		<text>Skіad znajduj№cy siк przy wejњciu do Zony. Znajduj№ce siк w nim ci№gniki, autobusy i ciкїarуwki nigdzie juї nie pojad№…</text>
+		<text>SkС–ad znajdujв„–cy siРє przy wejСљciu do Zony. Znajdujв„–ce siРє w nim ciв„–gniki, autobusy i ciРєС—arСѓwki nigdzie juС— nie pojadв„–вЂ¦</text>
 	</string>
 	<string id="ui_map_desc_mp_autostation_large">
-		<text>Opuszczony skіad i przylegaj№cy do niego teren. Moїna tu znaleџж wyposaїenie i zapasy, jeњli siк dobrze poszuka. Uwaїaj na potкїne anomalie i snajperуw na dachu skіadu - to њwietny punkt obserwacyjny, z ktуrego widaж kaїd№ zbliїaj№c№ siк osobк. </text>
+		<text>Opuszczony skС–ad i przylegajв„–cy do niego teren. MoС—na tu znaleСџР¶ wyposaС—enie i zapasy, jeСљli siРє dobrze poszuka. UwaС—aj na potРєС—ne anomalie i snajperСѓw na dachu skС–adu - to Сљwietny punkt obserwacyjny, z ktСѓrego widaР¶ kaС—dв„– zbliС—ajв„–cв„– siРє osobРє. </text>
 	</string>
 	<string id="ui_map_desc_mp_autostation_short">
-		<text>Opuszczony skіad i przylegaj№cy do niego teren. Uwaїaj na potкїne anomalie i wrogich snajperуw.</text>
+		<text>Opuszczony skС–ad i przylegajв„–cy do niego teren. UwaС—aj na potРєС—ne anomalie i wrogich snajperСѓw.</text>
 	</string>
 	<string id="ui_map_desc_mp_bath_large">
-		<text>Tajemnicze i fascynuj№ce miejsce. Basen zostaі zbudowany do eksperymentуw na kimњ lub na czymњ, ale nie wiadomo dokіadnie, jak miaіy one wygl№daж. Nie ma tu prawie їadnych artefaktуw, wiкc jedyne, co przyci№ga tutaj stalkerуw, to pozostaіoњci dziwnych linii montaїowych i urz№dzeс. Uwaїaj na dachy i pamiкtaj o wyj№tkowo wysokim poziomie promieniowania w tym rejonie. </text>
+		<text>Tajemnicze i fascynujв„–ce miejsce. Basen zostaС– zbudowany do eksperymentСѓw na kimСљ lub na czymСљ, ale nie wiadomo dokС–adnie, jak miaС–y one wyglв„–daР¶. Nie ma tu prawie С—adnych artefaktСѓw, wiРєc jedyne, co przyciв„–ga tutaj stalkerСѓw, to pozostaС–oСљci dziwnych linii montaС—owych i urzв„–dzeСЃ. UwaС—aj na dachy i pamiРєtaj o wyjв„–tkowo wysokim poziomie promieniowania w tym rejonie. </text>
 	</string>
 	<string id="ui_map_desc_mp_bath_short">
-		<text>Tajemnicze i fascynuj№ce miejsce. Basen ten zostaі zbudowany do eksperymentуw na kimњ lub na czymњ, ale nie wiadomo dokіadnie, jak miaіy one wygl№daж.</text>
+		<text>Tajemnicze i fascynujв„–ce miejsce. Basen ten zostaС– zbudowany do eksperymentСѓw na kimСљ lub na czymСљ, ale nie wiadomo dokС–adnie, jak miaС–y one wyglв„–daР¶.</text>
 	</string>
 	<string id="ui_map_desc_mp_darkvalley_large">
-		<text>Ta niebezpieczna czкњж Mrocznej Doliny skіada siк z dіugiej ulicy i opuszczonego instytutu. Kto wie, jaka wiedza byіa w nim kiedyњ przekazywana? Jedyne, czego moїna nauczyж siк tu dzisiaj, to sztuka przetrwania! Zwracaj teї uwagк na dachy...</text>
+		<text>Ta niebezpieczna czРєСљР¶ Mrocznej Doliny skС–ada siРє z dС–ugiej ulicy i opuszczonego instytutu. Kto wie, jaka wiedza byС–a w nim kiedyСљ przekazywana? Jedyne, czego moС—na nauczyР¶ siРє tu dzisiaj, to sztuka przetrwania! Zwracaj teС— uwagРє na dachy...</text>
 	</string>
 	<string id="ui_map_desc_mp_darkvalley_short">
-		<text>Ta niebezpieczna czкњж Mrocznej Doliny skіada siк z dіugiej ulicy i opuszczonego instytutu…</text>
+		<text>Ta niebezpieczna czРєСљР¶ Mrocznej Doliny skС–ada siРє z dС–ugiej ulicy i opuszczonego instytutuвЂ¦</text>
 	</string>
 	<string id="ui_map_desc_mp_factory_large">
-		<text>Ta posкpna, opuszczona fabryka jest miejscem spoczynku niezliczonych stalkerуw. Goњci oczekuje na kaїdym kroku chmara anomalii, co jednak nie powstrzymuje ich przed odwiedzinami - cenne artefakty stanowi№ prawdziwy magnes. Uwaїaj na promieniowanie!</text>
+		<text>Ta posРєpna, opuszczona fabryka jest miejscem spoczynku niezliczonych stalkerСѓw. GoСљci oczekuje na kaС—dym kroku chmara anomalii, co jednak nie powstrzymuje ich przed odwiedzinami - cenne artefakty stanowiв„– prawdziwy magnes. UwaС—aj na promieniowanie!</text>
 	</string>
 	<string id="ui_map_desc_mp_factory_short">
-		<text>Ta posкpna opuszczona fabryka jest miejscem spoczynku niezliczonych stalkerуw. </text>
+		<text>Ta posРєpna opuszczona fabryka jest miejscem spoczynku niezliczonych stalkerСѓw. </text>
 	</string>
 	<string id="ui_map_desc_mp_firestation_large">
-		<text>Remiza straїacka, ktуrej caіa zaіoga zostaіa rzucona do ratowania CEJ w 1986 roku. Wieїyczka jest doskonaіym punktem obserwacyjnym, pozwalaj№cym mieж na oku bliїsze i dalsze otoczenie. Niewielu odwiedza gуrne piкtra budynkуw i piwnice, ale moїe to i dobrze. Od jakiegoњ czasu obecne w Zonie frakcje skacz№ sobie do gardeі, prуbuj№c opanowaж t№ strategiczn№ pozycjк.</text>
+		<text>Remiza straС—acka, ktСѓrej caС–a zaС–oga zostaС–a rzucona do ratowania CEJ w 1986 roku. WieС—yczka jest doskonaС–ym punktem obserwacyjnym, pozwalajв„–cym mieР¶ na oku bliС—sze i dalsze otoczenie. Niewielu odwiedza gСѓrne piРєtra budynkСѓw i piwnice, ale moС—e to i dobrze. Od jakiegoСљ czasu obecne w Zonie frakcje skaczв„– sobie do gardeС–, prСѓbujв„–c opanowaР¶ tв„– strategicznв„– pozycjРє.</text>
 	</string>
 	<string id="ui_map_desc_mp_firestation_short">
-		<text>Remiza straїacka, ktуrej caіa zaіoga zostaіa rzucona do ratowania CEJ w 1986 roku. Stanowi doskonaі№ pozycjк taktyczn№.</text>
+		<text>Remiza straС—acka, ktСѓrej caС–a zaС–oga zostaС–a rzucona do ratowania CEJ w 1986 roku. Stanowi doskonaС–в„– pozycjРє taktycznв„–.</text>
 	</string>
 	<string id="ui_map_desc_mp_garbage_large">
-		<text>Czкњж olbrzymiego wysypiska њmieci, gdzie po katastrofie w 1986 roku wyrzucono sterty odpadуw radioaktywnych. Peіna jest rozpadaj№cych siк dџwigуw i rуїnego sprzкtu. Inne atrakcje to stare, zniszczone budynki i wielki hangar. Bliskoњж Kordonu i doњж duїa liczba artefaktуw przyci№ga stalkerуw ї№dnych іatwych іupуw.</text>
+		<text>CzРєСљР¶ olbrzymiego wysypiska Сљmieci, gdzie po katastrofie w 1986 roku wyrzucono sterty odpadСѓw radioaktywnych. PeС–na jest rozpadajв„–cych siРє dСџwigСѓw i rСѓС—nego sprzРєtu. Inne atrakcje to stare, zniszczone budynki i wielki hangar. BliskoСљР¶ Kordonu i doСљР¶ duС—a liczba artefaktСѓw przyciв„–ga stalkerСѓw С—в„–dnych С–atwych С–upСѓw.</text>
 	</string>
 	<string id="ui_map_desc_mp_garbage_short">
-		<text>Czкњж olbrzymiego wysypiska њmieci, gdzie po katastrofie w 1986 roku wyrzucono sterty odpadуw radioaktywnych.</text>
+		<text>CzРєСљР¶ olbrzymiego wysypiska Сљmieci, gdzie po katastrofie w 1986 roku wyrzucono sterty odpadСѓw radioaktywnych.</text>
 	</string>
 	<string id="ui_map_desc_mp_limansk_large">
-		<text>Maіa dzielnica tajemniczego miasta Limaсsk - opuszczone bloki mieszkaniowe i niedokoсczony budynek miкdzy nimi. Po znalezieniu w tym miejscu kilku kosztownych artefaktуw, wieњci bіyskawicznie rozprzestrzeniіy siк po caіej Zonie. Otwartych zostaіo kilka drуg do Limaсska i od tego czasu strzaіy nie cichn№.</text>
+		<text>MaС–a dzielnica tajemniczego miasta LimaСЃsk - opuszczone bloki mieszkaniowe i niedokoСЃczony budynek miРєdzy nimi. Po znalezieniu w tym miejscu kilku kosztownych artefaktСѓw, wieСљci bС–yskawicznie rozprzestrzeniС–y siРє po caС–ej Zonie. Otwartych zostaС–o kilka drСѓg do LimaСЃska i od tego czasu strzaС–y nie cichnв„–.</text>
 	</string>
 	<string id="ui_map_desc_mp_limansk_short">
-		<text>Maіa dzielnica tajemniczego miasta Limaсsk - opuszczone bloki mieszkaniowe i niedokoсczony budynek miкdzy nimi. </text>
+		<text>MaС–a dzielnica tajemniczego miasta LimaСЃsk - opuszczone bloki mieszkaniowe i niedokoСЃczony budynek miРєdzy nimi. </text>
 	</string>
 	<string id="ui_map_desc_mp_lost_village_large">
-		<text>Zapomniana przez Boga i ludzi wieњ w gікbi Zony. Maіe, pіytkie, rdzawe jeziorko i tuziny rozbitych pojazdуw napeіniaj№ ciк podњwiadomym strachem przed otaczaj№c№ rzeczywistoњci№. Uwaїaj na snajperуw, ale pamiкtaj: Zona sprzyja odwaїnym.</text>
+		<text>Zapomniana przez Boga i ludzi wieСљ w gС–Рєbi Zony. MaС–e, pС–ytkie, rdzawe jeziorko i tuziny rozbitych pojazdСѓw napeС–niajв„– ciРє podСљwiadomym strachem przed otaczajв„–cв„– rzeczywistoСљciв„–. UwaС—aj na snajperСѓw, ale pamiРєtaj: Zona sprzyja odwaС—nym.</text>
 	</string>
 	<string id="ui_map_desc_mp_lost_village_short">
-		<text>Zapomniana przez Boga i ludzi wieњ w gікbi Zony. Maіe, pіytkie, rdzawe jeziorko i tuziny rozbitych pojazdуw napeіniaj№ ciк podњwiadomym strachem przed otaczaj№c№ rzeczywistoњci№.</text>
+		<text>Zapomniana przez Boga i ludzi wieСљ w gС–Рєbi Zony. MaС–e, pС–ytkie, rdzawe jeziorko i tuziny rozbitych pojazdСѓw napeС–niajв„– ciРє podСљwiadomym strachem przed otaczajв„–cв„– rzeczywistoСљciв„–.</text>
 	</string>
 	<string id="ui_map_desc_mp_military_1_large">
-		<text>Opuszczona baza wojskowa z unieruchomionymi ciкїarуwkami i transporterami opancerzonymi oraz opuszczon№ kwater№ gіуwn№ i barakami. Jej wygl№d moїe myliж: to prawdziwa kopalnia artefaktуw, co oznacza, їe wrуg moїe czaiж siк za kaїdym wкgіem.</text>
+		<text>Opuszczona baza wojskowa z unieruchomionymi ciРєС—arСѓwkami i transporterami opancerzonymi oraz opuszczonв„– kwaterв„– gС–Сѓwnв„– i barakami. Jej wyglв„–d moС—e myliР¶: to prawdziwa kopalnia artefaktСѓw, co oznacza, С—e wrСѓg moС—e czaiР¶ siРє za kaС—dym wРєgС–em.</text>
 	</string>
 	<string id="ui_map_desc_mp_military_1_short">
-		<text>Opuszczona baza wojskowa z unieruchomionymi ciкїarуwkami i transporterami opancerzonymi.</text>
+		<text>Opuszczona baza wojskowa z unieruchomionymi ciРєС—arСѓwkami i transporterami opancerzonymi.</text>
 	</string>
 	<string id="ui_map_desc_mp_military_2_large">
-		<text>Ta stara wieњ to naprawdк zіowieszcze miejsce. Jeњli wystarczy ci odwagi, by tu przyjњж, przygotuj siк na strzaі w gіowк na powitanie. Nie ma tu bezpiecznych miejsc, wiкc pamiкtaj o celowniku i tіumiku!</text>
+		<text>Ta stara wieСљ to naprawdРє zС–owieszcze miejsce. JeСљli wystarczy ci odwagi, by tu przyjСљР¶, przygotuj siРє na strzaС– w gС–owРє na powitanie. Nie ma tu bezpiecznych miejsc, wiРєc pamiРєtaj o celowniku i tС–umiku!</text>
 	</string>
 	<string id="ui_map_desc_mp_military_2_short">
-		<text>Ta stara wieњ to naprawdк zіowieszcze miejsce. Udaіo ci siк tu dotrzeж, ale nie masz czasu na odpoczynek.</text>
+		<text>Ta stara wieСљ to naprawdРє zС–owieszcze miejsce. UdaС–o ci siРє tu dotrzeР¶, ale nie masz czasu na odpoczynek.</text>
 	</string>
 	<string id="ui_map_desc_mp_pool_large">
-		<text>To nie basen - raczej krwawa іaџnia. Echa strzaіуw, eksplozji i wrzaskуw umieraj№cych wypeіniaj№ wyіoїone kafelkami korytarze… Niewielu stalkerуw wie, jak tu siк dostaж, a jeszcze mniej wie, jak uciec.</text>
+		<text>To nie basen - raczej krwawa С–aСџnia. Echa strzaС–Сѓw, eksplozji i wrzaskСѓw umierajв„–cych wypeС–niajв„– wyС–oС—one kafelkami korytarzeвЂ¦ Niewielu stalkerСѓw wie, jak tu siРє dostaР¶, a jeszcze mniej wie, jak uciec.</text>
 	</string>
 	<string id="ui_map_desc_mp_pool_short">
-		<text>To nie basen - raczej krwawa іaџnia. Echa strzaіуw, eksplozji i wrzaskуw umieraj№cych wypeіniaj№ wyіoїone kafelkami korytarze.</text>
+		<text>To nie basen - raczej krwawa С–aСџnia. Echa strzaС–Сѓw, eksplozji i wrzaskСѓw umierajв„–cych wypeС–niajв„– wyС–oС—one kafelkami korytarze.</text>
 	</string>
 	<string id="ui_map_desc_mp_railraod_short">
-		<text>Maіa stacja kolejowa w pobliїu fabryki Rostok.</text>
+		<text>MaС–a stacja kolejowa w pobliС—u fabryki Rostok.</text>
 	</string>
 	<string id="ui_map_desc_mp_railroad_large">
-		<text>Maіa stacja kolejowa w pobliїu fabryki Rostok, peіna zardzewiaіych wagonуw i lokomotyw, ktуre zatrzymaіy siк na torach. Duїa iloњж artefaktуw przyci№ga odwaїnych stalkerуw ze wszystkich zak№tkуw Zony.</text>
+		<text>MaС–a stacja kolejowa w pobliС—u fabryki Rostok, peС–na zardzewiaС–ych wagonСѓw i lokomotyw, ktСѓre zatrzymaС–y siРє na torach. DuС—a iloСљР¶ artefaktСѓw przyciв„–ga odwaС—nych stalkerСѓw ze wszystkich zakв„–tkСѓw Zony.</text>
 	</string>
 	<string id="ui_map_desc_mp_rembasa_large">
-		<text>Baza naprawcza w pobliїu maіej wsi. Wszystkie dziaіaj№ce pojazdy zostaіy zabrane do pomocy w zwalczaniu skutkуw katastrofy w Czarnobylu. Z czasem pozostawiony sprzкt zostaі spl№drowany w poszukiwaniu czкњci zamiennych. Obszar ten jest peіen niebezpieczeсstw, takich jak zdradliwe bagna i skaїone zaroњla, w ktуrych przy odrobinie szczкњcia moїna znaleџж coњ wartoњciowego.</text>
+		<text>Baza naprawcza w pobliС—u maС–ej wsi. Wszystkie dziaС–ajв„–ce pojazdy zostaС–y zabrane do pomocy w zwalczaniu skutkСѓw katastrofy w Czarnobylu. Z czasem pozostawiony sprzРєt zostaС– splв„–drowany w poszukiwaniu czРєСљci zamiennych. Obszar ten jest peС–en niebezpieczeСЃstw, takich jak zdradliwe bagna i skaС—one zaroСљla, w ktСѓrych przy odrobinie szczРєСљcia moС—na znaleСџР¶ coСљ wartoСљciowego.</text>
 	</string>
 	<string id="ui_map_desc_mp_rembasa_short">
-		<text>Baza naprawcza w pobliїu maіej wsi. Obszar ten jest peіen niebezpieczeсstw, takich jak zdradliwe bagna i skaїone zaroњla.</text>
+		<text>Baza naprawcza w pobliС—u maС–ej wsi. Obszar ten jest peС–en niebezpieczeСЃstw, takich jak zdradliwe bagna i skaС—one zaroСљla.</text>
 	</string>
 	<string id="ui_map_desc_mp_rostok_large">
-		<text>Sterty metalu rdzewiej№ bezczynnie za betonowymi њcianami. Przed przeіomem wiekуw fabryka pracowaіa bez przerwy przy akompaniamencie socjalistycznych sloganуw pіyn№cych z gіoњnikуw, ale zostaіa opuszczona dawno temu.</text>
+		<text>Sterty metalu rdzewiejв„– bezczynnie za betonowymi Сљcianami. Przed przeС–omem wiekСѓw fabryka pracowaС–a bez przerwy przy akompaniamencie socjalistycznych sloganСѓw pС–ynв„–cych z gС–oСљnikСѓw, ale zostaС–a opuszczona dawno temu.</text>
 	</string>
 	<string id="ui_map_desc_mp_rostok_short">
-		<text>Stara, opuszczona fabryka: sterty metalu za betonowymi њcianami to wszystko, co po niej pozostaіo.</text>
+		<text>Stara, opuszczona fabryka: sterty metalu za betonowymi Сљcianami to wszystko, co po niej pozostaС–o.</text>
 	</string>
 	<string id="ui_map_desc_mp_sport_center_large">
-		<text>Centrum sportowe w Prypeci, zlokalizowane w pobliїu opuszczonej szkoіy. Praktykuje siк tu dziњ inny rodzaj sportu niї w 1986 roku, inni s№ teї uczestnicy rozgrywek. Stalkerуw przyci№ga tu w№tpliwa sіawa, іupy i artefakty… niektуrzy z nich zostaj№ tutaj na zawsze.</text>
+		<text>Centrum sportowe w Prypeci, zlokalizowane w pobliС—u opuszczonej szkoС–y. Praktykuje siРє tu dziСљ inny rodzaj sportu niС— w 1986 roku, inni sв„– teС— uczestnicy rozgrywek. StalkerСѓw przyciв„–ga tu wв„–tpliwa sС–awa, С–upy i artefaktyвЂ¦ niektСѓrzy z nich zostajв„– tutaj na zawsze.</text>
 	</string>
 	<string id="ui_map_desc_mp_sport_center_short">
-		<text>Centrum sportowe w Prypeci, zlokalizowane w pobliїu opuszczonej szkoіy.</text>
+		<text>Centrum sportowe w Prypeci, zlokalizowane w pobliС—u opuszczonej szkoС–y.</text>
 	</string>
 	<string id="ui_map_desc_mp_training_camp_large">
-		<text>Bardzo dziwne miejsce. Wielu њmieje siк ze stalkerуw, ktуrzy twierdz№, їe je widzieli. Mimo to istnieje ono w rzeczywistoњci. Anomalie grawitacyjne rozdarіy ziemiк, tworz№c kosmiczny krajobraz. Nad obszarem dominuj№ trzy wielkie wieїe, resztki sprzкtu wojskowego i lataj№ce wyspy wyrwane z ziemi.</text>
+		<text>Bardzo dziwne miejsce. Wielu Сљmieje siРє ze stalkerСѓw, ktСѓrzy twierdzв„–, С—e je widzieli. Mimo to istnieje ono w rzeczywistoСљci. Anomalie grawitacyjne rozdarС–y ziemiРє, tworzв„–c kosmiczny krajobraz. Nad obszarem dominujв„– trzy wielkie wieС—e, resztki sprzРєtu wojskowego i latajв„–ce wyspy wyrwane z ziemi.</text>
 	</string>
 	<string id="ui_map_desc_mp_training_camp_short">
-		<text>Bardzo dziwne miejsce. Anomalie grawitacyjne rozdarіy ziemiк, tworz№c kosmiczny krajobraz. </text>
+		<text>Bardzo dziwne miejsce. Anomalie grawitacyjne rozdarС–y ziemiРє, tworzв„–c kosmiczny krajobraz. </text>
 	</string>
 	<string id="ui_map_desc_mp_workshop_large">
-		<text>Zanim Powinnoњж zajкіa ten teren, byіy to peryferia fabryki Rostok. To upiorne, ale peіne artefaktуw miejsce. Kaїdy pusty hangar lub magazyn jest peіen њmiertelnych niebezpieczeсstw. Zachowaj czujnoњж i obserwuj biaі№ wieїк...</text>
+		<text>Zanim PowinnoСљР¶ zajРєС–a ten teren, byС–y to peryferia fabryki Rostok. To upiorne, ale peС–ne artefaktСѓw miejsce. KaС—dy pusty hangar lub magazyn jest peС–en Сљmiertelnych niebezpieczeСЃstw. Zachowaj czujnoСљР¶ i obserwuj biaС–в„– wieС—Рє...</text>
 	</string>
 	<string id="ui_map_desc_mp_workshop_short">
-		<text>Zanim Powinnoњж zajкіa ten teren, byіy to peryferia fabryki Rostok. To upiorne, ale peіne artefaktуw miejsce.</text>
+		<text>Zanim PowinnoСљР¶ zajРєС–a ten teren, byС–y to peryferia fabryki Rostok. To upiorne, ale peС–ne artefaktСѓw miejsce.</text>
 	</string>
 	<string id="ui_map_desc_mp_pripyat_large">
-		<text>Niewielu odwaїa zapuњciж siк do opuszczonego miasta Prypeж, niegdyњ zamieszkiwanego przez pracownikуw CEJ. Pomimo tego na ulicach miasta duchуw niedawno rozlegіy siк odgіosy walki, toczonej miкdzy kinem „Prometeusz”, przystani№ i domami na ulicy Kurczatowej.</text>
+		<text>Niewielu odwaС—a zapuСљciР¶ siРє do opuszczonego miasta PrypeР¶, niegdyСљ zamieszkiwanego przez pracownikСѓw CEJ. Pomimo tego na ulicach miasta duchСѓw niedawno rozlegС–y siРє odgС–osy walki, toczonej miРєdzy kinem вЂћPrometeuszвЂќ, przystaniв„– i domami na ulicy Kurczatowej.</text>
 	</string>
 	<string id="ui_map_desc_mp_pripyat_short">
-		<text>W czкњci Prypeci miкdzy kinem „Prometeusz”, przystani№ i domami na ulicy Kurczatowej wybuchіy zaciekіe walki miкdzy kilkoma osobami, ktуre dotarіy do opuszczonego miasta.</text>
+		<text>W czРєСљci Prypeci miРєdzy kinem вЂћPrometeuszвЂќ, przystaniв„– i domami na ulicy Kurczatowej wybuchС–y zaciekС–e walki miРєdzy kilkoma osobami, ktСѓre dotarС–y do opuszczonego miasta.</text>
 	</string>
 </string_table>

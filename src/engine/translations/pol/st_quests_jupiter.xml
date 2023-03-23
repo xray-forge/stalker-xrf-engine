@@ -1,687 +1,686 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="jup_a10_actor_agree_back_vano_duties_name">
-		<text>Dіugi: zanieњ pieni№dze bandytom</text>
+		<text>DС–ugi: zanieСљ pieniв„–dze bandytom</text>
 	</string>
 	<string id="jup_a10_actor_agree_back_vano_duties_text">
-		<text>Wano jest winien bandytom pieni№dze za kombinezon, ale nie moїe go spіaciж, bo odsetki rosn№ zbyt szybko. Poprosiі ciк o rozwi№zanie tego problemu.</text>
+		<text>Wano jest winien bandytom pieniв„–dze za kombinezon, ale nie moС—e go spС–aciР¶, bo odsetki rosnв„– zbyt szybko. PoprosiС– ciРє o rozwiв„–zanie tego problemu.</text>
 	</string>
 	<string id="jup_a10_actor_back_vano_duties_name">
-		<text>Dіugi: wrуж do Wano</text>
+		<text>DС–ugi: wrСѓР¶ do Wano</text>
 	</string>
 	<string id="jup_a10_actor_back_vano_duties_text">
-		<text>Powiedz Wano, jak poszіa spіata jego dіugu.</text>
+		<text>Powiedz Wano, jak poszС–a spС–ata jego dС–ugu.</text>
 	</string>
 	<string id="jup_a10_kill_all_bandit_name">
-		<text>Dіugi: rozpraw siк z bandytami</text>
+		<text>DС–ugi: rozpraw siРє z bandytami</text>
 	</string>
 	<string id="jup_a10_kill_all_bandit_text">
-		<text>Spіata dіugуw Wano przybraіa paskudny obrуt. Zabij bandytуw.</text>
+		<text>SpС–ata dС–ugСѓw Wano przybraС–a paskudny obrСѓt. Zabij bandytСѓw.</text>
 	</string>
 	<string id="jup_a12_free_prisoner_get_reward_name">
-		<text>Zakіadnik: odbierz nagrodк od przyjaciуі Mitaja</text>
+		<text>ZakС–adnik: odbierz nagrodРє od przyjaciСѓС– Mitaja</text>
 	</string>
 	<string id="jup_a12_free_prisoner_get_reward_text">
-		<text>Mitaj zostaі uwolniony. Spotkaj siк w barze z jego przyjaciуіmi, aby odebraж nagrodк.</text>
+		<text>Mitaj zostaС– uwolniony. Spotkaj siРє w barze z jego przyjaciСѓС–mi, aby odebraР¶ nagrodРє.</text>
 	</string>
 	<string id="jup_a12_free_prisoner_name">
-		<text>Zakіadnik: uwolnij Mitaja</text>
+		<text>ZakС–adnik: uwolnij Mitaja</text>
 	</string>
 	<string id="jup_a12_free_prisoner_not_ready_name">
-		<text>Zakіadnik: powiedz Grizliemu, їe jesteњ gotowy</text>
+		<text>ZakС–adnik: powiedz Grizliemu, С—e jesteСљ gotowy</text>
 	</string>
 	<string id="jup_a12_free_prisoner_not_ready_text">
-		<text>Musisz porozmawiaж z Grizlim, zanim sprуbujesz uwolniж zakіadnika.</text>
+		<text>Musisz porozmawiaР¶ z Grizlim, zanim sprСѓbujesz uwolniР¶ zakС–adnika.</text>
 	</string>
 	<string id="jup_a12_free_prisoner_power_name">
-		<text>Zakіadnik: uwolnij Mitaja siі№</text>
+		<text>ZakС–adnik: uwolnij Mitaja siС–в„–</text>
 	</string>
 	<string id="jup_a12_free_prisoner_power_text">
-		<text>Musisz zabiж bandytуw, aby uwolniж stalkera zwanego Mitajem.</text>
+		<text>Musisz zabiР¶ bandytСѓw, aby uwolniР¶ stalkera zwanego Mitajem.</text>
 	</string>
 	<string id="jup_a12_free_prisoner_power_wait_name">
-		<text>Zakіadnik: spotkaj siк ze stalkerami</text>
+		<text>ZakС–adnik: spotkaj siРє ze stalkerami</text>
 	</string>
 	<string id="jup_a12_free_prisoner_power_wait_text">
-		<text>Stalkerzy pomog№ ci uwolniж zakіadnika. Musisz spotkaж siк z nimi w nocy, aby wspуlnie zaatakowaж bandytуw.</text>
+		<text>Stalkerzy pomogв„– ci uwolniР¶ zakС–adnika. Musisz spotkaР¶ siРє z nimi w nocy, aby wspСѓlnie zaatakowaР¶ bandytСѓw.</text>
 	</string>
 	<string id="jup_a12_free_prisoner_ransom_name">
-		<text>Zakіadnik: uzgodnij zapіatк okupu za uwolnienie Mitaja</text>
+		<text>ZakС–adnik: uzgodnij zapС–atРє okupu za uwolnienie Mitaja</text>
 	</string>
 	<string id="jup_a12_free_prisoner_ransom_text">
-		<text>Uzgodnij z dowуdc№ bandytуw zapіatк okupu za uwolnienie stalkera zwanego Mitajem.</text>
+		<text>Uzgodnij z dowСѓdcв„– bandytСѓw zapС–atРє okupu za uwolnienie stalkera zwanego Mitajem.</text>
 	</string>
 	<string id="jup_a12_free_prisoner_text">
-		<text>Uwolnij stalkera zwanego Mitajem, ktуry zostaі wziкty na zakіadnika przez bandytуw.</text>
+		<text>Uwolnij stalkera zwanego Mitajem, ktСѓry zostaС– wziРєty na zakС–adnika przez bandytСѓw.</text>
 	</string>
 	<string id="jup_a12_guide_prisoner_name">
-		<text>Zakіadnik: wyprowadџ Mitaja z obozu bandytуw</text>
+		<text>ZakС–adnik: wyprowadСџ Mitaja z obozu bandytСѓw</text>
 	</string>
 	<string id="jup_a12_guide_prisoner_text">
-		<text>Obуz bandytуw jest zbyt niebezpieczny, їeby siк po nim krкciж. Musisz odeskortowaж Mitaja poza obуz.</text>
+		<text>ObСѓz bandytСѓw jest zbyt niebezpieczny, С—eby siРє po nim krРєciР¶. Musisz odeskortowaР¶ Mitaja poza obСѓz.</text>
 	</string>
 	<string id="jup_a12_talk_with_prisoner_name">
-		<text>Zakіadnik: porozmawiaj z Mitajem</text>
+		<text>ZakС–adnik: porozmawiaj z Mitajem</text>
 	</string>
 	<string id="jup_a12_talk_with_prisoner_text">
-		<text>Mitaj jest wzglкdnie bezpieczny. Porozmawiaj z nim na temat planu dalszego dziaіania.</text>
+		<text>Mitaj jest wzglРєdnie bezpieczny. Porozmawiaj z nim na temat planu dalszego dziaС–ania.</text>
 	</string>
 	<string id="jup_a9_way_to_pripyat_tech_name">
 		<text>Droga do Prypeci: porozmawiaj z technikiem na temat tunelu</text>
 	</string>
 	<string id="jup_a9_way_to_pripyat_tech_text">
-		<text>Znalezione przez ciebie dokumenty jasno stwierdzaj№, їe pod fabryk№ Jupiter znajduje siк podziemny tunel prowadz№cy do Prypeci. W tunelu nie ma energii i jest on wypeіniony gazem, a wejњcie zostaіo zablokowane. Musisz znaleџж technika, ktуry potrafi wі№czyж generator i otworzyж њluzк.</text>
+		<text>Znalezione przez ciebie dokumenty jasno stwierdzajв„–, С—e pod fabrykв„– Jupiter znajduje siРє podziemny tunel prowadzв„–cy do Prypeci. W tunelu nie ma energii i jest on wypeС–niony gazem, a wejСљcie zostaС–o zablokowane. Musisz znaleСџР¶ technika, ktСѓry potrafi wС–в„–czyР¶ generator i otworzyР¶ СљluzРє.</text>
 	</string>
 	<string id="jup_b10_ufo_memory_at_text">
-		<text>Moduі pamiкci jest w rкkach eksperta. Musisz poczekaж, aї zostanie odblokowany.</text>
+		<text>ModuС– pamiРєci jest w rРєkach eksperta. Musisz poczekaР¶, aС— zostanie odblokowany.</text>
 	</string>
 	<string id="jup_b10_ufo_memory_name">
-		<text>Samolot bezzaіogowy: odblokuj moduі pamiкci</text>
+		<text>Samolot bezzaС–ogowy: odblokuj moduС– pamiРєci</text>
 	</string>
 	<string id="jup_b10_ufo_memory_nitro_name">
-		<text>Samolot bezzaіogowy: odbierz moduі pamiкci od Azota</text>
+		<text>Samolot bezzaС–ogowy: odbierz moduС– pamiРєci od Azota</text>
 	</string>
 	<string id="jup_b10_ufo_memory_novikov_name">
-		<text>Samolot bezzaіogowy: odbierz moduі pamiкci od Nowikowa</text>
+		<text>Samolot bezzaС–ogowy: odbierz moduС– pamiРєci od Nowikowa</text>
 	</string>
 	<string id="jup_b10_ufo_memory_repaired_by_nitro_text">
-		<text>Azot odblokowaі moduі pamiкci. Odbierz go, їeby zobaczyж, jakie informacje zawiera.</text>
+		<text>Azot odblokowaС– moduС– pamiРєci. Odbierz go, С—eby zobaczyР¶, jakie informacje zawiera.</text>
 	</string>
 	<string id="jup_b10_ufo_memory_repaired_by_novikov_text">
-		<text>Nowikow odblokowaі moduі pamiкci. Odbierz go, їeby zobaczyж, jakie informacje zawiera.</text>
+		<text>Nowikow odblokowaС– moduС– pamiРєci. Odbierz go, С—eby zobaczyР¶, jakie informacje zawiera.</text>
 	</string>
 	<string id="jup_b10_ufo_memory_started_text">
-		<text>Udaіo ci siк ocaliж moduі pamiкci z samolotu bezzaіogowego. Musisz go odblokowaж, їeby dostaж siк do zawartych w nim informacji.</text>
+		<text>UdaС–o ci siРє ocaliР¶ moduС– pamiРєci z samolotu bezzaС–ogowego. Musisz go odblokowaР¶, С—eby dostaР¶ siРє do zawartych w nim informacji.</text>
 	</string>
 	<string id="jup_b10_ufo_memory_wait_name">
-		<text>Samolot bezzaіogowy: poczekaj, aї moduі pamiкci zostanie odblokowany</text>
+		<text>Samolot bezzaС–ogowy: poczekaj, aС— moduС– pamiРєci zostanie odblokowany</text>
 	</string>
 	<string id="jup_b16_oasis_art_name">
-		<text>Oaza: znajdџ dowуd</text>
+		<text>Oaza: znajdСџ dowСѓd</text>
 	</string>
 	<string id="jup_b16_oasis_art_text">
-		<text>Oaza zostaіa odnaleziona i naprawdк ma lecznicze wіaњciwoњci. Musisz znaleџж jakiњ dowуd, їeby dostarczyж go naukowcom.</text>
+		<text>Oaza zostaС–a odnaleziona i naprawdРє ma lecznicze wС–aСљciwoСљci. Musisz znaleСџР¶ jakiСљ dowСѓd, С—eby dostarczyР¶ go naukowcom.</text>
 	</string>
 	<string id="jup_b16_oasis_artifact_back_name">
-		<text>Oaza: zanieњ dowуd naukowcom</text>
+		<text>Oaza: zanieСљ dowСѓd naukowcom</text>
 	</string>
 	<string id="jup_b16_oasis_artifact_back_text">
-		<text>Oaza zostaіa odnaleziona i naprawdк ma lecznicze wіaњciwoњci. Musisz zabraж znaleziony tam artefakt do naukowcуw jako dowуd.</text>
+		<text>Oaza zostaС–a odnaleziona i naprawdРє ma lecznicze wС–aСљciwoСљci. Musisz zabraР¶ znaleziony tam artefakt do naukowcСѓw jako dowСѓd.</text>
 	</string>
 	<string id="jup_b16_oasis_name">
-		<text>Oaza: sprawdџ, czy legenda jest prawdziwa</text>
+		<text>Oaza: sprawdСџ, czy legenda jest prawdziwa</text>
 	</string>
 	<string id="jup_b16_oasis_text">
-		<text>Oziorski, naukowiec z bunkra, poprosiі ciк o odnalezienie Oazy, legendarnego miejsca w Zonie. Wedіug plotek, powinny siк tam znajdowaж jakieњ wody lecznicze, ale nikt tak naprawdк nie wie, czy ona istnieje.</text>
+		<text>Oziorski, naukowiec z bunkra, poprosiС– ciРє o odnalezienie Oazy, legendarnego miejsca w Zonie. WedС–ug plotek, powinny siРє tam znajdowaР¶ jakieСљ wody lecznicze, ale nikt tak naprawdРє nie wie, czy ona istnieje.</text>
 	</string>
 	<string id="jup_b19_agreed_to_go_name">
-		<text>Kopaczi: idџ z Wujkiem Jarem</text>
+		<text>Kopaczi: idСџ z Wujkiem Jarem</text>
 	</string>
 	<string id="jup_b19_agreed_to_go_text">
-		<text>Wujek Jar potrzebuje pomocy w jakiejњ sprawie. Idџ z nim do wioski Kopaczi.</text>
+		<text>Wujek Jar potrzebuje pomocy w jakiejСљ sprawie. IdСџ z nim do wioski Kopaczi.</text>
 	</string>
 	<string id="jup_b19_destroy_mercs_name">
-		<text>Kopaczi: zabij najemnikуw</text>
+		<text>Kopaczi: zabij najemnikСѓw</text>
 	</string>
 	<string id="jup_b19_destroy_mercs_text">
-		<text>Wygl№da na to, їe Wujek Jar spodziewaі siк przybycia najemnikуw. Musisz ich zabiж.</text>
+		<text>Wyglв„–da na to, С—e Wujek Jar spodziewaС– siРє przybycia najemnikСѓw. Musisz ich zabiР¶.</text>
 	</string>
 	<string id="jup_b19_following_yar_name">
-		<text>Kopaczi: trzymaj siк blisko Wujka Jara</text>
+		<text>Kopaczi: trzymaj siРє blisko Wujka Jara</text>
 	</string>
 	<string id="jup_b19_following_yar_text">
-		<text>Wujek Jar poprosiі ciк o trzymanie siк blisko niego i siedzenie cicho.</text>
+		<text>Wujek Jar poprosiС– ciРє o trzymanie siРє blisko niego i siedzenie cicho.</text>
 	</string>
 	<string id="jup_b19_talk_to_yar_name">
 		<text>Kopaczi: porozmawiaj z Wujkiem Jarem</text>
 	</string>
 	<string id="jup_b19_talk_to_yar_text">
-		<text>Najemnicy nie їyj№. Musisz porozmawiaж z Wujkiem Jarem, aby wyjaњniі, co siк staіo.</text>
+		<text>Najemnicy nie С—yjв„–. Musisz porozmawiaР¶ z Wujkiem Jarem, aby wyjaСљniС–, co siРє staС–o.</text>
 	</string>
 	<string id="jup_b1_bring_art_back_name">
-		<text>Okresowe emisje psioniczne: zabierz anormalny twуr do naukowcуw</text>
+		<text>Okresowe emisje psioniczne: zabierz anormalny twСѓr do naukowcСѓw</text>
 	</string>
 	<string id="jup_b1_bring_art_back_text">
-		<text>Zgodnie z umow№, zabierz znalezion№ prуbkк do Hermana. Wygl№da na to, їe ten przedmiot, czкњciowo przeksztaіcony przez dziaіanie anomalii, jest џrуdіem okresowych emisji psionicznych.</text>
+		<text>Zgodnie z umowв„–, zabierz znalezionв„– prСѓbkРє do Hermana. Wyglв„–da na to, С—e ten przedmiot, czРєСљciowo przeksztaС–cony przez dziaС–anie anomalii, jest СџrСѓdС–em okresowych emisji psionicznych.</text>
 	</string>
 	<string id="jup_b1_get_art_name">
-		<text>Okresowe emisje psioniczne: zbadaj џrуdіo</text>
+		<text>Okresowe emisje psioniczne: zbadaj СџrСѓdС–o</text>
 	</string>
 	<string id="jup_b1_get_art_text">
-		<text>Zbadaj tunele w poszukiwaniu jakiegoњ tworu wykazuj№cego anomaliк. Naukowcy wierz№, їe okresowe pole psioniczne ma џrуdіo, ktуre prawdopodobnie przypomina artefakt.</text>
+		<text>Zbadaj tunele w poszukiwaniu jakiegoСљ tworu wykazujв„–cego anomaliРє. Naukowcy wierzв„–, С—e okresowe pole psioniczne ma СџrСѓdС–o, ktСѓre prawdopodobnie przypomina artefakt.</text>
 	</string>
 	<string id="jup_b1_join_squad_name">
-		<text>Okresowe emisje psioniczne: spotkaj siк z druїyn№ Topola</text>
+		<text>Okresowe emisje psioniczne: spotkaj siРє z druС—ynв„– Topola</text>
 	</string>
 	<string id="jup_b1_join_squad_text">
-		<text>Druїyna Topola wybraіa siк do tunelu, w ktуrym wystкpuj№ okresowe emisje psioniczne. Musisz siк tam z nimi spotkaж.</text>
+		<text>DruС—yna Topola wybraС–a siРє do tunelu, w ktСѓrym wystРєpujв„– okresowe emisje psioniczne. Musisz siРє tam z nimi spotkaР¶.</text>
 	</string>
 	<string id="jup_b1_meet_squad_name">
 		<text>Okresowe emisje psioniczne: porozmawiaj z Topolem</text>
 	</string>
 	<string id="jup_b1_meet_squad_text">
-		<text>Doі№cz do druїyny Topola id№cej do tunelu, w ktуrym wystкpuj№ okresowe emisje psioniczne. Zgodnie z umow№, stalkerzy bкd№ ochraniaж tunel, podczas gdy ty bкdziesz szukaж tego, czego chc№ naukowcy.</text>
+		<text>DoС–в„–cz do druС—yny Topola idв„–cej do tunelu, w ktСѓrym wystРєpujв„– okresowe emisje psioniczne. Zgodnie z umowв„–, stalkerzy bРєdв„– ochraniaР¶ tunel, podczas gdy ty bРєdziesz szukaР¶ tego, czego chcв„– naukowcy.</text>
 	</string>
 	<string id="jup_b200_tech_materials_brought_all_text">
-		<text>Musisz zabraж wszystkie znalezione materiaіy radiotechniczne do Azota.</text>
+		<text>Musisz zabraР¶ wszystkie znalezione materiaС–y radiotechniczne do Azota.</text>
 	</string>
 	<string id="jup_b200_tech_materials_brought_some_text">
-		<text>Azot potrzebuje materiaіуw radiotechnicznych. Moїesz mu daж to, co juї masz, lub postaraж siк znaleџж coњ jeszcze.</text>
+		<text>Azot potrzebuje materiaС–Сѓw radiotechnicznych. MoС—esz mu daР¶ to, co juС— masz, lub postaraР¶ siРє znaleСџР¶ coСљ jeszcze.</text>
 	</string>
 	<string id="jup_b200_tech_materials_name">
-		<text>Sprzкt radiowy: znajdџ materiaіy dla Azota</text>
+		<text>SprzРєt radiowy: znajdСџ materiaС–y dla Azota</text>
 	</string>
 	<string id="jup_b200_tech_materials_text">
-		<text>Azot potrzebuje materiaіуw radiotechnicznych. Mуwi, їe najlepiej poszukaж ich w cementowni.</text>
+		<text>Azot potrzebuje materiaС–Сѓw radiotechnicznych. MСѓwi, С—e najlepiej poszukaР¶ ich w cementowni.</text>
 	</string>
 	<string id="jup_b202_actor_items_stolen_01_name">
-		<text>Kradzieї: dowiedz siк, kto jest odpowiedzialny za kradzieї</text>
+		<text>KradzieС—: dowiedz siРє, kto jest odpowiedzialny za kradzieС—</text>
 	</string>
 	<string id="jup_b202_actor_items_stolen_01_text">
-		<text>Popytaj stalkerуw w Janowie, czy nie widzieli kogoњ podejrzanego, kto mуgіby ukraњж coњ z prywatnej skrytki.</text>
+		<text>Popytaj stalkerСѓw w Janowie, czy nie widzieli kogoСљ podejrzanego, kto mСѓgС–by ukraСљР¶ coСљ z prywatnej skrytki.</text>
 	</string>
 	<string id="jup_b202_actor_items_stolen_02_name">
-		<text>Kradzieї: sprawdџ na podstacji</text>
+		<text>KradzieС—: sprawdСџ na podstacji</text>
 	</string>
 	<string id="jup_b202_actor_items_stolen_02_text">
-		<text>Musisz sprawdziж podstacjк, poniewaї w tamt№ stronк skierowaі siк podejrzany stalker, ktуry moїe byж odpowiedzialny za kradzieї.</text>
+		<text>Musisz sprawdziР¶ podstacjРє, poniewaС— w tamtв„– stronРє skierowaС– siРє podejrzany stalker, ktСѓry moС—e byР¶ odpowiedzialny za kradzieС—.</text>
 	</string>
 	<string id="jup_b202_actor_items_stolen_03_name">
-		<text>Kradzieї: zabierz swoje rzeczy</text>
+		<text>KradzieС—: zabierz swoje rzeczy</text>
 	</string>
 	<string id="jup_b202_actor_items_stolen_03_text">
-		<text>Wszystkie przedmioty, ktуre ukradі Sкk, powinny byж w schowku w kanaіach za podstacj№.</text>
+		<text>Wszystkie przedmioty, ktСѓre ukradС– SРєk, powinny byР¶ w schowku w kanaС–ach za podstacjв„–.</text>
 	</string>
 	<string id="jup_b206_anomalous_grove_get_plant_name">
-		<text>Nietypowa roњlina: zdob№dџ prуbkк roњliny</text>
+		<text>Nietypowa roСљlina: zdobв„–dСџ prСѓbkРє roСљliny</text>
 	</string>
 	<string id="jup_b206_anomalous_grove_get_plant_text">
-		<text>Obszar peіen nietypowej roњlinnoњci pojawiі siк w pobliїu krawкdzi kamienioіomуw. Oziorski poprosiі ciк o przyniesienie prуbki roњlin do badaс.</text>
+		<text>Obszar peС–en nietypowej roСљlinnoСљci pojawiС– siРє w pobliС—u krawРєdzi kamienioС–omСѓw. Oziorski poprosiС– ciРє o przyniesienie prСѓbki roСљlin do badaСЃ.</text>
 	</string>
 	<string id="jup_b206_anomalous_grove_have_plant_name">
-		<text>Nietypowa roњlina: daj prуbkк Oziorskiemu</text>
+		<text>Nietypowa roСљlina: daj prСѓbkРє Oziorskiemu</text>
 	</string>
 	<string id="jup_b206_anomalous_grove_have_plant_text">
-		<text>Musisz zabraж prуbkк roњliny do Oziorskiego. W zamian Oziorski przekona Hermana, їeby daі ci kombinezon naukowca.</text>
+		<text>Musisz zabraР¶ prСѓbkРє roСљliny do Oziorskiego. W zamian Oziorski przekona Hermana, С—eby daС– ci kombinezon naukowca.</text>
 	</string>
 	<string id="jup_b208_burers_hunt_kill_burers_name">
 		<text>Polowanie: zabij niezidentyfikowane mutanty</text>
 	</string>
 	<string id="jup_b208_burers_hunt_kill_burers_text">
-		<text>Grupa stalkerуw napotkaіa niezidentyfikowane mutanty w tunelach na pуіnoc od fabryki Jupiter. Zbadaj ten teren i zabij mutanty.</text>
+		<text>Grupa stalkerСѓw napotkaС–a niezidentyfikowane mutanty w tunelach na pСѓС–noc od fabryki Jupiter. Zbadaj ten teren i zabij mutanty.</text>
 	</string>
 	<string id="jup_b208_burers_hunt_take_reward_name">
-		<text>Polowanie: odbierz od Trapera nagrodк za zabicie mutantуw w tunelu</text>
+		<text>Polowanie: odbierz od Trapera nagrodРє za zabicie mutantСѓw w tunelu</text>
 	</string>
 	<string id="jup_b208_burers_hunt_take_reward_text">
-		<text>Mutanty w tunelu na pуіnoc od fabryki Jupiter zostaіy zabite. Musisz poinformowaж o tym Trapera i odebraж swoj№ nagrodк.</text>
+		<text>Mutanty w tunelu na pСѓС–noc od fabryki Jupiter zostaС–y zabite. Musisz poinformowaР¶ o tym Trapera i odebraР¶ swojв„– nagrodРє.</text>
 	</string>
 	<string id="jup_b209_hypotheses_1_name">
-		<text>Hipoteza: umieњж skaner w centrum osuwiska</text>
+		<text>Hipoteza: umieСљР¶ skaner w centrum osuwiska</text>
 	</string>
 	<string id="jup_b209_hypotheses_1_text">
-		<text>Umieњж skaner w centrum osuwiska, aby sprawdziж hipotezк Oziorskiego.</text>
+		<text>UmieСљР¶ skaner w centrum osuwiska, aby sprawdziР¶ hipotezРє Oziorskiego.</text>
 	</string>
 	<string id="jup_b209_hypotheses_2_name">
-		<text>Hipoteza: poczekaj na zakoсczenie eksperymentu</text>
+		<text>Hipoteza: poczekaj na zakoСЃczenie eksperymentu</text>
 	</string>
 	<string id="jup_b209_hypotheses_2_text">
-		<text>Skaner jest teraz aktywny i zacz№і rejestrowaж obecnoњж mutantуw. Musisz poczekaж na zebranie wystarczaj№cej iloњci danych, by potwierdziж lub obaliж hipotezк.</text>
+		<text>Skaner jest teraz aktywny i zaczв„–С– rejestrowaР¶ obecnoСљР¶ mutantСѓw. Musisz poczekaР¶ na zebranie wystarczajв„–cej iloСљci danych, by potwierdziР¶ lub obaliР¶ hipotezРє.</text>
 	</string>
 	<string id="jup_b209_hypotheses_3_name">
 		<text>Hipoteza: zabierz skaner</text>
 	</string>
 	<string id="jup_b209_hypotheses_3_text">
-		<text>Zebrano wystarczaj№c№ iloњж danych, by potwierdziж hipotezк Oziorskiego. Zabierz skaner.</text>
+		<text>Zebrano wystarczajв„–cв„– iloСљР¶ danych, by potwierdziР¶ hipotezРє Oziorskiego. Zabierz skaner.</text>
 	</string>
 	<string id="jup_b209_hypotheses_4_name">
 		<text>Hipoteza: daj skaner Oziorskiemu</text>
 	</string>
 	<string id="jup_b209_hypotheses_4_text">
-		<text>Musisz daж skaner Oziorskiemu. Zebrane dane powinny wystarczyж, by potwierdziж jego hipotezк.</text>
+		<text>Musisz daР¶ skaner Oziorskiemu. Zebrane dane powinny wystarczyР¶, by potwierdziР¶ jego hipotezРє.</text>
 	</string>
 	<string id="jup_b211_kill_bloodsuckers_name">
 		<text>Polowanie: zabij bagienne pijawki</text>
 	</string>
 	<string id="jup_b211_kill_bloodsuckers_text">
-		<text>Zaobserwowano grupк bagiennych pijawek na Mokradіach za cementowni№. Miejscowi stalkerzy poprosili ciк o ich zabicie.</text>
+		<text>Zaobserwowano grupРє bagiennych pijawek na MokradС–ach za cementowniв„–. Miejscowi stalkerzy poprosili ciРє o ich zabicie.</text>
 	</string>
 	<string id="jup_b211_take_reward_name">
-		<text>Polowanie: odbierz od Trapera nagrodк za zabicie pijawek</text>
+		<text>Polowanie: odbierz od Trapera nagrodРє za zabicie pijawek</text>
 	</string>
 	<string id="jup_b211_take_reward_text">
-		<text>Bagienne pijawki s№ martwe. Odbierz od Trapera nagrodк zaoferowan№ przez miejscowych stalkerуw.</text>
+		<text>Bagienne pijawki sв„– martwe. Odbierz od Trapera nagrodРє zaoferowanв„– przez miejscowych stalkerСѓw.</text>
 	</string>
 	<string id="jup_b212_jupiter_kill_chimera_name">
-		<text>Nocne polowanie: zabij chimerк</text>
+		<text>Nocne polowanie: zabij chimerРє</text>
 	</string>
 	<string id="jup_b212_jupiter_kill_chimera_text">
-		<text>Chimery s№ drapieїnikami nocnymi. Nikt nie wie, gdzie ta ma swoje dzienne legowisko. Musisz j№ zabiж w nocy, gdy wychodzi na polowanie niedaleko kompleksu wentylacyjnego.</text>
+		<text>Chimery sв„– drapieС—nikami nocnymi. Nikt nie wie, gdzie ta ma swoje dzienne legowisko. Musisz jв„– zabiР¶ w nocy, gdy wychodzi na polowanie niedaleko kompleksu wentylacyjnego.</text>
 	</string>
 	<string id="jup_b212_jupiter_tell_animalboy_about_chimera_name">
-		<text>Nocne polowanie: powiedz Traperowi, їe chimera zostaіa zabita</text>
+		<text>Nocne polowanie: powiedz Traperowi, С—e chimera zostaС–a zabita</text>
 	</string>
 	<string id="jup_b212_jupiter_tell_animalboy_about_chimera_text">
-		<text>Mordercza chimera nie їyje, a іowca Lis zostaі pomszczony. Powiedz o tym Traperowi.</text>
+		<text>Mordercza chimera nie С—yje, a С–owca Lis zostaС– pomszczony. Powiedz o tym Traperowi.</text>
 	</string>
 	<string id="jup_b217_get_tools_1_2_name">
-		<text>Narzкdzia: przynieњ Azotowi narzкdzia</text>
+		<text>NarzРєdzia: przynieСљ Azotowi narzРєdzia</text>
 	</string>
 	<string id="jup_b217_get_tools_1_2_text">
-		<text>Azot poprosiі ciк o zdobycie dwуch zestawуw narzкdzi: jednego podstawowego i jednego do precyzyjnej pracy. Technik zapіaci ci za narzкdzia i bкdzie w stanie wykonaж bardziej zaawansowane modyfikacje broni i pancerzy.</text>
+		<text>Azot poprosiС– ciРє o zdobycie dwСѓch zestawСѓw narzРєdzi: jednego podstawowego i jednego do precyzyjnej pracy. Technik zapС–aci ci za narzРєdzia i bРєdzie w stanie wykonaР¶ bardziej zaawansowane modyfikacje broni i pancerzy.</text>
 	</string>
 	<string id="jup_b217_get_tools_1_3_name">
-		<text>Narzкdzia: przynieњ Azotowi narzкdzia</text>
+		<text>NarzРєdzia: przynieСљ Azotowi narzРєdzia</text>
 	</string>
 	<string id="jup_b217_get_tools_1_3_text">
-		<text>Azot poprosiі ciк o zdobycie dwуch zestawуw narzкdzi: jednego podstawowego i jednego do kalibracji. Technik zapіaci ci za narzкdzia i bкdzie w stanie wykonaж bardziej zaawansowane modyfikacje broni i pancerzy.</text>
+		<text>Azot poprosiС– ciРє o zdobycie dwСѓch zestawСѓw narzРєdzi: jednego podstawowego i jednego do kalibracji. Technik zapС–aci ci za narzРєdzia i bРєdzie w stanie wykonaР¶ bardziej zaawansowane modyfikacje broni i pancerzy.</text>
 	</string>
 	<string id="jup_b217_get_tools_1_name">
-		<text>Narzкdzia: przynieњ Azotowi narzкdzia</text>
+		<text>NarzРєdzia: przynieСљ Azotowi narzРєdzia</text>
 	</string>
 	<string id="jup_b217_get_tools_1_text">
-		<text>Azot poprosiі ciк o zdobycie zestawu narzкdzi podstawowych. Technik zapіaci ci za narzкdzia i bкdzie w stanie wykonaж bardziej zaawansowane modyfikacje broni i pancerzy.</text>
+		<text>Azot poprosiС– ciРє o zdobycie zestawu narzРєdzi podstawowych. Technik zapС–aci ci za narzРєdzia i bРєdzie w stanie wykonaР¶ bardziej zaawansowane modyfikacje broni i pancerzy.</text>
 	</string>
 	<string id="jup_b217_get_tools_2_3_name">
-		<text>Narzкdzia: przynieњ Azotowi narzкdzia</text>
+		<text>NarzРєdzia: przynieСљ Azotowi narzРєdzia</text>
 	</string>
 	<string id="jup_b217_get_tools_2_3_text">
-		<text>Azot poprosiі ciк o zdobycie dwуch zestawуw narzкdzi: jednego do precyzyjnej pracy i jednego do kalibracji. Technik zapіaci ci za narzкdzia i bкdzie w stanie wykonaж bardziej zaawansowane modyfikacje broni i pancerzy.</text>
+		<text>Azot poprosiС– ciРє o zdobycie dwСѓch zestawСѓw narzРєdzi: jednego do precyzyjnej pracy i jednego do kalibracji. Technik zapС–aci ci za narzРєdzia i bРєdzie w stanie wykonaР¶ bardziej zaawansowane modyfikacje broni i pancerzy.</text>
 	</string>
 	<string id="jup_b217_get_tools_2_name">
-		<text>Narzкdzia: przynieњ Azotowi narzкdzia</text>
+		<text>NarzРєdzia: przynieСљ Azotowi narzРєdzia</text>
 	</string>
 	<string id="jup_b217_get_tools_2_text">
-		<text>Azot poprosiі ciк o zdobycie zestawu narzкdzi do precyzyjnej pracy. Technik zapіaci ci za narzкdzia i bкdzie w stanie wykonaж bardziej zaawansowane modyfikacje broni i pancerzy.</text>
+		<text>Azot poprosiС– ciРє o zdobycie zestawu narzРєdzi do precyzyjnej pracy. Technik zapС–aci ci za narzРєdzia i bРєdzie w stanie wykonaР¶ bardziej zaawansowane modyfikacje broni i pancerzy.</text>
 	</string>
 	<string id="jup_b217_get_tools_3_name">
-		<text>Narzкdzia: przynieњ Azotowi narzкdzia</text>
+		<text>NarzРєdzia: przynieСљ Azotowi narzРєdzia</text>
 	</string>
 	<string id="jup_b217_get_tools_3_text">
-		<text>Azot poprosiі ciк o zdobycie zestawu narzкdzi do kalibracji. Technik zapіaci ci za narzкdzia i bкdzie w stanie wykonaж bardziej zaawansowane modyfikacje broni i pancerzy.</text>
+		<text>Azot poprosiС– ciРє o zdobycie zestawu narzРєdzi do kalibracji. Technik zapС–aci ci za narzРєdzia i bРєdzie w stanie wykonaР¶ bardziej zaawansowane modyfikacje broni i pancerzy.</text>
 	</string>
 	<string id="jup_b217_mechanic_toolkit_search_name">
-		<text>Narzкdzia: przynieњ Azotowi narzкdzia</text>
+		<text>NarzРєdzia: przynieСљ Azotowi narzРєdzia</text>
 	</string>
 	<string id="jup_b217_mechanic_toolkit_search_text">
-		<text>Azot poprosiі ciк o zdobycie trzech zestawуw narzкdzi: jednego podstawowego, jednego do precyzyjnej pracy i jednego do kalibracji. Technik zapіaci ci za narzкdzia i bкdzie w stanie wykonaж bardziej zaawansowane modyfikacje broni i pancerzy.</text>
+		<text>Azot poprosiС– ciРє o zdobycie trzech zestawСѓw narzРєdzi: jednego podstawowego, jednego do precyzyjnej pracy i jednego do kalibracji. Technik zapС–aci ci za narzРєdzia i bРєdzie w stanie wykonaР¶ bardziej zaawansowane modyfikacje broni i pancerzy.</text>
 	</string>
 	<string id="jup_b218_actor_outfit_name">
-		<text>Prypeж 1: znajdџ kombinezon z aparatem tlenowym o zamkniкtym obiegu</text>
+		<text>PrypeР¶ 1: znajdСџ kombinezon z aparatem tlenowym o zamkniРєtym obiegu</text>
 	</string>
 	<string id="jup_b218_actor_outfit_text">
-		<text>Poniewaї tunel Prypeж 1 zostaі wypeіniony dwutlenkiem wкgla wymieszanym z jak№њ nieznan№ substancj№, bкdziesz potrzebowaж kombinezonu z aparatem tlenowym o zamkniкtym obiegu.</text>
+		<text>PoniewaС— tunel PrypeР¶ 1 zostaС– wypeС–niony dwutlenkiem wРєgla wymieszanym z jakв„–Сљ nieznanв„– substancjв„–, bРєdziesz potrzebowaР¶ kombinezonu z aparatem tlenowym o zamkniРєtym obiegu.</text>
 	</string>
 	<string id="jup_b218_monolith_guide_to_zulus_name">
-		<text>Prypeж 1: zaprowadџ Wіуczкgк do Zulusa</text>
+		<text>PrypeР¶ 1: zaprowadСџ WС–СѓczРєgРє do Zulusa</text>
 	</string>
 	<string id="jup_b218_monolith_guide_to_zulus_text">
-		<text>Musisz zaprowadziж Wіуczкgк do Zulusa i przedstawiж go jako nowego czіonka druїyny. Zulus moїe nie byж zbyt przyjazny, jeїeli wojownik w mundurze Monolitu pojawi siк u niego samotnie.</text>
+		<text>Musisz zaprowadziР¶ WС–СѓczРєgРє do Zulusa i przedstawiР¶ go jako nowego czС–onka druС—yny. Zulus moС—e nie byР¶ zbyt przyjazny, jeС—eli wojownik w mundurze Monolitu pojawi siРє u niego samotnie.</text>
 	</string>
 	<string id="jup_b218_monolith_name">
-		<text>Prypeж 1: porozmawiaj z Wіуczкg№ na temat kombinezonu ochronnego</text>
+		<text>PrypeР¶ 1: porozmawiaj z WС–СѓczРєgв„– na temat kombinezonu ochronnego</text>
 	</string>
 	<string id="jup_b218_monolith_text">
-		<text>Tunel Prypeж 1 zostaі wypeіniony dwutlenkiem wкgla wymieszanym z jak№њ nieznan№ substancj№. Musisz poinformowaж Wіуczкgк, їe aby przez niego przejњж, bкdzie potrzebowaі kombinezonu z aparatem tlenowym o zamkniкtym obiegu.</text>
+		<text>Tunel PrypeР¶ 1 zostaС– wypeС–niony dwutlenkiem wРєgla wymieszanym z jakв„–Сљ nieznanв„– substancjв„–. Musisz poinformowaР¶ WС–СѓczРєgРє, С—e aby przez niego przejСљР¶, bРєdzie potrzebowaС– kombinezonu z aparatem tlenowym o zamkniРєtym obiegu.</text>
 	</string>
 	<string id="jup_b218_pripyat_group_gathering_name">
-		<text>Prypeж 1: zbierz ekipк na wyprawк do Prypeci</text>
+		<text>PrypeР¶ 1: zbierz ekipРє na wyprawРє do Prypeci</text>
 	</string>
 	<string id="jup_b218_pripyat_group_gathering_text">
-		<text>Azot mуgіby otworzyж њluzк tunelu Prypeж 1, ale nie zgadza siк pуjњж do fabryki Jupiter bez ochrony. Zaleciі teї, їeby zebraж kilku ludzi na przeprawк przez tunel. Masz juї Zulusa, ktуry zasugerowaі, їeby nowych ludzi wysyіaж bezpoњrednio do niego.</text>
+		<text>Azot mСѓgС–by otworzyР¶ СљluzРє tunelu PrypeР¶ 1, ale nie zgadza siРє pСѓjСљР¶ do fabryki Jupiter bez ochrony. ZaleciС– teС—, С—eby zebraР¶ kilku ludzi na przeprawРє przez tunel. Masz juС— Zulusa, ktСѓry zasugerowaС–, С—eby nowych ludzi wysyС–aР¶ bezpoСљrednio do niego.</text>
 	</string>
 	<string id="jup_b218_pripyat_group_zulus_talk_name">
-		<text>Prypeж 1: porozmawiaj z Zulusem na temat wyprawy do Prypeci</text>
+		<text>PrypeР¶ 1: porozmawiaj z Zulusem na temat wyprawy do Prypeci</text>
 	</string>
 	<string id="jup_b218_pripyat_group_zulus_talk_text">
-		<text>Azot mуgіby otworzyж њluzк tunelu Prypeж 1, ale nie zgadza siк pуjњж do fabryki Jupiter bez ochrony. Zaleciі teї, їeby zebraж kilku ludzi na przeprawк przez tunel. Zasugerowaі ci rozmowк z Zulusem, ktуry mуgіby pomуc w sformowaniu druїyny.</text>
+		<text>Azot mСѓgС–by otworzyР¶ СљluzРє tunelu PrypeР¶ 1, ale nie zgadza siРє pСѓjСљР¶ do fabryki Jupiter bez ochrony. ZaleciС– teС—, С—eby zebraР¶ kilku ludzi na przeprawРє przez tunel. ZasugerowaС– ci rozmowРє z Zulusem, ktСѓry mСѓgС–by pomСѓc w sformowaniu druС—yny.</text>
 	</string>
 	<string id="jup_b218_soldier_guide_to_zulus_name">
-		<text>Prypeж 1: zaprowadџ Sokoіowa do Zulusa</text>
+		<text>PrypeР¶ 1: zaprowadСџ SokoС–owa do Zulusa</text>
 	</string>
 	<string id="jup_b218_soldier_guide_to_zulus_text">
-		<text>Sokoіow zgodziі siк pуjњж do Prypeci. Mуgіby zabraж ze sob№ kombinezon naukowca, gdy bкdzie opuszczaі bunkier. Zaprowadџ go do Zulusa i przedstaw jako nowego czіonka druїyny.</text>
+		<text>SokoС–ow zgodziС– siРє pСѓjСљР¶ do Prypeci. MСѓgС–by zabraР¶ ze sobв„– kombinezon naukowca, gdy bРєdzie opuszczaС– bunkier. ZaprowadСџ go do Zulusa i przedstaw jako nowego czС–onka druС—yny.</text>
 	</string>
 	<string id="jup_b218_soldier_name">
-		<text>Prypeж 1: porozmawiaj z Sokoіowem na temat kombinezonu ochronnego</text>
+		<text>PrypeР¶ 1: porozmawiaj z SokoС–owem na temat kombinezonu ochronnego</text>
 	</string>
 	<string id="jup_b218_soldier_talk_to_scientist_name">
-		<text>Prypeж 1: porozmawiaj z Oziorskim na temat kombinezonu dla Sokoіowa</text>
+		<text>PrypeР¶ 1: porozmawiaj z Oziorskim na temat kombinezonu dla SokoС–owa</text>
 	</string>
 	<string id="jup_b218_soldier_talk_to_scientist_text">
-		<text>Sokoіow zgodziі siк nosiж kombinezon naukowca dla ochrony, ale Herman raczej nie da mu zabraж їadnego z bunkra. Porozmawiaj z Oziorskim - jest sympatyczniejszy i іatwiej siк z nim dogadaж.</text>
+		<text>SokoС–ow zgodziС– siРє nosiР¶ kombinezon naukowca dla ochrony, ale Herman raczej nie da mu zabraР¶ С—adnego z bunkra. Porozmawiaj z Oziorskim - jest sympatyczniejszy i С–atwiej siРє z nim dogadaР¶.</text>
 	</string>
 	<string id="jup_b218_soldier_tell_outfit_name">
-		<text>Prypeж 1: powiedz Sokoіowowi o kombinezonie naukowca</text>
+		<text>PrypeР¶ 1: powiedz SokoС–owowi o kombinezonie naukowca</text>
 	</string>
 	<string id="jup_b218_soldier_tell_outfit_text">
-		<text>Oziorski jest bardzo zadowolony z prуbki roњlin. Poprosiі ciк o przekazanie Sokoіowowi, їe moїe odebraж kombinezon naukowca od Hermana.</text>
+		<text>Oziorski jest bardzo zadowolony z prСѓbki roСљlin. PoprosiС– ciРє o przekazanie SokoС–owowi, С—e moС—e odebraР¶ kombinezon naukowca od Hermana.</text>
 	</string>
 	<string id="jup_b218_soldier_text">
-		<text>Tunel Prypeж 1 zostaі wypeіniony dwutlenkiem wкgla wymieszanym z jak№њ nieznan№ substancj№. Musisz poinformowaж Sokoіowa, їe aby przez niego przejњж, bкdzie potrzebowaі kombinezonu z aparatem tlenowym o zamkniкtym obiegu.</text>
+		<text>Tunel PrypeР¶ 1 zostaС– wypeС–niony dwutlenkiem wРєgla wymieszanym z jakв„–Сљ nieznanв„– substancjв„–. Musisz poinformowaР¶ SokoС–owa, С—e aby przez niego przejСљР¶, bРєdzie potrzebowaС– kombinezonu z aparatem tlenowym o zamkniРєtym obiegu.</text>
 	</string>
 	<string id="jup_b218_stalker_bring_money_name">
-		<text>Prypeж 1: zdob№dџ dla Wano pieni№dze na kombinezon</text>
+		<text>PrypeР¶ 1: zdobв„–dСџ dla Wano pieniв„–dze na kombinezon</text>
 	</string>
 	<string id="jup_b218_stalker_bring_money_text">
-		<text>Kombinezon, za ktуry Wano byі winien bandytom pieni№dze, miaі aparat tlenowy o zamkniкtym obiegu. Wano musiaі go zastawiж, їeby spіaciж dіug. Teraz potrzebuje 3000, їeby go z powrotem wykupiж.</text>
+		<text>Kombinezon, za ktСѓry Wano byС– winien bandytom pieniв„–dze, miaС– aparat tlenowy o zamkniРєtym obiegu. Wano musiaС– go zastawiР¶, С—eby spС–aciР¶ dС–ug. Teraz potrzebuje 3000, С—eby go z powrotem wykupiР¶.</text>
 	</string>
 	<string id="jup_b218_stalker_guide_to_zulus_name">
-		<text>Prypeж 1: zaprowadџ Wano do Zulusa</text>
+		<text>PrypeР¶ 1: zaprowadСџ Wano do Zulusa</text>
 	</string>
 	<string id="jup_b218_stalker_guide_to_zulus_text">
-		<text>Wano jest chкtny, by pуjњж do Prypeci. Zaprowadџ go do Zulusa i przedstaw jako nowego czіonka druїyny. Wano moїe po drodze wykupiж swуj kombinezon.</text>
+		<text>Wano jest chРєtny, by pСѓjСљР¶ do Prypeci. ZaprowadСџ go do Zulusa i przedstaw jako nowego czС–onka druС—yny. Wano moС—e po drodze wykupiР¶ swСѓj kombinezon.</text>
 	</string>
 	<string id="jup_b218_stalker_name">
-		<text>Prypeж 1: porozmawiaj z Wano na temat kombinezonu ochronnego</text>
+		<text>PrypeР¶ 1: porozmawiaj z Wano na temat kombinezonu ochronnego</text>
 	</string>
 	<string id="jup_b218_stalker_text">
-		<text>Tunel Prypeж 1 zostaі wypeіniony dwutlenkiem wкgla wymieszanym z jak№њ nieznan№ substancj№. Musisz poinformowaж Wano, їe aby przez niego przejњж, bкdzie potrzebowaі kombinezonu z aparatem tlenowym o zamkniкtym obiegu.</text>
+		<text>Tunel PrypeР¶ 1 zostaС– wypeС–niony dwutlenkiem wРєgla wymieszanym z jakв„–Сљ nieznanв„– substancjв„–. Musisz poinformowaР¶ Wano, С—e aby przez niego przejСљР¶, bРєdzie potrzebowaС– kombinezonu z aparatem tlenowym o zamkniРєtym obiegu.</text>
 	</string>
 	<string id="jup_b25_accuse_flint_end_text">
-		<text>Flint, znany teї jako Sroka, to podstкpny sukinsyn. Musisz go zdemaskowaж przed stalkerami na Zatonie i przed innymi frakcjami. To bкdzie dla niego niezіa nauczka.</text>
+		<text>Flint, znany teС— jako Sroka, to podstРєpny sukinsyn. Musisz go zdemaskowaР¶ przed stalkerami na Zatonie i przed innymi frakcjami. To bРєdzie dla niego niezС–a nauczka.</text>
 	</string>
 	<string id="jup_b25_accuse_flint_first_text">
-		<text>Flint wyraџnie siк popisuje i gada o rzeczach, ktуrych nawet nie widziaі na oczy. Dobrze byіoby ujawniж jego oszustwa.</text>
+		<text>Flint wyraСџnie siРє popisuje i gada o rzeczach, ktСѓrych nawet nie widziaС– na oczy. Dobrze byС–oby ujawniР¶ jego oszustwa.</text>
 	</string>
 	<string id="jup_b25_accuse_flint_name">
-		<text>Faіszywe zasіugi: rozpraw siк z Flintem</text>
+		<text>FaС–szywe zasС–ugi: rozpraw siРє z Flintem</text>
 	</string>
 	<string id="jup_b25_accuse_flint_second_text">
-		<text>Flint przywіaszcza sobie zasіugi innych. Trzeba go nauczyж, їeby uwaїaі na to, co gada.</text>
+		<text>Flint przywС–aszcza sobie zasС–ugi innych. Trzeba go nauczyР¶, С—eby uwaС—aС– na to, co gada.</text>
 	</string>
 	<string id="jup_b25_accuse_flint_third_text">
-		<text>Szpanerstwo Flinta przekracza wszelkie wyobraїenie - porozmawiaj z nim i wyjaњnij mu wszystko tak, їeby zrozumiaі o co chodzi.</text>
+		<text>Szpanerstwo Flinta przekracza wszelkie wyobraС—enie - porozmawiaj z nim i wyjaСљnij mu wszystko tak, С—eby zrozumiaС– o co chodzi.</text>
 	</string>
 	<string id="jup_b25_senya_accuse_flint_text">
-		<text>Flint, znany teї jako Sroka, to podstкpny sukinsyn. Musisz go zdemaskowaж przed stalkerami na Zatonie i przed innymi frakcjami - to bкdzie najlepsza zemsta.</text>
+		<text>Flint, znany teС— jako Sroka, to podstРєpny sukinsyn. Musisz go zdemaskowaР¶ przed stalkerami na Zatonie i przed innymi frakcjami - to bРєdzie najlepsza zemsta.</text>
 	</string>
 	<string id="jup_b32_get_scanners_task_name">
 		<text>Badania nad anomaliami: odbierz skanery od technika</text>
 	</string>
 	<string id="jup_b32_get_scanners_task_text">
-		<text>Odbierz skanery od Nowikowa. Herman chce zebraж dane statystyczne na temat tworzenia siк artefaktуw. Їeby mуgі to zrobiж, trzeba umieњciж skanery w њrodku kilku anomalii.</text>
+		<text>Odbierz skanery od Nowikowa. Herman chce zebraР¶ dane statystyczne na temat tworzenia siРє artefaktСѓw. Р‡eby mСѓgС– to zrobiР¶, trzeba umieСљciР¶ skanery w Сљrodku kilku anomalii.</text>
 	</string>
 	<string id="jup_b32_task_name">
-		<text>Badania nad anomaliami: umieњж skaner w anomalii</text>
+		<text>Badania nad anomaliami: umieСљР¶ skaner w anomalii</text>
 	</string>
 	<string id="jup_b32_task_reward_name">
-		<text>Badania nad anomaliami: odbierz swoj№ nagrodк</text>
+		<text>Badania nad anomaliami: odbierz swojв„– nagrodРє</text>
 	</string>
 	<string id="jup_b32_task_reward_text">
-		<text>Odbierz nagrodк obiecan№ ci za umieszczenie skanerуw w anomaliach. Teraz, gdy skanery s№ juї na miejscach, Herman moїe zacz№ж zbieraж dane na temat tworzenia siк artefaktуw.</text>
+		<text>Odbierz nagrodРє obiecanв„– ci za umieszczenie skanerСѓw w anomaliach. Teraz, gdy skanery sв„– juС— na miejscach, Herman moС—e zaczв„–Р¶ zbieraР¶ dane na temat tworzenia siРє artefaktСѓw.</text>
 	</string>
 	<string id="jup_b32_task_text">
-		<text>Umieњж skaner w њrodku anomalii. Herman chce zebraж dane statystyczne na temat tworzenia siк artefaktуw. Їeby mуgі to zrobiж, trzeba umieњciж skanery w њrodku kilku anomalii.</text>
+		<text>UmieСљР¶ skaner w Сљrodku anomalii. Herman chce zebraР¶ dane statystyczne na temat tworzenia siРє artefaktСѓw. Р‡eby mСѓgС– to zrobiР¶, trzeba umieСљciР¶ skanery w Сљrodku kilku anomalii.</text>
 	</string>
 	<string id="jup_b43_bring_fuzz_kolobok_name">
-		<text>Kontrakt z naukowcami: przynieњ Garriemu artefakt zwany Kulebiakem</text>
+		<text>Kontrakt z naukowcami: przynieСљ Garriemu artefakt zwany Kulebiakem</text>
 	</string>
 	<string id="jup_b43_bring_fuzz_kolobok_text">
-		<text>Garri potrzebuje artefaktu zwanego Kulebiakiem, aby wypeіniж swуj kontrakt z naukowcami. Przynieњ mu ten artefakt.</text>
+		<text>Garri potrzebuje artefaktu zwanego Kulebiakiem, aby wypeС–niР¶ swСѓj kontrakt z naukowcami. PrzynieСљ mu ten artefakt.</text>
 	</string>
 	<string id="jup_b43_bring_mincer_meat_name">
-		<text>Kontrakt z naukowcami: przynieњ Garriemu artefakt zwany Kotletem</text>
+		<text>Kontrakt z naukowcami: przynieСљ Garriemu artefakt zwany Kotletem</text>
 	</string>
 	<string id="jup_b43_bring_mincer_meat_text">
-		<text>Garri potrzebuje artefaktu zwanego Kotletem, aby wypeіniж swуj kontrakt z naukowcami. Przynieњ mu ten artefakt.</text>
+		<text>Garri potrzebuje artefaktu zwanego Kotletem, aby wypeС–niР¶ swСѓj kontrakt z naukowcami. PrzynieСљ mu ten artefakt.</text>
 	</string>
 	<string id="jup_b43_contract_started_name">
-		<text>Kontrakt z naukowcami: przynieњ Garriemu artefakty Kotlet i Kulebiak</text>
+		<text>Kontrakt z naukowcami: przynieСљ Garriemu artefakty Kotlet i Kulebiak</text>
 	</string>
 	<string id="jup_b43_contract_started_text">
-		<text>Garriemu potrzebne s№ dwa artefakty, Kotlet i Kulebiak, aby mуgі wypeіniж swуj kontrakt z naukowcami. Przynieњ mu te artefakty.</text>
+		<text>Garriemu potrzebne sв„– dwa artefakty, Kotlet i Kulebiak, aby mСѓgС– wypeС–niР¶ swСѓj kontrakt z naukowcami. PrzynieСљ mu te artefakty.</text>
 	</string>
 	<string id="jup_b43_thanks_for_2_artifacts_name">
 		<text>Kontrakt z naukowcami: dostarczono artefakty</text>
 	</string>
 	<string id="jup_b43_thanks_for_2_artifacts_text">
-		<text>Garri ma oba artefakty i jego kontrakt zostaі wypeіniony.</text>
+		<text>Garri ma oba artefakty i jego kontrakt zostaС– wypeС–niony.</text>
 	</string>
 	<string id="jup_b46_duty_founder_pda_name">
-		<text>Historia Powinnoњci: przekaї PDA zaіoїyciela Powinnoњci zainteresowanym</text>
+		<text>Historia PowinnoСљci: przekaС— PDA zaС–oС—yciela PowinnoСљci zainteresowanym</text>
 	</string>
 	<string id="jup_b46_duty_founder_pda_text">
-		<text>Udaіo ci siк znaleџж PDA zaіoїyciela Powinnoњci, ktуry zgin№і w anomalii. Zabierz go do kogoњ, kto byіby zainteresowany ostatnimi chwilami їycia lidera frakcji.</text>
+		<text>UdaС–o ci siРє znaleСџР¶ PDA zaС–oС—yciela PowinnoСљci, ktСѓry zginв„–С– w anomalii. Zabierz go do kogoСљ, kto byС–by zainteresowany ostatnimi chwilami С—ycia lidera frakcji.</text>
 	</string>
 	<string id="jup_b46_spatial_bubble_name">
-		<text>Aktywnoњж anomalii: zbadaj teren uїywaj№c ulepszonego detektora</text>
+		<text>AktywnoСљР¶ anomalii: zbadaj teren uС—ywajв„–c ulepszonego detektora</text>
 	</string>
 	<string id="jup_b46_spatial_bubble_text">
-		<text>Skanery naukowcуw zarejestrowaіy nietypow№ aktywnoњж na pуіnoc od bunkra. Zbadaj ten teren uїywaj№c ulepszonego detektora.</text>
+		<text>Skanery naukowcСѓw zarejestrowaС–y nietypowв„– aktywnoСљР¶ na pСѓС–noc od bunkra. Zbadaj ten teren uС—ywajв„–c ulepszonego detektora.</text>
 	</string>
 	<string id="jup_b47_bunker_guards_01_name">
-		<text>Ochrona naukowcуw: znajdџ wiarygodnych ludzi</text>
+		<text>Ochrona naukowcСѓw: znajdСџ wiarygodnych ludzi</text>
 	</string>
 	<string id="jup_b47_bunker_guards_01_text">
-		<text>Bunkier naukowcуw jest niestrzeїony. Znajdџ wiarygodnych ludzi do jego ochrony.</text>
+		<text>Bunkier naukowcСѓw jest niestrzeС—ony. ZnajdСџ wiarygodnych ludzi do jego ochrony.</text>
 	</string>
 	<string id="jup_b47_bunker_guards_02_name">
-		<text>Ochrona naukowcуw: wrуж do Hermana po nagrodк</text>
+		<text>Ochrona naukowcСѓw: wrСѓР¶ do Hermana po nagrodРє</text>
 	</string>
 	<string id="jup_b47_bunker_guards_02_text">
-		<text>Udaіo ci siк znaleџж straїnikуw do bunkra naukowcуw. Wrуж do Hermana po naleїn№ ci nagrodк.</text>
+		<text>UdaС–o ci siРє znaleСџР¶ straС—nikСѓw do bunkra naukowcСѓw. WrСѓР¶ do Hermana po naleС—nв„– ci nagrodРє.</text>
 	</string>
 	<string id="jup_b47_jupiter_products_01_name">
-		<text>Ostatnie zmiany: znajdџ dokumenty w fabryce Jupiter</text>
+		<text>Ostatnie zmiany: znajdСџ dokumenty w fabryce Jupiter</text>
 	</string>
 	<string id="jup_b47_jupiter_products_01_text">
-		<text>Herman jest zainteresowany ostatnimi zmianami w fabryce Jupiter. Znajdџ dokumenty w czкњci administracyjnej zakіadu.</text>
+		<text>Herman jest zainteresowany ostatnimi zmianami w fabryce Jupiter. ZnajdСџ dokumenty w czРєСљci administracyjnej zakС–adu.</text>
 	</string>
 	<string id="jup_b47_jupiter_products_02_name">
-		<text>Ostatnie zmiany: zanieњ dokumenty Hermanowi</text>
+		<text>Ostatnie zmiany: zanieСљ dokumenty Hermanowi</text>
 	</string>
 	<string id="jup_b47_jupiter_products_02_text">
-		<text>Znalezione dokumenty wskazuj№, їe caіa dokumentacja techniczna zostaіa przeniesiona poza fabrykк. To niewiele, ale Herman powinien siк o tym dowiedzieж.</text>
+		<text>Znalezione dokumenty wskazujв„–, С—e caС–a dokumentacja techniczna zostaС–a przeniesiona poza fabrykРє. To niewiele, ale Herman powinien siРє o tym dowiedzieР¶.</text>
 	</string>
 	<string id="jup_b47_jupiter_products_03_name">
 		<text>Ostatnie zmiany: zabierz dokumenty i PDA Czarnego do Hermana</text>
 	</string>
 	<string id="jup_b47_jupiter_products_03_text">
-		<text>Podczas twojego szperania w dokumentach, najemnicy przypuњcili atak. Wedіug PDA znalezionego przy Czarnym, ich liderze, zostali wysіani, by uniemoїliwiж naukowcom poszukiwanie dokumentуw. Znalezione dokumenty wskazuj№, їe caіa dokumentacja techniczna zostaіa przeniesiona poza fabrykк. Przekaї tк informacjк Hermanowi i pokaї mu PDA Czarnego.</text>
+		<text>Podczas twojego szperania w dokumentach, najemnicy przypuСљcili atak. WedС–ug PDA znalezionego przy Czarnym, ich liderze, zostali wysС–ani, by uniemoС—liwiР¶ naukowcom poszukiwanie dokumentСѓw. Znalezione dokumenty wskazujв„–, С—e caС–a dokumentacja techniczna zostaС–a przeniesiona poza fabrykРє. PrzekaС— tРє informacjРє Hermanowi i pokaС— mu PDA Czarnego.</text>
 	</string>
 	<string id="jup_b4_monolith_squad_help_name">
-		<text>Ocaleni z Monolitu: zapytaj na stacji Janуw o schronienie</text>
+		<text>Ocaleni z Monolitu: zapytaj na stacji JanСѓw o schronienie</text>
 	</string>
 	<string id="jup_b4_monolith_squad_help_text">
-		<text>Grupa wojownikуw Monolitu uwolniіa siк spod uroku, ktуrym byіa opкtana. Szukaj№ teraz schronienia przed emisj№ i mutantami. Musisz porozmawiaж z mieszkaсcami stacji Janуw, by pozwolili druїynie Monolitu ukryж siк na niej.</text>
+		<text>Grupa wojownikСѓw Monolitu uwolniС–a siРє spod uroku, ktСѓrym byС–a opРєtana. Szukajв„– teraz schronienia przed emisjв„– i mutantami. Musisz porozmawiaР¶ z mieszkaСЃcami stacji JanСѓw, by pozwolili druС—ynie Monolitu ukryР¶ siРє na niej.</text>
 	</string>
 	<string id="jup_b4_stalkers_come_duty_text">
-		<text>Zaprowadџ ludzi Powinnoњci odpowiedzialnych za rekrutacjк do byіej zaіogi Monolitu. Jeїeli wojownicy Monolitu wst№pi№ do Powinnoњci, bкd№ mogli schroniж siк na stacji Janуw przed emisj№ i mutantami.</text>
+		<text>ZaprowadСџ ludzi PowinnoСљci odpowiedzialnych za rekrutacjРє do byС–ej zaС–ogi Monolitu. JeС—eli wojownicy Monolitu wstв„–piв„– do PowinnoСљci, bРєdв„– mogli schroniР¶ siРє na stacji JanСѓw przed emisjв„– i mutantami.</text>
 	</string>
 	<string id="jup_b4_stalkers_come_freedom_text">
-		<text>Zaprowadџ ludzi Wolnoњci, odpowiedzialnych za rekrutacjк, do byіej zaіogi Monolitu. Jeїeli wojownicy Monolitu wst№pi№ do Wolnoњci, bкd№ mogli schroniж siк na stacji Janуw przed emisj№ i mutantami.</text>
+		<text>ZaprowadСџ ludzi WolnoСљci, odpowiedzialnych za rekrutacjРє, do byС–ej zaС–ogi Monolitu. JeС—eli wojownicy Monolitu wstв„–piв„– do WolnoСљci, bРєdв„– mogli schroniР¶ siРє na stacji JanСѓw przed emisjв„– i mutantami.</text>
 	</string>
 	<string id="jup_b4_stalkers_come_name">
-		<text>Ocaleni z Monolitu: zaprowadџ na miejsce odpowiedzialnych za rekrutacjк</text>
+		<text>Ocaleni z Monolitu: zaprowadСџ na miejsce odpowiedzialnych za rekrutacjРє</text>
 	</string>
 	<string id="jup_b6_anom_1_guard_name">
-		<text>Badania nad anomaliami: ochraniaj stalkerуw</text>
+		<text>Badania nad anomaliami: ochraniaj stalkerСѓw</text>
 	</string>
 	<string id="jup_b6_anom_1_guard_text">
-		<text>Wygl№da na to, їe wykonywanie pomiarуw w anomalii przyci№gnкіo mutanty. Musisz ochraniaж stalkerуw, dopуki nie zbior№ wszystkich potrzebnych danych.</text>
+		<text>Wyglв„–da na to, С—e wykonywanie pomiarСѓw w anomalii przyciв„–gnРєС–o mutanty. Musisz ochraniaР¶ stalkerСѓw, dopСѓki nie zbiorв„– wszystkich potrzebnych danych.</text>
 	</string>
 	<string id="jup_b6_anom_2_guard_name">
-		<text>Badania nad anomaliami: ochraniaj stalkerуw</text>
+		<text>Badania nad anomaliami: ochraniaj stalkerСѓw</text>
 	</string>
 	<string id="jup_b6_anom_2_guard_text">
-		<text>Wygl№da na to, їe wykonywanie pomiarуw w anomalii przyci№gnкіo zombi z Kopaczi. Musisz ochraniaж stalkerуw, dopуki nie zbior№ wszystkich potrzebnych danych.</text>
+		<text>Wyglв„–da na to, С—e wykonywanie pomiarСѓw w anomalii przyciв„–gnРєС–o zombi z Kopaczi. Musisz ochraniaР¶ stalkerСѓw, dopСѓki nie zbiorв„– wszystkich potrzebnych danych.</text>
 	</string>
 	<string id="jup_b6_get_reward_name">
 		<text>Badania nad anomaliami: porozmawiaj z Hermanem</text>
 	</string>
 	<string id="jup_b6_get_reward_text">
-		<text>Pomiary w anomalii zostaіy ukoсczone - poinformuj o tym naukowcуw i odbierz nagrodк.</text>
+		<text>Pomiary w anomalii zostaС–y ukoСЃczone - poinformuj o tym naukowcСѓw i odbierz nagrodРє.</text>
 	</string>
 	<string id="jup_b6_get_to_anomal_place_name">
 		<text>Badania nad anomaliami: porozmawiaj ze stalkerami</text>
 	</string>
 	<string id="jup_b6_get_to_anomal_place_text">
-		<text>Porozmawiaj z druїyn№ stalkerуw odpowiedzialn№ za pomiary - musicie zdecydowaж, do ktуrej anomalii siк wybierzecie.</text>
+		<text>Porozmawiaj z druС—ynв„– stalkerСѓw odpowiedzialnв„– za pomiary - musicie zdecydowaР¶, do ktСѓrej anomalii siРє wybierzecie.</text>
 	</string>
 	<string id="jup_b6_travel_home_name">
 		<text>Badania nad anomaliami: porozmawiaj ze stalkerami</text>
 	</string>
 	<string id="jup_b6_travel_home_text">
-		<text>Wszystkie potrzebne pomiary zostaіy wykonane, moїesz wiкc razem z druїyn№ wrуciж do bunkra naukowcуw.</text>
+		<text>Wszystkie potrzebne pomiary zostaС–y wykonane, moС—esz wiРєc razem z druС—ynв„– wrСѓciР¶ do bunkra naukowcСѓw.</text>
 	</string>
 	<string id="jup_b6_travel_name">
 		<text>Badania nad anomaliami: porozmawiaj ze stalkerami</text>
 	</string>
 	<string id="jup_b6_travel_text">
-		<text>Pomiary w anomalii zostaіy wykonane. Porozmawiaj z druїyn№, dok№d siк teraz wybierzecie.</text>
+		<text>Pomiary w anomalii zostaС–y wykonane. Porozmawiaj z druС—ynв„–, dokв„–d siРє teraz wybierzecie.</text>
 	</string>
 	<string id="jup_b6_watch_topol_squad_six_name">
-		<text>Badania nad anomaliami: ochraniaj stalkerуw</text>
+		<text>Badania nad anomaliami: ochraniaj stalkerСѓw</text>
 	</string>
 	<string id="jup_b6_watch_topol_squad_six_text">
-		<text>Herman zaoferowaі ci pracк, polegaj№c№ na ochronie stalkerуw, gdy ci bкd№ wykonywaж pomiary w anomaliach.</text>
+		<text>Herman zaoferowaС– ci pracРє, polegajв„–cв„– na ochronie stalkerСѓw, gdy ci bРєdв„– wykonywaР¶ pomiary w anomaliach.</text>
 	</string>
 	<string id="jup_b8_heli_4_crash_name">
-		<text>Ogoсcza 4: zbadaj miejsce katastrofy</text>
+		<text>OgoСЃcza 4: zbadaj miejsce katastrofy</text>
 	</string>
 	<string id="jup_b8_heli_4_crash_name_2">
-		<text>Ogoсcza 4: znajdџ przyczynк spalenia siк elektroniki</text>
+		<text>OgoСЃcza 4: znajdСџ przyczynРє spalenia siРє elektroniki</text>
 	</string>
 	<string id="jup_b8_heli_4_crash_text">
-		<text>Zbadaj miejsce katastrofy Ogoсczy 4.</text>
+		<text>Zbadaj miejsce katastrofy OgoСЃczy 4.</text>
 	</string>
 	<string id="jup_b8_heli_4_crash_text_2">
-		<text>Musisz znaleџж џrуdіo silnego wyіadowania elektrycznego, ktуre uderzyіo w њmigіowiec Ogoсcza 4.</text>
+		<text>Musisz znaleСџР¶ СџrСѓdС–o silnego wyС–adowania elektrycznego, ktСѓre uderzyС–o w СљmigС–owiec OgoСЃcza 4.</text>
 	</string>
 	<string id="jup_b9_blackbox_decrypting_name">
-		<text>Ogoсcza 1: daj technikowi czarn№ skrzynkк do odszyfrowania</text>
+		<text>OgoСЃcza 1: daj technikowi czarnв„– skrzynkРє do odszyfrowania</text>
 	</string>
 	<string id="jup_b9_blackbox_decrypting_text">
-		<text>Czarna skrzynka z Ogoсczy 1 przetrwaіa katastrofк. Musi zostaж zabrana do technika, ktуry j№ zdeszyfruje, aby dostaж siк do zawartych w niej informacji.</text>
+		<text>Czarna skrzynka z OgoСЃczy 1 przetrwaС–a katastrofРє. Musi zostaР¶ zabrana do technika, ktСѓry jв„– zdeszyfruje, aby dostaР¶ siРє do zawartych w niej informacji.</text>
 	</string>
 	<string id="jup_b9_blackbox_descrypted_after_3_name">
-		<text>Ogoсcza 1: poczekaj na odszyfrowanie danych z czarnej skrzynki</text>
+		<text>OgoСЃcza 1: poczekaj na odszyfrowanie danych z czarnej skrzynki</text>
 	</string>
 	<string id="jup_b9_blackbox_descrypted_after_3_text">
-		<text>Azot zgodziі siк zdeszyfrowaж czarn№ skrzynkк. Powiedziaі, їe zajmie to okoіo trzech godzin. Musisz poczekaж, aї skoсczy.</text>
+		<text>Azot zgodziС– siРє zdeszyfrowaР¶ czarnв„– skrzynkРє. PowiedziaС–, С—e zajmie to okoС–o trzech godzin. Musisz poczekaР¶, aС— skoСЃczy.</text>
 	</string>
 	<string id="jup_b9_go_for_blackbox_descryption_name">
-		<text>Ogoсcza 1: wrуж do Azota po informacje z czarnej skrzynki</text>
+		<text>OgoСЃcza 1: wrСѓР¶ do Azota po informacje z czarnej skrzynki</text>
 	</string>
 	<string id="jup_b9_go_for_blackbox_descryption_text">
-		<text>Azot powinien juї skoсczyж deszyfracjк. Spotkaj siк z nim, aby otrzymaж informacje z czarnej skrzynki.</text>
+		<text>Azot powinien juС— skoСЃczyР¶ deszyfracjРє. Spotkaj siРє z nim, aby otrzymaР¶ informacje z czarnej skrzynki.</text>
 	</string>
 	<string id="jup_b9_heli_1_crash_name">
-		<text>Ogoсcza 1: zbadaj miejsce katastrofy</text>
+		<text>OgoСЃcza 1: zbadaj miejsce katastrofy</text>
 	</string>
 	<string id="jup_b9_heli_1_crash_text">
-		<text>Zbadaj miejsce katastrofy Ogoсczy 1.</text>
+		<text>Zbadaj miejsce katastrofy OgoСЃczy 1.</text>
 	</string>
 	<string id="pas_b400_pripyat_name">
-		<text>Prypeж 1: dostaс siк do Prypeci</text>
+		<text>PrypeР¶ 1: dostaСЃ siРє do Prypeci</text>
 	</string>
 	<string id="pas_b400_pripyat_text">
-		<text>Musisz przejњж tunelem Prypeж 1 i dotrzeж do wojskowego punktu ewakuacyjnego w Prypeci.</text>
+		<text>Musisz przejСљР¶ tunelem PrypeР¶ 1 i dotrzeР¶ do wojskowego punktu ewakuacyjnego w Prypeci.</text>
 	</string>
 	<string id="zat_a9_way_gases_check_chemistry_workshop_name">
-		<text>Droga do Prypeci: zbadaj pracowniк chemiczn№ w fabryce Jupiter</text>
+		<text>Droga do Prypeci: zbadaj pracowniРє chemicznв„– w fabryce Jupiter</text>
 	</string>
 	<string id="zat_a9_way_gases_check_chemistry_workshop_text">
-		<text>W pracowni chemicznej powinny znajdowaж siк informacje na temat wypeіnienia tunelu Prypeж 1 jakimњ rodzajem gazu.</text>
+		<text>W pracowni chemicznej powinny znajdowaР¶ siРє informacje na temat wypeС–nienia tunelu PrypeР¶ 1 jakimСљ rodzajem gazu.</text>
 	</string>
 	<string id="zat_a9_way_gates_check_corps_name">
-		<text>Droga do Prypeci: zbadaj czкњж administracyjn№ fabryki Jupiter</text>
+		<text>Droga do Prypeci: zbadaj czРєСљР¶ administracyjnв„– fabryki Jupiter</text>
 	</string>
 	<string id="zat_a9_way_gates_check_corps_text">
-		<text>Przewodnik nie zna bezpiecznej drogi do Prypeci, ale zasugerowaі ci, gdzie moїesz znaleџж informacje na temat podziemnych tuneli prowadz№cych z fabryki Jupiter do miasta. Zacznij od czкњci administracyjnej.</text>
+		<text>Przewodnik nie zna bezpiecznej drogi do Prypeci, ale zasugerowaС– ci, gdzie moС—esz znaleСџР¶ informacje na temat podziemnych tuneli prowadzв„–cych z fabryki Jupiter do miasta. Zacznij od czРєСљci administracyjnej.</text>
 	</string>
 	<string id="zat_a9_way_gates_check_electrical_workshop_name">
-		<text>Droga do Prypeci: zbadaj czкњж laboratoryjn№ fabryki Jupiter</text>
+		<text>Droga do Prypeci: zbadaj czРєСљР¶ laboratoryjnв„– fabryki Jupiter</text>
 	</string>
 	<string id="zat_a9_way_gates_check_electrical_workshop_text">
-		<text>Dokumenty znalezione w czкњci administracyjnej wspominaj№ o przeniesieniu kompleksu produkcyjnego poza fabrykк. Informacje dotycz№ce tej kwestii powinny znajdowaж siк w czкњci laboratoryjnej.</text>
+		<text>Dokumenty znalezione w czРєСљci administracyjnej wspominajв„– o przeniesieniu kompleksu produkcyjnego poza fabrykРє. Informacje dotyczв„–ce tej kwestii powinny znajdowaР¶ siРє w czРєСљci laboratoryjnej.</text>
 	</string>
 	<string id="zat_a9_way_gates_check_transport_workshop_name">
-		<text>Droga do Prypeci: sprawdџ њluzк transportow№ tunelu Prypeж 1</text>
+		<text>Droga do Prypeci: sprawdСџ СљluzРє transportowв„– tunelu PrypeР¶ 1</text>
 	</string>
 	<string id="zat_a9_way_gates_check_transport_workshop_text">
-		<text>Wejњcie do tunelu znajduje siк za њluz№ transportow№. Zbadaj ten teren w poszukiwaniu jakichkolwiek informacji na temat tunelu.</text>
+		<text>WejСљcie do tunelu znajduje siРє za Сљluzв„– transportowв„–. Zbadaj ten teren w poszukiwaniu jakichkolwiek informacji na temat tunelu.</text>
 	</string>
 	<string id="zat_a9_way_to_pripyat_check_archives_name">
 		<text>Droga do Prypeci: zbadaj Departament 1 fabryki Jupiter</text>
 	</string>
 	<string id="zat_a9_way_to_pripyat_check_archives_text">
-		<text>Informacje na temat tunelu Prypeж 1 powinny znajdowaж siк w Departamencie 1. Mog№ byж one bardzo przydatne, wiкc sprуbuj tam poszukaж.</text>
+		<text>Informacje na temat tunelu PrypeР¶ 1 powinny znajdowaР¶ siРє w Departamencie 1. Mogв„– byР¶ one bardzo przydatne, wiРєc sprСѓbuj tam poszukaР¶.</text>
 	</string>
 	<string id="zat_a9_way_to_pripyat_check_delivery_department_name">
-		<text>Droga do Prypeci: zbadaj dziaі dostaw fabryki Jupiter</text>
+		<text>Droga do Prypeci: zbadaj dziaС– dostaw fabryki Jupiter</text>
 	</string>
 	<string id="zat_a9_way_to_pripyat_check_delivery_department_text">
-		<text>Wnioskuj№c z notatki w laboratorium, przeniesienie miaіo zostaж przeprowadzone przez dziaі dostaw, wiкc sprawdџ rуwnieї tam.</text>
+		<text>Wnioskujв„–c z notatki w laboratorium, przeniesienie miaС–o zostaР¶ przeprowadzone przez dziaС– dostaw, wiРєc sprawdСџ rСѓwnieС— tam.</text>
 	</string>
 	<string id="zat_a9_way_to_pripyat_check_repair_workshop_name">
 		<text>Droga do Prypeci: zbadaj warsztat naprawczy fabryki Jupiter</text>
 	</string>
 	<string id="zat_a9_way_to_pripyat_check_repair_workshop_text">
-		<text>W dziale dostaw znajdowaіy siк informacje na temat strat podczas transportu czegoњ, co nazywano obiektem 62. Wedіug dokumentacji, za tк kwestiк byі odpowiedzialny warsztat naprawczy - sprawdџ tam.</text>
+		<text>W dziale dostaw znajdowaС–y siРє informacje na temat strat podczas transportu czegoСљ, co nazywano obiektem 62. WedС–ug dokumentacji, za tРє kwestiРє byС– odpowiedzialny warsztat naprawczy - sprawdСџ tam.</text>
 	</string>
 	<string id="zat_a9_way_to_pripyat_tell_stalker_guide_name">
 		<text>Droga do Prypeci: porozmawiaj z przewodnikiem</text>
 	</string>
 	<string id="zat_a9_way_to_pripyat_tell_stalker_guide_text">
-		<text>Z nagrania z czarnej skrzynki jednego ze њmigіowcуw wynika, їe jednostki wojskowe miaіy zgrupowaж siк w punkcie ewakuacyjnym B28. Wedіug map znalezionych w innym њmigіowcu bior№cym udziaі w misji, miejsce to znajduje siк w Prypeci. Musisz znaleџж sposуb, by siк tam dostaж - porozmawiaj o tym z przewodnikiem.</text>
+		<text>Z nagrania z czarnej skrzynki jednego ze СљmigС–owcСѓw wynika, С—e jednostki wojskowe miaС–y zgrupowaР¶ siРє w punkcie ewakuacyjnym B28. WedС–ug map znalezionych w innym СљmigС–owcu biorв„–cym udziaС– w misji, miejsce to znajduje siРє w Prypeci. Musisz znaleСџР¶ sposСѓb, by siРє tam dostaР¶ - porozmawiaj o tym z przewodnikiem.</text>
 	</string>
 	<string id="zat_b207_depot_reward_task_name">
-		<text>Magazyn Powinnoњci: zabierz, co ci siк naleїy</text>
+		<text>Magazyn PowinnoСљci: zabierz, co ci siРє naleС—y</text>
 	</string>
 	<string id="zat_b207_morgan_depot_task_name">
-		<text>Magazyn Powinnoњci: spotkaj siк z Morganem</text>
+		<text>Magazyn PowinnoСљci: spotkaj siРє z Morganem</text>
 	</string>
 	<string id="zat_b207_morgan_depot_task_text">
-		<text>Handlarz Morgan zaoferowaі ci dostкp do magazynu Powinnoњci w zamian za milczenie na temat jego interesu. Zgodnie z umow№, masz siк z nim spotkaж niedaleko kamienioіomуw.</text>
+		<text>Handlarz Morgan zaoferowaС– ci dostРєp do magazynu PowinnoСљci w zamian za milczenie na temat jego interesu. Zgodnie z umowв„–, masz siРє z nim spotkaР¶ niedaleko kamienioС–omСѓw.</text>
 	</string>
 	<string id="pas_b400_pripyat_gate_text">
-		<text>Musisz otworzyж bramк, aby przejњж dalej.</text>
+		<text>Musisz otworzyР¶ bramРє, aby przejСљР¶ dalej.</text>
 	</string>
 	<string id="pas_b400_pripyat_door_text">
-		<text>Musisz otworzyж drzwi, aby przejњж dalej.</text>
+		<text>Musisz otworzyР¶ drzwi, aby przejСљР¶ dalej.</text>
 	</string>
 	<string id="pas_b400_pripyat_hall_door_text">
-		<text>Musisz aktywowaж zasilanie w bramie, aby przejњж dalej.</text>
+		<text>Musisz aktywowaР¶ zasilanie w bramie, aby przejСљР¶ dalej.</text>
 	</string>
 	<string id="pas_b400_pripyat_control_text">
-		<text>Musisz odblokowaж bramк, aby przejњж dalej. Prawdopodobnie moїna to zrobiж w sterowni.</text>
+		<text>Musisz odblokowaР¶ bramРє, aby przejСљР¶ dalej. Prawdopodobnie moС—na to zrobiР¶ w sterowni.</text>
 	</string>
 	<string id="jup_b6_employ_stalkers_name">
 		<text>Grupa badawcza: wynajmij odpowiednich ludzi</text>
 	</string>
 	<string id="jup_b6_employ_stalkers_text">
-		<text>Czіonkowie grupy badawczej pracuj№cej dla naukowcуw zginкli. Musisz zatrudniж nowych ludzi, aby kontynuowaж badania.</text>
+		<text>CzС–onkowie grupy badawczej pracujв„–cej dla naukowcСѓw zginРєli. Musisz zatrudniР¶ nowych ludzi, aby kontynuowaР¶ badania.</text>
 	</string>
 	<string id="jup_b6_employ_stalkers_reward_name">
-		<text>Grupa badawcza: wrуж do Hermana po nagrodк</text>
+		<text>Grupa badawcza: wrСѓР¶ do Hermana po nagrodРє</text>
 	</string>
 	<string id="jup_b6_employ_stalkers_reward_text">
-		<text>Udaіo ci siк znaleџж odpowiednich ludzi do nowej grupy badawczej. Moїesz wrуciж do Hermana, aby odebraж nagrodк.</text>
+		<text>UdaС–o ci siРє znaleСџР¶ odpowiednich ludzi do nowej grupy badawczej. MoС—esz wrСѓciР¶ do Hermana, aby odebraР¶ nagrodРє.</text>
 	</string>
 	<string id="jup_b218_soldier_do_scientist_quest_name">
-		<text>Prypeж 1: wypeіnij misjк Oziorskiego</text>
+		<text>PrypeР¶ 1: wypeС–nij misjРє Oziorskiego</text>
 	</string>
 	<string id="jup_b218_soldier_do_scientist_quest_text">
-		<text>Musisz wypeіniж misjк Oziorskiego dotycz№c№ nietypowej roњliny, aby zdobyж kombinezon ochronny dla Sokoіowa.</text>
+		<text>Musisz wypeС–niР¶ misjРє Oziorskiego dotyczв„–cв„– nietypowej roСљliny, aby zdobyР¶ kombinezon ochronny dla SokoС–owa.</text>
 	</string>
 	<string id="jup_b200_tech_materials_inside_text">
-		<text>Azot potrzebuje materiaіуw radiotechnicznych. Musisz je znaleџж w cementowni.</text>
+		<text>Azot potrzebuje materiaС–Сѓw radiotechnicznych. Musisz je znaleСџР¶ w cementowni.</text>
 	</string>
 	<string id="jup_b25_flint_and_senya_text">
-		<text>To Flint pozwoliі Drzazdze zgin№ж w anomalii. Porozmawiaj z nim i dowiedz siк, dlaczego to zrobiі.</text>
+		<text>To Flint pozwoliС– Drzazdze zginв„–Р¶ w anomalii. Porozmawiaj z nim i dowiedz siРє, dlaczego to zrobiС–.</text>
 	</string>
 	<string id="jup_b25_revenge_senya_name">
-		<text>Zemsta: pomњcij Drzazgк</text>
+		<text>Zemsta: pomСљcij DrzazgРє</text>
 	</string>
 	<string id="jup_b25_revenge_senya_text">
-		<text>Dowiedz siк, kto porzuciі Drzazgк na њmierж w anomalii, zabraі artefakt i odszedі. Niestety, Drzazga nie zdoіaі powiedzieж, kto to byі. Wiadomo tylko, їe jest czіonkiem Wolnoњci.</text>
+		<text>Dowiedz siРє, kto porzuciС– DrzazgРє na СљmierР¶ w anomalii, zabraС– artefakt i odszedС–. Niestety, Drzazga nie zdoС–aС– powiedzieР¶, kto to byС–. Wiadomo tylko, С—e jest czС–onkiem WolnoСљci.</text>
 	</string>
 	<string id="zat_b207_depot_reward_task_duty_text">
-		<text>Podpuіkownik Szulga pozwoliі ci zabraж z magazynu Powinnoњci co tylko chcesz, o ile zdoіasz go odbiж od oddziaіu Wolnoњci.</text>
+		<text>PodpuС–kownik Szulga pozwoliС– ci zabraР¶ z magazynu PowinnoСљci co tylko chcesz, o ile zdoС–asz go odbiР¶ od oddziaС–u WolnoСљci.</text>
 	</string>
 	<string id="zat_b207_depot_reward_task_freedom_text">
-		<text>Loki pozwoliі ci braж z magazynu Powinnoњci co tylko chcesz, dopуki jest on w posiadaniu wojownikуw Wolnoњci.</text>
+		<text>Loki pozwoliС– ci braР¶ z magazynu PowinnoСљci co tylko chcesz, dopСѓki jest on w posiadaniu wojownikСѓw WolnoСљci.</text>
 	</string>
 </string_table>

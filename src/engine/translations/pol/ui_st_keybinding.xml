@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="kb_active_jobs">
 		<text>PDA</text>
@@ -7,13 +6,13 @@
 		<text>Rozkaz ataku</text>
 	</string>
 	<string id="kb_always_run">
-		<text>Chуd</text>
+		<text>ChСѓd</text>
 	</string>
 	<string id="kb_artefact">
 		<text>Artefakt</text>
 	</string>
 	<string id="kb_backward">
-		<text>Do tyіu</text>
+		<text>Do tyС–u</text>
 	</string>
 	<string id="kb_binoculars">
 		<text>Lornetka</text>
@@ -25,37 +24,37 @@
 		<text>Rozmowa</text>
 	</string>
 	<string id="kb_chat_team">
-		<text>Rozmowa druїynowa</text>
+		<text>Rozmowa druС—ynowa</text>
 	</string>
 	<string id="kb_console">
 		<text>Konsola</text>
 	</string>
 	<string id="kb_contacts">
-		<text>Lista kontaktуw w PDA</text>
+		<text>Lista kontaktСѓw w PDA</text>
 	</string>
 	<string id="kb_crouch">
 		<text>Kucanie</text>
 	</string>
 	<string id="kb_crouch_toggle">
-		<text>Wі№cz/wyі№cz kucanie</text>
+		<text>WС–в„–cz/wyС–в„–cz kucanie</text>
 	</string>
 	<string id="kb_detector">
 		<text>Detektor</text>
 	</string>
 	<string id="kb_down">
-		<text>W dуі</text>
+		<text>W dСѓС–</text>
 	</string>
 	<string id="kb_drop">
-		<text>Wyrzuж</text>
+		<text>WyrzuР¶</text>
 	</string>
 	<string id="kb_fire">
-		<text>Strzaі</text>
+		<text>StrzaС–</text>
 	</string>
 	<string id="kb_firemode_next">
-		<text>Nastкpny tryb strzaіu</text>
+		<text>NastРєpny tryb strzaС–u</text>
 	</string>
 	<string id="kb_firemode_prev">
-		<text>Poprzedni tryb strzaіu</text>
+		<text>Poprzedni tryb strzaС–u</text>
 	</string>
 	<string id="kb_forward">
 		<text>Do przodu</text>
@@ -64,7 +63,7 @@
 		<text>Granatnik podwieszany</text>
 	</string>
 	<string id="kb_grp_common">
-		<text>Ogуlne</text>
+		<text>OgСѓlne</text>
 	</string>
 	<string id="kb_grp_direction">
 		<text>Widok</text>
@@ -79,7 +78,7 @@
 		<text>Tryb wielu graczy</text>
 	</string>
 	<string id="kb_grp_weapons">
-		<text>Broс</text>
+		<text>BroСЃ</text>
 	</string>
 	<string id="kb_inventory">
 		<text>Plecak</text>
@@ -100,7 +99,7 @@
 		<text>Mapa w PDA</text>
 	</string>
 	<string id="kb_next_slot">
-		<text>Nastкpna broс</text>
+		<text>NastРєpna broСЃ</text>
 	</string>
 	<string id="kb_night_vision">
 		<text>Noktowizor</text>
@@ -112,13 +111,13 @@
 		<text>PDA</text>
 	</string>
 	<string id="kb_prev_slot">
-		<text>Poprzednia broс</text>
+		<text>Poprzednia broСЃ</text>
 	</string>
 	<string id="kb_quit">
-		<text>Wyjњcie</text>
+		<text>WyjСљcie</text>
 	</string>
 	<string id="kb_reload">
-		<text>Przeіaduj</text>
+		<text>PrzeС–aduj</text>
 	</string>
 	<string id="kb_repair">
 		<text>Napraw</text>
@@ -145,7 +144,7 @@
 		<text>Sprint</text>
 	</string>
 	<string id="kb_team_menu">
-		<text>Menu wyboru druїyny</text>
+		<text>Menu wyboru druС—yny</text>
 	</string>
 	<string id="kb_torch">
 		<text>Latarka</text>
@@ -154,72 +153,72 @@
 		<text>Aktywuj </text>
 	</string>
 	<string id="kb_up">
-		<text>W gуrк</text>
+		<text>W gСѓrРє</text>
 	</string>
 	<string id="kb_use">
-		<text>Uїyj</text>
+		<text>UС—yj</text>
 	</string>
 	<string id="kb_use_bandage">
-		<text>Szybkie bandaїowanie</text>
+		<text>Szybkie bandaС—owanie</text>
 	</string>
 	<string id="kb_use_medkit">
-		<text>Szybkie uїycie apteczki</text>
+		<text>Szybkie uС—ycie apteczki</text>
 	</string>
 	<string id="kb_vote_begin">
-		<text>Rozpocznij gіosowanie</text>
+		<text>Rozpocznij gС–osowanie</text>
 	</string>
 	<string id="kb_vote_menu">
-		<text>Gіosuj</text>
+		<text>GС–osuj</text>
 	</string>
 	<string id="kb_vote_no">
-		<text>Gіosuj przeciw</text>
+		<text>GС–osuj przeciw</text>
 	</string>
 	<string id="kb_vote_yes">
-		<text>Gіosuj za</text>
+		<text>GС–osuj za</text>
 	</string>
 	<string id="kb_weapon1">
-		<text>Broс 1</text>
+		<text>BroСЃ 1</text>
 	</string>
 	<string id="kb_weapon2">
-		<text>Broс 2</text>
+		<text>BroСЃ 2</text>
 	</string>
 	<string id="kb_weapon3">
-		<text>Broс 3</text>
+		<text>BroСЃ 3</text>
 	</string>
 	<string id="kb_weapon4">
-		<text>Broс 4</text>
+		<text>BroСЃ 4</text>
 	</string>
 	<string id="kb_weapon5">
-		<text>Broс 5</text>
+		<text>BroСЃ 5</text>
 	</string>
 	<string id="kb_weapon6">
-		<text>Broс 6</text>
+		<text>BroСЃ 6</text>
 	</string>
 	<string id="kb_wpn_next">
-		<text>Zmieс typ amunicji</text>
+		<text>ZmieСЃ typ amunicji</text>
 	</string>
 	<string id="kb_wpn_prev">
-		<text>Poprzednia broс tego typu</text>
+		<text>Poprzednia broСЃ tego typu</text>
 	</string>
 	<string id="kb_zoom">
-		<text>Przybliїenie/oddalenie</text>
+		<text>PrzybliС—enie/oddalenie</text>
 	</string>
 	<string id="speech_menu_group">
-		<text>Wiadomoњci gіosowe (1)</text>
+		<text>WiadomoСљci gС–osowe (1)</text>
 	</string>
 	<string id="speech_menu_personal">
-		<text>Wiadomoњci gіosowe (2)</text>
+		<text>WiadomoСљci gС–osowe (2)</text>
 	</string>
 	<string id="kb_quick_use_1">
-		<text>Szybki dostкp 1</text>
+		<text>Szybki dostРєp 1</text>
 	</string>
 	<string id="kb_quick_use_2">
-		<text>Szybki dostкp 2</text>
+		<text>Szybki dostРєp 2</text>
 	</string>
 	<string id="kb_quick_use_3">
-		<text>Szybki dostкp 3</text>
+		<text>Szybki dostРєp 3</text>
 	</string>
 	<string id="kb_quick_use_4">
-		<text>Szybki dostкp 4</text>
+		<text>Szybki dostРєp 4</text>
 	</string>
 </string_table>

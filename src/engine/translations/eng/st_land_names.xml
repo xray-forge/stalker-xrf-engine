@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="st_zat_b55_name">
 		<text>Claw anomaly</text>
@@ -91,7 +90,7 @@
 		<text>Quarry</text>
 	</string>
 	<string id="st_jup_b6_name">
-		<text>Scientists’ bunker</text>
+		<text>ScientistsвЂ™ bunker</text>
 	</string>
 	<string id="st_jup_b205_name">
 		<text>Volkhov AA complex</text>

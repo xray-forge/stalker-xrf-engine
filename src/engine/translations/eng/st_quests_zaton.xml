@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="zat_a2_reach_base_name">
 		<text>Safe spot: reach Skadovsk</text>
@@ -739,13 +738,13 @@
 		<text>The hit: join the robbers</text>
 	</string>
 	<string id="zat_b7_stalkers_raiders_stalkers_text">
-		<text>Stalkers have asked you to help them repel the robbers’ attack. You should join the robbers. When they begin the assault, you’ll be able to attack them from behind with impunity.</text>
+		<text>Stalkers have asked you to help them repel the robbersвЂ™ attack. You should join the robbers. When they begin the assault, youвЂ™ll be able to attack them from behind with impunity.</text>
 	</string>
 	<string id="zat_b7_stalkers_raiders_meet_text">
-		<text>The robbers should be waiting by Shevchenko. You’ll need to meet them to take part in their assault on the stalkers.</text>
+		<text>The robbers should be waiting by Shevchenko. YouвЂ™ll need to meet them to take part in their assault on the stalkers.</text>
 	</string>
 	<string id="zat_b7_stalkers_raiders_wait_text">
-		<text>Wait for the meeting with the robbers. They want to attack the stalker camp after midnight while it’s still dark. The agreed meeting place is Shevchenko.</text>
+		<text>Wait for the meeting with the robbers. They want to attack the stalker camp after midnight while itвЂ™s still dark. The agreed meeting place is Shevchenko.</text>
 	</string>
 	<string id="zat_b7_stalkers_raiders_raiders_reward_name">
 		<text>The hit: get your cut</text>
@@ -772,7 +771,7 @@
 		<text>Getting to the plateau: talk to stalkers</text>
 	</string>
 	<string id="zat_b20_ask_a_stalkers_text">
-		<text>It looks like there’s no direct route to the plateau. Ask local stalkers about other ways of getting there.</text>
+		<text>It looks like thereвЂ™s no direct route to the plateau. Ask local stalkers about other ways of getting there.</text>
 	</string>
 	<string id="zat_b30_compass_to_barmen_task_give_text">
 		<text>The artifact you got from Noah is the Compass that Beard wants.</text>

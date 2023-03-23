@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="dm_anomalies_10">
 		<text>There's a spot in Zaton where heat anomalies emerged underwater. They call it 'Boiler' because there's steam and stuff coming out from the ground. If you think steam is nothing, think again. Seasoned stalkers say this kind of vapor anomaly hits you at least as hard as a regular heat anomaly, if not harder. The temperature may be a bit lower, but it grills you longer. As for artifacts, they found regular ones, the fire kind.</text>
@@ -184,7 +183,7 @@
 		<text>Nothing but old decrepit stuff around here. Take that dilapidated motor column on the Preobrazhensky bridge - it's rusted through and through, the bridge included. Many would love to poke around the area, were it not for snorks and anomalies...</text>
 	</string>
 	<string id="dm_information_11">
-		<text>Did you hear Sultan planned to take over Beard's business? Skadovsk ain't big enough for his greedy ass, so he wanted to grab an even larger piece of the pie... But we said, "No way, Josй!" Beard and the rest of our guys gave them hell all right. Sultan's thug operation won't fly here.</text>
+		<text>Did you hear Sultan planned to take over Beard's business? Skadovsk ain't big enough for his greedy ass, so he wanted to grab an even larger piece of the pie... But we said, "No way, JosР№!" Beard and the rest of our guys gave them hell all right. Sultan's thug operation won't fly here.</text>
 	</string>
 	<string id="dm_information_12">
 		<text>Wow, did you hear about this? That scumbag Sultan clamped down on Beard... I don't know what he did exactly, but it seems he turned on the meter on Beard! What's the Zone coming to? If they keep this up, Skadovsk is going to be a bandit base before you know it!</text>
@@ -760,7 +759,7 @@
 		<text>To the tunnel north of Kopachy.</text>
 	</string>
 	<string id="st_stalker_jup_b19">
-		<text>I'm going to a really creepy place, the Kopachy village... or whatever is left of it. Yes, I've stocked up on extra antirads and ammo - I'm gonna need ‘em!</text>
+		<text>I'm going to a really creepy place, the Kopachy village... or whatever is left of it. Yes, I've stocked up on extra antirads and ammo - I'm gonna need вЂem!</text>
 	</string>
 	<string id="st_stalker_jup_b200">
 		<text>To the cement factory. A nice observation point, and no one can sneak up on you there.</text>
@@ -970,24 +969,24 @@
 		<text>There's this place they call Scar, where the ground looks like it has been hacked with an axe. People have found artifacts there, but once you go in there something weird starts to happen. That thing hits your brains so hard you almost forget how to breathe, let alone try to get your ass out of there.</text>
 	</string>
 	<string id="dm_anomalies_1">
-		<text>You know where the dredge station is? It's been battered up by gravitational anomalies, but not too bad for an experienced stalker. Just keep throwing bolts as usual. There’s also radiation, inside and out - it’s like being next to a massive chunk of enriched uranium.</text>
+		<text>You know where the dredge station is? It's been battered up by gravitational anomalies, but not too bad for an experienced stalker. Just keep throwing bolts as usual. ThereвЂ™s also radiation, inside and out - itвЂ™s like being next to a massive chunk of enriched uranium.</text>
 	</string>
 	<string id="dm_anomalies_4">
-		<text>There's an old substation here, also called the Iron Forest. You'll understand why when you see it. Some people claim to have found clusters of artifacts in that area after an emission hit. It’s not all that dangerous, mainly electric anomalies and a bit of radiation... There’s also a few poltergeists, that will bury you in all kinds of crap if you don't hide in time.</text>
+		<text>There's an old substation here, also called the Iron Forest. You'll understand why when you see it. Some people claim to have found clusters of artifacts in that area after an emission hit. ItвЂ™s not all that dangerous, mainly electric anomalies and a bit of radiation... ThereвЂ™s also a few poltergeists, that will bury you in all kinds of crap if you don't hide in time.</text>
 	</string>
 	<string id="dm_job_12">
-		<text>Work? I don’t know, to be honest. But if you get a chance to help Freedom out - go see our boss at Yanov. Go to the southern wing and see Loki - that's him. Remember, if you believe in the advancement of humankind, in greater consciousness and significance of the Zone's gifts, you'll be making the right choice.</text>
+		<text>Work? I donвЂ™t know, to be honest. But if you get a chance to help Freedom out - go see our boss at Yanov. Go to the southern wing and see Loki - that's him. Remember, if you believe in the advancement of humankind, in greater consciousness and significance of the Zone's gifts, you'll be making the right choice.</text>
 	</string>
 	<string id="dm_job_13">
-		<text>No idea. But if you find something that can help us in our fight against the Zone and those who think it's a gift rather than a curse, go see the commander of Duty's expedition unit - Lieutenant Colonel Shulga. He's the man in charge at Yanov station. You'll find him in the northern wing. One thing’s for sure - any civilian who contributes to Duty’s overall success will get a handsome reward.</text>
+		<text>No idea. But if you find something that can help us in our fight against the Zone and those who think it's a gift rather than a curse, go see the commander of Duty's expedition unit - Lieutenant Colonel Shulga. He's the man in charge at Yanov station. You'll find him in the northern wing. One thingвЂ™s for sure - any civilian who contributes to DutyвЂ™s overall success will get a handsome reward.</text>
 	</string>
 	<string id="dm_information_19">
-		<text>Everyone's talking about some weird stuff going on at the old cooling tower. If you turn on the common frequency, you catch bits and pieces of distress calls, sounding like some poor bastard trying to get out of an anomaly. When you ask for coordinates, there's no reply. The weirdest thing though is the sound. That kind of distortion can’t be explained away...</text>
+		<text>Everyone's talking about some weird stuff going on at the old cooling tower. If you turn on the common frequency, you catch bits and pieces of distress calls, sounding like some poor bastard trying to get out of an anomaly. When you ask for coordinates, there's no reply. The weirdest thing though is the sound. That kind of distortion canвЂ™t be explained away...</text>
 	</string>
 	<string id="st_stalker_zat_sim_27">
-		<text>I’m headed to a place half way between Skadovsk and Shevchenko.</text>
+		<text>IвЂ™m headed to a place half way between Skadovsk and Shevchenko.</text>
 	</string>
 	<string id="st_stalker_jup_a9">
-		<text>To Jupiter. I probably won’t venture too far in though.</text>
+		<text>To Jupiter. I probably wonвЂ™t venture too far in though.</text>
 	</string>
 </string_table>

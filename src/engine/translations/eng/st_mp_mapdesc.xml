@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="mp_autostation">
 		<text>Vehicle station</text>
@@ -97,7 +96,7 @@
 		<text>Piles of metal rust idly behind concrete walls. Before the turn of the century, the plant was in constant operation with the accompaniment of socialist slogans spewed forth from loudspeakers, but the building was abandoned long ago.</text>
 	</string>
 	<string id="ui_map_desc_mp_rostok_short">
-		<text>Old deserted plant: silent piles of metal behind concrete walls are all that’s left.</text>
+		<text>Old deserted plant: silent piles of metal behind concrete walls are all thatвЂ™s left.</text>
 	</string>
 	<string id="ui_map_desc_mp_sport_center_large">
 		<text>A sports center in Pripyat located not far from the deserted school. The types of sport practiced here have changed greatly since 1986, as well as the number of enthusiasts willing to participate. Stalkers are drawn here by dubious fame, loot, and artifacts...and sometimes remain here forever.</text>

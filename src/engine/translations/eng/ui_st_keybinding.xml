@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="kb_active_jobs">
 		<text>PDA</text>
@@ -172,10 +171,10 @@
 		<text>Vote</text>
 	</string>
 	<string id="kb_vote_no">
-		<text>Vote “No”</text>
+		<text>Vote вЂњNoвЂќ</text>
 	</string>
 	<string id="kb_vote_yes">
-		<text>Vote "Yes”</text>
+		<text>Vote "YesвЂќ</text>
 	</string>
 	<string id="kb_weapon1">
 		<text>Weapon 1</text>

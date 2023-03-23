@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="st_zat_b55_name">
 		<text>Klaue-Anomalie</text>
@@ -7,13 +6,13 @@
 		<text>Eisenwald-Anomalie</text>
 	</string>
 	<string id="st_zat_b104_name">
-		<text>Sдgewerk</text>
+		<text>SРґgewerk</text>
 	</string>
 	<string id="st_zat_b38_name">
 		<text>Antennenkomplex Krug</text>
 	</string>
 	<string id="st_zat_b40_name">
-		<text>Klдranlage</text>
+		<text>KlРґranlage</text>
 	</string>
 	<string id="st_zat_b56_name">
 		<text>Rundkreis-Anomalie</text>
@@ -43,7 +42,7 @@
 		<text>Baggerschiff</text>
 	</string>
 	<string id="st_zat_b52_name">
-		<text>Dockkrдne</text>
+		<text>DockkrРґne</text>
 	</string>
 	<string id="st_zat_b39_name">
 		<text>Pinieneiche-Anomalie</text>
@@ -58,19 +57,19 @@
 		<text>Narbe-Anomalie</text>
 	</string>
 	<string id="st_zat_b12_name">
-		<text>Preobraschenski-Brьcke</text>
+		<text>Preobraschenski-BrСЊcke</text>
 	</string>
 	<string id="st_zat_b28_name">
-		<text>Sьdliches Plateau</text>
+		<text>SСЊdliches Plateau</text>
 	</string>
 	<string id="st_zat_b103_name">
-		<text>Werkstдtten des Umspannwerks</text>
+		<text>WerkstРґtten des Umspannwerks</text>
 	</string>
 	<string id="st_jup_b1_name">
-		<text>Aschehьgel-Anomalie</text>
+		<text>AschehСЊgel-Anomalie</text>
 	</string>
 	<string id="st_jup_b46_name">
-		<text>Kьhlturm</text>
+		<text>KСЊhlturm</text>
 	</string>
 	<string id="st_jup_b202_name">
 		<text>Umspannwerk</text>
@@ -97,7 +96,7 @@
 		<text>Flugabwehrkomplex Wolchow</text>
 	</string>
 	<string id="st_jup_b206_name">
-		<text>Anomales Wдldchen</text>
+		<text>Anomales WРґldchen</text>
 	</string>
 	<string id="st_jup_b32_name">
 		<text>Parkplatz</text>
@@ -109,13 +108,13 @@
 		<text>Asphalt-Anomalie</text>
 	</string>
 	<string id="st_jup_b208_name">
-		<text>Цstlicher Tunnel</text>
+		<text>Р¦stlicher Tunnel</text>
 	</string>
 	<string id="st_jup_a12_name">
 		<text>Containerlagerhaus</text>
 	</string>
 	<string id="st_jup_b212_name">
-		<text>Belьftungsanlage</text>
+		<text>BelСЊftungsanlage</text>
 	</string>
 	<string id="st_jup_b9_name">
 		<text>Hubschrauberlandeplatz</text>
@@ -154,7 +153,7 @@
 		<text>Wohnanlage</text>
 	</string>
 	<string id="st_pri_a21_name">
-		<text>Lebensmittelgeschдft</text>
+		<text>LebensmittelgeschРґft</text>
 	</string>
 	<string id="st_pri_b304_name">
 		<text>Kaufhaus</text>

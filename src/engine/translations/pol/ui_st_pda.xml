@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="Time">
 		<text>Czas</text>
@@ -13,7 +12,7 @@
 		<text>Bandyta</text>
 	</string>
 	<string id="dolg">
-		<text>Powinnoњж</text>
+		<text>PowinnoСљР¶</text>
 	</string>
 	<string id="ecolog">
 		<text>Naukowiec</text>
@@ -25,7 +24,7 @@
 		<text>Schowki</text>
 	</string>
 	<string id="freedom">
-		<text>Wolnoњж</text>
+		<text>WolnoСљР¶</text>
 	</string>
 	<string id="killer">
 		<text>Najemnik</text>
@@ -40,19 +39,19 @@
 		<text>Mutant</text>
 	</string>
 	<string id="month_april">
-		<text>kwiecieс</text>
+		<text>kwiecieСЃ</text>
 	</string>
 	<string id="month_august">
-		<text>sierpieс</text>
+		<text>sierpieСЃ</text>
 	</string>
 	<string id="month_december">
-		<text>grudzieс</text>
+		<text>grudzieСЃ</text>
 	</string>
 	<string id="month_february">
 		<text>luty</text>
 	</string>
 	<string id="month_january">
-		<text>styczeс</text>
+		<text>styczeСЃ</text>
 	</string>
 	<string id="month_july">
 		<text>lipiec</text>
@@ -70,43 +69,43 @@
 		<text>listopad</text>
 	</string>
 	<string id="month_october">
-		<text>paџdziernik</text>
+		<text>paСџdziernik</text>
 	</string>
 	<string id="month_september">
-		<text>wrzesieс</text>
+		<text>wrzesieСЃ</text>
 	</string>
 	<string id="pda_btn_close">
-		<text>Wyі№cz PDA</text>
+		<text>WyС–в„–cz PDA</text>
 	</string>
 	<string id="pda_btn_logs">
-		<text>Rejestr wiadomoњci</text>
+		<text>Rejestr wiadomoСљci</text>
 	</string>
 	<string id="pda_btn_logs_hint">
-		<text>Pokaї historiк wiadomoњci</text>
+		<text>PokaС— historiРє wiadomoСљci</text>
 	</string>
 	<string id="pda_btn_quests">
 		<text>Mapa terenu</text>
 	</string>
 	<string id="pda_btn_quests_hint">
-		<text>Pokaї mapк Zony i dziennik misji</text>
+		<text>PokaС— mapРє Zony i dziennik misji</text>
 	</string>
 	<string id="pda_btn_ranking">
 		<text>Statystyka</text>
 	</string>
 	<string id="pda_btn_ranking_hint">
-		<text>Pokaї wіasn№ statystykк</text>
+		<text>PokaС— wС–asnв„– statystykРє</text>
 	</string>
 	<string id="pda_cur_time">
-		<text>Bieї№cy czas:</text>
+		<text>BieС—в„–cy czas:</text>
 	</string>
 	<string id="pda_date_filter">
 		<text>Filtr daty</text>
 	</string>
 	<string id="pda_filter_news">
-		<text>Pokaї nowiny</text>
+		<text>PokaС— nowiny</text>
 	</string>
 	<string id="pda_filter_talk">
-		<text>Pokaї dialogi</text>
+		<text>PokaС— dialogi</text>
 	</string>
 	<string id="pda_legend_caption">
 		<text>Legenda</text>
@@ -133,10 +132,10 @@
 		<text>Znalezione schowki:</text>
 	</string>
 	<string id="pda_stat_favorite_weapon">
-		<text>Ulubiona broс</text>
+		<text>Ulubiona broСЃ</text>
 	</string>
 	<string id="pda_stat_mutant_killed">
-		<text>Najpotкїniejszy zabity mutant</text>
+		<text>NajpotРєС—niejszy zabity mutant</text>
 	</string>
 	<string id="st_location">
 		<text>Miejsce:</text>
@@ -154,10 +153,10 @@
 		<text>Przyjaciele</text>
 	</string>
 	<string id="st_ui_pda_legend_leader">
-		<text>Przywуdca frakcji</text>
+		<text>PrzywСѓdca frakcji</text>
 	</string>
 	<string id="st_ui_pda_legend_main_task">
-		<text>Misja gіуwna</text>
+		<text>Misja gС–Сѓwna</text>
 	</string>
 	<string id="st_ui_pda_legend_neutrals">
 		<text>Neutralni</text>
@@ -169,7 +168,7 @@
 		<text>Schowki</text>
 	</string>
 	<string id="st_ui_pda_legend_squad">
-		<text>Dowуdca oddziaіu</text>
+		<text>DowСѓdca oddziaС–u</text>
 	</string>
 	<string id="st_ui_pda_legend_trader">
 		<text>Handlarz</text>
@@ -178,43 +177,43 @@
 		<text>Stalker</text>
 	</string>
 	<string id="ui_logs_center_caption">
-		<text>Rejestr wiadomoњci</text>
+		<text>Rejestr wiadomoСљci</text>
 	</string>
 	<string id="ui_map_btn_center">
-		<text>Wyњrodkuj na graczu</text>
+		<text>WyСљrodkuj na graczu</text>
 	</string>
 	<string id="ui_map_btn_down">
-		<text>Przesuс w dуі</text>
+		<text>PrzesuСЃ w dСѓС–</text>
 	</string>
 	<string id="ui_map_btn_left">
-		<text>Przesuс w lewo</text>
+		<text>PrzesuСЃ w lewo</text>
 	</string>
 	<string id="ui_map_btn_legend">
-		<text>Pokaї legendк</text>
+		<text>PokaС— legendРє</text>
 	</string>
 	<string id="ui_map_btn_right">
-		<text>Przesuс w prawo</text>
+		<text>PrzesuСЃ w prawo</text>
 	</string>
 	<string id="ui_map_btn_up">
-		<text>Przesuс w gуrк</text>
+		<text>PrzesuСЃ w gСѓrРє</text>
 	</string>
 	<string id="ui_map_btn_zmreset">
 		<text>Maksymalne oddalenie</text>
 	</string>
 	<string id="ui_map_btn_zoom_in">
-		<text>Przybliїenie</text>
+		<text>PrzybliС—enie</text>
 	</string>
 	<string id="ui_map_btn_zoom_out">
 		<text>Oddalenie</text>
 	</string>
 	<string id="ui_ranking_center_caption">
-		<text>Osi№gniкcia</text>
+		<text>Osiв„–gniРєcia</text>
 	</string>
 	<string id="ui_task_btn_focus_center">
-		<text>Wyњrodkuj mapк na misji</text>
+		<text>WyСљrodkuj mapРє na misji</text>
 	</string>
 	<string id="ui_task_btn_focus_center2">
-		<text>Wyњrodkuj mapк na misji</text>
+		<text>WyСљrodkuj mapРє na misji</text>
 	</string>
 	<string id="zombied">
 		<text>Zombi</text>
@@ -232,10 +231,10 @@
 		<text>Lekarz</text>
 	</string>
 	<string id="ui_pda_secondary_task">
-		<text>Bieї№ce misje</text>
+		<text>BieС—в„–ce misje</text>
 	</string>
 	<string id="ui_show_second_task_wnd">
-		<text>Pokaї/ukryj misje</text>
+		<text>PokaС—/ukryj misje</text>
 	</string>
 	<string id="st_ui_pda_actor_box">
 		<text>Osobista skrzynka</text>
@@ -247,10 +246,10 @@
 		<text>Okolice fabryki Jupiter</text>
 	</string>
 	<string id="pripyat">
-		<text>Prypeж</text>
+		<text>PrypeР¶</text>
 	</string>
 	<string id="jupiter_underground">
-		<text>Tunel Prypeж 1</text>
+		<text>Tunel PrypeР¶ 1</text>
 	</string>
 	<string id="labx8">
 		<text>Laboratorium X8</text>
@@ -259,16 +258,16 @@
 		<text>Obszary</text>
 	</string>
 	<string id="filter_quest_npcs_text">
-		<text>Waїne obiekty</text>
+		<text>WaС—ne obiekty</text>
 	</string>
 	<string id="st_ui_pda_legend_primary_objects">
 		<text>Obszar</text>
 	</string>
 	<string id="st_jup_b32_has_af">
-		<text>Skanery wykryіy artefakty:</text>
+		<text>Skanery wykryС–y artefakty:</text>
 	</string>
 	<string id="st_jup_b32_no_af">
-		<text>Skanery nie wykryіy artefaktуw</text>
+		<text>Skanery nie wykryС–y artefaktСѓw</text>
 	</string>
 	<string id="st_ui_pda_secret">
 		<text>Schowek</text>

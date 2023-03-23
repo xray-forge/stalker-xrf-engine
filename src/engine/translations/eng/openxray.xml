@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="st_unload_magazine_after_pickup">
 		<text>Autounload weapon after pickup</text>
@@ -74,7 +73,7 @@
 	</string>
 	<string id="st_switch_version_invitation">
 		<text>Do you really want to launch another version of the game?</text>
-	</string>	
+	</string>
 	<string id="ui_mm_localization">
 		<text>Language</text>
 	</string>

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="pri_a17_get_gauss_rifle_documentation_name">
 		<text>Item 62: find documents in the testing workshop</text>
@@ -316,7 +315,7 @@
 		<text>A quiet word: talk to Kovalsky</text>
 	</string>
 	<string id="pri_a22_talk_with_kovalski_text">
-		<text>You need to talk to Kovalsky. It looks like he’s got something important to say.</text>
+		<text>You need to talk to Kovalsky. It looks like heвЂ™s got something important to say.</text>
 	</string>
 	<string id="pri_a28_defend_helis_name">
 		<text>Evacuation: hold out by the helicopters</text>

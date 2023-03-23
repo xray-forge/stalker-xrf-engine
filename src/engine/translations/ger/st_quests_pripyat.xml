@@ -1,286 +1,285 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="pri_a17_get_gauss_rifle_documentation_name">
 		<text>Forschungsobjekt 62: Dokumente in der Testwerkstatt finden</text>
 	</string>
 	<string id="pri_a17_get_gauss_rifle_documentation_text">
-		<text>Sie mьssen Dokumente ьber Forschungsobjekt 62 finden. Diese sollten Klarheit darьber bringen, ob die Hubschrauber mit dieser Waffe abgeschossen worden sein kцnnten.</text>
+		<text>Sie mСЊssen Dokumente СЊber Forschungsobjekt 62 finden. Diese sollten Klarheit darСЊber bringen, ob die Hubschrauber mit dieser Waffe abgeschossen worden sein kС†nnten.</text>
 	</string>
 	<string id="pri_a17_get_in_cover_name">
-		<text>Unbekannte Waffe: Schutz im Gebдude suchen</text>
+		<text>Unbekannte Waffe: Schutz im GebРґude suchen</text>
 	</string>
 	<string id="pri_a17_get_in_cover_text">
-		<text>Sie mьssen Schutz in dem Gebдude suchen und den Angriff der Monolither abwehren.</text>
+		<text>Sie mСЊssen Schutz in dem GebРґude suchen und den Angriff der Monolither abwehren.</text>
 	</string>
 	<string id="pri_a17_get_info_name">
 		<text>Unbekannte Waffe: Informationen finden</text>
 	</string>
 	<string id="pri_a17_get_info_text">
-		<text>Die Waffe funktioniert nicht und es ist auch nicht klar, wie sie funktionieren kцnnte. Sie mьssen einen Techniker finden, der mehr mit der unbekannten Waffe anfangen kann.</text>
+		<text>Die Waffe funktioniert nicht und es ist auch nicht klar, wie sie funktionieren kС†nnte. Sie mСЊssen einen Techniker finden, der mehr mit der unbekannten Waffe anfangen kann.</text>
 	</string>
 	<string id="pri_a17_kill_preacher_name">
-		<text>Unbekannte Waffe: Den Anfьhrer des Monolithertrupps tцten</text>
+		<text>Unbekannte Waffe: Den AnfСЊhrer des Monolithertrupps tС†ten</text>
 	</string>
 	<string id="pri_a17_kill_preacher_text">
-		<text>Sie mьssen den Anfьhrer des Monolithertrupps tцten, der die unbekannte Waffe benutzt.</text>
+		<text>Sie mСЊssen den AnfСЊhrer des Monolithertrupps tС†ten, der die unbekannte Waffe benutzt.</text>
 	</string>
 	<string id="pri_a17_maraud_name">
 		<text>Unbekannte Waffe: Tote Monolither durchsuchen</text>
 	</string>
 	<string id="pri_a17_maraud_text">
-		<text>Die Monolither mьssten die unbekannte Waffe bei sich haben - finden Sie sie.</text>
+		<text>Die Monolither mСЊssten die unbekannte Waffe bei sich haben - finden Sie sie.</text>
 	</string>
 	<string id="pri_a17_stalker_tech_produce_62_get_info_name">
 		<text>Unbekannte Waffe: Mit Kardan reden</text>
 	</string>
 	<string id="pri_a17_stalker_tech_produce_62_get_info_text">
-		<text>Kardan dьrfte seinen Kater mittlerweile ausgeschlafen haben. Sprechen Sie mit ihm ьber die unbekannte Waffe.</text>
+		<text>Kardan dСЊrfte seinen Kater mittlerweile ausgeschlafen haben. Sprechen Sie mit ihm СЊber die unbekannte Waffe.</text>
 	</string>
 	<string id="pri_a17_stalker_tech_produce_62_show_name">
 		<text>Unbekannte Waffe: Warten, bis Kardan wieder zu sich kommt</text>
 	</string>
 	<string id="pri_a17_stalker_tech_produce_62_show_text">
-		<text>Kardan weiЯ vermutlich mehr ьber die Waffe. Sie mьssen sich mit ihm unterhalten, wenn er wieder aufwacht.</text>
+		<text>Kardan weiРЇ vermutlich mehr СЊber die Waffe. Sie mСЊssen sich mit ihm unterhalten, wenn er wieder aufwacht.</text>
 	</string>
 	<string id="pri_a17_talk_with_kovalski_about_gauss_rifle_information_name">
-		<text>GauЯgewehr: Kowalski von der Waffe berichten</text>
+		<text>GauРЇgewehr: Kowalski von der Waffe berichten</text>
 	</string>
 	<string id="pri_a17_talk_with_kovalski_about_gauss_rifle_information_text">
-		<text>Sie mьssen Kowalski alles berichten, was Sie ьber Forschungsobjekt 62 in Erfahrung bringen konnten.</text>
+		<text>Sie mСЊssen Kowalski alles berichten, was Sie СЊber Forschungsobjekt 62 in Erfahrung bringen konnten.</text>
 	</string>
 	<string id="pri_a17_task_find_gauss_rifle_name">
-		<text>Unbekannte Waffe: Dem Trupp anschlieЯen</text>
+		<text>Unbekannte Waffe: Dem Trupp anschlieРЇen</text>
 	</string>
 	<string id="pri_a17_task_find_gauss_rifle_text">
-		<text>Sie mьssen sich dem Spezialtrupp anschlieЯen, um gemeinsam in den Besitz der Waffe zu kommen.</text>
+		<text>Sie mСЊssen sich dem Spezialtrupp anschlieРЇen, um gemeinsam in den Besitz der Waffe zu kommen.</text>
 	</string>
 	<string id="pri_a17_task_get_gauss_rifle_from_preacher_name">
 		<text>Unbekannte Waffe: Die Waffe nehmen</text>
 	</string>
 	<string id="pri_a17_task_get_gauss_rifle_from_preacher_text">
-		<text>Nehmen Sie die Waffe des Anfьhrers der Monolither an sich.</text>
+		<text>Nehmen Sie die Waffe des AnfСЊhrers der Monolither an sich.</text>
 	</string>
 	<string id="pri_a17_task_give_gauss_rifle_to_kovalski_name">
 		<text>Unbekannte Waffe: Die Waffe zu Kowalski bringen</text>
 	</string>
 	<string id="pri_a17_task_give_gauss_rifle_to_kovalski_text">
-		<text>Sie haben die Waffe - jetzt sollten Sie sie Kowalski zeigen und herausfinden, ob die Waffe den Absturz der Hubschrauber verursacht haben kцnnte.</text>
+		<text>Sie haben die Waffe - jetzt sollten Sie sie Kowalski zeigen und herausfinden, ob die Waffe den Absturz der Hubschrauber verursacht haben kС†nnte.</text>
 	</string>
 	<string id="pri_a17_watch_recons_six_name">
 		<text>Unbekannte Waffe: Am Hinterhalt gegen die Monolither teilnehmen</text>
 	</string>
 	<string id="pri_a17_watch_recons_six_text">
-		<text>Der Armeespдhtrupp bereitet einen Hinterhalt gegen den Monolithertrupp vor. Sie sollten sich daran beteiligen.</text>
+		<text>Der ArmeespРґhtrupp bereitet einen Hinterhalt gegen den Monolithertrupp vor. Sie sollten sich daran beteiligen.</text>
 	</string>
 	<string id="pri_a18_get_reinforcement_name">
-		<text>Monolitherkдmpfer: Verstдrkung treffen</text>
+		<text>MonolitherkРґmpfer: VerstРґrkung treffen</text>
 	</string>
 	<string id="pri_a18_get_reinforcement_text">
-		<text>Kowalski hat Verstдrkung geschickt, die Ihnen beim Ausschalten der Monolither helfen soll, die sich in den Buchladen verkrochen haben.</text>
+		<text>Kowalski hat VerstРґrkung geschickt, die Ihnen beim Ausschalten der Monolither helfen soll, die sich in den Buchladen verkrochen haben.</text>
 	</string>
 	<string id="pri_a18_go_post_name">
-		<text>Monolitherkдmpfer: Buchladen sдubern</text>
+		<text>MonolitherkРґmpfer: Buchladen sРґubern</text>
 	</string>
 	<string id="pri_a18_go_post_text">
-		<text>Sie mьssen alle Monolither in dem Gebдude ausschalten. GroЯe Monolithereinheiten stellen eine Bedrohung fьr das Armeelager dar.</text>
+		<text>Sie mСЊssen alle Monolither in dem GebРґude ausschalten. GroРЇe Monolithereinheiten stellen eine Bedrohung fСЊr das Armeelager dar.</text>
 	</string>
 	<string id="pri_a18_use_idol_name">
-		<text>Monolitherkдmpfer: Seltsames Gerдt untersuchen</text>
+		<text>MonolitherkРґmpfer: Seltsames GerРґt untersuchen</text>
 	</string>
 	<string id="pri_a18_use_idol_text">
-		<text>In dem Gebдude sind Sie auf ein seltsames Gerдt gestoЯen. Untersuchen Sie es.</text>
+		<text>In dem GebРґude sind Sie auf ein seltsames GerРґt gestoРЇen. Untersuchen Sie es.</text>
 	</string>
 	<string id="pri_a19_lab_x8_investigation_name">
-		<text>Labor X8: Dokumente ьber Experimente finden</text>
+		<text>Labor X8: Dokumente СЊber Experimente finden</text>
 	</string>
 	<string id="pri_a19_lab_x8_investigation_text">
-		<text>Die Informationen, die Sie gefunden haben, beziehen sich auf ein Zentrallabor, das als X8 bezeichnet wird. Dort kцnnten Sie Informationen ьber geheime Experimente in der Zone finden.</text>
+		<text>Die Informationen, die Sie gefunden haben, beziehen sich auf ein Zentrallabor, das als X8 bezeichnet wird. Dort kС†nnten Sie Informationen СЊber geheime Experimente in der Zone finden.</text>
 	</string>
 	<string id="pri_a20_check_recon_squad_task_name">
-		<text>Verschwundene Spдher: Trupp finden</text>
+		<text>Verschwundene SpРґher: Trupp finden</text>
 	</string>
 	<string id="pri_a20_check_recon_squad_task_text">
-		<text>Der Spдhtrupp, den Kowalski losgeschickt hatte, ist nach merkwьrdigem Funkkontakt verschwunden. Sie mьssen ihn finden, um herauszufinden, was geschehen ist.</text>
+		<text>Der SpРґhtrupp, den Kowalski losgeschickt hatte, ist nach merkwСЊrdigem Funkkontakt verschwunden. Sie mСЊssen ihn finden, um herauszufinden, was geschehen ist.</text>
 	</string>
 	<string id="pri_a21_chasovoi_body_search_name">
 		<text>Verschwundene Wache: Gebiet untersuchen, in dem die Wache gestorben ist</text>
 	</string>
 	<string id="pri_a21_chasovoi_body_search_text">
-		<text>Die Wache benahm sich sehr seltsam. Sie sollten den Grund dafьr herausfinden.</text>
+		<text>Die Wache benahm sich sehr seltsam. Sie sollten den Grund dafСЊr herausfinden.</text>
 	</string>
 	<string id="pri_a21_find_chasovoi_name">
 		<text>Verschwundene Wache: Wache finden</text>
 	</string>
 	<string id="pri_a21_find_chasovoi_text">
-		<text>Einer der Soldaten ist nicht mehr auf seinem Posten - Sie mьssen herausfinden, warum er verschwunden ist.</text>
+		<text>Einer der Soldaten ist nicht mehr auf seinem Posten - Sie mСЊssen herausfinden, warum er verschwunden ist.</text>
 	</string>
 	<string id="pri_a21_kill_kontroler_name">
-		<text>Verschwundene Wache: Controller tцten</text>
+		<text>Verschwundene Wache: Controller tС†ten</text>
 	</string>
 	<string id="pri_a21_kill_kontroler_text">
-		<text>In der Nдhe der verschwundenen Wache trieb ein Controller sein Unwesen - er muss ausgeschaltet werden.</text>
+		<text>In der NРґhe der verschwundenen Wache trieb ein Controller sein Unwesen - er muss ausgeschaltet werden.</text>
 	</string>
 	<string id="pri_a22_find_dead_squad_name">
-		<text>Funkstцrung: Verschwundenen Trupp finden</text>
+		<text>FunkstС†rung: Verschwundenen Trupp finden</text>
 	</string>
 	<string id="pri_a22_find_dead_squad_text">
-		<text>Der Trupp, der auf der Suche nach der Quelle der Funkstцrung war, ist verschwunden - Sie mьssen ihn finden.</text>
+		<text>Der Trupp, der auf der Suche nach der Quelle der FunkstС†rung war, ist verschwunden - Sie mСЊssen ihn finden.</text>
 	</string>
 	<string id="pri_a22_search_bodys_name">
-		<text>Funkstцrung: Leichen durchsuchen</text>
+		<text>FunkstС†rung: Leichen durchsuchen</text>
 	</string>
 	<string id="pri_a22_search_bodys_text">
-		<text>Durchsuchen Sie die Leichen - vielleicht kцnnen Sie so herausfinden, wie die Personen gestorben sind.</text>
+		<text>Durchsuchen Sie die Leichen - vielleicht kС†nnen Sie so herausfinden, wie die Personen gestorben sind.</text>
 	</string>
 	<string id="pri_a22_search_yarmoshuk_body_name">
-		<text>Funkstцrung: Leiche durchsuchen</text>
+		<text>FunkstС†rung: Leiche durchsuchen</text>
 	</string>
 	<string id="pri_a22_search_yarmoshuk_body_text">
-		<text>Durchsuchen Sie die Leiche - vielleicht kцnnen Sie so herausfinden, wie die Person gestorben ist.</text>
+		<text>Durchsuchen Sie die Leiche - vielleicht kС†nnen Sie so herausfinden, wie die Person gestorben ist.</text>
 	</string>
 	<string id="pri_a25_blow_up_door_name">
-		<text>Funkstцrung: Tьr aufsprengen</text>
+		<text>FunkstС†rung: TСЊr aufsprengen</text>
 	</string>
 	<string id="pri_a25_blow_up_door_text">
-		<text>Sie mьssen mit Sprengstoff die Tьr aufsprengen, um in das Gebдude gelangen zu kцnnen.</text>
+		<text>Sie mСЊssen mit Sprengstoff die TСЊr aufsprengen, um in das GebРґude gelangen zu kС†nnen.</text>
 	</string>
 	<string id="pri_a25_check_freezer_knock_name">
-		<text>Funkstцrung: Gerдusch untersuchen</text>
+		<text>FunkstС†rung: GerРґusch untersuchen</text>
 	</string>
 	<string id="pri_a25_check_freezer_knock_text">
-		<text>Aus dem Kьhlschrank sind Gerдusche zu hцren - es scheint so, als ob jemand darin eingeschlossen wдre. Ьberprьfen Sie das.</text>
+		<text>Aus dem KСЊhlschrank sind GerРґusche zu hС†ren - es scheint so, als ob jemand darin eingeschlossen wРґre. Р¬berprСЊfen Sie das.</text>
 	</string>
 	<string id="pri_a25_destroy_antenna_name">
-		<text>Funkstцrung: Die Quelle der Stцrung zerstцren</text>
+		<text>FunkstС†rung: Die Quelle der StС†rung zerstС†ren</text>
 	</string>
 	<string id="pri_a25_destroy_antenna_text">
-		<text>Sie haben die Quelle der Funkstцrung entdeckt - jetzt mьssen Sie sie zerstцren.</text>
+		<text>Sie haben die Quelle der FunkstС†rung entdeckt - jetzt mСЊssen Sie sie zerstС†ren.</text>
 	</string>
 	<string id="pri_a25_find_antenna_name">
-		<text>Funkstцrung: Die Quelle der Stцrung finden</text>
+		<text>FunkstС†rung: Die Quelle der StС†rung finden</text>
 	</string>
 	<string id="pri_a25_find_antenna_text">
-		<text>In dem Gebдude befindet sich eine Quelle der Funkstцrung - finden Sie sie.</text>
+		<text>In dem GebРґude befindet sich eine Quelle der FunkstС†rung - finden Sie sie.</text>
 	</string>
 	<string id="pri_a25_find_explosive_name">
-		<text>Funkstцrung: Sprengstoff finden</text>
+		<text>FunkstС†rung: Sprengstoff finden</text>
 	</string>
 	<string id="pri_a25_find_explosive_text">
-		<text>Der Trupp, der auf der Suche nach der Quelle der Funkstцrung war, hatte Sprengstoff dabei. Finden Sie diesen, um den Eingang in das Gebдude freizusprengen.</text>
+		<text>Der Trupp, der auf der Suche nach der Quelle der FunkstС†rung war, hatte Sprengstoff dabei. Finden Sie diesen, um den Eingang in das GebРґude freizusprengen.</text>
 	</string>
 	<string id="pri_a25_remove_source_of_hindrances_name">
-		<text>Funkstцrung: Das Kindergartengebдude betreten</text>
+		<text>FunkstС†rung: Das KindergartengebРґude betreten</text>
 	</string>
 	<string id="pri_a25_remove_source_of_hindrances_text">
-		<text>Die Signalquelle befindet sich irgendwo im Kindergartengebдude, deswegen mьssen Sie es betreten.</text>
+		<text>Die Signalquelle befindet sich irgendwo im KindergartengebРґude, deswegen mСЊssen Sie es betreten.</text>
 	</string>
 	<string id="pri_a28_cover_militarys_name">
 		<text>Evakuierung: Der Armee helfen</text>
 	</string>
 	<string id="pri_a28_cover_militarys_text">
-		<text>Strelok mag zwar tot sein, aber Sie mьssen der Armee immer noch helfen, zu den Hubschraubern zu gelangen.</text>
+		<text>Strelok mag zwar tot sein, aber Sie mСЊssen der Armee immer noch helfen, zu den Hubschraubern zu gelangen.</text>
 	</string>
 	<string id="pri_a28_cover_strelok_name">
 		<text>Evakuierung: Strelok helfen</text>
 	</string>
 	<string id="pri_a28_cover_strelok_text">
-		<text>Das Hauptquartier interessiert sich fьr die Informationen, die Strelok zu bieten hat. Sie mьssen ihn zu den Hubschraubern geleiten.</text>
+		<text>Das Hauptquartier interessiert sich fСЊr die Informationen, die Strelok zu bieten hat. Sie mСЊssen ihn zu den Hubschraubern geleiten.</text>
 	</string>
 	<string id="pri_a28_go_hellis_name">
 		<text>Evakuierung: Zu den Hubschraubern gelangen</text>
 	</string>
 	<string id="pri_a28_go_hellis_text">
-		<text>Es ist niemand mehr am Leben - Sie mьssen es alleine bis zu den Hubschraubern schaffen.</text>
+		<text>Es ist niemand mehr am Leben - Sie mСЊssen es alleine bis zu den Hubschraubern schaffen.</text>
 	</string>
 	<string id="pri_a28_talk_with_kovalski_name">
 		<text>Evakuierung: Mit Kowalski reden</text>
 	</string>
 	<string id="pri_a28_talk_with_kovalski_text">
-		<text>Sie mьssen mit Kowalski reden, bevor die Evakuierung beginnt.</text>
+		<text>Sie mСЊssen mit Kowalski reden, bevor die Evakuierung beginnt.</text>
 	</string>
 	<string id="pri_a28_tell_kovalski_when_ready_name">
 		<text>Evakuierung: Kowalski mitteilen, dass Sie bereit sind</text>
 	</string>
 	<string id="pri_a28_tell_kovalski_when_ready_text">
-		<text>Sie sollten Kowalski darьber informieren, dass Sie bereit sind, die Evakuierung zu starten.</text>
+		<text>Sie sollten Kowalski darСЊber informieren, dass Sie bereit sind, die Evakuierung zu starten.</text>
 	</string>
 	<string id="pri_a28_wait_surge_end_name">
 		<text>Evakuierung: Auf das Ende der Emission warten</text>
 	</string>
 	<string id="pri_a28_wait_surge_end_text">
-		<text>Sie mьssen warten, bis die Emission vorbei ist.</text>
+		<text>Sie mСЊssen warten, bis die Emission vorbei ist.</text>
 	</string>
 	<string id="pri_b305_check_unknown_signal_1_name">
 		<text>Unbekannt: Die Quelle des Signals finden</text>
 	</string>
 	<string id="pri_b305_check_unknown_signal_1_text">
-		<text>Kirilloff hat in der Nдhe der Basis ein seltsames Signal geortet. Sie mьssen die Quelle dieses Signals finden.</text>
+		<text>Kirilloff hat in der NРґhe der Basis ein seltsames Signal geortet. Sie mСЊssen die Quelle dieses Signals finden.</text>
 	</string>
 	<string id="pri_b305_check_unknown_signal_2_name">
 		<text>Unbekannt: Dem Signal folgen</text>
 	</string>
 	<string id="pri_b305_check_unknown_signal_2_text">
-		<text>Die Koordinaten des Signals stehen wieder zur Verfьgung, folgen Sie ihnen.</text>
+		<text>Die Koordinaten des Signals stehen wieder zur VerfСЊgung, folgen Sie ihnen.</text>
 	</string>
 	<string id="pri_b305_check_unknown_signal_3_name">
 		<text>Unbekannt: Den letzten bekannten Ort des Signals untersuchen</text>
 	</string>
 	<string id="pri_b305_check_unknown_signal_3_text">
-		<text>Das Signal hat im Hof des Gebдudes ausgesetzt. Untersuchen Sie daher den letzten bekannten Ort des Signals.</text>
+		<text>Das Signal hat im Hof des GebРґudes ausgesetzt. Untersuchen Sie daher den letzten bekannten Ort des Signals.</text>
 	</string>
 	<string id="pri_b305_check_unknown_signal_4_name">
-		<text>Unbekannt: Bereit machen fьr Angriff auf die Basis</text>
+		<text>Unbekannt: Bereit machen fСЊr Angriff auf die Basis</text>
 	</string>
 	<string id="pri_b305_check_unknown_signal_4_text">
-		<text>Kehren Sie zur Armeebasis zurьck und machen Sie sich fьr einen wahrscheinlichen Angriff bereit.</text>
+		<text>Kehren Sie zur Armeebasis zurСЊck und machen Sie sich fСЊr einen wahrscheinlichen Angriff bereit.</text>
 	</string>
 	<string id="pri_b305_kovalskiy_talk_name">
-		<text>Funkstцrung: Mit Kowalski reden</text>
+		<text>FunkstС†rung: Mit Kowalski reden</text>
 	</string>
 	<string id="pri_b305_kovalskiy_talk_text">
-		<text>Oberst Kowalski mцchte sich mit Ihnen unterhalten.</text>
+		<text>Oberst Kowalski mС†chte sich mit Ihnen unterhalten.</text>
 	</string>
 	<string id="pri_b306_task_1_name">
 		<text>Labor X8: In den Aufzugschacht gelangen</text>
 	</string>
 	<string id="pri_b306_task_1_text">
-		<text>Der Eingang zum unterirdischen Labor befindet sich unter dem Servicezentrum Jubilejni. Und der einzige Weg dorthin fьhrt durch den Aufzugschacht.</text>
+		<text>Der Eingang zum unterirdischen Labor befindet sich unter dem Servicezentrum Jubilejni. Und der einzige Weg dorthin fСЊhrt durch den Aufzugschacht.</text>
 	</string>
 	<string id="pri_b306_task_2_name">
 		<text>Labor X8: Generator finden</text>
 	</string>
 	<string id="pri_b306_task_2_text">
-		<text>Die Stromversorgung fьr die Tьren des Aufzugschachts wurde unterbrochen. Um sie zu цffnen, mьssen Sie den Notfallgenerator finden und aktivieren.</text>
+		<text>Die Stromversorgung fСЊr die TСЊren des Aufzugschachts wurde unterbrochen. Um sie zu С†ffnen, mСЊssen Sie den Notfallgenerator finden und aktivieren.</text>
 	</string>
 	<string id="pri_b306_task_3_name">
 		<text>Labor X8: Ins Labor hinabsteigen</text>
 	</string>
 	<string id="pri_b306_task_3_text">
-		<text>Sie mьssen den Aufzug benutzen, um in das Labor X8 zu gelangen, das sich unter dem Servicezentrum Jubilejni befindet.</text>
+		<text>Sie mСЊssen den Aufzug benutzen, um in das Labor X8 zu gelangen, das sich unter dem Servicezentrum Jubilejni befindet.</text>
 	</string>
 	<string id="pri_b35_task_envoy_name">
 		<text>Ein Schuss: Boten ausschalten</text>
 	</string>
 	<string id="pri_b35_task_envoy_text">
-		<text>Sie mьssen den Boten eliminieren. Wenn er tot ist, werden die Sцldner das Labor nicht finden kцnnen.</text>
+		<text>Sie mСЊssen den Boten eliminieren. Wenn er tot ist, werden die SС†ldner das Labor nicht finden kС†nnen.</text>
 	</string>
 	<string id="pri_b35_task_envoy_wait_name">
-		<text>Ein Schuss: Auf die Mдnner des Auftraggebers warten</text>
+		<text>Ein Schuss: Auf die MРґnner des Auftraggebers warten</text>
 	</string>
 	<string id="pri_b35_task_envoy_wait_text">
-		<text>Warten Sie auf die Mдnner des Auftraggebers und tцten Sie dann ihren Anfьhrer. Wenn er tot ist, werden die Sцldner das Labor nicht finden kцnnen.</text>
+		<text>Warten Sie auf die MРґnner des Auftraggebers und tС†ten Sie dann ihren AnfСЊhrer. Wenn er tot ist, werden die SС†ldner das Labor nicht finden kС†nnen.</text>
 	</string>
 	<string id="pri_b35_task_merc_name">
-		<text>Ein Schuss: Anfьhrer des Sцldnertrupps tцten</text>
+		<text>Ein Schuss: AnfСЊhrer des SС†ldnertrupps tС†ten</text>
 	</string>
 	<string id="pri_b35_task_merc_text">
-		<text>Sie mьssen den Anfьhrer des Sцldnertrupps ausschalten. Wenn er tot ist, werden die Sцldner keine groЯe Gefahr mehr darstellen.</text>
+		<text>Sie mСЊssen den AnfСЊhrer des SС†ldnertrupps ausschalten. Wenn er tot ist, werden die SС†ldner keine groРЇe Gefahr mehr darstellen.</text>
 	</string>
 	<string id="pri_b35_task_merc_wait_name">
-		<text>Ein Schuss: Auf die Sцldner warten</text>
+		<text>Ein Schuss: Auf die SС†ldner warten</text>
 	</string>
 	<string id="pri_b35_task_merc_wait_text">
-		<text>Warten Sie auf die Sцldner und tцten Sie dann ihren Anfьhrer. Wenn er tot ist, werden die Sцldner keine groЯe Gefahr mehr darstellen.</text>
+		<text>Warten Sie auf die SС†ldner und tС†ten Sie dann ihren AnfСЊhrer. Wenn er tot ist, werden die SС†ldner keine groРЇe Gefahr mehr darstellen.</text>
 	</string>
 	<string id="pri_b35_task_reward_name">
 		<text>Ein Schuss: Mit Kowalski reden</text>
@@ -292,54 +291,54 @@
 		<text>Labor X8: Unterirdischen Komplex verlassen oder weiter nach Dokumenten suchen</text>
 	</string>
 	<string id="pri_a19_lab_x8_investigation_1_text">
-		<text>Sie haben Dokumente gefunden und kцnnen jetzt das Labor verlassen. Allerdings kцnnten sich im Komplex noch weitere Dokumente befinden.</text>
+		<text>Sie haben Dokumente gefunden und kС†nnen jetzt das Labor verlassen. Allerdings kС†nnten sich im Komplex noch weitere Dokumente befinden.</text>
 	</string>
 	<string id="pri_a19_lab_x8_investigation_2_name">
 		<text>Labor X8: Unterirdischen Komplex verlassen oder weiter nach Dokumenten suchen</text>
 	</string>
 	<string id="pri_a19_lab_x8_investigation_2_text">
-		<text>Sie haben Dokumente gefunden und kцnnen jetzt das Labor verlassen. Allerdings kцnnten sich im Komplex noch weitere Dokumente befinden.</text>
+		<text>Sie haben Dokumente gefunden und kС†nnen jetzt das Labor verlassen. Allerdings kС†nnten sich im Komplex noch weitere Dokumente befinden.</text>
 	</string>
 	<string id="pri_a19_lab_x8_investigation_3_name">
 		<text>Labor X8: Unterirdischen Komplex verlassen</text>
 	</string>
 	<string id="pri_a19_lab_x8_investigation_3_text">
-		<text>Es sieht so aus, als ob Sie alle Dokumente im Labor gefunden hдtten. Sie kцnnen den unterirdischen Komplex jetzt verlassen.</text>
+		<text>Es sieht so aus, als ob Sie alle Dokumente im Labor gefunden hРґtten. Sie kС†nnen den unterirdischen Komplex jetzt verlassen.</text>
 	</string>
 	<string id="pri_a18_wait_reinf_name">
-		<text>Monolitherkдmpfer: Auf Verstдrkung warten</text>
+		<text>MonolitherkРґmpfer: Auf VerstРґrkung warten</text>
 	</string>
 	<string id="pri_a18_wait_reinf_text">
-		<text>Sie mьssen auf die Verstдrkung, die Kowalski geschickt hat, warten, um die Monolither im Buchladen ausschalten zu kцnnen.</text>
+		<text>Sie mСЊssen auf die VerstРґrkung, die Kowalski geschickt hat, warten, um die Monolither im Buchladen ausschalten zu kС†nnen.</text>
 	</string>
 	<string id="pri_a22_talk_with_kovalski_name">
 		<text>Unter vier Augen: Mit Kowalski reden</text>
 	</string>
 	<string id="pri_a22_talk_with_kovalski_text">
-		<text>Sie mьssen mit Kowalski reden. Es sieht so aus, als ob er etwas Wichtiges zu sagen hдtte.</text>
+		<text>Sie mСЊssen mit Kowalski reden. Es sieht so aus, als ob er etwas Wichtiges zu sagen hРґtte.</text>
 	</string>
 	<string id="pri_a28_defend_helis_name">
 		<text>Evakuierung: Bei den Hubschraubern warten</text>
 	</string>
 	<string id="pri_a28_defend_helis_text">
-		<text>Sie mьssen die Hubschrauber vor den Gegnern beschьtzen, bis sie starten kцnnen.</text>
+		<text>Sie mСЊssen die Hubschrauber vor den Gegnern beschСЊtzen, bis sie starten kС†nnen.</text>
 	</string>
 	<string id="pri_a28_save_medic_name">
 		<text>Evakuierung: Den Arzt wiederbeleben</text>
 	</string>
 	<string id="pri_a28_save_medic_text">
-		<text>Es sieht so aus, als ob der Arzt erneut von Unbekannten getroffen wurde. Beleben Sie ihn so schnell wie mцglich wieder.</text>
+		<text>Es sieht so aus, als ob der Arzt erneut von Unbekannten getroffen wurde. Beleben Sie ihn so schnell wie mС†glich wieder.</text>
 	</string>
 	<string id="pri_a28_return_to_helis_name">
-		<text>Evakuierung: Zu den Hubschraubern zurьckkehren</text>
+		<text>Evakuierung: Zu den Hubschraubern zurСЊckkehren</text>
 	</string>
 	<string id="pri_a28_return_to_helis_text">
-		<text>Sie mьssen zu den Hubschraubern zurьckkehren, weil sie jetzt jeden Moment starten kцnnten.</text>
+		<text>Sie mСЊssen zu den Hubschraubern zurСЊckkehren, weil sie jetzt jeden Moment starten kС†nnten.</text>
 	</string>
 	<string id="pri_a28_helis_gonna_fly_name">
-		<text>Evakuierung: Sofort zu den Hubschraubern zurьckkehren</text>
+		<text>Evakuierung: Sofort zu den Hubschraubern zurСЊckkehren</text>
 	</string>
 	<string id="pri_a28_helis_gonna_fly_text">
-		<text>Die Hubschrauber sind bereit zu starten. Sie mьssen sofort an Bord gehen - die Piloten kцnnen nicht mehr viel lдnger warten.</text>
+		<text>Die Hubschrauber sind bereit zu starten. Sie mСЊssen sofort an Bord gehen - die Piloten kС†nnen nicht mehr viel lРґnger warten.</text>
 	</string>
 </string_table>

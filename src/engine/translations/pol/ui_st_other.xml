@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="Btn_Cancel">
 		<text>Anuluj</text>
@@ -13,16 +12,16 @@
 		<text>Tak</text>
 	</string>
 	<string id="bad">
-		<text>Џle</text>
+		<text>РЏle</text>
 	</string>
 	<string id="enemy">
-		<text>Wrуg</text>
+		<text>WrСѓg</text>
 	</string>
 	<string id="excellent">
-		<text>Њwietnie</text>
+		<text>РЉwietnie</text>
 	</string>
 	<string id="experienced">
-		<text>Ma doњwiadczenie</text>
+		<text>Ma doСљwiadczenie</text>
 	</string>
 	<string id="friendly">
 		<text>Przyjaciel</text>
@@ -34,7 +33,7 @@
 		<text>Dobrze</text>
 	</string>
 	<string id="indifferent">
-		<text>Obojкtnie</text>
+		<text>ObojРєtnie</text>
 	</string>
 	<string id="master">
 		<text>Mistrz</text>
@@ -43,7 +42,7 @@
 		<text>Bonus za zdobyte PDA</text>
 	</string>
 	<string id="mp_only_one_voting">
-		<text>Dozwolone jest tylko jedno aktywne gіosowanie.</text>
+		<text>Dozwolone jest tylko jedno aktywne gС–osowanie.</text>
 	</string>
 	<string id="neutral">
 		<text>Neutralny stosunek</text>
@@ -55,16 +54,16 @@
 		<text>Gra</text>
 	</string>
 	<string id="st_item_used">
-		<text>Uїywane</text>
+		<text>UС—ywane</text>
 	</string>
 	<string id="st_level">
 		<text>Poziom</text>
 	</string>
 	<string id="st_loading_ai_objects">
-		<text>Wczytywanie obiektуw SI</text>
+		<text>Wczytywanie obiektСѓw SI</text>
 	</string>
 	<string id="st_loading_alife_simulator">
-		<text>Serwer: wczytywanie symulatora їycia</text>
+		<text>Serwer: wczytywanie symulatora С—ycia</text>
 	</string>
 	<string id="st_loading_cform">
 		<text>Wczytywanie CFORM</text>
@@ -91,28 +90,28 @@
 		<text>Wczytywanie tekstur</text>
 	</string>
 	<string id="st_mp_direct_ip">
-		<text>Bezpoњr. adres IP</text>
+		<text>BezpoСљr. adres IP</text>
 	</string>
 	<string id="st_no_active_task">
 		<text>Brak aktywnego zadania</text>
 	</string>
 	<string id="st_not_enough_money">
-		<text>Za maіo pieniкdzy</text>
+		<text>Za maС–o pieniРєdzy</text>
 	</string>
 	<string id="st_not_enough_money_npc">
-		<text>BN ma za maіo pieniкdzy</text>
+		<text>BN ma za maС–o pieniРєdzy</text>
 	</string>
 	<string id="st_opening_stream">
 		<text>Otwieranie strumienia</text>
 	</string>
 	<string id="st_prefetching_objects">
-		<text>Buforowanie obiektуw</text>
+		<text>Buforowanie obiektСѓw</text>
 	</string>
 	<string id="st_rubles">
 		<text>rubli.</text>
 	</string>
 	<string id="st_server_connecting">
-		<text>SERWER: і№czenie</text>
+		<text>SERWER: С–в„–czenie</text>
 	</string>
 	<string id="st_server_starting">
 		<text>SERWER: rozpoczynanie</text>
@@ -127,58 +126,58 @@
 		<text>Strasznie</text>
 	</string>
 	<string id="ui_inv_repair">
-		<text>Naprawiж</text>
+		<text>NaprawiР¶</text>
 	</string>
 	<string id="ui_st_cant_run_r2">
-		<text>Nie moїna uruchomiж funkcji Render 2 na tym komputerze</text>
+		<text>Nie moС—na uruchomiР¶ funkcji Render 2 na tym komputerze</text>
 	</string>
 	<string id="ui_st_community">
 		<text>Frakcja</text>
 	</string>
 	<string id="ui_st_conn_cdkey_disabled">
-		<text>Bі№d poі№czenia: klucz CD jest nieaktywny. Skontaktuj siк z dziaіem pomocy technicznej.</text>
+		<text>BС–в„–d poС–в„–czenia: klucz CD jest nieaktywny. Skontaktuj siРє z dziaС–em pomocy technicznej.</text>
 	</string>
 	<string id="ui_st_conn_cdkey_in_use">
-		<text>Bі№d poі№czenia: klucz CD jest juї w uїyciu.</text>
+		<text>BС–в„–d poС–в„–czenia: klucz CD jest juС— w uС—yciu.</text>
 	</string>
 	<string id="ui_st_conn_cdkey_invalid">
-		<text>Bі№d poі№czenia: niewіaњciwy klucz CD.</text>
+		<text>BС–в„–d poС–в„–czenia: niewС–aСљciwy klucz CD.</text>
 	</string>
 	<string id="ui_st_conn_invalid_host">
-		<text>Bі№d poі№czenia: nieprawidіowy host.</text>
+		<text>BС–в„–d poС–в„–czenia: nieprawidС–owy host.</text>
 	</string>
 	<string id="ui_st_conn_invalid_pass">
-		<text>Bі№d poі№czenia: nieprawidіowe hasіo.</text>
+		<text>BС–в„–d poС–в„–czenia: nieprawidС–owe hasС–o.</text>
 	</string>
 	<string id="ui_st_conn_new_patch">
-		<text>Dostкpna jest nowa poprawka.\n Wersja: %s\n Lokalizacja: %s\nCzy chcesz j№ teraz pobraж?</text>
+		<text>DostРєpna jest nowa poprawka.\n Wersja: %s\n Lokalizacja: %s\nCzy chcesz jв„– teraz pobraР¶?</text>
 	</string>
 	<string id="ui_st_conn_no_new_patch">
 		<text>Brak nowych poprawek</text>
 	</string>
 	<string id="ui_st_conn_rejected_server">
-		<text>Bі№d poі№czenia: poі№czenie odrzucone przez serwer.</text>
+		<text>BС–в„–d poС–в„–czenia: poС–в„–czenie odrzucone przez serwer.</text>
 	</string>
 	<string id="ui_st_conn_sess_full">
-		<text>Bі№d poі№czenia: serwer jest peіny.</text>
+		<text>BС–в„–d poС–в„–czenia: serwer jest peС–ny.</text>
 	</string>
 	<string id="ui_st_conn_version_differs">
-		<text>Bі№d poі№czenia: inna wersja.</text>
+		<text>BС–в„–d poС–в„–czenia: inna wersja.</text>
 	</string>
 	<string id="ui_st_connecting_to_masterserver">
-		<text>Ј№czenie z serwerem gіуwnym</text>
+		<text>Р€в„–czenie z serwerem gС–Сѓwnym</text>
 	</string>
 	<string id="ui_st_days">
 		<text>dn.</text>
 	</string>
 	<string id="ui_st_error">
-		<text>Bі№d</text>
+		<text>BС–в„–d</text>
 	</string>
 	<string id="ui_st_error_loading">
-		<text>Bі№d wczytywania</text>
+		<text>BС–в„–d wczytywania</text>
 	</string>
 	<string id="ui_st_file_exist_owerwrite_q">
-		<text>Plik o tej nazwie juї istnieje. Czy chcesz go zast№piж?</text>
+		<text>Plik o tej nazwie juС— istnieje. Czy chcesz go zastв„–piР¶?</text>
 	</string>
 	<string id="ui_st_file_name_is_empty">
 		<text>Nazwa pliku jest pusta</text>
@@ -187,16 +186,16 @@
 		<text>godz.</text>
 	</string>
 	<string id="ui_st_kicked_by_battleye">
-		<text>Uїytkownik zostaі odі№czony przez system ochrony BattleEye:</text>
+		<text>UС—ytkownik zostaС– odС–в„–czony przez system ochrony BattleEye:</text>
 	</string>
 	<string id="ui_st_kicked_by_server">
-		<text>Odі№czono. Powуd:</text>
+		<text>OdС–в„–czono. PowСѓd:</text>
 	</string>
 	<string id="ui_st_leave">
-		<text>Wyjdџ</text>
+		<text>WyjdСџ</text>
 	</string>
 	<string id="ui_st_load_game_confirm">
-		<text>Wczytanie tej gry spowoduje utratк niezapisanych danych. Czy chcesz kontynuowaж?</text>
+		<text>Wczytanie tej gry spowoduje utratРє niezapisanych danych. Czy chcesz kontynuowaР¶?</text>
 	</string>
 	<string id="ui_st_mins">
 		<text>min</text>
@@ -211,10 +210,10 @@
 		<text>Parametry</text>
 	</string>
 	<string id="ui_st_patch_download_error">
-		<text>Nie udaіo siк pobraж poprawki.</text>
+		<text>Nie udaС–o siРє pobraР¶ poprawki.</text>
 	</string>
 	<string id="ui_st_patch_download_success">
-		<text>Udaіo siк pobraж poprawkк. Czy chcesz j№ zainstalowaж?</text>
+		<text>UdaС–o siРє pobraР¶ poprawkРє. Czy chcesz jв„– zainstalowaР¶?</text>
 	</string>
 	<string id="ui_st_price">
 		<text>Cena</text>
@@ -223,7 +222,7 @@
 		<text>Ranga</text>
 	</string>
 	<string id="ui_st_relation">
-		<text>Przychylnoњж</text>
+		<text>PrzychylnoСљР¶</text>
 	</string>
 	<string id="ui_st_reputation">
 		<text>Reputacja</text>
@@ -232,25 +231,25 @@
 		<text>s</text>
 	</string>
 	<string id="ui_st_select_one_map">
-		<text>Wybierz przynajmniej jedn№ mapк</text>
+		<text>Wybierz przynajmniej jednв„– mapРє</text>
 	</string>
 	<string id="ui_st_take_all">
-		<text>Weџ wszystko</text>
+		<text>WeСџ wszystko</text>
 	</string>
 	<string id="ui_st_time_remains">
-		<text>Pozostaіo</text>
+		<text>PozostaС–o</text>
 	</string>
 	<string id="ui_st_voting_disabled">
-		<text>Gіosowanie nieudane</text>
+		<text>GС–osowanie nieudane</text>
 	</string>
 	<string id="ui_st_want_to_leave_game_q">
-		<text>Czy na pewno chcesz wyjњж z gry?</text>
+		<text>Czy na pewno chcesz wyjСљР¶ z gry?</text>
 	</string>
 	<string id="ui_total_price">
-		<text>Ј№cznie</text>
+		<text>Р€в„–cznie</text>
 	</string>
 	<string id="very_bad">
-		<text>bardzo џle</text>
+		<text>bardzo Сџle</text>
 	</string>
 	<string id="very_good">
 		<text>bardzo dobrze</text>
@@ -268,85 +267,85 @@
 		<text>...</text>
 	</string>
 	<string id="st_save_uni_travel_generic">
-		<text>przemieszczanie siк po obszarze</text>
+		<text>przemieszczanie siРє po obszarze</text>
 	</string>
 	<string id="st_save_uni_travel_zat_to_jup">
-		<text>przejњcie z Zatonu do Janowa</text>
+		<text>przejСљcie z Zatonu do Janowa</text>
 	</string>
 	<string id="st_save_uni_travel_zat_to_pri">
-		<text>przejњcie z Zatonu do Prypeci</text>
+		<text>przejСљcie z Zatonu do Prypeci</text>
 	</string>
 	<string id="st_save_uni_travel_jup_to_zat">
-		<text>przejњcie z Janowa do Zatonu</text>
+		<text>przejСљcie z Janowa do Zatonu</text>
 	</string>
 	<string id="st_save_uni_travel_jup_to_pri">
-		<text>przejњcie z Janowa do Prypeci</text>
+		<text>przejСљcie z Janowa do Prypeci</text>
 	</string>
 	<string id="st_save_uni_travel_pri_to_zat">
-		<text>przejњcie z Prypeci do Zatonu</text>
+		<text>przejСљcie z Prypeci do Zatonu</text>
 	</string>
 	<string id="st_save_uni_travel_pri_to_jup">
-		<text>przejњcie z Prypeci do Janowa</text>
+		<text>przejСљcie z Prypeci do Janowa</text>
 	</string>
 	<string id="st_save_uni_pri_to_labx8">
-		<text>przejњcie z Prypeci do laboratorium X8</text>
+		<text>przejСљcie z Prypeci do laboratorium X8</text>
 	</string>
 	<string id="st_save_uni_labx8_to_pri">
-		<text>przejњcie z laboratorium X8 do Prypeci</text>
+		<text>przejСљcie z laboratorium X8 do Prypeci</text>
 	</string>
 	<string id="st_save_uni_surge_start">
 		<text>emisja</text>
 	</string>
 	<string id="st_save_zat_a1_game_start">
-		<text>pocz№tek gry</text>
+		<text>poczв„–tek gry</text>
 	</string>
 	<string id="st_save_zat_a2_reached_skadovsk">
 		<text>przybycie do Skadowska</text>
 	</string>
 	<string id="st_save_jup_b9_searched_heli_1">
-		<text>zbadanie helikoptera Ogoсcza 1</text>
+		<text>zbadanie helikoptera OgoСЃcza 1</text>
 	</string>
 	<string id="st_save_zat_b100_searched_heli_2">
-		<text>zbadanie helikoptera Ogoсcza 2</text>
+		<text>zbadanie helikoptera OgoСЃcza 2</text>
 	</string>
 	<string id="st_save_zat_b28_searched_heli_3">
-		<text>zbadanie helikoptera Ogoсcza 3</text>
+		<text>zbadanie helikoptera OgoСЃcza 3</text>
 	</string>
 	<string id="st_save_jup_b8_searched_heli_4">
-		<text>zbadanie helikoptera Ogoсcza 4</text>
+		<text>zbadanie helikoptera OgoСЃcza 4</text>
 	</string>
 	<string id="st_save_zat_b101_searched_heli_5">
-		<text>zbadanie helikoptera Ogoсcza 5</text>
+		<text>zbadanie helikoptera OgoСЃcza 5</text>
 	</string>
 	<string id="st_save_zat_b18_noah_showed_teleport">
-		<text>dotarcie do pіaskowyїu</text>
+		<text>dotarcie do pС–askowyС—u</text>
 	</string>
 	<string id="st_save_jup_b217_arrived_to_jup">
-		<text>dotarcie do pіaskowyїu</text>
+		<text>dotarcie do pС–askowyС—u</text>
 	</string>
 	<string id="st_save_jup_a9_got_underpass_docs">
 		<text>znalezienie drogi do Prypeci</text>
 	</string>
 	<string id="st_save_jup_b15_drunk_with_zulu">
-		<text>Zulus doі№cza do oddziaіu</text>
+		<text>Zulus doС–в„–cza do oddziaС–u</text>
 	</string>
 	<string id="st_save_jup_a10_gonna_return_debt">
-		<text>Wano spіaca dіug</text>
+		<text>Wano spС–aca dС–ug</text>
 	</string>
 	<string id="st_save_jup_b218_vano_in_squad">
-		<text>Wano doі№cza do oddziaіu</text>
+		<text>Wano doС–в„–cza do oddziaС–u</text>
 	</string>
 	<string id="st_save_jup_b206_got_anomalous_plant">
-		<text>zebranie anormalnej roњliny</text>
+		<text>zebranie anormalnej roСљliny</text>
 	</string>
 	<string id="st_save_jup_b218_sokolov_in_squad">
-		<text>Sokoіow doі№cza do oddziaіu</text>
+		<text>SokoС–ow doС–в„–cza do oddziaС–u</text>
 	</string>
 	<string id="st_save_jup_b218_strider_in_squad">
-		<text>Wіуczкga doі№cza do oddziaіu</text>
+		<text>WС–СѓczРєga doС–в„–cza do oddziaС–u</text>
 	</string>
 	<string id="st_save_jup_b218_travel_jup_to_pas">
-		<text>skompletowanie oddziaіu</text>
+		<text>skompletowanie oddziaС–u</text>
 	</string>
 	<string id="st_save_pas_b400_underpass_start">
 		<text>przybycie do tunelu</text>
@@ -355,16 +354,16 @@
 		<text>przybycie do Prypeci</text>
 	</string>
 	<string id="st_save_pri_a16_arrived_to_pri">
-		<text>zlokalizowanie siі wojskowych</text>
+		<text>zlokalizowanie siС– wojskowych</text>
 	</string>
 	<string id="st_save_pri_a17_hospital_start">
 		<text>zdobycie niezidentyfikowanej broni</text>
 	</string>
 	<string id="st_save_pri_a20_found_dead_recon">
-		<text>znalezienie oddziaіu zwiadowczego</text>
+		<text>znalezienie oddziaС–u zwiadowczego</text>
 	</string>
 	<string id="st_save_pri_a18_met_reinforcement">
-		<text>nadejњcie posiіkуw</text>
+		<text>nadejСљcie posiС–kСѓw</text>
 	</string>
 	<string id="st_save_pri_a18_searched_antenna">
 		<text>zbadanie anteny</text>
@@ -376,7 +375,7 @@
 		<text>zabicie kontrolera przy wartowniku</text>
 	</string>
 	<string id="st_save_zat_a23_entered_test_center">
-		<text>wejњcie do magazynu testowego</text>
+		<text>wejСљcie do magazynu testowego</text>
 	</string>
 	<string id="st_save_zat_a23_got_gauss_docs">
 		<text>znalezienie dokumentacji do karabinu Gaussa</text>
@@ -385,31 +384,31 @@
 		<text>znalezienie martwego bojownika</text>
 	</string>
 	<string id="st_save_pri_a25_gonna_place_explosive">
-		<text>wejњcie do przedszkola</text>
+		<text>wejСљcie do przedszkola</text>
 	</string>
 	<string id="st_save_pri_a25_freed_medic">
 		<text>uratowanie lekarza wojskowego</text>
 	</string>
 	<string id="st_save_pri_a28_talked_with_ssu">
-		<text>nawi№zanie і№cznoњci z kwater№ gіуwn№</text>
+		<text>nawiв„–zanie С–в„–cznoСљci z kwaterв„– gС–Сѓwnв„–</text>
 	</string>
 	<string id="st_save_pri_a28_evacutaion_start">
-		<text>rozpoczкcie ewakuacji Prypeci</text>
+		<text>rozpoczРєcie ewakuacji Prypeci</text>
 	</string>
 	<string id="st_save_pri_a28_evacuation_end">
-		<text>dotarcie do helikopterуw ewakuacyjnych</text>
+		<text>dotarcie do helikopterСѓw ewakuacyjnych</text>
 	</string>
 	<string id="st_save_uni_zone_to_reality">
-		<text>zakoсczenie ewakuacji</text>
+		<text>zakoСЃczenie ewakuacji</text>
 	</string>
 	<string id="st_save_jup_b209_placed_mutant_scanner">
-		<text>detektor mutantуw</text>
+		<text>detektor mutantСѓw</text>
 	</string>
 	<string id="st_save_jup_a12_gave_artefact_for_hostage">
-		<text>zapіacenie okupu za zakіadnika</text>
+		<text>zapС–acenie okupu za zakС–adnika</text>
 	</string>
 	<string id="st_save_jup_a12_met_with_liberators">
-		<text>uwolnienie zakіadnika</text>
+		<text>uwolnienie zakС–adnika</text>
 	</string>
 	<string id="st_save_jup_b6_arrived_to_ash_heap">
 		<text>pomiary anomalii Popielisko</text>
@@ -421,43 +420,43 @@
 		<text>legowisko pijawek</text>
 	</string>
 	<string id="st_save_jup_b19_arrived_to_kopachy">
-		<text>przejњcie do Kopaczi</text>
+		<text>przejСљcie do Kopaczi</text>
 	</string>
 	<string id="st_save_zat_b40_warned_by_mercs">
-		<text>podejњcie do zakіadu utylizacji odpadуw</text>
+		<text>podejСљcie do zakС–adu utylizacji odpadСѓw</text>
 	</string>
 	<string id="st_save_zat_b7_met_with_robbers">
-		<text>atak na stalkerуw</text>
+		<text>atak na stalkerСѓw</text>
 	</string>
 	<string id="st_save_zat_b33_got_container">
 		<text>znalezienie pojemnika w schowku</text>
 	</string>
 	<string id="st_save_zat_b106_arrived_to_chimera_lair">
-		<text>polowanie na chimerк</text>
+		<text>polowanie na chimerРє</text>
 	</string>
 	<string id="st_save_jup_b16_passed_labyrinth">
 		<text>znalezienie Oazy</text>
 	</string>
 	<string id="st_save_pri_b35_ready_to_snipe">
-		<text>rozpoczкcie operacji Jeden Strzaі</text>
+		<text>rozpoczРєcie operacji Jeden StrzaС–</text>
 	</string>
 	<string id="st_save_jup_b1_entered_railroad_tunnel">
-		<text>poszukiwanie џrуdіa emisji psionicznej</text>
+		<text>poszukiwanie СџrСѓdС–a emisji psionicznej</text>
 	</string>
 	<string id="st_save_jup_b47_got_admin_docs">
 		<text>dokumenty administracyjne</text>
 	</string>
 	<string id="st_save_zat_b103_warned_by_mercs">
-		<text>podejњcie do magazynu podstacji</text>
+		<text>podejСљcie do magazynu podstacji</text>
 	</string>
 	<string id="st_save_zat_b5_met_with_others">
-		<text>transakcja przy leњniczуwce</text>
+		<text>transakcja przy leСљniczСѓwce</text>
 	</string>
 	<string id="st_save_jup_b207_arrived_to_duty_depot">
-		<text>magazyn frakcji Powinnoњж</text>
+		<text>magazyn frakcji PowinnoСљР¶</text>
 	</string>
 	<string id="st_save_zat_b14_got_altered_wheel">
-		<text>znalezienie џrуdіa dziwnego њwiatіa</text>
+		<text>znalezienie СџrСѓdС–a dziwnego СљwiatС–a</text>
 	</string>
 	<string id="st_save_pri_b301_arrived_to_help_zulu">
 		<text>znalezienie Zulusa</text>
@@ -481,13 +480,13 @@
 		<text>Zamknij okno ($$ACTION_USE$$)</text>
 	</string>
 	<string id="ui_st_trade_hint">
-		<text>Otwуrz okno handlowania ($$ACTION_SPRINT_TOGGLE$$)</text>
+		<text>OtwСѓrz okno handlowania ($$ACTION_SPRINT_TOGGLE$$)</text>
 	</string>
 	<string id="ui_st_upgrade_hint">
-		<text>Otwуrz okno naprawy i modyfikacji ($$ACTION_SPRINT_TOGGLE$$)</text>
+		<text>OtwСѓrz okno naprawy i modyfikacji ($$ACTION_SPRINT_TOGGLE$$)</text>
 	</string>
 	<string id="ui_st_take_all_hint">
-		<text>Przenieњ wszystkie przedmioty do plecaka ($$ACTION_SPRINT_TOGGLE$$)</text>
+		<text>PrzenieСљ wszystkie przedmioty do plecaka ($$ACTION_SPRINT_TOGGLE$$)</text>
 	</string>
 	<string id="ui_st_buy_hint">
 		<text>Kup wybrane przedmioty</text>

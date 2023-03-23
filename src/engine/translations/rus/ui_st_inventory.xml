@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="not_enough_money_actor">
-		<text>У вас не хватает денег</text>
+		<text>РЈ РІР°СЃ РЅРµ С…РІР°С‚Р°РµС‚ РґРµРЅРµРі</text>
 	</string>
 	<string id="not_enough_money_partner">
-		<text>У персонажа не хватает денег</text>
+		<text>РЈ РїРµСЂСЃРѕРЅР°Р¶Р° РЅРµ С…РІР°С‚Р°РµС‚ РґРµРЅРµРі</text>
 	</string>
 	<string id="quick_use_str_1">
 		<text>$$ACTION_QUICK_USE_1$$</text>
@@ -19,285 +18,285 @@
 		<text>$$ACTION_QUICK_USE_4$$</text>
 	</string>
 	<string id="st_activate_artefact">
-		<text>активировать артефакт</text>
+		<text>Р°РєС‚РёРІРёСЂРѕРІР°С‚СЊ Р°СЂС‚РµС„Р°РєС‚</text>
 	</string>
 	<string id="st_attach_gl_to_rifle">
-		<text>прикрепить гранатомёт к</text>
+		<text>РїСЂРёРєСЂРµРїРёС‚СЊ РіСЂР°РЅР°С‚РѕРјС‘С‚ Рє</text>
 	</string>
 	<string id="st_attach_scope_to_pistol">
-		<text>прикрепить прицел к</text>
+		<text>РїСЂРёРєСЂРµРїРёС‚СЊ РїСЂРёС†РµР» Рє</text>
 	</string>
 	<string id="st_attach_silencer_to_pistol">
-		<text>прикрепить глушитель к</text>
+		<text>РїСЂРёРєСЂРµРїРёС‚СЊ РіР»СѓС€РёС‚РµР»СЊ Рє</text>
 	</string>
 	<string id="st_base_cost">
-		<text>Цена</text>
+		<text>Р¦РµРЅР°</text>
 	</string>
 	<string id="st_community">
-		<text>Группа:</text>
+		<text>Р“СЂСѓРїРїР°:</text>
 	</string>
 	<string id="st_condition">
-		<text>Состояние</text>
+		<text>РЎРѕСЃС‚РѕСЏРЅРёРµ</text>
 	</string>
 	<string id="st_detach_gl">
-		<text>отсоединить гранатомёт</text>
+		<text>РѕС‚СЃРѕРµРґРёРЅРёС‚СЊ РіСЂР°РЅР°С‚РѕРјС‘С‚</text>
 	</string>
 	<string id="st_detach_scope">
-		<text>отсоединить прицел</text>
+		<text>РѕС‚СЃРѕРµРґРёРЅРёС‚СЊ РїСЂРёС†РµР»</text>
 	</string>
 	<string id="st_detach_silencer">
-		<text>отсоединить глушитель</text>
+		<text>РѕС‚СЃРѕРµРґРёРЅРёС‚СЊ РіР»СѓС€РёС‚РµР»СЊ</text>
 	</string>
 	<string id="st_dress_outfit">
-		<text>надеть костюм</text>
+		<text>РЅР°РґРµС‚СЊ РєРѕСЃС‚СЋРј</text>
 	</string>
 	<string id="st_drop">
-		<text>выбросить</text>
+		<text>РІС‹Р±СЂРѕСЃРёС‚СЊ</text>
 	</string>
 	<string id="st_drop_all">
-		<text>выбросить всё</text>
+		<text>РІС‹Р±СЂРѕСЃРёС‚СЊ РІСЃС‘</text>
 	</string>
 	<string id="st_eat">
-		<text>съесть</text>
+		<text>СЃСЉРµСЃС‚СЊ</text>
 	</string>
 	<string id="st_kg">
-		<text>кг</text>
+		<text>РєРі</text>
 	</string>
 	<string id="st_move_on_belt">
-		<text>повесить на пояс</text>
+		<text>РїРѕРІРµСЃРёС‚СЊ РЅР° РїРѕСЏСЃ</text>
 	</string>
 	<string id="st_move_to_bag">
-		<text>убрать в рюкзак</text>
+		<text>СѓР±СЂР°С‚СЊ РІ СЂСЋРєР·Р°Рє</text>
 	</string>
 	<string id="st_move_to_slot">
-		<text>переместить в слот</text>
+		<text>РїРµСЂРµРјРµСЃС‚РёС‚СЊ РІ СЃР»РѕС‚</text>
 	</string>
 	<string id="st_no_trade_tip_1">
-		<text>Торговец не интересуется подобными предметами.</text>
+		<text>РўРѕСЂРіРѕРІРµС† РЅРµ РёРЅС‚РµСЂРµСЃСѓРµС‚СЃСЏ РїРѕРґРѕР±РЅС‹РјРё РїСЂРµРґРјРµС‚Р°РјРё.</text>
 	</string>
 	<string id="st_no_trade_tip_2">
-		<text>Предмет в слишком плохом состоянии для продажи.</text>
+		<text>РџСЂРµРґРјРµС‚ РІ СЃР»РёС€РєРѕРј РїР»РѕС…РѕРј СЃРѕСЃС‚РѕСЏРЅРёРё РґР»СЏ РїСЂРѕРґР°Р¶Рё.</text>
 	</string>
 	<string id="st_play">
-		<text>проиграть</text>
+		<text>РїСЂРѕРёРіСЂР°С‚СЊ</text>
 	</string>
 	<string id="st_sell_item">
-		<text>продать предмет</text>
+		<text>РїСЂРѕРґР°С‚СЊ РїСЂРµРґРјРµС‚</text>
 	</string>
 	<string id="st_ui_armor_static">
-		<text>Состояние брони</text>
+		<text>РЎРѕСЃС‚РѕСЏРЅРёРµ Р±СЂРѕРЅРё</text>
 	</string>
 	<string id="st_ui_main_sensor">
-		<text>Радиационное заражение</text>
+		<text>Р Р°РґРёР°С†РёРѕРЅРЅРѕРµ Р·Р°СЂР°Р¶РµРЅРёРµ</text>
 	</string>
 	<string id="st_undress_outfit">
-		<text>снять костюм</text>
+		<text>СЃРЅСЏС‚СЊ РєРѕСЃС‚СЋРј</text>
 	</string>
 	<string id="st_unload_magazine">
-		<text>разрядить</text>
+		<text>СЂР°Р·СЂСЏРґРёС‚СЊ</text>
 	</string>
 	<string id="st_use">
-		<text>использовать</text>
+		<text>РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ</text>
 	</string>
 	<string id="st_weight">
-		<text>Вес</text>
+		<text>Р’РµСЃ</text>
 	</string>
 	<string id="ui_ammo_count">
-		<text>Ёмк. магазина</text>
+		<text>РЃРјРє. РјР°РіР°Р·РёРЅР°</text>
 	</string>
 	<string id="ui_inv_accuracy">
-		<text>Точность</text>
+		<text>РўРѕС‡РЅРѕСЃС‚СЊ</text>
 	</string>
 	<string id="ui_inv_ammo_pistol">
-		<text>Купить базовые патроны для пистолета (Q)</text>
+		<text>РљСѓРїРёС‚СЊ Р±Р°Р·РѕРІС‹Рµ РїР°С‚СЂРѕРЅС‹ РґР»СЏ РїРёСЃС‚РѕР»РµС‚Р° (Q)</text>
 	</string>
 	<string id="ui_inv_ammo_rifle">
-		<text>Купить патроны для винтовки (W)</text>
+		<text>РљСѓРїРёС‚СЊ РїР°С‚СЂРѕРЅС‹ РґР»СЏ РІРёРЅС‚РѕРІРєРё (W)</text>
 	</string>
 	<string id="ui_inv_bleeding">
-		<text>Заживление ран</text>
+		<text>Р—Р°Р¶РёРІР»РµРЅРёРµ СЂР°РЅ</text>
 	</string>
 	<string id="ui_inv_cancel">
-		<text>Отмена</text>
+		<text>РћС‚РјРµРЅР°</text>
 	</string>
 	<string id="ui_inv_cant_buy_item">
-		<text>Невозможно купить оружие</text>
+		<text>РќРµРІРѕР·РјРѕР¶РЅРѕ РєСѓРїРёС‚СЊ РѕСЂСѓР¶РёРµ</text>
 	</string>
 	<string id="ui_inv_count_restr">
-		<text>Ограничение по количеству</text>
+		<text>РћРіСЂР°РЅРёС‡РµРЅРёРµ РїРѕ РєРѕР»РёС‡РµСЃС‚РІСѓ</text>
 	</string>
 	<string id="ui_inv_damage">
-		<text>Повреждение</text>
+		<text>РџРѕРІСЂРµР¶РґРµРЅРёРµ</text>
 	</string>
 	<string id="ui_inv_default(F5)">
-		<text>Стартовый (F5)</text>
+		<text>РЎС‚Р°СЂС‚РѕРІС‹Р№ (F5)</text>
 	</string>
 	<string id="ui_inv_exit">
-		<text>Выход</text>
+		<text>Р’С‹С…РѕРґ</text>
 	</string>
 	<string id="ui_inv_granadelauncher_rifle">
-		<text>Купить подствольник для винтовки (D)</text>
+		<text>РљСѓРїРёС‚СЊ РїРѕРґСЃС‚РІРѕР»СЊРЅРёРє РґР»СЏ РІРёРЅС‚РѕРІРєРё (D)</text>
 	</string>
 	<string id="ui_inv_granades_rifle">
-		<text>Купить гранаты для подствольника (E)</text>
+		<text>РљСѓРїРёС‚СЊ РіСЂР°РЅР°С‚С‹ РґР»СЏ РїРѕРґСЃС‚РІРѕР»СЊРЅРёРєР° (E)</text>
 	</string>
 	<string id="ui_inv_handling">
-		<text>Удобность</text>
+		<text>РЈРґРѕР±РЅРѕСЃС‚СЊ</text>
 	</string>
 	<string id="ui_inv_has">
-		<text>Сейчас</text>
+		<text>РЎРµР№С‡Р°СЃ</text>
 	</string>
 	<string id="ui_inv_health">
-		<text>Восст. здоровья</text>
+		<text>Р’РѕСЃСЃС‚. Р·РґРѕСЂРѕРІСЊСЏ</text>
 	</string>
 	<string id="ui_inv_heavy_weapons">
-		<text>Тяжёлое</text>
+		<text>РўСЏР¶С‘Р»РѕРµ</text>
 	</string>
 	<string id="ui_inv_last_buy">
-		<text>Купить последний приобретённый набор</text>
+		<text>РљСѓРїРёС‚СЊ РїРѕСЃР»РµРґРЅРёР№ РїСЂРёРѕР±СЂРµС‚С‘РЅРЅС‹Р№ РЅР°Р±РѕСЂ</text>
 	</string>
 	<string id="ui_inv_last_buy(F4)">
-		<text>Предыдущий (F4)</text>
+		<text>РџСЂРµРґС‹РґСѓС‰РёР№ (F4)</text>
 	</string>
 	<string id="ui_inv_money">
-		<text>Деньги</text>
+		<text>Р”РµРЅСЊРіРё</text>
 	</string>
 	<string id="ui_inv_need">
-		<text>Необходимо</text>
+		<text>РќРµРѕР±С…РѕРґРёРјРѕ</text>
 	</string>
 	<string id="ui_inv_not_enought_money">
-		<text>Недостаточно денег</text>
+		<text>РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґРµРЅРµРі</text>
 	</string>
 	<string id="ui_inv_ok">
 		<text>OK</text>
 	</string>
 	<string id="ui_inv_outfit_additional_weight">
-		<text>Переносимый вес</text>
+		<text>РџРµСЂРµРЅРѕСЃРёРјС‹Р№ РІРµСЃ</text>
 	</string>
 	<string id="ui_inv_outfit_burn_protection">
-		<text>Термозащита</text>
+		<text>РўРµСЂРјРѕР·Р°С‰РёС‚Р°</text>
 	</string>
 	<string id="ui_inv_outfit_chemical_burn_protection">
-		<text>Химзащита</text>
+		<text>РҐРёРјР·Р°С‰РёС‚Р°</text>
 	</string>
 	<string id="ui_inv_outfit_fire_wound_protection">
-		<text>Броня</text>
+		<text>Р‘СЂРѕРЅСЏ</text>
 	</string>
 	<string id="ui_inv_outfit_radiation_protection">
-		<text>Радиозащита</text>
+		<text>Р Р°РґРёРѕР·Р°С‰РёС‚Р°</text>
 	</string>
 	<string id="ui_inv_outfit_shock_protection">
-		<text>Электрозащита</text>
+		<text>Р­Р»РµРєС‚СЂРѕР·Р°С‰РёС‚Р°</text>
 	</string>
 	<string id="ui_inv_outfit_telepatic_protection">
-		<text>Пси-защита</text>
+		<text>РџСЃРё-Р·Р°С‰РёС‚Р°</text>
 	</string>
 	<string id="ui_inv_outfit_wound_protection">
-		<text>Гашение удара</text>
+		<text>Р“Р°С€РµРЅРёРµ СѓРґР°СЂР°</text>
 	</string>
 	<string id="ui_inv_power">
-		<text>Восст. сил</text>
+		<text>Р’РѕСЃСЃС‚. СЃРёР»</text>
 	</string>
 	<string id="ui_inv_preset1(F1)">
-		<text>Набор 1 (F1)</text>
+		<text>РќР°Р±РѕСЂ 1 (F1)</text>
 	</string>
 	<string id="ui_inv_preset2(F2)">
-		<text>Набор 2 (F2)</text>
+		<text>РќР°Р±РѕСЂ 2 (F2)</text>
 	</string>
 	<string id="ui_inv_preset3(F3)">
-		<text>Набор 3 (F3)</text>
+		<text>РќР°Р±РѕСЂ 3 (F3)</text>
 	</string>
 	<string id="ui_inv_radiation">
-		<text>Радиация</text>
+		<text>Р Р°РґРёР°С†РёСЏ</text>
 	</string>
 	<string id="ui_inv_rank_restr">
-		<text>Ограничение по рангу</text>
+		<text>РћРіСЂР°РЅРёС‡РµРЅРёРµ РїРѕ СЂР°РЅРіСѓ</text>
 	</string>
 	<string id="ui_inv_rate_of_fire">
-		<text>Темп огня</text>
+		<text>РўРµРјРї РѕРіРЅСЏ</text>
 	</string>
 	<string id="ui_inv_reset_items(C)">
-		<text>Очистить (C)</text>
+		<text>РћС‡РёСЃС‚РёС‚СЊ (C)</text>
 	</string>
 	<string id="ui_inv_rifles">
-		<text>Автоматы</text>
+		<text>РђРІС‚РѕРјР°С‚С‹</text>
 	</string>
 	<string id="ui_inv_satiety">
-		<text>Насыщение</text>
+		<text>РќР°СЃС‹С‰РµРЅРёРµ</text>
 	</string>
 	<string id="ui_inv_scope_rifle">
-		<text>Купить оптический прицел для винтовки (S)</text>
+		<text>РљСѓРїРёС‚СЊ РѕРїС‚РёС‡РµСЃРєРёР№ РїСЂРёС†РµР» РґР»СЏ РІРёРЅС‚РѕРІРєРё (S)</text>
 	</string>
 	<string id="ui_inv_sell_items(X)">
-		<text>Продать все вещи из рюкзака (X)</text>
+		<text>РџСЂРѕРґР°С‚СЊ РІСЃРµ РІРµС‰Рё РёР· СЂСЋРєР·Р°РєР° (X)</text>
 	</string>
 	<string id="ui_inv_shotguns">
-		<text>Ружья</text>
+		<text>Р СѓР¶СЊСЏ</text>
 	</string>
 	<string id="ui_inv_silencer_pistol">
-		<text>Купить глушитель для пистолета (A)</text>
+		<text>РљСѓРїРёС‚СЊ РіР»СѓС€РёС‚РµР»СЊ РґР»СЏ РїРёСЃС‚РѕР»РµС‚Р° (A)</text>
 	</string>
 	<string id="ui_inv_silencer_rifle">
-		<text>Купить глушитель для винтовки (F)</text>
+		<text>РљСѓРїРёС‚СЊ РіР»СѓС€РёС‚РµР»СЊ РґР»СЏ РІРёРЅС‚РѕРІРєРё (F)</text>
 	</string>
 	<string id="ui_inv_sniper_rifles">
-		<text>Снайперское</text>
+		<text>РЎРЅР°Р№РїРµСЂСЃРєРѕРµ</text>
 	</string>
 	<string id="ui_inv_time">
-		<text>Время</text>
+		<text>Р’СЂРµРјСЏ</text>
 	</string>
 	<string id="ui_inv_you_already_have">
-		<text>Уже есть</text>
+		<text>РЈР¶Рµ РµСЃС‚СЊ</text>
 	</string>
 	<string id="ui_st_err_gs_not_available">
-		<text>Онлайн-услуги S.T.A.L.K.E.R. недоступны.</text>
+		<text>РћРЅР»Р°Р№РЅ-СѓСЃР»СѓРіРё S.T.A.L.K.E.R. РЅРµРґРѕСЃС‚СѓРїРЅС‹.</text>
 	</string>
 	<string id="ui_st_err_sb_master_server_conn_fail">
-		<text>Невозможно соединиться с мастер-сервером</text>
+		<text>РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕРµРґРёРЅРёС‚СЊСЃСЏ СЃ РјР°СЃС‚РµСЂ-СЃРµСЂРІРµСЂРѕРј</text>
 	</string>
 	<string id="ui_st_outfit_protect">
-		<text>Защита:</text>
+		<text>Р—Р°С‰РёС‚Р°:</text>
 	</string>
 	<string id="ui_st_preset_def">
-		<text>Стартовый</text>
+		<text>РЎС‚Р°СЂС‚РѕРІС‹Р№</text>
 	</string>
 	<string id="ui_st_preset_stored_to">
-		<text>Приобретённый набор сохранён как</text>
+		<text>РџСЂРёРѕР±СЂРµС‚С‘РЅРЅС‹Р№ РЅР°Р±РѕСЂ СЃРѕС…СЂР°РЅС‘РЅ РєР°Рє</text>
 	</string>
 	<string id="ui_total_weight">
-		<text>Общий вес:</text>
+		<text>РћР±С‰РёР№ РІРµСЃ:</text>
 	</string>
 	<string id="st_drink">
-		<text>выпить</text>
+		<text>РІС‹РїРёС‚СЊ</text>
 	</string>
 	<string id="ui_inv_outfit_power_restore">
-		<text>Восстановление сил</text>
+		<text>Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ СЃРёР»</text>
 	</string>
 	<string id="st_ui_bleeding_sensor">
-		<text>Кровотечение</text>
+		<text>РљСЂРѕРІРѕС‚РµС‡РµРЅРёРµ</text>
 	</string>
 	<string id="ui_inv_weight">
-		<text>Макс. вес</text>
+		<text>РњР°РєСЃ. РІРµСЃ</text>
 	</string>
 	<string id="st_ui_health_sensor">
-		<text>Состояние здоровья</text>
+		<text>РЎРѕСЃС‚РѕСЏРЅРёРµ Р·РґРѕСЂРѕРІСЊСЏ</text>
 	</string>
 	<string id="ui_ammo_types">
-		<text>Боеприпасы</text>
+		<text>Р‘РѕРµРїСЂРёРїР°СЃС‹</text>
 	</string>
 	<string id="ui_inv_effect_time">
-		<text>Время действия</text>
+		<text>Р’СЂРµРјСЏ РґРµР№СЃС‚РІРёСЏ</text>
 	</string>
 	<string id="ui_inv_seconds_short">
-		<text>сек.</text>
+		<text>СЃРµРє.</text>
 	</string>
 	<string id="ui_inv_survive_surge">
-		<text>Позволяет пережить выброс</text>
+		<text>РџРѕР·РІРѕР»СЏРµС‚ РїРµСЂРµР¶РёС‚СЊ РІС‹Р±СЂРѕСЃ</text>
 	</string>
 	<string id="st_undress_helmet">
-		<text>снять шлем</text>
+		<text>СЃРЅСЏС‚СЊ С€Р»РµРј</text>
 	</string>
 	<string id="st_dress_helmet">
-		<text>надеть шлем</text>
+		<text>РЅР°РґРµС‚СЊ С€Р»РµРј</text>
 	</string>
 </string_table>

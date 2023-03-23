@@ -1,105 +1,104 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="st_unload_magazine_after_pickup">
-		<text>Разряжать ор. при поднятии</text>
+		<text>Р Р°Р·СЂСЏР¶Р°С‚СЊ РѕСЂ. РїСЂРё РїРѕРґРЅСЏС‚РёРё</text>
 	</string>
 	<string id="st_unload_magazine_all">
-		<text>разрядить всё оружие</text>
+		<text>СЂР°Р·СЂСЏРґРёС‚СЊ РІСЃС‘ РѕСЂСѓР¶РёРµ</text>
 	</string>
 	<string id="st_unequip">
-		<text>убрать в рюкзак</text>
+		<text>СѓР±СЂР°С‚СЊ РІ СЂСЋРєР·Р°Рє</text>
 	</string>
 	<string id="st_donate">
-		<text>Подарить</text>
+		<text>РџРѕРґР°СЂРёС‚СЊ</text>
 	</string>
 	<string id="st_loading_lights">
-		<text>Загрузка освещения</text>
+		<text>Р—Р°РіСЂСѓР·РєР° РѕСЃРІРµС‰РµРЅРёСЏ</text>
 	</string>
 	<string id="st_client_connecting_to">
-		<text>Клиент: Соединение с</text>
+		<text>РљР»РёРµРЅС‚: РЎРѕРµРґРёРЅРµРЅРёРµ СЃ</text>
 	</string>
 	<string id="st_client_spawning">
-		<text>Клиент: Создание</text>
+		<text>РљР»РёРµРЅС‚: РЎРѕР·РґР°РЅРёРµ</text>
 	</string>
 	<string id="st_client_synchronising">
-		<text>Клиент: Синхронизация</text>
+		<text>РљР»РёРµРЅС‚: РЎРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ</text>
 	</string>
 	<string id="st_creating_new_game">
-		<text>Создание новой игры</text>
+		<text>РЎРѕР·РґР°РЅРёРµ РЅРѕРІРѕР№ РёРіСЂС‹</text>
 	</string>
 	<string id="ui_mm_always_active">
-		<text>Всегда активен</text>
+		<text>Р’СЃРµРіРґР° Р°РєС‚РёРІРµРЅ</text>
 	</string>
 	<string id="ui_mm_detail_radius">
-		<text>Дальность прор. травы</text>
+		<text>Р”Р°Р»СЊРЅРѕСЃС‚СЊ РїСЂРѕСЂ. С‚СЂР°РІС‹</text>
 	</string>
 	<string id="ui_mm_ui_style">
-		<text>Стиль интерфейса</text>
+		<text>РЎС‚РёР»СЊ РёРЅС‚РµСЂС„РµР№СЃР°</text>
 	</string>
 	<string id="ui_style_default">
-		<text>Зов Припяти</text>
+		<text>Р—РѕРІ РџСЂРёРїСЏС‚Рё</text>
 	</string>
 	<string id="ui_mm_simplified_item_pickup">
-		<text>Упр. подбор предметов</text>
+		<text>РЈРїСЂ. РїРѕРґР±РѕСЂ РїСЂРµРґРјРµС‚РѕРІ</text>
 	</string>
 	<string id="ui_mm_multi_item_pickup">
-		<text>Множ. подбор предметов</text>
+		<text>РњРЅРѕР¶. РїРѕРґР±РѕСЂ РїСЂРµРґРјРµС‚РѕРІ</text>
 	</string>
 	<string id="ui_mm_loadingstages">
-		<text>Стадии загрузки</text>
+		<text>РЎС‚Р°РґРёРё Р·Р°РіСЂСѓР·РєРё</text>
 	</string>
 	<string id="renderer_gl">
-		<text>Ул. полное освещение (OpenGL)</text>
+		<text>РЈР». РїРѕР»РЅРѕРµ РѕСЃРІРµС‰РµРЅРёРµ (OpenGL)</text>
 	</string>
 	<string id="ui_mm_r2_fxaa">
 		<text>FXAA</text>
 	</string>
 	<string id="ui_mm_r2_smap_size">
-		<text>Качество теневых карт</text>
+		<text>РљР°С‡РµСЃС‚РІРѕ С‚РµРЅРµРІС‹С… РєР°СЂС‚</text>
 	</string>
 	<string id="ui_mm_r3_dynamic_wet_surfaces_opt">
-		<text>Оптимизация намокания</text>
+		<text>РћРїС‚РёРјРёР·Р°С†РёСЏ РЅР°РјРѕРєР°РЅРёСЏ</text>
 	</string>
 	<string id="ui_mm_r3_dynamic_wet_surfaces_near">
-		<text>Намокание вблизи</text>
+		<text>РќР°РјРѕРєР°РЅРёРµ РІР±Р»РёР·Рё</text>
 	</string>
 	<string id="ui_mm_r3_dynamic_wet_surfaces_far">
-		<text>Намокание вдали</text>
+		<text>РќР°РјРѕРєР°РЅРёРµ РІРґР°Р»Рё</text>
 	</string>
 	<string id="ui_mm_r3_dynamic_wet_surfaces_sm_res">
-		<text>Качество намокания</text>
+		<text>РљР°С‡РµСЃС‚РІРѕ РЅР°РјРѕРєР°РЅРёСЏ</text>
 	</string>
 	<string id="ui_mm_fov">
-		<text>Поле зрения</text>
+		<text>РџРѕР»Рµ Р·СЂРµРЅРёСЏ</text>
 	</string>
 	<string id="st_switch_version_invitation">
-		<text>Вы действительно хотите запустить другую версию игры?</text>
+		<text>Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ Р·Р°РїСѓСЃС‚РёС‚СЊ РґСЂСѓРіСѓСЋ РІРµСЂСЃРёСЋ РёРіСЂС‹?</text>
 	</string>
 	<string id="ui_mm_localization">
-		<text>Язык</text>
+		<text>РЇР·С‹Рє</text>
 	</string>
 	<string id="ui_mm_gamepad_setup">
-		<text>Настройка геймпада</text>
+		<text>РќР°СЃС‚СЂРѕР№РєР° РіРµР№РјРїР°РґР°</text>
 	</string>
 	<string id="eng">
-		<text>Английский (English)</text>
+		<text>РђРЅРіР»РёР№СЃРєРёР№ (English)</text>
 	</string>
 	<string id="fra">
-		<text>Французский (French)</text>
+		<text>Р¤СЂР°РЅС†СѓР·СЃРєРёР№ (French)</text>
 	</string>
 	<string id="ger">
-		<text>Немецкий (German)</text>
+		<text>РќРµРјРµС†РєРёР№ (German)</text>
 	</string>
 	<string id="ita">
-		<text>Итальянский (Italian)</text>
+		<text>РС‚Р°Р»СЊСЏРЅСЃРєРёР№ (Italian)</text>
 	</string>
 	<string id="pol">
-		<text>Польский (Polish)</text>
+		<text>РџРѕР»СЊСЃРєРёР№ (Polish)</text>
 	</string>
 	<string id="rus">
-		<text>Русский (Russian)</text>
+		<text>Р СѓСЃСЃРєРёР№ (Russian)</text>
 	</string>
 	<string id="spa">
-		<text>Испанский (Spanish)</text>
+		<text>РСЃРїР°РЅСЃРєРёР№ (Spanish)</text>
 	</string>
 </string_table>

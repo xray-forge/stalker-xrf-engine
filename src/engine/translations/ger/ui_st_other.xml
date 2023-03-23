@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="Btn_Cancel">
 		<text>Abbrechen</text>
@@ -34,7 +33,7 @@
 		<text>Gut</text>
 	</string>
 	<string id="indifferent">
-		<text>Gleichgьltig</text>
+		<text>GleichgСЊltig</text>
 	</string>
 	<string id="master">
 		<text>Meister</text>
@@ -49,7 +48,7 @@
 		<text>Neutral</text>
 	</string>
 	<string id="novice">
-		<text>Anfдnger</text>
+		<text>AnfРґnger</text>
 	</string>
 	<string id="st_game">
 		<text>Spiel</text>
@@ -97,13 +96,13 @@
 		<text>Kein aktiver Task</text>
 	</string>
 	<string id="st_not_enough_money">
-		<text>Nicht genьgend Speicher</text>
+		<text>Nicht genСЊgend Speicher</text>
 	</string>
 	<string id="st_not_enough_money_npc">
-		<text>Der NSC hat nicht genьgend Geld</text>
+		<text>Der NSC hat nicht genСЊgend Geld</text>
 	</string>
 	<string id="st_opening_stream">
-		<text>Stream wird geцffnet</text>
+		<text>Stream wird geС†ffnet</text>
 	</string>
 	<string id="st_prefetching_objects">
 		<text>Objekte werden abgerufen</text>
@@ -118,7 +117,7 @@
 		<text>SERVER: Wird gestartet</text>
 	</string>
 	<string id="st_validating_cdkey">
-		<text>CD-Schlьssel wird geprьft</text>
+		<text>CD-SchlСЊssel wird geprСЊft</text>
 	</string>
 	<string id="st_video">
 		<text>Grafik</text>
@@ -130,31 +129,31 @@
 		<text>Reparieren</text>
 	</string>
 	<string id="ui_st_cant_run_r2">
-		<text>Render 2 kann auf Ihrem PC nicht ausgefьhrt werden.</text>
+		<text>Render 2 kann auf Ihrem PC nicht ausgefСЊhrt werden.</text>
 	</string>
 	<string id="ui_st_community">
 		<text>Fraktion</text>
 	</string>
 	<string id="ui_st_conn_cdkey_disabled">
-		<text>Verbindungsfehler: Ihr CD-Schlьssel ist deaktiviert. Kontaktieren Sie den Kundenservice.</text>
+		<text>Verbindungsfehler: Ihr CD-SchlСЊssel ist deaktiviert. Kontaktieren Sie den Kundenservice.</text>
 	</string>
 	<string id="ui_st_conn_cdkey_in_use">
-		<text>Verbindungsfehler: CD-Schlьssel wird bereits verwendet.</text>
+		<text>Verbindungsfehler: CD-SchlСЊssel wird bereits verwendet.</text>
 	</string>
 	<string id="ui_st_conn_cdkey_invalid">
-		<text>Verbindungsfehler: Ungьltiger CD-Schlьssel.</text>
+		<text>Verbindungsfehler: UngСЊltiger CD-SchlСЊssel.</text>
 	</string>
 	<string id="ui_st_conn_invalid_host">
-		<text>Verbindungsfehler: Ungьltiger Host.</text>
+		<text>Verbindungsfehler: UngСЊltiger Host.</text>
 	</string>
 	<string id="ui_st_conn_invalid_pass">
 		<text>Verbindungsfehler: Falsches Passwort.</text>
 	</string>
 	<string id="ui_st_conn_new_patch">
-		<text>Ein neuer Patch steht zur Verfьgung.\nVersion: %s\nQuelle: %s\Wollen Sie den Patch herunterladen?</text>
+		<text>Ein neuer Patch steht zur VerfСЊgung.\nVersion: %s\nQuelle: %s\Wollen Sie den Patch herunterladen?</text>
 	</string>
 	<string id="ui_st_conn_no_new_patch">
-		<text>Momentan ist kein neuer Patch verfьgbar.</text>
+		<text>Momentan ist kein neuer Patch verfСЊgbar.</text>
 	</string>
 	<string id="ui_st_conn_rejected_server">
 		<text>Verbindungsfehler: Der Server hat die Verbindung abgelehnt.</text>
@@ -178,7 +177,7 @@
 		<text>Fehler beim Laden</text>
 	</string>
 	<string id="ui_st_file_exist_owerwrite_q">
-		<text>Eine Datei mit diesem Namen existiert bereits. Wollen Sie sie ьberschreiben?</text>
+		<text>Eine Datei mit diesem Namen existiert bereits. Wollen Sie sie СЊberschreiben?</text>
 	</string>
 	<string id="ui_st_file_name_is_empty">
 		<text>Es wurde kein Dateiname eingegeben</text>
@@ -232,7 +231,7 @@
 		<text>Sek.</text>
 	</string>
 	<string id="ui_st_select_one_map">
-		<text>Wдhlen Sie bitte mindestens eine Karte aus</text>
+		<text>WРґhlen Sie bitte mindestens eine Karte aus</text>
 	</string>
 	<string id="ui_st_take_all">
 		<text>Alles nehmen</text>
@@ -262,7 +261,7 @@
 		<text>Reparieren</text>
 	</string>
 	<string id="ui_repair_button_hint">
-		<text>Ausgewдhlten Gegenstand reparieren</text>
+		<text>AusgewРґhlten Gegenstand reparieren</text>
 	</string>
 	<string id="st_key_notbinded">
 		<text>...</text>
@@ -349,22 +348,22 @@
 		<text>Trupp zusammengestellt</text>
 	</string>
 	<string id="st_save_pas_b400_underpass_start">
-		<text>Ankunft in der Unterfьhrung</text>
+		<text>Ankunft in der UnterfСЊhrung</text>
 	</string>
 	<string id="st_save_uni_travel_pas_to_pri">
 		<text>Ankunft in Pripyat</text>
 	</string>
 	<string id="st_save_pri_a16_arrived_to_pri">
-		<text>Militдreinheiten entdeckt</text>
+		<text>MilitРґreinheiten entdeckt</text>
 	</string>
 	<string id="st_save_pri_a17_hospital_start">
 		<text>unbekannte Waffe sichergestellt</text>
 	</string>
 	<string id="st_save_pri_a20_found_dead_recon">
-		<text>Spдhtrupp gefunden</text>
+		<text>SpРґhtrupp gefunden</text>
 	</string>
 	<string id="st_save_pri_a18_met_reinforcement">
-		<text>Verstдrkung eingetroffen</text>
+		<text>VerstРґrkung eingetroffen</text>
 	</string>
 	<string id="st_save_pri_a18_searched_antenna">
 		<text>"Antenne" untersucht</text>
@@ -379,10 +378,10 @@
 		<text>Testwerkstatt betreten</text>
 	</string>
 	<string id="st_save_zat_a23_got_gauss_docs">
-		<text>GauЯgewehrdokumente gefunden</text>
+		<text>GauРЇgewehrdokumente gefunden</text>
 	</string>
 	<string id="st_save_pri_a22_found_dead_squad">
-		<text>toten Kдmpfer gefunden</text>
+		<text>toten KРґmpfer gefunden</text>
 	</string>
 	<string id="st_save_pri_a25_gonna_place_explosive">
 		<text>Eingang zum Kindergarten</text>
@@ -406,13 +405,13 @@
 		<text>Mutantendetektor</text>
 	</string>
 	<string id="st_save_jup_a12_gave_artefact_for_hostage">
-		<text>Lцsegeld fьr Geisel gezahlt</text>
+		<text>LС†segeld fСЊr Geisel gezahlt</text>
 	</string>
 	<string id="st_save_jup_a12_met_with_liberators">
 		<text>Geisel befreit</text>
 	</string>
 	<string id="st_save_jup_b6_arrived_to_ash_heap">
-		<text>Aschehьgel-Anomalie-Messungen</text>
+		<text>AschehСЊgel-Anomalie-Messungen</text>
 	</string>
 	<string id="st_save_jup_b6_arrived_to_fen">
 		<text>Plawni-Anomalie-Messungen</text>
@@ -424,7 +423,7 @@
 		<text>nach Kopatschi geschickt</text>
 	</string>
 	<string id="st_save_zat_b40_warned_by_mercs">
-		<text>Zugang zur Klдranlage</text>
+		<text>Zugang zur KlРґranlage</text>
 	</string>
 	<string id="st_save_zat_b7_met_with_robbers">
 		<text>Stalker getroffen</text>
@@ -433,7 +432,7 @@
 		<text>Kiste in Versteck gefunden</text>
 	</string>
 	<string id="st_save_zat_b106_arrived_to_chimera_lair">
-		<text>jagt die Chimдre</text>
+		<text>jagt die ChimРґre</text>
 	</string>
 	<string id="st_save_jup_b16_passed_labyrinth">
 		<text>Oase gefunden</text>
@@ -448,13 +447,13 @@
 		<text>Verwaltungsunterlagen</text>
 	</string>
 	<string id="st_save_zat_b103_warned_by_mercs">
-		<text>Zugang zu den Werkstдtten des Umspannwerks</text>
+		<text>Zugang zu den WerkstРґtten des Umspannwerks</text>
 	</string>
 	<string id="st_save_zat_b5_met_with_others">
-		<text>Geschдft bei der Forststation</text>
+		<text>GeschРґft bei der Forststation</text>
 	</string>
 	<string id="st_save_jup_b207_arrived_to_duty_depot">
-		<text>Wдchterlagerhaus</text>
+		<text>WРґchterlagerhaus</text>
 	</string>
 	<string id="st_save_zat_b14_got_altered_wheel">
 		<text>Quelle des seltsamen Leuchtens gefunden</text>
@@ -463,7 +462,7 @@
 		<text>Zulu gefunden</text>
 	</string>
 	<string id="st_save_zat_b42_arrived_to_controler_lair">
-		<text>gefдhrliche Hцhle</text>
+		<text>gefРґhrliche HС†hle</text>
 	</string>
 	<string id="ui_st_upgrade">
 		<text>Reparieren/Modifikationen</text>
@@ -478,22 +477,22 @@
 		<text>Handeln</text>
 	</string>
 	<string id="ui_st_exit_hint">
-		<text>Fenster schlieЯen ($$ACTION_USE$$)</text>
+		<text>Fenster schlieРЇen ($$ACTION_USE$$)</text>
 	</string>
 	<string id="ui_st_trade_hint">
-		<text>Handelsfenster цffnen ($$ACTION_SPRINT_TOGGLE$$)</text>
+		<text>Handelsfenster С†ffnen ($$ACTION_SPRINT_TOGGLE$$)</text>
 	</string>
 	<string id="ui_st_upgrade_hint">
-		<text>Reparatur- und Modifikationsfenster цffnen ($$ACTION_SPRINT_TOGGLE$$)</text>
+		<text>Reparatur- und Modifikationsfenster С†ffnen ($$ACTION_SPRINT_TOGGLE$$)</text>
 	</string>
 	<string id="ui_st_take_all_hint">
-		<text>Alle Gegenstдnde in den Rucksack legen ($$ACTION_SPRINT_TOGGLE$$)</text>
+		<text>Alle GegenstРґnde in den Rucksack legen ($$ACTION_SPRINT_TOGGLE$$)</text>
 	</string>
 	<string id="ui_st_buy_hint">
-		<text>Ausgewдhlte Gegenstдnde kaufen</text>
+		<text>AusgewРґhlte GegenstРґnde kaufen</text>
 	</string>
 	<string id="ui_st_sell_hint">
-		<text>Ausgewдhlte Gegenstдnde verkaufen</text>
+		<text>AusgewРґhlte GegenstРґnde verkaufen</text>
 	</string>
 	<string id="st_save_pri_a28_evacuation_heli">
 		<text>Start des Evakuierungshubschraubers</text>

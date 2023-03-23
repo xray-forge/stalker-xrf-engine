@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="Clear">
 		<text>Klar</text>
 	</string>
 	<string id="Cloudy">
-		<text>Bewцlkt</text>
+		<text>BewС†lkt</text>
 	</string>
 	<string id="Default">
 		<text>Mittel</text>
@@ -34,7 +33,7 @@
 		<text>Meister</text>
 	</string>
 	<string id="gd_novice">
-		<text>Anfдnger</text>
+		<text>AnfРґnger</text>
 	</string>
 	<string id="gd_veteran">
 		<text>Veteran</text>
@@ -46,7 +45,7 @@
 		<text>KARTE</text>
 	</string>
 	<string id="mm_mp_actret_time">
-		<text>Zurьck durch Aktivierung</text>
+		<text>ZurСЊck durch Aktivierung</text>
 	</string>
 	<string id="mm_mp_allowvoting">
 		<text>Abstimmungen zulassen</text>
@@ -58,7 +57,7 @@
 		<text>Artefakteroberung</text>
 	</string>
 	<string id="mm_mp_artefdelay">
-		<text>Artefaktverzцgerung</text>
+		<text>ArtefaktverzС†gerung</text>
 	</string>
 	<string id="mm_mp_artefnum">
 		<text>Anzahl der Artefakte</text>
@@ -76,16 +75,16 @@
 		<text>Automatischer Teamtausch</text>
 	</string>
 	<string id="mm_mp_avail_maps">
-		<text>VERFЬGBARE KARTEN</text>
+		<text>VERFР¬GBARE KARTEN</text>
 	</string>
 	<string id="mm_mp_cancel">
 		<text>Abbrechen</text>
 	</string>
 	<string id="mm_mp_cd_key">
-		<text>CD-Schlьssel</text>
+		<text>CD-SchlСЊssel</text>
 	</string>
 	<string id="mm_mp_check_cdkey">
-		<text>CD-Schlьssel prьfen</text>
+		<text>CD-SchlСЊssel prСЊfen</text>
 	</string>
 	<string id="mm_mp_client">
 		<text>Client</text>
@@ -208,13 +207,13 @@
 		<text>Alle aktualisieren</text>
 	</string>
 	<string id="mm_mp_reinforcement">
-		<text>Verstдrkung (Sek.)</text>
+		<text>VerstРґrkung (Sek.)</text>
 	</string>
 	<string id="mm_mp_respawnoptions">
 		<text>Respawn-Optionen</text>
 	</string>
 	<string id="mm_mp_sel_maps">
-		<text>AUSGEWДHLTE KARTEN</text>
+		<text>AUSGEWР”HLTE KARTEN</text>
 	</string>
 	<string id="mm_mp_server">
 		<text>Server</text>
@@ -268,7 +267,7 @@
 		<text>Zeitlimit (Min.)</text>
 	</string>
 	<string id="mm_mp_warmuptime">
-		<text>Aufwдrmen (Sek.)</text>
+		<text>AufwРґrmen (Sek.)</text>
 	</string>
 	<string id="mm_mp_weatheroptions">
 		<text>Wetteroptionen</text>
@@ -301,7 +300,7 @@
 		<text>Becken</text>
 	</string>
 	<string id="mp_change_unick_success">
-		<text>Eindeutiger Name wurde erfolgreich geдndert!</text>
+		<text>Eindeutiger Name wurde erfolgreich geРґndert!</text>
 	</string>
 	<string id="mp_darkvalley">
 		<text>Dunkles Tal</text>
@@ -322,7 +321,7 @@
 		<text>Verlassenes Dorf</text>
 	</string>
 	<string id="mp_military_1">
-		<text>Militдrlager</text>
+		<text>MilitРґrlager</text>
 	</string>
 	<string id="mp_nick_name_not_valid">
 		<text>Falscher Name</text>
@@ -340,7 +339,7 @@
 		<text>Falscher eindeutiger Name</text>
 	</string>
 	<string id="mp_want_to_delete_demo">
-		<text>Wollen Sie dies wirklich lцschen:</text>
+		<text>Wollen Sie dies wirklich lС†schen:</text>
 	</string>
 	<string id="mp_workshop">
 		<text>Verlassene Fabrik</text>
@@ -397,10 +396,10 @@
 		<text>Erfahren</text>
 	</string>
 	<string id="st_rank_legend">
-		<text>Legendдrer Stalker</text>
+		<text>LegendРґrer Stalker</text>
 	</string>
 	<string id="st_rank_novice">
-		<text>Anfдnger</text>
+		<text>AnfРґnger</text>
 	</string>
 	<string id="st_rank_professional">
 		<text>Profi</text>
@@ -427,10 +426,10 @@
 		<text>Anisotropes Filtern</text>
 	</string>
 	<string id="ui_mm_apply">
-		<text>Ьbernehmen</text>
+		<text>Р¬bernehmen</text>
 	</string>
 	<string id="ui_mm_back">
-		<text>Zurьck</text>
+		<text>ZurСЊck</text>
 	</string>
 	<string id="ui_mm_blood">
 		<text>Blut</text>
@@ -460,10 +459,10 @@
 		<text>Standard</text>
 	</string>
 	<string id="ui_mm_delete">
-		<text>Lцschen</text>
+		<text>LС†schen</text>
 	</string>
 	<string id="ui_mm_delete_existing_file_q">
-		<text>Wollen Sie diese Datei wirklich lцschen?</text>
+		<text>Wollen Sie diese Datei wirklich lС†schen?</text>
 	</string>
 	<string id="ui_mm_detail_density">
 		<text>Grasdetaildichte</text>
@@ -478,7 +477,7 @@
 		<text>Wollen Sie die Verbindung wirklich trennen?</text>
 	</string>
 	<string id="ui_mm_dof">
-		<text>Tiefenschдrfe</text>
+		<text>TiefenschРґrfe</text>
 	</string>
 	<string id="ui_mm_dyn_crosshair">
 		<text>Dynamisches Fadenkreuz</text>
@@ -529,7 +528,7 @@
 		<text>Meister</text>
 	</string>
 	<string id="ui_mm_master_volume">
-		<text>Effektlautstдrke</text>
+		<text>EffektlautstРґrke</text>
 	</string>
 	<string id="ui_mm_mouse_sense">
 		<text>Mausempfindlichkeit</text>
@@ -547,10 +546,10 @@
 		<text>Mehrspieler</text>
 	</string>
 	<string id="ui_mm_music_volume">
-		<text>Musiklautstдrke</text>
+		<text>MusiklautstРґrke</text>
 	</string>
 	<string id="ui_mm_need_restart">
-		<text>Die Дnderungen werden erst nach einem Neustart des Spiels wirksam.</text>
+		<text>Die Р”nderungen werden erst nach einem Neustart des Spiels wirksam.</text>
 	</string>
 	<string id="ui_mm_network_game">
 		<text>Mehrspieler</text>
@@ -559,7 +558,7 @@
 		<text>Neues Spiel</text>
 	</string>
 	<string id="ui_mm_novice">
-		<text>Anfдnger</text>
+		<text>AnfРґnger</text>
 	</string>
 	<string id="ui_mm_npc_torch">
 		<text>NSC-Taschenlampen</text>
@@ -574,10 +573,10 @@
 		<text>Partikeldistanz</text>
 	</string>
 	<string id="ui_mm_quality_presets">
-		<text>Qualitдtseinstellungen</text>
+		<text>QualitРґtseinstellungen</text>
 	</string>
 	<string id="ui_mm_quit2windows">
-		<text>Zurьck zu Windows</text>
+		<text>ZurСЊck zu Windows</text>
 	</string>
 	<string id="ui_mm_quit_game">
 		<text>Spiel beenden</text>
@@ -586,7 +585,7 @@
 		<text>Wollen Sie das Spiel wirklich beenden?</text>
 	</string>
 	<string id="ui_mm_quit_windows_message">
-		<text>Wollen Sie wirklich zu Windows zurьckkehren?</text>
+		<text>Wollen Sie wirklich zu Windows zurСЊckkehren?</text>
 	</string>
 	<string id="ui_mm_r2_detail_bump">
 		<text>Detailliertes Bump</text>
@@ -601,7 +600,7 @@
 		<text>Grasschatten</text>
 	</string>
 	<string id="ui_mm_r2_sun_quality">
-		<text>Sonnenqualitдt</text>
+		<text>SonnenqualitРґt</text>
 	</string>
 	<string id="ui_mm_r3_DX10_1">
 		<text>DX10.1 benutzen</text>
@@ -610,7 +609,7 @@
 		<text>Vollbild-Smoothing</text>
 	</string>
 	<string id="ui_mm_r3_dynamic_wet_surfaces">
-		<text>Nasse Oberflдchen</text>
+		<text>Nasse OberflРґchen</text>
 	</string>
 	<string id="ui_mm_r3_gbuffer_opt">
 		<text>Geometriepuffer optimieren</text>
@@ -625,10 +624,10 @@
 		<text>Render-Art</text>
 	</string>
 	<string id="ui_mm_resolution">
-		<text>Auflцsung</text>
+		<text>AuflС†sung</text>
 	</string>
 	<string id="ui_mm_return_game">
-		<text>Zurьck zum Spiel</text>
+		<text>ZurСЊck zum Spiel</text>
 	</string>
 	<string id="ui_mm_save">
 		<text>Speichern</text>
@@ -658,13 +657,13 @@
 		<text>Sound</text>
 	</string>
 	<string id="ui_mm_sound_quality">
-		<text>Soundqualitдt</text>
+		<text>SoundqualitРґt</text>
 	</string>
 	<string id="ui_mm_stalker">
 		<text>Stalker</text>
 	</string>
 	<string id="ui_mm_sun_quality">
-		<text>Schattenqualitдt</text>
+		<text>SchattenqualitРґt</text>
 	</string>
 	<string id="ui_mm_sun_shafts">
 		<text>Sonnenstrahlen</text>
@@ -697,19 +696,19 @@
 		<text>Vertik. Synchronis.</text>
 	</string>
 	<string id="ui_mp_gamespy_changing_unique_nick">
-		<text>Eindeutigen Namen дndern</text>
+		<text>Eindeutigen Namen Рґndern</text>
 	</string>
 	<string id="ui_mp_gamespy_email_already_exist">
 		<text>Diese E-Mail-Adresse wird bereits verwendet.</text>
 	</string>
 	<string id="ui_mp_internet">
-		<text>Ьber das Internet</text>
+		<text>Р¬ber das Internet</text>
 	</string>
 	<string id="ui_mp_localnet">
 		<text>Im LAN</text>
 	</string>
 	<string id="ui_st_backstabks_in_row">
-		<text>In den Rьcken getroffen</text>
+		<text>In den RСЊcken getroffen</text>
 	</string>
 	<string id="ui_st_bleed_kills_in_row">
 		<text>Wegen Blutverlust</text>
@@ -724,7 +723,7 @@
 		<text>Kopfschuss</text>
 	</string>
 	<string id="ui_st_invalid_saved_game">
-		<text>Spielstandversion stimmt nicht mit der Spielversion ьberein.</text>
+		<text>Spielstandversion stimmt nicht mit der Spielversion СЊberein.</text>
 	</string>
 	<string id="ui_st_kills_in_row">
 		<text>Kills hintereinander</text>
@@ -742,7 +741,7 @@
 		<text>Name</text>
 	</string>
 	<string id="ui_st_mp_try_change">
-		<text>Дndern</text>
+		<text>Р”ndern</text>
 	</string>
 	<string id="ui_st_preset1">
 		<text>Zus.stell. 1</text>
@@ -754,7 +753,7 @@
 		<text>Zus.stell. 3</text>
 	</string>
 	<string id="ui_st_reset">
-		<text>Zurьcksetzen</text>
+		<text>ZurСЊcksetzen</text>
 	</string>
 	<string id="ui_st_sell_all">
 		<text>Alles verkaufen</text>
@@ -796,7 +795,7 @@
 		<text>Verbindungsfehler</text>
 	</string>
 	<string id="mp_gp_server_error">
-		<text>Server vorьbergehend nicht erreichbar</text>
+		<text>Server vorСЊbergehend nicht erreichbar</text>
 	</string>
 	<string id="mp_gp_unknown_error_2">
 		<text>Profilanmeldung erforderlich</text>
@@ -832,10 +831,10 @@
 		<text>Fehler bei der Verbindung zum Profilserver</text>
 	</string>
 	<string id="ui_st_you_cannot_delete_profile_after_creation">
-		<text>Sie kцnnen das Profil nicht mehr lцschen, wenn Sie es erstellt haben</text>
+		<text>Sie kС†nnen das Profil nicht mehr lС†schen, wenn Sie es erstellt haben</text>
 	</string>
 	<string id="ui_mm_ssao_quality">
-		<text>SSAO-Qualitдt</text>
+		<text>SSAO-QualitРґt</text>
 	</string>
 	<string id="ui_mm_ssao_text">
 		<text>SSAO-Modus</text>
@@ -880,7 +879,7 @@
 		<text>Falsches Passwort</text>
 	</string>
 	<string id="mp_use_offline_mode">
-		<text>Sie kцnnen mit einer GameSpy-ID keine Verbindung zu einem lokalen Server aufbauen. Bitte benutzen Sie den Netzwerkspielmodus.</text>
+		<text>Sie kС†nnen mit einer GameSpy-ID keine Verbindung zu einem lokalen Server aufbauen. Bitte benutzen Sie den Netzwerkspielmodus.</text>
 	</string>
 	<string id="st_kicked_by_server">
 		<text>Sie wurden vom Server gekickt.</text>
@@ -895,7 +894,7 @@
 		<text>Serverinformationen</text>
 	</string>
 	<string id="mp_gp_email_is_too_big">
-		<text>Die E-Mail-Adresse ist zu lang. Sie darf nicht lдnger als 50 Zeichen sein.</text>
+		<text>Die E-Mail-Adresse ist zu lang. Sie darf nicht lРґnger als 50 Zeichen sein.</text>
 	</string>
 	<string id="mp_gp_bad_email">
 		<text>Falsche E-Mail-Adresse</text>
@@ -913,7 +912,7 @@
 		<text>Eindeutiger Name nicht festgelegt</text>
 	</string>
 	<string id="mp_gp_unique_nick_is_too_big">
-		<text>Der eindeutige Name ist zu lang. Er darf nicht lдnger als 30 Zeichen sein.</text>
+		<text>Der eindeutige Name ist zu lang. Er darf nicht lРґnger als 30 Zeichen sein.</text>
 	</string>
 	<string id="mp_gp_unique_nick_must_contain_only">
 		<text>Der eindeutige Name darf Ziffern, lateinische Buchstaben und die folgenden Sonderzeichen enthalten: "#$&'()*+-./:;<=>?@[]^_`{|}~</text>
@@ -931,6 +930,6 @@
 		<text>Tessellation</text>
 	</string>
 	<string id="ui_mm_confirm_changes">
-		<text>Дnderungen ьbernehmen? Alle Дnderungen werden rьckgдngig gemacht in</text>
+		<text>Р”nderungen СЊbernehmen? Alle Р”nderungen werden rСЊckgРґngig gemacht in</text>
 	</string>
 </string_table>

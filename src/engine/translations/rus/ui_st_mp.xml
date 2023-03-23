@@ -1,741 +1,740 @@
-<?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="af_neutral">
-		<text>Артефакт</text>
+		<text>РђСЂС‚РµС„Р°РєС‚</text>
 	</string>
 	<string id="friend">
-		<text>Союзник</text>
+		<text>РЎРѕСЋР·РЅРёРє</text>
 	</string>
 	<string id="mm_mp_max_ping">
-		<text>макс. пинг</text>
+		<text>РјР°РєСЃ. РїРёРЅРі</text>
 	</string>
 	<string id="mm_mp_profile">
-		<text>Профиль</text>
+		<text>РџСЂРѕС„РёР»СЊ</text>
 	</string>
 	<string id="modes">
-		<text>Режимы</text>
+		<text>Р РµР¶РёРјС‹</text>
 	</string>
 	<string id="mp_art_destroyed">
-		<text>Артефакт был уничтожен</text>
+		<text>РђСЂС‚РµС„Р°РєС‚ Р±С‹Р» СѓРЅРёС‡С‚РѕР¶РµРЅ</text>
 	</string>
 	<string id="mp_art_spowned">
-		<text>Артефакт появился. Принесите его на базу, чтобы заработать очко.</text>
+		<text>РђСЂС‚РµС„Р°РєС‚ РїРѕСЏРІРёР»СЃСЏ. РџСЂРёРЅРµСЃРёС‚Рµ РµРіРѕ РЅР° Р±Р°Р·Сѓ, С‡С‚РѕР±С‹ Р·Р°СЂР°Р±РѕС‚Р°С‚СЊ РѕС‡РєРѕ.</text>
 	</string>
 	<string id="mp_artefact_dropped">
-		<text>Артефакт потерян</text>
+		<text>РђСЂС‚РµС„Р°РєС‚ РїРѕС‚РµСЂСЏРЅ</text>
 	</string>
 	<string id="mp_artefact_on_base">
-		<text>Артефакт на нашей базе</text>
+		<text>РђСЂС‚РµС„Р°РєС‚ РЅР° РЅР°С€РµР№ Р±Р°Р·Рµ</text>
 	</string>
 	<string id="mp_artefact_on_enemy_base">
-		<text>Артефакт на вражеской базе</text>
+		<text>РђСЂС‚РµС„Р°РєС‚ РЅР° РІСЂР°Р¶РµСЃРєРѕР№ Р±Р°Р·Рµ</text>
 	</string>
 	<string id="mp_artefacts">
-		<text>Артефакты</text>
+		<text>РђСЂС‚РµС„Р°РєС‚С‹</text>
 	</string>
 	<string id="mp_artefacts_upcase">
-		<text>Артефактов</text>
+		<text>РђСЂС‚РµС„Р°РєС‚РѕРІ</text>
 	</string>
 	<string id="mp_auto_select">
-		<text>Автовыбор</text>
+		<text>РђРІС‚РѕРІС‹Р±РѕСЂ</text>
 	</string>
 	<string id="mp_back">
-		<text>Назад</text>
+		<text>РќР°Р·Р°Рґ</text>
 	</string>
 	<string id="mp_ban">
-		<text>4. Заблокировать</text>
+		<text>4. Р—Р°Р±Р»РѕРєРёСЂРѕРІР°С‚СЊ</text>
 	</string>
 	<string id="mp_by_anomaly">
-		<text>Аномалией</text>
+		<text>РђРЅРѕРјР°Р»РёРµР№</text>
 	</string>
 	<string id="mp_cancel">
-		<text>Отмена</text>
+		<text>РћС‚РјРµРЅР°</text>
 	</string>
 	<string id="mp_captured_artefact">
-		<text>захватил артефакт</text>
+		<text>Р·Р°С…РІР°С‚РёР» Р°СЂС‚РµС„Р°РєС‚</text>
 	</string>
 	<string id="mp_change_map">
-		<text>5. Изменить карту</text>
+		<text>5. РР·РјРµРЅРёС‚СЊ РєР°СЂС‚Сѓ</text>
 	</string>
 	<string id="mp_change_weather">
-		<text>6. Изменить погоду</text>
+		<text>6. РР·РјРµРЅРёС‚СЊ РїРѕРіРѕРґСѓ</text>
 	</string>
 	<string id="mp_change_weather_header">
-		<text>Изменить погоду на</text>
+		<text>РР·РјРµРЅРёС‚СЊ РїРѕРіРѕРґСѓ РЅР°</text>
 	</string>
 	<string id="mp_chat">
-		<text>Чат</text>
+		<text>Р§Р°С‚</text>
 	</string>
 	<string id="mp_connected">
-		<text>Соединился</text>
+		<text>РЎРѕРµРґРёРЅРёР»СЃСЏ</text>
 	</string>
 	<string id="mp_deaths">
-		<text>Смерти</text>
+		<text>РЎРјРµСЂС‚Рё</text>
 	</string>
 	<string id="mp_description">
-		<text>Описание</text>
+		<text>РћРїРёСЃР°РЅРёРµ</text>
 	</string>
 	<string id="mp_disconnected">
-		<text>отсоединился</text>
+		<text>РѕС‚СЃРѕРµРґРёРЅРёР»СЃСЏ</text>
 	</string>
 	<string id="mp_enter_text">
-		<text>Введите текст для голосования</text>
+		<text>Р’РІРµРґРёС‚Рµ С‚РµРєСЃС‚ РґР»СЏ РіРѕР»РѕСЃРѕРІР°РЅРёСЏ</text>
 	</string>
 	<string id="mp_entered_game">
-		<text>вступил в игру</text>
+		<text>РІСЃС‚СѓРїРёР» РІ РёРіСЂСѓ</text>
 	</string>
 	<string id="mp_firestation">
-		<text>Пожарная станция</text>
+		<text>РџРѕР¶Р°СЂРЅР°СЏ СЃС‚Р°РЅС†РёСЏ</text>
 	</string>
 	<string id="mp_first_eye">
-		<text>(От первого лица)</text>
+		<text>(РћС‚ РїРµСЂРІРѕРіРѕ Р»РёС†Р°)</text>
 	</string>
 	<string id="mp_frags">
-		<text>фраги</text>
+		<text>С„СЂР°РіРё</text>
 	</string>
 	<string id="mp_frags_upcase">
-		<text>Фрагов</text>
+		<text>Р¤СЂР°РіРѕРІ</text>
 	</string>
 	<string id="mp_free_fly">
-		<text>(Свободный полёт)</text>
+		<text>(РЎРІРѕР±РѕРґРЅС‹Р№ РїРѕР»С‘С‚)</text>
 	</string>
 	<string id="mp_free_look">
-		<text>(От третьего лица)</text>
+		<text>(РћС‚ С‚СЂРµС‚СЊРµРіРѕ Р»РёС†Р°)</text>
 	</string>
 	<string id="mp_from">
-		<text>от</text>
+		<text>РѕС‚</text>
 	</string>
 	<string id="mp_gamemode">
-		<text>7. Режим</text>
+		<text>7. Р РµР¶РёРј</text>
 	</string>
 	<string id="mp_garbage">
-		<text>Свалка</text>
+		<text>РЎРІР°Р»РєР°</text>
 	</string>
 	<string id="mp_go">
-		<text>ВПЕРЁД!</text>
+		<text>Р’РџР•Р РЃР”!</text>
 	</string>
 	<string id="mp_has_drop_art">
-		<text>потерял%s Артефакт</text>
+		<text>РїРѕС‚РµСЂСЏР»%s РђСЂС‚РµС„Р°РєС‚</text>
 	</string>
 	<string id="mp_has_dropped_artefact">
-		<text>потерял артефакт</text>
+		<text>РїРѕС‚РµСЂСЏР» Р°СЂС‚РµС„Р°РєС‚</text>
 	</string>
 	<string id="mp_has_tak_art">
-		<text>взял%s Артефакт</text>
+		<text>РІР·СЏР»%s РђСЂС‚РµС„Р°РєС‚</text>
 	</string>
 	<string id="mp_headhuntrs">
-		<text>Наёмники</text>
+		<text>РќР°С‘РјРЅРёРєРё</text>
 	</string>
 	<string id="mp_is_now">
-		<text>теперь</text>
+		<text>С‚РµРїРµСЂСЊ</text>
 	</string>
 	<string id="mp_joined">
-		<text>присоединился к команде</text>
+		<text>РїСЂРёСЃРѕРµРґРёРЅРёР»СЃСЏ Рє РєРѕРјР°РЅРґРµ</text>
 	</string>
 	<string id="mp_kick">
-		<text>3. Выбросить</text>
+		<text>3. Р’С‹Р±СЂРѕСЃРёС‚СЊ</text>
 	</string>
 	<string id="mp_limansk">
-		<text>Лиманск</text>
+		<text>Р›РёРјР°РЅСЃРє</text>
 	</string>
 	<string id="mp_loading_awards">
-		<text>Загрузка наград...</text>
+		<text>Р—Р°РіСЂСѓР·РєР° РЅР°РіСЂР°Рґ...</text>
 	</string>
 	<string id="mp_loading_best_scores">
-		<text>Загрузка лучших результатов...</text>
+		<text>Р—Р°РіСЂСѓР·РєР° Р»СѓС‡С€РёС… СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ...</text>
 	</string>
 	<string id="mp_look_at">
-		<text>(Свободно-привязанный)</text>
+		<text>(РЎРІРѕР±РѕРґРЅРѕ-РїСЂРёРІСЏР·Р°РЅРЅС‹Р№)</text>
 	</string>
 	<string id="mp_map_desc">
-		<text>Описание карты</text>
+		<text>РћРїРёСЃР°РЅРёРµ РєР°СЂС‚С‹</text>
 	</string>
 	<string id="mp_match_started">
-		<text>Бой начался!</text>
+		<text>Р‘РѕР№ РЅР°С‡Р°Р»СЃСЏ!</text>
 	</string>
 	<string id="mp_military_2">
-		<text>Старая деревня</text>
+		<text>РЎС‚Р°СЂР°СЏ РґРµСЂРµРІРЅСЏ</text>
 	</string>
 	<string id="mp_modes">
-		<text>Режимы</text>
+		<text>Р РµР¶РёРјС‹</text>
 	</string>
 	<string id="mp_name">
-		<text>Имя</text>
+		<text>РРјСЏ</text>
 	</string>
 	<string id="mp_next">
-		<text>Дальше</text>
+		<text>Р”Р°Р»СЊС€Рµ</text>
 	</string>
 	<string id="mp_no_voted">
-		<text>Не проголосовали</text>
+		<text>РќРµ РїСЂРѕРіРѕР»РѕСЃРѕРІР°Р»Рё</text>
 	</string>
 	<string id="mp_ping">
-		<text>Пинг</text>
+		<text>РџРёРЅРі</text>
 	</string>
 	<string id="mp_player_wins">
-		<text>Игрок %s выиграл бой!</text>
+		<text>РРіСЂРѕРє %s РІС‹РёРіСЂР°Р» Р±РѕР№!</text>
 	</string>
 	<string id="mp_players">
-		<text>Игроков</text>
+		<text>РРіСЂРѕРєРѕРІ</text>
 	</string>
 	<string id="mp_press_fire2spectator">
-		<text>Нажмите «Огонь», чтобы перейти в режим наблюдения</text>
+		<text>РќР°Р¶РјРёС‚Рµ В«РћРіРѕРЅСЊВ», С‡С‚РѕР±С‹ РїРµСЂРµР№С‚Рё РІ СЂРµР¶РёРј РЅР°Р±Р»СЋРґРµРЅРёСЏ</text>
 	</string>
 	<string id="mp_press_jump2pay_spaw">
-		<text>Нажмите «Прыжок», чтобы купить моментальное рождение</text>
+		<text>РќР°Р¶РјРёС‚Рµ В«РџСЂС‹Р¶РѕРєВ», С‡С‚РѕР±С‹ РєСѓРїРёС‚СЊ РјРѕРјРµРЅС‚Р°Р»СЊРЅРѕРµ СЂРѕР¶РґРµРЅРёРµ</text>
 	</string>
 	<string id="mp_press_jump2select_skin">
-		<text>Нажмите «Прыжок», чтобы выбрать униформу</text>
+		<text>РќР°Р¶РјРёС‚Рµ В«РџСЂС‹Р¶РѕРєВ», С‡С‚РѕР±С‹ РІС‹Р±СЂР°С‚СЊ СѓРЅРёС„РѕСЂРјСѓ</text>
 	</string>
 	<string id="mp_press_jump2select_team">
-		<text>Нажмите «Прыжок», чтобы выбрать команды</text>
+		<text>РќР°Р¶РјРёС‚Рµ В«РџСЂС‹Р¶РѕРєВ», С‡С‚РѕР±С‹ РІС‹Р±СЂР°С‚СЊ РєРѕРјР°РЅРґС‹</text>
 	</string>
 	<string id="mp_press_jump2spawn">
-		<text>Нажмите «Прыжок», чтобы родиться</text>
+		<text>РќР°Р¶РјРёС‚Рµ В«РџСЂС‹Р¶РѕРєВ», С‡С‚РѕР±С‹ СЂРѕРґРёС‚СЊСЃСЏ</text>
 	</string>
 	<string id="mp_press_jump2start">
-		<text>Нажмите «Прыжок», чтобы стартовать</text>
+		<text>РќР°Р¶РјРёС‚Рµ В«РџСЂС‹Р¶РѕРєВ», С‡С‚РѕР±С‹ СЃС‚Р°СЂС‚РѕРІР°С‚СЊ</text>
 	</string>
 	<string id="mp_press_to_buy">
-		<text>Нажмите «$$ACTION_BUY_MENU$$» для доступа к меню покупки</text>
+		<text>РќР°Р¶РјРёС‚Рµ В«$$ACTION_BUY_MENU$$В» РґР»СЏ РґРѕСЃС‚СѓРїР° Рє РјРµРЅСЋ РїРѕРєСѓРїРєРё</text>
 	</string>
 	<string id="mp_press_yes2pay">
-		<text>У Вас есть %d$. Вы можете купить рождение за %d$. Нажмите «Да», чтобы заплатить</text>
+		<text>РЈ Р’Р°СЃ РµСЃС‚СЊ %d$. Р’С‹ РјРѕР¶РµС‚Рµ РєСѓРїРёС‚СЊ СЂРѕР¶РґРµРЅРёРµ Р·Р° %d$. РќР°Р¶РјРёС‚Рµ В«Р”Р°В», С‡С‚РѕР±С‹ Р·Р°РїР»Р°С‚РёС‚СЊ</text>
 	</string>
 	<string id="mp_ready">
-		<text>Внимание...</text>
+		<text>Р’РЅРёРјР°РЅРёРµ...</text>
 	</string>
 	<string id="mp_rembasa">
-		<text>Ремонтная база</text>
+		<text>Р РµРјРѕРЅС‚РЅР°СЏ Р±Р°Р·Р°</text>
 	</string>
 	<string id="mp_restart">
-		<text>1. Рестарт</text>
+		<text>1. Р РµСЃС‚Р°СЂС‚</text>
 	</string>
 	<string id="mp_restart_fast">
-		<text>2. Быстрый рестарт</text>
+		<text>2. Р‘С‹СЃС‚СЂС‹Р№ СЂРµСЃС‚Р°СЂС‚</text>
 	</string>
 	<string id="mp_returned_artefact">
-		<text>возвратил артефакт</text>
+		<text>РІРѕР·РІСЂР°С‚РёР» Р°СЂС‚РµС„Р°РєС‚</text>
 	</string>
 	<string id="mp_scores">
-		<text>зарабатывают очко</text>
+		<text>Р·Р°СЂР°Р±Р°С‚С‹РІР°СЋС‚ РѕС‡РєРѕ</text>
 	</string>
 	<string id="mp_select_ban">
-		<text>Выберите игрока, для блокирования которого назначается голосование</text>
+		<text>Р’С‹Р±РµСЂРёС‚Рµ РёРіСЂРѕРєР°, РґР»СЏ Р±Р»РѕРєРёСЂРѕРІР°РЅРёСЏ РєРѕС‚РѕСЂРѕРіРѕ РЅР°Р·РЅР°С‡Р°РµС‚СЃСЏ РіРѕР»РѕСЃРѕРІР°РЅРёРµ</text>
 	</string>
 	<string id="mp_select_category">
-		<text>Выберите категорию голосования</text>
+		<text>Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ РіРѕР»РѕСЃРѕРІР°РЅРёСЏ</text>
 	</string>
 	<string id="mp_select_kick">
-		<text>Выберите игрока, для выбрасывания которого назначается голосование</text>
+		<text>Р’С‹Р±РµСЂРёС‚Рµ РёРіСЂРѕРєР°, РґР»СЏ РІС‹Р±СЂР°СЃС‹РІР°РЅРёСЏ РєРѕС‚РѕСЂРѕРіРѕ РЅР°Р·РЅР°С‡Р°РµС‚СЃСЏ РіРѕР»РѕСЃРѕРІР°РЅРёРµ</text>
 	</string>
 	<string id="mp_select_kick_player">
-		<text>Выберите игрока, для выбрасывания которого назначается голосование</text>
+		<text>Р’С‹Р±РµСЂРёС‚Рµ РёРіСЂРѕРєР°, РґР»СЏ РІС‹Р±СЂР°СЃС‹РІР°РЅРёСЏ РєРѕС‚РѕСЂРѕРіРѕ РЅР°Р·РЅР°С‡Р°РµС‚СЃСЏ РіРѕР»РѕСЃРѕРІР°РЅРёРµ</text>
 	</string>
 	<string id="mp_select_map">
-		<text>Выберите карту для голосования</text>
+		<text>Р’С‹Р±РµСЂРёС‚Рµ РєР°СЂС‚Сѓ РґР»СЏ РіРѕР»РѕСЃРѕРІР°РЅРёСЏ</text>
 	</string>
 	<string id="mp_si_afbearer_cant_sprint">
-		<text>Не бегать с артефактом</text>
+		<text>РќРµ Р±РµРіР°С‚СЊ СЃ Р°СЂС‚РµС„Р°РєС‚РѕРј</text>
 	</string>
 	<string id="mp_si_afcount">
-		<text>- Количество</text>
+		<text>- РљРѕР»РёС‡РµСЃС‚РІРѕ</text>
 	</string>
 	<string id="mp_si_afrespawntime">
-		<text>- Появление</text>
+		<text>- РџРѕСЏРІР»РµРЅРёРµ</text>
 	</string>
 	<string id="mp_si_afstaytime">
-		<text>- Время</text>
+		<text>- Р’СЂРµРјСЏ</text>
 	</string>
 	<string id="mp_si_anomalies">
-		<text>Аномалии</text>
+		<text>РђРЅРѕРјР°Р»РёРё</text>
 	</string>
 	<string id="mp_si_anomalies_period">
-		<text>Период аномалий</text>
+		<text>РџРµСЂРёРѕРґ Р°РЅРѕРјР°Р»РёР№</text>
 	</string>
 	<string id="mp_si_any_time">
-		<text>Любое время</text>
+		<text>Р›СЋР±РѕРµ РІСЂРµРјСЏ</text>
 	</string>
 	<string id="mp_si_artefact_captured">
-		<text>Артефакт захвачен</text>
+		<text>РђСЂС‚РµС„Р°РєС‚ Р·Р°С…РІР°С‡РµРЅ</text>
 	</string>
 	<string id="mp_si_artefacts">
-		<text>Артефакты:</text>
+		<text>РђСЂС‚РµС„Р°РєС‚С‹:</text>
 	</string>
 	<string id="mp_si_autoteam_balance">
-		<text>Автобаланс команд</text>
+		<text>РђРІС‚РѕР±Р°Р»Р°РЅСЃ РєРѕРјР°РЅРґ</text>
 	</string>
 	<string id="mp_si_autoteam_swap">
-		<text>Автосмена команд</text>
+		<text>РђРІС‚РѕСЃРјРµРЅР° РєРѕРјР°РЅРґ</text>
 	</string>
 	<string id="mp_si_battleye">
 		<text>BattlEye</text>
 	</string>
 	<string id="mp_si_disabled">
-		<text>Выкл.</text>
+		<text>Р’С‹РєР».</text>
 	</string>
 	<string id="mp_si_enabled">
-		<text>Вкл.</text>
+		<text>Р’РєР».</text>
 	</string>
 	<string id="mp_si_first_eye">
-		<text>- От первого лица</text>
+		<text>- РћС‚ РїРµСЂРІРѕРіРѕ Р»РёС†Р°</text>
 	</string>
 	<string id="mp_si_forcerespawn">
-		<text>Принудит. рождение</text>
+		<text>РџСЂРёРЅСѓРґРёС‚. СЂРѕР¶РґРµРЅРёРµ</text>
 	</string>
 	<string id="mp_si_fraglimit">
-		<text>Лимит фрагов</text>
+		<text>Р›РёРјРёС‚ С„СЂР°РіРѕРІ</text>
 	</string>
 	<string id="mp_si_free_fly">
-		<text>- Свободный полёт</text>
+		<text>- РЎРІРѕР±РѕРґРЅС‹Р№ РїРѕР»С‘С‚</text>
 	</string>
 	<string id="mp_si_free_look">
-		<text>- Свободный обзор</text>
+		<text>- РЎРІРѕР±РѕРґРЅС‹Р№ РѕР±Р·РѕСЂ</text>
 	</string>
 	<string id="mp_si_friendly_fire">
-		<text>Огонь по своим</text>
+		<text>РћРіРѕРЅСЊ РїРѕ СЃРІРѕРёРј</text>
 	</string>
 	<string id="mp_si_friendly_indicators">
-		<text>Индикаторы союзников</text>
+		<text>РРЅРґРёРєР°С‚РѕСЂС‹ СЃРѕСЋР·РЅРёРєРѕРІ</text>
 	</string>
 	<string id="mp_si_friendly_names">
-		<text>Имена союзников</text>
+		<text>РРјРµРЅР° СЃРѕСЋР·РЅРёРєРѕРІ</text>
 	</string>
 	<string id="mp_si_infinite">
-		<text>Бесконечный</text>
+		<text>Р‘РµСЃРєРѕРЅРµС‡РЅС‹Р№</text>
 	</string>
 	<string id="mp_si_invinsibility">
-		<text>Невидимость:</text>
+		<text>РќРµРІРёРґРёРјРѕСЃС‚СЊ:</text>
 	</string>
 	<string id="mp_si_invinsibility_indicators">
-		<text>- Индикаторы</text>
+		<text>- РРЅРґРёРєР°С‚РѕСЂС‹</text>
 	</string>
 	<string id="mp_si_invinsibility_time">
-		<text>- Время</text>
+		<text>- Р’СЂРµРјСЏ</text>
 	</string>
 	<string id="mp_si_look_at">
-		<text>- От третьего лица</text>
+		<text>- РћС‚ С‚СЂРµС‚СЊРµРіРѕ Р»РёС†Р°</text>
 	</string>
 	<string id="mp_si_maprotation">
-		<text>Смена карт</text>
+		<text>РЎРјРµРЅР° РєР°СЂС‚</text>
 	</string>
 	<string id="mp_si_max_ping">
-		<text>макс. пинг</text>
+		<text>РјР°РєСЃ. РїРёРЅРі</text>
 	</string>
 	<string id="mp_si_min">
-		<text>мин.</text>
+		<text>РјРёРЅ.</text>
 	</string>
 	<string id="mp_si_no">
-		<text>Нет</text>
+		<text>РќРµС‚</text>
 	</string>
 	<string id="mp_si_players_respawn">
-		<text>Рождение игроков</text>
+		<text>Р РѕР¶РґРµРЅРёРµ РёРіСЂРѕРєРѕРІ</text>
 	</string>
 	<string id="mp_si_return_players">
-		<text>Возврат на базы</text>
+		<text>Р’РѕР·РІСЂР°С‚ РЅР° Р±Р°Р·С‹</text>
 	</string>
 	<string id="mp_si_sec">
-		<text>сек.</text>
+		<text>СЃРµРє.</text>
 	</string>
 	<string id="mp_si_servername">
-		<text>Имя сервера:</text>
+		<text>РРјСЏ СЃРµСЂРІРµСЂР°:</text>
 	</string>
 	<string id="mp_si_shielded_bases">
-		<text>Защищённые базы</text>
+		<text>Р—Р°С‰РёС‰С‘РЅРЅС‹Рµ Р±Р°Р·С‹</text>
 	</string>
 	<string id="mp_si_spectatormodes">
-		<text>Режимы наблюдения:</text>
+		<text>Р РµР¶РёРјС‹ РЅР°Р±Р»СЋРґРµРЅРёСЏ:</text>
 	</string>
 	<string id="mp_si_team_only">
-		<text>- Только команда</text>
+		<text>- РўРѕР»СЊРєРѕ РєРѕРјР°РЅРґР°</text>
 	</string>
 	<string id="mp_si_time_limit">
-		<text>Лимит времени</text>
+		<text>Р›РёРјРёС‚ РІСЂРµРјРµРЅРё</text>
 	</string>
 	<string id="mp_si_version">
-		<text>Версия:</text>
+		<text>Р’РµСЂСЃРёСЏ:</text>
 	</string>
 	<string id="mp_si_voting">
-		<text>Голосование</text>
+		<text>Р“РѕР»РѕСЃРѕРІР°РЅРёРµ</text>
 	</string>
 	<string id="mp_si_warmuptime">
-		<text>Разминка</text>
+		<text>Р Р°Р·РјРёРЅРєР°</text>
 	</string>
 	<string id="mp_si_yes">
-		<text>Да</text>
+		<text>Р”Р°</text>
 	</string>
 	<string id="mp_skin_selection">
-		<text>Выбор униформы</text>
+		<text>Р’С‹Р±РѕСЂ СѓРЅРёС„РѕСЂРјС‹</text>
 	</string>
 	<string id="mp_spectator">
-		<text>Наблюдатель</text>
+		<text>РќР°Р±Р»СЋРґР°С‚РµР»СЊ</text>
 	</string>
 	<string id="mp_spectators">
-		<text>НАБЛЮДАТЕЛИ</text>
+		<text>РќРђР‘Р›Р®Р”РђРўР•Р›Р</text>
 	</string>
 	<string id="mp_sport_center">
-		<text>Спортивный центр</text>
+		<text>РЎРїРѕСЂС‚РёРІРЅС‹Р№ С†РµРЅС‚СЂ</text>
 	</string>
 	<string id="mp_status">
-		<text>Статус</text>
+		<text>РЎС‚Р°С‚СѓСЃ</text>
 	</string>
 	<string id="mp_switched_to">
-		<text>перешёл в команду</text>
+		<text>РїРµСЂРµС€С‘Р» РІ РєРѕРјР°РЅРґСѓ</text>
 	</string>
 	<string id="mp_team_free_stalkers">
-		<text>«Свобода»</text>
+		<text>В«РЎРІРѕР±РѕРґР°В»</text>
 	</string>
 	<string id="mp_team_selection">
-		<text>Выбор команды</text>
+		<text>Р’С‹Р±РѕСЂ РєРѕРјР°РЅРґС‹</text>
 	</string>
 	<string id="mp_team_wins">
-		<text>Команда %s ВЫИГРЫВАЕТ!</text>
+		<text>РљРѕРјР°РЅРґР° %s Р’Р«РР“Р Р«Р’РђР•Рў!</text>
 	</string>
 	<string id="mp_text">
-		<text>Текст</text>
+		<text>РўРµРєСЃС‚</text>
 	</string>
 	<string id="mp_time2respawn">
-		<text>Время до рождения</text>
+		<text>Р’СЂРµРјСЏ РґРѕ СЂРѕР¶РґРµРЅРёСЏ</text>
 	</string>
 	<string id="mp_time2start">
-		<text>Время до старта:</text>
+		<text>Р’СЂРµРјСЏ РґРѕ СЃС‚Р°СЂС‚Р°:</text>
 	</string>
 	<string id="mp_timeleft">
-		<text>Осталось времени: %d:%d; Согласились: %.2f</text>
+		<text>РћСЃС‚Р°Р»РѕСЃСЊ РІСЂРµРјРµРЅРё: %d:%d; РЎРѕРіР»Р°СЃРёР»РёСЃСЊ: %.2f</text>
 	</string>
 	<string id="mp_training_camp">
-		<text>Тренировочный лагерь</text>
+		<text>РўСЂРµРЅРёСЂРѕРІРѕС‡РЅС‹Р№ Р»Р°РіРµСЂСЊ</text>
 	</string>
 	<string id="mp_vote_hint">
-		<text>Голосовать ЗА-[$$ACTION_VOTE_YES$$]\nГолосовать ПРОТИВ-[$$ACTION_VOTE_NO$$]\nРезультаты-[$$ACTION_VOTE$$]</text>
+		<text>Р“РѕР»РѕСЃРѕРІР°С‚СЊ Р—Рђ-[$$ACTION_VOTE_YES$$]\nР“РѕР»РѕСЃРѕРІР°С‚СЊ РџР РћРўРР’-[$$ACTION_VOTE_NO$$]\nР РµР·СѓР»СЊС‚Р°С‚С‹-[$$ACTION_VOTE$$]</text>
 	</string>
 	<string id="mp_vote_no">
-		<text>Против</text>
+		<text>РџСЂРѕС‚РёРІ</text>
 	</string>
 	<string id="mp_vote_yes">
-		<text>За</text>
+		<text>Р—Р°</text>
 	</string>
 	<string id="mp_voted">
-		<text>Проголосовал</text>
+		<text>РџСЂРѕРіРѕР»РѕСЃРѕРІР°Р»</text>
 	</string>
 	<string id="mp_voted_no">
-		<text>«Против»</text>
+		<text>В«РџСЂРѕС‚РёРІВ»</text>
 	</string>
 	<string id="mp_voted_yes">
-		<text>«За»</text>
+		<text>В«Р—Р°В»</text>
 	</string>
 	<string id="mp_voting_broken">
-		<text>Голосование аннулировано сервером!</text>
+		<text>Р“РѕР»РѕСЃРѕРІР°РЅРёРµ Р°РЅРЅСѓР»РёСЂРѕРІР°РЅРѕ СЃРµСЂРІРµСЂРѕРј!</text>
 	</string>
 	<string id="mp_voting_started">
-		<text>Голосование '%s' было начато %s.</text>
+		<text>Р“РѕР»РѕСЃРѕРІР°РЅРёРµ '%s' Р±С‹Р»Рѕ РЅР°С‡Р°С‚Рѕ %s.</text>
 	</string>
 	<string id="mp_voting_started_msg">
-		<text>Голосование началось!</text>
+		<text>Р“РѕР»РѕСЃРѕРІР°РЅРёРµ РЅР°С‡Р°Р»РѕСЃСЊ!</text>
 	</string>
 	<string id="mp_weather_clear">
-		<text>1. Чистая</text>
+		<text>1. Р§РёСЃС‚Р°СЏ</text>
 	</string>
 	<string id="mp_weather_cloudy">
-		<text>4. Облачная</text>
+		<text>4. РћР±Р»Р°С‡РЅР°СЏ</text>
 	</string>
 	<string id="mp_weather_night">
-		<text>3. Ночь</text>
+		<text>3. РќРѕС‡СЊ</text>
 	</string>
 	<string id="mp_weather_rain">
-		<text>2. Дождь</text>
+		<text>2. Р”РѕР¶РґСЊ</text>
 	</string>
 	<string id="mp_with_backstab">
-		<text>зарезан!</text>
+		<text>Р·Р°СЂРµР·Р°РЅ!</text>
 	</string>
 	<string id="mp_with_headshot">
-		<text>в голову!</text>
+		<text>РІ РіРѕР»РѕРІСѓ!</text>
 	</string>
 	<string id="mp_you_captured_artefact">
-		<text>Вы захватили вражеский артефакт, принесите его к своему!</text>
+		<text>Р’С‹ Р·Р°С…РІР°С‚РёР»Рё РІСЂР°Р¶РµСЃРєРёР№ Р°СЂС‚РµС„Р°РєС‚, РїСЂРёРЅРµСЃРёС‚Рµ РµРіРѕ Рє СЃРІРѕРµРјСѓ!</text>
 	</string>
 	<string id="mp_you_captured_own_artefact">
-		<text>Вы подняли свой артефакт. Активируйте его, чтобы возратить на базу!</text>
+		<text>Р’С‹ РїРѕРґРЅСЏР»Рё СЃРІРѕР№ Р°СЂС‚РµС„Р°РєС‚. РђРєС‚РёРІРёСЂСѓР№С‚Рµ РµРіРѕ, С‡С‚РѕР±С‹ РІРѕР·СЂР°С‚РёС‚СЊ РЅР° Р±Р°Р·Сѓ!</text>
 	</string>
 	<string id="mp_your_rank">
-		<text>Ваш ранг теперь</text>
+		<text>Р’Р°С€ СЂР°РЅРі С‚РµРїРµСЂСЊ</text>
 	</string>
 	<string id="self">
-		<text>Меченый</text>
+		<text>РњРµС‡РµРЅС‹Р№</text>
 	</string>
 	<string id="st_mp_disabled_voting">
-		<text>Голосование недоступно на этом сервере</text>
+		<text>Р“РѕР»РѕСЃРѕРІР°РЅРёРµ РЅРµРґРѕСЃС‚СѓРїРЅРѕ РЅР° СЌС‚РѕРј СЃРµСЂРІРµСЂРµ</text>
 	</string>
 	<string id="st_mp_no_current_voting">
-		<text>Сейчас нет активных голосований</text>
+		<text>РЎРµР№С‡Р°СЃ РЅРµС‚ Р°РєС‚РёРІРЅС‹С… РіРѕР»РѕСЃРѕРІР°РЅРёР№</text>
 	</string>
 	<string id="st_mp_only_one_voting">
-		<text>Разрешено только одно активное голосование</text>
+		<text>Р Р°Р·СЂРµС€РµРЅРѕ С‚РѕР»СЊРєРѕ РѕРґРЅРѕ Р°РєС‚РёРІРЅРѕРµ РіРѕР»РѕСЃРѕРІР°РЅРёРµ</text>
 	</string>
 	<string id="st_mp_ready">
-		<text>Готов</text>
+		<text>Р“РѕС‚РѕРІ</text>
 	</string>
 	<string id="st_mp_say_to_all">
-		<text>Всем</text>
+		<text>Р’СЃРµРј</text>
 	</string>
 	<string id="st_mp_say_to_team">
-		<text>Команде</text>
+		<text>РљРѕРјР°РЅРґРµ</text>
 	</string>
 	<string id="st_mp_voting_failed">
-		<text>Голосование провалено!</text>
+		<text>Р“РѕР»РѕСЃРѕРІР°РЅРёРµ РїСЂРѕРІР°Р»РµРЅРѕ!</text>
 	</string>
 	<string id="st_mp_voting_succeed">
-		<text>Голосование прошло успешно!</text>
+		<text>Р“РѕР»РѕСЃРѕРІР°РЅРёРµ РїСЂРѕС€Р»Рѕ СѓСЃРїРµС€РЅРѕ!</text>
 	</string>
 	<string id="team_base_1">
-		<text>База «Свободы»</text>
+		<text>Р‘Р°Р·Р° В«РЎРІРѕР±РѕРґС‹В»</text>
 	</string>
 	<string id="team_base_2">
-		<text>База наёмников</text>
+		<text>Р‘Р°Р·Р° РЅР°С‘РјРЅРёРєРѕРІ</text>
 	</string>
 	<string id="ui_mp_ah">
-		<text>2. Охота за артефактом</text>
+		<text>2. РћС…РѕС‚Р° Р·Р° Р°СЂС‚РµС„Р°РєС‚РѕРј</text>
 	</string>
 	<string id="ui_mp_cta">
-		<text>4. Захват артефакта</text>
+		<text>4. Р—Р°С…РІР°С‚ Р°СЂС‚РµС„Р°РєС‚Р°</text>
 	</string>
 	<string id="ui_mp_dm">
-		<text>1. Все против всех</text>
+		<text>1. Р’СЃРµ РїСЂРѕС‚РёРІ РІСЃРµС…</text>
 	</string>
 	<string id="ui_mp_gamespy_creating_new_profile">
-		<text>Создание нового профиля...</text>
+		<text>РЎРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ РїСЂРѕС„РёР»СЏ...</text>
 	</string>
 	<string id="ui_mp_gamespy_getting_account_profiles">
-		<text>Получение профилей аккаунта...</text>
+		<text>РџРѕР»СѓС‡РµРЅРёРµ РїСЂРѕС„РёР»РµР№ Р°РєРєР°СѓРЅС‚Р°...</text>
 	</string>
 	<string id="ui_mp_gamespy_loading_rewards_hello">
-		<text>Здравствуйте,</text>
+		<text>Р—РґСЂР°РІСЃС‚РІСѓР№С‚Рµ,</text>
 	</string>
 	<string id="ui_mp_gamespy_logining_to_profile">
-		<text>Подключение к профилю...</text>
+		<text>РџРѕРґРєР»СЋС‡РµРЅРёРµ Рє РїСЂРѕС„РёР»СЋ...</text>
 	</string>
 	<string id="ui_mp_gamespy_profile_created">
-		<text>Профиль успешно создан. Пожалуйста, подключитесь к нему.</text>
+		<text>РџСЂРѕС„РёР»СЊ СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅ. РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РїРѕРґРєР»СЋС‡РёС‚РµСЃСЊ Рє РЅРµРјСѓ.</text>
 	</string>
 	<string id="ui_mp_gamespy_suggesting_unique_name">
-		<text>Проверка уникального имени...</text>
+		<text>РџСЂРѕРІРµСЂРєР° СѓРЅРёРєР°Р»СЊРЅРѕРіРѕ РёРјРµРЅРё...</text>
 	</string>
 	<string id="ui_mp_gamespy_use_existing_profile">
-		<text>Хотите ли вы использовать существующий профиль с именем</text>
+		<text>РҐРѕС‚РёС‚Рµ Р»Рё РІС‹ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№ РїСЂРѕС„РёР»СЊ СЃ РёРјРµРЅРµРј</text>
 	</string>
 	<string id="ui_mp_gamespy_verify_account_profiles">
-		<text>Аккаунт найден. Получение зарегистрированых профилей...</text>
+		<text>РђРєРєР°СѓРЅС‚ РЅР°Р№РґРµРЅ. РџРѕР»СѓС‡РµРЅРёРµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹С… РїСЂРѕС„РёР»РµР№...</text>
 	</string>
 	<string id="ui_mp_gamespy_verify_account_profiles_error1">
-		<text>Ваш профиль уже создан. Пожалуйста, подключитесь к нему.</text>
+		<text>Р’Р°С€ РїСЂРѕС„РёР»СЊ СѓР¶Рµ СЃРѕР·РґР°РЅ. РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РїРѕРґРєР»СЋС‡РёС‚РµСЃСЊ Рє РЅРµРјСѓ.</text>
 	</string>
 	<string id="ui_mp_gamespy_verify_email">
-		<text>Проверка существования аккаунта...</text>
+		<text>РџСЂРѕРІРµСЂРєР° СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёСЏ Р°РєРєР°СѓРЅС‚Р°...</text>
 	</string>
 	<string id="ui_mp_gamespy_verify_nickname_error1">
-		<text>Это уникальное имя уже используется. Пожалуйста, выберите одно из предложеных в выпадающем списке ниже, или введите другое.</text>
+		<text>Р­С‚Рѕ СѓРЅРёРєР°Р»СЊРЅРѕРµ РёРјСЏ СѓР¶Рµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ. РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РѕРґРЅРѕ РёР· РїСЂРµРґР»РѕР¶РµРЅС‹С… РІ РІС‹РїР°РґР°СЋС‰РµРј СЃРїРёСЃРєРµ РЅРёР¶Рµ, РёР»Рё РІРІРµРґРёС‚Рµ РґСЂСѓРіРѕРµ.</text>
 	</string>
 	<string id="ui_mp_gamespy_verify_password_error1">
-		<text>Введёные пароли не совпадают!</text>
+		<text>Р’РІРµРґС‘РЅС‹Рµ РїР°СЂРѕР»Рё РЅРµ СЃРѕРІРїР°РґР°СЋС‚!</text>
 	</string>
 	<string id="ui_mp_tdm">
-		<text>3. Команда против команды</text>
+		<text>3. РљРѕРјР°РЅРґР° РїСЂРѕС‚РёРІ РєРѕРјР°РЅРґС‹</text>
 	</string>
 	<string id="ui_st_btn_copy_url">
-		<text>Скопировать ссылку</text>
+		<text>РЎРєРѕРїРёСЂРѕРІР°С‚СЊ СЃСЃС‹Р»РєСѓ</text>
 	</string>
 	<string id="ui_st_btn_download_map">
-		<text>Загрузить карту</text>
+		<text>Р—Р°РіСЂСѓР·РёС‚СЊ РєР°СЂС‚Сѓ</text>
 	</string>
 	<string id="ui_st_description">
-		<text>Описание</text>
+		<text>РћРїРёСЃР°РЅРёРµ</text>
 	</string>
 	<string id="ui_st_map_data_corrupted">
-		<text>Карта не верна или испорчена</text>
+		<text>РљР°СЂС‚Р° РЅРµ РІРµСЂРЅР° РёР»Рё РёСЃРїРѕСЂС‡РµРЅР°</text>
 	</string>
 	<string id="ui_st_map_not_found">
-		<text>Карта не найдена</text>
+		<text>РљР°СЂС‚Р° РЅРµ РЅР°Р№РґРµРЅР°</text>
 	</string>
 	<string id="ui_st_mp_awards">
-		<text>Награды</text>
+		<text>РќР°РіСЂР°РґС‹</text>
 	</string>
 	<string id="ui_st_mp_best_results">
-		<text>Лучшие результаты</text>
+		<text>Р›СѓС‡С€РёРµ СЂРµР·СѓР»СЊС‚Р°С‚С‹</text>
 	</string>
 	<string id="ui_st_mp_check_avaliability">
-		<text>Проверить</text>
+		<text>РџСЂРѕРІРµСЂРёС‚СЊ</text>
 	</string>
 	<string id="ui_st_mp_confirm_password">
-		<text>Подтвердите пароль</text>
+		<text>РџРѕРґС‚РІРµСЂРґРёС‚Рµ РїР°СЂРѕР»СЊ</text>
 	</string>
 	<string id="ui_st_mp_email">
 		<text>E-mail</text>
 	</string>
 	<string id="ui_st_mp_forgot_password">
-		<text>Забыли пароль?</text>
+		<text>Р—Р°Р±С‹Р»Рё РїР°СЂРѕР»СЊ?</text>
 	</string>
 	<string id="ui_st_mp_gamespy_account_creation">
-		<text>Страница создания GameSpy ID</text>
+		<text>РЎС‚СЂР°РЅРёС†Р° СЃРѕР·РґР°РЅРёСЏ GameSpy ID</text>
 	</string>
 	<string id="ui_st_mp_password">
-		<text>Пароль</text>
+		<text>РџР°СЂРѕР»СЊ</text>
 	</string>
 	<string id="ui_st_mp_remember_me">
-		<text>Запомнить</text>
+		<text>Р—Р°РїРѕРјРЅРёС‚СЊ</text>
 	</string>
 	<string id="ui_st_mp_unique_nickname">
-		<text>Уникальное имя</text>
+		<text>РЈРЅРёРєР°Р»СЊРЅРѕРµ РёРјСЏ</text>
 	</string>
 	<string id="ui_st_mp_unique_nickname_change">
-		<text>Уникальное имя успешно изменено на</text>
+		<text>РЈРЅРёРєР°Р»СЊРЅРѕРµ РёРјСЏ СѓСЃРїРµС€РЅРѕ РёР·РјРµРЅРµРЅРѕ РЅР°</text>
 	</string>
 	<string id="ui_st_team">
-		<text>Команда</text>
+		<text>РљРѕРјР°РЅРґР°</text>
 	</string>
 	<string id="ui_st_team1_name">
-		<text>«Свобода»</text>
+		<text>В«РЎРІРѕР±РѕРґР°В»</text>
 	</string>
 	<string id="ui_st_team2_name">
-		<text>Наёмники</text>
+		<text>РќР°С‘РјРЅРёРєРё</text>
 	</string>
 	<string id="ui_st_mp_create_new_account">
-		<text>Новый профиль</text>
+		<text>РќРѕРІС‹Р№ РїСЂРѕС„РёР»СЊ</text>
 	</string>
 	<string id="ui_st_mp_gamespy_login_page">
-		<text>Авторизация на GameSpy</text>
+		<text>РђРІС‚РѕСЂРёР·Р°С†РёСЏ РЅР° GameSpy</text>
 	</string>
 	<string id="mpd_play">
-		<text>играть</text>
+		<text>РёРіСЂР°С‚СЊ</text>
 	</string>
 	<string id="mpd_rewind">
-		<text>перемотка</text>
+		<text>РїРµСЂРµРјРѕС‚РєР°</text>
 	</string>
 	<string id="mpd_restart">
-		<text>рестарт</text>
+		<text>СЂРµСЃС‚Р°СЂС‚</text>
 	</string>
 	<string id="mpd_rewind_until_start">
-		<text>до старта</text>
+		<text>РґРѕ СЃС‚Р°СЂС‚Р°</text>
 	</string>
 	<string id="mpd_rewind_until_kill">
-		<text>до убийства</text>
+		<text>РґРѕ СѓР±РёР№СЃС‚РІР°</text>
 	</string>
 	<string id="mpd_rewind_until_die">
-		<text>до смерти</text>
+		<text>РґРѕ СЃРјРµСЂС‚Рё</text>
 	</string>
 	<string id="mpd_rewind_until_arttake">
-		<text>до захвата артефакта</text>
+		<text>РґРѕ Р·Р°С…РІР°С‚Р° Р°СЂС‚РµС„Р°РєС‚Р°</text>
 	</string>
 	<string id="mpd_rewind_until_artdrop">
-		<text>до потери артефакта</text>
+		<text>РґРѕ РїРѕС‚РµСЂРё Р°СЂС‚РµС„Р°РєС‚Р°</text>
 	</string>
 	<string id="mpd_rewind_until_artdeliver">
-		<text>до приноса артефакта</text>
+		<text>РґРѕ РїСЂРёРЅРѕСЃР° Р°СЂС‚РµС„Р°РєС‚Р°</text>
 	</string>
 	<string id="mpd_any_player">
-		<text>любой</text>
+		<text>Р»СЋР±РѕР№</text>
 	</string>
 	<string id="mm_mp_login">
-		<text>Логин</text>
+		<text>Р›РѕРіРёРЅ</text>
 	</string>
 	<string id="ui_mp_am_screen_all">
-		<text>Скриншоты со всех</text>
+		<text>РЎРєСЂРёРЅС€РѕС‚С‹ СЃРѕ РІСЃРµС…</text>
 	</string>
 	<string id="ui_mp_am_config_all">
-		<text>Конфиги со всех</text>
+		<text>РљРѕРЅС„РёРіРё СЃРѕ РІСЃРµС…</text>
 	</string>
 	<string id="ui_mp_am_ping_limit">
-		<text>Ограничение пинга:</text>
+		<text>РћРіСЂР°РЅРёС‡РµРЅРёРµ РїРёРЅРіР°:</text>
 	</string>
 	<string id="ui_mp_am_set_ping_limit">
-		<text>Ограничение пинга</text>
+		<text>РћРіСЂР°РЅРёС‡РµРЅРёРµ РїРёРЅРіР°</text>
 	</string>
 	<string id="ui_mp_am_screen_selected">
-		<text>Скриншот выбр. игрока</text>
+		<text>РЎРєСЂРёРЅС€РѕС‚ РІС‹Р±СЂ. РёРіСЂРѕРєР°</text>
 	</string>
 	<string id="ui_mp_am_config_selected">
-		<text>Конфиг выбр. игрока</text>
+		<text>РљРѕРЅС„РёРі РІС‹Р±СЂ. РёРіСЂРѕРєР°</text>
 	</string>
 	<string id="ui_mp_am_kick_selected">
-		<text>Выбросить выбр. игрока</text>
+		<text>Р’С‹Р±СЂРѕСЃРёС‚СЊ РІС‹Р±СЂ. РёРіСЂРѕРєР°</text>
 	</string>
 	<string id="ui_mp_am_ban_selected">
-		<text>Забанить выбр. игрока</text>
+		<text>Р—Р°Р±Р°РЅРёС‚СЊ РІС‹Р±СЂ. РёРіСЂРѕРєР°</text>
 	</string>
 	<string id="ui_mp_am_restart">
-		<text>Рестарт</text>
+		<text>Р РµСЃС‚Р°СЂС‚</text>
 	</string>
 	<string id="ui_mp_am_fast_restart">
-		<text>Быстрый рестарт</text>
+		<text>Р‘С‹СЃС‚СЂС‹Р№ СЂРµСЃС‚Р°СЂС‚</text>
 	</string>
 	<string id="ui_mp_am_change_weather">
-		<text>Сменить погоду</text>
+		<text>РЎРјРµРЅРёС‚СЊ РїРѕРіРѕРґСѓ</text>
 	</string>
 	<string id="ui_mp_am_set_change_rate">
-		<text>Скорость смены погоды</text>
+		<text>РЎРєРѕСЂРѕСЃС‚СЊ СЃРјРµРЅС‹ РїРѕРіРѕРґС‹</text>
 	</string>
 	<string id="ui_mp_am_change_game_type">
-		<text>Сменить тип игры</text>
+		<text>РЎРјРµРЅРёС‚СЊ С‚РёРї РёРіСЂС‹</text>
 	</string>
 	<string id="ui_mp_am_change_game_limits">
-		<text>Изменить настройки игры</text>
+		<text>РР·РјРµРЅРёС‚СЊ РЅР°СЃС‚СЂРѕР№РєРё РёРіСЂС‹</text>
 	</string>
 	<string id="ui_mp_am_stop_cur_voting">
-		<text>Остановить тек. голосование</text>
+		<text>РћСЃС‚Р°РЅРѕРІРёС‚СЊ С‚РµРє. РіРѕР»РѕСЃРѕРІР°РЅРёРµ</text>
 	</string>
 	<string id="ui_mp_am_set_time_limit">
-		<text>Огран. времени (0, 180)</text>
+		<text>РћРіСЂР°РЅ. РІСЂРµРјРµРЅРё (0, 180)</text>
 	</string>
 	<string id="ui_mp_am_set_frag_limit">
-		<text>Огран. фрагов (0, 1000)</text>
+		<text>РћРіСЂР°РЅ. С„СЂР°РіРѕРІ (0, 1000)</text>
 	</string>
 	<string id="ui_mp_am_set_art_limit">
-		<text>Огран. артефактов (0, 100)</text>
+		<text>РћРіСЂР°РЅ. Р°СЂС‚РµС„Р°РєС‚РѕРІ (0, 100)</text>
 	</string>
 	<string id="ui_mp_am_set_warm_up_time">
-		<text>Время разогрева (0, 3600)</text>
+		<text>Р’СЂРµРјСЏ СЂР°Р·РѕРіСЂРµРІР° (0, 3600)</text>
 	</string>
 	<string id="ui_mp_am_set_invincible_time">
-		<text>Время неуязв. (0, 60 CTA)</text>
+		<text>Р’СЂРµРјСЏ РЅРµСѓСЏР·РІ. (0, 60 CTA)</text>
 	</string>
 	<string id="ui_mp_am_set_damage_block_time">
-		<text>Время неуязв. (0, 600 T/DM)</text>
+		<text>Р’СЂРµРјСЏ РЅРµСѓСЏР·РІ. (0, 600 T/DM)</text>
 	</string>
 	<string id="ui_mp_am_set_reinforcement_time">
-		<text>Время подкреп. (-1, 3600)</text>
+		<text>Р’СЂРµРјСЏ РїРѕРґРєСЂРµРї. (-1, 3600)</text>
 	</string>
 	<string id="mp_gp_unknown_error_4">
-		<text>Неизвестная ошибка профиля (код: 4)</text>
+		<text>РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР° РїСЂРѕС„РёР»СЏ (РєРѕРґ: 4)</text>
 	</string>
 	<string id="ui_mp_am_10_minutes">
-		<text>10 минут</text>
+		<text>10 РјРёРЅСѓС‚</text>
 	</string>
 	<string id="ui_mp_am_30_minutes">
-		<text>30 минут</text>
+		<text>30 РјРёРЅСѓС‚</text>
 	</string>
 	<string id="ui_mp_am_1_hour">
-		<text>1 час</text>
+		<text>1 С‡Р°СЃ</text>
 	</string>
 	<string id="ui_mp_am_6_hours">
-		<text>6 часов</text>
+		<text>6 С‡Р°СЃРѕРІ</text>
 	</string>
 	<string id="ui_mp_am_1_day">
-		<text>1 день</text>
+		<text>1 РґРµРЅСЊ</text>
 	</string>
 	<string id="ui_mp_am_1_week">
-		<text>1 неделя</text>
+		<text>1 РЅРµРґРµР»СЏ</text>
 	</string>
 	<string id="ui_mp_am_1_month">
-		<text>1 месяц</text>
+		<text>1 РјРµСЃСЏС†</text>
 	</string>
 	<string id="ui_mp_am_3_monthes">
-		<text>3 месяца</text>
+		<text>3 РјРµСЃСЏС†Р°</text>
 	</string>
 	<string id="ui_mp_am_forever">
-		<text>Навсегда</text>
+		<text>РќР°РІСЃРµРіРґР°</text>
 	</string>
 	<string id="mp_gp_unique_nick_too_short">
-		<text>Слишком короткое уникальное имя</text>
+		<text>РЎР»РёС€РєРѕРј РєРѕСЂРѕС‚РєРѕРµ СѓРЅРёРєР°Р»СЊРЅРѕРµ РёРјСЏ</text>
 	</string>
 	<string id="mp_gp_unknown_error_512">
-		<text>Ошибка создания профиля</text>
+		<text>РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ РїСЂРѕС„РёР»СЏ</text>
 	</string>
 </string_table>
