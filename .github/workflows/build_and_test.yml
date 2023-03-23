@@ -6,12 +6,8 @@ name: build-and-test
 on:
   push:
     branches: [ "master" ]
-    branches-ignore:
-      - "dependabot/*"
   pull_request:
     branches: [ "master" ]
-    branches-ignore:
-      - "dependabot/*"
 
 jobs:
   build_and_test:
