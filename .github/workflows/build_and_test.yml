@@ -39,7 +39,7 @@ jobs:
     - name: Archive build artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: gamedata.zip
+        name: gamedata.(${{ github.sha }}).zip
         path: |
           target/gamedata
         retention-days: 3
@@ -55,4 +55,4 @@ jobs:
       if: ${{ steps.update-nightly-tag.outcome == 'success' }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: gh release upload --clobber nightly (get-item gamedata)
+      run: gh release upload --clobber nightly (get-item gamedata.*.zip)

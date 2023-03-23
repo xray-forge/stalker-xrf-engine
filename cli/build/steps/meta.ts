@@ -6,7 +6,7 @@ import * as path from "path";
 import { default as chalk } from "chalk";
 
 import { TARGET_GAME_DATA_DIR, TARGET_GAME_DATA_METADATA_FILE } from "#/globals";
-import { NodeLogger, readDirContent, TDirectoryFilesTree, TimeTracker } from "#/utils";
+import { getCommitHash, NodeLogger, readDirContent, TDirectoryFilesTree, TimeTracker } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("META");
 
@@ -15,11 +15,20 @@ interface IBuildMetaParams {
   timeTracker: TimeTracker;
 }
 
+/**
+ * Step to collect metadata in a single file with timing metrics.
+ *
+ * @param meta - build meta information to save
+ * @param timeTracker - build time tracker with performance metrics
+ */
 export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promise<void> {
   log.info(chalk.blueBright("Build metadata"));
 
   const buildMeta: Record<string, unknown> = {};
 
+  /**
+   * Collect list of built files.
+   */
   const collectFiles = (acc, it) => {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectFiles(acc, nested));
@@ -53,6 +62,7 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
   buildMeta["version"] = meta.version;
   buildMeta["author"] = meta.author;
   buildMeta["repository"] = meta.repository;
+  buildMeta["commit"] = getCommitHash();
   buildMeta["built_took"] = timeTracker.getDuration() / 1000 + " SEC";
   buildMeta["built_took"] = timeTracker.getDuration() / 1000 + " SEC";
   buildMeta["built_at"] = new Date().toLocaleString();
@@ -74,6 +84,9 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
   log.info("Included engine mod metadata:", chalk.yellowBright(TARGET_GAME_DATA_METADATA_FILE));
 }
 
+/**
+ * Get pretty displayed stats descriptor object of time performance based on time tracker.
+ */
 export function getTimingsInfo(timeTracker: TimeTracker): Record<string, string | number> {
   const total: number = timeTracker.getDuration();
 
@@ -84,10 +97,16 @@ export function getTimingsInfo(timeTracker: TimeTracker): Record<string, string 
   }, {});
 }
 
+/**
+ * Transform raw bytes to MB values.
+ */
 function transformBytesToMegabytes(bytes: number): string {
   return (bytes / 1024 / 1024).toFixed(3);
 }
 
+/**
+ * Get approx sizing of the folder tree.
+ */
 export async function getFolderSizesSummary(directoryTree: Array<string>): Promise<Record<string, string>> {
   const statistics: Record<string, number> = {};
 
@@ -109,6 +128,9 @@ export async function getFolderSizesSummary(directoryTree: Array<string>): Promi
   }, {});
 }
 
+/**
+ * Get pretty displayed description of build system info.
+ */
 export function getBuildSystemInfo(): Record<string, string | number> {
   const cpuInfos = os.cpus();
 
