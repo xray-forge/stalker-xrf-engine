@@ -23,7 +23,8 @@ import { default as pkg } from "#/../package.json";
 const log: NodeLogger = new NodeLogger("BUILD_ALL");
 
 /**
- * todo;
+ * Main workflow for building game assets.
+ * Builds separate parts of gamedata and collects log with metadata information.
  */
 (async function buildMod(): Promise<void> {
   const parameters: IBuildParameters = parseBuildParameters(process.argv);
@@ -36,6 +37,9 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
     log.info("XRTS build:", chalk.green(pkg?.name), chalk.blue(new Date().toLocaleString()));
     log.debug("XRTS params:", JSON.stringify(parameters));
 
+    /**
+     * Verify parameters integrity.
+     */
     if (areNoBuildPartsParameters(parameters)) {
       if (parameters[BUILD_ARGS.CLEAN]) {
         log.info("Perform cleanup only:", chalk.yellowBright(TARGET_GAME_DATA_DIR));
@@ -47,10 +51,16 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
       }
     }
 
+    /**
+     * Inform about logs strip step.
+     */
     if (parameters[BUILD_ARGS.NO_LUA_LOGS]) {
       log.info("Lua logger is disabled");
     }
 
+    /**
+     * Apply destination clean.
+     */
     if (parameters[BUILD_ARGS.CLEAN]) {
       log.info("Perform target cleanup:", chalk.yellowBright(TARGET_GAME_DATA_DIR));
       fs.rmSync(TARGET_GAME_DATA_DIR, { recursive: true, force: true });
@@ -59,6 +69,9 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
       timeTracker.addMark("SKIP_CLEANUP");
     }
 
+    /**
+     * Build game scripts.
+     */
     if (parameters[BUILD_ARGS.SCRIPTS]) {
       await buildDynamicScripts();
       timeTracker.addMark("BUILT_DYNAMIC_SCRIPTS");
@@ -67,6 +80,9 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
       timeTracker.addMark("SKIP_SCRIPTS");
     }
 
+    /**
+     * Build game XML forms from JSX / copy static XML.
+     */
     if (parameters[BUILD_ARGS.UI]) {
       await buildDynamicUi();
       timeTracker.addMark("BUILT_DYNAMIC_UI");
@@ -77,6 +93,9 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
       timeTracker.addMark("SKIP_UI");
     }
 
+    /**
+     * Build game LTX configs / copy static LTX.
+     */
     if (parameters[BUILD_ARGS.CONFIGS]) {
       await buildDynamicConfigs();
       timeTracker.addMark("BUILT_DYNAMIC_CONFIGS");
@@ -87,6 +106,9 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
       timeTracker.addMark("SKIP_CONFIGS");
     }
 
+    /**
+     * Build game translations / copy static XML.
+     */
     if (parameters[BUILD_ARGS.TRANSLATIONS]) {
       await buildStaticTranslations();
       timeTracker.addMark("BUILT_STATIC_TRANSLATIONS");
@@ -95,6 +117,9 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
       timeTracker.addMark("SKIP_TRANSLATIONS");
     }
 
+    /**
+     * Copy static assets from resources directories.
+     */
     if (parameters[BUILD_ARGS.RESOURCES]) {
       await buildResourcesStatics();
       timeTracker.addMark("BUILT_STATIC_RESOURCES");
@@ -105,6 +130,9 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
 
     timeTracker.end();
 
+    /**
+     * Build metadata.json descriptor.
+     */
     await buildMeta({ meta: pkg, timeTracker });
 
     log.info("Successfully executed build command, took:", timeTracker.getDuration() / 1000, "sec");

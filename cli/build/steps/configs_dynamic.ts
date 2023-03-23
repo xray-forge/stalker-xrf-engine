@@ -11,7 +11,9 @@ import { Optional, TFolderFiles, TFolderReplicationDescriptor } from "@/engine/l
 const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_DYNAMIC");
 const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".ts"];
 
-// todo: TS to ltx files transformer build
+/**
+ * Transform typescript config files to LTX configs.
+ */
 export async function buildDynamicConfigs(): Promise<void> {
   log.info(chalk.blueBright("Build dynamic configs"));
 
@@ -53,7 +55,7 @@ export async function buildDynamicConfigs(): Promise<void> {
 }
 
 /**
- * todo;
+ * Get list of LTX transformable descriptors.
  */
 async function getLtxConfigs(): Promise<Array<TFolderReplicationDescriptor>> {
   function collectLtxConfigs(

@@ -1,3 +1,6 @@
+/**
+ * Time tracker class to measure performance of separate build steps and timing collect summary.
+ */
 export class TimeTracker {
   private static STARTED_AT: string = "STARTED_AT";
   private static ENDED_AT: string = "ENDED_AT";
@@ -7,8 +10,9 @@ export class TimeTracker {
   private startedAt: number = 0;
   private endedAt: number = 0;
 
-  public constructor() {}
-
+  /**
+   * Start measuring.
+   */
   public start(): TimeTracker {
     if (this.marks.has(TimeTracker.STARTED_AT)) {
       throw new Error("Blocked attempt to start time tracker multiple times.");
@@ -19,6 +23,9 @@ export class TimeTracker {
     return this;
   }
 
+  /**
+   * End measuring.
+   */
   public end(): TimeTracker {
     if (!TimeTracker.STARTED_AT) {
       throw new Error("Blocked attempt to end time tracker without start.");
@@ -29,16 +36,25 @@ export class TimeTracker {
     return this;
   }
 
+  /**
+   * Get new measurement mark.
+   */
   public addMark(name: string): TimeTracker {
     this.marks.set(name, Date.now());
 
     return this;
   }
 
+  /**
+   * Get measurement duration.
+   */
   public getDuration(): number {
     return this.endedAt - this.startedAt;
   }
 
+  /**
+   * Get object describing absolute duration of each marked step.
+   */
   public getStats(): Record<string, number> {
     const stats: Record<string, number> = {};
     let lastTs: number = this.startedAt;

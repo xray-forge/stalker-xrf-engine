@@ -9,6 +9,9 @@ import { NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_COLLECT_LOG");
 
+/**
+ * Collect build detailed build log file.
+ */
 export async function collectLog(): Promise<void> {
   const fileLogPath: string = path.resolve(TARGET_DIR, "xrts_build.log");
 

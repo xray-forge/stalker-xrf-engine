@@ -25,7 +25,7 @@ List of arguments:
 - `--all` - build all assets
 - `--verbose` - use more verbose logging
 - `--clean` - clean up `target/gamedata` folder before build
-- `--no-lua-logger` - strip LuaLogger calls and creation from built code
+- `--no-lua-logs` - strip LuaLogger calls and creation from built code
 - `--resources` - add static resources copy
 - `--no-resources` - skip static resources copy
 - `--ui` - add UI building/copy steps
@@ -40,7 +40,7 @@ List of arguments:
 ### Example
 
 - `npm run build -- --all --clean`
-- `npm run build -- --all --clean --no-lua-logger`
+- `npm run build -- --all --clean --no-lua-logs`
 - `npm run build -- --all --verbose`
 - `npm run build -- --resources --ui`
 - `npm run build -- --all --no-resources --no-ui`

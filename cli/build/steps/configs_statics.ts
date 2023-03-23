@@ -12,6 +12,9 @@ import { TFolderFiles, TFolderReplicationDescriptor } from "@/engine/lib/types/g
 const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_STATICS");
 const EXPECTED_CONFIG_EXTENSIONS: Array<string> = [".ltx", ".xml"];
 
+/**
+ * Simply copy .xml and .ltx config statics to resulting gamedata directory.
+ */
 export async function buildStaticConfigs(): Promise<void> {
   log.info(chalk.blueBright("Copy static configs"));
 
