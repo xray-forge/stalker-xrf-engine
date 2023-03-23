@@ -21,9 +21,9 @@ export async function buildResourcesStatics(): Promise<void> {
     : configuredFallbackPath;
   const resourcesExist: boolean = fs.existsSync(resourcesFolderPath);
 
-  log.info(chalk.blueBright("Copy raw assets from:", resourcesFolderPath));
-
   if (resourcesExist) {
+    log.info(chalk.blueBright("Copy raw assets from:", resourcesFolderPath));
+
     const contentFolders: Array<string> = await Promise.all(
       (
         await fsPromises.readdir(resourcesFolderPath, { withFileTypes: true })

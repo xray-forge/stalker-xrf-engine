@@ -36,7 +36,7 @@ jobs:
     - name: Archive production artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: dist-without-markdown
+        name: gamedata
         path: |
           target/gamedata
         retention-days: 3
