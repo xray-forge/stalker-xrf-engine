@@ -3,10 +3,6 @@
 [![types](https://img.shields.io/badge/docs-types-blue.svg?style=flat)](https://stalker-xrts.github.io/xray-16-types/index.html)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/Neloreck/dreamstate/blob/master/LICENSE)
 
-<br/>
-[![start with wiki](https://img.shields.io/badge/docs-wiki-blue.svg?style=flat)](https://github.com/Neloreck/dreamstate/wiki)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/Neloreck/dreamstate/blob/master/LICENSE)
-
 <p>
 XRTS template for stalker modifications. <br/>
 </p>
