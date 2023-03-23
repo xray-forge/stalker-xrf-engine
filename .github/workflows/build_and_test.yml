@@ -37,7 +37,7 @@ jobs:
     - run: npm run lint
 
     - name: Archive build artifacts
-    - uses: vimtor/action-zip@v1
+      uses: vimtor/action-zip@v1
       with:
         files: target/gamedata/*
         dest: target/gamedata.release.zip
