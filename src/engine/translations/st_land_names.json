@@ -1,0 +1,338 @@
+{
+  "st_zat_b55_name": {
+    "eng": "Claw anomaly",
+    "pol": "Anomalia Pazur",
+    "rus": "Аномалия «Коготь»",
+    "ukr": "Аномалія «Пазур»"
+  },
+  "st_zat_b100_name": {
+    "eng": "Iron Forest anomaly",
+    "pol": "Anomalia �elazny Las",
+    "rus": "Аномалия «Железный лес»",
+    "ukr": "Аномалія «Залізний ліс»"
+  },
+  "st_zat_b104_name": {
+    "eng": "Sawmill",
+    "pol": "Tartak",
+    "rus": "Лесопилка",
+    "ukr": "Лісопилка"
+  },
+  "st_zat_b38_name": {
+    "eng": "Krug antenna complex",
+    "pol": "Stacja antenowa Krug",
+    "rus": "ВНЗ «Круг»",
+    "ukr": "ВНЗ «Коло»"
+  },
+  "st_zat_b40_name": {
+    "eng": "Waste processing station",
+    "pol": "Zak�ad utylizacji odpad�w",
+    "rus": "Станция переработки отходов",
+    "ukr": "Станція переробляння відходів"
+  },
+  "st_zat_b56_name": {
+    "eng": "Circus anomaly",
+    "pol": "Anomalia Cyrk",
+    "rus": "Аномалия «Цирк»",
+    "ukr": "Аномалія «Цирк»"
+  },
+  "st_zat_b5_name": {
+    "eng": "Ranger station",
+    "pol": "Le�nicz�wka",
+    "rus": "Лесничество",
+    "ukr": "Лісництво"
+  },
+  "st_zat_a2_name": {
+    "eng": "Skadovsk",
+    "pol": "Skadowsk",
+    "rus": "«Скадовск»",
+    "ukr": "«Скадовськ»"
+  },
+  "st_zat_b20_name": {
+    "eng": "Burnt farmstead",
+    "pol": "Spalone gospodarstwo",
+    "rus": "Сгоревший хутор",
+    "ukr": "Згорілий хутір"
+  },
+  "st_zat_b53_name": {
+    "eng": "Boiler anomaly",
+    "pol": "Anomalia Kocio�",
+    "rus": "Аномалия «Котёл»",
+    "ukr": "Аномалія «Котел»"
+  },
+  "st_zat_b101_name": {
+    "eng": "Swamp",
+    "pol": "Bagno",
+    "rus": "Топь",
+    "ukr": "Драговина"
+  },
+  "st_zat_b106_name": {
+    "eng": "Izumrudnoye",
+    "pol": "Izumrudnoje",
+    "rus": "«Изумрудное»",
+    "ukr": "«Смарагдове»"
+  },
+  "st_zat_b7_name": {
+    "eng": "Shevchenko",
+    "pol": "Szewczenko",
+    "rus": "«Шевченко»",
+    "ukr": "«Шевченко»"
+  },
+  "st_zat_b14_name": {
+    "eng": "Dredge station",
+    "pol": "Pog��biarka",
+    "rus": "Земснаряд",
+    "ukr": "Земснаряд"
+  },
+  "st_zat_b52_name": {
+    "eng": "Dock cranes",
+    "pol": "D�wigi portowe",
+    "rus": "Портовые краны",
+    "ukr": "Портові крани"
+  },
+  "st_zat_b39_name": {
+    "eng": "Oakpine anomaly",
+    "pol": "Anomalia Sosnod�b",
+    "rus": "Аномалия «Соснодуб»",
+    "ukr": "Аномалія «Соснодуб»"
+  },
+  "st_zat_b33_name": {
+    "eng": "Fuelling station",
+    "pol": "Stacja benzynowa",
+    "rus": "Заправка",
+    "ukr": "Заправка"
+  },
+  "st_zat_b18_name": {
+    "eng": "Old barge",
+    "pol": "Stara barka",
+    "rus": "Старая баржа",
+    "ukr": "Стара баржа"
+  },
+  "st_zat_b54_name": {
+    "eng": "Scar anomaly",
+    "pol": "Anomalia Szrama",
+    "rus": "Аномалия «Рубец»",
+    "ukr": "Аномалія «Рубець»"
+  },
+  "st_zat_b12_name": {
+    "eng": "Preobrazhensky bridge",
+    "pol": "Most Przemienienia Pa�skiego",
+    "rus": "Мост им. Преображенского",
+    "ukr": "Міст ім. Преображенського"
+  },
+  "st_zat_b28_name": {
+    "eng": "Southern plateau",
+    "pol": "P�askowy� po�udniowy",
+    "rus": "Южное плато",
+    "ukr": "Південне плато"
+  },
+  "st_zat_b103_name": {
+    "eng": "Substation workshops",
+    "pol": "Magazyny podstacji",
+    "rus": "Цеха подстанции",
+    "ukr": "Цехи підстанції"
+  },
+  "st_jup_b1_name": {
+    "eng": "Ash Heap anomaly",
+    "pol": "Anomalia Popielisko",
+    "rus": "Аномалия «Пепелище»",
+    "ukr": "Аномалія «Попелище»"
+  },
+  "st_jup_b46_name": {
+    "eng": "Cooling tower",
+    "pol": "Wie�a ch�odnicza",
+    "rus": "Градирня",
+    "ukr": "Градирня"
+  },
+  "st_jup_b202_name": {
+    "eng": "Substation",
+    "pol": "Podstacja",
+    "rus": "Полустанок",
+    "ukr": "Полустанок"
+  },
+  "st_jup_b211_name": {
+    "eng": "Plavni anomaly",
+    "pol": "Anomalia Szuwary",
+    "rus": "Аномалия «Плавни»",
+    "ukr": "Аномалія «Плавні»"
+  },
+  "st_jup_b200_name": {
+    "eng": "Cement factory",
+    "pol": "Cementownia",
+    "rus": "Цементный завод",
+    "ukr": "Цементний завод"
+  },
+  "st_jup_b19_name": {
+    "eng": "Kopachy",
+    "pol": "Kopaczi",
+    "rus": "Копачи",
+    "ukr": "Копачі"
+  },
+  "st_jup_a6_name": {
+    "eng": "Yanov",
+    "pol": "Jan�w",
+    "rus": "«Янов»",
+    "ukr": "«Янів»"
+  },
+  "st_jup_b25_name": {
+    "eng": "Quarry",
+    "pol": "Kamienio�omy",
+    "rus": "Карьер",
+    "ukr": "Кар'єр"
+  },
+  "st_jup_b6_name": {
+    "eng": "Scientists’ bunker",
+    "pol": "Bunkier naukowc�w",
+    "rus": "Бункер учёных",
+    "ukr": "Бункер учених"
+  },
+  "st_jup_b205_name": {
+    "eng": "Volkhov AA complex",
+    "pol": "Kompleks przeciwlotniczy Wo�kow",
+    "rus": "ЗРК «Волхов»",
+    "ukr": "ЗРК «Волхов»"
+  },
+  "st_jup_b206_name": {
+    "eng": "Anomalous grove",
+    "pol": "Zagajnik anomalii",
+    "rus": "Аномальная роща",
+    "ukr": "Аномальний гай"
+  },
+  "st_jup_b32_name": {
+    "eng": "Parking lot",
+    "pol": "Parking",
+    "rus": "Стоянка",
+    "ukr": "Стоянка"
+  },
+  "st_jup_a10_name": {
+    "eng": "Checkpoint",
+    "pol": "Posterunek",
+    "rus": "КПП",
+    "ukr": "КПП"
+  },
+  "st_jup_b209_name": {
+    "eng": "Bitumen anomaly",
+    "pol": "Anomalia Bitumin",
+    "rus": "Аномалия «Битум»",
+    "ukr": "Аномалія «Бітум»"
+  },
+  "st_jup_b208_name": {
+    "eng": "Eastern tunnel",
+    "pol": "Wschodni tunel",
+    "rus": "Восточный туннель",
+    "ukr": "Східний тунель"
+  },
+  "st_jup_a12_name": {
+    "eng": "Container warehouse",
+    "pol": "Magazyn kontener�w",
+    "rus": "Склад контейнеров",
+    "ukr": "Склад контейнерів"
+  },
+  "st_jup_b212_name": {
+    "eng": "Ventilation complex",
+    "pol": "Kompleks wentylacyjny",
+    "rus": "Вентиляционный комплекс",
+    "ukr": "Вентиляційний комплекс"
+  },
+  "st_jup_b9_name": {
+    "eng": "Helipads",
+    "pol": "L�dowiska dla helikopter�w",
+    "rus": "Вертолётные площадки",
+    "ukr": "Вертолітні майданчики"
+  },
+  "st_jup_b201_name": {
+    "eng": "Concrete Bath anomaly",
+    "pol": "Anomalia Betonowa Wanna",
+    "rus": "Аномалия «Бетонная ванна»",
+    "ukr": "Аномалія «Бетонна ванна»"
+  },
+  "st_jup_a9_name": {
+    "eng": "Jupiter plant",
+    "pol": "Fabryka Jupiter",
+    "rus": "Завод «Юпитер»",
+    "ukr": "Завод «Юпітер»"
+  },
+  "st_pri_a28_name": {
+    "eng": "Prometheus movie theater",
+    "pol": "Kino Prometeusz",
+    "rus": "Кинотеатр «Прометей»",
+    "ukr": "Кінотеатр «Прометей»"
+  },
+  "st_pri_b36_name": {
+    "eng": "River port",
+    "pol": "Port rzeczny",
+    "rus": "Речной порт",
+    "ukr": "Річковий порт"
+  },
+  "st_pri_b303_name": {
+    "eng": "Old service center",
+    "pol": "Stara stacja obs�ugi",
+    "rus": "Старый КБО",
+    "ukr": "Старий КБО"
+  },
+  "st_pri_b301_name": {
+    "eng": "School",
+    "pol": "Szko�a",
+    "rus": "Школа",
+    "ukr": "Школа"
+  },
+  "st_pri_a17_name": {
+    "eng": "Hospital",
+    "pol": "Szpital",
+    "rus": "Госпиталь",
+    "ukr": "Госпіталь"
+  },
+  "st_pri_b306_name": {
+    "eng": "Yubileiny service center",
+    "pol": "Centrum us�ugowe Jubilejny",
+    "rus": "КБО «Юбилейный»",
+    "ukr": "КБО «Ювілейний»"
+  },
+  "st_pri_a16_name": {
+    "eng": "Laundromat",
+    "pol": "Pralnia samoobs�ugowa",
+    "rus": "Прачечная",
+    "ukr": "Пральня"
+  },
+  "st_pri_a25_name": {
+    "eng": "Kindergarten",
+    "pol": "Przedszkole",
+    "rus": "Детский сад",
+    "ukr": "Дитячий сад"
+  },
+  "st_pri_b35_name": {
+    "eng": "Apartment complex",
+    "pol": "Osiedle",
+    "rus": "Общежитие",
+    "ukr": "Гуртожиток"
+  },
+  "st_pri_a21_name": {
+    "eng": "Grocery store",
+    "pol": "Warzywniak",
+    "rus": "Гастроном",
+    "ukr": "Гастроном"
+  },
+  "st_pri_b304_name": {
+    "eng": "Department store",
+    "pol": "Dom towarowy",
+    "rus": "Универмаг",
+    "ukr": "Універмаг"
+  },
+  "st_pri_a18_name": {
+    "eng": "Book store",
+    "pol": "Ksi�garnia",
+    "rus": "Магазин «Книги»",
+    "ukr": "Магазин «Книги»"
+  },
+  "st_pri_b307_name": {
+    "eng": "Volcano anomaly",
+    "pol": "Anomalia Wulkan",
+    "rus": "Аномалия «Вулкан»",
+    "ukr": "Аномалія «Вулкан»"
+  },
+  "st_pri_b302_name": {
+    "eng": "Vine anomaly",
+    "pol": "Anomalia Winoro�l",
+    "rus": "Аномалия «Лоза»",
+    "ukr": "Аномалія «Лоза»"
+  }
+}

@@ -1,0 +1,686 @@
+{
+  "pri_a17_get_gauss_rifle_documentation_name": {
+    "eng": "Item 62: find documents in the testing workshop",
+    "pol": "Przedmiot 62: znajd� dokumenty w warsztacie testowym",
+    "rus": "«Изделие №62»: найти документацию в испытательном цеху",
+    "ukr": "«Виріб №62»: знайти документацію у випробувальному цеху"
+  },
+  "pri_a17_get_gauss_rifle_documentation_text": {
+    "eng": "You need to find documents concerning item 62. The documents should clarify whether the weapon could have been used to shoot down the helicopters.",
+    "pol": "Musisz znale�� dokumenty dotycz�ce przedmiotu 62. Wyja�ni� one, czy bro� ta mog�a zosta� u�yta do zestrzelenia helikopter�w.",
+    "rus": "Необходимо найти документацию по «изделию №62». Из неё должно стать ясно, могло ли данное оружие оказаться причиной падения вертолётов.",
+    "ukr": "Необхідно знайти документацію щодо «Виробу №62». З документації має стати ясно - чи могла ця зброя виявитися причиною падіння гелікоптерів."
+  },
+  "pri_a17_get_in_cover_name": {
+    "eng": "Unidentified weapon: take cover in the building",
+    "pol": "Niezidentyfikowana bro�: ukryj si� w budynku",
+    "rus": "Неизвестное оружие: укрыться в здании",
+    "ukr": "Невідома зброя: укритися в будинку"
+  },
+  "pri_a17_get_in_cover_text": {
+    "eng": "You must take cover in the building and repel the Monolith attack.",
+    "pol": "Musisz ukry� si� w budynku i odeprze� atak Monolitu.",
+    "rus": "Необходимо укрыться в здании и отразить нападение «монолитовцев».",
+    "ukr": "Необхідно укритися в будинку і відбити напад «монолітівців»."
+  },
+  "pri_a17_get_info_name": {
+    "eng": "Unidentified weapon: find information",
+    "pol": "Niezidentyfikowana bro�: znajd� informacje",
+    "rus": "Неизвестное оружие: добыть информацию",
+    "ukr": "Невідома зброя: добути інформацію"
+  },
+  "pri_a17_get_info_text": {
+    "eng": "The weapon is not operational and it's not clear how it works. You need to find a technician who can make sense of the unidentified weapon.",
+    "pol": "Bro� jest niesprawna i nie wiadomo, w jaki spos�b dzia�a. Musisz znale�� technika, kt�ry zrozumie spos�b jej dzia�ania.",
+    "rus": "Оружие неисправно, а принцип его действия неизвестен. Необходимо найти техника, который разобрался бы в этом странном образце.",
+    "ukr": "Зброя несправна, а принцип її дії невідомий. Необхідно знайти техніка, який розібрався б у цьому дивному зразку."
+  },
+  "pri_a17_kill_preacher_name": {
+    "eng": "Unidentified weapon: kill the Monolith squad leader",
+    "pol": "Niezidentyfikowana bro�: zabij dow�dc� dru�yny Monolitu",
+    "rus": "Неизвестное оружие: убить вожака «монолитовцев»",
+    "ukr": "Невідома зброя: вбити ватажка «монолітівців»"
+  },
+  "pri_a17_kill_preacher_text": {
+    "eng": "You must kill the Monolith squad leader, the one using the unidentified weapon.",
+    "pol": "Musisz zabi� dow�dc� dru�yny Monolitu - to bojownik u�ywaj�cy niezidentyfikowanej broni. ",
+    "rus": "Необходимо убить вожака «монолитовцев», вооруженного неизвестным оружием.",
+    "ukr": "Необхідно вбити ватажка «монолітівців», який має невідому зброю."
+  },
+  "pri_a17_maraud_name": {
+    "eng": "Unidentified weapon: search the dead Monolith fighters",
+    "pol": "Niezidentyfikowana bro�: przeszukaj zabitych bojownik�w Monolitu",
+    "rus": "Неизвестное оружие: обыскать тела «монолитовцев»",
+    "ukr": "Невідома зброя: обшукати тіла «монолітівців»"
+  },
+  "pri_a17_maraud_text": {
+    "eng": "The Monolith fighters should have the unidentified weapon with them - find it.",
+    "pol": "Bojownicy Monolitu powinni mie� niezidentyfikowan� bro� przy sobie - znajd� j�.",
+    "rus": "«Монолитовцы» должны были иметь при себе неизвестное оружие, которое нужно найти.",
+    "ukr": "«Монолітівці» повинні були мати при собі невідому зброя, котру потрібно знайти."
+  },
+  "pri_a17_stalker_tech_produce_62_get_info_name": {
+    "eng": "Unidentified weapon: talk to Cardan",
+    "pol": "Niezidentyfikowana bro�: porozmawiaj z Kardanem",
+    "rus": "Неизвестное оружие: поговорить с Карданом",
+    "ukr": "Невідома зброя: поговорити з Карданом"
+  },
+  "pri_a17_stalker_tech_produce_62_get_info_text": {
+    "eng": "Cardan should have shaken off his hangover by now - time to talk to him about the unidentified weapon.",
+    "pol": "Kardan pewnie ju� odchorowa� kaca - czas porozmawia� z nim o niezidentyfikowanej broni.",
+    "rus": "Кардан, должно быть, уже проспался. Пора поговорить с ним о неизвестном оружии.",
+    "ukr": "Кардан, мабуть, уже проспався. Настав час поговорити з ним про невідому зброю."
+  },
+  "pri_a17_stalker_tech_produce_62_show_name": {
+    "eng": "Unidentified weapon: wait for Cardan to come to his senses",
+    "pol": "Niezidentyfikowana bro�: poczekaj, a� Kardan odzyska przytomno��",
+    "rus": "Неизвестное оружие: подождать, пока Кардан придёт в себя",
+    "ukr": "Невідома зброя: почекати, поки Кардан прийде до тями"
+  },
+  "pri_a17_stalker_tech_produce_62_show_text": {
+    "eng": "Cardan probably knows about the weapon - you need to talk to him when he wakes up.",
+    "pol": "Kardan powinien wiedzie� co� o broni - musisz z nim porozmawia�, kiedy si� obudzi.",
+    "rus": "Кажется, Кардан что-то знает об этом оружии. Надо будет с ним поговорить, когда он проспится.",
+    "ukr": "Здається, Кардан щось знає про цю зброю. Треба буде з ним поговорити, коли він проспиться."
+  },
+  "pri_a17_talk_with_kovalski_about_gauss_rifle_information_name": {
+    "eng": "Gauss rifle: tell Kovalsky about the weapon",
+    "pol": "Karabin Gaussa: powiedz Kowalskiemu o broni",
+    "rus": "Гаусс-пушка: рассказать Ковальскому об оружии",
+    "ukr": "Гаус-пушка: розповісти Ковальському про зброю"
+  },
+  "pri_a17_talk_with_kovalski_about_gauss_rifle_information_text": {
+    "eng": "You need to tell Kovalsky everything you've learned about item 62.",
+    "pol": "Musisz przekaza� Kowalskiemu wszystko, co wiesz o przedmiocie 62.",
+    "rus": "Нужно изложить полковнику Ковальскому всю информацию, полученную об «изделии №62».",
+    "ukr": "Потрібно викласти полковнику Ковальському всю інформацію, отриману про «Виріб №62»."
+  },
+  "pri_a17_task_find_gauss_rifle_name": {
+    "eng": "Unidentified weapon: join the squad",
+    "pol": "Niezidentyfikowana bro�: do��cz do oddzia�u",
+    "rus": "Неизвестное оружие: присоединиться к отряду",
+    "ukr": "Невідома зброя: приєднатися до загону"
+  },
+  "pri_a17_task_find_gauss_rifle_text": {
+    "eng": "You need to join the special squad in order to capture the weapon together.",
+    "pol": "Musisz do��czy� do oddzia�u szturmowego w celu zdobycia broni.",
+    "rus": "Нужно присоединиться к спецотряду для совместного проведения операции по захвату оружия.",
+    "ukr": "Потрібно приєднатися до спецзагону для спільного проведення операції із захоплення зброї."
+  },
+  "pri_a17_task_get_gauss_rifle_from_preacher_name": {
+    "eng": "Unidentified weapon: pick up the weapon",
+    "pol": "Niezidentyfikowana bro�: podnie� bro�",
+    "rus": "Неизвестное оружие: подобрать оружие",
+    "ukr": "Невідома зброя: підібрати зброю"
+  },
+  "pri_a17_task_get_gauss_rifle_from_preacher_text": {
+    "eng": "You need to pick up the Monolith squad leader's weapon.",
+    "pol": "Musisz podnie�� bro� dow�dcy dru�yny Monolitu.",
+    "rus": "Необходимо подобрать оружие вожака «Монолита».",
+    "ukr": "Необхідно підібрати зброю ватажка «Моноліту»."
+  },
+  "pri_a17_task_give_gauss_rifle_to_kovalski_name": {
+    "eng": "Unidentified weapon: take the weapon to Kovalsky",
+    "pol": "Niezidentyfikowana bro�: zabierz bro� do Kowalskiego",
+    "rus": "Неизвестное оружие: отнести оружие Ковальскому",
+    "ukr": "Невідома зброя: віднести зброю Ковальському"
+  },
+  "pri_a17_task_give_gauss_rifle_to_kovalski_text": {
+    "eng": "You have the weapon - now you should show it to Kovalsky and find out whether the weapon could have caused the helicopter crashes.",
+    "pol": "Masz bro� - teraz musisz zabra� j� do Kowalskiego i dowiedzie� si�, czy to ona zestrzeli�a helikoptery.",
+    "rus": "Оружие получено. Теперь следует показать его Ковальскому и выяснить, не стало ли именно оно причиной падения вертолётов.",
+    "ukr": "Зброю отримано. Тепер варто показати її Ковальському та з'ясувати, чи не стала саме вона причиною падіння гелікоптерів."
+  },
+  "pri_a17_watch_recons_six_name": {
+    "eng": "Unidentified weapon: take part in the Monolith ambush",
+    "pol": "Niezidentyfikowana bro�: we� udzia� w zasadzce na bojownik�w Monolitu",
+    "rus": "Неизвестное оружие: принять участие в засаде на «Монолит»",
+    "ukr": "Невідома зброя: взяти участь у засідці на «Моноліт»"
+  },
+  "pri_a17_watch_recons_six_text": {
+    "eng": "The military recon unit is setting up an ambush to attack the Monolith squad. You should take part in the operation.",
+    "pol": "Wojskowy oddzia� zwiadowczy przygotowuje zasadzk� na dru�yn� Monolitu.",
+    "rus": "Разведгруппа военных организует засаду на отряд «Монолита». Необходимо принять участие в операции.",
+    "ukr": "Розвідувальна група військових організує засідку на загін «Моноліту». Необхідно взяти участь в операції."
+  },
+  "pri_a18_get_reinforcement_name": {
+    "eng": "Monolith forces: meet with the reinforcements",
+    "pol": "Si�y Monolitu: spotkaj si� ze wsparciem",
+    "rus": "Скопление «Монолита»: встретиться с подмогой",
+    "ukr": "Скупчення «Моноліту»: зустрітися із підмогою"
+  },
+  "pri_a18_get_reinforcement_text": {
+    "eng": "Kovalsky has sent reinforcements to help you eliminate the Monolith squad holed up in the book store.",
+    "pol": "Kowalski przys�a� wsparcie, kt�re pomo�e ci wyeliminowa� dru�yn� Monolitu zabarykadowan� w ksi�garni. ",
+    "rus": "Ковальский выслал подкрепление, чтобы помочь уничтожить группу «монолитовцев», засевших в магазине «Книги».",
+    "ukr": "Ковальський вислав підкріплення, щоб допомогти знищити групу «монолітівців», які засіли в магазині «Книги»."
+  },
+  "pri_a18_go_post_name": {
+    "eng": "Monolith forces: clear out the book store",
+    "pol": "Si�y Monolitu: pozb�d� si� bojownik�w z ksi�garni",
+    "rus": "Скопление «Монолита»: зачистить магазин «Книги»",
+    "ukr": "Скупчення «Моноліту»: зачистити магазин «Книги»"
+  },
+  "pri_a18_go_post_text": {
+    "eng": "You need to eliminate all Monolith forces in the building. Large Monolith units are a danger to the military camp.",
+    "pol": "Musisz wyeliminowa� si�y Monolitu w budynku. Du�e oddzia�y Monolitu s� zagro�eniem dla obozu wojskowego.",
+    "rus": "Необходимо уничтожить всех «монолитовцев» засевших в здании. Их скопления представляют угрозу для лагеря военных.",
+    "ukr": "Необхідно знищити всіх «монолітівців», які засіли у будинку. Їхні скупчення становлять загрозу для табору військових."
+  },
+  "pri_a18_use_idol_name": {
+    "eng": "Monolith forces: investigate the strange construction",
+    "pol": "Si�y Monolitu: zbadaj dziwn� konstrukcj�",
+    "rus": "Скопление «Монолита»: обследовать странную конструкцию",
+    "ukr": "Скупчення «Моноліту»: обстежити дивну конструкцію"
+  },
+  "pri_a18_use_idol_text": {
+    "eng": "There was a strange device in the building. Investigate this device.",
+    "pol": "W budynku znajdowa�o si� dziwne urz�dzenie. Dowiedz si� o nim czego� wi�cej.",
+    "rus": "Внутри здания, в котором были «монолитовцы», обнаружена странная конструкция. Необходимо изучить её.",
+    "ukr": "Всередині будинку, в якому були «монолітівці», виявлено дивну конструкцію. Необхідно вивчити її."
+  },
+  "pri_a19_lab_x8_investigation_name": {
+    "eng": "Laboratory X8: find documents concerning experiments",
+    "pol": "Laboratorium X8: znajd� dokumenty dotycz�ce eksperyment�w",
+    "rus": "Лаборатория Х8: найти документы об экспериментах",
+    "ukr": "Лабораторія Х8: знайти документи про експерименти"
+  },
+  "pri_a19_lab_x8_investigation_text": {
+    "eng": "The information you found refers to a central laboratory, designated X8. It could contain information about secret experiments conducted in the Zone.",
+    "pol": "Informacje przez ciebie znalezione odnosz� si� do centralnego laboratorium oznaczonego jako X8. Mo�e ono zawiera� dane na temat tajnych eksperyment�w przeprowadzanych w Zonie.",
+    "rus": "Найденная информация указывает на центральную лабораторию под индексом Х8. Там может находиться информация о секретных экспериментах, проводившихся на территории Зоны.",
+    "ukr": "Знайдена інформація вказує на центральну лабораторію під індексом Х8. Там може знаходитися інформація про секретні експерименти, що проводилися на території Зони."
+  },
+  "pri_a20_check_recon_squad_task_name": {
+    "eng": "Missing recon unit: find the squad",
+    "pol": "Zaginiony oddzia� zwiadowczy: znajd� dru�yn�",
+    "rus": "Пропавшая разведгруппа: разыскать отряд",
+    "ukr": "Зникла розвідувальна група: розшукати загін"
+  },
+  "pri_a20_check_recon_squad_task_text": {
+    "eng": "The recon unit dispatched by Kovalsky disappeared after a strange communication session. You must find them to work out what happened.",
+    "pol": "Oddzia� zwiadowczy wys�any przez Kowalskiego znikn�� po nadaniu dziwnego komunikatu. Musisz odkry�, co si� sta�o.",
+    "rus": "Разведгруппа, посланная Ковальским, исчезла после странного сеанса связи. Необходимо найти их и узнать, что произошло.",
+    "ukr": "Розвідувальна група, котру послав Ковальський, зникла після дивного сеансу зв'язку. Необхідно знайти їх та довідатися, що сталося."
+  },
+  "pri_a21_chasovoi_body_search_name": {
+    "eng": "Missing sentry: investigate the area where the sentry died",
+    "pol": "Zaginiony wartownik: zbadaj miejsce, w kt�rym zgin�� wartownik",
+    "rus": "Пропавший часовой: осмотреть место гибели часового",
+    "ukr": "Зниклий вартовий: оглянути місце загибелі вартового"
+  },
+  "pri_a21_chasovoi_body_search_text": {
+    "eng": "The sentry was behaving very strangely, so you should investigate and find the reason for this.",
+    "pol": "Wartownik zachowywa� si� bardzo dziwnie, wi�c musisz odkry� przyczyny.",
+    "rus": "Часовой вёл себя очень странно. Нужно осмотреться вокруг и найти причину его поведения.",
+    "ukr": "Вартовий поводився дуже дивно. Мабуть, слід роззирнутися навколо і знайти причину такої його поведінки."
+  },
+  "pri_a21_find_chasovoi_name": {
+    "eng": "Missing sentry: find the sentry",
+    "pol": "Zaginiony wartownik: znajd� wartownika",
+    "rus": "Пропавший часовой: найти часового",
+    "ukr": "Зниклий вартовий: знайти вартового"
+  },
+  "pri_a21_find_chasovoi_text": {
+    "eng": "One of the soldiers went missing from his post - you need to find him and determine why he went missing.",
+    "pol": "Jeden z �o�nierzy zagin�� z posterunku - musisz go odnale�� i odkry� przyczyny jego znikni�cia.",
+    "rus": "Один из военных исчез со своего поста. Нужно найти его и выяснить причину исчезновения.",
+    "ukr": "Один з військових зник зі свого посту. Потрібно знайти його та з'ясувати причину зникнення."
+  },
+  "pri_a21_kill_kontroler_name": {
+    "eng": "Missing sentry: kill the controller",
+    "pol": "Zaginiony wartownik: zabij kontrolera",
+    "rus": "Пропавший часовой: убить контролёра",
+    "ukr": "Зниклий вартовий: убити контролера"
+  },
+  "pri_a21_kill_kontroler_text": {
+    "eng": "There was a controller near the missing sentry - it must be eliminated.",
+    "pol": "W pobli�u zaginionego wartownika znajdowa� si� kontroler - musi on zosta� wyeliminowany.",
+    "rus": "Рядом с пропавшим часовым находился контролёр. Необходимо уничтожить опасного мутанта.",
+    "ukr": "Поруч зі зниклим вартовим знаходився контролер. Небезпечного мутанта необхідно знищити."
+  },
+  "pri_a22_find_dead_squad_name": {
+    "eng": "Radio interference: find the missing squad",
+    "pol": "Zak��cenia radiowe: znajd� zaginiony oddzia�",
+    "rus": "Радиопомехи: найти пропавший отряд",
+    "ukr": "Радіозавади: знайти зниклий загін"
+  },
+  "pri_a22_find_dead_squad_text": {
+    "eng": "The squad which was looking for the source of radio interference went missing - you need to find it.",
+    "pol": "Oddzia� szukaj�cy �r�d�a zak��ce� radiowych zagin��. Twoim zadaniem jest jego odnalezienie.",
+    "rus": "Отряд, вышедший на поиски источника радиопомех, пропал. Нужно найти его.",
+    "ukr": "Загін, що вийшов на пошуки джерела радіозавад, пропав. Треба знайти його."
+  },
+  "pri_a22_search_bodys_name": {
+    "eng": "Radio interference: search the bodies",
+    "pol": "Zak��cenia radiowe: przeszukaj cia�a",
+    "rus": "Радиопомехи: обыскать тела погибших бойцов",
+    "ukr": "Радіозавади: обшукати тіла загиблих бійців"
+  },
+  "pri_a22_search_bodys_text": {
+    "eng": "Search the bodies - this may help to establish why they died.",
+    "pol": "Przeszukaj cia�a - mo�e to pom�c w ustaleniu przyczyny zgonu.",
+    "rus": "Нужно осмотреть тела. Возможно, это поможет установить причину гибели людей.",
+    "ukr": "Слід оглянути тіла. Можливо, це допоможе встановити причину загибелі людей."
+  },
+  "pri_a22_search_yarmoshuk_body_name": {
+    "eng": "Radio interference: search the body",
+    "pol": "Zak��cenia radiowe: przeszukaj cia�o",
+    "rus": "Радиопомехи: обыскать тело погибшего бойца",
+    "ukr": "Радіозавади: обшукати тіло загиблого бійця"
+  },
+  "pri_a22_search_yarmoshuk_body_text": {
+    "eng": "Search the body - this may help to establish why he died.",
+    "pol": "Przeszukaj cia�o - mo�e to pom�c w ustaleniu przyczyny zgonu.",
+    "rus": "Нужно осмотреть тело. Возможно, это поможет установить причину гибели человека.",
+    "ukr": "Треба оглянути тіло. Можливо, це допоможе встановити причину загибелі людини."
+  },
+  "pri_a25_blow_up_door_name": {
+    "eng": "Radio interference: blow up the door ",
+    "pol": "Zak��cenia radiowe: wysad� drzwi",
+    "rus": "Радиопомехи: взорвать дверь",
+    "ukr": "Радіозавади: підірвати двері"
+  },
+  "pri_a25_blow_up_door_text": {
+    "eng": "You'll have to blow up the door using explosives to make your way into the building.",
+    "pol": "Musisz wysadzi� drzwi u�ywaj�c materia��w wybuchowych, aby dosta� si� do budynku.",
+    "rus": "Чтобы проникнуть в здание, нужно расчистить проход при помощи взрывчатки.",
+    "ukr": "Щоб проникнути до будинку, слід розчистити прохід за допомогою вибухівки."
+  },
+  "pri_a25_check_freezer_knock_name": {
+    "eng": "Radio interference: investigate the sound",
+    "pol": "Zak��cenia radiowe: zbadaj �r�d�o d�wi�ku",
+    "rus": "Радиопомехи: проверить источник звука",
+    "ukr": "Радіозавади: перевірити джерело звуку"
+  },
+  "pri_a25_check_freezer_knock_text": {
+    "eng": "There is a noise coming from the fridge - looks like someone's locked inside it. Investigate.",
+    "pol": "Z lod�wki dochodzi ha�as - brzmi, jakby kto� by� w niej zamkni�ty. Zbadaj to.",
+    "rus": "Из холодильника доносится стук: похоже, внутри кто-то заперт. Нужно проверить источник звука.",
+    "ukr": "Із холодильника лунає стукіт: схоже, всередині хтось замкнений. Треба перевірити джерело звуку."
+  },
+  "pri_a25_destroy_antenna_name": {
+    "eng": "Radio interference: eliminate the source of interference",
+    "pol": "Zak��cenia radiowe: usu� �r�d�o zak��ce�",
+    "rus": "Радиопомехи: уничтожить источник помех",
+    "ukr": "Радіозавади: знищити джерело завад"
+  },
+  "pri_a25_destroy_antenna_text": {
+    "eng": "You have located the source of radio interference- you need to destroy it.",
+    "pol": "Wiesz ju�, gdzie znajduje si� �r�d�o zak��ce� radiowych - teraz musisz je zniszczy�.",
+    "rus": "Источник радиопомех обнаружен. Теперь необходимо его уничтожить.",
+    "ukr": "Джерело радіозавад виявлене. Тепер слід знищити його."
+  },
+  "pri_a25_find_antenna_name": {
+    "eng": "Radio interference: find the source of interference",
+    "pol": "Zak��cenia radiowe: znajd� �r�d�o zak��ce�",
+    "rus": "Радиопомехи: найти источник помех",
+    "ukr": "Радіозавади: знайти джерело завад"
+  },
+  "pri_a25_find_antenna_text": {
+    "eng": "There is a source of radio interference in the building - find it.",
+    "pol": "W budynku znajduje si� �r�d�o zak��ce� radiowych - znajd� je.",
+    "rus": "Где-то в здании находится источник радиопомех. Необходимо обнаружить его.",
+    "ukr": "Десь у будинку знаходиться джерело радіозавад. Необхідно знайти його."
+  },
+  "pri_a25_find_explosive_name": {
+    "eng": "Radio interference: find the explosives",
+    "pol": "Zak��cenia radiowe: znajd� materia�y wybuchowe",
+    "rus": "Радиопомехи: найти взрывчатку",
+    "ukr": "Радіозавади: знайти вибухівку"
+  },
+  "pri_a25_find_explosive_text": {
+    "eng": "The squad sent to look for the source of interference had explosives. Find them to clear the entrance to the building.",
+    "pol": "Dru�yna szukaj�ca �r�d�a zak��ce� radiowych mia�a przy sobie materia�y wybuchowe. Musisz je znale��, aby dosta� si� do budynku.",
+    "rus": "У отряда, искавшего источник помех, была взрывчатка. Нужно найти её, чтобы расчистить вход в здание.",
+    "ukr": "Загін, котрий шукав джерело завад, мав вибухівку. Потрібно знайти її, щоб розчистити вхід до будинку."
+  },
+  "pri_a25_remove_source_of_hindrances_name": {
+    "eng": "Radio interference: get inside the kindergarten building",
+    "pol": "Zak��cenia radiowe: dosta� si� do budynku przedszkola",
+    "rus": "Радиопомехи: проникнуть в здание детского сада",
+    "ukr": "Радіозавади: проникнути до будівлі дитячого садка"
+  },
+  "pri_a25_remove_source_of_hindrances_text": {
+    "eng": "The source of the signal is somewhere in the kindergarten building, so you must get inside.",
+    "pol": "�r�d�o sygna�u znajduje si� gdzie� w budynku przedszkola, tak wi�c musisz dosta� si� do �rodka.",
+    "rus": "Источник сигнала находится где-то в здании детского сада. Необходимо туда проникнуть.",
+    "ukr": "Джерело сигналу знаходиться десь у будівлі дитячого садка. Необхідно туди проникнути."
+  },
+  "pri_a28_cover_militarys_name": {
+    "eng": "Evacuation: cover the military",
+    "pol": "Ewakuacja: os�aniaj �o�nierzy",
+    "rus": "Эвакуация: прикрывать военных",
+    "ukr": "Евакуація: прикривати військових"
+  },
+  "pri_a28_cover_militarys_text": {
+    "eng": "Strelok may be dead, but you still have to help the military get to the helicopters.",
+    "pol": "Strie�ok mo�e i jest martwy, ale ty nadal musisz doprowadzi� �o�nierzy do helikopter�w.",
+    "rus": "Несмотря на то, что Стрелок погиб, нужно помочь военным добраться до вертолётов.",
+    "ukr": "Попри те, що Стрілець загинув, слід допомогти військовим дістатися гелікоптерів."
+  },
+  "pri_a28_cover_strelok_name": {
+    "eng": "Evacuation: cover Strelok",
+    "pol": "Ewakuacja: os�aniaj Strie�oka",
+    "rus": "Эвакуация: прикрывать Стрелка",
+    "ukr": "Евакуація: прикривати Стрільця"
+  },
+  "pri_a28_cover_strelok_text": {
+    "eng": "The HQ is interested in the information Strelok has to offer. You must get him to the helicopters.",
+    "pol": "Kwatera g��wna jest zainteresowana informacjami, kt�re posiada Strie�ok. Musisz doprowadzi� go do helikopter�w.",
+    "rus": "Командование заинтересовано в информации, которая известна Стрелку. Нужно доставить Стрелка к вертолётам.",
+    "ukr": "Командування зацікавлене в інформації, що відома Стрільцеві. Треба доставити Стрільця до гелікоптерів."
+  },
+  "pri_a28_go_hellis_name": {
+    "eng": "Evacuation: get to the helicopters",
+    "pol": "Ewakuacja: dosta� si� do helikopter�w",
+    "rus": "Эвакуация: добраться до вертолётов",
+    "ukr": "Евакуація: дістатися гелікоптерів"
+  },
+  "pri_a28_go_hellis_text": {
+    "eng": "Everyone is dead - you'll have to get to the helicopters on your own.",
+    "pol": "Wszyscy zgin�li - musisz sam dosta� si� do helikopter�w.",
+    "rus": "Вся команда погибла. Необходимо в одиночку добраться до вертолётов.",
+    "ukr": "Уся команда загинула, тепер доведеться діставатися гелікоптерів самому."
+  },
+  "pri_a28_talk_with_kovalski_name": {
+    "eng": "Evacuation: talk to Kovalsky",
+    "pol": "Ewakuacja: porozmawiaj z Kowalskim",
+    "rus": "Эвакуация: поговорить с Ковальским",
+    "ukr": "Евакуація: поговорити з Ковальським"
+  },
+  "pri_a28_talk_with_kovalski_text": {
+    "eng": "You need to talk to Kovalsky before the evacuation starts.",
+    "pol": "Musisz porozmawia� z Kowalskim przed rozpocz�ciem ewakuacji.",
+    "rus": "Нужно поговорить с Ковальским перед началом эвакуации.",
+    "ukr": "Потрібно поговорити з Ковальським перед початком евакуації."
+  },
+  "pri_a28_tell_kovalski_when_ready_name": {
+    "eng": "Evacuation: tell Kovalsky you are ready",
+    "pol": "Ewakuacja: poinformuj Kowalskiego o swojej gotowo�ci",
+    "rus": "Эвакуация: сообщить Ковальскому о своей готовности",
+    "ukr": "Евакуація: повідомити Ковальському про свою готовність"
+  },
+  "pri_a28_tell_kovalski_when_ready_text": {
+    "eng": "You should inform Kovalsky that you are ready to begin the evacuation.",
+    "pol": "Musisz poinformowa� Kowalskiego o swojej gotowo�ci do rozpocz�cia ewakuacji.",
+    "rus": "Следует сообщить Ковальскому о своей готовности к началу эвакуации.",
+    "ukr": "Варто повідомити Ковальському про свою готовність до початку евакуації."
+  },
+  "pri_a28_wait_surge_end_name": {
+    "eng": "Evacuation: wait for the emission to finish",
+    "pol": "Ewakuacja: zaczekaj, a� emisja si� zako�czy",
+    "rus": "Эвакуация: переждать выброс",
+    "ukr": "Евакуація: перечекати викид"
+  },
+  "pri_a28_wait_surge_end_text": {
+    "eng": "You need to wait for the emission to finish.",
+    "pol": "Musisz poczeka�, a� emisja si� zako�czy.",
+    "rus": "Необходимо дождаться окончания выброса.",
+    "ukr": "Необхідно дочекатися закінчення викиду."
+  },
+  "pri_b305_check_unknown_signal_1_name": {
+    "eng": "Unknown: investigate the source of the signal",
+    "pol": "Nieznany: zbadaj �r�d�o sygna�u",
+    "rus": "Неизвестный: проверить источник сигнала",
+    "ukr": "Невідомий: перевірити джерело сигналу"
+  },
+  "pri_b305_check_unknown_signal_1_text": {
+    "eng": "Kirillov has identified a strange signal not far from the base. You need to investigate the source of the signal.",
+    "pol": "Kiry�ow wykry� dziwny sygna� niedaleko bazy. Musisz zbada� jego �r�d�o.",
+    "rus": "Кирилов засёк странный сигнал неподалеку от базы. Нужно проверить источник сигнала.",
+    "ukr": "Кирилов засік дивний сигнал неподалік бази. Треба перевірити джерело сигналу."
+  },
+  "pri_b305_check_unknown_signal_2_name": {
+    "eng": "Unknown: follow the signal",
+    "pol": "Nieznany: pod��aj za sygna�em",
+    "rus": "Неизвестный: следовать за сигналом",
+    "ukr": "Невідомий: рухатися за сигналом"
+  },
+  "pri_b305_check_unknown_signal_2_text": {
+    "eng": "The signal coordinates are accessible again, so follow them.",
+    "pol": "Wsp�rz�dne sygna�u s� znowu dost�pne, wi�c pod��aj za nimi.",
+    "rus": "Координаты сигнала вновь доступны. Нужно проследовать за ним.",
+    "ukr": "Координати сигналу знову доступні. Треба рухатися за ним."
+  },
+  "pri_b305_check_unknown_signal_3_name": {
+    "eng": "Unknown: investigate the last known signal location",
+    "pol": "Nieznany: zbadaj ostatni� znan� lokacj� sygna�u",
+    "rus": "Неизвестный: обследовать место последнего появления сигнала",
+    "ukr": "Невідомий: обстежувати місце останньої появи сигналу"
+  },
+  "pri_b305_check_unknown_signal_3_text": {
+    "eng": "The signal vanished in the building's yard, so investigate the last known signal location.",
+    "pol": "Sygna� ucich� na dziedzi�cu budynku, tak wi�c zbadaj jego ostatni� znan� lokalizacj�.",
+    "rus": "Сигнал исчез во дворе здания. Нужно обследовать место последнего появления сигнала.",
+    "ukr": "Сигнал зник у дворі будинку. Слід обстежити місце останньої появи сигналу."
+  },
+  "pri_b305_check_unknown_signal_4_name": {
+    "eng": "Unknown: prepare for an attack on the base",
+    "pol": "Nieznany: przygotuj si� na atak na baz�",
+    "rus": "Неизвестный: подготовиться к атаке на базу",
+    "ukr": "Невідомий: підготуватися до атаки на базу"
+  },
+  "pri_b305_check_unknown_signal_4_text": {
+    "eng": "Return to the army base and prepare for a likely attack.",
+    "pol": "Wr�� do bazy wojskowej i przygotuj si� na prawdopodobny atak.",
+    "rus": "Вернутся на армейскую базу и подготовиться к возможной атаке.",
+    "ukr": "Повернуться на армійську базу та підготуватися до можливої атаки."
+  },
+  "pri_b305_kovalskiy_talk_name": {
+    "eng": "Radio interference: talk to Kovalsky",
+    "pol": "Zak��cenia radiowe: porozmawiaj z Kowalskim",
+    "rus": "Радиопомехи: поговорить с Ковальским",
+    "ukr": "Радіозавади: поговорити з Ковальським"
+  },
+  "pri_b305_kovalskiy_talk_text": {
+    "eng": "Colonel Kovalsky has asked for you.",
+    "pol": "Pu�kownik Kowalski pyta� o ciebie.",
+    "rus": "Полковник Ковальский просил зайти к нему для разговора.",
+    "ukr": "Полковник Ковальський просив зайти до нього для розмови."
+  },
+  "pri_b306_task_1_name": {
+    "eng": "Laboratory X8: get inside the elevator shaft",
+    "pol": "Laboratorium X8: dosta� si� do szybu windy",
+    "rus": "Лаборатория Х8: попасть в шахту лифта",
+    "ukr": "Лабораторія Х8: потрапити до шахти ліфта"
+  },
+  "pri_b306_task_1_text": {
+    "eng": "The entrance to the underground laboratory is below the Yubileiny service center, with the only way of getting inside being the elevator shaft.",
+    "pol": "Do wej�cia do podziemnego laboratorium pod centrum us�ugowym Jubilejny mo�na dosta� si� tylko przez szyb windy.",
+    "rus": "Под зданем КБО «Юбилейный» находится вход в подземную лабораторию. Попасть туда можно только через шахту лифта.",
+    "ukr": "Під будівлею КБО «Ювілейний» знаходиться вхід до підземної лабораторії. Потрапити туди можна лише через шахту ліфта."
+  },
+  "pri_b306_task_2_name": {
+    "eng": "Laboratory X8: find the generator",
+    "pol": "Laboratorium X8: znajd� generator",
+    "rus": "Лаборатория Х8: найти генератор",
+    "ukr": "Лабораторія Х8: знайти генератор"
+  },
+  "pri_b306_task_2_text": {
+    "eng": "The power to the elevator shaft doors has been cut. Opening them will require you to find and activate the emergency generator.",
+    "pol": "Zasilanie drzwi szybu windy zosta�o odci�te. Aby je przywr�ci�, musisz znale�� generator awaryjny. ",
+    "rus": "Двери в шахту лифта обесточены. Чтобы их открыть, необходимо найти и запустить аварийный генератор.",
+    "ukr": "Двері до шахти ліфта знеструмлено. Щоб їх відкрити, треба знайти і запустити аварійний генератор."
+  },
+  "pri_b306_task_3_name": {
+    "eng": "Laboratory X8: descend into the laboratory",
+    "pol": "Laboratorium X8: zejd� do laboratorium",
+    "rus": "Лаборатория Х8: спуститься в лабораторию",
+    "ukr": "Лабораторія Х8: спуститися до лабораторії"
+  },
+  "pri_b306_task_3_text": {
+    "eng": "You need to use the elevator to get into laboratory X8, which is below the Yubileiny service center.",
+    "pol": "Musisz u�y� windy, aby dosta� si� do laboratorium X8, znajduj�cego si� pod centrum us�ugowym Jubilejny.",
+    "rus": "Нужно воспользоваться лифтом, чтобы попасть в лабораторию Х8, которая находится под зданием КБО «Юбилейный».",
+    "ukr": "Треба скористатися ліфтом, щоби потрапити до лабораторії Х8, котра знаходиться під будівлею КБО «Ювілейний»."
+  },
+  "pri_b35_task_envoy_name": {
+    "eng": "One shot: eliminate the messenger",
+    "pol": "Jeden strza�: wyeliminuj pos�a�ca",
+    "rus": "Один выстрел: ликвидировать посланника",
+    "ukr": "Один постріл: ліквідувати посланця"
+  },
+  "pri_b35_task_envoy_text": {
+    "eng": "You must eliminate the messenger. With him dead, the mercenaries won't be able to find the laboratory.",
+    "pol": "Musisz wyeliminowa� pos�a�ca. Bez niego najemnicy nie b�d� w stanie odnale�� laboratorium.",
+    "rus": "Надо ликвидировать посланника: без него наёмники не смогут обнаружить лабораторию.",
+    "ukr": "Треба ліквідувати посланця: без нього найманці не зможуть знайти лабораторію."
+  },
+  "pri_b35_task_envoy_wait_name": {
+    "eng": "One shot: wait for the client's people",
+    "pol": "Jeden strza�: poczekaj na ludzi klienta",
+    "rus": "Один выстрел: дождаться появления людей заказчика",
+    "ukr": "Один постріл: дочекатися появи людей замовника"
+  },
+  "pri_b35_task_envoy_wait_text": {
+    "eng": "Wait for the client's people to show up and kill their leader. With him dead, the mercenaries won't be able to find the laboratory.",
+    "pol": "Poczekaj na ludzi klienta i zabij ich dow�dc�. Bez niego najemnicy nie b�d� w stanie odnale�� laboratorium.",
+    "rus": "Надо дождаться появления людей заказчика и ликвидировать их лидера. Без него наёмники не смогут обнаружить лабораторию.",
+    "ukr": "Треба дочекатися появи людей замовника і ліквідувати їхнього лідера. Без нього найманці не зможуть знайти лабораторію."
+  },
+  "pri_b35_task_merc_name": {
+    "eng": "One shot: kill the mercenary squad leader",
+    "pol": "Jeden strza�: zabij dow�dc� dru�yny najemnik�w",
+    "rus": "Один выстрел: ликвидировать лидера наёмников",
+    "ukr": "Один постріл: ліквідувати лідера найманців"
+  },
+  "pri_b35_task_merc_text": {
+    "eng": "You must kill the mercenary squad leader. With him dead, the mercenaries will be disorganized and not much of a threat.",
+    "pol": "Musisz zabi� dow�dc� dru�yny najemnik�w. Bez niego b�d� zdezorganizowani i niegro�ni.",
+    "rus": "Нужно ликвидировать лидера наёмников: без него наёмники утратят сплочённость и будут не так опасны.",
+    "ukr": "Треба ліквідувати лідера найманців: без нього найманці не матимуть згуртованості, тож стануть не такі небезпечні."
+  },
+  "pri_b35_task_merc_wait_name": {
+    "eng": "One shot: wait for the mercenaries to appear",
+    "pol": "Jeden strza�: poczekaj, a� pojawi� si� najemnicy",
+    "rus": "Один выстрел: дождаться появления наёмников",
+    "ukr": "Один постріл: дочекатися появи найманців"
+  },
+  "pri_b35_task_merc_wait_text": {
+    "eng": "You must wait for the mercenaries to show up and kill their leader. With him dead, the mercenaries will be disorganized and not much of a threat.",
+    "pol": "Musisz poczeka�, a� pojawi� si� najemnicy i zabij ich dow�dc�. Bez niego b�d� zdezorganizowani i niegro�ni.",
+    "rus": "Надо дождаться появления наёмников и ликвидировать их лидера: без него наёмники утратят сплочённость и будут не так опасны.",
+    "ukr": "Треба дочекатися появи найманців і ліквідувати їхнього лідера. Без нього найманці не матимуть згуртованості, тож стануть не такі небезпечні."
+  },
+  "pri_b35_task_reward_name": {
+    "eng": "One shot: talk to Kovalsky",
+    "pol": "Jeden strza�: porozmawiaj z Kowalskim",
+    "rus": "Один выстрел: поговорить с Ковальским",
+    "ukr": "Один постріл: поговорити з Ковальським"
+  },
+  "pri_b35_task_reward_text": {
+    "eng": "Report the mission results to Kovalsky.",
+    "pol": "Z�� raport o wynikach misji Kowalskiemu. ",
+    "rus": "Необходимо сообщить Ковальскому о результатах операции.",
+    "ukr": "Слід повідомити Ковальському про результати операції."
+  },
+  "pri_a19_lab_x8_investigation_1_name": {
+    "eng": "Laboratory X8: leave the underground complex or continue looking for documents",
+    "pol": "Laboratorium X8: opu�� podziemny kompleks lub dalej szukaj dokument�w",
+    "rus": "Лаборатория Х8: Покинуть подземный комплекс или продолжить поиск документов",
+    "ukr": "Лабораторія Х8: Залишити підземний комплекс або продовжити пошук документів"
+  },
+  "pri_a19_lab_x8_investigation_1_text": {
+    "eng": "You have found documents and you can now leave the laboratory, however there may still be other documents inside the complex.",
+    "pol": "Uda�o ci si� znale�� dokumenty. Mo�esz teraz opu�ci� laboratorium, ale mo�liwe jest, �e w kompleksie znajduj� si� jeszcze inne warto�ciowe informacje.",
+    "rus": "Документы найдены, лабораторию можно покинуть. Тем не менее, в пределах комплекса могут оставаться и другие документы.",
+    "ukr": "Документи знайдено, лабораторію можна залишити. Проте в межах комплексу можуть залишатися й інші документи."
+  },
+  "pri_a19_lab_x8_investigation_2_name": {
+    "eng": "Laboratory X8: leave the underground complex or continue looking for documents",
+    "pol": "Laboratorium X8: opu�� podziemny kompleks lub dalej szukaj dokument�w",
+    "rus": "Лаборатория Х8: покинуть подземный комплекс или продолжить поиск документов",
+    "ukr": "Лабораторія Х8: залишити підземний комплекс або продовжити пошук документів"
+  },
+  "pri_a19_lab_x8_investigation_2_text": {
+    "eng": "You have found documents and you can now leave the laboratory, however there may still be other documents inside the complex.",
+    "pol": "Uda�o ci si� znale�� dokumenty. Mo�esz teraz opu�ci� laboratorium, ale mo�liwe jest, �e w kompleksie znajduj� si� jeszcze inne warto�ciowe informacje.",
+    "rus": "Документы найдены, лабораторию можно покинуть. Тем не менее, в пределах комплекса могут оставаться и другие документы.",
+    "ukr": "Документи знайдено, лабораторію можна залишити. Проте в межах комплексу можуть залишатися й інші документи."
+  },
+  "pri_a19_lab_x8_investigation_3_name": {
+    "eng": "Laboratory X8: leave the underground complex",
+    "pol": "Laboratorium X8: opu�� podziemny kompleks",
+    "rus": "Лаборатория Х8: Покинуть подземный комплекс",
+    "ukr": "Лабораторія Х8: Залишити підземний комплекс"
+  },
+  "pri_a19_lab_x8_investigation_3_text": {
+    "eng": "It looks like you have collected all the documents in the laboratory. You can now leave the underground complex.",
+    "pol": "Wygl�da na to, �e uda�o ci si� znale�� wszystkie dokumenty znajduj�ce si� w laboratorium. Mo�esz teraz opu�ci� podziemny kompleks.",
+    "rus": "Судя по всему, в лаборатории собрана уже вся документация. Можно оставить подземный комплекс.",
+    "ukr": "Зважаючи на все, у лабораторії зібрано уже всю документацію. Можна залишити підземний комплекс."
+  },
+  "pri_a18_wait_reinf_name": {
+    "eng": "Monolith forces: wait for reinforcements",
+    "pol": "Si�y monolitu: poczekaj na posi�ki ",
+    "rus": "Скопление «Монолита»: дождаться подмогу",
+    "ukr": "Скупчення «Моноліту»: дочекатися підмоги"
+  },
+  "pri_a18_wait_reinf_text": {
+    "eng": "You need to wait for reinforcements sent by Kovalsky to eliminate the Monolith forces in the book store",
+    "pol": "Musisz poczeka� na posi�ki wys�ane przez Kowalskiego, aby wyeliminowa� si�y Monolitu w ksi�garni.",
+    "rus": "Необходимо дождаться подкрепления, высланного Ковальским для уничтожения группы «монолитовцев» в магазине «Книги»",
+    "ukr": "Необхідно дочекатися підкріплення, висланого Ковальським для знищення групи «монолітівців» у магазині «Книги»"
+  },
+  "pri_a22_talk_with_kovalski_name": {
+    "eng": "A quiet word: talk to Kovalsky",
+    "pol": "Cicha rozmowa: porozmawiaj z Kowalskim",
+    "rus": "Разговор с глазу на глаз: поговорить с Ковальским",
+    "ukr": "Розмова віч-на-віч: поговорити з Ковальським"
+  },
+  "pri_a22_talk_with_kovalski_text": {
+    "eng": "You need to talk to Kovalsky. It looks like he’s got something important to say.",
+    "pol": "Musisz porozmawia� z Kowalskim. Wygl�da na to, �e ma co� wa�nego do powiedzenia.",
+    "rus": "Необходимо поговорить с Ковальским. Судя по всему, он хочет сообщить нечто важное",
+    "ukr": "Необхідно поговорити з Ковальським. Судячи з усього, він хоче повідомити щось важливе"
+  },
+  "pri_a28_defend_helis_name": {
+    "eng": "Evacuation: hold out by the helicopters",
+    "pol": "Ewakuacja: utrzymaj si� przy helikopterach",
+    "rus": "Эвакуация: продержаться у вертолётов",
+    "ukr": "Евакуація: протриматися коло гелікоптерів"
+  },
+  "pri_a28_defend_helis_text": {
+    "eng": "You must protect the helicopters from the enemy until they can take off.",
+    "pol": "Musisz os�ania� helikoptery do chwili ich startu.",
+    "rus": "Необходимо защищать вертолёты от наступающего противника, пока не возникнет возможность подняться в воздух.",
+    "ukr": "Необхідно захищати гелікоптери від противника, поки не виникне можливість здійнятися в повітря."
+  },
+  "pri_a28_save_medic_name": {
+    "eng": "Evacuation: revive the medic",
+    "pol": "Ewakuacja: ocu� medyka",
+    "rus": "Эвакуация: привести медика в чувство",
+    "ukr": "Евакуація: привести медика до тями"
+  },
+  "pri_a28_save_medic_text": {
+    "eng": "It seems the medic has been hit by unidentified forces again. Revive him as quickly as possible.",
+    "pol": "Medyk zosta� pora�ony przez nieznan� si��. Musisz jak najszybciej przywr�ci� go do przytomno�ci.",
+    "rus": "Похоже, медик снова попал под неизвестное воздействие. Необходимо срочно привести его в чувство.",
+    "ukr": "Схоже, медик знову потрапив під невідомий вплив. Необхідно терміново привести його до тями."
+  },
+  "pri_a28_return_to_helis_name": {
+    "eng": "Evacuation: return to the helicopters",
+    "pol": "Ewakuacja: wr�� do helikopter�w",
+    "rus": "Эвакуация: вернуться к вертолётам",
+    "ukr": "Евакуація: повернутися до гелікоптерів"
+  },
+  "pri_a28_return_to_helis_text": {
+    "eng": "You must return to the helicopters as they might be able to take off any moment now.",
+    "pol": "Musisz wr�ci� do helikopter�w, poniewa� mog� one wkr�tce wystartowa�.",
+    "rus": "Необходимо вернуться к вертолётам, возможность взлететь может возникнуть в любой момент.",
+    "ukr": "Необхідно повернутися до гелікоптерів, можливість злетіти може виникнути в будь-який момент."
+  },
+  "pri_a28_helis_gonna_fly_name": {
+    "eng": "Evacuation: return to the helicopters ASAP",
+    "pol": "Ewakuacja: jak najszybciej wr�� do helikopter�w",
+    "rus": "Эвакуация: срочно вернуться к вертолётам",
+    "ukr": "Евакуація: терміново повернутися до гелікоптерів"
+  },
+  "pri_a28_helis_gonna_fly_text": {
+    "eng": "The helicopters are ready for take-off. You must board one of them immediately - the pilots cannot wait long.",
+    "pol": "Helikoptery s� gotowe do startu. Musisz natychmiast wej�� na pok�ad jednego z nich - piloci nie mog� d�ugo czeka�.",
+    "rus": "Вертолёты готовы к отлёту. Необходимо срочно попасть на борт одного из них, пилоты долго ждать не будут.",
+    "ukr": "Гелікоптери готові до відльоту. Необхідно терміново потрапити на борт одного з них - пілоти довго не чекатимуть."
+  }
+}

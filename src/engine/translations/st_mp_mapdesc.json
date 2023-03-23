@@ -1,0 +1,248 @@
+{
+  "mp_autostation": {
+    "eng": "Vehicle station",
+    "pol": "Stacja pojazd�w",
+    "rus": "Автостанция",
+    "ukr": "Автостанція"
+  },
+  "ui_map_desc_mp_agroprom_large": {
+    "eng": "A weird place. This silent building likely conceals its share of secrets, but stalkers are drawn here for another reason - a generous supply of artifacts found in this high risk / high reward area. Think fast and act fast, then luck will surely be on your side.",
+    "pol": "Dziwne miejsce. Ten cichy budynek z pewno�ci� ma swoje sekrety, ale stalkerzy odwiedzaj� go z innego powodu - dzi�ki du�ej ilo�ci mo�liwych do znalezienia artefakt�w, podj�te ryzyko mo�e si� op�aca�. My�l szybko i dzia�aj zdecydowanie, a szcz�cie z pewno�ci� b�dzie ci sprzyja�.",
+    "rus": "Странное место. Безмолвное здание хранит свои тайны, но не оно влечёт сюда сталкеров, а артефакты, которыми Зона в этом районе весьма богата. Здесь можно разжиться неплохими образцами, но можно и расстаться с жизнью. Пусть тело твоё будет быстрым, а глаз - верным, тогда удача непременно улыбнётся тебе.",
+    "ukr": "Дивне місце. Мовчазна будівля стереже свої таємниці, однак не вона приваблює сюди сталкерів, а артефакти, котрими в цьому районі Зона надзвичайно багата. Тут можна розжитися непоганими зразками, але можна і розпрощатися із життям. Нехай тіло твоє буде швидким, а око - вірним, тоді вдача неодмінно посміхнеться тобі."
+  },
+  "ui_map_desc_mp_agroprom_short": {
+    "eng": "A weird place. This silent building likely conceals its share of secrets, but stalkers are drawn here for another reason - a generous supply of artifacts.",
+    "pol": "Dziwne miejsce. Ten cichy budynek z pewno�ci� ma swoje sekrety, ale stalkerzy odwiedzaj� go z innego powodu - du�ej ilo�ci mo�liwych do znalezienia artefakt�w.",
+    "rus": "Странное место. Безмолвное здание хранит свои тайны, но не оно влечёт сюда сталкеров, а артефакты, которыми Зона в этом районе весьма богата.",
+    "ukr": "Дивне місце. Мовчазна будівля стереже свої таємниці, однак не вона приваблює сюди сталкерів, а артефакти, котрими в цьому районі Зона надзвичайно багата."
+  },
+  "ui_map_desc_mp_atp_large": {
+    "eng": "A depot, located at the entrance to the Zone. Its tractors, buses and trucks have stopped in their tracks for good... No artifacts have been spotted here so far, but the place is popular with raiders, who hunt down rookies and kill them for loot. Seek cover in buildings and behind vehicles, and watch out for enemies on rooftops!",
+    "pol": "Sk�ad znajduj�cy si� przy wej�ciu do Zony. Znajduj�ce si� w nim ci�gniki, autobusy i ci�ar�wki nigdzie ju� nie pojad�� Nie znaleziono tu jeszcze �adnych artefakt�w, ale miejsce to jest popularne w�r�d bandyt�w, kt�rzy poluj� na nowicjuszy dla �up�w. Kryj si� w budynkach i za pojazdami, uwa�aj te� na wrog�w na dachach!",
+    "rus": "Автобусно-троллейбусный парк, расположенный в предбаннике Зоны. Здесь навсегда замерли тракторы, автобусы, грузовики... Артефактов среди них замечено не было, однако это место популярно среди мародёров, которые занимаются отстрелом новичков и грабежом остывающих тел. Укрытие можно найти в зданиях и за техникой. Остерегайся врагов на крышах!",
+    "ukr": "Автобусно-тролейбусний парк, розташований у передбаннику Зони. Тут назавжди завмерли трактори, автобуси, вантажівки... Артефактів серед них помічено не було, проте це місце популярне серед мародерів, які займаються відстрілом новачків та грабунком стиглих тіл. Укриття можна знайти у будівлях та за технікою. Остерігайся ворогів на дахах!"
+  },
+  "ui_map_desc_mp_atp_short": {
+    "eng": "A depot, located at the entrance to the Zone. Its tractors, buses and trucks have stopped in their tracks for good...",
+    "pol": "Sk�ad znajduj�cy si� przy wej�ciu do Zony. Znajduj�ce si� w nim ci�gniki, autobusy i ci�ar�wki nigdzie ju� nie pojad��",
+    "rus": "Автобусно-троллейбусный парк, расположенный в предбаннике Зоны. Здесь навсегда замерли тракторы, автобусы, грузовики...",
+    "ukr": "Автобусно-тролейбусний парк, розташований у передбаннику Зони. Тут назавжди завмерли трактори, автобуси, вантажівки... "
+  },
+  "ui_map_desc_mp_autostation_large": {
+    "eng": "Deserted depot building and adjacent territory. Some equipment and supplies can be found here - if you look hard enough. Watch out for powerful anomalies and snipers on the roof of the depot - that is a great vantage point overseeing almost every approach to the area.",
+    "pol": "Opuszczony sk�ad i przylegaj�cy do niego teren. Mo�na tu znale�� wyposa�enie i zapasy, je�li si� dobrze poszuka. Uwa�aj na pot�ne anomalie i snajper�w na dachu sk�adu - to �wietny punkt obserwacyjny, z kt�rego wida� ka�d� zbli�aj�c� si� osob�. ",
+    "rus": "Заброшенное здание автовокзала и прилегающая территория. Если как следует поискать, можно найти остатки оборудования и припасов. Здесь нужно опасаться не только мощных аномалий, но и снайперов на крыше автовокзала: оттуда просматриваются почти все подходы.",
+    "ukr": "Покинута будівля автовокзалу та прилегла територія. Якщо пошукати як слід, можна знайти залишки устаткування та припасів. Тут слід остерігатися не лише потужних аномалій, але й снайперів на даху автовокзалу: звідти проглядаються майже всі підходи."
+  },
+  "ui_map_desc_mp_autostation_short": {
+    "eng": "Deserted depot building and adjacent territory. Watch out for powerful anomalies and enemy snipers.",
+    "pol": "Opuszczony sk�ad i przylegaj�cy do niego teren. Uwa�aj na pot�ne anomalie i wrogich snajper�w.",
+    "rus": "Заброшенное здание автовокзала и прилегающая территория. Нужно опасаться мощных аномалий и вражеских снайперов.",
+    "ukr": "Закинута будівля автовокзалу та прилегла територія. Слід остерігатися потужних аномалій та ворожих снайперів."
+  },
+  "ui_map_desc_mp_bath_large": {
+    "eng": "An enigmatic and fascinating place. This pool was built to conduct experiments on someone or something, but its exact purpose will forever remain a mystery. There are no artifacts to speak of, so stalkers may only be drawn here by the remnants of bizarre assemblies and devices.  Watch the rooftops carefully and keep in mind the area's extremely high radiation levels.",
+    "pol": "Tajemnicze i fascynuj�ce miejsce. Basen zosta� zbudowany do eksperyment�w na kim� lub na czym�, ale nie wiadomo dok�adnie, jak mia�y one wygl�da�. Nie ma tu prawie �adnych artefakt�w, wi�c jedyne, co przyci�ga tutaj stalker�w, to pozosta�o�ci dziwnych linii monta�owych i urz�dze�. Uwa�aj na dachy i pami�taj o wyj�tkowo wysokim poziomie promieniowania w tym rejonie. ",
+    "rus": "Загадочное место, обладающее странной притягательной силой: экспериментальный бассейн, не известно кем и для чего именно построенный. Артефактов здесь не находили, поэтому сталкеры приходят сюда разве только за остатками диковинных агрегатов и приборов. Внимательно следи за крышами и помни, что уровень радиации тут очень высок.",
+    "ukr": "Загадкове місце, котре чомусь має дивну привабливість: експериментальний басейн, не відомо ким і для чого саме збудований. Артефактів тут не знаходили, тому сталкери приходять сюди хіба лише за рештками дивовижних агрегатів та приладів. Уважно стеж за дахами і пам'ятай, що рівень радіації тут дуже високий."
+  },
+  "ui_map_desc_mp_bath_short": {
+    "eng": "An enigmatic and fascinating place. This pool was built to conduct experiments on someone or something, but its exact purpose will forever remain a mystery.",
+    "pol": "Tajemnicze i fascynuj�ce miejsce. Basen ten zosta� zbudowany do eksperyment�w na kim� lub na czym�, ale nie wiadomo dok�adnie, jak mia�y one wygl�da�.",
+    "rus": "Загадочное место, обладающее странной притягательной силой: экспериментальный бассейн, не известно кем и для чего именно построенный.",
+    "ukr": "Загадкове місце, котре чомусь має дивну привабливість: експериментальний басейн, не відомо ким і для чого саме збудований. "
+  },
+  "ui_map_desc_mp_darkvalley_large": {
+    "eng": "This dangerous part of the Dark Valley comprises a long street and a deserted institute. Who knows what they used to teach at the institute? The only thing to be learned here these days is survival! Oh, and keep a close eye on the roofs...",
+    "pol": "Ta niebezpieczna cz�� Mrocznej Doliny sk�ada si� z d�ugiej ulicy i opuszczonego instytutu. Kto wie, jaka wiedza by�a w nim kiedy� przekazywana? Jedyne, czego mo�na nauczy� si� tu dzisiaj, to sztuka przetrwania! Zwracaj te� uwag� na dachy...",
+    "rus": "Длинная улица и заброшенный институт - вот и все достопримечательности этого опасного места в Тёмной Долине. Чему учили в институте, доподлинно не известно, а теперь здесь можно научиться только выживанию. И вот ещё что: будь очень внимателен на крышах.",
+    "ukr": "Довга вулиця та покинутий інститут - ото й усі пам'ятки цього небезпечного місця у Темній Долині. Чому навчали в інституті, достеменно не відомо, але тепер тут можна навчитися хіба виживанню. І ось іще: будь дуже уважний на дахах."
+  },
+  "ui_map_desc_mp_darkvalley_short": {
+    "eng": "This dangerous part of the Dark Valley comprises a long street and a deserted institute...",
+    "pol": "Ta niebezpieczna cz�� Mrocznej Doliny sk�ada si� z d�ugiej ulicy i opuszczonego instytutu�",
+    "rus": "Длинная улица и заброшенный институт - вот и все достопримечательности этого опасного места в Тёмной Долине...",
+    "ukr": "Довга вулиця та покинутий інститут - ото й усі пам'ятки цього небезпечного місця у Темній Долині... "
+  },
+  "ui_map_desc_mp_factory_large": {
+    "eng": "This dreary desolate factory is the resting place of countless stalkers. A host of anomalies await visitors at every step, but they still flood in, attracted as though by a magnet to its valuable artifacts. Beware of radiation!",
+    "pol": "Ta pos�pna, opuszczona fabryka jest miejscem spoczynku niezliczonych stalker�w. Go�ci oczekuje na ka�dym kroku chmara anomalii, co jednak nie powstrzymuje ich przed odwiedzinami - cenne artefakty stanowi� prawdziwy magnes. Uwa�aj na promieniowanie!",
+    "rus": "Мрачный заброшенный завод. Сколько народу сгинуло тут - не перечесть. Разнообразных аномалий очень много, однако это место притягивает сталкеров как магнит. А всё потому, что ценных артефактов здесь... внимание, радиация!",
+    "ukr": "Похмурий покинутий завод. Скільки народу тут згинуло - не злічити. Всіляких аномалій дуже багато, проте це місце притягує сталкерів немов магніт. А все тому, що цінних артефактів тут... увага, радіація!"
+  },
+  "ui_map_desc_mp_factory_short": {
+    "eng": "This dreary desolate factory is the resting place of countless stalkers.",
+    "pol": "Ta pos�pna opuszczona fabryka jest miejscem spoczynku niezliczonych stalker�w. ",
+    "rus": "Мрачный заброшенный завод. Сколько народу сгинуло тут - не перечесть.",
+    "ukr": "Похмурий покинутий завод. Скільки народу тут згинуло - не злічити"
+  },
+  "ui_map_desc_mp_firestation_large": {
+    "eng": "The fire station whose entire forces were thrown to salvage the Chernobyl NPP in 1986. The tower is an excellent vantage point, overseeing the surroundings near and far.  Very few visit the upper floors of buildings and basements, though that may all be for the better. For some time now the Zone's factions have been at each others' throats in this area - fighting for this strategic position.",
+    "pol": "Remiza stra�acka, kt�rej ca�a za�oga zosta�a rzucona do ratowania CEJ w 1986 roku. Wie�yczka jest doskona�ym punktem obserwacyjnym, pozwalaj�cym mie� na oku bli�sze i dalsze otoczenie. Niewielu odwiedza g�rne pi�tra budynk�w i piwnice, ale mo�e to i dobrze. Od jakiego� czasu obecne w Zonie frakcje skacz� sobie do garde�, pr�buj�c opanowa� t� strategiczn� pozycj�.",
+    "rus": "Пожарная станция, все силы которой были брошены на спасение ЧАЭС в 1986 году. Каланча - отличная боевая позиция, с которой открывается вид на окрестности. Верхние этажи домов и подвалы мало кто посещает - но, может, это и к лучшему. Война за контроль над этой стратегической позицией не утихает уже много дней.",
+    "ukr": "Пожежна станція, всі сили якої було кинуто на порятунок ЧАЕС у 1986 році. Каланча - чудова бойова позиція, з якої відкривається вид на околиці. Верхні поверхи будівель та підвали мало хто відвідує - але, може, це й на краще. Війна за контроль над цією стратегічною позицією не стихає вже багато днів."
+  },
+  "ui_map_desc_mp_firestation_short": {
+    "eng": "The fire station whose entire forces were thrown to salvage the Chernobyl NPP in 1986. The station is an excellent tactical position.",
+    "pol": "Remiza stra�acka, kt�rej ca�a za�oga zosta�a rzucona do ratowania CEJ w 1986 roku. Stanowi doskona�� pozycj� taktyczn�.",
+    "rus": "Пожарная станция, все силы которой были брошены на спасение ЧАЭС в 1986 году. Это отличная боевая позиция.",
+    "ukr": "Пожежна станція, всі сили якої було кинуто на порятунок ЧАЕС у 1986 році. Це чудова бойова позиція."
+  },
+  "ui_map_desc_mp_garbage_large": {
+    "eng": "Part of a huge junkyard, where heaps of radioactive refuse were dumped after the 1986 disaster, full of decrepit cranes and various equipment. Other local attractions include old dilapidated buildings and a huge hangar. Proximity to the Cordon and a relative abundance of artifacts draws in stalkers that prefer easy pickings.",
+    "pol": "Cz�� olbrzymiego wysypiska �mieci, gdzie po katastrofie w 1986 roku wyrzucono sterty odpad�w radioaktywnych. Pe�na jest rozpadaj�cych si� d�wig�w i r�nego sprz�tu. Inne atrakcje to stare, zniszczone budynki i wielki hangar. Blisko�� Kordonu i do�� du�a liczba artefakt�w przyci�ga stalker�w ��dnych �atwych �up�w.",
+    "rus": "Часть большой свалки, куда после аварии 1986 года свозили горы радиоактивного мусора. Кроме разбитых кранов, остовов автомашин и разнообразной техники, тут можно обнаружить каркасы старых построек и огромный ангар. Эта часть Зоны расположена не так далеко от Кордона, но артефактов тут довольно много. Многие сталкеры ищут здесь лёгкую наживу.",
+    "ukr": "Частина великого звалища, куди після аварії 1986 року звозили купи радіоактивного сміття. Окрім розбитих кранів, кістяків автомашин та всілякої техніки, тут можна виявити каркаси старих споруд і величезний ангар. Ця частина Зони розташована не так далеко від Кордону, але артефактів тут доволі багато. Багато сталкерів шукають тут легку наживу."
+  },
+  "ui_map_desc_mp_garbage_short": {
+    "eng": "Part of a huge junkyard, where heaps of radioactive refuse and equipment were dumped after the 1986 disaster.",
+    "pol": "Cz�� olbrzymiego wysypiska �mieci, gdzie po katastrofie w 1986 roku wyrzucono sterty odpad�w radioaktywnych.",
+    "rus": "Часть большой свалки, куда после аварии 1986 года свозили горы радиоактивного мусора и техники.",
+    "ukr": "Частина великого звалища, куди після аварії 1986 року звозили купи радіоактивного сміття та всілякої техніки."
+  },
+  "ui_map_desc_mp_limansk_large": {
+    "eng": "A small district of the enigmatic city of Limansk - abandoned apartment blocks and one half-constructed building between them. When several expensive artifacts were found here, the news spread all over the Zone all too quickly. A few roads were opened to Limansk, and the shooting hasn't stopped for a minute ever since.",
+    "pol": "Ma�a dzielnica tajemniczego miasta Lima�sk - opuszczone bloki mieszkaniowe i niedoko�czony budynek mi�dzy nimi. Po znalezieniu w tym miejscu kilku kosztownych artefakt�w, wie�ci b�yskawicznie rozprzestrzeni�y si� po ca�ej Zonie. Otwartych zosta�o kilka dr�g do Lima�ska i od tego czasu strza�y nie cichn�.",
+    "rus": "Небольшой район таинственного города Лиманск: покинутые жилые дома и недостроенное здание между ними. Весть о найденных здесь дорогих артефактах быстро стала известна слишком многим. С тех пор как в город открылись проходы, стрельба здесь не стихает ни на минуту.",
+    "ukr": "Невеличкий район таємничого міста Лиманськ: покинуті житлові будинки та щось недобудоване межи них. Звістка про знайдені тут цінні артефакти швидко стала відома надто багатьом. З того часу, як до міста відкрилися проходи, стрілянина тут не змовкає ані на хвилину."
+  },
+  "ui_map_desc_mp_limansk_short": {
+    "eng": "A small district of the enigmatic city of Limansk - abandoned apartment blocks and one half-constructed building between them.",
+    "pol": "Ma�a dzielnica tajemniczego miasta Lima�sk - opuszczone bloki mieszkaniowe i niedoko�czony budynek mi�dzy nimi. ",
+    "rus": "Небольшой район таинственного города Лиманск: покинутые жилые дома и недостроенное здание между ними.",
+    "ukr": "Невеличкий район таємничого міста Лиманськ: покинуті житлові будинки та щось недобудоване межи ними."
+  },
+  "ui_map_desc_mp_lost_village_large": {
+    "eng": "An abandoned, godforsaken village in the depths of the Zone. A small, shallow, rusty lake, home to scores of wrecked vehicles, fills you with subconscious fear of the Zone's reality. Beware of snipers, but remember: the Zone favors the brave.",
+    "pol": "Zapomniana przez Boga i ludzi wie� w g��bi Zony. Ma�e, p�ytkie, rdzawe jeziorko i tuziny rozbitych pojazd�w nape�niaj� ci� pod�wiadomym strachem przed otaczaj�c� rzeczywisto�ci�. Uwa�aj na snajper�w, ale pami�taj: Zona sprzyja odwa�nym.",
+    "rus": "Покинутая, забытая Богом деревня в глубине Зоны. Мелкое ржавое озерцо, заполненное скелетами машин, рождает подсознательный страх перед окружающей действительностью. Зона любит смелых, однако не стоит недооценивать вражеских снайперов.",
+    "ukr": "Покинуте, забуте Богом село в глибині Зони. Мілке іржаве озерце, сповнене скелетів машин, породжує підсвідомий страх перед навколишньою дійсністю. Зона любить сміливих, проте не варто недооцінювати ворожих снайперів."
+  },
+  "ui_map_desc_mp_lost_village_short": {
+    "eng": "An abandoned, godforsaken village in the depths of the Zone. A small, shallow, rusty lake, home to scores of wrecked vehicles, fills you with subconscious fear of the Zone's reality.",
+    "pol": "Zapomniana przez Boga i ludzi wie� w g��bi Zony. Ma�e, p�ytkie, rdzawe jeziorko i tuziny rozbitych pojazd�w nape�niaj� ci� pod�wiadomym strachem przed otaczaj�c� rzeczywisto�ci�.",
+    "rus": "Покинутая, забытая богом деревня в глубине Зоны. Мелкое ржавое озерцо, заполненное скелетами машин, рождает подсознательный страх перед окружающей действительностью.",
+    "ukr": "Покинуте, забуте Богом село в глибині Зони. Мілке іржаве озерце, сповнене скелетів машин, породжує підсвідомий страх перед навколишньою дійсністю."
+  },
+  "ui_map_desc_mp_military_1_large": {
+    "eng": "An abandoned army base with forever immobile trucks and APCs, dilapidated headquarters and barracks. The deserted look, however, is deceptive: this is a real artifact goldmine, which means the enemy could be lurking around any corner.",
+    "pol": "Opuszczona baza wojskowa z unieruchomionymi ci�ar�wkami i transporterami opancerzonymi oraz opuszczon� kwater� g��wn� i barakami. Jej wygl�d mo�e myli�: to prawdziwa kopalnia artefakt�w, co oznacza, �e wr�g mo�e czai� si� za ka�dym w�g�em.",
+    "rus": "Заброшенная армейская база: навсегда застывшие грузовики и БТРы, разрушенные штаб и казармы. Однако эта заброшенность обманчива: богатейшее месторождение артефактов привело к тому, что враг может встретиться где угодно.",
+    "ukr": "Покинута армійська база: назавжди застиглі вантажівки та БТРи, зруйновані штаб та казарми. Проте ця занедбаність оманлива: надзвичайно багате родовище артефактів призвело до того, що ворог може причаїтися де завгодно."
+  },
+  "ui_map_desc_mp_military_1_short": {
+    "eng": "An abandoned army base with forever immobile trucks and APCs, dilapidated headquarters and barracks.",
+    "pol": "Opuszczona baza wojskowa z unieruchomionymi ci�ar�wkami i transporterami opancerzonymi.",
+    "rus": "Заброшенная армейская база: навсегда застывшие грузовики и БТРы, разрушенные штаб и казармы.",
+    "ukr": "Покинута армійська база: назавжди застиглі вантажівки та БТРи, зруйновані штаб та казарми."
+  },
+  "ui_map_desc_mp_military_2_large": {
+    "eng": "This old village is a truly sinister place. If you're brave enough to come here, be ready to avoid a welcome in the form of a bullet to the head. No spot is safe here, so may your scope and silencer be with you!",
+    "pol": "Ta stara wie� to naprawd� z�owieszcze miejsce. Je�li wystarczy ci odwagi, by tu przyj��, przygotuj si� na strza� w g�ow� na powitanie. Nie ma tu bezpiecznych miejsc, wi�c pami�taj o celowniku i t�umiku!",
+    "rus": "Эта старая деревенька - место гиблое. И хотя ты сумел добраться сюда, расслабляться рано: будь готов в любой момент получить пулю в лоб. Здесь нигде нельзя чувствовать себя в безопасности. Пусть не подведут тебя оптика и глушитель!",
+    "ukr": "Це старе сільце - згубне місце. І хоча ти зумів дістатися сюди, розслаблятися рано: будь готовий у будь-який момент отримати кулю в лоб. Тут ніде не можна відчувати себе в безпеці. То нехай не підведуть тебе оптика і глушник!"
+  },
+  "ui_map_desc_mp_military_2_short": {
+    "eng": "This old village is a truly sinister place. You may have made it here, but this is no time to relax.",
+    "pol": "Ta stara wie� to naprawd� z�owieszcze miejsce. Uda�o ci si� tu dotrze�, ale nie masz czasu na odpoczynek.",
+    "rus": "Эта старая деревенька - место гиблое. И хотя ты сумел добраться сюда, расслабляться рано.",
+    "ukr": "Це старе сільце - згубне місце. І хоча ти зумів дістатися сюди, розслаблятися рано."
+  },
+  "ui_map_desc_mp_pool_large": {
+    "eng": "This is no pool - more like a blood bath. Echoes of bullets, explosions and shrieks of the dying roam its tiled corridors... Few stalkers know the way here, but even fewer know the way out.",
+    "pol": "To nie basen - raczej krwawa �a�nia. Echa strza��w, eksplozji i wrzask�w umieraj�cych wype�niaj� wy�o�one kafelkami korytarze� Niewielu stalker�w wie, jak tu si� dosta�, a jeszcze mniej wie, jak uciec.",
+    "rus": "Это не бассейн, а кровавая баня. По облицованным кафелем коридорам гуляет эхо выстрелов и взрывов, смешанное с криками умирающих. Не многие знают, как найти это место, но ещё меньшему числу удалось выбраться оттуда живыми.",
+    "ukr": "То не басейн, а кривава лазня. Викладеними кахлем коридорами гуляє луна пострілів та вибухів, змішана із криками тих, хто вмирає. Мало кому відомо, як знайти це місце, але ще меншій кількості вдалося вибратися звідти живими."
+  },
+  "ui_map_desc_mp_pool_short": {
+    "eng": "This is no pool - more like a blood bath. Echoes of bullets and explosions roam its tiled corridors.",
+    "pol": "To nie basen - raczej krwawa �a�nia. Echa strza��w, eksplozji i wrzask�w umieraj�cych wype�niaj� wy�o�one kafelkami korytarze.",
+    "rus": "Это не бассейн, а кровавая баня. По облицованным кафелем коридорам гуляет эхо выстрелов и взрывов.",
+    "ukr": "То не басейн, а кривава лазня. Викладеними кахлем коридорами гуляє луна пострілів та вибухів"
+  },
+  "ui_map_desc_mp_railraod_short": {
+    "eng": "A small railway station near the Rostok factory.",
+    "pol": "Ma�a stacja kolejowa w pobli�u fabryki Rostok.",
+    "rus": "Небольшая железнодорожная станция при заводе «Росток»",
+    "ukr": "Невелика залізнична станція біля заводу «Росток»"
+  },
+  "ui_map_desc_mp_railroad_large": {
+    "eng": "A small railway station near the Rostok factory, full of rusted rail cars and locomotives, forever stopped in their tracks. An abundance of artifacts draws in fearless stalkers from all corners of the Zone.",
+    "pol": "Ma�a stacja kolejowa w pobli�u fabryki Rostok, pe�na zardzewia�ych wagon�w i lokomotyw, kt�re zatrzyma�y si� na torach. Du�a ilo�� artefakt�w przyci�ga odwa�nych stalker�w ze wszystkich zak�tk�w Zony.",
+    "rus": "Небольшая железнодорожная станция при заводе «Росток». Заржавленные вагоны и локомотивы стоят на вечном приколе. Богатые россыпи артефактов приманивают сюда отчаянных сталкеров со всей Зоны.",
+    "ukr": "Невелика залізнична станція біля заводу «Росток». Поржавілі вагони та локомотиви стоять на вічному приколі. Багаті розсипи артефактів принаджують сюди відчайдушних сталкерів з усієї Зони."
+  },
+  "ui_map_desc_mp_rembasa_large": {
+    "eng": "A repair base in the vicinity of a small village. All the vehicles that were in order got lifted to deal with the aftermath of Chernobyl. Over time, the rest of the equipment has been ransacked for spare parts. The area is full of dangers, such as treacherous swamps and contaminated reeds, in which, if you're lucky, you might find something truly valuable.",
+    "pol": "Baza naprawcza w pobli�u ma�ej wsi. Wszystkie dzia�aj�ce pojazdy zosta�y zabrane do pomocy w zwalczaniu skutk�w katastrofy w Czarnobylu. Z czasem pozostawiony sprz�t zosta� spl�drowany w poszukiwaniu cz�ci zamiennych. Obszar ten jest pe�en niebezpiecze�stw, takich jak zdradliwe bagna i ska�one zaro�la, w kt�rych przy odrobinie szcz�cia mo�na znale�� co� warto�ciowego.",
+    "rus": "Ремонтная база неподалёку от небольшой деревни. Всю технику, которая была на ходу, угнали на ликвидацию последствий, а ту, что оставалась, постепенно растащили на запчасти. Местность вокруг опасна для здоровья - топкие болота и радиоактивные камыши, однако, если повезет, здесь можно найти нечто действительно ценное.",
+    "ukr": "Ремонтна база неподалік невеликого села. Всю техніку, що була на ходу, забрали на ліквідацію наслідків аварії на ЧАЕС, а решту поступово розтягли на запчастини. Місцевість довкола є небезпечною для здоров'я - драговини та радіоактивні очерети; проте, коли пощастить, тут можна знайти дещо справді цінне."
+  },
+  "ui_map_desc_mp_rembasa_short": {
+    "eng": "A repair base in the vicinity of a small village. The area is full of dangers, such as treacherous swamps and contaminated reeds.",
+    "pol": "Baza naprawcza w pobli�u ma�ej wsi. Obszar ten jest pe�en niebezpiecze�stw, takich jak zdradliwe bagna i ska�one zaro�la.",
+    "rus": "Ремонтная база недалеко от небольшой деревни. Местность вокруг опасная для здоровья - топкие болота и радиоактивные камыши.",
+    "ukr": "Ремонтна база недалеко від невеликого села. Місцевість довкола є небезпечною для здоров'я - драговини та радіоактивні очерети."
+  },
+  "ui_map_desc_mp_rostok_large": {
+    "eng": "Piles of metal rust idly behind concrete walls. Before the turn of the century, the plant was in constant operation with the accompaniment of socialist slogans spewed forth from loudspeakers, but the building was abandoned long ago.",
+    "pol": "Sterty metalu rdzewiej� bezczynnie za betonowymi �cianami. Przed prze�omem wiek�w fabryka pracowa�a bez przerwy przy akompaniamencie socjalistycznych slogan�w p�yn�cych z g�o�nik�w, ale zosta�a opuszczona dawno temu.",
+    "rus": "Груды металла за бетонными стенами ржавеют без дела. В прошлом веке здесь кипел рабочий процесс, трудящиеся спешили на смену, сопровождаемые социалистическими лозунгами из громкоговорителей. Теперь завод отработал своё.",
+    "ukr": "Купи металу за бетонними стінами іржавіють без діла. У минулому столітті тут кипів робочий процес, трудівники поспішали на зміну під супровід соціалістичних гасел із гучномовців. Тепер завод своє відробив."
+  },
+  "ui_map_desc_mp_rostok_short": {
+    "eng": "Old deserted plant: silent piles of metal behind concrete walls are all that’s left.",
+    "pol": "Stara, opuszczona fabryka: sterty metalu za betonowymi �cianami to wszystko, co po niej pozosta�o.",
+    "rus": "Заброшенный старый завод: молчаливые груды металла за глухими бетонными стенами.",
+    "ukr": "Покинутий старий завод: мовчазні купи металу за глухими бетонними стінами."
+  },
+  "ui_map_desc_mp_sport_center_large": {
+    "eng": "A sports center in Pripyat located not far from the deserted school. The types of sport practiced here have changed greatly since 1986, as well as the number of enthusiasts willing to participate. Stalkers are drawn here by dubious fame, loot, and artifacts...and sometimes remain here forever.",
+    "pol": "Centrum sportowe w Prypeci, zlokalizowane w pobli�u opuszczonej szko�y. Praktykuje si� tu dzi� inny rodzaj sportu ni� w 1986 roku, inni s� te� uczestnicy rozgrywek. Stalker�w przyci�ga tu w�tpliwa s�awa, �upy i artefakty� niekt�rzy z nich zostaj� tutaj na zawsze.",
+    "rus": "Спортивный центр в Припяти, расположенный неподалёку от заброшенной школы. Виды состязаний очень сильно изменились с 1986 года; изменилось и количество желающих поучаствовать в них. Однако сталкеры по-прежнему тянутся сюда за сомнительной славой, хабаром, артефактами - и нередко уже никуда не уходят отсюда.",
+    "ukr": "Спортивний центр у Прип'яті, розташований неподалік покинутої школи. Види змагань дуже сильно змінилися з 1986 року; змінилася й кількість тих, хто бажає взяти в них участь. Проте сталкери, як і раніше, тягнуться сюди за сумнівною славою, хабаром, артефактами - і часто-густо лишаються тут назавжди."
+  },
+  "ui_map_desc_mp_sport_center_short": {
+    "eng": "A sports center in Pripyat located not far from the deserted school.",
+    "pol": "Centrum sportowe w Prypeci, zlokalizowane w pobli�u opuszczonej szko�y.",
+    "rus": "Спортивный центр в Припяти расположен неподалёку от заброшенной школы.",
+    "ukr": "Спортивний центр у Прип'яті, розташований неподалік покинутої школи."
+  },
+  "ui_map_desc_mp_training_camp_large": {
+    "eng": "A very strange place. Many laugh at stalkers who claim to have seen it but it exists nonetheless. Gravitational anomalies have torn up the ground creating an alien landscape. The area is dominated by three huge towers, remnants of military hardware and floating islands of earth, ripped out of the ground.",
+    "pol": "Bardzo dziwne miejsce. Wielu �mieje si� ze stalker�w, kt�rzy twierdz�, �e je widzieli. Mimo to istnieje ono w rzeczywisto�ci. Anomalie grawitacyjne rozdar�y ziemi�, tworz�c kosmiczny krajobraz. Nad obszarem dominuj� trzy wielkie wie�e, resztki sprz�tu wojskowego i lataj�ce wyspy wyrwane z ziemi.",
+    "rus": "Очень странное место. Многие смеются над сталкерами, которые якобы видели его, но оно и вправду существует. Гравитационные аномалии так сильно исковеркали землю, что ландшафт выглядит неземным. Три огромные башни, остатки армейского оборудования и вырванные из земли, повисшие в воздухе островки грунта.",
+    "ukr": "Дуже дивне місце. Багато хто сміється над сталкерами, які нібито бачили його, але воно направду існує. Гравітаційні аномалії так сильно понівечили землю, що ландшафт виглядає неземним. Три величезні башти, рештки армійського устаткування та вирвані із землі, повислі в повітрі острівці ґрунту."
+  },
+  "ui_map_desc_mp_training_camp_short": {
+    "eng": "A very strange place. Gravitational anomalies have torn up the ground creating an alien landscape...",
+    "pol": "Bardzo dziwne miejsce. Anomalie grawitacyjne rozdar�y ziemi�, tworz�c kosmiczny krajobraz. ",
+    "rus": "Очень странное место. Гравитационные аномалии так сильно исковеркали землю, что ландшафт выглядит неземным.",
+    "ukr": "Дуже дивне місце. Гравітаційні аномалії так сильно понівечили землю, що ландшафт виглядає неземним."
+  },
+  "ui_map_desc_mp_workshop_large": {
+    "eng": "These were the fringes of the Rostok factory before Duty settled down here.  An eerie place, which is nonetheless rich in artifacts.  Every empty hangar or warehouse is full of deadly perils.  Be extremely careful and keep close watch over the white tower...",
+    "pol": "Zanim Powinno�� zaj�a ten teren, by�y to peryferia fabryki Rostok. To upiorne, ale pe�ne artefakt�w miejsce. Ka�dy pusty hangar lub magazyn jest pe�en �miertelnych niebezpiecze�stw. Zachowaj czujno�� i obserwuj bia�� wie��...",
+    "rus": "Окраина завода «Росток» до прихода «Долга». Эти мрачные места очень богаты артефактами. Пустые ангары и склады неизменно таят в себе опасность. Будь предельно осторожен и не упускай из виду белую башню!",
+    "ukr": "Околиця заводу «Росток» до приходу «Долгу». Ці похмурі місця дуже багаті на артефакти. Порожні ангари та склади незмінно ховають в собі небезпеку. Будь дуже обережний та не випускай із поля зору білу башту!"
+  },
+  "ui_map_desc_mp_workshop_short": {
+    "eng": "These were the fringes of the Rostok factory before Duty settled down here.  An eerie place, which is nonetheless rich in artifacts. ",
+    "pol": "Zanim Powinno�� zaj�a ten teren, by�y to peryferia fabryki Rostok. To upiorne, ale pe�ne artefakt�w miejsce.",
+    "rus": "Окраина завода «Росток» до прихода «Долга». Эти мрачные места очень богаты артефактами.",
+    "ukr": "Околиця заводу «Росток» до приходу «Долгу». Ці похмурі місця дуже багаті на артефакти"
+  },
+  "ui_map_desc_mp_pripyat_large": {
+    "eng": "Few dare to venture into the deserted city of Pripyat, formerly home to employees working at the CNPP. Despite this, the streets of the dead city have been troubled recently by fierce gunfire in a small part of the town between the Prometheus movie theater, the pier and houses on Kurchatova Street.",
+    "pol": "Niewielu odwa�a zapu�ci� si� do opuszczonego miasta Prype�, niegdy� zamieszkiwanego przez pracownik�w CEJ. Pomimo tego na ulicach miasta duch�w niedawno rozleg�y si� odg�osy walki, toczonej mi�dzy kinem �Prometeusz�, przystani� i domami na ulicy Kurczatowej.",
+    "rus": "Мало кто осмеливается проникать в заброшенную Припять - бывший город атомщиков, работников ЧАЭС. Но и вот и среди мёртвых стен раздались выстрелы: часть города между кинотеатром «Прометей», причалом и домами по улице Курчатова стала местом ожесточённой перестрелки.",
+    "ukr": "Мало хто насмілюється проникати до покинутої Прип'яті - колишнього міста атомників, працівників ЧАЕС. Але ось і серед мертвих стін пролунали постріли: частина міста між кінотеатром «Прометей», причалом та будинками по вулиці Курчатова стала місцем запеклої перестрілки."
+  },
+  "ui_map_desc_mp_pripyat_short": {
+    "eng": "A small part of Pripyat between the Prometheus movie theater, the pier and houses on Kurchatova Street saw fierce fighting between the few who made it into the dead city.",
+    "pol": "W cz�ci Prypeci mi�dzy kinem �Prometeusz�, przystani� i domami na ulicy Kurczatowej wybuch�y zaciek�e walki mi�dzy kilkoma osobami, kt�re dotar�y do opuszczonego miasta.",
+    "rus": "Часть Припяти между кинотеатром «Прометей», причалом и домами по улице Курчатова стала полем боя между теми, кто сумел проникнуть в мёртвый город.",
+    "ukr": "Частина Прип'яті між кінотеатром «Прометей», причалом та будинками по вулиці Курчатова стала полем бою між тими, хто зумів проникнути до мертвого міста."
+  }
+}

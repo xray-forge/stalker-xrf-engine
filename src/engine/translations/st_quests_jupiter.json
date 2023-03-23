@@ -1,0 +1,1370 @@
+{
+  "jup_a10_actor_agree_back_vano_duties_name": {
+    "eng": "Debts: take money to the bandits",
+    "pol": "D�ugi: zanie� pieni�dze bandytom",
+    "rus": "Долги: отнести бандитам деньги",
+    "ukr": "Борги: віднести бандитам гроші"
+  },
+  "jup_a10_actor_agree_back_vano_duties_text": {
+    "eng": "Vano owes the bandits money for a suit and can't pay it back because the interest builds up too quickly. He's asked you to deal with this problem.",
+    "pol": "Wano jest winien bandytom pieni�dze za kombinezon, ale nie mo�e go sp�aci�, bo odsetki rosn� zbyt szybko. Poprosi� ci� o rozwi�zanie tego problemu.",
+    "rus": "Вано задолжал бандитам деньги за костюм и не может отдать их, так как проценты растут слишком быстро. Он просит разобраться с этой проблемой.",
+    "ukr": "Вано заборгував бандитам гроші за костюм і не може віддати їх, бо відсотки ростуть надто швидко. Він просить розібратися із цією проблемою."
+  },
+  "jup_a10_actor_back_vano_duties_name": {
+    "eng": "Debts: return to Vano",
+    "pol": "D�ugi: wr�� do Wano",
+    "rus": "Долги: вернуться к Вано",
+    "ukr": "Борги: повернутися до Вано"
+  },
+  "jup_a10_actor_back_vano_duties_text": {
+    "eng": "Tell Vano how his debt repayment went.",
+    "pol": "Powiedz Wano, jak posz�a sp�ata jego d�ugu.",
+    "rus": "Необходимо рассказать Вано, как прошёл возврат долгов бандитам.",
+    "ukr": "Необхідно розповісти Вано, як відбувалося повернення боргів бандитам."
+  },
+  "jup_a10_kill_all_bandit_name": {
+    "eng": "Debts: deal with the bandits",
+    "pol": "D�ugi: rozpraw si� z bandytami",
+    "rus": "Долги: разобраться с бандитами",
+    "ukr": "Борги: розібратися з бандитами"
+  },
+  "jup_a10_kill_all_bandit_text": {
+    "eng": "Repaying Vano's debts has gotten messy. Take out the bandits.",
+    "pol": "Sp�ata d�ug�w Wano przybra�a paskudny obr�t. Zabij bandyt�w.",
+    "rus": "Возврат долгов Вано принял опасный оборот. Необходимо убить бандитов.",
+    "ukr": "Повернення боргів Вано набуває небезпечного перебігу. Необхідно вбити бандитів."
+  },
+  "jup_a12_free_prisoner_get_reward_name": {
+    "eng": "Hostage: receive your reward from Mitay's friends",
+    "pol": "Zak�adnik: odbierz nagrod� od przyjaci� Mitaja",
+    "rus": "Заложник: взять награду у друзей Митяя",
+    "ukr": "Заручник: узяти нагороду в друзів Митяя"
+  },
+  "jup_a12_free_prisoner_get_reward_text": {
+    "eng": "Mitay has been freed. Meet his friends at the bar to receive your reward.",
+    "pol": "Mitaj zosta� uwolniony. Spotkaj si� w barze z jego przyjaci�mi, aby odebra� nagrod�.",
+    "rus": "Митяй освобождён. Необходимо встретиться в баре с его друзьями и получить награду.",
+    "ukr": "Митяя звільнено. Необхідно зустрітися у барі з його друзями та отримати винагороду."
+  },
+  "jup_a12_free_prisoner_name": {
+    "eng": "Hostage: free Mitay",
+    "pol": "Zak�adnik: uwolnij Mitaja",
+    "rus": "Заложник: освободить Митяя",
+    "ukr": "Заручник: звільнити Митяя"
+  },
+  "jup_a12_free_prisoner_not_ready_name": {
+    "eng": "Hostage: talk to Grizzly to make sure he's ready",
+    "pol": "Zak�adnik: powiedz Grizliemu, �e jeste� gotowy",
+    "rus": "Заложник: поговорить с Медведем по готовности",
+    "ukr": "Заручник: поговорити з Ведмедем за готовності"
+  },
+  "jup_a12_free_prisoner_not_ready_text": {
+    "eng": "You must talk to Grizzly before attempting to free the hostage.",
+    "pol": "Musisz porozmawia� z Grizlim, zanim spr�bujesz uwolni� zak�adnika.",
+    "rus": "Необходимо поговорить с Медведем, прежде чем приняться за освобождение заложника.",
+    "ukr": "Необхідно поговорити з Ведмедем, перш ніж узятися за звільнення заручника."
+  },
+  "jup_a12_free_prisoner_power_name": {
+    "eng": "Hostage: free Mitay by force",
+    "pol": "Zak�adnik: uwolnij Mitaja si��",
+    "rus": "Заложник: освободить Митяя силой",
+    "ukr": "Заручник: звільнити Митяя силою"
+  },
+  "jup_a12_free_prisoner_power_text": {
+    "eng": "You must eliminate the bandits to free a stalker called Mitay.",
+    "pol": "Musisz zabi� bandyt�w, aby uwolni� stalkera zwanego Mitajem.",
+    "rus": "Необходимо уничтожить бандитов, чтобы освободить сталкера по кличке Митяй.",
+    "ukr": "Необхідно знищити бандитів, щоб звільнити сталкера на прізвисько Митяй."
+  },
+  "jup_a12_free_prisoner_power_wait_name": {
+    "eng": "Hostage: meet the stalkers",
+    "pol": "Zak�adnik: spotkaj si� ze stalkerami",
+    "rus": "Заложник: встретиться со сталкерами",
+    "ukr": "Заручник: зустрітися зі сталкерами"
+  },
+  "jup_a12_free_prisoner_power_wait_text": {
+    "eng": "Stalkers will help you to free the hostage. You need to meet them at night to attack the bandits together.",
+    "pol": "Stalkerzy pomog� ci uwolni� zak�adnika. Musisz spotka� si� z nimi w nocy, aby wsp�lnie zaatakowa� bandyt�w.",
+    "rus": "Сталкеры помогут освободить заложника. Необходимо встретиться с ними ночью для совместной атаки бандитов.",
+    "ukr": "Сталкери допоможуть звільнити заручника. Необхідно зустрітися із ними вночі, щоб спільнр атакувати бандитів."
+  },
+  "jup_a12_free_prisoner_ransom_name": {
+    "eng": "Hostage: arrange a ransom payment for Mitay's release",
+    "pol": "Zak�adnik: uzgodnij zap�at� okupu za uwolnienie Mitaja",
+    "rus": "Заложник: договорится о выкупе Митяя",
+    "ukr": "Заручник: домовитися про викуп Митяя"
+  },
+  "jup_a12_free_prisoner_ransom_text": {
+    "eng": "Arrange a ransom payment with the bandit leader to free a stalker called Mitay.",
+    "pol": "Uzgodnij z dow�dc� bandyt�w zap�at� okupu za uwolnienie stalkera zwanego Mitajem.",
+    "rus": "Договорится с главарем бандитов о выкупе, чтобы освободить сталкера по кличке Митяй.",
+    "ukr": "Домовиться із ватажком бандитів про викуп, щоб звільнити сталкера на прізвисько Митяй."
+  },
+  "jup_a12_free_prisoner_text": {
+    "eng": "Free a stalker called Mitay, who was taken hostage by the bandits.",
+    "pol": "Uwolnij stalkera zwanego Mitajem, kt�ry zosta� wzi�ty na zak�adnika przez bandyt�w.",
+    "rus": "Освободить сталкера по кличке Митяй, которого бандиты взяли в заложники.",
+    "ukr": "Звільнити сталкера по кличці Митяй, якого бандити взяли в заручники."
+  },
+  "jup_a12_guide_prisoner_name": {
+    "eng": "Hostage: lead Mitay out of the bandit camp",
+    "pol": "Zak�adnik: wyprowad� Mitaja z obozu bandyt�w",
+    "rus": "Заложник: вывести Митяя из лагеря бандитов",
+    "ukr": "Заручник: вивести Митяя з табору бандитів"
+  },
+  "jup_a12_guide_prisoner_text": {
+    "eng": "The bandit camp is too dangerous to hang around in. You must escort Mitay outside the camp.",
+    "pol": "Ob�z bandyt�w jest zbyt niebezpieczny, �eby si� po nim kr�ci�. Musisz odeskortowa� Mitaja poza ob�z.",
+    "rus": "В лагере бандитов слишком опасно для разговоров. Необходимо сопроводить Митяя за пределы лагеря.",
+    "ukr": "У таборі бандитів надто небезпечно для розмов. Необхідно провести Митяя за межі табору."
+  },
+  "jup_a12_talk_with_prisoner_name": {
+    "eng": "Hostage: talk to Mitay",
+    "pol": "Zak�adnik: porozmawiaj z Mitajem",
+    "rus": "Заложник: поговорить с Митяем",
+    "ukr": "Заручник: поговорити з Митяєм"
+  },
+  "jup_a12_talk_with_prisoner_text": {
+    "eng": "Mitay is relatively safe. Talk to him about your next course of action.",
+    "pol": "Mitaj jest wzgl�dnie bezpieczny. Porozmawiaj z nim na temat planu dalszego dzia�ania.",
+    "rus": "Митяй в относительной безопасности. Стоит договориться с ним о дальнейших действиях.",
+    "ukr": "Митяй у відносній безпеці. Варто домовитися з ним про подальші дії."
+  },
+  "jup_a9_way_to_pripyat_tech_name": {
+    "eng": "Road to Pripyat: talk to the technician about the underpass",
+    "pol": "Droga do Prypeci: porozmawiaj z technikiem na temat tunelu",
+    "rus": "Путь в Припять: поговорить с техником про путепровод",
+    "ukr": "Шлях у Прип'ять: поговорити з техніком про шляхопровід"
+  },
+  "jup_a9_way_to_pripyat_tech_text": {
+    "eng": "The documents you found make it clear that there is an underground underpass located underneath the Jupiter plant that leads to Pripyat. The underpass has no power, is filled with gas, and the entrance to it has been blocked. You must find a technician who can activate the generator and open the underpass lock.",
+    "pol": "Znalezione przez ciebie dokumenty jasno stwierdzaj�, �e pod fabryk� Jupiter znajduje si� podziemny tunel prowadz�cy do Prypeci. W tunelu nie ma energii i jest on wype�niony gazem, a wej�cie zosta�o zablokowane. Musisz znale�� technika, kt�ry potrafi w��czy� generator i otworzy� �luz�.",
+    "rus": "Из найденных документов становится ясно, что под заводом «Юпитер» есть подземный путепровод, ведущий к Припяти. Путепровод обесточен, заполнен газом, а вход в него перекрыт. Необходимо найти техника, который сможет запустить генератор и открыть шлюз.",
+    "ukr": "Зі знайдених документів стає зрозуміло: під заводом «Юпітер» є підземний шляхопровід, що веде до Прип'яті. Шляхопровід знеструмлено та заповнено газом, а вхід до нього перекрито. Необхідно знайти техніка, який зможе запустити генератор і відкрити шлюз."
+  },
+  "jup_b10_ufo_memory_at_text": {
+    "eng": "The memory module is in expert hands. You must wait for it to be unblocked.",
+    "pol": "Modu� pami�ci jest w r�kach eksperta. Musisz poczeka�, a� zostanie odblokowany.",
+    "rus": "Модуль памяти - в руках мастера. Необходимо дождаться, пока он разблокирует доступ к информации.",
+    "ukr": "Модуль пам'яті - у руках майстра. Необхідно дочекатися, поки той розблокує доступ до інформації."
+  },
+  "jup_b10_ufo_memory_name": {
+    "eng": "UAV: unblock the memory module",
+    "pol": "Samolot bezza�ogowy: odblokuj modu� pami�ci",
+    "rus": "Беспилотный разведчик: разблокировать модуль памяти",
+    "ukr": "Безпілотний розвідник: розблокувати модуль пам'яті"
+  },
+  "jup_b10_ufo_memory_nitro_name": {
+    "eng": "UAV: collect the memory module from Nitro",
+    "pol": "Samolot bezza�ogowy: odbierz modu� pami�ci od Azota",
+    "rus": "Беспилотный разведчик: забрать модуль памяти у Азота",
+    "ukr": "Безпілотний розвідник: забрати модуль пам'яті в Азота"
+  },
+  "jup_b10_ufo_memory_novikov_name": {
+    "eng": "UAV: collect the memory module from Novikov",
+    "pol": "Samolot bezza�ogowy: odbierz modu� pami�ci od Nowikowa",
+    "rus": "Беспилотный разведчик: забрать модуль памяти у Новикова",
+    "ukr": "Безпілотний розвідник: забрати модуль пам'яті в Новікова"
+  },
+  "jup_b10_ufo_memory_repaired_by_nitro_text": {
+    "eng": "Nitro has unblocked the memory module. You should collect the module to see what information it contains.",
+    "pol": "Azot odblokowa� modu� pami�ci. Odbierz go, �eby zobaczy�, jakie informacje zawiera.",
+    "rus": "Азот разблокировал модуль памяти. Стоит забрать модуль, чтобы изучить записанную на нем информацию.",
+    "ukr": "Азот розблокував модуль пам'яті. Варто забрати модуль, щоб вивчити записану на ньому інформацію."
+  },
+  "jup_b10_ufo_memory_repaired_by_novikov_text": {
+    "eng": "Novikov has unblocked the memory module. You should collect the module to see what information it contains.",
+    "pol": "Nowikow odblokowa� modu� pami�ci. Odbierz go, �eby zobaczy�, jakie informacje zawiera.",
+    "rus": "Новиков разблокировал модуль памяти. Нужно забрать модуль, чтобы изучить записанную на нём информацию.",
+    "ukr": "Новіков розблокував модуль пам'яті. Потрібно забрати модуль, щоб вивчити записану на ньому інформацію."
+  },
+  "jup_b10_ufo_memory_started_text": {
+    "eng": "You managed to salvage a memory module from the UAV. It must be unblocked for you to access the information it holds.",
+    "pol": "Uda�o ci si� ocali� modu� pami�ci z samolotu bezza�ogowego. Musisz go odblokowa�, �eby dosta� si� do zawartych w nim informacji.",
+    "rus": "Из беспилотного разведчика удалось извлечь модуль памяти. Чтобы получить доступ к информации, необходимо её разблокировать.",
+    "ukr": "З безпілотного розвідника вдалося видобути модуль пам'яті. Щоб отримати доступ до інформації, слід розблокувати модуль."
+  },
+  "jup_b10_ufo_memory_wait_name": {
+    "eng": "UAV: wait for the memory module to be unblocked",
+    "pol": "Samolot bezza�ogowy: poczekaj, a� modu� pami�ci zostanie odblokowany",
+    "rus": "Беспилотный разведчик: дождаться разблокирования модуля памяти",
+    "ukr": "Безпілотний розвідник: дочекатися розблокування модуля пам'яті"
+  },
+  "jup_b16_oasis_art_name": {
+    "eng": "Oasis: find proof",
+    "pol": "Oaza: znajd� dow�d",
+    "rus": "Оазис: найти доказательства",
+    "ukr": "Оаза: знайти докази"
+  },
+  "jup_b16_oasis_art_text": {
+    "eng": "The Oasis has been found and this place really does have healing properties. You need to find some proof to take back to the scientists.",
+    "pol": "Oaza zosta�a odnaleziona i naprawd� ma lecznicze w�a�ciwo�ci. Musisz znale�� jaki� dow�d, �eby dostarczy� go naukowcom.",
+    "rus": "Оазис найден: это место действительно обладает целительными свойствами. Необходимо найти какие-нибудь доказательства, которые можно было бы предъявить учёным.",
+    "ukr": "Оазу знайдено: це місце справді має цілющі властивості. Необхідно знайти якісь докази, котрі можна було б пред'явити вченим."
+  },
+  "jup_b16_oasis_artifact_back_name": {
+    "eng": "The Oasis: take proof to the scientists",
+    "pol": "Oaza: zanie� dow�d naukowcom",
+    "rus": "Оазис: принести доказательства учёным",
+    "ukr": "Оаза: принести докази вченим"
+  },
+  "jup_b16_oasis_artifact_back_text": {
+    "eng": "The Oasis has been found and this place really does have healing properties. You need to take the artifact you found there to the scientists as proof.",
+    "pol": "Oaza zosta�a odnaleziona i naprawd� ma lecznicze w�a�ciwo�ci. Musisz zabra� znaleziony tam artefakt do naukowc�w jako dow�d.",
+    "rus": "Оазис найден: это место действительно обладает целительными свойствами. Необходимо принести найденный здесь артефакт учёным в качестве доказательства.",
+    "ukr": "Оазу знайдено: це місце справді має цілющі властивості. Необхідно принести знайдений тут артефакт ученим - як доказ."
+  },
+  "jup_b16_oasis_name": {
+    "eng": "The Oasis: check whether the legend is true",
+    "pol": "Oaza: sprawd�, czy legenda jest prawdziwa",
+    "rus": "Оазис: проверить правдивость легенды",
+    "ukr": "Оаза: перевірити правдивість легенди"
+  },
+  "jup_b16_oasis_text": {
+    "eng": "Ozersky, the scientist from the bunker, asked you to try to find the Oasis, a legendary place in the Zone. According to rumors, there should be some healing waters there, but nobody really knows whether it exists or not.",
+    "pol": "Oziorski, naukowiec z bunkra, poprosi� ci� o odnalezienie Oazy, legendarnego miejsca w Zonie. Wed�ug plotek, powinny si� tam znajdowa� jakie� wody lecznicze, ale nikt tak naprawd� nie wie, czy ona istnieje.",
+    "rus": "Озерский, учёный из бункера, просил попробовать отыскать легендарный Оазис. Если верить слухам, там должен находиться водоём с целебной водой. Впрочем, никто не знает точно, существует ли это место на самом деле.",
+    "ukr": "Озьорський, учений з бункера, прохав спробувати відшукати легендарну Оазу. Якщо вірити чуткам, там має знаходитися водойма із цілющою водою. Втім, ніхто не зна точно, чи існує це місце насправді."
+  },
+  "jup_b19_agreed_to_go_name": {
+    "eng": "Kopachy: go with Uncle Yar",
+    "pol": "Kopaczi: id� z Wujkiem Jarem",
+    "rus": "Копачи: пойти в вылазку с дядькой Яром",
+    "ukr": "Копачі: піти у вилазку із дядьком Яром"
+  },
+  "jup_b19_agreed_to_go_text": {
+    "eng": "Uncle Yar needs help with something. Go to Kopachy village with him.",
+    "pol": "Wujek Jar potrzebuje pomocy w jakiej� sprawie. Id� z nim do wioski Kopaczi.",
+    "rus": "Дядьке Яру нужна какая-то помощь. Необходимо отправится с ним в деревню Копачи.",
+    "ukr": "Дядькові Яру потрібна якась допомога. Необхідно відправиться із ним до села Копачів."
+  },
+  "jup_b19_destroy_mercs_name": {
+    "eng": "Kopachy: eliminate the mercenaries",
+    "pol": "Kopaczi: zabij najemnik�w",
+    "rus": "Копачи: уничтожить наёмников",
+    "ukr": "Копачі: знищити найманців"
+  },
+  "jup_b19_destroy_mercs_text": {
+    "eng": "Looks like Uncle Yar anticipated the mercenaries' arrival. You must eliminate them.",
+    "pol": "Wygl�da na to, �e Wujek Jar spodziewa� si� przybycia najemnik�w. Musisz ich zabi�.",
+    "rus": "Похоже, дядька Яр предполагал появление наёмников. Необходимо их уничтожить.",
+    "ukr": "Схоже, дядько Яр припускав появу найманців. Необхідно їх знищити."
+  },
+  "jup_b19_following_yar_name": {
+    "eng": "Kopachy: stay close to Uncle Yar",
+    "pol": "Kopaczi: trzymaj si� blisko Wujka Jara",
+    "rus": "Копачи: держаться возле дядьки Яра",
+    "ukr": "Копачі: триматися біля дядька Яра"
+  },
+  "jup_b19_following_yar_text": {
+    "eng": "Uncle Yar asked you to stay close to him and keep quiet.",
+    "pol": "Wujek Jar poprosi� ci� o trzymanie si� blisko niego i siedzenie cicho.",
+    "rus": "Дядька Яр попросил держаться возле него и не поднимать шума.",
+    "ukr": "Дядько Яр попрохав триматися поблизу нього і не здіймати шуму."
+  },
+  "jup_b19_talk_to_yar_name": {
+    "eng": "Kopachy: talk to Uncle Yar",
+    "pol": "Kopaczi: porozmawiaj z Wujkiem Jarem",
+    "rus": "Копачи: поговорить с дядькой Яром",
+    "ukr": "Копачі: поговорити із дядьком Яром"
+  },
+  "jup_b19_talk_to_yar_text": {
+    "eng": "The mercenaries are dead. You should talk to Uncle Yar to get an explanation of what happened.",
+    "pol": "Najemnicy nie �yj�. Musisz porozmawia� z Wujkiem Jarem, aby wyja�ni�, co si� sta�o.",
+    "rus": "Наёмники мертвы. Стоит поговорить с дядькой Яром, чтобы получить объяснение произошедшему.",
+    "ukr": "Найманці мертві. Варто поговорити із дядьком Яром, аби отримати пояснення тому, що сталося."
+  },
+  "jup_b1_bring_art_back_name": {
+    "eng": "Intermittent psy-emissions: take the anomalous formation to the scientists",
+    "pol": "Okresowe emisje psioniczne: zabierz anormalny tw�r do naukowc�w",
+    "rus": "Переменное пси-излучение: доставить учёным аномальное образование",
+    "ukr": "Перемінне псі-випромінювання: доставити вченим аномальне утворення"
+  },
+  "jup_b1_bring_art_back_text": {
+    "eng": "Take the sample you found to Hermann as agreed. It looks like this is the source of intermittent psy-emissions, an item that is half-transformed through anomalous exposure.",
+    "pol": "Zgodnie z umow�, zabierz znalezion� pr�bk� do Hermana. Wygl�da na to, �e ten przedmiot, cz�ciowo przekszta�cony przez dzia�anie anomalii, jest �r�d�em okresowych emisji psionicznych.",
+    "rus": "Принести найденный образец Герману, как было оговорено. Судя по всему, этот наполовину изменённый аномальным воздействием предмет и есть источник переменного пси-излучения.",
+    "ukr": "Принести знайдений зразок Германові, як то було домовлено. Зважаючи на все, цей наполовину змінений аномальним впливом предмет і є джерелом перемінного псі-випромінювання."
+  },
+  "jup_b1_get_art_name": {
+    "eng": "Intermittent psy-emissions: investigate the source",
+    "pol": "Okresowe emisje psioniczne: zbadaj �r�d�o",
+    "rus": "Переменное пси-излучение: исследовать источник",
+    "ukr": "Перемінне псі-випромінювання: дослідити джерело"
+  },
+  "jup_b1_get_art_text": {
+    "eng": "Investigate the tunnel for some kind of anomalous formation. The scientists believe that the intermittent psy-field has a source, which will probably resemble an artifact.",
+    "pol": "Zbadaj tunele w poszukiwaniu jakiego� tworu wykazuj�cego anomali�. Naukowcy wierz�, �e okresowe pole psioniczne ma �r�d�o, kt�re prawdopodobnie przypomina artefakt.",
+    "rus": "Обследовать туннель в поисках некоего аномального образования. Учёные считают, что у переменного пси-поля есть источник и прогнозируют, что им может оказаться некий артефакт.",
+    "ukr": "Обстежити тунель у пошуках такого собі аномального утворення. Учені вважають, що в перемінного псі-поля є джерело та прогнозують, що це, можливо, унікальний артефакт."
+  },
+  "jup_b1_join_squad_name": {
+    "eng": "Intermittent psy-emissions: meet Topol's squad",
+    "pol": "Okresowe emisje psioniczne: spotkaj si� z dru�yn� Topola",
+    "rus": "Переменное пси-излучение: встретиться с отрядом Тополя",
+    "ukr": "Перемінне псі-випромінювання: зустрітися із загоном Тополі"
+  },
+  "jup_b1_join_squad_text": {
+    "eng": "Topol's squad went to the tunnel with the intermittent psy-emissions and you must meet them there.",
+    "pol": "Dru�yna Topola wybra�a si� do tunelu, w kt�rym wyst�puj� okresowe emisje psioniczne. Musisz si� tam z nimi spotka�.",
+    "rus": "Отряд Тополя ушёл к туннелю с переменным пси-излучением. Нужно встретиться с ними там.",
+    "ukr": "Загін Тополі пішов до тунелю із перемінним псі-випромінюванням. Потрібно зустрітися з ними там."
+  },
+  "jup_b1_meet_squad_name": {
+    "eng": "Intermittent psy-emissions: talk to Topol",
+    "pol": "Okresowe emisje psioniczne: porozmawiaj z Topolem",
+    "rus": "Переменное пси-излучение: поговорить с Тополем",
+    "ukr": "Перемінне псі-випромінювання: поговорити з Тополею"
+  },
+  "jup_b1_meet_squad_text": {
+    "eng": "Join Topol's squad to go to the tunnel with the intermittent psy-emissions. The agreement is that stalkers will guard the tunnel while you search for what the scientists want.",
+    "pol": "Do��cz do dru�yny Topola id�cej do tunelu, w kt�rym wyst�puj� okresowe emisje psioniczne. Zgodnie z umow�, stalkerzy b�d� ochrania� tunel, podczas gdy ty b�dziesz szuka� tego, czego chc� naukowcy.",
+    "rus": "Присоединится к отряду Тополя, чтобы отправиться к туннелю с переменным пси-излучением. Как было оговорено, в процессе поисков нужного учёным образца сталкеры будут охранять туннель.",
+    "ukr": "Приєднатися до загону Тополі, щоб відправитися до тунелю із перемінним псі-випромінюванням. Як було домовлено, у процесі пошуків потрібного вченим зразка сталкери охоронятимуть тунель."
+  },
+  "jup_b200_tech_materials_brought_all_text": {
+    "eng": "You should take all the radio technical materials you found to Nitro.",
+    "pol": "Musisz zabra� wszystkie znalezione materia�y radiotechniczne do Azota.",
+    "rus": "Отнести Азоту все добытые радиотехнические материалы",
+    "ukr": "Віднести Азотові всі знайдені радіотехнічні матеріали"
+  },
+  "jup_b200_tech_materials_brought_some_text": {
+    "eng": "Nitro needs radio technical materials. You can give him what you already have or try to find more.",
+    "pol": "Azot potrzebuje materia��w radiotechnicznych. Mo�esz mu da� to, co ju� masz, lub postara� si� znale�� co� jeszcze.",
+    "rus": "Азоту нужны радиотехнические материалы. Можно отнести ему уже найденные детали или попробовать поискать ещё.",
+    "ukr": "Азотові потрібні радіотехнічні матеріали. Можна віднести йому вже знайдені деталі або спробувати пошукати ще."
+  },
+  "jup_b200_tech_materials_name": {
+    "eng": "Radio equipment: find materials for Nitro",
+    "pol": "Sprz�t radiowy: znajd� materia�y dla Azota",
+    "rus": "Радиотехника: добыть материалы для Азота",
+    "ukr": "Радіотехніка: знайти матеріали для Азота"
+  },
+  "jup_b200_tech_materials_text": {
+    "eng": "Nitro needs radio technical materials. He says you should look for them at the cement factory.",
+    "pol": "Azot potrzebuje materia��w radiotechnicznych. M�wi, �e najlepiej poszuka� ich w cementowni.",
+    "rus": "Азоту нужны материалы для радиотехники. По его словам, есть смысл поискать их на цементном заводе.",
+    "ukr": "Азотові потрібні матеріали для радіотехніки. За його словами, є сенс пошукати їх на цементному заводі."
+  },
+  "jup_b202_actor_items_stolen_01_name": {
+    "eng": "Theft: find out who is responsible for the theft",
+    "pol": "Kradzie�: dowiedz si�, kto jest odpowiedzialny za kradzie�",
+    "rus": "Кража: разузнать, кто мог украсть вещи",
+    "ukr": "Крадіжка: дізнатися, хто міг вкрасти речі"
+  },
+  "jup_b202_actor_items_stolen_01_text": {
+    "eng": "Ask stalkers at Yanov if they've seen anyone suspicious who could have stolen things from a personal box.",
+    "pol": "Popytaj stalker�w w Janowie, czy nie widzieli kogo� podejrzanego, kto m�g�by ukra�� co� z prywatnej skrytki.",
+    "rus": "Расспросить сталкеров на «Янове» не заметил ли кто-нибудь из них подозрительных людей, способных украсть вещи из личного ящика.",
+    "ukr": "Розпитати сталкерів на «Янові» - чи не помітив хтось із них підозрілих людей, здатних вкрасти речі з особистого ящика."
+  },
+  "jup_b202_actor_items_stolen_02_name": {
+    "eng": "Theft: check the substation",
+    "pol": "Kradzie�: sprawd� na podstacji",
+    "rus": "Кража: проверить полустанок",
+    "ukr": "Крадіжка: перевірити полустанок"
+  },
+  "jup_b202_actor_items_stolen_02_text": {
+    "eng": "You need to check out the substation, as that's where the suspicious stalker who may be responsible for the theft was headed.",
+    "pol": "Musisz sprawdzi� podstacj�, poniewa� w tamt� stron� skierowa� si� podejrzany stalker, kt�ry mo�e by� odpowiedzialny za kradzie�.",
+    "rus": "Надо проверить полустанок: судя по всему, подозрительный сталкер, который мог совершить кражу, отправился именно туда.",
+    "ukr": "Треба перевірити полустанок: зважаючи на все, підозрілий сталкер, який міг вчинити крадіжку, попрямував саме туди."
+  },
+  "jup_b202_actor_items_stolen_03_name": {
+    "eng": "Theft: take your things",
+    "pol": "Kradzie�: zabierz swoje rzeczy",
+    "rus": "Кража: забрать свои вещи",
+    "ukr": "Крадіжка: забрати свої речі"
+  },
+  "jup_b202_actor_items_stolen_03_text": {
+    "eng": "All the items Snag stole should be in his stash in the sewers behind the substation.",
+    "pol": "Wszystkie przedmioty, kt�re ukrad� S�k, powinny by� w schowku w kana�ach za podstacj�.",
+    "rus": "Все украденные Корягой вещи должны быть в тайнике - в люке канализации за полустанком.",
+    "ukr": "Всі викрадені Корчем речі мають бути у схованці - в люку каналізації за полустанком."
+  },
+  "jup_b206_anomalous_grove_get_plant_name": {
+    "eng": "Anomalous plant: get a plant sample",
+    "pol": "Nietypowa ro�lina: zdob�d� pr�bk� ro�liny",
+    "rus": "Аномальное растение: добыть образец растительности",
+    "ukr": "Аномальна рослина: добути зразок рослинності"
+  },
+  "jup_b206_anomalous_grove_get_plant_text": {
+    "eng": "An area filled with anomalous vegetation has appeared near the edge of the quarry. Ozersky has asked you to get a plant sample for his research.",
+    "pol": "Obszar pe�en nietypowej ro�linno�ci pojawi� si� w pobli�u kraw�dzi kamienio�om�w. Oziorski poprosi� ci� o przyniesienie pr�bki ro�lin do bada�.",
+    "rus": "У края карьера недавно возникла область аномальной растительности. Озёрский просит добыть экземпляр для изучения.",
+    "ukr": "Біля краю кар'єру нещодавно виникла ділянка аномальної рослинності. Озьорський просить добути екземпляр для вивчення."
+  },
+  "jup_b206_anomalous_grove_have_plant_name": {
+    "eng": "Anomalous plant: give the sample to Ozersky",
+    "pol": "Nietypowa ro�lina: daj pr�bk� Oziorskiemu",
+    "rus": "Аномальное растение: отдать экземпляр Озёрскому",
+    "ukr": "Аномальна рослина: віддати екземпляр Озьорському"
+  },
+  "jup_b206_anomalous_grove_have_plant_text": {
+    "eng": "You must take the plant sample to Ozersky. In exchange, Ozersky will convince Hermann to hand over a scientific suit.",
+    "pol": "Musisz zabra� pr�bk� ro�liny do Oziorskiego. W zamian Oziorski przekona Hermana, �eby da� ci kombinezon naukowca.",
+    "rus": "Необходимо отнести экземпляр растительности Озёрскому. В обмен на него Озёрский убедит Германа пожертвовать научный костюм.",
+    "ukr": "Необхідно віднести екземпляр рослинності Озьорському. В обмін на нього вчений переконає Германа пожертвувати науковий костюм."
+  },
+  "jup_b208_burers_hunt_kill_burers_name": {
+    "eng": "Hunting: eliminate unidentified mutants",
+    "pol": "Polowanie: zabij niezidentyfikowane mutanty",
+    "rus": "Охота: уничтожить неизвестных мутантов",
+    "ukr": "Полювання: знищити невідомих мутантів"
+  },
+  "jup_b208_burers_hunt_kill_burers_text": {
+    "eng": "A group of stalkers encountered unidentified mutants in the tunnels north of the Jupiter plant. Investigate the area and eliminate the mutants.",
+    "pol": "Grupa stalker�w napotka�a niezidentyfikowane mutanty w tunelach na p�noc od fabryki Jupiter. Zbadaj ten teren i zabij mutanty.",
+    "rus": "Группа сталкеров обнаружила странных мутантов в тоннелях к северу от завода «Юпитер». Необходимо проверить это место и уничтожить мутантов.",
+    "ukr": "Група сталкерів знайшла дивних мутантів у тоннелях на півночі від заводу «Юпітер». Необхідно перевірити це місце і знищити мутантів."
+  },
+  "jup_b208_burers_hunt_take_reward_name": {
+    "eng": "Hunting: get your reward for killing the mutants in the tunnel from Trapper",
+    "pol": "Polowanie: odbierz od Trapera nagrod� za zabicie mutant�w w tunelu",
+    "rus": "Охота: забрать у Зверобоя награду за мутантов из тоннеля",
+    "ukr": "Полювання: забрати в Зверобоя нагороду за мутантів з тоннеля"
+  },
+  "jup_b208_burers_hunt_take_reward_text": {
+    "eng": "Mutants in the tunnels north of the Jupiter plant have been eliminated. You should inform Trapper and collect your reward.",
+    "pol": "Mutanty w tunelu na p�noc od fabryki Jupiter zosta�y zabite. Musisz poinformowa� o tym Trapera i odebra� swoj� nagrod�.",
+    "rus": "Мутанты в тоннелях к северу от завода «Юпитер» уничтожены. Необходимо сообщить об этом Зверобою и забрать награду.",
+    "ukr": "Мутанти в тоннелях на північ від заводу «Юпітер» знищені. Необхідно повідомити про це Звіробоєві та забрати нагороду."
+  },
+  "jup_b209_hypotheses_1_name": {
+    "eng": "Hypothesis: place the scanner in the center of the landslide",
+    "pol": "Hipoteza: umie�� skaner w centrum osuwiska",
+    "rus": "Гипотеза: установить сканер в центр обвала",
+    "ukr": "Гіпотеза: встановити сканер у центрі обвалу"
+  },
+  "jup_b209_hypotheses_1_text": {
+    "eng": "Place the scanner in the center of the landslide to test Ozersky's hypothesis.",
+    "pol": "Umie�� skaner w centrum osuwiska, aby sprawdzi� hipotez� Oziorskiego.",
+    "rus": "Чтобы проверить гипотезу Озёрского, необходимо установить сканер примерно в центре обвала.",
+    "ukr": "Щоб перевірити гіпотезу Озьорського, необхідно істановити сканер приблизно у центрі обвалу."
+  },
+  "jup_b209_hypotheses_2_name": {
+    "eng": "Hypothesis: wait for the experiment to end",
+    "pol": "Hipoteza: poczekaj na zako�czenie eksperymentu",
+    "rus": "Гипотеза: дождаться окончания эксперимента",
+    "ukr": "Гіпотеза: дочекатися закінчення експерименту"
+  },
+  "jup_b209_hypotheses_2_text": {
+    "eng": "The scanner is now in active mode and has begun to register mutant presence. You must wait until enough data has been collected to confirm or disprove the hypothesis.",
+    "pol": "Skaner jest teraz aktywny i zacz�� rejestrowa� obecno�� mutant�w. Musisz poczeka� na zebranie wystarczaj�cej ilo�ci danych, by potwierdzi� lub obali� hipotez�.",
+    "rus": "Сканер перешёл в активный режим и начал регистрировать информацию. Необходимо подождать, пока будет собрано достаточно данных для подтверждения или опровержения гипотезы.",
+    "ukr": "Сканер перейшов у активний режим і почав реєструвати інформацію. Необхідно почекати, поки буде зібрано достатньо даних для підтвердження або спростування гіпотези."
+  },
+  "jup_b209_hypotheses_3_name": {
+    "eng": "Hypothesis: take the scanner",
+    "pol": "Hipoteza: zabierz skaner",
+    "rus": "Гипотеза: забрать сканер",
+    "ukr": "Гіпотеза: забрати сканер"
+  },
+  "jup_b209_hypotheses_3_text": {
+    "eng": "Enough data has been collected to confirm Ozersky's hypothesis. Take the scanner.",
+    "pol": "Zebrano wystarczaj�c� ilo�� danych, by potwierdzi� hipotez� Oziorskiego. Zabierz skaner.",
+    "rus": "Собрано вполне достаточно данных для подтверждения гипотезы Озёрского. Необходимо забрать сканер.",
+    "ukr": "Зібрано цілком достатньо даних для підтвердження гіпотези Озьорського. Необхідно забрати сканер."
+  },
+  "jup_b209_hypotheses_4_name": {
+    "eng": "Hypothesis: give the scanner to Ozersky",
+    "pol": "Hipoteza: daj skaner Oziorskiemu",
+    "rus": "Гипотеза: отдать сканер Озёрскому",
+    "ukr": "Гіпотеза: віддати сканер Озьорському"
+  },
+  "jup_b209_hypotheses_4_text": {
+    "eng": "You must give the scanner to Ozersky. The data collected should be enough to confirm his hypothesis.",
+    "pol": "Musisz da� skaner Oziorskiemu. Zebrane dane powinny wystarczy�, by potwierdzi� jego hipotez�.",
+    "rus": "Необходимо отдать сканер Озёрскому. Собранных данных должно хватить для однозначного подтверждения его гипотезы.",
+    "ukr": "Необхідно віддати сканер Озьорському. Зібраних даних має вистачити для однозначного підтвердження його гіпотези."
+  },
+  "jup_b211_kill_bloodsuckers_name": {
+    "eng": "Hunting: kill the swamp bloodsuckers",
+    "pol": "Polowanie: zabij bagienne pijawki",
+    "rus": "Охота: уничтожить стаю болотных кровососов",
+    "ukr": "Полювання: знищити зграю болотяних кровососів"
+  },
+  "jup_b211_kill_bloodsuckers_text": {
+    "eng": "A group of swamp bloodsuckers has been spotted in Fen, behind the cement factory. Local stalkers have asked you to eliminate them.",
+    "pol": "Zaobserwowano grup� bagiennych pijawek na Mokrad�ach za cementowni�. Miejscowi stalkerzy poprosili ci� o ich zabicie.",
+    "rus": "В Плавнях, за цементным заводом, видели стаю болотных кровососов. Местные сталкеры просят её уничтожить.",
+    "ukr": "У Плавнях, за цементним заводом, бачили зграю болотяних кровососів. Місцеві сталкери просять її знищити."
+  },
+  "jup_b211_take_reward_name": {
+    "eng": "Hunting: get your reward for killing the swamp bloodsuckers from Trapper",
+    "pol": "Polowanie: odbierz od Trapera nagrod� za zabicie pijawek",
+    "rus": "Охота: забрать у Зверобоя награду за болотных кровососов",
+    "ukr": "Полювання: забрати в Звіробоя нагороду за болотяних кровососів"
+  },
+  "jup_b211_take_reward_text": {
+    "eng": "The swamp bloodsuckers are dead. You should collect the reward put up by local stalkers from Trapper.",
+    "pol": "Bagienne pijawki s� martwe. Odbierz od Trapera nagrod� zaoferowan� przez miejscowych stalker�w.",
+    "rus": "Стая болотных кровососов уничтожена. Стоит забрать награду от местных сталкеров у Зверобоя.",
+    "ukr": "Зграю болотяних кровососів знищено. Варто забрати нагороду від місцевих сталкерів у Звіробоя."
+  },
+  "jup_b212_jupiter_kill_chimera_name": {
+    "eng": "Night hunt: kill the chimera",
+    "pol": "Nocne polowanie: zabij chimer�",
+    "rus": "Ночная охота: уничтожить химеру",
+    "ukr": "Нічне полювання: знищити химеру"
+  },
+  "jup_b212_jupiter_kill_chimera_text": {
+    "eng": "Chimeras are nocturnal predators and nobody knows the whereabouts of this one's daytime lair. You must kill it at night when it comes out to hunt by the ventilation complex.",
+    "pol": "Chimery s� drapie�nikami nocnymi. Nikt nie wie, gdzie ta ma swoje dzienne legowisko. Musisz j� zabi� w nocy, gdy wychodzi na polowanie niedaleko kompleksu wentylacyjnego.",
+    "rus": "Химера - ночной хищник; где находится её дневное логово - неизвестно. Необходимо убить её ночью, когда она выходит на охоту к вентиляционному комплексу.",
+    "ukr": "Химера є нічним хижаком; де знаходиться її денне лігвище - невідомо. Необхідно вбити її вночі, коли вона виходить на полювання до вентиляційного комплексу."
+  },
+  "jup_b212_jupiter_tell_animalboy_about_chimera_name": {
+    "eng": "Night hunt: tell Trapper that the chimera is dead",
+    "pol": "Nocne polowanie: powiedz Traperowi, �e chimera zosta�a zabita",
+    "rus": "Ночная охота: рассказать Зверобою про смерть химеры",
+    "ukr": "Нічне полювання: розповісти Звіробієві про смерть химери"
+  },
+  "jup_b212_jupiter_tell_animalboy_about_chimera_text": {
+    "eng": "The killer chimera is dead and Fox, the hunter, has been avenged. Tell Trapper about this.",
+    "pol": "Mordercza chimera nie �yje, a �owca Lis zosta� pomszczony. Powiedz o tym Traperowi.",
+    "rus": "Химера-убийца мертва, охотник Лис отомщён. Необходимо рассказать об этом Зверобою.",
+    "ukr": "Химера-вбивця мертва, за мисливця Лиса відплачено. Необхідно розповісти про це Звіробієві."
+  },
+  "jup_b217_get_tools_1_2_name": {
+    "eng": "Tools: bring Nitro tools",
+    "pol": "Narz�dzia: przynie� Azotowi narz�dzia",
+    "rus": "Инструменты: принести инструменты Азоту",
+    "ukr": "Інструменти: принести інструменти Азотові"
+  },
+  "jup_b217_get_tools_1_2_text": {
+    "eng": "Nitro has asked you to get two sets of tools: one for basic work and one for fine work. The technician will pay you for the tools and will be able to perform more advanced weapon and armor modifications.",
+    "pol": "Azot poprosi� ci� o zdobycie dw�ch zestaw�w narz�dzi: jednego podstawowego i jednego do precyzyjnej pracy. Technik zap�aci ci za narz�dzia i b�dzie w stanie wykona� bardziej zaawansowane modyfikacje broni i pancerzy.",
+    "rus": "Азот просил найти два набора инструментов: один для точной, другой для грубой работы. Мастер не только заплатит за инструмент, но и сможет обеспечить более серьёзную модернизацию оружия или бронежилета.",
+    "ukr": "Азот просив знайти два набори інструментів: один для точної, інший для грубої роботи. Він не лише заплатить за інструмент, але й зможе забезпечити серйознішу модернізацію зброї чи бронежилета."
+  },
+  "jup_b217_get_tools_1_3_name": {
+    "eng": "Tools: bring Nitro tools",
+    "pol": "Narz�dzia: przynie� Azotowi narz�dzia",
+    "rus": "Инструменты: принести инструменты Азоту",
+    "ukr": "Інструменти: принести інструменти Азотові"
+  },
+  "jup_b217_get_tools_1_3_text": {
+    "eng": "Nitro has asked you to get two sets of tools: one for basic work and one for calibration. The technician will pay you for the tools and will be able to perform more advanced weapon and armor modifications.",
+    "pol": "Azot poprosi� ci� o zdobycie dw�ch zestaw�w narz�dzi: jednego podstawowego i jednego do kalibracji. Technik zap�aci ci za narz�dzia i b�dzie w stanie wykona� bardziej zaawansowane modyfikacje broni i pancerzy.",
+    "rus": "Азот просил найти два набора инструментов: один для грубой работы, другой для калибровки. Мастер не только заплатит за инструмент, но и сможет обеспечить более серьёзную модернизацию оружия или бронежилета.",
+    "ukr": "Азот просив знайти два набори інструментів: один для грубої роботи, інший для калібрування. Він не лише заплатить за інструмент, але й зможе забезпечити серйознішу модернізацію зброї чи бронежилета."
+  },
+  "jup_b217_get_tools_1_name": {
+    "eng": "Tools: bring Nitro tools",
+    "pol": "Narz�dzia: przynie� Azotowi narz�dzia",
+    "rus": "Инструменты: принести инструменты Азоту",
+    "ukr": "Інструменти: принести інструменти Азотові"
+  },
+  "jup_b217_get_tools_1_text": {
+    "eng": "Nitro has asked you to get a set of tools for basic work. The technician will pay you for the tools and will be able to perform more advanced weapon and armor modifications.",
+    "pol": "Azot poprosi� ci� o zdobycie zestawu narz�dzi podstawowych. Technik zap�aci ci za narz�dzia i b�dzie w stanie wykona� bardziej zaawansowane modyfikacje broni i pancerzy.",
+    "rus": "Азот просил найти набор инструментов для грубой работы. Мастер не только заплатит за инструмент, но и сможет обеспечить более серьёзную модернизацию оружия или бронежилета.",
+    "ukr": "Азот просив знайти набір інструментів для грубої роботи. Він не лише заплатить за інструмент, але й зможе забезпечити серйознішу модернізацію зброї чи бронежилета."
+  },
+  "jup_b217_get_tools_2_3_name": {
+    "eng": "Tools: bring Nitro tools",
+    "pol": "Narz�dzia: przynie� Azotowi narz�dzia",
+    "rus": "Инструменты: принести инструменты Азоту",
+    "ukr": "Інструменти: принести інструменти Азотові"
+  },
+  "jup_b217_get_tools_2_3_text": {
+    "eng": "Nitro has asked you to get two sets of tools: one for fine work and one for calibration. The technician will pay you for the tools and will be able to perform more advanced weapon and armor modifications.",
+    "pol": "Azot poprosi� ci� o zdobycie dw�ch zestaw�w narz�dzi: jednego do precyzyjnej pracy i jednego do kalibracji. Technik zap�aci ci za narz�dzia i b�dzie w stanie wykona� bardziej zaawansowane modyfikacje broni i pancerzy.",
+    "rus": "Азот просил найти два набора инструментов: один для тонкой работы, другой для калибровки. Мастер не только заплатит за инструмент, но и сможет обеспечить более серьёзную модернизацию оружия или бронежилета.",
+    "ukr": "Азот просив знайти два набори інструментів: один для тонкої роботи, інший для калібрування. Він не лише заплатить за інструмент, але й зможе забезпечити серйознішу модернізацію зброї чи бронежилета."
+  },
+  "jup_b217_get_tools_2_name": {
+    "eng": "Tools: bring Nitro tools",
+    "pol": "Narz�dzia: przynie� Azotowi narz�dzia",
+    "rus": "Инструменты: принести инструменты Азоту",
+    "ukr": "Інструменти: принести інструменти Азотові"
+  },
+  "jup_b217_get_tools_2_text": {
+    "eng": "Nitro has asked you to get a set of tools for fine work. The technician will pay you for the tools and will be able to perform more advanced weapon and armor modifications.",
+    "pol": "Azot poprosi� ci� o zdobycie zestawu narz�dzi do precyzyjnej pracy. Technik zap�aci ci za narz�dzia i b�dzie w stanie wykona� bardziej zaawansowane modyfikacje broni i pancerzy.",
+    "rus": "Азот просил найти набор инструментов для точной работы. Мастер не только заплатит за инструмент, но и сможет обеспечить более серьёзную модернизацию оружия или бронежилета.",
+    "ukr": "Азот просив знайти набір інструментів для точної роботи. Він не лише заплатить за інструмент, але й зможе забезпечити серйознішу модернізацію зброї чи бронежилета."
+  },
+  "jup_b217_get_tools_3_name": {
+    "eng": "Tools: bring Nitro tools",
+    "pol": "Narz�dzia: przynie� Azotowi narz�dzia",
+    "rus": "Инструменты: принести инструменты Азоту",
+    "ukr": "Інструменти: принести інструменти Азотові"
+  },
+  "jup_b217_get_tools_3_text": {
+    "eng": "Nitro has asked you to get a set of tools for calibration. The technician will pay you for the tools and will be able to perform more advanced weapon and armor modifications.",
+    "pol": "Azot poprosi� ci� o zdobycie zestawu narz�dzi do kalibracji. Technik zap�aci ci za narz�dzia i b�dzie w stanie wykona� bardziej zaawansowane modyfikacje broni i pancerzy.",
+    "rus": "Азот просил найти набор инструментов для калибровки. Мастер не только заплатит за инструмент, но и сможет обеспечить более серьёзную модернизацию оружия или бронежилета.",
+    "ukr": "Азот просив знайти набір інструментів для калібрування. Він не лише заплатить за інструмент, але й зможе забезпечити серйознішу модернізацію зброї чи бронежилета."
+  },
+  "jup_b217_mechanic_toolkit_search_name": {
+    "eng": "Tools: bring Nitro tools",
+    "pol": "Narz�dzia: przynie� Azotowi narz�dzia",
+    "rus": "Инструменты: принести инструменты Азоту",
+    "ukr": "Інструменти: принести інструменти Азотові"
+  },
+  "jup_b217_mechanic_toolkit_search_text": {
+    "eng": "Nitro has asked you to get three sets of tools: one for basic work, one for fine work and one for calibration. The technician will pay you for the tools and will be able to perform more advanced weapon and armor modifications.",
+    "pol": "Azot poprosi� ci� o zdobycie trzech zestaw�w narz�dzi: jednego podstawowego, jednego do precyzyjnej pracy i jednego do kalibracji. Technik zap�aci ci za narz�dzia i b�dzie w stanie wykona� bardziej zaawansowane modyfikacje broni i pancerzy.",
+    "rus": "Азот просил найти три набора инструментов: для грубой работы, для точной работы плюс набор для калибровки. Мастер не только заплатит за инструмент, но и сможет обеспечить более серьёзную модернизацию оружия или бронежилета.",
+    "ukr": "Азот просив знайти три набори інструментів: для грубої роботи, для точної роботи плюс набір для калібрування. Він не лише заплатить за інструмент, але й зможе забезпечити серйознішу модернізацію зброї чи бронежилета."
+  },
+  "jup_b218_actor_outfit_name": {
+    "eng": "Pripyat 1: find a suit with a closed-cycle respiratory module",
+    "pol": "Prype� 1: znajd� kombinezon z aparatem tlenowym o zamkni�tym obiegu",
+    "rus": "«Припять-1»: найти костюм с замкнутой системой дыхания",
+    "ukr": "«Прип'ять-1»: знайти костюм із замкнутою системою дихання"
+  },
+  "jup_b218_actor_outfit_text": {
+    "eng": "You will need a suit with a closed-cycle respiratory module to go through the Pripyat 1 underpass, as it has been filled with carbon dioxide mixed in with an unknown substance.",
+    "pol": "Poniewa� tunel Prype� 1 zosta� wype�niony dwutlenkiem w�gla wymieszanym z jak�� nieznan� substancj�, b�dziesz potrzebowa� kombinezonu z aparatem tlenowym o zamkni�tym obiegu.",
+    "rus": "Для преодоления путепровода «Припять-1» понадобится костюм с замкнутой системой дыхания, так как подземные помещения были заполнены углекислым газом с неизвестной примесью.",
+    "ukr": "Для подолання шляхопроводу «Прип'ять-1» знадобиться костюм із замкнутою системою дихання, оскільки підземні приміщення було заповнено вуглекислим газом із невідомою домішкою."
+  },
+  "jup_b218_monolith_guide_to_zulus_name": {
+    "eng": "Pripyat 1: take Strider to see Zulu",
+    "pol": "Prype� 1: zaprowad� W��cz�g� do Zulusa",
+    "rus": "«Припять-1»: отвести Бродягу к Зулусу",
+    "ukr": "«Прип'ять-1»: відвести Бродягу до Зулуса"
+  },
+  "jup_b218_monolith_guide_to_zulus_text": {
+    "eng": "You must take Strider to see Zulu and introduce him as a new member of the squad. Zulu may not be welcoming if a fighter wearing a Monolith suit shows up on his own.",
+    "pol": "Musisz zaprowadzi� W��cz�g� do Zulusa i przedstawi� go jako nowego cz�onka dru�yny. Zulus mo�e nie by� zbyt przyjazny, je�eli wojownik w mundurze Monolitu pojawi si� u niego samotnie.",
+    "rus": "Необходимо отвести Бродягу к Зулусу и представить как нового бойца отряда. Зулус может не обрадоваться визиту одиночки в костюме «Монолита».",
+    "ukr": "Необхідно відвести Бродягу до Зулуса і представити як нового бійця загону. Зулус може не зрадіти візиту одинака в костюмі «Моноліту»."
+  },
+  "jup_b218_monolith_name": {
+    "eng": "Pripyat 1: talk to Strider about a protective suit",
+    "pol": "Prype� 1: porozmawiaj z W��cz�g� na temat kombinezonu ochronnego",
+    "rus": "«Припять-1»: поговорить с Бродягой о защитном костюме",
+    "ukr": "«Прип'ять-1»: поговорити із Бродягою про захисний костюм"
+  },
+  "jup_b218_monolith_text": {
+    "eng": "The Pripyat 1 underpass has been filled with carbon dioxide mixed in with an unknown substance. You must inform Strider that he will need a suit with a closed-cycle respiratory module to go through the underpass.",
+    "pol": "Tunel Prype� 1 zosta� wype�niony dwutlenkiem w�gla wymieszanym z jak�� nieznan� substancj�. Musisz poinformowa� W��cz�g�, �e aby przez niego przej��, b�dzie potrzebowa� kombinezonu z aparatem tlenowym o zamkni�tym obiegu.",
+    "rus": "Путепровод «Припять-1» был заполнен углекислым газом с неизвестной примесью. Необходимо сообщить Бродяге, что для преодоления путепровода понадобится костюм с замкнутой системой дыхания.",
+    "ukr": "Шляхопровід «Прип'ять-1» було заповнено вуглекислим газом із невідомою домішкою. Необхідно повідомити Бродягу, що для подолання шляхопроводу знадобиться костюм із замкнутою системою дихання."
+  },
+  "jup_b218_pripyat_group_gathering_name": {
+    "eng": "Pripyat 1: assemble a squad to go to Pripyat",
+    "pol": "Prype� 1: zbierz ekip� na wypraw� do Prypeci",
+    "rus": "«Припять-1»: собрать отряд для похода в Припять",
+    "ukr": "«Прип'ять-1»: зібрати загін для походу до Прип'яті"
+  },
+  "jup_b218_pripyat_group_gathering_text": {
+    "eng": "Nitro could open the Pripyat 1 underpass lock, but he refuses to go into the Jupiter plant without protection. He further recommends that you get a few people to go through the underpass with. You already have Zulu, and he has suggested that you send new recruits to him.",
+    "pol": "Azot m�g�by otworzy� �luz� tunelu Prype� 1, ale nie zgadza si� p�j�� do fabryki Jupiter bez ochrony. Zaleci� te�, �eby zebra� kilku ludzi na przepraw� przez tunel. Masz ju� Zulusa, kt�ry zasugerowa�, �eby nowych ludzi wysy�a� bezpo�rednio do niego.",
+    "rus": "Азот мог бы открыть шлюз путепровода «Припять-1», но он отказывается идти на территорию завода «Юпитер» без охраны и рекомендует взять с собой в путепровод пару бойцов. К отряду уже присоеденился Зулус. Он предлагает присылать новых бойцов к нему.",
+    "ukr": "Азот міг би відкрити шлюз шляхопроводу «Прип'ять-1», але він відмовляється йти на територію заводу «Юпітер» без охорони і рекомендує взяти із собою до шляхопровіду пару бійців. До загону вже приєднався Зулус, котрий пропонує надсилати нових бійців до нього."
+  },
+  "jup_b218_pripyat_group_zulus_talk_name": {
+    "eng": "Pripyat 1: talk to Zulu about going to Pripyat",
+    "pol": "Prype� 1: porozmawiaj z Zulusem na temat wyprawy do Prypeci",
+    "rus": "«Припять-1»: поговорить с Зулусом о походе в Припять",
+    "ukr": "«Прип'ять-1»: перемовитись із Зулусом про похід до Прип'яті"
+  },
+  "jup_b218_pripyat_group_zulus_talk_text": {
+    "eng": "Nitro could open the Pripyat 1 underpass lock, but he refuses to go into the Jupiter plant without protection. He further recommends that you get a few people to go through the underpass with. He suggested that you speak to Zulu, as he could help you assemble a squad.",
+    "pol": "Azot m�g�by otworzy� �luz� tunelu Prype� 1, ale nie zgadza si� p�j�� do fabryki Jupiter bez ochrony. Zaleci� te�, �eby zebra� kilku ludzi na przepraw� przez tunel. Zasugerowa� ci rozmow� z Zulusem, kt�ry m�g�by pom�c w sformowaniu dru�yny.",
+    "rus": "Азот мог бы открыть шлюз путепровода «Припять-1», но он отказывается идти на территорию завода «Юпитер» без охраны и рекомендует взять с собой в путепровод пару бойцов. Он предлагает поговорить с Зулусом, который может помочь собрать отряд.",
+    "ukr": "Азот міг би відкрити шлюз шляхопроводу «Прип'ять-1», але він відмовляється йти на територію заводу «Юпітер» без охорони і рекомендує взяти із собою до шляхопроводу пару бійців. Він пропонує поговорити із Зулусом, який може допомогти зібрати загін."
+  },
+  "jup_b218_soldier_guide_to_zulus_name": {
+    "eng": "Pripyat 1: take Sokolov to see Zulu",
+    "pol": "Prype� 1: zaprowad� Soko�owa do Zulusa",
+    "rus": "«Припять-1»: отвести Соколова к Зулусу",
+    "ukr": "«Прип'ять-1»: відвести Соколова до Зулуса"
+  },
+  "jup_b218_soldier_guide_to_zulus_text": {
+    "eng": "Sokolov has agreed to go to Pripyat and could take a scientific suit when he leaves the bunker. You should take him to see Zulu and introduce him as a new member of the squad.",
+    "pol": "Soko�ow zgodzi� si� p�j�� do Prypeci. M�g�by zabra� ze sob� kombinezon naukowca, gdy b�dzie opuszcza� bunkier. Zaprowad� go do Zulusa i przedstaw jako nowego cz�onka dru�yny.",
+    "rus": "Соколов согласен идти в Припять и может, уходя из бункера, захватить с собой защитный костюм. Необходимо отвести его к Зулусу и представить как нового бойца отряда.",
+    "ukr": "Соколов згоден іти до Прип'яті й може, ідучи з бункера, прихопити із собою захисний костюм. Необхідно відвести його до Зулуса та представити як нового бійця загону."
+  },
+  "jup_b218_soldier_name": {
+    "eng": "Pripyat 1: talk to Sokolov about a protective suit",
+    "pol": "Prype� 1: porozmawiaj z Soko�owem na temat kombinezonu ochronnego",
+    "rus": "«Припять-1»: поговорить с Соколовым о защитном костюме",
+    "ukr": "«Прип'ять-1»: поговорити із Соколовим про захисний костюм"
+  },
+  "jup_b218_soldier_talk_to_scientist_name": {
+    "eng": "Pripyat 1: talk to Ozersky about a suit for Sokolov",
+    "pol": "Prype� 1: porozmawiaj z Oziorskim na temat kombinezonu dla Soko�owa",
+    "rus": "«Припять-1»: поговорить с Озёрским насчёт костюма для Соколова",
+    "ukr": "«Прип'ять-1»: поговорити з Озьорським щодо костюма для Соколова"
+  },
+  "jup_b218_soldier_talk_to_scientist_text": {
+    "eng": "Sokolov is willing to wear a scientific suit for protection, but Hermann is unlikely to let him take one from the bunker. You should talk to Ozersky - he's nicer and easier to deal with.",
+    "pol": "Soko�ow zgodzi� si� nosi� kombinezon naukowca dla ochrony, ale Herman raczej nie da mu zabra� �adnego z bunkra. Porozmawiaj z Oziorskim - jest sympatyczniejszy i �atwiej si� z nim dogada�.",
+    "rus": "Соколов согласен на защитный костюм учёных, но Герман вряд ли позволит забрать из бункера хоть один. Стоит поговорить с Озёрским - тот отличается более мягким характером.",
+    "ukr": "Соколов згоден на науковий захисний костюм, але Герман навряд чи дозволить забрати з бункера хоч один. Варто поговорити з Озьорським - то людина м'яка та добра."
+  },
+  "jup_b218_soldier_tell_outfit_name": {
+    "eng": "Pripyat 1: tell Sokolov about the scientific suit",
+    "pol": "Prype� 1: powiedz Soko�owowi o kombinezonie naukowca",
+    "rus": "«Припять-1»: рассказать Соколову о научном костюме",
+    "ukr": "«Прип'ять-1»: розповісти Соколову про науковий костюм"
+  },
+  "jup_b218_soldier_tell_outfit_text": {
+    "eng": "Ozersky is very happy with the plant sample. He has asked you to tell Sokolov that he can collect his scientific suit from Hermann.",
+    "pol": "Oziorski jest bardzo zadowolony z pr�bki ro�lin. Poprosi� ci� o przekazanie Soko�owowi, �e mo�e odebra� kombinezon naukowca od Hermana.",
+    "rus": "Озёрский, весьма довольный экземпляром растения, просил передать Соколову, что защитный костюм учёных будет ждать у Германа.",
+    "ukr": "Озьорський, дуже вдоволений екземпляром рослини, просив передати Соколову, що захисний костюм чекатиме в Германа."
+  },
+  "jup_b218_soldier_text": {
+    "eng": "The Pripyat 1 underpass has been filled with carbon dioxide mixed in with an unknown substance. You must inform Sokolov that he will need a suit with a closed-cycle respiratory module to go through the underpass.",
+    "pol": "Tunel Prype� 1 zosta� wype�niony dwutlenkiem w�gla wymieszanym z jak�� nieznan� substancj�. Musisz poinformowa� Soko�owa, �e aby przez niego przej��, b�dzie potrzebowa� kombinezonu z aparatem tlenowym o zamkni�tym obiegu.",
+    "rus": "Путепровод «Припять-1» был заполнен углекислым газом с неизвестной приместью. Необходимо сообщить Соколову, что для преодоления путепровода понадобится костюм с замкнутой системой дыхания.",
+    "ukr": "Шляхопровід «Прип'ять-1» був заповнений вуглекислим газом з невідомої приместью. Необхідно повідомити Соколову, що для подолання шляхопроводу знадобиться костюм із замкнутою системою дихання."
+  },
+  "jup_b218_stalker_bring_money_name": {
+    "eng": "Pripyat 1: get Vano money for the suit",
+    "pol": "Prype� 1: zdob�d� dla Wano pieni�dze na kombinezon",
+    "rus": "«Припять-1»: принести Вано деньги на костюм",
+    "ukr": "«Прип'ять-1»: принести Вано гроші на костюм"
+  },
+  "jup_b218_stalker_bring_money_text": {
+    "eng": "The suit for which Vano owed money to the bandits had a closed-cycle respiratory module. Vano had to pawn it to pay his debts. Now he needs 3,000 to buy it back.",
+    "pol": "Kombinezon, za kt�ry Wano by� winien bandytom pieni�dze, mia� aparat tlenowy o zamkni�tym obiegu. Wano musia� go zastawi�, �eby sp�aci� d�ug. Teraz potrzebuje 3000, �eby go z powrotem wykupi�.",
+    "rus": "Костюм, из-за которого сталкер Вано задолжал бандитам, оснащён замкнутой системой дыхания. Вано пришлось заложить его, чтобы расплатиться с долгами; теперь ему нужны 3000, чтобы выкупить костюм.",
+    "ukr": "Костюм, через якого сталкер Вано заборгував бандитам, споряджено замкнутою системою дихання. Вано довелося закласти його, щоб розплатитися з боргами; тепер йому потрібні 3000, щоб викупити костюм."
+  },
+  "jup_b218_stalker_guide_to_zulus_name": {
+    "eng": "Pripyat 1: take Vano to see Zulu",
+    "pol": "Prype� 1: zaprowad� Wano do Zulusa",
+    "rus": "«Припять-1»: отвести Вано к Зулусу",
+    "ukr": "«Прип'ять-1»: відвести Вано до Зулуса"
+  },
+  "jup_b218_stalker_guide_to_zulus_text": {
+    "eng": "Vano is willing to go to Pripyat. You must take him to see Zulu and introduce him as a new member of the squad. Vano can buy back his suit on the way.",
+    "pol": "Wano jest ch�tny, by p�j�� do Prypeci. Zaprowad� go do Zulusa i przedstaw jako nowego cz�onka dru�yny. Wano mo�e po drodze wykupi� sw�j kombinezon.",
+    "rus": "Вано согласен идти в Припять. Необходимо отвести его к Зулусу и представить как нового бойца отряда. Кроме того, по дороге Вано сможет выкупить свой защитный костюм.",
+    "ukr": "Вано згоден іти до Прип'яті. Необхідно відвести його до Зулуса і представити як нового бійця загону. Окрім того, дорогою Вано зможе викупити свій захисний костюм."
+  },
+  "jup_b218_stalker_name": {
+    "eng": "Pripyat 1: talk to Vano about a protective suit",
+    "pol": "Prype� 1: porozmawiaj z Wano na temat kombinezonu ochronnego",
+    "rus": "«Припять-1»: поговорить с Вано о защитном костюме",
+    "ukr": "«Прип'ять-1»: поговорити з Вано про захисний костюм"
+  },
+  "jup_b218_stalker_text": {
+    "eng": "The Pripyat 1 underpass has been filled with carbon dioxide mixed in with an unknown substance. You must inform Vano that he will need a suit with a closed-cycle respiratory module to go through the underpass.",
+    "pol": "Tunel Prype� 1 zosta� wype�niony dwutlenkiem w�gla wymieszanym z jak�� nieznan� substancj�. Musisz poinformowa� Wano, �e aby przez niego przej��, b�dzie potrzebowa� kombinezonu z aparatem tlenowym o zamkni�tym obiegu.",
+    "rus": "Путепровод «Припять-1» был заполнен углекислым газом с неизвестной приместью. Необходимо сообщить Вано, что для преодоления путепровода понадобится костюм с замкнутой системой дыхания.",
+    "ukr": "Шляхопровід «Прип'ять-1» було заповнено вуглекислим газом із невідомої домішкою. Необхідно повідомити Вано, що для подолання шляхопроводу знадобиться костюм із замкнутою системою дихання."
+  },
+  "jup_b25_accuse_flint_end_text": {
+    "eng": "Flint, AKA Magpie, is a sneaky son of a bitch. You should expose him to the stalkers at Zaton or other factions. This will teach him a good lesson.",
+    "pol": "Flint, znany te� jako Sroka, to podst�pny sukinsyn. Musisz go zdemaskowa� przed stalkerami na Zatonie i przed innymi frakcjami. To b�dzie dla niego niez�a nauczka.",
+    "rus": "Флинт, он же Сорока, оказался большим прохвостом. Нужно рассказать об этом сталкерам на Затоне или представителям группировок - это станет для Флинта хорошим уроком.",
+    "ukr": "Флінт, він же Сорока, виявився великим пройдисвітом. Потрібно розповісти про це сталкерам на Затоні або угрупованням - то буде для нього гарна наука."
+  },
+  "jup_b25_accuse_flint_first_text": {
+    "eng": "Flint is showing off and talking about things that he hasn't even seen. It would be good to expose his deceit.",
+    "pol": "Flint wyra�nie si� popisuje i gada o rzeczach, kt�rych nawet nie widzia� na oczy. Dobrze by�oby ujawni� jego oszustwa.",
+    "rus": "Флинт явно перехваливает себя, рассказывая о том, чего даже не мог видеть. Надо бы вывести его на чистую воду.",
+    "ukr": "Флінт явно перехвалює себе, розповідаючи про те, чого навіть не міг бачити. Непогано було б вивести його на слизьке."
+  },
+  "jup_b25_accuse_flint_name": {
+    "eng": "False claims: deal with Flint",
+    "pol": "Fa�szywe zas�ugi: rozpraw si� z Flintem",
+    "rus": "Чужие заслуги: разобраться с Флинтом",
+    "ukr": "Чужі заслуги: розібратися із Флінтом"
+  },
+  "jup_b25_accuse_flint_second_text": {
+    "eng": "Flint is clearly taking credit for the achievements of others. He needs to learn to mind his tongue.",
+    "pol": "Flint przyw�aszcza sobie zas�ugi innych. Trzeba go nauczy�, �eby uwa�a� na to, co gada.",
+    "rus": "Флинт явно любит присваивать себе результаты чужих трудов. Надо бы заставить его попридержать язык.",
+    "ukr": "Флінт явно полюбляє привласнювати собі результати чужої праці. Непогано було б примусити його припнути свого язика."
+  },
+  "jup_b25_accuse_flint_third_text": {
+    "eng": "Flint's showboating is beyond belief - you should talk to him and get him to see your point.",
+    "pol": "Szpanerstwo Flinta przekracza wszelkie wyobra�enie - porozmawiaj z nim i wyja�nij mu wszystko tak, �eby zrozumia� o co chodzi.",
+    "rus": "Хвастовство Флинта переходит всякие границы. Нужно переговорить с ним, причём объяснить всё так, чтобы до него дошло.",
+    "ukr": "Хвастощі Флінта переходять усі межі. Потрібно перемовитися з ним, причому так усе пояснити, щоб до нього направду дійшло."
+  },
+  "jup_b25_senya_accuse_flint_text": {
+    "eng": "Flint, AKA Magpie, is a sneaky son of a bitch. You should expose him to the stalkers at Zaton or other factions - that would be revenge of the highest order.",
+    "pol": "Flint, znany te� jako Sroka, to podst�pny sukinsyn. Musisz go zdemaskowa� przed stalkerami na Zatonie i przed innymi frakcjami - to b�dzie najlepsza zemsta.",
+    "rus": "Флинт, он же Сорока, оказался большим прохвостом. Нужно рассказать об этом сталкерам на Затоне или представителям группировок: в данных обстоятельствах это, пожалуй, лучший выбор.",
+    "ukr": "Виявляється, Флінт, він же Сорока, - відомий пройдисвіт. Потрібно розповісти про це сталкерам на Затоні або представникам угруповань: у подібних обставинах це, мабуть, найкращий вибір."
+  },
+  "jup_b32_get_scanners_task_name": {
+    "eng": "Anomaly research: get scanners from the technician",
+    "pol": "Badania nad anomaliami: odbierz skanery od technika",
+    "rus": "Исследование аномалий: получить у техника сканеры",
+    "ukr": "Дослідження аномалій: одержати в техніка сканери"
+  },
+  "jup_b32_get_scanners_task_text": {
+    "eng": "Get scanners from Novikov. Hermann wants to collect artifact formation statistics and the scanners must be placed in the center of several anomalies for this purpose.",
+    "pol": "Odbierz skanery od Nowikowa. Herman chce zebra� dane statystyczne na temat tworzenia si� artefakt�w. �eby m�g� to zrobi�, trzeba umie�ci� skanery w �rodku kilku anomalii.",
+    "rus": "Получить у Новикова сканеры, которые нужно разместить в аномалиях. Герман хочет собрать статистику появления артефактов, поэтому размещать сканеры придётся прямо в центре некоторых аномалий.",
+    "ukr": "Одержати в Новікова сканери, котрі потрібно розмістити в аномаліях. Герман хоче зібрати статистику появи артефактів, тому розміщувати сканери доведеться прямо в центрі деяких аномалій."
+  },
+  "jup_b32_task_name": {
+    "eng": "Anomaly research: place the scanner in the anomaly",
+    "pol": "Badania nad anomaliami: umie�� skaner w anomalii",
+    "rus": "Исследование аномалий: разместить сканер в аномалии",
+    "ukr": "Дослідження аномалій: розмістити сканер в аномалії"
+  },
+  "jup_b32_task_reward_name": {
+    "eng": "Anomaly research: collect your reward",
+    "pol": "Badania nad anomaliami: odbierz swoj� nagrod�",
+    "rus": "Исследование аномалий: получить награду",
+    "ukr": "Дослідження аномалій: отримати нагороду"
+  },
+  "jup_b32_task_reward_text": {
+    "eng": "Collect the reward promised to you for placing scanners in anomalies. Now that the scanners are in position, Hermann can begin to collect artifact formation data.",
+    "pol": "Odbierz nagrod� obiecan� ci za umieszczenie skaner�w w anomaliach. Teraz, gdy skanery s� ju� na miejscach, Herman mo�e zacz�� zbiera� dane na temat tworzenia si� artefakt�w.",
+    "rus": "Получить обещанную награду за размещение сканеров в аномалии. Теперь, когда сканеры размещены, Герман может начать сбор статистики появления артефактов.",
+    "ukr": "Отримати обіцяну нагороду за розміщення сканерів в аномалії. Тепер, коли сканери розміщено, Герман може розпочати збір статистики появи артефактів."
+  },
+  "jup_b32_task_text": {
+    "eng": "Place the scanner in the center of the anomaly. Hermann wants to collect artifact formation statistics and the scanners must be placed in the center of several anomalies for this purpose.",
+    "pol": "Umie�� skaner w �rodku anomalii. Herman chce zebra� dane statystyczne na temat tworzenia si� artefakt�w. �eby m�g� to zrobi�, trzeba umie�ci� skanery w �rodku kilku anomalii.",
+    "rus": "Установить сканер в центре аномалии. Герман хочет собрать статистику появления артефактов, для чего сканеры надо разместить в центре нескольких аномалий.",
+    "ukr": "Встановити сканер у центрі аномалії. Герман хоче зібрати статистику появи артефактів, тому сканери треба розмістити у центрах кількох аномалій."
+  },
+  "jup_b43_bring_fuzz_kolobok_name": {
+    "eng": "A contract with the scientists: bring Garry the Kolobok artifact",
+    "pol": "Kontrakt z naukowcami: przynie� Garriemu artefakt zwany Kulebiakem",
+    "rus": "Контракт с учёными: принести Гарику артефакт «Колобок»",
+    "ukr": "Контракт з ученими: принести Гарикові артефакт «Колобок»"
+  },
+  "jup_b43_bring_fuzz_kolobok_text": {
+    "eng": "Garry needs the Kolobok artifact in order to complete his contract with the scientists. Bring him this artifact.",
+    "pol": "Garri potrzebuje artefaktu zwanego Kulebiakiem, aby wype�ni� sw�j kontrakt z naukowcami. Przynie� mu ten artefakt.",
+    "rus": "Гарик хотел бы завершить контракт с учёными, но для этого ему нужен артефакт «Колобок». Необходимо принести ему данный артефакт.",
+    "ukr": "Гарик хотів би завершити контракт із ученими, але для цього йому потрібен артефакт «Колобок». Необхідно принести йому цей артефакт."
+  },
+  "jup_b43_bring_mincer_meat_name": {
+    "eng": "A contract with the scientists: bring Garry the Meat Chunk artifact",
+    "pol": "Kontrakt z naukowcami: przynie� Garriemu artefakt zwany Kotletem",
+    "rus": "Контракт с учёными: принести Гарику артефакт «Ломоть мяса»",
+    "ukr": "Контракт з ученими: принести Гарикові артефакт «Скиба м'яса»"
+  },
+  "jup_b43_bring_mincer_meat_text": {
+    "eng": "Garry needs the Meat Chunk artifact in order to complete his contract with the scientists. Bring him this artifact.",
+    "pol": "Garri potrzebuje artefaktu zwanego Kotletem, aby wype�ni� sw�j kontrakt z naukowcami. Przynie� mu ten artefakt.",
+    "rus": "Гарик хотел бы завершить контракт с учёными, но для этого ему нужен артефакт «Ломоть мяса». Необходимо принести ему данный артефакт.",
+    "ukr": "Гарик хотів би завершити контракт із ученими, але для цього йому потрібен артефакт «Скиба м'яса». Необхідно принести йому цей артефакт."
+  },
+  "jup_b43_contract_started_name": {
+    "eng": "A contract with the scientists: bring Garry the Meat Chunk and Kolobok artifacts",
+    "pol": "Kontrakt z naukowcami: przynie� Garriemu artefakty Kotlet i Kulebiak",
+    "rus": "Контракт с учёными: принести Гарику артефакты «Ломоть мяса» и «Колобок»",
+    "ukr": "Контракт з ученими: принести Гарикові артефакти «Скиба м'яса» та «Колобок»"
+  },
+  "jup_b43_contract_started_text": {
+    "eng": "Garry needs the Meat Chunk and Kolobok artifacts in order to complete his contract with the scientists. Bring him these artifacts.",
+    "pol": "Garriemu potrzebne s� dwa artefakty, Kotlet i Kulebiak, aby m�g� wype�ni� sw�j kontrakt z naukowcami. Przynie� mu te artefakty.",
+    "rus": "Гарик хотел бы завершить контракт с учёными, но для этого ему нужны артефакты «Ломоть мяса» и «Колобок». Необходимо принести ему данные артефакты.",
+    "ukr": "Гарик хотів би завершити контракт з ученими, але для цього йому потрібні артефакти «Скиба м'яса» та «Колобок». Необхідно принести йому ці артефакти."
+  },
+  "jup_b43_thanks_for_2_artifacts_name": {
+    "eng": "A contract with the scientists: artifacts delivered",
+    "pol": "Kontrakt z naukowcami: dostarczono artefakty",
+    "rus": "Контракт с учёными: артефакты доставлены",
+    "ukr": "Контракт з ученими: артефакти доставлені"
+  },
+  "jup_b43_thanks_for_2_artifacts_text": {
+    "eng": "Garry has both artifacts and his contract is complete.",
+    "pol": "Garri ma oba artefakty i jego kontrakt zosta� wype�niony.",
+    "rus": "Гарик получил оба артефакта. Его контракт завершён.",
+    "ukr": "Гарик одержав обидва артефакти. Його контракт завершено."
+  },
+  "jup_b46_duty_founder_pda_name": {
+    "eng": "Duty history: give the Duty founder's PDA to interested parties",
+    "pol": "Historia Powinno�ci: przeka� PDA za�o�yciela Powinno�ci zainteresowanym",
+    "rus": "История «Долга»: передать КПК основателя «Долга» заинтересованным лицам",
+    "ukr": "Історія «Долгу»: передати КПК засновника «Долгу» зацікавленим особам"
+  },
+  "jup_b46_duty_founder_pda_text": {
+    "eng": "You found the personal PDA of the founder of Duty, who died in the anomaly. You should get this PDA to someone who would be interested in the faction leader's last moments.",
+    "pol": "Uda�o ci si� znale�� PDA za�o�yciela Powinno�ci, kt�ry zgin�� w anomalii. Zabierz go do kogo�, kto by�by zainteresowany ostatnimi chwilami �ycia lidera frakcji.",
+    "rus": "На теле основателя «Долга», погибшего в аномалии, был найден личный КПК. Необходимо передать это устройство тем, кого интересуют последние минуты жизни легендарного основателя группировки.",
+    "ukr": "На тілі засновника «Долгу», який загинув в аномалії, було знайдено особистий КПК. Необхідно передати цей пристрій тим, кого цікавлять останні хвилини життя легендарного засновника угруповання."
+  },
+  "jup_b46_spatial_bubble_name": {
+    "eng": "Anomalous activity: investigate the area using an improved detector",
+    "pol": "Aktywno�� anomalii: zbadaj teren u�ywaj�c ulepszonego detektora",
+    "rus": "Аномальная активность: просканировать местность улучшенным детектором",
+    "ukr": "Аномальна активність: просканирувати місцевість поліпшеним детектором"
+  },
+  "jup_b46_spatial_bubble_text": {
+    "eng": "Scientists' scanners have registered unusual activity north of the bunker. Investigate the area using an improved detector.",
+    "pol": "Skanery naukowc�w zarejestrowa�y nietypow� aktywno�� na p�noc od bunkra. Zbadaj ten teren u�ywaj�c ulepszonego detektora.",
+    "rus": "Сканеры учёных зарегистрировали аномальную активность к северу от бункера. Необходимо исследовать местность при помощи совершенного детектора.",
+    "ukr": "Сканери вчених зареєстрували аномальну активність на північ від бункера. Необхідно дослідити місцевість за допомогою довершеного детектора."
+  },
+  "jup_b47_bunker_guards_01_name": {
+    "eng": "Guarding the scientists: find reliable people",
+    "pol": "Ochrona naukowc�w: znajd� wiarygodnych ludzi",
+    "rus": "Охрана учёных: найти надёжных людей",
+    "ukr": "Охорона вчених: знайти надійних людей"
+  },
+  "jup_b47_bunker_guards_01_text": {
+    "eng": "The scientists' bunker is unprotected. You must find reliable people to guard it.",
+    "pol": "Bunkier naukowc�w jest niestrze�ony. Znajd� wiarygodnych ludzi do jego ochrony.",
+    "rus": "Бункер учёных остался без охраны. Необходимо подобрать им для охраны группу надёжных людей.",
+    "ukr": "Бункер учених залишився без охорони. Необхідно підібрати їм для охорони групу надійних людей."
+  },
+  "jup_b47_bunker_guards_02_name": {
+    "eng": "Guarding the scientists: return to Hermann for your reward",
+    "pol": "Ochrona naukowc�w: wr�� do Hermana po nagrod�",
+    "rus": "Охрана учёных: вернуться к Герману за наградой",
+    "ukr": "Охорона вчених: повернутися до Германа по винагороду"
+  },
+  "jup_b47_bunker_guards_02_text": {
+    "eng": "You have found guards for the scientists' bunker. You should return to Hermann for the reward you're due.",
+    "pol": "Uda�o ci si� znale�� stra�nik�w do bunkra naukowc�w. Wr�� do Hermana po nale�n� ci nagrod�.",
+    "rus": "Охрана для бункера учёных найдена. Необходимо вернуться к Герману за полагающимся вознаграждением.",
+    "ukr": "Охорону для бункера вчених знайдено. Необхідно повернутися до Германа по належну винагороду."
+  },
+  "jup_b47_jupiter_products_01_name": {
+    "eng": "Last developments: find documents at the Jupiter plant",
+    "pol": "Ostatnie zmiany: znajd� dokumenty w fabryce Jupiter",
+    "rus": "Последние разработки: найти документы на заводе «Юпитер»",
+    "ukr": "Останні розробки: знайти документи на заводі «Юпітер»"
+  },
+  "jup_b47_jupiter_products_01_text": {
+    "eng": "Hermann is interested in the Jupiter plant's last developments. Find the documents in the administrative section of the plant.",
+    "pol": "Herman jest zainteresowany ostatnimi zmianami w fabryce Jupiter. Znajd� dokumenty w cz�ci administracyjnej zak�adu.",
+    "rus": "Германа интересуют последние разработки завода «Юпитер». Необходимо найти документацию в административном корпусе завода.",
+    "ukr": "Германа цікавлять останні розробки заводу «Юпітер». Необхідно знайти документацію в адміністративному корпусі заводу."
+  },
+  "jup_b47_jupiter_products_02_name": {
+    "eng": "Last developments: take the documents to Hermann",
+    "pol": "Ostatnie zmiany: zanie� dokumenty Hermanowi",
+    "rus": "Последние разработки: отнести Герману документы",
+    "ukr": "Останні розробки: віднести Германові документи"
+  },
+  "jup_b47_jupiter_products_02_text": {
+    "eng": "The documents you found indicate that all technical documentation was moved outside the plant. Although it's not much, you should convey this information to Hermann.",
+    "pol": "Znalezione dokumenty wskazuj�, �e ca�a dokumentacja techniczna zosta�a przeniesiona poza fabryk�. To niewiele, ale Herman powinien si� o tym dowiedzie�.",
+    "rus": "В найденных документах сказано, что вся техническая документация была вывезена за пределы завода. Стоит передать Герману хотя бы эту информацию.",
+    "ukr": "У знайдених документах сказано, що всю технічну документацію було вивезено за межі заводу. Варто передати Германові хоча б цю інформацію."
+  },
+  "jup_b47_jupiter_products_03_name": {
+    "eng": "Last developments: take the documents and Black's PDA to Hermann",
+    "pol": "Ostatnie zmiany: zabierz dokumenty i PDA Czarnego do Hermana",
+    "rus": "Последние разработки: отнести Герману документы и КПК Чёрного",
+    "ukr": "Останні розробки: віднести Германові документи та КПК Чорного"
+  },
+  "jup_b47_jupiter_products_03_text": {
+    "eng": "A mercenary attack took place while you were searching for the documents. According to the PDA you found on Black, their leader, they were sent to prevent the scientists from looking for the documents. At the same time, the documents you found indicate that all technical documentation was moved outside the plant. You should convey this information to Hermann and show him Black's PDA.",
+    "pol": "Podczas twojego szperania w dokumentach, najemnicy przypu�cili atak. Wed�ug PDA znalezionego przy Czarnym, ich liderze, zostali wys�ani, by uniemo�liwi� naukowcom poszukiwanie dokument�w. Znalezione dokumenty wskazuj�, �e ca�a dokumentacja techniczna zosta�a przeniesiona poza fabryk�. Przeka� t� informacj� Hermanowi i poka� mu PDA Czarnego.",
+    "rus": "Во время поиска документации произошло нападение наёмников. Судя по КПК их лидера Чёрного, они должны были пресечь поиск документации учёными. При этом в найденных документах указано, что вся техническая документация была вывезена за пределы завода. Желательно передать Герману эту информацию вкупе с КПК Чёрного.",
+    "ukr": "Під час пошуку документації стався напад найманців. Судячи з КПК їхнього лідера Чорного, вони мали припинити пошук документації вченими. При цьому в знайдених документах зазначено, що всю технічну документацію було вивезено за межі заводу. Бажано передати Германові цю інформацію вкупі з КПК Чорного."
+  },
+  "jup_b4_monolith_squad_help_name": {
+    "eng": "Monolith survivors: talk to Yanov residents about cover",
+    "pol": "Ocaleni z Monolitu: zapytaj na stacji Jan�w o schronienie",
+    "rus": "Выживший «Монолит»: поговорить с обитателями «Янова» насчёт укрытия",
+    "ukr": "Вцілілий «Моноліт»: поговорити із мешканцями «Янова» щодо укриття"
+  },
+  "jup_b4_monolith_squad_help_text": {
+    "eng": "A squad of Monolith fighters has broken free of the spell that possessed them. They're looking for cover from emissions and mutants. You need to talk to the residents of Yanov station about allowing the Monolith squad to take cover there.",
+    "pol": "Grupa wojownik�w Monolitu uwolni�a si� spod uroku, kt�rym by�a op�tana. Szukaj� teraz schronienia przed emisj� i mutantami. Musisz porozmawia� z mieszka�cami stacji Jan�w, by pozwolili dru�ynie Monolitu ukry� si� na niej.",
+    "rus": "Отряд «монолитовцев», прежде - фанатичных бойцов, вышел из-под навязчивого внушения. Теперь эти люди ищут укрытия от выбросов и монстров. Нужно договориться с обитателями станции «Янов», чтобы «монолитовцы» могли там укрыться.",
+    "ukr": "Загін «монолітівців», колись - фанатичних бійців, вийшов з-під нав'язливого навіювання. Тепер ці люди шукають укриття від викидів та монстрів. Потрібно домовитися з мешканцями станції «Янів», щоб «монолітівці» могли там укритися."
+  },
+  "jup_b4_stalkers_come_duty_text": {
+    "eng": "Take Duty recruitment officers to the former Monolith squad. If the Monolith fighters join Duty, they'll be able to take cover from emissions and mutants at Yanov station.",
+    "pol": "Zaprowad� ludzi Powinno�ci odpowiedzialnych za rekrutacj� do by�ej za�ogi Monolitu. Je�eli wojownicy Monolitu wst�pi� do Powinno�ci, b�d� mogli schroni� si� na stacji Jan�w przed emisj� i mutantami.",
+    "rus": "Отвести вербовщиков «Долга» к отряду бывших «монолитовцев». Если «монолитовцы» вступят в «Долг», они смогут беспрепятственно укрыться от выброса и монстров на станции «Янов».",
+    "ukr": "Відвести вербувальників «Долгу» до загону колишніх «монолітівців». Якщо «монолітівці» вступлять до «Долгу», вони зможуть безперешкодно укритися від викиду та монстрів на станції «Янів»."
+  },
+  "jup_b4_stalkers_come_freedom_text": {
+    "eng": "Take Freedom recruitment officers to the former Monolith squad. If the Monolith fighters join Freedom, they'll be able to take cover from emissions and mutants at Yanov station.",
+    "pol": "Zaprowad� ludzi Wolno�ci, odpowiedzialnych za rekrutacj�, do by�ej za�ogi Monolitu. Je�eli wojownicy Monolitu wst�pi� do Wolno�ci, b�d� mogli schroni� si� na stacji Jan�w przed emisj� i mutantami.",
+    "rus": "Отвести вербовщиков «Свободы» к отряду бывших «монолитовцев». Если «монолитовцы» присоединятся к «Свободе», они смогут беспрепятственно укрыться от выброса и монстров на станции «Янов».",
+    "ukr": "Відвести вербувальників «Волі» до загону колишніх «монолітівців». Якщо «монолітівці» приєднаються до «Волі», вони зможуть безперешкодно укритися від викиду та монстрів на станції «Янів»."
+  },
+  "jup_b4_stalkers_come_name": {
+    "eng": "Monolith survivors: take recruitment officers to the former Monolith squad",
+    "pol": "Ocaleni z Monolitu: zaprowad� na miejsce odpowiedzialnych za rekrutacj�",
+    "rus": "Выживший «Монолит»: отвести вербовщиков к отряду бывших «монолитовцев»",
+    "ukr": "Вцілілий «Моноліт»: відвести вербувальників до загону колишніх «монолітівців»"
+  },
+  "jup_b6_anom_1_guard_name": {
+    "eng": "Anomaly research: cover the stalkers",
+    "pol": "Badania nad anomaliami: ochraniaj stalker�w",
+    "rus": "Исследование аномалий: прикрывать сталкеров",
+    "ukr": "Дослідження аномалій: прикривати сталкерів"
+  },
+  "jup_b6_anom_1_guard_text": {
+    "eng": "It looks like the taking of measurements in the anomaly attracted mutants. You must cover the stalkers until they have collected all the data required.",
+    "pol": "Wygl�da na to, �e wykonywanie pomiar�w w anomalii przyci�gn�o mutanty. Musisz ochrania� stalker�w, dop�ki nie zbior� wszystkich potrzebnych danych.",
+    "rus": "Похоже, проведение замеров в аномалии привлекло монстров. Надо прикрывать сталкеров до тех пор, пока замеры не будут завершены.",
+    "ukr": "Схоже, проведення вимірів в аномалії привернуло увагу монстрів. Треба прикривати сталкерів доти, доки вимірювання не буде завершено."
+  },
+  "jup_b6_anom_2_guard_name": {
+    "eng": "Anomaly research: cover the stalkers",
+    "pol": "Badania nad anomaliami: ochraniaj stalker�w",
+    "rus": "Исследование аномалий: прикрывать сталкеров",
+    "ukr": "Дослідження аномалій: прикривати сталкерів"
+  },
+  "jup_b6_anom_2_guard_text": {
+    "eng": "It looks like the taking of measurements in the anomaly attracted zombies from Kopachy. You must cover the stalkers until they have collected all the data required.",
+    "pol": "Wygl�da na to, �e wykonywanie pomiar�w w anomalii przyci�gn�o zombi z Kopaczi. Musisz ochrania� stalker�w, dop�ki nie zbior� wszystkich potrzebnych danych.",
+    "rus": "Похоже, проведение замеров в аномалии привлекло зомби с Копачей. Надо прикрывать сталкеров до тех пор, пока замеры не будут завершены.",
+    "ukr": "Схоже, проведення вимірів у аномалії привернуло увагу зомбі з Копачів. Треба прикривати сталкерів доти, доки вимірювання не буде завершено."
+  },
+  "jup_b6_get_reward_name": {
+    "eng": "Anomaly research: talk to Hermann",
+    "pol": "Badania nad anomaliami: porozmawiaj z Hermanem",
+    "rus": "Исследование аномалий: поговорить с Германом",
+    "ukr": "Дослідження аномалій: поговорити з Германом"
+  },
+  "jup_b6_get_reward_text": {
+    "eng": "The anomaly measurements have been completed - inform the scientists of this and collect your reward.",
+    "pol": "Pomiary w anomalii zosta�y uko�czone - poinformuj o tym naukowc�w i odbierz nagrod�.",
+    "rus": "Замеры аномалий проведены. Нужно сообщить об этом учёным и забрать обещанную награду.",
+    "ukr": "Вимірювання аномалій проведено. Потрібно сповістити про це вчених і забрати обіцяну винагороду."
+  },
+  "jup_b6_get_to_anomal_place_name": {
+    "eng": "Anomaly research: talk to the stalkers",
+    "pol": "Badania nad anomaliami: porozmawiaj ze stalkerami",
+    "rus": "Исследование аномалий: поговорить со сталкерами",
+    "ukr": "Дослідження аномалій: поговорити зі сталкерами"
+  },
+  "jup_b6_get_to_anomal_place_text": {
+    "eng": "Talk to the stalker squad responsible for taking measurements - you need to choose which anomaly to go for.",
+    "pol": "Porozmawiaj z dru�yn� stalker�w odpowiedzialn� za pomiary - musicie zdecydowa�, do kt�rej anomalii si� wybierzecie.",
+    "rus": "Поговорить с группой сталкеров, которые будут проводить замеры. Нужно выбрать, к какой аномалии отправиться.",
+    "ukr": "Поговорити з групою сталкерів, що будуть проводити виміри. Потрібно вибрати, до якої аномалії прямувати."
+  },
+  "jup_b6_travel_home_name": {
+    "eng": "Anomaly research: talk to the stalkers",
+    "pol": "Badania nad anomaliami: porozmawiaj ze stalkerami",
+    "rus": "Исследование аномалий: поговорить со сталкерами",
+    "ukr": "Дослідження аномалій: поговорити зі сталкерами"
+  },
+  "jup_b6_travel_home_text": {
+    "eng": "All the required measurements have been taken, so you can head back to the scientists' bunker together with the squad.",
+    "pol": "Wszystkie potrzebne pomiary zosta�y wykonane, mo�esz wi�c razem z dru�yn� wr�ci� do bunkra naukowc�w.",
+    "rus": "Все нужные замеры проведены. Можно отправляться с группой к бункеру учёных.",
+    "ukr": "Усі потрібні вимірювання проведено. Можна відправлятися із групою до бункера вчених."
+  },
+  "jup_b6_travel_name": {
+    "eng": "Anomaly research: talk to the stalkers",
+    "pol": "Badania nad anomaliami: porozmawiaj ze stalkerami",
+    "rus": "Исследование аномалий: поговорить со сталкерами",
+    "ukr": "Дослідження аномалій: поговорити зі сталкерами"
+  },
+  "jup_b6_travel_text": {
+    "eng": "Measurements have been taken from the anomaly, so you need to talk to the squad to discuss where to go next.",
+    "pol": "Pomiary w anomalii zosta�y wykonane. Porozmawiaj z dru�yn�, dok�d si� teraz wybierzecie.",
+    "rus": "Все замеры в аномалии проведены. Нужно пообщаться с группой и решить, куда идти дальше.",
+    "ukr": "Усі вимірювання в аномалії проведено. Потрібно поспілкуватися із групою та вирішити, куди йти далі."
+  },
+  "jup_b6_watch_topol_squad_six_name": {
+    "eng": "Anomaly research: cover the stalkers",
+    "pol": "Badania nad anomaliami: ochraniaj stalker�w",
+    "rus": "Исследование аномалий: прикрывать сталкеров",
+    "ukr": "Дослідження аномалій: прикривати сталкерів"
+  },
+  "jup_b6_watch_topol_squad_six_text": {
+    "eng": "Hermann has offered you the job of covering stalkers while they take measurements in anomalies.",
+    "pol": "Herman zaoferowa� ci prac�, polegaj�c� na ochronie stalker�w, gdy ci b�d� wykonywa� pomiary w anomaliach.",
+    "rus": "Герман предложил работу: нужно прикрывать сталкеров, пока те будут проводить замеры в аномалиях.",
+    "ukr": "Герман запропонував роботу: потрібно прикривати сталкерів, доки ті проводитимуть вимірювання в аномаліях."
+  },
+  "jup_b8_heli_4_crash_name": {
+    "eng": "Stingray 4: investigate the crash site",
+    "pol": "Ogo�cza 4: zbadaj miejsce katastrofy",
+    "rus": "«Скат-4»: исследовать место падения",
+    "ukr": "«Скат-4»: дослідити місце падіння"
+  },
+  "jup_b8_heli_4_crash_name_2": {
+    "eng": "Stingray 4: find the reason for electronic burn out",
+    "pol": "Ogo�cza 4: znajd� przyczyn� spalenia si� elektroniki",
+    "rus": "«Скат-4»: найти причину сгорания электроники",
+    "ukr": "«Скат-4»: знайти причину згоряння електроніки"
+  },
+  "jup_b8_heli_4_crash_text": {
+    "eng": "Investigate the Stingray 4 crash site.",
+    "pol": "Zbadaj miejsce katastrofy Ogo�czy 4.",
+    "rus": "Исследовать место падения вертолёта «Скат-4».",
+    "ukr": "Дослідити місце падіння гелікоптера «Скат-4»."
+  },
+  "jup_b8_heli_4_crash_text_2": {
+    "eng": "You must find the source of the powerful electric charge which hit the Stingray 4 helicopter.",
+    "pol": "Musisz znale�� �r�d�o silnego wy�adowania elektrycznego, kt�re uderzy�o w �mig�owiec Ogo�cza 4.",
+    "rus": "Нужно выяснить источник мощного электрического разряда, поразившего «Скат-4».",
+    "ukr": "Потрібно з'ясувати джерело потужного електричного розряду, що вразив «Скат-4»."
+  },
+  "jup_b9_blackbox_decrypting_name": {
+    "eng": "Stingray 1: give the black box to a technician for decryption",
+    "pol": "Ogo�cza 1: daj technikowi czarn� skrzynk� do odszyfrowania",
+    "rus": "«Скат-1»: отдать «чёрный ящик» технику на дешифровку",
+    "ukr": "«Скат-1»: віддати «чорний ящик» технікові на дешифрування"
+  },
+  "jup_b9_blackbox_decrypting_text": {
+    "eng": "The Stingray 1 black box survived the crash. It must be taken to a technician for decryption for you to access the information it holds.",
+    "pol": "Czarna skrzynka z Ogo�czy 1 przetrwa�a katastrof�. Musi zosta� zabrana do technika, kt�ry j� zdeszyfruje, aby dosta� si� do zawartych w niej informacji.",
+    "rus": "«Чёрный ящик» вертолёта «Скат-1» уцелел. Необходимо передать его технику на дешифровку, чтобы получить доступ к содержащейся там информации.",
+    "ukr": "«Чорний ящик» гелікоптера «Скат-1» вцілів. Необхідно передати його технікові на дешифрування, щоб отримати доступ до інформації, що там міститься."
+  },
+  "jup_b9_blackbox_descrypted_after_3_name": {
+    "eng": "Stingray 1: wait for black box decryption to be completed",
+    "pol": "Ogo�cza 1: poczekaj na odszyfrowanie danych z czarnej skrzynki",
+    "rus": "«Скат-1»: дождаться дешифровки «чёрного ящика»",
+    "ukr": "«Скат-1»: дочекатися дешифрування «чорного ящика»"
+  },
+  "jup_b9_blackbox_descrypted_after_3_text": {
+    "eng": "Nitro has agreed to decrypt the black box. He said it would take around three hours. You must wait for him to finish.",
+    "pol": "Azot zgodzi� si� zdeszyfrowa� czarn� skrzynk�. Powiedzia�, �e zajmie to oko�o trzech godzin. Musisz poczeka�, a� sko�czy.",
+    "rus": "Азот взялся за дешифровку «чёрного ящика» - по его словам, для этого понадобится около трёх часов. Необходимо дождаться окончания дешифровки.",
+    "ukr": "Азот узявся за дешифрування «чорного ящика» - за його словами, для цього знадобиться близько трьох годин. Необхідно дочекатися закінчення дешифрування."
+  },
+  "jup_b9_go_for_blackbox_descryption_name": {
+    "eng": "Stingray 1: return to Nitro for information held by the black box",
+    "pol": "Ogo�cza 1: wr�� do Azota po informacje z czarnej skrzynki",
+    "rus": "«Скат-1»: вернуться к Азоту за информацией из «чёрного ящика»",
+    "ukr": "«Скат-1»: повернутися до Азота по інформацію із «чорного ящика»"
+  },
+  "jup_b9_go_for_blackbox_descryption_text": {
+    "eng": "Nitro should have completed the decryption process by now. Go see him to get the information held by the black box.",
+    "pol": "Azot powinien ju� sko�czy� deszyfracj�. Spotkaj si� z nim, aby otrzyma� informacje z czarnej skrzynki.",
+    "rus": "Азот уже должен был закончить дешифровку. Необходимо вернуться к нему за информацией из «чёрного ящика».",
+    "ukr": "Азот уже мав закінчити дешифрування. Необхідно повернутися до нього по інформацію із «чорного ящика»."
+  },
+  "jup_b9_heli_1_crash_name": {
+    "eng": "Stingray 1: investigate the crash site",
+    "pol": "Ogo�cza 1: zbadaj miejsce katastrofy",
+    "rus": "«Скат-1»: исследовать место падения",
+    "ukr": "«Скат-1»: дослідити місце падіння"
+  },
+  "jup_b9_heli_1_crash_text": {
+    "eng": "Investigate the Stingray 1 crash site.",
+    "pol": "Zbadaj miejsce katastrofy Ogo�czy 1.",
+    "rus": "Исследовать место падения вертолёта «Скат-1».",
+    "ukr": "Дослідити місце падіння гелікоптера «Скат-1»."
+  },
+  "pas_b400_pripyat_name": {
+    "eng": "Pripyat 1: get to Pripyat",
+    "pol": "Prype� 1: dosta� si� do Prypeci",
+    "rus": "«Припять-1»: добраться до Припяти",
+    "ukr": "«Прип'ять-1»: дістатися Прип'яті"
+  },
+  "pas_b400_pripyat_text": {
+    "eng": "You must get through the Pripyat 1 underpass and reach the military evacuation point in Pripyat.",
+    "pol": "Musisz przej�� tunelem Prype� 1 i dotrze� do wojskowego punktu ewakuacyjnego w Prypeci.",
+    "rus": "Необходимо преодолеть путепровод «Припять-1» и добраться до точки эвакуации военных в Припяти.",
+    "ukr": "Необхідно подолати шляхопровід «Прип'ять-1» та дістатися до точки евакуації військових у Прип'яті."
+  },
+  "zat_a9_way_gases_check_chemistry_workshop_name": {
+    "eng": "Road to Pripyat: investigate the chemical compound workshop at the Jupiter plant",
+    "pol": "Droga do Prypeci: zbadaj pracowni� chemiczn� w fabryce Jupiter",
+    "rus": "Путь в Припять: проверить цех химических соединений завода «Юпитер»",
+    "ukr": "Шлях до Прип'яті: перевірити цех хімічних сполук заводу «Юпітер»"
+  },
+  "zat_a9_way_gases_check_chemistry_workshop_text": {
+    "eng": "The chemical compound workshop should contain information about the flooding of the Pripyat 1 underpass with some sort of gas.",
+    "pol": "W pracowni chemicznej powinny znajdowa� si� informacje na temat wype�nienia tunelu Prype� 1 jakim� rodzajem gazu.",
+    "rus": "В цехе химических соединений должна быть информация о консервации подземного путепровода «Припять-1» при помощи какого-то газа.",
+    "ukr": "У цеху хімічних сполук має бути інформація про консервацію підземного шляхопроводу «Прип'ять-1» за допомогою якогось газу."
+  },
+  "zat_a9_way_gates_check_corps_name": {
+    "eng": "Road to Pripyat: investigate the administrative section of the Jupiter plant",
+    "pol": "Droga do Prypeci: zbadaj cz�� administracyjn� fabryki Jupiter",
+    "rus": "Путь в Припять: проверить административный корпус завода «Юпитер»",
+    "ukr": "Шлях до Прип'яті: перевірити адміністративний корпус заводу «Юпітер»"
+  },
+  "zat_a9_way_gates_check_corps_text": {
+    "eng": "The guide does not know of a safe route to Pripyat, but he has suggested where you can find information about underground tunnels that lead from the Jupiter plant to the city. You should start with the administrative section.",
+    "pol": "Przewodnik nie zna bezpiecznej drogi do Prypeci, ale zasugerowa� ci, gdzie mo�esz znale�� informacje na temat podziemnych tuneli prowadz�cych z fabryki Jupiter do miasta. Zacznij od cz�ci administracyjnej.",
+    "rus": "Проводник не знает маршрута, по которому можно безопасно добраться до Припяти. Но он подсказал, где можно найти информацию о подземных туннелях, ведущих от завода «Юпитер» к городу: лучше всего начать с административного корпуса.",
+    "ukr": "Проводир не знає маршруту, яким можна безпечно дістатися Прип'яті. Але він підказав, де можна знайти інформацію про підземні тунелі, котрі ведуть від заводу «Юпітер» до міста: найкраще розпочати з адміністративного корпусу."
+  },
+  "zat_a9_way_gates_check_electrical_workshop_name": {
+    "eng": "Road to Pripyat: investigate the laboratory section of the Jupiter plant",
+    "pol": "Droga do Prypeci: zbadaj cz�� laboratoryjn� fabryki Jupiter",
+    "rus": "Путь в Припять: проверить лабораторный корпус завода «Юпитер»",
+    "ukr": "Шлях до Прип'яті: перевірити лабораторний корпус заводу «Юпітер»"
+  },
+  "zat_a9_way_gates_check_electrical_workshop_text": {
+    "eng": "The documents found in the administrative section mention evacuation of the production complex from the Jupiter plant. Information concerning this matter should be in the laboratory section.",
+    "pol": "Dokumenty znalezione w cz�ci administracyjnej wspominaj� o przeniesieniu kompleksu produkcyjnego poza fabryk�. Informacje dotycz�ce tej kwestii powinny znajdowa� si� w cz�ci laboratoryjnej.",
+    "rus": "В найденных в административном цехе документах говорится про эвакуацию производственного комплекса с территории завода. Информацию про это надо искать в лабораторном корпусе.",
+    "ukr": "У знайдених в адміністративному цеху документах говориться про евакуацію виробничого комплексу з території заводу. Інформацію про це треба шукати в лабораторному корпусі."
+  },
+  "zat_a9_way_gates_check_transport_workshop_name": {
+    "eng": "Road to Pripyat: check the Pripyat 1 underpass transportation lock",
+    "pol": "Droga do Prypeci: sprawd� �luz� transportow� tunelu Prype� 1",
+    "rus": "Путь в Припять: проверить транспортный шлюз путепровода «Припять-1»",
+    "ukr": "Шлях до Прип'яті: перевірити транспортний шлюз шляхопроводу «Прип'ять-1»"
+  },
+  "zat_a9_way_gates_check_transport_workshop_text": {
+    "eng": "The entrance to the underground underpass is behind the transportation lock. Investigate the area and look for any information concerning the underpass.",
+    "pol": "Wej�cie do tunelu znajduje si� za �luz� transportow�. Zbadaj ten teren w poszukiwaniu jakichkolwiek informacji na temat tunelu.",
+    "rus": "Вход в подземный путепровод находится за транспортным шлюзом. Нужно проверить это место и поискать там любую инфомацию о путепроводе.",
+    "ukr": "Вхід до підземного шляхопроводу знаходиться за транспортним шлюзом. Потрібно перевірити це місце і пошукати там будь-яку інформацію про шляхопровід."
+  },
+  "zat_a9_way_to_pripyat_check_archives_name": {
+    "eng": "Road to Pripyat: investigate Department 1 of the Jupiter plant",
+    "pol": "Droga do Prypeci: zbadaj Departament 1 fabryki Jupiter",
+    "rus": "Путь в Припять: проверить первый отдел завода «Юпитер»",
+    "ukr": "Шлях до Прип'яті: перевірити перший відділ заводу «Юпітер»"
+  },
+  "zat_a9_way_to_pripyat_check_archives_text": {
+    "eng": "There should be information about the Pripyat 1 underpass in Department 1. This information could be very useful, so you should check there.",
+    "pol": "Informacje na temat tunelu Prype� 1 powinny znajdowa� si� w Departamencie 1. Mog� by� one bardzo przydatne, wi�c spr�buj tam poszuka�.",
+    "rus": "В первом отделе должна содержаться информация о подземном путепроводе «Припять-1», которая может оказаться очень полезной.",
+    "ukr": "У першому відділі має міститися інформація про підземний шляхопровід «Прип'ять-1», котра може виявитися дуже корисною."
+  },
+  "zat_a9_way_to_pripyat_check_delivery_department_name": {
+    "eng": "Road to Pripyat: investigate the delivery department of the Jupiter plant",
+    "pol": "Droga do Prypeci: zbadaj dzia� dostaw fabryki Jupiter",
+    "rus": "Путь в Припять: проверить отдел доставки завода «Юпитер»",
+    "ukr": "Шлях до Прип'яті: перевірити відділ доставки заводу «Юпітер»"
+  },
+  "zat_a9_way_to_pripyat_check_delivery_department_text": {
+    "eng": "Judging by the note in the laboratory workshop, the evacuation was supposed to have been carried out by the delivery department, so you should check there as well.",
+    "pol": "Wnioskuj�c z notatki w laboratorium, przeniesienie mia�o zosta� przeprowadzone przez dzia� dostaw, wi�c sprawd� r�wnie� tam.",
+    "rus": "Судя по записи из лабораторного цеха, эвакуацию должен был проводить отдел доставки. Нужно проверить это место.",
+    "ukr": "Судячи із запису з лабораторного цеху, евакуацію мав проводити відділ доставки. Потрібно перевірити це місце."
+  },
+  "zat_a9_way_to_pripyat_check_repair_workshop_name": {
+    "eng": "Road to Pripyat: investigate the repair workshop of the Jupiter plant",
+    "pol": "Droga do Prypeci: zbadaj warsztat naprawczy fabryki Jupiter",
+    "rus": "Путь в Припять: проверить ремонтный цех завода «Юпитер»",
+    "ukr": "Шлях до Прип'яті: перевірити ремонтний цех заводу «Юпітер»"
+  },
+  "zat_a9_way_to_pripyat_check_repair_workshop_text": {
+    "eng": "The delivery department had information about losses during transportation of something referred to as item 62. According to the records, the repair workshop was charged with handling this matter - you should check there.",
+    "pol": "W dziale dostaw znajdowa�y si� informacje na temat strat podczas transportu czego�, co nazywano obiektem 62. Wed�ug dokumentacji, za t� kwesti� by� odpowiedzialny warsztat naprawczy - sprawd� tam.",
+    "rus": "В отделе доставки нашлась информация об утрате некоторого числа экземпляров «изделия №62» при их транспортировке. Судя по записи, этим занимались в ремонтном цеху «изделия №62». Надо проверить указанное помещение.",
+    "ukr": "У відділі доставки знайшлася інформація про втрату певної кількості екземплярів «Виробу №62». Судячи із запису, цим займалися у ремонтному цеху. Треба перевірити зазначене приміщення."
+  },
+  "zat_a9_way_to_pripyat_tell_stalker_guide_name": {
+    "eng": "Road to Pripyat: talk to the guide",
+    "pol": "Droga do Prypeci: porozmawiaj z przewodnikiem",
+    "rus": "Путь в Припять: расспросить проводника",
+    "ukr": "Шлях до Прип'яті: розпитати проводиря"
+  },
+  "zat_a9_way_to_pripyat_tell_stalker_guide_text": {
+    "eng": "According to the recording in the black box of one of the helicopters, the military units were supposed to converge on evacuation point B28. According to the maps found in the other helicopter that took part of the mission, this point is located in Pripyat. You'll have to find some way of getting there - talk to the guide about it.",
+    "pol": "Z nagrania z czarnej skrzynki jednego ze �mig�owc�w wynika, �e jednostki wojskowe mia�y zgrupowa� si� w punkcie ewakuacyjnym B28. Wed�ug map znalezionych w innym �mig�owcu bior�cym udzia� w misji, miejsce to znajduje si� w Prypeci. Musisz znale�� spos�b, by si� tam dosta� - porozmawiaj o tym z przewodnikiem.",
+    "rus": "Судя по записям из «чёрного ящика» одного из вертолётов, военные должны были собраться в точке эвакуации «Б28». Она находится в Припяти: так, во всяком случае, говорят найденные в другом вертолёте карты. Придётся искать возможность попасть туда - нужно поговорить об этом с проводником.",
+    "ukr": "Судячи із записів з «чорного ящика» одного з гелікоптерів, військові мали зібратися у точці евакуації Б28. Вона знаходиться у Прип'яті: так, в усякому разі, свідчать знайдені в іншому гелікоптері мапи. Доведеться шукати можливість потрапити туди - треба поговорити про це із проводирем."
+  },
+  "zat_b207_depot_reward_task_name": {
+    "eng": "Duty warehouse: take what you're owed",
+    "pol": "Magazyn Powinno�ci: zabierz, co ci si� nale�y",
+    "rus": "Склад «Долга»: взять причитающееся",
+    "ukr": "Склад «Долгу»: взяти належне"
+  },
+  "zat_b207_morgan_depot_task_name": {
+    "eng": "Duty warehouse: meet Morgan",
+    "pol": "Magazyn Powinno�ci: spotkaj si� z Morganem",
+    "rus": "Склад «Долга»: встретиться с Морганом",
+    "ukr": "Склад «Долгу»: зустрітися із Морганом"
+  },
+  "zat_b207_morgan_depot_task_text": {
+    "eng": "Morgan the trader has offered you access to Duty's warehouse as payment for your silence about his business. You need to meet him near the quarry as agreed.",
+    "pol": "Handlarz Morgan zaoferowa� ci dost�p do magazynu Powinno�ci w zamian za milczenie na temat jego interesu. Zgodnie z umow�, masz si� z nim spotka� niedaleko kamienio�om�w.",
+    "rus": "В качестве оплаты за молчание о его комбинациях барыга Морган предложил доступ к складу «Долга». Надо с ним встретиться в оговоренном месте - возле карьера.",
+    "ukr": "Як плату за мовчання про його комбінації барига Морган запропонував доступ до складу «Долгу». Треба із ним зустрітися в обговореному місці - біля кар'єру."
+  },
+  "pas_b400_pripyat_gate_text": {
+    "eng": "You must open the gate to keep going.",
+    "pol": "Musisz otworzy� bram�, aby przej�� dalej.",
+    "rus": "Для дальнейшего продвижения необходимо открыть ворота.",
+    "ukr": "Для подальшого просування необхідно відкрити ворота."
+  },
+  "pas_b400_pripyat_door_text": {
+    "eng": "You must open the door to keep going.",
+    "pol": "Musisz otworzy� drzwi, aby przej�� dalej.",
+    "rus": "Для дальнейшего продвижения необходимо открыть дверь.",
+    "ukr": "Для подальшого просування необхідно відкрити двері."
+  },
+  "pas_b400_pripyat_hall_door_text": {
+    "eng": "You must activate the power supply to the gate to keep going.",
+    "pol": "Musisz aktywowa� zasilanie w bramie, aby przej�� dalej.",
+    "rus": "Для дальнейшего продвижения необходимо включить питание ворот.",
+    "ukr": "Для подальшого просування необхідно включити живлення воріт."
+  },
+  "pas_b400_pripyat_control_text": {
+    "eng": "You must unblock the gate to keep going. This can probably be done from the control room.",
+    "pol": "Musisz odblokowa� bram�, aby przej�� dalej. Prawdopodobnie mo�na to zrobi� w sterowni.",
+    "rus": "Для дальнейшего продвижения необходимо разблокировать ворота. Предположительно это можно сделать из диспетчерской.",
+    "ukr": "Для подальшого просування необхідно розблокувати ворота. Ймовірно, це можна зробити з диспетчерської."
+  },
+  "jup_b6_employ_stalkers_name": {
+    "eng": "Research group: Hire the right people",
+    "pol": "Grupa badawcza: wynajmij odpowiednich ludzi",
+    "rus": "Исследовательская группа: подобрать людей",
+    "ukr": "Дослідницька група: підібрати людей"
+  },
+  "jup_b6_employ_stalkers_text": {
+    "eng": "A research group working for the scientists has perished. You must staff a new group so research can continue.",
+    "pol": "Cz�onkowie grupy badawczej pracuj�cej dla naukowc�w zgin�li. Musisz zatrudni� nowych ludzi, aby kontynuowa� badania.",
+    "rus": "Исследовательская группа, работавшая на учёных, погибла. Необходимо подобрать новую группу для продолжения научной работы.",
+    "ukr": "Дослідницька група, що працювала на вчених, загинула. Необхідно підібрати нову групу для продовження наукової праці."
+  },
+  "jup_b6_employ_stalkers_reward_name": {
+    "eng": "Research group: Return to Hermann for the reward",
+    "pol": "Grupa badawcza: wr�� do Hermana po nagrod�",
+    "rus": "Исследовательская группа: вернуться к Герману за наградой",
+    "ukr": "Дослідницька група: повернутися до Германа по винагороду"
+  },
+  "jup_b6_employ_stalkers_reward_text": {
+    "eng": "You've found the right people for a new research group. Now return to Hermann to collect your reward.",
+    "pol": "Uda�o ci si� znale�� odpowiednich ludzi do nowej grupy badawczej. Mo�esz wr�ci� do Hermana, aby odebra� nagrod�.",
+    "rus": "Люди для новой исследовательской группы подобраны. Необходимо вернуться к Герману за причитающимся вознаграждением.",
+    "ukr": "Людей для нової дослідницької групи підібрано. Необхідно повернутися до Германа по винагороду."
+  },
+  "jup_b218_soldier_do_scientist_quest_name": {
+    "eng": "Pripyat 1: complete Ozersky’s mission",
+    "pol": "Prype� 1: wype�nij misj� Oziorskiego",
+    "rus": "«Припять-1»: выполнить задание Озёрского",
+    "ukr": "«Прип'ять-1»: виконати завдання Озьорського"
+  },
+  "jup_b218_soldier_do_scientist_quest_text": {
+    "eng": "You need to complete Ozersky’s mission involving the anomalous plant to get a protective suit for Sokolov.",
+    "pol": "Musisz wype�ni� misj� Oziorskiego dotycz�c� nietypowej ro�liny, aby zdoby� kombinezon ochronny dla Soko�owa.",
+    "rus": "Чтобы получить защитный костюм для Соколова, необходимо выполнить задание Озёрского и принести аномальное растение.",
+    "ukr": "Щоб одержати захисний костюм для Соколова, необхідно виконати завдання Озьорського і принести аномальну рослину."
+  },
+  "jup_b200_tech_materials_inside_text": {
+    "eng": "Nitro needs radio technical materials. You need to find them in the cement factory.",
+    "pol": "Azot potrzebuje materia��w radiotechnicznych. Musisz je znale�� w cementowni.",
+    "rus": "Азоту нужны материалы для радиотехники. Необходимо найти их в здании цементного завода.",
+    "ukr": "Азотові потрібні матеріали для радіотехніки. Необхідно відшукати їх у будівлі цементного заводу."
+  },
+  "jup_b25_flint_and_senya_text": {
+    "eng": "It was Flint who left Splinter to die in the anomaly. Talk to him and find out why he did it.",
+    "pol": "To Flint pozwoli� Drzazdze zgin�� w anomalii. Porozmawiaj z nim i dowiedz si�, dlaczego to zrobi�.",
+    "rus": "Щепку бросил умирать в аномалии именно Флинт. Нужно поговорить с ним и узнать, почему он так поступил.",
+    "ukr": "Тріску кинув помирати в аномалії саме Флінт. Потрібно поговорити із ним та взнати, чому він так повівся."
+  },
+  "jup_b25_revenge_senya_name": {
+    "eng": "Retribution: avenge Splinter",
+    "pol": "Zemsta: pom�cij Drzazg�",
+    "rus": "Возмездие: отомстить за Щепку",
+    "ukr": "Відплата: помститися за Тріску"
+  },
+  "jup_b25_revenge_senya_text": {
+    "eng": "Find whoever left Splinter to die in an anomaly, having taken the artifact and left. Unfortunately, Splinter didn’t manage to name the villain, so all that’s known about him is that he is a member of Freedom.",
+    "pol": "Dowiedz si�, kto porzuci� Drzazg� na �mier� w anomalii, zabra� artefakt i odszed�. Niestety, Drzazga nie zdo�a� powiedzie�, kto to by�. Wiadomo tylko, �e jest cz�onkiem Wolno�ci.",
+    "rus": "Отыскать того, кто бросил Щепку умирать в аномалии, а сам забрал артефакт и ушёл. К сожалению, Щепка не успел сказать, как звали того сталкера - известно только, что он из «свободовцев».",
+    "ukr": "Відшукати того, хто кинув Тріску помирати в аномалії, а сам забрав артефакт і пішов. На жаль, Тріска не встиг сказати, як звали того сталкера - відомо лише, що він зі «свободівців»."
+  },
+  "zat_b207_depot_reward_task_duty_text": {
+    "eng": "Lieutenant Colonel Shulga has permitted you to take any equipment you want from the Duty warehouse if you manage to capture it.",
+    "pol": "Podpu�kownik Szulga pozwoli� ci zabra� z magazynu Powinno�ci co tylko chcesz, o ile zdo�asz go odbi� od oddzia�u Wolno�ci.",
+    "rus": "Подполковник Шульга разрешил взять любое снаряжение со склада «Долга», если удастся отбить его у отряда «Свободы».",
+    "ukr": "Підполковник Шульга дозволив узяти будь-яке спорядження зі складу «Долгу», якщо вдасться відбити його в загону «Волі»."
+  },
+  "zat_b207_depot_reward_task_freedom_text": {
+    "eng": "Loki has allowed you to take any equipment you want from the Duty warehouse as long as it’s held by Freedom fighters.",
+    "pol": "Loki pozwoli� ci bra� z magazynu Powinno�ci co tylko chcesz, dop�ki jest on w posiadaniu wojownik�w Wolno�ci.",
+    "rus": "Локи разрешил брать любое снаряжение со склада «Долга», пока его удерживают бойцы «Свободы».",
+    "ukr": "Локі дозволив брати будь-яке спорядження зі складу «Долгу», доки його утримують бійці «Волі»."
+  }
+}

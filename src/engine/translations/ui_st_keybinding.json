@@ -1,0 +1,446 @@
+{
+  "kb_active_jobs": {
+    "eng": "PDA",
+    "pol": "PDA",
+    "rus": "КПК",
+    "ukr": "КПК"
+  },
+  "kb_alife_command": {
+    "eng": "Order to attack",
+    "pol": "Rozkaz ataku",
+    "rus": "Приказ атаковать",
+    "ukr": "Наказ атакувати"
+  },
+  "kb_always_run": {
+    "eng": "Walk",
+    "pol": "Ch�d",
+    "rus": "Шаг",
+    "ukr": "Крок"
+  },
+  "kb_artefact": {
+    "eng": "Artifact",
+    "pol": "Artefakt",
+    "rus": "Артефакт",
+    "ukr": "Артефакт"
+  },
+  "kb_backward": {
+    "eng": "Back",
+    "pol": "Do ty�u",
+    "rus": "Назад",
+    "ukr": "Назад"
+  },
+  "kb_binoculars": {
+    "eng": "Binoculars",
+    "pol": "Lornetka",
+    "rus": "Бинокль",
+    "ukr": "Бінокль"
+  },
+  "kb_buy_menu": {
+    "eng": "Buy menu",
+    "pol": "Menu handlu",
+    "rus": "Меню покупки",
+    "ukr": "Меню купівлі"
+  },
+  "kb_chat": {
+    "eng": "Chat",
+    "pol": "Rozmowa",
+    "rus": "Чат",
+    "ukr": "Чат"
+  },
+  "kb_chat_team": {
+    "eng": "Team Chat",
+    "pol": "Rozmowa dru�ynowa",
+    "rus": "Командный чат",
+    "ukr": "Командний чат"
+  },
+  "kb_console": {
+    "eng": "Console",
+    "pol": "Konsola",
+    "rus": "Консоль",
+    "ukr": "Консоль"
+  },
+  "kb_contacts": {
+    "eng": "Contacts in PDA",
+    "pol": "Lista kontakt�w w PDA",
+    "rus": "Контакты в КПК",
+    "ukr": "Контакти в КПК"
+  },
+  "kb_crouch": {
+    "eng": "Crouch",
+    "pol": "Kucanie",
+    "rus": "Присесть",
+    "ukr": "Присісти"
+  },
+  "kb_crouch_toggle": {
+    "eng": "Toggle crouch",
+    "pol": "W��cz/wy��cz kucanie",
+    "rus": "Постоянно присев",
+    "ukr": "Постійно навприсяд"
+  },
+  "kb_detector": {
+    "eng": "Detector",
+    "pol": "Detektor",
+    "rus": "Детектор",
+    "ukr": "Детектор"
+  },
+  "kb_down": {
+    "eng": "Down",
+    "pol": "W d�",
+    "rus": "Вниз",
+    "ukr": "Вниз"
+  },
+  "kb_drop": {
+    "eng": "Drop",
+    "pol": "Wyrzu�",
+    "rus": "Выложить",
+    "ukr": "Викласти"
+  },
+  "kb_fire": {
+    "eng": "Fire",
+    "pol": "Strza�",
+    "rus": "Огонь",
+    "ukr": "Вогонь"
+  },
+  "kb_firemode_next": {
+    "eng": "Next firing mode",
+    "pol": "Nast�pny tryb strza�u",
+    "rus": "Режим стрельбы след.",
+    "ukr": "Режим стрільби наст."
+  },
+  "kb_firemode_prev": {
+    "eng": "Previous firing mode",
+    "pol": "Poprzedni tryb strza�u",
+    "rus": "Режим стрельбы пред.",
+    "ukr": "Режим стрільби попер."
+  },
+  "kb_forward": {
+    "eng": "Forward",
+    "pol": "Do przodu",
+    "rus": "Вперёд",
+    "ukr": "Вперед"
+  },
+  "kb_func": {
+    "eng": "Underbarrel grenade launcher",
+    "pol": "Granatnik podwieszany",
+    "rus": "Подствольник",
+    "ukr": "Підствольник"
+  },
+  "kb_grp_common": {
+    "eng": "General",
+    "pol": "Og�lne",
+    "rus": "Общее",
+    "ukr": "Загальне"
+  },
+  "kb_grp_direction": {
+    "eng": "Direction",
+    "pol": "Widok",
+    "rus": "Направление",
+    "ukr": "Напрямок"
+  },
+  "kb_grp_inventory": {
+    "eng": "Backpack",
+    "pol": "Plecak",
+    "rus": "Рюкзак",
+    "ukr": "Рюкзак"
+  },
+  "kb_grp_movement": {
+    "eng": "Movement",
+    "pol": "Ruch",
+    "rus": "Движение",
+    "ukr": "Рух"
+  },
+  "kb_grp_multiplayer": {
+    "eng": "Multiplayer",
+    "pol": "Tryb wielu graczy",
+    "rus": "Сетевая игра",
+    "ukr": "Гра в мережі"
+  },
+  "kb_grp_weapons": {
+    "eng": "Weapon",
+    "pol": "Bro�",
+    "rus": "Оружие",
+    "ukr": "Зброя"
+  },
+  "kb_inventory": {
+    "eng": "Backpack",
+    "pol": "Plecak",
+    "rus": "Рюкзак",
+    "ukr": "Рюкзак"
+  },
+  "kb_jump": {
+    "eng": "Jump",
+    "pol": "Skok",
+    "rus": "Прыжок",
+    "ukr": "Стрибок"
+  },
+  "kb_left": {
+    "eng": "Left",
+    "pol": "W lewo",
+    "rus": "Влево",
+    "ukr": "Наліво"
+  },
+  "kb_left_lookout": {
+    "eng": "Lean left",
+    "pol": "Wychylenie w lewo",
+    "rus": "Выглянуть влево",
+    "ukr": "Виглянути наліво"
+  },
+  "kb_left_strafe": {
+    "eng": "Strafe left",
+    "pol": "Krok w lewo",
+    "rus": "Шаг влево",
+    "ukr": "Крок ліворуч"
+  },
+  "kb_map": {
+    "eng": "Map in PDA",
+    "pol": "Mapa w PDA",
+    "rus": "Карта в КПК",
+    "ukr": "Карта в КПК"
+  },
+  "kb_next_slot": {
+    "eng": "Weapon in next slot",
+    "pol": "Nast�pna bro�",
+    "rus": "Оружие из следующего слота",
+    "ukr": "Зброя з наступної комірки"
+  },
+  "kb_night_vision": {
+    "eng": "Night vision device",
+    "pol": "Noktowizor",
+    "rus": "Прибор ночного видения",
+    "ukr": "Прилад нічного бачення"
+  },
+  "kb_pause": {
+    "eng": "Pause",
+    "pol": "Pauza",
+    "rus": "Пауза",
+    "ukr": "Пауза"
+  },
+  "kb_pda": {
+    "eng": "PDA",
+    "pol": "PDA",
+    "rus": "КПК",
+    "ukr": "КПК"
+  },
+  "kb_prev_slot": {
+    "eng": "Weapon in previous slot",
+    "pol": "Poprzednia bro�",
+    "rus": "Оружие из предыдущего слота",
+    "ukr": "Зброя із попередньої комірки"
+  },
+  "kb_quit": {
+    "eng": "Back",
+    "pol": "Wyj�cie",
+    "rus": "Выход",
+    "ukr": "Вихід"
+  },
+  "kb_reload": {
+    "eng": "Reload",
+    "pol": "Prze�aduj",
+    "rus": "Перезарядить",
+    "ukr": "Перезарядити"
+  },
+  "kb_repair": {
+    "eng": "Repair",
+    "pol": "Napraw",
+    "rus": "Починить",
+    "ukr": "Полагодити"
+  },
+  "kb_right": {
+    "eng": "Right",
+    "pol": "W prawo",
+    "rus": "Вправо",
+    "ukr": "Направо"
+  },
+  "kb_right_lookout": {
+    "eng": "Lean right",
+    "pol": "Wychylenie w prawo",
+    "rus": "Выглянуть вправо",
+    "ukr": "Виглянути направо"
+  },
+  "kb_right_strafe": {
+    "eng": "Strafe right",
+    "pol": "Krok w prawo",
+    "rus": "Шаг вправо",
+    "ukr": "Крок праворуч"
+  },
+  "kb_scores": {
+    "eng": "Points",
+    "pol": "Ekran punktacji",
+    "rus": "Очки",
+    "ukr": "Очки"
+  },
+  "kb_screenshot": {
+    "eng": "Screenshot",
+    "pol": "Zrzut ekranu",
+    "rus": "Скриншот",
+    "ukr": "Скріншот"
+  },
+  "kb_skin_menu": {
+    "eng": "Model selection menu",
+    "pol": "Menu wyboru modelu",
+    "rus": "Меню выбора модели",
+    "ukr": "Меню вибору моделі"
+  },
+  "kb_sprint": {
+    "eng": "Run",
+    "pol": "Sprint",
+    "rus": "Бег",
+    "ukr": "Біг"
+  },
+  "kb_team_menu": {
+    "eng": "Team selection menu",
+    "pol": "Menu wyboru dru�yny",
+    "rus": "Меню выбора команды",
+    "ukr": "Меню вибору команди"
+  },
+  "kb_torch": {
+    "eng": "Flashlight",
+    "pol": "Latarka",
+    "rus": "Фонарик",
+    "ukr": "Ліхтарик"
+  },
+  "kb_turn_engine": {
+    "eng": "Activate",
+    "pol": "Aktywuj ",
+    "rus": "Включить",
+    "ukr": "Увімкнути"
+  },
+  "kb_up": {
+    "eng": "Up",
+    "pol": "W g�r�",
+    "rus": "Вверх",
+    "ukr": "Нагору"
+  },
+  "kb_use": {
+    "eng": "Use",
+    "pol": "U�yj",
+    "rus": "Использовать",
+    "ukr": "Використати"
+  },
+  "kb_use_bandage": {
+    "eng": "Quick bandage",
+    "pol": "Szybkie banda�owanie",
+    "rus": "Быстр. использование бинта",
+    "ukr": "Швидк. використання бинта"
+  },
+  "kb_use_medkit": {
+    "eng": "Quick medkit",
+    "pol": "Szybkie u�ycie apteczki",
+    "rus": "Быстр. использование аптечки",
+    "ukr": "Швидк. використання аптечки"
+  },
+  "kb_vote_begin": {
+    "eng": "Start vote",
+    "pol": "Rozpocznij g�osowanie",
+    "rus": "Начать голосование",
+    "ukr": "Розпочати голосування"
+  },
+  "kb_vote_menu": {
+    "eng": "Vote",
+    "pol": "G�osuj",
+    "rus": "Проголосовать",
+    "ukr": "Проголосувати"
+  },
+  "kb_vote_no": {
+    "eng": "Vote “No”",
+    "pol": "G�osuj przeciw",
+    "rus": "Проголосовать «Нет»",
+    "ukr": "Проголосувати «Ні»"
+  },
+  "kb_vote_yes": {
+    "eng": "Vote \"Yes”",
+    "pol": "G�osuj za",
+    "rus": "Проголосовать «Да»",
+    "ukr": "Проголосувати «Так»"
+  },
+  "kb_weapon1": {
+    "eng": "Weapon 1",
+    "pol": "Bro� 1",
+    "rus": "Оружие 1",
+    "ukr": "Зброя 1"
+  },
+  "kb_weapon2": {
+    "eng": "Weapon 2",
+    "pol": "Bro� 2",
+    "rus": "Оружие 2",
+    "ukr": "Зброя 2"
+  },
+  "kb_weapon3": {
+    "eng": "Weapon 3",
+    "pol": "Bro� 3",
+    "rus": "Оружие 3",
+    "ukr": "Зброя 3"
+  },
+  "kb_weapon4": {
+    "eng": "Weapon 4",
+    "pol": "Bro� 4",
+    "rus": "Оружие 4",
+    "ukr": "Зброя 4"
+  },
+  "kb_weapon5": {
+    "eng": "Weapon 5",
+    "pol": "Bro� 5",
+    "rus": "Оружие 5",
+    "ukr": "Зброя 5"
+  },
+  "kb_weapon6": {
+    "eng": "Weapon 6",
+    "pol": "Bro� 6",
+    "rus": "Оружие 6",
+    "ukr": "Зброя 6"
+  },
+  "kb_wpn_next": {
+    "eng": "Change ammo type",
+    "pol": "Zmie� typ amunicji",
+    "rus": "Сменить тип патронов",
+    "ukr": "Змінити тип патронів"
+  },
+  "kb_wpn_prev": {
+    "eng": "Previous weapon of this type",
+    "pol": "Poprzednia bro� tego typu",
+    "rus": "Предыдущее оружие этого типа",
+    "ukr": "Попередня зброя цього типу"
+  },
+  "kb_zoom": {
+    "eng": "Zoom",
+    "pol": "Przybli�enie/oddalenie",
+    "rus": "Приблизить",
+    "ukr": "Наблизити"
+  },
+  "speech_menu_group": {
+    "eng": "Voice messages (1)",
+    "pol": "Wiadomo�ci g�osowe (1)",
+    "rus": "Голосовые сообщения (1)",
+    "ukr": "Голосові повідомлення (1)"
+  },
+  "speech_menu_personal": {
+    "eng": "Voice messages (2)",
+    "pol": "Wiadomo�ci g�osowe (2)",
+    "rus": "Голосовые сообщения (2)",
+    "ukr": "Голосові повідомлення (2)"
+  },
+  "kb_quick_use_1": {
+    "eng": "Quick Access Slot 1",
+    "pol": "Szybki dost�p 1",
+    "rus": "Ячейка быстрого доступа 1",
+    "ukr": "Комірка швидкого доступу 1"
+  },
+  "kb_quick_use_2": {
+    "eng": "Quick Access Slot 2",
+    "pol": "Szybki dost�p 2",
+    "rus": "Ячейка быстрого доступа 2",
+    "ukr": "Комірка швидкого доступу 2"
+  },
+  "kb_quick_use_3": {
+    "eng": "Quick Access Slot 3",
+    "pol": "Szybki dost�p 3",
+    "rus": "Ячейка быстрого доступа 3",
+    "ukr": "Комірка швидкого доступу 3"
+  },
+  "kb_quick_use_4": {
+    "eng": "Quick Access Slot 4",
+    "pol": "Szybki dost�p 4",
+    "rus": "Ячейка быстрого доступа 4",
+    "ukr": "Комірка швидкого доступу 4"
+  }
+}

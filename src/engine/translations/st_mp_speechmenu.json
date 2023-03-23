@@ -1,0 +1,110 @@
+{
+  "speech_attack": {
+    "eng": "Everyone, attack!",
+    "pol": "Wszyscy, do ataku!",
+    "rus": "Все в атаку!",
+    "ukr": "Усі в атаку!"
+  },
+  "speech_covermeartifact": {
+    "eng": "I'm going for the artifact! Cover me!",
+    "pol": "Id� po artefakt! Os�ania� mnie!",
+    "rus": "Беру артефакт! Прикройте!",
+    "ukr": "Беру артефакт! Прикрийте!"
+  },
+  "speech_followme": {
+    "eng": "Follow me!",
+    "pol": "Za mn�!",
+    "rus": "За мной!",
+    "ukr": "За мною!"
+  },
+  "speech_guardartifact": {
+    "eng": "Guard the artifact for now. Don’t take it yet!",
+    "pol": "Na razie pilnuj artefaktu. Jeszcze go nie bierz!",
+    "rus": "Охраняем арефакт. Пока не берём!",
+    "ukr": "Охороняємо артефакт. Поки що не беремо!"
+  },
+  "speech_holdingpos": {
+    "eng": "I'm holding my position!",
+    "pol": "Trzymam pozycj�!",
+    "rus": "Остаюсь на позиции",
+    "ukr": "Залишаюся на позиції"
+  },
+  "speech_holdpos": {
+    "eng": "Hold your positions!",
+    "pol": "Trzyma� pozycje!",
+    "rus": "Держим позицию!",
+    "ukr": "Тримаємо позицію!"
+  },
+  "speech_icoverartifact": {
+    "eng": "Take the artifact! I’ll cover you!",
+    "pol": "Bierz artefakt! B�d� ci� os�ania�!",
+    "rus": "Берите артефакт! Я прикрою!",
+    "ukr": "Беріть артефакт! Я прикрию!"
+  },
+  "speech_needhelp": {
+    "eng": "I need help!",
+    "pol": "Potrzebuj� pomocy!",
+    "rus": "Нужна помощь!",
+    "ukr": "Потрібна допомога!"
+  },
+  "speech_needmoney": {
+    "eng": "No money - buy me equipment!",
+    "pol": "Nie mam pieni�dzy - kup wi�cej sprz�tu!",
+    "rus": "Нет денег, купите экипировку!",
+    "ukr": "Немає грошей, придбайте спорядження!"
+  },
+  "speech_no": {
+    "eng": "No.",
+    "pol": "Nie.",
+    "rus": "Нет.",
+    "ukr": "Ні."
+  },
+  "speech_noenemy": {
+    "eng": "No one in sight!",
+    "pol": "Czysto!",
+    "rus": "Никого поблизости.",
+    "ukr": "Нікого поблизу."
+  },
+  "speech_report": {
+    "eng": "Report, now!",
+    "pol": "Zg�o� si�!",
+    "rus": "Доложите ситуацию!",
+    "ukr": "Доповідайте ситуацію!"
+  },
+  "speech_retreat": {
+    "eng": "Retreat!",
+    "pol": "Odwr�t!",
+    "rus": "Отступаем!",
+    "ukr": "Відступаємо!"
+  },
+  "speech_returntheartefact": {
+    "eng": "Return the artifact!",
+    "pol": "Odnie� artefakt!",
+    "rus": "Верните артефакт!",
+    "ukr": "Поверніть артефакт!"
+  },
+  "speech_roger": {
+    "eng": "Roger.",
+    "pol": "Rozumiem.",
+    "rus": "Вас понял.",
+    "ukr": "Вас зрозумів."
+  },
+  "speech_silence": {
+    "eng": "Shut up!",
+    "pol": "Cicho!",
+    "rus": "Заткнитесь!",
+    "ukr": "Стуліть пельку!"
+  },
+  "speech_sticktogether": {
+    "eng": "Stick together.",
+    "pol": "Musimy trzyma� si� razem.",
+    "rus": "Держимся вместе.",
+    "ukr": "Тримаємося разом."
+  },
+  "speech_takeartifact": {
+    "eng": "Take the artifact!",
+    "pol": "Bierz artefakt!",
+    "rus": "Берём артефакт!",
+    "ukr": "Беремо артефакт!"
+  }
+}

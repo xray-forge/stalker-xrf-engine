@@ -1,0 +1,692 @@
+{
+  "actor_inventory_box_use": {
+    "eng": "Open personal box ($$ACTION_USE$$)",
+    "pol": "Otw�rz skrytk� ($$ACTION_USE$$)",
+    "rus": "Открыть личный ящик ($$ACTION_USE$$)",
+    "ukr": "Відкрити особистий ящик ($$ACTION_USE$$)"
+  },
+  "cant_walk": {
+    "eng": "You’re too exhausted to move",
+    "pol": "Wyczerpanie nie pozwala ci i�� dalej",
+    "rus": "Вы слишком истощены, чтобы двигаться",
+    "ukr": "Ви надто виснажені, щоб рухатися"
+  },
+  "cant_walk_weight": {
+    "eng": "You’re too overloaded to move",
+    "pol": "Nadmierne obci��enie nie pozwala ci i�� dalej",
+    "rus": "Вы слишком перегружены, чтобы двигаться",
+    "ukr": "Ви надто переобтяжені, щоб рухатися"
+  },
+  "car_character_use": {
+    "eng": "Open door ($$ACTION_USE$$)",
+    "pol": "Otw�rz drzwi ($$ACTION_USE$$)",
+    "rus": "Открыть дверь ($$ACTION_USE$$)",
+    "ukr": "Відчинити двері ($$ACTION_USE$$)"
+  },
+  "character_use": {
+    "eng": "Speak ($$ACTION_USE$$)",
+    "pol": "Rozmawiaj ($$ACTION_USE$$)",
+    "rus": "Говорить ($$ACTION_USE$$)",
+    "ukr": "Розмовляти ($$ACTION_USE$$)"
+  },
+  "dead_character_use": {
+    "eng": "Search body ($$ACTION_USE$$)",
+    "pol": "Przeszukaj cia�o ($$ACTION_USE$$)",
+    "rus": "Обыскать труп ($$ACTION_USE$$)",
+    "ukr": "Обшукати труп ($$ACTION_USE$$)"
+  },
+  "dead_character_use_or_drag": {
+    "eng": "Search body ($$ACTION_USE$$)\\nDrag body (SHIFT+$$ACTION_USE$$)",
+    "pol": "Przeszukaj cia�o ($$ACTION_USE$$)\\nPrzeci�gnij cia�o (SHIFT+$$ACTION_USE$$)",
+    "rus": "Обыскать труп ($$ACTION_USE$$)\\nТащить труп (SHIFT+$$ACTION_USE$$)",
+    "ukr": "Обшукати труп ($$ACTION_USE$$)\\nТягнути труп (SHIFT+$$ACTION_USE$$)"
+  },
+  "general_complete_task": {
+    "eng": "Mission complete:",
+    "pol": "Zadanie wykonane:",
+    "rus": "Задание выполнено:",
+    "ukr": "Завдання виконане:"
+  },
+  "general_fail_task": {
+    "eng": "Mission failed:",
+    "pol": "Zadanie nie powiod�o si�:",
+    "rus": "Задание провалено:",
+    "ukr": "Завдання провалене:"
+  },
+  "general_in_item": {
+    "eng": "Item received:",
+    "pol": "Otrzymany przedmiot:",
+    "rus": "Получен предмет:",
+    "ukr": "Отримано предмет:"
+  },
+  "general_in_money": {
+    "eng": "Money received:",
+    "pol": "Otrzymane pieni�dze:",
+    "rus": "Получены деньги:",
+    "ukr": "Отримано гроші:"
+  },
+  "general_new_task": {
+    "eng": "New mission:",
+    "pol": "Nowe zadanie:",
+    "rus": "Новое задание:",
+    "ukr": "Нове завдання:"
+  },
+  "general_out_item": {
+    "eng": "Item lost:",
+    "pol": "Utracony przedmiot:",
+    "rus": "Потерян предмет:",
+    "ukr": "Втрачено предмет:"
+  },
+  "general_out_money": {
+    "eng": "Money lost:",
+    "pol": "Utracone pieni�dze:",
+    "rus": "Потеряны деньги:",
+    "ukr": "Втрачено гроші:"
+  },
+  "general_reverse_task": {
+    "eng": "Mission cancelled:",
+    "pol": "Zadanie anulowane:",
+    "rus": "Задание отменено:",
+    "ukr": "Завдання відмінене:"
+  },
+  "general_update_task": {
+    "eng": "Mission updated:",
+    "pol": "Nowe informacje o zadaniu:",
+    "rus": "Задание обновлено:",
+    "ukr": "Завдання оновлене:"
+  },
+  "gun_jammed": {
+    "eng": "Your weapon has jammed. Reload it.",
+    "pol": "Bro� si� zaci�a. Musisz prze�adowa�.",
+    "rus": "Оружие заклинило. Нужно перезарядить.",
+    "ukr": "Зброю заклинило. Необхідно перезарядити"
+  },
+  "inventory_box_use": {
+    "eng": "Search box ($$ACTION_USE$$)",
+    "pol": "Przeszukaj skrzynk� ($$ACTION_USE$$)",
+    "rus": "Обыскать ящик ($$ACTION_USE$$)",
+    "ukr": "Обшукати ящик ($$ACTION_USE$$)"
+  },
+  "inventory_item_use": {
+    "eng": "Pick up item ($$ACTION_USE$$)",
+    "pol": "Podnie� przedmiot ($$ACTION_USE$$)",
+    "rus": "Поднять предмет ($$ACTION_USE$$)",
+    "ukr": "Підняти предмет ($$ACTION_USE$$)"
+  },
+  "jup_b10_ufo_searching_tips": {
+    "eng": "Search aircraft ($$ACTION_USE$$)",
+    "pol": "Przeszukaj samolot ($$ACTION_USE$$)",
+    "rus": "Обыскать летательный аппарат ($$ACTION_USE$$)",
+    "ukr": "Обшукати літальний апарат ($$ACTION_USE$$)"
+  },
+  "jup_b1_bar_door": {
+    "eng": "Door jammed",
+    "pol": "Drzwi si� zaci�y",
+    "rus": "Дверь заклинило",
+    "ukr": "Двері заклинило"
+  },
+  "jup_b1_door_is_closed": {
+    "eng": "The door is locked from the inside",
+    "pol": "Drzwi s� zamkni�te od �rodka",
+    "rus": "Дверь закрыта изнутри",
+    "ukr": "Двері зачинено зсередини"
+  },
+  "jup_b202_treasures_closed": {
+    "eng": "Safe locked",
+    "pol": "Sejf zamkni�ty",
+    "rus": "Сейф закрыт",
+    "ukr": "Сейф закритий"
+  },
+  "jup_b205_tip_door_closed": {
+    "eng": "Code needed",
+    "pol": "Potrzebny jest kod",
+    "rus": "Необходим код",
+    "ukr": "Потрібний код"
+  },
+  "jup_b205_tip_door_decode": {
+    "eng": "Enter code ($$ACTION_USE$$)",
+    "pol": "Wprowad� kod ($$ACTION_USE$$)",
+    "rus": "Ввести код ($$ACTION_USE$$)",
+    "ukr": "Ввести код ($$ACTION_USE$$)"
+  },
+  "jup_b206_use_plant": {
+    "eng": "Take plant ($$ACTION_USE$$)",
+    "pol": "Podnie� ro�lin� ($$ACTION_USE$$)",
+    "rus": "Сорвать растение ($$ACTION_USE$$)",
+    "ukr": "Зірвати рослину ($$ACTION_USE$$)"
+  },
+  "jup_b209_scanner_place_tips": {
+    "eng": "Set up scanner ($$ACTION_USE$$)",
+    "pol": "Ustaw skaner ($$ACTION_USE$$)",
+    "rus": "Установить сканер ($$ACTION_USE$$)",
+    "ukr": "Встановити сканер ($$ACTION_USE$$)"
+  },
+  "jup_b209_scanner_remove_tips": {
+    "eng": "Take scanner ($$ACTION_USE$$)",
+    "pol": "We� skaner ($$ACTION_USE$$)",
+    "rus": "Забрать сканер ($$ACTION_USE$$)",
+    "ukr": "Забрати сканер ($$ACTION_USE$$)"
+  },
+  "lx8_raduga": {
+    "eng": "Rainbow aggression suppressor\\nmodel of external emissions complex\\nscale 1:20",
+    "pol": "Supresor agresji T�cza\\nmodel zewn�trznego kompleksu emisji\\nskala1:20",
+    "rus": "Подавитель агрессии «Радуга»\\nмакет внешнего излучательного комплекса\\nмасштаб 1:20",
+    "ukr": "Пригнічувач агресії «Веселка»\\nмакет зовнішнього комлексу випромінювання\\nмасштаб 1:20"
+  },
+  "pas_b400_tip_switcher": {
+    "eng": "Activate switch ($$ACTION_USE$$)",
+    "pol": "U�yj prze��cznika ($$ACTION_USE$$)",
+    "rus": "Включить рубильник ($$ACTION_USE$$)",
+    "ukr": "Увімкнути рубильник ($$ACTION_USE$$)"
+  },
+  "pri_a18_use_idol": {
+    "eng": "Examine device ($$ACTION_USE$$)",
+    "pol": "Zbadaj urz�dzenie ($$ACTION_USE$$)",
+    "rus": "Осмотреть конструкцию ($$ACTION_USE$$)",
+    "ukr": "Оглянути конструкцію ($$ACTION_USE$$)"
+  },
+  "pri_a25_blow_up_enter_door": {
+    "eng": "Plant explosives ($$ACTION_USE$$)",
+    "pol": "Pod�� �adunki wybuchowe ($$ACTION_USE$$)",
+    "rus": "Установить взрывчатку ($$ACTION_USE$$)",
+    "ukr": "Встановити вибухівку ($$ACTION_USE$$)"
+  },
+  "pri_a28_talk_with_stupid_medic": {
+    "eng": "Recover ($$ACTION_USE$$)",
+    "pol": "Odzyskaj ($$ACTION_USE$$)",
+    "rus": "Привести в чувство ($$ACTION_USE$$)",
+    "ukr": "Привести до тями ($$ACTION_USE$$)"
+  },
+  "pri_b306_elevator_door_locked_used": {
+    "eng": "Elevator has no power",
+    "pol": "Brak zasilania windy",
+    "rus": "Лифт обесточен",
+    "ukr": "Ліфт знеструмлено"
+  },
+  "pri_b306_generator_use": {
+    "eng": "Activate generator ($$ACTION_USE$$)",
+    "pol": "W��cz generator ($$ACTION_USE$$)",
+    "rus": "Запустить генератор ($$ACTION_USE$$)",
+    "ukr": "Запустити генератор ($$ACTION_USE$$)"
+  },
+  "sleep_ok_button": {
+    "eng": "Sleep",
+    "pol": "�pij",
+    "rus": "Спать",
+    "ukr": "Спати"
+  },
+  "sleep_warning_all_pleasures": {
+    "eng": "You cannot sleep! You are bleeding dangerously and suffering from radiation exposure. Use drugs or contact a medic.",
+    "pol": "Nie mo�esz spa�! Gwa�townie krwawisz, a aktualny stopie� napromieniowania zagra�a twojemu �yciu. U�yj lekarstw lub odwied� medyka. ",
+    "rus": "Вы не можете спать! У Вас опасное кровотечение и высокий уровень облучённости организма. Используйте медикаменты или обратитесь к медику.",
+    "ukr": "Ви не можете спати! У Вас небезпечна кровотеча та високий рівень опромінення організму. Використайте медикаменти або зверніться до медика."
+  },
+  "sleep_warning_bleeding": {
+    "eng": "You cannot sleep! You are bleeding dangerously. Use drugs or contact a medic.",
+    "pol": "Nie mo�esz spa�! Gwa�townie krwawisz. U�yj lekarstw lub odwied� medyka.",
+    "rus": "Вы не можете спать! У Вас опасное кровотечение. Используйте медикаменты или обратитесь к медику.",
+    "ukr": "Ви не можете спати! У Вас небезпечна кровотеча. Використайте медикаменти або зверніться до медика."
+  },
+  "sleep_warning_radiation": {
+    "eng": "You cannot sleep! You are suffering from radiation exposure. Use drugs or contact a medic.",
+    "pol": "Nie mo�esz spa�! Aktualny stopie� napromieniowania zagra�a twojemu �yciu. U�yj lekarstw lub odwied� medyka. ",
+    "rus": "Вы не можете спать! У Вас высокий уровень облучённости организма. Используйте медикаменты или обратитесь к медику.",
+    "ukr": "Ви не можете спати! У Вас високий рівень опромінення організму. Використайте медикаменти або зверніться до медика."
+  },
+  "sleep_zone_tip": {
+    "eng": "Sleep ($$ACTION_USE$$)",
+    "pol": "�pij ($$ACTION_USE$$)",
+    "rus": "Спать ($$ACTION_USE$$)",
+    "ukr": "Спати ($$ACTION_USE$$)"
+  },
+  "st_ach_balance_advocate": {
+    "eng": "You have attained the Man of Balance achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Obro�ca r�wnowagi�.",
+    "rus": "Получено достижение «Сторонник равновесия».",
+    "ukr": "Отримано досягнення «Прибічник рівноваги»"
+  },
+  "st_ach_battle_systems_master": {
+    "eng": "You have attained the Weapon Systems Master achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Ekspert system�w obronnych�.",
+    "rus": "Получено достижение «Мастер боевых систем».",
+    "ukr": "Отримано досягнення «Майстер бойових систем»"
+  },
+  "st_ach_detective": {
+    "eng": "You have attained the Detective achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Detektyw�.",
+    "rus": "Получено достижение «Сыщик».",
+    "ukr": "Отримано досягнення «Сищик»"
+  },
+  "st_ach_diplomat": {
+    "eng": "You have attained the Diplomat achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Dyplomata�. ",
+    "rus": "Получено достижение «Дипломат».",
+    "ukr": "Отримано досягнення «Дипломат»"
+  },
+  "st_ach_friend_of_duty": {
+    "eng": "You have attained the Friend of Duty achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Przyjaciel Powinno�ci�.",
+    "rus": "Получено достижение «Друг «Долга».",
+    "ukr": "Отримано досягнення «Друг «Долгу»"
+  },
+  "st_ach_friend_of_freedom": {
+    "eng": "You have attained the Friend of Freedom achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Przyjaciel Wolno�ci�.",
+    "rus": "Получено достижение «Друг «Свободы».",
+    "ukr": "Отримано досягнення «Друг «Волі»"
+  },
+  "st_ach_friend_of_stalkers": {
+    "eng": "You have attained the Friend of Stalkers achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Przyjaciel stalker�w�.",
+    "rus": "Получено достижение «Друг сталкеров».",
+    "ukr": "Отримано досягнення «Друг сталкерів»"
+  },
+  "st_ach_herald_of_justice": {
+    "eng": "You have attained the Courier of Justice achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Wys�annik sprawiedliwo�ci�.",
+    "rus": "Получено достижение «Гонец правосудия».",
+    "ukr": "Отримано досягнення «Гінець правосуддя»"
+  },
+  "st_ach_high_tech_master": {
+    "eng": "You have attained the Hi-Tech Expert achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Ekspert wysokiej technologii�.",
+    "rus": "Получено достижение «Мастер высоких технологий».",
+    "ukr": "Отримано досягнення «Майстер високих технологій»"
+  },
+  "st_ach_information_dealer": {
+    "eng": "You have attained the Trafficker of Information achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Handlarz informacjami�.",
+    "rus": "Получено достижение «Торговец информацией».",
+    "ukr": "Отримано досягнення «Торговець інформацією»"
+  },
+  "st_ach_keeper_of_secrets": {
+    "eng": "You have attained the Keeper of Secrets achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Stra�nik sekret�w�.",
+    "rus": "Получено достижение «Хранитель тайн».",
+    "ukr": "Отримано досягнення «Зберігач таємниць»"
+  },
+  "st_ach_kingpin": {
+    "eng": "You have attained the Boss achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Szef�.",
+    "rus": "Получено достижение «Авторитет».",
+    "ukr": "Отримано досягнення «Авторитет»"
+  },
+  "st_ach_leader": {
+    "eng": "You have attained the Leader achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Przyw�dca�.",
+    "rus": "Получено достижение «Лидер».",
+    "ukr": "Отримано досягнення «Лідер»"
+  },
+  "st_ach_mutant_hunter": {
+    "eng": "You have attained the Mutant Hunter achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie ��owca mutant�w�.",
+    "rus": "Получено достижение «Охотник на мутантов».",
+    "ukr": "Отримано досягнення «Мисливець на мутантів»"
+  },
+  "st_ach_one_of_the_lads": {
+    "eng": "You have attained the One of Ours achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Jeden z nas�.",
+    "rus": "Получено достижение «Свой парень».",
+    "ukr": "Отримано досягнення «Свій хлопець»"
+  },
+  "st_ach_pioneer": {
+    "eng": "You have attained the Pioneer achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Pionier�.",
+    "rus": "Получено достижение «Первооткрыватель».",
+    "ukr": "Отримано досягнення «Першовідкривач»"
+  },
+  "st_ach_research_man": {
+    "eng": "You have attained the Research Assistant achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Asystent�.",
+    "rus": "Получено достижение «Научный сотрудник».",
+    "ukr": "Отримано досягнення «Науковій співробітник»"
+  },
+  "st_ach_seeker": {
+    "eng": "You have attained the Artifact Hunter achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie ��owca artefakt�w�.",
+    "rus": "Получено достижение «Искатель».",
+    "ukr": "Отримано досягнення «Шукач»"
+  },
+  "st_ach_skilled_stalker": {
+    "eng": "You have attained the Seasoned Stalker achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Do�wiadczony stalker�.",
+    "rus": "Получено достижение «Опытный сталкер».",
+    "ukr": "Отримано досягнення «Досвідчений сталкер»"
+  },
+  "st_ach_wealthy": {
+    "eng": "You have attained the Wealthy Client achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Bogaty klient�.",
+    "rus": "Получено достижение «Состоятельный клиент».",
+    "ukr": "Отримано досягнення «Заможний клієнт»"
+  },
+  "st_autosave": {
+    "eng": "Autosaving...",
+    "pol": "Autozapis�",
+    "rus": "Автосохранение...",
+    "ukr": "Автозбереження... "
+  },
+  "st_can_use_weapon_now": {
+    "eng": "You can now take your weapon out.",
+    "pol": "Mo�esz teraz wyj�� bro�.",
+    "rus": "Теперь можно достать оружие.",
+    "ukr": "Тепер можна дістати зброю"
+  },
+  "st_codelock": {
+    "eng": "Code lock ($$ACTION_USE$$)",
+    "pol": "Zamek szyfrowy ($$ACTION_USE$$)",
+    "rus": "Кодовый замок ($$ACTION_USE$$)",
+    "ukr": "Кодовий замок ($$ACTION_USE$$)"
+  },
+  "st_detective_news": {
+    "eng": "Medical supplies have been placed in the personal box on the Skadovsk for solving the secret of the missing stalkers.",
+    "pol": "W nagrod� za rozwi�zanie tajemnicy zaginionych stalker�w w twojej skrytce na Skadowsku zosta�y umieszczone �rodki medyczne.",
+    "rus": "За раскрытие дела о пропаже сталкеров в личный ящик на «Скадовске» добавлены медикаменты.",
+    "ukr": "За розкриття справи про пропажу сталкерів до особистого ящика на «Скадовську» покладено медикаменти."
+  },
+  "st_duty_first_reward_news": {
+    "eng": "A PS5-M Universal Protection suit has been placed in the personal box at Yanov for helping Duty.",
+    "pol": "W nagrod� za pomoc Powinno�ci w twojej skrytce na stacji Jan�w umieszczony zosta� kombinezon PS5-M Uniwersalna ochrona.",
+    "rus": "За помощь «Долгу» в личный ящик на «Янове» помещён костюм ПС5-М «Универсальная защита».",
+    "ukr": "За допомогу «Долгу» до особистого ящика на «Янові» поміщено костюм ПС5-М «Універсальний захист»."
+  },
+  "st_duty_second_reward_news": {
+    "eng": "A PSZ-9d Duty Armor suit has been placed in the personal box at Yanov for helping Duty.",
+    "pol": "W nagrod� za pomoc Powinno�ci w twojej skrytce na stacji Jan�w umieszczony zosta� kombinezon Pancerz Powinno�ci PSZ-9d. ",
+    "rus": "За помощь «Долгу» в личный ящик на «Янове» помещён костюм ПСЗ-9д «Броня «Долга».",
+    "ukr": "За допомогу «Долгу» до особистого ящика на «Янові» поміщено костюм ПСЗ-9д «Броня «Долгу»."
+  },
+  "st_freedom_first_reward_news": {
+    "eng": "A Wind of Freedom suit has been placed in the personal box at Yanov for helping Freedom.",
+    "pol": "W nagrod� za pomoc Wolno�ci w twojej skrytce na stacji Jan�w umieszczony zosta� kombinezon Powiew Wolno�ci.",
+    "rus": "За помощь «Свободе» в личный ящик на «Янове» помещён костюм «Ветер свободы».",
+    "ukr": "За допомогу «Волі» до особистого ящика на «Янові» поміщено костюм «Вітер свободи»."
+  },
+  "st_freedom_second_reward_news": {
+    "eng": "A Freedom Guard suit has been placed in the personal box at Yanov for helping Freedom.",
+    "pol": "W nagrod� za pomoc Wolno�ci w twojej skrytce na stacji Jan�w umieszczony zosta� kombinezon Stra�nik wolno�ci.",
+    "rus": "За помощь «Свободе» в личный ящик на «Янове» помещён костюм «Страж свободы».",
+    "ukr": "За допомогу «Волі» до особистого ящика на «Янові» поміщено костюм «Вартовий волі»."
+  },
+  "st_freeplay_text_ok": {
+    "eng": "You didn’t manage to reach the helicopters and the evacuation team left the Zone without you.",
+    "pol": "Nie uda�o ci si� dotrze� do helikopter�w i dru�yna ewakuacyjna opu�ci�a Zon� bez ciebie.",
+    "rus": "Вы не успели добраться к вертолётам. Группа эвакуации покинула Зону без Вас.",
+    "ukr": "Ви не встигли дістатися гелікоптерів. Група евакуації полишила Зону без Вас."
+  },
+  "st_freeplay_text_yes_no": {
+    "eng": "Are you ready to leave the Zone? There’s no way back.",
+    "pol": "Czy na pewno chcesz opu�ci� Zon�? Powr�t jest niemo�liwy.",
+    "rus": "Готовы ли Вы покинуть Зону? Обратного пути не будет.",
+    "ukr": "Чи готові Ви покинути Зону? Дороги назад не буде."
+  },
+  "st_game_over": {
+    "eng": "Game over.",
+    "pol": "Koniec gry.",
+    "rus": "Игра окончена.",
+    "ukr": "Гру закінчено"
+  },
+  "st_game_over_press_jump": {
+    "eng": "Press ($$ACTION_JUMP$$) to exit to the main menu.",
+    "pol": "Naci�nij klawisz ($$ACTION_JUMP$$), aby wyj�� do menu g��wnego.",
+    "rus": "Нажмите ($$ACTION_JUMP$$) для выхода в главное меню",
+    "ukr": "Натисніть ($$ACTION_JUMP$$) для виходу до головного меню"
+  },
+  "st_game_paused": {
+    "eng": "Pause",
+    "pol": "Pauza",
+    "rus": "Пауза",
+    "ukr": "Пауза"
+  },
+  "st_game_saved": {
+    "eng": "Game saved",
+    "pol": "Gra zapisana",
+    "rus": "Игра сохранена",
+    "ukr": "Гру збережено"
+  },
+  "st_herald_of_justice_news": {
+    "eng": "An artifact has been placed in the personal box on the Skadovsk for helping to expose Magpie.",
+    "pol": "W nagrod� za pomoc w zdemaskowaniu Sroki w twojej skrytce na Skadowsku umieszczony zosta� artefakt.",
+    "rus": "За помощь в разоблачении Сороки в личный ящик на «Скадовске» помещён артефакт.",
+    "ukr": "За допомогу у викритті Сороки до особистого ящика на «Скадовську» покладено артефакт."
+  },
+  "st_jup_b41_door_locked": {
+    "eng": "You must wait for the dock to become airtight",
+    "pol": "Musisz poczeka�, a� dok zostanie uszczelniony.",
+    "rus": "Необходимо дождаться герметизации шлюза",
+    "ukr": "Необхідно дочекатися герметизації шлюзу"
+  },
+  "st_lx8_button_press_true": {
+    "eng": "Access granted",
+    "pol": "Przyznano dost�p",
+    "rus": "Доступ разрешён",
+    "ukr": "Доступ дозволено"
+  },
+  "st_lx8_lift_button": {
+    "eng": "Take the elevator up ($$ACTION_USE$$)",
+    "pol": "Jed� wind� do g�ry ($$ACTION_USE$$)",
+    "rus": "Подняться на лифте ($$ACTION_USE$$)",
+    "ukr": "Піднятися ліфтом ($$ACTION_USE$$)"
+  },
+  "st_pri_b306_go_down": {
+    "eng": "Take the elevator down ($$ACTION_USE$$)",
+    "pol": "Jed� wind� w d� ($$ACTION_USE$$)",
+    "rus": "Спуститься на лифте ($$ACTION_USE$$)",
+    "ukr": "Спуститися ліфтом ($$ACTION_USE$$)"
+  },
+  "st_psy_danger": {
+    "eng": "Critical psy-emission level. Leave danger area immediately.",
+    "pol": "Krytyczny poziom emisji psionicznych. Opu�� natychmiast zagro�ony obszar.",
+    "rus": "Критический уровень пси-излучения. Немедленно покиньте опасную зону.",
+    "ukr": "Критичний рівень псі-віпромінювання. Негайно полишіть небезпечну зону."
+  },
+  "st_radiation_danger": {
+    "eng": "Dangerous radiation levels. Protection required to go further.",
+    "pol": "Niebezpieczny poziom promieniowania. Aby przej�� dalej, niezb�dna jest ochrona.",
+    "rus": "Опасный уровень радиации. Для прохода необходима защита.",
+    "ukr": "Небезпечний рівень радіації. Для проходу необхідний захист."
+  },
+  "st_search_helicopter": {
+    "eng": "Examine helicopter ($$ACTION_USE$$)",
+    "pol": "Zbadaj helikopter ($$ACTION_USE$$)",
+    "rus": "Осмотреть вертолёт ($$ACTION_USE$$)",
+    "ukr": "Оглянути вертоліт ($$ACTION_USE$$)"
+  },
+  "st_search_treasure": {
+    "eng": "Search the stash ($$ACTION_USE$$)",
+    "pol": "Przeszukaj schowek ($$ACTION_USE$$)",
+    "rus": "Обыскать тайник ($$ACTION_USE$$)",
+    "ukr": "Обшукати схованку ($$ACTION_USE$$)"
+  },
+  "st_sleep_hours": {
+    "eng": "h",
+    "pol": "g.",
+    "rus": "ч",
+    "ukr": "ч"
+  },
+  "st_tip": {
+    "eng": "Message",
+    "pol": "Wiadomo��",
+    "rus": "Сообщение",
+    "ukr": "Повідомлення"
+  },
+  "tip_door_blocked": {
+    "eng": "Door blocked",
+    "pol": "Drzwi zablokowane",
+    "rus": "Дверь заблокирована",
+    "ukr": "Двері заблоковано"
+  },
+  "tip_door_close": {
+    "eng": "Close door ($$ACTION_USE$$)",
+    "pol": "Zamknij drzwi ($$ACTION_USE$$)",
+    "rus": "Закрыть дверь ($$ACTION_USE$$)",
+    "ukr": "Зачинити двері ($$ACTION_USE$$)"
+  },
+  "tip_door_closed_base_alarm": {
+    "eng": "Door locked - the camp is on alert",
+    "pol": "Drzwi zamkni�te - ob�z jest w stanie pogotowia",
+    "rus": "Дверь заперта - в лагере тревога",
+    "ukr": "Двері зачинено - у таборі тривога"
+  },
+  "tip_door_closed_hide_weapon": {
+    "eng": "Door locked - you must holster your weapon",
+    "pol": "Drzwi zamkni�te - musisz schowa� bro�",
+    "rus": "Дверь заперта - необходимо спрятать оружие",
+    "ukr": "Двері зачинено - необхідно сховати зброю"
+  },
+  "tip_door_locked": {
+    "eng": "Door locked",
+    "pol": "Drzwi zamkni�te",
+    "rus": "Дверь заперта",
+    "ukr": "Двері зачинено"
+  },
+  "tip_door_no_electricity": {
+    "eng": "Door is not being powered",
+    "pol": "Brak zasilania drzwi",
+    "rus": "Дверь обесточена",
+    "ukr": "Двері знеструмлено"
+  },
+  "tip_door_open": {
+    "eng": "Open door ($$ACTION_USE$$)",
+    "pol": "Otw�rz drzwi ($$ACTION_USE$$)",
+    "rus": "Открыть дверь ($$ACTION_USE$$)",
+    "ukr": "Відчинити двері ($$ACTION_USE$$)"
+  },
+  "tip_gate_locked": {
+    "eng": "Gate blocked",
+    "pol": "Brama zablokowana",
+    "rus": "Ворота заблокированы",
+    "ukr": "Ворота заблоковано"
+  },
+  "tip_need_access_card": {
+    "eng": "Use the access card ($$ACTION_USE$$)",
+    "pol": "U�yj karty dost�pu ($$ACTION_USE$$)",
+    "rus": "Воспользоватся картой доступа ($$ACTION_USE$$)",
+    "ukr": "Скористатися картою доступу ($$ACTION_USE$$)"
+  },
+  "tip_no_access_card": {
+    "eng": "Access card required",
+    "pol": "Wymagana karta dost�pu",
+    "rus": "Необходима карта доступа",
+    "ukr": "Необхідна карта доступу"
+  },
+  "tip_open_another_site": {
+    "eng": "The door cannot be opened from this side",
+    "pol": "Drzwi nie mo�na otworzy� z tej strony",
+    "rus": "Дверь нельзя открыть с этой стороны",
+    "ukr": "Двері неможливо відчинити із цього боку"
+  },
+  "ui_st_mp_experience_grow": {
+    "eng": "-",
+    "pol": "-",
+    "rus": "-",
+    "ukr": "-"
+  },
+  "zat_b12_conteiner_full_locked": {
+    "eng": "The container is locked. Two keys are needed to open it.",
+    "pol": "Pojemnik jest zamkni�ty. Aby go otworzy�, potrzebne s� dwa klucze.",
+    "rus": "Контейнер закрыт - необходимы два ключа",
+    "ukr": "Контейнер закритий - необхідні два ключі"
+  },
+  "zat_b12_conteiner_has_one_key": {
+    "eng": "Use key ($$ACTION_USE$$)",
+    "pol": "U�yj klucza ($$ACTION_USE$$)",
+    "rus": "Использовать ключ ($$ACTION_USE$$)",
+    "ukr": "Використати ключ ($$ACTION_USE$$)"
+  },
+  "zat_b12_conteiner_has_two_key": {
+    "eng": "Use keys ($$ACTION_USE$$)",
+    "pol": "U�yj kluczy ($$ACTION_USE$$)",
+    "rus": "Использовать ключи ($$ACTION_USE$$)",
+    "ukr": "Використати ключі ($$ACTION_USE$$)"
+  },
+  "zat_b12_conteiner_locked": {
+    "eng": "The container is locked. You need the second key to open it.",
+    "pol": "Pojemnik jest zamkni�ty. Aby go otworzy�, potrzebny jest drugi klucz.",
+    "rus": "Контейнер закрыт - необходим второй ключ",
+    "ukr": "Контейнер закритий - необхідний другий ключ"
+  },
+  "zat_b12_conteiner_open": {
+    "eng": "Open container ($$ACTION_USE$$)",
+    "pol": "Otw�rz pojemnik ($$ACTION_USE$$)",
+    "rus": "Открыть контейнер ($$ACTION_USE$$)",
+    "ukr": "Відчинити контейнер ($$ACTION_USE$$)"
+  },
+  "zat_b14_door_locked_hint": {
+    "eng": "The door mechanism has been blocked from the inside.",
+    "pol": "Mechanizm drzwi zosta� zablokowany od �rodka.",
+    "rus": "Дверной механизм заблокирован изнутри",
+    "ukr": "Механізм дверей заблоковано зсередини"
+  },
+  "zat_b57_balon_use_hint": {
+    "eng": "Connect gas tank ($$ACTION_USE$$)",
+    "pol": "Pod��cz zbiornik z gazem ($$ACTION_USE$$) ",
+    "rus": "Подключить газовый баллон ($$ACTION_USE$$)",
+    "ukr": "Підключити газовий балон ($$ACTION_USE$$)"
+  },
+  "zat_b57_gas_warning": {
+    "eng": "Warning! Chemical hazard!",
+    "pol": "Uwaga! Zagro�enie chemiczne!",
+    "rus": "Осторожно! Химическая опасность!",
+    "ukr": "Обережно! Хімічна небезпека!"
+  },
+  "zat_b57_vintil_press": {
+    "eng": "Turn valve ($$ACTION_USE$$)",
+    "pol": "Otw�rz zaw�r ($$ACTION_USE$$)",
+    "rus": "Повернуть вентиль ($$ACTION_USE$$)",
+    "ukr": "Повернути вентиль ($$ACTION_USE$$)"
+  },
+  "zat_b33_car_searching_tip": {
+    "eng": "Search car ($$ACTION_USE$$)",
+    "pol": "Przeszukaj samoch�d ($$ACTION_USE$$)",
+    "rus": "Обыскать «Запорожец» ($$ACTION_USE$$)",
+    "ukr": "Обшукати «Запорожець» ($$ACTION_USE$$)"
+  },
+  "st_resupply_ready": {
+    "eng": "You can restock on medical supplies and ammo by visiting Lieutenant Rogovets and Lieutenant Kirillov.",
+    "pol": "Mo�esz uzupe�ni� sw�j zapas �rodk�w medycznych, odwiedzaj�c porucznik�w Rogowca i Kiry�owa.",
+    "rus": "Перед операцией можно пополнить запас медикаментов и боеприпасов у лейтенантов Роговца и Кириллова.",
+    "ukr": "Перед операцією можна поповнити запас медикаментів та боєприпасів у лейтенантів Рогівця та Кирилова."
+  },
+  "st_surge_while_asleep": {
+    "eng": "An emission has recently occurred in the Zone.",
+    "pol": "Niedawno w Zonie nast�pi�a emisja.",
+    "rus": "В Зоне недавно произошёл выброс.",
+    "ukr": "У Зоні нещодавно стався викид."
+  },
+  "st_ach_marked_by_zone": {
+    "eng": "You have attained the Marked by the Zone achievement.",
+    "pol": "Uda�o ci si� zdoby� osi�gni�cie �Naznaczony przez Zon�\".",
+    "rus": "Получено достижение «Отмеченный Зоной»",
+    "ukr": "Отримано досягнення «Мічений Зоною»"
+  },
+  "st_mutant_hunter_news": {
+    "eng": "Ammo has been placed in the personal box at Yanov for eliminating dangerous mutants.",
+    "pol": "W nagrod� za eliminacj� niebezpiecznych mutant�w w twojej skrytce na stacji Jan�w zosta�a umieszczona amunicja.",
+    "rus": "За уничтожение опасных мутантов в личный ящик на «Янове» помещены боеприпасы.",
+    "ukr": "За знищення небезпечних мутантів до особистого ящика на «Янові» покладено боєприпаси."
+  },
+  "st_found_old_treasure": {
+    "eng": "Received coordinates of a stash that has already been discovered.",
+    "pol": "Otrzymano wsp�rz�dne schowka, kt�ry ju� wcze�niej zosta� odkryty.",
+    "rus": "Получены координаты ранее найденного тайника",
+    "ukr": "Отримано координати раніше знайденої схованки"
+  },
+  "st_got_treasure": {
+    "eng": "Stash found",
+    "pol": "Znaleziono schowek",
+    "rus": "Найден тайник",
+    "ukr": "Знайдено схованку"
+  },
+  "st_found_new_treasure": {
+    "eng": "Stash coordinates received",
+    "pol": "Otrzymano wsp�rz�dne schowka",
+    "rus": "Получены координаты тайника",
+    "ukr": "Отримано координати схованки"
+  },
+  "st_press_any_key": {
+    "eng": "Press any key to play",
+    "pol": "Naci�nij dowolny klawisz, aby rozpocz�� gr�",
+    "rus": "Нажмите любую клавишу для перехода к игре",
+    "ukr": "Натисніть будь-яку клавішу для переходу до гри"
+  }
+}

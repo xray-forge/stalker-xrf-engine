@@ -1,0 +1,1364 @@
+{
+  "st_chechin": {
+    "eng": "Sergey Chechin",
+    "pol": "Sergey Chechin",
+    "rus": "Сергей Чечин",
+    "ukr": "Сергій Чечін"
+  },
+  "st_abramowicz": {
+    "eng": "Maciej Abramowicz",
+    "pol": "Maciej Abramowicz",
+    "rus": "Maciej Abramowicz",
+    "ukr": "Maciej Abramowicz"
+  },
+  "st_abroyan": {
+    "eng": "Armen Abroyan",
+    "pol": "Armen Abroyan",
+    "rus": "Армен Аброян",
+    "ukr": "Армен Аброян"
+  },
+  "st_actors": {
+    "eng": "Actors",
+    "pol": "Aktorzy",
+    "rus": "Актёры",
+    "ukr": "Актори"
+  },
+  "st_all_qa": {
+    "eng": "Testers",
+    "pol": "Testerzy",
+    "rus": "Тестеры",
+    "ukr": "Тестери"
+  },
+  "st_amdati": {
+    "eng": "AMD/ATI",
+    "pol": "AMD/ATI",
+    "rus": "компании AMD/ATI",
+    "ukr": "компанії AMD/ATI"
+  },
+  "st_androshchuk": {
+    "eng": "Roman Androshiuk",
+    "pol": "Roman Androshiuk",
+    "rus": "Роман Андрощук",
+    "ukr": "Роман Андрощук"
+  },
+  "st_animator": {
+    "eng": "Animator",
+    "pol": "Animacja",
+    "rus": "Аниматор",
+    "ukr": "Аніматор"
+  },
+  "st_art_department": {
+    "eng": "Graphics Department",
+    "pol": "Dzia� graficzny",
+    "rus": "Отдел графики",
+    "ukr": "Відділ графіки"
+  },
+  "st_art_director": {
+    "eng": "Art Director",
+    "pol": "Dyrektor artystyczny",
+    "rus": "Арт-директор",
+    "ukr": "Арт-директор"
+  },
+  "st_atroshenko": {
+    "eng": "Nikita Atroshenko",
+    "pol": "Nikita Atroshenko",
+    "rus": "Никита Атрошенко",
+    "ukr": "Микита Атрошенко"
+  },
+  "st_bajorek": {
+    "eng": "Damian Bajorek",
+    "pol": "Damian Bajorek",
+    "rus": "Damian Bajorek",
+    "ukr": "Damian Bajorek"
+  },
+  "st_bastrikin": {
+    "eng": "Mikhail Bastrykin",
+    "pol": "Mikhail Bastrykin",
+    "rus": "Михаил Бастрыкин",
+    "ukr": "Михайло Бастрикін"
+  },
+  "st_bilinski": {
+    "eng": "Kamil Bilinski",
+    "pol": "Kamil Bilinski",
+    "rus": "Kamil Bilinski",
+    "ukr": "Kamil Bilinski"
+  },
+  "st_binkowski": {
+    "eng": "Krzysztof Binkowski",
+    "pol": "Krzysztof Binkowski",
+    "rus": "Krzysztof Binkowski",
+    "ukr": "Krzysztof Binkowski"
+  },
+  "st_bochenek": {
+    "eng": "Arkadiusz Bochenek",
+    "pol": "Arkadiusz Bochenek",
+    "rus": "Arkadiusz Bochenek",
+    "ukr": "Arkadiusz Bochenek"
+  },
+  "st_boggs": {
+    "eng": "Justin Boggs",
+    "pol": "Justin Boggs",
+    "rus": "Justin Boggs",
+    "ukr": "Justin Boggs"
+  },
+  "st_bogush": {
+    "eng": "Anatoly Bogush",
+    "pol": "Anatoly Bogush",
+    "rus": "Анатолий Богуш",
+    "ukr": "Анатолій Богуш"
+  },
+  "st_borowy": {
+    "eng": "Wojciech Borowy",
+    "pol": "Wojciech Borowy",
+    "rus": "Wojciech Borowy",
+    "ukr": "Wojciech Borowy"
+  },
+  "st_burtsau": {
+    "eng": "Stanislaw Burtsau",
+    "pol": "Stanislaw Burtsau",
+    "rus": "Stanislaw Burtsau",
+    "ukr": "Stanislaw Burtsau"
+  },
+  "st_character_models": {
+    "eng": "Character Models",
+    "pol": "Modele postaci",
+    "rus": "Модели персонажей",
+    "ukr": "Моделі персонажів"
+  },
+  "st_cherevatenko": {
+    "eng": "Aleksey Cherevatenko",
+    "pol": "Aleksey Cherevatenko",
+    "rus": "Алексей Череватенко",
+    "ukr": "Олексій Череватенко"
+  },
+  "st_chrul": {
+    "eng": "Jerzy Chrul",
+    "pol": "Jerzy Chrul",
+    "rus": "Jerzy Chrul",
+    "ukr": "Jerzy Chrul"
+  },
+  "st_ciemny": {
+    "eng": "Wojciech Ciemny",
+    "pol": "Wojciech Ciemny",
+    "rus": "Wojciech Ciemny",
+    "ukr": "Wojciech Ciemny"
+  },
+  "st_composer": {
+    "eng": "Composer",
+    "pol": "Muzyka",
+    "rus": "Композитор",
+    "ukr": "Композитор"
+  },
+  "st_davidian": {
+    "eng": "Dmitry “Abe” Davidyan",
+    "pol": "Dmitry �Abe� Davidyan",
+    "rus": "Дмитрий «Abe» Давидян",
+    "ukr": "Дмитро «Abe» Давидян"
+  },
+  "st_davies": {
+    "eng": "Aaron Davies",
+    "pol": "Aaron Davies",
+    "rus": "Aaron Davies",
+    "ukr": "Aaron Davies"
+  },
+  "st_demidenko": {
+    "eng": "Alexander Demidenko",
+    "pol": "Alexander Demidenko",
+    "rus": "Александр Демиденко",
+    "ukr": "Олександр Демиденко"
+  },
+  "st_dep_programmers": {
+    "eng": "Programming",
+    "pol": "Dzia�",
+    "rus": "Отдел",
+    "ukr": "Відділ"
+  },
+  "st_dep_programmers1": {
+    "eng": "Department",
+    "pol": "programist�w",
+    "rus": "программирования",
+    "ukr": "програмування"
+  },
+  "st_derewonko": {
+    "eng": "Lukasz Derewonko",
+    "pol": "Lukasz Derewonko",
+    "rus": "Lukasz Derewonko",
+    "ukr": "Lukasz Derewonko"
+  },
+  "st_didenko": {
+    "eng": "Ruslan Didenko",
+    "pol": "Ruslan Didenko",
+    "rus": "Руслан Диденко",
+    "ukr": "Руслан Діденко"
+  },
+  "st_doroshenko": {
+    "eng": "Yuri Doroshenko",
+    "pol": "Yuri Doroshenko",
+    "rus": "Юрий Дорошенко",
+    "ukr": "Юрій Дорошенко"
+  },
+  "st_dovgoluk": {
+    "eng": "Elena Dovgaliuk",
+    "pol": "Elena Dovgaliuk",
+    "rus": "Елена Довгалюк",
+    "ukr": "Олена Довгалюк"
+  },
+  "st_durajczyk": {
+    "eng": "Rafal Durajczyk",
+    "pol": "Rafal Durajczyk",
+    "rus": "Rafal Durajczyk",
+    "ukr": "Rafal Durajczyk"
+  },
+  "st_dushinskiy": {
+    "eng": "Petr Dushinsky",
+    "pol": "Petr Dushinsky",
+    "rus": "Петр Душинский",
+    "ukr": "Петро Душинський"
+  },
+  "st_dziarnowski": {
+    "eng": "Maciej Dziarnowski",
+    "pol": "Maciej Dziarnowski",
+    "rus": "Maciej Dziarnowski",
+    "ukr": "Maciej Dziarnowski"
+  },
+  "st_eremenko": {
+    "eng": "Sergey Eremenko",
+    "pol": "Sergey Eremenko",
+    "rus": "Сергей Еременко",
+    "ukr": "Сергій Єрьоменко"
+  },
+  "st_falchenko": {
+    "eng": "Yuri \"Dark” Falchenko",
+    "pol": "Yuri \"Dark� Falchenko",
+    "rus": "Юрий «Dark» Фальченко",
+    "ukr": "Юрій «Dark» Фальченко"
+  },
+  "st_gabryel": {
+    "eng": "Jakub Gabryel",
+    "pol": "Jakub Gabryel",
+    "rus": "Jakub Gabryel",
+    "ukr": "Jakub Gabryel"
+  },
+  "st_galach": {
+    "eng": "Cezary Galach",
+    "pol": "Cezary Galach",
+    "rus": "Cezary Galach",
+    "ukr": "Cezary Galach"
+  },
+  "st_gamedesign_department": {
+    "eng": "Game Design Department",
+    "pol": "Dzia� projektant�w gry",
+    "rus": "Отдел геймдизайна",
+    "ukr": "Відділ геймдизайну"
+  },
+  "st_gameplay": {
+    "eng": "Gameplay Programmers",
+    "pol": "Programi�ci rozgrywki",
+    "rus": "Программисты геймплея",
+    "ukr": "Програмісти геймплею"
+  },
+  "st_genega_qa": {
+    "eng": "CENEGA QA",
+    "pol": "CENEGA (kontrola jako�ci)",
+    "rus": "CENEGA QA",
+    "ukr": "CENEGA QA"
+  },
+  "st_genega_thanks": {
+    "eng": "Special thanks to",
+    "pol": "Szczeg�lne podzi�kowania dla:",
+    "rus": "Отдельная благодарность",
+    "ukr": "Окрема подяка"
+  },
+  "st_gerasimov": {
+    "eng": "Filip Gerasimov",
+    "pol": "Filip Gerasimov",
+    "rus": "Филипп Герасимов",
+    "ukr": "Филип Герасимов"
+  },
+  "st_german": {
+    "eng": "Grigory Hermann",
+    "pol": "Grigory Hermann",
+    "rus": "Григорий Герман",
+    "ukr": "Григорій Герман"
+  },
+  "st_girich": {
+    "eng": "Angelica Girich",
+    "pol": "Angelica Girich",
+    "rus": "Анжелика Гирич",
+    "ukr": "Анжеліка Гирич"
+  },
+  "st_golubinski": {
+    "eng": "Pawel Golubinski",
+    "pol": "Pawel Golubinski",
+    "rus": "Pawel Golubinski",
+    "ukr": "Pawel Golubinski"
+  },
+  "st_gorniak": {
+    "eng": "Marcin Gorniak",
+    "pol": "Marcin Gorniak",
+    "rus": "Marcin Gorniak",
+    "ukr": "Marcin Gorniak"
+  },
+  "st_goscicki": {
+    "eng": "Tomasz Goscicki",
+    "pol": "Tomasz Goscicki",
+    "rus": "Tomasz Goscicki",
+    "ukr": "Tomasz Goscicki"
+  },
+  "st_graphics": {
+    "eng": "Graphics Programmers",
+    "pol": "Programi�ci grafiki",
+    "rus": "Программисты графики",
+    "ukr": "Програмісти графіки"
+  },
+  "st_grun": {
+    "eng": "Holger Grun",
+    "pol": "Holger Grun",
+    "rus": "Holger Grun",
+    "ukr": "Holger Grun"
+  },
+  "st_grzywaczewski": {
+    "eng": "Pawel Grzywaczewski",
+    "pol": "Pawel Grzywaczewski",
+    "rus": "Pawel Grzywaczewski",
+    "ukr": "Pawel Grzywaczewski"
+  },
+  "st_gsc": {
+    "eng": "Sergiy Grygorovich",
+    "pol": "Sergiy Grygorovich",
+    "rus": "Сергей Григорович",
+    "ukr": "Сергій Григорович"
+  },
+  "st_gutowski": {
+    "eng": "Marcin Gutowski",
+    "pol": "Marcin Gutowski",
+    "rus": "Marcin Gutowski",
+    "ukr": "Marcin Gutowski"
+  },
+  "st_iassenev": {
+    "eng": "Dmitry Yasenev",
+    "pol": "Dmitry Yasenev",
+    "rus": "Дмитрий Ясенев",
+    "ukr": "Дмитро Ясєнєв"
+  },
+  "st_intel": {
+    "eng": "Intel",
+    "pol": "Intel",
+    "rus": "компании Intel",
+    "ukr": "компанії Intel"
+  },
+  "st_ivancov": {
+    "eng": "Sergey Ivantsov",
+    "pol": "Sergey Ivantsov",
+    "rus": "Сергей Иванцов",
+    "ukr": "Сергій Іванцов"
+  },
+  "st_jankowski": {
+    "eng": "Norbert Jankowski",
+    "pol": "Norbert Jankowski",
+    "rus": "Norbert Jankowski",
+    "ukr": "Norbert Jankowski"
+  },
+  "st_kachanuyk": {
+    "eng": "Alexander Kachaniuk",
+    "pol": "Alexander Kachaniuk",
+    "rus": "Александр Качанюк",
+    "ukr": "Олександр Качанюк"
+  },
+  "st_kalita": {
+    "eng": "Dmitry Kalita",
+    "pol": "Dmitry Kalita",
+    "rus": "Дмитрий Калита",
+    "ukr": "Дмитро Калита"
+  },
+  "st_keska": {
+    "eng": "Aleksander Keska",
+    "pol": "Aleksander Keska",
+    "rus": "Aleksander Keska",
+    "ukr": "Aleksander Keska"
+  },
+  "st_kirienko": {
+    "eng": "Andrey “Darin” Kirienko",
+    "pol": "Andrey �Darin� Kirienko",
+    "rus": "Андрей «Darin» Кириенко",
+    "ukr": "Андрій «Darin» Кириєнко"
+  },
+  "st_kobylanski": {
+    "eng": "Lukasz Kobylanski",
+    "pol": "Lukasz Kobylanski",
+    "rus": "Lukasz Kobylanski",
+    "ukr": "Lukasz Kobylanski"
+  },
+  "st_kolomiech": {
+    "eng": "Andrey Kolomiets",
+    "pol": "Andrey Kolomiets",
+    "rus": "Андрей Коломиец",
+    "ukr": "Андрій Коломієць"
+  },
+  "st_komorek": {
+    "eng": "Artur Komorek",
+    "pol": "Artur Komorek",
+    "rus": "Artur Komorek",
+    "ukr": "Artur Komorek"
+  },
+  "st_konstantinov": {
+    "eng": "Yuri Konstantinov",
+    "pol": "Yuri Konstantinov",
+    "rus": "Юрий Константинов",
+    "ukr": "Юрій Костянтинов"
+  },
+  "st_kotolovskaya": {
+    "eng": "Maria Kotolovskaya",
+    "pol": "Maria Kotolovskaya",
+    "rus": "Мария Котоловская",
+    "ukr": "Марія Котоловська"
+  },
+  "st_kovach": {
+    "eng": "Alexander Kovach",
+    "pol": "Alexander Kovach",
+    "rus": "Александр Ковач",
+    "ukr": "Олександр Ковач"
+  },
+  "st_koval": {
+    "eng": "Kirill Koval",
+    "pol": "Kirill Koval",
+    "rus": "Кирилл Коваль",
+    "ukr": "Кирило Коваль"
+  },
+  "st_krivchenko": {
+    "eng": "Irina Krivchikova",
+    "pol": "Irina Krivchikova",
+    "rus": "Ирина Кривчикова",
+    "ukr": "Ірина Кривчикова"
+  },
+  "st_krivets": {
+    "eng": "Dmitry Krivets",
+    "pol": "Dmitry Krivets",
+    "rus": "Дмитрий Кривец",
+    "ukr": "Дмитро Кривець"
+  },
+  "st_kuchma": {
+    "eng": "Eugene Kuchma",
+    "pol": "Eugene Kuchma",
+    "rus": "Евгений Кучма",
+    "ukr": "Євген Кучма"
+  },
+  "st_kudrya": {
+    "eng": "Svetlana Kudrya",
+    "pol": "Svetlana Kudrya",
+    "rus": "Светлана Кудря",
+    "ukr": "Світлана Кудря"
+  },
+  "st_kurbatov": {
+    "eng": "Sergey Kurbatov",
+    "pol": "Sergey Kurbatov",
+    "rus": "Сергей Курбатов",
+    "ukr": "Сергій Курбатов"
+  },
+  "st_kuzhel": {
+    "eng": "Olga Kuzhel",
+    "pol": "Olga Kuzhel",
+    "rus": "Ольга Кужель",
+    "ukr": "Ольга Кужель"
+  },
+  "st_kuzmenko": {
+    "eng": "Dmitry Kuzmenko",
+    "pol": "Dmitry Kuzmenko",
+    "rus": "Дмитрий Кузьменко",
+    "ukr": "Дмитро Кузьменко"
+  },
+  "st_kuznecov": {
+    "eng": "Aleksey Kuznetsov",
+    "pol": "Aleksey Kuznetsov",
+    "rus": "Алексей Кузнецов",
+    "ukr": "Олексій Кузнєцов"
+  },
+  "st_kuznecov1": {
+    "eng": "Oleg Kuznetsov",
+    "pol": "Oleg Kuznetsov",
+    "rus": "Олег Кузнецов",
+    "ukr": "Олег Кузнєцов"
+  },
+  "st_lazarski": {
+    "eng": "Szymon Lazarski",
+    "pol": "Szymon Lazarski",
+    "rus": "Szymon Lazarski",
+    "ukr": "Szymon Lazarski"
+  },
+  "st_lead_animator": {
+    "eng": "Lead Animator",
+    "pol": "G��wny animator",
+    "rus": "Ведущий аниматор",
+    "ukr": "Провідний аніматор"
+  },
+  "st_lead_artist": {
+    "eng": "Lead Artist",
+    "pol": "G��wny grafik",
+    "rus": "Ведущий художник",
+    "ukr": "Провідний художник"
+  },
+  "st_lead_game_designer": {
+    "eng": "Lead Game Designer",
+    "pol": "G��wny projektant gry",
+    "rus": "Ведущий геймдизайнер",
+    "ukr": "Провідний геймдизайнер"
+  },
+  "st_lead_programmer": {
+    "eng": "Lead Programmer",
+    "pol": "G��wny programista",
+    "rus": "Ведущий программист",
+    "ukr": "Провідний програміст"
+  },
+  "st_lead_qa": {
+    "eng": "Lead Testers",
+    "pol": "G��wni testerzy",
+    "rus": "Ведущие тестеры",
+    "ukr": "Провідні тестери"
+  },
+  "st_lead_specialist": {
+    "eng": "Lead Experts",
+    "pol": "G��wni specjali�ci",
+    "rus": "Ведущие специалисты",
+    "ukr": "Провідні спеціалісти"
+  },
+  "st_level_design": {
+    "eng": "Level Design",
+    "pol": "Projektowanie poziom�w",
+    "rus": "Дизайн уровней",
+    "ukr": "Дизайн рівнів"
+  },
+  "st_lit_editor": {
+    "eng": "Proofreading",
+    "pol": "Korekta j�zykowa",
+    "rus": "Работа над текстами",
+    "ukr": "Робота над текстами"
+  },
+  "st_litvinenko": {
+    "eng": "Vladimir Litvinenko",
+    "pol": "Vladimir Litvinenko",
+    "rus": "Владимир «Fiachna» Литвиненко",
+    "ukr": "Володимир «Fiachna» Литвиненко"
+  },
+  "st_lundgren": {
+    "eng": "Eric Lundgren",
+    "pol": "Eric Lundgren",
+    "rus": "Eric Lundgren",
+    "ukr": "Eric Lundgren"
+  },
+  "st_maistrenko": {
+    "eng": "Sergey Maistrenko",
+    "pol": "Sergey Maistrenko",
+    "rus": "Сергей Майстренко",
+    "ukr": "Сергій Майстренко"
+  },
+  "st_makedon": {
+    "eng": "Dmitry Macedon",
+    "pol": "Dmitry Macedon",
+    "rus": "Дмитрий Македон",
+    "ukr": "Дмитро Македон"
+  },
+  "st_malinkin": {
+    "eng": "Roman Malinkin",
+    "pol": "Roman Malinkin",
+    "rus": "Роман Малинкин",
+    "ukr": "Роман Малінкін"
+  },
+  "st_manager_qa": {
+    "eng": "Project Managers",
+    "pol": "Kierownicy projektu",
+    "rus": "Менеджеры проекта",
+    "ukr": "Менеджери проекту"
+  },
+  "st_manilyuk": {
+    "eng": "Alexander Maniliuk",
+    "pol": "Alexander Maniliuk",
+    "rus": "Александр Манилюк",
+    "ukr": "Александр Манилюк"
+  },
+  "st_mankowski": {
+    "eng": "Daniel Mankowski",
+    "pol": "Daniel Mankowski",
+    "rus": "Daniel Mankowski",
+    "ukr": "Daniel Mankowski"
+  },
+  "st_matveenko": {
+    "eng": "Denis Matveenko",
+    "pol": "Denis Matveenko",
+    "rus": "Денис Матвеенко",
+    "ukr": "Денис Матвієнко"
+  },
+  "st_mazurek": {
+    "eng": "Maciej Mazurek",
+    "pol": "Maciej Mazurek",
+    "rus": "Maciej Mazurek",
+    "ukr": "Maciej Mazurek"
+  },
+  "st_mazurkiewicz": {
+    "eng": "Piotr Mazurkiewicz",
+    "pol": "Piotr Mazurkiewicz",
+    "rus": "Piotr Mazurkiewicz",
+    "ukr": "Piotr Mazurkiewicz"
+  },
+  "st_mcphee": {
+    "eng": "Darren McPhee",
+    "pol": "Darren McPhee",
+    "rus": "Darren McPhee",
+    "ukr": "Darren McPhee"
+  },
+  "st_melnikov": {
+    "eng": "Igor Melnikov",
+    "pol": "Igor Melnikov",
+    "rus": "Игорь Мельников",
+    "ukr": "Ігор Мельников"
+  },
+  "st_merkulov": {
+    "eng": "Victor Merkulov",
+    "pol": "Victor Merkulov",
+    "rus": "Виктор Меркулов",
+    "ukr": "Віктор Меркулов"
+  },
+  "st_mielnik": {
+    "eng": "Damian Mielnik",
+    "pol": "Damian Mielnik",
+    "rus": "Damian Mielnik",
+    "ukr": "Damian Mielnik"
+  },
+  "st_mikhailov": {
+    "eng": "Pavel Mikhailov",
+    "pol": "Pavel Mikhailov",
+    "rus": "Павел Михайлов",
+    "ukr": "Павло Михайлов"
+  },
+  "st_mironov": {
+    "eng": "Konstantin Mironov",
+    "pol": "Konstantin Mironov",
+    "rus": "Константин Миронов",
+    "ukr": "Костянтин Миронов"
+  },
+  "st_mocap": {
+    "eng": "Huge thanks to Oleg Fomenko",
+    "pol": "Serdeczne podzi�kowania dla Olega Fomenko",
+    "rus": "Огромное спасибо Олегу Фоменко",
+    "ukr": "Величезна подяка Олегові Фоменку"
+  },
+  "st_mocap1": {
+    "eng": "and BuntarMedia",
+    "pol": "i firmy BuntarMedia",
+    "rus": "и компании «BuntarMedia»",
+    "ukr": "та компанії «BuntarMedia»"
+  },
+  "st_mocap3": {
+    "eng": "for advice on MOCAP",
+    "pol": "za konsultacje w zakresie MOCAP",
+    "rus": "за консультации по MOCAP",
+    "ukr": "за консультації щодо MOCAP"
+  },
+  "st_mopev": {
+    "eng": "Vladimir Morev",
+    "pol": "Vladimir Morev",
+    "rus": "Владимир Морев",
+    "ukr": "Володимир Морєв"
+  },
+  "st_moroz": {
+    "eng": "Andrey Moroz",
+    "pol": "Andrey Moroz",
+    "rus": "Андрей Мороз",
+    "ukr": "Андрій Мороз"
+  },
+  "st_mrozowski": {
+    "eng": "Dawid Mrozowski",
+    "pol": "Dawid Mrozowski",
+    "rus": "Dawid Mrozowski",
+    "ukr": "Dawid Mrozowski"
+  },
+  "st_negrobov": {
+    "eng": "Yuri Negrobov",
+    "pol": "Yuri Negrobov",
+    "rus": "Юрий Негробов",
+    "ukr": "Юрий Негробов"
+  },
+  "st_network": {
+    "eng": "Multiplayer Programmer",
+    "pol": "Programista trybu wielu graczy",
+    "rus": "Программист сетевой игры",
+    "ukr": "Програміст гри в мережі"
+  },
+  "st_nvidia": {
+    "eng": "nVidia",
+    "pol": "NVIDIA",
+    "rus": "компании nVidia",
+    "ukr": "компанії nVidia"
+  },
+  "st_omelchuk": {
+    "eng": "Aleksey Omelchuk",
+    "pol": "Aleksey Omelchuk",
+    "rus": "Алексей Омельчук",
+    "ukr": "Олексій Омельчук"
+  },
+  "st_osinski": {
+    "eng": "Lukasz Osinski",
+    "pol": "Lukasz Osinski",
+    "rus": "Lukasz Osinski",
+    "ukr": "Lukasz Osinski"
+  },
+  "st_parphenyuk": {
+    "eng": "Mikhail Parfeniuk",
+    "pol": "Mikhail Parfeniuk",
+    "rus": "Михаил Парфенюк",
+    "ukr": "Михайло Парфенюк"
+  },
+  "st_pashin": {
+    "eng": "Eugene Pashin",
+    "pol": "Eugene Pashin",
+    "rus": "Евгений Пашин",
+    "ukr": "Євген Пашин"
+  },
+  "st_pasichniy": {
+    "eng": "Igor Pasichnyi",
+    "pol": "Igor Pasichnyi",
+    "rus": "Игорь Пасичный",
+    "ukr": "Ігор Пасічний"
+  },
+  "st_peas": {
+    "eng": "Bartosz Peas",
+    "pol": "Bartosz Peas",
+    "rus": "Bartosz Peas",
+    "ukr": "Bartosz Peas"
+  },
+  "st_physic": {
+    "eng": "Physics Programmer",
+    "pol": "Programista fizyki",
+    "rus": "Программист физики",
+    "ukr": "Програміст фізики"
+  },
+  "st_piotrowski": {
+    "eng": "Jacek Piotrowski",
+    "pol": "Jacek Piotrowski",
+    "rus": "Jacek Piotrowski",
+    "ukr": "Jacek Piotrowski"
+  },
+  "st_plichko": {
+    "eng": "Alexander Plichko",
+    "pol": "Alexander Plichko",
+    "rus": "Александр Пличко",
+    "ukr": "Олександр Плічко"
+  },
+  "st_pr_department": {
+    "eng": "PR Department",
+    "pol": "Dzia� PR",
+    "rus": "PR отдел",
+    "ukr": "Відділ PR"
+  },
+  "st_pr_director": {
+    "eng": "PR Director",
+    "pol": "Dyrektor ds. PR",
+    "rus": "PR директор",
+    "ukr": "Директор PR"
+  },
+  "st_pr_manager": {
+    "eng": "PR Managers",
+    "pol": "Mened�erowie dzia�u PR",
+    "rus": "PR менеджеры",
+    "ukr": "Менеджери PR"
+  },
+  "st_prishepa": {
+    "eng": "Sergey Prishepa",
+    "pol": "Sergey Prishepa",
+    "rus": "Сергей Прищепа",
+    "ukr": "Сергій Прищепа"
+  },
+  "st_producer": {
+    "eng": "Producer",
+    "pol": "Producent",
+    "rus": "Продюсер",
+    "ukr": "Продюсер"
+  },
+  "st_project_lead": {
+    "eng": "Project Manager",
+    "pol": "Kierownik projektu",
+    "rus": "Руководитель проекта",
+    "ukr": "Керівник проекту"
+  },
+  "st_qa_department": {
+    "eng": "Testing",
+    "pol": "Testy",
+    "rus": "Тестирование",
+    "ukr": "Тестування"
+  },
+  "st_ravin": {
+    "eng": "Anton Ravin",
+    "pol": "Anton Ravin",
+    "rus": "Антон Равин",
+    "ukr": "Антон Равін"
+  },
+  "st_rejent": {
+    "eng": "Sebastian Rejent",
+    "pol": "Sebastian Rejent",
+    "rus": "Sebastian Rejent",
+    "ukr": "Sebastian Rejent"
+  },
+  "st_rekorajski": {
+    "eng": "Mateusz Rekorajski",
+    "pol": "Mateusz Rekorajski",
+    "rus": "Mateusz Rekorajski",
+    "ukr": "Mateusz Rekorajski"
+  },
+  "st_resiak": {
+    "eng": "Filip Resiak",
+    "pol": "Filip Resiak",
+    "rus": "Filip Resiak",
+    "ukr": "Filip Resiak"
+  },
+  "st_ross": {
+    "eng": "Peter Ross",
+    "pol": "Peter Ross",
+    "rus": "Peter Ross",
+    "ukr": "Peter Ross"
+  },
+  "st_rozin": {
+    "eng": "Ivan Rozin",
+    "pol": "Ivan Rozin",
+    "rus": "Иван Розин",
+    "ukr": "Іван Розін"
+  },
+  "st_ruminski": {
+    "eng": "Lukasz Ruminski",
+    "pol": "Lukasz Ruminski",
+    "rus": "Lukasz Ruminski",
+    "ukr": "Lukasz Ruminski"
+  },
+  "st_rutkovskiy": {
+    "eng": "Denis Rutkovsky",
+    "pol": "Denis Rutkovsky",
+    "rus": "Денис Рутковский",
+    "ukr": "Денис Рутковський"
+  },
+  "st_rynkowski": {
+    "eng": "Lukasz Rynkowski",
+    "pol": "Lukasz Rynkowski",
+    "rus": "Lukasz Rynkowski",
+    "ukr": "Lukasz Rynkowski"
+  },
+  "st_sales_department": {
+    "eng": "Business Development Manager",
+    "pol": "Mened�er ds. rozwoju firmy",
+    "rus": "Менеджер по развитию бизнеса",
+    "ukr": "Менеджер із розвитку бізнесу"
+  },
+  "st_samborowski": {
+    "eng": "Piotr Samborowski",
+    "pol": "Piotr Samborowski",
+    "rus": "Piotr Samborowski",
+    "ukr": "Piotr Samborowski"
+  },
+  "st_shapunova": {
+    "eng": "Maria Shapunova",
+    "pol": "Maria Shapunova",
+    "rus": "Мария Шапунова",
+    "ukr": "Марія Шапунова"
+  },
+  "st_shelest": {
+    "eng": "Sergey Shelest",
+    "pol": "Sergey Shelest",
+    "rus": "Сергей Шелест",
+    "ukr": "Сергій Шелест"
+  },
+  "st_sidorenko": {
+    "eng": "Igor Sidorenko",
+    "pol": "Igor Sidorenko",
+    "rus": "Игорь Сидоренко",
+    "ukr": "Ігор Сидоренко"
+  },
+  "st_sitkiewicz": {
+    "eng": "Mikolaj Sitkiewicz",
+    "pol": "Mikolaj Sitkiewicz",
+    "rus": "Mikolaj Sitkiewicz",
+    "ukr": "Mikolaj Sitkiewicz"
+  },
+  "st_skripal": {
+    "eng": "Yuri Skripal",
+    "pol": "Yuri Skripal",
+    "rus": "Юрий Скрипаль",
+    "ukr": "Юрій Скрипаль"
+  },
+  "st_slipchenko": {
+    "eng": "Konstantin Slipchenko",
+    "pol": "Konstantin Slipchenko",
+    "rus": "Константин Слипченко",
+    "ukr": "Костянтин Сліпченко"
+  },
+  "st_sobotka": {
+    "eng": "Tomasz Sobotka",
+    "pol": "Tomasz Sobotka",
+    "rus": "Tomasz Sobotka",
+    "ukr": "Tomasz Sobotka"
+  },
+  "st_sound_producer": {
+    "eng": "Sound Producer",
+    "pol": "Produkcja d�wi�ku",
+    "rus": "Звукорежиссер",
+    "ukr": "Звукорежисер"
+  },
+  "st_special_thanks": {
+    "eng": "Special",
+    "pol": "Szczeg�lne",
+    "rus": "Отдельная",
+    "ukr": "Окрема"
+  },
+  "st_special_thanks1": {
+    "eng": "thanks to",
+    "pol": "podzi�kowania dla:",
+    "rus": "благодарность",
+    "ukr": "подяка"
+  },
+  "st_stalchuk": {
+    "eng": "Oleg Stalchuk",
+    "pol": "Oleg Stalchuk",
+    "rus": "Олег Стальчук",
+    "ukr": "Олег Стальчук"
+  },
+  "st_starodub": {
+    "eng": "Liudmila Starodub",
+    "pol": "Liudmila Starodub",
+    "rus": "Людмила Стародуб",
+    "ukr": "Людмила Стародуб"
+  },
+  "st_stavickiy": {
+    "eng": "Vladimir Stavitsky",
+    "pol": "Vladimir Stavitsky",
+    "rus": "Владимир Ставицкий",
+    "ukr": "Володимир Ставицький"
+  },
+  "st_stempien": {
+    "eng": "Pawel Stempien",
+    "pol": "Pawel Stempien",
+    "rus": "Pawel Stempien",
+    "ukr": "Pawel Stempien"
+  },
+  "st_strzelczyk": {
+    "eng": "Pawel Strzelczyk",
+    "pol": "Pawel Strzelczyk",
+    "rus": "Pawel Strzelczyk",
+    "ukr": "Pawel Strzelczyk"
+  },
+  "st_stuff": {
+    "eng": "Credits",
+    "pol": "Tw�rcy gry",
+    "rus": "Создатели игры",
+    "ukr": "Творці гри"
+  },
+  "st_stupicev": {
+    "eng": "Konstantin Stupivtsev",
+    "pol": "Konstantin Stupivtsev",
+    "rus": "Константин Ступивцев",
+    "ukr": "Костянтин Ступівцев"
+  },
+  "st_support": {
+    "eng": "Customer",
+    "pol": "Obs�uga",
+    "rus": "служба поддержки",
+    "ukr": "Служба підтримки"
+  },
+  "st_support1": {
+    "eng": "Support",
+    "pol": "klienta",
+    "rus": "пользователей",
+    "ukr": "користувачів"
+  },
+  "st_szekalski": {
+    "eng": "Rafal Szekalski",
+    "pol": "Rafal Szekalski",
+    "rus": "Rafal Szekalski",
+    "ukr": "Rafal Szekalski"
+  },
+  "st_szumowski": {
+    "eng": "Maciej Szumowski",
+    "pol": "Maciej Szumowski",
+    "rus": "Maciej Szumowski",
+    "ukr": "Maciej Szumowski"
+  },
+  "st_szwargolinski": {
+    "eng": "Marcin Szwargolinski",
+    "pol": "Marcin Szwargolinski",
+    "rus": "Marcin Szwargolinski",
+    "ukr": "Marcin Szwargolinski"
+  },
+  "st_tereshchyk": {
+    "eng": "Vladimir Tereshiuk",
+    "pol": "Vladimir Tereshiuk",
+    "rus": "Владимир Терещук",
+    "ukr": "Володимир Терещук"
+  },
+  "st_terlik": {
+    "eng": "Sergey Terliuk",
+    "pol": "Sergey Terliuk",
+    "rus": "Сергей Терлюк",
+    "ukr": "Сергій Терлюк"
+  },
+  "st_textures": {
+    "eng": "Textures",
+    "pol": "Tekstury",
+    "rus": "Текстуры",
+    "ukr": "Текстури"
+  },
+  "st_thanks": {
+    "eng": "And everyone else who helped us",
+    "pol": "Dzi�kujemy te� wszystkim",
+    "rus": "А также всем, кто помог нам",
+    "ukr": "А також усім, хто допоміг нам"
+  },
+  "st_thanks1": {
+    "eng": "make the game even better:",
+    "pol": "osobom, kt�re przyczyni�y si� do ulepszenia gry:",
+    "rus": "сделать игру лучше:",
+    "ukr": "зробити гру кращою:"
+  },
+  "st_thanks10": {
+    "eng": "Konstantin Morozkov",
+    "pol": "Konstantin Morozkov",
+    "rus": "Константин Морозков",
+    "ukr": "Костянтин Морозков"
+  },
+  "st_thanks11": {
+    "eng": "Yaroslav “Uncle Yar” Alexandrov",
+    "pol": "Yaroslav �Uncle Yar� Alexandrov",
+    "rus": "Ярослав «Дядько Яр» Александров",
+    "ukr": "Ярослав «Дядько Яр» Олександров"
+  },
+  "st_thanks12": {
+    "eng": "Dmitry “Comandor” Ivanov",
+    "pol": "Dmitry �Comandor� Ivanov",
+    "rus": "Дмитрий «Командор» Иванов",
+    "ukr": "Дмитро «Командор» Іванов"
+  },
+  "st_thanks13": {
+    "eng": "Oleg Chernov",
+    "pol": "Oleg Chernov",
+    "rus": "Олег Чернов",
+    "ukr": "Олег Чернов"
+  },
+  "st_thanks14": {
+    "eng": "Ig. Valerian (Golovchenko) aka oVal",
+    "pol": "Ig. Valerian (Golovchenko) aka oVal",
+    "rus": "иг. Валериан (Головченко) aka oVal",
+    "ukr": "иг. Валеріан (Головченко) aka oVal"
+  },
+  "st_thanks15": {
+    "eng": "M. Bystrykhin",
+    "pol": "M. Bystrykhin",
+    "rus": "М. Быстрыкин",
+    "ukr": "М. Бистрикін"
+  },
+  "st_thanks16": {
+    "eng": "Eugene “Mulder” Khaletskiy",
+    "pol": "Eugene �Mulder� Khaletskiy",
+    "rus": "Евгений «Mulder» Халецкий",
+    "ukr": "Євген «Mulder» Халецький"
+  },
+  "st_thanks17": {
+    "eng": "Pavel “Goon” Bolotov",
+    "pol": "Pavel �Goon� Bolotov",
+    "rus": "Павел «Goon» Болотов",
+    "ukr": "Павло «Goon» Болотов"
+  },
+  "st_thanks18": {
+    "eng": "Alexander “Leks” Abramov",
+    "pol": "Alexander �Leks� Abramov",
+    "rus": "Александр «Leks» Абрамов",
+    "ukr": "Олександр «Leks» Абрамов"
+  },
+  "st_thanks19": {
+    "eng": "Alexander Novikov",
+    "pol": "Alexander Novikov",
+    "rus": "Александр Новиков",
+    "ukr": "Олександр Новіков"
+  },
+  "st_thanks2": {
+    "eng": "Alexander Poshtaruk, Andrey Oleshk",
+    "pol": "Alexander Poshtaruk, Andrey Oleshk",
+    "rus": "Александр Поштарук, Андрей Олешк",
+    "ukr": "Олександр Поштарук, Андрій Олешк"
+  },
+  "st_thanks20": {
+    "eng": "Eugene “KRANZ” Goncharenko",
+    "pol": "Eugene �KRANZ� Goncharenko",
+    "rus": "Евген (KRANZ) Гончаренко",
+    "ukr": "Євген (KRANZ) Гончаренко"
+  },
+  "st_thanks21": {
+    "eng": "Sergey Dvuzhilny",
+    "pol": "Sergey Dvuzhilny",
+    "rus": "Сергей Двужильный",
+    "ukr": "Сергій Двужильний"
+  },
+  "st_thanks22": {
+    "eng": "Aleksey \"Don Reba” Badalov",
+    "pol": "Aleksey \"Don Reba� Badalov",
+    "rus": "Алексей (Don Reba) Бадалов",
+    "ukr": "Олексій «Don Reba» Бадалов"
+  },
+  "st_thanks23": {
+    "eng": "Sergey Dvuzhilny, Tolusha",
+    "pol": "Sergey Dvuzhilny, Tolusha",
+    "rus": "Сергей Двужильный, Tolusha",
+    "ukr": "Сергій Двужильний, Tolusha"
+  },
+  "st_thanks24": {
+    "eng": "Artem Zuev, aka BAC9-FLCL",
+    "pol": "Artem Zuev, aka BAC9-FLCL",
+    "rus": "Зуев Артём aka BAC9-FLCL",
+    "ukr": "Артем «BAC9-FLCL» Зуєв"
+  },
+  "st_thanks25": {
+    "eng": "Glot, Patriot, Mers",
+    "pol": "Glot, Patriot, Mers",
+    "rus": "Glot, Patriot, Mers",
+    "ukr": "Glot, Patriot, Mers"
+  },
+  "st_thanks26": {
+    "eng": "Tiger, Demesis, Kharon, Moby",
+    "pol": "Tiger, Demesis, Kharon, Moby",
+    "rus": "Tiger, Demesis, Kharon, Moby",
+    "ukr": "Tiger, Demesis, Kharon, Moby"
+  },
+  "st_thanks3": {
+    "eng": "Alexander Oleinik",
+    "pol": "Alexander Oleinik",
+    "rus": "Александр Олейник",
+    "ukr": "Олександр Олійник"
+  },
+  "st_thanks4": {
+    "eng": "Konstantin “Inquisitor” Kriuchkov",
+    "pol": "Konstantin �Inquisitor� Kriuchkov",
+    "rus": "Константин «Инквизитор» Крючков",
+    "ukr": "Костянтин «Инквизитор» Крючков"
+  },
+  "st_thanks5": {
+    "eng": "Alexander Shakhovsky, Igor Dolzhenko",
+    "pol": "Alexander Shakhovsky, Igor Dolzhenko",
+    "rus": "Александр Шаховский, Игорь Долженко",
+    "ukr": "Олександр Шаховський, Ігор Долженко"
+  },
+  "st_thanks6": {
+    "eng": "Sergey “Tur” Leshenko",
+    "pol": "Sergey �Tur� Leshenko",
+    "rus": "Сергей «Тур» Лещенко",
+    "ukr": "Сергій «Тур» Лещенко"
+  },
+  "st_thanks7": {
+    "eng": "Dmitry “Hill” Gorban",
+    "pol": "Dmitry �Hill� Gorban",
+    "rus": "Дмитрий «Hill» Горбань",
+    "ukr": "Дмитро «Hill» Горбань"
+  },
+  "st_thanks8": {
+    "eng": "Mikhail Kliuev",
+    "pol": "Mikhail Kliuev",
+    "rus": "Михаил Клюев",
+    "ukr": "Михайло Клюєв"
+  },
+  "st_thanks9": {
+    "eng": "Sergey “Termite” Volchanov",
+    "pol": "Sergey �Termite� Volchanov",
+    "rus": "Сергей «Термит» Волчанов",
+    "ukr": "Сергій «Терміт» Волчанов"
+  },
+  "st_tihomirov": {
+    "eng": "Sergey Tikhomirov",
+    "pol": "Sergey Tikhomirov",
+    "rus": "Сергей Тихомиров",
+    "ukr": "Сергій Тихомиров"
+  },
+  "st_tolmachev": {
+    "eng": "Ilya Tolmachev",
+    "pol": "Ilya Tolmachev",
+    "rus": "Илья Толмачев",
+    "ukr": "Ілля Толмачов"
+  },
+  "st_trudzik": {
+    "eng": "Jakub Trudzik",
+    "pol": "Jakub Trudzik",
+    "rus": "Jakub Trudzik",
+    "ukr": "Jakub Trudzik"
+  },
+  "st_ui_art": {
+    "eng": "Interface Design",
+    "pol": "Projekt interfejsu",
+    "rus": "Дизайн интерфейса",
+    "ukr": "Дизайн інтерфейсу"
+  },
+  "st_uralskiy": {
+    "eng": "Yuri Uralsky",
+    "pol": "Yuri Uralsky",
+    "rus": "Юрий Уральский",
+    "ukr": "Юрій Уральський"
+  },
+  "st_usupov": {
+    "eng": "Denis “Tetri$Zs” Yusupov",
+    "pol": "Denis �Tetri$Zs� Yusupov",
+    "rus": "Денис «Tetri$Zz» Юсупов",
+    "ukr": "Денис «Tetri$Zz» Юсупов"
+  },
+  "st_vander": {
+    "eng": "RandyJ VanderHeyden",
+    "pol": "RandyJ VanderHeyden",
+    "rus": "RandyJ VanderHeyden",
+    "ukr": "RandyJ VanderHeyden"
+  },
+  "st_vazinskiy": {
+    "eng": "Vladimir Vazhinsky",
+    "pol": "Vladimir Vazhinsky",
+    "rus": "Владимир Важинский",
+    "ukr": "Володимир Важинський"
+  },
+  "st_verpahovskiy": {
+    "eng": "Andrey Verpakhovsky",
+    "pol": "Andrey Verpakhovsky",
+    "rus": "Андрей Верпаховский",
+    "ukr": "Андрій Верпаховський"
+  },
+  "st_vilkov": {
+    "eng": "Alexander Vilkov",
+    "pol": "Alexander Vilkov",
+    "rus": "Александр Вилков",
+    "ukr": "Олександр Вилков"
+  },
+  "st_voskolovich": {
+    "eng": "Anastassia Voskolovich",
+    "pol": "Anastassia Voskolovich",
+    "rus": "Анастасия Восколович",
+    "ukr": "Анастасія Восколович"
+  },
+  "st_wardziak": {
+    "eng": "Andrzej Wardziak",
+    "pol": "Andrzej Wardziak",
+    "rus": "Andrzej Wardziak",
+    "ukr": "Andrzej Wardziak"
+  },
+  "st_web_programmer": {
+    "eng": "Web Programmer",
+    "pol": "Programista aplikacji internetowych",
+    "rus": "web программист",
+    "ukr": "Web-програміст"
+  },
+  "st_wojcik": {
+    "eng": "Dominik Wojcik",
+    "pol": "Dominik Wojcik",
+    "rus": "Dominik Wojcik",
+    "ukr": "Dominik Wojcik"
+  },
+  "st_wtroba": {
+    "eng": "Lukasz Watroba",
+    "pol": "Lukasz Watroba",
+    "rus": "Lukasz Watroba",
+    "ukr": "Lukasz Watroba"
+  },
+  "st_yablon": {
+    "eng": "Eugene Yablon",
+    "pol": "Eugene Yablon",
+    "rus": "Евгений Яблонь",
+    "ukr": "Євген Яблонь"
+  },
+  "st_yacenko": {
+    "eng": "Yuri Yatsenko",
+    "pol": "Yuri Yatsenko",
+    "rus": "Юрий Яценко",
+    "ukr": "Юрій Яценко"
+  },
+  "st_yacyk": {
+    "eng": "Eugene Yatsiuk",
+    "pol": "Eugene Yatsiuk",
+    "rus": "Евгений Яцюк",
+    "ukr": "Євген Яцюк"
+  },
+  "st_yavorsky": {
+    "eng": "Oleg Yavorsky",
+    "pol": "Oleg Yavorsky",
+    "rus": "Олег Яворский",
+    "ukr": "Олег Яворський"
+  },
+  "st_yeltyshev": {
+    "eng": "Valentin Yeltyshev",
+    "pol": "Valentin Yeltyshev",
+    "rus": "Валентин Елтышев",
+    "ukr": "Валентин Єлтишев"
+  },
+  "st_zaitsev": {
+    "eng": "Eugene Zaitsev",
+    "pol": "Eugene Zaitsev",
+    "rus": "Евгений Зайцев",
+    "ukr": "Євген Зайцев"
+  },
+  "st_zakolukin": {
+    "eng": "Andrey Zakoliukin",
+    "pol": "Andrey Zakoliukin",
+    "rus": "Андрей Заколюкин",
+    "ukr": "Андрій Заколюкін"
+  },
+  "st_zdziarski": {
+    "eng": "Marek Zdziarski",
+    "pol": "Marek Zdziarski",
+    "rus": "Marek Zdziarski",
+    "ukr": "Marek Zdziarski"
+  },
+  "st_zegarski": {
+    "eng": "Michal Zegarski",
+    "pol": "Michal Zegarski",
+    "rus": "Michal Zegarski",
+    "ukr": "Michal Zegarski"
+  },
+  "st_zmudzki": {
+    "eng": "Albert Zmudzki",
+    "pol": "Albert Zmudzki",
+    "rus": "Albert Zmudzki",
+    "ukr": "Albert Zmudzki"
+  },
+  "st_zorin": {
+    "eng": "Aleksey Zorin",
+    "pol": "Aleksey Zorin",
+    "rus": "Алексей Зорин",
+    "ukr": "Олексій Зорин"
+  },
+  "st_zukowski": {
+    "eng": "Bartosz Zukowski",
+    "pol": "Bartosz Zukowski",
+    "rus": "Bartosz Zukowski",
+    "ukr": "Bartosz Zukowski"
+  },
+  "st_yuhno": {
+    "eng": "Victoria “Morrant” Yukhno",
+    "pol": "Victoria �Morrant� Yukhno",
+    "rus": "Виктория «Morrant» Юхно",
+    "ukr": "Вікторія «Morrant» Юхно"
+  },
+  "st_kalintsev": {
+    "eng": "Sergey “ion” Kalintsev",
+    "pol": "Sergey �ion� Kalintsev",
+    "rus": "Сергей «ion» Калинцев",
+    "ukr": "Сергій «ion» Калинцев"
+  },
+  "st_kulikov": {
+    "eng": "Roman “RVCool” Kulikov",
+    "pol": "Roman �RVCool� Kulikov",
+    "rus": "Роман «RVCool» Куликов",
+    "ukr": "Роман «RVCool» Куликов"
+  },
+  "st_smirnov": {
+    "eng": "Maxim Smirnov",
+    "pol": "Maxim Smirnov",
+    "rus": "Максим Смирнов",
+    "ukr": "Максим Смирнов"
+  },
+  "st_alshekhly": {
+    "eng": "Omar Al-Shekhly",
+    "pol": "Omar Al-Shekhly",
+    "rus": "Omar Al-Shekhly",
+    "ukr": "Omar Al-Shekhly"
+  },
+  "st_arhipov": {
+    "eng": "Roman =Marauder= Arhipov",
+    "pol": "Roman =Marauder= Arhipov",
+    "rus": "Роман =Marauder= Архипов",
+    "ukr": "Роман «Marauder» Архіпов"
+  }
+}

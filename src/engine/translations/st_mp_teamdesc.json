@@ -1,0 +1,26 @@
+{
+  "team_1_desc": {
+    "eng": "The Zone's anarchists. They hold that the Zone is a sanctuary of freedom and believe that all laws, rules and conventions of the outside world are void here. Their motto is \"Do what you want and mind your own business.\" Freedom fights the government's attempts to control the Zone and is at war with the Mercenaries. Its members are equipped mainly with Soviet and Russian firearms.",
+    "pol": "Anarchi�ci Zony. Uznaj� Zon� za sanktuarium wolno�ci i uwa�aj�, �e wszelkie prawa, zasady i konwencje �wiata zewn�trznego nie maj� tu zastosowania. Ich motto brzmi: �R�b, co chcesz, i pilnuj swojego nosa�. Frakcja Wolno�� zwalcza starania rz�du o przej�cie kontroli nad Zon� i prowadzi wojn� z najemnikami. Jej cz�onkowie s� zwykle wyposa�eni w radzieck� i rosyjsk� bro�.",
+    "rus": "Анархисты Зоны. Исповедуют идею о том, что Зона - заповедник неограниченной свободы для всех, поэтому законы, правила и условности внешнего мира здесь теряют силу. Их девиз таков: «Делай, что хочешь, только не мешай другим». Борются против попыток взять Зону под контроль, а также против клана наёмников. Экипированы в основном стрелковым оружием производства бывшего СССР и России.",
+    "ukr": "Анархісти Зони. Сповідують ідею про те, що Зона - заповідник необмеженої свободи для всіх, тому закони, правила та умовності зовнішнього світу тут втрачають силу. Їхній девіз є таким: «Роби що хочеш, лише не заважай іншим». Борються проти спроб узяти Зону під контроль, а також проти клану найманців. Екіпіровані в основному стрілецькою зброєю виробництва колишнього СРСР та Росії."
+  },
+  "team_1_name": {
+    "eng": "Freedom faction (Free Stalkers)",
+    "pol": "Frakcja Wolno�� (wolni stalkerzy)",
+    "rus": "Группировка «Свобода» (Свободные сталкеры)",
+    "ukr": "Угруповання «Свобода» (Вільні сталкери)"
+  },
+  "team_2_desc": {
+    "eng": "These adventure-seeking cutthroats come from all over the world and welcome even the dirtiest of work. Their motto is predictably \"Money has no smell.\" They’ll keep fighting for complete control over artifact fields, so long as there’s demand for them. Mercenaries are equipped mainly with Western firearms.",
+    "pol": "Grupa szukaj�cych przyg�d zbir�w z ca�ego �wiata. Nie gardz� najpodlejsz� robot�. Ich motto brzmi: �Pieni�dze nie �mierdz��. Dop�ki ich us�ugi b�d� w cenie, nie zrezygnuj� z walki o ca�kowit� kontrol� nad polami artefakt�w. Najemnicy s� zwykle wyposa�eni w zachodni� bro�.",
+    "rus": "Искатели приключений и головорезы со всего мира, не гнушающиеся никакой, даже самой грязной, работой. Девиз логичен и предсказуем: «Деньги не пахнут». До тех пор, пока за артефакты хорошо платят, наёмники будут бороться за контроль над их месторождениями. Экипированы в основном стрелковым вооружением западного производства.",
+    "ukr": "Шукачі пригод та головорізи з усього світу, котрі не гребують жодною, навіть найбруднішою, роботою. Девіз логічний та передбачений: «Гроші не пахнуть». Допоки за артефакти добре платять, найманці боротимуться за контроль над їхніми родовищами. Екіпіровані в основному стрілецьким озброєнням західного виробництва."
+  },
+  "team_2_name": {
+    "eng": "Mercenary faction (Cutthroats)",
+    "pol": "Frakcja Najemnicy (zbiry)",
+    "rus": "Группировка «Наёмники» (Головорезы)",
+    "ukr": "Угруповання «Найманці» (Головорізи)"
+  }
+}

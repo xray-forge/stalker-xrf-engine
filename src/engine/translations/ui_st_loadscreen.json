@@ -1,0 +1,944 @@
+{
+  "ls_header": {
+    "eng": "100 ZONE SURVIVAL TIPS",
+    "pol": "100 WSKAZ�WEK, JAK PRZETRWA� W ZONIE",
+    "rus": "«100 СОВЕТОВ ПО ВЫЖИВАНИЮ В ЗОНЕ»",
+    "ukr": "«100 ПОРАД ІЗ ВИЖИВАННЯ У ЗОНІ»"
+  },
+  "ls_mp_tip_16": {
+    "eng": "Shooting an enemy in the eye will result in an instant kill, regardless of his armor level.",
+    "pol": "Strza� w oko przeciwnika skutkuje jego natychmiastow� �mierci�, niezale�nie od poziomu jego pancerza.",
+    "rus": "Попадание пули в глаз заканчивается мгновенной смертью вне зависимости от степени защищённости бронёй.",
+    "ukr": "Влучення кулі в око тягне за собою миттєву смерть незалежно від ступеня захищеності бронею."
+  },
+  "ls_mp_tip_19": {
+    "eng": "The AC-96/2 has a unique two round burst firing mode. In this mode, both bullets in a burst will hit the same spot.",
+    "pol": "AC-96/2 posiada unikatowy, dwustrza�owy tryb seryjny. W tym trybie oba pociski z serii trafiaj� dok�adnie w to samo miejsce.",
+    "rus": "АС96/2 обладает уникальным режимом стрельбы с отсечкой по два патрона. В этом режиме обе выпущенные пули попадают в одну и ту же точку.",
+    "ukr": "АС96/2 має унікальний режим стрільби із відсіканням по два постріли. У цьому режимі обидві випущені кулі влучають до однієї точки."
+  },
+  "ls_mp_tip_21": {
+    "eng": "Double-barreled shotguns can be used to fire both barrels almost simultaneously.",
+    "pol": "Dwulufowe strzelby mog� wystrzeli� z obu luf niemal jednocze�nie.",
+    "rus": "Двуствольные дробовики могут произвести два выстрела почти одновременно.",
+    "ukr": "Двоствольні дробовики можуть зробити два постріли майже одночасно."
+  },
+  "ls_mp_tip_25": {
+    "eng": "Don't underestimate pistols. They provide considerable stopping power and can be very effective against poorly armored targets.",
+    "pol": "Nie lekcewa� pistolet�w. Moj� przyzwoit� si�� ra�enia i mog� by� bardzo skuteczne przeciwko s�abo opancerzonym celom.",
+    "rus": "Не стоит недооценивать пистолеты. Они обладают высоким убойным действием и очень эффективны против слабо бронированных противников.",
+    "ukr": "Не варто недооцінювати пістолети. Вони відзначаються високою забійною дією й дуже ефективні проти слабо броньованих супротивників."
+  },
+  "ls_mp_tip_32": {
+    "eng": "Sniper rifles are ideal for eliminating enemies from a distance, thanks to their flatness and accuracy characteristics. They are less effective at close range.",
+    "pol": "Karabiny snajperskie, z uwagi na p�asko�� toru pocisku i celno��, s� idealne do zabijania wrog�w z du�ej odleg�o�ci. Nie s� jednak zbyt skuteczne na kr�tkim dystansie.",
+    "rus": "Снайперские винтовки, благодаря высокой настильности и точности, идеально подходят для уничтожения противников на больших дистанциях. Однако в ближнем бою они не столь эффективны.",
+    "ukr": "Снайперські гвинтівки завдяки високій настильности й точності ідеально підходять для знищення супротивників на великих дистанціях. Однак у ближньому бою вони не настільки ефективні."
+  },
+  "ls_mp_tip_33": {
+    "eng": "Firing on the move is considerably less accurate than when you are standing still or crouching.",
+    "pol": "Strzelanie w ruchu charakteryzuje si� znacznie mniejsz� celno�ci� w por�wnaniu do strzelania ze stabilnej pozycji stoj�cej lub podczas kucania.",
+    "rus": "Точность при стрельбе в движении значительно ниже, чем из позиции стоя или сидя.",
+    "ukr": "Точність вогню під час руху значно нижча, ніж із позиції стоячи або сидячи."
+  },
+  "ls_mp_tip_34": {
+    "eng": "Weapons and protective suits will wear out quickly in the harsh conditions of the Zone. Worn-out weapons are less accurate and prone to misfire, while suits will not protect you as well.",
+    "pol": "W trudnych warunkach Zony zar�wno bro�, jak i kombinezony ochronne szybko si� zu�ywaj�. Zu�yte bronie s� mniej celne i mog� si� zacina�, a kombinezony daj� s�absz� ochron�.",
+    "rus": "В суровых условиях Зоны оружие и защитный комбинезон быстро изнашиваются. Изношенное оружие стреляет менее точно и начинает давать осечки, а изношенный комбинезон утрачивает защитные свойства.",
+    "ukr": "У суворих умовах Зони зброя та захисний комбінезон швидко зношуються. Зношена зброя стріляє менш точно і починає давати осічки, а зношений комбінезон втрачає захисні властивості."
+  },
+  "ls_mp_tip_54": {
+    "eng": "To make a screenshot, press \"$$ACTION_SCREENSHOT$$\".",
+    "pol": "Aby zrobi� zrzut ekranu, wci�nij �$$ACTION_SCREENSHOT$$\".",
+    "rus": "Чтобы сделать скриншот, нажмите клавишу «$$ACTION_SCREENSHOT$$»",
+    "ukr": "Щоб зробити скриншот, натисніть клавішу «$$ACTION_SCREENSHOT$$»"
+  },
+  "ls_mp_tip_9": {
+    "eng": "The artifact or the player carrying it is shown on the minimap. If the artifact is far away, an arrow on the minimap will indicate its direction.",
+    "pol": "Artefakt lub nios�cy go gracz pokazany jest na minimapie. Je�eli artefakt jest daleko, strza�ka na minimapie wska�e odpowiedni kierunek.",
+    "rus": "Артефакт или несущий его игрок отображаются на миникарте. Если артефакт далеко, направление на него отображается стрелочкой на миникарте.",
+    "ukr": "Артефакт або гравець, що його несе, відображаються на мінікарті. Якщо артефакт знаходиться далеко, напрямок на нього відображається стрілочкою."
+  },
+  "ls_tip_37": {
+    "eng": "The AC-96/2 has a unique two round burst firing mode. In this mode, both bullets in a burst will hit the same spot.",
+    "pol": "AC-96/2 posiada unikatowy, dwustrza�owy tryb seryjny. W tym trybie oba pociski z serii trafiaj� dok�adnie w to samo miejsce.",
+    "rus": "АС-96/2 обладает уникальным режимом стрельбы с отсечкой по два патрона. В этом режиме обе выпущенные пули попадают в одну и ту же точку.",
+    "ukr": "АС-96/2 має унікальний режим стрільби із відсіканням по два постріли. У цьому режимі обидві випущені кулі влучають до однієї точки."
+  },
+  "ls_tip_39": {
+    "eng": "Double-barreled shotguns can be used to fire both barrels almost simultaneously.",
+    "pol": "Dwulufowe strzelby mog� wystrzeli� z obu luf niemal jednocze�nie.",
+    "rus": "Двуствольные дробовики могут произвести два выстрела почти одновременно.",
+    "ukr": "Двоствольні дробовики можуть зробити два постріли майже одночасно."
+  },
+  "ls_tip_43": {
+    "eng": "Don't underestimate pistols. They provide considerable stopping power and can be very effective against poorly armored targets.",
+    "pol": "Nie lekcewa� pistolet�w. Moj� przyzwoit� si�� ra�enia i mog� by� bardzo skuteczne przeciwko s�abo opancerzonym celom.",
+    "rus": "Не стоит недооценивать пистолеты. Они обладают высоким убойным действием и очень эффективны против слабо бронированных противников.",
+    "ukr": "Не варто недооцінювати пістолети. Вони відзначаються високою забійною дією й дуже ефективні проти слабо броньованих супротивників."
+  },
+  "ls_tip_50": {
+    "eng": "Sniper rifles are ideal for eliminating enemies from a distance, thanks to their flatness and accuracy characteristics. They are less effective at close range.",
+    "pol": "Karabiny snajperskie, z uwagi na p�asko�� toru pocisku i celno��, s� idealne do zabijania wrog�w z du�ej odleg�o�ci. Nie s� jednak zbyt skuteczne na kr�tkie dystanse.",
+    "rus": "Снайперские винтовки, благодаря высокой настильности и точности, идеально подходят для уничтожения противников на больших дистанциях. Однако в ближнем бою они не столь эффективны.",
+    "ukr": "Снайперські гвинтівки завдяки високій настильности й точності ідеально підходять для знищення супротивників на великих дистанціях. Однак у ближньому бою вони не настільки ефективні."
+  },
+  "ls_tip_52": {
+    "eng": "Weapons and protective suits will wear out quickly in the harsh conditions of the Zone. Worn-out weapons are less accurate and prone to misfire, while suits will not protect you as well.",
+    "pol": "W trudnych warunkach Zony zar�wno bro�, jak i kombinezony ochronne szybko si� zu�ywaj�. Zu�yte bronie s� mniej celne i mog� si� zacina�, a kombinezony daj� s�absz� ochron�.",
+    "rus": "В суровых условиях Зоны оружие и защитный комбинезон быстро изнашиваются. Изношенное оружие стреляет менее точно и начинает давать осечки, а изношенный комбинезон утрачивает защитные свойства.",
+    "ukr": "У суворих умовах Зони зброя та захисний комбінезон швидко зношуються. Зношена зброя стріляє менш точно і починає давати осічки, а зношений комбінезон втрачає захисні властивості."
+  },
+  "ls_tip_56": {
+    "eng": "Some medical products have unique properties. For example, Hercules pills allow you to temporarily carry more weight, while psy-blocking drugs help you resist psy-emissions.",
+    "pol": "Niekt�re �rodki medyczne maj� wyj�tkowe w�a�ciwo�ci. Na przyk�ad tabletki �Herkules\" pozwalaj� ci przez jaki� czas unie�� wi�kszy ci�ar, podczas gdy blokery psioniczne wzmacniaj� odporno�� na emisje psioniczne.",
+    "rus": "Некоторые медикаменты обладают уникальными свойствами - как, например, препарат «Геркулес», позволяющий на время увеличить потенциальную грузоподъёмность, или препарат пси-блокады, повышающий сопротивляемость воздействию на психику.",
+    "ukr": "Деякі медикаменти мають унікальні властивості - як, наприклад, препарат «Геркулес», котрий дозволяє на якийсь час збільшити потенційну вантажопідйомність, або препарат псі-блокади, що підвищує опірність впливу на психіку."
+  },
+  "ls_tip_83": {
+    "eng": "To take a screenshot, press \"$$ACTION_SCREENSHOT$$\".",
+    "pol": "Aby zrobi� zrzut ekranu, wci�nij �$$ACTION_SCREENSHOT$$\".",
+    "rus": "Чтобы сделать скриншот, нажмите клавишу «$$ACTION_SCREENSHOT$$»",
+    "ukr": "Щоб зробити скриншот, натисніть клавішу «$$ACTION_SCREENSHOT$$»"
+  },
+  "ls_tip_number": {
+    "eng": "Tip #",
+    "pol": "Wskaz�wka #",
+    "rus": "Совет №",
+    "ukr": "Порада №"
+  },
+  "ls_tip_1": {
+    "eng": "Vodka, a cheap alternative to antirad meds, is the easiest way to reduce the effects of radiation on the body.",
+    "pol": "W�dka jest tani� alternatyw� dla lek�w przeciwpromiennych. To najprostszy spos�b, by zredukowa� wp�yw promieniowania na organizm.",
+    "rus": "Водка - дешёвая альтернатива противорадиационным препаратам и самый доступный способ снизить воздействие радиации на организм.",
+    "ukr": "Горілка - дешева альтернатива протирадіаційним препаратам та найдоступніший спосіб знизити вплив радіації на організм."
+  },
+  "ls_tip_10": {
+    "eng": "You can access detailed information about the current mission by holding \"$$ACTION_SCORES$$\".",
+    "pol": "Aby zobaczy� szczeg�y na temat aktualnej misji, przytrzymaj �$$ACTION_SCORES$$\".",
+    "rus": "Подробности текущего задания можно узнать, удерживая «$$ACTION_SCORES$$».",
+    "ukr": "Подробиці поточного завдання можна довідатися, утримуючи «$$ACTION_SCORES$$»."
+  },
+  "ls_tip_13": {
+    "eng": "You need a detector to search for artifacts. The best detectors make searching easier and may even detect more valuable artifacts.",
+    "pol": "Aby m�c szuka� artefakt�w, potrzebujesz detektora. Najlepsze detektory czyni� szukanie �atwiejszym i s� w stanie wykry� wi�cej warto�ciowych artefakt�w.",
+    "rus": "Детектор необходим для поиска артефактов. Более совершенные детекторы облегчают поиск и помогают обнаружить более ценные артефакты.",
+    "ukr": "Детектор необхідний для пошуку артефактів. Досконаліші детектори полегшують пошук і допомагають знайти коштовніші артефакти."
+  },
+  "ls_tip_14": {
+    "eng": "Stalkers don’t let people with their weapons out into their camps. To hide your weapon press the appropriate key (\"$$ACTION_WPN_1$$\", \"$$ACTION_WPN_2$$\",  \"$$ACTION_WPN_3$$\", \"$$ACTION_WPN_4$$\").",
+    "pol": "Stalkerzy nie wpuszczaj� do swoich oboz�w ludzi z broni� w r�ku. Aby schowa� bro�, wci�nij odpowiedni klawisz (�$$ACTION_WPN_1$$\", �$$ACTION_WPN_2$$\", �$$ACTION_WPN_3$$\", �$$ACTION_WPN_4$$\").",
+    "rus": "Сталкеры не пускают в лагерь людей с оружием наперевес. Чтобы спрятать оружие, нажмите соответствующую ему клавишу («$$ACTION_WPN_1$$», «$$ACTION_WPN_2$$», «$$ACTION_WPN_3$$», «$$ACTION_WPN_4$$»).",
+    "ukr": "Сталкери не пускають до табору людей зі зброєю в руках. Щоби сховати зброю, натисніть відповідну їй клавішу («$$ACTION_WPN_1$$», «$$ACTION_WPN_2$$», «$$ACTION_WPN_3$$», «$$ACTION_WPN_4$$»)."
+  },
+  "ls_tip_15": {
+    "eng": "You can locate the edges of an anomaly by throwing bolts. To get your bolt out, press \"$$ACTION_WPN_6$$\".",
+    "pol": "Mo�esz zlokalizowa� granice anomalii, rzucaj�c �rubami. Aby wyj�� �rub�, wci�nij �$$ACTION_WPN_6$$\".",
+    "rus": "Границы аномалии можно определить, «прощупав» их болтами. Чтобы приготовить болт для броска, нажмите «$$ACTION_WPN_6$$».",
+    "ukr": "Межі аномалії можна визначити, «прощупавши» їх болтами. Щоб приготувати болт до кидка, натисніть «$$ACTION_WPN_6$$»."
+  },
+  "ls_tip_17": {
+    "eng": "As well as addressing your hunger, food will also slightly improve your health.",
+    "pol": "Jedzenie nie tylko zaspokaja g��d, ale r�wnie� nieznacznie poprawia zdrowie.",
+    "rus": "Пища не только утоляет голод, но и несколько улучшает состояние здоровья.",
+    "ukr": "Їжа не лише тамує голод, але й дещо поліпшує стан здоров'я."
+  },
+  "ls_tip_18": {
+    "eng": "Energy drinks temporarily improve your endurance recovery, which increases your potential mobility.",
+    "pol": "Napoje energetyzuj�ce tymczasowo przy�pieszaj� odzyskiwanie wytrzyma�o�ci, co zwi�ksza twoj� zdolno�� poruszania si�.",
+    "rus": "Энергетический напиток временно ускоряет восстановление выносливости, что увеличивает потенциальную мобильность. ",
+    "ukr": "Енергетичний напій тимчасово прискорює відновлення витривалості, що збільшує потенційну мобільність. "
+  },
+  "ls_tip_20": {
+    "eng": "Low endurance can make you immobile and vulnerable to enemy attack at crucial moments.",
+    "pol": "Niska wytrzyma�o�� mo�e ci� unieruchomi� i wystawi� na atak wrog�w w kluczowych momentach.",
+    "rus": "Отсутствие запаса выносливости может обернуться утратой мобильности в критический момент, а значит - повышенной уязвимостью для противника.",
+    "ukr": "Відсутність запасу витривалості може обернутися втратою мобільності в критичний момент і зробить героя вразливим для супротивника."
+  },
+  "ls_tip_21": {
+    "eng": "You can monitor your concealment status using the noise and enemy detection indicators located in the top left-hand corner of the screen.",
+    "pol": "Mo�esz monitorowa� stan swojej widoczno�ci dzi�ki wska�nikom ha�asu i wykrycia umieszczonym w lewym g�rnym rogu ekranu.",
+    "rus": "Степень заметности для стороннего наблюдателя можно контролировать при помощи индикаторов издаваемого шума и видимости. Оба индикатора расположены в левом верхнем углу экрана.",
+    "ukr": "Ступінь помітності для стороннього спостерігача можна контролювати за допомогою індикаторів видаваного шуму та видимості. Обидва індикатори розташовано в лівому верхньому куті екрана."
+  },
+  "ls_tip_22": {
+    "eng": "Having a detector in one hand doesn’t stop you from using a knife, pistol or bolt with your other hand.",
+    "pol": "Trzymanie detektora w jednej r�ce nie uniemo�liwia u�ycia no�a, pistoletu lub �ruby za pomoc� drugiej r�ki.",
+    "rus": "Детектор в одной руке не мешает взять в другую нож, пистолет или болт.",
+    "ukr": "Детектор в одній руці не заважає взяти до іншої ніж, пістолет чи болт."
+  },
+  "ls_tip_23": {
+    "eng": "Some medical products increase the body’s resistance to harmful effects. Using such products can save your life during missions into anomalous areas.",
+    "pol": "Niekt�re �rodki medyczne zwi�kszaj� odporno�� organizmu na szkodliwe dzia�ania. U�ywanie tych �rodk�w mo�e ocali� ci �ycie podczas misji w okolicach, w kt�rych wyst�puj� anomalie.",
+    "rus": "Некоторые медикаменты повышают уровень сопротивляемости организма вредным воздействиям и могут оказаться единственным спасением во время вылазок в аномальные районы.",
+    "ukr": "Деякі медикаменти підвищують рівень опірності організму шкідливим впливам і можуть виявитися єдиним порятунком під час вилазок до багатих на аномалії районів."
+  },
+  "ls_tip_27": {
+    "eng": "You can bring up the context menu for items in your backpack by placing your mouse over the required item and pressing the right mouse button.",
+    "pol": "Mo�esz wywo�a� podr�czne menu dla przedmiot�w w plecaku, umieszczaj�c kursor myszy nad danym przedmiotem i klikaj�c prawym przyciskiem myszy.",
+    "rus": "Для предметов в рюкзаке можно вызвать дополнительное контекстное меню, наведя курсор на нужный предмет и нажав правую клавишу мыши.",
+    "ukr": "Для предметів у рюкзаку можна викликати додаткове контекстне меню, навівши курсор на потрібний предмет і натиснувши праву клавішу миші."
+  },
+  "ls_tip_28": {
+    "eng": "In addition to their useful effects, most artifacts are also radioactive. This can be compensated for by using artifacts that absorb radiation.",
+    "pol": "Pomimo swoich u�ytecznych w�a�ciwo�ci, wi�kszo�� artefakt�w jest radioaktywna. Efekt ten mo�na zniwelowa�, u�ywaj�c artefakt�w poch�aniaj�cych promieniowanie.",
+    "rus": "Несмотря на все полезные свойства, большинство артефактов радиоактивны. Данный эффект можно компенсировать другими артефактами, которые поглощают радиацию.",
+    "ukr": "Попри всі свої корисні властивості, більшість артефактів є радіоактивними. Цей ефект можна компенсувати іншими артефактами, котрі поглинають радіацію."
+  },
+  "ls_tip_29": {
+    "eng": "Your knife is ineffective against enemies armed with firearms. Use it in close combat or for a stealthy kill.",
+    "pol": "N� jest nieskuteczny przeciwko wrogom wyposa�onym w bro� paln�. U�ywaj go w zwarciu lub w celu dyskretnego wyeliminowania przeciwnika.",
+    "rus": "Нож малоэффективен против врагов, вооружённых огнестрельным оружием. Область его применения - рукопашный бой и бесшумное устранение противника.",
+    "ukr": "Ніж є малоефективним проти ворогів, які мають вогнепальну зброю. Сфера його застосування - рукопашний бій та безшумне усунення супротивника."
+  },
+  "ls_tip_3": {
+    "eng": "The weight you are carrying reduces your endurance. Excess weight will restrict your mobility, while being completely overloaded will stop you from moving altogether.",
+    "pol": "Ci�ar, kt�ry nosisz, obni�a twoj� wytrzyma�o��. Zbyt du�y ci�ar ograniczy twoj� mobilno��, a kompletne przeci��enie unieruchomi ci� zupe�nie.",
+    "rus": "Количество переносимого груза напрямую влияет на снижение выносливости. Большой вес ограничит мобильность, а перегрузка не позволит передвигаться вообще.",
+    "ukr": "Кількість носимого вантажу прямо впливає на зниження витривалості. Велика вага обмежить мобільність, а надмірне навантаження не дозволить пересуватися взагалі."
+  },
+  "ls_tip_30": {
+    "eng": "A detector is the only reliable way of checking anomalous areas for artifacts.",
+    "pol": "U�ycie detektora to jedyny pewny spos�b na wykrycie obecno�ci artefakt�w na obszarach anomalii.",
+    "rus": "Детектор - единственный надёжный способ проверить наличие артефактов в аномальной зоне.",
+    "ukr": "Детектор - єдиний надійний спосіб перевірити наявність артефактів у аномальній зоні."
+  },
+  "ls_tip_31": {
+    "eng": "Most artifacts will remain invisible as they move around in the anomalous area, until they are identified by your detector.",
+    "pol": "Wi�kszo�� artefakt�w jest niewidoczna podczas swoich w�dr�wek po obszarach anomalii, dop�ki nie wykryjesz ich za pomoc� detektora.",
+    "rus": "Большинство артефактов мигрируют внутри аномалий и не видимы глазом, пока не будут выявлены при помощи детектора.",
+    "ukr": "Більшість артефактів мігрують всередині аномалій і не можуть бути зафіксовані оком, доки їх не виявлять за допомогою детектора."
+  },
+  "ls_tip_32": {
+    "eng": "Mutants are more active come nighttime, which explains why stalkers prefer to wait for sunlight before venturing into the Zone.",
+    "pol": "Mutanty s� bardziej aktywne w nocy, co wyja�nia, dlaczego stalkerzy wol� poczeka� do �witu z wyruszeniem do Zony.",
+    "rus": "Ночь - время активности мутантов, поэтому сталкеры предпочитают совершать вылазки в светлое время суток.",
+    "ukr": "Ніч - час активності мутантів, тому сталкери важають за краще здійснювати вилазки у світлий час доби."
+  },
+  "ls_tip_33": {
+    "eng": "If you have suffered serious radiation exposure, use anti-radiation drugs. If you don't have any, use medkits to deal with the initial symptoms and until you make it to a medic.",
+    "pol": "W przypadku silnego napromieniowania organizmu u�yj lek�w przeciwpromiennych. Je�li nie masz �adnych przy sobie, u�yj apteczki, aby upora� si� z pierwszymi objawami, zanim dotrzesz do medyka.",
+    "rus": "При сильном радиоактивном облучении необходимо воспользоваться противорадиационными препаратами или обратиться к медику. Если такой возможности нет, можно воспользоваться аптечкой, чтобы экстренно снизить негативное воздействие радиации на организм.",
+    "ukr": "За сильного радіоактивного опромінення необхідно скористатися протирадіаційними препаратами або звернутися до медика. Якщо такої можливості немає, можна використати аптечку, щоб негайно знизити негативний вплив радіації на організм."
+  },
+  "ls_tip_34": {
+    "eng": "Most stalkers can take you to nearby locations, but only an experienced guide can lead you safely and quickly to distant areas.  Despite this, they will all charge you an arm and a leg for the service.",
+    "pol": "Wi�kszo�� stalker�w mo�e oprowadzi� ci� po okolicy, ale tylko do�wiadczeni przewodnicy s� w stanie bezpiecznie i szybko zaprowadzi� ci� w bardziej odleg�e miejsca. Jedni i drudzy ka�� sobie s�ono p�aci� za us�ug�.",
+    "rus": "Большинство сталкеров могут провести по окрестностям, но лишь опытный проводник доставит в отдалённые места быстро и безопасно. Именно поэтому проводники обычно оценивают свои услуги в немалую сумму.",
+    "ukr": "Більшість сталкерів можуть провести по околицях, але лише досвідчений проводир приставить до віддалених місць швидко та безпечно. Саме тому проводирі зазвичай беруть за свої послуги чималі гроші."
+  },
+  "ls_tip_35": {
+    "eng": "Selling artifacts isn’t the only way to make some cash: offloading unneeded equipment can be a profitable business, too. Keep in mind that traders aren’t usually interested in items that are seriously damaged.",
+    "pol": "Sprzedawanie artefakt�w to nie jedyny spos�b na zarobienie got�wki. Pozbywanie si� niepotrzebnego sprz�tu te� mo�e przynie�� zyski. Pami�taj, �e handlarze z regu�y nie s� zainteresowani powa�nie uszkodzonymi przedmiotami.",
+    "rus": "Прибыль могут принести не только артефакты, но и продажа излишков снаряжения. При этом нужно учесть, что торговцы не заплатят за снаряжение его полную стоимость и не станут покупать слишком повреждённые вещи.",
+    "ukr": "Прибуток можуть принести не лише артефакти, але й продаж надлишків спорядження. При цьому потрібно врахувати, що торговці не заплатять за спорядження його повну вартість і зовсім не стануть купувати пошкоджені речі."
+  },
+  "ls_tip_38": {
+    "eng": "To detach a silencer, scope or underbarrel grenade launcher from your weapon, right-click on the weapon in your backpack and select the appropriate action from the context menu.",
+    "pol": "Aby zdemontowa� t�umik, celownik lub podwieszany granatnik ze swojej broni, kliknij prawym przyciskiem myszy dan� bro� w swoim plecaku i wybierz odpowiednie polecenie z menu podr�cznego.",
+    "rus": "Чтобы отсоединить установленные на оружии глушитель, оптический прицел или подствольный гранатомёт, необходимо щёлкнуть правой кнопкой мыши на иконке оружия в рюкзаке и воспользоваться соответствующей командой в контекстном меню.",
+    "ukr": "Щоб від'єднати встановлені на зброї глушник, оптичний приціл чи підствольний гранатомет, необхідно клацнути правою кнопкою миші на іконці зброї в рюкзаку і скористатися відповідною командою в контекстному меню."
+  },
+  "ls_tip_40": {
+    "eng": "If you want to move with minimal noise, press \"$$ACTION_ACCEL$$\" to walk or \"$$ACTION_CROUCH$$\" to crouch.",
+    "pol": "Je�li chcesz si� porusza� najciszej, jak to tylko mo�liwe, wci�nij �$$ACTION_ACCEL$$\" aby chodzi� lub �$$ACTION_CROUCH$$\" aby kucn��.",
+    "rus": "Чтобы не издавать лишнего шума, можно передвигаться шагом, нажав «$$ACTION_ACCEL$$», или присев, нажав «$$ACTION_CROUCH$$».",
+    "ukr": "Щоб не видавати зайвого шуму, можна пересуватися кроком, натиснувши «$$ACTION_ACCEL$$», чи вприсяд, натиснувши «$$ACTION_CROUCH$$»."
+  },
+  "ls_tip_41": {
+    "eng": "Shotguns are close-combat weapons. The further your enemy is from you, the less effective they are.",
+    "pol": "Strzelba to bro� na kr�tkie dystanse. Im dalej od ciebie znajduje si� przeciwnik, tym mniej jest skuteczna.",
+    "rus": "Дробовик - оружие малых дистанций: чем дальше находится цель, тем менее эффективным будет его использование.",
+    "ukr": "Дробовик - зброя малих дистанцій: чим далі знаходиться ціль, тим менш ефективним буде її використання."
+  },
+  "ls_tip_42": {
+    "eng": "When taking cover from small arms fire, make sure to hide behind something solid. Unlike concrete walls, wooden boards and sheet metal don't make for very safe cover.",
+    "pol": "Szukaj�c schronienia przed ostrza�em z mniejszych broni, upewnij si�, �e chowasz si� za czym� wytrzyma�ym. Deski i blacha, w przeciwie�stwie do betonowej �ciany, nie zapewni� ci zbyt bezpiecznej kryj�wki.",
+    "rus": "Выбирая укрытие от пуль, необходимо учитывать материал преграды. Деревянная доска или тонкий листовой металл не обеспечат надёжной защиты - в отличие от железобетонной стены.",
+    "ukr": "Обираючи укриття від куль, необхідно враховувати матеріал, з якого воно зроблене. Дерев'яна дошка чи тонкий листовий метал не забезпечать надійного захисту - на відміну від, скажімо, залізобетонної стіни."
+  },
+  "ls_tip_44": {
+    "eng": "Headshots do critical damage and are fatal for most enemies.",
+    "pol": "Strza�y w g�ow� zadaj� krytyczne obra�enia i dla wi�kszo�ci wrog�w s� �miertelne.",
+    "rus": "Прямое попадание пули в голову является смертельным для большинства противников.",
+    "ukr": "Пряме влучення кулі в голову є смертельним для більшості супротивників."
+  },
+  "ls_tip_45": {
+    "eng": "Each type of mutant in the Zone has its own combat traits. If you take these into account, you will be far more likely to survive.",
+    "pol": "Ka�dy rodzaj mutanta w Zonie ma w�asny styl walki. We� to pod uwag�, a b�dziesz mie� du�o wi�ksz� szans� na prze�ycie.",
+    "rus": "У каждого вида мутантов Зоны своя манера защиты и нападения. Учитывая это, можно значительно повысить свои шансы на выживание.",
+    "ukr": "У кожного виду мутантів Зони своя манера захисту та нападу. З огляду на це можна значно підвищити свої шанси на виживання."
+  },
+  "ls_tip_46": {
+    "eng": "You can adjust how far you throw a grenade by holding \"$$ACTION_WPN_ZOOM$$\".",
+    "pol": "Mo�esz ustawi� odleg�o��, na jak� rzucisz granat, przytrzymuj�c �$$ACTION_WPN_ZOOM$$\".",
+    "rus": "Дальность броска гранаты можно регулировать, удерживая «$$ACTION_WPN_ZOOM$$».",
+    "ukr": "Дистанцію кидка гранати можна регулювати, утримуючи «$$ACTION_WPN_ZOOM$$»."
+  },
+  "ls_tip_47": {
+    "eng": "Enemies can and will use grenades. When you see the grenade indicator, leave the kill zone immediately.",
+    "pol": "Przeciwnicy mog� i b�d� u�ywa� granat�w. Gdy zobaczysz symbol granatu, opu�� natychmiast stref� wybuchu. ",
+    "rus": "Противники могут - и будут - активно использовать гранаты. Заметив на экране символ гранаты, немедленно покиньте предполагаемую зону поражения.",
+    "ukr": "Вороги можуть активно використовувати гранати - і використовуватимуть. Помітивши на екрані символ гранати, негайно залишіть ймовірну зону ураження."
+  },
+  "ls_tip_48": {
+    "eng": "Speeding up before you jump allows you to overcome big gaps and cracks.",
+    "pol": "Rozbieg przed skokiem pozwala na pokonanie du�ych dziur i szczelin.",
+    "rus": "Используя прыжок с разбега, можно преодолевать большие ямы и трещины.",
+    "ukr": "Використовуючи стрибок з розбігу, можна долати великі ями й тріщини."
+  },
+  "ls_tip_49": {
+    "eng": "Key indicators that show your health and endurance are located in the bottom right-hand corner of the screen.",
+    "pol": "Kluczowe wska�niki pokazuj�ce zdrowie i wytrzyma�o�� znajduj� si� w prawym dolnym rogu ekranu.",
+    "rus": "Ключевые индикаторы - состояния здоровья и выносливости - находятся в правом нижнем углу экрана.",
+    "ukr": "Ключові індикатори - стану здоров'я та витривалості - знаходяться у правому нижньому куті екрана."
+  },
+  "ls_tip_53": {
+    "eng": "The Zone has a life of its own, which means that there’s always a chance of bumping into mutants or enemy stalkers in areas that you have already cleared. ",
+    "pol": "Zona �yje swoim w�asnym �yciem, co oznacza, �e zawsze istnieje ryzyko wpadni�cia na mutanty lub wrogich stalker�w w miejscach, kt�re zosta�y ju� wyczyszczone. ",
+    "rus": "Зона живет своей жизнью. Это означает, что всегда остаётся шанс встретить мутанта или враждебно настроенного сталкера в уже зачищенном районе.",
+    "ukr": "Зона живе своїм життям. Це означає, що завжди є шанс зустріти мутанта чи ворожо налаштованого сталкера в нібито вже зачищеному районі."
+  },
+  "ls_tip_54": {
+    "eng": "Stay alert in the Zone and don’t rely on old information. When you return to an anomalous area you’ve already explored, you may find that the old tested path is no longer available.",
+    "pol": "W Zonie zachowaj czujno�� i nie polegaj na nieaktualnych informacjach. Gdy powr�cisz na zbadany wcze�niej obszar anomalii, mo�e si� okaza�, �e poprzednio sprawdzona �cie�ka nie jest ju� dost�pna.",
+    "rus": "В Зоне нельзя утрачивать бдительность и полагаться на старую информацию. Оказавшись в некой аномальной зоне снова, можно обнаружить, что её нельзя преодолеть по прежнему маршруту.",
+    "ukr": "У Зоні не можна втрачати пильність і покладатися на стару інформацію. Опинившись в якійсь аномальній зоні знову, можна виявити, що її не можна подолати за колишнім маршрутом."
+  },
+  "ls_tip_58": {
+    "eng": "Talking to regular stalkers may yield useful information about new areas or recent events.",
+    "pol": "Rozmowy ze zwyk�ymi stalkerami mog� dostarczy� ci przydatnych informacji na temat nowych teren�w i ostatnich wydarze�.",
+    "rus": "В общении с обычными сталкерами можно узнать полезную информацию о новых местах или о событиях, произошедших в последнее время.",
+    "ukr": "У спілкуванні зі звичайними сталкерами можна отримати корисну інформацію про нові місця чи про події, що сталися останнім часом."
+  },
+  "ls_tip_60": {
+    "eng": "You can use any weapon in both weapon slots. This allows you to create flexible weapon combinations, such as assault rifle/shotgun and pistol/sniper rifle.",
+    "pol": "W obu przeznaczonych do tego miejscach mo�esz umie�ci� kt�r�kolwiek z broni. Pozwala to na stworzenie dogodnej kombinacji, na przyk�ad karabinu szturmowego ze strzelb� lub pistoletu z karabinem snajperskim.",
+    "rus": "Ячейки для размещения оружия позволяют использовать любой его тип. Попробуйте подобрать наиболее удобную для себя комбинацию: автомат и дробовик, пистолет и снайперская винтовка, пулемёт и гранатомёт и т.д.",
+    "ukr": "Комірки для розміщення зброї дозволяють використовувати будь-який її тип. Спробуйте підібрати найбільш зручну для себе комбінацію: автомат і дробовик, пістолет і снайперська гвинтівка, кулемет і гранатомет тощо."
+  },
+  "ls_tip_61": {
+    "eng": "Every trader you encounter in various stalker camps offers his own, unique range of goods.  As an example, medics are bound to have the best selection of medical products.",
+    "pol": "Ka�dy handlarz, na jakiego natrafisz w r�nych obozach stalker�w, oferuje sw�j w�asny, unikalny towar. Na przyk�ad medycy na pewno b�d� mieli najlepszy wyb�r �rodk�w medycznych.",
+    "rus": "Каждый торговец в лагере сталкеров может предложить свой особенный ассортимент товаров. Скажем, самый лучший выбор медикаментов наверняка окажется у медика.",
+    "ukr": "Кожен торговець у таборі сталкерів може запропонувати свій особливий асортимент товарів. Скажімо, найкращий вибір медикаментів знайдеться, безсумнівно, в медика."
+  },
+  "ls_tip_62": {
+    "eng": "If you get to a stalker camp wounded or with radiation poisoning, you can make use of free assistance from the local medic.",
+    "pol": "Je�li dotrzesz do obozu stalker�w z ran� lub zatruciem spowodowanym promieniowaniem, mo�esz skorzysta� z darmowej pomocy miejscowego medyka.",
+    "rus": "Попав в лагерь сталкеров с облучением или раной, можно рассчитывать на бесплатную помощь со стороны здешнего медика.",
+    "ukr": "Потрапивши до табору сталкерів з опроміненням чи пораненням, можна розраховувати на безкоштовну допомогу з боку тутешнього медика."
+  },
+  "ls_tip_63": {
+    "eng": "You can leave your things in a personal box at the camp to avoid dragging around unnecessary stuff.",
+    "pol": "Mo�esz zostawi� swoje rzeczy w prywatnym schowku w obozie, aby unikn�� noszenia ze sob� niepotrzebnego sprz�tu.",
+    "rus": "Чтобы не носить с собой лишний груз, можно оставить свои вещи в личном ящике на территории лагеря. Как правило, такие ящики находятся неподалёку от мест отдыха.",
+    "ukr": "Щоб не носити із собою зайвий вантаж, можна залишити свої речі в особистому ящику на території табору. Зазвичай такі ящики знаходяться неподалік від місць відпочинку."
+  },
+  "ls_tip_64": {
+    "eng": "If you need to wait for a specific hour you can take a nap at the camp to pass the time. To do this, find the sleeping area, press \"$$ACTION_USE$$\" and choose how long you want to sleep for.",
+    "pol": "Je�li musisz poczeka� na konkretn� godzin�, mo�esz zdrzemn�� si� w obozie, by zabi� czas. �eby to zrobi�, znajd� miejsce do spania, wci�nij �$$ACTION_USE$$\" i wybierz, jak d�ugo chcesz spa�.",
+    "rus": "При необходимости скоротать время до определённого часа можно вздремнуть в лагере. Для этого найдите место для отдыха, нажмите «$$ACTION_USE$$» и выберите длительность сна.",
+    "ukr": "За необхідності вбити час до певної години можна поспати у таборі. Для цього знайдіть підходяще місце для відпочинку, натисніть «$$ACTION_USE$$» та оберіть тривалість сну."
+  },
+  "ls_tip_65": {
+    "eng": "The night vision device in your helmet can be upgraded to the next-generation version. This will expand its coverage range considerably.",
+    "pol": "Noktowizor w twoim he�mie mo�e zosta� ulepszony do wersji nowej generacji. Zwi�kszy to znacz�co zasi�g jego dzia�ania.",
+    "rus": "Базовый прибор ночного видения на шлеме можно заменить более совершенным устройством второго поколения, разрешающая способность которого значительно выше.",
+    "ukr": "Базовий прилад нічного бачення на шоломі можна замінити на більш досконалий пристрій другого покоління, роздільна здатність якого є значно вищою."
+  },
+  "ls_tip_67": {
+    "eng": "When out in the Zone, keep a couple of spare magazines on you - they’re bound to come in handy.",
+    "pol": "Gdy jeste� w Zonie, zawsze miej przy sobie kilka zapasowych magazynk�w - na pewno si� przydadz�.",
+    "rus": "В Зоне всегда лучше иметь при себе пару запасных магазинов, поскольку они могут понадобиться в любой момент.",
+    "ukr": "У Зоні завжди краще мати при собі пару запасних магазинів, оскільки вони можуть знадобитися в будь-який момент."
+  },
+  "ls_tip_68": {
+    "eng": "Remember to save your game regularly - this will prevent you from playing the same parts over and over.",
+    "pol": "Pami�taj, �eby regularnie zapisywa� stan gry - zapobiegnie to konieczno�ci przechodzenia w k�ko tych samych fragment�w.",
+    "rus": "Периодическое сохранение игры может существенно сэкономить время: в случае гибели не потребуется заново проходить те же участки пути.",
+    "ukr": "Періодичне збереження гри може істотно заощадити час - не буде потреби у повторному проходженні тих самих ділянок шляху."
+  },
+  "ls_tip_69": {
+    "eng": "To use drugs appropriately it helps to know what they do. Consult drug descriptions to find out the effects of certain drugs.",
+    "pol": "Aby prawid�owo stosowa� leki, warto zna� ich dzia�anie. Zapoznaj si� z opisami lek�w, aby dowiedzie� si�, jakie efekty powoduj�. ",
+    "rus": "Для рационального применения медикаментов необходимо знать их свойства. Внимательно изучите описание каждого из препаратов.",
+    "ukr": "Для раціонального застосування медикаментів необхідно знати їхні властивості. Уважно вивчіть опис кожного з препаратів."
+  },
+  "ls_tip_70": {
+    "eng": "Use grenades to attack enemies in cover. Keep in mind the grenade’s blast radius to avoid hurting friendly fighters.",
+    "pol": "U�yj granat�w, aby zaatakowa� przeciwnik�w b�d�cych w ukryciu. We� pod uwag� promie� ra�enia granatu, aby nie zrani� sojusznik�w.",
+    "rus": "Чтобы достать противника в укрытии, можно воспользоваться гранатой. При этом необходимо учесть радиус поражения взрывной волной и осколками, чтобы не навредить союзникам.",
+    "ukr": "Щоб дістати супротивника в укритті, можна скористатися гранатою. При цьому необхідно врахувати радіус ураження вибуховою хвилею та осколками, щоб не завдати шкоди союзникам."
+  },
+  "ls_tip_71": {
+    "eng": "To discard an item from your backpack right-click the item and select the appropriate action from the context menu.",
+    "pol": "Aby wyrzuci� przedmiot z plecaka, kliknij go prawym przyciskiem myszy i wybierz odpowiedni� czynno�� z menu podr�cznego.",
+    "rus": "Чтобы выбросить предмет из рюкзака, необходимо щёлкнуть на нужном предмете правой клавишей мыши и воспользоваться соответствующей командой в контекстном меню. Кроме того, можно просто перетащить предмет в левую часть экрана.",
+    "ukr": "Щоб викинути предмет з рюкзака, необхідно клацнути на потрібному предметі правою клавішею миші й скористатися відповідною командою в контекстному меню. Крім того, можна просто перетягнути предмет до лівої частини екрана."
+  },
+  "ls_tip_72": {
+    "eng": "You can use the special setting in the options menu to have the game save your progress automatically at key points.",
+    "pol": "Mo�esz u�y� specjalnego ustawienia w menu opcji, aby gra zapisywa�a si� automatycznie w kluczowych miejscach.",
+    "rus": "Отдельный пункт в настройках игры позволяет задействовать автоматическое сохранение игры в ключевых точках.",
+    "ukr": "Окремий пункт у налаштуваннях дозволяє задіяти автоматичне збереження гри у ключових точках."
+  },
+  "ls_tip_73": {
+    "eng": "When you return to camp you should repair your equipment, sell unneeded loot and restock on ammo and medical supplies.",
+    "pol": "Gdy wr�cisz do obozu, napraw sw�j sprz�t, sprzedaj niepotrzebne �upy i uzupe�nij zapasy amunicji i �rodk�w medycznych.",
+    "rus": "После возвращения в лагерь рекомендуется починить снаряжение, продать ненужные артефакты и пополнить запасы патронов и медикаментов.",
+    "ukr": "Після повернення до табору рекомендується полагодити спорядження, продати непотрібні артефакти та поповнити запаси патронів і медикаментів."
+  },
+  "ls_tip_75": {
+    "eng": "To reduce the harmful effects of anomalous areas during raids into the Zone, use a protective suit, artifacts, or take appropriate drugs.",
+    "pol": "Aby zmniejszy� szkodliwe dzia�anie anomalii podczas wypraw do Zony, u�ywaj kombinezonu ochronnego i artefakt�w lub za�yj odpowiednie leki.",
+    "rus": "Чтобы уменьшить вредное воздействие на организм во время вылазки в аномальные зоны, можно усовершенствовать защитный костюм, использовать протекторные свойства артефактов или применить соответствующие медицинские препараты.",
+    "ukr": "Щоб зменшити шкідливий вплив на організм під час вилазки до аномальних зон, можна вдосконалити захисний костюм, використовувати протекторні властивості артефактів або ж застосувати відповідні медичні препарати."
+  },
+  "ls_tip_77": {
+    "eng": "In addition to weapons and ammo, enemy bodies may contain valuable items like PDAs with information on them.",
+    "pol": "Opr�cz broni i amunicji, przy cia�ach wrog�w mo�esz znale�� warto�ciowe przedmioty, takie jak PDA z danymi.",
+    "rus": "Помимо боеприпасов и оружия на трупах противников можно обнаружить другие ценные предметы, например КПК с важной информацией.",
+    "ukr": "Окрім боєприпасів та зброї на трупах ворогів можна знайти інші цінні предмети, наприклад КПК із важливою інформацією."
+  },
+  "ls_tip_78": {
+    "eng": "Artifacts aren’t just valuable loot: in addition to being light and expensive, they can often have extremely useful effects.",
+    "pol": "Artefakty to nie tylko warto�ciowy �up. Poza tym, �e s� lekkie i drogie, cz�sto maj� te� bardzo u�yteczne w�a�ciwo�ci.",
+    "rus": "Артефакты - не просто ценный товар: зачастую они обладают полезными свойствами.",
+    "ukr": "Артефакти - не просто коштовний товар: найчастіше вони мають корисні властивості."
+  },
+  "ls_tip_79": {
+    "eng": "Due to the Zone’s environment, many mutants are radioactive. Approaching them without adequate radiation protection is extremely dangerous.",
+    "pol": "Z uwagi na �rodowisko panuj�ce w Zonie, wiele mutant�w jest radioaktywnych. Zbli�anie si� do nich bez odpowiedniej ochrony przed promieniowaniem jest bardzo niebezpieczne.",
+    "rus": "Многие объекты в Зоне характерны повышенным радиационным фоном, поэтому приближаться к ним без соответствующей защиты опасно.",
+    "ukr": "Багато об'єктів у Зоні характерні підвищеним радіаційним тлом, тому наближатися до них без відповідного захисту небезпечно."
+  },
+  "ls_tip_8": {
+    "eng": "You can use a bandage, a military medkit or Vinca drugs to stop bleeding. If you don’t deal with it quickly, bleeding can seriously damage your health.",
+    "pol": "Aby zatamowa� krwotok, mo�esz u�y� banda�a, wojskowej apteczki lub barwink�w. Je�li szybko sobie z nim nie poradzisz, krwawienie mo�e powa�nie uszkodzi� twoje zdrowie.",
+    "rus": "Для остановки кровотечения можно воспользоваться бинтом, армейской аптечкой или препаратом «Барвинок». Не остановленное вовремя кровотечение может нанести значительный урон организму и закончиться гибелью.",
+    "ukr": "Для зупинки кровотечі можна скористатися бинтом, армійською аптечкою або препаратом «Барвінок». Не зупинена вчасно кровотеча може завдати значної шкоди організму і скінчитися загибеллю."
+  },
+  "ls_tip_80": {
+    "eng": "Some weapons allow you to install an adjustable long-range scope.  To adjust range, press \"$$ACTION_NEXT_SLOT$$\" or \"$$ACTION_PREV_SLOT$$\".",
+    "pol": "Niekt�re bronie pozwalaj� na zainstalowanie celownika o dalekim zasi�gu. Mo�esz go regulowa� za pomoc� k�ka myszy.",
+    "rus": "Некоторые виды оружия могут оснащаться регулируемым дальномерным прицелом. Для регулировки прицельной дистанции используйте колёсико мыши.",
+    "ukr": "Деякі види зброї можуть споряджатися регульованим далекомірним прицілом. Для регулювання прицільної дистанції використовуйте коліща миші."
+  },
+  "ls_tip_82": {
+    "eng": "Some places are impossible to pass through even when crouching. To crouch as low as you can, press and hold \"$$ACTION_CROUCH$$\" and \"$$ACTION_ACCEL$$\" simultaneously.",
+    "pol": "Przez niekt�re miejsca nie mo�na przej�� nawet kucaj�c. Aby przykucn�� najni�ej, jak tylko si� da, wci�nij i przytrzymaj jednocze�nie �$$ACTION_CROUCH$$\" i �$$ACTION_ACCEL$$\".",
+    "rus": "Некоторые места не позволяют передвигаться даже в согнутом положении. Чтобы присесть как можно ниже, нажмите «$$ACTION_CROUCH$$» и «$$ACTION_ACCEL$$» одновременно. ",
+    "ukr": "Деякі місця не дозволяють пересуватися навіть у зігнутому положенні. Щоб присісти якнайнижче, натисніть «$$ACTION_CROUCH$$» і «$$ACTION_ACCEL$$» одночасно. "
+  },
+  "ls_tip_84": {
+    "eng": "To reduce your chances of being hit by enemy fire, return fire by leaning around corners. To do this hold \"$$ACTION_LLOOKOUT$$\" or \"$$ACTION_RLOOKOUT$$\".",
+    "pol": "Aby zmniejszy� prawdopodobie�stwo trafienia przez przeciwnika, prowad� wymian� ognia wychylaj�c si� zza rogu. W tym celu przytrzymaj �$$ACTION_LLOOKOUT$$\" lub �$$ACTION_RLOOKOUT$$\".",
+    "rus": "Чтобы уменьшить вероятность поражения под огнём противника, можно вести стрельбу, выглядывая из-за угла. Для этого необходимо удерживать «$$ACTION_LLOOKOUT$$» или «$$ACTION_RLOOKOUT$$».",
+    "ukr": "Щоб зменшити імовірність ураження під вогнем супротивника, можна вести стрільбу, визираючи з-за рогу. Для цього необхідно утримувати «$$ACTION_LLOOKOUT$$» або «$$ACTION_RLOOKOUT$$»."
+  },
+  "ls_tip_85": {
+    "eng": "Thanks to a built-in target location mechanism, your binoculars allow you to not only get a good look at distant objects but also locate enemies. To get your binoculars out, press \"$$ACTION_WPN_5$$\".",
+    "pol": "Dzi�ki wbudowanemu mechanizmowi namierzania celu, twoja lornetka pozwala ci nie tylko lepiej si� przyjrze� daleko po�o�onym obiektom, ale r�wnie� zlokalizowa� wrog�w. Aby wyj�� lornetk�, wci�nij �$$ACTION_WPN_5$$\".",
+    "rus": "Благодаря встроенному целеуказателю бинокль позволяет не только рассмотреть удалённые объекты, но и быстро выявить находящегося среди них противника. Чтобы использовать бинокль, нажмите «$$ACTION_WPN_5$$».",
+    "ukr": "Завдяки вбудованому цілепокажчику бінокль дозволяє не лише розглянути віддалені об'єкти, але й швидко виявити супротивника, який знаходиться серед них. Щоб використати бінокль, натисніть «$$ACTION_WPN_5$$»."
+  },
+  "ls_tip_86": {
+    "eng": "To turn your flashlight on or off, press \"$$ACTION_TORCH$$\".",
+    "pol": "Aby w��czy� lub wy��czy� latark�, wci�nij �$$ACTION_TORCH$$\".",
+    "rus": "Чтобы включить или выключить фонарик, нажмите «$$ACTION_TORCH$$».",
+    "ukr": "Щоб включити або виключити ліхтарик, натисніть «$$ACTION_TORCH$$»."
+  },
+  "ls_tip_87": {
+    "eng": "To get your bolt out, press \"$$ACTION_WPN_6$$\".",
+    "pol": "Aby wyj�� �rub�, wci�nij �$$ACTION_WPN_6$$\".",
+    "rus": "Чтобы приготовить к броску болт, нажмите «$$ACTION_WPN_6$$».",
+    "ukr": "Щоб приготувати до кидка болт, натисніть «$$ACTION_WPN_6$$»."
+  },
+  "ls_tip_88": {
+    "eng": "If you have a night vision device built into your helmet, you can activate and deactivate it by pressing \"$$ACTION_NIGHT_VISION$$\".",
+    "pol": "Je�eli masz noktowizor przy swoim he�mie, mo�esz go w��cza� i wy��cza� wciskaj�c �$$ACTION_NIGHT_VISION$$�.",
+    "rus": "Включить и отключить встроенный в шлем прибор ночного видения можно, нажав «$$ACTION_NIGHT_VISION$$».",
+    "ukr": "Включити й відключити вбудований до шолома прилад нічного бачення можна, натиснувши «$$ACTION_NIGHT_VISION$$»."
+  },
+  "ls_tip_89": {
+    "eng": "Press \"$$ACTION_QUICK_USE_1$$\", \"$$ACTION_QUICK_USE_2$$\", \"$$ACTION_QUICK_USE_3$$\", \"$$ACTION_QUICK_USE_4$$\" to use the appropriate item in your quick access panel.",
+    "pol": "Wci�nij �$$ACTION_QUICK_USE_1$$\", �$$ACTION_QUICK_USE_2$$\", �$$ACTION_QUICK_USE_3$$\", �$$ACTION_QUICK_USE_4$$\", aby u�y� odpowiedniego przedmiotu ze swojego panelu szybkiego dost�pu.",
+    "rus": "Нажатие «$$ACTION_QUICK_USE_1$$», «$$ACTION_QUICK_USE_2$$», «$$ACTION_QUICK_USE_3$$» или «$$ACTION_QUICK_USE_4$$» позволяет использовать соответствующий предмет на панели быстрого доступа.",
+    "ukr": "Натискання «$$ACTION_QUICK_USE_1$$», «$$ACTION_QUICK_USE_2$$», «$$ACTION_QUICK_USE_3$$» або «$$ACTION_QUICK_USE_4$$» дозволяє використати відповідний предмет на панелі швидкого доступу."
+  },
+  "ls_tip_9": {
+    "eng": "Drugs don’t take effect immediately and some last for quite a long time.",
+    "pol": "Leki nie zaczynaj� dzia�a� natychmiastowo, a efekt dzia�ania niekt�rych z nich utrzymuje si� do�� d�ugo.",
+    "rus": "Эффект от приёма медикаментов не является мгновенным, а некоторые препараты отличаются весьма продолжительным действием. При этом эффект препарата, принятого последним, перекрывает аналогичные эффекты от принятых ранее веществ.",
+    "ukr": "Ефект від прийому медикаментів не є миттєвим, а деякі препарати відзначаються доволі тривкою дією. При цьому ефект препарату, прийнятого останнім, перекриває аналогічні ефекти від прийнятих раніше речовин."
+  },
+  "ls_tip_90": {
+    "eng": "Your PDA has a map, information about current missions, your personal statistics and a message log. To open your PDA, press \"$$ACTION_ACTIVE_JOBS$$\".",
+    "pol": "W twoim PDA przechowywana jest mapa, informacje na temat bie��cych misji, prywatne statystyki oraz rejestr wiadomo�ci. Aby otworzy� PDA, wci�nij �$$ACTION_ACTIVE_JOBS$$\".",
+    "rus": "В КПК хранятся карта местности, информация о текущих заданиях, личная статистика и история сообщений. Для активации КПК нажмите «$$ACTION_ACTIVE_JOBS$$».",
+    "ukr": "У КПК зберігаються мапа місцевості, інформація про поточні завдання, особиста статистика та історія повідомлень. Для активації КПК натисніть «$$ACTION_ACTIVE_JOBS$$»."
+  },
+  "ls_tip_91": {
+    "eng": "You need to get your detector out to search for artifacts. To do this, press \"$$ACTION_SHOW_DETECTOR$$\".",
+    "pol": "�eby m�c szuka� artefakt�w, musisz wyj�� detektor. Aby to zrobi�, wci�nij �$$ACTION_SHOW_DETECTOR$$\".",
+    "rus": "Для поиска артефактов необходимо достать детектор. Чтобы сделать это, нажмите «$$ACTION_SHOW_DETECTOR$$».",
+    "ukr": "Для пошуку артефактів необхідно дістати детектор. Щоб зробити це, натисніть «$$ACTION_SHOW_DETECTOR$$»."
+  },
+  "ls_tip_92": {
+    "eng": "To pause the game, press \"$$ACTION_PAUSE$$\".",
+    "pol": "Aby w��czy� pauz�, wci�nij �$$ACTION_PAUSE$$\".",
+    "rus": "Чтобы приостановить игру, нажмите «$$ACTION_PAUSE$$».",
+    "ukr": "Щоб призупинити гру, натисніть «$$ACTION_PAUSE$$»."
+  },
+  "ls_tip_93": {
+    "eng": "To quicksave, press \"$$ACTION_QUICK_SAVE$$\". Press \"$$ACTION_QUICK_LOAD$$\" to quickload the last quicksave.",
+    "pol": "Aby skorzysta� z szybkiego zapisu, wci�nij �$$ACTION_QUICK_SAVE$$\". Wci�nij �$$ACTION_QUICK_LOAD$$\", aby szybko wczyta� ostatni szybki zapis.",
+    "rus": "Быстрое сохранение происходит при нажатии «$$ACTION_QUICK_SAVE$$». Загрузка последнего сохранения - при нажатии «$$ACTION_QUICK_LOAD$$».",
+    "ukr": "Швидке збереження відбувається за натискання «$$ACTION_QUICK_SAVE$$». Завантаження останнього збереження - за натискання «$$ACTION_QUICK_LOAD$$»."
+  },
+  "ls_tip_94": {
+    "eng": "Running is the fastest way of moving, but also the most tiring. Press \"$$ACTION_SPRINT_TOGGLE$$\" to run.",
+    "pol": "Sprint to najszybszy spos�b poruszania si�, ale r�wnie� najbardziej m�cz�cy. Wci�nij �$$ACTION_SPRINT_TOGGLE$$�, aby pobiec sprintem.",
+    "rus": "Бег - самый быстрый вид перемещения, хотя и приводит к быстрой утрате запаса сил. Для перехода к этому виду передвижения нажмите «$$ACTION_SPRINT_TOGGLE$$».",
+    "ukr": "Біг - найшвидший вид переміщення, хоча й призводить до швидкої втрати запасу сил. Для переходу до цього виду пересування натисніть «$$ACTION_SPRINT_TOGGLE$$»."
+  },
+  "ls_tip_95": {
+    "eng": "Firing while aiming is far more accurate than firing from the hip. To aim, press \"$$ACTION_WPN_ZOOM$$\".",
+    "pol": "Strzelanie z celownikiem jest du�o dok�adniejsze ni� strzelanie z biodra. Aby w��czy� celownik, wci�nij �$$ACTION_WPN_ZOOM$$\".",
+    "rus": "В режиме прицеливания пули ложатся в цель гораздо точнее, чем при стрельбе навскидку. Для использования прицела нажмите «$$ACTION_WPN_ZOOM$$».",
+    "ukr": "У режимі прицілювання кулі лягають у ціль набагато точніше, ніж за стрільби навскидь. Для використання прицілу натисніть «$$ACTION_WPN_ZOOM$$»."
+  },
+  "ls_tip_96": {
+    "eng": "If you have an underbarrel grenade launcher, you can switch between it and the normal firing mode by pressing \"$$ACTION_WPN_FUNC$$\".",
+    "pol": "Je�li masz granatnik podwieszany, mo�esz si� prze��cza� pomi�dzy nim i standardowym trybem strza�u wciskaj�c �$$ACTION_WPN_FUNC$$\".",
+    "rus": "При наличии на оружии подствольного гранатомёта переключение между режимами стрельбы «автомат» и «гранатомёт» осуществляется нажатием «$$ACTION_WPN_FUNC$$».",
+    "ukr": "За наявності на зброї підствольного гранатомета переключення між режимами стрільби «автомат» і «гранатомет» здійснюється натисканням «$$ACTION_WPN_FUNC$$»."
+  },
+  "ls_tip_97": {
+    "eng": "If you have several types of ammo for your current weapon, you can switch between them by pressing \"$$ACTION_WPN_NEXT$$\".",
+    "pol": "Je�li masz kilka rodzaj�w amunicji do u�ywanej obecnie broni, mo�esz prze��cza� si� pomi�dzy nimi wciskaj�c �$$ACTION_WPN_NEXT$$\".",
+    "rus": "При наличии нескольких видов патронов для текущего оружия нужный вид выбирается нажатием «$$ACTION_WPN_NEXT$$».",
+    "ukr": "За наявності кількох видів патронів для поточної зброї потрібний вид обирається натисканням «$$ACTION_WPN_NEXT$$»."
+  },
+  "ls_tip_98": {
+    "eng": "To reload your weapon before your magazine is empty, press \"$$ACTION_WPN_RELOAD$$\".",
+    "pol": "Aby prze�adowa� bro�, zanim magazynek b�dzie pusty, wci�nij �$$ACTION_WPN_RELOAD$$\".",
+    "rus": "Чтобы перезарядить оружие до полного израсходования патронов в магазине, нажмите «$$ACTION_WPN_RELOAD$$».",
+    "ukr": "Щоби перезарядити зброю до повного використання патронів у магазині, натисніть «$$ACTION_WPN_RELOAD$$»."
+  },
+  "ls_tip_99": {
+    "eng": "To discard your current weapon, press \"$$ACTION_DROP$$\".",
+    "pol": "Aby wyrzuci� u�ywan� obecnie bro�, wci�nij �$$ACTION_DROP$$\".",
+    "rus": "Чтобы выбросить текущее оружие, нажмите «$$ACTION_DROP$$».",
+    "ukr": "Щоб випустити зброю з рук, натисніть «$$ACTION_DROP$$»."
+  },
+  "ls_tip_6": {
+    "eng": "To wait out an emission, take cover in a reliable building or underground. When an emission is approaching, the nearest cover will be marked on your PDA.",
+    "pol": "Aby przeczeka� emisj�, schro� si� w solidnym budynku lub pod ziemi�. Gdy emisja b�dzie si� zbli�a�, najbli�sze schronienie b�dzie zaznaczone na twoim PDA.",
+    "rus": "Безопасно переждать выброс можно в надёжном строении либо под землёй. При приближении выброса расположение ближайшего укрытия будет отображено в КПК.",
+    "ukr": "Безпечно перечекати викид можна у надійній будівлі або під землею. За наближення викиду розташування найближчого укриття буде відображене у КПК."
+  },
+  "ls_tip_12": {
+    "eng": "To use an item via the quick access slot, drag it from your backpack to one of the four slots above the artifact containers.",
+    "pol": "Aby u�y� przedmiotu przy pomocy okienka szybkiego dost�pu, przeci�gnij go ze swojego plecaka do jednego z okienek nad pojemnikami na artefakty.",
+    "rus": "Для быстрого использования предмета нужно перетащить его из содержимого рюкзака в одну из четырех ячеек быстрого доступа.",
+    "ukr": "Для швидкого використання предмета потрібно перетягнути його із вмісту рюкзака до однієї з чотирьох комірок швидкого доступу."
+  },
+  "ls_tip_24": {
+    "eng": "The blood drop symbol in the bottom right-hand corner of the screen warns you of bleeding and the need to stop it. The color of the symbol indicates how serious the bleeding is.",
+    "pol": "Znak kropli krwi w prawym dolnym rogu ekranu informuje ci� o krwotoku i konieczno�ci jego zatamowania. Kolor znaku pokazuje, jak powa�ny jest krwotok.",
+    "rus": "Символ в виде капли крови в правом нижнем углу экрана предупреждает о неостановленном кровотечении. Цвет символа указывает на интенсивность кровотечения.",
+    "ukr": "Символ у вигляді краплі крові у правому нижньому куті екрана попереджає про наявність кровотечі. Колір символу вказує на інтенсивність кровотечі."
+  },
+  "ls_tip_25": {
+    "eng": "A radiation danger symbol in the bottom right-hand corner of the screen will warn you that you have been exposed to radiation. When this happens, you should use anti-radiation meds. The color of the symbol indicates how badly exposed you are.",
+    "pol": "Symbol zagro�enia promieniowaniem w prawym dolnym rogu ekranu ostrzega o napromieniowaniu organizmu. Gdy go zobaczysz, musisz za�y� leki przeciwpromienne. Kolor symbolu pokazuje, jak wysoki jest poziom napromieniowania.",
+    "rus": "Символ радиационной опасности в правом нижнем углу экрана предупреждает о радиационном облучении организма. Цвет символа указывает на интенсивность облучения.",
+    "ukr": "Символ радіаційної небезпеки у правому нижньому куті екрана попереджає про радіаційне опромінення організму. Колір символу вказує на інтенсивність опромінення."
+  },
+  "ls_tip_4": {
+    "eng": "You can hide and show different markers on the map in your PDA using filters. Filter buttons are located above the map, under the current mission line.",
+    "pol": "Przy pomocy filtr�w mo�esz ukrywa� i wy�wietla� r�ne rodzaje oznacze� na swoim PDA. Przyciski filtr�w znajduj� si� ponad map�, pod nazw� bie��cej misji.",
+    "rus": "При помощи фильтров в КПК можно скрывать и отображать различные типы отметок на карте. Кнопки управления фильтрами расположены между изображением карты и строкой активного задания.",
+    "ukr": "За допомогою фільтрів у КПК можна приховувати й відображати різні типи оцінок на мапі. Кнопки керування фільтрами розташовані між зображенням мапи та рядком активного завдання."
+  },
+  "ls_tip_55": {
+    "eng": "Artifacts are not usually static: they tend to move within an anomalous area. Gun ho attempts to chase down an artifact will lead you into an anomaly in no time.",
+    "pol": "Artefakty zazwyczaj nie s� statyczne: maj� tendencj� do poruszania si� w obr�bie anomalii. Szalone pr�by pogoni za artefaktami w mgnieniu oka wpakuj� ci� na anomali�.",
+    "rus": "Обычно артефакты не статичны и постепенно передвигаются внутри аномальных зон. В результате бездумного следования за артефактом можно легко попасть в аномалию.",
+    "ukr": "Зазвичай артефакти не є статичними і поступово пересуваються всередині аномальних зон. У результаті бездумного проходження за артефактом можна легко трапити до аномалії."
+  },
+  "ls_tip_57": {
+    "eng": "Some stalkers may offer you services, such as information, exclusive goods, or give you orders for specific artifacts.",
+    "pol": "Niekt�rzy stalkerzy mog� mie� ci do zaoferowania informacje czy wyj�tkowe towary. Mog� te� na przyk�ad zleci� ci dostarczenie im konkretnych artefakt�w.",
+    "rus": "Некоторые сталкеры могут предложить на продажу информацию, уникальный товар или предоставить заказ на конкретный артефакт.",
+    "ukr": "Деякі сталкери можуть запропонувати на продаж інформацію, унікальний товар або ж надати замовлення на конкретний артефакт."
+  },
+  "ls_tip_59": {
+    "eng": "New artifacts may appear in anomalous areas that you’ve already explored after an emission.",
+    "pol": "Po emisji, na przeszukanych ju� wcze�niej obszarach anomalii mog� si� pojawi� nowe artefakty.",
+    "rus": "После выброса в уже исследованных районах могут появиться новые артефакты.",
+    "ukr": "Після викиду в уже досліджених районах можуть з'явитися нові артефакти."
+  },
+  "ls_tip_74": {
+    "eng": "You can change the game difficulty in the game options menu at any time.",
+    "pol": "W ka�dej chwili mo�esz zmieni� poziom trudno�ci gry w menu opcji.",
+    "rus": "Степень сложности игры можно в любой момент откорректировать в настройках.",
+    "ukr": "Ступінь складності гри можна у будь-який момент відкоригувати в налаштуваннях."
+  },
+  "ls_tip_2": {
+    "eng": "Technicians in stalker camps can upgrade your weapons, suits and helmets.",
+    "pol": "Technicy w obozach stalker�w mog� ulepszy� twoje bronie, kombinezony i he�my.",
+    "rus": "Свойства оружия, защитного костюма или шлема можно улучшить у техников в лагерях сталкеров.",
+    "ukr": "Властивості зброї, захисного костюму чи шолома можна поліпшити в техніків у таборах сталкерів."
+  },
+  "ls_tip_66": {
+    "eng": "If you want to survive, always keep track of the crackling noise made by the Geiger counter, which warns you of radiation, and the anomaly danger signal that lets you know you’re close to an anomaly.",
+    "pol": "Je�li chcesz przetrwa�, zawsze zwracaj uwag� na trzeszcz�ce d�wi�ki wydawane przez tw�j licznik Geigera, kt�re ostrzegaj� ci� przed promieniowaniem, oraz na sygna�y o zagro�eniu ze strony anomalii, informuj�ce, �e jeste� blisko jednej z nich.",
+    "rus": "Обращайте внимание на треск счётчика Гейгера - он сигнализирует о радиационном излучении. Реагируйте и на сигнал аномальной опасности, который начинает звучать вблизи от аномалии.",
+    "ukr": "Звертайте увагу на тріск лічильника Гейгера - він сигналізує про радіаційне випромінювання. Реагуйте і на сигнал аномальної небезпеки, що починає звучати поблизу від аномалії."
+  },
+  "ls_tip_26": {
+    "eng": "Your relations with people directly affect the price of goods and services you may wish to purchase. If your relationship is sour, don’t expect a discount. If you’re getting along well, the trader might even be inclined to offer you something special.",
+    "pol": "Twoje stosunki z lud�mi bezpo�rednio wp�ywaj� na cen� oferowanych przez nich towar�w i us�ug. Je�li twoje stosunki s� z�e, nie licz na zni�k�. Je�li dogadujesz si� nie�le, handlarz mo�e nawet zaoferowa� ci co� specjalnego.",
+    "rus": "Взаимоотношения с окружающими напрямую влияют на цену предлагаемых ими товаров и услуг. При плохих отношениях не стоит надеяться на скидки; хорошие отношения, наоборот, подтолкнут торговца предложить на продажу уникальный товар.",
+    "ukr": "Взаємини із людьми прямо впливають на ціну пропонованих ними товарів та послуг. За поганих відносин не варто сподіватися на знижки; гарні відносини, навпаки, заохотять торговця запропонувати на продаж унікальний товар."
+  },
+  "ls_tip_11": {
+    "eng": "You can unload the weapons you find to get more ammo. To do this, right-click on the weapon in your backpack and select the appropriate action from the context menu.",
+    "pol": "Mo�esz roz�adowa� znalezion� bro� w celu uzupe�nienia amunicji. Aby to zrobi�, kliknij prawym przyciskiem myszy dan� bro� w swoim plecaku i wybierz odpowiedni� czynno�� z menu podr�cznego.",
+    "rus": "Чтобы пополнить запасы патронов, разряжайте найденное оружие. Для этого необходимо щёлкнуть правой клавишей мыши на изображении оружия в рюкзаке, а затем выбрать соответствующую команду в контекстном меню.",
+    "ukr": "Щоби поповнити запаси патронів, розряджайте знайдену зброю. Для цього необхідно клацнути правою клавішею миші на зображенні зброї в рюкзаку, а потім обрати відповідну команду в контекстному меню."
+  },
+  "ls_mp_tip_1": {
+    "eng": "Killing enemies and acquiring artifacts earns you points required to increase your rank. When your rank increases, you will gain access to new weapons, armor and equipment.",
+    "pol": "Zabijanie wrog�w i zbieranie artefakt�w przynosi ci punkty potrzebne, by awansowa� na wy�sz� rang�. Wraz ze wzrostem rangi, dostaniesz dost�p do nowych broni, pancerzy i wyposa�enia.",
+    "rus": "За убийство противников и добычу артефактов начисляются очки, необходимые для рангового роста. По достижении очередного ранга становятся доступными новые оружие, броня и снаряжение.",
+    "ukr": "За убитих ворогів та знайдені артефакти нараховуються очки, необхідні для рангового зростання. Після досягнення чергового рангу стають доступними нові зброя, броня та спорядження."
+  },
+  "ls_mp_tip_11": {
+    "eng": "Smoke grenades are used to steal the artifact or create cover.",
+    "pol": "Granat�w dymnych u�ywa si�, by ukra�� artefakt lub ukry� si� przed wrogiem.",
+    "rus": "Дымовые гранаты могут быть использованы для скрытного похищения артефакта или для маскировки бойцов от глаз противника.",
+    "ukr": "Димові гранати можуть бути використані для прихованого викрадення артефакту або ж для маскування бійців від очей супротивника."
+  },
+  "ls_mp_tip_13": {
+    "eng": "The left part of the buy menu contains five tabs, from the top down: pistols, main weapons, equipment, ammunition and medical supplies. Selecting the required tab shows you the range of items available at your rank.",
+    "pol": "Lewa cz�� menu handlu zawiera pi�� zak�adek. Od g�ry do do�u: pistolety, bro� podstawowa, amunicja, pancerze oraz �rodki medyczne wraz z dodatkowym wyposa�eniem. Po wybraniu ��danej zak�adki zobaczysz przedmioty dost�pne przy twojej randze.",
+    "rus": "В левой части меню покупок находятся пять закладок: пистолеты, основное оружие, снаряжение, боеприпасы, медикаменты. Выбор нужной закладки демонстрирует ассортимент, доступный для текущего игрового ранга.",
+    "ukr": "У лівій частині меню закупівель знаходяться п'ять закладок: пістолети, основна зброя, спорядження, боєприпаси, медикаменти. Вибір потрібної закладки демонструє асортимент, доступний для поточного ігрового рангу."
+  },
+  "ls_mp_tip_14": {
+    "eng": "The buy menu on the right-hand side of the screen contains four quick buy slots. Pressing the disk icon saves the loadout, while pressing the relevant number will load that loadout. The fourth slot is used to automatically save the last loadout purchased.",
+    "pol": "Prawa cz�� menu handlu zawiera cztery okienka szybkiego kupowania. Wci�ni�cie ikonki dyskietki zapisuje aktualny zestaw. Mo�na go wczyta�, wciskaj�c odpowiedni numer. W czwartym okienku automatycznie zapisywany jest ostatnio zakupiony zestaw.",
+    "rus": "В меню покупок в правой части экрана размещены четыре слота быстрой закупки. Нажатие на изображение дискеты сохраняет текущий набор оружия и снаряжения, а нажатие соответствующего номера - загружает его. В четвертом слоте автоматически сохраняется последний купленный набор.",
+    "ukr": "У правій частині меню покупок розміщено чотири слота швидкої закупівлі. Натискання на зображення дискети зберігає поточний набір спорядження, а на відповідний номер - завантажує його. У четвертому слоті автоматично зберігається останній придбаний набір."
+  },
+  "ls_mp_tip_15": {
+    "eng": "If you have more than one weapon, you can switch between them by repeatedly pressing \"$$ACTION_WPN_3$$\".",
+    "pol": "Je�li masz wi�cej ni� jedn� bro�, mo�esz prze��cza� si� mi�dzy nimi, wciskaj�c na przemian �$$ACTION_WPN_2$$\" albo �$$ACTION_WPN_3$$\".",
+    "rus": "При наличии нескольких единиц оружия переключаться между ними можно повторным нажатием «$$ACTION_WPN_2$$» или «$$ACTION_WPN_3$$».",
+    "ukr": "За наявності більш ніж одного виду зброї переключатися між ними можна повторним натисканням «$$ACTION_WPN_2$$» або «$$ACTION_WPN_3$$»."
+  },
+  "ls_mp_tip_17": {
+    "eng": "An artifact can be activated to create an anomaly. To do this take the artifact out by pressing \"$$ACTION_ARTEFACT$$\" and holding \"$$ACTION_WPN_FIRE$$\". The anomaly which appears is equally dangerous to enemies and the player who created it.",
+    "pol": "Aby aktywowa� artefakt w celu utworzenia anomalii, wyci�gnij go, wciskaj�c �$$ACTION_ARTEFACT$$\" i przytrzymuj�c �$$ACTION_WPN_FIRE$$\". Powsta�a anomalia jest niebezpieczna zar�wno dla przeciwnik�w, jak i dla gracza, kt�ry j� stworzy�.",
+    "rus": "Артефакт можно активировать, создав на его месте аномалию. Для этого необходимо извлечь артефакт, нажав «$$ACTION_ARTEFACT$$», а затем нажать «$$ACTION_WPN_FIRE$$». Образовавшаяся аномалия представляет опасность не только для противников, но и для самого создателя и представителей его команды.",
+    "ukr": "Артефакт можна активувати, створивши аномалію. Для цього необхідно витягти артефакт, натиснувши «$$ACTION_ARTEFACT$$», і зажати «$$ACTION_WPN_FIRE$$». Пам'ятайте, що аномалія становить небезпеку як для супротивників, так і для самого творця."
+  },
+  "ls_mp_tip_18": {
+    "eng": "A scientific suit will help you survive in anomalies and radioactive areas.",
+    "pol": "Kombinezon naukowca pomo�e ci przetrwa� w anomaliach i obszarach radioaktywnych.",
+    "rus": "Комбинезон «СЕВА» поможет выжить в аномалии или зоне радиоактивного заражения.",
+    "ukr": "Комбінезон «СЕВА» допоможе вижити в аномалії або зоні радіоактивного зараження."
+  },
+  "ls_mp_tip_2": {
+    "eng": "ARTIFACT HUNT: In order to win, you must bring a certain number of artifacts to your base.",
+    "pol": "POLOWANIE NA ARTEFAKTY: Aby wygra�, musisz przynie�� do swojej bazy okre�lon� liczb� artefakt�w.",
+    "rus": "«ОХОТА ЗА АРТЕФАКТОМ»: Чтобы выиграть, необходимо доставить на свою базу определённое количество артефактов.",
+    "ukr": "«ПОЛЮВАННЯ ЗА АРТЕФАКТОМ»: Щоб виграти, необхідно доставити на свою базу певну кількість артефактів."
+  },
+  "ls_mp_tip_20": {
+    "eng": "To detach a silencer, scope or underbarrel grenade launcher from your weapon, right-click on the weapon in your backpack and select the appropriate action from the context menu.",
+    "pol": "Aby zdemontowa� t�umik, celownik lub podwieszany granatnik ze swojej broni, kliknij prawym przyciskiem myszy dan� bro� w swoim plecaku i wybierz odpowiednie polecenie z menu podr�cznego.",
+    "rus": "Чтобы отсоединить установленные на оружии глушитель, оптический прицел или подствольный гранатомёт, необходимо щёлкнуть правой кнопкой мыши на изображении оружия в содержимом рюкзака и воспользоваться соответствующей командой в контекстном меню.",
+    "ukr": "Щоб від'єднати встановлені на зброї глушник, оптичний приціл чи підствольний гранатомет, необхідно клацнути правою кнопкою миші на зображенні зброї у вмісті рюкзака та скористатися відповідною командою в контекстному меню."
+  },
+  "ls_mp_tip_22": {
+    "eng": "If you want to move with minimal noise, press \"$$ACTION_ACCEL$$\" to walk or \"$$ACTION_CROUCH$$\" to crouch.",
+    "pol": "Je�li chcesz si� porusza� najciszej, jak to tylko mo�liwe, wci�nij �$$ACTION_ACCEL$$\" aby chodzi� lub �$$ACTION_CROUCH$$\" aby kucn��.",
+    "rus": "Чтобы не издавать лишнего шума, можно передвигаться шагом, нажав «$$ACTION_ACCEL$$», или присев, нажав «$$ACTION_CROUCH$$».",
+    "ukr": "Аби не видавати зайвого шуму, можна пересуватися кроком, натиснувши «$$ACTION_ACCEL$$», або навприсяд, натиснувши «$$ACTION_CROUCH$$»."
+  },
+  "ls_mp_tip_23": {
+    "eng": "Shotguns are close-combat weapons. The further your enemy is from you, the less effective they are.",
+    "pol": "Strzelba to bro� na kr�tkie dystanse. Im dalej od ciebie znajduje si� przeciwnik, tym mniej jest skuteczna.",
+    "rus": "Дробовик - оружие малых дистанций: чем дальше находится цель, тем менее эффективным будет его использование.",
+    "ukr": "Дробовик працює на малих дистанціях: чим далі знаходиться ціль, тим менш ефективним буде використання цієї зброї."
+  },
+  "ls_mp_tip_24": {
+    "eng": "When taking cover from small arms fire, make sure to get behind something solid. Unlike concrete walls, wooden boards and sheet metal don't make for very safe cover.",
+    "pol": "Szukaj�c schronienia przed ostrza�em, upewnij si�, �e chowasz si� za czym� wytrzyma�ym. Deski i blacha, w przeciwie�stwie do betonowej �ciany, nie zapewni� ci zbyt bezpiecznej kryj�wki.",
+    "rus": "Выбирая укрытие от пуль, необходимо учитывать материал преграды. Деревянная доска или тонкий листовой металл не обеспечат надёжной защиты - в отличие от железобетонной стены.",
+    "ukr": "Обираючи укриття від куль, необхідно враховувати матеріал перешкоди. Дерев'яна дошка чи тонкий листовий метал не забезпечать надійного захисту - на відміну від, скажімо, залізобетонної стіни."
+  },
+  "ls_mp_tip_26": {
+    "eng": "Headshots do critical damage and are fatal for most enemies.",
+    "pol": "Strza�y w g�ow� zadaj� krytyczne obra�enia i dla wi�kszo�ci wrog�w s� �miertelne.",
+    "rus": "Прямое попадание пули в голову является смертельным для большинства противников.",
+    "ukr": "Пряме влучення кулі в голову є смертельним для більшості супротивників."
+  },
+  "ls_mp_tip_27": {
+    "eng": "Accelerated movement, jumping and wounds significantly reduce your endurance.",
+    "pol": "Szybkie poruszanie, skakanie i rany znacz�co obni�aj� twoj� wytrzyma�o��.",
+    "rus": "Быстрое передвижение и прыжки, а также ранения существенно уменьшают запас сил.",
+    "ukr": "Прискорене пересування, стрибки та поранення істотно зменшують витривалість."
+  },
+  "ls_mp_tip_28": {
+    "eng": "You can adjust how far you throw a grenade by holding \"$$ACTION_WPN_ZOOM$$\".",
+    "pol": "Mo�esz ustawi� odleg�o��, na jak� rzucisz granat, przytrzymuj�c �$$ACTION_WPN_ZOOM$$\".",
+    "rus": "Силу броска гранаты можно регулировать, удерживая «$$ACTION_WPN_ZOOM$$».",
+    "ukr": "Дистанцію кидка гранати можна регулювати, утримуючи «$$ACTION_WPN_ZOOM$$»."
+  },
+  "ls_mp_tip_29": {
+    "eng": "Enemies can and will use grenades. When you see the grenade indicator, leave the kill zone immediately.",
+    "pol": "Przeciwnicy mog� i b�d� u�ywa� granat�w. Gdy zobaczysz symbol granatu, opu�� natychmiast potencjaln� stref� wybuchu.",
+    "rus": "Противники могут - и будут - активно использовать гранаты. Заметив на экране символ гранаты, немедленно покиньте предполагаемую зону поражения осколками.",
+    "ukr": "Вороги можуть активно використовувати гранати - і використовуватимуть. Помітивши на екрані символ гранати, негайно залишіть ймовірну зону ураження."
+  },
+  "ls_mp_tip_3": {
+    "eng": "DEATHMATCH: Get the most kill points to win.",
+    "pol": "WSZYSCY PRZECIWKO WSZYSTKIM: Aby wygra�, musisz zdoby� najwi�ksz� liczb� punkt�w za zabicia.",
+    "rus": "«СМЕРТЕЛЬНЫЙ МАТЧ»: Чтобы выиграть, необходимо набрать наибольшее количество очков за убийства.",
+    "ukr": "«СМЕРТЕЛЬНИЙ МАТЧ»: Щоб виграти, необхідно набрати найбільшу кількість очок за вбивства."
+  },
+  "ls_mp_tip_30": {
+    "eng": "Speeding up before you jump allows you to leap over big gaps and cracks.",
+    "pol": "Rozbieg przed skokiem pozwala na pokonanie du�ych dziur i szczelin.",
+    "rus": "Используя прыжок с разбега, можно преодолевать большие ямы и трещины.",
+    "ukr": "Використовуючи стрибок з розбігу, можна долати великі ями й тріщини."
+  },
+  "ls_mp_tip_31": {
+    "eng": "Key indicators that show your health and endurance are located in the bottom right-hand corner of the screen.",
+    "pol": "Kluczowe wska�niki pokazuj�ce zdrowie i wytrzyma�o�� znajduj� si� w prawym dolnym rogu ekranu.",
+    "rus": "Ключевые индикаторы - состояния здоровья и выносливости - находятся в правом нижнем углу экрана.",
+    "ukr": "Ключові індикатори - стану здоров'я та витривалості - знаходяться у правому нижньому куті екрана."
+  },
+  "ls_mp_tip_35": {
+    "eng": "The minimap shows the direction of the artifact. If the arrow is pointing up, the artifact is above your current position; if the arrow is pointing down, it is below you.",
+    "pol": "Minimapa pokazuje, z kt�rej strony znajduje si� artefakt. Je�eli strza�ka wskazuje w g�r�, artefakt znajduje si� nad twoja obecn� pozycj�. Je�eli strza�ka wskazuje w d�, znajduje si� on poni�ej twojej obecnej pozycji.",
+    "rus": "На мини-карте схематично отображена позиция артефакта относительно игрока. Если стрелка указывает вверх - артефакт находится выше позиции игрока, если вниз - соответственно, ниже.",
+    "ukr": "На міні-карті схематично відображено позицію артефакту щодо гравця. Якщо стрілка вказує нагору - артефакт знаходиться на північ позиції гравця, якщо вниз - на південь."
+  },
+  "ls_mp_tip_36": {
+    "eng": "You can collect enemy backpacks to gain additional cash. Excess equipment can be sold at the base.",
+    "pol": "Mo�esz zabiera� plecaki swoich przeciwnik�w, aby zdoby� dodatkow� got�wk�. Nadwy�k� sprz�tu mo�esz sprzeda� w bazie.",
+    "rus": "Можно подбирать рюкзаки убитых, чтобы заработать дополнительные деньги. Излишки подобранного снаряжения можно продать на базе.",
+    "ukr": "Є сенс підбирати рюкзаки вбитих, аби заробити додаткові гроші: надлишки підібраного спорядження можна продати на базі."
+  },
+  "ls_mp_tip_37": {
+    "eng": "You should cover the artifact-carrying member of your team at all costs.",
+    "pol": "Musisz za wszelk� cen� ochrania� cz�onka swojej dru�yny, kt�ry niesie artefakt.",
+    "rus": "Союзника, который несёт артефакт, нужно прикрывать любой ценой.",
+    "ukr": "Союзника, який несе артефакт, слід прикривати за будь-яку ціну."
+  },
+  "ls_mp_tip_38": {
+    "eng": "Use grenades to attack enemies in cover. Keep in mind the grenade’s blast radius to avoid hurting friendly fighters.",
+    "pol": "U�yj granat�w, aby zaatakowa� przeciwnik�w b�d�cych w ukryciu. We� pod uwag� promie� ra�enia granatu, aby nie zrani� swoich sojusznik�w.",
+    "rus": "Чтобы достать противника в укрытии, можно воспользоваться гранатой. При этом необходимо учесть радиус поражения взрывной волной и осколками, чтобы случайно не поразить союзника.",
+    "ukr": "Щоб дістати супротивника в укритті, можна скористатися гранатою. При цьому необхідно врахувати радіус ураження вибуховою хвилею та осколками, щоб випадково не зачепити союзника."
+  },
+  "ls_mp_tip_39": {
+    "eng": "You can communicate with your team using voice messages. To access the voice message menu, press \"$$ACTION_SPEECH_MENU_0$$\" or \"$$ACTION_SPEECH_MENU_1$$\".",
+    "pol": "Mo�esz komunikowa� si� z dru�yn� przy pomocy wiadomo�ci g�osowych. Aby wej�� do menu wiadomo�ci g�osowych, wci�nij �$$ACTION_SPEECH_MENU_0$$\" lub �$$ACTION_SPEECH_MENU_1$$\".",
+    "rus": "Постоянную связь со своей командой можно поддерживать при помощи голосовых сообщений. Меню сообщений вызывается нажатием «$$ACTION_SPEECH_MENU_0$$» или «$$ACTION_SPEECH_MENU_1$$».",
+    "ukr": "Постійний зв'язок зі своєю командою можна підтримувати за допомогою голосових повідомлень. Меню повідомлень викликається натисканням «$$ACTION_SPEECH_MENU_0$$» або «$$ACTION_SPEECH_MENU_1$$»."
+  },
+  "ls_mp_tip_4": {
+    "eng": "TEAM DEATHMATCH: In order to win, your team needs to get more kill points than the enemy.",
+    "pol": "GRA DRU�YNOWA: Aby wygra�, twoja dru�yna musi zdoby� wi�cej punkt�w za zabicia ni� dru�yna przeciwna.",
+    "rus": "«КОМАНДА ПРОТИВ КОМАНДЫ»: Для победы члены команды должны набрать большее количество очков за убийства, чем команда противника.",
+    "ukr": "«КОМАНДА ПРОТИ КОМАНДИ»: Для перемоги члени команди мають набрати більшу кількість очок за вбивства, ніж команда супротивника."
+  },
+  "ls_mp_tip_40": {
+    "eng": "A vote can be started by pressing \"$$ACTION_VOTE_BEGIN$$\".",
+    "pol": "G�osowanie mo�na rozpocz�� wciskaj�c �$$ACTION_VOTE_BEGIN$$\".",
+    "rus": "Голосование инициируется нажатием «$$ACTION_VOTE_BEGIN$$».",
+    "ukr": "Голосування ініціюється натисканням «$$ACTION_VOTE_BEGIN$$»."
+  },
+  "ls_mp_tip_41": {
+    "eng": "To see game scores, press \"$$ACTION_SCORES$$\".",
+    "pol": "Aby zobaczy� wyniki gry, wci�nij �$$ACTION_SCORES$$\".",
+    "rus": "Для просмотра результатов игры необходимо нажать «$$ACTION_SCORES$$».",
+    "ukr": "Для перегляду результатів гри натисніть «$$ACTION_SCORES$$»."
+  },
+  "ls_mp_tip_42": {
+    "eng": "To respawn press \"$$ACTION_JUMP$$\" once the waiting period has ended.",
+    "pol": "Aby odrodzi� si� po �mierci, wci�nij �$$ACTION_JUMP$$\", gdy sko�czy si� czas oczekiwania.",
+    "rus": "Чтобы возродиться после гибели, по истечении времени ожидания нажмите «$$ACTION_JUMP$$».",
+    "ukr": "Щоб відродитися після загибелі, після закінчення часу очікування натисніть «$$ACTION_JUMP$$»."
+  },
+  "ls_mp_tip_43": {
+    "eng": "To open the buy menu, press \"$$ACTION_BUY_MENU$$\" while inside your base.",
+    "pol": "Aby otworzy� menu handlu, wci�nij �$$ACTION_BUY_MENU$$\" w czasie pobytu w bazie.",
+    "rus": "Чтобы открыть меню покупок, нажмите «$$ACTION_BUY_MENU$$», находясь в пределах базы.",
+    "ukr": "Щоб відкрити меню покупок, натисніть «$$ACTION_BUY_MENU$$», знаходячись у межах бази."
+  },
+  "ls_mp_tip_44": {
+    "eng": "You can open general chat by pressing \"$$ACTION_CHAT$$\". To communicate with your team only using text chat, press \"$$ACTION_CHAT_TEAM$$\".",
+    "pol": "Rozmow� ze wszystkimi mo�na rozpocz�� wciskaj�c �$$ACTION_CHAT$$\". Aby prowadzi� rozmow� tekstow� tylko ze swoj� dru�yn�, wci�nij �$$ACTION_CHAT_TEAM$$\".",
+    "rus": "Общий текстовый чат можно открыть нажатием «$$ACTION_CHAT$$». Для общения в чате только с членами своей команды используйте «$$ACTION_CHAT_TEAM$$».",
+    "ukr": "Загальний текстовий чат можна відкрити натисканням «$$ACTION_CHAT$$». Для спілкування у чаті лише із членами своєї команди використовуйте «$$ACTION_CHAT_TEAM$$»."
+  },
+  "ls_mp_tip_45": {
+    "eng": "Running is the fastest way of moving, but also the most tiring. Press \"$$ACTION_SPRINT_TOGGLE$$\" to run.",
+    "pol": "Sprint to najszybszy spos�b poruszania si�, ale r�wnie� najbardziej m�cz�cy. Wci�nij �$$ACTION_SPRINT_TOGGLE$$�, aby pobiec sprintem.",
+    "rus": "Бег - самый быстрый вид перемещения, хотя и приводит к быстрой утрате запаса сил. Для перехода к этому виду передвижения нажмите «$$ACTION_SPRINT_TOGGLE$$».",
+    "ukr": "Біг - найшвидший вид переміщення, хоча й пов'язаний зі швидкою втратою запасу сил. Для переходу до цього виду пересування натисніть «$$ACTION_SPRINT_TOGGLE$$»."
+  },
+  "ls_mp_tip_46": {
+    "eng": "Firing while aiming is more accurate than shooting from the hip. To aim, press \"$$ACTION_WPN_ZOOM$$\".",
+    "pol": "Strzelanie z celownikiem jest du�o dok�adniejsze ni� strzelanie z biodra. Aby w��czy� celownik, wci�nij �$$ACTION_WPN_ZOOM$$\".",
+    "rus": "В режиме прицеливания пули ложаться в цель гораздо точнее, чем при стрельбе навскидку. Для использования прицела нажмите «$$ACTION_WPN_ZOOM$$».",
+    "ukr": "У режимі прицілювання кулі лягають в ціль набагато точніше, ніж за стрільби навскидь. Для використання прицілу натисніть «$$ACTION_WPN_ZOOM$$»."
+  },
+  "ls_mp_tip_47": {
+    "eng": "If you have an underbarrel grenade launcher, you can switch between it and the normal firing mode by pressing \"$$ACTION_WPN_FUNC$$\".",
+    "pol": "Je�li masz granatnik podwieszany, mo�esz prze��cza� si� pomi�dzy nim i standardowym trybem strza�u, wciskaj�c �$$ACTION_WPN_FUNC$$\".",
+    "rus": "При наличии на оружии подствольного гранатомёта переключение между режимами стрельбы «автомат» и «гранатомёт» осуществляется нажатием «$$ACTION_WPN_FUNC$$».",
+    "ukr": "За наявності на зброї підствольного гранатомета переключення між режимами стрільби «автомат» і «гранатомет» здійснюється натисканням «$$ACTION_WPN_FUNC$$»."
+  },
+  "ls_mp_tip_48": {
+    "eng": "If you have several types of ammo for your current weapon, you can switch between them by pressing \"$$ACTION_WPN_NEXT$$\".",
+    "pol": "Je�li masz kilka rodzaj�w amunicji do u�ywanej obecnie broni, mo�esz si� prze��cza� pomi�dzy nimi, wciskaj�c �$$ACTION_WPN_NEXT$$\".",
+    "rus": "При наличии нескольких видов патронов для текущего оружия нужный вид выбирается нажатием «$$ACTION_WPN_NEXT$$».",
+    "ukr": "За наявності кількох видів патронів для поточної зброї потрібний вид обирається натисканням «$$ACTION_WPN_NEXT$$»."
+  },
+  "ls_mp_tip_49": {
+    "eng": "To reload your weapon before your magazine is empty, press \"$$ACTION_WPN_RELOAD$$\".",
+    "pol": "Aby prze�adowa� bro�, zanim magazynek b�dzie pusty, wci�nij �$$ACTION_WPN_RELOAD$$\".",
+    "rus": "Чтобы перезарядить оружие до полного израсходования патронов в магазине, нажмите «$$ACTION_WPN_RELOAD$$».",
+    "ukr": "Щоб перезарядити зброю до повного використання патронів у магазині, натисніть «$$ACTION_WPN_RELOAD$$»."
+  },
+  "ls_mp_tip_5": {
+    "eng": "CAPTURE THE ARTIFACT: In order to win, you must bring a certain number of enemy artifacts to your base.",
+    "pol": "ZDOBYCIE ARTEFAKTU: Aby wygra�, musisz przynie�� do swojej bazy okre�lon� liczb� artefakt�w nale��cych do wroga.",
+    "rus": "«ЗАХВАТ АРТЕФАКТА»: Чтобы выиграть, необходимо доставить на свою базу определённое количество артефактов противника.",
+    "ukr": "«ЗАХОПЛЕННЯ АРТЕФАКТУ»: Щоб виграти, необхідно доставити на свою базу певну кількість артефактів супротивника."
+  },
+  "ls_mp_tip_50": {
+    "eng": "To discard your current weapon, press \"$$ACTION_DROP$$\".",
+    "pol": "Aby wyrzuci� u�ywan� obecnie bro�, wci�nij �$$ACTION_DROP$$\".",
+    "rus": "Чтобы выбросить текущее оружие, нажмите «$$ACTION_DROP$$».",
+    "ukr": "Щоб випустити зброю з рук, натисніть «$$ACTION_DROP$$»."
+  },
+  "ls_mp_tip_51": {
+    "eng": "To look in your backpack, press \"$$ACTION_INVENTORY$$\".",
+    "pol": "Aby zajrze� do plecaka, wci�nij �$$ACTION_INVENTORY$$\".",
+    "rus": "Чтобы просмотреть содержимое своего рюкзака, нажмите «$$ACTION_INVENTORY$$».",
+    "ukr": "Щоб переглянути вміст свого рюкзака, натисніть «$$ACTION_INVENTORY$$»."
+  },
+  "ls_mp_tip_52": {
+    "eng": "Most weapons have several firing modes. To switch between firing modes, press \"$$ACTION_WPN_FIREMODE_NEXT$$\" or \"$$ACTION_WPN_FIREMODE_PREV$$\".",
+    "pol": "Wi�kszo�� broni ma kilka tryb�w strza�u. Aby prze��cza� si� mi�dzy trybami strza�u, wci�nij �$$ACTION_WPN_FIREMODE_NEXT$$\" lub �$$ACTION_WPN_FIREMODE_PREV$$\".",
+    "rus": "Автоматическое оружие позволяет вести огонь в двух-трёх режимах. Для переключения между режимами используйте «$$ACTION_WPN_FIREMODE_NEXT$$» или «$$ACTION_WPN_FIREMODE_PREV$$».",
+    "ukr": "Автоматична зброя дозволяє вести вогонь у двох-трьох режимах. Для переключення між режимами використовуйте «$$ACTION_WPN_FIREMODE_NEXT$$» або «$$ACTION_WPN_FIREMODE_PREV$$»."
+  },
+  "ls_mp_tip_53": {
+    "eng": "Some places are impossible to pass through even when crouching. To crouch as low as you can, press and hold \"$$ACTION_CROUCH$$\" and \"$$ACTION_ACCEL$$\" simultaneously.",
+    "pol": "Przez niekt�re miejsca nie da si� przecisn�� nawet w pozycji kucni�tej. Aby przykucn�� najni�ej, jak tylko si� da, wci�nij i przytrzymaj jednocze�nie �$$ACTION_CROUCH$$\" i �$$ACTION_ACCEL$$\".",
+    "rus": "Некоторые места не позволяют передвигаться даже в согнутом положении. Чтобы присесть как можно ниже, нажмите «$$ACTION_CROUCH$$» и «$$ACTION_ACCEL$$» одновременно. ",
+    "ukr": "Деякі місця не дозволяють пересуватися навіть у зігнутому положенні. Для того, щоб присісти якнайнижче, натисніть «$$ACTION_CROUCH$$» і «$$ACTION_ACCEL$$» одночасно. "
+  },
+  "ls_mp_tip_55": {
+    "eng": "To look around a corner, press \"$$ACTION_LLOOKOUT$$\" or \"$$ACTION_RLOOKOUT$$\". You cannot fire while looking around a corner.",
+    "pol": "Aby wyjrze� zza rogu, wci�nij �$$ACTION_LLOOKOUT$$\" lub �$$ACTION_RLOOKOUT$$\". Podczas wygl�dania zza rogu nie mo�esz strzela�.",
+    "rus": "Чтобы выглянуть из-за угла, нажмите «$$ACTION_LLOOKOUT$$» или «$$ACTION_RLOOKOUT$$». Учтите, что вести огонь в таком положении невозможно.",
+    "ukr": "Щоби визирнути з-за рогу, натисніть «$$ACTION_LLOOKOUT$$» або «$$ACTION_RLOOKOUT$$». Врахуйте, що вести вогонь у такому положенні неможливо."
+  },
+  "ls_mp_tip_6": {
+    "eng": "CAPTURE THE ARTIFACT: To return a stolen artifact to your base, you need to kill the enemy carrying it and pick it up by pressing \"$$ACTION_USE$$\".",
+    "pol": "ZDOBYCIE ARTEFAKTU: Aby zwr�ci� skradziony artefakt do bazy, musisz zabi� nios�cego go przeciwnika, a nast�pnie podnie�� przedmiot, wciskaj�c �$$ACTION_USE$$\".",
+    "rus": "«ЗАХВАТ АРТЕФАКТА»: Чтобы вернуть похищенный артефакт на базу, нужно убить противника, несущего артефакт, и подобрать последний, нажав «$$ACTION_USE$$».",
+    "ukr": "«ЗАХОПЛЕННЯ АРТЕФАКТУ»: Щоби повернути викрадений артефакт на базу, потрібно вбити супротивника, який несе артефакт, і підібрати останній, натиснувши «$$ACTION_USE$$»."
+  },
+  "ls_mp_tip_7": {
+    "eng": "ARTIFACT HUNT: You can destroy the artifact by activating it. To do this, take the artifact out by pressing \"$$ACTION_ARTEFACT$$\" and hold \"$$ACTION_WPN_FIRE$$\".",
+    "pol": "POLOWANIE NA ARTEFAKTY: Mo�esz zniszczy� artefakt aktywuj�c go. Aby to zrobi�, wyci�gnij artefakt wciskaj�c �$$ACTION_ARTEFACT$$\" i przytrzymaj �$$ACTION_WPN_FIRE$$\".",
+    "rus": "«ОХОТА ЗА АРТЕФАКТОМ»: Артефакт можно разрушить, активировав его. Для этого необходимо достать артефакт, нажав «$$ACTION_ARTEFACT$$», а затем нажать «$$ACTION_WPN_FIRE$$».",
+    "ukr": "«ПОЛЮВАННЯ ЗА АРТЕФАКТОМ»: Артефакт можна зруйнувати, активувавши його. Для цього необхідно дістати артефакт, натиснувши «$$ACTION_ARTEFACT$$», а потім натиснути «$$ACTION_WPN_FIRE$$»."
+  },
+  "ls_mp_tip_8": {
+    "eng": "You cannot run while carrying the artifact.",
+    "pol": "Gdy niesiesz artefakt, nie mo�esz biec.",
+    "rus": "Во время переноски артефакта перемещение бегом невозможно.",
+    "ukr": "Під час перенесення артефакту пересуватися бігом неможливо."
+  },
+  "ls_tip_100": {
+    "eng": "To look in your backpack, press \"$$ACTION_INVENTORY$$\".",
+    "pol": "Aby zajrze� do plecaka, wci�nij �$$ACTION_INVENTORY$$\".",
+    "rus": "Чтобы заглянуть в содержимое своего рюкзака, нажмите «$$ACTION_INVENTORY$$».",
+    "ukr": "Щоб заглянути до вмісту свого рюкзака, натисніть «$$ACTION_INVENTORY$$»."
+  },
+  "ls_tip_36": {
+    "eng": "To repair an item you'll need to find a technician and click the repair button once you have selected the item in the modification screen. You can also right-click on the item in the same window to select the appropriate action from the context menu.",
+    "pol": "Aby naprawi� przedmiot, musisz znale�� technika i klikn�� przycisk naprawy po wybraniu przedmiotu na ekranie modyfikacji. Mo�esz te� klikn�� dany przedmiot prawym przyciskiem myszy w tym samym oknie i wybra� odpowiednie polecenie z menu podr�cznego.",
+    "rus": "Чтобы починить оружие, костюм или шлем, необходимо найти техника и, выбрав нужный предмет в окне улучшений, нажать на кнопке ремонта.",
+    "ukr": "Щоб полагодити зброю, костюм чи шолом, необхідно знайти техніка та, обравши потрібний предмет у вікні поліпшень, натиснути на кнопку ремонту."
+  },
+  "ls_tip_81": {
+    "eng": "Most weapons have several firing modes by default and you can buy modifications to add new ones later. To switch between firing modes, press \"$$ACTION_WPN_FIREMODE_NEXT$$\" or \"$$ACTION_WPN_FIREMODE_PREV$$\".",
+    "pol": "Wi�kszo�� broni ma kilka domy�lnych tryb�w strza�u. Mo�esz kupowa� modyfikacje, aby dodawa� nast�pne. Aby prze��czy� si� mi�dzy trybami strza�u, wci�nij �$$ACTION_WPN_FIREMODE_NEXT$$\" lub �$$ACTION_WPN_FIREMODE_PREV$$\".",
+    "rus": "Автоматическое оружие позволяет вести огонь в нескольких режимах. Для переключения между режимами ведения огня используйте «$$ACTION_WPN_FIREMODE_NEXT$$» или «$$ACTION_WPN_FIREMODE_PREV$$».",
+    "ukr": "Автоматична зброя дозволяє вести вогонь у кількох режимах. Для перемикання між режимами ведення вогню використовуйте «$$ACTION_WPN_FIREMODE_NEXT$$» або «$$ACTION_WPN_FIREMODE_PREV$$»."
+  },
+  "ls_tip_7": {
+    "eng": "Weapon flatness affects bullet trajectory, while handling determines the time it takes the sight to return to its original position after firing.",
+    "pol": "P�asko�� toru pocisku wp�ywa na trajektori�, a obs�uga warunkuje czas, potrzebny aby bro� powr�ci�a do pierwotnej pozycji po oddaniu strza�u.",
+    "rus": "Настильность - параметр оружия, влияющий на траекторию полёта пули, а удобность - на скорость возврата прицела в исходное положение.",
+    "ukr": "Настильність - параметр зброї, що впливає на траєкторію польоту кулі, а зручність - на швидкість повернення прицілу у початкове положення."
+  },
+  "ls_tip_5": {
+    "eng": "Some suits have integrated helmets. It is not possible to use other helmets with such suits.",
+    "pol": "Niekt�re kombinezony maj� wbudowane he�my. U�ywaj�c takiego kombinezonu nie mo�na korzysta� z innych he�m�w.",
+    "rus": "Некоторые костюмы комплектуются интегрированными шлемами. Ношение других шлемов с такими костюмами невозможно.",
+    "ukr": "Деякі костюми комплектуються інтегрованими шоломами. Носіння інших шоломів із такими костюмами неможливе."
+  },
+  "ls_tip_76": {
+    "eng": "Each weapon has unique accuracy, handling, damage and rate of fire characteristics, allowing you to pick one that’s right for you from a large selection.",
+    "pol": "Ka�da bro� ma niepowtarzalne w�a�ciwo�ci - celno��, obs�ug�, obra�enia i szybkostrzelno��, co umo�liwia ci wyb�r najbardziej odpowiedniego modelu.",
+    "rus": "Каждая единица оружия обладает своими уникальными характеристиками точности, удобности, повреждения и темпа стрельбы. Это даёт возможность каждому выбрать наиболее подходящий образец.",
+    "ukr": "Кожна одиниця зброї має свої унікальні характеристики точності бою, зручності, завдаваних пошкоджень і темпу стрільби. Це надає можливість кожному обрати найбільш підходящий зразок."
+  },
+  "ls_tip_51": {
+    "eng": "Firing accuracy suffers considerably when you’re on the move. Stand still or crouch to improve it.",
+    "pol": "Celno�� strza�u podczas ruchu wyra�nie spada. Sta� lub przykucnij, aby j� zwi�kszy�.",
+    "rus": "Точность ведения огня в движении значительно ниже, чем из более устойчивого положения - стоя или сидя.",
+    "ukr": "Влучність стрільби під час руху значно нижча, ніж із більш стійкого положення - стоячи або сидячи."
+  },
+  "ls_mp_tip_10": {
+    "eng": "This energy drink temporarily speeds up energy recovery, allowing you to sprint for longer.",
+    "pol": "Nap�j energetyzuj�cy tymczasowo przy�piesza regeneracj� wytrzyma�o�ci, co pozwala ci d�u�ej biec.",
+    "rus": "Энергетический напиток временно ускоряет процесс восстановления выносливости, что позволяет увеличить среднюю продолжительность бега.",
+    "ukr": "Енергетичний напій тимчасово прискорює процес відновлення витривалості, що дозволяє збільшити середню тривалість бігу."
+  },
+  "ls_mp_tip_12": {
+    "eng": "You have unlimited ammo when playing in Deathmatch mode.",
+    "pol": "W trybie �Wszyscy przeciwko wszystkim� masz nieograniczon� ilo�� amunicji.",
+    "rus": "В режиме игры «Все против всех» запас патронов неограничен.",
+    "ukr": "У режимі гри «Усі проти всіх» запас патронів необмежений."
+  },
+  "ls_tip_16": {
+    "eng": "One of the most common threats in the Zone is radiation. Serious exposure will harm your health and can be terminal if not treated adequately.",
+    "pol": "Jednym z najcz�stszych zagro�e� w Zonie jest promieniowanie. Silne napromieniowanie doprowadzi do pogorszenia zdrowia i, je�li nie b�dzie odpowiednio leczone, mo�e by� �miertelne.",
+    "rus": "Одна из самых распространённых опасностей в Зоне - радиация. Сильное облучение организма приводит к ухудшению состояния здоровья, а без должного лечения - и к смерти.",
+    "ukr": "Одна з найпоширеніших небезпек у Зоні - радіація. Сильне опромінення організму призводить до погіршення стану здоров'я, а без належного лікування - до смерті."
+  },
+  "ls_tip_19": {
+    "eng": "Take some food with you when going out on a long raid. If you get really hungry, your endurance recovery will suffer greatly.",
+    "pol": "Wyruszaj�c na d�ugie wyprawy we� ze sob� co� do jedzenia. Je�li mocno zg�odniejesz, wp�ynie to bardzo negatywnie na odzyskiwanie wytrzyma�o�ci.",
+    "rus": "Уходя в дальнюю вылазку, нужно взять с собой запас съестного. Сильный голод негативно сказывается на восстановлении выносливости.",
+    "ukr": "Вирушаючи в далеку вилазку, слід узяти із собою запас продуктів. Сильний голод негативно впливає на відновлення витривалості."
+  }
+}

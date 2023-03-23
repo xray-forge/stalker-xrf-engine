@@ -1,0 +1,32 @@
+{
+  "hide_from_surge_message": {
+    "eng": "Attention! Emission starts in:",
+    "pol": "Uwaga! Emisja rozpocznie si� za:",
+    "rus": "Внимание! До выброса осталось",
+    "ukr": "Увага! До викиду залишилося"
+  },
+  "hide_from_surge_descr_1_a": {
+    "eng": "You must run to the nearest cover immediately and hide from the emission.",
+    "pol": "Musisz natychmiast biec do najbli�szego schronienia i ukry� si� przed emisj�.",
+    "rus": "Необходимо срочно бежать к ближайшему укрытию и спрятаться от выброса.",
+    "ukr": "Необхідно терміново бігти до найближчого укриття і сховатися від викиду."
+  },
+  "hide_from_surge_descr_2_a": {
+    "eng": "You must not leave cover during an emission.",
+    "pol": "Nie mo�esz wychodzi� ze schronienia w trakcie emisji.",
+    "rus": "Во время выброса ни в коем случае нельзя покидать укрытие.",
+    "ukr": "Під час викиду в жодному разі не можна залишати укриття."
+  },
+  "hide_from_surge_name_1": {
+    "eng": "Emission: find cover",
+    "pol": "Emisja: znajd� schronienie",
+    "rus": "Выброс: найти укрытие",
+    "ukr": "Викид: знайти укриття"
+  },
+  "hide_from_surge_name_2": {
+    "eng": "Emission: wait in cover",
+    "pol": "Emisja: czekaj w schronieniu",
+    "rus": "Выброс: переждать в укрытии",
+    "ukr": "Викид: перечекати в укритті"
+  }
+}

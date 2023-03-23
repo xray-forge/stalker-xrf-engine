@@ -1,0 +1,230 @@
+{
+  "csky_heavy_outfit_name": {
+    "eng": "CS-3a body armor",
+    "pol": "Kamizelka kuloodporna CS-3a",
+    "rus": "Бронежилет ЧН-3а",
+    "ukr": "Бронежилет ЧН-3а"
+  },
+  "dolg_heavy_outfit_name": {
+    "eng": "PSZ-9d Duty Armor",
+    "pol": "Pancerz �Powinno�ci\" PSZ-9d",
+    "rus": "ПСЗ-9д «Броня «Долга»",
+    "ukr": "ПСЗ-9д «Броня «Долгу»"
+  },
+  "dolg_outfit_name": {
+    "eng": "PS5-M Universal Protection",
+    "pol": "PS5-M Uniwersalna ochrona",
+    "rus": "ПС5-М «Универсальная защита»",
+    "ukr": "ПС5-М «Універсальний захист»"
+  },
+  "exo_outfit_name": {
+    "eng": "Exoskeleton",
+    "pol": "Egzoszkielet",
+    "rus": "Экзоскелет",
+    "ukr": "Екзоскелет"
+  },
+  "military_outfit_name": {
+    "eng": "Bulat armored suit",
+    "pol": "Kombinezon pancerny Bu�at",
+    "rus": "Бронекостюм «Булат»",
+    "ukr": "Бронекостюм «Булат»"
+  },
+  "mp_exo_outfit_description": {
+    "eng": "This exoskeleton provides outstanding protection against bullet and fragmentation damage at the cost of mobility.  Vulnerable to armor-piercing rounds.",
+    "pol": "Ten egzoszkielet zapewnia znakomit� ochron� przed pociskami i od�amkami, kosztem mobilno�ci. Nie chroni przed amunicj� przeciwpancern�.",
+    "rus": "Экзоскелет превосходно защищает носителя от поражения пулями и осколками, однако заметно снижает подвижность. Проницаем для бронебойной пули.",
+    "ukr": "Екзоскелет прекрасно захищає носія від ураження кулями та осколками, однак помітно знижує рухливість. Проникний для бронебійної кулі."
+  },
+  "mp_exo_outfit_name": {
+    "eng": "Exoskeleton",
+    "pol": "Egzoszkielet",
+    "rus": "Экзоскелет",
+    "ukr": "Екзоскелет"
+  },
+  "mp_military_outfit_description": {
+    "eng": "A military armored suit made for assault operations. Provides outstanding protection against full metal jacket rounds and fragmentation damage without reducing the wearer's mobility. Vulnerable to armor-piercing rounds.",
+    "pol": "Wojskowy kombinezon pancerny zaprojektowany do operacji szturmowych. Zapewnia znakomit� ochron� przed amunicj� FMJ i od�amkami bez ograniczenia mobilno�ci u�ytkownika. Nie chroni przed amunicj� przeciwpancern�.",
+    "rus": "Армейский бронекостюм, созданный для штурмовых операций. Обеспечивает прекрасную защиту от оболочечных пуль и осколков, при этом не снижает подвижность владельца. Проницаем для бронебойной пули.",
+    "ukr": "Армійський бронекостюм, створений для штурмових операцій. Забезпечує прекрасний захист від оболонкових куль та осколків, при цьому не знижує рухливість власника. Проникний для бронебійної кулі."
+  },
+  "mp_military_outfit_name": {
+    "eng": "Military armored suit",
+    "pol": "Pancerz wojskowy",
+    "rus": "Армейский бронекостюм",
+    "ukr": "Армійський бронекостюм"
+  },
+  "novice_outfit_description": {
+    "eng": "A regular black leather trench coat. Has no special purpose other than to keep the wearer warm at night or protect him from a blind dog bite. Although the trench coat is not particularly comfortable, it is often used by bandits in the Zone - either because it allows them to hide in the dark or simply due to its \"cool\" appearance.",
+    "pol": "Zwyk�y, czarny sk�rzany p�aszcz. Nie ma specjalnych w�a�ciwo�ci poza tym, �e chroni w�a�ciciela przed zimnem i z�bami �lepych ps�w. Pomimo, �e nie jest specjalnie wygodny, jest cz�sto noszony przez bandyt�w w Zonie - z jednej strony pozwala im ukrywa� si� w ciemno�ci, ale z drugiej mo�e im chodzi� tylko o jego �zar�bisty\" wygl�d.",
+    "rus": "Обычный плащ из чёрной кожи. Заметной защиты носителю не обеспечивает, разве что не даст замёрзнуть ночью и ослабит укус слепого пса. Довольно неудобен в условиях Зоны, но, тем не менее, часто используется бандитами - возможно, исключительно из-за внешнего вида.",
+    "ukr": "Звичайний плащ із чорної шкіри. Помітного захисту носію не забезпечує, хіба що не дасть змерзнути вночі та зм'якшить укус сліпого собаки. Досить незручний в умовах Зони, проте часто використовується бандитами - ймовірно, суто через зовнішній вигляд."
+  },
+  "novice_outfit_name": {
+    "eng": "Leather trench coat",
+    "pol": "Sk�rzany p�aszcz",
+    "rus": "Кожаный плащ",
+    "ukr": "Шкіряний плащ"
+  },
+  "scientific_outfit_name": {
+    "eng": "SEVA bodysuit",
+    "pol": "Kombinezon SEVA",
+    "rus": "Комбинезон «СЕВА»",
+    "ukr": "Комбінезон «СЕВА»"
+  },
+  "specops_outfit_name": {
+    "eng": "Berill-5M armored suit",
+    "pol": "Kombinezon pancerny Berill-5M",
+    "rus": "Бронекостюм «Берилл-5М»",
+    "ukr": "Бронекостюм «Берил-5М»"
+  },
+  "st_helm_battle": {
+    "eng": "Sphere M12 helmet",
+    "pol": "He�m M12 Sfera",
+    "rus": "Шлем «Сфера М12»",
+    "ukr": "Шолом «Сфера М12»"
+  },
+  "st_helm_battle_descr": {
+    "eng": "An aluminum/titanium helmet with a cloth exterior that comes with pockets for additional steel armor pieces and an armor face mask. Sphere M12 is normally used as part of a combination that includes PSZ series Spetsnaz body armor. Quite popular in the Zone thanks to its respirator and built-in first generation night vision device, as well as providing the maximum head protection possible. Comes with electronics slots.",
+    "pol": "Pokryty tkanin� aluminiowo-tytanowy he�m wyposa�ony w kieszenie na stalowe elementy pancerza i opancerzon� mask�. He�m M12 Sfera jest z regu�y u�ywany w po��czeniu z kamizelk� kuloodporn� Specnazu PSZ. Jest on do�� popularny w Zonie ze wzgl�du na swoj� mask� przeciwgazow� i wbudowany noktowizor pierwszej generacji, a tak�e na fakt, �e zapewnia maksymaln� mo�liw� ochron� g�owy. Posiada te� gniazda na urz�dzenia elektroniczne.",
+    "rus": "Отделанный тканью алюминиево-титановый шлем с карманами для стальных бронеэлементов и бронемаской. Обычно поставляется в комплекте с бронежилетами класса ПС3 для спецназа. Достаточно популярен в Зоне благодаря респиратору и встроенному прибору ночного видения, а также хорошей защите головы. Предусмотрена возможность установки электроники.",
+    "ukr": "Оброблений тканиною алюмінієво-титановий шолом із кишенями для сталевих бронеелементів та бронемаскою. Зазвичай іде в комплекті із бронежилетами класу ПС3 для підрозділів спецпризначення. Доволі популярний у Зоні завдяки респіратору та вбудованому приладу нічного бачення, а також гарному захисту голови. Передбачено можливість встановлення електроніки."
+  },
+  "st_helm_hardhat": {
+    "eng": "Steel helmet",
+    "pol": "Stalowy he�m",
+    "rus": "Стальной шлем",
+    "ukr": "Сталевий шолом"
+  },
+  "st_helm_hardhat_descr": {
+    "eng": "A desperately outdated steel army helmet without any additions. Provides no protection against anomalies or radiation, but can deflect bullets. This helmet was never particularly popular in the Zone, except for use in brief armed conflicts between factions.",
+    "pol": "Skrajnie przestarza�y stalowy he�m wojskowy bez �adnych dodatk�w. Nie chroni przed anomaliami i promieniowaniem, ale mo�e odbija� pociski. He�m ten nigdy nie by� szczeg�lnie popularny w Zonie, z wyj�tkiem kr�tkich zbrojnych konflikt�w mi�dzy frakcjami.",
+    "rus": "Стандартный армейский стальной шлем. Не обеспечивает защиту от аномалий или радиации, но способен отклонить прилетевшую по касательной пулю. Спросом в Зоне пользовался только в период первых столкновений между группировками.",
+    "ukr": "Стандартний армійський сталевий шолом. Не забезпечує захисту від аномалій чи радіації, проте здатний відхилити кулю, прилетілу за дотичною траєкторією. Попитом у Зоні користувався лише у період перших зіткнень між угрупованнями."
+  },
+  "st_helm_protective": {
+    "eng": "Screen helmet",
+    "pol": "He�m ekranuj�cy",
+    "rus": "Шлем «Заслон»",
+    "ukr": "Шолом «Заслін»"
+  },
+  "st_helm_protective_descr": {
+    "eng": "A light helmet with an airtight visor intended for protection from anomalies. Judging by the design, the helmet is made by the same Defense Research Institutes as the SEVA bodysuit. Its intended use may very well be in combination with military suits for operations in highly anomalous areas. ",
+    "pol": "Lekki he�m z nieprzepuszczaj�c� powietrza zas�on�, kt�rego zadaniem jest ochrona przed anomaliami. S�dz�c po konstrukcji, zosta� on zbudowany przez ten sam Instytut Bada� Obronnych, co kombinezon SEVA. Najprawdopodobniej przeznaczony do u�ytku w po��czeniu z kombinezonami wojskowymi do dzia�a� w warunkach podwy�szonej aktywno�ci anomalii.",
+    "rus": "Лёгкий шлем с герметичным забралом, предназначенный для защиты лица от некоторых аномальных воздействий. Судя по технологии, разработан тем же оборонным НИИ, что и комбинезон «СЕВА» - предположительно, для применения в комплекте с армейскими защитными костюмами.",
+    "ukr": "Легкий шолом із герметичним забралом, призначений для захисту обличчя від деяких аномальних впливів. Судячи з технології, розроблений тим же оборонним НДІ, що й комбінезон «СЕВА» - імовірно, для застосування у комплекті з армійськими захисними костюмами."
+  },
+  "st_helm_respirator": {
+    "eng": "Gas mask",
+    "pol": "Maska przeciwgazowa",
+    "rus": "Противогаз",
+    "ukr": "Протигаз"
+  },
+  "st_helm_respirator_descr": {
+    "eng": "A regular plastic and rubber gas mask, used for filtering air for radioactive particles and poisonous substances. Widely used by rookies and veterans of all factions due to its universal functionality. Does not provide any physical protection.",
+    "pol": "Zwyk�a maska przeciwgazowa zbudowana z plastiku i gumy. S�u�y do odfiltrowywania powietrza z radioaktywnych cz�stek i truj�cych substancji. Jest u�ywana zar�wno przez nowicjuszy, jak i weteran�w ze wzgl�du na swoj� funkcjonalno��. Nie zapewnia �adnej ochrony fizycznej.",
+    "rus": "Стандартный противогаз, предназначенный для фильтрации из воздуха радиоактивной пыли и отравляющих веществ. Широко используется как новичками, так и ветеранами всех группировок ввиду своей функциональной незаменимости. Не оснащён защитой от пуль, осколков и механических воздействий.",
+    "ukr": "Стандартний протигаз, призначений для фільтрації з повітря радіоактивного пилу та отруйних речовин. Широко використовується як новачками, так і ветеранами всіх угруповань через свою функціональну незамінність. Не споряджений захистом від куль, осколків і механічних впливів."
+  },
+  "st_helm_tactic": {
+    "eng": "Tactical helmet",
+    "pol": "He�m taktyczny",
+    "rus": "Тактический шлем",
+    "ukr": "Тактичний шолом"
+  },
+  "st_helm_tactic_descr": {
+    "eng": "A Western model of a tactical helmet that lacks camouflage. It is not known how it made its way into the Zone. The helmet is designed to provide a squad leader with strategic superiority over the enemy via its many scanners and satellite communications devices, which have not been installed in this particular helmet. Comes with multi-layered Kevlar protection and armored elements to protect electronic components. Includes a respirator and a first generation night vision device.",
+    "pol": "Zachodni model he�mu taktycznego pozbawiony kamufla�u. Nie wiadomo, w jaki spos�b znalaz� si� w Zonie. Jest zaprojektowany tak, aby zapewni� dow�dcy dru�yny strategiczn� przewag� przy u�yciu wielu wbudowanych skaner�w i urz�dze� do komunikacji satelitarnej, kt�rych ten konkretny egzemplarz nie posiada. Za to mo�e si� poszczyci� wielowarstwow� pow�ok� z kevlaru i opancerzon� konstrukcj�, kt�ra ma za zadanie chroni� elementy elektroniczne. Zawiera mask� przeciwgazow� i noktowizor pierwszej generacji.",
+    "rus": "Западный образец тактического шлема, лишённый какой-либо маркировки. Предназначен для обеспечения командира подразделения максимальным количеством тактической информации при установке соответствующей электронной «начинки». Отличается усиленной конструкцией; кроме того, оснащён многослойной кевларовой защитой, респиратором и прибором ночного видения.",
+    "ukr": "Західний зразок тактичного шолома, позбавлений будь-якого маркування. Призначений для забезпечення командира підрозділу максимальною кількістю тактичної інформації за встановлення відповідного електронного «начиння». Відзначається посиленою конструкцією; окрім того, споряджений багатошаровим кевларовой захистом, респіратором та приладом нічного бачення."
+  },
+  "stalker_outfit_name": {
+    "eng": "Sunrise bodysuit",
+    "pol": "Kombinezon �wit",
+    "rus": "Комбинезон «Заря»",
+    "ukr": "Комбінезон «Зоря»"
+  },
+  "svoboda_heavy_outfit_name": {
+    "eng": "Freedom Guard bodysuit",
+    "pol": "Kombinezon Stra�nik wolno�ci",
+    "rus": "Комбинезон «Страж свободы»",
+    "ukr": "Комбінезон «Страж волі»"
+  },
+  "svoboda_light_outfit_description": {
+    "eng": "This lightweight stalker bodysuit is made by Freedom craftsmen. The suit's fabric is treated with Horizon, a special solution developed by the faction by trial and error to increase resistance to anomalies. Like the Sunrise suit, the Wind of Freedom comes with built-in body armor and artifact containers.",
+    "pol": "Ten lekki kombinezon stalkerski jest wytwarzany przez rzemie�lnik�w Wolno�ci. Materia� wykorzystywany w produkcji, jest nasycany specjalnym roztworem o nazwie �Horyzont�, kt�ry zosta� opracowany przez t� frakcj� metod� pr�b i b��d�w w celu zwi�kszenia odporno�ci na anomalie. Podobnie jak kombinezon �wit, posiada wbudowane opancerzenie i pojemniki na artefakty.",
+    "rus": "Предельно облегчённый костюм сталкера, производимый ремесленниками группировки «Свобода». Для пошива используется ткань, обработанная составом «Горизонт», который значительно повышает защитные свойства в условиях аномальной активности. Оснащён встроенным бронежилетом и контейнерами для артефактов.",
+    "ukr": "Максимально полегшений костюм сталкера, вироблений ремісниками угруповання «Воля». Для пошиття використовується тканина, оброблена речовиною «Обрій», котра значно підвищує захисні властивості в умовах аномальної активності. Споряджений вбудованим бронежилетом та контейнерами для артефактів."
+  },
+  "svoboda_light_outfit_name": {
+    "eng": "Wind of Freedom bodysuit",
+    "pol": "Kombinezon Powiew wolno�ci",
+    "rus": "Комбинезон «Ветер свободы»",
+    "ukr": "Комбінезон «Вітер волі»"
+  },
+  "dolg_outfit_description": {
+    "eng": "This modern version of the Duty bodysuit is better suited for stalker recruits who are used to lightweight suits. Unlike the PSZ series, this suit provides good protection against anomalies while also being capable of stopping a pistol bullet. The suit cannot be modified with an artifact container, but may be upgraded with a combat support system instead.",
+    "pol": "Ta wersja kombinezonu �Powinno�ci� nadaje si� najlepiej dla stalker�w przyzwyczajonych do lekkich stroj�w. W odr�nieniu od serii PSZ, zapewnia dobr� ochron� zar�wno przed anomaliami, jak i przed pociskami z pistoletu. Kombinezonu tego nie mo�na niestety uzupe�ni� o pojemnik na artefakty, ale mo�e on za to by� zmodyfikowany poprzez instalacj� systemu wsparcia bojowego.",
+    "rus": "Современная модель комбинезона «Долга». Больше подходит новобранцам из сталкеров, которые привыкли к относительно лёгким костюмам. В отличие от серии ПС3, обеспечивает хорошую защиту от аномального воздействия и при этом способен остановить пистолетную пулю. Контейнеры для артефактов не предусмотрены, зато возможна установка различных вспомогательных систем.",
+    "ukr": "Сучасна модель комбінезона «Долгу». Найбільше підходить рекрутам зі сталкерів, які звикли до відносно легких костюмів. На відміну від серії ПС3, забезпечує хороший захист від аномальних впливів і при цьому здатний зупинити пістолетну кулю. Контейнери для артефактів не передбачені, зате можливе встановлення різних допоміжних систем."
+  },
+  "military_outfit_description": {
+    "eng": "This modern military armored suit is designed for assault operations in anomalous areas. Comprises a PSZ-12p heavy military armored suit, built-in compensation suit, and an anomalous protection bodysuit. The armor provides excellent protection against bullet and fragmentation damage, without greatly reducing the wearer's mobility. Does not come with an artifact container.",
+    "pol": "Ten nowoczesny pancerz jest przeznaczony do przeprowadzania operacji szturmowych na obszarach o du�ej liczbie anomalii. Sk�ada si� z wojskowego kombinezonu PSZ-12p, wbudowanego kompensatora i os�ony przed anomaliami. Pancerz zapewnia doskona�� ochron� przeciwko pociskom i od�amkom bez znacz�cego ograniczenia mobilno�ci w�a�ciciela. Nie zawiera pojemnika na artefakty.",
+    "rus": "Современный армейский бронекостюм для проведения штурмовых операций в зонах аномальной активности. Компоненты: тяжёлый бронежилет серии ПСЗ-12п, комбинезон аномальной защиты и компенсационный костюм. Предоставляет великолепную защиту от пуль и осколков и при этом удобен, почти не ограничивает подвижность носителя. Не оснащается контейнерами для артефактов.",
+    "ukr": "Сучасний армійський бронекостюм для проведення штурмових операцій у зонах аномальної активності. Компоненти: важкий бронежилет серії ПСЗ-12п, комбінезон аномального захисту та компенсаційний костюм. Надає прекрасний захист від куль та осколків і при цьому зручний, майже не обмежує рухів. Не споряджається контейнерами для артефактів."
+  },
+  "mp_scientific_outfit_description": {
+    "eng": "This bodysuit, intended for conducting research in the Zone, combines a closed-cycle respiratory module and an external isolation coating, resulting in excellent protection from anomalies. Due to poor protection from physical impact, the suit is not a good defense against bullet and fragmentation damage. Comes with a built-in artifact transportation container.",
+    "pol": "Ten kombinezon, przeznaczony do przeprowadzania bada� w Zonie, ��czy modu� oddechowy o zamkni�tym obiegu z zewn�trznym pokryciem izolacyjnym, dzi�ki czemu zapewnia znakomit� ochron� przed anomaliami. Ze wzgl�du na nisk� odporno�� na uderzenia, nie zapewnia on dobrej ochrony przed pociskami i od�amkami. Posiada wbudowany pojemnik do transportu artefakt�w.",
+    "rus": "Предназначен для проведения исследовательской деятельности в Зоне. Снабжён внешним изоляционным покрытием и системой дыхания замкнутого цикла, благодаря чему великолепно защищает от аномальных воздействий. При этом стойкость к механическим воздействиям невысока, поэтому носитель очень уязвим перед огнём противника. Оснащён встроенным контейнером для переноса артефактов.",
+    "ukr": "Призначений для проведення дослідницької діяльності у Зоні. Забезпечений зовнішнім ізоляційним покриттям та системою дихання замкнутого циклу, завдяки чому прекрасно захищає від аномальних впливів. При цьому стійкість до механічних впливів є невисокою, тому носій є дуже вразливим перед вогнем противника. Споряджений вбудованим контейнером для транспортування артефактів."
+  },
+  "scientific_outfit_description": {
+    "eng": "This suit, produced by one of Kiev's Defense Research Institutes, is a great alternative to homemade stalker suits. While its built-in body armor can only stop a pistol round, the anomaly and radiation protection system is second to none. Fully upgradeable and boasting two built-in artifact containers, this bodysuit is the equipment of choice for many experienced stalkers.",
+    "pol": "Ten kombinezon stanowi �wietn� alternatyw� dla ubra� ochronnych wykonywanych przez samych stalker�w. Jego pancerz jest w stanie zatrzyma� tylko pocisk z pistoletu, ale system ochrony przed anomaliami i promieniowaniem jest niezr�wnany. Ze wzgl�du na szerokie mo�liwo�ci modyfikacji i dwa wbudowane pojemniki na artefakty, u�ywa go wielu do�wiadczonych stalker�w.",
+    "rus": "Производимая в одном из киевских оборонных НИИ альтернатива кустарным комбинезонам сталкеров. Хотя встроенный бронежилет способен остановить только пистолетную пулю, система защиты от аномальных воздействий и радиации по праву считается непревзойдённой. Возможность модернизации и два встроенных контейнера для артефактов сделали эту модель популярной среди опытных сталкеров.",
+    "ukr": "Альтернатива кустарним комбінезонам сталкерів, що виготовляється в одному з київських оборонних НДІ . Хоча вбудований бронежилет здатний зупинити лише пістолетну кулю, система захисту від аномальних впливів та радіації недарма вважається неперевершеною. Можливість модернізації та два вбудовані контейнери для артефактів зробили цю модель популярною серед досвідчених сталкерів."
+  },
+  "specops_outfit_description": {
+    "eng": "This item comprises military PS5 series body armor with beryllium sputter modified for use in the Zone. Designed for assault operations in highly radioactive areas, it is ineffective in areas of high anomalous activity. The suit makes its way to stalkers through the military, who exchange it for loot. Does not come with an artifact container.",
+    "pol": "Ten kombinezon to tak naprawd� dostosowana do warunk�w panuj�cych w Zonie wojskowa kamizelka kuloodporna PS5 z berylowym pokryciem. Zosta� on zaprojektowany do stosowania na silnie radioaktywnych obszarach, ale jest nieskuteczny przeciwko anomaliom. Stalkerzy otrzymuj� te kombinezony od wojska w zamian za �upy. Nie zawiera pojemnika na artefakty.",
+    "rus": "Модифицированный для работы в условиях Зоны армейский бронежилет серии ПС5 с бериллиевым напылением. Предназначен для проведения штурмовых операций в областях с повышенным радиационным фоном, но малоэффективен в условиях высокой аномальной активности. К сталкерам попадает через военных, которые меняют армейское имущество на хабар. Не оснащается контейнерами для артефактов.",
+    "ukr": "Модифікований для роботи в умовах Зони армійський бронежилет серії ПС-5 із берилієвим напиленням. Призначений для проведення штурмових операцій на ділянках із підвищеним радіаційним тлом, але малоефективний в умовах високої аномальної активності. До сталкерів трапляє через військових, які міняють армійське майно на хабар. Не споряджується контейнерами для артефактів."
+  },
+  "stalker_outfit_description": {
+    "eng": "This DIY stalker bodysuit is a combination of a bodysuit of twin-layered rubberized cloth with plexiglass lining and built-in body armor. Despite the fact that the body armor is incapable of protecting the wearer from even pistol bullets, the suit enjoys great popularity due to its low cost and modification potential. Comes with built-in artifact containers.",
+    "pol": "Ten samodzielnie wykonywany kombinezon stalkerski zrobiony jest z dwuwarstwowej, gumowanej tkaniny z pleksiglasowym podszyciem i wbudowan� kamizelk� kuloodporn�. Mimo �e nie jest zdolny do zatrzymania nawet pocisku z pistoletu, jest popularny ze wzgl�du na nisk� cen� i mo�liwo�ci modyfikacji. Posiada wbudowane pojemniki na artefakty.",
+    "rus": "Производимый народными умельцами комбинезон сталкера представляет собой сочетание двухслойной прорезиненной ткани с плексигласовой прокладкой и встроенного бронежилета. Несмотря на то, что бронежилет пробивается даже пистолетной пулей, костюм очень распространён из-за дешевизны и широких возможностей для улучшения. Оснащён встроенными контейнерами для артефактов.",
+    "ukr": "Комбінезон сталкера, що виготовляється народними умільцями, являє собою поєднання двошарової прогумованої тканини із плексигласовою прокладкою та вбудованого бронежилету. Попри те, що бронежилет пробивається навіть пістолетною кулею, костюм дуже поширений через дешевизну та значні можливості для поліпшення. Споряджений вбудованими контейнерами для артефактів."
+  },
+  "svoboda_heavy_outfit_description": {
+    "eng": "This stalker bodysuit with reinforced body armor made by Freedom craftsmen represents a good compromise between combat and anomaly protection. The built-in body armor comprises armor plating and ten Kevlar layers, capable of stopping a pistol bullet. The suit uses the relatively expensive Sovereign compound for anomaly protection. Comes with an artifact container.",
+    "pol": "Ten kombinezon z wzmocnion� kamizelk� kuloodporn�, wykonany przez rzemie�lnik�w Wolno�ci, stanowi udany kompromis mi�dzy ochron� przed pociskami i przed anomaliami. Posiada p�yt� pancern� i dziesi�� warstw kevlaru, co wystarczy, aby zatrzyma� pocisk z pistoletu. Kombinezon u�ywa kosztownego preparatu Suweren w celu ochrony przed anomaliami. Zawiera pojemnik na artefakty.",
+    "rus": "Комбинезон сталкера с усиленным бронежилетом, производимый ремесленниками группировки «Свобода», - удачное сочетание броневой и аномальной защит. Встроенный бронежилет из бронепластин и уложенного в несколько слоёв кевлара способен остановить пистолетную пулю. Для защиты от аномальных воздействий ткань костюма пропитана составом «Суверен». Оснащён контейнером для артефактов.",
+    "ukr": "Комбінезон сталкера із посиленим бронежілетом, що виготовляється ремісниками угруповання «Воля», - вдале поєднання броньового та протианомального захисту. Вбудований бронежилет із бронепластин та складеного у кілька шарів кевлара здатен зупинити пістолетну кулю. Для захисту від аномальних впливів тканину костюму просочено рідиною «Суверен». Споряджений контейнером для артефактів."
+  },
+  "dolg_heavy_outfit_description": {
+    "eng": "This early model of the Duty bodysuit is the Spetsnaz PSZ-9 body armor modified for the Zone. The suit is capable of stopping a rifle bullet, however, this level of protection comes at the cost of its weight, bulkiness and virtually non-existent anomaly protection. The suit cannot be modified with an artifact container, but may be upgraded with a combat support system.",
+    "pol": "Ten wczesny model kombinezonu Powinno�ci to kamizelka kuloodporna PSZ-9 zmodyfikowana do u�ycia w Zonie. Mo�e on powstrzyma� pocisk z karabinu, ale tak wysoki stopie� ochrony ma swoj� cen� - wag�, niepor�czno�� i niski stopie� ochrony przed anomaliami. Kombinezonu nie mo�na uzupe�ni� o pojemnik na artefakty, ale mo�liwa jest instalacja systemu wsparcia bojowego.",
+    "rus": "Ранняя модель комбинезона «Долга» - бронежилет спецназа серии ПС3-9, приспособленный для использования в условиях Зоны. Способен защитить от автоматной пули, но очень громоздок и почти не обеспечивает защиту от аномальных воздействий. Установка контейнеров для артефактов не предусмотрена, зато возможно оснащение различными вспомогательными системами.",
+    "ukr": "Рання модель комбінезона «Долгу» - бронежилет спецназу серії ПС3-9, пристосований для використання в умовах Зони. Здатний захистити від автоматної кулі, але дуже громіздкий і майже не забезпечує захисту від аномальних впливів. Встановлення контейнерів для артефактів не передбачено, зате можливе спорядження різними допоміжними системами."
+  },
+  "csky_heavy_outfit_description": {
+    "eng": "Once used as standard by Clear Sky assault squads, after the faction’s elimination this armor serves as a reminder that even an excellent protective bodysuit cannot guarantee you safety this side of the perimeter. The armor is capable of stopping a pistol bullet, while the wearer is also well protected from anomalies. Comes with a built-in artifact container.",
+    "pol": "Pancerz ten, niegdy� u�ywany jako standardowe wyposa�enie oddzia��w szturmowych Czystego Nieba, po wyeliminowaniu tej frakcji sta� si� namacalnym dowodem tego, �e nawet doskona�e opancerzenie nie wystarczy do zapewnienia bezpiecze�stwa w Zonie. Jest on zdolny do zatrzymania pocisku z pistoletu, zapewniaj�c przy tym dobr� ochron� przed anomaliami. Posiada wbudowany pojemnik na artefakty.",
+    "rus": "Некогда это была штатная экипировка штурмовых отрядов «Чистого неба». Уничтожение данной группировки стало доходчивым напоминанием о том, что даже отличное снаряжение не может гарантировать безопасность в Зоне. Данный защитный костюм способен не только остановить пистолетную пулю, но и обеспечивает хорошую защиту от аномальных воздействий. Оснащён встроенным контейнером для артефактов.",
+    "ukr": "Колись це було штатне спорядження штурмових загонів «Чистого неба». Знищення цього угруповання стало прозорим нагадуванням про те, що навіть відмінне спорядження не може гарантувати безпеку в Зоні. Цей захисний костюм не лише здатний зупинити пістолетну кулю, але й забезпечує хороший захист від аномальних впливів. Споряджений вбудованим контейнером для артефактів."
+  },
+  "exo_outfit_description": {
+    "eng": "An experimental sample of a military exoskeleton. Was never mass-produced due to extraordinary cost and some design flaws. Despite this, it is in demand due to its ability to take on the weight of all carried equipment, and therefore small batches are made in underground facilities outside Ukraine. Comes with a built-in artifact container.",
+    "pol": "Eksperymentalny egzoszkielet wojskowy. Nigdy nie wszed� do masowej produkcji ze wzgl�du na wysoki koszt i pewne wady konstrukcyjne. Mimo to jest bardzo poszukiwany, poniewa� przejmuje na siebie niesione przez u�ytkownika obci��enie. Dlatego ma�e partie s� nadal produkowane w podziemnych fabrykach poza Ukrain�. Posiada wbudowany pojemnik na artefakty.",
+    "rus": "Экспериментальный образец военного экзоскелета. В серийное производство не пошёл ввиду чрезвычайно высокой себестоимости и некоторых огрехов в проектировании. Несмотря на это, из-за возможности значительно увеличивать мобильность носителя пользуется спросом и потому негласно выпускается малыми партиями за пределами Украины. Оснащён встроенным контейнером для артефактов.",
+    "ukr": "Експериментальний зразок військового екзоскелету. До серійного виробництва не пішов через надзвичайно високу собівартість та деякі вади у проектуванні. Попри це, через можливість значно збільшувати мобільність носія, має попит і тому негласно випускається малими партіями за межами України. Споряджений вбудованим контейнером для артефактів."
+  },
+  "mp_scientific_outfit_name": {
+    "eng": "SEVA bodysuit",
+    "pol": "Kombinezon SEVA",
+    "rus": "Комбинезон «СЕВА»",
+    "ukr": "Комбінезон «СЕВА»"
+  }
+}

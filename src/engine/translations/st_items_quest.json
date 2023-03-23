@@ -1,0 +1,734 @@
+{
+  "jup_a9_conservation_info": {
+    "eng": "Documents with notes",
+    "pol": "Dokumenty z notatkami",
+    "rus": "Бумаги с записями",
+    "ukr": "Папери"
+  },
+  "jup_a9_conservation_info_desc": {
+    "eng": "The documents mention that pursuant to an order of Department 1, following the sealing of the transportation lock, the Pripyat 1 underpass was flooded with carbon dioxide mixed with some kind of chemical additive. Consequently, all staff were instructed to wear chemical protection suits with closed-cycle respiratory modules.",
+    "pol": "Dokumenty m�wi�, �e zgodnie z rozkazem Departamentu 1, po zamkni�ciu �luzy transportowej tunel Prype� 1 zosta� wype�niony dwutlenkiem w�gla zmieszanym z jak�� substancj� chemiczn�. Nast�pnie ca�emu personelowi nakazano nosi� ochronne kombinezony z zamkni�tym obiegiem powietrza.",
+    "rus": "В бумагах говорится о том, что согласно распоряжению начальника Первого отдела путепровод «Припять-1» после запечатывания транспортного шлюза заполнили углекислым газом с некой примесью. Персоналу при этом предписывалось использовать костюмы химзащиты с замкнутой системой дыхания.",
+    "ukr": "У паперах йдеться про те, що згідно із розпорядженням начальника Першого відділу шляхопровід «Прип'ять-1» після запечатування транспортного шлюзу заповнили вуглекислим газом з якоюсь домішкою. Персоналу при цьому наказувалося використовувати костюми хімзахисту із замкнутою системою дихання."
+  },
+  "jup_a9_delivery_info": {
+    "eng": "Letter concerning deliveries of item 62",
+    "pol": "List dotycz�cy dostaw obiektu 62",
+    "rus": "Письмо о поставках «изделия №62»",
+    "ukr": "Лист про постачання «Виробу №62»"
+  },
+  "jup_a9_delivery_info_desc": {
+    "eng": "\"Due to anomalous activity, transportation of item 62 over open ground is not feasible. Use the underground Pripyat 1 underpass for delivery. The plan of delivery and subsequent sealing of the underpass has been sent to Department 1.\"",
+    "pol": "�Ze wzgl�du na wyst�powanie aktywno�ci anomalnej, transport obiektu 62 przez otwarty teren jest niemo�liwy. Nale�y u�y� podziemnego tunelu Prype� 1. Plan dostawy i maj�cego po niej nast�pi� zamkni�cia tunelu zosta� wys�any do Departamentu 1.�",
+    "rus": "«В связи с аномальными явлениями транспортировка изделия №62 по открытой местности невозможна. В данных условиях требуется задействовать подземный путепровод Припять-1. Схема доставки и последующей консервации путепровода направлена в Первый отдел».",
+    "ukr": "«В связи с аномальными явлениями транспортировка изделия №62 по открытой местности невозможна. В данных условиях требуется задействовать подземный путепровод Припять-1. Схема доставки и последующей консервации путепровода направлена в Первый отдел»."
+  },
+  "jup_a9_evacuation_info": {
+    "eng": "Folder with the order",
+    "pol": "Teczka z rozkazem",
+    "rus": "Папка с приказом",
+    "ukr": "Папка з наказом"
+  },
+  "jup_a9_evacuation_info_desc": {
+    "eng": "The documents mention evacuation of the production complex from the Jupiter plant into underground laboratories. This matter was supposed to have been discussed in the laboratory section.",
+    "pol": "Dokumenty wspominaj� o ewakuacji zak�adu produkcyjnego fabryki Jupiter do podziemnych laboratori�w. Ta kwestia mia�a zosta� om�wiona w cz�ci laboratoryjnej.",
+    "rus": "В документах говорится про эвакуацию производственного комплекса с территории завода «Юпитер» в подземные лаборатории. Обсуждение этого вопроса должно было состояться в лабораторном корпусе.",
+    "ukr": "У документах говориться про евакуацію виробничого комплексу з території заводу «Юпітер» до підземних лабораторій. Обговорення цього питання мало відбутися у лабораторному корпусі."
+  },
+  "jup_a9_losses_info": {
+    "eng": "Delivery Schedule",
+    "pol": "Harmonogram dostaw",
+    "rus": "График поставок",
+    "ukr": "Графік постачання"
+  },
+  "jup_a9_losses_info_desc": {
+    "eng": "\"Schedule for deliveries of item 62: 07/14 - 20 units (one damaged); 07/21 - 32 units (2 damaged); 07/28 - 26 units (one damaged). The consignment note concerning losses en route has been sent to the plant administration, with a copy sent to the repair workshop.\"",
+    "pol": "�Harmonogram dostaw obiektu 62: 14.07 - 20 jednostek (jedna uszkodzona); 21.07 - 32 jednostki (2 uszkodzone); 28.07 - 26 jednostek (jedna uszkodzona). List przewozowy dotycz�cy strat w wyniku transportu zosta� przes�any do administracji zak�adu, wys�ano te� kopi� do warsztat�w naprawczych.�",
+    "rus": "«График поставок «изделия №62»: 14.07 - 20 (двадцать) единиц, 1 (одна) повреждена; 21.07 - 32 (тридцать две) единицы, 2 (две) повреждены; 28.07 - 26 (двадцать шесть) единиц, 1 (одна) повреждена. Докладная о проценте потерь при перевозке направлена в администрацию завода. Копия направлена в ремонтный цех».",
+    "ukr": "«График поставок «изделия №62»: 14.07 - 20 (двадцать) единиц, 1 (одна) повреждена; 21.07 - 32 (тридцать две) единицы, 2 (две) повреждены; 28.07 - 26 (двадцать шесть) единиц, 1 (одна) повреждена. Докладная о проценте потерь при перевозке направлена в администрацию завода. Копия направлена в ремонтный цех»."
+  },
+  "jup_a9_meeting_info": {
+    "eng": "Notebook Sheet",
+    "pol": "Kartka z notesu",
+    "rus": "Тетрадный лист",
+    "ukr": "Аркуш із зошита"
+  },
+  "jup_a9_meeting_info_desc": {
+    "eng": "The following decision was made at the meeting: the delivery department is to concentrate on evacuating the production complex for item 62.",
+    "pol": "Podczas spotkania podj�to nast�puj�c� decyzj�: dzia� dostaw ma si� skupi� na ewakuacji kompleksu produkcyjnego obiektu 62.",
+    "rus": "Итог заседания: всем подразделениям сосредоточиться на деятельности по эвакуации производственного комплекса изделия №62.",
+    "ukr": "Итог заседания: всем подразделениям сосредоточиться на деятельности по эвакуации производственного комплекса изделия №62."
+  },
+  "jup_a9_power_info": {
+    "eng": "Duty Shift Log",
+    "pol": "Raport ze zmiany",
+    "rus": "Журнал дежурной смены",
+    "ukr": "Журнал чергової зміни"
+  },
+  "jup_a9_power_info_desc": {
+    "eng": "\"...18:30 - airtight sealing of all P-1 underpass sections complete. 19:00 - airtight sealing of railroad lock doors complete. Welding had to be used to seal the doors. 19:45 - transportation lock doors closed. Operation of the lock door mechanism required the activation of the backup generator, because the power to the underpass had already been cut. 20:00 - the chemical workshop has initiated flooding of the underpass with gas. 22:00 - work to seal the underpass has been completed, with all documents sent to Department 1.\"",
+    "pol": "�...18:30 - zako�czono szczelne zamykanie wszystkich sekcji tunelu P 1. 19:00 - zako�czono szczelne zamykanie drzwi linii kolejowej. Konieczne by�o ich zaspawanie. 19:45 - zamkni�cie drzwi luku transportowego. Obs�uga mechanizmu drzwi wymaga�a uruchomienia zasilania awaryjnego, poniewa� wcze�niej odci�to ju� dop�yw pr�du do tunelu. 20:00 - warsztat chemiczny rozpocz�� wype�nianie tunelu gazem. 22:00 - zako�czono dzia�ania zmierzaj�ce do zamkni�cia tunelu, wszystkie dokumenty przes�ano do Departamentu 1.�",
+    "rus": "«18:30 - Завершена герметизация всех секций «П-1». 19:00 - Завершена герметизация дверей железнодорожного шлюза. 19:45 - Двери транспортного шлюза закрыты. Для приведения механизма дверей шлюза потребовалось включение вспомогательного генератора ввиду запланированного обесточивания путепровода. 20:00 - Хим. цех начал закачку газа в путепровод. 22:00 - Работы по консервации путепровода завершены. Вся документация направлена в Первый отдел».",
+    "ukr": "«18:30 - Завершена герметизация всех секций «П-1». 19:00 - Завершена герметизация дверей железнодорожного шлюза. 19:45 - Двери транспортного шлюза закрыты. Для приведения механизма дверей шлюза потребовалось включение вспомогательного генератора ввиду запланированного обесточивания путепровода. 20:00 - Хим. цех начал закачку газа в путепровод. 22:00 - Работы по консервации путепровода завершены. Вся документация направлена в Первый отдел»."
+  },
+  "jup_a9_way_info": {
+    "eng": "Underpass Schematics ",
+    "pol": "Plan tuneli",
+    "rus": "Схема путепровода",
+    "ukr": "Схема шляхопроводу"
+  },
+  "jup_a9_way_info_desc": {
+    "eng": "Pripyat 1 underpass schematics, which show that the underpass is under the city of Pripyat. The document has several notes: 1. Seal transportation lock doors. 2. Use gas from chemical workshop to seal underpass.",
+    "pol": "Plan tuneli Prype� 1, z kt�rego wida�, �e tunel przebiega pod miastem Prype�. Dokument zawiera kilka notatek: 1. Zamkn�� drzwi luku transportowego. 2. U�y� gazu z warsztatu chemicznego do zamkni�cia tunelu.",
+    "rus": "Схема путепровода «Припять-1». По схеме видно, что он проходит под городом Припять. На схеме есть две пометки: «1. Запечатать двери транспортного шлюза» и «2. Использовать газ из цеха хим. соединений для консервации путепровода».",
+    "ukr": "Схема шляхопроводу «Прип'ять-1». За схемою видно, що той проходить під містом Прип'ять. На схемі є дві позначки: «1. Запечатать двери транспортного шлюза» и «2. Использовать газ из цеха хим. соединений для консервации путепровода»."
+  },
+  "jup_b1_half_artifact": {
+    "eng": "Altered Insulator",
+    "pol": "Przerobiony izolator",
+    "rus": "Изменённый изолятор",
+    "ukr": "Змінений ізолятор"
+  },
+  "jup_b1_half_artifact_descr": {
+    "eng": "This used to be an insulator. It has now almost turned into an unstable artifact. It is probably the source of intermittent psy-emissions.",
+    "pol": "To by� izolator. Teraz prawie zmieni� si� w niestabilny artefakt. To zapewne z niego wydobywaj� si� sporadyczne emisje psioniczne.",
+    "rus": "Этот предмет некогда был электрическим изолятором. Теперь он почти превратился в артефакт, отличающийся нестабильными свойствами. Скорее всего, именно он был источником переменного пси-излучения.",
+    "ukr": "Цей предмет колись був електричним ізолятором. Тепер він майже перетворився на артефакт, котрий відзначається нестабільними властивостями. Швидше за все, саме він був джерелом перемінного псі-випромінювання."
+  },
+  "jup_b200_tech_materials_acetone": {
+    "eng": "A can of colophonium",
+    "pol": "Puszka kalafonii",
+    "rus": "Банка канифоли",
+    "ukr": "Банка каніфолі"
+  },
+  "jup_b200_tech_materials_acetone_descr": {
+    "eng": "A can of colophonium used for soldering. Quite rare in the Zone, which explains why local technicians often use blue electrical tape to repair broken equipment.",
+    "pol": "Puszka kalafonii u�ywanej do lutowania. Spotyka si� j� w Zonie do�� rzadko, co t�umaczy, dlaczego miejscowi technicy cz�sto u�ywaj� do reperacji zepsutego sprz�tu niebieskiej ta�my elektrycznej.",
+    "rus": "Банка канифоли, используемой при пайке. Редкая вещь в Зоне: как правило, фрагменты сломавшихся предметов здесь соединяют при помощи изоленты.",
+    "ukr": "Банка каніфолі, що використовується для паяння. Рідка річ у Зоні: зазвичай частини предметів, що поламалися, тут з'єднують за допомогою ізоляційної стрічки."
+  },
+  "jup_b200_tech_materials_capacitor": {
+    "eng": "A pack of capacitors",
+    "pol": "Paczka kondensator�w",
+    "rus": "Упаковка конденсаторов",
+    "ukr": "Упаковка конденсаторів"
+  },
+  "jup_b200_tech_materials_capacitor_descr": {
+    "eng": "A pack of capacitors - one of the basic electrical components around. They're not that rare in the Zone, as they're used for hi-tech equipment upgrades, but this sort of capacity is not normally required.",
+    "pol": "Paczka kondensator�w - jednego z najpowszechniejszych komponent�w elektrycznych. Nie s� w Zonie rzadko�ci�, jako �e u�ywa si� ich w ulepszeniach zaawansowanego sprz�tu, ale taka pojemno�� nie jest zwykle wymagana.",
+    "rus": "Упаковка конденсаторов, которые сами по себе не так уж редки в Зоне. Но заявленная на данных деталях ёмкость настолько высока, что трудно представить их предназначение.",
+    "ukr": "Упаковка конденсаторів, котрі самі по собі не такі уже й рідкі у Зоні. Але заявлена на цих деталях ємність є настільки високою, що важко навіть уявити їхнє призначення."
+  },
+  "jup_b200_tech_materials_textolite": {
+    "eng": "Textolite base",
+    "pol": "Baza tekstolitowa",
+    "rus": "Текстолитовая основа",
+    "ukr": "Текстолітова основа"
+  },
+  "jup_b200_tech_materials_textolite_descr": {
+    "eng": "Textolite is one of the basic components of printed circuits. The feelings experienced by an amateur radio technician in relation to an untouched textolite base are similar to those experienced by a writer in relation to a blank piece of paper.",
+    "pol": "Tekstolit to jeden z podstawowych element�w obwod�w drukowanych. Uczucie, jakiego do�wiadcza radiotechnik-amator na widok nietkni�tej bazy tekstolitowej mo�na por�wna� do tego, co odczuwa pisarz wobec czystej kartki papieru.",
+    "rus": "Текстолит - основа печатной платы. То, что испытывает радиотехник-любитель при виде нетронутой текстолитовой плиты, сравнимо разве что с ощущениями писателя над чистым листом.",
+    "ukr": "Текстоліт - основа друкованої плати. Те, що відчуває радіотехнік-аматор, побачивши недоторкану текстолітову плиту, можна порівняти хіба що із відчуттям письменника над чистим аркушем паперу."
+  },
+  "jup_b200_tech_materials_transistor": {
+    "eng": "A box of transistors",
+    "pol": "Pude�ko tranzystor�w",
+    "rus": "Коробка транзисторов",
+    "ukr": "Коробки транзисторів"
+  },
+  "jup_b200_tech_materials_transistor_descr": {
+    "eng": "A box of transistors - semiconductors that generate, transform and amplify electrical oscillation. Transistors are the dream of every radio technician in the Zone.",
+    "pol": "Pude�ko tranzystor�w - p�przewodnik�w, kt�re generuj�, przekszta�caj� i zwi�kszaj� nat�enie impuls�w elektrycznych. Tranzystory to marzenie ka�dego radiotechnika w Zonie.",
+    "rus": "Коробка качественных транзисторов - полупроводниковых деталей, способных генерировать, преобразовать и усиливать электрические колебания. Предел мечтаний радиотехника, если такого чудом занесёт в Зону.",
+    "ukr": "Коробки якісних транзисторів - напівпровідникових деталей, здатних генерувати, перетворювати і посилювати електричні коливання. Ці предмети - мрія для радіотехніка, якщо такого якимось дивом занесе до Зони."
+  },
+  "jup_b200_tech_materials_wire": {
+    "eng": "A roll of copper wire",
+    "pol": "K��bek miedzianego drutu",
+    "rus": "Моток медной проволоки",
+    "ukr": "Моток мідного дроту"
+  },
+  "jup_b200_tech_materials_wire_descr": {
+    "eng": "A roll of copper wire is an excellent conductor and simultaneously a source of a base metal. Due to the latter, such wire is very rare in the Zone. All the reserves of this wire were found, melted and delivered to recycling centers back in the 90s.",
+    "pol": "K��bek miedzianego drutu to znakomity przewodnik i r�wnocze�nie �r�d�o metalu nieszlachetnego. Ze wzgl�du na t� drug� cech� taki drut spotyka si� w Zonie bardzo rzadko. Wszystkie jego rezerwy zosta�y odnalezione, stopione i dostarczone do o�rodk�w przetw�rczych jeszcze w latach 90.",
+    "rus": "Медь является отличным проводником - и, по совместительству, ценным цветным металлом. Ввиду данного факта такая проволока представляет собой большую редкость: все имевшиеся запасы меди в Зоне были найдены и сданы во вторсырьё ещё в середине 1990-х.",
+    "ukr": "Мідь є чудовим провідником струму - і, за сумісництвом, коштовним кольоровим металом. Через цей факт такий дріт являє собою велику рідкість: усі наявні запаси міді в Зоні було знайдено та здано в утиль іще в середині 1990-х."
+  },
+  "jup_b209_monster_scanner": {
+    "eng": "Mutant detection scanner",
+    "pol": "Wykrywacz mutant�w",
+    "rus": "Сканер присутствия мутантов",
+    "ukr": "Сканер присутності мутантів"
+  },
+  "jup_b209_monster_scanner_descr": {
+    "eng": "Based on a regular anomalous activity scanner, this device is combined with a limited range mutant detection sensor and a recording component for storage of results. The device is equipped with an automatic deactivation switch that is fired when a certain amount of data has been collected.",
+    "pol": "To urz�dzenie jest oparte na zwyk�ym wykrywaczu anomalii, kt�ry po��czono z czujnikiem wykrywaj�cym mutanty na ograniczonym obszarze i elementem pozwalaj�cym na przechowywanie danych. Po zebraniu ich okre�lonej ilo�ci uruchamia si� prze��cznik automatycznej dezaktywacji urz�dzenia.",
+    "rus": "Комплекс из сканера аномальной активности, датчика присутствия мутантов (ограниченного радиуса действия) и блока записи. Прибор снабжён автоматическим выключателем, который срабатывает после накопления определённого количества данных.",
+    "ukr": "Комплекс зі сканера аномальної активності, датчика присутності мутантів (обмеженого радіусу дії) та блоку запису. Прилад споряджено автоматичним вимикачем, котрий спрацьовує після накопичення певної кількості даних."
+  },
+  "jup_b47_jupiter_products_info": {
+    "eng": "Administrative documents",
+    "pol": "Dokumenty administracyjne",
+    "rus": "Административные документы",
+    "ukr": "Адміністративні документи"
+  },
+  "jup_b47_jupiter_products_info_descr": {
+    "eng": "A folder of documents containing purely administrative information. According to the documents, pursuant to an order from the central laboratory, technical documentation pertaining to item 62 was passed to the testing workshop.",
+    "pol": "Plik dokument�w zawieraj�cych dane czysto administracyjne. Wspomina si� w nich, �e zgodnie z rozkazem z laboratorium centralnego, dokumentacja techniczna obiektu 62 zosta�a przekazana do warsztatu testuj�cego.",
+    "rus": "Папка с документами, в которых содержится сугубо административная информация. Согласно последней, в связи с приказом из центральной лаборатории техническая документация по некоему «изделию №62» была передана в испытательный цех.",
+    "ukr": "Тека з документами, в яких міститься суто адміністративна інформація. Згідно з останньою, у зв'язку із наказом з центральної лабораторії технічну документацію такого собі «Виробу №62» було передано до випробувального цеху."
+  },
+  "jup_b47_merc_pda": {
+    "eng": "Black's PDA",
+    "pol": "PDA Czarnego",
+    "rus": "КПК Чёрного",
+    "ukr": "КПК Чорного"
+  },
+  "jup_b47_merc_pda_desc": {
+    "eng": "One message stands out among a handful of others. The sender is called Jackal and the message reads: \"My man at the research institute will recommend that you lead the expedition. He will have to hire your boys to guard the bunker. That will make things easier for you. Remember, the client doesn't want ANY information about the operation of X-designated objects to reach the scientists. If it does, we will not be able to leave the Zone. Don't let me down, Black.\"",
+    "pol": "Uwag� zwraca jedna z wiadomo�ci. Nadawca nazywa si� Szakal, a tekst brzmi nast�puj�co: �M�j cz�owiek w instytucie badawczym poleci ci� na dow�dc� ekspedycji. B�dzie musia� wynaj�� twoich ch�opak�w do ochrony bunkra. To ci u�atwi dzia�anie. Pami�taj, klient nie chce, �eby do naukowc�w dotar�y JAKIEKOLWIEK informacje na temat obs�ugi obiekt�w X. W przeciwnym wypadku nie b�dziemy mogli opu�ci� Zony. Nie zawied� mnie, Czarny.\"",
+    "rus": "Среди немногочисленных сообщений одно привлекает особое внимание благодаря прозвищу отправителя - Шакал. «Мой человек в НИИ порекомендует вас главе экспедиции. Тому придётся взять твоих ребят на охрану бункера, это здорово облегчит задачу. Помни: заказчик хочет, чтобы никакой информации о работе объектов с индексом «X» в руки учёным не попало. Если просочится хоть что-то, мы за пределами Зоны не жильцы. Не подведи меня, Чёрный».",
+    "ukr": "Серед нечисленних повідомлень одне привертає особливу увагу завдяки прізвиську відправника - Шакал. «Мой человек в НИИ порекомендует вас главе экспедиции. Тому придётся взять твоих ребят на охрану бункера, это здорово облегчит задачу. Помни: заказчик хочет, чтобы никакой информации о работе объектов с индексом «X» в руки учёным не попало. Если просочится хоть что-то, мы за пределами Зоны не жильцы. Не подведи меня, Чёрный»."
+  },
+  "jup_b9_blackbox": {
+    "eng": "Black Box",
+    "pol": "Czarna skrzynka",
+    "rus": "«Чёрный ящик»",
+    "ukr": "«Чорний ящик»"
+  },
+  "jup_b9_blackbox_descr": {
+    "eng": "The Stingray 1 black box which survived the crash. It should contain details of the flight's last moments, albeit in encrypted format.",
+    "pol": "Czarna skrzynka z Ogo�czy 1, ocala�a z katastrofy. Powinna zawiera� informacje na temat ostatnich chwil lotu, b�d� one jednak zaszyfrowane.",
+    "rus": "«Чёрный ящик», уцелевший при падении вертолёта «Скат-1». В нём должна содержаться зашифрованная информация о последних минутах полёта.",
+    "ukr": "«Чорний ящик», вцілілий після падіння гелікоптеру «Скат-1». У ньому має міститися зашифрована інформація про останні хвилини польоту."
+  },
+  "pri_a25_explosive_charge_descr": {
+    "eng": "Military grade plastic explosives with a 5 second timer.",
+    "pol": "Plastikowe materia�y wybuchowe klasy wojskowej z pi�ciosekundowym zegarem.",
+    "rus": "Пластиковая взрывчатка стандартного армейского образца. Оснащена пятисекундным таймером-замедлителем.",
+    "ukr": "Пластикова вибухівка стандартного армійського зразка. Споряджена п'ятисекундним таймером-уповільнювачем."
+  },
+  "pri_a25_explosive_name": {
+    "eng": "Explosives with a timer",
+    "pol": "�adunek wybuchowy z zegarem.",
+    "rus": "Взрывчатка с таймером",
+    "ukr": "Вибухівка із таймером"
+  },
+  "st_af_quest_b14_twisted": {
+    "eng": "Altered Wheel",
+    "pol": "Przemienione ko�o",
+    "rus": "Изменённый штурвал",
+    "ukr": "Змінений штурвал"
+  },
+  "st_device_flash_snag": {
+    "eng": "Snag's PDA",
+    "pol": "PDA S�ka",
+    "rus": "КПК Коряги",
+    "ukr": "КПК Корча"
+  },
+  "st_device_flash_snag_descr": {
+    "eng": "The PDA contains a map with a mark by the substation, clearly indicating a stash, along with a couple of erotic photographs. Nothing special.",
+    "pol": "W PDA znajduje si� mapa ze znacznikiem przy podstacji - bez w�tpienia jest tam schowek - oraz kilka fotografii erotycznych. Nic specjalnego.",
+    "rus": "В КПК есть карта с пометкой возле полустанка - явный тайник - плюс пара эротических фотографий довольно низкого качества.",
+    "ukr": "У КПК є мапа із позначкою біля полустанку - явна схованка - плюс пара еротичних фотографій доволі низького штибу."
+  },
+  "st_device_pda_port_bandit_leader": {
+    "eng": "Bandit's PDA",
+    "pol": "PDA bandyty",
+    "rus": "КПК бандита",
+    "ukr": "КПК бандита"
+  },
+  "st_device_pda_port_bandit_leader_descr": {
+    "eng": "The last message on the PDA reads: \"Catch that Snag bastard and bring him to me - we are due for a heart-to-heart. I don't care where he is - just find him. If he puts up a fight - teach him a lesson. Sultan.\"",
+    "pol": "Ostatnia wiadomo�� na PDA brzmi: �Z�ap tego gnoja S�ka i przyprowad� go do mnie, musimy sobie powa�nie porozmawia�. Nie obchodzi mnie, gdzie on jest, znajd� go. Je�li b�dzie si� stawia�, daj mu nauczk�. Su�tan.\"",
+    "rus": "Последнее сообщение на КПК: «Возьмите этого Корягу и притараньте сюда, у меня к нему конкретный базар нагорел. Достаньте мне его где угодно. Будет хоботиться - обломайте. Всё. Султан».",
+    "ukr": "Останнє повідомлення на КПК: «Возьміть цього Корягу і притараньте сюди, в мене до нього конкретний базар єсть. Дістаньте мені його де угодно. Буде хоботиться - обламайте. Все. Султан»."
+  },
+  "st_device_pda_zat_b5_dealer_desc": {
+    "eng": "This PDA contains details of Morgan's clients, as well as the coordinates of Duty's secret warehouse from which he took weapons. Morgan then sold the weapons to mercenaries and also established contact with someone called Sultan. To cover his tracks, Morgan decided to leak the warehouse location to Freedom. His accomplice, Vulture, was supposed to convey this information. The PDA also mentions a sensor that only Morgan can disable, which will alert Duty if the stash is opened. This information is bound to be of interest to both Duty and Freedom.",
+    "pol": "To PDA zawiera informacje na temat klient�w Morgana oraz wsp�rz�dne tajnego magazynu Powinno�ci, z kt�rego wzi�� bro�. Nast�pnie sprzeda� j� najemnikom i nawi�za� kontakt z kim� nazywanym �Su�tan�. Aby zatrze� za sob� �lady, Morgan postanowi� zdradzi� Wolno�ci lokalizacj� magazynu. Informacj� mia� przekaza� jego wsp�lnik, S�p. PDA wspomina te� o czujniku, kt�ry mo�e wy��czy� tylko Morgan, a kt�ry zaalarmuje Powinno��, je�li schowek zostanie otwarty. Ta informacja na pewno zainteresuje zar�wno Wolno��, jak i Powinno��.",
+    "rus": "В этом КПК хранятся данные по клиентам Моргана, а также координаты тайного склада «Долга», откуда Морган брал оружие. Оружие уходило наёмникам; кроме того, есть данные о контактах с неким Султаном. Чтобы замести следы, Морган решил передать местоположение тайника «Свободе». Миссию должен был выполнить его подельник - наёмник по прозвищу Гриф. Кроме того, в КПК упоминается о датчике, который должен оповещать «Долг» в случае открытия тайника, и отключить который может только сам Морган. Эти данные наверняка заинтересуют и «Долг», и «Свободу».",
+    "ukr": "У цьому КПК зберігаються дані по клієнтах Моргана, а також координати таємного складу «Долгу», звідки Морган брав зброю. Зброя передавалася найманцям; крім того, є дані про контакти з таким собі Султаном. Щоб замести сліди, Морган вирішив передати місце розташування схованки «Волі». Місію мав виконати його подільник - найманець на прізвисько Гриф. Крім того, у КПК згадується про датчик, що має сповіщати «Долг» у випадку відкриття схованки - відключити його може виключно сам Морган. Ці дані запевне зацікавлять і «Долг», і «Волю»."
+  },
+  "st_device_pda_zat_b5_dealer_name": {
+    "eng": "Morgan's PDA",
+    "pol": "PDA Morgana",
+    "rus": "КПК Моргана",
+    "ukr": "КПК Моргана"
+  },
+  "st_jup_b10_notes_01_desc": {
+    "eng": "A note on the back of an old document: \"Ghost, I'm taking my things. Thanks for the assault rifle - I'm going to need it. In exchange, I'm leaving you some of Doctor's medical supplies. I managed to trap the mercenary who was on my tail, so I'm not going to need them... I hope. I'm going to meet Fang now - he managed to put the decoder together. Let's meet at the usual place, if you can make it. Strelok.\"",
+    "pol": "Notatka na odwrocie starego dokumentu: �Duch, zabieram swoje rzeczy. Dzi�ki za karabin szturmowy - przyda mi si�. W zamian za niego zostawiam ci troch� �rodk�w medycznych od Doktora. Najemnik, kt�ry mnie �ciga�, wpad� w moj� pu�apk�, wi�c nie b�d� mi potrzebne... mam nadziej�. Teraz id� si� spotka� z K�em. Uda�o mu si� zbudowa� dekoder. Spotkajmy si� tam, gdzie zawsze, je�li dasz rad�. Strie�ok.�",
+    "rus": "Записка на обратной стороне старого документа: «Призрак, я забираю свои вещи. Отдельное спасибо за автомат - я без него как без рук. Взамен оставляю комплект медикаментов от Доктора. Мне удалось заманить в ловушку наёмника, который шёл по моему следу, так что они мне не понадобятся... надеюсь. Сейчас я направляюсь на встречу с Клыком: ему удалось собрать дешифратор. Если успеваешь, встречаемся в обычном месте. Стрелок».",
+    "ukr": "Записка на зворотньому боці старого документа: «Привид, я забираю свої речі. Окреме спасибі за автомат - я без нього як без рук. На віддяку залишаю комплект медикаментів від Доктора. Мені вдалося заманити до пастки найманця, який ішов по моїх слідах, тож вони мені не знадобляться... я так сподіваюся. Зараз прямую на зустріч із Кликом: йому вдалося зібрати дешифратор. Якщо встигаєш, зустрічаємося на тому ж місці. Стрілець»."
+  },
+  "st_jup_b10_notes_01_name": {
+    "eng": "A note to Ghost",
+    "pol": "Wiadomo�� dla Ducha",
+    "rus": "Записка Призраку",
+    "ukr": "Записка для Привида"
+  },
+  "st_jup_b10_notes_02_desc": {
+    "eng": "A note on checkered paper: \"Strelok, I've left the other decoder in our Pripyat stash just in case. Me and Ghost are heading to Agroprom, so we'll leave our extra ammo here. Take it if you need it. Happy hunting! Fang.\"",
+    "pol": "Notatka na papierze w kratk�: �Strie�ok, na wszelki wypadek zostawi�em drugi dekoder w naszym schowku w Prypeci. Ja i Duch idziemy do Agropromu, wi�c zostawimy tu nasz� dodatkow� amunicj�. We� j�, je�li ci si� przyda. Pomy�lnych �ow�w! Kie�.�",
+    "rus": "Записка на листе в клетку: «Стрелок, второй дешифратор я на всякий пожарный оставил в нашем тайнике на Припяти. Сейчас идём с Призраком на Агропром, лишнюю снарягу бросим здесь. Если что, забирай всё. Ни пуха! Клык».",
+    "ukr": "Записка на аркуші в клітиночку: «Стрільцю, другий дешифратор я про всяк випадок залишив у нашій схованці на Прип'яті. Зараз ідемо із Привидом на Агропром, зайву спорягу кинемо тут. Якшо шо, забирай усе. Щасти! Клик»."
+  },
+  "st_jup_b10_notes_02_name": {
+    "eng": "A note to Strelok",
+    "pol": "Notatka dla Strie�oka",
+    "rus": "Записка Стрелку",
+    "ukr": "Записка для Стрільця"
+  },
+  "st_jup_b10_notes_03_desc": {
+    "eng": "A note on the back of an old document: \"Fang, I can't wait for you any longer - I've got a whole squad on my tail. I'm going to the sarcophagus on my own. I'll leave my lucky shooter here - I haven't got any more ammo for it anyway. If I don't make it back, give it to Ghost. If he takes care of the shooter, the shooter will take care of him. Take care. Strelok.\"",
+    "pol": "Notatka na odwrocie starego dokumentu: �Kie�, nie mog� ju� d�u�ej na ciebie czeka� - siedzi mi na karku ca�y oddzia�. Sam id� do sarkofagu. Zostawi� tu moj� szcz�liw� spluw� - i tak nie mam ju� do niej naboj�w. Je�li nie wr�c�, daj j� Duchowi. Niech zadba o bro�, to bro� zadba o niego. Trzymaj si�. Strie�ok.�",
+    "rus": "Записка на обратной стороне старого документа: «Клык, больше не могу тебя ждать - у меня на хвосте целая свора. Иду в Саркофаг сам. Оставляю свой счастливый ствол: с патронами к нему совсем никак. Если не вернусь, отдай его Призраку и скажи, пусть бережёт, машинка толковая. Будь! Стрелок».",
+    "ukr": "Записка на зворотньому боці старого документа: «Клик, більше не можу на тебе чекати - в мене на хвості ціла зграя. Йду до Саркофага сам. Залишаю свій щасливий ствол: із патронами до нього зовсім ніяк. Якщо не повернуся, віддай його Привиду та скажи, нехай береже, то машинка правильна. Бувай! Стрілець»."
+  },
+  "st_jup_b10_notes_03_name": {
+    "eng": "A note to Fang",
+    "pol": "Wiadomo�� dla K�a",
+    "rus": "Записка Клыку",
+    "ukr": "Записка для Клика"
+  },
+  "st_jup_b10_ufo_memory_2_desc": {
+    "eng": "A memory module from the UAV. Novikov unblocked the module, allowing you to access the information the UAV collected. Among other things, it contains the coordinates of three radio beacons.",
+    "pol": "Modu� pami�ci z samolotu bezza�ogowego. Nowikow odblokowa� go, dzi�ki czemu masz dost�p do zebranych przez samolot informacji. S� po�r�d nich wsp�rz�dne trzech punkt�w, z kt�rych dobiegaj� sygna�y radiowe.",
+    "rus": "Модуль памяти, извлечённый из беспилотного разведывательного аппарата. Новиков разблокировал модуль, открыв доступ к информации, которая была собрана разведчиком: среди прочего в ней содержатся пеленги на три радиомаяка.",
+    "ukr": "Модуль пам'яті, витягнутий з безпілотного розвідувального апарата. Новіков розблокував модуль, відкривши доступ до інформації, зібраної розвідником. Серед іншого в ній наявні пеленги на три радіомаяки."
+  },
+  "st_jup_b10_ufo_memory_2_name": {
+    "eng": "Memory Module (unblocked)",
+    "pol": "Modu� pami�ci (odblokowany)",
+    "rus": "Модуль памяти (разблокирован)",
+    "ukr": "Модуль пам'яті (розблокований)"
+  },
+  "st_jup_b10_ufo_memory_desc": {
+    "eng": "A memory module from the UAV. Despite the crash, the module is fully operational, but unfortunately it is blocked.",
+    "pol": "Modu� pami�ci z samolotu bezza�ogowego. Pomimo wypadku modu� dzia�a bez zarzutu, ale niestety jest zablokowany.",
+    "rus": "Модуль памяти, извлёченный из беспилотного разведывательного аппарата. Несмотря на крушение носителя, модуль памяти работоспособен - но, к сожалению, заблокирован.",
+    "ukr": "Модуль пам'яті, витягнутий з безпілотного розвідувального апарата. Попри катастрофу носія, модуль пам'яті працездатний - але, на жаль, заблокований."
+  },
+  "st_jup_b10_ufo_memory_name": {
+    "eng": "Memory Module (blocked)",
+    "pol": "Modu� pami�ci (zablokowany)",
+    "rus": "Модуль памяти (заблокирован)",
+    "ukr": "Модуль пам'яті (заблокований)"
+  },
+  "st_jup_b205_sokolov_note_desc": {
+    "eng": "And old sheet with the sentry duty schedule and the numbers 1421 underneath. A note written using a marker over the old writing reads: \"Lieutenant V.I. Sokolov. Following the crash of the helicopter I proceeded to evacuation point B205. No evacuation attempts were made for two days and remaining at this position is risky. I have therefore decided to leave B205 and proceed to the scientific expedition's mobile laboratory. The laboratory is located northeast of the evacuation point.\"",
+    "pol": "Stara kartka z harmonogramem zmian warty, pod kt�rym widnieje liczba 1421. Na starych zapiskach sporz�dzono flamastrem nast�puj�c� notatk�: �Porucznik W. I. Soko�ow. Po katastrofie �mig�owca uda�em si� do punktu ewakuacyjnego B205. Przez dwa dni nie podj�to pr�by ewakuacji i dalsze pozostawanie w tym miejscu jest ryzykowne. Postanowi�em wi�c opu�ci� B205 i p�j�� do ruchomego laboratorium ekspedycji naukowej. Znajduje si� ono na p�nocny wsch�d od punktu ewakuacyjnego.�",
+    "rus": "Старый листок с расписанием постов; снизу на нём видны четыре цифры: «1421». Поверх старых записей маркером написано: «Лейтенант Соколов В.И. В связи с крушением вертолёта проследовал к точке эвакуации Б205. В течение двух дней эвакуация не состоялась, дальнейшее пребывание на точке связано с неоправданным риском. Принял решение покинуть точку и проследовать к мобильной лаборатории научной экспедиции. Лаборатория расположена к северо-востоку от точки эвакуации».",
+    "ukr": "Старий листок із розкладом постів; знизу на ньому видко чотири цифри: «1421». По старих записах маркером написано: «Лейтенант Соколов В.І. У зв'язку із катастрофою гелікоптера висунувся до точки евакуації Б205. Протягом двох днів евакуації не відбулося, подальше перебування на точці пов'язане із невиправданим ризиком. Ухвалив рішення залишити точку та висунутися до мобільної лабораторії наукової експедиції. Лабораторія розташована на північний схід від точки евакуації»."
+  },
+  "st_jup_b205_sokolov_note_name": {
+    "eng": "Sokolov's note",
+    "pol": "Notatka Soko�owa",
+    "rus": "Записка от Соколова",
+    "ukr": "Записка від Соколова"
+  },
+  "st_jup_b206_plant_desc": {
+    "eng": "A plant that was part of a grove, which was partially transformed by anomalous activity. The grove reacted to the intrusion with aggression, but the plant does not appear to be dangerous so far.",
+    "pol": "Ro�lina z zagajnika, kt�ry zosta� cz�ciowo przekszta�cony w wyniku dzia�ania anomalii. Zagajnik agresywnie zareagowa� na wtargni�cie, ale sama ro�lina nie wydaje si� by� niebezpieczna.",
+    "rus": "Растение, которое было частью аномально изменённой рощи. Деревья довольно агрессивно отреагировали на вторжение, но само растение опасных свойств пока не проявляло.",
+    "ukr": "Рослина, що була частиною аномально зміненого гаю. Дерева доволі агресивно відреагували на вторгнення, але сама рослина небезпечних властивостей поки не виявляла."
+  },
+  "st_jup_b206_plant_name": {
+    "eng": "Anomalous Plant",
+    "pol": "Anormalna ro�lina",
+    "rus": "Аномальное растение",
+    "ukr": "Аномальна рослина"
+  },
+  "st_jup_b207_merc_pda_with_contract_desc": {
+    "eng": "The last message received on the PDA is from Morgan. It is basically a contract for the assassination of a stalker called Degtyarev. The message has several photographs attached. Morgan's final instructions are to delete the message after reading.",
+    "pol": "Ostatnia wiadomo�� otrzymana na to PDA pochodzi od Morgana. Jest to zlecenie zab�jstwa stalkera nazwiskiem Diegtiariow. Do wiadomo�ci do��czono kilka fotografii. Ostatnie polecenie Morgana m�wi o wykasowaniu wiadomo�ci po jej przeczytaniu.",
+    "rus": "Последнее принятое сообщение в КПК - послание от Моргана. По сути, это заказ на убийство сталкера по фамилии Дегтярёв. К сообщению прикреплены несколько фотографий. В конце послания Морган требует стереть всю эту информацию.",
+    "ukr": "Останнє прийняте повідомлення у КПК - послання від Моргана. Власне, це замовлення на вбивство сталкера на прізвище Дегтярьов. До повідомлення прикріплено кілька фотографій. Наприкінці послання Морган вимагає стерти всю цю інформацію після прочитання."
+  },
+  "st_jup_b207_merc_pda_with_contract_name": {
+    "eng": "Mercenary's PDA",
+    "pol": "PDA najemnika",
+    "rus": "КПК наёмника",
+    "ukr": "КПК найманця"
+  },
+  "st_jup_b32_scanner_device_desc": {
+    "eng": "This case combines an artifact detector, a battery and a powerful transmitter. The device will scan anomalies to determine the number and type of artifacts that appear. All of this information will be automatically relayed to the scientists' bunker.",
+    "pol": "W tej skrzynce znajduje si� wykrywacz artefakt�w, bateria i pot�ny przeka�nik. Urz�dzenie b�dzie skanowa� anomalie, aby okre�li� liczb� i rodzaj artefakt�w, kt�re si� pojawi�. Wszystkie te informacje zostan� automatycznie przekazane do bunkra naukowc�w.",
+    "rus": "В корпусе прибора воедино собраны детектор артефактов, аккумулятор и мощный передатчик. Эта штука должна сканировать аномалии, определяя количество и тип появившихся в них артефактов. Вся полученная информация должна автоматически пересылаться в бункер учёных.",
+    "ukr": "У корпусі приладу разом змонтовано детектор артефактів, акумулятор та потужний передавач. Ця штука має сканувати аномалії, визначаючи кількість і тип артефактів, що з'явилися у них. Вся отримана інформація повинна автоматично пересилатися до бункеру вчених."
+  },
+  "st_jup_b32_scanner_device_name": {
+    "eng": "Anomalous Activity Scanner",
+    "pol": "Skaner anomalii",
+    "rus": "Сканер аномальной активности",
+    "ukr": "Сканер аномальної активності"
+  },
+  "st_jup_b46_duty_founder_pda_desc": {
+    "eng": "The last entry on the PDA is an audio recording: \\n\"...Whichever way we go, we always end up at the same exact spot. I still can't get used to this fog... It's weird that Chepurny disappeared without a trace. Maybe he found a way out?... \\nDay six... We have run out of water... The Colonel flipped his lid, shot two people at point blank range and then himself... Now I'm on my own in this damn anomaly... If I hadn't fixed for our communications with HQ to go down, they could have rescued us... and Duty wouldn't have existed. I wonder how things would have turned out... Ah, screw it. That Captain Tachenko died a long time ago... And this General Tachenko of Duty will follow him... that's justice, I suppose...\"\\nThe recording terminates just after a gunshot can be heard.",
+    "pol": "Ostatnia wiadomo�� na PDA to nagranie g�osowe:\\n�...Kt�r�dy p�jdziemy, zawsze trafiamy w to samo miejsce. Nie mog� przywykn�� do tej mg�y... Zadziwiaj�ce, jak Czepurny m�g� znikn�� bez �ladu. Mo�e znalaz� wyj�cie?... \\nDzie� sz�sty... Sko�czy�a si� woda... Pu�kownikowi odbi�o, zastrzeli� dw�ch ludzi, a potem siebie... Zosta�em sam w tej przekl�tej anomalii... Gdyby ��czno�� z baz� nie siad�a, to pewnie by nas uratowali i Powinno�� by nie powsta�a. Jak do tego wszystkiego dosz�o... Eh, pieprzy� to. Tamten kapitan Taczenko zgin�� dawno temu... A ten genera� Taczenko z Powinno�ci zaraz do niego do��czy... Sprawiedliwo�ci stanie si� zado��...\"\\nNagranie ko�czy si� tu� po tym, jak rozlega si� strza�.",
+    "rus": "Последняя запись на КПК - звуковая:\\n«...куда ни пойди, каждый раз возращаешься на одно и то же место. Туман этот чёртов... привыкнуть невозможно... Чепурной исчез, и с концами. Странно. Может, нашёл выход?..\\nШестой день, вода вышла вся... А полковник свихнулся: двоих расстрелял и себе пулю в лоб... Я теперь один. Один внутри этой долбаной аномалии... И дёрнуло же меня устроить обрыв связи со штабом! Могли бы забрать, а? Пенсия, дача, рыбалка - и не было бы никакого «Долга»... А правда, интересно, как бы всё повернулось!.. Только к чёрту. Капитан Таченко уже мёртвый давно... А генерал «Долга» Таченко сейчас уйдёт, скоро... в верхнюю тундру, мать её... в места, богатые дичью... такая вот справедливость».\\nДалее слышен звук выстрела, запись обрывается.",
+    "ukr": "Останній запис на КПК - звуковий:\\n«... куда ни пойди, каждый раз возращаешься на одно и то же место. Туман этот чёртов... привыкнуть невозможно... Чепурной исчез, и с концами. Странно. Может, нашёл выход?..\\nШестой день, вода вышла вся... А полковник свихнулся: двоих расстрелял и себе пулю в лоб... Я теперь один. Один внутри этой долбаной аномалии... И дёрнуло же меня устроить обрыв связи со штабом! Могли бы забрать, а? Пенсия, дача, рыбалка - и не было бы никакого «Долга»... А правда, интересно, как бы всё повернулось!.. Только к чёрту. Капитан Таченко уже мёртвый давно... А генерал «Долга» Таченко сейчас уйдёт, скоро... в верхнюю тундру, мать её... в места, богатые дичью... такая вот справедливость».\\nДалі чути звук пострілу, запис уривається."
+  },
+  "st_jup_b46_duty_founder_pda_name": {
+    "eng": "General Tachenko's PDA",
+    "pol": "PDA genera�a Taczenki",
+    "rus": "КПК генерала Таченко",
+    "ukr": "КПК генерала Таченка"
+  },
+  "st_lx8_service_instruction_descr": {
+    "eng": "The manual describes how to use item 62. The instructions emphasize that no adjustments need to be made for bullet trajectory or wind, as these are not important at distances within the weapon's effective range.\\nThese documents must not fall into anyone else's hands, as they would be of great interest to USS analysts.",
+    "pol": "Ta instrukcja opisuje spos�b korzystania z obiektu 62. Jest wyra�nie podkre�lone, �e nie trzeba wprowadza� �adnych zmian w zakresie trajektorii kuli czy naci�gu, poniewa� na dystansach, na kt�rych bro� jest skuteczna, czynniki te nie maj� znaczenia.\\nTe dokumenty nie mog� wpa�� w cudze r�ce, z pewno�ci� bardzo zainteresuj� analityk�w SBU.",
+    "rus": "В инструкции описано, как пользоваться «изделием №62». Особенно подчеркнуто, что при прицеливании не следует соблюдать упреждение с поправкой на ветер, поскольку данными факторами на дальности ведения прицельного огня можно пренебречь.\\nЭти документы не должны попасть в чужие руки: они явно заинтересуют аналитиков СБУ.",
+    "ukr": "В інструкції описано, як користуватися «Виробом №62». Особливо підкреслено, що під час прицілювання не слід дотримувати упередження із поправкою на вітер, оскільки на ці фактори на дальності ведення прицільного вогню можна не зважати.\\nЦі документи не повинні потрапити до чужих рук: вони явно зацікавлять аналітиків СБУ."
+  },
+  "st_lx8_service_instruction_name": {
+    "eng": "Manual for item 62",
+    "pol": "Instrukcja obs�ugi obiektu 62",
+    "rus": "Инструкция к «изделию №62»",
+    "ukr": "Інструкція до «Виробу №62»"
+  },
+  "st_pri_a19_american_experiment_info_descr": {
+    "eng": "The notebook contains a detailed description of an experiment assessing a psy-field's effect on an object in another hemisphere. A group of scientists in the Caribbean received the signal, but it was distorted. The signal was altered in a strange way, as though corrected by someone. A possible explanation is that the noosphere theory is correct and the changes were made by the noosphere.\\nThese documents must not fall into anyone else's hands, as they would be of great interest to USS analysts.",
+    "pol": "Notes zawiera dok�adny opis eksperymentu zwi�zanego z ocen� efektu pola psionicznego na obiekty na drugiej p�kuli. Grupa naukowc�w na Karaibach odebra�a sygna�, ale by� on zniekszta�cony. Zmiana sygna�u by�a niezwyk�a, zupe�nie, jakby kto� go skorygowa�. Mo�liwe jest wyja�nienie m�wi�ce, �e teoria noosfery jest s�uszna i �e zmiany zosta�y wprowadzone przez sam� noosfer�.\\nTe dokumenty nie mog� wpa�� w cudze r�ce, z pewno�ci� bardzo zainteresuj� analityk�w SBU.",
+    "rus": "В тетради есть подробное описание эксперимента по направленному воздействию пси-полем на объект, который находится в другом полушарии Земли. Группа учёных на судне в Карибском море получила сигнал, но с искажениями. Модуляции были непонятным образом искажены, словно «подправлены» кем-то. Одна из рабочих версий основана на предположении о верности теории ноосферы, которая якобы и привнесла эти искажения.\\nЭти документы не должны попасть в чужие руки: они явно заинтересуют аналитиков СБУ.",
+    "ukr": "У зошиті є докладний опис експерименту зі спрямованого впливу псі-поля на об'єкт, що знаходиться в іншій півкулі Землі. Група вчених на судні в Карибському морі отримала сигнал, але спотворений. Модуляції були незрозумілим чином перекручено, немов кимсь «підправлено». Одна з робочих версій ґрунтується на припущенні про вірність теорії ноосфери, котра нібито і додала ці спотворення.\\nЦі документи не повинні потрапити до чужих рук: вони явно зацікавлять аналітиків СБУ."
+  },
+  "st_pri_a19_american_experiment_info_name": {
+    "eng": "A notebook with a description of an experiment",
+    "pol": "Notes z opisem eksperymentu",
+    "rus": "Тетрадь с записью об эксперименте",
+    "ukr": "Зошит із записом про експеримент"
+  },
+  "st_pri_a19_lab_x10_info_descr": {
+    "eng": "The documents describe the technical characteristics of the antenna and how they deviate from their planned values. There is a note on the reverse side which indicates that these documents were prepared in lab X10.\\nThese documents must not fall into anyone else's hands, as they would be of great interest to USS analysts.",
+    "pol": "Dokument opisuje w�a�ciwo�ci techniczne anten i tego, jak r�ni� si� od zak�adanych warto�ci. Na odwrocie jest notatka, kt�ra wskazuje, �e te dokumenty przygotowano w laboratorium X10.\\nTe dokumenty nie mog� wpa�� w cudze r�ce, z pewno�ci� bardzo zainteresuj� analityk�w SBU.",
+    "rus": "В документах указываются технические характеристики антенны и их отличие от прогнозированных. На обратной стороне стоит пометка - она свидетельствует, что данная документация была оформлена в лаборатории Х10.\\nЭти документы не должны попасть в чужие руки: они явно заинтересуют аналитиков СБУ.",
+    "ukr": "У документах вказуються технічні характеристики антени та їхня відмінність від прогнозованих. На зворотньому боці стоїть позначка - вона свідчить, що цю документацію було оформлено в лабораторії Х10.\\nЦі документи не повинні потрапити до чужих рук: вони явно зацікавлять аналітиків СБУ."
+  },
+  "st_pri_a19_lab_x10_info_name": {
+    "eng": "Rainbow emitter - main technical characteristics",
+    "pol": "Generator t�czy - g��wne cechy techniczne",
+    "rus": "Излучатель «Радуга» - основные ТТХ",
+    "ukr": "Випромінювач «Веселка» - основні ТХ"
+  },
+  "st_pri_a19_lab_x16_info_descr": {
+    "eng": "The documents refer to one of the side discoveries of the research, specifically the discovery that living creatures are able to generate directed psy-emissions. A biological field emitter, essentially a giant brain, was grown as part of the research conducted in lab X16.\\nThese documents must not fall into anyone else's hands, as they would be of great interest to USS analysts.",
+    "pol": "Te dokumenty dotycz� jednego z odkry� pobocznych, kt�re wykaza�o, ze istoty �ywe s� w stanie generowa� emisje psioniczne. Biologiczny emiter pola, b�d�cy w�a�ciwie olbrzymim m�zgiem, zosta� wyhodowany w laboratorium X16 w ramach prowadzonych tam bada�.\\nTe dokumenty nie mog� wpa�� w cudze r�ce, z pewno�ci� bardzo zainteresuj� analityk�w SBU.",
+    "rus": "В документах говорится об одном из побочных результатов исследований - открытии способности живых существ генерировать пси-излучение направленного характера. В процессе исследований в лаборатории X16 был выращен биологический излучатель поля, де-факто - гигантский мозг.\\nЭти документы не должны попасть в чужие руки: они явно заинтересуют аналитиков СБУ.",
+    "ukr": "У документах говориться про один із побічних результатів досліджень - відкриття здатності живих істот генерувати псі-випромінювання спрямованого характеру. У процесі досліджень в лабораторії X16 було вирощено біологічний випромінювач поля, де-факто - гігантський мозок.\\nЦі документи не повинні потрапити до чужих рук: вони явно зацікавлять аналітиків СБУ."
+  },
+  "st_pri_a19_lab_x16_info_name": {
+    "eng": "Research documents",
+    "pol": "Dokumenty badawcze",
+    "rus": "Документы об исследованиях",
+    "ukr": "Документи про дослідження"
+  },
+  "st_pri_a19_lab_x18_info_descr": {
+    "eng": "The report details the study of biological samples sent from lab X18. The samples were subjected to informational field effects of varying intensities. The report meticulously describes the mutation of living beings following exposure to emissions.\\nThese documents must not fall into anyone else's hands, as they would be of great interest to USS analysts.",
+    "pol": "Raport szczeg�owo przedstawia badanie pr�bek biologicznych przes�anych z laboratorium X18. Pr�bki poddano dzia�aniu p�l transferowych o zmiennym nat�eniu. Raport drobiazgowo opisuje mutacje istot �ywych wywo�ane oddzia�ywaniem emisji.\\nTe dokumenty nie mog� wpa�� w cudze r�ce, z pewno�ci� bardzo zainteresuj� analityk�w SBU.",
+    "rus": "В докладе говорится об изучении биологических образцов, присланных из лаборатории Х18. Образцы подвергались воздействию информационным полем разной степени интенсивности. Доклад подробно описывает мутации живых организмов, вызванные таким облучением.\\nЭти документы не должны попасть в чужие руки: они явно заинтересуют аналитиков СБУ.",
+    "ukr": "У доповіді говориться про вивчення біологічних зразків, надісланих з лабораторії Х18. Зразки піддавалися впливу інформаційним полем різного ступеню інтенсивності. Доповідь докладно описує мутації живих організмів, спричинені таким опромінюванням.\\nЦі документи не повинні потрапити до чужих рук: вони явно зацікавлять аналітиків СБУ."
+  },
+  "st_pri_a19_lab_x18_info_name": {
+    "eng": "Report on study of samples",
+    "pol": "Raport z badania pr�bek",
+    "rus": "Доклад об исследовании образцов",
+    "ukr": "Доповідь про дослідження зразків"
+  },
+  "st_pri_a19_lab_x7_info_descr": {
+    "eng": "The document refers to the transfer of the research team and all materials to another laboratory called X7, which will be used to research matters relating to the influence of the noosphere. The research team comprises: N.A. Lebedev, E.F. Kalancha and V.I. Suslov.\\nThese documents must not fall into anyone else's hands, as they would be of great interest to USS analysts.",
+    "pol": "Dokument odnosi si� do przeniesienia zespo�u badawczego i wszystkich materia��w do innego laboratorium, zwanego X7, w kt�rym b�d� prowadzone badania dotycz�ce wp�yw�w noosfery. W sk�ad zespo�u badawczego wchodz�: N. A. Lebiediew, E. F. Ka�ancza i W. I. Sus�ow.\\nTe dokumenty nie mog� wpa�� w cudze r�ce, z pewno�ci� bardzo zainteresuj� analityk�w SBU.",
+    "rus": "В документе говорится о переводе исследовательской группы и передаче всех материалов в лабораторию с индексом Х7, в которой будут изучаться проблемы влияния ноосферы. Состав исследовательской группы: Лебедев Н.А., Каланча Е.Ф., Суслов В.И.\\nЭти документы не должны попасть в чужие руки: они явно заинтересуют аналитиков СБУ.",
+    "ukr": "У документі говориться про переведення дослідницької групи та передачу всіх матеріалів до лабораторії з індексом Х7, в якій вивчатимуться проблеми впливу ноосфери. Склад дослідницької групи: Лебедєв Н.А., Каланча Є.Ф., Суслов В.І.\\nЦі документи не повинні потрапити до чужих рук: вони явно зацікавлять аналітиків СБУ."
+  },
+  "st_pri_a19_lab_x7_info_name": {
+    "eng": "Order of Transfer",
+    "pol": "Rozkaz przeniesienia",
+    "rus": "Распоряжение о переводе",
+    "ukr": "Розпорядження про переведення"
+  },
+  "st_pri_b306_envoy_pda_desc": {
+    "eng": "The last note on the PDA reads: \"I found the emergency generator on the sixth floor - the technical floor. It took two hours to get it working again. I'd love to turn it on, but Serbin ordered me to stay put until he brings some people in.\"",
+    "pol": "Ostatnia notatka na PDA brzmi nast�puj�co: �Znalaz�em generator awaryjny na sz�stym pi�trze - technicznym. Dwie godziny zabra�o postawienie go na nogi. Bardzo chcia�bym go w��czy�, ale Serbin zabroni� mi si� wychyla�, dop�ki nie sprowadzi jakich� ludzi.\"",
+    "rus": "Последняя запись на КПК гласит: «Нашёл аварийный генератор на шестом - техническом - этаже. Убил два часа, чтобы привести его в более-менее рабочее состояние. Стоило бы попробовать запустить, только Сербин запретил что-либо делать, пока сам не приведёт людей»",
+    "ukr": "Останній запис на КПК говорить: «Знайшов аварійний генератор на шостому - технічному - поверсі. Дві години длубався, аби привести його в більш-менш робочий стан. Варто було б спробувати запустити, та Сербін заборонив робити будь-що, поки сам не приведе людей»"
+  },
+  "st_pri_b306_envoy_pda_name": {
+    "eng": "Barchuk's PDA",
+    "pol": "PDA Barczuka",
+    "rus": "КПК Барчука",
+    "ukr": "КПК Барчука"
+  },
+  "st_pri_b35_lab_x8_key_desc": {
+    "eng": "A red magnetic keycard marked with X8.",
+    "pol": "Czerwona magnetyczna karta wst�pu oznaczona X8.",
+    "rus": "Магнитная ключ-карта красного цвета. На одной из плоскостей видна надпись «Х8».",
+    "ukr": "Магнітна ключ-карта червоного кольору. На одній із поверхонь видко напис «Х8»."
+  },
+  "st_pri_b35_lab_x8_key_name": {
+    "eng": "Red X8 keycard",
+    "pol": "Czerwona karta wst�pu X8",
+    "rus": "Красная ключ-карта - «Х8»",
+    "ukr": "Червона ключ-карта - «Х8»"
+  },
+  "st_pri_b36_monolith_hiding_place_pda_desc": {
+    "eng": "The PDA contains many meaningless entries, but one stands out: The Monolith is communicating with the recipient of the message and ordering him to collect surplus ammunition and store it in locations unknown to the nonbelievers. These locations are to be marked with the mark of the Monolith. When difficult times come, those who hear the Monolith shall benefit from its wisdom... I have conveyed the will of the Monolith to my brothers and told them where to place the ammo...\"",
+    "pol": "PDA zawiera mn�stwo nieistotnych zapisk�w, ale jeden jest inny: �Monolit komunikuje si� z odbiorc� wiadomo�ci i nakazuje mu zebra� nadwy�ki amunicji, a potem ukry� je w miejscach nieznanych niedowiarkom. Te miejsca maj� zosta� zaznaczone symbolem Monolitu. Gdy nadejd� ci�kie czasy, ci, kt�rzy s�ysz� Monolit, b�d� czerpa� korzy�ci z jego m�dro�ci... Przekaza�em wol� Monolitu moim braciom i powiedzia�em im, gdzie umie�ci� naboje...�",
+    "rus": "В КПК много записей, не имеющих явного смысла, но одно всё же привлекает внимание: «Монолит обратился к внимающим ему, и приказал собрать излишки снаряжения и поместить в скрытые от неверных места, места же отметить его знаком. Настанут трудные времена и те, кто слышит великий Монолит, воспользуются его мудростью... Я передал волю Монолита своим братьям, и указал, где поместить припасы...».",
+    "ukr": "У КПК багато записів, котрі не мають явного сенсу, але одне все ж таки привертає увагу: «Монолит обратился к внимающим ему и приказал собрать излишки снаряжения и поместить в скрытые от неверных места, места же отметить его знаком. Настанут трудные времена - и те, кто слышит великий Монолит, воспользуются его мудростью... Я передал волю Монолита своим братьям и указал, где поместить припасы... »."
+  },
+  "st_pri_b36_monolith_hiding_place_pda_name": {
+    "eng": "Monolith fighter's PDA",
+    "pol": "PDA bojownika Monolitu",
+    "rus": "КПК бойца «Монолита»",
+    "ukr": "КПК бійця «Моноліту»"
+  },
+  "st_toolkit_1_desc": {
+    "eng": "A children's toolkit. Unlikely to be suitable for fine work, but given the deficit of tools in the Zone, could be useful for a thrifty technician.",
+    "pol": "Narz�dzia jak dla dziecka. Raczej nie przydadz� si� do rob�t precyzyjnych, ale bior�c pod uwag� deficyt narz�dzi w Zonie, mog� by� u�yteczne dla zapobiegliwego technika.",
+    "rus": "Набор инструментов «Юный техник». Вряд ли подойдёт для работы, в которой нужна тонкость, но в условиях тотальной нехватки инструментов в Зоне может пригодиться экономному технику.",
+    "ukr": "Набір інструментів «Юний технік». Навряд чи підійде для роботи, в якій потрібна тонкість, але в умовах тотального браку інструментів у Зоні може придатися ощадливому технікові."
+  },
+  "st_toolkit_1_name": {
+    "eng": "Tools for basic work",
+    "pol": "Narz�dzia podstawowe",
+    "rus": "Инструменты для грубой работы",
+    "ukr": "Інструменти для грубої роботи"
+  },
+  "st_toolkit_2_desc": {
+    "eng": "A decent set of tools. It looks like it was carefully put together by an experienced technician for his own use. Despite their age, the tools are in good condition.",
+    "pol": "Porz�dny zestaw narz�dzi. Wygl�da tak, jakby do�wiadczony technik pieczo�owicie skompletowa� go na w�asny u�ytek. S� stare, ale w dobrym stanie.",
+    "rus": "Неплохой набор инструментов. Судя по всему, тщательно подобран опытным мастером «под себя, родного». Несмотря на годы, весь инструментарий хорошо сохранился.",
+    "ukr": "Непоганий набір інструментів - зважаючи на все, ретельно підібраний досвідченим майстром «під себе, рідного». Попри роки, весь інструментарій добре зберігся."
+  },
+  "st_toolkit_2_name": {
+    "eng": "Tools for fine work",
+    "pol": "Narz�dzia do precyzyjnej pracy",
+    "rus": "Инструменты для тонкой работы",
+    "ukr": "Інструменти для тонкої роботи"
+  },
+  "st_toolkit_3_desc": {
+    "eng": "A professional set of tools for fine-tuning of equipment. The note on the container indicates that the set was made in Germany. The toolkit contains everything required for almost any kind of tuning and calibration work.",
+    "pol": "Zestaw profesjonalnych narz�dzi do zaawansowanych rob�t ze sprz�tem. Notatka na pojemniku m�wi, �e zestaw pochodzi z Niemiec. Jest w nim wszystko, czego potrzeba do niemal ka�dej pracy kalibracyjnej.",
+    "rus": "Профессиональный набор инструментов для тонкой доводки оборудования; надпись на ящике гласит, что произведён он в ГДР. Того, что включено в комплект, достаточно для проведения почти любых работ по настройке и калибровке.",
+    "ukr": "Професійний набір інструментів для тонкого доведення устаткування; напис на ящику свідчить, що вироблено його у НДР. Того, що включено до комплекту, достатньо для проведення майже будь-яких робіт із налаштування та калібрування."
+  },
+  "st_toolkit_3_name": {
+    "eng": "Calibration tools",
+    "pol": "Narz�dzia do kalibracji",
+    "rus": "Инструменты для калибровки",
+    "ukr": "Інструменти для калібрування"
+  },
+  "st_zat_a23_access_card": {
+    "eng": "Old magnetic keycard",
+    "pol": "Stara magnetyczna karta wst�pu",
+    "rus": "Старая магнитная ключ-карта",
+    "ukr": "Стара магнітна ключ-карта"
+  },
+  "st_zat_a23_access_card_descr": {
+    "eng": "Cardan's magnetic keycard. Was used for access to the item 62 testing workshop.",
+    "pol": "Magnetyczna karta wst�pu Kardana. Za jej pomoc� uzyskiwano dost�p do warsztatu testuj�cego obiekt 62.",
+    "rus": "Магнитная ключ-карта, принадлежащая Кардану. Использовалась для допуска в цех, где испытывалось «изделие №62».",
+    "ukr": "Магнітна ключ-карта, що належить Карданові. Використовувалася для допуску до цеху, де проходив випробування «Виріб №62»."
+  },
+  "st_zat_a23_gauss_rifle_docs": {
+    "eng": "Documents concerning item 62",
+    "pol": "Dokumenty dotycz�ce obiektu 62",
+    "rus": "Документация по «изделию №62»",
+    "ukr": "Документація «Виробу №62»"
+  },
+  "st_zat_a23_gauss_rifle_docs_descr": {
+    "eng": "Documents which describe the operating mechanism and main technical characteristics of the electromagnetic device.\\nThere is a note inside the documents which reads: \"Documents must be returned to X8, the central laboratory. I will be busy, so deliver them yourself. Use the magnetic card in the Pripyat Yubileiny service center to go down to the second underground floor. You'll work it out from there. The access card is enclosed.\\nN. Lebedev\"\\nThese documents must not fall into anyone else's hands, as they would be of great interest to USS analysts.",
+    "pol": "Dokumenty opisuj�ce mechanizm i g��wne w�a�ciwo�ci techniczne urz�dzenia elektromagnetycznego.\\nPo�r�d dokument�w znajduje si� nast�puj�ca notatka: �Dokumenty musz� zosta� zwr�cone do X8, do laboratorium centralnego. Ja b�d� zaj�ty, wi�c dostarcz je sam. U�yj karty magnetycznej w centrum us�ugowym Jubilejny w Prypeci, �eby zjecha� na drugi poziom pod ziemi�. Stamt�d ju� sobie poradzisz. Za��czam kart� dost�pu.\\nN. Lebiediew.\\nTe dokumenty nie mog� wpa�� w cudze r�ce, z pewno�ci� bardzo zainteresuj� analityk�w SBU.",
+    "rus": "Документация, в которой описан принцип работы и основные ТТХ электромагнитной установки.\\nВ документы вложена записка: «Документацию необходимо вернуть в центральную лабораторию (X8). Я буду занят, доставишь сам. В КБО «Юбилейный» используй магнитную карту - спустишься на лифте на минус второй этаж, дальше разберёшься сам. Карту доступа прилагаю.\\nН. Лебедев»\\nЭти документы не должны попасть в чужие руки: они явно заинтересуют аналитиков СБУ.",
+    "ukr": "Документація, в якій описано принцип роботи та основні ТТХ електромагнітної установки.\\nДо документів вкладено цидулку: «Документацию необходимо вернуть в центральную лабораторию (X8). Я буду занят, доставишь сам. В КБО «Юбилейный» используй магнитную карту - спустишься на лифте на минус второй этаж, дальше разберёшься сам. Карту доступа прилагаю.\\nН. Лебедев»\\nЦі документи не повинні потрапити до чужих рук: вони явно зацікавлять аналітиків СБУ."
+  },
+  "st_zat_a23_labx8_key_name": {
+    "eng": "Yellow X8 keycard",
+    "pol": "��ta karta wst�pu X8",
+    "rus": "Жёлтая ключ-карта - «Х8»",
+    "ukr": "Жовта ключ-карта - «Х8»"
+  },
+  "st_zat_b12_documents_1": {
+    "eng": "Order No. 562",
+    "pol": "Rozkaz nr 562",
+    "rus": "Приказ №562",
+    "ukr": "Наказ №562"
+  },
+  "st_zat_b12_documents_2": {
+    "eng": "Internal order No. 423",
+    "pol": "Rozkaz wewn�trzny nr 423",
+    "rus": "Внутреннее распоряжение №423",
+    "ukr": "Внутрішнє розпорядження №423"
+  },
+  "st_zat_b12_key_1": {
+    "eng": "Key A",
+    "pol": "Klucz A",
+    "rus": "Ключ «A»",
+    "ukr": "Ключ «A»"
+  },
+  "st_zat_b12_key_1_descr": {
+    "eng": "A regular key designated with the letter \"A\".",
+    "pol": "Zwyk�y klucz oznaczony liter� A.",
+    "rus": "Обычный на вид ключ, помеченный буквой «А».",
+    "ukr": "Звичайний на вигляд ключ, позначений буквою «А»"
+  },
+  "st_zat_b12_key_2": {
+    "eng": "Key B",
+    "pol": "Klucz B",
+    "rus": "Ключ «Б»",
+    "ukr": "Ключ «Б»"
+  },
+  "st_zat_b12_key_2_descr": {
+    "eng": "A regular key designated with the letter \"B\".",
+    "pol": "Zwyk�y klucz oznaczony liter� B.",
+    "rus": "Обычный на вид ключ, помеченный буквой «Б».",
+    "ukr": "Звичайний на вид ключ, позначений буквою «Б»"
+  },
+  "st_zat_b20_noah_pda_desc": {
+    "eng": "One of the audio recordings sounds particularly psychopathic: \"So, that's where those damn mutants are!... Sly bastards climbed up to the plateau thinking that Noah won't get to them... I bet they don't know that I've got a personal path up there by the northern farmstead... You're in for a fun ride, assholes!!\"",
+    "pol": "Jedno z nagra� g�osowych brzmi szczeg�lnie psychopatycznie: �A wi�c to st�d s� te cholerne mutanty!... Przebieg�e gnojki wspi�y si� na p�askowy� i my�l�, �e Noe ich nie dostanie... Na pewno nie wiedz�, �e mam w�asn� �cie�k� na g�r�, przy p�nocnym gospodarstwie... Szykuje si� zabawa, dupki!\"",
+    "rus": "Голос в одной из аудиозаписей звучит особенно взвинченно: «Ага, вот вы где, мутанты фуевы!.. Залезли, значит, наверх, и думаете, Ной до вас не доберётся?.. Хе-хе! Я смотрю, вы не в курсе, что у меня возле северного хутора личный ход есть... Ну всё, трындец вам, ублюдки!».",
+    "ukr": "Голос в одному з аудіозаписів звучить особливо накручено: «Ага, оно ви де, мутанти паскудні!.. Залізли, значиться, нагору й думаєте, що Ной по вас не прийде?.. Ге-е! Я бачу, ви не в курсі, що в мене біля північного хутора особистий хід є... Ну все, пипоть вам, виродки!»."
+  },
+  "st_zat_b20_noah_pda_name": {
+    "eng": "Noah's PDA",
+    "pol": "PDA Noego",
+    "rus": "КПК Ноя",
+    "ukr": "КПК Ноя"
+  },
+  "st_zat_b40_notebook_desc": {
+    "eng": "The notebook contains one message marked as important among a heap of spam:\\n\"Set up a camp near the waste processing station and everyone who is going to be participating in this job will join you. Don't expect Black, because he and his people will be at Jupiter on a different mission. The army has suspended all flights into the Zone, so there won't be any trouble from that side. When stalkers find a way to Pripyat we'll send a guide and wait for the client's people there - they'll show us where the lab is.\\nJackal.\"",
+    "pol": "Notes zawiera mas� spamu i jedn� wiadomo�� oznaczon� jako wa�na:\\n�Za��cie ob�z w pobli�u zak�adu utylizacji odpad�w, a ka�dy, kto ma bra� udzia� w tej robocie, przy��czy si� do was. Nie oczekujcie Czarnego, bo on i jego ludzie b�d� w Jupiterze z inn� misj�. Wojsko zawiesi�o wszystkie loty do Zony, wi�c z tej strony nie b�dziemy mieli problem�w. Kiedy stalkerzy znajd� drog� do Prypeci, wy�lemy przewodnika i poczekamy tam na ludzi klienta - poka�� nam, gdzie jest laboratorium.\\nSzakal.�",
+    "rus": "Среди множества спама в почтовом ящике ноутбука содержится единственное сообщение, помеченное как важное:\\n«Организуйте лагерь на станции переработки отходов - каждый, кто участвует в деле, будет прибывать к вам. Чёрного не ждите: он с людьми будет на «Юпитере», у него своя задача. Военные тормознули полёты в Зоне, так что от них неприятностей не будет. Когда сталкеры найдут путь в Припять, пришлём проводника и будем ждать там людей заказчика - они покажут, где лаборатория.\\nШакал»",
+    "ukr": "Серед безлічі спама у поштовій скриньці ноутбука міститься єдине повідомлення, позначене як важливе:\\n«Организуйте лагерь на станции переработки отходов - каждый, кто участвует в деле, будет прибывать к вам. Чёрного не ждите: он с людьми будет на «Юпитере», у него своя задача. Военные тормознули полёты в Зоне, так что от них неприятностей не будет. Когда сталкери найдут путь в Припять, пришлём проводника и будем ждать там людей заказчика - они покажут, где лаборатория.\\nШакал»"
+  },
+  "st_zat_b40_notebook_name": {
+    "eng": "Mercenary notebook",
+    "pol": "Notes najemnika",
+    "rus": "Ноутбук наёмников",
+    "ukr": "Ноутбук найманців"
+  },
+  "st_zat_b40_pda_1_desc": {
+    "eng": "The final incoming message reads:\\n\"We're kicking heels by some old workshops. I sent two boys ahead to scout the road for you. Then again, we'll wait here until the client's courier shows up - the air is a hell of a lot fresher here.\\nTesak\"",
+    "pol": "Ostatnia nades�ana wiadomo�� brzmi:\\n\"Czekamy przy jakich� starych warsztatach. Wys�a�em dw�ch ch�opak�w przodem, �eby zrobili dla ciebie rozpoznanie drogi. Ale b�dziemy tu czekali, dop�ki nie pojawi si� kurier klienta - tu jest o wiele �wie�sze powietrze.\\nTasak.\"",
+    "rus": "Последнее входящее сообщение:\\n«Пока торчим возле каких-то старых цехов. Я послал двоих вперёд разведать к вам дорогу. Пока не объявится курьер от заказчика, будем ждать здесь: тут воздух явно свежее.\\nТесак»",
+    "ukr": "Останнє вхідне повідомлення:\\n«Пока торчим возле каких-то старых цехов. Я послал двоих вперёд разведать к вам дорогу. Пока не объявится курьер от заказчика, будем ждать здесь: тут воздух явно свежее.\\nТесак»"
+  },
+  "st_zat_b40_pda_1_name": {
+    "eng": "PDA of Hook the mercenary",
+    "pol": "PDA najemnika Haka",
+    "rus": "КПК наёмника Крюка",
+    "ukr": "КПК найманця Гака"
+  },
+  "st_zat_b40_pda_2_name": {
+    "eng": "PDA of Ridge the mercenary",
+    "pol": "PDA najemnika Pr�gi",
+    "rus": "КПК наёмника Хребта",
+    "ukr": "КПК найманця Хребта"
+  },
+  "st_zat_b57_gas_desc": {
+    "eng": "A canister of a dangerous chemical nerve agent.",
+    "pol": "Kanister niebezpiecznego chemicznego czynnika nerwowego.",
+    "rus": "Баллон с опасным химическим веществом нервно-паралитического действия.",
+    "ukr": "Балон із небезпечною хімічною речовиною нервово-паралітичної дії."
+  },
+  "st_zat_b57_gas_name": {
+    "eng": "A canister of Perin B3 gas",
+    "pol": "Kanister gazu Perin B3",
+    "rus": "Балон с газом «Перин-В3»",
+    "ukr": "Балон із газом «Перин-В3»"
+  },
+  "zat_b33_safe_container_desc": {
+    "eng": "The box is locked with a rather clever lock installed into it. Judging by its weight and the noise it makes when shaken, there's something inside.",
+    "pol": "Skrzynka jest zamkni�ta za pomoc� do�� wymy�lnego zamka. Jej waga i d�wi�k, jaki wydaje przy potrz�saniu, ka�� s�dzi�, �e co� znajduje si� w �rodku.",
+    "rus": "Ящик заперт, в него вмонтирован весьма хитрый замок. Судя по весу и грохоту при встряхивании, внутри что-то есть.",
+    "ukr": "Ящик замкнений, у нього вмонтований доволі хитрий замок. Судячи з ваги та гуркоту під час струсів, усередині щось є."
+  },
+  "zat_b33_safe_container_name": {
+    "eng": "Steel box",
+    "pol": "Stalowa skrzynka",
+    "rus": "Стальной ящик",
+    "ukr": "Сталевий ящик"
+  },
+  "zat_b39_joker_pda_description": {
+    "eng": "Note on the PDA: \"I'm positive the artifact is on the tree itself. It's clear from here that I could climb onto the tree from the hill. I just hope the hills are free of mutants. It's too bad I had to come here on my own after that argument with Cardan and Barge, but when I bring back the artifact they'll see I was right all along...\"",
+    "pol": "Notatka na PDA: �Jestem pewien, �e artefakt jest na samym drzewie. St�d wida�, �e m�g�bym si� na nie wspi�� ze wzg�rza. Mam tylko nadziej�, �e na wzg�rzach nie ma mutant�w. Szkoda, �e przyszed�em tu sam po tej awanturze z Kardanem i Stogiem, ale kiedy przynios� artefakt, zobacz�, �e od pocz�tku mia�em racj�...\"",
+    "rus": "Запись в КПК: «Теперь я уверен, что артефакт не внизу! Он должен быть на самом дереве! Кажется, на него можно забраться с холма. Теперь главное, чтобы там не было монстров. Эх, жаль, после ссоры с Карданом и Баржой пришлось переться сюда одному.... Зато как притащу я артефакт, до них дойдёт, кого надо было слушать!»",
+    "ukr": "Запис у КПК: «Тепер я певен, що артефакт не внизу! Він має бути на самому дереві! Здається, на нього можна забратися із пагорба. Тепер головне, щоб там не було монстрів. Ех, шкода, після сварки із Карданом та Баржею довелося пертися сюди самому... . Та зате ото як притягну той артефакт, вони дотумкають, кого слід було слухати!»"
+  },
+  "zat_b39_joker_pda_name": {
+    "eng": "Joker's PDA",
+    "pol": "PDA Kawalarza",
+    "rus": "КПК Шутника",
+    "ukr": "КПК Жартівника"
+  },
+  "zat_b44_barge_pda_desc": {
+    "eng": "The last note on the PDA conveys that the person who made it was upset: \"Cardan, that old drunk. Not only is he a lazy bastard once he's had a drink - \"it's better here, we need to take it easy\" - but then he goes and takes a run at me and Joker, saying we're young and ain't got a clue... Heh... Joker's a piece of work, too: gets pissed off, grabs his bag and disappears. While I was trying to calm Cardan down, he left and hell if I know where he went. And what I am supposed to do? Drink with that senile moron? No thank you! His vodka is shit... Eww...\"",
+    "pol": "Ostatnia notatka na tym PDA ujawnia, �e osoba, kt�ra j� wprowadzi�a, by�a zdenerwowana: �Kardan, ten stary pijak. Nie do��, �e jak si� napije, to nic mu si� nie chce - �tu jest dobrze, nigdzie si� nie spieszy� - to jeszcze najecha� na mnie i Kawalarza, �e niby jeste�my m�odzi i na niczym si� nie znamy... Kawalarz to te� niez�y agregat: wkurzy� si�, z�apa� torb� i poszed�. Kiedy ja uspokaja�em Kardana, znikn�� nie wiadomo gdzie. I co ja mam zrobi�? Pi� z tym starym kretynem? Dzi�kuj�, postoj�. Ta jego w�dka to niez�y szajs... Chuj. A pomy�le�, �e na pocz�tku tak dobrze si� zapowiada�o.\"",
+    "rus": "В последней записи на КПК чувствуется обида: «Кардан - алкаш старый! Как набухается, зад от стула оторвать не может - ну да, как же: «Тут надо получше осмотреться»... придурок! Ещё и на нас с Шутником наехал - молодые мы, типа, слишком, ни черта не сечём... х-хе!.. А Шутник тоже хорош: обиделся, схватил рюкзак и - фьють! - с концами. Пока я Кардана успокаивал, свалил в неизвестном направлении. А мне что теперь, со старым идиотом бухать? И водка эта - дерьмо, пфу... А так классно всё начиналось!»",
+    "ukr": "В останньому записі на КПК чути образу: «Кардан - пияк старий! Як набухається, дупу від стільця відірвати не в змозі - ну то аякже: «Тут треба краще роздивитися»... недоумок! Ще й на нас із Жартівником наїхав - надто молоді ми, бачиш, ні біса не розбираємося... г-ге!.. А Жартівник теж молодець: образився, схопив рюкзак та й - фух! - злиняв. Поки я Кардана заспокоював, чухнув у невідомому напрямку. А мені що тепер, зі старим ідіотом ото бухати? І горілка ця - лайно, пфу... а так класно все починалося!»"
+  },
+  "zat_b44_barge_pda_name": {
+    "eng": "Barge's PDA",
+    "pol": "PDA Stoga",
+    "rus": "КПК Баржи",
+    "ukr": "КПК Баржі"
+  },
+  "zat_b22_medic_pda_desc": {
+    "eng": "Tremor kept a diary in his PDA, and his last notes are the most interesting:”Recording 12. My research will be over soon... People at the camp are starting to suspect something. Grouse and Danila are planning to hunt some bloodsuckers ... I wonder when they’ll figure it out... I need to sort the jars of blood to find out which ones have been contaminated, then hide the rest... [quickly:] Someone’s coming. [the sound of the recording device being switched off, then on again]. Recording 13... possibly my last. First that nosy hunter and now Grouse... I won’t get away with this. They’ll come for me, I know it. Doesn’t really matter - this hemoglobin dependency will kill me soon anyway. And I’d rather die from a bullet than a disease...”",
+    "pol": "Wstrz�s prowadzi� dziennik w swoim PDA, a najciekawsze s� jego ostatnie zapiski: �Nagranie 12. Nied�ugo sko�cz� badania... Ludzie w obozie zaczynaj� co� podejrzewa�. G�uszec i Dani�a chc� zapolowa� na pijawki... Ciekawe, kiedy si� zorientuj�... Musz� przejrze� s�oiki z krwi� i oddzieli� te zaka�one, a reszt� ukry�... [szybko:] Kto� idzie. [s�ycha�, jak urz�dzenie zostaje wy��czone, a potem w��czone ponownie.] Nagranie 13... Prawdopodobnie ostatnie... Najpierw ten w�cibski my�liwy, a teraz G�uszec... Nie ujdzie mi to na sucho. Przyjd� po mnie... Wiem, o tym. Niewa�ne - uzale�nienie od hemoglobiny i tak by mnie wyko�czy�o. Wol� zgin�� od kuli ni� od choroby...�",
+    "rus": "Запись №12. Исследования скоро закончатся... В лагере уже начинают что-то подозревать. Глухарь договорился с Данилой идти на кровососов... Интересно, когда они догадаются?.. Нужно отсортировать банки с кровью: узнать, которые из них заражены, и спрятать оставшиеся... Кто-то идёт!..\r\nЗапись №13... возможно, последняя. Всё наперекос! Сначала этот любопытный идиот-охотник, а теперь и Глухарь. Наивно рассчитывать, что всё сойдёт мне с рук. За мной придут. Впрочем... какая, в сущности, разница? Гемоглобинозависимость скоро съест меня. Лучше пусть застрелят - это лучше, чем умирать от болезни...",
+    "ukr": "Запис №12. Дослідження незабаром закінчаться... У таборі вже починають щось підозрювати. Глухар домовився з Данилом піти на кровососів... Цікаво, коли вони здогадаються?.. Треба відсортувати банки з кров'ю: довідатися, котрі з них заражені, та й сховати решту... Хтось іде!..\r\nЗапис №13... можливо, останній. Усе шкереберть! Спочатку цей цікавий ідіот-мисливець, а тепер ще й Глухар. Наївно розраховувати, що все минеться. По мене прийдуть. Втім... яка, власне, різниця? Гемоглобінзалежність незабаром з'їсть мене. Нехай навіть застрелять - це ліпше, ніж помирати від хвороби... "
+  },
+  "zat_b22_medic_pda": {
+    "eng": "Tremor’s PDA",
+    "pol": "PDA Wstrz�sa",
+    "rus": "КПК Тремора",
+    "ukr": "КПК Тремора"
+  },
+  "st_zat_b12_documents_1_descr": {
+    "eng": "Top Secret. Order # 562 of the HQ commander responsible for the security of object # 1 R. Yu. Didenko.\\nChemical Protection Unit # 423: relocate from sector B103 to sector A19 to conduct field testing of Perin B3 chemical solution in near combat conditions. Colonel P.P. Slavin, unit commander, is responsible for conducting the tests. Lieutenant Colonel K.S. Valov, deputy unit commander, is responsible for transportation and security.",
+    "pol": "�ci�le tajne. Rozkaz nr 562 g��wnego dow�dcy odpowiedzialnego za bezpiecze�stwo obiektu nr 1, R. J. Dydenki.\\nJednostka Zabezpieczenia Chemicznego nr 423: przenie�� z sektora B103 do sektora A19 w celu przeprowadzenia test�w polowych roztworu chemicznego Perin B3 w warunkach zbli�onych do bojowych. Za przeprowadzenie test�w odpowiada pu�kownik P. P. S�awin, dow�dca jednostki. Podpu�kownik K. S. Wa�ow, zast�pca dow�dcy jednostki, odpowiada za transport i bezpiecze�stwo.",
+    "rus": "Совершенно секретно. Приказ №562 нач. штаба обороны объекта №1 Р. Ю. Диденко.\\nПодразделению химзащиты №423 сменить дислокацию из сектора Б103 в сектор А19 для проведения полевых испытаний хим. смеси «Перин-В3» в условиях, особо приближённых к боевым. Отв. за пров. испытаний: ком. подр. п/к П.П. Славин. Отв. за транспортировку и безопасность - зам. ком. подр. п/пк К.С. Валов.",
+    "ukr": "Совершенно секретно. Приказ №562 нач. штаба обороны объекта №1 Р. Ю. Диденко.\\nПодразделению химзащиты №423 сменить дислокацию из сектора Б103 в сектор А19 для проведения полевых испытаний хим. смеси «Перин-В3» в условиях, особо приближённых к боевым. Отв. за пров. испытаний: ком. подр. п/к П.П. Славин. Отв. за транспортировку и безопасность - зам. ком. подр. п/пк К.С. Валов."
+  },
+  "st_zat_b12_documents_2_descr": {
+    "eng": "Top Secret. Order from Colonel P.P. Slavin.\\nIn accordance with this order, members of chemical protection unit # 423 are to be familiarized with the following information:\\n1. Keys to the container with Perin B3 chemical solution are held by Colonel P.P. Slavin (key A) and Lieutenant Colonel K.S. Vlasov (Key B).\\n2. Convoy order starting from the front: Deputy unit commander’s vehicle, escort vehicle # 8, APC # 1, transportation vehicle # 1, APC # 3, escort vehicle # 2, unit commander’s (P.P. Slavin) vehicle.\\nCopies of the order to be handed to Lieutenant Colonel K.S. Vlasov and Senior Lieutenant R.B. Nazarenku.",
+    "pol": "�ci�le tajne. Rozkaz pu�kownika P. P. S�awina\\nZgodnie z tym rozkazem cz�onkowie Jednostki Zabezpieczenia Chemicznego nr 423 maj� si� zapozna� z nast�puj�cymi informacjami:\\n1. Klucze do pojemnika z roztworem chemicznym Perin B3 znajduj� si� w posiadaniu pu�kownika P. P. S�awina (klucz A) i podpu�kownika K. S. Wa�owa (klucz B).\\n2. Porz�dek konwoju zaczynaj�c od przodu: Pojazd zast�pcy dow�dcy jednostki, pojazd eskortuj�cy nr 8, transporter opancerzony nr 1, pojazd transportowy nr 1, transporter opancerzony nr 3, pojazd eskortuj�cy nr 2, pojazd dow�dcy jednostki (P. P. S�awina).\\nKopie rozkazu maj� zosta� dostarczone podpu�kownikowi K. S. Wa�owowi i porucznikowi R. B. Nazarence.",
+    "rus": "Совершенно секретно. Распоряжение полковника П.П. Славина.\\nСогласно данному распоряжению ознакомить личный состав подразделения химзащиты №423 с такой информацией:\\n1. Ключи от контейнера с хим. смесью «Перин-В3» находятся в распоряжении: п/к П.П. Славин (ключ А), п/пк К.С. Валов (ключ Б).\\n2. Порядок построения колонны, начиная с головы колонны: машина зам. ком. подр., машина сопр. №8, БТР №1, трансп. машина №1, БТР №3, машина сопр. №2, машина ком. подр. П.П. Славина.\\nКопии распоряжения вручить п/пк К.С. Валову и ст/л Р.Б. Назаренко.",
+    "ukr": "Совершенно секретно. Распоряжение полковника П.П. Славина.\\nСогласно данному распоряжению ознакомить личный состав подразделения химзащиты №423 с такой информацией:\\n1. Ключи от контейнера с хим. смесью «Перин-В3» находятся в распоряжении: п/к П.П. Славин (ключ А), п/пк К.С. Валов (ключ Б).\\n2. Порядок построения колонны, начиная с головы колонны: машина зам. ком. подр., машина сопр. №8, БТР №1, трансп. машина №1, БТР №3, машина сопр. №2, машина ком. подр. П.П. Славина.\\nКопии распоряжения вручить п/пк К.С. Валову и ст/л Р.Б. Назаренко."
+  },
+  "st_zat_a23_labx8_key_descr": {
+    "eng": "A yellow magnetic keycard marked with X8.\\nThe card must not fall into anyone else's hands, as it can be used to access the secret laboratory.",
+    "pol": "��ta magnetyczna karta wst�pu oznaczona X8.\\nKarta nie mo�e wpa�� w cudze r�ce, poniewa� dzi�ki niej mo�na si� dosta� do tajnego laboratorium.",
+    "rus": "Магнитная ключ-карта жёлтого цвета с нанесённой на одну из плоскостей надписью «Х8».\\nОна не должна попасть в чужие руки, поскольку позволяет попасть в секретную лабораторию.",
+    "ukr": "Магнітна ключ-карта жовтого кольору із нанесеними на одній із площин символами «Х» і «8».\\nВона не повинна трапити до чужих рук, оскільки дозволяє потрапити до секретної лабораторії."
+  },
+  "st_jup_b202_bandit_pda": {
+    "eng": "Sultan’s messenger’s PDA",
+    "pol": "PDA pos�a�ca Su�tana",
+    "rus": "КПК посланника Султана",
+    "ukr": "КПК посланця Султана"
+  },
+  "st_jup_b202_bandit_pda_descr": {
+    "eng": "The last message sent from this PDA is an audio message: “Sultan, I dealt with that loser real good! ..That’ll teach him not to mess with us!\"",
+    "pol": "Ostatnia wiadomo�� wys�ana z tego PDA to nagranie g�osowe: �Su�tan, nie�le da�em popali� temu mi�czakowi! Teraz nie b�dzie ju� z nami zadziera�!\"",
+    "rus": "Последнее отправленное с КПК сообщение - звуковое: «Султан, я выцепил этого гнилого фраера! Отгрёб он от меня по полной! Теперь надолго, сука, запомнит, как пацанам фуфло впаривать!».",
+    "ukr": "Останнє відправлене з КПК повідомлення - звукове: «Султан, я вицепив цього гнилого фраєра! Одгріб він од мене по повной! Тепер надовго, сука, запомнить, як пацанам фуфло впарювать!»."
+  },
+  "st_af_quest_b14_twisted_descr": {
+    "eng": "This was once the dredge station wheel. It has now half-converted into a strange artifact. No properties are notable, other than active glowing and a little radioactivity.",
+    "pol": "To by�o kiedy� ko�o pog��biarki. Teraz cz�ciowo przekszta�ci�o si� w dziwny artefakt. Jego jedyne zauwa�alne w�a�ciwo�ci to �wiecenie i lekka radioaktywno��.",
+    "rus": "Некогда это был штурвал земснаряда, но теперь перед глазами примерно наполовину сформированный артефакт. Причём артефакт довольно необычный: интенсивно светится, слабо излучает - и всё.",
+    "ukr": "Колись це був штурвал земснаряду, проте зараз перед очима приблизно наполовину сформований артефакт. Причому артефакт досить незвичайний: інтенсивно світиться, трохи випромінює - й усе."
+  },
+  "st_zat_b40_pda_2_desc": {
+    "eng": "Incoming message reads:\\n\"I managed to arrange something about the weapons and that greedy bastard is going to sell us his faction's stock. It's gonna be fairly cheap but we’ll have to haul ass to Jupiter.\\nVulture.”",
+    "pol": "Przys�ano nast�puj�c� wiadomo��:\\n�Uda�o mi si� za�atwi� co� w sprawie broni, ten chciwy �ajdak sprzeda nam zapasy swojej frakcji. Wyjdzie ca�kiem tanio, ale musimy si� powlec do Jupitera.\\nS�p.�",
+    "rus": "Входящее сообщение:\\n«Мне удалось договориться насчёт оружия: этот жадюга продаст нам припасы своей группировки. Обойдётся, в общем, недорого, но придется тащиться к «Юпитеру».\\nГриф».",
+    "ukr": "Вхідне повідомлення:\\n«Мне удалось договориться насчёт оружия: этот жадюга продаст нам запасы своей группировки. Обойдётся, в общем, недорого, но придется тащиться к «Юпитеру».\\nГриф»."
+  }
+}

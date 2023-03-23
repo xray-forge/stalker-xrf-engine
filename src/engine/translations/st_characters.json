@@ -1,0 +1,668 @@
+{
+  "jup_a10_bandit_leader_name": {
+    "eng": "Jack",
+    "pol": "Walet",
+    "rus": "Валет",
+    "ukr": "Валет"
+  },
+  "jup_a10_stalker_vano": {
+    "eng": "Vano",
+    "pol": "Wano",
+    "rus": "Вано",
+    "ukr": "Вано"
+  },
+  "jup_a6_duty_leader": {
+    "eng": "Lt Col Shulga",
+    "pol": "Podpu�kownik Szulga",
+    "rus": "Подполковник Шульга",
+    "ukr": "Підполковник Шульга"
+  },
+  "jup_a6_freedom_leader": {
+    "eng": "Loki",
+    "pol": "Loki",
+    "rus": "Локи",
+    "ukr": "Локі"
+  },
+  "jup_a6_stalker_barmen": {
+    "eng": "Hawaiian",
+    "pol": "Hawajczyk",
+    "rus": "Гаваец",
+    "ukr": "Гаваєць"
+  },
+  "jup_a6_stalker_medik": {
+    "eng": "Bonesetter",
+    "pol": "Kostopraw",
+    "rus": "Костоправ",
+    "ukr": "Костоправ"
+  },
+  "jup_b10_stalker_drunk": {
+    "eng": "Senka",
+    "pol": "Senka",
+    "rus": "Сенька",
+    "ukr": "Сенько"
+  },
+  "jup_b15_zulus": {
+    "eng": "Zulu",
+    "pol": "Zulus",
+    "rus": "Зулус",
+    "ukr": "Зулус"
+  },
+  "jup_b19_freedom_yar_name": {
+    "eng": "Uncle Yar",
+    "pol": "Wujek Jar",
+    "rus": "Дядька Яр",
+    "ukr": "Дядько Яр"
+  },
+  "jup_b1_stalker_1": {
+    "eng": "Topol",
+    "pol": "Topol",
+    "rus": "Тополь",
+    "ukr": "Тополь"
+  },
+  "jup_b1_stalker_2": {
+    "eng": "Mace",
+    "pol": "Bu�awa",
+    "rus": "Булава",
+    "ukr": "Булава"
+  },
+  "jup_b1_stalker_3": {
+    "eng": "Spirit",
+    "pol": "Spirol",
+    "rus": "Дух",
+    "ukr": "Дух"
+  },
+  "jup_b1_stalker_4": {
+    "eng": "Snake",
+    "pol": "W��",
+    "rus": "Змей",
+    "ukr": "Змій"
+  },
+  "jup_b207_merc_leader_name": {
+    "eng": "Vulture",
+    "pol": "S�p",
+    "rus": "Гриф",
+    "ukr": "Гриф"
+  },
+  "jup_b217_stalker_tech": {
+    "eng": "Nitro",
+    "pol": "Azot",
+    "rus": "Азот",
+    "ukr": "Азот"
+  },
+  "jup_b220_trapper": {
+    "eng": "Trapper",
+    "pol": "Traper",
+    "rus": "Зверобой",
+    "ukr": "Звіробій"
+  },
+  "jup_b25_freedom_flint": {
+    "eng": "Flint",
+    "pol": "Flint",
+    "rus": "Флинт",
+    "ukr": "Флінт"
+  },
+  "jup_b46_duty_founder_name": {
+    "eng": "General Tachenko",
+    "pol": "Genera� Taczenko",
+    "rus": "Генерал Таченко",
+    "ukr": "Генерал Таченко"
+  },
+  "jup_b46_duty_founder_squad_02_name": {
+    "eng": "Lt Bunchuk",
+    "pol": "Porucznik Bunczuk",
+    "rus": "Лейтенант Бунчук",
+    "ukr": "Лейтенант Бунчук"
+  },
+  "jup_b46_duty_founder_squad_03_name": {
+    "eng": "Col Kosmach",
+    "pol": "Pu�kownik Kosmacz",
+    "rus": "Полковник Космач",
+    "ukr": "Полковник Космач"
+  },
+  "jup_b46_duty_founder_squad_04_name": {
+    "eng": "Lt Zakharchuk",
+    "pol": "Porucznik Zakarczuk",
+    "rus": "Лейтенант Захарчук",
+    "ukr": "Лейтенант Захарчук"
+  },
+  "jup_b47_merc_01": {
+    "eng": "Black",
+    "pol": "Czarny",
+    "rus": "Чёрный",
+    "ukr": "Чорний"
+  },
+  "jup_b47_merc_02": {
+    "eng": "Duplet",
+    "pol": "Duplet",
+    "rus": "Дуплет",
+    "ukr": "Дуплет"
+  },
+  "jup_b47_merc_03": {
+    "eng": "Surgeon",
+    "pol": "Chirurg",
+    "rus": "Хирург",
+    "ukr": "Хірург"
+  },
+  "jup_b47_merc_04": {
+    "eng": "Skull",
+    "pol": "Czacha",
+    "rus": "Череп",
+    "ukr": "Череп"
+  },
+  "jup_b47_merc_05": {
+    "eng": "Stake",
+    "pol": "Sztos",
+    "rus": "Кол",
+    "ukr": "Кол"
+  },
+  "jup_b47_merc_06": {
+    "eng": "Koshey",
+    "pol": "Ko�ciej",
+    "rus": "Кощей",
+    "ukr": "Кощій"
+  },
+  "jup_b47_merc_07": {
+    "eng": "Corpse",
+    "pol": "Truposz",
+    "rus": "Труп",
+    "ukr": "Труп"
+  },
+  "jup_b4_monolith_squad_leader_name": {
+    "eng": "Strider",
+    "pol": "W��cz�ga",
+    "rus": "Бродяга",
+    "ukr": "Бродяга"
+  },
+  "jup_b4_monolith_squad_soldier_1_name": {
+    "eng": "Armor",
+    "pol": "Pancerniak",
+    "rus": "Броня",
+    "ukr": "Броня"
+  },
+  "jup_b4_monolith_squad_soldier_2_name": {
+    "eng": "Sickle",
+    "pol": "Sierp",
+    "rus": "Серп",
+    "ukr": "Серп"
+  },
+  "jup_b4_monolith_squad_soldier_3_name": {
+    "eng": "Walrus",
+    "pol": "Mors",
+    "rus": "Морж",
+    "ukr": "Морж"
+  },
+  "jup_b4_monolith_squad_soldier_4_name": {
+    "eng": "Meeker",
+    "pol": "Cichy",
+    "rus": "Тихий",
+    "ukr": "Тихий"
+  },
+  "jup_b4_monolith_squad_soldier_5_name": {
+    "eng": "Foma",
+    "pol": "Foma",
+    "rus": "Фома",
+    "ukr": "Хома"
+  },
+  "jup_b6_scientist_biochemist": {
+    "eng": "Professor Ozersky",
+    "pol": "Profesor Oziorski",
+    "rus": "Профессор Озёрский",
+    "ukr": "Професор Озьорський"
+  },
+  "jup_b6_scientist_novikov": {
+    "eng": "Novikov",
+    "pol": "Nowikow",
+    "rus": "Новиков",
+    "ukr": "Новіков"
+  },
+  "jup_b6_scientist_nuclear_physicist": {
+    "eng": "Professor Hermann",
+    "pol": "Profesor Herman",
+    "rus": "Профессор Герман",
+    "ukr": "Професор Герман"
+  },
+  "jup_b9_shliachin_name": {
+    "eng": "Sgt. Shlyachin",
+    "pol": "Sier�ant Szliaczin",
+    "rus": "Сержант Шлячин",
+    "ukr": "Сержант Шлячін"
+  },
+  "pri_a15_military_recon_1_name": {
+    "eng": "Lt Sergeev",
+    "pol": "Porucznik Siergiejew",
+    "rus": "Лейтенант Сергеев",
+    "ukr": "Лейтенант Сергєєв"
+  },
+  "pri_a15_military_recon_2_name": {
+    "eng": "Sgt. Valiushok",
+    "pol": "Sier�ant Waliuszok",
+    "rus": "Сержант Валюшок",
+    "ukr": "Сержант Валюшок"
+  },
+  "pri_a15_military_recon_3_name": {
+    "eng": "Sgt. Ostrovsky",
+    "pol": "Sier�ant Ostrowski",
+    "rus": "Сержант Островский",
+    "ukr": "Сержант Островський"
+  },
+  "pri_a15_military_recon_leader_name": {
+    "eng": "Captain Klimenko",
+    "pol": "Kapitan Klimenko",
+    "rus": "Капитан Клименко",
+    "ukr": "Капітан Клименко"
+  },
+  "pri_a15_sokolov_name": {
+    "eng": "Lt Sokolov",
+    "pol": "Porucznik Soko�ow",
+    "rus": "Лейтенант Соколов",
+    "ukr": "Лейтенант Соколов"
+  },
+  "pri_a17_military_captain_tarasov": {
+    "eng": "Captain Tarasov",
+    "pol": "Kapitan Tarasow",
+    "rus": "Капитан Тарасов",
+    "ukr": "Капітан Тарасов"
+  },
+  "pri_a17_military_colonel_kovalski_name": {
+    "eng": "Col Kovalsky",
+    "pol": "Pu�kownik Kowalski",
+    "rus": "Полковник Ковальский",
+    "ukr": "Полковник Ковальський"
+  },
+  "pri_a17_military_lieutenant_podorojniy": {
+    "eng": "Lt Podorozhny",
+    "pol": "Porucznik Podoro�ny",
+    "rus": "Лейтенант Подорожный",
+    "ukr": "Лейтенант Подорожний"
+  },
+  "pri_a18_skorlupko_in_suit_name": {
+    "eng": "Lt Skelya",
+    "pol": "Porucznik Skelia",
+    "rus": "Лейтенант Скеля",
+    "ukr": "Лейтенант Скеля"
+  },
+  "pri_a18_vano_in_suit_reserve_name": {
+    "eng": "Sgt. Merkulov",
+    "pol": "Sier�ant Merkulow",
+    "rus": "Сержант Меркулов",
+    "ukr": "Сержант Меркулов"
+  },
+  "pri_a21_sentry_lieutenant_stecenko_name": {
+    "eng": "Lt Stetsenko",
+    "pol": "Porucznik Stecenko",
+    "rus": "Лейтенант Стеценко",
+    "ukr": "Лейтенант Стеценко"
+  },
+  "pri_a22_military_yarmoshuk_name": {
+    "eng": "Sgt. Yarmoshuk",
+    "pol": "Sier�ant Jarmoszuk",
+    "rus": "Сержант Ярмошук",
+    "ukr": "Сержант Ярмошук"
+  },
+  "pri_a25_army_medic_name": {
+    "eng": "Lt Rogovets",
+    "pol": "Porucznik Rogowiec",
+    "rus": "Лейтенант Роговец",
+    "ukr": "Лейтенант Роговець"
+  },
+  "pri_a28_evac_com_name": {
+    "eng": "Lt Smirnov",
+    "pol": "Porucznik Smirnow",
+    "rus": "Лейтенант Смирнов",
+    "ukr": "Лейтенант Смирнов"
+  },
+  "pri_b305_strelok_name": {
+    "eng": "Strelok",
+    "pol": "Strie�ok",
+    "rus": "Стрелок",
+    "ukr": "Стрілець"
+  },
+  "pri_b306_envoy_name": {
+    "eng": "Barchuk",
+    "pol": "Barczuk",
+    "rus": "Барчук",
+    "ukr": "Барчук"
+  },
+  "st_actor_name": {
+    "eng": "Major Degtyarev",
+    "pol": "Major Diegtiariow",
+    "rus": "Дегтярёв",
+    "ukr": "Дегтярьов"
+  },
+  "st_jup_a12_bandit_cashier": {
+    "eng": "Dwarf",
+    "pol": "Karze�",
+    "rus": "Гном",
+    "ukr": "Гном"
+  },
+  "st_jup_a12_bandit_chief": {
+    "eng": "Shishak",
+    "pol": "Szyszak",
+    "rus": "Шишак",
+    "ukr": "Шишак"
+  },
+  "st_jup_a12_stalker_assaulter": {
+    "eng": "Grizzly",
+    "pol": "Grizli",
+    "rus": "Медведь",
+    "ukr": "Ведмідь"
+  },
+  "st_jup_a12_stalker_diplomat": {
+    "eng": "Torba",
+    "pol": "Torba",
+    "rus": "Торба",
+    "ukr": "Торба"
+  },
+  "st_jup_a12_stalker_prisoner": {
+    "eng": "Mitay",
+    "pol": "Mitaj",
+    "rus": "Митяй",
+    "ukr": "Митяй"
+  },
+  "st_jup_b207_duty_security_squad_leader_name": {
+    "eng": "Lt Gavrilenko",
+    "pol": "Porucznik Gawrylenko",
+    "rus": "Лейтенант Гавриленко",
+    "ukr": "Лейтенант Гавриленко"
+  },
+  "st_jup_b207_freedom_assault_squad_leader_name": {
+    "eng": "Kremen",
+    "pol": "Flint",
+    "rus": "Кремень",
+    "ukr": "Кремінь"
+  },
+  "st_jup_b207_freedom_recon_squad_leader_name": {
+    "eng": "Gaiduk",
+    "pol": "Gajduk",
+    "rus": "Гайдук",
+    "ukr": "Гайдук"
+  },
+  "st_jup_b43_stalker_assistant": {
+    "eng": "Garry",
+    "pol": "Garri",
+    "rus": "Гарик",
+    "ukr": "Гарик"
+  },
+  "st_pri_a22_army_signaller": {
+    "eng": "Lt Kirillov",
+    "pol": "Porucznik Kiry�ow",
+    "rus": "Лейтенант Кириллов",
+    "ukr": "Лейтенант Кирилов"
+  },
+  "st_pri_b35_envoy": {
+    "eng": "Serbin",
+    "pol": "Serbin",
+    "rus": "Сербин",
+    "ukr": "Сербін"
+  },
+  "st_pri_b35_merc_leader": {
+    "eng": "Jackal",
+    "pol": "Szakal",
+    "rus": "Шакал",
+    "ukr": "Шакал"
+  },
+  "st_zat_a2_stalker_nimble_name": {
+    "eng": "Nimble",
+    "pol": "�wawy",
+    "rus": "Шустрый",
+    "ukr": "Спритник"
+  },
+  "st_zat_b106_stalker_crab_name": {
+    "eng": "Crab",
+    "pol": "Krab",
+    "rus": "Краб",
+    "ukr": "Краб"
+  },
+  "st_zat_b106_stalker_garmata_name": {
+    "eng": "Garmata",
+    "pol": "Garmata",
+    "rus": "Гармата",
+    "ukr": "Гармата"
+  },
+  "st_zat_b106_stalker_gonta_name": {
+    "eng": "Gonta",
+    "pol": "Gonta",
+    "rus": "Гонта",
+    "ukr": "Гонта"
+  },
+  "st_zat_b29_stalker_rival_1": {
+    "eng": "Sledgehammer",
+    "pol": "M�ot",
+    "rus": "Кувалда",
+    "ukr": "Кувалда"
+  },
+  "st_zat_b29_stalker_rival_2": {
+    "eng": "Crest",
+    "pol": "Grzebie�",
+    "rus": "Гребень",
+    "ukr": "Гребінь"
+  },
+  "st_zat_b30_owl_stalker_trader_name": {
+    "eng": "Owl",
+    "pol": "Sowa",
+    "rus": "Сыч",
+    "ukr": "Сич"
+  },
+  "st_zat_b38_stalker_cop_name": {
+    "eng": "Grouse",
+    "pol": "G�uszec",
+    "rus": "Глухарь",
+    "ukr": "Глухар"
+  },
+  "st_zat_b38_stalker_hunter_name": {
+    "eng": "Danila",
+    "pol": "Dani�a",
+    "rus": "Данила",
+    "ukr": "Данило"
+  },
+  "st_zat_b7_bandit_boss_sultan_name": {
+    "eng": "Sultan",
+    "pol": "Su�tan",
+    "rus": "Султан",
+    "ukr": "Султан"
+  },
+  "st_zat_b7_duty_illicit_dealer_name": {
+    "eng": "Morgan",
+    "pol": "Morgan",
+    "rus": "Морган",
+    "ukr": "Морган"
+  },
+  "st_zat_b7_stalker_raider_leader": {
+    "eng": "Knuckles",
+    "pol": "Kastet",
+    "rus": "Кастет",
+    "ukr": "Кастет"
+  },
+  "st_zat_b7_stalker_squad_leader": {
+    "eng": "Spartacus",
+    "pol": "Spartakus",
+    "rus": "Спартак",
+    "ukr": "Спартак"
+  },
+  "zat_a2_stalker_barmen_name": {
+    "eng": "Beard",
+    "pol": "Brodacz",
+    "rus": "Борода",
+    "ukr": "Борода"
+  },
+  "zat_a2_stalker_mechanic_name": {
+    "eng": "Cardan",
+    "pol": "Kardan",
+    "rus": "Кардан",
+    "ukr": "Кардан"
+  },
+  "zat_b103_lost_merc_1_name": {
+    "eng": "Goblin",
+    "pol": "Goblin",
+    "rus": "Гоблин",
+    "ukr": "Гоблін"
+  },
+  "zat_b103_lost_merc_2_name": {
+    "eng": "Oak",
+    "pol": "D�b",
+    "rus": "Дуб",
+    "ukr": "Дуб"
+  },
+  "zat_b103_lost_merc_3_name": {
+    "eng": "Pianist",
+    "pol": "Pianista",
+    "rus": "Пианист",
+    "ukr": "Піаніст"
+  },
+  "zat_b103_lost_merc_4_name": {
+    "eng": "Mower",
+    "pol": "Kosiarz",
+    "rus": "Газон",
+    "ukr": "Газон"
+  },
+  "zat_b103_lost_merc_5_name": {
+    "eng": "Kirzach",
+    "pol": "Kirzacz",
+    "rus": "Кирзач",
+    "ukr": "Кирзач"
+  },
+  "zat_b103_lost_merc_6_name": {
+    "eng": "Tank",
+    "pol": "Czo�g",
+    "rus": "Танк",
+    "ukr": "Танк"
+  },
+  "zat_b103_lost_merc_7_name": {
+    "eng": "Mug",
+    "pol": "Bandzior",
+    "rus": "Рыло",
+    "ukr": "Писок"
+  },
+  "zat_b103_lost_merc_leader_name": {
+    "eng": "Hatchet",
+    "pol": "Tasak",
+    "rus": "Тесак",
+    "ukr": "Тесак"
+  },
+  "zat_b14_stalker_1_name": {
+    "eng": "Tuna",
+    "pol": "P�otka",
+    "rus": "Вобла",
+    "ukr": "Вобла"
+  },
+  "zat_b18_noah_name": {
+    "eng": "Noah",
+    "pol": "Noe",
+    "rus": "Ной",
+    "ukr": "Ной"
+  },
+  "zat_b215_stalker_guide_name": {
+    "eng": "Pilot",
+    "pol": "Pilot",
+    "rus": "Лоцман",
+    "ukr": "Лоцман"
+  },
+  "zat_b22_stalker_medic_name": {
+    "eng": "Tremor",
+    "pol": "Wstrz�s",
+    "rus": "Тремор",
+    "ukr": "Тремор"
+  },
+  "zat_b28_draper_name": {
+    "eng": "Lt Drapei",
+    "pol": "Porucznik Drapej",
+    "rus": "Лейтенант Драпей",
+    "ukr": "Лейтенант Драпей"
+  },
+  "zat_b28_umerov_name": {
+    "eng": "WO Umerov",
+    "pol": "Chor��y Umerow",
+    "rus": "Прапорщик Умеров",
+    "ukr": "Прапорщик Умеров"
+  },
+  "zat_b33_stalker_snag": {
+    "eng": "Snag",
+    "pol": "S�k",
+    "rus": "Коряга",
+    "ukr": "Корч"
+  },
+  "zat_b40_merc_squad_leader_1_name": {
+    "eng": "Hook",
+    "pol": "Hak",
+    "rus": "Крюк",
+    "ukr": "Крюк"
+  },
+  "zat_b40_merc_squad_leader_2_name": {
+    "eng": "Ridge",
+    "pol": "Pr�ga",
+    "rus": "Хребет",
+    "ukr": "Хребет"
+  },
+  "zat_b42_mayron_name": {
+    "eng": "Mirone",
+    "pol": "Majron",
+    "rus": "Майрон",
+    "ukr": "Майрон"
+  },
+  "zat_b44_stalker_barge_name": {
+    "eng": "Barge",
+    "pol": "St�g",
+    "rus": "Баржа",
+    "ukr": "Баржа"
+  },
+  "zat_b53_artefact_hunter_1_name": {
+    "eng": "Petruha",
+    "pol": "Pietrucha",
+    "rus": "Петруха",
+    "ukr": "Петруха"
+  },
+  "zat_b53_artefact_hunter_2_name": {
+    "eng": "Awl",
+    "pol": "Szyd�o",
+    "rus": "Шило",
+    "ukr": "Шило"
+  },
+  "jup_b46_duty_founder_squad_01_name": {
+    "eng": "Major Chepurny",
+    "pol": "Major Czepurny",
+    "rus": "Майор Чепурной",
+    "ukr": "Майор Чепурний"
+  },
+  "pri_a17_military_prapor_valentyr": {
+    "eng": "WO Valentir",
+    "pol": "Chor��y Walentir",
+    "rus": "Прапорщик Валентир",
+    "ukr": "Прапорщик Валентир"
+  },
+  "pri_a17_military_sergeant_morozov": {
+    "eng": "Snr. Sgt Morozov",
+    "pol": "St. sier�ant Morozow",
+    "rus": "Ст. сержант Морозов",
+    "ukr": "Ст. сержант Морозов"
+  },
+  "zat_b28_smoliak_name": {
+    "eng": "Snr Lt Smolyak",
+    "pol": "St. porucznik Smoliak",
+    "rus": "Ст. лейтенант Смоляк",
+    "ukr": "Ст. сержант Смоляк"
+  },
+  "jup_b25_stalker_senya": {
+    "eng": "Splinter",
+    "pol": "Drzazga",
+    "rus": "Щепка",
+    "ukr": "Тріска"
+  },
+  "zat_b100_army_1": {
+    "eng": "Sergeant Gazda",
+    "pol": "Sier�ant Gazda",
+    "rus": "Сержант Газда",
+    "ukr": "Сержант Газда"
+  },
+  "zat_b100_army_2": {
+    "eng": "Captain Furtez",
+    "pol": "Kapitan Furtez",
+    "rus": "Капитан Фуртес",
+    "ukr": "Капітан Фуртес"
+  },
+  "zat_b100_army_3": {
+    "eng": "Snr. Sgt. Shveiko",
+    "pol": "St. sier�ant Szwejko",
+    "rus": "Ст. сержант Швейко",
+    "ukr": "Ст. сержант Швейко"
+  }
+}

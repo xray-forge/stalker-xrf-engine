@@ -1,0 +1,1868 @@
+{
+  "Clear": {
+    "eng": "Clear",
+    "pol": "Bezchmurnie",
+    "rus": "Ясная",
+    "ukr": "Ясна"
+  },
+  "Cloudy": {
+    "eng": "Cloudy",
+    "pol": "Pochmurno",
+    "rus": "Облачная",
+    "ukr": "Хмарна"
+  },
+  "Default": {
+    "eng": "medium",
+    "pol": "�rednie",
+    "rus": "средние",
+    "ukr": "середні"
+  },
+  "Extreme": {
+    "eng": "maximum",
+    "pol": "Maksymalne",
+    "rus": "максимальные",
+    "ukr": "максимальні"
+  },
+  "High": {
+    "eng": "high",
+    "pol": "Wysokie",
+    "rus": "высокие",
+    "ukr": "високі"
+  },
+  "Low": {
+    "eng": "low",
+    "pol": "Niskie",
+    "rus": "низкие",
+    "ukr": "низькі"
+  },
+  "Minimum": {
+    "eng": "minimal",
+    "pol": "Minimalne",
+    "rus": "минимальные",
+    "ukr": "мінімальні"
+  },
+  "Night": {
+    "eng": "Night",
+    "pol": "Noc",
+    "rus": "Ночь",
+    "ukr": "Ніч"
+  },
+  "Rain": {
+    "eng": "Rain",
+    "pol": "Deszczowo",
+    "rus": "Дождь",
+    "ukr": "Дощ"
+  },
+  "game type": {
+    "eng": "GAME TYPE",
+    "pol": "TYP GRY",
+    "rus": "ТИП ИГРЫ",
+    "ukr": "ТИП ГРИ"
+  },
+  "gd_master": {
+    "eng": "master",
+    "pol": "Mistrz",
+    "rus": "мастер",
+    "ukr": "майстер"
+  },
+  "gd_novice": {
+    "eng": "rookie",
+    "pol": "Nowicjusz",
+    "rus": "новичок",
+    "ukr": "новачок"
+  },
+  "gd_veteran": {
+    "eng": "veteran",
+    "pol": "Weteran",
+    "rus": "ветеран",
+    "ukr": "ветеран"
+  },
+  "icon": {
+    "eng": "ICONS",
+    "pol": "IKONY",
+    "rus": "ЗНАЧКИ",
+    "ukr": "ПОЗНАЧКИ"
+  },
+  "map": {
+    "eng": "MAP",
+    "pol": "MAPA",
+    "rus": "КАРТА",
+    "ukr": "КАРТА"
+  },
+  "mm_mp_actret_time": {
+    "eng": "Return by activation",
+    "pol": "Powr�t przez aktywacj�",
+    "rus": "Возвращение активацией",
+    "ukr": "Повернення активацією"
+  },
+  "mm_mp_allowvoting": {
+    "eng": "Allow voting",
+    "pol": "Zezw�l na g�osowanie",
+    "rus": "Разрешить голосование",
+    "ukr": "Дозволити голосування"
+  },
+  "mm_mp_anomalytime": {
+    "eng": "Anomaly time (min)",
+    "pol": "Czas trwania anomalii (min)",
+    "rus": "Время аномалии (мин.)",
+    "ukr": "Час аномалії (хв.)"
+  },
+  "mm_mp_artefactcapture": {
+    "eng": "Artifact capture",
+    "pol": "Zdobycie artefaktu",
+    "rus": "Захват артефакта",
+    "ukr": "Захоплення артефакту"
+  },
+  "mm_mp_artefdelay": {
+    "eng": "Artifact delay",
+    "pol": "Powstanie artefaktu",
+    "rus": "Задержка артефакта",
+    "ukr": "Затримка артефакту"
+  },
+  "mm_mp_artefnum": {
+    "eng": "Number of artifacts",
+    "pol": "Liczba artefakt�w",
+    "rus": "Кол-во артефактов",
+    "ukr": "К-сть артефактів"
+  },
+  "mm_mp_artefstay": {
+    "eng": "Artifact time",
+    "pol": "Trwa�o�� artefakt�w",
+    "rus": "Время артефакта",
+    "ukr": "Час артефакту"
+  },
+  "mm_mp_artret_time": {
+    "eng": "Artifact return",
+    "pol": "Powr�t artefaktu",
+    "rus": "Возврат артефакта",
+    "ukr": "Поверн. артефакту"
+  },
+  "mm_mp_autoteambalance": {
+    "eng": "Team autobalance",
+    "pol": "Automatyczny balans dru�yn",
+    "rus": "Автобаланс команд",
+    "ukr": "Автобаланс команд"
+  },
+  "mm_mp_autoteamswap": {
+    "eng": "Auto team-swap",
+    "pol": "Automatyczna zmiana dru�yn",
+    "rus": "Автосмена команд",
+    "ukr": "Автозаміна команд"
+  },
+  "mm_mp_avail_maps": {
+    "eng": "AVAILABLE MAPS",
+    "pol": "DOST�PNE MAPY",
+    "rus": "ДОСТУПНЫЕ КАРТЫ",
+    "ukr": "ДОСТУПНІ МАПИ"
+  },
+  "mm_mp_cancel": {
+    "eng": "Cancel",
+    "pol": "Anuluj",
+    "rus": "Отмена",
+    "ukr": "Відмінити"
+  },
+  "mm_mp_cd_key": {
+    "eng": "CD-key",
+    "pol": "Klucz",
+    "rus": "CD-key",
+    "ukr": "CD-key"
+  },
+  "mm_mp_check_cdkey": {
+    "eng": "check CD-key",
+    "pol": "Sprawd� klucz",
+    "rus": "проверять CD-key",
+    "ukr": "перевіряти CD-key"
+  },
+  "mm_mp_client": {
+    "eng": "Client",
+    "pol": "Klient",
+    "rus": "Клиент",
+    "ukr": "Клієнт"
+  },
+  "mm_mp_create": {
+    "eng": "Create",
+    "pol": "Utw�rz",
+    "rus": "Создать",
+    "ukr": "Створити"
+  },
+  "mm_mp_damageblock": {
+    "eng": "Invulnerability (sec)",
+    "pol": "Nie�miertelno�� (sek.)",
+    "rus": "Неуязвимость (сек.)",
+    "ukr": "Невразливість (сек.)"
+  },
+  "mm_mp_damageblockindicator": {
+    "eng": "Invulnerability indicator",
+    "pol": "Wska�nik nie�miertelno�ci",
+    "rus": "Индикатор неуязвимости",
+    "ukr": "Індикатор невразливості"
+  },
+  "mm_mp_deaths": {
+    "eng": "Deaths",
+    "pol": "�mierci",
+    "rus": "Смерти",
+    "ukr": "Смерті"
+  },
+  "mm_mp_dedicated": {
+    "eng": "Dedicated",
+    "pol": "Dedykowany",
+    "rus": "Выделенный",
+    "ukr": "Виділений"
+  },
+  "mm_mp_demo_play_list": {
+    "eng": "Demo list",
+    "pol": "Nagrane filmy",
+    "rus": "список демо-роликов",
+    "ukr": "список демо-роликів"
+  },
+  "mm_mp_demo_play_players_stats": {
+    "eng": "player stats",
+    "pol": "Statystyki gracza",
+    "rus": "статистика игроков",
+    "ukr": "статистика гравців"
+  },
+  "mm_mp_demosave": {
+    "eng": "Record demo",
+    "pol": "Nagraj film",
+    "rus": "Записывать демо-ролики",
+    "ukr": "Записувати демо-ролики"
+  },
+  "mm_mp_demosave_options": {
+    "eng": "Demo recording",
+    "pol": "Nagrywanie filmu",
+    "rus": "Запись демо-роликов",
+    "ukr": "Запис демо-роликів"
+  },
+  "mm_mp_empty": {
+    "eng": "Empty",
+    "pol": "Puste",
+    "rus": "Пустые",
+    "ukr": "Порожні"
+  },
+  "mm_mp_filters": {
+    "eng": "Filters",
+    "pol": "Filtry",
+    "rus": "Фильтры",
+    "ukr": "Фільтри"
+  },
+  "mm_mp_forcerespawn": {
+    "eng": "Forced respawn (sec)",
+    "pol": "Wymusz. odr. (sek.)",
+    "rus": "Рождение (сек.)",
+    "ukr": "Народження (с.)"
+  },
+  "mm_mp_fraglimit": {
+    "eng": "Frag limit",
+    "pol": "Limit frag�w",
+    "rus": "Лимит фрагов",
+    "ukr": "Ліміт фрагів"
+  },
+  "mm_mp_frags": {
+    "eng": "Frags",
+    "pol": "Fragi",
+    "rus": "Фраги",
+    "ukr": "Фраги"
+  },
+  "mm_mp_freezetime": {
+    "eng": "Delay time",
+    "pol": "Czas op�nienia",
+    "rus": "Время задержки",
+    "ukr": "Час затримки"
+  },
+  "mm_mp_friendlyfire": {
+    "eng": "Friendly damage",
+    "pol": "Obra�enia od sojusznik�w",
+    "rus": "Огонь союзника (к.)",
+    "ukr": "Вогонь союзника (к.)"
+  },
+  "mm_mp_friendlyindicators": {
+    "eng": "Friendly indicators",
+    "pol": "Wska�niki sojusznik�w",
+    "rus": "Индикаторы союзников",
+    "ukr": "Індикатори союзників"
+  },
+  "mm_mp_friendlynames": {
+    "eng": "Friendly names",
+    "pol": "Imiona sojusznik�w",
+    "rus": "Имена друзей",
+    "ukr": "Імена друзів"
+  },
+  "mm_mp_full": {
+    "eng": "Full",
+    "pol": "Pe�ne",
+    "rus": "Полные",
+    "ukr": "Повні"
+  },
+  "mm_mp_gamemode": {
+    "eng": "Mode",
+    "pol": "Tryb",
+    "rus": "Режим",
+    "ukr": "Режим"
+  },
+  "mm_mp_host_port": {
+    "eng": "IP/host:port",
+    "pol": "IP (host:port)",
+    "rus": "IP/хост: порт",
+    "ukr": "IP/хост: порт"
+  },
+  "mm_mp_internet": {
+    "eng": "Internet",
+    "pol": "Internet",
+    "rus": "Интернет",
+    "ukr": "Інтернет"
+  },
+  "mm_mp_join": {
+    "eng": "Connect",
+    "pol": "Po��cz",
+    "rus": "Соединиться",
+    "ukr": "З'єднатися"
+  },
+  "mm_mp_lan": {
+    "eng": "LAN",
+    "pol": "Sie� lokalna",
+    "rus": "Локальная сеть",
+    "ukr": "Локальна мережа"
+  },
+  "mm_mp_listenservers": {
+    "eng": "Listen",
+    "pol": "Dedykowany",
+    "rus": "Не выделенные",
+    "ukr": "Не виділені"
+  },
+  "mm_mp_load_demo": {
+    "eng": "Repeat",
+    "pol": "Powt�rz",
+    "rus": "Воспроизвести",
+    "ukr": "Програти"
+  },
+  "mm_mp_mapratation": {
+    "eng": "Map list",
+    "pol": "Lista map",
+    "rus": "Список карт",
+    "ukr": "Список мап"
+  },
+  "mm_mp_maxplayers": {
+    "eng": "Player limit",
+    "pol": "Limit graczy",
+    "rus": "Макс. игроков",
+    "ukr": "Макс. гравців"
+  },
+  "mm_mp_network_connection": {
+    "eng": "Network connection",
+    "pol": "Po��czenie sieciowe",
+    "rus": "Сетевое соединение",
+    "ukr": "З'єднання по мережі"
+  },
+  "mm_mp_noanomalies": {
+    "eng": "No anomalies",
+    "pol": "Brak anomalii",
+    "rus": "Без аномалий",
+    "ukr": "Без аномалій"
+  },
+  "mm_mp_options": {
+    "eng": "Options",
+    "pol": "Opcje",
+    "rus": "Опции",
+    "ukr": "Опції"
+  },
+  "mm_mp_password": {
+    "eng": "Password",
+    "pol": "Has�o",
+    "rus": "Пароль",
+    "ukr": "Пароль"
+  },
+  "mm_mp_player_name": {
+    "eng": "Player name:",
+    "pol": "Nazwa gracza:",
+    "rus": "Имя игрока:",
+    "ukr": "Ім'я гравця"
+  },
+  "mm_mp_players": {
+    "eng": "Players",
+    "pol": "Gracze",
+    "rus": "Игроки",
+    "ukr": "Гравці"
+  },
+  "mm_mp_players_count": {
+    "eng": "number of players",
+    "pol": "Liczba graczy",
+    "rus": "количество игроков",
+    "ukr": "кількість гравців"
+  },
+  "mm_mp_publicserver": {
+    "eng": "Internet server",
+    "pol": "Serwer internetowy",
+    "rus": "Интернет-сервер",
+    "ukr": "Інтернет-сервер"
+  },
+  "mm_mp_quickrefresh": {
+    "eng": "Quick refresh",
+    "pol": "Szybkie od�wie�enie",
+    "rus": "Обновить один",
+    "ukr": "Оновити один"
+  },
+  "mm_mp_rateofchange": {
+    "eng": "Change coefficient",
+    "pol": "Wsp�czynnik zmiany",
+    "rus": "Коэф. изменения",
+    "ukr": "Коеф. зміни"
+  },
+  "mm_mp_refresh": {
+    "eng": "Refresh all",
+    "pol": "Od�wie� wszystkie",
+    "rus": "Обновить всё",
+    "ukr": "Оновити все"
+  },
+  "mm_mp_reinforcement": {
+    "eng": "Reinforcements (sec)",
+    "pol": "Posi�ki (sek.)",
+    "rus": "Подкрепление (сек.)",
+    "ukr": "Підкріплення (с.)"
+  },
+  "mm_mp_respawnoptions": {
+    "eng": "Respawn options",
+    "pol": "Opcje odradzania",
+    "rus": "Опции рождения",
+    "ukr": "Опції народження"
+  },
+  "mm_mp_sel_maps": {
+    "eng": "SELECTED MAPS",
+    "pol": "WYBRANE MAPY",
+    "rus": "ВЫБРАННЫЕ КАРТЫ",
+    "ukr": "ВИБРАНІ МАПИ"
+  },
+  "mm_mp_server": {
+    "eng": "Server",
+    "pol": "Serwer",
+    "rus": "Сервер",
+    "ukr": "Сервер"
+  },
+  "mm_mp_server_list": {
+    "eng": "Server list",
+    "pol": "Lista serwer�w",
+    "rus": "Список серверов",
+    "ukr": "Список серверів"
+  },
+  "mm_mp_server_prop": {
+    "eng": "Server properties",
+    "pol": "W�a�ciwo�ci serwera",
+    "rus": "Свойства сервера",
+    "ukr": "Властивості сервера"
+  },
+  "mm_mp_serverinfo": {
+    "eng": "Server info",
+    "pol": "Inform. o serwerze",
+    "rus": "Инфо сервера",
+    "ukr": "Інфо сервера"
+  },
+  "mm_mp_serverlist": {
+    "eng": "Server",
+    "pol": "Serwer",
+    "rus": "Сервер",
+    "ukr": "Сервер"
+  },
+  "mm_mp_servername": {
+    "eng": "Server name",
+    "pol": "Nazwa serwera",
+    "rus": "Имя сервера",
+    "ukr": "Ім'я сервера"
+  },
+  "mm_mp_serversettings": {
+    "eng": "Server settings",
+    "pol": "Ustawienia serwera",
+    "rus": "Настройки сервера",
+    "ukr": "Налаштування сервера"
+  },
+  "mm_mp_spectator": {
+    "eng": "Spectator",
+    "pol": "Obserwator",
+    "rus": "Наблюдатель",
+    "ukr": "Спостерігач"
+  },
+  "mm_mp_spectator_firsteye": {
+    "eng": "First person",
+    "pol": "Pierwsza osoba",
+    "rus": "От первого лица",
+    "ukr": "Від першої особи"
+  },
+  "mm_mp_spectator_freefly": {
+    "eng": "Free camera",
+    "pol": "Swobodna kamera",
+    "rus": "Свободный полёт",
+    "ukr": "Вільний політ"
+  },
+  "mm_mp_spectator_freelook": {
+    "eng": "Free-locked",
+    "pol": "Wolny widok",
+    "rus": "Свободно-привязанный",
+    "ukr": "Вільно-прив'язаний"
+  },
+  "mm_mp_spectator_lookat": {
+    "eng": "Third person",
+    "pol": "Trzecia osoba",
+    "rus": "От третьего лица",
+    "ukr": "Від третьої особи"
+  },
+  "mm_mp_spectator_options": {
+    "eng": "Spectator settings",
+    "pol": "Ustawienia obserwatora",
+    "rus": "Настройки наблюдателя",
+    "ukr": "Налаштування спостерігача"
+  },
+  "mm_mp_spectator_teamonly": {
+    "eng": "Team only",
+    "pol": "Tylko dru�yna",
+    "rus": "Только для команды",
+    "ukr": "Лише для команди"
+  },
+  "mm_mp_startweather": {
+    "eng": "Starting weather",
+    "pol": "Pocz�tkowa pogoda",
+    "rus": "Погода",
+    "ukr": "Погода"
+  },
+  "mm_mp_team_stats": {
+    "eng": "score",
+    "pol": "Wynik",
+    "rus": "счёт",
+    "ukr": "рахунок"
+  },
+  "mm_mp_timelimit": {
+    "eng": "Time limit (min)",
+    "pol": "Limit czasu (min)",
+    "rus": "Лимит времени (мин.)",
+    "ukr": "Ліміт часу (хв.)"
+  },
+  "mm_mp_warmuptime": {
+    "eng": "Warmup (sec)",
+    "pol": "Rozgrzewka (sek.)",
+    "rus": "Разогрев (сек.)",
+    "ukr": "Розігрів (сек.)"
+  },
+  "mm_mp_weatheroptions": {
+    "eng": "Weather options",
+    "pol": "Opcje pogody",
+    "rus": "Опции погоды",
+    "ukr": "Опції погоди"
+  },
+  "mm_mp_withoutfriendlyfire": {
+    "eng": "No friendly fire",
+    "pol": "Brak ostrz. sojuszn.",
+    "rus": "Без огня по своим",
+    "ukr": "Без вогню по своїх"
+  },
+  "mm_mp_withoutpassword": {
+    "eng": "No password",
+    "pol": "Bez has�a",
+    "rus": "Без пароля",
+    "ukr": "Без паролю"
+  },
+  "mm_mp_withoutpunkbuster": {
+    "eng": "No PunkBuster",
+    "pol": "Brak programu Punkbuster",
+    "rus": "Без Punk Buster",
+    "ukr": "Без Punk Buster"
+  },
+  "mm_mp_withpassword": {
+    "eng": "With password",
+    "pol": "Z has�em",
+    "rus": "С паролем",
+    "ukr": "Із паролем"
+  },
+  "mm_offline_mode": {
+    "eng": "LAN",
+    "pol": "Sie� lokalna",
+    "rus": "Локальная сеть",
+    "ukr": "Локальна мережа"
+  },
+  "mm_online_mode": {
+    "eng": "Internet",
+    "pol": "Internet",
+    "rus": "Интернет",
+    "ukr": "Інтернет"
+  },
+  "mp_agroprom": {
+    "eng": "Agroprom factory",
+    "pol": "Fabryka Agroprom",
+    "rus": "Завод «Агропром»",
+    "ukr": "Завод «Агропром»"
+  },
+  "mp_atp": {
+    "eng": "Vehicle station",
+    "pol": "PTA",
+    "rus": "АТП",
+    "ukr": "АТП"
+  },
+  "mp_bath": {
+    "eng": "Pool",
+    "pol": "Basen",
+    "rus": "Бассейн",
+    "ukr": "Басейн"
+  },
+  "mp_change_unick_success": {
+    "eng": "Unique name change successful!",
+    "pol": "Zmiana unikalnej nazwy powiod�a si�!",
+    "rus": "Успешное изменение уникального ника!",
+    "ukr": "Успішна зміна унікального ніку!"
+  },
+  "mp_darkvalley": {
+    "eng": "Dark Valley",
+    "pol": "Mroczna Dolina",
+    "rus": "Тёмная Долина",
+    "ukr": "Темна Долина"
+  },
+  "mp_factory": {
+    "eng": "Yantar factory",
+    "pol": "Fabryka Jantar",
+    "rus": "Завод «Янтарь»",
+    "ukr": "Завод «Янтар»"
+  },
+  "mp_gamespy_atlas_error": {
+    "eng": "error in connecting to stats server",
+    "pol": "b��d po��czenia z serwerem statystyk",
+    "rus": "ошибка соединения с сервером статистики",
+    "ukr": "помилка з'єднання із сервером статистики"
+  },
+  "mp_gamespy_ws_login_error": {
+    "eng": "error in connecting to log in server",
+    "pol": "b��d po��czenia z serwerem logowania",
+    "rus": "ошибка соединения с логин-сервером",
+    "ukr": "помилка з'єднання із логін-сервером"
+  },
+  "mp_login_success": {
+    "eng": "Authorization successful",
+    "pol": "Uwierzytelnianie powiod�o si�",
+    "rus": "Вы успешно авторизировались",
+    "ukr": "Ви успішно авторизувалися"
+  },
+  "mp_lost_village": {
+    "eng": "Desolated village",
+    "pol": "Opuszczona wie�",
+    "rus": "Заброшенная деревня",
+    "ukr": "Покинуте село"
+  },
+  "mp_military_1": {
+    "eng": "Military warehouses",
+    "pol": "Magazyny wojskowe",
+    "rus": "Военные склады",
+    "ukr": "Військові склади"
+  },
+  "mp_nick_name_not_valid": {
+    "eng": "wrong name",
+    "pol": "nieprawid�owa nazwa",
+    "rus": "неправильное имя",
+    "ukr": "неправильне ім'я"
+  },
+  "mp_pool": {
+    "eng": "Pool",
+    "pol": "Basen",
+    "rus": "Бассейн",
+    "ukr": "Басейн"
+  },
+  "mp_railroad": {
+    "eng": "Railway station",
+    "pol": "Stacja kolejowa",
+    "rus": "Ж/д станция",
+    "ukr": "Зал. станція"
+  },
+  "mp_rostok": {
+    "eng": "Rostok factory",
+    "pol": "Fabryka Rostok",
+    "rus": "Завод «Росток»",
+    "ukr": "Завод «Росток»"
+  },
+  "mp_unique_nick_not_valid": {
+    "eng": "wrong unique name",
+    "pol": "nieprawid�owa unikalna nazwa",
+    "rus": "неправильный уникальный ник",
+    "ukr": "неправильний унікальний нік"
+  },
+  "mp_want_to_delete_demo": {
+    "eng": "Are you sure you want to remove",
+    "pol": "Czy na pewno chcesz usun��",
+    "rus": "Вы действительно хотите удалить",
+    "ukr": "Ви справді хочете видалити"
+  },
+  "mp_workshop": {
+    "eng": "Deserted factory",
+    "pol": "Opuszczona fabryka",
+    "rus": "Заброшенная фабрика",
+    "ukr": "Покинута фабрика"
+  },
+  "ping": {
+    "eng": "PING",
+    "pol": "PING",
+    "rus": "ПИНГ",
+    "ukr": "ПІНГ"
+  },
+  "players": {
+    "eng": "PLAYERS",
+    "pol": "GRACZE",
+    "rus": "ИГРОКИ",
+    "ukr": "ГРАВЦІ"
+  },
+  "renderer_r1": {
+    "eng": "Static lighting",
+    "pol": "O�wietlenie statyczne",
+    "rus": "Статичное освещение",
+    "ukr": "Статичне освітлення"
+  },
+  "renderer_r2": {
+    "eng": "Full dynamic lighting",
+    "pol": "Pe�ne o�wietlenie dynamiczne",
+    "rus": "Полное динамическое освещение",
+    "ukr": "Повне динамічне освітлення"
+  },
+  "renderer_r2.5": {
+    "eng": "Enhanced full dynamic lighting",
+    "pol": "Rozsz. pe�ne o�wietlenie dynam.",
+    "rus": "Улучшенное полное освещение",
+    "ukr": "Покращене повне освітлення"
+  },
+  "renderer_r2a": {
+    "eng": "Objects dynamic lighting",
+    "pol": "Dynamiczne o�wietlenie obiekt�w",
+    "rus": "Динам. освещение объектов",
+    "ukr": "Динам. освітлення об'єктів"
+  },
+  "renderer_r3": {
+    "eng": "Enhanced full dyn. lighting (DX10)",
+    "pol": "Rozsz. pe�ne o�w. dynam. (DX10)",
+    "rus": "Ул. полное освещение (DX10)",
+    "ukr": "Покр. повне освітлення (DX10)"
+  },
+  "server name": {
+    "eng": "SERVER NAME",
+    "pol": "NAZWA SERWERA",
+    "rus": "ИМЯ СЕРВЕРА",
+    "ukr": "ІМ'Я СЕРВЕРА"
+  },
+  "st_artefacthunt": {
+    "eng": "Artifact hunt",
+    "pol": "Polowanie na artefakty",
+    "rus": "Охота за артефактом",
+    "ukr": "Полювання за артефактом"
+  },
+  "st_capture_the_artefact": {
+    "eng": "Artifact capture",
+    "pol": "Zdobycie artefaktu",
+    "rus": "Захват артефакта",
+    "ukr": "Захоплення артефакту"
+  },
+  "st_deathmatch": {
+    "eng": "Free for all",
+    "pol": "Wszyscy przeciwko wszystkim",
+    "rus": "Все против всех",
+    "ukr": "Всі проти всіх"
+  },
+  "st_mp_gsfilter": {
+    "eng": "Filter:",
+    "pol": "Filtr:",
+    "rus": "Фильтр:",
+    "ukr": "Фільтр:"
+  },
+  "st_opt_high": {
+    "eng": "high",
+    "pol": "Wysoka",
+    "rus": "высоко",
+    "ukr": "високо"
+  },
+  "st_opt_low": {
+    "eng": "low",
+    "pol": "Niska",
+    "rus": "низко",
+    "ukr": "низько"
+  },
+  "st_opt_medium": {
+    "eng": "medium",
+    "pol": "�rednia",
+    "rus": "средне",
+    "ukr": "посередньо"
+  },
+  "st_opt_off": {
+    "eng": "off",
+    "pol": "Wy��czona",
+    "rus": "отключено",
+    "ukr": "відключено"
+  },
+  "st_rank_experienced": {
+    "eng": "experienced",
+    "pol": "Do�wiadczony",
+    "rus": "опытный",
+    "ukr": "досвідчений"
+  },
+  "st_rank_legend": {
+    "eng": "legendary stalker",
+    "pol": "Legendarny stalker",
+    "rus": "легендарный сталкер",
+    "ukr": "легендарний сталкер"
+  },
+  "st_rank_novice": {
+    "eng": "rookie",
+    "pol": "Nowicjusz",
+    "rus": "новичок",
+    "ukr": "новачок"
+  },
+  "st_rank_professional": {
+    "eng": "professional",
+    "pol": "Profesjonalista",
+    "rus": "профессионал",
+    "ukr": "професіонал"
+  },
+  "st_rank_veteran": {
+    "eng": "veteran",
+    "pol": "Weteran",
+    "rus": "ветеран",
+    "ukr": "ветеран"
+  },
+  "st_team_deathmatch": {
+    "eng": "Team play",
+    "pol": "Gra dru�ynowa",
+    "rus": "Команда против команды",
+    "ukr": "Команда проти команди"
+  },
+  "ui_mm_60_hz": {
+    "eng": "Frequency 60Hz",
+    "pol": "Cz�stotliwo�� 60 Hz",
+    "rus": "Частота 60Гц",
+    "ukr": "Частота 60 Гц"
+  },
+  "ui_mm_action": {
+    "eng": "Action",
+    "pol": "Akcja",
+    "rus": "Действие",
+    "ukr": "Дія"
+  },
+  "ui_mm_advanced": {
+    "eng": "Advanced",
+    "pol": "Zaawansowane",
+    "rus": "Расширенные",
+    "ukr": "Розширені"
+  },
+  "ui_mm_alternative": {
+    "eng": "Alternative",
+    "pol": "Alternatywa",
+    "rus": "Альтернатива",
+    "ukr": "Альтернатива"
+  },
+  "ui_mm_anisotropic": {
+    "eng": "Anisotropic filtering",
+    "pol": "Filtrowanie anizotropowe",
+    "rus": "Фильтрация текстур",
+    "ukr": "Фільтрація текстур"
+  },
+  "ui_mm_apply": {
+    "eng": "Apply",
+    "pol": "Zastosuj",
+    "rus": "Применить",
+    "ukr": "Застосувати"
+  },
+  "ui_mm_back": {
+    "eng": "Back",
+    "pol": "Wstecz",
+    "rus": "Назад",
+    "ukr": "Назад"
+  },
+  "ui_mm_blood": {
+    "eng": "Blood",
+    "pol": "Krew",
+    "rus": "Кровь",
+    "ukr": "Кров"
+  },
+  "ui_mm_brightness": {
+    "eng": "Brightness",
+    "pol": "Jasno��",
+    "rus": "Яркость",
+    "ukr": "Яскравість"
+  },
+  "ui_mm_cancel": {
+    "eng": "Cancel",
+    "pol": "Anuluj",
+    "rus": "Отмена",
+    "ukr": "Відмінити"
+  },
+  "ui_mm_check_updates": {
+    "eng": "Game updates",
+    "pol": "Aktualizacje gry",
+    "rus": "Обновления",
+    "ukr": "Оновлення"
+  },
+  "ui_mm_contrast": {
+    "eng": "Contrast",
+    "pol": "Kontrast",
+    "rus": "Контраст",
+    "ukr": "Контраст"
+  },
+  "ui_mm_controls": {
+    "eng": "Controls",
+    "pol": "Sterowanie",
+    "rus": "Управление",
+    "ukr": "Керування"
+  },
+  "ui_mm_credits": {
+    "eng": "Credits",
+    "pol": "Tw�rcy",
+    "rus": "Титры",
+    "ukr": "Титри"
+  },
+  "ui_mm_crosshair_distance": {
+    "eng": "Crosshair target distance",
+    "pol": "Poka� odleg�o�� do celu",
+    "rus": "Дистанция до цели",
+    "ukr": "Відстань до цілі"
+  },
+  "ui_mm_default": {
+    "eng": "Default",
+    "pol": "Domy�lne",
+    "rus": "По умолчанию",
+    "ukr": "До замовчувань"
+  },
+  "ui_mm_delete": {
+    "eng": "Delete",
+    "pol": "Usu�",
+    "rus": "Удалить",
+    "ukr": "Видалити"
+  },
+  "ui_mm_delete_existing_file_q": {
+    "eng": "Do you really want to delete this file?",
+    "pol": "Czy na pewno chcesz usun�� ten plik?",
+    "rus": "Вы действительно хотите удалить файл?",
+    "ukr": "Ви справді хочете видалити файл?"
+  },
+  "ui_mm_detail_density": {
+    "eng": "Grass detail density",
+    "pol": "G�sto�� trawy",
+    "rus": "Плотность травы",
+    "ukr": "Щільність трави"
+  },
+  "ui_mm_difficulty": {
+    "eng": "Difficulty",
+    "pol": "Poziom trudno�ci",
+    "rus": "Сложность",
+    "ukr": "Важкість"
+  },
+  "ui_mm_disconnect": {
+    "eng": "Disconnect",
+    "pol": "Przerwij po��czenie",
+    "rus": "Отсоединиться",
+    "ukr": "Від'єднатися"
+  },
+  "ui_mm_disconnect_message": {
+    "eng": "Are you sure you want to disconnect?",
+    "pol": "Czy na pewno chcesz przerwa� po��czenie?",
+    "rus": "Вы действительно желаете отсоединиться?",
+    "ukr": "Ви справді хочете від'єднатися?"
+  },
+  "ui_mm_dof": {
+    "eng": "Depth of field",
+    "pol": "G��boko�� pola widzenia",
+    "rus": "Глубина резкости",
+    "ukr": "Глибина різкості"
+  },
+  "ui_mm_dyn_crosshair": {
+    "eng": "Dynamic crosshair",
+    "pol": "Dynamiczny celownik",
+    "rus": "Динамический прицел",
+    "ukr": "Динамічний приціл"
+  },
+  "ui_mm_dynamic_music": {
+    "eng": "Dynamic music",
+    "pol": "Dynamiczna muzyka",
+    "rus": "Динамическая музыка",
+    "ukr": "Динамічна музика"
+  },
+  "ui_mm_eax": {
+    "eng": "EAX",
+    "pol": "EAX",
+    "rus": "EAX",
+    "ukr": "EAX"
+  },
+  "ui_mm_fullscreen": {
+    "eng": "Full screen",
+    "pol": "Pe�ny ekran",
+    "rus": "Полный экран",
+    "ukr": "Повний екран"
+  },
+  "ui_mm_gameplay": {
+    "eng": "Game",
+    "pol": "Gra",
+    "rus": "Игра",
+    "ukr": "Гра"
+  },
+  "ui_mm_gamma": {
+    "eng": "Gamma",
+    "pol": "Korekcja gamma",
+    "rus": "Гамма",
+    "ukr": "Гама"
+  },
+  "ui_mm_geometry_lod": {
+    "eng": "Object detail",
+    "pol": "Szczeg�owo�� obiekt�w",
+    "rus": "Детализация объектов",
+    "ukr": "Деталізація об'єктів"
+  },
+  "ui_mm_invert_mouse": {
+    "eng": "Invert mouse",
+    "pol": "Inwersja osi Y",
+    "rus": "Инвертировать мышь",
+    "ukr": "Інвертувати мишу"
+  },
+  "ui_mm_key": {
+    "eng": "Button",
+    "pol": "Przycisk",
+    "rus": "Кнопка",
+    "ukr": "Кнопка"
+  },
+  "ui_mm_keyboard_setup": {
+    "eng": "Keyboard setup",
+    "pol": "Ustawienia klawiatury",
+    "rus": "Настройка клавиатуры",
+    "ukr": "Налаштування клавіатури"
+  },
+  "ui_mm_last_save": {
+    "eng": "Last save",
+    "pol": "Ostatni zapis",
+    "rus": "Посл. сохранение",
+    "ukr": "Ост. збереження"
+  },
+  "ui_mm_light_distance": {
+    "eng": "Lighting distance",
+    "pol": "Odleg�o�� o�wietlenia",
+    "rus": "Дальность освещения",
+    "ukr": "Дальність освітлення"
+  },
+  "ui_mm_load": {
+    "eng": "Load",
+    "pol": "Wczytaj",
+    "rus": "Загрузить",
+    "ukr": "Завантажити"
+  },
+  "ui_mm_load_game": {
+    "eng": "Load game",
+    "pol": "Wczytaj gr�",
+    "rus": "Загрузить игру",
+    "ukr": "Завантажити гру"
+  },
+  "ui_mm_logout": {
+    "eng": "Quit profile",
+    "pol": "Wyloguj si� z profilu",
+    "rus": "Выйти из профиля",
+    "ukr": "Вийти з профілю"
+  },
+  "ui_mm_master": {
+    "eng": "Master",
+    "pol": "Mistrz",
+    "rus": "Мастер",
+    "ukr": "Майстер"
+  },
+  "ui_mm_master_volume": {
+    "eng": "SFX Volume",
+    "pol": "G�o�no�� efekt�w d�wi�k.",
+    "rus": "Громкость",
+    "ukr": "Гучність"
+  },
+  "ui_mm_mouse_sense": {
+    "eng": "Mouse sensitivity",
+    "pol": "Czu�o�� myszy",
+    "rus": "Чувствительность мыши",
+    "ukr": "Чутливість миші"
+  },
+  "ui_mm_msaa_alphatest": {
+    "eng": "Smooth A-test objects",
+    "pol": "Wyg�adzaj obiekty alfa-testowe",
+    "rus": "Сглаживать А-тестовые объекты",
+    "ukr": "Згладжувати А-тестові об'єкти"
+  },
+  "ui_mm_msaa_opt": {
+    "eng": "Optimize smoothing",
+    "pol": "Optymalizuj wyg�adzanie",
+    "rus": "Оптимизировать сглаживание",
+    "ukr": "Оптимізувати згладжування"
+  },
+  "ui_mm_multiplayer": {
+    "eng": "MULTIPLAYER",
+    "pol": "GRA WIELOOSOBOWA",
+    "rus": "СЕТЕВАЯ ИГРА",
+    "ukr": "ГРА ПО МЕРЕЖІ"
+  },
+  "ui_mm_multiplayer_n": {
+    "eng": "Multiplayer",
+    "pol": "Gra wieloosobowa",
+    "rus": "Сетевая игра",
+    "ukr": "Гра по мережі"
+  },
+  "ui_mm_music_volume": {
+    "eng": "Music volume",
+    "pol": "G�o�no�� muzyki",
+    "rus": "Громкость музыки",
+    "ukr": "Гучність музики"
+  },
+  "ui_mm_need_restart": {
+    "eng": "Changes will only take effect after the game is restarted",
+    "pol": "Zmiany wejd� w �ycie po ponownym uruchomieniu gry",
+    "rus": "Изменения вступят в силу только после перезагрузки игры",
+    "ukr": "Зміни набудуть чинності лише після перезавантаження гри"
+  },
+  "ui_mm_network_game": {
+    "eng": "Multiplayer",
+    "pol": "Gra wieloosobowa",
+    "rus": "Сетевая игра",
+    "ukr": "Гра по мережі"
+  },
+  "ui_mm_newgame": {
+    "eng": "New game",
+    "pol": "Nowa gra",
+    "rus": "Новая игра",
+    "ukr": "Нова гра"
+  },
+  "ui_mm_novice": {
+    "eng": "Rookie",
+    "pol": "Nowicjusz",
+    "rus": "Новичок",
+    "ukr": "Новачок"
+  },
+  "ui_mm_npc_torch": {
+    "eng": "NPC flashlights",
+    "pol": "Latarki bohater�w niezal.",
+    "rus": "Свет фонариков NPC",
+    "ukr": "Світло ліхтариків NPC"
+  },
+  "ui_mm_options": {
+    "eng": "OPTIONS",
+    "pol": "OPCJE",
+    "rus": "ОПЦИИ",
+    "ukr": "ОПЦІЇ"
+  },
+  "ui_mm_options_n": {
+    "eng": "Options",
+    "pol": "Opcje",
+    "rus": "Опции",
+    "ukr": "Опції"
+  },
+  "ui_mm_particles_distance": {
+    "eng": "Particle distance",
+    "pol": "Odleg�o�� cz�steczek",
+    "rus": "Дальность частиц",
+    "ukr": "Дальність часток"
+  },
+  "ui_mm_quality_presets": {
+    "eng": "Quality settings",
+    "pol": "Ustawienia jako�ci",
+    "rus": "Установки качества",
+    "ukr": "Налаштування якості"
+  },
+  "ui_mm_quit2windows": {
+    "eng": "Exit to Windows",
+    "pol": "Wyjd� z gry",
+    "rus": "Выйти в Windows",
+    "ukr": "Вийти до Windows"
+  },
+  "ui_mm_quit_game": {
+    "eng": "Quit game",
+    "pol": "Zako�cz gr�",
+    "rus": "Завершить игру",
+    "ukr": "Скінчити гру"
+  },
+  "ui_mm_quit_game_message": {
+    "eng": "Are you sure you want to quit the game?",
+    "pol": "Czy na pewno chcesz zako�czy� gr�?",
+    "rus": "Вы действительно желаете покинуть игру?",
+    "ukr": "Ви справді бажаєте вийти із гри?"
+  },
+  "ui_mm_quit_windows_message": {
+    "eng": "Are you sure you want to exit to Windows?",
+    "pol": "Czy na pewno chcesz wyj�� z gry?",
+    "rus": "Вы действительно хотите выйти в Windows?",
+    "ukr": "Ви справді хочете вийти до Windows?"
+  },
+  "ui_mm_r2_detail_bump": {
+    "eng": "Detail bump",
+    "pol": "Mapowanie szczeg. wypuk�.",
+    "rus": "Детальный рельеф",
+    "ukr": "Детальний рельєф"
+  },
+  "ui_mm_r2_steep_parallax": {
+    "eng": "Steep parallax",
+    "pol": "Mapowanie reliefowe",
+    "rus": "Steep parallax",
+    "ukr": "Steep parallax"
+  },
+  "ui_mm_r2_sun": {
+    "eng": "Sun shadow",
+    "pol": "Cienie od s�o�ca",
+    "rus": "Тень от солнца",
+    "ukr": "Тінь від сонця"
+  },
+  "ui_mm_r2_sun_details": {
+    "eng": "Grass shadow",
+    "pol": "Cie� trawy",
+    "rus": "Тень травы",
+    "ukr": "Тінь трави"
+  },
+  "ui_mm_r2_sun_quality": {
+    "eng": "Sun quality",
+    "pol": "Jako�� s�o�ca",
+    "rus": "Качество солнца",
+    "ukr": "Якість сонця"
+  },
+  "ui_mm_r3_DX10_1": {
+    "eng": "Use DX10.1",
+    "pol": "U�ywaj DX10.1",
+    "rus": "Использовать DX10.1",
+    "ukr": "Використовувати DX10.1"
+  },
+  "ui_mm_r3_MSAA": {
+    "eng": "Full screen smoothing",
+    "pol": "Wyg�adzanie pe�noekranowe",
+    "rus": "Полноэкранное сглаживание",
+    "ukr": "Повноекранне згладжування"
+  },
+  "ui_mm_r3_dynamic_wet_surfaces": {
+    "eng": "Wet surfaces",
+    "pol": "Mokre powierzchnie",
+    "rus": "Намокание плоскостей",
+    "ukr": "Намокання площин"
+  },
+  "ui_mm_r3_gbuffer_opt": {
+    "eng": "Optimize geometric buffer",
+    "pol": "Optymalizuj bufor geometryczny",
+    "rus": "Оптимизировать геометр. буфер",
+    "ukr": "Оптимізувати геометр. буфер"
+  },
+  "ui_mm_r3_volumetric_smoke": {
+    "eng": "Volumetric smoke",
+    "pol": "Dym wolumetryczny",
+    "rus": "Объёмный дым",
+    "ukr": "Об'ємний дим"
+  },
+  "ui_mm_render_2": {
+    "eng": "Render 2",
+    "pol": "Renderowanie 2",
+    "rus": "Рендер-2",
+    "ukr": "Рендер-2"
+  },
+  "ui_mm_renderer": {
+    "eng": "Render type",
+    "pol": "Typ renderowania",
+    "rus": "Тип рендера",
+    "ukr": "Тип рендера"
+  },
+  "ui_mm_resolution": {
+    "eng": "Resolution",
+    "pol": "Rozdzielczo��",
+    "rus": "Разрешение",
+    "ukr": "Роздільна здатність"
+  },
+  "ui_mm_return_game": {
+    "eng": "Return to game",
+    "pol": "Powr�t do gry",
+    "rus": "Возврат к игре",
+    "ukr": "Повернення до гри"
+  },
+  "ui_mm_save": {
+    "eng": "Save",
+    "pol": "Zapisz",
+    "rus": "Сохранить",
+    "ukr": "Зберегти"
+  },
+  "ui_mm_save_game": {
+    "eng": "Save game",
+    "pol": "Zapisz gr�",
+    "rus": "Сохранить игру",
+    "ukr": "Зберегти гру"
+  },
+  "ui_mm_show_crosshair": {
+    "eng": "Draw crosshair",
+    "pol": "Poka� celownik",
+    "rus": "Показывать прицел",
+    "ukr": "Показувати приціл"
+  },
+  "ui_mm_show_weapon": {
+    "eng": "Show weapon",
+    "pol": "Poka� bro�",
+    "rus": "Показывать оружие",
+    "ukr": "Показувати зброю"
+  },
+  "ui_mm_simply": {
+    "eng": "Basic",
+    "pol": "Podstawowy",
+    "rus": "Базовые",
+    "ukr": "Базові"
+  },
+  "ui_mm_snd_device": {
+    "eng": "Sound device",
+    "pol": "Urz�dzenie d�wi�kowe",
+    "rus": "Звуковое устройство",
+    "ukr": "Звуковий пристрій"
+  },
+  "ui_mm_soft_particles": {
+    "eng": "Soft particles",
+    "pol": "Mi�kkie cz�steczki",
+    "rus": "Мягкие частицы",
+    "ukr": "М'які частинки"
+  },
+  "ui_mm_soft_water": {
+    "eng": "Soft water",
+    "pol": "Mi�kka woda",
+    "rus": "Мягкая вода",
+    "ukr": "М'яка вода"
+  },
+  "ui_mm_sound": {
+    "eng": "Sound",
+    "pol": "D�wi�k",
+    "rus": "Звук",
+    "ukr": "Звук"
+  },
+  "ui_mm_sound_quality": {
+    "eng": "Sound quality",
+    "pol": "Jako�� d�wi�ku",
+    "rus": "Качество звука",
+    "ukr": "Якість звуку"
+  },
+  "ui_mm_stalker": {
+    "eng": "Stalker",
+    "pol": "Stalker",
+    "rus": "Сталкер",
+    "ukr": "Сталкер"
+  },
+  "ui_mm_sun_quality": {
+    "eng": "Shadow quality",
+    "pol": "Jako�� cieni",
+    "rus": "Качество теней",
+    "ukr": "Якість тіней"
+  },
+  "ui_mm_sun_shafts": {
+    "eng": "Sun rays",
+    "pol": "Jako�� promieni s�onecznych",
+    "rus": "Солнечные лучи",
+    "ukr": "Сонячне проміння"
+  },
+  "ui_mm_supersample": {
+    "eng": "Antialiasing",
+    "pol": "Wyg�adzanie kraw�dzi",
+    "rus": "Сглаживание",
+    "ukr": "Згладжування"
+  },
+  "ui_mm_switch_torch": {
+    "eng": "AI uses flashlights",
+    "pol": "SI u�ywa latarek",
+    "rus": "Использование фонариков AI",
+    "ukr": "Використання ліхтариків AI"
+  },
+  "ui_mm_texture_quality": {
+    "eng": "Texture detail",
+    "pol": "Szczeg�owo�� tekstur",
+    "rus": "Качество текстур",
+    "ukr": "Якість текстур"
+  },
+  "ui_mm_tips": {
+    "eng": "NPC identification",
+    "pol": "Identyfikacja bohater�w niezal.",
+    "rus": "Распознавание NPC",
+    "ukr": "Розпізнавання NPC"
+  },
+  "ui_mm_veteran": {
+    "eng": "Veteran",
+    "pol": "Weteran",
+    "rus": "Ветеран",
+    "ukr": "Ветеран"
+  },
+  "ui_mm_video": {
+    "eng": "Video",
+    "pol": "Grafika",
+    "rus": "Видео",
+    "ukr": "Відео"
+  },
+  "ui_mm_vis_distance": {
+    "eng": "Vision distance",
+    "pol": "Zasi�g widzenia",
+    "rus": "Дальность видимости",
+    "ukr": "Дальність видимості"
+  },
+  "ui_mm_volumetric_light": {
+    "eng": "Volumetric light",
+    "pol": "�wiat�o wolumetryczne",
+    "rus": "Объёмный свет",
+    "ukr": "Об'ємне світло"
+  },
+  "ui_mm_vsync": {
+    "eng": "Vertical sync",
+    "pol": "Synchronizacja pionowa",
+    "rus": "Верт. синхронизация",
+    "ukr": "Верт. синхронізація"
+  },
+  "ui_mp_gamespy_changing_unique_nick": {
+    "eng": "Change unique name",
+    "pol": "Zmie� unikaln� nazw�",
+    "rus": "Изменение уникального имени...",
+    "ukr": "Зміна унікального імені... "
+  },
+  "ui_mp_gamespy_email_already_exist": {
+    "eng": "This e-mail is already in use",
+    "pol": "Ten adres e-mail jest ju� u�ywany",
+    "rus": "такой e-mail уже используется",
+    "ukr": "такий E-mail уже використовується"
+  },
+  "ui_mp_internet": {
+    "eng": "Via the Internet",
+    "pol": "Przez internet",
+    "rus": "По Интернету",
+    "ukr": "Через Інтернет"
+  },
+  "ui_mp_localnet": {
+    "eng": "Via the LAN",
+    "pol": "Przez sie� lokaln�",
+    "rus": "В локальной сети",
+    "ukr": "У локальній мережі"
+  },
+  "ui_st_backstabks_in_row": {
+    "eng": "stabbed in the back",
+    "pol": "D�gni�cie w plecy",
+    "rus": "ножом в спину",
+    "ukr": "ножем у спину"
+  },
+  "ui_st_bleed_kills_in_row": {
+    "eng": "of blood loss",
+    "pol": "Przez wykrwawienie",
+    "rus": "от потери крови",
+    "ukr": "від втрати крові"
+  },
+  "ui_st_explosive_kills_in_row": {
+    "eng": "in an explosion",
+    "pol": "Zabici przez wybuch",
+    "rus": "взрывом",
+    "ukr": "вибухом"
+  },
+  "ui_st_eye_kills_in_row": {
+    "eng": "in the eye",
+    "pol": "Trafienie w oko",
+    "rus": "в глаз",
+    "ukr": "в око"
+  },
+  "ui_st_headshots_in_row": {
+    "eng": "in the head",
+    "pol": "Trafienie w g�ow�",
+    "rus": "в голову",
+    "ukr": "у голову"
+  },
+  "ui_st_invalid_saved_game": {
+    "eng": "Save file version does not match game version.",
+    "pol": "Wersja pliku stanu gry nie pasuje do wersji gry.",
+    "rus": "Версия сохраненного файла не совпадает с версией игры",
+    "ukr": "Версія збереженого файлу не збігається із версією гри"
+  },
+  "ui_st_kills_in_row": {
+    "eng": "kill streak",
+    "pol": "Zabici pod rz�d",
+    "rus": "убийств подряд",
+    "ukr": "вбивств поспіль"
+  },
+  "ui_st_knife_kills_in_row": {
+    "eng": "knife",
+    "pol": "No�em",
+    "rus": "ножом",
+    "ukr": "ножем"
+  },
+  "ui_st_last_set": {
+    "eng": "Last loadout",
+    "pol": "Ostatni zestaw",
+    "rus": "Посл. набор",
+    "ukr": "Ост. набір"
+  },
+  "ui_st_mp_local_network_login_page": {
+    "eng": "Enter multiplayer",
+    "pol": "Rozpocznij gr� wieloosobow�",
+    "rus": "Вход в сетевую игру",
+    "ukr": "Вхід до гри у мережі"
+  },
+  "ui_st_mp_nickname": {
+    "eng": "Name",
+    "pol": "Nazwa",
+    "rus": "Имя",
+    "ukr": "Ім'я"
+  },
+  "ui_st_mp_try_change": {
+    "eng": "Change",
+    "pol": "Zmie�",
+    "rus": "Изменить",
+    "ukr": "Змінити"
+  },
+  "ui_st_preset1": {
+    "eng": "Loadout 1",
+    "pol": "Zestaw 1",
+    "rus": "Набор 1",
+    "ukr": "Набір 1"
+  },
+  "ui_st_preset2": {
+    "eng": "Loadout 2",
+    "pol": "Zestaw 2",
+    "rus": "Набор 2",
+    "ukr": "Набір 2"
+  },
+  "ui_st_preset3": {
+    "eng": "Loadout 3",
+    "pol": "Zestaw 3",
+    "rus": "Набор 3",
+    "ukr": "Набір 3"
+  },
+  "ui_st_reset": {
+    "eng": "Reset",
+    "pol": "Reset",
+    "rus": "Сбросить",
+    "ukr": "Скинути"
+  },
+  "ui_st_sell_all": {
+    "eng": "Sell all",
+    "pol": "Sprzedaj ca�o��",
+    "rus": "Продать всё",
+    "ukr": "Продати все"
+  },
+  "version": {
+    "eng": "Version",
+    "pol": "Wersja",
+    "rus": "Версия",
+    "ukr": "Версія"
+  },
+  "mp_pripyat": {
+    "eng": "Pripyat",
+    "pol": "Prype�",
+    "rus": "Припять",
+    "ukr": "Прип'ять"
+  },
+  "ui_mm_crouch_toggle": {
+    "eng": "Crouch/stand mode",
+    "pol": "Tryb kucania/wstawania",
+    "rus": "Режим сесть/встать",
+    "ukr": "Режим сісти/встати"
+  },
+  "ui_mm_important_save": {
+    "eng": "Autosaving",
+    "pol": "Autozapis",
+    "rus": "Автосохранение",
+    "ukr": "Автозбереження"
+  },
+  "ui_mm_r1_detail_textures": {
+    "eng": "Detailed textures",
+    "pol": "Szczeg�owe tekstury",
+    "rus": "Детальные текстуры",
+    "ukr": "Детальні текстури"
+  },
+  "mm_mp_demo": {
+    "eng": "Movies",
+    "pol": "Filmy",
+    "rus": "Ролики",
+    "ukr": "Ролики"
+  },
+  "ui_st_mp_login": {
+    "eng": "Enter",
+    "pol": "Wejd�",
+    "rus": "Войти",
+    "ukr": "Увійти"
+  },
+  "ui_st_mp_logout": {
+    "eng": "Exit",
+    "pol": "Wyjd�",
+    "rus": "Выйти",
+    "ukr": "Вийти"
+  },
+  "ui_st_mp_create": {
+    "eng": "Create",
+    "pol": "Utw�rz",
+    "rus": "Создать",
+    "ukr": "Створити"
+  },
+  "mp_gp_unknown_email_or_bad_password": {
+    "eng": "Wrong e-mail or password",
+    "pol": "Nieprawid�owy adres e-mail lub has�o",
+    "rus": "Неверный e-mail или пароль",
+    "ukr": "Неправильний E-mail або пароль"
+  },
+  "mp_gp_parameter_error": {
+    "eng": "Wrong profile",
+    "pol": "Nieprawid�owy profil",
+    "rus": "Неверный профиль",
+    "ukr": "Неправильний профіль"
+  },
+  "mp_gp_network_error": {
+    "eng": "Connection error",
+    "pol": "B��d po��czenia",
+    "rus": "Ошибка соединения",
+    "ukr": "Помилка з'єднання"
+  },
+  "mp_gp_server_error": {
+    "eng": "Server currently unavailable",
+    "pol": "Serwer chwilowo niedost�pny",
+    "rus": "Сервер временно недоступен",
+    "ukr": "Сервер тимчасово недоступний"
+  },
+  "mp_gp_unknown_error_2": {
+    "eng": "Profile login required",
+    "pol": "Wymagane zalogowanie si� do profilu",
+    "rus": "Необходимо войти в профиль",
+    "ukr": "Необхідно увійти у профіль"
+  },
+  "mp_gp_unknown_error_6": {
+    "eng": "Connection error",
+    "pol": "B��d po��czenia",
+    "rus": "Ошибка соединения",
+    "ukr": "Помилка з'єднання"
+  },
+  "mp_gp_unknown_error_7": {
+    "eng": "Connection error",
+    "pol": "B��d po��czenia",
+    "rus": "Ошибка соединения",
+    "ukr": "Помилка з'єднання"
+  },
+  "mp_gp_unknown_error_8": {
+    "eng": "Connection error",
+    "pol": "B��d po��czenia",
+    "rus": "Ошибка соединения",
+    "ukr": "Помилка з'єднання"
+  },
+  "mp_gp_unknown_error_513": {
+    "eng": "Wrong profile name",
+    "pol": "Nieprawid�owa nazwa profilu",
+    "rus": "Неверное имя профиля",
+    "ukr": "Неправильне ім'я профілю"
+  },
+  "mp_gp_unknown_error_514": {
+    "eng": "Wrong password",
+    "pol": "Nieprawid�owe has�o",
+    "rus": "Неверный пароль",
+    "ukr": "Неправильний пароль"
+  },
+  "mp_gp_unknown_error_515": {
+    "eng": "Wrong unique nickname",
+    "pol": "Nieprawid�owy unikalny pseudonim",
+    "rus": "Неверный уникальный ник",
+    "ukr": "Неправильний унікальний нік"
+  },
+  "mp_gp_unknown_error_516": {
+    "eng": "Unique nickname already in use",
+    "pol": "Unikalny pseudonim jest ju� u�ywany",
+    "rus": "Уникальный ник уже используется",
+    "ukr": "Унікальний нік уже використовується"
+  },
+  "mp_first_need_to_login": {
+    "eng": "Please login to your profile first",
+    "pol": "Prosz� najpierw zalogowa� si� do profilu",
+    "rus": "Необходимо вначале войти в профиль",
+    "ukr": "Необхідно спочатку увійти до профілю"
+  },
+  "mp_first_need_to_logout": {
+    "eng": "Please log out of your profile first",
+    "pol": "Prosz� najpierw wylogowa� si� z profilu",
+    "rus": "Необходимо сперва выйти из профиля",
+    "ukr": "Необхідно спочатку вийти з профілю"
+  },
+  "mp_gamespy_http_error": {
+    "eng": "Error in connecting to profile server",
+    "pol": "B��d po��czenia z serwerem profili",
+    "rus": "Ошибка соединения с сервером профилей",
+    "ukr": "Помилка з'єднання із сервером профілів"
+  },
+  "ui_st_you_cannot_delete_profile_after_creation": {
+    "eng": "You will not be able to delete the profile after creating it",
+    "pol": "Po utworzeniu profilu nie b�dzie mo�liwe jego usuni�cie",
+    "rus": "Вы не сможете удалить профиль после его создания",
+    "ukr": "Ви не зможете видалити профіль після його створення"
+  },
+  "ui_mm_ssao_quality": {
+    "eng": "SSAO quality",
+    "pol": "Jako�� SSAO",
+    "rus": "Качество SSAO",
+    "ukr": "Якість SSAO"
+  },
+  "ui_mm_ssao_text": {
+    "eng": "SSAO mode",
+    "pol": "Tryb SSAO",
+    "rus": "Режим SSAO",
+    "ukr": "Режим SSAO"
+  },
+  "ui_mm_ssao": {
+    "eng": "default",
+    "pol": "Domy�lny",
+    "rus": "по умолчанию",
+    "ukr": "за замовчуванням"
+  },
+  "ui_mm_hdao": {
+    "eng": "HDAO",
+    "pol": "HDAO",
+    "rus": "HDAO",
+    "ukr": "HDAO"
+  },
+  "ui_mm_hbao": {
+    "eng": "HBAO",
+    "pol": "HBAO",
+    "rus": "HBAO",
+    "ukr": "HBAO"
+  },
+  "ui_st_disable_hud": {
+    "eng": "Show interface",
+    "pol": "Poka� interfejs",
+    "rus": "Показывать интерфейс",
+    "ukr": "Показувати інтерфейс"
+  },
+  "mp_gp_unique_nick_not_registred": {
+    "eng": "Unique nickname not registered. Please register it",
+    "pol": "Unikalny pseudonim nie jest zarejestrowany. Prosz� go zarejestrowa�.",
+    "rus": "Уникальный ник не зарегистрирован. Пожалуйста, зарегистрируйте его",
+    "ukr": "Унікальний нік не зареєстровано. Будь ласка, зареєструйте його"
+  },
+  "mp_gp_unique_nick_has_expired": {
+    "eng": "Unique nickname expired. Please reregister it",
+    "pol": "Unikalny pseudonim utraci� wa�no��. Prosz� zarejestrowa� go ponownie.",
+    "rus": "Уникальный ник устарел. Пожалуйста, зарегистрируйте его снова",
+    "ukr": "Унікальний нік застарів. Будь ласка, зареєструйте його знову"
+  },
+  "gd_stalker": {
+    "eng": "stalker",
+    "pol": "Stalker",
+    "rus": "сталкер",
+    "ukr": "сталкер"
+  },
+  "st_opt_extreme": {
+    "eng": "max high",
+    "pol": "maksymalnie wysokie",
+    "rus": "макс. высоко",
+    "ukr": "макс. високо"
+  },
+  "renderer_r4": {
+    "eng": "Enhanced full dyn. lighting (DX11)",
+    "pol": "Rozsz. pe�ne o�w. dynam. (DX11)",
+    "rus": "Ул. полное освещение (DX11)",
+    "ukr": "Покр. повне освітлення (DX11)"
+  },
+  "mp_please_login": {
+    "eng": "Please login to connect to the external server.",
+    "pol": "Prosz� si� zalogowa�, aby po��czy� si� z serwerem zewn�trznym.",
+    "rus": "Пожалуйста, авторизируйтесь для входа на внешний сервер.",
+    "ukr": "Будь ласка, авторизуйтеся для входу на зовнішній сервер."
+  },
+  "mp_already_logged_in": {
+    "eng": "This GameSpy ID is currently in use. Please use another GameSpy ID.",
+    "pol": "To ID GameSpy jest obecnie u�ywane. Prosz� u�y� innego ID GameSpy.",
+    "rus": "Этот профиль GameSpy ID в данный момент используется. Пожалуйста, используйте другой профиль GameSpy ID.",
+    "ukr": "Зазначений профіль GameSpy ID на цей момент використовується. Будь ласка, використайте інший профіль GameSpy ID."
+  },
+  "mp_gp_unknown_email": {
+    "eng": "Wrong e-mail",
+    "pol": "Nieprawid�owy adres e-mail",
+    "rus": "Неверный Email",
+    "ukr": "Неправильний E-mail"
+  },
+  "mp_gp_bad_password": {
+    "eng": "Wrong password",
+    "pol": "Nieprawid�owe has�o",
+    "rus": "Неверный пароль",
+    "ukr": "Неправильний пароль"
+  },
+  "mp_use_offline_mode": {
+    "eng": "You cannot use a GameSpy ID to connect to a local server. Please use the LAN game mode.",
+    "pol": "Nie mo�na u�y� ID GameSpy do po��czenia z serwerem lokalnym. Prosz� u�y� trybu gry w sieci lokalnej.",
+    "rus": "Вы не можете использовать профиль GameSpy ID для входа на локальный сервер. Пожалуйста, используйте режим игры по локальной сети.",
+    "ukr": "Ви не можете використати профіль GameSpy ID для входу на локальний сервер. Будь ласка, використайте режим гри через локальну мережу."
+  },
+  "st_kicked_by_server": {
+    "eng": "You were kicked by the server.",
+    "pol": "Wyrzucono ci� z serwera.",
+    "rus": "Вы были выброшены сервером.",
+    "ukr": "Вас було викинуто сервером"
+  },
+  "mp_you_have_been_banned_by": {
+    "eng": "You were banned by administrator:",
+    "pol": "Administrator ci� zbanowa�:",
+    "rus": "Вы были заблокированы администратором: ",
+    "ukr": "Вас було заблоковано адміністратором: "
+  },
+  "mp_you_have_been_banned_by_server": {
+    "eng": "You were banned by the server",
+    "pol": "Serwer ci� zbanowa�.",
+    "rus": "Вы были заблокированы сервером",
+    "ukr": "Вас було заблоковано сервером"
+  },
+  "mp_server_info": {
+    "eng": "Server info",
+    "pol": "Inform. o serwerze",
+    "rus": "Информация о сервере",
+    "ukr": "Інформація про сервер"
+  },
+  "mp_gp_email_is_too_big": {
+    "eng": "The e-mail address is too long. You cannot enter more than 50 characters.",
+    "pol": "Ten adres e-mail jest zbyt d�ugi. Nie mo�na wprowadzi� wi�cej ni� 50 znak�w.",
+    "rus": "E-mail слишком длинный. Вы можете ввести максимум 50 символов.",
+    "ukr": "E-mail надто довгий. Ви можете ввести максимум 50 символів."
+  },
+  "mp_gp_bad_email": {
+    "eng": "Wrong e-mail",
+    "pol": "Nieprawid�owy adres e-mail",
+    "rus": "Некорректный e-mail",
+    "ukr": "Некоректний E-mail"
+  },
+  "mp_gp_password_is_too_small": {
+    "eng": "The password is too short",
+    "pol": "Has�o jest za kr�tkie",
+    "rus": "Пароль слишком короткий",
+    "ukr": "Пароль надто короткий"
+  },
+  "mp_gp_password_is_too_big": {
+    "eng": "The password is too long",
+    "pol": "Has�o jest za d�ugie",
+    "rus": "Пароль слишком длинный",
+    "ukr": "Пароль надто довгий"
+  },
+  "mp_gp_no_email": {
+    "eng": "E-mail not found",
+    "pol": "Nie znaleziono adresu e-mail",
+    "rus": "E-mail не найден",
+    "ukr": "E-mail не знайдено"
+  },
+  "mp_gp_no_unique_nick": {
+    "eng": "Unique nickname not set",
+    "pol": "Nie ustawiono unikalnego pseudonimu",
+    "rus": "Уникальный ник не задан",
+    "ukr": "Унікальний нік не задано"
+  },
+  "mp_gp_unique_nick_is_too_big": {
+    "eng": "Unique nickname is too long. You cannot enter more than 30 characters.",
+    "pol": "Unikalny pseudonim jest za d�ugi. Nie mo�na wprowadzi� wi�cej ni� 30 znak�w.",
+    "rus": "Уникальный ник слишком длинный. Вы можете ввести максимум 30 символов.",
+    "ukr": "Унікальний нік надто довгий. Ви можете ввести максимум 30 символів."
+  },
+  "mp_gp_unique_nick_must_contain_only": {
+    "eng": "The unique nickname may only contain numbers, Latin letters and the following special symbols: \"#$&'()*+-./:;<=>?@[]^_`{|}~",
+    "pol": "Unikalne imi� mo�e zawiera� tylko cyfry, litery alfabetu �ac. i symbole spec.: \"#$&'()*+-./:;<=>?@[]^_`{|}~ ",
+    "rus": "Уникальный ник может содержать только цифры, буквы латиницы и специальные символы: \"#$&'()*+-./:;<=>?@[]^_`{|}~",
+    "ukr": "Унікальний нік може містити лише цифри, літери латиниці та спеціальні символи: \"#$&'()*+-./:;<=>?@[]^_`{|}~"
+  },
+  "mp_gp_unique_nick_must_contain_nospaces": {
+    "eng": "The unique nickname cannot contain spaces",
+    "pol": "Unikalny pseudonim nie mo�e zawiera� spacji",
+    "rus": "Уникальный ник не может содержать пробелы",
+    "ukr": "Унікальний ник не може містити пропуски"
+  },
+  "mp_gp_unique_nick_bad_first_symbol": {
+    "eng": "The unique nickname may not begin with a number or any of the following symbols: '@', '+', ':' or ‘#’",
+    "pol": "Unikalne imi� nie mo�e zaczyna� si� od cyfry lub symbolu: \"@\", \"+\", \":\" lub �#�",
+    "rus": "Уникальный ник не может начинаться с цифры или символов: '@', '+', ':' или '#'",
+    "ukr": "Унікальний нік не може починатися із цифри або символів ''@'', ''+'', '':'' або ''#''"
+  },
+  "st_opt_ultra": {
+    "eng": "very high",
+    "pol": "bardzo wysokie",
+    "rus": "очень высоко",
+    "ukr": "дуже високо"
+  },
+  "ui_mm_r4_enable_tessellation": {
+    "eng": "Tessellation",
+    "pol": "Tesselacja",
+    "rus": "Тесселяция",
+    "ukr": "Тесселяція"
+  },
+  "ui_mm_confirm_changes": {
+    "eng": "Apply changes? All changes will be reverted in",
+    "rus": "Применить сделанные изменения? Все изменения будут отменены через",
+    "ukr": "Застосувати зроблені зміни? Усі зміни будуть скасовані через",
+    "pol": null
+  }
+}

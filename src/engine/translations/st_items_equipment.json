@@ -1,0 +1,308 @@
+{
+  "st_antirad": {
+    "eng": "Anti-radiation drugs",
+    "pol": "Leki przeciwpromienne",
+    "rus": "Противорадиационный препарат",
+    "ukr": "Протирадіаційний препарат"
+  },
+  "st_antirad_descr": {
+    "eng": "Mexaminum radiation protection drugs are common in the Zone. When used, this drug induces contraction of peripheral blood vessels and oxygen deprivation, which serves to treat and prevent radiation exposure. The drug does not have severe side effects, although isolated cases of mild nausea, dizziness, cramps and stomach pain have been reported.",
+    "pol": "Oparte na meksaminie leki przeciwpromienne s� cz�sto spotykane w Zonie. Po u�yciu lekarstwo powoduje skurcz obwodowych naczy� krwiono�nych i deprywacj� tlenow�, co pozwala na leczenie i ochron� przed promieniowaniem. Nie ma ono silnych skutk�w ubocznych, ale wiadomo o odosobnionych przypadkach lekkich nudno�ci, zawrot�w g�owy, skurczy i b�lu brzucha.",
+    "rus": "Препарат радиозащитного действия «Мексамин», широко распространённый на территории Зоны. При применении вызывает сужение периферических кровеносных сосудов и кислородное голодание, что в данном случае является средством профилактики и лечения лучевой болезни. Хорошо переносится подавляющим большинством людей; в отдельных случаях возможны лёгкая тошнота, головокружение, боли, реже рвота.",
+    "ukr": "Препарат радіозахисної дії «Мексамін», дуже поширений на території Зони. При застосуванні викликає звуження периферичних кровоносних судин та кисневе голодування, котре у цьому випадку є засобом профілактики й лікування променевої хвороби. Добре переноситься переважною більшістю людей; в окремих випадках можливі легка нудота, запаморочення, болі, рідше - блювота."
+  },
+  "st_bandage": {
+    "eng": "Bandage",
+    "pol": "Banda�",
+    "rus": "Бинт",
+    "ukr": "Бинт"
+  },
+  "st_bandage_descr": {
+    "eng": "A normal elastic bandage used to stop bleeding and prevent infection of wounds. For regular bleeding, carefully apply the bandage to the wound. For arterial bleeding, urgently tie the bandage around the affected area.",
+    "pol": "Normalny banda� elastyczny s�u��cy do tamowania krwawienia i ochrony przed zaka�eniem ran. W przypadku zwyk�ego krwawienia, banda� nale�y na�o�y� bezpo�rednio na ran�. Aby powstrzyma� krwawienie t�tnicze, nale�y szybko obwi�za� banda� dooko�a rany.",
+    "rus": "Асептический бинт для остановки кровотечения и предотвращения попадания в рану инфекции. При обычном кровотечении позволяет перевязать рану, при артериальном - перетянуть артерию.",
+    "ukr": "Асептичний бинт для зупинки кровотечі та запобігання потрапляння до ран різноманітних інфекцій. За звичайної кровотечі дозволяє перев'язати рану, за артеріальної - перетягнути артерію."
+  },
+  "st_binocular_descr": {
+    "eng": "Standard issue military binoculars with a maximum of x7.5 magnification. Useful in the Zone in that they allow its owner to observe things from a distance.",
+    "pol": "Standardowa wojskowa lornetka o maksymalnym powi�kszeniu wynosz�cym 7,5x. Jej u�yteczno�� w Zonie wynika z faktu, �e pozwala w�a�cicielowi obserwowa� wydarzenia z dystansu.",
+    "rus": "Армейский бинокль с регулируемой (до 7,5 диоптрии) кратностью. Позволяет детально рассматривать местность и строения с большого расстояния.",
+    "ukr": "Армійський бінокль із регульованою (до 7,5 діоптрії) кратністю. Дозволяє детально розглядати місцевість та будівлі з великої відстані."
+  },
+  "st_binocular_name": {
+    "eng": "Binoculars",
+    "pol": "Lornetka",
+    "rus": "Бинокль",
+    "ukr": "Бінокль"
+  },
+  "st_bread": {
+    "eng": "Bread",
+    "pol": "Chleb",
+    "rus": "Хлеб",
+    "ukr": "Хліб"
+  },
+  "st_bread_descr": {
+    "eng": "No bakers have ever been identified in the Zone, but this bread is neither contaminated nor radioactive, being fresh and quite edible. At least no complaints have been reported thus far.",
+    "pol": "W Zonie nigdy nie stwierdzono obecno�ci piekarzy, ale ten bochenek chleba nie jest ska�ony ani radioaktywny. Wprost przeciwnie, wygl�da na �wie�y i smakowity. Przynajmniej na razie nie pojawi�y si� �adne za�alenia.",
+    "rus": "Неизвестно, кто умудряется печь батоны на территории Зоны, или каким образом их протаскивают через периметр. Однако этот хлеб не заражен, не радиоактивен, достаточно свеж и вполне съедобен. Во всяком случае, никто из сталкеров пока не жаловался.",
+    "ukr": "Невідомо, хто примудрився пекти батони на території Зони, або яким чином їх проносять через периметр. Однак цей хліб не заражений, не радіоактивний, доволі свіжий і цілком їстівний. В усякому разі, ніхто зі сталкерів поки не скаржився."
+  },
+  "st_conserva": {
+    "eng": "\"Tourist's Breakfast\" can",
+    "pol": "Konserwa ��niadanie Turysty\"",
+    "rus": "Консервы «Завтрак туриста»",
+    "ukr": "Консерви «Сніданок туриста»"
+  },
+  "st_conserva_descr": {
+    "eng": "Presumably, these canned goods were looted by stalkers from an army ration depot. Without any kind of label on the can, it's hard to say for sure. Should still be good to eat, if you believe the best before date.",
+    "pol": "Przypuszczalnie ta konserwa zosta�a zrabowana przez stalker�w z wojskowego sk�adu racji �ywno�ciowych. Ci�ko by� pewnym, poniewa� na puszce brakuje etykiety. Niemniej jednak powinna nadal nadawa� si� do zjedzenia, oczywi�cie je�li wierzy� podanej dacie przydatno�ci do spo�ycia.",
+    "rus": "Предположительно, консервы с растащенного сталкерами армейского продовольственного склада; точно установить не представляется возможным из-за отсутствия какой-либо этикетки. Главное, что срок годности вроде бы ещё не истёк.",
+    "ukr": "Імовірно, консерви із розкраденого сталкерами армійського продовольчого складу; точно встановити це не є можливим через відсутність будь-якої етикетки. Головне, що термін придатності начебто ще не минув."
+  },
+  "st_detector1": {
+    "eng": "Echo detector",
+    "pol": "Detektor Echo",
+    "rus": "Детектор «Отклик»",
+    "ukr": "Детектор «Відгук»"
+  },
+  "st_detector1_descr": {
+    "eng": "This dated anomalous activity detector produces an alarm signal when anomalous particles enter a special chamber as you approach an anomaly. It can also register the presence of artifacts and measure the distance to the nearest one. The distance is indicated by the frequency of the sound the detector emits. To switch to artifact search mode, open the device's front cover. Due to its simple design, Echo can only be used to locate the most common artifacts.",
+    "pol": "Ten przestarza�y detektor anomalii emituje sygna� ostrzegawczy, kiedy nienormalne cz�steczki dostan� si� do specjalnej komory podczas zbli�ania si� do zjawiska. Mo�e on tak�e wykrywa� obecno�� artefakt�w i mierzy� odleg�o�� do najbli�szego z nich. Wska�nikiem dystansu jest cz�stotliwo�� d�wi�ku emitowanego przez detektor. Aby przej�� w tryb wykrywania artefakt�w, nale�y otworzy� przedni� pokryw� urz�dzenia. Ze wzgl�du na prost� budow�, Echo mo�e wykrywa� tylko najbardziej rozpowszechnione rodzaje artefakt�w.",
+    "rus": "Устаревшая модель детектора аномальной активности. Реагирует звуковым сигналом на попадание аномальных частичек в специальную камеру при приближении к аномалиям. Кроме того, может регистрировать присутствие артефактов и измерять расстояние до ближайшего из них - расстояние до артефакта определяется периодичностью подаваемого звукового сигнала. Режим поиска артефактов включается поднятием крышки-антенны на лицевой панели прибора. Ввиду простоты конструкции способен находить только самые распространённые артефакты.",
+    "ukr": "Застаріла модель детектора аномальної активності. Реагує звуковим сигналом на трапляння аномальних часточок до спеціальної камери за наближення до аномалій. Окрім того, може реєструвати присутність артефактів і вимірювати відстань до найближчого з них - остання визначається періодичністю подаваного звукового сигналу. Режим пошуку артефактів включається підняттям кришки-антени на лицевій панелі приладу. Через примітивність конструкції здатен виявляти лише найбільш поширені артефакти."
+  },
+  "st_detector2": {
+    "eng": "Detector \"Bear\"",
+    "pol": "Detektor Nied�wied�",
+    "rus": "Детектор «Медведь»",
+    "ukr": "Детектор «Ведмідь»"
+  },
+  "st_detector3": {
+    "eng": "Veles detector",
+    "pol": "Detektor Weles",
+    "rus": "Детектор «Велес»",
+    "ukr": "Детектор «Велес»"
+  },
+  "st_detector3_descr": {
+    "eng": "A next generation scientific detection scanner. Thanks to three modernized detection chambers, the position of artifacts is shown on a special display screen. When closed, the device registers only radiation and anomalies. To switch to artifact search mode, open the front LED display. When in search mode, the detector is capable of locating all artifacts known to science.",
+    "pol": "Naukowy detektor nowej generacji. Dzi�ki trzem zmodernizowanym komorom detekcyjnym, pozycja artefakt�w pokazana jest na specjalnym ekranie. Zamkni�te urz�dzenie rejestruje tylko promieniowanie i anomalie. Aby prze��czy� je na w tryb poszukiwania anomalii, nale�y otworzy� przedni wy�wietlacz LED. W trybie poszukiwania detektor jest zdolny do zlokalizowania wszystkich artefakt�w znanych nauce.",
+    "rus": "Детектор-сканер нового поколения, используемый учёными. Благодаря трём усовершенствованным регистрационным камерам расположение артефакта относительно детектора отображается на специальном экране. Способен фиксировать излучение и присутствие аномалий. Режим поиска артефактов включается поднятием индикатора-табло на лицевой стороне прибора; в данном режиме способен обнаруживать все известные науке артефакты.",
+    "ukr": "Детектор-сканер нового покоління, використовуваний вченими. Завдяки трьом удосконаленим реєстраційним камерам розташування артефакту щодо детектора відображається на спеціальному екрані. Здатен фіксувати випромінювання та присутність аномалій. Режим пошуку артефактів включається підняттям табло на лицевій стороні приладу; у цьому режимі здатен виявляти усі відомі науці артефакти."
+  },
+  "st_detector4": {
+    "eng": "Svarog detector prototype",
+    "pol": "Prototyp detektora Swar�g",
+    "rus": "Прототип детектора «Сварог»",
+    "ukr": "Прототип детектора «Сварог»"
+  },
+  "st_detector4_descr": {
+    "eng": "A prototype of an expanded functionality anomalous frequency scanner. This device comes with a program used to identify static areas of anomalous activity stored in its database, while retaining the ability to locate artifacts. The position of anomalous areas and artifacts is displayed on a special screen. The artifact search mode, which can be activated by opening the front LED display, has been modified to detect anomalous formations currently unknown to science.",
+    "pol": "Prototyp detektora anomalii o rozszerzonej funkcjonalno�ci. Urz�dzenie to posiada program, kt�rego celem jest identyfikacja statycznych obszar�w aktywno�ci anomalii, przechowywanych w jego bazie danych, przy zachowaniu mo�liwo�ci lokalizowania artefakt�w. Pozycja anomalii jest wy�wietlana na specjalnym ekranie. Tryb poszukiwania artefakt�w, kt�ry mo�na aktywowa� otwieraj�c przedni wy�wietlacz LED, zosta� zmodyfikowany tak, aby m�g� wykrywa� tak�e anomalie nieznane nauce.",
+    "rus": "Прототип сканера аномальных зон расширенной функциональности. Добавлена программа распознавания статичных зон аномальной активности, которые имеются в базе данных; при этом сохранена возможность обнаружения артефактов. Расположение аномальных зон и артефактов относительно детектора отображаются на специальном экране. Программа поиска артефактов, включаемая при поднятии индикатора-табло на лицевой стороне прибора, усовершенствована; теоретически это позволяет обнаружить пока не известные науке аномальные образования.",
+    "ukr": "Прототип сканера аномальних зон розширеної функціональності. Додано програму розпізнавання статичних зон аномальної активності, котрі наявні у базі даних; при цьому збережено можливість виявлення артефактів. Розташування аномальних зон та артефактів відносно детектора відображаються на спеціальному екрані. Програму пошуку артефактів, котра включається за підняття табло на лицевій стороні приладу, вдосконалено; теоретично це дозволяє знайти поки що не відомі науці аномальні утворення."
+  },
+  "st_device_torch_descr": {
+    "eng": "A standard head-mounted flashlight. Useful for stalkers who find themselves out and about after dark, but may attract trouble if used unwisely.",
+    "pol": "Standardowa latarka zamontowana na he�mie. Jest ona u�yteczna dla stalker�w, kt�rzy poruszaj� si� po zmroku, ale niew�a�ciwie u�yta mo�e przyci�gn�� niechcian� uwag�.",
+    "rus": "Фонарь с креплением на голову. Пригодится сталкеру, которого ночь застала в дороге; с другой стороны, может привлечь чьё-то нежелательное внимание.",
+    "ukr": "Ліхтар із кріпленням на голову. Стане у пригоді сталкеру, якого ніч застала в дорозі; з іншого боку, може привернути чиюсь небажану увагу."
+  },
+  "st_device_torch_name": {
+    "eng": "Flashlight",
+    "pol": "Latarka",
+    "rus": "Фонарик",
+    "ukr": "Ліхтарик"
+  },
+  "st_drug_anabiotic": {
+    "eng": "Anabiotics",
+    "pol": "Antybiotyk",
+    "rus": "Анабиотик",
+    "ukr": "Анабіотик"
+  },
+  "st_drug_antidot": {
+    "eng": "Antidote",
+    "pol": "Antidotum",
+    "rus": "Антидот",
+    "ukr": "Антидот"
+  },
+  "st_drug_antidot_descr": {
+    "eng": "The IP2 antitoxin is a complex drug comprising several antidotes, including metoclopramidum, pyridoxine, thiamine, riboxin and other pharmaceuticals. The drug is used to inject a range of antibiotics to neutralize natural poisons, together with synthetic poison absorbers, into the bloodstream. IP2 is not particularly popular in the Zone, as most stalkers rely on a gas mask and a protective suit, there are still those who have a pack of this antidote stashed away. The effects of the drug are long-lasting.",
+    "pol": "Antytoksyna IP2 to z�o�one lekarstwo, w sk�ad kt�rego wchodz� r�ne rodzaje antidot�w, w tym metoklopramid, tiamina, ryboksyna i inne substancje. Lek wprowadza do krwiobiegu szereg antybiotyk�w, kt�rych zadaniem jest neutralizacja naturalnych trucizn, a tak�e poch�aniacze trucizn syntetycznych. IP2 nie jest szczeg�lnie popularne w Zonie, poniewa� wi�kszo�� stalker�w woli polega� na masce przeciwgazowej i kombinezonie ochronnym. S� jednak tacy, kt�rzy przechowuj� ukryte opakowanie tego antidotum. Efekty dzia�ania tego lekarstwa s� d�ugotrwa�e.",
+    "rus": "Препарат «Антитоксикант ИП2» представляет собой комплекс антидотов: метоклопрамида, пиридоксина, тиамина, рибоксии и других. Вводит в кровь вещества, способные разлагать белковые яды, а также абсорбенты синтетических ядов. Особой популярностью не пользуется, поскольку большинство сталкеров больше полагаются на противогаз и комбинезон. Обладает продолжительным действием.",
+    "ukr": "Препарат «Антитоксикант ІП2» становить собою комплекс антидотів: метоклопраміда, пірідоксина, тіаміну, рибоксії та інших. Вводить до кровообігу речовини, здатні розкладати білкові отрути, а також абсорбенти синтетичних отрут. Особливої популярності не має, оскільки у більшості сталкери покладаються на протигаз та комбінезон. Має пролонговану дію."
+  },
+  "st_drug_booster": {
+    "eng": "Hercules",
+    "pol": "Herkules",
+    "rus": "«Геркулес»",
+    "ukr": "«Геркулес»"
+  },
+  "st_drug_coagulant": {
+    "eng": "Vinca",
+    "pol": "Barwinek",
+    "rus": "«Барвинок»",
+    "ukr": "«Барвінок»"
+  },
+  "st_drug_coagulant_descr": {
+    "eng": "Ukrainian Vikasolum - an artificial equivalent of vitamin K. The main purpose of this drug is to increase blood coagulation speed. In great demand among stalkers who want slow-healing wounds and lacerations inflicted by mutants to close up faster. The effects of the drug are long-lasting.",
+    "pol": "Ukrai�skie Wikasolum - sztuczny odpowiednik witaminy K. G��wnym zdaniem tego lekarstwa jest zwi�kszanie tempa krzepni�cia krwi. Jest bardzo poszukiwany przez stalker�w, kt�rzy chc�, aby wolno goj�ce si� rany zadawane przez mutanty zasklepia�y si� szybciej. Efekty dzia�ania tego lekarstwa s� d�ugotrwa�e.",
+    "rus": "«Викасол» - синтетический аналог витамина К. Основное действие заключается в повышении свёртываемости крови. Пользуется спросом среди сталкеров, поскольку позволяет организму быстрее рубцевать рваные раны. Обладает продолжительным действием.",
+    "ukr": "«Вікасол» - синтетичний аналог вітаміну К. Основна дія полягає у підвищенні згортуваності крові. Має попит серед сталкерів, оскільки дозволяє організму швидше рубцювати рвані рані. Має пролонговану дію."
+  },
+  "st_drug_psy_blockade": {
+    "eng": "Psy-block",
+    "pol": "Bloker psioniczny",
+    "rus": "Пси-блокада",
+    "ukr": "Псі-блокада"
+  },
+  "st_drug_psy_blockade_descr": {
+    "eng": "A drug that blocks avalanche-like nerve impulses. Consumption induces short-term loss of all emotion. Used exclusively in the Zone to counteract the effects of anomalous psy-fields. The effects of the drug are long-lasting.",
+    "pol": "Lekarstwo, kt�re blokuje lawinowy nat�ok impuls�w nerwowych. U�ycie go wywo�uje kr�tkotrwa�� utrat� wszelkich emocji. U�ywane wy��cznie w Zonie w celu przeciwdzia�ania polom psionicznym obecnym w anomaliach. Efekty dzia�ania tego lekarstwa s� d�ugotrwa�e.",
+    "rus": "Наркотический препарат, блокирующий лавинообразные нервные импульсы. Интересен побочный эффект: после приёма препарата наблюдается кратковременное исчезновение каких-либо эмоций. В Зоне используется для противодействия аномальным полям повышенной пси-активности; за её пределами применения не нашёл. Обладает продолжительным действием.",
+    "ukr": "Наркотичний препарат, що блокує лавиноподібні нервові імпульси. Цікавий побічний ефект: після прийому препарату спостерігається короткотермінове блокування будь-яких емоцій. У Зоні використовується для протидії аномальним полям підвищеної псі-активності; за межами Зони застосування не знайшов. Має пролонговану дію."
+  },
+  "st_drug_radioprotector": {
+    "eng": "Radioprotectant",
+    "pol": "Radioprotektor",
+    "rus": "Радиопротектор",
+    "ukr": "Радіопротектор"
+  },
+  "st_energy_drink": {
+    "eng": "Stalker energy drink",
+    "pol": "Nap�j energetyczny Stalker",
+    "rus": "Энергетический напиток «Сталкер»",
+    "ukr": "Енергетичний напій «Сталкер»"
+  },
+  "st_energy_drink_descr": {
+    "eng": "Often used by stalkers on long trips when no breaks can be afforded. The drink contains easily digestible carbohydrates, as well as drugs that stimulate the release of adrenaline into the bloodstream.",
+    "pol": "Cz�sto u�ywany przez stalker�w wyruszaj�cych na d�u�sze wyprawy, w trakcie kt�rych nie mo�na pozwoli� sobie na odpoczynek. Nap�j zawiera �atwostrawne w�glowodany, a tak�e substancje powoduj�ce wydzielanie adrenaliny do krwiobiegu.",
+    "rus": "Часто используется сталкерами в многодневных походах, когда нет возможности остановиться и отдохнуть. Содержит легко усваиваемые углеводы, а также препараты, вызывающие выброс адреналина в кровь.",
+    "ukr": "Часто використовується сталкерами у багатоденних походах, коли немає можливості зупинитися і відпочити. Містить легко засвоювані вуглеводи, а також препарати, що викликають викид адреналіну до кровообігу."
+  },
+  "st_guitar_descr": {
+    "eng": "A trusty guitar.",
+    "pol": "Wierna gitara.",
+    "rus": "Поговори хоть ты со мной, гитара семиструнная!..",
+    "ukr": "Поговори хоть ты со мной, гитара семиструнная!.."
+  },
+  "st_guitar_name": {
+    "eng": "Guitar",
+    "pol": "Gitara",
+    "rus": "Гитара",
+    "ukr": "Гітара"
+  },
+  "st_kolbasa": {
+    "eng": "Diet sausage",
+    "pol": "Kie�basa dietetyczna",
+    "rus": "Колбаса «Диетическая»",
+    "ukr": "Ковбаса «Дієтична»"
+  },
+  "st_kolbasa_descr": {
+    "eng": "For better or worse, this sausage - a mix of chicken and a soy substitute - is often a stalker's breakfast, lunch and dinner in one. Can be stored for a long time due to high preservative content.",
+    "pol": "Na dobre i na z�e, ta kie�basa - mieszanka kurczaka i sojowego substytutu - cz�sto stanowi �niadanie, obiad i kolacj� stalkera w jednym. Mo�e by� przechowywana przez d�ugi czas ze wzgl�du na wysok� zawarto�� konserwant�w. ",
+    "rus": "Часто за неимением лучшего эта колбаса - смесь курятины и соевого заменителя - становится завтраком, обедом и ужином сталкера. Из-за большого количества консервантов довольно долго не портится.",
+    "ukr": "Часто через брак чогось кращого ця ковбаса - суміш курятини та соєвого замінника - стає сніданком, обідом та вечерею сталкера. Через велику кількість консервантів доволі довго не псується."
+  },
+  "st_medkit": {
+    "eng": "First-aid kit",
+    "pol": "Apteczka",
+    "rus": "Аптечка",
+    "ukr": "Аптечка"
+  },
+  "st_medkit_army": {
+    "eng": "Army medkit",
+    "pol": "Apteczka wojskowa",
+    "rus": "Армейская аптечка",
+    "ukr": "Армійська аптечка"
+  },
+  "st_medkit_army_descr": {
+    "eng": "A specialized medical kit for providing first aid to combat casualties. The kit includes blood coagulants based on menadione, painkillers, antibiotics and immunostimulants, as well as a kit for removing bullets and fragments from the body. This medkit is issued to army personnel as standard and is sometimes used by Duty forces.",
+    "pol": "Specjalistyczny zestaw medyczny, zapewniaj�cy pierwsz� pomoc rannym w walce. Zawiera on �rodki wspomagaj�ce krzepni�cie krwi oparte na menadionie, antybiotyki i immunostymulanty, a tak�e narz�dzia s�u��ce do usuwania pocisk�w i od�amk�w z cia�a. Apteczka ta jest wydawana personelowi wojskowemu jako standardowe wyposa�enie. Niekiedy jest tak�e u�ywana przez si�y Powinno�ci.",
+    "rus": "Специализированный медицинский набор для оказания первой помощи при ранениях на поле боя. В набор входят средства для ускорения свертывания крови на основе «Менадиона», обезболивающие, антибиотики и стимуляторы иммунитета; кроме того, здесь имеется простейший хирургический набор для извлечения осколков и пуль. Стандартная армейская аптечка; реже встречается в экипировке «долговцев».",
+    "ukr": "Спеціалізований медичний набір для надання першої допомоги за поранення на полі бою. До набору входять засоби для прискорення згортання крові на основі «Менадіону», знеболювальні, антибіотики та стимулятори імунітету; окрім того, тут є найпростіший хірургічний набір для витягання з тіла осколків і куль. Стандартний елемент армійського спорядження; іноді зустрічається в екіпіруванні «долгівців»."
+  },
+  "st_medkit_descr": {
+    "eng": "A general purpose single-use medical kit. Handy for treating various injuries - wounds, bruises, regular and chemical burns and various types of poisoning. In demand among stalkers.",
+    "pol": "Jednorazowy zestaw medyczny og�lnego zastosowania. S�u�y on do leczenia rozmaitych obra�e� - ran, st�ucze�, zwyk�ych i chemicznych oparze�, a tak�e r�nych typ�w trucizn. Ceniony przez stalker�w.",
+    "rus": "Универсальный медицинский набор разового применения. Позволяет справляться с травмами различного типа и степени сложности: ранениями, ушибами мягких тканей, термическими и химическими ожогами, разного рода отравлениями. Пользуется неизменной популярностью у сталкеров.",
+    "ukr": "Універсальний медичний набір разового застосування. Дозволяє упоратися із травмами різного типу та ступеня складності: пораненнями, забиттями м'яких тканин, термічними та хімічними опіками, різного роду отруєннями. Має незмінну популярність в сталкерів."
+  },
+  "st_medkit_science": {
+    "eng": "Scientific medkit",
+    "pol": "Apteczka naukowa",
+    "rus": "Научная аптечка",
+    "ukr": "Наукова аптечка"
+  },
+  "st_medkit_science_descr": {
+    "eng": "A medical kit designed specifically for use in the Zone. The kit contains products for handling wounds, as well as preventing the development of radiation poisoning and reducing accumulated radiation in the body. Contains Vikasolum, Batilolum and Naphazoline, unlike other medkits.",
+    "pol": "Zestaw medyczny zaprojektowany z my�l� o u�yciu w Zonie. Zawiera on materia�y s�u��ce do leczenia ran, a tak�e do ochrony przed zatruciem promieniowaniem i redukcji stopnia napromieniowania organizmu. W odr�nieniu od innych apteczek, zawiera wikasol, batilol i nafazolin�.",
+    "rus": "Медицинский набор, разработанный специально для научных сотрудников, которые работают в условиях Зоны. Содержит средства как для заживления механических травм, так и для предотвращения развития лучевой болезни. В отличие от других наборов, в этом можно найти «Викасол», «Батилол» и С-нафтизин.",
+    "ukr": "Медичний набір, розроблений спеціально для наукових співробітників, які працюють в умовах Зони. Містить засоби як для загоєння травм, так і для запобігання розвитку променевої хвороби. На відміну від інших наборів, у цьому можна знайти «Вікасол», «Батилол» та С-нафтізин."
+  },
+  "st_pda_descr": {
+    "eng": "No data stored.",
+    "pol": "Brak danych w pami�ci.",
+    "rus": "Нет сохранённых данных.",
+    "ukr": "Немає збережених даних."
+  },
+  "st_pda_name": {
+    "eng": "PDA",
+    "pol": "PDA",
+    "rus": "КПК",
+    "ukr": "КПК"
+  },
+  "st_vodka": {
+    "eng": "Cossacks Vodka",
+    "pol": "W�dka �Kozak\"",
+    "rus": "Водка «Казаки»",
+    "ukr": "Горілка «Козаки»"
+  },
+  "st_vodka_descr": {
+    "eng": "Made by GSC. Goes down easy and considerably lowers the effects of radiation. Should be enjoyed in moderation.",
+    "pol": "Produkt firmy GSC. Wchodzi bez zagryzki i znacznie zmniejsza skutki promieniowania. Nale�y pi� j� z umiarem.",
+    "rus": "Водка производства компании «GSC». Хорошо пьётся, заметно снижает воздействие радиации на организм, хотя злоупотреблять ею не следует.",
+    "ukr": "Горілка виробництва компанії «GSC». Добре п'ється, помітно знижує вплив радіації на організм, хоча зловживати нею не слід."
+  },
+  "st_detector2_descr": {
+    "eng": "This last generation anomalous activity detector can be used to locate anomalous formations and has a color diode panel, which not only indicates the direction of artifacts, but also measures the distance to them. To switch to artifact search mode, open the device's front cover. Unfortunately, the device is programmed with a somewhat outdated list of detectable artifacts.",
+    "pol": "Ten detektor anomalii najnowszej generacji posiada tak�e panel z kolorowymi diodami, kt�ry nie tylko wskazuje po�o�enie artefakt�w, ale tak�e dystans dziel�cy od nich u�ytkownika. Aby przej�� w tryb poszukiwania artefakt�w, nale�y otworzy� przedni� pokryw� urz�dzenia. Niestety zaprogramowana lista artefakt�w jest raczej przestarza�a.",
+    "rus": "Детектор аномальной активности прошлого поколения. Снабжён локатором аномальных образований и светодиодным табло для отображения направления на артефакт, причём способен не только обнаруживать артефакты, но и определять расстояния до них. Режим поиска артефактов включается поднятием крышки-антенны на лицевой стороне прибора. К сожалению, уже несколько устаревший список обнаруживаемых артефактов вшит в прибор намертво - на аппаратном уровне.",
+    "ukr": "Детектор аномальної активності минулого покоління. Споряджений локатором аномальних утворень та світлодіодним таблом для відображення напрямку на артефакт, причому здатний не лише виявляти артефакти, але й визначати відстані до них. Режим пошуку артефактів включається підняттям кришки-антени на лицевій стороні приладу. На жаль, список визначуваних артефактів вшито до приладу намертво - на апаратному рівні, а він уже трохи застарів."
+  },
+  "st_drug_anabiotic_descr": {
+    "eng": "An experimental drug developed by Professor Ozersky for scientific research teams working in the Zone. At its core, the drug contains tetrodotoxin, known colloquially as \"zombie powder,\" which causes a complete shutdown of the body's central nervous system that may allow people to survive emissions outside cover. The drug has not undergone clinical or field testing, which puts its effectiveness in doubt and raises the issue of possible side effects.",
+    "pol": "Eksperymentalny lek stworzony przez prof. Oziorskiego dla zespo��w badawczych pracuj�cych w Zonie. Jego g��wnym sk�adnikiem jest tetrodotoksyna, zwana potocznie �proszkiem zombi\", powoduj�ca ca�kowite wstrzymanie dzia�ania centralnego uk�adu nerwowego, co umo�liwia prze�ycie emisji bez os�ony. Lek nie by� testowany klinicznie, dlatego te� jego skuteczno�� i skutki uboczne pozostaj� nieznane.",
+    "rus": "Экспериментальный препарат, разработанный для научно-исследовательских групп, действующих в Зоне. Входящий в формулу препарата тетрадотоксин, известный как «порошок зомби», вызывает полный паралич центральной нервной системы; предположительно, это может обеспечить выживание вне укрытия во время выброса. Препарат не испытывался в полевых условиях и не прошёл клинических испытаний, что ставит под сомнение его эффективность и заставляет задуматься о возможных побочных эффектах.",
+    "ukr": "Експериментальний препарат, розроблений для науково-дослідних груп, що діють у Зоні. Входить до формули препарату тетрадотоксина, відомого як «порошок зомбі», і викликає повний параліч центральної нервової системи; ймовірно, це може забезпечити виживання поза укриттям під час викиду. Препарат не проходив випробувань у польових умовах та клінічних тестів, що ставить під сумнів його ефективність та безпечність для організму."
+  },
+  "st_bolt": {
+    "eng": "Bolt",
+    "pol": "�ruba",
+    "rus": "Болт",
+    "ukr": "Болт"
+  },
+  "st_drug_booster_descr": {
+    "eng": "The main component of this product is an anabolic androgen, an artificial steroid, the chemical composition of which resembles testosterone. Often used by stalkers during long raids to reduce muscle fatigue. Significantly increases weight-carrying capacity. The effects of the drug are long-lasting.",
+    "pol": "G��wny sk�adnik tego �rodka to anaboliczny androgen, sztuczny steryd, kt�rego sk�ad przypomina testosteron. Jest on cz�sto u�ywany przez stalker�w podczas d�u�szych wypraw, aby zmniejszy� zm�czenie mi�ni. Znacz�co zwi�ksza ud�wig. Efekty dzia�ania tego lekarstwa s� d�ugotrwa�e.",
+    "rus": "Основной компонент - искусственно созданный стероид, по химическому составу сходный с тестостероном. Применяется сталкерами в долгих переходах для повышения порога утомляемости мышц. Помогает значительно увеличить переносимый вес. Препарат длительного действия.",
+    "ukr": "Основний компонент - стероїд штучного походження, за хімічним складом подібний до тестостерону. Застосовується сталкерами у довгих переходах для підвищення порогу стомлюваності м'язів. Допомагає значно збільшити носиму вагу. Препарат тривалої дії."
+  },
+  "st_drug_radioprotector_descr": {
+    "eng": "B190 Indraline radioprotectant, included in medkits issued to nuclear power plant personnel. Used in the Zone instead of the excessively toxic PC1 cystamine hydrochloride, repeated use of which often caused death. Reduces the effects of gamma radiation on live tissue. Best consumed before exposure, as effects are not instant. The effects of the drug are long-lasting.",
+    "pol": "Radioprotektor B190, znany te� pod nazw� indralina, wchodzi w sk�ad apteczek wydawanych personelowi elektrowni j�drowych. Jest on u�ywany w Zonie zamiast silnie toksycznego hydrochlorku cystaminy PC1, kt�rego cz�ste u�ycie mo�e spowodowa� �mier�. Os�abia wp�yw promieniowania gamma na �yw� tkank�. Najlepiej przyj�� go przed wystawieniem na dzia�anie promieniowania, poniewa� efekty nie s� natychmiastowe. Efekty dzia�ania tego lekarstwa s� d�ugotrwa�e.",
+    "rus": "Радиопротектор «Индралин-Б190» входил в состав личных аптечек работников АЭС. Появился в Зоне как замена излишне токсичному цистамину гидрохлорида (РС1). Уменьшает воздействие гамма-излучения на ткани живого организма. Данный препарат желательно применять превентивно, до облучения, поскольку он не оказывает мгновенного эффекта. Обладает продолжительным действием.",
+    "ukr": "Радіопротектор «Індралін-Б190» входив до складу особистих аптечок працівників АЕС. З'явився у Зоні як заміна надто токсичному цистаміну гидрохлоріду (РС1). Зменшує вплив гамма-випромінювання на тканини живого організму. Цей препарат бажано застосовувати превентивно, до опромінення, оскільки він не має миттєвого ефекту. Відзначається пролонгованою дію."
+  },
+  "st_harmonica_name": {
+    "eng": "Harmonica",
+    "pol": "Harmonijka",
+    "rus": "Губная гармоника",
+    "ukr": "Губна гармошка"
+  },
+  "st_harmonica_descr": {
+    "eng": "For blues and prison romance lovers.",
+    "pol": "Dla mi�o�nik�w bluesa i stylistyki wi�ziennej.",
+    "rus": "Для любителей блюза и тюремной романтики.",
+    "ukr": "Для шанувальників блюзу та тюремної романтики"
+  }
+}

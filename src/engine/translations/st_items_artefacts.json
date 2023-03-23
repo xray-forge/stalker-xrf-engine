@@ -1,0 +1,302 @@
+{
+  "st_af_baloon_descr": {
+    "eng": "A compound of several hollow organic formations, this artifact emits a gaseous substance that can neutralize radioactive particles inside the body without harming it. Because of its effectiveness, this artifact is in great demand.",
+    "pol": "Artefakt ten stanowi po��czenie kilku pustych w �rodku formacji organicznych. Emituje on gazow� substancj�, kt�ra neutralizuje radioaktywne cz�steczki bez wyrz�dzania szk�d. Popyt na ten artefakt jest bardzo wysoki ze wzgl�du na jego efektywno��.",
+    "rus": "Артефакт представляет собой несколько полых образований органической природы, соединённых между собой. Выделяет газообразное вещество, способное нейтрализовать радиоактивные частицы в организме человека; какого-либо вредоносного воздействия данного вещества не выявлено. Ввиду высокой эффективности пользуется огромным спросом.",
+    "ukr": "Артефакт являє собою кілька порожніх утворень органічної природи, поєднаних між собою. Виділяє газоподібну речовину, здатну нейтралізувати радіоактивні частки в організмі людини; якогось шкідливого впливу цієї речовини на живі тканини не виявлено. Через високу ефективність користується величезним попитом."
+  },
+  "st_af_baloon_name": {
+    "eng": "Bubble",
+    "pol": "B�bel",
+    "rus": "«Пузырь»",
+    "ukr": "«Пузир»"
+  },
+  "st_af_blood_descr": {
+    "eng": "A reddish formation of compressed and fossilized plants, soil and animal debris. Can partially neutralize chemical poisons. Emits radiation.",
+    "pol": "Czerwonawa formacja sprasowanych i skamienia�ych ro�lin, gleby i szcz�tk�w zwierz�t. Mo�e cz�ciowo neutralizowa� chemiczne trucizny. Emituje promieniowanie.",
+    "rus": "Представляет собой красноватое образование из спрессованных и окаменевших остатков растений, почвы и останков животных. Обладает способностью частично нейтрализовать вредные для человека химические вещества. Радиоактивен.",
+    "ukr": "Являє собою червонувате утворення зі спресованих і скам'янілих решток рослин, ґрунту та тіл тварин. Має здатність частково нейтралізувати шкідливі для людини хімічні речовини. Радіоактивний."
+  },
+  "st_af_blood_name": {
+    "eng": "Stone Blood",
+    "pol": "Kamienna krew",
+    "rus": "«Кровь камня»",
+    "ukr": "«Кров каменю»"
+  },
+  "st_af_cristall_descr": {
+    "eng": "This artifact is formed in anomalous zones with intense thermal activity. Actively consumes excessive heat, remaining cool to the touch throughout. Emits radiation.",
+    "pol": "Ten artefakt powstaje w strefach anomalii o wysokiej aktywno�ci termicznej. Aktywnie poch�ania ciep�o, pozostaj�c zimnym w dotyku. Emituje promieniowanie.",
+    "rus": "Артефакт возникает в аномальных зонах под воздействием высоких температур. Активно поглощает избыточное тепло из пространства вокруг себя, при этом оставаясь прохладным на ощупь. Радиоактивен.",
+    "ukr": "Артефакт виникає в аномальних зонах під впливом високих температур. Активно поглинає надлишкове тепло з простору навколо себе і при цьому залишається прохолодним на дотик. Радіоактивний."
+  },
+  "st_af_cristall_flower_descr": {
+    "eng": "This artifact is made up of a granite-like stone deformed by an extreme gravitational force, resulting in a crystallized formation that has not been explained by science to date. Can provide moderate protection against psy-emissions and is radioactive.",
+    "pol": "Ten artefakt jest z�o�ony z podobnego do granitu kamienia poddanego dzia�aniu olbrzymiej si�y grawitacyjnej, co spowodowa�o powstanie formacji krystalicznej, kt�rej nauka w chwili obecnej nie jest w stanie zrozumie�. Zapewnia �redni� ochron� przed emisjami psionicznymi. Emituje promieniowanie.",
+    "rus": "Артефакт представляет собой камень, близкий по своим характеристикам к гранитам. Возникает внутри гравитационных полей огромной интенсивности. Способен полностью или частично защищать рассудок владельца от пси-воздействия. Радиоактивен.",
+    "ukr": "Артефакт являє собою камінь, близький за своїми характеристиками до гранітів. Виникає всередині гравітаційних полів величезної інтенсивності. Здатен цілком або частково захищати розум власника від псі-впливу. Радіоактивний."
+  },
+  "st_af_cristall_flower_name": {
+    "eng": "Stone Flower",
+    "pol": "Kamienny kwiat",
+    "rus": "«Каменный цветок»",
+    "ukr": "«Кам'яна квітка»"
+  },
+  "st_af_cristall_name": {
+    "eng": "Crystal",
+    "pol": "Kryszta�",
+    "rus": "«Кристалл»",
+    "ukr": "«Кристал»"
+  },
+  "st_af_dummy_battery_descr": {
+    "eng": "The composition of this artifact includes electrostatic elements, but scientists have yet to identify the exact physical conditions required for its formation. The artifact is popular in the Zone and valued by its residents and visitors for its energizing properties, although it can tire the body out through prolonged use. Emits radiation.",
+    "pol": "W sk�ad tego artefaktu wchodz� elementy elektrostatyczne, ale naukowcy nie odkryli jeszcze, jakie warunki s� niezb�dne dla jego powstania. Jest on popularny w Zonie - zar�wno jej mieszka�cy, jak i go�cie ceni� jego w�a�ciwo�ci energetyzuj�ce. U�ywany zbyt d�ugo mo�e doprowadzi� do wycie�czenia organizmu. Emituje promieniowanie.",
+    "rus": "Известно, что в состав этого артефакта входят электростатические элементы, однако в каких именно условиях он формируется, науке пока не известно. Ценится среди жителей и гостей Зоны за способность оказывать на организм человека тонизирующее воздействие. При слишком длительном воздействии истощает организм. Радиоактивен.",
+    "ukr": "Відомо, що до складу цього артефакту входять електростатичні елементи, однак в яких саме умовах він формується, науці поки не відомо. Цінується серед мешканців та гостей Зони за здатність значно тонізувати організм людини. За надто тривалого впливу виснажує організм. Радіоактивний."
+  },
+  "st_af_dummy_battery_name": {
+    "eng": "Battery",
+    "pol": "Bateria",
+    "rus": "«Батарейка»",
+    "ukr": "«Батарейка»"
+  },
+  "st_af_dummy_dummy_descr": {
+    "eng": "This artifact used to be considered trash, devoid of any useful properties. However, scientists recently discovered that if kept in constant contact with the body, it has an excellent stimulating effect on the nervous system. Emits radiation.",
+    "pol": "Artefakt ten by� uwa�any za odpad pozbawiony u�ytecznych w�a�ciwo�ci. Jednak niedawno naukowcy odkryli, �e je�li ma sta�y kontakt z cia�em, silnie stymuluje uk�ad nerwowy. Emituje promieniowanie. ",
+    "rus": "Ранее считался хламом, лишённым каких-либо полезных свойств. Однако некоторое время назад выяснилось, что при постоянном контакте с телом человека данный артефакт оказывает позитивное стимулирующее воздействие на нервную систему. Радиоактивен.",
+    "ukr": "Раніше вважався за мотлох, позбавлений будь-яких корисних властивостей. Однак деякий час тому з'ясувалося, що за постійного контакта із тілом людини цей артефакт чинить позитивний вплив на нервову систему, стимулюючи її. Радіоактивний."
+  },
+  "st_af_dummy_dummy_name": {
+    "eng": "Shell",
+    "pol": "Muszla",
+    "rus": "«Пустышка»",
+    "ukr": "«Порожнявка»"
+  },
+  "st_af_dummy_glassbeads_descr": {
+    "eng": "Much about this artifact remains a complete mystery to scientists. At the same time, it is known for certain that emissions produced by pulses in its thicker sections force blood in open wounds to clot quicker, forming a protective scab. One of the most noticeable effects of this artifact is the increased speed of wound healing. Emits radiation.",
+    "pol": "Wiele z w�a�ciwo�ci tego artefaktu pozostaje tajemnic� dla naukowc�w. Wiadomo jednak, �e emisje wywo�ywane przez drgania w jego grubszej cz�ci powoduj�, �e krew w otwartych ranach krzepnie szybciej, tworz�c ochronny strup. Jednym z najbardziej widocznych skutk�w dzia�ania tego artefaktu jest zwi�kszona szybko�� gojenia si� ran. Emituje promieniowanie. ",
+    "rus": "Многое в этом артефакте остаётся загадкой. Впрочем, достоверно установлено, что излучение, возникающее при пульсации утолщений «Маминых бус», заставляет кровь в открытых ранах очень быстро сворачиваться. Радиоактивен.",
+    "ukr": "Багато що в цьому артефакті лишається загадкою. Втім, достеменно відомо, що випромінювання, котре виникає під час пульсації потовщень «Маминого намиста», примушує кров у відкритих ранах дуже швидко згортатися. Радіоактивний."
+  },
+  "st_af_dummy_glassbeads_name": {
+    "eng": "Mama's Beads",
+    "pol": "Korale mamy",
+    "rus": "«Мамины бусы»",
+    "ukr": "«Мамине намисто»"
+  },
+  "st_af_electra_flash_descr": {
+    "eng": "This electrostatic artifact is a powerful absorbent of electricity, which it later discharges. Flash is capable of protecting its bearer from electric shocks of up to 5,000 volts. Emits radiation.",
+    "pol": "Ten elektrostatyczny artefakt jest pot�nym poch�aniaczem elektryczno�ci, kt�r� nast�pnie roz�adowuje. B�ysk mo�e chroni� posiadacza przed pora�eniem pr�dem o napi�ciu do 5000 wolt�w. Emituje promieniowanie.",
+    "rus": "Артефакт электростатической природы. Демонстрирует удивительную способность к поглощению электрических зарядов и последующему их рассеиванию. Способен защитить организм человека от воздействия электротоков большой силы и высокого напряжения. Радиоактивен.",
+    "ukr": "Артефакт електростатичної природи. Демонструє дивну здатність до поглинання електричних зарядів і подальшого розсіювання останніх. Здатний захистити організм людини від впливу електричного струму великої сили та високої напруги. Радіоактивний."
+  },
+  "st_af_electra_flash_name": {
+    "eng": "Flash",
+    "pol": "B�ysk",
+    "rus": "«Вспышка»",
+    "ukr": "«Спалах»"
+  },
+  "st_af_electra_moonlight_descr": {
+    "eng": "This unique electrostatic artifact can resonate under the influence of psy-waves. Stalkers have learned to fine-tune the artifact so that it resonates in opposite phase to the main source of emissions, thus fully or significantly neutralizing their effects. Emits radiation.",
+    "pol": "Ten unikalny artefakt elektrostatyczny rezonuje pod wp�ywem fal psionicznych. Stalkerzy potrafi� wyregulowa� go w ten spos�b, �e rezonans zachodzi w fazie przeciwnej do g��wnego �r�d�a emisji, znacz�co os�abiaj�c efekty jej dzia�ania. Emituje promieniowanie.",
+    "rus": "Данный артефакт электростатической природы демонстрирует способность к резонансу под воздействием пси-волн. Со временем сталкеры научились подстраивать «Лунный свет» таким образом, чтобы тот резонировал в фазе с основным источником излучения, тем самым полностью или в значительной степени нейтрализуя пси-воздействие. Радиоактивен.",
+    "ukr": "Цей артефакт електростатичної природи демонструє здатність до резонування під впливом псі-хвиль. Поступово сталкери навчилися підлаштовувати «Місячне світло» в такий спосіб, щоб той резонував у фазі з основним джерелом випромінювання й тим самим цілком або значною мірою нейтралізував псі-вплив. Радіоактивний."
+  },
+  "st_af_electra_moonlight_name": {
+    "eng": "Moonlight",
+    "pol": "Blask ksi�yca",
+    "rus": "«Лунный свет»",
+    "ukr": "«Місячне сяйво»"
+  },
+  "st_af_electra_sparkler_descr": {
+    "eng": "A bright representative of the electrostatic family of artifacts, this artifact can smooth fluctuations in electric field density. Emits radiation.",
+    "pol": "Ten jasno �wiec�cy przedstawiciel rodziny artefakt�w elektrostatycznych mo�e �agodzi� fluktuacje g�sto�ci pola elektrycznego. Emituje promieniowanie.",
+    "rus": "Представитель семейства электростатических артефактов, получивший название за свою яркость. Обладает способностью сглаживать перепады напряжённости электрического поля. Радиоактивен.",
+    "ukr": "Представник сімейства електростатичних артефактів, що отримав назву за свою яскравість. Має здатність згладжувати перепади інтенсивності електричного поля. Радіоактивний."
+  },
+  "st_af_electra_sparkler_name": {
+    "eng": "Sparkler",
+    "pol": "�wiecide�ko",
+    "rus": "«Бенгальский огонь»",
+    "ukr": "«Бенгальський вогонь»"
+  },
+  "st_af_eye_descr": {
+    "eng": "This artifact, which resembles the human eye, considerably increases the body's metabolism, helping wounds heal quicker. Experienced stalkers say that the Eye also brings luck. Emits radiation. ",
+    "pol": "Ten przypominaj�cy ludzkie oko artefakt znacz�co przyspiesza metabolizm w�a�ciciela, dzi�ki czemu rany goj� si� szybciej. Do�wiadczeni stalkerzy twierdz� tak�e, �e Oko przynosi szcz�cie. Emituje promieniowanie.",
+    "rus": "Этот артефакт внешне действительно напоминает орган зрения. При травмах он ускоряет процессы обмена веществ, что способствует скорому заживлению ран. Кроме того, среди бывалых сталкеров бытует поверье, будто «Глаз» способен приносить удачу. Радиоактивен.",
+    "ukr": "Цей артефакт зовні справді нагадує орган зору. За наявності травм він прискорює процеси обміну речовин, що сприяє швидкому загоєнню ран. Окрім того, серед колишніх сталкерів ходить повір'я, начебто «Око» здатне приносити удачу. Радіоактивний."
+  },
+  "st_af_eye_name": {
+    "eng": "Eye",
+    "pol": "Oko",
+    "rus": "«Глаз»",
+    "ukr": "«Око»"
+  },
+  "st_af_fire_descr": {
+    "eng": "This artifact forms in areas of high thermal activity. Produces powerful infrared emissions, which intensify metabolic processes, healing wounds before its bearer's very eyes. As this artifact is very rare, it is extremely valuable. Emits radiation.",
+    "pol": "Ten artefakt powstaje w obszarach wysokiej aktywno�ci termicznej. Wytwarza on pot�ne emisje podczerwieni, kt�re wzmacniaj� procesy metaboliczne, lecz�c rany na oczach u�ytkownika. Poniewa� jest on bardzo rzadki, cechuje si� wysok� warto�ci�. Emituje promieniowanie.",
+    "rus": "Образуется в зонах повышенной термальной активности. Характерен интенсивным инфракрасным излучением, под воздействием которого ускоряется процесс сворачивания крови в открытых ранах. Ввиду большой редкости данного артефакта его стоимость крайне высока. Радиоактивен.",
+    "ukr": "Утворюється у зонах підвищеної термальної активності. Характерний інтенсивним інфрачервоним випромінюванням, під впливом якого прискорюється процес згортання крові у відкритих ранах. Через велику рідкість цього артефакту його вартість є вкрай високою. Радіоактивний."
+  },
+  "st_af_fire_name": {
+    "eng": "Flame",
+    "pol": "P�omie�",
+    "rus": "«Пламя»",
+    "ukr": "«Полум'я»"
+  },
+  "st_af_fireball_descr": {
+    "eng": "Even though Fireball is a thermal artifact, it can be handled without fear of being burned. This artifact is valued for its ability to maintain a temperature of 75 degrees Fahrenheit within a small radius, virtually regardless of its surroundings. Emits radiation.",
+    "pol": "Chocia� Kula ognista jest artefaktem termicznym, mo�na si� nim pos�ugiwa� bez obawy o poparzenie. Jest on ceniony za zdolno�� utrzymywania na niewielkim obszarze sta�ej temperatury 24 stopni Celsjusza, bez wzgl�du na warunki panuj�ce dooko�a. Emituje promieniowanie.",
+    "rus": "Несмотря на название, которое вполне отражает природу данного артефакта, «Огненный шар» легко можно держать в руках, не опасаясь ожогов. Ценится за способность поддерживать в небольшом радиусе вокруг себя постоянную температуру около +24 градусов Цельсия вне зависимости от условий окружающей среды. Радиоактивен.",
+    "ukr": "Попри назву, котра цілком відбиває природу цього артефакту, «Вогняну кулю» легко можна тримати в руках, не побоюючись опіків. Цінується за здатність підтримувати у невеликому радіусі навколо себе постійну температуру близько +24 градусів за Цельсієм незалежно від умов навколишнього середовища. Радіоактивний."
+  },
+  "st_af_fireball_name": {
+    "eng": "Fireball",
+    "pol": "Kula ognista",
+    "rus": "«Огненный шар»",
+    "ukr": "«Вогняна куля»"
+  },
+  "st_af_fuzz_kolobok_descr": {
+    "eng": "A relatively rare artifact which forms in areas contaminated with chemicals, Kolobok is highly valued for its ability to heal wounds of any kind in mere minutes. For unknown reasons, scientists are spreading rumors among stalkers that the artifact interacts with the bearer's genetic code. Emits radiation.",
+    "pol": "Kulebiak to stosunkowo rzadki artefakt, powstaj�cy w miejscach silnie ska�onych chemicznie. Jest on ceniony ze wzgl�du na mo�liwo�� leczenia dowolnych ran w ci�gu sekund. Z nieznanych powod�w naukowcy rozprzestrzeniaj� w�r�d stalker�w pog�oski, jakoby modyfikowa� kod genetyczny w�a�ciciela. Emituje promieniowanie.",
+    "rus": "Довольно редкий артефакт, образующийся в зонах сильного химического загрязнения. Весьма ценится за способность «подстегнуть» организм так, чтобы тот в считанные минуты восстановился после травм любой степени тяжести. Учёные распространяют информацию о воздействии артефакта на генетический материал владельца; впрочем, подтверждения этому пока нет. Радиоактивен.",
+    "ukr": "Доволі рідкий артефакт, що утворюється у зонах сильного хімічного забруднення. Вельми цінується за здатність «підстібнути» організм так, щоб той за лічені хвилини відновився після травм будь-якої важкості. Учені поширюють інформацію про вплив артефакту на генетичний матеріал власника; втім, підтвердження цьому поки нема. Радіоактивний."
+  },
+  "st_af_fuzz_kolobok_name": {
+    "eng": "Kolobok",
+    "pol": "Kulebiak",
+    "rus": "«Колобок»",
+    "ukr": "«Колобок»"
+  },
+  "st_af_glass_name": {
+    "eng": "Firefly",
+    "pol": "�wietlik",
+    "rus": "«Светляк»",
+    "ukr": "«Світляк»"
+  },
+  "st_af_gold_fish_descr": {
+    "eng": "The result of an interaction between a large number of gravitational fields, Goldfish produces its own powerful internally directed gravitational field, which renders items within its range almost weightless. This artifact is most effective for reducing carried weight, which explains why it is always in great demand. Emits radiation.",
+    "pol": "Artefakt powsta�y w wyniku interakcji du�ej liczby p�l grawitacyjnych. Artefakt ten wytwarza w�asne silne kierunkowe pole grawitacyjne, kt�re sprawia, �e przedmioty w jego zasi�gu prawie nic nie wa��. Poniewa� zmniejsza wag� niesionego ekwipunku, jest bardzo poszukiwany przez stalker�w. Emituje promieniowanie.",
+    "rus": "Артефакт образуется в местах множественного взаимодействия гравитационных полей. Генерирует вокруг себя сферу направленного гравитационного поля. Снижает вес содержимого рюкзака носителя намного эффективнее, чем остальные артефакты подобного рода; в связи с этим пользуется огромным спросом среди сталкеров. Радиоактивен.",
+    "ukr": "Артефакт утворюється у місцях взаємодії багатьох гравітаційних полів. Генерує навколо себе сферу направленого гравітаційного поля. Знижує вагу рюкзака носія набагато ефективніше за інші артефакти подібного штибу; у зв'язку із цим користується величезним попитом серед сталкерів. Радіоактивний."
+  },
+  "st_af_gold_fish_name": {
+    "eng": "Goldfish",
+    "pol": "Z�ota rybka",
+    "rus": "«Золотая рыбка»",
+    "ukr": "«Золота рибка»"
+  },
+  "st_af_gravi_descr": {
+    "eng": "Gravi is formed from metallic substances exposed to prolonged gravitation. This makes it capable of sustaining an antigravitational field, and many stalkers use it to reduce the weight of their backpacks. Emits radiation.",
+    "pol": "Grawi powstaje z metalicznych substancji wystawionych na d�ugotrwa�e dzia�anie grawitacji. Dzi�ki temu wytwarza pole antygrawitacyjne, kt�rego wielu stalker�w u�ywa w celu zmniejszenia wagi swojego ekwipunku. Emituje promieniowanie.",
+    "rus": "Артефакт образуется при длительном гравитационном воздействии на металлосодержащие вещества. Способен поддерживать небольшое антигравитационное поле вокруг себя. Многие сталкеры используют его, чтобы значительно уменьшить вес своего рюкзака. Радиоактивен.",
+    "ukr": "Артефакт утворюється за тривалого гравітаційного впливу на речовини, що містять метал. Здатен підтримувати навколо себе невеличке антигравітаційне поле. Багато хто зі сталкерів використовує його, щоб значно зменшити вагу свого рюкзака. Радіоактивний."
+  },
+  "st_af_gravi_name": {
+    "eng": "Gravi",
+    "pol": "Grawi",
+    "rus": "«Грави»",
+    "ukr": "«Граві»"
+  },
+  "st_af_ice_descr": {
+    "eng": "At first glance, this artifact resembles Kolobok. Some claim that it actually is Kolobok, its properties reinforced by exposure to a powerful electric field. Thanks to its unique properties, the artifact can significantly increase the bearer's muscle tone. Emits radiation.",
+    "pol": "Na pierwszy rzut oka artefakt ten przypomina Kulebiaka. Niekt�rzy uwa�aj�, �e jest to Kulebiak, kt�rego w�a�ciwo�ci zosta�y wzmocnione poprzez wystawienie na dzia�anie pot�nego pola elektrycznego. Dzi�ki swoim unikalnym w�a�ciwo�ciom mo�e on znacz�co zwi�kszy� napi�cie mi�niowe posiadacza. Emituje promieniowanie.",
+    "rus": "Внешне артефакт похож на «Колобок»; бытует мнение, что это и есть «Колобок», попавший в мощное электрическое поле. Способен резко увеличивать мышечный тонус носителя. Радиоактивен.",
+    "ukr": "Зовні артефакт схожий на «Колобок»; є думка, що то і є «Колобок», котрий трапив до потужного електричного поля. Здатний різко збільшувати м'язовий тонус носія. Радіоактивний."
+  },
+  "st_af_ice_name": {
+    "eng": "Snowflake",
+    "pol": "�nie�ynka",
+    "rus": "«Снежинка»",
+    "ukr": "«Сніжинка»"
+  },
+  "st_af_medusa_descr": {
+    "eng": "This gravitational artifact attracts and absorbs radioactive particles, reducing the effects of radiation on the body. Very common in the Zone and is unofficially used outside the Zone for treating acute radiation sickness in exceptional circumstances.",
+    "pol": "Ten artefakt grawitacyjny przyci�ga i poch�ania radioaktywne cz�stki, zmniejszaj�c wp�yw promieniowania na organizm. Bardzo popularny w Zonie, jest tak�e nieoficjalnie u�ywany poza ni� do leczenia ostrej choroby popromiennej w szczeg�lnych przypadkach.",
+    "rus": "Артефакт гравитационной природы, обладающий способностью активно притягивать и поглощать радиоактивные частицы, тем самым уменьшая облучённость организма. Широко распространён в Зоне; за её пределами широко, хотя и негласно, используется при лечении острой лучевой болезни.",
+    "ukr": "Артефакт гравітаційної природи, що має здатність активно притягати і поглинати радіоактивні частки, тим самим зменшуючи опромінення організму. Широко поширений у Зоні; за її межами широко, хоча і неофіційно, використовується у процесах час лікування гострої променевої хвороби."
+  },
+  "st_af_medusa_name": {
+    "eng": "Jellyfish",
+    "pol": "Meduza",
+    "rus": "«Медуза»",
+    "ukr": "«Медуза»"
+  },
+  "st_af_mincer_meat_descr": {
+    "eng": "This organic artifact consists of deformed, mutated animal tissue. When placed in a chemically contaminated area, Meat Chunk transforms the airborne chemicals into a mucous fluid. Emits radiation.",
+    "pol": "Ten organiczny artefakt sk�ada si� ze zdeformowanej, zmutowanej tkanki zwierz�cej. Po umieszczeniu w ska�onym chemicznie miejscu zmienia unosz�ce si� w powietrzu chemikalia w �luzowaty p�yn. Emituje promieniowanie.",
+    "rus": "Артефакт органической природы. Состоит из деформированных тканей животного происхождения. При попадании в зону химического загрязнения начинает «вытягивать» химикалии из воздуха, преобразуя их в густую вязкую массу. Радиоактивен.",
+    "ukr": "Артефакт органічної природи. Складається із деформованих тканин тваринного походження. За трапляння до зони хімічного забруднення починає «витягати» хімікалії з повітря, перетворюючи їх на глейку масу. Радіоактивний."
+  },
+  "st_af_mincer_meat_name": {
+    "eng": "Meat Chunk",
+    "pol": "Kotlet",
+    "rus": "«Ломоть мяса»",
+    "ukr": "«Скиба м'яса»"
+  },
+  "st_af_night_star_descr": {
+    "eng": "This glowing artifact can generate a local directed low-gravity field. Widely used by stalkers along with Gravi, a similar artifact, to increase maximum load. Emits radiation.",
+    "pol": "Ten �wiec�cy artefakt mo�e tworzy� miejscowe, kierunkowe pole niskiej grawitacji. Umieszczony w pobli�u plecaka zmniejsza jego wag�. Powszechnie u�ywany przez stalker�w, razem z podobnym artefaktem o nazwie Grawi, do zwi�kszania maksymalnego �adunku. Emituje promieniowanie.",
+    "rus": "Светящийся артефакт, способный генерировать вокруг себя гравитационное поле, которое локально снижает воздействие силы притяжения. Широко применяется сталкерами для снижения веса переносимого в рюкзаке груза. Радиоактивен.",
+    "ukr": "Артефакт, що здатен світитися та генерувати навколо себе гравітаційне поле, котре локально знижує вплив сили тяжіння. Широко застосовується сталкерами для зниження ваги наявного в рюкзаку вантажу. Радіоактивний."
+  },
+  "st_af_night_star_name": {
+    "eng": "Night Star",
+    "pol": "Gwiazda wieczorna",
+    "rus": "«Ночная звезда»",
+    "ukr": "«Нічна зірка»"
+  },
+  "st_af_soul_descr": {
+    "eng": "A unique organic artifact with properties just as unique. Somehow it increases the body's overall recovery rate from damage of any kind, without accelerating the accumulation of toxins. Thanks to its effects and attractive appearance, this artifact is a valuable collector's item. Emits radiation.",
+    "pol": "Unikalny artefakt organiczny o r�wnie unikalnych w�a�ciwo�ciach. W jaki� spos�b zwi�ksza stopie� regeneracji wszystkich rodzaj�w obra�e�, nie przyspieszaj�c jednocze�nie odk�adania si� substancji toksycznych. Z powodu jego dzia�ania i atrakcyjnego wygl�du jest poszukiwany przez kolekcjoner�w. Emituje promieniowanie.",
+    "rus": "Органический артефакт с уникальными свойствами. Неизвестным пока образом увеличивает общую скорость восстановления организма после травм любой природы, при этом не ускоряя накопление токсинов. Из-за приятного внешнего вида представляет особый интерес для коллекционеров. Радиоактивен.",
+    "ukr": "Органічний артефакт з унікальними властивостями. Невідомим поки чином збільшує загальну швидкість відновлення організму після травм будь-якої природи, при цьому не прискорюючи накопичення токсинів. Через приємний зовнішній вигляд становить особливий інтерес для колекціонерів. Радіоактивний."
+  },
+  "st_af_soul_name": {
+    "eng": "Soul",
+    "pol": "Dusza",
+    "rus": "«Душа»",
+    "ukr": "«Душа»"
+  },
+  "st_af_vyvert_descr": {
+    "eng": "This bizarrely-shaped artifact appears in places with increased gravitational activity. Acting as a kind of sponge that absorbs radioactive elements, this artifact provides protection from outside radiation as well as from radioactive particles that have already made their way into the body.",
+    "pol": "Ten artefakt o dziwacznym kszta�cie pojawia si� w miejscach o zwi�kszonej aktywno�ci grawitacyjnej. Zachowuje si� jak g�bka wch�aniaj�ca promieniowanie. Dzi�ki temu artefakt zapewnia skuteczn� ochron� zar�wno przed promieniowaniem z zewn�trz, jak i przed radioaktywnymi cz�stkami, kt�re ju� znalaz�y si� w organizmie.",
+    "rus": "Артефакт причудливой формы, возникающий в местах повышенной гравитационной активности. Представляет собой своего рода губку, которая поглощает радиоактивные элементы. В равной степени успешно защищает своего носителя как от воздействия наведённой радиации, так и от уже попавших в организм радиоактивных частиц.",
+    "ukr": "Артефакт чудернацької форми, котрий виникає у місцях підвищеної гравітаційної активності. Являє собою своєрідну губку, що поглинає радіоактивні елементи. Однаковою мірою успішно захищає свого носія як від впливу наведеної радіації, так і від уже наявних в організмі радіоактивних часток."
+  },
+  "st_af_vyvert_name": {
+    "eng": "Wrenched",
+    "pol": "Skr�tak",
+    "rus": "«Выверт»",
+    "ukr": "«Виверт»"
+  },
+  "st_compass": {
+    "eng": "Compass",
+    "pol": "Kompas",
+    "rus": "«Компас»",
+    "ukr": "«Компас»"
+  },
+  "st_compass_descr": {
+    "eng": "A rare artifact - it's been several years since one was found. The artifact can locate gaps in anomaly fields. It is believed that it can help one traverse the most complex anomaly fields completely unharmed. However, very few know how to handle it properly.",
+    "pol": "Rzadki artefakt - min�o kilka lat od ostatniego razu, kiedy znaleziono jeden z nich. Pozwala on zlokalizowa� przerwy w polach anomalii. Uwa�a si�, �e pozwala on w�a�cicielowi na przebycie nawet najbardziej skomplikowanych p�l anomalii bez szkody. Niewiele os�b wie jednak, jak si� z nim prawid�owo obchodzi�.",
+    "rus": "Редкий артефакт - последний раз его находили много месяцев назад. Обладает способностью показывать разрывы в аномальных полях. Говорят, с его помощью можно без малейшего риска пройти мимо самых сложных аномалий, однако очень мало кто знает, как с ним обращаться.",
+    "ukr": "Рідкий артефакт - останній раз його знаходили багато місяців тому. Має здатність показувати розриви в аномальних полях. Подейкують, за його допомоги можна без найменшого ризику пройти повз найскладніші аномалії, однак дуже мало хто знає, як із ним поводитися."
+  },
+  "st_oasis_heart": {
+    "eng": "Heart of the Oasis",
+    "pol": "Serce Oazy",
+    "rus": "«Сердце Оазиса»",
+    "ukr": "«Серце Оази»"
+  },
+  "st_oasis_heart_descr": {
+    "eng": "This artifact was found at the center of the legendary Oasis. It appears that the Heart is a crystallized plant, which has acquired the healing properties of the Oasis. Unlike the Oasis itself, however, this artifact is extremely radioactive.",
+    "pol": "Artefakt ten zosta� znaleziony w samym sercu legendarnej Oazy. Wydaje si�, �e serce to skrystalizowana ro�lina, kt�ra naby�a leczniczych w�a�ciwo�ci Oazy. W odr�nieniu od niej, artefakt ten jest silnie radioaktywny.",
+    "rus": "Артефакт из центра легендарного Оазиса. Судя по всему, представляет собой кристаллизовавшееся растение, которое переняло присущее Оазису свойство благотворно влиять на организм в целом. Исключительно радиоактивен, в отличие от самого Оазиса.",
+    "ukr": "Артефакт із центра легендарної Оазиси. Зважаючи на все, являє собою рослину, що кристалізувалася та перейняла притаманну Оазі властивість цілющо впливати на організм у цілому. На відміну від самої Оази, надзвичайно радіоактивний."
+  },
+  "st_af_glass_descr": {
+    "eng": "Firefly interacts with fields unknown to science, considerably speeding up regeneration of tissue and organs in living beings, as well as normalizing metabolic processes. This artifact can literally get a badly wounded stalker back on his feet in seconds. Unfortunately, Firefly is extremely rare. Emits radiation.",
+    "pol": "�wietlik oddzia�uje z polami nieznanym nauce, znacz�co przyspieszaj�c regeneracj� tkanek i organ�w u istot �ywych, stabilizuj�c przy tym procesy metaboliczne. Artefakt ten pozwala ci�ko rannemu stalkerowi wyzdrowie� w ci�gu dos�ownie kilku sekund. Niestety, �wietlik jest bardzo rzadkim znaleziskiem. Emituje promieniowanie.",
+    "rus": "«Светляк» работает с недоступными науке полями, ускоряя регенерацию тканей и органов живых существ, а также нормализуя метаболические процессы. Способен буквально на глазах поставить на ноги человека с тяжёлыми ранениями. К сожалению, встречается этот артефакт крайне редко. Радиоактивен.",
+    "ukr": "«Світляк» працює із недоступними розумінню сучасної науки полями, прискорюючи регенерацію тканин та органів живих істот, а також нормалізуючи метаболічні процеси. Здатний буквально на очах поставити на ноги людину із важкими пораненнями. На жаль, зустрічається цей артефакт украй рідко. Радіоактивний."
+  }
+}

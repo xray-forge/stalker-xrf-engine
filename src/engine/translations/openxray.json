@@ -1,0 +1,206 @@
+{
+  "st_unload_magazine_after_pickup": {
+    "eng": "Autounload weapon after pickup",
+    "rus": "Разряжать ор. при поднятии",
+    "ukr": "Разряжать ор. при поднятии",
+    "pol": null
+  },
+  "st_unload_magazine_all": {
+    "eng": "unload all weapons",
+    "pol": "rozіaduj wszystkie bronie",
+    "rus": "разрядить всё оружие",
+    "ukr": "разрядить всё оружие"
+  },
+  "st_unequip": {
+    "eng": "unequip",
+    "pol": "Zdejmij",
+    "rus": "убрать в рюкзак",
+    "ukr": "убрать в рюкзак"
+  },
+  "st_donate": {
+    "eng": "Donate",
+    "pol": "Podaruj",
+    "rus": "Подарить",
+    "ukr": "Подарить"
+  },
+  "st_loading_lights": {
+    "eng": "Loading lights",
+    "pol": "Wczytywanie oњwietlenia",
+    "rus": "Загрузка освещения",
+    "ukr": "Загрузка освещения"
+  },
+  "st_client_connecting_to": {
+    "eng": "CLIENT: Connecting to",
+    "pol": "Klient: Czenie z",
+    "rus": "Клиент: Соединение с",
+    "ukr": "Клиент: Соединение с"
+  },
+  "st_client_spawning": {
+    "eng": "CLIENT: Spawning",
+    "pol": "Klient: Odradzanie",
+    "rus": "Клиент: Создание",
+    "ukr": "Клиент: Создание"
+  },
+  "st_client_synchronising": {
+    "eng": "CLIENT: Synchronizing",
+    "pol": "Klient: Synchronizacja",
+    "rus": "Клиент: Синхронизация",
+    "ukr": "Клиент: Синхронизация"
+  },
+  "st_creating_new_game": {
+    "eng": "Creating new game",
+    "pol": "Tworzenie nowej gry",
+    "rus": "Создание новой игры",
+    "ukr": "Создание новой игры"
+  },
+  "ui_mm_always_active": {
+    "eng": "Always active",
+    "pol": "Zawsze aktywny",
+    "rus": "Всегда активен",
+    "ukr": "Всегда активен"
+  },
+  "ui_mm_detail_radius": {
+    "eng": "Grass detail radius",
+    "pol": "Odlegіoњж rys. trawy",
+    "rus": "Дальность прор. травы",
+    "ukr": "Дальность прор. травы"
+  },
+  "ui_mm_ui_style": {
+    "eng": "Interface style",
+    "pol": "Styl interfejsu",
+    "rus": "Стиль интерфейса",
+    "ukr": "Стиль интерфейса"
+  },
+  "ui_style_default": {
+    "eng": "Call of Pripyat",
+    "pol": "Zew Prypeci",
+    "rus": "Зов Припяти",
+    "ukr": "Зов Припяти"
+  },
+  "ui_mm_simplified_item_pickup": {
+    "eng": "Simplified item pickup",
+    "pol": "Uproszczone podn. przedmiotуw",
+    "rus": "Упр. подбор предметов",
+    "ukr": "Упр. подбор предметов"
+  },
+  "ui_mm_multi_item_pickup": {
+    "eng": "Multi item pickup",
+    "pol": "Podn. wsz. przedmiotуw na raz",
+    "rus": "Множ. подбор предметов",
+    "ukr": "Множ. подбор предметов"
+  },
+  "ui_mm_loadingstages": {
+    "eng": "Show loading stages",
+    "pol": "Postкp wczytywania",
+    "rus": "Стадии загрузки",
+    "ukr": "Стадии загрузки"
+  },
+  "renderer_gl": {
+    "eng": "Enhanced full dyn. lighting (OpenGL)",
+    "pol": "Rozsz. peіne oњw. dynam. (OpenGL)",
+    "rus": "Ул. полное освещение (OpenGL)",
+    "ukr": "Ул. полное освещение (OpenGL)"
+  },
+  "ui_mm_r2_fxaa": {
+    "eng": "FXAA",
+    "pol": "FXAA",
+    "rus": "FXAA",
+    "ukr": "FXAA"
+  },
+  "ui_mm_r2_smap_size": {
+    "eng": "Shadow map quality",
+    "pol": "Jakoњж cieni map",
+    "rus": "Качество теневых карт",
+    "ukr": "Качество теневых карт"
+  },
+  "ui_mm_r3_dynamic_wet_surfaces_opt": {
+    "eng": "Wet surfaces optimization",
+    "pol": "Optymalizacja mokrych pow.",
+    "rus": "Оптимизация намокания",
+    "ukr": "Оптимизация намокания"
+  },
+  "ui_mm_r3_dynamic_wet_surfaces_near": {
+    "eng": "Wet surfaces near dist.",
+    "pol": "Mokre pow. na blisk. odlegіoњci",
+    "rus": "Намокание вблизи",
+    "ukr": "Намокание вблизи"
+  },
+  "ui_mm_r3_dynamic_wet_surfaces_far": {
+    "eng": "Wet surfaces far dist.",
+    "pol": "Mokre pow. na dal. odlegіoњci",
+    "rus": "Намокание вдали",
+    "ukr": "Намокание вдали"
+  },
+  "ui_mm_r3_dynamic_wet_surfaces_sm_res": {
+    "eng": "Wet surfaces quality",
+    "pol": "Jakoњж mokrych powierzchni",
+    "rus": "Качество намокания",
+    "ukr": "Качество намокания"
+  },
+  "ui_mm_fov": {
+    "eng": "Field of view",
+    "pol": "Pole widzenia",
+    "rus": "Поле зрения",
+    "ukr": "Поле зрения"
+  },
+  "st_switch_version_invitation": {
+    "eng": "Do you really want to launch another version of the game?",
+    "pol": "Czy na pewno chcesz uruchomic kolejna wersje gry?",
+    "rus": "Вы действительно хотите запустить другую версию игры?",
+    "ukr": "Вы действительно хотите запустить другую версию игры?"
+  },
+  "ui_mm_localization": {
+    "eng": "Language",
+    "pol": "Jкzyk",
+    "rus": "Язык",
+    "ukr": "Язык"
+  },
+  "ui_mm_gamepad_setup": {
+    "eng": "Gamepad setup",
+    "pol": "Konfiguracja gamepada",
+    "rus": "Настройка геймпада",
+    "ukr": "Настройка геймпада"
+  },
+  "eng": {
+    "eng": "English",
+    "pol": "Angielski (English)",
+    "rus": "Английский (English)",
+    "ukr": "Английский (English)"
+  },
+  "fra": {
+    "eng": "French",
+    "pol": "Francuski (French)",
+    "rus": "Французский (French)",
+    "ukr": "Французский (French)"
+  },
+  "ger": {
+    "eng": "German",
+    "pol": "Niemiecki (German)",
+    "rus": "Немецкий (German)",
+    "ukr": "Немецкий (German)"
+  },
+  "ita": {
+    "eng": "Italian",
+    "pol": "Wіoski (Italian)",
+    "rus": "Итальянский (Italian)",
+    "ukr": "Итальянский (Italian)"
+  },
+  "pol": {
+    "eng": "Polish",
+    "pol": "Polski (Polish)",
+    "rus": "Польский (Polish)",
+    "ukr": "Польский (Polish)"
+  },
+  "rus": {
+    "eng": "Russian",
+    "pol": "Rosyjski (Russian)",
+    "rus": "Русский (Russian)",
+    "ukr": "Русский (Russian)"
+  },
+  "spa": {
+    "eng": "Spanish",
+    "pol": "Hiszpaсski (Spanish)",
+    "rus": "Испанский (Spanish)",
+    "ukr": "Испанский (Spanish)"
+  }
+}

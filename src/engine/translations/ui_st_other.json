@@ -1,0 +1,998 @@
+{
+  "Btn_Cancel": {
+    "eng": "Cancel",
+    "pol": "Anuluj",
+    "rus": "Отменить",
+    "ukr": "Відмінити"
+  },
+  "Btn_No": {
+    "eng": "No",
+    "pol": "Nie",
+    "rus": "Нет",
+    "ukr": "Ні"
+  },
+  "Btn_OK": {
+    "eng": "OK",
+    "pol": "OK",
+    "rus": "OK",
+    "ukr": "ОК"
+  },
+  "Btn_Yes": {
+    "eng": "Yes",
+    "pol": "Tak",
+    "rus": "Да",
+    "ukr": "Так"
+  },
+  "bad": {
+    "eng": "Bad",
+    "pol": "�le",
+    "rus": "Плохо",
+    "ukr": "Погано"
+  },
+  "enemy": {
+    "eng": "Enemy",
+    "pol": "Wr�g",
+    "rus": "Враг",
+    "ukr": "Ворог"
+  },
+  "excellent": {
+    "eng": "Excellent",
+    "pol": "�wietnie",
+    "rus": "Отлично",
+    "ukr": "Чудово"
+  },
+  "experienced": {
+    "eng": "Experienced",
+    "pol": "Ma do�wiadczenie",
+    "rus": "Опытный",
+    "ukr": "Досвідчений"
+  },
+  "friendly": {
+    "eng": "Friend",
+    "pol": "Przyjaciel",
+    "rus": "Друг",
+    "ukr": "Друг"
+  },
+  "global_map": {
+    "eng": "Map of the Zone",
+    "pol": "Mapa Zony",
+    "rus": "Карта Зоны",
+    "ukr": "Карта Зони"
+  },
+  "good": {
+    "eng": "Good",
+    "pol": "Dobrze",
+    "rus": "Хорошо",
+    "ukr": "Добре"
+  },
+  "indifferent": {
+    "eng": "Indifferent",
+    "pol": "Oboj�tnie",
+    "rus": "Безразлично",
+    "ukr": "Байдуже"
+  },
+  "master": {
+    "eng": "Master",
+    "pol": "Mistrz",
+    "rus": "Мастер",
+    "ukr": "Майстер"
+  },
+  "mm_mp_pda_hunt": {
+    "eng": "PDA bonus",
+    "pol": "Bonus za zdobyte PDA",
+    "rus": "Бонус за КПК",
+    "ukr": "Бонус за КПК"
+  },
+  "mp_only_one_voting": {
+    "eng": "Only one active vote permitted.",
+    "pol": "Dozwolone jest tylko jedno aktywne g�osowanie.",
+    "rus": "Разрешено только одно активное голосование",
+    "ukr": "Дозволено лише одне активне голосування"
+  },
+  "neutral": {
+    "eng": "Neutral",
+    "pol": "Neutralny stosunek",
+    "rus": "Нейтрал",
+    "ukr": "Нейтрал"
+  },
+  "novice": {
+    "eng": "Rookie",
+    "pol": "Nowicjusz",
+    "rus": "Новичок",
+    "ukr": "Новачок"
+  },
+  "st_game": {
+    "eng": "Game",
+    "pol": "Gra",
+    "rus": "Игра",
+    "ukr": "Гра"
+  },
+  "st_item_used": {
+    "eng": "Used",
+    "pol": "U�ywane",
+    "rus": "Использовано",
+    "ukr": "Використано"
+  },
+  "st_level": {
+    "eng": "Level",
+    "pol": "Poziom",
+    "rus": "Уровень",
+    "ukr": "Рівень"
+  },
+  "st_loading_ai_objects": {
+    "eng": "Loading AI objects",
+    "pol": "Wczytywanie obiekt�w SI",
+    "rus": "Загрузка ИИ объектов",
+    "ukr": "Завантаження ШІ об'єктів"
+  },
+  "st_loading_alife_simulator": {
+    "eng": "Server: Loading alife simulator",
+    "pol": "Serwer: wczytywanie symulatora �ycia",
+    "rus": "Сервер: Загрузка симуляции жизни",
+    "ukr": "Сервер: Завантаження симуляції життя"
+  },
+  "st_loading_cform": {
+    "eng": "Loading CFORM",
+    "pol": "Wczytywanie CFORM",
+    "rus": "Загрузка формы объектов",
+    "ukr": "Завантаження форми об'єктів"
+  },
+  "st_loading_details": {
+    "eng": "Loading details",
+    "pol": "Wczytywanie detali",
+    "rus": "Загрузка детальных объектов",
+    "ukr": "Завантаження детальних об'єктів"
+  },
+  "st_loading_geometry": {
+    "eng": "Loading geometry",
+    "pol": "Wczytywanie danych geometrycznych",
+    "rus": "Загрузка геометрии",
+    "ukr": "Завантаження геометрії"
+  },
+  "st_loading_saved_game": {
+    "eng": "Loading saved game",
+    "pol": "Wczytywanie zapisanej gry",
+    "rus": "Загрузка игры",
+    "ukr": "Завантаження гри"
+  },
+  "st_loading_sectors_portals": {
+    "eng": "Loading sectors and portals",
+    "pol": "Wczytywanie stref i portali",
+    "rus": "Загрузка секторов и порталов",
+    "ukr": "Завантаження секторів та порталів"
+  },
+  "st_loading_shaders": {
+    "eng": "Loading shaders",
+    "pol": "Wczytywanie cieniowania",
+    "rus": "Загрузка шейдеров",
+    "ukr": "Завантаження шейдерів"
+  },
+  "st_loading_spatial_db": {
+    "eng": "Loading spatial-DB",
+    "pol": "Wczytywanie przestrzennej bazy danych",
+    "rus": "Загрузка базы пространств",
+    "ukr": "Завантаження бази просторів"
+  },
+  "st_loading_textures": {
+    "eng": "Loading textures",
+    "pol": "Wczytywanie tekstur",
+    "rus": "Загрузка текстур",
+    "ukr": "Завантаження текстур"
+  },
+  "st_mp_direct_ip": {
+    "eng": "Direct IP",
+    "pol": "Bezpo�r. adres IP",
+    "rus": "Прямой IP",
+    "ukr": "Прямий IP"
+  },
+  "st_no_active_task": {
+    "eng": "No active task",
+    "pol": "Brak aktywnego zadania",
+    "rus": "Нет активного задания",
+    "ukr": "Немає активного завдання"
+  },
+  "st_not_enough_money": {
+    "eng": "Not enough money",
+    "pol": "Za ma�o pieni�dzy",
+    "rus": "Недостаточно денег",
+    "ukr": "Бракує грошей"
+  },
+  "st_not_enough_money_npc": {
+    "eng": "The NPC does not have enough money",
+    "pol": "BN ma za ma�o pieni�dzy",
+    "rus": "У NPC недостаточно денег",
+    "ukr": "В NPC недостатньо грошей"
+  },
+  "st_opening_stream": {
+    "eng": "Opening stream",
+    "pol": "Otwieranie strumienia",
+    "rus": "Открытие потока",
+    "ukr": "Відкриття потоку"
+  },
+  "st_prefetching_objects": {
+    "eng": "Prefetching objects",
+    "pol": "Buforowanie obiekt�w",
+    "rus": "Кэширование объектов",
+    "ukr": "Кешування об'єктів"
+  },
+  "st_rubles": {
+    "eng": "rubles.",
+    "pol": "rubli.",
+    "rus": "рублей.",
+    "ukr": "карбованців."
+  },
+  "st_server_connecting": {
+    "eng": "SERVER: Connecting",
+    "pol": "SERWER: ��czenie",
+    "rus": "Сервер: Соединение",
+    "ukr": "Сервер: З'єднання"
+  },
+  "st_server_starting": {
+    "eng": "SERVER: Starting",
+    "pol": "SERWER: rozpoczynanie",
+    "rus": "Сервер: Старт",
+    "ukr": "Сервер: Старт"
+  },
+  "st_validating_cdkey": {
+    "eng": "Validating CD Key",
+    "pol": "Sprawdzanie klucza CD",
+    "rus": "Проверка ключа",
+    "ukr": "Перевірка ключа"
+  },
+  "st_video": {
+    "eng": "Video",
+    "pol": "Grafika",
+    "rus": "Видео",
+    "ukr": "Відео"
+  },
+  "terrible": {
+    "eng": "Terrible",
+    "pol": "Strasznie",
+    "rus": "Ужасно",
+    "ukr": "Жахливо"
+  },
+  "ui_inv_repair": {
+    "eng": "Repair",
+    "pol": "Naprawi�",
+    "rus": "Починить",
+    "ukr": "Полагодити"
+  },
+  "ui_st_cant_run_r2": {
+    "eng": "You can't run Render 2 on your PC",
+    "pol": "Nie mo�na uruchomi� funkcji Render 2 na tym komputerze",
+    "rus": "Вы не можете запустить второй рендер на вашем компьютере",
+    "ukr": "Ви не можете запустити другий рендер на Вашому комп'ютері"
+  },
+  "ui_st_community": {
+    "eng": "Faction",
+    "pol": "Frakcja",
+    "rus": "Группировка",
+    "ukr": "Угруповання"
+  },
+  "ui_st_conn_cdkey_disabled": {
+    "eng": "Connection error: Your CD-Key is disabled. Contact customer service.",
+    "pol": "B��d po��czenia: klucz CD jest nieaktywny. Skontaktuj si� z dzia�em pomocy technicznej.",
+    "rus": "Ошибка соединения: Ваш CD-key заблокирован. Свяжитесь со службой поддержки.",
+    "ukr": "Помилка з'єднання: Ваш CD-key заблоковано. Зв'яжіться зі службою підтримки."
+  },
+  "ui_st_conn_cdkey_in_use": {
+    "eng": "Connection error: CD-Key already in use.",
+    "pol": "B��d po��czenia: klucz CD jest ju� w u�yciu.",
+    "rus": "Ошибка соединения: такой CD-key уже используется",
+    "ukr": "Помилка з'єднання: такий CD-key уже використовується"
+  },
+  "ui_st_conn_cdkey_invalid": {
+    "eng": "Connection error: Invalid CD-Key.",
+    "pol": "B��d po��czenia: niew�a�ciwy klucz CD.",
+    "rus": "Ошибка соединения: неверный CD-key",
+    "ukr": "Помилка з'єднання: неправильний CD-key"
+  },
+  "ui_st_conn_invalid_host": {
+    "eng": "Connection error: Invalid host",
+    "pol": "B��d po��czenia: nieprawid�owy host.",
+    "rus": "Ошибка соединения: неверный хост",
+    "ukr": "Помилка з'єднання: неправильний хост"
+  },
+  "ui_st_conn_invalid_pass": {
+    "eng": "Connection error: Invalid password",
+    "pol": "B��d po��czenia: nieprawid�owe has�o.",
+    "rus": "Ошибка соединения: неверный пароль",
+    "ukr": "Помилка з'єднання: неправильний пароль"
+  },
+  "ui_st_conn_new_patch": {
+    "eng": "A new patch is available.\\n Version: %s\\n Location: %s\\nDo you want to download it now?",
+    "pol": "Dost�pna jest nowa poprawka.\\n Wersja: %s\\n Lokalizacja: %s\\nCzy chcesz j� teraz pobra�?",
+    "rus": "Доступен новый патч. \\n Версия: %s\\n %s\\n Хотите загрузить его сейчас?",
+    "ukr": "Доступний новий патч. \\n Версія: %s\\n %s\\n Бажаєте завантажити його зараз? "
+  },
+  "ui_st_conn_no_new_patch": {
+    "eng": "No new patches currently available",
+    "pol": "Brak nowych poprawek",
+    "rus": "Нет новых патчей",
+    "ukr": "Немає нових патчів"
+  },
+  "ui_st_conn_rejected_server": {
+    "eng": "Connection error: connection rejected by server",
+    "pol": "B��d po��czenia: po��czenie odrzucone przez serwer.",
+    "rus": "Ошибка соединения: соединение прервано сервером",
+    "ukr": "Помилка з'єднання: з'єднання розірване сервером"
+  },
+  "ui_st_conn_sess_full": {
+    "eng": "Connection error: server full",
+    "pol": "B��d po��czenia: serwer jest pe�ny.",
+    "rus": "Ошибка соединения: сервер заполнен",
+    "ukr": "Помилка з'єднання: сервер заповнений"
+  },
+  "ui_st_conn_version_differs": {
+    "eng": "Connection error: Different version.",
+    "pol": "B��d po��czenia: inna wersja.",
+    "rus": "Ошибка соединения: различные версии",
+    "ukr": "Помилка з'єднання: різні версії"
+  },
+  "ui_st_connecting_to_masterserver": {
+    "eng": "Connecting to master server",
+    "pol": "��czenie z serwerem g��wnym",
+    "rus": "Соединение с мастер-сервером",
+    "ukr": "З'єднання із майстер-сервером"
+  },
+  "ui_st_days": {
+    "eng": "Days",
+    "pol": "dn.",
+    "rus": "дн.",
+    "ukr": "дн."
+  },
+  "ui_st_error": {
+    "eng": "Error",
+    "pol": "B��d",
+    "rus": "Ошибка",
+    "ukr": "Помилка"
+  },
+  "ui_st_error_loading": {
+    "eng": "Load error",
+    "pol": "B��d wczytywania",
+    "rus": "Ошибка загрузки",
+    "ukr": "Помилка завантаження"
+  },
+  "ui_st_file_exist_owerwrite_q": {
+    "eng": "A file with this name already exists. Do you want to overwrite it?",
+    "pol": "Plik o tej nazwie ju� istnieje. Czy chcesz go zast�pi�?",
+    "rus": "Файл с таким именем уже существует. Перезаписать?",
+    "ukr": "Файл із таким ім'ям вже існує. Перезаписати?"
+  },
+  "ui_st_file_name_is_empty": {
+    "eng": "The file name is empty",
+    "pol": "Nazwa pliku jest pusta",
+    "rus": "Имя файла пустое",
+    "ukr": "Ім'я файлу порожнє"
+  },
+  "ui_st_hours": {
+    "eng": "Hours",
+    "pol": "godz.",
+    "rus": "час.",
+    "ukr": "год."
+  },
+  "ui_st_kicked_by_battleye": {
+    "eng": "Was disconnected by BattleEye protection system:",
+    "pol": "U�ytkownik zosta� od��czony przez system ochrony BattleEye:",
+    "rus": "был отключён защитой BattlEye:",
+    "ukr": "було відключено захистом BattlEye:"
+  },
+  "ui_st_kicked_by_server": {
+    "eng": "Disconnected. Reason:",
+    "pol": "Od��czono. Pow�d:",
+    "rus": "Отключён. Причина - ",
+    "ukr": "Відключено. Причина - "
+  },
+  "ui_st_leave": {
+    "eng": "Leave",
+    "pol": "Wyjd�",
+    "rus": "Уйти",
+    "ukr": "Піти"
+  },
+  "ui_st_load_game_confirm": {
+    "eng": "Loading this game will cause unsaved data to be lost. Proceed?",
+    "pol": "Wczytanie tej gry spowoduje utrat� niezapisanych danych. Czy chcesz kontynuowa�?",
+    "rus": "Загрузка игры приведёт к потере несохраненных данных. Желаете продолжить?",
+    "ukr": "Завантаження гри призведе до втрати незбережених даних. Бажаєте продовжити?"
+  },
+  "ui_st_mins": {
+    "eng": "min",
+    "pol": "min",
+    "rus": "мин.",
+    "ukr": "хв."
+  },
+  "ui_st_months": {
+    "eng": "months",
+    "pol": "mies.",
+    "rus": "мес.",
+    "ukr": "міс."
+  },
+  "ui_st_opponent_items": {
+    "eng": "Backpack",
+    "pol": "Plecak",
+    "rus": "Рюкзак",
+    "ukr": "Рюкзак"
+  },
+  "ui_st_params": {
+    "eng": "Parameters",
+    "pol": "Parametry",
+    "rus": "Параметры",
+    "ukr": "Параметри"
+  },
+  "ui_st_patch_download_error": {
+    "eng": "Unable to download the patch.",
+    "pol": "Nie uda�o si� pobra� poprawki.",
+    "rus": "Невозможно загрузить патч.",
+    "ukr": "Неможливо завантажити патч."
+  },
+  "ui_st_patch_download_success": {
+    "eng": "Patch successfully downloaded. Do you want to install it?",
+    "pol": "Uda�o si� pobra� poprawk�. Czy chcesz j� zainstalowa�?",
+    "rus": "Патч успешно загружен. Желаете установить?",
+    "ukr": "Патч успішно завантажено. Бажаєте встановити?"
+  },
+  "ui_st_price": {
+    "eng": "Price",
+    "pol": "Cena",
+    "rus": "Цена",
+    "ukr": "Ціна"
+  },
+  "ui_st_rank": {
+    "eng": "Rank",
+    "pol": "Ranga",
+    "rus": "Ранг",
+    "ukr": "Ранг"
+  },
+  "ui_st_relation": {
+    "eng": "Attitude",
+    "pol": "Przychylno��",
+    "rus": "Отношение",
+    "ukr": "Ставлення"
+  },
+  "ui_st_reputation": {
+    "eng": "Reputation",
+    "pol": "Reputacja",
+    "rus": "Репутация",
+    "ukr": "Репутація"
+  },
+  "ui_st_secs": {
+    "eng": "sec",
+    "pol": "s",
+    "rus": "сек.",
+    "ukr": "сек."
+  },
+  "ui_st_select_one_map": {
+    "eng": "Please select at least one map",
+    "pol": "Wybierz przynajmniej jedn� map�",
+    "rus": "Пожалуйста, выберите хотя бы одну карту",
+    "ukr": "Будь ласка, виберіть хоча б одну мапу"
+  },
+  "ui_st_take_all": {
+    "eng": "Take all",
+    "pol": "We� wszystko",
+    "rus": "Взять всё",
+    "ukr": "Узяти все"
+  },
+  "ui_st_time_remains": {
+    "eng": "Remaining",
+    "pol": "Pozosta�o",
+    "rus": "Осталось",
+    "ukr": "Залишилося"
+  },
+  "ui_st_voting_disabled": {
+    "eng": "Vote failed",
+    "pol": "G�osowanie nieudane",
+    "rus": "Голосование отключено",
+    "ukr": "Голосування відключено"
+  },
+  "ui_st_want_to_leave_game_q": {
+    "eng": "Do you really want to leave the game?",
+    "pol": "Czy na pewno chcesz wyj�� z gry?",
+    "rus": "Вы действительно хотите покинуть игру?",
+    "ukr": "Ви справді хочете полишити гру?"
+  },
+  "ui_total_price": {
+    "eng": "Total",
+    "pol": "��cznie",
+    "rus": "Всего",
+    "ukr": "Усього"
+  },
+  "very_bad": {
+    "eng": "very bad",
+    "pol": "bardzo �le",
+    "rus": "оч. плохо",
+    "ukr": "дуже погано"
+  },
+  "very_good": {
+    "eng": "very good",
+    "pol": "bardzo dobrze",
+    "rus": "оч. хорошо",
+    "ukr": "дуже добре"
+  },
+  "veteran": {
+    "eng": "Veteran",
+    "pol": "Weteran",
+    "rus": "Ветеран",
+    "ukr": "Ветеран"
+  },
+  "ui_st_inv_repair": {
+    "eng": "Repair",
+    "pol": "Naprawa",
+    "rus": "Ремонт",
+    "ukr": "Ремонт"
+  },
+  "ui_repair_button_hint": {
+    "eng": "Repair selected item",
+    "pol": "Napraw wybrany przedmiot",
+    "rus": "Починить выбранную вещь",
+    "ukr": "Полагодити обрану річ"
+  },
+  "st_key_notbinded": {
+    "eng": "...",
+    "pol": "...",
+    "rus": "...",
+    "ukr": "... "
+  },
+  "st_save_uni_travel_generic": {
+    "eng": "moving within an area",
+    "pol": "przemieszczanie si� po obszarze",
+    "rus": "переход по локации",
+    "ukr": "перехід локацією"
+  },
+  "st_save_uni_travel_zat_to_jup": {
+    "eng": "moving from Zaton to Yanov",
+    "pol": "przej�cie z Zatonu do Janowa",
+    "rus": "переход с Затона на «Янов»",
+    "ukr": "перехід із Затону на «Янів»"
+  },
+  "st_save_uni_travel_zat_to_pri": {
+    "eng": "moving from Zaton to Pripyat",
+    "pol": "przej�cie z Zatonu do Prypeci",
+    "rus": "переход с Затона в Припять",
+    "ukr": "перехід із Затону до Прип'яті"
+  },
+  "st_save_uni_travel_jup_to_zat": {
+    "eng": "moving from Yanov to Zaton",
+    "pol": "przej�cie z Janowa do Zatonu",
+    "rus": "переход с «Янова» на Затон",
+    "ukr": "перехід з «Янова» на Затон"
+  },
+  "st_save_uni_travel_jup_to_pri": {
+    "eng": "moving from Yanov to Pripyat",
+    "pol": "przej�cie z Janowa do Prypeci",
+    "rus": "переход с «Янова» в Припять",
+    "ukr": "перехід з «Янова» до Прип'яті"
+  },
+  "st_save_uni_travel_pri_to_zat": {
+    "eng": "moving from Pripyat to Zaton",
+    "pol": "przej�cie z Prypeci do Zatonu",
+    "rus": "переход из Припяти на Затон",
+    "ukr": "перехід із Прип'яті на Затон"
+  },
+  "st_save_uni_travel_pri_to_jup": {
+    "eng": "moving from Pripyat to Yanov",
+    "pol": "przej�cie z Prypeci do Janowa",
+    "rus": "переход из Припяти на «Янов»",
+    "ukr": "перехід із Прип'яті на «Янів» "
+  },
+  "st_save_uni_pri_to_labx8": {
+    "eng": "moving from Pripyat to X8",
+    "pol": "przej�cie z Prypeci do laboratorium X8",
+    "rus": "переход из Припяти в X8",
+    "ukr": "перехід із Прип'яті до X8"
+  },
+  "st_save_uni_labx8_to_pri": {
+    "eng": "moving from X8 to Pripyat",
+    "pol": "przej�cie z laboratorium X8 do Prypeci",
+    "rus": "переход из X8 в Припять",
+    "ukr": "перехід з X8 до Прип'яті"
+  },
+  "st_save_uni_surge_start": {
+    "eng": "emission",
+    "pol": "emisja",
+    "rus": "выброс",
+    "ukr": "викид"
+  },
+  "st_save_zat_a1_game_start": {
+    "eng": "beginning of the game",
+    "pol": "pocz�tek gry",
+    "rus": "начало игры",
+    "ukr": "початок гри"
+  },
+  "st_save_zat_a2_reached_skadovsk": {
+    "eng": "arrival at the Skadovsk",
+    "pol": "przybycie do Skadowska",
+    "rus": "прибытие на «Скадовск»",
+    "ukr": "прибуття на «Скадовськ»"
+  },
+  "st_save_jup_b9_searched_heli_1": {
+    "eng": "Stingray 1 examined",
+    "pol": "zbadanie helikoptera Ogo�cza 1",
+    "rus": "исследован «Скат-1»",
+    "ukr": "досліджено «Скат-1»"
+  },
+  "st_save_zat_b100_searched_heli_2": {
+    "eng": "Stingray 2 examined",
+    "pol": "zbadanie helikoptera Ogo�cza 2",
+    "rus": "исследован «Скат-2»",
+    "ukr": "досліджено «Скат-2»"
+  },
+  "st_save_zat_b28_searched_heli_3": {
+    "eng": "Stingray 3 examined",
+    "pol": "zbadanie helikoptera Ogo�cza 3",
+    "rus": "исследован «Скат-3»",
+    "ukr": "досліджено «Скат-3»"
+  },
+  "st_save_jup_b8_searched_heli_4": {
+    "eng": "Stingray 4 examined",
+    "pol": "zbadanie helikoptera Ogo�cza 4",
+    "rus": "исследован «Скат-4»",
+    "ukr": "досліджено «Скат-4»"
+  },
+  "st_save_zat_b101_searched_heli_5": {
+    "eng": "Stingray 5 examined",
+    "pol": "zbadanie helikoptera Ogo�cza 5",
+    "rus": "исследован «Скат-5»",
+    "ukr": "досліджено «Скат-5»"
+  },
+  "st_save_zat_b18_noah_showed_teleport": {
+    "eng": "getting to the plateau",
+    "pol": "dotarcie do p�askowy�u",
+    "rus": "путь на плато",
+    "ukr": "шлях на плато"
+  },
+  "st_save_jup_b217_arrived_to_jup": {
+    "eng": "arrival at Yanov",
+    "pol": "dotarcie do p�askowy�u",
+    "rus": "прибытие на «Янов»",
+    "ukr": "прибуття на «Янів» "
+  },
+  "st_save_jup_a9_got_underpass_docs": {
+    "eng": "road to Pripyat found",
+    "pol": "znalezienie drogi do Prypeci",
+    "rus": "найден путь в Припять",
+    "ukr": "знайдено шлях до Прип'яті"
+  },
+  "st_save_jup_b15_drunk_with_zulu": {
+    "eng": "Zulu joins the squad",
+    "pol": "Zulus do��cza do oddzia�u",
+    "rus": "к отряду примкнул Зулус",
+    "ukr": "до загону долучився Зулус"
+  },
+  "st_save_jup_a10_gonna_return_debt": {
+    "eng": "Vano’s debt repaid",
+    "pol": "Wano sp�aca d�ug",
+    "rus": "возврат долга Вано",
+    "ukr": "повернення боргу Вано"
+  },
+  "st_save_jup_b218_vano_in_squad": {
+    "eng": "Vano joins the squad",
+    "pol": "Wano do��cza do oddzia�u",
+    "rus": "к отряду примкнул Вано",
+    "ukr": "до загону долучився Вано"
+  },
+  "st_save_jup_b206_got_anomalous_plant": {
+    "eng": "anomalous plant collected",
+    "pol": "zebranie anormalnej ro�liny",
+    "rus": "взято аномальное растение",
+    "ukr": "взято аномальну рослину"
+  },
+  "st_save_jup_b218_sokolov_in_squad": {
+    "eng": "Sokolov joins the squad",
+    "pol": "Soko�ow do��cza do oddzia�u",
+    "rus": "к отряду примкнул Соколов",
+    "ukr": "до загону долучився Соколов"
+  },
+  "st_save_jup_b218_strider_in_squad": {
+    "eng": "Strider joins the squad",
+    "pol": "W��cz�ga do��cza do oddzia�u",
+    "rus": "к отряду примкнул Бродяга",
+    "ukr": "до загону долучився Бродяга"
+  },
+  "st_save_jup_b218_travel_jup_to_pas": {
+    "eng": "squad assembled",
+    "pol": "skompletowanie oddzia�u",
+    "rus": "отряд собран",
+    "ukr": "загін зібрано"
+  },
+  "st_save_pas_b400_underpass_start": {
+    "eng": "arrival in the underpass",
+    "pol": "przybycie do tunelu",
+    "rus": "прибытие в путепровод",
+    "ukr": "прибуття до шляхопроводу"
+  },
+  "st_save_uni_travel_pas_to_pri": {
+    "eng": "arrival in Pripyat",
+    "pol": "przybycie do Prypeci",
+    "rus": "выход в Припять",
+    "ukr": "вихід до Прип'яті"
+  },
+  "st_save_pri_a16_arrived_to_pri": {
+    "eng": "military forces located",
+    "pol": "zlokalizowanie si� wojskowych",
+    "rus": "найдены военные",
+    "ukr": "знайдено військових"
+  },
+  "st_save_pri_a17_hospital_start": {
+    "eng": "unidentified weapon captured",
+    "pol": "zdobycie niezidentyfikowanej broni",
+    "rus": "захват неизвестного оружия",
+    "ukr": "захоплення невідомої зброї"
+  },
+  "st_save_pri_a20_found_dead_recon": {
+    "eng": "recon squad found",
+    "pol": "znalezienie oddzia�u zwiadowczego",
+    "rus": "найдена разведгруппа",
+    "ukr": "знайдено розвідгрупу"
+  },
+  "st_save_pri_a18_met_reinforcement": {
+    "eng": "reinforcements arrived",
+    "pol": "nadej�cie posi�k�w",
+    "rus": "прибыло подкрепление",
+    "ukr": "прибуло підкріплення"
+  },
+  "st_save_pri_a18_searched_antenna": {
+    "eng": "“antenna” examined",
+    "pol": "zbadanie anteny",
+    "rus": "исследована «антенна»",
+    "ukr": "досліджено «антену»"
+  },
+  "st_save_pri_a21_approached_mad_sentry": {
+    "eng": "missing sentry found",
+    "pol": "znalezienie zaginionego wartownika",
+    "rus": "найден пропавший часовой",
+    "ukr": "знайдено зниклого вартового"
+  },
+  "st_save_pri_a21_killed_controller": {
+    "eng": "controller near sentry killed",
+    "pol": "zabicie kontrolera przy wartowniku",
+    "rus": "убит контролёр возле часового",
+    "ukr": "вбито контролера коло вартового"
+  },
+  "st_save_zat_a23_entered_test_center": {
+    "eng": "testing workshop accessed",
+    "pol": "wej�cie do magazynu testowego",
+    "rus": "вход в испытательный цех",
+    "ukr": "вхід до дослідного цеху"
+  },
+  "st_save_zat_a23_got_gauss_docs": {
+    "eng": "Gauss rifle documentation found",
+    "pol": "znalezienie dokumentacji do karabinu Gaussa",
+    "rus": "найдена документация на гаусс-пушку",
+    "ukr": "знайдено документацію до гаус-гармати"
+  },
+  "st_save_pri_a22_found_dead_squad": {
+    "eng": "dead fighter found",
+    "pol": "znalezienie martwego bojownika",
+    "rus": "найден погибший боец",
+    "ukr": "знайдено загиблого бійця"
+  },
+  "st_save_pri_a25_gonna_place_explosive": {
+    "eng": "entry to the kindergarten",
+    "pol": "wej�cie do przedszkola",
+    "rus": "вход в детский сад",
+    "ukr": "вхід до дитячого садка"
+  },
+  "st_save_pri_a25_freed_medic": {
+    "eng": "military medic rescued",
+    "pol": "uratowanie lekarza wojskowego",
+    "rus": "спасён военный медик",
+    "ukr": "врятовано військового медика"
+  },
+  "st_save_pri_a28_talked_with_ssu": {
+    "eng": "established communications with HQ",
+    "pol": "nawi�zanie ��czno�ci z kwater� g��wn�",
+    "rus": "установлена связь с командованием",
+    "ukr": "встановлено зв'язок із командуванням"
+  },
+  "st_save_pri_a28_evacutaion_start": {
+    "eng": "Pripyat evacuation initiated",
+    "pol": "rozpocz�cie ewakuacji Prypeci",
+    "rus": "начало эвакуации из Припяти",
+    "ukr": "початок евакуації з Прип'яті"
+  },
+  "st_save_pri_a28_evacuation_end": {
+    "eng": "evacuation helicopters reached",
+    "pol": "dotarcie do helikopter�w ewakuacyjnych",
+    "rus": "достигнуты вертолёты эвакуации",
+    "ukr": "досягнуто гелікоптерів евакуації"
+  },
+  "st_save_uni_zone_to_reality": {
+    "eng": "evacuation complete",
+    "pol": "zako�czenie ewakuacji",
+    "rus": "уход из Зоны",
+    "ukr": "відхід із Зони"
+  },
+  "st_save_jup_b209_placed_mutant_scanner": {
+    "eng": "mutant detector",
+    "pol": "detektor mutant�w",
+    "rus": "датчик присутствия мутантов",
+    "ukr": "датчик наявності мутантів"
+  },
+  "st_save_jup_a12_gave_artefact_for_hostage": {
+    "eng": "ransom paid for hostage",
+    "pol": "zap�acenie okupu za zak�adnika",
+    "rus": "выкуплен заложник",
+    "ukr": "викуплено заручника"
+  },
+  "st_save_jup_a12_met_with_liberators": {
+    "eng": "hostage freed",
+    "pol": "uwolnienie zak�adnika",
+    "rus": "освобождение заложника",
+    "ukr": "звільнення заручника"
+  },
+  "st_save_jup_b6_arrived_to_ash_heap": {
+    "eng": "Ash Heap anomaly measurements",
+    "pol": "pomiary anomalii Popielisko",
+    "rus": "замеры аномалии «Пепелище»",
+    "ukr": "вимірювання аномалії «Попелище»"
+  },
+  "st_save_jup_b6_arrived_to_fen": {
+    "eng": "Plavni anomaly measurements",
+    "pol": "pomiary anomalii Szuwary",
+    "rus": "замеры аномалии «Плавни»",
+    "ukr": "вимірювання аномалії «Плавні»"
+  },
+  "st_save_zat_b38_met_with_grouse": {
+    "eng": "bloodsucker lair",
+    "pol": "legowisko pijawek",
+    "rus": "логово кровососов",
+    "ukr": "лігво кровососів"
+  },
+  "st_save_jup_b19_arrived_to_kopachy": {
+    "eng": "sent to Kopachy",
+    "pol": "przej�cie do Kopaczi",
+    "rus": "отправка в Копачи",
+    "ukr": "відправка до Копачів"
+  },
+  "st_save_zat_b40_warned_by_mercs": {
+    "eng": "approach to the waste processing station",
+    "pol": "podej�cie do zak�adu utylizacji odpad�w",
+    "rus": "подход к станции переработки отходов",
+    "ukr": "підхід до станції переробляння відходів"
+  },
+  "st_save_zat_b7_met_with_robbers": {
+    "eng": "stalker hit",
+    "pol": "atak na stalker�w",
+    "rus": "наезд на сталкеров",
+    "ukr": "наїзд на сталкерів"
+  },
+  "st_save_zat_b33_got_container": {
+    "eng": "container found in stash",
+    "pol": "znalezienie pojemnika w schowku",
+    "rus": "найден контейнер в тайнике",
+    "ukr": "знайдено контейнер у схованці"
+  },
+  "st_save_zat_b106_arrived_to_chimera_lair": {
+    "eng": "hunting the chimera",
+    "pol": "polowanie na chimer�",
+    "rus": "охота на химеру",
+    "ukr": "полювання на химеру"
+  },
+  "st_save_jup_b16_passed_labyrinth": {
+    "eng": "Oasis found",
+    "pol": "znalezienie Oazy",
+    "rus": "найден «Оазис»",
+    "ukr": "знайдено «Оазу»"
+  },
+  "st_save_pri_b35_ready_to_snipe": {
+    "eng": "Operation One Shot initiated",
+    "pol": "rozpocz�cie operacji Jeden Strza�",
+    "rus": "начало операции «Один выстрел»",
+    "ukr": "початок операції «Один постріл»"
+  },
+  "st_save_jup_b1_entered_railroad_tunnel": {
+    "eng": "search for the psy-emission source",
+    "pol": "poszukiwanie �r�d�a emisji psionicznej",
+    "rus": "поиск источника пси-излучения",
+    "ukr": "пошук джерела псі-випромінювання"
+  },
+  "st_save_jup_b47_got_admin_docs": {
+    "eng": "administrative documents",
+    "pol": "dokumenty administracyjne",
+    "rus": "административные документы",
+    "ukr": "адміністративні документи"
+  },
+  "st_save_zat_b103_warned_by_mercs": {
+    "eng": "approach to the substation workshop",
+    "pol": "podej�cie do magazynu podstacji",
+    "rus": "подход к цехам подстанции",
+    "ukr": "підхід до цехів підстанції"
+  },
+  "st_save_zat_b5_met_with_others": {
+    "eng": "deal by the ranger station",
+    "pol": "transakcja przy le�nicz�wce",
+    "rus": "сделка возле лесничества",
+    "ukr": "угода біля лісництва"
+  },
+  "st_save_jup_b207_arrived_to_duty_depot": {
+    "eng": "Duty warehouse",
+    "pol": "magazyn frakcji Powinno��",
+    "rus": "склад «Долга»",
+    "ukr": "склад «Долгу»"
+  },
+  "st_save_zat_b14_got_altered_wheel": {
+    "eng": "strange glow source found",
+    "pol": "znalezienie �r�d�a dziwnego �wiat�a",
+    "rus": "найден источник странного свечения",
+    "ukr": "знайдено джерело дивного світіння"
+  },
+  "st_save_pri_b301_arrived_to_help_zulu": {
+    "eng": "Zulu found",
+    "pol": "znalezienie Zulusa",
+    "rus": "найден Зулус",
+    "ukr": "знайдено Зулуса"
+  },
+  "st_save_zat_b42_arrived_to_controler_lair": {
+    "eng": "dangerous cave",
+    "pol": "niebezpieczna jaskinia",
+    "rus": "опасная пещера",
+    "ukr": "небезпечна печера"
+  },
+  "ui_st_upgrade": {
+    "eng": "Repair/modifications",
+    "pol": "Naprawa/modyfikacje",
+    "rus": "Ремонт/модификация",
+    "ukr": "Ремонт/модифікація"
+  },
+  "ui_st_buy": {
+    "eng": "Buy",
+    "pol": "Kup",
+    "rus": "Купить",
+    "ukr": "Купити"
+  },
+  "ui_st_sell": {
+    "eng": "Sell",
+    "pol": "Sprzedaj",
+    "rus": "Продать",
+    "ukr": "Продати"
+  },
+  "ui_st_trade": {
+    "eng": "Trade",
+    "pol": "Handel",
+    "rus": "Торговля",
+    "ukr": "Торгувати"
+  },
+  "ui_st_exit_hint": {
+    "eng": "Close window ($$ACTION_USE$$)",
+    "pol": "Zamknij okno ($$ACTION_USE$$)",
+    "rus": "Закрыть окно ($$ACTION_USE$$)",
+    "ukr": "Закрити вікно ($$ACTION_USE$$)"
+  },
+  "ui_st_trade_hint": {
+    "eng": "Open trading window ($$ACTION_SPRINT_TOGGLE$$)",
+    "pol": "Otw�rz okno handlowania ($$ACTION_SPRINT_TOGGLE$$)",
+    "rus": "Открыть окно торговли ($$ACTION_SPRINT_TOGGLE$$)",
+    "ukr": "Відкрити вікно торгівлі ($$ACTION_SPRINT_TOGGLE$$)"
+  },
+  "ui_st_upgrade_hint": {
+    "eng": "Open repair and modification window ($$ACTION_SPRINT_TOGGLE$$)",
+    "pol": "Otw�rz okno naprawy i modyfikacji ($$ACTION_SPRINT_TOGGLE$$)",
+    "rus": "Открыть окно ремонта и модификации ($$ACTION_SPRINT_TOGGLE$$)",
+    "ukr": "Відкрити вікно ремонту та модифікації ($$ACTION_SPRINT_TOGGLE$$)"
+  },
+  "ui_st_take_all_hint": {
+    "eng": "Move all items to your backpack ($$ACTION_SPRINT_TOGGLE$$)",
+    "pol": "Przenie� wszystkie przedmioty do plecaka ($$ACTION_SPRINT_TOGGLE$$)",
+    "rus": "Переместить все вещи в свой рюкзак ($$ACTION_SPRINT_TOGGLE$$)",
+    "ukr": "Перемістити усі речі до свого рюкзака ($$ACTION_SPRINT_TOGGLE$$)"
+  },
+  "ui_st_buy_hint": {
+    "eng": "Buy selected items",
+    "pol": "Kup wybrane przedmioty",
+    "rus": "Купить выбранные вещи",
+    "ukr": "Придбати обрані речі"
+  },
+  "ui_st_sell_hint": {
+    "eng": "Sell selected items",
+    "pol": "Sprzedaj wybrane przedmioty",
+    "rus": "Продать выбранные вещи",
+    "ukr": "Продати обрані речі"
+  },
+  "st_save_pri_a28_evacuation_heli": {
+    "eng": "evacuation helicopter take-off",
+    "pol": "start helikoptera ewakuacyjnego",
+    "rus": "отлёт вертолётов эвакуации",
+    "ukr": "відліт гелікоптерів евакуації"
+  }
+}

@@ -13,7 +13,7 @@ import {
   buildStaticConfigs,
   collectLog,
 } from "#/build/steps";
-import { buildStaticTranslations } from "#/build/steps/translations_statics";
+import { buildTranslations } from "#/build/steps/translations";
 import { buildStaticUi } from "#/build/steps/ui_statics";
 import { TARGET_GAME_DATA_DIR } from "#/globals/paths";
 import { NodeLogger, TimeTracker } from "#/utils";
@@ -110,8 +110,8 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
      * Build game translations / copy static XML.
      */
     if (parameters[BUILD_ARGS.TRANSLATIONS]) {
-      await buildStaticTranslations();
-      timeTracker.addMark("BUILT_STATIC_TRANSLATIONS");
+      await buildTranslations();
+      timeTracker.addMark("BUILT_TRANSLATIONS");
     } else {
       log.info("Translations build steps skipped");
       timeTracker.addMark("SKIP_TRANSLATIONS");

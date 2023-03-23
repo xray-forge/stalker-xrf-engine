@@ -1,0 +1,1556 @@
+{
+  "zat_a2_reach_base_name": {
+    "eng": "Safe spot: reach Skadovsk",
+    "pol": "Bezpieczne miejsce: dosta� si� do Skadowska",
+    "rus": "Безопасное место: добраться до «Скадовска»",
+    "ukr": "Безпечне місце: дістатися «Скадовська»"
+  },
+  "zat_a2_reach_base_text": {
+    "eng": "The only relatively safe places in the Zone are large camps. The nearest one is Skadovsk - that's where you should be headed.",
+    "pol": "Jedynymi wzgl�dnie bezpiecznymi miejscami w Zonie s� du�e obozy. Najbli�szym z nich jest Skadowsk - tam w�a�nie musisz si� skierowa�.",
+    "rus": "В Зоне относительно безопасно только в крупных лагерях. Имеет смысл добраться до ближайшего из них - «Скадовска».",
+    "ukr": "У Зоні відносно безпечно лише у великих таборах. Має сенс дістатися найближчого з них - «Скадовська»."
+  },
+  "zat_b100_guide_maps_01_name": {
+    "eng": "Area maps: find someone interested in the maps",
+    "pol": "Mapy terenu: znajd� kogo�, kto interesuje si� mapami",
+    "rus": "Карты местности: найти заинтересованных",
+    "ukr": "Карти місцевості: знайти зацікавлених"
+  },
+  "zat_b100_guide_maps_02_name": {
+    "eng": "Area maps: offer the maps to Pilot",
+    "pol": "Mapy terenu: zaoferuj mapy Pilotowi",
+    "rus": "Карты местности: предложить Лоцману",
+    "ukr": "Карти місцевості: запропонувати Лоцманові"
+  },
+  "zat_b100_guide_maps_02_text": {
+    "eng": "It's possible that Pilot, the local guide, could be interested in maps of the area between Zaton and Jupiter.",
+    "pol": "Mo�liwe, �e Pilot, miejscowy przewodnik, b�dzie zainteresowany mapami terenu pomi�dzy Zatonem i Jupiterem.",
+    "rus": "Карты местности между Затоном и «Юпитером» предположительно могут заинтересовать Лоцмана, местного проводника.",
+    "ukr": "Є припущення, що мапи місцевості між Затоном та «Юпітером» можуть зацікавити Лоцмана, місцевого проводиря."
+  },
+  "zat_b100_heli_2_crash_name": {
+    "eng": "Stingray 2: investigate the crash site",
+    "pol": "Ogo�cza 2: zbadaj miejsce katastrofy",
+    "rus": "«Скат-2»: исследовать место падения",
+    "ukr": "«Скат-2»: дослідити місце падіння"
+  },
+  "zat_b100_heli_2_crash_text": {
+    "eng": "Investigate the Stingray 2 crash site.",
+    "pol": "Zbadaj miejsce katastrofy Ogo�czy 2.",
+    "rus": "Исследовать место падения вертолёта «Скат-2».",
+    "ukr": "Дослідити місце падіння гелікоптера «Скат-2»."
+  },
+  "zat_b101_heli_5_crash_name": {
+    "eng": "Stingray 5: investigate the crash site",
+    "pol": "Ogo�cza 5: zbadaj miejsce katastrofy",
+    "rus": "«Скат-5»: исследовать место падения",
+    "ukr": "«Скат-5»: дослідити місце падіння"
+  },
+  "zat_b101_heli_5_crash_name_02": {
+    "eng": "Stingray 5: find the reason for electronic burn out",
+    "pol": "Ogo�cza 5: znajd� przyczyn� spalenia si� elektroniki",
+    "rus": "«Скат-5»: найти причину перегорания электроники",
+    "ukr": "«Скат-5»: знайти причину згоряння електроніки."
+  },
+  "zat_b101_heli_5_crash_name_03": {
+    "eng": "Stingray squad: find the source of the charges which hit the two helicopters",
+    "pol": "Oddzia� Ogo�czy: znajd� �r�d�o wy�adowa�, kt�re uderzy�y w dwa �mig�owce",
+    "rus": "Отряд «Скат»: найти источник разрядов, поразивших два вертолёта",
+    "ukr": "Загін «Скат»: знайти джерело розрядів, що вразили два гелікоптери"
+  },
+  "zat_b101_heli_5_crash_text": {
+    "eng": "Investigate the Stingray 5 crash site.",
+    "pol": "Zbadaj miejsce katastrofy Ogo�czy 5.",
+    "rus": "Исследовать место падения вертолёта «Скат-5».",
+    "ukr": "Дослідити місце падіння гелікоптера «Скат-5»."
+  },
+  "zat_b101_heli_5_crash_text_02": {
+    "eng": "You must find the source of the powerful electric charge which hit the Stingray 5 helicopter.",
+    "pol": "Musisz znale�� �r�d�o silnego wy�adowania elektrycznego, kt�re uderzy�o w �mig�owiec Ogo�cza 5.",
+    "rus": "Нужно выяснить источник мощного электрического разряда, поразившего вертолёт «Скат-5».",
+    "ukr": "Потрібно з'ясувати джерело потужного електричного розряду, що вразив вертоліт «Скат-5»."
+  },
+  "zat_b101_heli_5_crash_text_03": {
+    "eng": "You must find out what caused the electronics in Stingrays 4 and 5 to burn out. It seems they were hit by powerful electric charges.",
+    "pol": "Musisz znale�� przyczyn� spalenia si� elektroniki w Ogo�czach 4 i 5. Wygl�da na to, �e zosta�y trafione przez silne wy�adowania elektryczne.",
+    "rus": "Необходимо найти причину, по которой сгорела электроника вертолётов «Скат-4» и «Скат-5». При обследовании выяснилось, что обе машины были поражены мощным электрическим разрядом.",
+    "ukr": "Необхідно знайти причину, через яку згоріла електроніка гелікоптерів «Скат-4» та «Скат-5». Під час обстеження з'ясувалося, що обидві машини було вражено потужним електричним розрядом."
+  },
+  "zat_b103_merc_bring_supplies_name": {
+    "eng": "Food: get food for the mercenaries",
+    "pol": "�ywno��: zdob�d� jedzenie dla najemnik�w",
+    "rus": "Припасы: достать еду для наёмников",
+    "ukr": "Припаси: дістати їжу для найманців"
+  },
+  "zat_b103_merc_bring_supplies_text": {
+    "eng": "The mercenary squad in the substation workshops has asked you to bring them six cans of meat, pieces of sausage or bread.",
+    "pol": "Oddzia� najemnik�w z warsztat�w podstacji poprosi� ci� o przyniesienie sze�ciu puszek mi�sa, kawa�k�w kie�basy lub chleba.",
+    "rus": "Отряд наёмников, расположившийся в цехах подстанции, просит принести им припасы - общим числом шесть банок консервов, палок колбасы или батонов.",
+    "ukr": "Загін найманців, що розташувався у цехах підстанції, просить принести їм припаси - шість банок консервів, стільки ж палок ковбаси або батонів."
+  },
+  "zat_b103_merc_supplies_got_name": {
+    "eng": "Food: take the food to the mercenaries",
+    "pol": "�ywno��: zanie� jedzenie najemnikom",
+    "rus": "Припасы: отнести еду наёмникам",
+    "ukr": "Припаси: віднести їжу найманцям"
+  },
+  "zat_b103_merc_supplies_got_text": {
+    "eng": "You must take the food you've collected to the mercenaries in the substation workshops.",
+    "pol": "Musisz zanie�� zgromadzone jedzenie najemnikom w warsztatach podstacji.",
+    "rus": "Необходимо отнести собранные припасы наёмникам, расположившимся в цехах подстанции.",
+    "ukr": "Необхідно віднести зібрані припаси найманцям, які розташувалися у цехах підстанції."
+  },
+  "zat_b103_toolkit_2_substation_workshop_name": {
+    "eng": "Tools: investigate the substation workshops",
+    "pol": "Narz�dzia: zbadaj warsztaty podstacji",
+    "rus": "Инструменты: обследовать цеха подстанции",
+    "ukr": "Інструменти: обстежити цехи підстанції"
+  },
+  "zat_b103_toolkit_2_substation_workshop_text": {
+    "eng": "They say there might be tools in the substation workshops. You might even find the ones the technician is after.",
+    "pol": "M�wi�, �e w warsztatach podstacji mog� znajdowa� si� narz�dzia. Mo�e nawet znajdziesz te, kt�rych szuka technik.",
+    "rus": "Поговаривают, что в цехах подстанции могут быть инструменты. Возможно, там найдутся и такие, которые нужны технику.",
+    "ukr": "Кажуть, що в цехах підстанції можуть знайтися інструменти. Можливо, там знайдуться і такі, що потрібні технікові."
+  },
+  "zat_b106_find_chimera_name": {
+    "eng": "Hunting the chimera: find the mutant while it's sleeping",
+    "pol": "Polowanie na chimer�: znajd� mutanta, dop�ki �pi",
+    "rus": "Охота на химеру: найти мутанта, пока он спит",
+    "ukr": "Полювання на химеру: знайти мутанта, поки той спить"
+  },
+  "zat_b106_find_chimera_text": {
+    "eng": "You need to find the chimera before it wakes up.",
+    "pol": "Musisz znale�� chimer�, zanim si� obudzi.",
+    "rus": "Нужно найти химеру, пока она не проснулась.",
+    "ukr": "Потрібно знайти химеру, поки вона не прокинулася."
+  },
+  "zat_b106_found_soroka_name": {
+    "eng": "In search of Magpie: inform Gonta",
+    "pol": "W poszukiwaniu Sroki: poinformuj Gont�",
+    "rus": "В поисках Сороки: сообщить Гонте",
+    "ukr": "У пошуках Сороки: повідомити Гонті"
+  },
+  "zat_b106_found_soroka_text": {
+    "eng": "It looks like Magpie, the stalker who set up Gonta's squad, has been found. He has joined Freedom and now calls himself Flint.",
+    "pol": "Wygl�da na to, �e Sroka, stalker, kt�ry wystawi� dru�yn� Gonty, zosta� odnaleziony. Do��czy� do Wolno�ci i teraz zwie si� Flintem.",
+    "rus": "Похоже, что Сорока - сталкер, который подставил группу Гонты, - обнаружен. Сейчас он вступил в группировку «Свобода» и называет себя Флинт.",
+    "ukr": "Схоже, що Сороку - сталкера, який підставив групу Гонти, - виявлено. Зараз він вступив до угруповання «Воля» і називає себе Флінт."
+  },
+  "zat_b106_kill_chimera_name": {
+    "eng": "Hunting the chimera: kill the mutant",
+    "pol": "Polowanie na chimer�: zabij mutanta",
+    "rus": "Охота на химеру: убить мутанта",
+    "ukr": "Полювання на химеру: вбити мутанта"
+  },
+  "zat_b106_kill_chimera_text": {
+    "eng": "The chimera is awake and you should kill it before it's too late.",
+    "pol": "Chimera nie �pi. Musisz j� zabi�, zanim b�dzie za p�no.",
+    "rus": "Химера проснулась. Нужно убить её, пока есть такая возможность.",
+    "ukr": "Химера прокинулася! Потрібно вбити її, поки є така можливість."
+  },
+  "zat_b106_meet_with_gonta_at_night_name": {
+    "eng": "Hunting the chimera: meet Gonta in the bar at 3AM",
+    "pol": "Polowanie na chimer�: spotkaj si� z Gont� w barze o 3 rano",
+    "rus": "Охота на химеру: встретиться с Гонтой в баре в три часа ночи",
+    "ukr": "Полювання на химеру: зустрітися із Гонтою в барі о третій годині ночі"
+  },
+  "zat_b106_meet_with_gonta_at_night_text": {
+    "eng": "You should meet Gonta before sunrise to join his squad in their chimera hunt.",
+    "pol": "Musisz spotka� si� z Gont� przed �witem, aby do��czy� do jego dru�yny podczas polowania na chimer�.",
+    "rus": "Надо встретиться с Гонтой перед рассветом, чтобы вместе с его группой выйти охотиться на химеру.",
+    "ukr": "Треба зустрітися із Гонтою удосвіта, щоб разом із його групою вийти полювати на химеру."
+  },
+  "zat_b106_receipt_reward_name": {
+    "eng": "Hunting the chimera: inform Trapper",
+    "pol": "Polowanie na chimer�: poinformuj Trapera",
+    "rus": "Охота на химеру: сообщить Зверобою",
+    "ukr": "Полювання на химеру: повідомити Звіробоя"
+  },
+  "zat_b106_receipt_reward_text": {
+    "eng": "You should inform a stalker called Trapper that the chimera hunt was successful. He should give you a reward.",
+    "pol": "Poinformuj stalkera zwanego Traperem, �e polowanie na chimer� zako�czy�o si� sukcesem. Powinien da� ci nagrod�.",
+    "rus": "Нужно сообщить сталкеру по кличке Зверобой об успешной охоте на химеру - он должен выдать награду.",
+    "ukr": "Слід повідомити сталкера на прізвисько Звіробій про успішне полювання на химеру - він має видати нагороду."
+  },
+  "zat_b106_search_soroka_name": {
+    "eng": "In search of Magpie: find the stalker",
+    "pol": "W poszukiwaniu Sroki: znajd� stalkera",
+    "rus": "В поисках Сороки: найти сталкера",
+    "ukr": "У пошуках Сороки: знайти сталкера"
+  },
+  "zat_b106_search_soroka_text": {
+    "eng": "A stalker called Magpie set up Gonta's squad to be attacked by a chimera. They've asked you to find the bastard.",
+    "pol": "Stalker zwany Srok� wystawi� ludzi Gonty na atak chimery. Poprosili ci� o znalezienie tego gnojka.",
+    "rus": "Сталкер по кличке Сорока подставил группу Гонты под нападение химеры. Ребята просят найти подонка.",
+    "ukr": "Сталкер на прізвисько Сорока підставив групу Гонти під напад химери. Хлопці просять знайти покидька."
+  },
+  "zat_b107_evacuation_jupiter_name": {
+    "eng": "Evacuation locations: investigate position B205",
+    "pol": "Miejsca ewakuacji: zbadaj punkt B205",
+    "rus": "Места эвакуации: проверить точку Б205",
+    "ukr": "Місця евакуації: перевірити точку Б205"
+  },
+  "zat_b107_evacuation_jupiter_text": {
+    "eng": "The map you found in one of the helicopters indicated evacuation locations. You should check if the soldiers went to location B205",
+    "pol": "Mapa znaleziona w jednym ze �mig�owc�w wskazywa�a miejsca ewakuacji. Sprawd�, czy �o�nierze pojawili si� w punkcie B205.",
+    "rus": "На найденной в одном из вертолётов карте были отмечены точки эвакуации. Нужно проверить, появлялись ли военные в точке Б205.",
+    "ukr": "На знайденій в одному з гелікоптерів мапі були позначені точки евакуації. Треба перевірити, чи з'являлися військові у точці Б205."
+  },
+  "zat_b107_evacuation_pripyat_1_name": {
+    "eng": "Evacuation locations: investigate position B28",
+    "pol": "Miejsca ewakuacji: zbadaj punkt B28",
+    "rus": "Места эвакуации: проверить точку Б28",
+    "ukr": "Місця евакуації: перевірити точку Б28"
+  },
+  "zat_b107_evacuation_pripyat_1_text": {
+    "eng": "The map you found in one of the helicopters indicated evacuation locations. You should check if the soldiers went to location B28",
+    "pol": "Mapa znaleziona w jednym ze �mig�owc�w wskazywa�a miejsca ewakuacji. Sprawd�, czy �o�nierze pojawili si� w punkcie B28",
+    "rus": "На карте, найденной в одном из вертолётов, отмечены точки эвакуации. Нужно проверить, появлялись ли военные в точке Б28.",
+    "ukr": "На знайденій в одному з гелікоптерів мапі були позначені точки евакуації. Треба перевірити, чи з'являлися військові у точці Б28."
+  },
+  "zat_b107_evacuation_pripyat_2_name": {
+    "eng": "Evacuation location: find the coordinates of location B28",
+    "pol": "Miejsce ewakuacji: znajd� wsp�rz�dne punktu B28",
+    "rus": "Место эвакуации: найти координаты точки Б28",
+    "ukr": "Місце евакуації: знайти координати точки Б28"
+  },
+  "zat_b107_evacuation_pripyat_2_text": {
+    "eng": "The black box of one of the Stingray helicopters had a recording where the squad commander designates a position at which the squad is to converge. This position is evacuation point B28 and you need to work out its coordinates.",
+    "pol": "W czarnej skrzynce jednego ze �mig�owc�w Ogo�cza znajdowa�o si� nagranie, w kt�rym dow�dca oddzia�u wyznaczy� miejsce zbi�rki. Jest nim punkt ewakuacyjny B28. Musisz okre�li� jego wsp�rz�dne.",
+    "rus": "На записи, сохранившейся в чёрном ящике одного из вертолётов группы «Скат», командир группы указывает место сбора - так называемая точка эвакуации Б28. Необходимо определить её координаты.",
+    "ukr": "На записі, що зберігся у «чорному ящику» одного з гелікоптерів групи «Скат», командир групи вказує місце для збору - так звану точку евакуації Б28. Необхідно визначити її координати."
+  },
+  "zat_b107_evacuation_pripyat_3_name": {
+    "eng": "Evacuation location: reach location B28",
+    "pol": "Miejsce ewakuacji: znajd� punkt B28",
+    "rus": "Место эвакуации: добраться до точки Б28",
+    "ukr": "Місце евакуації: дістатися точки Б28"
+  },
+  "zat_b107_evacuation_pripyat_3_text": {
+    "eng": "The position at which the soldiers are supposed to converge is in Pripyat. Find a way of getting there.",
+    "pol": "Miejsce zbi�rki �o�nierzy znajduje si� w Prypeci. Znajd� spos�b, by si� tam dosta�.",
+    "rus": "Точка сбора, где должны были собраться военные, находится в Припяти. Нужно найти способ добраться туда.",
+    "ukr": "Точка, де мали зібратися військові, знаходиться у Прип'яті. Треба знайти спосіб дістатися туди."
+  },
+  "zat_b107_evacuation_zaton_name": {
+    "eng": "Evacuation locations: investigate position B2",
+    "pol": "Miejsca ewakuacji: zbadaj punkt B2",
+    "rus": "Места эвакуации: проверить точку Б2",
+    "ukr": "Місця евакуації: перевірити точку Б2"
+  },
+  "zat_b107_evacuation_zaton_text": {
+    "eng": "The map you found in one of the helicopters indicated evacuation locations. You should check if the soldiers went to location B2",
+    "pol": "Mapa znaleziona w jednym ze �mig�owc�w wskazywa�a miejsca ewakuacji. Sprawd�, czy �o�nierze pojawili si� w punkcie B2.",
+    "rus": "На найденной в одном из вертолётов карте были отмечены точки эвакуации. Нужно проверить, появлялись ли военные в точке эвакуации Б2.",
+    "ukr": "На знайденій в одному з гелікоптерів мапі були позначені точки евакуації. Треба перевірити, чи з'являлися військові у точці евакуації Б2."
+  },
+  "zat_b14_bring_strange_object_name": {
+    "eng": "Strange phenomenon: take the artifact to Beard",
+    "pol": "Dziwne zjawisko: zanie� artefakt Brodaczowi",
+    "rus": "Странное явление: принести артефакт Бороде",
+    "ukr": "Дивне явище: принести артефакт Бороді"
+  },
+  "zat_b14_bring_strange_object_text": {
+    "eng": "The source of the strange glow was an equally strange artifact. It's bound to be of interest to Beard.",
+    "pol": "�r�d�em dziwnego blasku by� r�wnie dziwny artefakt. Na pewno zainteresuje on Brodacza.",
+    "rus": "Источником странного свечения был не менее странный артефакт. Он явно заинтересует Бороду.",
+    "ukr": "Джерелом дивного світіння був не менш дивний артефакт. Він явно зацікавить Бороду."
+  },
+  "zat_b14_learn_about_strange_occurrence_by_stalkers_name": {
+    "eng": "Strange phenomenon: ask stalkers about the artifact",
+    "pol": "Dziwne zjawisko: popytaj stalker�w o artefakt",
+    "rus": "Странное явление: расспросить сталкеров про артефакт",
+    "ukr": "Дивне явище: розпитати сталкерів про артефакт"
+  },
+  "zat_b14_learn_about_strange_occurrence_by_stalkers_text": {
+    "eng": "Stalkers may know something about the strange artifact or they could suggest someone who does. You should talk to them.",
+    "pol": "Stalkerzy mog� wiedzie� co� na temat dziwnego artefaktu lub poleci� kogo�, kto co� wie. Porozmawiaj z nimi.",
+    "rus": "Возможно, сталкеры что-то знают про странный артефакт, или подскажут того, кто может знать. Стоит с ними поговорить.",
+    "ukr": "Можливо, сталкери щось знають про дивний артефакт, або підкажуть того, хто може знати. Варто з ними поговорити."
+  },
+  "zat_b14_learn_about_strange_occurrence_name": {
+    "eng": "Strange phenomenon: find the source of the glow at the dredge station",
+    "pol": "Dziwne zjawisko: znajd� �r�d�o blasku w pog��biarce",
+    "rus": "Странное явление: найти источник свечения на земснаряде",
+    "ukr": "Дивне явище: знайти джерело світіння на земснаряді"
+  },
+  "zat_b14_learn_about_strange_occurrence_text": {
+    "eng": "A strange glow was spotted at the dredge station. Beard asked you to find its source.",
+    "pol": "Zauwa�ono dziwny blask w pog��biarce. Brodacz poprosi� ci� o znalezienie jego �r�d�a.",
+    "rus": "На земснаряде было замечено необычное даже для Зоны свечение. Борода просит определить его источник.",
+    "ukr": "На земснаряді було помічено незвичайне навіть для Зони світіння. Борода просить визначити його джерело."
+  },
+  "zat_b14_take_artefact_name": {
+    "eng": "Strange phenomenon: take the artifact",
+    "pol": "Dziwne zjawisko: zabierz artefakt",
+    "rus": "Странное явление: взять артефакт",
+    "ukr": "Дивне явище: взяти артефакт"
+  },
+  "zat_b14_take_artefact_text": {
+    "eng": "The source of the strange glow was an equally strange artifact. You should take it.",
+    "pol": "�r�d�em dziwnego blasku by� r�wnie dziwny artefakt. Zabierz go ze sob�.",
+    "rus": "Источник странного свечения - не менее странный артефакт. Стоит взять его с собой.",
+    "ukr": "Джерело дивного світіння - не менш дивний артефакт. Варто взяти його із собою."
+  },
+  "zat_b14_tell_svyaznoy_about_all_name": {
+    "eng": "Strange phenomenon: tell Beard about the artifact",
+    "pol": "Dziwne zjawisko: powiedz Brodaczowi o artefakcie",
+    "rus": "Странное явление: рассказать Бороде об артефакте",
+    "ukr": "Дивне явище: розповісти Бороді про артефакт"
+  },
+  "zat_b14_tell_svyaznoy_about_all_text": {
+    "eng": "The source of the strange glow was an equally strange artifact. Even though you don't have the artifact, you should tell Beard about it.",
+    "pol": "�r�d�em dziwnego blasku by� r�wnie dziwny artefakt. Mimo �e nie masz artefaktu, powiedz o nim Brodaczowi.",
+    "rus": "Источником странного свечения был не менее странный артефакт. Стоит рассказать об этом Бороде, даже если самого артефакта при себе нет.",
+    "ukr": "Джерелом дивного світіння був не менш дивний артефакт. Про це варто розказати Бороді."
+  },
+  "zat_b20_cross_the_teleport_name": {
+    "eng": "Getting to the plateau: jump into the anomaly",
+    "pol": "�cie�ka na p�askowy�: wskocz do anomalii",
+    "rus": "Путь на плато: прыгнуть в аномалию",
+    "ukr": "Шлях на плато: стрибнути в аномалію"
+  },
+  "zat_b20_cross_the_teleport_text": {
+    "eng": "It looks like the way to the plateau is through the anomaly. You need to jump into it.",
+    "pol": "Wygl�da na to, �e droga na p�askowy� prowadzi przez anomali�. Musisz w ni� wskoczy�.",
+    "rus": "Похоже, путь на плато лежит через аномалию. Необходимо в неё прыгнуть.",
+    "ukr": "Схоже, шлях на плато лежить через аномалію. Доведеться у неї стрибнути."
+  },
+  "zat_b20_find_the_teleport_name": {
+    "eng": "Getting to the plateau: find Noah's secret path",
+    "pol": "�cie�ka na p�askowy�: znajd� sekretn� �cie�k� Noego",
+    "rus": "Путь на плато: найти личный ход Ноя",
+    "ukr": "Шлях на плато: знайти особистий хід Ноя"
+  },
+  "zat_b20_find_the_teleport_text": {
+    "eng": "Noah's PDA mentioned his own \"secret path\" to the plateau. You need to find it.",
+    "pol": "W PDA Noego by�a wzmianka o jego w�asnej �sekretnej �cie�ce\" na p�askowy�. Musisz j� znale��.",
+    "rus": "В КПК Ноя упоминался какой-то «личный ход» на плато. Необходимо обнаружить эту дорогу.",
+    "ukr": "У КПК Ноя згадувався якийсь «особистий хід» на плато. Необхідно знайти цю дорогу."
+  },
+  "zat_b20_plato_talk_to_noah_name": {
+    "eng": "Getting to the plateau: find out how to get there from Noah ",
+    "pol": "�cie�ka na p�askowy�: dowiedz si� od Noego, jak si� tam dosta� ",
+    "rus": "Путь на плато: узнать дорогу у Ноя",
+    "ukr": "Шлях на плато: довідатися дорогу в Ноя"
+  },
+  "zat_b20_plato_talk_to_noah_text": {
+    "eng": "They say a stalker called Noah knows a path onto the plateau. You need to find out how to get there.",
+    "pol": "M�wi�, �e stalker znany jako Noe zna �cie�k� na p�askowy�. Musisz si� dowiedzie�, jak si� tam dosta�.",
+    "rus": "Говорят, что сталкер по кличке Ной знает путь на плато. Необходимо узнать эту дорогу.",
+    "ukr": "Кажуть, що сталкер на прізвисько Ной знає шлях на плато. Необхідно довідатися цю дорогу."
+  },
+  "zat_b22_bring_proof_name": {
+    "eng": "Missing stalkers: bring back proof of Tremor's involvement",
+    "pol": "Zaginieni stalkerzy: przynie� dow�d udzia�u Wstrz�sa",
+    "rus": "Исчезновение сталкеров: принести доказательства вины Тремора",
+    "ukr": "Зникнення сталкерів: принести докази провини Тремора"
+  },
+  "zat_b22_bring_proof_text": {
+    "eng": "You need to take the PDA with Tremor's recordings to Skadovsk and show it to Beard. The recordings make it clear that the medic was the one responsible for stalker disappearances.",
+    "pol": "Musisz zabra� PDA z nagraniami Wstrz�sa do Skadowska i pokaza� je Brodaczowi. Nagrania dowodz�, �e medyk by� odpowiedzialny za znikni�cia stalker�w.",
+    "rus": "Надо отнести КПК с записями Тремора на «Скадовск» и показать Бороде. Из записей понятно, что в исчезновении сталкеров виновен медик.",
+    "ukr": "Треба віднести КПК із записами Тремора на «Скадовськ» і показати Бороді. Із записів зрозуміло, що в зникненні сталкерів винний медик."
+  },
+  "zat_b22_find_proof_name": {
+    "eng": "Missing stalkers: find proof of Tremor's involvement",
+    "pol": "Zaginieni stalkerzy: znajd� dow�d udzia�u Wstrz�sa",
+    "rus": "Исчезновение сталкеров: найти доказательства вины Тремора",
+    "ukr": "Зникнення сталкерів: знайти докази провини Тремора"
+  },
+  "zat_b22_find_proof_text": {
+    "eng": "You need to check whether Tremor left any evidence of his involvement in stalker disappearances.",
+    "pol": "Musisz sprawdzi�, czy Wstrz�s pozostawi� jakiekolwiek dowody swojego udzia�u w znikni�ciach stalker�w.",
+    "rus": "Нужно определить, не оставил ли Тремор каких-либо свидетельств своей вины в исчезновении сталкеров.",
+    "ukr": "Потрібно визначити, чи не залишив Тремор якихось свідчень своєї провини у зникненні сталкерів."
+  },
+  "zat_b28_heli_3_crash_name": {
+    "eng": "Stingray 3: investigate the crash site",
+    "pol": "Ogo�cza 3: zbadaj miejsce katastrofy",
+    "rus": "«Скат-3»: исследовать место падения",
+    "ukr": "«Скат-3»: дослідити місце падіння"
+  },
+  "zat_b28_heli_3_crash_text": {
+    "eng": "Investigate the Stingray 3 crash site.",
+    "pol": "Zbadaj miejsce katastrofy Ogo�czy 3.",
+    "rus": "Исследовать место падения вертолёта «Скат-3».",
+    "ukr": "Дослідити місце падіння гелікоптера «Скат-3»."
+  },
+  "zat_b29_simple_bring_text_1": {
+    "eng": "You need to bring Beard the artifact, but the head start time has expired. Now your competitors are searching for the artifact as well.",
+    "pol": "Musisz przynie�� Brodaczowi artefakt, ale nie masz ju� for�w. Twoi konkurenci te� zacz�li go szuka�.",
+    "rus": "Нужно принести артефакт по заданию Бороды. Однако время форы уже вышло, теперь конкуренты тоже ищут заказ.",
+    "ukr": "Треба принести артефакт на завдання Бороди. Однак час фори вже минув, тепер конкуренти теж шукають замовлення."
+  },
+  "zat_b29_simple_bring_text_2": {
+    "eng": "You need to bring Beard the artifact. Remember: your competitors are also searching for it.",
+    "pol": "Musisz przynie�� Brodaczowi artefakt. Pami�taj: twoi konkurenci te� go szukaj�.",
+    "rus": "Нужно принести артефакт для Бороды. Не стоит забывать, что конкуренты тоже пытаются выполнить этот заказ.",
+    "ukr": "Треба принести артефакт на завдання Бороди. Не варто, однак, забувати, що конкуренти теж намагаються виконати це замовлення."
+  },
+  "zat_b29_simple_bring_text_3": {
+    "eng": "You need to bring Beard the artifact, but there is a report that another group has already found one. You should track the signal and try to complete the job before your competitors do.",
+    "pol": "Musisz przynie�� Brodaczowi artefakt, ale wed�ug doniesie�, inna grupa ju� go znalaz�a. Spr�buj namierzy� sygna� i wykona� zadanie, zanim zrobi� to twoi konkurenci.",
+    "rus": "Нужно принести артефакт для Бороды, однако сигнал от другой группы свидетельствует, что они уже нашли нужный. Есть возможность отследить сигнал и опередить конкурентов.",
+    "ukr": "На завдання Бороди треба принести артефакт, однак сигнал від іншої групи свідчить, що вони вже знайшли потрібний. Є можливість відстежити сигнал та випередити конкурентів."
+  },
+  "zat_b29_simple_bring_text_4": {
+    "eng": "You need to bring Beard the artifact, but another group has already done that. Now you'll only get half your fee for the artifact.",
+    "pol": "Musisz przynie�� Brodaczowi artefakt, ale inny grupa ju� to zrobi�a. Teraz dostaniesz za niego tylko po�ow� zap�aty.",
+    "rus": "Нужно принести артефакт для Бороды, однако другая группа уже выполнила заказ. Теперь за артефакт удастся выручить только половину цены.",
+    "ukr": "На завдання Бороди треба принести артефакт, однак інша група уже виконала замовлення. Тепер за артефакт вдасться виручити лише половину ціни."
+  },
+  "zat_b29_simple_bring_text_5": {
+    "eng": "You need to bring Beard the artifact.",
+    "pol": "Musisz przynie�� Brodaczowi artefakt.",
+    "rus": "Нужно принести артефакт по заданию Бороды.",
+    "ukr": "Потрібно принести артефакт на завдання Бороди."
+  },
+  "zat_b29_simple_bring_title_16": {
+    "eng": "Artifact order: bring back a Gravi",
+    "pol": "Zam�wienie na artefakt: przynie� Grawi",
+    "rus": "Артефакты на заказ: принести артефакт «Грави»",
+    "ukr": "Артефакти на замовлення: принести артефакт «Граві»"
+  },
+  "zat_b29_simple_bring_title_17": {
+    "eng": "Artifact order: bring back an Eye",
+    "pol": "Zam�wienie na artefakt: przynie� Oko",
+    "rus": "Артефакты на заказ: принести артефакт «Глаз»",
+    "ukr": "Артефакти на замовлення: принести артефакт «Око»"
+  },
+  "zat_b29_simple_bring_title_18": {
+    "eng": "Artifact order: bring back a Bubble",
+    "pol": "Zam�wienie na artefakt: przynie� B�bel",
+    "rus": "Артефакты на заказ: принести артефакт «Пузырь»",
+    "ukr": "Артефакти на замовлення: принести артефакт «Пузир»"
+  },
+  "zat_b29_simple_bring_title_19": {
+    "eng": "Artifact order: bring back a Shell",
+    "pol": "Zam�wienie na artefakt: przynie� Muszl�",
+    "rus": "Артефакты на заказ: принести артефакт «Пустышка»",
+    "ukr": "Артефакти на замовлення: принести артефакт «Порожнявка»"
+  },
+  "zat_b29_simple_bring_title_20": {
+    "eng": "Artifact order: bring back a Goldfish",
+    "pol": "Zam�wienie na artefakt: przynie� Z�ot� rybk�",
+    "rus": "Артефакты на заказ: принести артефакт «Золотая Рыбка»",
+    "ukr": "Артефакти на замовлення: принести артефакт «Золота рибка»"
+  },
+  "zat_b29_simple_bring_title_21": {
+    "eng": "Artifact order: bring back a Flame",
+    "pol": "Zam�wienie na artefakt: przynie� P�omie�",
+    "rus": "Артефакты на заказ: принести артефакт «Пламя»",
+    "ukr": "Артефакти на замовлення: принести артефакт «Полум'я»"
+  },
+  "zat_b29_simple_bring_title_22": {
+    "eng": "Artifact order: bring back a Firefly",
+    "pol": "Zam�wienie na artefakt: przynie� �wietlika",
+    "rus": "Артефакты на заказ: принести артефакт «Светляк»",
+    "ukr": "Артефакти на замовлення: принести артефакт «Світляк»"
+  },
+  "zat_b29_simple_bring_title_23": {
+    "eng": "Artifact order: bring back a Snowflake",
+    "pol": "Zam�wienie na artefakt: przynie� �nie�ynk�",
+    "rus": "Артефакты на заказ: принести артефакт «Снежинка»",
+    "ukr": "Артефакти на замовлення: принести артефакт «Сніжинка»"
+  },
+  "zat_b29_simple_find_text_1": {
+    "eng": "You need to find the artifact for Beard, but the head start time has expired. Now your competitors are searching for the artifact as well.",
+    "pol": "Musisz znale�� artefakt dla Brodacza, ale nie masz ju� for�w. Twoi konkurenci te� zacz�li go szuka�.",
+    "rus": "Нужно найти артефакт по заданию Бороды, но время форы вышло. Теперь конкуренты тоже ищут заказ.",
+    "ukr": "Треба знайти артефакт на завдання Бороди, але час фори минув. Тепер конкуренти теж шукають замовлення."
+  },
+  "zat_b29_simple_find_text_2": {
+    "eng": "You need to find the artifact for Beard. Remember: your competitors are also searching for it.",
+    "pol": "Musisz znale�� artefakt dla Brodacza. Pami�taj: twoi konkurenci te� go szukaj�.",
+    "rus": "Нужно найти артефакт по заданию Бороды. Не стоит забывать, что конкуренты тоже ищут заказ.",
+    "ukr": "Потрібно знайти артефакт на завдання Бороди. Не слід забувати, що конкуренти теж шукають замовлення."
+  },
+  "zat_b29_simple_find_text_3": {
+    "eng": "You need to find the artifact for Beard, but there is a report that another group has already found one. You should track the signal and try to complete the job before your competitors do.",
+    "pol": "Musisz znale�� artefakt dla Brodacza, ale wed�ug doniesie�, inna grupa ju� go znalaz�a. Spr�buj namierzy� sygna� i wykona� zadanie, zanim zrobi� to twoi konkurenci.",
+    "rus": "Нужно найти артефакт по заданию Бороды, однако пришел сигнал от другой группы - они уже нашли артефакт. Есть возможность отследить сигнал и опередить конкурентов.",
+    "ukr": "Потрібно знайти артефакт на завдання Бороди, однак надійшов сигнал від іншої групи - вони вже знайшли артефакт. Є можливість відстежити сигнал і випередити конкурентів."
+  },
+  "zat_b29_simple_find_text_4": {
+    "eng": "You need to find the artifact for Beard, but another group has already completed the order. Now you'll only get half your fee for the artifact.",
+    "pol": "Musisz znale�� artefakt dla Brodacza, ale inna grupa ju� wype�ni�a polecenie. Teraz dostaniesz za niego tylko po�ow� zap�aty.",
+    "rus": "Нужно найти артефакт по заданию Бороды, но другая группа уже выполнила заказ. Теперь можно получить только половину цены за артефакт.",
+    "ukr": "Потрібно знайти артефакт на завдання Бороди, але інша група уже виконала замовлення. Тепер можна отримати лише половину ціни за артефакт."
+  },
+  "zat_b29_simple_find_text_5": {
+    "eng": "You need to find the artifact for Beard.",
+    "pol": "Musisz znale�� artefakt dla Brodacza.",
+    "rus": "Нужно найти артефакт по заданию Бороды.",
+    "ukr": "Потрібно знайти артефакт на завдання Бороди."
+  },
+  "zat_b29_simple_find_title_16": {
+    "eng": "Artifact order: find a Gravi",
+    "pol": "Zam�wienie na artefakt: znajd� Grawi",
+    "rus": "Артефакты на заказ: найти артефакт «Грави»",
+    "ukr": "Артефакти на замовлення: знайти артефакт «Граві»"
+  },
+  "zat_b29_simple_find_title_17": {
+    "eng": "Artifact order: find an Eye",
+    "pol": "Zam�wienie na artefakt: znajd� Oko",
+    "rus": "Артефакты на заказ: найти артефакт «Глаз»",
+    "ukr": "Артефакти на замовлення: знайти артефакт «Око»"
+  },
+  "zat_b29_simple_find_title_18": {
+    "eng": "Artifact order: find a Bubble",
+    "pol": "Zam�wienie na artefakt: znajd� B�bel",
+    "rus": "Артефакты на заказ: найти артефакт «Пузырь»",
+    "ukr": "Артефакти на замовлення: знайти артефакт «Пузир»"
+  },
+  "zat_b29_simple_find_title_19": {
+    "eng": "Artifact order: find a Shell",
+    "pol": "Zam�wienie na artefakt: znajd� Muszl�",
+    "rus": "Артефакты на заказ: найти артефакт «Пустышка»",
+    "ukr": "Артефакти на замовлення: знайти артефакт «Порожнявка»"
+  },
+  "zat_b29_simple_find_title_20": {
+    "eng": "Artifact order: find a Goldfish",
+    "pol": "Zam�wienie na artefakt: znajd� Z�ot� rybk�",
+    "rus": "Артефакты на заказ: найти артефакт «Золотая Рыбка»",
+    "ukr": "Артефакти на замовлення: знайти артефакт «Золота рибка»"
+  },
+  "zat_b29_simple_find_title_21": {
+    "eng": "Artifact order: find a Flame",
+    "pol": "Zam�wienie na artefakt: znajd� P�omie�",
+    "rus": "Артефакты на заказ: найти артефакт «Пламя»",
+    "ukr": "Артефакти на замовлення: знайти артефакт «Полум'я»"
+  },
+  "zat_b29_simple_find_title_22": {
+    "eng": "Artifact order: find a Firefly",
+    "pol": "Zam�wienie na artefakt: znajd� �wietlika",
+    "rus": "Артефакты на заказ: найти артефакт «Светляк»",
+    "ukr": "Артефакти на замовлення: знайти артефакт «Світляк»"
+  },
+  "zat_b29_simple_find_title_23": {
+    "eng": "Artifact order: find a Snowflake",
+    "pol": "Zam�wienie na artefakt: znajd� �nie�ynk�",
+    "rus": "Артефакты на заказ: найти артефакт «Снежинка»",
+    "ukr": "Артефакти на замовлення: знайти артефакт «Сніжинка»"
+  },
+  "zat_b30_compass_to_barmen_task_find_name": {
+    "eng": "Compass: locate Noah and find out where you can get the rare artifact",
+    "pol": "Kompas: znajd� Noego i dowiedz si�, gdzie mo�esz zdoby� ten rzadki artefakt",
+    "rus": "«Компас»: найти Ноя и узнать, где можно достать этот редкий артефакт",
+    "ukr": "«Компас»: знайти Ноя і довідатися, де можна дістати цей рідкий артефакт"
+  },
+  "zat_b30_compass_to_barmen_task_find_text": {
+    "eng": "You need to locate Noah at the old barge and find out where you can get the rare Compass artifact. Beard has been looking for the artifact for a long time and he's willing to pay well for it.",
+    "pol": "Musisz znale�� Noego na starej barce i dowiedzie� si�, gdzie mo�esz zdoby� rzadki artefakt - Kompas. Brodacz szuka tego artefaktu od d�ugiego czasu i jest w stanie du�o za niego zap�aci�.",
+    "rus": "Необходимо найти Ноя на старой барже и узнать, где можно достать редкий артефакт «Компас». Борода уже давно ищет этот артефакт и готов хорошо заплатить за него.",
+    "ukr": "Необхідно знайти Ноя на старій баржі й довідатися, де можна дістати рідкий «Компас». Борода вже двно шукає цей артефакт і готовий добре заплатити за нього."
+  },
+  "zat_b30_compass_to_barmen_task_give_name": {
+    "eng": "Compass: take the artifact to Beard",
+    "pol": "Kompas: zanie� artefakt Brodaczowi",
+    "rus": "«Компас»: принести артефакт Бороде",
+    "ukr": "«Компас»: принести артефакт Бороді"
+  },
+  "zat_b30_compass_to_sultan_task_find_name": {
+    "eng": "Compass: find out where you can get the rare artifact from Noah",
+    "pol": "Kompas: dowiedz si� od Noego, gdzie mo�esz zdoby� ten rzadki artefakt",
+    "rus": "«Компас»: узнать у Ноя, где можно добыть артефакт",
+    "ukr": "«Компас»: довідатися в Ноя, де можна добути артефакт"
+  },
+  "zat_b30_compass_to_sultan_task_find_text": {
+    "eng": "Sultan wants to intercept the artifact Beard is looking for. You need to locate Noah at the old barge and find out where you can get the artifact.",
+    "pol": "Su�tan chce przechwyci� artefakt, kt�rego szuka Brodacz. Musisz znale�� Noego na starej barce i dowiedzie� si�, gdzie mo�esz zdoby� ten artefakt.",
+    "rus": "Султан хочет перехватить артефакт, который ищет Борода. Нужно найти Ноя на старой барже и узнать, где можно добыть артефакт.",
+    "ukr": "Султан хоче перехопити артефакт, котрий шукає Борода. Треба знайти Ноя на старій баржі й довідатися, де можна добути артефакт."
+  },
+  "zat_b30_compass_to_sultan_task_give_name": {
+    "eng": "Compass: take the artifact to Sultan",
+    "pol": "Kompas: zanie� artefakt Su�tanowi",
+    "rus": "«Компас»: принести артефакт Султану",
+    "ukr": "«Компас»: принести артефакт Султанові"
+  },
+  "zat_b30_compass_to_sultan_task_give_text": {
+    "eng": "The artifact Noah gave you is the Compass Sultan is looking for.",
+    "pol": "Artefakt, kt�ry da� Ci Noe, to Kompas poszukiwany przez Su�tana.",
+    "rus": "Артефакт, который дал Ной, и есть тот самый «Компас», нужный Султану.",
+    "ukr": "Артефакт, що дав Ной, і є той самий «Компас», потрібний Султанові."
+  },
+  "zat_b30_percent_task_name": {
+    "eng": "Shady business: get your cut from Beard",
+    "pol": "Ciemne interesy: odbierz swoj� dol� od Brodacza",
+    "rus": "Тёмный бизнес: получить от Бороды проценты",
+    "ukr": "Темний бізнес: отримати від Бороди відсотки"
+  },
+  "zat_b30_percent_task_text": {
+    "eng": "You should get your cut of Beard's revenue from him.",
+    "pol": "Odbierz od Brodacza swoj� dol� z jego wynagrodzenia.",
+    "rus": "Имеет смысл забрать у Бороды причитающийся процент с его доходов.",
+    "ukr": "Має сенс забрати в Бороди певний відсоток з його доходів."
+  },
+  "zat_b30_sultan_task_1_name": {
+    "eng": "Tempting business: talk to Sultan",
+    "pol": "Kusz�cy interes: porozmawiaj z Su�tanem",
+    "rus": "Заманчивый бизнес: поговорить с Султаном",
+    "ukr": "Привабливий бізнес: поговорити із Султаном"
+  },
+  "zat_b30_sultan_task_1_text": {
+    "eng": "Owl the trader believes that Beard is not sticking to the agreement and suggests you contact Sultan, the local crime boss, for help.",
+    "pol": "Handlarz Sowa uwa�a, �e Brodacz nie wywi�zuje si� z umowy i sugeruje, by zg�osi� si� po pomoc do Su�tana, bossa miejscowej mafii.",
+    "rus": "Торговец Сыч считает, что Борода не выполняет условия сделки, и советует обратится за помощью к местному авторитету - Султану.",
+    "ukr": "Торговець Сич вважає, що Борода не виконує умови угоди, і радить звернутися по допомогу до місцевого авторитета Султана."
+  },
+  "zat_b30_sultan_task_2_name": {
+    "eng": "Shady business: take detectors from stalkers ",
+    "pol": "Ciemne interesy: zabierz stalkerom detektory ",
+    "rus": "Тёмный бизнес: забрать детекторы у сталкеров",
+    "ukr": "Темний бізнес: забрати детектори в сталкерів"
+  },
+  "zat_b30_sultan_task_2_text": {
+    "eng": "You must do whatever you can to take the detector prototypes away from the stalkers who are searching for artifacts for Beard. If he has no detectors, he'll have to agree to Sultan's terms.",
+    "pol": "Musisz zrobi� co w twojej mocy, by zabra� prototypy detektor�w stalkerom szukaj�cym artefakt�w dla Brodacza. Je�li nie b�dzie mia� detektor�w, b�dzie musia� przysta� na warunki Su�tana.",
+    "rus": "Необходимо любым способом отобрать прототипы детекторов у сталкеров, которые ищут артефакты для Бороды. Когда Борода лишится детекторов, ему придётся согласиться на условия Султана.",
+    "ukr": "Необхідно в будь-який спосіб відібрати прототипи детекторів у сталкерів, які шукають артефакти для Бороди. Коли Борода втратить детектори, йому доведеться погодитися на умови Султана."
+  },
+  "zat_b30_sultan_task_3_name": {
+    "eng": "Shady business: talk to Sultan",
+    "pol": "Ciemne interesy: porozmawiaj z Su�tanem",
+    "rus": "Тёмный бизнес: поговорить с Султаном",
+    "ukr": "Темний бізнес: поговорити із Султаном"
+  },
+  "zat_b30_sultan_task_3_text": {
+    "eng": "Beard doesn't have the detectors, so you should speak to Sultan to find out whether he has resolved the problem with Beard's other suppliers.",
+    "pol": "Brodacz nie ma detektor�w, wi�c trzeba porozmawia� z Su�tanem, by dowiedzie� si�, czy rozwi�za� problem z jego pozosta�ymi dostawcami.",
+    "rus": "Борода уже лишился детекторов. Нужно прийти к Султану и узнать, решил ли он проблему с другими поставщиками Бороды.",
+    "ukr": "Борода уже втратив детектори. Треба прийти до Султана й довідатися, чи вирішив він проблему з іншими постачальниками Бороди."
+  },
+  "zat_b30_sultan_task_4_name": {
+    "eng": "Shady business: force Beard to work for Sultan",
+    "pol": "Ciemne interesy: zmu� Brodacza, by pracowa� dla Su�tana",
+    "rus": "Тёмный бизнес: заставить Бороду работать на Султана",
+    "ukr": "Темний бізнес: змусити Бороду працювати на Султана"
+  },
+  "zat_b30_sultan_task_4_text": {
+    "eng": "Now that Beard no longer has any suppliers or detectors, he can't do anything on his own - force him to work for Sultan.",
+    "pol": "Teraz, gdy Brodacz nie ma dostawc�w i detektor�w, nie mo�e nic zrobi� na w�asn� r�k� - zmu� go, by pracowa� dla Su�tana.",
+    "rus": "Теперь Борода не сможет вести дела самостоятельно: у него нет ни поставщиков, ни детекторов. Нужно заставить его работать на Султана.",
+    "ukr": "Тепер Борода не зможе вести справи самостійно: у нього немає ані постачальників, ані детекторів. Треба змусити його працювати на Султана."
+  },
+  "zat_b30_sultan_task_6_name": {
+    "eng": "Shady business: find out about Beard's current business",
+    "pol": "Ciemne interesy: zdob�d� informacje o aktualnych interesach Brodacza",
+    "rus": "Тёмный бизнес: узнать о нынешних делах Бороды",
+    "ukr": "Темний бізнес: довідатися про нинішні справи Бороди"
+  },
+  "zat_b30_sultan_task_6_text": {
+    "eng": "You need to find out what business Beard is involved in at the moment. This will help you cut off his supply channels.",
+    "pol": "Musisz dowiedzie� si�, w jakie interesy jest w tej chwili zaanga�owany Brodacz. Pomo�e to odci�� jego �r�d�a zaopatrzenia.",
+    "rus": "Необходимо узнать, какими делами в данный момент занимается Борода. Это поможет перекрыть каналы его поставок.",
+    "ukr": "Необхідно довідатися, якими справами на поточний момент займається Борода. Це допоможе перекрити канали його постачань."
+  },
+  "zat_b30_sultan_task_7_name": {
+    "eng": "Shady business: take the second detector away from stalkers ",
+    "pol": "Ciemne interesy: zabierz stalkerom drugi detektor ",
+    "rus": "Тёмный бизнес: забрать второй детектор у сталкеров",
+    "ukr": "Темний бізнес: забрати другий детектор у сталкерів"
+  },
+  "zat_b30_sultan_task_7_text": {
+    "eng": "You must do whatever you can to take the detector prototypes away from the stalkers who are searching for artifacts for Beard. If he has no detectors, he'll have to agree to Sultan's terms.",
+    "pol": "Musisz zrobi� co w twojej mocy, by zabra� prototypy detektor�w stalkerom szukaj�cym artefakt�w dla Brodacza. Je�li nie b�dzie mia� detektor�w, b�dzie musia� przysta� na warunki Su�tana.",
+    "rus": "Необходимо любым способом отобрать прототипы детекторов у сталкеров, которые ищут артефакты для Бороды. Когда Борода лишится детекторов, ему придётся согласиться на условия Султана.",
+    "ukr": "Необхідно в будь-який спосіб відібрати прототипи детекторів у сталкерів, які шукають артефакти для Бороди. Коли Борода втратить детектори, йому доведеться погодитися на умови Султана."
+  },
+  "zat_b30_task_1_name": {
+    "eng": "Tempting business: bring Novikov three Veles detectors",
+    "pol": "Kusz�cy interes: przynie� Nowikowowi trzy detektory Weles",
+    "rus": "Заманчивый бизнес: принести Новикову три детектора «Велес»",
+    "ukr": "Привабливий бізнес: принести Новікову три детектори «Велес»"
+  },
+  "zat_b30_task_1_text": {
+    "eng": "Owl the trader has offered you to participate in a lucrative venture. Your job is to find three Veles detectors and take them to Novikov in the scientists' bunker.",
+    "pol": "Handlarz Sowa zaoferowa� ci udzia� w zyskownym przedsi�wzi�ciu. Twoim zadaniem jest odnalezienie trzech detektor�w Weles i zaniesienie ich Nowikowowi do bunkra naukowc�w.",
+    "rus": "Торговец Сыч предложил участвовать в одном прибыльном деле. Для этого надо найти три детектора «Велес», отнести их в бункер учёных и отдать Новикову.",
+    "ukr": "Торговець Сич запропонував узяти участь в одній прибутковій справі. Для цього треба знайти три детектори «Велес», віднести їх до бункеру вчених і віддати Новікову."
+  },
+  "zat_b30_task_2_name": {
+    "eng": "Tempting business: wait until Owl gets the detectors",
+    "pol": "Kusz�cy interes: poczekaj, a� Sowa dostanie detektory",
+    "rus": "Заманчивый бизнес: дождаться получения детекторов Сычом",
+    "ukr": "Привабливий бізнес: дочекатися одержання детекторів Сичем"
+  },
+  "zat_b30_task_2_text": {
+    "eng": "Novikov accepted the detectors and promised to send them back to Owl himself. You need to wait for him to finish working with the detectors and then find out about the results from Owl.",
+    "pol": "Nowikow przyj�� detektory i obieca� osobi�cie odes�a� je Sowie. Musisz poczeka�, a� sko�czy prac� z detektorami i dowiedzie� si� o wynikach od Sowy.",
+    "rus": "Новиков взял детекторы и сказал, что сам переправит их Сычу обратно. Необходимо подождать, пока Новиков поработает с детекторами, а потом узнать у Сыча результаты.",
+    "ukr": "Новіков узяв детектори і сказав, що назад переправить їх Сичеві сам. Треба почекати, поки Новіков попрацює з детекторами, а потім довідатися в Сича результати."
+  },
+  "zat_b30_task_3_name": {
+    "eng": "Tempting business: talk to Owl",
+    "pol": "Kusz�cy interes: porozmawiaj z Sow�",
+    "rus": "Заманчивый бизнес: поговорить с Сычом",
+    "ukr": "Привабливий бізнес: поговорити із Сичем"
+  },
+  "zat_b30_task_3_text": {
+    "eng": "Owl the trader has contacted you by radio to tell you that he's having problems and that he wants to see you.",
+    "pol": "Handlarz Sowa skontaktowa� si� z tob� przez radio, by powiedzie� ci, �e ma problemy i �e chce si� z tob� zobaczy�.",
+    "rus": "Торговец Сыч по рации передал, что у него возникли проблемы, и попросил зайти к нему.",
+    "ukr": "Торговець Сич по рації передав, що в нього виникли проблеми, і попрохав зайти до нього."
+  },
+  "zat_b30_task_4_name": {
+    "eng": "Tempting business: convince Beard to stick to the agreement",
+    "pol": "Kusz�cy interes: przekonaj Brodacza, by wywi�za� si� z umowy",
+    "rus": "Заманчивый бизнес: убедить Бороду следовать договоренности",
+    "ukr": "Привабливий бізнес: переконати Бороду дотримуватися домовленостей"
+  },
+  "zat_b30_task_4_text": {
+    "eng": "Owl the trader believes that Beard is not sticking to the agreement. You need to talk to him and convince to quit violating the agreement.",
+    "pol": "Handlarz Sowa uwa�a, �e Brodacz nie wywi�zuje si� z umowy. Musisz z nim porozmawia� i przekona� go, by przesta� �ama� jej warunki.",
+    "rus": "Торговец Сыч считает что Борода не выполняет условия сделки. Необходимо поговорить с Бородой и вынудить того придерживаться договорённостей.",
+    "ukr": "Торговець Сич вважає, що Борода не виконує умови угоди. Необхідно поговорити з Бородою і примусити того дотримуватися домовленостей."
+  },
+  "zat_b30_task_5_name": {
+    "eng": "Tempting business: demand a cut from Owl",
+    "pol": "Kusz�cy interes: za��daj swojej doli od Sowy",
+    "rus": "Заманчивый бизнес: потребовать долю у Сыча",
+    "ukr": "Привабливий бізнес: зажадати долю в Сича"
+  },
+  "zat_b30_task_5_text": {
+    "eng": "Beard believes he doesn't owe Owl anything - you need to find out who is right and demand your cut from that person.",
+    "pol": "Brodacz uwa�a, �e nic nie jest Sowie winien - musisz dowiedzie� si�, kto ma racj�, i za��da� zap�aty od tej osoby.",
+    "rus": "Борода не признаёт, что должен Сычу. Необходимо выяснить, кто из торговцев прав, и потребовать у провинившегося свою долю.",
+    "ukr": "Борода не визнає, що заборгував Сичеві. Необхідно з'ясувати, хто з торговців правий, і зажадати у винного свою частку."
+  },
+  "zat_b33_zaporojec_text_01": {
+    "eng": "Snag has asked you to bring him his container. He hid it in an old Zaporozhets car, which fell into a crack following an earthquake. Snag is afraid to go down there because it's full of snorks.",
+    "pol": "S�k poprosi� ci� o przyniesienie jego pude�ka. Ukry� je w starym samochodzie Zaporo�ec, kt�ry wpad� do rozpadliny po trz�sieniu ziemi. S�k boi si� p�j�� tam samemu, bo roi si� tam od snork�w.",
+    "rus": "Сталкер Коряга просит раздобыть контейнер с его вещами. Контейнер он спрятал в старый «Запорожец», но после землетрясения машина провалилась в разлом. Сам Коряга опасается спускаться вниз: там водятся снорки.",
+    "ukr": "Сталкер Корч просить роздобути контейнер із його речами. Контейнер він сховав до старого «Запорожця», та після землетрусу машина провалилася до розлому. Сам Корч побоюється спускатися вниз: там водяться снорки."
+  },
+  "zat_b33_zaporojec_text_02": {
+    "eng": "You have Snag's container and you should now take it back to the owner to split its contents fairly.",
+    "pol": "Masz pude�ko S�ka. Zanie� je do w�a�ciciela, by sprawiedliwie podzieli� si� jego zawarto�ci�.",
+    "rus": "Контейнер Коряги получен. Теперь нужно отнести его владельцу и по-честному разделить содержимое.",
+    "ukr": "Контейнер Корча отримано. Тепер слід віднести його власникові по-чесному й розділити вміст."
+  },
+  "zat_b38_den_of_the_bloodsucker_inform_stalkers_name": {
+    "eng": "Bloodsucker lair: tell the stalkers",
+    "pol": "Legowisko pijawek: powiadom stalker�w",
+    "rus": "Логово кровососов: рассказать сталкерам",
+    "ukr": "Лігвище кровососів: розповісти сталкерам"
+  },
+  "zat_b38_den_of_the_bloodsucker_inform_stalkers_text": {
+    "eng": "You need to inform stalkers about the bloodsucker lair under the Krug antenna complex.",
+    "pol": "Musisz poinformowa� stalker�w o legowisku pijawek pod stacj� antenow� Krug.",
+    "rus": "Нужно сообщить сталкерам о логове кровососов, обнаруженном под ВНЗ «Круг».",
+    "ukr": "Потрібно повідомити сталкерам про лігвище кровососів, виявлене під ВНЗ «Коло»."
+  },
+  "zat_b38_den_of_the_bloodsucker_tell_barman_about_all_name": {
+    "eng": "Bloodsucker lair: tell Beard",
+    "pol": "Legowisko pijawek: powiadom Brodacza",
+    "rus": "Логово кровососов: рассказать Бороде",
+    "ukr": "Лігвище кровососів: розповісти Бороді"
+  },
+  "zat_b38_den_of_the_bloodsucker_tell_barman_about_all_text": {
+    "eng": "You must tell Beard about the bloodsucker lair found underneath the Krug antenna complex so that he can decide on how to protect the stalkers.",
+    "pol": "Musisz powiadomi� Brodacza o legowisku pijawek znalezionym pod stacj� antenow� Krug, �eby m�g� zdecydowa�, w jaki spos�b chroni� stalker�w.",
+    "rus": "Необходимо рассказать Бороде о логове кровососов, обнаруженном под ВНЗ «Круг»: он знает, что предпринять для безопасности сталкеров.",
+    "ukr": "Необхідно розповісти Бороді про лігвище кровососів, виявлене під ВНЗ «Коло»: він знає, яких заходів ужити для убезпечення сталкерів."
+  },
+  "zat_b38_disappearance_stalkers_clean_den_of_the_bloodsucker_name": {
+    "eng": "Missing stalkers: follow Grouse",
+    "pol": "Zaginieni stalkerzy: pod��aj za G�uszcem",
+    "rus": "Исчезновение сталкеров: следовать за Глухарем",
+    "ukr": "Зникнення сталкерів: іти за Глухарем"
+  },
+  "zat_b38_disappearance_stalkers_clean_den_of_the_bloodsucker_text": {
+    "eng": "Grouse has asked you to investigate the abandoned antenna complex building with him. He spotted bloodsuckers and wants to check if the hunter is there.",
+    "pol": "G�uszec poprosi� ci� o zbadanie razem z nim opuszczonego budynku stacji antenowej. Dostrzeg� pijawki i chce sprawdzi�, czy znajduje si� tam �owca.",
+    "rus": "Глухарь просит обследовать вместе с ним заброшенное здание ВНЗ. Он заметил кровососов и хочет проверить, нет ли тут охотника.",
+    "ukr": "Глухар прохає обстежити разом із ним закинуту будівлю ВНЗ. Він помітив кровососів і хоче перевірити, чи немає тут мисливця."
+  },
+  "zat_b38_disappearance_stalkers_deal_with_medic_name": {
+    "eng": "Missing stalkers: find out what happened",
+    "pol": "Zaginieni stalkerzy: dowiedz si� co si� sta�o",
+    "rus": "Исчезновение сталкеров: разобраться, что произошло",
+    "ukr": "Зникнення сталкерів: розібратися, що сталося"
+  },
+  "zat_b38_disappearance_stalkers_deal_with_medic_text": {
+    "eng": "Looks like Tremor isn't as innocent as he seemed. You need to work out what happened.",
+    "pol": "Wygl�da na to, �e Wstrz�s nie jest takim niewini�tkiem, jak si� wydawa�o. Musisz odkry�, co si� sta�o.",
+    "rus": "Кажется, Тремор не так уж безобиден. Нужно разобраться, что здесь произошло.",
+    "ukr": "Здається, Тремор не такий уже й невинний. Треба розібратися, що тут сталося."
+  },
+  "zat_b38_disappearance_stalkers_find_cop_near_port_krans_name": {
+    "eng": "Missing stalkers: find Grouse",
+    "pol": "Zaginieni stalkerzy: znajd� G�uszca",
+    "rus": "Исчезновение сталкеров: найти Глухаря",
+    "ukr": "Зникнення сталкерів: знайти Глухаря"
+  },
+  "zat_b38_disappearance_stalkers_find_cop_near_port_krans_text": {
+    "eng": "Grouse went towards the dock cranes for some reason - maybe he found something out about the missing stalkers, so you should look for him there.",
+    "pol": "Z jakiego� powodu G�uszec uda� si� w stron� d�wig�w portowych - mo�e dowiedzia� si� czego� o zaginionych stalkerach. Poszukaj go tam.",
+    "rus": "Глухарь зачем-то пошёл к портовым кранам - возможно, что-то узнал про пропавших сталкеров. Нужно поискать его там.",
+    "ukr": "Глухар нащось пішов до портових кранів - можливо, щось довідався про зниклих сталкерів. Треба пошукати його там."
+  },
+  "zat_b38_disappearance_stalkers_find_out_where_is_cop_name": {
+    "eng": "Missing stalkers: find out where Grouse is",
+    "pol": "Zaginieni stalkerzy: dowiedz si�, gdzie jest G�uszec",
+    "rus": "Исчезновение сталкеров: разузнать, где Глухарь",
+    "ukr": "Зникнення сталкерів: дізнатися, де Глухар"
+  },
+  "zat_b38_disappearance_stalkers_find_out_where_is_cop_text": {
+    "eng": "Grouse isn't where he normally is. You should ask Beard where he went.",
+    "pol": "G�uszca nie ma tam, gdzie normalnie bywa. Zapytaj Brodacza, dok�d poszed�.",
+    "rus": "Глухаря нет на его привычном месте. Стоит спросить у Бороды, куда тот отправился.",
+    "ukr": "Глухаря нема на звичному місці. Варто запитати в Бороди, куди той попрямував"
+  },
+  "zat_b38_disappearance_stalkers_find_to_be_missing_hunter_name": {
+    "eng": "Missing stalkers: find the missing hunter",
+    "pol": "Zaginieni stalkerzy: znajd� zaginionego �owc�",
+    "rus": "Исчезновение сталкеров: найти пропавшего охотника",
+    "ukr": "Зникнення сталкерів: знайти зниклого мисливця"
+  },
+  "zat_b38_disappearance_stalkers_find_to_be_missing_hunter_text": {
+    "eng": "Grouse has asked you to help with finding the missing hunter. The hunter was supposed to find the bloodsucker lair. According to current information, it is bloodsuckers who are responsible for recent stalker disappearances.",
+    "pol": "G�uszec poprosi� ci� o pomoc w poszukiwaniach zaginionego �owcy. Mia� on odnale�� legowisko pijawek. Wed�ug aktualnych informacji, to pijawki s� odpowiedzialne za ostatnie znikni�cia stalker�w.",
+    "rus": "Глухарь просил помочь в поисках пропавшего охотника, который искал логово кровососов. Судя по имеющимся сведениям, именно кровососы причастны ко всем недавним исчезновениям сталкеров.",
+    "ukr": "Глухар просив допомогти у пошуках зниклого мисливця, який виглядав лігвище кровососів. Судячи з наявних відомостей, саме кровососи причетні до всіх недавніх зникнень сталкерів."
+  },
+  "zat_b38_disappearance_stalkers_get_out_from_den_of_the_bloodsucker_name": {
+    "eng": "Missing stalkers: get out of the bloodsucker lair",
+    "pol": "Zaginieni stalkerzy: wydosta� si� z legowiska pijawek",
+    "rus": "Исчезновение сталкеров: выбраться из логова кровососов",
+    "ukr": "Зникнення сталкерів: вибратися з лігвища кровососів"
+  },
+  "zat_b38_disappearance_stalkers_get_out_from_den_of_the_bloodsucker_text": {
+    "eng": "You discovered a bloodsucker lair in the basement and that its residents are in some kind of daze. You should get out of here and do it quietly.",
+    "pol": "Uda�o ci si� odkry� legowisko pijawek w piwnicach. Znajduj� si� one w jakim� stanie odr�twienia. Musisz si� st�d wydosta�, zachowuj�c cisz�.",
+    "rus": "В подвале обнаружилось логово кровососов, причём твари находятся в состоянии странного оцепенения. Нужно выбраться отсюда - и при этом очень желательно не шуметь.",
+    "ukr": "У підвалі виявилося лігвище кровососів, причому тварини знаходяться у стані дивного заціпеніння. Потрібно вибратися звідси - і при цьому дуже бажано не шуміти."
+  },
+  "zat_b38_disappearance_stalkers_meet_cop_24h_past_name": {
+    "eng": "Missing stalkers: meet Grouse",
+    "pol": "Zaginieni stalkerzy: spotkaj si� z G�uszcem",
+    "rus": "Исчезновение сталкеров: встретиться с Глухарём",
+    "ukr": "Зникнення сталкерів: зустрітися із Глухарем"
+  },
+  "zat_b38_disappearance_stalkers_meet_cop_24h_past_text": {
+    "eng": "You should probably meet Grouse and discuss the search for the missing hunter.",
+    "pol": "Prawdopodobnie nale�y teraz porozmawia� z G�uszcem na temat poszukiwania zaginionego �owcy.",
+    "rus": "Пожалуй, стоит встретится с Глухарём и поговорить о дальнейших поисках охотника.",
+    "ukr": "Мабуть, варто зустрітися із Глухарем і поговорити про подальші пошуки мисливця."
+  },
+  "zat_b38_disappearance_stalkers_meet_cop_later_name": {
+    "eng": "Missing stalkers: meet Grouse later",
+    "pol": "Zaginieni stalkerzy: spotkaj si� p�niej z G�uszcem",
+    "rus": "Исчезновение сталкеров: встретиться с Глухарём позже",
+    "ukr": "Зникнення сталкерів: зустрітися із Глухарем пізніше"
+  },
+  "zat_b38_disappearance_stalkers_meet_cop_later_text": {
+    "eng": "There was no trace of Danila the hunter in the antenna complex building. However, Grouse seems to be perplexed by what you found inside and he asked you to meet him later to discuss the matter in more detail.",
+    "pol": "W budynku stacji antenowej nie by�o �ladu po �owcy Danile. Jednak G�uszec wydawa� si� zak�opotany tym, co uda�o ci si� tam znale��. Poprosi� ci� o spotkanie si� z nim p�niej, aby bardziej szczeg�owo om�wi� t� kwesti�.",
+    "rus": "В здании не оказалось никаких следов Данилы-охотника. Однако Глухарь, кажется, озадачен тем, что удалось обнаружить внутри ВНЗ; он просит встретится с ним позже - хочет разузнать какие-то детали.",
+    "ukr": "У будинку не виявилося жодних слідів Данила-мисливця. Однак Глухар, здається, здивований тим, що вдалося знайти всередині ВНЗ; він просить зустрітися із ним пізніше - хоче дізнатися якісь деталі."
+  },
+  "zat_b38_disappearance_stalkers_meet_ment_name": {
+    "eng": "Missing stalkers: meet Grouse",
+    "pol": "Zaginieni stalkerzy: spotkaj si� z G�uszcem",
+    "rus": "Исчезновение сталкеров: встретиться с Глухарем",
+    "ukr": "Зникнення сталкерів: зустрітися із Глухарем"
+  },
+  "zat_b38_disappearance_stalkers_meet_ment_text": {
+    "eng": "The place Grouse indicated had a dead bloodsucker and no signs of Danila the hunter. However, it seems that Grouse has found something interesting and he's asking you to join him.",
+    "pol": "W miejscu, kt�re wskaza� G�uszec, by�a martwa pijawka i �adnych �lad�w �owcy Dani�y. Wydaje si� jednak, �e G�uszec znalaz� co� interesuj�cego i prosi ci� o towarzyszenie mu.",
+    "rus": "В месте, указанном Глухарём, был только мёртвый кровосос и никаких следов охотника Данилы. Но сам Глухарь, очевидно, нашёл что-то интересное и просит присоединиться к нему.",
+    "ukr": "У місці, зазначеному Глухарем, був тільки мертвий кровосос і жодних слідів мисливця Данила. Але сам Глухар, мабуть, знайшов щось цікаве і просить приєднатися до нього."
+  },
+  "zat_b38_disappearance_stalkers_tell_barmen_about_medic_text": {
+    "eng": "As it turns out, bloodsuckers had nothing to do with stalker disappearances - it was Tremor, the Skadovsk medic.",
+    "pol": "Jak si� okaza�o, pijawki nie mia�y nic wsp�lnego ze znikni�ciami stalker�w - to by�a sprawka Wstrz�sa, skadowskiego medyka.",
+    "rus": "Как выяснилось, в исчезновении сталкеров виноваты не кровососы, а Тремор - медик со «Скадовска».",
+    "ukr": "Як з'ясувалося, у зникненні сталкерів винуваті не кровососи, а Тремор - медик зі «Скадовська»."
+  },
+  "zat_b3_get_tools_1_2_name": {
+    "eng": "Tools: bring Cardan tools",
+    "pol": "Narz�dzia: przynie� Kardanowi narz�dzia",
+    "rus": "Инструменты: принести инструменты Кардану",
+    "ukr": "Інструменти: принести інструменти Карданові"
+  },
+  "zat_b3_get_tools_1_2_text": {
+    "eng": "Cardan has asked you to get two sets of tools: one for basic work and one for fine work. The technician will pay you for the tools and will be able to perform more advanced weapon and armor modifications.",
+    "pol": "Kardan poprosi� ci� o zdobycie dw�ch zestaw�w narz�dzi: jednego podstawowego i jednego do precyzyjnej pracy. Technik zap�aci ci za narz�dzia i b�dzie w stanie wykona� bardziej zaawansowane modyfikacje broni i pancerzy.",
+    "rus": "Кардан просил найти два набора инструментов: один для тонкой работы, другой для грубой. Техник заплатит за инструмент и, кроме того, сможет обеспечить более сложную модернизацию оружия или бронежилета.",
+    "ukr": "Кардан просив знайти два набори інструментів: один для тонкої роботи, інший для грубої. Технік заплатить за інструмент і, крім того, зможе забезпечити складнішу модернізацію зброї чи бронежилета."
+  },
+  "zat_b3_get_tools_1_3_name": {
+    "eng": "Tools: bring Cardan tools",
+    "pol": "Narz�dzia: przynie� Kardanowi narz�dzia",
+    "rus": "Инструменты: принести инструменты Кардану",
+    "ukr": "Інструменти: принести інструменти Карданові"
+  },
+  "zat_b3_get_tools_1_3_text": {
+    "eng": "Cardan has asked you to get two sets of tools: one for basic work and one for calibration. The technician will pay you for the tools and will be able to perform more advanced weapon and armor modifications.",
+    "pol": "Kardan poprosi� ci� o zdobycie dw�ch zestaw�w narz�dzi: jednego podstawowego i jednego do kalibracji. Technik zap�aci ci za narz�dzia i b�dzie w stanie wykona� bardziej zaawansowane modyfikacje broni i pancerzy.",
+    "rus": "Кардан просил найти два набора инструментов: один для грубой работы, другой для калибровки. Техник заплатит за инструмент и, кроме того, сможет обеспечить более сложную модернизацию оружия или бронежилета.",
+    "ukr": "Кардан просив знайти два набори інструментів: один для грубої роботи, інший для калібрування. Технік заплатить за інструмент і, крім того, зможе забезпечити складнішу модернізацію зброї чи бронежилета."
+  },
+  "zat_b3_get_tools_1_name": {
+    "eng": "Tools: bring Cardan tools",
+    "pol": "Narz�dzia: przynie� Kardanowi narz�dzia",
+    "rus": "Инструменты: принести инструменты Кардану",
+    "ukr": "Інструменти: принести інструменти Карданові"
+  },
+  "zat_b3_get_tools_1_text": {
+    "eng": "Cardan has asked you to get a set of tools for basic work. The technician will pay you for the tools and will be able to perform more advanced weapon and armor modifications.",
+    "pol": "Kardan poprosi� ci� o zdobycie zestawu narz�dzi podstawowych. Technik zap�aci ci za narz�dzia i b�dzie w stanie wykona� bardziej zaawansowane modyfikacje broni i pancerzy.",
+    "rus": "Кардан просил найти набор инструментов для грубой работы. Техник заплатит за инструмент и, кроме того, сможет обеспечить более сложную модернизацию оружия или бронежилета.",
+    "ukr": "Кардан просив знайти набір інструментів для грубої роботи. Технік заплатить за інструмент і, крім того, зможе забезпечити складнішу модернізацію зброї чи бронежилета."
+  },
+  "zat_b3_get_tools_2_3_name": {
+    "eng": "Tools: bring Cardan tools",
+    "pol": "Narz�dzia: przynie� Kardanowi narz�dzia",
+    "rus": "Инструменты: принести инструменты Кардану",
+    "ukr": "Інструменти: принести інструменти Карданові"
+  },
+  "zat_b3_get_tools_2_3_text": {
+    "eng": "Cardan has asked you to get two sets of tools: one for fine work and one for calibration. The technician will pay you for the tools and will be able to perform more advanced weapon and armor modifications.",
+    "pol": "Kardan poprosi� ci� o zdobycie dw�ch zestaw�w narz�dzi: jednego do precyzyjnej pracy i jednego do kalibracji. Technik zap�aci ci za narz�dzia i b�dzie w stanie wykona� bardziej zaawansowane modyfikacje broni i pancerzy.",
+    "rus": "Кардан просил найти два набора инструментов: один для тонкой работы, другой для калибровки. Техник заплатит за инструмент и, кроме того, сможет обеспечить более сложную модернизацию оружия или бронежилета.",
+    "ukr": "Кардан просив знайти два набори інструментів: один для тонкої роботи, інший для калібрування. Технік заплатить за інструмент і, крім того, зможе забезпечити складнішу модернізацію зброї чи бронежилета."
+  },
+  "zat_b3_get_tools_2_name": {
+    "eng": "Tools: bring Cardan tools",
+    "pol": "Narz�dzia: przynie� Kardanowi narz�dzia",
+    "rus": "Инструменты: принести инструменты Кардану",
+    "ukr": "Інструменти: принести інструменти Карданові"
+  },
+  "zat_b3_get_tools_2_text": {
+    "eng": "Cardan has asked you to get a set of tools for fine work. The technician will pay you for the tools and will be able to perform more advanced weapon and armor modifications.",
+    "pol": "Kardan poprosi� ci� o zdobycie zestawu narz�dzi do precyzyjnej pracy. Technik zap�aci ci za narz�dzia i b�dzie w stanie wykona� bardziej zaawansowane modyfikacje broni i pancerzy.",
+    "rus": "Кардан просил найти набор инструментов для тонкой работы. Техник заплатит за инструмент и, кроме того, сможет обеспечить более сложную модернизацию оружия или бронежилета.",
+    "ukr": "Кардан просив знайти набір інструментів для тонкої роботи. Технік заплатить за інструмент і, крім того, зможе забезпечити складнішу модернізацію зброї чи бронежилета."
+  },
+  "zat_b3_get_tools_3_name": {
+    "eng": "Tools: bring Cardan tools",
+    "pol": "Narz�dzia: przynie� Kardanowi narz�dzia",
+    "rus": "Инструменты: принести инструменты Кардану",
+    "ukr": "Інструменти: принести інструменти Карданові"
+  },
+  "zat_b3_get_tools_3_text": {
+    "eng": "Cardan has asked you to get a set of tools for calibration. The technician will pay you for the tools and will be able to perform more advanced weapon and armor modifications.",
+    "pol": "Kardan poprosi� ci� o zdobycie zestawu narz�dzi do kalibracji. Technik zap�aci ci za narz�dzia i b�dzie w stanie wykona� bardziej zaawansowane modyfikacje broni i pancerzy.",
+    "rus": "Кардан просил найти набор инструментов для калибровки. Техник заплатит за инструмент и, кроме того, сможет обеспечить более сложную модернизацию оружия или бронежилета.",
+    "ukr": "Кардан просив знайти набір інструментів для калібрування. Технік заплатить за інструмент і, крім того, зможе забезпечити складнішу модернізацію зброї чи бронежилета."
+  },
+  "zat_b3_mechanic_toolkit_search_name": {
+    "eng": "Tools: bring Cardan tools",
+    "pol": "Narz�dzia: przynie� Kardanowi narz�dzia",
+    "rus": "Инструменты: принести инструменты Кардану",
+    "ukr": "Інструменти: принести інструменти Карданові"
+  },
+  "zat_b3_mechanic_toolkit_search_text": {
+    "eng": "Cardan has asked you to get three sets of tools: one for basic work, one for fine work and one for calibration. The technician will pay you for the tools and will be able to perform more advanced weapon and armor modifications.",
+    "pol": "Kardan poprosi� ci� o zdobycie trzech zestaw�w narz�dzi: jednego podstawowego, jednego do precyzyjnej pracy i jednego do kalibracji. Technik zap�aci ci za narz�dzia i b�dzie w stanie wykona� bardziej zaawansowane modyfikacje broni i pancerzy.",
+    "rus": "Кардан просил найти три набора инструментов: для грубой работы, для тонкой работы плюс набор для калибровки. Техник заплатит за инструмент и, кроме того, сможет обеспечить более сложную модернизацию оружия или бронежилета.",
+    "ukr": "Кардан просив знайти три набори інструментів: для грубої роботи, для тонкої роботи плюс набір для калібрування. Технік заплатить за інструмент і, крім того, зможе забезпечити складнішу модернізацію зброї чи бронежилета."
+  },
+  "zat_b40_reconnoitre_merc_camp_01_name": {
+    "eng": "Mercenary camp: take any information you can find",
+    "pol": "Ob�z najemnik�w: wynie� wszystkie informacje, jakie uda ci si� znale��",
+    "rus": "Лагерь наёмников: забрать любую найденную информацию",
+    "ukr": "Табір найманців: забрати будь-яку знайдену інформацію"
+  },
+  "zat_b40_reconnoitre_merc_camp_01_text": {
+    "eng": "Owl the trader promised good payment for any media you can find in the mercenary camp at the waste processing station. He is interested in the mercenaries' plans.",
+    "pol": "Handlarz Sowa obieca� przyzwoit� zap�at� za jakiekolwiek informacje z obozu najemnik�w w zak�adzie utylizacji opad�w. Interesuj� go plany najemnik�w.",
+    "rus": "Торговец Сыч обещал хорошо заплатить за любой носитель информации, найденный в лагере наёмников на станции переработки отходов. Его интересуют планы наёмников.",
+    "ukr": "Торговець Сич обіцяв добре заплатити за будь-який носій інформації, знайдений у таборі найманців на станції переробляння відходів. Його цікавлять плани найманців."
+  },
+  "zat_b40_reconnoitre_merc_camp_02_name": {
+    "eng": "Mercenary camp: take any information you can find",
+    "pol": "Ob�z najemnik�w: wynie� wszystkie informacje, jakie uda ci si� znale��",
+    "rus": "Лагерь наёмников: унести с собой любую найденную информацию",
+    "ukr": "Табір найманців: забрати із собою будь-яку знайдену інформацію"
+  },
+  "zat_b40_reconnoitre_merc_camp_02_text": {
+    "eng": "Owl the trader promised good payment for any media you can find in the mercenary camp at the waste processing station. He is interested in the mercenaries' plans.",
+    "pol": "Handlarz Sowa obieca� przyzwoit� zap�at� za jakiekolwiek informacje z obozu najemnik�w w zak�adzie utylizacji opad�w. Interesuj� go plany najemnik�w.",
+    "rus": "Торговец Сыч обещал хорошо заплатить за любой носитель информации, найденный в лагере наёмников на станции переработки отходов. Его интересуют планы наёмников.",
+    "ukr": "Торговець Сич обіцяв добре заплатити за будь-який носій інформації, знайдений у таборі найманців на станції переробляння відходів. Його цікавлять плани найманців."
+  },
+  "zat_b44_tech_buddies_barge_name": {
+    "eng": "Three comrades: find out about Barge's fate",
+    "pol": "Trzej towarzysze: dowiedz si� czego� o losie Stoga",
+    "rus": "Три товарища: узнать о судьбе Баржи",
+    "ukr": "Три товариші: довідатися про долю Баржі"
+  },
+  "zat_b44_tech_buddies_barge_text": {
+    "eng": "Cardan asked you to pass on his apologies to his comrade, a stalker called Barge. They had an argument and Barge left in an unknown direction.",
+    "pol": "Kardan poprosi� ci� o przekazanie przeprosin swojemu towarzyszowi, stalkerowi znanemu jako St�g. Pok��cili si� i St�g odszed� w nieznanym kierunku.",
+    "rus": "Кардан просил передать извинения своему товарищу - сталкеру по кличке Баржа. Они разругались, и тот ушёл в неизвестном направлении.",
+    "ukr": "Кардан просив передати вибачення своєму товаришеві - сталкеру на прізвисько Баржа. Вони посварилися, і той пішов у невідомому напрямку."
+  },
+  "zat_b44_tech_buddies_both_name": {
+    "eng": "Three comrades: find out about Barge's and Joker's fates",
+    "pol": "Trzej towarzysze: dowiedz si� czego� o losach Stoga i Kawalarza",
+    "rus": "Три товарища: узнать о судьбе Баржи и Шутника",
+    "ukr": "Три товариші: довідатися про долю Баржі та Жартівника"
+  },
+  "zat_b44_tech_buddies_both_text": {
+    "eng": "Cardan asked you to pass on his apologies to his comrades, stalkers called Barge and Joker. They had an argument and his comrades left in an unknown direction.",
+    "pol": "Kardan poprosi� ci� o przekazanie przeprosin swoim towarzyszom, stalkerom znanym jako St�g i Kawalarz. Pok��cili si� i jego towarzysze odeszli w nieznanym kierunku.",
+    "rus": "Кардан просил передать извинения своим товарищам - сталкерам Барже и Шутнику. После ссоры ребята ушли в неизвестном направлении.",
+    "ukr": "Кардан просив передати вибачення своїм товаришам - сталкерам Баржі і Жартівнику. Після сварки хлопці пішли в невідомому напрямку."
+  },
+  "zat_b44_tech_buddies_joker_name": {
+    "eng": "Three comrades: find out about Joker's fate",
+    "pol": "Trzej towarzysze: dowiedz si� czego� o losie Kawalarza",
+    "rus": "Три товарища: узнать о судьбе Шутника",
+    "ukr": "Три товариші: довідатися про долю Жартівника"
+  },
+  "zat_b44_tech_buddies_joker_text": {
+    "eng": "Cardan asked you to pass on his apologies to his comrade, a stalker called Joker. They had an argument and Joker left in an unknown direction.",
+    "pol": "Kardan poprosi� ci� o przekazanie przeprosin swojemu towarzyszowi, stalkerowi znanemu jako Kawalarz. Pok��cili si� i Kawalarz odszed� w nieznanym kierunku.",
+    "rus": "Кардан просил передать извинения своему товарищу - сталкеру по кличке Шутник. Они разругались, и тот ушёл в неизвестном направлении.",
+    "ukr": "Кардан просив передати вибачення своєму товаришеві - сталкеру на прізвисько Жартівник. Вони посварилися, і Жартівник пішов у невідомому напрямку."
+  },
+  "zat_b51_nimble_items_get_order_name": {
+    "eng": "Special order: collect the goods",
+    "pol": "Specjalne zam�wienie: odbierz towar",
+    "rus": "Особый заказ: забрать товар",
+    "ukr": "Особливе замовлення: забрати товар"
+  },
+  "zat_b51_nimble_items_get_order_text": {
+    "eng": "The goods have been delivered - time to collect them from Nimble.",
+    "pol": "Towar zosta� dostarczony - czas odebra� go od �wawego.",
+    "rus": "Заказ доставлен, необходимо забрать его у Шустрого.",
+    "ukr": "Замовлення доставлене, необхідно забрати його в Спритника."
+  },
+  "zat_b51_nimble_items_wait_order_name": {
+    "eng": "Special order: wait for delivery",
+    "pol": "Specjalne zam�wienie: poczekaj na dostaw�",
+    "rus": "Особый заказ: ожидать доставки",
+    "ukr": "Особливе замовлення: очікувати на доставку"
+  },
+  "zat_b51_nimble_items_wait_order_text": {
+    "eng": "The order has been made, so now you should wait for Nimble to get the goods.",
+    "pol": "Zam�wienie zosta�o z�o�one, teraz musisz poczeka�, a� �wawy dostanie towar.",
+    "rus": "Заказ сделан. Нужно подождать, пока Шустрый достанет товар.",
+    "ukr": "Замовлення зроблено. Доведеться почекати, поки Спритник дістане товар."
+  },
+  "zat_b52_reputation_find_snag_name": {
+    "eng": "Reputation: find Snag",
+    "pol": "Reputacja: znajd� S�ka",
+    "rus": "Репутация: найти Корягу",
+    "ukr": "Репутація: знайти Корча"
+  },
+  "zat_b52_reputation_find_snag_text": {
+    "eng": "You need to find Snag and force him to keep his mouth shut. Nimble has never dealt in stolen goods, while Snag seems dishonest more often than not. He was last seen by the dock cranes, so he could still be there.",
+    "pol": "Musisz znale�� S�ka i zmusi� go, �eby trzyma� g�b� na k��dk�. �wawy nigdy nie handlowa� kradzionym towarem, podczas gdy S�k wydaje si� by� z zasady nieuczciwy. Ostatnio widziano go przy d�wigach portowych. Mo�e wci�� tam jest.",
+    "rus": "Нужно найти Корягу и заставить его прикусить язык. Шустрый никогда не торговал краденым, а вот Коряга, скорее всего, здорово привык врать. В последний раз его видели у портовых кранов - возможно, он всё ещё там.",
+    "ukr": "Потрібно знайти Корча і змусити його прикусити язика. Спритник ніколи не торгував краденим, а от Корч, швидше за все, ще й як звик брехати. Востаннє його бачили біля портових кранів - можливо, він усе ще там."
+  },
+  "zat_b52_reputation_find_snag_text_2": {
+    "eng": "You need to find Snag and force him to keep his mouth shut. Snag is not by the dock cranes, but the bandits might know where he is.",
+    "pol": "Musisz znale�� S�ka i zmusi� go, �eby trzyma� g�b� na k��dk�. S�ka nie ma przy d�wigach portowych, ale bandyci mog� wiedzie�, gdzie go znale��.",
+    "rus": "Нужно найти Корягу и заставить его прикусить язык. У портовых кранов Коряги нет - но, возможно, бандиты знают, где он.",
+    "ukr": "Потрібно знайти Корча і змусити його прикусити язика. Біля портових кранів Корча немає - але, можливо, бандити знають, де він."
+  },
+  "zat_b52_reputation_find_snag_text_3": {
+    "eng": "You need to find Snag and force him to keep his mouth shut. It seems the bandits are involved in this, so they should know where to look for him.",
+    "pol": "Musisz znale�� S�ka i zmusi� go, �eby trzyma� g�b� na k��dk�. Wygl�da na to, �e bandyci s� w to zamieszani, wi�c powinni wiedzie�, gdzie go szuka�.",
+    "rus": "Нужно найти Корягу и заставить его прикусить язык. Кажется, бандиты замешаны в этом деле и знают, где искать Корягу.",
+    "ukr": "Треба знайти Корча і змусити його прикусити язика. Здається, бандити замішані у цій справі й знають, де він зараз є."
+  },
+  "zat_b52_reputation_find_snag_text_4": {
+    "eng": "You need to find Snag and force him to keep his mouth shut. There are no clues to his whereabouts at the moment.",
+    "pol": "Musisz znale�� S�ka i zmusi� go, �eby trzyma� g�b� na k��dk�. Na chwil� obecn� nie ma �adnych wskaz�wek, gdzie mo�na go znale��.",
+    "rus": "Нужно найти Корягу и заставить его прикусить язык. Пока нет никаких зацепок относительно его местонахождения.",
+    "ukr": "Потрібно знайти Корча і змусити його прикусити язика. Поки немає жодних зачіпок щодо його місцезнаходження."
+  },
+  "zat_b52_reputation_find_snag_text_5": {
+    "eng": "You need to find Snag and force him to keep his mouth shut. Judging by the PDA found on one of the bandits, Sultan's people are looking for Snag. Unfortunately, there aren't any clues as to where he can be found.",
+    "pol": "Musisz znale�� S�ka i zmusi� go, �eby trzyma� g�b� na k��dk�. Wnioskuj�c z PDA znalezionego przy jednym z bandyt�w, ludzie Su�tana szukaj� S�ka. Niestety, nie ma �adnych wskaz�wek, gdzie mo�na go znale��.",
+    "rus": "Нужно найти Корягу и заставить его прикусить язык. Судя по КПК, найденному у одного из бандитов, Корягу ищут люди Султана. Однако где именно его искать, не известно.",
+    "ukr": "Потрібно знайти Корча і змусити його прикусити язика. Судячи з КПК, знайденого в одного з бандитів, Корча шукають люди Султана. Однак де саме його шукати, невідомо."
+  },
+  "zat_b52_reputation_know_there_snog_name": {
+    "eng": "Reputation: find out where Snag disappeared to",
+    "pol": "Reputacja: dowiedz si�, gdzie znikn�� S�k",
+    "rus": "Репутация: узнать, куда пропал Коряга",
+    "ukr": "Репутація: довідатися, куди пропав Корч"
+  },
+  "zat_b52_reputation_know_there_snog_text": {
+    "eng": "Snag is not where he used to be, so you should ask the locals if they saw where he went.",
+    "pol": "S�ka nie ma tam, gdzie zwykle bywa�, musisz wi�c popyta� miejscowych, czy widzieli, gdzie poszed�.",
+    "rus": "На прежнем месте Коряги нет. Следует расспросить местных - возможно, кто-то видел, куда он делся.",
+    "ukr": "На колишнім місці Корча немає. Варто розпитати місцевих - можливо, хтось бачив, куди він подівся."
+  },
+  "zat_b52_reputation_know_there_snog_text_2": {
+    "eng": "You need to find Snag and force him to keep his mouth shut. He is not where he used to be. Maybe Sultan knows where Snag is.",
+    "pol": "Musisz znale�� S�ka i zmusi� go, �eby trzyma� g�b� na k��dk�. Nie ma go tam, gdzie zwykle bywa�. Mo�e Su�tan wie, gdzie go szuka�.",
+    "rus": "Нужно найти Корягу и заставить его прикусить язык. На прежнем месте его нет. Возможно, Султан знает, где найти Корягу.",
+    "ukr": "Потрібно знайти Корча і змусити його прикусити язика. На колишнім місці його немає. Можливо, Султан знає, де знайти Корча."
+  },
+  "zat_b52_reputation_know_there_snog_text_3": {
+    "eng": "You need to find Snag and force him to keep his mouth shut. He is not where he used to be. Maybe Beard knows where Snag is.",
+    "pol": "Musisz znale�� S�ka i zmusi� go, �eby trzyma� g�b� na k��dk�. Nie ma go tam, gdzie zwykle bywa�. Mo�e Brodacz wie, gdzie go szuka�.",
+    "rus": "Нужно найти Корягу и заставить его прикусить язык. На прежнем месте Коряги нет; возможно, Борода знает что-нибудь.",
+    "ukr": "Потрібно знайти Корч і змусити його прикусити язика. На колишнім місці Корча немає. Можливо, щось про це знає Борода."
+  },
+  "zat_b52_reputation_tell_snag_name": {
+    "eng": "Reputation: talk to Snag",
+    "pol": "Reputacja: porozmawiaj z S�kiem",
+    "rus": "Репутация: поговорить с Корягой",
+    "ukr": "Репутація: поговорити з Корчем"
+  },
+  "zat_b52_reputation_tell_snag_text": {
+    "eng": "You need to find Snag and force him to keep his mouth shut. Nimble has never dealt in stolen goods, while Snag seems dishonest more often than not.",
+    "pol": "Musisz znale�� S�ka i zmusi� go, �eby trzyma� g�b� na k��dk�. �wawy nigdy nie handlowa� kradzionym towarem, podczas gdy S�k wydaje si� by� z zasady nieuczciwy.",
+    "rus": "Нужно найти Корягу и заставить его прикусить язык. Шустрый никогда не торговал краденым, а вот Коряга, скорее всего, здорово привык врать.",
+    "ukr": "Потрібно знайти Корча і змусити його прикусити язика. Спритник ніколи не торгував краденим, а от Корч, швидше за все, ще й як звик брехати."
+  },
+  "zat_b57_den_of_the_bloodsucker_destroy_lair_name": {
+    "eng": "Bloodsucker lair: find the ventilation shaft",
+    "pol": "Legowisko pijawek: znajd� szyb wentylacyjny",
+    "rus": "Логово кровососов: найти вентиляционную шахту",
+    "ukr": "Лігвище кровососів: знайти вентиляційну шахту"
+  },
+  "zat_b57_den_of_the_bloodsucker_destroy_lair_text": {
+    "eng": "Find the ventilation shaft to fill the bloodsucker lair with poisonous gas.",
+    "pol": "Znajd� szyb wentylacyjny, aby wype�ni� legowisko pijawek truj�cym gazem.",
+    "rus": "Найти вентиляционную шахту, чтобы пустить отравляющий газ в логово кровососов.",
+    "ukr": "Знайти вентиляційну шахту, щоб пустити отруйний газ до лігвища кровососів."
+  },
+  "zat_b57_den_of_the_bloodsucker_find_gas_name": {
+    "eng": "Bloodsucker lair: find poisonous gas",
+    "pol": "Legowisko pijawek: znajd� truj�cy gaz",
+    "rus": "Логово кровососов: найти отравляющий газ",
+    "ukr": "Лігвище кровососів: знайти отруйний газ"
+  },
+  "zat_b57_den_of_the_bloodsucker_find_gas_text": {
+    "eng": "You will need poisonous gas to destroy the bloodsucker lair. Owl should know where you can get some.",
+    "pol": "B�dziesz potrzebowa� truj�cego gazu, aby zniszczy� legowisko pijawek. Sowa powinien wiedzie�, gdzie mo�esz go zdoby�.",
+    "rus": "Для уничтожения логова необходим отравляющий газ. Сыч должен знать, где такую штуку можно найти.",
+    "ukr": "Для знищення лігвища необхідний отруйний газ. Сич має знати, де можна знайти таку штуку."
+  },
+  "zat_b57_den_of_the_bloodsucker_find_gas_text_2": {
+    "eng": "You will need poisonous gas to destroy the bloodsucker lair. Owl claims that you'll find gas canisters at the deserted military convoy.",
+    "pol": "B�dziesz potrzebowa� truj�cego gazu, aby zniszczy� legowisko pijawek. Sowa twierdzi, �e zbiorniki z gazem znajdziesz w opuszczonym konwoju wojskowym.",
+    "rus": "Для уничтожения логова необходим отравляющий газ. Сыч утверждает, что баллоны с газом должны иметься в брошенной военной автоколонне.",
+    "ukr": "Для знищення лігвища необхідний отруйний газ. Сич стверджує, що балони з газом мають знайтися у кинутій військовій автоколоні."
+  },
+  "zat_b57_den_of_the_bloodsucker_get_gas_name": {
+    "eng": "Bloodsucker lair: find keys to the container",
+    "pol": "Legowisko pijawek: znajd� klucze do pojemnika",
+    "rus": "Логово кровососов: найти ключи для контейнера",
+    "ukr": "Лігвище кровососів: знайти ключі для контейнера"
+  },
+  "zat_b57_den_of_the_bloodsucker_get_gas_text": {
+    "eng": "The documents you found mention keys to the gas canister container. You need to find them.",
+    "pol": "Znalezione dokumenty wspominaj� o kluczach do pojemnika, w kt�rym znajduje si� zbiornik z gazem. Musisz je znale��.",
+    "rus": "В найденой документации упоминаются ключи к контейнеру с газовым баллоном. Необходимо их найти.",
+    "ukr": "У знайденій документації згадуються ключі до контейнера із газовим балоном. Необхідно їх знайти."
+  },
+  "zat_b57_den_of_the_bloodsucker_open_gas_box_name": {
+    "eng": "Bloodsucker lair: find a way to open the gas canister container",
+    "pol": "Legowisko pijawek: odkryj, jak otworzy� pojemnik, w kt�rym jest butla z gazem",
+    "rus": "Логово кровососов: найти способ открыть контейнер с газовым баллоном",
+    "ukr": "Лігвище кровососів: знайти спосіб відкрити контейнер із газовим балоном"
+  },
+  "zat_b57_den_of_the_bloodsucker_open_gas_box_text": {
+    "eng": "The container with the gas canister is locked. You need to find a way to open it.",
+    "pol": "Pojemnik, w kt�rym znajduje si� zbiornik z gazem, jest zamkni�ty. Musisz znale�� spos�b, by go otworzy�.",
+    "rus": "Контейнер, в котором хранится баллон с газом, закрыт. Необходимо найти способ открыть его.",
+    "ukr": "Контейнер, в якому зберігається балон із газом, закритий. Необхідно знайти спосіб відкрити його."
+  },
+  "zat_b57_den_of_the_bloodsucker_place_gas_name": {
+    "eng": "Bloodsucker lair: position the gas canister",
+    "pol": "Legowisko pijawek: zainstaluj zbiornik z gazem",
+    "rus": "Логово кровососов: установить газовый баллон",
+    "ukr": "Лігвище кровососів: установити газовий балон"
+  },
+  "zat_b57_den_of_the_bloodsucker_place_gas_text": {
+    "eng": "Position the gas canister in the antenna complex basement ventilation system. The gas should get in via the ventilation shaft and fill the basement, killing the bloodsuckers.",
+    "pol": "Zainstaluj zbiornik z gazem w systemie wentylacyjnym piwnic stacji antenowej. Gaz powinien pop�yn�� szybem wentylacyjnym i wype�ni� piwnic�, zabijaj�c pijawki.",
+    "rus": "Установить газовый баллон в систему вентиляции подвалов ВНЗ. Газ, проникнув через вентиляционную шахту, заполнит подвалы и уничтожит кровососов.",
+    "ukr": "Установити газовий балон до системи вентиляції підвалів ВНЗ. Газ, проникнувши через вентиляційну шахту, заповнить підвали і знищить кровососів."
+  },
+  "zat_b57_den_of_the_bloodsucker_tell_stalkers_about_destroy_lair_name": {
+    "eng": "Bloodsucker lair: inform Beard that the lair has been destroyed",
+    "pol": "Legowisko pijawek: powiadom Brodacza, �e legowisko zosta�o zniszczone",
+    "rus": "Логово кровососов: сообщить Бороде об уничтожении логова",
+    "ukr": "Лігвище кровососів: повідомити Бороді про знищення лігвища"
+  },
+  "zat_b57_den_of_the_bloodsucker_tell_stalkers_about_destroy_lair_text": {
+    "eng": "Inform Beard that you have destroyed the bloodsucker lair, securing the safety of Skadovsk stalkers.",
+    "pol": "Poinformuj Brodacza, �e uda�o ci si� zniszczy� legowisko pijawek, zapewniaj�c tym samym bezpiecze�stwo stalkerom ze Skadowska.",
+    "rus": "Имеет смысл сообщить Бороде о том, что логово кровососов уничтожено и «Скадовск» теперь вне опасности.",
+    "ukr": "Є сенс повідомити Бороді про те, що лігвище кровососів знищене, тож нині «Скадовськ» поза небезпекою."
+  },
+  "zat_b57_den_of_the_bloodsucker_twist_vintil_name": {
+    "eng": "Bloodsucker lair: turn the valve",
+    "pol": "Legowisko pijawek: odkr�� zaw�r",
+    "rus": "Логово кровососов: повернуть вентиль",
+    "ukr": "Лігвище кровососів: повернути вентиль"
+  },
+  "zat_b57_den_of_the_bloodsucker_twist_vintil_text": {
+    "eng": "Turn the valve to allow poisonous gas to fill the basement with the bloodsucker lair via the ventilation shaft.",
+    "pol": "Odkr�� zaw�r, aby gaz m�g� wype�ni� piwnic� z legowiskiem pijawek przez szyb wentylacyjny.",
+    "rus": "Повернуть вентиль, чтобы ядовитый газ проник через вентиляционную шахту в подвалы, где находится логово кровососов.",
+    "ukr": "Повернути вентиль, щоб отрутний газ проникнув через вентиляційну шахту до підвалів, де знаходиться лігвище кровососів."
+  },
+  "zat_b57_den_of_the_bloodsucker_wait_destroy_name": {
+    "eng": "Bloodsucker lair: wait until the gas takes effect ",
+    "pol": "Legowisko pijawek: poczekaj, a� gaz zacznie dzia�a� ",
+    "rus": "Логово кровососов: выждать, пока подействует газ",
+    "ukr": "Лігвище кровососів: почекати, доки газ подіє"
+  },
+  "zat_b57_den_of_the_bloodsucker_wait_destroy_text": {
+    "eng": "You need to make sure the gas filled the lair and the bloodsuckers are dead.",
+    "pol": "Musisz si� upewni�, �e gaz wype�ni� legowisko i pijawki s� martwe.",
+    "rus": "Надо убедится, что газ попал в логово и все кровососы уничтожены.",
+    "ukr": "Треба переконатися, що газ потрапив до лігвища і всі кровососі знищені."
+  },
+  "zat_b5_come_to_bandits_name": {
+    "eng": "Transaction: meet the bandits by the ranger station",
+    "pol": "Transakcja: spotkaj si� z bandytami ko�o stra�nicy",
+    "rus": "Сделка: встретиться с бандитами возле лесничества",
+    "ukr": "Угода: зустрітися з бандитами біля лісництва"
+  },
+  "zat_b5_come_to_bandits_text": {
+    "eng": "Sultan has asked you to take part in a transaction with a trader. You need to accompany his people and cover them in case something happens.",
+    "pol": "Su�tan poprosi� ci� o udzia� w transakcji z jednym z handlarzy. Musisz towarzyszy� jego ludziom, by zapewni� im ochron�, gdyby co� si� wydarzy�o.",
+    "rus": "Султан попросил поучаствовать в сделке с одним барыгой. Надо сопроводить людей Султана к месту встречи и прикрывать их на случай непредвиденных обстоятельств.",
+    "ukr": "Султан попросив узяти участь в угоді з одним баригою. Треба супроводити людей Султана до місця зустрічі та прикривати їх на випадок непередбачуваних обставин."
+  },
+  "zat_b5_come_to_dealer_name": {
+    "eng": " Transaction: meet the trader",
+    "pol": "Transakcja: spotkaj si� z handlarzem",
+    "rus": "Сделка: встретиться с торговцем",
+    "ukr": "Угода: зустрітися із торговцем"
+  },
+  "zat_b5_come_to_dealer_text": {
+    "eng": "Owl has offered you a job - protecting some trader during a transaction. Clearly, the transaction is shady and it might not go very smoothly.",
+    "pol": "Sowa zaproponowa� ci prac� przy ochronie pewnego handlarza podczas transakcji. Oczywi�cie jest to szemrany interes i mo�e nie p�j�� zbyt g�adko.",
+    "rus": "Сыч предложил работу - охранять какого-то торговца во время сделки. Очевидно, сделка имеет сомнительный характер и в процессе могут возникнуть неприятности.",
+    "ukr": "Сич запропонував роботу - охороняти якогось торговця під час угоди. Вочевидь, угода має сумнівний характер і в процесі можуть виникнути неприємності."
+  },
+  "zat_b5_come_to_stalkers_name": {
+    "eng": " Transaction: meet the stalkers by the ranger station",
+    "pol": "Transakcja: spotkaj si� ze stalkerami ko�o stra�nicy",
+    "rus": "Сделка: встретиться со сталкерами возле лесничества",
+    "ukr": "Угода: зустрітися зі сталкерами біля лісництва"
+  },
+  "zat_b5_come_to_stalkers_text": {
+    "eng": "Meet the stalkers by the ranger station and help them disrupt the transaction between the bandits and the weapons trader.",
+    "pol": "Spotkaj si� ze stalkerami ko�o stra�nicy, aby pom�c im powstrzyma� transakcj� pomi�dzy bandytami i handlarzem broni�.",
+    "rus": "Встретиться со сталкерами возле лесничества и помочь им предотвратить сделку между бандитами и продавцом оружия.",
+    "ukr": "Зустрітися зі сталкерами біля лісництва та допомогти їм запобігти угоді між бандитами і продавцем зброї."
+  },
+  "zat_b5_cover_dealer_name": {
+    "eng": "Transaction: protect the trader",
+    "pol": "Transakcja: ochraniaj handlarza",
+    "rus": "Сделка: охранять торговца",
+    "ukr": "Угода: охороняти торговця"
+  },
+  "zat_b5_cover_dealer_text": {
+    "eng": "The trader has explained your job - to protect him during the transaction.",
+    "pol": "Handlarz wyja�ni� ci twoje zadanie - musisz go chroni� podczas transakcji.",
+    "rus": "По словам торговца, задача проста: охранять его во время сделки.",
+    "ukr": "За словами торговця, завдання є простим: охороняти його під час угоди."
+  },
+  "zat_b5_intercept_talking_name": {
+    "eng": "Transaction: eavesdrop on the conversation",
+    "pol": "Transakcja: pods�uchaj rozmow�",
+    "rus": "Сделка: подслушать разговор",
+    "ukr": "Угода: підслухати розмову"
+  },
+  "zat_b5_intercept_talking_text": {
+    "eng": "Stalkers want to listen in on the conversation between the bandits and the weapons trader.",
+    "pol": "Stalkerzy chc� pods�ucha� rozmow� pomi�dzy bandytami i handlarzem broni�.",
+    "rus": "Сталкеры хотят подслушать разговор между бандитами и торговцем оружием.",
+    "ukr": "Сталкери хочуть підслухати розмову між бандитами і торговцем зброєю."
+  },
+  "zat_b5_kill_dealer_name": {
+    "eng": "Transaction: disrupt the weapons sale",
+    "pol": "Transakcja: przeszkod� w zakupie broni",
+    "rus": "Сделка: предотвратить покупку оружия",
+    "ukr": "Угода: запобігти купівлі зброї"
+  },
+  "zat_b5_kill_dealer_text": {
+    "eng": "Do whatever it takes to disrupt the transaction between the bandits and the trader.",
+    "pol": "Zr�b co tylko si� da, �eby przeszkodzi� w transakcji pomi�dzy bandytami i handlarzem.",
+    "rus": "Надо любым способом предотвратить сделку между бандитами и барыгой.",
+    "ukr": "Треба у будь-який спосіб запобігти угоді між бандитами та баригою."
+  },
+  "zat_b5_kill_stalkers_name": {
+    "eng": "Transaction: eliminate witnesses",
+    "pol": "Transakcja: zlikwiduj �wiadk�w",
+    "rus": "Сделка: убрать свидетелей",
+    "ukr": "Угода: прибрати свідків"
+  },
+  "zat_b5_kill_stalkers_text": {
+    "eng": "The trader's transaction didn't work out, so you need to take out all the witnesses.",
+    "pol": "Transakcja z handlarzem si� nie uda�a, wi�c musisz zlikwidowa� wszystkich �wiadk�w.",
+    "rus": "Сделка с барыгой сорвалась. Нужно убрать всех свидетелей.",
+    "ukr": "Угода з баригою зірвалася. Потрібно прибрати усіх свідків."
+  },
+  "zat_b5_protect_dealer_name": {
+    "eng": "Transaction: protect the trader",
+    "pol": "Transakcja: ochraniaj handlarza",
+    "rus": "Сделка: защитить торговца",
+    "ukr": "Угода: захистити торговця"
+  },
+  "zat_b5_protect_dealer_text": {
+    "eng": "You need to protect the trader. Also, he ordered you to take out all the witnesses to the transaction, including his clients.",
+    "pol": "Musisz ochrania� handlarza. Zleci� ci te� zlikwidowanie wszystkich �wiadk�w transakcji, ��cznie z jego klientami.",
+    "rus": "Необходимо защитить торговца. Кроме того, он приказал убрать всех свидетелей сделки, в том числе и собственных клиентов.",
+    "ukr": "Необхідно захистити торговця. Окрім того, він наказав прибрати усіх свідків угоди, в тому числі й власних клієнтів."
+  },
+  "zat_b5_search_body_name": {
+    "eng": "Transaction: search the trader",
+    "pol": "Transakcja: przeszukaj handlarza",
+    "rus": "Сделка: обыскать торговца",
+    "ukr": "Угода: обшукати торговця"
+  },
+  "zat_b5_search_body_text": {
+    "eng": "The trader may have important information which may come in handy later. You should take it.",
+    "pol": "Handlarz mo�e mie� wa�ne informacje, kt�re mog� si� przyda� p�niej. Zabierz mu je.",
+    "rus": "У торговца могла остаться важная информация. Нужно её забрать - может пригодиться.",
+    "ukr": "У торговця могла лишитися важлива інформація. Треба її забрати - може стати в нагоді."
+  },
+  "zat_b5_secure_bandits_name": {
+    "eng": "Transaction: cover the bandits during the transaction ",
+    "pol": "Transakcja: ochraniaj bandyt�w podczas transakcji ",
+    "rus": "Сделка: прикрывать бандитов во время сделки",
+    "ukr": "Угода: прикривати бандитів під час угоди"
+  },
+  "zat_b5_secure_bandits_text": {
+    "eng": "Stay on your guard and provide cover to the bandits while they are negotiating with the trader.",
+    "pol": "St�j na stra�y i zapewniaj bandytom ochron� podczas negocjacji z handlarzem.",
+    "rus": "Пока бандиты будут договариваться с барыгой, надо быть начеку и, в случае чего, прикрыть их.",
+    "ukr": "Поки бандити домовлятимуться із баригою, слід бути напоготові та, як щось станеться, прикрити їх."
+  },
+  "zat_b5_speak_dealer_name": {
+    "eng": "Transaction: talk to the trader",
+    "pol": "Transakcja: porozmawiaj z handlarzem",
+    "rus": "Сделка: поговорить с торговцем",
+    "ukr": "Угода: поговорити з торговцем"
+  },
+  "zat_b5_speak_dealer_text": {
+    "eng": "The transaction with bandits is complete, so you should collect your reward.",
+    "pol": "Transakcja z bandytami zosta�a zako�czona, mo�esz wi�c odebra� swoj� nagrod�.",
+    "rus": "Условия сделки с торговцем выполнены, остаётся забрать награду.",
+    "ukr": "Умови угоди із торговцем виконано, залишається забрати нагороду."
+  },
+  "zat_b5_talk_barmen_name": {
+    "eng": "Transaction: collect your reward from Beard",
+    "pol": "Transakcja: odbierz nagrod� od Brodacza",
+    "rus": "Сделка: получить награду у Бороды",
+    "ukr": "Угода: отримати нагороду в Бороди"
+  },
+  "zat_b5_talk_barmen_text": {
+    "eng": "Beard promised you a reward if you disrupted the transaction between the bandits and the trader. With the transaction positively botched, you can go ahead and collect your reward.",
+    "pol": "Brodacz obieca� ci nagrod�, je�li przeszkodzisz w transakcji pomi�dzy bandytami i handlarzem. Transakcja zosta�a zak��cona, mo�esz wi�c odebra� swoj� nagrod�.",
+    "rus": "Борода обещал награду, если сделка между бандитами и барыгой будет сорвана. Поскольку теперь сделка наверняка не состоится, можно отправляться за наградой.",
+    "ukr": "Борода обіцяв винагороду, якщо угоду між бандитами та баригою буде зірвано. Оскільки нині угоду вже точно не буде укладено, можна відправлятися по обіцяне."
+  },
+  "zat_b5_talk_to_sultan_name": {
+    "eng": "Transaction: talk to the bandit leader",
+    "pol": "Transakcja: porozmawiaj z dow�dc� bandyt�w",
+    "rus": "Сделка: поговорить с главарём бандитов",
+    "ukr": "Угода: поговорити із ватажком бандитів"
+  },
+  "zat_b5_talk_to_sultan_text": {
+    "eng": "You need to inform the bandit leader you're ready to take part in the transaction.",
+    "pol": "Musisz poinformowa� dow�dc� bandyt�w o gotowo�ci do wzi�cia udzia�u w transakcji.",
+    "rus": "Надо сообщить главарю бандитов о готовности принять участие в сделке.",
+    "ukr": "Треба повідомити ватажкові бандитів про готовність взяти участь в угоді."
+  },
+  "zat_b7_stalkers_raiders_name": {
+    "eng": "The hit: decide what to do",
+    "pol": "Atak: zdecyduj, co zrobi�",
+    "rus": "Наезд: решить, что предпринять",
+    "ukr": "Наїзд: вирішити, що вчинити"
+  },
+  "zat_b7_stalkers_raiders_raiders_name": {
+    "eng": "The hit: attack the stalkers",
+    "pol": "Atak: zaatakuj stalker�w",
+    "rus": "Наезд: напасть на сталкеров",
+    "ukr": "Наїзд: напасти на сталкерів"
+  },
+  "zat_b7_stalkers_raiders_stalkers_reward_name": {
+    "eng": "The hit: collect your reward",
+    "pol": "Atak: odbierz swoj� nagrod�",
+    "rus": "Наезд: получить награду",
+    "ukr": "Наїзд: отримати нагороду"
+  },
+  "zat_b7_stalkers_raiders_stalkers_reward_text": {
+    "eng": "The attack on the camp was repelled, so you can talk to the stalkers to get your reward. They would probably have had a very tough time if they hadn't been warned about the attack.",
+    "pol": "Atak na ob�z zosta� odparty, mo�esz wi�c porozmawia� ze stalkerami i odebra� swoj� nagrod�. Prawdopodobnie mieliby niez�e piek�o, gdyby nie zostali ostrze�eni o ataku.",
+    "rus": "Нападение на лагерь отбито, можно поговорить со сталкерами и получить награду. Скорее всего, сталкерам пришлось бы туго, если бы они не были предупреждены о нападении.",
+    "ukr": "Напад на табір відбито, можна поговорити зі сталкерами та отримати винагороду. Швидше за все, сталкерам велося б непереливки, якби їх не було попереджено про напад."
+  },
+  "zat_b7_stalkers_raiders_text": {
+    "eng": "A group of stalkers has turned to a bandit existence of robbing their own kind. You need to decide whether to take part in their assault, warn the stalkers or not get involved.",
+    "pol": "Grupa stalker�w postanowi�a zosta� bandytami i rabowa� swoich. Musisz zdecydowa�, czy we�miesz udzia� w ataku, ostrze�esz stalker�w, czy nie b�dziesz si� w to miesza�.",
+    "rus": "Группа сталкеров решила превратиться в банду и грабить своих же вчерашних коллег. Пора решать как быть: принять участие в наезде, предупредить будущих жертв или не вмешиваться?",
+    "ukr": "Група сталкерів вирішила перетворитися на банду і грабувати своїх же вчорашніх колег. Настав час вирішувати, як бути: взяти участь у наїзді, попередити сталкерів або ж не втручатися?"
+  },
+  "zat_b7_stalkers_raiders_wait_name": {
+    "eng": "The hit: wait for the agreed time",
+    "pol": "Atak: poczekaj na uzgodnion� chwil�",
+    "rus": "Наезд: дождаться назначенного времени",
+    "ukr": "Наїзд: дочекатися призначеного часу"
+  },
+  "zat_b7_stalkers_raiders_time_name": {
+    "eng": "The hit: Wait for the right moment",
+    "pol": "Atak: Poczekaj na w�a�ciw� chwil�",
+    "rus": "Наезд: дождаться подходящего момента",
+    "ukr": "Наїзд: дочекатися слушного моменту"
+  },
+  "zat_b33_zaporojec_name": {
+    "eng": "Unreachable stash: take the container to Snag",
+    "pol": "Niedost�pny schowek: zanie� pude�ko S�kowi",
+    "rus": "Недоступный тайник: принести Коряге контейнер",
+    "ukr": "Недоступна схованка: принести Корчу контейнер"
+  },
+  "zat_b5_talk_stalkers_name": {
+    "eng": "Transaction: talk to the leader of the stalker squad",
+    "pol": "Transakcja: porozmawiaj z dow�dc� oddzia�u stalker�w",
+    "rus": "Сделка: поговорить с лидером отряда сталкеров",
+    "ukr": "Угода: поговорити з лідером загону сталкерів"
+  },
+  "zat_b5_talk_stalkers_text": {
+    "eng": "The transaction has been sabotaged, the weapon trader is dead. Talk to the leader of the stalker squad.",
+    "pol": "Transakcja zosta�a udaremniona. Handlarz broni� nie �yje. Porozmawiaj z dow�dc� oddzia�u stalker�w.",
+    "rus": "Сделка сорвана, торговец оружием мёртв. Необходимо поговорить с лидером отряда сталкеров",
+    "ukr": "Угоду зірвано, торговець зброєю мертвий. Необхідно поговорити з лідером загону сталкерів"
+  },
+  "zat_b38_disappearance_stalkers_tell_barmen_about_medic_name": {
+    "eng": "Missing stalkers: tell the folks at Skadovsk what happened",
+    "pol": "Zaginieni stalkerzy: powiedz ludziom w Skadowsku, co si� sta�o",
+    "rus": "Исчезновение сталкеров: рассказать на «Скадовске» о том, что произошло",
+    "ukr": "Зникнення сталкерів: розповісти на «Скадовську» про те, що сталося"
+  },
+  "zat_b57_den_of_the_bloodsucker_open_container_text": {
+    "eng": "You need to open the container using the keys you found and take the poison gas tank out.",
+    "pol": "Musisz otworzy� pojemnik, u�ywaj�c znalezionych kluczy, i zabra� zbiornik z gazem.",
+    "rus": "Необходимо открыть контейнер найденными ключами и достать из него баллон с отравляющим газом",
+    "ukr": "Необхідно відкрити контейнер знайденими ключами та дістати з нього балон з отруйним газом"
+  },
+  "zat_b57_den_of_the_bloodsucker_open_container_name": {
+    "eng": "Bloodsucker lair: get the gas tank out of the container",
+    "pol": "Legowisko pijawek: zabierz zbiornik z gazem z pojemnika",
+    "rus": "Логово кровососов: достать газовый баллон из контейнера",
+    "ukr": "Лігвище кровососів: дістати газовий балон з контейнера"
+  },
+  "zat_b7_stalkers_raiders_backstab_name": {
+    "eng": "The hit: attack the robbers",
+    "pol": "Atak: zaatakuj z�odziei",
+    "rus": "Наезд: атаковать грабителей",
+    "ukr": "Наїзд: атакувати грабіжників"
+  },
+  "zat_b7_stalkers_raiders_backstab_text": {
+    "eng": "Attacking the robbers from behind will help stalkers repel their attack.",
+    "pol": "Zaatakowanie z�odziei od ty�u pomo�e stalkerom odeprze� atak.",
+    "rus": "Надо напасть на грабителей со спины, чтобы помочь сталкерам отразить нападение.",
+    "ukr": "Треба напасти на грабіжників зі спини, щоб допомогти сталкерам відбити напад."
+  },
+  "zat_b7_stalkers_raiders_meet_name": {
+    "eng": "The hit: meet the robbers",
+    "pol": "Atak: spotkaj si� ze z�odziejami",
+    "rus": "Наезд: встретиться с грабителями",
+    "ukr": "Наїзд: зустрітися з грабіжниками"
+  },
+  "zat_b7_stalkers_raiders_raiders_text": {
+    "eng": "Join the robbers in attacking the stalker camp.",
+    "pol": "Przy��cz si� do z�odziei podczas ataku na ob�z stalker�w.",
+    "rus": "Участвовать с грабителями в нападении на лагерь сталкеров.",
+    "ukr": "Разом із грабіжниками здійснити напад на табір сталкерів."
+  },
+  "zat_b7_stalkers_raiders_stalkers_name": {
+    "eng": "The hit: join the robbers",
+    "pol": "Zab�jstwo: przy��cz si� do z�odziei",
+    "rus": "Наезд: влиться в ряды грабителей",
+    "ukr": "Наїзд: влитися до лав грабіжників"
+  },
+  "zat_b7_stalkers_raiders_stalkers_text": {
+    "eng": "Stalkers have asked you to help them repel the robbers’ attack. You should join the robbers. When they begin the assault, you’ll be able to attack them from behind with impunity.",
+    "pol": "Stalkerzy poprosili ci� o pomoc w odparciu ataku z�odziei. Przy��cz si� do z�odziei. Gdy rozpoczn� napad, b�dzie mo�na bezkarnie zaatakowa� ich od ty�u.",
+    "rus": "Сталкеры попросили помочь им отразить атаку грабителей. Нужно влиться в ряды грабителей, тогда во время нападения можно будет спокойно напасть на них со спины.",
+    "ukr": "Сталкери попрохали допомогти їм відбити атаку грабіжників. Потрібно влитися до лав грабіжників, тоді під час нападу можна буде спокійно напасти на них зі спини."
+  },
+  "zat_b7_stalkers_raiders_meet_text": {
+    "eng": "The robbers should be waiting by Shevchenko. You’ll need to meet them to take part in their assault on the stalkers.",
+    "pol": "Z�odzieje powinni czeka� przy Szewczence. Musisz si� z nimi spotka�, aby wzi�� udzia� w ataku na stalker�w.",
+    "rus": "Грабители должны ждать возле «Шевченко». Нужно будет с ними встретится, чтобы участвовать в наезде на сталкеров.",
+    "ukr": "Грабіжники мають чекати біля «Шевченка». Слід зустрітися з ними, щоб взяти участь у наїзді на сталкерів."
+  },
+  "zat_b7_stalkers_raiders_wait_text": {
+    "eng": "Wait for the meeting with the robbers. They want to attack the stalker camp after midnight while it’s still dark. The agreed meeting place is Shevchenko.",
+    "pol": "Poczekaj na spotkanie ze z�odziejami. Chc� zaatakowa� ob�z stalker�w po p�nocy, dop�ki jest ciemno. Uzgodnione miejsce spotkania to Szewczenko.",
+    "rus": "Дождаться времени встречи с грабителями: те хотят напасть на лагерь сталкеров поздно ночью, в темноте. Условленное место встречи - «Шевченко».",
+    "ukr": "Дочекатися часу зустрічі із грабіжниками: ті хочуть напасти на табір сталкерів пізно вночі, у темряві. Обумовлене місце зустрічі - «Шевченко»."
+  },
+  "zat_b7_stalkers_raiders_raiders_reward_name": {
+    "eng": "The hit: get your cut",
+    "pol": "Atak: odbierz swoj� dol�",
+    "rus": "Наезд: поговорить с грабителями",
+    "ukr": "Наїзд: поговорити із грабіжниками"
+  },
+  "zat_b7_stalkers_raiders_raiders_reward_text": {
+    "eng": "The attack on the stalkers was successful and you should get your cut of the loot.",
+    "pol": "Atak na stalker�w zako�czy� si� sukcesem. Mo�esz odebra� swoj� dol� z �up�w.",
+    "rus": "Нападение на сталкеров прошло успешно. Теперь надо переговорить с подельниками.",
+    "ukr": "Напад на сталкерів пройшов успішно. Тепер треба перемовитися із подільниками."
+  },
+  "zat_b7_stalkers_raiders_time_text": {
+    "eng": "Wait for the right moment when the robbers are distracted by the attack. You can then pounce on them from behind to help the Shevchenko stalkers.",
+    "pol": "Poczekaj na w�a�ciwy moment, gdy z�odzieje b�d� rozproszeni przez atak. Wtedy mo�esz napa�� ich od ty�u i pom�c stalkerom z Szewczenki.",
+    "rus": "Необходимо дождаться момента, когда грабители будут отвлечены наездом. Тогда можно будет ударить им в спину, чтобы помочь сталкерам на «Шевченко».",
+    "ukr": "Необхідно дочекатися моменту, коли увагу грабіжників буде відвернуто наїздом. Тоді можна буде вдарити їм у спину, щоб допомогти сталкерам на «Шевченко»."
+  },
+  "zat_b30_sultan_task_8_name": {
+    "eng": "Shady business: start working for Beard",
+    "pol": "Ciemne interesy: zacznij pracowa� dla Brodacza",
+    "rus": "Тёмный бизнес: начать работать на Бороду",
+    "ukr": "Темний бізнес: почати працювати на Бороду"
+  },
+  "zat_b30_sultan_task_8_text": {
+    "eng": "Taking detector prototypes off stalkers working for Beard requires you to blend into their ranks. This will allow you to find out where your competitors are.",
+    "pol": "Aby zabra� prototypy detektor�w stalkerom pracuj�cym dla Brodacza, musisz wst�pi� w ich szeregi. Dzi�ki temu dowiesz si�, gdzie s� twoi rywale.",
+    "rus": "Чтобы отобрать прототипы детекторов у сталкеров, работающих на Бороду, необходимо влиться в их ряды. Это позволит разведать лагерь конкурентов",
+    "ukr": "Щоб відібрати прототипи детекторів у сталкерів, які працюють на Бороду, необхідно стати до їхніх лав. Це дозволить розвідати табір конкурентів"
+  },
+  "zat_b33_zaporojec_text_03": {
+    "eng": "You need to take the container and deliver it to its owner.",
+    "pol": "Musisz wzi�� pojemnik i dostarczy� go w�a�cicielowi.",
+    "rus": "Необходимо взять контейнер и отнести его владельцу.",
+    "ukr": "Необхідно взяти контейнер та віднести його власникові."
+  },
+  "zat_b100_guide_maps_01_text": {
+    "eng": "The Stingray 2 onboard computer had maps of the area between Zaton and Jupiter. You should find someone who could use them.",
+    "pol": "Komputer pok�adowy Ogo�czy 2 zawiera� mapy terenu pomi�dzy Zatonem i Jupiterem. Znajd� kogo�, kto m�g�by zrobi� z nich u�ytek.",
+    "rus": "В бортовом компьютере вертолёта «Скат-2» были карты местности между Затоном и «Юпитером». Стоит найти того, кому эти карты могут понадобиться.",
+    "ukr": "У бортовому комп'ютері гелікоптеру «Скат-2» містилися мапи місцевості між Затоном та «Юпітером». Варто знайти того, кому ці мапи можуть знадобитися."
+  },
+  "zat_b20_ask_a_stalkers_name": {
+    "eng": "Getting to the plateau: talk to stalkers",
+    "pol": "�cie�ka na p�askowy�: porozmawiaj ze stalkerami",
+    "rus": "Путь на плато: расспросить сталкеров",
+    "ukr": "Шлях на плато: розпитати сталкерів"
+  },
+  "zat_b20_ask_a_stalkers_text": {
+    "eng": "It looks like there’s no direct route to the plateau. Ask local stalkers about other ways of getting there.",
+    "pol": "Wygl�da na to, �e nie ma bezpo�redniej drogi na p�askowy�. Popytaj miejscowych stalker�w, jak mo�na si� tam dosta�.",
+    "rus": "Судя по всему, на плато не удастся попасть прямым путём. Необходимо расспросить местных сталкеров о других возможных путях.",
+    "ukr": "Судячи по всьому, на плато не вдасться трапити прямим шляхом. Необхідно розпитати місцевих сталкерів щодо інших можливих доріг."
+  },
+  "zat_b30_compass_to_barmen_task_give_text": {
+    "eng": "The artifact you got from Noah is the Compass that Beard wants.",
+    "pol": "Artefakt, kt�ry da� ci Noe, to Kompas, kt�rego szuka Brodacz.",
+    "rus": "Полученный у Ноя артефакт и есть тот самый «Компас», что нужен Бороде.",
+    "ukr": "Отриманий в Ноя артефакт - це і є той самий «Компас», котрий так потрібен Бороді."
+  }
+}

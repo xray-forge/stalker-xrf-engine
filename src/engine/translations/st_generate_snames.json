@@ -1,0 +1,9668 @@
+{
+  "lname_bandit_0": {
+    "eng": "Gray",
+    "pol": "Szary",
+    "rus": "Сивый",
+    "ukr": "Сивий"
+  },
+  "lname_bandit_1": {
+    "eng": "Berserk",
+    "pol": "Berserker",
+    "rus": "Бешеный",
+    "ukr": "Скажений"
+  },
+  "lname_bandit_10": {
+    "eng": "Rotten",
+    "pol": "Zgni�ek",
+    "rus": "Гнилой",
+    "ukr": "Гнилий"
+  },
+  "lname_bandit_100": {
+    "eng": "Patty",
+    "pol": "Patty",
+    "rus": "Чебурек",
+    "ukr": "Чебурек"
+  },
+  "lname_bandit_101": {
+    "eng": "Spy",
+    "pol": "Szpicel",
+    "rus": "Шпион",
+    "ukr": "Шпигун"
+  },
+  "lname_bandit_102": {
+    "eng": "Bison",
+    "pol": "�ubr",
+    "rus": "Бизон",
+    "ukr": "Бізон"
+  },
+  "lname_bandit_103": {
+    "eng": "Beaver",
+    "pol": "B�br",
+    "rus": "Бобёр",
+    "ukr": "Бобер"
+  },
+  "lname_bandit_104": {
+    "eng": "Bulldog",
+    "pol": "Buldog",
+    "rus": "Бульдог",
+    "ukr": "Бульдог"
+  },
+  "lname_bandit_105": {
+    "eng": "Ox",
+    "pol": "W�",
+    "rus": "Бык",
+    "ukr": "Бик"
+  },
+  "lname_bandit_106": {
+    "eng": "Sparrow",
+    "pol": "Wr�bel",
+    "rus": "Воробей",
+    "ukr": "Горобець"
+  },
+  "lname_bandit_107": {
+    "eng": "Woodpecker",
+    "pol": "Dzi�cio�",
+    "rus": "Дятел",
+    "ukr": "Дятел"
+  },
+  "lname_bandit_108": {
+    "eng": "Beast",
+    "pol": "Bestia",
+    "rus": "Зверь",
+    "ukr": "Звір"
+  },
+  "lname_bandit_109": {
+    "eng": "Warlock",
+    "pol": "Czarownik",
+    "rus": "Колдун",
+    "ukr": "Чаклун"
+  },
+  "lname_bandit_11": {
+    "eng": "Humpback",
+    "pol": "Humbak",
+    "rus": "Горбун",
+    "ukr": "Горбань"
+  },
+  "lname_bandit_110": {
+    "eng": "Boar",
+    "pol": "Dzik",
+    "rus": "Кабан",
+    "ukr": "Кабан"
+  },
+  "lname_bandit_111": {
+    "eng": "Crucian",
+    "pol": "Kara�",
+    "rus": "Карась",
+    "ukr": "Карась"
+  },
+  "lname_bandit_112": {
+    "eng": "Canary",
+    "pol": "Kanarek",
+    "rus": "Кенарь",
+    "ukr": "Канарок"
+  },
+  "lname_bandit_113": {
+    "eng": "Bedbug",
+    "pol": "Pluskwa",
+    "rus": "Клоп",
+    "ukr": "Клоп"
+  },
+  "lname_bandit_114": {
+    "eng": "Nark",
+    "pol": "Szpicel",
+    "rus": "Легавый",
+    "ukr": "Лягавий"
+  },
+  "lname_bandit_115": {
+    "eng": "Moose",
+    "pol": "�o�",
+    "rus": "Лось",
+    "ukr": "Лось"
+  },
+  "lname_bandit_116": {
+    "eng": "Rat",
+    "pol": "Szczur",
+    "rus": "Пацюк",
+    "ukr": "Пацюк"
+  },
+  "lname_bandit_117": {
+    "eng": "Boa",
+    "pol": "Boa",
+    "rus": "Удав",
+    "ukr": "Удав"
+  },
+  "lname_bandit_118": {
+    "eng": "Loaf",
+    "pol": "Bochenek",
+    "rus": "Батон",
+    "ukr": "Батон"
+  },
+  "lname_bandit_119": {
+    "eng": "Broken",
+    "pol": "Zbity",
+    "rus": "Битый",
+    "ukr": "Битий"
+  },
+  "lname_bandit_12": {
+    "eng": "Long John",
+    "pol": "Dryblas",
+    "rus": "Длинный",
+    "ukr": "Довгий"
+  },
+  "lname_bandit_120": {
+    "eng": "Mayhem",
+    "pol": "Rozwa�ka",
+    "rus": "Беспредел",
+    "ukr": "Бєспрєдєл"
+  },
+  "lname_bandit_121": {
+    "eng": "Bolt",
+    "pol": "�ruba",
+    "rus": "Болт",
+    "ukr": "Болт"
+  },
+  "lname_bandit_122": {
+    "eng": "Razor",
+    "pol": "Brzytwa",
+    "rus": "Бритва",
+    "ukr": "Бритва"
+  },
+  "lname_bandit_123": {
+    "eng": "Drum",
+    "pol": "B�ben",
+    "rus": "Бубен",
+    "ukr": "Бубон"
+  },
+  "lname_bandit_124": {
+    "eng": "Junk",
+    "pol": "�mie�",
+    "rus": "Хлам",
+    "ukr": "Мотлох"
+  },
+  "lname_bandit_125": {
+    "eng": "Screw",
+    "pol": "Wkr�t",
+    "rus": "Винт",
+    "ukr": "Гвинт"
+  },
+  "lname_bandit_126": {
+    "eng": "Dynamite",
+    "pol": "Dynamit",
+    "rus": "Динамит",
+    "ukr": "Динаміт"
+  },
+  "lname_bandit_127": {
+    "eng": "Trump",
+    "pol": "Atut",
+    "rus": "Козырь",
+    "ukr": "Козир"
+  },
+  "lname_bandit_128": {
+    "eng": "Shovel",
+    "pol": "�opata",
+    "rus": "Лопата",
+    "ukr": "Лопата"
+  },
+  "lname_bandit_129": {
+    "eng": "Joint",
+    "pol": "Skr�t",
+    "rus": "Косяк",
+    "ukr": "Косяк"
+  },
+  "lname_bandit_13": {
+    "eng": "Dead Duck",
+    "pol": "Leszcz",
+    "rus": "Дохлый",
+    "ukr": "Дохлий"
+  },
+  "lname_bandit_130": {
+    "eng": "Cross",
+    "pol": "Krzy�yk",
+    "rus": "Крест",
+    "ukr": "Хрест"
+  },
+  "lname_bandit_131": {
+    "eng": "Tar",
+    "pol": "Smo�a",
+    "rus": "Рубероид",
+    "ukr": "Руберойд"
+  },
+  "lname_bandit_132": {
+    "eng": "Sock",
+    "pol": "Skarpeta",
+    "rus": "Лапоть",
+    "ukr": "Ходак"
+  },
+  "lname_bandit_133": {
+    "eng": "Crowbar",
+    "pol": "�om",
+    "rus": "Лом",
+    "ukr": "Лом"
+  },
+  "lname_bandit_134": {
+    "eng": "Panadol",
+    "pol": "Panadol",
+    "rus": "Панадол",
+    "ukr": "Панадол"
+  },
+  "lname_bandit_135": {
+    "eng": "Shiv",
+    "pol": "No�yk",
+    "rus": "Перо",
+    "ukr": "Перо"
+  },
+  "lname_bandit_136": {
+    "eng": "Piston",
+    "pol": "T�ok",
+    "rus": "Пистон",
+    "ukr": "Пістон"
+  },
+  "lname_bandit_137": {
+    "eng": "Nickel",
+    "pol": "Grosik",
+    "rus": "Пятак",
+    "ukr": "П'ятак"
+  },
+  "lname_bandit_138": {
+    "eng": "Tails",
+    "pol": "Reszka",
+    "rus": "Решка",
+    "ukr": "Решка"
+  },
+  "lname_bandit_139": {
+    "eng": "Lethal",
+    "pol": "�mier�",
+    "rus": "Смерть",
+    "ukr": "Смерть"
+  },
+  "lname_bandit_14": {
+    "eng": "Percher",
+    "pol": "Grz�da",
+    "rus": "Доходяга",
+    "ukr": "Доходяга"
+  },
+  "lname_bandit_140": {
+    "eng": "Grindstone",
+    "pol": "Ostrza�ka",
+    "rus": "Точило",
+    "ukr": "Точило"
+  },
+  "lname_bandit_141": {
+    "eng": "Ace",
+    "pol": "As",
+    "rus": "Туз",
+    "ukr": "Туз"
+  },
+  "lname_bandit_142": {
+    "eng": "Chisel",
+    "pol": "Czekan",
+    "rus": "Чекан",
+    "ukr": "Чекан"
+  },
+  "lname_bandit_143": {
+    "eng": "Jackstraw",
+    "pol": "Kuk�a",
+    "rus": "Чучело",
+    "ukr": "Опудало"
+  },
+  "lname_bandit_144": {
+    "eng": "Shortstop",
+    "pol": "Libero",
+    "rus": "Шкет",
+    "ukr": "Шкет"
+  },
+  "lname_bandit_145": {
+    "eng": "Crosstie",
+    "pol": "Podk�ad",
+    "rus": "Шпала",
+    "ukr": "Шпала"
+  },
+  "lname_bandit_146": {
+    "eng": "Stud",
+    "pol": "�wiek",
+    "rus": "Штырь",
+    "ukr": "Штир"
+  },
+  "lname_bandit_147": {
+    "eng": "Jiggers",
+    "pol": "Pch�a",
+    "rus": "Шухер",
+    "ukr": "Шухер"
+  },
+  "lname_bandit_148": {
+    "eng": "Fist",
+    "pol": "Pi�cha",
+    "rus": "Кулак",
+    "ukr": "Куркуль"
+  },
+  "lname_bandit_149": {
+    "eng": "Bruise",
+    "pol": "Siniak",
+    "rus": "Синяк",
+    "ukr": "Синець"
+  },
+  "lname_bandit_15": {
+    "eng": "Tadpole",
+    "pol": "Kijanka",
+    "rus": "Дохляк",
+    "ukr": "Дохляк"
+  },
+  "lname_bandit_150": {
+    "eng": "Hacker",
+    "pol": "Haker",
+    "rus": "Бармалей",
+    "ukr": "Бармалей"
+  },
+  "lname_bandit_151": {
+    "eng": "Khan",
+    "pol": "Chan",
+    "rus": "Батый",
+    "ukr": "Батий"
+  },
+  "lname_bandit_152": {
+    "eng": "Koschei",
+    "pol": "Ko�ciej",
+    "rus": "Кащей",
+    "ukr": "Кощій"
+  },
+  "lname_bandit_153": {
+    "eng": "Rambo",
+    "pol": "Rambo",
+    "rus": "Рэмбо",
+    "ukr": "Рембо"
+  },
+  "lname_bandit_154": {
+    "eng": "Tour Guide",
+    "pol": "Przewodnik",
+    "rus": "Сусанин",
+    "ukr": "Сусанін"
+  },
+  "lname_bandit_155": {
+    "eng": "Terminator",
+    "pol": "Terminator",
+    "rus": "Терминатор",
+    "ukr": "Термінатор"
+  },
+  "lname_bandit_156": {
+    "eng": "Chapai",
+    "pol": "Czapaj",
+    "rus": "Чапай",
+    "ukr": "Чапай"
+  },
+  "lname_bandit_157": {
+    "eng": "Genghis",
+    "pol": "D�yngis",
+    "rus": "Чингиз",
+    "ukr": "Чингіз"
+  },
+  "lname_bandit_158": {
+    "eng": "Banana",
+    "pol": "Banan",
+    "rus": "Банан",
+    "ukr": "Банан"
+  },
+  "lname_bandit_159": {
+    "eng": "Loaf",
+    "pol": "Bochenek",
+    "rus": "Батон",
+    "ukr": "Батон"
+  },
+  "lname_bandit_16": {
+    "eng": "Butterfingers",
+    "pol": "Niezdara",
+    "rus": "Дырявый",
+    "ukr": "Дірявий"
+  },
+  "lname_bandit_160": {
+    "eng": "Papa",
+    "pol": "Tata",
+    "rus": "Батя",
+    "ukr": "Батя"
+  },
+  "lname_bandit_161": {
+    "eng": "Spike",
+    "pol": "Kolec",
+    "rus": "Баян",
+    "ukr": "Баян"
+  },
+  "lname_bandit_162": {
+    "eng": "Homeboy",
+    "pol": "S�siad",
+    "rus": "Братан",
+    "ukr": "Братан"
+  },
+  "lname_bandit_163": {
+    "eng": "Gangrene",
+    "pol": "Gangrena",
+    "rus": "Гангрена",
+    "ukr": "Гангрена"
+  },
+  "lname_bandit_164": {
+    "eng": "Glitch",
+    "pol": "Usterka",
+    "rus": "Глюк",
+    "ukr": "Глюк"
+  },
+  "lname_bandit_165": {
+    "eng": "Degree",
+    "pol": "Stopie�",
+    "rus": "Градус",
+    "ukr": "Градус"
+  },
+  "lname_bandit_166": {
+    "eng": "Antelope",
+    "pol": "Antylopa",
+    "rus": "Сайгак",
+    "ukr": "Сагайдак"
+  },
+  "lname_bandit_167": {
+    "eng": "Fubar",
+    "pol": "Pora�ka",
+    "rus": "Звиздец",
+    "ukr": "Пипоть"
+  },
+  "lname_bandit_168": {
+    "eng": "Pariah",
+    "pol": "Parias",
+    "rus": "Изгой",
+    "ukr": "Ізгой"
+  },
+  "lname_bandit_169": {
+    "eng": "Aspic",
+    "pol": "Auszpik",
+    "rus": "Холодец",
+    "ukr": "Холодець"
+  },
+  "lname_bandit_17": {
+    "eng": "Charcoal",
+    "pol": "W�giel",
+    "rus": "Жжёный",
+    "ukr": "Палений"
+  },
+  "lname_bandit_170": {
+    "eng": "Trump",
+    "pol": "Atut",
+    "rus": "Козырь",
+    "ukr": "Козир"
+  },
+  "lname_bandit_171": {
+    "eng": "Joint",
+    "pol": "Skr�t",
+    "rus": "Косяк",
+    "ukr": "Косяк"
+  },
+  "lname_bandit_172": {
+    "eng": "Sock",
+    "pol": "Skarpeta",
+    "rus": "Лапоть",
+    "ukr": "Ходак"
+  },
+  "lname_bandit_173": {
+    "eng": "Goblin",
+    "pol": "Goblin",
+    "rus": "Леший",
+    "ukr": "Лісовик"
+  },
+  "lname_bandit_174": {
+    "eng": "Moor",
+    "pol": "Maur",
+    "rus": "Мавр",
+    "ukr": "Мавр"
+  },
+  "lname_bandit_175": {
+    "eng": "Reefer",
+    "pol": "Zio�o",
+    "rus": "Ништяк",
+    "ukr": "Ніштяк"
+  },
+  "lname_bandit_176": {
+    "eng": "Flop",
+    "pol": "Klapa",
+    "rus": "Облом",
+    "ukr": "Облом"
+  },
+  "lname_bandit_177": {
+    "eng": "Ravioli",
+    "pol": "Piero�ek",
+    "rus": "Пельмень",
+    "ukr": "Пельмень"
+  },
+  "lname_bandit_178": {
+    "eng": "Chili",
+    "pol": "Chili",
+    "rus": "Перец",
+    "ukr": "Перець"
+  },
+  "lname_bandit_179": {
+    "eng": "Grater",
+    "pol": "Pilnik",
+    "rus": "Рашпиль",
+    "ukr": "Рашпіль"
+  },
+  "lname_bandit_18": {
+    "eng": "Fatso",
+    "pol": "Gruby",
+    "rus": "Жирдяй",
+    "ukr": "Жирдяй"
+  },
+  "lname_bandit_180": {
+    "eng": "Biscuit",
+    "pol": "Krakers",
+    "rus": "Сухарь",
+    "ukr": "Сухар"
+  },
+  "lname_bandit_181": {
+    "eng": "Ghoul",
+    "pol": "Upi�r",
+    "rus": "Упырь",
+    "ukr": "Упир"
+  },
+  "lname_bandit_19": {
+    "eng": "Miser",
+    "pol": "Dusigrosz",
+    "rus": "Жлоб",
+    "ukr": "Жлоб"
+  },
+  "lname_bandit_2": {
+    "eng": "Broken",
+    "pol": "Rozbity",
+    "rus": "Битый",
+    "ukr": "Битий"
+  },
+  "lname_bandit_20": {
+    "eng": "Tightwad",
+    "pol": "Kutwa",
+    "rus": "Жмот",
+    "ukr": "Жмикрут"
+  },
+  "lname_bandit_21": {
+    "eng": "Squint",
+    "pol": "Zezowaty",
+    "rus": "Жмур",
+    "ukr": "Жмур"
+  },
+  "lname_bandit_22": {
+    "eng": "Fiend",
+    "pol": "Demon",
+    "rus": "Изверг",
+    "ukr": "Недолюдок"
+  },
+  "lname_bandit_23": {
+    "eng": "Cripple",
+    "pol": "Kaleka",
+    "rus": "Калека",
+    "ukr": "Каліка"
+  },
+  "lname_bandit_24": {
+    "eng": "Kicker",
+    "pol": "Kopacz",
+    "rus": "Колотун",
+    "ukr": "Колотун"
+  },
+  "lname_bandit_25": {
+    "eng": "Skew",
+    "pol": "Krzywy",
+    "rus": "Косой",
+    "ukr": "Зизий"
+  },
+  "lname_bandit_26": {
+    "eng": "Crooked",
+    "pol": "Szuja",
+    "rus": "Кривой",
+    "ukr": "Кривій"
+  },
+  "lname_bandit_27": {
+    "eng": "Shifter",
+    "pol": "Cwaniak",
+    "rus": "Ловкач",
+    "ukr": "Дурисвіт"
+  },
+  "lname_bandit_28": {
+    "eng": "Toupee",
+    "pol": "Tupecik",
+    "rus": "Лысый",
+    "ukr": "Лисий"
+  },
+  "lname_bandit_29": {
+    "eng": "Fierce",
+    "pol": "Dziki",
+    "rus": "Лютый",
+    "ukr": "Лютий"
+  },
+  "lname_bandit_3": {
+    "eng": "Crony",
+    "pol": "Kole�",
+    "rus": "Блатной",
+    "ukr": "Блатний"
+  },
+  "lname_bandit_30": {
+    "eng": "Local",
+    "pol": "Tutejszy",
+    "rus": "Местный",
+    "ukr": "Тутешній"
+  },
+  "lname_bandit_31": {
+    "eng": "Slime",
+    "pol": "�luz",
+    "rus": "Мутный",
+    "ukr": "Мутний"
+  },
+  "lname_bandit_32": {
+    "eng": "Champ",
+    "pol": "Mistrz",
+    "rus": "Мятый",
+    "ukr": "М'ятий"
+  },
+  "lname_bandit_33": {
+    "eng": "Monocle",
+    "pol": "Monokl",
+    "rus": "Одноглазый",
+    "ukr": "Одноокий"
+  },
+  "lname_bandit_34": {
+    "eng": "Rascal",
+    "pol": "�obuz",
+    "rus": "Падла",
+    "ukr": "Падла"
+  },
+  "lname_bandit_35": {
+    "eng": "Deadbeat",
+    "pol": "Paso�yt",
+    "rus": "Паразит",
+    "ukr": "Паразит"
+  },
+  "lname_bandit_36": {
+    "eng": "Hotshot",
+    "pol": "Wa�niak",
+    "rus": "Пижон",
+    "ukr": "Піжон"
+  },
+  "lname_bandit_37": {
+    "eng": "Turd",
+    "pol": "�ajdak",
+    "rus": "Подлец",
+    "ukr": "Падлюка"
+  },
+  "lname_bandit_38": {
+    "eng": "Defunct",
+    "pol": "Nieboszczyk",
+    "rus": "Покойник",
+    "ukr": "Небіжчик"
+  },
+  "lname_bandit_39": {
+    "eng": "Psycho",
+    "pol": "Psychol",
+    "rus": "Псих",
+    "ukr": "Псих"
+  },
+  "lname_bandit_4": {
+    "eng": "Loudmouth",
+    "pol": "Krzykacz",
+    "rus": "Болтун",
+    "ukr": "Базіка"
+  },
+  "lname_bandit_40": {
+    "eng": "Torn",
+    "pol": "Zadra",
+    "rus": "Рваный",
+    "ukr": "Рваний"
+  },
+  "lname_bandit_41": {
+    "eng": "Grabber",
+    "pol": "�apacz",
+    "rus": "Рвач",
+    "ukr": "Рвач"
+  },
+  "lname_bandit_42": {
+    "eng": "Blind",
+    "pol": "�lepy",
+    "rus": "Слепой",
+    "ukr": "Сліпий"
+  },
+  "lname_bandit_43": {
+    "eng": "Snot",
+    "pol": "Smark",
+    "rus": "Сопля",
+    "ukr": "Возгря"
+  },
+  "lname_bandit_44": {
+    "eng": "Hipster",
+    "pol": "Fircyk",
+    "rus": "Стиляга",
+    "ukr": "Стиляга"
+  },
+  "lname_bandit_45": {
+    "eng": "Met",
+    "pol": "Kasa",
+    "rus": "Столичный",
+    "ukr": "Столичний"
+  },
+  "lname_bandit_46": {
+    "eng": "Corpse",
+    "pol": "Truposz",
+    "rus": "Трупак",
+    "ukr": "Трупак"
+  },
+  "lname_bandit_47": {
+    "eng": "Slasher",
+    "pol": "Siekacz",
+    "rus": "Ухарь",
+    "ukr": "Хват"
+  },
+  "lname_bandit_48": {
+    "eng": "Ears",
+    "pol": "Uszatek",
+    "rus": "Ушастый",
+    "ukr": "Вухань"
+  },
+  "lname_bandit_49": {
+    "eng": "Jester",
+    "pol": "B�azen",
+    "rus": "Хохмач",
+    "ukr": "Хохмач"
+  },
+  "lname_bandit_5": {
+    "eng": "Greyhound",
+    "pol": "Chart",
+    "rus": "Борзой",
+    "ukr": "Борзий"
+  },
+  "lname_bandit_50": {
+    "eng": "Lame",
+    "pol": "Kulawy",
+    "rus": "Хромой",
+    "ukr": "Кульгавий"
+  },
+  "lname_bandit_51": {
+    "eng": "Sturdy",
+    "pol": "Twardy",
+    "rus": "Хроник",
+    "ukr": "Хронік"
+  },
+  "lname_bandit_52": {
+    "eng": "Cranky",
+    "pol": "Maruda",
+    "rus": "Шалый",
+    "ukr": "Навісний"
+  },
+  "lname_bandit_53": {
+    "eng": "Connoisseur",
+    "pol": "Koneser",
+    "rus": "Эстет",
+    "ukr": "Естет"
+  },
+  "lname_bandit_54": {
+    "eng": "Robust",
+    "pol": "�wawy",
+    "rus": "Ядрёный",
+    "ukr": "Ядрьоний"
+  },
+  "lname_bandit_55": {
+    "eng": "Squire",
+    "pol": "Giermek",
+    "rus": "Адвокат",
+    "ukr": "Адвокат"
+  },
+  "lname_bandit_56": {
+    "eng": "Leech",
+    "pol": "Pijawka",
+    "rus": "Айболит",
+    "ukr": "Айболить"
+  },
+  "lname_bandit_57": {
+    "eng": "Artist",
+    "pol": "Artysta",
+    "rus": "Артист",
+    "ukr": "Артист"
+  },
+  "lname_bandit_58": {
+    "eng": "Conman",
+    "pol": "Kanciarz",
+    "rus": "Аферист",
+    "ukr": "Аферист"
+  },
+  "lname_bandit_59": {
+    "eng": "Banker",
+    "pol": "Bankier",
+    "rus": "Банкир",
+    "ukr": "Банкір"
+  },
+  "lname_bandit_6": {
+    "eng": "Hobo",
+    "pol": "�ul",
+    "rus": "Босяк",
+    "ukr": "Босяк"
+  },
+  "lname_bandit_60": {
+    "eng": "Baron",
+    "pol": "Baron",
+    "rus": "Барон",
+    "ukr": "Барон"
+  },
+  "lname_bandit_61": {
+    "eng": "Peddler",
+    "pol": "Handlarz",
+    "rus": "Барыга",
+    "ukr": "Барига"
+  },
+  "lname_bandit_62": {
+    "eng": "Unorthodox",
+    "pol": "Orygina�",
+    "rus": "Басурман",
+    "ukr": "Басурман"
+  },
+  "lname_bandit_63": {
+    "eng": "Tramp",
+    "pol": "Kloszard",
+    "rus": "Бомж",
+    "ukr": "Бомж"
+  },
+  "lname_bandit_64": {
+    "eng": "Bosun",
+    "pol": "Bosman",
+    "rus": "Боцман",
+    "ukr": "Боцман"
+  },
+  "lname_bandit_65": {
+    "eng": "Pigmy",
+    "pol": "Pigmej",
+    "rus": "Пигмей",
+    "ukr": "Пігмей"
+  },
+  "lname_bandit_66": {
+    "eng": "Bourbon",
+    "pol": "Burbon",
+    "rus": "Бурбон",
+    "ukr": "Бурбон"
+  },
+  "lname_bandit_67": {
+    "eng": "Bourgeois",
+    "pol": "Bur�uj",
+    "rus": "Буржуй",
+    "ukr": "Буржуй"
+  },
+  "lname_bandit_68": {
+    "eng": "Chauffeur",
+    "pol": "Szofer",
+    "rus": "Водила",
+    "ukr": "Водила"
+  },
+  "lname_bandit_69": {
+    "eng": "Thief",
+    "pol": "Z�odziej",
+    "rus": "Вор",
+    "ukr": "Злодій"
+  },
+  "lname_bandit_7": {
+    "eng": "Shaven",
+    "pol": "Ogolony",
+    "rus": "Бритый",
+    "ukr": "Голений"
+  },
+  "lname_bandit_70": {
+    "eng": "Gangster",
+    "pol": "Gangster",
+    "rus": "Гангстер",
+    "ukr": "Гангстер"
+  },
+  "lname_bandit_71": {
+    "eng": "Messenger",
+    "pol": "Pos�aniec",
+    "rus": "Гонец",
+    "ukr": "Гонець"
+  },
+  "lname_bandit_72": {
+    "eng": "Count",
+    "pol": "Hrabia",
+    "rus": "Граф",
+    "ukr": "Граф"
+  },
+  "lname_bandit_73": {
+    "eng": "Tyrant",
+    "pol": "Tyran",
+    "rus": "Деспот",
+    "ukr": "Деспот"
+  },
+  "lname_bandit_74": {
+    "eng": "Savage",
+    "pol": "Dzikus",
+    "rus": "Дикарь",
+    "ukr": "Дикун"
+  },
+  "lname_bandit_75": {
+    "eng": "Strangler",
+    "pol": "Dusiciel",
+    "rus": "Душитель",
+    "ukr": "Душій"
+  },
+  "lname_bandit_76": {
+    "eng": "Counselor",
+    "pol": "Doradca",
+    "rus": "Законник",
+    "ukr": "Законник"
+  },
+  "lname_bandit_77": {
+    "eng": "Player",
+    "pol": "Gracz",
+    "rus": "Игрок",
+    "ukr": "Картяр"
+  },
+  "lname_bandit_78": {
+    "eng": "Cheat",
+    "pol": "Oszust",
+    "rus": "Кидала",
+    "ukr": "Кидала"
+  },
+  "lname_bandit_79": {
+    "eng": "Godfather",
+    "pol": "Ojciec Chrzestny",
+    "rus": "Крёстный отец",
+    "ukr": "Хрещений батько"
+  },
+  "lname_bandit_8": {
+    "eng": "Veteran",
+    "pol": "Weteran",
+    "rus": "Бывалый",
+    "ukr": "Бувалий"
+  },
+  "lname_bandit_80": {
+    "eng": "Coach",
+    "pol": "Trener",
+    "rus": "Кучер",
+    "ukr": "Машталір"
+  },
+  "lname_bandit_81": {
+    "eng": "Bling-bling",
+    "pol": "Tandeta",
+    "rus": "Мажор",
+    "ukr": "Мажор"
+  },
+  "lname_bandit_82": {
+    "eng": "Maniac",
+    "pol": "Maniak",
+    "rus": "Маньяк",
+    "ukr": "Маніяк"
+  },
+  "lname_bandit_83": {
+    "eng": "Undertaker",
+    "pol": "Grabarz",
+    "rus": "Могильщик",
+    "ukr": "Гробар"
+  },
+  "lname_bandit_84": {
+    "eng": "Butcher",
+    "pol": "Rze�nik",
+    "rus": "Мясник",
+    "ukr": "М’ясник"
+  },
+  "lname_bandit_85": {
+    "eng": "Ninja",
+    "pol": "Ninja",
+    "rus": "Ниндзя",
+    "ukr": "Ніндзя"
+  },
+  "lname_bandit_86": {
+    "eng": "Executioner",
+    "pol": "Kat",
+    "rus": "Палач",
+    "ukr": "Кат"
+  },
+  "lname_bandit_87": {
+    "eng": "Punk",
+    "pol": "Punk",
+    "rus": "Панк",
+    "ukr": "Панк"
+  },
+  "lname_bandit_88": {
+    "eng": "Guerilla",
+    "pol": "Partyzant",
+    "rus": "Партизан",
+    "ukr": "Партизан"
+  },
+  "lname_bandit_89": {
+    "eng": "Pacifist",
+    "pol": "Pacyfista",
+    "rus": "Пацифист",
+    "ukr": "Пацифіст"
+  },
+  "lname_bandit_9": {
+    "eng": "Boulder",
+    "pol": "G�az",
+    "rus": "Глыба",
+    "ukr": "Брила"
+  },
+  "lname_bandit_90": {
+    "eng": "Pirate",
+    "pol": "Pirat",
+    "rus": "Пират",
+    "ukr": "Пірат"
+  },
+  "lname_bandit_91": {
+    "eng": "Arsonist",
+    "pol": "Podpalacz",
+    "rus": "Поджигатель",
+    "ukr": "Палій"
+  },
+  "lname_bandit_92": {
+    "eng": "Prince",
+    "pol": "Ksi���",
+    "rus": "Принц",
+    "ukr": "Принц"
+  },
+  "lname_bandit_93": {
+    "eng": "Brigand",
+    "pol": "Rozb�jnik",
+    "rus": "Разбойник",
+    "ukr": "Розбійник"
+  },
+  "lname_bandit_94": {
+    "eng": "Kamikaze",
+    "pol": "Kamikaze",
+    "rus": "Смертник",
+    "ukr": "Смертник"
+  },
+  "lname_bandit_95": {
+    "eng": "Pimp",
+    "pol": "Alfons",
+    "rus": "Сутенёр",
+    "ukr": "Сутенер"
+  },
+  "lname_bandit_96": {
+    "eng": "Tyrant",
+    "pol": "Tyran",
+    "rus": "Тиран",
+    "ukr": "Тиран"
+  },
+  "lname_bandit_97": {
+    "eng": "Hitman",
+    "pol": "Cyngiel",
+    "rus": "Убийца",
+    "ukr": "Убивця"
+  },
+  "lname_bandit_98": {
+    "eng": "Trombone",
+    "pol": "Puzon",
+    "rus": "Фагот",
+    "ukr": "Фагот"
+  },
+  "lname_bandit_99": {
+    "eng": "Chemist",
+    "pol": "Chemik",
+    "rus": "Химик",
+    "ukr": "Хімік"
+  },
+  "lname_captain_0": {
+    "eng": "Abdurakhmanov",
+    "pol": "Abdurachmanow",
+    "rus": "Абдурхманов",
+    "ukr": "Абдурхманов"
+  },
+  "lname_captain_1": {
+    "eng": "Altynnik",
+    "pol": "Altynnik",
+    "rus": "Алтынник",
+    "ukr": "Алтинник"
+  },
+  "lname_captain_10": {
+    "eng": "Barsak",
+    "pol": "Barsak",
+    "rus": "Барсак",
+    "ukr": "Барсак"
+  },
+  "lname_captain_100": {
+    "eng": "Kireev",
+    "pol": "Kirejew",
+    "rus": "Киреев",
+    "ukr": "Кирєєв"
+  },
+  "lname_captain_101": {
+    "eng": "Scherbin",
+    "pol": "Szczerbin",
+    "rus": "Щербин",
+    "ukr": "Щербин"
+  },
+  "lname_captain_102": {
+    "eng": "Kovalchuk",
+    "pol": "Kowalczuk",
+    "rus": "Ковальчук",
+    "ukr": "Ковальчук"
+  },
+  "lname_captain_103": {
+    "eng": "Koev",
+    "pol": "Kojew",
+    "rus": "Коев",
+    "ukr": "Коєв"
+  },
+  "lname_captain_104": {
+    "eng": "Kozlov",
+    "pol": "Koz�ow",
+    "rus": "Козлов",
+    "ukr": "Козлов"
+  },
+  "lname_captain_105": {
+    "eng": "Kolontarev",
+    "pol": "Ko�ontarew",
+    "rus": "Колонтарёв",
+    "ukr": "Колонтарьов"
+  },
+  "lname_captain_106": {
+    "eng": "Kolontar",
+    "pol": "Ko�ontar",
+    "rus": "Колонтарь",
+    "ukr": "Колонтар"
+  },
+  "lname_captain_107": {
+    "eng": "Kondratenko",
+    "pol": "Kondratenko",
+    "rus": "Кондратенко",
+    "ukr": "Кондратенко"
+  },
+  "lname_captain_108": {
+    "eng": "Korkin",
+    "pol": "Korkin",
+    "rus": "Коркин",
+    "ukr": "Коркін"
+  },
+  "lname_captain_109": {
+    "eng": "Korneev",
+    "pol": "Korniejew",
+    "rus": "Корнеев",
+    "ukr": "Корнєєв"
+  },
+  "lname_captain_11": {
+    "eng": "Baul",
+    "pol": "Baul",
+    "rus": "Баул",
+    "ukr": "Баул"
+  },
+  "lname_captain_110": {
+    "eng": "Kravchenko",
+    "pol": "Krawczenko",
+    "rus": "Кравченко",
+    "ukr": "Кравченко"
+  },
+  "lname_captain_111": {
+    "eng": "Krivda",
+    "pol": "Kriwda",
+    "rus": "Кривда",
+    "ukr": "Кривда"
+  },
+  "lname_captain_112": {
+    "eng": "Krivokhatsky",
+    "pol": "Krzywochacki",
+    "rus": "Кривохатский",
+    "ukr": "Кривохатський"
+  },
+  "lname_captain_113": {
+    "eng": "Kuznetsov",
+    "pol": "Ku�niecow",
+    "rus": "Кузнецов",
+    "ukr": "Кузнєцов"
+  },
+  "lname_captain_114": {
+    "eng": "Kuzmich",
+    "pol": "Ku�micz",
+    "rus": "Кузьмич",
+    "ukr": "Кузьмич"
+  },
+  "lname_captain_115": {
+    "eng": "Kuzyakin",
+    "pol": "Kuziakin",
+    "rus": "Кузякин",
+    "ukr": "Кузякін"
+  },
+  "lname_captain_116": {
+    "eng": "Kulchitsky",
+    "pol": "Kulczycki",
+    "rus": "Кульчитский",
+    "ukr": "Кульчитський"
+  },
+  "lname_captain_117": {
+    "eng": "Kuntsev",
+    "pol": "Kuncew",
+    "rus": "Кунцев",
+    "ukr": "Кунцев"
+  },
+  "lname_captain_118": {
+    "eng": "Kurvitz",
+    "pol": "Kurwic",
+    "rus": "Курвиц",
+    "ukr": "Курвіц"
+  },
+  "lname_captain_119": {
+    "eng": "Kucheruk",
+    "pol": "Kuczeruk",
+    "rus": "Кучерук",
+    "ukr": "Кучерук"
+  },
+  "lname_captain_12": {
+    "eng": "Bashakov",
+    "pol": "Baszakow",
+    "rus": "Башаков",
+    "ukr": "Башаков"
+  },
+  "lname_captain_120": {
+    "eng": "Kushnarev",
+    "pol": "Kusznarew",
+    "rus": "Кушнарёв",
+    "ukr": "Кушнарьов"
+  },
+  "lname_captain_121": {
+    "eng": "Khaladze",
+    "pol": "Cha�adze",
+    "rus": "Кхаладзе",
+    "ukr": "Кхаладзе"
+  },
+  "lname_captain_122": {
+    "eng": "Lavrik",
+    "pol": "�awrik",
+    "rus": "Лаврик",
+    "ukr": "Лаврик"
+  },
+  "lname_captain_123": {
+    "eng": "Lavrov",
+    "pol": "�awrow",
+    "rus": "Лавров",
+    "ukr": "Лавров"
+  },
+  "lname_captain_124": {
+    "eng": "Livshits",
+    "pol": "Liwszyc",
+    "rus": "Лившиц",
+    "ukr": "Лівшиць"
+  },
+  "lname_captain_125": {
+    "eng": "Lisichansky",
+    "pol": "Lisicza�ski",
+    "rus": "Лисичанский",
+    "ukr": "Лисичанський"
+  },
+  "lname_captain_126": {
+    "eng": "Litvin",
+    "pol": "Litwin",
+    "rus": "Литвин",
+    "ukr": "Литвин"
+  },
+  "lname_captain_127": {
+    "eng": "Lymarenko",
+    "pol": "Limarenko",
+    "rus": "Лымаренко",
+    "ukr": "Лимаренко"
+  },
+  "lname_captain_128": {
+    "eng": "Mazepa",
+    "pol": "Mazepa",
+    "rus": "Мазепа",
+    "ukr": "Мазепа"
+  },
+  "lname_captain_129": {
+    "eng": "Makarenko",
+    "pol": "Makarenko",
+    "rus": "Макаренко",
+    "ukr": "Макаренко"
+  },
+  "lname_captain_13": {
+    "eng": "Bashmakov",
+    "pol": "Baszmakow",
+    "rus": "Башмаков",
+    "ukr": "Башмаков"
+  },
+  "lname_captain_130": {
+    "eng": "Maltsev",
+    "pol": "Malcew",
+    "rus": "Мальцев",
+    "ukr": "Мальцев"
+  },
+  "lname_captain_131": {
+    "eng": "Mamaev",
+    "pol": "Mamajew",
+    "rus": "Мамаев",
+    "ukr": "Мамаєв"
+  },
+  "lname_captain_132": {
+    "eng": "Merzlayev",
+    "pol": "Merz�ajew",
+    "rus": "Мерзляев",
+    "ukr": "Мерзляєв"
+  },
+  "lname_captain_133": {
+    "eng": "Milchenko",
+    "pol": "Milczenko",
+    "rus": "Мильченко",
+    "ukr": "Мільченко"
+  },
+  "lname_captain_134": {
+    "eng": "Mironyuk",
+    "pol": "Mironiuk",
+    "rus": "Миронюк",
+    "ukr": "Миронюк"
+  },
+  "lname_captain_135": {
+    "eng": "Mohrer",
+    "pol": "Mohrer",
+    "rus": "Морер",
+    "ukr": "Морер"
+  },
+  "lname_captain_136": {
+    "eng": "Kryga",
+    "pol": "Kryga",
+    "rus": "Крыга",
+    "ukr": "Крига"
+  },
+  "lname_captain_137": {
+    "eng": "Mostovoi",
+    "pol": "Mostowoj",
+    "rus": "Мостовой",
+    "ukr": "Мостовий"
+  },
+  "lname_captain_138": {
+    "eng": "Muntyan",
+    "pol": "Muntian",
+    "rus": "Мунтян",
+    "ukr": "Мунтян"
+  },
+  "lname_captain_139": {
+    "eng": "Mukhamedov",
+    "pol": "Muchamedow",
+    "rus": "Мухамедов",
+    "ukr": "Мухамедов"
+  },
+  "lname_captain_14": {
+    "eng": "Beshevly",
+    "pol": "Beszewli",
+    "rus": "Бешевлий",
+    "ukr": "Бешевлій"
+  },
+  "lname_captain_140": {
+    "eng": "Myskov",
+    "pol": "Myskow",
+    "rus": "Мыськов",
+    "ukr": "Миськов"
+  },
+  "lname_captain_141": {
+    "eng": "Navrotsky",
+    "pol": "Nawrocki",
+    "rus": "Навроцкий",
+    "ukr": "Навроцький"
+  },
+  "lname_captain_142": {
+    "eng": "Nepritsky",
+    "pol": "Nepricki",
+    "rus": "Неприцкий",
+    "ukr": "Неприцький"
+  },
+  "lname_captain_143": {
+    "eng": "Nikanorov",
+    "pol": "Nikanorow",
+    "rus": "Никаноров",
+    "ukr": "Ніканоров"
+  },
+  "lname_captain_144": {
+    "eng": "Nikeshin",
+    "pol": "Nikeszyn",
+    "rus": "Никешин",
+    "ukr": "Нікешин"
+  },
+  "lname_captain_145": {
+    "eng": "Nikulin",
+    "pol": "Nikulin",
+    "rus": "Никулин",
+    "ukr": "Нікулін"
+  },
+  "lname_captain_146": {
+    "eng": "Futzin",
+    "pol": "Fucin",
+    "rus": "Фуцин",
+    "ukr": "Фуцин"
+  },
+  "lname_captain_147": {
+    "eng": "Nordiev",
+    "pol": "Nordiew",
+    "rus": "Нордиев",
+    "ukr": "Нордієв"
+  },
+  "lname_captain_148": {
+    "eng": "Nosan",
+    "pol": "Nosan",
+    "rus": "Носань",
+    "ukr": "Носань"
+  },
+  "lname_captain_149": {
+    "eng": "Opolev",
+    "pol": "Opolew",
+    "rus": "Ополев",
+    "ukr": "Ополєв"
+  },
+  "lname_captain_15": {
+    "eng": "Binoev",
+    "pol": "Binojew",
+    "rus": "Биноев",
+    "ukr": "Біноєв"
+  },
+  "lname_captain_150": {
+    "eng": "Orlevich",
+    "pol": "Orlewicz",
+    "rus": "Орлевич",
+    "ukr": "Орлевич"
+  },
+  "lname_captain_151": {
+    "eng": "Orlov",
+    "pol": "Or�ow",
+    "rus": "Орлов",
+    "ukr": "Орлов"
+  },
+  "lname_captain_152": {
+    "eng": "Petkevich",
+    "pol": "Petkiewicz",
+    "rus": "Петкевич",
+    "ukr": "Петкевич"
+  },
+  "lname_captain_153": {
+    "eng": "Petrenko",
+    "pol": "Petrenko",
+    "rus": "Петренко",
+    "ukr": "Петренко"
+  },
+  "lname_captain_154": {
+    "eng": "Petrov",
+    "pol": "Petrow",
+    "rus": "Петров",
+    "ukr": "Петров"
+  },
+  "lname_captain_155": {
+    "eng": "Plokhenko",
+    "pol": "P�ochenko",
+    "rus": "Плохенко",
+    "ukr": "Плохенко"
+  },
+  "lname_captain_156": {
+    "eng": "Podyachev",
+    "pol": "Podiaczew",
+    "rus": "Подячев",
+    "ukr": "Подячєв"
+  },
+  "lname_captain_157": {
+    "eng": "Polyanin",
+    "pol": "Polianin",
+    "rus": "Полянин",
+    "ukr": "Полянін"
+  },
+  "lname_captain_158": {
+    "eng": "Poplavsky",
+    "pol": "Pop�awski",
+    "rus": "Поплавский",
+    "ukr": "Поплавський"
+  },
+  "lname_captain_159": {
+    "eng": "Popov",
+    "pol": "Popow",
+    "rus": "Попов",
+    "ukr": "Попов"
+  },
+  "lname_captain_16": {
+    "eng": "Blinov",
+    "pol": "Blinow",
+    "rus": "Блинов",
+    "ukr": "Блінов"
+  },
+  "lname_captain_160": {
+    "eng": "Portnykh",
+    "pol": "Portnych",
+    "rus": "Портных",
+    "ukr": "Портних"
+  },
+  "lname_captain_161": {
+    "eng": "Prasolov",
+    "pol": "Praso�ow",
+    "rus": "Прасолов",
+    "ukr": "Прасолов"
+  },
+  "lname_captain_162": {
+    "eng": "Prokopenko",
+    "pol": "Prokopenko",
+    "rus": "Прокопенко",
+    "ukr": "Прокопенко"
+  },
+  "lname_captain_163": {
+    "eng": "Proskurin",
+    "pol": "Proskurin",
+    "rus": "Проскурин",
+    "ukr": "Проскурін"
+  },
+  "lname_captain_164": {
+    "eng": "Protsenko",
+    "pol": "Procenko",
+    "rus": "Проценко",
+    "ukr": "Проценко"
+  },
+  "lname_captain_165": {
+    "eng": "Prudov",
+    "pol": "Prudow",
+    "rus": "Прудов",
+    "ukr": "Прудов"
+  },
+  "lname_captain_166": {
+    "eng": "Pustovar",
+    "pol": "Pustowar",
+    "rus": "Пустовар",
+    "ukr": "Пустовар"
+  },
+  "lname_captain_167": {
+    "eng": "Puchek",
+    "pol": "Puczek",
+    "rus": "Пучек",
+    "ukr": "Пучек"
+  },
+  "lname_captain_168": {
+    "eng": "Rabinovich",
+    "pol": "Rabinowicz",
+    "rus": "Рабинович",
+    "ukr": "Рабинович"
+  },
+  "lname_captain_169": {
+    "eng": "Radkevich",
+    "pol": "Radkiewicz",
+    "rus": "Радкевич",
+    "ukr": "Радкевич"
+  },
+  "lname_captain_17": {
+    "eng": "Bobrov",
+    "pol": "Bobrow",
+    "rus": "Бобров",
+    "ukr": "Бобров"
+  },
+  "lname_captain_170": {
+    "eng": "Rezun",
+    "pol": "Rezun",
+    "rus": "Резун",
+    "ukr": "Резун"
+  },
+  "lname_captain_171": {
+    "eng": "Rogoza",
+    "pol": "Rogoza",
+    "rus": "Рогоза",
+    "ukr": "Рогоза"
+  },
+  "lname_captain_172": {
+    "eng": "Rodnyansky",
+    "pol": "Rodnia�ski",
+    "rus": "Роднянский",
+    "ukr": "Роднянський"
+  },
+  "lname_captain_173": {
+    "eng": "Rotan",
+    "pol": "Rotan",
+    "rus": "Ротань",
+    "ukr": "Ротань"
+  },
+  "lname_captain_174": {
+    "eng": "Rublev",
+    "pol": "Rublew",
+    "rus": "Рублев",
+    "ukr": "Рубльов"
+  },
+  "lname_captain_175": {
+    "eng": "Rudik",
+    "pol": "Rudik",
+    "rus": "Рудик",
+    "ukr": "Рудик"
+  },
+  "lname_captain_176": {
+    "eng": "Rusanov",
+    "pol": "Rusanow",
+    "rus": "Русанов",
+    "ukr": "Русанов"
+  },
+  "lname_captain_177": {
+    "eng": "Rychagirsky",
+    "pol": "Ryczagirski",
+    "rus": "Рычагирский",
+    "ukr": "Ричагірський"
+  },
+  "lname_captain_178": {
+    "eng": "Savchenko",
+    "pol": "Sawczenko",
+    "rus": "Савченко",
+    "ukr": "Савченко"
+  },
+  "lname_captain_179": {
+    "eng": "Savchuk",
+    "pol": "Sawczuk",
+    "rus": "Савчук",
+    "ukr": "Савчук"
+  },
+  "lname_captain_18": {
+    "eng": "Bogdanov",
+    "pol": "Bogdanow",
+    "rus": "Богданов",
+    "ukr": "Богданов"
+  },
+  "lname_captain_180": {
+    "eng": "Sagitov",
+    "pol": "Sagitow",
+    "rus": "Сагитов",
+    "ukr": "Сагітов"
+  },
+  "lname_captain_181": {
+    "eng": "Sviridov",
+    "pol": "Swiridow",
+    "rus": "Свиридов",
+    "ukr": "Свиридов"
+  },
+  "lname_captain_182": {
+    "eng": "Sedykh",
+    "pol": "Sedych",
+    "rus": "Седых",
+    "ukr": "Сєдих"
+  },
+  "lname_captain_183": {
+    "eng": "Sereda",
+    "pol": "Sereda",
+    "rus": "Середа",
+    "ukr": "Середа"
+  },
+  "lname_captain_184": {
+    "eng": "Sidorenko",
+    "pol": "Sidorenko",
+    "rus": "Сидоренко",
+    "ukr": "Сидоренко"
+  },
+  "lname_captain_185": {
+    "eng": "Sidorov",
+    "pol": "Sidorow",
+    "rus": "Сидоров",
+    "ukr": "Сидоров"
+  },
+  "lname_captain_186": {
+    "eng": "Siniy",
+    "pol": "Sinij",
+    "rus": "Синий",
+    "ukr": "Синій"
+  },
+  "lname_captain_187": {
+    "eng": "Sinitzyn",
+    "pol": "Sinicyn",
+    "rus": "Синицын",
+    "ukr": "Синіцин"
+  },
+  "lname_captain_188": {
+    "eng": "Skameika",
+    "pol": "Skamejka",
+    "rus": "Скамейка",
+    "ukr": "Скамійка"
+  },
+  "lname_captain_189": {
+    "eng": "Slutsky",
+    "pol": "S�ucki",
+    "rus": "Слуцкий",
+    "ukr": "Слуцький"
+  },
+  "lname_captain_19": {
+    "eng": "Boiko",
+    "pol": "Bojko",
+    "rus": "Бойко",
+    "ukr": "Бойко"
+  },
+  "lname_captain_190": {
+    "eng": "Smelov",
+    "pol": "Sme�ow",
+    "rus": "Смелов",
+    "ukr": "Смєлов"
+  },
+  "lname_captain_191": {
+    "eng": "Smoly",
+    "pol": "Smo�y",
+    "rus": "Смолий",
+    "ukr": "Смолій"
+  },
+  "lname_captain_192": {
+    "eng": "Sorokin",
+    "pol": "Sorokin",
+    "rus": "Сорокин",
+    "ukr": "Сорокін"
+  },
+  "lname_captain_193": {
+    "eng": "Statzura",
+    "pol": "Stacura",
+    "rus": "Стацюра",
+    "ukr": "Стацюра"
+  },
+  "lname_captain_194": {
+    "eng": "Stepchin",
+    "pol": "Stepczyn",
+    "rus": "Степчин",
+    "ukr": "Степчин"
+  },
+  "lname_captain_195": {
+    "eng": "Stychinsky",
+    "pol": "Styczy�ski",
+    "rus": "Стычинский",
+    "ukr": "Стичинський"
+  },
+  "lname_captain_196": {
+    "eng": "Sykula",
+    "pol": "Syku�a",
+    "rus": "Сыкула",
+    "ukr": "Сикула"
+  },
+  "lname_captain_197": {
+    "eng": "Tarnavsky",
+    "pol": "Tarnawski",
+    "rus": "Тарнавский",
+    "ukr": "Тарнавський"
+  },
+  "lname_captain_198": {
+    "eng": "Tatarchuk",
+    "pol": "Tatarczuk",
+    "rus": "Татарчук",
+    "ukr": "Татарчук"
+  },
+  "lname_captain_199": {
+    "eng": "Timchuk",
+    "pol": "Timczuk",
+    "rus": "Тимчук",
+    "ukr": "Тимчук"
+  },
+  "lname_captain_2": {
+    "eng": "Andreychuk",
+    "pol": "Andrzejczuk",
+    "rus": "Андрейчук",
+    "ukr": "Андрійчук"
+  },
+  "lname_captain_20": {
+    "eng": "Boichenko",
+    "pol": "Bojczenko",
+    "rus": "Бойченко",
+    "ukr": "Бойченко"
+  },
+  "lname_captain_21": {
+    "eng": "Boldeskul",
+    "pol": "Boldeskul",
+    "rus": "Болдескул",
+    "ukr": "Болдескул"
+  },
+  "lname_captain_22": {
+    "eng": "Bondarev",
+    "pol": "Bondarew",
+    "rus": "Бондарев",
+    "ukr": "Бондарьов"
+  },
+  "lname_captain_23": {
+    "eng": "Borisov",
+    "pol": "Borisow",
+    "rus": "Борисов",
+    "ukr": "Борисов"
+  },
+  "lname_captain_24": {
+    "eng": "Brich",
+    "pol": "Bricz",
+    "rus": "Брич",
+    "ukr": "Брич"
+  },
+  "lname_captain_25": {
+    "eng": "Bronshtein",
+    "pol": "Bronsztein",
+    "rus": "Бронштейн",
+    "ukr": "Бронштейн"
+  },
+  "lname_captain_26": {
+    "eng": "Buryak",
+    "pol": "Buriak",
+    "rus": "Буряк",
+    "ukr": "Буряк"
+  },
+  "lname_captain_27": {
+    "eng": "Buturin",
+    "pol": "Buturin",
+    "rus": "Бутурин",
+    "ukr": "Бутурін"
+  },
+  "lname_captain_28": {
+    "eng": "Byalo",
+    "pol": "Bialo",
+    "rus": "Бяло",
+    "ukr": "Бяло"
+  },
+  "lname_captain_29": {
+    "eng": "Valentinov",
+    "pol": "Walentinow",
+    "rus": "Валентинов",
+    "ukr": "Валентинов"
+  },
+  "lname_captain_3": {
+    "eng": "Andruschenko",
+    "pol": "Andruszczenko",
+    "rus": "Андрущенко",
+    "ukr": "Андрущенко"
+  },
+  "lname_captain_30": {
+    "eng": "Vasiliev",
+    "pol": "Wasiliew",
+    "rus": "Васильев",
+    "ukr": "Васильєв"
+  },
+  "lname_captain_31": {
+    "eng": "Veselov",
+    "pol": "Wese�ow",
+    "rus": "Веселов",
+    "ukr": "Веселов"
+  },
+  "lname_captain_32": {
+    "eng": "Vinogradov",
+    "pol": "Winogradow",
+    "rus": "Виноградов",
+    "ukr": "Виноградов"
+  },
+  "lname_captain_33": {
+    "eng": "Vovnenko",
+    "pol": "Wownienko",
+    "rus": "Вовненко",
+    "ukr": "Вовненко"
+  },
+  "lname_captain_34": {
+    "eng": "Volanchuk",
+    "pol": "Wola�czuk",
+    "rus": "Воланчук",
+    "ukr": "Воланчук"
+  },
+  "lname_captain_35": {
+    "eng": "Volodar",
+    "pol": "Wo�odar",
+    "rus": "Володарь",
+    "ukr": "Володар"
+  },
+  "lname_captain_36": {
+    "eng": "Voloshin",
+    "pol": "Wo�oszyn",
+    "rus": "Волошин",
+    "ukr": "Волошин"
+  },
+  "lname_captain_37": {
+    "eng": "Vorontsov",
+    "pol": "Woro�cow",
+    "rus": "Воронцов",
+    "ukr": "Воронцов"
+  },
+  "lname_captain_38": {
+    "eng": "Vorokhaev",
+    "pol": "Worochajew",
+    "rus": "Ворохаев",
+    "ukr": "Ворохаєв"
+  },
+  "lname_captain_39": {
+    "eng": "Vyushinsky",
+    "pol": "Wiuszy�ski",
+    "rus": "Вьюшинский",
+    "ukr": "В'юшинський"
+  },
+  "lname_captain_4": {
+    "eng": "Anisiev",
+    "pol": "Anisiew",
+    "rus": "Анисьев",
+    "ukr": "Анисьєв"
+  },
+  "lname_captain_40": {
+    "eng": "Galkin",
+    "pol": "Ga�kin",
+    "rus": "Галкин",
+    "ukr": "Галкін"
+  },
+  "lname_captain_41": {
+    "eng": "Ganzyuk",
+    "pol": "Gandziuk",
+    "rus": "Ганзюк",
+    "ukr": "Ганзюк"
+  },
+  "lname_captain_42": {
+    "eng": "Garkovenko",
+    "pol": "Garkowienko",
+    "rus": "Гарковенко",
+    "ukr": "Гарковенко"
+  },
+  "lname_captain_43": {
+    "eng": "Garkusha",
+    "pol": "Garkusza",
+    "rus": "Гаркуша",
+    "ukr": "Гаркуша"
+  },
+  "lname_captain_44": {
+    "eng": "Georgov",
+    "pol": "Georgow",
+    "rus": "Георгов",
+    "ukr": "Георгов"
+  },
+  "lname_captain_45": {
+    "eng": "Glebovsky",
+    "pol": "Glebowski",
+    "rus": "Глебовский",
+    "ukr": "Глебовський"
+  },
+  "lname_captain_46": {
+    "eng": "Gnatyuk",
+    "pol": "Gnatiuk",
+    "rus": "Гнатюк",
+    "ukr": "Гнатюк"
+  },
+  "lname_captain_47": {
+    "eng": "Goncharenko",
+    "pol": "Gonczarenko",
+    "rus": "Гончаренко",
+    "ukr": "Гончаренко"
+  },
+  "lname_captain_48": {
+    "eng": "Gordienko",
+    "pol": "Gordienko",
+    "rus": "Гордиенко",
+    "ukr": "Гордієнко"
+  },
+  "lname_captain_49": {
+    "eng": "Gorlevoy",
+    "pol": "Gorlew�j",
+    "rus": "Горлевой",
+    "ukr": "Горлевой"
+  },
+  "lname_captain_5": {
+    "eng": "Ardashev",
+    "pol": "Ardaszew",
+    "rus": "Ардашев",
+    "ukr": "Ардашев"
+  },
+  "lname_captain_50": {
+    "eng": "Gorokhin",
+    "pol": "Gorochin",
+    "rus": "Горохин",
+    "ukr": "Горохін"
+  },
+  "lname_captain_51": {
+    "eng": "Goryunov",
+    "pol": "Goriunow",
+    "rus": "Горюнов",
+    "ukr": "Горюнов"
+  },
+  "lname_captain_52": {
+    "eng": "Grebenko",
+    "pol": "Grebenko",
+    "rus": "Гребенюк",
+    "ukr": "Гребенюк"
+  },
+  "lname_captain_53": {
+    "eng": "Gritzaenko",
+    "pol": "Gricajenko",
+    "rus": "Грицаенко",
+    "ukr": "Грицаєнко"
+  },
+  "lname_captain_54": {
+    "eng": "Gritzay",
+    "pol": "Gricaj",
+    "rus": "Грицай",
+    "ukr": "Грицай"
+  },
+  "lname_captain_55": {
+    "eng": "Gritzenkov",
+    "pol": "Gricenkow",
+    "rus": "Гриценков",
+    "ukr": "Гриценков"
+  },
+  "lname_captain_56": {
+    "eng": "Grishachev",
+    "pol": "Griszachew",
+    "rus": "Гришачев",
+    "ukr": "Гришачов"
+  },
+  "lname_captain_57": {
+    "eng": "Grischuk",
+    "pol": "Gryszczuk",
+    "rus": "Грищук",
+    "ukr": "Грищук"
+  },
+  "lname_captain_58": {
+    "eng": "Gubar",
+    "pol": "Gubar",
+    "rus": "Губар",
+    "ukr": "Губар"
+  },
+  "lname_captain_59": {
+    "eng": "Gunko",
+    "pol": "Gunko",
+    "rus": "Гунько",
+    "ukr": "Гунько"
+  },
+  "lname_captain_6": {
+    "eng": "Babich",
+    "pol": "Babicz",
+    "rus": "Бабич",
+    "ukr": "Бабич"
+  },
+  "lname_captain_60": {
+    "eng": "Gurevich",
+    "pol": "Gurewicz",
+    "rus": "Гуревич",
+    "ukr": "Гуревич"
+  },
+  "lname_captain_61": {
+    "eng": "Denisenko",
+    "pol": "Denisenko",
+    "rus": "Денисенко",
+    "ukr": "Денисенко"
+  },
+  "lname_captain_62": {
+    "eng": "Dovgalyuk",
+    "pol": "Dowgaliuk",
+    "rus": "Довгалюк",
+    "ukr": "Довгалюк"
+  },
+  "lname_captain_63": {
+    "eng": "Dombrik",
+    "pol": "Dombrik",
+    "rus": "Домбрик",
+    "ukr": "Домбрик"
+  },
+  "lname_captain_64": {
+    "eng": "Dotsenko",
+    "pol": "Docenko",
+    "rus": "Доценко",
+    "ukr": "Доценко"
+  },
+  "lname_captain_65": {
+    "eng": "Drozdush",
+    "pol": "Drozdusz",
+    "rus": "Дроздуш",
+    "ukr": "Дроздуш"
+  },
+  "lname_captain_66": {
+    "eng": "Dubenchuk",
+    "pol": "Dube�czuk",
+    "rus": "Дубенчук",
+    "ukr": "Дубенчук"
+  },
+  "lname_captain_67": {
+    "eng": "Dudorov",
+    "pol": "Dudorow",
+    "rus": "Дудоров",
+    "ukr": "Дудоров"
+  },
+  "lname_captain_68": {
+    "eng": "Duka",
+    "pol": "Duka",
+    "rus": "Дука",
+    "ukr": "Дука"
+  },
+  "lname_captain_69": {
+    "eng": "Dumko",
+    "pol": "Dumko",
+    "rus": "Думко",
+    "ukr": "Думко"
+  },
+  "lname_captain_7": {
+    "eng": "Balan",
+    "pol": "Balan",
+    "rus": "Балан",
+    "ukr": "Балан"
+  },
+  "lname_captain_70": {
+    "eng": "Dunaev",
+    "pol": "Dunajew",
+    "rus": "Дунаев",
+    "ukr": "Дунаєв"
+  },
+  "lname_captain_71": {
+    "eng": "Dyklov",
+    "pol": "Dyk�ow",
+    "rus": "Дыклов",
+    "ukr": "Диклов"
+  },
+  "lname_captain_72": {
+    "eng": "Erofeev",
+    "pol": "Erofejew",
+    "rus": "Ерофеев",
+    "ukr": "Єрофєєв"
+  },
+  "lname_captain_73": {
+    "eng": "Efremov",
+    "pol": "Efremow",
+    "rus": "Ефремов",
+    "ukr": "Єфремов"
+  },
+  "lname_captain_74": {
+    "eng": "Zhabenko",
+    "pol": "�abenko",
+    "rus": "Жабенко",
+    "ukr": "Жабенко"
+  },
+  "lname_captain_75": {
+    "eng": "Zhmyev",
+    "pol": "�mijew",
+    "rus": "Жмыев",
+    "ukr": "Жмиєв"
+  },
+  "lname_captain_76": {
+    "eng": "Zhurakovsky",
+    "pol": "�urakowski",
+    "rus": "Жураковский",
+    "ukr": "Жураковський"
+  },
+  "lname_captain_77": {
+    "eng": "Zabyagoda",
+    "pol": "Zabiagoda",
+    "rus": "Забыйягода",
+    "ukr": "Забийягода"
+  },
+  "lname_captain_78": {
+    "eng": "Zagorodnyuk",
+    "pol": "Zagorodniuk",
+    "rus": "Загороднюк",
+    "ukr": "Загороднюк"
+  },
+  "lname_captain_79": {
+    "eng": "Zamosenchuk",
+    "pol": "Zamose�czuk",
+    "rus": "Замосенчук",
+    "ukr": "Замосенчук"
+  },
+  "lname_captain_8": {
+    "eng": "Baranov",
+    "pol": "Baranow",
+    "rus": "Баранов",
+    "ukr": "Баранов"
+  },
+  "lname_captain_80": {
+    "eng": "Zarubin",
+    "pol": "Zarubin",
+    "rus": "Зарубин",
+    "ukr": "Зарубін"
+  },
+  "lname_captain_81": {
+    "eng": "Zakharin",
+    "pol": "Zacharin",
+    "rus": "Захарин",
+    "ukr": "Захарін"
+  },
+  "lname_captain_82": {
+    "eng": "Zvonnitsky",
+    "pol": "Zwonnicki",
+    "rus": "Звонницкий",
+    "ukr": "Звоницький"
+  },
+  "lname_captain_83": {
+    "eng": "Zinoviev",
+    "pol": "Zinowiew",
+    "rus": "Зиновьев",
+    "ukr": "Зінов'єв"
+  },
+  "lname_captain_84": {
+    "eng": "Zozo",
+    "pol": "Zozo",
+    "rus": "Зозо",
+    "ukr": "Зозо"
+  },
+  "lname_captain_85": {
+    "eng": "Zolotar",
+    "pol": "Zo�otar",
+    "rus": "Золотарь",
+    "ukr": "Золотар"
+  },
+  "lname_captain_86": {
+    "eng": "Zubarev",
+    "pol": "Zubarew",
+    "rus": "Зубарев",
+    "ukr": "Зубарєв"
+  },
+  "lname_captain_87": {
+    "eng": "Zubkov",
+    "pol": "�ubkow",
+    "rus": "Зубков",
+    "ukr": "Зубков"
+  },
+  "lname_captain_88": {
+    "eng": "Ivanov",
+    "pol": "Iwanow",
+    "rus": "Иванов",
+    "ukr": "Іванов"
+  },
+  "lname_captain_89": {
+    "eng": "Ignatenko",
+    "pol": "Ignatenko",
+    "rus": "Игнатенко",
+    "ukr": "Ігнатенко"
+  },
+  "lname_captain_9": {
+    "eng": "Baranovsky",
+    "pol": "Baranowski",
+    "rus": "Барановский",
+    "ukr": "Барановський"
+  },
+  "lname_captain_90": {
+    "eng": "Izhenko",
+    "pol": "I�enko",
+    "rus": "Иженко",
+    "ukr": "Іженко"
+  },
+  "lname_captain_91": {
+    "eng": "Ischuk",
+    "pol": "Iszczuk",
+    "rus": "Ищук",
+    "ukr": "Іщук"
+  },
+  "lname_captain_92": {
+    "eng": "Kazakov",
+    "pol": "Kazakow",
+    "rus": "Казаков",
+    "ukr": "Казаков"
+  },
+  "lname_captain_93": {
+    "eng": "Kazantsev",
+    "pol": "Kaza�cew",
+    "rus": "Казанцев",
+    "ukr": "Котелцев"
+  },
+  "lname_captain_94": {
+    "eng": "Kandybabko",
+    "pol": "Kandybabko",
+    "rus": "Кандыбабко",
+    "ukr": "Кандибабко"
+  },
+  "lname_captain_95": {
+    "eng": "Kapuka",
+    "pol": "Kapuka",
+    "rus": "Капука",
+    "ukr": "Капука"
+  },
+  "lname_captain_96": {
+    "eng": "Kapustyanko",
+    "pol": "Kapustianko",
+    "rus": "Капустянко",
+    "ukr": "Капустянко"
+  },
+  "lname_captain_97": {
+    "eng": "Katz",
+    "pol": "Kac",
+    "rus": "Кац",
+    "ukr": "Кац"
+  },
+  "lname_captain_98": {
+    "eng": "Kikabidze",
+    "pol": "Kikabidze",
+    "rus": "Кикабидзе",
+    "ukr": "Кікабідзе"
+  },
+  "lname_captain_99": {
+    "eng": "Gatzula",
+    "pol": "Gacula",
+    "rus": "Гацула",
+    "ukr": "Гацула"
+  },
+  "lname_lieutenant_0": {
+    "eng": "Abdurakhmanov",
+    "pol": "Abdurachmanow",
+    "rus": "Абдурхманов",
+    "ukr": "Абдурхманов"
+  },
+  "lname_lieutenant_1": {
+    "eng": "Altynnik",
+    "pol": "Altynnik",
+    "rus": "Алтынник",
+    "ukr": "Алтинник"
+  },
+  "lname_lieutenant_10": {
+    "eng": "Barsak",
+    "pol": "Barsak",
+    "rus": "Барсак",
+    "ukr": "Барсак"
+  },
+  "lname_lieutenant_100": {
+    "eng": "Kireev",
+    "pol": "Kirejew",
+    "rus": "Киреев",
+    "ukr": "Кирєєв"
+  },
+  "lname_lieutenant_101": {
+    "eng": "Scherbin",
+    "pol": "Szczerbin",
+    "rus": "Щербин",
+    "ukr": "Щербин"
+  },
+  "lname_lieutenant_102": {
+    "eng": "Kovalchuk",
+    "pol": "Kowalczuk",
+    "rus": "Ковальчук",
+    "ukr": "Ковальчук"
+  },
+  "lname_lieutenant_103": {
+    "eng": "Koev",
+    "pol": "Kojew",
+    "rus": "Коев",
+    "ukr": "Коєв"
+  },
+  "lname_lieutenant_104": {
+    "eng": "Kozlov",
+    "pol": "Koz�ow",
+    "rus": "Козлов",
+    "ukr": "Козлов"
+  },
+  "lname_lieutenant_105": {
+    "eng": "Kolontarev",
+    "pol": "Ko�ontarew",
+    "rus": "Колонтарёв",
+    "ukr": "Колонтарьов"
+  },
+  "lname_lieutenant_106": {
+    "eng": "Kolontar",
+    "pol": "Ko�ontar",
+    "rus": "Колонтарь",
+    "ukr": "Колонтар"
+  },
+  "lname_lieutenant_107": {
+    "eng": "Kondratenko",
+    "pol": "Kondratenko",
+    "rus": "Кондратенко",
+    "ukr": "Кондратенко"
+  },
+  "lname_lieutenant_108": {
+    "eng": "Korkin",
+    "pol": "Korkin",
+    "rus": "Коркин",
+    "ukr": "Коркін"
+  },
+  "lname_lieutenant_109": {
+    "eng": "Korneev",
+    "pol": "Kornejew",
+    "rus": "Корнеев",
+    "ukr": "Корнєєв"
+  },
+  "lname_lieutenant_11": {
+    "eng": "Baul",
+    "pol": "Baul",
+    "rus": "Баул",
+    "ukr": "Баул"
+  },
+  "lname_lieutenant_110": {
+    "eng": "Kravchenko",
+    "pol": "Krawczenko",
+    "rus": "Кравченко",
+    "ukr": "Кравченко"
+  },
+  "lname_lieutenant_111": {
+    "eng": "Krivda",
+    "pol": "Kriwda",
+    "rus": "Кривда",
+    "ukr": "Кривда"
+  },
+  "lname_lieutenant_112": {
+    "eng": "Krivokhatsky",
+    "pol": "Krzywochacki",
+    "rus": "Кривохатский",
+    "ukr": "Кривохатський"
+  },
+  "lname_lieutenant_113": {
+    "eng": "Kuznetsov",
+    "pol": "Ku�niecow",
+    "rus": "Кузнецов",
+    "ukr": "Кузнєцов"
+  },
+  "lname_lieutenant_114": {
+    "eng": "Kuzmich",
+    "pol": "Kuzmich",
+    "rus": "Кузьмич",
+    "ukr": "Кузьмич"
+  },
+  "lname_lieutenant_115": {
+    "eng": "Kuzyakin",
+    "pol": "Kuziakin",
+    "rus": "Кузякин",
+    "ukr": "Кузякін"
+  },
+  "lname_lieutenant_116": {
+    "eng": "Kulchistky",
+    "pol": "Kulczycki",
+    "rus": "Кульчитский",
+    "ukr": "Кульчитський"
+  },
+  "lname_lieutenant_117": {
+    "eng": "Kuntsev",
+    "pol": "Kuncew",
+    "rus": "Кунцев",
+    "ukr": "Кунцев"
+  },
+  "lname_lieutenant_118": {
+    "eng": "Kurvitz",
+    "pol": "Kurwic",
+    "rus": "Курвиц",
+    "ukr": "Курвіц"
+  },
+  "lname_lieutenant_119": {
+    "eng": "Kucheruk",
+    "pol": "Kuczeruk",
+    "rus": "Кучерук",
+    "ukr": "Кучерук"
+  },
+  "lname_lieutenant_12": {
+    "eng": "Bashakov",
+    "pol": "Baszakow",
+    "rus": "Башаков",
+    "ukr": "Башаков"
+  },
+  "lname_lieutenant_120": {
+    "eng": "Kushnarev",
+    "pol": "Kusznarew",
+    "rus": "Кушнарёв",
+    "ukr": "Кушнарьов"
+  },
+  "lname_lieutenant_121": {
+    "eng": "Khaladze",
+    "pol": "Chaladze",
+    "rus": "Кхаладзе",
+    "ukr": "Кхаладзе"
+  },
+  "lname_lieutenant_122": {
+    "eng": "Lavrik",
+    "pol": "�awrik",
+    "rus": "Лаврик",
+    "ukr": "Лаврик"
+  },
+  "lname_lieutenant_123": {
+    "eng": "Lavrov",
+    "pol": "�awrow",
+    "rus": "Лавров",
+    "ukr": "Лавров"
+  },
+  "lname_lieutenant_124": {
+    "eng": "Livshits",
+    "pol": "Liwszyc",
+    "rus": "Лившиц",
+    "ukr": "Лівшиць"
+  },
+  "lname_lieutenant_125": {
+    "eng": "Lisichansky",
+    "pol": "Lisicza�ski",
+    "rus": "Лисичанский",
+    "ukr": "Лисичанський"
+  },
+  "lname_lieutenant_126": {
+    "eng": "Litvin",
+    "pol": "Litwin",
+    "rus": "Литвин",
+    "ukr": "Литвин"
+  },
+  "lname_lieutenant_127": {
+    "eng": "Lymarenko",
+    "pol": "Limarenko",
+    "rus": "Лымаренко",
+    "ukr": "Лимаренко"
+  },
+  "lname_lieutenant_128": {
+    "eng": "Mazepa",
+    "pol": "Mazepa",
+    "rus": "Мазепа",
+    "ukr": "Мазепа"
+  },
+  "lname_lieutenant_129": {
+    "eng": "Makarenko",
+    "pol": "Makarenko",
+    "rus": "Макаренко",
+    "ukr": "Макаренко"
+  },
+  "lname_lieutenant_13": {
+    "eng": "Bashmakov",
+    "pol": "Baszmakow",
+    "rus": "Башмаков",
+    "ukr": "Башмаков"
+  },
+  "lname_lieutenant_130": {
+    "eng": "Maltsev",
+    "pol": "Ma�cew",
+    "rus": "Мальцев",
+    "ukr": "Мальцев"
+  },
+  "lname_lieutenant_131": {
+    "eng": "Mamaev",
+    "pol": "Mamajew",
+    "rus": "Мамаев",
+    "ukr": "Мамаєв"
+  },
+  "lname_lieutenant_132": {
+    "eng": "Merzlayev",
+    "pol": "Merz�ajew",
+    "rus": "Мерзляев",
+    "ukr": "Мерзляєв"
+  },
+  "lname_lieutenant_133": {
+    "eng": "Milchenko",
+    "pol": "Milczenko",
+    "rus": "Мильченко",
+    "ukr": "Мільченко"
+  },
+  "lname_lieutenant_134": {
+    "eng": "Mironyuk",
+    "pol": "Mironiuk",
+    "rus": "Миронюк",
+    "ukr": "Миронюк"
+  },
+  "lname_lieutenant_135": {
+    "eng": "Mohrer",
+    "pol": "Mohrer",
+    "rus": "Морер",
+    "ukr": "Морер"
+  },
+  "lname_lieutenant_136": {
+    "eng": "Kryga",
+    "pol": "Kryga",
+    "rus": "Крыга",
+    "ukr": "Крига"
+  },
+  "lname_lieutenant_137": {
+    "eng": "Mostovoi",
+    "pol": "Mostowoj",
+    "rus": "Мостовой",
+    "ukr": "Мостовий"
+  },
+  "lname_lieutenant_138": {
+    "eng": "Muntyan",
+    "pol": "Muntian",
+    "rus": "Мунтян",
+    "ukr": "Мунтян"
+  },
+  "lname_lieutenant_139": {
+    "eng": "Mukhamedov",
+    "pol": "Muchamedow",
+    "rus": "Мухамедов",
+    "ukr": "Мухамедов"
+  },
+  "lname_lieutenant_14": {
+    "eng": "Beshevly",
+    "pol": "Beszewli",
+    "rus": "Бешевлий",
+    "ukr": "Бешевлій"
+  },
+  "lname_lieutenant_140": {
+    "eng": "Myskov",
+    "pol": "Miskow",
+    "rus": "Мыськов",
+    "ukr": "Миськов"
+  },
+  "lname_lieutenant_141": {
+    "eng": "Navrotsky",
+    "pol": "Nawrocki",
+    "rus": "Навроцкий",
+    "ukr": "Навроцький"
+  },
+  "lname_lieutenant_142": {
+    "eng": "Nepritsky",
+    "pol": "Nepricki",
+    "rus": "Неприцкий",
+    "ukr": "Неприцький"
+  },
+  "lname_lieutenant_143": {
+    "eng": "Nikanorov",
+    "pol": "Nikanorov",
+    "rus": "Никаноров",
+    "ukr": "Ніканоров"
+  },
+  "lname_lieutenant_144": {
+    "eng": "Nikeshin",
+    "pol": "Nikeszyn",
+    "rus": "Никешин",
+    "ukr": "Нікешин"
+  },
+  "lname_lieutenant_145": {
+    "eng": "Nikulin",
+    "pol": "Nikulin",
+    "rus": "Никулин",
+    "ukr": "Нікулін"
+  },
+  "lname_lieutenant_146": {
+    "eng": "Futzin",
+    "pol": "Fucin",
+    "rus": "Фуцин",
+    "ukr": "Фуцин"
+  },
+  "lname_lieutenant_147": {
+    "eng": "Nordiev",
+    "pol": "Nordiew",
+    "rus": "Нордиев",
+    "ukr": "Нордієв"
+  },
+  "lname_lieutenant_148": {
+    "eng": "Nosan",
+    "pol": "Nosan",
+    "rus": "Носань",
+    "ukr": "Носань"
+  },
+  "lname_lieutenant_149": {
+    "eng": "Opolev",
+    "pol": "Opolew",
+    "rus": "Ополев",
+    "ukr": "Ополєв"
+  },
+  "lname_lieutenant_15": {
+    "eng": "Binoev",
+    "pol": "Binojew",
+    "rus": "Биноев",
+    "ukr": "Біноєв"
+  },
+  "lname_lieutenant_150": {
+    "eng": "Orlevich",
+    "pol": "Orlewicz",
+    "rus": "Орлевич",
+    "ukr": "Орлевич"
+  },
+  "lname_lieutenant_151": {
+    "eng": "Orlov",
+    "pol": "Or�ow",
+    "rus": "Орлов",
+    "ukr": "Орлов"
+  },
+  "lname_lieutenant_152": {
+    "eng": "Petkevich",
+    "pol": "Petkiewicz",
+    "rus": "Петкевич",
+    "ukr": "Петкевич"
+  },
+  "lname_lieutenant_153": {
+    "eng": "Petrenko",
+    "pol": "Petrenko",
+    "rus": "Петренко",
+    "ukr": "Петренко"
+  },
+  "lname_lieutenant_154": {
+    "eng": "Petrov",
+    "pol": "Petrow",
+    "rus": "Петров",
+    "ukr": "Петров"
+  },
+  "lname_lieutenant_155": {
+    "eng": "Plokhenko",
+    "pol": "P�ochenko",
+    "rus": "Плохенко",
+    "ukr": "Плохенко"
+  },
+  "lname_lieutenant_156": {
+    "eng": "Podyachev",
+    "pol": "Podjaczew",
+    "rus": "Подячев",
+    "ukr": "Подячєв"
+  },
+  "lname_lieutenant_157": {
+    "eng": "Polyanin",
+    "pol": "Polianin",
+    "rus": "Полянин",
+    "ukr": "Полянін"
+  },
+  "lname_lieutenant_158": {
+    "eng": "Poplavsky",
+    "pol": "Pop�awski",
+    "rus": "Поплавский",
+    "ukr": "Поплавський"
+  },
+  "lname_lieutenant_159": {
+    "eng": "Popov",
+    "pol": "Popow",
+    "rus": "Попов",
+    "ukr": "Попов"
+  },
+  "lname_lieutenant_16": {
+    "eng": "Blinov",
+    "pol": "Blinow",
+    "rus": "Блинов",
+    "ukr": "Блінов"
+  },
+  "lname_lieutenant_160": {
+    "eng": "Portnykh",
+    "pol": "Portnich",
+    "rus": "Портных",
+    "ukr": "Портних"
+  },
+  "lname_lieutenant_161": {
+    "eng": "Prasolov",
+    "pol": "Praso�ow",
+    "rus": "Прасолов",
+    "ukr": "Прасолов"
+  },
+  "lname_lieutenant_162": {
+    "eng": "Prokopenko",
+    "pol": "Prokopenko",
+    "rus": "Прокопенко",
+    "ukr": "Прокопенко"
+  },
+  "lname_lieutenant_163": {
+    "eng": "Proskurin",
+    "pol": "Proskurin",
+    "rus": "Проскурин",
+    "ukr": "Проскурін"
+  },
+  "lname_lieutenant_164": {
+    "eng": "Protsenko",
+    "pol": "Procenko",
+    "rus": "Проценко",
+    "ukr": "Проценко"
+  },
+  "lname_lieutenant_165": {
+    "eng": "Prudov",
+    "pol": "Prudow",
+    "rus": "Прудов",
+    "ukr": "Прудов"
+  },
+  "lname_lieutenant_166": {
+    "eng": "Pustovar",
+    "pol": "Pustowar",
+    "rus": "Пустовар",
+    "ukr": "Пустовар"
+  },
+  "lname_lieutenant_167": {
+    "eng": "Puchek",
+    "pol": "Puczek",
+    "rus": "Пучек",
+    "ukr": "Пучек"
+  },
+  "lname_lieutenant_168": {
+    "eng": "Rabinovich",
+    "pol": "Rabinowicz",
+    "rus": "Рабинович",
+    "ukr": "Рабинович"
+  },
+  "lname_lieutenant_169": {
+    "eng": "Radkevich",
+    "pol": "Radkiewicz",
+    "rus": "Радкевич",
+    "ukr": "Радкевич"
+  },
+  "lname_lieutenant_17": {
+    "eng": "Bobrov",
+    "pol": "Bobrow",
+    "rus": "Бобров",
+    "ukr": "Бобров"
+  },
+  "lname_lieutenant_170": {
+    "eng": "Rezun",
+    "pol": "Rezun",
+    "rus": "Резун",
+    "ukr": "Резун"
+  },
+  "lname_lieutenant_171": {
+    "eng": "Rogoza",
+    "pol": "Rogoza",
+    "rus": "Рогоза",
+    "ukr": "Рогоза"
+  },
+  "lname_lieutenant_172": {
+    "eng": "Rodnyansky",
+    "pol": "Rodnia�ski",
+    "rus": "Роднянский",
+    "ukr": "Роднянський"
+  },
+  "lname_lieutenant_173": {
+    "eng": "Rotan",
+    "pol": "Rotan",
+    "rus": "Ротань",
+    "ukr": "Ротань"
+  },
+  "lname_lieutenant_174": {
+    "eng": "Rublev",
+    "pol": "Rublew",
+    "rus": "Рублев",
+    "ukr": "Рубльов"
+  },
+  "lname_lieutenant_175": {
+    "eng": "Rudik",
+    "pol": "Rudik",
+    "rus": "Рудик",
+    "ukr": "Рудик"
+  },
+  "lname_lieutenant_176": {
+    "eng": "Rusanov",
+    "pol": "Rusanow",
+    "rus": "Русанов",
+    "ukr": "Русанов"
+  },
+  "lname_lieutenant_177": {
+    "eng": "Rychagirsky",
+    "pol": "Rychagirski",
+    "rus": "Рычагирский",
+    "ukr": "Ричагірський"
+  },
+  "lname_lieutenant_178": {
+    "eng": "Savchenko",
+    "pol": "Sawczenko",
+    "rus": "Савченко",
+    "ukr": "Савченко"
+  },
+  "lname_lieutenant_179": {
+    "eng": "Savchuk",
+    "pol": "Sawczuk",
+    "rus": "Савчук",
+    "ukr": "Савчук"
+  },
+  "lname_lieutenant_18": {
+    "eng": "Bogdanov",
+    "pol": "Bogdanow",
+    "rus": "Богданов",
+    "ukr": "Богданов"
+  },
+  "lname_lieutenant_180": {
+    "eng": "Sagitov",
+    "pol": "Sagitow",
+    "rus": "Сагитов",
+    "ukr": "Сагітов"
+  },
+  "lname_lieutenant_181": {
+    "eng": "Sviridov",
+    "pol": "Swiridow",
+    "rus": "Свиридов",
+    "ukr": "Свиридов"
+  },
+  "lname_lieutenant_182": {
+    "eng": "Sedykh",
+    "pol": "Sedych",
+    "rus": "Седых",
+    "ukr": "Сєдих"
+  },
+  "lname_lieutenant_183": {
+    "eng": "Sereda",
+    "pol": "Sereda",
+    "rus": "Середа",
+    "ukr": "Середа"
+  },
+  "lname_lieutenant_184": {
+    "eng": "Sidorenko",
+    "pol": "Sidorenko",
+    "rus": "Сидоренко",
+    "ukr": "Сидоренко"
+  },
+  "lname_lieutenant_185": {
+    "eng": "Sidorov",
+    "pol": "Sidorov",
+    "rus": "Сидоров",
+    "ukr": "Сидоров"
+  },
+  "lname_lieutenant_186": {
+    "eng": "Siniy",
+    "pol": "Sinij",
+    "rus": "Синий",
+    "ukr": "Синій"
+  },
+  "lname_lieutenant_187": {
+    "eng": "Sinitzyn",
+    "pol": "Sinicyn",
+    "rus": "Синицын",
+    "ukr": "Синіцин"
+  },
+  "lname_lieutenant_188": {
+    "eng": "Skameika",
+    "pol": "Skamejka",
+    "rus": "Скамейка",
+    "ukr": "Скамійка"
+  },
+  "lname_lieutenant_189": {
+    "eng": "Slutsky",
+    "pol": "S�ucki",
+    "rus": "Слуцкий",
+    "ukr": "Слуцький"
+  },
+  "lname_lieutenant_19": {
+    "eng": "Boiko",
+    "pol": "Bojko",
+    "rus": "Бойко",
+    "ukr": "Бойко"
+  },
+  "lname_lieutenant_190": {
+    "eng": "Smelov",
+    "pol": "Sme�ow",
+    "rus": "Смелов",
+    "ukr": "Смєлов"
+  },
+  "lname_lieutenant_191": {
+    "eng": "Smoly",
+    "pol": "Smo�y",
+    "rus": "Смолий",
+    "ukr": "Смолій"
+  },
+  "lname_lieutenant_192": {
+    "eng": "Sorokin",
+    "pol": "Sorokin",
+    "rus": "Сорокин",
+    "ukr": "Сорокін"
+  },
+  "lname_lieutenant_193": {
+    "eng": "Statzura",
+    "pol": "Stacura",
+    "rus": "Стацюра",
+    "ukr": "Стацюра"
+  },
+  "lname_lieutenant_194": {
+    "eng": "Stepchin",
+    "pol": "Stepczyn",
+    "rus": "Степчин",
+    "ukr": "Степчин"
+  },
+  "lname_lieutenant_195": {
+    "eng": "Stychinsky",
+    "pol": "Styczy�ski",
+    "rus": "Стычинский",
+    "ukr": "Стичинський"
+  },
+  "lname_lieutenant_196": {
+    "eng": "Sykula",
+    "pol": "Syku�a",
+    "rus": "Сыкула",
+    "ukr": "Сикула"
+  },
+  "lname_lieutenant_197": {
+    "eng": "Tarnavsky",
+    "pol": "Tarnawski",
+    "rus": "Тарнавский",
+    "ukr": "Тарнавський"
+  },
+  "lname_lieutenant_198": {
+    "eng": "Tatarchuk",
+    "pol": "Tatarczuk",
+    "rus": "Татарчук",
+    "ukr": "Татарчук"
+  },
+  "lname_lieutenant_199": {
+    "eng": "Timchuk",
+    "pol": "Timczuk",
+    "rus": "Тимчук",
+    "ukr": "Тимчук"
+  },
+  "lname_lieutenant_2": {
+    "eng": "Andreychuk",
+    "pol": "Andrzejczuk",
+    "rus": "Андрейчук",
+    "ukr": "Андрійчук"
+  },
+  "lname_lieutenant_20": {
+    "eng": "Boichenko",
+    "pol": "Bojczenko",
+    "rus": "Бойченко",
+    "ukr": "Бойченко"
+  },
+  "lname_lieutenant_21": {
+    "eng": "Boldeskul",
+    "pol": "Boldeskul",
+    "rus": "Болдескул",
+    "ukr": "Болдескул"
+  },
+  "lname_lieutenant_22": {
+    "eng": "Bondarev",
+    "pol": "Bondarew",
+    "rus": "Бондарев",
+    "ukr": "Бондарьов"
+  },
+  "lname_lieutenant_23": {
+    "eng": "Borisov",
+    "pol": "Borisow",
+    "rus": "Борисов",
+    "ukr": "Борисов"
+  },
+  "lname_lieutenant_24": {
+    "eng": "Brich",
+    "pol": "Bricz",
+    "rus": "Брич",
+    "ukr": "Брич"
+  },
+  "lname_lieutenant_25": {
+    "eng": "Bronshtein",
+    "pol": "Bronsztein",
+    "rus": "Бронштейн",
+    "ukr": "Бронштейн"
+  },
+  "lname_lieutenant_26": {
+    "eng": "Buryak",
+    "pol": "Buriak",
+    "rus": "Буряк",
+    "ukr": "Буряк"
+  },
+  "lname_lieutenant_27": {
+    "eng": "Buturin",
+    "pol": "Buturin",
+    "rus": "Бутурин",
+    "ukr": "Бутурін"
+  },
+  "lname_lieutenant_28": {
+    "eng": "Byalo",
+    "pol": "Bialo",
+    "rus": "Бяло",
+    "ukr": "Бяло"
+  },
+  "lname_lieutenant_29": {
+    "eng": "Valentinov",
+    "pol": "Walentinow",
+    "rus": "Валентинов",
+    "ukr": "Валентинов"
+  },
+  "lname_lieutenant_3": {
+    "eng": "Andruschenko",
+    "pol": "Andruszczenko",
+    "rus": "Андрущенко",
+    "ukr": "Андрущенко"
+  },
+  "lname_lieutenant_30": {
+    "eng": "Vasiliev",
+    "pol": "Wasiliew",
+    "rus": "Васильев",
+    "ukr": "Васильєв"
+  },
+  "lname_lieutenant_31": {
+    "eng": "Veselov",
+    "pol": "Wese�ow",
+    "rus": "Веселов",
+    "ukr": "Веселов"
+  },
+  "lname_lieutenant_32": {
+    "eng": "Vinogradov",
+    "pol": "Winogradow",
+    "rus": "Виноградов",
+    "ukr": "Виноградов"
+  },
+  "lname_lieutenant_33": {
+    "eng": "Vovnenko",
+    "pol": "Wownienko",
+    "rus": "Вовненко",
+    "ukr": "Вовненко"
+  },
+  "lname_lieutenant_34": {
+    "eng": "Volanchuk",
+    "pol": "Wola�czuk",
+    "rus": "Воланчук",
+    "ukr": "Воланчук"
+  },
+  "lname_lieutenant_35": {
+    "eng": "Volodar",
+    "pol": "Wo�odar",
+    "rus": "Володарь",
+    "ukr": "Володар"
+  },
+  "lname_lieutenant_36": {
+    "eng": "Voloshin",
+    "pol": "Wo�oszyn",
+    "rus": "Волошин",
+    "ukr": "Волошин"
+  },
+  "lname_lieutenant_37": {
+    "eng": "Vorontsov",
+    "pol": "Woro�cow",
+    "rus": "Воронцов",
+    "ukr": "Воронцов"
+  },
+  "lname_lieutenant_38": {
+    "eng": "Vorokhaev",
+    "pol": "Worochajew",
+    "rus": "Ворохаев",
+    "ukr": "Ворохаєв"
+  },
+  "lname_lieutenant_39": {
+    "eng": "Vyushinsky",
+    "pol": "Wiuszy�ski",
+    "rus": "Вьюшинский",
+    "ukr": "В'юшинський"
+  },
+  "lname_lieutenant_4": {
+    "eng": "Anisiev",
+    "pol": "Anisiew",
+    "rus": "Анисьев",
+    "ukr": "Анисьєв"
+  },
+  "lname_lieutenant_40": {
+    "eng": "Galkin",
+    "pol": "Ga�kin",
+    "rus": "Галкин",
+    "ukr": "Галкін"
+  },
+  "lname_lieutenant_41": {
+    "eng": "Ganzyuk",
+    "pol": "Ganziuk",
+    "rus": "Ганзюк",
+    "ukr": "Ганзюк"
+  },
+  "lname_lieutenant_42": {
+    "eng": "Garkovenko",
+    "pol": "Garkowienko",
+    "rus": "Гарковенко",
+    "ukr": "Гарковенко"
+  },
+  "lname_lieutenant_43": {
+    "eng": "Garkusha",
+    "pol": "Garkusza",
+    "rus": "Гаркуша",
+    "ukr": "Гаркуша"
+  },
+  "lname_lieutenant_44": {
+    "eng": "Georgov",
+    "pol": "Georgow",
+    "rus": "Георгов",
+    "ukr": "Георгов"
+  },
+  "lname_lieutenant_45": {
+    "eng": "Glebovsky",
+    "pol": "Glebowski",
+    "rus": "Глебовский",
+    "ukr": "Глебовський"
+  },
+  "lname_lieutenant_46": {
+    "eng": "Gnatyuk",
+    "pol": "Gnatiuk",
+    "rus": "Гнатюк",
+    "ukr": "Гнатюк"
+  },
+  "lname_lieutenant_47": {
+    "eng": "Goncharenko",
+    "pol": "Gonczarenko",
+    "rus": "Гончаренко",
+    "ukr": "Гончаренко"
+  },
+  "lname_lieutenant_48": {
+    "eng": "Gordienko",
+    "pol": "Gordienko",
+    "rus": "Гордиенко",
+    "ukr": "Гордієнко"
+  },
+  "lname_lieutenant_49": {
+    "eng": "Gorlevoy",
+    "pol": "Gorlewoj",
+    "rus": "Горлевой",
+    "ukr": "Горлевой"
+  },
+  "lname_lieutenant_5": {
+    "eng": "Ardashev",
+    "pol": "Ardaszew",
+    "rus": "Ардашев",
+    "ukr": "Ардашев"
+  },
+  "lname_lieutenant_50": {
+    "eng": "Gorokhin",
+    "pol": "Gorochin",
+    "rus": "Горохин",
+    "ukr": "Горохін"
+  },
+  "lname_lieutenant_51": {
+    "eng": "Goryunov",
+    "pol": "Goriunow",
+    "rus": "Горюнов",
+    "ukr": "Горюнов"
+  },
+  "lname_lieutenant_52": {
+    "eng": "Grebenko",
+    "pol": "Grebenko",
+    "rus": "Гребенюк",
+    "ukr": "Гребенюк"
+  },
+  "lname_lieutenant_53": {
+    "eng": "Gritzaenko",
+    "pol": "Gricajenko",
+    "rus": "Грицаенко",
+    "ukr": "Грицаєнко"
+  },
+  "lname_lieutenant_54": {
+    "eng": "Gritzay",
+    "pol": "Gricaj",
+    "rus": "Грицай",
+    "ukr": "Грицай"
+  },
+  "lname_lieutenant_55": {
+    "eng": "Gritzenkov",
+    "pol": "Gricenko",
+    "rus": "Гриценков",
+    "ukr": "Гриценков"
+  },
+  "lname_lieutenant_56": {
+    "eng": "Grishachev",
+    "pol": "Griszaczew",
+    "rus": "Гришачев",
+    "ukr": "Гришачов"
+  },
+  "lname_lieutenant_57": {
+    "eng": "Grischuk",
+    "pol": "Griszczuk",
+    "rus": "Грищук",
+    "ukr": "Грищук"
+  },
+  "lname_lieutenant_58": {
+    "eng": "Gubar",
+    "pol": "Gubar",
+    "rus": "Губар",
+    "ukr": "Губар"
+  },
+  "lname_lieutenant_59": {
+    "eng": "Gunko",
+    "pol": "Gunko",
+    "rus": "Гунько",
+    "ukr": "Гунько"
+  },
+  "lname_lieutenant_6": {
+    "eng": "Babich",
+    "pol": "Babicz",
+    "rus": "Бабич",
+    "ukr": "Бабич"
+  },
+  "lname_lieutenant_60": {
+    "eng": "Gurevich",
+    "pol": "Gurewicz",
+    "rus": "Гуревич",
+    "ukr": "Гуревич"
+  },
+  "lname_lieutenant_61": {
+    "eng": "Denisenko",
+    "pol": "Denisenko",
+    "rus": "Денисенко",
+    "ukr": "Денисенко"
+  },
+  "lname_lieutenant_62": {
+    "eng": "Dovgalyuk",
+    "pol": "Dowgaliuk",
+    "rus": "Довгалюк",
+    "ukr": "Довгалюк"
+  },
+  "lname_lieutenant_63": {
+    "eng": "Dombrik",
+    "pol": "Dombrik",
+    "rus": "Домбрик",
+    "ukr": "Домбрик"
+  },
+  "lname_lieutenant_64": {
+    "eng": "Dotsenko",
+    "pol": "Docenko",
+    "rus": "Доценко",
+    "ukr": "Доценко"
+  },
+  "lname_lieutenant_65": {
+    "eng": "Drozdush",
+    "pol": "Drozdusz",
+    "rus": "Дроздуш",
+    "ukr": "Дроздуш"
+  },
+  "lname_lieutenant_66": {
+    "eng": "Dubenchuk",
+    "pol": "Dubie�czuk",
+    "rus": "Дубенчук",
+    "ukr": "Дубенчук"
+  },
+  "lname_lieutenant_67": {
+    "eng": "Dudorov",
+    "pol": "Dudorow",
+    "rus": "Дудоров",
+    "ukr": "Дудоров"
+  },
+  "lname_lieutenant_68": {
+    "eng": "Duka",
+    "pol": "Duka",
+    "rus": "Дука",
+    "ukr": "Дука"
+  },
+  "lname_lieutenant_69": {
+    "eng": "Dumko",
+    "pol": "Dumko",
+    "rus": "Думко",
+    "ukr": "Думко"
+  },
+  "lname_lieutenant_7": {
+    "eng": "Balan",
+    "pol": "Balan",
+    "rus": "Балан",
+    "ukr": "Балан"
+  },
+  "lname_lieutenant_70": {
+    "eng": "Dunaev",
+    "pol": "Dunajew",
+    "rus": "Дунаев",
+    "ukr": "Дунаєв"
+  },
+  "lname_lieutenant_71": {
+    "eng": "Dyklov",
+    "pol": "Dyk�ow",
+    "rus": "Дыклов",
+    "ukr": "Диклов"
+  },
+  "lname_lieutenant_72": {
+    "eng": "Erofeev",
+    "pol": "Erofejew",
+    "rus": "Ерофеев",
+    "ukr": "Єрофєєв"
+  },
+  "lname_lieutenant_73": {
+    "eng": "Efremov",
+    "pol": "Efremow",
+    "rus": "Ефремов",
+    "ukr": "Єфремов"
+  },
+  "lname_lieutenant_74": {
+    "eng": "Zhabenko",
+    "pol": "�abenko",
+    "rus": "Жабенко",
+    "ukr": "Жабенко"
+  },
+  "lname_lieutenant_75": {
+    "eng": "Zhmyev",
+    "pol": "�mijew",
+    "rus": "Жмыев",
+    "ukr": "Жмиєв"
+  },
+  "lname_lieutenant_76": {
+    "eng": "Zhurakovsky",
+    "pol": "�urakowski",
+    "rus": "Жураковский",
+    "ukr": "Жураковський"
+  },
+  "lname_lieutenant_77": {
+    "eng": "Zabyagoda",
+    "pol": "Zabiagoda",
+    "rus": "Забыйягода",
+    "ukr": "Забийягода"
+  },
+  "lname_lieutenant_78": {
+    "eng": "Zagorodnyuk",
+    "pol": "Zagoro",
+    "rus": "Загороднюк",
+    "ukr": "Загороднюк"
+  },
+  "lname_lieutenant_79": {
+    "eng": "Zamosenchuk",
+    "pol": "Zamose�czuk",
+    "rus": "Замосенчук",
+    "ukr": "Замосенчук"
+  },
+  "lname_lieutenant_8": {
+    "eng": "Baranov",
+    "pol": "Baranow",
+    "rus": "Баранов",
+    "ukr": "Баранов"
+  },
+  "lname_lieutenant_80": {
+    "eng": "Zarubin",
+    "pol": "Zarubin",
+    "rus": "Зарубин",
+    "ukr": "Зарубін"
+  },
+  "lname_lieutenant_81": {
+    "eng": "Zakharin",
+    "pol": "Zacharin",
+    "rus": "Захарин",
+    "ukr": "Захарін"
+  },
+  "lname_lieutenant_82": {
+    "eng": "Zvonnitsky",
+    "pol": "Zwonnicki",
+    "rus": "Звонницкий",
+    "ukr": "Звоницький"
+  },
+  "lname_lieutenant_83": {
+    "eng": "Zinoviev",
+    "pol": "Zinowiew",
+    "rus": "Зиновьев",
+    "ukr": "Зінов'єв"
+  },
+  "lname_lieutenant_84": {
+    "eng": "Zozo",
+    "pol": "Zozo",
+    "rus": "Зозо",
+    "ukr": "Зозо"
+  },
+  "lname_lieutenant_85": {
+    "eng": "Zolotar",
+    "pol": "Zolotar",
+    "rus": "Золотарь",
+    "ukr": "Золотар"
+  },
+  "lname_lieutenant_86": {
+    "eng": "Zubarev",
+    "pol": "Zubarew",
+    "rus": "Зубарев",
+    "ukr": "Зубарєв"
+  },
+  "lname_lieutenant_87": {
+    "eng": "Zubkov",
+    "pol": "Zubkow",
+    "rus": "Зубков",
+    "ukr": "Зубков"
+  },
+  "lname_lieutenant_88": {
+    "eng": "Ivanov",
+    "pol": "Iwanow",
+    "rus": "Иванов",
+    "ukr": "Іванов"
+  },
+  "lname_lieutenant_89": {
+    "eng": "Ignatenko",
+    "pol": "Ignatenko",
+    "rus": "Игнатенко",
+    "ukr": "Ігнатенко"
+  },
+  "lname_lieutenant_9": {
+    "eng": "Baranovsky",
+    "pol": "Baranowski",
+    "rus": "Барановский",
+    "ukr": "Барановський"
+  },
+  "lname_lieutenant_90": {
+    "eng": "Izhenko",
+    "pol": "I�enko",
+    "rus": "Иженко",
+    "ukr": "Іженко"
+  },
+  "lname_lieutenant_91": {
+    "eng": "Ischuk",
+    "pol": "Iszczuk",
+    "rus": "Ищук",
+    "ukr": "Іщук"
+  },
+  "lname_lieutenant_92": {
+    "eng": "Kazakov",
+    "pol": "Kazakow",
+    "rus": "Казаков",
+    "ukr": "Казаков"
+  },
+  "lname_lieutenant_93": {
+    "eng": "Kazantsev",
+    "pol": "Kaza�cew",
+    "rus": "Казанцев",
+    "ukr": "Котелцев"
+  },
+  "lname_lieutenant_94": {
+    "eng": "Kandybabko",
+    "pol": "Kandybabko",
+    "rus": "Кандыбабко",
+    "ukr": "Кандибабко"
+  },
+  "lname_lieutenant_95": {
+    "eng": "Kapuka",
+    "pol": "Kapuka",
+    "rus": "Капука",
+    "ukr": "Капука"
+  },
+  "lname_lieutenant_96": {
+    "eng": "Kapustyanko",
+    "pol": "Kapustianko",
+    "rus": "Капустянко",
+    "ukr": "Капустянко"
+  },
+  "lname_lieutenant_97": {
+    "eng": "Katz",
+    "pol": "Kac",
+    "rus": "Кац",
+    "ukr": "Кац"
+  },
+  "lname_lieutenant_98": {
+    "eng": "Kikabidze",
+    "pol": "Kikabidze",
+    "rus": "Кикабидзе",
+    "ukr": "Кікабідзе"
+  },
+  "lname_lieutenant_99": {
+    "eng": "Gatzula",
+    "pol": "Gacula",
+    "rus": "Гацула",
+    "ukr": "Гацула"
+  },
+  "lname_private_0": {
+    "eng": "Abdurakhmanov",
+    "pol": "Abdurachmanow",
+    "rus": "Абдурхманов",
+    "ukr": "Абдурхманов"
+  },
+  "lname_private_1": {
+    "eng": "Altynnik",
+    "pol": "Altynnik",
+    "rus": "Алтынник",
+    "ukr": "Алтинник"
+  },
+  "lname_private_10": {
+    "eng": "Barsak",
+    "pol": "Barsak",
+    "rus": "Барсак",
+    "ukr": "Барсак"
+  },
+  "lname_private_100": {
+    "eng": "Kireev",
+    "pol": "Kirejew",
+    "rus": "Киреев",
+    "ukr": "Кирєєв"
+  },
+  "lname_private_101": {
+    "eng": "Scherbin",
+    "pol": "Szczerbin",
+    "rus": "Щербин",
+    "ukr": "Щербин"
+  },
+  "lname_private_102": {
+    "eng": "Kovalchuk",
+    "pol": "Kowalczuk",
+    "rus": "Ковальчук",
+    "ukr": "Ковальчук"
+  },
+  "lname_private_103": {
+    "eng": "Koev",
+    "pol": "Kojew",
+    "rus": "Коев",
+    "ukr": "Коєв"
+  },
+  "lname_private_104": {
+    "eng": "Kozlov",
+    "pol": "Koz�ow",
+    "rus": "Козлов",
+    "ukr": "Козлов"
+  },
+  "lname_private_105": {
+    "eng": "Kolontarev",
+    "pol": "Ko�ontarew",
+    "rus": "Колонтарёв",
+    "ukr": "Колонтарьов"
+  },
+  "lname_private_106": {
+    "eng": "Kolontar",
+    "pol": "Ko�ontar",
+    "rus": "Колонтарь",
+    "ukr": "Колонтар"
+  },
+  "lname_private_107": {
+    "eng": "Kondratenko",
+    "pol": "Kondratenko",
+    "rus": "Кондратенко",
+    "ukr": "Кондратенко"
+  },
+  "lname_private_108": {
+    "eng": "Korkin",
+    "pol": "Korkin",
+    "rus": "Коркин",
+    "ukr": "Коркін"
+  },
+  "lname_private_109": {
+    "eng": "Korneev",
+    "pol": "Kornejew",
+    "rus": "Корнеев",
+    "ukr": "Корнєєв"
+  },
+  "lname_private_11": {
+    "eng": "Baul",
+    "pol": "Baul",
+    "rus": "Баул",
+    "ukr": "Баул"
+  },
+  "lname_private_110": {
+    "eng": "Kravchenko",
+    "pol": "Krawczenko",
+    "rus": "Кравченко",
+    "ukr": "Кравченко"
+  },
+  "lname_private_111": {
+    "eng": "Krivda",
+    "pol": "Kriwda",
+    "rus": "Кривда",
+    "ukr": "Кривда"
+  },
+  "lname_private_112": {
+    "eng": "Krivokhatsky",
+    "pol": "Krzywochacki",
+    "rus": "Кривохатский",
+    "ukr": "Кривохатський"
+  },
+  "lname_private_113": {
+    "eng": "Kuznetsov",
+    "pol": "Ku�niecow",
+    "rus": "Кузнецов",
+    "ukr": "Кузнєцов"
+  },
+  "lname_private_114": {
+    "eng": "Kuzmich",
+    "pol": "Ku�micz",
+    "rus": "Кузьмич",
+    "ukr": "Кузьмич"
+  },
+  "lname_private_115": {
+    "eng": "Kuzyakin",
+    "pol": "Kuziakin",
+    "rus": "Кузякин",
+    "ukr": "Кузякін"
+  },
+  "lname_private_116": {
+    "eng": "Kulchistky",
+    "pol": "Kulczycki",
+    "rus": "Кульчитский",
+    "ukr": "Кульчитський"
+  },
+  "lname_private_117": {
+    "eng": "Kuntsev",
+    "pol": "Kuncew",
+    "rus": "Кунцев",
+    "ukr": "Кунцев"
+  },
+  "lname_private_118": {
+    "eng": "Kurvitz",
+    "pol": "Kurwic",
+    "rus": "Курвиц",
+    "ukr": "Курвіц"
+  },
+  "lname_private_119": {
+    "eng": "Kucheruk",
+    "pol": "Kuczeruk",
+    "rus": "Кучерук",
+    "ukr": "Кучерук"
+  },
+  "lname_private_12": {
+    "eng": "Bashakov",
+    "pol": "Baszakow",
+    "rus": "Башаков",
+    "ukr": "Башаков"
+  },
+  "lname_private_120": {
+    "eng": "Kushnarev",
+    "pol": "Kusznarew",
+    "rus": "Кушнарёв",
+    "ukr": "Кушнарьов"
+  },
+  "lname_private_121": {
+    "eng": "Khaladze",
+    "pol": "Cha�adze",
+    "rus": "Кхаладзе",
+    "ukr": "Кхаладзе"
+  },
+  "lname_private_122": {
+    "eng": "Lavrik",
+    "pol": "�awrik",
+    "rus": "Лаврик",
+    "ukr": "Лаврик"
+  },
+  "lname_private_123": {
+    "eng": "Lavrov",
+    "pol": "�awrow",
+    "rus": "Лавров",
+    "ukr": "Лавров"
+  },
+  "lname_private_124": {
+    "eng": "Livshits",
+    "pol": "Liwszyc",
+    "rus": "Лившиц",
+    "ukr": "Лівшиць"
+  },
+  "lname_private_125": {
+    "eng": "Lisichansky",
+    "pol": "Lisicza�ski",
+    "rus": "Лисичанский",
+    "ukr": "Лисичанський"
+  },
+  "lname_private_126": {
+    "eng": "Litvin",
+    "pol": "Litwin",
+    "rus": "Литвин",
+    "ukr": "Литвин"
+  },
+  "lname_private_127": {
+    "eng": "Lymarenko",
+    "pol": "Limarenko",
+    "rus": "Лымаренко",
+    "ukr": "Лимаренко"
+  },
+  "lname_private_128": {
+    "eng": "Mazepa",
+    "pol": "Mazepa",
+    "rus": "Мазепа",
+    "ukr": "Мазепа"
+  },
+  "lname_private_129": {
+    "eng": "Makarenko",
+    "pol": "Makarenko",
+    "rus": "Макаренко",
+    "ukr": "Макаренко"
+  },
+  "lname_private_13": {
+    "eng": "Bashmakov",
+    "pol": "Baszmakow",
+    "rus": "Башмаков",
+    "ukr": "Башмаков"
+  },
+  "lname_private_130": {
+    "eng": "Maltsev",
+    "pol": "Malcew",
+    "rus": "Мальцев",
+    "ukr": "Мальцев"
+  },
+  "lname_private_131": {
+    "eng": "Mamaev",
+    "pol": "Mamajew",
+    "rus": "Мамаев",
+    "ukr": "Мамаєв"
+  },
+  "lname_private_132": {
+    "eng": "Merzlayev",
+    "pol": "Merz�ajew",
+    "rus": "Мерзляев",
+    "ukr": "Мерзляєв"
+  },
+  "lname_private_133": {
+    "eng": "Milchenko",
+    "pol": "Milczenko",
+    "rus": "Мильченко",
+    "ukr": "Мільченко"
+  },
+  "lname_private_134": {
+    "eng": "Mironyuk",
+    "pol": "Mironiuk",
+    "rus": "Миронюк",
+    "ukr": "Миронюк"
+  },
+  "lname_private_135": {
+    "eng": "Mohrer",
+    "pol": "Mohrer",
+    "rus": "Морер",
+    "ukr": "Морер"
+  },
+  "lname_private_136": {
+    "eng": "Kryga",
+    "pol": "Kryga",
+    "rus": "Крыга",
+    "ukr": "Крига"
+  },
+  "lname_private_137": {
+    "eng": "Mostovoi",
+    "pol": "Mostow�j",
+    "rus": "Мостовой",
+    "ukr": "Мостовий"
+  },
+  "lname_private_138": {
+    "eng": "Muntyan",
+    "pol": "Muntian",
+    "rus": "Мунтян",
+    "ukr": "Мунтян"
+  },
+  "lname_private_139": {
+    "eng": "Mukhamedov",
+    "pol": "Muchamedow",
+    "rus": "Мухамедов",
+    "ukr": "Мухамедов"
+  },
+  "lname_private_14": {
+    "eng": "Beshevly",
+    "pol": "Beszewli",
+    "rus": "Бешевлий",
+    "ukr": "Бешевлій"
+  },
+  "lname_private_140": {
+    "eng": "Myskov",
+    "pol": "Myskow",
+    "rus": "Мыськов",
+    "ukr": "Миськов"
+  },
+  "lname_private_141": {
+    "eng": "Navrotsky",
+    "pol": "Nawrocki",
+    "rus": "Навроцкий",
+    "ukr": "Навроцький"
+  },
+  "lname_private_142": {
+    "eng": "Nepritsky",
+    "pol": "Nepricki",
+    "rus": "Неприцкий",
+    "ukr": "Неприцький"
+  },
+  "lname_private_143": {
+    "eng": "Nikanorov",
+    "pol": "Nikanorow",
+    "rus": "Никаноров",
+    "ukr": "Ніканоров"
+  },
+  "lname_private_144": {
+    "eng": "Nikeshin",
+    "pol": "Nikeszyn",
+    "rus": "Никешин",
+    "ukr": "Нікешин"
+  },
+  "lname_private_145": {
+    "eng": "Nikulin",
+    "pol": "Nikulin",
+    "rus": "Никулин",
+    "ukr": "Нікулін"
+  },
+  "lname_private_146": {
+    "eng": "Futzin",
+    "pol": "Fucin",
+    "rus": "Фуцин",
+    "ukr": "Фуцин"
+  },
+  "lname_private_147": {
+    "eng": "Nordiev",
+    "pol": "Nordiew",
+    "rus": "Нордиев",
+    "ukr": "Нордієв"
+  },
+  "lname_private_148": {
+    "eng": "Nosan",
+    "pol": "Nosan",
+    "rus": "Носань",
+    "ukr": "Носань"
+  },
+  "lname_private_149": {
+    "eng": "Opolev",
+    "pol": "Opolew",
+    "rus": "Ополев",
+    "ukr": "Ополєв"
+  },
+  "lname_private_15": {
+    "eng": "Binoev",
+    "pol": "Binojew",
+    "rus": "Биноев",
+    "ukr": "Біноєв"
+  },
+  "lname_private_150": {
+    "eng": "Orlevich",
+    "pol": "Orlewicz",
+    "rus": "Орлевич",
+    "ukr": "Орлевич"
+  },
+  "lname_private_151": {
+    "eng": "Orlov",
+    "pol": "Or�ow",
+    "rus": "Орлов",
+    "ukr": "Орлов"
+  },
+  "lname_private_152": {
+    "eng": "Petkevich",
+    "pol": "Petkiewicz",
+    "rus": "Петкевич",
+    "ukr": "Петкевич"
+  },
+  "lname_private_153": {
+    "eng": "Petrenko",
+    "pol": "Petrenko",
+    "rus": "Петренко",
+    "ukr": "Петренко"
+  },
+  "lname_private_154": {
+    "eng": "Petrov",
+    "pol": "Petrow",
+    "rus": "Петров",
+    "ukr": "Петров"
+  },
+  "lname_private_155": {
+    "eng": "Plokhenko",
+    "pol": "P�ochenko",
+    "rus": "Плохенко",
+    "ukr": "Плохенко"
+  },
+  "lname_private_156": {
+    "eng": "Podyachev",
+    "pol": "Podiaczew",
+    "rus": "Подячев",
+    "ukr": "Подячєв"
+  },
+  "lname_private_157": {
+    "eng": "Polyanin",
+    "pol": "Polianin",
+    "rus": "Полянин",
+    "ukr": "Полянін"
+  },
+  "lname_private_158": {
+    "eng": "Poplavsky",
+    "pol": "Pop�awski",
+    "rus": "Поплавский",
+    "ukr": "Поплавський"
+  },
+  "lname_private_159": {
+    "eng": "Popov",
+    "pol": "Popow",
+    "rus": "Попов",
+    "ukr": "Попов"
+  },
+  "lname_private_16": {
+    "eng": "Blinov",
+    "pol": "Blinow",
+    "rus": "Блинов",
+    "ukr": "Блінов"
+  },
+  "lname_private_160": {
+    "eng": "Portnykh",
+    "pol": "Portnych",
+    "rus": "Портных",
+    "ukr": "Портних"
+  },
+  "lname_private_161": {
+    "eng": "Prasolov",
+    "pol": "Praso�ow",
+    "rus": "Прасолов",
+    "ukr": "Прасолов"
+  },
+  "lname_private_162": {
+    "eng": "Prokopenko",
+    "pol": "Prokopenko",
+    "rus": "Прокопенко",
+    "ukr": "Прокопенко"
+  },
+  "lname_private_163": {
+    "eng": "Proskurin",
+    "pol": "Proskurin",
+    "rus": "Проскурин",
+    "ukr": "Проскурін"
+  },
+  "lname_private_164": {
+    "eng": "Protsenko",
+    "pol": "Procenko",
+    "rus": "Проценко",
+    "ukr": "Проценко"
+  },
+  "lname_private_165": {
+    "eng": "Prudov",
+    "pol": "Prudow",
+    "rus": "Прудов",
+    "ukr": "Прудов"
+  },
+  "lname_private_166": {
+    "eng": "Pustovar",
+    "pol": "Pustowar",
+    "rus": "Пустовар",
+    "ukr": "Пустовар"
+  },
+  "lname_private_167": {
+    "eng": "Puchek",
+    "pol": "Puczek",
+    "rus": "Пучек",
+    "ukr": "Пучек"
+  },
+  "lname_private_168": {
+    "eng": "Rabinovich",
+    "pol": "Rabinowicz",
+    "rus": "Рабинович",
+    "ukr": "Рабинович"
+  },
+  "lname_private_169": {
+    "eng": "Radkevich",
+    "pol": "Radkiewicz",
+    "rus": "Радкевич",
+    "ukr": "Радкевич"
+  },
+  "lname_private_17": {
+    "eng": "Bobrov",
+    "pol": "Bobrow",
+    "rus": "Бобров",
+    "ukr": "Бобров"
+  },
+  "lname_private_170": {
+    "eng": "Rezun",
+    "pol": "Rezun",
+    "rus": "Резун",
+    "ukr": "Резун"
+  },
+  "lname_private_171": {
+    "eng": "Rogoza",
+    "pol": "Rogoza",
+    "rus": "Рогоза",
+    "ukr": "Рогоза"
+  },
+  "lname_private_172": {
+    "eng": "Rodnyansky",
+    "pol": "Rodnia�ski",
+    "rus": "Роднянский",
+    "ukr": "Роднянський"
+  },
+  "lname_private_173": {
+    "eng": "Rotan",
+    "pol": "Rotan",
+    "rus": "Ротань",
+    "ukr": "Ротань"
+  },
+  "lname_private_174": {
+    "eng": "Rublev",
+    "pol": "Rublew",
+    "rus": "Рублев",
+    "ukr": "Рубльов"
+  },
+  "lname_private_175": {
+    "eng": "Rudik",
+    "pol": "Rudik",
+    "rus": "Рудик",
+    "ukr": "Рудик"
+  },
+  "lname_private_176": {
+    "eng": "Rusanov",
+    "pol": "Rusanow",
+    "rus": "Русанов",
+    "ukr": "Русанов"
+  },
+  "lname_private_177": {
+    "eng": "Rychagirsky",
+    "pol": "Ryczagirski",
+    "rus": "Рычагирский",
+    "ukr": "Ричагірський"
+  },
+  "lname_private_178": {
+    "eng": "Savchenko",
+    "pol": "Sawczenko",
+    "rus": "Савченко",
+    "ukr": "Савченко"
+  },
+  "lname_private_179": {
+    "eng": "Savchuk",
+    "pol": "Sawczuk",
+    "rus": "Савчук",
+    "ukr": "Савчук"
+  },
+  "lname_private_18": {
+    "eng": "Bogdanov",
+    "pol": "Bogdanow",
+    "rus": "Богданов",
+    "ukr": "Богданов"
+  },
+  "lname_private_180": {
+    "eng": "Sagitov",
+    "pol": "Sagitow",
+    "rus": "Сагитов",
+    "ukr": "Сагітов"
+  },
+  "lname_private_181": {
+    "eng": "Sviridov",
+    "pol": "Swiridow",
+    "rus": "Свиридов",
+    "ukr": "Свиридов"
+  },
+  "lname_private_182": {
+    "eng": "Sedykh",
+    "pol": "Sedych",
+    "rus": "Седых",
+    "ukr": "Сєдих"
+  },
+  "lname_private_183": {
+    "eng": "Sereda",
+    "pol": "Sereda",
+    "rus": "Середа",
+    "ukr": "Середа"
+  },
+  "lname_private_184": {
+    "eng": "Sidorenko",
+    "pol": "Sidorenko",
+    "rus": "Сидоренко",
+    "ukr": "Сидоренко"
+  },
+  "lname_private_185": {
+    "eng": "Sidorov",
+    "pol": "Sidorow",
+    "rus": "Сидоров",
+    "ukr": "Сидоров"
+  },
+  "lname_private_186": {
+    "eng": "Siniy",
+    "pol": "Sinij",
+    "rus": "Синий",
+    "ukr": "Синій"
+  },
+  "lname_private_187": {
+    "eng": "Sinitzyn",
+    "pol": "Sinicyn",
+    "rus": "Синицын",
+    "ukr": "Синіцин"
+  },
+  "lname_private_188": {
+    "eng": "Skameika",
+    "pol": "Skamejka",
+    "rus": "Скамейка",
+    "ukr": "Скамійка"
+  },
+  "lname_private_189": {
+    "eng": "Slutsky",
+    "pol": "S�ucki",
+    "rus": "Слуцкий",
+    "ukr": "Слуцький"
+  },
+  "lname_private_19": {
+    "eng": "Boiko",
+    "pol": "Bojko",
+    "rus": "Бойко",
+    "ukr": "Бойко"
+  },
+  "lname_private_190": {
+    "eng": "Smelov",
+    "pol": "Sme�ow",
+    "rus": "Смелов",
+    "ukr": "Смєлов"
+  },
+  "lname_private_191": {
+    "eng": "Smoly",
+    "pol": "Smo�y",
+    "rus": "Смолий",
+    "ukr": "Смолій"
+  },
+  "lname_private_192": {
+    "eng": "Sorokin",
+    "pol": "Sorokin",
+    "rus": "Сорокин",
+    "ukr": "Сорокін"
+  },
+  "lname_private_193": {
+    "eng": "Statzura",
+    "pol": "Stacura",
+    "rus": "Стацюра",
+    "ukr": "Стацюра"
+  },
+  "lname_private_194": {
+    "eng": "Stepchin",
+    "pol": "Stepczyn",
+    "rus": "Степчин",
+    "ukr": "Степчин"
+  },
+  "lname_private_195": {
+    "eng": "Stychinsky",
+    "pol": "Styczy�ski",
+    "rus": "Стычинский",
+    "ukr": "Стичинський"
+  },
+  "lname_private_196": {
+    "eng": "Sykula",
+    "pol": "Syku�a",
+    "rus": "Сыкула",
+    "ukr": "Сикула"
+  },
+  "lname_private_197": {
+    "eng": "Tarnavsky",
+    "pol": "Tarnawski",
+    "rus": "Тарнавский",
+    "ukr": "Тарнавський"
+  },
+  "lname_private_198": {
+    "eng": "Tatarchuk",
+    "pol": "Tatarczuk",
+    "rus": "Татарчук",
+    "ukr": "Татарчук"
+  },
+  "lname_private_199": {
+    "eng": "Timchuk",
+    "pol": "Timczuk",
+    "rus": "Тимчук",
+    "ukr": "Тимчук"
+  },
+  "lname_private_2": {
+    "eng": "Andreychuk",
+    "pol": "Andrzejczuk",
+    "rus": "Андрейчук",
+    "ukr": "Андрійчук"
+  },
+  "lname_private_20": {
+    "eng": "Boichenko",
+    "pol": "Bojczenko",
+    "rus": "Бойченко",
+    "ukr": "Бойченко"
+  },
+  "lname_private_21": {
+    "eng": "Boldeskul",
+    "pol": "Boldeskul",
+    "rus": "Болдескул",
+    "ukr": "Болдескул"
+  },
+  "lname_private_22": {
+    "eng": "Bondarev",
+    "pol": "Bondarew",
+    "rus": "Бондарев",
+    "ukr": "Бондарьов"
+  },
+  "lname_private_23": {
+    "eng": "Borisov",
+    "pol": "Borisow",
+    "rus": "Борисов",
+    "ukr": "Борисов"
+  },
+  "lname_private_24": {
+    "eng": "Brich",
+    "pol": "Bricz",
+    "rus": "Брич",
+    "ukr": "Брич"
+  },
+  "lname_private_25": {
+    "eng": "Bronshtein",
+    "pol": "Bronsztein",
+    "rus": "Бронштейн",
+    "ukr": "Бронштейн"
+  },
+  "lname_private_26": {
+    "eng": "Buryak",
+    "pol": "Buriak",
+    "rus": "Буряк",
+    "ukr": "Буряк"
+  },
+  "lname_private_27": {
+    "eng": "Buturin",
+    "pol": "Buturin",
+    "rus": "Бутурин",
+    "ukr": "Бутурін"
+  },
+  "lname_private_28": {
+    "eng": "Byalo",
+    "pol": "Bialo",
+    "rus": "Бяло",
+    "ukr": "Бяло"
+  },
+  "lname_private_29": {
+    "eng": "Valentinov",
+    "pol": "Walentinow",
+    "rus": "Валентинов",
+    "ukr": "Валентинов"
+  },
+  "lname_private_3": {
+    "eng": "Andruschenko",
+    "pol": "Andruszczenko",
+    "rus": "Андрущенко",
+    "ukr": "Андрущенко"
+  },
+  "lname_private_30": {
+    "eng": "Vasiliev",
+    "pol": "Wasiliew",
+    "rus": "Васильев",
+    "ukr": "Васильєв"
+  },
+  "lname_private_31": {
+    "eng": "Veselov",
+    "pol": "Wese�ow",
+    "rus": "Веселов",
+    "ukr": "Веселов"
+  },
+  "lname_private_32": {
+    "eng": "Vinogradov",
+    "pol": "Winogradow",
+    "rus": "Виноградов",
+    "ukr": "Виноградов"
+  },
+  "lname_private_33": {
+    "eng": "Vovnenko",
+    "pol": "Wownienko",
+    "rus": "Вовненко",
+    "ukr": "Вовненко"
+  },
+  "lname_private_34": {
+    "eng": "Volanchuk",
+    "pol": "Wola�czuk",
+    "rus": "Воланчук",
+    "ukr": "Воланчук"
+  },
+  "lname_private_35": {
+    "eng": "Volodar",
+    "pol": "Wo�odar",
+    "rus": "Володарь",
+    "ukr": "Володар"
+  },
+  "lname_private_36": {
+    "eng": "Voloshin",
+    "pol": "Wo�oszyn",
+    "rus": "Волошин",
+    "ukr": "Волошин"
+  },
+  "lname_private_37": {
+    "eng": "Vorontsov",
+    "pol": "Woro�cow",
+    "rus": "Воронцов",
+    "ukr": "Воронцов"
+  },
+  "lname_private_38": {
+    "eng": "Vorokhaev",
+    "pol": "Worochajew",
+    "rus": "Ворохаев",
+    "ukr": "Ворохаєв"
+  },
+  "lname_private_39": {
+    "eng": "Vyushinsky",
+    "pol": "Wiuszy�ski",
+    "rus": "Вьюшинский",
+    "ukr": "В'юшинський"
+  },
+  "lname_private_4": {
+    "eng": "Anisiev",
+    "pol": "Anisiew",
+    "rus": "Анисьев",
+    "ukr": "Анисьєв"
+  },
+  "lname_private_40": {
+    "eng": "Galkin",
+    "pol": "Ga�kin",
+    "rus": "Галкин",
+    "ukr": "Галкін"
+  },
+  "lname_private_41": {
+    "eng": "Ganzyuk",
+    "pol": "Gandziuk",
+    "rus": "Ганзюк",
+    "ukr": "Ганзюк"
+  },
+  "lname_private_42": {
+    "eng": "Garkovenko",
+    "pol": "Garkowienko",
+    "rus": "Гарковенко",
+    "ukr": "Гарковенко"
+  },
+  "lname_private_43": {
+    "eng": "Garkusha",
+    "pol": "Garkusza",
+    "rus": "Гаркуша",
+    "ukr": "Гаркуша"
+  },
+  "lname_private_44": {
+    "eng": "Georgov",
+    "pol": "Georgow",
+    "rus": "Георгов",
+    "ukr": "Георгов"
+  },
+  "lname_private_45": {
+    "eng": "Glebovsky",
+    "pol": "Glebowski",
+    "rus": "Глебовский",
+    "ukr": "Глебовський"
+  },
+  "lname_private_46": {
+    "eng": "Gnatyuk",
+    "pol": "Gnatiuk",
+    "rus": "Гнатюк",
+    "ukr": "Гнатюк"
+  },
+  "lname_private_47": {
+    "eng": "Goncharenko",
+    "pol": "Gonczarenko",
+    "rus": "Гончаренко",
+    "ukr": "Гончаренко"
+  },
+  "lname_private_48": {
+    "eng": "Gordienko",
+    "pol": "Gordienko",
+    "rus": "Гордиенко",
+    "ukr": "Гордієнко"
+  },
+  "lname_private_49": {
+    "eng": "Gorlevoy",
+    "pol": "Gorlewoj",
+    "rus": "Горлевой",
+    "ukr": "Горлевой"
+  },
+  "lname_private_5": {
+    "eng": "Ardashev",
+    "pol": "Ardaszew",
+    "rus": "Ардашев",
+    "ukr": "Ардашев"
+  },
+  "lname_private_50": {
+    "eng": "Gorokhin",
+    "pol": "Gorochin",
+    "rus": "Горохин",
+    "ukr": "Горохін"
+  },
+  "lname_private_51": {
+    "eng": "Goryunov",
+    "pol": "Goriunow",
+    "rus": "Горюнов",
+    "ukr": "Горюнов"
+  },
+  "lname_private_52": {
+    "eng": "Grebenko",
+    "pol": "Grebenko",
+    "rus": "Гребенюк",
+    "ukr": "Гребенюк"
+  },
+  "lname_private_53": {
+    "eng": "Gritzaenko",
+    "pol": "Gricajenko",
+    "rus": "Грицаенко",
+    "ukr": "Грицаєнко"
+  },
+  "lname_private_54": {
+    "eng": "Gritzay",
+    "pol": "Gricaj",
+    "rus": "Грицай",
+    "ukr": "Грицай"
+  },
+  "lname_private_55": {
+    "eng": "Gritzenkov",
+    "pol": "Gricenkow",
+    "rus": "Гриценков",
+    "ukr": "Гриценков"
+  },
+  "lname_private_56": {
+    "eng": "Grishachev",
+    "pol": "Griszachew",
+    "rus": "Гришачев",
+    "ukr": "Гришачов"
+  },
+  "lname_private_57": {
+    "eng": "Grischuk",
+    "pol": "Gryszczuk",
+    "rus": "Грищук",
+    "ukr": "Грищук"
+  },
+  "lname_private_58": {
+    "eng": "Gubar",
+    "pol": "Gubar",
+    "rus": "Губар",
+    "ukr": "Губар"
+  },
+  "lname_private_59": {
+    "eng": "Gunko",
+    "pol": "Gunko",
+    "rus": "Гунько",
+    "ukr": "Гунько"
+  },
+  "lname_private_6": {
+    "eng": "Babich",
+    "pol": "Babicz",
+    "rus": "Бабич",
+    "ukr": "Бабич"
+  },
+  "lname_private_60": {
+    "eng": "Gurevich",
+    "pol": "Gurewicz",
+    "rus": "Гуревич",
+    "ukr": "Гуревич"
+  },
+  "lname_private_61": {
+    "eng": "Denisenko",
+    "pol": "Denisenko",
+    "rus": "Денисенко",
+    "ukr": "Денисенко"
+  },
+  "lname_private_62": {
+    "eng": "Dovgalyuk",
+    "pol": "Dowgaliuk",
+    "rus": "Довгалюк",
+    "ukr": "Довгалюк"
+  },
+  "lname_private_63": {
+    "eng": "Dombrik",
+    "pol": "Dombrik",
+    "rus": "Домбрик",
+    "ukr": "Домбрик"
+  },
+  "lname_private_64": {
+    "eng": "Dotsenko",
+    "pol": "Docenko",
+    "rus": "Доценко",
+    "ukr": "Доценко"
+  },
+  "lname_private_65": {
+    "eng": "Drozdush",
+    "pol": "Drozdusz",
+    "rus": "Дроздуш",
+    "ukr": "Дроздуш"
+  },
+  "lname_private_66": {
+    "eng": "Dubenchuk",
+    "pol": "Dube�czuk",
+    "rus": "Дубенчук",
+    "ukr": "Дубенчук"
+  },
+  "lname_private_67": {
+    "eng": "Dudorov",
+    "pol": "Dudorow",
+    "rus": "Дудоров",
+    "ukr": "Дудоров"
+  },
+  "lname_private_68": {
+    "eng": "Duka",
+    "pol": "Duka",
+    "rus": "Дука",
+    "ukr": "Дука"
+  },
+  "lname_private_69": {
+    "eng": "Dumko",
+    "pol": "Dumko",
+    "rus": "Думко",
+    "ukr": "Думко"
+  },
+  "lname_private_7": {
+    "eng": "Balan",
+    "pol": "Balan",
+    "rus": "Балан",
+    "ukr": "Балан"
+  },
+  "lname_private_70": {
+    "eng": "Dunaev",
+    "pol": "Dunajew",
+    "rus": "Дунаев",
+    "ukr": "Дунаєв"
+  },
+  "lname_private_71": {
+    "eng": "Dyklov",
+    "pol": "Dyk�ow",
+    "rus": "Дыклов",
+    "ukr": "Диклов"
+  },
+  "lname_private_72": {
+    "eng": "Erofeev",
+    "pol": "Erofejew",
+    "rus": "Ерофеев",
+    "ukr": "Єрофєєв"
+  },
+  "lname_private_73": {
+    "eng": "Efremov",
+    "pol": "Efremow",
+    "rus": "Ефремов",
+    "ukr": "Єфремов"
+  },
+  "lname_private_74": {
+    "eng": "Zhabenko",
+    "pol": "�abenko",
+    "rus": "Жабенко",
+    "ukr": "Жабенко"
+  },
+  "lname_private_75": {
+    "eng": "Zhmyev",
+    "pol": "�mijew",
+    "rus": "Жмыев",
+    "ukr": "Жмиєв"
+  },
+  "lname_private_76": {
+    "eng": "Zhurakovsky",
+    "pol": "�urakowski",
+    "rus": "Жураковский",
+    "ukr": "Жураковський"
+  },
+  "lname_private_77": {
+    "eng": "Zabyagoda",
+    "pol": "Zabiagoda",
+    "rus": "Забыйягода",
+    "ukr": "Забийягода"
+  },
+  "lname_private_78": {
+    "eng": "Zagorodnyuk",
+    "pol": "Zagorodniuk",
+    "rus": "Загороднюк",
+    "ukr": "Загороднюк"
+  },
+  "lname_private_79": {
+    "eng": "Zamosenchuk",
+    "pol": "Zamosenczuk",
+    "rus": "Замосенчук",
+    "ukr": "Замосенчук"
+  },
+  "lname_private_8": {
+    "eng": "Baranov",
+    "pol": "Baranow",
+    "rus": "Баранов",
+    "ukr": "Баранов"
+  },
+  "lname_private_80": {
+    "eng": "Zarubin",
+    "pol": "Zarubin",
+    "rus": "Зарубин",
+    "ukr": "Зарубін"
+  },
+  "lname_private_81": {
+    "eng": "Zakharin",
+    "pol": "Zacharin",
+    "rus": "Захарин",
+    "ukr": "Захарін"
+  },
+  "lname_private_82": {
+    "eng": "Zvonnitsky",
+    "pol": "Zwonnicki",
+    "rus": "Звонницкий",
+    "ukr": "Звоницький"
+  },
+  "lname_private_83": {
+    "eng": "Zinoviev",
+    "pol": "Zinowiew",
+    "rus": "Зиновьев",
+    "ukr": "Зінов'єв"
+  },
+  "lname_private_84": {
+    "eng": "Zozo",
+    "pol": "Zozo",
+    "rus": "Зозо",
+    "ukr": "Зозо"
+  },
+  "lname_private_85": {
+    "eng": "Zolotar",
+    "pol": "Zo�otar",
+    "rus": "Золотарь",
+    "ukr": "Золотар"
+  },
+  "lname_private_86": {
+    "eng": "Zubarev",
+    "pol": "Zubarew",
+    "rus": "Зубарев",
+    "ukr": "Зубарєв"
+  },
+  "lname_private_87": {
+    "eng": "Zubkov",
+    "pol": "�ubkow",
+    "rus": "Зубков",
+    "ukr": "Зубков"
+  },
+  "lname_private_88": {
+    "eng": "Ivanov",
+    "pol": "Iwanow",
+    "rus": "Иванов",
+    "ukr": "Іванов"
+  },
+  "lname_private_89": {
+    "eng": "Ignatenko",
+    "pol": "Ignatenko",
+    "rus": "Игнатенко",
+    "ukr": "Ігнатенко"
+  },
+  "lname_private_9": {
+    "eng": "Baranovsky",
+    "pol": "Baranowski",
+    "rus": "Барановский",
+    "ukr": "Барановський"
+  },
+  "lname_private_90": {
+    "eng": "Izhenko",
+    "pol": "I�enko",
+    "rus": "Иженко",
+    "ukr": "Іженко"
+  },
+  "lname_private_91": {
+    "eng": "Ischuk",
+    "pol": "Iszczuk",
+    "rus": "Ищук",
+    "ukr": "Іщук"
+  },
+  "lname_private_92": {
+    "eng": "Kazakov",
+    "pol": "Kazakow",
+    "rus": "Казаков",
+    "ukr": "Казаков"
+  },
+  "lname_private_93": {
+    "eng": "Kazantsev",
+    "pol": "Kaza�cew",
+    "rus": "Казанцев",
+    "ukr": "Котелцев"
+  },
+  "lname_private_94": {
+    "eng": "Kandybabko",
+    "pol": "Kandybabko",
+    "rus": "Кандыбабко",
+    "ukr": "Кандибабко"
+  },
+  "lname_private_95": {
+    "eng": "Kapuka",
+    "pol": "Kapuka",
+    "rus": "Капука",
+    "ukr": "Капука"
+  },
+  "lname_private_96": {
+    "eng": "Kapustyanko",
+    "pol": "Kapustianko",
+    "rus": "Капустянко",
+    "ukr": "Капустянко"
+  },
+  "lname_private_97": {
+    "eng": "Katz",
+    "pol": "Kac",
+    "rus": "Кац",
+    "ukr": "Кац"
+  },
+  "lname_private_98": {
+    "eng": "Kikabidze",
+    "pol": "Kikabidze",
+    "rus": "Кикабидзе",
+    "ukr": "Кікабідзе"
+  },
+  "lname_private_99": {
+    "eng": "Gatzula",
+    "pol": "Gacula",
+    "rus": "Гацула",
+    "ukr": "Гацула"
+  },
+  "lname_science_0": {
+    "eng": "Sinaev",
+    "pol": "Sinajew",
+    "rus": "Синаев",
+    "ukr": "Синаєв"
+  },
+  "lname_science_1": {
+    "eng": "Feigelman",
+    "pol": "Feigelman",
+    "rus": "Фейгельман",
+    "ukr": "Фейгельман"
+  },
+  "lname_science_10": {
+    "eng": "Ledentsov",
+    "pol": "Lede�cow",
+    "rus": "Леденцов",
+    "ukr": "Лєдєнцов"
+  },
+  "lname_science_11": {
+    "eng": "Alferov",
+    "pol": "Alferow",
+    "rus": "Алферов",
+    "ukr": "Алфьоров"
+  },
+  "lname_science_12": {
+    "eng": "Antipin",
+    "pol": "Antipin",
+    "rus": "Антипин",
+    "ukr": "Антипін"
+  },
+  "lname_science_13": {
+    "eng": "Blinov",
+    "pol": "Blinow",
+    "rus": "Блинов",
+    "ukr": "Блінов"
+  },
+  "lname_science_14": {
+    "eng": "Bogomolov",
+    "pol": "Bogomo�ow",
+    "rus": "Богомолов",
+    "ukr": "Богомолов"
+  },
+  "lname_science_15": {
+    "eng": "Vasilevich",
+    "pol": "Wasiliewicz",
+    "rus": "Василевич",
+    "ukr": "Василевич"
+  },
+  "lname_science_16": {
+    "eng": "Geshkenbein",
+    "pol": "Geszkenbein",
+    "rus": "Гешкенбейн",
+    "ukr": "Гешкенбейн"
+  },
+  "lname_science_17": {
+    "eng": "Dyakonov",
+    "pol": "Diakonow",
+    "rus": "Дьяконов",
+    "ukr": "Дияконов"
+  },
+  "lname_science_18": {
+    "eng": "Erokhin",
+    "pol": "Erochin",
+    "rus": "Ерохин",
+    "ukr": "Єрохін"
+  },
+  "lname_science_19": {
+    "eng": "Zaikin",
+    "pol": "Zajkin",
+    "rus": "Заикин",
+    "ukr": "Заїкін"
+  },
+  "lname_science_2": {
+    "eng": "Zakharov",
+    "pol": "Zacharow",
+    "rus": "Захаров",
+    "ukr": "Захаров"
+  },
+  "lname_science_20": {
+    "eng": "Ivchenko",
+    "pol": "Iwczenko",
+    "rus": "Ивченко",
+    "ukr": "Івченко"
+  },
+  "lname_science_21": {
+    "eng": "Kabanov",
+    "pol": "Kabanow",
+    "rus": "Кабанов",
+    "ukr": "Кабанов"
+  },
+  "lname_science_22": {
+    "eng": "Larin",
+    "pol": "Larin",
+    "rus": "Ларин",
+    "ukr": "Ларін"
+  },
+  "lname_science_23": {
+    "eng": "Manko",
+    "pol": "Manko",
+    "rus": "Манько",
+    "ukr": "Манько"
+  },
+  "lname_science_24": {
+    "eng": "Mironov",
+    "pol": "Mironow",
+    "rus": "Миронов",
+    "ukr": "Миронов"
+  },
+  "lname_science_25": {
+    "eng": "Stepanenko",
+    "pol": "Stepanenko",
+    "rus": "Степаненко",
+    "ukr": "Степаненко"
+  },
+  "lname_science_26": {
+    "eng": "Oganesyan",
+    "pol": "Oganesian",
+    "rus": "Оганесян",
+    "ukr": "Оганесян"
+  },
+  "lname_science_27": {
+    "eng": "Chernodub",
+    "pol": "Czernodub",
+    "rus": "Чернодуб",
+    "ukr": "Чорнодуб"
+  },
+  "lname_science_28": {
+    "eng": "Shilov",
+    "pol": "Szy�ow",
+    "rus": "Шилов",
+    "ukr": "Шилов"
+  },
+  "lname_science_3": {
+    "eng": "Chirikov",
+    "pol": "Czyrykow",
+    "rus": "Чириков",
+    "ukr": "Чириков"
+  },
+  "lname_science_4": {
+    "eng": "Belyavin",
+    "pol": "Beliawin",
+    "rus": "Белявин",
+    "ukr": "Белявін"
+  },
+  "lname_science_5": {
+    "eng": "Fadeev",
+    "pol": "Fadejew",
+    "rus": "Фадеев",
+    "ukr": "Фадєєв"
+  },
+  "lname_science_6": {
+    "eng": "Steklov",
+    "pol": "Stek�ow",
+    "rus": "Стеклов",
+    "ukr": "Стеклов"
+  },
+  "lname_science_7": {
+    "eng": "Andreev",
+    "pol": "Andrejew",
+    "rus": "Андреев",
+    "ukr": "Андрєєв"
+  },
+  "lname_science_8": {
+    "eng": "Spirin",
+    "pol": "Spirin",
+    "rus": "Спирин",
+    "ukr": "Спірін"
+  },
+  "lname_science_9": {
+    "eng": "Balitsky",
+    "pol": "Balicki",
+    "rus": "Балитский",
+    "ukr": "Балитський"
+  },
+  "lname_sergeant_0": {
+    "eng": "Abdurakhmanov",
+    "pol": "Abdurachmanow",
+    "rus": "Абдурхманов",
+    "ukr": "Абдурхманов"
+  },
+  "lname_sergeant_1": {
+    "eng": "Altynnik",
+    "pol": "Altynnik",
+    "rus": "Алтынник",
+    "ukr": "Алтинник"
+  },
+  "lname_sergeant_10": {
+    "eng": "Barsak",
+    "pol": "Barsak",
+    "rus": "Барсак",
+    "ukr": "Барсак"
+  },
+  "lname_sergeant_100": {
+    "eng": "Kireev",
+    "pol": "Kirejew",
+    "rus": "Киреев",
+    "ukr": "Кирєєв"
+  },
+  "lname_sergeant_101": {
+    "eng": "Scherbin",
+    "pol": "Szczerbin",
+    "rus": "Щербин",
+    "ukr": "Щербин"
+  },
+  "lname_sergeant_102": {
+    "eng": "Kovalchuk",
+    "pol": "Kowalczuk",
+    "rus": "Ковальчук",
+    "ukr": "Ковальчук"
+  },
+  "lname_sergeant_103": {
+    "eng": "Koev",
+    "pol": "Kojew",
+    "rus": "Коев",
+    "ukr": "Коєв"
+  },
+  "lname_sergeant_104": {
+    "eng": "Kozlov",
+    "pol": "Koz�ow",
+    "rus": "Козлов",
+    "ukr": "Козлов"
+  },
+  "lname_sergeant_105": {
+    "eng": "Kolontarev",
+    "pol": "Ko�ontarew",
+    "rus": "Колонтарёв",
+    "ukr": "Колонтарьов"
+  },
+  "lname_sergeant_106": {
+    "eng": "Kolontar",
+    "pol": "Ko�ontar",
+    "rus": "Колонтарь",
+    "ukr": "Колонтар"
+  },
+  "lname_sergeant_107": {
+    "eng": "Kondratenko",
+    "pol": "Kondratenko",
+    "rus": "Кондратенко",
+    "ukr": "Кондратенко"
+  },
+  "lname_sergeant_108": {
+    "eng": "Korkin",
+    "pol": "Korkin",
+    "rus": "Коркин",
+    "ukr": "Коркін"
+  },
+  "lname_sergeant_109": {
+    "eng": "Korneev",
+    "pol": "Korniejew",
+    "rus": "Корнеев",
+    "ukr": "Корнєєв"
+  },
+  "lname_sergeant_11": {
+    "eng": "Baul",
+    "pol": "Baul",
+    "rus": "Баул",
+    "ukr": "Баул"
+  },
+  "lname_sergeant_110": {
+    "eng": "Kravchenko",
+    "pol": "Krawczenko",
+    "rus": "Кравченко",
+    "ukr": "Кравченко"
+  },
+  "lname_sergeant_111": {
+    "eng": "Krivda",
+    "pol": "Kriwda",
+    "rus": "Кривда",
+    "ukr": "Кривда"
+  },
+  "lname_sergeant_112": {
+    "eng": "Krivokhatsky",
+    "pol": "Krzywochacki",
+    "rus": "Кривохатский",
+    "ukr": "Кривохатський"
+  },
+  "lname_sergeant_113": {
+    "eng": "Kuznetsov",
+    "pol": "Ku�niecow",
+    "rus": "Кузнецов",
+    "ukr": "Кузнєцов"
+  },
+  "lname_sergeant_114": {
+    "eng": "Kuzmich",
+    "pol": "Ku�micz",
+    "rus": "Кузьмич",
+    "ukr": "Кузьмич"
+  },
+  "lname_sergeant_115": {
+    "eng": "Kuzyakin",
+    "pol": "Kuziakin",
+    "rus": "Кузякин",
+    "ukr": "Кузякін"
+  },
+  "lname_sergeant_116": {
+    "eng": "Kulchistky",
+    "pol": "Kulczycki",
+    "rus": "Кульчитский",
+    "ukr": "Кульчитський"
+  },
+  "lname_sergeant_117": {
+    "eng": "Kuntsev",
+    "pol": "Kuncew",
+    "rus": "Кунцев",
+    "ukr": "Кунцев"
+  },
+  "lname_sergeant_118": {
+    "eng": "Kurvitz",
+    "pol": "Kurwic",
+    "rus": "Курвиц",
+    "ukr": "Курвіц"
+  },
+  "lname_sergeant_119": {
+    "eng": "Kucheruk",
+    "pol": "Kuczeruk",
+    "rus": "Кучерук",
+    "ukr": "Кучерук"
+  },
+  "lname_sergeant_12": {
+    "eng": "Bashakov",
+    "pol": "Baszakow",
+    "rus": "Башаков",
+    "ukr": "Башаков"
+  },
+  "lname_sergeant_120": {
+    "eng": "Kushnarev",
+    "pol": "Kusznarew",
+    "rus": "Кушнарёв",
+    "ukr": "Кушнарьов"
+  },
+  "lname_sergeant_121": {
+    "eng": "Khaladze",
+    "pol": "Cha�adze",
+    "rus": "Кхаладзе",
+    "ukr": "Кхаладзе"
+  },
+  "lname_sergeant_122": {
+    "eng": "Lavrik",
+    "pol": "�awrik",
+    "rus": "Лаврик",
+    "ukr": "Лаврик"
+  },
+  "lname_sergeant_123": {
+    "eng": "Lavrov",
+    "pol": "�awrow",
+    "rus": "Лавров",
+    "ukr": "Лавров"
+  },
+  "lname_sergeant_124": {
+    "eng": "Livshits",
+    "pol": "Liwszyc",
+    "rus": "Лившиц",
+    "ukr": "Лівшиць"
+  },
+  "lname_sergeant_125": {
+    "eng": "Lisichansky",
+    "pol": "Lisicza�ski",
+    "rus": "Лисичанский",
+    "ukr": "Лисичанський"
+  },
+  "lname_sergeant_126": {
+    "eng": "Litvin",
+    "pol": "Litwin",
+    "rus": "Литвин",
+    "ukr": "Литвин"
+  },
+  "lname_sergeant_127": {
+    "eng": "Lymarenko",
+    "pol": "Limarenko",
+    "rus": "Лымаренко",
+    "ukr": "Лимаренко"
+  },
+  "lname_sergeant_128": {
+    "eng": "Mazepa",
+    "pol": "Mazepa",
+    "rus": "Мазепа",
+    "ukr": "Мазепа"
+  },
+  "lname_sergeant_129": {
+    "eng": "Makarenko",
+    "pol": "Makarenko",
+    "rus": "Макаренко",
+    "ukr": "Макаренко"
+  },
+  "lname_sergeant_13": {
+    "eng": "Bashmakov",
+    "pol": "Baszmakow",
+    "rus": "Башмаков",
+    "ukr": "Башмаков"
+  },
+  "lname_sergeant_130": {
+    "eng": "Maltsev",
+    "pol": "Malcew",
+    "rus": "Мальцев",
+    "ukr": "Мальцев"
+  },
+  "lname_sergeant_131": {
+    "eng": "Mamaev",
+    "pol": "Mamajew",
+    "rus": "Мамаев",
+    "ukr": "Мамаєв"
+  },
+  "lname_sergeant_132": {
+    "eng": "Merzlayev",
+    "pol": "Merz�ajew",
+    "rus": "Мерзляев",
+    "ukr": "Мерзляєв"
+  },
+  "lname_sergeant_133": {
+    "eng": "Milchenko",
+    "pol": "Milczenko",
+    "rus": "Мильченко",
+    "ukr": "Мільченко"
+  },
+  "lname_sergeant_134": {
+    "eng": "Mironyuk",
+    "pol": "Mironiuk",
+    "rus": "Миронюк",
+    "ukr": "Миронюк"
+  },
+  "lname_sergeant_135": {
+    "eng": "Mohrer",
+    "pol": "Mohrer",
+    "rus": "Морер",
+    "ukr": "Морер"
+  },
+  "lname_sergeant_136": {
+    "eng": "Kryga",
+    "pol": "Kryga",
+    "rus": "Крыга",
+    "ukr": "Крига"
+  },
+  "lname_sergeant_137": {
+    "eng": "Mostovoi",
+    "pol": "Mostow�j",
+    "rus": "Мостовой",
+    "ukr": "Мостовий"
+  },
+  "lname_sergeant_138": {
+    "eng": "Muntyan",
+    "pol": "Muntian",
+    "rus": "Мунтян",
+    "ukr": "Мунтян"
+  },
+  "lname_sergeant_139": {
+    "eng": "Mukhamedov",
+    "pol": "Muchamedow",
+    "rus": "Мухамедов",
+    "ukr": "Мухамедов"
+  },
+  "lname_sergeant_14": {
+    "eng": "Beshevly",
+    "pol": "Beszewli",
+    "rus": "Бешевлий",
+    "ukr": "Бешевлій"
+  },
+  "lname_sergeant_140": {
+    "eng": "Myskov",
+    "pol": "Myskow",
+    "rus": "Мыськов",
+    "ukr": "Миськов"
+  },
+  "lname_sergeant_141": {
+    "eng": "Navrotsky",
+    "pol": "Nawrocki",
+    "rus": "Навроцкий",
+    "ukr": "Навроцький"
+  },
+  "lname_sergeant_142": {
+    "eng": "Nepritsky",
+    "pol": "Nepricki",
+    "rus": "Неприцкий",
+    "ukr": "Неприцький"
+  },
+  "lname_sergeant_143": {
+    "eng": "Nikanorov",
+    "pol": "Nikanorow",
+    "rus": "Никаноров",
+    "ukr": "Ніканоров"
+  },
+  "lname_sergeant_144": {
+    "eng": "Nikeshin",
+    "pol": "Nikeszyn",
+    "rus": "Никешин",
+    "ukr": "Нікешин"
+  },
+  "lname_sergeant_145": {
+    "eng": "Nikulin",
+    "pol": "Nikulin",
+    "rus": "Никулин",
+    "ukr": "Нікулін"
+  },
+  "lname_sergeant_146": {
+    "eng": "Futzin",
+    "pol": "Fucin",
+    "rus": "Фуцин",
+    "ukr": "Фуцин"
+  },
+  "lname_sergeant_147": {
+    "eng": "Nordiev",
+    "pol": "Nordiew",
+    "rus": "Нордиев",
+    "ukr": "Нордієв"
+  },
+  "lname_sergeant_148": {
+    "eng": "Nosan",
+    "pol": "Nosan",
+    "rus": "Носань",
+    "ukr": "Носань"
+  },
+  "lname_sergeant_149": {
+    "eng": "Opolev",
+    "pol": "Opolew",
+    "rus": "Ополев",
+    "ukr": "Ополєв"
+  },
+  "lname_sergeant_15": {
+    "eng": "Binoev",
+    "pol": "Binojew",
+    "rus": "Биноев",
+    "ukr": "Біноєв"
+  },
+  "lname_sergeant_150": {
+    "eng": "Orlevich",
+    "pol": "Orlewicz",
+    "rus": "Орлевич",
+    "ukr": "Орлевич"
+  },
+  "lname_sergeant_151": {
+    "eng": "Orlov",
+    "pol": "Or�ow",
+    "rus": "Орлов",
+    "ukr": "Орлов"
+  },
+  "lname_sergeant_152": {
+    "eng": "Petkevich",
+    "pol": "Petkiewicz",
+    "rus": "Петкевич",
+    "ukr": "Петкевич"
+  },
+  "lname_sergeant_153": {
+    "eng": "Petrenko",
+    "pol": "Petrenko",
+    "rus": "Петренко",
+    "ukr": "Петренко"
+  },
+  "lname_sergeant_154": {
+    "eng": "Petrov",
+    "pol": "Petrow",
+    "rus": "Петров",
+    "ukr": "Петров"
+  },
+  "lname_sergeant_155": {
+    "eng": "Plokhenko",
+    "pol": "P�ochenko",
+    "rus": "Плохенко",
+    "ukr": "Плохенко"
+  },
+  "lname_sergeant_156": {
+    "eng": "Podyachev",
+    "pol": "Podiaczew",
+    "rus": "Подячев",
+    "ukr": "Подячєв"
+  },
+  "lname_sergeant_157": {
+    "eng": "Polyanin",
+    "pol": "Polianin",
+    "rus": "Полянин",
+    "ukr": "Полянін"
+  },
+  "lname_sergeant_158": {
+    "eng": "Poplavsky",
+    "pol": "Pop�awski",
+    "rus": "Поплавский",
+    "ukr": "Поплавський"
+  },
+  "lname_sergeant_159": {
+    "eng": "Popov",
+    "pol": "Popow",
+    "rus": "Попов",
+    "ukr": "Попов"
+  },
+  "lname_sergeant_16": {
+    "eng": "Blinov",
+    "pol": "Blinow",
+    "rus": "Блинов",
+    "ukr": "Блінов"
+  },
+  "lname_sergeant_160": {
+    "eng": "Portnykh",
+    "pol": "Portnych",
+    "rus": "Портных",
+    "ukr": "Портних"
+  },
+  "lname_sergeant_161": {
+    "eng": "Prasolov",
+    "pol": "Praso�ow",
+    "rus": "Прасолов",
+    "ukr": "Прасолов"
+  },
+  "lname_sergeant_162": {
+    "eng": "Prokopenko",
+    "pol": "Prokopenko",
+    "rus": "Прокопенко",
+    "ukr": "Прокопенко"
+  },
+  "lname_sergeant_163": {
+    "eng": "Proskurin",
+    "pol": "Proskurin",
+    "rus": "Проскурин",
+    "ukr": "Проскурін"
+  },
+  "lname_sergeant_164": {
+    "eng": "Protsenko",
+    "pol": "Procenko",
+    "rus": "Проценко",
+    "ukr": "Проценко"
+  },
+  "lname_sergeant_165": {
+    "eng": "Prudov",
+    "pol": "Prudow",
+    "rus": "Прудов",
+    "ukr": "Прудов"
+  },
+  "lname_sergeant_166": {
+    "eng": "Pustovar",
+    "pol": "Pustowar",
+    "rus": "Пустовар",
+    "ukr": "Пустовар"
+  },
+  "lname_sergeant_167": {
+    "eng": "Puchek",
+    "pol": "Puczek",
+    "rus": "Пучек",
+    "ukr": "Пучек"
+  },
+  "lname_sergeant_168": {
+    "eng": "Rabinovich",
+    "pol": "Rabinowicz",
+    "rus": "Рабинович",
+    "ukr": "Рабинович"
+  },
+  "lname_sergeant_169": {
+    "eng": "Radkevich",
+    "pol": "Radkiewicz",
+    "rus": "Радкевич",
+    "ukr": "Радкевич"
+  },
+  "lname_sergeant_17": {
+    "eng": "Bobrov",
+    "pol": "Bobrow",
+    "rus": "Бобров",
+    "ukr": "Бобров"
+  },
+  "lname_sergeant_170": {
+    "eng": "Rezun",
+    "pol": "Rezun",
+    "rus": "Резун",
+    "ukr": "Резун"
+  },
+  "lname_sergeant_171": {
+    "eng": "Rogoza",
+    "pol": "Rogoza",
+    "rus": "Рогоза",
+    "ukr": "Рогоза"
+  },
+  "lname_sergeant_172": {
+    "eng": "Rodnyansky",
+    "pol": "Rodnia�ski",
+    "rus": "Роднянский",
+    "ukr": "Роднянський"
+  },
+  "lname_sergeant_173": {
+    "eng": "Rotan",
+    "pol": "Rotan",
+    "rus": "Ротань",
+    "ukr": "Ротань"
+  },
+  "lname_sergeant_174": {
+    "eng": "Rublev",
+    "pol": "Rublew",
+    "rus": "Рублев",
+    "ukr": "Рубльов"
+  },
+  "lname_sergeant_175": {
+    "eng": "Rudik",
+    "pol": "Rudik",
+    "rus": "Рудик",
+    "ukr": "Рудик"
+  },
+  "lname_sergeant_176": {
+    "eng": "Rusanov",
+    "pol": "Rusanow",
+    "rus": "Русанов",
+    "ukr": "Русанов"
+  },
+  "lname_sergeant_177": {
+    "eng": "Rychagirsky",
+    "pol": "Ryczagirski",
+    "rus": "Рычагирский",
+    "ukr": "Ричагірський"
+  },
+  "lname_sergeant_178": {
+    "eng": "Savchenko",
+    "pol": "Sawczenko",
+    "rus": "Савченко",
+    "ukr": "Савченко"
+  },
+  "lname_sergeant_179": {
+    "eng": "Savchuk",
+    "pol": "Sawczuk",
+    "rus": "Савчук",
+    "ukr": "Савчук"
+  },
+  "lname_sergeant_18": {
+    "eng": "Bogdanov",
+    "pol": "Bogdanow",
+    "rus": "Богданов",
+    "ukr": "Богданов"
+  },
+  "lname_sergeant_180": {
+    "eng": "Sagitov",
+    "pol": "Sagitow",
+    "rus": "Сагитов",
+    "ukr": "Сагітов"
+  },
+  "lname_sergeant_181": {
+    "eng": "Sviridov",
+    "pol": "Swiridow",
+    "rus": "Свиридов",
+    "ukr": "Свиридов"
+  },
+  "lname_sergeant_182": {
+    "eng": "Sedykh",
+    "pol": "Sedych",
+    "rus": "Седых",
+    "ukr": "Сєдих"
+  },
+  "lname_sergeant_183": {
+    "eng": "Sereda",
+    "pol": "Sereda",
+    "rus": "Середа",
+    "ukr": "Середа"
+  },
+  "lname_sergeant_184": {
+    "eng": "Sidorenko",
+    "pol": "Sidorenko",
+    "rus": "Сидоренко",
+    "ukr": "Сидоренко"
+  },
+  "lname_sergeant_185": {
+    "eng": "Sidorov",
+    "pol": "Sidorow",
+    "rus": "Сидоров",
+    "ukr": "Сидоров"
+  },
+  "lname_sergeant_186": {
+    "eng": "Siniy",
+    "pol": "Sinij",
+    "rus": "Синий",
+    "ukr": "Синій"
+  },
+  "lname_sergeant_187": {
+    "eng": "Sinitzyn",
+    "pol": "Sinicyn",
+    "rus": "Синицын",
+    "ukr": "Синіцин"
+  },
+  "lname_sergeant_188": {
+    "eng": "Skameika",
+    "pol": "Skamejka",
+    "rus": "Скамейка",
+    "ukr": "Скамійка"
+  },
+  "lname_sergeant_189": {
+    "eng": "Slutsky",
+    "pol": "S�ucki",
+    "rus": "Слуцкий",
+    "ukr": "Слуцький"
+  },
+  "lname_sergeant_19": {
+    "eng": "Boiko",
+    "pol": "Bojko",
+    "rus": "Бойко",
+    "ukr": "Бойко"
+  },
+  "lname_sergeant_190": {
+    "eng": "Smelov",
+    "pol": "Sme�ow",
+    "rus": "Смелов",
+    "ukr": "Смєлов"
+  },
+  "lname_sergeant_191": {
+    "eng": "Smoly",
+    "pol": "Smo�y",
+    "rus": "Смолий",
+    "ukr": "Смолій"
+  },
+  "lname_sergeant_192": {
+    "eng": "Sorokin",
+    "pol": "Sorokin",
+    "rus": "Сорокин",
+    "ukr": "Сорокін"
+  },
+  "lname_sergeant_193": {
+    "eng": "Statzura",
+    "pol": "Stacura",
+    "rus": "Стацюра",
+    "ukr": "Стацюра"
+  },
+  "lname_sergeant_194": {
+    "eng": "Stepchin",
+    "pol": "Stepczyn",
+    "rus": "Степчин",
+    "ukr": "Степчин"
+  },
+  "lname_sergeant_195": {
+    "eng": "Stychinsky",
+    "pol": "Styczy�ski",
+    "rus": "Стычинский",
+    "ukr": "Стичинський"
+  },
+  "lname_sergeant_196": {
+    "eng": "Sykula",
+    "pol": "Syku�a",
+    "rus": "Сыкула",
+    "ukr": "Сикула"
+  },
+  "lname_sergeant_197": {
+    "eng": "Tarnavsky",
+    "pol": "Tarnawski",
+    "rus": "Тарнавский",
+    "ukr": "Тарнавський"
+  },
+  "lname_sergeant_198": {
+    "eng": "Tatarchuk",
+    "pol": "Tatarczuk",
+    "rus": "Татарчук",
+    "ukr": "Татарчук"
+  },
+  "lname_sergeant_199": {
+    "eng": "Timchuk",
+    "pol": "Timczuk",
+    "rus": "Тимчук",
+    "ukr": "Тимчук"
+  },
+  "lname_sergeant_2": {
+    "eng": "Andreychuk",
+    "pol": "Andrzejczuk",
+    "rus": "Андрейчук",
+    "ukr": "Андрійчук"
+  },
+  "lname_sergeant_20": {
+    "eng": "Boichenko",
+    "pol": "Bojczenko",
+    "rus": "Бойченко",
+    "ukr": "Бойченко"
+  },
+  "lname_sergeant_21": {
+    "eng": "Boldeskul",
+    "pol": "Boldeskul",
+    "rus": "Болдескул",
+    "ukr": "Болдескул"
+  },
+  "lname_sergeant_22": {
+    "eng": "Bondarev",
+    "pol": "Bondarew",
+    "rus": "Бондарев",
+    "ukr": "Бондарьов"
+  },
+  "lname_sergeant_23": {
+    "eng": "Borisov",
+    "pol": "Borisow",
+    "rus": "Борисов",
+    "ukr": "Борисов"
+  },
+  "lname_sergeant_24": {
+    "eng": "Brich",
+    "pol": "Bricz",
+    "rus": "Брич",
+    "ukr": "Брич"
+  },
+  "lname_sergeant_25": {
+    "eng": "Bronshtein",
+    "pol": "Bronsztein",
+    "rus": "Бронштейн",
+    "ukr": "Бронштейн"
+  },
+  "lname_sergeant_26": {
+    "eng": "Buryak",
+    "pol": "Buriak",
+    "rus": "Буряк",
+    "ukr": "Буряк"
+  },
+  "lname_sergeant_27": {
+    "eng": "Buturin",
+    "pol": "Buturin",
+    "rus": "Бутурин",
+    "ukr": "Бутурін"
+  },
+  "lname_sergeant_28": {
+    "eng": "Byalo",
+    "pol": "Bialo",
+    "rus": "Бяло",
+    "ukr": "Бяло"
+  },
+  "lname_sergeant_29": {
+    "eng": "Valentinov",
+    "pol": "Walentinow",
+    "rus": "Валентинов",
+    "ukr": "Валентинов"
+  },
+  "lname_sergeant_3": {
+    "eng": "Andruschenko",
+    "pol": "Andruszczenko",
+    "rus": "Андрущенко",
+    "ukr": "Андрущенко"
+  },
+  "lname_sergeant_30": {
+    "eng": "Vasiliev",
+    "pol": "Wasiliew",
+    "rus": "Васильев",
+    "ukr": "Васильєв"
+  },
+  "lname_sergeant_31": {
+    "eng": "Veselov",
+    "pol": "Wese�ow",
+    "rus": "Веселов",
+    "ukr": "Веселов"
+  },
+  "lname_sergeant_32": {
+    "eng": "Vinogradov",
+    "pol": "Winogradow",
+    "rus": "Виноградов",
+    "ukr": "Виноградов"
+  },
+  "lname_sergeant_33": {
+    "eng": "Vovnenko",
+    "pol": "Wownienko",
+    "rus": "Вовненко",
+    "ukr": "Вовненко"
+  },
+  "lname_sergeant_34": {
+    "eng": "Volanchuk",
+    "pol": "Wola�czuk",
+    "rus": "Воланчук",
+    "ukr": "Воланчук"
+  },
+  "lname_sergeant_35": {
+    "eng": "Volodar",
+    "pol": "Wo�odar",
+    "rus": "Володарь",
+    "ukr": "Володар"
+  },
+  "lname_sergeant_36": {
+    "eng": "Voloshin",
+    "pol": "Wo�oszyn",
+    "rus": "Волошин",
+    "ukr": "Волошин"
+  },
+  "lname_sergeant_37": {
+    "eng": "Vorontsov",
+    "pol": "Woro�cow",
+    "rus": "Воронцов",
+    "ukr": "Воронцов"
+  },
+  "lname_sergeant_38": {
+    "eng": "Vorokhaev",
+    "pol": "Worochajew",
+    "rus": "Ворохаев",
+    "ukr": "Ворохаєв"
+  },
+  "lname_sergeant_39": {
+    "eng": "Vyushinsky",
+    "pol": "Wiuszy�ski",
+    "rus": "Вьюшинский",
+    "ukr": "В'юшинський"
+  },
+  "lname_sergeant_4": {
+    "eng": "Anisiev",
+    "pol": "Anisiew",
+    "rus": "Анисьев",
+    "ukr": "Анисьєв"
+  },
+  "lname_sergeant_40": {
+    "eng": "Galkin",
+    "pol": "Ga�kin",
+    "rus": "Галкин",
+    "ukr": "Галкін"
+  },
+  "lname_sergeant_41": {
+    "eng": "Ganzyuk",
+    "pol": "Gandziuk",
+    "rus": "Ганзюк",
+    "ukr": "Ганзюк"
+  },
+  "lname_sergeant_42": {
+    "eng": "Garkovenko",
+    "pol": "Garkowienko",
+    "rus": "Гарковенко",
+    "ukr": "Гарковенко"
+  },
+  "lname_sergeant_43": {
+    "eng": "Garkusha",
+    "pol": "Garkusza",
+    "rus": "Гаркуша",
+    "ukr": "Гаркуша"
+  },
+  "lname_sergeant_44": {
+    "eng": "Georgov",
+    "pol": "Georgow",
+    "rus": "Георгов",
+    "ukr": "Георгов"
+  },
+  "lname_sergeant_45": {
+    "eng": "Glebovsky",
+    "pol": "Glebowski",
+    "rus": "Глебовский",
+    "ukr": "Глебовський"
+  },
+  "lname_sergeant_46": {
+    "eng": "Gnatyuk",
+    "pol": "Gnatiuk",
+    "rus": "Гнатюк",
+    "ukr": "Гнатюк"
+  },
+  "lname_sergeant_47": {
+    "eng": "Goncharenko",
+    "pol": "Gonczarenko",
+    "rus": "Гончаренко",
+    "ukr": "Гончаренко"
+  },
+  "lname_sergeant_48": {
+    "eng": "Gordienko",
+    "pol": "Gordienko",
+    "rus": "Гордиенко",
+    "ukr": "Гордієнко"
+  },
+  "lname_sergeant_49": {
+    "eng": "Gorlevoy",
+    "pol": "Gorlew�j",
+    "rus": "Горлевой",
+    "ukr": "Горлевой"
+  },
+  "lname_sergeant_5": {
+    "eng": "Ardashev",
+    "pol": "Ardaszew",
+    "rus": "Ардашев",
+    "ukr": "Ардашев"
+  },
+  "lname_sergeant_50": {
+    "eng": "Gorokhin",
+    "pol": "Gorochin",
+    "rus": "Горохин",
+    "ukr": "Горохін"
+  },
+  "lname_sergeant_51": {
+    "eng": "Goryunov",
+    "pol": "Goriunow",
+    "rus": "Горюнов",
+    "ukr": "Горюнов"
+  },
+  "lname_sergeant_52": {
+    "eng": "Grebenko",
+    "pol": "Grebenko",
+    "rus": "Гребенюк",
+    "ukr": "Гребенюк"
+  },
+  "lname_sergeant_53": {
+    "eng": "Gritzaenko",
+    "pol": "Gricajenko",
+    "rus": "Грицаенко",
+    "ukr": "Грицаєнко"
+  },
+  "lname_sergeant_54": {
+    "eng": "Gritzay",
+    "pol": "Gricaj",
+    "rus": "Грицай",
+    "ukr": "Грицай"
+  },
+  "lname_sergeant_55": {
+    "eng": "Gritzenkov",
+    "pol": "Gricenkow",
+    "rus": "Гриценков",
+    "ukr": "Гриценков"
+  },
+  "lname_sergeant_56": {
+    "eng": "Grishachev",
+    "pol": "Griszachew",
+    "rus": "Гришачев",
+    "ukr": "Гришачов"
+  },
+  "lname_sergeant_57": {
+    "eng": "Grischuk",
+    "pol": "Gryszczuk",
+    "rus": "Грищук",
+    "ukr": "Грищук"
+  },
+  "lname_sergeant_58": {
+    "eng": "Gubar",
+    "pol": "Gubar",
+    "rus": "Губар",
+    "ukr": "Губар"
+  },
+  "lname_sergeant_59": {
+    "eng": "Gunko",
+    "pol": "Gunko",
+    "rus": "Гунько",
+    "ukr": "Гунько"
+  },
+  "lname_sergeant_6": {
+    "eng": "Babich",
+    "pol": "Babicz",
+    "rus": "Бабич",
+    "ukr": "Бабич"
+  },
+  "lname_sergeant_60": {
+    "eng": "Gurevich",
+    "pol": "Gurewicz",
+    "rus": "Гуревич",
+    "ukr": "Гуревич"
+  },
+  "lname_sergeant_61": {
+    "eng": "Denisenko",
+    "pol": "Denisenko",
+    "rus": "Денисенко",
+    "ukr": "Денисенко"
+  },
+  "lname_sergeant_62": {
+    "eng": "Dovgalyuk",
+    "pol": "Dowgaliuk",
+    "rus": "Довгалюк",
+    "ukr": "Довгалюк"
+  },
+  "lname_sergeant_63": {
+    "eng": "Dombrik",
+    "pol": "Dombrik",
+    "rus": "Домбрик",
+    "ukr": "Домбрик"
+  },
+  "lname_sergeant_64": {
+    "eng": "Dotsenko",
+    "pol": "Docenko",
+    "rus": "Доценко",
+    "ukr": "Доценко"
+  },
+  "lname_sergeant_65": {
+    "eng": "Drozdush",
+    "pol": "Drozdusz",
+    "rus": "Дроздуш",
+    "ukr": "Дроздуш"
+  },
+  "lname_sergeant_66": {
+    "eng": "Dubenchuk",
+    "pol": "Dube�czuk",
+    "rus": "Дубенчук",
+    "ukr": "Дубенчук"
+  },
+  "lname_sergeant_67": {
+    "eng": "Dudorov",
+    "pol": "Dudorow",
+    "rus": "Дудоров",
+    "ukr": "Дудоров"
+  },
+  "lname_sergeant_68": {
+    "eng": "Duka",
+    "pol": "Duka",
+    "rus": "Дука",
+    "ukr": "Дука"
+  },
+  "lname_sergeant_69": {
+    "eng": "Dumko",
+    "pol": "Dumko",
+    "rus": "Думко",
+    "ukr": "Думко"
+  },
+  "lname_sergeant_7": {
+    "eng": "Balan",
+    "pol": "Balan",
+    "rus": "Балан",
+    "ukr": "Балан"
+  },
+  "lname_sergeant_70": {
+    "eng": "Dunaev",
+    "pol": "Dunajew",
+    "rus": "Дунаев",
+    "ukr": "Дунаєв"
+  },
+  "lname_sergeant_71": {
+    "eng": "Dyklov",
+    "pol": "Dyk�ow",
+    "rus": "Дыклов",
+    "ukr": "Диклов"
+  },
+  "lname_sergeant_72": {
+    "eng": "Erofeev",
+    "pol": "Erofejew",
+    "rus": "Ерофеев",
+    "ukr": "Єрофєєв"
+  },
+  "lname_sergeant_73": {
+    "eng": "Efremov",
+    "pol": "Efremow",
+    "rus": "Ефремов",
+    "ukr": "Єфремов"
+  },
+  "lname_sergeant_74": {
+    "eng": "Zhabenko",
+    "pol": "�abenko",
+    "rus": "Жабенко",
+    "ukr": "Жабенко"
+  },
+  "lname_sergeant_75": {
+    "eng": "Zhmyev",
+    "pol": "�mijew",
+    "rus": "Жмыев",
+    "ukr": "Жмиєв"
+  },
+  "lname_sergeant_76": {
+    "eng": "Zhurakovsky",
+    "pol": "�urakowski",
+    "rus": "Жураковский",
+    "ukr": "Жураковський"
+  },
+  "lname_sergeant_77": {
+    "eng": "Zabyagoda",
+    "pol": "Zabiagoda",
+    "rus": "Забыйягода",
+    "ukr": "Забийягода"
+  },
+  "lname_sergeant_78": {
+    "eng": "Zagorodnyuk",
+    "pol": "Zagorodniuk",
+    "rus": "Загороднюк",
+    "ukr": "Загороднюк"
+  },
+  "lname_sergeant_79": {
+    "eng": "Zamosenchuk",
+    "pol": "Zamosenczuk",
+    "rus": "Замосенчук",
+    "ukr": "Замосенчук"
+  },
+  "lname_sergeant_8": {
+    "eng": "Baranov",
+    "pol": "Baranow",
+    "rus": "Баранов",
+    "ukr": "Баранов"
+  },
+  "lname_sergeant_80": {
+    "eng": "Zarubin",
+    "pol": "Zarubin",
+    "rus": "Зарубин",
+    "ukr": "Зарубін"
+  },
+  "lname_sergeant_81": {
+    "eng": "Zakharin",
+    "pol": "Zacharin",
+    "rus": "Захарин",
+    "ukr": "Захарін"
+  },
+  "lname_sergeant_82": {
+    "eng": "Zvonnitsky",
+    "pol": "Zwonnicki",
+    "rus": "Звонницкий",
+    "ukr": "Звоницький"
+  },
+  "lname_sergeant_83": {
+    "eng": "Zinoviev",
+    "pol": "Zinowiew",
+    "rus": "Зиновьев",
+    "ukr": "Зінов'єв"
+  },
+  "lname_sergeant_84": {
+    "eng": "Zozo",
+    "pol": "Zozo",
+    "rus": "Зозо",
+    "ukr": "Зозо"
+  },
+  "lname_sergeant_85": {
+    "eng": "Zolotar",
+    "pol": "Zo�otar",
+    "rus": "Золотарь",
+    "ukr": "Золотар"
+  },
+  "lname_sergeant_86": {
+    "eng": "Zubarev",
+    "pol": "Zubarew",
+    "rus": "Зубарев",
+    "ukr": "Зубарєв"
+  },
+  "lname_sergeant_87": {
+    "eng": "Zubkov",
+    "pol": "�ubkow",
+    "rus": "Зубков",
+    "ukr": "Зубков"
+  },
+  "lname_sergeant_88": {
+    "eng": "Ivanov",
+    "pol": "Iwanow",
+    "rus": "Иванов",
+    "ukr": "Іванов"
+  },
+  "lname_sergeant_89": {
+    "eng": "Ignatenko",
+    "pol": "Ignatenko",
+    "rus": "Игнатенко",
+    "ukr": "Ігнатенко"
+  },
+  "lname_sergeant_9": {
+    "eng": "Baranovsky",
+    "pol": "Baranowski",
+    "rus": "Барановский",
+    "ukr": "Барановський"
+  },
+  "lname_sergeant_90": {
+    "eng": "Izhenko",
+    "pol": "I�enko",
+    "rus": "Иженко",
+    "ukr": "Іженко"
+  },
+  "lname_sergeant_91": {
+    "eng": "Ischuk",
+    "pol": "Iszczuk",
+    "rus": "Ищук",
+    "ukr": "Іщук"
+  },
+  "lname_sergeant_92": {
+    "eng": "Kazakov",
+    "pol": "Kazakow",
+    "rus": "Казаков",
+    "ukr": "Казаков"
+  },
+  "lname_sergeant_93": {
+    "eng": "Kazantsev",
+    "pol": "Kaza�cew",
+    "rus": "Казанцев",
+    "ukr": "Котелцев"
+  },
+  "lname_sergeant_94": {
+    "eng": "Kandybabko",
+    "pol": "Kandybabko",
+    "rus": "Кандыбабко",
+    "ukr": "Кандибабко"
+  },
+  "lname_sergeant_95": {
+    "eng": "Kapuka",
+    "pol": "Kapuka",
+    "rus": "Капука",
+    "ukr": "Капука"
+  },
+  "lname_sergeant_96": {
+    "eng": "Kapustyanko",
+    "pol": "Kapustianko",
+    "rus": "Капустянко",
+    "ukr": "Капустянко"
+  },
+  "lname_sergeant_97": {
+    "eng": "Katz",
+    "pol": "Kac",
+    "rus": "Кац",
+    "ukr": "Кац"
+  },
+  "lname_sergeant_98": {
+    "eng": "Kikabidze",
+    "pol": "Kikabidze",
+    "rus": "Кикабидзе",
+    "ukr": "Кікабідзе"
+  },
+  "lname_sergeant_99": {
+    "eng": "Gatzula",
+    "pol": "Gacu�a",
+    "rus": "Гацула",
+    "ukr": "Гацула"
+  },
+  "lname_stalker_0": {
+    "eng": "White",
+    "pol": "Bia�y",
+    "rus": "Белый",
+    "ukr": "Білий"
+  },
+  "lname_stalker_1": {
+    "eng": "Green",
+    "pol": "Zielony",
+    "rus": "Зелёный",
+    "ukr": "Зелений"
+  },
+  "lname_stalker_10": {
+    "eng": "Immortal",
+    "pol": "Nie�miertelny",
+    "rus": "Бессмертный",
+    "ukr": "Безсмертний"
+  },
+  "lname_stalker_100": {
+    "eng": "Rusty",
+    "pol": "Rdzawy",
+    "rus": "Ржавый",
+    "ukr": "Іржавий"
+  },
+  "lname_stalker_101": {
+    "eng": "Romantic",
+    "pol": "Romantyk",
+    "rus": "Романтик",
+    "ukr": "Романтик"
+  },
+  "lname_stalker_102": {
+    "eng": "Atrocious",
+    "pol": "Okrutnik",
+    "rus": "Свирепый",
+    "ukr": "Лютий"
+  },
+  "lname_stalker_103": {
+    "eng": "Brawny",
+    "pol": "Mi�niak",
+    "rus": "Силач",
+    "ukr": "Силач"
+  },
+  "lname_stalker_104": {
+    "eng": "Storyteller",
+    "pol": "Bajarz",
+    "rus": "Сказочник",
+    "ukr": "Казкар"
+  },
+  "lname_stalker_105": {
+    "eng": "Blind",
+    "pol": "�lepy",
+    "rus": "Слепой",
+    "ukr": "Сліпий"
+  },
+  "lname_stalker_106": {
+    "eng": "Brave",
+    "pol": "Dzielny",
+    "rus": "Смелый",
+    "ukr": "Сміливий"
+  },
+  "lname_stalker_107": {
+    "eng": "Snot",
+    "pol": "Smark",
+    "rus": "Сопля",
+    "ukr": "Возгря"
+  },
+  "lname_stalker_108": {
+    "eng": "Debater",
+    "pol": "Dyskutant",
+    "rus": "Спорщик",
+    "ukr": "Чубань"
+  },
+  "lname_stalker_109": {
+    "eng": "Oldtimer",
+    "pol": "Wyga",
+    "rus": "Старик",
+    "ukr": "Старий"
+  },
+  "lname_stalker_11": {
+    "eng": "Berserk",
+    "pol": "Berserker",
+    "rus": "Бешеный",
+    "ukr": "Скажений"
+  },
+  "lname_stalker_110": {
+    "eng": "Hipster",
+    "pol": "Fircyk",
+    "rus": "Стиляга",
+    "ukr": "Стиляга"
+  },
+  "lname_stalker_111": {
+    "eng": "Met",
+    "pol": "Kasa",
+    "rus": "Столичный",
+    "ukr": "Столичний"
+  },
+  "lname_stalker_112": {
+    "eng": "Grim",
+    "pol": "Pos�pny",
+    "rus": "Суровый",
+    "ukr": "Суворий"
+  },
+  "lname_stalker_113": {
+    "eng": "Slouch",
+    "pol": "Zgarbiony",
+    "rus": "Сутулый",
+    "ukr": "Сутулий"
+  },
+  "lname_stalker_114": {
+    "eng": "Dry",
+    "pol": "Suchy",
+    "rus": "Сухой",
+    "ukr": "Сухий"
+  },
+  "lname_stalker_115": {
+    "eng": "Lucky Bastard",
+    "pol": "Cholerny Szcz�ciarz",
+    "rus": "Счастливчик",
+    "ukr": "Щасливчик"
+  },
+  "lname_stalker_116": {
+    "eng": "Flecked",
+    "pol": "Plama",
+    "rus": "Чалый",
+    "ukr": "Чалий"
+  },
+  "lname_stalker_117": {
+    "eng": "Fatso",
+    "pol": "Gruby",
+    "rus": "Толстый",
+    "ukr": "Товстий"
+  },
+  "lname_stalker_118": {
+    "eng": "Belly",
+    "pol": "Brzuchol",
+    "rus": "Толстяк",
+    "ukr": "Товстун"
+  },
+  "lname_stalker_119": {
+    "eng": "Corpse",
+    "pol": "Truposz",
+    "rus": "Трупак",
+    "ukr": "Трупак"
+  },
+  "lname_stalker_12": {
+    "eng": "Broken",
+    "pol": "Z�amany",
+    "rus": "Битый",
+    "ukr": "Битий"
+  },
+  "lname_stalker_120": {
+    "eng": "Smart Aleck",
+    "pol": "M�drala",
+    "rus": "Умник",
+    "ukr": "Розумник"
+  },
+  "lname_stalker_121": {
+    "eng": "Slasher",
+    "pol": "Siekacz",
+    "rus": "Ухарь",
+    "ukr": "Хват"
+  },
+  "lname_stalker_122": {
+    "eng": "Ears",
+    "pol": "Uszatek",
+    "rus": "Ушастый",
+    "ukr": "Вухань"
+  },
+  "lname_stalker_123": {
+    "eng": "Mummer",
+    "pol": "Mim",
+    "rus": "Фигляр",
+    "ukr": "Штукар"
+  },
+  "lname_stalker_124": {
+    "eng": "Jester",
+    "pol": "B�azen",
+    "rus": "Хохмач",
+    "ukr": "Хохмач"
+  },
+  "lname_stalker_125": {
+    "eng": "Lame",
+    "pol": "Kulawy",
+    "rus": "Хромой",
+    "ukr": "Кульгавий"
+  },
+  "lname_stalker_126": {
+    "eng": "Sturdy",
+    "pol": "Twardy",
+    "rus": "Хроник",
+    "ukr": "Хронік"
+  },
+  "lname_stalker_127": {
+    "eng": "Bone",
+    "pol": "Ko��",
+    "rus": "Худой",
+    "ukr": "Худий"
+  },
+  "lname_stalker_128": {
+    "eng": "Cynic",
+    "pol": "Cynik",
+    "rus": "Циник",
+    "ukr": "Цинік"
+  },
+  "lname_stalker_129": {
+    "eng": "Dude",
+    "pol": "Ziomal",
+    "rus": "Чувак",
+    "ukr": "Чувак"
+  },
+  "lname_stalker_13": {
+    "eng": "Blithe",
+    "pol": "Beztroski",
+    "rus": "Блаженный",
+    "ukr": "Блаженний"
+  },
+  "lname_stalker_130": {
+    "eng": "Cranky",
+    "pol": "Maruda",
+    "rus": "Шалый",
+    "ukr": "Навісний"
+  },
+  "lname_stalker_131": {
+    "eng": "Alert",
+    "pol": "Czujny",
+    "rus": "Резвый",
+    "ukr": "Жвавий"
+  },
+  "lname_stalker_132": {
+    "eng": "Connoisseur",
+    "pol": "Koneser",
+    "rus": "Эстет",
+    "ukr": "Естет"
+  },
+  "lname_stalker_133": {
+    "eng": "Robust",
+    "pol": "�wawy",
+    "rus": "Ядрёный",
+    "ukr": "Ядрьоний"
+  },
+  "lname_stalker_134": {
+    "eng": "Sophomore",
+    "pol": "Abiturient",
+    "rus": "Абитуриент",
+    "ukr": "Абітурієнт"
+  },
+  "lname_stalker_135": {
+    "eng": "Native",
+    "pol": "Aborygen",
+    "rus": "Абориген",
+    "ukr": "Абориген"
+  },
+  "lname_stalker_136": {
+    "eng": "Aviator",
+    "pol": "Lotnik",
+    "rus": "Авиатор",
+    "ukr": "Авіатор"
+  },
+  "lname_stalker_137": {
+    "eng": "Agent",
+    "pol": "Agent",
+    "rus": "Агент",
+    "ukr": "Агент"
+  },
+  "lname_stalker_138": {
+    "eng": "Squire",
+    "pol": "Giermek",
+    "rus": "Адвокат",
+    "ukr": "Адвокат"
+  },
+  "lname_stalker_139": {
+    "eng": "Leech",
+    "pol": "Pijawka",
+    "rus": "Айболит",
+    "ukr": "Айболит"
+  },
+  "lname_stalker_14": {
+    "eng": "Crony",
+    "pol": "Kole�",
+    "rus": "Блатной",
+    "ukr": "Блатний"
+  },
+  "lname_stalker_140": {
+    "eng": "Disciple",
+    "pol": "Aposto�",
+    "rus": "Апостол",
+    "ukr": "Апостол"
+  },
+  "lname_stalker_141": {
+    "eng": "Artist",
+    "pol": "Artysta",
+    "rus": "Артист",
+    "ukr": "Артист"
+  },
+  "lname_stalker_142": {
+    "eng": "Ascetic",
+    "pol": "Asceta",
+    "rus": "Аскет",
+    "ukr": "Аскет"
+  },
+  "lname_stalker_143": {
+    "eng": "Conman",
+    "pol": "Kanciarz",
+    "rus": "Аферист",
+    "ukr": "Аферист"
+  },
+  "lname_stalker_144": {
+    "eng": "Banker",
+    "pol": "Bankier",
+    "rus": "Банкир",
+    "ukr": "Банкір"
+  },
+  "lname_stalker_145": {
+    "eng": "Bard",
+    "pol": "Bard",
+    "rus": "Бард",
+    "ukr": "Бард"
+  },
+  "lname_stalker_146": {
+    "eng": "Baron",
+    "pol": "Baron",
+    "rus": "Барон",
+    "ukr": "Барон"
+  },
+  "lname_stalker_147": {
+    "eng": "Peddler",
+    "pol": "Kramarz",
+    "rus": "Барыга",
+    "ukr": "Барига"
+  },
+  "lname_stalker_148": {
+    "eng": "Unorthodox",
+    "pol": "Orygina�",
+    "rus": "Басурман",
+    "ukr": "Басурман"
+  },
+  "lname_stalker_149": {
+    "eng": "Jogger",
+    "pol": "Biegacz",
+    "rus": "Бегун",
+    "ukr": "Бігун"
+  },
+  "lname_stalker_15": {
+    "eng": "Athlete",
+    "pol": "Atleta",
+    "rus": "Богатырь",
+    "ukr": "Богатир"
+  },
+  "lname_stalker_150": {
+    "eng": "Fighter",
+    "pol": "Wojak",
+    "rus": "Боец",
+    "ukr": "Боєць"
+  },
+  "lname_stalker_151": {
+    "eng": "Tramp",
+    "pol": "Kloszard",
+    "rus": "Бомж",
+    "ukr": "Бомж"
+  },
+  "lname_stalker_152": {
+    "eng": "Bosun",
+    "pol": "Bosman",
+    "rus": "Боцман",
+    "ukr": "Боцман"
+  },
+  "lname_stalker_153": {
+    "eng": "Pigmy",
+    "pol": "Pigmej",
+    "rus": "Пигмей",
+    "ukr": "Пігмей"
+  },
+  "lname_stalker_154": {
+    "eng": "Bourbon",
+    "pol": "Burbon",
+    "rus": "Бурбон",
+    "ukr": "Бурбон"
+  },
+  "lname_stalker_155": {
+    "eng": "Bourgeois",
+    "pol": "Bur�uj",
+    "rus": "Буржуй",
+    "ukr": "Буржуй"
+  },
+  "lname_stalker_156": {
+    "eng": "Bureaucrat",
+    "pol": "Biurokrata",
+    "rus": "Бюрократ",
+    "ukr": "Бюрократ"
+  },
+  "lname_stalker_157": {
+    "eng": "Vandal",
+    "pol": "Wandal",
+    "rus": "Вандал",
+    "ukr": "Вандал"
+  },
+  "lname_stalker_158": {
+    "eng": "Barbarian",
+    "pol": "Barbarzy�ca",
+    "rus": "Варвар",
+    "ukr": "Варвар"
+  },
+  "lname_stalker_159": {
+    "eng": "Janitor",
+    "pol": "Sprz�tacz",
+    "rus": "Вахтер",
+    "ukr": "Вахтер"
+  },
+  "lname_stalker_16": {
+    "eng": "Zinger",
+    "pol": "Gryps",
+    "rus": "Бодряк",
+    "ukr": "Бодряк"
+  },
+  "lname_stalker_160": {
+    "eng": "Witcher",
+    "pol": "Wied�min",
+    "rus": "Ведьмак",
+    "ukr": "Відьмак"
+  },
+  "lname_stalker_161": {
+    "eng": "Visitor",
+    "pol": "Go��",
+    "rus": "Визитёр",
+    "ukr": "Візитер"
+  },
+  "lname_stalker_162": {
+    "eng": "Viking",
+    "pol": "Wiking",
+    "rus": "Викинг",
+    "ukr": "Вікінг"
+  },
+  "lname_stalker_163": {
+    "eng": "Chauffeur",
+    "pol": "Szofer",
+    "rus": "Водила",
+    "ukr": "Водила"
+  },
+  "lname_stalker_164": {
+    "eng": "Diver",
+    "pol": "Nurek",
+    "rus": "Водолаз",
+    "ukr": "Водолаз"
+  },
+  "lname_stalker_165": {
+    "eng": "Chief",
+    "pol": "W�dz",
+    "rus": "Вождь",
+    "ukr": "Вождь"
+  },
+  "lname_stalker_166": {
+    "eng": "Thief",
+    "pol": "Z�odziej",
+    "rus": "Вор",
+    "ukr": "Злодій"
+  },
+  "lname_stalker_167": {
+    "eng": "Voyager",
+    "pol": "Podr�nik",
+    "rus": "Вояжёр",
+    "ukr": "Вояжер"
+  },
+  "lname_stalker_168": {
+    "eng": "Shrink",
+    "pol": "Konowa�",
+    "rus": "Врач",
+    "ukr": "Лікар"
+  },
+  "lname_stalker_169": {
+    "eng": "Horseman",
+    "pol": "Je�dziec",
+    "rus": "Всадник",
+    "ukr": "Вершник"
+  },
+  "lname_stalker_17": {
+    "eng": "Loudmouth",
+    "pol": "Krzykacz",
+    "rus": "Болтун",
+    "ukr": "Базіка"
+  },
+  "lname_stalker_170": {
+    "eng": "Gangster",
+    "pol": "Gangster",
+    "rus": "Гангстер",
+    "ukr": "Гангстер"
+  },
+  "lname_stalker_171": {
+    "eng": "Geologist",
+    "pol": "Geolog",
+    "rus": "Геолог",
+    "ukr": "Геолог"
+  },
+  "lname_stalker_172": {
+    "eng": "Gladiator",
+    "pol": "Gladiator",
+    "rus": "Гладиатор",
+    "ukr": "Гладіатор"
+  },
+  "lname_stalker_173": {
+    "eng": "Messenger",
+    "pol": "Pos�aniec",
+    "rus": "Гонец",
+    "ukr": "Гонець"
+  },
+  "lname_stalker_174": {
+    "eng": "Guest",
+    "pol": "Go��",
+    "rus": "Гость",
+    "ukr": "Гість"
+  },
+  "lname_stalker_175": {
+    "eng": "Count",
+    "pol": "Hrabia",
+    "rus": "Граф",
+    "ukr": "Граф"
+  },
+  "lname_stalker_176": {
+    "eng": "Porter",
+    "pol": "Tragarz",
+    "rus": "Грузчик",
+    "ukr": "Вантажник"
+  },
+  "lname_stalker_177": {
+    "eng": "Grandpa",
+    "pol": "Dziadek",
+    "rus": "Дед",
+    "ukr": "Дід"
+  },
+  "lname_stalker_178": {
+    "eng": "Defector",
+    "pol": "Uciekinier",
+    "rus": "Дезертир",
+    "ukr": "Дезертир"
+  },
+  "lname_stalker_179": {
+    "eng": "Salesman",
+    "pol": "Akwizytor",
+    "rus": "Делец",
+    "ukr": "Ділок"
+  },
+  "lname_stalker_18": {
+    "eng": "Greyhound",
+    "pol": "Chart",
+    "rus": "Борзой",
+    "ukr": "Борзий"
+  },
+  "lname_stalker_180": {
+    "eng": "Dandy",
+    "pol": "Dandys",
+    "rus": "Денди",
+    "ukr": "Денді"
+  },
+  "lname_stalker_181": {
+    "eng": "Deputy",
+    "pol": "Zast�pca",
+    "rus": "Депутат",
+    "ukr": "Депутат"
+  },
+  "lname_stalker_182": {
+    "eng": "Tyrant",
+    "pol": "Tyran",
+    "rus": "Деспот",
+    "ukr": "Деспот"
+  },
+  "lname_stalker_183": {
+    "eng": "Savage",
+    "pol": "Dzikus",
+    "rus": "Дикарь",
+    "ukr": "Дикун"
+  },
+  "lname_stalker_184": {
+    "eng": "Diplomat",
+    "pol": "Dyplomata",
+    "rus": "Дипломат",
+    "ukr": "Дипломат"
+  },
+  "lname_stalker_185": {
+    "eng": "Doc",
+    "pol": "Doktorek",
+    "rus": "Док",
+    "ukr": "Дока"
+  },
+  "lname_stalker_186": {
+    "eng": "Doctor",
+    "pol": "Doktor",
+    "rus": "Доктор",
+    "ukr": "Доктор"
+  },
+  "lname_stalker_187": {
+    "eng": "Professor",
+    "pol": "Profesor",
+    "rus": "Доцент",
+    "ukr": "Доцент"
+  },
+  "lname_stalker_188": {
+    "eng": "Strangler",
+    "pol": "Dusiciel",
+    "rus": "Душитель",
+    "ukr": "Душій"
+  },
+  "lname_stalker_189": {
+    "eng": "Warden",
+    "pol": "Jegier",
+    "rus": "Егерь",
+    "ukr": "Єгер"
+  },
+  "lname_stalker_19": {
+    "eng": "Hobo",
+    "pol": "�ul",
+    "rus": "Босяк",
+    "ukr": "Босяк"
+  },
+  "lname_stalker_190": {
+    "eng": "Counselor",
+    "pol": "Doradca",
+    "rus": "Законник",
+    "ukr": "Законник"
+  },
+  "lname_stalker_191": {
+    "eng": "Ack-ack",
+    "pol": "Flak",
+    "rus": "Зенитчик",
+    "ukr": "Зенітник"
+  },
+  "lname_stalker_192": {
+    "eng": "Quack",
+    "pol": "Znachor",
+    "rus": "Знахарь",
+    "ukr": "Знахар"
+  },
+  "lname_stalker_193": {
+    "eng": "Player",
+    "pol": "Gracz",
+    "rus": "Игрок",
+    "ukr": "Гравець"
+  },
+  "lname_stalker_194": {
+    "eng": "Indian",
+    "pol": "Indianin",
+    "rus": "Индеец",
+    "ukr": "Індіанець"
+  },
+  "lname_stalker_195": {
+    "eng": "Iroquois",
+    "pol": "Irokez",
+    "rus": "Ирокез",
+    "ukr": "Ірокез"
+  },
+  "lname_stalker_196": {
+    "eng": "Captain",
+    "pol": "Kapitan",
+    "rus": "Капитан",
+    "ukr": "Капітан"
+  },
+  "lname_stalker_197": {
+    "eng": "Cheat",
+    "pol": "Oszust",
+    "rus": "Кидала",
+    "ukr": "Кидала"
+  },
+  "lname_stalker_198": {
+    "eng": "Clown",
+    "pol": "Klaun",
+    "rus": "Клоун",
+    "ukr": "Клоун"
+  },
+  "lname_stalker_199": {
+    "eng": "Duke",
+    "pol": "Knia�",
+    "rus": "Князь",
+    "ukr": "Князь"
+  },
+  "lname_stalker_2": {
+    "eng": "Red",
+    "pol": "Czerwony",
+    "rus": "Красный",
+    "ukr": "Червоний"
+  },
+  "lname_stalker_20": {
+    "eng": "Shaven",
+    "pol": "Ogolony",
+    "rus": "Бритый",
+    "ukr": "Голений"
+  },
+  "lname_stalker_200": {
+    "eng": "Cossack",
+    "pol": "Kozak",
+    "rus": "Казак",
+    "ukr": "Козак"
+  },
+  "lname_stalker_201": {
+    "eng": "Cook",
+    "pol": "Kucharz",
+    "rus": "Кок",
+    "ukr": "Кок"
+  },
+  "lname_stalker_202": {
+    "eng": "Warlock",
+    "pol": "Czarownik",
+    "rus": "Колдун",
+    "ukr": "Чаклун"
+  },
+  "lname_stalker_203": {
+    "eng": "Comanche",
+    "pol": "Komancz",
+    "rus": "Команч",
+    "ukr": "Команч"
+  },
+  "lname_stalker_204": {
+    "eng": "King",
+    "pol": "Kr�l",
+    "rus": "Король",
+    "ukr": "Король"
+  },
+  "lname_stalker_205": {
+    "eng": "Godfather",
+    "pol": "Ojciec Chrzestny",
+    "rus": "Крёстный отец",
+    "ukr": "Хрещений батько"
+  },
+  "lname_stalker_206": {
+    "eng": "Merchant",
+    "pol": "Kupiec",
+    "rus": "Купец",
+    "ukr": "Купець"
+  },
+  "lname_stalker_207": {
+    "eng": "Smoker",
+    "pol": "Palacz",
+    "rus": "Курильщик",
+    "ukr": "Курець"
+  },
+  "lname_stalker_208": {
+    "eng": "Courier",
+    "pol": "Kurier",
+    "rus": "Курьер",
+    "ukr": "Кур'єр"
+  },
+  "lname_stalker_209": {
+    "eng": "Coach",
+    "pol": "Trener",
+    "rus": "Кучер",
+    "ukr": "Кучері"
+  },
+  "lname_stalker_21": {
+    "eng": "Veteran",
+    "pol": "Weteran",
+    "rus": "Бывалый",
+    "ukr": "Бувалий"
+  },
+  "lname_stalker_210": {
+    "eng": "Legionnaire",
+    "pol": "Legionista",
+    "rus": "Легионер",
+    "ukr": "Легіонер"
+  },
+  "lname_stalker_211": {
+    "eng": "Healer",
+    "pol": "Uzdrowiciel",
+    "rus": "Лекарь",
+    "ukr": "Лікар"
+  },
+  "lname_stalker_212": {
+    "eng": "Forester",
+    "pol": "Le�nik",
+    "rus": "Лесник",
+    "ukr": "Лісник"
+  },
+  "lname_stalker_213": {
+    "eng": "Lord",
+    "pol": "Lord",
+    "rus": "Лорд",
+    "ukr": "Лорд"
+  },
+  "lname_stalker_214": {
+    "eng": "Tycoon",
+    "pol": "Magnat",
+    "rus": "Магнат",
+    "ukr": "Магнат"
+  },
+  "lname_stalker_215": {
+    "eng": "Bling-bling",
+    "pol": "Tandeta",
+    "rus": "Мажор",
+    "ukr": "Мажор"
+  },
+  "lname_stalker_216": {
+    "eng": "Maniac",
+    "pol": "Maniak",
+    "rus": "Маньяк",
+    "ukr": "Маніяк"
+  },
+  "lname_stalker_217": {
+    "eng": "Martian",
+    "pol": "Marsjanin",
+    "rus": "Марсианин",
+    "ukr": "Марсіанин"
+  },
+  "lname_stalker_218": {
+    "eng": "Mason",
+    "pol": "Mason",
+    "rus": "Масон",
+    "ukr": "Масон"
+  },
+  "lname_stalker_219": {
+    "eng": "Mechanic",
+    "pol": "Mechanik",
+    "rus": "Механик",
+    "ukr": "Механік"
+  },
+  "lname_stalker_22": {
+    "eng": "Bigtime",
+    "pol": "Szycha",
+    "rus": "Важный",
+    "ukr": "Пишний"
+  },
+  "lname_stalker_220": {
+    "eng": "Undertaker",
+    "pol": "Grabarz",
+    "rus": "Могильщик",
+    "ukr": "Гробар"
+  },
+  "lname_stalker_221": {
+    "eng": "Moderator",
+    "pol": "Moderator",
+    "rus": "Модератор",
+    "ukr": "Модератор"
+  },
+  "lname_stalker_222": {
+    "eng": "Milkman",
+    "pol": "Mleczarz",
+    "rus": "Молочник",
+    "ukr": "Молочар"
+  },
+  "lname_stalker_223": {
+    "eng": "Butcher",
+    "pol": "Rze�nik",
+    "rus": "Мясник",
+    "ukr": "М'ясник"
+  },
+  "lname_stalker_224": {
+    "eng": "Merc",
+    "pol": "Najemnik",
+    "rus": "Наёмник",
+    "ukr": "Найманець"
+  },
+  "lname_stalker_225": {
+    "eng": "Tuner",
+    "pol": "Stroiciel",
+    "rus": "Настройщик",
+    "ukr": "Настроювач"
+  },
+  "lname_stalker_226": {
+    "eng": "Boss",
+    "pol": "Szef",
+    "rus": "Начальник",
+    "ukr": "Начальник"
+  },
+  "lname_stalker_227": {
+    "eng": "Ninja",
+    "pol": "Ninja",
+    "rus": "Ниндзя",
+    "ukr": "Ніндзя"
+  },
+  "lname_stalker_228": {
+    "eng": "Operator",
+    "pol": "Operator",
+    "rus": "Оператор",
+    "ukr": "Оператор"
+  },
+  "lname_stalker_229": {
+    "eng": "Gunsmith",
+    "pol": "Rusznikarz",
+    "rus": "Оружейник",
+    "ukr": "Зброяр"
+  },
+  "lname_stalker_23": {
+    "eng": "Lucky",
+    "pol": "Farciarz",
+    "rus": "Везунчик",
+    "ukr": "Щасливець"
+  },
+  "lname_stalker_230": {
+    "eng": "Shah",
+    "pol": "Padyszach",
+    "rus": "Падишах",
+    "ukr": "Падишах"
+  },
+  "lname_stalker_231": {
+    "eng": "Executioner",
+    "pol": "Kat",
+    "rus": "Палач",
+    "ukr": "Кат"
+  },
+  "lname_stalker_232": {
+    "eng": "Polkan",
+    "pol": "Polkan",
+    "rus": "Полкан",
+    "ukr": "Полкан"
+  },
+  "lname_stalker_233": {
+    "eng": "Punk",
+    "pol": "Punk",
+    "rus": "Панк",
+    "ukr": "Панк"
+  },
+  "lname_stalker_234": {
+    "eng": "Daddy",
+    "pol": "Tatu�",
+    "rus": "Папа",
+    "ukr": "Папа"
+  },
+  "lname_stalker_235": {
+    "eng": "Guerilla",
+    "pol": "Partyzant",
+    "rus": "Партизан",
+    "ukr": "Партизан"
+  },
+  "lname_stalker_236": {
+    "eng": "Pastor",
+    "pol": "Pastor",
+    "rus": "Пастор",
+    "ukr": "Пастор"
+  },
+  "lname_stalker_237": {
+    "eng": "Shepherd",
+    "pol": "Pasterz",
+    "rus": "Пастух",
+    "ukr": "Пастух"
+  },
+  "lname_stalker_238": {
+    "eng": "Elder",
+    "pol": "Starszy",
+    "rus": "Пастырь",
+    "ukr": "Пастир"
+  },
+  "lname_stalker_239": {
+    "eng": "Plowman",
+    "pol": "Oracz",
+    "rus": "Пахарь",
+    "ukr": "Орач"
+  },
+  "lname_stalker_24": {
+    "eng": "Fortunate",
+    "pol": "Szcz�ciarz",
+    "rus": "Везучий",
+    "ukr": "Щасливець"
+  },
+  "lname_stalker_240": {
+    "eng": "Pacifist",
+    "pol": "Pacyfista",
+    "rus": "Пацифист",
+    "ukr": "Пацифіст"
+  },
+  "lname_stalker_241": {
+    "eng": "Transporter",
+    "pol": "Transporter",
+    "rus": "Перевозчик",
+    "ukr": "Перевізник"
+  },
+  "lname_stalker_242": {
+    "eng": "Whistle",
+    "pol": "Gwizdek",
+    "rus": "Свистун",
+    "ukr": "Свистун"
+  },
+  "lname_stalker_243": {
+    "eng": "Pilot",
+    "pol": "Pilot",
+    "rus": "Пилот",
+    "ukr": "Пілот"
+  },
+  "lname_stalker_244": {
+    "eng": "Trailblazer",
+    "pol": "Pionier",
+    "rus": "Пионер",
+    "ukr": "Піонер"
+  },
+  "lname_stalker_245": {
+    "eng": "Pirate",
+    "pol": "Pirat",
+    "rus": "Пират",
+    "ukr": "Пірат"
+  },
+  "lname_stalker_246": {
+    "eng": "Carpenter",
+    "pol": "Cie�la",
+    "rus": "Плотник",
+    "ukr": "Тесля"
+  },
+  "lname_stalker_247": {
+    "eng": "Arsonist",
+    "pol": "Podpalacz",
+    "rus": "Поджигатель",
+    "ukr": "Палій"
+  },
+  "lname_stalker_248": {
+    "eng": "Firefighter",
+    "pol": "Stra�ak",
+    "rus": "Пожарник",
+    "ukr": "Пожежник"
+  },
+  "lname_stalker_249": {
+    "eng": "Slipper",
+    "pol": "Kape�",
+    "rus": "Ползун",
+    "ukr": "Повзун"
+  },
+  "lname_stalker_25": {
+    "eng": "Beanpole",
+    "pol": "Tyka",
+    "rus": "Верзила",
+    "ukr": "Здоровань"
+  },
+  "lname_stalker_250": {
+    "eng": "Subzero",
+    "pol": "Polarnik",
+    "rus": "Полярник",
+    "ukr": "Полярник"
+  },
+  "lname_stalker_251": {
+    "eng": "Ambassador",
+    "pol": "Ambasador",
+    "rus": "Посол",
+    "ukr": "Посол"
+  },
+  "lname_stalker_252": {
+    "eng": "Postman",
+    "pol": "Listonosz",
+    "rus": "Почтальон",
+    "ukr": "Листоноша"
+  },
+  "lname_stalker_253": {
+    "eng": "Poet",
+    "pol": "Poeta",
+    "rus": "Поэт",
+    "ukr": "Поет"
+  },
+  "lname_stalker_254": {
+    "eng": "Prince",
+    "pol": "Ksi���",
+    "rus": "Принц",
+    "ukr": "Принц"
+  },
+  "lname_stalker_255": {
+    "eng": "Prophet",
+    "pol": "Prorok",
+    "rus": "Пророк",
+    "ukr": "Пророк"
+  },
+  "lname_stalker_256": {
+    "eng": "Professor",
+    "pol": "Profesor",
+    "rus": "Профессор",
+    "ukr": "Професор"
+  },
+  "lname_stalker_257": {
+    "eng": "Jumper",
+    "pol": "Skoczek",
+    "rus": "Прыгун",
+    "ukr": "Стрибун"
+  },
+  "lname_stalker_258": {
+    "eng": "Beekeeper",
+    "pol": "Pszczelarz",
+    "rus": "Пчеловод",
+    "ukr": "Бджоляр"
+  },
+  "lname_stalker_259": {
+    "eng": "Workhorse",
+    "pol": "W� roboczy",
+    "rus": "Работяга",
+    "ukr": "Роботяга"
+  },
+  "lname_stalker_26": {
+    "eng": "Loyal",
+    "pol": "Lojalny",
+    "rus": "Верный",
+    "ukr": "Вірний"
+  },
+  "lname_stalker_260": {
+    "eng": "Rabby",
+    "pol": "Rabin",
+    "rus": "Раввин",
+    "ukr": "Рабин"
+  },
+  "lname_stalker_261": {
+    "eng": "Sparks",
+    "pol": "Iskra",
+    "rus": "Радист",
+    "ukr": "Радист"
+  },
+  "lname_stalker_262": {
+    "eng": "Brigand",
+    "pol": "Rozb�jnik",
+    "rus": "Разбойник",
+    "ukr": "Розбійник"
+  },
+  "lname_stalker_263": {
+    "eng": "Rasta",
+    "pol": "Rasta",
+    "rus": "Растаман",
+    "ukr": "Растаман"
+  },
+  "lname_stalker_264": {
+    "eng": "Warden",
+    "pol": "Jegier",
+    "rus": "Ратник",
+    "ukr": "Ратник"
+  },
+  "lname_stalker_265": {
+    "eng": "Rocker",
+    "pol": "Rockman",
+    "rus": "Рокер",
+    "ukr": "Рокер"
+  },
+  "lname_stalker_266": {
+    "eng": "Miner",
+    "pol": "G�rnik",
+    "rus": "Рудокоп",
+    "ukr": "Рудокоп"
+  },
+  "lname_stalker_267": {
+    "eng": "Samurai",
+    "pol": "Samuraj",
+    "rus": "Самурай",
+    "ukr": "Самурай"
+  },
+  "lname_stalker_268": {
+    "eng": "Minesweeper",
+    "pol": "Saper",
+    "rus": "Сапер",
+    "ukr": "Сапер"
+  },
+  "lname_stalker_269": {
+    "eng": "Orderly",
+    "pol": "Ordynans",
+    "rus": "Связной",
+    "ukr": "Зв'язковий"
+  },
+  "lname_stalker_27": {
+    "eng": "Bugeyed",
+    "pol": "Wy�upiasty",
+    "rus": "Глазастый",
+    "ukr": "Окатий"
+  },
+  "lname_stalker_270": {
+    "eng": "Priest",
+    "pol": "Kap�an",
+    "rus": "Священник",
+    "ukr": "Священик"
+  },
+  "lname_stalker_271": {
+    "eng": "Secretary",
+    "pol": "Sekretarz",
+    "rus": "Секретарь",
+    "ukr": "Секретар"
+  },
+  "lname_stalker_272": {
+    "eng": "Gigolo",
+    "pol": "�igolak",
+    "rus": "Сердцеед",
+    "ukr": "Серцеїд"
+  },
+  "lname_stalker_273": {
+    "eng": "Sham",
+    "pol": "Przekr�t",
+    "rus": "Симулянт",
+    "ukr": "Симулянт"
+  },
+  "lname_stalker_274": {
+    "eng": "Scythian",
+    "pol": "Scyta",
+    "rus": "Скиф",
+    "ukr": "Скіф"
+  },
+  "lname_stalker_275": {
+    "eng": "Pathfinder",
+    "pol": "Zwiadowca",
+    "rus": "Следопыт",
+    "ukr": "Слідопит"
+  },
+  "lname_stalker_276": {
+    "eng": "Machinist",
+    "pol": "�lusarz",
+    "rus": "Слесарь",
+    "ukr": "Слюсар"
+  },
+  "lname_stalker_277": {
+    "eng": "Kamikaze",
+    "pol": "Kamikaze",
+    "rus": "Смертник",
+    "ukr": "Смертник"
+  },
+  "lname_stalker_278": {
+    "eng": "Breeder",
+    "pol": "Hodowca",
+    "rus": "Собачник",
+    "ukr": "Собачник"
+  },
+  "lname_stalker_279": {
+    "eng": "Lifesaver",
+    "pol": "Ratownik",
+    "rus": "Спасатель",
+    "ukr": "Рятувальник"
+  },
+  "lname_stalker_28": {
+    "eng": "Boulder",
+    "pol": "G�az",
+    "rus": "Глыба",
+    "ukr": "Брила"
+  },
+  "lname_stalker_280": {
+    "eng": "Sportsman",
+    "pol": "Sportowiec",
+    "rus": "Спортсмен",
+    "ukr": "Спортсмен"
+  },
+  "lname_stalker_281": {
+    "eng": "Stranger",
+    "pol": "Nieznajomy",
+    "rus": "Странник",
+    "ukr": "Мандрівник"
+  },
+  "lname_stalker_282": {
+    "eng": "Student",
+    "pol": "Student",
+    "rus": "Студент",
+    "ukr": "Студент"
+  },
+  "lname_stalker_283": {
+    "eng": "Judge",
+    "pol": "S�dzia",
+    "rus": "Судья",
+    "ukr": "Суддя"
+  },
+  "lname_stalker_284": {
+    "eng": "Toadstool",
+    "pol": "Muchomor",
+    "rus": "Мухомор",
+    "ukr": "Мухомор"
+  },
+  "lname_stalker_285": {
+    "eng": "Pimp",
+    "pol": "Alfons",
+    "rus": "Сутенер",
+    "ukr": "Сутенер"
+  },
+  "lname_stalker_286": {
+    "eng": "Beancounter",
+    "pol": "Liczykrupa",
+    "rus": "Счетовод",
+    "ukr": "Рахівник"
+  },
+  "lname_stalker_287": {
+    "eng": "Trooper ",
+    "pol": "Czo�gista",
+    "rus": "Танкист",
+    "ukr": "Танкіст"
+  },
+  "lname_stalker_288": {
+    "eng": "Dancer",
+    "pol": "Tancerz",
+    "rus": "Танцор",
+    "ukr": "Танцюрист"
+  },
+  "lname_stalker_289": {
+    "eng": "Tyrant",
+    "pol": "Tyran",
+    "rus": "Тиран",
+    "ukr": "Тиран"
+  },
+  "lname_stalker_29": {
+    "eng": "Rotten",
+    "pol": "Zgni�ek",
+    "rus": "Гнилой",
+    "ukr": "Гнилий"
+  },
+  "lname_stalker_290": {
+    "eng": "Haggler",
+    "pol": "Kramarz",
+    "rus": "Торгаш",
+    "ukr": "Торгаш"
+  },
+  "lname_stalker_291": {
+    "eng": "Mopper-up",
+    "pol": "Wymiatacz",
+    "rus": "Трофейщик",
+    "ukr": "Трофейник"
+  },
+  "lname_stalker_292": {
+    "eng": "Sweeper",
+    "pol": "Zamiatacz",
+    "rus": "Трубочист",
+    "ukr": "Сажотрус"
+  },
+  "lname_stalker_293": {
+    "eng": "Ethnic",
+    "pol": "Aborygen",
+    "rus": "Туземец",
+    "ukr": "Тубілець"
+  },
+  "lname_stalker_294": {
+    "eng": "Tourist",
+    "pol": "Turysta",
+    "rus": "Турист",
+    "ukr": "Турист"
+  },
+  "lname_stalker_295": {
+    "eng": "Hitman",
+    "pol": "Cyngiel",
+    "rus": "Убийца",
+    "ukr": "Убивця"
+  },
+  "lname_stalker_296": {
+    "eng": "Trombone",
+    "pol": "Puzon",
+    "rus": "Фагот",
+    "ukr": "Фагот"
+  },
+  "lname_stalker_297": {
+    "eng": "Quarterback",
+    "pol": "Rozgrywaj�cy",
+    "rus": "Футболист",
+    "ukr": "Футболіст"
+  },
+  "lname_stalker_298": {
+    "eng": "Sniper",
+    "pol": "Snajper",
+    "rus": "Снайпер",
+    "ukr": "Снайпер"
+  },
+  "lname_stalker_299": {
+    "eng": "Chemist",
+    "pol": "Chemik",
+    "rus": "Химик",
+    "ukr": "Хімік"
+  },
+  "lname_stalker_3": {
+    "eng": "Rusty",
+    "pol": "Rdza",
+    "rus": "Ржавый",
+    "ukr": "Іржавий"
+  },
+  "lname_stalker_30": {
+    "eng": "Verbal",
+    "pol": "Gadu�a",
+    "rus": "Говорун",
+    "ukr": "Балакун"
+  },
+  "lname_stalker_300": {
+    "eng": "Patty",
+    "pol": "Pasztecik",
+    "rus": "Чебурек",
+    "ukr": "Чебурек"
+  },
+  "lname_stalker_301": {
+    "eng": "Painter",
+    "pol": "Malarz",
+    "rus": "Художник",
+    "ukr": "Художник"
+  },
+  "lname_stalker_302": {
+    "eng": "Sheep Herder",
+    "pol": "Pastuch",
+    "rus": "Чабан",
+    "ukr": "Чабан"
+  },
+  "lname_stalker_303": {
+    "eng": "Shaman",
+    "pol": "Szaman",
+    "rus": "Шаман",
+    "ukr": "Шаман"
+  },
+  "lname_stalker_304": {
+    "eng": "Pitman",
+    "pol": "Sztygar",
+    "rus": "Шатун",
+    "ukr": "Шатун"
+  },
+  "lname_stalker_305": {
+    "eng": "Coalminer",
+    "pol": "G�rnik",
+    "rus": "Шахтер",
+    "ukr": "Шахтар"
+  },
+  "lname_stalker_306": {
+    "eng": "Sheriff",
+    "pol": "Szeryf",
+    "rus": "Шериф",
+    "ukr": "Шериф"
+  },
+  "lname_stalker_307": {
+    "eng": "Chief",
+    "pol": "W�dz",
+    "rus": "Шеф",
+    "ukr": "Шеф"
+  },
+  "lname_stalker_308": {
+    "eng": "Scholar",
+    "pol": "Uczony",
+    "rus": "Школяр",
+    "ukr": "Школяр"
+  },
+  "lname_stalker_309": {
+    "eng": "Cabby",
+    "pol": "Taksiarz",
+    "rus": "Шофер",
+    "ukr": "Шофер"
+  },
+  "lname_stalker_31": {
+    "eng": "Humpback",
+    "pol": "Humbak",
+    "rus": "Горбун",
+    "ukr": "Горбань"
+  },
+  "lname_stalker_310": {
+    "eng": "Spy",
+    "pol": "Szpicel",
+    "rus": "Шпион",
+    "ukr": "Шпигун"
+  },
+  "lname_stalker_311": {
+    "eng": "Electrician",
+    "pol": "Elektryk",
+    "rus": "Электрик",
+    "ukr": "Електрик"
+  },
+  "lname_stalker_312": {
+    "eng": "Cadet",
+    "pol": "Kadet",
+    "rus": "Юнга",
+    "ukr": "Юнга"
+  },
+  "lname_stalker_313": {
+    "eng": "Heathen",
+    "pol": "Poganin",
+    "rus": "Язычник",
+    "ukr": "Язичник"
+  },
+  "lname_stalker_314": {
+    "eng": "Alligator",
+    "pol": "Aligator",
+    "rus": "Аллигатор",
+    "ukr": "Алігатор"
+  },
+  "lname_stalker_315": {
+    "eng": "Anaconda",
+    "pol": "Anakonda",
+    "rus": "Анаконда",
+    "ukr": "Анаконда"
+  },
+  "lname_stalker_316": {
+    "eng": "Baboon",
+    "pol": "Pawian",
+    "rus": "Бабуин",
+    "ukr": "Бабуїн"
+  },
+  "lname_stalker_317": {
+    "eng": "Bison",
+    "pol": "�ubr",
+    "rus": "Бизон",
+    "ukr": "Бізон"
+  },
+  "lname_stalker_318": {
+    "eng": "Beaver",
+    "pol": "B�br",
+    "rus": "Бобёр",
+    "ukr": "Бобер"
+  },
+  "lname_stalker_319": {
+    "eng": "Mantis",
+    "pol": "Modliszka",
+    "rus": "Богомол",
+    "ukr": "Прочанин"
+  },
+  "lname_stalker_32": {
+    "eng": "Proud",
+    "pol": "Dumny",
+    "rus": "Гордый",
+    "ukr": "Гордий"
+  },
+  "lname_stalker_320": {
+    "eng": "Bulldog",
+    "pol": "Buldog",
+    "rus": "Бульдог",
+    "ukr": "Бульдог"
+  },
+  "lname_stalker_321": {
+    "eng": "Chipmunk",
+    "pol": "Burunduk",
+    "rus": "Бурундук",
+    "ukr": "Бурундук"
+  },
+  "lname_stalker_322": {
+    "eng": "Ox",
+    "pol": "W�",
+    "rus": "Бык",
+    "ukr": "Бик"
+  },
+  "lname_stalker_323": {
+    "eng": "Grice",
+    "pol": "Dzika �winia",
+    "rus": "Вепрь",
+    "ukr": "Вепр"
+  },
+  "lname_stalker_324": {
+    "eng": "Sparrow",
+    "pol": "Wr�bel",
+    "rus": "Воробей",
+    "ukr": "Горобець"
+  },
+  "lname_stalker_325": {
+    "eng": "Raven",
+    "pol": "Kruk",
+    "rus": "Ворон",
+    "ukr": "Ворон"
+  },
+  "lname_stalker_326": {
+    "eng": "Muskrat",
+    "pol": "Pi�mak",
+    "rus": "Выхухоль",
+    "ukr": "Хохуля"
+  },
+  "lname_stalker_327": {
+    "eng": "Plantain",
+    "pol": "Skrzyp",
+    "rus": "Подорожник",
+    "ukr": "Посмітюх"
+  },
+  "lname_stalker_328": {
+    "eng": "Scavenger",
+    "pol": "�mieciarz",
+    "rus": "Дворник",
+    "ukr": "Двірник"
+  },
+  "lname_stalker_329": {
+    "eng": "Rook",
+    "pol": "Gawron",
+    "rus": "Грач",
+    "ukr": "Грак"
+  },
+  "lname_stalker_33": {
+    "eng": "Bitter",
+    "pol": "Gorzki",
+    "rus": "Горький",
+    "ukr": "Гіркий"
+  },
+  "lname_stalker_330": {
+    "eng": "Manul",
+    "pol": "Manul",
+    "rus": "Манул",
+    "ukr": "Манул"
+  },
+  "lname_stalker_331": {
+    "eng": "Goose",
+    "pol": "G�sior",
+    "rus": "Гусь",
+    "ukr": "Гусак"
+  },
+  "lname_stalker_332": {
+    "eng": "Dolphin",
+    "pol": "Delfin",
+    "rus": "Дельфин",
+    "ukr": "Дельфін"
+  },
+  "lname_stalker_333": {
+    "eng": "Dinosaur",
+    "pol": "Dinozaur",
+    "rus": "Динозавр",
+    "ukr": "Динозавр"
+  },
+  "lname_stalker_334": {
+    "eng": "Thrush",
+    "pol": "Drozd",
+    "rus": "Дрозд",
+    "ukr": "Дрізд"
+  },
+  "lname_stalker_335": {
+    "eng": "Woodpecker",
+    "pol": "Dzi�cio�",
+    "rus": "Дятел",
+    "ukr": "Дятел"
+  },
+  "lname_stalker_336": {
+    "eng": "Hedgehog",
+    "pol": "Je�",
+    "rus": "Ёж",
+    "ukr": "Їжак"
+  },
+  "lname_stalker_337": {
+    "eng": "Beetle",
+    "pol": "�uk",
+    "rus": "Жук",
+    "ukr": "Жук"
+  },
+  "lname_stalker_338": {
+    "eng": "Hare",
+    "pol": "Zaj�c",
+    "rus": "Заяц",
+    "ukr": "Заєць"
+  },
+  "lname_stalker_339": {
+    "eng": "Beast",
+    "pol": "Bestia",
+    "rus": "Зверь",
+    "ukr": "Звір"
+  },
+  "lname_stalker_34": {
+    "eng": "Thunder",
+    "pol": "Piorun",
+    "rus": "Грозный",
+    "ukr": "Грізний"
+  },
+  "lname_stalker_340": {
+    "eng": "Warlock",
+    "pol": "Czarownik",
+    "rus": "Колдун",
+    "ukr": "Чаклун"
+  },
+  "lname_stalker_341": {
+    "eng": "Aurochs",
+    "pol": "Tur",
+    "rus": "Зубр",
+    "ukr": "Зубр"
+  },
+  "lname_stalker_342": {
+    "eng": "Turkey",
+    "pol": "Indyk",
+    "rus": "Индюк",
+    "ukr": "Індик"
+  },
+  "lname_stalker_343": {
+    "eng": "Boar",
+    "pol": "Dzikus",
+    "rus": "Кабан",
+    "ukr": "Кабан"
+  },
+  "lname_stalker_344": {
+    "eng": "Crucian",
+    "pol": "Kara�",
+    "rus": "Карась",
+    "ukr": "Карась"
+  },
+  "lname_stalker_345": {
+    "eng": "Canary",
+    "pol": "Kanarek",
+    "rus": "Кенарь",
+    "ukr": "Кенар"
+  },
+  "lname_stalker_346": {
+    "eng": "Bedbug",
+    "pol": "Pluskwa",
+    "rus": "Клоп",
+    "ukr": "Клоп"
+  },
+  "lname_stalker_347": {
+    "eng": "Cobra",
+    "pol": "Kobra",
+    "rus": "Кобра",
+    "ukr": "Кобра"
+  },
+  "lname_stalker_348": {
+    "eng": "Mosquito",
+    "pol": "Komar",
+    "rus": "Комар",
+    "ukr": "Комар"
+  },
+  "lname_stalker_349": {
+    "eng": "Stallion",
+    "pol": "Ogier",
+    "rus": "Конь",
+    "ukr": "Кінь"
+  },
+  "lname_stalker_35": {
+    "eng": "Bully",
+    "pol": "Oprych",
+    "rus": "Громила",
+    "ukr": "Розбишака"
+  },
+  "lname_stalker_350": {
+    "eng": "Cat",
+    "pol": "Kot",
+    "rus": "Кот",
+    "ukr": "Кіт"
+  },
+  "lname_stalker_351": {
+    "eng": "Croc",
+    "pol": "Krokodyl",
+    "rus": "Крокодил",
+    "ukr": "Крокодил"
+  },
+  "lname_stalker_352": {
+    "eng": "Grasshopper",
+    "pol": "Pasikonik",
+    "rus": "Кузнечик",
+    "ukr": "Кузнечик"
+  },
+  "lname_stalker_353": {
+    "eng": "Nark",
+    "pol": "Szpicel",
+    "rus": "Легавый",
+    "ukr": "Лягавий"
+  },
+  "lname_stalker_354": {
+    "eng": "Moose",
+    "pol": "�o�",
+    "rus": "Лось",
+    "ukr": "Лось"
+  },
+  "lname_stalker_355": {
+    "eng": "Mammoth",
+    "pol": "Mamut",
+    "rus": "Мамонт",
+    "ukr": "Мамонт"
+  },
+  "lname_stalker_356": {
+    "eng": "Elephant",
+    "pol": "S�o�",
+    "rus": "Слон",
+    "ukr": "Слон"
+  },
+  "lname_stalker_357": {
+    "eng": "Germ",
+    "pol": "Zarazek",
+    "rus": "Микроб",
+    "ukr": "Мікроб"
+  },
+  "lname_stalker_358": {
+    "eng": "Gnat",
+    "pol": "Komar",
+    "rus": "Москит",
+    "ukr": "Москіт"
+  },
+  "lname_stalker_359": {
+    "eng": "Ant",
+    "pol": "Mr�wka",
+    "rus": "Муравей",
+    "ukr": "Мураха"
+  },
+  "lname_stalker_36": {
+    "eng": "Long John",
+    "pol": "Dryblas",
+    "rus": "Длинный",
+    "ukr": "Довгий"
+  },
+  "lname_stalker_360": {
+    "eng": "Gadfly",
+    "pol": "Giez",
+    "rus": "Овод",
+    "ukr": "Ґедзь"
+  },
+  "lname_stalker_361": {
+    "eng": "Spider",
+    "pol": "Paj�k",
+    "rus": "Паук",
+    "ukr": "Павук"
+  },
+  "lname_stalker_362": {
+    "eng": "Rat",
+    "pol": "Szczur",
+    "rus": "Пацюк",
+    "ukr": "Пацюк"
+  },
+  "lname_stalker_363": {
+    "eng": "Pilgrim",
+    "pol": "Pielgrzym",
+    "rus": "Пилигрим",
+    "ukr": "Пілігрим"
+  },
+  "lname_stalker_364": {
+    "eng": "Piranha",
+    "pol": "Pirania",
+    "rus": "Пиранья",
+    "ukr": "Піранья"
+  },
+  "lname_stalker_365": {
+    "eng": "Python",
+    "pol": "Pyton",
+    "rus": "Питон",
+    "ukr": "Пітон"
+  },
+  "lname_stalker_366": {
+    "eng": "Hare",
+    "pol": "Zaj�c",
+    "rus": "Русак",
+    "ukr": "Русак"
+  },
+  "lname_stalker_367": {
+    "eng": "Owl",
+    "pol": "Sowa",
+    "rus": "Сова",
+    "ukr": "Сова"
+  },
+  "lname_stalker_368": {
+    "eng": "Falcon",
+    "pol": "Sok�",
+    "rus": "Сокол",
+    "ukr": "Сокіл"
+  },
+  "lname_stalker_369": {
+    "eng": "Marmot",
+    "pol": "�wistak",
+    "rus": "Сурок",
+    "ukr": "Бабак"
+  },
+  "lname_stalker_37": {
+    "eng": "Softie",
+    "pol": "Mi�czak",
+    "rus": "Добряк",
+    "ukr": "Добряга"
+  },
+  "lname_stalker_370": {
+    "eng": "Gopher",
+    "pol": "Suse�",
+    "rus": "Суслик",
+    "ukr": "Ховрашок"
+  },
+  "lname_stalker_371": {
+    "eng": "Minnow",
+    "pol": "P�otka",
+    "rus": "Пескарь",
+    "ukr": "Піскар"
+  },
+  "lname_stalker_372": {
+    "eng": "Cockroach",
+    "pol": "Karaluch",
+    "rus": "Таракан",
+    "ukr": "Тарган"
+  },
+  "lname_stalker_373": {
+    "eng": "Tarantula",
+    "pol": "Tarantula",
+    "rus": "Тарантул",
+    "ukr": "Тарантул"
+  },
+  "lname_stalker_374": {
+    "eng": "Hamster",
+    "pol": "Chomik",
+    "rus": "Тушканчик",
+    "ukr": "Тушканчик"
+  },
+  "lname_stalker_375": {
+    "eng": "Boa",
+    "pol": "Boa",
+    "rus": "Удав",
+    "ukr": "Удав"
+  },
+  "lname_stalker_376": {
+    "eng": "Owl",
+    "pol": "Sowa",
+    "rus": "Филин",
+    "ukr": "Філін"
+  },
+  "lname_stalker_377": {
+    "eng": "Ferret",
+    "pol": "Fretka",
+    "rus": "Хорёк",
+    "ukr": "Тхір"
+  },
+  "lname_stalker_378": {
+    "eng": "Worm",
+    "pol": "Robak",
+    "rus": "Червь",
+    "ukr": "Хробак"
+  },
+  "lname_stalker_379": {
+    "eng": "Pitman",
+    "pol": "Sztygar",
+    "rus": "Шатун",
+    "ukr": "Шатун"
+  },
+  "lname_stalker_38": {
+    "eng": "Dead Duck",
+    "pol": "Leszcz",
+    "rus": "Дохлый",
+    "ukr": "Дохлий"
+  },
+  "lname_stalker_380": {
+    "eng": "Absolute",
+    "pol": "Absolut",
+    "rus": "Абсолют",
+    "ukr": "Абсолют"
+  },
+  "lname_stalker_381": {
+    "eng": "Anomaly",
+    "pol": "Anomalia",
+    "rus": "Аномалия",
+    "ukr": "Аномалія"
+  },
+  "lname_stalker_382": {
+    "eng": "Bumper",
+    "pol": "Zderzak",
+    "rus": "Бампер",
+    "ukr": "Бампер"
+  },
+  "lname_stalker_383": {
+    "eng": "Loaf",
+    "pol": "Bochenek",
+    "rus": "Батон",
+    "ukr": "Батон"
+  },
+  "lname_stalker_384": {
+    "eng": "Broken",
+    "pol": "Zbity",
+    "rus": "Битый",
+    "ukr": "Битий"
+  },
+  "lname_stalker_385": {
+    "eng": "Mayhem",
+    "pol": "Rozwa�ka",
+    "rus": "Беспредел",
+    "ukr": "Бєспрєдєл"
+  },
+  "lname_stalker_386": {
+    "eng": "Fireball",
+    "pol": "Bolid",
+    "rus": "Болид",
+    "ukr": "Болід"
+  },
+  "lname_stalker_387": {
+    "eng": "Bolt",
+    "pol": "�ruba",
+    "rus": "Болт",
+    "ukr": "Болт"
+  },
+  "lname_stalker_388": {
+    "eng": "Razor",
+    "pol": "Brzytwa",
+    "rus": "Бритва",
+    "ukr": "Бритва"
+  },
+  "lname_stalker_389": {
+    "eng": "Drum",
+    "pol": "B�benek",
+    "rus": "Бубен",
+    "ukr": "Бубон"
+  },
+  "lname_stalker_39": {
+    "eng": "Percher",
+    "pol": "Grz�da",
+    "rus": "Доходяга",
+    "ukr": "Доходяга"
+  },
+  "lname_stalker_390": {
+    "eng": "Doughnut",
+    "pol": "P�czek",
+    "rus": "Бублик",
+    "ukr": "Бублик"
+  },
+  "lname_stalker_391": {
+    "eng": "Vacuum",
+    "pol": "Pr�nia",
+    "rus": "Вакуум",
+    "ukr": "Вакуум"
+  },
+  "lname_stalker_392": {
+    "eng": "Junk",
+    "pol": "�mie�",
+    "rus": "Хлам",
+    "ukr": "Мотлох"
+  },
+  "lname_stalker_393": {
+    "eng": "Pebble",
+    "pol": "Kamyk",
+    "rus": "Валун",
+    "ukr": "Валун"
+  },
+  "lname_stalker_394": {
+    "eng": "Fan",
+    "pol": "Wentylator",
+    "rus": "Вентилятор",
+    "ukr": "Вентилятор"
+  },
+  "lname_stalker_395": {
+    "eng": "Chopper",
+    "pol": "�mig�owiec",
+    "rus": "Вертолёт",
+    "ukr": "Вертоліт"
+  },
+  "lname_stalker_396": {
+    "eng": "Wind",
+    "pol": "Wicher",
+    "rus": "Ветер",
+    "ukr": "Вітер"
+  },
+  "lname_stalker_397": {
+    "eng": "Screw",
+    "pol": "Wkr�t",
+    "rus": "Винт",
+    "ukr": "Гвинт"
+  },
+  "lname_stalker_398": {
+    "eng": "Collar",
+    "pol": "Obro�a",
+    "rus": "Ворот",
+    "ukr": "Коливорот"
+  },
+  "lname_stalker_399": {
+    "eng": "Nail",
+    "pol": "Gw�d�",
+    "rus": "Гвоздь",
+    "ukr": "Цвях"
+  },
+  "lname_stalker_4": {
+    "eng": "Redhead",
+    "pol": "Rudy",
+    "rus": "Рыжий",
+    "ukr": "Рудий"
+  },
+  "lname_stalker_40": {
+    "eng": "Tadpole",
+    "pol": "Kijanka",
+    "rus": "Дохляк",
+    "ukr": "Здохлій"
+  },
+  "lname_stalker_400": {
+    "eng": "Cartridge",
+    "pol": "Nab�j",
+    "rus": "Гильза",
+    "ukr": "Гільза"
+  },
+  "lname_stalker_401": {
+    "eng": "Globe",
+    "pol": "Glob",
+    "rus": "Глобус",
+    "ukr": "Глобус"
+  },
+  "lname_stalker_402": {
+    "eng": "Boulder",
+    "pol": "G�az",
+    "rus": "Глыба",
+    "ukr": "Брила"
+  },
+  "lname_stalker_403": {
+    "eng": "Grenade",
+    "pol": "Granat",
+    "rus": "Граната",
+    "ukr": "Граната"
+  },
+  "lname_stalker_404": {
+    "eng": "Fog",
+    "pol": "Mg�a",
+    "rus": "Туман",
+    "ukr": "Туман"
+  },
+  "lname_stalker_405": {
+    "eng": "Coffin",
+    "pol": "Trumna",
+    "rus": "Гроб",
+    "ukr": "Труна"
+  },
+  "lname_stalker_406": {
+    "eng": "Summertime",
+    "pol": "Dacznik",
+    "rus": "Дачник",
+    "ukr": "Дачник"
+  },
+  "lname_stalker_407": {
+    "eng": "Engine",
+    "pol": "Silnik",
+    "rus": "Движок",
+    "ukr": "Движок"
+  },
+  "lname_stalker_408": {
+    "eng": "Dynamite",
+    "pol": "Dynamit",
+    "rus": "Динамит",
+    "ukr": "Динаміт"
+  },
+  "lname_stalker_409": {
+    "eng": "Holey",
+    "pol": "Dziurawy",
+    "rus": "Дырчик",
+    "ukr": "Дирчик"
+  },
+  "lname_stalker_41": {
+    "eng": "Butterfingers",
+    "pol": "Niezdara",
+    "rus": "Дырявый",
+    "ukr": "Дірявий"
+  },
+  "lname_stalker_410": {
+    "eng": "Legal",
+    "pol": "Adwokat",
+    "rus": "Закон",
+    "ukr": "Закон"
+  },
+  "lname_stalker_411": {
+    "eng": "Lock",
+    "pol": "Zamek",
+    "rus": "Замок",
+    "ukr": "Замок"
+  },
+  "lname_stalker_412": {
+    "eng": "Breech",
+    "pol": "Kaleson",
+    "rus": "Затвор",
+    "ukr": "Затвор"
+  },
+  "lname_stalker_413": {
+    "eng": "Isotope",
+    "pol": "Izotop",
+    "rus": "Изотоп",
+    "ukr": "Ізотоп"
+  },
+  "lname_stalker_414": {
+    "eng": "Rock",
+    "pol": "Ska�a",
+    "rus": "Камень",
+    "ukr": "Камінь"
+  },
+  "lname_stalker_415": {
+    "eng": "Trap",
+    "pol": "Pu�apka",
+    "rus": "Капкан",
+    "ukr": "Капкан"
+  },
+  "lname_stalker_416": {
+    "eng": "Sorcerer",
+    "pol": "Czarodziej",
+    "rus": "Ведун",
+    "ukr": "Чаклун"
+  },
+  "lname_stalker_417": {
+    "eng": "Karma",
+    "pol": "Karma",
+    "rus": "Карма",
+    "ukr": "Карма"
+  },
+  "lname_stalker_418": {
+    "eng": "Brick",
+    "pol": "Ceg�a",
+    "rus": "Кирпич",
+    "ukr": "Цегла"
+  },
+  "lname_stalker_419": {
+    "eng": "Glue",
+    "pol": "Klej",
+    "rus": "Клей",
+    "ukr": "Клей"
+  },
+  "lname_stalker_42": {
+    "eng": "Meany",
+    "pol": "Wredniak",
+    "rus": "Жадина",
+    "ukr": "Жаднюга"
+  },
+  "lname_stalker_420": {
+    "eng": "Key",
+    "pol": "Klucz",
+    "rus": "Ключ",
+    "ukr": "Ключ"
+  },
+  "lname_stalker_421": {
+    "eng": "Whip",
+    "pol": "Bat",
+    "rus": "Кнут",
+    "ukr": "Батіг"
+  },
+  "lname_stalker_422": {
+    "eng": "Trump",
+    "pol": "Atut",
+    "rus": "Козырь",
+    "ukr": "Козир"
+  },
+  "lname_stalker_423": {
+    "eng": "Cap",
+    "pol": "Czapka",
+    "rus": "Колпак",
+    "ukr": "Ковпак"
+  },
+  "lname_stalker_424": {
+    "eng": "Log Splitter",
+    "pol": "Drwal",
+    "rus": "Колун",
+    "ukr": "Колун"
+  },
+  "lname_stalker_425": {
+    "eng": "Whiskey",
+    "pol": "Koniak",
+    "rus": "Коньяк",
+    "ukr": "Коньяк"
+  },
+  "lname_stalker_426": {
+    "eng": "Root",
+    "pol": "Korze�",
+    "rus": "Корень",
+    "ukr": "Корінь"
+  },
+  "lname_stalker_427": {
+    "eng": "Scythe",
+    "pol": "Kosa",
+    "rus": "Коса",
+    "ukr": "Коса"
+  },
+  "lname_stalker_428": {
+    "eng": "Space",
+    "pol": "Kosmos",
+    "rus": "Космос",
+    "ukr": "Космос"
+  },
+  "lname_stalker_429": {
+    "eng": "Shovel",
+    "pol": "�opata",
+    "rus": "Лопата",
+    "ukr": "Лопата"
+  },
+  "lname_stalker_43": {
+    "eng": "Scrub",
+    "pol": "�ciera",
+    "rus": "Жалкий",
+    "ukr": "Жалюгідний"
+  },
+  "lname_stalker_430": {
+    "eng": "Joint",
+    "pol": "Skr�t",
+    "rus": "Косяк",
+    "ukr": "Косяк"
+  },
+  "lname_stalker_431": {
+    "eng": "Cross",
+    "pol": "Krzy�",
+    "rus": "Крест",
+    "ukr": "Хрест"
+  },
+  "lname_stalker_432": {
+    "eng": "Tar",
+    "pol": "Smo�a",
+    "rus": "Рубероид",
+    "ukr": "Руберойд"
+  },
+  "lname_stalker_433": {
+    "eng": "Trigger",
+    "pol": "Cyngiel",
+    "rus": "Курок",
+    "ukr": "Курок"
+  },
+  "lname_stalker_434": {
+    "eng": "Sock",
+    "pol": "Skarpeta",
+    "rus": "Лапоть",
+    "ukr": "Ходак"
+  },
+  "lname_stalker_435": {
+    "eng": "Crowbar",
+    "pol": "�om",
+    "rus": "Лом",
+    "ukr": "Лом"
+  },
+  "lname_stalker_436": {
+    "eng": "Machine",
+    "pol": "Maszyna",
+    "rus": "Машина",
+    "ukr": "Машина"
+  },
+  "lname_stalker_437": {
+    "eng": "Target",
+    "pol": "Cel",
+    "rus": "Мишень",
+    "ukr": "Мішень"
+  },
+  "lname_stalker_438": {
+    "eng": "Motor",
+    "pol": "Silnik",
+    "rus": "Мотор",
+    "ukr": "Мотор"
+  },
+  "lname_stalker_439": {
+    "eng": "Pump",
+    "pol": "Pompa",
+    "rus": "Насос",
+    "ukr": "Насос"
+  },
+  "lname_stalker_44": {
+    "eng": "Iron",
+    "pol": "�elazny",
+    "rus": "Железный",
+    "ukr": "Залізний"
+  },
+  "lname_stalker_440": {
+    "eng": "Nocturnal",
+    "pol": "Nocny",
+    "rus": "Ночной",
+    "ukr": "Нічний"
+  },
+  "lname_stalker_441": {
+    "eng": "Shotgun",
+    "pol": "Strzelba",
+    "rus": "Обрез",
+    "ukr": "Обріз"
+  },
+  "lname_stalker_442": {
+    "eng": "Panadol",
+    "pol": "Panadol",
+    "rus": "Панадол",
+    "ukr": "Панадол"
+  },
+  "lname_stalker_443": {
+    "eng": "Parachute",
+    "pol": "Spadochron",
+    "rus": "Парашют",
+    "ukr": "Парашут"
+  },
+  "lname_stalker_444": {
+    "eng": "Round",
+    "pol": "Nab�j",
+    "rus": "Патрон",
+    "ukr": "Патрон"
+  },
+  "lname_stalker_445": {
+    "eng": "Five",
+    "pol": "Pi�tka",
+    "rus": "Перекур",
+    "ukr": "Перекур"
+  },
+  "lname_stalker_446": {
+    "eng": "Shiv",
+    "pol": "No�yk",
+    "rus": "Перо",
+    "ukr": "Перо"
+  },
+  "lname_stalker_447": {
+    "eng": "Piston",
+    "pol": "T�ok",
+    "rus": "Пистон",
+    "ukr": "Пістон"
+  },
+  "lname_stalker_448": {
+    "eng": "Putty",
+    "pol": "Kit",
+    "rus": "Пластилин",
+    "ukr": "Пластилін"
+  },
+  "lname_stalker_449": {
+    "eng": "Gunpowder",
+    "pol": "Proch",
+    "rus": "Порох",
+    "ukr": "Порох"
+  },
+  "lname_stalker_45": {
+    "eng": "Hardware",
+    "pol": "Elektronik",
+    "rus": "Железячник",
+    "ukr": "Залізячник"
+  },
+  "lname_stalker_450": {
+    "eng": "Nickel",
+    "pol": "Grosik",
+    "rus": "Пятак",
+    "ukr": "П'ятак"
+  },
+  "lname_stalker_451": {
+    "eng": "Rocket",
+    "pol": "Rakieta",
+    "rus": "Ракета",
+    "ukr": "Ракета"
+  },
+  "lname_stalker_452": {
+    "eng": "Rack",
+    "pol": "Rama",
+    "rus": "Рама",
+    "ukr": "Рама"
+  },
+  "lname_stalker_453": {
+    "eng": "Reactor",
+    "pol": "Reaktor",
+    "rus": "Реактор",
+    "ukr": "Реактор"
+  },
+  "lname_stalker_454": {
+    "eng": "Hatchet",
+    "pol": "Tasak",
+    "rus": "Резак",
+    "ukr": "Різак"
+  },
+  "lname_stalker_455": {
+    "eng": "Sieve",
+    "pol": "Sito",
+    "rus": "Решето",
+    "ukr": "Решето"
+  },
+  "lname_stalker_456": {
+    "eng": "Tails",
+    "pol": "Reszka",
+    "rus": "Решка",
+    "ukr": "Решка"
+  },
+  "lname_stalker_457": {
+    "eng": "Robot",
+    "pol": "Robot",
+    "rus": "Робот",
+    "ukr": "Робот"
+  },
+  "lname_stalker_458": {
+    "eng": "Stag",
+    "pol": "Jele�",
+    "rus": "Рогач",
+    "ukr": "Рогач"
+  },
+  "lname_stalker_459": {
+    "eng": "Spade",
+    "pol": "Szpadel",
+    "rus": "Совок",
+    "ukr": "Совок"
+  },
+  "lname_stalker_46": {
+    "eng": "Charcoal",
+    "pol": "W",
+    "rus": "Жжёный",
+    "ukr": "Палений"
+  },
+  "lname_stalker_460": {
+    "eng": "Moonshine",
+    "pol": "Samogon",
+    "rus": "Самогон",
+    "ukr": "Самогон"
+  },
+  "lname_stalker_461": {
+    "eng": "Boot",
+    "pol": "But",
+    "rus": "Сапог",
+    "ukr": "Чобіт"
+  },
+  "lname_stalker_462": {
+    "eng": "Cider",
+    "pol": "Jabol",
+    "rus": "Сидр",
+    "ukr": "Сидр"
+  },
+  "lname_stalker_463": {
+    "eng": "Lethal",
+    "pol": "�mier�",
+    "rus": "Смерть",
+    "ukr": "Смерть"
+  },
+  "lname_stalker_464": {
+    "eng": "Booze",
+    "pol": "Spiryt",
+    "rus": "Спирт",
+    "ukr": "Спирт"
+  },
+  "lname_stalker_465": {
+    "eng": "Gouge",
+    "pol": "D�uto",
+    "rus": "Стамеска",
+    "ukr": "Стамеска"
+  },
+  "lname_stalker_466": {
+    "eng": "Barrel",
+    "pol": "Beczka",
+    "rus": "Ствол",
+    "ukr": "Стовбур"
+  },
+  "lname_stalker_467": {
+    "eng": "Chest",
+    "pol": "Skrzynia",
+    "rus": "Сундук",
+    "ukr": "Скриня"
+  },
+  "lname_stalker_468": {
+    "eng": "Axe",
+    "pol": "Top�r",
+    "rus": "Топор",
+    "ukr": "Сокира"
+  },
+  "lname_stalker_469": {
+    "eng": "Butt",
+    "pol": "Ty�ek",
+    "rus": "Торец",
+    "ukr": "Торець"
+  },
+  "lname_stalker_47": {
+    "eng": "Swifty",
+    "pol": "Szybki",
+    "rus": "Живчик",
+    "ukr": "Живчик"
+  },
+  "lname_stalker_470": {
+    "eng": "Grindstone",
+    "pol": "Ostrza�ka",
+    "rus": "Точило",
+    "ukr": "Точило"
+  },
+  "lname_stalker_471": {
+    "eng": "Ace",
+    "pol": "As",
+    "rus": "Туз",
+    "ukr": "Туз"
+  },
+  "lname_stalker_472": {
+    "eng": "Knot",
+    "pol": "W�ze�",
+    "rus": "Узел",
+    "ukr": "Вузол"
+  },
+  "lname_stalker_473": {
+    "eng": "Factor",
+    "pol": "Czynnik",
+    "rus": "Фактор",
+    "ukr": "Фактор"
+  },
+  "lname_stalker_474": {
+    "eng": "Lamp",
+    "pol": "Lampa",
+    "rus": "Фонарь",
+    "ukr": "Ліхтар"
+  },
+  "lname_stalker_475": {
+    "eng": "Chisel",
+    "pol": "Czekan ",
+    "rus": "Чекан",
+    "ukr": "Чекан"
+  },
+  "lname_stalker_476": {
+    "eng": "June",
+    "pol": "Czerwiec",
+    "rus": "Червень",
+    "ukr": "Червень"
+  },
+  "lname_stalker_477": {
+    "eng": "Garlic",
+    "pol": "Czosnek",
+    "rus": "Чеснок",
+    "ukr": "Часник"
+  },
+  "lname_stalker_478": {
+    "eng": "Jackstraw",
+    "pol": "Kuk�a",
+    "rus": "Чучело",
+    "ukr": "Опудало"
+  },
+  "lname_stalker_479": {
+    "eng": "Chance",
+    "pol": "Szansa",
+    "rus": "Шанс",
+    "ukr": "Шанс"
+  },
+  "lname_stalker_48": {
+    "eng": "Fatso",
+    "pol": "Gruby",
+    "rus": "Жирдяй",
+    "ukr": "Жирдяй"
+  },
+  "lname_stalker_480": {
+    "eng": "Shortstop",
+    "pol": "Libero",
+    "rus": "Шкет",
+    "ukr": "Шкет"
+  },
+  "lname_stalker_481": {
+    "eng": "Thorn",
+    "pol": "Cier�",
+    "rus": "Шип",
+    "ukr": "Шип"
+  },
+  "lname_stalker_482": {
+    "eng": "Closet",
+    "pol": "Szafa",
+    "rus": "Шкаф",
+    "ukr": "Шафа"
+  },
+  "lname_stalker_483": {
+    "eng": "Crosstie",
+    "pol": "Podk�ad",
+    "rus": "Шпала",
+    "ukr": "Шпала"
+  },
+  "lname_stalker_484": {
+    "eng": "Roach",
+    "pol": "P�otka",
+    "rus": "Штакет",
+    "ukr": "Штакет"
+  },
+  "lname_stalker_485": {
+    "eng": "Nozzle",
+    "pol": "Wylot",
+    "rus": "Штуцер",
+    "ukr": "Штуцер"
+  },
+  "lname_stalker_486": {
+    "eng": "Rod",
+    "pol": "Pr�t",
+    "rus": "Штык",
+    "ukr": "Багнет"
+  },
+  "lname_stalker_487": {
+    "eng": "Stud",
+    "pol": "�wiek",
+    "rus": "Штырь",
+    "ukr": "Штир"
+  },
+  "lname_stalker_488": {
+    "eng": "Screw",
+    "pol": "Wkr�t",
+    "rus": "Шуруп",
+    "ukr": "Шуруп"
+  },
+  "lname_stalker_489": {
+    "eng": "Jiggers",
+    "pol": "Pch�a",
+    "rus": "Шухер",
+    "ukr": "Шухер"
+  },
+  "lname_stalker_49": {
+    "eng": "Miser",
+    "pol": "Dusigrosz",
+    "rus": "Жлоб",
+    "ukr": "Жлоб"
+  },
+  "lname_stalker_490": {
+    "eng": "Brainiac",
+    "pol": "M�zgowiec",
+    "rus": "Голова",
+    "ukr": "Голова"
+  },
+  "lname_stalker_491": {
+    "eng": "Fang",
+    "pol": "Kie�",
+    "rus": "Клык",
+    "ukr": "Клик"
+  },
+  "lname_stalker_492": {
+    "eng": "Claw",
+    "pol": "Pazur",
+    "rus": "Коготь",
+    "ukr": "Пазур"
+  },
+  "lname_stalker_493": {
+    "eng": "Bone",
+    "pol": "Ko��",
+    "rus": "Кость",
+    "ukr": "Кістка"
+  },
+  "lname_stalker_494": {
+    "eng": "Fist",
+    "pol": "Pi��",
+    "rus": "Кулак",
+    "ukr": "Куркуль"
+  },
+  "lname_stalker_495": {
+    "eng": "Nerve",
+    "pol": "Nerw",
+    "rus": "Нерв",
+    "ukr": "Нерв"
+  },
+  "lname_stalker_496": {
+    "eng": "Skeleton",
+    "pol": "Szkielet",
+    "rus": "Скелет",
+    "ukr": "Кістяк"
+  },
+  "lname_stalker_497": {
+    "eng": "Tail",
+    "pol": "Ogon",
+    "rus": "Хвост",
+    "ukr": "Хвіст"
+  },
+  "lname_stalker_498": {
+    "eng": "Crest",
+    "pol": "Grzywa",
+    "rus": "Грива",
+    "ukr": "Грива"
+  },
+  "lname_stalker_499": {
+    "eng": "Bruise",
+    "pol": "Siniak",
+    "rus": "Синяк",
+    "ukr": "Синець"
+  },
+  "lname_stalker_5": {
+    "eng": "Gray",
+    "pol": "Siwy",
+    "rus": "Седой",
+    "ukr": "Сивий"
+  },
+  "lname_stalker_50": {
+    "eng": "Tightwad",
+    "pol": "Kutwa",
+    "rus": "Жмот",
+    "ukr": "Жмикрут"
+  },
+  "lname_stalker_500": {
+    "eng": "Hacker",
+    "pol": "Haker",
+    "rus": "Бармалей",
+    "ukr": "Бармалей"
+  },
+  "lname_stalker_501": {
+    "eng": "Khan",
+    "pol": "Chan",
+    "rus": "Батый",
+    "ukr": "Батий"
+  },
+  "lname_stalker_502": {
+    "eng": "Athlete",
+    "pol": "Atleta",
+    "rus": "Богатырь",
+    "ukr": "Богатир"
+  },
+  "lname_stalker_503": {
+    "eng": "Pinocchio",
+    "pol": "Pinokio",
+    "rus": "Буратино",
+    "ukr": "Буратіно"
+  },
+  "lname_stalker_504": {
+    "eng": "Witcher",
+    "pol": "Wied�min",
+    "rus": "Ведьмак",
+    "ukr": "Відьмак"
+  },
+  "lname_stalker_505": {
+    "eng": "Voldemort",
+    "pol": "Voldemort",
+    "rus": "Воланд",
+    "ukr": "Воланд"
+  },
+  "lname_stalker_506": {
+    "eng": "Homer",
+    "pol": "Homer",
+    "rus": "Гомер",
+    "ukr": "Гомер"
+  },
+  "lname_stalker_507": {
+    "eng": "Dragon",
+    "pol": "Smok",
+    "rus": "Горыныч",
+    "ukr": "Горинич"
+  },
+  "lname_stalker_508": {
+    "eng": "Thunder",
+    "pol": "Piorun",
+    "rus": "Грозный",
+    "ukr": "Грозний"
+  },
+  "lname_stalker_509": {
+    "eng": "Gioconda",
+    "pol": "Gioconda",
+    "rus": "Джоконда",
+    "ukr": "Джоконда"
+  },
+  "lname_stalker_51": {
+    "eng": "Squint",
+    "pol": "Zezowaty",
+    "rus": "Жмур",
+    "ukr": "Жмур"
+  },
+  "lname_stalker_510": {
+    "eng": "Noodle",
+    "pol": "Tuman",
+    "rus": "Дуремар",
+    "ukr": "Дуремар"
+  },
+  "lname_stalker_511": {
+    "eng": "Tin Man",
+    "pol": "Blaszak",
+    "rus": "Железняк",
+    "ukr": "Залізняк"
+  },
+  "lname_stalker_512": {
+    "eng": "Icarus",
+    "pol": "Ikar",
+    "rus": "Икар",
+    "ukr": "Ікар"
+  },
+  "lname_stalker_513": {
+    "eng": "Casanova",
+    "pol": "Casanova",
+    "rus": "Казанова",
+    "ukr": "Котелова"
+  },
+  "lname_stalker_514": {
+    "eng": "Koschei",
+    "pol": "Ko�ciej",
+    "rus": "Кащей",
+    "ukr": "Кащей"
+  },
+  "lname_stalker_515": {
+    "eng": "Caesar",
+    "pol": "Cezar",
+    "rus": "Кесарь",
+    "ukr": "Кесар"
+  },
+  "lname_stalker_516": {
+    "eng": "Kolobok",
+    "pol": "Kulebiak",
+    "rus": "Колобок",
+    "ukr": "Колобок"
+  },
+  "lname_stalker_517": {
+    "eng": "Kutuzov",
+    "pol": "Kutuzow",
+    "rus": "Кутузов",
+    "ukr": "Кутузов"
+  },
+  "lname_stalker_518": {
+    "eng": "Peewee",
+    "pol": "Malczik",
+    "rus": "Малыш",
+    "ukr": "Малятко"
+  },
+  "lname_stalker_519": {
+    "eng": "Bonaparte",
+    "pol": "Bonaparte",
+    "rus": "Наполеон",
+    "ukr": "Наполеон"
+  },
+  "lname_stalker_52": {
+    "eng": "Thinker",
+    "pol": "My�liciel",
+    "rus": "Задумчивый",
+    "ukr": "Замислений"
+  },
+  "lname_stalker_520": {
+    "eng": "Nelson",
+    "pol": "Nelson",
+    "rus": "Нельсон",
+    "ukr": "Нельсон"
+  },
+  "lname_stalker_521": {
+    "eng": "Neptune",
+    "pol": "Neptun",
+    "rus": "Нептун",
+    "ukr": "Нептун"
+  },
+  "lname_stalker_522": {
+    "eng": "Oscar",
+    "pol": "Oskar",
+    "rus": "Оскар",
+    "ukr": "Оскар"
+  },
+  "lname_stalker_523": {
+    "eng": "Prometheus",
+    "pol": "Prometeusz",
+    "rus": "Прометей",
+    "ukr": "Прометей"
+  },
+  "lname_stalker_524": {
+    "eng": "Pushkin",
+    "pol": "Puszkin",
+    "rus": "Пушкин",
+    "ukr": "Пушкін"
+  },
+  "lname_stalker_525": {
+    "eng": "Friday",
+    "pol": "Pi�tek",
+    "rus": "Пятница",
+    "ukr": "П'ятниця"
+  },
+  "lname_stalker_526": {
+    "eng": "Rambo",
+    "pol": "Rambo",
+    "rus": "Рембо",
+    "ukr": "Рембо"
+  },
+  "lname_stalker_527": {
+    "eng": "Roquefort",
+    "pol": "Roquefort",
+    "rus": "Рокфор",
+    "ukr": "Рокфор"
+  },
+  "lname_stalker_528": {
+    "eng": "Tour Guide",
+    "pol": "Przewodnik",
+    "rus": "Сусанин",
+    "ukr": "Сусанін"
+  },
+  "lname_stalker_529": {
+    "eng": "Terminator",
+    "pol": "Terminator",
+    "rus": "Терминатор",
+    "ukr": "Термінатор"
+  },
+  "lname_stalker_53": {
+    "eng": "Dork",
+    "pol": "Palant",
+    "rus": "Зануда",
+    "ukr": "Зануда"
+  },
+  "lname_stalker_530": {
+    "eng": "Ink",
+    "pol": "Tusz",
+    "rus": "Бормотуха",
+    "ukr": "Бормотуха"
+  },
+  "lname_stalker_531": {
+    "eng": "Caesar",
+    "pol": "Cezar",
+    "rus": "Цезарь",
+    "ukr": "Цезар"
+  },
+  "lname_stalker_532": {
+    "eng": "Chapaev",
+    "pol": "Czapajew",
+    "rus": "Чапаев",
+    "ukr": "Чапаєв"
+  },
+  "lname_stalker_533": {
+    "eng": "Chapai",
+    "pol": "Czapaj",
+    "rus": "Чапай",
+    "ukr": "Чапай"
+  },
+  "lname_stalker_534": {
+    "eng": "Chebur",
+    "pol": "Czebur",
+    "rus": "Чебур",
+    "ukr": "Чебур"
+  },
+  "lname_stalker_535": {
+    "eng": "Cheburashka",
+    "pol": "Kiwaczek",
+    "rus": "Чебурашка",
+    "ukr": "Чебурашка"
+  },
+  "lname_stalker_536": {
+    "eng": "Chingachgook",
+    "pol": "Chingachgook",
+    "rus": "Чингачгук",
+    "ukr": "Чингачгук"
+  },
+  "lname_stalker_537": {
+    "eng": "Genghis",
+    "pol": "D�yngis",
+    "rus": "Чингиз",
+    "ukr": "Чингіз"
+  },
+  "lname_stalker_538": {
+    "eng": "Shtirlitz",
+    "pol": "Stirlitz",
+    "rus": "Штирлиц",
+    "ukr": "Штирліц"
+  },
+  "lname_stalker_539": {
+    "eng": "Banana",
+    "pol": "Banan",
+    "rus": "Банан",
+    "ukr": "Банан"
+  },
+  "lname_stalker_54": {
+    "eng": "Hawk",
+    "pol": "Jastrz�b",
+    "rus": "Зоркий",
+    "ukr": "Зіркий"
+  },
+  "lname_stalker_540": {
+    "eng": "Brownie",
+    "pol": "Skrzat",
+    "rus": "Барабашка",
+    "ukr": "Барабашка"
+  },
+  "lname_stalker_541": {
+    "eng": "Loaf",
+    "pol": "Bochenek",
+    "rus": "Батон",
+    "ukr": "Батон"
+  },
+  "lname_stalker_542": {
+    "eng": "Papa",
+    "pol": "Tata",
+    "rus": "Батя",
+    "ukr": "Батя"
+  },
+  "lname_stalker_543": {
+    "eng": "Spike",
+    "pol": "Kolec",
+    "rus": "Баян",
+    "ukr": "Баян"
+  },
+  "lname_stalker_544": {
+    "eng": "Homeboy",
+    "pol": "S�siad",
+    "rus": "Братан",
+    "ukr": "Братан"
+  },
+  "lname_stalker_545": {
+    "eng": "Bulkin",
+    "pol": "Bulkin",
+    "rus": "Булкин",
+    "ukr": "Булкін"
+  },
+  "lname_stalker_546": {
+    "eng": "Bulldozer",
+    "pol": "Buldo�er",
+    "rus": "Бульдозер",
+    "ukr": "Бульдозер"
+  },
+  "lname_stalker_547": {
+    "eng": "Buffer",
+    "pol": "Bufor",
+    "rus": "Буфер",
+    "ukr": "Буфер"
+  },
+  "lname_stalker_548": {
+    "eng": "Dumpling",
+    "pol": "Pyza",
+    "rus": "Вареник",
+    "ukr": "Вареник"
+  },
+  "lname_stalker_549": {
+    "eng": "Whist",
+    "pol": "Wist",
+    "rus": "Вист",
+    "ukr": "Віст"
+  },
+  "lname_stalker_55": {
+    "eng": "Saber",
+    "pol": "Szabla",
+    "rus": "Зубастый",
+    "ukr": "Зубатий"
+  },
+  "lname_stalker_550": {
+    "eng": "Gangrene",
+    "pol": "Gangrena",
+    "rus": "Гангрена",
+    "ukr": "Гангрена"
+  },
+  "lname_stalker_551": {
+    "eng": "Hybrid",
+    "pol": "Hybryda",
+    "rus": "Гибрид",
+    "ukr": "Гібрид"
+  },
+  "lname_stalker_552": {
+    "eng": "Glitch",
+    "pol": "Usterka",
+    "rus": "Глюк",
+    "ukr": "Глюк"
+  },
+  "lname_stalker_553": {
+    "eng": "Drummer",
+    "pol": "B�bniarz",
+    "rus": "Ударник",
+    "ukr": "Ударник"
+  },
+  "lname_stalker_554": {
+    "eng": "Highlander",
+    "pol": "G�ral",
+    "rus": "Горец",
+    "ukr": "Горець"
+  },
+  "lname_stalker_555": {
+    "eng": "Degree",
+    "pol": "Stopie�",
+    "rus": "Градус",
+    "ukr": "Градус"
+  },
+  "lname_stalker_556": {
+    "eng": "Gremlin",
+    "pol": "Gremlin",
+    "rus": "Гремлин",
+    "ukr": "Гремлін"
+  },
+  "lname_stalker_557": {
+    "eng": "Antelope",
+    "pol": "Antylopa",
+    "rus": "Сайгак",
+    "ukr": "Сагайдак"
+  },
+  "lname_stalker_558": {
+    "eng": "Uncle",
+    "pol": "Wujek",
+    "rus": "Дядька",
+    "ukr": "Дядько"
+  },
+  "lname_stalker_559": {
+    "eng": "Fubar",
+    "pol": "Pora�ka",
+    "rus": "Звиздец",
+    "ukr": "Пипоть"
+  },
+  "lname_stalker_56": {
+    "eng": "Chilly",
+    "pol": "Zimny",
+    "rus": "Зябкий",
+    "ukr": "Мерзлякуватий"
+  },
+  "lname_stalker_560": {
+    "eng": "Pariah",
+    "pol": "Parias",
+    "rus": "Изгой",
+    "ukr": "Ізгой"
+  },
+  "lname_stalker_561": {
+    "eng": "Kagor",
+    "pol": "Kagor",
+    "rus": "Кагор",
+    "ukr": "Кагор"
+  },
+  "lname_stalker_562": {
+    "eng": "Cabbage",
+    "pol": "Kapusta",
+    "rus": "Капуста",
+    "ukr": "Капуста"
+  },
+  "lname_stalker_563": {
+    "eng": "Carbide",
+    "pol": "Karbid",
+    "rus": "Карбид",
+    "ukr": "Карбід"
+  },
+  "lname_stalker_564": {
+    "eng": "Aspic",
+    "pol": "Auszpik",
+    "rus": "Холодец",
+    "ukr": "Холодець"
+  },
+  "lname_stalker_565": {
+    "eng": "Trump",
+    "pol": "Atut",
+    "rus": "Козырь",
+    "ukr": "Козир"
+  },
+  "lname_stalker_566": {
+    "eng": "Commodore",
+    "pol": "Komandor",
+    "rus": "Командор",
+    "ukr": "Командор"
+  },
+  "lname_stalker_567": {
+    "eng": "King",
+    "pol": "Kr�l",
+    "rus": "Король",
+    "ukr": "Король"
+  },
+  "lname_stalker_568": {
+    "eng": "Joint",
+    "pol": "Skr�t",
+    "rus": "Косяк",
+    "ukr": "Косяк"
+  },
+  "lname_stalker_569": {
+    "eng": "Sock",
+    "pol": "Skarpeta",
+    "rus": "Лапоть",
+    "ukr": "Ходак"
+  },
+  "lname_stalker_57": {
+    "eng": "Fiend",
+    "pol": "Demon",
+    "rus": "Изверг",
+    "ukr": "Недолюдок"
+  },
+  "lname_stalker_570": {
+    "eng": "Ice",
+    "pol": "Lodowiec",
+    "rus": "Лед",
+    "ukr": "Крига"
+  },
+  "lname_stalker_571": {
+    "eng": "Goblin",
+    "pol": "Goblin",
+    "rus": "Леший",
+    "ukr": "Лісовик"
+  },
+  "lname_stalker_572": {
+    "eng": "Moor",
+    "pol": "Maur",
+    "rus": "Мавр",
+    "ukr": "Мавр"
+  },
+  "lname_stalker_573": {
+    "eng": "Madera",
+    "pol": "Madera",
+    "rus": "Мадера",
+    "ukr": "Мадера"
+  },
+  "lname_stalker_574": {
+    "eng": "Spaghetti",
+    "pol": "Spaghetti",
+    "rus": "Макарон",
+    "ukr": "Макарон"
+  },
+  "lname_stalker_575": {
+    "eng": "Master",
+    "pol": "Mistrz",
+    "rus": "Мастер",
+    "ukr": "Майстер"
+  },
+  "lname_stalker_576": {
+    "eng": "Mutant",
+    "pol": "Mutant",
+    "rus": "Мутант",
+    "ukr": "Мутант"
+  },
+  "lname_stalker_577": {
+    "eng": "Reefer",
+    "pol": "Zio�o",
+    "rus": "Ништяк",
+    "ukr": "Ніштяк"
+  },
+  "lname_stalker_578": {
+    "eng": "Flop",
+    "pol": "Pora�ka",
+    "rus": "Облом",
+    "ukr": "Облом"
+  },
+  "lname_stalker_579": {
+    "eng": "Pond",
+    "pol": "Sadzawka",
+    "rus": "Омут",
+    "ukr": "Вир"
+  },
+  "lname_stalker_58": {
+    "eng": "Cripple",
+    "pol": "Kaleka",
+    "rus": "Инвалид",
+    "ukr": "Інвалід"
+  },
+  "lname_stalker_580": {
+    "eng": "P.I.",
+    "pol": "Detektyw",
+    "rus": "Опер",
+    "ukr": "Опер"
+  },
+  "lname_stalker_581": {
+    "eng": "Ravioli",
+    "pol": "Pier�g",
+    "rus": "Пельмень",
+    "ukr": "Пельмень"
+  },
+  "lname_stalker_582": {
+    "eng": "Chili",
+    "pol": "Chili",
+    "rus": "Перец",
+    "ukr": "Перець"
+  },
+  "lname_stalker_583": {
+    "eng": "Strap",
+    "pol": "Pasek",
+    "rus": "Погон",
+    "ukr": "Погон"
+  },
+  "lname_stalker_584": {
+    "eng": "Doughboy",
+    "pol": "P�czek",
+    "rus": "Пончик",
+    "ukr": "Пончик"
+  },
+  "lname_stalker_585": {
+    "eng": "Bubble",
+    "pol": "B�bel",
+    "rus": "Пузырь",
+    "ukr": "Пузир"
+  },
+  "lname_stalker_586": {
+    "eng": "Grater",
+    "pol": "Pilnik",
+    "rus": "Рашпиль",
+    "ukr": "Рашпіль"
+  },
+  "lname_stalker_587": {
+    "eng": "Burr",
+    "pol": "Rzep",
+    "rus": "Репей",
+    "ukr": "Реп'ях"
+  },
+  "lname_stalker_588": {
+    "eng": "Ryazansky",
+    "pol": "Riaza�ski",
+    "rus": "Рязанский",
+    "ukr": "Рязанський"
+  },
+  "lname_stalker_589": {
+    "eng": "Moonshine",
+    "pol": "Samogon",
+    "rus": "Самогон",
+    "ukr": "Самогон"
+  },
+  "lname_stalker_59": {
+    "eng": "Cripple",
+    "pol": "Kaleka",
+    "rus": "Калека",
+    "ukr": "Каліка"
+  },
+  "lname_stalker_590": {
+    "eng": "Morel",
+    "pol": "Smardz",
+    "rus": "Сморчок",
+    "ukr": "Сморжик"
+  },
+  "lname_stalker_591": {
+    "eng": "Biscuit",
+    "pol": "Krakers",
+    "rus": "Сухарь",
+    "ukr": "Сухар"
+  },
+  "lname_stalker_592": {
+    "eng": "Tobacco",
+    "pol": "Tyto�",
+    "rus": "Табак",
+    "ukr": "Тютюн"
+  },
+  "lname_stalker_593": {
+    "eng": "Timesheet",
+    "pol": "Tabela",
+    "rus": "Табель",
+    "ukr": "Табель"
+  },
+  "lname_stalker_594": {
+    "eng": "Ace",
+    "pol": "As",
+    "rus": "Туз",
+    "ukr": "Туз"
+  },
+  "lname_stalker_595": {
+    "eng": "Zucchini",
+    "pol": "Cukinia",
+    "rus": "Тыква",
+    "ukr": "Гарбуз"
+  },
+  "lname_stalker_596": {
+    "eng": "Ghoul",
+    "pol": "Upi�r",
+    "rus": "Упырь",
+    "ukr": "Упир"
+  },
+  "lname_stalker_597": {
+    "eng": "Trombone",
+    "pol": "Puzon",
+    "rus": "Фагот",
+    "ukr": "Фагот"
+  },
+  "lname_stalker_598": {
+    "eng": "Phantom",
+    "pol": "Widmo",
+    "rus": "Фантом",
+    "ukr": "Фантом"
+  },
+  "lname_stalker_599": {
+    "eng": "Stunt",
+    "pol": "Kaskader",
+    "rus": "Фокус",
+    "ukr": "Фокус"
+  },
+  "lname_stalker_6": {
+    "eng": "Gray",
+    "pol": "Siwy",
+    "rus": "Сивый",
+    "ukr": "Сивий"
+  },
+  "lname_stalker_60": {
+    "eng": "Kicker",
+    "pol": "Kopacz",
+    "rus": "Колотун",
+    "ukr": "Колотун"
+  },
+  "lname_stalker_61": {
+    "eng": "Coma",
+    "pol": "�pi�czka",
+    "rus": "Коматозник",
+    "ukr": "Коматозник"
+  },
+  "lname_stalker_62": {
+    "eng": "Skew",
+    "pol": "Krzywy",
+    "rus": "Косой",
+    "ukr": "Зизий"
+  },
+  "lname_stalker_63": {
+    "eng": "Clumsy",
+    "pol": "�amaga",
+    "rus": "Косолапый",
+    "ukr": "Клишавий"
+  },
+  "lname_stalker_64": {
+    "eng": "Spine",
+    "pol": "Grzbiet",
+    "rus": "Костлявый",
+    "ukr": "Кощавий"
+  },
+  "lname_stalker_65": {
+    "eng": "Crooked",
+    "pol": "Szuja",
+    "rus": "Кривой",
+    "ukr": "Кривій"
+  },
+  "lname_stalker_66": {
+    "eng": "Rainbow",
+    "pol": "T�cza",
+    "rus": "Кривоног",
+    "ukr": "Кривоногий"
+  },
+  "lname_stalker_67": {
+    "eng": "Shifter",
+    "pol": "Cwaniak",
+    "rus": "Ловкач",
+    "ukr": "Ловкач"
+  },
+  "lname_stalker_68": {
+    "eng": "Bush",
+    "pol": "Krzak",
+    "rus": "Лохматый",
+    "ukr": "Кошлатий"
+  },
+  "lname_stalker_69": {
+    "eng": "Toupee",
+    "pol": "Tupecik",
+    "rus": "Лысый",
+    "ukr": "Лисий"
+  },
+  "lname_stalker_7": {
+    "eng": "Siniy",
+    "pol": "Sinij",
+    "rus": "Синий",
+    "ukr": "Синій"
+  },
+  "lname_stalker_70": {
+    "eng": "Brown Nose",
+    "pol": "Lizus",
+    "rus": "Любимчик",
+    "ukr": "Мазунчик"
+  },
+  "lname_stalker_71": {
+    "eng": "Fierce",
+    "pol": "Dziki",
+    "rus": "Лютый",
+    "ukr": "Лютий"
+  },
+  "lname_stalker_72": {
+    "eng": "Peewee",
+    "pol": "Malczik",
+    "rus": "Малыш",
+    "ukr": "Малятко"
+  },
+  "lname_stalker_73": {
+    "eng": "Stiff",
+    "pol": "Sztywniak",
+    "rus": "Мертвец",
+    "ukr": "Мрець"
+  },
+  "lname_stalker_74": {
+    "eng": "Necro",
+    "pol": "Martwiak",
+    "rus": "Мертвый",
+    "ukr": "Мертвий"
+  },
+  "lname_stalker_75": {
+    "eng": "Local",
+    "pol": "Tutejszy",
+    "rus": "Местный",
+    "ukr": "Місцевий"
+  },
+  "lname_stalker_76": {
+    "eng": "Grave",
+    "pol": "Gr�b",
+    "rus": "Мрачный",
+    "ukr": "Похмурий"
+  },
+  "lname_stalker_77": {
+    "eng": "Slime",
+    "pol": "Glut",
+    "rus": "Мутный",
+    "ukr": "Мутний"
+  },
+  "lname_stalker_78": {
+    "eng": "Champ",
+    "pol": "Mistrz",
+    "rus": "Мятый",
+    "ukr": "М'ятий"
+  },
+  "lname_stalker_79": {
+    "eng": "Narcissus",
+    "pol": "Narcyz",
+    "rus": "Нарцисс",
+    "ukr": "Нарцис"
+  },
+  "lname_stalker_8": {
+    "eng": "Black",
+    "pol": "Czarny",
+    "rus": "Черный",
+    "ukr": "Чорний"
+  },
+  "lname_stalker_80": {
+    "eng": "Lax",
+    "pol": "Lu�ny",
+    "rus": "Небрежный",
+    "ukr": "Недбалий"
+  },
+  "lname_stalker_81": {
+    "eng": "Loser",
+    "pol": "Oferma",
+    "rus": "Неудачник",
+    "ukr": "Невдаха"
+  },
+  "lname_stalker_82": {
+    "eng": "Goofy",
+    "pol": "Ciuma",
+    "rus": "Неумёха",
+    "ukr": "Недотепа"
+  },
+  "lname_stalker_83": {
+    "eng": "Nuisance",
+    "pol": "Nicpo�",
+    "rus": "Нудный",
+    "ukr": "Нудотний"
+  },
+  "lname_stalker_84": {
+    "eng": "Crybaby",
+    "pol": "P�aksa",
+    "rus": "Нытик",
+    "ukr": "Скиглій"
+  },
+  "lname_stalker_85": {
+    "eng": "Monocle",
+    "pol": "Monokl",
+    "rus": "Одноглазый",
+    "ukr": "Одноокий"
+  },
+  "lname_stalker_86": {
+    "eng": "Rascal",
+    "pol": "�obuz",
+    "rus": "Падла",
+    "ukr": "Падла"
+  },
+  "lname_stalker_87": {
+    "eng": "Deadbeat",
+    "pol": "Paso�yt",
+    "rus": "Паразит",
+    "ukr": "Паразит"
+  },
+  "lname_stalker_88": {
+    "eng": "Paranoia",
+    "pol": "Paranoja",
+    "rus": "Параноик",
+    "ukr": "Параноїк"
+  },
+  "lname_stalker_89": {
+    "eng": "Hotshot",
+    "pol": "Wa�niak",
+    "rus": "Пижон",
+    "ukr": "Піжон"
+  },
+  "lname_stalker_9": {
+    "eng": "Teflon",
+    "pol": "Teflon",
+    "rus": "Неуязвимый",
+    "ukr": "Невразливий"
+  },
+  "lname_stalker_90": {
+    "eng": "Rogue",
+    "pol": "Szubrawiec",
+    "rus": "Плут",
+    "ukr": "Шахрай"
+  },
+  "lname_stalker_91": {
+    "eng": "Turd",
+    "pol": "�ajdak",
+    "rus": "Подлец",
+    "ukr": "Негідник"
+  },
+  "lname_stalker_92": {
+    "eng": "Defunct",
+    "pol": "Nieboszczyk",
+    "rus": "Покойник",
+    "ukr": "Небіжчик"
+  },
+  "lname_stalker_93": {
+    "eng": "Righteous",
+    "pol": "Szlachetny",
+    "rus": "Праведный",
+    "ukr": "Праведний"
+  },
+  "lname_stalker_94": {
+    "eng": "Simpleton",
+    "pol": "Prostak",
+    "rus": "Простак",
+    "ukr": "Простець"
+  },
+  "lname_stalker_95": {
+    "eng": "Psycho",
+    "pol": "Psychol",
+    "rus": "Псих",
+    "ukr": "Псих"
+  },
+  "lname_stalker_96": {
+    "eng": "Workhorse",
+    "pol": "W� roboczy",
+    "rus": "Работяга",
+    "ukr": "Роботяга"
+  },
+  "lname_stalker_97": {
+    "eng": "Torn",
+    "pol": "Zadra",
+    "rus": "Рваный",
+    "ukr": "Рваний"
+  },
+  "lname_stalker_98": {
+    "eng": "Grabber",
+    "pol": "�apacz",
+    "rus": "Рвач",
+    "ukr": "Рвач"
+  },
+  "lname_stalker_99": {
+    "eng": "Harsh",
+    "pol": "Szorstki",
+    "rus": "Резкий",
+    "ukr": "Різкий"
+  }
+}
