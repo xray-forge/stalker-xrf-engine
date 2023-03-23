@@ -13,7 +13,7 @@ const log: NodeLogger = new NodeLogger("BUILD_UI_DYNAMIC");
 const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".tsx", ".ts"];
 
 /**
- * todo;
+ * Build XML game forms from JSX forms.
  */
 export async function buildDynamicUi(): Promise<void> {
   log.info(chalk.blueBright("Build dynamic UI schemas"));
@@ -52,7 +52,7 @@ export async function buildDynamicUi(): Promise<void> {
 }
 
 /**
- * todo;
+ * Get list of UI config files in engine source files.
  */
 async function getUiConfigs(): Promise<Array<TFolderReplicationDescriptor>> {
   function collectXmlConfigs(
