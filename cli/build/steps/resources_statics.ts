@@ -5,7 +5,7 @@ import * as path from "path";
 import { default as chalk } from "chalk";
 
 import { default as config } from "#/config.json";
-import { CLI_DIR, TARGET_GAME_DATA_DIR } from "#/globals";
+import { CLI_DIR, TARGET_GAME_DATA_DIR } from "#/globals/paths";
 import { NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_ASSET_STATICS");

@@ -5,7 +5,7 @@ import * as process from "process";
 
 import { default as chalk } from "chalk";
 
-import { ROOT_DIR, TARGET_PARSED } from "#/globals";
+import { ROOT_DIR, TARGET_PARSED } from "#/globals/paths";
 import { NodeLogger, readDirContentFlat } from "#/utils";
 
 import { Maybe } from "@/engine/lib/types";

@@ -5,7 +5,7 @@ import * as process from "process";
 
 import { default as chalk } from "chalk";
 
-import { GAME_DATA_UI_DIR, TARGET_PREVIEW_DIR } from "#/globals";
+import { GAME_DATA_UI_DIR, TARGET_PREVIEW_DIR } from "#/globals/paths";
 import { generatePreview } from "#/preview/utils/generate_preview";
 import { NodeLogger, readDirContent, renderJsxToXmlText, TimeTracker } from "#/utils";
 

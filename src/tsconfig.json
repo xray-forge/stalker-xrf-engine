@@ -3,6 +3,7 @@
     "experimentalDecorators": true,
     "target": "esnext",
     "lib": ["esnext"],
+    "resolveJsonModule": true,
     "noImplicitOverride": true,
     "moduleResolution": "node",
     "esModuleInterop": true,

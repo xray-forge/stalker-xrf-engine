@@ -1,7 +1,7 @@
 import { default as chalk } from "chalk";
 import * as tstl from "typescript-to-lua";
 
-import { BUILD_LUA_TSCONFIG } from "#/globals";
+import { BUILD_LUA_TSCONFIG } from "#/globals/paths";
 import { NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_LUA_SCRIPTS");

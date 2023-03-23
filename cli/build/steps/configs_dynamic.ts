@@ -3,7 +3,7 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { GAME_DATA_LTX_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals";
+import { GAME_DATA_LTX_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals/paths";
 import { createDirForConfigs, ILtxConfigDescriptor, NodeLogger, readDirContent, renderJsonToLtx } from "#/utils";
 
 import { Optional, TFolderFiles, TFolderReplicationDescriptor } from "@/engine/lib/types";

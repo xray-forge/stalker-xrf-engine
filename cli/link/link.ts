@@ -4,7 +4,7 @@ import * as path from "path";
 import { default as chalk } from "chalk";
 
 import { default as config } from "#/config.json";
-import { TARGET_GAME_DATA_DIR, TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals";
+import { TARGET_GAME_DATA_DIR, TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
 import { exists, NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("LINK");

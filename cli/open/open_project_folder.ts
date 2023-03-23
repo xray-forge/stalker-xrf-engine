@@ -1,6 +1,6 @@
 import { default as chalk } from "chalk";
 
-import { ROOT_DIR } from "#/globals";
+import { ROOT_DIR } from "#/globals/paths";
 import { NodeLogger, openFolderInExplorer } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("OPEN_GAME_FOLDER");

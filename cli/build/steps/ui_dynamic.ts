@@ -3,7 +3,7 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/globals";
+import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/globals/paths";
 import { createDirForConfigs, NodeLogger, readDirContent } from "#/utils";
 import { renderJsxToXmlText } from "#/utils/xml";
 

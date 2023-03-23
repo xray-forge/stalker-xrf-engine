@@ -4,7 +4,7 @@ import * as path from "path";
 import { default as chalk } from "chalk";
 
 import { default as config } from "#/config.json";
-import { TARGET_LOGS_LINK_DIR } from "#/globals";
+import { TARGET_LOGS_LINK_DIR } from "#/globals/paths";
 import { NodeLogger } from "#/utils";
 
 import { Optional } from "@/engine/lib/types";

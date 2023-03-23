@@ -15,7 +15,7 @@ import {
 } from "#/build/steps";
 import { buildStaticTranslations } from "#/build/steps/translations_statics";
 import { buildStaticUi } from "#/build/steps/ui_statics";
-import { TARGET_GAME_DATA_DIR } from "#/globals";
+import { TARGET_GAME_DATA_DIR } from "#/globals/paths";
 import { NodeLogger, TimeTracker } from "#/utils";
 
 import { default as pkg } from "#/../package.json";
