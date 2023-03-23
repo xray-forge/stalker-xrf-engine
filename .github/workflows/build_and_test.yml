@@ -6,8 +6,12 @@ name: build-and-test
 on:
   push:
     branches: [ "master" ]
+    branches-ignore:
+      - "dependabot/*"
   pull_request:
     branches: [ "master" ]
+    branches-ignore:
+      - "dependabot/*"
 
 jobs:
   build_and_test:
@@ -23,20 +27,36 @@ jobs:
     - uses: actions/checkout@v3
       with:
         submodules: 'true'
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+
     - run: npm ci
     - run: npm run build:gold
     - run: npm run typecheck
     - run: npm test
     - run: npm run lint
-    - name: Archive production artifacts
+
+    - name: Archive build artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: gamedata
+        name: gamedata.zip
         path: |
           target/gamedata
         retention-days: 3
+
+    - name: Update nightly tag
+      uses: EndBug/latest-tag@latest
+      if: github.ref_name == 'master'
+      id: update-nightly-tag
+      with:
+        ref: nightly
+
+    - name: Publish nightly gamedata build
+      if: ${{ steps.update-nightly-tag.outcome == 'success' }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh release upload --clobber nightly (get-item gamedata)

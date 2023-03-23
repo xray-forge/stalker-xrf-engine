@@ -29,7 +29,7 @@ export class StereoSound {
     this.soundObject = new sound_object(soundPath);
     this.soundEndTime = null;
 
-    assert(this.soundObject, "StereoSound:initialize # Cannot open sound file '%s'.", soundPath);
+    assert(this.soundObject, "StereoSound: cannot open sound file '%s'.", soundPath);
 
     this.soundObject.volume = volume;
   }
@@ -38,7 +38,7 @@ export class StereoSound {
    * todo: Description.
    */
   public isPlaying(): boolean {
-    return (this.soundObject && this.soundObject.playing()) === true;
+    return this.soundObject?.playing() === true;
   }
 
   /**
@@ -65,7 +65,7 @@ export class StereoSound {
     logger.info("Play stereo sound at time:", sound);
 
     this.soundEndTime = null;
-    this.soundObject!.attach_tail(sound);
+    (this.soundObject as XR_sound_object).attach_tail(sound);
 
     if (volume) {
       this.setVolume(volume);
@@ -73,9 +73,7 @@ export class StereoSound {
 
     const nextSound: Optional<XR_sound_object> = new sound_object(sound);
 
-    if (!nextSound) {
-      abort("StereoSound:initialize: Cannot open sound file " + sound);
-    }
+    assert(nextSound, "StereoSound: cannot open sound file '%s'.", sound);
 
     this.soundEndTime = time + nextSound.length();
 
@@ -96,7 +94,7 @@ export class StereoSound {
    */
   public stop(): void {
     if (this.soundObject && this.soundObject.playing()) {
-      logger.info("Stop playing stereo:", this.soundPath, this.soundObject.volume);
+      logger.info("Stop playing stereo sound:", this.soundPath, this.soundObject.volume);
       this.soundObject.stop();
     }
   }
