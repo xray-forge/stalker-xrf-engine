@@ -1,6 +1,6 @@
 # 🎮 [Stalker XR-TS template](README.md)
 
-![status](https://github.com/stalker-xrts/stalker-xrts-template/actions/workflows/node.js.yml/badge.svg)
+![status](https://github.com/stalker-xrts/stalker-xrts-template/actions/workflows/build_and_test/badge.svg)
 <br/>
 [![language-ts](https://img.shields.io/badge/language-typescript-blue.svg?style=flat)](https://github.com/stalker-xrts/stalker-xrts-template/search?l=typescript)
 [![types](https://img.shields.io/badge/docs-types-blue.svg?style=flat)](https://stalker-xrts.github.io/xray-16-types/index.html)
