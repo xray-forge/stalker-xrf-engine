@@ -16,11 +16,13 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [19.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        submodules: 'true'
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -31,4 +33,3 @@ jobs:
     - run: npm run typecheck
     - run: npm test
     - run: npm run lint
-    
