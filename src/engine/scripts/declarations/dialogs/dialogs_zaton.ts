@@ -23,7 +23,7 @@ import {
   takeItemsFromActor,
   takeMoneyFromActor,
 } from "@/engine/core/utils/quest_reward";
-import { captions } from "@/engine/lib/constants/captions";
+import { captions } from "@/engine/lib/constants/captions/captions";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";

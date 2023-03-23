@@ -17,7 +17,7 @@ import { Stalker } from "@/engine/core/objects";
 import { isHeavilyWounded } from "@/engine/core/utils/check/check";
 import { isStalkerClassId } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { captions, TCaption } from "@/engine/lib/constants/captions";
+import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { texturesIngame } from "@/engine/lib/constants/textures";
 import { Maybe, Optional, TCount, TDuration, TLabel, TName, TSection, TStringId, TTimestamp } from "@/engine/lib/types";

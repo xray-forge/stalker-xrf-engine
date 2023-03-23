@@ -40,7 +40,7 @@ import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { captions } from "@/engine/lib/constants/captions";
+import { captions } from "@/engine/lib/constants/captions/captions";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties, TGameDifficulty } from "@/engine/lib/constants/game_difficulties";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";

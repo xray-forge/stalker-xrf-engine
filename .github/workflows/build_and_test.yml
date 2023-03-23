@@ -37,11 +37,17 @@ jobs:
     - run: npm run lint
 
     - name: Archive build artifacts
+    - uses: vimtor/action-zip@v1
+      with:
+        files: target/gamedata/*
+        dest: target/gamedata.release.zip
+
+    - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
+        if-no-files-found: error
         name: gamedata.release.zip
-        path: |
-          target/gamedata
+        path: target/gamedata.release.zip
         retention-days: 1
 
     - name: Update nightly tag
@@ -55,4 +61,4 @@ jobs:
       if: ${{ steps.update-nightly-tag.outcome == 'success' }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: gh release upload --clobber nightly gamedata.release.zip
+      run: gh release upload --clobber nightly target/gamedata.release.zip

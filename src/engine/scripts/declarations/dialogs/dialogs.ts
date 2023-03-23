@@ -24,7 +24,7 @@ import {
   getNpcSpeaker,
   relocateQuestItemSection,
 } from "@/engine/core/utils/quest_reward";
-import { captions } from "@/engine/lib/constants/captions";
+import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
 import { drugs, TMedkit } from "@/engine/lib/constants/items/drugs";

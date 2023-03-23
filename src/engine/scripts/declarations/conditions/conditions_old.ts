@@ -63,7 +63,7 @@ import {
   isFactionsFriends,
   isSquadRelationBetweenActorAndRelation,
 } from "@/engine/core/utils/relation";
-import { captions, TCaption } from "@/engine/lib/constants/captions";
+import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { relations } from "@/engine/lib/constants/relations";

@@ -5,7 +5,7 @@ import { XrContainer } from "@/engine/forms/components/base/XrContainer.componen
 import { CustomTab } from "@/engine/forms/components/custom";
 import { EDebugSection } from "@/engine/forms/menu/debug/sections";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { captions } from "@/engine/lib/constants/captions";
+import { captions } from "@/engine/lib/constants/captions/captions";
 import { fonts } from "@/engine/lib/constants/fonts";
 import { textures, texturesIngame } from "@/engine/lib/constants/textures";
 import { IRgbColor } from "@/engine/lib/types";

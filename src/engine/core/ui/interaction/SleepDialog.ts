@@ -30,7 +30,7 @@ import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
-import { captions } from "@/engine/lib/constants/captions";
+import { captions } from "@/engine/lib/constants/captions/captions";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
 import { Optional, TPath } from "@/engine/lib/types";

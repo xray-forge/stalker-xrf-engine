@@ -69,7 +69,7 @@ import {
 import { getTableSize } from "@/engine/core/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { TCaption } from "@/engine/lib/constants/captions";
+import { TCaption } from "@/engine/lib/constants/captions/captions";
 import { MAX_U16, MAX_U8 } from "@/engine/lib/constants/memory";
 import { TRelation } from "@/engine/lib/constants/relations";
 import { roots } from "@/engine/lib/constants/roots";

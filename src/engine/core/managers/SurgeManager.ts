@@ -39,7 +39,7 @@ import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/tim
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
-import { captions } from "@/engine/lib/constants/captions";
+import { captions } from "@/engine/lib/constants/captions/captions";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions } from "@/engine/lib/constants/info_portions";
 import { levels, TLevel } from "@/engine/lib/constants/levels";

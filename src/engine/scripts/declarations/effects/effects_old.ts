@@ -73,7 +73,7 @@ import {
   setSquadGoodwillToNpc,
 } from "@/engine/core/utils/relation";
 import { animations } from "@/engine/lib/constants/animation/animations";
-import { TCaption } from "@/engine/lib/constants/captions";
+import { TCaption } from "@/engine/lib/constants/captions/captions";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { info_portions } from "@/engine/lib/constants/info_portions";
 import { detectors, TDetector } from "@/engine/lib/constants/items/detectors";

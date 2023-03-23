@@ -26,7 +26,7 @@ import { extern } from "@/engine/core/utils/binding";
 import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { createScenarioAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
-import { captions } from "@/engine/lib/constants/captions";
+import { captions } from "@/engine/lib/constants/captions/captions";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";

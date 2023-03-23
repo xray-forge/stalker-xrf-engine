@@ -5,7 +5,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager"
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseStringsList, TConditionList } from "@/engine/core/utils/parse";
-import { captions, TCaption } from "@/engine/lib/constants/captions";
+import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
 import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TCount, TLabel, TName, TRate } from "@/engine/lib/types";

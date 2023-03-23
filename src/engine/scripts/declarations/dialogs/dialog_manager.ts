@@ -10,7 +10,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { parseInfoPortions1, parseStringsList } from "@/engine/core/utils/parse";
 import { getNpcSpeaker } from "@/engine/core/utils/quest_reward";
-import { captions } from "@/engine/lib/constants/captions";
+import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { LuaArray, Optional } from "@/engine/lib/types";
 

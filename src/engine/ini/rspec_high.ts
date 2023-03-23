@@ -1,6 +1,6 @@
 import { LTX_ROOT, newFloatField, newIntegerField, newStringField } from "#/utils";
 
-import { captions } from "@/engine/lib/constants/captions";
+import { captions } from "@/engine/lib/constants/captions/captions";
 import { ON } from "@/engine/lib/constants/words";
 
 export const IS_LTX: boolean = true;

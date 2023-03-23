@@ -14,7 +14,7 @@ import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObjectFromList } from "@/engine/core/utils/spawn";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
-import { captions } from "@/engine/lib/constants/captions";
+import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { AnyCallablesModule, LuaArray, Optional, TDuration } from "@/engine/lib/types";

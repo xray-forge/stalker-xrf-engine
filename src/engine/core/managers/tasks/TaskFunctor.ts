@@ -5,7 +5,7 @@ import { SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
-import { captions } from "@/engine/lib/constants/captions";
+import { captions } from "@/engine/lib/constants/captions/captions";
 import { Optional, TSection, TStringId } from "@/engine/lib/types";
 import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 

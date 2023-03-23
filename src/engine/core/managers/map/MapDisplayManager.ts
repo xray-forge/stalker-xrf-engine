@@ -23,7 +23,7 @@ import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { anomalyHasArtefact } from "@/engine/core/utils/object";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
-import { captions } from "@/engine/lib/constants/captions";
+import { captions } from "@/engine/lib/constants/captions/captions";
 import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
 import { levels } from "@/engine/lib/constants/levels";
 import { EMapMarkType, mapMarks } from "@/engine/lib/constants/map_marks";

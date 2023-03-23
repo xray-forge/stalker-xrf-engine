@@ -1,4 +1,4 @@
-import { captions } from "@/engine/lib/constants/captions";
+import { captions } from "@/engine/lib/constants/captions/captions";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { EMapMarkType, mapMarks } from "@/engine/lib/constants/map_marks";
 import { storyNames } from "@/engine/lib/constants/story_names";

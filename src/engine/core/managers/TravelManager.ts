@@ -32,7 +32,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getAlifeCharacterCommunity, getObjectSquad, getServerDistanceBetween } from "@/engine/core/utils/object";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
-import { captions } from "@/engine/lib/constants/captions";
+import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ERelation } from "@/engine/lib/constants/relations";
 import { TRUE } from "@/engine/lib/constants/words";
