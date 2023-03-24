@@ -44,18 +44,9 @@ export class SchemeHelpWounded extends AbstractScheme {
     section: TSection,
     state: ISchemeHelpWoundedState
   ): void {
-    const operators = {
-      help_wounded: EActionId.wounded_exist,
-      state_mgr_to_idle_alife: EActionId.state_mgr + 2,
-    };
-    const properties = {
-      wounded_exist: EEvaluatorId.wounded_exist,
-      wounded: EEvaluatorId.sidor_wounded_base,
-    };
-
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(properties.wounded_exist, new EvaluatorWoundedExist(state));
+    actionPlanner.add_evaluator(EEvaluatorId.IS_WOUNDED_EXISTING, new EvaluatorWoundedExist(state));
 
     const action: ActionHelpWounded = new ActionHelpWounded(state);
 
@@ -63,15 +54,15 @@ export class SchemeHelpWounded extends AbstractScheme {
     action.add_precondition(new world_property(stalker_ids.property_enemy, false));
     action.add_precondition(new world_property(stalker_ids.property_danger, false));
     action.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    action.add_precondition(new world_property(properties.wounded_exist, true));
-    action.add_precondition(new world_property(properties.wounded, false));
-    action.add_effect(new world_property(properties.wounded_exist, false));
+    action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, true));
+    action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
+    action.add_effect(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
 
-    actionPlanner.add_action(operators.help_wounded, action);
-    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.wounded_exist, false));
+    actionPlanner.add_action(EActionId.HELP_WOUNDED, action);
+    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
     actionPlanner
-      .action(operators.state_mgr_to_idle_alife)
-      .add_precondition(new world_property(properties.wounded_exist, false));
+      .action(EActionId.STATE_TO_IDLE_ALIFE)
+      .add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
   }
 
   /**
@@ -102,7 +93,7 @@ export class SchemeHelpWounded extends AbstractScheme {
       return false;
     }
 
-    return actionManager.current_action_id() === EActionId.wounded_exist;
+    return actionManager.current_action_id() === EActionId.HELP_WOUNDED;
   }
 
   /**

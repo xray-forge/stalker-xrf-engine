@@ -64,20 +64,10 @@ export class SchemeAnimpoint extends AbstractScheme {
     section: TSection,
     schemeState: ISchemeAnimpointState
   ): void {
-    const operators = {
-      action_animpoint: EActionId.animpoint_action + 1,
-      action_reach_animpoint: EActionId.animpoint_action + 2,
-    };
-    const properties = {
-      need_animpoint: EEvaluatorId.animpoint_property + 1,
-      reach_animpoint: EEvaluatorId.animpoint_property + 2,
-      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
-    };
-
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(properties.need_animpoint, new EvaluatorNeedAnimpoint(schemeState));
-    actionPlanner.add_evaluator(properties.reach_animpoint, new EvaluatorReachAnimpoint(schemeState));
+    actionPlanner.add_evaluator(EEvaluatorId.IS_ANIMPOINT_NEEDED, new EvaluatorNeedAnimpoint(schemeState));
+    actionPlanner.add_evaluator(EEvaluatorId.IS_ANIMPOINT_REACHED, new EvaluatorReachAnimpoint(schemeState));
 
     schemeState.animpoint = new AnimpointManager(object, schemeState);
 
@@ -88,12 +78,12 @@ export class SchemeAnimpoint extends AbstractScheme {
     actionReachAnimpoint.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionReachAnimpoint.add_precondition(new world_property(stalker_ids.property_anomaly, false));
     actionReachAnimpoint.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    actionReachAnimpoint.add_precondition(new world_property(properties.need_animpoint, true));
-    actionReachAnimpoint.add_precondition(new world_property(properties.reach_animpoint, false));
+    actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, true));
+    actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_REACHED, false));
     addCommonPrecondition(actionReachAnimpoint);
-    actionReachAnimpoint.add_effect(new world_property(properties.need_animpoint, false));
-    actionReachAnimpoint.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    actionPlanner.add_action(operators.action_reach_animpoint, actionReachAnimpoint);
+    actionReachAnimpoint.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, false));
+    actionReachAnimpoint.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionPlanner.add_action(EActionId.ANIMPOINT_REACH, actionReachAnimpoint);
     SchemeAnimpoint.subscribe(object, schemeState, actionReachAnimpoint);
 
     const actionAnimpoint: ActionAnimpoint = new ActionAnimpoint(schemeState);
@@ -101,14 +91,14 @@ export class SchemeAnimpoint extends AbstractScheme {
     actionAnimpoint.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionAnimpoint.add_precondition(new world_property(stalker_ids.property_anomaly, false));
     actionAnimpoint.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    actionAnimpoint.add_precondition(new world_property(properties.need_animpoint, true));
-    actionAnimpoint.add_precondition(new world_property(properties.reach_animpoint, true));
+    actionAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, true));
+    actionAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_REACHED, true));
     addCommonPrecondition(actionAnimpoint);
-    actionAnimpoint.add_effect(new world_property(properties.need_animpoint, false));
-    actionAnimpoint.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    actionPlanner.add_action(operators.action_animpoint, actionAnimpoint);
+    actionAnimpoint.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, false));
+    actionAnimpoint.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionPlanner.add_action(EActionId.ANIMPOINT_ACTIVITY, actionAnimpoint);
     SchemeAnimpoint.subscribe(object, schemeState, actionAnimpoint);
 
-    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.need_animpoint, false));
+    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, false));
   }
 }

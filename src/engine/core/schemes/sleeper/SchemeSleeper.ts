@@ -50,18 +50,9 @@ export class SchemeSleeper extends AbstractScheme {
     section: TSection,
     state: ISchemeSleeperState
   ): void {
-    const operators = {
-      action_sleeper: EActionId.zmey_sleeper_base + 1,
-    };
-
-    const properties = {
-      need_sleeper: EEvaluatorId.zmey_sleeper_base + 1,
-      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
-    };
-
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(properties.need_sleeper, new EvaluatorNeedSleep(state));
+    actionPlanner.add_evaluator(EEvaluatorId.NEED_SLEEPER, new EvaluatorNeedSleep(state));
 
     const actionSleeper: ActionSleeperActivity = new ActionSleeperActivity(state, object);
 
@@ -69,17 +60,17 @@ export class SchemeSleeper extends AbstractScheme {
     actionSleeper.add_precondition(new world_property(stalker_ids.property_danger, false));
     actionSleeper.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionSleeper.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    actionSleeper.add_precondition(new world_property(properties.need_sleeper, true));
+    actionSleeper.add_precondition(new world_property(EEvaluatorId.NEED_SLEEPER, true));
 
     addCommonPrecondition(actionSleeper);
 
-    actionSleeper.add_effect(new world_property(properties.need_sleeper, false));
-    actionSleeper.add_effect(new world_property(properties.state_mgr_logic_active, false));
+    actionSleeper.add_effect(new world_property(EEvaluatorId.NEED_SLEEPER, false));
+    actionSleeper.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
 
-    actionPlanner.add_action(operators.action_sleeper, actionSleeper);
+    actionPlanner.add_action(EActionId.SLEEP_ACTIVITY, actionSleeper);
 
     SchemeSleeper.subscribe(object, state, actionSleeper);
 
-    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.need_sleeper, false));
+    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_SLEEPER, false));
   }
 }

@@ -76,11 +76,11 @@ export class SchemeCombat extends AbstractScheme {
   ): void {
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(EEvaluatorId.script_combat, new EvaluatorCheckCombat(state));
+    actionPlanner.add_evaluator(EEvaluatorId.IS_SCRIPTED_COMBAT, new EvaluatorCheckCombat(state));
 
     const action: XR_action_base = actionPlanner.action(stalker_ids.action_combat_planner);
 
-    action.add_precondition(new world_property(EEvaluatorId.script_combat, false));
+    action.add_precondition(new world_property(EEvaluatorId.IS_SCRIPTED_COMBAT, false));
 
     SchemeCombatZombied.add(object, ini, scheme, section, state, actionPlanner);
     SchemeCombatCamper.add(object, ini, scheme, section, state, actionPlanner);

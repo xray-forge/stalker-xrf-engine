@@ -143,14 +143,11 @@ export function isObjectWounded(object: XR_game_object): boolean {
 export function isObjectMeeting(object: XR_game_object): boolean {
   const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-  if (actionPlanner !== null && actionPlanner.initialized()) {
-    // todo: Hardcoded constant.
-    if (actionPlanner.current_action_id() === EActionId.stohe_meet_base + 1) {
-      return true;
-    }
-  }
-
-  return false;
+  return (
+    actionPlanner !== null &&
+    actionPlanner.initialized() &&
+    actionPlanner.current_action_id() === EActionId.MEET_WAITING_ACTIVITY
+  );
 }
 
 /**

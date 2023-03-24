@@ -13,9 +13,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class EvaluatorSee extends property_evaluator {
   public readonly state: ISchemeCombatState;
 
-  /**
-   * todo: Description.
-   */
   public constructor(storage: ISchemeCombatState) {
     super(null, EvaluatorSee.__name);
     this.state = storage;
@@ -28,6 +25,7 @@ export class EvaluatorSee extends property_evaluator {
     const bestEnemy: Optional<XR_game_object> = this.object.best_enemy();
 
     if (bestEnemy !== null && this.object.alive() && this.object.see(bestEnemy)) {
+      // Side effect of evaluator.
       this.state.last_seen_pos = bestEnemy.position();
 
       return true;

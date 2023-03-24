@@ -57,18 +57,9 @@ export class SchemeCover extends AbstractScheme {
     section: TSection,
     state: ISchemeCoverState
   ): void {
-    const operators = {
-      action_cover: EActionId.stohe_cover_base + 1,
-    };
-    const properties = {
-      event: EEvaluatorId.REACTION,
-      need_cover: EEvaluatorId.stohe_cover_base + 1,
-      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
-    };
-
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(properties.need_cover, new EvaluatorNeedCover(state));
+    actionPlanner.add_evaluator(EEvaluatorId.NEED_COVER, new EvaluatorNeedCover(state));
 
     const new_action: ActionBaseCover = new ActionBaseCover(state);
 
@@ -76,14 +67,14 @@ export class SchemeCover extends AbstractScheme {
     new_action.add_precondition(new world_property(stalker_ids.property_danger, false));
     new_action.add_precondition(new world_property(stalker_ids.property_enemy, false));
     new_action.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    new_action.add_precondition(new world_property(EEvaluatorId.sidor_wounded_base, false));
-    new_action.add_precondition(new world_property(properties.need_cover, true));
-    new_action.add_effect(new world_property(properties.need_cover, false));
-    new_action.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    actionPlanner.add_action(operators.action_cover, new_action);
+    new_action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
+    new_action.add_precondition(new world_property(EEvaluatorId.NEED_COVER, true));
+    new_action.add_effect(new world_property(EEvaluatorId.NEED_COVER, false));
+    new_action.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionPlanner.add_action(EActionId.COVER_ACTIVITY, new_action);
 
     SchemeCover.subscribe(object, state, new_action);
 
-    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.need_cover, false));
+    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_COVER, false));
   }
 }

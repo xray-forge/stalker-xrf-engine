@@ -1,41 +1,39 @@
 import { stalker_ids } from "xray16";
 
+import { TNumberId } from "@/engine/lib/types";
+
 /**
  * Base index in game core.
  * 92 by default.
  */
-const base: number = stalker_ids.action_script || 92;
-
-const stohe_actions: number = base + 220;
-const sidor_actions: number = stohe_actions + 1024;
-const chugai_actions: number = sidor_actions + 1024;
-const zmey_actions: number = chugai_actions + 1024;
+const BASE: TNumberId = stalker_ids.action_script || 92;
 
 /**
  * todo;
- * todo: Use ID generator.
  */
 export enum EActionId {
-  BASE = base,
-  alife = stalker_ids.action_alife_planner,
-  corpse_exist = base + 50,
-  wounded_exist = base + 55,
-  state_mgr = base + 100,
-  state_mgr_to_idle_combat = base + 101,
-  state_mgr_to_idle_alife = base + 102,
-  state_mgr_to_idle_items = base + 103,
-  smartcover_action = base + 215,
-  stohe_meet_base = stohe_actions + 30,
-  stohe_cover_base = stohe_actions + 80,
-  stohe_camper_base = stohe_actions + 90,
-  abuse_base = stohe_actions + 120,
-  animpoint_action = stohe_actions + 140,
-  sidor_act_patrol = sidor_actions,
-  sidor_act_wounded_base = sidor_actions + 10,
-  combat_zombied_base = chugai_actions + 110,
-  combat_camper_base = chugai_actions + 130,
-  zmey_sleeper_base = zmey_actions + 290,
-  zmey_walker_base = zmey_actions + 480,
-  zmey_remark_base = zmey_actions + 630,
-  zmey_companion_base = zmey_actions + 660,
+  ALIFE = stalker_ids.action_alife_planner,
+  SEARCH_CORPSE = BASE + 50,
+  HELP_WOUNDED = BASE + 55,
+  STATE_TO_IDLE_COMBAT = BASE + 101,
+  STATE_TO_IDLE_ALIFE = BASE + 102,
+  STATE_TO_IDLE_ITEMS = BASE + 103,
+  SMART_COVER_ACTIVITY = BASE + 215,
+  MEET_WAITING_ACTIVITY = BASE + 251,
+  COVER_ACTIVITY = BASE + 301,
+  CAMP_PATROL = BASE + 311,
+  ABUSE = BASE + 340,
+  ANIMPOINT_ACTIVITY = BASE + 361,
+  ANIMPOINT_REACH = BASE + 362,
+  PATROL_ACTIVITY = BASE + 1244,
+  COMMAND_SQUAD = BASE + 1245,
+  BECOME_WOUNDED = BASE + 1254,
+  ZOMBIED_SHOOT = BASE + 2378,
+  ZOMBIED_GO_TO_DANGER = BASE + 2379,
+  SHOOT = BASE + 2398,
+  LOOK_AROUND = BASE + 2399,
+  SLEEP_ACTIVITY = BASE + 3583,
+  WALKER_ACTIVITY = BASE + 3773,
+  REMARK_ACTIVITY = BASE + 3923,
+  COMPANION_ACTIVITY = BASE + 3953,
 }

@@ -14,9 +14,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class EvaluatorCanFight extends property_evaluator {
   public readonly state: ISchemeWoundedState;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeWoundedState) {
     super(null, EvaluatorCanFight.__name);
     this.state = state;

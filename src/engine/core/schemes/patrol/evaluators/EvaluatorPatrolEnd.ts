@@ -13,9 +13,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class EvaluatorPatrolEnd extends property_evaluator {
   public readonly state: ISchemePatrolState;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemePatrolState) {
     super(null, EvaluatorPatrolEnd.__name);
     this.state = state;

@@ -46,7 +46,7 @@ export class EvaluatorStateIdle extends property_evaluator {
     }
 
     if (isIdle) {
-      if (this.actionPlanner.current_action_id() === EActionId.state_mgr_to_idle_combat) {
+      if (this.actionPlanner.current_action_id() === EActionId.STATE_TO_IDLE_COMBAT) {
         this.stateManager.isCombat = true;
       }
     }

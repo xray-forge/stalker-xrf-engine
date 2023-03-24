@@ -34,52 +34,52 @@ export function addStateManager(object: XR_game_object): StalkerStateManager {
 
   addBasicManagerGraph(stateManager, object);
 
-  planner.add_evaluator(EEvaluatorId.state_mgr_idle_combat, new EvaluatorStateIdle(stateManager));
-  planner.add_evaluator(EEvaluatorId.state_mgr_idle_alife, new EvaluatorStateIdleAlife(stateManager));
-  planner.add_evaluator(EEvaluatorId.state_mgr_idle_items, new EvaluatorStateIdleItems(stateManager));
-  planner.add_evaluator(EEvaluatorId.state_mgr_logic_active, new EvaluatorStateLogicActive(stateManager));
+  planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_COMBAT, new EvaluatorStateIdle(stateManager));
+  planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_ALIFE, new EvaluatorStateIdleAlife(stateManager));
+  planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_ITEMS, new EvaluatorStateIdleItems(stateManager));
+  planner.add_evaluator(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, new EvaluatorStateLogicActive(stateManager));
 
   let action = new ActionStateToIdle(stateManager, "CombatToIdle");
 
-  action.add_precondition(new world_property(EEvaluatorId.state_mgr_idle_combat, false));
-  action.add_effect(new world_property(EEvaluatorId.state_mgr_idle_combat, true));
-  planner.add_action(EActionId.state_mgr_to_idle_combat, action);
+  action.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_COMBAT, false));
+  action.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_COMBAT, true));
+  planner.add_action(EActionId.STATE_TO_IDLE_COMBAT, action);
 
   action = new ActionStateToIdle(stateManager, "ItemsToIdle");
 
-  action.add_precondition(new world_property(EEvaluatorId.state_mgr_idle_items, false));
+  action.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ITEMS, false));
   action.add_precondition(new world_property(stalker_ids.property_items, true));
   action.add_precondition(new world_property(stalker_ids.property_enemy, false));
-  action.add_effect(new world_property(EEvaluatorId.state_mgr_idle_items, true));
-  planner.add_action(EActionId.state_mgr_to_idle_items, action);
+  action.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_ITEMS, true));
+  planner.add_action(EActionId.STATE_TO_IDLE_ITEMS, action);
 
   action = new ActionStateToIdle(stateManager, "DangerToIdle");
 
   action.add_precondition(new world_property(stalker_ids.property_enemy, false));
   action.add_precondition(new world_property(stalker_ids.property_danger, false));
-  action.add_precondition(new world_property(EEvaluatorId.state_mgr_logic_active, false));
-  action.add_precondition(new world_property(EEvaluatorId.state_mgr_idle_alife, false));
-  action.add_effect(new world_property(EEvaluatorId.state_mgr_idle_alife, true));
+  action.add_precondition(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
+  action.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, false));
+  action.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, true));
 
-  planner.add_action(EActionId.state_mgr_to_idle_alife, action);
+  planner.add_action(EActionId.STATE_TO_IDLE_ALIFE, action);
 
-  planner.action(EActionId.alife).add_precondition(new world_property(EEvaluatorId.state_mgr_idle_alife, true));
+  planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, true));
 
   planner
     .action(stalker_ids.action_gather_items)
-    .add_precondition(new world_property(EEvaluatorId.state_mgr_idle_items, true));
+    .add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ITEMS, true));
 
   planner
     .action(stalker_ids.action_combat_planner)
-    .add_precondition(new world_property(EEvaluatorId.state_mgr_idle_combat, true));
+    .add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_COMBAT, true));
 
   planner
     .action(stalker_ids.action_anomaly_planner)
-    .add_precondition(new world_property(EEvaluatorId.state_mgr_idle_combat, true));
+    .add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_COMBAT, true));
 
   planner
     .action(stalker_ids.action_danger_planner)
-    .add_precondition(new world_property(EEvaluatorId.state_mgr_idle_combat, true));
+    .add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_COMBAT, true));
 
   return stateManager;
 }

@@ -38,7 +38,7 @@ export class EvaluatorStateIdleAlife extends property_evaluator {
 
     if (actionPlanner.initialized()) {
       this.currentActionId = actionPlanner.current_action_id();
-      if (this.currentActionId !== EActionId.alife) {
+      if (this.currentActionId !== EActionId.ALIFE) {
         this.stateManager.isAlife = false;
       }
     }

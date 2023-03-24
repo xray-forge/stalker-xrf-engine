@@ -43,19 +43,10 @@ export class SchemeCorpseDetection extends AbstractScheme {
     section: TSection,
     state: ISchemeCorpseDetectionState
   ): void {
-    const operators = {
-      search_corpse: EActionId.corpse_exist,
-      state_mgr_to_idle_alife: EActionId.state_mgr + 2,
-    };
-    const properties = {
-      corpse_exist: EEvaluatorId.corpse_exist,
-      wounded: EEvaluatorId.sidor_wounded_base,
-    };
-
     const manager: XR_action_planner = object.motivation_action_manager();
 
     // Evaluators
-    manager.add_evaluator(properties.corpse_exist, new EvaluatorCorpseDetect(state));
+    manager.add_evaluator(EEvaluatorId.IS_CORPSE_EXISTING, new EvaluatorCorpseDetect(state));
 
     // Actions
     const actionSearchCorpse: ActionSearchCorpse = new ActionSearchCorpse(state);
@@ -65,18 +56,18 @@ export class SchemeCorpseDetection extends AbstractScheme {
     actionSearchCorpse.add_precondition(new world_property(stalker_ids.property_danger, false));
     actionSearchCorpse.add_precondition(new world_property(stalker_ids.property_anomaly, false));
     actionSearchCorpse.add_precondition(new world_property(stalker_ids.property_items, false));
-    actionSearchCorpse.add_precondition(new world_property(properties.corpse_exist, true));
-    actionSearchCorpse.add_precondition(new world_property(properties.wounded, false));
-    actionSearchCorpse.add_precondition(new world_property(EEvaluatorId.wounded_exist, false));
-    actionSearchCorpse.add_effect(new world_property(properties.corpse_exist, false));
+    actionSearchCorpse.add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, true));
+    actionSearchCorpse.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
+    actionSearchCorpse.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
+    actionSearchCorpse.add_effect(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
 
-    manager.add_action(operators.search_corpse, actionSearchCorpse);
+    manager.add_action(EActionId.SEARCH_CORPSE, actionSearchCorpse);
 
-    manager.action(EActionId.alife).add_precondition(new world_property(properties.corpse_exist, false));
+    manager.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
 
     manager
-      .action(operators.state_mgr_to_idle_alife)
-      .add_precondition(new world_property(properties.corpse_exist, false));
+      .action(EActionId.STATE_TO_IDLE_ALIFE)
+      .add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
   }
 
   /**
@@ -107,7 +98,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
       return false;
     }
 
-    return manager.current_action_id() === EActionId.corpse_exist;
+    return manager.current_action_id() === EActionId.SEARCH_CORPSE;
   }
 
   /**

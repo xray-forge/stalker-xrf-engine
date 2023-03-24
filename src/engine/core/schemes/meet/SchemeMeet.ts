@@ -47,23 +47,10 @@ export class SchemeMeet extends AbstractScheme {
     section: TSection,
     state: ISchemeMeetState
   ): void {
-    const operators = {
-      contact: EActionId.stohe_meet_base + 1,
-      state_mgr_to_idle_alife: EActionId.state_mgr + 2,
-    };
-
-    const properties = {
-      contact: EEvaluatorId.stohe_meet_base + 1,
-      wounded: EEvaluatorId.sidor_wounded_base,
-      abuse: EEvaluatorId.abuse_base,
-      wounded_exist: EEvaluatorId.wounded_exist,
-      corpse_exist: EEvaluatorId.corpse_exist,
-    };
-
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
     // -- Evaluators
-    actionPlanner.add_evaluator(properties.contact, new EvaluatorContact(state));
+    actionPlanner.add_evaluator(EEvaluatorId.IS_MEET_CONTACT, new EvaluatorContact(state));
 
     // -- Actions
     const actionMeetWait: ActionMeetWait = new ActionMeetWait(state);
@@ -74,20 +61,20 @@ export class SchemeMeet extends AbstractScheme {
     actionMeetWait.add_precondition(new world_property(stalker_ids.property_anomaly, false));
 
     actionMeetWait.add_precondition(new world_property(stalker_ids.property_items, false));
-    actionMeetWait.add_precondition(new world_property(properties.wounded_exist, false));
-    actionMeetWait.add_precondition(new world_property(properties.corpse_exist, false));
+    actionMeetWait.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
+    actionMeetWait.add_precondition(new world_property(EEvaluatorId.IS_CORPSE_EXISTING, false));
 
-    actionMeetWait.add_precondition(new world_property(properties.contact, true));
-    actionMeetWait.add_precondition(new world_property(properties.wounded, false));
-    actionMeetWait.add_precondition(new world_property(properties.abuse, false));
-    actionMeetWait.add_effect(new world_property(properties.contact, false));
-    actionPlanner.add_action(operators.contact, actionMeetWait);
+    actionMeetWait.add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, true));
+    actionMeetWait.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
+    actionMeetWait.add_precondition(new world_property(EEvaluatorId.IS_ABUSED, false));
+    actionMeetWait.add_effect(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
+    actionPlanner.add_action(EActionId.MEET_WAITING_ACTIVITY, actionMeetWait);
 
-    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.contact, false));
+    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
 
     actionPlanner
-      .action(operators.state_mgr_to_idle_alife)
-      .add_precondition(new world_property(properties.contact, false));
+      .action(EActionId.STATE_TO_IDLE_ALIFE)
+      .add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
 
     state.meet_manager = new MeetManager(object, state);
 

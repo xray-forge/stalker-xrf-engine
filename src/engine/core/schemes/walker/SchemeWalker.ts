@@ -74,19 +74,9 @@ export class SchemeWalker extends AbstractScheme {
     section: TSection,
     state: ISchemeWalkerState
   ): void {
-    const operators = {
-      action_walker: EActionId.zmey_walker_base + 1,
-    };
-
-    const properties = {
-      event: EEvaluatorId.REACTION,
-      need_walker: EEvaluatorId.zmey_walker_base + 1,
-      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
-    };
-
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(properties.need_walker, new EvaluatorNeedWalker(state));
+    actionPlanner.add_evaluator(EEvaluatorId.NEED_WALKER, new EvaluatorNeedWalker(state));
 
     const actionWalkerActivity: ActionWalkerActivity = new ActionWalkerActivity(state, object);
 
@@ -94,17 +84,17 @@ export class SchemeWalker extends AbstractScheme {
     actionWalkerActivity.add_precondition(new world_property(stalker_ids.property_danger, false));
     actionWalkerActivity.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionWalkerActivity.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    actionWalkerActivity.add_precondition(new world_property(properties.need_walker, true));
+    actionWalkerActivity.add_precondition(new world_property(EEvaluatorId.NEED_WALKER, true));
 
     addCommonPrecondition(actionWalkerActivity);
 
-    actionWalkerActivity.add_effect(new world_property(properties.need_walker, false));
-    actionWalkerActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
+    actionWalkerActivity.add_effect(new world_property(EEvaluatorId.NEED_WALKER, false));
+    actionWalkerActivity.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
 
-    actionPlanner.add_action(operators.action_walker, actionWalkerActivity);
+    actionPlanner.add_action(EActionId.WALKER_ACTIVITY, actionWalkerActivity);
 
     SchemeWalker.subscribe(object, state, actionWalkerActivity);
 
-    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.need_walker, false));
+    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_WALKER, false));
   }
 }

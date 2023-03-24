@@ -44,30 +44,22 @@ export class SchemeCompanion extends AbstractScheme {
     section: TSection,
     state: ISchemeCompanionState
   ): void {
-    const operators = {
-      action_companion: EActionId.zmey_companion_base + 1,
-    };
-    const properties = {
-      need_companion: EEvaluatorId.zmey_companion_base + 1,
-      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
-    };
-
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(properties.need_companion, new EvaluatorNeedCompanion(state));
+    actionPlanner.add_evaluator(EEvaluatorId.NEED_COMPANION, new EvaluatorNeedCompanion(state));
 
     const actionCompanionActivity: ActionCompanionActivity = new ActionCompanionActivity(state);
 
     actionCompanionActivity.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionCompanionActivity.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    actionCompanionActivity.add_precondition(new world_property(properties.need_companion, true));
+    actionCompanionActivity.add_precondition(new world_property(EEvaluatorId.NEED_COMPANION, true));
     addCommonPrecondition(actionCompanionActivity);
-    actionCompanionActivity.add_effect(new world_property(properties.need_companion, false));
-    actionCompanionActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    actionPlanner.add_action(operators.action_companion, actionCompanionActivity);
+    actionCompanionActivity.add_effect(new world_property(EEvaluatorId.NEED_COMPANION, false));
+    actionCompanionActivity.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionPlanner.add_action(EActionId.COMPANION_ACTIVITY, actionCompanionActivity);
 
     SchemeCompanion.subscribe(object, state, actionCompanionActivity);
 
-    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.need_companion, false));
+    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_COMPANION, false));
   }
 }

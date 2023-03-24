@@ -41,9 +41,6 @@ export class ActionCompanionActivity extends action_base {
   public keep_state_until: number = 0;
   public last_state: EStalkerState = EStalkerState.GUARD_NA;
 
-  /**
-   * todo: Description.
-   */
   public constructor(storage: ISchemeCompanionState) {
     super(null, ActionCompanionActivity.__name);
     this.state = storage;

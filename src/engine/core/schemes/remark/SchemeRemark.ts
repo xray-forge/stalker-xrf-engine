@@ -58,18 +58,9 @@ export class SchemeRemark extends AbstractScheme {
     section: TSection,
     state: ISchemeRemarkState
   ): void {
-    const operators = {
-      action_remark: EActionId.zmey_remark_base + 1,
-    };
-    const properties = {
-      event: EEvaluatorId.REACTION,
-      need_remark: EEvaluatorId.zmey_remark_base + 1,
-      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
-    };
-
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(properties.need_remark, new EvaluatorNeedRemark(state));
+    actionPlanner.add_evaluator(EEvaluatorId.NEED_REMARK, new EvaluatorNeedRemark(state));
 
     const actionRemarkActivity: ActionRemarkActivity = new ActionRemarkActivity(state);
 
@@ -77,13 +68,13 @@ export class SchemeRemark extends AbstractScheme {
     actionRemarkActivity.add_precondition(new world_property(stalker_ids.property_danger, false));
     actionRemarkActivity.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionRemarkActivity.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    actionRemarkActivity.add_precondition(new world_property(properties.need_remark, true));
+    actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.NEED_REMARK, true));
     addCommonPrecondition(actionRemarkActivity);
-    actionRemarkActivity.add_effect(new world_property(properties.need_remark, false));
-    actionRemarkActivity.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    actionPlanner.add_action(operators.action_remark, actionRemarkActivity);
+    actionRemarkActivity.add_effect(new world_property(EEvaluatorId.NEED_REMARK, false));
+    actionRemarkActivity.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionPlanner.add_action(EActionId.REMARK_ACTIVITY, actionRemarkActivity);
 
     SchemeRemark.subscribe(object, state, actionRemarkActivity);
-    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.need_remark, false));
+    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_REMARK, false));
   }
 }

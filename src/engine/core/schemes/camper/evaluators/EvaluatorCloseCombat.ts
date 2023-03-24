@@ -41,7 +41,7 @@ export class EvaluatorCloseCombat extends property_evaluator {
       return false;
     }
 
-    if (!this.actionPlanner.evaluator(EEvaluatorId.sidor_wounded_base + 1).evaluate()) {
+    if (!this.actionPlanner.evaluator(EEvaluatorId.CAN_FIGHT).evaluate()) {
       return false;
     }
 

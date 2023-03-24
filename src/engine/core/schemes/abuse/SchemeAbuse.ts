@@ -34,31 +34,21 @@ export class SchemeAbuse extends AbstractScheme {
     section: TSection,
     state: ISchemeAbuseState
   ): void {
-    const operators = {
-      abuse: EActionId.abuse_base,
-    };
-    const properties = {
-      abuse: EEvaluatorId.abuse_base,
-      wounded: EEvaluatorId.sidor_wounded_base,
-    };
-
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    // -- Evaluators
-    actionPlanner.add_evaluator(properties.abuse, new EvaluatorAbuse(state));
+    actionPlanner.add_evaluator(EEvaluatorId.IS_ABUSED, new EvaluatorAbuse(state));
 
-    // -- Actions
     const action: ActionAbuseHit = new ActionAbuseHit(state);
 
     action.add_precondition(new world_property(stalker_ids.property_alive, true));
     action.add_precondition(new world_property(stalker_ids.property_danger, false));
-    action.add_precondition(new world_property(properties.wounded, false));
-    action.add_precondition(new world_property(properties.abuse, true));
-    action.add_effect(new world_property(properties.abuse, false));
+    action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
+    action.add_precondition(new world_property(EEvaluatorId.IS_ABUSED, true));
+    action.add_effect(new world_property(EEvaluatorId.IS_ABUSED, false));
 
-    actionPlanner.add_action(operators.abuse, action);
+    actionPlanner.add_action(EActionId.ABUSE, action);
 
-    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.abuse, false));
+    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_ABUSED, false));
 
     state.abuse_manager = new AbuseManager(object, state);
   }

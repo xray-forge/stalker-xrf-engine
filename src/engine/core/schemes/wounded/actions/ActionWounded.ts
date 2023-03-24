@@ -1,4 +1,4 @@
-import { action_base, alife, hit, LuabindClass, time_global, XR_alife_simulator } from "xray16";
+import { action_base, alife, hit, LuabindClass, time_global, XR_alife_simulator, XR_hit } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
@@ -48,8 +48,7 @@ export class ActionWounded extends action_base {
     super.execute();
 
     const woundManager = this.state.wound_manager;
-
-    const sim: XR_alife_simulator = alife();
+    const simulator: XR_alife_simulator = alife();
 
     if (this.state.autoheal === true) {
       if (woundManager.can_use_medkit !== true) {
@@ -61,7 +60,7 @@ export class ActionWounded extends action_base {
         } else if (current_time - begin_wounded > 60000) {
           const npc = this.object;
 
-          sim.create("medkit_script", npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());
+          simulator.create("medkit_script", npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());
           woundManager.unlockMedkit();
         }
       }
@@ -71,15 +70,15 @@ export class ActionWounded extends action_base {
     const woundManagerSound: string = portableStoreGet(this.object, "wounded_sound")!;
 
     if (woundManagerState === TRUE) {
-      const h = new hit();
+      const hitObject: XR_hit = new hit();
 
-      h.power = 0;
-      h.direction = this.object.direction();
-      h.bone("bip01_spine");
-      h.draftsman = registry.actor;
-      h.impulse = 0;
-      h.type = hit.wound;
-      this.object.hit(h);
+      hitObject.power = 0;
+      hitObject.direction = this.object.direction();
+      hitObject.bone("bip01_spine");
+      hitObject.draftsman = registry.actor;
+      hitObject.impulse = 0;
+      hitObject.type = hit.wound;
+      this.object.hit(hitObject);
     } else {
       if (this.state.use_medkit === true) {
         woundManager.eatMedkit();

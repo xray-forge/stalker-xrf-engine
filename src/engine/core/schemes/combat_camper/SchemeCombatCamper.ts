@@ -10,11 +10,6 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const prop_enable = EEvaluatorId.combat_camper_base;
-const prop_see = EEvaluatorId.combat_camper_base + 1;
-const act_shoot = EActionId.combat_camper_base;
-const act_look_around = EActionId.combat_camper_base + 1;
-
 /**
  * todo
  * Note: not atomic scheme, just sub-implementation
@@ -38,34 +33,30 @@ export class SchemeCombatCamper extends AbstractScheme {
       abort("Expected planner to be provided for add method call.");
     }
 
-    const properties = {
-      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
-    };
-
-    planner.add_evaluator(prop_enable, new EvaluatorCombatCamper(state));
-    planner.add_evaluator(prop_see, new EvaluatorSee(state));
+    planner.add_evaluator(EEvaluatorId.IS_COMBAT_CAMPING_ENABLED, new EvaluatorCombatCamper(state));
+    planner.add_evaluator(EEvaluatorId.SEE_ENEMY, new EvaluatorSee(state));
 
     const shootAction: ActionShoot = new ActionShoot(state);
 
     shootAction.add_precondition(new world_property(stalker_ids.property_alive, true));
     shootAction.add_precondition(new world_property(stalker_ids.property_enemy, true));
     shootAction.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    shootAction.add_precondition(new world_property(EEvaluatorId.script_combat, true));
-    shootAction.add_precondition(new world_property(prop_enable, true));
-    shootAction.add_precondition(new world_property(prop_see, true));
+    shootAction.add_precondition(new world_property(EEvaluatorId.IS_SCRIPTED_COMBAT, true));
+    shootAction.add_precondition(new world_property(EEvaluatorId.IS_COMBAT_CAMPING_ENABLED, true));
+    shootAction.add_precondition(new world_property(EEvaluatorId.SEE_ENEMY, true));
     shootAction.add_effect(new world_property(stalker_ids.property_enemy, false));
-    shootAction.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    planner.add_action(act_shoot, shootAction);
+    shootAction.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    planner.add_action(EActionId.SHOOT, shootAction);
 
     const lookAroundAction: ActionLookAround = new ActionLookAround(state);
 
     lookAroundAction.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    lookAroundAction.add_precondition(new world_property(EEvaluatorId.script_combat, true));
-    lookAroundAction.add_precondition(new world_property(prop_enable, true));
-    lookAroundAction.add_precondition(new world_property(prop_see, false));
-    lookAroundAction.add_effect(new world_property(prop_see, true));
-    lookAroundAction.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    planner.add_action(act_look_around, lookAroundAction);
+    lookAroundAction.add_precondition(new world_property(EEvaluatorId.IS_SCRIPTED_COMBAT, true));
+    lookAroundAction.add_precondition(new world_property(EEvaluatorId.IS_COMBAT_CAMPING_ENABLED, true));
+    lookAroundAction.add_precondition(new world_property(EEvaluatorId.SEE_ENEMY, false));
+    lookAroundAction.add_effect(new world_property(EEvaluatorId.SEE_ENEMY, true));
+    lookAroundAction.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    planner.add_action(EActionId.LOOK_AROUND, lookAroundAction);
 
     SchemeCombatCamper.subscribe(object, state, lookAroundAction);
 

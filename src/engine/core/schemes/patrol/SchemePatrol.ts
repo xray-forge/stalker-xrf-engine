@@ -100,21 +100,10 @@ export class SchemePatrol extends AbstractScheme {
     section: TSection,
     state: ISchemePatrolState
   ): void {
-    const operators = {
-      action_patrol: EActionId.sidor_act_patrol,
-      action_commander: EActionId.sidor_act_patrol + 1,
-    };
-    const properties = {
-      event: EEvaluatorId.REACTION,
-      patrol_end: EEvaluatorId.sidor_patrol_base + 0,
-      patrol_comm: EEvaluatorId.sidor_patrol_base + 1,
-      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
-    };
-
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    actionPlanner.add_evaluator(properties.patrol_end, new EvaluatorPatrolEnd(state));
-    actionPlanner.add_evaluator(properties.patrol_comm, new EvaluatorPatrolComm(state));
+    actionPlanner.add_evaluator(EEvaluatorId.IS_PATROL_ENDED, new EvaluatorPatrolEnd(state));
+    actionPlanner.add_evaluator(EEvaluatorId.IS_PATROL_COMMANDER, new EvaluatorPatrolComm(state));
 
     const actionCommander: ActionCommander = new ActionCommander(state, object);
 
@@ -123,11 +112,11 @@ export class SchemePatrol extends AbstractScheme {
     actionCommander.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionCommander.add_precondition(new world_property(stalker_ids.property_anomaly, false));
     addCommonPrecondition(actionCommander);
-    actionCommander.add_precondition(new world_property(properties.patrol_end, false));
-    actionCommander.add_precondition(new world_property(properties.patrol_comm, true));
-    actionCommander.add_effect(new world_property(properties.patrol_end, true));
-    actionCommander.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    actionPlanner.add_action(operators.action_commander, actionCommander);
+    actionCommander.add_precondition(new world_property(EEvaluatorId.IS_PATROL_ENDED, false));
+    actionCommander.add_precondition(new world_property(EEvaluatorId.IS_PATROL_COMMANDER, true));
+    actionCommander.add_effect(new world_property(EEvaluatorId.IS_PATROL_ENDED, true));
+    actionCommander.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionPlanner.add_action(EActionId.COMMAND_SQUAD, actionCommander);
     SchemePatrol.subscribe(object, state, actionCommander);
 
     const actionPatrol: ActionPatrol = new ActionPatrol(state, object);
@@ -137,13 +126,13 @@ export class SchemePatrol extends AbstractScheme {
     actionPatrol.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionPatrol.add_precondition(new world_property(stalker_ids.property_anomaly, false));
     addCommonPrecondition(actionPatrol);
-    actionPatrol.add_precondition(new world_property(properties.patrol_end, false));
-    actionPatrol.add_precondition(new world_property(properties.patrol_comm, false));
-    actionPatrol.add_effect(new world_property(properties.patrol_end, true));
-    actionPatrol.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    actionPlanner.add_action(operators.action_patrol, actionPatrol);
+    actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_PATROL_ENDED, false));
+    actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_PATROL_COMMANDER, false));
+    actionPatrol.add_effect(new world_property(EEvaluatorId.IS_PATROL_ENDED, true));
+    actionPatrol.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionPlanner.add_action(EActionId.PATROL_ACTIVITY, actionPatrol);
     SchemePatrol.subscribe(object, state, actionPatrol);
 
-    actionPlanner.action(EActionId.alife).add_precondition(new world_property(properties.patrol_end, true));
+    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_PATROL_ENDED, true));
   }
 }

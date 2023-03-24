@@ -31,32 +31,28 @@ export class SchemeCombatZombied extends AbstractScheme {
   ): void {
     assertDefined(planner, "Expected planner to be provided for add method call.");
 
-    const properties = {
-      state_mgr_logic_active: EEvaluatorId.state_mgr + 4,
-    };
-
-    planner.add_evaluator(EEvaluatorId.combat_zombied_base, new EvaluatorCombatZombied(state));
+    planner.add_evaluator(EEvaluatorId.IS_COMBAT_ZOMBIED_ENABLED, new EvaluatorCombatZombied(state));
 
     const actionZombieShoot: ActionZombieShoot = new ActionZombieShoot(state);
 
     actionZombieShoot.add_precondition(new world_property(stalker_ids.property_alive, true));
-    actionZombieShoot.add_precondition(new world_property(EEvaluatorId.combat_zombied_base, true));
-    actionZombieShoot.add_precondition(new world_property(EEvaluatorId.script_combat, true));
+    actionZombieShoot.add_precondition(new world_property(EEvaluatorId.IS_COMBAT_ZOMBIED_ENABLED, true));
+    actionZombieShoot.add_precondition(new world_property(EEvaluatorId.IS_SCRIPTED_COMBAT, true));
     actionZombieShoot.add_effect(new world_property(stalker_ids.property_enemy, false));
-    actionZombieShoot.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    planner.add_action(EActionId.combat_zombied_base, actionZombieShoot);
+    actionZombieShoot.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    planner.add_action(EActionId.ZOMBIED_SHOOT, actionZombieShoot);
 
     SchemeCombatZombied.subscribe(object, state, actionZombieShoot);
 
     const actionZombieGoToDanger: ActionZombieGoToDanger = new ActionZombieGoToDanger(state);
 
     actionZombieGoToDanger.add_precondition(new world_property(stalker_ids.property_alive, true));
-    actionZombieGoToDanger.add_precondition(new world_property(EEvaluatorId.combat_zombied_base, true));
+    actionZombieGoToDanger.add_precondition(new world_property(EEvaluatorId.IS_COMBAT_ZOMBIED_ENABLED, true));
     actionZombieGoToDanger.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionZombieGoToDanger.add_precondition(new world_property(stalker_ids.property_danger, true));
     actionZombieGoToDanger.add_effect(new world_property(stalker_ids.property_danger, false));
-    actionZombieGoToDanger.add_effect(new world_property(properties.state_mgr_logic_active, false));
-    planner.add_action(EActionId.combat_zombied_base + 1, actionZombieGoToDanger);
+    actionZombieGoToDanger.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    planner.add_action(EActionId.ZOMBIED_GO_TO_DANGER, actionZombieGoToDanger);
 
     SchemeCombatZombied.subscribe(object, state, actionZombieGoToDanger);
   }

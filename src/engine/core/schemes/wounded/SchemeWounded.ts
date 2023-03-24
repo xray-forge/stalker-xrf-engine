@@ -49,35 +49,34 @@ export class SchemeWounded extends AbstractScheme {
     section: TSection,
     state: ISchemeWoundedState
   ): void {
-    const operators = {
-      wounded: EActionId.sidor_act_wounded_base,
-    };
-
-    const properties = {
-      wounded: EEvaluatorId.sidor_wounded_base,
-      can_fight: EEvaluatorId.sidor_wounded_base + 1,
-    };
-
     const manager: XR_action_planner = object.motivation_action_manager();
 
-    manager.add_evaluator(properties.wounded, new EvaluatorWounded(state));
-    manager.add_evaluator(properties.can_fight, new EvaluatorCanFight(state));
+    manager.add_evaluator(EEvaluatorId.IS_WOUNDED, new EvaluatorWounded(state));
+    manager.add_evaluator(EEvaluatorId.CAN_FIGHT, new EvaluatorCanFight(state));
 
     const action: ActionWounded = new ActionWounded(state);
 
     action.add_precondition(new world_property(stalker_ids.property_alive, true));
-    action.add_precondition(new world_property(properties.wounded, true));
-    action.add_effect(new world_property(properties.wounded, false));
+    action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, true));
+    action.add_effect(new world_property(EEvaluatorId.IS_WOUNDED, false));
     action.add_effect(new world_property(stalker_ids.property_enemy, false));
-    action.add_effect(new world_property(properties.can_fight, true));
+    action.add_effect(new world_property(EEvaluatorId.CAN_FIGHT, true));
 
-    manager.add_action(operators.wounded, action);
+    manager.add_action(EActionId.BECOME_WOUNDED, action);
 
-    manager.action(EActionId.alife).add_precondition(new world_property(properties.wounded, false));
-    manager.action(stalker_ids.action_gather_items).add_precondition(new world_property(properties.wounded, false));
-    manager.action(stalker_ids.action_combat_planner).add_precondition(new world_property(properties.can_fight, true));
-    manager.action(stalker_ids.action_danger_planner).add_precondition(new world_property(properties.can_fight, true));
-    manager.action(stalker_ids.action_anomaly_planner).add_precondition(new world_property(properties.can_fight, true));
+    manager.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
+    manager
+      .action(stalker_ids.action_gather_items)
+      .add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
+    manager
+      .action(stalker_ids.action_combat_planner)
+      .add_precondition(new world_property(EEvaluatorId.CAN_FIGHT, true));
+    manager
+      .action(stalker_ids.action_danger_planner)
+      .add_precondition(new world_property(EEvaluatorId.CAN_FIGHT, true));
+    manager
+      .action(stalker_ids.action_anomaly_planner)
+      .add_precondition(new world_property(EEvaluatorId.CAN_FIGHT, true));
   }
 
   /**
