@@ -452,11 +452,11 @@ export class NpcSound extends AbstractPlayableSound {
   /**
    * todo;
    */
-  public override save(net_packet: XR_net_packet): void {
-    net_packet.w_stringZ(tostring(this.playedSoundIndex));
+  public override save(packet: XR_net_packet): void {
+    packet.w_stringZ(tostring(this.playedSoundIndex));
 
     if (this.isGroupSound) {
-      net_packet.w_bool(this.canPlayGroupSound);
+      packet.w_bool(this.canPlayGroupSound);
     }
   }
 

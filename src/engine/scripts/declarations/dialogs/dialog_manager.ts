@@ -263,26 +263,26 @@ export function init_new_dialog(dialog: XR_CPhraseDialog): void {
 /**
  * todo;
  */
-function init_start_dialogs(dialog: XR_CPhraseDialog, str: string): void {
-  logger.info("Init start dialogs");
+function initializeStartDialogs(dialog: XR_CPhraseDialog, data: string): void {
+  logger.info("Initialize start dialogs");
 
   dialog.AddPhrase("", tostring(0), "", -10000);
 
   let phrase = dialog.AddPhrase("", tostring(1), tostring(0), -10000);
   let script: XR_CPhraseScript = phrase.GetPhraseScript();
 
-  script.AddAction(string.format("dialog_manager.fill_priority_%s_table", str));
+  script.AddAction(string.format("dialog_manager.fill_priority_%s_table", data));
 
   let ph = false;
 
-  for (const [k, v] of phrase_table.get(str)) {
+  for (const [k, v] of phrase_table.get(data)) {
     ph = true;
 
     phrase = dialog.AddPhrase(v.name, tostring(v.id), tostring(1), -10000);
 
     script = phrase.GetPhraseScript();
-    script.AddPrecondition(string.format("dialog_manager.precondition_%s_dialogs", str));
-    script.AddAction(string.format("dialog_manager.action_%s_dialogs", str));
+    script.AddPrecondition(string.format("dialog_manager.precondition_%s_dialogs", data));
+    script.AddAction(string.format("dialog_manager.action_%s_dialogs", data));
 
     if (v.wounded === "true") {
       script.AddPrecondition("dialogs.is_wounded");
@@ -306,7 +306,7 @@ function init_start_dialogs(dialog: XR_CPhraseDialog, str: string): void {
 
   if (!ph) {
     logger.warn("Unexpected code reached.");
-    phrase = dialog.AddPhrase(string.format("dm_%s_general", str), tostring(null), tostring(1), -10000);
+    phrase = dialog.AddPhrase(string.format("dm_%s_general", data), tostring(null), tostring(1), -10000);
   }
 }
 
@@ -615,7 +615,7 @@ export function get_highest_priority_phrase(
  * todo;
  */
 export function init_hello_dialogs(dialog: XR_CPhraseDialog): void {
-  init_start_dialogs(dialog, "hello");
+  initializeStartDialogs(dialog, "hello");
 }
 
 // -- Fill phrase priority table for hello start dialog

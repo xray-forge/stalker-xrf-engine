@@ -1,9 +1,9 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
+import { getMonsterState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/mob/home/ISchemeMobHomeState";
 import { MobHomeManager } from "@/engine/core/schemes/mob/home/MobHomeManager";
-import { getMonsterState } from "@/engine/core/schemes/mob/MobStateManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";

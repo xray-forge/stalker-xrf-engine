@@ -14,10 +14,9 @@ import {
   XR_patrol,
 } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { registry, setMonsterState } from "@/engine/core/database";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { setMobState } from "@/engine/core/schemes/mob/MobStateManager";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob/walker/ISchemeMobWalkerState";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
@@ -25,10 +24,11 @@ import { action, isObjectScriptCaptured, scriptCaptureObject } from "@/engine/co
 import { IWaypointData, parsePathWaypoints } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { EScheme, LuaArray, Optional, TIndex, TName } from "@/engine/lib/types";
+import { EScheme, LuaArray, Optional, TDuration, TIndex, TName } from "@/engine/lib/types";
 
-const default_wait_time: number = 5000;
+const default_wait_time: TDuration = 5000;
 const default_anim_standing: TXR_animation = anim.stand_idle;
+
 const state_moving: number = 0;
 const state_standing: number = 1;
 
@@ -56,7 +56,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
    * todo: Description.
    */
   public override resetScheme(): void {
-    setMobState(this.object, registry.actor, this.state.state);
+    setMonsterState(this.object, registry.actor, this.state.state);
 
     this.state.signals = new LuaTable();
     scriptCaptureObject(this.object, true);
@@ -167,34 +167,34 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       this.running = false;
     }
 
-    const sig = this.path_walk_info!.get(index).get("sig");
+    const signal = this.path_walk_info!.get(index).get("sig");
 
-    if (sig !== null) {
+    if (signal !== null) {
       // -- HACK, fixme:
-      const npc_id = this.object.id();
-      const scheme: EScheme = registry.objects.get(npc_id)["active_scheme"]!;
-      const signals: LuaTable<TName, boolean> = registry.objects.get(npc_id)[scheme!]!.signals!;
+      const objectId = this.object.id();
+      const scheme: EScheme = registry.objects.get(objectId)["active_scheme"]!;
+      const signals: LuaTable<TName, boolean> = registry.objects.get(objectId)[scheme!]!.signals!;
 
-      signals.set(sig, true);
+      signals.set(signal, true);
     }
 
     const beh = this.path_walk_info!.get(index).get("b");
 
     if (beh) {
-      setMobState(this.object, registry.actor, beh);
+      setMonsterState(this.object, registry.actor, beh);
     } else {
-      setMobState(this.object, registry.actor, this.state.state);
+      setMonsterState(this.object, registry.actor, this.state.state);
     }
 
-    const search_for = this.path_walk_info!.get(index).get("flags") as XR_flags32;
+    const searchForFlags = this.path_walk_info!.get(index).get("flags") as XR_flags32;
 
-    if (search_for.get() === 0) {
+    if (searchForFlags.get() === 0) {
       this.update_movement_state();
 
       return;
     }
 
-    const [pt_chosen_idx] = StalkerMoveManager.chooseLookPoint(this.patrol_look!, this.path_look_info!, search_for);
+    const [pt_chosen_idx] = StalkerMoveManager.chooseLookPoint(this.patrol_look!, this.path_look_info!, searchForFlags);
 
     if (pt_chosen_idx) {
       const suggested_wait_time = this.path_look_info!.get(pt_chosen_idx)["t"];
@@ -227,9 +227,9 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       const beh = this.path_walk_info!.get(index).get("b");
 
       if (beh) {
-        setMobState(this.object, registry.actor, beh);
+        setMonsterState(this.object, registry.actor, beh);
       } else {
-        setMobState(this.object, registry.actor, this.state.state);
+        setMonsterState(this.object, registry.actor, this.state.state);
       }
 
       if (pt_chosen_idx !== this.last_look_index) {

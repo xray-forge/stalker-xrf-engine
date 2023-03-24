@@ -7,7 +7,7 @@ import type { Optional, TDistance, TSection } from "@/engine/lib/types";
  * todo;
  */
 export interface ISchemeMeetState extends IBaseSchemeState {
-  meet_manager: MeetManager;
+  meetManager: MeetManager;
   snd_on_use: TConditionList;
   use: TConditionList;
   meet_dialog: TConditionList;
@@ -27,7 +27,6 @@ export interface ISchemeMeetState extends IBaseSchemeState {
   far_snd_distance: TConditionList;
   far_snd: TConditionList;
   far_victim: TConditionList;
-  meet_set: boolean;
   meet_section: Optional<TSection>;
   reset_distance: TDistance;
   meet_only_at_path: boolean;

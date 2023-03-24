@@ -17,8 +17,9 @@ import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
+import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { AnyObject, EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
+import { AnyObject, EScheme, ESchemeType, Optional, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -49,10 +50,10 @@ export class SchemeMeet extends AbstractScheme {
   ): void {
     const actionPlanner: XR_action_planner = object.motivation_action_manager();
 
-    // -- Evaluators
+    // Evaluators:
     actionPlanner.add_evaluator(EEvaluatorId.IS_MEET_CONTACT, new EvaluatorContact(state));
 
-    // -- Actions
+    // Actions:
     const actionMeetWait: ActionMeetWait = new ActionMeetWait(state);
 
     actionMeetWait.add_precondition(new world_property(stalker_ids.property_alive, true));
@@ -76,9 +77,9 @@ export class SchemeMeet extends AbstractScheme {
       .action(EActionId.STATE_TO_IDLE_ALIFE)
       .add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
 
-    state.meet_manager = new MeetManager(object, state);
+    state.meetManager = new MeetManager(object, state);
 
-    SchemeMeet.subscribe(object, state, state.meet_manager);
+    SchemeMeet.subscribe(object, state, state.meetManager);
   }
 
   /**
@@ -95,7 +96,7 @@ export class SchemeMeet extends AbstractScheme {
         ? readIniString(state.ini, state.section_logic, SchemeMeet.SCHEME_SECTION, false, "")
         : readIniString(state.ini, section, SchemeMeet.SCHEME_SECTION, false, "");
 
-    SchemeMeet.initMeetScheme(object, state.ini, meetSection, state.meet as ISchemeMeetState, scheme);
+    SchemeMeet.initializeMeetScheme(object, state.ini, meetSection, state.meet as ISchemeMeetState, scheme);
   }
 
   /**
@@ -110,7 +111,7 @@ export class SchemeMeet extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static initMeetScheme(
+  public static initializeMeetScheme(
     object: XR_game_object,
     ini: XR_ini_file,
     section: TSection,
@@ -198,7 +199,7 @@ export class SchemeMeet extends AbstractScheme {
       state.meet_on_talking = parseConditionsList(FALSE);
       state.use_text = parseConditionsList(NIL);
 
-      state.reset_distance = 30;
+      state.reset_distance = logicsConfig.MEET_RESET_DISTANCE;
       state.meet_only_at_path = true;
     } else {
       state.close_distance = parseConditionsList(
@@ -241,12 +242,11 @@ export class SchemeMeet extends AbstractScheme {
       );
       state.use_text = parseConditionsList(readIniString(ini, section, "use_text", false, "", def.use_text));
 
-      state.reset_distance = 30;
+      state.reset_distance = logicsConfig.MEET_RESET_DISTANCE;
       state.meet_only_at_path = true;
     }
 
-    state.meet_manager.setStartDistance();
-    state.meet_set = true;
+    state.meetManager.initialize();
   }
 
   /**
@@ -272,7 +272,7 @@ export class SchemeMeet extends AbstractScheme {
     }
 
     const state: ISchemeMeetState = registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState;
-    const use: Optional<string> = state.meet_manager.use;
+    const use: Optional<string> = state.meetManager.use;
 
     if (use === TRUE) {
       if (SchemeCorpseDetection.isUnderCorpseDetection(object) || SchemeHelpWounded.isUnderHelpWounded(object)) {
@@ -291,32 +291,34 @@ export class SchemeMeet extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static onMeetWithObject(victim: XR_game_object, who: XR_game_object): void {
-    if (!victim.alive()) {
+  public static onMeetWithObject(object: XR_game_object, who: XR_game_object): void {
+    if (!object.alive()) {
       return;
     }
 
-    const state: Optional<ISchemeMeetState> = registry.objects.get(victim.id())[EScheme.MEET] as ISchemeMeetState;
+    const state: Optional<ISchemeMeetState> = registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState;
 
     if (state === null) {
       return;
     }
 
+    logger.info("Activate meet interaction:", object.name());
+
     const actor: XR_game_object = registry.actor;
-    const sound = pickSectionFromCondList(actor, victim, state.snd_on_use);
+    const sound: Optional<TName> = pickSectionFromCondList(actor, object, state.snd_on_use);
 
     if (tostring(sound) !== NIL) {
-      GlobalSoundManager.getInstance().playSound(victim.id(), sound, null, null);
+      GlobalSoundManager.getInstance().playSound(object.id(), sound, null, null);
     }
 
-    const meet_manager = state.meet_manager;
+    const meetManager: MeetManager = state.meetManager;
 
     if (
-      meet_manager.use === FALSE &&
-      meet_manager.abuse_mode === TRUE &&
-      getObjectsRelationSafe(victim, registry.actor) === game_object.friend
+      meetManager.use === FALSE &&
+      meetManager.abuseMode === TRUE &&
+      getObjectsRelationSafe(object, actor) !== game_object.enemy
     ) {
-      SchemeAbuse.addAbuse(victim, 1);
+      SchemeAbuse.addAbuse(object, 1);
     }
   }
 }

@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
-import { AbstractScheme } from "@/engine/core/schemes/base";
-import { getMonsterState } from "@/engine/core/schemes/mob/MobStateManager";
+import { getMonsterState } from "@/engine/core/database";
+import { AbstractScheme } from "@/engine/core/schemes";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob/walker/ISchemeMobWalkerState";
 import { MobWalkerManager } from "@/engine/core/schemes/mob/walker/MobWalkerManager";
 import { abort } from "@/engine/core/utils/assertion";

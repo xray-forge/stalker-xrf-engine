@@ -490,7 +490,7 @@ export function anomalyHasArtefact(
  * todo;
  */
 export function isObjectAsleep(object: XR_game_object): boolean {
-  return registry.objects.get(object.id()).state_mgr!.animstate.states.current_state === "sleep";
+  return registry.objects.get(object.id()).stateManager!.animstate.states.current_state === "sleep";
 }
 
 /**

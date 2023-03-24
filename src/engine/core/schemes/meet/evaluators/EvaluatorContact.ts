@@ -17,9 +17,6 @@ export class EvaluatorContact extends property_evaluator {
   public readonly state: ISchemeMeetState;
   public actionPlanner: Optional<XR_action_planner> = null;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeMeetState) {
     super(null, EvaluatorContact.__name);
     this.state = state;
@@ -29,22 +26,16 @@ export class EvaluatorContact extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    if (this.state.meet_set !== true) {
-      return false;
-    }
-
     const actor: Optional<XR_game_object> = registry.actor;
 
-    if (actor === null || !actor.alive()) {
+    if (!actor?.alive()) {
       return false;
     } else {
-      this.state.meet_manager.update();
+      this.state.meetManager.update();
 
       if (isObjectWounded(this.object)) {
         return false;
-      }
-
-      if (this.object.best_enemy() !== null) {
+      } else if (this.object.best_enemy() !== null) {
         return false;
       }
 
@@ -53,13 +44,13 @@ export class EvaluatorContact extends property_evaluator {
       }
 
       if (this.actionPlanner.evaluator(stalker_ids.property_enemy).evaluate()) {
-        this.state.meet_manager.use = FALSE;
+        this.state.meetManager.use = FALSE;
         this.object.disable_talk();
 
         return false;
       }
 
-      return this.state.meet_manager.current_distance !== null;
+      return this.state.meetManager.currentDistanceToSpeaker !== null;
     }
   }
 }

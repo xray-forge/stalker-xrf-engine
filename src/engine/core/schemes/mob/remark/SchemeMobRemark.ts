@@ -1,7 +1,7 @@
 import { XR_game_object, XR_ini_file } from "xray16";
 
+import { getMonsterState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { getMonsterState } from "@/engine/core/schemes/mob/MobStateManager";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/mob/remark/ISchemeMobRemarkState";
 import { MobRemarkManager } from "@/engine/core/schemes/mob/remark/MobRemarkManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";

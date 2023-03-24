@@ -35,7 +35,7 @@ export function setStalkerState(
 ): void {
   registry.objects
     .get(object.id())
-    .state_mgr?.setState(
+    .stateManager?.setState(
       state,
       callback as Optional<IStateManagerCallbackDescriptor>,
       timeout as Optional<TDuration>,
@@ -48,5 +48,5 @@ export function setStalkerState(
  * todo;
  */
 export function getStalkerState(object: XR_game_object): Optional<EStalkerState> {
-  return registry.objects.get(object.id()).state_mgr?.getState() as Optional<EStalkerState>;
+  return registry.objects.get(object.id()).stateManager?.getState() as Optional<EStalkerState>;
 }

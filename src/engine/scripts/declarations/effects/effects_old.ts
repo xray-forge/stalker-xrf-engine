@@ -110,13 +110,13 @@ export function update_npc_logic(actor: XR_game_object, npc: XR_game_object, par
       const state: IRegistryObjectState = registry.objects.get(object.id());
 
       // todo: Is it ok? Why?
-      state.state_mgr!.update();
-      state.state_mgr!.update();
-      state.state_mgr!.update();
-      state.state_mgr!.update();
-      state.state_mgr!.update();
-      state.state_mgr!.update();
-      state.state_mgr!.update();
+      state.stateManager!.update();
+      state.stateManager!.update();
+      state.stateManager!.update();
+      state.stateManager!.update();
+      state.stateManager!.update();
+      state.stateManager!.update();
+      state.stateManager!.update();
     }
   }
 }
@@ -168,7 +168,7 @@ export function teleport_actor(actor: XR_game_object, npc: XR_game_object, param
  * todo;
  */
 function reset_animation(npc: XR_game_object): void {
-  const stateManager = registry.objects.get(npc.id()).state_mgr!;
+  const stateManager = registry.objects.get(npc.id()).stateManager!;
 
   if (stateManager === null) {
     return;

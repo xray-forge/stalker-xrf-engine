@@ -9,8 +9,8 @@ import {
 } from "xray16";
 
 import {
+  getLookObjectType,
   getObjectLookPositionType,
-  look_object_type,
 } from "@/engine/core/objects/state/direction/StateManagerDirection";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -45,7 +45,7 @@ export class EvaluatorDirection extends property_evaluator {
       if (
         objectSightType.m_object === null ||
         objectSightType.m_object.id() !== this.stateManager.look_object ||
-        this.stateManager.point_obj_dir !== look_object_type(this.object, this.stateManager)
+        this.stateManager.point_obj_dir !== getLookObjectType(this.object, this.stateManager)
       ) {
         return false;
       }
@@ -64,7 +64,7 @@ export class EvaluatorDirection extends property_evaluator {
 
       const direction: XR_vector = new vector().sub(this.stateManager.look_position!, this.object.position());
 
-      if (look_object_type(this.object, this.stateManager)) {
+      if (getLookObjectType(this.object, this.stateManager)) {
         direction.y = 0;
       }
 

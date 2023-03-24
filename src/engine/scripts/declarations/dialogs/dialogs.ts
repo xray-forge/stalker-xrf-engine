@@ -64,7 +64,7 @@ export function break_dialog(first_speaker: XR_game_object, second_speaker: XR_g
 export function update_npc_dialog(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   const object = getNpcSpeaker(first_speaker, second_speaker);
 
-  (registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState).meet_manager.update();
+  (registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState).meetManager.update();
   SchemeMeet.updateObjectInteractionAvailability(object);
   update_logic(object);
 }

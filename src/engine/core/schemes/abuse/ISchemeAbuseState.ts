@@ -5,5 +5,5 @@ import type { IBaseSchemeState } from "@/engine/core/schemes/base";
  * todo;
  */
 export interface ISchemeAbuseState extends IBaseSchemeState {
-  abuse_manager: AbuseManager;
+  abuseManager: AbuseManager;
 }

@@ -715,7 +715,7 @@ extern("xr_effects.damage_pri_a17_gauss", (): void => {
  * todo;
  */
 extern("xr_effects.pri_a17_hard_animation_reset", (actor: XR_game_object, npc: XR_game_object): void => {
-  const stateManager = registry.objects.get(npc.id()).state_mgr!;
+  const stateManager = registry.objects.get(npc.id()).stateManager!;
 
   stateManager.setState("pri_a17_fall_down" as EStalkerState, null, null, null, null);
   stateManager.animation.setState(null, true);
@@ -727,7 +727,7 @@ extern("xr_effects.pri_a17_hard_animation_reset", (actor: XR_game_object, npc: X
  * todo;
  */
 extern("xr_effects.jup_b217_hard_animation_reset", (actor: XR_game_object, npc: XR_game_object): void => {
-  const stateManager = registry.objects.get(npc.id()).state_mgr!;
+  const stateManager = registry.objects.get(npc.id()).stateManager!;
 
   stateManager.setState("jup_b217_nitro_straight" as EStalkerState, null, null, null, null);
   stateManager.animation.setState(null, true);

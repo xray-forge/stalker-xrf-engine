@@ -112,7 +112,7 @@ export class StalkerBinder extends object_binder {
     super.reinit();
 
     this.state = resetObject(this.object);
-    this.state.state_mgr = addStateManager(this.object);
+    this.state.stateManager = addStateManager(this.object);
     this.state.moveManager = new StalkerMoveManager(this.object).initialize();
   }
 
@@ -424,8 +424,8 @@ export class StalkerBinder extends object_binder {
 
     loadInfo(this.object, state.ini!, known_info);
 
-    if (this.state.state_mgr !== null) {
-      this.state.state_mgr!.animation.setState(null, true);
+    if (this.state.stateManager !== null) {
+      this.state.stateManager!.animation.setState(null, true);
     }
 
     if (this.state[EScheme.REACH_TASK]) {
@@ -507,16 +507,16 @@ export class StalkerBinder extends object_binder {
       this.lastUpdatedAt = time_global();
     }
 
-    if (this.state.state_mgr) {
+    if (this.state.stateManager) {
       if (isObjectAlive) {
-        this.state.state_mgr.update();
+        this.state.stateManager.update();
 
-        if (this.state.state_mgr.isCombat === false && this.state.state_mgr.isAlife === false) {
+        if (this.state.stateManager.isCombat === false && this.state.stateManager.isAlife === false) {
           // --and this.st.state_mgr.planner:current_action_id() == this.st.state_mgr.operators["}"]
           TradeManager.getInstance().updateForObject(object);
         }
       } else {
-        this.state.state_mgr = null;
+        this.state.stateManager = null;
       }
     }
 

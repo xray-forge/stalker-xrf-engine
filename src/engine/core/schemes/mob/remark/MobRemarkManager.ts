@@ -1,9 +1,8 @@
 import { anim, cond, MonsterSpace, sound, TXR_MonsterBodyStateKey, XR_cond } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { registry, setMonsterState } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { setMobState } from "@/engine/core/schemes/mob/MobStateManager";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/mob/remark/ISchemeMobRemarkState";
 import { abort } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
@@ -23,7 +22,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
    * todo: Description.
    */
   public override resetScheme(): void {
-    setMobState(this.object, registry.actor, this.state.state);
+    setMonsterState(this.object, registry.actor, this.state.state);
 
     this.object.disable_talk();
 

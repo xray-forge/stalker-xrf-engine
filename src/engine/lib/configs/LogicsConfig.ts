@@ -17,6 +17,10 @@ export const logicsConfig = {
     [danger_object.attack_sound]: 20,
     [danger_object.entity_death]: 4,
   },
+  /**
+   * Distance to travel from object to forget about meeting state and say hello again.
+   */
+  MEET_RESET_DISTANCE: 30,
   ITEMS: {
     DROPPED_WEAPON_STATE_DEGRADATION: {
       MIN: 40,

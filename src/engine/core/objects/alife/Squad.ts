@@ -1288,7 +1288,7 @@ function set_relation(
  * todo;
  */
 function resetObjectAnimation(object: XR_game_object): void {
-  const stateManager: Optional<StalkerStateManager> = registry.objects.get(object.id()).state_mgr!;
+  const stateManager: Optional<StalkerStateManager> = registry.objects.get(object.id()).stateManager!;
 
   if (stateManager === null) {
     return;

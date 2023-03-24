@@ -51,8 +51,6 @@ export abstract class AbstractScheme {
     scheme: EScheme,
     section: Optional<TSection>
   ): T {
-    logger.info("Assign scheme:", scheme, "->", object.name(), "->", section || NIL);
-
     const objectState: IRegistryObjectState = registry.objects.get(object.id());
     let schemeState: Optional<T> = objectState[scheme] as Optional<T>;
 

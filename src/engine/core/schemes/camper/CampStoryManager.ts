@@ -206,20 +206,21 @@ export class CampStoryManager {
 
       this.sound_manager_started = false;
 
-      for (const [k, v] of this.npc) {
-        if (registry.objects.get(k) !== null) {
+      for (const [id, descriptor] of this.npc) {
+        if (registry.objects.get(id) !== null) {
           // todo: Optimize call.
           emitSchemeEvent(
-            registry.objects.get(k).object!,
-            registry.objects.get(k)[registry.objects.get(k).active_scheme!]!,
+            registry.objects.get(id).object!,
+            registry.objects.get(id)[registry.objects.get(id).active_scheme!]!,
             ESchemeEvent.UPDATE
           );
         }
 
-        const meet: Optional<MeetManager> = (registry.objects.get(k)[EScheme.MEET] as ISchemeMeetState)?.meet_manager;
+        const meetManager: Optional<MeetManager> = (registry.objects.get(id)[EScheme.MEET] as ISchemeMeetState)
+          ?.meetManager;
 
-        if (meet !== null) {
-          meet.npc_is_camp_director = this.director === k;
+        if (meetManager !== null) {
+          meetManager.isCampStoryDirector = this.director === id;
         }
       }
     }

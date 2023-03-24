@@ -20,7 +20,7 @@ export function getMonsterState(ini: XR_ini_file, section: TSection): Optional<s
 /**
  * todo;
  */
-export function setMobState(object: XR_game_object, actor: XR_game_object, state: Optional<string>): void {
+export function setMonsterState(object: XR_game_object, actor: XR_game_object, state: Optional<string>): void {
   if (state === null) {
     return;
   }
@@ -43,5 +43,5 @@ export function setMobState(object: XR_game_object, actor: XR_game_object, state
     }
   }
 
-  abort("mob_state_mgr: object '%s': unknown state '%s' requested", object.name(), state);
+  abort("monster: object '%s': unknown state '%s' requested", object.name(), state);
 }

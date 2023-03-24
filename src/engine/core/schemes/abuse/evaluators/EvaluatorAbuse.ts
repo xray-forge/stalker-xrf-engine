@@ -21,6 +21,6 @@ export class EvaluatorAbuse extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    return this.state.abuse_manager.update();
+    return this.state.abuseManager.update();
   }
 }

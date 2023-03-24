@@ -16,7 +16,3 @@ export interface ISchemeMobRemarkState extends IBaseSchemeState {
   snd: Optional<string>;
   time: Optional<string>;
 }
-
-/**
- * state.state = getMobState(ini, section, object);
- */

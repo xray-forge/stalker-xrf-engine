@@ -7,7 +7,7 @@ import { ActionAbuseHit } from "@/engine/core/schemes/abuse/actions/ActionAbuseH
 import { EvaluatorAbuse } from "@/engine/core/schemes/abuse/evaluators/EvaluatorAbuse";
 import { ISchemeAbuseState } from "@/engine/core/schemes/abuse/ISchemeAbuseState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, Optional, TCount, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -50,7 +50,7 @@ export class SchemeAbuse extends AbstractScheme {
 
     actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_ABUSED, false));
 
-    state.abuse_manager = new AbuseManager(object, state);
+    state.abuseManager = new AbuseManager(object, state);
   }
 
   /**
@@ -66,12 +66,12 @@ export class SchemeAbuse extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static addAbuse(object: XR_game_object, value: number): void {
+  public static addAbuse(object: XR_game_object, value: TCount): void {
     const abuseState: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
       SchemeAbuse.SCHEME_SECTION
     ] as ISchemeAbuseState;
 
-    abuseState?.abuse_manager.addAbuse(value);
+    abuseState?.abuseManager.addAbuse(value);
   }
 
   /**
@@ -82,7 +82,7 @@ export class SchemeAbuse extends AbstractScheme {
       SchemeAbuse.SCHEME_SECTION
     ] as ISchemeAbuseState;
 
-    state?.abuse_manager.clearAbuse();
+    state?.abuseManager.clearAbuse();
   }
 
   /**
@@ -93,7 +93,7 @@ export class SchemeAbuse extends AbstractScheme {
       SchemeAbuse.SCHEME_SECTION
     ] as ISchemeAbuseState;
 
-    state?.abuse_manager.disableAbuse();
+    state?.abuseManager.disableAbuse();
   }
 
   /**
@@ -104,7 +104,7 @@ export class SchemeAbuse extends AbstractScheme {
       SchemeAbuse.SCHEME_SECTION
     ] as ISchemeAbuseState;
 
-    state?.abuse_manager.enableAbuse();
+    state?.abuseManager.enableAbuse();
   }
 
   /**
@@ -117,6 +117,6 @@ export class SchemeAbuse extends AbstractScheme {
       return false;
     }
 
-    return state.abuse_manager.enable;
+    return state.abuseManager.enable;
   }
 }

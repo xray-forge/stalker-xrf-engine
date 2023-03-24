@@ -12,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export function lookAtObject(object: XR_game_object, stateManager: StalkerStateManager): void {
-  stateManager.point_obj_dir = look_object_type(object, stateManager);
+  stateManager.point_obj_dir = getLookObjectType(object, stateManager);
 
   if (stateManager.point_obj_dir === true) {
     object.set_sight(level.object_by_id(stateManager.look_object!)!, true, false, false);
@@ -34,12 +34,12 @@ const look_direction_states: LuaTable<string, boolean> = {
 /**
  * todo;
  */
-export function look_object_type(npc: XR_game_object, st: StalkerStateManager): boolean {
-  if (look_direction_states.get(st.targetState) === true) {
+export function getLookObjectType(object: XR_game_object, stateManager: StalkerStateManager): boolean {
+  if (look_direction_states.get(stateManager.targetState) === true) {
     return true;
   }
 
-  return states.get(st.targetState).animation !== null;
+  return states.get(stateManager.targetState).animation !== null;
 }
 
 /**
@@ -71,30 +71,30 @@ export function getObjectLookPositionType(object: XR_game_object, stateManager: 
 
 // todo: Probably duplicate
 export function turn(object: XR_game_object, stateManager: StalkerStateManager): void {
-  stateManager.point_obj_dir = look_object_type(object, stateManager);
+  stateManager.point_obj_dir = getLookObjectType(object, stateManager);
 
   if (stateManager.look_object !== null && level.object_by_id(stateManager.look_object) !== null) {
-    logger.info("Look at object npc:", object.name());
+    logger.info("Look at call for:", object.name());
     lookAtObject(object, stateManager);
   } else if (stateManager.look_position !== null) {
-    let dir: XR_vector = new vector().sub(stateManager.look_position!, object.position());
+    let direction: XR_vector = new vector().sub(stateManager.look_position!, object.position());
 
     if (stateManager.point_obj_dir === true) {
-      dir.y = 0;
+      direction.y = 0;
     }
 
-    dir.normalize();
+    direction.normalize();
 
-    if (areSameVectors(dir, new vector().set(0, 0, 0))) {
+    if (areSameVectors(direction, new vector().set(0, 0, 0))) {
       stateManager.look_position = new vector().set(
         object.position().x + object.direction().x,
         object.position().y + object.direction().y,
         object.position().z + object.direction().z
       );
-      dir = object.direction();
+      direction = object.direction();
     }
 
-    object.set_sight(look.direction, dir, true);
+    object.set_sight(look.direction, direction, true);
     logger.info("Look at position:", object.name());
   }
 }

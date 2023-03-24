@@ -1,6 +1,6 @@
 import { action_base, CSightParams, level, look, LuabindClass, vector, XR_vector } from "xray16";
 
-import { look_object_type, lookAtObject } from "@/engine/core/objects/state/direction/StateManagerDirection";
+import { getLookObjectType, lookAtObject } from "@/engine/core/objects/state/direction/StateManagerDirection";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -40,7 +40,7 @@ export class ActionDirectionTurn extends action_base {
    * todo: Description.
    */
   public turn(): void {
-    this.stateManager.point_obj_dir = look_object_type(this.object, this.stateManager);
+    this.stateManager.point_obj_dir = getLookObjectType(this.object, this.stateManager);
 
     if (this.stateManager.look_object !== null && level.object_by_id(this.stateManager.look_object) !== null) {
       lookAtObject(this.object, this.stateManager);

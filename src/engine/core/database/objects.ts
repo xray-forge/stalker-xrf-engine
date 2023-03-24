@@ -43,7 +43,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   activation_game_time: XR_CTime;
 
   moveManager: Optional<StalkerMoveManager>;
-  state_mgr: Optional<StalkerStateManager>;
+  stateManager: Optional<StalkerStateManager>;
   restrictionsManager: Optional<ObjectRestrictionsManager>;
   hearInfo: Optional<IActionSchemeHearState>;
 
