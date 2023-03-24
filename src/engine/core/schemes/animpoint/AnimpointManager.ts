@@ -1,13 +1,14 @@
 import { level, vector, XR_game_object, XR_vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { states } from "@/engine/core/objects/state/lib/state_lib";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { associations } from "@/engine/core/schemes/animpoint/animpoint_predicates";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { abort } from "@/engine/core/utils/assertion";
-import { LuaArray, Optional, TNumberId } from "@/engine/lib/types";
+import { LuaArray, Optional, TNumberId, TRate } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -52,7 +53,7 @@ const associativeTable: LuaTable<
  */
 export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointState> {
   public camp: Optional<CampStoryManager> = null;
-  public current_action: Optional<string> = null;
+  public current_action: Optional<EStalkerState> = null;
   public position: Optional<XR_vector> = null;
   public position_vertex: Optional<number> = null;
   public vertex_position: Optional<XR_vector> = null;
@@ -143,7 +144,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       this.position.z + 10 * look_dir.z
     );
 
-    const description_name: string = smartcover.description()!;
+    const description_name: EStalkerState = smartcover.description() as EStalkerState;
 
     if (associations.get(description_name) === null) {
       if (this.state.avail_animations === null) {
@@ -154,37 +155,12 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     this.state.description = description_name;
     this.avail_actions = associations.get(description_name);
     this.state.approved_actions = new LuaTable();
-
-    /* --[[ ������� ������������� � :start().
-        -- ���� ����� ����� ���������, �� �� ������� ���������� � ����� ������������.
-        if this.state.avail_animations !== null {
-          -- animations are set from custom_data?
-          for k, v in pairs(this.state.avail_animations) do
-            table.insert(this.state.approved_actions, {predicate = function() return true }, name = v})
-      }
-      else
-      if this.avail_actions !== null {
-      for k,v in pairs(this.avail_actions) do
-    -- ������� �� ��������, ������� �� �������� �� �����������
-    --printf("checking approved actions %s", this.npc_id)
-      if v.predicate(this.npc_id)==true {
-      table.insert(this.state.approved_actions, v)
-    }
-    }
-    }
-    }
-
-    if(#this.state.approved_actions==0) {
-      abort("There is no approved actions for stalker[%s] in animpoint[%s]",
-       db.storage[this.npc_id].object:name(), this.object:name())
-        }
-    ]]*/
   }
 
   /**
    * todo: Description.
    */
-  public get_animation_params(): LuaMultiReturn<[Optional<XR_vector>, Optional<XR_vector>]> {
+  public getAnimationParameters(): LuaMultiReturn<[Optional<XR_vector>, Optional<XR_vector>]> {
     return $multi(this.position, this.smart_direction);
   }
 
@@ -200,17 +176,17 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       return false;
     }
 
-    const npc: XR_game_object = registry.objects.get(this.npcId!).object!;
+    const object: XR_game_object = registry.objects.get(this.npcId!).object!;
 
-    if (npc === null) {
+    if (object === null) {
       return false;
     }
 
     const distance_reached: boolean =
-      npc.position().distance_to_sqr(this.vertex_position!) <= this.state.reach_distance;
+      object.position().distance_to_sqr(this.vertex_position!) <= this.state.reach_distance;
     const v1: number = -math.deg(math.atan2(this.smart_direction!.x, this.smart_direction!.z));
-    const v2: number = -math.deg(math.atan2(npc.direction().x, npc.direction().z));
-    const rot_y: number = math.min(math.abs(v1 - v2), 360 - math.abs(v1) - math.abs(v2));
+    const v2: number = -math.deg(math.atan2(object.direction().x, object.direction().z));
+    const rot_y: TRate = math.min(math.abs(v1 - v2), 360 - math.abs(v1) - math.abs(v2));
     const direction_reached: boolean = rot_y < 50;
 
     return distance_reached && direction_reached;
@@ -220,7 +196,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
    * todo: Description.
    */
   public fill_approved_actions(): void {
-    const is_in_camp = this.camp !== null;
+    const isInCamp: boolean = this.camp !== null;
 
     if (this.state.avail_animations !== null) {
       for (const [k, v] of this.state.avail_animations!) {
@@ -232,7 +208,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     } else {
       if (this.avail_actions !== null) {
         for (const [k, v] of this.avail_actions) {
-          if (v.predicate(this.npcId, is_in_camp) === true) {
+          if (v.predicate(this.npcId, isInCamp) === true) {
             table.insert(this.state.approved_actions!, v);
           }
         }
@@ -253,7 +229,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
    */
   public start(): void {
     if (this.state.use_camp) {
-      this.camp = CampStoryManager.get_current_camp(this.position);
+      this.camp = CampStoryManager.getCurrentCamp(this.position);
     }
 
     this.fill_approved_actions();
@@ -283,7 +259,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   /**
    * todo: Description.
    */
-  public get_action(): Optional<string> {
+  public get_action(): Optional<EStalkerState> {
     return this.current_action;
   }
 
@@ -291,8 +267,8 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
    * todo: Description.
    */
   public override update(): void {
-    const tmp_actions: LuaTable<number, string> = new LuaTable();
-    const descr = this.state.description;
+    const actionsList: LuaArray<EStalkerState> = new LuaTable();
+    const description: Optional<EStalkerState> = this.state.description;
 
     if (!this.state.use_camp) {
       if (this.state.avail_animations === null) {
@@ -301,15 +277,15 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
         }
 
         for (const [k, v] of this.state.approved_actions!) {
-          table.insert(tmp_actions, v.name);
+          table.insert(actionsList, v.name);
         }
       } else {
         for (const [k, v] of this.state.avail_animations!) {
-          table.insert(tmp_actions, v);
+          table.insert(actionsList, v);
         }
       }
 
-      this.current_action = tmp_actions.get(math.random(tmp_actions.length()));
+      this.current_action = actionsList.get(math.random(actionsList.length()));
 
       return;
     }
@@ -327,34 +303,34 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
 
     for (const [k, v] of this.state.approved_actions!) {
       for (const i of $range(1, tbl.length())) {
-        if (descr + tbl.get(i) === v.name) {
-          table.insert(tmp_actions, v.name);
+        if (description + tbl.get(i) === v.name) {
+          table.insert(actionsList, v.name);
           found = true;
         }
       }
     }
 
     if (!found) {
-      table.insert(tmp_actions, descr as string);
+      table.insert(actionsList, description as EStalkerState);
     }
 
-    const rnd: number = math.random(tmp_actions.length());
-    let action = tmp_actions.get(rnd);
+    const rnd: number = math.random(actionsList.length());
+    let action = actionsList.get(rnd);
 
     if (this.state.base_action) {
-      if (this.state.base_action === descr + "_weapon") {
-        action = descr + "_weapon";
+      if (this.state.base_action === description + "_weapon") {
+        action = (description + "_weapon") as EStalkerState;
       }
 
-      if (action === descr + "_weapon" && this.state.base_action === descr) {
-        table.remove(tmp_actions, rnd);
-        action = tmp_actions.get(math.random(tmp_actions.length()));
+      if (action === description + "_weapon" && this.state.base_action === description) {
+        table.remove(actionsList, rnd);
+        action = actionsList.get(math.random(actionsList.length()));
       }
     } else {
-      if (action === descr + "_weapon") {
+      if (action === description + "_weapon") {
         this.state.base_action = action;
       } else {
-        this.state.base_action = descr;
+        this.state.base_action = description;
       }
     }
 

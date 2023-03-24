@@ -104,7 +104,7 @@ export class ActionWalkerActivity extends action_base {
 
     this.moveManager.update();
 
-    const camp = CampStoryManager.get_current_camp(this.object.position());
+    const camp = CampStoryManager.getCurrentCamp(this.object.position());
 
     if (camp !== null && this.state.use_camp === true) {
       this.camp = camp;

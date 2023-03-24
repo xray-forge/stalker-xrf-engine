@@ -1,11 +1,12 @@
 import { action_base, device, LuabindClass, vector, XR_game_object, XR_vector } from "xray16";
 
+import { EStalkerState } from "@/engine/core/objects/state";
 import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";
-import { TCount, TTimestamp } from "@/engine/lib/types";
+import { TCount, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -50,7 +51,7 @@ export class ActionLookAround extends action_base {
 
     setStalkerState(
       this.object,
-      "hide",
+      EStalkerState.HIDE,
       null,
       null,
       { look_position: this.state.last_seen_pos, look_object: null },
@@ -65,7 +66,6 @@ export class ActionLookAround extends action_base {
     super.execute();
 
     if (this.forget_time < device().time_global()) {
-      // --        this.object:enable_memory_object( this.object:best_enemy(), false )
       this.state.last_seen_pos = null;
 
       return;
@@ -74,22 +74,22 @@ export class ActionLookAround extends action_base {
     if (this.change_dir_time < device().time_global()) {
       this.change_dir_time = device().time_global() + math.random(2000, 4000);
 
-      const ang = math.random(0, 120) - 60;
+      const angle: TRate = math.random(0, 120) - 60;
 
       if (this.state.last_seen_pos === null) {
         abort("report this error to STALKER-829 bug [%s]", this.object.name());
       }
 
-      let dir = new vector().set(this.state.last_seen_pos).sub(this.object.position());
+      let direction: XR_vector = new vector().set(this.state.last_seen_pos).sub(this.object.position());
 
-      dir = vectorRotateY(dir, ang);
+      direction = vectorRotateY(direction, angle);
 
       setStalkerState(
         this.object,
-        "hide",
+        EStalkerState.HIDE,
         null,
         null,
-        { look_position: this.object.position().add(dir), look_object: null },
+        { look_position: this.object.position().add(direction), look_object: null },
         null
       );
     }

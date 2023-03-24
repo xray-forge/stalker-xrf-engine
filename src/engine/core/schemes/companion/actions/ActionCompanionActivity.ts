@@ -1,7 +1,7 @@
 import { action_base, game_object, level, LuabindClass, time_global, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { ITargetStateDescriptor } from "@/engine/core/objects/state";
+import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
 import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCompanionState } from "@/engine/core/schemes/companion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -40,7 +40,7 @@ export class ActionCompanionActivity extends action_base {
 
   public assist_point: Optional<number> = null;
   public keep_state_until: number = 0;
-  public last_state: string = "guard_na";
+  public last_state: EStalkerState = EStalkerState.GUARD_NA;
 
   /**
    * todo: Description.
@@ -61,7 +61,7 @@ export class ActionCompanionActivity extends action_base {
     this.object.enable_talk();
 
     this.assist_point = null;
-    this.last_state = "guard_na";
+    this.last_state = EStalkerState.GUARD_NA;
 
     setStalkerState(this.object, this.last_state, null, null, null, { animation: true });
 
@@ -99,11 +99,11 @@ export class ActionCompanionActivity extends action_base {
     this.object.set_dest_level_vertex_id(this.assist_point);
 
     const dist_to_assist_pt = level.vertex_position(this.assist_point).distance_to(this.object.position());
-    let new_state: Optional<string> = null;
+    let nextState: Optional<EStalkerState> = null;
     let target: Optional<ITargetStateDescriptor> = null;
 
     if (this.object.level_vertex_id() === this.assist_point) {
-      new_state = "threat";
+      nextState = EStalkerState.THREAT;
       target = { look_object: registry.actor, look_position: null };
     } else {
       const t = time_global();
@@ -112,19 +112,19 @@ export class ActionCompanionActivity extends action_base {
         this.keep_state_until = t + keep_state_min_time;
 
         if (dist_to_assist_pt <= dist_walk) {
-          new_state = "raid";
+          nextState = EStalkerState.RAID;
           target = { look_object: registry.actor, look_position: null };
         } else if (dist_to_assist_pt <= dist_run) {
-          new_state = "rush";
+          nextState = EStalkerState.RUSH;
         } else {
-          new_state = "assault";
+          nextState = EStalkerState.ASSAULT;
         }
       }
     }
 
-    if (new_state !== null && new_state !== this.last_state) {
-      setStalkerState(this.object, new_state, null, null, target, { animation: true });
-      this.last_state = new_state;
+    if (nextState !== null && nextState !== this.last_state) {
+      setStalkerState(this.object, nextState, null, null, target, { animation: true });
+      this.last_state = nextState;
     }
 
     // -- 4. ���� ����� �� ����� - ���� ������� � ������ �����
@@ -135,22 +135,19 @@ export class ActionCompanionActivity extends action_base {
    * todo: Description.
    */
   public beh_wait_simple(): void {
-    const new_state = "threat";
+    const nextState: EStalkerState = EStalkerState.THREAT;
 
-    if (new_state !== this.last_state) {
+    if (nextState !== this.last_state) {
       setStalkerState(
         this.object,
-        new_state,
+        nextState,
         null,
         null,
         { look_object: registry.actor, look_position: null },
         { animation: true }
       );
-      this.last_state = new_state;
+      this.last_state = nextState;
     }
-
-    // -- 4. ���� ����� �� ����� - ���� ������� � ������ �����
-    // --    GlobalSound:set_sound(this.object, sound_wait)
   }
 
   /**

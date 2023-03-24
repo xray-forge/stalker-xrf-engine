@@ -1,5 +1,6 @@
 import { stalker_ids, world_property, XR_action_base, XR_game_object, XR_ini_file } from "xray16";
 
+import { EStalkerState } from "@/engine/core/objects/state";
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionCamperPatrol } from "@/engine/core/schemes/camper/actions";
 import { EvaluatorCloseCombat, EvaluatorEnd } from "@/engine/core/schemes/camper/evaluators";
@@ -56,14 +57,19 @@ export class SchemeCamper extends AbstractScheme {
 
     state.radius = readIniNumber(ini, section, "radius", false, 20);
 
-    const campering: Optional<string> = readIniString(ini, section, "def_state_campering", false);
+    const campering: Optional<EStalkerState> = readIniString(
+      ini,
+      section,
+      "def_state_campering",
+      false
+    ) as EStalkerState;
 
     state.suggested_state = {
       moving: readIniString(ini, section, "def_state_moving", false),
       moving_fire: readIniString(ini, section, "def_state_moving_fire", false),
       campering: campering,
       standing: readIniString(ini, section, "def_state_standing", false, "", campering),
-      campering_fire: readIniString(ini, section, "def_state_campering_fire", false),
+      campering_fire: readIniString(ini, section, "def_state_campering_fire", false) as EStalkerState,
     };
 
     state.scantime_free = readIniNumber(ini, section, "scantime_free", false, 60_000);

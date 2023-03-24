@@ -50,7 +50,7 @@ export class ActionAnimpoint extends action_base {
   public override execute(): void {
     super.execute();
 
-    const [pos, dir] = this.state.animpoint.get_animation_params();
+    const [pos, dir] = this.state.animpoint.getAnimationParameters();
 
     if (!this.state.animpoint.started) {
       this.state.animpoint.start();

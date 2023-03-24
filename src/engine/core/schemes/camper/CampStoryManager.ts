@@ -16,7 +16,15 @@ import { parseStringsList } from "@/engine/core/utils/parse";
 import { EScheme, LuaArray, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-const E_NPC_ROLE = { noone: 0, listener: 1, director: 2 };
+
+/**
+ * todo;
+ */
+enum EObjectRole {
+  noone = 0,
+  listener = 1,
+  director = 2,
+}
 
 // todo: Implement as scheme.
 // todo: Rename to camp story?
@@ -25,7 +33,7 @@ export class CampStoryManager {
   /**
    * todo: Description.
    */
-  public static get_current_camp(position: Optional<XR_vector>): Optional<CampStoryManager> {
+  public static getCurrentCamp(position: Optional<XR_vector>): Optional<CampStoryManager> {
     if (position === null) {
       return null;
     }
@@ -289,7 +297,7 @@ export class CampStoryManager {
         const object: Optional<XR_game_object> = state.object;
 
         if (
-          info[this.active_state] === E_NPC_ROLE.director &&
+          info[this.active_state] === EObjectRole.director &&
           schemeState !== null &&
           schemeState.base_action === schemeState.description &&
           !isObjectMeeting(object)
@@ -353,7 +361,7 @@ export class CampStoryManager {
     for (const [k, v] of this.states) {
       const role = this.get_npc_role(objectId, k);
 
-      if (role === E_NPC_ROLE.noone) {
+      if (role === EObjectRole.noone) {
         abort("Wrong role for npc[%s] with id[%d] in camp [%s]!!!", "", objectId, this.object.name());
       }
 
@@ -394,7 +402,7 @@ export class CampStoryManager {
     ] as ISchemeAnimpointState;
 
     if (schemeState === null) {
-      return E_NPC_ROLE.noone;
+      return EObjectRole.noone;
     }
 
     const objectActions: LuaArray<IAnimpointAction> = schemeState.approved_actions;
@@ -405,24 +413,24 @@ export class CampStoryManager {
 
       for (const i of $range(1, objectActions.length())) {
         if (objectActions.get(i).name === description) {
-          return E_NPC_ROLE.director;
+          return EObjectRole.director;
         }
       }
 
-      return E_NPC_ROLE.listener;
+      return EObjectRole.listener;
     } else if (state === "story") {
       for (const i of $range(1, objectActions.length())) {
         if (objectActions.get(i).name === description || objectActions.get(i).name === description + "_weapon") {
-          return E_NPC_ROLE.director;
+          return EObjectRole.director;
         }
       }
 
-      return E_NPC_ROLE.listener;
+      return EObjectRole.listener;
     } else if (state === "idle") {
-      return E_NPC_ROLE.listener;
+      return EObjectRole.listener;
     }
 
-    return E_NPC_ROLE.noone;
+    return EObjectRole.noone;
   }
 }
 
@@ -453,7 +461,7 @@ function sr_camp_guitar_precondition(campStoryManager: CampStoryManager): boolea
         const object: Optional<XR_game_object> = state?.object;
 
         if (
-          objectInfo.guitar === E_NPC_ROLE.director &&
+          objectInfo.guitar === EObjectRole.director &&
           schemeState !== null &&
           schemeState.base_action === schemeState.description &&
           object !== null &&
@@ -513,7 +521,7 @@ function sr_camp_harmonica_precondition(campStoryManager: CampStoryManager): boo
         const object: Optional<XR_game_object> = state?.object;
 
         if (
-          info.harmonica === E_NPC_ROLE.director &&
+          info.harmonica === EObjectRole.director &&
           schemeState !== null &&
           schemeState.base_action === schemeState.description &&
           object !== null &&

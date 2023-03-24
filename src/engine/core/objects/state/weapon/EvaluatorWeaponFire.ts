@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { EWeaponAnimationType } from "@/engine/core/objects/state";
+import { EWeaponAnimation } from "@/engine/core/objects/state";
 import { states } from "@/engine/core/objects/state/lib/state_lib";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -24,8 +24,8 @@ export class EvaluatorWeaponFire extends property_evaluator {
    */
   public override evaluate(): boolean {
     return (
-      states.get(this.stateManager.target_state).weapon === EWeaponAnimationType.FIRE ||
-      states.get(this.stateManager.target_state).weapon === EWeaponAnimationType.SNIPER_FIRE
+      states.get(this.stateManager.target_state).weapon === EWeaponAnimation.FIRE ||
+      states.get(this.stateManager.target_state).weapon === EWeaponAnimation.SNIPER_FIRE
     );
   }
 }

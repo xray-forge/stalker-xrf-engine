@@ -2,6 +2,7 @@ import { alife, device, XR_game_object } from "xray16";
 
 import { getObjectByStoryId, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
@@ -30,7 +31,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
    */
   public updateState(): void {
     const actor: XR_game_object = registry.actor;
-    let state: Optional<string> = null;
+    let state: Optional<EStalkerState> = null;
     let victim: Optional<XR_game_object> = null;
     let victimStoryId: Optional<TStringId> = null;
 

@@ -2,6 +2,7 @@ import { action_base, level, LuabindClass, patrol, XR_game_object, XR_vector } f
 
 import { getObjectByStoryId, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ActionSleeperActivity } from "@/engine/core/schemes/sleeper/actions";
 import {
@@ -106,7 +107,7 @@ export class ActionSmartCoverActivity extends action_base {
       }
 
       // -- ���� � ���������� ����� ����� �������� (�������� ��� �����������, �������)
-      setStalkerState(this.object, "smartcover", null, null, null, null);
+      setStalkerState(this.object, EStalkerState.SMART_COVER, null, null, null, null);
 
       this.target_path_condlist = parseConditionsList(this.state.target_path);
       this.check_target();

@@ -10,11 +10,11 @@ import {
   XR_vector,
 } from "xray16";
 
-import { ITargetStateDescriptor } from "@/engine/core/objects/state";
+import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
 import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -74,7 +74,7 @@ export class ActionZombieShoot extends action_base {
     this.turn_time = 0;
     this.state.cur_act = act_shoot;
 
-    // --    GlobalSound:set_sound_play(this.object:id(), "fight_enemy")
+    // -- GlobalSound:set_sound_play(this.object:id(), "fight_enemy")
   }
 
   /**
@@ -116,33 +116,33 @@ export class ActionZombieShoot extends action_base {
       }
 
       if (see) {
-        this.set_state("raid_fire", bestEnemy, null);
+        this.setState(EStalkerState.RAID_FIRE, bestEnemy, null);
       } else if (this.was_hit) {
         this.was_hit = false;
         this.hit_reaction_end_time = time_global() + 5000;
 
-        this.set_state("raid_fire", null, this.enemy_last_seen_pos);
+        this.setState(EStalkerState.RAID_FIRE, null, this.enemy_last_seen_pos);
       } else if (this.hit_reaction_end_time > time_global()) {
         // Continue walking
       } else {
-        this.set_state("raid", null, this.enemy_last_seen_pos);
+        this.setState(EStalkerState.RAID, null, this.enemy_last_seen_pos);
       }
 
       this.turn_time = 0;
     } else {
       // Stank and looking.
       if (see) {
-        this.set_state("threat_fire", null, null);
+        this.setState(EStalkerState.THREAT_FIRE, null, null);
         this.turn_time = 0;
       } else {
         // Randomly searching for enemies.
         if (this.was_hit) {
           this.was_hit = false;
           this.turn_time = time_global() + math.random(5000, 7000);
-          this.set_state("threat_na", null, this.enemy_last_seen_pos);
+          this.setState(EStalkerState.THREAT_NA, null, this.enemy_last_seen_pos);
         } else if (this.turn_time < time_global()) {
           this.turn_time = time_global() + math.random(3000, 5000);
-          this.set_state("threat_na", null, this.calc_random_direction());
+          this.setState(EStalkerState.THREAT_NA, null, this.calc_random_direction());
         }
       }
     }
@@ -151,7 +151,7 @@ export class ActionZombieShoot extends action_base {
   /**
    * todo: Description.
    */
-  public set_state(state: string, bestEnemy: Optional<XR_game_object>, position: Optional<XR_vector>): void {
+  public setState(state: EStalkerState, bestEnemy: Optional<XR_game_object>, position: Optional<XR_vector>): void {
     this.targetStateDescriptor.look_object = bestEnemy;
 
     if (bestEnemy) {
@@ -169,7 +169,7 @@ export class ActionZombieShoot extends action_base {
    * todo: Description.
    */
   public calc_random_direction(): XR_vector {
-    const ang = math.pi * 2 * math.random();
+    const ang: TRate = math.pi * 2 * math.random();
     const look_pos = new vector().set(this.object.position());
 
     look_pos.x = look_pos.x + math.cos(ang);

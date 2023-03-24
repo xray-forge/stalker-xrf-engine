@@ -126,7 +126,7 @@ export enum EStateActionId {
 /**
  * todo;
  */
-export enum EWeaponAnimationType {
+export enum EWeaponAnimation {
   NONE = "none",
   DROP = "drop",
   FIRE = "fire",
@@ -138,15 +138,38 @@ export enum EWeaponAnimationType {
 /**
  * todo;
  */
-export enum EStalkerStateType {
+export enum EStalkerState {
+  ASSAULT = "assault",
+  GUARD = "guard",
+  GUARD_NA = "guard_na",
+  HELP_WOUNDED = "help_wounded",
+  HIDE = "hide",
+  HIDE_FIRE = "hide_fire",
+  HIDE_NA = "hide_na",
+  HIDE_SNIPER_FIRE = "hide_sniper_fire",
   IDLE = "idle",
+  PATROL = "patrol",
+  RAID = "raid",
+  RAID_FIRE = "raid_fire",
+  RUN = "run",
+  RUSH = "rush",
+  SIT = "sit",
+  SLEEP = "sleep",
+  SMART_COVER = "smartcover",
+  SNEAK = "sneak",
+  SNEAK_RUN = "sneak_run",
+  THREAT = "threat",
+  THREAT_FIRE = "threat_fire",
+  THREAT_NA = "threat_na",
+  TRUE = "true",
+  WALK = "walk",
 }
 
 /**
  * todo;
  */
 export interface IStateDescriptor {
-  weapon: Optional<EWeaponAnimationType>;
+  weapon: Optional<EWeaponAnimation>;
   movement?: Optional<TXR_move>;
   mental: Optional<TXR_animation>;
   bodystate: Optional<TXR_move>;

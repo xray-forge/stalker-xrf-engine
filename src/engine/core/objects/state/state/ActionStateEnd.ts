@@ -1,6 +1,6 @@
 import { action_base, game_object, level, LuabindClass, object, time_global, XR_game_object } from "xray16";
 
-import { EWeaponAnimationType } from "@/engine/core/objects/state";
+import { EWeaponAnimation } from "@/engine/core/objects/state";
 import { states } from "@/engine/core/objects/state/lib/state_lib";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { getObjectIdleState, getStateQueueParams } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
@@ -54,13 +54,13 @@ export class ActionStateEnd extends action_base {
       }
     }
 
-    const targetWeaponState: Optional<EWeaponAnimationType> = states.get(this.stateManager.target_state).weapon;
+    const targetWeaponState: Optional<EWeaponAnimation> = states.get(this.stateManager.target_state).weapon;
 
     if (!isWeapon(this.object.best_weapon())) {
       return;
     }
 
-    if (targetWeaponState === EWeaponAnimationType.FIRE || targetWeaponState === EWeaponAnimationType.SNIPER_FIRE) {
+    if (targetWeaponState === EWeaponAnimation.FIRE || targetWeaponState === EWeaponAnimation.SNIPER_FIRE) {
       let sniperAimDuration: TDuration = SNIPER_AIM_TIME;
 
       if (this.stateManager.look_object !== null) {
@@ -77,7 +77,7 @@ export class ActionStateEnd extends action_base {
           (!isStalker(lookObject) || this.object.relation(lookObject) === game_object.enemy) &&
           lookObject.alive()
         ) {
-          if (targetWeaponState === EWeaponAnimationType.SNIPER_FIRE) {
+          if (targetWeaponState === EWeaponAnimation.SNIPER_FIRE) {
             sniperAimDuration = this.object.position().distance_to(lookObject.position()) * AIM_RATIO;
             if (sniperAimDuration <= MIN_RATIO) {
               this.object.set_item(object.fire1, this.object.best_weapon(), 1, MIN_RATIO);
@@ -101,7 +101,7 @@ export class ActionStateEnd extends action_base {
       }
 
       if (this.stateManager.look_position !== null && this.stateManager.look_object === null) {
-        if (targetWeaponState === EWeaponAnimationType.SNIPER_FIRE) {
+        if (targetWeaponState === EWeaponAnimation.SNIPER_FIRE) {
           this.object.set_item(object.fire1, this.object.best_weapon(), 1, sniperAimDuration);
         } else {
           const [value] = getStateQueueParams(this.object, states.get(this.stateManager.target_state!));
@@ -117,7 +117,7 @@ export class ActionStateEnd extends action_base {
       this.object.set_item(object.fire1, this.object.best_weapon(), value);
 
       return;
-    } else if (targetWeaponState === EWeaponAnimationType.UNSTRAPPED) {
+    } else if (targetWeaponState === EWeaponAnimation.UNSTRAPPED) {
       this.object.set_item(getObjectIdleState(this.stateManager.target_state!), this.object.best_weapon());
     }
   }

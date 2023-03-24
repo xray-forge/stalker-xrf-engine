@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator, XR_action_planner } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
-import { EStalkerStateType, EStateEvaluatorId } from "@/engine/core/objects/state/types";
+import { EStalkerState, EStateEvaluatorId } from "@/engine/core/objects/state/types";
 import { EActionId } from "@/engine/core/schemes";
 import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -47,7 +47,7 @@ export class EvaluatorStateIdleAlife extends property_evaluator {
       return false;
     } else {
       const isAlifeIdle: boolean =
-        this.stateManager.target_state === EStalkerStateType.IDLE &&
+        this.stateManager.target_state === EStalkerState.IDLE &&
         // --not this.st.planner.evaluator(this.st.properties["locked"]).evaluate() and
         !this.stateManager.planner.evaluator(EStateEvaluatorId.weapon_locked).evaluate() &&
         !this.stateManager.planner.evaluator(EStateEvaluatorId.animstate_locked).evaluate() &&

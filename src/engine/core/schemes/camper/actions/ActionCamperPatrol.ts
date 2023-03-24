@@ -6,13 +6,14 @@ import {
   stalker_ids,
   time_global,
   vector,
+  XR_danger_object,
   XR_game_object,
   XR_vector,
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { ITargetStateDescriptor } from "@/engine/core/objects/state";
+import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
@@ -72,7 +73,7 @@ export class ActionCamperPatrol extends action_base {
    * todo: Description.
    */
   public resetScheme(): void {
-    setStalkerState(this.object, "patrol", null, null, null, null);
+    setStalkerState(this.object, EStalkerState.PATROL, null, null, null, null);
     this.state.signals = new LuaTable();
     this.state.scan_table = new LuaTable();
 
@@ -200,7 +201,7 @@ export class ActionCamperPatrol extends action_base {
           } else {
             setStalkerState(
               this.object,
-              "hide_sniper_fire",
+              EStalkerState.HIDE_SNIPER_FIRE,
               null,
               null,
               { look_object: this.enemy, look_position: this.enemy.position() },
@@ -220,7 +221,7 @@ export class ActionCamperPatrol extends action_base {
           } else {
             setStalkerState(
               this.object,
-              "hide_fire",
+              EStalkerState.HIDE_FIRE,
               null,
               null,
               { look_object: this.enemy, look_position: this.enemy.position() },
@@ -281,7 +282,7 @@ export class ActionCamperPatrol extends action_base {
             if (this.state.suggested_state.campering) {
               setStalkerState(this.object, this.state.suggested_state.campering, null, null, position, null);
             } else {
-              setStalkerState(this.object, "hide_na", null, null, position, null);
+              setStalkerState(this.object, EStalkerState.HIDE_NA, null, null, position, null);
             }
           } else {
             this.scan(-1);
@@ -294,7 +295,7 @@ export class ActionCamperPatrol extends action_base {
             if (this.state.suggested_state.campering) {
               setStalkerState(this.object, this.state.suggested_state.campering, null, null, position, null);
             } else {
-              setStalkerState(this.object, "hide", null, null, position, null);
+              setStalkerState(this.object, EStalkerState.HIDE, null, null, position, null);
             }
           } else {
             this.moveManager.continue();
@@ -353,22 +354,22 @@ export class ActionCamperPatrol extends action_base {
       return false;
     }
 
-    const best_danger = this.object.best_danger();
+    const bestDanger: Optional<XR_danger_object> = this.object.best_danger();
 
-    if (best_danger === null) {
+    if (bestDanger === null) {
       return false;
     }
 
-    const best_danger_object = best_danger.object();
-    const bd_type = best_danger.type();
-    const position = { look_position: best_danger.position(), look_object: null };
+    const best_danger_object = bestDanger.object();
+    const bd_type = bestDanger.type();
+    const position = { look_position: bestDanger.position(), look_object: null };
 
     if (!this.danger) {
       this.object.play_sound(stalker_ids.sound_alarm, 1, 0, 1, 0);
     }
 
     const urgent_danger =
-      best_danger_object !== null && bd_type === danger_object.attacked && time_global() - best_danger.time() < 5000;
+      best_danger_object !== null && bd_type === danger_object.attacked && time_global() - bestDanger.time() < 5000;
 
     if (urgent_danger === true) {
       const danger_object_position = { look_position: best_danger_object.position(), look_object: null };
@@ -383,16 +384,16 @@ export class ActionCamperPatrol extends action_base {
           null
         );
       } else {
-        setStalkerState(this.object, "hide_fire", null, null, danger_object_position, null);
+        setStalkerState(this.object, EStalkerState.HIDE_FIRE, null, null, danger_object_position, null);
       }
     } else {
       if (this.state.suggested_state.campering) {
         setStalkerState(this.object, this.state.suggested_state.campering, null, null, position, null);
       } else {
         if (this.state.sniper === true) {
-          setStalkerState(this.object, "hide_na", null, null, position, null);
+          setStalkerState(this.object, EStalkerState.HIDE_NA, null, null, position, null);
         } else {
-          setStalkerState(this.object, "hide", null, null, position, null);
+          setStalkerState(this.object, EStalkerState.HIDE, null, null, position, null);
         }
       }
     }
@@ -447,7 +448,7 @@ export class ActionCamperPatrol extends action_base {
       } else {
         setStalkerState(
           this.object,
-          "hide_na",
+          EStalkerState.HIDE_NA,
           null,
           null,
           { look_position: this.look_point, look_object: null },

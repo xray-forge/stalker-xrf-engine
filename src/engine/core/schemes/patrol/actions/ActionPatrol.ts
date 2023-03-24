@@ -1,6 +1,7 @@
 import { action_base, game_object, LuabindClass, time_global, vector, XR_game_object, XR_vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
@@ -8,6 +9,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
 import { areSameVectors } from "@/engine/core/utils/vector";
+import { TDistance, TNumberId, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,12 +21,12 @@ export class ActionPatrol extends action_base {
   public readonly state: ISchemePatrolState;
   public readonly moveManager: StalkerMoveManager;
 
-  public l_vid: number = -1;
-  public dist: number = 0;
+  public l_vid: TNumberId = -1;
+  public dist: TDistance = 0;
   public dir: XR_vector = new vector().set(0, 0, 1);
-  public cur_state: string = "cur_state";
+  public cur_state: EStalkerState = "cur_state" as unknown as EStalkerState; // todo: probably get rid
   public on_point: boolean = false;
-  public time_to_update: number = time_global() + 1000;
+  public time_to_update: TTimestamp = time_global() + 1000;
 
   /**
    * todo: Description.

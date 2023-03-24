@@ -13,26 +13,27 @@ import {
 
 import { registry } from "@/engine/core/database";
 import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
+import { EStalkerState } from "@/engine/core/objects/state/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { IWaypointData, parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
-import { AnyCallable, AnyObject, LuaArray, Optional, TName } from "@/engine/lib/types";
+import { AnyCallable, AnyObject, LuaArray, Optional, TDistance, TDuration, TIndex, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const dist_walk: number = 10;
-const dist_run: number = 2500;
-const walk_min_time: number = 3000;
-const run_min_time: number = 2000;
-const keep_state_min_time: number = 1500;
-const default_wait_time: number = 10000;
+const dist_walk: TDistance = 10;
+const dist_run: TDistance = 2500;
+const walk_min_time: TDuration = 3000;
+const run_min_time: TDuration = 2000;
+const keep_state_min_time: TDuration = 1500;
+const default_wait_time: TDuration = 10000;
 
-const default_state_standing: string = "guard";
-const default_state_moving1: string = "patrol";
-const default_state_moving2: string = "patrol";
-const default_state_moving3: string = "patrol";
+const default_state_standing: EStalkerState = EStalkerState.GUARD;
+const default_state_moving1: EStalkerState = EStalkerState.PATROL;
+const default_state_moving2: EStalkerState = EStalkerState.PATROL;
+const default_state_moving3: EStalkerState = EStalkerState.PATROL;
 
 const arrival_before_rotation: number = 0;
 const arrival_after_rotation: number = 1;
@@ -56,7 +57,7 @@ export class StalkerMoveManager {
     search_for: XR_flags32
   ): LuaMultiReturn<[Optional<number>, number]> {
     let this_val;
-    let pt_chosen_idx = null;
+    let pt_chosen_idx: Optional<TIndex> = null;
 
     let pts_found_total_weight = 0;
     let num_equal_pts = 0;
@@ -90,8 +91,8 @@ export class StalkerMoveManager {
   public readonly object: XR_game_object;
 
   public state: Optional<number> = null;
-  public cur_state_moving!: string;
-  public cur_state_standing!: string;
+  public cur_state_moving!: EStalkerState;
+  public cur_state_standing!: EStalkerState;
 
   public pt_wait_time: Optional<number> = null;
   public suggested_state!: unknown;
@@ -132,10 +133,6 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public constructor(object: XR_game_object) {
-    if (object === null) {
-      abort("MoveManager:constructor() - object is null, please update the script");
-    }
-
     this.object = object;
   }
 

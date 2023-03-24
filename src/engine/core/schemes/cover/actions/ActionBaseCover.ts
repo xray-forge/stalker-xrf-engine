@@ -1,13 +1,14 @@
-import { action_base, game_object, level, LuabindClass, vector, XR_vector } from "xray16";
+import { action_base, game_object, level, LuabindClass, vector, XR_cover_point, XR_vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { areSameVectors } from "@/engine/core/utils/vector";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TDistance } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -21,9 +22,6 @@ export class ActionBaseCover extends action_base {
   public cover_vertex_id!: number;
   public cover_position!: XR_vector;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeCoverState) {
     super(null, ActionBaseCover.__name);
     this.state = state;
@@ -56,9 +54,8 @@ export class ActionBaseCover extends action_base {
 
     this.enemy_random_position = this_random_position;
 
-    let cover = null;
-    const tcover = null;
-    let cover_dist = 2;
+    let cover: Optional<XR_cover_point> = null;
+    let cover_dist: TDistance = 2;
 
     while (cover === null && cover_dist <= 4) {
       cover = this.object.best_cover(this_random_position, this.enemy_random_position, cover_dist, 1, 150);
@@ -90,7 +87,7 @@ export class ActionBaseCover extends action_base {
     this.object.set_path_type(game_object.level_path);
     this.object.set_dest_level_vertex_id(this.cover_vertex_id);
 
-    setStalkerState(this.object, "assault", null, null, null, null);
+    setStalkerState(this.object, EStalkerState.ASSAULT, null, null, null, null);
   }
 
   /**
@@ -98,7 +95,7 @@ export class ActionBaseCover extends action_base {
    */
   public override execute(): void {
     if (this.cover_position.distance_to_sqr(this.object.position()) <= 0.4) {
-      const anim = pickSectionFromCondList(registry.actor, this.object, this.state.anim);
+      const anim: Optional<EStalkerState> = pickSectionFromCondList(registry.actor, this.object, this.state.anim);
 
       setStalkerState(
         this.object,
@@ -110,7 +107,7 @@ export class ActionBaseCover extends action_base {
       );
     } else {
       this.object.set_dest_level_vertex_id(this.cover_vertex_id);
-      setStalkerState(this.object, "assault", null, null, null, null);
+      setStalkerState(this.object, EStalkerState.ASSAULT, null, null, null, null);
     }
 
     if (this.state.sound_idle !== null) {

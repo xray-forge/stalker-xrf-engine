@@ -3,6 +3,7 @@ import { action_base, level, LuabindClass, patrol, XR_game_object, XR_sound_obje
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark";
 import { abort } from "@/engine/core/utils/assertion";
@@ -130,7 +131,7 @@ export class ActionRemarkActivity extends action_base {
       const target = this.get_target();
 
       if (target === null) {
-        const anim = pickSectionFromCondList(registry.actor, this.object, this.st.anim)!;
+        const anim: EStalkerState = pickSectionFromCondList(registry.actor, this.object, this.st.anim)!;
 
         setStalkerState(this.object, anim, cb, 0, null, null);
         this.state = state_animation;
@@ -138,28 +139,24 @@ export class ActionRemarkActivity extends action_base {
         return;
       }
 
-      const anim = pickSectionFromCondList(registry.actor, this.object, this.st.anim)!;
+      const anim: EStalkerState = pickSectionFromCondList(registry.actor, this.object, this.st.anim)!;
 
       setStalkerState(this.object, anim, cb, 0, target, null);
       this.state = state_animation;
-
-      // --' �������� ������� �� ��������������
     } else if (this.state === state_animation) {
-      // --' 2. �� ������ �������� �����.
+      // Empty.
     } else if (this.state === state_sound) {
       if (this.snd_scheduled === true) {
         this.snd_started = true;
         GlobalSoundManager.getInstance().playSound(this.object.id(), this.st.snd, null, null);
       }
 
-      // --' ������ ������ ������ anim_end
       if (this.anim_end_signalled === false) {
         this.anim_end_signalled = true;
         this.st.signals!.set("anim_end", true);
       }
 
       if (this.st.signals!.get("sound_end") || this.st.signals!.get("theme_end")) {
-        // --printf("SOUND_END signalled!!!")
         if (this.sound_end_signalled === false) {
           this.sound_end_signalled = true;
         }
@@ -167,7 +164,6 @@ export class ActionRemarkActivity extends action_base {
 
       if (this.sound_end_signalled && this.anim_end_signalled) {
         if (this.action_end_signalled === false) {
-          // --printf("ACTION_END signalled!!!")
           this.st.signals!.set("action_end", true);
           this.action_end_signalled = true;
         }

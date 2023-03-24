@@ -1,5 +1,6 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
+import { EStalkerState } from "@/engine/core/objects/state";
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionAnimpoint, ActionReachAnimpoint } from "@/engine/core/schemes/animpoint/actions";
 import { AnimpointManager } from "@/engine/core/schemes/animpoint/AnimpointManager";
@@ -36,7 +37,14 @@ export class SchemeAnimpoint extends AbstractScheme {
     state.logic = getConfigSwitchConditions(ini, section);
     state.cover_name = readIniString(ini, section, "cover_name", false, "", "$script_id$_cover");
     state.use_camp = readIniBoolean(ini, section, "use_camp", false, true);
-    state.reach_movement = readIniString(ini, section, "reach_movement", false, "", "walk");
+    state.reach_movement = readIniString<EStalkerState>(
+      ini,
+      section,
+      "reach_movement",
+      false,
+      "",
+      EStalkerState.WALK
+    ) as EStalkerState;
     state.reach_distance = readIniNumber(ini, section, "reach_distance", false, 0.75);
 
     // Calculate for sqr comparison.

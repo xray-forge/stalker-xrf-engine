@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator, XR_game_object } from "xray16";
 
-import { EWeaponAnimationType } from "@/engine/core/objects/state";
+import { EWeaponAnimation } from "@/engine/core/objects/state";
 import { states } from "@/engine/core/objects/state/lib/state_lib";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { isStrappableWeapon, isWeapon } from "@/engine/core/utils/check/is";
@@ -25,7 +25,7 @@ export class EvaluatorWeapon extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    const weaponAnimation: Optional<EWeaponAnimationType> = states.get(this.stateManager.target_state).weapon;
+    const weaponAnimation: Optional<EWeaponAnimation> = states.get(this.stateManager.target_state).weapon;
 
     if (weaponAnimation === null) {
       return true;
@@ -39,7 +39,7 @@ export class EvaluatorWeapon extends property_evaluator {
     const activeItem: Optional<XR_game_object> = this.object.active_item();
 
     if (
-      weaponAnimation === EWeaponAnimationType.STRAPPED &&
+      weaponAnimation === EWeaponAnimation.STRAPPED &&
       ((isStrappableWeapon(bestWeapon) &&
         this.object.weapon_strapped() &&
         this.object.is_weapon_going_to_be_strapped(bestWeapon)) ||
@@ -49,9 +49,9 @@ export class EvaluatorWeapon extends property_evaluator {
     }
 
     if (
-      (weaponAnimation === EWeaponAnimationType.UNSTRAPPED ||
-        weaponAnimation === EWeaponAnimationType.FIRE ||
-        weaponAnimation === EWeaponAnimationType.SNIPER_FIRE) &&
+      (weaponAnimation === EWeaponAnimation.UNSTRAPPED ||
+        weaponAnimation === EWeaponAnimation.FIRE ||
+        weaponAnimation === EWeaponAnimation.SNIPER_FIRE) &&
       activeItem !== null &&
       bestWeapon !== null &&
       activeItem.id() === bestWeapon.id() &&
@@ -61,11 +61,11 @@ export class EvaluatorWeapon extends property_evaluator {
       return true;
     }
 
-    if (weaponAnimation === EWeaponAnimationType.NONE && activeItem === null) {
+    if (weaponAnimation === EWeaponAnimation.NONE && activeItem === null) {
       return true;
     }
 
-    if (weaponAnimation === EWeaponAnimationType.DROP && activeItem === null) {
+    if (weaponAnimation === EWeaponAnimation.DROP && activeItem === null) {
       return true;
     }
 

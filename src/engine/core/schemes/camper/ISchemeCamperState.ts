@@ -1,5 +1,6 @@
 import { XR_vector } from "xray16";
 
+import { EStalkerState } from "@/engine/core/objects/state";
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
 import { LuaArray, Optional, TCount, TDistance, TDuration, TIndex, TName, TTimestamp } from "@/engine/lib/types";
 
@@ -34,9 +35,9 @@ export interface ISchemeCamperState extends IBaseSchemeState {
   suggested_state: {
     moving: string;
     moving_fire: string;
-    campering: Optional<string>;
+    campering: Optional<EStalkerState>;
     standing: Optional<string>;
-    campering_fire: Optional<string>;
+    campering_fire: Optional<EStalkerState>;
   };
   scan_table: LuaTable<any, LuaArray<ICampPoint>>;
   cur_look_point: Optional<TIndex>;

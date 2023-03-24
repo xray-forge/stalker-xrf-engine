@@ -3,6 +3,7 @@ import { action_base, alife, hit, LuabindClass, time_global, XR_alife_simulator 
 import { registry } from "@/engine/core/database";
 import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { abort } from "@/engine/core/utils/assertion";
@@ -70,7 +71,7 @@ export class ActionWounded extends action_base {
       }
     }
 
-    const woundManagerState: string = portableStoreGet(this.object, "wounded_state")!;
+    const woundManagerState: EStalkerState = portableStoreGet<EStalkerState>(this.object, "wounded_state")!;
     const woundManagerSound: string = portableStoreGet(this.object, "wounded_sound")!;
 
     if (woundManagerState === TRUE) {

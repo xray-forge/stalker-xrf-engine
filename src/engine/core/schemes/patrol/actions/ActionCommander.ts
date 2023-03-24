@@ -2,6 +2,7 @@ import { action_base, LuabindClass, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { getStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
@@ -16,8 +17,8 @@ export class ActionCommander extends action_base {
   public readonly state: ISchemePatrolState;
   public readonly moveManager: StalkerMoveManager;
 
-  public cur_state: string = "patrol";
-  public old_state: Optional<string> = null;
+  public currentState: EStalkerState = EStalkerState.PATROL;
+  public previousState: Optional<EStalkerState> = null;
 
   /**
    * todo: Description.
@@ -67,7 +68,9 @@ export class ActionCommander extends action_base {
       null
     );
 
-    registry.patrols.generic.get(this.state.patrol_key).set_command(this.object, this.cur_state, this.state.formation);
+    registry.patrols.generic
+      .get(this.state.patrol_key)
+      .set_command(this.object, this.currentState, this.state.formation);
   }
 
   /**
@@ -78,40 +81,38 @@ export class ActionCommander extends action_base {
 
     this.moveManager.update();
 
-    const new_state = getStalkerState(this.object)!;
-    const old_state = this.old_state;
+    const nextState: EStalkerState = getStalkerState(this.object) as EStalkerState;
+    const previousState: Optional<EStalkerState> = this.previousState;
 
-    if (old_state !== new_state) {
+    if (previousState !== nextState) {
       const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
       if (this.state.silent !== true) {
-        if (new_state === "sneak") {
+        if (nextState === EStalkerState.SNEAK) {
           globalSoundManager.playSound(this.object.id(), "patrol_sneak", null, null);
-        } else if (new_state === "sneak_run") {
+        } else if (nextState === EStalkerState.SNEAK_RUN) {
           globalSoundManager.playSound(this.object.id(), "patrol_run", null, null);
-        } else if (new_state === "run") {
+        } else if (nextState === EStalkerState.RUN) {
           globalSoundManager.playSound(this.object.id(), "patrol_run", null, null);
-        } else if (new_state === "assault") {
+        } else if (nextState === EStalkerState.ASSAULT) {
           globalSoundManager.playSound(this.object.id(), "patrol_run", null, null);
-        } else if (new_state === "rush") {
+        } else if (nextState === EStalkerState.RUSH) {
           globalSoundManager.playSound(this.object.id(), "patrol_run", null, null);
-        } else {
-          if (
-            old_state === "sneak" ||
-            old_state === "sneak_run" ||
-            old_state === "run" ||
-            old_state === "assault" ||
-            old_state === "rush"
-          ) {
-            globalSoundManager.playSound(this.object.id(), "patrol_walk", null, null);
-          }
+        } else if (
+          previousState === EStalkerState.SNEAK ||
+          previousState === EStalkerState.SNEAK_RUN ||
+          previousState === EStalkerState.RUN ||
+          previousState === EStalkerState.ASSAULT ||
+          previousState === EStalkerState.RUSH
+        ) {
+          globalSoundManager.playSound(this.object.id(), "patrol_walk", null, null);
         }
       }
 
-      this.old_state = new_state;
+      this.previousState = nextState;
     }
 
-    registry.patrols.generic.get(this.state.patrol_key).set_command(this.object, new_state, this.state.formation);
+    registry.patrols.generic.get(this.state.patrol_key).set_command(this.object, nextState, this.state.formation);
   }
 
   /**
@@ -119,8 +120,9 @@ export class ActionCommander extends action_base {
    */
   public override finalize(): void {
     if (this.object.alive() === true) {
-      // --printf ("ACTION_COMMANDER:FINALIZE CALLED")
-      registry.patrols.generic.get(this.state.patrol_key).set_command(this.object, "guard", this.state.formation);
+      registry.patrols.generic
+        .get(this.state.patrol_key)
+        .set_command(this.object, EStalkerState.GUARD, this.state.formation);
       this.moveManager.finalize();
     }
 
@@ -130,15 +132,15 @@ export class ActionCommander extends action_base {
   /**
    * todo: Description.
    */
-  public deactivate(npc: XR_game_object): void {
-    registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
+  public deactivate(object: XR_game_object): void {
+    registry.patrols.generic.get(this.state.patrol_key).remove_npc(object);
   }
 
   /**
    * todo: Description.
    */
-  public death_callback(npc: XR_game_object): void {
-    registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
+  public death_callback(object: XR_game_object): void {
+    registry.patrols.generic.get(this.state.patrol_key).remove_npc(object);
   }
 
   /**

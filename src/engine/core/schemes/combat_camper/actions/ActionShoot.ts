@@ -1,5 +1,6 @@
 import { action_base, LuabindClass } from "xray16";
 
+import { EStalkerState } from "@/engine/core/objects/state";
 import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -28,7 +29,7 @@ export class ActionShoot extends action_base {
     super.initialize();
     setStalkerState(
       this.object,
-      "hide_fire",
+      EStalkerState.HIDE_FIRE,
       null,
       null,
       { look_object: this.object.best_enemy(), look_position: null },

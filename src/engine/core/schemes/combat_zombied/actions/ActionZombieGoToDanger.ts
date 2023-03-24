@@ -9,7 +9,7 @@ import {
   XR_vector,
 } from "xray16";
 
-import { ITargetStateDescriptor } from "@/engine/core/objects/state";
+import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
 import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -69,7 +69,7 @@ export class ActionZombieGoToDanger extends action_base {
   /**
    * todo: Description.
    */
-  public setState(state: string, bestEnemy: Optional<XR_game_object>, pos: Optional<XR_vector>): void {
+  public setState(state: EStalkerState, bestEnemy: Optional<XR_game_object>, pos: Optional<XR_vector>): void {
     if (state !== this.last_state) {
       this.t.look_object = bestEnemy;
       this.t.look_position = pos;
@@ -87,7 +87,7 @@ export class ActionZombieGoToDanger extends action_base {
     if (this.was_hit) {
       this.was_hit = false;
       this.hit_reaction_end_time = time_global() + 5000;
-      this.setState("raid_fire", null, this.enemy_last_seen_pos);
+      this.setState(EStalkerState.RAID_FIRE, null, this.enemy_last_seen_pos);
     } else if (this.hit_reaction_end_time > time_global()) {
       // -- ���������� ���� � �������� � �����, �� ������� ��� ������ ���
     } else {
@@ -105,9 +105,9 @@ export class ActionZombieGoToDanger extends action_base {
           sendToNearestAccessibleVertex(this.object, this.bdo_vert_id!);
         }
 
-        this.setState("raid", null, bd.position());
+        this.setState(EStalkerState.RAID, null, bd.position());
       } else {
-        this.setState("threat_na", null, bd.position());
+        this.setState(EStalkerState.THREAT_NA, null, bd.position());
       }
     }
   }

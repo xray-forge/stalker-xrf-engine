@@ -1,7 +1,7 @@
 import { anim, CSightParams, move } from "xray16";
 
 import { IAnimationDescriptor } from "@/engine/core/objects/state/lib/state_mgr_animation_list";
-import { EWeaponAnimationType, IStateDescriptor } from "@/engine/core/objects/state/types";
+import { EWeaponAnimation, IStateDescriptor } from "@/engine/core/objects/state/types";
 import { getExtern } from "@/engine/core/utils/binding";
 import { AnyCallablesModule, TName } from "@/engine/lib/types";
 
@@ -11,7 +11,7 @@ import { AnyCallablesModule, TName } from "@/engine/lib/types";
 export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
   return {
     zat_b14_give_artefact_idle: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -19,7 +19,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       animation: "zat_b14_give_artefact_idle",
     },
     zat_b14_give_artefact_act: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -36,7 +36,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     zat_b38_stalker_break_lock: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -45,7 +45,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     zat_b38_stalker_turn_on_lift: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -54,7 +54,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     zat_b38_stalker_jump_tonnel: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -63,7 +63,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     zat_b38_stalker_alert: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.danger,
       bodystate: move.standing,
@@ -72,7 +72,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     zat_b20_noah_jump: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -81,7 +81,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_a17_ice_climb: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.danger,
       bodystate: move.standing,
@@ -90,7 +90,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_a17_fall_down: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.danger,
       bodystate: move.standing,
@@ -99,7 +99,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_a17_pray_in: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.danger,
       bodystate: move.standing,
@@ -108,7 +108,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_a17_pray: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.danger,
       bodystate: move.standing,
@@ -189,7 +189,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     give_orders: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.danger,
       bodystate: move.standing,
@@ -197,7 +197,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       animation: "give_orders",
     },
     bloodsucker_search: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.danger,
       bodystate: move.standing,
@@ -231,7 +231,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     pas_b400_vano_probe: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -239,7 +239,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       animation: "pas_b400_vano_probe",
     },
     pri_a28_kirillov_sit_high_radio: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -257,7 +257,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_a20_colonel_radio: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -356,7 +356,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_actor_one: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -365,7 +365,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_actor_one_vano: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -374,7 +374,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_actor_one_monolith: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -383,7 +383,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_actor_one_soldier: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -392,7 +392,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_actor_all: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -401,7 +401,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_actor_soldier_vano: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -410,7 +410,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_actor_soldier_monolith: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -419,7 +419,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_actor_vano_monolith: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -428,7 +428,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_zulus_one: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -437,7 +437,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_zulus_one_vano: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -446,7 +446,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_zulus_one_monolith: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -455,7 +455,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_zulus_one_soldier: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -464,7 +464,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_zulus_all: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -473,7 +473,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_zulus_soldier_vano: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -482,7 +482,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_zulus_soldier_monolith: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -491,7 +491,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_zulus_vano_monolith: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -500,7 +500,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_soldier_one: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -509,7 +509,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_soldier_all: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -518,7 +518,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_soldier_soldier_vano: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -527,7 +527,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_soldier_soldier_monolith: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -536,7 +536,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_monolith_one: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -545,7 +545,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_monolith_all: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -554,7 +554,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_monolith_soldier_monolith: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -563,7 +563,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_monolith_vano_monolith: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -572,7 +572,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_vano_one: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -581,7 +581,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_vano_all: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -590,7 +590,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_vano_soldier_vano: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -599,7 +599,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_vano_vano_monolith: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -608,7 +608,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_azot_one: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -617,7 +617,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_azot_one_vano: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -626,7 +626,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_azot_one_monolith: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -635,7 +635,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_azot_one_soldier: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -644,7 +644,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_azot_soldier_vano: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -653,7 +653,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_azot_soldier_monolith: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -662,7 +662,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_azot_vano_monolith: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -671,7 +671,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b219_azot_all: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -707,7 +707,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b217_guide_stand: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -734,7 +734,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_b305_actor: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -743,7 +743,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_a9_cam1_actor: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -752,7 +752,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_a9_cam2_actor: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -761,7 +761,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_a9_cam3_actor: {
-      weapon: EWeaponAnimationType.UNSTRAPPED,
+      weapon: EWeaponAnimation.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -770,7 +770,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     jup_b217_nitro_straight: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -779,7 +779,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_a25_psy_medic_idle: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -788,7 +788,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_a25_psy_medic_out: {
-      weapon: EWeaponAnimationType.STRAPPED,
+      weapon: EWeaponAnimation.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,

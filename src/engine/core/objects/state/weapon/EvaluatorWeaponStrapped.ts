@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { EWeaponAnimationType } from "@/engine/core/objects/state";
+import { EWeaponAnimation } from "@/engine/core/objects/state";
 import { states } from "@/engine/core/objects/state/lib/state_lib";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -23,6 +23,6 @@ export class EvaluatorWeaponStrapped extends property_evaluator {
    * Check if target weapon state in animation is 'strapped'.
    */
   public override evaluate(): boolean {
-    return states.get(this.stateManager.target_state).weapon === EWeaponAnimationType.STRAPPED;
+    return states.get(this.stateManager.target_state).weapon === EWeaponAnimation.STRAPPED;
   }
 }
