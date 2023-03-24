@@ -22,6 +22,6 @@ export class EvaluatorBodyStateStanding extends property_evaluator {
    * Check if standing is target body state.
    */
   public override evaluate(): boolean {
-    return states.get(this.stateManager.target_state).bodystate === move.standing;
+    return states.get(this.stateManager.targetState).bodystate === move.standing;
   }
 }

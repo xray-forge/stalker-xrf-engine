@@ -138,7 +138,7 @@ export class ActionWalkerActivity extends action_base {
     const tbl = assoc_tbl[camp_action as keyof typeof assoc_tbl].director as any as LuaTable<number>;
     const anim = tbl.get(math.random(tbl.length()));
 
-    setStalkerState(this.object, anim, null, null, null, null);
+    setStalkerState(this.object, anim);
   }
 
   /**

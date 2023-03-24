@@ -16,9 +16,6 @@ export class EvaluatorStateEnd extends property_evaluator {
   private actionPlanner: Optional<XR_action_planner> = null;
   private combatPlanner: Optional<XR_action_planner> = null;
 
-  /**
-   * todo: Description.
-   */
   public constructor(stateManager: StalkerStateManager) {
     super(null, EvaluatorStateEnd.__name);
     this.stateManager = stateManager;
@@ -50,7 +47,7 @@ export class EvaluatorStateEnd extends property_evaluator {
       currentActionId !== stalker_ids.action_danger_planner &&
       currentActionId !== stalker_ids.action_anomaly_planner
     ) {
-      this.stateManager.combat = false;
+      this.stateManager.isCombat = false;
     }
 
     return false;

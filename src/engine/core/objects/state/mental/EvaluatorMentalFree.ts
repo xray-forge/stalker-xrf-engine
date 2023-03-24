@@ -22,6 +22,6 @@ export class EvaluatorMentalFree extends property_evaluator {
    * Check if target mental state is 'free'.
    */
   public override evaluate(): boolean {
-    return states.get(this.stateManager.target_state).mental === anim.free;
+    return states.get(this.stateManager.targetState).mental === anim.free;
   }
 }

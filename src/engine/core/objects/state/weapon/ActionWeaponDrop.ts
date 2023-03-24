@@ -29,7 +29,7 @@ export class ActionWeaponDrop extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    const weapon: Optional<XR_game_object> = getObjectAnimationWeapon(this.object, this.stateManager.target_state);
+    const weapon: Optional<XR_game_object> = getObjectAnimationWeapon(this.object, this.stateManager.targetState);
 
     if (isStrappableWeapon(weapon)) {
       this.object.set_item(object.drop, weapon);

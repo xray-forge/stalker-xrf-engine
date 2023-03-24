@@ -24,8 +24,8 @@ export class EvaluatorWeaponFire extends property_evaluator {
    */
   public override evaluate(): boolean {
     return (
-      states.get(this.stateManager.target_state).weapon === EWeaponAnimation.FIRE ||
-      states.get(this.stateManager.target_state).weapon === EWeaponAnimation.SNIPER_FIRE
+      states.get(this.stateManager.targetState).weapon === EWeaponAnimation.FIRE ||
+      states.get(this.stateManager.targetState).weapon === EWeaponAnimation.SNIPER_FIRE
     );
   }
 }

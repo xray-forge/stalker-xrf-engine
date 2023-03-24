@@ -8,7 +8,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { Optional } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo
@@ -39,7 +39,7 @@ export class EvaluatorStateIdleAlife extends property_evaluator {
     if (actionPlanner.initialized()) {
       this.currentActionId = actionPlanner.current_action_id();
       if (this.currentActionId !== EActionId.alife) {
-        this.stateManager.alife = false;
+        this.stateManager.isAlife = false;
       }
     }
 
@@ -47,7 +47,7 @@ export class EvaluatorStateIdleAlife extends property_evaluator {
       return false;
     } else {
       const isAlifeIdle: boolean =
-        this.stateManager.target_state === EStalkerState.IDLE &&
+        this.stateManager.targetState === EStalkerState.IDLE &&
         // --not this.st.planner.evaluator(this.st.properties["locked"]).evaluate() and
         !this.stateManager.planner.evaluator(EStateEvaluatorId.weapon_locked).evaluate() &&
         !this.stateManager.planner.evaluator(EStateEvaluatorId.animstate_locked).evaluate() &&
@@ -58,10 +58,10 @@ export class EvaluatorStateIdleAlife extends property_evaluator {
         this.stateManager.planner.evaluator(EStateEvaluatorId.smartcover).evaluate();
 
       if (isAlifeIdle) {
-        this.stateManager.alife = true;
+        this.stateManager.isAlife = true;
       }
 
-      if (this.stateManager.alife) {
+      if (this.stateManager.isAlife) {
         return true;
       }
 

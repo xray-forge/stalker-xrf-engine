@@ -28,7 +28,7 @@ export class EvaluatorStateIdle extends property_evaluator {
    */
   public override evaluate(): boolean {
     const isIdle: boolean =
-      this.stateManager.target_state === EStalkerState.IDLE &&
+      this.stateManager.targetState === EStalkerState.IDLE &&
       // --!this.st.planner.evaluator(this.st.properties["locked"]).evaluate() &&
       !this.stateManager.planner.evaluator(EStateEvaluatorId.animstate_locked).evaluate() &&
       !this.stateManager.planner.evaluator(EStateEvaluatorId.animation_locked).evaluate() &&
@@ -46,13 +46,12 @@ export class EvaluatorStateIdle extends property_evaluator {
     }
 
     if (isIdle) {
-      // todo: Enum value.
       if (this.actionPlanner.current_action_id() === EActionId.state_mgr_to_idle_combat) {
-        this.stateManager.combat = true;
+        this.stateManager.isCombat = true;
       }
     }
 
-    if (this.stateManager.combat) {
+    if (this.stateManager.isCombat) {
       return true;
     }
 

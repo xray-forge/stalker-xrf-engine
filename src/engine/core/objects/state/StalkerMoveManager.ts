@@ -324,7 +324,7 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public update_movement_state(): void {
-    setStalkerState(this.object, this.cur_state_moving, null, null, null, null);
+    setStalkerState(this.object, this.cur_state_moving);
   }
 
   /**

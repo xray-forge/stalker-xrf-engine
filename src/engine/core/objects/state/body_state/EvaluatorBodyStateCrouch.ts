@@ -22,6 +22,6 @@ export class EvaluatorBodyStateCrouch extends property_evaluator {
    * Check if crouching is target state.
    */
   public override evaluate(): boolean {
-    return states.get(this.stateManager.target_state).bodystate === move.crouch;
+    return states.get(this.stateManager.targetState).bodystate === move.crouch;
   }
 }

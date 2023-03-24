@@ -23,6 +23,6 @@ export class EvaluatorWeaponDrop extends property_evaluator {
    * Check whether target state requires weapon drop.
    */
   public override evaluate(): boolean {
-    return states.get(this.stateManager.target_state).weapon === EWeaponAnimation.DROP;
+    return states.get(this.stateManager.targetState).weapon === EWeaponAnimation.DROP;
   }
 }

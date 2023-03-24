@@ -23,8 +23,8 @@ export class EvaluatorBodyState extends property_evaluator {
    */
   public override evaluate(): boolean {
     return (
-      states.get(this.stateManager.target_state).bodystate === null ||
-      states.get(this.stateManager.target_state).bodystate === this.object.target_body_state()
+      states.get(this.stateManager.targetState).bodystate === null ||
+      states.get(this.stateManager.targetState).bodystate === this.object.target_body_state()
     );
   }
 }

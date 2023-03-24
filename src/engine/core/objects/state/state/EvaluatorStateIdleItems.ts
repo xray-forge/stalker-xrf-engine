@@ -31,7 +31,7 @@ export class EvaluatorStateIdleItems extends property_evaluator {
       return false;
     } else {
       return (
-        this.stateManager.target_state === EStalkerState.IDLE &&
+        this.stateManager.targetState === EStalkerState.IDLE &&
         // --                !this.st.planner.evaluator(this.st.properties["locked"]).evaluate()  &&
         !this.stateManager.planner.evaluator(EStateEvaluatorId.animstate_locked).evaluate() &&
         !this.stateManager.planner.evaluator(EStateEvaluatorId.animation_locked).evaluate() &&

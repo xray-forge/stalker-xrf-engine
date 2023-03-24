@@ -1,6 +1,6 @@
 import { TXR_animation, TXR_look, TXR_move, TXR_SightType, XR_game_object, XR_vector } from "xray16";
 
-import { Optional } from "@/engine/lib/types";
+import { AnyCallable, LuaArray, Optional } from "@/engine/lib/types";
 
 /**
  * Action IDs of state manager evaluators.
@@ -126,6 +126,37 @@ export enum EStateActionId {
 /**
  * todo;
  */
+export interface IAnimationDescriptor {
+  prop: {
+    maxidle: number;
+    sumidle: number;
+    rnd: number;
+    moving: Optional<boolean>;
+  };
+  into: Optional<LuaArray<string | { a: string } | { f: AnyCallable }>>;
+  out: Optional<LuaArray<string | { a: string } | { f: AnyCallable }>>;
+  idle: Optional<LuaArray<string | { a: string } | { f: AnyCallable }>>;
+  rnd: Optional<LuaArray<LuaTable<number, string>>>;
+}
+
+/**
+ * todo;
+ */
+export interface IAnimationStateDescriptor {
+  prop: {
+    maxidle: number;
+    sumidle: number;
+    rnd: number;
+  };
+  into: LuaTable<number, string>;
+  out: LuaTable<number, string>;
+  idle: LuaTable<number, string>;
+  rnd: LuaTable<number, LuaTable<number, string>>;
+}
+
+/**
+ * todo;
+ */
 export enum EWeaponAnimation {
   NONE = "none",
   DROP = "drop",
@@ -153,6 +184,7 @@ export enum EStalkerState {
   RAID_FIRE = "raid_fire",
   RUN = "run",
   RUSH = "rush",
+  SEARCH_CORPSE = "search_corpse",
   SIT = "sit",
   SLEEP = "sleep",
   SMART_COVER = "smartcover",

@@ -22,6 +22,6 @@ export class EvaluatorAnimation extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    return this.stateManager.animation.states.current_state === states.get(this.stateManager.target_state).animation;
+    return this.stateManager.animation.states.current_state === states.get(this.stateManager.targetState).animation;
   }
 }

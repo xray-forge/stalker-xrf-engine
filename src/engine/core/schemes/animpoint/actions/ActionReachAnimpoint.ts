@@ -43,14 +43,10 @@ export class ActionReachAnimpoint extends action_base {
       this.object.position().distance_to_sqr(this.state.animpoint!.vertex_position!) <= this.state.reach_distance;
 
     if (distance_reached) {
-      setStalkerState(
-        this.object,
-        this.state.reach_movement,
-        null,
-        null,
-        { look_position: this.state.animpoint!.look_position, look_object: null },
-        null
-      );
+      setStalkerState(this.object, this.state.reach_movement, null, null, {
+        look_position: this.state.animpoint!.look_position,
+        look_object: null,
+      });
     } else {
       setStalkerState(this.object, this.state.reach_movement, null, null, null, null);
     }

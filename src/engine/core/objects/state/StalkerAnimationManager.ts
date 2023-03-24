@@ -2,15 +2,13 @@ import { callback, hit, time_global, vector, XR_game_object, XR_hit } from "xray
 
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
-import { IAnimationDescriptor } from "@/engine/core/objects/state_lib/state_mgr_animation_list";
-import { IAnimationStateDescriptor } from "@/engine/core/objects/state_lib/state_mgr_animstate_list";
+import { IAnimationDescriptor, IAnimationStateDescriptor } from "@/engine/core/objects/state/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { AnyCallable, Optional, TIndex } from "@/engine/lib/types";
+import { AnyCallable, Optional, TIndex, TName, TNumberId } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Animation lifecycle marker state.
@@ -24,33 +22,36 @@ enum EAnimationMarker {
 /**
  * todo;
  */
+export interface IAnimationManagerStates {
+  last_id: Optional<number>;
+  current_state: Optional<string>;
+  target_state: Optional<string>;
+  anim_marker: Optional<EAnimationMarker>;
+  next_rnd: Optional<number>;
+  seq_id: TNumberId;
+}
+
+/**
+ * todo;
+ */
 export class StalkerAnimationManager {
-  public mgr: StalkerStateManager;
-  public npc: XR_game_object;
-  public name: string;
+  public name: TName;
+  public object: XR_game_object;
+  public stateManager: StalkerStateManager;
+
   public animations: LuaTable<string, IAnimationDescriptor> | LuaTable<string, IAnimationStateDescriptor>;
-  public sid: number;
-  public states: {
-    last_id: Optional<number>;
-    current_state: Optional<string>;
-    target_state: Optional<string>;
-    anim_marker: Optional<EAnimationMarker>;
-    next_rnd: Optional<number>;
-    seq_id: number;
-  };
+  public states: IAnimationManagerStates;
 
   public constructor(
-    npc: XR_game_object,
+    object: XR_game_object,
     stateManager: StalkerStateManager,
-    name: string,
+    name: TName,
     collection: LuaTable<string, IAnimationDescriptor> | LuaTable<string, IAnimationStateDescriptor>
   ) {
-    this.mgr = stateManager;
-    this.npc = npc;
     this.name = name;
-
+    this.object = object;
+    this.stateManager = stateManager;
     this.animations = collection;
-    this.sid = math.random(1000);
 
     this.states = {
       last_id: null,
@@ -62,20 +63,16 @@ export class StalkerAnimationManager {
     };
 
     assert(collection, "Provided null object for animation instance.");
-
-    logger.info("Initialized new entry:", npc.name(), name, this.sid);
   }
 
   /**
    * todo;
    */
   public setControl(): void {
-    logger.info("Set control:", this);
-
-    this.npc.set_callback(callback.script_animation, this.animationCallback, this);
+    this.object.set_callback(callback.script_animation, this.onAnimationCallback, this);
 
     if (this.name === "state_mgr_animation_list") {
-      this.mgr.animstate.states.anim_marker = null;
+      this.stateManager.animstate.states.anim_marker = null;
     }
 
     if (this.states.anim_marker === null) {
@@ -98,13 +95,11 @@ export class StalkerAnimationManager {
    * todo;
    */
   public setState(newState: Optional<string>, isForced: Optional<boolean> = false): void {
-    logger.info("Setting state:", newState, this);
-
     /**
      * Force animation over existing ones.
      */
     if (isForced === true) {
-      this.npc.clear_animations();
+      this.object.clear_animations();
 
       const state =
         this.states.anim_marker === EAnimationMarker.IN
@@ -137,28 +132,22 @@ export class StalkerAnimationManager {
 
     this.states.target_state = newState;
     this.states.next_rnd = time_global();
-
-    logger.info("Set state:", newState, this);
   }
 
   /**
    * todo;
    */
   public selectAnimation(): LuaMultiReturn<[Optional<string>, any]> {
-    logger.info("Select animation:", this);
-
     const states = this.states;
 
     // New animation detected:
     if (states.target_state !== states.current_state) {
       if (states.target_state === null) {
-        logger.info("Reset animation:", this);
-
         const state = this.animations.get(states.current_state!);
 
         if (state.out === null) {
           states.anim_marker = EAnimationMarker.OUT;
-          this.animationCallback(true);
+          this.onAnimationCallback(true);
 
           return $multi(null, null);
         }
@@ -170,7 +159,7 @@ export class StalkerAnimationManager {
 
         if (anim_for_slot === null) {
           states.anim_marker = EAnimationMarker.OUT;
-          this.animationCallback(true);
+          this.onAnimationCallback(true);
 
           return $multi(null, null);
         }
@@ -178,9 +167,8 @@ export class StalkerAnimationManager {
         const next_anim = anim_for_slot.get(states.seq_id);
 
         if (type(next_anim) === "table") {
-          logger.info("Preprocess special action:", states.current_state, states.seq_id, this);
           this.processSpecialAction(next_anim as any);
-          this.animationCallback();
+          this.onAnimationCallback();
 
           return $multi(null, null);
         }
@@ -189,13 +177,11 @@ export class StalkerAnimationManager {
       }
 
       if (states.current_state === null) {
-        logger.info("New animation:", this);
-
         const state = this.animations.get(states.target_state!);
 
         if (state.into === null) {
           states.anim_marker = EAnimationMarker.IN;
-          this.animationCallback(true);
+          this.onAnimationCallback(true);
 
           return $multi(null, null);
         }
@@ -207,7 +193,7 @@ export class StalkerAnimationManager {
 
         if (anim_for_slot === null) {
           states.anim_marker = EAnimationMarker.IN;
-          this.animationCallback(true);
+          this.onAnimationCallback(true);
 
           return $multi(null, null);
         }
@@ -216,7 +202,7 @@ export class StalkerAnimationManager {
 
         if (type(nextAnimation) === "table") {
           this.processSpecialAction(nextAnimation as any);
-          this.animationCallback();
+          this.onAnimationCallback();
 
           return $multi(null, null);
         }
@@ -227,8 +213,6 @@ export class StalkerAnimationManager {
 
     // Same non-null animation:
     if (states.target_state === states.current_state && states.current_state !== null) {
-      logger.info("Update animation:", this);
-
       const activeWeaponSlot: TIndex = this.getActiveWeaponSlot();
       const state: IAnimationDescriptor | IAnimationStateDescriptor = this.animations.get(states.current_state);
       let animation;
@@ -255,9 +239,9 @@ export class StalkerAnimationManager {
    * todo;
    */
   public getActiveWeaponSlot(): TIndex {
-    const weapon: Optional<XR_game_object> = this.npc.active_item();
+    const weapon: Optional<XR_game_object> = this.object.active_item();
 
-    if (weapon === null || this.npc.weapon_strapped()) {
+    if (weapon === null || this.object.weapon_strapped()) {
       return 0;
     }
 
@@ -271,7 +255,6 @@ export class StalkerAnimationManager {
     slot: TIndex,
     animationsList: LuaTable<TIndex, LuaTable<number, string | LuaTable>>
   ): LuaTable<number, string | LuaTable> {
-    logger.info("Animation for slot:", slot, this);
     if (animationsList.get(slot) === null) {
       slot = 0;
     }
@@ -290,8 +273,6 @@ export class StalkerAnimationManager {
     if (!mustPlay && math.random(100) > this.animations.get(this.states.current_state!).prop.rnd) {
       return null;
     }
-
-    logger.info("Select RND animation:", weaponSlot, mustPlay);
 
     const animation = this.getAnimationForSlot(weaponSlot, animationStateDescriptor.rnd as any);
 
@@ -325,7 +306,7 @@ export class StalkerAnimationManager {
    * todo;
    */
   public addAnimation(animation: string, state: IAnimationDescriptor): void {
-    const object: XR_game_object = this.npc;
+    const object: XR_game_object = this.object;
     const animationProperties = state.prop;
 
     if (!(object.weapon_unstrapped() || object.weapon_strapped())) {
@@ -333,42 +314,93 @@ export class StalkerAnimationManager {
     }
 
     if (animationProperties === null || animationProperties.moving !== true) {
-      logger.info("No props animation addition:", this.npc.name(), animation);
       object.add_animation(animation, true, false);
 
       return;
     }
 
-    if (this.mgr.animation_position === null || this.mgr.pos_direction_applied === true) {
-      logger.info("No position animation addition:", this.npc.name(), animation);
+    if (this.stateManager.animation_position === null || this.stateManager.pos_direction_applied === true) {
       object.add_animation(animation, true, true);
     } else {
-      if (this.mgr.animation_direction === null) {
+      if (this.stateManager.animation_direction === null) {
         abort("[%s] Animation direction is missing.", object.name());
       }
 
-      const rotationY = -math.deg(math.atan2(this.mgr.animation_direction.x, this.mgr.animation_direction.z));
+      const rotationY = -math.deg(
+        math.atan2(this.stateManager.animation_direction.x, this.stateManager.animation_direction.z)
+      );
 
-      logger.info("Positional animation addition:", this.npc.name(), animation);
-      object.add_animation(animation, true, this.mgr.animation_position, new vector().set(0, rotationY, 0), false);
+      object.add_animation(
+        animation,
+        true,
+        this.stateManager.animation_position,
+        new vector().set(0, rotationY, 0),
+        false
+      );
 
-      this.mgr.pos_direction_applied = true;
+      this.stateManager.pos_direction_applied = true;
     }
   }
 
   /**
    * todo;
    */
-  public animationCallback(skipMultiAnimationCheck?: boolean): void {
-    if (this.states.anim_marker === null || this.npc.animation_count() !== 0) {
+  public processSpecialAction(actionTable: LuaTable): void {
+    // Attach.
+    if (actionTable.get("a") !== null) {
+      const objectInventoryItem: Optional<XR_game_object> = this.object.object(actionTable.get("a"));
+
+      if (objectInventoryItem !== null) {
+        objectInventoryItem.enable_attachable_item(true);
+      }
+    }
+
+    // Detach.
+    if (actionTable.get("d") !== null) {
+      const objectInventoryItem: Optional<XR_game_object> = this.object.object(actionTable.get("d"));
+
+      if (objectInventoryItem !== null) {
+        objectInventoryItem.enable_attachable_item(false);
+      }
+    }
+
+    // Play sound.
+    if (actionTable.get("s") !== null) {
+      GlobalSoundManager.getInstance().playSound(this.object.id(), actionTable.get("s"), null, null);
+    }
+
+    // Hit object.
+    if (actionTable.get("sh") !== null) {
+      const hitObject: XR_hit = new hit();
+
+      hitObject.power = actionTable.get("sh");
+      hitObject.direction = vectorRotateY(this.object.direction(), 90);
+      hitObject.draftsman = this.object;
+      hitObject.impulse = 200;
+      hitObject.type = hit.wound;
+
+      this.object.hit(hitObject);
+    }
+
+    // Custom callback.
+    const animationCallback: Optional<AnyCallable> = actionTable.get("f");
+
+    if (animationCallback !== null) {
+      animationCallback(this.object);
+    }
+  }
+
+  /**
+   * todo;
+   */
+  public onAnimationCallback(skipMultiAnimationCheck?: boolean): void {
+    if (this.states.anim_marker === null || this.object.animation_count() !== 0) {
       return;
     }
 
     const states = this.states;
 
     if (states.anim_marker === EAnimationMarker.IN) {
-      logger.info("Animation callback:", this);
-
       states.anim_marker = null;
 
       if (skipMultiAnimationCheck !== true) {
@@ -395,8 +427,6 @@ export class StalkerAnimationManager {
     }
 
     if (states.anim_marker === EAnimationMarker.IDLE) {
-      logger.info("Animation callback:", this);
-
       states.anim_marker = null;
 
       const properties = this.animations.get(states.current_state!).prop;
@@ -413,8 +443,6 @@ export class StalkerAnimationManager {
     }
 
     if (states.anim_marker === EAnimationMarker.OUT) {
-      logger.info("Animation callback:", this.npc.name(), "OUT");
-
       states.anim_marker = null;
 
       if (skipMultiAnimationCheck !== true) {
@@ -439,70 +467,11 @@ export class StalkerAnimationManager {
       states.current_state = null;
 
       if (this.name === "state_mgr_animation_list") {
-        if (this.mgr.animstate !== null && this.mgr.animstate.setControl !== null) {
-          this.mgr.animstate.setControl();
+        if (this.stateManager.animstate !== null && this.stateManager.animstate.setControl !== null) {
+          this.stateManager.animstate.setControl();
           // --this.mgr.animstate:update_anim()
         }
       }
     }
-  }
-
-  /**
-   * todo;
-   */
-  public processSpecialAction(actionTable: LuaTable): void {
-    // Attach.
-    if (actionTable.get("a") !== null) {
-      const objectInventoryItem: Optional<XR_game_object> = this.npc.object(actionTable.get("a"));
-
-      if (objectInventoryItem !== null) {
-        objectInventoryItem.enable_attachable_item(true);
-      }
-    }
-
-    // Detach.
-    if (actionTable.get("d") !== null) {
-      const objectInventoryItem: Optional<XR_game_object> = this.npc.object(actionTable.get("d"));
-
-      if (objectInventoryItem !== null) {
-        objectInventoryItem.enable_attachable_item(false);
-      }
-    }
-
-    // Play sound.
-    if (actionTable.get("s") !== null) {
-      GlobalSoundManager.getInstance().playSound(this.npc.id(), actionTable.get("s"), null, null);
-    }
-
-    // Hit object.
-    if (actionTable.get("sh") !== null) {
-      const hitObject: XR_hit = new hit();
-
-      hitObject.power = actionTable.get("sh");
-      hitObject.direction = vectorRotateY(this.npc.direction(), 90);
-      hitObject.draftsman = this.npc;
-      hitObject.impulse = 200;
-      hitObject.type = hit.wound;
-
-      this.npc.hit(hitObject);
-    }
-
-    // Custom callback.
-    const animationCallback: Optional<AnyCallable> = actionTable.get("f");
-
-    if (animationCallback !== null) {
-      animationCallback(this.npc);
-    }
-  }
-
-  /**
-   * Implement casting of manager to string for easier debugging.
-   */
-  public toString(): string {
-    const states: string =
-      `#current_state: ${this.states.current_state} #target_state: ${this.states.target_state} ` +
-      `#anim_marker: ${this.states.anim_marker} #seq_id: ${this.states.seq_id} #last_id: ${this.states.last_id}`;
-
-    return `AnimationManager #name: ${this.name} #npc: ${this.npc.name()} #sid: ${this.sid} ${states}`;
   }
 }

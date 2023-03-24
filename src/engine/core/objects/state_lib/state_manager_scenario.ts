@@ -1,7 +1,6 @@
 import { anim, CSightParams, move } from "xray16";
 
-import { EWeaponAnimation, IStateDescriptor } from "@/engine/core/objects/state/types";
-import { IAnimationDescriptor } from "@/engine/core/objects/state_lib/state_mgr_animation_list";
+import { EWeaponAnimation, IAnimationDescriptor, IStateDescriptor } from "@/engine/core/objects/state/types";
 import { getExtern } from "@/engine/core/utils/binding";
 import { AnyCallablesModule, TName } from "@/engine/lib/types";
 
@@ -799,7 +798,7 @@ export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
   } as any;
 }
 
-export function addAnimationListScenario(): LuaTable<string, IAnimationDescriptor> {
+export function getAnimationListScenario(): LuaTable<string, IAnimationDescriptor> {
   return {
     zat_b14_give_artefact_idle: {
       prop: {

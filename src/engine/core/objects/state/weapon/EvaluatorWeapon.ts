@@ -5,7 +5,7 @@ import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateMan
 import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { isStrappableWeapon, isWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TName } from "@/engine/lib/types";
+import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -25,7 +25,7 @@ export class EvaluatorWeapon extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    const weaponAnimation: Optional<EWeaponAnimation> = states.get(this.stateManager.target_state).weapon;
+    const weaponAnimation: Optional<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;
 
     if (weaponAnimation === null) {
       return true;

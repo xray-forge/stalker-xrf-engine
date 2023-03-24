@@ -1,19 +1,10 @@
-// eslint-disable-next-line max-len
+import { IAnimationStateDescriptor } from "@/engine/core/objects/state/types";
 import { add_animstate_animation_list } from "@/engine/core/objects/state_lib/state_mgr_animstate_list_animpoint";
 import { copyTable } from "@/engine/core/utils/table";
 
-export interface IAnimationStateDescriptor {
-  prop: {
-    maxidle: number;
-    sumidle: number;
-    rnd: number;
-  };
-  into: LuaTable<number, string>;
-  out: LuaTable<number, string>;
-  idle: LuaTable<number, string>;
-  rnd: LuaTable<number, LuaTable<number, string>>;
-}
-
+/**
+ * todo;
+ */
 export const animstates: LuaTable<string, IAnimationStateDescriptor> = {
   sit: {
     prop: {

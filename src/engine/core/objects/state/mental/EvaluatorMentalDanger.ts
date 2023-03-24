@@ -22,6 +22,6 @@ export class EvaluatorMentalDanger extends property_evaluator {
    * Check if target mental state is 'danger'.
    */
   public override evaluate(): boolean {
-    return states.get(this.stateManager.target_state).mental === anim.danger;
+    return states.get(this.stateManager.targetState).mental === anim.danger;
   }
 }

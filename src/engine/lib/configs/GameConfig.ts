@@ -28,10 +28,6 @@ export const gameConfig = {
      */
     IS_SMARTS_DEBUG_ENABLED: false,
     /**
-     * Is debug mode for state management / animations enabled.
-     */
-    IS_STATE_MANAGEMENT_DEBUG_ENABLED: false,
-    /**
      * Is resolving debug enabled.
      * Printing messages each time logger instance is created.
      * Useful to debug circular dependencies and resolving problems.

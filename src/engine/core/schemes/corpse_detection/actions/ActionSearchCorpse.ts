@@ -1,7 +1,8 @@
 import { action_base, LuabindClass, XR_vector } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection";
 
 /**
@@ -41,11 +42,7 @@ export class ActionSearchCorpse extends action_base {
 
     this.object.set_dest_level_vertex_id(this.state.vertex_id);
 
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { setStalkerState } = require("@/engine/core/objects/state/StalkerStateManager");
-
-    // --StateManager.set_state(this.object, "patrol", null, null, {look_position = this.a.vertex_position})
-    setStalkerState(this.object, "patrol", null, null, null, null);
+    setStalkerState(this.object, EStalkerState.PATROL);
   }
 
   /**
@@ -58,10 +55,10 @@ export class ActionSearchCorpse extends action_base {
       return;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { setStalkerState } = require("@/engine/core/objects/state/StalkerStateManager");
-
-    setStalkerState(this.object, "search_corpse", null, null, { look_position: this.state.vertex_position }, null);
+    setStalkerState(this.object, EStalkerState.SEARCH_CORPSE, null, null, {
+      look_position: this.state.vertex_position,
+      look_object: null,
+    });
     GlobalSoundManager.getInstance().playSound(this.object.id(), "corpse_loot_begin", null, null);
   }
 }

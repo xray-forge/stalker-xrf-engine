@@ -25,7 +25,7 @@ export class EvaluatorSmartCover extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    if (this.stateManager.target_state !== EStalkerState.SMART_COVER) {
+    if (this.stateManager.targetState !== EStalkerState.SMART_COVER) {
       return true;
     }
 

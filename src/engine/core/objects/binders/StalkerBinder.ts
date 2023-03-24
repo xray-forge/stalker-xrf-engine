@@ -511,7 +511,7 @@ export class StalkerBinder extends object_binder {
       if (isObjectAlive) {
         this.state.state_mgr.update();
 
-        if (this.state.state_mgr.combat === false && this.state.state_mgr.alife === false) {
+        if (this.state.state_mgr.isCombat === false && this.state.state_mgr.isAlife === false) {
           // --and this.st.state_mgr.planner:current_action_id() == this.st.state_mgr.operators["}"]
           TradeManager.getInstance().updateForObject(object);
         }

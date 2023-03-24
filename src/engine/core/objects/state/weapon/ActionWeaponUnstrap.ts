@@ -24,8 +24,8 @@ export class ActionWeaponUnstrap extends action_base {
   public override initialize(): void {
     super.initialize();
     this.object.set_item(
-      getObjectIdleState(this.stateManager.target_state),
-      getObjectAnimationWeapon(this.object, this.stateManager.target_state)
+      getObjectIdleState(this.stateManager.targetState),
+      getObjectAnimationWeapon(this.object, this.stateManager.targetState)
     );
   }
 }

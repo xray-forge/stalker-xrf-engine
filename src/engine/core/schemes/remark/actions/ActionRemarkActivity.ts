@@ -4,6 +4,7 @@ import { getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/d
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { EStalkerState } from "@/engine/core/objects/state";
+import { IStateManagerCallbackDescriptor } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark";
 import { abort } from "@/engine/core/utils/assertion";
 import { getSmartTerrainByName } from "@/engine/core/utils/gulag";
@@ -124,7 +125,7 @@ export class ActionRemarkActivity extends action_base {
    */
   public update(): void {
     if (this.state === state_initial) {
-      const cb = { obj: this, func: this.time_callback };
+      const cb: IStateManagerCallbackDescriptor = { obj: this, func: this.time_callback };
       const target = this.get_target();
 
       if (target === null) {

@@ -5,9 +5,8 @@ import { EStateEvaluatorId } from "@/engine/core/objects/state/types";
 import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areSameVectors } from "@/engine/core/utils/vector";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
-const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
@@ -36,11 +35,11 @@ const look_direction_states: LuaTable<string, boolean> = {
  * todo;
  */
 export function look_object_type(npc: XR_game_object, st: StalkerStateManager): boolean {
-  if (look_direction_states.get(st.target_state) === true) {
+  if (look_direction_states.get(st.targetState) === true) {
     return true;
   }
 
-  return states.get(st.target_state).animation !== null;
+  return states.get(st.targetState).animation !== null;
 }
 
 /**
@@ -51,8 +50,8 @@ export function getObjectLookPositionType(object: XR_game_object, stateManager: 
     return look.path_dir;
   }
 
-  if (states.get(stateManager.target_state).direction !== null) {
-    return states.get(stateManager.target_state).direction! as TXR_look;
+  if (states.get(stateManager.targetState).direction !== null) {
+    return states.get(stateManager.targetState).direction! as TXR_look;
   }
 
   if (!stateManager.planner.evaluator(EStateEvaluatorId.movement_stand).evaluate()) {

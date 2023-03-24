@@ -25,7 +25,7 @@ export class ActionDirectionSearch extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    if (states.get(this.stateManager.target_state).direction === CSightParams.eSightTypeAnimationDirection) {
+    if (states.get(this.stateManager.targetState).direction === CSightParams.eSightTypeAnimationDirection) {
       this.object.set_sight(CSightParams.eSightTypeAnimationDirection, false, false);
     } else {
       this.object.set_sight(getObjectLookPositionType(this.object, this.stateManager), null, 0);

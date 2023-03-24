@@ -3,25 +3,18 @@ import { action_base, LuabindClass, move } from "xray16";
 import { turn } from "@/engine/core/objects/state/direction/StateManagerDirection";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
-const logger: LuaLogger = new LuaLogger(
-  "StateManagerActMovementRunTurn",
-  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
-);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class StateManagerActMovementRunTurn extends action_base {
-  public readonly stateManager: StalkerStateManager;
+export class ActionMovementRunTurn extends action_base {
+  private readonly stateManager: StalkerStateManager;
 
-  /**
-   * todo: Description.
-   */
   public constructor(stateManager: StalkerStateManager) {
-    super(null, StateManagerActMovementRunTurn.__name);
+    super(null, ActionMovementRunTurn.__name);
     this.stateManager = stateManager;
   }
 
@@ -33,19 +26,5 @@ export class StateManagerActMovementRunTurn extends action_base {
 
     this.object.set_movement_type(move.run);
     turn(this.object, this.stateManager);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override execute(): void {
-    super.execute();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override finalize(): void {
-    super.finalize();
   }
 }

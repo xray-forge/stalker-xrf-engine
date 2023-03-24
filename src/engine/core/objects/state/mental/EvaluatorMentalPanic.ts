@@ -19,6 +19,6 @@ export class EvaluatorMentalPanic extends property_evaluator {
    * Check if target mental state is 'panic'.
    */
   public override evaluate(): boolean {
-    return states.get(this.stateManager.target_state).mental === anim.panic;
+    return states.get(this.stateManager.targetState).mental === anim.panic;
   }
 }

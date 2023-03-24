@@ -1,8 +1,8 @@
 import { XR_game_object } from "xray16";
 
-import { IAnimationDescriptor } from "@/engine/core/objects/state_lib/state_mgr_animation_list";
+import { IAnimationDescriptor } from "@/engine/core/objects/state/types";
 
-export function add_animpoint_animation_list(): LuaTable<string, IAnimationDescriptor> {
+export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescriptor> {
   return {
     animpoint_stay_wall: {
       prop: {

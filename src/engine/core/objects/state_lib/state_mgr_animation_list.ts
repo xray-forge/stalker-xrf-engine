@@ -1,25 +1,16 @@
 import { XR_game_object } from "xray16";
 
-import { addAnimationListScenario } from "@/engine/core/objects/state_lib/state_manager_scenario";
-import { add_animpoint_animation_list } from "@/engine/core/objects/state_lib/state_mgr_animation_list_animpoint";
+import { IAnimationDescriptor } from "@/engine/core/objects/state/types";
+import { getAnimationListScenario } from "@/engine/core/objects/state_lib/state_manager_scenario";
+import { getAnimpointAnimationList } from "@/engine/core/objects/state_lib/state_mgr_animation_list_animpoint";
 import { add_animation_list_pri_a15 } from "@/engine/core/objects/state_lib/state_mgr_pri_a15";
 import { getExtern } from "@/engine/core/utils/binding";
 import { copyTable } from "@/engine/core/utils/table";
-import { AnyCallable, AnyCallablesModule, LuaArray, Optional } from "@/engine/lib/types";
+import { AnyCallablesModule } from "@/engine/lib/types";
 
-export interface IAnimationDescriptor {
-  prop: {
-    maxidle: number;
-    sumidle: number;
-    rnd: number;
-    moving: Optional<boolean>;
-  };
-  into: Optional<LuaArray<string | { a: string } | { f: AnyCallable }>>;
-  out: Optional<LuaArray<string | { a: string } | { f: AnyCallable }>>;
-  idle: Optional<LuaArray<string | { a: string } | { f: AnyCallable }>>;
-  rnd: Optional<LuaArray<LuaTable<number, string>>>;
-}
-
+/**
+ * todo;
+ */
 export const animations: LuaTable<string, IAnimationDescriptor> = {
   idle: {
     prop: {
@@ -995,6 +986,6 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
   },
 } as any;
 
-copyTable(animations, add_animpoint_animation_list());
-copyTable(animations, addAnimationListScenario());
+copyTable(animations, getAnimpointAnimationList());
+copyTable(animations, getAnimationListScenario());
 copyTable(animations, add_animation_list_pri_a15());

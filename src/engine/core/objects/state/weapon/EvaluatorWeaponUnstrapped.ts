@@ -24,7 +24,7 @@ export class EvaluatorWeaponUnstrapped extends property_evaluator {
    * Check if weapon target state is unstrapped state.
    */
   public override evaluate(): boolean {
-    const weapon: Optional<EWeaponAnimation> = states.get(this.stateManager.target_state).weapon;
+    const weapon: Optional<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;
 
     return (
       weapon !== null &&

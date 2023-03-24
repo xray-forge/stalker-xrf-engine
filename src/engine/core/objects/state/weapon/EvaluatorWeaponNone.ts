@@ -23,6 +23,6 @@ export class EvaluatorWeaponNone extends property_evaluator {
    * Check if weapon target state in animation is 'none'.
    */
   public override evaluate(): boolean {
-    return states.get(this.stateManager.target_state).weapon === EWeaponAnimation.NONE;
+    return states.get(this.stateManager.targetState).weapon === EWeaponAnimation.NONE;
   }
 }

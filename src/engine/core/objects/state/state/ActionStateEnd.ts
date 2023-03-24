@@ -45,7 +45,7 @@ export class ActionStateEnd extends action_base {
         this.stateManager.callback.begin = now;
       }
 
-      if (now - this.stateManager.callback.begin >= (this.stateManager.callback.timeout as TDuration)) {
+      if (now - (this.stateManager.callback.begin as TTimestamp) >= (this.stateManager.callback.timeout as TDuration)) {
         if (this.stateManager.callback.func !== null) {
           this.stateManager.callback.func(this.stateManager.callback.obj);
         }
@@ -54,7 +54,7 @@ export class ActionStateEnd extends action_base {
       }
     }
 
-    const targetWeaponState: Optional<EWeaponAnimation> = states.get(this.stateManager.target_state).weapon;
+    const targetWeaponState: Optional<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;
 
     if (!isWeapon(this.object.best_weapon())) {
       return;
@@ -87,7 +87,7 @@ export class ActionStateEnd extends action_base {
 
             this.object.set_item(object.fire1, this.object.best_weapon(), 1, sniperAimDuration);
           } else {
-            const [value] = getStateQueueParams(this.object, states.get(this.stateManager.target_state!));
+            const [value] = getStateQueueParams(this.object, states.get(this.stateManager.targetState!));
 
             this.object.set_item(object.fire1, this.object.best_weapon(), value);
           }
@@ -104,7 +104,7 @@ export class ActionStateEnd extends action_base {
         if (targetWeaponState === EWeaponAnimation.SNIPER_FIRE) {
           this.object.set_item(object.fire1, this.object.best_weapon(), 1, sniperAimDuration);
         } else {
-          const [value] = getStateQueueParams(this.object, states.get(this.stateManager.target_state!));
+          const [value] = getStateQueueParams(this.object, states.get(this.stateManager.targetState!));
 
           this.object.set_item(object.fire1, this.object.best_weapon(), value);
         }
@@ -112,13 +112,13 @@ export class ActionStateEnd extends action_base {
         return;
       }
 
-      const [value] = getStateQueueParams(this.object, states.get(this.stateManager.target_state!));
+      const [value] = getStateQueueParams(this.object, states.get(this.stateManager.targetState!));
 
       this.object.set_item(object.fire1, this.object.best_weapon(), value);
 
       return;
     } else if (targetWeaponState === EWeaponAnimation.UNSTRAPPED) {
-      this.object.set_item(getObjectIdleState(this.stateManager.target_state!), this.object.best_weapon());
+      this.object.set_item(getObjectIdleState(this.stateManager.targetState!), this.object.best_weapon());
     }
   }
 }

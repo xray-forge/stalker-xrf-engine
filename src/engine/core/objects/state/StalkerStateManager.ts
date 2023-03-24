@@ -1,15 +1,40 @@
 import { action_planner, object, time_global, XR_action_planner, XR_game_object, XR_vector } from "xray16";
 
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
-import { EStalkerState, EStateActionId, ITargetStateDescriptor } from "@/engine/core/objects/state/types";
+import {
+  EStalkerState,
+  EStateActionId,
+  EWeaponAnimation,
+  ITargetStateDescriptor,
+} from "@/engine/core/objects/state/types";
 import { getObjectAnimationWeapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
 import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areSameVectors } from "@/engine/core/utils/vector";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { AnyCallable, AnyObject, Optional, TDuration, TNumberId, TTimestamp } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename);
+
+/**
+ * todo;
+ */
+export interface IStateManagerCallbackDescriptor {
+  begin?: Optional<TTimestamp>;
+  timeout?: Optional<TDuration>;
+  turn_end_func?: Optional<AnyCallable>;
+  func: Optional<AnyCallable>;
+  obj: AnyObject;
+}
+
+/**
+ * todo;
+ */
+export interface ITargetStateDescriptorExtras {
+  isForced?: boolean;
+  animation?: boolean;
+  animation_position?: Optional<XR_vector>;
+  animation_direction?: Optional<XR_vector>;
+}
 
 /**
  * todo:
@@ -17,36 +42,32 @@ const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MAN
  * - Simplify creation of actions with some helper function and evaluators descriptor?
  */
 export class StalkerStateManager {
-  public npc: XR_game_object;
+  public object: XR_game_object;
+
   public animation!: StalkerAnimationManager;
   public animstate!: StalkerAnimationManager;
   public planner: XR_action_planner;
 
-  public target_state: EStalkerState = EStalkerState.IDLE;
-  public current_object: Optional<XR_game_object> | -1 = null;
-  public combat: boolean = false;
-  public alife: boolean = true;
+  public targetState: EStalkerState = EStalkerState.IDLE;
+
+  public isCombat: boolean = false;
+  public isAlife: boolean = true;
+  public isForced: Optional<boolean> = null;
+
   public animation_position: Optional<XR_vector> = null;
   public animation_direction: Optional<XR_vector> = null;
   public pos_direction_applied: boolean = false;
   public look_position: Optional<XR_vector> = null;
   public point_obj_dir?: boolean;
-  public isForced: Optional<boolean> = null;
-  public look_object: Optional<number> = null;
+  public look_object: Optional<TNumberId> = null;
 
-  public callback: Optional<{
-    begin: Optional<number>;
-    timeout: Optional<number>;
-    func: Optional<AnyCallable>;
-    turn_end_func: Optional<AnyCallable>;
-    obj: AnyObject;
-  }> = null;
+  public callback: Optional<IStateManagerCallbackDescriptor> = null;
 
   /**
    * todo: Description.
    */
   public constructor(object: XR_game_object) {
-    this.npc = object;
+    this.object = object;
     this.planner = new action_planner();
     this.planner.setup(object);
   }
@@ -56,16 +77,12 @@ export class StalkerStateManager {
    */
   public setState(
     stateName: EStalkerState,
-    callback: Optional<AnyObject>,
+    callback: Optional<IStateManagerCallbackDescriptor>,
     timeout: Optional<TDuration>,
     target: Optional<ITargetStateDescriptor>,
-    extra: Optional<{
-      isForced?: boolean;
-      animation_position?: Optional<XR_vector>;
-      animation_direction?: Optional<XR_vector>;
-    }>
+    extra: Optional<ITargetStateDescriptorExtras>
   ): void {
-    assert(states.get(stateName), "Invalid set state called: '%s' fo '%s'.", stateName, this.npc.name());
+    assert(states.get(stateName), "Invalid set state called: '%s' fo '%s'.", stateName, this.object.name());
 
     if (target !== null) {
       this.look_position = target.look_position;
@@ -80,31 +97,29 @@ export class StalkerStateManager {
       this.look_object = null;
     }
 
-    if (this.target_state !== stateName) {
-      logger.info("Set state:", this);
-
+    if (this.targetState !== stateName) {
       if (
-        (states.get(this.target_state).weapon === "fire" || states.get(this.target_state).weapon === "sniper_fire") &&
-        states.get(stateName).weapon !== "fire" &&
-        states.get(stateName).weapon !== "sniper_fire"
+        (states.get(this.targetState).weapon === EWeaponAnimation.FIRE ||
+          states.get(this.targetState).weapon === EWeaponAnimation.SNIPER_FIRE) &&
+        states.get(stateName).weapon !== EWeaponAnimation.FIRE &&
+        states.get(stateName).weapon !== EWeaponAnimation.SNIPER_FIRE
       ) {
-        if (this.npc.weapon_unstrapped()) {
-          this.npc.set_item(object.idle, getObjectAnimationWeapon(this.npc, stateName));
+        if (this.object.weapon_unstrapped()) {
+          this.object.set_item(object.idle, getObjectAnimationWeapon(this.object, stateName));
         }
       }
 
       if (states.get(stateName).special_danger_move === true) {
-        if (this.npc.special_danger_move() !== true) {
-          this.npc.special_danger_move(true);
+        if (this.object.special_danger_move() !== true) {
+          this.object.special_danger_move(true);
         }
       } else {
-        if (this.npc.special_danger_move() === true) {
-          this.npc.special_danger_move(false);
+        if (this.object.special_danger_move() === true) {
+          this.object.special_danger_move(false);
         }
       }
 
-      this.target_state = stateName;
-      this.current_object = null;
+      this.targetState = stateName;
 
       if (extra !== null) {
         this.isForced = extra.isForced === true;
@@ -129,16 +144,14 @@ export class StalkerStateManager {
         this.isForced = null;
       }
 
-      this.callback = callback as any;
+      this.callback = callback;
 
       if (timeout !== null && timeout >= 0) {
         this.callback!.timeout = timeout;
         this.callback!.begin = null;
-      } else {
-        if (this.callback) {
-          this.callback.func = null;
-          this.callback.timeout = null;
-        }
+      } else if (this.callback) {
+        this.callback.func = null;
+        this.callback.timeout = null;
       }
     }
   }
@@ -147,31 +160,30 @@ export class StalkerStateManager {
    * todo: Description.
    */
   public getState(): Optional<string> {
-    return this.target_state;
+    return this.targetState;
   }
 
   /**
    * todo: Description.
    */
   public update(): void {
-    if (this.animation.states.current_state === states.get(this.target_state).animation) {
+    if (this.animation.states.current_state === states.get(this.targetState).animation) {
       if (this.callback !== null && this.callback.func !== null) {
         const now: TTimestamp = time_global();
 
         if (this.callback.begin === null) {
           this.callback.begin = now;
-          logger.info("Callback initialized:", this);
         } else {
-          if (now - this.callback.begin >= this.callback.timeout!) {
+          if (now - (this.callback.begin as TTimestamp) >= this.callback.timeout!) {
             logger.info("Callback called:", this);
 
-            const a = this.callback.func;
-            const b = this.callback.obj;
+            const callbackFunction = this.callback.func;
+            const callbackParameter = this.callback.obj;
 
             this.callback.begin = null;
             this.callback.func = null;
 
-            a(b);
+            callbackFunction(callbackParameter);
           }
         }
       }
@@ -195,18 +207,5 @@ export class StalkerStateManager {
       this.planner.update();
       plannerCurrentActionId = this.planner.current_action_id();
     }
-
-    // --this.planner:show("")
-  }
-
-  /**
-   * todo: Description.
-   */
-  public toString(): string {
-    return `StalkerStateManager #npc: ${this.npc.name()} #target_state: ${this.target_state} #combat: ${
-      this.combat
-    } #pos_direction_applied: ${this.pos_direction_applied} #current_object ${
-      type(this.current_object) === "number" ? this.current_object : type(this.current_object)
-    }`;
   }
 }

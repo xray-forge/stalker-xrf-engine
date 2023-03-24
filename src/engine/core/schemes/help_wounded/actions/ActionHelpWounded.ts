@@ -29,7 +29,7 @@ export class ActionHelpWounded extends action_base {
     this.object.set_desired_direction();
     this.object.set_dest_level_vertex_id(this.state.vertex_id);
 
-    setStalkerState(this.object, EStalkerState.PATROL, null, null, null, null);
+    setStalkerState(this.object, EStalkerState.PATROL);
   }
 
   /**

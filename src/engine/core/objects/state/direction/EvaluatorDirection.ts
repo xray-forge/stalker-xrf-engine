@@ -15,6 +15,7 @@ import {
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areSameVectorsByPrecision } from "@/engine/core/utils/vector";
+import { AnyCallable } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -34,7 +35,7 @@ export class EvaluatorDirection extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    if (this.stateManager.target_state === "smartcover") {
+    if (this.stateManager.targetState === "smartcover") {
       return true;
     }
 
@@ -94,7 +95,7 @@ export class EvaluatorDirection extends property_evaluator {
    */
   public callback(): void {
     if (this.stateManager.callback !== null && this.stateManager.callback.turn_end_func !== null) {
-      this.stateManager.callback.turn_end_func(this.stateManager.callback.obj);
+      (this.stateManager.callback.turn_end_func as AnyCallable)(this.stateManager.callback.obj);
 
       if (this.stateManager.callback !== null) {
         this.stateManager.callback.turn_end_func = null;

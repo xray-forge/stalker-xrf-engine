@@ -24,7 +24,7 @@ export class ActionAnimationStateStart extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    this.stateManager.animstate.setState(states.get(this.stateManager.target_state).animstate, null);
+    this.stateManager.animstate.setState(states.get(this.stateManager.targetState).animstate, null);
     this.stateManager.animstate.setControl();
   }
 }

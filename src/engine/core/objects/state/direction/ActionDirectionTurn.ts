@@ -45,7 +45,7 @@ export class ActionDirectionTurn extends action_base {
     if (this.stateManager.look_object !== null && level.object_by_id(this.stateManager.look_object) !== null) {
       lookAtObject(this.object, this.stateManager);
     } else if (this.stateManager.look_position !== null) {
-      if (states.get(this.stateManager.target_state).direction) {
+      if (states.get(this.stateManager.targetState).direction) {
         this.object.set_sight(CSightParams.eSightTypeAnimationDirection, false, false);
 
         return;

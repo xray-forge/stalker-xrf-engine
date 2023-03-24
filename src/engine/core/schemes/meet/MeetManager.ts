@@ -52,9 +52,9 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
     if (tostring(state) !== NIL) {
       if (victim === null) {
-        setStalkerState(this.object, state!, null, null, null, null);
+        setStalkerState(this.object, state!);
       } else {
-        setStalkerState(this.object, state!, null, null, { look_object: victim, look_position: null }, null);
+        setStalkerState(this.object, state!, null, null, { look_object: victim, look_position: null });
       }
     }
 
@@ -87,8 +87,8 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
       return;
     }
 
-    const distance = this.object.position().distance_to(actor.position());
-    const actor_visible = this.object.see(actor);
+    const distance: TDistance = this.object.position().distance_to(actor.position());
+    const actor_visible: boolean = this.object.see(actor);
 
     const is_object_far =
       actor_visible && distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.far_distance))!;

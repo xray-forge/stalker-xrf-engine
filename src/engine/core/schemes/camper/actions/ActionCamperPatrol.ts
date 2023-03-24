@@ -446,14 +446,10 @@ export class ActionCamperPatrol extends action_base {
           null
         );
       } else {
-        setStalkerState(
-          this.object,
-          EStalkerState.HIDE_NA,
-          null,
-          null,
-          { look_position: this.look_point, look_object: null },
-          null
-        );
+        setStalkerState(this.object, EStalkerState.HIDE_NA, null, null, {
+          look_position: this.look_point,
+          look_object: null,
+        });
       }
 
       if (this.state.cur_look_point >= this.state.scandelta) {

@@ -4,17 +4,16 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { TName } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
 export class ActionStateToIdle extends action_base {
-  public readonly stateManager: StalkerStateManager;
+  private readonly stateManager: StalkerStateManager;
 
   /**
    * todo: Description.
@@ -49,14 +48,6 @@ export class ActionStateToIdle extends action_base {
     sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());
 
     this.object.set_path_type(game_object.level_path);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override finalize(): void {
-    this.stateManager.current_object = -1;
-    super.finalize();
   }
 
   /**

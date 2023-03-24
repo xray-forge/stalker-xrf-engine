@@ -23,8 +23,8 @@ export class EvaluatorMental extends property_evaluator {
    */
   public override evaluate(): boolean {
     return (
-      states.get(this.stateManager.target_state).mental === null ||
-      states.get(this.stateManager.target_state).mental === this.object.target_mental_state()
+      states.get(this.stateManager.targetState).mental === null ||
+      states.get(this.stateManager.targetState).mental === this.object.target_mental_state()
     );
   }
 }

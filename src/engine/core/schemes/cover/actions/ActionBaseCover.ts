@@ -86,7 +86,7 @@ export class ActionBaseCover extends action_base {
     this.object.set_path_type(game_object.level_path);
     this.object.set_dest_level_vertex_id(this.cover_vertex_id);
 
-    setStalkerState(this.object, EStalkerState.ASSAULT, null, null, null, null);
+    setStalkerState(this.object, EStalkerState.ASSAULT);
   }
 
   /**
@@ -106,7 +106,7 @@ export class ActionBaseCover extends action_base {
       );
     } else {
       this.object.set_dest_level_vertex_id(this.cover_vertex_id);
-      setStalkerState(this.object, EStalkerState.ASSAULT, null, null, null, null);
+      setStalkerState(this.object, EStalkerState.ASSAULT);
     }
 
     if (this.state.sound_idle !== null) {
