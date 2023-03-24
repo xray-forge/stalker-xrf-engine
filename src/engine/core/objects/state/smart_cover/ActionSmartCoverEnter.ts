@@ -4,26 +4,19 @@ import { registry } from "@/engine/core/database";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/smartcover";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme, TName } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger(
-  "StateManagerActSmartCoverEnter",
-  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
-);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class StateManagerActSmartCoverEnter extends action_base {
+export class ActionSmartCoverEnter extends action_base {
   public readonly stateManager: StalkerStateManager;
 
-  /**
-   * todo: Description.
-   */
   public constructor(stateManager: StalkerStateManager) {
-    super(null, StateManagerActSmartCoverEnter.__name);
+    super(null, ActionSmartCoverEnter.__name);
     this.stateManager = stateManager;
   }
 
@@ -39,24 +32,10 @@ export class StateManagerActSmartCoverEnter extends action_base {
 
     this.object.use_smart_covers_only(true);
     this.object.set_movement_type(move.run);
-    this.object.set_dest_smart_cover(smartCoverState.cover_name as string);
+    this.object.set_dest_smart_cover(smartCoverState.cover_name as TName);
 
     if (smartCoverState.loophole_name !== null) {
       this.object.set_dest_loophole(smartCoverState.loophole_name);
     }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override execute(): void {
-    super.execute();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override finalize(): void {
-    super.finalize();
   }
 }

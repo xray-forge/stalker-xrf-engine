@@ -23,7 +23,12 @@ import * as movementManagement from "@/engine/core/objects/state/movement";
 import * as smartCoverManagement from "@/engine/core/objects/state/smart_cover";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import * as stateManagement from "@/engine/core/objects/state/state";
-import { EStateActionId, EStateEvaluatorId, ITargetStateDescriptor } from "@/engine/core/objects/state/types";
+import {
+  EStalkerStateType,
+  EStateActionId,
+  EStateEvaluatorId,
+  ITargetStateDescriptor,
+} from "@/engine/core/objects/state/types";
 import * as weaponManagement from "@/engine/core/objects/state/weapon";
 import { getObjectAnimationWeapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -45,7 +50,7 @@ export class StalkerStateManager {
   public animstate!: StalkerAnimationManager;
   public planner: XR_action_planner;
 
-  public target_state: string = "idle";
+  public target_state: string = EStalkerStateType.IDLE;
   public current_object: Optional<XR_game_object> | -1 = null;
   public combat: boolean = false;
   public alife: boolean = true;
@@ -231,7 +236,7 @@ export class StalkerStateManager {
    * todo: Description.
    */
   public toString(): string {
-    return `StateManager #npc: ${this.npc.name()} #target_state: ${this.target_state} #combat: ${
+    return `StalkerStateManager #npc: ${this.npc.name()} #target_state: ${this.target_state} #combat: ${
       this.combat
     } #pos_direction_applied: ${this.pos_direction_applied} #current_object ${
       type(this.current_object) === "number" ? this.current_object : type(this.current_object)
@@ -426,15 +431,15 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
 
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.smartcover,
-    new smartCoverManagement.StateManagerEvaSmartCover(stateManager)
+    new smartCoverManagement.EvaluatorSmartCover(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.smartcover_need,
-    new smartCoverManagement.StateManagerEvaSmartCoverNeed(stateManager)
+    new smartCoverManagement.EvaluatorSmartCoverNeed(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.in_smartcover,
-    new smartCoverManagement.StateManagerEvaInSmartCover(stateManager)
+    new smartCoverManagement.EvaluatorInSmartCover(stateManager)
   );
 
   // --	st.planner.add_evaluator(EStateManagerProperty.smartcover_locked,
@@ -868,7 +873,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   animationStopAction.add_effect(new world_property(EStateEvaluatorId.animation_none_now, true));
   stateManager.planner.add_action(EStateActionId.animation_stop, animationStopAction);
 
-  const smartCoverEnterAction = new smartCoverManagement.StateManagerActSmartCoverEnter(stateManager);
+  const smartCoverEnterAction = new smartCoverManagement.ActionSmartCoverEnter(stateManager);
 
   smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
   smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.weapon, true));
@@ -879,7 +884,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   smartCoverEnterAction.add_effect(new world_property(EStateEvaluatorId.smartcover, true));
   stateManager.planner.add_action(EStateActionId.smartcover_enter, smartCoverEnterAction);
 
-  const smartCoverExitAction = new smartCoverManagement.StateManagerActSmartCoverExit(stateManager);
+  const smartCoverExitAction = new smartCoverManagement.ActionSmartCoverExit(stateManager);
 
   smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
   smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.weapon, true));

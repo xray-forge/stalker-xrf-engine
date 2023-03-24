@@ -4,26 +4,19 @@ import { registry } from "@/engine/core/database";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/smartcover";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { EScheme, Optional } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger(
-  "StateManagerEvaSmartCoverLocked",
-  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
-);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class StateManagerEvaSmartCoverLocked extends property_evaluator {
+export class EvaluatorSmartCoverLocked extends property_evaluator {
   public readonly stateManager: StalkerStateManager;
 
-  /**
-   * todo: Description.
-   */
   public constructor(stateManager: StalkerStateManager) {
-    super(null, StateManagerEvaSmartCoverLocked.__name);
+    super(null, EvaluatorSmartCoverLocked.__name);
     this.stateManager = stateManager;
   }
 

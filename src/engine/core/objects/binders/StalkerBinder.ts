@@ -48,7 +48,7 @@ import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardMa
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { TradeManager } from "@/engine/core/managers/TradeManager";
 import { setupSmartJobsAndLogicOnSpawn, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import { bind_state_manager } from "@/engine/core/objects/state/bind_state_manager";
+import { addStateManager } from "@/engine/core/objects/state/add_state_manager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import {
@@ -112,7 +112,7 @@ export class StalkerBinder extends object_binder {
     super.reinit();
 
     this.state = resetObject(this.object);
-    this.state.state_mgr = bind_state_manager(this.object);
+    this.state.state_mgr = addStateManager(this.object);
     this.state.moveManager = new StalkerMoveManager(this.object).initialize();
   }
 

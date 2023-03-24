@@ -5,7 +5,7 @@
   "repository": "https://github.com/stalker-xrts/stalker-xrts-template",
   "private": true,
   "scripts": {
-    "setup": "git submodule init && git submodule update",
+    "setup": "git submodule init && git submodule update --recursive",
     "help": "ts-node -P ./cli/tsconfig.json cli/info/info.ts",
     "info": "ts-node -P ./cli/tsconfig.json cli/info/info.ts",
     "verify": "ts-node -P ./cli/tsconfig.json cli/verify/verify.ts",
