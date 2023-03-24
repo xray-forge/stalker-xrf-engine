@@ -3,26 +3,18 @@ import { LuabindClass, property_evaluator } from "xray16";
 import { registry } from "@/engine/core/database";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
-const logger: LuaLogger = new LuaLogger(
-  "StateManagerEvaLogicActive",
-  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
-);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class StateManagerEvaLogicActive extends property_evaluator {
+export class EvaluatorStateLogicActive extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state_manager: StalkerStateManager) {
-    super(null, StateManagerEvaLogicActive.__name);
-
+    super(null, EvaluatorStateLogicActive.__name);
     this.stateManager = state_manager;
   }
 

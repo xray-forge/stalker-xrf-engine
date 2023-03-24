@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator, XR_action_planner } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
-import { EStateEvaluatorId } from "@/engine/core/objects/state/types";
+import { EStalkerStateType, EStateEvaluatorId } from "@/engine/core/objects/state/types";
 import { EActionId } from "@/engine/core/schemes";
 import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -14,15 +14,13 @@ const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MAN
  * todo
  */
 @LuabindClass()
-export class StateManagerEvaIdleAlife extends property_evaluator {
+export class EvaluatorStateIdleAlife extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
-  private currentActionId: Optional<number> = null;
 
-  /**
-   * todo: Description.
-   */
+  private currentActionId: Optional<EActionId> = null;
+
   public constructor(stateManager: StalkerStateManager) {
-    super(null, StateManagerEvaIdleAlife.__name);
+    super(null, EvaluatorStateIdleAlife.__name);
     this.stateManager = stateManager;
   }
 
@@ -34,9 +32,9 @@ export class StateManagerEvaIdleAlife extends property_evaluator {
       return true;
     }
 
-    const actionPlanner: XR_action_planner = this.object.motivation_action_manager();
-
     this.currentActionId = null;
+
+    const actionPlanner: XR_action_planner = this.object.motivation_action_manager();
 
     if (actionPlanner.initialized()) {
       this.currentActionId = actionPlanner.current_action_id();
@@ -45,10 +43,11 @@ export class StateManagerEvaIdleAlife extends property_evaluator {
       }
     }
 
-    // --    if db.storage[this.st.npc:id()].active_section === null then
-    if (!isObjectMeeting(this.object)) {
-      const isAlifeIdle =
-        this.stateManager.target_state === "idle" &&
+    if (isObjectMeeting(this.object)) {
+      return false;
+    } else {
+      const isAlifeIdle: boolean =
+        this.stateManager.target_state === EStalkerStateType.IDLE &&
         // --not this.st.planner.evaluator(this.st.properties["locked"]).evaluate() and
         !this.stateManager.planner.evaluator(EStateEvaluatorId.weapon_locked).evaluate() &&
         !this.stateManager.planner.evaluator(EStateEvaluatorId.animstate_locked).evaluate() &&
@@ -67,8 +66,6 @@ export class StateManagerEvaIdleAlife extends property_evaluator {
       }
 
       return isAlifeIdle;
-    } else {
-      return false;
     }
   }
 }

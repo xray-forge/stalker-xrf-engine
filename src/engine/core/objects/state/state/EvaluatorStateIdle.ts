@@ -1,28 +1,25 @@
 import { cast_planner, LuabindClass, property_evaluator, stalker_ids, XR_action_planner } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
-import { EStateEvaluatorId } from "@/engine/core/objects/state/types";
+import { EStalkerStateType, EStateEvaluatorId } from "@/engine/core/objects/state/types";
 import { EActionId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { Optional } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class StateManagerEvaIdle extends property_evaluator {
+export class EvaluatorStateIdle extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
+
   private actionPlanner: Optional<XR_action_planner> = null;
   private combatPlanner: Optional<XR_action_planner> = null;
 
-  /**
-   * todo: Description.
-   */
   public constructor(stateManager: StalkerStateManager) {
-    super(null, StateManagerEvaIdle.__name);
+    super(null, EvaluatorStateIdle.__name);
     this.stateManager = stateManager;
   }
 
@@ -30,8 +27,8 @@ export class StateManagerEvaIdle extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    const t =
-      this.stateManager.target_state === "idle" &&
+    const isIdle: boolean =
+      this.stateManager.target_state === EStalkerStateType.IDLE &&
       // --!this.st.planner.evaluator(this.st.properties["locked"]).evaluate() &&
       !this.stateManager.planner.evaluator(EStateEvaluatorId.animstate_locked).evaluate() &&
       !this.stateManager.planner.evaluator(EStateEvaluatorId.animation_locked).evaluate() &&
@@ -48,13 +45,14 @@ export class StateManagerEvaIdle extends property_evaluator {
       return false;
     }
 
-    if (t === true) {
-      if (this.actionPlanner.current_action_id() === EActionId.state_mgr + 1) {
+    if (isIdle) {
+      // todo: Enum value.
+      if (this.actionPlanner.current_action_id() === EActionId.state_mgr_to_idle_combat) {
         this.stateManager.combat = true;
       }
     }
 
-    if (this.stateManager.combat === true) {
+    if (this.stateManager.combat) {
       return true;
     }
 
@@ -65,9 +63,6 @@ export class StateManagerEvaIdle extends property_evaluator {
     if (!this.combatPlanner.initialized()) {
       return false;
     }
-    // --if this.combat_planner.current_action_id() === stalker_ids.action_post_combat_wait then
-    // --    return true
-    // --end
 
     return false;
   }

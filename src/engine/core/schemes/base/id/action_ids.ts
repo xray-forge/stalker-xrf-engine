@@ -13,6 +13,7 @@ const zmey_actions: number = chugai_actions + 1024;
 
 /**
  * todo;
+ * todo: Use ID generator.
  */
 export enum EActionId {
   BASE = base,
@@ -20,6 +21,9 @@ export enum EActionId {
   corpse_exist = base + 50,
   wounded_exist = base + 55,
   state_mgr = base + 100,
+  state_mgr_to_idle_combat = base + 101,
+  state_mgr_to_idle_alife = base + 102,
+  state_mgr_to_idle_items = base + 103,
   smartcover_action = base + 215,
   stohe_meet_base = stohe_actions + 30,
   stohe_cover_base = stohe_actions + 80,

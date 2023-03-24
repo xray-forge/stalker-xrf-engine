@@ -264,11 +264,11 @@ export function getStalkerState(object: XR_game_object): Optional<string> {
  * todo;
  */
 export function goap_graph(stateManager: StalkerStateManager, object: XR_game_object): void {
-  stateManager.planner.add_evaluator(EStateEvaluatorId.end, new stateManagement.StateManagerEvaEnd(stateManager));
-  stateManager.planner.add_evaluator(EStateEvaluatorId.locked, new stateManagement.StateManagerEvaLocked(stateManager));
+  stateManager.planner.add_evaluator(EStateEvaluatorId.end, new stateManagement.EvaluatorStateEnd(stateManager));
+  stateManager.planner.add_evaluator(EStateEvaluatorId.locked, new stateManagement.EvaluatorStateLocked(stateManager));
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.locked_external,
-    new stateManagement.StateManagerEvaLockedExternal(stateManager)
+    new stateManagement.EvaluatorStateLockedExternal(stateManager)
   );
 
   stateManager.planner.add_evaluator(EStateEvaluatorId.weapon, new weaponManagement.EvaluatorWeapon(stateManager));
@@ -888,37 +888,37 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   smartCoverExitAction.add_effect(new world_property(EStateEvaluatorId.smartcover, true));
   stateManager.planner.add_action(EStateActionId.smartcover_exit, smartCoverExitAction);
 
-  const lockedSmartCoverAction = new stateManagement.StateManagerActLocked(stateManager, "lockedSmartCoverAction");
+  const lockedSmartCoverAction = new stateManagement.ActionStateLocked(stateManager, "lockedSmartCoverAction");
 
   lockedSmartCoverAction.add_precondition(new world_property(EStateEvaluatorId.in_smartcover, true));
   lockedSmartCoverAction.add_effect(new world_property(EStateEvaluatorId.in_smartcover, false));
   stateManager.planner.add_action(EStateActionId.locked_smartcover, lockedSmartCoverAction);
 
-  const lockedAction = new stateManagement.StateManagerActLocked(stateManager, "lockedAction");
+  const lockedAction = new stateManagement.ActionStateLocked(stateManager, "lockedAction");
 
   lockedAction.add_precondition(new world_property(EStateEvaluatorId.locked, true));
   lockedAction.add_effect(new world_property(EStateEvaluatorId.locked, false));
   stateManager.planner.add_action(EStateActionId.locked, lockedAction);
 
-  const lockedAnimationAction = new stateManagement.StateManagerActLocked(stateManager, "lockedAnimationAction");
+  const lockedAnimationAction = new stateManagement.ActionStateLocked(stateManager, "lockedAnimationAction");
 
   lockedAnimationAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, true));
   lockedAnimationAction.add_effect(new world_property(EStateEvaluatorId.animation_locked, false));
   stateManager.planner.add_action(EStateActionId.locked_animation, lockedAnimationAction);
 
-  const lockedAnimstateAction = new stateManagement.StateManagerActLocked(stateManager, "lockedAnimstateAction");
+  const lockedAnimstateAction = new stateManagement.ActionStateLocked(stateManager, "lockedAnimstateAction");
 
   lockedAnimstateAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, true));
   lockedAnimstateAction.add_effect(new world_property(EStateEvaluatorId.animstate_locked, false));
   stateManager.planner.add_action(EStateActionId.locked_animstate, lockedAnimstateAction);
 
-  const lockedExternalAction = new stateManagement.StateManagerActLocked(stateManager, "lockedExternalAction");
+  const lockedExternalAction = new stateManagement.ActionStateLocked(stateManager, "lockedExternalAction");
 
   lockedExternalAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, true));
   lockedExternalAction.add_effect(new world_property(EStateEvaluatorId.locked_external, false));
   stateManager.planner.add_action(EStateActionId.locked_external, lockedExternalAction);
 
-  const endStateAction = new stateManagement.StateManagerActEnd(stateManager);
+  const endStateAction = new stateManagement.ActionStateEnd(stateManager);
 
   endStateAction.add_precondition(new world_property(EStateEvaluatorId.end, false));
   endStateAction.add_precondition(new world_property(EStateEvaluatorId.weapon, true));

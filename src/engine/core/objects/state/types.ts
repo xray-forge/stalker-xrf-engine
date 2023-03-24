@@ -138,6 +138,13 @@ export enum EWeaponAnimationType {
 /**
  * todo;
  */
+export enum EStalkerStateType {
+  IDLE = "idle",
+}
+
+/**
+ * todo;
+ */
 export interface IStateDescriptor {
   weapon: Optional<EWeaponAnimationType>;
   movement?: Optional<TXR_move>;

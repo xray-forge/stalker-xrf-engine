@@ -1,5 +1,6 @@
 import { action_base, game_object, LuabindClass } from "xray16";
 
+import { EStalkerStateType } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
@@ -12,14 +13,14 @@ const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MAN
  * todo;
  */
 @LuabindClass()
-export class StateManagerActToIdle extends action_base {
+export class ActionStateToIdle extends action_base {
   public readonly stateManager: StalkerStateManager;
 
   /**
    * todo: Description.
    */
   public constructor(stateManager: StalkerStateManager, name?: TName) {
-    super(null, name || StateManagerActToIdle.__name);
+    super(null, name || ActionStateToIdle.__name);
     this.stateManager = stateManager;
   }
 
@@ -32,18 +33,18 @@ export class StateManagerActToIdle extends action_base {
     this.object.inactualize_patrol_path();
 
     if (this.object.best_enemy() !== null) {
-      this.stateManager.setState("idle", null, null, null, { isForced: true });
+      this.stateManager.setState(EStalkerStateType.IDLE, null, null, null, { isForced: true });
 
       return;
     }
 
     if (this.object.best_danger() !== null) {
-      this.stateManager.setState("idle", null, null, null, { isForced: true });
+      this.stateManager.setState(EStalkerStateType.IDLE, null, null, null, { isForced: true });
 
       return;
     }
 
-    this.stateManager.setState("idle", null, null, null, null);
+    this.stateManager.setState(EStalkerStateType.IDLE, null, null, null, null);
 
     sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());
 
@@ -66,20 +67,14 @@ export class StateManagerActToIdle extends action_base {
     this.object.set_path_type(game_object.level_path);
 
     if (this.object.best_enemy()) {
-      this.stateManager.setState("idle", null, null, null, { isForced: true });
+      this.stateManager.setState(EStalkerStateType.IDLE, null, null, null, { isForced: true });
       super.execute();
-
-      return;
-    }
-
-    if (this.object.best_danger()) {
-      this.stateManager.setState("idle", null, null, null, { isForced: true });
+    } else if (this.object.best_danger()) {
+      this.stateManager.setState(EStalkerStateType.IDLE, null, null, null, { isForced: true });
       super.execute();
-
-      return;
+    } else {
+      this.stateManager.setState(EStalkerStateType.IDLE, null, null, null, null);
+      super.execute();
     }
-
-    this.stateManager.setState("idle", null, null, null, null);
-    super.execute();
   }
 }

@@ -2,17 +2,17 @@ import { cast_planner, LuabindClass, property_evaluator, stalker_ids, XR_action_
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TNumberId } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class StateManagerEvaEnd extends property_evaluator {
+export class EvaluatorStateEnd extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
+
   private actionPlanner: Optional<XR_action_planner> = null;
   private combatPlanner: Optional<XR_action_planner> = null;
 
@@ -20,7 +20,7 @@ export class StateManagerEvaEnd extends property_evaluator {
    * todo: Description.
    */
   public constructor(stateManager: StalkerStateManager) {
-    super(null, StateManagerEvaEnd.__name);
+    super(null, EvaluatorStateEnd.__name);
     this.stateManager = stateManager;
   }
 
@@ -40,19 +40,15 @@ export class StateManagerEvaEnd extends property_evaluator {
       return false;
     }
 
-    const current_action_id: number = this.actionPlanner.current_action_id();
+    const currentActionId: TNumberId = this.actionPlanner.current_action_id();
 
-    if (current_action_id === stalker_ids.action_combat_planner) {
+    if (currentActionId === stalker_ids.action_combat_planner) {
       if (!this.combatPlanner.initialized()) {
         return false;
       }
-
-      // --if this.combat_planner:current_action_id() === stalker_ids.action_post_combat_wait then
-      // --    this.st.combat = false
-      // --end
     } else if (
-      current_action_id !== stalker_ids.action_danger_planner &&
-      current_action_id !== stalker_ids.action_anomaly_planner
+      currentActionId !== stalker_ids.action_danger_planner &&
+      currentActionId !== stalker_ids.action_anomaly_planner
     ) {
       this.stateManager.combat = false;
     }
