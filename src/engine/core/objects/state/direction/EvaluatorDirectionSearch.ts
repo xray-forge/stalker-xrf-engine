@@ -2,25 +2,18 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
-const logger: LuaLogger = new LuaLogger(
-  "StateManagerEvaDirectionSearch",
-  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
-);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class StateManagerEvaDirectionSearch extends property_evaluator {
+export class EvaluatorDirectionSearch extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
 
-  /**
-   * todo: Description.
-   */
   public constructor(stateManager: StalkerStateManager) {
-    super(null, StateManagerEvaDirectionSearch.__name);
+    super(null, EvaluatorDirectionSearch.__name);
     this.stateManager = stateManager;
   }
 

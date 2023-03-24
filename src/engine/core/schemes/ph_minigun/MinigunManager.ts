@@ -10,7 +10,7 @@ import { isActiveSection } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { isObjectScriptCaptured, scriptReleaseObject } from "@/engine/core/utils/object";
 import { TConditionList } from "@/engine/core/utils/parse";
-import { yaw } from "@/engine/core/utils/physics";
+import { yaw } from "@/engine/core/utils/vector";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { Optional, TName, TStringId } from "@/engine/lib/types";
 

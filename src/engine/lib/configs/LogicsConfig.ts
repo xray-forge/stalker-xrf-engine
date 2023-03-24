@@ -1,6 +1,7 @@
 import { danger_object } from "xray16";
 
 export const logicsConfig = {
+  ACTOR_VISIBILITY_FRUSTUM: 35,
   DANGER_INERTION_TIME: 30_000,
   DANGER_IGNORE_DISTANCE_GENERAL: 150,
   DANGER_IGNORE_DISTANCE_BY_TYPE: {

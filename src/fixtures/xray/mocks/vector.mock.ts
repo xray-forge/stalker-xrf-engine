@@ -11,10 +11,12 @@ export class MockVector {
   /**
    * todo: Description.
    */
-  public set(x: number, y: number, z: number): void {
+  public set(x: number, y: number, z: number): MockVector {
     this.x = x;
     this.y = y;
     this.z = z;
+
+    return this;
   }
 
   public distance_to(): number {

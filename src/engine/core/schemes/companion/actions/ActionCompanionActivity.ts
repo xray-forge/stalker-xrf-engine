@@ -5,7 +5,7 @@ import { ITargetStateDescriptor } from "@/engine/core/objects/state";
 import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCompanionState } from "@/engine/core/schemes/companion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { vectorRotateY } from "@/engine/core/utils/physics";
+import { vectorRotateY } from "@/engine/core/utils/vector";
 import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

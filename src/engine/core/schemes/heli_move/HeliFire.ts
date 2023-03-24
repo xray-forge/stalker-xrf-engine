@@ -14,7 +14,7 @@ import {
 import { getIdBySid, registry } from "@/engine/core/database";
 import { randomChoice } from "@/engine/core/utils/general";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { distanceBetween2d } from "@/engine/core/utils/physics";
+import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";

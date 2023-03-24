@@ -3,27 +3,23 @@ import { LuabindClass, property_evaluator } from "xray16";
 import { states } from "@/engine/core/objects/state/lib/state_lib";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
-const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class StateManagerEvaMental extends property_evaluator {
-  public readonly stateManager: StalkerStateManager;
+export class EvaluatorMental extends property_evaluator {
+  private readonly stateManager: StalkerStateManager;
 
-  /**
-   * todo: Description.
-   */
   public constructor(stateManager: StalkerStateManager) {
-    super(null, StateManagerEvaMental.__name);
+    super(null, EvaluatorMental.__name);
     this.stateManager = stateManager;
   }
 
   /**
-   * todo: Description.
+   * Check if mental desired mental state matches actual object mental state.
    */
   public override evaluate(): boolean {
     return (

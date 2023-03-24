@@ -6,7 +6,7 @@ import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardMa
 import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { areSameVectors } from "@/engine/core/utils/physics";
+import { areSameVectors } from "@/engine/core/utils/vector";
 import { Optional } from "@/engine/lib/types";
 
 /**

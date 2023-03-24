@@ -4,21 +4,27 @@ import { states } from "@/engine/core/objects/state/lib/state_lib";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EStateEvaluatorId } from "@/engine/core/objects/state/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areSameVectors } from "@/engine/core/utils/physics";
+import { areSameVectors } from "@/engine/core/utils/vector";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
 const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
-export function look_at_object(npc: XR_game_object, st: StalkerStateManager): void {
-  st.point_obj_dir = look_object_type(npc, st);
+/**
+ * todo;
+ */
+export function lookAtObject(object: XR_game_object, stateManager: StalkerStateManager): void {
+  stateManager.point_obj_dir = look_object_type(object, stateManager);
 
-  if (st.point_obj_dir === true) {
-    npc.set_sight(level.object_by_id(st.look_object!)!, true, false, false);
+  if (stateManager.point_obj_dir === true) {
+    object.set_sight(level.object_by_id(stateManager.look_object!)!, true, false, false);
   } else {
-    npc.set_sight(level.object_by_id(st.look_object!)!, true, true);
+    object.set_sight(level.object_by_id(stateManager.look_object!)!, true, true);
   }
 }
 
+/**
+ * todo;
+ */
 const look_direction_states: LuaTable<string, boolean> = {
   // --	threat = true,
   threat_na: true,
@@ -26,6 +32,9 @@ const look_direction_states: LuaTable<string, boolean> = {
   guard_na: true,
 } as any;
 
+/**
+ * todo;
+ */
 export function look_object_type(npc: XR_game_object, st: StalkerStateManager): boolean {
   if (look_direction_states.get(st.target_state) === true) {
     return true;
@@ -34,24 +43,27 @@ export function look_object_type(npc: XR_game_object, st: StalkerStateManager): 
   return states.get(st.target_state).animation !== null;
 }
 
-export function look_position_type(npc: XR_game_object, st: StalkerStateManager): TXR_look {
-  if (st === null) {
+/**
+ * todo;
+ */
+export function getObjectLookPositionType(object: XR_game_object, stateManager: StalkerStateManager): TXR_look {
+  if (stateManager === null) {
     return look.path_dir;
   }
 
-  if (states.get(st.target_state).direction !== null) {
-    return states.get(st.target_state).direction! as TXR_look;
+  if (states.get(stateManager.target_state).direction !== null) {
+    return states.get(stateManager.target_state).direction! as TXR_look;
   }
 
-  if (!st.planner.evaluator(EStateEvaluatorId.movement_stand).evaluate()) {
-    if (st.look_position !== null) {
+  if (!stateManager.planner.evaluator(EStateEvaluatorId.movement_stand).evaluate()) {
+    if (stateManager.look_position !== null) {
       return look.direction;
     }
 
     return look.path_dir;
   }
 
-  if (st.look_position !== null) {
+  if (stateManager.look_position !== null) {
     return look.direction;
   }
 
@@ -59,36 +71,31 @@ export function look_position_type(npc: XR_game_object, st: StalkerStateManager)
 }
 
 // todo: Probably duplicate
-export function turn(npc: XR_game_object, st: StalkerStateManager): void {
-  st.point_obj_dir = look_object_type(npc, st);
+export function turn(object: XR_game_object, stateManager: StalkerStateManager): void {
+  stateManager.point_obj_dir = look_object_type(object, stateManager);
 
-  if (st.look_object !== null && level.object_by_id(st.look_object) !== null) {
-    logger.info("Look at object npc:", npc.name());
-    look_at_object(npc, st);
-  } else if (st.look_position !== null) {
-    let dir: XR_vector = new vector().sub(st.look_position!, npc.position());
+  if (stateManager.look_object !== null && level.object_by_id(stateManager.look_object) !== null) {
+    logger.info("Look at object npc:", object.name());
+    lookAtObject(object, stateManager);
+  } else if (stateManager.look_position !== null) {
+    let dir: XR_vector = new vector().sub(stateManager.look_position!, object.position());
 
-    if (st.point_obj_dir === true) {
+    if (stateManager.point_obj_dir === true) {
       dir.y = 0;
     }
 
     dir.normalize();
 
     if (areSameVectors(dir, new vector().set(0, 0, 0))) {
-      // -- callstack()
-      // printf("Before normalize direction [%s]", vec_to_str(vector():sub(st.look_position, npc:position())))
-      // printf("You are trying to set wrong direction %s (look_pos = [%s] npc_pos = [%s])!!!", vec_to_str(dir),
-      // vec_to_str(st.look_position), vec_to_str(npc:position()))
-      // -- �������, ���� ������� ������, �� ������ ������� � ������ ������� ���� ��������(��� ����������)
-      st.look_position = new vector().set(
-        npc.position().x + npc.direction().x,
-        npc.position().y + npc.direction().y,
-        npc.position().z + npc.direction().z
+      stateManager.look_position = new vector().set(
+        object.position().x + object.direction().x,
+        object.position().y + object.direction().y,
+        object.position().z + object.direction().z
       );
-      dir = npc.direction();
+      dir = object.direction();
     }
 
-    npc.set_sight(look.direction, dir, true);
-    logger.info("Look at position:", npc.name());
+    object.set_sight(look.direction, dir, true);
+    logger.info("Look at position:", object.name());
   }
 }

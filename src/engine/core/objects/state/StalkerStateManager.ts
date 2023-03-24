@@ -27,8 +27,8 @@ import { EStateActionId, EStateEvaluatorId, ITargetStateDescriptor } from "@/eng
 import * as weaponManagement from "@/engine/core/objects/state/weapon";
 import { get_weapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areSameVectors } from "@/engine/core/utils/physics";
 import { stringifyAsJson } from "@/engine/core/utils/transform/json";
+import { areSameVectors } from "@/engine/core/utils/vector";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { AnyCallable, AnyObject, Optional, TDuration, TName, TTimestamp } from "@/engine/lib/types";
 
@@ -333,63 +333,60 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
     new movementManagement.StateManagerEvaMovementStandNow(stateManager)
   );
 
-  stateManager.planner.add_evaluator(
-    EStateEvaluatorId.mental,
-    new mentalManagement.StateManagerEvaMental(stateManager)
-  );
+  stateManager.planner.add_evaluator(EStateEvaluatorId.mental, new mentalManagement.EvaluatorMental(stateManager));
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.mental_free,
-    new mentalManagement.StateManagerEvaMentalFree(stateManager)
+    new mentalManagement.EvaluatorMentalFree(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.mental_free_now,
-    new mentalManagement.StateManagerEvaMentalFreeNow(stateManager)
+    new mentalManagement.EvaluatorMentalFreeNow(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.mental_danger,
-    new mentalManagement.StateManagerEvaMentalDanger(stateManager)
+    new mentalManagement.EvaluatorMentalDanger(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.mental_danger_now,
-    new mentalManagement.StateManagerEvaMentalDangerNow(stateManager)
+    new mentalManagement.EvaluatorMentalDangerNow(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.mental_panic,
-    new mentalManagement.StateManagerEvaMentalPanic(stateManager)
+    new mentalManagement.EvaluatorMentalPanic(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.mental_panic_now,
-    new mentalManagement.StateManagerEvaMentalPanicNow(stateManager)
+    new mentalManagement.EvaluatorMentalPanicNow(stateManager)
   );
 
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.bodystate,
-    new bodyStateManagement.StateManagerEvaBodyState(stateManager)
+    new bodyStateManagement.EvaluatorBodyState(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.bodystate_crouch,
-    new bodyStateManagement.StateManagerEvaBodyStateCrouch(stateManager)
+    new bodyStateManagement.EvaluatorBodyStateCrouch(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.bodystate_standing,
-    new bodyStateManagement.StateManagerEvaBodyStateStanding(stateManager)
+    new bodyStateManagement.EvaluatorBodyStateStanding(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.bodystate_crouch_now,
-    new bodyStateManagement.StateManagerEvaBodyStateCrouchNow(stateManager)
+    new bodyStateManagement.EvaluatorBodyStateCrouchNow(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.bodystate_standing_now,
-    new bodyStateManagement.StateManagerEvaBodyStateStandingNow(stateManager)
+    new bodyStateManagement.EvaluatorBodyStateStandingNow(stateManager)
   );
 
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.direction,
-    new directionManagement.StateManagerEvaDirection(stateManager)
+    new directionManagement.EvaluatorDirection(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.direction_search,
-    new directionManagement.StateManagerEvaDirectionSearch(stateManager)
+    new directionManagement.EvaluatorDirectionSearch(stateManager)
   );
 
   stateManager.animstate = new StalkerAnimationManager(object, stateManager, "state_mgr_animstate_list", animstates);
@@ -573,7 +570,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   stateManager.planner.add_action(EStateActionId.movement_walk_search, movementWalkSearchAction);
 
   // -- RUN
-  const movementRunAction = new movementManagement.StateManagerActMovementRun(stateManager);
+  const movementRunAction = new movementManagement.ActionMovementRun(stateManager);
 
   movementRunAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
   movementRunAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
@@ -674,7 +671,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   // -- DIRECTION
 
   // -- TURN
-  const directionTurnAction = new directionManagement.StateManagerActDirectionTurn(stateManager);
+  const directionTurnAction = new directionManagement.ActionDirectionTurn(stateManager);
 
   // --action.add_precondition    (new world_property(EStateManagerProperty.locked,                 false))
   directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
@@ -690,7 +687,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   stateManager.planner.add_action(EStateActionId.direction_turn, directionTurnAction);
 
   // -- SEARCH
-  const directionSearchAction = new directionManagement.StateManagerActDirectionSearch(stateManager);
+  const directionSearchAction = new directionManagement.ActionDirectionSearch(stateManager);
 
   // --action.add_precondition    (new world_property(EStateManagerProperty.locked,                 false))
   directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
@@ -708,7 +705,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   // -- MENTAL STATES
 
   // -- FREE
-  const mentalFreeAction = new mentalManagement.StateManagerActMentalFree(stateManager);
+  const mentalFreeAction = new mentalManagement.ActionMentalFree(stateManager);
 
   mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
   mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.mental, false));
@@ -724,7 +721,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
 
   // -- DANGER
 
-  const mentalDangerAction = new mentalManagement.StateManagerActMentalDanger(stateManager);
+  const mentalDangerAction = new mentalManagement.ActionMentalDanger(stateManager);
 
   mentalDangerAction.add_precondition(new world_property(EStateEvaluatorId.mental, false));
   mentalDangerAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
@@ -739,7 +736,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
 
   // -- PANIC
 
-  const mentalPanicAction = new mentalManagement.StateManagerActMentalPanic(stateManager);
+  const mentalPanicAction = new mentalManagement.ActionMentalPanic(stateManager);
 
   mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
   mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.mental, false));
@@ -753,7 +750,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   // -- BODYSTATES
 
   // -- CROUCH
-  const bodyStateStateCrouch = new bodyStateManagement.StateManagerActBodyStateCrouch(stateManager);
+  const bodyStateStateCrouch = new bodyStateManagement.ActionBodyStateCrouch(stateManager);
 
   bodyStateStateCrouch.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
   bodyStateStateCrouch.add_precondition(new world_property(EStateEvaluatorId.bodystate, false));
@@ -766,7 +763,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   stateManager.planner.add_action(EStateActionId.bodystate_crouch, bodyStateStateCrouch);
 
   // -- CROUCH_danger
-  const bodyStateCrouchDangerAction = new bodyStateManagement.StateManagerActBodyStateCrouchDanger(stateManager);
+  const bodyStateCrouchDangerAction = new bodyStateManagement.ActionBodyStateCrouchDanger(stateManager);
 
   bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
   bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, false));
@@ -781,7 +778,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
 
   // --  STAND
 
-  const bodyStateStandingAction = new bodyStateManagement.StateManagerActBodyStateStanding(stateManager);
+  const bodyStateStandingAction = new bodyStateManagement.ActionBodyStateStanding(stateManager);
 
   bodyStateStandingAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
   bodyStateStandingAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, false));
@@ -795,7 +792,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
 
   // --  STAND_free
 
-  const standingFreeAction = new bodyStateManagement.StateManagerActBodyStateStandingFree(stateManager);
+  const standingFreeAction = new bodyStateManagement.ActionBodyStateStandingFree(stateManager);
 
   standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
   standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, false));

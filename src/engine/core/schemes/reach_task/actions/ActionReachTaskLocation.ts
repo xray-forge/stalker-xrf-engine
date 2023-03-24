@@ -22,7 +22,7 @@ import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task/ReachTaskPatrolManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
-import { areSameVectors } from "@/engine/core/utils/physics";
+import { areSameVectors } from "@/engine/core/utils/vector";
 import { Optional, TName, TNumberId, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

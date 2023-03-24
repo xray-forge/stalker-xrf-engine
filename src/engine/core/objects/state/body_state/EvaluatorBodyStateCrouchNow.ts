@@ -2,30 +2,23 @@ import { LuabindClass, move, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
-const logger: LuaLogger = new LuaLogger(
-  "StateManagerEvaBodyStateCrouchNow",
-  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
-);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class StateManagerEvaBodyStateCrouchNow extends property_evaluator {
-  public stateManager: StalkerStateManager;
+export class EvaluatorBodyStateCrouchNow extends property_evaluator {
+  private readonly stateManager: StalkerStateManager;
 
-  /**
-   * todo: Description.
-   */
   public constructor(stateManager: StalkerStateManager) {
-    super(null, StateManagerEvaBodyStateCrouchNow.__name);
+    super(null, EvaluatorBodyStateCrouchNow.__name);
     this.stateManager = stateManager;
   }
 
   /**
-   * todo: Description.
+   * Check if crouching at the moment
    */
   public override evaluate(): boolean {
     return this.object.target_body_state() === move.crouch;

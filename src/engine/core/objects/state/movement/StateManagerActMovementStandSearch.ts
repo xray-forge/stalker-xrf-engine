@@ -1,6 +1,6 @@
 import { action_base, LuabindClass, move } from "xray16";
 
-import { look_position_type } from "@/engine/core/objects/state/direction/StateManagerDirection";
+import { getObjectLookPositionType } from "@/engine/core/objects/state/direction/StateManagerDirection";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -32,7 +32,7 @@ export class StateManagerActMovementStandSearch extends action_base {
     super.initialize();
 
     this.object.set_movement_type(move.stand);
-    this.object.set_sight(look_position_type(this.object, this.stateManager), null, 0);
+    this.object.set_sight(getObjectLookPositionType(this.object, this.stateManager), null, 0);
   }
 
   /**

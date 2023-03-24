@@ -8,26 +8,25 @@ import {
   XR_vector,
 } from "xray16";
 
-import { look_object_type, look_position_type } from "@/engine/core/objects/state/direction/StateManagerDirection";
+import {
+  getObjectLookPositionType,
+  look_object_type,
+} from "@/engine/core/objects/state/direction/StateManagerDirection";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { vectorCmpPrec } from "@/engine/core/utils/physics";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { areSameVectorsByPrecision } from "@/engine/core/utils/vector";
 
-const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class StateManagerEvaDirection extends property_evaluator {
-  public readonly stateManager: StalkerStateManager;
+export class EvaluatorDirection extends property_evaluator {
+  private readonly stateManager: StalkerStateManager;
 
-  /**
-   * todo: Description.
-   */
   public constructor(stateManager: StalkerStateManager) {
-    super(null, StateManagerEvaDirection.__name);
+    super(null, EvaluatorDirection.__name);
     this.stateManager = stateManager;
   }
 
@@ -39,12 +38,12 @@ export class StateManagerEvaDirection extends property_evaluator {
       return true;
     }
 
-    const sight_type: XR_CSightParams = this.object.sight_params();
+    const objectSightType: XR_CSightParams = this.object.sight_params();
 
     if (this.stateManager.look_object !== null) {
       if (
-        sight_type.m_object === null ||
-        sight_type.m_object.id() !== this.stateManager.look_object ||
+        objectSightType.m_object === null ||
+        objectSightType.m_object.id() !== this.stateManager.look_object ||
         this.stateManager.point_obj_dir !== look_object_type(this.object, this.stateManager)
       ) {
         return false;
@@ -56,24 +55,21 @@ export class StateManagerEvaDirection extends property_evaluator {
     }
 
     if (this.stateManager.look_position !== null) {
-      if (sight_type.m_sight_type !== look_position_type(this.object, this.stateManager)) {
+      if (objectSightType.m_sight_type !== getObjectLookPositionType(this.object, this.stateManager)) {
         return false;
-      } else if ((sight_type.m_sight_type as TXR_SightType) === CSightParams.eSightTypeAnimationDirection) {
+      } else if ((objectSightType.m_sight_type as TXR_SightType) === CSightParams.eSightTypeAnimationDirection) {
         return true;
       }
 
-      const dir: XR_vector = new vector().sub(this.stateManager.look_position!, this.object.position());
+      const direction: XR_vector = new vector().sub(this.stateManager.look_position!, this.object.position());
 
       if (look_object_type(this.object, this.stateManager)) {
-        dir.y = 0;
+        direction.y = 0;
       }
 
-      dir.normalize();
+      direction.normalize();
 
-      if (!vectorCmpPrec(sight_type.m_vector, dir, 0.01)) {
-        // --printf("%s false vector", this.object:name())
-        // --printf("%s %s %s", sight_type.m_vector.x, sight_type.m_vector.y, sight_type.m_vector.z)
-        // --printf("%s %s %s", dir.x, dir.y, dir.z)
+      if (!areSameVectorsByPrecision(objectSightType.m_vector, direction, 0.01)) {
         return false;
       }
 
@@ -82,11 +78,9 @@ export class StateManagerEvaDirection extends property_evaluator {
       return true;
     }
 
-    if (sight_type.m_object !== null) {
+    if (objectSightType.m_object !== null) {
       return false;
-    }
-
-    if (sight_type.m_sight_type !== look_position_type(this.object, this.stateManager)) {
+    } else if (objectSightType.m_sight_type !== getObjectLookPositionType(this.object, this.stateManager)) {
       return false;
     }
 

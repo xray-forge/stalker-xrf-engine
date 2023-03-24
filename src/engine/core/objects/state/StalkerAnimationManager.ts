@@ -6,7 +6,7 @@ import { IAnimationStateDescriptor } from "@/engine/core/objects/state/lib/state
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { vectorRotateY } from "@/engine/core/utils/physics";
+import { vectorRotateY } from "@/engine/core/utils/vector";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { AnyCallable, Optional, TIndex } from "@/engine/lib/types";
 

@@ -26,8 +26,8 @@ import { getInfosFromData, pickSectionFromCondList } from "@/engine/core/utils/i
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
-import { graphDistance } from "@/engine/core/utils/physics";
 import { wait } from "@/engine/core/utils/time";
+import { graphDistance } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { MAX_U16 } from "@/engine/lib/constants/memory";

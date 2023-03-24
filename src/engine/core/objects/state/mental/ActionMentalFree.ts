@@ -1,26 +1,19 @@
-import { action_base, anim, LuabindClass, move } from "xray16";
+import { action_base, anim, LuabindClass } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
-const logger: LuaLogger = new LuaLogger(
-  "StateManagerActBodyStateStandingFree",
-  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
-);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class StateManagerActBodyStateStandingFree extends action_base {
+export class ActionMentalFree extends action_base {
   public readonly stateManager: StalkerStateManager;
 
-  /**
-   * todo: Description.
-   */
   public constructor(stateManager: StalkerStateManager) {
-    super(null, StateManagerActBodyStateStandingFree.__name);
+    super(null, ActionMentalFree.__name);
     this.stateManager = stateManager;
   }
 
@@ -29,7 +22,6 @@ export class StateManagerActBodyStateStandingFree extends action_base {
    */
   public override initialize(): void {
     super.initialize();
-    this.object.set_body_state(move.standing);
     this.object.set_mental_state(anim.free);
   }
 
@@ -38,12 +30,6 @@ export class StateManagerActBodyStateStandingFree extends action_base {
    */
   public override execute(): void {
     super.execute();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override finalize(): void {
-    super.finalize();
+    this.object.set_mental_state(anim.free);
   }
 }

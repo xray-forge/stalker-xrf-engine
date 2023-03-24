@@ -2,14 +2,13 @@ import { device, game_graph, vector, XR_game_object, XR_vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TDistance, TNumberId } from "@/engine/lib/types";
+import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { PI_DEGREE, RADIAN } from "@/engine/lib/constants/math";
+import { Optional, TDistance, TNumberId, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 // todo: Config constants?
-const PI_DEGREE: number = math.pi / 180;
-const RADIAN: number = 57.2957;
-const ACTOR_VISIBILITY_FRUSTUM = 35; // todo: Probably should be configured + based on FOV settings.
 const MAX_DISTANCE: number = 100_000;
 
 /**
@@ -24,7 +23,7 @@ export function yaw(v1: XR_vector, v2: XR_vector) {
 /**
  * todo: Description
  */
-export function yawDegree(v1: XR_vector, v2: XR_vector): number {
+export function yawDegree(v1: XR_vector, v2: XR_vector): TRate {
   return (
     math.acos(
       (v1.x * v2.x + v1.z * v2.z) / (math.sqrt(v1.x * v1.x + v1.z * v1.z) * math.sqrt(v2.x * v2.x + v2.z * v2.z))
@@ -54,8 +53,8 @@ export function vectorCross(v1: XR_vector, v2: XR_vector): XR_vector {
 /**
  * todo: Description
  */
-export function vectorRotateY(target: XR_vector, angleBase: number): XR_vector {
-  const angle: number = angleBase * PI_DEGREE;
+export function vectorRotateY(target: XR_vector, angleBase: TRate): XR_vector {
+  const angle: TRate = angleBase * PI_DEGREE;
   const cos: number = math.cos(angle);
   const sin: number = math.sin(angle);
 
@@ -70,7 +69,7 @@ export function npcInActorFrustum(object: XR_game_object): boolean {
   const actorDirection: XR_vector = device().cam_dir;
   const npcDirection: XR_vector = object.position().sub(registry.actor.position());
 
-  return yawDegree3d(actorDirection, npcDirection) < ACTOR_VISIBILITY_FRUSTUM;
+  return yawDegree3d(actorDirection, npcDirection) < logicsConfig.ACTOR_VISIBILITY_FRUSTUM;
 }
 
 /**
@@ -78,38 +77,6 @@ export function npcInActorFrustum(object: XR_game_object): boolean {
  */
 export function distanceBetween(first: XR_game_object, second: XR_game_object): number {
   return first.position().distance_to(second.position());
-}
-
-/**
- * todo: Description
- */
-export function distanceBetween2d(a: XR_vector, b: XR_vector): number {
-  return math.sqrt((b.x - a.x) ** 2 + (b.z - a.z) ** 2);
-}
-
-/**
- * todo: Description
- */
-export function distanceBetweenSafe(first: Optional<XR_game_object>, second: Optional<XR_game_object>): number {
-  if (first !== null && second !== null) {
-    return first.position().distance_to(second.position());
-  }
-
-  return MAX_DISTANCE;
-}
-
-/**
- * Check if vectors are same by value.
- */
-export function areSameVectors(first: XR_vector, second: XR_vector): boolean {
-  return first.x === second.x && first.y === second.y && first.z === second.z;
-}
-
-/**
- * todo;
- */
-export function vectorCmpPrec(first: XR_vector, second: XR_vector, d: number): boolean {
-  return math.abs(first.x - second.x) <= d && math.abs(first.y - second.y) <= d && math.abs(first.z - second.z) <= d;
 }
 
 /**
@@ -179,4 +146,40 @@ export function angleLeftXZ(dir1: XR_vector, dir2: XR_vector): boolean {
  */
 export function getDistanceBetween(first: XR_game_object, second: XR_game_object): number {
   return first.position().distance_to(second.position());
+}
+
+/**
+ * todo: Description
+ */
+export function distanceBetween2d(a: XR_vector, b: XR_vector): number {
+  return math.sqrt((b.x - a.x) ** 2 + (b.z - a.z) ** 2);
+}
+
+/**
+ * todo: Description
+ */
+export function distanceBetweenSafe(first: Optional<XR_game_object>, second: Optional<XR_game_object>): number {
+  if (first !== null && second !== null) {
+    return first.position().distance_to(second.position());
+  }
+
+  return MAX_DISTANCE;
+}
+
+/**
+ * Check if vectors are same by value.
+ * Matches all dimensions with '==='.
+ */
+export function areSameVectors(first: XR_vector, second: XR_vector): boolean {
+  return first.x === second.x && first.y === second.y && first.z === second.z;
+}
+
+/**
+ * Check if vectors are same by value with precision.
+ * Matches all dimensions with eps diff.
+ */
+export function areSameVectorsByPrecision(first: XR_vector, second: XR_vector, eps: TRate): boolean {
+  return (
+    math.abs(first.x - second.x) <= eps && math.abs(first.y - second.y) <= eps && math.abs(first.z - second.z) <= eps
+  );
 }

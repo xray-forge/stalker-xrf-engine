@@ -22,7 +22,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { isLevelChanging } from "@/engine/core/utils/check/check";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { clampNumber } from "@/engine/core/utils/number";
-import { vectorRotateY } from "@/engine/core/utils/physics";
+import { vectorRotateY } from "@/engine/core/utils/vector";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
 import { Optional, TDuration } from "@/engine/lib/types";
 

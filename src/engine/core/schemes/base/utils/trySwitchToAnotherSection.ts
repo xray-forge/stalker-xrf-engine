@@ -8,7 +8,7 @@ import { isObjectInZone } from "@/engine/core/utils/check/check";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorSeenByObject } from "@/engine/core/utils/object";
-import { getDistanceBetween } from "@/engine/core/utils/physics";
+import { getDistanceBetween } from "@/engine/core/utils/vector";
 import { NIL } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TDistance, TDuration, TName, TNumberId, TTimestamp } from "@/engine/lib/types";
 import { ESchemeCondition } from "@/engine/lib/types/scheme";

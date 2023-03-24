@@ -20,7 +20,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
-import { distanceBetween2d } from "@/engine/core/utils/physics";
+import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 

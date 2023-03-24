@@ -5,7 +5,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";
-import { vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/physics";
+import { vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
 import { Optional, TCount, TDistance, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

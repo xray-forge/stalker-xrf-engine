@@ -2,7 +2,7 @@ import { device, time_global, vector, XR_physics_joint, XR_vector } from "xray16
 
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeOscillateState } from "@/engine/core/schemes/ph_oscillate/ISchemeOscillateState";
-import { vectorRotateY } from "@/engine/core/utils/physics";
+import { vectorRotateY } from "@/engine/core/utils/vector";
 import { Optional, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**

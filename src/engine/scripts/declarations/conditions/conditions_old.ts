@@ -57,12 +57,12 @@ import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { anomalyHasArtefact, getCharacterCommunity, getObjectSquad } from "@/engine/core/utils/object";
-import { distanceBetween, npcInActorFrustum } from "@/engine/core/utils/physics";
 import {
   isFactionsEnemies,
   isFactionsFriends,
   isSquadRelationBetweenActorAndRelation,
 } from "@/engine/core/utils/relation";
+import { distanceBetween, npcInActorFrustum } from "@/engine/core/utils/vector";
 import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";

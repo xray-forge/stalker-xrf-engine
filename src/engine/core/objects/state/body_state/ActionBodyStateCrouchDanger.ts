@@ -2,25 +2,18 @@ import { action_base, anim, LuabindClass, move } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
-const logger: LuaLogger = new LuaLogger(
-  "StateManagerActBodyStateCrouchDanger",
-  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
-);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class StateManagerActBodyStateCrouchDanger extends action_base {
+export class ActionBodyStateCrouchDanger extends action_base {
   private readonly stateManager: StalkerStateManager;
 
-  /**
-   * todo: Description.
-   */
   public constructor(stateManager: StalkerStateManager) {
-    super(null, StateManagerActBodyStateCrouchDanger.__name);
+    super(null, ActionBodyStateCrouchDanger.__name);
     this.stateManager = stateManager;
   }
 
@@ -32,19 +25,5 @@ export class StateManagerActBodyStateCrouchDanger extends action_base {
 
     this.object.set_mental_state(anim.danger);
     this.object.set_body_state(move.crouch);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override execute(): void {
-    super.execute();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override finalize(): void {
-    super.finalize();
   }
 }

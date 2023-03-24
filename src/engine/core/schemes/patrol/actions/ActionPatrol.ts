@@ -7,7 +7,7 @@ import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
-import { areSameVectors } from "@/engine/core/utils/physics";
+import { areSameVectors } from "@/engine/core/utils/vector";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

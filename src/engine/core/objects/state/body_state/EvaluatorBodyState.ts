@@ -3,27 +3,23 @@ import { LuabindClass, property_evaluator } from "xray16";
 import { states } from "@/engine/core/objects/state/lib/state_lib";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
-const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class StateManagerEvaBodyState extends property_evaluator {
+export class EvaluatorBodyState extends property_evaluator {
   public readonly stateManager: StalkerStateManager;
 
-  /**
-   * todo: Description.
-   */
   public constructor(stateManager: StalkerStateManager) {
-    super(null, StateManagerEvaBodyState.__name);
+    super(null, EvaluatorBodyState.__name);
     this.stateManager = stateManager;
   }
 
   /**
-   * todo: Description.
+   * Check if changing body state at the moment.
    */
   public override evaluate(): boolean {
     return (

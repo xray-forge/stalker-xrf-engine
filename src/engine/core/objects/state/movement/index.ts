@@ -1,4 +1,4 @@
-export * from "@/engine/core/objects/state/movement/StateManagerActMovementRun";
+export * from "@/engine/core/objects/state/movement/ActionMovementRun";
 export * from "@/engine/core/objects/state/movement/StateManagerActMovementRunSearch";
 export * from "@/engine/core/objects/state/movement/StateManagerActMovementRunTurn";
 export * from "@/engine/core/objects/state/movement/StateManagerActMovementStand";

@@ -4,7 +4,7 @@ import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { vectorRotateY } from "@/engine/core/utils/physics";
+import { vectorRotateY } from "@/engine/core/utils/vector";
 import { TCount, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
