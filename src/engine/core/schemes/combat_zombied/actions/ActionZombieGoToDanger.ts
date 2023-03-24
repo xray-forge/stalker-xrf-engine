@@ -9,7 +9,8 @@ import {
   XR_vector,
 } from "xray16";
 
-import { ITargetStateDescriptor, set_state } from "@/engine/core/objects/state/StateManager";
+import { ITargetStateDescriptor } from "@/engine/core/objects/state";
+import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";

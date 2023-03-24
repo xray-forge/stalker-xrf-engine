@@ -1,6 +1,6 @@
 import { action_base, level, LuabindClass, vector, XR_vector } from "xray16";
 
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { TNumberId } from "@/engine/lib/types";
@@ -15,12 +15,12 @@ const logger: LuaLogger = new LuaLogger(
  */
 @LuabindClass()
 export class StateManagerActSmartCoverExit extends action_base {
-  private readonly stateManager: StateManager;
+  private readonly stateManager: StalkerStateManager;
 
   /**
    * todo: Description.
    */
-  public constructor(stateManager: StateManager) {
+  public constructor(stateManager: StalkerStateManager) {
     super(null, StateManagerActSmartCoverExit.__name);
     this.stateManager = stateManager;
   }

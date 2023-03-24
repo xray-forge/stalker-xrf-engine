@@ -1,6 +1,6 @@
 import { action_base, game_object, LuabindClass } from "xray16";
 
-import { set_state } from "@/engine/core/objects/state/StateManager";
+import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 

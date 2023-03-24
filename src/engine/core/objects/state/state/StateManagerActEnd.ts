@@ -1,7 +1,7 @@
 import { action_base, game_object, level, LuabindClass, object, time_global } from "xray16";
 
 import { states } from "@/engine/core/objects/state/lib/state_lib";
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { get_idle_state, get_queue_params } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
 import { isStalker, isWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -18,12 +18,12 @@ const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MAN
  */
 @LuabindClass()
 export class StateManagerActEnd extends action_base {
-  public readonly stateManager: StateManager;
+  public readonly stateManager: StalkerStateManager;
 
   /**
    * todo: Description.
    */
-  public constructor(stateManager: StateManager) {
+  public constructor(stateManager: StalkerStateManager) {
     super(null, StateManagerActEnd.__name);
     this.stateManager = stateManager;
   }

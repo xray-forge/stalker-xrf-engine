@@ -2,7 +2,7 @@ import { action_base, game_object, LuabindClass, time_global, vector, XR_game_ob
 
 import { registry } from "@/engine/core/database";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { set_state } from "@/engine/core/objects/state/StateManager";
+import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";

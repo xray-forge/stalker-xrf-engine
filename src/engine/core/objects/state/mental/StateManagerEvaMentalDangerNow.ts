@@ -1,6 +1,6 @@
 import { anim, LuabindClass, property_evaluator } from "xray16";
 
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
@@ -14,12 +14,12 @@ const logger: LuaLogger = new LuaLogger(
  */
 @LuabindClass()
 export class StateManagerEvaMentalDangerNow extends property_evaluator {
-  public readonly stateManager: StateManager;
+  public readonly stateManager: StalkerStateManager;
 
   /**
    * todo: Description.
    */
-  public constructor(stateManager: StateManager) {
+  public constructor(stateManager: StalkerStateManager) {
     super(null, StateManagerEvaMentalDangerNow.__name);
     this.stateManager = stateManager;
   }

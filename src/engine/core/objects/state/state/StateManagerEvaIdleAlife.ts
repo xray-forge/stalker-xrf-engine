@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator, XR_action_planner } from "xray16";
 
-import { EStateManagerProperty } from "@/engine/core/objects/state/EStateManagerProperty";
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+import { EStateEvaluatorId } from "@/engine/core/objects/state/types";
 import { EActionId } from "@/engine/core/schemes";
 import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -15,13 +15,13 @@ const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MAN
  */
 @LuabindClass()
 export class StateManagerEvaIdleAlife extends property_evaluator {
-  private readonly stateManager: StateManager;
+  private readonly stateManager: StalkerStateManager;
   private currentActionId: Optional<number> = null;
 
   /**
    * todo: Description.
    */
-  public constructor(stateManager: StateManager) {
+  public constructor(stateManager: StalkerStateManager) {
     super(null, StateManagerEvaIdleAlife.__name);
     this.stateManager = stateManager;
   }
@@ -50,13 +50,13 @@ export class StateManagerEvaIdleAlife extends property_evaluator {
       const isAlifeIdle =
         this.stateManager.target_state === "idle" &&
         // --not this.st.planner.evaluator(this.st.properties["locked"]).evaluate() and
-        !this.stateManager.planner.evaluator(EStateManagerProperty.weapon_locked).evaluate() &&
-        !this.stateManager.planner.evaluator(EStateManagerProperty.animstate_locked).evaluate() &&
-        !this.stateManager.planner.evaluator(EStateManagerProperty.animation_locked).evaluate() &&
-        this.stateManager.planner.evaluator(EStateManagerProperty.movement).evaluate() &&
-        this.stateManager.planner.evaluator(EStateManagerProperty.animstate).evaluate() &&
-        this.stateManager.planner.evaluator(EStateManagerProperty.animation).evaluate() &&
-        this.stateManager.planner.evaluator(EStateManagerProperty.smartcover).evaluate();
+        !this.stateManager.planner.evaluator(EStateEvaluatorId.weapon_locked).evaluate() &&
+        !this.stateManager.planner.evaluator(EStateEvaluatorId.animstate_locked).evaluate() &&
+        !this.stateManager.planner.evaluator(EStateEvaluatorId.animation_locked).evaluate() &&
+        this.stateManager.planner.evaluator(EStateEvaluatorId.movement).evaluate() &&
+        this.stateManager.planner.evaluator(EStateEvaluatorId.animstate).evaluate() &&
+        this.stateManager.planner.evaluator(EStateEvaluatorId.animation).evaluate() &&
+        this.stateManager.planner.evaluator(EStateEvaluatorId.smartcover).evaluate();
 
       if (isAlifeIdle) {
         this.stateManager.alife = true;

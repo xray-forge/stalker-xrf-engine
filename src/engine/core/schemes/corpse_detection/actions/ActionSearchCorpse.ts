@@ -42,7 +42,7 @@ export class ActionSearchCorpse extends action_base {
     this.object.set_dest_level_vertex_id(this.state.vertex_id);
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { set_state } = require("@/engine/core/objects/state/StateManager");
+    const { set_state } = require("@/engine/core/objects/state/StalkerStateManager");
 
     // --StateManager.set_state(this.object, "patrol", null, null, {look_position = this.a.vertex_position})
     set_state(this.object, "patrol", null, null, null, null);
@@ -59,7 +59,7 @@ export class ActionSearchCorpse extends action_base {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { set_state } = require("@/engine/core/objects/state/StateManager");
+    const { set_state } = require("@/engine/core/objects/state/StalkerStateManager");
 
     set_state(this.object, "search_corpse", null, null, { look_position: this.state.vertex_position }, null);
     GlobalSoundManager.getInstance().playSound(this.object.id(), "corpse_loot_begin", null, null);

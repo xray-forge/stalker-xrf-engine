@@ -425,7 +425,7 @@ export class StalkerBinder extends object_binder {
     loadInfo(this.object, state.ini!, known_info);
 
     if (this.state.state_mgr !== null) {
-      this.state.state_mgr!.animation.set_state(null, true);
+      this.state.state_mgr!.animation.setState(null, true);
     }
 
     if (this.state[EScheme.REACH_TASK]) {

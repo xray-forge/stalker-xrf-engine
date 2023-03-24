@@ -1,6 +1,6 @@
 import { action_base, LuabindClass } from "xray16";
 
-import { set_state } from "@/engine/core/objects/state/StateManager";
+import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/help_wounded";
 import { LuaLogger } from "@/engine/core/utils/logging";
 

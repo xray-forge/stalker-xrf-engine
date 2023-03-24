@@ -1,7 +1,7 @@
 import { action_base, LuabindClass, move } from "xray16";
 
 import { look_position_type } from "@/engine/core/objects/state/direction/StateManagerDirection";
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
@@ -15,12 +15,12 @@ const logger: LuaLogger = new LuaLogger(
  */
 @LuabindClass()
 export class StateManagerActMovementStandSearch extends action_base {
-  private readonly stateManager: StateManager;
+  private readonly stateManager: StalkerStateManager;
 
   /**
    * todo: Description.
    */
-  public constructor(stateManager: StateManager) {
+  public constructor(stateManager: StalkerStateManager) {
     super(null, StateManagerActMovementStandSearch.__name);
     this.stateManager = stateManager;
   }

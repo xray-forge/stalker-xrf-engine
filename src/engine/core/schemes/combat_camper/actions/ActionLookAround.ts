@@ -1,6 +1,6 @@
 import { action_base, device, LuabindClass, vector, XR_game_object, XR_vector } from "xray16";
 
-import { set_state } from "@/engine/core/objects/state/StateManager";
+import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";

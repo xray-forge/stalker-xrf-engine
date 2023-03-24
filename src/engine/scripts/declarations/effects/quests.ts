@@ -717,9 +717,9 @@ extern("xr_effects.pri_a17_hard_animation_reset", (actor: XR_game_object, npc: X
   const stateManager = registry.objects.get(npc.id()).state_mgr!;
 
   stateManager.set_state("pri_a17_fall_down", null, null, null, null);
-  stateManager.animation.set_state(null, true);
-  stateManager.animation.set_state("pri_a17_fall_down", null);
-  stateManager.animation.set_control();
+  stateManager.animation.setState(null, true);
+  stateManager.animation.setState("pri_a17_fall_down", null);
+  stateManager.animation.setControl();
 });
 
 /**
@@ -729,9 +729,9 @@ extern("xr_effects.jup_b217_hard_animation_reset", (actor: XR_game_object, npc: 
   const stateManager = registry.objects.get(npc.id()).state_mgr!;
 
   stateManager.set_state("jup_b217_nitro_straight", null, null, null, null);
-  stateManager.animation.set_state(null, true);
-  stateManager.animation.set_state("jup_b217_nitro_straight", null);
-  stateManager.animation.set_control();
+  stateManager.animation.setState(null, true);
+  stateManager.animation.setState("jup_b217_nitro_straight", null);
+  stateManager.animation.setControl();
 });
 
 /**

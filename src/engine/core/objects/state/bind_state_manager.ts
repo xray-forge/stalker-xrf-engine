@@ -1,11 +1,11 @@
 import { stalker_ids, world_property, XR_game_object } from "xray16";
 
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { StateManagerActToIdle } from "@/engine/core/objects/state/state/StateManagerActToIdle";
 import { StateManagerEvaIdle } from "@/engine/core/objects/state/state/StateManagerEvaIdle";
 import { StateManagerEvaIdleAlife } from "@/engine/core/objects/state/state/StateManagerEvaIdleAlife";
 import { StateManagerEvaIdleItems } from "@/engine/core/objects/state/state/StateManagerEvaIdleItems";
 import { StateManagerEvaLogicActive } from "@/engine/core/objects/state/state/StateManagerEvaLogicActive";
-import { StateManager } from "@/engine/core/objects/state/StateManager";
 import { EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
@@ -15,7 +15,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  * @param object
  */
-export function bind_state_manager(object: XR_game_object): StateManager {
+export function bind_state_manager(object: XR_game_object): StalkerStateManager {
   const planner = object.motivation_action_manager();
 
   const properties = {
@@ -32,7 +32,7 @@ export function bind_state_manager(object: XR_game_object): StateManager {
     state_mgr_to_idle_items: EActionId.state_mgr + 3,
   };
 
-  const stateManager: StateManager = new StateManager(object);
+  const stateManager: StalkerStateManager = new StalkerStateManager(object);
 
   planner.add_evaluator(properties.state_mgr_idle_combat, new StateManagerEvaIdle(stateManager));
   planner.add_evaluator(properties.state_mgr_idle_alife, new StateManagerEvaIdleAlife(stateManager));

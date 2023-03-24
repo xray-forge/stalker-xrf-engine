@@ -1,26 +1,22 @@
 import { action_base, LuabindClass } from "xray16";
 
 import { states } from "@/engine/core/objects/state/lib/state_lib";
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
-const logger: LuaLogger = new LuaLogger(
-  "StateManagerActAnimationStart",
-  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
-);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
 export class StateManagerActAnimationStart extends action_base {
-  public readonly stateManager: StateManager;
+  public readonly stateManager: StalkerStateManager;
 
   /**
    * todo: Description.
    */
-  public constructor(stateManager: StateManager) {
+  public constructor(stateManager: StalkerStateManager) {
     super(null, StateManagerActAnimationStart.__name);
     this.stateManager = stateManager;
   }
@@ -31,21 +27,7 @@ export class StateManagerActAnimationStart extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    this.stateManager.animation.set_state(states.get(this.stateManager.target_state).animation, null);
-    this.stateManager.animation.set_control();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override execute(): void {
-    super.execute();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override finalize(): void {
-    super.finalize();
+    this.stateManager.animation.setState(states.get(this.stateManager.target_state).animation);
+    this.stateManager.animation.setControl();
   }
 }

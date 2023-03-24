@@ -3,7 +3,7 @@ import { action_base, game_object, level, LuabindClass, vector, XR_vector } from
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
-import { set_state } from "@/engine/core/objects/state/StateManager";
+import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { vectorCmp } from "@/engine/core/utils/physics";

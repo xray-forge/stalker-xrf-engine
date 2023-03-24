@@ -54,7 +54,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * src/xrServerEntities/clsid_game.h
  */
 export function registerGameClasses(factory: XR_object_factory): void {
-  logger.info("Registering bindings:");
+  logger.info("Registering game classes bindings");
 
   if (!editor()) {
     logger.info("Registering main menu:", MainMenu.__name);

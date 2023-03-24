@@ -12,8 +12,9 @@ import {
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { ITargetStateDescriptor } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { ITargetStateDescriptor, set_state } from "@/engine/core/objects/state/StateManager";
+import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { SchemeDanger } from "@/engine/core/schemes/danger/SchemeDanger";
 import { abort } from "@/engine/core/utils/assertion";

@@ -3,7 +3,7 @@ import { action_base, level, LuabindClass, patrol, XR_game_object, XR_sound_obje
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import { set_state } from "@/engine/core/objects/state/StateManager";
+import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark";
 import { abort } from "@/engine/core/utils/assertion";
 import { getSmartTerrainByName } from "@/engine/core/utils/gulag";

@@ -14,3 +14,7 @@
 - Code style: [link](CODESTYLE.md)
 - Building UI: [link](BUILDING_UI.md)
 - ️Development utils: [link](UTILS.md)
+
+## 🏗️ Engine
+
+- Scrips execution flow: [link](SCRIPTS_EXECUTION_FLOW.md)

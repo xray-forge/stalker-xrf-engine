@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator, XR_game_object } from "xray16";
 
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { isStrappableWeapon, isWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -16,9 +16,9 @@ const logger: LuaLogger = new LuaLogger(
  */
 @LuabindClass()
 export class StateManagerEvaWeaponStrappedNow extends property_evaluator {
-  private readonly st: StateManager;
+  private readonly st: StalkerStateManager;
 
-  public constructor(st: StateManager) {
+  public constructor(st: StalkerStateManager) {
     super(null, StateManagerEvaWeaponStrappedNow.__name);
     this.st = st;
   }

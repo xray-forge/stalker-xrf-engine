@@ -1,6 +1,6 @@
 import { action_base, LuabindClass, object, XR_game_object } from "xray16";
 
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { get_weapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
 import { isStrappableWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -17,12 +17,12 @@ const logger: LuaLogger = new LuaLogger(
  */
 @LuabindClass()
 export class StateManagerActWeaponStrapp extends action_base {
-  private readonly stateManager: StateManager;
+  private readonly stateManager: StalkerStateManager;
 
   /**
    * todo: Description.
    */
-  public constructor(stateManager: StateManager) {
+  public constructor(stateManager: StalkerStateManager) {
     super(null, StateManagerActWeaponStrapp.__name);
     this.stateManager = stateManager;
   }

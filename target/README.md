@@ -1,4 +1,7 @@
 # [XRTS](../../) / TARGET
 
-Folder containing built assets and details regarding build process.
+This folder contains built assets and details regarding build process. <br/>
 
+## todo:
+
+Details about template in distributed release assets

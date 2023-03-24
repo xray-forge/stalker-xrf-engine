@@ -1,6 +1,6 @@
 import { action_base, LuabindClass } from "xray16";
 
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
@@ -11,12 +11,12 @@ const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MAN
  */
 @LuabindClass()
 export class StateManagerActLocked extends action_base {
-  public readonly stateManager: StateManager;
+  public readonly stateManager: StalkerStateManager;
 
   /**
    * todo: Description.
    */
-  public constructor(stateManager: StateManager, name: string) {
+  public constructor(stateManager: StalkerStateManager, name: string) {
     super(null, name || StateManagerActLocked.__name);
     this.stateManager = stateManager;
   }

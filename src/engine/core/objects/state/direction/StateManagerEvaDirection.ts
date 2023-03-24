@@ -9,7 +9,7 @@ import {
 } from "xray16";
 
 import { look_object_type, look_position_type } from "@/engine/core/objects/state/direction/StateManagerDirection";
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorCmpPrec } from "@/engine/core/utils/physics";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -21,12 +21,12 @@ const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MAN
  */
 @LuabindClass()
 export class StateManagerEvaDirection extends property_evaluator {
-  public readonly stateManager: StateManager;
+  public readonly stateManager: StalkerStateManager;
 
   /**
    * todo: Description.
    */
-  public constructor(stateManager: StateManager) {
+  public constructor(stateManager: StalkerStateManager) {
     super(null, StateManagerEvaDirection.__name);
     this.stateManager = stateManager;
   }

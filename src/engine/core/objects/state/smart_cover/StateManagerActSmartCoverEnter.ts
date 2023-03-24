@@ -1,7 +1,7 @@
 import { action_base, LuabindClass, move } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/smartcover";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -17,12 +17,12 @@ const logger: LuaLogger = new LuaLogger(
  */
 @LuabindClass()
 export class StateManagerActSmartCoverEnter extends action_base {
-  public readonly stateManager: StateManager;
+  public readonly stateManager: StalkerStateManager;
 
   /**
    * todo: Description.
    */
-  public constructor(stateManager: StateManager) {
+  public constructor(stateManager: StalkerStateManager) {
     super(null, StateManagerActSmartCoverEnter.__name);
     this.stateManager = stateManager;
   }

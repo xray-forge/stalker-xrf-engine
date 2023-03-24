@@ -173,10 +173,10 @@ function reset_animation(npc: XR_game_object): void {
     return;
   }
 
-  stateManager.animation.set_state(null, true);
-  stateManager.animation.set_control();
-  stateManager.animstate.set_state(null, true);
-  stateManager.animstate.set_control();
+  stateManager.animation.setState(null, true);
+  stateManager.animation.setControl();
+  stateManager.animstate.setState(null, true);
+  stateManager.animstate.setControl();
 
   stateManager.set_state("idle", null, null, null, { fast_set: true });
 

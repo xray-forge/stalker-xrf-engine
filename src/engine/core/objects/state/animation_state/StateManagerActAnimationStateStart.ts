@@ -1,7 +1,7 @@
 import { action_base, LuabindClass } from "xray16";
 
 import { states } from "@/engine/core/objects/state/lib/state_lib";
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
@@ -15,12 +15,12 @@ const logger: LuaLogger = new LuaLogger(
  */
 @LuabindClass()
 export class StateManagerActAnimationStateStart extends action_base {
-  public readonly stateManager: StateManager;
+  public readonly stateManager: StalkerStateManager;
 
   /**
    * todo: Description.
    */
-  public constructor(stateManager: StateManager) {
+  public constructor(stateManager: StalkerStateManager) {
     super(null, StateManagerActAnimationStateStart.__name);
     this.stateManager = stateManager;
   }
@@ -31,8 +31,8 @@ export class StateManagerActAnimationStateStart extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    this.stateManager.animstate.set_state(states.get(this.stateManager.target_state).animstate, null);
-    this.stateManager.animstate.set_control();
+    this.stateManager.animstate.setState(states.get(this.stateManager.target_state).animstate, null);
+    this.stateManager.animstate.setControl();
   }
 
   /**

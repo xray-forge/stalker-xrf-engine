@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { EStateManagerProperty } from "@/engine/core/objects/state/EStateManagerProperty";
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+import { EStateEvaluatorId } from "@/engine/core/objects/state/types";
 import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -13,12 +13,12 @@ const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MAN
  */
 @LuabindClass()
 export class StateManagerEvaIdleItems extends property_evaluator {
-  private readonly stateManager: StateManager;
+  private readonly stateManager: StalkerStateManager;
 
   /**
    * todo: Description.
    */
-  public constructor(stateManager: StateManager) {
+  public constructor(stateManager: StalkerStateManager) {
     super(null, StateManagerEvaIdleItems.__name);
     this.stateManager = stateManager;
   }
@@ -36,12 +36,12 @@ export class StateManagerEvaIdleItems extends property_evaluator {
       return (
         this.stateManager.target_state === "idle" &&
         // --                !this.st.planner.evaluator(this.st.properties["locked"]).evaluate()  &&
-        !this.stateManager.planner.evaluator(EStateManagerProperty.animstate_locked).evaluate() &&
-        !this.stateManager.planner.evaluator(EStateManagerProperty.animation_locked).evaluate() &&
-        this.stateManager.planner.evaluator(EStateManagerProperty.movement).evaluate() &&
-        this.stateManager.planner.evaluator(EStateManagerProperty.animstate).evaluate() &&
-        this.stateManager.planner.evaluator(EStateManagerProperty.animation).evaluate() &&
-        this.stateManager.planner.evaluator(EStateManagerProperty.smartcover).evaluate()
+        !this.stateManager.planner.evaluator(EStateEvaluatorId.animstate_locked).evaluate() &&
+        !this.stateManager.planner.evaluator(EStateEvaluatorId.animation_locked).evaluate() &&
+        this.stateManager.planner.evaluator(EStateEvaluatorId.movement).evaluate() &&
+        this.stateManager.planner.evaluator(EStateEvaluatorId.animstate).evaluate() &&
+        this.stateManager.planner.evaluator(EStateEvaluatorId.animation).evaluate() &&
+        this.stateManager.planner.evaluator(EStateEvaluatorId.smartcover).evaluate()
       );
     } else {
       return false;

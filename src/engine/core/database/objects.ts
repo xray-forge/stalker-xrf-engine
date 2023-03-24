@@ -2,7 +2,7 @@ import { XR_CTime, XR_game_object, XR_ini_file } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { IBaseSchemeState } from "@/engine/core/schemes";
 import { ObjectRestrictionsManager } from "@/engine/core/schemes/base/ObjectRestrictionsManager";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/danger/ISchemePostCombatIdleState";
@@ -43,7 +43,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   activation_game_time: XR_CTime;
 
   moveManager: Optional<StalkerMoveManager>;
-  state_mgr: Optional<StateManager>;
+  state_mgr: Optional<StalkerStateManager>;
   restrictionsManager: Optional<ObjectRestrictionsManager>;
   hearInfo: Optional<IActionSchemeHearState>;
 

@@ -1,7 +1,7 @@
 import { cast_planner, LuabindClass, property_evaluator, stalker_ids, XR_action_planner } from "xray16";
 
-import { EStateManagerProperty } from "@/engine/core/objects/state/EStateManagerProperty";
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+import { EStateEvaluatorId } from "@/engine/core/objects/state/types";
 import { EActionId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -14,14 +14,14 @@ const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MAN
  */
 @LuabindClass()
 export class StateManagerEvaIdle extends property_evaluator {
-  private readonly stateManager: StateManager;
+  private readonly stateManager: StalkerStateManager;
   private actionPlanner: Optional<XR_action_planner> = null;
   private combatPlanner: Optional<XR_action_planner> = null;
 
   /**
    * todo: Description.
    */
-  public constructor(stateManager: StateManager) {
+  public constructor(stateManager: StalkerStateManager) {
     super(null, StateManagerEvaIdle.__name);
     this.stateManager = stateManager;
   }
@@ -33,12 +33,12 @@ export class StateManagerEvaIdle extends property_evaluator {
     const t =
       this.stateManager.target_state === "idle" &&
       // --!this.st.planner.evaluator(this.st.properties["locked"]).evaluate() &&
-      !this.stateManager.planner.evaluator(EStateManagerProperty.animstate_locked).evaluate() &&
-      !this.stateManager.planner.evaluator(EStateManagerProperty.animation_locked).evaluate() &&
-      this.stateManager.planner.evaluator(EStateManagerProperty.movement).evaluate() &&
-      this.stateManager.planner.evaluator(EStateManagerProperty.animstate).evaluate() &&
-      this.stateManager.planner.evaluator(EStateManagerProperty.animation).evaluate() &&
-      this.stateManager.planner.evaluator(EStateManagerProperty.smartcover).evaluate();
+      !this.stateManager.planner.evaluator(EStateEvaluatorId.animstate_locked).evaluate() &&
+      !this.stateManager.planner.evaluator(EStateEvaluatorId.animation_locked).evaluate() &&
+      this.stateManager.planner.evaluator(EStateEvaluatorId.movement).evaluate() &&
+      this.stateManager.planner.evaluator(EStateEvaluatorId.animstate).evaluate() &&
+      this.stateManager.planner.evaluator(EStateEvaluatorId.animation).evaluate() &&
+      this.stateManager.planner.evaluator(EStateEvaluatorId.smartcover).evaluate();
 
     if (this.actionPlanner === null) {
       this.actionPlanner = this.object.motivation_action_manager();

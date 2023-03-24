@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { set_state } from "@/engine/core/objects/state/StateManager";
+import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";

@@ -2,7 +2,7 @@ import { action_base, CSightParams, level, look, LuabindClass, vector, XR_vector
 
 import { look_at_object, look_object_type } from "@/engine/core/objects/state/direction/StateManagerDirection";
 import { states } from "@/engine/core/objects/state/lib/state_lib";
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorCmp } from "@/engine/core/utils/physics";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -17,12 +17,12 @@ const logger: LuaLogger = new LuaLogger(
  */
 @LuabindClass()
 export class StateManagerActDirectionTurn extends action_base {
-  public readonly stateManager: StateManager;
+  public readonly stateManager: StalkerStateManager;
 
   /**
    * todo: Description.
    */
-  public constructor(st: StateManager) {
+  public constructor(st: StalkerStateManager) {
     super(null, StateManagerActDirectionTurn.__name);
 
     this.stateManager = st;

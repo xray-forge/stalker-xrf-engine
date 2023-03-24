@@ -1,6 +1,6 @@
 import { action_base, LuabindClass } from "xray16";
 
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { get_idle_state, get_weapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -15,9 +15,9 @@ const logger: LuaLogger = new LuaLogger(
  */
 @LuabindClass()
 export class StateManagerActWeaponUnstrapp extends action_base {
-  public stateManager: StateManager;
+  public stateManager: StalkerStateManager;
 
-  public constructor(stateManager: StateManager) {
+  public constructor(stateManager: StalkerStateManager) {
     super(null, StateManagerActWeaponUnstrapp.__name);
     this.stateManager = stateManager;
   }

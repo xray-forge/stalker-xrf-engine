@@ -1,15 +1,15 @@
 import { level, look, TXR_look, vector, XR_game_object, XR_vector } from "xray16";
 
-import { EStateManagerProperty } from "@/engine/core/objects/state/EStateManagerProperty";
 import { states } from "@/engine/core/objects/state/lib/state_lib";
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+import { EStateEvaluatorId } from "@/engine/core/objects/state/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorCmp } from "@/engine/core/utils/physics";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
 const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
-export function look_at_object(npc: XR_game_object, st: StateManager): void {
+export function look_at_object(npc: XR_game_object, st: StalkerStateManager): void {
   st.point_obj_dir = look_object_type(npc, st);
 
   if (st.point_obj_dir === true) {
@@ -26,7 +26,7 @@ const look_direction_states: LuaTable<string, boolean> = {
   guard_na: true,
 } as any;
 
-export function look_object_type(npc: XR_game_object, st: StateManager): boolean {
+export function look_object_type(npc: XR_game_object, st: StalkerStateManager): boolean {
   if (look_direction_states.get(st.target_state) === true) {
     return true;
   }
@@ -34,7 +34,7 @@ export function look_object_type(npc: XR_game_object, st: StateManager): boolean
   return states.get(st.target_state).animation !== null;
 }
 
-export function look_position_type(npc: XR_game_object, st: StateManager): TXR_look {
+export function look_position_type(npc: XR_game_object, st: StalkerStateManager): TXR_look {
   if (st === null) {
     return look.path_dir;
   }
@@ -43,7 +43,7 @@ export function look_position_type(npc: XR_game_object, st: StateManager): TXR_l
     return states.get(st.target_state).direction! as TXR_look;
   }
 
-  if (!st.planner.evaluator(EStateManagerProperty.movement_stand).evaluate()) {
+  if (!st.planner.evaluator(EStateEvaluatorId.movement_stand).evaluate()) {
     if (st.look_position !== null) {
       return look.direction;
     }
@@ -59,7 +59,7 @@ export function look_position_type(npc: XR_game_object, st: StateManager): TXR_l
 }
 
 // todo: Probably duplicate
-export function turn(npc: XR_game_object, st: StateManager): void {
+export function turn(npc: XR_game_object, st: StalkerStateManager): void {
   st.point_obj_dir = look_object_type(npc, st);
 
   if (st.look_object !== null && level.object_by_id(st.look_object) !== null) {

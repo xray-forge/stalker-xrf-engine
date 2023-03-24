@@ -3,7 +3,7 @@ import { action_base, alife, hit, LuabindClass, time_global, XR_alife_simulator 
 import { registry } from "@/engine/core/database";
 import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { set_state } from "@/engine/core/objects/state/StateManager";
+import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";

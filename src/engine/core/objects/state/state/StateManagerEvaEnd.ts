@@ -1,6 +1,6 @@
 import { cast_planner, LuabindClass, property_evaluator, stalker_ids, XR_action_planner } from "xray16";
 
-import { StateManager } from "@/engine/core/objects/state/StateManager";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { Optional } from "@/engine/lib/types";
@@ -12,14 +12,14 @@ const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MAN
  */
 @LuabindClass()
 export class StateManagerEvaEnd extends property_evaluator {
-  private readonly stateManager: StateManager;
+  private readonly stateManager: StalkerStateManager;
   private actionPlanner: Optional<XR_action_planner> = null;
   private combatPlanner: Optional<XR_action_planner> = null;
 
   /**
    * todo: Description.
    */
-  public constructor(stateManager: StateManager) {
+  public constructor(stateManager: StalkerStateManager) {
     super(null, StateManagerEvaEnd.__name);
     this.stateManager = stateManager;
   }
