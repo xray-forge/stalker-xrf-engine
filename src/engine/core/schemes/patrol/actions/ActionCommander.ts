@@ -1,10 +1,9 @@
 import { action_base, LuabindClass, XR_game_object } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getStalkerState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { getStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
 import { Optional } from "@/engine/lib/types";

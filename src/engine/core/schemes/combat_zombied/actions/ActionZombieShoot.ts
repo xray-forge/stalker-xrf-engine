@@ -10,8 +10,8 @@ import {
   XR_vector,
 } from "xray16";
 
+import { setStalkerState } from "@/engine/core/database";
 import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
-import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TRate } from "@/engine/lib/types";

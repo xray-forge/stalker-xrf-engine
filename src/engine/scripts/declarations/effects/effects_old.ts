@@ -48,6 +48,7 @@ import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/core/objects/alife/Squad";
 import { Stalker } from "@/engine/core/objects/alife/Stalker";
 import { update_logic } from "@/engine/core/objects/binders/StalkerBinder";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse/SchemeAbuse";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
@@ -178,7 +179,7 @@ function reset_animation(npc: XR_game_object): void {
   stateManager.animstate.setState(null, true);
   stateManager.animstate.setControl();
 
-  stateManager.setState("idle", null, null, null, { isForced: true });
+  stateManager.setState(EStalkerState.IDLE, null, null, null, { isForced: true });
 
   stateManager.update();
   stateManager.update();

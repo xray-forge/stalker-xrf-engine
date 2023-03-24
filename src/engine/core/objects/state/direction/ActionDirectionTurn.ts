@@ -1,8 +1,8 @@
 import { action_base, CSightParams, level, look, LuabindClass, vector, XR_vector } from "xray16";
 
 import { look_object_type, lookAtObject } from "@/engine/core/objects/state/direction/StateManagerDirection";
-import { states } from "@/engine/core/objects/state/lib/state_lib";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areSameVectors } from "@/engine/core/utils/vector";
 

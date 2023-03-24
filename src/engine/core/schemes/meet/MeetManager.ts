@@ -1,9 +1,8 @@
 import { alife, device, XR_game_object } from "xray16";
 
-import { getObjectByStoryId, registry } from "@/engine/core/database";
+import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/state";
-import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet/ISchemeMeetState";

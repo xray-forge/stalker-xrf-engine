@@ -1,15 +1,13 @@
 import { action_planner, object, time_global, XR_action_planner, XR_game_object, XR_vector } from "xray16";
 
-import { registry } from "@/engine/core/database";
-import { states } from "@/engine/core/objects/state/lib/state_lib";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { EStalkerState, EStateActionId, ITargetStateDescriptor } from "@/engine/core/objects/state/types";
 import { getObjectAnimationWeapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
+import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { stringifyAsJson } from "@/engine/core/utils/transform/json";
 import { areSameVectors } from "@/engine/core/utils/vector";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { AnyCallable, AnyObject, Optional, TDuration, TName, TNumberId, TTimestamp } from "@/engine/lib/types";
+import { AnyCallable, AnyObject, Optional, TDuration, TNumberId, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
@@ -24,7 +22,7 @@ export class StalkerStateManager {
   public animstate!: StalkerAnimationManager;
   public planner: XR_action_planner;
 
-  public target_state: string = EStalkerState.IDLE;
+  public target_state: EStalkerState = EStalkerState.IDLE;
   public current_object: Optional<XR_game_object> | -1 = null;
   public combat: boolean = false;
   public alife: boolean = true;
@@ -57,7 +55,7 @@ export class StalkerStateManager {
    * todo: Description.
    */
   public setState(
-    stateName: TName,
+    stateName: EStalkerState,
     callback: Optional<AnyObject>,
     timeout: Optional<TDuration>,
     target: Optional<ITargetStateDescriptor>,
@@ -67,12 +65,7 @@ export class StalkerStateManager {
       animation_direction?: Optional<XR_vector>;
     }>
   ): void {
-    assert(
-      states.get(stateName),
-      "Invalid set state called: '%s' fo '%s'.",
-      stringifyAsJson(stateName),
-      this.npc.name()
-    );
+    assert(states.get(stateName), "Invalid set state called: '%s' fo '%s'.", stateName, this.npc.name());
 
     if (target !== null) {
       this.look_position = target.look_position;
@@ -216,25 +209,4 @@ export class StalkerStateManager {
       type(this.current_object) === "number" ? this.current_object : type(this.current_object)
     }`;
   }
-}
-
-/**
- * todo;
- */
-export function setStalkerState(
-  object: XR_game_object,
-  stateName: EStalkerState,
-  callback: Optional<AnyCallable> | AnyObject,
-  timeout: Optional<TDuration>,
-  target: Optional<ITargetStateDescriptor>,
-  extra: Optional<AnyObject>
-): void {
-  registry.objects.get(object.id()).state_mgr?.setState(stateName, callback, timeout, target, extra);
-}
-
-/**
- * todo;
- */
-export function getStalkerState(object: XR_game_object): Optional<EStalkerState> {
-  return registry.objects.get(object.id()).state_mgr?.getState() as Optional<EStalkerState>;
 }

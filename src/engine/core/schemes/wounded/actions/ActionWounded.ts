@@ -1,10 +1,9 @@
 import { action_base, alife, hit, LuabindClass, time_global, XR_alife_simulator } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { registry, setStalkerState } from "@/engine/core/database";
 import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/state";
-import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -19,9 +18,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class ActionWounded extends action_base {
   public readonly state: ISchemeWoundedState;
 
-  /**
-   * todo: Description.
-   */
   public constructor(storage: ISchemeWoundedState) {
     super(null, ActionWounded.__name);
     this.state = storage;

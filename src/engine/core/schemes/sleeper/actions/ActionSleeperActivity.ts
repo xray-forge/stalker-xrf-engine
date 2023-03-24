@@ -1,9 +1,8 @@
 import { action_base, LuabindClass, patrol, XR_game_object } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { registry, setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";

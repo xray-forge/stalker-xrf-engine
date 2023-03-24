@@ -7,7 +7,7 @@ import { parseStringsList } from "@/engine/core/utils/parse";
 import { getTableSize } from "@/engine/core/utils/table";
 import { info_portions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";
-import { LuaArray, Optional, TName } from "@/engine/lib/types";
+import { LuaArray, Optional, TIndex, TName } from "@/engine/lib/types";
 
 const weap_table: LuaArray<TName> = [
   "pri_a15_wpn_svu",
@@ -23,12 +23,12 @@ const weap_table_unstrapped: LuaArray<TName> = [
   "pri_a15_wpn_ak74_unstrapped",
 ] as any;
 
-function unstrap_weapon(npc: XR_game_object): void {
+function unstrap_weapon(object: XR_game_object): void {
   let item: Optional<XR_game_object> = null;
-  let index: number = 0;
+  let index: TIndex = 0;
 
   for (const [k, v] of weap_table) {
-    item = npc.object(v);
+    item = object.object(v);
     if (item !== null) {
       index = k;
       break;
@@ -36,18 +36,18 @@ function unstrap_weapon(npc: XR_game_object): void {
   }
 
   if (item === null) {
-    abort("Can not find item in %s", npc.name());
+    abort("Can not find item in %s", object.name());
   }
 
   item.attachable_item_load_attach(weap_table_unstrapped.get(index as number));
 }
 
-function strap_weapon(npc: XR_game_object): void {
+function strap_weapon(object: XR_game_object): void {
   let item: Optional<XR_game_object> = null;
-  let index: number = 0;
+  let index: TIndex = 0;
 
   for (const [k, v] of pairs(weap_table)) {
-    item = npc.object(v);
+    item = object.object(v);
     if (item !== null) {
       index = k;
       break;
@@ -55,7 +55,7 @@ function strap_weapon(npc: XR_game_object): void {
   }
 
   if (item === null) {
-    abort("cant find item in %s", npc.name());
+    abort("cant find item in %s", object.name());
   }
 
   item.attachable_item_load_attach(weap_table.get(index));
@@ -703,7 +703,7 @@ function get_sequence_for_npc(objectName: TName, existing_npc: string): TNpcSequ
   return result;
 }
 
-export function add_state_lib_pri_a15(): LuaTable<string, IStateDescriptor> {
+export function addStateLibPriA15(): LuaTable<string, IStateDescriptor> {
   return {
     pri_a15_idle_none: {
       weapon: "none",

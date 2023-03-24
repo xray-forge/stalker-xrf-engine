@@ -1,8 +1,8 @@
 import { XR_game_object } from "xray16";
 
-import { add_animpoint_animation_list } from "@/engine/core/objects/state/lib/state_mgr_animation_list_animpoint";
-import { add_animation_list_pri_a15 } from "@/engine/core/objects/state/lib/state_mgr_pri_a15";
-import { add_animation_list_scenario } from "@/engine/core/objects/state/lib/state_mgr_scenario";
+import { addAnimationListScenario } from "@/engine/core/objects/state_lib/state_manager_scenario";
+import { add_animpoint_animation_list } from "@/engine/core/objects/state_lib/state_mgr_animation_list_animpoint";
+import { add_animation_list_pri_a15 } from "@/engine/core/objects/state_lib/state_mgr_pri_a15";
 import { getExtern } from "@/engine/core/utils/binding";
 import { copyTable } from "@/engine/core/utils/table";
 import { AnyCallable, AnyCallablesModule, LuaArray, Optional } from "@/engine/lib/types";
@@ -996,5 +996,5 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
 } as any;
 
 copyTable(animations, add_animpoint_animation_list());
-copyTable(animations, add_animation_list_scenario());
+copyTable(animations, addAnimationListScenario());
 copyTable(animations, add_animation_list_pri_a15());

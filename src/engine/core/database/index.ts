@@ -6,6 +6,7 @@ export * from "@/engine/core/database/managers";
 export * from "@/engine/core/database/objects";
 export * from "@/engine/core/database/offline";
 export * from "@/engine/core/database/registry";
+export * from "@/engine/core/database/stalker";
 export * from "@/engine/core/database/smart_terrains";
 export * from "@/engine/core/database/zones";
 export * from "@/engine/core/database/ini";

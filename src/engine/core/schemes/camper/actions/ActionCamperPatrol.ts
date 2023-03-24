@@ -11,11 +11,10 @@ import {
   XR_vector,
 } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
 import { SchemeDanger } from "@/engine/core/schemes/danger/SchemeDanger";
 import { abort } from "@/engine/core/utils/assertion";
@@ -74,6 +73,7 @@ export class ActionCamperPatrol extends action_base {
    */
   public resetScheme(): void {
     setStalkerState(this.object, EStalkerState.PATROL, null, null, null, null);
+
     this.state.signals = new LuaTable();
     this.state.scan_table = new LuaTable();
 

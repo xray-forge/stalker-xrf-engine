@@ -4,8 +4,6 @@ import * as animationManagement from "@/engine/core/objects/state/animation";
 import * as animationStateManagement from "@/engine/core/objects/state/animation_state";
 import * as bodyStateManagement from "@/engine/core/objects/state/body_state";
 import * as directionManagement from "@/engine/core/objects/state/direction";
-import { animations } from "@/engine/core/objects/state/lib/state_mgr_animation_list";
-import { animstates } from "@/engine/core/objects/state/lib/state_mgr_animstate_list";
 import * as mentalManagement from "@/engine/core/objects/state/mental";
 import * as movementManagement from "@/engine/core/objects/state/movement";
 import * as smartCoverManagement from "@/engine/core/objects/state/smart_cover";
@@ -19,6 +17,8 @@ import { EvaluatorStateIdleItems } from "@/engine/core/objects/state/state/Evalu
 import { EvaluatorStateLogicActive } from "@/engine/core/objects/state/state/EvaluatorStateLogicActive";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/objects/state/types";
 import * as weaponManagement from "@/engine/core/objects/state/weapon";
+import { animations } from "@/engine/core/objects/state_lib/state_mgr_animation_list";
+import { animstates } from "@/engine/core/objects/state_lib/state_mgr_animstate_list";
 import { EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
 

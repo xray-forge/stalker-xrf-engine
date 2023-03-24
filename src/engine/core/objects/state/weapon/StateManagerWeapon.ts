@@ -1,8 +1,8 @@
 import { anim, move, object, TXR_object_state, XR_game_object } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { states } from "@/engine/core/objects/state/lib/state_lib";
-import { IStateDescriptor } from "@/engine/core/objects/state/types";
+import { EStalkerState, IStateDescriptor } from "@/engine/core/objects/state/types";
+import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { LuaArray, Optional, TIndex, TName, TNumberId, TTimestamp } from "@/engine/lib/types";
 
@@ -63,7 +63,7 @@ export function getStateQueueParams(
 /**
  * todo;
  */
-export function getObjectAnimationWeapon(object: XR_game_object, targetState: string): Optional<XR_game_object> {
+export function getObjectAnimationWeapon(object: XR_game_object, targetState: EStalkerState): Optional<XR_game_object> {
   const weaponSlot: Optional<TIndex> = states.get(targetState).weapon_slot as Optional<TIndex>;
 
   return weaponSlot === null ? object.best_weapon() : object.item_in_slot(weaponSlot);
@@ -72,7 +72,7 @@ export function getObjectAnimationWeapon(object: XR_game_object, targetState: st
 /**
  * todo;
  */
-export function getObjectIdleState(targetState: string): TXR_object_state {
+export function getObjectIdleState(targetState: EStalkerState): TXR_object_state {
   const stateDescriptor: IStateDescriptor = states.get(targetState);
 
   if (

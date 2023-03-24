@@ -2,7 +2,7 @@ import { level, vector, XR_game_object, XR_vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
-import { states } from "@/engine/core/objects/state/lib/state_lib";
+import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { associations } from "@/engine/core/schemes/animpoint/animpoint_predicates";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";

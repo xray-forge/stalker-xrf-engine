@@ -39,6 +39,7 @@ import { SquadReachTargetAction } from "@/engine/core/objects/alife/SquadReachTa
 import { SquadStayOnTargetAction } from "@/engine/core/objects/alife/SquadStayOnTargetAction";
 import { TSimulationObject, TSquadAction } from "@/engine/core/objects/alife/types";
 import { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/check/is";
@@ -819,7 +820,7 @@ export class Squad<
       registry.offlineObjects.get(k.id).level_vertex_id = level.vertex_id(position);
 
       if (cl_object !== null) {
-        reset_animation(cl_object);
+        resetObjectAnimation(cl_object);
         cl_object.set_npc_position(position);
       } else {
         (k as any).object.position = position;
@@ -1286,21 +1287,19 @@ function set_relation(
 /**
  * todo;
  */
-function reset_animation(object: XR_game_object): void {
+function resetObjectAnimation(object: XR_game_object): void {
   const stateManager: Optional<StalkerStateManager> = registry.objects.get(object.id()).state_mgr!;
 
   if (stateManager === null) {
     return;
   }
 
-  // const planner = npc.motivation_action_manager();
-
   stateManager.animation.setState(null, true);
   stateManager.animation.setControl();
   stateManager.animstate.setState(null, true);
   stateManager.animstate.setControl();
 
-  stateManager.setState("idle", null, null, null, { isForced: true });
+  stateManager.setState(EStalkerState.IDLE, null, null, null, { isForced: true });
 
   stateManager.update();
   stateManager.update();

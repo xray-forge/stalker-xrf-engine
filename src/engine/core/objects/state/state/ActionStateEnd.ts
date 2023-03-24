@@ -1,9 +1,9 @@
 import { action_base, game_object, level, LuabindClass, object, time_global, XR_game_object } from "xray16";
 
 import { EWeaponAnimation } from "@/engine/core/objects/state";
-import { states } from "@/engine/core/objects/state/lib/state_lib";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { getObjectIdleState, getStateQueueParams } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
+import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { isStalker, isWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TDuration, TRate, TTimestamp } from "@/engine/lib/types";

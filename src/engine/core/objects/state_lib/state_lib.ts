@@ -1,15 +1,15 @@
 import { anim, CSightParams, look, move } from "xray16";
 
-import { getStateLibAnimationPoints } from "@/engine/core/objects/state/lib/state_lib_animpoint";
-import { add_state_lib_pri_a15 } from "@/engine/core/objects/state/lib/state_mgr_pri_a15";
-import { getStateLibScenarios } from "@/engine/core/objects/state/lib/state_mgr_scenario";
-import { EWeaponAnimation, IStateDescriptor } from "@/engine/core/objects/state/types";
+import { EStalkerState, EWeaponAnimation, IStateDescriptor } from "@/engine/core/objects/state/types";
+import { getStateLibAnimationPoints } from "@/engine/core/objects/state_lib/state_lib_animpoint";
+import { getStateLibScenarios } from "@/engine/core/objects/state_lib/state_manager_scenario";
+import { addStateLibPriA15 } from "@/engine/core/objects/state_lib/state_mgr_pri_a15";
 import { copyTable } from "@/engine/core/utils/table";
 
 /**
  * List of default state descriptors to use in scripts.
  */
-export const states: LuaTable<string, IStateDescriptor> = {
+export const states: LuaTable<EStalkerState, IStateDescriptor> = {
   idle: {
     weapon: null,
     movement: null,
@@ -818,4 +818,4 @@ export const states: LuaTable<string, IStateDescriptor> = {
 
 copyTable(states, getStateLibAnimationPoints());
 copyTable(states, getStateLibScenarios());
-copyTable(states, add_state_lib_pri_a15());
+copyTable(states, addStateLibPriA15());

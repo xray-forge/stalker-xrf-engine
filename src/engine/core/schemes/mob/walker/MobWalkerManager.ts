@@ -194,7 +194,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       return;
     }
 
-    const [pt_chosen_idx] = StalkerMoveManager.choose_look_point(this.patrol_look!, this.path_look_info!, search_for);
+    const [pt_chosen_idx] = StalkerMoveManager.chooseLookPoint(this.patrol_look!, this.path_look_info!, search_for);
 
     if (pt_chosen_idx) {
       const suggested_wait_time = this.path_look_info!.get(pt_chosen_idx)["t"];

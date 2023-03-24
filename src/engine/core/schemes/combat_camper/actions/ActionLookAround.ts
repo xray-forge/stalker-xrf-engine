@@ -1,12 +1,12 @@
 import { action_base, device, LuabindClass, vector, XR_game_object, XR_vector } from "xray16";
 
+import { setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
-import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";
-import { TCount, TRate, TTimestamp } from "@/engine/lib/types";
+import { Optional, TCount, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,9 +19,6 @@ export class ActionLookAround extends action_base {
   public forget_time: TTimestamp = 0;
   public change_dir_time: TTimestamp = 0;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeCombatState) {
     super(null, ActionLookAround.__name);
     this.state = state;
@@ -119,10 +116,10 @@ export class ActionLookAround extends action_base {
       return;
     }
 
-    const be = this.object && this.object.best_enemy();
+    const bestEnemy: Optional<XR_game_object> = this.object?.best_enemy();
 
-    if (be && who.id() === be.id()) {
-      this.state.last_seen_pos = be.position();
+    if (bestEnemy && who.id() === bestEnemy.id()) {
+      this.state.last_seen_pos = bestEnemy.position();
       this.reset();
     }
   }

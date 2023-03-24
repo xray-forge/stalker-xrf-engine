@@ -1,10 +1,9 @@
 import { action_base, level, LuabindClass, patrol, XR_game_object, XR_sound_object, XR_vector } from "xray16";
 
-import { getObjectIdByStoryId, registry } from "@/engine/core/database";
+import { getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { EStalkerState } from "@/engine/core/objects/state";
-import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark";
 import { abort } from "@/engine/core/utils/assertion";
 import { getSmartTerrainByName } from "@/engine/core/utils/gulag";
@@ -124,8 +123,6 @@ export class ActionRemarkActivity extends action_base {
    * todo
    */
   public update(): void {
-    // --' 1. �� ������ ����������� �� ������.
-
     if (this.state === state_initial) {
       const cb = { obj: this, func: this.time_callback };
       const target = this.get_target();

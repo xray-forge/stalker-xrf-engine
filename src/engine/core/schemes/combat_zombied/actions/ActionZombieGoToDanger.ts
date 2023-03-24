@@ -5,12 +5,13 @@ import {
   LuabindClass,
   move,
   time_global,
+  XR_danger_object,
   XR_game_object,
   XR_vector,
 } from "xray16";
 
+import { setStalkerState } from "@/engine/core/database";
 import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
-import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
@@ -54,8 +55,6 @@ export class ActionZombieGoToDanger extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    // --    this.object.set_node_evaluator      ()
-    // --    this.object.set_path_evaluator      ()
     this.object.set_desired_direction();
     this.object.set_detail_path_type(move.line);
     this.object.set_path_type(game_object.level_path);
@@ -135,14 +134,14 @@ export class ActionZombieGoToDanger extends action_base {
     }
 
     if (this.state.cur_act === act_danger) {
-      const bd = this.object.best_danger();
+      const bestDanger: Optional<XR_danger_object> = this.object.best_danger();
 
-      if (bd) {
-        const bdo = bd.object();
+      if (bestDanger) {
+        const bestDangerObject: Optional<XR_game_object> = bestDanger.object();
 
-        if (bdo !== null && (bd.type() === danger_object.attacked || amount > 0)) {
-          this.enemy_last_seen_pos = bdo.position();
-          this.enemy_last_seen_vid = bdo.level_vertex_id();
+        if (bestDangerObject !== null && (bestDanger.type() === danger_object.attacked || amount > 0)) {
+          this.enemy_last_seen_pos = bestDangerObject.position();
+          this.enemy_last_seen_vid = bestDangerObject.level_vertex_id();
           this.was_hit = true;
         }
       }

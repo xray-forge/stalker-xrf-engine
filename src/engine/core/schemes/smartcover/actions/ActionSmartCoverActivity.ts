@@ -1,9 +1,8 @@
 import { action_base, level, LuabindClass, patrol, XR_game_object, XR_vector } from "xray16";
 
-import { getObjectByStoryId, registry } from "@/engine/core/database";
+import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/state";
-import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ActionSleeperActivity } from "@/engine/core/schemes/sleeper/actions";
 import {
   cover_substate_table,
@@ -106,7 +105,6 @@ export class ActionSmartCoverActivity extends action_base {
         abort("There is no smart_cover with name [%s]", this.cover_name);
       }
 
-      // -- ���� � ���������� ����� ����� �������� (�������� ��� �����������, �������)
       setStalkerState(this.object, EStalkerState.SMART_COVER, null, null, null, null);
 
       this.target_path_condlist = parseConditionsList(this.state.target_path);

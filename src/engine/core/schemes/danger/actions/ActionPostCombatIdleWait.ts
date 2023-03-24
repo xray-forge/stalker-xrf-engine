@@ -1,8 +1,8 @@
 import { action_base, anim, look, LuabindClass, move, object, XR_game_object } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { animations } from "@/engine/core/objects/state/lib/state_mgr_animation_list";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
+import { animations } from "@/engine/core/objects/state_lib/state_mgr_animation_list";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/danger/ISchemePostCombatIdleState";
 import { Optional } from "@/engine/lib/types";
 

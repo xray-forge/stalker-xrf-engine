@@ -1,5 +1,5 @@
 // eslint-disable-next-line max-len
-import { add_animstate_animation_list } from "@/engine/core/objects/state/lib/state_mgr_animstate_list_animpoint";
+import { add_animstate_animation_list } from "@/engine/core/objects/state_lib/state_mgr_animstate_list_animpoint";
 import { copyTable } from "@/engine/core/utils/table";
 
 export interface IAnimationStateDescriptor {

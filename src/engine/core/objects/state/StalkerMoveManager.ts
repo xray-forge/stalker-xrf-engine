@@ -11,8 +11,7 @@ import {
   XR_vector,
 } from "xray16";
 
-import { registry } from "@/engine/core/database";
-import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
+import { registry, setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
@@ -51,7 +50,7 @@ export class StalkerMoveManager {
   /**
    * todo: Description.
    */
-  public static choose_look_point(
+  public static chooseLookPoint(
     patrol_look: XR_patrol,
     path_look_info: LuaArray<IWaypointData>,
     search_for: XR_flags32
@@ -619,7 +618,7 @@ export class StalkerMoveManager {
       return;
     }
 
-    const [pt_chosen_idx, num_equal_pts] = StalkerMoveManager.choose_look_point(
+    const [pt_chosen_idx, num_equal_pts] = StalkerMoveManager.chooseLookPoint(
       this.patrol_look,
       this.path_look_info!,
       search_for

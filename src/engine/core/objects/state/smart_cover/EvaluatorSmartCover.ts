@@ -1,6 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/smartcover";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -24,7 +25,7 @@ export class EvaluatorSmartCover extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    if (this.stateManager.target_state !== EScheme.SMARTCOVER) {
+    if (this.stateManager.target_state !== EStalkerState.SMART_COVER) {
       return true;
     }
 
