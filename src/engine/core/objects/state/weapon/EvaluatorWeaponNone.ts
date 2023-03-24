@@ -1,34 +1,28 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
+import { EWeaponAnimationType } from "@/engine/core/objects/state";
 import { states } from "@/engine/core/objects/state/lib/state_lib";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
-const logger: LuaLogger = new LuaLogger(
-  "StateManagerEvaWeaponNone",
-  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
-);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class StateManagerEvaWeaponNone extends property_evaluator {
+export class EvaluatorWeaponNone extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
 
-  /**
-   * todo: Description.
-   */
   public constructor(stateManager: StalkerStateManager) {
-    super(null, StateManagerEvaWeaponNone.__name);
+    super(null, EvaluatorWeaponNone.__name);
     this.stateManager = stateManager;
   }
 
   /**
-   * todo: Description.
+   * Check if weapon target state in animation is 'none'.
    */
   public override evaluate(): boolean {
-    return states.get(this.stateManager.target_state).weapon === "none";
+    return states.get(this.stateManager.target_state).weapon === EWeaponAnimationType.NONE;
   }
 }

@@ -6,7 +6,7 @@ export const gameConfig = {
   /**
    * Affects label in game menu.
    */
-  VERSION: "ver %s XRTS 0.1",
+  VERSION: "ver %s XRTS 0.2",
   /**
    * Debug settings.
    */

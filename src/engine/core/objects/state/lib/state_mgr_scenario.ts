@@ -1,30 +1,31 @@
 import { anim, CSightParams, move } from "xray16";
 
-import { IStateDescriptor } from "@/engine/core/objects/state/lib/state_lib";
 import { IAnimationDescriptor } from "@/engine/core/objects/state/lib/state_mgr_animation_list";
+import { EWeaponAnimationType, IStateDescriptor } from "@/engine/core/objects/state/types";
 import { getExtern } from "@/engine/core/utils/binding";
-import { AnyCallablesModule } from "@/engine/lib/types";
+import { AnyCallablesModule, TName } from "@/engine/lib/types";
 
-export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
+/**
+ * todo;
+ */
+export function getStateLibScenarios(): LuaTable<TName, IStateDescriptor> {
   return {
     zat_b14_give_artefact_idle: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
       animstate: null,
       animation: "zat_b14_give_artefact_idle",
     },
-
     zat_b14_give_artefact_act: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
       animstate: null,
       animation: "zat_b14_give_artefact_act",
     },
-
     zat_b14_stay_wall: {
       weapon: "none",
       movement: move.stand,
@@ -34,9 +35,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b14_stay_wall",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b38_stalker_break_lock: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -44,9 +44,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b38_stalker_break_lock",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b38_stalker_turn_on_lift: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -54,9 +53,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b38_stalker_turn_on_lift",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b38_stalker_jump_tonnel: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -64,9 +62,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b38_stalker_jump_tonnel",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b38_stalker_alert: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.danger,
       bodystate: move.standing,
@@ -74,9 +71,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b38_stalker_alert",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b20_noah_jump: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -84,9 +80,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b20_noah_jump",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     pri_a17_ice_climb: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.danger,
       bodystate: move.standing,
@@ -94,9 +89,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "pri_a17_ice_climb",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     pri_a17_fall_down: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.danger,
       bodystate: move.standing,
@@ -104,9 +98,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "pri_a17_fall_down",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     pri_a17_pray_in: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.danger,
       bodystate: move.standing,
@@ -115,7 +108,7 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       direction: CSightParams.eSightTypeAnimationDirection,
     },
     pri_a17_pray: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.danger,
       bodystate: move.standing,
@@ -123,7 +116,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "pri_a17_pray",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b22_medic_turn_idle: {
       weapon: "none",
       movement: move.stand,
@@ -133,7 +125,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: null,
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b22_medic_turn_out: {
       weapon: "none",
       movement: move.stand,
@@ -143,7 +134,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b22_medic_turn_out",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b22_medic_suicide: {
       weapon: "fire",
       movement: move.stand,
@@ -153,7 +143,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b22_medic_suicide",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b3_tech_drunk: {
       weapon: "none",
       movement: move.stand,
@@ -163,7 +152,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b3_tech_drunk",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b3_tech_drink: {
       weapon: "none",
       movement: move.stand,
@@ -173,7 +161,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b3_tech_drink",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b3_tech_idle: {
       weapon: "none",
       movement: move.stand,
@@ -183,7 +170,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b3_tech_idle_1",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b3_tech_idle_short: {
       weapon: "none",
       movement: move.stand,
@@ -193,7 +179,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: null,
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b3_tech_surprise: {
       weapon: "none",
       movement: move.stand,
@@ -203,25 +188,22 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b3_tech_surprise",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     give_orders: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.danger,
       bodystate: move.standing,
       animstate: null,
       animation: "give_orders",
     },
-
     bloodsucker_search: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.danger,
       bodystate: move.standing,
       animstate: null,
       animation: "bloodsucker_search",
     },
-
     bloodsucker_panic: {
       weapon: "fire",
       movement: move.stand,
@@ -230,7 +212,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animstate: null,
       animation: "bloodsucker_panic",
     },
-
     suicide_animation: {
       weapon: "fire",
       movement: move.stand,
@@ -240,7 +221,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "suicide_animation",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b10_drunk_ravings: {
       weapon: "none",
       movement: move.stand,
@@ -250,18 +230,16 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b10_drunk_ravings",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     pas_b400_vano_probe: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
       animstate: null,
       animation: "pas_b400_vano_probe",
     },
-
     pri_a28_kirillov_sit_high_radio: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -269,7 +247,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "pri_a28_kirillov_sit_high_radio",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     pri_a18_inspert_monolit_actor: {
       weapon: "none",
       movement: move.stand,
@@ -279,9 +256,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "pri_a18_inspert_monolit_actor",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     pri_a20_colonel_radio: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -289,7 +265,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: null,
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     pri_a21_sentry_madness: {
       weapon: "fire",
       movement: move.stand,
@@ -299,7 +274,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: null,
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     pri_a21_sentry_madness_suicide: {
       weapon: "fire",
       movement: move.stand,
@@ -309,7 +283,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "pri_a21_sentry_madness_suicide",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     pri_a22_colonel_lean_on_table: {
       weapon: "none",
       movement: move.stand,
@@ -319,7 +292,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: null,
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     pri_a28_army_trance_out: {
       weapon: "none",
       movement: move.stand,
@@ -329,7 +301,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "pri_a28_army_trance_out",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b106_wounded_idle: {
       weapon: "none",
       movement: move.stand,
@@ -339,7 +310,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b106_wounded_idle",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b38_cop_dead: {
       weapon: "none",
       movement: move.stand,
@@ -349,7 +319,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b38_cop_dead",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b15_zulus_sit_drink: {
       weapon: "none",
       movement: move.stand,
@@ -359,7 +328,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b15_zulus_sit_drink",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b15_zulus_sit_idle: {
       weapon: "none",
       movement: move.stand,
@@ -378,7 +346,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: null,
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b15_zulus_sit_out: {
       weapon: "none",
       movement: move.stand,
@@ -388,9 +355,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b15_zulus_sit_out",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_actor_one: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -398,9 +364,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_actor_one",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_actor_one_vano: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -408,9 +373,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_actor_one_vano",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_actor_one_monolith: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -418,9 +382,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_actor_one_monolith",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_actor_one_soldier: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -428,9 +391,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_actor_one_soldier",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_actor_all: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -438,9 +400,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_actor_all",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_actor_soldier_vano: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -448,9 +409,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_actor_soldier_vano",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_actor_soldier_monolith: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -458,9 +418,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_actor_soldier_monolith",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_actor_vano_monolith: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -468,9 +427,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_actor_vano_monolith",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_zulus_one: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -478,9 +436,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_zulus_one",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_zulus_one_vano: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -488,9 +445,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_zulus_one_vano",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_zulus_one_monolith: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -498,9 +454,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_zulus_one_monolith",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_zulus_one_soldier: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -508,9 +463,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_zulus_one_soldier",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_zulus_all: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -518,9 +472,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_zulus_all",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_zulus_soldier_vano: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -528,9 +481,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_zulus_soldier_vano",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_zulus_soldier_monolith: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -538,9 +490,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_zulus_soldier_monolith",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_zulus_vano_monolith: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -548,9 +499,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_zulus_vano_monolith",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_soldier_one: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -558,9 +508,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_soldier_one",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_soldier_all: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -568,9 +517,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_soldier_all",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_soldier_soldier_vano: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -578,9 +526,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_soldier_soldier_vano",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_soldier_soldier_monolith: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -588,9 +535,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_soldier_soldier_monolith",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_monolith_one: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -598,9 +544,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_monolith_one",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_monolith_all: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -608,9 +553,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_monolith_all",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_monolith_soldier_monolith: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -618,9 +562,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_monolith_soldier_monolith",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_monolith_vano_monolith: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -628,9 +571,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_monolith_vano_monolith",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_vano_one: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -638,9 +580,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_vano_one",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_vano_all: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -648,9 +589,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_vano_all",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_vano_soldier_vano: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -658,9 +598,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_vano_soldier_vano",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_vano_vano_monolith: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -668,9 +607,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_vano_vano_monolith",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_azot_one: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -678,9 +616,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_azot_one",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_azot_one_vano: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -688,9 +625,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_azot_one_vano",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_azot_one_monolith: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -698,9 +634,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_azot_one_monolith",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_azot_one_soldier: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -708,9 +643,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_azot_one_soldier",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_azot_soldier_vano: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -718,9 +652,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_azot_soldier_vano",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_azot_soldier_monolith: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -728,9 +661,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_azot_soldier_monolith",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_azot_vano_monolith: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -738,9 +670,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_azot_vano_monolith",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b219_azot_all: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -748,7 +679,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b219_azot_all",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b100_heli_2_serch: {
       weapon: "none",
       movement: move.stand,
@@ -758,7 +688,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b100_heli_2_serch",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b101_heli_5_serch: {
       weapon: "none",
       movement: move.stand,
@@ -768,7 +697,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b101_heli_5_serch",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     zat_b28_heli3_serch: {
       weapon: "none",
       movement: move.stand,
@@ -778,9 +706,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "zat_b28_heli3_serch",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b217_guide_stand: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -788,7 +715,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b217_guide_stand",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b217_nitro_stand: {
       weapon: "none",
       movement: move.stand,
@@ -798,7 +724,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b217_nitro_stand",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b41_novikov_stand: {
       weapon: "none",
       movement: move.stand,
@@ -808,9 +733,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b41_novikov_stand",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     pri_b305_actor: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -818,9 +742,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "pri_b305_actor",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_a9_cam1_actor: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -828,9 +751,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_a9_cam1_actor",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_a9_cam2_actor: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -838,9 +760,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_a9_cam2_actor",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_a9_cam3_actor: {
-      weapon: "unstrapped",
+      weapon: EWeaponAnimationType.UNSTRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -848,9 +769,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_a9_cam3_actor",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     jup_b217_nitro_straight: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -858,9 +778,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "jup_b217_nitro_straight",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     pri_a25_psy_medic_idle: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -868,9 +787,8 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       animation: "pri_a25_psy_medic_idle",
       direction: CSightParams.eSightTypeAnimationDirection,
     },
-
     pri_a25_psy_medic_out: {
-      weapon: "strapped",
+      weapon: EWeaponAnimationType.STRAPPED,
       movement: move.stand,
       mental: anim.free,
       bodystate: move.standing,
@@ -897,7 +815,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "zat_b14_give_artefact_ible" },
       rnd: null,
     },
-
     zat_b14_give_artefact_act: {
       prop: {
         maxidle: 1,
@@ -912,7 +829,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     zat_b14_stay_wall: {
       prop: {
         maxidle: 1,
@@ -925,7 +841,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "animpoint_stay_wall_idle_1" },
       rnd: null,
     },
-
     zat_b38_stalker_break_lock: {
       prop: {
         maxidle: 1,
@@ -946,7 +861,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     zat_b38_stalker_turn_on_lift: {
       prop: {
         maxidle: 1,
@@ -969,7 +883,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     zat_b38_stalker_jump_tonnel: {
       prop: {
         maxidle: 1,
@@ -989,7 +902,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     zat_b20_noah_jump: {
       prop: {
         maxidle: 1,
@@ -1002,7 +914,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     zat_b38_stalker_alert: {
       prop: {
         maxidle: 1,
@@ -1020,7 +931,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       },
       rnd: null,
     },
-
     pri_a17_ice_climb: {
       prop: {
         maxidle: 1,
@@ -1033,7 +943,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     pri_a17_fall_down: {
       prop: {
         maxidle: 1,
@@ -1051,7 +960,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     pri_a17_pray_in: {
       prop: {
         maxidle: 1,
@@ -1070,7 +978,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     pri_a17_pray: {
       prop: {
         maxidle: 1,
@@ -1083,7 +990,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "pri_a17_preacher_sermon_out" },
       rnd: null,
     },
-
     dynamite: {
       prop: {
         maxidle: 1,
@@ -1095,7 +1001,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       rnd: null,
       idle: null,
     },
-
     bloodsucker_panic: {
       prop: {
         maxidle: 1,
@@ -1107,7 +1012,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       rnd: null,
       into: null,
     },
-
     bloodsucker_search: {
       prop: {
         maxidle: 0,
@@ -1119,7 +1023,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       rnd: { [0]: ["norm_alert_idle_0", "norm_alert_idle_1", "norm_alert_idle_3"] },
       into: { [0]: ["norm_alert_in_0"] },
     },
-
     give_orders: {
       prop: {
         maxidle: 1,
@@ -1131,7 +1034,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       rnd: null,
       into: { [0]: ["norm_alert_idle_0", "norm_alert_command_0"] },
     },
-
     zat_b22_medic_turn_idle: {
       prop: {
         maxidle: 1,
@@ -1143,7 +1045,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "zat_b22_medic_turn_idle" },
       rnd: null,
     },
-
     zat_b22_medic_turn_out: {
       prop: {
         maxidle: 1,
@@ -1155,7 +1056,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     zat_b22_medic_suicide: {
       prop: {
         maxidle: 1,
@@ -1167,7 +1067,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "zat_b22_medic_suicide_idle" },
       rnd: null,
     },
-
     zat_b3_tech_drunk: {
       prop: {
         maxidle: 1,
@@ -1185,7 +1084,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "zat_b3_tech_drunk_idle" },
       rnd: null,
     },
-
     zat_b3_tech_idle_1: {
       prop: {
         maxidle: 1,
@@ -1198,7 +1096,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "zat_b3_tech_idle_1" },
       rnd: null,
     },
-
     zat_b3_tech_surprise: {
       prop: {
         maxidle: 1,
@@ -1219,7 +1116,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "zat_b3_tech_drunk_idle" },
       rnd: null,
     },
-
     zat_b3_tech_drink: {
       prop: {
         maxidle: 1,
@@ -1238,7 +1134,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "zat_b3_tech_drink_idle" },
       rnd: null,
     },
-
     jup_b10_drunk_ravings: {
       prop: {
         maxidle: 1,
@@ -1251,7 +1146,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "zat_b3_tech_drunk_idle" },
       rnd: null,
     },
-
     pas_b400_vano_probe: {
       prop: {
         maxidle: 0,
@@ -1263,7 +1157,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "metering_anomalys_0_idle_0" },
       rnd: null,
     },
-
     pri_a28_kirillov_sit_high_radio: {
       prop: {
         maxidle: 0,
@@ -1283,7 +1176,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "pri_a28_kirillov_radio_on_idle" },
       rnd: null,
     },
-
     pri_a18_inspert_monolit_actor: {
       prop: {
         maxidle: 1,
@@ -1306,7 +1198,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       out: null,
       rnd: null,
     },
-
     pri_a21_sentry_madness: {
       prop: {
         maxidle: 1,
@@ -1318,7 +1209,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "pri_a21_sentry_madness_idle" },
       rnd: null,
     },
-
     pri_a21_sentry_madness_suicide: {
       prop: {
         maxidle: 1,
@@ -1330,7 +1220,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "pri_a21_sentry_madness_suicide_idle" },
       rnd: null,
     },
-
     pri_a22_colonel_lean_on_table_in: {
       prop: {
         maxidle: 1,
@@ -1343,7 +1232,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "pri_a22_colonel_lean_on_tadl_idle" },
       rnd: null,
     },
-
     pri_a22_colonel_lean_on_table_idle: {
       prop: {
         maxidle: 1,
@@ -1356,7 +1244,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "pri_a22_colonel_lean_on_tadl_idle" },
       rnd: null,
     },
-
     pri_a22_colonel_stand_from_table: {
       prop: {
         maxidle: 1,
@@ -1369,7 +1256,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     pri_a28_army_trance_out: {
       prop: {
         maxidle: 1,
@@ -1381,7 +1267,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "pri_a28_army_trance_out_idle" },
       rnd: null,
     },
-
     zat_b106_wounded_idle: {
       prop: {
         maxidle: 1,
@@ -1394,7 +1279,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "cut_scene_0_actor_1" },
       rnd: null,
     },
-
     zat_b38_cop_dead: {
       prop: {
         maxidle: 1,
@@ -1412,7 +1296,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "cut_scene_0_actor" },
       rnd: null,
     },
-
     jup_b15_zulus_sit_drink: {
       prop: {
         maxidle: 1,
@@ -1437,7 +1320,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "jup_b15_zulus_sit_idle_short" },
       rnd: null,
     },
-
     jup_b15_zulus_sit_idle: {
       prop: {
         maxidle: 1,
@@ -1450,7 +1332,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "jup_b15_zulus_sit_idle" },
       rnd: null,
     },
-
     jup_b15_zulus_sit_idle_short: {
       prop: {
         maxidle: 1,
@@ -1463,7 +1344,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "jup_b15_zulus_sit_idle_short" },
       rnd: null,
     },
-
     jup_b15_zulus_sit_out: {
       prop: {
         maxidle: 1,
@@ -1476,7 +1356,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "jup_b15_zulus_sit_out" },
       rnd: null,
     },
-
     jup_b219_actor_one: {
       prop: {
         maxidle: 1,
@@ -1514,7 +1393,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_actor_one_vano: {
       prop: {
         maxidle: 1,
@@ -1541,7 +1419,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_actor_one_monolith: {
       prop: {
         maxidle: 1,
@@ -1568,7 +1445,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_actor_one_soldier: {
       prop: {
         maxidle: 1,
@@ -1595,7 +1471,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_actor_all: {
       prop: {
         maxidle: 1,
@@ -1624,7 +1499,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_actor_soldier_vano: {
       prop: {
         maxidle: 1,
@@ -1652,7 +1526,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_actor_soldier_monolith: {
       prop: {
         maxidle: 1,
@@ -1680,7 +1553,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_actor_vano_monolith: {
       prop: {
         maxidle: 1,
@@ -1708,7 +1580,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_zulus_one: {
       prop: {
         maxidle: 1,
@@ -1732,7 +1603,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_zulus_one_vano: {
       prop: {
         maxidle: 1,
@@ -1757,7 +1627,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_zulus_one_monolith: {
       prop: {
         maxidle: 1,
@@ -1782,7 +1651,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_zulus_one_soldier: {
       prop: {
         maxidle: 1,
@@ -1807,7 +1675,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_zulus_all: {
       prop: {
         maxidle: 1,
@@ -1834,7 +1701,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_zulus_soldier_vano: {
       prop: {
         maxidle: 1,
@@ -1860,7 +1726,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_zulus_soldier_monolith: {
       prop: {
         maxidle: 1,
@@ -1886,7 +1751,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_zulus_vano_monolith: {
       prop: {
         maxidle: 1,
@@ -1912,7 +1776,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_soldier_one: {
       prop: {
         maxidle: 1,
@@ -1937,7 +1800,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_soldier_all: {
       prop: {
         maxidle: 1,
@@ -1964,7 +1826,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_soldier_soldier_vano: {
       prop: {
         maxidle: 1,
@@ -1990,7 +1851,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_soldier_soldier_monolith: {
       prop: {
         maxidle: 1,
@@ -2016,7 +1876,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_monolith_one: {
       prop: {
         maxidle: 1,
@@ -2041,7 +1900,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_monolith_all: {
       prop: {
         maxidle: 1,
@@ -2068,7 +1926,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_monolith_soldier_monolith: {
       prop: {
         maxidle: 1,
@@ -2094,7 +1951,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_monolith_vano_monolith: {
       prop: {
         maxidle: 1,
@@ -2120,7 +1976,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_vano_one: {
       prop: {
         maxidle: 1,
@@ -2145,7 +2000,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_vano_all: {
       prop: {
         maxidle: 1,
@@ -2172,7 +2026,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_vano_soldier_vano: {
       prop: {
         maxidle: 1,
@@ -2198,7 +2051,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_vano_vano_monolith: {
       prop: {
         maxidle: 1,
@@ -2224,7 +2076,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_azot_one: {
       prop: {
         maxidle: 1,
@@ -2253,7 +2104,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_azot_one_vano: {
       prop: {
         maxidle: 1,
@@ -2283,7 +2133,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_azot_one_monolith: {
       prop: {
         maxidle: 1,
@@ -2313,7 +2162,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_azot_one_soldier: {
       prop: {
         maxidle: 1,
@@ -2343,7 +2191,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_azot_soldier_vano: {
       prop: {
         maxidle: 1,
@@ -2374,7 +2221,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_azot_soldier_monolith: {
       prop: {
         maxidle: 1,
@@ -2405,7 +2251,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_azot_vano_monolith: {
       prop: {
         maxidle: 1,
@@ -2436,7 +2281,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b219_azot_all: {
       prop: {
         maxidle: 1,
@@ -2468,7 +2312,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     zat_b100_heli_2_serch: {
       prop: {
         maxidle: 1,
@@ -2481,7 +2324,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "zat_b100_heli_2_serch" },
       rnd: null,
     },
-
     zat_b101_heli_5_serch: {
       prop: {
         maxidle: 1,
@@ -2506,7 +2348,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "zat_b28_heli3_serch" },
       rnd: null,
     },
-
     jup_b217_guide_stand: {
       prop: {
         maxidle: 1,
@@ -2519,7 +2360,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b217_nitro_stand: {
       prop: {
         maxidle: 1,
@@ -2532,7 +2372,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b41_novikov_stand: {
       prop: {
         maxidle: 10,
@@ -2547,7 +2386,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
         [0]: ["lead_1_idle_0", "lead_1_idle_1", "lead_1_idle_2", "lead_1_idle_3", "lead_1_idle_4", "lead_1_idle_5"],
       },
     },
-
     pri_b305_actor: {
       prop: {
         maxidle: 1,
@@ -2560,7 +2398,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_a9_cam1_actor: {
       prop: {
         maxidle: 1,
@@ -2580,7 +2417,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_a9_cam2_actor: {
       prop: {
         maxidle: 1,
@@ -2593,7 +2429,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_a9_cam3_actor: {
       prop: {
         maxidle: 1,
@@ -2606,7 +2441,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: null,
       rnd: null,
     },
-
     jup_b217_nitro_straight: {
       prop: {
         maxidle: 1,
@@ -2619,7 +2453,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "idle_0_idle_1" },
       rnd: null,
     },
-
     pri_a25_psy_medic_idle: {
       prop: {
         maxidle: 1,
@@ -2632,7 +2465,6 @@ export function add_animation_list_scenario(): LuaTable<string, IAnimationDescri
       idle: { [0]: "psy_0_idle_0" },
       rnd: null,
     },
-
     pri_a25_psy_medic_out: {
       prop: {
         maxidle: 1,

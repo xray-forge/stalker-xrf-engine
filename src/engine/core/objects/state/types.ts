@@ -1,4 +1,4 @@
-import { XR_game_object, XR_vector } from "xray16";
+import { TXR_animation, TXR_look, TXR_move, TXR_SightType, XR_game_object, XR_vector } from "xray16";
 
 import { Optional } from "@/engine/lib/types";
 
@@ -121,6 +121,34 @@ export enum EStateActionId {
 
   smartcover_enter = 80,
   smartcover_exit = 81,
+}
+
+/**
+ * todo;
+ */
+export enum EWeaponAnimationType {
+  NONE = "none",
+  DROP = "drop",
+  FIRE = "fire",
+  STRAPPED = "strapped",
+  UNSTRAPPED = "unstrapped",
+  SNIPER_FIRE = "sniper_fire",
+}
+
+/**
+ * todo;
+ */
+export interface IStateDescriptor {
+  weapon: Optional<EWeaponAnimationType>;
+  movement?: Optional<TXR_move>;
+  mental: Optional<TXR_animation>;
+  bodystate: Optional<TXR_move>;
+  animstate: Optional<string>;
+  animation: Optional<string>;
+  weapon_slot?: Optional<number>;
+  direction?: TXR_look | TXR_SightType;
+  special_danger_move?: Optional<boolean>;
+  isForced: Optional<boolean>;
 }
 
 /**

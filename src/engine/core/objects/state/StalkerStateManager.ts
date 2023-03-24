@@ -25,7 +25,7 @@ import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnim
 import * as stateManagement from "@/engine/core/objects/state/state";
 import { EStateActionId, EStateEvaluatorId, ITargetStateDescriptor } from "@/engine/core/objects/state/types";
 import * as weaponManagement from "@/engine/core/objects/state/weapon";
-import { get_weapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
+import { getObjectAnimationWeapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { stringifyAsJson } from "@/engine/core/utils/transform/json";
 import { areSameVectors } from "@/engine/core/utils/vector";
@@ -121,7 +121,7 @@ export class StalkerStateManager {
         states.get(stateName).weapon !== "sniper_fire"
       ) {
         if (this.npc.weapon_unstrapped()) {
-          this.npc.set_item(object.idle, get_weapon(this.npc, stateName));
+          this.npc.set_item(object.idle, getObjectAnimationWeapon(this.npc, stateName));
         }
       }
 
@@ -271,45 +271,42 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
     new stateManagement.StateManagerEvaLockedExternal(stateManager)
   );
 
-  stateManager.planner.add_evaluator(
-    EStateEvaluatorId.weapon,
-    new weaponManagement.StateManagerEvaWeapon(stateManager)
-  );
+  stateManager.planner.add_evaluator(EStateEvaluatorId.weapon, new weaponManagement.EvaluatorWeapon(stateManager));
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.weapon_locked,
-    new weaponManagement.StateManagerEvaWeaponLocked(stateManager)
+    new weaponManagement.EvaluatorWeaponLocked(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.weapon_strapped,
-    new weaponManagement.StateManagerEvaWeaponStrapped(stateManager)
+    new weaponManagement.EvaluatorWeaponStrapped(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.weapon_strapped_now,
-    new weaponManagement.StateManagerEvaWeaponStrappedNow(stateManager)
+    new weaponManagement.EvaluatorWeaponStrappedNow(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.weapon_unstrapped,
-    new weaponManagement.StateManagerEvaWeaponUnstrapped(stateManager)
+    new weaponManagement.EvaluatorWeaponUnstrapped(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.weapon_unstrapped_now,
-    new weaponManagement.StateManagerEvaWeaponUnstrappedNow(stateManager)
+    new weaponManagement.EvaluatorWeaponUnstrappedNow(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.weapon_none,
-    new weaponManagement.StateManagerEvaWeaponNone(stateManager)
+    new weaponManagement.EvaluatorWeaponNone(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.weapon_none_now,
-    new weaponManagement.StateManagerEvaWeaponNoneNow(stateManager)
+    new weaponManagement.EvaluatorWeaponNoneNow(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.weapon_drop,
-    new weaponManagement.StateManagerEvaWeaponDrop(stateManager)
+    new weaponManagement.EvaluatorWeaponDrop(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.weapon_fire,
-    new weaponManagement.StateManagerEvaWeaponFire(stateManager)
+    new weaponManagement.EvaluatorWeaponFire(stateManager)
   );
 
   stateManager.planner.add_evaluator(
@@ -450,7 +447,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   // -- WEAPON
   // -- UNSTRAPP
 
-  const unstrappAction = new weaponManagement.StateManagerActWeaponUnstrapp(stateManager);
+  const unstrappAction = new weaponManagement.ActionWeaponUnstrap(stateManager);
 
   unstrappAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
   unstrappAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
@@ -466,7 +463,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   stateManager.planner.add_action(EStateActionId.weapon_unstrapp, unstrappAction);
 
   // -- STRAPP
-  const strappAction = new weaponManagement.StateManagerActWeaponStrapp(stateManager);
+  const strappAction = new weaponManagement.ActionWeaponStrap(stateManager);
 
   strappAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
   strappAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
@@ -482,7 +479,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   stateManager.planner.add_action(EStateActionId.weapon_strapp, strappAction);
 
   // -- NONE
-  const weaponNoneAction = new weaponManagement.StateManagerActWeaponNone(stateManager);
+  const weaponNoneAction = new weaponManagement.ActionWeaponNone(stateManager);
 
   weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
   weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
@@ -497,7 +494,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   stateManager.planner.add_action(EStateActionId.weapon_none, weaponNoneAction);
 
   // -- DROP
-  const weaponDropAction = new weaponManagement.StateManagerActWeaponDrop(stateManager);
+  const weaponDropAction = new weaponManagement.ActionWeaponDrop(stateManager);
 
   weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
   weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));

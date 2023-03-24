@@ -2,13 +2,11 @@
 
 ## 🧰 Main todos
 
-- Finish translation generation tools
+- Create xrts.ltx config and place configs in it
 - Scripts to unpack raw_gamedata for observation / usage
-- Script to verify integrity of assets and defined constants
 - Rework acdc perl script and add all.spawn editing utils
 - Add scripts to handle xrEngine tools
 - Interop with level editor tools etc
-- Re-architecture lua core of the game, use external lua libs for serialization of LUA tables
 - Implement OXR versions window and other script additions
 - Separate debug menu and profiling section in it
 

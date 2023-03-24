@@ -1,5 +1,8 @@
 import { danger_object } from "xray16";
 
+/**
+ * todo;
+ */
 export const logicsConfig = {
   ACTOR_VISIBILITY_FRUSTUM: 35,
   DANGER_INERTION_TIME: 30_000,
@@ -13,5 +16,15 @@ export const logicsConfig = {
     [danger_object.enemy_sound]: 0,
     [danger_object.attack_sound]: 20,
     [danger_object.entity_death]: 4,
+  },
+  ITEMS: {
+    DROPPED_WEAPON_STATE_DEGRADATION: {
+      MIN: 40,
+      MAX: 80,
+    },
+  },
+  POST_COMBAT_IDLE: {
+    MIN: 5_000,
+    MAX: 15_000,
   },
 } as const;

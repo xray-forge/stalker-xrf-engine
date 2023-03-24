@@ -2,31 +2,24 @@ import { LuabindClass, property_evaluator, XR_game_object } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { Optional } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger(
-  "StateManagerEvaWeaponUnstrappedNow",
-  gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED
-);
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class StateManagerEvaWeaponUnstrappedNow extends property_evaluator {
+export class EvaluatorWeaponUnstrappedNow extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
 
-  /**
-   * todo: Description.
-   */
   public constructor(stateManager: StalkerStateManager) {
-    super(null, StateManagerEvaWeaponUnstrappedNow.__name);
+    super(null, EvaluatorWeaponUnstrappedNow.__name);
     this.stateManager = stateManager;
   }
 
   /**
-   * todo: Description.
+   * Check if weapon currently unstrapped.
    */
   public override evaluate(): boolean {
     const activeItem: Optional<XR_game_object> = this.object.active_item();

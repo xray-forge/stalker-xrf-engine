@@ -1,24 +1,14 @@
-import { anim, CSightParams, look, move, TXR_animation, TXR_look, TXR_move, TXR_SightType } from "xray16";
+import { anim, CSightParams, look, move } from "xray16";
 
-import { add_state_lib_animpoint } from "@/engine/core/objects/state/lib/state_lib_animpoint";
+import { getStateLibAnimationPoints } from "@/engine/core/objects/state/lib/state_lib_animpoint";
 import { add_state_lib_pri_a15 } from "@/engine/core/objects/state/lib/state_mgr_pri_a15";
-import { add_state_lib_scenario } from "@/engine/core/objects/state/lib/state_mgr_scenario";
+import { getStateLibScenarios } from "@/engine/core/objects/state/lib/state_mgr_scenario";
+import { EWeaponAnimationType, IStateDescriptor } from "@/engine/core/objects/state/types";
 import { copyTable } from "@/engine/core/utils/table";
-import { Optional } from "@/engine/lib/types";
 
-export interface IStateDescriptor {
-  weapon: Optional<string>;
-  movement?: Optional<TXR_move>;
-  mental: Optional<TXR_animation>;
-  bodystate: Optional<TXR_move>;
-  animstate: Optional<string>;
-  animation: Optional<string>;
-  weapon_slot?: Optional<number>;
-  direction?: TXR_look | TXR_SightType;
-  special_danger_move?: Optional<boolean>;
-  isForced: Optional<boolean>;
-}
-
+/**
+ * List of default state descriptors to use in scripts.
+ */
 export const states: LuaTable<string, IStateDescriptor> = {
   idle: {
     weapon: null,
@@ -29,7 +19,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   smartcover: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: null,
     mental: null,
     bodystate: null,
@@ -38,7 +28,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     direction: CSightParams.eSightTypeAnimationDirection,
   },
   walk: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.walk,
     mental: anim.free,
     bodystate: move.standing,
@@ -46,7 +36,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   walk_noweap: {
-    weapon: "none",
+    weapon: EWeaponAnimationType.NONE,
     movement: move.walk,
     mental: anim.free,
     bodystate: move.standing,
@@ -54,7 +44,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   run: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.run,
     mental: anim.free,
     bodystate: move.standing,
@@ -62,7 +52,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   sprint: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.run,
     mental: anim.panic,
     bodystate: move.standing,
@@ -70,7 +60,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   patrol: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.walk,
     mental: anim.free,
     bodystate: move.standing,
@@ -78,7 +68,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   patrol_fire: {
-    weapon: "fire",
+    weapon: EWeaponAnimationType.FIRE,
     movement: move.walk,
     mental: anim.free,
     bodystate: move.standing,
@@ -86,7 +76,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   raid: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.walk,
     mental: anim.danger,
     special_danger_move: true,
@@ -95,7 +85,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   raid_fire: {
-    weapon: "fire",
+    weapon: EWeaponAnimationType.FIRE,
     movement: move.walk,
     mental: anim.danger,
     bodystate: move.standing,
@@ -103,7 +93,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   sneak: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.walk,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -111,7 +101,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   sneak_run: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.run,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -119,7 +109,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   sneak_no_wpn: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.walk,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -127,7 +117,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   sneak_fire: {
-    weapon: "fire",
+    weapon: EWeaponAnimationType.FIRE,
     movement: move.walk,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -135,7 +125,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   assault: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.run,
     mental: anim.danger,
     bodystate: move.standing,
@@ -143,7 +133,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   assault_fire: {
-    weapon: "fire",
+    weapon: EWeaponAnimationType.FIRE,
     movement: move.run,
     mental: anim.danger,
     bodystate: move.standing,
@@ -151,17 +141,15 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   rush: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.run,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: null,
   },
-
-  // -- ������� ���������
   wait: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -169,7 +157,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "idle",
   },
   wait_trade: {
-    weapon: "none",
+    weapon: EWeaponAnimationType.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -177,7 +165,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "idle",
   },
   wait_na: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -185,7 +173,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   guard: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -193,7 +181,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "idle",
   },
   guard_chasovoy: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -201,7 +189,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "idle_chasovoy",
   },
   guard_na: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -209,7 +197,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   guard_fire: {
-    weapon: "fire",
+    weapon: EWeaponAnimationType.FIRE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -217,7 +205,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   threat: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
@@ -226,7 +214,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     isForced: true,
   },
   threat_danger: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
@@ -234,7 +222,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "bloodsucker_search",
   },
   give_orders: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
@@ -242,7 +230,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "give_orders",
   },
   threat_heli: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
@@ -250,7 +238,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   threat_na: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
@@ -259,7 +247,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     isForced: true,
   },
   threat_fire: {
-    weapon: "fire",
+    weapon: EWeaponAnimationType.FIRE,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
@@ -267,7 +255,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   threat_sniper_fire: {
-    weapon: "sniper_fire",
+    weapon: EWeaponAnimationType.SNIPER_FIRE,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
@@ -275,7 +263,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   hide: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -283,7 +271,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "hide",
   },
   hide_na: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -291,7 +279,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   hide_fire: {
-    weapon: "fire",
+    weapon: EWeaponAnimationType.FIRE,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -299,7 +287,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   hide_sniper_fire: {
-    weapon: "sniper_fire",
+    weapon: EWeaponAnimationType.SNIPER_FIRE,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -315,7 +303,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "caution",
   },
   choose: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -323,7 +311,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "choosing",
   },
   press: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -331,7 +319,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "press",
   },
   ward: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -339,7 +327,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "warding",
   },
   ward_short: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -347,7 +335,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "warding_short",
   },
   ward_noweap: {
-    weapon: "none",
+    weapon: EWeaponAnimationType.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -355,7 +343,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "warding",
   },
   ward_noweap_short: {
-    weapon: "none",
+    weapon: EWeaponAnimationType.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -363,7 +351,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "warding_short",
   },
   fold_arms: {
-    weapon: "none",
+    weapon: EWeaponAnimationType.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -380,7 +368,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "poisk",
   },
   stoop_no_weap: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -388,7 +376,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "stoop_no_weap",
   },
   salut: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -396,7 +384,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "salut",
   },
   salut_free: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -404,7 +392,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "salut_free",
   },
   prisoner: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: null,
     mental: anim.danger,
     bodystate: move.standing,
@@ -413,7 +401,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
   },
 
   hide_no_wpn: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -422,7 +410,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
   },
   // -- ������� ���������
   sit: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -430,7 +418,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   sit_knee: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -438,7 +426,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: null,
   },
   sit_ass: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -447,7 +435,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
   },
 
   play_guitar: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -455,7 +443,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "play_guitar",
   },
   play_harmonica: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -464,7 +452,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
   },
 
   sleep: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -473,7 +461,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
   },
 
   hello: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -481,7 +469,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "hello",
   },
   hello_wpn: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -490,7 +478,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
   },
 
   refuse: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -498,7 +486,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "refuse",
   },
   claim: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
@@ -506,7 +494,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "claim",
   },
   backoff: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
@@ -514,7 +502,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "backoff",
   },
   backoff2: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
@@ -531,7 +519,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
   },
 
   search_corpse: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -540,7 +528,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
   },
 
   help_wounded: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -549,7 +537,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
   },
 
   dynamite: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -558,7 +546,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
   },
 
   binocular: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -566,7 +554,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "binocular",
   },
   hide_rac: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -574,7 +562,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "cr_raciya",
   },
   wait_rac: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -582,7 +570,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "raciya",
   },
   wait_rac_noweap: {
-    weapon: "none",
+    weapon: EWeaponAnimationType.NONE,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -590,7 +578,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "raciya",
   },
   wait_rac_stc: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -598,7 +586,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "raciya_stc",
   },
   guard_rac: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -607,7 +595,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
   },
 
   probe_stand: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -615,7 +603,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "probe_stand",
   },
   probe_stand_detector_advanced: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -623,7 +611,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "probe_stand_detector_advanced",
   },
   probe_stand_detector_elite: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -631,7 +619,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "probe_stand_detector_elite",
   },
   probe_way: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -639,7 +627,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "probe_way",
   },
   probe_way_detector_advanced: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -647,7 +635,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "probe_way_detector_advanced",
   },
   probe_way_detector_elite: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -655,7 +643,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "probe_way_detector_elite",
   },
   probe_crouch: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -663,7 +651,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "probe_crouch",
   },
   probe_crouch_detector_advanced: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.standing,
@@ -671,7 +659,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "probe_crouch_detector_advanced",
   },
   probe_crouch_detector_elite: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -680,7 +668,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
   },
 
   scaner_stand: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -688,7 +676,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "scaner_stand",
   },
   scaner_way: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -697,7 +685,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
   },
 
   scaner_crouch: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -706,7 +694,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
   },
 
   hands_up: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -716,7 +704,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
 
   // -- �������
   wounded: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -725,7 +713,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "wounded",
   },
   wounded_heavy: {
-    weapon: "drop",
+    weapon: EWeaponAnimationType.DROP,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -734,7 +722,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "wounded_heavy_1",
   },
   wounded_heavy_2: {
-    weapon: "drop",
+    weapon: EWeaponAnimationType.DROP,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -743,7 +731,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "wounded_heavy_2",
   },
   wounded_heavy_3: {
-    weapon: "drop",
+    weapon: EWeaponAnimationType.DROP,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -752,7 +740,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "wounded_heavy_3",
   },
   wounded_zombie: {
-    weapon: "drop",
+    weapon: EWeaponAnimationType.DROP,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -761,7 +749,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "wounded_zombie",
   },
   trans_0: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -769,7 +757,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "trans_0",
   },
   trans_1: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -777,26 +765,23 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "trans_1",
   },
   trans_zombied: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: "trans_zombied",
   },
-
   talk_default: {
-    weapon: "strapped",
+    weapon: EWeaponAnimationType.STRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
     animstate: null,
     animation: "talk_default",
   },
-
-  // -- ��� �������
   psy_pain: {
-    weapon: "drop",
+    weapon: EWeaponAnimationType.DROP,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -804,7 +789,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "psy_armed",
   },
   psy_armed: {
-    weapon: "unstrapped",
+    weapon: EWeaponAnimationType.UNSTRAPPED,
     movement: move.stand,
     mental: anim.free,
     bodystate: move.standing,
@@ -812,7 +797,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "psy_armed",
   },
   psy_shoot: {
-    weapon: "fire",
+    weapon: EWeaponAnimationType.FIRE,
     weapon_slot: 1,
     movement: move.stand,
     mental: anim.free,
@@ -821,7 +806,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     animation: "psy_shoot",
   },
   lay_on_bed: {
-    weapon: "drop",
+    weapon: EWeaponAnimationType.DROP,
     movement: move.stand,
     mental: anim.danger,
     bodystate: move.crouch,
@@ -831,6 +816,6 @@ export const states: LuaTable<string, IStateDescriptor> = {
   },
 } as any;
 
-copyTable(states, add_state_lib_animpoint());
-copyTable(states, add_state_lib_scenario());
+copyTable(states, getStateLibAnimationPoints());
+copyTable(states, getStateLibScenarios());
 copyTable(states, add_state_lib_pri_a15());

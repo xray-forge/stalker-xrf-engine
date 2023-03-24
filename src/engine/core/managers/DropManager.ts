@@ -10,6 +10,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity, setItemCondition } from "@/engine/core/utils/object";
 import { parseNumbersList, parseStringsList } from "@/engine/core/utils/parse";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
+import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { misc } from "@/engine/lib/constants/items/misc";
@@ -240,7 +241,13 @@ export class DropManager extends AbstractCoreManager {
 
     if (isWeapon(item)) {
       if (!isGrenade(item)) {
-        setItemCondition(item, math.random(40, 80));
+        setItemCondition(
+          item,
+          math.random(
+            logicsConfig.ITEMS.DROPPED_WEAPON_STATE_DEGRADATION.MIN,
+            logicsConfig.ITEMS.DROPPED_WEAPON_STATE_DEGRADATION.MAX
+          )
+        );
       }
 
       logger.info("Keep item, weapon", object.name(), item.name(), item.clsid(), section);

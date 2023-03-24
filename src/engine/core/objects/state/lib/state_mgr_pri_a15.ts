@@ -1,7 +1,7 @@
 import { anim, CSightParams, move, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { IStateDescriptor } from "@/engine/core/objects/state/lib/state_lib";
+import { IStateDescriptor } from "@/engine/core/objects/state/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/parse";
 import { getTableSize } from "@/engine/core/utils/table";
@@ -9,14 +9,14 @@ import { info_portions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { LuaArray, Optional, TName } from "@/engine/lib/types";
 
-const weap_table: LuaTable<number, string> = [
+const weap_table: LuaArray<TName> = [
   "pri_a15_wpn_svu",
   "pri_a15_wpn_wincheaster1300",
   "pri_a15_wpn_ak74u",
   "pri_a15_wpn_ak74",
 ] as any;
 
-const weap_table_unstrapped: LuaTable<number, string> = [
+const weap_table_unstrapped: LuaArray<TName> = [
   "pri_a15_wpn_svu_unstrapped",
   "pri_a15_wpn_wincheaster1300_unstrapped",
   "pri_a15_wpn_ak74u_unstrapped",
