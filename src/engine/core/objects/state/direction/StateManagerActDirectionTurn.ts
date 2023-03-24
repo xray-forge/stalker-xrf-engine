@@ -4,7 +4,7 @@ import { look_at_object, look_object_type } from "@/engine/core/objects/state/di
 import { states } from "@/engine/core/objects/state/lib/state_lib";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { vectorCmp } from "@/engine/core/utils/physics";
+import { areSameVectors } from "@/engine/core/utils/physics";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
 const logger: LuaLogger = new LuaLogger(
@@ -78,7 +78,7 @@ export class StateManagerActDirectionTurn extends action_base {
 
       dir.normalize();
 
-      if (vectorCmp(dir, new vector().set(0, 0, 0))) {
+      if (areSameVectors(dir, new vector().set(0, 0, 0))) {
         const objectDirection: XR_vector = this.object.direction();
 
         this.stateManager.look_position = new vector().set(

@@ -100,7 +100,6 @@ export function add_state_lib_scenario(): LuaTable<string, IStateDescriptor> {
       movement: move.stand,
       mental: anim.danger,
       bodystate: move.standing,
-      // //--	fast_set: true,
       animstate: null,
       animation: "pri_a17_fall_down",
       direction: CSightParams.eSightTypeAnimationDirection,

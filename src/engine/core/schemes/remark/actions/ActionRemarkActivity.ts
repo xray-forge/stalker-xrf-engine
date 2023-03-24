@@ -3,7 +3,7 @@ import { action_base, level, LuabindClass, patrol, XR_game_object, XR_sound_obje
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark";
 import { abort } from "@/engine/core/utils/assertion";
 import { getSmartTerrainByName } from "@/engine/core/utils/gulag";
@@ -132,7 +132,7 @@ export class ActionRemarkActivity extends action_base {
       if (target === null) {
         const anim = pickSectionFromCondList(registry.actor, this.object, this.st.anim)!;
 
-        set_state(this.object, anim, cb, 0, null, null);
+        setStalkerState(this.object, anim, cb, 0, null, null);
         this.state = state_animation;
 
         return;
@@ -140,7 +140,7 @@ export class ActionRemarkActivity extends action_base {
 
       const anim = pickSectionFromCondList(registry.actor, this.object, this.st.anim)!;
 
-      set_state(this.object, anim, cb, 0, target, null);
+      setStalkerState(this.object, anim, cb, 0, target, null);
       this.state = state_animation;
 
       // --' �������� ������� �� ��������������

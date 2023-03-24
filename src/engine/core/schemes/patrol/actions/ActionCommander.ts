@@ -3,7 +3,7 @@ import { action_base, LuabindClass, XR_game_object } from "xray16";
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { get_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { getStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
 import { Optional } from "@/engine/lib/types";
@@ -78,7 +78,7 @@ export class ActionCommander extends action_base {
 
     this.moveManager.update();
 
-    const new_state = get_state(this.object)!;
+    const new_state = getStalkerState(this.object)!;
     const old_state = this.old_state;
 
     if (old_state !== new_state) {

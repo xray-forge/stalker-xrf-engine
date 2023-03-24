@@ -22,7 +22,7 @@ import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task/ReachTaskPatrolManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
-import { vectorCmp } from "@/engine/core/utils/physics";
+import { areSameVectors } from "@/engine/core/utils/physics";
 import { Optional, TName, TNumberId, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -197,7 +197,7 @@ export class ActionReachTaskLocation extends action_base {
 
     const desiredDirection: XR_vector = this.direction;
 
-    if (desiredDirection !== null && !vectorCmp(desiredDirection, new vector().set(0, 0, 0))) {
+    if (desiredDirection !== null && !areSameVectors(desiredDirection, new vector().set(0, 0, 0))) {
       desiredDirection.normalize();
       this.object.set_desired_direction(desiredDirection);
     }

@@ -4,7 +4,7 @@ import { states } from "@/engine/core/objects/state/lib/state_lib";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EStateEvaluatorId } from "@/engine/core/objects/state/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { vectorCmp } from "@/engine/core/utils/physics";
+import { areSameVectors } from "@/engine/core/utils/physics";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
 const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
@@ -74,7 +74,7 @@ export function turn(npc: XR_game_object, st: StalkerStateManager): void {
 
     dir.normalize();
 
-    if (vectorCmp(dir, new vector().set(0, 0, 0))) {
+    if (areSameVectors(dir, new vector().set(0, 0, 0))) {
       // -- callstack()
       // printf("Before normalize direction [%s]", vec_to_str(vector():sub(st.look_position, npc:position())))
       // printf("You are trying to set wrong direction %s (look_pos = [%s] npc_pos = [%s])!!!", vec_to_str(dir),

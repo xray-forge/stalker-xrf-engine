@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -328,14 +328,14 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public update_movement_state(): void {
-    set_state(this.object, this.cur_state_moving, null, null, null, null);
+    setStalkerState(this.object, this.cur_state_moving, null, null, null, null);
   }
 
   /**
    * todo: Description.
    */
   public update_standing_state(look_pos: XR_vector): void {
-    set_state(
+    setStalkerState(
       this.object,
       this.cur_state_standing,
       { obj: this, func: this.time_callback, turn_end_func: this.turn_end_callback },
@@ -514,7 +514,7 @@ export class StalkerMoveManager {
         );
       }
 
-      set_state(this.object, this.cur_state_standing, null, null, null, null);
+      setStalkerState(this.object, this.cur_state_standing, null, null, null, null);
 
       if (!this.move_cb_info) {
         abort(

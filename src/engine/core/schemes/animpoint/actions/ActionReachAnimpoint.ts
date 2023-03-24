@@ -1,6 +1,6 @@
 import { action_base, game_object, LuabindClass } from "xray16";
 
-import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
@@ -43,7 +43,7 @@ export class ActionReachAnimpoint extends action_base {
       this.object.position().distance_to_sqr(this.state.animpoint!.vertex_position!) <= this.state.reach_distance;
 
     if (distance_reached) {
-      set_state(
+      setStalkerState(
         this.object,
         this.state.reach_movement,
         null,
@@ -52,7 +52,7 @@ export class ActionReachAnimpoint extends action_base {
         null
       );
     } else {
-      set_state(this.object, this.state.reach_movement, null, null, null, null);
+      setStalkerState(this.object, this.state.reach_movement, null, null, null, null);
     }
   }
 }

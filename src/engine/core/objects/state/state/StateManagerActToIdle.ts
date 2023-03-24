@@ -32,18 +32,18 @@ export class StateManagerActToIdle extends action_base {
     this.object.inactualize_patrol_path();
 
     if (this.object.best_enemy() !== null) {
-      this.stateManager.set_state("idle", null, null, null, { fast_set: true });
+      this.stateManager.setState("idle", null, null, null, { isForced: true });
 
       return;
     }
 
     if (this.object.best_danger() !== null) {
-      this.stateManager.set_state("idle", null, null, null, { fast_set: true });
+      this.stateManager.setState("idle", null, null, null, { isForced: true });
 
       return;
     }
 
-    this.stateManager.set_state("idle", null, null, null, null);
+    this.stateManager.setState("idle", null, null, null, null);
 
     sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());
 
@@ -66,20 +66,20 @@ export class StateManagerActToIdle extends action_base {
     this.object.set_path_type(game_object.level_path);
 
     if (this.object.best_enemy()) {
-      this.stateManager.set_state("idle", null, null, null, { fast_set: true });
+      this.stateManager.setState("idle", null, null, null, { isForced: true });
       super.execute();
 
       return;
     }
 
     if (this.object.best_danger()) {
-      this.stateManager.set_state("idle", null, null, null, { fast_set: true });
+      this.stateManager.setState("idle", null, null, null, { isForced: true });
       super.execute();
 
       return;
     }
 
-    this.stateManager.set_state("idle", null, null, null, null);
+    this.stateManager.setState("idle", null, null, null, null);
     super.execute();
   }
 }

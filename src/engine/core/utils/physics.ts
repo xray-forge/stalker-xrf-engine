@@ -99,11 +99,9 @@ export function distanceBetweenSafe(first: Optional<XR_game_object>, second: Opt
 }
 
 /**
- * function vector_cmp(a, b)
- *    return a.x === b.x and a.y === b.y and a.z === b.z
- * end
+ * Check if vectors are same by value.
  */
-export function vectorCmp(first: XR_vector, second: XR_vector): boolean {
+export function areSameVectors(first: XR_vector, second: XR_vector): boolean {
   return first.x === second.x && first.y === second.y && first.z === second.z;
 }
 

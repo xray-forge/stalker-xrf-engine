@@ -10,7 +10,7 @@ import {
 } from "xray16";
 
 import { ITargetStateDescriptor } from "@/engine/core/objects/state";
-import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
@@ -73,7 +73,7 @@ export class ActionZombieGoToDanger extends action_base {
     if (state !== this.last_state) {
       this.t.look_object = bestEnemy;
       this.t.look_position = pos;
-      set_state(this.object, state, null, null, this.t, null);
+      setStalkerState(this.object, state, null, null, this.t, null);
       this.last_state = state;
     }
   }

@@ -3,7 +3,7 @@ import { action_base, LuabindClass, XR_game_object } from "xray16";
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { associations, IAnimpointDescriptor } from "@/engine/core/schemes/animpoint/animpoint_predicates";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker";
@@ -139,7 +139,7 @@ export class ActionWalkerActivity extends action_base {
     const tbl = assoc_tbl[camp_action as keyof typeof assoc_tbl].director as any as LuaTable<number>;
     const anim = tbl.get(math.random(tbl.length()));
 
-    set_state(this.object, anim, null, null, null, null);
+    setStalkerState(this.object, anim, null, null, null, null);
   }
 
   /**

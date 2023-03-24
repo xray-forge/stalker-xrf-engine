@@ -3,10 +3,10 @@ import { action_base, game_object, level, LuabindClass, vector, XR_vector } from
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
-import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { vectorCmp } from "@/engine/core/utils/physics";
+import { areSameVectors } from "@/engine/core/utils/physics";
 import { Optional } from "@/engine/lib/types";
 
 /**
@@ -82,7 +82,7 @@ export class ActionBaseCover extends action_base {
 
     const desired_direction = new vector().sub(this.cover_position, this.enemy_random_position);
 
-    if (desired_direction !== null && !vectorCmp(desired_direction, new vector().set(0, 0, 0))) {
+    if (desired_direction !== null && !areSameVectors(desired_direction, new vector().set(0, 0, 0))) {
       desired_direction.normalize();
       this.object.set_desired_direction(desired_direction);
     }
@@ -90,7 +90,7 @@ export class ActionBaseCover extends action_base {
     this.object.set_path_type(game_object.level_path);
     this.object.set_dest_level_vertex_id(this.cover_vertex_id);
 
-    set_state(this.object, "assault", null, null, null, null);
+    setStalkerState(this.object, "assault", null, null, null, null);
   }
 
   /**
@@ -100,10 +100,17 @@ export class ActionBaseCover extends action_base {
     if (this.cover_position.distance_to_sqr(this.object.position()) <= 0.4) {
       const anim = pickSectionFromCondList(registry.actor, this.object, this.state.anim);
 
-      set_state(this.object, anim!, null, null, { look_position: this.enemy_random_position, look_object: null }, null);
+      setStalkerState(
+        this.object,
+        anim!,
+        null,
+        null,
+        { look_position: this.enemy_random_position, look_object: null },
+        null
+      );
     } else {
       this.object.set_dest_level_vertex_id(this.cover_vertex_id);
-      set_state(this.object, "assault", null, null, null, null);
+      setStalkerState(this.object, "assault", null, null, null, null);
     }
 
     if (this.state.sound_idle !== null) {

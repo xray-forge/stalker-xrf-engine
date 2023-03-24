@@ -2,7 +2,7 @@ import { alife, device, XR_game_object } from "xray16";
 
 import { getObjectByStoryId, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet/ISchemeMeetState";
@@ -52,9 +52,9 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
     if (tostring(state) !== NIL) {
       if (victim === null) {
-        set_state(this.object, state!, null, null, null, null);
+        setStalkerState(this.object, state!, null, null, null, null);
       } else {
-        set_state(this.object, state!, null, null, { look_object: victim, look_position: null }, null);
+        setStalkerState(this.object, state!, null, null, { look_object: victim, look_position: null }, null);
       }
     }
 

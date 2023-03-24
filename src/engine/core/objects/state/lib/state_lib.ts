@@ -16,7 +16,7 @@ export interface IStateDescriptor {
   weapon_slot?: Optional<number>;
   direction?: TXR_look | TXR_SightType;
   special_danger_move?: Optional<boolean>;
-  fast_set: Optional<boolean>;
+  isForced: Optional<boolean>;
 }
 
 export const states: LuaTable<string, IStateDescriptor> = {
@@ -223,7 +223,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    fast_set: true,
+    isForced: true,
   },
   threat_danger: {
     weapon: "unstrapped",
@@ -256,7 +256,7 @@ export const states: LuaTable<string, IStateDescriptor> = {
     bodystate: move.standing,
     animstate: null,
     animation: null,
-    fast_set: true,
+    isForced: true,
   },
   threat_fire: {
     weapon: "fire",

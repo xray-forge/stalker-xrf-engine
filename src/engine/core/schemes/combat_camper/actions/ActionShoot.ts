@@ -1,6 +1,6 @@
 import { action_base, LuabindClass } from "xray16";
 
-import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
@@ -26,7 +26,7 @@ export class ActionShoot extends action_base {
    */
   public override initialize(): void {
     super.initialize();
-    set_state(
+    setStalkerState(
       this.object,
       "hide_fire",
       null,

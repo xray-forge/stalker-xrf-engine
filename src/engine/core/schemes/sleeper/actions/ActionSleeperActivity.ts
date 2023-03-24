@@ -2,7 +2,7 @@ import { action_base, LuabindClass, patrol, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -137,9 +137,9 @@ export class ActionSleeperActivity extends action_base {
     const position = sleepPatrol.count() === 2 ? sleepPatrol.point(1) : null;
 
     if (this.state.wakeable) {
-      set_state(this.object, "sit", null, null, { look_position: position, look_object: null }, null);
+      setStalkerState(this.object, "sit", null, null, { look_position: position, look_object: null }, null);
     } else {
-      set_state(this.object, "sleep", null, null, { look_position: position, look_object: null }, null);
+      setStalkerState(this.object, "sleep", null, null, { look_position: position, look_object: null }, null);
     }
 
     return true;

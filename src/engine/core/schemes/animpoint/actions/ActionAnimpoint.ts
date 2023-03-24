@@ -1,6 +1,6 @@
 import { action_base, LuabindClass } from "xray16";
 
-import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
@@ -56,7 +56,7 @@ export class ActionAnimpoint extends action_base {
       this.state.animpoint.start();
     }
 
-    set_state(
+    setStalkerState(
       this.object,
       this.state.animpoint.get_action()!,
       null,

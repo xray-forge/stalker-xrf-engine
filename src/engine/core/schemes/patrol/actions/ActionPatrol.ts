@@ -2,12 +2,12 @@ import { action_base, game_object, LuabindClass, time_global, vector, XR_game_ob
 
 import { registry } from "@/engine/core/database";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
-import { vectorCmp } from "@/engine/core/utils/physics";
+import { areSameVectors } from "@/engine/core/utils/physics";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -97,14 +97,14 @@ export class ActionPatrol extends action_base {
 
     const desired_direction = this.dir;
 
-    if (desired_direction !== null && !vectorCmp(desired_direction, new vector().set(0, 0, 0))) {
+    if (desired_direction !== null && !areSameVectors(desired_direction, new vector().set(0, 0, 0))) {
       desired_direction.normalize();
       this.object.set_desired_direction(desired_direction);
     }
 
     this.object.set_path_type(game_object.level_path);
 
-    set_state(this.object, this.cur_state, null, null, null, null);
+    setStalkerState(this.object, this.cur_state, null, null, null, null);
   }
 
   /**

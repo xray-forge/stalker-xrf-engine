@@ -11,7 +11,7 @@ import {
 } from "xray16";
 
 import { ITargetStateDescriptor } from "@/engine/core/objects/state";
-import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional } from "@/engine/lib/types";
@@ -160,7 +160,7 @@ export class ActionZombieShoot extends action_base {
       this.targetStateDescriptor.look_position = position;
     }
 
-    set_state(this.object, state, null, null, this.targetStateDescriptor, null);
+    setStalkerState(this.object, state, null, null, this.targetStateDescriptor, null);
 
     this.last_state = state;
   }

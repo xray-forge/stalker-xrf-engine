@@ -26,12 +26,11 @@ import * as stateManagement from "@/engine/core/objects/state/state";
 import { EStateActionId, EStateEvaluatorId, ITargetStateDescriptor } from "@/engine/core/objects/state/types";
 import * as weaponManagement from "@/engine/core/objects/state/weapon";
 import { get_weapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
-import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { vectorCmp } from "@/engine/core/utils/physics";
+import { areSameVectors } from "@/engine/core/utils/physics";
 import { stringifyAsJson } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { AnyCallable, AnyObject, Optional, TDuration, TName } from "@/engine/lib/types";
+import { AnyCallable, AnyObject, Optional, TDuration, TName, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, gameConfig.DEBUG.IS_STATE_MANAGEMENT_DEBUG_ENABLED);
 
@@ -55,7 +54,7 @@ export class StalkerStateManager {
   public pos_direction_applied: boolean = false;
   public look_position: Optional<XR_vector> = null;
   public point_obj_dir?: boolean;
-  public fast_set: Optional<boolean> = null;
+  public isForced: Optional<boolean> = null;
   public look_object: Optional<number> = null;
 
   public callback: Optional<{
@@ -69,12 +68,12 @@ export class StalkerStateManager {
   /**
    * todo: Description.
    */
-  public constructor(npc: XR_game_object) {
-    this.npc = npc;
+  public constructor(object: XR_game_object) {
+    this.npc = object;
     this.planner = new action_planner();
-    this.planner.setup(npc);
+    this.planner.setup(object);
 
-    goap_graph(this, npc);
+    goap_graph(this, object);
 
     logger.info("Construct state manager for:", this);
   }
@@ -82,19 +81,23 @@ export class StalkerStateManager {
   /**
    * todo: Description.
    */
-  public set_state(
-    state_name: TName,
+  public setState(
+    stateName: TName,
     callback: Optional<AnyObject>,
     timeout: Optional<TDuration>,
     target: Optional<ITargetStateDescriptor>,
-    extra: Optional<AnyObject>
+    extra: Optional<{
+      isForced?: boolean;
+      animation_position?: Optional<XR_vector>;
+      animation_direction?: Optional<XR_vector>;
+    }>
   ): void {
-    // --printf("Set State called: for %s State: %s", this.npc:name(), state_name)
-    // --callstack()
-
-    if (states.get(state_name) === null) {
-      abort("ERROR: ILLEGAL SET STATE CALLED!!! %s fo %s", stringifyAsJson(state_name), this.npc.name());
-    }
+    assert(
+      states.get(stateName),
+      "Invalid set state called: '%s' fo '%s'.",
+      stringifyAsJson(stateName),
+      this.npc.name()
+    );
 
     if (target !== null) {
       this.look_position = target.look_position;
@@ -109,62 +112,53 @@ export class StalkerStateManager {
       this.look_object = null;
     }
 
-    if (this.target_state !== state_name) {
+    if (this.target_state !== stateName) {
       logger.info("Set state:", this);
 
       if (
         (states.get(this.target_state).weapon === "fire" || states.get(this.target_state).weapon === "sniper_fire") &&
-        // -- || this.target_state === "idle"
-        states.get(state_name).weapon !== "fire" &&
-        states.get(state_name).weapon !== "sniper_fire"
+        states.get(stateName).weapon !== "fire" &&
+        states.get(stateName).weapon !== "sniper_fire"
       ) {
-        // --this.npc:set_item(state_mgr_weapon.get_idle_state(state_name),
-        // state_mgr_weapon.get_weapon(this.npc, state_name))
         if (this.npc.weapon_unstrapped()) {
-          this.npc.set_item(object.idle, get_weapon(this.npc, state_name));
-          // --printf("[%s] stop shooting", this.npc:name())
+          this.npc.set_item(object.idle, get_weapon(this.npc, stateName));
         }
       }
 
-      // --' �������� �� ������������� special_danger_move
-      if (states.get(state_name).special_danger_move === true) {
-        // --printf("SPECIAL DANGER MOVE %s for stalker [%s]",
-        // tostring(this.npc:special_danger_move()), this.npc:name())
+      if (states.get(stateName).special_danger_move === true) {
         if (this.npc.special_danger_move() !== true) {
           this.npc.special_danger_move(true);
         }
       } else {
-        // --printf("SPECIAL DANGER MOVE %s for stalker [%s]",
-        // tostring(this.npc:special_danger_move()), this.npc:name())
         if (this.npc.special_danger_move() === true) {
           this.npc.special_danger_move(false);
         }
       }
 
-      this.target_state = state_name;
+      this.target_state = stateName;
       this.current_object = null;
 
       if (extra !== null) {
-        this.fast_set = extra.fast_set;
+        this.isForced = extra.isForced === true;
 
         if (
           this.pos_direction_applied === false ||
           (this.animation_position !== null &&
             extra.animation_position !== null &&
-            !vectorCmp(this.animation_position, extra.animation_position)) ||
+            !areSameVectors(this.animation_position, extra.animation_position as XR_vector)) ||
           (this.animation_direction !== null &&
             extra.animation_direction !== null &&
-            !vectorCmp(this.animation_direction, extra.animation_direction))
+            !areSameVectors(this.animation_direction, extra.animation_direction as XR_vector))
         ) {
-          this.animation_position = extra.animation_position;
-          this.animation_direction = extra.animation_direction;
+          this.animation_position = extra.animation_position as Optional<XR_vector>;
+          this.animation_direction = extra.animation_direction as Optional<XR_vector>;
           this.pos_direction_applied = false;
         }
       } else {
         this.animation_position = null;
         this.animation_direction = null;
         this.pos_direction_applied = false;
-        this.fast_set = null;
+        this.isForced = null;
       }
 
       this.callback = callback as any;
@@ -184,7 +178,7 @@ export class StalkerStateManager {
   /**
    * todo: Description.
    */
-  public get_state(): Optional<string> {
+  public getState(): Optional<string> {
     return this.target_state;
   }
 
@@ -194,11 +188,13 @@ export class StalkerStateManager {
   public update(): void {
     if (this.animation.states.current_state === states.get(this.target_state).animation) {
       if (this.callback !== null && this.callback.func !== null) {
+        const now: TTimestamp = time_global();
+
         if (this.callback.begin === null) {
-          this.callback.begin = time_global();
+          this.callback.begin = now;
           logger.info("Callback initialized:", this);
         } else {
-          if (time_global() - this.callback.begin >= this.callback.timeout!) {
+          if (now - this.callback.begin >= this.callback.timeout!) {
             logger.info("Callback called:", this);
 
             const a = this.callback.func;
@@ -234,7 +230,7 @@ export class StalkerStateManager {
   /**
    * todo: Description.
    */
-  public __tostring(): string {
+  public toString(): string {
     return `StateManager #npc: ${this.npc.name()} #target_state: ${this.target_state} #combat: ${
       this.combat
     } #pos_direction_applied: ${this.pos_direction_applied} #current_object ${
@@ -246,22 +242,22 @@ export class StalkerStateManager {
 /**
  * todo;
  */
-export function set_state(
-  npc: XR_game_object,
+export function setStalkerState(
+  object: XR_game_object,
   state_name: string,
   callback: Optional<AnyCallable> | AnyObject,
   timeout: Optional<number>,
   target: Optional<ITargetStateDescriptor>,
   extra: Optional<AnyObject>
 ): void {
-  registry.objects.get(npc.id()).state_mgr?.set_state(state_name, callback, timeout, target, extra);
+  registry.objects.get(object.id()).state_mgr?.setState(state_name, callback, timeout, target, extra);
 }
 
 /**
  * todo;
  */
-export function get_state(npc: XR_game_object): Optional<string> {
-  return registry.objects.get(npc.id()).state_mgr?.get_state() as Optional<string>;
+export function getStalkerState(object: XR_game_object): Optional<string> {
+  return registry.objects.get(object.id()).state_mgr?.getState() as Optional<string>;
 }
 
 /**
@@ -400,38 +396,38 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
 
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.animstate,
-    new animationStateManagement.StateManagerEvaAnimationState(stateManager)
+    new animationStateManagement.EvaluatorAnimationState(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.animstate_idle_now,
-    new animationStateManagement.StateManagerEvaAnimationStateIdleNow(stateManager)
+    new animationStateManagement.EvaluatorAnimationStateIdleNow(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.animstate_play_now,
-    new animationStateManagement.StateManagerEvaAnimationStatePlayNow(stateManager)
+    new animationStateManagement.EvaluatorAnimationStatePlayNow(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.animstate_locked,
-    new animationStateManagement.StateManagerEvaAnimationStateLocked(stateManager)
+    new animationStateManagement.EvaluatorAnimationStateLocked(stateManager)
   );
 
   stateManager.animation = new StalkerAnimationManager(object, stateManager, "state_mgr_animation_list", animations);
 
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.animation,
-    new animationManagement.StateManagerEvaAnimation(stateManager)
+    new animationManagement.EvaluatorAnimation(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.animation_play_now,
-    new animationManagement.StateManagerEvaAnimationPlayNow(stateManager)
+    new animationManagement.EvaluatorAnimationPlayNow(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.animation_none_now,
-    new animationManagement.StateManagerEvaAnimationNoneNow(stateManager)
+    new animationManagement.EvaluatorAnimationNoneNow(stateManager)
   );
   stateManager.planner.add_evaluator(
     EStateEvaluatorId.animation_locked,
-    new animationManagement.StateManagerEvaAnimationLocked(stateManager)
+    new animationManagement.EvaluatorAnimationLocked(stateManager)
   );
 
   stateManager.planner.add_evaluator(
@@ -815,7 +811,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   stateManager.planner.add_action(EStateActionId.bodystate_standing_free, standingFreeAction);
 
   // -- ANIMSTATES
-  const animationStateStartAction = new animationStateManagement.StateManagerActAnimationStateStart(stateManager);
+  const animationStateStartAction = new animationStateManagement.ActionAnimationStateStart(stateManager);
 
   animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
   animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
@@ -830,7 +826,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   animationStateStartAction.add_effect(new world_property(EStateEvaluatorId.animstate, true));
   stateManager.planner.add_action(EStateActionId.animstate_start, animationStateStartAction);
 
-  const animationStateStopAction = new animationStateManagement.StateManagerActAnimationStateStop(stateManager);
+  const animationStateStopAction = new animationStateManagement.ActionAnimationStateStop(stateManager);
 
   animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
   animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
@@ -847,7 +843,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   // -- ANIMATION
 
   // -- START
-  const animationStartAction = new animationManagement.StateManagerActAnimationStart(stateManager);
+  const animationStartAction = new animationManagement.ActionAnimationStart(stateManager);
 
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
@@ -866,7 +862,7 @@ export function goap_graph(stateManager: StalkerStateManager, object: XR_game_ob
   stateManager.planner.add_action(EStateActionId.animation_start, animationStartAction);
 
   // -- STOP
-  const animationStopAction = new animationManagement.StateManagerActAnimationStop(stateManager);
+  const animationStopAction = new animationManagement.ActionAnimationStop(stateManager);
 
   animationStopAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
   animationStopAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));

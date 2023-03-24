@@ -28,9 +28,9 @@ export class ActionAbuseHit extends action_base {
     this.object.set_desired_direction();
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { set_state } = require("@/engine/core/objects/state/StalkerStateManager");
+    const { setStalkerState } = require("@/engine/core/objects/state/StalkerStateManager");
 
-    set_state(this.object, "punch", null, null, { look_object: registry.actor }, { animation: true });
+    setStalkerState(this.object, "punch", null, null, { look_object: registry.actor }, { animation: true });
   }
 
   /**

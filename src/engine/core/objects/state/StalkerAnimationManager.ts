@@ -34,7 +34,7 @@ export class StalkerAnimationManager {
     last_id: Optional<number>;
     current_state: Optional<string>;
     target_state: Optional<string>;
-    anim_marker: Optional<number>;
+    anim_marker: Optional<EAnimationMarker>;
     next_rnd: Optional<number>;
     seq_id: number;
   };

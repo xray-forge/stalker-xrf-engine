@@ -1,6 +1,6 @@
 import { action_base, device, LuabindClass, vector, XR_game_object, XR_vector } from "xray16";
 
-import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -48,7 +48,14 @@ export class ActionLookAround extends action_base {
       this.state.last_seen_pos = this.object.best_enemy()!.position();
     }
 
-    set_state(this.object, "hide", null, null, { look_position: this.state.last_seen_pos, look_object: null }, null);
+    setStalkerState(
+      this.object,
+      "hide",
+      null,
+      null,
+      { look_position: this.state.last_seen_pos, look_object: null },
+      null
+    );
   }
 
   /**
@@ -77,7 +84,7 @@ export class ActionLookAround extends action_base {
 
       dir = vectorRotateY(dir, ang);
 
-      set_state(
+      setStalkerState(
         this.object,
         "hide",
         null,

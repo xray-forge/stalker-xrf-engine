@@ -39,7 +39,8 @@ jobs:
     - name: Archive build artifacts
       uses: vimtor/action-zip@v1
       with:
-        files: target
+        recursive: false
+        files: target/gamedata target/xrts_build.log target/README.md
         dest: target/gamedata.release.zip
 
     - name: Upload build artifacts

@@ -1,6 +1,6 @@
 import { action_base, LuabindClass } from "xray16";
 
-import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/help_wounded";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
@@ -31,7 +31,7 @@ export class ActionHelpWounded extends action_base {
     this.object.set_desired_direction();
     this.object.set_dest_level_vertex_id(this.state.vertex_id);
 
-    set_state(this.object, "patrol", null, null, null, null);
+    setStalkerState(this.object, "patrol", null, null, null, null);
   }
 
   /**
@@ -44,7 +44,7 @@ export class ActionHelpWounded extends action_base {
       return;
     }
 
-    set_state(
+    setStalkerState(
       this.object,
       "help_wounded",
       null,

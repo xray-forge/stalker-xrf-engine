@@ -2,7 +2,7 @@ import { action_base, game_object, level, LuabindClass, time_global, XR_game_obj
 
 import { registry } from "@/engine/core/database";
 import { ITargetStateDescriptor } from "@/engine/core/objects/state";
-import { set_state } from "@/engine/core/objects/state/StalkerStateManager";
+import { setStalkerState } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeCompanionState } from "@/engine/core/schemes/companion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/physics";
@@ -63,7 +63,7 @@ export class ActionCompanionActivity extends action_base {
     this.assist_point = null;
     this.last_state = "guard_na";
 
-    set_state(this.object, this.last_state, null, null, null, { animation: true });
+    setStalkerState(this.object, this.last_state, null, null, null, { animation: true });
 
     this.keep_state_until = time_global();
   }
@@ -123,7 +123,7 @@ export class ActionCompanionActivity extends action_base {
     }
 
     if (new_state !== null && new_state !== this.last_state) {
-      set_state(this.object, new_state, null, null, target, { animation: true });
+      setStalkerState(this.object, new_state, null, null, target, { animation: true });
       this.last_state = new_state;
     }
 
@@ -138,7 +138,7 @@ export class ActionCompanionActivity extends action_base {
     const new_state = "threat";
 
     if (new_state !== this.last_state) {
-      set_state(
+      setStalkerState(
         this.object,
         new_state,
         null,
