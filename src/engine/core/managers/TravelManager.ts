@@ -22,7 +22,7 @@ import { NotificationManager } from "@/engine/core/managers/notifications/Notifi
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import { Squad } from "@/engine/core/objects/alife/Squad";
+import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { createScenarioAutoSave } from "@/engine/core/utils/game_save";

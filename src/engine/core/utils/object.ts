@@ -19,7 +19,7 @@ import {
 } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { Squad } from "@/engine/core/objects/alife/Squad";
+import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { isCseAlifeObject, isStalker } from "@/engine/core/utils/check/is";
 import { getInfosFromData, pickSectionFromCondList } from "@/engine/core/utils/ini/config";

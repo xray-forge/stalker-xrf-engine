@@ -164,6 +164,7 @@ export class SmartTerrainControl {
     setLoadMarker(reader, true, SmartTerrainControl.name);
   }
 }
+
 export function getCurrentSmartId(): Optional<number> {
   return current_smart_id;
 }

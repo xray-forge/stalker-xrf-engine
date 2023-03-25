@@ -12,7 +12,7 @@ import { registry, SIMULATION_LTX } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import { Squad } from "@/engine/core/objects/alife/Squad";
+import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import { evaluateSimulationPriority } from "@/engine/core/utils/alife";
 import { abort } from "@/engine/core/utils/assertion";

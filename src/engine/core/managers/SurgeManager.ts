@@ -24,7 +24,7 @@ import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardMa
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { WeatherManager } from "@/engine/core/managers/WeatherManager";
 import { SmartTerrain } from "@/engine/core/objects";
-import { Squad } from "@/engine/core/objects/alife/Squad";
+import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { isImmuneToSurge, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/engine/core/utils/check/check";
 import { isStoryObject } from "@/engine/core/utils/check/is";
 import { executeConsoleCommand } from "@/engine/core/utils/console";

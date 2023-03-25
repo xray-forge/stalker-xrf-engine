@@ -5,6 +5,7 @@ import {
   level,
   LuabindClass,
   XR_CALifeSmartTerrainTask,
+  XR_game_object,
   XR_net_packet,
   XR_vector,
 } from "xray16";
@@ -17,10 +18,10 @@ import {
 } from "@/engine/core/database";
 import { registerSimulationObject, unregisterSimulationObject } from "@/engine/core/database/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
-import { simulation_activities } from "@/engine/core/objects/alife/SimulationActivity";
 import { nearest_to_actor_smart, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
-import { Squad } from "@/engine/core/objects/alife/Squad";
+import { simulationActivities } from "@/engine/core/objects/alife/squad/simulation_activities";
+import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -151,11 +152,11 @@ export class Actor extends cse_alife_creature_actor {
       return false;
     }
 
-    for (const [k, v] of smartsByNoAssaultZones) {
-      const zone = registry.zones.get(k);
+    for (const [zoneName, smartName] of smartsByNoAssaultZones) {
+      const zone: XR_game_object = registry.zones.get(zoneName);
 
       if (zone !== null && zone.inside(this.position)) {
-        const smart = SimulationBoardManager.getInstance().getSmartTerrainByName(v);
+        const smart = SimulationBoardManager.getInstance().getSmartTerrainByName(smartName);
 
         if (smart !== null && smart.smartTerrainActorControl.status !== ESmartTerrainStatus.ALARM) {
           return false;
@@ -184,9 +185,9 @@ export class Actor extends cse_alife_creature_actor {
    * todo: Description.
    */
   public target_precondition(squad: Squad): boolean {
-    const squad_params = simulation_activities[squad.player_id];
+    const squadParameters = simulationActivities[squad.player_id];
 
-    if (squad_params === null || squad_params.actor === null || !squad_params.actor.prec(squad, this)) {
+    if (squadParameters === null || squadParameters.actor === null || !squadParameters.actor.prec(squad, this)) {
       return false;
     }
 

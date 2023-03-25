@@ -1,7 +1,7 @@
 import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { Squad } from "@/engine/core/objects/alife/Squad";
+import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionCommander, ActionPatrol } from "@/engine/core/schemes/patrol/actions";
 import { EvaluatorPatrolComm, EvaluatorPatrolEnd } from "@/engine/core/schemes/patrol/evaluators";

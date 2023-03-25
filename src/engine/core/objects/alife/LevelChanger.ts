@@ -18,13 +18,6 @@ export class LevelChanger extends cse_alife_level_changer {
   /**
    * todo: Description.
    */
-  public constructor(section: TSection) {
-    super(section);
-  }
-
-  /**
-   * todo: Description.
-   */
   public override on_register(): void {
     super.on_register();
 
@@ -58,10 +51,6 @@ export class LevelChanger extends cse_alife_level_changer {
    */
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
-
-    if (editor()) {
-      return;
-    }
 
     setLoadMarker(packet, false, LevelChanger.__name);
     this.enabled = packet.r_bool();

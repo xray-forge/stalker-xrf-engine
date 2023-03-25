@@ -37,10 +37,13 @@ import {
   updateSimulationObjectAvailability,
 } from "@/engine/core/database/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
-import { loadGulagJobs } from "@/engine/core/objects/alife/gulag_general";
-import { ISimulationActivityDescriptor, simulation_activities } from "@/engine/core/objects/alife/SimulationActivity";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
-import { Squad } from "@/engine/core/objects/alife/Squad";
+import { loadGulagJobs } from "@/engine/core/objects/alife/squad/gulag_general";
+import {
+  ISimulationActivityDescriptor,
+  simulationActivities,
+} from "@/engine/core/objects/alife/squad/simulation_activities";
+import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import {
   turnOffCampfiresBySmartTerrainName,
@@ -1475,7 +1478,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
       return false;
     }
 
-    const squadParameters: ISimulationActivityDescriptor = simulation_activities[squad.player_id!];
+    const squadParameters: ISimulationActivityDescriptor = simulationActivities[squad.player_id!];
 
     if (squadParameters === null || squadParameters.smart === null) {
       return false;

@@ -13,12 +13,12 @@ export function register_combat_restrictor(restrictor: XR_game_object): void {
   }
 }
 
-export function apply_combat_restrictor(npc: XR_game_object): void {
-  const npc_position = npc.position();
+export function apply_combat_restrictor(object: XR_game_object): void {
+  const objectPosition: XR_vector = object.position();
 
-  for (const [k, v] of combat_sectors) {
-    if (v.inside(npc_position)) {
-      npc.add_restrictions(k, "");
+  for (const [id, it] of combat_sectors) {
+    if (it.inside(objectPosition)) {
+      object.add_restrictions(id, "");
     }
   }
 }

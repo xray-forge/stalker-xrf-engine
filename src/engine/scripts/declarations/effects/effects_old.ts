@@ -45,7 +45,7 @@ import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/TreasureManager";
 import { WeatherManager } from "@/engine/core/managers/WeatherManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import { Squad } from "@/engine/core/objects/alife/Squad";
+import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { Stalker } from "@/engine/core/objects/alife/Stalker";
 import { update_logic } from "@/engine/core/objects/binders/StalkerBinder";
 import { EStalkerState } from "@/engine/core/objects/state";

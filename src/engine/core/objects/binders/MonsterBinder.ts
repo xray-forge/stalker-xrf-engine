@@ -26,7 +26,7 @@ import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { setupSmartJobsAndLogicOnSpawn, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import { Squad } from "@/engine/core/objects/alife/Squad";
+import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { emitSchemeEvent, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";

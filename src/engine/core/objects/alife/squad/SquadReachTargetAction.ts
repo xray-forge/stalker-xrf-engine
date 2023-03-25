@@ -2,10 +2,10 @@ import { alife, XR_CTime } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
-import type { Squad } from "@/engine/core/objects/alife/Squad";
+import type { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { Optional, TDuration, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -13,13 +13,13 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export class SquadReachTargetAction {
-  public readonly name: string = "reach_target";
+  public readonly name: TName = "reach_target";
 
   public simulationBoardManager: SimulationBoardManager;
   public squadId: TNumberId;
 
   public actionStartTime: Optional<XR_CTime> = null;
-  public actionIdleTime!: number;
+  public actionIdleTime!: TDuration;
 
   /**
    * todo: Description.
@@ -38,7 +38,7 @@ export class SquadReachTargetAction {
    * todo: Description.
    */
   public update(isUnderSimulation: boolean): boolean {
-    const squad = alife().object<Squad>(this.squadId)!;
+    const squad: Squad = alife().object<Squad>(this.squadId)!;
     let squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
 
     if (!isUnderSimulation) {

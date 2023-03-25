@@ -32,11 +32,11 @@ import {
 } from "@/engine/core/database/simulation";
 import { unregisterStoryLinkByObjectId } from "@/engine/core/database/story_objects";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
-import { simulation_activities } from "@/engine/core/objects/alife/SimulationActivity";
 import type { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
-import { SquadReachTargetAction } from "@/engine/core/objects/alife/SquadReachTargetAction";
-import { SquadStayOnTargetAction } from "@/engine/core/objects/alife/SquadStayOnTargetAction";
+import { simulationActivities } from "@/engine/core/objects/alife/squad/simulation_activities";
+import { SquadReachTargetAction } from "@/engine/core/objects/alife/squad/SquadReachTargetAction";
+import { SquadStayOnTargetAction } from "@/engine/core/objects/alife/squad/SquadStayOnTargetAction";
 import { TSimulationObject, TSquadAction } from "@/engine/core/objects/alife/types";
 import { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
 import { EStalkerState } from "@/engine/core/objects/state";
@@ -1182,7 +1182,7 @@ export class Squad<
    * todo: Description.
    */
   public target_precondition(squad: Squad): boolean {
-    const squad_params = simulation_activities[squad.player_id];
+    const squad_params = simulationActivities[squad.player_id];
 
     if (squad_params === null || squad_params.squad === null) {
       return false;

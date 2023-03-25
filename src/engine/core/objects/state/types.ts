@@ -180,6 +180,7 @@ export enum EStalkerState {
   HIDE_SNIPER_FIRE = "hide_sniper_fire",
   IDLE = "idle",
   PATROL = "patrol",
+  PUNCH = "punch",
   RAID = "raid",
   RAID_FIRE = "raid_fire",
   RUN = "run",

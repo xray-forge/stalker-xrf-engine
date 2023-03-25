@@ -12,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ObjectPhysic extends cse_alife_object_physic {
-  public secret_item: Optional<boolean> = false;
+  public isSecretItem: Optional<boolean> = false;
 
   /**
    * todo: Description.
@@ -22,7 +22,7 @@ export class ObjectPhysic extends cse_alife_object_physic {
     logger.info("Register:", this.id, this.name(), this.section_name());
     registerObjectStoryLinks(this);
 
-    this.secret_item = TreasureManager.getInstance().registerAlifeItem(this);
+    this.isSecretItem = TreasureManager.getInstance().registerAlifeItem(this);
   }
 
   /**
@@ -44,7 +44,7 @@ export class ObjectPhysic extends cse_alife_object_physic {
    * todo: Description.
    */
   public override can_switch_online(): boolean {
-    if (this.secret_item) {
+    if (this.isSecretItem) {
       return false;
     }
 

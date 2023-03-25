@@ -2,7 +2,6 @@ import { editor, TXR_class_key, XR_object_factory } from "xray16";
 
 import {
   Actor,
-  AnomalousZone,
   Helicopter,
   InventoryBox,
   Item,
@@ -29,6 +28,7 @@ import {
   SmartTerrain,
   Squad,
   Stalker,
+  ZoneAnomalous,
   ZoneRestrictor,
   ZoneTorrid,
   ZoneVisual,
@@ -71,13 +71,13 @@ export function registerGameClasses(factory: XR_object_factory): void {
     "smart_terrain"
   );
   factory.register(EClientObjectClass.ce_smart_zone, ZoneRestrictor.__name, "SPC_RS_S", "script_restr");
+  factory.register(EClientObjectClass.smart_cover_object, SmartCover.__name, "SMRT_C_S", "smartcover_s");
   factory.register(EClientObjectClass.CLevelChanger, LevelChanger.__name, "LVL_CHNG", "level_changer_s");
   factory.register(EClientObjectClass.CActor, Actor.__name, "S_ACTOR", "script_actor");
   factory.register(EClientObjectClass.CAI_Stalker, Stalker.__name, "AI_STL_S", "script_stalker");
   factory.register(EClientObjectClass.CHelicopter, Helicopter.__name, "C_HLCP_S", "script_heli");
 
   factory.register(EClientObjectClass.CPhysicObject, ObjectPhysic.__name, "O_PHYS_S", "script_phys");
-  factory.register(EClientObjectClass.smart_cover_object, SmartCover.__name, "SMRT_C_S", "smartcover_s");
   factory.register(EClientObjectClass.CDestroyablePhysicsObject, ObjectPhysic.__name, "O_DSTR_S", "destrphys_s");
   factory.register(EClientObjectClass.hanging_lamp, ObjectHangingLamp.__name, "SO_HLAMP", "hlamp_s");
 
@@ -169,10 +169,10 @@ export function registerGameClasses(factory: XR_object_factory): void {
 
   // Anomalies:
   factory.register(EClientObjectClass.CHairsZone, ZoneVisual.__name, "ZS_BFUZZ", "zone_bfuzz_s");
-  factory.register(EClientObjectClass.CMosquitoBald, AnomalousZone.__name, "ZS_MBALD", "zone_mbald_s");
-  factory.register(EClientObjectClass.CMincer, AnomalousZone.__name, "ZS_GALAN", "zone_galant_s");
-  factory.register(EClientObjectClass.CMincer, AnomalousZone.__name, "ZS_MINCE", "zone_mincer_s");
-  factory.register(EClientObjectClass.CRadioactiveZone, AnomalousZone.__name, "ZS_RADIO", "zone_radio_s");
+  factory.register(EClientObjectClass.CMosquitoBald, ZoneAnomalous.__name, "ZS_MBALD", "zone_mbald_s");
+  factory.register(EClientObjectClass.CMincer, ZoneAnomalous.__name, "ZS_GALAN", "zone_galant_s");
+  factory.register(EClientObjectClass.CMincer, ZoneAnomalous.__name, "ZS_MINCE", "zone_mincer_s");
+  factory.register(EClientObjectClass.CRadioactiveZone, ZoneAnomalous.__name, "ZS_RADIO", "zone_radio_s");
   factory.register(EClientObjectClass.CTorridZone, ZoneTorrid.__name, "ZS_TORRD", "zone_torrid_s");
 
   // Monsters:

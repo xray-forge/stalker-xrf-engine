@@ -2,7 +2,7 @@ import { XR_cse_alife_object } from "xray16";
 
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { TravelManager } from "@/engine/core/managers/TravelManager";
-import { Squad } from "@/engine/core/objects/alife/Squad";
+import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getServerDistanceBetween } from "@/engine/core/utils/object";
@@ -29,7 +29,7 @@ export interface ISimulationActivityDescriptor {
   actor: Optional<ISimActivityPrecondition>;
 }
 
-export const simulation_activities: Record<TCommunity, ISimulationActivityDescriptor> = {
+export const simulationActivities: Record<TCommunity, ISimulationActivityDescriptor> = {
   [communities.none]: {
     squad: null,
     smart: null,

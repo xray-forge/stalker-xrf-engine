@@ -12,8 +12,8 @@ import {
 
 import { registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
-import { accessible_job, get_job_restrictor } from "@/engine/core/objects/alife/combat_restrictor";
 import type { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
+import { accessible_job, get_job_restrictor } from "@/engine/core/objects/alife/squad/combat_restrictor";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { getSchemeByIniSection, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
@@ -1189,11 +1189,11 @@ export function isJobInRestrictor(smart: SmartTerrain, restrictorName: TName, wa
     return null;
   }
 
-  const ptrl: XR_patrol = new patrol(wayName);
-  const count: TCount = ptrl.count();
+  const patrolObject: XR_patrol = new patrol(wayName);
+  const count: TCount = patrolObject.count();
 
   for (const pt of $range(0, count - 1)) {
-    if (!restrictor.inside(ptrl.point(pt))) {
+    if (!restrictor.inside(patrolObject.point(pt))) {
       return false;
     }
   }

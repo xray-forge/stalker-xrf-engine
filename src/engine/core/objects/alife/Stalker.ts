@@ -16,8 +16,9 @@ import {
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { Squad } from "@/engine/core/objects";
 import { onSmartTerrainObjectDeath, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import { abort } from "@/engine/core/utils/assertion";
+import { assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -37,9 +38,6 @@ export class Stalker extends cse_alife_human_stalker {
   public isCorpseLootDropped: boolean = false;
   public sim_forced_online: boolean = false;
 
-  /**
-   * todo: Description.
-   */
   public constructor(section: TSection) {
     super(section);
     registerOfflineObject(this.id);
@@ -70,7 +68,7 @@ export class Stalker extends cse_alife_human_stalker {
   /**
    * todo: Description.
    */
-  public override STATE_Write(packet: XR_net_packet) {
+  public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
     if (this.online) {
@@ -86,7 +84,7 @@ export class Stalker extends cse_alife_human_stalker {
   /**
    * todo: Description.
    */
-  public override STATE_Read(packet: XR_net_packet, size: number) {
+  public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
     const oldLevelId: StringOptional = packet.r_stringZ();
@@ -165,11 +163,9 @@ export class Stalker extends cse_alife_human_stalker {
     onSmartTerrainObjectDeath(this);
 
     if (this.group_id !== MAX_U16) {
-      const squad: any = alife().object(this.group_id);
+      const squad: Optional<Squad> = alife().object(this.group_id);
 
-      if (squad === null) {
-        abort("There is no squad with ID [%s]", this.group_id);
-      }
+      assert(squad, "There is no squad with ID [%s]", this.group_id);
 
       squad.on_npc_death(this);
     }

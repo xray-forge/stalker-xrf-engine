@@ -105,14 +105,12 @@ export class Monster extends cse_alife_monster_base {
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
-    if (this.script_version > 10) {
-      const oldLevelId: StringOptional = packet.r_stringZ();
-      const oldSection: StringOptional = packet.r_stringZ();
-      const offlineObject: IStoredOfflineObject = registerOfflineObject(this.id);
+    const oldLevelId: StringOptional = packet.r_stringZ();
+    const oldSection: StringOptional = packet.r_stringZ();
+    const offlineObject: IStoredOfflineObject = registerOfflineObject(this.id);
 
-      offlineObject.active_section = oldSection === NIL ? null : oldSection;
-      offlineObject.level_vertex_id = oldLevelId === NIL ? null : (tonumber(oldLevelId) as number);
-    }
+    offlineObject.active_section = oldSection === NIL ? null : oldSection;
+    offlineObject.level_vertex_id = oldLevelId === NIL ? null : (tonumber(oldLevelId) as number);
   }
 
   /**

@@ -29,7 +29,7 @@ import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardMa
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
-import { Squad } from "@/engine/core/objects/alife/Squad";
+import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { SchemeAnimpoint } from "@/engine/core/schemes/animpoint";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
