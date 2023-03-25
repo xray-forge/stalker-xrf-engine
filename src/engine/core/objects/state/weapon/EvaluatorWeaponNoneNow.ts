@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Whether have no weapon in hands at all.
  */
 @LuabindClass()
 export class EvaluatorWeaponNoneNow extends property_evaluator {

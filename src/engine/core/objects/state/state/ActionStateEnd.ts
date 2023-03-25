@@ -27,6 +27,15 @@ export class ActionStateEnd extends action_base {
   }
 
   /**
+   * todo;
+   */
+  public override initialize() {
+    logger.info("End state for:", this.object.name());
+
+    super.initialize();
+  }
+
+  /**
    * todo: Description.
    */
   public override execute(): void {

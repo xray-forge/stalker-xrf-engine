@@ -38,7 +38,7 @@ export class LuaLogger {
 
   public constructor(prefix: string, isEnabled: boolean = true) {
     this.isEnabled = isEnabled;
-    this.prefix = string.format("[%s][%s]", gameConfig.DEBUG.GLOBAL_LOG_PREFIX, prefix);
+    this.prefix = string.format("[%s]", prefix);
 
     if (gameConfig.DEBUG.IS_RESOLVE_LOG_ENABLED) {
       this.info("Declared logger: '" + prefix + "'");

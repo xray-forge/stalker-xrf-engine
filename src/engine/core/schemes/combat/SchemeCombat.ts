@@ -50,7 +50,7 @@ export class SchemeCombat extends AbstractScheme {
 
       state.combat_type = readIniConditionList(ini, section, "combat_type");
 
-      if ((state.combat_type as any) === communities.monolith) {
+      if ((state.combat_type as unknown as string) === communities.monolith) {
         state.combat_type = null;
       }
 

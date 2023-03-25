@@ -12,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ItemGrenade extends cse_alife_item_grenade {
-  public secret_item: Optional<boolean> = false;
+  public isSecretTime: Optional<boolean> = false;
 
   /**
    * todo: Description.
@@ -20,7 +20,7 @@ export class ItemGrenade extends cse_alife_item_grenade {
   public override on_register(): void {
     super.on_register();
     registerObjectStoryLinks(this);
-    this.secret_item = TreasureManager.getInstance().registerAlifeItem(this);
+    this.isSecretTime = TreasureManager.getInstance().registerAlifeItem(this);
   }
 
   /**
@@ -35,7 +35,7 @@ export class ItemGrenade extends cse_alife_item_grenade {
    * todo: Description.
    */
   public override can_switch_online(): boolean {
-    if (this.secret_item) {
+    if (this.isSecretTime) {
       return false;
     }
 

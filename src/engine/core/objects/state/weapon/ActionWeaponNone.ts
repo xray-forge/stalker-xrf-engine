@@ -21,6 +21,8 @@ export class ActionWeaponNone extends action_base {
    * Select no weapon active.
    */
   public override initialize(): void {
+    logger.info("Set weapon none for:", this.object.name());
+
     super.initialize();
     this.object.set_item(object.idle, null);
   }

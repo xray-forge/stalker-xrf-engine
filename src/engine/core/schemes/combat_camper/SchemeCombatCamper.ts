@@ -60,6 +60,6 @@ export class SchemeCombatCamper extends AbstractScheme {
 
     SchemeCombatCamper.subscribe(object, state, lookAroundAction);
 
-    state.camper_combat_action = false;
+    state.isCamperCombatAction = false;
   }
 }

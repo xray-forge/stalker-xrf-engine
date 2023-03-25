@@ -12,15 +12,12 @@ import {
 
 import { setStalkerState } from "@/engine/core/database";
 import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
-import { ISchemeCombatState } from "@/engine/core/schemes/combat";
+import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/combat/ISchemeCombatState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
-import { Optional, TCount, TIndex } from "@/engine/lib/types";
+import { Optional, TIndex, TNumberId, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-const act_shoot = 1;
-const act_danger = 2;
 
 /**
  * todo;
@@ -28,18 +25,18 @@ const act_danger = 2;
 @LuabindClass()
 export class ActionZombieGoToDanger extends action_base {
   public state: ISchemeCombatState;
-  public t: ITargetStateDescriptor = { look_object: null, look_position: null };
+  public targetState: ITargetStateDescriptor = { look_object: null, look_position: null };
 
-  public was_hit: boolean = false;
-  public hit_reaction_end_time: number = 0;
+  public wasHit: boolean = false;
+  public hitReactionEndTime: TTimestamp = 0;
 
-  public last_state: Optional<string> = null;
-  public bdo_vert_id: Optional<number> = null;
-  public last_sent_vert_id: Optional<number> = null;
-  public bdo_id: Optional<number> = null;
+  public last_state: Optional<EStalkerState> = null;
+  public bestDangerObjectVertexId: Optional<TNumberId> = null;
+  public lastSentVertexId: Optional<TNumberId> = null;
+  public bestDangerObjectId: Optional<TNumberId> = null;
 
-  public enemy_last_seen_pos: Optional<XR_vector> = null;
-  public enemy_last_seen_vid: Optional<number> = null;
+  public enemyLastSeenPos: Optional<XR_vector> = null;
+  public enemyLastSeenVid: Optional<TNumberId> = null;
 
   /**
    * todo: Description.
@@ -59,10 +56,10 @@ export class ActionZombieGoToDanger extends action_base {
     this.object.set_detail_path_type(move.line);
     this.object.set_path_type(game_object.level_path);
     this.last_state = null;
-    this.bdo_id = null;
-    this.bdo_vert_id = null;
-    this.last_sent_vert_id = null;
-    this.state.cur_act = act_danger;
+    this.bestDangerObjectId = null;
+    this.bestDangerObjectVertexId = null;
+    this.lastSentVertexId = null;
+    this.state.currentAction = EZombieCombatAction.DANGER;
   }
 
   /**
@@ -70,9 +67,9 @@ export class ActionZombieGoToDanger extends action_base {
    */
   public setState(state: EStalkerState, bestEnemy: Optional<XR_game_object>, pos: Optional<XR_vector>): void {
     if (state !== this.last_state) {
-      this.t.look_object = bestEnemy;
-      this.t.look_position = pos;
-      setStalkerState(this.object, state, null, null, this.t, null);
+      this.targetState.look_object = bestEnemy;
+      this.targetState.look_position = pos;
+      setStalkerState(this.object, state, null, null, this.targetState, null);
       this.last_state = state;
     }
   }
@@ -83,30 +80,32 @@ export class ActionZombieGoToDanger extends action_base {
   public override execute(): void {
     super.execute();
 
-    if (this.was_hit) {
-      this.was_hit = false;
-      this.hit_reaction_end_time = time_global() + 5000;
-      this.setState(EStalkerState.RAID_FIRE, null, this.enemy_last_seen_pos);
-    } else if (this.hit_reaction_end_time > time_global()) {
-      // -- ���������� ���� � �������� � �����, �� ������� ��� ������ ���
+    const now: TTimestamp = time_global();
+
+    if (this.wasHit) {
+      this.wasHit = false;
+      this.hitReactionEndTime = now + 5000;
+      this.setState(EStalkerState.RAID_FIRE, null, this.enemyLastSeenPos);
+    } else if (this.hitReactionEndTime > now) {
+      // -
     } else {
-      const bd = this.object.best_danger()!;
-      const bdo = bd.object();
+      const bestDanger: XR_danger_object = this.object.best_danger()!;
+      const object: Optional<XR_game_object> = bestDanger.object();
 
-      if (bdo && bd.type() !== danger_object.grenade) {
-        if (!this.bdo_id || this.bdo_id !== bdo.id()) {
-          this.bdo_id = bdo.id();
-          this.bdo_vert_id = bdo.level_vertex_id();
+      if (object && bestDanger.type() !== danger_object.grenade) {
+        if (!this.bestDangerObjectId || this.bestDangerObjectId !== object.id()) {
+          this.bestDangerObjectId = object.id();
+          this.bestDangerObjectVertexId = object.level_vertex_id();
         }
 
-        if (this.bdo_vert_id !== this.last_sent_vert_id) {
-          this.last_sent_vert_id = this.bdo_vert_id;
-          sendToNearestAccessibleVertex(this.object, this.bdo_vert_id!);
+        if (this.bestDangerObjectVertexId !== this.lastSentVertexId) {
+          this.lastSentVertexId = this.bestDangerObjectVertexId;
+          sendToNearestAccessibleVertex(this.object, this.bestDangerObjectVertexId!);
         }
 
-        this.setState(EStalkerState.RAID, null, bd.position());
+        this.setState(EStalkerState.RAID, null, bestDanger.position());
       } else {
-        this.setState(EStalkerState.THREAT_NA, null, bd.position());
+        this.setState(EStalkerState.THREAT_NA, null, bestDanger.position());
       }
     }
   }
@@ -116,7 +115,7 @@ export class ActionZombieGoToDanger extends action_base {
    */
   public override finalize(): void {
     super.finalize();
-    this.state.cur_act = null;
+    this.state.currentAction = null;
   }
 
   /**
@@ -124,7 +123,7 @@ export class ActionZombieGoToDanger extends action_base {
    */
   public hit_callback(
     object: XR_game_object,
-    amount: TCount,
+    amount: TRate,
     direction: XR_vector,
     who: XR_game_object,
     bone_id: TIndex
@@ -133,16 +132,16 @@ export class ActionZombieGoToDanger extends action_base {
       return;
     }
 
-    if (this.state.cur_act === act_danger) {
+    if (this.state.currentAction === EZombieCombatAction.DANGER) {
       const bestDanger: Optional<XR_danger_object> = this.object.best_danger();
 
       if (bestDanger) {
         const bestDangerObject: Optional<XR_game_object> = bestDanger.object();
 
         if (bestDangerObject !== null && (bestDanger.type() === danger_object.attacked || amount > 0)) {
-          this.enemy_last_seen_pos = bestDangerObject.position();
-          this.enemy_last_seen_vid = bestDangerObject.level_vertex_id();
-          this.was_hit = true;
+          this.enemyLastSeenPos = bestDangerObject.position();
+          this.enemyLastSeenVid = bestDangerObject.level_vertex_id();
+          this.wasHit = true;
         }
       }
     }

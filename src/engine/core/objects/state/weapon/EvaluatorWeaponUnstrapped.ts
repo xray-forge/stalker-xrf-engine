@@ -9,7 +9,7 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Whether weapon should be in hands.
  */
 @LuabindClass()
 export class EvaluatorWeaponUnstrapped extends property_evaluator {

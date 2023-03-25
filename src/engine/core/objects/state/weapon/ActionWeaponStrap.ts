@@ -24,6 +24,8 @@ export class ActionWeaponStrap extends action_base {
    * Strap active weapon.
    */
   public override initialize(): void {
+    logger.info("Strap weapon for:", this.object.name());
+
     super.initialize();
 
     const weapon: Optional<XR_game_object> = getObjectAnimationWeapon(this.object, this.stateManager.targetState);

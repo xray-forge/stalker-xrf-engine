@@ -87,8 +87,8 @@ export class GlobalSoundManager extends AbstractCoreManager {
   public playSound(
     objectId: TNumberId,
     sound: Optional<TStringId>,
-    faction: Optional<string>,
-    point: Optional<TNumberId>
+    faction: Optional<string> = null,
+    point: Optional<TNumberId> = null
   ): Optional<XR_sound_object> {
     if (sound === null) {
       return null;

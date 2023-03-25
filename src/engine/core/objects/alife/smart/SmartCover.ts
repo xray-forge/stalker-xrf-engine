@@ -124,48 +124,33 @@ export class SmartCover extends cse_smart_cover {
   public override STATE_Read(packet: XR_net_packet, size: TCount): void {
     super.STATE_Read(packet, size);
 
-    if (this.script_version >= 9) {
-      this.last_description = packet.r_stringZ();
+    this.last_description = packet.r_stringZ();
 
-      const smart_cover_description: Optional<string> =
-        this.last_description !== "" ? this.last_description : this.description();
-      const existing_loopholes: LuaTable<string, any> = new LuaTable();
+    const smartCoverDescription: Optional<string> =
+      this.last_description !== "" ? this.last_description : this.description();
+    const existing_loopholes: LuaTable<string, any> = new LuaTable();
 
-      if (smart_cover_description !== null) {
-        if (!smart_covers_list.has(smart_cover_description)) {
-          abort("smartcover [%s] has wrong description [%s]", this.name(), tostring(smart_cover_description));
-        }
-
-        const loopholes: LuaTable<number, ISmartCoverLoopholeDescriptor> =
-          smart_covers_list.get(smart_cover_description).loopholes;
-
-        for (const [k, v] of loopholes) {
-          existing_loopholes.set(v.id, true);
-        }
-
-        const n = packet.r_u8();
-
-        for (const i of $range(1, n)) {
-          const loophole_id: string = packet.r_stringZ();
-          const loophole_exist: boolean = packet.r_bool();
-
-          if (existing_loopholes.get(loophole_id) !== null) {
-            this.loopholes.set(loophole_id, loophole_exist);
-          }
-        }
+    if (smartCoverDescription !== null) {
+      if (!smart_covers_list.has(smartCoverDescription)) {
+        abort("smartcover [%s] has wrong description [%s]", this.name(), tostring(smartCoverDescription));
       }
-    } else {
-      const smart_cover_description = this.description();
 
-      if (smart_cover_description !== null) {
-        const loopholes: LuaTable<number, ISmartCoverLoopholeDescriptor> =
-          smart_covers_list.get(smart_cover_description).loopholes;
+      const loopholes: LuaTable<number, ISmartCoverLoopholeDescriptor> =
+        smart_covers_list.get(smartCoverDescription).loopholes;
 
-        for (const [k, v] of loopholes) {
-          this.loopholes.set(v.id, true);
+      for (const [k, v] of loopholes) {
+        existing_loopholes.set(v.id, true);
+      }
+
+      const n = packet.r_u8();
+
+      for (const i of $range(1, n)) {
+        const loophole_id: string = packet.r_stringZ();
+        const loophole_exist: boolean = packet.r_bool();
+
+        if (existing_loopholes.get(loophole_id) !== null) {
+          this.loopholes.set(loophole_id, loophole_exist);
         }
-
-        this.last_description = smart_cover_description;
       }
     }
   }

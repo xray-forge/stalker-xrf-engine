@@ -12,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ItemEatable extends cse_alife_item {
-  public secret_item: Optional<boolean> = false;
+  public isSecretItem: Optional<boolean> = false;
 
   /**
    * todo: Description.
@@ -20,7 +20,7 @@ export class ItemEatable extends cse_alife_item {
   public override on_register(): void {
     super.on_register();
     registerObjectStoryLinks(this);
-    this.secret_item = TreasureManager.getInstance().registerAlifeItem(this);
+    this.isSecretItem = TreasureManager.getInstance().registerAlifeItem(this);
   }
 
   /**
@@ -35,7 +35,7 @@ export class ItemEatable extends cse_alife_item {
    * todo: Description.
    */
   public override can_switch_online(): boolean {
-    if (this.secret_item) {
+    if (this.isSecretItem) {
       return false;
     }
 

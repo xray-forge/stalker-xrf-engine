@@ -12,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class InventoryBox extends cse_alife_inventory_box {
-  public secret_item: Optional<boolean> = false;
+  public isSecretItem: Optional<boolean> = false;
 
   /**
    * todo: Description.
@@ -20,7 +20,7 @@ export class InventoryBox extends cse_alife_inventory_box {
   public override on_register(): void {
     super.on_register();
     registerObjectStoryLinks(this);
-    this.secret_item = TreasureManager.getInstance().registerAlifeItem(this);
+    this.isSecretItem = TreasureManager.getInstance().registerAlifeItem(this);
   }
 
   /**
@@ -35,7 +35,7 @@ export class InventoryBox extends cse_alife_inventory_box {
    * todo: Description.
    */
   public override can_switch_online(): boolean {
-    if (this.secret_item) {
+    if (this.isSecretItem) {
       return false;
     }
 

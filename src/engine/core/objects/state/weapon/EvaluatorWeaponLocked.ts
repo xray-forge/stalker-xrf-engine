@@ -7,7 +7,7 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Whether weapon state is locked.
  */
 @LuabindClass()
 export class EvaluatorWeaponLocked extends property_evaluator {

@@ -30,7 +30,7 @@ export class ActionLookAround extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    this.state.camper_combat_action = true;
+    this.state.isCamperCombatAction = true;
 
     this.reset();
   }
@@ -99,7 +99,7 @@ export class ActionLookAround extends action_base {
     super.finalize();
 
     this.state.last_seen_pos = null;
-    this.state.camper_combat_action = false;
+    this.state.isCamperCombatAction = false;
   }
 
   /**
@@ -112,7 +112,7 @@ export class ActionLookAround extends action_base {
     who: XR_game_object,
     bone_index: string
   ): void {
-    if (who === null || !this.state.camper_combat_action) {
+    if (who === null || !this.state.isCamperCombatAction) {
       return;
     }
 

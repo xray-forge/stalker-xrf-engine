@@ -11,15 +11,15 @@ import {
 } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
+import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
-import { ISchemeCombatState } from "@/engine/core/schemes/combat";
+import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/combat/ISchemeCombatState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TRate } from "@/engine/lib/types";
+import { chance } from "@/engine/core/utils/number";
+import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
+import { Optional, TNumberId, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-const act_shoot = 1;
-const act_danger = 2;
 
 /**
  * todo;
@@ -32,17 +32,19 @@ export class ActionZombieShoot extends action_base {
     look_object: null,
   };
 
-  public enemy_last_seen_vid!: number;
-  public was_hit: boolean = false;
-  public hit_reaction_end_time: number = 0;
-  public turn_time: number = 0;
-  public valid_path: boolean = false;
-  public last_state: Optional<string> = null;
-  public last_vid: Optional<number> = null;
+  public wasHit: boolean = false;
 
-  public enemy_last_seen_pos: Optional<XR_vector> = null;
-  public enemy_last_accessible_vid: Optional<number> = null;
-  public enemy_last_accessible_position: Optional<XR_vector> = null;
+  public enemyLastSeenVertexId!: TNumberId;
+  public enemyLastSeenPosition: Optional<XR_vector> = null;
+  public enemyLastVertexId: Optional<TNumberId> = null;
+  public enemyLastAccessibleVertexId: Optional<TNumberId> = null;
+  public enemyLastAccessiblePosition: Optional<XR_vector> = null;
+
+  public hitReactionEndTime: TTimestamp = 0;
+  public turnTime: TTimestamp = 0;
+
+  public isValidPath: boolean = false;
+  public previousState: Optional<EStalkerState> = null;
 
   /**
    * todo: Description.
@@ -58,23 +60,23 @@ export class ActionZombieShoot extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    // --    this.object:set_node_evaluator      ()
-    // --    this.object:set_path_evaluator      ()
     this.object.set_desired_direction();
     this.object.set_detail_path_type(move.line);
 
-    this.last_state = null;
+    this.previousState = null;
 
-    const bestEnemy = this.object.best_enemy()!;
+    const bestEnemy: XR_game_object = this.object.best_enemy() as XR_game_object;
 
-    this.enemy_last_seen_pos = bestEnemy.position();
-    this.enemy_last_seen_vid = bestEnemy.level_vertex_id();
-    this.last_vid = null;
-    this.valid_path = false;
-    this.turn_time = 0;
-    this.state.cur_act = act_shoot;
+    this.enemyLastSeenPosition = bestEnemy.position();
+    this.enemyLastSeenVertexId = bestEnemy.level_vertex_id();
+    this.enemyLastVertexId = null;
+    this.isValidPath = false;
+    this.turnTime = 0;
+    this.state.currentAction = EZombieCombatAction.SHOOT;
 
-    // -- GlobalSound:set_sound_play(this.object:id(), "fight_enemy")
+    if (chance(25)) {
+      GlobalSoundManager.getInstance().playSound(this.object.id(), scriptSounds.fight_attack);
+    }
   }
 
   /**
@@ -84,65 +86,67 @@ export class ActionZombieShoot extends action_base {
     super.execute();
 
     const bestEnemy: Optional<XR_game_object> = this.object.best_enemy()!;
-    const see: boolean = this.object.see(bestEnemy);
+    const isBestEnemyVisible: boolean = this.object.see(bestEnemy);
 
-    if (see) {
-      this.enemy_last_seen_pos = bestEnemy.position();
-      this.enemy_last_seen_vid = bestEnemy.level_vertex_id();
+    if (isBestEnemyVisible) {
+      this.enemyLastSeenPosition = bestEnemy.position();
+      this.enemyLastSeenVertexId = bestEnemy.level_vertex_id();
     }
 
-    if (this.last_vid !== this.enemy_last_seen_vid) {
-      this.last_vid = this.enemy_last_seen_vid;
-      this.valid_path = false;
+    if (this.enemyLastVertexId !== this.enemyLastSeenVertexId) {
+      this.enemyLastVertexId = this.enemyLastSeenVertexId;
+      this.isValidPath = false;
 
-      if (!this.object.accessible(this.enemy_last_seen_vid)) {
-        this.enemy_last_accessible_vid = this.object.accessible_nearest(
-          level.vertex_position(this.enemy_last_seen_vid),
+      if (!this.object.accessible(this.enemyLastSeenVertexId)) {
+        this.enemyLastAccessibleVertexId = this.object.accessible_nearest(
+          level.vertex_position(this.enemyLastSeenVertexId),
           new vector()
         );
-        this.enemy_last_accessible_position = null;
+        this.enemyLastAccessiblePosition = null;
       } else {
-        this.enemy_last_accessible_vid = this.enemy_last_seen_vid;
-        this.enemy_last_accessible_position = this.enemy_last_seen_pos;
+        this.enemyLastAccessibleVertexId = this.enemyLastSeenVertexId;
+        this.enemyLastAccessiblePosition = this.enemyLastSeenPosition;
       }
     }
 
     this.object.set_path_type(game_object.level_path);
 
-    if (this.object.position().distance_to_sqr(this.enemy_last_accessible_position!) > 9) {
-      if (this.valid_path === false) {
-        this.valid_path = true;
-        this.object.set_dest_level_vertex_id(this.enemy_last_accessible_vid!);
+    const now: TTimestamp = time_global();
+
+    if (this.object.position().distance_to_sqr(this.enemyLastAccessiblePosition!) > 9) {
+      if (!this.isValidPath) {
+        this.isValidPath = true;
+        this.object.set_dest_level_vertex_id(this.enemyLastAccessibleVertexId!);
       }
 
-      if (see) {
+      if (isBestEnemyVisible) {
         this.setState(EStalkerState.RAID_FIRE, bestEnemy, null);
-      } else if (this.was_hit) {
-        this.was_hit = false;
-        this.hit_reaction_end_time = time_global() + 5000;
+      } else if (this.wasHit) {
+        this.wasHit = false;
+        this.hitReactionEndTime = now + 5000;
 
-        this.setState(EStalkerState.RAID_FIRE, null, this.enemy_last_seen_pos);
-      } else if (this.hit_reaction_end_time > time_global()) {
+        this.setState(EStalkerState.RAID_FIRE, null, this.enemyLastSeenPosition);
+      } else if (this.hitReactionEndTime > now) {
         // Continue walking
       } else {
-        this.setState(EStalkerState.RAID, null, this.enemy_last_seen_pos);
+        this.setState(EStalkerState.RAID, null, this.enemyLastSeenPosition);
       }
 
-      this.turn_time = 0;
+      this.turnTime = 0;
     } else {
       // Stank and looking.
-      if (see) {
+      if (isBestEnemyVisible) {
         this.setState(EStalkerState.THREAT_FIRE, null, null);
-        this.turn_time = 0;
+        this.turnTime = 0;
       } else {
         // Randomly searching for enemies.
-        if (this.was_hit) {
-          this.was_hit = false;
-          this.turn_time = time_global() + math.random(5000, 7000);
-          this.setState(EStalkerState.THREAT_NA, null, this.enemy_last_seen_pos);
-        } else if (this.turn_time < time_global()) {
-          this.turn_time = time_global() + math.random(3000, 5000);
-          this.setState(EStalkerState.THREAT_NA, null, this.calc_random_direction());
+        if (this.wasHit) {
+          this.wasHit = false;
+          this.turnTime = now + math.random(3000, 6000);
+          this.setState(EStalkerState.THREAT_NA, null, this.enemyLastSeenPosition);
+        } else if (this.turnTime < now) {
+          this.turnTime = now + math.random(2500, 5000);
+          this.setState(EStalkerState.THREAT_NA, null, this.getRandomLookDirection());
         }
       }
     }
@@ -153,29 +157,24 @@ export class ActionZombieShoot extends action_base {
    */
   public setState(state: EStalkerState, bestEnemy: Optional<XR_game_object>, position: Optional<XR_vector>): void {
     this.targetStateDescriptor.look_object = bestEnemy;
-
-    if (bestEnemy) {
-      this.targetStateDescriptor.look_position = this.enemy_last_seen_pos;
-    } else {
-      this.targetStateDescriptor.look_position = position;
-    }
+    this.targetStateDescriptor.look_position = bestEnemy ? this.enemyLastSeenPosition : position;
 
     setStalkerState(this.object, state, null, null, this.targetStateDescriptor, null);
 
-    this.last_state = state;
+    this.previousState = state;
   }
 
   /**
    * todo: Description.
    */
-  public calc_random_direction(): XR_vector {
-    const ang: TRate = math.pi * 2 * math.random();
-    const look_pos = new vector().set(this.object.position());
+  public getRandomLookDirection(): XR_vector {
+    const angle: TRate = math.pi * 2 * math.random();
+    const lookPosition: XR_vector = new vector().set(this.object.position());
 
-    look_pos.x = look_pos.x + math.cos(ang);
-    look_pos.z = look_pos.z + math.sin(ang);
+    lookPosition.x = lookPosition.x + math.cos(angle);
+    lookPosition.z = lookPosition.z + math.sin(angle);
 
-    return look_pos;
+    return lookPosition;
   }
 
   /**
@@ -183,7 +182,7 @@ export class ActionZombieShoot extends action_base {
    */
   public override finalize(): void {
     super.finalize();
-    this.state.cur_act = null;
+    this.state.currentAction = null;
   }
 
   /**
@@ -191,7 +190,7 @@ export class ActionZombieShoot extends action_base {
    */
   public hit_callback(
     object: XR_game_object,
-    amount: number,
+    amount: TRate,
     direction: XR_vector,
     who: XR_game_object,
     bone_id: number
@@ -200,13 +199,13 @@ export class ActionZombieShoot extends action_base {
       return;
     }
 
-    if (this.state.cur_act === act_shoot) {
-      const be = this.object && this.object.best_enemy();
+    if (this.state.currentAction === EZombieCombatAction.SHOOT) {
+      const bestEnemy: Optional<XR_game_object> = this.object?.best_enemy();
 
-      if (be && who.id() === be.id()) {
-        this.enemy_last_seen_pos = be.position();
-        this.enemy_last_seen_vid = be.level_vertex_id();
-        this.was_hit = true;
+      if (bestEnemy && bestEnemy.id() === who.id()) {
+        this.wasHit = true;
+        this.enemyLastSeenPosition = bestEnemy.position();
+        this.enemyLastSeenVertexId = bestEnemy.level_vertex_id();
       }
     }
   }

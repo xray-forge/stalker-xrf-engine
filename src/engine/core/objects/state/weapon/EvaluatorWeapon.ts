@@ -10,7 +10,7 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo
+ * Whether current active weapon matches required weapon.
  */
 @LuabindClass()
 export class EvaluatorWeapon extends property_evaluator {

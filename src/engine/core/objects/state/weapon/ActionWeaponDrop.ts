@@ -27,6 +27,8 @@ export class ActionWeaponDrop extends action_base {
    * If object has no weapon, just select no weapon active.
    */
   public override initialize(): void {
+    logger.info("Drop weapon for:", this.object.name());
+
     super.initialize();
 
     const weapon: Optional<XR_game_object> = getObjectAnimationWeapon(this.object, this.stateManager.targetState);

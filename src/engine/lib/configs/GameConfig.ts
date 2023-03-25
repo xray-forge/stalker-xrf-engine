@@ -33,10 +33,6 @@ export const gameConfig = {
      * Useful to debug circular dependencies and resolving problems.
      */
     IS_RESOLVE_LOG_ENABLED: false,
-    /**
-     * Global prefix for lua debug logger in project.
-     */
-    GLOBAL_LOG_PREFIX: "XR",
   },
   /**
    * Base sizing for templates in UI.

@@ -3,7 +3,7 @@ import { cse_alife_item_ammo, LuabindClass } from "xray16";
 import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/core/database";
 import { TreasureManager } from "@/engine/core/managers/TreasureManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TSection } from "@/engine/lib/types";
+import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -12,14 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ItemAmmo extends cse_alife_item_ammo {
-  public secret_item: Optional<boolean> = false;
-
-  /**
-   * todo: Description.
-   */
-  public constructor(section: TSection) {
-    super(section);
-  }
+  public isSecretItem: Optional<boolean> = false;
 
   /**
    * todo: Description.
@@ -27,7 +20,7 @@ export class ItemAmmo extends cse_alife_item_ammo {
   public override on_register(): void {
     super.on_register();
     registerObjectStoryLinks(this);
-    this.secret_item = TreasureManager.getInstance().registerAlifeItem(this);
+    this.isSecretItem = TreasureManager.getInstance().registerAlifeItem(this);
   }
 
   /**
@@ -42,7 +35,7 @@ export class ItemAmmo extends cse_alife_item_ammo {
    * todo: Description.
    */
   public override can_switch_online(): boolean {
-    if (this.secret_item) {
+    if (this.isSecretItem) {
       return false;
     }
 

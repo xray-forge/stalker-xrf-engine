@@ -264,7 +264,7 @@ export class NpcSound extends AbstractPlayableSound {
       return false;
     }
 
-    logger.info("Play npc sound:", object.name(), faction, point, message, "#");
+    logger.info("Play npc sound for:", object.name(), faction, point, message, "#");
 
     this.playingStartedAt = null;
 

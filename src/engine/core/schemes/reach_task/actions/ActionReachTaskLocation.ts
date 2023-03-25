@@ -142,8 +142,8 @@ export class ActionReachTaskLocation extends action_base {
    * todo: Description.
    */
   public override finalize(): void {
-    super.finalize();
     this.object.set_movement_selection_type(game_object.alifeMovementTypeRandom);
+    super.finalize();
 
     logger.info("Finalize reach task action:", this.object.name());
   }

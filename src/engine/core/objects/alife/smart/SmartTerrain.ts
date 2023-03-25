@@ -750,20 +750,27 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public setup_logic(object: XR_game_object): void {
     logger.info("Setup logic:", this.name(), object.name());
 
-    const npc_data: IObjectJobDescriptor = this.objectJobDescriptors.get(object.id());
-    const job = this.jobsData.get(npc_data.job_id);
+    const objectJobDescriptor: IObjectJobDescriptor = this.objectJobDescriptors.get(object.id());
+    const job = this.jobsData.get(objectJobDescriptor.job_id);
     const ltx = job.ini_file || this.ltxConfig;
     const ltx_name = job.ini_path || this.ltxConfigName;
 
-    configureObjectSchemes(object, ltx, ltx_name, npc_data.stype, job.section, job.prefix_name || this.name());
+    configureObjectSchemes(
+      object,
+      ltx,
+      ltx_name,
+      objectJobDescriptor.stype,
+      job.section,
+      job.prefix_name || this.name()
+    );
 
-    const sect: TSection = getObjectSectionToActivate(object, ltx, job.section, registry.actor);
+    const section: TSection = getObjectSectionToActivate(object, ltx, job.section, registry.actor);
 
     if (getSchemeByIniSection(job.section) === NIL) {
-      abort("[smart_terrain %s] section=%s, don't use section 'null'!", this.name(), sect);
+      abort("[smart_terrain %s] section=%s, don't use section 'null'!", this.name(), section);
     }
 
-    activateSchemeBySection(object, ltx, sect, job.prefix_name || this.name(), false);
+    activateSchemeBySection(object, ltx, section, job.prefix_name || this.name(), false);
   }
 
   /**

@@ -22,6 +22,8 @@ export class ActionWeaponUnstrap extends action_base {
    * Unstrap active animation weapon.
    */
   public override initialize(): void {
+    logger.info("Unstrap weapon for:", this.object.name());
+
     super.initialize();
     this.object.set_item(
       getObjectIdleState(this.stateManager.targetState),

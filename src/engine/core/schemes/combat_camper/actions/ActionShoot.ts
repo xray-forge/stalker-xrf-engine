@@ -35,7 +35,7 @@ export class ActionShoot extends action_base {
       { look_object: this.object.best_enemy(), look_position: null },
       null
     );
-    this.state.camper_combat_action = true;
+    this.state.isCamperCombatAction = true;
   }
 
   /**
@@ -43,6 +43,6 @@ export class ActionShoot extends action_base {
    */
   public override finalize(): void {
     super.finalize();
-    this.state.camper_combat_action = false;
+    this.state.isCamperCombatAction = false;
   }
 }

@@ -13,11 +13,19 @@ export enum EScriptCombatType {
 /**
  * todo;
  */
+export enum EZombieCombatAction {
+  SHOOT = 1,
+  DANGER = 2,
+}
+
+/**
+ * todo;
+ */
 export interface ISchemeCombatState extends IBaseSchemeState {
   enabled: boolean;
   combat_type: Optional<AnyObject>;
-  camper_combat_action: Optional<boolean>;
+  isCamperCombatAction: Optional<boolean>;
   last_seen_pos: Optional<XR_vector>;
   script_combat_type: Optional<EScriptCombatType>;
-  cur_act: Optional<number>;
+  currentAction: Optional<EZombieCombatAction>;
 }

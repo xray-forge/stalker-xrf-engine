@@ -8,7 +8,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Whether object should fire weapon.
  */
 @LuabindClass()
 export class EvaluatorWeaponFire extends property_evaluator {

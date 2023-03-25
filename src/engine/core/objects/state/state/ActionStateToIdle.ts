@@ -27,6 +27,8 @@ export class ActionStateToIdle extends action_base {
    * todo: Description.
    */
   public override initialize(): void {
+    logger.info("State to idle for:", this.object.name());
+
     super.initialize();
 
     this.object.inactualize_patrol_path();
