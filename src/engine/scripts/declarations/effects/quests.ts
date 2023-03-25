@@ -719,7 +719,7 @@ extern("xr_effects.pri_a17_hard_animation_reset", (actor: XR_game_object, npc: X
 
   stateManager.setState("pri_a17_fall_down" as EStalkerState, null, null, null, null);
   stateManager.animation.setState(null, true);
-  stateManager.animation.setState("pri_a17_fall_down", null);
+  stateManager.animation.setState("pri_a17_fall_down" as EStalkerState, null);
   stateManager.animation.setControl();
 });
 
@@ -731,7 +731,7 @@ extern("xr_effects.jup_b217_hard_animation_reset", (actor: XR_game_object, npc: 
 
   stateManager.setState("jup_b217_nitro_straight" as EStalkerState, null, null, null, null);
   stateManager.animation.setState(null, true);
-  stateManager.animation.setState("jup_b217_nitro_straight", null);
+  stateManager.animation.setState("jup_b217_nitro_straight" as EStalkerState, null);
   stateManager.animation.setControl();
 });
 

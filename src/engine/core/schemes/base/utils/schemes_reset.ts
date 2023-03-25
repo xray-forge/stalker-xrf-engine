@@ -3,7 +3,7 @@ import { XR_game_object } from "xray16";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base/AbstractScheme";
 import { abort } from "@/engine/core/utils/assertion";
-import { AnyObject, Optional } from "@/engine/lib/types";
+import { Optional } from "@/engine/lib/types";
 import { EScheme, TSection } from "@/engine/lib/types/scheme";
 
 /**
@@ -20,20 +20,6 @@ export function resetScheme(
 
   if (schemeImplementation !== null) {
     schemeImplementation.reset(object, schemeToSwitch, state, section);
-  } else {
-    abort("Could not find implementation for provided scheme: '%s'.", scheme);
-  }
-}
-
-/**
- * todo; Dirty.
- */
-export function resetSchemeHard(scheme: EScheme): void {
-  const schemeImplementation: Optional<TAbstractSchemeConstructor> = registry.schemes.get(scheme);
-
-  // Do not pass params and just do it hard way.
-  if (schemeImplementation !== null) {
-    (schemeImplementation as AnyObject).reset();
   } else {
     abort("Could not find implementation for provided scheme: '%s'.", scheme);
   }

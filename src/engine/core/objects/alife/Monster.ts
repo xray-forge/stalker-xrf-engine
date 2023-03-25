@@ -17,13 +17,14 @@ import {
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { Squad } from "@/engine/core/objects";
 import { onSmartTerrainObjectDeath, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import { abort } from "@/engine/core/utils/assertion";
+import { assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, StringOptional, TNumberId, TSection } from "@/engine/lib/types";
+import { Optional, StringOptional, TName, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -124,21 +125,21 @@ export class Monster extends cse_alife_monster_base {
 
     this.isRegistered = true;
 
-    const board = SimulationBoardManager.getInstance();
+    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
 
     registerOfflineObject(this.id);
 
     this.brain().can_choose_alife_tasks(false);
 
-    const objectIni = this.spawn_ini();
-    const smart = readIniString(objectIni, "logic", "smart_terrain", false, "", "");
-    const smart_obj = board.getSmartTerrainByName(smart);
+    const objectIni: XR_ini_file = this.spawn_ini();
+    const smartName: TName = readIniString(objectIni, "logic", "smart_terrain", false, "", "");
+    const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName);
 
-    if (smart_obj === null) {
+    if (smartTerrain === null) {
       return;
+    } else {
+      alife().object<SmartTerrain>(smartTerrain.id)!.register_npc(this);
     }
-
-    alife().object<SmartTerrain>(smart_obj.id)!.register_npc(this);
   }
 
   /**
@@ -150,10 +151,10 @@ export class Monster extends cse_alife_monster_base {
     const smartTerrainId: TNumberId = this.smart_terrain_id();
 
     if (smartTerrainId !== MAX_U16) {
-      const smart: any = alife().object(smartTerrainId);
+      const smartTerrain: Optional<SmartTerrain> = alife().object(smartTerrainId);
 
-      if (smart !== null) {
-        smart.unregister_npc(this);
+      if (smartTerrain !== null) {
+        smartTerrain.unregister_npc(this);
       }
     }
 
@@ -173,11 +174,9 @@ export class Monster extends cse_alife_monster_base {
     onSmartTerrainObjectDeath(this);
 
     if (this.group_id !== MAX_U16) {
-      const squad: any = alife().object(this.group_id);
+      const squad: Optional<Squad> = alife().object(this.group_id);
 
-      if (squad === null) {
-        abort("There is no squad with ID [%s]", this.group_id);
-      }
+      assert(squad, "There is no squad with ID [%s]", this.group_id);
 
       squad.on_npc_death(this);
     }

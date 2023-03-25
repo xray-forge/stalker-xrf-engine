@@ -45,7 +45,7 @@ export class SchemeCombatCamper extends AbstractScheme {
     shootAction.add_precondition(new world_property(EEvaluatorId.IS_COMBAT_CAMPING_ENABLED, true));
     shootAction.add_precondition(new world_property(EEvaluatorId.SEE_ENEMY, true));
     shootAction.add_effect(new world_property(stalker_ids.property_enemy, false));
-    shootAction.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    shootAction.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     planner.add_action(EActionId.SHOOT, shootAction);
 
     const lookAroundAction: ActionLookAround = new ActionLookAround(state);
@@ -55,7 +55,7 @@ export class SchemeCombatCamper extends AbstractScheme {
     lookAroundAction.add_precondition(new world_property(EEvaluatorId.IS_COMBAT_CAMPING_ENABLED, true));
     lookAroundAction.add_precondition(new world_property(EEvaluatorId.SEE_ENEMY, false));
     lookAroundAction.add_effect(new world_property(EEvaluatorId.SEE_ENEMY, true));
-    lookAroundAction.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    lookAroundAction.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     planner.add_action(EActionId.LOOK_AROUND, lookAroundAction);
 
     SchemeCombatCamper.subscribe(object, state, lookAroundAction);

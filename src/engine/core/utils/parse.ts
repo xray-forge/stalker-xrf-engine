@@ -24,8 +24,23 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export interface IWaypointData {
-  [index: string]: any;
   a?: any;
+  s?: string;
+  b?: string;
+  r?: string;
+  ret?: string;
+  p?: string;
+  d?: string;
+  radius?: number;
+  state?: string;
+  sigtm?: string;
+  minr?: string;
+  maxr?: string;
+  c?: string;
+  sig?: string;
+  syn?: string;
+  count?: number;
+  t?: number | "*";
   flags: XR_flags32;
 }
 
@@ -365,7 +380,7 @@ export function parseWaypointData(pathname: TPath, wpflags: XR_flags32, waypoint
       if (fld === "a") {
         waypointData[fld] = parseConditionsList(data);
       } else {
-        waypointData[fld] = data;
+        waypointData[fld as keyof IWaypointData] = data;
       }
     }
 

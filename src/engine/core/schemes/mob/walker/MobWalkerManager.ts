@@ -12,6 +12,7 @@ import {
   XR_flags32,
   XR_game_object,
   XR_patrol,
+  XR_vector,
 } from "xray16";
 
 import { registry, setMonsterState } from "@/engine/core/database";
@@ -24,7 +25,7 @@ import { action, isObjectScriptCaptured, scriptCaptureObject } from "@/engine/co
 import { IWaypointData, parsePathWaypoints } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { EScheme, LuaArray, Optional, TDuration, TIndex, TName } from "@/engine/lib/types";
+import { EScheme, LuaArray, Optional, TDuration, TIndex, TName, TNumberId } from "@/engine/lib/types";
 
 const default_wait_time: TDuration = 5000;
 const default_anim_standing: TXR_animation = anim.stand_idle;
@@ -138,20 +139,20 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   /**
    * todo: Description.
    */
-  public waypoint_callback(obj: XR_game_object, action_type: Optional<string>, index: Optional<TIndex>): void {
+  public waypoint_callback(object: XR_game_object, actionType: Optional<TNumberId>, index: Optional<TIndex>): void {
     if (index === -1 || index === null) {
       return;
     }
 
     this.last_index = index;
 
-    const suggested_snd = this.path_walk_info!.get(index).get("s");
+    const suggestedSound = this.path_walk_info!.get(index)["s"] as Optional<TXR_sound_key>;
 
-    if (suggested_snd) {
-      this.scheduled_snd = suggested_snd;
+    if (suggestedSound) {
+      this.scheduled_snd = suggestedSound;
     }
 
-    const suggested_crouch = this.path_walk_info!.get(index).get("c");
+    const suggested_crouch = this.path_walk_info!.get(index)["c"];
 
     if (suggested_crouch === TRUE) {
       this.crouch = true;
@@ -159,7 +160,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       this.crouch = false;
     }
 
-    const suggested_running = this.path_walk_info!.get(index).get("r");
+    const suggested_running = this.path_walk_info!.get(index)["r"];
 
     if (suggested_running === TRUE) {
       this.running = true;
@@ -167,7 +168,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       this.running = false;
     }
 
-    const signal = this.path_walk_info!.get(index).get("sig");
+    const signal: Optional<TName> = this.path_walk_info!.get(index)["sig"] as TName;
 
     if (signal !== null) {
       // -- HACK, fixme:
@@ -178,7 +179,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       signals.set(signal, true);
     }
 
-    const beh = this.path_walk_info!.get(index).get("b");
+    const beh = this.path_walk_info!.get(index)["b"];
 
     if (beh) {
       setMonsterState(this.object, registry.actor, beh);
@@ -186,7 +187,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       setMonsterState(this.object, registry.actor, this.state.state);
     }
 
-    const searchForFlags = this.path_walk_info!.get(index).get("flags") as XR_flags32;
+    const searchForFlags = this.path_walk_info!.get(index)["flags"] as XR_flags32;
 
     if (searchForFlags.get() === 0) {
       this.update_movement_state();
@@ -224,7 +225,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
         this.cur_anim_set = default_anim_standing;
       }
 
-      const beh = this.path_walk_info!.get(index).get("b");
+      const beh = this.path_walk_info!.get(index)["b"];
 
       if (beh) {
         setMonsterState(this.object, registry.actor, beh);
@@ -313,13 +314,13 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       return;
     }
 
-    const look_pt = new vector().set(this.patrol_look.point(pt)).sub(this.object.position());
+    const lookPoint: XR_vector = new vector().set(this.patrol_look.point(pt)).sub(this.object.position());
 
-    look_pt.normalize();
+    lookPoint.normalize();
     // --this.object:set_sight(look.direction, look_pt, 0)
 
     scriptCaptureObject(this.object, true);
-    action(this.object, new look(look.direction, look_pt), new cond(cond.look_end));
+    action(this.object, new look(look.direction, lookPoint), new cond(cond.look_end));
 
     this.last_look_index = pt;
   }

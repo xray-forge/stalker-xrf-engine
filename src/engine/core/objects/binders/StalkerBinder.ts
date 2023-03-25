@@ -39,6 +39,7 @@ import {
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
+import { DialogManager } from "@/engine/core/managers/DialogManager";
 import { DropManager } from "@/engine/core/managers/DropManager";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
@@ -87,11 +88,8 @@ import {
   TTimestamp,
 } from "@/engine/lib/types";
 import { ESchemeType } from "@/engine/lib/types/scheme";
-import { disabled_phrases, loadNpcDialogs, saveNpcDialogs } from "@/engine/scripts/declarations/dialogs/dialog_manager";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-// todo: Rewrite with event emitting system
 
 /**
  * todo;
@@ -469,9 +467,8 @@ export class StalkerBinder extends object_binder {
 
     if (this.object.alive()) {
       ItemUpgradesManager.getInstance().setCurrentTech(object);
+      DialogManager.getInstance().resetForObject(this.object);
       SchemeMeet.onMeetWithObject(object, who);
-
-      disabled_phrases.delete(object.id());
 
       if (this.state.active_section) {
         emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.USE, object, who);
@@ -594,7 +591,7 @@ export class StalkerBinder extends object_binder {
     saveObjectLogic(this.object, packet);
     TradeManager.getInstance().saveObjectState(this.object, packet);
     GlobalSoundManager.getInstance().saveObject(packet, this.object);
-    saveNpcDialogs(packet, this.object.id());
+    DialogManager.getInstance().saveObjectDialogs(packet, this.object);
 
     setSaveMarker(packet, true, StalkerBinder.__name);
   }
@@ -611,7 +608,7 @@ export class StalkerBinder extends object_binder {
     loadObjectLogic(this.object, reader);
     TradeManager.getInstance().loadObjectState(reader, this.object);
     GlobalSoundManager.getInstance().loadObject(reader, this.object);
-    loadNpcDialogs(reader, this.object.id());
+    DialogManager.getInstance().loadObjectDialogs(reader, this.object);
 
     setLoadMarker(reader, true, StalkerBinder.__name);
   }

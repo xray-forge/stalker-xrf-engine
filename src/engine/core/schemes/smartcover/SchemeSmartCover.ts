@@ -78,7 +78,7 @@ export class SchemeSmartCover extends AbstractScheme {
     actionSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.IS_ABUSED, false));
 
     actionSmartCoverActivity.add_effect(new world_property(EEvaluatorId.IS_SMART_COVER_NEEDED, false));
-    actionSmartCoverActivity.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionSmartCoverActivity.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     // --new_action.add_effect (new world_property(stalker_ids.property_danger,false))
     actionPlanner.add_action(EActionId.SMART_COVER_ACTIVITY, actionSmartCoverActivity);
 

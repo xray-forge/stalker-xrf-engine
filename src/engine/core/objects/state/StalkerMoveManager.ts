@@ -61,25 +61,20 @@ export class StalkerMoveManager {
     let pts_found_total_weight = 0;
     let num_equal_pts = 0;
 
-    for (const look_idx of $range(0, patrol_look.count() - 1)) {
-      this_val = path_look_info.get(look_idx).flags;
+    for (const lookIndex of $range(0, patrol_look.count() - 1)) {
+      this_val = path_look_info.get(lookIndex).flags;
       if (this_val.equal(search_for)) {
         num_equal_pts = num_equal_pts + 1;
 
-        let point_look_weight: number = path_look_info.get(look_idx)["p"];
+        const probabilityRaw = path_look_info.get(lookIndex)["p"];
+        const pointLookWeight: number = probabilityRaw === null ? 100 : (tonumber(probabilityRaw) as number);
 
-        if (point_look_weight !== null) {
-          point_look_weight = tonumber(point_look_weight)!;
-        } else {
-          point_look_weight = 100;
-        }
-
-        pts_found_total_weight = pts_found_total_weight + point_look_weight;
+        pts_found_total_weight = pts_found_total_weight + pointLookWeight;
 
         const r = math.random(1, pts_found_total_weight);
 
-        if (r <= point_look_weight) {
-          pt_chosen_idx = look_idx;
+        if (r <= pointLookWeight) {
+          pt_chosen_idx = lookIndex;
         }
       }
     }
@@ -430,7 +425,7 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public time_callback(): void {
-    const sigtm = this.path_look_info!.get(this.last_look_index!)["sigtm"];
+    const sigtm: Optional<TName> = this.path_look_info!.get(this.last_look_index!)["sigtm"] as Optional<TName>;
 
     if (sigtm) {
       this.scheme_set_signal(sigtm);
@@ -481,7 +476,7 @@ export class StalkerMoveManager {
     const syn = this.path_look_info!.get(this.last_look_index!)["syn"];
 
     if (syn) {
-      this.syn_signal = this.path_look_info!.get(this.last_look_index!)["sig"];
+      this.syn_signal = this.path_look_info!.get(this.last_look_index!)["sig"] as string;
 
       if (!this.syn_signal) {
         abort("object '%s': path_look '%s': syn flag uset without sig flag", this.object.name(), this.path_look);
@@ -550,7 +545,7 @@ export class StalkerMoveManager {
   /**
    * todo: Description.
    */
-  public waypoint_callback(obj: XR_game_object, action_type: Optional<number>, index: Optional<number>): void {
+  public waypoint_callback(object: XR_game_object, actionType: Optional<number>, index: Optional<number>): void {
     if (index === -1 || index === null) {
       return;
     }
@@ -602,9 +597,9 @@ export class StalkerMoveManager {
       this.scheme_set_signal("path_end");
     }
 
-    const stop_probability = this.path_walk_info.get(index)["p"];
+    const stopProbability = this.path_walk_info.get(index)["p"];
 
-    if (!this.patrol_look || (stop_probability && tonumber(stop_probability)! < math.random(1, 100))) {
+    if (!this.patrol_look || (stopProbability && tonumber(stopProbability)! < math.random(1, 100))) {
       this.update_movement_state();
 
       return;
@@ -633,13 +628,13 @@ export class StalkerMoveManager {
         suggested_anim_set ? suggested_anim_set : (this.default_state_standing as any)
       )!;
 
-      const suggested_wait_time = this.path_look_info!.get(pt_chosen_idx)["t"];
+      const suggestedWaitTime = this.path_look_info!.get(pt_chosen_idx)["t"];
 
-      if (suggested_wait_time) {
-        if (suggested_wait_time === "*") {
+      if (suggestedWaitTime) {
+        if (suggestedWaitTime === "*") {
           this.pt_wait_time = null;
         } else {
-          const tm: number = tonumber(suggested_wait_time)!;
+          const tm: number = tonumber(suggestedWaitTime)!;
 
           if (tm !== 0 && (tm < 1000 || tm > 45000)) {
             abort(

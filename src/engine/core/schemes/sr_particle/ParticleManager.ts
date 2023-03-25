@@ -30,7 +30,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
       for (const a of $range(1, count)) {
         let d = 0;
 
-        if (flags.get(a - 1)["d"] !== null) {
+        if (flags.get(a - 1)["d"]) {
           d = tonumber(flags.get(a - 1)["d"])!;
           if (d === null) {
             d = 0;

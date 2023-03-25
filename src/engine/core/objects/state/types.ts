@@ -205,8 +205,8 @@ export interface IStateDescriptor {
   movement?: Optional<TXR_move>;
   mental: Optional<TXR_animation>;
   bodystate: Optional<TXR_move>;
-  animstate: Optional<string>;
-  animation: Optional<string>;
+  animstate: Optional<EStalkerState>;
+  animation: Optional<EStalkerState>;
   weapon_slot?: Optional<number>;
   direction?: TXR_look | TXR_SightType;
   special_danger_move?: Optional<boolean>;

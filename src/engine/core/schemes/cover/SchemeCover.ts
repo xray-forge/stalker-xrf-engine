@@ -70,7 +70,7 @@ export class SchemeCover extends AbstractScheme {
     new_action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
     new_action.add_precondition(new world_property(EEvaluatorId.NEED_COVER, true));
     new_action.add_effect(new world_property(EEvaluatorId.NEED_COVER, false));
-    new_action.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    new_action.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     actionPlanner.add_action(EActionId.COVER_ACTIVITY, new_action);
 
     SchemeCover.subscribe(object, state, new_action);

@@ -304,14 +304,14 @@ export class MonsterBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public waypoint_callback(object: XR_game_object, action_type: number, index: TIndex): void {
+  public waypoint_callback(object: XR_game_object, actionType: number, index: TIndex): void {
     if (this.state.active_section !== null) {
       emitSchemeEvent(
         this.object,
         this.state[this.state.active_scheme!]!,
         ESchemeEvent.WAYPOINT,
         object,
-        action_type,
+        actionType,
         index
       );
     }

@@ -39,7 +39,7 @@ export class SchemeCombatZombied extends AbstractScheme {
     actionZombieShoot.add_precondition(new world_property(EEvaluatorId.IS_COMBAT_ZOMBIED_ENABLED, true));
     actionZombieShoot.add_precondition(new world_property(EEvaluatorId.IS_SCRIPTED_COMBAT, true));
     actionZombieShoot.add_effect(new world_property(stalker_ids.property_enemy, false));
-    actionZombieShoot.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionZombieShoot.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     planner.add_action(EActionId.ZOMBIED_SHOOT, actionZombieShoot);
 
     SchemeCombatZombied.subscribe(object, state, actionZombieShoot);
@@ -51,7 +51,7 @@ export class SchemeCombatZombied extends AbstractScheme {
     actionZombieGoToDanger.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionZombieGoToDanger.add_precondition(new world_property(stalker_ids.property_danger, true));
     actionZombieGoToDanger.add_effect(new world_property(stalker_ids.property_danger, false));
-    actionZombieGoToDanger.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionZombieGoToDanger.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     planner.add_action(EActionId.ZOMBIED_GO_TO_DANGER, actionZombieGoToDanger);
 
     SchemeCombatZombied.subscribe(object, state, actionZombieGoToDanger);

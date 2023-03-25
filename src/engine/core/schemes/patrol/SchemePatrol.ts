@@ -115,7 +115,7 @@ export class SchemePatrol extends AbstractScheme {
     actionCommander.add_precondition(new world_property(EEvaluatorId.IS_PATROL_ENDED, false));
     actionCommander.add_precondition(new world_property(EEvaluatorId.IS_PATROL_COMMANDER, true));
     actionCommander.add_effect(new world_property(EEvaluatorId.IS_PATROL_ENDED, true));
-    actionCommander.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionCommander.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     actionPlanner.add_action(EActionId.COMMAND_SQUAD, actionCommander);
     SchemePatrol.subscribe(object, state, actionCommander);
 
@@ -129,7 +129,7 @@ export class SchemePatrol extends AbstractScheme {
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_PATROL_ENDED, false));
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_PATROL_COMMANDER, false));
     actionPatrol.add_effect(new world_property(EEvaluatorId.IS_PATROL_ENDED, true));
-    actionPatrol.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionPatrol.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     actionPlanner.add_action(EActionId.PATROL_ACTIVITY, actionPatrol);
     SchemePatrol.subscribe(object, state, actionPatrol);
 

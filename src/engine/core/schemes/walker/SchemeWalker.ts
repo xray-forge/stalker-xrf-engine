@@ -89,7 +89,7 @@ export class SchemeWalker extends AbstractScheme {
     addCommonPrecondition(actionWalkerActivity);
 
     actionWalkerActivity.add_effect(new world_property(EEvaluatorId.NEED_WALKER, false));
-    actionWalkerActivity.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionWalkerActivity.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
 
     actionPlanner.add_action(EActionId.WALKER_ACTIVITY, actionWalkerActivity);
 

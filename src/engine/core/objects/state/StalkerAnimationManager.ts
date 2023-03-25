@@ -2,7 +2,7 @@ import { callback, hit, time_global, vector, XR_game_object, XR_hit } from "xray
 
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
-import { IAnimationDescriptor, IAnimationStateDescriptor } from "@/engine/core/objects/state/types";
+import { EStalkerState, IAnimationDescriptor, IAnimationStateDescriptor } from "@/engine/core/objects/state/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";
@@ -94,7 +94,7 @@ export class StalkerAnimationManager {
   /**
    * todo;
    */
-  public setState(newState: Optional<string>, isForced: Optional<boolean> = false): void {
+  public setState(newState: Optional<EStalkerState>, isForced: Optional<boolean> = false): void {
     /**
      * Force animation over existing ones.
      */

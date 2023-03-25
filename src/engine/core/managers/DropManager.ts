@@ -73,7 +73,7 @@ export class DropManager extends AbstractCoreManager {
     logger.info("Initialize drop settings");
 
     // Initialize communities drop.
-    for (const [community] of communities as any as LuaTable<TCommunity, TCommunity>) {
+    for (const [community] of communities as unknown as LuaTable<TCommunity, TCommunity>) {
       const communityDrop: LuaTable<TInventoryItem, TProbability> = new LuaTable();
 
       if (DEATH_GENERIC_LTX.section_exist(community)) {

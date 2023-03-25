@@ -82,8 +82,9 @@ export class SchemeAnimpoint extends AbstractScheme {
     actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_REACHED, false));
     addCommonPrecondition(actionReachAnimpoint);
     actionReachAnimpoint.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, false));
-    actionReachAnimpoint.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionReachAnimpoint.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     actionPlanner.add_action(EActionId.ANIMPOINT_REACH, actionReachAnimpoint);
+
     SchemeAnimpoint.subscribe(object, schemeState, actionReachAnimpoint);
 
     const actionAnimpoint: ActionAnimpoint = new ActionAnimpoint(schemeState);
@@ -95,8 +96,9 @@ export class SchemeAnimpoint extends AbstractScheme {
     actionAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_REACHED, true));
     addCommonPrecondition(actionAnimpoint);
     actionAnimpoint.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, false));
-    actionAnimpoint.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionAnimpoint.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     actionPlanner.add_action(EActionId.ANIMPOINT_ACTIVITY, actionAnimpoint);
+
     SchemeAnimpoint.subscribe(object, schemeState, actionAnimpoint);
 
     actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, false));

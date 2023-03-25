@@ -527,7 +527,7 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
     let job_count = 3;
 
     if (wp_prop.count !== null) {
-      job_count = wp_prop.count;
+      job_count = wp_prop.count as number;
     }
 
     for (const i of $range(1, job_count)) {
@@ -939,7 +939,7 @@ export function loadGulagJobs(smart: SmartTerrain): LuaMultiReturn<[LuaTable, st
     }
 
     if (wp_prop.radius !== null) {
-      radius = wp_prop.radius;
+      radius = wp_prop.radius as number;
     }
 
     t = {

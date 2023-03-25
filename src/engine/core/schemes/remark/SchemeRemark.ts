@@ -71,7 +71,7 @@ export class SchemeRemark extends AbstractScheme {
     actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.NEED_REMARK, true));
     addCommonPrecondition(actionRemarkActivity);
     actionRemarkActivity.add_effect(new world_property(EEvaluatorId.NEED_REMARK, false));
-    actionRemarkActivity.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionRemarkActivity.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     actionPlanner.add_action(EActionId.REMARK_ACTIVITY, actionRemarkActivity);
 
     SchemeRemark.subscribe(object, state, actionRemarkActivity);

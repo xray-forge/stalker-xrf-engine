@@ -25,20 +25,19 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
     let midr = def_mid_radius;
 
     let ptr;
-    let path_info: Partial<IWaypointData> = {};
+    let waypointData: Partial<IWaypointData> = {};
     let r = 0;
 
     if (this.state.home !== null) {
       ptr = new patrol(this.state.home);
-      path_info = parseWaypointData(this.state.home, ptr.flags(0), ptr.name(0));
+      waypointData = parseWaypointData(this.state.home, ptr.flags(0), ptr.name(0));
     }
 
     if (this.state.home_min_radius !== null) {
       minr = this.state.home_min_radius;
     } else {
-      r = path_info.minr;
-      if (r !== null) {
-        r = tonumber(r)!;
+      if (waypointData.minr !== null) {
+        r = tonumber(waypointData.minr)!;
         if (r !== null) {
           minr = r;
         }
@@ -48,9 +47,8 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
     if (this.state.home_max_radius !== null) {
       maxr = this.state.home_max_radius;
     } else {
-      r = path_info.maxr;
-      if (r !== null) {
-        r = tonumber(r)!;
+      if (waypointData.maxr !== null) {
+        r = tonumber(waypointData.maxr)!;
         if (r !== null) {
           maxr = r;
         }

@@ -65,7 +65,7 @@ export class SchemeSleeper extends AbstractScheme {
     addCommonPrecondition(actionSleeper);
 
     actionSleeper.add_effect(new world_property(EEvaluatorId.NEED_SLEEPER, false));
-    actionSleeper.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_ACTIVE, false));
+    actionSleeper.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
 
     actionPlanner.add_action(EActionId.SLEEP_ACTIVITY, actionSleeper);
 

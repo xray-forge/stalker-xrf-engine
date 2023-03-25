@@ -1,6 +1,7 @@
 import { action_base, anim, look, LuabindClass, move, object, XR_game_object } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { animations } from "@/engine/core/objects/state_lib/state_mgr_animation_list";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/danger/ISchemePostCombatIdleState";
@@ -57,8 +58,8 @@ export class ActionPostCombatIdleWait extends action_base {
     if (!this.object.in_smart_cover()) {
       if (this.isAnimationStarted === false && !isWeaponLocked(this.object)) {
         this.isAnimationStarted = true;
-        this.state.animation.set_state("hide");
-        this.state.animation.set_control();
+        (this.state.animation as StalkerAnimationManager).setState(EStalkerState.HIDE);
+        (this.state.animation as StalkerAnimationManager).setControl();
       }
     }
 
@@ -72,7 +73,7 @@ export class ActionPostCombatIdleWait extends action_base {
     GlobalSoundManager.getInstance().playSound(this.object.id(), "post_combat_relax", null, null);
 
     if (this.isAnimationStarted) {
-      this.state.animation.set_state(null, true);
+      (this.state.animation as StalkerAnimationManager).setState(null, true);
     }
 
     this.state.animation = null;
