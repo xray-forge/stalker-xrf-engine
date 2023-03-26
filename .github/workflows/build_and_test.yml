@@ -40,8 +40,7 @@ jobs:
     - name: Archive build artifacts
       uses: montudor/action-zip@v1
       with:
-        args: zip -qq -r gamedata.release.zip gamedata/ xrf_build.log README.md
-        working-directory: target/
+        args: (cd target && zip -qq -r gamedata.release.zip gamedata/ xrf_build.log README.md)
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
