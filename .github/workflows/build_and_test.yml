@@ -38,10 +38,10 @@ jobs:
     - run: npm run lint
 
     - name: Archive build artifacts
-      uses: vimtor/action-zip@v1
+      uses: montudor/action-zip@v1
       with:
-        files: target/gamedata/ target/xrf_build.log target/README.md
-        dest: target/gamedata.release.zip
+        args: zip -qq -r gamedata.release.zip gamedata/ xrf_build.log README.md
+        working-directory: target/
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
