@@ -37,10 +37,12 @@ jobs:
     - run: npm test
     - run: npm run lint
 
-    - name: Archive build artifacts
+    - name: Install zip
       uses: montudor/action-zip@v1
-      with:
-        args: (cd target && zip -qq -r gamedata.release.zip gamedata/ xrf_build.log README.md)
+
+    - name: Archive build artifacts
+      working-directory: target/
+      run: zip -qq -r gamedata.release.zip gamedata/ xrf_build.log README.md
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
