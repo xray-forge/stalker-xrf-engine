@@ -1,12 +1,12 @@
 # 🎮 [Stalker XR-TS template](README.md)
 
-![status](https://github.com/stalker-xrts/stalker-xrts-template/actions/workflows/build_and_test.yml/badge.svg)
-[![language-ts](https://img.shields.io/badge/language-typescript-blue.svg?style=flat)](https://github.com/stalker-xrts/stalker-xrts-template/search?l=typescript)
-[![types](https://img.shields.io/badge/docs-types-blue.svg?style=flat)](https://stalker-xrts.github.io/xray-16-types/index.html)
+![status](https://github.com/xray-forge/stalker-xrf-template/actions/workflows/build_and_test.yml/badge.svg)
+[![language-ts](https://img.shields.io/badge/language-typescript-blue.svg?style=flat)](https://github.com/xray-forge/stalker-xrf-template/search?l=typescript)
+[![types](https://img.shields.io/badge/docs-types-blue.svg?style=flat)](https://xray-forge.github.io/xray-16-types/index.html)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/Neloreck/dreamstate/blob/master/LICENSE)
 
 <p>
-XRTS template for stalker modifications. <br/>
+XRF template for stalker modifications. <br/>
 </p>
 
 ## 📦 In short
@@ -50,8 +50,8 @@ The intention of this engine template is to allow easier mod development without
 ## 💿 Start development
 
 - DOWNLOAD [the game](https://store.steampowered.com/app/41700/STALKER_Call_of_Pripyat/)
-- RUN `git clone https://github.com/stalker-xrts/stalker-xrts-template.git` - clone repository
-- RUN `cd stalker-xrts-template` - cd to project folder
+- RUN `git clone https://github.com/xray-forge/stalker-xrf-template.git` - clone repository
+- RUN `cd stalker-xrf-template` - cd to project folder
 - EDIT `cli/config.json` - correct paths to match your local system (game path, logs path, resources path)
 - RUN `npm install` - install all the dependencies
 - RUN `npm run setup` - set up the project, install submodules
@@ -89,4 +89,4 @@ The intention of this engine template is to allow easier mod development without
 ## 🧰 Docs
 
 - Development and game documentation: [docs](doc/README.md)
-- Types and game bindings: [source](https://github.com/stalker-xrts/xray-16-types), [docs](https://stalker-xrts.github.io/xray-16-types/modules.html)
+- Types and game bindings: [source](https://github.com/xray-forge/xray-16-types), [docs](https://xray-forge.github.io/xray-16-types/modules.html)

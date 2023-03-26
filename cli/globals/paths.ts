@@ -1,6 +1,6 @@
 import * as path from "path";
 
-export const XR_ENGINE_BACKUP_DIR: string = "bin_xrts_backup";
+export const XR_ENGINE_BACKUP_DIR: string = "bin_xrf_backup";
 
 export const ROOT_DIR: string = path.resolve(__dirname, "../..");
 export const CLI_DIR: string = path.resolve(ROOT_DIR, "cli");

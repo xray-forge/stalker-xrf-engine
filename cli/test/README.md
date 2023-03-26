@@ -1,4 +1,4 @@
-# [XRTS](../../) / CLI / TEST
+# [XRF](../../) / CLI / TEST
 
 ### Description
 
@@ -12,7 +12,7 @@ Testing scripts and configs.
 ### Example output
 
 ```text
-> stalker-xrts-template@1.0.0 test
+> stalker-xrf-template@1.0.0 test
 > jest --detectOpenHandles --config cli/test/jest.config.ts number
 
  PASS  src/engine/scripts/utils/number.test.ts

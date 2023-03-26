@@ -1,4 +1,4 @@
-# [XRTS](../README.md) / DOCS
+# [XRF](../README.md) / DOCS
 
 ## 🏗️ Help
 

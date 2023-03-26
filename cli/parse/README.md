@@ -1,4 +1,4 @@
-# [XRTS](../../) / CLI / PARSE
+# [XRF](../../) / CLI / PARSE
 
 ### Description
 
@@ -19,11 +19,11 @@ List of arguments:
 ### Example output
 
 ```text
-> stalker-xrts-template@1.0.0 parse_dir_as_json
+> stalker-xrf-template@1.0.0 parse_dir_as_json
 > ts-node -P cli/tsconfig.json ./cli/parse/parse_dir_as_json.ts ..\gamedata_raw\textures\ --no-ext
 
 02:57:51:929 [PARSE_DIR_AS_JSON] Parsing game dir as json: F:\Documents\Projects\gamedata_raw\textures
-02:57:51:955 [PARSE_DIR_AS_JSON] Writing parsed tree to: F:\Documents\Projects\stalker-xrts-template\target\parsed\textures.json
+02:57:51:955 [PARSE_DIR_AS_JSON] Writing parsed tree to: F:\Documents\Projects\stalker-xrf-template\target\parsed\textures.json
 02:57:51:964 [PARSE_DIR_AS_JSON] Result: OK, entries parsed: 6275
 ```
 

@@ -1,4 +1,4 @@
-# [XRTS](../../) / CLI / OPEN
+# [XRF](../../) / CLI / OPEN
 
 ### Description
 
@@ -17,7 +17,7 @@ Main goal is simple access to the engine assets.
 ### Example output
 
 ```text
-> stalker-xrts-template@1.0.0 open_game_folder
+> stalker-xrf-template@1.0.0 open_game_folder
 > ts-node -P ./cli/tsconfig.json cli/open_game_folder/open_game_folder.ts
 
 00:03:14:016 [OPEN_GAME_FOLDER] Opening game folder

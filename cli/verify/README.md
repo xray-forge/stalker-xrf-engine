@@ -1,4 +1,4 @@
-# [XRTS](../../) / CLI / VERIFY
+# [XRF](../../) / CLI / VERIFY
 
 ### Description
 
@@ -11,7 +11,7 @@ Script performing project state checks. Verifies whether custom engine is active
 ### Example output
 
 ```text
-> stalker-xrts-template@1.0.0 verify
+> stalker-xrf-template@1.0.0 verify
 > ts-node -P ./cli/tsconfig.json cli/verify/verify.ts
 
 00:05:35:442 [VERIFY] Verifying project state
@@ -23,7 +23,7 @@ Script performing project state checks. Verifies whether custom engine is active
 ```
 
 ```text
-> stalker-xrts-template@1.0.0 verify
+> stalker-xrf-template@1.0.0 verify
 > ts-node -P ./cli/tsconfig.json cli/verify/verify.ts
 
 00:06:45:971 [VERIFY] Verifying project state

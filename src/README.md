@@ -1,6 +1,6 @@
-# [XRTS](../) / SRC
+# [XRF](../) / SRC
 
-This directory contains the source code for the XRTS engine modification template.
+This directory contains the source code for the XRF engine modification template.
 
 ## engine
 

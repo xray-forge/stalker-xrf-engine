@@ -1,4 +1,4 @@
-# [XRTS](../../) / CLI / INFO
+# [XRF](../../) / CLI / INFO
 
 ### Description
 
@@ -11,18 +11,18 @@ Prints project configuration information and list of available scripts.
 ### Example output
 
 ```text
-> stalker-xrts-template@1.0.0 info
+> stalker-xrf-template@1.0.0 info
 > ts-node -P ./cli/tsconfig.json cli/info/info.ts
 
 23:23:38:661 [INFO] Current project info
 23:23:38:674 [INFO] --------------------------------------
-23:23:38:674 [INFO] Project name: stalker-xrts-template
+23:23:38:674 [INFO] Project name: stalker-xrf-template
 23:23:38:674 [INFO] --------------------------------------
 23:23:38:674 [INFO] Game folder: F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat
 23:23:38:674 [INFO] Game exe: Stalker-COP.exe
 23:23:38:674 [INFO] --------------------------------------
-23:23:38:674 [INFO] Target build folder: F:\Documents\Projects\stalker-xrts-template\target\gamedata
-23:23:38:675 [INFO] Target build meta-info: F:\Documents\Projects\stalker-xrts-template\target\gamedata\metadata.json
+23:23:38:674 [INFO] Target build folder: F:\Documents\Projects\stalker-xrf-template\target\gamedata
+23:23:38:675 [INFO] Target build meta-info: F:\Documents\Projects\stalker-xrf-template\target\gamedata\metadata.json
 23:23:38:675 [INFO] --------------------------------------
 23:23:38:675 [INFO] Available scripts:
 23:23:38:675 [INFO] npm run info

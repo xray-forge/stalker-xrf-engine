@@ -1,4 +1,4 @@
-# [XRTS](../README.md) / [DOCS](./README.md)
+# [XRF](../README.md) / [DOCS](./README.md)
 
 ## 🏗️ Mod gamedata folder structure
 

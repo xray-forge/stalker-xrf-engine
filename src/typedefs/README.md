@@ -1,4 +1,4 @@
-# [XRTS](../) / SRC / TYPEDEFS
+# [XRF](../) / SRC / TYPEDEFS
 
 This folder contains global Lua definitions or XRay engine typings that are used across the mod. <br/>
 By defining Lua types, we can help ensure type safety in our TypeScript codebase.  <br/>

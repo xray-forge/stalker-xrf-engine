@@ -1,9 +1,9 @@
-# [XRTS](../README.md) / [DOCS](./README.md)
+# [XRF](../README.md) / [DOCS](./README.md)
 
 ## 🧰 Project structure
 
 - [cli](cli/README.md)
-  - [bin](https://github.com/stalker-xrts/stalker-xrts-bin) - submodule with binaries for development and testing
+  - [bin](https://github.com/xray-forge/stalker-xrf-bin) - submodule with binaries for development and testing
   - [build](cli/build/README.md)
   - [engine](cli/engine/README.md)
   - [info](cli/info/README.md)
@@ -22,8 +22,8 @@
     - [scripts](../src/engine/scripts/README.md)
     - [translations](../src/engine/translations/README.md)
     - [forms](../src/engine/forms/README.md)
-  - [resources](https://github.com/stalker-xrts/stalker-xrts-resources) - submodule with resources of the engine mod
+  - [resources](https://github.com/xray-forge/stalker-xrf-resources) - submodule with resources of the engine mod
   - [typedefs](src/typedefs/README.md)
     - [luaJIT](src/typedefs/luaJIT/README.md)
-    - [xray16](https://github.com/stalker-xrts/xray-16-types) - submodule with type definitions for xray engine
+    - [xray16](https://github.com/xray-forge/xray-16-types) - submodule with type definitions for xray engine
 - [target](target/README.md)

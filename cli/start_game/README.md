@@ -1,4 +1,4 @@
-# [XRTS](../../) / CLI / START_GAME
+# [XRF](../../) / CLI / START_GAME
 
 ### Description
 
@@ -13,7 +13,7 @@ Main goal is simple game testing after each rebuild / change.
 ### Example output
 
 ```text
-> stalker-xrts-template@1.0.0 start_game
+> stalker-xrf-template@1.0.0 start_game
 > ts-node -P ./cli/tsconfig.json cli/start_game/start_game.ts
 
 00:03:41:323 [START_GAME] Starting game

@@ -1,4 +1,4 @@
-# [XRTS](../../) / TARGET
+# [XRF](../../) / TARGET
 
 This folder contains built assets and details regarding build process. <br/>
 

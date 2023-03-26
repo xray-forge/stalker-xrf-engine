@@ -1,4 +1,4 @@
-# [XRTS](../../) / CLI / LOGS
+# [XRF](../../) / CLI / LOGS
 
 ### Description
 
@@ -18,7 +18,7 @@ List of arguments:
 ### Example output
 
 ```text
-> stalker-xrts-template@1.0.0 logs
+> stalker-xrf-template@1.0.0 logs
 > ts-node -P cli/tsconfig.json cli/logs/logs.ts
 
 15:23:14:820 [LOGS] Printing logs lines: 15
@@ -26,9 +26,9 @@ List of arguments:
 15:23:14:836 [LOGS] Checking logs in: F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\_appdata_\logs\openxray_neloreck.log
 15:23:14:848 [LOGS]
 
-[LUA]  [XRTS-DL][DebugDialog][INFO] Init
-[LUA]  [XRTS-DL][DebugDialog][INFO] Init controls
-[LUA]  [XRTS-DL][utils/rendering][INFO] Resolving XML form file: debug\DebugDialog.component false
+[LUA]  [XRF-DL][DebugDialog][INFO] Init
+[LUA]  [XRF-DL][DebugDialog][INFO] Init controls
+[LUA]  [XRF-DL][utils/rendering][INFO] Resolving XML form file: debug\DebugDialog.component false
 
 FATAL ERROR
 

@@ -1,4 +1,4 @@
-# [XRTS](../../) / CLI / ENGINE
+# [XRF](../../) / CLI / ENGINE
 
 ### Description
 
@@ -33,7 +33,7 @@ List of arguments:
 ### Example output
 
 ```text
-> stalker-xrts-template@1.0.0 engine
+> stalker-xrf-template@1.0.0 engine
 > ts-node -P ./cli/tsconfig.json cli/engine/engine.ts list
 
 23:26:15:030 [ENGINE] Running manage script: list
@@ -43,25 +43,25 @@ List of arguments:
 ```
 
 ```text
-> stalker-xrts-template@1.0.0 engine
+> stalker-xrf-template@1.0.0 engine
 > ts-node -P ./cli/tsconfig.json cli/engine/engine.ts use gold
 
 23:26:40:245 [ENGINE] Running manage script: use
 23:26:40:257 [ENGINE] Switching engine
 23:26:40:259 [ENGINE] Switching to: gold
-23:26:40:259 [ENGINE] Linking: F:\Documents\Projects\stalker-xrts-template\cli\bin\engines\gold\bin -> F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\bin
+23:26:40:259 [ENGINE] Linking: F:\Documents\Projects\stalker-xrf-template\cli\bin\engines\gold\bin -> F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\bin
 23:26:40:259 [ENGINE] Unlinked engine detected
-23:26:40:260 [ENGINE] Created backup at: F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\bin_xrts_backup
-23:26:40:260 [ENGINE] Linked engines: F:\Documents\Projects\stalker-xrts-template\cli\bin\engines\gold\bin -> F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\bin
+23:26:40:260 [ENGINE] Created backup at: F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\bin_xrf_backup
+23:26:40:260 [ENGINE] Linked engines: F:\Documents\Projects\stalker-xrf-template\cli\bin\engines\gold\bin -> F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\bin
 ```
 
 ```text
-> stalker-xrts-template@1.0.0 engine
+> stalker-xrf-template@1.0.0 engine
 > ts-node -P ./cli/tsconfig.json cli/engine/engine.ts info
 
 23:38:53:219 [ENGINE] Running manage script: info
 23:38:53:231 [ENGINE] Getting engine info
-23:38:53:233 [ENGINE] Backup version of engine exists: F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\bin_xrts_backup
+23:38:53:233 [ENGINE] Backup version of engine exists: F:\Applications\Steam\steamapps\common\Stalker Call of Pripyat\bin_xrf_backup
 23:38:53:234 [ENGINE] Linked X-Ray engine detected
 23:38:53:234 [ENGINE] Linked X-Ray variant: release
 23:38:53:234 [ENGINE] Linked X-Ray version: 1.6.0.2

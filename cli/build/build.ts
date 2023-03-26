@@ -34,8 +34,8 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
   NodeLogger.IS_VERBOSE = parameters[BUILD_ARGS.VERBOSE];
 
   try {
-    log.info("XRTS build:", chalk.green(pkg?.name), chalk.blue(new Date().toLocaleString()));
-    log.debug("XRTS params:", JSON.stringify(parameters));
+    log.info("XRF build:", chalk.green(pkg?.name), chalk.blue(new Date().toLocaleString()));
+    log.debug("XRF params:", JSON.stringify(parameters));
 
     /**
      * Verify parameters integrity.

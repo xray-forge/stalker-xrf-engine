@@ -1,8 +1,8 @@
 {
-  "name": "stalker-xrts-template",
+  "name": "stalker-xrf-template",
   "version": "1.0.0",
   "author": "Neloreck",
-  "repository": "https://github.com/stalker-xrts/stalker-xrts-template",
+  "repository": "https://github.com/xray-forge/stalker-xrs-template",
   "private": true,
   "scripts": {
     "setup": "git submodule init && git submodule update --recursive",

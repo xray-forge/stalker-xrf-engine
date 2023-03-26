@@ -1,8 +1,8 @@
-# [XRTS](../README.md) / [DOCS](./README.md)
+# [XRF](../README.md) / [DOCS](./README.md)
 
 ## 🧰 Main todos
 
-- Create xrts.ltx config and place configs in it
+- Create xrf.ltx config and place configs in it
 - Scripts to unpack raw_gamedata for observation / usage
 - Rework acdc perl script and add all.spawn editing utils
 - Add scripts to handle xrEngine tools
