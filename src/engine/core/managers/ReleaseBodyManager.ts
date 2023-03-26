@@ -13,16 +13,19 @@ import {
 } from "xray16";
 
 import {
+  closeLoadMarker,
+  closeSaveMarker,
   DEATH_GENERIC_LTX,
   DUMMY_LTX,
   getStoryIdByObjectId,
   IRegistryObjectState,
+  openSaveMarker,
   registry,
 } from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";
@@ -217,7 +220,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, ReleaseBodyManager.name);
+    openSaveMarker(packet, ReleaseBodyManager.name);
 
     const count: TCount = this.releaseObjectRegistry.length();
 
@@ -231,14 +234,14 @@ export class ReleaseBodyManager extends AbstractCoreManager {
 
     packet.w_u16(levelId);
 
-    setSaveMarker(packet, true, ReleaseBodyManager.name);
+    closeSaveMarker(packet, ReleaseBodyManager.name);
   }
 
   /**
    * todo: Description.
    */
   public override load(reader: XR_reader): void {
-    setLoadMarker(reader, false, ReleaseBodyManager.name);
+    openLoadMarker(reader, ReleaseBodyManager.name);
 
     const count: TCount = reader.r_u16();
 
@@ -257,6 +260,6 @@ export class ReleaseBodyManager extends AbstractCoreManager {
       this.releaseObjectRegistry = new LuaTable();
     }
 
-    setLoadMarker(reader, true, ReleaseBodyManager.name);
+    closeLoadMarker(reader, ReleaseBodyManager.name);
   }
 }

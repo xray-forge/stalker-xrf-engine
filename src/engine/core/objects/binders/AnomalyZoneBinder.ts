@@ -13,11 +13,19 @@ import {
   XR_reader,
 } from "xray16";
 
-import { registerAnomaly, registry, resetObject, unregisterAnomaly } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  openSaveMarker,
+  registerAnomaly,
+  registry,
+  resetObject,
+  unregisterAnomaly,
+} from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { FIELDS_BY_NAME } from "@/engine/core/objects/binders/AnomalyFieldBinder";
 import { abort } from "@/engine/core/utils/assertion";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -591,7 +599,7 @@ export class AnomalyZoneBinder extends object_binder {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, AnomalyZoneBinder.__name);
+    openSaveMarker(packet, AnomalyZoneBinder.__name);
     super.save(packet);
 
     let count: number = 0;
@@ -655,14 +663,14 @@ export class AnomalyZoneBinder extends object_binder {
 
     packet.w_bool(this.isTurnedOff);
 
-    setSaveMarker(packet, true, AnomalyZoneBinder.__name);
+    closeSaveMarker(packet, AnomalyZoneBinder.__name);
   }
 
   /**
    * todo: Description.
    */
   public override load(reader: XR_reader): void {
-    setLoadMarker(reader, false, AnomalyZoneBinder.__name);
+    openLoadMarker(reader, AnomalyZoneBinder.__name);
 
     super.load(reader);
 
@@ -702,7 +710,7 @@ export class AnomalyZoneBinder extends object_binder {
 
     this.isTurnedOff = reader.r_bool();
 
-    setLoadMarker(reader, true, AnomalyZoneBinder.__name);
+    closeLoadMarker(reader, AnomalyZoneBinder.__name);
   }
 
   /**

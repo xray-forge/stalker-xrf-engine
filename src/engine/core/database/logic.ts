@@ -1,9 +1,17 @@
 import { time_global, TXR_net_processor, XR_CTime, XR_game_object, XR_net_packet } from "xray16";
 
-import { IRegistryObjectState, loadPortableStore, registry, savePortableStore } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  IRegistryObjectState,
+  loadPortableStore,
+  openSaveMarker,
+  registry,
+  savePortableStore,
+} from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TName, TNumberId, TPath, TSection, TTimestamp } from "@/engine/lib/types";
@@ -49,7 +57,7 @@ export function saveObjectLogic(object: XR_game_object, packet: XR_net_packet): 
   const objectId: TNumberId = object.id();
   const state: IRegistryObjectState = registry.objects.get(objectId);
 
-  setSaveMarker(packet, false, "object" + object.name());
+  openSaveMarker(packet, "object" + object.name());
 
   packet.w_stringZ(state.job_ini ? state.job_ini : "");
   packet.w_stringZ(state.ini_filename ? state.ini_filename : "");
@@ -64,7 +72,7 @@ export function saveObjectLogic(object: XR_game_object, packet: XR_net_packet): 
   }
 
   savePortableStore(object, packet);
-  setSaveMarker(packet, true, "object" + object.name());
+  closeSaveMarker(packet, "object" + object.name());
 }
 
 /**
@@ -76,7 +84,7 @@ export function loadObjectLogic(object: XR_game_object, reader: TXR_net_processo
   const objectId: TNumberId = object.id();
   const state: IRegistryObjectState = registry.objects.get(objectId);
 
-  setLoadMarker(reader, false, "object" + object.name());
+  openLoadMarker(reader, "object" + object.name());
 
   const jobIni: Optional<TPath> = reader.r_stringZ();
   const iniFilename: Optional<TName> = reader.r_stringZ();
@@ -93,5 +101,5 @@ export function loadObjectLogic(object: XR_game_object, reader: TXR_net_processo
   loadSchemeActivationDetails(object, reader);
   loadPortableStore(object, reader);
 
-  setLoadMarker(reader, true, "object" + object.name());
+  closeLoadMarker(reader, "object" + object.name());
 }

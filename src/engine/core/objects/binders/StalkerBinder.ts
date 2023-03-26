@@ -27,9 +27,12 @@ import {
 } from "xray16";
 
 import {
+  closeLoadMarker,
+  closeSaveMarker,
   DUMMY_LTX,
   getStoryIdByObjectId,
   IRegistryObjectState,
+  openSaveMarker,
   registerHelicopterEnemy,
   registerObject,
   registry,
@@ -38,6 +41,7 @@ import {
   unregisterObject,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { DialogManager } from "@/engine/core/managers/DialogManager";
 import { DropManager } from "@/engine/core/managers/DropManager";
@@ -65,7 +69,6 @@ import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTask";
 import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -585,7 +588,7 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, StalkerBinder.__name);
+    openSaveMarker(packet, StalkerBinder.__name);
 
     super.save(packet);
     saveObjectLogic(this.object, packet);
@@ -593,7 +596,7 @@ export class StalkerBinder extends object_binder {
     GlobalSoundManager.getInstance().saveObject(packet, this.object);
     DialogManager.getInstance().saveObjectDialogs(packet, this.object);
 
-    setSaveMarker(packet, true, StalkerBinder.__name);
+    closeSaveMarker(packet, StalkerBinder.__name);
   }
 
   /**
@@ -602,7 +605,7 @@ export class StalkerBinder extends object_binder {
   public override load(reader: XR_reader): void {
     this.isLoaded = true;
 
-    setLoadMarker(reader, false, StalkerBinder.__name);
+    openLoadMarker(reader, StalkerBinder.__name);
 
     super.load(reader);
     loadObjectLogic(this.object, reader);
@@ -610,7 +613,7 @@ export class StalkerBinder extends object_binder {
     GlobalSoundManager.getInstance().loadObject(reader, this.object);
     DialogManager.getInstance().loadObjectDialogs(reader, this.object);
 
-    setLoadMarker(reader, true, StalkerBinder.__name);
+    closeLoadMarker(reader, StalkerBinder.__name);
   }
 
   /**

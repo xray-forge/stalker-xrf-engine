@@ -9,6 +9,7 @@ import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
 import { mockGameInterface } from "@/fixtures/xray/mocks/gameInterface.mock";
 import { mockSystemIni } from "@/fixtures/xray/mocks/ini.mock";
 import { IniFile } from "@/fixtures/xray/mocks/IniFile.mock";
+import { mocksConfig } from "@/fixtures/xray/mocks/MocksConfig";
 import {
   MockAlifeCreatureActor,
   MockAlifeHangingLamp,
@@ -62,6 +63,7 @@ export function mockXRay16({
   CUIListBoxItemMsgChain = MockCUIListBoxItemMsgChain,
   CUIScriptWnd = MockCUIScriptWnd,
   CUIWindow = MockCUIWindow,
+  IsImportantSave = jest.fn(() => mocksConfig.isAutoSavingEnabled),
   action_base = MockActionBase,
   anim = MockAnim,
   cse_alife_creature_actor = MockAlifeCreatureActor,
@@ -108,6 +110,7 @@ export function mockXRay16({
   property_evaluator = MockPropertyEvaluator,
   stalker_ids = mockStalkerIds,
   system_ini = mockSystemIni,
+  user_name = jest.fn(() => "os_user_name"),
   vector = MockVector,
 } = {}): void {
   jest.mock("xray16", () => ({
@@ -117,6 +120,7 @@ export function mockXRay16({
     CUIListBoxItemMsgChain,
     CUIScriptWnd,
     CUIWindow,
+    IsImportantSave,
     LuabindClass: () => {},
     action_base,
     anim,
@@ -164,6 +168,7 @@ export function mockXRay16({
     property_evaluator,
     stalker_ids,
     system_ini,
+    user_name,
     vector,
   }));
 }

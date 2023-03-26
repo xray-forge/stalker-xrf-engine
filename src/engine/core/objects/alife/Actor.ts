@@ -11,18 +11,21 @@ import {
 } from "xray16";
 
 import {
+  closeLoadMarker,
+  closeSaveMarker,
+  openSaveMarker,
   registerStoryLink,
   registry,
   softResetOfflineObject,
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { registerSimulationObject, unregisterSimulationObject } from "@/engine/core/database/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { nearest_to_actor_smart, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
 import { simulationActivities } from "@/engine/core/objects/alife/squad/simulation_activities";
 import { Squad } from "@/engine/core/objects/alife/squad/Squad";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
@@ -73,9 +76,9 @@ export class Actor extends cse_alife_creature_actor {
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
-    setSaveMarker(packet, false, Actor.__name);
+    openSaveMarker(packet, Actor.__name);
     this.simulationBoardManager.save(packet);
-    setSaveMarker(packet, true, Actor.__name);
+    closeSaveMarker(packet, Actor.__name);
   }
 
   /**
@@ -85,9 +88,9 @@ export class Actor extends cse_alife_creature_actor {
     super.STATE_Read(packet, size);
 
     if (registry.actor === null) {
-      setLoadMarker(packet, false, Actor.__name);
+      openLoadMarker(packet, Actor.__name);
       this.simulationBoardManager.load(packet);
-      setLoadMarker(packet, true, Actor.__name);
+      closeLoadMarker(packet, Actor.__name);
     }
   }
 

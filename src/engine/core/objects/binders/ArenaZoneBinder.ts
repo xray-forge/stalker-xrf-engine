@@ -11,25 +11,26 @@ import {
   XR_reader,
 } from "xray16";
 
-import { registry } from "@/engine/core/database";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
+import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
+import { TNumberId } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 // todo: Move to db.
+// todo: Move to db.
+// todo: Move to db.
 const arena_zones: LuaTable<string, ArenaZoneBinder> = new LuaTable();
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
 export class ArenaZoneBinder extends object_binder {
-  public saved_obj: LuaTable<number, boolean> = new LuaTable();
+  public savedObjects: LuaTable<TNumberId, boolean> = new LuaTable();
 
-  /**
-   * todo: Description.
-   */
   public constructor(object: XR_game_object) {
     super(object);
     arena_zones.set(object.name(), this);
@@ -65,7 +66,7 @@ export class ArenaZoneBinder extends object_binder {
   public purge_items(): void {
     const sim: XR_alife_simulator = alife();
 
-    for (const [k, v] of this.saved_obj) {
+    for (const [k, v] of this.savedObjects) {
       const obj = sim.object(k);
 
       sim.release(obj, true);
@@ -78,15 +79,15 @@ export class ArenaZoneBinder extends object_binder {
   public override save(packet: XR_net_packet): void {
     super.save(packet);
 
-    setSaveMarker(packet, false, ArenaZoneBinder.__name);
+    openSaveMarker(packet, ArenaZoneBinder.__name);
 
-    packet.w_u8(getTableSize(this.saved_obj));
+    packet.w_u8(getTableSize(this.savedObjects));
 
-    for (const [k, v] of this.saved_obj) {
+    for (const [k, v] of this.savedObjects) {
       packet.w_u16(k);
     }
 
-    setSaveMarker(packet, true, ArenaZoneBinder.__name);
+    closeSaveMarker(packet, ArenaZoneBinder.__name);
   }
 
   /**
@@ -95,15 +96,15 @@ export class ArenaZoneBinder extends object_binder {
   public override load(reader: XR_reader): void {
     super.load(reader);
 
-    setLoadMarker(reader, false, ArenaZoneBinder.__name);
+    openLoadMarker(reader, ArenaZoneBinder.__name);
 
     const num = reader.r_u8();
 
     for (const i of $range(1, num)) {
-      this.saved_obj.set(reader.r_u16(), true);
+      this.savedObjects.set(reader.r_u16(), true);
     }
 
-    setLoadMarker(reader, false, ArenaZoneBinder.__name);
+    closeLoadMarker(reader, ArenaZoneBinder.__name);
   }
 
   /**
@@ -119,7 +120,7 @@ export class ArenaZoneBinder extends object_binder {
       return;
     }
 
-    this.saved_obj.set(object.id(), true);
+    this.savedObjects.set(object.id(), true);
   }
 
   /**
@@ -135,6 +136,6 @@ export class ArenaZoneBinder extends object_binder {
       return;
     }
 
-    this.saved_obj.delete(object.id());
+    this.savedObjects.delete(object.id());
   }
 }

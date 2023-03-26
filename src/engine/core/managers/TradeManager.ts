@@ -1,22 +1,14 @@
-import {
-  ini_file,
-  time_global,
-  TXR_net_processor,
-  XR_game_object,
-  XR_ini_file,
-  XR_net_packet,
-  XR_reader,
-} from "xray16";
+import { ini_file, time_global, TXR_net_processor, XR_game_object, XR_ini_file, XR_net_packet } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { abort } from "@/engine/core/utils/assertion";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
-import { Optional, TNumberId, TSection, TTimestamp } from "@/engine/lib/types";
+import { Optional, TDuration, TNumberId, TSection, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -39,8 +31,8 @@ export interface ITradeManagerDescriptor {
  * todo;
  */
 export class TradeManager extends AbstractCoreManager {
-  public static readonly TRADE_UPDATE_PERIOD: number = 3_600_000;
-  public static readonly TRADE_RESUPPLY_PERIOD: number = 24 * 3_600_000;
+  public static readonly TRADE_UPDATE_PERIOD: TDuration = 3_600_000;
+  public static readonly TRADE_RESUPPLY_PERIOD: TDuration = 24 * 3_600_000;
 
   /**
    * todo
@@ -186,7 +178,7 @@ export class TradeManager extends AbstractCoreManager {
   public saveObjectState(object: XR_game_object, packet: XR_net_packet): void {
     const tradeDescriptor: ITradeManagerDescriptor = registry.trade.get(object.id());
 
-    setSaveMarker(packet, false, TradeManager.name);
+    openSaveMarker(packet, TradeManager.name);
 
     if (tradeDescriptor === null) {
       packet.w_bool(false);
@@ -230,14 +222,14 @@ export class TradeManager extends AbstractCoreManager {
       packet.w_s32(tradeDescriptor.resuply_time - cur_tm);
     }
 
-    setSaveMarker(packet, true, TradeManager.name);
+    closeSaveMarker(packet, TradeManager.name);
   }
 
   /**
    * todo: Description.
    */
   public loadObjectState(reader: TXR_net_processor, object: XR_game_object): void {
-    setLoadMarker(reader, false, TradeManager.name);
+    openLoadMarker(reader, TradeManager.name);
 
     const hasTrade = reader.r_bool();
 
@@ -286,6 +278,6 @@ export class TradeManager extends AbstractCoreManager {
       tt.resuply_time = cur_tm + resuplyTime;
     }
 
-    setLoadMarker(reader, true, TradeManager.name);
+    closeLoadMarker(reader, TradeManager.name);
   }
 }

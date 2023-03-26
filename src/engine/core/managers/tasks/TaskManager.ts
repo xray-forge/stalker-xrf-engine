@@ -1,12 +1,12 @@
 import { XR_CGameTask, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
 
-import { TASK_MANAGER_LTX } from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, openSaveMarker, TASK_MANAGER_LTX } from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { ETaskState } from "@/engine/core/managers/tasks/ETaskState";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { abort } from "@/engine/core/utils/assertion";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
 import { Optional, TCount, TStringId } from "@/engine/lib/types";
@@ -87,7 +87,7 @@ export class TaskManager extends AbstractCoreManager {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, TaskManager.name);
+    openSaveMarker(packet, TaskManager.name);
 
     const count: TCount = getTableSize(this.taskInfo);
 
@@ -98,14 +98,14 @@ export class TaskManager extends AbstractCoreManager {
       this.taskInfo.get(k).save(packet);
     }
 
-    setSaveMarker(packet, true, TaskManager.name);
+    closeSaveMarker(packet, TaskManager.name);
   }
 
   /**
    * todo: Description.
    */
   public override load(reader: XR_reader): void {
-    setLoadMarker(reader, false, TaskManager.name);
+    openLoadMarker(reader, TaskManager.name);
 
     const count: TCount = reader.r_u16();
 
@@ -117,6 +117,6 @@ export class TaskManager extends AbstractCoreManager {
       this.taskInfo.set(id, object);
     }
 
-    setLoadMarker(reader, true, TaskManager.name);
+    closeLoadMarker(reader, TaskManager.name);
   }
 }

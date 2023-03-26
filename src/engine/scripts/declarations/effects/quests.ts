@@ -25,7 +25,7 @@ import { showFreeplayDialog } from "@/engine/core/ui/game/FreeplayDialog";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
-import { createScenarioAutoSave } from "@/engine/core/utils/game_save";
+import { createAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions";
@@ -124,7 +124,7 @@ extern("xr_effects.pas_b400_switcher", (actor: XR_game_object, npc: XR_game_obje
  */
 extern("xr_effects.jup_b209_place_scanner", (actor: XR_game_object, npc: XR_game_object): void => {
   if (isActorInZoneWithName(zones.jup_b209_hypotheses)) {
-    createScenarioAutoSave(captions.st_save_jup_b209_placed_mutant_scanner);
+    createAutoSave(captions.st_save_jup_b209_placed_mutant_scanner);
     giveInfo(info_portions.jup_b209_scanner_placed);
     remove_item(actor, npc, ["jup_b209_monster_scanner"]);
     spawn_object(actor, null, ["jup_b209_ph_scanner", "jup_b209_scanner_place_point", null, null]);

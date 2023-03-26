@@ -8,9 +8,9 @@ import {
   XR_reader,
 } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional } from "@/engine/lib/types";
@@ -22,6 +22,9 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class CampBinder extends object_binder {
+  /**
+   * todo;
+   */
   public override reinit(): void {
     super.reinit();
 
@@ -33,6 +36,9 @@ export class CampBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -54,6 +60,9 @@ export class CampBinder extends object_binder {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override net_destroy(): void {
     logger.info("Net destroy camp:", this.object.id());
 
@@ -61,6 +70,9 @@ export class CampBinder extends object_binder {
     super.net_destroy();
   }
 
+  /**
+   * todo;
+   */
   public override update(delta: number): void {
     const camp = registry.camps.stories.get(this.object.id());
 
@@ -69,19 +81,28 @@ export class CampBinder extends object_binder {
     }
   }
 
+  /**
+   * todo;
+   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
+  /**
+   * todo;
+   */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, CampBinder.__name);
+    openSaveMarker(packet, CampBinder.__name);
     super.save(packet);
-    setSaveMarker(packet, true, CampBinder.__name);
+    closeSaveMarker(packet, CampBinder.__name);
   }
 
+  /**
+   * todo;
+   */
   public override load(reader: XR_reader): void {
-    setLoadMarker(reader, false, CampBinder.__name);
+    openLoadMarker(reader, CampBinder.__name);
     super.load(reader);
-    setLoadMarker(reader, true, CampBinder.__name);
+    closeLoadMarker(reader, CampBinder.__name);
   }
 }

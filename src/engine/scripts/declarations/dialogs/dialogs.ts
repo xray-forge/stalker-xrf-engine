@@ -14,7 +14,7 @@ import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { getExtern } from "@/engine/core/utils/binding";
 import { isObjectWounded, isStalkerAlive } from "@/engine/core/utils/check/check";
 import { disableGameUi } from "@/engine/core/utils/control";
-import { createScenarioAutoSave } from "@/engine/core/utils/game_save";
+import { createAutoSave } from "@/engine/core/utils/game_save";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
@@ -795,63 +795,63 @@ export function actor_is_damn_healthy(first_speaker: XR_game_object, second_spea
  * todo;
  */
 export function leave_zone_save(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  createScenarioAutoSave(captions.st_save_uni_zone_to_reality);
+  createAutoSave(captions.st_save_uni_zone_to_reality);
 }
 
 /**
  * todo;
  */
 export function save_uni_travel_zat_to_jup(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  createScenarioAutoSave(captions.st_save_uni_travel_zat_to_jup);
+  createAutoSave(captions.st_save_uni_travel_zat_to_jup);
 }
 
 /**
  * todo;
  */
 export function save_uni_travel_zat_to_pri(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  createScenarioAutoSave(captions.st_save_uni_travel_zat_to_pri);
+  createAutoSave(captions.st_save_uni_travel_zat_to_pri);
 }
 
 /**
  * todo;
  */
 export function save_uni_travel_jup_to_zat(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  createScenarioAutoSave(captions.st_save_uni_travel_jup_to_zat);
+  createAutoSave(captions.st_save_uni_travel_jup_to_zat);
 }
 
 /**
  * todo;
  */
 export function save_uni_travel_jup_to_pri(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  createScenarioAutoSave(captions.st_save_uni_travel_jup_to_pri);
+  createAutoSave(captions.st_save_uni_travel_jup_to_pri);
 }
 
 /**
  * todo;
  */
 export function save_uni_travel_pri_to_zat(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  createScenarioAutoSave(captions.st_save_uni_travel_pri_to_zat);
+  createAutoSave(captions.st_save_uni_travel_pri_to_zat);
 }
 
 /**
  * todo;
  */
 export function save_uni_travel_pri_to_jup(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  createScenarioAutoSave(captions.st_save_uni_travel_pri_to_jup);
+  createAutoSave(captions.st_save_uni_travel_pri_to_jup);
 }
 
 /**
  * todo;
  */
 export function save_jup_b218_travel_jup_to_pas(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  createScenarioAutoSave(captions.st_save_jup_b218_travel_jup_to_pas);
+  createAutoSave(captions.st_save_jup_b218_travel_jup_to_pas);
 }
 
 /**
  * todo;
  */
 export function save_pri_a17_hospital_start(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  createScenarioAutoSave(captions.st_save_pri_a17_hospital_start);
+  createAutoSave(captions.st_save_pri_a17_hospital_start);
 }
 
 /**
@@ -859,7 +859,7 @@ export function save_pri_a17_hospital_start(first_speaker: XR_game_object, secon
  */
 export function save_jup_a10_gonna_return_debt(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   if (!hasAlifeInfo(info_portions.jup_a10_avtosave)) {
-    createScenarioAutoSave(captions.st_save_jup_a10_gonna_return_debt);
+    createAutoSave(captions.st_save_jup_a10_gonna_return_debt);
     giveInfo(info_portions.jup_a10_avtosave);
   }
 }
@@ -868,21 +868,21 @@ export function save_jup_a10_gonna_return_debt(first_speaker: XR_game_object, se
  * todo;
  */
 export function save_jup_b6_arrived_to_fen(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  createScenarioAutoSave(captions.st_save_jup_b6_arrived_to_fen);
+  createAutoSave(captions.st_save_jup_b6_arrived_to_fen);
 }
 
 /**
  * todo;
  */
 export function save_jup_b6_arrived_to_ash_heap(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  createScenarioAutoSave(captions.st_save_jup_b6_arrived_to_ash_heap);
+  createAutoSave(captions.st_save_jup_b6_arrived_to_ash_heap);
 }
 
 /**
  * todo;
  */
 export function save_jup_b19_arrived_to_kopachy(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  createScenarioAutoSave(captions.st_save_jup_b19_arrived_to_kopachy);
+  createAutoSave(captions.st_save_jup_b19_arrived_to_kopachy);
 }
 
 /**
@@ -892,7 +892,7 @@ export function save_zat_b106_arrived_to_chimera_lair(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): void {
-  createScenarioAutoSave(captions.st_save_zat_b106_arrived_to_chimera_lair);
+  createAutoSave(captions.st_save_zat_b106_arrived_to_chimera_lair);
 }
 
 /**

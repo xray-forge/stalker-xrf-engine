@@ -13,8 +13,9 @@ import {
   XR_reader,
 } from "xray16";
 
-import { registry, SURGE_MANAGER_LTX } from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SURGE_MANAGER_LTX } from "@/engine/core/database";
 import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
@@ -29,7 +30,7 @@ import { isImmuneToSurge, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/engin
 import { isStoryObject } from "@/engine/core/utils/check/is";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { disableGameUiOnly } from "@/engine/core/utils/control";
-import { createScenarioAutoSave, setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
+import { createAutoSave } from "@/engine/core/utils/game_save";
 import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -349,7 +350,7 @@ export class SurgeManager extends AbstractCoreManager {
         !hasAlifeInfo(info_portions.pri_b305_fifth_cam_end) ||
         hasAlifeInfo(info_portions.pri_a28_actor_in_zone_stay)
       ) {
-        createScenarioAutoSave(captions.st_save_uni_surge_start);
+        createAutoSave(captions.st_save_uni_surge_start);
       }
     }
   }
@@ -837,7 +838,8 @@ export class SurgeManager extends AbstractCoreManager {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, SurgeManager.name);
+    openSaveMarker(packet, SurgeManager.name);
+
     packet.w_bool(this.isFinished);
     packet.w_bool(this.isStarted);
     writeCTimeToPacket(packet, this.lastSurgeTime);
@@ -860,14 +862,15 @@ export class SurgeManager extends AbstractCoreManager {
     }
 
     packet.w_u32(this.nextScheduledSurgeDelay);
-    setSaveMarker(packet, true, SurgeManager.name);
+
+    closeSaveMarker(packet, SurgeManager.name);
   }
 
   /**
    * todo: Description.
    */
   public override load(reader: XR_reader): void {
-    setLoadMarker(reader, false, SurgeManager.name);
+    openLoadMarker(reader, SurgeManager.name);
 
     this.isFinished = reader.r_bool();
     this.isStarted = reader.r_bool();
@@ -892,6 +895,7 @@ export class SurgeManager extends AbstractCoreManager {
 
     this.nextScheduledSurgeDelay = reader.r_u32();
     this.isLoaded = true;
-    setLoadMarker(reader, true, SurgeManager.name);
+
+    closeLoadMarker(reader, SurgeManager.name);
   }
 }

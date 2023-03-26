@@ -22,15 +22,19 @@ import {
 } from "xray16";
 
 import {
+  closeLoadMarker,
+  closeSaveMarker,
   hardResetOfflineObject,
   IRegistryObjectState,
   loadDynamicLtx,
+  openSaveMarker,
   registerObjectStoryLinks,
   registry,
   SMART_TERRAIN_MASKS_LTX,
   softResetOfflineObject,
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import {
   registerSimulationObject,
   unregisterSimulationObject,
@@ -58,7 +62,6 @@ import { configureObjectSchemes } from "@/engine/core/schemes/base/utils/configu
 import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { abort } from "@/engine/core/utils/assertion";
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { getSchemeByIniSection, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -102,6 +105,8 @@ export const ALARM_TIMEOUT: TDuration = 21_600;
 export const DEATH_IDLE_TIME: TDuration = 10 * 60;
 export const RESPAWN_IDLE: TDuration = 1_000;
 
+// todo: Move to db.
+// todo: Move to db.
 // todo: Move to db.
 export const nearest_to_actor_smart = { id: null as Optional<number>, dist: math.huge };
 
@@ -856,7 +861,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
-    setSaveMarker(packet, false, SmartTerrain.__name);
+    openSaveMarker(packet, SmartTerrain.__name);
 
     packet.w_u8(getTableSize(this.arrivingObjects));
 
@@ -913,7 +918,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     packet.w_u8(this.population);
 
-    setSaveMarker(packet, true, SmartTerrain.__name);
+    closeSaveMarker(packet, SmartTerrain.__name);
   }
 
   /**
@@ -926,7 +931,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
       return;
     }
 
-    setLoadMarker(packet, false, SmartTerrain.__name);
+    openLoadMarker(packet, SmartTerrain.__name);
     this.read_params();
 
     let count: TCount = packet.r_u8();
@@ -1007,7 +1012,8 @@ export class SmartTerrain extends cse_alife_smart_zone {
     }
 
     this.population = packet.r_u8();
-    setLoadMarker(packet, true, SmartTerrain.__name);
+
+    closeLoadMarker(packet, SmartTerrain.__name);
   }
 
   /**

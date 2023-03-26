@@ -11,10 +11,17 @@ import {
   XR_vector,
 } from "xray16";
 
-import { getIdBySid, IRegistryObjectState, registry } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  getIdBySid,
+  IRegistryObjectState,
+  openSaveMarker,
+  registry,
+} from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { get_heli_health } from "@/engine/core/schemes/heli_move/heli_utils";
 import { isLevelChanging } from "@/engine/core/utils/check/check";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { randomChoice } from "@/engine/core/utils/general";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
@@ -221,11 +228,11 @@ export class HeliCombat {
   }
 
   public save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, HeliCombat.name);
+    openSaveMarker(packet, HeliCombat.name);
 
     if (isLevelChanging()) {
       packet.w_bool(false);
-      setSaveMarker(packet, true, HeliCombat.name);
+      closeSaveMarker(packet, HeliCombat.name);
 
       return;
     }
@@ -253,11 +260,11 @@ export class HeliCombat {
       }
     }
 
-    setSaveMarker(packet, true, HeliCombat.name);
+    closeSaveMarker(packet, HeliCombat.name);
   }
 
   public load(reader: XR_reader): void {
-    setLoadMarker(reader, false, HeliCombat.name);
+    openLoadMarker(reader, HeliCombat.name);
 
     this.initialized = reader.r_bool();
 
@@ -285,7 +292,7 @@ export class HeliCombat {
       }
     }
 
-    setLoadMarker(reader, true, HeliCombat.name);
+    closeLoadMarker(reader, HeliCombat.name);
   }
 
   public waypoint_callback(): boolean {

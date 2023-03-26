@@ -11,26 +11,30 @@ import {
   XR_reader,
 } from "xray16";
 
-import { registerObject, registry, resetObject, unregisterObject } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  openSaveMarker,
+  registerObject,
+  registry,
+  resetObject,
+  unregisterObject,
+} from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TDuration, TNumberId } from "@/engine/lib/types";
+import { TDuration, TNumberId, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const CROW_DISPOSAL_TIMEOUT: number = 120_000;
+const CROW_DISPOSAL_TIMEOUT: TDuration = 120_000;
 
 /**
  * todo;
  */
 @LuabindClass()
 export class CrowBinder extends object_binder {
-  public bodyDisposalTimer: number = 0;
-
-  public constructor(object: XR_game_object) {
-    super(object);
-  }
+  public bodyDisposalTimer: TTimestamp = 0;
 
   /**
    * todo: Description.
@@ -121,24 +125,24 @@ export class CrowBinder extends object_binder {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, CrowBinder.__name);
+    openSaveMarker(packet, CrowBinder.__name);
 
     super.save(packet);
     saveObjectLogic(this.object, packet);
     packet.w_u32(this.bodyDisposalTimer);
 
-    setSaveMarker(packet, true, CrowBinder.__name);
+    closeSaveMarker(packet, CrowBinder.__name);
   }
 
   /**
    * todo: Description.
    */
   public override load(reader: XR_reader): void {
-    setLoadMarker(reader, false, CrowBinder.__name);
+    openLoadMarker(reader, CrowBinder.__name);
     super.load(reader);
     loadObjectLogic(this.object, reader);
 
     this.bodyDisposalTimer = reader.r_u32();
-    setLoadMarker(reader, true, CrowBinder.__name);
+    closeLoadMarker(reader, CrowBinder.__name);
   }
 }

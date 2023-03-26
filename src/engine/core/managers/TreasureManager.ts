@@ -9,12 +9,12 @@ import {
   XR_reader,
 } from "xray16";
 
-import { registry, SECRETS_LTX } from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SECRETS_LTX } from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { abort } from "@/engine/core/utils/assertion";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseSpawnDetails, TConditionList } from "@/engine/core/utils/parse";
@@ -67,7 +67,7 @@ export class TreasureManager extends AbstractCoreManager {
    * todo: Description.
    */
   public override initialize(): void {
-    const totalSecretsCount: number = SECRETS_LTX.line_count("list");
+    const totalSecretsCount: TCount = SECRETS_LTX.line_count("list");
 
     logger.info("Initialize secrets, expected:", totalSecretsCount);
 
@@ -367,7 +367,7 @@ export class TreasureManager extends AbstractCoreManager {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, TreasureManager.name);
+    openSaveMarker(packet, TreasureManager.name);
 
     packet.w_bool(this.items_spawned);
 
@@ -404,14 +404,14 @@ export class TreasureManager extends AbstractCoreManager {
       packet.w_u8(v.to_find);
     }
 
-    setSaveMarker(packet, true, TreasureManager.name);
+    closeSaveMarker(packet, TreasureManager.name);
   }
 
   /**
    * todo: Description.
    */
   public override load(reader: XR_reader): void {
-    setLoadMarker(reader, false, TreasureManager.name);
+    openLoadMarker(reader, TreasureManager.name);
 
     this.items_spawned = reader.r_bool();
     this.items_from_secrets = new LuaTable();
@@ -425,7 +425,7 @@ export class TreasureManager extends AbstractCoreManager {
       this.items_from_secrets.set(k, v);
     }
 
-    const secretsCount: number = reader.r_u16();
+    const secretsCount: TCount = reader.r_u16();
 
     for (const it of $range(1, secretsCount)) {
       let id: number | string = reader.r_u16();
@@ -450,6 +450,6 @@ export class TreasureManager extends AbstractCoreManager {
       }
     }
 
-    setLoadMarker(reader, true, TreasureManager.name);
+    closeLoadMarker(reader, TreasureManager.name);
   }
 }

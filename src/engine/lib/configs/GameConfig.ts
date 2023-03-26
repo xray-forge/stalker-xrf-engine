@@ -43,7 +43,11 @@ export const gameConfig = {
     BASE_HEIGHT: 768,
   },
   /**
-   * Whether game intros are enabled.
+   * Game save file extension by default.
    */
   GAME_SAVE_EXTENSION: ".scop",
+  /**
+   * Game save preview file extension by default.
+   */
+  GAME_SAVE_PREVIEW_EXTENSION: ".dds",
 };

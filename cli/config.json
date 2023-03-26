@@ -2,9 +2,9 @@
   "locale": "ukr",
   "available_locales": ["ukr", "eng", "pol", "rus"],
   "resources": {
-    "MOD_ASSETS_BASE_FOLDER": "..\\src\\resources",
+    "MOD_ASSETS_BASE_FOLDER": "..\\src\\resources\\",
     "MOD_ASSETS_OVERRIDE_FOLDERS": [
-      "F:\\Documents\\Projects\\gamedata_resources"
+      "..\\..\\gamedata_resources"
     ]
   },
   "targets": {

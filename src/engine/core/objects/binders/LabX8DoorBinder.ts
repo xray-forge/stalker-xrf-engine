@@ -13,10 +13,10 @@ import {
   XR_sound_object,
 } from "xray16";
 
-import { registry, resetObject } from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, resetObject } from "@/engine/core/database";
 import { registerDoorObject, unregisterDoorObject } from "@/engine/core/database/doors";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -327,7 +327,7 @@ export class LabX8DoorBinder extends object_binder {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, LabX8DoorBinder.__name);
+    openSaveMarker(packet, LabX8DoorBinder.__name);
 
     super.save(packet);
     saveObjectLogic(this.object, packet);
@@ -335,14 +335,14 @@ export class LabX8DoorBinder extends object_binder {
     packet.w_bool(this.is_play_fwd);
     packet.w_float(this.object.get_physics_object().anim_time_get());
 
-    setSaveMarker(packet, true, LabX8DoorBinder.__name);
+    closeSaveMarker(packet, LabX8DoorBinder.__name);
   }
 
   /**
    * todo: Description.
    */
   public override load(reader: XR_reader): void {
-    setLoadMarker(reader, false, LabX8DoorBinder.__name);
+    openLoadMarker(reader, LabX8DoorBinder.__name);
 
     super.load(reader);
     loadObjectLogic(this.object, reader);
@@ -351,6 +351,6 @@ export class LabX8DoorBinder extends object_binder {
     this.anim_time = reader.r_float();
     this.loaded = true;
 
-    setLoadMarker(reader, true, LabX8DoorBinder.__name);
+    closeLoadMarker(reader, LabX8DoorBinder.__name);
   }
 }

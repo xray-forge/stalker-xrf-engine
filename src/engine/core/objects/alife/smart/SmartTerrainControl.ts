@@ -1,11 +1,11 @@
 import { game, TXR_net_processor, XR_CTime, XR_ini_file, XR_net_packet } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { isWeapon } from "@/engine/core/utils/check/is";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -40,9 +40,6 @@ export class SmartTerrainControl {
   public smart: SmartTerrain;
   public alarm_time: Optional<XR_CTime> = null;
 
-  /**
-   * todo: Description.
-   */
   public constructor(smart: SmartTerrain, ini: XR_ini_file, section: TSection) {
     this.noweap_zone = readIniString(ini, section, "noweap_zone", true, "");
     this.ignore_zone = readIniString(ini, section, "ignore_zone", false, "");
@@ -144,24 +141,24 @@ export class SmartTerrainControl {
    * todo: Description.
    */
   public save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, SmartTerrainControl.name);
+    openSaveMarker(packet, SmartTerrainControl.name);
 
     packet.w_u8(this.status);
     writeCTimeToPacket(packet, this.alarm_time);
 
-    setSaveMarker(packet, true, SmartTerrainControl.name);
+    closeSaveMarker(packet, SmartTerrainControl.name);
   }
 
   /**
    * todo: Description.
    */
   public load(reader: TXR_net_processor): void {
-    setLoadMarker(reader, false, SmartTerrainControl.name);
+    openLoadMarker(reader, SmartTerrainControl.name);
 
     this.status = reader.r_u8();
     this.alarm_time = readCTimeFromPacket(reader);
 
-    setLoadMarker(reader, true, SmartTerrainControl.name);
+    closeLoadMarker(reader, SmartTerrainControl.name);
   }
 }
 

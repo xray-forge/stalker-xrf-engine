@@ -13,14 +13,23 @@ import {
   XR_vector,
 } from "xray16";
 
-import { IRegistryObjectState, registerObject, registry, resetObject, unregisterObject } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  IRegistryObjectState,
+  openLoadMarker,
+  openSaveMarker,
+  registerObject,
+  registry,
+  resetObject,
+  unregisterObject,
+} from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { PhysicObjectItemBox } from "@/engine/core/objects/binders/PhysicObjectItemBox";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
 import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TConditionList } from "@/engine/core/utils/parse";
@@ -109,9 +118,9 @@ export class PhysicObjectBinder extends object_binder {
   public override save(packet: XR_net_packet): void {
     super.save(packet);
 
-    setSaveMarker(packet, false, PhysicObjectBinder.__name);
+    openSaveMarker(packet, PhysicObjectBinder.__name);
     saveObjectLogic(this.object, packet);
-    setSaveMarker(packet, true, PhysicObjectBinder.__name);
+    closeSaveMarker(packet, PhysicObjectBinder.__name);
   }
 
   /**
@@ -122,9 +131,9 @@ export class PhysicObjectBinder extends object_binder {
 
     super.load(reader);
 
-    setLoadMarker(reader, false, PhysicObjectBinder.__name);
+    openLoadMarker(reader, PhysicObjectBinder.__name);
     loadObjectLogic(this.object, reader);
-    setLoadMarker(reader, true, PhysicObjectBinder.__name);
+    closeLoadMarker(reader, PhysicObjectBinder.__name);
   }
 
   /**

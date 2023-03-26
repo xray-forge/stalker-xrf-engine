@@ -21,8 +21,18 @@ import {
   XR_vector,
 } from "xray16";
 
-import { IRegistryObjectState, registerObject, registry, resetObject, unregisterObject } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  IRegistryObjectState,
+  openSaveMarker,
+  registerObject,
+  registry,
+  resetObject,
+  unregisterObject,
+} from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { setupSmartJobsAndLogicOnSpawn, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
@@ -30,7 +40,6 @@ import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { emitSchemeEvent, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
@@ -183,12 +192,12 @@ export class MonsterBinder extends object_binder {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, MonsterBinder.__name);
+    openSaveMarker(packet, MonsterBinder.__name);
 
     super.save(packet);
     saveObjectLogic(this.object, packet);
 
-    setSaveMarker(packet, true, MonsterBinder.__name);
+    closeSaveMarker(packet, MonsterBinder.__name);
   }
 
   /**
@@ -197,12 +206,12 @@ export class MonsterBinder extends object_binder {
   public override load(reader: XR_reader): void {
     this.isLoaded = true;
 
-    setLoadMarker(reader, false, MonsterBinder.__name);
+    openLoadMarker(reader, MonsterBinder.__name);
 
     super.load(reader);
     loadObjectLogic(this.object, reader);
 
-    setLoadMarker(reader, true, MonsterBinder.__name);
+    closeLoadMarker(reader, MonsterBinder.__name);
   }
 
   /**

@@ -1,10 +1,10 @@
 import { level, TXR_net_processor, XR_CPhraseDialog, XR_CPhraseScript, XR_game_object, XR_net_packet } from "xray16";
 
-import { DIALOG_MANAGER_LTX, registry } from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, DIALOG_MANAGER_LTX, openSaveMarker, registry } from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { isObjectWounded } from "@/engine/core/utils/check/check";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
@@ -413,7 +413,7 @@ export class DialogManager extends AbstractCoreManager {
    * todo;
    */
   public saveObjectDialogs(packet: XR_net_packet, object: XR_game_object): void {
-    setSaveMarker(packet, false, DialogManager.name);
+    openSaveMarker(packet, DialogManager.name);
 
     const objectId: TNumberId = object.id();
 
@@ -423,14 +423,14 @@ export class DialogManager extends AbstractCoreManager {
     packet.w_bool(this.priority_table.get("place").get(objectId) !== null);
     packet.w_bool(this.priority_table.get("information").get(objectId) !== null);
 
-    setSaveMarker(packet, true, DialogManager.name);
+    closeSaveMarker(packet, DialogManager.name);
   }
 
   /**
    * todo;
    */
   public loadObjectDialogs(reader: TXR_net_processor, object: XR_game_object): void {
-    setLoadMarker(reader, false, DialogManager.name);
+    openLoadMarker(reader, DialogManager.name);
 
     reader.r_bool();
     reader.r_bool();
@@ -438,6 +438,6 @@ export class DialogManager extends AbstractCoreManager {
     reader.r_bool();
     reader.r_bool();
 
-    setLoadMarker(reader, true, DialogManager.name);
+    closeLoadMarker(reader, DialogManager.name);
   }
 }

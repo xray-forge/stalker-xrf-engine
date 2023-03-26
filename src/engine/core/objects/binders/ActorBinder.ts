@@ -20,9 +20,17 @@ import {
   XR_reader,
 } from "xray16";
 
-import { IRegistryObjectState, registry, resetObject } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  IRegistryObjectState,
+  openSaveMarker,
+  registry,
+  resetObject,
+} from "@/engine/core/database";
 import { registerActor, unregisterActor } from "@/engine/core/database/actor";
 import { loadPortableStore, savePortableStore } from "@/engine/core/database/portable_store";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { updateSimulationObjectAvailability } from "@/engine/core/database/simulation";
 import { AchievementsManager } from "@/engine/core/managers/achievements";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/ActorInventoryMenuManager";
@@ -52,7 +60,6 @@ import { SchemeNoWeapon } from "@/engine/core/schemes/sr_no_weapon";
 import { getExtern } from "@/engine/core/utils/binding";
 import { isArtefact } from "@/engine/core/utils/check/is";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
@@ -383,7 +390,7 @@ export class ActorBinder extends object_binder {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, ActorBinder.__name);
+    openSaveMarker(packet, ActorBinder.__name);
 
     super.save(packet);
 
@@ -435,14 +442,14 @@ export class ActorBinder extends object_binder {
 
     this.achievementsManager.save(packet);
 
-    setSaveMarker(packet, true, ActorBinder.__name);
+    closeSaveMarker(packet, ActorBinder.__name);
   }
 
   /**
    * todo: Description.
    */
   public override load(reader: XR_reader): void {
-    setLoadMarker(reader, false, ActorBinder.__name);
+    openLoadMarker(reader, ActorBinder.__name);
 
     super.load(reader);
 
@@ -489,6 +496,6 @@ export class ActorBinder extends object_binder {
 
     this.achievementsManager.load(reader);
 
-    setLoadMarker(reader, true, ActorBinder.__name);
+    closeLoadMarker(reader, ActorBinder.__name);
   }
 }

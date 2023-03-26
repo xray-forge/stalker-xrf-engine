@@ -17,13 +17,17 @@ import {
 } from "xray16";
 
 import {
+  closeLoadMarker,
+  closeSaveMarker,
   IRegistryObjectState,
+  openSaveMarker,
   registerHelicopter,
   registry,
   resetObject,
   unregisterHelicopter,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
@@ -31,7 +35,6 @@ import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/in
 import { get_heli_health } from "@/engine/core/schemes/heli_move/heli_utils";
 import { HeliCombat } from "@/engine/core/schemes/heli_move/HeliCombat";
 import { get_heli_firer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { getObjectClassId } from "@/engine/core/utils/id";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -160,12 +163,11 @@ export class HelicopterBinder extends object_binder {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
+    openSaveMarker(packet, HelicopterBinder.__name);
     super.save(packet);
-    setSaveMarker(packet, false, HelicopterBinder.__name);
-    // --printf( "heli_binder: save")
-
     saveObjectLogic(this.object, packet);
-    setSaveMarker(packet, true, HelicopterBinder.__name);
+    closeSaveMarker(packet, HelicopterBinder.__name);
+
     (this.state.combat as unknown as HeliCombat).save(packet);
   }
 
@@ -174,14 +176,12 @@ export class HelicopterBinder extends object_binder {
    */
   public override load(reader: XR_reader): void {
     this.loaded = true;
-    setLoadMarker(reader, false, HelicopterBinder.__name);
-    // --printf("generic_object_binder:load(): this.object:name()='%s'", this.object:name())
+
+    openLoadMarker(reader, HelicopterBinder.__name);
     super.load(reader);
-
-    // --printf( "heli_binder: load")
-
     loadObjectLogic(this.object, reader);
-    setLoadMarker(reader, true, HelicopterBinder.__name);
+    closeLoadMarker(reader, HelicopterBinder.__name);
+
     (this.state.combat as unknown as HeliCombat).load(reader);
   }
 

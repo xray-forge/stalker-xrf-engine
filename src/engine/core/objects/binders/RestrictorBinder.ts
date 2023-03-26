@@ -1,12 +1,21 @@
 import { LuabindClass, object_binder, XR_cse_alife_object, XR_net_packet, XR_reader } from "xray16";
 
-import { IRegistryObjectState, registerZone, registry, resetObject, unregisterZone } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  IRegistryObjectState,
+  openSaveMarker,
+  registerZone,
+  registry,
+  resetObject,
+  unregisterZone,
+} from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
 import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TDuration, TNumberId } from "@/engine/lib/types";
 import { ESchemeType, TSection } from "@/engine/lib/types/scheme";
@@ -113,12 +122,12 @@ export class RestrictorBinder extends object_binder {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, RestrictorBinder.__name);
+    openSaveMarker(packet, RestrictorBinder.__name);
 
     super.save(packet);
     saveObjectLogic(this.object, packet);
 
-    setSaveMarker(packet, true, RestrictorBinder.__name);
+    closeSaveMarker(packet, RestrictorBinder.__name);
   }
 
   /**
@@ -127,11 +136,11 @@ export class RestrictorBinder extends object_binder {
   public override load(reader: XR_reader): void {
     this.isLoaded = true;
 
-    setLoadMarker(reader, false, RestrictorBinder.__name);
+    openLoadMarker(reader, RestrictorBinder.__name);
 
     super.load(reader);
     loadObjectLogic(this.object, reader);
 
-    setLoadMarker(reader, true, RestrictorBinder.__name);
+    closeLoadMarker(reader, RestrictorBinder.__name);
   }
 }

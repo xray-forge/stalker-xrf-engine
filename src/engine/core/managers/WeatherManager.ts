@@ -1,9 +1,16 @@
 import { level, XR_net_packet, XR_reader } from "xray16";
 
-import { DYNAMIC_WEATHER_GRAPHS, GAME_LTX, registry } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  DYNAMIC_WEATHER_GRAPHS,
+  GAME_LTX,
+  openSaveMarker,
+  registry,
+} from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { abort } from "@/engine/core/utils/assertion";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -263,7 +270,7 @@ export class WeatherManager extends AbstractCoreManager {
    * todo: Description.
    */
   public override load(reader: XR_reader): void {
-    setLoadMarker(reader, false, WeatherManager.name);
+    openLoadMarker(reader, WeatherManager.name);
 
     const state_string = reader.r_stringZ();
 
@@ -277,14 +284,14 @@ export class WeatherManager extends AbstractCoreManager {
       this.wfx_time = reader.r_float();
     }
 
-    setLoadMarker(reader, true, WeatherManager.name);
+    closeLoadMarker(reader, WeatherManager.name);
   }
 
   /**
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, WeatherManager.name);
+    openSaveMarker(packet, WeatherManager.name);
 
     packet.w_stringZ(this.get_state_as_string());
     packet.w_u32(this.update_time);
@@ -294,6 +301,6 @@ export class WeatherManager extends AbstractCoreManager {
       packet.w_float(level.get_wfx_time());
     }
 
-    setSaveMarker(packet, true, WeatherManager.name);
+    closeSaveMarker(packet, WeatherManager.name);
   }
 }

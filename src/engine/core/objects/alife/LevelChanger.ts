@@ -1,9 +1,14 @@
-import { cse_alife_level_changer, editor, LuabindClass, XR_net_packet } from "xray16";
+import { cse_alife_level_changer, LuabindClass, XR_net_packet } from "xray16";
 
-import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/core/database";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  openSaveMarker,
+  registerObjectStoryLinks,
+  unregisterStoryLinkByObjectId,
+} from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -40,10 +45,10 @@ export class LevelChanger extends cse_alife_level_changer {
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
-    setSaveMarker(packet, false, LevelChanger.__name);
+    openSaveMarker(packet, LevelChanger.__name);
     packet.w_bool(this.enabled);
     packet.w_stringZ(this.hint);
-    setSaveMarker(packet, true, LevelChanger.__name);
+    closeSaveMarker(packet, LevelChanger.__name);
   }
 
   /**
@@ -52,9 +57,9 @@ export class LevelChanger extends cse_alife_level_changer {
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
-    setLoadMarker(packet, false, LevelChanger.__name);
+    openLoadMarker(packet, LevelChanger.__name);
     this.enabled = packet.r_bool();
     this.hint = packet.r_stringZ();
-    setLoadMarker(packet, true, LevelChanger.__name);
+    closeLoadMarker(packet, LevelChanger.__name);
   }
 }

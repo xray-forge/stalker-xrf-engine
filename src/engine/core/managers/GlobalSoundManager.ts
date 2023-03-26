@@ -1,6 +1,7 @@
 import { TXR_net_processor, XR_game_object, XR_net_packet, XR_reader, XR_sound_object } from "xray16";
 
-import { registry, SCRIPT_SOUND_LTX } from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SCRIPT_SOUND_LTX } from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
 import { ActorSound } from "@/engine/core/objects/sounds/playable_sounds/ActorSound";
@@ -9,7 +10,6 @@ import { NpcSound } from "@/engine/core/objects/sounds/playable_sounds/NpcSound"
 import { ObjectSound } from "@/engine/core/objects/sounds/playable_sounds/ObjectSound";
 import { EPlayableSound } from "@/engine/core/objects/sounds/types";
 import { abort, assert } from "@/engine/core/utils/assertion";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
@@ -246,7 +246,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, GlobalSoundManager.name + "Actor");
+    openSaveMarker(packet, GlobalSoundManager.name + "Actor");
 
     for (const [, playableTheme] of registry.sounds.themes) {
       playableTheme.save(packet);
@@ -270,14 +270,14 @@ export class GlobalSoundManager extends AbstractCoreManager {
       }
     }
 
-    setSaveMarker(packet, true, GlobalSoundManager.name + "Actor");
+    closeSaveMarker(packet, GlobalSoundManager.name + "Actor");
   }
 
   /**
    * todo: Description.
    */
   public override load(reader: TXR_net_processor): void {
-    setLoadMarker(reader, false, GlobalSoundManager.name + "Actor");
+    openLoadMarker(reader, GlobalSoundManager.name + "Actor");
 
     for (const [, theme] of registry.sounds.themes) {
       theme.load(reader);
@@ -312,32 +312,32 @@ export class GlobalSoundManager extends AbstractCoreManager {
       }
     }
 
-    setLoadMarker(reader, true, GlobalSoundManager.name + "Actor");
+    closeLoadMarker(reader, GlobalSoundManager.name + "Actor");
   }
 
   /**
    * todo: Description.
    */
   public saveObject(packet: XR_net_packet, object: XR_game_object): void {
-    setSaveMarker(packet, false, GlobalSoundManager.name + "Object");
+    openSaveMarker(packet, GlobalSoundManager.name + "Object");
 
     for (const [, theme] of registry.sounds.themes) {
       theme.saveObject(packet, object);
     }
 
-    setSaveMarker(packet, true, GlobalSoundManager.name + "Object");
+    closeSaveMarker(packet, GlobalSoundManager.name + "Object");
   }
 
   /**
    * todo: Description.
    */
   public loadObject(reader: XR_reader, object: XR_game_object): void {
-    setLoadMarker(reader, false, GlobalSoundManager.name + "Object");
+    openLoadMarker(reader, GlobalSoundManager.name + "Object");
 
     for (const [, theme] of registry.sounds.themes) {
       theme.loadObject(reader, object);
     }
 
-    setLoadMarker(reader, true, GlobalSoundManager.name + "Object");
+    closeLoadMarker(reader, GlobalSoundManager.name + "Object");
   }
 }

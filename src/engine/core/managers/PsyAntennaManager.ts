@@ -14,18 +14,21 @@ import {
   XR_StaticDrawableWrapper,
 } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { getWeakManagerInstance, isManagerInitialized } from "@/engine/core/database/managers";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { PhantomManager } from "@/engine/core/managers/PhantomManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { isLevelChanging } from "@/engine/core/utils/check/check";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { clampNumber } from "@/engine/core/utils/number";
 import { vectorRotateY } from "@/engine/core/utils/vector";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
 import { Optional, TDuration } from "@/engine/lib/types";
 
+/**
+ * todo;
+ */
 export interface IPsyPostProcessDescriptor {
   intensity_base: number;
   intensity: number;
@@ -40,7 +43,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
    * todo: Description.
    */
   public static load(reader: TXR_net_processor): void {
-    setLoadMarker(reader, false, PsyAntennaManager.name + "_static");
+    openLoadMarker(reader, PsyAntennaManager.name + "_static");
 
     if (reader.r_bool()) {
       if (isManagerInitialized(PsyAntennaManager)) {
@@ -50,14 +53,14 @@ export class PsyAntennaManager extends AbstractCoreManager {
       PsyAntennaManager.getInstance().load(reader);
     }
 
-    setLoadMarker(reader, true, PsyAntennaManager.name + "_static");
+    closeLoadMarker(reader, PsyAntennaManager.name + "_static");
   }
 
   /**
    * todo: Description.
    */
   public static save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, PsyAntennaManager.name + "_static");
+    openSaveMarker(packet, PsyAntennaManager.name + "_static");
 
     const manager: Optional<PsyAntennaManager> = getWeakManagerInstance(PsyAntennaManager);
 
@@ -69,7 +72,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
       packet.w_bool(false);
     }
 
-    setSaveMarker(packet, true, PsyAntennaManager.name + "_static");
+    closeSaveMarker(packet, PsyAntennaManager.name + "_static");
   }
 
   public readonly sound_obj_right: XR_sound_object = new sound_object(sounds.anomaly_psy_voices_1_r);
@@ -106,9 +109,6 @@ export class PsyAntennaManager extends AbstractCoreManager {
   public hit_type: string = "wound";
   public hit_freq: number = 5000;
 
-  /**
-   * todo: Description.
-   */
   public constructor() {
     super();
 
@@ -292,7 +292,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, PsyAntennaManager.name);
+    openSaveMarker(packet, PsyAntennaManager.name);
 
     packet.w_float(this.hit_intensity);
     packet.w_float(this.sound_intensity);
@@ -304,6 +304,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
     packet.w_u32(this.hit_freq);
 
     packet.w_u8(this.postprocess_count);
+
     for (const [k, v] of this.postprocess) {
       packet.w_stringZ(k);
       packet.w_float(v.intensity);
@@ -311,14 +312,14 @@ export class PsyAntennaManager extends AbstractCoreManager {
       packet.w_u16(v.idx);
     }
 
-    setSaveMarker(packet, true, PsyAntennaManager.name);
+    closeSaveMarker(packet, PsyAntennaManager.name);
   }
 
   /**
    * todo: Description.
    */
   public override load(reader: TXR_net_processor): void {
-    setLoadMarker(reader, false, PsyAntennaManager.name);
+    openLoadMarker(reader, PsyAntennaManager.name);
 
     this.hit_intensity = reader.r_float();
     this.sound_intensity = reader.r_float();
@@ -332,6 +333,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
     this.postprocess_count = reader.r_u8();
 
     this.postprocess = new LuaTable();
+
     for (const it of $range(1, this.postprocess_count)) {
       const k: string = reader.r_stringZ();
       const ii: number = reader.r_float();
@@ -343,6 +345,6 @@ export class PsyAntennaManager extends AbstractCoreManager {
       level.set_pp_effector_factor(idx, ii);
     }
 
-    setLoadMarker(reader, true, PsyAntennaManager.name);
+    closeLoadMarker(reader, PsyAntennaManager.name);
   }
 }

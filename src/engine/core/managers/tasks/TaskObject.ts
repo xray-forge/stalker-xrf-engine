@@ -14,13 +14,19 @@ import {
   XR_reader,
 } from "xray16";
 
-import { getObjectIdByStoryId, registry } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  getObjectIdByStoryId,
+  openSaveMarker,
+  registry,
+} from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
 import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
 import { ETaskState } from "@/engine/core/managers/tasks/ETaskState";
 import * as TaskFunctor from "@/engine/core/managers/tasks/TaskFunctor";
 import { abort } from "@/engine/core/utils/assertion";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -134,9 +140,6 @@ export class TaskObject {
   public on_complete: TConditionList;
   public on_reversed: TConditionList;
 
-  /**
-   * todo: Description.
-   */
   public constructor(task_ini: XR_ini_file, id: TStringId) {
     this.task_ini = task_ini;
     this.id = id;
@@ -465,7 +468,7 @@ export class TaskObject {
    * todo: Description.
    */
   public save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, TaskObject.name);
+    openSaveMarker(packet, TaskObject.name);
 
     packet.w_u8(id_by_status[this.status]);
     writeCTimeToPacket(packet, this.inited_time);
@@ -473,11 +476,11 @@ export class TaskObject {
     packet.w_stringZ(this.current_descr);
     packet.w_stringZ(tostring(this.current_target));
 
-    setSaveMarker(packet, true, TaskObject.name);
+    closeSaveMarker(packet, TaskObject.name);
   }
 
   public load(reader: XR_reader): void {
-    setLoadMarker(reader, false, TaskObject.name);
+    openLoadMarker(reader, TaskObject.name);
 
     this.status = status_by_id[reader.r_u8()];
     this.inited_time = readCTimeFromPacket(reader);
@@ -491,6 +494,6 @@ export class TaskObject {
       this.current_target = tonumber(this.current_target);
     }
 
-    setLoadMarker(reader, true, TaskObject.name);
+    closeLoadMarker(reader, TaskObject.name);
   }
 }

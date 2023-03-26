@@ -9,10 +9,17 @@ import {
   XR_reader,
 } from "xray16";
 
-import { registerObject, resetObject, unregisterObject } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  openSaveMarker,
+  registerObject,
+  resetObject,
+  unregisterObject,
+} from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { LevelChanger } from "@/engine/core/objects/alife/LevelChanger";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TSection } from "@/engine/lib/types/scheme";
 
@@ -95,23 +102,23 @@ export class LevelChangerBinder extends object_binder {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, LevelChangerBinder.__name);
+    openSaveMarker(packet, LevelChangerBinder.__name);
 
     super.save(packet);
     saveObjectLogic(this.object, packet);
 
-    setSaveMarker(packet, true, LevelChangerBinder.__name);
+    closeSaveMarker(packet, LevelChangerBinder.__name);
   }
 
   /**
    * todo: Description.
    */
   public override load(reader: XR_reader): void {
-    setLoadMarker(reader, false, LevelChangerBinder.__name);
+    openLoadMarker(reader, LevelChangerBinder.__name);
 
     super.load(reader);
     loadObjectLogic(this.object, reader);
 
-    setLoadMarker(reader, true, LevelChangerBinder.__name);
+    closeLoadMarker(reader, LevelChangerBinder.__name);
   }
 }

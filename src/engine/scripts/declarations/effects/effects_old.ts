@@ -60,7 +60,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { isStalker } from "@/engine/core/utils/check/is";
 import { setInactiveInputTime } from "@/engine/core/utils/control";
-import { createScenarioAutoSave } from "@/engine/core/utils/game_save";
+import { createAutoSave } from "@/engine/core/utils/game_save";
 import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob } from "@/engine/core/utils/gulag";
 import { giveInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
@@ -1846,7 +1846,7 @@ export function remove_item(actor: XR_game_object, npc: XR_game_object, p: [stri
  * todo;
  */
 export function scenario_autosave(actor: XR_game_object, npc: XR_game_object, p: [TName]): void {
-  createScenarioAutoSave(p[0] as TName);
+  createAutoSave(p[0] as TName);
 }
 
 /**

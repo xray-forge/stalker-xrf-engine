@@ -9,9 +9,17 @@ import {
   XR_reader,
 } from "xray16";
 
-import { registry, resetObject, unregisterObject } from "@/engine/core/database";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  openSaveMarker,
+  registry,
+  resetObject,
+  unregisterObject,
+} from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { Optional, TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -193,7 +201,7 @@ export class SignalLightBinder extends object_binder {
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
-    setSaveMarker(packet, false, SignalLightBinder.__name);
+    openSaveMarker(packet, SignalLightBinder.__name);
 
     super.save(packet);
 
@@ -205,20 +213,20 @@ export class SignalLightBinder extends object_binder {
 
     packet.w_bool(this.slow_fly_started === true);
 
-    setSaveMarker(packet, true, SignalLightBinder.__name);
+    closeSaveMarker(packet, SignalLightBinder.__name);
   }
 
   /**
    * todo: Description.
    */
   public override load(reader: XR_reader): void {
-    setLoadMarker(reader, false, SignalLightBinder.__name);
+    openLoadMarker(reader, SignalLightBinder.__name);
 
     super.load(reader);
 
     const time = reader.r_u32();
 
-    if (time !== 4_294_967_296) {
+    if (time !== MAX_U32) {
       this.start_time = time_global() - time;
     }
 
@@ -226,6 +234,6 @@ export class SignalLightBinder extends object_binder {
     this.loaded = true;
     this.delta_time = time_global();
 
-    setLoadMarker(reader, true, SignalLightBinder.__name);
+    closeLoadMarker(reader, SignalLightBinder.__name);
   }
 }

@@ -25,7 +25,7 @@ import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import { abort } from "@/engine/core/utils/assertion";
-import { createScenarioAutoSave } from "@/engine/core/utils/game_save";
+import { createAutoSave } from "@/engine/core/utils/game_save";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -448,7 +448,7 @@ export class TravelManager extends AbstractCoreManager {
 
     logger.info("Actor travel with squad:", npc.name(), smartName);
 
-    createScenarioAutoSave(captions.st_save_uni_travel_generic);
+    createAutoSave(captions.st_save_uni_travel_generic);
 
     npc.stop_talk();
 
@@ -484,7 +484,7 @@ export class TravelManager extends AbstractCoreManager {
     dialogId: TStringId,
     phraseId: TStringId
   ): void {
-    createScenarioAutoSave(captions.st_save_uni_travel_generic);
+    createAutoSave(captions.st_save_uni_travel_generic);
 
     const squad: Squad = getObjectSquad(npc)!;
     const squadTargetId = squad.assignedTargetId;

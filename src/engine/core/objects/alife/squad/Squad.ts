@@ -18,6 +18,9 @@ import {
 } from "xray16";
 
 import {
+  closeLoadMarker,
+  closeSaveMarker,
+  openSaveMarker,
   registerObjectStoryLinks,
   registry,
   SMART_TERRAIN_MASKS_LTX,
@@ -25,6 +28,7 @@ import {
   SQUAD_BEHAVIOURS_LTX,
   SYSTEM_INI,
 } from "@/engine/core/database";
+import { openLoadMarker } from "@/engine/core/database/save_markers";
 import {
   registerSimulationObject,
   unregisterSimulationObject,
@@ -43,7 +47,6 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/check/is";
-import { setLoadMarker, setSaveMarker } from "@/engine/core/utils/game_save";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { getTwoNumbers, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
@@ -862,14 +865,14 @@ export class Squad<
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
-    setSaveMarker(packet, false, Squad.__name);
+    openSaveMarker(packet, Squad.__name);
 
     packet.w_stringZ(tostring(this.currentTargetId));
     packet.w_stringZ(tostring(this.respawn_point_id));
     packet.w_stringZ(tostring(this.respawn_point_prop_section));
     packet.w_stringZ(tostring(this.smart_id));
 
-    setSaveMarker(packet, true, Squad.__name);
+    closeSaveMarker(packet, Squad.__name);
   }
 
   /**
@@ -878,7 +881,7 @@ export class Squad<
   public override STATE_Read(packet: XR_net_packet, size: TCount): void {
     super.STATE_Read(packet, size);
 
-    setLoadMarker(packet, false, Squad.__name);
+    openLoadMarker(packet, Squad.__name);
 
     const currentTargetId: StringOptional = packet.r_stringZ();
 
@@ -899,7 +902,7 @@ export class Squad<
 
     this.init_squad_on_load();
 
-    setLoadMarker(packet, true, Squad.__name);
+    closeLoadMarker(packet, Squad.__name);
   }
 
   /**
