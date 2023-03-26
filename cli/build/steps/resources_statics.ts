@@ -8,63 +8,83 @@ import { default as config } from "#/config.json";
 import { CLI_DIR, TARGET_GAME_DATA_DIR } from "#/globals/paths";
 import { NodeLogger } from "#/utils";
 
+import { TPath } from "@/engine/lib/types";
+
 const log: NodeLogger = new NodeLogger("BUILD_ASSET_STATICS");
 const EXPECTED_FILES: Array<string> = ["README.md", "LICENSE", ".git", ".gitignore", ".gitattributes"];
-const UNEXPECTED_DIRECTORIES: Array<string> = ["configs", "globals,", "lib", "scripts"];
+const UNEXPECTED_DIRECTORIES: Array<string> = ["core", "configs", "forms,", "lib", "scripts"];
 
+/**
+ * Build mod statics from configured destinations.
+ */
 export async function buildResourcesStatics(): Promise<void> {
-  const configuredTargetPath: string = path.resolve(CLI_DIR, config.resources.MOD_ASSETS_FOLDER);
-  const configuredFallbackPath: string = path.resolve(CLI_DIR, config.resources.MOD_ASSETS_FALLBACK_FOLDER);
+  log.info(chalk.blueBright("Build resources"));
 
-  const resourcesFolderPath: string = fs.existsSync(configuredTargetPath)
-    ? configuredTargetPath
-    : configuredFallbackPath;
-  const resourcesExist: boolean = fs.existsSync(resourcesFolderPath);
+  const configuredDefaultPath: TPath = path.resolve(CLI_DIR, config.resources.MOD_ASSETS_BASE_FOLDER);
+  const configuredTargetPath: Array<TPath> = config.resources.MOD_ASSETS_OVERRIDE_FOLDERS.map((it) =>
+    path.resolve(CLI_DIR, it)
+  );
 
-  if (resourcesExist) {
-    log.info(chalk.blueBright("Copy raw assets from:", resourcesFolderPath));
+  const folderToProcess: Array<TPath> = [configuredDefaultPath, ...configuredTargetPath].filter((it) => {
+    return fs.existsSync(it);
+  });
 
-    const contentFolders: Array<string> = await Promise.all(
-      (
-        await fsPromises.readdir(resourcesFolderPath, { withFileTypes: true })
-      )
-        .map((dirent) => {
-          if (dirent.isDirectory()) {
-            // Do not allow copy of folders that overlap with auto-generated code.
-            if (UNEXPECTED_DIRECTORIES.includes(dirent.name)) {
-              throw new Error("Provided not expected directory for resources copy.");
-              // Do not copy hidden folders.
-            } else if (dirent.name.startsWith(".")) {
-              return null;
-            }
+  if (folderToProcess.length) {
+    log.info("Process folders with resources:", folderToProcess.length);
 
-            return path.join(resourcesFolderPath, dirent.name);
-          }
-
-          if (!EXPECTED_FILES.includes(dirent.name)) {
-            log.warn(`Unexpected file in resources folder: '${dirent.name}'. It will be ignored.`);
-          }
-
-          return null;
-        })
-        .filter(Boolean)
-    );
-
-    log.info("Copy assets folders");
-
-    await Promise.all(
-      contentFolders.map(async (it) => {
-        const relativePath: string = it.slice(resourcesFolderPath.length);
-        const targetDir: string = path.join(TARGET_GAME_DATA_DIR, relativePath);
-
-        log.debug("CP -R:", chalk.yellow(targetDir));
-
-        return fsPromises.cp(it, targetDir, { recursive: true });
-      })
-    );
-
-    log.info("Resource folders processed:", contentFolders.length);
+    for (const it of folderToProcess) {
+      await copyStaticAssetsFromFolder(it);
+    }
   } else {
-    log.info("No static resources detected");
+    log.info("No resources sources found");
   }
+}
+
+/**
+ * Copy provided assets directory resources if directory exists.
+ */
+async function copyStaticAssetsFromFolder(resourcesFolderPath: TPath): Promise<void> {
+  log.info("Copy raw assets from:", chalk.yellowBright(resourcesFolderPath));
+
+  const contentFolders: Array<string> = await Promise.all(
+    (
+      await fsPromises.readdir(resourcesFolderPath, { withFileTypes: true })
+    )
+      .map((dirent) => {
+        if (dirent.isDirectory()) {
+          // Do not allow copy of folders that overlap with auto-generated code.
+          if (UNEXPECTED_DIRECTORIES.includes(dirent.name)) {
+            throw new Error("Provided not expected directory for resources copy.");
+            // Do not copy hidden folders.
+          } else if (dirent.name.startsWith(".")) {
+            return null;
+          }
+
+          return path.join(resourcesFolderPath, dirent.name);
+        }
+
+        if (!EXPECTED_FILES.includes(dirent.name)) {
+          log.warn(`Unexpected file in resources folder: '${dirent.name}'. It will be ignored.`);
+        }
+
+        return null;
+      })
+      .filter(Boolean)
+  );
+
+  /**
+   * Copy recursively content.
+   */
+  await Promise.all(
+    contentFolders.map(async (it) => {
+      const relativePath: string = it.slice(resourcesFolderPath.length);
+      const targetDir: string = path.join(TARGET_GAME_DATA_DIR, relativePath);
+
+      log.debug("CP -R:", chalk.yellow(targetDir));
+
+      return fsPromises.cp(it, targetDir, { recursive: true });
+    })
+  );
+
+  log.info("Resource folders processed:", chalk.yellowBright(resourcesFolderPath), contentFolders.length);
 }
