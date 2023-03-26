@@ -21,9 +21,9 @@ export async function buildResourcesStatics(): Promise<void> {
   log.info(chalk.blueBright("Build resources"));
 
   const configuredDefaultPath: TPath = path.resolve(CLI_DIR, config.resources.MOD_ASSETS_BASE_FOLDER);
-  const configuredTargetPath: Array<TPath> = config.resources.MOD_ASSETS_OVERRIDE_FOLDERS.map((it) =>
-    path.resolve(CLI_DIR, it)
-  );
+  const configuredTargetPath: Array<TPath> = config.resources.MOD_ASSETS_OVERRIDE_FOLDERS.map((it) => {
+    return path.resolve(CLI_DIR, it);
+  });
 
   const folderToProcess: Array<TPath> = [configuredDefaultPath, ...configuredTargetPath].filter((it) => {
     return fs.existsSync(it);
