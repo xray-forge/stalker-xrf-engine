@@ -18,10 +18,13 @@ const GAME_BIN_DESCRIPTOR_DIR: string = path.resolve(GAME_DIR, "bin/bin.json");
 const log: NodeLogger = new NodeLogger("LOGS");
 const linesParam: number = Number.parseInt(process.argv[2]);
 
+/**
+ * Print last 'n' lines from logs file.
+ */
 (async function logs(): Promise<void> {
   const linesCount: number = Math.min(Number.isInteger(linesParam) && linesParam > 0 ? linesParam : 15, 200);
 
-  log.info("Printing logs lines:", linesCount);
+  log.info("Printing logs last lines:", linesCount);
 
   const path: Optional<string> = await getLogFilePath();
 
@@ -38,6 +41,9 @@ const linesParam: number = Number.parseInt(process.argv[2]);
   }
 })();
 
+/**
+ * Get path of log file.
+ */
 async function getLogFilePath(): Promise<Optional<string>> {
   const username: string = os.userInfo().username.toLowerCase();
 
