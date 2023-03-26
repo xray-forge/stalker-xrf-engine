@@ -26,6 +26,8 @@ export async function buildResourcesStatics(): Promise<void> {
   });
 
   const folderToProcess: Array<TPath> = [configuredDefaultPath, ...configuredTargetPath].filter((it) => {
+    log.debug("Resources folder candidate check:", chalk.yellowBright(it));
+
     return fs.existsSync(it);
   });
 
