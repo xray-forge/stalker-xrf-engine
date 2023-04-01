@@ -13,9 +13,11 @@ import {
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { EStateActionId } from "@/engine/core/objects/state";
+import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EActionId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
+import { stringifyAsJson } from "@/engine/core/utils/transform/json";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
 import { Optional, TDistance, TName, TNumberId } from "@/engine/lib/types";
@@ -169,5 +171,29 @@ export class DebugManager extends AbstractCoreManager {
 
       logger.pushSeparator();
     }
+  }
+
+  public logObjectStateManager(object: XR_game_object): void {
+    logger.pushSeparator();
+    logger.info("Print object state manager report:", object.name());
+
+    if (registry.objects.get(object.id())?.stateManager) {
+      const stateManager: StalkerStateManager = registry.objects.get(object.id()).stateManager!;
+
+      logger.info("Target state:", stateManager.targetState);
+      logger.info(
+        "Look object:",
+        stateManager.look_object ? alife().object(stateManager.look_object)?.name() || NIL : NIL
+      );
+      logger.info("Callback object:", stringifyAsJson(stateManager.callback));
+      logger.info("Is combat:", stateManager.isCombat);
+      logger.info("Is alife:", stateManager.isAlife);
+      logger.info("Animation states:", stringifyAsJson(stateManager.animation.states));
+      logger.info("Animstate states:", stringifyAsJson(stateManager.animstate.states));
+    } else {
+      logger.info("No state manager declared for object");
+    }
+
+    logger.pushSeparator();
   }
 }

@@ -31,13 +31,8 @@ export function isCseAlifeObject(object: XR_cse_abstract | XR_game_object): obje
 /**
  * todo;
  */
-export function isMonster(
-  object: XR_game_object | XR_cse_abstract,
-  class_id?: Maybe<TXR_class_id>
-): object is XR_cse_alife_monster_abstract {
-  const id: TXR_class_id = class_id || getObjectClassId(object);
-
-  return monsterClassIds[id] === true;
+export function isMonster(object: XR_game_object | XR_cse_abstract): object is XR_cse_alife_monster_abstract {
+  return monsterClassIds[getObjectClassId(object)] === true;
 }
 
 /**
@@ -78,12 +73,12 @@ export function isWeapon(object: Optional<XR_game_object | XR_cse_abstract>): bo
 /**
  * todo;
  */
-export function isGrenade(object: Optional<XR_game_object | XR_cse_abstract>, classId?: Maybe<TXR_class_id>): boolean {
+export function isGrenade(object: Optional<XR_game_object | XR_cse_abstract>): boolean {
   if (object === null) {
     return false;
   }
 
-  const id: TXR_class_id = classId || getObjectClassId(object);
+  const id: TXR_class_id = getObjectClassId(object);
 
   return id === clsid.wpn_grenade_rgd5_s || id === clsid.wpn_grenade_f1_s;
 }
@@ -91,13 +86,8 @@ export function isGrenade(object: Optional<XR_game_object | XR_cse_abstract>, cl
 /**
  * Is provided object artefact.
  */
-export function isArtefact(
-  object: XR_game_object | XR_cse_abstract,
-  class_id?: Maybe<TXR_class_id>
-): object is XR_cse_alife_item_artefact {
-  const id: TXR_class_id = class_id || getObjectClassId(object);
-
-  return artefactClassIds[id] === true;
+export function isArtefact(object: XR_game_object | XR_cse_abstract): object is XR_cse_alife_item_artefact {
+  return artefactClassIds[getObjectClassId(object)] === true;
 }
 
 /**

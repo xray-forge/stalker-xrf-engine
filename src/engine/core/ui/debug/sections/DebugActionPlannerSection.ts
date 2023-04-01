@@ -32,6 +32,7 @@ export class DebugActionPlannerSection extends AbstractDebugSection {
   public useTargetCheckLabel!: XR_CUIStatic;
   public logPlannerStateButton!: XR_CUI3tButton;
   public logInventoryStateButton!: XR_CUI3tButton;
+  public logStateManagerReportButton!: XR_CUI3tButton;
 
   public initControls(): void {
     resolveXmlFile(base, this.xml);
@@ -43,15 +44,23 @@ export class DebugActionPlannerSection extends AbstractDebugSection {
 
     this.logPlannerStateButton = this.xml.Init3tButton("log_planner_state", this);
     this.logInventoryStateButton = this.xml.Init3tButton("log_inventory_state", this);
+    this.logStateManagerReportButton = this.xml.Init3tButton("log_state_manager_state", this);
 
     this.owner.Register(this.useTargetCheck, "use_target_object_check");
     this.owner.Register(this.logPlannerStateButton, "log_planner_state");
     this.owner.Register(this.logInventoryStateButton, "log_inventory_state");
+    this.owner.Register(this.logStateManagerReportButton, "log_state_manager_state");
   }
 
   public initCallBacks(): void {
     this.owner.AddCallback("log_planner_state", ui_events.BUTTON_CLICKED, () => this.onPrintActionPlannerState(), this);
     this.owner.AddCallback("log_inventory_state", ui_events.BUTTON_CLICKED, () => this.onPrintInventoryState(), this);
+    this.owner.AddCallback(
+      "log_state_manager_state",
+      ui_events.BUTTON_CLICKED,
+      () => this.onPrintStateManagerReport(),
+      this
+    );
   }
 
   public initState(): void {
@@ -95,6 +104,20 @@ export class DebugActionPlannerSection extends AbstractDebugSection {
       DebugManager.getInstance().logObjectInventoryItems(targetObject);
     } else {
       logger.info("No object found for inventory state print");
+    }
+  }
+
+  public onPrintStateManagerReport(): void {
+    if (!isGameStarted()) {
+      return logger.info("Cannot print while game is not started");
+    }
+
+    const targetObject: Optional<XR_game_object> = this.getCurrentObject();
+
+    if (targetObject) {
+      DebugManager.getInstance().logObjectStateManager(targetObject);
+    } else {
+      logger.info("No object found for state manager report");
     }
   }
 
