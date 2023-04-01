@@ -14,7 +14,7 @@ export function create(): JSXNode {
         label={"Log registry summary"}
         x={12}
         y={12}
-        width={72}
+        width={76}
         height={16}
         textColor={WHITE}
         font={fonts.letterica16}
