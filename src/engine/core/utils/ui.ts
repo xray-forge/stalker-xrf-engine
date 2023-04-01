@@ -91,9 +91,7 @@ export function setUiVisibility(isVisible: boolean): void {
 /**
  * todo;
  */
-export function resolveXmlFile(path: TPath): XR_CScriptXmlInit {
-  const xml: XR_CScriptXmlInit = new CScriptXmlInit();
-
+export function resolveXmlFile(path: TPath, xml: XR_CScriptXmlInit = new CScriptXmlInit()): XR_CScriptXmlInit {
   xml.ParseFile(resolveXmlFormPath(path));
 
   return xml;

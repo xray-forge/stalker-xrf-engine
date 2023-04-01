@@ -12,6 +12,7 @@ export interface IXrScrollViewProps extends IBaseXmlNode {
   vertInterval: number;
   alwaysShowScroll?: boolean;
   flipVert?: boolean;
+  inverseDirection?: boolean;
   canSelect?: boolean;
   scrollProfile?: string;
 }
@@ -29,6 +30,7 @@ export function XrScrollView(props: IXrScrollViewProps): JSXNode {
     leftIndent,
     vertInterval,
     alwaysShowScroll,
+    inverseDirection,
     flipVert,
     canSelect,
     scrollProfile,
@@ -48,5 +50,6 @@ export function XrScrollView(props: IXrScrollViewProps): JSXNode {
     flip_vert: flipVert,
     scroll_profile: scrollProfile,
     can_select: canSelect,
+    inverse_dir: inverseDirection,
   });
 }

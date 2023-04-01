@@ -1,9 +1,16 @@
-import { XR_cse_alife_object } from "xray16";
+import { alife, XR_cse_alife_object } from "xray16";
 
 import { Squad } from "@/engine/core/objects";
 import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/core/utils/object";
 import { TDistance, TRate } from "@/engine/lib/types";
+
+/**
+ * todo;
+ */
+export function isGameStarted(): boolean {
+  return alife() !== null;
+}
 
 /**
  * todo;

@@ -12,7 +12,7 @@ import {
 
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { resolveXmlFormPath } from "@/engine/core/utils/ui";
+import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { on_off_cmds, zero_one_cmds } from "@/engine/forms/menu/debug/sections";
 import { Optional, TName, TPath } from "@/engine/lib/types";
 
@@ -30,15 +30,14 @@ export class DebugCommandsSection extends AbstractDebugSection {
    * todo: Description.
    */
   public initControls(): void {
-    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
     const console: XR_CConsole = get_console();
 
-    xml.ParseFile(resolveXmlFormPath(base));
+    resolveXmlFile(base, this.xml);
 
-    this.commandsList = xml.InitScrollView("commands_list", this);
+    this.commandsList = this.xml.InitScrollView("commands_list", this);
 
-    zero_one_cmds.forEach((it) => this.initEntry(it, xml, console, "numeric"));
-    on_off_cmds.forEach((it) => this.initEntry(it, xml, console, "boolean"));
+    zero_one_cmds.forEach((it) => this.initEntry(it, console, "numeric"));
+    on_off_cmds.forEach((it) => this.initEntry(it, console, "boolean"));
   }
 
   /**
@@ -56,10 +55,10 @@ export class DebugCommandsSection extends AbstractDebugSection {
   /**
    * todo: Description.
    */
-  public initEntry(name: TName, xml: XR_CScriptXmlInit, console: XR_CConsole, type: "numeric" | "boolean"): void {
-    const item: XR_CUIStatic = xml.InitStatic("command_item", this.commandsList);
-    const caption: XR_CUIStatic = xml.InitStatic("command_label", item);
-    const check: XR_CUICheckButton = xml.InitCheck("command_item_" + name, item);
+  public initEntry(name: TName, console: XR_CConsole, type: "numeric" | "boolean"): void {
+    const item: XR_CUIStatic = this.xml.InitStatic("command_item", this.commandsList);
+    const caption: XR_CUIStatic = this.xml.InitStatic("command_label", item);
+    const check: XR_CUICheckButton = this.xml.InitCheck("command_item_" + name, item);
 
     const value: Optional<boolean> = console.get_bool(name);
 

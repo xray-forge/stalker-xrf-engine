@@ -6,7 +6,7 @@ import { XrTextColor } from "@/engine/forms/components/base/XrTextColor.componen
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { BLACK } from "@/engine/lib/constants/colors";
 import { TFontId } from "@/engine/lib/constants/fonts";
-import { TTexture } from "@/engine/lib/constants/textures";
+import { textures, TTexture } from "@/engine/lib/constants/textures";
 import { IBaseXmlNode, IRgbColor, TTextAlign } from "@/engine/lib/types";
 
 export interface IXrButtonProps extends IBaseXmlNode {
@@ -18,7 +18,7 @@ export interface IXrButtonProps extends IBaseXmlNode {
   label: string;
   font: TFontId;
   textColor?: IRgbColor;
-  texture: TTexture;
+  texture?: TTexture;
   align?: TTextAlign;
   stretch?: boolean;
 }
@@ -35,7 +35,7 @@ export function Xr3tButton(props: IXrButtonProps): JSXNode {
     width,
     height,
     align = "c",
-    texture,
+    texture = textures.ui_inGame2_Mp_bigbuttone,
     font,
     label,
     textColor = BLACK,

@@ -66,15 +66,17 @@ export class DebugDialog extends CUIScriptWnd {
     this.cancelButton = this.xml.Init3tButton("cancel_button", this);
 
     // Add section switchers.
-    Object.values(EDebugSection).forEach((it) => {
-      const element: XR_CUI3tButton = this.xml.Init3tButton("frame_menu_item", null);
+    Object.entries(EDebugSection)
+      .sort(([a], [b]) => ((a as unknown as number) > (b as unknown as number) ? 1 : -1))
+      .forEach(([, it]) => {
+        const element: XR_CUI3tButton = this.xml.Init3tButton("frame_menu_item", null);
 
-      element.SetText(it);
-      element.SetAutoDelete(true);
+        element.SetText(it);
+        element.SetAutoDelete(true);
 
-      this.scrollList.AddWindow(element, true);
-      this.Register(element, "section_" + it);
-    });
+        this.scrollList.AddWindow(element, true);
+        this.Register(element, "section_" + it);
+      });
 
     this.Register(this.cancelButton, "cancel_button");
   }
@@ -85,10 +87,9 @@ export class DebugDialog extends CUIScriptWnd {
   public initCallBacks(): void {
     this.AddCallback("cancel_button", ui_events.BUTTON_CLICKED, () => this.onCancelButtonAction(), this);
 
-    // Handle section selection.
-    Object.values(EDebugSection).forEach((it) => {
+    for (const [k, it] of pairs(EDebugSection)) {
       this.AddCallback("section_" + it, ui_events.BUTTON_CLICKED, () => this.onSectionSwitchClicked(it), this);
-    });
+    }
   }
 
   /**

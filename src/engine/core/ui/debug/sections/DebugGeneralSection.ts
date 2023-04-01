@@ -24,7 +24,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
    * todo: Description.
    */
   public initControls(): void {
-    const xml: XR_CScriptXmlInit = resolveXmlFile(base);
+    const xml: XR_CScriptXmlInit = resolveXmlFile(base, this.xml);
 
     xml.InitStatic("lua_version_label", this);
     xml

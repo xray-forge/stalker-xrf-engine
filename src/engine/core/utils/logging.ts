@@ -2,7 +2,7 @@ import { log, print_stack, time_global } from "xray16";
 
 import { stringifyAsJson } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { AnyArgs, AnyObject } from "@/engine/lib/types";
+import { AnyArgs, AnyObject, TLabel, TName } from "@/engine/lib/types";
 
 /**
  * Lua logger class.
@@ -33,7 +33,7 @@ export class LuaLogger {
     return log(string.format("[%s]%s%s %s", time_global(), prefix, method, table.concat(args, " ")));
   }
 
-  protected prefix: string;
+  public readonly prefix: string;
   protected isEnabled: boolean;
 
   public constructor(prefix: string, isEnabled: boolean = true) {
@@ -74,7 +74,15 @@ export class LuaLogger {
     return this.info(" ");
   }
 
+  public pushSeparator(): void {
+    return this.info("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+  }
+
   public printStack(): void {
     return print_stack();
+  }
+
+  public getFullPrefix(method: TName = "info"): TLabel {
+    return string.format("[%s]%s%s", time_global(), this.prefix, method);
   }
 }

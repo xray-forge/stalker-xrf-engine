@@ -1,5 +1,6 @@
 import { XR_CUIScriptWnd } from "xray16";
 
+import { DebugActionPlannerSection } from "@/engine/core/ui/debug/sections/DebugActionPlannerSection";
 import { DebugCommandsSection } from "@/engine/core/ui/debug/sections/DebugCommandsSection";
 import { DebugGeneralSection } from "@/engine/core/ui/debug/sections/DebugGeneralSection";
 import { DebugItemsSection } from "@/engine/core/ui/debug/sections/DebugItemsSection";
@@ -18,11 +19,13 @@ export enum EDebugSection {
   PLAYER = "player",
   SOUND = "sound",
   SPAWN = "spawn",
+  ACTION_PLANNER = "action_planner",
   UI = "ui",
   WORLD = "world",
 }
 
 export const sectionsMap = {
+  [EDebugSection.ACTION_PLANNER]: (owner: XR_CUIScriptWnd) => new DebugActionPlannerSection(owner),
   [EDebugSection.GENERAL]: (owner: XR_CUIScriptWnd) => new DebugGeneralSection(owner),
   [EDebugSection.COMMANDS]: (owner: XR_CUIScriptWnd) => new DebugCommandsSection(owner),
   [EDebugSection.ITEMS]: (owner: XR_CUIScriptWnd) => new DebugItemsSection(owner),

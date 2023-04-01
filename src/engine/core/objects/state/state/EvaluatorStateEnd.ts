@@ -23,6 +23,7 @@ export class EvaluatorStateEnd extends property_evaluator {
 
   /**
    * todo: Description.
+   * todo: Probably simlify it, not needed checks except combat flag?
    */
   public override evaluate(): boolean {
     if (this.actionPlanner === null) {

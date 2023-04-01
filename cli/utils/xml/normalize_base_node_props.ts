@@ -14,7 +14,7 @@ export function normalizeBaseNodeProps<T extends object>(props: T): T {
     }
   );
 
-  ["stretch", "alwaysShowScroll", "flipVert", "canSelect"].forEach((key) => {
+  ["stretch", "alwaysShowScroll", "flipVert", "canSelect", "inverseDirection"].forEach((key) => {
     const it = nextProps[key as keyof T];
 
     if (typeof it === "boolean") {

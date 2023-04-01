@@ -19,7 +19,7 @@ import { TCommunity } from "@/engine/lib/constants/communities";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import { lootable_table, TLootableItem } from "@/engine/lib/constants/items/lootable_table";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
-import { Maybe, Optional, TSection } from "@/engine/lib/types";
+import { Maybe, Optional, TNumberId, TSection } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -60,21 +60,19 @@ export function isStalker(
 /**
  * todo;
  */
-export function isStalkerClassId(classId: number): boolean {
+export function isStalkerClassId(classId: TNumberId): boolean {
   return classId === clsid.stalker || classId === clsid.script_stalker;
 }
 
 /**
  * todo;
  */
-export function isWeapon(object: Optional<XR_game_object | XR_cse_abstract>, classId?: Maybe<TXR_class_id>): boolean {
+export function isWeapon(object: Optional<XR_game_object | XR_cse_abstract>): boolean {
   if (object === null) {
     return false;
   }
 
-  const id: TXR_class_id = classId || getObjectClassId(object);
-
-  return weaponClassIds[id] === true;
+  return weaponClassIds[object.clsid()] === true;
 }
 
 /**
