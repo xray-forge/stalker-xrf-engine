@@ -1,46 +1,30 @@
 import {
   CScriptXmlInit,
-  CUIWindow,
   get_console,
   LuabindClass,
   ui_events,
   XR_CConsole,
   XR_CScriptXmlInit,
   XR_CUICheckButton,
-  XR_CUIScriptWnd,
   XR_CUIScrollView,
   XR_CUIStatic,
 } from "xray16";
 
+import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { on_off_cmds, zero_one_cmds } from "@/engine/forms/menu/debug/sections";
-import { Optional, TName } from "@/engine/lib/types";
+import { Optional, TName, TPath } from "@/engine/lib/types";
 
-const base: string = "menu\\debug\\DebugCommandsSection.component";
+const base: TPath = "menu\\debug\\DebugCommandsSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class DebugCommandsSection extends CUIWindow {
-  public owner: XR_CUIScriptWnd;
+export class DebugCommandsSection extends AbstractDebugSection {
   public commandsList!: XR_CUIScrollView;
-
-  /**
-   * todo: Description.
-   */
-  public constructor(owner: XR_CUIScriptWnd) {
-    super();
-
-    this.owner = owner;
-    this.SetWindowName(DebugCommandsSection.__name);
-
-    this.initControls();
-    this.initCallBacks();
-    this.initState();
-  }
 
   /**
    * todo: Description.

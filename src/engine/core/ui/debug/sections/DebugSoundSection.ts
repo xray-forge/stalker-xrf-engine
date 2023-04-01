@@ -3,15 +3,16 @@ import { CScriptXmlInit, LuabindClass, XR_CScriptXmlInit } from "xray16";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
+import { TPath } from "@/engine/lib/types";
 
-const base: string = "menu\\debug\\DebugPlayerSection.component";
+const base: TPath = "menu\\debug\\DebugSoundSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class DebugPlayerSection extends AbstractDebugSection {
+export class DebugSoundSection extends AbstractDebugSection {
   public initControls(): void {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 

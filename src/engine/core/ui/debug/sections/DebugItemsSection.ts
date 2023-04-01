@@ -1,28 +1,18 @@
-import { CScriptXmlInit, CUIWindow, LuabindClass, XR_CScriptXmlInit, XR_CUIScriptWnd } from "xray16";
+import { CScriptXmlInit, LuabindClass, XR_CScriptXmlInit } from "xray16";
 
+import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
+import { TPath } from "@/engine/lib/types";
 
-const base: string = "menu\\debug\\DebugItemsSection.component";
+const base: TPath = "menu\\debug\\DebugItemsSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class DebugItemsSection extends CUIWindow {
-  public owner: XR_CUIScriptWnd;
-
-  public constructor(owner: XR_CUIScriptWnd) {
-    super();
-
-    this.owner = owner;
-    this.SetWindowName(DebugItemsSection.__name);
-
-    this.initControls();
-    this.initCallBacks();
-  }
-
+export class DebugItemsSection extends AbstractDebugSection {
   public initControls(): void {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
@@ -30,4 +20,6 @@ export class DebugItemsSection extends CUIWindow {
   }
 
   public initCallBacks(): void {}
+
+  public initState(): void {}
 }

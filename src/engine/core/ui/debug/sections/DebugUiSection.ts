@@ -1,15 +1,14 @@
 import {
   CScriptXmlInit,
-  CUIWindow,
   LuabindClass,
   ui_events,
   XR_CScriptXmlInit,
   XR_CUIComboBox,
   XR_CUIEditBox,
-  XR_CUIScriptWnd,
   XR_CUIStatic,
 } from "xray16";
 
+import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { textures } from "@/engine/lib/constants/textures";
@@ -21,9 +20,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 @LuabindClass()
-export class DebugUiSection extends CUIWindow {
-  public owner: XR_CUIScriptWnd;
-
+export class DebugUiSection extends AbstractDebugSection {
   public section!: XR_CUIStatic;
   public texturesList!: XR_CUIComboBox;
   public texturesListFilter!: XR_CUIEditBox;
@@ -32,19 +29,6 @@ export class DebugUiSection extends CUIWindow {
   public texturesListSquareMediumDisplay!: XR_CUIStatic;
   public texturesListSquareSmallDisplay!: XR_CUIStatic;
   public texturesListSquareMiniDisplay!: XR_CUIStatic;
-
-  /**
-   * todo: Description.
-   */
-  public constructor(owner: XR_CUIScriptWnd) {
-    super();
-
-    this.owner = owner;
-
-    this.initControls();
-    this.initCallBacks();
-    this.InitData();
-  }
 
   /**
    * todo: Description.
@@ -78,7 +62,7 @@ export class DebugUiSection extends CUIWindow {
   /**
    * todo: Description.
    */
-  public InitData(): void {
+  public initState(): void {
     this.initTexturesList();
   }
 

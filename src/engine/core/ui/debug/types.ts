@@ -4,11 +4,11 @@ import { DebugCommandsSection } from "@/engine/core/ui/debug/sections/DebugComma
 import { DebugGeneralSection } from "@/engine/core/ui/debug/sections/DebugGeneralSection";
 import { DebugItemsSection } from "@/engine/core/ui/debug/sections/DebugItemsSection";
 import { DebugPlayerSection } from "@/engine/core/ui/debug/sections/DebugPlayerSection";
+import { DebugPositionSection } from "@/engine/core/ui/debug/sections/DebugPositionSection";
+import { DebugSoundSection } from "@/engine/core/ui/debug/sections/DebugSoundSection";
+import { DebugSpawnSection } from "@/engine/core/ui/debug/sections/DebugSpawnSection";
 import { DebugUiSection } from "@/engine/core/ui/debug/sections/DebugUiSection";
-import { DevDebugPositionSection } from "@/engine/core/ui/debug/sections/DevDebugPositionSection";
-import { DevDebugSoundSection } from "@/engine/core/ui/debug/sections/DevDebugSoundSection";
-import { DevDebugSpawnSection } from "@/engine/core/ui/debug/sections/DevDebugSpawnSection";
-import { DevDebugWorldSection } from "@/engine/core/ui/debug/sections/DevDebugWorldSection";
+import { DebugWorldSection } from "@/engine/core/ui/debug/sections/DebugWorldSection";
 
 export enum EDebugSection {
   GENERAL = "general",
@@ -26,10 +26,10 @@ export const sectionsMap = {
   [EDebugSection.GENERAL]: (owner: XR_CUIScriptWnd) => new DebugGeneralSection(owner),
   [EDebugSection.COMMANDS]: (owner: XR_CUIScriptWnd) => new DebugCommandsSection(owner),
   [EDebugSection.ITEMS]: (owner: XR_CUIScriptWnd) => new DebugItemsSection(owner),
-  [EDebugSection.POSITION]: (owner: XR_CUIScriptWnd) => new DevDebugPositionSection(owner),
+  [EDebugSection.POSITION]: (owner: XR_CUIScriptWnd) => new DebugPositionSection(owner),
   [EDebugSection.PLAYER]: (owner: XR_CUIScriptWnd) => new DebugPlayerSection(owner),
-  [EDebugSection.SOUND]: (owner: XR_CUIScriptWnd) => new DevDebugSoundSection(owner),
-  [EDebugSection.SPAWN]: (owner: XR_CUIScriptWnd) => new DevDebugSpawnSection(owner),
+  [EDebugSection.SOUND]: (owner: XR_CUIScriptWnd) => new DebugSoundSection(owner),
+  [EDebugSection.SPAWN]: (owner: XR_CUIScriptWnd) => new DebugSpawnSection(owner),
   [EDebugSection.UI]: (owner: XR_CUIScriptWnd) => new DebugUiSection(owner),
-  [EDebugSection.WORLD]: (owner: XR_CUIScriptWnd) => new DevDebugWorldSection(owner),
+  [EDebugSection.WORLD]: (owner: XR_CUIScriptWnd) => new DebugWorldSection(owner),
 };

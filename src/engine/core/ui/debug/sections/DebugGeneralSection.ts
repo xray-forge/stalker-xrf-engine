@@ -1,46 +1,24 @@
-import {
-  command_line,
-  CUIWindow,
-  LuabindClass,
-  ui_events,
-  XR_CScriptXmlInit,
-  XR_CUIScriptWnd,
-  XR_CUIStatic,
-} from "xray16";
+import { command_line, LuabindClass, ui_events, XR_CScriptXmlInit, XR_CUIStatic } from "xray16";
 
 import { ProfilingManager } from "@/engine/core/managers/ProfilingManager";
+import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
+import { TPath } from "@/engine/lib/types";
 
-const base: string = "menu\\debug\\DebugGeneralSection.component";
+const base: TPath = "menu\\debug\\DebugGeneralSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class DebugGeneralSection extends CUIWindow {
-  public owner: XR_CUIScriptWnd;
-
+export class DebugGeneralSection extends AbstractDebugSection {
   public uiLuaVersionLabel!: XR_CUIStatic;
   public uiMemoryUsageCountLabel!: XR_CUIStatic;
   public uiProfilingToggleButton!: XR_CUIStatic;
   public uiProfilingReportButton!: XR_CUIStatic;
   public uiLuaJitLabel!: XR_CUIStatic;
-
-  /**
-   * todo: Description.
-   */
-  public constructor(owner: XR_CUIScriptWnd) {
-    super();
-
-    this.owner = owner;
-    this.SetWindowName(DebugGeneralSection.__name);
-
-    this.initControls();
-    this.initCallBacks();
-    this.initState();
-  }
 
   /**
    * todo: Description.
