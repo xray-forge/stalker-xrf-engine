@@ -15,7 +15,7 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { on_off_cmds, zero_one_cmds } from "@/engine/forms/menu/debug/sections";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TName } from "@/engine/lib/types";
 
 const base: string = "menu\\debug\\DebugCommandsSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -35,6 +35,7 @@ export class DebugCommandsSection extends CUIWindow {
     super();
 
     this.owner = owner;
+    this.SetWindowName(DebugCommandsSection.__name);
 
     this.initControls();
     this.initCallBacks();
@@ -71,16 +72,12 @@ export class DebugCommandsSection extends CUIWindow {
   /**
    * todo: Description.
    */
-  public initEntry(name: string, xml: XR_CScriptXmlInit, console: XR_CConsole, type: "numeric" | "boolean"): void {
-    logger.info("Init item:", name);
-
+  public initEntry(name: TName, xml: XR_CScriptXmlInit, console: XR_CConsole, type: "numeric" | "boolean"): void {
     const item: XR_CUIStatic = xml.InitStatic("command_item", this.commandsList);
     const caption: XR_CUIStatic = xml.InitStatic("command_label", item);
     const check: XR_CUICheckButton = xml.InitCheck("command_item_" + name, item);
 
     const value: Optional<boolean> = console.get_bool(name);
-
-    logger.info("Set item:", name, value);
 
     check.SetCheck(value);
     caption.TextControl().SetText(name);
@@ -93,7 +90,7 @@ export class DebugCommandsSection extends CUIWindow {
   /**
    * todo: Description.
    */
-  public onCheckboxChange(check: XR_CUICheckButton, name: string, type: "numeric" | "boolean"): void {
+  public onCheckboxChange(check: XR_CUICheckButton, name: TName, type: "numeric" | "boolean"): void {
     const isEnabled: boolean = check.GetCheck();
     let cmd: string = name + " ";
 

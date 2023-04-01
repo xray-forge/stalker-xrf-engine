@@ -15,7 +15,7 @@ export function create(): JSXNode {
     <XrRoot width={BASE_WIDTH} height={BASE_HEIGHT}>
       <XrScrollView
         tag={"commands_list"}
-        x={24}
+        x={12}
         y={24}
         width={168}
         height={SECTION_HEIGHT}

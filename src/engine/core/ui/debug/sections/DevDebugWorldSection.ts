@@ -1,6 +1,5 @@
-import { CScriptXmlInit, CUIWindow, LuabindClass, XR_CScriptXmlInit } from "xray16";
+import { CScriptXmlInit, CUIWindow, LuabindClass, XR_CScriptXmlInit, XR_CUIScriptWnd } from "xray16";
 
-import { DebugDialog } from "@/engine/core/ui/debug/DebugDialog";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 
@@ -12,9 +11,9 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class DevDebugWorldSection extends CUIWindow {
-  public owner: DebugDialog;
+  public owner: XR_CUIScriptWnd;
 
-  public constructor(owner: DebugDialog) {
+  public constructor(owner: XR_CUIScriptWnd) {
     super();
 
     this.owner = owner;
@@ -27,7 +26,6 @@ export class DevDebugWorldSection extends CUIWindow {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
-    xml.InitStatic("background", this);
   }
 
   public InitCallBacks(): void {}

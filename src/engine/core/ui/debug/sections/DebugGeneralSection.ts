@@ -35,6 +35,7 @@ export class DebugGeneralSection extends CUIWindow {
     super();
 
     this.owner = owner;
+    this.SetWindowName(DebugGeneralSection.__name);
 
     this.initControls();
     this.initCallBacks();

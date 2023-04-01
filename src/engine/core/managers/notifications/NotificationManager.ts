@@ -19,7 +19,7 @@ import { isStalkerClassId } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
-import { texturesIngame } from "@/engine/lib/constants/textures";
+import { textures } from "@/engine/lib/constants/textures";
 import { Maybe, Optional, TCount, TDuration, TLabel, TName, TSection, TStringId, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -46,23 +46,18 @@ export class NotificationManager extends AbstractCoreManager {
       const news_text: string = game.translate_string(tostring(amount));
 
       if (actor.is_talking()) {
-        actor.give_talk_message2(
-          news_caption,
-          news_text,
-          texturesIngame.ui_inGame2_Dengi_polucheni,
-          "iconed_answer_item"
-        );
+        actor.give_talk_message2(news_caption, news_text, textures.ui_inGame2_Dengi_polucheni, "iconed_answer_item");
       } else {
-        actor.give_game_news(news_caption, news_text, texturesIngame.ui_inGame2_Dengi_polucheni, 0, 3000);
+        actor.give_game_news(news_caption, news_text, textures.ui_inGame2_Dengi_polucheni, 0, 3000);
       }
     } else if (type === "out") {
       const news_caption: string = game.translate_string(captions.general_out_money);
       const news_text: string = game.translate_string(tostring(amount));
 
       if (actor.is_talking()) {
-        actor.give_talk_message2(news_caption, news_text, texturesIngame.ui_inGame2_Dengi_otdani, "iconed_answer_item");
+        actor.give_talk_message2(news_caption, news_text, textures.ui_inGame2_Dengi_otdani, "iconed_answer_item");
       } else {
-        actor.give_game_news(news_caption, news_text, texturesIngame.ui_inGame2_Dengi_otdani, 0, 3000);
+        actor.give_game_news(news_caption, news_text, textures.ui_inGame2_Dengi_otdani, 0, 3000);
       }
     }
   }
@@ -88,11 +83,11 @@ export class NotificationManager extends AbstractCoreManager {
       actor.give_talk_message2(
         news_caption,
         "",
-        texturesIngame.ui_inGame2_Polucheni_koordinaty_taynika,
+        textures.ui_inGame2_Polucheni_koordinaty_taynika,
         "iconed_answer_item"
       );
     } else {
-      actor.give_game_news(news_caption, "", texturesIngame.ui_inGame2_Polucheni_koordinaty_taynika, 0, 3000);
+      actor.give_game_news(news_caption, "", textures.ui_inGame2_Polucheni_koordinaty_taynika, 0, 3000);
     }
   }
 
@@ -120,7 +115,7 @@ export class NotificationManager extends AbstractCoreManager {
     let icon: TName = task.get_icon_name();
 
     if (icon === null) {
-      icon = texturesIngame.ui_iconsTotal_storyline;
+      icon = textures.ui_iconsTotal_storyline;
     }
 
     if (registry.actor.is_talking()) {
@@ -181,7 +176,7 @@ export class NotificationManager extends AbstractCoreManager {
 
     this.playPdaNotificationSound();
 
-    let texture: TName = texturesIngame.ui_iconsTotal_grouping;
+    let texture: TName = textures.ui_iconsTotal_grouping;
 
     if (sender !== null) {
       texture = type(sender) === "string" ? (sender as TNotificationIcon) : (sender as XR_game_object).character_icon();
@@ -243,7 +238,7 @@ export class NotificationManager extends AbstractCoreManager {
       return;
     }
 
-    let texture: string = texturesIngame.ui_iconsTotal_grouping;
+    let texture: string = textures.ui_iconsTotal_grouping;
 
     if (object !== null && isStalkerClassId(object.clsid())) {
       texture = object.character_icon();
@@ -298,17 +293,11 @@ export class NotificationManager extends AbstractCoreManager {
         actor.give_talk_message2(
           notificationCaption,
           notificationText,
-          texturesIngame.ui_inGame2_Predmet_poluchen,
+          textures.ui_inGame2_Predmet_poluchen,
           "iconed_answer_item"
         );
       } else {
-        actor.give_game_news(
-          notificationCaption,
-          notificationText,
-          texturesIngame.ui_inGame2_Predmet_poluchen,
-          0,
-          3000
-        );
+        actor.give_game_news(notificationCaption, notificationText, textures.ui_inGame2_Predmet_poluchen, 0, 3000);
       }
     } else if (type === "out") {
       if (amount === 1) {
@@ -323,11 +312,11 @@ export class NotificationManager extends AbstractCoreManager {
         actor.give_talk_message2(
           notificationCaption,
           notificationText,
-          texturesIngame.ui_inGame2_Predmet_otdan,
+          textures.ui_inGame2_Predmet_otdan,
           "iconed_answer_item"
         );
       } else {
-        actor.give_game_news(notificationCaption, notificationText, texturesIngame.ui_inGame2_Predmet_otdan, 0, 3000);
+        actor.give_game_news(notificationCaption, notificationText, textures.ui_inGame2_Predmet_otdan, 0, 3000);
       }
     }
   }

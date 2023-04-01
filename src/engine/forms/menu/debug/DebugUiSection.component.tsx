@@ -4,7 +4,7 @@ import { XrEditBox, XrStatic } from "@/engine/forms/components/base";
 import { XrListRenderer } from "@/engine/forms/components/base/XrListRenderer.component";
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDialog.component";
 import { fonts } from "@/engine/lib/constants/fonts";
-import { textures, texturesIngame } from "@/engine/lib/constants/textures";
+import { textures } from "@/engine/lib/constants/textures";
 import { IRgbColor } from "@/engine/lib/types";
 
 export const IS_XML: boolean = true;
@@ -27,7 +27,7 @@ export function create(): JSXNode {
           width={BASE_WIDTH - 48}
           height={24}
           font={fonts.letterica18}
-          texture={texturesIngame.ui_inGame2_edit_box_2}
+          texture={textures.ui_inGame2_edit_box_2}
           color={TEXT_COLOR}
           vertAlign={"c"}
         />

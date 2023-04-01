@@ -10,25 +10,17 @@ import {
   XR_CScriptXmlInit,
   XR_CUI3tButton,
   XR_CUIScriptWnd,
-  XR_CUIStatic,
-  XR_CUITabControl,
+  XR_CUIScrollView,
+  XR_CUIWindow,
 } from "xray16";
 
-import { DebugCommandsSection } from "@/engine/core/ui/debug/DebugCommandsSection";
-import { DebugGeneralSection } from "@/engine/core/ui/debug/DebugGeneralSection";
-import { DebugPlayerSection } from "@/engine/core/ui/debug/DebugPlayerSection";
-import { DevDebugItemsSection } from "@/engine/core/ui/debug/DevDebugItemsSection";
-import { DevDebugPositionSection } from "@/engine/core/ui/debug/DevDebugPositionSection";
-import { DevDebugSoundSection } from "@/engine/core/ui/debug/DevDebugSoundSection";
-import { DevDebugSpawnSection } from "@/engine/core/ui/debug/DevDebugSpawnSection";
-import { DevDebugUiSection } from "@/engine/core/ui/debug/DevDebugUiSection";
-import { DevDebugWorldSection } from "@/engine/core/ui/debug/DevDebugWorldSection";
+import { EDebugSection, sectionsMap } from "@/engine/core/ui/debug/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
-import { EDebugSection } from "@/engine/forms/menu/debug/sections";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { TPath } from "@/engine/lib/types";
 
-const base: string = "menu\\debug\\DebugDialog.component";
+const base: TPath = "menu\\debug\\DebugDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
@@ -36,29 +28,23 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class DebugDialog extends CUIScriptWnd {
-  public owner: XR_CUIScriptWnd;
+  public xml!: XR_CScriptXmlInit;
+  public sectionsList: LuaTable<EDebugSection, XR_CUIWindow> = new LuaTable();
 
-  public sectionBackground!: XR_CUIStatic;
-  public tab!: XR_CUITabControl;
+  public owner: XR_CUIScriptWnd;
+  public scrollList!: XR_CUIScrollView;
   public cancelButton!: XR_CUI3tButton;
 
-  public sectionGeneral!: DebugGeneralSection;
-  public sectionCommands!: DebugCommandsSection;
-  public sectionPosition!: DevDebugPositionSection;
-  public sectionPlayer!: DebugPlayerSection;
-  public sectionSound!: DevDebugSoundSection;
-  public sectionSpawn!: DevDebugSpawnSection;
-  public sectionItems!: DevDebugItemsSection;
-  public sectionUi!: DevDebugUiSection;
-  public sectionWorld!: DevDebugWorldSection;
+  public label: string = "test-test-test";
 
   public constructor(owner: XR_CUIScriptWnd) {
     super();
 
     this.owner = owner;
 
+    this.SetWindowName(DebugDialog.__name);
+
     this.initControls();
-    this.initSections();
     this.initCallBacks();
     this.initState();
   }
@@ -69,104 +55,59 @@ export class DebugDialog extends CUIScriptWnd {
   public initControls(): void {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
 
-    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
+    this.xml = new CScriptXmlInit();
 
-    xml.ParseFile(resolveXmlFormPath(base));
-    xml.InitStatic("background", this);
+    this.xml.ParseFile(resolveXmlFormPath(base));
+    this.xml.InitStatic("background", this);
+    this.xml.InitStatic("section_background", this);
+    this.xml.InitStatic("frame_menu_background", this);
 
-    this.sectionBackground = xml.InitStatic("main_dialog:section_background", this);
-    this.cancelButton = xml.Init3tButton("main_dialog:btn_cancel", this);
-    this.tab = xml.InitTab("main_dialog:tab", this);
+    this.scrollList = this.xml.InitScrollView("frame_menu_scroll", this);
+    this.cancelButton = this.xml.Init3tButton("cancel_button", this);
 
-    this.Register(this.cancelButton, "btn_cancel");
-    this.Register(this.tab, "tab");
-  }
+    // Add section switchers.
+    Object.values(EDebugSection).forEach((it) => {
+      const element: XR_CUI3tButton = this.xml.Init3tButton("frame_menu_item", null);
 
-  /**
-   * todo: Description.
-   */
-  public initSections(): void {
-    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
+      element.SetText(it);
+      element.SetAutoDelete(true);
 
-    xml.ParseFile(resolveXmlFormPath(base));
+      this.scrollList.AddWindow(element, true);
+      this.Register(element, "section_" + it);
+    });
 
-    // Init general section.
-    this.sectionGeneral = new DebugGeneralSection(this);
-    this.sectionGeneral.SetAutoDelete(true);
-    this.sectionGeneral.Show(false);
-    this.AttachChild(this.sectionGeneral);
-    xml.InitWindow("main_dialog:debug_section", 0, this.sectionGeneral);
-
-    // Init commands section.
-    this.sectionCommands = new DebugCommandsSection(this);
-    this.sectionCommands.SetAutoDelete(true);
-    this.sectionCommands.Show(false);
-    this.AttachChild(this.sectionCommands);
-    xml.InitWindow("main_dialog:debug_section", 0, this.sectionCommands);
-
-    // Init items section.
-    this.sectionItems = new DevDebugItemsSection(this);
-    this.sectionItems.SetAutoDelete(true);
-    this.sectionItems.Show(false);
-    this.AttachChild(this.sectionItems);
-    xml.InitWindow("main_dialog:debug_section", 0, this.sectionItems);
-
-    // Init position section.
-    this.sectionPosition = new DevDebugPositionSection(this);
-    this.sectionPosition.SetAutoDelete(true);
-    this.sectionPosition.Show(false);
-    this.AttachChild(this.sectionPosition);
-    xml.InitWindow("main_dialog:debug_section", 0, this.sectionPosition);
-
-    // Init player section.
-    this.sectionPlayer = new DebugPlayerSection(this);
-    this.sectionPlayer.SetAutoDelete(true);
-    this.sectionPlayer.Show(false);
-    this.AttachChild(this.sectionPlayer);
-    xml.InitWindow("main_dialog:debug_section", 0, this.sectionPlayer);
-
-    // Init sound section.
-    this.sectionSound = new DevDebugSoundSection(this);
-    this.sectionSound.SetAutoDelete(true);
-    this.sectionSound.Show(false);
-    this.AttachChild(this.sectionSound);
-    xml.InitWindow("main_dialog:debug_section", 0, this.sectionSound);
-
-    // Init spawn section.
-    this.sectionSpawn = new DevDebugSpawnSection(this);
-    this.sectionSpawn.SetAutoDelete(true);
-    this.sectionSpawn.Show(false);
-    this.AttachChild(this.sectionSpawn);
-    xml.InitWindow("main_dialog:debug_section", 0, this.sectionSpawn);
-
-    // Init UI section.
-    this.sectionUi = new DevDebugUiSection(this);
-    this.sectionUi.SetAutoDelete(true);
-    this.sectionUi.Show(false);
-    this.AttachChild(this.sectionUi);
-    xml.InitWindow("main_dialog:debug_section", 0, this.sectionUi);
-
-    // Init world section.
-    this.sectionWorld = new DevDebugWorldSection(this);
-    this.sectionWorld.SetAutoDelete(true);
-    this.sectionWorld.Show(false);
-    this.AttachChild(this.sectionWorld);
-    xml.InitWindow("main_dialog:debug_section", 0, this.sectionWorld);
+    this.Register(this.cancelButton, "cancel_button");
   }
 
   /**
    * todo: Description.
    */
   public initCallBacks(): void {
-    this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.onCancelButtonAction(), this);
-    this.AddCallback("tab", ui_events.TAB_CHANGED, () => this.onTabChange(), this);
+    this.AddCallback("cancel_button", ui_events.BUTTON_CLICKED, () => this.onCancelButtonAction(), this);
+
+    // Handle section selection.
+    Object.values(EDebugSection).forEach((it) => {
+      this.AddCallback("section_" + it, ui_events.BUTTON_CLICKED, () => this.onSectionSwitchClicked(it), this);
+    });
   }
 
   /**
    * todo: Description.
    */
   public initState(): void {
-    this.tab.SetActiveTab(EDebugSection.GENERAL);
+    Object.entries(sectionsMap).forEach(([section, factory]) => {
+      logger.info("Construct new section component:", section);
+
+      const sectionComponent: XR_CUIWindow = factory(this);
+
+      sectionComponent.SetAutoDelete(true);
+      sectionComponent.Show(false);
+
+      this.AttachChild(sectionComponent);
+
+      this.xml.InitWindow("section", 0, sectionComponent);
+      this.sectionsList.set(section as EDebugSection, sectionComponent);
+    });
   }
 
   /**
@@ -184,42 +125,15 @@ export class DebugDialog extends CUIScriptWnd {
   /**
    * todo: Description.
    */
-  public onTabChange(): void {
-    logger.info("Tab change:", this.tab.GetActiveId());
+  public onSectionSwitchClicked(section: EDebugSection): void {
+    logger.info("Activate section:", section);
 
-    const id: string = this.tab.GetActiveId();
-
-    this.sectionGeneral.Show(false);
-    this.sectionCommands.Show(false);
-    this.sectionCommands.Show(false);
-    this.sectionItems.Show(false);
-    this.sectionPosition.Show(false);
-    this.sectionPlayer.Show(false);
-    this.sectionSound.Show(false);
-    this.sectionSpawn.Show(false);
-    this.sectionUi.Show(false);
-    this.sectionWorld.Show(false);
-
-    if (id === EDebugSection.GENERAL) {
-      this.sectionGeneral.Show(true);
-    } else if (id === EDebugSection.COMMANDS) {
-      this.sectionCommands.Show(true);
-    } else if (id === EDebugSection.ITEMS) {
-      this.sectionItems.Show(true);
-    } else if (id === EDebugSection.POSITION) {
-      this.sectionPosition.Show(true);
-    } else if (id === EDebugSection.PLAYER) {
-      this.sectionPlayer.Show(true);
-    } else if (id === EDebugSection.SOUND) {
-      this.sectionSound.Show(true);
-    } else if (id === EDebugSection.SPAWN) {
-      this.sectionSpawn.Show(true);
-    } else if (id === EDebugSection.UI) {
-      this.sectionUi.Show(true);
-    } else if (id === EDebugSection.WORLD) {
-      this.sectionWorld.Show(true);
-    } else {
-      logger.warn("Unknown section selected:", id);
+    for (const [it, component] of this.sectionsList) {
+      if (it === section) {
+        component.Show(true);
+      } else {
+        component.Show(false);
+      }
     }
   }
 

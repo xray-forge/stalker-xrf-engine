@@ -1,17 +1,5 @@
 import { console_commands } from "@/engine/lib/constants/console_commands";
 
-export enum EDebugSection {
-  GENERAL = "general",
-  COMMANDS = "commands",
-  ITEMS = "items",
-  POSITION = "position",
-  PLAYER = "player",
-  SOUND = "sound",
-  SPAWN = "spawn",
-  UI = "ui",
-  WORLD = "world",
-}
-
 export const on_off_cmds = [
   console_commands.g_god,
   console_commands.g_unlimitedammo,

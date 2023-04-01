@@ -14,14 +14,14 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { textures } from "@/engine/lib/constants/textures";
 
-const base: string = "menu\\debug\\DevDebugUiSection.component";
+const base: string = "menu\\debug\\DebugUiSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class DevDebugUiSection extends CUIWindow {
+export class DebugUiSection extends CUIWindow {
   public owner: XR_CUIScriptWnd;
 
   public section!: XR_CUIStatic;
@@ -50,8 +50,6 @@ export class DevDebugUiSection extends CUIWindow {
    * todo: Description.
    */
   public initControls(): void {
-    logger.info("Init controls");
-
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
@@ -73,8 +71,6 @@ export class DevDebugUiSection extends CUIWindow {
    * todo: Description.
    */
   public initCallBacks(): void {
-    logger.info("Init callbacks");
-
     this.owner.AddCallback("textures_list", ui_events.LIST_ITEM_SELECT, () => this.onTextureListChange(), this);
     this.owner.AddCallback("textures_list_filter", ui_events.EDIT_TEXT_COMMIT, () => this.updateTexturesList(), this);
   }
@@ -83,7 +79,6 @@ export class DevDebugUiSection extends CUIWindow {
    * todo: Description.
    */
   public InitData(): void {
-    logger.info("Init data");
     this.initTexturesList();
   }
 

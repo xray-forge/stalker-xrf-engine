@@ -4,6 +4,7 @@ import { normalizeBaseNodeProps } from "#/utils";
 
 import { XrTextColor } from "@/engine/forms/components/base/XrTextColor.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
+import { BLACK } from "@/engine/lib/constants/colors";
 import { TFontId } from "@/engine/lib/constants/fonts";
 import { TTexture } from "@/engine/lib/constants/textures";
 import { IBaseXmlNode, IRgbColor, TTextAlign } from "@/engine/lib/types";
@@ -16,7 +17,7 @@ export interface IXrButtonProps extends IBaseXmlNode {
   tag?: string;
   label: string;
   font: TFontId;
-  textColor: IRgbColor;
+  textColor?: IRgbColor;
   texture: TTexture;
   align?: TTextAlign;
   stretch?: boolean;
@@ -37,7 +38,7 @@ export function Xr3tButton(props: IXrButtonProps): JSXNode {
     texture,
     font,
     label,
-    textColor,
+    textColor = BLACK,
     stretch = true,
   } = normalizeBaseNodeProps(props);
 

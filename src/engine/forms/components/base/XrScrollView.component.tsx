@@ -13,6 +13,7 @@ export interface IXrScrollViewProps extends IBaseXmlNode {
   alwaysShowScroll?: boolean;
   flipVert?: boolean;
   canSelect?: boolean;
+  scrollProfile?: string;
 }
 
 export function XrScrollView(props: IXrScrollViewProps): JSXNode {
@@ -30,6 +31,7 @@ export function XrScrollView(props: IXrScrollViewProps): JSXNode {
     alwaysShowScroll,
     flipVert,
     canSelect,
+    scrollProfile,
   } = normalizeBaseNodeProps(props);
 
   return JSXXML(tag, {
@@ -44,6 +46,7 @@ export function XrScrollView(props: IXrScrollViewProps): JSXNode {
     vert_interval: vertInterval,
     always_show_scroll: alwaysShowScroll,
     flip_vert: flipVert,
+    scroll_profile: scrollProfile,
     can_select: canSelect,
   });
 }
