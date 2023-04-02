@@ -28,6 +28,8 @@ export type PartialRecord<K extends keyof any, T> = {
   [P in K]?: T;
 };
 
+export type AnyContextualCallable<T> = (this: T, ...args: AnyArgs) => any;
+
 export type AnyCallable = (this: void, ...args: AnyArgs) => any;
 
 export type AnyCallablesModule = Record<string, (this: void, ...args: AnyArgs) => any>;

@@ -2,7 +2,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager"
 import { EGameEvent } from "@/engine/core/managers/events/EGameEvent";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyArgs, AnyCallable, AnyObject, Optional } from "@/engine/lib/types";
+import { AnyArgs, AnyCallable, AnyContextualCallable, AnyObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -41,11 +41,12 @@ export class EventsManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public unregisterCallback(event: EGameEvent, func: AnyCallable): void {
+  public unregisterCallback<T>(event: EGameEvent, func: AnyContextualCallable<unknown>): void;
+  public unregisterCallback<T>(event: EGameEvent, func: AnyCallable): void {
     logger.info("Unregister callback:", event);
 
     this.assertEventIsDeclared(event);
-    this.callbacks[event].delete(func);
+    this.callbacks[event].delete(func as AnyCallable);
   }
 
   /**

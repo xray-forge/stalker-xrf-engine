@@ -78,7 +78,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
 
     logger.info("Event handlers exist:", Object.keys(eventsManager.callbacks).length);
     Object.entries(eventsManager.callbacks).forEach(([key, values]) => {
-      logger.info("*:", key, values ? Object.keys(values).length : NIL);
+      logger.info("*:", key, values !== null ? Object.keys(values).length : NIL);
     });
 
     logger.pushSeparator();
