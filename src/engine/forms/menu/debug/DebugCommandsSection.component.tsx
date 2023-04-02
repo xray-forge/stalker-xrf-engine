@@ -3,20 +3,16 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { XrCheckBox, XrComponent, XrRoot, XrText } from "@/engine/forms/components/base";
 import { XrScrollView } from "@/engine/forms/components/base/XrScrollView.component";
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDialog.component";
-import { on_off_cmds, zero_one_cmds } from "@/engine/forms/menu/debug/sections";
 
 export const IS_XML: boolean = true;
 
-const BASE_WIDTH: number = SECTION_WIDTH;
-const BASE_HEIGHT: number = SECTION_HEIGHT;
-
 export function create(): JSXNode {
   return (
-    <XrRoot width={BASE_WIDTH} height={BASE_HEIGHT}>
+    <XrRoot width={SECTION_WIDTH} height={SECTION_HEIGHT}>
       <XrScrollView
         tag={"commands_list"}
         x={12}
-        y={24}
+        y={12}
         width={168}
         height={SECTION_HEIGHT}
         rightIndent={0}
@@ -27,13 +23,9 @@ export function create(): JSXNode {
         alwaysShowScroll={false}
       />
 
-      <XrComponent x={12} tag={"command_item"} width={40} height={30} />
-
-      <XrText x={24} tag={"command_label"} label={"test"} />
-
-      {on_off_cmds.concat(zero_one_cmds).map((it) => (
-        <XrCheckBox tag={"command_item_" + it} x={4} height={16} width={16} />
-      ))}
+      <XrComponent tag={"command_item"} width={40} height={20} />
+      <XrCheckBox tag={"command_check"} height={16} width={16} />
+      <XrText tag={"command_label"} x={20} label={"?"} />
     </XrRoot>
   );
 }
