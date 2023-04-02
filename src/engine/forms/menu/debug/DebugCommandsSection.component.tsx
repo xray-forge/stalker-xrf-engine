@@ -1,6 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { XrCheckBox, XrContainer, XrRoot, XrText } from "@/engine/forms/components/base";
+import { XrCheckBox, XrComponent, XrRoot, XrText } from "@/engine/forms/components/base";
 import { XrScrollView } from "@/engine/forms/components/base/XrScrollView.component";
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDialog.component";
 import { on_off_cmds, zero_one_cmds } from "@/engine/forms/menu/debug/sections";
@@ -27,7 +27,7 @@ export function create(): JSXNode {
         alwaysShowScroll={false}
       />
 
-      <XrContainer x={12} tag={"command_item"} width={40} height={30} />
+      <XrComponent x={12} tag={"command_item"} width={40} height={30} />
 
       <XrText x={24} tag={"command_label"} label={"test"} />
 

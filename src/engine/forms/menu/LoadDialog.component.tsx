@@ -29,11 +29,13 @@ export function create(): JSXNode {
           <texture>ui_save_load_back</texture>
         </auto_static>
       </background>
+
       <file_item>
         <main width="392" height="18" />
         <fn width="284" height="18" />
         <fd width="88" height="18" />
       </file_item>
+
       <form x="142" y="252" width="467" height="460" stretch="1">
         <texture>ui_inGame2_main_window_small</texture>
         <caption x="0" y="20" width="467" height="30">
@@ -52,6 +54,7 @@ export function create(): JSXNode {
         <file_caption x="136" y="70" width="192" height="20">
           <text font="letterica18" />
         </file_caption>
+
         <file_data x="136" y="90" width="192" height="50" complex_mode="1">
           <text font="letterica18" />
         </file_data>
@@ -61,6 +64,7 @@ export function create(): JSXNode {
         <list x="26" y="215" width="417" height="173" item_height="18" can_select="1">
           <font font="letterica16" />
         </list>
+
         <btn_load x="54" y="427" width="108" height="26" stretch="1">
           <texture>ui_inGame2_Mp_bigbuttone</texture>
           <text font="letterica18">ui_mm_load</text>

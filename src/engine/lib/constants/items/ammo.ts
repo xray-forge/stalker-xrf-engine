@@ -12,8 +12,6 @@ export const ammo = {
   "ammo_5.45x39_fmj": "ammo_5.45x39_fmj",
   "ammo_5.56x45_ap": "ammo_5.56x45_ap",
   "ammo_5.56x45_ss190": "ammo_5.56x45_ss190",
-  "ammo_5.7x28_ap": "ammo_5.7x28_ap",
-  "ammo_5.7x28_fmj": "ammo_5.7x28_fmj",
   "ammo_7.62x54_7h1": "ammo_7.62x54_7h1",
   ammo_9x18_fmj: "ammo_9x18_fmj",
   ammo_9x18_pmm: "ammo_9x18_pmm",

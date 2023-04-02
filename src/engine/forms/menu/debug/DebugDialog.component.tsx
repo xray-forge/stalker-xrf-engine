@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import { Xr3tButton, XrBackground, XrRoot, XrStatic } from "@/engine/forms/components/base";
-import { XrContainer } from "@/engine/forms/components/base/XrContainer.component";
+import { XrComponent } from "@/engine/forms/components/base/XrComponent.component";
 import { XrScrollView } from "@/engine/forms/components/base/XrScrollView.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -75,7 +75,7 @@ export function create(): JSXNode {
         texture={textures.ui_inGame2_Mp_bigbuttone}
       />
 
-      <XrContainer tag={"section"} x={124} y={8} height={SECTION_HEIGHT} width={SECTION_WIDTH} />
+      <XrComponent tag={"section"} x={124} y={8} height={SECTION_HEIGHT} width={SECTION_WIDTH} />
 
       <Xr3tButton
         tag={"cancel_button"}

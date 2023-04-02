@@ -1,13 +1,14 @@
-import { alife, system_ini, XR_game_object, XR_ini_file } from "xray16";
+import { alife, game, system_ini, XR_game_object, XR_ini_file } from "xray16";
 
-import { IRegistryObjectState } from "@/engine/core/database";
+import { IRegistryObjectState, SYSTEM_INI } from "@/engine/core/database";
 import { isAmmoSection } from "@/engine/core/utils/check/is";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectPositioning } from "@/engine/core/utils/object";
+import { TCaption } from "@/engine/lib/constants/captions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { TAmmoItem } from "@/engine/lib/constants/items/ammo";
-import { LuaArray, Optional, TCount, TProbability, TSection } from "@/engine/lib/types";
+import { LuaArray, Optional, TCount, TLabel, TProbability, TSection } from "@/engine/lib/types";
 import { AnyGameObject } from "@/engine/lib/types/engine";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -116,5 +117,20 @@ export function spawnDefaultObjectItems(object: XR_game_object, state: IRegistry
     if (object.object(id) === null) {
       spawnItemsForObject(object, id, count);
     }
+  }
+}
+
+/**
+ * Get matching translation for section if it exists.
+ *
+ * @returns translated item name if translation is declared
+ */
+export function getInventoryNameForItemSection(section: TSection): TLabel {
+  if (SYSTEM_INI.section_exist(section) && SYSTEM_INI.line_exist(section, "inv_name")) {
+    const caption: Optional<TCaption> = SYSTEM_INI.r_string(section, "inv_name");
+
+    return game.translate_string(caption || section);
+  } else {
+    return game.translate_string(section);
   }
 }

@@ -1,25 +1,181 @@
-import { CScriptXmlInit, LuabindClass, XR_CScriptXmlInit } from "xray16";
+import {
+  CUIWindow,
+  LuabindClass,
+  ui_events,
+  vector2,
+  XR_CUI3tButton,
+  XR_CUIComboBox,
+  XR_CUIListBox,
+  XR_CUIWindow,
+  XR_vector2,
+} from "xray16";
 
+import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
+import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemListEntry";
+import { isGameStarted } from "@/engine/core/utils/alife";
+import { isAmmoSection } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { resolveXmlFormPath } from "@/engine/core/utils/ui";
-import { TPath } from "@/engine/lib/types";
+import { getInventoryNameForItemSection, spawnItemsForObject } from "@/engine/core/utils/spawn";
+import { resolveXmlFile } from "@/engine/core/utils/ui";
+import { TInventoryItem } from "@/engine/lib/constants/items";
+import { ammo } from "@/engine/lib/constants/items/ammo";
+import { artefacts } from "@/engine/lib/constants/items/artefacts";
+import { drugs } from "@/engine/lib/constants/items/drugs";
+import { food } from "@/engine/lib/constants/items/food";
+import { helmets } from "@/engine/lib/constants/items/helmets";
+import { outfits } from "@/engine/lib/constants/items/outfits";
+import { weapons } from "@/engine/lib/constants/items/weapons";
+import { LuaArray, Optional, TName, TPath, TSection } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugItemsSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
+
+enum EItemCategory {
+  AMMO = "ammo",
+  ARTEFACTS = "artefacts",
+  CONSUMABLES = "consumables",
+  OUTFITS = "outfits",
+  HELMETS = "helmets",
+  WEAPONS = "weapons",
+}
 
 /**
  * todo;
  */
 @LuabindClass()
 export class DebugItemsSection extends AbstractDebugSection {
-  public initControls(): void {
-    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
+  public categoriesList!: XR_CUIComboBox;
+  public itemsList!: XR_CUIListBox<DebugItemListEntry>;
+  public itemListMainSize!: XR_vector2;
+  public itemListNameSize!: XR_vector2;
+  public itemListDdSize!: XR_vector2;
+  public itemSpawnButton!: XR_CUI3tButton;
 
-    xml.ParseFile(resolveXmlFormPath(base));
+  private weapons: LuaArray<TSection> = new LuaTable();
+
+  public initControls(): void {
+    resolveXmlFile(base, this.xml);
+
+    this.categoriesList = this.xml.InitComboBox("categories_list", this);
+
+    this.xml.InitFrame("items_list_frame", this);
+    this.itemsList = this.xml.InitListBox("items_list", this);
+    this.itemsList.ShowSelectedItem(true);
+
+    const window: XR_CUIWindow = new CUIWindow();
+
+    this.xml.InitWindow("spawn_item:main", 0, window);
+    this.itemListMainSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.xml.InitWindow("spawn_item:fn", 0, window);
+    this.itemListNameSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.xml.InitWindow("spawn_item:fd", 0, window);
+    this.itemListDdSize = new vector2().set(window.GetWidth(), window.GetHeight());
+
+    this.itemSpawnButton = this.xml.Init3tButton("spawn_button", this);
+
+    this.owner.Register(this.itemsList, "items_list");
+    this.owner.Register(this.categoriesList, "categories_list");
+    this.owner.Register(this.itemSpawnButton, "spawn_button");
   }
 
-  public initCallBacks(): void {}
+  public initCallBacks(): void {
+    this.owner.AddCallback("categories_list", ui_events.LIST_ITEM_SELECT, () => this.onCategoryChange(), this);
+    this.owner.AddCallback("spawn_button", ui_events.BUTTON_CLICKED, () => this.onItemSpawn(), this);
+  }
 
-  public initState(): void {}
+  public initState(): void {
+    Object.values(EItemCategory)
+      .sort((a, b) => ((a as unknown as number) > (b as unknown as number) ? 1 : -1))
+      .forEach((it, index) => this.categoriesList.AddItem(it, index));
+
+    this.categoriesList.SetCurrentID(0);
+
+    this.fillItemsList(this.categoriesList.GetText() as EItemCategory);
+  }
+
+  public fillItemsList(category: EItemCategory): void {
+    logger.info("Fill items spawn list:", category);
+
+    this.itemsList.RemoveAll();
+
+    switch (category) {
+      case EItemCategory.OUTFITS:
+        Object.values(outfits).forEach((it: TSection) => this.addItemToList(it));
+        break;
+
+      case EItemCategory.HELMETS:
+        Object.values(helmets).forEach((it: TSection) => this.addItemToList(it));
+        break;
+
+      case EItemCategory.WEAPONS:
+        Object.values(weapons)
+          .filter((it: TSection) => SYSTEM_INI.section_exist(it))
+          .forEach((it: TSection) => this.addItemToList(it));
+        break;
+
+      case EItemCategory.ARTEFACTS:
+        Object.values(artefacts).forEach((it: TSection) => this.addItemToList(it));
+        break;
+
+      case EItemCategory.AMMO:
+        Object.values(ammo).forEach((it: TSection) => this.addItemToList(it));
+        break;
+
+      case EItemCategory.CONSUMABLES:
+        Object.values({ ...drugs, ...food }).forEach((it: TSection) => this.addItemToList(it));
+        break;
+    }
+  }
+
+  /**
+   * Add item to spawn list UI element.
+   */
+  public addItemToList(section: TSection): void {
+    const spawnItem: DebugItemListEntry = new DebugItemListEntry(
+      this.itemListMainSize.y,
+      this.itemListDdSize.x,
+      section
+    );
+
+    spawnItem.SetWndSize(this.itemListMainSize);
+    spawnItem.innerNameText.SetWndPos(new vector2().set(0, 0));
+    spawnItem.innerNameText.SetWndSize(this.itemListNameSize);
+    spawnItem.innerNameText.SetText(getInventoryNameForItemSection(section));
+    spawnItem.innerSectionText.SetWndPos(new vector2().set(this.itemListNameSize.x + 4, 0));
+    spawnItem.innerSectionText.SetWndSize(this.itemListDdSize);
+
+    this.itemsList.AddExistingItem(spawnItem);
+  }
+
+  /**
+   * Change category of item lists.
+   */
+  public onCategoryChange(): void {
+    const category: EItemCategory = this.categoriesList.GetText() as EItemCategory;
+
+    logger.info("Change category to:", category, " # ", this.categoriesList.CurrentID());
+
+    this.fillItemsList(category);
+  }
+
+  /**
+   * Spawn item for actor.
+   */
+  public onItemSpawn(): void {
+    if (!isGameStarted()) {
+      return logger.info("Cannot spawn, game is not started");
+    }
+
+    const itemSelected: Optional<DebugItemListEntry> = this.itemsList.GetSelectedItem();
+    const section: Optional<TInventoryItem> = itemSelected?.innerSectionText.GetText() as Optional<TInventoryItem>;
+
+    if (section) {
+      logger.info("Item spawn:", section);
+
+      spawnItemsForObject(registry.actor, section, isAmmoSection(section) ? 30 : 1);
+    } else {
+      logger.info("No selected item for spawn");
+    }
+  }
 }

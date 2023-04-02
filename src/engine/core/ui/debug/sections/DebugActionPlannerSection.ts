@@ -64,7 +64,7 @@ export class DebugActionPlannerSection extends AbstractDebugSection {
   }
 
   public initState(): void {
-    if (alife()) {
+    if (isGameStarted()) {
       const debugManager: DebugManager = DebugManager.getInstance();
       const nearestStalker: Optional<XR_game_object> = debugManager.getNearestClientObject();
       const targetStalker: Optional<XR_game_object> = level.get_target_obj();

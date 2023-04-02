@@ -46,7 +46,7 @@ export class DebugManager extends AbstractCoreManager {
       return null;
     }
 
-    for (const it of $range(1, MAX_U16 - 1)) {
+    for (const it of $range(1, MAX_U16)) {
       const serverObject: Optional<XR_cse_alife_object> = simulator.object(it);
 
       if (serverObject && serverObject.parent_id !== 0) {
@@ -136,7 +136,7 @@ export class DebugManager extends AbstractCoreManager {
     logger.info("Current planner initialized:", actionPlanner.initialized());
     logger.info("Current action id:", currentActionId);
 
-    if (currentActionId) {
+    if (currentActionId !== null) {
       logger.info("Action is:", EActionId[currentActionId] || EStateActionId[currentActionId] || "unknown");
     }
 
@@ -159,7 +159,7 @@ export class DebugManager extends AbstractCoreManager {
       logger.info("Current state planner initialized:", actionPlanner.initialized());
       logger.info("Current state action id:", currentActionId);
 
-      if (currentActionId) {
+      if (currentActionId !== null) {
         logger.info("State action is:", EStateActionId[currentActionId] || "unknown");
       }
 

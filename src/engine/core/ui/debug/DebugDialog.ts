@@ -127,8 +127,6 @@ export class DebugDialog extends CUIScriptWnd {
    * todo: Description.
    */
   public onSectionSwitchClicked(section: EDebugSection): void {
-    logger.info("Activate section:", section);
-
     for (const [it, component] of this.sectionsList) {
       if (it === section) {
         component.Show(true);

@@ -89,6 +89,7 @@ export const inGameTextures = {
   ui_inGame2_opt_slider_box_t: "ui_inGame2_opt_slider_box_t",
   ui_inGame2_picture_window: "ui_inGame2_picture_window",
   ui_inGame2_right_widepanel: "ui_inGame2_right_widepanel",
+  ui_inGame2_servers_list_frame: "ui_inGame2_servers_list_frame",
   ui_inGame2_slider: "ui_inGame2_slider",
   ui_linetext_e: "ui_linetext_e",
   ui_magnifier2: "ui_magnifier2",

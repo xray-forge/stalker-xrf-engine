@@ -1,6 +1,6 @@
 export * from "@/engine/forms/components/base/Xr3tButton.component";
 export * from "@/engine/forms/components/base/XrBackground.component";
-export * from "@/engine/forms/components/base/XrContainer.component";
+export * from "@/engine/forms/components/base/XrComponent.component";
 export * from "@/engine/forms/components/base/XrCheckBox.component";
 export * from "@/engine/forms/components/base/XrEditBox.component";
 export * from "@/engine/forms/components/base/XrRoot.component";
