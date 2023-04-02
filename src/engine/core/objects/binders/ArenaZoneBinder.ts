@@ -64,12 +64,12 @@ export class ArenaZoneBinder extends object_binder {
    * todo: Description.
    */
   public purge_items(): void {
-    const sim: XR_alife_simulator = alife();
+    const simulator: XR_alife_simulator = alife();
 
     for (const [k, v] of this.savedObjects) {
-      const obj = sim.object(k);
+      const object = simulator.object(k);
 
-      sim.release(obj, true);
+      simulator.release(object, true);
     }
   }
 

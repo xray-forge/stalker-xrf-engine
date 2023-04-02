@@ -1,4 +1,4 @@
-import { alife, clsid, XR_game_object, XR_ini_file } from "xray16";
+import { clsid, XR_game_object, XR_ini_file } from "xray16";
 
 import {
   ActorBinder,
@@ -21,6 +21,7 @@ import {
   SmartTerrainBinder,
   StalkerBinder,
 } from "@/engine/core/objects/binders";
+import { isGameStarted } from "@/engine/core/utils/alife";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -38,7 +39,7 @@ extern("bind", {
   arenaZone: (object: XR_game_object) => {
     const ini: Optional<XR_ini_file> = object.spawn_ini();
 
-    if (ini?.section_exist("arena_zone") && alife() !== null) {
+    if (ini?.section_exist("arena_zone")) {
       object.bind_object(new ArenaZoneBinder(object));
     }
   },
@@ -77,7 +78,7 @@ extern("bind", {
 
     if (ini !== null && (ini.section_exist("gulag1") || ini.section_exist("smart_terrain"))) {
       if (object.clsid() === clsid.smart_terrain) {
-        if (alife() !== null) {
+        if (isGameStarted()) {
           object.bind_object(new SmartTerrainBinder(object));
         } else {
           logger.info("No simulation, smart terrain will not be enabled:", object.name());

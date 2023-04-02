@@ -4,7 +4,6 @@ import {
   vector,
   XR_CArtefact,
   XR_cse_alife_object,
-  XR_game_object,
   XR_ini_file,
   XR_physics_element,
   XR_physics_shell,
@@ -23,15 +22,8 @@ const UPDATE_THROTTLE: number = 1_000;
  */
 @LuabindClass()
 export class ArtefactBinder extends object_binder {
-  public delta: number = UPDATE_THROTTLE;
+  public delta: TDuration = UPDATE_THROTTLE;
   public isInitializing: boolean = false;
-
-  /**
-   * todo: Description.
-   */
-  public constructor(object: XR_game_object) {
-    super(object);
-  }
 
   /**
    * todo: Description.

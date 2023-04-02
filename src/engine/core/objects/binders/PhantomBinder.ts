@@ -7,9 +7,6 @@ import { PhantomManager } from "@/engine/core/managers/PhantomManager";
  */
 @LuabindClass()
 export class PhantomBinder extends object_binder {
-  /**
-   * todo: Description.
-   */
   public constructor(object: XR_game_object) {
     super(object);
     PhantomManager.getInstance().add_phantom();

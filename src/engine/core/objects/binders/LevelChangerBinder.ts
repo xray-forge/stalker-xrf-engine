@@ -4,7 +4,6 @@ import {
   LuabindClass,
   object_binder,
   XR_cse_alife_object,
-  XR_game_object,
   XR_net_packet,
   XR_reader,
 } from "xray16";
@@ -21,7 +20,6 @@ import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { LevelChanger } from "@/engine/core/objects/alife/LevelChanger";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -30,24 +28,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class LevelChangerBinder extends object_binder {
-  public constructor(object: XR_game_object) {
-    super(object);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override update(delta: number): void {
-    super.update(delta);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override reload(section: TSection): void {
-    super.reload(section);
-  }
-
   /**
    * todo: Description.
    */

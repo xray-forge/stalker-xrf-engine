@@ -13,7 +13,7 @@ import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TDuration, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -28,9 +28,8 @@ export class CampBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
 
-    const camp = registry.camps.stories.get(this.object.id());
+    const camp: Optional<CampStoryManager> = registry.camps.stories.get(this.object.id());
 
-    // todo: Probably not needed.
     if (camp !== null) {
       camp.object = this.object;
     }
@@ -49,7 +48,7 @@ export class CampBinder extends object_binder {
     const ini: XR_ini_file = this.object.spawn_ini();
 
     if (ini.section_exist("camp")) {
-      const filename: Optional<string> = readIniString(ini, "camp", "cfg", false, "", null);
+      const filename: Optional<TName> = readIniString(ini, "camp", "cfg", false, "", null);
 
       registry.camps.stories.set(
         this.object.id(),
@@ -73,8 +72,8 @@ export class CampBinder extends object_binder {
   /**
    * todo;
    */
-  public override update(delta: number): void {
-    const camp = registry.camps.stories.get(this.object.id());
+  public override update(delta: TDuration): void {
+    const camp: Optional<CampStoryManager> = registry.camps.stories.get(this.object.id());
 
     if (camp !== null) {
       camp.update();

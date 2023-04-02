@@ -22,7 +22,7 @@ import {
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { registerSimulationObject, unregisterSimulationObject } from "@/engine/core/database/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
-import { nearest_to_actor_smart, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
+import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
 import { simulationActivities } from "@/engine/core/objects/alife/squad/simulation_activities";
 import { Squad } from "@/engine/core/objects/alife/squad/Squad";
@@ -151,7 +151,10 @@ export class Actor extends cse_alife_creature_actor {
       ["jup_b41_sr_no_assault"]: "jup_b41",
     } as unknown as LuaTable<TStringId, TStringId>;
 
-    if (nearest_to_actor_smart.dist < 50 && !registry.simulationObjects.has(nearest_to_actor_smart.id!)) {
+    if (
+      registry.smartTerrainNearest.distance < 50 &&
+      !registry.simulationObjects.has(registry.smartTerrainNearest.id!)
+    ) {
       return false;
     }
 

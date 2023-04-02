@@ -20,7 +20,7 @@ import {
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
-import { Optional, TDuration } from "@/engine/lib/types";
+import { Optional, TDuration, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -29,12 +29,12 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class SignalLightBinder extends object_binder {
-  public need_turn_off: boolean = true;
-  public loaded: boolean = false;
-  public slow_fly_started: boolean = false;
+  public isLoaded: boolean = false;
+  public isTurnOffNeeded: boolean = true;
+  public isSlowFlyStarted: boolean = false;
 
-  public delta_time: Optional<number> = null;
-  public start_time: Optional<number> = null;
+  public deltaTime: Optional<TTimestamp> = null;
+  public startTime: Optional<TTimestamp> = null;
 
   /**
    * todo: Description.
@@ -52,56 +52,55 @@ export class SignalLightBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    const obj = this.object;
-
-    if (this.start_time === null) {
-      if (this.need_turn_off) {
-        obj.get_hanging_lamp().turn_off();
-        this.need_turn_off = false;
-        this.loaded = false;
+    if (this.startTime === null) {
+      if (this.isTurnOffNeeded) {
+        this.object.get_hanging_lamp().turn_off();
+        this.isTurnOffNeeded = false;
+        this.isLoaded = false;
       }
 
       return;
     }
 
-    let fly_time: number = time_global() - this.start_time;
+    const now: TTimestamp = time_global();
+    let flyTime: TDuration = now - this.startTime;
 
-    if (this.loaded) {
-      this.start_time = this.start_time + time_global() - this.delta_time!;
-      this.delta_time = null;
-      this.loaded = false;
+    if (this.isLoaded) {
+      this.startTime = this.startTime + now - this.deltaTime!;
+      this.deltaTime = null;
+      this.isLoaded = false;
 
-      fly_time = time_global() - this.start_time;
+      flyTime = now - this.startTime;
 
-      if (fly_time < 1500) {
-        obj.set_const_force(new vector().set(0, 1, 0), 180 + math.floor(fly_time / 5), 1500 - fly_time);
-        obj.start_particles("weapons\\light_signal", "link");
-      } else if (fly_time < 20000) {
-        obj.set_const_force(new vector().set(0, 1, 0), 33, 20000 - fly_time);
-        obj.start_particles("weapons\\light_signal", "link");
+      if (flyTime < 1500) {
+        this.object.set_const_force(new vector().set(0, 1, 0), 180 + math.floor(flyTime / 5), 1500 - flyTime);
+        this.object.start_particles("weapons\\light_signal", "link");
+      } else if (flyTime < 20000) {
+        this.object.set_const_force(new vector().set(0, 1, 0), 33, 20000 - flyTime);
+        this.object.start_particles("weapons\\light_signal", "link");
       }
 
       return;
     }
 
     // Magical constants.
-    if (fly_time > 28500) {
-      this.stop;
+    if (flyTime > 28500) {
+      this.stop();
 
       return;
     }
 
-    if (fly_time > 20500) {
-      this.stop_light();
+    if (flyTime > 20500) {
+      this.stopLight();
 
       return;
     }
 
-    if (fly_time > 1500) {
-      if (this.slow_fly_started !== true) {
-        this.slow_fly();
-        obj.start_particles("weapons\\light_signal", "link");
-        obj.get_hanging_lamp().turn_on();
+    if (flyTime > 1500) {
+      if (this.isSlowFlyStarted !== true) {
+        this.startSlowFly();
+        this.object.start_particles("weapons\\light_signal", "link");
+        this.object.get_hanging_lamp().turn_on();
       }
     }
   }
@@ -139,19 +138,17 @@ export class SignalLightBinder extends object_binder {
       return false;
     }
 
-    if (this.start_time !== null) {
+    if (this.startTime !== null) {
       return false;
     }
 
-    const obj = this.object;
-
-    obj.set_const_force(new vector().set(0, 1, 0), 180, 1500);
+    this.object.set_const_force(new vector().set(0, 1, 0), 180, 1500);
 
     // --obj:start_particles("weapons\\light_signal", "link")
     // --obj:get_hanging_lamp():turn_on()
 
-    this.start_time = time_global();
-    this.slow_fly_started = false;
+    this.startTime = time_global();
+    this.isSlowFlyStarted = false;
 
     return true;
   }
@@ -159,35 +156,32 @@ export class SignalLightBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public slow_fly(): void {
-    this.slow_fly_started = true;
+  public startSlowFly(): void {
+    this.isSlowFlyStarted = true;
     this.object.set_const_force(new vector().set(0, 1, 0), 30, 20000);
   }
 
   /**
    * todo: Description.
    */
-  public stop_light(): void {
-    const obj: XR_game_object = this.object;
-
-    this.slow_fly_started = false;
-
-    obj.stop_particles("weapons\\light_signal", "link");
-    obj.get_hanging_lamp().turn_off();
+  public stopLight(): void {
+    this.isSlowFlyStarted = false;
+    this.object.stop_particles("weapons\\light_signal", "link");
+    this.object.get_hanging_lamp().turn_off();
   }
 
   /**
    * todo: Description.
    */
   public stop(): void {
-    this.start_time = null;
+    this.startTime = null;
   }
 
   /**
    * todo: Description.
    */
-  public is_flying(): boolean {
-    return this.start_time !== null;
+  public isFlying(): boolean {
+    return this.startTime !== null;
   }
 
   /**
@@ -205,13 +199,13 @@ export class SignalLightBinder extends object_binder {
 
     super.save(packet);
 
-    if (this.start_time === null) {
+    if (this.startTime === null) {
       packet.w_u32(-1);
     } else {
-      packet.w_u32(time_global() - this.start_time);
+      packet.w_u32(time_global() - this.startTime);
     }
 
-    packet.w_bool(this.slow_fly_started === true);
+    packet.w_bool(this.isSlowFlyStarted === true);
 
     closeSaveMarker(packet, SignalLightBinder.__name);
   }
@@ -227,12 +221,12 @@ export class SignalLightBinder extends object_binder {
     const time = reader.r_u32();
 
     if (time !== MAX_U32) {
-      this.start_time = time_global() - time;
+      this.startTime = time_global() - time;
     }
 
-    this.slow_fly_started = reader.r_bool();
-    this.loaded = true;
-    this.delta_time = time_global();
+    this.isSlowFlyStarted = reader.r_bool();
+    this.isLoaded = true;
+    this.deltaTime = time_global();
 
     closeLoadMarker(reader, SignalLightBinder.__name);
   }

@@ -1235,7 +1235,7 @@ export function signal_rocket_flying(actor: XR_game_object, npc: XR_game_object,
   }
 
   if (registry.signalLights.get(p[0]) !== null) {
-    return registry.signalLights.get(p[0]).is_flying();
+    return registry.signalLights.get(p[0]).isFlying();
   } else {
     abort("No such signal rocket: [%s] on level", tostring(p[0]));
   }

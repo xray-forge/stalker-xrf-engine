@@ -1,6 +1,6 @@
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { EGameEvent } from "@/engine/core/managers/events/EGameEvent";
-import { abort } from "@/engine/core/utils/assertion";
+import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyArgs, AnyCallable, AnyObject, Optional } from "@/engine/lib/types";
 
@@ -10,9 +10,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export class EventsManager extends AbstractCoreManager {
-  public static s(): void {}
-
-  public callbacks: Record<EGameEvent, LuaTable<AnyCallable, { context: Optional<AnyObject> }>> = {
+  protected callbacks: Record<EGameEvent, LuaTable<AnyCallable, { context: Optional<AnyObject> }>> = {
     [EGameEvent.ACTOR_NET_SPAWN]: new LuaTable(),
     [EGameEvent.ACTOR_NET_DESTROY]: new LuaTable(),
     [EGameEvent.ACTOR_UPDATE]: new LuaTable(),
@@ -63,8 +61,6 @@ export class EventsManager extends AbstractCoreManager {
    * Assert provided event type is already registered and can be used in game.
    */
   public assertEventIsDeclared(event: EGameEvent): void {
-    if (!this.callbacks[event]) {
-      abort("Callback name '%s' is unknown.", event);
-    }
+    assert(this.callbacks[event], "Callback name '%s' is unknown.", event);
   }
 }

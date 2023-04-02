@@ -1,11 +1,13 @@
 import type { XR_game_object } from "xray16";
+import { XR_CZoneCampfire } from "xray16";
 
 import type { IRegistryObjectState } from "@/engine/core/database/objects";
 import type { IStoredOfflineObject } from "@/engine/core/database/offline";
 import type { AbstractCoreManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/AbstractCoreManager";
 import type { ITradeManagerDescriptor } from "@/engine/core/managers/TradeManager";
-import {
+import type {
   Actor,
+  AnomalyFieldBinder,
   AnomalyZoneBinder,
   LabX8DoorBinder,
   SignalLightBinder,
@@ -21,7 +23,7 @@ import type { PatrolManager } from "@/engine/core/schemes/patrol";
 import type { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task";
 import type { LightManager } from "@/engine/core/schemes/sr_light";
 import type { TRelation } from "@/engine/lib/constants/relations";
-import type { EScheme, TName, TNumberId, TStringId } from "@/engine/lib/types";
+import type { EScheme, Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
  * Global-level registry of objects and references.
@@ -98,6 +100,10 @@ export const registry = {
    */
   anomalies: new LuaTable<TName, AnomalyZoneBinder>(),
   /**
+   * Anomaly fields by name.
+   */
+  anomalyFields: new LuaTable<TName, AnomalyFieldBinder>(),
+  /**
    * List of data for game artefacts.
    */
   artefacts: {
@@ -132,6 +138,17 @@ export const registry = {
    * List of active smart terrains.
    */
   smartTerrains: new LuaTable<TNumberId, SmartTerrain>(),
+  /**
+   * List of campfires by smart terrain name.
+   */
+  smartTerrainsCampfires: new LuaTable<TName, LuaTable<TNumberId, XR_CZoneCampfire>>(),
+  /**
+   * Nearest to actor smart terrain.
+   */
+  smartTerrainNearest: {
+    id: null as Optional<TNumberId>,
+    distance: math.huge,
+  },
   /**
    * List of active smart covers.
    */

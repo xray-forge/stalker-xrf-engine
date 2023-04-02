@@ -1,12 +1,9 @@
 import { LuabindClass, object_binder, XR_cse_alife_object } from "xray16";
 
-import { registerZone, registry, resetObject, unregisterZone } from "@/engine/core/database";
+import { registerAnomalyField, resetObject, unregisterAnomalyField } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-// todo: Move to db.
-export const FIELDS_BY_NAME: LuaTable<string, AnomalyFieldBinder> = new LuaTable();
 
 /**
  * todo;
@@ -31,9 +28,7 @@ export class AnomalyFieldBinder extends object_binder {
 
     logger.info("Net spawn:", object.name());
 
-    registerZone(this.object);
-
-    FIELDS_BY_NAME.set(this.object.name(), this);
+    registerAnomalyField(this);
 
     return true;
   }
@@ -44,10 +39,7 @@ export class AnomalyFieldBinder extends object_binder {
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
-    unregisterZone(this.object);
-
-    registry.objects.delete(this.object.id());
-    FIELDS_BY_NAME.delete(this.object.name());
+    unregisterAnomalyField(this);
 
     super.net_destroy();
   }
@@ -55,12 +47,8 @@ export class AnomalyFieldBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public set_enable(enabled: boolean): void {
-    if (enabled) {
-      this.object.enable_anomaly();
-    } else {
-      this.object.disable_anomaly();
-    }
+  public setEnabled(isEnabled: boolean): void {
+    return isEnabled ? this.object.enable_anomaly() : this.object.disable_anomaly();
   }
 
   /**

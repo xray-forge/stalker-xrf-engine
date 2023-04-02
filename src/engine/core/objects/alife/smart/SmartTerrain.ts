@@ -14,6 +14,7 @@ import {
   XR_CALifeSmartTerrainTask,
   XR_cse_alife_creature_abstract,
   XR_CTime,
+  XR_CZoneCampfire,
   XR_game_object,
   XR_GameGraph__CVertex,
   XR_ini_file,
@@ -50,10 +51,6 @@ import {
 import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import {
-  turnOffCampfiresBySmartTerrainName,
-  turnOnCampfiresBySmartName,
-} from "@/engine/core/objects/binders/CampfireBinder";
-import {
   activateSchemeBySection,
   getObjectSectionToActivate,
   switchObjectSchemeToSection,
@@ -72,7 +69,7 @@ import {
   parseStringsList,
   TConditionList,
 } from "@/engine/core/utils/parse";
-import { getTableSize } from "@/engine/core/utils/table";
+import { getTableSize, isEmpty } from "@/engine/core/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { TCaption } from "@/engine/lib/constants/captions/captions";
@@ -104,11 +101,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 export const ALARM_TIMEOUT: TDuration = 21_600;
 export const DEATH_IDLE_TIME: TDuration = 10 * 60;
 export const RESPAWN_IDLE: TDuration = 1_000;
-
-// todo: Move to db.
-// todo: Move to db.
-// todo: Move to db.
-export const nearest_to_actor_smart = { id: null as Optional<number>, dist: math.huge };
 
 export const path_fields: LuaArray<string> = ["path_walk", "path_main", "path_home", "center_point"] as any;
 
@@ -1217,12 +1209,13 @@ export class SmartTerrain extends cse_alife_smart_zone {
     if (areObjectsOnSameLevel(this, alife().actor())) {
       const distanceToActor: TDistance = this.position.distance_to(alife().actor()!.position);
       const previousDistanceToActor: TDistance =
-        (nearest_to_actor_smart.id === null && nearest_to_actor_smart.dist) ||
-        alife().object(nearest_to_actor_smart.id!)!.position.distance_to(alife().actor().position);
+        registry.smartTerrainNearest.id === null
+          ? registry.smartTerrainNearest.distance
+          : alife().object(registry.smartTerrainNearest.id)!.position.distance_to(alife().actor().position);
 
       if (distanceToActor < previousDistanceToActor) {
-        nearest_to_actor_smart.id = this.id;
-        nearest_to_actor_smart.dist = distanceToActor;
+        registry.smartTerrainNearest.id = this.id;
+        registry.smartTerrainNearest.distance = distanceToActor;
       }
     }
 
@@ -1236,10 +1229,10 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     if (areOnlyMonstersOnJobs(this.objectJobDescriptors) && this.areCampfiresOn) {
       this.areCampfiresOn = false;
-      turnOffCampfiresBySmartTerrainName(this.name());
+      this.turnOffCampfires();
     } else if (!areOnlyMonstersOnJobs(this.objectJobDescriptors) && !this.areCampfiresOn) {
       this.areCampfiresOn = true;
-      turnOnCampfiresBySmartName(this.name());
+      this.turnOnCampfires();
     }
 
     if (registry.actor === null) {
@@ -1538,6 +1531,44 @@ export class SmartTerrain extends cse_alife_smart_zone {
     }
 
     return false;
+  }
+
+  /**
+   * todo;
+   */
+  public turnOnCampfires(): void {
+    logger.info("Turn on campfires for:", this.name());
+
+    const smartTerrainCampfires: Optional<LuaTable<TNumberId, XR_CZoneCampfire>> = registry.smartTerrainsCampfires.get(
+      this.name()
+    );
+
+    if (smartTerrainCampfires !== null && !isEmpty(smartTerrainCampfires)) {
+      for (const [k, v] of smartTerrainCampfires) {
+        if (!v.is_on()) {
+          v.turn_on();
+        }
+      }
+    }
+  }
+
+  /**
+   * todo;
+   */
+  public turnOffCampfires(): void {
+    logger.info("Turn off campfires for:", this.name());
+
+    const smartTerrainCampfires: Optional<LuaTable<TNumberId, XR_CZoneCampfire>> = registry.smartTerrainsCampfires.get(
+      this.name()
+    );
+
+    if (smartTerrainCampfires !== null && !isEmpty(smartTerrainCampfires)) {
+      for (const [id, campfire] of smartTerrainCampfires) {
+        if (campfire.is_on()) {
+          campfire.turn_off();
+        }
+      }
+    }
   }
 }
 

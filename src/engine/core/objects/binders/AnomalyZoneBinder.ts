@@ -24,7 +24,6 @@ import {
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
-import { FIELDS_BY_NAME } from "@/engine/core/objects/binders/AnomalyFieldBinder";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
@@ -291,7 +290,7 @@ export class AnomalyZoneBinder extends object_binder {
     }
 
     const currentLayer: string = this.currentZoneLayer;
-    const anomalyFields = FIELDS_BY_NAME;
+    const anomalyFields = registry.anomalyFields;
 
     let counter = 0;
 
@@ -299,7 +298,7 @@ export class AnomalyZoneBinder extends object_binder {
       if (k !== currentLayer) {
         for (const [kk, vv] of this.fieldsTable.get(k)) {
           if (anomalyFields.get(vv) !== null) {
-            anomalyFields.get(vv).set_enable(false);
+            anomalyFields.get(vv).setEnabled(false);
           } else {
             counter = counter + 1;
           }
@@ -311,7 +310,7 @@ export class AnomalyZoneBinder extends object_binder {
       if (k !== currentLayer) {
         for (const [kk, vv] of this.minesTable.get(k)) {
           if (anomalyFields.get(vv) !== null) {
-            anomalyFields.get(vv).set_enable(false);
+            anomalyFields.get(vv).setEnabled(false);
           } else {
             counter = counter + 1;
           }
@@ -326,13 +325,13 @@ export class AnomalyZoneBinder extends object_binder {
     if (!this.isTurnedOff) {
       for (const [kk, vv] of this.fieldsTable.get(currentLayer)) {
         if (anomalyFields.get(vv) !== null) {
-          anomalyFields.get(vv).set_enable(true);
+          anomalyFields.get(vv).setEnabled(true);
         }
       }
 
       for (const [kk, vv] of this.minesTable.get(currentLayer)) {
         if (anomalyFields.get(vv) !== null) {
-          anomalyFields.get(vv).set_enable(true);
+          anomalyFields.get(vv).setEnabled(true);
         }
       }
     }
@@ -344,7 +343,7 @@ export class AnomalyZoneBinder extends object_binder {
   public respawnArtefactsAndReplaceAnomalyZones(): void {
     logger.info("Respawn artefacts and replace anomaly zone:", this.object.name());
 
-    const anom_fields = FIELDS_BY_NAME;
+    const anom_fields = registry.anomalyFields;
 
     this.shouldRespawnArtefactsIfPossible = true;
 
@@ -353,13 +352,13 @@ export class AnomalyZoneBinder extends object_binder {
 
       for (const [k, v] of this.fieldsTable.get(layer)) {
         if (anom_fields.get(v) !== null) {
-          anom_fields.get(v).set_enable(false);
+          anom_fields.get(v).setEnabled(false);
         }
       }
 
       for (const [k, v] of this.minesTable.get(layer)) {
         if (anom_fields.get(v) !== null) {
-          anom_fields.get(v).set_enable(false);
+          anom_fields.get(v).setEnabled(false);
         }
       }
 
@@ -367,13 +366,13 @@ export class AnomalyZoneBinder extends object_binder {
 
       for (const [k, v] of this.fieldsTable.get(layer)) {
         if (anom_fields.get(v) !== null) {
-          anom_fields.get(v).set_enable(true);
+          anom_fields.get(v).setEnabled(true);
         }
       }
 
       for (const [k, v] of this.minesTable.get(layer)) {
         if (anom_fields.get(v) !== null) {
-          anom_fields.get(v).set_enable(true);
+          anom_fields.get(v).setEnabled(true);
         }
       }
 

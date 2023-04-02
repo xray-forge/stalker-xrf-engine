@@ -443,7 +443,7 @@ export class SurgeManager extends AbstractCoreManager {
 
     for (const [k, v] of registry.signalLights) {
       logger.info("Stop signal light");
-      v.stop_light();
+      v.stopLight();
       v.stop();
     }
 
@@ -659,7 +659,7 @@ export class SurgeManager extends AbstractCoreManager {
     logger.info("Launch rockets");
     for (const [k, v] of registry.signalLights) {
       logger.info("Start signal light");
-      if (!v.is_flying()) {
+      if (!v.isFlying()) {
         v.launch();
       }
     }

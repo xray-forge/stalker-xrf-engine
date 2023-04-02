@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class SmartTerrainBinder extends object_binder {
-  public se_smart_terrain!: SmartTerrain;
+  public serverObject!: SmartTerrain;
 
   /**
    * todo: Description.
@@ -23,9 +23,9 @@ export class SmartTerrainBinder extends object_binder {
       return false;
     }
 
-    this.se_smart_terrain = alife().object(object.id) as SmartTerrain;
+    this.serverObject = alife().object(object.id) as SmartTerrain;
 
-    registerSmartTerrain(this.object, this.se_smart_terrain);
+    registerSmartTerrain(this.object, this.serverObject);
 
     return true;
   }
@@ -36,7 +36,7 @@ export class SmartTerrainBinder extends object_binder {
   public override net_destroy(): void {
     GlobalSoundManager.getInstance().stopSoundByObjectId(this.object.id());
 
-    unregisterSmartTerrain(this.object, this.se_smart_terrain);
+    unregisterSmartTerrain(this.object, this.serverObject);
 
     super.net_destroy();
   }
@@ -46,6 +46,6 @@ export class SmartTerrainBinder extends object_binder {
    */
   public override update(delta: TDuration): void {
     super.update(delta);
-    this.se_smart_terrain.update();
+    this.serverObject.update();
   }
 }
