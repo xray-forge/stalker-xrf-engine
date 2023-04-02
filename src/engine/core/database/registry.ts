@@ -1,5 +1,4 @@
-import type { XR_game_object } from "xray16";
-import { XR_CZoneCampfire } from "xray16";
+import type { XR_CZoneCampfire, XR_game_object } from "xray16";
 
 import type { IRegistryObjectState } from "@/engine/core/database/objects";
 import type { IStoredOfflineObject } from "@/engine/core/database/offline";
