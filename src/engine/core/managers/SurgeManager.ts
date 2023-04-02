@@ -6,6 +6,8 @@ import {
   hit,
   level,
   vector,
+  XR_CArtefact,
+  XR_cse_alife_object,
   XR_CTime,
   XR_game_object,
   XR_hit,
@@ -25,10 +27,10 @@ import { NotificationManager } from "@/engine/core/managers/notifications/Notifi
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { WeatherManager } from "@/engine/core/managers/WeatherManager";
-import { SmartTerrain } from "@/engine/core/objects";
+import { AnomalyZoneBinder, SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { isImmuneToSurge, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/engine/core/utils/check/check";
-import { isStoryObject } from "@/engine/core/utils/check/is";
+import { isArtefact, isStoryObject } from "@/engine/core/utils/check/is";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { disableGameUiOnly } from "@/engine/core/utils/control";
 import { createAutoSave } from "@/engine/core/utils/game_save";
@@ -44,6 +46,8 @@ import { postProcessors } from "@/engine/lib/constants/animation/post_processors
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions } from "@/engine/lib/constants/info_portions";
+import { TInventoryItem } from "@/engine/lib/constants/items";
+import { drugs } from "@/engine/lib/constants/items/drugs";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { Optional, PartialRecord, TLabel, TNumberId } from "@/engine/lib/types";
@@ -57,6 +61,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
+ * todo: Separate manager to handle artefacts spawn / ownership etc in parallel, do not mix logic.
  */
 export class SurgeManager extends AbstractCoreManager {
   private static check_squad_smart_props(squadId: TNumberId): boolean {
@@ -115,6 +120,7 @@ export class SurgeManager extends AbstractCoreManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_USE_ITEM, this.onActorUseItem, this);
 
     this.isStarted = false;
     this.isFinished = true;
@@ -167,6 +173,7 @@ export class SurgeManager extends AbstractCoreManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_USE_ITEM, this.onActorUseItem);
   }
 
   /**
@@ -843,6 +850,45 @@ export class SurgeManager extends AbstractCoreManager {
           this.giveSurgeHideTask();
         }
       }
+    }
+  }
+
+  /**
+   * Handle actor item use.
+   * Mainly to intercept and properly handle anabiotic.
+   */
+  public onActorUseItem(object: Optional<XR_game_object>): void {
+    if (object === null) {
+      return;
+    }
+
+    const serverObject: Optional<XR_cse_alife_object> = alife().object(object.id());
+    const serverItemSection: Optional<TInventoryItem> = serverObject?.section_name() as Optional<TInventoryItem>;
+
+    if (serverItemSection === drugs.drug_anabiotic) {
+      logger.info("On actor anabiotic use:", object.name());
+      this.processAnabioticItemUsage();
+    }
+  }
+
+  /**
+   * Handle actor taking artefacts.
+   */
+  public onActorItemTake(object: XR_game_object): void {
+    if (isArtefact(object)) {
+      logger.info("On artefact take:", object.name());
+
+      const anomalyZone: Optional<AnomalyZoneBinder> = registry.artefacts.parentZones.get(object.id());
+
+      if (anomalyZone !== null) {
+        anomalyZone.onArtefactTaken(object);
+      } else {
+        registry.artefacts.ways.delete(object.id());
+      }
+
+      object.get_artefact().FollowByPath("NULL", 0, new vector().set(500, 500, 500));
+
+      StatisticsManager.getInstance().incrementCollectedArtefactsCount(object);
     }
   }
 

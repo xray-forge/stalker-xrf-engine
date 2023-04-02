@@ -16,7 +16,6 @@ describe("'custom' external callbacks", () => {
     checkBinding("anabiotic_callback2");
     checkBinding("task_complete");
     checkBinding("task_fail");
-    checkBinding("task_callback");
     checkBinding("effector_callback");
     checkBinding("check_achievement");
   });

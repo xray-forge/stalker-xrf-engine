@@ -81,13 +81,6 @@ extern("engine.task_complete", (taskId: TStringId): boolean => {
 
 extern("engine.task_fail", (taskId: TStringId): boolean => TaskManager.getInstance().onTaskFailed(taskId));
 
-extern("engine.task_callback", (target: XR_CGameTask, state: TXR_TaskState): void => {
-  if (state === task.fail || state === task.completed) {
-    // todo: Supply task state enum.
-    TaskManager.getInstance().onTaskCallback(target, state === task.completed);
-  }
-});
-
 extern("engine.effector_callback", () => SchemeCutscene.onCutsceneEnd());
 
 /**

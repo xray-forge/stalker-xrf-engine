@@ -1,9 +1,10 @@
 import { LuabindClass, ui_events, XR_CUI3tButton } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { EventsManager } from "@/engine/core/managers/events";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { stringifyAsJson } from "@/engine/core/utils/transform/json";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { NIL } from "@/engine/lib/constants/words";
 import { TPath } from "@/engine/lib/types";
@@ -78,7 +79,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
 
     logger.info("Event handlers exist:", Object.keys(eventsManager.callbacks).length);
     Object.entries(eventsManager.callbacks).forEach(([key, values]) => {
-      logger.info("*:", key, values !== null ? Object.keys(values).length : NIL);
+      logger.info("*:", EGameEvent[key as unknown as number], values !== null ? Object.keys(values).length : NIL);
     });
 
     logger.pushSeparator();

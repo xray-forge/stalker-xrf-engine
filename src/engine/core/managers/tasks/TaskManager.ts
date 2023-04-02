@@ -1,8 +1,10 @@
-import { XR_CGameTask, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
+import { task, TXR_TaskState, XR_CGameTask, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openSaveMarker, TASK_MANAGER_LTX } from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, TASK_MANAGER_LTX } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { NotificationManager } from "@/engine/core/managers/notifications";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { ETaskState } from "@/engine/core/managers/tasks/ETaskState";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
@@ -19,6 +21,18 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class TaskManager extends AbstractCoreManager {
   public readonly taskIni: XR_ini_file = TASK_MANAGER_LTX;
   public readonly taskInfo: LuaTable<TStringId, TaskObject> = new LuaTable();
+
+  public override initialize(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.registerCallback(EGameEvent.TASK_STATE_UPDATE, this.onTaskUpdate, this);
+  }
+
+  public override destroy(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.TASK_STATE_UPDATE, this.onTaskUpdate);
+  }
 
   /**
    * todo: Description.
@@ -74,12 +88,24 @@ export class TaskManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public onTaskCallback(task: XR_CGameTask, isCompleted: boolean): void {
-    const taskId: TStringId = task.get_id();
+  public onTaskUpdate(taskObject: XR_CGameTask, state: TXR_TaskState): void {
+    const taskId: TStringId = taskObject.get_id();
 
-    if (this.taskInfo.has(taskId)) {
-      this.taskInfo.get(taskId).deactivate_task(task);
-      this.taskInfo.delete(taskId);
+    logger.info("Task update:", taskId, state, state !== task.fail);
+
+    if (state !== task.fail) {
+      NotificationManager.getInstance().sendTaskNotification(
+        registry.actor,
+        state === task.completed ? ETaskState.COMPLETE : ETaskState.NEW,
+        taskObject
+      );
+    }
+
+    if (state === task.fail || state === task.completed) {
+      if (this.taskInfo.has(taskId)) {
+        this.taskInfo.get(taskId).deactivate_task(taskObject);
+        this.taskInfo.delete(taskId);
+      }
     }
   }
 

@@ -4,6 +4,7 @@ import {
   time_global,
   XR_alife_simulator,
   XR_cse_alife_object,
+  XR_game_object,
   XR_ini_file,
   XR_net_packet,
   XR_reader,
@@ -71,6 +72,7 @@ export class TreasureManager extends AbstractCoreManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake, this);
 
     const totalSecretsCount: TCount = SECRETS_LTX.line_count("list");
 
@@ -128,6 +130,7 @@ export class TreasureManager extends AbstractCoreManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake);
   }
 
   /**
@@ -296,7 +299,8 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public on_item_take(objectId: TNumberId): void {
+  public onActorItemTake(object: XR_game_object): void {
+    const objectId: TNumberId = object.id();
     const restrId: Optional<TNumberId> = this.items_from_secrets.get(objectId);
     let treasureId: Optional<TTreasure> = null;
 

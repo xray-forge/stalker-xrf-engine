@@ -7,14 +7,10 @@ import {
   level,
   LuabindClass,
   object_binder,
-  task,
   TXR_game_difficulty,
   TXR_TaskState,
-  vector,
-  XR_CArtefact,
   XR_CGameTask,
   XR_cse_alife_creature_actor,
-  XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
   XR_reader,
@@ -47,18 +43,14 @@ import { ReleaseBodyManager } from "@/engine/core/managers/ReleaseBodyManager";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
-import { ETaskState } from "@/engine/core/managers/tasks";
 import { TaskManager } from "@/engine/core/managers/tasks/TaskManager";
 import { TravelManager } from "@/engine/core/managers/TravelManager";
 import { TreasureManager } from "@/engine/core/managers/TreasureManager";
 import { WeatherManager } from "@/engine/core/managers/WeatherManager";
 import { Actor } from "@/engine/core/objects/alife/Actor";
-import { AnomalyZoneBinder } from "@/engine/core/objects/binders/AnomalyZoneBinder";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos/SchemeDeimos";
 import { SchemeNoWeapon } from "@/engine/core/schemes/sr_no_weapon";
-import { getExtern } from "@/engine/core/utils/binding";
-import { isArtefact } from "@/engine/core/utils/check/is";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -67,10 +59,8 @@ import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/tim
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { gameDifficultiesByNumber } from "@/engine/lib/constants/game_difficulties";
 import { info_portions } from "@/engine/lib/constants/info_portions";
-import { TInventoryItem } from "@/engine/lib/constants/items";
-import { drugs } from "@/engine/lib/constants/items/drugs";
 import { NIL } from "@/engine/lib/constants/words";
-import { AnyCallablesModule, Optional, StringOptional, TCount, TDuration, TIndex, TName } from "@/engine/lib/types";
+import { Optional, StringOptional, TCount, TDuration, TIndex, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -93,6 +83,7 @@ export class ActorBinder extends object_binder {
 
   public state!: IRegistryObjectState;
 
+  // todo: Generic init on game start, do not store in actor.
   protected readonly achievementsManager: AchievementsManager = AchievementsManager.getInstance();
   protected readonly actorInventoryMenuManager: ActorInventoryMenuManager = ActorInventoryMenuManager.getInstance();
   protected readonly dropManager: DropManager = DropManager.getInstance();
@@ -101,7 +92,7 @@ export class ActorBinder extends object_binder {
   protected readonly eventsManager: EventsManager = EventsManager.getInstance();
   protected readonly globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
   protected readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
-  protected readonly newsManager: NotificationManager = NotificationManager.getInstance();
+  protected readonly notificationManager: NotificationManager = NotificationManager.getInstance();
   protected readonly releaseBodyManager: ReleaseBodyManager = ReleaseBodyManager.getInstance();
   protected readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
   protected readonly statisticsManager: StatisticsManager = StatisticsManager.getInstance();
@@ -189,95 +180,29 @@ export class ActorBinder extends object_binder {
     super.reinit();
 
     this.state = resetObject(this.object);
-    this.state.portableStore = null!;
+    this.state.portableStore = null;
 
-    this.object.set_callback(callback.inventory_info, this.onInfoUpdate, this);
-    this.object.set_callback(callback.on_item_take, this.onItemTake, this);
-    this.object.set_callback(callback.on_item_drop, this.onItemDrop, this);
-    this.object.set_callback(callback.trade_sell_buy_item, this.onTrade, this);
-    this.object.set_callback(callback.task_state, this.onTaskUpdate, this);
-    this.object.set_callback(callback.take_item_from_box, this.onTakeItemFromBox, this);
-    this.object.set_callback(callback.use_object, this.onUseInventoryItem, this);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onTakeItemFromBox(box: XR_game_object, item: XR_game_object): void {
-    logger.info("Take item from box:", box.name(), item.name());
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onInfoUpdate(object: XR_game_object, info: string): void {
-    logger.info("Info update:", info);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onTrade(item: XR_game_object, sell_bye: boolean, money: number): void {}
-
-  /**
-   * todo: Description.
-   */
-  public onItemTake(object: XR_game_object): void {
-    logger.info("On item take:", object.name());
-
-    if (isArtefact(object)) {
-      const anomalyZone: Optional<AnomalyZoneBinder> = registry.artefacts.parentZones.get(object.id());
-
-      if (anomalyZone !== null) {
-        anomalyZone.onArtefactTaken(object);
-      } else {
-        registry.artefacts.ways.delete(object.id());
-      }
-
-      const artefact: XR_CArtefact = object.get_artefact();
-
-      artefact.FollowByPath("NULL", 0, new vector().set(500, 500, 500));
-
-      this.statisticsManager.incrementCollectedArtefactsCount(object);
-    }
-
-    this.treasureManager.on_item_take(object.id());
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onItemDrop(object: XR_game_object): void {}
-
-  /**
-   * todo: Description.
-   */
-  public onUseInventoryItem(object: Optional<XR_game_object>): void {
-    if (object === null) {
-      return;
-    }
-
-    const serverObject: Optional<XR_cse_alife_object> = alife().object(object.id());
-    const serverItemSection: Optional<TInventoryItem> = serverObject?.section_name() as Optional<TInventoryItem>;
-
-    if (serverItemSection === drugs.drug_anabiotic) {
-      this.surgeManager.processAnabioticItemUsage();
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onTaskUpdate(task_object: XR_CGameTask, state: TXR_TaskState): void {
-    if (state !== task.fail) {
-      this.newsManager.sendTaskNotification(
-        registry.actor,
-        state === task.completed ? ETaskState.COMPLETE : ETaskState.NEW,
-        task_object
-      );
-    }
-
-    getExtern<AnyCallablesModule>("engine").task_callback(task_object, state);
+    this.object.set_callback(callback.inventory_info, (object: XR_game_object, info: string) => {
+      this.eventsManager.emitEvent(EGameEvent.ACTOR_INFO_UPDATE, object, info);
+    });
+    this.object.set_callback(callback.take_item_from_box, (box: XR_game_object, item: XR_game_object) => {
+      this.eventsManager.emitEvent(EGameEvent.ACTOR_TAKE_BOX_ITEM, box, item);
+    });
+    this.object.set_callback(callback.on_item_drop, (item: XR_game_object) => {
+      this.eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_DROP, item);
+    });
+    this.object.set_callback(callback.trade_sell_buy_item, (item: XR_game_object, sellBuy: boolean, money: number) => {
+      this.eventsManager.emitEvent(EGameEvent.ACTOR_TRADE, item, sellBuy, money);
+    });
+    this.object.set_callback(callback.task_state, (task: XR_CGameTask, state: TXR_TaskState) => {
+      this.eventsManager.emitEvent(EGameEvent.TASK_STATE_UPDATE, task, state);
+    });
+    this.object.set_callback(callback.on_item_take, (object: XR_game_object) => {
+      this.eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_TAKE, object);
+    });
+    this.object.set_callback(callback.use_object, (object: XR_game_object) => {
+      this.eventsManager.emitEvent(EGameEvent.ACTOR_USE_ITEM, object);
+    });
   }
 
   /**

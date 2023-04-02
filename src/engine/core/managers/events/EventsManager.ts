@@ -6,23 +6,20 @@ import { AnyArgs, AnyCallable, AnyContextualCallable, AnyObject, Optional } from
 
 const logger: LuaLogger = new LuaLogger($filename);
 
+type TEventSubscribersDescriptor = Record<EGameEvent, LuaTable<AnyCallable, { context: Optional<AnyObject> }>>;
+
 /**
  * todo;
  */
 export class EventsManager extends AbstractCoreManager {
-  public readonly callbacks: Record<EGameEvent, LuaTable<AnyCallable, { context: Optional<AnyObject> }>> = {
-    [EGameEvent.ACTOR_NET_SPAWN]: new LuaTable(),
-    [EGameEvent.ACTOR_NET_DESTROY]: new LuaTable(),
-    [EGameEvent.ACTOR_UPDATE]: new LuaTable(),
-    [EGameEvent.HIT]: new LuaTable(),
-    [EGameEvent.MONSTER_HIT]: new LuaTable(),
-    [EGameEvent.NPC_HIT]: new LuaTable(),
-    [EGameEvent.ENEMY_SEE_ACTOR]: new LuaTable(),
-    [EGameEvent.ACTOR_SEE_ENEMY]: new LuaTable(),
-    [EGameEvent.NPC_SHOT_ACTOR]: new LuaTable(),
-    [EGameEvent.MAIN_MENU_ON]: new LuaTable(),
-    [EGameEvent.MAIN_MENU_OFF]: new LuaTable(),
-  };
+  // Initialize list of all enum handlers. Note TSTL map created instead for enum.
+  public readonly callbacks: TEventSubscribersDescriptor = Object.values(EGameEvent).reduce((acc, it) => {
+    if (type(it) === "number") {
+      acc[it as EGameEvent] = new LuaTable();
+    }
+
+    return acc;
+  }, {} as TEventSubscribersDescriptor);
 
   /**
    * todo: Description.
