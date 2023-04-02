@@ -15,7 +15,7 @@ import type {
   Squad,
 } from "@/engine/core/objects";
 import type { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
-import { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
+import type { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
 import type { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import type { CampStoryManager } from "@/engine/core/schemes/camper";
 import type { PatrolManager } from "@/engine/core/schemes/patrol";

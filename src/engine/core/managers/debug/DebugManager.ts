@@ -20,7 +20,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
 import { getNumberRelationBetweenCommunities } from "@/engine/core/utils/relation";
 import { stringifyAsJson } from "@/engine/core/utils/transform/json";
-import { communities, stalkerCommunities, TCommunity } from "@/engine/lib/constants/communities";
+import { stalkerCommunities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
 import { Optional, TDistance, TName, TNumberId } from "@/engine/lib/types";

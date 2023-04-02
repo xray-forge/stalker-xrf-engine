@@ -12,6 +12,7 @@ import {
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SECRETS_LTX } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { abort } from "@/engine/core/utils/assertion";
@@ -67,6 +68,10 @@ export class TreasureManager extends AbstractCoreManager {
    * todo: Description.
    */
   public override initialize(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
+
     const totalSecretsCount: TCount = SECRETS_LTX.line_count("list");
 
     logger.info("Initialize secrets, expected:", totalSecretsCount);
@@ -117,6 +122,12 @@ export class TreasureManager extends AbstractCoreManager {
         abort("There is no section [%s] in secrets.ltx", tostring(i));
       }
     }
+  }
+
+  public override destroy() {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
   }
 
   /**

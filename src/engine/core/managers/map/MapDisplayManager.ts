@@ -11,6 +11,7 @@ import {
 
 import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
   anomalyScannerObjects,
   mapNpcMarks,
@@ -51,6 +52,18 @@ export class MapDisplayManager extends AbstractCoreManager {
 
   public isInitialized: boolean = false;
   public lastUpdateAt: TTimestamp = 0;
+
+  public override initialize() {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
+  }
+
+  public override destroy() {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
+  }
 
   /**
    * todo: Description.

@@ -6,6 +6,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager"
 import { achievementIcons } from "@/engine/core/managers/achievements/AchievementIcons";
 import { achievementRewards } from "@/engine/core/managers/achievements/AchievementRewards";
 import { EAchievement } from "@/engine/core/managers/achievements/EAchievement";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { notificationManagerIcons } from "@/engine/core/managers/notifications";
 import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
@@ -27,6 +28,21 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class AchievementsManager extends AbstractCoreManager {
   public lastDetectiveAchievementSpawnTime: Optional<XR_CTime> = null;
   public lastMutantHunterAchievementSpawnTime: Optional<XR_CTime> = null;
+
+  /**
+   * todo: Description.
+   */
+  public override initialize() {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
+  }
+
+  public override destroy() {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
+  }
 
   /**
    * todo: Description.

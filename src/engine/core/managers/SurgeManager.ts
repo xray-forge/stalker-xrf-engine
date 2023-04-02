@@ -17,6 +17,7 @@ import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SURGE_MANAG
 import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { notificationManagerIcons } from "@/engine/core/managers/notifications";
@@ -110,10 +111,11 @@ export class SurgeManager extends AbstractCoreManager {
   public surge_message: string = "";
   public surge_task_sect: string = "";
 
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
+
     this.isStarted = false;
     this.isFinished = true;
     this.isTimeForwarded = false;
@@ -159,6 +161,12 @@ export class SurgeManager extends AbstractCoreManager {
     this.surge_message = "";
     this.surge_task_sect = "";
     this.isLoaded = false;
+  }
+
+  public override destroy() {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
   }
 
   /**
@@ -603,10 +611,10 @@ export class SurgeManager extends AbstractCoreManager {
    * todo: Description.
    */
   public respawnArtefactsAndReplaceAnomalyZones(): void {
-    const lvl_nm: TLevel = level.name();
+    const levelName: TLevel = level.name();
 
-    if (this.levels_respawn[lvl_nm]) {
-      this.levels_respawn[lvl_nm] = false;
+    if (this.levels_respawn[levelName]) {
+      this.levels_respawn[levelName] = false;
     }
 
     for (const [k, v] of registry.anomalies) {
@@ -671,6 +679,10 @@ export class SurgeManager extends AbstractCoreManager {
   public override update(): void {
     if (device().precache_frame > 1) {
       return;
+    }
+
+    if (this.levels_respawn[level.name() as TLevel]) {
+      this.respawnArtefactsAndReplaceAnomalyZones();
     }
 
     if (!this.isStarted) {

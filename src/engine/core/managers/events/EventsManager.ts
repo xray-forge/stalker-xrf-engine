@@ -10,7 +10,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export class EventsManager extends AbstractCoreManager {
-  protected callbacks: Record<EGameEvent, LuaTable<AnyCallable, { context: Optional<AnyObject> }>> = {
+  public readonly callbacks: Record<EGameEvent, LuaTable<AnyCallable, { context: Optional<AnyObject> }>> = {
     [EGameEvent.ACTOR_NET_SPAWN]: new LuaTable(),
     [EGameEvent.ACTOR_NET_DESTROY]: new LuaTable(),
     [EGameEvent.ACTOR_UPDATE]: new LuaTable(),

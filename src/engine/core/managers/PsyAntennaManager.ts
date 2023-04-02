@@ -18,6 +18,7 @@ import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/en
 import { getWeakManagerInstance, isManagerInitialized } from "@/engine/core/database/managers";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { PhantomManager } from "@/engine/core/managers/PhantomManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { isLevelChanging } from "@/engine/core/utils/check/check";
@@ -119,11 +120,33 @@ export class PsyAntennaManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
+  public override initialize() {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_NET_DESTROY, this.dispose, this);
+  }
+
+  /**
+   * todo: Description.
+   */
   public override destroy(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_DESTROY, this.dispose);
+
     this.sound_obj_right.stop();
     this.sound_obj_left.stop();
     level.set_snd_volume(this.snd_volume);
     get_hud().enable_fake_indicators(false);
+  }
+
+  /**
+   * Dispose current instance in registry.
+   */
+  public dispose(): void {
+    PsyAntennaManager.dispose();
   }
 
   /**

@@ -10,6 +10,7 @@ import {
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
@@ -40,6 +41,18 @@ export class WeatherManager extends AbstractCoreManager {
 
   public state: LuaTable<string, IWeatherState> = new LuaTable();
   public graphs: LuaTable<string, LuaTable<string, number>> = new LuaTable();
+
+  public override initialize() {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
+  }
+
+  public override destroy() {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
+  }
 
   /**
    * todo: Description.

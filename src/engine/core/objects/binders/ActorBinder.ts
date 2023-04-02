@@ -69,7 +69,6 @@ import { gameDifficultiesByNumber } from "@/engine/lib/constants/game_difficulti
 import { info_portions } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { drugs } from "@/engine/lib/constants/items/drugs";
-import { TLevel } from "@/engine/lib/constants/levels";
 import { NIL } from "@/engine/lib/constants/words";
 import { AnyCallablesModule, Optional, StringOptional, TCount, TDuration, TIndex, TName } from "@/engine/lib/types";
 
@@ -160,15 +159,11 @@ export class ActorBinder extends object_binder {
 
     this.globalSoundManager.stopSoundByObjectId(this.object.id());
 
-    this.simulationBoardManager.onNetworkDestroy();
-
     if (actor_stats.remove_from_ranking !== null) {
       actor_stats.remove_from_ranking(this.object.id());
     }
 
     level.show_weapon(true);
-
-    unregisterActor();
 
     this.object.set_callback(callback.inventory_info, null);
     this.object.set_callback(callback.article_info, null);
@@ -180,21 +175,9 @@ export class ActorBinder extends object_binder {
     this.object.set_callback(callback.take_item_from_box, null);
     this.object.set_callback(callback.use_object, null);
 
-    if (registry.sounds.effectsVolume !== 0) {
-      executeConsoleCommand(console_commands.snd_volume_eff, tostring(registry.sounds.effectsVolume));
-      registry.sounds.effectsVolume = 0;
-    }
-
-    if (registry.sounds.musicVolume !== 0) {
-      executeConsoleCommand(console_commands.snd_volume_music, tostring(registry.sounds.musicVolume));
-      registry.sounds.musicVolume = 0;
-    }
-
-    PsyAntennaManager.dispose();
-
-    this.dynamicMusicManager.stopTheme();
-
     this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_DESTROY);
+
+    unregisterActor();
 
     super.net_destroy();
   }
@@ -303,13 +286,6 @@ export class ActorBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    // Handle input disabling.
-    if (this.travelManager.isTraveling) {
-      this.travelManager.onActiveTravelUpdate();
-    }
-
-    this.weatherManager.update();
-    this.achievementsManager.update(delta);
     this.globalSoundManager.update(this.object.id());
 
     // Handle input disabling.
@@ -349,8 +325,6 @@ export class ActorBinder extends object_binder {
       }
     }
 
-    PsyAntennaManager.getWeakInstance()?.update(delta);
-
     if (this.isStartCheckNeeded) {
       if (!hasAlifeInfo(info_portions.global_dialogs)) {
         this.object.give_info_portion(info_portions.global_dialogs);
@@ -370,16 +344,7 @@ export class ActorBinder extends object_binder {
 
     this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE, delta);
 
-    if (this.surgeManager.levels_respawn[level.name() as TLevel]) {
-      this.surgeManager.respawnArtefactsAndReplaceAnomalyZones();
-    }
-
-    this.surgeManager.update();
-
     updateSimulationObjectAvailability(alife().actor<Actor>());
-
-    this.treasureManager.update();
-    this.mapDisplayManager.update();
 
     if (!this.isLoaded) {
       this.isLoaded = true;

@@ -18,6 +18,7 @@ import {
 
 import { getStoryIdByObjectId, registry, TRAVEL_MANAGER_LTX } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
@@ -98,10 +99,11 @@ export class TravelManager extends AbstractCoreManager {
   private travelSquadPath: Optional<string> = null;
   private travelSquad: Optional<Squad> = null;
 
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
+
     for (const it of $range(0, TRAVEL_MANAGER_LTX.line_count(TravelManager.LOCATIONS_LTX_SECTION) - 1)) {
       const [temp1, id, value] = TRAVEL_MANAGER_LTX.r_line(TravelManager.LOCATIONS_LTX_SECTION, it, "", "");
 
@@ -122,6 +124,15 @@ export class TravelManager extends AbstractCoreManager {
     }
   }
 
+  public override destroy() {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
+  }
+
+  /**
+   * todo: Description.
+   */
   public initializeTravellerDialog(dialog: XR_CPhraseDialog): void {
     const npcCommunity: TCommunity = communities.stalker; // -- npc:character_community()
 
@@ -512,7 +523,11 @@ export class TravelManager extends AbstractCoreManager {
    * todo;
    * todo: Probably add some 'isTraveling' checker with assertion of types.
    */
-  public onActiveTravelUpdate(): void {
+  public override update(): void {
+    if (!this.isTraveling) {
+      return;
+    }
+
     // Wait till prepare.
     if (time_global() - (this.travelingStartedAt as number) < TravelManager.SMART_TRAVEL_TELEPORT_DELAY) {
       return;

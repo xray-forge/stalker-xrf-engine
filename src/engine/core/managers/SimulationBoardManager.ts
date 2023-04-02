@@ -10,6 +10,7 @@ import {
 
 import { registry, SIMULATION_LTX } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/core/objects/alife/squad/Squad";
@@ -19,7 +20,6 @@ import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { changeTeamSquadGroup } from "@/engine/core/utils/object";
 import { parseStringsList } from "@/engine/core/utils/parse";
-import { getTableSize } from "@/engine/core/utils/table";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { LuaArray, Optional, TCount, TName, TNumberId, TRate, TSection, TStringId } from "@/engine/lib/types";
@@ -65,6 +65,18 @@ export class SimulationBoardManager extends AbstractCoreManager {
 
   protected temporaryAssignedSquads: LuaTable<TNumberId, LuaArray<Squad>> = new LuaTable();
   protected temporaryEnteredSquads: LuaTable<TNumberId, LuaArray<Squad>> = new LuaTable();
+
+  public override initialize() {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.registerCallback(EGameEvent.ACTOR_NET_DESTROY, this.onNetworkDestroy, this);
+  }
+
+  public override destroy() {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_DESTROY, this.onNetworkDestroy);
+  }
 
   /**
    * todo: Description.

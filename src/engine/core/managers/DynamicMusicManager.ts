@@ -69,9 +69,6 @@ export class DynamicMusicManager extends AbstractCoreManager {
   public wasInSilence: boolean = false;
   public nextTrackStartTime: TTimestamp = 0;
 
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
     logger.info("Initialize dynamic music manager");
 
@@ -81,6 +78,15 @@ export class DynamicMusicManager extends AbstractCoreManager {
     eventsManager.registerCallback(EGameEvent.ACTOR_NET_DESTROY, this.onActorNetworkDestroy, this);
     eventsManager.registerCallback(EGameEvent.MAIN_MENU_ON, this.onMainMenuOn, this);
     eventsManager.registerCallback(EGameEvent.MAIN_MENU_OFF, this.onMainMenuOff, this);
+  }
+
+  public override destroy() {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.onActorUpdate);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_DESTROY, this.onActorNetworkDestroy);
+    eventsManager.unregisterCallback(EGameEvent.MAIN_MENU_ON, this.onMainMenuOn);
+    eventsManager.unregisterCallback(EGameEvent.MAIN_MENU_OFF, this.onMainMenuOff);
   }
 
   /**
@@ -365,9 +371,16 @@ export class DynamicMusicManager extends AbstractCoreManager {
    * todo: Description.
    */
   public onActorNetworkDestroy(): void {
-    if (this.theme && this.theme.isPlaying()) {
-      logger.info("Stop theme");
-      this.theme.stop();
+    this.stopTheme();
+
+    if (registry.sounds.effectsVolume !== 0) {
+      executeConsoleCommand(console_commands.snd_volume_eff, tostring(registry.sounds.effectsVolume));
+      registry.sounds.effectsVolume = 0;
+    }
+
+    if (registry.sounds.musicVolume !== 0) {
+      executeConsoleCommand(console_commands.snd_volume_music, tostring(registry.sounds.musicVolume));
+      registry.sounds.musicVolume = 0;
     }
 
     logger.info("Toggle ambient volume:", this.gameAmbientVolume);

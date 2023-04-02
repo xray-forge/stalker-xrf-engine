@@ -1,9 +1,11 @@
 import { LuabindClass, ui_events, XR_CUI3tButton } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { EventsManager } from "@/engine/core/managers/events";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
+import { NIL } from "@/engine/lib/constants/words";
 import { TPath } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugRegistrySection.component";
@@ -71,6 +73,14 @@ export class DebugRegistrySection extends AbstractDebugSection {
     logger.info("Sound looped registered:", Object.keys(registry.sounds.looped).length);
     logger.info("Sound music volume registered:", registry.sounds.musicVolume);
     logger.info("Sound effects volume registered:", registry.sounds.effectsVolume);
+
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    logger.info("Event handlers exist:", Object.keys(eventsManager.callbacks).length);
+    Object.entries(eventsManager.callbacks).forEach(([key, values]) => {
+      logger.info("*:", key, values ? Object.keys(values).length : NIL);
+    });
+
     logger.pushSeparator();
   }
 }
