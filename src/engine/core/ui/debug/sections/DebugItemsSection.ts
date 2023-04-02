@@ -26,7 +26,7 @@ import { food } from "@/engine/lib/constants/items/food";
 import { helmets } from "@/engine/lib/constants/items/helmets";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { LuaArray, Optional, TPath, TSection } from "@/engine/lib/types";
+import { Optional, TPath, TSection } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugItemsSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -51,8 +51,6 @@ export class DebugItemsSection extends AbstractDebugSection {
   public itemListNameSize!: XR_vector2;
   public itemListDdSize!: XR_vector2;
   public itemSpawnButton!: XR_CUI3tButton;
-
-  private weapons: LuaArray<TSection> = new LuaTable();
 
   public initControls(): void {
     resolveXmlFile(base, this.xml);

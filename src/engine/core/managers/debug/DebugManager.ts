@@ -1,6 +1,7 @@
 import {
   alife,
   level,
+  relation_registry,
   TXR_class_id,
   XR_action_planner,
   XR_alife_simulator,
@@ -17,7 +18,9 @@ import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateMan
 import { EActionId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
+import { getNumberRelationBetweenCommunities } from "@/engine/core/utils/relation";
 import { stringifyAsJson } from "@/engine/core/utils/transform/json";
+import { communities, stalkerCommunities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
 import { Optional, TDistance, TName, TNumberId } from "@/engine/lib/types";
@@ -173,6 +176,9 @@ export class DebugManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * Details about state management of the object.
+   */
   public logObjectStateManager(object: XR_game_object): void {
     logger.pushSeparator();
     logger.info("Print object state manager report:", object.name());
@@ -193,6 +199,49 @@ export class DebugManager extends AbstractCoreManager {
     } else {
       logger.info("No state manager declared for object");
     }
+
+    logger.pushSeparator();
+  }
+
+  /**
+   * Details about state management of the object.
+   */
+  public logObjectRelations(object: XR_game_object): void {
+    logger.pushSeparator();
+    logger.info("Print object relations report:", object.name());
+
+    logger.info("Object community:", object.character_community());
+    logger.info(
+      "Object goodwill to actor:",
+      relation_registry.community_relation(object.character_community(), registry.actor.character_community())
+    );
+    logger.info(
+      "Object community to actor:",
+      getNumberRelationBetweenCommunities(
+        object.character_community() as TCommunity,
+        registry.actor.character_community() as TCommunity
+      )
+    );
+    logger.info(
+      "Actor community to object:",
+      getNumberRelationBetweenCommunities(
+        registry.actor.character_community() as TCommunity,
+        object.character_community() as TCommunity
+      )
+    );
+
+    Object.values(stalkerCommunities).forEach((it) => {
+      logger.info(
+        "Community to object:",
+        it,
+        getNumberRelationBetweenCommunities(it, object.character_community() as TCommunity)
+      );
+      logger.info(
+        "Object to community:",
+        it,
+        getNumberRelationBetweenCommunities(object.character_community() as TCommunity, it)
+      );
+    });
 
     logger.pushSeparator();
   }

@@ -23,11 +23,11 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-export function getSquadGoodwillToActor(squadName: TName): TRelation {
-  const squad: Optional<Squad> = getServerObjectByStoryId(squadName);
+export function getSquadGoodwillToActor(storyId: TStringId): TRelation {
+  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
   if (squad === null) {
-    abort("No such squad %s in board", tostring(squadName));
+    abort("No such squad %s in board", tostring(storyId));
   }
 
   if (squad.relationship !== null) {
@@ -54,15 +54,15 @@ export function getSquadGoodwillToActor(squadName: TName): TRelation {
 /**
  * todo;
  */
-export function isSquadEnemyToActor(squad_name: TName): boolean {
-  return getSquadGoodwillToActor(squad_name) === relations.enemy;
+export function isSquadEnemyToActor(storyId: TStringId): boolean {
+  return getSquadGoodwillToActor(storyId) === relations.enemy;
 }
 
 /**
  * todo;
  */
-export function isSquadFriendToActor(squad_name: TName): boolean {
-  return getSquadGoodwillToActor(squad_name) === relations.friend;
+export function isSquadFriendToActor(storyId: TStringId): boolean {
+  return getSquadGoodwillToActor(storyId) === relations.friend;
 }
 
 /**
@@ -308,8 +308,11 @@ export function increaseNumberRelationBetweenCommunityAndId(
 /**
  * todo;
  */
-export function getNumberRelationBetweenCommunities(from: Optional<TCommunity>, to: TCommunity): Optional<TCount> {
-  if (from !== null && from !== communities.none && to !== communities.none) {
+export function getNumberRelationBetweenCommunities(
+  from: Optional<TCommunity>,
+  to: Optional<TCommunity>
+): Optional<TCount> {
+  if (from !== null && to !== null && from !== communities.none && to !== communities.none) {
     return relation_registry.community_relation(from, to);
   } else {
     return null;

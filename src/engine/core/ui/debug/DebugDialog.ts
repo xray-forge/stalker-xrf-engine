@@ -109,6 +109,8 @@ export class DebugDialog extends CUIScriptWnd {
       this.xml.InitWindow("section", 0, sectionComponent);
       this.sectionsList.set(section as EDebugSection, sectionComponent);
     });
+
+    this.onSectionSwitchClicked(EDebugSection.GENERAL);
   }
 
   /**

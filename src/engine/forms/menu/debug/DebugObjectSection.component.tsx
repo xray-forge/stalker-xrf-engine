@@ -40,10 +40,21 @@ export function create(): JSXNode {
       />
 
       <Xr3tButton
+        tag={"log_relations_state"}
+        label={"Log relations state"}
+        x={12}
+        y={112}
+        width={72}
+        height={16}
+        textColor={WHITE}
+        font={fonts.letterica16}
+      />
+
+      <Xr3tButton
         tag={"log_inventory_state"}
         label={"Log inventory state"}
         x={12}
-        y={112}
+        y={132}
         width={72}
         height={16}
         textColor={WHITE}

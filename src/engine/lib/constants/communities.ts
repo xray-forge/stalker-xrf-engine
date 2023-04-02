@@ -3,7 +3,7 @@
 /**
  * todo;
  */
-export const communities = {
+export const stalkerCommunities = {
   army: "army",
   bandit: "bandit",
   dolg: "dolg",
@@ -11,6 +11,14 @@ export const communities = {
   freedom: "freedom",
   killer: "killer",
   monolith: "monolith",
+  stalker: "stalker",
+  zombied: "zombied",
+};
+
+/**
+ * todo;
+ */
+export const monsterCommunities = {
   monster: "monster",
   monster_predatory_day: "monster_predatory_day",
   monster_predatory_night: "monster_predatory_night",
@@ -18,9 +26,15 @@ export const communities = {
   monster_vegetarian: "monster_vegetarian",
   monster_zombied_day: "monster_zombied_day",
   monster_zombied_night: "monster_zombied_night",
+};
+
+/**
+ * todo;
+ */
+export const communities = {
+  ...stalkerCommunities,
+  ...monsterCommunities,
   none: "none",
-  stalker: "stalker",
-  zombied: "zombied",
 } as const;
 
 /**
