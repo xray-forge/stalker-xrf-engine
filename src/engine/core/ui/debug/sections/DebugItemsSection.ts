@@ -26,7 +26,7 @@ import { food } from "@/engine/lib/constants/items/food";
 import { helmets } from "@/engine/lib/constants/items/helmets";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { LuaArray, Optional, TName, TPath, TSection } from "@/engine/lib/types";
+import { LuaArray, Optional, TPath, TSection } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugItemsSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -95,37 +95,43 @@ export class DebugItemsSection extends AbstractDebugSection {
   }
 
   public fillItemsList(category: EItemCategory): void {
-    logger.info("Fill items spawn list:", category);
-
     this.itemsList.RemoveAll();
 
     switch (category) {
       case EItemCategory.OUTFITS:
-        Object.values(outfits).forEach((it: TSection) => this.addItemToList(it));
+        this.addItemsToList(Object.values(outfits));
         break;
 
       case EItemCategory.HELMETS:
-        Object.values(helmets).forEach((it: TSection) => this.addItemToList(it));
+        this.addItemsToList(Object.values(helmets));
         break;
 
       case EItemCategory.WEAPONS:
-        Object.values(weapons)
-          .filter((it: TSection) => SYSTEM_INI.section_exist(it))
-          .forEach((it: TSection) => this.addItemToList(it));
+        this.addItemsToList(Object.values(weapons));
         break;
 
       case EItemCategory.ARTEFACTS:
-        Object.values(artefacts).forEach((it: TSection) => this.addItemToList(it));
+        this.addItemsToList(Object.values(artefacts));
         break;
 
       case EItemCategory.AMMO:
-        Object.values(ammo).forEach((it: TSection) => this.addItemToList(it));
+        this.addItemsToList(Object.values(ammo));
         break;
 
       case EItemCategory.CONSUMABLES:
-        Object.values({ ...drugs, ...food }).forEach((it: TSection) => this.addItemToList(it));
+        this.addItemsToList(Object.values({ ...drugs, ...food }));
         break;
     }
+  }
+
+  /**
+   * Add item to spawn list UI element.
+   */
+  public addItemsToList(sections: Array<TSection>): void {
+    sections
+      .filter((it: TSection) => SYSTEM_INI.section_exist(it))
+      .sort((a, b) => ((a as unknown as number) > (b as unknown as number) ? 1 : -1))
+      .forEach((it) => this.addItemToList(it));
   }
 
   /**
@@ -152,11 +158,7 @@ export class DebugItemsSection extends AbstractDebugSection {
    * Change category of item lists.
    */
   public onCategoryChange(): void {
-    const category: EItemCategory = this.categoriesList.GetText() as EItemCategory;
-
-    logger.info("Change category to:", category, " # ", this.categoriesList.CurrentID());
-
-    this.fillItemsList(category);
+    this.fillItemsList(this.categoriesList.GetText() as EItemCategory);
   }
 
   /**

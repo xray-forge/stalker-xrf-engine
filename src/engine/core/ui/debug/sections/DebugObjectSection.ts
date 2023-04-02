@@ -1,5 +1,4 @@
 import {
-  alife,
   level,
   LuabindClass,
   ui_events,
@@ -17,14 +16,14 @@ import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { NIL } from "@/engine/lib/constants/words";
 import { Optional, TPath } from "@/engine/lib/types";
 
-const base: TPath = "menu\\debug\\DebugActionPlannerSection.component";
+const base: TPath = "menu\\debug\\DebugObjectSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 @LuabindClass()
-export class DebugActionPlannerSection extends AbstractDebugSection {
+export class DebugObjectSection extends AbstractDebugSection {
   public nearestStalkerLabel!: XR_CUIStatic;
   public targetStalkerLabel!: XR_CUIStatic;
 
