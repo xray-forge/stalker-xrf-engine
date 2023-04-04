@@ -17,4 +17,9 @@ export const mockTableUtils = {
       throw new Error("Unexpected data provided for table size check mock.");
     }
   },
+  resetTable: (table: Map<unknown, unknown>) => {
+    for (const [k] of table) {
+      table.delete(k);
+    }
+  },
 };

@@ -2,13 +2,14 @@ import { jest } from "@jest/globals";
 
 import { MockActionBase, MockAnim, MockLook, MockMove } from "@/fixtures/xray/mocks/actions";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
+import { mockClsid } from "@/fixtures/xray/mocks/clsid.mock";
 import { mockGetConsole } from "@/fixtures/xray/mocks/console.mock";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 import { mockRenderDevice } from "@/fixtures/xray/mocks/device.mock";
 import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
-import { mockGameInterface } from "@/fixtures/xray/mocks/gameInterface.mock";
-import { mockSystemIni } from "@/fixtures/xray/mocks/ini.mock";
-import { IniFile } from "@/fixtures/xray/mocks/IniFile.mock";
+import { IniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { mockGameInterface } from "@/fixtures/xray/mocks/interface/gameInterface.mock";
+import { mockLevelInterface } from "@/fixtures/xray/mocks/interface/levelInterface.mock";
 import { mocksConfig } from "@/fixtures/xray/mocks/MocksConfig";
 import {
   MockAlifeCreatureActor,
@@ -66,6 +67,7 @@ export function mockXRay16({
   IsImportantSave = jest.fn(() => mocksConfig.isAutoSavingEnabled),
   action_base = MockActionBase,
   anim = MockAnim,
+  clsid = mockClsid,
   cse_alife_creature_actor = MockAlifeCreatureActor,
   cse_alife_helicopter = MockAlifeHelicopter,
   cse_alife_human_stalker = MockAlifeHumanStalker,
@@ -104,12 +106,13 @@ export function mockXRay16({
   game_graph = () => new MockCGameGraph(),
   get_console = mockGetConsole,
   ini_file = IniFile,
+  level = mockLevelInterface,
   look = MockLook,
   move = MockMove,
   object_binder = MockObjectBinder,
   property_evaluator = MockPropertyEvaluator,
   stalker_ids = mockStalkerIds,
-  system_ini = mockSystemIni,
+  system_ini = () => mockIniFile("system.ini", {}),
   user_name = jest.fn(() => "os_user_name"),
   vector = MockVector,
 } = {}): void {
@@ -124,6 +127,7 @@ export function mockXRay16({
     LuabindClass: () => {},
     action_base,
     anim,
+    clsid,
     cse_alife_creature_actor,
     cse_alife_helicopter,
     cse_alife_human_stalker,
@@ -162,6 +166,7 @@ export function mockXRay16({
     game_graph,
     get_console,
     ini_file,
+    level,
     look,
     move,
     object_binder,

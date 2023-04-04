@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
-import { mockIniFile } from "@/fixtures/xray/mocks/IniFile.mock";
+import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("'getters' utils for ini file", () => {
   it("'readIniString' utils should correctly get data from ini files", () => {

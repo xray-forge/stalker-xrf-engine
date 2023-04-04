@@ -117,8 +117,6 @@ export class DebugDialog extends CUIScriptWnd {
    * todo: Description.
    */
   public onCancelButtonAction(): void {
-    logger.info("Cancel action");
-
     this.owner.ShowDialog(true);
     this.owner.Show(true);
 

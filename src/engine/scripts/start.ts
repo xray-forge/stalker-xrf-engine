@@ -1,8 +1,8 @@
 import { device } from "xray16";
 
-import { disposeManagers } from "@/engine/core/database";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { registerManagers } from "@/engine/scripts/register/managers_registrator";
 import { registerSchemeModules } from "@/engine/scripts/register/schemes_registrator";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -20,7 +20,7 @@ extern("start", {
 
     math.randomseed(device().time_global());
 
-    disposeManagers();
+    registerManagers();
     registerSchemeModules();
   },
 });

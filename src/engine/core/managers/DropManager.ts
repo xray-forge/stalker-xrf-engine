@@ -70,10 +70,8 @@ export class DropManager extends AbstractCoreManager {
    * Expected to be called on each actor spawn event (level change, load, start game etc).
    */
   public override initialize(): void {
-    logger.info("Initialize drop settings");
-
     // Initialize communities drop.
-    for (const [community] of communities as unknown as LuaTable<TCommunity, TCommunity>) {
+    for (const [community] of pairs(communities)) {
       const communityDrop: LuaTable<TInventoryItem, TProbability> = new LuaTable();
 
       if (DEATH_GENERIC_LTX.section_exist(community)) {

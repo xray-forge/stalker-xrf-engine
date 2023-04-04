@@ -56,6 +56,25 @@ export function isManagerInitialized<T extends TAbstractCoreManagerConstructor>(
 }
 
 /**
+ * Initialize manager instance in registry, if it is not present.
+ *
+ * @param managerClass - manager class statics reference, used as key in registry to get singletons
+ */
+export function initializeManager(managerClass: TAbstractCoreManagerConstructor): void {
+  if (registry.managers.get(managerClass)) {
+    logger.info("Manager already initialized, skip:", managerClass.name);
+  } else {
+    logger.info("Initialize manager:", managerClass.name);
+
+    const instance: AbstractCoreManager = new managerClass();
+
+    registry.managers.set(managerClass, instance);
+
+    instance.initialize();
+  }
+}
+
+/**
  * Destroy and remove manager from registry.
  *
  * @param managerClass - manager class statics reference, used as key in registry to get singletons
@@ -78,8 +97,6 @@ export function disposeManager<T extends TAbstractCoreManagerConstructor>(manage
  * Each manager lifecycle methods are expected to be called in the process.
  */
 export function disposeManagers(): void {
-  logger.info("Dispose existing managers:", registry.managers.length());
-
   for (const [implementation] of registry.managers) {
     disposeManager(implementation);
   }

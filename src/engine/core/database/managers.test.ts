@@ -5,6 +5,7 @@ import {
   disposeManagers,
   getManagerInstance,
   getWeakManagerInstance,
+  initializeManager,
   isManagerInitialized,
 } from "@/engine/core/database/managers";
 import { registry } from "@/engine/core/database/registry";
@@ -65,6 +66,15 @@ describe("'managers' module of the database", () => {
     expect(registry.managers.length()).toBe(1);
     expect(registry.managers.get(ExampleManagerThree)).not.toBeNull();
     expect(registry.managers.get(ExampleManagerThree).initialize).toHaveBeenCalledTimes(0);
+  });
+
+  it("should correctly initialize managers directly", () => {
+    assertRegistryIsClean();
+
+    initializeManager(ExampleManagerThree);
+    expect(registry.managers.length()).toBe(1);
+    expect(registry.managers.get(ExampleManagerThree)).not.toBeNull();
+    expect(registry.managers.get(ExampleManagerThree).initialize).toHaveBeenCalledTimes(1);
   });
 
   it("should correctly get weak references", () => {

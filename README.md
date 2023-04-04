@@ -1,4 +1,4 @@
-# 🎮 [Stalker XR-TS template](README.md)
+# 🎮 [Stalker XRF template](README.md)
 
 ![status](https://github.com/xray-forge/stalker-xrf-template/actions/workflows/build_and_test.yml/badge.svg)
 [![language-ts](https://img.shields.io/badge/language-typescript-blue.svg?style=flat)](https://github.com/xray-forge/stalker-xrf-template/search?l=typescript)
