@@ -2,6 +2,7 @@ import {
   alife,
   clsid,
   TXR_class_id,
+  TXR_net_processor,
   XR_cse_alife_creature_abstract,
   XR_cse_alife_object,
   XR_game_object,
@@ -318,7 +319,7 @@ export class StatisticsManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override load(reader: XR_reader): void {
+  public override load(reader: TXR_net_processor): void {
     this.actor_statistic = {} as IActorStatistics;
     this.actor_statistic.surges = reader.r_u16();
     this.actor_statistic.completed_quests = reader.r_u16();

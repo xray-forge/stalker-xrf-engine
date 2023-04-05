@@ -6,6 +6,9 @@ import { AnyArgs, AnyCallable, AnyContextualCallable, AnyObject, Optional } from
 
 const logger: LuaLogger = new LuaLogger($filename);
 
+/**
+ * Descriptor of event subscriptions list.
+ */
 type TEventSubscribersDescriptor = Record<EGameEvent, LuaTable<AnyCallable, { context: Optional<AnyObject> }>>;
 
 /**
@@ -29,7 +32,7 @@ export class EventsManager extends AbstractCoreManager {
     func: (this: T, ...args: AnyArgs) => void,
     context: Optional<AnyObject>
   ): void {
-    logger.info("Register callback:", event);
+    logger.info("Register callback:", EGameEvent[event]);
 
     this.assertEventIsDeclared(event);
     this.callbacks[event].set(func as any, { context: context });
@@ -40,7 +43,7 @@ export class EventsManager extends AbstractCoreManager {
    */
   public unregisterCallback<T>(event: EGameEvent, func: AnyContextualCallable<unknown>): void;
   public unregisterCallback<T>(event: EGameEvent, func: AnyCallable): void {
-    logger.info("Unregister callback:", event);
+    logger.info("Unregister callback:", EGameEvent[event]);
 
     this.assertEventIsDeclared(event);
     this.callbacks[event].delete(func as AnyCallable);

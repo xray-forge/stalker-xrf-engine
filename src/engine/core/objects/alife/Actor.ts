@@ -55,7 +55,7 @@ export class Actor extends cse_alife_creature_actor {
     registerStoryLink(this.id, ACTOR);
     registerSimulationObject(this);
 
-    this.simulationBoardManager.onNetworkRegister();
+    this.simulationBoardManager.onActorNetworkRegister();
   }
 
   /**

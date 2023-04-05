@@ -4,11 +4,11 @@ import {
   getFS,
   ini_file,
   time_global,
+  TXR_net_processor,
   XR_cse_alife_object,
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
-  XR_reader,
   XR_vector,
 } from "xray16";
 
@@ -240,7 +240,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override load(reader: XR_reader): void {
+  public override load(reader: TXR_net_processor): void {
     openLoadMarker(reader, ReleaseBodyManager.name);
 
     const count: TCount = reader.r_u16();

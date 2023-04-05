@@ -1,4 +1,5 @@
 import {
+  actor_stats,
   alife,
   clsid,
   game_graph,
@@ -69,13 +70,13 @@ export class SimulationBoardManager extends AbstractCoreManager {
   public override initialize() {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
-    eventsManager.registerCallback(EGameEvent.ACTOR_NET_DESTROY, this.onNetworkDestroy, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_NET_DESTROY, this.onActorNetworkDestroy, this);
   }
 
   public override destroy() {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
-    eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_DESTROY, this.onNetworkDestroy);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_DESTROY, this.onActorNetworkDestroy);
   }
 
   /**
@@ -439,7 +440,11 @@ export class SimulationBoardManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public onNetworkDestroy(): void {
+  public onActorNetworkDestroy(): void {
+    if (actor_stats.remove_from_ranking !== null) {
+      actor_stats.remove_from_ranking(registry.actor.id());
+    }
+
     if (this.factions !== null) {
       for (const [index, faction] of this.factions) {
         GlobalSoundManager.getInstance().stopSoundByObjectId(faction.id);
@@ -450,7 +455,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public onNetworkRegister(): void {
+  public onActorNetworkRegister(): void {
     this.initializeDefaultSimulationSquads();
   }
 

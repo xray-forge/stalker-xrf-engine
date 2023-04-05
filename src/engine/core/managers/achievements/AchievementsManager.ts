@@ -1,4 +1,4 @@
-import { alife, game, XR_CTime, XR_net_packet, XR_reader } from "xray16";
+import { alife, game, TXR_net_processor, XR_CTime, XR_net_packet } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { portableStoreGet } from "@/engine/core/database/portable_store";
@@ -767,7 +767,7 @@ export class AchievementsManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override load(reader: XR_reader): void {
+  public override load(reader: TXR_net_processor): void {
     const hasSpawnedDetectiveLoot: boolean = reader.r_bool();
 
     if (hasSpawnedDetectiveLoot) {

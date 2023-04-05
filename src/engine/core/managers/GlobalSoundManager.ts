@@ -3,6 +3,7 @@ import { TXR_net_processor, XR_game_object, XR_net_packet, XR_reader, XR_sound_o
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SCRIPT_SOUND_LTX } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
 import { ActorSound } from "@/engine/core/objects/sounds/playable_sounds/ActorSound";
 import { LoopedSound } from "@/engine/core/objects/sounds/playable_sounds/LoopedSound";
@@ -43,6 +44,11 @@ export class GlobalSoundManager extends AbstractCoreManager {
     assert(SCRIPT_SOUND_LTX.section_exist("list"), "There is no section [list] in script_sound.ltx");
     resetTable(registry.sounds.themes);
 
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.registerCallback(EGameEvent.ACTOR_NET_DESTROY, this.onActorNetworkDestroy, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.onActorUpdate, this);
+
     const linesCount: TCount = SCRIPT_SOUND_LTX.line_count("list");
 
     logger.info("Load sound themes:", linesCount);
@@ -79,6 +85,13 @@ export class GlobalSoundManager extends AbstractCoreManager {
           abort("Unexpected sound type provided for loading: %s", type);
       }
     }
+  }
+
+  public override destroy(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_DESTROY, this.onActorNetworkDestroy);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.onActorUpdate);
   }
 
   /**
@@ -242,6 +255,21 @@ export class GlobalSoundManager extends AbstractCoreManager {
       }
     }
   }
+
+  /**
+   * Handle actor destroy and mute all sounds.
+   */
+  public onActorNetworkDestroy(): void {
+    this.stopSoundByObjectId(registry.actor.id());
+  }
+
+  /**
+   * Handle actor generic update.
+   */
+  public onActorUpdate(): void {
+    this.update(registry.actor.id());
+  }
+
   /**
    * todo: Description.
    */

@@ -5,14 +5,13 @@ import {
   get_console,
   hit,
   level,
+  TXR_net_processor,
   vector,
-  XR_CArtefact,
   XR_cse_alife_object,
   XR_CTime,
   XR_game_object,
   XR_hit,
   XR_net_packet,
-  XR_reader,
 } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SURGE_MANAGER_LTX } from "@/engine/core/database";
@@ -927,7 +926,7 @@ export class SurgeManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override load(reader: XR_reader): void {
+  public override load(reader: TXR_net_processor): void {
     openLoadMarker(reader, SurgeManager.name);
 
     this.isFinished = reader.r_bool();

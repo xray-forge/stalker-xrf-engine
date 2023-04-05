@@ -1,4 +1,4 @@
-import { level, XR_net_packet, XR_reader } from "xray16";
+import { level, TXR_net_processor, XR_net_packet } from "xray16";
 
 import {
   closeLoadMarker,
@@ -46,12 +46,14 @@ export class WeatherManager extends AbstractCoreManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_NET_SPAWN, this.onActorNetworkSpawn, this);
   }
 
   public override destroy() {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_SPAWN, this.onActorNetworkSpawn);
   }
 
   /**
@@ -280,9 +282,17 @@ export class WeatherManager extends AbstractCoreManager {
   }
 
   /**
+   * Handle actor net spawn.
+   */
+  public onActorNetworkSpawn(): void {
+    logger.info("Reset weather on net spawn");
+    this.reset();
+  }
+
+  /**
    * todo: Description.
    */
-  public override load(reader: XR_reader): void {
+  public override load(reader: TXR_net_processor): void {
     openLoadMarker(reader, WeatherManager.name);
 
     const state_string = reader.r_stringZ();

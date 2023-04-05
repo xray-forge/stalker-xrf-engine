@@ -1,4 +1,4 @@
-import { task, TXR_TaskState, XR_CGameTask, XR_ini_file, XR_net_packet, XR_reader } from "xray16";
+import { task, TXR_net_processor, TXR_TaskState, XR_CGameTask, XR_ini_file, XR_net_packet } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, TASK_MANAGER_LTX } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
@@ -130,7 +130,7 @@ export class TaskManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override load(reader: XR_reader): void {
+  public override load(reader: TXR_net_processor): void {
     openLoadMarker(reader, TaskManager.name);
 
     const count: TCount = reader.r_u16();

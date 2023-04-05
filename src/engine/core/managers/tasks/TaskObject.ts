@@ -5,13 +5,13 @@ import {
   level,
   task,
   time_global,
+  TXR_net_processor,
   XR_CGameTask,
   XR_cse_alife_object,
   XR_CTime,
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
-  XR_reader,
 } from "xray16";
 
 import {
@@ -480,7 +480,7 @@ export class TaskObject {
     closeSaveMarker(packet, TaskObject.name);
   }
 
-  public load(reader: XR_reader): void {
+  public load(reader: TXR_net_processor): void {
     openLoadMarker(reader, TaskObject.name);
 
     this.status = status_by_id[reader.r_u8()];

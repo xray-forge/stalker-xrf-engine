@@ -2,12 +2,12 @@ import {
   alife,
   level,
   time_global,
+  TXR_net_processor,
   XR_alife_simulator,
   XR_cse_alife_object,
   XR_game_object,
   XR_ini_file,
   XR_net_packet,
-  XR_reader,
 } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SECRETS_LTX } from "@/engine/core/database";
@@ -425,7 +425,7 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override load(reader: XR_reader): void {
+  public override load(reader: TXR_net_processor): void {
     openLoadMarker(reader, TreasureManager.name);
 
     this.items_spawned = reader.r_bool();

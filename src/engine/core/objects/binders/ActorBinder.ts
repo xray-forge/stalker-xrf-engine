@@ -1,5 +1,4 @@
 import {
-  actor_stats,
   alife,
   callback,
   device,
@@ -28,25 +27,9 @@ import { registerActor, unregisterActor } from "@/engine/core/database/actor";
 import { loadPortableStore, savePortableStore } from "@/engine/core/database/portable_store";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { updateSimulationObjectAvailability } from "@/engine/core/database/simulation";
-import { AchievementsManager } from "@/engine/core/managers/achievements";
-import { ActorInventoryMenuManager } from "@/engine/core/managers/ActorInventoryMenuManager";
-import { DialogManager } from "@/engine/core/managers/DialogManager";
-import { DropManager } from "@/engine/core/managers/DropManager";
-import { DynamicMusicManager } from "@/engine/core/managers/DynamicMusicManager";
+import { SaveManager } from "@/engine/core/managers";
 import { EGameEvent } from "@/engine/core/managers/events/EGameEvent";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
-import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
-import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
-import { PsyAntennaManager } from "@/engine/core/managers/PsyAntennaManager";
-import { ReleaseBodyManager } from "@/engine/core/managers/ReleaseBodyManager";
-import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
-import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
-import { SurgeManager } from "@/engine/core/managers/SurgeManager";
-import { TaskManager } from "@/engine/core/managers/tasks/TaskManager";
-import { TravelManager } from "@/engine/core/managers/TravelManager";
-import { TreasureManager } from "@/engine/core/managers/TreasureManager";
-import { WeatherManager } from "@/engine/core/managers/WeatherManager";
 import { Actor } from "@/engine/core/objects/alife/Actor";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos/SchemeDeimos";
@@ -83,24 +66,7 @@ export class ActorBinder extends object_binder {
 
   public state!: IRegistryObjectState;
 
-  // todo: Generic init on game start, do not store in actor.
-  protected readonly achievementsManager: AchievementsManager = AchievementsManager.getInstance();
-  protected readonly actorInventoryMenuManager: ActorInventoryMenuManager = ActorInventoryMenuManager.getInstance();
-  protected readonly dropManager: DropManager = DropManager.getInstance();
-  protected readonly dialogManager: DialogManager = DialogManager.getInstance();
-  protected readonly dynamicMusicManager: DynamicMusicManager = DynamicMusicManager.getInstance();
-  protected readonly eventsManager: EventsManager = EventsManager.getInstance();
-  protected readonly globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
-  protected readonly mapDisplayManager: MapDisplayManager = MapDisplayManager.getInstance();
-  protected readonly notificationManager: NotificationManager = NotificationManager.getInstance();
-  protected readonly releaseBodyManager: ReleaseBodyManager = ReleaseBodyManager.getInstance();
-  protected readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-  protected readonly statisticsManager: StatisticsManager = StatisticsManager.getInstance();
-  protected readonly surgeManager: SurgeManager = SurgeManager.getInstance();
-  protected readonly taskManager: TaskManager = TaskManager.getInstance();
-  protected readonly travelManager: TravelManager = TravelManager.getInstance();
-  protected readonly treasureManager: TreasureManager = TreasureManager.getInstance();
-  protected readonly weatherManager: WeatherManager = WeatherManager.getInstance();
+  public eventsManager: EventsManager = EventsManager.getInstance();
 
   /**
    * todo: Description.
@@ -133,7 +99,6 @@ export class ActorBinder extends object_binder {
       this.state.portableStore = new LuaTable();
     }
 
-    this.weatherManager.reset();
     this.spawnFrame = device().frame;
     this.isLoaded = false;
 
@@ -147,12 +112,6 @@ export class ActorBinder extends object_binder {
    */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
-
-    this.globalSoundManager.stopSoundByObjectId(this.object.id());
-
-    if (actor_stats.remove_from_ranking !== null) {
-      actor_stats.remove_from_ranking(this.object.id());
-    }
 
     level.show_weapon(true);
 
@@ -168,6 +127,9 @@ export class ActorBinder extends object_binder {
 
     this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_DESTROY);
 
+    /**
+     * Unregister actor as last step so dependent managers can properly destroy everything.
+     */
     unregisterActor();
 
     super.net_destroy();
@@ -210,8 +172,6 @@ export class ActorBinder extends object_binder {
    */
   public override update(delta: TDuration): void {
     super.update(delta);
-
-    this.globalSoundManager.update(this.object.id());
 
     // Handle input disabling.
     if (
@@ -268,12 +228,10 @@ export class ActorBinder extends object_binder {
     }
 
     this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE, delta);
+    this.isLoaded = true;
 
+    // todo: Probably part of sim manager?
     updateSimulationObjectAvailability(alife().actor<Actor>());
-
-    if (!this.isLoaded) {
-      this.isLoaded = true;
-    }
   }
 
   /**
@@ -294,25 +252,15 @@ export class ActorBinder extends object_binder {
     }
 
     savePortableStore(this.object, packet);
+    SaveManager.getInstance().save(packet);
 
-    this.weatherManager.save(packet);
-    this.releaseBodyManager.save(packet);
-    this.surgeManager.save(packet);
-    PsyAntennaManager.save(packet);
-
-    this.globalSoundManager.save(packet);
     packet.w_stringZ(tostring(this.lastLevelName));
-    this.statisticsManager.save(packet);
-    this.treasureManager.save(packet);
-
     packet.w_u8(getTableSize(registry.scriptSpawned));
 
     for (const [k, v] of registry.scriptSpawned) {
       packet.w_u16(k);
       packet.w_stringZ(v);
     }
-
-    this.taskManager.save(packet);
 
     packet.w_u8(this.object.active_slot());
 
@@ -330,8 +278,6 @@ export class ActorBinder extends object_binder {
       packet.w_bool(false);
     }
 
-    this.achievementsManager.save(packet);
-
     closeSaveMarker(packet, ActorBinder.__name);
   }
 
@@ -343,37 +289,27 @@ export class ActorBinder extends object_binder {
 
     super.load(reader);
 
-    const gameDifficulty: TXR_game_difficulty = reader.r_u8() as TXR_game_difficulty;
+    executeConsoleCommand(
+      console_commands.g_game_difficulty,
+      gameDifficultiesByNumber[reader.r_u8() as TXR_game_difficulty]
+    );
 
-    executeConsoleCommand(console_commands.g_game_difficulty, gameDifficultiesByNumber[gameDifficulty]);
-
-    const isStoredDisableInputTime: boolean = reader.r_bool();
-
-    if (isStoredDisableInputTime) {
+    if (reader.r_bool()) {
       this.state.disable_input_time = readCTimeFromPacket(reader);
     }
 
     loadPortableStore(this.object, reader);
-    this.weatherManager.load(reader);
-    this.releaseBodyManager.load(reader);
-    this.surgeManager.load(reader);
-    PsyAntennaManager.load(reader);
-    this.globalSoundManager.load(reader);
+    SaveManager.getInstance().load(reader);
 
     const lastLevelName: StringOptional<TName> = reader.r_stringZ();
 
     this.lastLevelName = lastLevelName === NIL ? null : lastLevelName;
-
-    this.statisticsManager.load(reader);
-    this.treasureManager.load(reader);
 
     const scriptsSpawnedCount: TCount = reader.r_u8();
 
     for (const it of $range(1, scriptsSpawnedCount)) {
       registry.scriptSpawned.set(reader.r_u16(), reader.r_stringZ());
     }
-
-    this.taskManager.load(reader);
 
     this.activeItemSlot = reader.r_u8();
     this.isLoadedSlotApplied = false;
@@ -383,8 +319,6 @@ export class ActorBinder extends object_binder {
     if (hasDeimos) {
       this.deimos_intensity = reader.r_float();
     }
-
-    this.achievementsManager.load(reader);
 
     closeLoadMarker(reader, ActorBinder.__name);
   }

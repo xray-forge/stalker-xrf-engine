@@ -61,9 +61,7 @@ export function isManagerInitialized<T extends TAbstractCoreManagerConstructor>(
  * @param managerClass - manager class statics reference, used as key in registry to get singletons
  */
 export function initializeManager(managerClass: TAbstractCoreManagerConstructor): void {
-  if (registry.managers.get(managerClass)) {
-    logger.info("Manager already initialized, skip:", managerClass.name);
-  } else {
+  if (registry.managers.get(managerClass) === null) {
     logger.info("Initialize manager:", managerClass.name);
 
     const instance: AbstractCoreManager = new managerClass();
@@ -71,6 +69,8 @@ export function initializeManager(managerClass: TAbstractCoreManagerConstructor)
     registry.managers.set(managerClass, instance);
 
     instance.initialize();
+  } else {
+    logger.info("Manager already initialized, skip:", managerClass.name);
   }
 }
 
