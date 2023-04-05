@@ -1,9 +1,22 @@
 import { jest } from "@jest/globals";
 
+import { AnyObject } from "@/engine/lib/types";
+
 /**
  * todo;
  */
 export class MockLuaTable<K, V> extends Map<K, V> {
+  /**
+   * Get mock size in unified way.
+   */
+  public static getMockSize(table: LuaTable<any> | AnyObject): number {
+    if (table instanceof MockLuaTable) {
+      return (table as unknown as MockLuaTable<unknown, unknown>).size;
+    }
+
+    return Object.keys(table).length;
+  }
+
   /**
    * Mock to get rid of undefined and copy lua behaviour.
    */
