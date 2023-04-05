@@ -67,7 +67,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override initialize() {
+  public override initialize(): void {
     if (!DEATH_GENERIC_LTX.section_exist(ReleaseBodyManager.KEEP_ITEMS_LTX_SECTION)) {
       abort("There is no section [keep_items] in death_generic.ltx");
     }

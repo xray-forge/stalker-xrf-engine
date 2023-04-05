@@ -8,7 +8,7 @@
 - Add scripts to handle xrEngine tools
 - Interop with level editor tools etc
 - Implement OXR versions window and other script additions
-- Separate debug menu and profiling section in it
+- Add jest tests to verify saving is done in a correct order
 
 ## 🧰 Requests to open x-ray
 

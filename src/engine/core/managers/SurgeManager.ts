@@ -168,7 +168,7 @@ export class SurgeManager extends AbstractCoreManager {
     this.isLoaded = false;
   }
 
-  public override destroy() {
+  public override destroy(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
@@ -446,7 +446,7 @@ export class SurgeManager extends AbstractCoreManager {
     if (manual || (this.isTimeForwarded && WeatherManager.getInstance().weather_fx)) {
       level.stop_weather_fx();
       // --        WeatherManager.get_weather_manager():select_weather(true)
-      WeatherManager.getInstance().forced_weather_change();
+      WeatherManager.getInstance().forcedWeatherChange();
     }
 
     this.isEffectorSet = false;

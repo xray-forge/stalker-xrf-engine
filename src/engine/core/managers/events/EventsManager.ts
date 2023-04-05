@@ -2,7 +2,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager"
 import { EGameEvent } from "@/engine/core/managers/events/EGameEvent";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyArgs, AnyCallable, AnyContextualCallable, AnyObject, Optional } from "@/engine/lib/types";
+import { AnyArgs, AnyCallable, AnyContextualCallable, AnyObject, Optional, TCount } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -56,6 +56,22 @@ export class EventsManager extends AbstractCoreManager {
     for (const [func, config] of this.callbacks[event]) {
       func(config.context, ...data);
     }
+  }
+
+  /**
+   * Get count of subscribers active in manager.
+   */
+  public getSubscribersCount(): TCount {
+    return Object.values(this.callbacks).reduce((acc, it) => {
+      return acc + it.length();
+    }, 0);
+  }
+
+  /**
+   * Get count of subscribers active in manager.
+   */
+  public getEventSubscribersCount(event: EGameEvent): TCount {
+    return this.callbacks[event].length();
   }
 
   /**

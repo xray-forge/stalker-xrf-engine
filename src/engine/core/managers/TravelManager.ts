@@ -124,7 +124,7 @@ export class TravelManager extends AbstractCoreManager {
     }
   }
 
-  public override destroy() {
+  public override destroy(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);

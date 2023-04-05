@@ -120,7 +120,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override initialize() {
+  public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);

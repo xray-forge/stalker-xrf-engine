@@ -35,7 +35,6 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
     logger.info("Initialize actor inventory quick items slots");
 
     const ini: XR_ini_file = system_ini();
-    const actor: XR_game_object = registry.actor;
 
     executeConsoleCommand(console_commands.slot_0, readIniString(ini, ACTOR, "quick_item_1", false, "", ""));
     executeConsoleCommand(console_commands.slot_1, readIniString(ini, ACTOR, "quick_item_2", false, "", ""));

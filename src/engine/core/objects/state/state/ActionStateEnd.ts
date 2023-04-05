@@ -29,7 +29,7 @@ export class ActionStateEnd extends action_base {
   /**
    * todo;
    */
-  public override initialize() {
+  public override initialize(): void {
     logger.info("End state for:", this.object.name());
 
     super.initialize();

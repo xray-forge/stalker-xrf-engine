@@ -260,13 +260,13 @@ export function dream_callback(): void {
 
   level.change_game_time(0, hours, 0);
 
-  weatherManager.forced_weather_change();
+  weatherManager.forcedWeatherChange();
   SurgeManager.getInstance().isTimeForwarded = true;
 
   if (surgeManager.isStarted && weatherManager.weather_fx) {
     level.stop_weather_fx();
     // --    WeatherManager.get_weather_manager().select_weather(true)
-    weatherManager.forced_weather_change();
+    weatherManager.forcedWeatherChange();
   }
 
   actor.power = 1;

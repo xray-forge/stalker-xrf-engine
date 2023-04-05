@@ -53,13 +53,13 @@ export class MapDisplayManager extends AbstractCoreManager {
   public isInitialized: boolean = false;
   public lastUpdateAt: TTimestamp = 0;
 
-  public override initialize() {
+  public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
   }
 
-  public override destroy() {
+  public override destroy(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);

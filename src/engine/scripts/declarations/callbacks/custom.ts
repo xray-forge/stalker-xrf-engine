@@ -52,7 +52,7 @@ extern("engine.anabiotic_callback", () => {
   }
 
   level.change_game_time(0, 0, rnd);
-  WeatherManager.getInstance().forced_weather_change();
+  WeatherManager.getInstance().forcedWeatherChange();
 });
 
 extern("engine.anabiotic_callback2", () => {
