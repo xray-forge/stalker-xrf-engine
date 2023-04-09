@@ -13,7 +13,7 @@ declare namespace table {
  * todo;
  */
 declare namespace string {
-  function gfind(this: void, s: string, pattern: unknown, init?: number, plain?: boolean): LuaIterable<string>;
+  function gfind(this: void, s: string | number, pattern: unknown, init?: number, plain?: boolean): LuaIterable<string>;
 }
 
 /**

@@ -25,7 +25,9 @@ export class IniFile<T extends AnyObject> {
   public section_count = jest.fn((section: TSection) => Object.keys(this.data).length);
   public section_exist = jest.fn((section: TSection) => this.data[section] !== undefined);
   public r_line = jest.fn((section: TSection, line_number: TNumberId) => {
-    return ["?", this.data[section], this.data[section]];
+    const entry = Object.entries(this.data[section])[line_number];
+
+    return ["?", entry[0], entry[1]];
   });
   public line_exist = jest.fn((section: TSection, param: TName) => {
     return this.data[section][param] !== undefined;

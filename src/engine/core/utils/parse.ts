@@ -1,6 +1,6 @@
 import { flags32, patrol, XR_flags32, XR_game_object, XR_ini_file, XR_patrol } from "xray16";
 
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trimString } from "@/engine/core/utils/string";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
@@ -193,14 +193,12 @@ export function parseConditionsList(data: string): LuaArray<IConfigSwitchConditi
 
     const [, , newSection] = string.find(rest, "%s*(.*)%s*");
 
-    if (newSection === null) {
-      abort("Syntax error in switch condition: '%s' from entry '%s'", condition, data);
-    }
+    assertDefined(newSection, "Syntax error in switch condition: '%s' from entry '%s'", condition, data);
 
     table.insert(result, {
-      section: newSection as TName,
-      infop_check: parseInfoPortions(new LuaTable(), infoPortionsCheckList as string),
-      infop_set: parseInfoPortions(new LuaTable(), infoPortionsSetList as string),
+      section: tostring(newSection),
+      infop_check: parseInfoPortions(new LuaTable(), infoPortionsCheckList),
+      infop_set: parseInfoPortions(new LuaTable(), infoPortionsSetList),
     });
   }
 
@@ -212,7 +210,7 @@ export function parseConditionsList(data: string): LuaArray<IConfigSwitchConditi
  */
 export function parseInfoPortions(
   result: LuaArray<IConfigCondition>,
-  data: Optional<string>
+  data: Optional<string | number>
 ): LuaArray<IConfigCondition> {
   if (data === null) {
     return result;
@@ -393,16 +391,16 @@ export function parseWaypointData(pathname: TPath, wpflags: XR_flags32, waypoint
 /**
  * todo: Description.
  */
-export function parseIniSectionToArray(ini: XR_ini_file, section: TSection): Optional<LuaTable<string, string>> {
+export function parseIniSectionToArray<T = string>(ini: XR_ini_file, section: TSection): Optional<LuaTable<string, T>> {
   if (ini.section_exist(section)) {
-    const array: LuaTable<string, string> = new LuaTable();
+    const array: LuaTable<string, T> = new LuaTable();
 
     for (const a of $range(0, ini.line_count(section) - 1)) {
       const [result, id, value] = ini.r_line(section, a, "", "");
       const cleanId: Optional<string> = trimString(id);
 
       if (id !== null && trimString(id) !== "") {
-        array.set(cleanId, trimString(value));
+        array.set(cleanId, trimString(value) as T);
       }
     }
 

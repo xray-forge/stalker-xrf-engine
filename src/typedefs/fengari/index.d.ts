@@ -30,8 +30,9 @@ declare module "fengari" {
     lua_pushvalue(state: ILuaState, index: number): unknown;
     lua_pushnumber(state: ILuaState, number: number): unknown;
     lua_pushnil(state: ILuaState,): unknown;
-    lua_pop(state: ILuaState, index: number): unknown;
+    lua_pop(state: ILuaState, count: number): unknown;
     lua_isnil(state: ILuaState, index: number): boolean
+    lua_isnumber(state: ILuaState, index: number): boolean
     lua_tostring(state: ILuaState, index: number): ILuaString;
     lua_tonumber(state: ILuaState, index: number): number;
   }

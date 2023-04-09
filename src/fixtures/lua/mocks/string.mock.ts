@@ -1,6 +1,5 @@
 import { ILuaString, lauxlib, lua, lualib, to_jsstring, to_luastring } from "fengari";
 
-import { NIL } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 
 /**
@@ -20,12 +19,9 @@ export const string = {
 
     return result;
   },
-  find: (
-    target: string,
-    pattern: string,
-    startIndex?: number
-  ): [Optional<number>, Optional<number>, Optional<string>] => {
+  find: (target: string, pattern: string, startIndex?: number): Array<Optional<string | number>> => {
     const L = lauxlib.luaL_newstate();
+    const MAX_RETURN_VALUES: number = 16;
 
     lualib.luaL_openlibs(L);
 
@@ -36,18 +32,85 @@ export const string = {
 
     if (typeof startIndex === "number") {
       lua.lua_pushnumber(L, startIndex);
-      lua.lua_call(L, 3, 3);
+      lua.lua_call(L, 3, MAX_RETURN_VALUES);
     } else {
-      lua.lua_call(L, 2, 3);
+      lua.lua_call(L, 2, MAX_RETURN_VALUES);
     }
 
-    const start: Optional<number> = lua.lua_isnil(L, -3) ? null : lua.lua_tonumber(L, -3);
-    const end: Optional<number> = lua.lua_isnil(L, -2) ? null : lua.lua_tonumber(L, -2);
+    const stackValues: Array<Optional<string | number>> = [];
 
-    const matchData: Optional<ILuaString> = lauxlib.luaL_tolstring(L, -1);
-    const match: Optional<string> = matchData ? to_jsstring(matchData) : null;
+    for (let it = 0; it < MAX_RETURN_VALUES; it++) {
+      if (lua.lua_isnil(L, -1)) {
+        stackValues.push(null);
+      } else if (lua.lua_isnumber(L, -1)) {
+        stackValues.push(lua.lua_tonumber(L, -1));
+      } else {
+        stackValues.push(to_jsstring(lua.lua_tostring(L, -1)));
+      }
 
-    return [start, end, match === NIL ? null : match];
+      lua.lua_pop(L, 1);
+    }
+
+    stackValues.reverse();
+
+    const result: Array<Optional<string | number>> = [];
+
+    for (let it = 0; it < stackValues.length; it++) {
+      if (stackValues[it] === null) {
+        break;
+      }
+
+      result.push(stackValues[it]);
+    }
+
+    // Ensure at least 3 args returned.
+    while (result.length < 3) {
+      result.push(null);
+    }
+
+    return result;
+  },
+  gsub: (target: string, pattern: string, selector: string): Array<Optional<string | number>> => {
+    const L = lauxlib.luaL_newstate();
+    const MAX_RETURN_VALUES: number = 2;
+
+    lualib.luaL_openlibs(L);
+
+    lua.lua_getglobal(L, "string");
+    lua.lua_getfield(L, -1, "gsub");
+    lua.lua_pushstring(L, to_luastring(String(target)));
+    lua.lua_pushstring(L, to_luastring(String(pattern)));
+    lua.lua_pushstring(L, to_luastring(String(selector)));
+
+    lua.lua_call(L, 3, MAX_RETURN_VALUES);
+
+    const stackValues: Array<Optional<string | number>> = [];
+
+    for (let it = 0; it < MAX_RETURN_VALUES; it++) {
+      if (lua.lua_isnil(L, -1)) {
+        stackValues.push(null);
+      } else if (lua.lua_isnumber(L, -1)) {
+        stackValues.push(lua.lua_tonumber(L, -1));
+      } else {
+        stackValues.push(to_jsstring(lua.lua_tostring(L, -1)));
+      }
+
+      lua.lua_pop(L, 1);
+    }
+
+    stackValues.reverse();
+
+    const result: Array<Optional<string | number>> = [];
+
+    for (let it = 0; it < stackValues.length; it++) {
+      if (stackValues[it] === null) {
+        break;
+      }
+
+      result.push(stackValues[it]);
+    }
+
+    return result;
   },
   gfind: (target: string, pattern: string) => string.gmatch(target, pattern),
   gmatch: (target: string, pattern: string): Array<string> => {
