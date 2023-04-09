@@ -5,7 +5,7 @@ import { registry } from "@/engine/core/database/registry";
 import { registerZone, unregisterZone } from "@/engine/core/database/zones";
 import { mockClientGameObject } from "@/fixtures/xray";
 
-describe("'managers' module of the database", () => {
+describe("'zones' module of the database", () => {
   beforeEach(() => {
     registry.zones = new LuaTable();
     registry.objects = new LuaTable();

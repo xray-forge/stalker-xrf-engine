@@ -17,7 +17,7 @@ import { FILES_MOCKS } from "@/fixtures/xray/mocks/ini/files.mock";
 import { mockClientGameObject, mockServerAlifeObject } from "@/fixtures/xray/mocks/objects";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 
-describe("'managers' module of the database", () => {
+describe("'story_objects' module of the database", () => {
   const firstObject: XR_cse_alife_object = mockServerAlifeObject({ id: 12 });
   const secondObject: XR_cse_alife_object = mockServerAlifeObject({ id: 36 });
 

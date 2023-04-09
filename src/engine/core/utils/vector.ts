@@ -4,17 +4,15 @@ import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { PI_DEGREE, RADIAN } from "@/engine/lib/constants/math";
+import { MAX_S32 } from "@/engine/lib/constants/memory";
 import { Optional, TDistance, TNumberId, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-// todo: Config constants?
-const MAX_DISTANCE: number = 100_000;
-
 /**
  * todo: Description
  */
-export function yaw(v1: XR_vector, v2: XR_vector) {
+export function yaw(v1: XR_vector, v2: XR_vector): TRate {
   return math.acos(
     (v1.x * v2.x + v1.z * v2.z) / (math.sqrt(v1.x * v1.x + v1.z * v1.z) * math.sqrt(v2.x * v2.x + v2.z * v2.z))
   );
@@ -34,7 +32,7 @@ export function yawDegree(v1: XR_vector, v2: XR_vector): TRate {
 /**
  * todo: Description
  */
-export function yawDegree3d(v1: XR_vector, v2: XR_vector): number {
+export function yawDegree3d(v1: XR_vector, v2: XR_vector): TRate {
   return (
     math.acos(
       (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z) /
@@ -151,8 +149,8 @@ export function getDistanceBetween(first: XR_game_object, second: XR_game_object
 /**
  * todo: Description
  */
-export function distanceBetween2d(a: XR_vector, b: XR_vector): number {
-  return math.sqrt((b.x - a.x) ** 2 + (b.z - a.z) ** 2);
+export function distanceBetween2d(first: XR_vector, second: XR_vector): number {
+  return math.sqrt((second.x - first.x) ** 2 + (second.z - first.z) ** 2);
 }
 
 /**
@@ -163,7 +161,7 @@ export function distanceBetweenSafe(first: Optional<XR_game_object>, second: Opt
     return first.position().distance_to(second.position());
   }
 
-  return MAX_DISTANCE;
+  return MAX_S32;
 }
 
 /**
