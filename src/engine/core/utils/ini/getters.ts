@@ -1,7 +1,7 @@
 import { XR_ini_file } from "xray16";
 
 import { IBaseSchemeLogic } from "@/engine/core/schemes/base";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseParameters, parseStringsList } from "@/engine/core/utils/parse";
 import { EScheme, LuaArray, Optional, TCount, TIndex, TName, TSection } from "@/engine/lib/types";
@@ -27,9 +27,7 @@ export function readIniString<D = string>(
   prefix: Optional<string> = null,
   defaultValue: D = null as unknown as D
 ): string | D {
-  if (required === null) {
-    return abort("Section '%s', wrong arguments order in call to 'readConfigString'.", section);
-  }
+  assertDefined(required, "Section '%s', wrong arguments order in call to 'readIniString'.", section);
 
   // todo: Resolve prefix.
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
@@ -64,9 +62,7 @@ export function readIniNumber<D = number>(
   required: boolean,
   defaultValue: D = null as unknown as D
 ): number | D {
-  if (required === null) {
-    return abort("Section '%s', wrong arguments order in call to 'readIniNumber'.", section);
-  }
+  assertDefined(required, "Section '%s', wrong arguments order in call to 'readIniNumber'.", section);
 
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
     return ini.r_float(section, field);
@@ -97,9 +93,7 @@ export function readIniBoolean(
   required: boolean,
   defaultValue: Optional<boolean> = null
 ): boolean {
-  if (required === null) {
-    return abort("Section '%s', wrong arguments order in call to 'readIniBoolean'.", section);
-  }
+  assertDefined(required, "Section '%s', wrong arguments order in call to 'readIniBoolean'.", section);
 
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
     return ini.r_bool(section, field);

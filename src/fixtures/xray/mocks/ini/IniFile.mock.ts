@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import { XR_ini_file } from "xray16";
 
-import { AnyObject, TName, TNumberId, TSection } from "@/engine/lib/types";
+import { AnyObject, TName, TNumberId, TPath, TSection } from "@/engine/lib/types";
 import { MOCKS } from "@/fixtures/xray/mocks/ini/files.mock";
 
 /**
@@ -11,7 +11,7 @@ export class IniFile<T extends AnyObject> {
   public path: TName;
   public data: T;
 
-  public constructor(path: string, data: T) {
+  public constructor(path: string, data?: T) {
     this.path = path;
     this.data = data || (MOCKS[path] as T) || {};
   }
@@ -41,6 +41,6 @@ export class IniFile<T extends AnyObject> {
 /**
  * todo;
  */
-export function mockIniFile(name: TName, data: AnyObject): XR_ini_file {
-  return new IniFile(name, data) as unknown as XR_ini_file;
+export function mockIniFile(path: TPath, data?: AnyObject): XR_ini_file {
+  return new IniFile(path, data) as unknown as XR_ini_file;
 }

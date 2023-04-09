@@ -1,4 +1,4 @@
-import { TXR_net_processor, XR_net_packet, XR_reader } from "xray16";
+import { TXR_net_processor, XR_net_packet } from "xray16";
 
 import { disposeManager, getManagerInstance, getWeakManagerInstance } from "@/engine/core/database/managers";
 import { abort } from "@/engine/core/utils/assertion";

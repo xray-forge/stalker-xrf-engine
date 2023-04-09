@@ -1,6 +1,5 @@
-import { system_ini, XR_game_object, XR_ini_file } from "xray16";
+import { system_ini, XR_ini_file } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { readIniString } from "@/engine/core/utils/ini/getters";

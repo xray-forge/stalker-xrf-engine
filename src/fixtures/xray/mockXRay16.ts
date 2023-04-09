@@ -112,7 +112,7 @@ export function mockXRay16({
   object_binder = MockObjectBinder,
   property_evaluator = MockPropertyEvaluator,
   stalker_ids = mockStalkerIds,
-  system_ini = () => mockIniFile("system.ini", {}),
+  system_ini = () => mockIniFile("system.ini"),
   user_name = jest.fn(() => "os_user_name"),
   vector = MockVector,
 } = {}): void {
