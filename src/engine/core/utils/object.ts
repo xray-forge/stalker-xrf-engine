@@ -231,7 +231,7 @@ export function getCharacterCommunity(object: XR_game_object): TCommunity {
 export function getAlifeCharacterCommunity(
   object: XR_cse_alife_human_abstract | XR_cse_alife_online_offline_group
 ): TCommunity {
-  if (isStalker(object, object.clsid())) {
+  if (isStalker(object)) {
     return object.community() as TCommunity;
   }
 

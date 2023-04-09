@@ -1,6 +1,11 @@
 import { describe, expect, it } from "@jest/globals";
+import { alife } from "xray16";
 
-import { evaluateSimulationPriority, evaluateSimulationPriorityByDistance } from "@/engine/core/utils/alife";
+import {
+  evaluateSimulationPriority,
+  evaluateSimulationPriorityByDistance,
+  isGameStarted,
+} from "@/engine/core/utils/alife";
 import { mockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { MockCVertex } from "@/fixtures/xray/mocks/CVertex.mock";
 import { mockServerAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
@@ -8,6 +13,11 @@ import { mockSquad } from "@/fixtures/xray/mocks/objects/server/Squad.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("'alife' utils", () => {
+  it("'isGameStarted' should check alife", () => {
+    expect(isGameStarted()).toBe(true);
+    expect(alife()).toBeDefined();
+  });
+
   it("'evaluateSimulationPriorityByDistance' utils should correctly evaluate priority by distance", () => {
     MockVector.DEFAULT_DISTANCE = 20;
     expect(evaluateSimulationPriorityByDistance(mockServerAlifeObject(), mockServerAlifeObject())).toBe(1.05);

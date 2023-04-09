@@ -12,7 +12,6 @@ import {
 
 import { getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
-import { getObjectClassId } from "@/engine/core/utils/id";
 import { squadMonsters } from "@/engine/lib/constants/behaviours";
 import { artefactClassIds, monsterClassIds, stalkerClassIds, weaponClassIds } from "@/engine/lib/constants/class_ids";
 import { TCommunity } from "@/engine/lib/constants/communities";
@@ -32,7 +31,7 @@ export function isCseAlifeObject(object: XR_cse_abstract | XR_game_object): obje
  * todo;
  */
 export function isMonster(object: XR_game_object | XR_cse_abstract): object is XR_cse_alife_monster_abstract {
-  return monsterClassIds[getObjectClassId(object)] === true;
+  return monsterClassIds[object.clsid()] === true;
 }
 
 /**
@@ -45,11 +44,8 @@ export function isSquadMonsterCommunity(community: TCommunity): boolean {
 /**
  * todo;
  */
-export function isStalker(
-  object: XR_game_object | XR_cse_abstract,
-  class_id?: Maybe<TXR_class_id>
-): object is XR_cse_alife_human_stalker {
-  return stalkerClassIds[class_id || getObjectClassId(object)] === true;
+export function isStalker(object: XR_game_object | XR_cse_abstract): object is XR_cse_alife_human_stalker {
+  return stalkerClassIds[object.clsid()] === true;
 }
 
 /**
@@ -78,7 +74,7 @@ export function isGrenade(object: Optional<XR_game_object | XR_cse_abstract>): b
     return false;
   }
 
-  const id: TXR_class_id = getObjectClassId(object);
+  const id: TXR_class_id = object.clsid();
 
   return id === clsid.wpn_grenade_rgd5_s || id === clsid.wpn_grenade_f1_s;
 }
@@ -87,7 +83,7 @@ export function isGrenade(object: Optional<XR_game_object | XR_cse_abstract>): b
  * Is provided object artefact.
  */
 export function isArtefact(object: XR_game_object | XR_cse_abstract): object is XR_cse_alife_item_artefact {
-  return artefactClassIds[getObjectClassId(object)] === true;
+  return artefactClassIds[object.clsid()] === true;
 }
 
 /**

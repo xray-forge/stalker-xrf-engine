@@ -4,7 +4,6 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { ObjectRestrictionsManager } from "@/engine/core/schemes";
 import { resetScheme } from "@/engine/core/schemes/base/utils/schemes_reset";
-import { getObjectClassId } from "@/engine/core/utils/id";
 import {
   initializeObjectCanSelectWeaponState,
   initializeObjectTakeItemsEnabledState,
@@ -59,7 +58,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(
 
     case ESchemeType.MONSTER: {
       scriptReleaseObject(object, ""); // ???
-      if (getObjectClassId(object) === clsid.bloodsucker_s) {
+      if (object.clsid() === clsid.bloodsucker_s) {
         object.set_manual_invisibility(schemeToSwitch !== EScheme.NIL);
       }
 
@@ -74,7 +73,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(
     case ESchemeType.ITEM: {
       object.set_callback(callback.use_object, null);
       object.set_nonscript_usable(true);
-      if (getObjectClassId(object) === clsid.car) {
+      if (object.clsid() === clsid.car) {
         // todo: What is this?
         (object as any).destroy_car();
         scriptReleaseObject(object, "");

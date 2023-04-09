@@ -1,7 +1,6 @@
 import { clsid, TXR_class_id, XR_game_object, XR_ini_file } from "xray16";
 
 import { abort } from "@/engine/core/utils/assertion";
-import { getObjectClassId } from "@/engine/core/utils/id";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TSection } from "@/engine/lib/types";
@@ -25,9 +24,7 @@ export function setMonsterState(object: XR_game_object, actor: XR_game_object, s
     return;
   }
 
-  const objectClassId: TXR_class_id = getObjectClassId(object);
-
-  if (objectClassId === clsid.bloodsucker_s) {
+  if (object.clsid() === clsid.bloodsucker_s) {
     if (state === "invis") {
       object.set_invisible(true);
 

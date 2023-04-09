@@ -878,17 +878,17 @@ export function spawn_object(
   const yaw = params[3] || 0;
 
   // --' printf("Spawning %s at %s, %s", tostring(p[1]), tostring(p[2]), tostring(p[3]))
-  const se_obj = alife().create<XR_cse_alife_object_physic>(
+  const serverObject = alife().create<XR_cse_alife_object_physic>(
     spawn_sect,
     ptr.point(index),
     ptr.level_vertex_id(0),
     ptr.game_vertex_id(0)
   );
 
-  if (isStalker(se_obj, se_obj.clsid())) {
-    se_obj.o_torso().yaw = (yaw * math.pi) / 180;
-  } else if (se_obj.clsid() === clsid.script_phys) {
-    se_obj.set_yaw((yaw * math.pi) / 180);
+  if (isStalker(serverObject)) {
+    serverObject.o_torso().yaw = (yaw * math.pi) / 180;
+  } else if (serverObject.clsid() === clsid.script_phys) {
+    serverObject.set_yaw((yaw * math.pi) / 180);
   }
 }
 
@@ -2219,7 +2219,7 @@ export function create_cutscene_actor_with_weapon(
 
   const npc = alife().create(spawn_sect, ptr.point(index), ptr.level_vertex_id(0), ptr.game_vertex_id(0))!;
 
-  if (isStalker(npc, npc.clsid())) {
+  if (isStalker(npc)) {
     npc.o_torso()!.yaw = (yaw * math.pi) / 180;
   } else {
     npc.angle.y = (yaw * math.pi) / 180;

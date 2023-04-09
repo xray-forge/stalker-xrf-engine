@@ -14,7 +14,6 @@ import { registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { isStalker } from "@/engine/core/utils/check/is";
-import { getObjectClassId } from "@/engine/core/utils/id";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
 import { TInventoryItem } from "@/engine/lib/constants/items";
@@ -255,13 +254,13 @@ export class StatisticsManager extends AbstractCoreManager {
     if (isStalker(object)) {
       // -- actor_statistic.best_monster = "stalker"
     } else {
-      let community = this.monster_classes[getObjectClassId(object)];
+      let community = this.monster_classes[object.clsid()];
 
       if (!community) {
         abort(
           "Statistic ERROR: cannot find monster class for [%s] clsid [%s]",
           object.name(),
-          tostring(getObjectClassId(object))
+          tostring(object.clsid())
         );
       }
 

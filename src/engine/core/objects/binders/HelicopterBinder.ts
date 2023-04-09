@@ -35,7 +35,6 @@ import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/in
 import { get_heli_health } from "@/engine/core/schemes/heli_move/heli_utils";
 import { HeliCombat } from "@/engine/core/schemes/heli_move/HeliCombat";
 import { get_heli_firer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
-import { getObjectClassId } from "@/engine/core/utils/id";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ESchemeType, Optional, TDistance, TIndex, TNumberId, TRate } from "@/engine/lib/types";
@@ -213,7 +212,7 @@ export class HelicopterBinder extends object_binder {
    */
   public on_hit(power: TRate, impulse: TRate, hit_type: TNumberId, enemy_id: TNumberId): void {
     const enemy: Optional<XR_game_object> = level.object_by_id(enemy_id);
-    const enemy_cls_id: Optional<TXR_class_id> = getObjectClassId(enemy);
+    const enemy_cls_id: Optional<TXR_class_id> = enemy?.clsid() as Optional<TXR_class_id>;
 
     this.heli_fire.enemy = enemy;
     this.heli_fire.update_hit();
