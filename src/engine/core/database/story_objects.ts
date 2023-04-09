@@ -2,7 +2,7 @@ import { alife, level, XR_cse_abstract, XR_cse_alife_online_offline_group, XR_ga
 
 import { SYSTEM_INI } from "@/engine/core/database/ini";
 import { registry } from "@/engine/core/database/registry";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
@@ -16,13 +16,8 @@ export function registerObjectStoryLinks(serverObject: XR_cse_abstract): void {
   if (spawnIni.section_exist("story_object")) {
     const [result, id, value] = spawnIni.r_line("story_object", 0, "", "");
 
-    if (id !== "story_id") {
-      abort("There is no 'story_id' field in [story_object] section :object [%s]", serverObject.name());
-    }
-
-    if (value === "") {
-      abort("Field 'story_id' in [story_object] section got no value :object [%s]", serverObject.name());
-    }
+    assert(id === "story_id", "There is no 'story_id' field in [story_object] section [%s].", serverObject.name());
+    assert(value !== "", "Field 'story_id' in [story_object] section got no value: [%s].", serverObject.name());
 
     registerStoryLink(serverObject.id, value);
 
@@ -126,7 +121,7 @@ export function getObjectByStoryId(storyObjectId: TStringId): Optional<XR_game_o
 
 /**
  * todo;
- * todo: Probably remove, is it working at all?
+ * todo: Probably remove, is it working at all? Used with heli only.
  */
 export function getIdBySid(sid: TNumberId): Optional<TNumberId> {
   return alife()?.story_object(sid)?.id;

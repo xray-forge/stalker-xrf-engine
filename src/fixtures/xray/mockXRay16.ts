@@ -48,6 +48,7 @@ import {
   MockTorridZone,
   MockZoneVisual,
 } from "@/fixtures/xray/mocks/objects";
+import { mockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 import { MockDangerObject } from "@/fixtures/xray/mocks/objects/client/danger_object.mock";
 import { MockObjectBinder } from "@/fixtures/xray/mocks/objects/client/object_binder.mock";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
@@ -66,6 +67,7 @@ export function mockXRay16({
   CUIWindow = MockCUIWindow,
   IsImportantSave = jest.fn(() => mocksConfig.isAutoSavingEnabled),
   action_base = MockActionBase,
+  alife = () => mockAlifeSimulator(),
   anim = MockAnim,
   clsid = mockClsid,
   cse_alife_creature_actor = MockAlifeCreatureActor,
@@ -126,6 +128,7 @@ export function mockXRay16({
     IsImportantSave,
     LuabindClass: () => {},
     action_base,
+    alife,
     anim,
     clsid,
     cse_alife_creature_actor,

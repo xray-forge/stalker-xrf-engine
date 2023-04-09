@@ -1,19 +1,33 @@
 import { jest } from "@jest/globals";
 import { TXR_class_id, XR_game_object } from "xray16";
 
+import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+
+let ID_COUNTER: number = 1000;
+
 /**
  * todo;
  */
 export function mockClientGameObject({
+  idOverride = ID_COUNTER++,
+  sectionOverride = "section",
+  id,
+  name,
+  section,
+  spawn_ini = jest.fn(() => mockIniFile("spawn.ini")),
   clsid = jest.fn(() => -1 as TXR_class_id),
   give_info_portion = jest.fn(() => false),
   disable_info_portion = jest.fn(() => false),
   has_info = jest.fn(() => false),
-}: Partial<XR_game_object> = {}): XR_game_object {
+}: Partial<XR_game_object & { idOverride?: number; sectionOverride?: string }> = {}): XR_game_object {
   return {
+    id: id || jest.fn(() => idOverride),
+    name: name || jest.fn(() => `${sectionOverride}_${idOverride}`),
+    section: section || jest.fn(() => sectionOverride),
     clsid,
     give_info_portion,
     disable_info_portion,
+    spawn_ini,
     has_info,
   } as unknown as XR_game_object;
 }

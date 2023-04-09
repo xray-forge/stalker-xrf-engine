@@ -2,7 +2,7 @@ import { jest } from "@jest/globals";
 import { XR_ini_file } from "xray16";
 
 import { AnyObject, TName, TNumberId, TPath, TSection } from "@/engine/lib/types";
-import { MOCKS } from "@/fixtures/xray/mocks/ini/files.mock";
+import { FILES_MOCKS } from "@/fixtures/xray/mocks/ini/files.mock";
 
 /**
  * todo;
@@ -13,7 +13,7 @@ export class IniFile<T extends AnyObject> {
 
   public constructor(path: string, data?: T) {
     this.path = path;
-    this.data = data || (MOCKS[path] as T) || {};
+    this.data = data || (FILES_MOCKS[path as keyof typeof FILES_MOCKS] as unknown as T) || {};
   }
 
   public r_float = jest.fn((section: TSection, field: TName) => this.data[section][field]);
