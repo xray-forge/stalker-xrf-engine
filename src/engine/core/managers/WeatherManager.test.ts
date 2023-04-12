@@ -15,8 +15,8 @@ describe("WeatherManager class", () => {
     const weatherManager: WeatherManager = getManagerInstance(WeatherManager);
     const eventsManager: EventsManager = getManagerInstance(EventsManager);
 
-    expect(weatherManager.last_hour).toBe(0);
-    expect(weatherManager.wfx_time).toBe(0);
+    expect(weatherManager.lastHour).toBe(0);
+    expect(weatherManager.wfxTime).toBe(0);
     expect(eventsManager.getSubscribersCount()).toBe(2);
 
     disposeManager(WeatherManager);
@@ -35,15 +35,15 @@ describe("WeatherManager class", () => {
         [
           "dynamic_default",
           {
-            current_state: "clear",
-            graph: mockLuaTable([
+            currentState: "clear",
+            weatherGraph: mockLuaTable([
               ["clear", 0.4],
               ["cloudy", 0.4],
               ["rain", 0.1],
               ["thunder", 0.1],
             ]),
-            graph_name: "dynamic_default",
-            next_state: "cloudy",
+            weatherName: "dynamic_default",
+            nextState: "cloudy",
           },
         ],
       ])
@@ -70,6 +70,6 @@ describe("WeatherManager class", () => {
     expect(netProcessor.dataList).toHaveLength(0);
     expect(newWeatherManager).not.toBe(weatherManager);
     expect(weatherManager.state).toEqual(newWeatherManager.state);
-    expect(weatherManager.weather_fx).toEqual(newWeatherManager.weather_fx);
+    expect(weatherManager.weatherFx).toEqual(newWeatherManager.weatherFx);
   });
 });

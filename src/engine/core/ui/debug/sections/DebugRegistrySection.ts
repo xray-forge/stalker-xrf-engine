@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { stringifyAsJson } from "@/engine/core/utils/transform/json";
+import { toJSON } from "@/engine/core/utils/transform/json";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { NIL } from "@/engine/lib/constants/words";
 import { TPath } from "@/engine/lib/types";

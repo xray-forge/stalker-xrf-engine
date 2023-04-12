@@ -19,7 +19,7 @@ import { EActionId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
 import { getNumberRelationBetweenCommunities } from "@/engine/core/utils/relation";
-import { stringifyAsJson } from "@/engine/core/utils/transform/json";
+import { toJSON } from "@/engine/core/utils/transform/json";
 import { stalkerCommunities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
@@ -191,11 +191,11 @@ export class DebugManager extends AbstractCoreManager {
         "Look object:",
         stateManager.look_object ? alife().object(stateManager.look_object)?.name() || NIL : NIL
       );
-      logger.info("Callback object:", stringifyAsJson(stateManager.callback));
+      logger.info("Callback object:", toJSON(stateManager.callback));
       logger.info("Is combat:", stateManager.isCombat);
       logger.info("Is alife:", stateManager.isAlife);
-      logger.info("Animation states:", stringifyAsJson(stateManager.animation.states));
-      logger.info("Animstate states:", stringifyAsJson(stateManager.animstate.states));
+      logger.info("Animation states:", toJSON(stateManager.animation.states));
+      logger.info("Animstate states:", toJSON(stateManager.animstate.states));
     } else {
       logger.info("No state manager declared for object");
     }

@@ -1,6 +1,6 @@
 import { log, print_stack, time_global } from "xray16";
 
-import { stringifyAsJson } from "@/engine/core/utils/transform/json";
+import { toJSON } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { AnyArgs, AnyObject, TLabel, TName } from "@/engine/lib/types";
 
@@ -66,7 +66,7 @@ export class LuaLogger {
   public table(table: AnyObject): void;
   public table(table: LuaTable): void {
     if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      LuaLogger.logAs("[TABLE]", this.prefix, [stringifyAsJson(table)] as unknown as LuaTable<number>);
+      LuaLogger.logAs("[TABLE]", this.prefix, [toJSON(table)] as unknown as LuaTable<number>);
     }
   }
 

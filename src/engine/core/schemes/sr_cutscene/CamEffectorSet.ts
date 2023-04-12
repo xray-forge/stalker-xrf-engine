@@ -10,7 +10,7 @@ import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeC
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
-import { stringifyAsJson } from "@/engine/core/utils/transform/json";
+import { toJSON } from "@/engine/core/utils/transform/json";
 import { FALSE } from "@/engine/lib/constants/words";
 import { Optional } from "@/engine/lib/types";
 
@@ -31,7 +31,7 @@ export class CamEffectorSet {
   public condlist!: TConditionList;
 
   public constructor(set: TCamEffectorSetDescriptor, storage: ISchemeCutsceneState) {
-    logger.info("Init new set:", stringifyAsJson(set));
+    logger.info("Init new set:", toJSON(set));
 
     this.set = set;
     this.state = EEffectorState.START;

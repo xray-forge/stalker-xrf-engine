@@ -1934,7 +1934,7 @@ export function set_game_time(actor: XR_game_object, npc: XR_game_object, params
   }
 
   level.change_game_time(0, hours_to_change, minutes_to_change);
-  WeatherManager.getInstance().forcedWeatherChange();
+  WeatherManager.getInstance().forceWeatherChange();
   SurgeManager.getInstance().isTimeForwarded = true;
 }
 
@@ -1956,7 +1956,7 @@ export function forward_game_time(actor: XR_game_object, npc: XR_game_object, p:
   }
 
   level.change_game_time(0, hours, minutes);
-  WeatherManager.getInstance().forcedWeatherChange();
+  WeatherManager.getInstance().forceWeatherChange();
   SurgeManager.getInstance().isTimeForwarded = true;
 }
 

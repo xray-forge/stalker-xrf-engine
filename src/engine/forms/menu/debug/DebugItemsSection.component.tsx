@@ -1,8 +1,8 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { Xr3tButton, XrBackground, XrComponent, XrStatic } from "@/engine/forms/components/base";
+import { Xr3tButton, XrBackground, XrComponent, XrRoot, XrStatic } from "@/engine/forms/components/base";
 import { XrList } from "@/engine/forms/components/base/XrList.component";
-import { XrListRenderer } from "@/engine/forms/components/base/XrListRenderer.component";
+import { XrComboBox } from "@/engine/forms/components/base/XrListRenderer.component";
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDialog.component";
 import { WHITE } from "@/engine/lib/constants/colors";
 import { textures } from "@/engine/lib/constants/textures";
@@ -11,12 +11,12 @@ export const IS_XML: boolean = true;
 
 export function create(): JSXNode {
   return (
-    <w>
+    <XrRoot>
       <XrBackground width={SECTION_WIDTH} height={SECTION_HEIGHT}>
         <XrStatic texture={textures.ui_inGame2_picture_window} width={SECTION_WIDTH} height={SECTION_HEIGHT} stretch />
       </XrBackground>
 
-      <XrListRenderer tag={"categories_list"} x={12} y={16} width={200} height={24} />
+      <XrComboBox tag={"categories_list"} x={12} y={16} width={200} height={24} />
 
       <XrStatic
         tag={"items_list_frame"}
@@ -52,6 +52,6 @@ export function create(): JSXNode {
         width={60}
         height={20}
       />
-    </w>
+    </XrRoot>
   );
 }

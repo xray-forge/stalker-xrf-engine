@@ -443,10 +443,10 @@ export class SurgeManager extends AbstractCoreManager {
     level.remove_pp_effector(surge_shock_pp_eff_id);
     level.remove_cam_effector(earthquake_cam_eff_id);
 
-    if (manual || (this.isTimeForwarded && WeatherManager.getInstance().weather_fx)) {
+    if (manual || (this.isTimeForwarded && WeatherManager.getInstance().weatherFx)) {
       level.stop_weather_fx();
       // --        WeatherManager.get_weather_manager():select_weather(true)
-      WeatherManager.getInstance().forcedWeatherChange();
+      WeatherManager.getInstance().forceWeatherChange();
     }
 
     this.isEffectorSet = false;

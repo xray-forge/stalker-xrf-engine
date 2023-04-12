@@ -5,9 +5,9 @@ import { normalizeBaseNodeProps } from "#/utils";
 import { fonts } from "@/engine/lib/constants/fonts";
 import { IBaseXmlNode } from "@/engine/lib/types";
 
-export interface IXrListRendererComponentProps extends IBaseXmlNode {}
+export interface IXrComboBoxProps extends IBaseXmlNode {}
 
-export function XrListRenderer(props: IXrListRendererComponentProps): JSXNode {
+export function XrComboBox(props: IXrComboBoxProps): JSXNode {
   const { tag = "list_renderer", x, y, width, height, children = null } = normalizeBaseNodeProps(props);
 
   return JSXXML(

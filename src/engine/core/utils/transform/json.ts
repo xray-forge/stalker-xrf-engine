@@ -1,7 +1,7 @@
 /**
  * JSON.stringify alternative for lua data types.
  */
-export function stringifyAsJson(
+export function toJSON(
   target: unknown,
   separator: string = " ",
   depth: number = 0,
@@ -44,7 +44,7 @@ export function stringifyAsJson(
       result += string.format(
         "\"%s\": %s",
         stringifyKey(k),
-        stringifyAsJson(v, separator, depth + 1, maxDepth, circular),
+        toJSON(v, separator, depth + 1, maxDepth, circular),
         separator
       );
 

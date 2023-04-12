@@ -1,6 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { Xr3tButton, XrCheckBox, XrStatic, XrText } from "@/engine/forms/components/base";
+import { Xr3tButton, XrCheckBox, XrRoot, XrStatic, XrText } from "@/engine/forms/components/base";
 import { WHITE } from "@/engine/lib/constants/colors";
 import { fonts } from "@/engine/lib/constants/fonts";
 
@@ -8,11 +8,11 @@ export const IS_XML: boolean = true;
 
 export function create(): JSXNode {
   return (
-    <w>
+    <XrRoot>
       <XrText tag={"nearest_stalker_label"} x={12} y={12} label={"none"} />
       <XrText tag={"target_stalker_label"} x={12} y={32} label={"none"} />
-      <XrCheckBox tag={"use_target_object_check"} x={12} y={50} width={24} height={20} />
 
+      <XrCheckBox tag={"use_target_object_check"} x={12} y={50} width={24} height={20} />
       <XrStatic tag={"use_target_object_label"} x={40} y={50} width={60} height={16}>
         <XrText label={"Use target object"} color={WHITE} />
       </XrStatic>
@@ -60,6 +60,6 @@ export function create(): JSXNode {
         textColor={WHITE}
         font={fonts.letterica16}
       />
-    </w>
+    </XrRoot>
   );
 }

@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import { XrEditBox, XrStatic } from "@/engine/forms/components/base";
-import { XrListRenderer } from "@/engine/forms/components/base/XrListRenderer.component";
+import { XrComboBox } from "@/engine/forms/components/base/XrListRenderer.component";
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDialog.component";
 import { fonts } from "@/engine/lib/constants/fonts";
 import { textures } from "@/engine/lib/constants/textures";
@@ -32,13 +32,7 @@ export function create(): JSXNode {
           vertAlign={"c"}
         />
 
-        <XrListRenderer
-          tag={"textures_list"}
-          x={24}
-          y={12 + 24 + DEFAULT_SPACING}
-          width={BASE_WIDTH - 48}
-          height={28}
-        />
+        <XrComboBox tag={"textures_list"} x={24} y={12 + 24 + DEFAULT_SPACING} width={BASE_WIDTH - 48} height={28} />
 
         <XrStatic
           tag={"textures_picture_square_big"}
