@@ -26,7 +26,7 @@ export function create(): JSXNode {
         <XrText font={fonts.letterica16} align={"c"} vertAlign={"c"} />
       </XrStatic>
 
-      <XrStatic tag={"game_command_line"} x={200} y={12} width={60} height={16}>
+      <XrStatic tag={"game_command_line"} x={280} y={12} width={60} height={16}>
         <XrText font={fonts.letterica16} align={"c"} vertAlign={"c"} />
       </XrStatic>
 

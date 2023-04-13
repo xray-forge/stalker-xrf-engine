@@ -225,7 +225,7 @@ export function parseInfoPortions(
 
     if (at !== null) {
       if (string.sub(infoPortion, -1) !== ")") {
-        abort("wrong condlist %s", data);
+        abort("Wrong condlist '%s'.", data);
       }
 
       if (at < string.len(infoPortion) - 1) {

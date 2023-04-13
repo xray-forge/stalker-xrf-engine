@@ -5,6 +5,16 @@ export const IS_XML: boolean = true;
 export function create(): JSXNode {
   return (
     <w>
+      <file name="ui\ui_actor_loadgame_screen">
+        <texture id="ui_mm_loading_screen" x="0" y="0" width="1024" height="768" />
+        <texture id="ui_mm_loading_progress_bar" x="0" y="772" width="506" height="4" />
+      </file>
+
+      <file name="ui\ui_actor_widescreen_sidepanels">
+        <texture id="ui_mm_loading_left_widepanel" x="0" y="0" width="128" height="768" />
+        <texture id="ui_mm_loading_right_widepanel" x="128" y="0" width="128" height="768" />
+      </file>
+
       <file name="ui\ui_mainMenu">
         <texture id="ui_menu_backgraund" x="0" y="0" width="1024" height="768" />
         <texture id="ui_menu_roll_L_01" x="0" y="768" width="55" height="55" />
@@ -55,6 +65,7 @@ export function create(): JSXNode {
         <texture id="ui_menu_grating_r" x="810" y="878" width="55" height="67" />
         <texture id="ui_menu_grating_l" x="865" y="878" width="46" height="70" />
       </file>
+
       <file name="ui\ui_actor_staff_background">
         <texture id="ui_credits_background" x="0" y="0" width="1024" height="768" />
       </file>

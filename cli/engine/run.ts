@@ -8,7 +8,7 @@ import { useEngine } from "#/engine/use_engine";
 /**
  * Setup engine command.
  */
-export function setupEngineCommands(command: Command): void {
+export function setupEngineCommand(command: Command): void {
   const engineCommand: Command = command.command("engine").description("custom game engine management");
 
   engineCommand.command("info").description("manage active game engine").action(printEngineInfo);

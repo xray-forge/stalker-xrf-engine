@@ -93,6 +93,7 @@ export const inGameTextures = {
   ui_inGame2_slider: "ui_inGame2_slider",
   ui_linetext_e: "ui_linetext_e",
   ui_magnifier2: "ui_magnifier2",
+  ui_mm_loading_progress_bar: "ui_mm_loading_progress_bar",
   ui_slider_button: "ui_slider_button",
   ui_slider_button_e: "ui_slider_button_e",
   ui_slider_d: "ui_slider_d",
