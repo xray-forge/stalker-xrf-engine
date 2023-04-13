@@ -12,12 +12,12 @@ export async function readLastLinesOfFile(
   maxLineCount: number,
   encoding: BufferEncoding = "utf8"
 ): Promise<string> {
-  let stat = null;
   let file: Optional<FileHandle> = null;
 
   if (await exists(filePath)) {
     try {
-      stat = await fsPromises.stat(filePath);
+      const stat = await fsPromises.stat(filePath);
+
       file = await fsPromises.open(filePath, "r");
 
       let chars: number = 0;
@@ -40,7 +40,6 @@ export async function readLastLinesOfFile(
         }
 
         const result = await file.read(Buffer.alloc(1), 0, 1, stat.size - 1 - chars);
-
         const nextCharacter = String.fromCharCode(result.buffer[0]);
 
         lines = nextCharacter + lines;
