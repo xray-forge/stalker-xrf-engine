@@ -1,7 +1,6 @@
 import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
-import * as process from "process";
 
 import { default as chalk } from "chalk";
 
@@ -16,13 +15,12 @@ const GAME_LOGS_DIR: string = path.resolve(config.targets.STALKER_LOGS_FOLDER_PA
 const GAME_BIN_DESCRIPTOR_DIR: string = path.resolve(GAME_DIR, "bin/bin.json");
 
 const log: NodeLogger = new NodeLogger("LOGS");
-const linesParam: number = Number.parseInt(process.argv[2]);
 
 /**
  * Print last 'n' lines from logs file.
  */
-(async function logs(): Promise<void> {
-  const linesCount: number = Math.min(Number.isInteger(linesParam) && linesParam > 0 ? linesParam : 15, 200);
+export async function printLastLogLines(count: number): Promise<void> {
+  const linesCount: number = Math.min(Number.isInteger(count) && count > 0 ? count : 15, 200);
 
   log.info("Printing logs last lines:", linesCount);
 
@@ -39,7 +37,7 @@ const linesParam: number = Number.parseInt(process.argv[2]);
   } else {
     log.info("No active logs found, exit");
   }
-})();
+}
 
 /**
  * Get path of log file.

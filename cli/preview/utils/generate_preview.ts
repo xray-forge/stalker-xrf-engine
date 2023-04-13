@@ -2,7 +2,7 @@ import { default as jsdom } from "jsdom";
 
 const { style, STATIC_ASSET, GRADIENT_BG_, GENERIC } = generateDomClasses();
 
-export function generatePreview(content: string): string {
+export function generateHTMLPreviewFromXMLString(content: string): string {
   const dom = new jsdom.JSDOM(content);
 
   const styleNode = dom.window.document.createElement("style", {});

@@ -1,23 +1,24 @@
 import fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as path from "path";
-import * as process from "process";
 
 import { default as chalk } from "chalk";
 
 import { ROOT_DIR, TARGET_PARSED } from "#/globals/paths";
 import { NodeLogger, readDirContentFlat } from "#/utils";
 
-import { Maybe } from "@/engine/lib/types";
-
-const TARGET_PATH: Maybe<string> = process.argv[2];
-const NO_EXT: boolean = process.argv.includes("--no-ext");
-
 const log: NodeLogger = new NodeLogger("PARSE_DIR_AS_JSON");
 
-(async function buildMod(): Promise<void> {
-  if (TARGET_PATH) {
-    const parseTargetPath: string = path.resolve(ROOT_DIR, TARGET_PATH);
+interface IParseDirParameters {
+  extension: boolean;
+}
+
+/**
+ * Parse provided dir tree to JSON file.
+ */
+export async function parseDirAsJson(targetPath: string, parameters: IParseDirParameters): Promise<void> {
+  if (targetPath) {
+    const parseTargetPath: string = path.resolve(ROOT_DIR, targetPath);
     const targetFilePath: string = path.resolve(TARGET_PARSED, `${path.parse(parseTargetPath).base}.json`);
 
     log.info("Parsing game dir as json:", chalk.yellowBright(parseTargetPath));
@@ -39,7 +40,7 @@ const log: NodeLogger = new NodeLogger("PARSE_DIR_AS_JSON");
       const withoutExt: string = it.substring(0, it.lastIndexOf("."));
       const normalizedToKey: string = withoutExt.replaceAll("\\", "_");
 
-      acc[normalizedToKey] = NO_EXT ? withoutExt : it;
+      acc[normalizedToKey] = parameters.extension ? it : withoutExt;
 
       return acc;
     }, {});
@@ -48,8 +49,8 @@ const log: NodeLogger = new NodeLogger("PARSE_DIR_AS_JSON");
 
     log.info(`Result: ${chalk.green("OK")}, entries parsed:`, tree.length, "\n`");
   } else {
-    log.error("Path param is not provided, string expected but got:", chalk.yellowBright(TARGET_PATH));
+    log.error("Path param is not provided, string expected but got:", chalk.yellowBright(targetPath));
 
     throw new Error("Invalid argument supplied.");
   }
-})();
+}

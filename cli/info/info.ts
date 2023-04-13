@@ -8,7 +8,10 @@ import { default as pkg } from "#/../package.json";
 
 const log: NodeLogger = new NodeLogger("INFO");
 
-(async function buildMod(): Promise<void> {
+/**
+ * Print current project information summary.
+ */
+export async function printInfo(): Promise<void> {
   const separator: string = chalk.cyan("--------------------------------------");
 
   log.info("Current project info");
@@ -28,4 +31,4 @@ const log: NodeLogger = new NodeLogger("INFO");
   log.info("Available scripts:");
   Object.keys(pkg.scripts).forEach((it) => log.info("npm run", chalk.blueBright(it)));
   log.info(separator);
-})();
+}

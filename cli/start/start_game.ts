@@ -6,12 +6,14 @@ import { default as config } from "#/config.json";
 import { NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("START_GAME");
-const params: string = process.argv.slice(2).join(" ");
 
-(async function startGame(): Promise<void> {
-  log.info("Starting game:", chalk.blue(params));
+/**
+ * Start game executable provided in config.json file.
+ */
+export async function startGame(): Promise<void> {
+  log.info("Starting game:");
 
-  const cmd: string = `"${config.targets.STALKER_GAME_FOLDER_PATH}\\${config.targets.STALKER_GAME_EXE_NAME}" ${params}`;
+  const cmd: string = `"${config.targets.STALKER_GAME_FOLDER_PATH}\\${config.targets.STALKER_GAME_EXE_NAME}"`;
 
   log.info("Starting game exe:", chalk.yellow(cmd));
 
@@ -22,4 +24,4 @@ const params: string = process.argv.slice(2).join(" ");
       log.info("Started process:", chalk.green("OK"), "\n");
     }
   });
-})();
+}

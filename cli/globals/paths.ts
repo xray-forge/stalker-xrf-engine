@@ -1,5 +1,7 @@
 import * as path from "path";
 
+import { default as config } from "#/config.json";
+
 export const XR_ENGINE_BACKUP_DIR: string = "bin_xrf_backup";
 
 export const ROOT_DIR: string = path.resolve(__dirname, "../..");
@@ -28,3 +30,10 @@ export const TARGET_GAME_LINK_DIR: string = path.resolve(TARGET_DIR, "game_link"
 export const TARGET_PARSED: string = path.resolve(TARGET_DIR, "parsed");
 
 export const TARGET_PREVIEW_DIR: string = path.resolve(TARGET_DIR, "preview");
+
+export const GAME_PATH: string = path.resolve(config.targets.STALKER_GAME_FOLDER_PATH);
+export const GAME_BIN_PATH: string = path.resolve(GAME_PATH, "bin");
+export const GAME_BIN_BACKUP_PATH: string = path.resolve(GAME_PATH, XR_ENGINE_BACKUP_DIR);
+export const GAME_BIN_JSON_PATH: string = path.resolve(GAME_BIN_PATH, "bin.json");
+export const GAME_GAMEDATA_PATH: string = path.resolve(GAME_PATH, "gamedata");
+export const GAME_LOGS_PATH: string = path.resolve(config.targets.STALKER_LOGS_FOLDER_PATH);

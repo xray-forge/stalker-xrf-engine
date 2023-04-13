@@ -11,7 +11,10 @@ import { Optional } from "@/engine/lib/types";
 
 const log: NodeLogger = new NodeLogger("UNLINK");
 
-(async function unlinkFolders(): Promise<void> {
+/**
+ * Unlink gamedata/engine/logs folders.
+ */
+export async function unlinkFolders(): Promise<void> {
   log.info("Unlinking engine development folders");
 
   try {
@@ -22,7 +25,7 @@ const log: NodeLogger = new NodeLogger("UNLINK");
   } catch (error) {
     log.error("Links removal failed:", chalk.red(error.message));
   }
-})();
+}
 
 /**
  * Link target gamedata folder for faster / easier development

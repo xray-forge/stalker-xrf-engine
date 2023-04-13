@@ -10,7 +10,10 @@ import { exists, NodeLogger } from "#/utils";
 const log: NodeLogger = new NodeLogger("LINK");
 const isForceLink: boolean = process.argv.includes("--force");
 
-(async function linkFolders(): Promise<void> {
+/**
+ * Link gamedata/engine/logs folders.
+ */
+export async function linkFolders(): Promise<void> {
   log.info("Linking engine mod development folders");
 
   try {
@@ -22,7 +25,7 @@ const isForceLink: boolean = process.argv.includes("--force");
   } catch (error) {
     log.error("Links creation failed:", chalk.red(error.message));
   }
-})();
+}
 
 /**
  * Link target gamedata folder for faster / easier development

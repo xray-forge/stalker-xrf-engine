@@ -1,41 +1,46 @@
 import * as fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as path from "path";
-import * as process from "process";
 
 import { default as chalk } from "chalk";
 
 import { GAME_DATA_UI_DIR, TARGET_PREVIEW_DIR } from "#/globals/paths";
-import { generatePreview } from "#/preview/utils/generate_preview";
+import { generateHTMLPreviewFromXMLString } from "#/preview/utils/generate_preview";
 import { NodeLogger, readDirContent, renderJsxToXmlText, TimeTracker } from "#/utils";
 
 import { TFolderFiles, TFolderReplicationDescriptor } from "@/engine/lib/types";
 
-const FILTERS: Array<string> = process.argv.slice(2).filter((it) => !it.trim().startsWith("--"));
-
-const isCleanBuild: boolean = process.argv.includes("--clean");
-const isVerboseBuild: boolean = process.argv.includes("--verbose");
-
 const EXPECTED_XML_EXTENSIONS = [".tsx", ".xml"];
 const log: NodeLogger = new NodeLogger("PREVIEW");
 
-NodeLogger.IS_VERBOSE = isVerboseBuild;
+interface IGeneratePreviewCommandParameters {
+  clean?: boolean;
+  verbose?: boolean;
+}
 
-(async function preview(): Promise<void> {
+/**
+ * Generate HTML previews from game XML forms for browser preview.
+ */
+export async function generatePreview(
+  filters: Array<string>,
+  parameters: IGeneratePreviewCommandParameters
+): Promise<void> {
   const timeTracker: TimeTracker = new TimeTracker().start();
+
+  NodeLogger.IS_VERBOSE = parameters.verbose === true;
 
   log.info("Compiling preview files");
 
-  if (isCleanBuild) {
+  if (parameters.clean) {
     log.info("Clean destination:", chalk.yellow(TARGET_PREVIEW_DIR));
     fs.rmSync(TARGET_PREVIEW_DIR, { recursive: true, force: true });
   }
 
-  if (FILTERS.length) {
-    log.info("Using filters:", FILTERS);
+  if (filters.length) {
+    log.info("Using filters:", filters);
   }
 
-  const xmlConfigs: Array<TFolderReplicationDescriptor> = await getUiConfigs(FILTERS);
+  const xmlConfigs: Array<TFolderReplicationDescriptor> = await getUiConfigs(filters);
 
   if (xmlConfigs.length > 0) {
     log.info("Found XML configs");
@@ -54,7 +59,7 @@ NodeLogger.IS_VERBOSE = isVerboseBuild;
 
           if (jsxContent) {
             log.debug("COMPILE JSX:", chalk.blue(to));
-            await fsPromises.writeFile(to, generatePreview(renderJsxToXmlText(jsxContent)));
+            await fsPromises.writeFile(to, generateHTMLPreviewFromXMLString(renderJsxToXmlText(jsxContent)));
           } else {
             log.debug("SKIP, not valid source:", chalk.blue(from));
           }
@@ -63,7 +68,7 @@ NodeLogger.IS_VERBOSE = isVerboseBuild;
 
           log.debug("COMPILE XML:", chalk.blue(to));
 
-          await fsPromises.writeFile(to, generatePreview(content.toString()));
+          await fsPromises.writeFile(to, generateHTMLPreviewFromXMLString(content.toString()));
         }
       })
     );
@@ -75,7 +80,7 @@ NodeLogger.IS_VERBOSE = isVerboseBuild;
 
   timeTracker.end();
   log.info("Preview compilation took:", timeTracker.getDuration() / 1000, "SEC");
-})();
+}
 
 /**
  * Sync way for folder creation when needed.

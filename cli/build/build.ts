@@ -1,9 +1,8 @@
 import * as fs from "fs";
-import * as process from "process";
 
 import { default as chalk } from "chalk";
 
-import { areNoBuildPartsParameters, BUILD_ARGS, IBuildParameters, parseBuildParameters } from "#/build/build_params";
+import { IBuildCommandParameters } from "#/build/run";
 import {
   buildDynamicConfigs,
   buildDynamicScripts,
@@ -23,45 +22,43 @@ import { default as pkg } from "#/../package.json";
 const log: NodeLogger = new NodeLogger("BUILD_ALL");
 
 /**
+ * todo;
+ */
+export enum EBuildTarget {
+  CONFIGS = "configs",
+  RESOURCES = "resources",
+  SCRIPTS = "scripts",
+  TRANSLATIONS = "translations",
+  UI = "ui",
+}
+
+/**
  * Main workflow for building game assets.
  * Builds separate parts of gamedata and collects log with metadata information.
  */
-(async function buildMod(): Promise<void> {
-  const parameters: IBuildParameters = parseBuildParameters(process.argv);
+export async function build(parameters: IBuildCommandParameters): Promise<void> {
   const timeTracker: TimeTracker = new TimeTracker().start();
+  const buildTargets: Array<EBuildTarget> = getBuildTargets(parameters);
 
   NodeLogger.IS_FILE_ENABLED = true;
-  NodeLogger.IS_VERBOSE = parameters[BUILD_ARGS.VERBOSE];
+  NodeLogger.IS_VERBOSE = Boolean(parameters.verbose);
 
   try {
     log.info("XRF build:", chalk.green(pkg?.name), chalk.blue(new Date().toLocaleString()));
     log.debug("XRF params:", JSON.stringify(parameters));
-
-    /**
-     * Verify parameters integrity.
-     */
-    if (areNoBuildPartsParameters(parameters)) {
-      if (parameters[BUILD_ARGS.CLEAN]) {
-        log.info("Perform cleanup only:", chalk.yellowBright(TARGET_GAME_DATA_DIR));
-        fs.rmSync(TARGET_GAME_DATA_DIR, { recursive: true, force: true });
-
-        return;
-      } else {
-        return log.warn("Empty build parameters specified, consider passing '--all' or desired modules");
-      }
-    }
+    log.debug("XRF targets:", buildTargets);
 
     /**
      * Inform about logs strip step.
      */
-    if (parameters[BUILD_ARGS.NO_LUA_LOGS]) {
+    if (!parameters.luaLogs) {
       log.info("Lua logger is disabled");
     }
 
     /**
      * Apply destination clean.
      */
-    if (parameters[BUILD_ARGS.CLEAN]) {
+    if (parameters.clean) {
       log.info("Perform target cleanup:", chalk.yellowBright(TARGET_GAME_DATA_DIR));
       fs.rmSync(TARGET_GAME_DATA_DIR, { recursive: true, force: true });
       timeTracker.addMark("BUILD_CLEANUP");
@@ -72,7 +69,7 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
     /**
      * Build game scripts.
      */
-    if (parameters[BUILD_ARGS.SCRIPTS]) {
+    if (buildTargets.includes(EBuildTarget.SCRIPTS)) {
       await buildDynamicScripts();
       timeTracker.addMark("BUILT_DYNAMIC_SCRIPTS");
     } else {
@@ -83,7 +80,7 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
     /**
      * Build game XML forms from JSX / copy static XML.
      */
-    if (parameters[BUILD_ARGS.UI]) {
+    if (buildTargets.includes(EBuildTarget.UI)) {
       await buildDynamicUi();
       timeTracker.addMark("BUILT_DYNAMIC_UI");
       await buildStaticUi();
@@ -96,7 +93,7 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
     /**
      * Build game LTX configs / copy static LTX.
      */
-    if (parameters[BUILD_ARGS.CONFIGS]) {
+    if (buildTargets.includes(EBuildTarget.CONFIGS)) {
       await buildDynamicConfigs();
       timeTracker.addMark("BUILT_DYNAMIC_CONFIGS");
       await buildStaticConfigs();
@@ -109,7 +106,7 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
     /**
      * Build game translations / copy static XML.
      */
-    if (parameters[BUILD_ARGS.TRANSLATIONS]) {
+    if (buildTargets.includes(EBuildTarget.TRANSLATIONS)) {
       await buildTranslations();
       timeTracker.addMark("BUILT_TRANSLATIONS");
     } else {
@@ -120,7 +117,7 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
     /**
      * Copy static assets from resources directories.
      */
-    if (parameters[BUILD_ARGS.RESOURCES]) {
+    if (buildTargets.includes(EBuildTarget.RESOURCES)) {
       await buildResourcesStatics();
       timeTracker.addMark("BUILT_STATIC_RESOURCES");
     } else {
@@ -142,4 +139,18 @@ const log: NodeLogger = new NodeLogger("BUILD_ALL");
   } finally {
     await collectLog();
   }
-})();
+}
+
+/**
+ * Get build targets from arguments.
+ */
+export function getBuildTargets(parameters: IBuildCommandParameters): Array<EBuildTarget> {
+  const targets: Array<EBuildTarget> =
+    (parameters.include === "all" ? Object.values(EBuildTarget) : parameters.include) || [];
+
+  if (Array.isArray(parameters.exclude)) {
+    parameters.exclude.forEach((it) => targets.splice(targets.indexOf(it), 1));
+  }
+
+  return targets;
+}

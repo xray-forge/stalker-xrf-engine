@@ -7,7 +7,10 @@ import { NodeLogger, openFolderInExplorer } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("OPEN_GAME_FOLDER");
 
-(async function unlinkFolders(): Promise<void> {
+/**
+ * Open game folder configured in config.json file with system explorer.
+ */
+export async function openGameFolder(): Promise<void> {
   log.info("Opening game folder");
 
   try {
@@ -19,4 +22,4 @@ const log: NodeLogger = new NodeLogger("OPEN_GAME_FOLDER");
   } catch (error) {
     log.error("Open folder error:", chalk.red(error.message));
   }
-})();
+}

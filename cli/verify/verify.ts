@@ -3,19 +3,25 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { default as config } from "#/config.json";
-import { CLI_CONFIG, TARGET_GAME_DATA_DIR, TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
+import {
+  CLI_CONFIG,
+  GAME_BIN_JSON_PATH,
+  GAME_BIN_PATH,
+  GAME_GAMEDATA_PATH,
+  GAME_LOGS_PATH,
+  GAME_PATH,
+  TARGET_GAME_DATA_DIR,
+  TARGET_GAME_LINK_DIR,
+  TARGET_LOGS_LINK_DIR,
+} from "#/globals/paths";
 import { exists, NodeLogger } from "#/utils";
-
-const GAME_LOGS_PATH: string = path.resolve(config.targets.STALKER_LOGS_FOLDER_PATH);
-const GAME_PATH: string = path.resolve(config.targets.STALKER_GAME_FOLDER_PATH);
-const GAME_BIN_PATH: string = path.resolve(GAME_PATH, "bin");
-const GAME_GAMEDATA_PATH: string = path.resolve(GAME_PATH, "gamedata");
-const GAME_BIN_JSON_PATH: string = path.resolve(GAME_BIN_PATH, "bin.json");
 
 const log: NodeLogger = new NodeLogger("VERIFY");
 
-(async function verify(): Promise<void> {
+/**
+ * Verify project setup and configuration.
+ */
+export async function verify(): Promise<void> {
   log.info("Verifying project state");
 
   try {
@@ -25,12 +31,10 @@ const log: NodeLogger = new NodeLogger("VERIFY");
     await verifyGameEngine();
     await verifyGamedataLink();
     await verifyLogsLink();
-
-    log.pushNewLine();
   } catch (error) {
-    log.error("verification failed failed:", chalk.red(error.message));
+    log.error("Verification failed:", chalk.red(error.message));
   }
-})();
+}
 
 async function verifyConfig(): Promise<void> {
   if (await exists(CLI_CONFIG)) {
