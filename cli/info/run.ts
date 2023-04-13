@@ -5,6 +5,6 @@ import { printInfo } from "#/info/info";
 /**
  * Setup info command.
  */
-export function setupInfoCommand(command: Command): void {
+export function setupInfoCommands(command: Command): void {
   command.command("info").description("print project information").action(printInfo);
 }

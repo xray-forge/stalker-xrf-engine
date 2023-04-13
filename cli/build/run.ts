@@ -13,7 +13,7 @@ export interface IBuildCommandParameters {
 /**
  * Setup build command.
  */
-export function setupBuildCommand(command: Command): void {
+export function setupBuildCommands(command: Command): void {
   command
     .command("build")
     .description("build template sources")

@@ -1,10 +1,10 @@
 import { Command } from "commander";
 
-import { setupBuildCommand } from "#/build/run";
-import { setupEngineCommand } from "#/engine/run";
-import { setupInfoCommand } from "#/info/run";
-import { setupLinkCommand } from "#/link/run";
-import { setupLogsCommand } from "#/logs/run";
+import { setupBuildCommands } from "#/build/run";
+import { setupEngineCommands } from "#/engine/run";
+import { setupInfoCommands } from "#/info/run";
+import { setupLinkCommands } from "#/link/run";
+import { setupLogsCommands } from "#/logs/run";
 import { setupOpenCommands } from "#/open/run";
 import { setupParseCommands } from "#/parse/run";
 import { setupPreviewCommands } from "#/preview/run";
@@ -13,11 +13,11 @@ import { setupVerifyCommands } from "#/verify/run";
 
 const program: Command = new Command("cli");
 
-setupBuildCommand(program);
-setupInfoCommand(program);
-setupEngineCommand(program);
-setupLinkCommand(program);
-setupLogsCommand(program);
+setupBuildCommands(program);
+setupInfoCommands(program);
+setupEngineCommands(program);
+setupLinkCommands(program);
+setupLogsCommands(program);
 setupOpenCommands(program);
 setupParseCommands(program);
 setupPreviewCommands(program);
