@@ -5,7 +5,7 @@ import { printLastLogLines } from "#/logs/logs_lines";
 /**
  * Setup logs management command.
  */
-export function setupLogsCommand(command: Command): void {
+export function setupLogsCommands(command: Command): void {
   command
     .command("logs")
     .description("print last [N] lines of linked engine logs file")
