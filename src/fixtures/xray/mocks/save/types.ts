@@ -3,6 +3,7 @@
  */
 export enum EPacketDataType {
   STRING = "string",
+  BOOLEAN = "boolean",
   U32 = "u32",
   I32 = "i32",
   U16 = "u16",

@@ -1,4 +1,4 @@
-import { game, level, task, TXR_TaskState, XR_CGameTask, XR_CPhraseDialog, XR_game_object } from "xray16";
+import { game, level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
@@ -8,7 +8,7 @@ import { TaskManager } from "@/engine/core/managers/tasks";
 import { WeatherManager } from "@/engine/core/managers/WeatherManager";
 import { SchemeCutscene } from "@/engine/core/schemes/sr_cutscene/SchemeCutscene";
 import * as SleepDialogModule from "@/engine/core/ui/interaction/SleepDialog";
-import { extern, getExtern } from "@/engine/core/utils/binding";
+import { extern } from "@/engine/core/utils/binding";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { enableGameUi } from "@/engine/core/utils/control";
 import { disableInfo } from "@/engine/core/utils/info_portion";
@@ -17,7 +17,7 @@ import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions } from "@/engine/lib/constants/info_portions";
-import { AnyCallable, AnyCallablesModule, PartialRecord, TStringId } from "@/engine/lib/types";
+import { AnyCallable, PartialRecord, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -75,11 +75,11 @@ extern("engine.surge_callback2", () => {
   enableGameUi();
 });
 
-extern("engine.task_complete", (taskId: TStringId): boolean => {
-  return TaskManager.getInstance().onTaskCompleted(taskId);
+extern("engine.is_task_completed", (taskId: TStringId): boolean => {
+  return TaskManager.getInstance().isTaskCompleted(taskId);
 });
 
-extern("engine.task_fail", (taskId: TStringId): boolean => TaskManager.getInstance().onTaskFailed(taskId));
+extern("engine.is_task_failed", (taskId: TStringId): boolean => TaskManager.getInstance().isTaskFailed(taskId));
 
 extern("engine.effector_callback", () => SchemeCutscene.onCutsceneEnd());
 

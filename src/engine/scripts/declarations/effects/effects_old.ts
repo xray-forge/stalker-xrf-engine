@@ -1088,8 +1088,6 @@ export function play_sound(
   object: XR_game_object,
   p: [Optional<string>, Optional<TCommunity>, Optional<string | number>]
 ): void {
-  logger.info("Play sound");
-
   const theme = p[0];
   const faction: Optional<TCommunity> = p[1];
   const smartTerrain: SmartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(

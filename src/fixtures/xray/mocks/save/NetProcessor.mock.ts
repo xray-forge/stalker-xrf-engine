@@ -45,6 +45,16 @@ export class MockNetProcessor {
     }
   }
 
+  public r_u8(): boolean {
+    this.readDataOrder.push(EPacketDataType.BOOLEAN);
+
+    if (this.hasData()) {
+      return this.dataList.shift() as boolean;
+    } else {
+      throw new Error("Unexpected test mock read.");
+    }
+  }
+
   public w_stringZ(data: string): void {
     this.writeDataOrder.push(EPacketDataType.STRING);
     this.dataList.push(data);
@@ -52,6 +62,11 @@ export class MockNetProcessor {
 
   public w_u16(data: number): void {
     this.writeDataOrder.push(EPacketDataType.U16);
+    this.dataList.push(data);
+  }
+
+  public w_u8(data: boolean): void {
+    this.writeDataOrder.push(EPacketDataType.BOOLEAN);
     this.dataList.push(data);
   }
 

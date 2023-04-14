@@ -14,7 +14,10 @@
     "typecheck": "tstl -P ./cli/build/tsconfig.scripts.json --noEmit",
     "format": "prettier --write \"**/*.(js|ts|tsx|md)\" && eslint . --ext .ts,.tsx,.js --fix",
     "lint": "eslint . --ext .ts,.tsx,.js",
-    "test": "jest --detectOpenHandles --config cli/test/jest.config.ts"
+    "test": "jest --detectOpenHandles"
+  },
+  "jest": {
+    "preset": "./cli/test/jest.config.ts"
   },
   "dependencies": {
     "xray16": "file:./src/typedefs/xray16"

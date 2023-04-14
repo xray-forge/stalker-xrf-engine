@@ -2,7 +2,7 @@ import { alife, XR_alife_simulator, XR_cse_alife_object, XR_game_object, XR_ini_
 
 import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { IBaseSchemeLogic } from "@/engine/core/schemes";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import {
@@ -146,9 +146,7 @@ export function pickSectionFromCondList<T extends TSection>(
 
     if (infop_conditions_met) {
       for (const [inum, infop] of pairs(cond.infop_set)) {
-        if (actor === null) {
-          abort("TRYING TO SET INFOS THEN ACTOR IS NIL");
-        }
+        assertDefined(actor, "Trying to set infos when actor is not initialized.");
 
         if (infop.func) {
           if (!getExtern<AnyCallablesModule>("xr_effects")[infop.func]) {

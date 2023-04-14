@@ -1,3 +1,5 @@
+import { iconTextures } from "@/engine/lib/constants/textures/icon_textures";
+
 export const FILES_MOCKS = {
   "system.ini": {
     actor: {
@@ -29,6 +31,26 @@ export const FILES_MOCKS = {
       cloudy: 0.4,
       rain: 0.1,
       thunder: 0.1,
+    },
+  },
+  "misc\\task_manager.ltx": {
+    hide_from_surge: {
+      icon: iconTextures.ui_inGame2_Vibros,
+      prior: 200,
+      title_functor: "surge_task_title",
+      descr_functor: "surge_task_descr",
+      target_functor: "surge_task_target",
+      condlist_0: "{=surge_complete()} complete",
+      condlist_1: "{!actor_alive()} fail",
+    },
+    zat_b28_heli_3_crash: {
+      icon: iconTextures.ui_inGame2_Skat_3,
+      prior: 103,
+      storyline: true,
+      title: "zat_b28_heli_3_crash_name",
+      descr: "zat_b28_heli_3_crash_text",
+      target: "zat_b28_heli_3",
+      condlist_0: "{+zat_b28_heli_3_searched} complete",
     },
   },
 };

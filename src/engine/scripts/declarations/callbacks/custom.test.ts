@@ -1,10 +1,12 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, it } from "@jest/globals";
 
 import { AnyObject } from "@/engine/lib/types";
 
 describe("'custom' external callbacks", () => {
   const checkBinding = (name: string, container: AnyObject = global) => {
-    expect(container["engine"][name]).toBeDefined();
+    if (!container["engine"][name]) {
+      throw new Error(`Expected '${name}' callback to be declared.`);
+    }
   };
 
   it("should correctly inject external methods for game", () => {
@@ -14,8 +16,8 @@ describe("'custom' external callbacks", () => {
     checkBinding("dream_callback2");
     checkBinding("anabiotic_callback");
     checkBinding("anabiotic_callback2");
-    checkBinding("task_complete");
-    checkBinding("task_fail");
+    checkBinding("is_task_completed");
+    checkBinding("is_task_failed");
     checkBinding("effector_callback");
     checkBinding("check_achievement");
   });

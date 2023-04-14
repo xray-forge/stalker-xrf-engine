@@ -1,10 +1,12 @@
 import { jest } from "@jest/globals";
+import { CTime } from "xray16";
 
 import { MockActionBase, MockAnim, MockLook, MockMove } from "@/fixtures/xray/mocks/actions";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { mockClsid } from "@/fixtures/xray/mocks/clsid.mock";
 import { mockGetConsole } from "@/fixtures/xray/mocks/console.mock";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
+import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { mockRenderDevice } from "@/fixtures/xray/mocks/device.mock";
 import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
 import { IniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
@@ -51,6 +53,7 @@ import {
 import { mockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 import { MockDangerObject } from "@/fixtures/xray/mocks/objects/client/danger_object.mock";
 import { MockObjectBinder } from "@/fixtures/xray/mocks/objects/client/object_binder.mock";
+import { MockCGameTask, MockTask } from "@/fixtures/xray/mocks/objects/task";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
 import { mockStalkerIds } from "@/fixtures/xray/mocks/stalkerIds.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
@@ -59,8 +62,10 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
  * todo;
  */
 export function mockXRay16({
+  CGameTask = MockCGameTask,
   CScriptXmlInit = MockCScriptXmlInit,
   CSightParams = MockCSightParams,
+  CTime = MockCTime,
   CUIListBoxItem = MockCUIListBoxItem,
   CUIListBoxItemMsgChain = MockCUIListBoxItemMsgChain,
   CUIScriptWnd = MockCUIScriptWnd,
@@ -95,11 +100,11 @@ export function mockXRay16({
   cse_alife_object_physic = MockAlifeObjectPhysic,
   cse_alife_online_offline_group = MockAlifeOnlineOfflineGroup,
   cse_alife_smart_zone = MockAlifeSmartZone,
-  cse_zone_visual = MockZoneVisual,
   cse_alife_space_restrictor = MockSpaceRestrictor,
   cse_anomalous_zone = MockAnomalousZone,
   cse_smart_cover = MockAlifeSmartCover,
   cse_torrid_zone = MockTorridZone,
+  cse_zone_visual = MockZoneVisual,
   danger_object = MockDangerObject,
   device = jest.fn(() => mockRenderDevice()),
   editor = jest.fn(() => false),
@@ -115,12 +120,15 @@ export function mockXRay16({
   property_evaluator = MockPropertyEvaluator,
   stalker_ids = mockStalkerIds,
   system_ini = () => mockIniFile("system.ini"),
+  task = MockTask,
   user_name = jest.fn(() => "os_user_name"),
   vector = MockVector,
 } = {}): void {
   jest.mock("xray16", () => ({
+    CGameTask,
     CScriptXmlInit,
     CSightParams,
+    CTime,
     CUIListBoxItem,
     CUIListBoxItemMsgChain,
     CUIScriptWnd,
@@ -176,6 +184,7 @@ export function mockXRay16({
     property_evaluator,
     stalker_ids,
     system_ini,
+    task,
     user_name,
     vector,
   }));

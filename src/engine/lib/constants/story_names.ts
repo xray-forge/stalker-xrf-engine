@@ -23,6 +23,7 @@ export const storyNames = {
   jup_b212_spot: "jup_b212_spot",
   jup_b25_spot: "jup_b25_spot",
   jup_b32_spot: "jup_b32_spot",
+  jup_b43_stalker_assistant_pri: "jup_b43_stalker_assistant_pri",
   jup_b46_spot: "jup_b46_spot",
   jup_b6_spot: "jup_b6_spot",
   jup_b9_spot: "jup_b9_spot",
@@ -52,6 +53,7 @@ export const storyNames = {
   zat_b14_spot: "zat_b14_spot",
   zat_b18_spot: "zat_b18_spot",
   zat_b20_spot: "zat_b20_spot",
+  zat_b215_stalker_guide_zaton: "zat_b215_stalker_guide_zaton",
   zat_b28_spot: "zat_b28_spot",
   zat_b33_spot: "zat_b33_spot",
   zat_b38_spot: "zat_b38_spot",
@@ -65,3 +67,7 @@ export const storyNames = {
   zat_b5_spot: "zat_b5_spot",
   zat_b7_spot: "zat_b7_spot",
 } as const;
+
+export type TStoryNames = typeof storyNames;
+
+export type TStoryName = TStoryNames[keyof TStoryNames];
