@@ -97,7 +97,7 @@ export interface ITipNotification extends INotification {
  * Sound play notification.
  */
 export interface ISoundNotification extends INotification {
-  object: Optional<XR_game_object>;
+  object?: Optional<XR_game_object>;
   faction: TName;
   point: Optional<TName | TNumberId>;
   soundPath: TPath;

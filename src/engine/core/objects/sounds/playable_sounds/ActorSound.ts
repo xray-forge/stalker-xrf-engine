@@ -12,6 +12,8 @@ import {
 } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { ENotificationType, ISoundNotification } from "@/engine/core/managers/notifications/types";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/objects/sounds/types";
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
@@ -128,10 +130,12 @@ export class ActorSound extends AbstractPlayableSound {
     this.soundObject.volume = 0.8;
     this.canPlaySound = false;
 
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { NotificationManager } = require("@/engine/core/managers/notifications");
-
-    NotificationManager.getInstance().sendSoundNotification(null, faction, point, soundPath);
+    EventsManager.getInstance().emitEvent<ISoundNotification>(EGameEvent.NOTIFICATION, {
+      type: ENotificationType.SOUND,
+      faction,
+      point,
+      soundPath,
+    });
 
     return true;
   }

@@ -97,7 +97,7 @@ export class NotificationManager extends AbstractCoreManager {
       }
 
       case ENotificationType.SOUND: {
-        const { object, faction, point, soundPath, soundCaption, delay } = notification as ISoundNotification;
+        const { object = null, faction, point, soundPath, soundCaption, delay } = notification as ISoundNotification;
 
         return this.sendSoundNotification(object, faction, point, soundPath, soundCaption, delay);
       }

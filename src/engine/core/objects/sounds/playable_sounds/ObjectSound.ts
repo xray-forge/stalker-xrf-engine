@@ -13,6 +13,8 @@ import {
 } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { ENotificationType, ISoundNotification } from "@/engine/core/managers/notifications/types";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/objects/sounds/types";
 import { IBaseSchemeState } from "@/engine/core/schemes";
@@ -133,10 +135,12 @@ export class ObjectSound extends AbstractPlayableSound {
     this.soundObject = new sound_object(soundPath);
     this.soundObject.play_at_pos(object, object.position(), 0, sound_object.s3d);
 
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { NotificationManager } = require("@/engine/core/managers/notifications");
-
-    NotificationManager.getInstance().sendSoundNotification(null, faction, point, soundPath);
+    EventsManager.getInstance().emitEvent<ISoundNotification>(EGameEvent.NOTIFICATION, {
+      type: ENotificationType.SOUND,
+      faction,
+      point,
+      soundPath,
+    });
 
     return true;
   }

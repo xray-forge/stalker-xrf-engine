@@ -17,6 +17,8 @@ import {
 } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { ENotificationType, ISoundNotification } from "@/engine/core/managers/notifications/types";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/objects/sounds/types";
 import { abort } from "@/engine/core/utils/assertion";
@@ -308,9 +310,6 @@ export class NpcSound extends AbstractPlayableSound {
       this.canPlaySound.set(objectId, false);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { NotificationManager } = require("@/engine/core/managers/notifications");
-
     if (game.translate_string(soundCaption) !== soundCaption) {
       if (!faction) {
         faction = getCharacterCommunity(object);
@@ -324,16 +323,24 @@ export class NpcSound extends AbstractPlayableSound {
         }
       }
 
-      NotificationManager.getInstance().sendSoundNotification(
+      EventsManager.getInstance().emitEvent<ISoundNotification>(EGameEvent.NOTIFICATION, {
+        type: ENotificationType.SOUND,
         object,
         faction,
         point,
         soundPath,
         soundCaption,
-        this.delay
-      );
+        delay: this.delay,
+      });
     } else {
-      NotificationManager.getInstance().sendSoundNotification(object, faction, point, soundPath, null, this.delay);
+      EventsManager.getInstance().emitEvent<ISoundNotification>(EGameEvent.NOTIFICATION, {
+        type: ENotificationType.SOUND,
+        object,
+        faction,
+        point,
+        soundPath,
+        delay: this.delay,
+      });
     }
 
     return true;
