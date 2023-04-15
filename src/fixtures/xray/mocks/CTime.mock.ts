@@ -4,11 +4,19 @@ import { jest } from "@jest/globals";
  * Mock CTime object.
  */
 export class MockCTime {
-  public y: number = 0;
-  public m: number = 0;
-  public d: number = 0;
-  public h: number = 0;
-  public min: number = 0;
+  public static create(y: number, m: number, d: number, h: number, min: number, sec: number, ms: number): MockCTime {
+    const time: MockCTime = new MockCTime();
+
+    time.set(y, m, d, h, min, sec, ms);
+
+    return time;
+  }
+
+  public y: number = 2012;
+  public m: number = 6;
+  public d: number = 12;
+  public h: number = 9;
+  public min: number = 30;
   public sec: number = 0;
   public ms: number = 0;
 
@@ -35,4 +43,8 @@ export class MockCTime {
     this.sec = sec;
     this.ms = ms;
   });
+
+  public toString(): string {
+    return `y:${this.y}, m:${this.m}, d:${this.d}, h:${this.h}, min:${this.min}, sec:${this.sec}, ms:${this.ms}`;
+  }
 }

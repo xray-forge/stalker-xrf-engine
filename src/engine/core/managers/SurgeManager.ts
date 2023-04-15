@@ -39,7 +39,7 @@ import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
-import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
@@ -882,10 +882,10 @@ export class SurgeManager extends AbstractCoreManager {
 
     packet.w_bool(this.isFinished);
     packet.w_bool(this.isStarted);
-    writeCTimeToPacket(packet, this.lastSurgeAt);
+    writeTimeToPacket(packet, this.lastSurgeAt);
 
     if (this.isStarted) {
-      writeCTimeToPacket(packet, this.initializedAt);
+      writeTimeToPacket(packet, this.initializedAt);
 
       packet.w_bool(this.respawnArtefactsByLevel.zaton as boolean);
       packet.w_bool(this.respawnArtefactsByLevel.jupiter as boolean);
@@ -914,10 +914,10 @@ export class SurgeManager extends AbstractCoreManager {
 
     this.isFinished = reader.r_bool();
     this.isStarted = reader.r_bool();
-    this.lastSurgeAt = readCTimeFromPacket(reader)!;
+    this.lastSurgeAt = readTimeFromPacket(reader)!;
 
     if (this.isStarted) {
-      this.initializedAt = readCTimeFromPacket(reader)!;
+      this.initializedAt = readTimeFromPacket(reader)!;
 
       this.respawnArtefactsByLevel.zaton = reader.r_bool();
       this.respawnArtefactsByLevel.jupiter = reader.r_bool();

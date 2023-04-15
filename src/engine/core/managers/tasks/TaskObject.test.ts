@@ -63,13 +63,13 @@ describe("TaskObject class", () => {
     taskObject.save(mockNetPacket(netProcessor));
 
     expect(netProcessor.writeDataOrder).toEqual([
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
       EPacketDataType.U16,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
@@ -78,11 +78,11 @@ describe("TaskObject class", () => {
     ]);
     expect(netProcessor.dataList).toEqual([
       2,
-      -2000,
-      0,
-      0,
-      0,
-      0,
+      12,
+      6,
+      12,
+      9,
+      30,
       0,
       0,
       "hide_from_surge_name_1",
@@ -98,13 +98,13 @@ describe("TaskObject class", () => {
     newTaskObject.load(mockNetProcessor(netProcessor));
 
     expect(netProcessor.writeDataOrder).toEqual([
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
       EPacketDataType.U16,
       EPacketDataType.STRING,
       EPacketDataType.STRING,

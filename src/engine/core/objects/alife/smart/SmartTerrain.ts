@@ -70,7 +70,7 @@ import {
   TConditionList,
 } from "@/engine/core/utils/parse";
 import { getTableSize, isEmpty } from "@/engine/core/utils/table";
-import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { TCaption } from "@/engine/lib/constants/captions/captions";
 import { MAX_U16, MAX_U8 } from "@/engine/lib/constants/memory";
@@ -875,7 +875,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     for (const [k, v] of this.jobDeadTimeById) {
       packet.w_u8(k);
-      writeCTimeToPacket(packet, v);
+      writeTimeToPacket(packet, v);
     }
 
     if (this.smartTerrainActorControl !== null) {
@@ -896,7 +896,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
       if (this.lastRespawnUpdatedAt !== null) {
         packet.w_bool(true);
-        writeCTimeToPacket(packet, this.lastRespawnUpdatedAt);
+        writeTimeToPacket(packet, this.lastRespawnUpdatedAt);
       } else {
         packet.w_bool(false);
       }
@@ -968,7 +968,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
 
     for (const it of $range(1, count)) {
       const job_id = packet.r_u8();
-      const dead_time = readCTimeFromPacket(packet)!;
+      const dead_time = readTimeFromPacket(packet)!;
 
       this.jobDeadTimeById.set(job_id, dead_time);
     }
@@ -996,7 +996,7 @@ export class SmartTerrain extends cse_alife_smart_zone {
         const exist: boolean = packet.r_bool();
 
         if (exist) {
-          this.lastRespawnUpdatedAt = readCTimeFromPacket(packet);
+          this.lastRespawnUpdatedAt = readTimeFromPacket(packet);
         } else {
           this.lastRespawnUpdatedAt = null;
         }

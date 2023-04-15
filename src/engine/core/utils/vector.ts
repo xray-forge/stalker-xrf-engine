@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { PI_DEGREE, RADIAN } from "@/engine/lib/constants/math";
-import { MAX_S32 } from "@/engine/lib/constants/memory";
+import { MAX_I32 } from "@/engine/lib/constants/memory";
 import { Optional, TDistance, TNumberId, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -161,7 +161,7 @@ export function distanceBetweenSafe(first: Optional<XR_game_object>, second: Opt
     return first.position().distance_to(second.position());
   }
 
-  return MAX_S32;
+  return MAX_I32;
 }
 
 /**

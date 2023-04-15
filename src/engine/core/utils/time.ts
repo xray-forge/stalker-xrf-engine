@@ -1,46 +1,61 @@
 import {
-  CTime,
-  editor,
   game,
   level,
   time_global,
+  TXR_net_processor,
   verify_if_thread_is_running,
   XR_CTime,
   XR_net_packet,
-  XR_reader,
 } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TDuration, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Check whether current time interval is between desired values.
  */
-export function isInTimeInterval(hoursFirst: number, hoursSecond: number): boolean {
-  const gameHours: number = level.get_time_hours();
+export function isInTimeInterval(fromHours: TTimestamp, toHouds: TTimestamp): boolean {
+  const gameHours: TTimestamp = level.get_time_hours();
 
-  if (hoursFirst >= hoursSecond) {
-    return gameHours < hoursSecond || gameHours >= hoursFirst;
+  if (fromHours >= toHouds) {
+    return gameHours < toHouds || gameHours >= fromHours;
   } else {
-    return gameHours < hoursSecond && gameHours >= hoursFirst;
+    return gameHours < toHouds && gameHours >= fromHours;
   }
 }
 
 /**
- * todo;
+ * Lock scripts execution based on game time.
  */
-export function waitGame(timeToWait: Optional<number> = null): void {
+export function waitGame(timeToWait: Optional<TDuration> = null): void {
   verify_if_thread_is_running();
 
   if (timeToWait === null) {
     coroutine.yield();
   } else {
-    const time_to_stop = game.time() + timeToWait;
+    const timeToStop: TTimestamp = game.time() + timeToWait;
 
-    while (game.time() <= time_to_stop) {
+    while (game.time() <= timeToStop) {
+      coroutine.yield();
+    }
+  }
+}
+
+/**
+ * Lock scripts execution based on real time.
+ */
+export function wait(timeToWait: Optional<TDuration> = null): void {
+  verify_if_thread_is_running();
+
+  if (timeToWait === null) {
+    coroutine.yield();
+  } else {
+    const timeToStop: TTimestamp = time_global() + timeToWait;
+
+    while (time_global() <= timeToStop) {
       coroutine.yield();
     }
   }
@@ -49,72 +64,42 @@ export function waitGame(timeToWait: Optional<number> = null): void {
 /**
  * todo;
  */
-export function wait(timeToWait: Optional<number> = null): void {
-  verify_if_thread_is_running();
-
-  if (timeToWait === null) {
-    coroutine.yield();
-  } else {
-    const time_to_stop = time_global() + timeToWait;
-
-    while (time_global() <= time_to_stop) {
-      coroutine.yield();
-    }
-  }
-}
-
-// todo: Investigate this hack.
-const CTime_0: Optional<XR_CTime> = editor() ? null : game.CTime();
-
-/**
- * todo;
- */
-export function writeCTimeToPacket(packet: XR_net_packet, time: Optional<XR_CTime>): void {
+export function writeTimeToPacket(packet: XR_net_packet, time: Optional<XR_CTime>): void {
   if (time === null) {
-    packet.w_u8(-1);
-
-    return;
+    return packet.w_u8(MAX_U8);
   }
 
-  if (CTime === null || time !== CTime_0) {
-    const [Y, M, D, h, m, s, ms] = time.get(0, 0, 0, 0, 0, 0, 0);
+  const [Y, M, D, h, m, s, ms] = time.get(0, 0, 0, 0, 0, 0, 0);
 
-    packet.w_u8(Y - 2000);
-    packet.w_u8(M);
-    packet.w_u8(D);
-    packet.w_u8(h);
-    packet.w_u8(m);
-    packet.w_u8(s);
-    packet.w_u16(ms);
-  } else {
-    packet.w_u8(0);
-  }
+  packet.w_u8(Y - 2000);
+  packet.w_u8(M);
+  packet.w_u8(D);
+  packet.w_u8(h);
+  packet.w_u8(m);
+  packet.w_u8(s);
+  packet.w_u16(ms);
 }
 
 /**
  * todo;
  */
-export function readCTimeFromPacket(reader: XR_reader | XR_net_packet): Optional<XR_CTime> {
-  const Y = reader.r_u8();
+export function readTimeFromPacket(reader: TXR_net_processor): Optional<XR_CTime> {
+  const Y: number = reader.r_u8();
 
-  if (Y === MAX_U8) {
+  if (Y === MAX_U8 || Y === 0) {
     return null;
   }
 
-  if (Y !== 0) {
-    const time: XR_CTime = game.CTime();
+  const time: XR_CTime = game.CTime();
 
-    const M: number = reader.r_u8();
-    const D: number = reader.r_u8();
-    const h: number = reader.r_u8();
-    const m: number = reader.r_u8();
-    const s: number = reader.r_u8();
-    const ms: number = reader.r_u16();
+  const M: number = reader.r_u8();
+  const D: number = reader.r_u8();
+  const h: number = reader.r_u8();
+  const m: number = reader.r_u8();
+  const s: number = reader.r_u8();
+  const ms: number = reader.r_u16();
 
-    time.set(Y + 2000, M, D, h, m, s, ms);
+  time.set(Y + 2000, M, D, h, m, s, ms);
 
-    return time;
-  } else {
-    return null;
-  }
+  return time;
 }

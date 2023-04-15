@@ -11,7 +11,7 @@ import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { setSquadGoodwill } from "@/engine/core/utils/relation";
-import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { relations } from "@/engine/lib/constants/relations";
 import { Optional, TName, TSection } from "@/engine/lib/types";
 
@@ -144,7 +144,7 @@ export class SmartTerrainControl {
     openSaveMarker(packet, SmartTerrainControl.name);
 
     packet.w_u8(this.status);
-    writeCTimeToPacket(packet, this.alarm_time);
+    writeTimeToPacket(packet, this.alarm_time);
 
     closeSaveMarker(packet, SmartTerrainControl.name);
   }
@@ -156,7 +156,7 @@ export class SmartTerrainControl {
     openLoadMarker(reader, SmartTerrainControl.name);
 
     this.status = reader.r_u8();
-    this.alarm_time = readCTimeFromPacket(reader);
+    this.alarm_time = readTimeFromPacket(reader);
 
     closeLoadMarker(reader, SmartTerrainControl.name);
   }

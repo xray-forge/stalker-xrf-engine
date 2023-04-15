@@ -12,7 +12,7 @@ import {
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
-import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TName, TNumberId, TPath, TSection, TTimestamp } from "@/engine/lib/types";
 
@@ -32,7 +32,7 @@ function saveSchemeActivationDetails(object: XR_game_object, packet: XR_net_pack
   }
 
   packet.w_s32(activationTime - now);
-  writeCTimeToPacket(packet, registry.objects.get(objectId).activation_game_time);
+  writeTimeToPacket(packet, registry.objects.get(objectId).activation_game_time);
 }
 
 /**
@@ -45,7 +45,7 @@ function loadSchemeActivationDetails(object: XR_game_object, reader: TXR_net_pro
   const now: TTimestamp = time_global();
 
   registry.objects.get(objectId).activation_time = reader.r_s32() + now;
-  registry.objects.get(objectId).activation_game_time = readCTimeFromPacket(reader) as XR_CTime;
+  registry.objects.get(objectId).activation_game_time = readTimeFromPacket(reader) as XR_CTime;
 }
 
 /**

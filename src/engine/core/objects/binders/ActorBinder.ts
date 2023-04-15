@@ -38,7 +38,7 @@ import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
-import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficultiesByNumber } from "@/engine/lib/constants/game_difficulties";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
@@ -248,7 +248,7 @@ export class ActorBinder extends object_binder {
       packet.w_bool(false);
     } else {
       packet.w_bool(true);
-      writeCTimeToPacket(packet, this.state.disable_input_time);
+      writeTimeToPacket(packet, this.state.disable_input_time);
     }
 
     savePortableStore(this.object, packet);
@@ -295,7 +295,7 @@ export class ActorBinder extends object_binder {
     );
 
     if (reader.r_bool()) {
-      this.state.disable_input_time = readCTimeFromPacket(reader);
+      this.state.disable_input_time = readTimeFromPacket(reader);
     }
 
     loadPortableStore(this.object, reader);

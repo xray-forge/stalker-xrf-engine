@@ -33,7 +33,7 @@ import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/util
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseStringsList, TConditionList } from "@/engine/core/utils/parse";
 import { giveMoneyToActor, transferItemsToActor } from "@/engine/core/utils/task_reward";
-import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { NIL } from "@/engine/lib/constants/words";
@@ -454,7 +454,7 @@ export class TaskObject {
     openSaveMarker(packet, TaskObject.name);
 
     packet.w_u8(this.status);
-    writeCTimeToPacket(packet, this.initializedAt);
+    writeTimeToPacket(packet, this.initializedAt);
     packet.w_stringZ(this.currentTitle);
     packet.w_stringZ(this.currentDescription);
     packet.w_stringZ(tostring(this.currentTargetId));
@@ -469,7 +469,7 @@ export class TaskObject {
     openLoadMarker(reader, TaskObject.name);
 
     this.status = reader.r_u8();
-    this.initializedAt = readCTimeFromPacket(reader);
+    this.initializedAt = readTimeFromPacket(reader);
     this.currentTitle = reader.r_stringZ();
     this.currentDescription = reader.r_stringZ();
 

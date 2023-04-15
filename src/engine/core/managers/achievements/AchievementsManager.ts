@@ -14,7 +14,7 @@ import { getExtern } from "@/engine/core/utils/binding";
 import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObjectFromList } from "@/engine/core/utils/spawn";
-import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
+import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
@@ -661,14 +661,14 @@ export class AchievementsManager extends AbstractCoreManager {
       packet.w_bool(false);
     } else {
       packet.w_bool(true);
-      writeCTimeToPacket(packet, this.lastDetectiveAchievementSpawnTime);
+      writeTimeToPacket(packet, this.lastDetectiveAchievementSpawnTime);
     }
 
     if (this.lastMutantHunterAchievementSpawnTime === null) {
       packet.w_bool(false);
     } else {
       packet.w_bool(true);
-      writeCTimeToPacket(packet, this.lastMutantHunterAchievementSpawnTime);
+      writeTimeToPacket(packet, this.lastMutantHunterAchievementSpawnTime);
     }
   }
 
@@ -679,13 +679,13 @@ export class AchievementsManager extends AbstractCoreManager {
     const hasSpawnedDetectiveLoot: boolean = reader.r_bool();
 
     if (hasSpawnedDetectiveLoot) {
-      this.lastDetectiveAchievementSpawnTime = readCTimeFromPacket(reader);
+      this.lastDetectiveAchievementSpawnTime = readTimeFromPacket(reader);
     }
 
     const hasSpawnedMutantHunterLoot: boolean = reader.r_bool();
 
     if (hasSpawnedMutantHunterLoot) {
-      this.lastMutantHunterAchievementSpawnTime = readCTimeFromPacket(reader);
+      this.lastMutantHunterAchievementSpawnTime = readTimeFromPacket(reader);
     }
   }
 }

@@ -45,7 +45,17 @@ export class MockNetProcessor {
     }
   }
 
-  public r_u8(): boolean {
+  public r_u8(): number {
+    this.readDataOrder.push(EPacketDataType.U8);
+
+    if (this.hasData()) {
+      return this.dataList.shift() as number;
+    } else {
+      throw new Error("Unexpected test mock read.");
+    }
+  }
+
+  public r_boolean(): boolean {
     this.readDataOrder.push(EPacketDataType.BOOLEAN);
 
     if (this.hasData()) {
@@ -65,7 +75,12 @@ export class MockNetProcessor {
     this.dataList.push(data);
   }
 
-  public w_u8(data: boolean): void {
+  public w_u8(data: number): void {
+    this.writeDataOrder.push(EPacketDataType.U8);
+    this.dataList.push(data);
+  }
+
+  public w_boolean(data: boolean): void {
     this.writeDataOrder.push(EPacketDataType.BOOLEAN);
     this.dataList.push(data);
   }
