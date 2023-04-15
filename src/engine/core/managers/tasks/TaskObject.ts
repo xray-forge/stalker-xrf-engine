@@ -24,7 +24,7 @@ import {
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
-import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
+import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { ETaskState, ETaskStatus, POSSIBLE_STATES } from "@/engine/core/managers/tasks/types";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
@@ -370,7 +370,7 @@ export class TaskObject {
       }
 
       for (const [item, count] of rewardItems) {
-        relocateQuestItemSection(currentSpeaker as XR_game_object, item, "in", count);
+        relocateQuestItemSection(currentSpeaker as XR_game_object, item, ENotificationDirection.IN, count);
       }
     }
   }

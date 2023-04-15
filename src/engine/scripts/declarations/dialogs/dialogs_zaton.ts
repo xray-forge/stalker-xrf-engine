@@ -4,7 +4,7 @@ import { alife, game, level, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
-import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
+import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { TreasureManager } from "@/engine/core/managers/TreasureManager";
 import { getExtern } from "@/engine/core/utils/binding";
 import { isSquadExisting } from "@/engine/core/utils/check/check";
@@ -554,7 +554,7 @@ export function zat_b103_transfer_merc_supplies(firstSpeaker: XR_game_object, se
     }, actor);
 
     if (j - it !== 0) {
-      newsManager.sendItemRelocatedNotification(actor, "out", section, j - it);
+      newsManager.sendItemRelocatedNotification(actor, ENotificationDirection.OUT, section, j - it);
     }
   }
 }
@@ -663,7 +663,11 @@ export function zat_b33_counter_ne_10(first_speaker: XR_game_object, second_spea
  * todo;
  */
 export function zat_b33_transfer_first_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  relocateQuestItemSection(getActorSpeaker(first_speaker, second_speaker), quest_items.wpn_fort_snag, "in");
+  relocateQuestItemSection(
+    getActorSpeaker(first_speaker, second_speaker),
+    quest_items.wpn_fort_snag,
+    ENotificationDirection.IN
+  );
 }
 
 /**
@@ -695,9 +699,9 @@ export function check_npc_name_mechanics(first_speaker: XR_game_object, second_s
 export function zat_b33_transfer_second_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  relocateQuestItemSection(actor, drugs.medkit_scientic, "in", 3);
-  relocateQuestItemSection(actor, drugs.antirad, "in", 3);
-  relocateQuestItemSection(actor, drugs.bandage, "in", 5);
+  relocateQuestItemSection(actor, drugs.medkit_scientic, ENotificationDirection.IN, 3);
+  relocateQuestItemSection(actor, drugs.antirad, ENotificationDirection.IN, 3);
+  relocateQuestItemSection(actor, drugs.bandage, ENotificationDirection.IN, 5);
 }
 
 /**
@@ -706,7 +710,7 @@ export function zat_b33_transfer_second_item(first_speaker: XR_game_object, seco
 export function zat_b33_transfer_third_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  relocateQuestItemSection(actor, quest_items.wpn_ak74u_snag, "in");
+  relocateQuestItemSection(actor, quest_items.wpn_ak74u_snag, ENotificationDirection.IN);
 }
 
 /**
@@ -715,7 +719,7 @@ export function zat_b33_transfer_third_item(first_speaker: XR_game_object, secon
 export function zat_b33_transfer_fourth_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  relocateQuestItemSection(actor, artefacts.af_soul, "in");
+  relocateQuestItemSection(actor, artefacts.af_soul, ENotificationDirection.IN);
 }
 
 /**
@@ -724,14 +728,18 @@ export function zat_b33_transfer_fourth_item(first_speaker: XR_game_object, seco
 export function zat_b33_transfer_fifth_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  relocateQuestItemSection(actor, quest_items.helm_hardhat_snag, "in");
+  relocateQuestItemSection(actor, quest_items.helm_hardhat_snag, ENotificationDirection.IN);
 }
 
 /**
  * todo;
  */
 export function zat_b33_transfer_safe_container(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  relocateQuestItemSection(getNpcSpeaker(first_speaker, second_speaker), quest_items.zat_b33_safe_container, "out");
+  relocateQuestItemSection(
+    getNpcSpeaker(first_speaker, second_speaker),
+    quest_items.zat_b33_safe_container,
+    ENotificationDirection.OUT
+  );
 }
 
 /**
@@ -2163,7 +2171,7 @@ export function zat_b53_transfer_medkit_to_npc(first_speaker: XR_game_object, se
   }
 
   alife().release(alife().object(actor.object(section)!.id()), true);
-  NotificationManager.getInstance().sendItemRelocatedNotification(actor, "out", section, 1);
+  NotificationManager.getInstance().sendItemRelocatedNotification(actor, ENotificationDirection.OUT, section, 1);
   actor.change_character_reputation(10);
 }
 

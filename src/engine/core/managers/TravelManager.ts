@@ -19,6 +19,7 @@ import {
 import { getStoryIdByObjectId, registry, TRAVEL_MANAGER_LTX } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { ENotificationDirection } from "@/engine/core/managers/notifications";
 import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
@@ -472,7 +473,7 @@ export class TravelManager extends AbstractCoreManager {
     const price: TCount = this.getTravelPriceByDistance(distance);
 
     actor.give_money(-price);
-    NotificationManager.getInstance().sendMoneyRelocatedNotification(actor, "out", price);
+    NotificationManager.getInstance().sendMoneyRelocatedNotification(actor, ENotificationDirection.OUT, price);
 
     this.isTravelTeleported = false;
     this.isTraveling = true;

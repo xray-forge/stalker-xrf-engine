@@ -4,6 +4,7 @@ import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } fr
 
 import { registry } from "@/engine/core/database";
 import { portableStoreGet } from "@/engine/core/database/portable_store";
+import { ENotificationDirection } from "@/engine/core/managers/notifications/ENotificationDirection";
 import { TreasureManager } from "@/engine/core/managers/TreasureManager";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/AnomalyZoneBinder";
 import { getExtern } from "@/engine/core/utils/binding";
@@ -1593,13 +1594,13 @@ export function jup_b46_sell_duty_founder_pda(first_speaker: XR_game_object, sec
 
   if (hasAlifeInfo(info_portions.jup_b46_duty_founder_pda_to_freedom)) {
     giveMoneyToActor(4000);
-    relocateQuestItemSection(actor, weapons.wpn_sig550, "in", 1);
-    relocateQuestItemSection(actor, ammo["ammo_5.56x45_ss190"], "in", 5);
+    relocateQuestItemSection(actor, weapons.wpn_sig550, ENotificationDirection.IN, 1);
+    relocateQuestItemSection(actor, ammo["ammo_5.56x45_ss190"], ENotificationDirection.IN, 5);
   } else if (hasAlifeInfo(info_portions.jup_b46_duty_founder_pda_to_duty)) {
     giveMoneyToActor(4000);
-    relocateQuestItemSection(actor, weapons.wpn_groza, "in", 1);
-    relocateQuestItemSection(actor, ammo.ammo_9x39_ap, "in", 2);
-    relocateQuestItemSection(actor, ammo["ammo_vog-25"], "in", 2);
+    relocateQuestItemSection(actor, weapons.wpn_groza, ENotificationDirection.IN, 1);
+    relocateQuestItemSection(actor, ammo.ammo_9x39_ap, ENotificationDirection.IN, 2);
+    relocateQuestItemSection(actor, ammo["ammo_vog-25"], ENotificationDirection.IN, 2);
   }
 }
 
@@ -1610,7 +1611,7 @@ export function jup_b46_transfer_duty_founder_pda(first_speaker: XR_game_object,
   const object: XR_game_object = getNpcSpeaker(first_speaker, second_speaker);
 
   if (registry.actor.object(quest_items.jup_b46_duty_founder_pda) !== null) {
-    relocateQuestItemSection(object, quest_items.jup_b46_duty_founder_pda, "out");
+    relocateQuestItemSection(object, quest_items.jup_b46_duty_founder_pda, ENotificationDirection.OUT);
   }
 }
 
@@ -1915,13 +1916,13 @@ export function jup_b47_jupiter_products_info_revard(
   const npc = getNpcSpeaker(first_speaker, second_speaker);
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  relocateQuestItemSection(npc, quest_items.jup_b47_jupiter_products_info, "out");
+  relocateQuestItemSection(npc, quest_items.jup_b47_jupiter_products_info, ENotificationDirection.OUT);
   giveMoneyToActor(7000);
-  relocateQuestItemSection(actor, drugs.medkit_scientic, "in", 3);
-  relocateQuestItemSection(actor, drugs.antirad, "in", 5);
-  relocateQuestItemSection(actor, drugs.drug_psy_blockade, "in", 2);
-  relocateQuestItemSection(actor, drugs.drug_antidot, "in", 2);
-  relocateQuestItemSection(actor, drugs.drug_radioprotector, "in", 2);
+  relocateQuestItemSection(actor, drugs.medkit_scientic, ENotificationDirection.IN, 3);
+  relocateQuestItemSection(actor, drugs.antirad, ENotificationDirection.IN, 5);
+  relocateQuestItemSection(actor, drugs.drug_psy_blockade, ENotificationDirection.IN, 2);
+  relocateQuestItemSection(actor, drugs.drug_antidot, ENotificationDirection.IN, 2);
+  relocateQuestItemSection(actor, drugs.drug_radioprotector, ENotificationDirection.IN, 2);
 }
 
 /**
@@ -1944,7 +1945,7 @@ export function jup_b47_actor_has_not_merc_pda(first_speaker: XR_game_object, se
 export function jup_b47_merc_pda_revard(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   const npc = getNpcSpeaker(first_speaker, second_speaker);
 
-  relocateQuestItemSection(npc, quest_items.jup_b47_merc_pda, "out");
+  relocateQuestItemSection(npc, quest_items.jup_b47_merc_pda, ENotificationDirection.OUT);
   giveMoneyToActor(2500);
 }
 
@@ -1977,9 +1978,9 @@ export function jup_b47_bunker_guard_revard(first_speaker: XR_game_object, secon
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
   giveMoneyToActor(4000);
-  relocateQuestItemSection(actor, drugs.drug_psy_blockade, "in", 2);
-  relocateQuestItemSection(actor, drugs.drug_antidot, "in", 3);
-  relocateQuestItemSection(actor, drugs.drug_radioprotector, "in", 3);
+  relocateQuestItemSection(actor, drugs.drug_psy_blockade, ENotificationDirection.IN, 2);
+  relocateQuestItemSection(actor, drugs.drug_antidot, ENotificationDirection.IN, 3);
+  relocateQuestItemSection(actor, drugs.drug_radioprotector, ENotificationDirection.IN, 3);
 }
 
 /**

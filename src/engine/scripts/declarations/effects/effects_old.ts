@@ -38,7 +38,7 @@ import {
 import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
-import { NotificationManager, TNotificationIcon } from "@/engine/core/managers/notifications";
+import { ENotificationDirection, NotificationManager, TNotificationIcon } from "@/engine/core/managers/notifications";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { SleepManager } from "@/engine/core/managers/SleepManager";
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
@@ -62,7 +62,6 @@ import { isStalker } from "@/engine/core/utils/check/is";
 import { setInactiveInputTime } from "@/engine/core/utils/control";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob } from "@/engine/core/utils/gulag";
-import { giveInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -76,7 +75,6 @@ import {
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { TCaption } from "@/engine/lib/constants/captions/captions";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { info_portions } from "@/engine/lib/constants/info_portions";
 import { detectors, TDetector } from "@/engine/lib/constants/items/detectors";
 import { helmets } from "@/engine/lib/constants/items/helmets";
 import { misc } from "@/engine/lib/constants/items/misc";
@@ -1040,7 +1038,7 @@ export function give_actor(
 ): void {
   for (const [k, v] of p as LuaArray<string>) {
     alife().create(v, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
-    NotificationManager.getInstance().sendItemRelocatedNotification(actor, "in", v);
+    NotificationManager.getInstance().sendItemRelocatedNotification(actor, ENotificationDirection.IN, v);
   }
 }
 
@@ -1837,7 +1835,7 @@ export function remove_item(actor: XR_game_object, npc: XR_game_object, p: [stri
     abort("Actor has no such item!");
   }
 
-  NotificationManager.getInstance().sendItemRelocatedNotification(actor, "out", item);
+  NotificationManager.getInstance().sendItemRelocatedNotification(actor, ENotificationDirection.OUT, item);
 }
 
 /**

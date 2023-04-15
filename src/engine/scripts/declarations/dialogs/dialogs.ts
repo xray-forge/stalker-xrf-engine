@@ -3,7 +3,7 @@
 import { alife, game_object, level, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
+import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { update_logic } from "@/engine/core/objects/binders/StalkerBinder";
@@ -36,11 +36,11 @@ import { AnyCallablesModule, EScheme, Optional, TNumberId } from "@/engine/lib/t
  * todo;
  */
 export function is_npc_in_current_smart(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object,
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object,
   smart_name: string
 ): boolean {
-  const npc = getNpcSpeaker(first_speaker, second_speaker);
+  const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
   const smart = getObjectBoundSmart(npc);
 
   if (!smart) {
@@ -53,16 +53,16 @@ export function is_npc_in_current_smart(
 /**
  * todo;
  */
-export function break_dialog(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  first_speaker.stop_talk();
-  second_speaker.stop_talk();
+export function break_dialog(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  firstSpeaker.stop_talk();
+  secondSpeaker.stop_talk();
 }
 
 /**
  * todo;
  */
-export function update_npc_dialog(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const object = getNpcSpeaker(first_speaker, second_speaker);
+export function update_npc_dialog(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  const object = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
   (registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState).meetManager.update();
   SchemeMeet.updateObjectInteractionAvailability(object);
@@ -72,71 +72,71 @@ export function update_npc_dialog(first_speaker: XR_game_object, second_speaker:
 /**
  * todo;
  */
-export function is_wounded(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return isObjectWounded(getNpcSpeaker(first_speaker, second_speaker));
+export function is_wounded(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return isObjectWounded(getNpcSpeaker(firstSpeaker, secondSpeaker));
 }
 
 /**
  * todo;
  */
-export function is_not_wounded(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !is_wounded(first_speaker, second_speaker);
+export function is_not_wounded(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !is_wounded(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function actor_have_medkit(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function actor_have_medkit(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return actorHasMedKit();
 }
 
 /**
  * todo;
  */
-export function actor_hasnt_medkit(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function actor_hasnt_medkit(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return !actorHasMedKit();
 }
 
 /**
  * todo;
  */
-export function transfer_medkit(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function transfer_medkit(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const availableMedkit: Optional<TMedkit> = getActorAvailableMedKit();
 
   if (availableMedkit !== null) {
-    relocateQuestItemSection(second_speaker, availableMedkit, "out");
+    relocateQuestItemSection(secondSpeaker, availableMedkit, ENotificationDirection.OUT);
   }
 
   alife().create(
     "medkit_script",
-    second_speaker.position(),
-    second_speaker.level_vertex_id(),
-    second_speaker.game_vertex_id(),
-    second_speaker.id()
+    secondSpeaker.position(),
+    secondSpeaker.level_vertex_id(),
+    secondSpeaker.game_vertex_id(),
+    secondSpeaker.id()
   );
 
-  SchemeWounded.unlockMedkit(second_speaker);
+  SchemeWounded.unlockMedkit(secondSpeaker);
 
-  if (second_speaker.relation(first_speaker) !== game_object.enemy) {
-    second_speaker.set_relation(game_object.friend, first_speaker);
+  if (secondSpeaker.relation(firstSpeaker) !== game_object.enemy) {
+    secondSpeaker.set_relation(game_object.friend, firstSpeaker);
   }
 
-  first_speaker.change_character_reputation(10);
+  firstSpeaker.change_character_reputation(10);
 }
 
 /**
  * todo;
  */
-export function actor_have_bandage(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return first_speaker.object(drugs.bandage) !== null;
+export function actor_have_bandage(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return firstSpeaker.object(drugs.bandage) !== null;
 }
 
 /**
  * todo;
  */
-export function transfer_bandage(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  relocateQuestItemSection(second_speaker, drugs.bandage, "out");
-  second_speaker.set_relation(game_object.friend, first_speaker);
+export function transfer_bandage(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  relocateQuestItemSection(secondSpeaker, drugs.bandage, ENotificationDirection.OUT);
+  secondSpeaker.set_relation(game_object.friend, firstSpeaker);
 }
 
 /**
@@ -156,71 +156,71 @@ export function allow_wounded_dialog(object: XR_game_object, victim: XR_game_obj
 /**
  * todo;
  */
-export function level_zaton(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function level_zaton(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return level.name() === levels.zaton;
 }
 
 /**
  * todo;
  */
-export function level_jupiter(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function level_jupiter(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return level.name() === levels.jupiter;
 }
 
 /**
  * todo;
  */
-export function level_pripyat(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function level_pripyat(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return level.name() === levels.pripyat;
 }
 
 /**
  * todo;
  */
-export function not_level_zaton(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function not_level_zaton(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return level.name() !== levels.zaton;
 }
 
 /**
  * todo;
  */
-export function not_level_jupiter(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function not_level_jupiter(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return level.name() !== levels.jupiter;
 }
 
 /**
  * todo;
  */
-export function not_level_pripyat(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function not_level_pripyat(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return level.name() !== levels.pripyat;
 }
 
 /**
  * todo;
  */
-export function is_friend(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return first_speaker.relation(second_speaker) === game_object.friend;
+export function is_friend(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return firstSpeaker.relation(secondSpeaker) === game_object.friend;
 }
 
 /**
  * todo;
  */
-export function is_not_friend(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !is_friend(first_speaker, second_speaker);
+export function is_not_friend(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !is_friend(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function become_friend(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  first_speaker.set_relation(game_object.friend, second_speaker);
+export function become_friend(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  firstSpeaker.set_relation(game_object.friend, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function npc_stalker(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const npc = getNpcSpeaker(first_speaker, second_speaker);
+export function npc_stalker(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
   return getCharacterCommunity(npc) === communities.stalker;
 }
@@ -228,8 +228,8 @@ export function npc_stalker(first_speaker: XR_game_object, second_speaker: XR_ga
 /**
  * todo;
  */
-export function npc_bandit(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const npc = getNpcSpeaker(first_speaker, second_speaker);
+export function npc_bandit(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
   return getCharacterCommunity(npc) === communities.bandit;
 }
@@ -237,8 +237,8 @@ export function npc_bandit(first_speaker: XR_game_object, second_speaker: XR_gam
 /**
  * todo;
  */
-export function npc_freedom(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const npc = getNpcSpeaker(first_speaker, second_speaker);
+export function npc_freedom(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
   return getCharacterCommunity(npc) === communities.freedom;
 }
@@ -246,8 +246,8 @@ export function npc_freedom(first_speaker: XR_game_object, second_speaker: XR_ga
 /**
  * todo;
  */
-export function npc_dolg(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const npc = getNpcSpeaker(first_speaker, second_speaker);
+export function npc_dolg(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
   return getCharacterCommunity(npc) === communities.dolg;
 }
@@ -255,8 +255,8 @@ export function npc_dolg(first_speaker: XR_game_object, second_speaker: XR_game_
 /**
  * todo;
  */
-export function npc_army(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const npc = getNpcSpeaker(first_speaker, second_speaker);
+export function npc_army(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
   return getCharacterCommunity(npc) === communities.army;
 }
@@ -368,21 +368,21 @@ export function actor_not_in_stalker(actor: XR_game_object, npc: XR_game_object)
 /**
  * todo;
  */
-export function has_2000_money(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return first_speaker.money() >= 2000;
+export function has_2000_money(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return firstSpeaker.money() >= 2000;
 }
 
 /**
  * todo;
  */
-export function transfer_any_pistol_from_actor(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function transfer_any_pistol_from_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const actor: XR_game_object = registry.actor;
-  const npc = getNpcSpeaker(first_speaker, second_speaker);
+  const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
   const pistol: Optional<TPistol> = get_npc_pistol(actor);
 
   if (pistol !== null) {
     actor.transfer_item(actor.object(pistol)!, npc);
-    NotificationManager.getInstance().sendItemRelocatedNotification(actor, "out", pistol);
+    NotificationManager.getInstance().sendItemRelocatedNotification(actor, ENotificationDirection.OUT, pistol);
   }
 }
 
@@ -406,42 +406,42 @@ export function get_npc_pistol(npc: XR_game_object): Optional<TPistol> {
 /**
  * todo;
  */
-export function have_actor_any_pistol(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function have_actor_any_pistol(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return get_npc_pistol(registry.actor) !== null;
 }
 
 /**
  * todo;
  */
-export function disable_ui(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  disableGameUi(first_speaker, false);
+export function disable_ui(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  disableGameUi(firstSpeaker, false);
 }
 
 /**
  * todo;
  */
-export function disable_ui_only(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  disableGameUi(first_speaker, false);
+export function disable_ui_only(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  disableGameUi(firstSpeaker, false);
 }
 
 /**
  * todo;
  */
-export function is_surge_running(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function is_surge_running(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return SurgeManager.getInstance().isStarted;
 }
 
 /**
  * todo;
  */
-export function is_surge_not_running(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function is_surge_not_running(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return SurgeManager.getInstance().isFinished;
 }
 
 /**
  * todo;
  */
-export function quest_dialog_heli_precond(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function quest_dialog_heli_precond(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return !(
     (hasAlifeInfo(info_portions.jup_b9_heli_1_searched) &&
       hasAlifeInfo(info_portions.zat_b100_heli_2_searched) &&
@@ -455,7 +455,7 @@ export function quest_dialog_heli_precond(first_speaker: XR_game_object, second_
 /**
  * todo;
  */
-export function quest_dialog_military_precond(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function quest_dialog_military_precond(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   if (hasAlifeInfo(info_portions.zat_b28_heli_3_searched) || hasAlifeInfo(info_portions.jup_b9_blackbox_decrypted)) {
     if (
       !(hasAlifeInfo(info_portions.zat_b28_heli_3_searched) && hasAlifeInfo(info_portions.jup_b9_blackbox_decrypted))
@@ -470,7 +470,7 @@ export function quest_dialog_military_precond(first_speaker: XR_game_object, sec
 /**
  * todo;
  */
-export function quest_dialog_squad_precond(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function quest_dialog_squad_precond(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return !(
     hasAlifeInfo(info_portions.jup_b218_monolith_hired) &&
     hasAlifeInfo(info_portions.jup_b218_soldier_hired) &&
@@ -481,7 +481,7 @@ export function quest_dialog_squad_precond(first_speaker: XR_game_object, second
 /**
  * todo;
  */
-export function quest_dialog_toolkits_precond(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function quest_dialog_toolkits_precond(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   if (hasAlifeInfo(info_portions.zat_a2_mechanic_toolkit_search) && !hasAlifeInfo(info_portions.zat_b3_task_end)) {
     return true;
   } else if (
@@ -497,7 +497,7 @@ export function quest_dialog_toolkits_precond(first_speaker: XR_game_object, sec
 /**
  * todo;
  */
-export function monolith_leader_is_alive(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function monolith_leader_is_alive(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   if (
     !(
       hasAlifeInfo(info_portions.jup_b4_monolith_squad_in_freedom) ||
@@ -519,7 +519,7 @@ export function monolith_leader_is_alive(first_speaker: XR_game_object, second_s
 /**
  * todo;
  */
-export function monolith_leader_dead_or_hired(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function monolith_leader_dead_or_hired(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   if (hasAlifeInfo(info_portions.jup_b218_soldier_hired)) {
     return true;
   }
@@ -545,7 +545,7 @@ export function monolith_leader_dead_or_hired(first_speaker: XR_game_object, sec
 /**
  * todo;
  */
-export function monolith_leader_dead_or_dolg(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function monolith_leader_dead_or_dolg(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   if (hasAlifeInfo(info_portions.jup_b218_soldier_hired)) {
     return true;
   }
@@ -571,133 +571,133 @@ export function monolith_leader_dead_or_dolg(first_speaker: XR_game_object, seco
 /**
  * todo;
  */
-export function squad_not_in_smart_b101(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !is_npc_in_current_smart(first_speaker, second_speaker, "zat_b101");
+export function squad_not_in_smart_b101(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !is_npc_in_current_smart(firstSpeaker, secondSpeaker, "zat_b101");
 }
 
 /**
  * todo;
  */
-export function squad_not_in_smart_b103(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !is_npc_in_current_smart(first_speaker, second_speaker, "zat_b103");
+export function squad_not_in_smart_b103(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !is_npc_in_current_smart(firstSpeaker, secondSpeaker, "zat_b103");
 }
 
 /**
  * todo;
  */
-export function squad_not_in_smart_b104(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !is_npc_in_current_smart(first_speaker, second_speaker, "zat_b104");
+export function squad_not_in_smart_b104(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !is_npc_in_current_smart(firstSpeaker, secondSpeaker, "zat_b104");
 }
 
 /**
  * todo;
  */
-export function squad_not_in_smart_b213(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !is_npc_in_current_smart(first_speaker, second_speaker, "jup_b213");
+export function squad_not_in_smart_b213(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !is_npc_in_current_smart(firstSpeaker, secondSpeaker, "jup_b213");
 }
 
 /**
  * todo;
  */
-export function squad_not_in_smart_b214(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !is_npc_in_current_smart(first_speaker, second_speaker, "jup_b214");
+export function squad_not_in_smart_b214(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !is_npc_in_current_smart(firstSpeaker, secondSpeaker, "jup_b214");
 }
 
 /**
  * todo;
  */
-export function squad_not_in_smart_b304(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !is_npc_in_current_smart(first_speaker, second_speaker, "pri_b304_monsters_smart_terrain");
+export function squad_not_in_smart_b304(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !is_npc_in_current_smart(firstSpeaker, secondSpeaker, "pri_b304_monsters_smart_terrain");
 }
 
 /**
  * todo;
  */
-export function squad_not_in_smart_b303(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !is_npc_in_current_smart(first_speaker, second_speaker, "pri_b303");
+export function squad_not_in_smart_b303(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !is_npc_in_current_smart(firstSpeaker, secondSpeaker, "pri_b303");
 }
 
 /**
  * todo;
  */
-export function squad_not_in_smart_b40(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !is_npc_in_current_smart(first_speaker, second_speaker, "zat_b40_smart_terrain");
+export function squad_not_in_smart_b40(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !is_npc_in_current_smart(firstSpeaker, secondSpeaker, "zat_b40_smart_terrain");
 }
 
 /**
  * todo;
  */
-export function squad_not_in_smart_b18(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !is_npc_in_current_smart(first_speaker, second_speaker, "zat_b18");
+export function squad_not_in_smart_b18(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !is_npc_in_current_smart(firstSpeaker, secondSpeaker, "zat_b18");
 }
 
 /**
  * todo;
  */
-export function squad_not_in_smart_b6(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !is_npc_in_current_smart(first_speaker, second_speaker, "jup_b41");
+export function squad_not_in_smart_b6(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !is_npc_in_current_smart(firstSpeaker, secondSpeaker, "jup_b41");
 }
 
 /**
  * todo;
  */
-export function squad_not_in_smart_b205(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !is_npc_in_current_smart(first_speaker, second_speaker, "jup_b205_smart_terrain");
+export function squad_not_in_smart_b205(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !is_npc_in_current_smart(firstSpeaker, secondSpeaker, "jup_b205_smart_terrain");
 }
 
 /**
  * todo;
  */
-export function squad_not_in_smart_b47(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !is_npc_in_current_smart(first_speaker, second_speaker, "jup_b47");
+export function squad_not_in_smart_b47(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !is_npc_in_current_smart(firstSpeaker, secondSpeaker, "jup_b47");
 }
 
 /**
  * todo;
  */
-export function squad_in_smart_zat_base(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return is_npc_in_current_smart(first_speaker, second_speaker, "zat_stalker_base_smart");
+export function squad_in_smart_zat_base(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return is_npc_in_current_smart(firstSpeaker, secondSpeaker, "zat_stalker_base_smart");
 }
 
 /**
  * todo;
  */
-export function squad_in_smart_jup_b25(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return is_npc_in_current_smart(first_speaker, second_speaker, "jup_a6");
+export function squad_in_smart_jup_b25(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return is_npc_in_current_smart(firstSpeaker, secondSpeaker, "jup_a6");
 }
 
 /**
  * todo;
  */
-export function spartak_is_alive(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function spartak_is_alive(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return isStalkerAlive("zat_b7_stalker_victim_1");
 }
 
 /**
  * todo;
  */
-export function tesak_is_alive(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function tesak_is_alive(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return isStalkerAlive("zat_b103_lost_merc_leader");
 }
 
 /**
  * todo;
  */
-export function gonta_is_alive(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function gonta_is_alive(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return isStalkerAlive("zat_b103_lost_merc_leader");
 }
 
 /**
  * todo;
  */
-export function mityay_is_alive(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function mityay_is_alive(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return isStalkerAlive("jup_a12_stalker_assaulter");
 }
 
 /**
  * todo;
  */
-export function dolg_can_work_for_sci(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function dolg_can_work_for_sci(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return !(
     hasAlifeInfo(info_portions.jup_a6_freedom_leader_bunker_guards_work) ||
     hasAlifeInfo(info_portions.jup_a6_freedom_leader_bunker_scan_work)
@@ -707,7 +707,7 @@ export function dolg_can_work_for_sci(first_speaker: XR_game_object, second_spea
 /**
  * todo;
  */
-export function dolg_can_not_work_for_sci(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function dolg_can_not_work_for_sci(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return (
     hasAlifeInfo(info_portions.jup_a6_freedom_leader_bunker_guards_work) ||
     hasAlifeInfo(info_portions.jup_a6_freedom_leader_bunker_scan_work)
@@ -717,7 +717,7 @@ export function dolg_can_not_work_for_sci(first_speaker: XR_game_object, second_
 /**
  * todo;
  */
-export function freedom_can_work_for_sci(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function freedom_can_work_for_sci(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return !(
     hasAlifeInfo(info_portions.jup_a6_duty_leader_bunker_guards_work) ||
     hasAlifeInfo(info_portions.jup_a6_duty_leader_bunker_scan_work)
@@ -727,7 +727,7 @@ export function freedom_can_work_for_sci(first_speaker: XR_game_object, second_s
 /**
  * todo;
  */
-export function freedom_can_not_work_for_sci(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function freedom_can_not_work_for_sci(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return (
     hasAlifeInfo(info_portions.jup_a6_duty_leader_bunker_guards_work) ||
     hasAlifeInfo(info_portions.jup_a6_duty_leader_bunker_scan_work)
@@ -737,10 +737,7 @@ export function freedom_can_not_work_for_sci(first_speaker: XR_game_object, seco
 /**
  * todo;
  */
-export function monolith_leader_dead_or_freedom(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
+export function monolith_leader_dead_or_freedom(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   if (hasAlifeInfo(info_portions.jup_b218_soldier_hired)) {
     return true;
   }
@@ -766,7 +763,7 @@ export function monolith_leader_dead_or_freedom(
 /**
  * todo;
  */
-export function medic_magic_potion(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function medic_magic_potion(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const actor: XR_game_object = registry.actor;
 
   actor.health = 1;
@@ -778,7 +775,7 @@ export function medic_magic_potion(first_speaker: XR_game_object, second_speaker
 /**
  * todo;
  */
-export function actor_needs_bless(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function actor_needs_bless(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const actor: XR_game_object = registry.actor;
 
   return actor.health < 1 || actor.radiation > 0 || actor.bleeding > 0;
@@ -787,77 +784,77 @@ export function actor_needs_bless(first_speaker: XR_game_object, second_speaker:
 /**
  * todo;
  */
-export function actor_is_damn_healthy(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !actor_needs_bless(first_speaker, second_speaker);
+export function actor_is_damn_healthy(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !actor_needs_bless(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function leave_zone_save(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function leave_zone_save(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   createAutoSave(captions.st_save_uni_zone_to_reality);
 }
 
 /**
  * todo;
  */
-export function save_uni_travel_zat_to_jup(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function save_uni_travel_zat_to_jup(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   createAutoSave(captions.st_save_uni_travel_zat_to_jup);
 }
 
 /**
  * todo;
  */
-export function save_uni_travel_zat_to_pri(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function save_uni_travel_zat_to_pri(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   createAutoSave(captions.st_save_uni_travel_zat_to_pri);
 }
 
 /**
  * todo;
  */
-export function save_uni_travel_jup_to_zat(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function save_uni_travel_jup_to_zat(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   createAutoSave(captions.st_save_uni_travel_jup_to_zat);
 }
 
 /**
  * todo;
  */
-export function save_uni_travel_jup_to_pri(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function save_uni_travel_jup_to_pri(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   createAutoSave(captions.st_save_uni_travel_jup_to_pri);
 }
 
 /**
  * todo;
  */
-export function save_uni_travel_pri_to_zat(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function save_uni_travel_pri_to_zat(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   createAutoSave(captions.st_save_uni_travel_pri_to_zat);
 }
 
 /**
  * todo;
  */
-export function save_uni_travel_pri_to_jup(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function save_uni_travel_pri_to_jup(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   createAutoSave(captions.st_save_uni_travel_pri_to_jup);
 }
 
 /**
  * todo;
  */
-export function save_jup_b218_travel_jup_to_pas(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function save_jup_b218_travel_jup_to_pas(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   createAutoSave(captions.st_save_jup_b218_travel_jup_to_pas);
 }
 
 /**
  * todo;
  */
-export function save_pri_a17_hospital_start(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function save_pri_a17_hospital_start(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   createAutoSave(captions.st_save_pri_a17_hospital_start);
 }
 
 /**
  * todo;
  */
-export function save_jup_a10_gonna_return_debt(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function save_jup_a10_gonna_return_debt(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   if (!hasAlifeInfo(info_portions.jup_a10_avtosave)) {
     createAutoSave(captions.st_save_jup_a10_gonna_return_debt);
     giveInfo(info_portions.jup_a10_avtosave);
@@ -867,21 +864,21 @@ export function save_jup_a10_gonna_return_debt(first_speaker: XR_game_object, se
 /**
  * todo;
  */
-export function save_jup_b6_arrived_to_fen(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function save_jup_b6_arrived_to_fen(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   createAutoSave(captions.st_save_jup_b6_arrived_to_fen);
 }
 
 /**
  * todo;
  */
-export function save_jup_b6_arrived_to_ash_heap(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function save_jup_b6_arrived_to_ash_heap(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   createAutoSave(captions.st_save_jup_b6_arrived_to_ash_heap);
 }
 
 /**
  * todo;
  */
-export function save_jup_b19_arrived_to_kopachy(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function save_jup_b19_arrived_to_kopachy(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   createAutoSave(captions.st_save_jup_b19_arrived_to_kopachy);
 }
 
@@ -889,8 +886,8 @@ export function save_jup_b19_arrived_to_kopachy(first_speaker: XR_game_object, s
  * todo;
  */
 export function save_zat_b106_arrived_to_chimera_lair(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
   createAutoSave(captions.st_save_zat_b106_arrived_to_chimera_lair);
 }
@@ -898,7 +895,7 @@ export function save_zat_b106_arrived_to_chimera_lair(
 /**
  * todo;
  */
-export function save_zat_b5_met_with_others(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function save_zat_b5_met_with_others(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   getExtern<AnyCallablesModule>("xr_effects").scenario_autosave(registry.actor, null, [
     "st_save_zat_b5_met_with_others",
   ]);

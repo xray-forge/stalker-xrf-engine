@@ -1,9 +1,10 @@
 import { alife, game, XR_alife_simulator, XR_CGameTask, XR_game_object } from "xray16";
 
-import { getObjectIdByStoryId, registry, SYSTEM_INI } from "@/engine/core/database";
+import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { ENotificationDirection } from "@/engine/core/managers/notifications/ENotificationDirection";
 import {
   notificationManagerIcons,
   TNotificationIcon,
@@ -18,10 +19,11 @@ import { Stalker } from "@/engine/core/objects";
 import { isHeavilyWounded } from "@/engine/core/utils/check/check";
 import { isStalkerClassId } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { getInventoryNameForItemSection } from "@/engine/core/utils/spawn";
 import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { textures } from "@/engine/lib/constants/textures";
-import { Maybe, Optional, TCount, TDuration, TLabel, TName, TSection, TStringId, TTimestamp } from "@/engine/lib/types";
+import { Maybe, Optional, TCount, TDuration, TLabel, TName, TStringId, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -47,14 +49,18 @@ export class NotificationManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public sendMoneyRelocatedNotification(actor: Optional<XR_game_object>, type: "in" | "out", amount: TCount): void {
-    logger.info("Show relocate money message:", type, amount, amount);
+  public sendMoneyRelocatedNotification(
+    actor: Optional<XR_game_object>,
+    direction: ENotificationDirection,
+    amount: TCount
+  ): void {
+    logger.info("Show relocate money message:", direction, amount, amount);
 
     if (actor === null) {
       return;
     }
 
-    if (type === "in") {
+    if (direction === ENotificationDirection.IN) {
       const news_caption: string = game.translate_string(captions.general_in_money);
       const news_text: string = game.translate_string(tostring(amount));
 
@@ -63,7 +69,7 @@ export class NotificationManager extends AbstractCoreManager {
       } else {
         actor.give_game_news(news_caption, news_text, textures.ui_inGame2_Dengi_polucheni, 0, 3000);
       }
-    } else if (type === "out") {
+    } else if (direction === ENotificationDirection.OUT) {
       const news_caption: string = game.translate_string(captions.general_out_money);
       const news_text: string = game.translate_string(tostring(amount));
 
@@ -284,22 +290,22 @@ export class NotificationManager extends AbstractCoreManager {
    */
   public sendItemRelocatedNotification(
     actor: XR_game_object,
-    type: "in" | "out",
+    direction: ENotificationDirection,
     item: string,
     amount: TCount = 1
   ): void {
-    logger.info("Show relocate item message:", type, item, amount);
+    logger.info("Show relocate item message:", direction, item, amount);
 
     let notificationCaption: TLabel = "";
     let notificationText: TLabel = "";
 
-    if (type === "in") {
+    if (direction === ENotificationDirection.IN) {
       if (amount === 1) {
         notificationCaption = game.translate_string(captions.general_in_item);
-        notificationText = game.translate_string(this.getItemInventoryName(item));
+        notificationText = game.translate_string(getInventoryNameForItemSection(item));
       } else {
         notificationCaption = game.translate_string(captions.general_in_item);
-        notificationText = game.translate_string(this.getItemInventoryName(item)) + " x" + amount;
+        notificationText = game.translate_string(getInventoryNameForItemSection(item)) + " x" + amount;
       }
 
       if (actor.is_talking()) {
@@ -312,13 +318,13 @@ export class NotificationManager extends AbstractCoreManager {
       } else {
         actor.give_game_news(notificationCaption, notificationText, textures.ui_inGame2_Predmet_poluchen, 0, 3000);
       }
-    } else if (type === "out") {
+    } else if (direction === ENotificationDirection.OUT) {
       if (amount === 1) {
         notificationCaption = game.translate_string(captions.general_out_item);
-        notificationText = game.translate_string(this.getItemInventoryName(item));
+        notificationText = game.translate_string(getInventoryNameForItemSection(item));
       } else {
         notificationCaption = game.translate_string(captions.general_out_item);
-        notificationText = game.translate_string(this.getItemInventoryName(item)) + " x" + amount;
+        notificationText = game.translate_string(getInventoryNameForItemSection(item)) + " x" + amount;
       }
 
       if (actor.is_talking()) {
@@ -332,13 +338,6 @@ export class NotificationManager extends AbstractCoreManager {
         actor.give_game_news(notificationCaption, notificationText, textures.ui_inGame2_Predmet_otdan, 0, 3000);
       }
     }
-  }
-
-  /**
-   * todo: Description.
-   */
-  protected getItemInventoryName(section: TSection): TName {
-    return SYSTEM_INI.r_string(section, "inv_name");
   }
 
   /**

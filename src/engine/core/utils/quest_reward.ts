@@ -1,7 +1,7 @@
 import { alife, XR_game_object } from "xray16";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
-import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
+import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
@@ -19,7 +19,7 @@ export function giveMoneyToActor(amount: number): void {
   const actor: XR_game_object = registry.actor;
 
   actor.give_money(amount);
-  NotificationManager.getInstance().sendMoneyRelocatedNotification(actor, "in", amount);
+  NotificationManager.getInstance().sendMoneyRelocatedNotification(actor, ENotificationDirection.IN, amount);
 }
 
 /**
@@ -38,7 +38,7 @@ export function takeMoneyFromActor(
   }
 
   actor.transfer_money(amount, victim);
-  NotificationManager.getInstance().sendMoneyRelocatedNotification(actor, "out", amount);
+  NotificationManager.getInstance().sendMoneyRelocatedNotification(actor, ENotificationDirection.OUT, amount);
 }
 
 /**
@@ -102,7 +102,12 @@ export function takeItemsFromActor(
     amount = amount * box_size;
   }
 
-  NotificationManager.getInstance().sendItemRelocatedNotification(actor, "out", itemSection, amount - i);
+  NotificationManager.getInstance().sendItemRelocatedNotification(
+    actor,
+    ENotificationDirection.OUT,
+    itemSection,
+    amount - i
+  );
 }
 
 /**
@@ -152,7 +157,12 @@ export function giveItemsToActor(
     amount = amount * box_size;
   }
 
-  NotificationManager.getInstance().sendItemRelocatedNotification(actor, "in", itemSection, amount);
+  NotificationManager.getInstance().sendItemRelocatedNotification(
+    actor,
+    ENotificationDirection.IN,
+    itemSection,
+    amount
+  );
 }
 
 /**
@@ -161,15 +171,15 @@ export function giveItemsToActor(
 export function relocateQuestItemSection(
   victim: XR_game_object,
   itemSection: string,
-  type: "in" | "out",
+  direction: ENotificationDirection,
   amount: number = 1
 ): void {
   const actor: XR_game_object = registry.actor;
 
   for (const it of $range(1, amount)) {
-    if (type === "in") {
+    if (direction === ENotificationDirection.IN) {
       alife().create(itemSection, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
-    } else if (type === "out") {
+    } else if (direction === ENotificationDirection.OUT) {
       if (victim === null) {
         abort("Couldn't relocate item to NULL");
       }
@@ -182,7 +192,7 @@ export function relocateQuestItemSection(
     amount = amount * SYSTEM_INI.r_s32(itemSection, "box_size");
   }
 
-  NotificationManager.getInstance().sendItemRelocatedNotification(actor, type, itemSection, amount);
+  NotificationManager.getInstance().sendItemRelocatedNotification(actor, direction, itemSection, amount);
 }
 
 /**
