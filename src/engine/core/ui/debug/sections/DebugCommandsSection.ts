@@ -12,7 +12,7 @@ import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDe
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { on_off_cmds, TConsoleCommand, zero_one_cmds } from "@/engine/lib/constants/console_commands";
+import { onOffCommands, TConsoleCommand, zeroOneCommands } from "@/engine/lib/constants/console_commands";
 import { Optional, TName, TPath } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugCommandsSection.component";
@@ -35,8 +35,8 @@ export class DebugCommandsSection extends AbstractDebugSection {
 
     this.commandsList = this.xml.InitScrollView("commands_list", this);
 
-    zero_one_cmds.forEach((it) => this.initEntry(it, console, "numeric"));
-    on_off_cmds.forEach((it) => this.initEntry(it, console, "boolean"));
+    zeroOneCommands.forEach((it) => this.initEntry(it, console, "numeric"));
+    onOffCommands.forEach((it) => this.initEntry(it, console, "boolean"));
   }
 
   /**

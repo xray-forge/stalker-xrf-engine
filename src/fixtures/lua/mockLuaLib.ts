@@ -1,3 +1,4 @@
+import { AnyArgs } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { math } from "@/fixtures/lua/mocks/math.mocks";
 import { mockPairs } from "@/fixtures/lua/mocks/pairs.mock";
@@ -18,6 +19,8 @@ export function mockLuaLib(): void {
   global.table = table;
   // @ts-ignore
   global.math = math;
+  // @ts-ignore
+  global.$multi = (...args: AnyArgs) => [...args];
 
   // @ts-ignore
   global.tonumber = (value: unknown) => {

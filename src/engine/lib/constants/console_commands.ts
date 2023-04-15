@@ -351,7 +351,7 @@
  * #endif
  * };
  */
-export const console_commands = {
+export const consoleCommands = {
   /**
    * Save options changes.
    */
@@ -474,22 +474,22 @@ export const console_commands = {
 /**
  * todo;
  */
-export type TConsoleCommands = typeof console_commands;
+export type TConsoleCommands = typeof consoleCommands;
 
 /**
  * todo;
  */
 export type TConsoleCommand = TConsoleCommands[keyof TConsoleCommands];
 
-export const on_off_cmds: Array<TConsoleCommand> = [
-  console_commands.g_god,
-  console_commands.g_unlimitedammo,
-  console_commands.g_autopickup,
-  console_commands.hud_weapon,
-  console_commands.hud_info,
-  console_commands.hud_crosshair_dist,
-  console_commands.hud_crosshair,
-  console_commands.hud_draw,
+export const onOffCommands: Array<TConsoleCommand> = [
+  consoleCommands.g_god,
+  consoleCommands.g_unlimitedammo,
+  consoleCommands.g_autopickup,
+  consoleCommands.hud_weapon,
+  consoleCommands.hud_info,
+  consoleCommands.hud_crosshair_dist,
+  consoleCommands.hud_crosshair,
+  consoleCommands.hud_draw,
 ];
 
-export const zero_one_cmds: Array<TConsoleCommand> = [console_commands.wpn_aim_toggle];
+export const zeroOneCommands: Array<TConsoleCommand> = [consoleCommands.wpn_aim_toggle];

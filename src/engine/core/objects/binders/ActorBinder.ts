@@ -39,7 +39,7 @@ import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
-import { console_commands } from "@/engine/lib/constants/console_commands";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficultiesByNumber } from "@/engine/lib/constants/game_difficulties";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { NIL } from "@/engine/lib/constants/words";
@@ -290,7 +290,7 @@ export class ActorBinder extends object_binder {
     super.load(reader);
 
     executeConsoleCommand(
-      console_commands.g_game_difficulty,
+      consoleCommands.g_game_difficulty,
       gameDifficultiesByNumber[reader.r_u8() as TXR_game_difficulty]
     );
 

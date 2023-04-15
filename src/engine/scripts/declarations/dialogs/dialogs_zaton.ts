@@ -14,10 +14,10 @@ import {
   actorHasAtLeastOneItem,
   actorHasItem,
   getNpcSpeaker,
+  giveItemsToActor,
   giveMoneyToActor,
   isObjectName,
   npcHasItem,
-  relocateQuestItemsBySection,
   transferItemsFromActor,
   transferItemsToActor,
   transferMoneyFromActor,
@@ -655,13 +655,6 @@ export function zat_b33_counter_ne_10(firstSpeaker: XR_game_object, secondSpeake
 /**
  * todo;
  */
-export function zat_b33_transfer_first_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  relocateQuestItemsBySection(registry.actor, quest_items.wpn_fort_snag, ENotificationDirection.IN);
-}
-
-/**
- * todo;
- */
 export function zat_b103_transfer_mechanic_toolkit_2(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
@@ -685,50 +678,45 @@ export function check_npc_name_mechanics(firstSpeaker: XR_game_object, secondSpe
 /**
  * todo;
  */
-export function zat_b33_transfer_second_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  const actor = registry.actor;
+export function zat_b33_transfer_first_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(quest_items.wpn_fort_snag);
+}
 
-  relocateQuestItemsBySection(actor, drugs.medkit_scientic, ENotificationDirection.IN, 3);
-  relocateQuestItemsBySection(actor, drugs.antirad, ENotificationDirection.IN, 3);
-  relocateQuestItemsBySection(actor, drugs.bandage, ENotificationDirection.IN, 5);
+/**
+ * todo;
+ */
+export function zat_b33_transfer_second_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(drugs.medkit_scientic, 3);
+  giveItemsToActor(drugs.antirad, 3);
+  giveItemsToActor(drugs.bandage, 5);
 }
 
 /**
  * todo;
  */
 export function zat_b33_transfer_third_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  const actor = registry.actor;
-
-  relocateQuestItemsBySection(actor, quest_items.wpn_ak74u_snag, ENotificationDirection.IN);
+  giveItemsToActor(quest_items.wpn_ak74u_snag);
 }
 
 /**
  * todo;
  */
 export function zat_b33_transfer_fourth_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  const actor = registry.actor;
-
-  relocateQuestItemsBySection(actor, artefacts.af_soul, ENotificationDirection.IN);
+  giveItemsToActor(artefacts.af_soul);
 }
 
 /**
  * todo;
  */
 export function zat_b33_transfer_fifth_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  const actor = registry.actor;
-
-  relocateQuestItemsBySection(actor, quest_items.helm_hardhat_snag, ENotificationDirection.IN);
+  giveItemsToActor(quest_items.helm_hardhat_snag);
 }
 
 /**
  * todo;
  */
 export function zat_b33_transfer_safe_container(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  relocateQuestItemsBySection(
-    getNpcSpeaker(firstSpeaker, secondSpeaker),
-    quest_items.zat_b33_safe_container,
-    ENotificationDirection.OUT
-  );
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.zat_b33_safe_container);
 }
 
 /**

@@ -44,7 +44,7 @@ import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { captions } from "@/engine/lib/constants/captions/captions";
-import { console_commands } from "@/engine/lib/constants/console_commands";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { drugs } from "@/engine/lib/constants/items/drugs";
@@ -624,11 +624,11 @@ export class SurgeManager extends AbstractCoreManager {
 
     giveInfo(infoPortions.anabiotic_in_process);
 
-    registry.sounds.musicVolume = getConsoleFloatCommand(console_commands.snd_volume_music);
-    registry.sounds.effectsVolume = getConsoleFloatCommand(console_commands.snd_volume_eff);
+    registry.sounds.musicVolume = getConsoleFloatCommand(consoleCommands.snd_volume_music);
+    registry.sounds.effectsVolume = getConsoleFloatCommand(consoleCommands.snd_volume_eff);
 
-    executeConsoleCommand(console_commands.snd_volume_music, 0);
-    executeConsoleCommand(console_commands.snd_volume_eff, 0);
+    executeConsoleCommand(consoleCommands.snd_volume_music, 0);
+    executeConsoleCommand(consoleCommands.snd_volume_eff, 0);
   }
 
   /**

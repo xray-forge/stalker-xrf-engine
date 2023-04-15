@@ -5,7 +5,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { console_commands } from "@/engine/lib/constants/console_commands";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { AnyCallable, Optional, TCount } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -161,7 +161,7 @@ export class ProfilingManager extends AbstractCoreManager {
     logger.info("==================================================================================================");
     logger.pushEmptyLine();
 
-    executeConsoleCommand(console_commands.flush);
+    executeConsoleCommand(consoleCommands.flush);
 
     this.setupHook(this.mode, true);
   }

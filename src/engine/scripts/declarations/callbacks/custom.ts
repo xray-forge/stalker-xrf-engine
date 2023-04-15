@@ -15,7 +15,7 @@ import { disableInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";
-import { console_commands } from "@/engine/lib/constants/console_commands";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { AnyCallable, PartialRecord, TStringId } from "@/engine/lib/types";
 
@@ -64,8 +64,8 @@ extern("engine.anabiotic_callback", () => {
 extern("engine.anabiotic_callback2", () => {
   enableGameUi();
 
-  executeConsoleCommand(console_commands.snd_volume_music, registry.sounds.musicVolume);
-  executeConsoleCommand(console_commands.snd_volume_eff, registry.sounds.effectsVolume);
+  executeConsoleCommand(consoleCommands.snd_volume_music, registry.sounds.musicVolume);
+  executeConsoleCommand(consoleCommands.snd_volume_eff, registry.sounds.effectsVolume);
 
   registry.sounds.effectsVolume = 0;
   registry.sounds.musicVolume = 0;

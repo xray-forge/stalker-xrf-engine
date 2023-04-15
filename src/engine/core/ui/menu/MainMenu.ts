@@ -41,7 +41,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions/captions";
-import { console_commands } from "@/engine/lib/constants/console_commands";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties, TGameDifficulty } from "@/engine/lib/constants/game_difficulties";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
 import { gameTypes } from "@/engine/lib/constants/game_types";
@@ -185,16 +185,16 @@ export class MainMenu extends CUIScriptWnd {
    * todo: Description.
    */
   public onStartNewGame(difficulty: TGameDifficulty): void {
-    executeConsoleCommand(console_commands.g_game_difficulty, difficulty);
+    executeConsoleCommand(consoleCommands.g_game_difficulty, difficulty);
 
     if (alife() !== null) {
-      executeConsoleCommand(console_commands.disconnect);
+      executeConsoleCommand(consoleCommands.disconnect);
     }
 
     device().pause(false);
 
-    executeConsoleCommand(console_commands.start, "server(all/single/alife/new)", "client(localhost)");
-    executeConsoleCommand(console_commands.main_menu, "off");
+    executeConsoleCommand(consoleCommands.start, "server(all/single/alife/new)", "client(localhost)");
+    executeConsoleCommand(consoleCommands.main_menu, "off");
   }
 
   /**
@@ -215,8 +215,8 @@ export class MainMenu extends CUIScriptWnd {
    * todo: Description.
    */
   public onLoadLastSavedGame(): void {
-    executeConsoleCommand(console_commands.main_menu, "off");
-    executeConsoleCommand(console_commands.load_last_save);
+    executeConsoleCommand(consoleCommands.main_menu, "off");
+    executeConsoleCommand(consoleCommands.load_last_save);
   }
 
   /**
@@ -268,21 +268,21 @@ export class MainMenu extends CUIScriptWnd {
    * todo: Description.
    */
   public onButtonClickQuitGameConfirm(): void {
-    executeConsoleCommand(console_commands.disconnect);
+    executeConsoleCommand(consoleCommands.disconnect);
   }
 
   /**
    * todo: Description.
    */
   public onButtonClickQuiteGame(): void {
-    executeConsoleCommand(console_commands.quit);
+    executeConsoleCommand(consoleCommands.quit);
   }
 
   /**
    * todo: Description.
    */
   public onButtonClickReturnToGame(): void {
-    executeConsoleCommand(console_commands.main_menu, "off");
+    executeConsoleCommand(consoleCommands.main_menu, "off");
     EventsManager.getInstance().emitEvent(EGameEvent.MAIN_MENU_OFF);
   }
 
@@ -382,7 +382,7 @@ export class MainMenu extends CUIScriptWnd {
     this.HideDialog();
     this.Show(false);
 
-    executeConsoleCommand(console_commands.check_for_updates, 0);
+    executeConsoleCommand(consoleCommands.check_for_updates, 0);
   }
 
   /**
@@ -417,7 +417,7 @@ export class MainMenu extends CUIScriptWnd {
     this.HideDialog();
     this.Show(false);
 
-    executeConsoleCommand(console_commands.check_for_updates, 0);
+    executeConsoleCommand(consoleCommands.check_for_updates, 0);
   }
 
   /**
@@ -435,7 +435,7 @@ export class MainMenu extends CUIScriptWnd {
     this.HideDialog();
     this.Show(false);
 
-    executeConsoleCommand(console_commands.check_for_updates, 0);
+    executeConsoleCommand(consoleCommands.check_for_updates, 0);
   }
 
   /**

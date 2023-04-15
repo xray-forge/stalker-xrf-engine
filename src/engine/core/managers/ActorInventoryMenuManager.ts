@@ -4,7 +4,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager"
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { console_commands } from "@/engine/lib/constants/console_commands";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ACTOR } from "@/engine/lib/constants/words";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -35,10 +35,10 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
 
     const ini: XR_ini_file = system_ini();
 
-    executeConsoleCommand(console_commands.slot_0, readIniString(ini, ACTOR, "quick_item_1", false, "", ""));
-    executeConsoleCommand(console_commands.slot_1, readIniString(ini, ACTOR, "quick_item_2", false, "", ""));
-    executeConsoleCommand(console_commands.slot_2, readIniString(ini, ACTOR, "quick_item_3", false, "", ""));
-    executeConsoleCommand(console_commands.slot_3, readIniString(ini, ACTOR, "quick_item_4", false, "", ""));
+    executeConsoleCommand(consoleCommands.slot_0, readIniString(ini, ACTOR, "quick_item_1", false, "", ""));
+    executeConsoleCommand(consoleCommands.slot_1, readIniString(ini, ACTOR, "quick_item_2", false, "", ""));
+    executeConsoleCommand(consoleCommands.slot_2, readIniString(ini, ACTOR, "quick_item_3", false, "", ""));
+    executeConsoleCommand(consoleCommands.slot_3, readIniString(ini, ACTOR, "quick_item_4", false, "", ""));
   }
 
   /**

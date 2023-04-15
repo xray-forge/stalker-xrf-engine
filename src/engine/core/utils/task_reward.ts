@@ -10,6 +10,8 @@ import {
 } from "@/engine/core/managers/notifications/types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { spawnItemsForObject } from "@/engine/core/utils/spawn";
+import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { LuaArray, Optional, TCount, TName, TNumberId, TSection } from "@/engine/lib/types";
@@ -56,26 +58,26 @@ export function getNpcSpeaker(first: XR_game_object, second: XR_game_object): XR
 /**
  * Transfer item section with desired count from actor to provided object.
  */
-export function transferItemsFromActor(to: XR_game_object, itemSection: TSection, amount: TCount | "all" = 1): void {
-  logger.info("Transfer items from actor:", to.name(), itemSection, amount);
+export function transferItemsFromActor(to: XR_game_object, itemSection: TSection, count: TCount | "all" = 1): void {
+  logger.info("Transfer items from actor:", to.name(), itemSection, count);
 
   const from: XR_game_object = registry.actor;
   let remaining: TCount = 0;
 
   // Transfer all items.
-  if (amount === "all") {
-    amount = 0;
+  if (count === "all") {
+    count = 0;
 
     from.iterate_inventory((owner: XR_game_object, item: XR_game_object) => {
       if (item.section() === itemSection) {
         from.transfer_item(item, to);
-        amount = (amount as TCount) + 1;
+        count = (count as TCount) + 1;
       }
     }, from);
 
     // Transfer specified items count.
-  } else if (amount > 0) {
-    remaining = amount;
+  } else if (count > 0) {
+    remaining = count;
     from.iterate_inventory((owner: XR_game_object, item: XR_game_object) => {
       if (item.section() === itemSection && remaining > 0) {
         from.transfer_item(item, to);
@@ -83,28 +85,28 @@ export function transferItemsFromActor(to: XR_game_object, itemSection: TSection
       }
     }, from);
   } else {
-    abort("Wrong parameters in function 'transferItemsFromActor', amount is negative: '%s'.", tostring(amount));
+    abort("Wrong parameters in function 'transferItemsFromActor', amount is negative: '%s'.", tostring(count));
   }
 
   assert(
     remaining === 0,
     "Actor do not has enough items. Transferred [%s], needed [%s].",
-    tostring(amount - remaining),
-    tostring(amount)
+    tostring(count - remaining),
+    tostring(count)
   );
 
   // Calculate correct ammo count.
   if (ammo[itemSection as TAmmoItem]) {
     const boxSize: TCount = SYSTEM_INI.r_s32(itemSection, "box_size");
 
-    amount = amount * boxSize;
+    count = count * boxSize;
   }
 
   EventsManager.getInstance().emitEvent<IItemRelocatedNotification>(EGameEvent.NOTIFICATION, {
     type: ENotificationType.ITEM,
     direction: ENotificationDirection.OUT,
     itemSection,
-    amount: amount,
+    amount: count,
   });
 }
 
@@ -112,12 +114,12 @@ export function transferItemsFromActor(to: XR_game_object, itemSection: TSection
  * Transfer items by section/count from object to actor.
  * If object is missing some of them, create new ones with server object utils.
  */
-export function transferItemsToActor(from: XR_game_object, itemSection: TSection, amount: TCount = 1): void {
+export function transferItemsToActor(from: XR_game_object, itemSection: TSection, count: TCount = 1): void {
   const actor: XR_game_object = registry.actor;
   let remaining: TCount = 0;
 
-  if (amount > 1) {
-    remaining = amount;
+  if (count > 1) {
+    remaining = count;
 
     from.iterate_inventory((owner: XR_game_object, item: XR_game_object) => {
       if (item.section() === itemSection && remaining !== 0) {
@@ -139,49 +141,28 @@ export function transferItemsToActor(from: XR_game_object, itemSection: TSection
 
   // Correct count if ammo section is provided.
   if (ammo[itemSection as TAmmoItem] !== null) {
-    amount = amount * SYSTEM_INI.r_s32(itemSection, "box_size");
+    count = count * SYSTEM_INI.r_s32(itemSection, "box_size");
   }
 
   EventsManager.getInstance().emitEvent<IItemRelocatedNotification>(EGameEvent.NOTIFICATION, {
     type: ENotificationType.ITEM,
     direction: ENotificationDirection.IN,
     itemSection,
-    amount,
+    amount: count,
   });
 }
 
 /**
- * todo: probably use transfer utils and deprecate this one.
+ * Create items by section/count for actor.
  */
-export function relocateQuestItemsBySection(
-  object: XR_game_object,
-  itemSection: TSection,
-  direction: ENotificationDirection,
-  amount: TCount = 1
-): void {
-  const actor: XR_game_object = registry.actor;
-
-  for (const it of $range(1, amount)) {
-    if (direction === ENotificationDirection.IN) {
-      alife().create(itemSection, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
-    } else if (direction === ENotificationDirection.OUT) {
-      assertDefined(object, "Couldn't relocate item to NULL.");
-
-      actor.transfer_item(actor.object(itemSection) as XR_game_object, object);
-    } else {
-      abort("Unexpected direction received for relocation of quest items: '%s'.", direction);
-    }
-  }
-
-  if (ammo[itemSection as TAmmoItem] !== null) {
-    amount = amount * SYSTEM_INI.r_s32(itemSection, "box_size");
-  }
+export function giveItemsToActor(itemSection: TInventoryItem, count: TCount = 1): void {
+  const itemsSpawned: TCount = spawnItemsForObject(registry.actor, itemSection, count);
 
   EventsManager.getInstance().emitEvent<IItemRelocatedNotification>(EGameEvent.NOTIFICATION, {
     type: ENotificationType.ITEM,
-    direction,
+    direction: ENotificationDirection.IN,
     itemSection,
-    amount,
+    amount: itemsSpawned,
   });
 }
 

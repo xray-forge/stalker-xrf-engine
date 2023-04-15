@@ -17,6 +17,7 @@ import {
   actorHasMedKit,
   getActorAvailableMedKit,
   getNpcSpeaker,
+  giveItemsToActor,
   giveMoneyToActor,
   isObjectName,
   npcHasItem,
@@ -201,6 +202,21 @@ describe("'task_reward' utils", () => {
     transferItemsToActor(from, ammo.ammo_9x18_pmm, 6);
     expect(getItemsCount(from, ammo.ammo_9x18_pmm)).toBe(0);
     expect(from.transfer_item).toHaveBeenCalledTimes(6);
+    expect(mock).toHaveBeenCalledTimes(1);
+  });
+
+  it("'giveItemsToActor' should correctly create items and then notify", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const mock = jest.fn((notification: IItemRelocatedNotification) => {
+      expect(notification.type).toBe(ENotificationType.ITEM);
+      expect(notification.amount).toBe(300);
+      expect(notification.direction).toBe(ENotificationDirection.IN);
+    });
+
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock, null);
+
+    giveItemsToActor("ammo_5.45x39_ap", 300);
+
     expect(mock).toHaveBeenCalledTimes(1);
   });
 

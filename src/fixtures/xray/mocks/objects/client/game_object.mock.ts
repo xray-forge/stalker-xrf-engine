@@ -13,6 +13,7 @@ export function mockClientGameObject({
   character_icon = jest.fn(() => "test_character_icon") as <T>() => T,
   clsid = jest.fn(() => -1 as TXR_class_id),
   disable_info_portion = jest.fn(() => false),
+  game_vertex_id = jest.fn(() => 512),
   give_game_news = jest.fn(() => {}),
   give_info_portion = jest.fn(() => false),
   give_money = jest.fn(),
@@ -21,16 +22,17 @@ export function mockClientGameObject({
   has_info = jest.fn(() => false),
   id,
   idOverride = ID_COUNTER++,
+  inventory = [],
   is_talking = jest.fn(() => false),
+  level_vertex_id = jest.fn(() => 255),
   name,
   object,
-  inventory = [],
   position = jest.fn(() => MockVector.mock(0.25, 0.25, 0.25)),
   section,
   sectionOverride = "section",
   spawn_ini = jest.fn(() => mockIniFile("spawn.ini")),
-  transfer_money = jest.fn(),
   transfer_item,
+  transfer_money = jest.fn(),
   ...rest
 }: Partial<
   XR_game_object & {
@@ -46,6 +48,7 @@ export function mockClientGameObject({
     character_icon,
     clsid,
     disable_info_portion,
+    game_vertex_id,
     give_game_news,
     give_info_portion,
     give_money,
@@ -55,6 +58,7 @@ export function mockClientGameObject({
     id: id || jest.fn(() => idOverride),
     inventory: inventoryMap,
     is_talking,
+    level_vertex_id,
     name: name || jest.fn(() => `${sectionOverride}_${idOverride}`),
     object:
       object ||

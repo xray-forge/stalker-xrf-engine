@@ -14,45 +14,64 @@ import { AnyGameObject } from "@/engine/lib/types/engine";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo: description
+ * Spawn items of provided section for an object.
+ *
+ * @param object - target object to spawn items for
+ * @param itemSection - section of item
+ * @param count - count of items to spawn
+ * @param probability - probability to spawn item, 100% by default
+ * @returns count of spawned items
  */
 export function spawnItemsForObject(
   object: AnyGameObject,
   itemSection: TInventoryItem,
   count: TCount = 1,
   probability: TProbability = 100
-): void {
+): TCount {
   if (count < 1 || probability < 0) {
-    return;
+    return 0;
   } else if (isAmmoSection(itemSection)) {
     return spawnAmmoForObject(object, itemSection, count, probability);
   }
+
+  let itemsSpawned: TCount = 0;
 
   const [id, gvid, lvid, position] = getObjectPositioning(object);
 
   for (const it of $range(1, count)) {
     if (math.random(100) <= probability) {
       alife().create(itemSection, position, lvid, gvid, id);
+      itemsSpawned += 1;
     }
   }
+
+  return itemsSpawned;
 }
 
 /**
- * todo;
+ * Spawn ammo objects for provided object.
+ *
+ * @param object - target object to spawn items for
+ * @param ammoSection - section of ammo item
+ * @param count - count of ammo to spawn
+ * @param probability - probability to spawn item, 100% by default
+ * @returns count of spawned ammo
  */
 export function spawnAmmoForObject(
   object: AnyGameObject,
   ammoSection: TAmmoItem,
   count: TCount,
   probability: TProbability = 1
-): void {
+): TCount {
   if (count < 1 || probability < 0) {
-    return;
+    return 0;
   }
 
   const [id, gvid, lvid, position] = getObjectPositioning(object);
   const ini: XR_ini_file = system_ini();
   const countInBox: TCount = ini.r_u32(ammoSection, "box_size");
+
+  let ammoSpawned: TCount = 0;
 
   /**
    * Game engine limits ammo to spawn in boxes.
@@ -63,10 +82,14 @@ export function spawnAmmoForObject(
       alife().create_ammo(ammoSection, position, lvid, gvid, id, countInBox);
 
       count = count - countInBox;
+      ammoSpawned += countInBox;
     }
 
     alife().create_ammo(ammoSection, position, lvid, gvid, id, count);
+    ammoSpawned += count;
   }
+
+  return ammoSpawned;
 }
 
 /**

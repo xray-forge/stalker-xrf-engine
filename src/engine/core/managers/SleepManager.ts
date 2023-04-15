@@ -12,7 +12,7 @@ import { disableInfo, giveInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
-import { console_commands } from "@/engine/lib/constants/console_commands";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { Optional, TDuration } from "@/engine/lib/types";
 
@@ -59,11 +59,11 @@ export class SleepManager extends AbstractCoreManager {
 
     giveInfo(infoPortions.actor_is_sleeping);
 
-    registry.sounds.musicVolume = getConsoleFloatCommand(console_commands.snd_volume_music);
-    registry.sounds.effectsVolume = getConsoleFloatCommand(console_commands.snd_volume_eff);
+    registry.sounds.musicVolume = getConsoleFloatCommand(consoleCommands.snd_volume_music);
+    registry.sounds.effectsVolume = getConsoleFloatCommand(consoleCommands.snd_volume_eff);
 
-    executeConsoleCommand(console_commands.snd_volume_music, 0);
-    executeConsoleCommand(console_commands.snd_volume_eff, 0);
+    executeConsoleCommand(consoleCommands.snd_volume_music, 0);
+    executeConsoleCommand(consoleCommands.snd_volume_eff, 0);
 
     SurgeManager.getInstance().setSkipResurrectMessage();
   }
@@ -102,8 +102,8 @@ export class SleepManager extends AbstractCoreManager {
 
     enableGameUi();
 
-    executeConsoleCommand(console_commands.snd_volume_music, registry.sounds.musicVolume);
-    executeConsoleCommand(console_commands.snd_volume_eff, registry.sounds.effectsVolume);
+    executeConsoleCommand(consoleCommands.snd_volume_music, registry.sounds.musicVolume);
+    executeConsoleCommand(consoleCommands.snd_volume_eff, registry.sounds.effectsVolume);
 
     registry.sounds.musicVolume = 0;
     registry.sounds.effectsVolume = 0;

@@ -22,7 +22,7 @@ import {
   actorHasMedKit,
   getActorAvailableMedKit,
   getNpcSpeaker,
-  relocateQuestItemsBySection,
+  transferItemsFromActor,
 } from "@/engine/core/utils/task_reward";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities } from "@/engine/lib/constants/communities";
@@ -104,7 +104,7 @@ export function transfer_medkit(firstSpeaker: XR_game_object, secondSpeaker: XR_
   const availableMedkit: Optional<TMedkit> = getActorAvailableMedKit();
 
   if (availableMedkit !== null) {
-    relocateQuestItemsBySection(secondSpeaker, availableMedkit, ENotificationDirection.OUT);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), availableMedkit);
   }
 
   alife().create(
@@ -135,7 +135,7 @@ export function actor_have_bandage(firstSpeaker: XR_game_object, secondSpeaker: 
  * todo;
  */
 export function transfer_bandage(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  relocateQuestItemsBySection(secondSpeaker, drugs.bandage, ENotificationDirection.OUT);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.bandage);
   secondSpeaker.set_relation(game_object.friend, firstSpeaker);
 }
 

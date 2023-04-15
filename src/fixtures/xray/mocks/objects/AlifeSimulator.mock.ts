@@ -17,6 +17,8 @@ export class MockAlifeSimulator {
   }
 
   public object = jest.fn((id: number) => MockAlifeSimulator.registry[id] || null);
+
+  public create_ammo = jest.fn(() => {});
 }
 
 /**

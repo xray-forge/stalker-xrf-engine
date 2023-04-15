@@ -16,7 +16,7 @@ import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions";
-import { console_commands } from "@/engine/lib/constants/console_commands";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { roots } from "@/engine/lib/constants/roots";
 import { Optional, TCount, TLabel, TName } from "@/engine/lib/types";
 
@@ -135,5 +135,5 @@ export function createSave(saveName: Optional<TName>, translate: boolean = true)
   const saveParameter: string = user_name() + " - " + (translate ? game.translate_string(saveName) : saveName);
 
   logger.info("Performing save:", saveParameter);
-  executeConsoleCommand(console_commands.save, saveParameter);
+  executeConsoleCommand(consoleCommands.save, saveParameter);
 }

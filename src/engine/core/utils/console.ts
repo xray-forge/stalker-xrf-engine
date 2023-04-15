@@ -4,7 +4,7 @@ import { TConsoleCommand } from "@/engine/lib/constants/console_commands";
 import { AnyArgs } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Execute console command and concatenate provided parameters for propagation.
  */
 export function executeConsoleCommand(command: TConsoleCommand, ...args: AnyArgs): void {
   if (args.length > 0) {
@@ -15,12 +15,12 @@ export function executeConsoleCommand(command: TConsoleCommand, ...args: AnyArgs
 }
 
 /**
- * todo;
+ * Execute command to get floating point number value.
  */
-export function getConsoleFloatCommand(command: TConsoleCommand, ...args: AnyArgs): number {
+export function getConsoleFloatCommand<T extends number = number>(command: TConsoleCommand, ...args: AnyArgs): T {
   if (args.length > 0) {
-    return get_console().get_float(command + " " + args.join(" "));
+    return get_console().get_float(command + " " + args.join(" ")) as T;
   } else {
-    return get_console().get_float(command);
+    return get_console().get_float(command) as T;
   }
 }

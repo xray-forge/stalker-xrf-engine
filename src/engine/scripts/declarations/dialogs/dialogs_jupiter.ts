@@ -4,7 +4,6 @@ import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } fr
 
 import { registry } from "@/engine/core/database";
 import { portableStoreGet } from "@/engine/core/database/portable_store";
-import { ENotificationDirection } from "@/engine/core/managers/notifications/types";
 import { TreasureManager } from "@/engine/core/managers/TreasureManager";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/AnomalyZoneBinder";
 import { getExtern } from "@/engine/core/utils/binding";
@@ -14,9 +13,9 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import {
   getNpcSpeaker,
+  giveItemsToActor,
   giveMoneyToActor,
   isObjectName,
-  relocateQuestItemsBySection,
   transferItemsFromActor,
   transferItemsToActor,
   transferMoneyFromActor,
@@ -1559,17 +1558,15 @@ export function jup_b15_dec_counter(firstSpeaker: XR_game_object, secondSpeaker:
  * todo;
  */
 export function jup_b46_sell_duty_founder_pda(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  const actor: XR_game_object = registry.actor;
-
   if (hasAlifeInfo(infoPortions.jup_b46_duty_founder_pda_to_freedom)) {
     giveMoneyToActor(4000);
-    relocateQuestItemsBySection(actor, weapons.wpn_sig550, ENotificationDirection.IN, 1);
-    relocateQuestItemsBySection(actor, ammo["ammo_5.56x45_ss190"], ENotificationDirection.IN, 5);
+    giveItemsToActor(weapons.wpn_sig550, 1);
+    giveItemsToActor(ammo["ammo_5.56x45_ss190"], 150);
   } else if (hasAlifeInfo(infoPortions.jup_b46_duty_founder_pda_to_duty)) {
     giveMoneyToActor(4000);
-    relocateQuestItemsBySection(actor, weapons.wpn_groza, ENotificationDirection.IN, 1);
-    relocateQuestItemsBySection(actor, ammo.ammo_9x39_ap, ENotificationDirection.IN, 2);
-    relocateQuestItemsBySection(actor, ammo["ammo_vog-25"], ENotificationDirection.IN, 2);
+    giveItemsToActor(weapons.wpn_groza, 1);
+    giveItemsToActor(ammo.ammo_9x39_ap, 60);
+    giveItemsToActor(ammo["ammo_vog-25"], 2);
   }
 }
 
@@ -1577,10 +1574,8 @@ export function jup_b46_sell_duty_founder_pda(firstSpeaker: XR_game_object, seco
  * todo;
  */
 export function jup_b46_transfer_duty_founder_pda(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  const object: XR_game_object = getNpcSpeaker(firstSpeaker, secondSpeaker);
-
   if (registry.actor.object(quest_items.jup_b46_duty_founder_pda) !== null) {
-    relocateQuestItemsBySection(object, quest_items.jup_b46_duty_founder_pda, ENotificationDirection.OUT);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b46_duty_founder_pda);
   }
 }
 
@@ -1873,16 +1868,14 @@ export function jup_b47_jupiter_products_info_revard(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
-  const actor = registry.actor;
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b47_jupiter_products_info);
 
-  relocateQuestItemsBySection(npc, quest_items.jup_b47_jupiter_products_info, ENotificationDirection.OUT);
   giveMoneyToActor(7000);
-  relocateQuestItemsBySection(actor, drugs.medkit_scientic, ENotificationDirection.IN, 3);
-  relocateQuestItemsBySection(actor, drugs.antirad, ENotificationDirection.IN, 5);
-  relocateQuestItemsBySection(actor, drugs.drug_psy_blockade, ENotificationDirection.IN, 2);
-  relocateQuestItemsBySection(actor, drugs.drug_antidot, ENotificationDirection.IN, 2);
-  relocateQuestItemsBySection(actor, drugs.drug_radioprotector, ENotificationDirection.IN, 2);
+  giveItemsToActor(drugs.medkit_scientic, 3);
+  giveItemsToActor(drugs.antirad, 5);
+  giveItemsToActor(drugs.drug_psy_blockade, 2);
+  giveItemsToActor(drugs.drug_antidot, 2);
+  giveItemsToActor(drugs.drug_radioprotector, 2);
 }
 
 /**
@@ -1903,9 +1896,7 @@ export function jup_b47_actor_has_not_merc_pda(firstSpeaker: XR_game_object, sec
  * todo;
  */
 export function jup_b47_merc_pda_revard(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
-
-  relocateQuestItemsBySection(npc, quest_items.jup_b47_merc_pda, ENotificationDirection.OUT);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b47_merc_pda);
   giveMoneyToActor(2500);
 }
 
@@ -1934,12 +1925,10 @@ export function jup_b47_employ_squad(firstSpeaker: XR_game_object, secondSpeaker
  * todo;
  */
 export function jup_b47_bunker_guard_revard(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  const actor = registry.actor;
-
   giveMoneyToActor(4000);
-  relocateQuestItemsBySection(actor, drugs.drug_psy_blockade, ENotificationDirection.IN, 2);
-  relocateQuestItemsBySection(actor, drugs.drug_antidot, ENotificationDirection.IN, 3);
-  relocateQuestItemsBySection(actor, drugs.drug_radioprotector, ENotificationDirection.IN, 3);
+  giveItemsToActor(drugs.drug_psy_blockade, 2);
+  giveItemsToActor(drugs.drug_antidot, 3);
+  giveItemsToActor(drugs.drug_radioprotector, 3);
 }
 
 /**

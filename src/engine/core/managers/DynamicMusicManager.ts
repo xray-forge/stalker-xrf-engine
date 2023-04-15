@@ -11,7 +11,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { clampNumber } from "@/engine/core/utils/number";
-import { console_commands } from "@/engine/lib/constants/console_commands";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { TSound } from "@/engine/lib/constants/sound/sounds";
 import {
   LuaArray,
@@ -56,7 +56,7 @@ export class DynamicMusicManager extends AbstractCoreManager {
 
   public themeAmbientVolume: TRate = 0;
   public dynamicThemeVolume: TRate = 0;
-  public gameAmbientVolume: TRate = getConsoleFloatCommand(console_commands.snd_volume_music);
+  public gameAmbientVolume: TRate = getConsoleFloatCommand(consoleCommands.snd_volume_music);
   public fadeToAmbientVolume: TRate = 0;
   public fadeToThemeVolume: TRate = 0;
   public volumeChangeStep: TRate = 0;
@@ -364,7 +364,7 @@ export class DynamicMusicManager extends AbstractCoreManager {
    * todo: Description.
    */
   public setSoundVolume(volume: TRate): void {
-    executeConsoleCommand(console_commands.snd_volume_music, volume);
+    executeConsoleCommand(consoleCommands.snd_volume_music, volume);
   }
 
   /**
@@ -374,12 +374,12 @@ export class DynamicMusicManager extends AbstractCoreManager {
     this.stopTheme();
 
     if (registry.sounds.effectsVolume !== 0) {
-      executeConsoleCommand(console_commands.snd_volume_eff, tostring(registry.sounds.effectsVolume));
+      executeConsoleCommand(consoleCommands.snd_volume_eff, tostring(registry.sounds.effectsVolume));
       registry.sounds.effectsVolume = 0;
     }
 
     if (registry.sounds.musicVolume !== 0) {
-      executeConsoleCommand(console_commands.snd_volume_music, tostring(registry.sounds.musicVolume));
+      executeConsoleCommand(consoleCommands.snd_volume_music, tostring(registry.sounds.musicVolume));
       registry.sounds.musicVolume = 0;
     }
 
@@ -453,7 +453,7 @@ export class DynamicMusicManager extends AbstractCoreManager {
    * todo: Description.
    */
   public onMainMenuOff(): void {
-    this.gameAmbientVolume = getConsoleFloatCommand(console_commands.snd_volume_music);
+    this.gameAmbientVolume = getConsoleFloatCommand(consoleCommands.snd_volume_music);
 
     if (this.theme && this.theme.isPlaying()) {
       if (IsDynamicMusic()) {

@@ -19,6 +19,9 @@ export const FILES_MOCKS = {
     [ammo.ammo_9x18_pmm]: {
       box_size: 30,
     },
+    [ammo["ammo_5.45x39_ap"]]: {
+      box_size: 30,
+    },
   },
   "spawn.ini": {
     story_object: {
