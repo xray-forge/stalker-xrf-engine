@@ -87,8 +87,13 @@ describe("NotificationManager class", () => {
       type: ENotificationType.ITEM,
       itemSection: "test",
       direction: ENotificationDirection.IN,
+      amount: 10,
     });
-    expect(notificationManager.sendItemRelocatedNotification).toHaveBeenCalledWith(ENotificationDirection.IN, "test");
+    expect(notificationManager.sendItemRelocatedNotification).toHaveBeenCalledWith(
+      ENotificationDirection.IN,
+      "test",
+      10
+    );
 
     eventsManager.emitEvent<ITreasureNotification>(EGameEvent.NOTIFICATION, {
       type: ENotificationType.TREASURE,

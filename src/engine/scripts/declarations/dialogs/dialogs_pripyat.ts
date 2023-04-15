@@ -6,11 +6,12 @@ import { registry } from "@/engine/core/database";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
+  getNpcSpeaker,
   giveItemsToActor,
   giveMoneyToActor,
   takeItemsFromActor,
-  takeMoneyFromActor,
-} from "@/engine/core/utils/quest_reward";
+  transferMoneyFromActor,
+} from "@/engine/core/utils/task_reward";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
@@ -28,14 +29,14 @@ const log: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-export function pri_b301_zulus_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, weapons.wpn_pkm_zulus);
+export function pri_b301_zulus_reward(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(firstSpeaker, secondSpeaker, weapons.wpn_pkm_zulus);
 }
 
 /**
  * todo;
  */
-export function pri_a17_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function pri_a17_reward(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   if (hasAlifeInfo(infoPortions.pri_a17_reward_well)) {
     giveMoneyToActor(7500);
   } else if (hasAlifeInfo(infoPortions.pri_a17_reward_norm)) {
@@ -48,42 +49,39 @@ export function pri_a17_reward(first_speaker: XR_game_object, second_speaker: XR
 /**
  * todo;
  */
-export function actor_has_pri_a17_gauss_rifle(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function actor_has_pri_a17_gauss_rifle(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.object("pri_a17_gauss_rifle") !== null;
 }
 
 /**
  * todo;
  */
-export function actor_hasnt_pri_a17_gauss_rifle(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
-  return !actor_has_pri_a17_gauss_rifle(first_speaker, second_speaker);
+export function actor_hasnt_pri_a17_gauss_rifle(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !actor_has_pri_a17_gauss_rifle(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function transfer_artifact_af_baloon(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, artefacts.af_baloon);
+export function transfer_artifact_af_baloon(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(firstSpeaker, secondSpeaker, artefacts.af_baloon);
 }
 
 /**
  * todo;
  */
-export function pay_cost_to_guide_to_zaton(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function pay_cost_to_guide_to_zaton(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   if (hasAlifeInfo(infoPortions.zat_b215_gave_maps)) {
-    takeMoneyFromActor(first_speaker, second_speaker, 1000);
+    transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 1000);
   } else {
-    takeMoneyFromActor(first_speaker, second_speaker, 3000);
+    transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 3000);
   }
 }
 
 /**
  * todo;
  */
-export function jup_b43_actor_has_10000_money(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function jup_b43_actor_has_10000_money(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   if (hasAlifeInfo(infoPortions.zat_b215_gave_maps)) {
     return registry.actor.money() >= 3000;
   }
@@ -95,23 +93,23 @@ export function jup_b43_actor_has_10000_money(first_speaker: XR_game_object, sec
  * todo;
  */
 export function jup_b43_actor_do_not_has_10000_money(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
-  return !jup_b43_actor_has_10000_money(first_speaker, second_speaker);
+  return !jup_b43_actor_has_10000_money(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function pay_cost_to_guide_to_jupiter(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeMoneyFromActor(first_speaker, second_speaker, 7000);
+export function pay_cost_to_guide_to_jupiter(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 7000);
 }
 
 /**
  * todo;
  */
-export function jup_b43_actor_has_7000_money(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function jup_b43_actor_has_7000_money(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.money() >= 7000;
 }
 
@@ -119,8 +117,8 @@ export function jup_b43_actor_has_7000_money(first_speaker: XR_game_object, seco
  * todo;
  */
 export function jup_b43_actor_do_not_has_7000_money(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.money() < 7000;
 }
@@ -128,18 +126,18 @@ export function jup_b43_actor_do_not_has_7000_money(
 /**
  * todo;
  */
-export function pri_b35_transfer_svd(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, weapons.wpn_svd);
-  giveItemsToActor(first_speaker, second_speaker, ammo["ammo_7.62x54_7h1"]);
+export function pri_b35_transfer_svd(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(firstSpeaker, secondSpeaker, weapons.wpn_svd);
+  giveItemsToActor(firstSpeaker, secondSpeaker, ammo["ammo_7.62x54_7h1"]);
 }
 
 /**
  * todo;
  */
-export function pri_b35_give_actor_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function pri_b35_give_actor_reward(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const amount = hasAlifeInfo(infoPortions.pri_b35_secondary) ? 3 : 1;
 
-  giveItemsToActor(first_speaker, second_speaker, ammo["ammo_7.62x54_7h1"], amount);
+  giveItemsToActor(firstSpeaker, secondSpeaker, ammo["ammo_7.62x54_7h1"], amount);
 }
 
 /**
@@ -169,7 +167,7 @@ const medicItemsTable = {
 /**
  * todo;
  */
-export function pri_a25_medic_give_kit(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function pri_a25_medic_give_kit(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   let kit = "basic";
 
   if (hasAlifeInfo(infoPortions.pri_a25_actor_needs_medikit_advanced_supply)) {
@@ -181,7 +179,7 @@ export function pri_a25_medic_give_kit(first_speaker: XR_game_object, second_spe
   for (const [key, itemsList] of medicItemsTable) {
     if (key === kit) {
       for (const [section, count] of itemsList) {
-        giveItemsToActor(first_speaker, second_speaker, section, count);
+        giveItemsToActor(firstSpeaker, secondSpeaker, section, count);
       }
 
       disableInfo(key);
@@ -204,11 +202,11 @@ const suppliesList = {
   ["supply_grenade_3"]: { ["ammo_m209"]: 3 },
 } as unknown as LuaTable<TInfoPortion, LuaTable<TAmmoItem, TCount>>;
 
-export function pri_a22_army_signaller_supply(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function pri_a22_army_signaller_supply(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   for (const [name, itemsList] of suppliesList) {
     if (hasAlifeInfo(name)) {
       for (const [section, amount] of itemsList) {
-        giveItemsToActor(first_speaker, second_speaker, section, amount);
+        giveItemsToActor(firstSpeaker, secondSpeaker, section, amount);
       }
 
       disableInfo(name);
@@ -219,9 +217,9 @@ export function pri_a22_army_signaller_supply(first_speaker: XR_game_object, sec
 /**
  * todo;
  */
-export function pri_a22_give_actor_outfit(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, outfits.military_outfit);
-  giveItemsToActor(first_speaker, second_speaker, helmets.helm_battle);
+export function pri_a22_give_actor_outfit(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(firstSpeaker, secondSpeaker, outfits.military_outfit);
+  giveItemsToActor(firstSpeaker, secondSpeaker, helmets.helm_battle);
 }
 
 /**
@@ -331,7 +329,7 @@ export function pri_b305_actor_has_strelok_note_all(): boolean {
 /**
  * todo;
  */
-export function pri_b305_sell_strelok_notes(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function pri_b305_sell_strelok_notes(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const items_table = [
     quest_items.jup_b10_notes_01,
     quest_items.jup_b10_notes_02,
@@ -343,23 +341,23 @@ export function pri_b305_sell_strelok_notes(first_speaker: XR_game_object, secon
 
   for (const [k, v] of items_table) {
     if (actor.object(v) !== null) {
-      takeItemsFromActor(first_speaker, second_speaker, v);
+      takeItemsFromActor(firstSpeaker, secondSpeaker, v);
       amount = amount + 1;
     }
   }
 
   if (actor.object(weapons.wpn_gauss) !== null) {
-    giveItemsToActor(first_speaker, second_speaker, ammo.ammo_gauss, 2);
+    giveItemsToActor(firstSpeaker, secondSpeaker, ammo.ammo_gauss, 2);
   } else {
-    giveItemsToActor(first_speaker, second_speaker, drugs.medkit_scientic, 3);
+    giveItemsToActor(firstSpeaker, secondSpeaker, drugs.medkit_scientic, 3);
   }
 
   if (amount > 1) {
-    giveItemsToActor(first_speaker, second_speaker, artefacts.af_fire);
+    giveItemsToActor(firstSpeaker, secondSpeaker, artefacts.af_fire);
   }
 
   if (amount > 2) {
-    giveItemsToActor(first_speaker, second_speaker, artefacts.af_glass);
+    giveItemsToActor(firstSpeaker, secondSpeaker, artefacts.af_glass);
     giveInfo(infoPortions.pri_b305_all_strelok_notes_given);
   }
 }
@@ -367,6 +365,6 @@ export function pri_b305_sell_strelok_notes(first_speaker: XR_game_object, secon
 /**
  * todo;
  */
-export function pri_a17_sokolov_is_not_at_base(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function pri_a17_sokolov_is_not_at_base(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return hasAlifeInfo(infoPortions.pri_a15_sokolov_out) && hasAlifeInfo(infoPortions.pas_b400_sokolov_dead);
 }

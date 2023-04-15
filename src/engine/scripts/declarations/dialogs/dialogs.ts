@@ -23,7 +23,7 @@ import {
   getActorAvailableMedKit,
   getNpcSpeaker,
   relocateQuestItemSection,
-} from "@/engine/core/utils/quest_reward";
+} from "@/engine/core/utils/task_reward";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";

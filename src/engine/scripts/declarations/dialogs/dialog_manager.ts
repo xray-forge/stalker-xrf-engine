@@ -5,7 +5,7 @@ import { SmartTerrain } from "@/engine/core/objects";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
-import { getNpcSpeaker } from "@/engine/core/utils/quest_reward";
+import { getNpcSpeaker } from "@/engine/core/utils/task_reward";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";

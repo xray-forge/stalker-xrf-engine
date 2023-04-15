@@ -20,6 +20,8 @@ module.exports = {
   setupFiles: [path.resolve(__dirname, "./jest_global.ts")],
   roots: ["<rootDir>"],
   cacheDirectory: "<rootDir>/target/test/cache",
+  collectCoverage: true,
+  coverageReporters: ["json", "html"],
   coverageDirectory: "<rootDir>/target/test/coverage",
   coveragePathIgnorePatterns: ["/node_modules/"],
   moduleNameMapper: {

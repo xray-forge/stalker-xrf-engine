@@ -79,9 +79,9 @@ export class NotificationManager extends AbstractCoreManager {
 
     switch (notification.type) {
       case ENotificationType.ITEM: {
-        const { direction, itemSection } = notification as IItemRelocatedNotification;
+        const { direction, itemSection, amount } = notification as IItemRelocatedNotification;
 
-        return this.sendItemRelocatedNotification(direction, itemSection);
+        return this.sendItemRelocatedNotification(direction, itemSection, amount);
       }
 
       case ENotificationType.MONEY: {

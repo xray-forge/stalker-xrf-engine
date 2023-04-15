@@ -13,16 +13,15 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   actorHasAtLeastOneItem,
   actorHasItem,
-  getActorSpeaker,
   getNpcSpeaker,
   giveItemsToActor,
   giveMoneyToActor,
-  isNpcName,
+  isObjectName,
   npcHasItem,
   relocateQuestItemSection,
   takeItemsFromActor,
-  takeMoneyFromActor,
-} from "@/engine/core/utils/quest_reward";
+  transferMoneyFromActor,
+} from "@/engine/core/utils/task_reward";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
@@ -37,7 +36,7 @@ import { outfits } from "@/engine/lib/constants/items/outfits";
 import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
 import { treasures } from "@/engine/lib/constants/treasures";
-import { AnyCallablesModule, AnyObject, LuaArray, Optional, TCount } from "@/engine/lib/types";
+import { AnyCallablesModule, AnyObject, LuaArray, Optional, TCount, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -45,8 +44,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export function zat_b30_owl_stalker_trader_actor_has_item_to_sell(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   const itemsTable: LuaArray<TInventoryItem> = [
     quest_items.zat_b20_noah_pda,
@@ -109,7 +108,7 @@ export function zat_b30_owl_stalker_trader_actor_has_item_to_sell(
 /**
  * todo;
  */
-export function zat_b30_owl_can_say_about_heli(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b30_owl_can_say_about_heli(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const table = [
     infoPortions.zat_b28_heli_3_searched,
     infoPortions.zat_b100_heli_2_searched,
@@ -136,14 +135,14 @@ export function zat_b30_owl_can_say_about_heli(first_speaker: XR_game_object, se
 /**
  * todo;
  */
-export function zat_b30_actor_has_1000(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b30_actor_has_1000(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.money() >= 1000;
 }
 
 /**
  * todo;
  */
-export function zat_b30_actor_has_200(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b30_actor_has_200(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.money() >= 200;
 }
 
@@ -151,8 +150,8 @@ export function zat_b30_actor_has_200(first_speaker: XR_game_object, second_spea
  * todo;
  */
 export function zat_b30_actor_has_pri_b36_monolith_hiding_place_pda(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.object(quest_items.pri_b36_monolith_hiding_place_pda) !== null;
 }
@@ -161,8 +160,8 @@ export function zat_b30_actor_has_pri_b36_monolith_hiding_place_pda(
  * todo;
  */
 export function zat_b30_actor_has_pri_b306_envoy_pda(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.object(quest_items.pri_b306_envoy_pda) !== null;
 }
@@ -171,8 +170,8 @@ export function zat_b30_actor_has_pri_b306_envoy_pda(
  * todo;
  */
 export function zat_b30_actor_has_jup_b10_strelok_notes_1(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.object(quest_items.jup_b10_notes_01) !== null;
 }
@@ -181,8 +180,8 @@ export function zat_b30_actor_has_jup_b10_strelok_notes_1(
  * todo;
  */
 export function zat_b30_actor_has_jup_b10_strelok_notes_2(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.object(quest_items.jup_b10_notes_02) !== null;
 }
@@ -191,8 +190,8 @@ export function zat_b30_actor_has_jup_b10_strelok_notes_2(
  * todo;
  */
 export function zat_b30_actor_has_jup_b10_strelok_notes_3(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.object(quest_items.jup_b10_notes_03) !== null;
 }
@@ -201,8 +200,8 @@ export function zat_b30_actor_has_jup_b10_strelok_notes_3(
  * todo;
  */
 export function zat_b30_actor_has_detector_scientific(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.object(detectors.detector_scientific) !== null;
 }
@@ -211,8 +210,8 @@ export function zat_b30_actor_has_detector_scientific(
  * todo;
  */
 export function zat_b30_actor_has_device_flash_snag(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.object(quest_items.device_flash_snag) !== null;
 }
@@ -221,8 +220,8 @@ export function zat_b30_actor_has_device_flash_snag(
  * todo;
  */
 export function zat_b30_actor_has_device_pda_port_bandit_leader(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.object(quest_items.device_pda_port_bandit_leader) !== null;
 }
@@ -231,8 +230,8 @@ export function zat_b30_actor_has_device_pda_port_bandit_leader(
  * todo;
  */
 export function zat_b30_actor_has_jup_b10_ufo_memory(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.object(quest_items.jup_b10_ufo_memory_2) !== null;
 }
@@ -241,8 +240,8 @@ export function zat_b30_actor_has_jup_b10_ufo_memory(
  * todo;
  */
 export function zat_b30_actor_has_jup_b202_bandit_pda(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.object(quest_items.jup_b202_bandit_pda) !== null;
 }
@@ -250,33 +249,33 @@ export function zat_b30_actor_has_jup_b202_bandit_pda(
 /**
  * todo;
  */
-export function zat_b30_transfer_1000(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeMoneyFromActor(first_speaker, second_speaker, 1000);
+export function zat_b30_transfer_1000(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 1000);
 }
 
 /**
  * todo;
  */
-export function zat_b30_transfer_200(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeMoneyFromActor(first_speaker, second_speaker, 200);
+export function zat_b30_transfer_200(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 200);
 }
 
 /**
  * todo;
  */
 export function zat_b30_sell_pri_b36_monolith_hiding_place_pda(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.pri_b36_monolith_hiding_place_pda);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.pri_b36_monolith_hiding_place_pda);
   giveMoneyToActor(5000);
 }
 
 /**
  * todo;
  */
-export function zat_b30_sell_pri_b306_envoy_pda(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.pri_b306_envoy_pda);
+export function zat_b30_sell_pri_b306_envoy_pda(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.pri_b306_envoy_pda);
   giveMoneyToActor(4000);
 }
 
@@ -284,10 +283,10 @@ export function zat_b30_sell_pri_b306_envoy_pda(first_speaker: XR_game_object, s
  * todo;
  */
 export function zat_b30_sell_jup_b207_merc_pda_with_contract(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_b207_merc_pda_with_contract);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b207_merc_pda_with_contract);
   giveMoneyToActor(1000);
   giveInfo(infoPortions.jup_b207_merc_pda_with_contract_sold);
 }
@@ -296,10 +295,10 @@ export function zat_b30_sell_jup_b207_merc_pda_with_contract(
  * todo;
  */
 export function zat_b30_sell_jup_b10_strelok_notes_1(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_b10_notes_01);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b10_notes_01);
   giveMoneyToActor(500);
 }
 
@@ -307,10 +306,10 @@ export function zat_b30_sell_jup_b10_strelok_notes_1(
  * todo;
  */
 export function zat_b30_sell_jup_b10_strelok_notes_2(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_b10_notes_02);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b10_notes_02);
   giveMoneyToActor(500);
 }
 
@@ -318,10 +317,10 @@ export function zat_b30_sell_jup_b10_strelok_notes_2(
  * todo;
  */
 export function zat_b30_sell_jup_b10_strelok_notes_3(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_b10_notes_03);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b10_notes_03);
   giveMoneyToActor(500);
 }
 
@@ -329,10 +328,10 @@ export function zat_b30_sell_jup_b10_strelok_notes_3(
  * todo;
  */
 export function jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_evacuation_info);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_evacuation_info);
   giveMoneyToActor(750);
   giveInfo(infoPortions.jup_a9_evacuation_info_sold);
 }
@@ -341,10 +340,10 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info(
  * todo;
  */
 export function jup_a9_owl_stalker_trader_sell_jup_a9_meeting_info(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_meeting_info);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_meeting_info);
   giveMoneyToActor(750);
   giveInfo(infoPortions.jup_a9_meeting_info_sold);
 }
@@ -353,10 +352,10 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_meeting_info(
  * todo;
  */
 export function jup_a9_owl_stalker_trader_sell_jup_a9_losses_info(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_losses_info);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_losses_info);
   giveMoneyToActor(750);
   giveInfo(infoPortions.jup_a9_losses_info_sold);
 }
@@ -365,10 +364,10 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_losses_info(
  * todo;
  */
 export function jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_delivery_info);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_delivery_info);
   giveMoneyToActor(750);
   giveInfo(infoPortions.jup_a9_delivery_info_sold);
 }
@@ -377,10 +376,10 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info(
  * todo;
  */
 export function zat_b30_owl_stalker_trader_sell_device_flash_snag(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.device_flash_snag);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.device_flash_snag);
   giveMoneyToActor(200);
   registry.actor.give_info_portion(infoPortions.device_flash_snag_sold);
 }
@@ -389,10 +388,10 @@ export function zat_b30_owl_stalker_trader_sell_device_flash_snag(
  * todo;
  */
 export function zat_b30_owl_stalker_trader_sell_device_pda_port_bandit_leader(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.device_pda_port_bandit_leader);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.device_pda_port_bandit_leader);
   giveMoneyToActor(1000);
   giveInfo(infoPortions.device_pda_port_bandit_leader_sold);
 }
@@ -401,10 +400,10 @@ export function zat_b30_owl_stalker_trader_sell_device_pda_port_bandit_leader(
  * todo;
  */
 export function zat_b30_owl_stalker_trader_sell_jup_b10_ufo_memory(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_b10_ufo_memory_2);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b10_ufo_memory_2);
   giveMoneyToActor(500);
   giveInfo(infoPortions.jup_b10_ufo_memory_2_sold);
 }
@@ -413,48 +412,45 @@ export function zat_b30_owl_stalker_trader_sell_jup_b10_ufo_memory(
  * todo;
  */
 export function zat_b30_owl_stalker_trader_sell_jup_b202_bandit_pda(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_b202_bandit_pda);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b202_bandit_pda);
   giveMoneyToActor(500);
 }
 
 /**
  * todo;
  */
-export function zat_b14_bar_transfer_money(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b14_bar_transfer_money(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   giveMoneyToActor(1000);
 }
 
 /**
  * todo;
  */
-export function zat_b14_transfer_artefact(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, artefacts.af_quest_b14_twisted);
+export function zat_b14_transfer_artefact(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, artefacts.af_quest_b14_twisted);
 }
 
 /**
  * todo;
  */
-export function actor_has_artefact(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return first_speaker.object(artefacts.af_quest_b14_twisted) !== null;
+export function actor_has_artefact(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return firstSpeaker.object(artefacts.af_quest_b14_twisted) !== null;
 }
 
 /**
  * todo;
  */
-export function actor_hasnt_artefact(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !actor_has_artefact(first_speaker, second_speaker);
+export function actor_hasnt_artefact(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !actor_has_artefact(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function zat_b7_give_bandit_reward_to_actor(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): void {
+export function zat_b7_give_bandit_reward_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   giveMoneyToActor(math.random(15, 30) * 100);
   TreasureManager.getInstance().giveActorTreasureCoordinates(treasures.zat_hiding_place_30);
 }
@@ -462,25 +458,22 @@ export function zat_b7_give_bandit_reward_to_actor(
 /**
  * todo;
  */
-export function zat_b7_give_stalker_reward_to_actor(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): void {
+export function zat_b7_give_stalker_reward_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const reward = math.random(1, 3);
 
   if (reward === 1) {
-    giveItemsToActor(first_speaker, second_speaker, drugs.bandage, 6);
-    giveItemsToActor(first_speaker, second_speaker, food.vodka, 4);
+    giveItemsToActor(firstSpeaker, secondSpeaker, drugs.bandage, 6);
+    giveItemsToActor(firstSpeaker, secondSpeaker, food.vodka, 4);
   }
 
   if (reward === 2) {
-    giveItemsToActor(first_speaker, second_speaker, drugs.medkit, 2);
-    giveItemsToActor(first_speaker, second_speaker, food.vodka, 4);
+    giveItemsToActor(firstSpeaker, secondSpeaker, drugs.medkit, 2);
+    giveItemsToActor(firstSpeaker, secondSpeaker, food.vodka, 4);
   }
 
   if (reward === 3) {
-    giveItemsToActor(first_speaker, second_speaker, drugs.antirad, 3);
-    giveItemsToActor(first_speaker, second_speaker, food.vodka, 4);
+    giveItemsToActor(firstSpeaker, secondSpeaker, drugs.antirad, 3);
+    giveItemsToActor(firstSpeaker, secondSpeaker, food.vodka, 4);
   }
 
   TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_29);
@@ -490,31 +483,31 @@ export function zat_b7_give_stalker_reward_to_actor(
  * todo;
  */
 export function zat_b7_give_stalker_reward_2_to_actor(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  giveItemsToActor(first_speaker, second_speaker, drugs.bandage, 4);
-  giveItemsToActor(first_speaker, second_speaker, drugs.medkit, 2);
-  giveItemsToActor(first_speaker, second_speaker, drugs.antirad, 2);
+  giveItemsToActor(firstSpeaker, secondSpeaker, drugs.bandage, 4);
+  giveItemsToActor(firstSpeaker, secondSpeaker, drugs.medkit, 2);
+  giveItemsToActor(firstSpeaker, secondSpeaker, drugs.antirad, 2);
 }
 
 /**
  * todo;
  */
-export function zat_b7_rob_actor(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b7_rob_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   let amount = math.floor((registry.actor.money() * math.random(75, 100)) / 100);
 
   if (registry.actor.money() < amount) {
     amount = registry.actor.money();
   }
 
-  takeMoneyFromActor(first_speaker, second_speaker, amount);
+  transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), amount);
 }
 
 /**
  * todo;
  */
-export function zat_b7_killed_self_precond(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b7_killed_self_precond(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   if (
     hasAlifeInfo(infoPortions.zat_b7_stalkers_raiders_meet) ||
     hasAlifeInfo(infoPortions.zat_b7_victims_disappeared)
@@ -528,7 +521,7 @@ export function zat_b7_killed_self_precond(first_speaker: XR_game_object, second
 /**
  * todo;
  */
-export function zat_b7_squad_alive(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b7_squad_alive(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return isSquadExisting("zat_b7_stalkers_victims_1");
 }
 
@@ -537,7 +530,7 @@ export function zat_b7_squad_alive(first_speaker: XR_game_object, second_speaker
  */
 export function zat_b103_transfer_merc_supplies(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const npc: XR_game_object = getNpcSpeaker(firstSpeaker, secondSpeaker);
-  const actor: XR_game_object = getActorSpeaker(firstSpeaker, secondSpeaker);
+  const actor: XR_game_object = registry.actor;
   let it: TCount = 6;
 
   const newsManager: NotificationManager = NotificationManager.getInstance();
@@ -562,8 +555,8 @@ export function zat_b103_transfer_merc_supplies(firstSpeaker: XR_game_object, se
 /**
  * todo;
  */
-export function zat_b33_set_counter_10(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const actor = getActorSpeaker(first_speaker, second_speaker);
+export function zat_b33_set_counter_10(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  const actor = registry.actor;
 
   getExtern<AnyCallablesModule>("xr_effects").set_counter(actor, null, ["zat_b33_items", 10]);
 }
@@ -571,8 +564,8 @@ export function zat_b33_set_counter_10(first_speaker: XR_game_object, second_spe
 /**
  * todo;
  */
-export function zat_b33_counter_ge_2(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const actor = getActorSpeaker(first_speaker, second_speaker);
+export function zat_b33_counter_ge_2(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  const actor = registry.actor;
 
   return portableStoreGet(actor, "zat_b33_items", 0 as number) >= 2;
 }
@@ -580,8 +573,8 @@ export function zat_b33_counter_ge_2(first_speaker: XR_game_object, second_speak
 /**
  * todo;
  */
-export function zat_b33_counter_ge_4(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const actor = getActorSpeaker(first_speaker, second_speaker);
+export function zat_b33_counter_ge_4(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  const actor = registry.actor;
 
   return portableStoreGet(actor, "zat_b33_items", 0 as number) >= 4;
 }
@@ -589,8 +582,8 @@ export function zat_b33_counter_ge_4(first_speaker: XR_game_object, second_speak
 /**
  * todo;
  */
-export function zat_b33_counter_ge_8(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const actor = getActorSpeaker(first_speaker, second_speaker);
+export function zat_b33_counter_ge_8(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  const actor = registry.actor;
 
   return portableStoreGet(actor, "zat_b33_items", 0 as number) >= 8;
 }
@@ -598,29 +591,29 @@ export function zat_b33_counter_ge_8(first_speaker: XR_game_object, second_speak
 /**
  * todo;
  */
-export function zat_b33_counter_le_2(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !zat_b33_counter_ge_2(first_speaker, second_speaker);
+export function zat_b33_counter_le_2(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !zat_b33_counter_ge_2(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function zat_b33_counter_le_4(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !zat_b33_counter_ge_4(first_speaker, second_speaker);
+export function zat_b33_counter_le_4(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !zat_b33_counter_ge_4(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function zat_b33_counter_le_8(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !zat_b33_counter_ge_8(first_speaker, second_speaker);
+export function zat_b33_counter_le_8(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !zat_b33_counter_ge_8(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function zat_b33_counter_de_2(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const actor = getActorSpeaker(first_speaker, second_speaker);
+export function zat_b33_counter_de_2(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  const actor = registry.actor;
 
   return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, null, ["zat_b33_items", 2]);
 }
@@ -628,8 +621,8 @@ export function zat_b33_counter_de_2(first_speaker: XR_game_object, second_speak
 /**
  * todo;
  */
-export function zat_b33_counter_de_4(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const actor = getActorSpeaker(first_speaker, second_speaker);
+export function zat_b33_counter_de_4(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  const actor = registry.actor;
 
   return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, null, ["zat_b33_items", 4]);
 }
@@ -637,8 +630,8 @@ export function zat_b33_counter_de_4(first_speaker: XR_game_object, second_speak
 /**
  * todo;
  */
-export function zat_b33_counter_de_8(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const actor = getActorSpeaker(first_speaker, second_speaker);
+export function zat_b33_counter_de_8(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  const actor = registry.actor;
 
   return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, null, ["zat_b33_items", 8]);
 }
@@ -646,8 +639,8 @@ export function zat_b33_counter_de_8(first_speaker: XR_game_object, second_speak
 /**
  * todo;
  */
-export function zat_b33_counter_eq_10(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const actor = getActorSpeaker(first_speaker, second_speaker);
+export function zat_b33_counter_eq_10(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  const actor = registry.actor;
 
   return portableStoreGet(actor, "zat_b33_items", 0 as number) === 10;
 }
@@ -655,49 +648,45 @@ export function zat_b33_counter_eq_10(first_speaker: XR_game_object, second_spea
 /**
  * todo;
  */
-export function zat_b33_counter_ne_10(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !zat_b33_counter_eq_10(first_speaker, second_speaker);
+export function zat_b33_counter_ne_10(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !zat_b33_counter_eq_10(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function zat_b33_transfer_first_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  relocateQuestItemSection(
-    getActorSpeaker(first_speaker, second_speaker),
-    quest_items.wpn_fort_snag,
-    ENotificationDirection.IN
-  );
+export function zat_b33_transfer_first_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  relocateQuestItemSection(registry.actor, quest_items.wpn_fort_snag, ENotificationDirection.IN);
 }
 
 /**
  * todo;
  */
 export function zat_b103_transfer_mechanic_toolkit_2(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, misc.toolkit_2);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, misc.toolkit_2);
 }
 
 /**
  * todo;
  */
-export function check_npc_name_mechanics(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function check_npc_name_mechanics(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return (
-    !isNpcName(second_speaker, "mechanic") &&
-    !isNpcName(second_speaker, "zat_b103_lost_merc") &&
-    !isNpcName(second_speaker, "tech") &&
-    !isNpcName(second_speaker, "zulus") &&
-    isNpcName(second_speaker, "stalker")
+    !isObjectName(secondSpeaker, "mechanic") &&
+    !isObjectName(secondSpeaker, "zat_b103_lost_merc") &&
+    !isObjectName(secondSpeaker, "tech") &&
+    !isObjectName(secondSpeaker, "zulus") &&
+    isObjectName(secondSpeaker, "stalker")
   );
 }
 
 /**
  * todo;
  */
-export function zat_b33_transfer_second_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const actor = getActorSpeaker(first_speaker, second_speaker);
+export function zat_b33_transfer_second_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  const actor = registry.actor;
 
   relocateQuestItemSection(actor, drugs.medkit_scientic, ENotificationDirection.IN, 3);
   relocateQuestItemSection(actor, drugs.antirad, ENotificationDirection.IN, 3);
@@ -707,8 +696,8 @@ export function zat_b33_transfer_second_item(first_speaker: XR_game_object, seco
 /**
  * todo;
  */
-export function zat_b33_transfer_third_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const actor = getActorSpeaker(first_speaker, second_speaker);
+export function zat_b33_transfer_third_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  const actor = registry.actor;
 
   relocateQuestItemSection(actor, quest_items.wpn_ak74u_snag, ENotificationDirection.IN);
 }
@@ -716,8 +705,8 @@ export function zat_b33_transfer_third_item(first_speaker: XR_game_object, secon
 /**
  * todo;
  */
-export function zat_b33_transfer_fourth_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const actor = getActorSpeaker(first_speaker, second_speaker);
+export function zat_b33_transfer_fourth_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  const actor = registry.actor;
 
   relocateQuestItemSection(actor, artefacts.af_soul, ENotificationDirection.IN);
 }
@@ -725,8 +714,8 @@ export function zat_b33_transfer_fourth_item(first_speaker: XR_game_object, seco
 /**
  * todo;
  */
-export function zat_b33_transfer_fifth_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const actor = getActorSpeaker(first_speaker, second_speaker);
+export function zat_b33_transfer_fifth_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  const actor = registry.actor;
 
   relocateQuestItemSection(actor, quest_items.helm_hardhat_snag, ENotificationDirection.IN);
 }
@@ -734,9 +723,9 @@ export function zat_b33_transfer_fifth_item(first_speaker: XR_game_object, secon
 /**
  * todo;
  */
-export function zat_b33_transfer_safe_container(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b33_transfer_safe_container(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   relocateQuestItemSection(
-    getNpcSpeaker(first_speaker, second_speaker),
+    getNpcSpeaker(firstSpeaker, secondSpeaker),
     quest_items.zat_b33_safe_container,
     ENotificationDirection.OUT
   );
@@ -745,40 +734,37 @@ export function zat_b33_transfer_safe_container(first_speaker: XR_game_object, s
 /**
  * todo;
  */
-export function zat_b33_aractor_has_habar(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b33_aractor_has_habar(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.object(quest_items.zat_b33_safe_container) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b33_actor_hasnt_habar(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !zat_b33_aractor_has_habar(first_speaker, second_speaker);
+export function zat_b33_actor_hasnt_habar(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !zat_b33_aractor_has_habar(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function zat_b33_actor_has_needed_money(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b33_actor_has_needed_money(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.money() >= 500;
 }
 
 /**
  * todo;
  */
-export function zat_b33_actor_hasnt_needed_money(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
-  return !zat_b33_actor_has_needed_money(first_speaker, second_speaker);
+export function zat_b33_actor_hasnt_needed_money(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !zat_b33_actor_has_needed_money(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function zat_b33_relocate_money(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  if (zat_b33_actor_has_needed_money(first_speaker, second_speaker)) {
-    takeMoneyFromActor(first_speaker, second_speaker, 500);
+export function zat_b33_relocate_money(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  if (zat_b33_actor_has_needed_money(firstSpeaker, secondSpeaker)) {
+    transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 500);
   }
 }
 
@@ -841,7 +827,7 @@ export const zat_b29_infop_bring_table = {
 /**
  * todo;
  */
-export function zat_b29_create_af_in_anomaly(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b29_create_af_in_anomaly(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const anom_tbl: LuaArray<string> = {
     [16]: "gravi",
     [17]: "thermal",
@@ -895,7 +881,7 @@ export function zat_b29_create_af_in_anomaly(first_speaker: XR_game_object, seco
 /**
  * todo;
  */
-export function zat_b29_linker_give_adv_task(first_speaker: XR_game_object, second_speaker: XR_game_object): string {
+export function zat_b29_linker_give_adv_task(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): string {
   let result: string = "";
   let f_first: boolean = true;
 
@@ -918,8 +904,8 @@ export function zat_b29_linker_give_adv_task(first_speaker: XR_game_object, seco
  * todo;
  */
 export function zat_b29_actor_do_not_has_adv_task_af(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   for (const i of $range(16, 23)) {
     if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && registry.actor.object(zat_b29_af_table.get(i))) {
@@ -933,7 +919,7 @@ export function zat_b29_actor_do_not_has_adv_task_af(
 /**
  * todo;
  */
-export function zat_b29_actor_has_adv_task_af(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b29_actor_has_adv_task_af(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   for (const i of $range(16, 23)) {
     if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && registry.actor.object(zat_b29_af_table.get(i))) {
       return true;
@@ -946,11 +932,11 @@ export function zat_b29_actor_has_adv_task_af(first_speaker: XR_game_object, sec
 /**
  * todo;
  */
-export function zat_b29_linker_get_adv_task_af(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b29_linker_get_adv_task_af(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   for (const i of $range(16, 23)) {
     if (hasAlifeInfo(zat_b29_infop_bring_table.get(i))) {
       disableInfo("zat_b29_adv_task_given");
-      takeItemsFromActor(first_speaker, second_speaker, zat_b29_af_table.get(i));
+      takeItemsFromActor(firstSpeaker, secondSpeaker, zat_b29_af_table.get(i));
       if (i < 20) {
         if (hasAlifeInfo("zat_b29_linker_take_af_from_rival")) {
           giveMoneyToActor(12000);
@@ -1001,10 +987,7 @@ export function getGoodGunsInInventory(object: XR_game_object): LuaArray<TWeapon
 /**
  * todo;
  */
-export function zat_b29_actor_has_exchange_item(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
+export function zat_b29_actor_has_exchange_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const actor: XR_game_object = registry.actor;
   const actor_wpn_table = getGoodGunsInInventory(actor);
 
@@ -1018,14 +1001,14 @@ export function zat_b29_actor_has_exchange_item(
 /**
  * todo;
  */
-export function zat_b29_actor_exchange(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b29_actor_exchange(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const actor: XR_game_object = registry.actor;
 
   for (const i of $range(16, 23)) {
     if (hasAlifeInfo(zat_b29_infop_bring_table.get(i))) {
       if ((actor as AnyObject).good_gun !== null) {
-        takeItemsFromActor(first_speaker, second_speaker, (actor as AnyObject).good_gun);
-        giveItemsToActor(first_speaker, second_speaker, zat_b29_af_table.get(i));
+        takeItemsFromActor(firstSpeaker, secondSpeaker, (actor as AnyObject).good_gun);
+        giveItemsToActor(firstSpeaker, secondSpeaker, zat_b29_af_table.get(i));
 
         (actor as AnyObject).good_gun = null;
         break;
@@ -1037,7 +1020,7 @@ export function zat_b29_actor_exchange(first_speaker: XR_game_object, second_spe
 /**
  * todo;
  */
-export function zat_b30_transfer_percent(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b30_transfer_percent(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const actor: XR_game_object = registry.actor;
   const amount: number = math.random(5, 25) * 100;
   const days: number = portableStoreGet(actor, "zat_b30_days_cnt", 0);
@@ -1049,32 +1032,32 @@ export function zat_b30_transfer_percent(first_speaker: XR_game_object, second_s
 /**
  * todo;
  */
-export function zat_b30_npc_has_detector(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return npcHasItem(getNpcSpeaker(first_speaker, second_speaker), detectors.detector_scientific);
+export function zat_b30_npc_has_detector(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return npcHasItem(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_scientific);
 }
 
 /**
  * todo;
  */
-export function zat_b30_actor_second_exchange(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, detectors.detector_scientific);
+export function zat_b30_actor_second_exchange(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(firstSpeaker, secondSpeaker, detectors.detector_scientific);
 }
 
 /**
  * todo;
  */
-export function zat_b30_actor_exchange(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b30_actor_exchange(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const actor: XR_game_object = registry.actor;
 
   if ((actor as AnyObject).good_gun !== null) {
-    takeItemsFromActor(first_speaker, second_speaker, (actor as AnyObject).good_gun);
-    giveItemsToActor(first_speaker, second_speaker, detectors.detector_scientific);
+    takeItemsFromActor(firstSpeaker, secondSpeaker, (actor as AnyObject).good_gun);
+    giveItemsToActor(firstSpeaker, secondSpeaker, detectors.detector_scientific);
     (actor as AnyObject).good_gun = null;
   }
 
-  if (isNpcName(second_speaker, "zat_b29_stalker_rival_1")) {
+  if (isObjectName(secondSpeaker, "zat_b29_stalker_rival_1")) {
     giveInfo(infoPortions.zat_b30_rival_1_wo_detector);
-  } else if (isNpcName(second_speaker, "zat_b29_stalker_rival_2")) {
+  } else if (isObjectName(secondSpeaker, "zat_b29_stalker_rival_2")) {
     giveInfo(infoPortions.zat_b30_rival_2_wo_detector);
   }
 }
@@ -1082,10 +1065,7 @@ export function zat_b30_actor_exchange(first_speaker: XR_game_object, second_spe
 /**
  * todo;
  */
-export function zat_b30_actor_has_two_detectors(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
+export function zat_b30_actor_has_two_detectors(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const actor: XR_game_object = registry.actor;
   let cnt: number = 0;
 
@@ -1101,7 +1081,7 @@ export function zat_b30_actor_has_two_detectors(
 /**
  * todo;
  */
-export function actor_has_nimble_weapon(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function actor_has_nimble_weapon(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return actorHasAtLeastOneItem([
     weapons.wpn_groza_nimble,
     weapons.wpn_vintorez_nimble,
@@ -1120,7 +1100,7 @@ export function actor_has_nimble_weapon(first_speaker: XR_game_object, second_sp
 /**
  * todo;
  */
-export function zat_b51_robbery(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b51_robbery(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const actor: XR_game_object = registry.actor;
   let amount: number = math.floor((actor.money() * math.random(35, 50)) / 100);
 
@@ -1161,17 +1141,17 @@ export function zat_b51_robbery(first_speaker: XR_game_object, second_speaker: X
 
   for (const k of need_item) {
     if (actor.object(k) !== null) {
-      takeItemsFromActor(first_speaker, second_speaker, k, "all");
+      takeItemsFromActor(firstSpeaker, secondSpeaker, k, "all");
     }
   }
 
-  takeMoneyFromActor(first_speaker, second_speaker, amount);
+  transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), amount);
 }
 
 /**
  * todo;
  */
-export function zat_b51_rob_nimble_weapon(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b51_rob_nimble_weapon(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const actor: XR_game_object = registry.actor;
   const actor_has_item: LuaArray<TWeapon> = new LuaTable();
   const need_item = {
@@ -1195,26 +1175,26 @@ export function zat_b51_rob_nimble_weapon(first_speaker: XR_game_object, second_
     }
 
     if (actor.item_in_slot(2) !== null && actor.item_in_slot(2)!.section() === k) {
-      takeItemsFromActor(first_speaker, second_speaker, k);
+      takeItemsFromActor(firstSpeaker, secondSpeaker, k);
 
       return;
     } else if (actor.item_in_slot(3) !== null && actor.item_in_slot(3)!.section() === k) {
-      takeItemsFromActor(first_speaker, second_speaker, k);
+      takeItemsFromActor(firstSpeaker, secondSpeaker, k);
 
       return;
     }
   }
 
   if (actor_has_item.length() > 0) {
-    takeItemsFromActor(first_speaker, second_speaker, actor_has_item.get(math.random(1, actor_has_item.length())));
+    takeItemsFromActor(firstSpeaker, secondSpeaker, actor_has_item.get(math.random(1, actor_has_item.length())));
   }
 }
 
 /**
  * todo;
  */
-export function give_compass_to_actor(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, artefacts.af_compass);
+export function give_compass_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(firstSpeaker, secondSpeaker, artefacts.af_compass);
 }
 
 const item_count_by_category = [3, 3, 3, 3, 1, 1, 1] as unknown as LuaArray<number>;
@@ -1246,7 +1226,7 @@ const zat_b51_buy_item_table = [
 /**
  * todo;
  */
-export function zat_b51_randomize_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b51_randomize_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   for (const it of $range(1, 7)) {
     if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
       const zat_b51_available_items_table: LuaArray<TCount> = new LuaTable();
@@ -1272,14 +1252,20 @@ export function zat_b51_randomize_item(first_speaker: XR_game_object, second_spe
 /**
  * todo;
  */
-export function zat_b51_give_prepay(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b51_give_prepay(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   for (const it of $range(1, 7)) {
     if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
       if (!hasAlifeInfo(infoPortions.zat_b51_order_refused)) {
-        return takeMoneyFromActor(first_speaker, second_speaker, zat_b51_costs_table.get(it).prepay_agreed);
+        return transferMoneyFromActor(
+          getNpcSpeaker(firstSpeaker, secondSpeaker),
+          zat_b51_costs_table.get(it).prepay_agreed
+        );
       }
 
-      return takeMoneyFromActor(first_speaker, second_speaker, zat_b51_costs_table.get(it).prepay_refused);
+      return transferMoneyFromActor(
+        getNpcSpeaker(firstSpeaker, secondSpeaker),
+        zat_b51_costs_table.get(it).prepay_refused
+      );
     }
   }
 }
@@ -1287,7 +1273,7 @@ export function zat_b51_give_prepay(first_speaker: XR_game_object, second_speake
 /**
  * todo;
  */
-export function zat_b51_has_prepay(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b51_has_prepay(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const actor: XR_game_object = registry.actor;
 
   for (const it of $range(1, 7)) {
@@ -1306,23 +1292,23 @@ export function zat_b51_has_prepay(first_speaker: XR_game_object, second_speaker
 /**
  * todo;
  */
-export function zat_b51_hasnt_prepay(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !zat_b51_has_prepay(first_speaker, second_speaker);
+export function zat_b51_hasnt_prepay(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !zat_b51_has_prepay(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function zat_b51_buy_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b51_buy_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   for (const it of $range(1, 7)) {
     if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
       for (const j of $range(1, zat_b51_buy_item_table.get(it).length())) {
         if (hasAlifeInfo(("zat_b51_ordered_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion)) {
           for (const [k, v] of zat_b51_buy_item_table.get(it).get(j).item) {
-            giveItemsToActor(first_speaker, second_speaker, v);
+            giveItemsToActor(firstSpeaker, secondSpeaker, v);
           }
 
-          takeMoneyFromActor(first_speaker, second_speaker, zat_b51_costs_table.get(it).cost);
+          transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zat_b51_costs_table.get(it).cost);
           disableInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion);
           disableInfo(("zat_b51_ordered_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion);
           giveInfo(("zat_b51_done_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion);
@@ -1351,7 +1337,7 @@ export function zat_b51_buy_item(first_speaker: XR_game_object, second_speaker: 
 /**
  * todo;
  */
-export function zat_b51_refuse_item(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b51_refuse_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   for (const i of $range(1, 7)) {
     if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(i)) as TInfoPortion)) {
       for (const j of $range(1, zat_b51_buy_item_table.get(i).length())) {
@@ -1384,7 +1370,7 @@ export function zat_b51_refuse_item(first_speaker: XR_game_object, second_speake
 /**
  * todo;
  */
-export function zat_b51_has_item_cost(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b51_has_item_cost(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const actor: XR_game_object = registry.actor;
 
   for (const i of $range(1, 7)) {
@@ -1399,25 +1385,22 @@ export function zat_b51_has_item_cost(first_speaker: XR_game_object, second_spea
 /**
  * todo;
  */
-export function zat_b51_hasnt_item_cost(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !zat_b51_has_item_cost(first_speaker, second_speaker);
+export function zat_b51_hasnt_item_cost(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !zat_b51_has_item_cost(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function zat_b12_actor_have_documents(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b12_actor_have_documents(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return actorHasAtLeastOneItem([quest_items.zat_b12_documents_1, quest_items.zat_b12_documents_2]);
 }
 
 /**
  * todo;
  */
-export function zat_b12_actor_transfer_documents(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
-  const npc: XR_game_object = getNpcSpeaker(first_speaker, second_speaker);
+export function zat_b12_actor_transfer_documents(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  const npc: XR_game_object = getNpcSpeaker(firstSpeaker, secondSpeaker);
   const actor: XR_game_object = registry.actor;
 
   const amount_doc1: TCount = 1000;
@@ -1429,7 +1412,7 @@ export function zat_b12_actor_transfer_documents(
   let cnt2: TCount = 0;
 
   if (actor.object(quest_items.zat_b12_documents_1) !== null) {
-    takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b12_documents_1);
+    takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b12_documents_1);
     giveInfo(infoPortions.zat_b12_documents_sold_1);
     amount_total = amount_total + amount_doc1;
   }
@@ -1459,7 +1442,7 @@ export function zat_b12_actor_transfer_documents(
       giveInfo(infoPortions.zat_b12_documents_sold_3);
     }
 
-    takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b12_documents_2, cnt2);
+    takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b12_documents_2, cnt2);
   }
 
   giveMoneyToActor(amount_total);
@@ -1470,7 +1453,7 @@ export function zat_b12_actor_transfer_documents(
 /**
  * todo;
  */
-export function zat_b3_actor_got_toolkit(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b3_actor_got_toolkit(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const actor: XR_game_object = registry.actor;
 
   actor.iterate_inventory((npc: XR_game_object, item: XR_game_object) => {
@@ -1493,8 +1476,8 @@ export function zat_b3_actor_got_toolkit(first_speaker: XR_game_object, second_s
 /**
  * todo;
  */
-export function give_toolkit_3(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, misc.toolkit_3);
+export function give_toolkit_3(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, misc.toolkit_3);
   (registry.actor as AnyObject).toolkit = null;
   giveMoneyToActor(1500);
 }
@@ -1502,8 +1485,8 @@ export function give_toolkit_3(first_speaker: XR_game_object, second_speaker: XR
 /**
  * todo;
  */
-export function give_toolkit_1(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, misc.toolkit_1);
+export function give_toolkit_1(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, misc.toolkit_1);
   (registry.actor as AnyObject).toolkit = null;
   giveMoneyToActor(1000);
 }
@@ -1511,15 +1494,15 @@ export function give_toolkit_1(first_speaker: XR_game_object, second_speaker: XR
 /**
  * todo;
  */
-export function if_actor_has_toolkit_1(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function if_actor_has_toolkit_1(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.object(misc.toolkit_1) !== null;
 }
 
 /**
  * todo;
  */
-export function give_toolkit_2(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, misc.toolkit_2);
+export function give_toolkit_2(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, misc.toolkit_2);
   (registry.actor as AnyObject).toolkit = null;
   giveMoneyToActor(1200);
 }
@@ -1527,15 +1510,15 @@ export function give_toolkit_2(first_speaker: XR_game_object, second_speaker: XR
 /**
  * todo;
  */
-export function if_actor_has_toolkit_2(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function if_actor_has_toolkit_2(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.object(misc.toolkit_2) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b215_counter_greater_3(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const actor: XR_game_object = getActorSpeaker(first_speaker, second_speaker);
+export function zat_b215_counter_greater_3(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  const actor: XR_game_object = registry.actor;
 
   return portableStoreGet(actor, "zat_a9_way_to_pripyat_counter", 0 as number) > 3;
 }
@@ -1543,8 +1526,8 @@ export function zat_b215_counter_greater_3(first_speaker: XR_game_object, second
 /**
  * todo;
  */
-export function zat_b40_transfer_notebook(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b40_notebook);
+export function zat_b40_transfer_notebook(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b40_notebook);
   giveInfo(infoPortions.zat_b40_notebook_saled);
   giveMoneyToActor(2000);
 }
@@ -1552,8 +1535,8 @@ export function zat_b40_transfer_notebook(first_speaker: XR_game_object, second_
 /**
  * todo;
  */
-export function zat_b40_transfer_merc_pda_1(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b40_pda_1);
+export function zat_b40_transfer_merc_pda_1(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b40_pda_1);
   giveInfo(infoPortions.zat_b40_pda_1_saled);
   giveMoneyToActor(1000);
 
@@ -1569,8 +1552,8 @@ export function zat_b40_transfer_merc_pda_1(first_speaker: XR_game_object, secon
 /**
  * todo;
  */
-export function zat_b40_transfer_merc_pda_2(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b40_pda_2);
+export function zat_b40_transfer_merc_pda_2(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b40_pda_2);
   giveInfo(infoPortions.zat_b40_pda_2_saled);
   giveMoneyToActor(1_000);
 
@@ -1587,8 +1570,8 @@ export function zat_b40_transfer_merc_pda_2(first_speaker: XR_game_object, secon
  * todo;
  */
 export function zat_b29_actor_do_not_has_adv_task_af_1(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(16)) && !registry.actor.object(zat_b29_af_table.get(16));
 }
@@ -1597,8 +1580,8 @@ export function zat_b29_actor_do_not_has_adv_task_af_1(
  * todo;
  */
 export function zat_b29_actor_do_not_has_adv_task_af_2(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(17)) && !registry.actor.object(zat_b29_af_table.get(17));
 }
@@ -1607,8 +1590,8 @@ export function zat_b29_actor_do_not_has_adv_task_af_2(
  * todo;
  */
 export function zat_b29_actor_do_not_has_adv_task_af_3(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(18)) && !registry.actor.object(zat_b29_af_table.get(18));
 }
@@ -1617,8 +1600,8 @@ export function zat_b29_actor_do_not_has_adv_task_af_3(
  * todo;
  */
 export function zat_b29_actor_do_not_has_adv_task_af_4(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(19)) && !registry.actor.object(zat_b29_af_table.get(19));
 }
@@ -1627,8 +1610,8 @@ export function zat_b29_actor_do_not_has_adv_task_af_4(
  * todo;
  */
 export function zat_b29_actor_do_not_has_adv_task_af_5(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(20)) && !registry.actor.object(zat_b29_af_table.get(20));
 }
@@ -1637,8 +1620,8 @@ export function zat_b29_actor_do_not_has_adv_task_af_5(
  * todo;
  */
 export function zat_b29_actor_do_not_has_adv_task_af_6(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(21)) && !registry.actor.object(zat_b29_af_table.get(21));
 }
@@ -1647,8 +1630,8 @@ export function zat_b29_actor_do_not_has_adv_task_af_6(
  * todo;
  */
 export function zat_b29_actor_do_not_has_adv_task_af_7(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(22)) && !registry.actor.object(zat_b29_af_table.get(22));
 }
@@ -1657,8 +1640,8 @@ export function zat_b29_actor_do_not_has_adv_task_af_7(
  * todo;
  */
 export function zat_b29_actor_do_not_has_adv_task_af_8(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(23)) && !registry.actor.object(zat_b29_af_table.get(23));
 }
@@ -1666,112 +1649,85 @@ export function zat_b29_actor_do_not_has_adv_task_af_8(
 /**
  * todo;
  */
-export function zat_b29_actor_has_adv_task_af_1(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
+export function zat_b29_actor_has_adv_task_af_1(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(16)) && registry.actor.object(zat_b29_af_table.get(16)) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b29_actor_has_adv_task_af_2(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
+export function zat_b29_actor_has_adv_task_af_2(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(17)) && registry.actor.object(zat_b29_af_table.get(17)) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b29_actor_has_adv_task_af_3(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
+export function zat_b29_actor_has_adv_task_af_3(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(18)) && registry.actor.object(zat_b29_af_table.get(18)) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b29_actor_has_adv_task_af_4(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
+export function zat_b29_actor_has_adv_task_af_4(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(19)) && registry.actor.object(zat_b29_af_table.get(19)) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b29_actor_has_adv_task_af_5(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
+export function zat_b29_actor_has_adv_task_af_5(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(20)) && registry.actor.object(zat_b29_af_table.get(20)) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b29_actor_has_adv_task_af_6(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
+export function zat_b29_actor_has_adv_task_af_6(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(21)) && registry.actor.object(zat_b29_af_table.get(21)) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b29_actor_has_adv_task_af_7(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
+export function zat_b29_actor_has_adv_task_af_7(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(22)) && registry.actor.object(zat_b29_af_table.get(22)) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b29_actor_has_adv_task_af_8(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
+export function zat_b29_actor_has_adv_task_af_8(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return hasAlifeInfo(zat_b29_infop_table.get(23)) && registry.actor.object(zat_b29_af_table.get(23)) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b30_transfer_detector_to_actor(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): void {
-  giveItemsToActor(first_speaker, second_speaker, detectors.detector_scientific);
+export function zat_b30_transfer_detector_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(firstSpeaker, secondSpeaker, detectors.detector_scientific);
 }
 
 /**
  * todo;
  */
-export function zat_b30_give_owls_share_to_actor(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b30_give_owls_share_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   giveMoneyToActor(1_500);
 }
 
 /**
  * todo;
  */
-export function zat_b30_actor_has_compass(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b30_actor_has_compass(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.object(artefacts.af_compass) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b30_transfer_af_from_actor(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, artefacts.af_compass);
+export function zat_b30_transfer_af_from_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, artefacts.af_compass);
   giveMoneyToActor(10_000);
 
   const treasureManager: TreasureManager = TreasureManager.getInstance();
@@ -1783,8 +1739,8 @@ export function zat_b30_transfer_af_from_actor(first_speaker: XR_game_object, se
 /**
  * todo;
  */
-export function zat_b30_barmen_has_percent(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const actor = getActorSpeaker(first_speaker, second_speaker);
+export function zat_b30_barmen_has_percent(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  const actor = registry.actor;
   const cnt = portableStoreGet(actor, "zat_b30_days_cnt", 0);
 
   return cnt > 0;
@@ -1794,10 +1750,10 @@ export function zat_b30_barmen_has_percent(first_speaker: XR_game_object, second
  * todo;
  */
 export function zat_b30_barmen_do_not_has_percent(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
-  const actor = getActorSpeaker(first_speaker, second_speaker);
+  const actor = registry.actor;
   const cnt = portableStoreGet(actor, "zat_b30_days_cnt", 0);
 
   return cnt < 1;
@@ -1806,57 +1762,57 @@ export function zat_b30_barmen_do_not_has_percent(
 /**
  * todo;
  */
-export function zat_b30_actor_has_noah_pda(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b30_actor_has_noah_pda(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.object(quest_items.zat_b20_noah_pda) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b30_sell_noah_pda(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b20_noah_pda);
+export function zat_b30_sell_noah_pda(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b20_noah_pda);
   giveMoneyToActor(1000);
 }
 
 /**
  * todo;
  */
-export function zat_b40_actor_has_notebook(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b40_actor_has_notebook(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.object(quest_items.zat_b40_notebook) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b40_actor_has_merc_pda_1(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b40_actor_has_merc_pda_1(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.object(quest_items.zat_b40_pda_1) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b40_actor_has_merc_pda_2(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b40_actor_has_merc_pda_2(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.object(quest_items.zat_b40_pda_2) !== null;
 }
 
 /**
  * todo;
  */
-export function if_actor_has_toolkit_3(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function if_actor_has_toolkit_3(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.object(misc.toolkit_3) !== null;
 }
 
 /**
  * todo;
  */
-export function give_vodka(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, food.vodka);
+export function give_vodka(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, food.vodka);
 }
 
 /**
  * todo;
  */
-export function if_actor_has_vodka(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function if_actor_has_vodka(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.object(food.vodka) !== null;
 }
 
@@ -1864,8 +1820,8 @@ export function if_actor_has_vodka(first_speaker: XR_game_object, second_speaker
  * todo;
  */
 export function actor_has_more_then_need_money_to_buy_battery(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.money() >= 2000;
 }
@@ -1874,8 +1830,8 @@ export function actor_has_more_then_need_money_to_buy_battery(
  * todo;
  */
 export function actor_has_less_then_need_money_to_buy_battery(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.money() < 2000;
 }
@@ -1883,86 +1839,80 @@ export function actor_has_less_then_need_money_to_buy_battery(
 /**
  * todo;
  */
-export function relocate_need_money_to_buy_battery(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): void {
-  takeMoneyFromActor(first_speaker, second_speaker, 2000);
+export function relocate_need_money_to_buy_battery(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 2000);
 }
 
 /**
  * todo;
  */
-export function give_actor_battery(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, ammo.ammo_gauss_cardan);
+export function give_actor_battery(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(firstSpeaker, secondSpeaker, ammo.ammo_gauss_cardan);
 }
 
 /**
  * todo;
  */
-export function give_actor_zat_a23_access_card(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, quest_items.zat_a23_access_card);
+export function give_actor_zat_a23_access_card(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(firstSpeaker, secondSpeaker, quest_items.zat_a23_access_card);
 }
 
 /**
  * todo;
  */
-export function give_zat_a23_gauss_rifle_docs(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_a23_gauss_rifle_docs);
+export function give_zat_a23_gauss_rifle_docs(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_a23_gauss_rifle_docs);
 }
 
 /**
  * todo;
  */
-export function return_zat_a23_gauss_rifle_docs(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, quest_items.zat_a23_gauss_rifle_docs);
+export function return_zat_a23_gauss_rifle_docs(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(firstSpeaker, secondSpeaker, quest_items.zat_a23_gauss_rifle_docs);
 }
 
 /**
  * todo;
  */
 export function if_actor_has_zat_a23_gauss_rifle_docs(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
-  return first_speaker.object(quest_items.zat_a23_gauss_rifle_docs) !== null;
+  return firstSpeaker.object(quest_items.zat_a23_gauss_rifle_docs) !== null;
 }
 
 /**
  * todo;
  */
-export function if_actor_has_gauss_rifle(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return first_speaker.object(quest_items.pri_a17_gauss_rifle) !== null;
+export function if_actor_has_gauss_rifle(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return firstSpeaker.object(quest_items.pri_a17_gauss_rifle) !== null;
 }
 
 /**
  * todo;
  */
-export function give_tech_gauss_rifle(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.pri_a17_gauss_rifle);
+export function give_tech_gauss_rifle(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.pri_a17_gauss_rifle);
 }
 
 /**
  * todo;
  */
-export function give_actor_repaired_gauss_rifle(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, weapons.wpn_gauss);
+export function give_actor_repaired_gauss_rifle(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(firstSpeaker, secondSpeaker, weapons.wpn_gauss);
 }
 
 /**
  * todo;
  */
-export function zat_b215_actor_has_money_poor(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b215_actor_has_money_poor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.money() >= 1000;
 }
 
 /**
  * todo;
  */
-export function zat_b215_actor_has_no_money_poor(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
+export function zat_b215_actor_has_no_money_poor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.money() < 1000;
 }
 
@@ -1970,8 +1920,8 @@ export function zat_b215_actor_has_no_money_poor(
  * todo;
  */
 export function zat_b215_actor_has_money_poor_pripyat(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.money() >= 4000;
 }
@@ -1980,8 +1930,8 @@ export function zat_b215_actor_has_money_poor_pripyat(
  * todo;
  */
 export function zat_b215_actor_has_no_money_poor_pripyat(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.money() < 4000;
 }
@@ -1989,17 +1939,14 @@ export function zat_b215_actor_has_no_money_poor_pripyat(
 /**
  * todo;
  */
-export function zat_b215_actor_has_money_rich(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b215_actor_has_money_rich(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.money() >= 3000;
 }
 
 /**
  * todo;
  */
-export function zat_b215_actor_has_no_money_rich(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
+export function zat_b215_actor_has_no_money_rich(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.money() < 3000;
 }
 
@@ -2007,8 +1954,8 @@ export function zat_b215_actor_has_no_money_rich(
  * todo;
  */
 export function zat_b215_actor_has_money_rich_pripyat(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.money() >= 6000;
 }
@@ -2017,8 +1964,8 @@ export function zat_b215_actor_has_money_rich_pripyat(
  * todo;
  */
 export function zat_b215_actor_has_no_money_rich_pripyat(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return registry.actor.money() < 6000;
 }
@@ -2026,41 +1973,41 @@ export function zat_b215_actor_has_no_money_rich_pripyat(
 /**
  * todo;
  */
-export function zat_b215_relocate_money_poor(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeMoneyFromActor(first_speaker, second_speaker, 1000);
+export function zat_b215_relocate_money_poor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 1000);
 }
 
 /**
  * todo;
  */
 export function zat_b215_relocate_money_poor_pripyat(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeMoneyFromActor(first_speaker, second_speaker, 4000);
+  transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 4000);
 }
 
 /**
  * todo;
  */
-export function zat_b215_relocate_money_rich(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeMoneyFromActor(first_speaker, second_speaker, 3000);
+export function zat_b215_relocate_money_rich(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 3000);
 }
 
 /**
  * todo;
  */
 export function zat_b215_relocate_money_rich_pripyat(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeMoneyFromActor(first_speaker, second_speaker, 6000);
+  transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 6000);
 }
 
 /**
  * todo;
  */
-export function zat_b44_actor_has_pda_global(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b44_actor_has_pda_global(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return (
     registry.actor.object(quest_items.zat_b39_joker_pda) !== null ||
     registry.actor.object(quest_items.zat_b44_barge_pda) !== null
@@ -2070,10 +2017,7 @@ export function zat_b44_actor_has_pda_global(first_speaker: XR_game_object, seco
 /**
  * todo;
  */
-export function zat_b44_actor_has_not_pda_global(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): boolean {
+export function zat_b44_actor_has_not_pda_global(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return (
     registry.actor.object(quest_items.zat_b39_joker_pda) === null ||
     registry.actor.object(quest_items.zat_b44_barge_pda) === null
@@ -2083,21 +2027,21 @@ export function zat_b44_actor_has_not_pda_global(
 /**
  * todo;
  */
-export function zat_b44_actor_has_pda_barge(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b44_actor_has_pda_barge(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.object(quest_items.zat_b44_barge_pda) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b44_actor_has_pda_joker(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b44_actor_has_pda_joker(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.object(quest_items.zat_b39_joker_pda) !== null;
 }
 
 /**
  * todo;
  */
-export function zat_b44_actor_has_pda_both(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b44_actor_has_pda_both(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return (
     registry.actor.object(quest_items.zat_b39_joker_pda) !== null &&
     registry.actor.object(quest_items.zat_b44_barge_pda) !== null
@@ -2107,32 +2051,32 @@ export function zat_b44_actor_has_pda_both(first_speaker: XR_game_object, second
 /**
  * todo;
  */
-export function zat_b44_transfer_pda_barge(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b44_barge_pda);
+export function zat_b44_transfer_pda_barge(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b44_barge_pda);
 }
 
 /**
  * todo;
  */
-export function zat_b44_transfer_pda_joker(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b39_joker_pda);
+export function zat_b44_transfer_pda_joker(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b39_joker_pda);
 }
 
 /**
  * todo;
  */
-export function zat_b44_transfer_pda_both(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b44_barge_pda);
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b39_joker_pda);
+export function zat_b44_transfer_pda_both(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b44_barge_pda);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b39_joker_pda);
 }
 
 /**
  * todo;
  */
-export function zat_b44_frends_dialog_enabled(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b44_frends_dialog_enabled(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const a =
     hasAlifeInfo(infoPortions.zat_b3_tech_have_couple_dose) && hasAlifeInfo(infoPortions.zat_b3_tech_discount_1);
-  const b = zat_b44_actor_has_pda_global(first_speaker, second_speaker);
+  const b = zat_b44_actor_has_pda_global(firstSpeaker, secondSpeaker);
 
   return a || b;
 }
@@ -2141,8 +2085,8 @@ export function zat_b44_frends_dialog_enabled(first_speaker: XR_game_object, sec
  * todo;
  */
 export function zat_b53_if_actor_has_detector_advanced(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
   return (
     actorHasItem(detectors.detector_advanced) ||
@@ -2154,7 +2098,7 @@ export function zat_b53_if_actor_has_detector_advanced(
 /**
  * todo;
  */
-export function zat_b53_transfer_medkit_to_npc(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b53_transfer_medkit_to_npc(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   let section: Optional<TDrugItem> = null;
   const actor: XR_game_object = registry.actor;
 
@@ -2178,7 +2122,7 @@ export function zat_b53_transfer_medkit_to_npc(first_speaker: XR_game_object, se
 /**
  * todo;
  */
-export function is_zat_b106_hunting_time(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function is_zat_b106_hunting_time(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   if (level.get_time_hours() >= 2 && level.get_time_hours() < 5) {
     if (level.get_time_hours() > 2) {
       return true;
@@ -2193,7 +2137,7 @@ export function is_zat_b106_hunting_time(first_speaker: XR_game_object, second_s
 /**
  * todo;
  */
-export function is_not_zat_b106_hunting_time(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function is_not_zat_b106_hunting_time(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   if (level.get_time_hours() >= 2 && level.get_time_hours() < 5) {
     if (level.get_time_hours() > 2) {
       return false;
@@ -2209,43 +2153,40 @@ export function is_not_zat_b106_hunting_time(first_speaker: XR_game_object, seco
  * todo;
  */
 export function zat_b53_if_actor_hasnt_detector_advanced(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): boolean {
-  return !zat_b53_if_actor_has_detector_advanced(first_speaker, second_speaker);
+  return !zat_b53_if_actor_has_detector_advanced(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
 export function zat_b53_transfer_detector_advanced_to_actor(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  giveItemsToActor(second_speaker, first_speaker, detectors.detector_advanced);
+  giveItemsToActor(secondSpeaker, firstSpeaker, detectors.detector_advanced);
 }
 
 /**
  * todo;
  */
-export function zat_b53_transfer_fireball_to_actor(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
-): void {
-  giveItemsToActor(second_speaker, first_speaker, artefacts.af_fireball);
+export function zat_b53_transfer_fireball_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(secondSpeaker, firstSpeaker, artefacts.af_fireball);
 }
 
 /**
  * todo;
  */
-export function zat_b53_transfer_medkit_to_actor(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(second_speaker, first_speaker, drugs.medkit);
+export function zat_b53_transfer_medkit_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(secondSpeaker, firstSpeaker, drugs.medkit);
 }
 
 /**
  * todo;
  */
-export function zat_b106_soroka_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b106_soroka_reward(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   if (
     hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_duty) ||
     hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_freedom)
@@ -2259,7 +2200,7 @@ export function zat_b106_soroka_reward(first_speaker: XR_game_object, second_spe
 /**
  * todo;
  */
-export function zat_b103_actor_has_needed_food(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b103_actor_has_needed_food(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const actor: XR_game_object = registry.actor;
   const item_sections = [food.bread, food.kolbasa, food.conserva] as unknown as LuaArray<TFoodItem>;
 
@@ -2279,21 +2220,21 @@ export function zat_b103_actor_has_needed_food(first_speaker: XR_game_object, se
 /**
  * todo;
  */
-export function zat_b106_transfer_weap_to_actor(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, weapons.wpn_spas12);
+export function zat_b106_transfer_weap_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  giveItemsToActor(firstSpeaker, secondSpeaker, weapons.wpn_spas12);
 }
 
 /**
  * todo;
  */
-export function zat_b106_give_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b106_give_reward(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_50);
 }
 
 /**
  * todo;
  */
-export function zat_b3_tech_drinks_precond(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b3_tech_drinks_precond(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   if (hasAlifeInfo(infoPortions.zat_b3_gauss_repaired) && !hasAlifeInfo(infoPortions.zat_b3_tech_drink_no_more)) {
     return true;
   } else if (!hasAlifeInfo(infoPortions.zat_b3_tech_see_produce_62)) {
@@ -2306,7 +2247,7 @@ export function zat_b3_tech_drinks_precond(first_speaker: XR_game_object, second
 /**
  * todo;
  */
-export function zat_b106_soroka_gone(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b106_soroka_gone(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return (
     hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_duty) ||
     hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_freedom)
@@ -2316,28 +2257,28 @@ export function zat_b106_soroka_gone(first_speaker: XR_game_object, second_speak
 /**
  * todo;
  */
-export function zat_b106_soroka_not_gone(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !zat_b106_soroka_gone(first_speaker, second_speaker);
+export function zat_b106_soroka_not_gone(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !zat_b106_soroka_gone(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function zat_b22_actor_has_proof(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b22_actor_has_proof(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return actorHasItem(infoPortions.zat_b22_medic_pda);
 }
 
 /**
  * todo;
  */
-export function zat_b22_transfer_proof(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, infoPortions.zat_b22_medic_pda);
+export function zat_b22_transfer_proof(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  takeItemsFromActor(firstSpeaker, secondSpeaker, infoPortions.zat_b22_medic_pda);
 }
 
 /**
  * todo;
  */
-export function zat_b5_stalker_transfer_money(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b5_stalker_transfer_money(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   giveMoneyToActor(2500);
   TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_7);
 }
@@ -2345,21 +2286,21 @@ export function zat_b5_stalker_transfer_money(first_speaker: XR_game_object, sec
 /**
  * todo;
  */
-export function zat_b5_dealer_full_revard(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b5_dealer_full_revard(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   giveMoneyToActor(6_000);
 }
 
 /**
  * todo;
  */
-export function zat_b5_dealer_easy_revard(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b5_dealer_easy_revard(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   giveMoneyToActor(3_000);
 }
 
 /**
  * todo;
  */
-export function zat_b5_bandits_revard(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
+export function zat_b5_bandits_revard(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   giveMoneyToActor(5_000);
   TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_20);
 }
@@ -2367,7 +2308,7 @@ export function zat_b5_bandits_revard(first_speaker: XR_game_object, second_spea
 /**
  * todo;
  */
-export function zat_a23_actor_has_access_card(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_a23_actor_has_access_card(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.object(quest_items.zat_a23_access_card) !== null;
 }
 
@@ -2375,11 +2316,11 @@ export function zat_a23_actor_has_access_card(first_speaker: XR_game_object, sec
  * todo;
  */
 export function zat_a23_transfer_access_card_to_tech(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_a23_access_card);
-  giveItemsToActor(second_speaker, first_speaker, drugs.medkit_scientic, 3);
+  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_a23_access_card);
+  giveItemsToActor(secondSpeaker, firstSpeaker, drugs.medkit_scientic, 3);
 }
 
 /**
@@ -2387,44 +2328,44 @@ export function zat_a23_transfer_access_card_to_tech(
  */
 // --// --- b57 new // --// --
 export function zat_b57_stalker_reward_to_actor_detector(
-  first_speaker: XR_game_object,
-  second_speaker: XR_game_object
+  firstSpeaker: XR_game_object,
+  secondSpeaker: XR_game_object
 ): void {
-  giveItemsToActor(first_speaker, second_speaker, detectors.detector_elite);
+  giveItemsToActor(firstSpeaker, secondSpeaker, detectors.detector_elite);
   TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_54);
 }
 
 /**
  * todo;
  */
-export function actor_has_gas(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function actor_has_gas(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.object(quest_items.zat_b57_gas) !== null;
 }
 
 /**
  * todo;
  */
-export function actor_has_not_gas(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !actor_has_gas(first_speaker, second_speaker);
+export function actor_has_not_gas(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !actor_has_gas(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function zat_b57_actor_has_money(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
+export function zat_b57_actor_has_money(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   return registry.actor.money() >= 2000;
 }
 
 /**
  * todo;
  */
-export function zat_b57_actor_hasnt_money(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return !zat_b57_actor_has_money(first_speaker, second_speaker);
+export function zat_b57_actor_hasnt_money(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
+  return !zat_b57_actor_has_money(firstSpeaker, secondSpeaker);
 }
 
 /**
  * todo;
  */
-export function zat_b57_transfer_gas_money(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeMoneyFromActor(first_speaker, second_speaker, 2000);
+export function zat_b57_transfer_gas_money(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+  transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 2000);
 }

@@ -32,7 +32,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseStringsList, TConditionList } from "@/engine/core/utils/parse";
-import { giveMoneyToActor, relocateQuestItemSection } from "@/engine/core/utils/quest_reward";
+import { giveMoneyToActor, relocateQuestItemSection } from "@/engine/core/utils/task_reward";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { storyNames } from "@/engine/lib/constants/story_names";

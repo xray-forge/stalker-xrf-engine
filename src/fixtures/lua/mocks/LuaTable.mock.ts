@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 
-import { AnyObject } from "@/engine/lib/types";
+import { AnyObject, LuaArray } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -15,6 +15,24 @@ export class MockLuaTable<K, V> extends Map<K, V> {
     }
 
     return Object.keys(table).length;
+  }
+
+  /**
+   * Create new map from JS array.
+   */
+  public static fromArray<T>(from: Array<T>): MockLuaTable<number, T> {
+    const mock: MockLuaTable<number, T> = new MockLuaTable();
+
+    from.forEach((it, index) => mock.set(index + 1, it));
+
+    return mock;
+  }
+
+  /**
+   * Create new map from JS array.
+   */
+  public static mockFromArray<T>(from: Array<unknown>): LuaArray<T> {
+    return MockLuaTable.fromArray(from) as unknown as LuaArray<T>;
   }
 
   /**

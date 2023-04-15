@@ -30,7 +30,7 @@ export class EventsManager extends AbstractCoreManager {
   public registerCallback<T>(
     event: EGameEvent,
     func: (this: T, ...args: AnyArgs) => void,
-    context: Optional<AnyObject>
+    context: Optional<AnyObject> = null
   ): void {
     logger.info("Register callback:", EGameEvent[event]);
 

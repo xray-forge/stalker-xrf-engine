@@ -58,6 +58,7 @@ export interface INotification {
 export interface IItemRelocatedNotification extends INotification {
   direction: ENotificationDirection;
   itemSection: TSection;
+  amount?: TCount;
 }
 
 /**
