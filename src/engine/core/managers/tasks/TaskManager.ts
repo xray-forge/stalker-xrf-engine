@@ -97,7 +97,6 @@ export class TaskManager extends AbstractCoreManager {
 
     if (state !== task.fail) {
       NotificationManager.getInstance().sendTaskNotification(
-        registry.actor,
         state === task.completed ? ETaskState.COMPLETED : ETaskState.NEW,
         taskObject
       );

@@ -9,10 +9,22 @@ import {
   TNotificationIcon,
   TNotificationIconKey,
 } from "@/engine/core/managers/notifications/NotificationManagerIcons";
-import { ENotificationDirection, ETreasureNotificationType } from "@/engine/core/managers/notifications/types";
+import {
+  ENotificationDirection,
+  ENotificationType,
+  ETreasureState,
+  IItemRelocatedNotification,
+  IMoneyRelocatedNotification,
+  INotification,
+  ISoundNotification,
+  ITaskUpdatedNotification,
+  ITipNotification,
+  ITreasureNotification,
+} from "@/engine/core/managers/notifications/types";
 import { ISmartTerrainDescriptor, SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { Stalker } from "@/engine/core/objects";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { isHeavilyWounded } from "@/engine/core/utils/check/check";
 import { isStalkerClassId } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -49,12 +61,62 @@ export class NotificationManager extends AbstractCoreManager {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.registerCallback(EGameEvent.SURGE_SKIPPED, this.onSurgeSkipped, this);
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, this.sendNotification, this);
   }
 
   public override destroy(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
     eventsManager.unregisterCallback(EGameEvent.SURGE_SKIPPED, this.onSurgeSkipped);
+    eventsManager.unregisterCallback(EGameEvent.NOTIFICATION, this.sendNotification);
+  }
+
+  /**
+   * Handle generic notification event.
+   */
+  public sendNotification(notification: INotification): void {
+    assert(type(notification) === "table", "Expected notification event to be an object.");
+
+    switch (notification.type) {
+      case ENotificationType.ITEM: {
+        const { direction, itemSection } = notification as IItemRelocatedNotification;
+
+        return this.sendItemRelocatedNotification(direction, itemSection);
+      }
+
+      case ENotificationType.MONEY: {
+        const { direction, amount } = notification as IMoneyRelocatedNotification;
+
+        return this.sendMoneyRelocatedNotification(direction, amount);
+      }
+
+      case ENotificationType.TIP: {
+        const { caption, delay, sender, showtime, senderId } = notification as ITipNotification;
+
+        return this.sendTipNotification(caption, sender, delay, showtime, senderId);
+      }
+
+      case ENotificationType.SOUND: {
+        const { object, faction, point, soundPath, soundCaption, delay } = notification as ISoundNotification;
+
+        return this.sendSoundNotification(object, faction, point, soundPath, soundCaption, delay);
+      }
+
+      case ENotificationType.TREASURE: {
+        const { state } = notification as ITreasureNotification;
+
+        return this.sendTreasureNotification(state);
+      }
+
+      case ENotificationType.TASK: {
+        const { state, task } = notification as ITaskUpdatedNotification;
+
+        return this.sendTaskNotification(state, task);
+      }
+
+      default:
+        abort("Expected valid event type, '%s' received for notification.", notification.type);
+    }
   }
 
   /**
@@ -116,16 +178,16 @@ export class NotificationManager extends AbstractCoreManager {
   /**
    * Show notifications related to treasures state updates.
    */
-  public sendTreasureNotification(notificationType: ETreasureNotificationType): void {
-    logger.info("Show treasure notification:", notificationType);
+  public sendTreasureNotification(state: ETreasureState): void {
+    logger.info("Show treasure notification:", state);
 
     let notificationTitle: TLabel = "";
 
-    if (notificationType === ETreasureNotificationType.NEW_TREASURE_COORDINATES) {
+    if (state === ETreasureState.NEW_TREASURE_COORDINATES) {
       notificationTitle = game.translate_string(captions.st_found_new_treasure);
-    } else if (notificationType === ETreasureNotificationType.FOUND_TREASURE) {
+    } else if (state === ETreasureState.FOUND_TREASURE) {
       notificationTitle = game.translate_string(captions.st_got_treasure);
-    } else if (notificationType === ETreasureNotificationType.LOOTED_TREASURE_COORDINATES) {
+    } else if (state === ETreasureState.LOOTED_TREASURE_COORDINATES) {
       notificationTitle = game.translate_string(captions.st_found_old_treasure);
     }
 
@@ -142,7 +204,7 @@ export class NotificationManager extends AbstractCoreManager {
   /**
    * Send notification about task state update.
    */
-  public sendTaskNotification(actor: Optional<XR_game_object>, newState: ETaskState, task: XR_CGameTask): void {
+  public sendTaskNotification(newState: ETaskState, task: XR_CGameTask): void {
     logger.info("Show task notification:", newState, task.get_id(), task.get_title());
 
     const notificationTaskDescription: Record<ETaskState, TLabel> = {
@@ -177,8 +239,8 @@ export class NotificationManager extends AbstractCoreManager {
    */
   public sendTipNotification(
     caption: TCaption,
-    delay: Optional<TDuration> = 0,
     sender: Optional<TNotificationIcon | XR_game_object> = null,
+    delay: Optional<TDuration> = 0,
     showtime: Optional<TTimestamp> = NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
     senderId: Optional<TStringId> = null
   ): void {
@@ -307,7 +369,7 @@ export class NotificationManager extends AbstractCoreManager {
    */
   public onSurgeSkipped(shouldNotify: boolean): void {
     if (shouldNotify) {
-      this.sendTipNotification(captions.st_surge_while_asleep, 0, notificationManagerIcons.recent_surge);
+      this.sendTipNotification(captions.st_surge_while_asleep, notificationManagerIcons.recent_surge);
     }
   }
 

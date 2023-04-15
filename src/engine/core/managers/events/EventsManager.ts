@@ -52,6 +52,8 @@ export class EventsManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
+  public emitEvent<T>(event: EGameEvent, data: T): void;
+  public emitEvent(event: EGameEvent, ...data: AnyArgs): void;
   public emitEvent(event: EGameEvent, ...data: AnyArgs): void {
     for (const [func, config] of this.callbacks[event]) {
       (func as unknown as AnyContextualCallable).call(config.context, ...data);

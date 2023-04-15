@@ -14,7 +14,7 @@ import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SECRETS_LTX
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ETreasureNotificationType, NotificationManager } from "@/engine/core/managers/notifications";
+import { ETreasureState, NotificationManager } from "@/engine/core/managers/notifications";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
@@ -260,7 +260,7 @@ export class TreasureManager extends AbstractCoreManager {
     }
 
     if (this.secrets.get(treasureId).to_find === 0 && !this.secrets.get(treasureId).empty) {
-      NotificationManager.getInstance().sendTreasureNotification(ETreasureNotificationType.LOOTED_TREASURE_COORDINATES);
+      NotificationManager.getInstance().sendTreasureNotification(ETreasureState.LOOTED_TREASURE_COORDINATES);
 
       return logger.info("Already empty treasure:", treasureId);
     }
@@ -272,7 +272,7 @@ export class TreasureManager extends AbstractCoreManager {
     level.map_add_object_spot_ser(this.secret_restrs.get(treasureId), "treasure", "");
 
     this.secrets.get(treasureId).given = true;
-    NotificationManager.getInstance().sendTreasureNotification(ETreasureNotificationType.NEW_TREASURE_COORDINATES);
+    NotificationManager.getInstance().sendTreasureNotification(ETreasureState.NEW_TREASURE_COORDINATES);
   }
 
   /**
@@ -322,7 +322,7 @@ export class TreasureManager extends AbstractCoreManager {
         level.map_remove_object_spot(this.secret_restrs.get(treasureId), "treasure");
         StatisticsManager.getInstance().incrementCollectedSecretsCount();
         this.secrets.get(treasureId).checked = true;
-        NotificationManager.getInstance().sendTreasureNotification(ETreasureNotificationType.FOUND_TREASURE);
+        NotificationManager.getInstance().sendTreasureNotification(ETreasureState.FOUND_TREASURE);
 
         logger.info("Secret now is empty:", treasureId);
       }

@@ -109,7 +109,6 @@ export class AchievementsManager extends AbstractCoreManager {
         giveInfo(infoPortions.pioneer_achievement_gained);
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_pioneer,
-          0,
           achievementIcons[EAchievement.PIONEER]
         );
       }
@@ -131,7 +130,6 @@ export class AchievementsManager extends AbstractCoreManager {
         giveInfo(infoPortions.mutant_hunter_achievement_gained);
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_mutant_hunter,
-          0,
           achievementIcons[EAchievement.MUTANT_HUNTER]
         );
       }
@@ -149,7 +147,6 @@ export class AchievementsManager extends AbstractCoreManager {
         giveInfo(infoPortions.detective_achievement_gained);
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_detective,
-          0,
           achievementIcons[EAchievement.DETECTIVE]
         );
       }
@@ -167,7 +164,6 @@ export class AchievementsManager extends AbstractCoreManager {
         giveInfo(infoPortions.one_of_the_lads_gained);
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_one_of_the_lads,
-          0,
           achievementIcons[EAchievement.ONE_OF_THE_LADS]
         );
       }
@@ -188,7 +184,6 @@ export class AchievementsManager extends AbstractCoreManager {
         giveInfo(infoPortions.kingpin_gained);
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_kingpin,
-          0,
           achievementIcons[EAchievement.KINGPIN]
         );
       }
@@ -210,7 +205,6 @@ export class AchievementsManager extends AbstractCoreManager {
         giveInfo(infoPortions.herald_of_justice_achievement_gained);
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_herald_of_justice,
-          0,
           achievementIcons[EAchievement.HERALD_OF_JUSTICE]
         );
       }
@@ -237,7 +231,6 @@ export class AchievementsManager extends AbstractCoreManager {
 
     NotificationManager.getInstance().sendTipNotification(
       captions.st_ach_seeker,
-      0,
       achievementIcons[EAchievement.SEEKER]
     );
     getExtern<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
@@ -256,7 +249,6 @@ export class AchievementsManager extends AbstractCoreManager {
       if (hasAlifeInfo(infoPortions.zat_b3_all_instruments_brought)) {
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_battle_systems_master,
-          0,
           achievementIcons[EAchievement.BATTLE_SYSTEMS_MASTER]
         );
         giveInfo(infoPortions.battle_systems_master_achievement_gained);
@@ -278,7 +270,6 @@ export class AchievementsManager extends AbstractCoreManager {
       ) {
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_high_tech_master,
-          0,
           achievementIcons[EAchievement.HIGH_TECH_MASTER]
         );
         giveInfo(infoPortions.high_tech_master_achievement_gained);
@@ -296,7 +287,6 @@ export class AchievementsManager extends AbstractCoreManager {
       if (hasAlifeInfo(infoPortions.actor_was_in_many_bad_places)) {
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_skilled_stalker,
-          0,
           achievementIcons[EAchievement.SKILLED_STALKER]
         );
         giveInfo(infoPortions.skilled_stalker_achievement_gained);
@@ -318,7 +308,6 @@ export class AchievementsManager extends AbstractCoreManager {
       ) {
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_leader,
-          0,
           achievementIcons[EAchievement.LEADER]
         );
         giveInfo(infoPortions.leader_achievement_gained);
@@ -340,7 +329,6 @@ export class AchievementsManager extends AbstractCoreManager {
       ) {
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_diplomat,
-          0,
           achievementIcons[EAchievement.DIPLOMAT]
         );
 
@@ -397,7 +385,6 @@ export class AchievementsManager extends AbstractCoreManager {
         giveInfo(infoPortions.research_man_gained);
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_research_man,
-          0,
           achievementIcons[EAchievement.RESEARCH_MAN]
         );
 
@@ -422,7 +409,6 @@ export class AchievementsManager extends AbstractCoreManager {
         giveInfo(infoPortions.sim_duty_help_harder);
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_friend_of_duty,
-          0,
           achievementIcons[EAchievement.FRIEND_OF_DUTY]
         );
       }
@@ -445,7 +431,6 @@ export class AchievementsManager extends AbstractCoreManager {
         giveInfo(infoPortions.sim_freedom_help_harder);
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_friend_of_freedom,
-          0,
           achievementIcons[EAchievement.FRIEND_OF_FREEDOM]
         );
       }
@@ -467,7 +452,6 @@ export class AchievementsManager extends AbstractCoreManager {
         giveInfo(infoPortions.balance_advocate_gained);
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_balance_advocate,
-          0,
           achievementIcons[EAchievement.BALANCE_ADVOCATE]
         );
       }
@@ -484,7 +468,6 @@ export class AchievementsManager extends AbstractCoreManager {
       giveInfo(infoPortions.actor_wealthy);
       NotificationManager.getInstance().sendTipNotification(
         captions.st_ach_wealthy,
-        0,
         achievementIcons[EAchievement.WEALTHY]
       );
     }
@@ -501,7 +484,6 @@ export class AchievementsManager extends AbstractCoreManager {
         giveInfo(infoPortions.keeper_of_secrets_achievement_gained);
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_keeper_of_secrets,
-          0,
           achievementIcons[EAchievement.KEEPER_OF_SECRETS]
         );
       }
@@ -522,7 +504,6 @@ export class AchievementsManager extends AbstractCoreManager {
       giveInfo(infoPortions.actor_marked_by_zone_3_times);
       NotificationManager.getInstance().sendTipNotification(
         captions.st_ach_marked_by_zone,
-        0,
         achievementIcons[EAchievement.MARKED_BY_ZONE]
       );
 
@@ -569,7 +550,6 @@ export class AchievementsManager extends AbstractCoreManager {
       if (count >= 10) {
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_information_dealer,
-          0,
           achievementIcons[EAchievement.INFORMATION_DEALER]
         );
         giveInfo(infoPortions.actor_information_dealer);
@@ -594,7 +574,6 @@ export class AchievementsManager extends AbstractCoreManager {
         giveInfo(infoPortions.sim_stalker_help_harder);
         NotificationManager.getInstance().sendTipNotification(
           captions.st_ach_friend_of_stalkers,
-          0,
           achievementIcons[EAchievement.FRIEND_OF_STALKERS]
         );
         getExtern<AnyCallablesModule>("xr_effects").inc_faction_goodwill_to_actor(registry.actor, null, [
@@ -637,7 +616,6 @@ export class AchievementsManager extends AbstractCoreManager {
 
       NotificationManager.getInstance().sendTipNotification(
         captions.st_detective_news,
-        0,
         notificationManagerIcons.got_medicine
       );
 
@@ -667,7 +645,6 @@ export class AchievementsManager extends AbstractCoreManager {
 
       NotificationManager.getInstance().sendTipNotification(
         captions.st_mutant_hunter_news,
-        0,
         notificationManagerIcons.got_ammo
       );
 

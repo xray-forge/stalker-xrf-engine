@@ -326,8 +326,8 @@ export function send_tip(actor: XR_game_object, npc: XR_game_object, params: [st
   logger.info("Send tip");
   NotificationManager.getInstance().sendTipNotification(
     params[0],
-    0,
     params[1] as unknown as TNotificationIcon,
+    0,
     null,
     params[2]
   );

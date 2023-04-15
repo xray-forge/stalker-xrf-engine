@@ -59,6 +59,10 @@ export enum EGameEvent {
    */
   TASK_STATE_UPDATE,
   /**
+   * Generic notification event.
+   */
+  NOTIFICATION,
+  /**
    * todo;
    */
   HIT,

@@ -1,12 +1,20 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { XR_CGameTask } from "xray16";
 
 import { disposeManager, initializeManager, registerActor, registerStoryLink, registry } from "@/engine/core/database";
 import {
   EGameEvent,
   ENotificationDirection,
+  ENotificationType,
   ETaskState,
-  ETreasureNotificationType,
+  ETreasureState,
   EventsManager,
+  IItemRelocatedNotification,
+  IMoneyRelocatedNotification,
+  ISoundNotification,
+  ITaskUpdatedNotification,
+  ITipNotification,
+  ITreasureNotification,
   NotificationManager,
 } from "@/engine/core/managers";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
@@ -36,11 +44,85 @@ describe("NotificationManager class", () => {
 
     initializeManager(NotificationManager);
 
-    expect(eventsManager.getSubscribersCount()).toBe(1);
+    expect(eventsManager.getSubscribersCount()).toBe(2);
 
     disposeManager(NotificationManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(0);
+  });
+
+  it("should correctly handle generic call method with events", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const notificationManager: NotificationManager = NotificationManager.getInstance();
+
+    notificationManager.sendItemRelocatedNotification = jest.fn();
+    notificationManager.sendMoneyRelocatedNotification = jest.fn();
+    notificationManager.sendTipNotification = jest.fn();
+    notificationManager.sendSoundNotification = jest.fn();
+    notificationManager.sendTreasureNotification = jest.fn();
+    notificationManager.sendTaskNotification = jest.fn();
+
+    expect(() => eventsManager.emitEvent(EGameEvent.NOTIFICATION)).toThrow();
+    expect(() => eventsManager.emitEvent(EGameEvent.NOTIFICATION, {})).toThrow();
+    expect(() => eventsManager.emitEvent(EGameEvent.NOTIFICATION, { type: "random" })).toThrow();
+    expect(() => eventsManager.emitEvent(EGameEvent.NOTIFICATION, { type: ENotificationType.TIP })).not.toThrow();
+
+    const task: XR_CGameTask = mockCGameTask();
+
+    eventsManager.emitEvent<ITaskUpdatedNotification>(EGameEvent.NOTIFICATION, {
+      type: ENotificationType.TASK,
+      state: ETaskState.UPDATED,
+      task: task,
+    });
+    expect(notificationManager.sendTaskNotification).toHaveBeenCalledWith(ETaskState.UPDATED, task);
+
+    eventsManager.emitEvent<IMoneyRelocatedNotification>(EGameEvent.NOTIFICATION, {
+      type: ENotificationType.MONEY,
+      amount: 255,
+      direction: ENotificationDirection.OUT,
+    });
+    expect(notificationManager.sendMoneyRelocatedNotification).toHaveBeenCalledWith(ENotificationDirection.OUT, 255);
+
+    eventsManager.emitEvent<IItemRelocatedNotification>(EGameEvent.NOTIFICATION, {
+      type: ENotificationType.ITEM,
+      itemSection: "test",
+      direction: ENotificationDirection.IN,
+    });
+    expect(notificationManager.sendItemRelocatedNotification).toHaveBeenCalledWith(ENotificationDirection.IN, "test");
+
+    eventsManager.emitEvent<ITreasureNotification>(EGameEvent.NOTIFICATION, {
+      type: ENotificationType.TREASURE,
+      state: ETreasureState.FOUND_TREASURE,
+    });
+    expect(notificationManager.sendTreasureNotification).toHaveBeenCalledWith(ETreasureState.FOUND_TREASURE);
+
+    eventsManager.emitEvent<ISoundNotification>(EGameEvent.NOTIFICATION, {
+      type: ENotificationType.SOUND,
+      faction: "faction",
+      object: registry.actor,
+      point: "test_point",
+      soundPath: "test_path",
+      delay: 10,
+      soundCaption: "caption",
+    });
+    expect(notificationManager.sendSoundNotification).toHaveBeenCalledWith(
+      registry.actor,
+      "faction",
+      "test_point",
+      "test_path",
+      "caption",
+      10
+    );
+
+    eventsManager.emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
+      type: ENotificationType.TIP,
+      caption: "caption",
+      delay: 500,
+      sender: registry.actor,
+      showtime: 128,
+      senderId: "sid",
+    });
+    expect(notificationManager.sendTipNotification).toHaveBeenCalledWith("caption", registry.actor, 500, 128, "sid");
   });
 
   it("should correctly send money relocation notifications", () => {
@@ -104,7 +186,7 @@ describe("NotificationManager class", () => {
 
     notificationManager.onSendGenericNotification = jest.fn();
 
-    notificationManager.sendTreasureNotification(ETreasureNotificationType.NEW_TREASURE_COORDINATES);
+    notificationManager.sendTreasureNotification(ETreasureState.NEW_TREASURE_COORDINATES);
     expect(notificationManager.onSendGenericNotification).toHaveBeenCalledWith(
       true,
       "translated_st_found_new_treasure",
@@ -116,7 +198,7 @@ describe("NotificationManager class", () => {
 
     resetFunctionMock(notificationManager.onSendGenericNotification);
 
-    notificationManager.sendTreasureNotification(ETreasureNotificationType.FOUND_TREASURE);
+    notificationManager.sendTreasureNotification(ETreasureState.FOUND_TREASURE);
     expect(notificationManager.onSendGenericNotification).toHaveBeenCalledWith(
       true,
       "translated_st_got_treasure",
@@ -128,7 +210,7 @@ describe("NotificationManager class", () => {
 
     resetFunctionMock(notificationManager.onSendGenericNotification);
 
-    notificationManager.sendTreasureNotification(ETreasureNotificationType.LOOTED_TREASURE_COORDINATES);
+    notificationManager.sendTreasureNotification(ETreasureState.LOOTED_TREASURE_COORDINATES);
     expect(notificationManager.onSendGenericNotification).toHaveBeenCalledWith(
       true,
       "translated_st_found_old_treasure",
@@ -176,7 +258,7 @@ describe("NotificationManager class", () => {
 
     notificationManager.onPlayPdaNotificationSound = jest.fn();
     notificationManager.onSendGenericNotification = jest.fn();
-    notificationManager.sendTaskNotification(registry.actor, ETaskState.NEW, mockCGameTask());
+    notificationManager.sendTaskNotification(ETaskState.NEW, mockCGameTask());
 
     expect(notificationManager.onPlayPdaNotificationSound).toHaveBeenCalledTimes(1);
     expect(notificationManager.onSendGenericNotification).toHaveBeenCalledWith(
@@ -190,11 +272,7 @@ describe("NotificationManager class", () => {
 
     notificationManager.onPlayPdaNotificationSound = jest.fn();
     notificationManager.onSendGenericNotification = jest.fn();
-    notificationManager.sendTaskNotification(
-      registry.actor,
-      ETaskState.UPDATED,
-      mockCGameTask({ title: "example", iconName: "icon" })
-    );
+    notificationManager.sendTaskNotification(ETaskState.UPDATED, mockCGameTask({ title: "example", iconName: "icon" }));
 
     expect(notificationManager.onPlayPdaNotificationSound).toHaveBeenCalledTimes(1);
     expect(notificationManager.onSendGenericNotification).toHaveBeenCalledWith(
@@ -227,7 +305,7 @@ describe("NotificationManager class", () => {
 
     notificationManager.onPlayPdaNotificationSound = jest.fn();
     notificationManager.onSendGenericNotification = jest.fn();
-    notificationManager.sendTipNotification("test_simple", 200, "ui_inGame2_PD_storonnik_ravnovesiya", 555, "test");
+    notificationManager.sendTipNotification("test_simple", "ui_inGame2_PD_storonnik_ravnovesiya", 200, 555, "test");
 
     expect(notificationManager.onPlayPdaNotificationSound).toHaveBeenCalledTimes(1);
     expect(notificationManager.onSendGenericNotification).toHaveBeenCalledWith(
@@ -248,7 +326,7 @@ describe("NotificationManager class", () => {
 
     notificationManager.onPlayPdaNotificationSound = jest.fn();
     notificationManager.onSendGenericNotification = jest.fn();
-    notificationManager.sendTipNotification("another", 1024, registry.actor, 50, "test-sid");
+    notificationManager.sendTipNotification("another", registry.actor, 1024, 50, "test-sid");
 
     expect(notificationManager.onPlayPdaNotificationSound).toHaveBeenCalledTimes(1);
     expect(notificationManager.onSendGenericNotification).toHaveBeenCalledWith(
@@ -268,7 +346,7 @@ describe("NotificationManager class", () => {
 
     notificationManager.onPlayPdaNotificationSound = jest.fn();
     notificationManager.onSendGenericNotification = jest.fn();
-    notificationManager.sendTipNotification("another", 1024, registry.actor, 50, "test-sid");
+    notificationManager.sendTipNotification("another", registry.actor, 1024, 50, "test-sid");
 
     expect(notificationManager.onPlayPdaNotificationSound).toHaveBeenCalledTimes(0);
     expect(notificationManager.onSendGenericNotification).toHaveBeenCalledTimes(0);
@@ -284,7 +362,7 @@ describe("NotificationManager class", () => {
       },
     } as ISchemeWoundedState;
 
-    notificationManager.sendTipNotification("another", 1024, registry.actor, 50, "test-sid");
+    notificationManager.sendTipNotification("another", registry.actor, 1024, 50, "test-sid");
 
     expect(notificationManager.onPlayPdaNotificationSound).toHaveBeenCalledTimes(0);
     expect(notificationManager.onSendGenericNotification).toHaveBeenCalledTimes(0);

@@ -291,7 +291,7 @@ export class TaskObject {
     }
 
     if (isTaskUpdated && !this.isNotificationOnUpdateMuted) {
-      NotificationManager.getInstance().sendTaskNotification(registry.actor, ETaskState.UPDATED, this.gameTask);
+      NotificationManager.getInstance().sendTaskNotification(ETaskState.UPDATED, this.gameTask);
     }
 
     for (const [k, v] of this.conditionLists) {
@@ -390,10 +390,10 @@ export class TaskObject {
     this.lastCheckedAt = null;
 
     if (this.state === ETaskState.FAIL) {
-      NotificationManager.getInstance().sendTaskNotification(registry.actor, ETaskState.FAIL, task);
+      NotificationManager.getInstance().sendTaskNotification(ETaskState.FAIL, task);
     } else if (this.state === ETaskState.REVERSED) {
       pickSectionFromCondList(registry.actor, registry.actor, this.onReversed);
-      NotificationManager.getInstance().sendTaskNotification(registry.actor, ETaskState.REVERSED, task);
+      NotificationManager.getInstance().sendTaskNotification(ETaskState.REVERSED, task);
     }
 
     this.state = null;
