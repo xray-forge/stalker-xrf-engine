@@ -11,6 +11,7 @@ import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } fr
 
 describe("TaskObject class", () => {
   beforeAll(() => {
+    require("@/engine/scripts/declarations/tasks");
     registerActor(mockClientGameObject());
   });
 

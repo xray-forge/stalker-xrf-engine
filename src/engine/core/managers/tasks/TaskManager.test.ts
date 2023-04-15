@@ -9,6 +9,7 @@ import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } fr
 
 describe("TaskManager class", () => {
   beforeAll(() => {
+    require("@/engine/scripts/declarations/tasks");
     registerActor(mockClientGameObject());
   });
 

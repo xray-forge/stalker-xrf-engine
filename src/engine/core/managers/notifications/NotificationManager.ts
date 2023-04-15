@@ -2,6 +2,7 @@ import { alife, game, XR_alife_simulator, XR_CGameTask, XR_game_object } from "x
 
 import { getObjectIdByStoryId, registry, SYSTEM_INI } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import {
   notificationManagerIcons,
@@ -30,6 +31,18 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class NotificationManager extends AbstractCoreManager {
   public static readonly DEFAULT_NOTIFICATION_SHOW_DURATION: TDuration = 5_000;
+
+  public override initialize(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.registerCallback(EGameEvent.SURGE_SKIPPED, this.onSurgeSkipped, this);
+  }
+
+  public override destroy(): void {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.SURGE_SKIPPED, this.onSurgeSkipped);
+  }
 
   /**
    * todo: Description.
@@ -144,7 +157,7 @@ export class NotificationManager extends AbstractCoreManager {
     showtime: Maybe<TTimestamp>,
     senderId: Optional<TStringId>
   ): boolean {
-    logger.info("Show send tip:", caption, timeout, showtime, senderId);
+    logger.info("Show tip notification:", caption, timeout, showtime, senderId);
 
     if (caption === null) {
       return false;
@@ -333,5 +346,21 @@ export class NotificationManager extends AbstractCoreManager {
    */
   protected playPdaNotificationSound(): void {
     GlobalSoundManager.getInstance().playSound(registry.actor.id(), scriptSounds.pda_task, null, null);
+  }
+
+  /**
+   * On surge skip show notification.
+   */
+  protected onSurgeSkipped(shouldNotify: boolean): void {
+    if (shouldNotify) {
+      this.sendTipNotification(
+        registry.actor,
+        captions.st_surge_while_asleep,
+        null,
+        notificationManagerIcons.recent_surge,
+        null,
+        null
+      );
+    }
   }
 }

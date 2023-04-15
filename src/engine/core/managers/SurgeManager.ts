@@ -19,8 +19,6 @@ import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager"
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
-import { notificationManagerIcons } from "@/engine/core/managers/notifications";
-import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
 import { TaskManager } from "@/engine/core/managers/tasks";
@@ -371,7 +369,7 @@ export class SurgeManager extends AbstractCoreManager {
    * todo: Description.
    */
   public skipSurge(): void {
-    logger.info("Skip surge");
+    logger.info("Skipped surge");
 
     const [Y, M, D, h, m, s, ms] = this.initializedAt.get(0, 0, 0, 0, 0, 0, 0);
 
@@ -395,19 +393,11 @@ export class SurgeManager extends AbstractCoreManager {
     this.prev_sec = 0;
 
     this.respawnArtefactsAndReplaceAnomalyZones();
-    StatisticsManager.getInstance().incrementSurgesCount();
 
-    if (!this.isSkipMessageToggled) {
-      NotificationManager.getInstance().sendTipNotification(
-        registry.actor,
-        captions.st_surge_while_asleep,
-        null,
-        notificationManagerIcons.recent_surge,
-        null,
-        null
-      );
-      this.isSkipMessageToggled = true;
-    }
+    StatisticsManager.getInstance().incrementSurgesCount();
+    EventsManager.getInstance().emitEvent(EGameEvent.SURGE_SKIPPED, !this.isSkipMessageToggled);
+
+    this.isSkipMessageToggled = true;
   }
 
   /**
@@ -463,7 +453,9 @@ export class SurgeManager extends AbstractCoreManager {
     }
 
     this.respawnArtefactsAndReplaceAnomalyZones();
+
     StatisticsManager.getInstance().incrementSurgesCount();
+    EventsManager.getInstance().emitEvent(EGameEvent.SURGE_ENDED);
   }
 
   /**
