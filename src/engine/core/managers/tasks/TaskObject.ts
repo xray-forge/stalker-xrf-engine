@@ -25,9 +25,9 @@ import {
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
 import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
-import * as TaskFunctor from "@/engine/core/managers/tasks/TaskFunctor";
 import { ETaskState, ETaskStatus, POSSIBLE_STATES } from "@/engine/core/managers/tasks/types";
 import { assertDefined } from "@/engine/core/utils/assertion";
+import { getExtern } from "@/engine/core/utils/binding";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -167,22 +167,16 @@ export class TaskObject {
     this.communityRelationDeltaFail = readIniNumber(ini, id, "community_relation_delta_fail", false, 0);
     this.communityRelationDeltaComplete = readIniNumber(ini, id, "community_relation_delta_complete", false, 0);
 
-    this.currentTitle = (TaskFunctor as AnyCallablesModule)[this.titleGetterFunctorName](this.id, "title", this.title);
-    this.currentDescription = (TaskFunctor as AnyCallablesModule)[this.descriptionGetterFunctorName](
-      this.id,
-      "descr",
-      this.description
-    );
+    const taskFunctors: AnyCallablesModule = getExtern<AnyCallablesModule>("task_functors");
+
+    this.currentTitle = taskFunctors[this.titleGetterFunctorName](this.id, "title", this.title);
+    this.currentDescription = taskFunctors[this.descriptionGetterFunctorName](this.id, "descr", this.description);
+    this.currentTargetId = taskFunctors[this.targetGetterFunctorName](this.id, "target", this.target);
 
     this.status = ETaskStatus.NORMAL;
     this.spot = this.isStorylineTask ? "storyline_task_location" : "secondary_task_location";
 
     this.isNotificationOnUpdateMuted = readIniBoolean(ini, id, "dont_send_update_news", false, false);
-    this.currentTargetId = (TaskFunctor as AnyCallablesModule)[this.targetGetterFunctorName](
-      this.id,
-      "target",
-      this.target
-    );
   }
 
   /**
@@ -251,11 +245,9 @@ export class TaskObject {
 
     this.lastCheckedAt = now;
 
-    const nextTitle: TLabel = (TaskFunctor as AnyCallablesModule)[this.titleGetterFunctorName](
-      this.id,
-      "title",
-      this.title
-    );
+    const taskFunctors: AnyCallablesModule = getExtern<AnyCallablesModule>("task_functors");
+
+    const nextTitle: TLabel = taskFunctors[this.titleGetterFunctorName](this.id, "title", this.title);
 
     if (this.currentTitle !== nextTitle) {
       isTaskUpdated = true;
@@ -263,11 +255,7 @@ export class TaskObject {
       this.gameTask.set_title(game.translate_string(nextTitle));
     }
 
-    const nextTargetId: TNumberId = (TaskFunctor as AnyCallablesModule)[this.targetGetterFunctorName](
-      this.id,
-      "target",
-      this.target
-    );
+    const nextTargetId: TNumberId = taskFunctors[this.targetGetterFunctorName](this.id, "target", this.target);
 
     this.checkTaskLevelDirection(nextTargetId);
 
@@ -460,7 +448,7 @@ export class TaskObject {
   }
 
   /**
-   * todo: Description.
+   * Save task object state.
    */
   public save(packet: XR_net_packet): void {
     openSaveMarker(packet, TaskObject.name);
@@ -475,7 +463,7 @@ export class TaskObject {
   }
 
   /**
-   * todo: Description.
+   * Load task object state.
    */
   public load(reader: TXR_net_processor): void {
     openLoadMarker(reader, TaskObject.name);

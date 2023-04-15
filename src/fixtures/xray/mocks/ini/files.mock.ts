@@ -22,7 +22,8 @@ export const FILES_MOCKS = {
   },
   "misc\\surge_manager.ltx": {
     settings: {
-      condlist: "test",
+      condlist: "true",
+      survive: "{+actor_marked_by_zone_3_times} true, {+anabiotic_in_process} true, false",
     },
   },
   "environment\\dynamic_weather_graphs.ltx": {

@@ -3,11 +3,11 @@ import { game, level } from "xray16";
 import { registry } from "@/engine/core/database";
 import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
 import { EAchievement } from "@/engine/core/managers/achievements/EAchievement";
+import { SleepManager } from "@/engine/core/managers/SleepManager";
 import { sleep_cam_eff_id, SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { WeatherManager } from "@/engine/core/managers/WeatherManager";
 import { SchemeCutscene } from "@/engine/core/schemes/sr_cutscene/SchemeCutscene";
-import * as SleepDialogModule from "@/engine/core/ui/interaction/SleepDialog";
 import { extern } from "@/engine/core/utils/binding";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { enableGameUi } from "@/engine/core/utils/control";
@@ -24,11 +24,14 @@ const logger: LuaLogger = new LuaLogger($filename);
 logger.info("Resolve and bind custom externals");
 
 /**
- * Sleeping functionality.
+ * On actor start sleeping.
  */
-extern("engine.dream_callback", SleepDialogModule.dream_callback);
+extern("engine.on_start_sleeping", () => SleepManager.getInstance().onStartSleeping());
 
-extern("engine.dream_callback2", SleepDialogModule.dream_callback2);
+/**
+ * On actor stop sleeping.
+ */
+extern("engine.on_finish_sleeping", () => SleepManager.getInstance().onFinishSleeping());
 
 /**
  * Anabiotic functionality.
@@ -41,12 +44,12 @@ extern("engine.anabiotic_callback", () => {
 
   if (surgeManager.isStarted) {
     const tf = level.get_time_factor();
-    const diff_sec = math.ceil(game.get_game_time().diffSec(surgeManager.initedTime) / tf);
+    const diff_sec = math.ceil(game.get_game_time().diffSec(surgeManager.initializedAt) / tf);
 
     if (rnd > ((surgeConfig.DURATION - diff_sec) * tf) / 60) {
       surgeManager.isTimeForwarded = true;
-      surgeManager.ui_disabled = true;
-      surgeManager.kill_all_unhided();
+      surgeManager.isUiDisabled = true;
+      surgeManager.killAllUnhided();
       surgeManager.endSurge();
     }
   }
@@ -55,6 +58,9 @@ extern("engine.anabiotic_callback", () => {
   WeatherManager.getInstance().forceWeatherChange();
 });
 
+/**
+ * todo;
+ */
 extern("engine.anabiotic_callback2", () => {
   enableGameUi();
 
@@ -67,20 +73,35 @@ extern("engine.anabiotic_callback2", () => {
   disableInfo(info_portions.anabiotic_in_process);
 });
 
+/**
+ * todo;
+ */
 extern("engine.surge_callback", () => {
   level.add_cam_effector(animations.camera_effects_surge_01, sleep_cam_eff_id, false, "engine.surge_callback2");
 });
 
+/**
+ * todo;
+ */
 extern("engine.surge_callback2", () => {
   enableGameUi();
 });
 
+/**
+ * todo;
+ */
 extern("engine.is_task_completed", (taskId: TStringId): boolean => {
   return TaskManager.getInstance().isTaskCompleted(taskId);
 });
 
+/**
+ * todo;
+ */
 extern("engine.is_task_failed", (taskId: TStringId): boolean => TaskManager.getInstance().isTaskFailed(taskId));
 
+/**
+ * todo;
+ */
 extern("engine.effector_callback", () => SchemeCutscene.onCutsceneEnd());
 
 /**

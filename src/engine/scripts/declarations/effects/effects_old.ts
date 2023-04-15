@@ -40,6 +40,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
 import { NotificationManager, TNotificationIcon } from "@/engine/core/managers/notifications";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { SleepManager } from "@/engine/core/managers/SleepManager";
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/TreasureManager";
@@ -55,7 +56,6 @@ import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/mob/combat";
 import { init_target } from "@/engine/core/schemes/remark/actions/ActionRemarkActivity";
-import { sleep as startSleeping } from "@/engine/core/ui/interaction/SleepDialog";
 import { abort } from "@/engine/core/utils/assertion";
 import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { isStalker } from "@/engine/core/utils/check/is";
@@ -2074,17 +2074,17 @@ export function damage_actor_items_on_start(actor: XR_game_object, npc: XR_game_
 export function sleep(actor: XR_game_object, npc: XR_game_object): void {
   logger.info("Sleep effect");
 
-  const sleep_zones = [
+  const sleepZones = [
     zones.zat_a2_sr_sleep,
     zones.jup_a6_sr_sleep,
     zones.pri_a16_sr_sleep,
     zones.actor_surge_hide_2,
   ] as unknown as LuaArray<TZone>;
 
-  for (const [k, v] of sleep_zones) {
+  for (const [k, v] of sleepZones) {
     if (isActorInZoneWithName(v, actor)) {
-      startSleeping();
-      giveInfo(info_portions.sleep_active);
+      SleepManager.getInstance().showSleepDialog();
+      break;
     }
   }
 }

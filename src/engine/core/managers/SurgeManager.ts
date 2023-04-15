@@ -1,8 +1,6 @@
 import {
   alife,
-  device,
   game,
-  get_console,
   hit,
   level,
   TXR_net_processor,
@@ -25,19 +23,24 @@ import { notificationManagerIcons } from "@/engine/core/managers/notifications";
 import { NotificationManager } from "@/engine/core/managers/notifications/NotificationManager";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
 import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
+import { TaskManager } from "@/engine/core/managers/tasks";
 import { WeatherManager } from "@/engine/core/managers/WeatherManager";
 import { AnomalyZoneBinder, SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/alife/squad/Squad";
-import { isImmuneToSurge, isObjectOnLevel, isSurgeEnabledOnLevel } from "@/engine/core/utils/check/check";
+import {
+  isBlackScreen,
+  isImmuneToSurge,
+  isObjectOnLevel,
+  isSurgeEnabledOnLevel,
+} from "@/engine/core/utils/check/check";
 import { isArtefact, isStoryObject } from "@/engine/core/utils/check/is";
-import { executeConsoleCommand } from "@/engine/core/utils/console";
+import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { disableGameUiOnly } from "@/engine/core/utils/control";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
-import { copyTable } from "@/engine/core/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";
@@ -48,8 +51,21 @@ import { info_portions } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
+import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import { Optional, PartialRecord, TLabel, TNumberId } from "@/engine/lib/types";
+import {
+  LuaArray,
+  Optional,
+  PartialRecord,
+  TCount,
+  TDistance,
+  TDuration,
+  TLabel,
+  TName,
+  TNumberId,
+  TSection,
+  TTimestamp,
+} from "@/engine/lib/types";
 
 export const surge_shock_pp_eff_id: TNumberId = 1;
 export const earthquake_cam_eff_id: TNumberId = 2;
@@ -59,30 +75,19 @@ export const sleep_fade_pp_eff_id: TNumberId = 4;
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
+ * Surge cover descriptor.
+ */
+export interface ISurgeCoverDescriptor {
+  name: TName;
+  conditionList: Optional<TConditionList>;
+}
+
+/**
  * todo;
  * todo: Separate manager to handle artefacts spawn / ownership etc in parallel, do not mix logic.
  */
 export class SurgeManager extends AbstractCoreManager {
-  private static check_squad_smart_props(squadId: TNumberId): boolean {
-    const squad: Optional<Squad> = alife().object(squadId);
-
-    if (squad) {
-      const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-      const smartTerrain: Optional<SmartTerrain> = squad.smart_id
-        ? (simulationBoardManager.getSmartTerrainDescriptorById(squad.smart_id)?.smartTerrain as Optional<SmartTerrain>)
-        : null;
-
-      if (smartTerrain) {
-        if (tonumber(smartTerrain.props["surge"])! <= 0) {
-          return true;
-        }
-      }
-    }
-
-    return false; // -- can't delete squad in his smart if squad is in cover
-  }
-
-  public levels_respawn: PartialRecord<TLevel, boolean> = {
+  public respawnArtefactsByLevel: PartialRecord<TLevel, boolean> = {
     [levels.zaton]: false,
     [levels.jupiter]: false,
     [levels.pripyat]: false,
@@ -92,223 +97,212 @@ export class SurgeManager extends AbstractCoreManager {
   public isFinished: boolean = true;
   public isTimeForwarded: boolean = false;
   public isEffectorSet: boolean = false;
+  public isAfterGameLoad: boolean = false;
+  public isUiDisabled: boolean = false;
+  public isTaskGiven: boolean = false;
+  public isSecondMessageGiven: boolean = false;
+  public isSkipMessageToggled: boolean = false;
+  public isBlowoutSoundEnabled: boolean = false;
 
-  public skipMessage: boolean = false;
-  public task_given: boolean = false;
-  public second_message_given: boolean = false;
-  public ui_disabled: boolean = false;
-  public blowout_sound: boolean = false;
+  public prev_sec: TTimestamp = 0;
 
-  public nextScheduledSurgeDelay: number = 0;
-  public surgeCoversCount: number = 0;
+  public initializedAt: XR_CTime = game.CTime();
+  public lastSurgeAt: XR_CTime = game.get_game_time();
 
-  public prev_sec: number = 0;
+  /**
+   * Delay of next surge happening.
+   * Next surge is timestamp is `lastTimestamp + delay`.
+   */
+  public nextScheduledSurgeDelay: TDuration = math.random(
+    surgeConfig.INTERVAL_BETWEEN_SURGES.MIN_ON_FIRST_TIME,
+    surgeConfig.INTERVAL_BETWEEN_SURGES.MAX_ON_FIRST_TIME
+  );
 
-  public initedTime!: XR_CTime;
-  public lastSurgeTime!: XR_CTime;
+  public surgeManagerConditionList: TConditionList = new LuaTable();
+  public surgeSurviveConditionList: TConditionList = new LuaTable();
 
-  public covers: LuaTable<number, XR_game_object> = new LuaTable();
-  public surgeManagerCondlist: TConditionList = new LuaTable();
-  public surgeSurviveCondlist: TConditionList = new LuaTable();
+  public surgeMessage: TLabel = "";
+  public surgeTaskSection: TSection = "";
 
-  public isLoaded: boolean = false;
-  public surge_message: string = "";
-  public surge_task_sect: string = "";
+  /**
+   * List of available covers for level.
+   */
+  private surgeCovers: LuaArray<ISurgeCoverDescriptor> = new LuaTable();
 
   public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
+    eventsManager.registerCallback(EGameEvent.ACTOR_NET_SPAWN, this.onActorNetworkSpawn, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_USE_ITEM, this.onActorUseItem, this);
-
-    this.isStarted = false;
-    this.isFinished = true;
-    this.isTimeForwarded = false;
-    this.isEffectorSet = false;
-
-    this.skipMessage = false;
-    this.task_given = false;
-    this.second_message_given = false;
-    this.ui_disabled = false;
-    this.blowout_sound = false;
-
-    this.initedTime = game.CTime();
-    this.lastSurgeTime = game.get_game_time();
-
-    this.nextScheduledSurgeDelay = math.random(
-      surgeConfig.INTERVAL_BETWEEN_SURGES.MIN_ON_FIRST_TIME,
-      surgeConfig.INTERVAL_BETWEEN_SURGES.MAX_ON_FIRST_TIME
-    );
-
-    this.surgeCoversCount = 0;
-    this.covers = new LuaTable();
-    this.surgeManagerCondlist = new LuaTable();
-    this.surgeSurviveCondlist = new LuaTable();
-
-    let conditionString: string = TRUE;
+    eventsManager.registerCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake, this);
 
     if (SURGE_MANAGER_LTX.line_exist("settings", "condlist")) {
-      conditionString = SURGE_MANAGER_LTX.r_string("settings", "condlist");
+      this.surgeManagerConditionList = parseConditionsList(SURGE_MANAGER_LTX.r_string("settings", "condlist"));
+    } else {
+      this.surgeManagerConditionList = parseConditionsList(TRUE);
     }
-
-    this.surgeManagerCondlist = parseConditionsList(conditionString);
-
-    conditionString = FALSE;
 
     if (SURGE_MANAGER_LTX.line_exist("settings", "survive")) {
-      conditionString = SURGE_MANAGER_LTX.r_string("settings", "survive");
+      this.surgeSurviveConditionList = parseConditionsList(SURGE_MANAGER_LTX.r_string("settings", "survive"));
+    } else {
+      this.surgeSurviveConditionList = parseConditionsList(FALSE);
     }
-
-    this.surgeSurviveCondlist = parseConditionsList(conditionString);
-
-    this.initializeSurgeCovers();
-
-    this.surge_message = "";
-    this.surge_task_sect = "";
-    this.isLoaded = false;
   }
 
   public override destroy(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
 
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_SPAWN, this.onActorNetworkSpawn);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_USE_ITEM, this.onActorUseItem);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake);
   }
 
   /**
    * todo: Description.
    */
   public initializeSurgeCovers(): void {
-    for (const it of $range(0, SURGE_MANAGER_LTX.line_count("list") - 1)) {
-      const [temp1, id, temp2] = SURGE_MANAGER_LTX.r_line("list", it, "", "");
-      const zone: Optional<XR_game_object> = registry.zones.get(id);
+    logger.info("Initialize surge covers");
+    this.surgeCovers = new LuaTable();
 
-      if (zone !== null) {
-        this.surgeCoversCount += 1;
-        this.covers.set(this.surgeCoversCount, zone);
+    const levelName: TLevel = level.name();
 
-        if (SURGE_MANAGER_LTX.line_exist(id, "condlist")) {
-          (this.covers.get(this.surgeCoversCount) as any).condlist = parseConditionsList(
-            SURGE_MANAGER_LTX.r_string(id, "condlist")
-          );
-        }
-      }
+    if (!SURGE_MANAGER_LTX.section_exist(levelName)) {
+      return logger.info("No surge covers for current level:", levelName);
     }
+
+    // Read list of possible surge covers for current level.
+    for (const index of $range(0, SURGE_MANAGER_LTX.line_count(levelName) - 1)) {
+      const [_, name] = SURGE_MANAGER_LTX.r_line(levelName, index, "", "");
+
+      // Collect covers names + condition lists if declared.
+      table.insert(this.surgeCovers, {
+        name,
+        conditionList: SURGE_MANAGER_LTX.line_exist(name, "condlist")
+          ? parseConditionsList(SURGE_MANAGER_LTX.r_string(name, "condlist"))
+          : null,
+      });
+    }
+
+    logger.info("Initialized surge covers:", levelName, this.surgeCovers.length());
   }
 
   /**
    * todo: Description.
    */
-  public getNearestAvailableCoverId(): Optional<TNumberId> {
-    logger.info("Getting nearest cover");
+  public getNearestAvailableCover(): Optional<XR_game_object> {
+    const actor: XR_game_object = registry.actor;
 
-    if (this.isLoaded) {
-      this.initializeSurgeCovers();
+    let nearestCover: Optional<XR_game_object> = null;
+    let nearestCoverDistance: TDistance = MAX_U32;
+
+    /**
+     * Check if cover can be actually used and then mark as possible cover.
+     * - Alarms
+     * - Quest conditions
+     * - Blocked by different conditions
+     */
+    for (const [index, descriptor] of this.surgeCovers) {
+      const object: Optional<XR_game_object> = registry.zones.get(descriptor.name);
+
+      if (object !== null) {
+        const isValidCover: boolean =
+          descriptor.conditionList === null || pickSectionFromCondList(actor, null, descriptor.conditionList) === TRUE;
+
+        // If already somehow inside cover, mark as nearest and active.
+        if (object.inside(actor.position())) {
+          return object;
+        }
+
+        // Check distance only if cover is valid, and it makes sense to travel to it.
+        if (isValidCover) {
+          const distanceSqr: TDistance = object.position().distance_to_sqr(actor.position());
+
+          if (distanceSqr < nearestCoverDistance) {
+            nearestCover = object;
+            nearestCoverDistance = distanceSqr;
+          }
+        }
+      }
     }
 
-    const hides: LuaTable<number> = new LuaTable();
-
-    copyTable(hides, this.covers);
-
-    // Remove camps that are alarmed and actor is unable to enter
-    if (this.surgeCoversCount > 0) {
-      for (const [k, v] of hides) {
-        if (v.condlist) {
-          const sect: Optional<string> = pickSectionFromCondList(registry.actor, null, v.condlist);
-
-          if (sect !== "true" && sect !== null) {
-            table.remove(hides, k);
-          }
-        }
-      }
-
-      let nearest_cover_id = hides.get(1).id();
-      let nearest_cover_dist = hides.get(1).position().distance_to(registry.actor.position());
-
-      for (const [k, v] of hides) {
-        if (registry.objects.get(v.id()).object!.inside(registry.actor.position())) {
-          return v.id();
-        }
-
-        const dist = v.position().distance_to(registry.actor.position());
-
-        if (dist < nearest_cover_dist) {
-          if (v.condlist) {
-            const sect: Optional<string> = pickSectionFromCondList(registry.actor, null, v.condlist);
-
-            if (sect === "true") {
-              nearest_cover_id = v.id();
-              nearest_cover_dist = dist;
-            }
-          } else {
-            nearest_cover_id = v.id();
-            nearest_cover_dist = dist;
-          }
-        }
-      }
-
-      if (nearest_cover_id === hides.get(1).id()) {
-        if (hides.get(1).condlist) {
-          const sect = pickSectionFromCondList(registry.actor, null, hides.get(1).condlist);
-
-          if (sect !== "true" && sect !== null) {
-            return null;
-          }
-        }
-      }
-
-      return nearest_cover_id;
-    } else {
-      return null;
-    }
+    return nearestCover;
   }
 
   /**
    * todo: Description.
    */
   public isActorInCover(): boolean {
-    const coverObjectId: Optional<TNumberId> = this.getNearestAvailableCoverId();
-
-    return coverObjectId !== null && registry.objects.get(coverObjectId).object.inside(registry.actor.position());
+    return this.getNearestAvailableCover()?.inside(registry.actor.position()) === true;
   }
 
   /**
    * todo
    */
   public setSkipResurrectMessage(): void {
-    this.skipMessage = false;
+    this.isSkipMessageToggled = false;
   }
 
   /**
    * todo: Description.
    */
-  public setSurgeTask(task: string): void {
-    this.surge_task_sect = task;
+  public setSurgeTask(task: TSection): void {
+    this.surgeTaskSection = task;
   }
 
   /**
    * todo: Description.
    */
   public setSurgeMessage(message: TLabel): void {
-    this.surge_message = message;
+    this.surgeMessage = message;
   }
 
   /**
    * todo: Description.
    */
-  public getTaskTarget(): Optional<number> {
-    if (this.isActorInCover()) {
-      return null;
-    }
+  public getTargetCover(): Optional<XR_game_object> {
+    const coverObject: Optional<XR_game_object> = this.getNearestAvailableCover();
 
-    return this.getNearestAvailableCoverId();
+    // No covers or already in cover -> nothing to do.
+    if (coverObject === null || coverObject.inside(registry.actor.position())) {
+      return null;
+    } else {
+      return coverObject;
+    }
   }
 
   /**
    * todo: Description.
    */
   public isKillingAll(): boolean {
-    return this.isStarted && this.ui_disabled;
+    return this.isStarted && this.isUiDisabled;
+  }
+
+  private canReleaseSquad(squad: Squad): boolean {
+    const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+    const smartTerrain: Optional<SmartTerrain> = squad.smart_id
+      ? (simulationBoardManager.getSmartTerrainDescriptorById(squad.smart_id)?.smartTerrain as Optional<SmartTerrain>)
+      : null;
+
+    return smartTerrain !== null && tonumber(smartTerrain.props["surge"])! <= 0;
+  }
+
+  /**
+   * Return list of game objects representing possible covers.
+   */
+  public getCoverObjects(): LuaArray<XR_game_object> {
+    const covers: LuaArray<XR_game_object> = new LuaTable();
+
+    for (const [, descriptor] of this.surgeCovers) {
+      const object: Optional<XR_game_object> = registry.zones.get(descriptor.name);
+
+      if (object !== null) {
+        table.insert(covers, object);
+      }
+    }
+
+    return covers;
   }
 
   /**
@@ -317,7 +311,7 @@ export class SurgeManager extends AbstractCoreManager {
   public requestSurgeStart(): void {
     logger.info("Request surge start");
 
-    if (this.getNearestAvailableCoverId()) {
+    if (this.getNearestAvailableCover()) {
       this.start(true);
     } else {
       logger.info("Error: Surge covers are not set! Can't manually start");
@@ -335,31 +329,35 @@ export class SurgeManager extends AbstractCoreManager {
     }
   }
 
-  protected start(manual?: boolean): void {
-    const [Y, M, D, h, m, s, ms] = this.lastSurgeTime.get(0, 0, 0, 0, 0, 0, 0);
+  /**
+   * Start surge.
+   */
+  protected start(isForced?: boolean): void {
+    logger.info("Surge start");
 
-    if (manual) {
-      this.initedTime = game.get_game_time();
+    const [Y, M, D, h, m, s, ms] = this.lastSurgeAt.get(0, 0, 0, 0, 0, 0, 0);
+
+    if (isForced) {
+      this.initializedAt = game.get_game_time();
     } else {
-      this.initedTime.set(Y, M, D, h, m, s + this.nextScheduledSurgeDelay, ms);
+      this.initializedAt.set(Y, M, D, h, m, s + this.nextScheduledSurgeDelay, ms);
     }
 
-    const diff_sec = math.ceil(game.get_game_time().diffSec(this.initedTime) / level.get_time_factor());
+    const diffSec: TDuration = math.ceil(game.get_game_time().diffSec(this.initializedAt) / level.get_time_factor());
 
     if (!isSurgeEnabledOnLevel(level.name())) {
-      this.skipMessage = true;
+      this.isSkipMessageToggled = true;
       this.skipSurge();
 
       return;
     }
 
-    if (diff_sec + 6 > surgeConfig.DURATION) {
+    if (diffSec + 6 > surgeConfig.DURATION) {
       this.skipSurge();
     } else {
       this.isStarted = true;
       this.isFinished = false;
 
-      // -- autosave
       if (
         !hasAlifeInfo(info_portions.pri_b305_fifth_cam_end) ||
         hasAlifeInfo(info_portions.pri_a28_actor_in_zone_stay)
@@ -375,31 +373,31 @@ export class SurgeManager extends AbstractCoreManager {
   public skipSurge(): void {
     logger.info("Skip surge");
 
-    const [Y, M, D, h, m, s, ms] = this.initedTime.get(0, 0, 0, 0, 0, 0, 0);
+    const [Y, M, D, h, m, s, ms] = this.initializedAt.get(0, 0, 0, 0, 0, 0, 0);
 
-    this.lastSurgeTime.set(Y, M, D, h, m, s + surgeConfig.DURATION, ms);
+    this.lastSurgeAt.set(Y, M, D, h, m, s + surgeConfig.DURATION, ms);
 
     this.isStarted = false;
     this.isFinished = true;
-    this.levels_respawn = { zaton: true, jupiter: true, pripyat: true };
+    this.respawnArtefactsByLevel = { zaton: true, jupiter: true, pripyat: true };
     this.nextScheduledSurgeDelay = math.random(
       surgeConfig.INTERVAL_BETWEEN_SURGES.MIN,
       surgeConfig.INTERVAL_BETWEEN_SURGES.MAX
     );
-    this.surge_message = "";
-    this.surge_task_sect = "";
-    this.task_given = false;
+    this.surgeMessage = "";
+    this.surgeTaskSection = "";
+    this.isTaskGiven = false;
 
     this.isEffectorSet = false;
-    this.second_message_given = false;
-    this.ui_disabled = false;
-    this.blowout_sound = false;
+    this.isSecondMessageGiven = false;
+    this.isUiDisabled = false;
+    this.isBlowoutSoundEnabled = false;
     this.prev_sec = 0;
 
     this.respawnArtefactsAndReplaceAnomalyZones();
     StatisticsManager.getInstance().incrementSurgesCount();
 
-    if (!this.skipMessage) {
+    if (!this.isSkipMessageToggled) {
       NotificationManager.getInstance().sendTipNotification(
         registry.actor,
         captions.st_surge_while_asleep,
@@ -408,7 +406,7 @@ export class SurgeManager extends AbstractCoreManager {
         null,
         null
       );
-      this.skipMessage = true;
+      this.isSkipMessageToggled = true;
     }
   }
 
@@ -420,15 +418,15 @@ export class SurgeManager extends AbstractCoreManager {
 
     this.isStarted = false;
     this.isFinished = true;
-    this.levels_respawn = { zaton: true, jupiter: true, pripyat: true };
-    this.lastSurgeTime = game.get_game_time();
+    this.respawnArtefactsByLevel = { zaton: true, jupiter: true, pripyat: true };
+    this.lastSurgeAt = game.get_game_time();
     this.nextScheduledSurgeDelay = math.random(
       surgeConfig.INTERVAL_BETWEEN_SURGES.MIN,
       surgeConfig.INTERVAL_BETWEEN_SURGES.MAX
     );
-    this.surge_message = "";
-    this.surge_task_sect = "";
-    this.task_given = false;
+    this.surgeMessage = "";
+    this.surgeTaskSection = "";
+    this.isTaskGiven = false;
 
     const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
@@ -436,7 +434,7 @@ export class SurgeManager extends AbstractCoreManager {
       globalSoundManager.stopLoopedSound(registry.actor.id(), "blowout_rumble");
     }
 
-    if (this.second_message_given) {
+    if (this.isSecondMessageGiven) {
       globalSoundManager.stopLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
     }
 
@@ -445,24 +443,23 @@ export class SurgeManager extends AbstractCoreManager {
 
     if (manual || (this.isTimeForwarded && WeatherManager.getInstance().weatherFx)) {
       level.stop_weather_fx();
-      // --        WeatherManager.get_weather_manager():select_weather(true)
       WeatherManager.getInstance().forceWeatherChange();
     }
 
     this.isEffectorSet = false;
-    this.second_message_given = false;
-    this.ui_disabled = false;
-    this.blowout_sound = false;
+    this.isSecondMessageGiven = false;
+    this.isUiDisabled = false;
+    this.isBlowoutSoundEnabled = false;
     this.prev_sec = 0;
 
-    for (const [k, v] of registry.signalLights) {
+    for (const [, signalLight] of registry.signalLights) {
       logger.info("Stop signal light");
-      v.stopLight();
-      v.stop();
+      signalLight.stopLight();
+      signalLight.stop();
     }
 
-    if (this.isLoaded) {
-      this.kill_all_unhided();
+    if (this.isAfterGameLoad) {
+      this.killAllUnhided();
     }
 
     this.respawnArtefactsAndReplaceAnomalyZones();
@@ -472,32 +469,30 @@ export class SurgeManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public kill_all_unhided(): void {
+  public killAllUnhided(): void {
     logger.info("Kill all surge unhided");
 
-    const h: XR_hit = new hit();
+    const surgeHit: XR_hit = new hit();
 
-    h.type = hit.fire_wound;
-    h.power = 0.9;
-    h.impulse = 0.0;
-    h.direction = new vector().set(0, 0, 1);
-    h.draftsman = registry.actor;
+    surgeHit.type = hit.fire_wound;
+    surgeHit.power = 0.9;
+    surgeHit.impulse = 0.0;
+    surgeHit.direction = new vector().set(0, 0, 1);
+    surgeHit.draftsman = registry.actor;
 
     logger.info("Kill crows");
-    for (const [k, v] of registry.crows.storage) {
-      const obj = alife().object(v);
 
-      if (obj) {
-        const crow = level.object_by_id(obj.id);
+    for (const [, id] of registry.crows.storage) {
+      const object: Optional<XR_game_object> = registry.objects.get(id)?.object;
 
-        if (crow && crow.alive()) {
-          crow.hit(h);
-        }
+      if (object.alive()) {
+        object.hit(surgeHit);
       }
     }
 
     const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
     const levelName: TLevel = level.name();
+    const surgeCovers: LuaArray<XR_game_object> = this.getCoverObjects();
 
     logger.info("Releasing squads:", simulationBoardManager.getSquads().length());
 
@@ -505,24 +500,24 @@ export class SurgeManager extends AbstractCoreManager {
       if (isObjectOnLevel(squad, levelName) && !isImmuneToSurge(squad) && !isStoryObject(squad)) {
         for (const member of squad.squad_members()) {
           if (!isStoryObject(member.object)) {
-            if (SurgeManager.check_squad_smart_props(squad.id)) {
+            if (this.canReleaseSquad(squad)) {
               logger.info("Releasing npc from squad because of surge:", member.object.name(), squad.name());
 
-              const cl_obj = level.object_by_id(member.object.id);
+              const clientObject: Optional<XR_game_object> = level.object_by_id(member.object.id);
 
-              if (cl_obj !== null) {
-                cl_obj.kill(cl_obj);
-              } else {
+              if (clientObject === null) {
                 member.object.kill();
+              } else {
+                clientObject.kill(clientObject);
               }
             } else {
               let release = true;
 
-              for (const it of $range(1, this.covers.length())) {
-                const cover = this.covers.get(it);
-
-                if (cover && cover.inside(member.object.position)) {
+              // Check if is in cover.
+              for (const [, coverObject] of surgeCovers) {
+                if (coverObject.inside(member.object.position)) {
                   release = false;
+                  break;
                 }
               }
 
@@ -543,23 +538,21 @@ export class SurgeManager extends AbstractCoreManager {
       }
     }
 
-    const cover = this.getNearestAvailableCoverId();
+    const coverObject: Optional<XR_game_object> = this.getNearestAvailableCover();
 
     if (registry.actor.alive()) {
-      if (
-        !(cover && registry.objects.get(cover) && registry.objects.get(cover).object!.inside(registry.actor.position()))
-      ) {
+      if (!coverObject?.inside(registry.actor.position())) {
         if (hasAlifeInfo(info_portions.anabiotic_in_process)) {
-          const counter_name = "actor_marked_by_zone_cnt";
-          const cnt_value: number = portableStoreGet(registry.actor, counter_name, 0);
+          const counterName: TName = "actor_marked_by_zone_cnt";
+          const counterValue: TCount = portableStoreGet(registry.actor, counterName, 0);
 
-          portableStoreSet(registry.actor, counter_name, cnt_value + 1);
+          portableStoreSet(registry.actor, counterName, counterValue + 1);
         }
 
         disableGameUiOnly(registry.actor);
 
-        if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveCondlist) !== TRUE) {
-          this.kill_all_unhided_after_actor_death();
+        if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveConditionList) !== TRUE) {
+          this.killAllUnhidedAfterActorDeath();
           registry.actor.kill(registry.actor);
 
           return;
@@ -575,19 +568,19 @@ export class SurgeManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  protected kill_all_unhided_after_actor_death(): void {
+  protected killAllUnhidedAfterActorDeath(): void {
     const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
     const levelName: TLevel = level.name();
+
+    const activeCovers: LuaArray<XR_game_object> = this.getCoverObjects();
 
     for (const [squadId, squad] of simulationBoardManager.getSquads()) {
       if (isObjectOnLevel(squad, levelName) && !isImmuneToSurge(squad)) {
         for (const member of squad.squad_members()) {
           let isInCover: boolean = false;
 
-          for (const it of $range(1, this.covers.length())) {
-            const cover: Optional<XR_game_object> = this.covers.get(it);
-
-            if (cover && cover.inside(member.object.position)) {
+          for (const [, coverObject] of activeCovers) {
+            if (coverObject.inside(member.object.position)) {
               isInCover = true;
               break;
             }
@@ -600,12 +593,13 @@ export class SurgeManager extends AbstractCoreManager {
               squad.name()
             );
 
-            const cl_obj: Optional<XR_game_object> = level.object_by_id(member.object.id);
+            const clientObject: Optional<XR_game_object> = level.object_by_id(member.object.id);
 
-            if (cl_obj !== null) {
-              cl_obj.kill(cl_obj);
-            } else {
+            // todo: What is the difference here?
+            if (clientObject === null) {
               member.object.kill();
+            } else {
+              clientObject.kill(clientObject);
             }
           }
         }
@@ -619,12 +613,12 @@ export class SurgeManager extends AbstractCoreManager {
   public respawnArtefactsAndReplaceAnomalyZones(): void {
     const levelName: TLevel = level.name();
 
-    if (this.levels_respawn[levelName]) {
-      this.levels_respawn[levelName] = false;
+    if (this.respawnArtefactsByLevel[levelName]) {
+      this.respawnArtefactsByLevel[levelName] = false;
     }
 
-    for (const [k, v] of registry.anomalies) {
-      v.respawnArtefactsAndReplaceAnomalyZones();
+    for (const [, anomalyZone] of registry.anomalies) {
+      anomalyZone.respawnArtefactsAndReplaceAnomalyZones();
     }
 
     MapDisplayManager.getInstance().updateAnomalyZonesDisplay();
@@ -641,8 +635,8 @@ export class SurgeManager extends AbstractCoreManager {
 
     giveInfo(info_portions.anabiotic_in_process);
 
-    registry.sounds.musicVolume = get_console().get_float("snd_volume_music");
-    registry.sounds.effectsVolume = get_console().get_float("snd_volume_eff");
+    registry.sounds.musicVolume = getConsoleFloatCommand(console_commands.snd_volume_music);
+    registry.sounds.effectsVolume = getConsoleFloatCommand(console_commands.snd_volume_eff);
 
     executeConsoleCommand(console_commands.snd_volume_music, 0);
     executeConsoleCommand(console_commands.snd_volume_eff, 0);
@@ -652,29 +646,23 @@ export class SurgeManager extends AbstractCoreManager {
    * todo: Description.
    */
   protected giveSurgeHideTask(): void {
-    if (this.surge_task_sect !== "empty") {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const { get_task_manager } = require("@/engine/core/managers/tasks/TaskManager");
+    if (this.surgeTaskSection !== "empty") {
+      TaskManager.getInstance().giveTask(this.surgeTaskSection === "" ? "hide_from_surge" : this.surgeTaskSection);
 
-      if (this.surge_task_sect === "") {
-        get_task_manager().give_task("hide_from_surge");
-      } else {
-        get_task_manager().give_task(this.surge_task_sect);
-      }
-
-      this.task_given = true;
+      this.isTaskGiven = true;
     }
   }
 
   /**
    * todo: Description.
    */
-  protected launch_rockets(): void {
-    logger.info("Launch rockets");
-    for (const [k, v] of registry.signalLights) {
+  protected launchSignalRockets(): void {
+    logger.info("Launch signal light rockets");
+
+    for (const [, signalLight] of registry.signalLights) {
       logger.info("Start signal light");
-      if (!v.isFlying()) {
-        v.launch();
+      if (!signalLight.isFlying()) {
+        signalLight.launch();
       }
     }
   }
@@ -683,11 +671,11 @@ export class SurgeManager extends AbstractCoreManager {
    * todo: Description.
    */
   public override update(): void {
-    if (device().precache_frame > 1) {
+    if (isBlackScreen()) {
       return;
     }
 
-    if (this.levels_respawn[level.name() as TLevel]) {
+    if (this.respawnArtefactsByLevel[level.name() as TLevel]) {
       this.respawnArtefactsAndReplaceAnomalyZones();
     }
 
@@ -695,46 +683,43 @@ export class SurgeManager extends AbstractCoreManager {
       const currentGameTime: XR_CTime = game.get_game_time();
 
       if (this.isTimeForwarded) {
-        const diff = math.abs(this.nextScheduledSurgeDelay - currentGameTime.diffSec(this.lastSurgeTime));
+        const diff = math.abs(this.nextScheduledSurgeDelay - currentGameTime.diffSec(this.lastSurgeAt));
 
         if (diff < surgeConfig.INTERVAL_BETWEEN_SURGES.POST_TF_DELAY_MIN) {
+          logger.info("Time forward, reschedule from:", this.nextScheduledSurgeDelay);
+
           this.nextScheduledSurgeDelay =
-            surgeConfig.INTERVAL_BETWEEN_SURGES.POST_TF_DELAY_MAX + currentGameTime.diffSec(this.lastSurgeTime);
+            surgeConfig.INTERVAL_BETWEEN_SURGES.POST_TF_DELAY_MAX + currentGameTime.diffSec(this.lastSurgeAt);
+
+          logger.info("Time forward, reschedule to:", this.nextScheduledSurgeDelay);
         }
 
         this.isTimeForwarded = false;
       }
 
-      if (currentGameTime.diffSec(this.lastSurgeTime) < this.nextScheduledSurgeDelay) {
+      if (currentGameTime.diffSec(this.lastSurgeAt) < this.nextScheduledSurgeDelay) {
         return;
       }
 
-      if (pickSectionFromCondList(registry.actor, null, this.surgeManagerCondlist) !== "true") {
+      if (pickSectionFromCondList(registry.actor, null, this.surgeManagerConditionList) !== TRUE) {
         return;
       }
 
-      if (!this.getNearestAvailableCoverId()) {
+      if (!this.getNearestAvailableCover()) {
         return;
       }
 
-      this.start();
-
-      return;
+      return this.start();
     }
 
-    const surgeDuration: number = math.ceil(game.get_game_time().diffSec(this.initedTime) / level.get_time_factor());
-    const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+    const surgeDuration: TDuration = math.ceil(
+      game.get_game_time().diffSec(this.initializedAt) / level.get_time_factor()
+    );
 
     if (this.prev_sec !== surgeDuration) {
       this.prev_sec = surgeDuration;
 
-      const cover = this.getNearestAvailableCoverId();
-
-      if (cover === null && this.surgeCoversCount === 0) {
-        this.initializeSurgeCovers();
-
-        return;
-      }
+      const coverObject: Optional<XR_game_object> = this.getNearestAvailableCover();
 
       if (!isSurgeEnabledOnLevel(level.name())) {
         this.endSurge();
@@ -742,21 +727,23 @@ export class SurgeManager extends AbstractCoreManager {
         return;
       }
 
+      const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
+
       if (surgeDuration >= surgeConfig.DURATION) {
         if (level !== null) {
           if (level.name() === levels.zaton) {
             globalSoundManager.playSound(registry.actor.id(), "zat_a2_stalker_barmen_after_surge", null, null);
           } else if (level.name() === levels.jupiter) {
             globalSoundManager.playSound(registry.actor.id(), "jup_a6_stalker_medik_after_surge", null, null);
-          } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
+          } else if (!hasAlifeInfo(info_portions.pri_b305_fifth_cam_end)) {
             globalSoundManager.playSound(registry.actor.id(), "pri_a17_kovalsky_after_surge", null, null);
           }
         }
 
         this.endSurge();
       } else {
-        if (this.isLoaded) {
-          if (this.blowout_sound) {
+        if (this.isAfterGameLoad) {
+          if (this.isBlowoutSoundEnabled) {
             globalSoundManager.playLoopedSound(registry.actor.id(), "blowout_rumble");
           }
 
@@ -764,84 +751,84 @@ export class SurgeManager extends AbstractCoreManager {
             level.add_pp_effector(postProcessors.surge_shock, surge_shock_pp_eff_id, true);
           }
 
-          if (this.second_message_given) {
+          if (this.isSecondMessageGiven) {
             globalSoundManager.playLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
             level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
           }
 
-          this.isLoaded = false;
+          this.isAfterGameLoad = false;
         }
 
-        this.launch_rockets();
+        this.launchSignalRockets();
         if (this.isEffectorSet) {
           level.set_pp_effector_factor(surge_shock_pp_eff_id, surgeDuration / 90, 0.1);
         }
 
-        if (this.blowout_sound) {
+        if (this.isBlowoutSoundEnabled) {
           globalSoundManager.setLoopedSoundVolume(registry.actor.id(), "blowout_rumble", surgeDuration / 180);
         }
 
         if (
           surgeDuration >= 140 &&
-          !this.ui_disabled &&
-          (cover === null || !registry.objects.get(cover).object!.inside(registry.actor.position()))
+          !this.isUiDisabled &&
+          (coverObject === null || !coverObject.inside(registry.actor.position()))
         ) {
           let att: number = 1 - (185 - surgeDuration) / (185 - 140);
 
           att = att * att * att * 0.3;
 
-          const h: XR_hit = new hit();
+          const surgeHit: XR_hit = new hit();
 
-          h.type = hit.telepatic;
-          h.power = att;
-          h.impulse = 0.0;
-          h.direction = new vector().set(0, 0, 1);
-          h.draftsman = registry.actor;
+          surgeHit.type = hit.telepatic;
+          surgeHit.power = att;
+          surgeHit.impulse = 0.0;
+          surgeHit.direction = new vector().set(0, 0, 1);
+          surgeHit.draftsman = registry.actor;
 
-          if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveCondlist) === "true") {
-            if (registry.actor.health <= h.power) {
-              h.power = registry.actor.health - 0.05;
-              if (h.power < 0) {
-                h.power = 0;
+          if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveConditionList) === TRUE) {
+            if (registry.actor.health <= surgeHit.power) {
+              surgeHit.power = registry.actor.health - 0.05;
+              if (surgeHit.power < 0) {
+                surgeHit.power = 0;
               }
             }
           }
 
-          registry.actor.hit(h);
+          registry.actor.hit(surgeHit);
         }
 
-        if (surgeDuration >= 185 && !this.ui_disabled) {
-          this.kill_all_unhided();
-          this.ui_disabled = true;
-        } else if (surgeDuration >= 140 && !this.second_message_given) {
+        if (surgeDuration >= 185 && !this.isUiDisabled) {
+          this.killAllUnhided();
+          this.isUiDisabled = true;
+        } else if (surgeDuration >= 140 && !this.isSecondMessageGiven) {
           if (level !== null) {
             if (level.name() === levels.zaton) {
               globalSoundManager.playSound(registry.actor.id(), "zat_a2_stalker_barmen_surge_phase_2", null, null);
             } else if (level.name() === levels.jupiter) {
               globalSoundManager.playSound(registry.actor.id(), "jup_a6_stalker_medik_phase_2", null, null);
-            } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
+            } else if (!hasAlifeInfo(info_portions.pri_b305_fifth_cam_end)) {
               globalSoundManager.playSound(registry.actor.id(), "pri_a17_kovalsky_surge_phase_2", null, null);
             }
           }
 
           globalSoundManager.playLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
           level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
-          this.second_message_given = true;
+          this.isSecondMessageGiven = true;
         } else if (surgeDuration >= 100 && !this.isEffectorSet) {
           level.add_pp_effector(postProcessors.surge_shock, surge_shock_pp_eff_id, true);
           // --                level.set_pp_effector_factor(surge_shock_pp_eff, 0, 10)
           this.isEffectorSet = true;
-        } else if (surgeDuration >= 35 && !this.blowout_sound) {
+        } else if (surgeDuration >= 35 && !this.isBlowoutSoundEnabled) {
           globalSoundManager.playSound(registry.actor.id(), "blowout_begin", null, null);
           globalSoundManager.playLoopedSound(registry.actor.id(), "blowout_rumble");
           globalSoundManager.setLoopedSoundVolume(registry.actor.id(), "blowout_rumble", 0.25);
-          this.blowout_sound = true;
-        } else if (surgeDuration >= 0 && !this.task_given) {
+          this.isBlowoutSoundEnabled = true;
+        } else if (surgeDuration >= 0 && !this.isTaskGiven) {
           if (level.name() === levels.zaton) {
             globalSoundManager.playSound(registry.actor.id(), "zat_a2_stalker_barmen_surge_phase_1", null, null);
           } else if (level.name() === levels.jupiter) {
             globalSoundManager.playSound(registry.actor.id(), "jup_a6_stalker_medik_phase_1", null, null);
-          } else if (!hasAlifeInfo("pri_b305_fifth_cam_end")) {
+          } else if (!hasAlifeInfo(info_portions.pri_b305_fifth_cam_end)) {
             globalSoundManager.playSound(registry.actor.id(), "pri_a17_kovalsky_surge_phase_1", null, null);
           }
 
@@ -892,6 +879,13 @@ export class SurgeManager extends AbstractCoreManager {
   }
 
   /**
+   * On actor network spawn initialize covers for related location.
+   */
+  public onActorNetworkSpawn(): void {
+    this.initializeSurgeCovers();
+  }
+
+  /**
    * todo: Description.
    */
   public override save(packet: XR_net_packet): void {
@@ -899,23 +893,23 @@ export class SurgeManager extends AbstractCoreManager {
 
     packet.w_bool(this.isFinished);
     packet.w_bool(this.isStarted);
-    writeCTimeToPacket(packet, this.lastSurgeTime);
+    writeCTimeToPacket(packet, this.lastSurgeAt);
 
     if (this.isStarted) {
-      writeCTimeToPacket(packet, this.initedTime);
+      writeCTimeToPacket(packet, this.initializedAt);
 
-      packet.w_bool(this.levels_respawn.zaton!);
-      packet.w_bool(this.levels_respawn.jupiter!);
-      packet.w_bool(this.levels_respawn.pripyat!);
+      packet.w_bool(this.respawnArtefactsByLevel.zaton as boolean);
+      packet.w_bool(this.respawnArtefactsByLevel.jupiter as boolean);
+      packet.w_bool(this.respawnArtefactsByLevel.pripyat as boolean);
 
-      packet.w_bool(this.task_given);
+      packet.w_bool(this.isTaskGiven);
       packet.w_bool(this.isEffectorSet);
-      packet.w_bool(this.second_message_given);
-      packet.w_bool(this.ui_disabled);
-      packet.w_bool(this.blowout_sound);
+      packet.w_bool(this.isSecondMessageGiven);
+      packet.w_bool(this.isUiDisabled);
+      packet.w_bool(this.isBlowoutSoundEnabled);
 
-      packet.w_stringZ(this.surge_message);
-      packet.w_stringZ(this.surge_task_sect);
+      packet.w_stringZ(this.surgeMessage);
+      packet.w_stringZ(this.surgeTaskSection);
     }
 
     packet.w_u32(this.nextScheduledSurgeDelay);
@@ -931,27 +925,27 @@ export class SurgeManager extends AbstractCoreManager {
 
     this.isFinished = reader.r_bool();
     this.isStarted = reader.r_bool();
-    this.lastSurgeTime = readCTimeFromPacket(reader)!;
+    this.lastSurgeAt = readCTimeFromPacket(reader)!;
 
     if (this.isStarted) {
-      this.initedTime = readCTimeFromPacket(reader)!;
+      this.initializedAt = readCTimeFromPacket(reader)!;
 
-      this.levels_respawn.zaton = reader.r_bool();
-      this.levels_respawn.jupiter = reader.r_bool();
-      this.levels_respawn.pripyat = reader.r_bool();
+      this.respawnArtefactsByLevel.zaton = reader.r_bool();
+      this.respawnArtefactsByLevel.jupiter = reader.r_bool();
+      this.respawnArtefactsByLevel.pripyat = reader.r_bool();
 
-      this.task_given = reader.r_bool();
+      this.isTaskGiven = reader.r_bool();
       this.isEffectorSet = reader.r_bool();
-      this.second_message_given = reader.r_bool();
-      this.ui_disabled = reader.r_bool();
-      this.blowout_sound = reader.r_bool();
+      this.isSecondMessageGiven = reader.r_bool();
+      this.isUiDisabled = reader.r_bool();
+      this.isBlowoutSoundEnabled = reader.r_bool();
 
-      this.surge_message = reader.r_stringZ();
-      this.surge_task_sect = reader.r_stringZ();
+      this.surgeMessage = reader.r_stringZ();
+      this.surgeTaskSection = reader.r_stringZ();
     }
 
     this.nextScheduledSurgeDelay = reader.r_u32();
-    this.isLoaded = true;
+    this.isAfterGameLoad = true;
 
     closeLoadMarker(reader, SurgeManager.name);
   }

@@ -12,6 +12,7 @@ describe("'extrnals_registrator' entry point", () => {
     expect(getExtern("areExternalsRegistered")).toBeTruthy();
 
     expect(getExtern("engine")).toBeDefined();
+    expect(getExtern("task_functors")).toBeDefined();
 
     expect(getExtern("xr_conditions")).toBeDefined();
     expect(getExtern("xr_effects")).toBeDefined();

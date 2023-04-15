@@ -166,7 +166,7 @@ export function parseParameters<T extends string>(data: T): LuaArray<T> {
  * --   2 = { infop_check = { 1 = {"infop3" = true}, 2 = {"infop4" = false} }, infop_set = {}, section = "section2" },
  * -- }
  */
-export function parseConditionsList(data: string): LuaArray<IConfigSwitchCondition> {
+export function parseConditionsList(data: string): TConditionList {
   const result: LuaArray<IConfigSwitchCondition> = new LuaTable();
 
   for (const condition of string.gfind(data, "%s*([^,]+)%s*")) {

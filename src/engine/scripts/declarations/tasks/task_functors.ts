@@ -2,26 +2,27 @@ import { game, XR_game_object } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/SurgeManager";
+import { extern } from "@/engine/core/utils/binding";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { captions } from "@/engine/lib/constants/captions/captions";
-import { Optional, TSection, TStringId } from "@/engine/lib/types";
+import { Optional, TNumberId, TSection, TStringId } from "@/engine/lib/types";
 import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 /**
  * todo;
  */
-export function condlist(id: TStringId, field: string, p: string): Optional<TSection> {
+extern("task_functors.condlist", (id: TStringId, field: string, p: string): Optional<TSection> => {
   const conditionsList: TConditionList = parseConditionsList(p);
 
   return pickSectionFromCondList(registry.actor, null, conditionsList);
-}
+});
 
 /**
  * todo;
  */
-export function zat_b29_adv_title(id: TStringId, field: string, p: string): Optional<string> {
+extern("task_functors.zat_b29_adv_title", (id: TStringId, field: string, p: string): Optional<string> => {
   const actor = registry.actor;
   let title: Optional<string> = null;
 
@@ -36,12 +37,12 @@ export function zat_b29_adv_title(id: TStringId, field: string, p: string): Opti
   }
 
   return title;
-}
+});
 
 /**
  * todo;
  */
-export function zat_b29_adv_descr(id: TStringId, field: string, p: string) {
+extern("task_functors.zat_b29_adv_descr", (id: TStringId, field: string, p: string) => {
   let descr = "";
   let f_af = 0;
   const actor = registry.actor;
@@ -103,31 +104,30 @@ export function zat_b29_adv_descr(id: TStringId, field: string, p: string) {
   }
 
   return descr;
-}
+});
 
 /**
  * todo;
  */
-export function surge_task_title(): string {
+extern("task_functors.surge_task_title", (): string => {
   return SurgeManager.getInstance().isActorInCover()
     ? captions.hide_from_surge_name_2
     : captions.hide_from_surge_name_1;
-}
+});
 
 /**
  * todo;
  */
-export function surge_task_descr(): Optional<string> {
+extern("task_functors.surge_task_descr", (): Optional<string> => {
   return SurgeManager.getInstance().isActorInCover()
     ? game.translate_string(captions.hide_from_surge_descr_2_a)
     : game.translate_string(captions.hide_from_surge_descr_1_a);
-}
+});
 
 /**
  * todo;
  */
-export function target_condlist(id: TStringId, field: string, p: string) {
-  const conditionListString: string = p;
+extern("task_functors.target_condlist", (id: TStringId, field: string, conditionListString: string) => {
   const conditionsList: TConditionList = parseConditionsList(conditionListString);
   const value: Optional<TSection> = pickSectionFromCondList(registry.actor, null, conditionsList);
 
@@ -136,9 +136,12 @@ export function target_condlist(id: TStringId, field: string, p: string) {
   }
 
   return getObjectIdByStoryId(value);
-}
+});
 
-export function zat_b29_adv_target(id: TStringId, field: string, p: string) {
+/**
+ * todo;
+ */
+extern("task_functors.zat_b29_adv_target", (id: TStringId, field: string, p: string) => {
   let targetObjectId: TStringId = "zat_a2_stalker_barmen";
   let artefact: Optional<TStringId> = null;
   const actor: XR_game_object = registry.actor;
@@ -189,11 +192,11 @@ export function zat_b29_adv_target(id: TStringId, field: string, p: string) {
   }
 
   return null;
-}
+});
 
 /**
  * todo;
  */
-export function surge_task_target(id: TStringId, field: string, p: string): Optional<number> {
-  return SurgeManager.getInstance().getTaskTarget();
-}
+extern("task_functors.surge_task_target", (id: TStringId, field: string, p: string): Optional<TNumberId> => {
+  return SurgeManager.getInstance().getTargetCover()?.id() as Optional<TNumberId>;
+});

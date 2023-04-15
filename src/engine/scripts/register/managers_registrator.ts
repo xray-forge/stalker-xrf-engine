@@ -23,6 +23,7 @@ import {
   WeatherManager,
 } from "@/engine/core/managers";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/AbstractCoreManager";
+import { SleepManager } from "@/engine/core/managers/SleepManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -47,6 +48,7 @@ export function registerManagers(): void {
     ReleaseBodyManager,
     SaveManager,
     SimulationBoardManager,
+    SleepManager,
     StatisticsManager,
     TaskManager,
     TradeManager,

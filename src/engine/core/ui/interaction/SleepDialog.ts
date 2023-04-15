@@ -4,12 +4,10 @@ import {
   CUIScriptWnd,
   Frect,
   game,
-  get_console,
   level,
   LuabindClass,
   ui_events,
   vector2,
-  XR_CConsole,
   XR_CScriptXmlInit,
   XR_CUI3tButton,
   XR_CUIMessageBoxEx,
@@ -20,25 +18,18 @@ import {
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SurgeManager } from "@/engine/core/managers/SurgeManager";
-import { WeatherManager } from "@/engine/core/managers/WeatherManager";
-import { executeConsoleCommand } from "@/engine/core/utils/console";
-import { disableGameUi, enableGameUi } from "@/engine/core/utils/control";
+import { SleepManager } from "@/engine/core/managers/SleepManager";
 import { disableInfo, giveInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { animations } from "@/engine/lib/constants/animation/animations";
-import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { captions } from "@/engine/lib/constants/captions/captions";
-import { console_commands } from "@/engine/lib/constants/console_commands";
 import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
-import { Optional, TPath } from "@/engine/lib/types";
+import { TPath } from "@/engine/lib/types";
 
 const base: TPath = "interaction\\SleepDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
 
-let sleep_control: Optional<SleepDialog> = null;
 const isWide: boolean = isWideScreen();
 
 /**
@@ -46,19 +37,23 @@ const isWide: boolean = isWideScreen();
  */
 @LuabindClass()
 export class SleepDialog extends CUIScriptWnd {
-  public back!: XR_CUIStatic;
-  public sleep_static!: XR_CUIStatic;
-  public sleep_static2!: XR_CUIStatic;
-  public static_cover!: XR_CUIStatic;
-  public st_marker!: XR_CUIStatic;
-  public time_track!: XR_CUITrackBar;
-  public btn_sleep!: XR_CUI3tButton;
-  public btn_cancel!: XR_CUI3tButton;
-  public sleep_mb!: XR_CUIMessageBoxEx;
-  public sleep_st_tbl!: Record<string, XR_CUIStatic>;
+  public readonly owner: SleepManager;
 
-  public constructor() {
+  public back!: XR_CUIStatic;
+  public sleepStatic!: XR_CUIStatic;
+  public sleepStatic2!: XR_CUIStatic;
+  public staticCover!: XR_CUIStatic;
+  public stMarker!: XR_CUIStatic;
+  public timeTrack!: XR_CUITrackBar;
+  public btnSleep!: XR_CUI3tButton;
+  public btnCancel!: XR_CUI3tButton;
+  public sleepMessageBox!: XR_CUIMessageBoxEx;
+  public sleepStTable!: Record<string, XR_CUIStatic>;
+
+  public constructor(owner: SleepManager) {
     super();
+
+    this.owner = owner;
 
     this.InitControls();
     this.InitCallbacks();
@@ -75,30 +70,29 @@ export class SleepDialog extends CUIScriptWnd {
     xml.ParseFile(resolveXmlFormPath(base, true));
 
     this.back = xml.InitStatic("background", this);
-    // --  this.sleep_static = xml.InitSleepStatic("sleep_static", this.back)
 
-    this.sleep_static = xml.InitStatic("sleep_static", this.back);
-    this.sleep_static2 = xml.InitStatic("sleep_static", this.back);
-    this.static_cover = xml.InitStatic("static_cover", this.back);
-    this.st_marker = xml.InitStatic("st_marker", this.static_cover);
+    this.sleepStatic = xml.InitStatic("sleep_static", this.back);
+    this.sleepStatic2 = xml.InitStatic("sleep_static", this.back);
+    this.staticCover = xml.InitStatic("static_cover", this.back);
+    this.stMarker = xml.InitStatic("st_marker", this.staticCover);
 
-    this.sleep_st_tbl = {};
+    this.sleepStTable = {};
 
     for (let it = 1; it <= 24; it += 1) {
-      this.sleep_st_tbl[it] = xml.InitStatic("sleep_st_" + it, this.back);
+      this.sleepStTable[it] = xml.InitStatic("sleep_st_" + it, this.back);
     }
 
-    this.time_track = xml.InitTrackBar("time_track", this.back);
-    this.Register(this.time_track, "time_track");
+    this.timeTrack = xml.InitTrackBar("time_track", this.back);
+    this.Register(this.timeTrack, "time_track");
 
-    this.btn_sleep = xml.Init3tButton("btn_sleep", this.back);
-    this.Register(this.btn_sleep, "btn_sleep");
+    this.btnSleep = xml.Init3tButton("btn_sleep", this.back);
+    this.Register(this.btnSleep, "btn_sleep");
 
-    this.btn_cancel = xml.Init3tButton("btn_cancel", this.back);
-    this.Register(this.btn_cancel, "btn_cancel");
+    this.btnCancel = xml.Init3tButton("btn_cancel", this.back);
+    this.Register(this.btnCancel, "btn_cancel");
 
-    this.sleep_mb = new CUIMessageBoxEx();
-    this.Register(this.sleep_mb, "sleep_mb");
+    this.sleepMessageBox = new CUIMessageBoxEx();
+    this.Register(this.sleepMessageBox, "sleep_mb");
   }
 
   /**
@@ -114,22 +108,22 @@ export class SleepDialog extends CUIScriptWnd {
    * todo;
    */
   public Initialize(): void {
-    const cur_hours: number = level.get_time_hours();
+    const currentHours: number = level.get_time_hours();
 
     for (let it = 1; it <= 24; it += 1) {
-      let hours: number = cur_hours + it;
+      let hours: number = currentHours + it;
 
       if (hours >= 24) {
         hours = hours - 24;
       }
 
-      this.sleep_st_tbl[it].TextControl().SetText(hours + game.translate_string(captions.st_sleep_hours));
+      this.sleepStTable[it].TextControl().SetText(hours + game.translate_string(captions.st_sleep_hours));
     }
 
-    const delta: number = math.floor((591 / 24) * cur_hours);
+    const delta: number = math.floor((591 / 24) * currentHours);
     let rect: XR_Frect = new Frect().set(delta, 413, 591, 531);
 
-    this.sleep_static.SetTextureRect(rect);
+    this.sleepStatic.SetTextureRect(rect);
 
     let width = 591 - delta;
 
@@ -137,10 +131,10 @@ export class SleepDialog extends CUIScriptWnd {
       width = width * 0.8;
     }
 
-    this.sleep_static.SetWndSize(new vector2().set(width, 118));
+    this.sleepStatic.SetWndSize(new vector2().set(width, 118));
 
     rect = new Frect().set(0, 413, delta, 531);
-    this.sleep_static2.SetTextureRect(rect);
+    this.sleepStatic2.SetTextureRect(rect);
 
     width = delta;
 
@@ -148,34 +142,36 @@ export class SleepDialog extends CUIScriptWnd {
       width = width * 0.8;
     }
 
-    this.sleep_static2.SetWndSize(new vector2().set(width, 118));
+    this.sleepStatic2.SetWndSize(new vector2().set(width, 118));
 
-    const pos = this.sleep_static2.GetWndPos();
+    const pos = this.sleepStatic2.GetWndPos();
 
-    pos.x = this.sleep_static.GetWndPos().x + this.sleep_static.GetWidth();
-    this.sleep_static2.SetWndPos(pos);
+    pos.x = this.sleepStatic.GetWndPos().x + this.sleepStatic.GetWidth();
+    this.sleepStatic2.SetWndPos(pos);
   }
 
   /**
    * todo;
    */
   public TestAndShow(): void {
-    logger.info("Test and show");
+    logger.info("Show sleep options");
 
     const actor: XR_game_object = registry.actor;
 
+    giveInfo(info_portions.sleep_active);
+
     if (actor.bleeding > 0 || actor.radiation > 0) {
-      this.sleep_mb.InitMessageBox("message_box_ok");
+      this.sleepMessageBox.InitMessageBox("message_box_ok");
 
       if (actor.bleeding > 0 && actor.radiation > 0) {
-        this.sleep_mb.SetText("sleep_warning_all_pleasures");
+        this.sleepMessageBox.SetText(captions.sleep_warning_all_pleasures);
       } else if (actor.bleeding > 0) {
-        this.sleep_mb.SetText("sleep_warning_bleeding");
+        this.sleepMessageBox.SetText(captions.sleep_warning_bleeding);
       } else {
-        this.sleep_mb.SetText("sleep_warning_radiation");
+        this.sleepMessageBox.SetText(captions.sleep_warning_radiation);
       }
 
-      this.sleep_mb.ShowDialog(true);
+      this.sleepMessageBox.ShowDialog(true);
     } else {
       this.Initialize();
       this.ShowDialog(true);
@@ -188,8 +184,8 @@ export class SleepDialog extends CUIScriptWnd {
   public override Update(): void {
     super.Update();
 
-    const sleep_time: number = this.time_track.GetIValue() - 1;
-    let x: number = math.floor((591 / 24) * sleep_time);
+    const sleepTime: number = this.timeTrack.GetIValue() - 1;
+    let x: number = math.floor((591 / 24) * sleepTime);
 
     if (x === 0) {
       x = 5;
@@ -199,11 +195,7 @@ export class SleepDialog extends CUIScriptWnd {
       x = x * 0.8;
     }
 
-    this.st_marker.SetWndPos(new vector2().set(x, 0));
-  }
-
-  public OnTrackButton(): void {
-    logger.info("On track button");
+    this.stMarker.SetWndPos(new vector2().set(x, 0));
   }
 
   public OnButtonCancel(): void {
@@ -219,84 +211,15 @@ export class SleepDialog extends CUIScriptWnd {
     logger.info("On button sleep");
 
     this.HideDialog();
-
-    disableGameUi(registry.actor);
-
-    level.add_cam_effector(animations.camera_effects_sleep, 10, false, "engine.dream_callback");
-    level.add_pp_effector(postProcessors.sleep_fade, 11, false);
-
-    giveInfo(info_portions.actor_is_sleeping);
-
-    const console: XR_CConsole = get_console();
-    const surgeManager = SurgeManager.getInstance();
-
-    registry.sounds.musicVolume = console.get_float("snd_volume_music");
-    registry.sounds.effectsVolume = console.get_float("snd_volume_eff");
-
-    console.execute("snd_volume_music 0");
-    console.execute("snd_volume_eff 0");
-
-    logger.info("Surge manager update resurrect skip message");
-    surgeManager.setSkipResurrectMessage();
+    this.owner.startSleep(this.timeTrack.GetIValue());
   }
 
   public OnMessageBoxOk(): void {
     logger.info("On message box OK");
 
-    giveInfo("tutorial_sleep");
+    giveInfo(info_portions.tutorial_sleep);
     disableInfo(info_portions.sleep_active);
   }
-}
-
-export function dream_callback(): void {
-  logger.info("Dream callback");
-
-  level.add_cam_effector(animations.camera_effects_sleep, 10, false, "engine.dream_callback2");
-
-  const actor: XR_game_object = registry.actor;
-  const hours = sleep_control!.time_track.GetIValue();
-  const weatherManager = WeatherManager.getInstance();
-  const surgeManager = SurgeManager.getInstance();
-
-  level.change_game_time(0, hours, 0);
-
-  weatherManager.forceWeatherChange();
-  SurgeManager.getInstance().isTimeForwarded = true;
-
-  if (surgeManager.isStarted && weatherManager.weatherFx) {
-    level.stop_weather_fx();
-    // --    WeatherManager.get_weather_manager().select_weather(true)
-    weatherManager.forceWeatherChange();
-  }
-
-  actor.power = 1;
-}
-
-export function dream_callback2(): void {
-  logger.info("Dream callback 2");
-
-  enableGameUi();
-
-  executeConsoleCommand(console_commands.snd_volume_music, registry.sounds.musicVolume);
-  executeConsoleCommand(console_commands.snd_volume_eff, registry.sounds.effectsVolume);
-
-  registry.sounds.musicVolume = 0;
-  registry.sounds.effectsVolume = 0;
-
-  giveInfo(info_portions.tutorial_sleep);
-  disableInfo(info_portions.actor_is_sleeping);
-  disableInfo(info_portions.sleep_active);
-}
-
-export function sleep(): void {
-  logger.info("Sleep called");
-
-  if (sleep_control === null) {
-    sleep_control = new SleepDialog();
-  }
-
-  sleep_control.time_track.SetCurrentValue();
-  sleep_control.TestAndShow();
 }
 
 // @ts-ignore Todo: Get rid of globals

@@ -7,7 +7,6 @@ import {
   XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
-  XR_reader,
 } from "xray16";
 
 import { registry } from "@/engine/core/database";

@@ -16,6 +16,7 @@ export function registerExternals(): void {
   require("@/engine/scripts/declarations/callbacks");
   require("@/engine/scripts/declarations/conditions");
   require("@/engine/scripts/declarations/effects");
+  require("@/engine/scripts/declarations/tasks");
 
   extern("dialogs_pripyat", require("@/engine/scripts/declarations/dialogs/dialogs_pripyat"));
   extern("dialogs_jupiter", require("@/engine/scripts/declarations/dialogs/dialogs_jupiter"));

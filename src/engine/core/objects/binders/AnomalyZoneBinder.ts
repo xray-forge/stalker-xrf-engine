@@ -341,7 +341,7 @@ export class AnomalyZoneBinder extends object_binder {
    * todo: Description.
    */
   public respawnArtefactsAndReplaceAnomalyZones(): void {
-    logger.info("Respawn artefacts and replace anomaly zone:", this.object.name());
+    logger.info("Surge spawn:", this.object.name());
 
     const anom_fields = registry.anomalyFields;
 
