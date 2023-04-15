@@ -157,8 +157,9 @@ export function isHeavilyWounded(objectId: TNumberId): boolean {
   const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
 
   return (
-    state[EScheme.WOUNDED] !== null &&
-    tostring((state[EScheme.WOUNDED] as ISchemeWoundedState).wound_manager.wound_state) !== NIL
+    (state &&
+      state[EScheme.WOUNDED] &&
+      tostring((state[EScheme.WOUNDED] as ISchemeWoundedState).wound_manager.wound_state) !== NIL) === true
   );
 }
 

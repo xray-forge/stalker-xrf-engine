@@ -7,14 +7,14 @@ export class MockVector {
   /**
    * Create mock vector from coordinates.
    */
-  public static create(x: number, y: number, z: number): MockVector {
+  public static create(x: number = 0, y: number = 0, z: number = 0): MockVector {
     return new MockVector().set(x, y, z);
   }
 
   /**
    * Create mock vector as mock from coordinates.
    */
-  public static mock(x: number, y: number, z: number): XR_vector {
+  public static mock(x: number = 0, y: number = 0, z: number = 0): XR_vector {
     return new MockVector().set(x, y, z) as unknown as XR_vector;
   }
 

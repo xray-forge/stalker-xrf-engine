@@ -4,17 +4,14 @@ import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { ENotificationDirection } from "@/engine/core/managers/notifications/ENotificationDirection";
 import {
   notificationManagerIcons,
   TNotificationIcon,
   TNotificationIconKey,
 } from "@/engine/core/managers/notifications/NotificationManagerIcons";
-import {
-  notificationTaskDescription,
-  TNotificationTaskDescriptionKey,
-} from "@/engine/core/managers/notifications/NotificationTaskDescription";
-import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { ENotificationDirection, ETreasureNotificationType } from "@/engine/core/managers/notifications/types";
+import { ISmartTerrainDescriptor, SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { Stalker } from "@/engine/core/objects";
 import { isHeavilyWounded } from "@/engine/core/utils/check/check";
 import { isStalkerClassId } from "@/engine/core/utils/check/is";
@@ -22,17 +19,31 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getInventoryNameForItemSection } from "@/engine/core/utils/spawn";
 import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
-import { textures } from "@/engine/lib/constants/textures";
-import { Maybe, Optional, TCount, TDuration, TLabel, TName, TStringId, TTimestamp } from "@/engine/lib/types";
+import { textures, TTexture } from "@/engine/lib/constants/textures";
+import {
+  Optional,
+  TCount,
+  TDuration,
+  TLabel,
+  TName,
+  TNumberId,
+  TPath,
+  TSection,
+  TStringId,
+  TTimestamp,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Manager for processing of notifications on different game events.
+ * Display information about new treasures, quests or items/money operations.
+ *
  * todo: Handle notification events from app-level events without direct imports.
  */
 export class NotificationManager extends AbstractCoreManager {
   public static readonly DEFAULT_NOTIFICATION_SHOW_DURATION: TDuration = 5_000;
+  public static readonly QUEST_NOTIFICATION_SHOW_DURATION: TDuration = 10_000;
 
   public override initialize(): void {
     const eventsManager: EventsManager = EventsManager.getInstance();
@@ -47,128 +58,134 @@ export class NotificationManager extends AbstractCoreManager {
   }
 
   /**
-   * todo: Description.
+   * Send notification with information about actor money transfer.
    */
-  public sendMoneyRelocatedNotification(
-    actor: Optional<XR_game_object>,
-    direction: ENotificationDirection,
-    amount: TCount
-  ): void {
+  public sendMoneyRelocatedNotification(direction: ENotificationDirection, amount: TCount): void {
     logger.info("Show relocate money message:", direction, amount, amount);
 
-    if (actor === null) {
-      return;
-    }
+    const notificationTitle: TLabel = game.translate_string(
+      direction === ENotificationDirection.IN ? captions.general_in_money : captions.general_out_money
+    );
+    const notificationText: TLabel = tostring(amount);
+    const notificationIcon: TTexture =
+      direction === ENotificationDirection.IN ? textures.ui_inGame2_Dengi_polucheni : textures.ui_inGame2_Dengi_otdani;
 
-    if (direction === ENotificationDirection.IN) {
-      const news_caption: string = game.translate_string(captions.general_in_money);
-      const news_text: string = game.translate_string(tostring(amount));
-
-      if (actor.is_talking()) {
-        actor.give_talk_message2(news_caption, news_text, textures.ui_inGame2_Dengi_polucheni, "iconed_answer_item");
-      } else {
-        actor.give_game_news(news_caption, news_text, textures.ui_inGame2_Dengi_polucheni, 0, 3000);
-      }
-    } else if (direction === ENotificationDirection.OUT) {
-      const news_caption: string = game.translate_string(captions.general_out_money);
-      const news_text: string = game.translate_string(tostring(amount));
-
-      if (actor.is_talking()) {
-        actor.give_talk_message2(news_caption, news_text, textures.ui_inGame2_Dengi_otdani, "iconed_answer_item");
-      } else {
-        actor.give_game_news(news_caption, news_text, textures.ui_inGame2_Dengi_otdani, 0, 3000);
-      }
-    }
+    this.onSendGenericNotification(
+      true,
+      notificationTitle,
+      notificationText,
+      notificationIcon,
+      0,
+      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
+    );
   }
 
   /**
-   * todo: Description.
+   * Show notification in game UI or in dialog window if actor is talking.
    */
-  public sendTreasureNotification(param: 0 | 1 | 2): void {
-    logger.info("Show send treasure:", param);
-
-    let news_caption: TLabel = "";
-    const actor: XR_game_object = registry.actor;
-
-    if (param === 0) {
-      news_caption = game.translate_string(captions.st_found_new_treasure);
-    } else if (param === 1) {
-      news_caption = game.translate_string(captions.st_got_treasure);
-    } else if (param === 2) {
-      news_caption = game.translate_string(captions.st_found_old_treasure);
-    }
-
-    if (actor.is_talking()) {
-      actor.give_talk_message2(
-        news_caption,
-        "",
-        textures.ui_inGame2_Polucheni_koordinaty_taynika,
-        "iconed_answer_item"
-      );
-    } else {
-      actor.give_game_news(news_caption, "", textures.ui_inGame2_Polucheni_koordinaty_taynika, 0, 3000);
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public sendTaskNotification(
-    actor: Optional<XR_game_object>,
-    type: TNotificationTaskDescriptionKey,
-    task: XR_CGameTask
+  public sendItemRelocatedNotification(
+    direction: ENotificationDirection,
+    itemSection: TSection,
+    amount: TCount = 1
   ): void {
-    logger.info("Show task notification:", type, task.get_id(), task.get_title());
+    logger.info("Show relocate item message:", direction, itemSection, amount);
 
-    // todo: Move to configs.
-    let durationOnScreen = 10_000;
+    const notificationTitle: TLabel = game.translate_string(
+      direction === ENotificationDirection.IN ? captions.general_in_item : captions.general_out_item
+    );
+    const notificationText: TLabel = string.format(
+      "%s%s",
+      getInventoryNameForItemSection(itemSection),
+      amount === 1 ? "" : " x" + amount
+    );
+    const notificationIcon: TTexture =
+      direction === ENotificationDirection.IN
+        ? textures.ui_inGame2_Predmet_poluchen
+        : textures.ui_inGame2_Predmet_otdan;
 
-    if (type === "updated") {
-      durationOnScreen = NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION;
-    }
-
-    this.playPdaNotificationSound();
-
-    const notificationTitle: TLabel = game.translate_string(notificationTaskDescription[type]);
-    const notificationDescription: string = game.translate_string(task.get_title());
-    let icon: TName = task.get_icon_name();
-
-    if (icon === null) {
-      icon = textures.ui_iconsTotal_storyline;
-    }
-
-    if (registry.actor.is_talking()) {
-      registry.actor.give_talk_message2(notificationTitle, notificationDescription + ".", icon, "iconed_answer_item");
-    } else {
-      registry.actor.give_game_news(notificationTitle, notificationDescription + ".", icon, 0, durationOnScreen);
-    }
+    this.onSendGenericNotification(
+      true,
+      notificationTitle,
+      notificationText,
+      notificationIcon,
+      0,
+      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
+    );
   }
 
   /**
-   * todo;
-   *
-   * @param actor
-   * @param caption
-   * @param timeout - duration of notification display, in seconds.
-   * @param sender
-   * @param showtime
-   * @param senderId
-   * @returns -
+   * Show notifications related to treasures state updates.
+   */
+  public sendTreasureNotification(notificationType: ETreasureNotificationType): void {
+    logger.info("Show treasure notification:", notificationType);
+
+    let notificationTitle: TLabel = "";
+
+    if (notificationType === ETreasureNotificationType.NEW_TREASURE_COORDINATES) {
+      notificationTitle = game.translate_string(captions.st_found_new_treasure);
+    } else if (notificationType === ETreasureNotificationType.FOUND_TREASURE) {
+      notificationTitle = game.translate_string(captions.st_got_treasure);
+    } else if (notificationType === ETreasureNotificationType.LOOTED_TREASURE_COORDINATES) {
+      notificationTitle = game.translate_string(captions.st_found_old_treasure);
+    }
+
+    this.onSendGenericNotification(
+      true,
+      notificationTitle,
+      "",
+      textures.ui_inGame2_Polucheni_koordinaty_taynika,
+      0,
+      NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
+    );
+  }
+
+  /**
+   * Send notification about task state update.
+   */
+  public sendTaskNotification(actor: Optional<XR_game_object>, newState: ETaskState, task: XR_CGameTask): void {
+    logger.info("Show task notification:", newState, task.get_id(), task.get_title());
+
+    const notificationTaskDescription: Record<ETaskState, TLabel> = {
+      [ETaskState.NEW]: "general_new_task",
+      [ETaskState.COMPLETED]: "general_complete_task",
+      [ETaskState.FAIL]: "general_fail_task",
+      [ETaskState.REVERSED]: "general_reverse_task",
+      [ETaskState.UPDATED]: "general_update_task",
+    };
+
+    const notificationTitle: TLabel = game.translate_string(notificationTaskDescription[newState]);
+    const notificationDescription: string = game.translate_string(task.get_title()) + ".";
+    const notificationIcon: TTexture = task.get_icon_name() ?? textures.ui_iconsTotal_storyline;
+    const notificationDuration: TDuration =
+      newState === "updated"
+        ? NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION
+        : NotificationManager.QUEST_NOTIFICATION_SHOW_DURATION;
+
+    this.onPlayPdaNotificationSound();
+    this.onSendGenericNotification(
+      true,
+      notificationTitle,
+      notificationDescription,
+      notificationIcon,
+      0,
+      notificationDuration
+    );
+  }
+
+  /**
+   * Send generic tip notification.
    */
   public sendTipNotification(
-    actor: XR_game_object,
     caption: TCaption,
-    timeout: Maybe<TDuration>,
-    sender: Optional<TNotificationIcon | XR_game_object>,
-    showtime: Maybe<TTimestamp>,
-    senderId: Optional<TStringId>
-  ): boolean {
-    logger.info("Show tip notification:", caption, timeout, showtime, senderId);
+    delay: Optional<TDuration> = 0,
+    sender: Optional<TNotificationIcon | XR_game_object> = null,
+    showtime: Optional<TTimestamp> = NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
+    senderId: Optional<TStringId> = null
+  ): void {
+    logger.info("Show tip notification:", caption, delay, showtime, senderId);
 
-    if (caption === null) {
-      return false;
-    }
-
+    // Verify whether sender can send notifications.
+    // todo: Probably here check ID from sender object if it is provided?
     if (senderId !== null) {
       const simulator: Optional<XR_alife_simulator> = alife();
 
@@ -176,190 +193,149 @@ export class NotificationManager extends AbstractCoreManager {
         const serverObject: Stalker = simulator.object(getObjectIdByStoryId(senderId)!) as Stalker;
 
         if (serverObject !== null) {
-          if (serverObject.online) {
-            if (isHeavilyWounded(serverObject.id)) {
-              logger.info("Cannot send tip, npc is wounded");
-
-              return false;
-            }
+          // Check if sender is not wounded.
+          if (serverObject.online && isHeavilyWounded(serverObject.id)) {
+            return logger.info("Cannot send tip, npc is wounded");
           }
 
+          // Check if sender is alive.
           if (!serverObject.alive()) {
-            logger.info("Cannot send tip, npc is not alive");
-
-            return false;
+            return logger.info("Cannot send tip, npc is not alive");
           }
         }
       }
     }
 
-    this.playPdaNotificationSound();
-
-    let texture: TName = textures.ui_iconsTotal_grouping;
-
-    if (sender !== null) {
-      texture = type(sender) === "string" ? (sender as TNotificationIcon) : (sender as XR_game_object).character_icon();
-    }
-
     const notificationTitle: TLabel = game.translate_string(captions.st_tip);
     const notificationDescription: TLabel = game.translate_string(caption);
-    const showTimeout: TDuration = !timeout ? 0 : timeout;
-    const showTime: TDuration = !showtime ? NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION : showtime;
+    let notificationIcon: TTexture = textures.ui_iconsTotal_grouping;
 
-    actor.give_game_news(notificationTitle, notificationDescription, texture, showTimeout * 1000, showTime, 0);
+    // If sender is game object, check sender character icon to display instead of generic one.
+    if (sender !== null) {
+      notificationIcon =
+        type(sender) === "string" ? (sender as TNotificationIcon) : (sender as XR_game_object).character_icon();
+    }
 
-    return true;
+    this.onPlayPdaNotificationSound();
+    this.onSendGenericNotification(
+      false,
+      notificationTitle,
+      notificationDescription,
+      notificationIcon,
+      delay || 0,
+      showtime || NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
+      0
+    );
   }
 
   /**
-   * todo: Description.
-   * todo: Probably should be part of sound manager.
+   * Send generic sound notification to replicate what characters say.
    */
   public sendSoundNotification(
     object: Optional<XR_game_object>,
-    faction: Optional<string>,
-    point: Optional<string>,
-    str: string,
-    str2: Optional<string>,
-    delay: Optional<TDuration>
+    faction: TName,
+    point: Optional<TName | TNumberId>,
+    soundPath: TPath,
+    soundCaption: Optional<TLabel> = null,
+    delay: TDuration = 0
   ): void {
-    logger.info("Send sound:", object?.name(), str, str2, faction);
-
-    if (faction === null) {
-      return;
-    }
+    logger.info("Send sound notification:", object?.name(), soundPath, soundCaption, faction);
 
     let pointName: TName = "";
 
+    // todo: Probably name and number id problem? Not real condition?
     if (point !== null) {
-      // todo: Probably name and number id problem?
-      const smart = SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(point as any);
+      const smartDescriptor: Optional<ISmartTerrainDescriptor> =
+        SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(point as TNumberId);
 
-      if (smart !== null) {
-        pointName = smart.smartTerrain.getNameCaption();
+      if (smartDescriptor !== null) {
+        pointName = smartDescriptor.smartTerrain.getNameCaption();
       } else {
-        pointName = game.translate_string(point);
+        pointName = game.translate_string(point as TName);
       }
     }
 
-    let txt = "";
+    let soundCaptionText: Optional<TLabel> = soundCaption;
 
-    if (str2 === null) {
-      [txt] = string.gsub(str, "(characters_voice\\human_..\\)([^\\]*)", "%2");
-      [txt] = string.gsub(txt, "[\\]([^\\]*)", "_%1");
-    } else {
-      txt = str2;
+    if (soundCaptionText === null) {
+      [soundCaptionText] = string.gsub(soundPath, "(characters_voice\\human_..\\)([^\\]*)", "%2");
+      [soundCaptionText] = string.gsub(soundCaptionText, "[\\]([^\\]*)", "_%1");
     }
 
-    const news_text = game.translate_string(txt);
+    const notificationTextTranslated: TLabel = game.translate_string(soundCaptionText);
 
-    if (news_text === txt) {
+    // Check if it is translated, do not show if translation is missing.
+    if (notificationTextTranslated === soundCaptionText) {
       return;
     }
 
-    let texture: string = textures.ui_iconsTotal_grouping;
+    let textureName: TTexture = textures.ui_iconsTotal_grouping;
 
     if (object !== null && isStalkerClassId(object.clsid())) {
-      texture = object.character_icon();
-    } else {
-      if (notificationManagerIcons[faction as TNotificationIconKey] !== null) {
-        texture = notificationManagerIcons[faction as TNotificationIconKey];
-      }
+      textureName = object.character_icon();
+    } else if (notificationManagerIcons[faction as TNotificationIconKey]) {
+      textureName = notificationManagerIcons[faction as TNotificationIconKey];
     }
 
-    let news_caption = game.translate_string("st_tip") + " " + game.translate_string(faction);
+    const notificationTitle = string.format(
+      "%s %s%s:",
+      game.translate_string("st_tip"),
+      game.translate_string(faction),
+      pointName === "" ? "" : ". " + pointName
+    );
 
-    if (pointName !== "") {
-      news_caption = news_caption + ". " + pointName + ":";
-    } else {
-      news_caption = news_caption + ":";
-    }
-
-    registry.actor.give_game_news(
-      news_caption,
-      news_text,
-      texture,
-      delay! + 1000,
+    this.onSendGenericNotification(
+      false,
+      notificationTitle,
+      notificationTextTranslated,
+      textureName,
+      delay + 1000,
       NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
       1
     );
   }
 
   /**
-   * todo: Description.
+   * Play default sound notification of PDA updates.
    */
-  public sendItemRelocatedNotification(
-    actor: XR_game_object,
-    direction: ENotificationDirection,
-    item: string,
-    amount: TCount = 1
-  ): void {
-    logger.info("Show relocate item message:", direction, item, amount);
-
-    let notificationCaption: TLabel = "";
-    let notificationText: TLabel = "";
-
-    if (direction === ENotificationDirection.IN) {
-      if (amount === 1) {
-        notificationCaption = game.translate_string(captions.general_in_item);
-        notificationText = game.translate_string(getInventoryNameForItemSection(item));
-      } else {
-        notificationCaption = game.translate_string(captions.general_in_item);
-        notificationText = game.translate_string(getInventoryNameForItemSection(item)) + " x" + amount;
-      }
-
-      if (actor.is_talking()) {
-        actor.give_talk_message2(
-          notificationCaption,
-          notificationText,
-          textures.ui_inGame2_Predmet_poluchen,
-          "iconed_answer_item"
-        );
-      } else {
-        actor.give_game_news(notificationCaption, notificationText, textures.ui_inGame2_Predmet_poluchen, 0, 3000);
-      }
-    } else if (direction === ENotificationDirection.OUT) {
-      if (amount === 1) {
-        notificationCaption = game.translate_string(captions.general_out_item);
-        notificationText = game.translate_string(getInventoryNameForItemSection(item));
-      } else {
-        notificationCaption = game.translate_string(captions.general_out_item);
-        notificationText = game.translate_string(getInventoryNameForItemSection(item)) + " x" + amount;
-      }
-
-      if (actor.is_talking()) {
-        actor.give_talk_message2(
-          notificationCaption,
-          notificationText,
-          textures.ui_inGame2_Predmet_otdan,
-          "iconed_answer_item"
-        );
-      } else {
-        actor.give_game_news(notificationCaption, notificationText, textures.ui_inGame2_Predmet_otdan, 0, 3000);
-      }
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  protected playPdaNotificationSound(): void {
+  public onPlayPdaNotificationSound(): void {
     GlobalSoundManager.getInstance().playSound(registry.actor.id(), scriptSounds.pda_task, null, null);
   }
 
   /**
    * On surge skip show notification.
    */
-  protected onSurgeSkipped(shouldNotify: boolean): void {
+  public onSurgeSkipped(shouldNotify: boolean): void {
     if (shouldNotify) {
-      this.sendTipNotification(
-        registry.actor,
-        captions.st_surge_while_asleep,
-        null,
-        notificationManagerIcons.recent_surge,
-        null,
-        null
-      );
+      this.sendTipNotification(captions.st_surge_while_asleep, 0, notificationManagerIcons.recent_surge);
+    }
+  }
+
+  /**
+   * Send flexible notification.
+   * In case of generic UI just show notification element, in case of dialog show it as message in history.
+   */
+  public onSendGenericNotification(
+    isFlexible: boolean,
+    notificationTitle: TCaption,
+    notificationText: TCaption,
+    notificationIcon: TName,
+    delay: TDuration,
+    showTime: TDuration,
+    type: Optional<TNumberId> = null
+  ): void {
+    if (isFlexible && registry.actor.is_talking()) {
+      registry.actor.give_talk_message2(notificationTitle, notificationText, notificationIcon, "iconed_answer_item");
+    } else {
+      /**
+       * Call correct method based on LUA binding signature.
+       * Different methods are called based on different params count.
+       */
+      if (type === null) {
+        registry.actor.give_game_news(notificationTitle, notificationText, notificationIcon, delay, showTime);
+      } else {
+        registry.actor.give_game_news(notificationTitle, notificationText, notificationIcon, delay, showTime, type);
+      }
     }
   }
 }

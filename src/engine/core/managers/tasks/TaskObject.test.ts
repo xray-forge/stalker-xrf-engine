@@ -86,7 +86,7 @@ describe("TaskObject class", () => {
       0,
       0,
       "hide_from_surge_name_1",
-      "hide_from_surge_descr_1_a",
+      "translated_hide_from_surge_descr_1_a",
       NIL,
       11,
     ]);

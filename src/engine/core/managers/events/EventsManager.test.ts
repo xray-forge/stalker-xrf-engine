@@ -26,8 +26,8 @@ describe("EventsManager class", () => {
     const manager: EventsManager = getManagerInstance(EventsManager);
     const contextObject: AnyObject = {};
 
-    const mockFn: AnyCallable = jest.fn((context, param) => {
-      expect(context).toBe(contextObject);
+    const mockFn: AnyCallable = jest.fn(function (this: unknown, param: number) {
+      expect(this).toBe(contextObject);
       expect(param).toBe(255);
     });
 

@@ -13,7 +13,7 @@ describe("'game_save' utils", () => {
 
   it("'createSave' should correctly generate commands", () => {
     createSave("test");
-    expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - test");
+    expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - translated_test");
 
     resetMethodMock(gameConsole.execute);
     createSave("st_another_test");
@@ -40,7 +40,7 @@ describe("'game_save' utils", () => {
     mocksConfig.isAutoSavingEnabled = true;
 
     createAutoSave("test");
-    expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - test");
+    expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - translated_test");
 
     resetMethodMock(gameConsole.execute);
     createAutoSave("st_another_test");

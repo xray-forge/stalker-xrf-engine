@@ -473,7 +473,7 @@ export class TravelManager extends AbstractCoreManager {
     const price: TCount = this.getTravelPriceByDistance(distance);
 
     actor.give_money(-price);
-    NotificationManager.getInstance().sendMoneyRelocatedNotification(actor, ENotificationDirection.OUT, price);
+    NotificationManager.getInstance().sendMoneyRelocatedNotification(ENotificationDirection.OUT, price);
 
     this.isTravelTeleported = false;
     this.isTraveling = true;

@@ -325,9 +325,8 @@ export function play_particle_on_path(actor: XR_game_object, npc: XR_game_object
 export function send_tip(actor: XR_game_object, npc: XR_game_object, params: [string, string, string]): void {
   logger.info("Send tip");
   NotificationManager.getInstance().sendTipNotification(
-    actor,
     params[0],
-    null,
+    0,
     params[1] as unknown as TNotificationIcon,
     null,
     params[2]
@@ -345,7 +344,7 @@ export function hit_npc(
   logger.info("Hit npc");
 
   const h = new hit();
-  const rev = params[5] && params[5] === "true";
+  const rev = params[5] && params[5] === TRUE;
 
   h.draftsman = npc;
   h.type = hit.wound;
@@ -1038,7 +1037,7 @@ export function give_actor(
 ): void {
   for (const [k, v] of p as LuaArray<string>) {
     alife().create(v, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
-    NotificationManager.getInstance().sendItemRelocatedNotification(actor, ENotificationDirection.IN, v);
+    NotificationManager.getInstance().sendItemRelocatedNotification(ENotificationDirection.IN, v);
   }
 }
 
@@ -1835,7 +1834,7 @@ export function remove_item(actor: XR_game_object, npc: XR_game_object, p: [stri
     abort("Actor has no such item!");
   }
 
-  NotificationManager.getInstance().sendItemRelocatedNotification(actor, ENotificationDirection.OUT, item);
+  NotificationManager.getInstance().sendItemRelocatedNotification(ENotificationDirection.OUT, item);
 }
 
 /**

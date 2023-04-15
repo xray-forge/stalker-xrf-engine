@@ -1,5 +1,8 @@
 import { iconTextures } from "@/engine/lib/constants/textures/icon_textures";
 
+/**
+ * Mock ini files for testing.
+ */
 export const FILES_MOCKS = {
   "system.ini": {
     actor: {
@@ -8,6 +11,9 @@ export const FILES_MOCKS = {
       quick_item_3: "qi_3",
       quick_item_4: "qi_4",
     },
+    detector_advanced: {
+      inv_name: "st_detector2",
+    },
   },
   "spawn.ini": {
     story_object: {
@@ -15,7 +21,14 @@ export const FILES_MOCKS = {
     },
   },
   "misc\\script_sound.ltx": {
-    list: {},
+    list: ["pda_task"],
+    pda_task: {
+      type: "actor",
+      npc_prefix: false,
+      path: "device\\pda\\pda_objective",
+      shuffle: "rnd",
+      idle: "1,1,100",
+    },
   },
   "misc\\death_generic.ltx": {
     keep_items: {},

@@ -554,7 +554,7 @@ export function zat_b103_transfer_merc_supplies(firstSpeaker: XR_game_object, se
     }, actor);
 
     if (j - it !== 0) {
-      newsManager.sendItemRelocatedNotification(actor, ENotificationDirection.OUT, section, j - it);
+      newsManager.sendItemRelocatedNotification(ENotificationDirection.OUT, section, j - it);
     }
   }
 }
@@ -2171,7 +2171,7 @@ export function zat_b53_transfer_medkit_to_npc(first_speaker: XR_game_object, se
   }
 
   alife().release(alife().object(actor.object(section)!.id()), true);
-  NotificationManager.getInstance().sendItemRelocatedNotification(actor, ENotificationDirection.OUT, section, 1);
+  NotificationManager.getInstance().sendItemRelocatedNotification(ENotificationDirection.OUT, section, 1);
   actor.change_character_reputation(10);
 }
 

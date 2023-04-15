@@ -22,8 +22,10 @@ export function mockServerAlifeObject({
   clsid = jest.fn(() => -1 as TXR_class_id),
   section_name,
   spawn_ini = jest.fn(() => mockIniFile("spawn.ini")),
+  ...rest
 }: Partial<XR_cse_alife_object & { sectionOverride?: string }> = {}): XR_cse_alife_object {
   return {
+    ...rest,
     id,
     clsid,
     m_game_vertex_id,

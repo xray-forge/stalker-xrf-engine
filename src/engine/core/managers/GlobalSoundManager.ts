@@ -10,7 +10,7 @@ import { LoopedSound } from "@/engine/core/objects/sounds/playable_sounds/Looped
 import { NpcSound } from "@/engine/core/objects/sounds/playable_sounds/NpcSound";
 import { ObjectSound } from "@/engine/core/objects/sounds/playable_sounds/ObjectSound";
 import { EPlayableSound } from "@/engine/core/objects/sounds/types";
-import { abort, assert } from "@/engine/core/utils/assertion";
+import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
@@ -110,7 +110,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
     const playableTheme: Optional<AbstractPlayableSound> = registry.sounds.themes.get(sound);
     const soundItem: Optional<AbstractPlayableSound> = registry.sounds.generic.get(objectId);
 
-    assert(playableTheme !== null, "'playSound': Wrong sound theme [%s], npc[%s].", tostring(sound), objectId);
+    assertDefined(playableTheme, "'playSound': Wrong sound theme [%s], npc[%s].", tostring(sound), objectId);
     assert(playableTheme.type !== LoopedSound.type, "You trying to play sound [%s] which type is looped.", sound);
 
     if (soundItem === null || playableTheme.shouldPlayAlways) {

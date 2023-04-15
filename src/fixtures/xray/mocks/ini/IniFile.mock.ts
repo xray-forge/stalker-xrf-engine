@@ -21,13 +21,27 @@ export class IniFile<T extends AnyObject> {
   public r_s32 = jest.fn((section: TSection, field: TName) => this.data[section][field]);
   public r_string = jest.fn((section: TSection, field: TName) => this.data[section][field]);
   public r_bool = jest.fn((section: TSection, field: TName) => this.data[section][field]);
-  public line_count = jest.fn((section: TSection) => Object.keys(this.data[section] || {}).length);
+  public line_count = jest.fn((section: TSection) => {
+    const data = this.data[section];
+
+    if (Array.isArray(data)) {
+      return data.length;
+    }
+
+    return Object.keys(data || {}).length;
+  });
   public section_count = jest.fn((section: TSection) => Object.keys(this.data).length);
   public section_exist = jest.fn((section: TSection) => this.data[section] !== undefined);
   public r_line = jest.fn((section: TSection, line_number: TNumberId) => {
-    const entry = Object.entries(this.data[section])[line_number];
+    const data = this.data[section];
 
-    return ["?", entry[0], entry[1]];
+    if (Array.isArray(data)) {
+      return [true, data[line_number], null];
+    }
+
+    const entry = Object.entries(data)[line_number];
+
+    return [true, entry[0], entry[1]];
   });
   public line_exist = jest.fn((section: TSection, param: TName) => {
     return this.data[section][param] !== undefined;

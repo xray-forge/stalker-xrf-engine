@@ -2,7 +2,7 @@ import { alife, XR_game_object } from "xray16";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
@@ -16,10 +16,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 export function giveMoneyToActor(amount: number): void {
   logger.info("Award actor with money:", amount);
 
-  const actor: XR_game_object = registry.actor;
-
-  actor.give_money(amount);
-  NotificationManager.getInstance().sendMoneyRelocatedNotification(actor, ENotificationDirection.IN, amount);
+  registry.actor.give_money(amount);
+  NotificationManager.getInstance().sendMoneyRelocatedNotification(ENotificationDirection.IN, amount);
 }
 
 /**
@@ -30,15 +28,12 @@ export function takeMoneyFromActor(
   second_speaker: XR_game_object,
   amount: number
 ): void {
-  const victim = getNpcSpeaker(first_speaker, second_speaker);
-  const actor: XR_game_object = registry.actor;
+  const victim: Optional<XR_game_object> = getNpcSpeaker(first_speaker, second_speaker);
 
-  if (victim === null) {
-    abort("Couldn't relocate money to NULL.");
-  }
+  assertDefined(victim, "Couldn't relocate money to NULL.");
 
-  actor.transfer_money(amount, victim);
-  NotificationManager.getInstance().sendMoneyRelocatedNotification(actor, ENotificationDirection.OUT, amount);
+  registry.actor.transfer_money(amount, victim);
+  NotificationManager.getInstance().sendMoneyRelocatedNotification(ENotificationDirection.OUT, amount);
 }
 
 /**
@@ -102,12 +97,7 @@ export function takeItemsFromActor(
     amount = amount * box_size;
   }
 
-  NotificationManager.getInstance().sendItemRelocatedNotification(
-    actor,
-    ENotificationDirection.OUT,
-    itemSection,
-    amount - i
-  );
+  NotificationManager.getInstance().sendItemRelocatedNotification(ENotificationDirection.OUT, itemSection, amount - i);
 }
 
 /**
@@ -157,12 +147,7 @@ export function giveItemsToActor(
     amount = amount * box_size;
   }
 
-  NotificationManager.getInstance().sendItemRelocatedNotification(
-    actor,
-    ENotificationDirection.IN,
-    itemSection,
-    amount
-  );
+  NotificationManager.getInstance().sendItemRelocatedNotification(ENotificationDirection.IN, itemSection, amount);
 }
 
 /**
@@ -192,7 +177,7 @@ export function relocateQuestItemSection(
     amount = amount * SYSTEM_INI.r_s32(itemSection, "box_size");
   }
 
-  NotificationManager.getInstance().sendItemRelocatedNotification(actor, direction, itemSection, amount);
+  NotificationManager.getInstance().sendItemRelocatedNotification(direction, itemSection, amount);
 }
 
 /**

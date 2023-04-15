@@ -131,7 +131,7 @@ export class ActorSound extends AbstractPlayableSound {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { NotificationManager } = require("@/engine/core/managers/notifications");
 
-    NotificationManager.getInstance().sendSoundNotification(null, faction, point, soundPath, null, null);
+    NotificationManager.getInstance().sendSoundNotification(null, faction, point, soundPath);
 
     return true;
   }

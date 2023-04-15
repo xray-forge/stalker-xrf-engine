@@ -78,7 +78,6 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
         }
 
         if (this.state.anim_head) {
-          // --printf("__bp: action set: %d", time_global())
           action(
             this.object,
             new anim(an),
@@ -86,7 +85,6 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
             cnd
           );
         } else {
-          // --printf("__bp: action set: %d", time_global())
           if (this.state.anim_movement === true) {
             action(this.object, new anim(an, true), new sound(snd, "bip01_head"), cnd);
           } else {
@@ -118,18 +116,14 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
    * todo: Description.
    */
   public override update(): void {
-    const actor = registry.actor;
-
     if (
       this.state.dialog_cond &&
-      pickSectionFromCondList(actor, this.object, this.state.dialog_cond.condlist) !== null
+      pickSectionFromCondList(registry.actor, this.object, this.state.dialog_cond.condlist) !== null
     ) {
-      // --printf("_bp: enable talk")
       if (!this.object.is_talk_enabled()) {
         this.object.enable_talk();
       }
     } else {
-      // --printf("_bp: disable talk")
       if (this.object.is_talk_enabled()) {
         this.object.disable_talk();
       }
@@ -138,16 +132,11 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
     if (!this.tip_sent) {
       this.tip_sent = true;
       if (this.state.tip) {
-        NotificationManager.getInstance().sendTipNotification(actor, this.state.tip, null, null, null, null);
+        NotificationManager.getInstance().sendTipNotification(this.state.tip);
       }
     }
 
-    // --printf("_bp: mob_remark:update [%s]", this.object.name())
-
     if (this.object.get_script() && !this.object.action()) {
-      // --this.object.script(false, script_name())
-      // --printf("__bp: free from script: %d", time_global())
-
       if (!this.action_end_signalled) {
         this.action_end_signalled = true;
         this.state.signals!.set("action_end", true);

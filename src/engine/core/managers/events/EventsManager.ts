@@ -54,7 +54,7 @@ export class EventsManager extends AbstractCoreManager {
    */
   public emitEvent(event: EGameEvent, ...data: AnyArgs): void {
     for (const [func, config] of this.callbacks[event]) {
-      func(config.context, ...data);
+      (func as unknown as AnyContextualCallable).call(config.context, ...data);
     }
   }
 

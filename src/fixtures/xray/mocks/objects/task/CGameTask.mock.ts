@@ -1,15 +1,17 @@
 import { jest } from "@jest/globals";
 import { TXR_TaskState, XR_CGameTask } from "xray16";
 
+import { AnyObject, Optional } from "@/engine/lib/types";
+
 /**
  * Mock x-ray task object.
  */
 export class MockCGameTask implements XR_CGameTask {
   public priority: number = -1;
-  public title: string = "test-title";
-  public description: string = "test-description";
-  public iconName: string = "test-icon";
-  public id: string = "test-id";
+  public title: string = "test_title";
+  public description: string = "test_description";
+  public iconName: string = "test_icon";
+  public id: string = "test_id";
   public state: TXR_TaskState = 1;
 
   public add_complete_func = jest.fn((value: string): void => {});
@@ -34,9 +36,9 @@ export class MockCGameTask implements XR_CGameTask {
     return this.description;
   });
 
-  public get_icon_name = jest.fn((): string => {
-    return this.iconName;
-  });
+  public get_icon_name = jest.fn(<T extends string>(): Optional<T> => {
+    return this.iconName as T;
+  }) as <T extends string>() => Optional<T>;
 
   public get_id = jest.fn((): string => {
     return this.id;
@@ -87,4 +89,15 @@ export class MockCGameTask implements XR_CGameTask {
   });
 
   public set_type = jest.fn((type: number): void => {});
+}
+
+/**
+ * Mock task object.
+ */
+export function mockCGameTask(overrides: Partial<MockCGameTask> = {}): XR_CGameTask {
+  const task: MockCGameTask = new MockCGameTask();
+
+  Object.entries(overrides).forEach(([key, value]) => ((task as AnyObject)[key] = value));
+
+  return task as XR_CGameTask;
 }

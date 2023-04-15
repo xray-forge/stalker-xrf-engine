@@ -9,6 +9,7 @@ import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { mockRenderDevice } from "@/fixtures/xray/mocks/device.mock";
 import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
+import { MockFileSystem } from "@/fixtures/xray/mocks/fs/FileSystem.mock";
 import { IniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { mockGameInterface } from "@/fixtures/xray/mocks/interface/gameInterface.mock";
 import { mockLevelInterface } from "@/fixtures/xray/mocks/interface/levelInterface.mock";
@@ -55,6 +56,7 @@ import { MockDangerObject } from "@/fixtures/xray/mocks/objects/client/danger_ob
 import { MockObjectBinder } from "@/fixtures/xray/mocks/objects/client/object_binder.mock";
 import { MockCGameTask, MockTask } from "@/fixtures/xray/mocks/objects/task";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
+import { MockSoundObject } from "@/fixtures/xray/mocks/sound/SoundObject.mock";
 import { mockStalkerIds } from "@/fixtures/xray/mocks/stalkerIds.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
@@ -111,6 +113,7 @@ export function mockXRay16({
   effector = MockEffector,
   game = mockGameInterface,
   game_graph = () => new MockCGameGraph(),
+  getFS = () => MockFileSystem.getInstance(),
   get_console = mockGetConsole,
   ini_file = IniFile,
   level = mockLevelInterface,
@@ -118,6 +121,7 @@ export function mockXRay16({
   move = MockMove,
   object_binder = MockObjectBinder,
   property_evaluator = MockPropertyEvaluator,
+  sound_object = MockSoundObject,
   stalker_ids = mockStalkerIds,
   system_ini = () => mockIniFile("system.ini"),
   task = MockTask,
@@ -175,6 +179,7 @@ export function mockXRay16({
     effector,
     game,
     game_graph,
+    getFS,
     get_console,
     ini_file,
     level,
@@ -182,6 +187,7 @@ export function mockXRay16({
     move,
     object_binder,
     property_evaluator,
+    sound_object,
     stalker_ids,
     system_ini,
     task,

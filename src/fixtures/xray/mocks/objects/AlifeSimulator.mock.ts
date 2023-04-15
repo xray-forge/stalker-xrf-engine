@@ -16,7 +16,7 @@ export class MockAlifeSimulator {
     delete MockAlifeSimulator.registry[id];
   }
 
-  public object = jest.fn((id: number) => MockAlifeSimulator.registry[id]);
+  public object = jest.fn((id: number) => MockAlifeSimulator.registry[id] || null);
 }
 
 /**

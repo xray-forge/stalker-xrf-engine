@@ -382,7 +382,7 @@ export function transfer_any_pistol_from_actor(firstSpeaker: XR_game_object, sec
 
   if (pistol !== null) {
     actor.transfer_item(actor.object(pistol)!, npc);
-    NotificationManager.getInstance().sendItemRelocatedNotification(actor, ENotificationDirection.OUT, pistol);
+    NotificationManager.getInstance().sendItemRelocatedNotification(ENotificationDirection.OUT, pistol);
   }
 }
 
