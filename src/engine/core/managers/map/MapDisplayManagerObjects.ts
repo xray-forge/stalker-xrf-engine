@@ -1,5 +1,5 @@
 import { captions } from "@/engine/lib/constants/captions/captions";
-import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions";
+import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { EMapMarkType, mapMarks } from "@/engine/lib/constants/map_marks";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { zones } from "@/engine/lib/constants/zones";
@@ -116,35 +116,35 @@ export const anomalyScannerObjects: LuaArray<{
     target: storyNames.jup_b32_spot,
     hint: captions.st_jup_b32_name,
     zone: zones.jup_b32_anomal_zone,
-    group: info_portions.jup_b32_scanner_1_placed,
+    group: infoPortions.jup_b32_scanner_1_placed,
     enabled: false,
   },
   {
     target: storyNames.jup_b201_spot,
     hint: captions.st_jup_b201_name,
     zone: zones.jup_b201_anomal_zone,
-    group: info_portions.jup_b32_scanner_2_placed,
+    group: infoPortions.jup_b32_scanner_2_placed,
     enabled: false,
   },
   {
     target: storyNames.jup_b209_spot,
     hint: captions.st_jup_b209_name,
     zone: zones.jup_b209_anomal_zone,
-    group: info_portions.jup_b32_scanner_3_placed,
+    group: infoPortions.jup_b32_scanner_3_placed,
     enabled: false,
   },
   {
     target: storyNames.jup_b211_spot,
     hint: captions.st_jup_b211_name,
     zone: zones.jup_b211_anomal_zone,
-    group: info_portions.jup_b32_scanner_4_placed,
+    group: infoPortions.jup_b32_scanner_4_placed,
     enabled: false,
   },
   {
     target: storyNames.jup_b1_spot,
     hint: captions.st_jup_b1_name,
     zone: zones.jup_b10_anomal_zone,
-    group: info_portions.jup_b32_scanner_5_placed,
+    group: infoPortions.jup_b32_scanner_5_placed,
     enabled: false,
   },
 ] as any;

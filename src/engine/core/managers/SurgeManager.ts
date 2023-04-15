@@ -45,7 +45,7 @@ import { animations } from "@/engine/lib/constants/animation/animations";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { console_commands } from "@/engine/lib/constants/console_commands";
-import { info_portions } from "@/engine/lib/constants/info_portions";
+import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
@@ -356,10 +356,7 @@ export class SurgeManager extends AbstractCoreManager {
       this.isStarted = true;
       this.isFinished = false;
 
-      if (
-        !hasAlifeInfo(info_portions.pri_b305_fifth_cam_end) ||
-        hasAlifeInfo(info_portions.pri_a28_actor_in_zone_stay)
-      ) {
+      if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end) || hasAlifeInfo(infoPortions.pri_a28_actor_in_zone_stay)) {
         createAutoSave(captions.st_save_uni_surge_start);
       }
     }
@@ -534,7 +531,7 @@ export class SurgeManager extends AbstractCoreManager {
 
     if (registry.actor.alive()) {
       if (!coverObject?.inside(registry.actor.position())) {
-        if (hasAlifeInfo(info_portions.anabiotic_in_process)) {
+        if (hasAlifeInfo(infoPortions.anabiotic_in_process)) {
           const counterName: TName = "actor_marked_by_zone_cnt";
           const counterValue: TCount = portableStoreGet(registry.actor, counterName, 0);
 
@@ -625,7 +622,7 @@ export class SurgeManager extends AbstractCoreManager {
     level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "engine.anabiotic_callback");
     level.add_pp_effector(postProcessors.surge_fade, 11, false);
 
-    giveInfo(info_portions.anabiotic_in_process);
+    giveInfo(infoPortions.anabiotic_in_process);
 
     registry.sounds.musicVolume = getConsoleFloatCommand(console_commands.snd_volume_music);
     registry.sounds.effectsVolume = getConsoleFloatCommand(console_commands.snd_volume_eff);
@@ -727,7 +724,7 @@ export class SurgeManager extends AbstractCoreManager {
             globalSoundManager.playSound(registry.actor.id(), "zat_a2_stalker_barmen_after_surge", null, null);
           } else if (level.name() === levels.jupiter) {
             globalSoundManager.playSound(registry.actor.id(), "jup_a6_stalker_medik_after_surge", null, null);
-          } else if (!hasAlifeInfo(info_portions.pri_b305_fifth_cam_end)) {
+          } else if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end)) {
             globalSoundManager.playSound(registry.actor.id(), "pri_a17_kovalsky_after_surge", null, null);
           }
         }
@@ -798,7 +795,7 @@ export class SurgeManager extends AbstractCoreManager {
               globalSoundManager.playSound(registry.actor.id(), "zat_a2_stalker_barmen_surge_phase_2", null, null);
             } else if (level.name() === levels.jupiter) {
               globalSoundManager.playSound(registry.actor.id(), "jup_a6_stalker_medik_phase_2", null, null);
-            } else if (!hasAlifeInfo(info_portions.pri_b305_fifth_cam_end)) {
+            } else if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end)) {
               globalSoundManager.playSound(registry.actor.id(), "pri_a17_kovalsky_surge_phase_2", null, null);
             }
           }
@@ -820,7 +817,7 @@ export class SurgeManager extends AbstractCoreManager {
             globalSoundManager.playSound(registry.actor.id(), "zat_a2_stalker_barmen_surge_phase_1", null, null);
           } else if (level.name() === levels.jupiter) {
             globalSoundManager.playSound(registry.actor.id(), "jup_a6_stalker_medik_phase_1", null, null);
-          } else if (!hasAlifeInfo(info_portions.pri_b305_fifth_cam_end)) {
+          } else if (!hasAlifeInfo(infoPortions.pri_b305_fifth_cam_end)) {
             globalSoundManager.playSound(registry.actor.id(), "pri_a17_kovalsky_surge_phase_1", null, null);
           }
 

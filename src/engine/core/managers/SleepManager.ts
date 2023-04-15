@@ -13,7 +13,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { console_commands } from "@/engine/lib/constants/console_commands";
-import { info_portions } from "@/engine/lib/constants/info_portions";
+import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { Optional, TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -57,7 +57,7 @@ export class SleepManager extends AbstractCoreManager {
     level.add_cam_effector(animations.camera_effects_sleep, 10, false, "engine.on_start_sleeping");
     level.add_pp_effector(postProcessors.sleep_fade, 11, false);
 
-    giveInfo(info_portions.actor_is_sleeping);
+    giveInfo(infoPortions.actor_is_sleeping);
 
     registry.sounds.musicVolume = getConsoleFloatCommand(console_commands.snd_volume_music);
     registry.sounds.effectsVolume = getConsoleFloatCommand(console_commands.snd_volume_eff);
@@ -108,9 +108,9 @@ export class SleepManager extends AbstractCoreManager {
     registry.sounds.musicVolume = 0;
     registry.sounds.effectsVolume = 0;
 
-    giveInfo(info_portions.tutorial_sleep);
-    disableInfo(info_portions.actor_is_sleeping);
-    disableInfo(info_portions.sleep_active);
+    giveInfo(infoPortions.tutorial_sleep);
+    disableInfo(infoPortions.actor_is_sleeping);
+    disableInfo(infoPortions.sleep_active);
 
     EventsManager.getInstance().emitEvent(EGameEvent.ACTOR_FINISH_SLEEP);
   }

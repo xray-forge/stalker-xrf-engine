@@ -2,7 +2,7 @@ import { CUIMessageBoxEx, CUIScriptWnd, Frect, LuabindClass, ui_events, XR_CUIMe
 
 import { giveInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { info_portions } from "@/engine/lib/constants/info_portions";
+import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -33,15 +33,15 @@ export class FreeplayDialog extends CUIScriptWnd {
   }
 
   public OnMsgYes(): void {
-    giveInfo(info_portions.pri_a28_actor_in_zone_leave);
+    giveInfo(infoPortions.pri_a28_actor_in_zone_leave);
   }
 
   public OnMsgOk(): void {
-    giveInfo(info_portions.pri_a28_actor_in_zone_stay);
+    giveInfo(infoPortions.pri_a28_actor_in_zone_stay);
   }
 
   public OnMsgNo(): void {
-    giveInfo(info_portions.pri_a28_actor_in_zone_stay);
+    giveInfo(infoPortions.pri_a28_actor_in_zone_stay);
   }
 }
 

@@ -1,6 +1,6 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
-export const zaton_info_portions = {
+export const zatonInfoPortions = {
   zat_a1_tutorial_end: "zat_a1_tutorial_end",
   zat_a23_stalker_tech_told_about_battery: "zat_a23_stalker_tech_told_about_battery",
   zat_a2_linker_b14_quest_strange_item_done: "zat_a2_linker_b14_quest_strange_item_done",

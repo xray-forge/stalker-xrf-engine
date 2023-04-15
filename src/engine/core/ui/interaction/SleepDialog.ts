@@ -24,7 +24,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions/captions";
-import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
+import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 import { TPath } from "@/engine/lib/types";
 
 const base: TPath = "interaction\\SleepDialog.component";
@@ -158,7 +158,7 @@ export class SleepDialog extends CUIScriptWnd {
 
     const actor: XR_game_object = registry.actor;
 
-    giveInfo(info_portions.sleep_active);
+    giveInfo(infoPortions.sleep_active);
 
     if (actor.bleeding > 0 || actor.radiation > 0) {
       this.sleepMessageBox.InitMessageBox("message_box_ok");
@@ -203,8 +203,8 @@ export class SleepDialog extends CUIScriptWnd {
 
     this.HideDialog();
 
-    giveInfo(info_portions.tutorial_sleep);
-    disableInfo(info_portions.sleep_active);
+    giveInfo(infoPortions.tutorial_sleep);
+    disableInfo(infoPortions.sleep_active);
   }
 
   public OnButtonSleep(): void {
@@ -217,8 +217,8 @@ export class SleepDialog extends CUIScriptWnd {
   public OnMessageBoxOk(): void {
     logger.info("On message box OK");
 
-    giveInfo(info_portions.tutorial_sleep);
-    disableInfo(info_portions.sleep_active);
+    giveInfo(infoPortions.tutorial_sleep);
+    disableInfo(infoPortions.sleep_active);
   }
 }
 

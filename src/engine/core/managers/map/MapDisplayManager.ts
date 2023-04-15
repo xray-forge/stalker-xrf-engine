@@ -25,7 +25,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { anomalyHasArtefact } from "@/engine/core/utils/object";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { captions } from "@/engine/lib/constants/captions/captions";
-import { info_portions } from "@/engine/lib/constants/info_portions/info_portions";
+import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 import { levels } from "@/engine/lib/constants/levels";
 import { EMapMarkType, mapMarks } from "@/engine/lib/constants/map_marks";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
@@ -225,7 +225,7 @@ export class MapDisplayManager extends AbstractCoreManager {
    * todo: Description.
    */
   public updateAnomalyZonesDisplay(): void {
-    if (hasAlifeInfo(info_portions.jup_b32_scanner_reward)) {
+    if (hasAlifeInfo(infoPortions.jup_b32_scanner_reward)) {
       for (const [index, scanner] of anomalyScannerObjects) {
         scanner.enabled = hasAlifeInfo(scanner.group);
       }

@@ -28,7 +28,7 @@ import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { captions } from "@/engine/lib/constants/captions/captions";
-import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions";
+import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { drugs } from "@/engine/lib/constants/items/drugs";
@@ -76,7 +76,7 @@ extern("xr_effects.jup_b32_place_scanner", (actor: XR_game_object, npc: XR_game_
       !hasAlifeInfo(("jup_b32_scanner_" + i + "_placed") as TInfoPortion)
     ) {
       giveInfo(("jup_b32_scanner_" + i + "_placed") as TInfoPortion);
-      giveInfo(info_portions.jup_b32_tutorial_done);
+      giveInfo(infoPortions.jup_b32_tutorial_done);
       remove_item(actor, npc, ["jup_b32_scanner_device"]);
       spawn_object(actor, null, ["jup_b32_ph_scanner", "jup_b32_scanner_place_" + i, null, null]);
     }
@@ -95,7 +95,7 @@ extern("xr_effects.jup_b32_pda_check", (actor: XR_game_object, npc: XR_game_obje
  */
 extern("xr_effects.pri_b306_generator_start", (actor: XR_game_object, npc: XR_game_object): void => {
   if (isActorInZoneWithName(zones.pri_b306_sr_generator, actor)) {
-    giveInfo(info_portions.pri_b306_lift_generator_used);
+    giveInfo(infoPortions.pri_b306_lift_generator_used);
   }
 });
 
@@ -104,7 +104,7 @@ extern("xr_effects.pri_b306_generator_start", (actor: XR_game_object, npc: XR_ga
  */
 extern("xr_effects.jup_b206_get_plant", (actor: XR_game_object, npc: XR_game_object): void => {
   if (isActorInZoneWithName(zones.jup_b206_sr_quest_line, actor)) {
-    giveInfo(info_portions.jup_b206_anomalous_grove_has_plant);
+    giveInfo(infoPortions.jup_b206_anomalous_grove_has_plant);
     give_actor(actor, npc, ["jup_b206_plant"]);
     destroy_object(actor, npc, ["story", "jup_b206_plant_ph", null]);
   }
@@ -115,7 +115,7 @@ extern("xr_effects.jup_b206_get_plant", (actor: XR_game_object, npc: XR_game_obj
  */
 extern("xr_effects.pas_b400_switcher", (actor: XR_game_object, npc: XR_game_object): void => {
   if (isActorInZoneWithName(zones.pas_b400_sr_switcher, actor)) {
-    giveInfo(info_portions.pas_b400_switcher_use);
+    giveInfo(infoPortions.pas_b400_switcher_use);
   }
 });
 
@@ -125,7 +125,7 @@ extern("xr_effects.pas_b400_switcher", (actor: XR_game_object, npc: XR_game_obje
 extern("xr_effects.jup_b209_place_scanner", (actor: XR_game_object, npc: XR_game_object): void => {
   if (isActorInZoneWithName(zones.jup_b209_hypotheses)) {
     createAutoSave(captions.st_save_jup_b209_placed_mutant_scanner);
-    giveInfo(info_portions.jup_b209_scanner_placed);
+    giveInfo(infoPortions.jup_b209_scanner_placed);
     remove_item(actor, npc, ["jup_b209_monster_scanner"]);
     spawn_object(actor, null, ["jup_b209_ph_scanner", "jup_b209_scanner_place_point", null, null]);
   }
@@ -136,7 +136,7 @@ extern("xr_effects.jup_b209_place_scanner", (actor: XR_game_object, npc: XR_game
  */
 extern("xr_effects.jup_b9_heli_1_searching", (actor: XR_game_object, npc: XR_game_object): void => {
   if (isActorInZoneWithName(zones.jup_b9_heli_1, actor)) {
-    giveInfo(info_portions.jup_b9_heli_1_searching);
+    giveInfo(infoPortions.jup_b9_heli_1_searching);
   }
 });
 
@@ -145,7 +145,7 @@ extern("xr_effects.jup_b9_heli_1_searching", (actor: XR_game_object, npc: XR_gam
  */
 extern("xr_effects.pri_a18_use_idol", (actor: XR_game_object, npc: XR_game_object): void => {
   if (isActorInZoneWithName(zones.pri_a18_use_idol_restrictor, actor)) {
-    giveInfo(info_portions.pri_a18_run_cam);
+    giveInfo(infoPortions.pri_a18_run_cam);
   }
 });
 
@@ -154,7 +154,7 @@ extern("xr_effects.pri_a18_use_idol", (actor: XR_game_object, npc: XR_game_objec
  */
 extern("xr_effects.jup_b8_heli_4_searching", (actor: XR_game_object, npc: XR_game_object): void => {
   if (isActorInZoneWithName(zones.jup_b8_heli_4)) {
-    giveInfo(info_portions.jup_b8_heli_4_searching);
+    giveInfo(infoPortions.jup_b8_heli_4_searching);
   }
 });
 
@@ -163,7 +163,7 @@ extern("xr_effects.jup_b8_heli_4_searching", (actor: XR_game_object, npc: XR_gam
  */
 extern("xr_effects.jup_b10_ufo_searching", (actor: XR_game_object, npc: XR_game_object): void => {
   if (isActorInZoneWithName(zones.jup_b10_ufo_restrictor)) {
-    giveInfo(info_portions.jup_b10_ufo_memory_started);
+    giveInfo(infoPortions.jup_b10_ufo_memory_started);
     give_actor(actor, null, ["jup_b10_ufo_memory"]);
   }
 });
@@ -173,7 +173,7 @@ extern("xr_effects.jup_b10_ufo_searching", (actor: XR_game_object, npc: XR_game_
  */
 extern("xr_effects.zat_b101_heli_5_searching", (actor: XR_game_object, npc: XR_game_object): void => {
   if (isActorInZoneWithName(zones.zat_b101_heli_5)) {
-    giveInfo(info_portions.zat_b101_heli_5_searching);
+    giveInfo(infoPortions.zat_b101_heli_5_searching);
   }
 });
 
@@ -182,7 +182,7 @@ extern("xr_effects.zat_b101_heli_5_searching", (actor: XR_game_object, npc: XR_g
  */
 extern("xr_effects.zat_b28_heli_3_searching", (actor: XR_game_object, npc: XR_game_object): void => {
   if (isActorInZoneWithName(zones.zat_b28_heli_3)) {
-    giveInfo(info_portions.zat_b28_heli_3_searching);
+    giveInfo(infoPortions.zat_b28_heli_3_searching);
   }
 });
 
@@ -590,28 +590,28 @@ extern("xr_effects.jup_b221_play_main", (actor: XR_game_object, npc: XR_game_obj
 
   if (tostring(p[0]) === "duty") {
     infoPortionsList = [
-      info_portions.jup_b25_freedom_flint_gone,
-      info_portions.jup_b25_flint_blame_done_to_duty,
-      info_portions.jup_b4_monolith_squad_in_duty,
-      info_portions.jup_a6_duty_leader_bunker_guards_work,
-      info_portions.jup_a6_duty_leader_employ_work,
-      info_portions.jup_b207_duty_wins,
+      infoPortions.jup_b25_freedom_flint_gone,
+      infoPortions.jup_b25_flint_blame_done_to_duty,
+      infoPortions.jup_b4_monolith_squad_in_duty,
+      infoPortions.jup_a6_duty_leader_bunker_guards_work,
+      infoPortions.jup_a6_duty_leader_employ_work,
+      infoPortions.jup_b207_duty_wins,
     ] as unknown as LuaArray<TInfoPortion>;
     main_theme = "jup_b221_duty_main_";
     reply_theme = "jup_b221_duty_reply_";
-    info_need_reply = info_portions.jup_b221_duty_reply;
+    info_need_reply = infoPortions.jup_b221_duty_reply;
   } else if (tostring(p[0]) === "freedom") {
     infoPortionsList = [
-      info_portions.jup_b207_freedom_know_about_depot,
-      info_portions.jup_b46_duty_founder_pda_to_freedom,
-      info_portions.jup_b4_monolith_squad_in_freedom,
-      info_portions.jup_a6_freedom_leader_bunker_guards_work,
-      info_portions.jup_a6_freedom_leader_employ_work,
-      info_portions.jup_b207_freedom_wins,
+      infoPortions.jup_b207_freedom_know_about_depot,
+      infoPortions.jup_b46_duty_founder_pda_to_freedom,
+      infoPortions.jup_b4_monolith_squad_in_freedom,
+      infoPortions.jup_a6_freedom_leader_bunker_guards_work,
+      infoPortions.jup_a6_freedom_leader_employ_work,
+      infoPortions.jup_b207_freedom_wins,
     ] as unknown as LuaArray<TInfoPortion>;
     main_theme = "jup_b221_freedom_main_";
     reply_theme = "jup_b221_freedom_reply_";
-    info_need_reply = info_portions.jup_b221_freedom_reply;
+    info_need_reply = infoPortions.jup_b221_freedom_reply;
   } else {
     abort("Wrong parameters in function 'jup_b221_play_main'");
   }
@@ -654,7 +654,7 @@ extern("xr_effects.jup_b221_play_main", (actor: XR_game_object, npc: XR_game_obj
  */
 extern("xr_effects.zat_a1_tutorial_end_give", (actor: XR_game_object, npc: XR_game_object): void => {
   // --	level.add_pp_effector("black.ppe", 1313, true) //---{ ! stop on r1 !
-  giveInfo(info_portions.zat_a1_tutorial_end);
+  giveInfo(infoPortions.zat_a1_tutorial_end);
 });
 
 // todo: Fix if used, should increment values probably with +=.
@@ -739,140 +739,140 @@ extern("xr_effects.jup_b217_hard_animation_reset", (actor: XR_game_object, npc: 
  * todo;
  */
 extern("xr_effects.pri_a18_radio_start", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.pri_a18_radio_start);
+  giveInfo(infoPortions.pri_a18_radio_start);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.pri_a17_ice_climb_end", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.pri_a17_ice_climb_end);
+  giveInfo(infoPortions.pri_a17_ice_climb_end);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.jup_b219_opening", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.jup_b219_opening);
+  giveInfo(infoPortions.jup_b219_opening);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.jup_b219_entering_underpass", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.jup_b219_entering_underpass);
+  giveInfo(infoPortions.jup_b219_entering_underpass);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.pri_a17_pray_start", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.pri_a17_pray_start);
+  giveInfo(infoPortions.pri_a17_pray_start);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b38_open_info", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.zat_b38_open_info);
+  giveInfo(infoPortions.zat_b38_open_info);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b38_switch_info", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.zat_b38_switch_info);
+  giveInfo(infoPortions.zat_b38_switch_info);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b38_cop_dead", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.zat_b38_cop_dead);
+  giveInfo(infoPortions.zat_b38_cop_dead);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.jup_b15_zulus_drink_anim_info", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.jup_b15_zulus_drink_anim_info);
+  giveInfo(infoPortions.jup_b15_zulus_drink_anim_info);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.pri_a17_preacher_death", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.pri_a17_preacher_death);
+  giveInfo(infoPortions.pri_a17_preacher_death);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b3_tech_surprise_anim_end", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.zat_b3_tech_surprise_anim_end);
+  giveInfo(infoPortions.zat_b3_tech_surprise_anim_end);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b3_tech_waked_up", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.zat_b3_tech_waked_up);
+  giveInfo(infoPortions.zat_b3_tech_waked_up);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b3_tech_drinked_out", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.zat_b3_tech_drinked_out);
+  giveInfo(infoPortions.zat_b3_tech_drinked_out);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.pri_a28_kirillov_hq_online", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.pri_a28_kirillov_hq_online);
+  giveInfo(infoPortions.pri_a28_kirillov_hq_online);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.pri_a20_radio_start", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.pri_a20_radio_start);
+  giveInfo(infoPortions.pri_a20_radio_start);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.pri_a22_kovalski_speak", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.pri_a22_kovalski_speak);
+  giveInfo(infoPortions.pri_a22_kovalski_speak);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b38_underground_door_open", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.zat_b38_underground_door_open);
+  giveInfo(infoPortions.zat_b38_underground_door_open);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.zat_b38_jump_tonnel_info", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.zat_b38_jump_tonnel_info);
+  giveInfo(infoPortions.zat_b38_jump_tonnel_info);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.jup_a9_cam1_actor_anim_end", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.jup_a9_cam1_actor_anim_end);
+  giveInfo(infoPortions.jup_a9_cam1_actor_anim_end);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.pri_a28_talk_ssu_video_end", (actor: XR_game_object, npc: XR_game_object): void => {
-  giveInfo(info_portions.pri_a28_talk_ssu_video_end);
+  giveInfo(infoPortions.pri_a28_talk_ssu_video_end);
 });
 
 /**
@@ -881,8 +881,8 @@ extern("xr_effects.pri_a28_talk_ssu_video_end", (actor: XR_game_object, npc: XR_
 extern("xr_effects.zat_b33_pic_snag_container", (actor: XR_game_object, npc: XR_game_object): void => {
   if (isActorInZoneWithName(zones.zat_b33_tutor)) {
     give_actor(actor, npc, [quest_items.zat_b33_safe_container]);
-    giveInfo(info_portions.zat_b33_find_package);
-    if (!hasAlifeInfo(info_portions.zat_b33_safe_container)) {
+    giveInfo(infoPortions.zat_b33_find_package);
+    if (!hasAlifeInfo(infoPortions.zat_b33_safe_container)) {
       play_sound(actor, registry.zones.get(zones.zat_b33_tutor), [scriptSounds.pda_news, null, null]);
     }
   }
@@ -893,11 +893,11 @@ extern("xr_effects.zat_b33_pic_snag_container", (actor: XR_game_object, npc: XR_
  */
 extern("xr_effects.zat_b202_spawn_b33_loot", (actor: XR_game_object, npc: XR_game_object, p: []) => {
   const infoPortionsList = [
-    info_portions.zat_b33_first_item_gived,
-    info_portions.zat_b33_second_item_gived,
-    info_portions.zat_b33_third_item_gived,
-    info_portions.zat_b33_fourth_item_gived,
-    info_portions.zat_b33_fifth_item_gived,
+    infoPortions.zat_b33_first_item_gived,
+    infoPortions.zat_b33_second_item_gived,
+    infoPortions.zat_b33_third_item_gived,
+    infoPortions.zat_b33_fourth_item_gived,
+    infoPortions.zat_b33_fifth_item_gived,
   ] as unknown as LuaArray<TInfoPortion>;
 
   const item_table = [
@@ -946,9 +946,9 @@ extern("xr_effects.pri_a28_check_zones", (): void => {
   ] as unknown as LuaArray<TStringId>;
 
   const infoList: LuaArray<TInfoPortion> = [
-    info_portions.pri_a28_wave_1_spawned,
-    info_portions.pri_a28_wave_2_spawned,
-    info_portions.pri_a28_wave_3_spawned,
+    infoPortions.pri_a28_wave_1_spawned,
+    infoPortions.pri_a28_wave_2_spawned,
+    infoPortions.pri_a28_wave_3_spawned,
   ] as unknown as LuaArray<TInfoPortion>;
 
   const squadsList: LuaArray<TStringId> = [

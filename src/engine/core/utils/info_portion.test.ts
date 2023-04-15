@@ -10,15 +10,15 @@ import {
   hasAtLeastOneAlifeInfo,
   hasFewAlifeInfos,
 } from "@/engine/core/utils/info_portion";
-import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
+import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("'info_portion' utils", () => {
   beforeEach(() => {
     let availableInfos: Array<TInfoPortion> = [
-      info_portions.info_up_ac_mp5,
-      info_portions.pri_a15_lights_off,
-      info_portions.device_pda_port_bandit_leader_sold,
+      infoPortions.info_up_ac_mp5,
+      infoPortions.pri_a15_lights_off,
+      infoPortions.device_pda_port_bandit_leader_sold,
     ];
 
     registry.actor = mockClientGameObject({
@@ -43,9 +43,9 @@ describe("'info_portion' utils", () => {
   it("'giveInfo' should correctly give info portion for actor", () => {
     registry.actor = mockClientGameObject();
 
-    giveInfo(info_portions.info_up_ac_mp5);
+    giveInfo(infoPortions.info_up_ac_mp5);
 
-    expect(registry.actor.give_info_portion).toHaveBeenCalledWith(info_portions.info_up_ac_mp5);
+    expect(registry.actor.give_info_portion).toHaveBeenCalledWith(infoPortions.info_up_ac_mp5);
     expect(registry.actor.give_info_portion).toHaveBeenCalledTimes(1);
   });
 
@@ -60,10 +60,10 @@ describe("'info_portion' utils", () => {
   });
 
   it("'hasAlifeInfo' should correctly check info", () => {
-    expect(hasAlifeInfo(info_portions.info_up_ac_mp5)).toBe(true);
-    expect(hasAlifeInfo(info_portions.pri_a15_lights_off)).toBe(true);
-    expect(hasAlifeInfo(info_portions.zat_a2_linker_b14_quest_strange_item_lost_artefact)).toBe(false);
-    expect(hasAlifeInfo(info_portions.pri_a17_actor_attack_military_antibug)).toBe(false);
+    expect(hasAlifeInfo(infoPortions.info_up_ac_mp5)).toBe(true);
+    expect(hasAlifeInfo(infoPortions.pri_a15_lights_off)).toBe(true);
+    expect(hasAlifeInfo(infoPortions.zat_a2_linker_b14_quest_strange_item_lost_artefact)).toBe(false);
+    expect(hasAlifeInfo(infoPortions.pri_a17_actor_attack_military_antibug)).toBe(false);
 
     expect(registry.actor.has_info).toHaveBeenCalledTimes(4);
   });
@@ -74,67 +74,65 @@ describe("'info_portion' utils", () => {
 
     expect(registry.actor.disable_info_portion).toHaveBeenCalledTimes(0);
 
-    expect(hasAlifeInfo(info_portions.info_up_ac_mp5)).toBe(true);
-    disableInfo(info_portions.info_up_ac_mp5);
-    expect(hasAlifeInfo(info_portions.info_up_ac_mp5)).toBe(false);
+    expect(hasAlifeInfo(infoPortions.info_up_ac_mp5)).toBe(true);
+    disableInfo(infoPortions.info_up_ac_mp5);
+    expect(hasAlifeInfo(infoPortions.info_up_ac_mp5)).toBe(false);
 
     expect(registry.actor.disable_info_portion).toHaveBeenCalledTimes(1);
     expect(registry.actor.has_info).toHaveBeenCalledTimes(3);
   });
 
   it("'hasAlifeInfos' should correctly check whole list of info portions", () => {
-    expect(hasAlifeInfos([info_portions.info_up_ac_mp5])).toBe(true);
-    expect(hasAlifeInfos([info_portions.info_up_ac_mp5, info_portions.pri_a15_lights_off])).toBe(true);
-    expect(hasAlifeInfos([info_portions.info_up_ac_mp5, info_portions.device_pda_port_bandit_leader_sold])).toBe(true);
-    expect(hasAlifeInfos([info_portions.pri_a15_lights_off, info_portions.device_pda_port_bandit_leader_sold])).toBe(
+    expect(hasAlifeInfos([infoPortions.info_up_ac_mp5])).toBe(true);
+    expect(hasAlifeInfos([infoPortions.info_up_ac_mp5, infoPortions.pri_a15_lights_off])).toBe(true);
+    expect(hasAlifeInfos([infoPortions.info_up_ac_mp5, infoPortions.device_pda_port_bandit_leader_sold])).toBe(true);
+    expect(hasAlifeInfos([infoPortions.pri_a15_lights_off, infoPortions.device_pda_port_bandit_leader_sold])).toBe(
       true
     );
 
     expect(hasAlifeInfos([])).toBe(false);
-    expect(hasAlifeInfos([info_portions.info_up_fh_scientific_outfit])).toBe(false);
-    expect(hasAlifeInfos([info_portions.info_up_ac_mp5, info_portions.info_up_fh_scientific_outfit])).toBe(false);
-    expect(hasAlifeInfos([info_portions.pri_a15_lights_off, info_portions.info_up_fh_scientific_outfit])).toBe(false);
+    expect(hasAlifeInfos([infoPortions.info_up_fh_scientific_outfit])).toBe(false);
+    expect(hasAlifeInfos([infoPortions.info_up_ac_mp5, infoPortions.info_up_fh_scientific_outfit])).toBe(false);
+    expect(hasAlifeInfos([infoPortions.pri_a15_lights_off, infoPortions.info_up_fh_scientific_outfit])).toBe(false);
   });
 
   it("'hasAtLeastOneAlifeInfo' should correctly check one of list", () => {
-    expect(hasAtLeastOneAlifeInfo([info_portions.info_up_ac_mp5])).toBe(true);
-    expect(hasAtLeastOneAlifeInfo([info_portions.info_up_ac_mp5, info_portions.pri_a15_lights_off])).toBe(true);
+    expect(hasAtLeastOneAlifeInfo([infoPortions.info_up_ac_mp5])).toBe(true);
+    expect(hasAtLeastOneAlifeInfo([infoPortions.info_up_ac_mp5, infoPortions.pri_a15_lights_off])).toBe(true);
     expect(hasAtLeastOneAlifeInfo([])).toBe(false);
-    expect(hasAtLeastOneAlifeInfo([info_portions.info_up_fh_scientific_outfit])).toBe(false);
-    expect(hasAtLeastOneAlifeInfo([info_portions.info_up_ac_mp5, info_portions.info_up_fh_scientific_outfit])).toBe(
-      true
-    );
-    expect(hasAtLeastOneAlifeInfo([info_portions.pri_a15_lights_off, info_portions.info_up_fh_scientific_outfit])).toBe(
+    expect(hasAtLeastOneAlifeInfo([infoPortions.info_up_fh_scientific_outfit])).toBe(false);
+    expect(hasAtLeastOneAlifeInfo([infoPortions.info_up_ac_mp5, infoPortions.info_up_fh_scientific_outfit])).toBe(true);
+    expect(hasAtLeastOneAlifeInfo([infoPortions.pri_a15_lights_off, infoPortions.info_up_fh_scientific_outfit])).toBe(
       true
     );
   });
 
   it("'hasAtLeastOneAlifeInfo' should correctly check one of list", () => {
-    expect(hasFewAlifeInfos([info_portions.info_up_ac_mp5], 1)).toBe(true);
-    expect(hasFewAlifeInfos([info_portions.info_up_ac_mp5], 2)).toBe(false);
-    expect(hasFewAlifeInfos([info_portions.info_up_ac_mp5, info_portions.pri_a15_lights_off], 1)).toBe(true);
-    expect(hasFewAlifeInfos([info_portions.info_up_ac_mp5, info_portions.pri_a15_lights_off], 2)).toBe(true);
-    expect(hasFewAlifeInfos([info_portions.info_up_ac_mp5, info_portions.pri_a15_lights_off], 3)).toBe(false);
+    expect(hasFewAlifeInfos([infoPortions.info_up_ac_mp5], 1)).toBe(true);
+    expect(hasFewAlifeInfos([infoPortions.info_up_ac_mp5], 2)).toBe(false);
+    expect(hasFewAlifeInfos([infoPortions.info_up_ac_mp5, infoPortions.pri_a15_lights_off], 1)).toBe(true);
+    expect(hasFewAlifeInfos([infoPortions.info_up_ac_mp5, infoPortions.pri_a15_lights_off], 2)).toBe(true);
+    expect(hasFewAlifeInfos([infoPortions.info_up_ac_mp5, infoPortions.pri_a15_lights_off], 3)).toBe(false);
     expect(hasFewAlifeInfos([], 0)).toBe(false);
     expect(hasFewAlifeInfos([], 1)).toBe(false);
-    expect(hasFewAlifeInfos([info_portions.info_up_fh_scientific_outfit], 1)).toBe(false);
-    expect(hasFewAlifeInfos([info_portions.info_up_fh_scientific_outfit], 2)).toBe(false);
-    expect(hasFewAlifeInfos([info_portions.info_up_ac_mp5, info_portions.info_up_fh_scientific_outfit], 1)).toBe(true);
+    expect(hasFewAlifeInfos([infoPortions.info_up_fh_scientific_outfit], 1)).toBe(false);
+    expect(hasFewAlifeInfos([infoPortions.info_up_fh_scientific_outfit], 2)).toBe(false);
+    expect(hasFewAlifeInfos([infoPortions.info_up_ac_mp5, infoPortions.info_up_fh_scientific_outfit], 1)).toBe(true);
     expect(
       hasFewAlifeInfos(
-        [info_portions.info_up_ac_mp5, info_portions.pri_a15_lights_off, info_portions.info_up_fh_scientific_outfit],
+        [infoPortions.info_up_ac_mp5, infoPortions.pri_a15_lights_off, infoPortions.info_up_fh_scientific_outfit],
         1
       )
     ).toBe(true);
     expect(
       hasFewAlifeInfos(
-        [info_portions.info_up_ac_mp5, info_portions.pri_a15_lights_off, info_portions.info_up_fh_scientific_outfit],
+        [infoPortions.info_up_ac_mp5, infoPortions.pri_a15_lights_off, infoPortions.info_up_fh_scientific_outfit],
         2
       )
     ).toBe(true);
     expect(
       hasFewAlifeInfos(
-        [info_portions.info_up_ac_mp5, info_portions.pri_a15_lights_off, info_portions.info_up_fh_scientific_outfit],
+        [infoPortions.info_up_ac_mp5, infoPortions.pri_a15_lights_off, infoPortions.info_up_fh_scientific_outfit],
         3
       )
     ).toBe(false);

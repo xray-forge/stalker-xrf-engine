@@ -41,7 +41,7 @@ import { getTableSize } from "@/engine/core/utils/table";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { console_commands } from "@/engine/lib/constants/console_commands";
 import { gameDifficultiesByNumber } from "@/engine/lib/constants/game_difficulties";
-import { info_portions } from "@/engine/lib/constants/info_portions";
+import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TCount, TDuration, TIndex, TName } from "@/engine/lib/types";
 
@@ -211,12 +211,12 @@ export class ActorBinder extends object_binder {
     }
 
     if (this.isStartCheckNeeded) {
-      if (!hasAlifeInfo(info_portions.global_dialogs)) {
-        this.object.give_info_portion(info_portions.global_dialogs);
+      if (!hasAlifeInfo(infoPortions.global_dialogs)) {
+        this.object.give_info_portion(infoPortions.global_dialogs);
       }
 
-      if (!hasAlifeInfo(info_portions.level_changer_icons)) {
-        this.object.give_info_portion(info_portions.level_changer_icons);
+      if (!hasAlifeInfo(infoPortions.level_changer_icons)) {
+        this.object.give_info_portion(infoPortions.level_changer_icons);
       }
 
       this.isStartCheckNeeded = false;

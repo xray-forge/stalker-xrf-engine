@@ -16,7 +16,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { console_commands } from "@/engine/lib/constants/console_commands";
-import { info_portions } from "@/engine/lib/constants/info_portions";
+import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { AnyCallable, PartialRecord, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -70,7 +70,7 @@ extern("engine.anabiotic_callback2", () => {
   registry.sounds.effectsVolume = 0;
   registry.sounds.musicVolume = 0;
 
-  disableInfo(info_portions.anabiotic_in_process);
+  disableInfo(infoPortions.anabiotic_in_process);
 });
 
 /**

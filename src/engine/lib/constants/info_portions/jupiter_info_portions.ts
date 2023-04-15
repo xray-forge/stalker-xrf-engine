@@ -1,6 +1,6 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
-export const jupiter_info_portions = {
+export const jupiterInfoPortions = {
   /**
    * Jupiter a10.
    */

@@ -65,7 +65,7 @@ import {
 import { distanceBetween, npcInActorFrustum } from "@/engine/core/utils/vector";
 import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
+import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { relations } from "@/engine/lib/constants/relations";
 import { FALSE } from "@/engine/lib/constants/words";
 import { zones } from "@/engine/lib/constants/zones";
@@ -1686,18 +1686,18 @@ export function zat_b29_anomaly_has_af(actor: XR_game_object, npc: XR_game_objec
 export function jup_b221_who_will_start(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
   const reachable_theme: LuaArray<number> = new LuaTable();
   const infoPortionsList: LuaArray<TInfoPortion> = [
-    info_portions.jup_b25_freedom_flint_gone,
-    info_portions.jup_b25_flint_blame_done_to_duty,
-    info_portions.jup_b4_monolith_squad_in_duty,
-    info_portions.jup_a6_duty_leader_bunker_guards_work,
-    info_portions.jup_a6_duty_leader_employ_work,
-    info_portions.jup_b207_duty_wins,
-    info_portions.jup_b207_freedom_know_about_depot,
-    info_portions.jup_b46_duty_founder_pda_to_freedom,
-    info_portions.jup_b4_monolith_squad_in_freedom,
-    info_portions.jup_a6_freedom_leader_bunker_guards_work,
-    info_portions.jup_a6_freedom_leader_employ_work,
-    info_portions.jup_b207_freedom_wins,
+    infoPortions.jup_b25_freedom_flint_gone,
+    infoPortions.jup_b25_flint_blame_done_to_duty,
+    infoPortions.jup_b4_monolith_squad_in_duty,
+    infoPortions.jup_a6_duty_leader_bunker_guards_work,
+    infoPortions.jup_a6_duty_leader_employ_work,
+    infoPortions.jup_b207_duty_wins,
+    infoPortions.jup_b207_freedom_know_about_depot,
+    infoPortions.jup_b46_duty_founder_pda_to_freedom,
+    infoPortions.jup_b4_monolith_squad_in_freedom,
+    infoPortions.jup_a6_freedom_leader_bunker_guards_work,
+    infoPortions.jup_a6_freedom_leader_employ_work,
+    infoPortions.jup_b207_freedom_wins,
   ] as unknown as LuaArray<TInfoPortion>;
 
   for (const [k, v] of infoPortionsList) {
@@ -1852,7 +1852,7 @@ export function check_enemy_smart(actor: XR_game_object, npc: XR_game_object, pa
 export function zat_b103_actor_has_needed_food(actor: XR_game_object, npc: XR_game_object): boolean {
   return (
     getExtern<AnyCallablesModule>("dialogs_zaton").zat_b103_actor_has_needed_food(actor, npc) ||
-    hasAlifeInfo(info_portions.zat_b103_merc_task_done)
+    hasAlifeInfo(infoPortions.zat_b103_merc_task_done)
   );
 }
 
@@ -1901,11 +1901,11 @@ export function zat_b29_rivals_dialog_precond(actor: XR_game_object, npc: XR_gam
  */
 export function jup_b202_actor_treasure_not_in_steal(actor: XR_game_object, npc: XR_game_object) {
   const before: boolean =
-    !hasAlifeInfo(info_portions.jup_b52_actor_items_can_be_stolen) &&
-    !hasAlifeInfo(info_portions.jup_b202_actor_items_returned);
+    !hasAlifeInfo(infoPortions.jup_b52_actor_items_can_be_stolen) &&
+    !hasAlifeInfo(infoPortions.jup_b202_actor_items_returned);
   const after: boolean =
-    hasAlifeInfo(info_portions.jup_b52_actor_items_can_be_stolen) &&
-    hasAlifeInfo(info_portions.jup_b202_actor_items_returned);
+    hasAlifeInfo(infoPortions.jup_b52_actor_items_can_be_stolen) &&
+    hasAlifeInfo(infoPortions.jup_b202_actor_items_returned);
 
   return before || after;
 }
@@ -1936,11 +1936,11 @@ export function burer_anti_aim(actor: XR_game_object, npc: XR_game_object) {
  */
 export function jup_b25_senya_spawn_condition(): boolean {
   return (
-    (hasAlifeInfo(info_portions.jup_b16_oasis_found) ||
-      hasAlifeInfo(info_portions.zat_b57_bloodsucker_lair_clear) ||
-      hasAlifeInfo(info_portions.jup_b6_complete_end) ||
-      hasAlifeInfo(info_portions.zat_b215_gave_maps)) &&
-    hasAlifeInfo(info_portions.zat_b106_search_soroka)
+    (hasAlifeInfo(infoPortions.jup_b16_oasis_found) ||
+      hasAlifeInfo(infoPortions.zat_b57_bloodsucker_lair_clear) ||
+      hasAlifeInfo(infoPortions.jup_b6_complete_end) ||
+      hasAlifeInfo(infoPortions.zat_b215_gave_maps)) &&
+    hasAlifeInfo(infoPortions.zat_b106_search_soroka)
   );
 }
 
@@ -1949,9 +1949,9 @@ export function jup_b25_senya_spawn_condition(): boolean {
  */
 export function jup_b25_flint_gone_condition(): boolean {
   return (
-    hasAlifeInfo(info_portions.jup_b25_flint_blame_done_to_duty) ||
-    hasAlifeInfo(info_portions.jup_b25_flint_blame_done_to_freedom) ||
-    hasAlifeInfo(info_portions.zat_b106_found_soroka_done)
+    hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_duty) ||
+    hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_freedom) ||
+    hasAlifeInfo(infoPortions.zat_b106_found_soroka_done)
   );
 }
 
@@ -2007,20 +2007,20 @@ export function upgrade_hint_kardan(actor: XR_game_object, npc: XR_game_object, 
   const toolsCount: TCount = (params && tonumber(params[0])) || 0;
   let can_upgrade = 0;
 
-  if (!hasAlifeInfo(info_portions.zat_b3_all_instruments_brought)) {
-    if (!hasAlifeInfo(info_portions.zat_b3_tech_instrument_1_brought) && (toolsCount === 0 || toolsCount === 1)) {
+  if (!hasAlifeInfo(infoPortions.zat_b3_all_instruments_brought)) {
+    if (!hasAlifeInfo(infoPortions.zat_b3_tech_instrument_1_brought) && (toolsCount === 0 || toolsCount === 1)) {
       table.insert(itemUpgradeHints, captions.st_upgr_toolkit_1);
     } else if (toolsCount === 1) {
       can_upgrade = can_upgrade + 1;
     }
 
-    if (!hasAlifeInfo(info_portions.zat_b3_tech_instrument_2_brought) && (toolsCount === 0 || toolsCount === 2)) {
+    if (!hasAlifeInfo(infoPortions.zat_b3_tech_instrument_2_brought) && (toolsCount === 0 || toolsCount === 2)) {
       table.insert(itemUpgradeHints, captions.st_upgr_toolkit_2);
     } else if (toolsCount === 2) {
       can_upgrade = can_upgrade + 1;
     }
 
-    if (!hasAlifeInfo(info_portions.zat_b3_tech_instrument_3_brought) && (toolsCount === 0 || toolsCount === 3)) {
+    if (!hasAlifeInfo(infoPortions.zat_b3_tech_instrument_3_brought) && (toolsCount === 0 || toolsCount === 3)) {
       table.insert(itemUpgradeHints, captions.st_upgr_toolkit_3);
     } else if (toolsCount === 3) {
       can_upgrade = can_upgrade + 1;
@@ -2029,10 +2029,10 @@ export function upgrade_hint_kardan(actor: XR_game_object, npc: XR_game_object, 
     can_upgrade = can_upgrade + 1;
   }
 
-  if (!hasAlifeInfo(info_portions.zat_b3_tech_see_produce_62)) {
-    if (toolsCount === 1 && !hasAlifeInfo(info_portions.zat_b3_tech_have_one_dose)) {
+  if (!hasAlifeInfo(infoPortions.zat_b3_tech_see_produce_62)) {
+    if (toolsCount === 1 && !hasAlifeInfo(infoPortions.zat_b3_tech_have_one_dose)) {
       table.insert(itemUpgradeHints, captions.st_upgr_vodka);
-    } else if (toolsCount !== 1 && !hasAlifeInfo(info_portions.zat_b3_tech_have_couple_dose)) {
+    } else if (toolsCount !== 1 && !hasAlifeInfo(infoPortions.zat_b3_tech_have_couple_dose)) {
       table.insert(itemUpgradeHints, captions.st_upgr_vodka);
     } else {
       can_upgrade = can_upgrade + 1;

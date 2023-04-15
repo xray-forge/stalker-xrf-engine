@@ -24,7 +24,7 @@ import {
   takeMoneyFromActor,
 } from "@/engine/core/utils/quest_reward";
 import { captions } from "@/engine/lib/constants/captions/captions";
-import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
+import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { artefacts, TArtefact } from "@/engine/lib/constants/items/artefacts";
@@ -79,17 +79,17 @@ export function zat_b30_owl_stalker_trader_actor_has_item_to_sell(
   ] as unknown as LuaArray<TInventoryItem>;
 
   const infoPortionsTable = {
-    [quest_items.jup_b1_half_artifact]: info_portions.zat_b30_owl_stalker_about_halfart_jup_b6_asked,
-    [artefacts.af_quest_b14_twisted]: info_portions.zat_b30_owl_stalker_about_halfart_zat_b14_asked,
-    [artefacts.af_oasis_heart]: info_portions.zat_b30_owl_stalker_trader_about_osis_art,
-    [detectors.detector_scientific]: info_portions.zat_b30_owl_detectors_approached,
+    [quest_items.jup_b1_half_artifact]: infoPortions.zat_b30_owl_stalker_about_halfart_jup_b6_asked,
+    [artefacts.af_quest_b14_twisted]: infoPortions.zat_b30_owl_stalker_about_halfart_zat_b14_asked,
+    [artefacts.af_oasis_heart]: infoPortions.zat_b30_owl_stalker_trader_about_osis_art,
+    [detectors.detector_scientific]: infoPortions.zat_b30_owl_detectors_approached,
   } as unknown as LuaTable<TInventoryItem, TInfoPortion>;
 
   const actor: XR_game_object = registry.actor;
 
   for (const [k, v] of itemsTable) {
     if (actor.object(v) !== null) {
-      if (v === detectors.detector_scientific && !hasAlifeInfo(info_portions.zat_b30_second_detector)) {
+      if (v === detectors.detector_scientific && !hasAlifeInfo(infoPortions.zat_b30_second_detector)) {
         // --
       } else {
         if (infoPortionsTable.get(v) !== null) {
@@ -111,15 +111,15 @@ export function zat_b30_owl_stalker_trader_actor_has_item_to_sell(
  */
 export function zat_b30_owl_can_say_about_heli(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const table = [
-    info_portions.zat_b28_heli_3_searched,
-    info_portions.zat_b100_heli_2_searched,
-    info_portions.zat_b101_heli_5_searched,
+    infoPortions.zat_b28_heli_3_searched,
+    infoPortions.zat_b100_heli_2_searched,
+    infoPortions.zat_b101_heli_5_searched,
   ] as unknown as LuaArray<TInfoPortion>;
 
   const table2 = [
-    info_portions.zat_b30_owl_scat_1,
-    info_portions.zat_b30_owl_scat_2,
-    info_portions.zat_b30_owl_scat_3,
+    infoPortions.zat_b30_owl_scat_1,
+    infoPortions.zat_b30_owl_scat_2,
+    infoPortions.zat_b30_owl_scat_3,
   ] as unknown as LuaArray<TInfoPortion>;
 
   let cnt: TCount = 3;
@@ -289,7 +289,7 @@ export function zat_b30_sell_jup_b207_merc_pda_with_contract(
 ): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_b207_merc_pda_with_contract);
   giveMoneyToActor(1000);
-  giveInfo(info_portions.jup_b207_merc_pda_with_contract_sold);
+  giveInfo(infoPortions.jup_b207_merc_pda_with_contract_sold);
 }
 
 /**
@@ -334,7 +334,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info(
 ): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_evacuation_info);
   giveMoneyToActor(750);
-  giveInfo(info_portions.jup_a9_evacuation_info_sold);
+  giveInfo(infoPortions.jup_a9_evacuation_info_sold);
 }
 
 /**
@@ -346,7 +346,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_meeting_info(
 ): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_meeting_info);
   giveMoneyToActor(750);
-  giveInfo(info_portions.jup_a9_meeting_info_sold);
+  giveInfo(infoPortions.jup_a9_meeting_info_sold);
 }
 
 /**
@@ -358,7 +358,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_losses_info(
 ): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_losses_info);
   giveMoneyToActor(750);
-  giveInfo(info_portions.jup_a9_losses_info_sold);
+  giveInfo(infoPortions.jup_a9_losses_info_sold);
 }
 
 /**
@@ -370,7 +370,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info(
 ): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_delivery_info);
   giveMoneyToActor(750);
-  giveInfo(info_portions.jup_a9_delivery_info_sold);
+  giveInfo(infoPortions.jup_a9_delivery_info_sold);
 }
 
 /**
@@ -382,7 +382,7 @@ export function zat_b30_owl_stalker_trader_sell_device_flash_snag(
 ): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.device_flash_snag);
   giveMoneyToActor(200);
-  registry.actor.give_info_portion(info_portions.device_flash_snag_sold);
+  registry.actor.give_info_portion(infoPortions.device_flash_snag_sold);
 }
 
 /**
@@ -394,7 +394,7 @@ export function zat_b30_owl_stalker_trader_sell_device_pda_port_bandit_leader(
 ): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.device_pda_port_bandit_leader);
   giveMoneyToActor(1000);
-  giveInfo(info_portions.device_pda_port_bandit_leader_sold);
+  giveInfo(infoPortions.device_pda_port_bandit_leader_sold);
 }
 
 /**
@@ -406,7 +406,7 @@ export function zat_b30_owl_stalker_trader_sell_jup_b10_ufo_memory(
 ): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_b10_ufo_memory_2);
   giveMoneyToActor(500);
-  giveInfo(info_portions.jup_b10_ufo_memory_2_sold);
+  giveInfo(infoPortions.jup_b10_ufo_memory_2_sold);
 }
 
 /**
@@ -516,8 +516,8 @@ export function zat_b7_rob_actor(first_speaker: XR_game_object, second_speaker: 
  */
 export function zat_b7_killed_self_precond(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   if (
-    hasAlifeInfo(info_portions.zat_b7_stalkers_raiders_meet) ||
-    hasAlifeInfo(info_portions.zat_b7_victims_disappeared)
+    hasAlifeInfo(infoPortions.zat_b7_stalkers_raiders_meet) ||
+    hasAlifeInfo(infoPortions.zat_b7_victims_disappeared)
   ) {
     return false;
   }
@@ -814,14 +814,14 @@ export const zat_b29_af_names_table = {
  * todo;
  */
 export const zat_b29_infop_table = {
-  [16]: info_portions.zat_b29_af_16,
-  [17]: info_portions.zat_b29_af_17,
-  [18]: info_portions.zat_b29_af_18,
-  [19]: info_portions.zat_b29_af_19,
-  [20]: info_portions.zat_b29_af_20,
-  [21]: info_portions.zat_b29_af_21,
-  [22]: info_portions.zat_b29_af_22,
-  [23]: info_portions.zat_b29_af_23,
+  [16]: infoPortions.zat_b29_af_16,
+  [17]: infoPortions.zat_b29_af_17,
+  [18]: infoPortions.zat_b29_af_18,
+  [19]: infoPortions.zat_b29_af_19,
+  [20]: infoPortions.zat_b29_af_20,
+  [21]: infoPortions.zat_b29_af_21,
+  [22]: infoPortions.zat_b29_af_22,
+  [23]: infoPortions.zat_b29_af_23,
 } as unknown as LuaArray<TInfoPortion>;
 
 /**
@@ -1073,9 +1073,9 @@ export function zat_b30_actor_exchange(first_speaker: XR_game_object, second_spe
   }
 
   if (isNpcName(second_speaker, "zat_b29_stalker_rival_1")) {
-    giveInfo(info_portions.zat_b30_rival_1_wo_detector);
+    giveInfo(infoPortions.zat_b30_rival_1_wo_detector);
   } else if (isNpcName(second_speaker, "zat_b29_stalker_rival_2")) {
-    giveInfo(info_portions.zat_b30_rival_2_wo_detector);
+    giveInfo(infoPortions.zat_b30_rival_2_wo_detector);
   }
 }
 
@@ -1275,7 +1275,7 @@ export function zat_b51_randomize_item(first_speaker: XR_game_object, second_spe
 export function zat_b51_give_prepay(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   for (const it of $range(1, 7)) {
     if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
-      if (!hasAlifeInfo(info_portions.zat_b51_order_refused)) {
+      if (!hasAlifeInfo(infoPortions.zat_b51_order_refused)) {
         return takeMoneyFromActor(first_speaker, second_speaker, zat_b51_costs_table.get(it).prepay_agreed);
       }
 
@@ -1292,7 +1292,7 @@ export function zat_b51_has_prepay(first_speaker: XR_game_object, second_speaker
 
   for (const it of $range(1, 7)) {
     if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
-      if (!hasAlifeInfo(info_portions.zat_b51_order_refused)) {
+      if (!hasAlifeInfo(infoPortions.zat_b51_order_refused)) {
         return actor.money() >= zat_b51_costs_table.get(it).prepay_agreed;
       }
 
@@ -1430,7 +1430,7 @@ export function zat_b12_actor_transfer_documents(
 
   if (actor.object(quest_items.zat_b12_documents_1) !== null) {
     takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b12_documents_1);
-    giveInfo(info_portions.zat_b12_documents_sold_1);
+    giveInfo(infoPortions.zat_b12_documents_sold_1);
     amount_total = amount_total + amount_doc1;
   }
 
@@ -1452,11 +1452,11 @@ export function zat_b12_actor_transfer_documents(
 
       if (cnt2 > 1) {
         amount_total = amount_total + amount_doc3 * (cnt2 - 1);
-        giveInfo(info_portions.zat_b12_documents_sold_2);
+        giveInfo(infoPortions.zat_b12_documents_sold_2);
       }
     } else {
       amount_total = amount_total + amount_doc3 * cnt2;
-      giveInfo(info_portions.zat_b12_documents_sold_3);
+      giveInfo(infoPortions.zat_b12_documents_sold_3);
     }
 
     takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b12_documents_2, cnt2);
@@ -1477,9 +1477,9 @@ export function zat_b3_actor_got_toolkit(first_speaker: XR_game_object, second_s
     const section = item.section();
 
     if (
-      (section === misc.toolkit_1 && !hasAlifeInfo(info_portions.zat_b3_tech_instrument_1_brought)) ||
-      (section === misc.toolkit_2 && !hasAlifeInfo(info_portions.zat_b3_tech_instrument_2_brought)) ||
-      (section === misc.toolkit_3 && !hasAlifeInfo(info_portions.zat_b3_tech_instrument_3_brought))
+      (section === misc.toolkit_1 && !hasAlifeInfo(infoPortions.zat_b3_tech_instrument_1_brought)) ||
+      (section === misc.toolkit_2 && !hasAlifeInfo(infoPortions.zat_b3_tech_instrument_2_brought)) ||
+      (section === misc.toolkit_3 && !hasAlifeInfo(infoPortions.zat_b3_tech_instrument_3_brought))
     ) {
       (actor as AnyObject).toolkit = section;
 
@@ -1545,7 +1545,7 @@ export function zat_b215_counter_greater_3(first_speaker: XR_game_object, second
  */
 export function zat_b40_transfer_notebook(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b40_notebook);
-  giveInfo(info_portions.zat_b40_notebook_saled);
+  giveInfo(infoPortions.zat_b40_notebook_saled);
   giveMoneyToActor(2000);
 }
 
@@ -1554,15 +1554,15 @@ export function zat_b40_transfer_notebook(first_speaker: XR_game_object, second_
  */
 export function zat_b40_transfer_merc_pda_1(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b40_pda_1);
-  giveInfo(info_portions.zat_b40_pda_1_saled);
+  giveInfo(infoPortions.zat_b40_pda_1_saled);
   giveMoneyToActor(1000);
 
   if (
-    hasAlifeInfo(info_portions.zat_b40_notebook_saled) &&
-    hasAlifeInfo(info_portions.zat_b40_pda_1_saled) &&
-    hasAlifeInfo(info_portions.zat_b40_pda_2_saled)
+    hasAlifeInfo(infoPortions.zat_b40_notebook_saled) &&
+    hasAlifeInfo(infoPortions.zat_b40_pda_1_saled) &&
+    hasAlifeInfo(infoPortions.zat_b40_pda_2_saled)
   ) {
-    giveInfo(info_portions.zat_b40_all_item_saled);
+    giveInfo(infoPortions.zat_b40_all_item_saled);
   }
 }
 
@@ -1571,15 +1571,15 @@ export function zat_b40_transfer_merc_pda_1(first_speaker: XR_game_object, secon
  */
 export function zat_b40_transfer_merc_pda_2(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.zat_b40_pda_2);
-  giveInfo(info_portions.zat_b40_pda_2_saled);
+  giveInfo(infoPortions.zat_b40_pda_2_saled);
   giveMoneyToActor(1_000);
 
   if (
-    hasAlifeInfo(info_portions.zat_b40_notebook_saled) &&
-    hasAlifeInfo(info_portions.zat_b40_pda_1_saled) &&
-    hasAlifeInfo(info_portions.zat_b40_pda_2_saled)
+    hasAlifeInfo(infoPortions.zat_b40_notebook_saled) &&
+    hasAlifeInfo(infoPortions.zat_b40_pda_1_saled) &&
+    hasAlifeInfo(infoPortions.zat_b40_pda_2_saled)
   ) {
-    giveInfo(info_portions.zat_b40_all_item_saled);
+    giveInfo(infoPortions.zat_b40_all_item_saled);
   }
 }
 
@@ -2131,7 +2131,7 @@ export function zat_b44_transfer_pda_both(first_speaker: XR_game_object, second_
  */
 export function zat_b44_frends_dialog_enabled(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const a =
-    hasAlifeInfo(info_portions.zat_b3_tech_have_couple_dose) && hasAlifeInfo(info_portions.zat_b3_tech_discount_1);
+    hasAlifeInfo(infoPortions.zat_b3_tech_have_couple_dose) && hasAlifeInfo(infoPortions.zat_b3_tech_discount_1);
   const b = zat_b44_actor_has_pda_global(first_speaker, second_speaker);
 
   return a || b;
@@ -2247,8 +2247,8 @@ export function zat_b53_transfer_medkit_to_actor(first_speaker: XR_game_object, 
  */
 export function zat_b106_soroka_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   if (
-    hasAlifeInfo(info_portions.jup_b25_flint_blame_done_to_duty) ||
-    hasAlifeInfo(info_portions.jup_b25_flint_blame_done_to_freedom)
+    hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_duty) ||
+    hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_freedom)
   ) {
     giveMoneyToActor(1000);
   } else {
@@ -2294,9 +2294,9 @@ export function zat_b106_give_reward(first_speaker: XR_game_object, second_speak
  * todo;
  */
 export function zat_b3_tech_drinks_precond(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  if (hasAlifeInfo(info_portions.zat_b3_gauss_repaired) && !hasAlifeInfo(info_portions.zat_b3_tech_drink_no_more)) {
+  if (hasAlifeInfo(infoPortions.zat_b3_gauss_repaired) && !hasAlifeInfo(infoPortions.zat_b3_tech_drink_no_more)) {
     return true;
-  } else if (!hasAlifeInfo(info_portions.zat_b3_tech_see_produce_62)) {
+  } else if (!hasAlifeInfo(infoPortions.zat_b3_tech_see_produce_62)) {
     return true;
   }
 
@@ -2308,8 +2308,8 @@ export function zat_b3_tech_drinks_precond(first_speaker: XR_game_object, second
  */
 export function zat_b106_soroka_gone(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   return (
-    hasAlifeInfo(info_portions.jup_b25_flint_blame_done_to_duty) ||
-    hasAlifeInfo(info_portions.jup_b25_flint_blame_done_to_freedom)
+    hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_duty) ||
+    hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_freedom)
   );
 }
 
@@ -2324,14 +2324,14 @@ export function zat_b106_soroka_not_gone(first_speaker: XR_game_object, second_s
  * todo;
  */
 export function zat_b22_actor_has_proof(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return actorHasItem(info_portions.zat_b22_medic_pda);
+  return actorHasItem(infoPortions.zat_b22_medic_pda);
 }
 
 /**
  * todo;
  */
 export function zat_b22_transfer_proof(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  takeItemsFromActor(first_speaker, second_speaker, info_portions.zat_b22_medic_pda);
+  takeItemsFromActor(first_speaker, second_speaker, infoPortions.zat_b22_medic_pda);
 }
 
 /**

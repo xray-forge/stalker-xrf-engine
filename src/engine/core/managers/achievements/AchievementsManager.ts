@@ -17,7 +17,7 @@ import { spawnItemsForObjectFromList } from "@/engine/core/utils/spawn";
 import { readCTimeFromPacket, writeCTimeToPacket } from "@/engine/core/utils/time";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities } from "@/engine/lib/constants/communities";
-import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
+import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { AnyCallablesModule, LuaArray, Optional, TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -100,13 +100,13 @@ export class AchievementsManager extends AbstractCoreManager {
    * todo: Description.
    */
   public checkAchievedPioneer(): boolean {
-    if (!hasAlifeInfo(info_portions.pioneer_achievement_gained)) {
+    if (!hasAlifeInfo(infoPortions.pioneer_achievement_gained)) {
       if (
-        hasAlifeInfo(info_portions.zat_b14_give_item_linker) &&
-        hasAlifeInfo(info_portions.jup_b1_complete_end) &&
-        hasAlifeInfo(info_portions.jup_b206_anomalous_grove_done)
+        hasAlifeInfo(infoPortions.zat_b14_give_item_linker) &&
+        hasAlifeInfo(infoPortions.jup_b1_complete_end) &&
+        hasAlifeInfo(infoPortions.jup_b206_anomalous_grove_done)
       ) {
-        giveInfo(info_portions.pioneer_achievement_gained);
+        giveInfo(infoPortions.pioneer_achievement_gained);
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
           captions.st_ach_pioneer,
@@ -118,20 +118,20 @@ export class AchievementsManager extends AbstractCoreManager {
       }
     }
 
-    return hasAlifeInfo(info_portions.pioneer_achievement_gained);
+    return hasAlifeInfo(infoPortions.pioneer_achievement_gained);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedMutantHunter(): boolean {
-    if (!hasAlifeInfo(info_portions.mutant_hunter_achievement_gained)) {
+    if (!hasAlifeInfo(infoPortions.mutant_hunter_achievement_gained)) {
       if (
-        hasAlifeInfo(info_portions.jup_b208_burers_hunt_done) &&
-        hasAlifeInfo(info_portions.jup_b211_scene_done) &&
-        hasAlifeInfo(info_portions.jup_b212_jupiter_chimera_hunt_done)
+        hasAlifeInfo(infoPortions.jup_b208_burers_hunt_done) &&
+        hasAlifeInfo(infoPortions.jup_b211_scene_done) &&
+        hasAlifeInfo(infoPortions.jup_b212_jupiter_chimera_hunt_done)
       ) {
-        giveInfo(info_portions.mutant_hunter_achievement_gained);
+        giveInfo(infoPortions.mutant_hunter_achievement_gained);
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
           captions.st_ach_mutant_hunter,
@@ -143,16 +143,16 @@ export class AchievementsManager extends AbstractCoreManager {
       }
     }
 
-    return hasAlifeInfo(info_portions.mutant_hunter_achievement_gained);
+    return hasAlifeInfo(infoPortions.mutant_hunter_achievement_gained);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedDetective(): boolean {
-    if (!hasAlifeInfo(info_portions.detective_achievement_gained)) {
-      if (hasAlifeInfo(info_portions.zat_b22_barmen_gave_reward)) {
-        giveInfo(info_portions.detective_achievement_gained);
+    if (!hasAlifeInfo(infoPortions.detective_achievement_gained)) {
+      if (hasAlifeInfo(infoPortions.zat_b22_barmen_gave_reward)) {
+        giveInfo(infoPortions.detective_achievement_gained);
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
           captions.st_ach_detective,
@@ -164,16 +164,16 @@ export class AchievementsManager extends AbstractCoreManager {
       }
     }
 
-    return hasAlifeInfo(info_portions.detective_achievement_gained);
+    return hasAlifeInfo(infoPortions.detective_achievement_gained);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedOneOfLads(): boolean {
-    if (!hasAlifeInfo(info_portions.one_of_the_lads_gained)) {
-      if (hasAlifeInfo(info_portions.zat_b30_sultan_loose) && hasAlifeInfo(info_portions.zat_b7_actor_help_stalkers)) {
-        giveInfo(info_portions.one_of_the_lads_gained);
+    if (!hasAlifeInfo(infoPortions.one_of_the_lads_gained)) {
+      if (hasAlifeInfo(infoPortions.zat_b30_sultan_loose) && hasAlifeInfo(infoPortions.zat_b7_actor_help_stalkers)) {
+        giveInfo(infoPortions.one_of_the_lads_gained);
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
           captions.st_ach_one_of_the_lads,
@@ -185,19 +185,19 @@ export class AchievementsManager extends AbstractCoreManager {
       }
     }
 
-    return hasAlifeInfo(info_portions.one_of_the_lads_gained);
+    return hasAlifeInfo(infoPortions.one_of_the_lads_gained);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedKingpin(): boolean {
-    if (!hasAlifeInfo(info_portions.kingpin_gained)) {
+    if (!hasAlifeInfo(infoPortions.kingpin_gained)) {
       if (
-        hasAlifeInfo(info_portions.zat_b30_barmen_under_sultan) &&
-        hasAlifeInfo(info_portions.zat_b7_actor_help_bandits)
+        hasAlifeInfo(infoPortions.zat_b30_barmen_under_sultan) &&
+        hasAlifeInfo(infoPortions.zat_b7_actor_help_bandits)
       ) {
-        giveInfo(info_portions.kingpin_gained);
+        giveInfo(infoPortions.kingpin_gained);
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
           captions.st_ach_kingpin,
@@ -209,20 +209,20 @@ export class AchievementsManager extends AbstractCoreManager {
       }
     }
 
-    return hasAlifeInfo(info_portions.kingpin_gained);
+    return hasAlifeInfo(infoPortions.kingpin_gained);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedHeraldOfJustice(): boolean {
-    if (!hasAlifeInfo(info_portions.herald_of_justice_achievement_gained)) {
+    if (!hasAlifeInfo(infoPortions.herald_of_justice_achievement_gained)) {
       if (
-        hasAlifeInfo(info_portions.jup_b25_flint_blame_done_to_duty) ||
-        hasAlifeInfo(info_portions.jup_b25_flint_blame_done_to_freedom) ||
-        hasAlifeInfo(info_portions.zat_b106_found_soroka_done)
+        hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_duty) ||
+        hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_freedom) ||
+        hasAlifeInfo(infoPortions.zat_b106_found_soroka_done)
       ) {
-        giveInfo(info_portions.herald_of_justice_achievement_gained);
+        giveInfo(infoPortions.herald_of_justice_achievement_gained);
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
           captions.st_ach_herald_of_justice,
@@ -234,14 +234,14 @@ export class AchievementsManager extends AbstractCoreManager {
       }
     }
 
-    return hasAlifeInfo(info_portions.herald_of_justice_achievement_gained);
+    return hasAlifeInfo(infoPortions.herald_of_justice_achievement_gained);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedSeeker(): boolean {
-    if (hasAlifeInfo(info_portions.sim_bandit_attack_harder)) {
+    if (hasAlifeInfo(infoPortions.sim_bandit_attack_harder)) {
       return true;
     }
 
@@ -251,7 +251,7 @@ export class AchievementsManager extends AbstractCoreManager {
       }
     }
 
-    giveInfo(info_portions.sim_bandit_attack_harder);
+    giveInfo(infoPortions.sim_bandit_attack_harder);
 
     NotificationManager.getInstance().sendTipNotification(
       registry.actor,
@@ -273,8 +273,8 @@ export class AchievementsManager extends AbstractCoreManager {
    * todo: Description.
    */
   public checkAchievedBattleSystemsMaster(): boolean {
-    if (!hasAlifeInfo(info_portions.battle_systems_master_achievement_gained)) {
-      if (hasAlifeInfo(info_portions.zat_b3_all_instruments_brought)) {
+    if (!hasAlifeInfo(infoPortions.battle_systems_master_achievement_gained)) {
+      if (hasAlifeInfo(infoPortions.zat_b3_all_instruments_brought)) {
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
           captions.st_ach_battle_systems_master,
@@ -283,22 +283,22 @@ export class AchievementsManager extends AbstractCoreManager {
           null,
           null
         );
-        giveInfo(info_portions.battle_systems_master_achievement_gained);
+        giveInfo(infoPortions.battle_systems_master_achievement_gained);
       }
     }
 
-    return hasAlifeInfo(info_portions.battle_systems_master_achievement_gained);
+    return hasAlifeInfo(infoPortions.battle_systems_master_achievement_gained);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedHighTechMaster(): boolean {
-    if (!hasAlifeInfo(info_portions.high_tech_master_achievement_gained)) {
+    if (!hasAlifeInfo(infoPortions.high_tech_master_achievement_gained)) {
       if (
-        hasAlifeInfo(info_portions.jup_b217_tech_instrument_1_brought) &&
-        hasAlifeInfo(info_portions.jup_b217_tech_instrument_2_brought) &&
-        hasAlifeInfo(info_portions.jup_b217_tech_instrument_3_brought)
+        hasAlifeInfo(infoPortions.jup_b217_tech_instrument_1_brought) &&
+        hasAlifeInfo(infoPortions.jup_b217_tech_instrument_2_brought) &&
+        hasAlifeInfo(infoPortions.jup_b217_tech_instrument_3_brought)
       ) {
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
@@ -308,19 +308,19 @@ export class AchievementsManager extends AbstractCoreManager {
           null,
           null
         );
-        giveInfo(info_portions.high_tech_master_achievement_gained);
+        giveInfo(infoPortions.high_tech_master_achievement_gained);
       }
     }
 
-    return hasAlifeInfo(info_portions.high_tech_master_achievement_gained);
+    return hasAlifeInfo(infoPortions.high_tech_master_achievement_gained);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedSkilledStalker(): boolean {
-    if (!hasAlifeInfo(info_portions.skilled_stalker_achievement_gained)) {
-      if (hasAlifeInfo(info_portions.actor_was_in_many_bad_places)) {
+    if (!hasAlifeInfo(infoPortions.skilled_stalker_achievement_gained)) {
+      if (hasAlifeInfo(infoPortions.actor_was_in_many_bad_places)) {
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
           captions.st_ach_skilled_stalker,
@@ -329,22 +329,22 @@ export class AchievementsManager extends AbstractCoreManager {
           null,
           null
         );
-        giveInfo(info_portions.skilled_stalker_achievement_gained);
+        giveInfo(infoPortions.skilled_stalker_achievement_gained);
       }
     }
 
-    return hasAlifeInfo(info_portions.skilled_stalker_achievement_gained);
+    return hasAlifeInfo(infoPortions.skilled_stalker_achievement_gained);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedLeader(): boolean {
-    if (!hasAlifeInfo(info_portions.leader_achievement_gained)) {
+    if (!hasAlifeInfo(infoPortions.leader_achievement_gained)) {
       if (
-        hasAlifeInfo(info_portions.jup_a10_vano_agree_go_und) &&
-        hasAlifeInfo(info_portions.jup_b218_soldier_hired) &&
-        hasAlifeInfo(info_portions.jup_b218_monolith_hired)
+        hasAlifeInfo(infoPortions.jup_a10_vano_agree_go_und) &&
+        hasAlifeInfo(infoPortions.jup_b218_soldier_hired) &&
+        hasAlifeInfo(infoPortions.jup_b218_monolith_hired)
       ) {
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
@@ -354,22 +354,22 @@ export class AchievementsManager extends AbstractCoreManager {
           null,
           null
         );
-        giveInfo(info_portions.leader_achievement_gained);
+        giveInfo(infoPortions.leader_achievement_gained);
       }
     }
 
-    return hasAlifeInfo(info_portions.leader_achievement_gained);
+    return hasAlifeInfo(infoPortions.leader_achievement_gained);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedDiplomat(): boolean {
-    if (!hasAlifeInfo(info_portions.diplomat_achievement_gained)) {
+    if (!hasAlifeInfo(infoPortions.diplomat_achievement_gained)) {
       if (
-        hasAlifeInfo(info_portions.jup_a12_wo_shooting) &&
-        (hasAlifeInfo(info_portions.jup_a10_bandit_take_all_money) ||
-          hasAlifeInfo(info_portions.jup_a10_bandit_take_money))
+        hasAlifeInfo(infoPortions.jup_a12_wo_shooting) &&
+        (hasAlifeInfo(infoPortions.jup_a10_bandit_take_all_money) ||
+          hasAlifeInfo(infoPortions.jup_a10_bandit_take_money))
       ) {
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
@@ -396,30 +396,30 @@ export class AchievementsManager extends AbstractCoreManager {
           communities.bandit,
           200,
         ]);
-        giveInfo(info_portions.diplomat_achievement_gained);
+        giveInfo(infoPortions.diplomat_achievement_gained);
       }
     }
 
-    return hasAlifeInfo(info_portions.diplomat_achievement_gained);
+    return hasAlifeInfo(infoPortions.diplomat_achievement_gained);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedResearchMan(): boolean {
-    if (hasAlifeInfo(info_portions.research_man_gained)) {
+    if (hasAlifeInfo(infoPortions.research_man_gained)) {
       return true;
     }
 
     const infoPortionsList = [
-      info_portions.jup_b16_task_done,
-      info_portions.jup_b1_task_done,
-      info_portions.jup_b46_task_done,
-      info_portions.jup_b47_task_end,
-      info_portions.jup_b32_task_done,
-      info_portions.jup_b6_task_done,
-      info_portions.jup_b206_task_done,
-      info_portions.jup_b209_task_done,
+      infoPortions.jup_b16_task_done,
+      infoPortions.jup_b1_task_done,
+      infoPortions.jup_b46_task_done,
+      infoPortions.jup_b47_task_end,
+      infoPortions.jup_b32_task_done,
+      infoPortions.jup_b6_task_done,
+      infoPortions.jup_b206_task_done,
+      infoPortions.jup_b209_task_done,
     ] as unknown as LuaArray<TInfoPortion>;
 
     let count = 0;
@@ -430,7 +430,7 @@ export class AchievementsManager extends AbstractCoreManager {
       }
 
       if (count >= 4) {
-        giveInfo(info_portions.research_man_gained);
+        giveInfo(infoPortions.research_man_gained);
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
           captions.st_ach_research_man,
@@ -451,14 +451,14 @@ export class AchievementsManager extends AbstractCoreManager {
    * todo: Description.
    */
   public checkAchievedFriendOfDuty(): boolean {
-    if (!hasAlifeInfo(info_portions.sim_duty_help_harder)) {
+    if (!hasAlifeInfo(infoPortions.sim_duty_help_harder)) {
       if (
-        hasAlifeInfo(info_portions.jup_b4_monolith_squad_in_duty) &&
-        hasAlifeInfo(info_portions.jup_b46_duty_founder_pda_to_duty) &&
-        hasAlifeInfo(info_portions.jup_b207_sell_dealers_pda_duty) &&
-        hasAlifeInfo(info_portions.jup_b25_flint_blame_done_to_duty)
+        hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_duty) &&
+        hasAlifeInfo(infoPortions.jup_b46_duty_founder_pda_to_duty) &&
+        hasAlifeInfo(infoPortions.jup_b207_sell_dealers_pda_duty) &&
+        hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_duty)
       ) {
-        giveInfo(info_portions.sim_duty_help_harder);
+        giveInfo(infoPortions.sim_duty_help_harder);
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
           captions.st_ach_friend_of_duty,
@@ -470,21 +470,21 @@ export class AchievementsManager extends AbstractCoreManager {
       }
     }
 
-    return hasAlifeInfo(info_portions.sim_duty_help_harder);
+    return hasAlifeInfo(infoPortions.sim_duty_help_harder);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedFriendOfFreedom(): boolean {
-    if (!hasAlifeInfo(info_portions.sim_freedom_help_harder)) {
+    if (!hasAlifeInfo(infoPortions.sim_freedom_help_harder)) {
       if (
-        hasAlifeInfo(info_portions.jup_b4_monolith_squad_in_freedom) &&
-        hasAlifeInfo(info_portions.jup_b46_duty_founder_pda_to_freedom) &&
-        hasAlifeInfo(info_portions.jup_b207_sell_dealers_pda_freedom) &&
-        hasAlifeInfo(info_portions.jup_b25_flint_blame_done_to_freedom)
+        hasAlifeInfo(infoPortions.jup_b4_monolith_squad_in_freedom) &&
+        hasAlifeInfo(infoPortions.jup_b46_duty_founder_pda_to_freedom) &&
+        hasAlifeInfo(infoPortions.jup_b207_sell_dealers_pda_freedom) &&
+        hasAlifeInfo(infoPortions.jup_b25_flint_blame_done_to_freedom)
       ) {
-        giveInfo(info_portions.sim_freedom_help_harder);
+        giveInfo(infoPortions.sim_freedom_help_harder);
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
           captions.st_ach_friend_of_freedom,
@@ -496,20 +496,20 @@ export class AchievementsManager extends AbstractCoreManager {
       }
     }
 
-    return hasAlifeInfo(info_portions.sim_freedom_help_harder);
+    return hasAlifeInfo(infoPortions.sim_freedom_help_harder);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedBalanceAdvocate(): boolean {
-    if (!hasAlifeInfo(info_portions.balance_advocate_gained)) {
+    if (!hasAlifeInfo(infoPortions.balance_advocate_gained)) {
       if (
-        hasAlifeInfo(info_portions.jup_b46_duty_founder_pda_to_owl) &&
-        hasAlifeInfo(info_portions.jup_b207_dealers_pda_sold_owl) &&
-        hasAlifeInfo(info_portions.zat_b106_found_soroka_done)
+        hasAlifeInfo(infoPortions.jup_b46_duty_founder_pda_to_owl) &&
+        hasAlifeInfo(infoPortions.jup_b207_dealers_pda_sold_owl) &&
+        hasAlifeInfo(infoPortions.zat_b106_found_soroka_done)
       ) {
-        giveInfo(info_portions.balance_advocate_gained);
+        giveInfo(infoPortions.balance_advocate_gained);
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
           captions.st_ach_balance_advocate,
@@ -521,15 +521,15 @@ export class AchievementsManager extends AbstractCoreManager {
       }
     }
 
-    return hasAlifeInfo(info_portions.balance_advocate_gained);
+    return hasAlifeInfo(infoPortions.balance_advocate_gained);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedWealthy(): boolean {
-    if (registry.actor.money() >= 100_000 && !hasAlifeInfo(info_portions.actor_wealthy)) {
-      giveInfo(info_portions.actor_wealthy);
+    if (registry.actor.money() >= 100_000 && !hasAlifeInfo(infoPortions.actor_wealthy)) {
+      giveInfo(infoPortions.actor_wealthy);
       NotificationManager.getInstance().sendTipNotification(
         registry.actor,
         captions.st_ach_wealthy,
@@ -540,16 +540,16 @@ export class AchievementsManager extends AbstractCoreManager {
       );
     }
 
-    return hasAlifeInfo(info_portions.actor_wealthy);
+    return hasAlifeInfo(infoPortions.actor_wealthy);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedKeeperOfSecrets(): boolean {
-    if (!hasAlifeInfo(info_portions.keeper_of_secrets_achievement_gained)) {
-      if (hasAlifeInfo(info_portions.pri_b305_all_strelok_notes_given)) {
-        giveInfo(info_portions.keeper_of_secrets_achievement_gained);
+    if (!hasAlifeInfo(infoPortions.keeper_of_secrets_achievement_gained)) {
+      if (hasAlifeInfo(infoPortions.pri_b305_all_strelok_notes_given)) {
+        giveInfo(infoPortions.keeper_of_secrets_achievement_gained);
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
           captions.st_ach_keeper_of_secrets,
@@ -561,19 +561,19 @@ export class AchievementsManager extends AbstractCoreManager {
       }
     }
 
-    return hasAlifeInfo(info_portions.keeper_of_secrets_achievement_gained);
+    return hasAlifeInfo(infoPortions.keeper_of_secrets_achievement_gained);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedMarkedByZone(): boolean {
-    if (hasAlifeInfo(info_portions.actor_marked_by_zone_3_times)) {
+    if (hasAlifeInfo(infoPortions.actor_marked_by_zone_3_times)) {
       return true;
     }
 
     if (portableStoreGet(registry.actor, "actor_marked_by_zone_cnt", 0) > 2) {
-      giveInfo(info_portions.actor_marked_by_zone_3_times);
+      giveInfo(infoPortions.actor_marked_by_zone_3_times);
       NotificationManager.getInstance().sendTipNotification(
         registry.actor,
         captions.st_ach_marked_by_zone,
@@ -593,7 +593,7 @@ export class AchievementsManager extends AbstractCoreManager {
    * todo: Description.
    */
   public checkAchievedInformationDealer(): boolean {
-    if (hasAlifeInfo(info_portions.actor_information_dealer)) {
+    if (hasAlifeInfo(infoPortions.actor_information_dealer)) {
       return true;
     }
 
@@ -632,26 +632,26 @@ export class AchievementsManager extends AbstractCoreManager {
           null,
           null
         );
-        giveInfo(info_portions.actor_information_dealer);
+        giveInfo(infoPortions.actor_information_dealer);
       }
     }
 
-    return hasAlifeInfo(info_portions.actor_information_dealer);
+    return hasAlifeInfo(infoPortions.actor_information_dealer);
   }
 
   /**
    * todo: Description.
    */
   public checkAchievedFriendOfStalkers(): boolean {
-    if (!hasAlifeInfo(info_portions.sim_stalker_help_harder)) {
+    if (!hasAlifeInfo(infoPortions.sim_stalker_help_harder)) {
       if (
-        hasAlifeInfo(info_portions.jup_b220_trapper_zaton_chimera_hunted_told) &&
-        hasAlifeInfo(info_portions.jup_a12_stalker_prisoner_helped) &&
-        hasAlifeInfo(info_portions.jup_a10_vano_give_task_end) &&
-        hasAlifeInfo(info_portions.zat_b5_stalker_leader_end) &&
-        hasAlifeInfo(info_portions.zat_b7_task_end)
+        hasAlifeInfo(infoPortions.jup_b220_trapper_zaton_chimera_hunted_told) &&
+        hasAlifeInfo(infoPortions.jup_a12_stalker_prisoner_helped) &&
+        hasAlifeInfo(infoPortions.jup_a10_vano_give_task_end) &&
+        hasAlifeInfo(infoPortions.zat_b5_stalker_leader_end) &&
+        hasAlifeInfo(infoPortions.zat_b7_task_end)
       ) {
-        giveInfo(info_portions.sim_stalker_help_harder);
+        giveInfo(infoPortions.sim_stalker_help_harder);
         NotificationManager.getInstance().sendTipNotification(
           registry.actor,
           captions.st_ach_friend_of_stalkers,
@@ -667,7 +667,7 @@ export class AchievementsManager extends AbstractCoreManager {
       }
     }
 
-    return hasAlifeInfo(info_portions.sim_stalker_help_harder);
+    return hasAlifeInfo(infoPortions.sim_stalker_help_harder);
   }
 
   /**
@@ -682,7 +682,7 @@ export class AchievementsManager extends AbstractCoreManager {
    * todo: Description.
    */
   protected updateDetectiveAchievementRewardSpawn(): void {
-    if (!hasAlifeInfo(info_portions.detective_achievement_gained)) {
+    if (!hasAlifeInfo(infoPortions.detective_achievement_gained)) {
       return;
     } else if (this.lastDetectiveAchievementSpawnTime === null) {
       this.lastDetectiveAchievementSpawnTime = game.get_game_time();
@@ -715,7 +715,7 @@ export class AchievementsManager extends AbstractCoreManager {
    * todo: Description.
    */
   protected updateMutantHunterAchievementSpawn(): void {
-    if (!hasAlifeInfo(info_portions.mutant_hunter_achievement_gained)) {
+    if (!hasAlifeInfo(infoPortions.mutant_hunter_achievement_gained)) {
       return;
     } else if (this.lastMutantHunterAchievementSpawnTime === null) {
       this.lastMutantHunterAchievementSpawnTime = game.get_game_time();

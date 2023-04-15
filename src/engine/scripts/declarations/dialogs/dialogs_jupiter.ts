@@ -23,7 +23,7 @@ import {
 } from "@/engine/core/utils/quest_reward";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import { communities } from "@/engine/lib/constants/communities";
-import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
+import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { artefacts, TArtefact } from "@/engine/lib/constants/items/artefacts";
 import { detectors } from "@/engine/lib/constants/items/detectors";
@@ -233,7 +233,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info(
 ): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_evacuation_info);
   giveMoneyToActor(750);
-  giveInfo(info_portions.jup_a9_evacuation_info_sold);
+  giveInfo(infoPortions.jup_a9_evacuation_info_sold);
 }
 
 /**
@@ -245,7 +245,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_meeting_info(
 ): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_meeting_info);
   giveMoneyToActor(750);
-  giveInfo(info_portions.jup_a9_meeting_info_sold);
+  giveInfo(infoPortions.jup_a9_meeting_info_sold);
 }
 
 /**
@@ -257,7 +257,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_losses_info(
 ): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_losses_info);
   giveMoneyToActor(750);
-  giveInfo(info_portions.jup_a9_losses_info_sold);
+  giveInfo(infoPortions.jup_a9_losses_info_sold);
 }
 
 /**
@@ -269,7 +269,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info(
 ): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_delivery_info);
   giveMoneyToActor(750);
-  giveInfo(info_portions.jup_a9_delivery_info_sold);
+  giveInfo(infoPortions.jup_a9_delivery_info_sold);
 }
 
 /**
@@ -419,7 +419,7 @@ export function jup_a9_actor_hasnt_meeting_info(
  */
 export function actor_relocate_meeting_info(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_meeting_info);
-  giveInfo(info_portions.jup_a9_meeting_info_sold);
+  giveInfo(infoPortions.jup_a9_meeting_info_sold);
 }
 
 /**
@@ -464,7 +464,7 @@ export function jup_a9_actor_hasnt_evacuation_info(
  */
 export function actor_relocate_evacuation_info(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_evacuation_info);
-  giveInfo(info_portions.jup_a9_evacuation_info_sold);
+  giveInfo(infoPortions.jup_a9_evacuation_info_sold);
 }
 
 /**
@@ -472,7 +472,7 @@ export function actor_relocate_evacuation_info(first_speaker: XR_game_object, se
  */
 export function actor_relocate_delivery_info(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_delivery_info);
-  giveInfo(info_portions.jup_a9_delivery_info_sold);
+  giveInfo(infoPortions.jup_a9_delivery_info_sold);
 }
 
 /**
@@ -494,7 +494,7 @@ export function jup_a9_actor_hasnt_losses_info(first_speaker: XR_game_object, se
  */
 export function actor_relocate_losses_info(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_a9_losses_info);
-  giveInfo(info_portions.jup_a9_losses_info_sold);
+  giveInfo(infoPortions.jup_a9_losses_info_sold);
 }
 
 /**
@@ -522,7 +522,7 @@ export function actor_relocate_trapper_reward(first_speaker: XR_game_object, sec
  * todo;
  */
 export function zat_b106_trapper_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  if (hasAlifeInfo(info_portions.zat_b106_one_hit)) {
+  if (hasAlifeInfo(infoPortions.zat_b106_one_hit)) {
     giveMoneyToActor(3000);
   } else {
     giveMoneyToActor(2000);
@@ -583,7 +583,7 @@ export function jup_a10_proverka_wpn_false(first_speaker: XR_game_object, second
 export function jup_a10_actor_has_money(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const actor: XR_game_object = registry.actor;
 
-  if (hasAlifeInfo(info_portions.jup_a10_debt_wo_percent)) {
+  if (hasAlifeInfo(infoPortions.jup_a10_debt_wo_percent)) {
     return actor.money() >= 5000;
   } else {
     return actor.money() >= 7000;
@@ -601,12 +601,12 @@ export function jup_a10_actor_has_not_money(first_speaker: XR_game_object, secon
  * todo;
  */
 export function jup_a10_actor_give_money(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  if (hasAlifeInfo(info_portions.jup_a10_debt_wo_percent)) {
+  if (hasAlifeInfo(infoPortions.jup_a10_debt_wo_percent)) {
     takeMoneyFromActor(first_speaker, second_speaker, 5000);
-    giveInfo(info_portions.jup_a10_bandit_take_money);
+    giveInfo(infoPortions.jup_a10_bandit_take_money);
   } else {
     takeMoneyFromActor(first_speaker, second_speaker, 7000);
-    giveInfo(info_portions.jup_a10_bandit_take_all_money);
+    giveInfo(infoPortions.jup_a10_bandit_take_all_money);
   }
 }
 
@@ -768,7 +768,7 @@ export function jup_a12_transfer_ransom_from_actor(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): void {
-  if (hasAlifeInfo(info_portions.jup_a12_ransom_by_money)) {
+  if (hasAlifeInfo(infoPortions.jup_a12_ransom_by_money)) {
     takeMoneyFromActor(first_speaker, second_speaker, 15000);
 
     return;
@@ -813,7 +813,7 @@ export function jup_a12_transfer_artefact_to_actor(
 ): void {
   giveItemsToActor(first_speaker, second_speaker, artefacts.af_gold_fish);
 
-  if (hasAlifeInfo(info_portions.jup_a12_stalker_prisoner_free_dialog_done)) {
+  if (hasAlifeInfo(infoPortions.jup_a12_stalker_prisoner_free_dialog_done)) {
     const treasureManager: TreasureManager = TreasureManager.getInstance();
 
     treasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_40);
@@ -883,11 +883,11 @@ export function jup_b6_scientist_nuclear_physicist_scan_anomaly_precond(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  if (!hasAlifeInfo(info_portions.jup_b6_b32_quest_active)) {
+  if (!hasAlifeInfo(infoPortions.jup_b6_b32_quest_active)) {
     return false;
-  } else if (hasAlifeInfo(info_portions.jup_b6_give_task) && hasAlifeInfo(info_portions.jup_b32_task_addon_start)) {
+  } else if (hasAlifeInfo(infoPortions.jup_b6_give_task) && hasAlifeInfo(infoPortions.jup_b32_task_addon_start)) {
     return false;
-  } else if (hasAlifeInfo(info_portions.jup_b6_task_fail) && hasAlifeInfo(info_portions.jup_b32_task_addon_start)) {
+  } else if (hasAlifeInfo(infoPortions.jup_b6_task_fail) && hasAlifeInfo(infoPortions.jup_b32_task_addon_start)) {
     return false;
   }
 
@@ -901,21 +901,21 @@ export function jup_b32_task_give_dialog_precond(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  return !(hasAlifeInfo(info_portions.jup_b32_task_start) && !hasAlifeInfo("jup_b32_task_end"));
+  return !(hasAlifeInfo(infoPortions.jup_b32_task_start) && !hasAlifeInfo("jup_b32_task_end"));
 }
 
 /**
  * todo;
  */
 export function jup_b32_transfer_scanners(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, info_portions.jup_b32_scanner_device, 3);
+  giveItemsToActor(first_speaker, second_speaker, infoPortions.jup_b32_scanner_device, 3);
 }
 
 /**
  * todo;
  */
 export function jup_b32_transfer_scanners_2(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  giveItemsToActor(first_speaker, second_speaker, info_portions.jup_b32_scanner_device, 2);
+  giveItemsToActor(first_speaker, second_speaker, infoPortions.jup_b32_scanner_device, 2);
 }
 
 /**
@@ -957,11 +957,11 @@ export function jup_b32_anomaly_do_not_has_af(first_speaker: XR_game_object, sec
     "jup_b10_anomal_zone",
   ] as unknown as LuaArray<string>;
   const infoPortionsTable = [
-    info_portions.jup_b32_anomaly_1,
-    info_portions.jup_b32_anomaly_2,
-    info_portions.jup_b32_anomaly_3,
-    info_portions.jup_b32_anomaly_4,
-    info_portions.jup_b32_anomaly_5,
+    infoPortions.jup_b32_anomaly_1,
+    infoPortions.jup_b32_anomaly_2,
+    infoPortions.jup_b32_anomaly_3,
+    infoPortions.jup_b32_anomaly_4,
+    infoPortions.jup_b32_anomaly_5,
   ] as unknown as LuaArray<TInfoPortion>;
 
   let index: TIndex = 0;
@@ -1027,7 +1027,7 @@ export function jup_b207_actor_has_dealers_pda(first_speaker: XR_game_object, se
 export function jup_b207_sell_dealers_pda(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   takeItemsFromActor(first_speaker, second_speaker, "device_pda_zat_b5_dealer");
   giveMoneyToActor(4_000);
-  giveInfo(info_portions.jup_b207_dealers_pda_sold);
+  giveInfo(infoPortions.jup_b207_dealers_pda_sold);
 }
 
 /**
@@ -1226,12 +1226,12 @@ export function jup_b6_actor_can_not_start(first_speaker: XR_game_object, second
  */
 export function jup_b6_actor_can_start(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   if (
-    hasAlifeInfo(info_portions.jup_b1_squad_is_dead) &&
+    hasAlifeInfo(infoPortions.jup_b1_squad_is_dead) &&
     !(
-      hasAlifeInfo(info_portions.jup_b6_freedom_employed) ||
-      hasAlifeInfo(info_portions.jup_b6_duty_employed) ||
-      hasAlifeInfo(info_portions.jup_b6_gonta_employed) ||
-      hasAlifeInfo(info_portions.jup_b6_exprisoner_work_on_sci)
+      hasAlifeInfo(infoPortions.jup_b6_freedom_employed) ||
+      hasAlifeInfo(infoPortions.jup_b6_duty_employed) ||
+      hasAlifeInfo(infoPortions.jup_b6_gonta_employed) ||
+      hasAlifeInfo(infoPortions.jup_b6_exprisoner_work_on_sci)
     )
   ) {
     return false;
@@ -1273,8 +1273,8 @@ export function jup_b202_hit_bandit_from_actor(first_speaker: XR_game_object, se
   const npc = getNpcSpeaker(first_speaker, second_speaker);
   const actor = getActorSpeaker(first_speaker, second_speaker);
 
-  giveInfo(info_portions.jup_b202_bandit_hited);
-  giveInfo(info_portions.jup_b202_bandit_hited_by_actor);
+  giveInfo(infoPortions.jup_b202_bandit_hited);
+  giveInfo(infoPortions.jup_b202_bandit_hited_by_actor);
   getExtern<AnyCallablesModule>("xr_effects").set_squad_goodwill(actor, npc, ["jup_b202_bandit_squad", "enemy"]);
   // --xr_effects.hit_npc_from_actor(actor,npc,{"jup_b202_bandit"})
 }
@@ -1286,10 +1286,10 @@ export function jup_b202_medic_dialog_precondition(
   first_speaker: XR_game_object,
   second_speaker: XR_game_object
 ): boolean {
-  if (hasAlifeInfo(info_portions.jup_b218_gather_squad_complete)) {
-    return !hasAlifeInfo(info_portions.jup_b202_polustanok);
+  if (hasAlifeInfo(infoPortions.jup_b218_gather_squad_complete)) {
+    return !hasAlifeInfo(infoPortions.jup_b202_polustanok);
   } else {
-    return !hasAlifeInfo(info_portions.jup_b52_medic_testimony);
+    return !hasAlifeInfo(infoPortions.jup_b52_medic_testimony);
   }
 }
 
@@ -1311,26 +1311,26 @@ export function jup_b6_stalker_dialog_precond(first_speaker: XR_game_object, sec
   const squad_name = alife().object(npcAlife.group_id)!.section_name();
 
   if (squad_name !== null && squad_name !== "") {
-    if (!hasAlifeInfo(info_portions.jup_b1_squad_is_dead) && squad_name === info_portions.jup_b1_stalker_squad) {
+    if (!hasAlifeInfo(infoPortions.jup_b1_squad_is_dead) && squad_name === infoPortions.jup_b1_stalker_squad) {
       return true;
     } else if (
-      hasAlifeInfo(info_portions.jup_b6_freedom_employed) &&
-      squad_name === info_portions.jup_b6_stalker_freedom_squad
+      hasAlifeInfo(infoPortions.jup_b6_freedom_employed) &&
+      squad_name === infoPortions.jup_b6_stalker_freedom_squad
     ) {
       return true;
     } else if (
-      hasAlifeInfo(info_portions.jup_b6_duty_employed) &&
-      squad_name === info_portions.jup_b6_stalker_duty_squad
+      hasAlifeInfo(infoPortions.jup_b6_duty_employed) &&
+      squad_name === infoPortions.jup_b6_stalker_duty_squad
     ) {
       return true;
     } else if (
-      hasAlifeInfo(info_portions.jup_b6_gonta_employed) &&
-      squad_name === info_portions.jup_b6_stalker_gonta_squad
+      hasAlifeInfo(infoPortions.jup_b6_gonta_employed) &&
+      squad_name === infoPortions.jup_b6_stalker_gonta_squad
     ) {
       return true;
     } else if (
-      hasAlifeInfo(info_portions.jup_b6_exprisoner_work_on_sci) &&
-      squad_name === info_portions.jup_b6_stalker_exprisoner_squad
+      hasAlifeInfo(infoPortions.jup_b6_exprisoner_work_on_sci) &&
+      squad_name === infoPortions.jup_b6_stalker_exprisoner_squad
     ) {
       return true;
     }
@@ -1349,9 +1349,9 @@ export function jup_b217_actor_got_toolkit(first_speaker: XR_game_object, second
     const section = item.section();
 
     if (
-      (section === misc.toolkit_1 && !hasAlifeInfo(info_portions.jup_b217_tech_instrument_1_brought)) ||
-      (section === misc.toolkit_2 && !hasAlifeInfo(info_portions.jup_b217_tech_instrument_2_brought)) ||
-      (section === misc.toolkit_3 && !hasAlifeInfo(info_portions.jup_b217_tech_instrument_3_brought))
+      (section === misc.toolkit_1 && !hasAlifeInfo(infoPortions.jup_b217_tech_instrument_1_brought)) ||
+      (section === misc.toolkit_2 && !hasAlifeInfo(infoPortions.jup_b217_tech_instrument_2_brought)) ||
+      (section === misc.toolkit_3 && !hasAlifeInfo(infoPortions.jup_b217_tech_instrument_3_brought))
     ) {
       (actor as AnyObject).toolkit = section;
 
@@ -1440,11 +1440,11 @@ export function jup_b202_transfer_medkit(first_speaker: XR_game_object, second_s
  */
 export function jupiter_b220_all_hunted(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   if (
-    hasAlifeInfo(info_portions.jup_b220_trapper_bloodsucker_lair_hunted_told) &&
-    hasAlifeInfo(info_portions.jup_b220_trapper_zaton_chimera_hunted_told) &&
-    hasAlifeInfo(info_portions.jup_b211_swamp_bloodsuckers_hunt_done) &&
-    hasAlifeInfo(info_portions.jup_b208_burers_hunt_done) &&
-    hasAlifeInfo(info_portions.jup_b212_jupiter_chimera_hunt_done)
+    hasAlifeInfo(infoPortions.jup_b220_trapper_bloodsucker_lair_hunted_told) &&
+    hasAlifeInfo(infoPortions.jup_b220_trapper_zaton_chimera_hunted_told) &&
+    hasAlifeInfo(infoPortions.jup_b211_swamp_bloodsuckers_hunt_done) &&
+    hasAlifeInfo(infoPortions.jup_b208_burers_hunt_done) &&
+    hasAlifeInfo(infoPortions.jup_b212_jupiter_chimera_hunt_done)
   ) {
     return false;
   }
@@ -1457,29 +1457,26 @@ export function jupiter_b220_all_hunted(first_speaker: XR_game_object, second_sp
  */
 export function jupiter_b220_no_one_hunted(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   if (
-    hasAlifeInfo(info_portions.jup_b220_trapper_about_himself_told) &&
-    hasAlifeInfo(info_portions.zat_b57_den_of_the_bloodsucker_tell_stalkers_about_destroy_lair_give) &&
-    !hasAlifeInfo(info_portions.jup_b220_trapper_bloodsucker_lair_hunted_told)
+    hasAlifeInfo(infoPortions.jup_b220_trapper_about_himself_told) &&
+    hasAlifeInfo(infoPortions.zat_b57_den_of_the_bloodsucker_tell_stalkers_about_destroy_lair_give) &&
+    !hasAlifeInfo(infoPortions.jup_b220_trapper_bloodsucker_lair_hunted_told)
   ) {
     return false;
   } else if (
-    hasAlifeInfo(info_portions.zat_b106_chimera_dead) &&
-    !hasAlifeInfo(info_portions.jup_b220_trapper_zaton_chimera_hunted_told)
+    hasAlifeInfo(infoPortions.zat_b106_chimera_dead) &&
+    !hasAlifeInfo(infoPortions.jup_b220_trapper_zaton_chimera_hunted_told)
   ) {
     return false;
   } else if (
-    hasAlifeInfo(info_portions.jup_b6_all_hunters_are_dead) &&
-    !hasAlifeInfo(info_portions.jup_b211_swamp_bloodsuckers_hunt_done)
+    hasAlifeInfo(infoPortions.jup_b6_all_hunters_are_dead) &&
+    !hasAlifeInfo(infoPortions.jup_b211_swamp_bloodsuckers_hunt_done)
   ) {
     return false;
-  } else if (
-    hasAlifeInfo(info_portions.jup_b208_burers_dead) &&
-    !hasAlifeInfo(info_portions.jup_b208_burers_hunt_done)
-  ) {
+  } else if (hasAlifeInfo(infoPortions.jup_b208_burers_dead) && !hasAlifeInfo(infoPortions.jup_b208_burers_hunt_done)) {
     return false;
   } else if (
-    hasAlifeInfo(info_portions.jup_b212_jupiter_chimera_dead) &&
-    !hasAlifeInfo(info_portions.jup_b212_jupiter_chimera_hunt_done)
+    hasAlifeInfo(infoPortions.jup_b212_jupiter_chimera_dead) &&
+    !hasAlifeInfo(infoPortions.jup_b212_jupiter_chimera_hunt_done)
   ) {
     return false;
   }
@@ -1592,11 +1589,11 @@ export function jup_b15_dec_counter(first_speaker: XR_game_object, second_speake
 export function jup_b46_sell_duty_founder_pda(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   const actor: XR_game_object = getActorSpeaker(first_speaker, second_speaker);
 
-  if (hasAlifeInfo(info_portions.jup_b46_duty_founder_pda_to_freedom)) {
+  if (hasAlifeInfo(infoPortions.jup_b46_duty_founder_pda_to_freedom)) {
     giveMoneyToActor(4000);
     relocateQuestItemSection(actor, weapons.wpn_sig550, ENotificationDirection.IN, 1);
     relocateQuestItemSection(actor, ammo["ammo_5.56x45_ss190"], ENotificationDirection.IN, 5);
-  } else if (hasAlifeInfo(info_portions.jup_b46_duty_founder_pda_to_duty)) {
+  } else if (hasAlifeInfo(infoPortions.jup_b46_duty_founder_pda_to_duty)) {
     giveMoneyToActor(4000);
     relocateQuestItemSection(actor, weapons.wpn_groza, ENotificationDirection.IN, 1);
     relocateQuestItemSection(actor, ammo.ammo_9x39_ap, ENotificationDirection.IN, 2);
@@ -1624,8 +1621,8 @@ export function jup_b46_sell_duty_founder_pda_to_owl(
 ): void {
   takeItemsFromActor(first_speaker, second_speaker, quest_items.jup_b46_duty_founder_pda);
   giveMoneyToActor(2500);
-  giveInfo(info_portions.jup_b46_duty_founder_pda_sold);
-  giveInfo(info_portions.jup_b46_duty_founder_pda_to_stalkers);
+  giveInfo(infoPortions.jup_b46_duty_founder_pda_sold);
+  giveInfo(infoPortions.jup_b46_duty_founder_pda_to_stalkers);
 }
 
 /**
@@ -1661,9 +1658,9 @@ export function jup_b47_jupiter_docs_enabled(first_speaker: XR_game_object, seco
   }
 
   const b =
-    !hasAlifeInfo(info_portions.jup_b47_jupiter_products_start) &&
-    actor.object(info_portions.jup_b47_jupiter_products_info) !== null;
-  const c = hasAlifeInfo(info_portions.jup_b6_scientist_nuclear_physicist_jupiter_docs_talked);
+    !hasAlifeInfo(infoPortions.jup_b47_jupiter_products_start) &&
+    actor.object(infoPortions.jup_b47_jupiter_products_info) !== null;
+  const c = hasAlifeInfo(infoPortions.jup_b6_scientist_nuclear_physicist_jupiter_docs_talked);
 
   return (a || b) && !c;
 }
@@ -1773,11 +1770,11 @@ export function jup_b32_anomaly_has_af(first_speaker: XR_game_object, second_spe
     "jup_b10_anomal_zone",
   ] as unknown as LuaArray<string>;
   const infop_table = [
-    info_portions.jup_b32_anomaly_1,
-    info_portions.jup_b32_anomaly_2,
-    info_portions.jup_b32_anomaly_3,
-    info_portions.jup_b32_anomaly_4,
-    info_portions.jup_b32_anomaly_5,
+    infoPortions.jup_b32_anomaly_1,
+    infoPortions.jup_b32_anomaly_2,
+    infoPortions.jup_b32_anomaly_3,
+    infoPortions.jup_b32_anomaly_4,
+    infoPortions.jup_b32_anomaly_5,
   ] as unknown as LuaArray<TInfoPortion>;
 
   let index = 0;
@@ -1801,7 +1798,7 @@ export function jup_b32_anomaly_has_af(first_speaker: XR_game_object, second_spe
 
   if (anomal_zone.spawnedArtefactsCount > 0) {
     disableInfo(infop_table.get(index));
-    giveInfo(info_portions.jup_b32_anomaly_true);
+    giveInfo(infoPortions.jup_b32_anomaly_true);
 
     return true;
   }
@@ -1953,8 +1950,8 @@ export function jup_b47_merc_pda_revard(first_speaker: XR_game_object, second_sp
  * todo;
  */
 export function jup_b47_actor_can_take_task(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const a = hasAlifeInfo(info_portions.jup_b6_task_done) && !hasAlifeInfo(info_portions.jup_b6_task_fail);
-  const b = hasAlifeInfo(info_portions.jup_b6_task_fail) && !hasAlifeInfo(info_portions.jup_b6_task_done);
+  const a = hasAlifeInfo(infoPortions.jup_b6_task_done) && !hasAlifeInfo(infoPortions.jup_b6_task_fail);
+  const b = hasAlifeInfo(infoPortions.jup_b6_task_fail) && !hasAlifeInfo(infoPortions.jup_b6_task_done);
 
   return a || b;
 }
@@ -1964,9 +1961,8 @@ export function jup_b47_actor_can_take_task(first_speaker: XR_game_object, secon
  */
 export function jup_b47_employ_squad(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
   const a =
-    hasAlifeInfo(info_portions.jup_b47_bunker_guards_started) &&
-    !hasAlifeInfo(info_portions.jup_b47_bunker_guards_done);
-  const b = hasAlifeInfo(info_portions.jup_b6_employ_stalker) && !hasAlifeInfo(info_portions.jup_b6_employed_stalker);
+    hasAlifeInfo(infoPortions.jup_b47_bunker_guards_started) && !hasAlifeInfo(infoPortions.jup_b47_bunker_guards_done);
+  const b = hasAlifeInfo(infoPortions.jup_b6_employ_stalker) && !hasAlifeInfo(infoPortions.jup_b6_employed_stalker);
 
   return a || b;
 }

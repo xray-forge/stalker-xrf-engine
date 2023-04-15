@@ -63,7 +63,7 @@ import { isEmpty } from "@/engine/core/utils/table";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { info_portions } from "@/engine/lib/constants/info_portions";
+import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { goodwill, relations, TRelation } from "@/engine/lib/constants/relations";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
@@ -1245,15 +1245,15 @@ export function can_help_actor(squad: Squad): boolean {
     return false;
   }
 
-  if (hasAlifeInfo(info_portions.sim_duty_help_harder) && squad.get_squad_community() === communities.dolg) {
+  if (hasAlifeInfo(infoPortions.sim_duty_help_harder) && squad.get_squad_community() === communities.dolg) {
     return true;
   } else if (
-    hasAlifeInfo(info_portions.sim_freedom_help_harder) &&
+    hasAlifeInfo(infoPortions.sim_freedom_help_harder) &&
     squad.get_squad_community() === communities.freedom
   ) {
     return true;
   } else if (
-    hasAlifeInfo(info_portions.sim_stalker_help_harder) &&
+    hasAlifeInfo(infoPortions.sim_stalker_help_harder) &&
     squad.get_squad_community() === communities.stalker
   ) {
     return true;

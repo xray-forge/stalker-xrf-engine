@@ -5,7 +5,7 @@ import { IStateDescriptor } from "@/engine/core/objects/state/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/parse";
 import { getTableSize } from "@/engine/core/utils/table";
-import { info_portions } from "@/engine/lib/constants/info_portions";
+import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { LuaArray, Optional, TIndex, TName } from "@/engine/lib/types";
 
@@ -66,15 +66,15 @@ function break_fence(): void {
 }
 
 function lights_off(): void {
-  registry.actor.give_info_portion(info_portions.pri_a15_lights_off);
+  registry.actor.give_info_portion(infoPortions.pri_a15_lights_off);
 }
 
 function lights_on(): void {
-  registry.actor.disable_info_portion(info_portions.pri_a15_lights_off);
+  registry.actor.disable_info_portion(infoPortions.pri_a15_lights_off);
 }
 
 function end_scene(): void {
-  registry.actor.give_info_portion(info_portions.pri_a15_cutscene_end);
+  registry.actor.give_info_portion(infoPortions.pri_a15_cutscene_end);
 }
 
 const cutscene: Record<

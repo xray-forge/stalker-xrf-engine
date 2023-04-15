@@ -11,7 +11,7 @@ import {
   takeItemsFromActor,
   takeMoneyFromActor,
 } from "@/engine/core/utils/quest_reward";
-import { info_portions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
+import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
@@ -36,11 +36,11 @@ export function pri_b301_zulus_reward(first_speaker: XR_game_object, second_spea
  * todo;
  */
 export function pri_a17_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  if (hasAlifeInfo(info_portions.pri_a17_reward_well)) {
+  if (hasAlifeInfo(infoPortions.pri_a17_reward_well)) {
     giveMoneyToActor(7500);
-  } else if (hasAlifeInfo(info_portions.pri_a17_reward_norm)) {
+  } else if (hasAlifeInfo(infoPortions.pri_a17_reward_norm)) {
     giveMoneyToActor(4000);
-  } else if (hasAlifeInfo(info_portions.pri_a17_reward_bad)) {
+  } else if (hasAlifeInfo(infoPortions.pri_a17_reward_bad)) {
     giveMoneyToActor(3000);
   }
 }
@@ -73,7 +73,7 @@ export function transfer_artifact_af_baloon(first_speaker: XR_game_object, secon
  * todo;
  */
 export function pay_cost_to_guide_to_zaton(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  if (hasAlifeInfo(info_portions.zat_b215_gave_maps)) {
+  if (hasAlifeInfo(infoPortions.zat_b215_gave_maps)) {
     takeMoneyFromActor(first_speaker, second_speaker, 1000);
   } else {
     takeMoneyFromActor(first_speaker, second_speaker, 3000);
@@ -84,7 +84,7 @@ export function pay_cost_to_guide_to_zaton(first_speaker: XR_game_object, second
  * todo;
  */
 export function jup_b43_actor_has_10000_money(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  if (hasAlifeInfo(info_portions.zat_b215_gave_maps)) {
+  if (hasAlifeInfo(infoPortions.zat_b215_gave_maps)) {
     return registry.actor.money() >= 3000;
   }
 
@@ -137,7 +137,7 @@ export function pri_b35_transfer_svd(first_speaker: XR_game_object, second_speak
  * todo;
  */
 export function pri_b35_give_actor_reward(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
-  const amount = hasAlifeInfo(info_portions.pri_b35_secondary) ? 3 : 1;
+  const amount = hasAlifeInfo(infoPortions.pri_b35_secondary) ? 3 : 1;
 
   giveItemsToActor(first_speaker, second_speaker, ammo["ammo_7.62x54_7h1"], amount);
 }
@@ -172,9 +172,9 @@ const medicItemsTable = {
 export function pri_a25_medic_give_kit(first_speaker: XR_game_object, second_speaker: XR_game_object): void {
   let kit = "basic";
 
-  if (hasAlifeInfo(info_portions.pri_a25_actor_needs_medikit_advanced_supply)) {
+  if (hasAlifeInfo(infoPortions.pri_a25_actor_needs_medikit_advanced_supply)) {
     kit = "advanced";
-  } else if (hasAlifeInfo(info_portions.pri_a25_actor_needs_medikit_elite_supply)) {
+  } else if (hasAlifeInfo(infoPortions.pri_a25_actor_needs_medikit_elite_supply)) {
     kit = "elite";
   }
 
@@ -360,7 +360,7 @@ export function pri_b305_sell_strelok_notes(first_speaker: XR_game_object, secon
 
   if (amount > 2) {
     giveItemsToActor(first_speaker, second_speaker, artefacts.af_glass);
-    giveInfo(info_portions.pri_b305_all_strelok_notes_given);
+    giveInfo(infoPortions.pri_b305_all_strelok_notes_given);
   }
 }
 
@@ -368,5 +368,5 @@ export function pri_b305_sell_strelok_notes(first_speaker: XR_game_object, secon
  * todo;
  */
 export function pri_a17_sokolov_is_not_at_base(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  return hasAlifeInfo(info_portions.pri_a15_sokolov_out) && hasAlifeInfo(info_portions.pas_b400_sokolov_dead);
+  return hasAlifeInfo(infoPortions.pri_a15_sokolov_out) && hasAlifeInfo(infoPortions.pas_b400_sokolov_dead);
 }
