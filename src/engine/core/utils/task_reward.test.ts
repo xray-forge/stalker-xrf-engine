@@ -7,6 +7,7 @@ import {
   ENotificationDirection,
   ENotificationType,
   EventsManager,
+  IItemRelocatedNotification,
   IMoneyRelocatedNotification,
 } from "@/engine/core/managers";
 import {
@@ -19,36 +20,42 @@ import {
   giveMoneyToActor,
   isObjectName,
   npcHasItem,
+  transferItemsFromActor,
+  transferItemsToActor,
   transferMoneyFromActor,
 } from "@/engine/core/utils/task_reward";
-import { medkits } from "@/engine/lib/constants/items/drugs";
-import { TNumberId, TSection } from "@/engine/lib/types";
+import { ammo } from "@/engine/lib/constants/items/ammo";
+import { drugs, medkits } from "@/engine/lib/constants/items/drugs";
+import { weapons } from "@/engine/lib/constants/items/weapons";
+import { AnyObject, TCount, TSection } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("'task_reward' utils", () => {
-  const mockObjectWithItems = () =>
+  const createObjectWithItems = () =>
     mockClientGameObject({
-      object: (section: TSection | TNumberId) => {
-        const sectionsMap: Record<TSection, XR_game_object> = {
-          a: mockClientGameObject(),
-          b: mockClientGameObject(),
-          [medkits.medkit]: mockClientGameObject(),
-          [medkits.medkit_army]: mockClientGameObject(),
-        };
+      inventory: [
+        [1, mockClientGameObject({ sectionOverride: medkits.medkit } as Partial<XR_game_object>)],
+        [2, mockClientGameObject({ sectionOverride: medkits.medkit } as Partial<XR_game_object>)],
+        [3, mockClientGameObject({ sectionOverride: medkits.medkit_army } as Partial<XR_game_object>)],
+        [4, mockClientGameObject({ sectionOverride: medkits.medkit_army } as Partial<XR_game_object>)],
+        [5, mockClientGameObject({ sectionOverride: medkits.medkit_army } as Partial<XR_game_object>)],
+        [40, mockClientGameObject({ sectionOverride: weapons.wpn_svd } as Partial<XR_game_object>)],
+        [41, mockClientGameObject({ sectionOverride: weapons.wpn_svd } as Partial<XR_game_object>)],
+        [50, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<XR_game_object>)],
+        [51, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<XR_game_object>)],
+        [52, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<XR_game_object>)],
+        [53, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<XR_game_object>)],
+        [54, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<XR_game_object>)],
+        [55, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<XR_game_object>)],
+      ],
+    });
 
-        const idMap: Record<TNumberId, XR_game_object> = {
-          1: mockClientGameObject(),
-          2: mockClientGameObject(),
-        };
-
-        if (typeof section === "string") {
-          return sectionsMap[section] || null;
-        } else {
-          return idMap[section] || null;
-        }
-      },
-    } as Partial<XR_game_object>);
+  const getItemsCount = (object: XR_game_object, section: TSection) => {
+    return [...((object as AnyObject).inventory as Map<number, XR_game_object>).entries()].filter(([, it]) => {
+      return it.section() === section;
+    }).length;
+  };
 
   beforeEach(() => {
     registerActor(mockClientGameObject());
@@ -94,6 +101,109 @@ describe("'task_reward' utils", () => {
     expect(mock).toHaveBeenCalledTimes(1);
   });
 
+  it("'transferItemsFromActor' should take items from actor", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const mock = jest.fn((notification: IItemRelocatedNotification) => {
+      expect(notification.type).toBe(ENotificationType.ITEM);
+      expect(notification.amount).toBe(2);
+      expect(notification.direction).toBe(ENotificationDirection.OUT);
+    });
+
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock, null);
+
+    registerActor(createObjectWithItems());
+
+    expect(getItemsCount(registry.actor, weapons.wpn_svd)).toBe(2);
+    expect(getItemsCount(registry.actor, medkits.medkit)).toBe(2);
+    expect(getItemsCount(registry.actor, medkits.medkit_army)).toBe(3);
+    expect(getItemsCount(registry.actor, ammo.ammo_9x18_pmm)).toBe(6);
+
+    transferItemsFromActor(mockClientGameObject(), weapons.wpn_svd, 2);
+
+    expect(getItemsCount(registry.actor, weapons.wpn_svd)).toBe(0);
+    expect(getItemsCount(registry.actor, medkits.medkit)).toBe(2);
+    expect(getItemsCount(registry.actor, medkits.medkit_army)).toBe(3);
+    expect(getItemsCount(registry.actor, ammo.ammo_9x18_pmm)).toBe(6);
+
+    expect(registry.actor.transfer_item).toHaveBeenCalledTimes(2);
+
+    expect(() => transferItemsFromActor(mockClientGameObject(), weapons.wpn_svd, 2)).toThrow();
+    expect(mock).toHaveBeenCalledTimes(1);
+  });
+
+  it("'transferItemsFromActor' should take ammo from object", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const mock = jest.fn((notification: IItemRelocatedNotification) => {
+      expect(notification.type).toBe(ENotificationType.ITEM);
+      expect(notification.amount).toBe(90);
+      expect(notification.direction).toBe(ENotificationDirection.OUT);
+    });
+
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock, null);
+
+    registerActor(createObjectWithItems());
+
+    expect(getItemsCount(registry.actor, ammo.ammo_9x18_pmm)).toBe(6);
+    transferItemsFromActor(mockClientGameObject(), ammo.ammo_9x18_pmm, 3);
+    expect(getItemsCount(registry.actor, ammo.ammo_9x18_pmm)).toBe(3);
+    expect(registry.actor.transfer_item).toHaveBeenCalledTimes(3);
+
+    transferItemsFromActor(mockClientGameObject(), ammo.ammo_9x18_pmm, 3);
+    expect(getItemsCount(registry.actor, ammo.ammo_9x18_pmm)).toBe(0);
+    expect(mock).toHaveBeenCalledTimes(2);
+  });
+
+  it("'transferItemsFromActor' should take ALL from object", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const mock = jest.fn((notification: IItemRelocatedNotification) => {
+      expect(notification.type).toBe(ENotificationType.ITEM);
+      expect(notification.amount).toBe(180);
+      expect(notification.direction).toBe(ENotificationDirection.OUT);
+    });
+
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock, null);
+
+    registerActor(createObjectWithItems());
+
+    expect(getItemsCount(registry.actor, ammo.ammo_9x18_pmm)).toBe(6);
+
+    transferItemsFromActor(mockClientGameObject(), ammo.ammo_9x18_pmm, "all");
+
+    expect(getItemsCount(registry.actor, ammo.ammo_9x18_pmm)).toBe(0);
+    expect(registry.actor.transfer_item).toHaveBeenCalledTimes(6);
+    expect(mock).toHaveBeenCalledTimes(1);
+  });
+
+  it("'transferItemsFromActor' should fail on bad attempts", () => {
+    registerActor(createObjectWithItems());
+
+    const to: XR_game_object = mockClientGameObject();
+
+    expect(() => transferItemsFromActor(to, ammo["ammo_5.45x39_ap"], -1)).toThrow();
+    expect(() => transferItemsFromActor(to, ammo["ammo_5.45x39_ap"], 0)).toThrow();
+    expect(() => transferItemsFromActor(to, ammo["ammo_5.45x39_ap"], 1)).toThrow();
+    expect(() => transferItemsFromActor(to, ammo["ammo_5.45x39_ap"], 10)).toThrow();
+    expect(() => transferItemsFromActor(to, weapons.wpn_svd, 10)).toThrow();
+  });
+
+  it("'transferItemsToActor' should take items from object", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const from: XR_game_object = createObjectWithItems();
+    const mock = jest.fn((notification: IItemRelocatedNotification) => {
+      expect(notification.type).toBe(ENotificationType.ITEM);
+      expect(notification.amount).toBe(180);
+      expect(notification.direction).toBe(ENotificationDirection.IN);
+    });
+
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock, null);
+
+    expect(getItemsCount(from, ammo.ammo_9x18_pmm)).toBe(6);
+    transferItemsToActor(from, ammo.ammo_9x18_pmm, 6);
+    expect(getItemsCount(from, ammo.ammo_9x18_pmm)).toBe(0);
+    expect(from.transfer_item).toHaveBeenCalledTimes(6);
+    expect(mock).toHaveBeenCalledTimes(1);
+  });
+
   it("'getNpcSpeaker' should correctly pick speaker", () => {
     const first: XR_game_object = mockClientGameObject();
     const second: XR_game_object = mockClientGameObject();
@@ -119,86 +229,97 @@ describe("'task_reward' utils", () => {
   });
 
   it("'npcHasItem' should correctly check if object has item", () => {
-    const object: XR_game_object = mockObjectWithItems();
+    const object: XR_game_object = createObjectWithItems();
 
-    expect(npcHasItem(object, "a")).toBeTruthy();
-    expect(npcHasItem(object, "b")).toBeTruthy();
-    expect(npcHasItem(object, "c")).toBeFalsy();
-    expect(npcHasItem(object, "d")).toBeFalsy();
+    expect(npcHasItem(object, weapons.wpn_svd)).toBeTruthy();
+    expect(npcHasItem(object, medkits.medkit)).toBeTruthy();
+    expect(npcHasItem(object, medkits.medkit_army)).toBeTruthy();
+    expect(npcHasItem(object, medkits.medkit_scientic)).toBeFalsy();
+    expect(npcHasItem(object, weapons.wpn_val)).toBeFalsy();
+    expect(npcHasItem(object, weapons.wpn_ak74)).toBeFalsy();
 
     expect(npcHasItem(object, 1)).toBeTruthy();
     expect(npcHasItem(object, 2)).toBeTruthy();
-    expect(npcHasItem(object, 3)).toBeFalsy();
-    expect(npcHasItem(object, 4)).toBeFalsy();
+    expect(npcHasItem(object, 40)).toBeTruthy();
+    expect(npcHasItem(object, 50)).toBeTruthy();
+    expect(npcHasItem(object, 60)).toBeFalsy();
+    expect(npcHasItem(object, 70)).toBeFalsy();
+    expect(npcHasItem(object, 100)).toBeFalsy();
   });
 
   it("'actorHasAtLeastOneItem' should correctly check if object has item", () => {
-    registerActor(mockObjectWithItems());
+    registerActor(createObjectWithItems());
 
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray(["x", "y", "z"]))).toBeFalsy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray(["x"]))).toBeFalsy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([]))).toBeFalsy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray(["x", "y", "z", "a"]))).toBeTruthy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray(["a"]))).toBeTruthy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray(["a", "b"]))).toBeTruthy();
+    expect(
+      actorHasAtLeastOneItem(MockLuaTable.mockFromArray([medkits.medkit, medkits.medkit_army, medkits.medkit_scientic]))
+    ).toBeTruthy();
+    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([ammo.ammo_gauss, medkits.medkit]))).toBeTruthy();
+    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([ammo.ammo_gauss, medkits.medkit_scientic]))).toBeFalsy();
 
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([58, 59, 60]))).toBeFalsy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([45]))).toBeFalsy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([]))).toBeFalsy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([58, 59, 60, 2]))).toBeTruthy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([58, 59, 1, 60, 2]))).toBeTruthy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([1]))).toBeTruthy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([1, 2]))).toBeTruthy();
+    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([1, 2, 50, 100]))).toBeTruthy();
+    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([100, 101, 102, 50]))).toBeTruthy();
+    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([100, 101, 102]))).toBeFalsy();
 
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([1, 2, "a", "b"]))).toBeTruthy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([5, 6, "a"]))).toBeTruthy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray(["d", "c", 1]))).toBeTruthy();
+    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([ammo.ammo_gauss, 500]))).toBeFalsy();
+    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([weapons.wpn_val, 400]))).toBeFalsy();
+    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([ammo.ammo_gauss, 50]))).toBeTruthy();
+    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([weapons.wpn_val, 40]))).toBeTruthy();
+    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([ammo.ammo_9x18_pmm, 500]))).toBeTruthy();
+    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([weapons.wpn_svd, 400]))).toBeTruthy();
   });
 
   it("'actorHasItems' should correctly check if object has items", () => {
-    registerActor(mockObjectWithItems());
+    registerActor(createObjectWithItems());
 
-    expect(actorHasItems(MockLuaTable.mockFromArray(["x", "y", "z"]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray(["x"]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray(["x", "y", "z", "a"]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray(["a"]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray(["a", "b"]))).toBeTruthy();
+    expect(
+      actorHasItems(MockLuaTable.mockFromArray([medkits.medkit, medkits.medkit_army, medkits.medkit_scientic]))
+    ).toBeFalsy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_gauss, medkits.medkit]))).toBeFalsy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_gauss, medkits.medkit_scientic]))).toBeFalsy();
 
-    expect(actorHasItems(MockLuaTable.mockFromArray([58, 59, 60]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([45]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([58, 59, 60, 2]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([58, 59, 1, 60, 2]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([1]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([1, 2]))).toBeTruthy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([medkits.medkit, medkits.medkit_army]))).toBeTruthy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_9x18_pmm, medkits.medkit]))).toBeTruthy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([medkits.medkit_army, weapons.wpn_svd]))).toBeTruthy();
 
-    expect(actorHasItems(MockLuaTable.mockFromArray([1, 2, "a", "b"]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([1, "a"]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([5, 6, "a"]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray(["d", "c", 1]))).toBeFalsy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([1, 2, 40, 50]))).toBeTruthy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([1, 2, 3, 4]))).toBeTruthy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([40, 41, 50, 51]))).toBeTruthy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([100, 101, 102, 50]))).toBeFalsy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([100, 101, 102]))).toBeFalsy();
+
+    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_gauss, 500]))).toBeFalsy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([weapons.wpn_val, 40]))).toBeFalsy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_9x18_pmm, 50]))).toBeTruthy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([weapons.wpn_svd, 40]))).toBeTruthy();
   });
 
   it("'actorHasItem' should correctly check if object has item", () => {
-    registerActor(mockObjectWithItems());
+    registerActor(createObjectWithItems());
 
-    expect(actorHasItem("f")).toBeFalsy();
-    expect(actorHasItem("e")).toBeFalsy();
-    expect(actorHasItem("c")).toBeFalsy();
-    expect(actorHasItem("a")).toBeTruthy();
-    expect(actorHasItem("b")).toBeTruthy();
+    expect(actorHasItem(weapons.wpn_svd)).toBeTruthy();
+    expect(actorHasItem(weapons.wpn_desert_eagle)).toBeFalsy();
+    expect(actorHasItem(weapons.wpn_ak74)).toBeFalsy();
+    expect(actorHasItem(medkits.medkit)).toBeTruthy();
+    expect(actorHasItem(medkits.medkit_army)).toBeTruthy();
+    expect(actorHasItem(ammo.ammo_9x18_pmm)).toBeTruthy();
+    expect(actorHasItem(ammo.ammo_gauss)).toBeFalsy();
 
     expect(actorHasItem(1234)).toBeFalsy();
     expect(actorHasItem(123)).toBeFalsy();
     expect(actorHasItem(12)).toBeFalsy();
     expect(actorHasItem(1)).toBeTruthy();
     expect(actorHasItem(2)).toBeTruthy();
-    expect(actorHasItem(3)).toBeFalsy();
-    expect(actorHasItem(4)).toBeFalsy();
+    expect(actorHasItem(3)).toBeTruthy();
+    expect(actorHasItem(40)).toBeTruthy();
+    expect(actorHasItem(41)).toBeTruthy();
+    expect(actorHasItem(50)).toBeTruthy();
+    expect(actorHasItem(51)).toBeTruthy();
+    expect(actorHasItem(60)).toBeFalsy();
+    expect(actorHasItem(61)).toBeFalsy();
   });
 
   it("'actorHasMedKit' should correctly check if object has any medkit", () => {
-    registerActor(mockObjectWithItems());
+    registerActor(createObjectWithItems());
 
     expect(actorHasMedKit(MockLuaTable.mockFromArray(Object.values(medkits)))).toBeTruthy();
     expect(actorHasMedKit(MockLuaTable.mockFromArray(Object.values(medkits)), mockClientGameObject())).toBeFalsy();
@@ -211,22 +332,7 @@ describe("'task_reward' utils", () => {
   });
 
   it("'getActorAvailableMedKit' should correctly check medkit", () => {
-    registerActor(mockObjectWithItems());
-
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)))).toBe(medkits.medkit);
-    expect(
-      getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)), mockClientGameObject())
-    ).toBeNull();
-
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]))).toBe(medkits.medkit);
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit_army]))).toBe(medkits.medkit_army);
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit_scientic]))).toBeNull();
-
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]), mockClientGameObject())).toBeNull();
-  });
-
-  it("'takeItemsFromActor' should take items from actor", () => {
-    registerActor(mockObjectWithItems());
+    registerActor(createObjectWithItems());
 
     expect(getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)))).toBe(medkits.medkit);
     expect(

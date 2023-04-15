@@ -14,12 +14,12 @@ import {
   actorHasAtLeastOneItem,
   actorHasItem,
   getNpcSpeaker,
-  giveItemsToActor,
   giveMoneyToActor,
   isObjectName,
   npcHasItem,
-  relocateQuestItemSection,
-  takeItemsFromActor,
+  relocateQuestItemsBySection,
+  transferItemsFromActor,
+  transferItemsToActor,
   transferMoneyFromActor,
 } from "@/engine/core/utils/task_reward";
 import { captions } from "@/engine/lib/constants/captions/captions";
@@ -267,7 +267,7 @@ export function zat_b30_sell_pri_b36_monolith_hiding_place_pda(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.pri_b36_monolith_hiding_place_pda);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.pri_b36_monolith_hiding_place_pda);
   giveMoneyToActor(5000);
 }
 
@@ -275,7 +275,7 @@ export function zat_b30_sell_pri_b36_monolith_hiding_place_pda(
  * todo;
  */
 export function zat_b30_sell_pri_b306_envoy_pda(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.pri_b306_envoy_pda);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.pri_b306_envoy_pda);
   giveMoneyToActor(4000);
 }
 
@@ -286,7 +286,7 @@ export function zat_b30_sell_jup_b207_merc_pda_with_contract(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b207_merc_pda_with_contract);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b207_merc_pda_with_contract);
   giveMoneyToActor(1000);
   giveInfo(infoPortions.jup_b207_merc_pda_with_contract_sold);
 }
@@ -298,7 +298,7 @@ export function zat_b30_sell_jup_b10_strelok_notes_1(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b10_notes_01);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b10_notes_01);
   giveMoneyToActor(500);
 }
 
@@ -309,7 +309,7 @@ export function zat_b30_sell_jup_b10_strelok_notes_2(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b10_notes_02);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b10_notes_02);
   giveMoneyToActor(500);
 }
 
@@ -320,7 +320,7 @@ export function zat_b30_sell_jup_b10_strelok_notes_3(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b10_notes_03);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b10_notes_03);
   giveMoneyToActor(500);
 }
 
@@ -331,7 +331,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_evacuation_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_evacuation_info);
   giveMoneyToActor(750);
   giveInfo(infoPortions.jup_a9_evacuation_info_sold);
 }
@@ -343,7 +343,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_meeting_info(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_meeting_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_meeting_info);
   giveMoneyToActor(750);
   giveInfo(infoPortions.jup_a9_meeting_info_sold);
 }
@@ -355,7 +355,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_losses_info(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_losses_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_losses_info);
   giveMoneyToActor(750);
   giveInfo(infoPortions.jup_a9_losses_info_sold);
 }
@@ -367,7 +367,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_delivery_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_delivery_info);
   giveMoneyToActor(750);
   giveInfo(infoPortions.jup_a9_delivery_info_sold);
 }
@@ -379,7 +379,7 @@ export function zat_b30_owl_stalker_trader_sell_device_flash_snag(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.device_flash_snag);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.device_flash_snag);
   giveMoneyToActor(200);
   registry.actor.give_info_portion(infoPortions.device_flash_snag_sold);
 }
@@ -391,7 +391,7 @@ export function zat_b30_owl_stalker_trader_sell_device_pda_port_bandit_leader(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.device_pda_port_bandit_leader);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.device_pda_port_bandit_leader);
   giveMoneyToActor(1000);
   giveInfo(infoPortions.device_pda_port_bandit_leader_sold);
 }
@@ -403,7 +403,7 @@ export function zat_b30_owl_stalker_trader_sell_jup_b10_ufo_memory(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b10_ufo_memory_2);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b10_ufo_memory_2);
   giveMoneyToActor(500);
   giveInfo(infoPortions.jup_b10_ufo_memory_2_sold);
 }
@@ -415,7 +415,7 @@ export function zat_b30_owl_stalker_trader_sell_jup_b202_bandit_pda(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b202_bandit_pda);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b202_bandit_pda);
   giveMoneyToActor(500);
 }
 
@@ -430,7 +430,7 @@ export function zat_b14_bar_transfer_money(firstSpeaker: XR_game_object, secondS
  * todo;
  */
 export function zat_b14_transfer_artefact(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, artefacts.af_quest_b14_twisted);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_quest_b14_twisted);
 }
 
 /**
@@ -462,18 +462,18 @@ export function zat_b7_give_stalker_reward_to_actor(firstSpeaker: XR_game_object
   const reward = math.random(1, 3);
 
   if (reward === 1) {
-    giveItemsToActor(firstSpeaker, secondSpeaker, drugs.bandage, 6);
-    giveItemsToActor(firstSpeaker, secondSpeaker, food.vodka, 4);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.bandage, 6);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), food.vodka, 4);
   }
 
   if (reward === 2) {
-    giveItemsToActor(firstSpeaker, secondSpeaker, drugs.medkit, 2);
-    giveItemsToActor(firstSpeaker, secondSpeaker, food.vodka, 4);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit, 2);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), food.vodka, 4);
   }
 
   if (reward === 3) {
-    giveItemsToActor(firstSpeaker, secondSpeaker, drugs.antirad, 3);
-    giveItemsToActor(firstSpeaker, secondSpeaker, food.vodka, 4);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.antirad, 3);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), food.vodka, 4);
   }
 
   TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_29);
@@ -486,9 +486,9 @@ export function zat_b7_give_stalker_reward_2_to_actor(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, drugs.bandage, 4);
-  giveItemsToActor(firstSpeaker, secondSpeaker, drugs.medkit, 2);
-  giveItemsToActor(firstSpeaker, secondSpeaker, drugs.antirad, 2);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.bandage, 4);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit, 2);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.antirad, 2);
 }
 
 /**
@@ -656,7 +656,7 @@ export function zat_b33_counter_ne_10(firstSpeaker: XR_game_object, secondSpeake
  * todo;
  */
 export function zat_b33_transfer_first_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  relocateQuestItemSection(registry.actor, quest_items.wpn_fort_snag, ENotificationDirection.IN);
+  relocateQuestItemsBySection(registry.actor, quest_items.wpn_fort_snag, ENotificationDirection.IN);
 }
 
 /**
@@ -666,7 +666,7 @@ export function zat_b103_transfer_mechanic_toolkit_2(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, misc.toolkit_2);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), misc.toolkit_2);
 }
 
 /**
@@ -688,9 +688,9 @@ export function check_npc_name_mechanics(firstSpeaker: XR_game_object, secondSpe
 export function zat_b33_transfer_second_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const actor = registry.actor;
 
-  relocateQuestItemSection(actor, drugs.medkit_scientic, ENotificationDirection.IN, 3);
-  relocateQuestItemSection(actor, drugs.antirad, ENotificationDirection.IN, 3);
-  relocateQuestItemSection(actor, drugs.bandage, ENotificationDirection.IN, 5);
+  relocateQuestItemsBySection(actor, drugs.medkit_scientic, ENotificationDirection.IN, 3);
+  relocateQuestItemsBySection(actor, drugs.antirad, ENotificationDirection.IN, 3);
+  relocateQuestItemsBySection(actor, drugs.bandage, ENotificationDirection.IN, 5);
 }
 
 /**
@@ -699,7 +699,7 @@ export function zat_b33_transfer_second_item(firstSpeaker: XR_game_object, secon
 export function zat_b33_transfer_third_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const actor = registry.actor;
 
-  relocateQuestItemSection(actor, quest_items.wpn_ak74u_snag, ENotificationDirection.IN);
+  relocateQuestItemsBySection(actor, quest_items.wpn_ak74u_snag, ENotificationDirection.IN);
 }
 
 /**
@@ -708,7 +708,7 @@ export function zat_b33_transfer_third_item(firstSpeaker: XR_game_object, second
 export function zat_b33_transfer_fourth_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const actor = registry.actor;
 
-  relocateQuestItemSection(actor, artefacts.af_soul, ENotificationDirection.IN);
+  relocateQuestItemsBySection(actor, artefacts.af_soul, ENotificationDirection.IN);
 }
 
 /**
@@ -717,14 +717,14 @@ export function zat_b33_transfer_fourth_item(firstSpeaker: XR_game_object, secon
 export function zat_b33_transfer_fifth_item(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const actor = registry.actor;
 
-  relocateQuestItemSection(actor, quest_items.helm_hardhat_snag, ENotificationDirection.IN);
+  relocateQuestItemsBySection(actor, quest_items.helm_hardhat_snag, ENotificationDirection.IN);
 }
 
 /**
  * todo;
  */
 export function zat_b33_transfer_safe_container(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  relocateQuestItemSection(
+  relocateQuestItemsBySection(
     getNpcSpeaker(firstSpeaker, secondSpeaker),
     quest_items.zat_b33_safe_container,
     ENotificationDirection.OUT
@@ -936,7 +936,7 @@ export function zat_b29_linker_get_adv_task_af(firstSpeaker: XR_game_object, sec
   for (const i of $range(16, 23)) {
     if (hasAlifeInfo(zat_b29_infop_bring_table.get(i))) {
       disableInfo("zat_b29_adv_task_given");
-      takeItemsFromActor(firstSpeaker, secondSpeaker, zat_b29_af_table.get(i));
+      transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zat_b29_af_table.get(i));
       if (i < 20) {
         if (hasAlifeInfo("zat_b29_linker_take_af_from_rival")) {
           giveMoneyToActor(12000);
@@ -1007,8 +1007,8 @@ export function zat_b29_actor_exchange(firstSpeaker: XR_game_object, secondSpeak
   for (const i of $range(16, 23)) {
     if (hasAlifeInfo(zat_b29_infop_bring_table.get(i))) {
       if ((actor as AnyObject).good_gun !== null) {
-        takeItemsFromActor(firstSpeaker, secondSpeaker, (actor as AnyObject).good_gun);
-        giveItemsToActor(firstSpeaker, secondSpeaker, zat_b29_af_table.get(i));
+        transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), (actor as AnyObject).good_gun);
+        transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zat_b29_af_table.get(i));
 
         (actor as AnyObject).good_gun = null;
         break;
@@ -1040,7 +1040,7 @@ export function zat_b30_npc_has_detector(firstSpeaker: XR_game_object, secondSpe
  * todo;
  */
 export function zat_b30_actor_second_exchange(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, detectors.detector_scientific);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_scientific);
 }
 
 /**
@@ -1050,8 +1050,8 @@ export function zat_b30_actor_exchange(firstSpeaker: XR_game_object, secondSpeak
   const actor: XR_game_object = registry.actor;
 
   if ((actor as AnyObject).good_gun !== null) {
-    takeItemsFromActor(firstSpeaker, secondSpeaker, (actor as AnyObject).good_gun);
-    giveItemsToActor(firstSpeaker, secondSpeaker, detectors.detector_scientific);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), (actor as AnyObject).good_gun);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_scientific);
     (actor as AnyObject).good_gun = null;
   }
 
@@ -1141,7 +1141,7 @@ export function zat_b51_robbery(firstSpeaker: XR_game_object, secondSpeaker: XR_
 
   for (const k of need_item) {
     if (actor.object(k) !== null) {
-      takeItemsFromActor(firstSpeaker, secondSpeaker, k, "all");
+      transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), k, "all");
     }
   }
 
@@ -1175,18 +1175,21 @@ export function zat_b51_rob_nimble_weapon(firstSpeaker: XR_game_object, secondSp
     }
 
     if (actor.item_in_slot(2) !== null && actor.item_in_slot(2)!.section() === k) {
-      takeItemsFromActor(firstSpeaker, secondSpeaker, k);
+      transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), k);
 
       return;
     } else if (actor.item_in_slot(3) !== null && actor.item_in_slot(3)!.section() === k) {
-      takeItemsFromActor(firstSpeaker, secondSpeaker, k);
+      transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), k);
 
       return;
     }
   }
 
   if (actor_has_item.length() > 0) {
-    takeItemsFromActor(firstSpeaker, secondSpeaker, actor_has_item.get(math.random(1, actor_has_item.length())));
+    transferItemsFromActor(
+      getNpcSpeaker(firstSpeaker, secondSpeaker),
+      actor_has_item.get(math.random(1, actor_has_item.length()))
+    );
   }
 }
 
@@ -1194,7 +1197,7 @@ export function zat_b51_rob_nimble_weapon(firstSpeaker: XR_game_object, secondSp
  * todo;
  */
 export function give_compass_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, artefacts.af_compass);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_compass);
 }
 
 const item_count_by_category = [3, 3, 3, 3, 1, 1, 1] as unknown as LuaArray<number>;
@@ -1305,7 +1308,7 @@ export function zat_b51_buy_item(firstSpeaker: XR_game_object, secondSpeaker: XR
       for (const j of $range(1, zat_b51_buy_item_table.get(it).length())) {
         if (hasAlifeInfo(("zat_b51_ordered_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion)) {
           for (const [k, v] of zat_b51_buy_item_table.get(it).get(j).item) {
-            giveItemsToActor(firstSpeaker, secondSpeaker, v);
+            transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), v);
           }
 
           transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zat_b51_costs_table.get(it).cost);
@@ -1412,7 +1415,7 @@ export function zat_b12_actor_transfer_documents(firstSpeaker: XR_game_object, s
   let cnt2: TCount = 0;
 
   if (actor.object(quest_items.zat_b12_documents_1) !== null) {
-    takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b12_documents_1);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.zat_b12_documents_1);
     giveInfo(infoPortions.zat_b12_documents_sold_1);
     amount_total = amount_total + amount_doc1;
   }
@@ -1442,7 +1445,7 @@ export function zat_b12_actor_transfer_documents(firstSpeaker: XR_game_object, s
       giveInfo(infoPortions.zat_b12_documents_sold_3);
     }
 
-    takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b12_documents_2, cnt2);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.zat_b12_documents_2, cnt2);
   }
 
   giveMoneyToActor(amount_total);
@@ -1477,7 +1480,7 @@ export function zat_b3_actor_got_toolkit(firstSpeaker: XR_game_object, secondSpe
  * todo;
  */
 export function give_toolkit_3(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, misc.toolkit_3);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), misc.toolkit_3);
   (registry.actor as AnyObject).toolkit = null;
   giveMoneyToActor(1500);
 }
@@ -1486,7 +1489,7 @@ export function give_toolkit_3(firstSpeaker: XR_game_object, secondSpeaker: XR_g
  * todo;
  */
 export function give_toolkit_1(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, misc.toolkit_1);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), misc.toolkit_1);
   (registry.actor as AnyObject).toolkit = null;
   giveMoneyToActor(1000);
 }
@@ -1502,7 +1505,7 @@ export function if_actor_has_toolkit_1(firstSpeaker: XR_game_object, secondSpeak
  * todo;
  */
 export function give_toolkit_2(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, misc.toolkit_2);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), misc.toolkit_2);
   (registry.actor as AnyObject).toolkit = null;
   giveMoneyToActor(1200);
 }
@@ -1527,7 +1530,7 @@ export function zat_b215_counter_greater_3(firstSpeaker: XR_game_object, secondS
  * todo;
  */
 export function zat_b40_transfer_notebook(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b40_notebook);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.zat_b40_notebook);
   giveInfo(infoPortions.zat_b40_notebook_saled);
   giveMoneyToActor(2000);
 }
@@ -1536,7 +1539,7 @@ export function zat_b40_transfer_notebook(firstSpeaker: XR_game_object, secondSp
  * todo;
  */
 export function zat_b40_transfer_merc_pda_1(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b40_pda_1);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.zat_b40_pda_1);
   giveInfo(infoPortions.zat_b40_pda_1_saled);
   giveMoneyToActor(1000);
 
@@ -1553,7 +1556,7 @@ export function zat_b40_transfer_merc_pda_1(firstSpeaker: XR_game_object, second
  * todo;
  */
 export function zat_b40_transfer_merc_pda_2(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b40_pda_2);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.zat_b40_pda_2);
   giveInfo(infoPortions.zat_b40_pda_2_saled);
   giveMoneyToActor(1_000);
 
@@ -1706,7 +1709,7 @@ export function zat_b29_actor_has_adv_task_af_8(firstSpeaker: XR_game_object, se
  * todo;
  */
 export function zat_b30_transfer_detector_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, detectors.detector_scientific);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_scientific);
 }
 
 /**
@@ -1727,7 +1730,7 @@ export function zat_b30_actor_has_compass(firstSpeaker: XR_game_object, secondSp
  * todo;
  */
 export function zat_b30_transfer_af_from_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, artefacts.af_compass);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_compass);
   giveMoneyToActor(10_000);
 
   const treasureManager: TreasureManager = TreasureManager.getInstance();
@@ -1770,7 +1773,7 @@ export function zat_b30_actor_has_noah_pda(firstSpeaker: XR_game_object, secondS
  * todo;
  */
 export function zat_b30_sell_noah_pda(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b20_noah_pda);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.zat_b20_noah_pda);
   giveMoneyToActor(1000);
 }
 
@@ -1806,7 +1809,7 @@ export function if_actor_has_toolkit_3(firstSpeaker: XR_game_object, secondSpeak
  * todo;
  */
 export function give_vodka(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, food.vodka);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), food.vodka);
 }
 
 /**
@@ -1847,28 +1850,28 @@ export function relocate_need_money_to_buy_battery(firstSpeaker: XR_game_object,
  * todo;
  */
 export function give_actor_battery(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, ammo.ammo_gauss_cardan);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo.ammo_gauss_cardan);
 }
 
 /**
  * todo;
  */
 export function give_actor_zat_a23_access_card(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, quest_items.zat_a23_access_card);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.zat_a23_access_card);
 }
 
 /**
  * todo;
  */
 export function give_zat_a23_gauss_rifle_docs(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_a23_gauss_rifle_docs);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.zat_a23_gauss_rifle_docs);
 }
 
 /**
  * todo;
  */
 export function return_zat_a23_gauss_rifle_docs(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, quest_items.zat_a23_gauss_rifle_docs);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.zat_a23_gauss_rifle_docs);
 }
 
 /**
@@ -1892,14 +1895,14 @@ export function if_actor_has_gauss_rifle(firstSpeaker: XR_game_object, secondSpe
  * todo;
  */
 export function give_tech_gauss_rifle(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.pri_a17_gauss_rifle);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.pri_a17_gauss_rifle);
 }
 
 /**
  * todo;
  */
 export function give_actor_repaired_gauss_rifle(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, weapons.wpn_gauss);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_gauss);
 }
 
 /**
@@ -2052,22 +2055,22 @@ export function zat_b44_actor_has_pda_both(firstSpeaker: XR_game_object, secondS
  * todo;
  */
 export function zat_b44_transfer_pda_barge(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b44_barge_pda);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.zat_b44_barge_pda);
 }
 
 /**
  * todo;
  */
 export function zat_b44_transfer_pda_joker(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b39_joker_pda);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.zat_b39_joker_pda);
 }
 
 /**
  * todo;
  */
 export function zat_b44_transfer_pda_both(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b44_barge_pda);
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_b39_joker_pda);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.zat_b44_barge_pda);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.zat_b39_joker_pda);
 }
 
 /**
@@ -2166,21 +2169,21 @@ export function zat_b53_transfer_detector_advanced_to_actor(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  giveItemsToActor(secondSpeaker, firstSpeaker, detectors.detector_advanced);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_advanced);
 }
 
 /**
  * todo;
  */
 export function zat_b53_transfer_fireball_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(secondSpeaker, firstSpeaker, artefacts.af_fireball);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_fireball);
 }
 
 /**
  * todo;
  */
 export function zat_b53_transfer_medkit_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(secondSpeaker, firstSpeaker, drugs.medkit);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit);
 }
 
 /**
@@ -2221,7 +2224,7 @@ export function zat_b103_actor_has_needed_food(firstSpeaker: XR_game_object, sec
  * todo;
  */
 export function zat_b106_transfer_weap_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, weapons.wpn_spas12);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_spas12);
 }
 
 /**
@@ -2272,7 +2275,7 @@ export function zat_b22_actor_has_proof(firstSpeaker: XR_game_object, secondSpea
  * todo;
  */
 export function zat_b22_transfer_proof(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, infoPortions.zat_b22_medic_pda);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), infoPortions.zat_b22_medic_pda);
 }
 
 /**
@@ -2319,8 +2322,8 @@ export function zat_a23_transfer_access_card_to_tech(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.zat_a23_access_card);
-  giveItemsToActor(secondSpeaker, firstSpeaker, drugs.medkit_scientic, 3);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.zat_a23_access_card);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_scientic, 3);
 }
 
 /**
@@ -2331,7 +2334,7 @@ export function zat_b57_stalker_reward_to_actor_detector(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, detectors.detector_elite);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_elite);
   TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_54);
 }
 

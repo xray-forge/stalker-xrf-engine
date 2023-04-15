@@ -1,3 +1,5 @@
+import { ammo } from "@/engine/lib/constants/items/ammo";
+import { detectors } from "@/engine/lib/constants/items/detectors";
 import { iconTextures } from "@/engine/lib/constants/textures/icon_textures";
 
 /**
@@ -11,8 +13,11 @@ export const FILES_MOCKS = {
       quick_item_3: "qi_3",
       quick_item_4: "qi_4",
     },
-    detector_advanced: {
+    [detectors.detector_advanced]: {
       inv_name: "st_detector2",
+    },
+    [ammo.ammo_9x18_pmm]: {
+      box_size: 30,
     },
   },
   "spawn.ini": {

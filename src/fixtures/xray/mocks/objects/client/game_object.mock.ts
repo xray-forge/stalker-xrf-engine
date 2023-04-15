@@ -23,14 +23,24 @@ export function mockClientGameObject({
   idOverride = ID_COUNTER++,
   is_talking = jest.fn(() => false),
   name,
-  object = jest.fn(() => null),
+  object,
+  inventory = [],
   position = jest.fn(() => MockVector.mock(0.25, 0.25, 0.25)),
   section,
   sectionOverride = "section",
   spawn_ini = jest.fn(() => mockIniFile("spawn.ini")),
   transfer_money = jest.fn(),
+  transfer_item,
   ...rest
-}: Partial<XR_game_object & { idOverride?: number; sectionOverride?: string }> = {}): XR_game_object {
+}: Partial<
+  XR_game_object & {
+    idOverride?: number;
+    sectionOverride?: string;
+    inventory: Array<[string | number, XR_game_object]>;
+  }
+> = {}): XR_game_object {
+  const inventoryMap: Map<string | number, XR_game_object> = new Map(inventory);
+
   return {
     ...rest,
     character_icon,
@@ -43,12 +53,39 @@ export function mockClientGameObject({
     give_task,
     has_info,
     id: id || jest.fn(() => idOverride),
+    inventory: inventoryMap,
     is_talking,
     name: name || jest.fn(() => `${sectionOverride}_${idOverride}`),
-    object,
+    object:
+      object ||
+      jest.fn((key: string | number) => {
+        if (typeof key === "string") {
+          return (
+            [...inventoryMap.entries()].find(([, it]) => {
+              return it.section() === key;
+            }) || null
+          );
+        }
+
+        return inventoryMap.get(key) || null;
+      }),
+    iterate_inventory: jest.fn((cb: (owner: XR_game_object, item: XR_game_object) => void, owner: XR_game_object) => {
+      for (const [, item] of inventoryMap) {
+        cb(owner, item);
+      }
+    }),
     position,
     section: section || jest.fn(() => sectionOverride),
     spawn_ini,
     transfer_money,
+    transfer_item:
+      transfer_item ||
+      jest.fn((item: XR_game_object, to: XR_game_object) => {
+        for (const [key, it] of inventoryMap) {
+          if (it === item) {
+            inventoryMap.delete(key);
+          }
+        }
+      }),
   } as unknown as XR_game_object;
 }

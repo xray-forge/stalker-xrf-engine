@@ -14,11 +14,11 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import {
   getNpcSpeaker,
-  giveItemsToActor,
   giveMoneyToActor,
   isObjectName,
-  relocateQuestItemSection,
-  takeItemsFromActor,
+  relocateQuestItemsBySection,
+  transferItemsFromActor,
+  transferItemsToActor,
   transferMoneyFromActor,
 } from "@/engine/core/utils/task_reward";
 import { communities } from "@/engine/lib/constants/communities";
@@ -230,7 +230,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_evacuation_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_evacuation_info);
   giveMoneyToActor(750);
   giveInfo(infoPortions.jup_a9_evacuation_info_sold);
 }
@@ -242,7 +242,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_meeting_info(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_meeting_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_meeting_info);
   giveMoneyToActor(750);
   giveInfo(infoPortions.jup_a9_meeting_info_sold);
 }
@@ -254,7 +254,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_losses_info(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_losses_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_losses_info);
   giveMoneyToActor(750);
   giveInfo(infoPortions.jup_a9_losses_info_sold);
 }
@@ -266,7 +266,7 @@ export function jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_delivery_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_delivery_info);
   giveMoneyToActor(750);
   giveInfo(infoPortions.jup_a9_delivery_info_sold);
 }
@@ -351,7 +351,7 @@ export function jup_a9_actor_hasnt_conservation_info(
  * todo;
  */
 export function actor_relocate_conservation_info(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_conservation_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_conservation_info);
 }
 
 /**
@@ -372,7 +372,7 @@ export function jup_a9_actor_hasnt_power_info(firstSpeaker: XR_game_object, seco
  * todo;
  */
 export function actor_relocate_power_info(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_power_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_power_info);
 }
 
 /**
@@ -393,7 +393,7 @@ export function jup_a9_actor_hasnt_way_info(firstSpeaker: XR_game_object, second
  * todo;
  */
 export function actor_relocate_way_info(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_way_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_way_info);
 }
 
 /**
@@ -414,7 +414,7 @@ export function jup_a9_actor_hasnt_meeting_info(firstSpeaker: XR_game_object, se
  * todo;
  */
 export function actor_relocate_meeting_info(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_meeting_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_meeting_info);
   giveInfo(infoPortions.jup_a9_meeting_info_sold);
 }
 
@@ -453,7 +453,7 @@ export function jup_a9_actor_hasnt_evacuation_info(
  * todo;
  */
 export function actor_relocate_evacuation_info(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_evacuation_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_evacuation_info);
   giveInfo(infoPortions.jup_a9_evacuation_info_sold);
 }
 
@@ -461,7 +461,7 @@ export function actor_relocate_evacuation_info(firstSpeaker: XR_game_object, sec
  * todo;
  */
 export function actor_relocate_delivery_info(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_delivery_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_delivery_info);
   giveInfo(infoPortions.jup_a9_delivery_info_sold);
 }
 
@@ -483,7 +483,7 @@ export function jup_a9_actor_hasnt_losses_info(firstSpeaker: XR_game_object, sec
  * todo;
  */
 export function actor_relocate_losses_info(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_a9_losses_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_losses_info);
   giveInfo(infoPortions.jup_a9_losses_info_sold);
 }
 
@@ -498,14 +498,14 @@ export function actor_has_plant(firstSpeaker: XR_game_object, secondSpeaker: XR_
  * todo;
  */
 export function actor_relocate_plant(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b206_plant);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b206_plant);
 }
 
 /**
  * todo;
  */
 export function actor_relocate_trapper_reward(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, weapons.wpn_wincheaster1300_trapper);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_wincheaster1300_trapper);
 }
 
 /**
@@ -662,7 +662,7 @@ export function jupiter_b16_reward(firstSpeaker: XR_game_object, secondSpeaker: 
  * todo;
  */
 export function give_jup_b16_oasis_artifact(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, artefacts.af_oasis_heart);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_oasis_heart);
 }
 
 /**
@@ -770,7 +770,7 @@ export function jup_a12_transfer_ransom_from_actor(firstSpeaker: XR_game_object,
 
   for (const i of $range(1, 4)) {
     if (hasAlifeInfo(jup_a12_info_table.get(i))) {
-      takeItemsFromActor(firstSpeaker, secondSpeaker, jup_a12_af_table.get(i));
+      transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), jup_a12_af_table.get(i));
 
       return;
     }
@@ -795,7 +795,7 @@ export function jup_a12_transfer_5000_money_to_actor(
  * todo;
  */
 export function jup_a12_transfer_artefact_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, artefacts.af_gold_fish);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_gold_fish);
 
   if (hasAlifeInfo(infoPortions.jup_a12_stalker_prisoner_free_dialog_done)) {
     const treasureManager: TreasureManager = TreasureManager.getInstance();
@@ -826,7 +826,7 @@ export function jup_a12_transfer_cashier_money_from_actor(
  * todo;
  */
 export function zat_b30_transfer_detectors(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, detectors.detector_elite, 3);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_elite, 3);
 }
 
 /**
@@ -886,14 +886,14 @@ export function jup_b32_task_give_dialog_precond(firstSpeaker: XR_game_object, s
  * todo;
  */
 export function jup_b32_transfer_scanners(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, infoPortions.jup_b32_scanner_device, 3);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), infoPortions.jup_b32_scanner_device, 3);
 }
 
 /**
  * todo;
  */
 export function jup_b32_transfer_scanners_2(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, infoPortions.jup_b32_scanner_device, 2);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), infoPortions.jup_b32_scanner_device, 2);
 }
 
 /**
@@ -907,14 +907,14 @@ export function jup_b32_give_reward_to_actor(firstSpeaker: XR_game_object, secon
  * todo;
  */
 export function jup_b209_get_monster_scanner(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, "jup_b209_monster_scanner", 1);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b209_monster_scanner", 1);
 }
 
 /**
  * todo;
  */
 export function jup_b209_return_monster_scanner(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, "jup_b209_monster_scanner", 1);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b209_monster_scanner", 1);
 }
 
 /**
@@ -1003,7 +1003,7 @@ export function jup_b207_actor_has_dealers_pda(firstSpeaker: XR_game_object, sec
  * todo;
  */
 export function jup_b207_sell_dealers_pda(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, "device_pda_zat_b5_dealer");
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "device_pda_zat_b5_dealer");
   giveMoneyToActor(4_000);
   giveInfo(infoPortions.jup_b207_dealers_pda_sold);
 }
@@ -1012,7 +1012,7 @@ export function jup_b207_sell_dealers_pda(firstSpeaker: XR_game_object, secondSp
  * todo;
  */
 export function jup_b207_give_dealers_pda(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, "device_pda_zat_b5_dealer");
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "device_pda_zat_b5_dealer");
 }
 
 /**
@@ -1034,7 +1034,7 @@ export function jup_b207_sell_merc_pda_with_contract(
 ): void {
   const amount = 1000;
 
-  takeItemsFromActor(firstSpeaker, secondSpeaker, "jup_b207_merc_pda_with_contract");
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b207_merc_pda_with_contract");
   giveMoneyToActor(amount);
   giveInfo("jup_b207_merc_pda_with_contract_sold");
 }
@@ -1043,7 +1043,7 @@ export function jup_b207_sell_merc_pda_with_contract(
  * todo;
  */
 export function jup_b207_transfer_blackmail_reward(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, "jup_b207_merc_pda_with_contract");
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b207_merc_pda_with_contract");
 }
 
 /**
@@ -1053,15 +1053,15 @@ export function jup_b207_transfer_blackmail_reward_for_pda(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, "jup_b207_merc_pda_with_contract");
-  giveItemsToActor(firstSpeaker, secondSpeaker, "wpn_abakan");
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b207_merc_pda_with_contract");
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "wpn_abakan");
 }
 
 /**
  * todo;
  */
 export function give_jup_b1_art(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, "jup_b1_half_artifact");
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b1_half_artifact");
 }
 
 /**
@@ -1150,7 +1150,7 @@ export function jup_b6_all_reward_for_actor_extra(firstSpeaker: XR_game_object, 
  * todo;
  */
 export function jup_b6_reward_actor_by_detector(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, detectors.detector_elite);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_elite);
 }
 
 /**
@@ -1216,13 +1216,13 @@ export function jup_b6_actor_can_start(firstSpeaker: XR_game_object, secondSpeak
  * todo;
  */
 export function jup_b1_stalker_squad_thanks(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, drugs.medkit_scientic, 3);
-  giveItemsToActor(firstSpeaker, secondSpeaker, drugs.antirad, 5);
-  giveItemsToActor(firstSpeaker, secondSpeaker, drugs.drug_psy_blockade, 2);
-  giveItemsToActor(firstSpeaker, secondSpeaker, drugs.drug_antidot, 2);
-  giveItemsToActor(firstSpeaker, secondSpeaker, drugs.drug_radioprotector, 2);
-  giveItemsToActor(firstSpeaker, secondSpeaker, drugs.drug_anabiotic);
-  giveItemsToActor(firstSpeaker, secondSpeaker, helmets.helm_protective);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_scientic, 3);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.antirad, 5);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.drug_psy_blockade, 2);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.drug_antidot, 2);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.drug_radioprotector, 2);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.drug_anabiotic);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), helmets.helm_protective);
 }
 
 /**
@@ -1381,7 +1381,7 @@ export function jupiter_b200_tech_materials_relocate(
   ]);
 
   for (const [k, v] of items_to_relocate) {
-    takeItemsFromActor(firstSpeaker, secondSpeaker, k, v);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), k, v);
   }
 }
 
@@ -1399,11 +1399,11 @@ export function jup_b202_transfer_medkit(firstSpeaker: XR_game_object, secondSpe
   const actor: XR_game_object = registry.actor;
 
   if (actor.object(drugs.medkit) !== null) {
-    takeItemsFromActor(firstSpeaker, secondSpeaker, drugs.medkit);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit);
   } else if (actor.object(drugs.medkit_army) !== null) {
-    takeItemsFromActor(firstSpeaker, secondSpeaker, drugs.medkit_army);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_army);
   } else if (actor.object(drugs.medkit_scientic) !== null) {
-    takeItemsFromActor(firstSpeaker, secondSpeaker, drugs.medkit_scientic);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_scientic);
   }
 }
 
@@ -1495,7 +1495,7 @@ export function jupiter_b9_relocate_money(firstSpeaker: XR_game_object, secondSp
  * todo;
  */
 export function give_jup_b9_blackbox(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b9_blackbox);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b9_blackbox);
 }
 
 /**
@@ -1542,7 +1542,7 @@ export function actor_has_first_or_second_artefact(
  * todo;
  */
 export function transfer_af_mincer_meat(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, artefacts.af_mincer_meat);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_mincer_meat);
 }
 
 /**
@@ -1563,13 +1563,13 @@ export function jup_b46_sell_duty_founder_pda(firstSpeaker: XR_game_object, seco
 
   if (hasAlifeInfo(infoPortions.jup_b46_duty_founder_pda_to_freedom)) {
     giveMoneyToActor(4000);
-    relocateQuestItemSection(actor, weapons.wpn_sig550, ENotificationDirection.IN, 1);
-    relocateQuestItemSection(actor, ammo["ammo_5.56x45_ss190"], ENotificationDirection.IN, 5);
+    relocateQuestItemsBySection(actor, weapons.wpn_sig550, ENotificationDirection.IN, 1);
+    relocateQuestItemsBySection(actor, ammo["ammo_5.56x45_ss190"], ENotificationDirection.IN, 5);
   } else if (hasAlifeInfo(infoPortions.jup_b46_duty_founder_pda_to_duty)) {
     giveMoneyToActor(4000);
-    relocateQuestItemSection(actor, weapons.wpn_groza, ENotificationDirection.IN, 1);
-    relocateQuestItemSection(actor, ammo.ammo_9x39_ap, ENotificationDirection.IN, 2);
-    relocateQuestItemSection(actor, ammo["ammo_vog-25"], ENotificationDirection.IN, 2);
+    relocateQuestItemsBySection(actor, weapons.wpn_groza, ENotificationDirection.IN, 1);
+    relocateQuestItemsBySection(actor, ammo.ammo_9x39_ap, ENotificationDirection.IN, 2);
+    relocateQuestItemsBySection(actor, ammo["ammo_vog-25"], ENotificationDirection.IN, 2);
   }
 }
 
@@ -1580,7 +1580,7 @@ export function jup_b46_transfer_duty_founder_pda(firstSpeaker: XR_game_object, 
   const object: XR_game_object = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
   if (registry.actor.object(quest_items.jup_b46_duty_founder_pda) !== null) {
-    relocateQuestItemSection(object, quest_items.jup_b46_duty_founder_pda, ENotificationDirection.OUT);
+    relocateQuestItemsBySection(object, quest_items.jup_b46_duty_founder_pda, ENotificationDirection.OUT);
   }
 }
 
@@ -1591,7 +1591,7 @@ export function jup_b46_sell_duty_founder_pda_to_owl(
   firstSpeaker: XR_game_object,
   secondSpeaker: XR_game_object
 ): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b46_duty_founder_pda);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b46_duty_founder_pda);
   giveMoneyToActor(2500);
   giveInfo(infoPortions.jup_b46_duty_founder_pda_sold);
   giveInfo(infoPortions.jup_b46_duty_founder_pda_to_stalkers);
@@ -1641,7 +1641,7 @@ export function jup_b47_jupiter_docs_enabled(firstSpeaker: XR_game_object, secon
  * todo;
  */
 export function transfer_af_fuzz_kolobok(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, "af_fuzz_kolobok");
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "af_fuzz_kolobok");
 }
 
 /**
@@ -1876,13 +1876,13 @@ export function jup_b47_jupiter_products_info_revard(
   const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
   const actor = registry.actor;
 
-  relocateQuestItemSection(npc, quest_items.jup_b47_jupiter_products_info, ENotificationDirection.OUT);
+  relocateQuestItemsBySection(npc, quest_items.jup_b47_jupiter_products_info, ENotificationDirection.OUT);
   giveMoneyToActor(7000);
-  relocateQuestItemSection(actor, drugs.medkit_scientic, ENotificationDirection.IN, 3);
-  relocateQuestItemSection(actor, drugs.antirad, ENotificationDirection.IN, 5);
-  relocateQuestItemSection(actor, drugs.drug_psy_blockade, ENotificationDirection.IN, 2);
-  relocateQuestItemSection(actor, drugs.drug_antidot, ENotificationDirection.IN, 2);
-  relocateQuestItemSection(actor, drugs.drug_radioprotector, ENotificationDirection.IN, 2);
+  relocateQuestItemsBySection(actor, drugs.medkit_scientic, ENotificationDirection.IN, 3);
+  relocateQuestItemsBySection(actor, drugs.antirad, ENotificationDirection.IN, 5);
+  relocateQuestItemsBySection(actor, drugs.drug_psy_blockade, ENotificationDirection.IN, 2);
+  relocateQuestItemsBySection(actor, drugs.drug_antidot, ENotificationDirection.IN, 2);
+  relocateQuestItemsBySection(actor, drugs.drug_radioprotector, ENotificationDirection.IN, 2);
 }
 
 /**
@@ -1905,7 +1905,7 @@ export function jup_b47_actor_has_not_merc_pda(firstSpeaker: XR_game_object, sec
 export function jup_b47_merc_pda_revard(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
-  relocateQuestItemSection(npc, quest_items.jup_b47_merc_pda, ENotificationDirection.OUT);
+  relocateQuestItemsBySection(npc, quest_items.jup_b47_merc_pda, ENotificationDirection.OUT);
   giveMoneyToActor(2500);
 }
 
@@ -1937,9 +1937,9 @@ export function jup_b47_bunker_guard_revard(firstSpeaker: XR_game_object, second
   const actor = registry.actor;
 
   giveMoneyToActor(4000);
-  relocateQuestItemSection(actor, drugs.drug_psy_blockade, ENotificationDirection.IN, 2);
-  relocateQuestItemSection(actor, drugs.drug_antidot, ENotificationDirection.IN, 3);
-  relocateQuestItemSection(actor, drugs.drug_radioprotector, ENotificationDirection.IN, 3);
+  relocateQuestItemsBySection(actor, drugs.drug_psy_blockade, ENotificationDirection.IN, 2);
+  relocateQuestItemsBySection(actor, drugs.drug_antidot, ENotificationDirection.IN, 3);
+  relocateQuestItemsBySection(actor, drugs.drug_radioprotector, ENotificationDirection.IN, 3);
 }
 
 /**
@@ -1964,7 +1964,7 @@ export function jup_b47_actor_has_hauss_rifle_docs(
  */
 // -- Jupiter B10 --------------------------------------------------------------
 export function jup_b10_ufo_memory_give_to_npc(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b10_ufo_memory);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b10_ufo_memory);
 }
 
 /**
@@ -1978,7 +1978,7 @@ export function jup_b10_ufo_memory_give_to_actor(firstSpeaker: XR_game_object, s
  * todo;
  */
 export function jup_b10_ufo_memory_2_give_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, quest_items.jup_b10_ufo_memory_2);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b10_ufo_memory_2);
 }
 
 /**
@@ -2041,7 +2041,7 @@ export function jup_b211_kill_bludsuckers_reward(firstSpeaker: XR_game_object, s
  * todo;
  */
 export function jup_b19_transfer_conserva_to_actor(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, food.conserva);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), food.conserva);
 }
 
 /**
@@ -2072,8 +2072,8 @@ export function pri_a15_sokolov_actor_has_not_note(
  * todo;
  */
 export function pri_a15_sokolov_actor_give_note(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  takeItemsFromActor(firstSpeaker, secondSpeaker, quest_items.jup_b205_sokolov_note);
-  giveItemsToActor(firstSpeaker, secondSpeaker, drugs.medkit_army);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b205_sokolov_note);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_army);
 }
 
 /**

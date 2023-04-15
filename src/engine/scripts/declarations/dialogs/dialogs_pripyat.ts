@@ -7,9 +7,9 @@ import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_po
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   getNpcSpeaker,
-  giveItemsToActor,
   giveMoneyToActor,
-  takeItemsFromActor,
+  transferItemsFromActor,
+  transferItemsToActor,
   transferMoneyFromActor,
 } from "@/engine/core/utils/task_reward";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
@@ -30,7 +30,7 @@ const log: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export function pri_b301_zulus_reward(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, weapons.wpn_pkm_zulus);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_pkm_zulus);
 }
 
 /**
@@ -64,7 +64,7 @@ export function actor_hasnt_pri_a17_gauss_rifle(firstSpeaker: XR_game_object, se
  * todo;
  */
 export function transfer_artifact_af_baloon(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, artefacts.af_baloon);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_baloon);
 }
 
 /**
@@ -127,8 +127,8 @@ export function jup_b43_actor_do_not_has_7000_money(
  * todo;
  */
 export function pri_b35_transfer_svd(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, weapons.wpn_svd);
-  giveItemsToActor(firstSpeaker, secondSpeaker, ammo["ammo_7.62x54_7h1"]);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_svd);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo["ammo_7.62x54_7h1"]);
 }
 
 /**
@@ -137,7 +137,7 @@ export function pri_b35_transfer_svd(firstSpeaker: XR_game_object, secondSpeaker
 export function pri_b35_give_actor_reward(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const amount = hasAlifeInfo(infoPortions.pri_b35_secondary) ? 3 : 1;
 
-  giveItemsToActor(firstSpeaker, secondSpeaker, ammo["ammo_7.62x54_7h1"], amount);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo["ammo_7.62x54_7h1"], amount);
 }
 
 /**
@@ -179,7 +179,7 @@ export function pri_a25_medic_give_kit(firstSpeaker: XR_game_object, secondSpeak
   for (const [key, itemsList] of medicItemsTable) {
     if (key === kit) {
       for (const [section, count] of itemsList) {
-        giveItemsToActor(firstSpeaker, secondSpeaker, section, count);
+        transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), section, count);
       }
 
       disableInfo(key);
@@ -206,7 +206,7 @@ export function pri_a22_army_signaller_supply(firstSpeaker: XR_game_object, seco
   for (const [name, itemsList] of suppliesList) {
     if (hasAlifeInfo(name)) {
       for (const [section, amount] of itemsList) {
-        giveItemsToActor(firstSpeaker, secondSpeaker, section, amount);
+        transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), section, amount);
       }
 
       disableInfo(name);
@@ -218,8 +218,8 @@ export function pri_a22_army_signaller_supply(firstSpeaker: XR_game_object, seco
  * todo;
  */
 export function pri_a22_give_actor_outfit(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  giveItemsToActor(firstSpeaker, secondSpeaker, outfits.military_outfit);
-  giveItemsToActor(firstSpeaker, secondSpeaker, helmets.helm_battle);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), outfits.military_outfit);
+  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), helmets.helm_battle);
 }
 
 /**
@@ -341,23 +341,23 @@ export function pri_b305_sell_strelok_notes(firstSpeaker: XR_game_object, second
 
   for (const [k, v] of items_table) {
     if (actor.object(v) !== null) {
-      takeItemsFromActor(firstSpeaker, secondSpeaker, v);
+      transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), v);
       amount = amount + 1;
     }
   }
 
   if (actor.object(weapons.wpn_gauss) !== null) {
-    giveItemsToActor(firstSpeaker, secondSpeaker, ammo.ammo_gauss, 2);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo.ammo_gauss, 2);
   } else {
-    giveItemsToActor(firstSpeaker, secondSpeaker, drugs.medkit_scientic, 3);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_scientic, 3);
   }
 
   if (amount > 1) {
-    giveItemsToActor(firstSpeaker, secondSpeaker, artefacts.af_fire);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_fire);
   }
 
   if (amount > 2) {
-    giveItemsToActor(firstSpeaker, secondSpeaker, artefacts.af_glass);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_glass);
     giveInfo(infoPortions.pri_b305_all_strelok_notes_given);
   }
 }
