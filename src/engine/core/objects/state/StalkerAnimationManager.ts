@@ -1,6 +1,6 @@
 import { callback, hit, time_global, vector, XR_game_object, XR_hit } from "xray16";
 
-import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EStalkerState, IAnimationDescriptor, IAnimationStateDescriptor } from "@/engine/core/objects/state/types";
 import { abort } from "@/engine/core/utils/assertion";

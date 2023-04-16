@@ -23,7 +23,7 @@ import {
   unregisterAnomaly,
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
-import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
+import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";

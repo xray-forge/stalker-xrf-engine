@@ -22,8 +22,8 @@ import {
   TreasureManager,
   WeatherManager,
 } from "@/engine/core/managers";
-import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/AbstractCoreManager";
-import { SleepManager } from "@/engine/core/managers/SleepManager";
+import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractCoreManager";
+import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

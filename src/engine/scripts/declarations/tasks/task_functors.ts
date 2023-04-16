@@ -1,7 +1,7 @@
 import { game, XR_game_object } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
-import { SurgeManager } from "@/engine/core/managers/SurgeManager";
+import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { extern } from "@/engine/core/utils/binding";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";

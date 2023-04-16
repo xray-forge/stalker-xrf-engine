@@ -1,7 +1,7 @@
 import { time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { IReplicDescriptor, SoundStory } from "@/engine/core/objects/sounds/SoundStory";
 import { NIL } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TCount, TDuration, TNumberId, TStringId, TTimestamp } from "@/engine/lib/types";

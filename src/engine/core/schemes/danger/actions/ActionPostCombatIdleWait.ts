@@ -1,6 +1,6 @@
 import { action_base, anim, look, LuabindClass, move, object, XR_game_object } from "xray16";
 
-import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { animations } from "@/engine/core/objects/state_lib/state_mgr_animation_list";

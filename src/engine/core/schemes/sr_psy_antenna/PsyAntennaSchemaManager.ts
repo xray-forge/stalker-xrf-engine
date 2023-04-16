@@ -1,7 +1,7 @@
 import { get_hud, level, XR_game_object } from "xray16";
 
 import { portableStoreGet, portableStoreSet, registry } from "@/engine/core/database";
-import { PsyAntennaManager } from "@/engine/core/managers/PsyAntennaManager";
+import { PsyAntennaManager } from "@/engine/core/managers/world/PsyAntennaManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePsyAntennaState } from "@/engine/core/schemes/sr_psy_antenna/ISchemePsyAntennaState";

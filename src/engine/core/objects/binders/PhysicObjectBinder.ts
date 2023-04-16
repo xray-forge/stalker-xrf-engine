@@ -25,7 +25,7 @@ import {
   unregisterObject,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
-import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { PhysicObjectItemBox } from "@/engine/core/objects/binders/PhysicObjectItemBox";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";

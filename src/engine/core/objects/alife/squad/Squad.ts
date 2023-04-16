@@ -35,7 +35,7 @@ import {
   updateSimulationObjectAvailability,
 } from "@/engine/core/database/simulation";
 import { unregisterStoryLinkByObjectId } from "@/engine/core/database/story_objects";
-import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import type { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
 import { simulationActivities } from "@/engine/core/objects/alife/squad/simulation_activities";

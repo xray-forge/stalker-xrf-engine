@@ -7,7 +7,7 @@ import {
   ENotificationType,
   IItemRelocatedNotification,
   IMoneyRelocatedNotification,
-} from "@/engine/core/managers/notifications/types";
+} from "@/engine/core/managers/interface/notifications/types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";

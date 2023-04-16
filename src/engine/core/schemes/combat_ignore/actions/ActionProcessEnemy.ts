@@ -1,7 +1,7 @@
 import { alife, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";

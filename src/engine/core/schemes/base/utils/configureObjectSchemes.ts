@@ -1,7 +1,7 @@
 import { ini_file, XR_game_object, XR_ini_file } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { TradeManager } from "@/engine/core/managers/TradeManager";
+import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { disableObjectGenericSchemes } from "@/engine/core/schemes/base/utils/disableObjectGenericSchemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";

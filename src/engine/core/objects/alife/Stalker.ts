@@ -15,7 +15,7 @@ import {
   registry,
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { Squad } from "@/engine/core/objects";
 import { onSmartTerrainObjectDeath, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { assert } from "@/engine/core/utils/assertion";

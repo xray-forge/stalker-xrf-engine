@@ -2,8 +2,8 @@ import { game, TXR_net_processor, XR_CTime, XR_ini_file, XR_net_packet } from "x
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
-import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { isWeapon } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";

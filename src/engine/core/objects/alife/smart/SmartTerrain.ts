@@ -41,7 +41,7 @@ import {
   unregisterSimulationObject,
   updateSimulationObjectAvailability,
 } from "@/engine/core/database/simulation";
-import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
 import { loadGulagJobs } from "@/engine/core/objects/alife/squad/gulag_general";
 import {

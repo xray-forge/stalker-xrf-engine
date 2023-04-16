@@ -9,7 +9,7 @@ import {
   isManagerInitialized,
 } from "@/engine/core/database/managers";
 import { registry } from "@/engine/core/database/registry";
-import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 
 describe("'managers' module of the database", () => {
   class ExampleManagerOne extends AbstractCoreManager {

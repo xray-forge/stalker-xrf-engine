@@ -22,11 +22,11 @@ import {
   registry,
 } from "@/engine/core/database";
 import { portableStoreGet } from "@/engine/core/database/portable_store";
-import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
-import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/ActorInventoryMenuManager";
-import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
-import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
-import { SurgeManager } from "@/engine/core/managers/SurgeManager";
+import { AchievementsManager } from "@/engine/core/managers/interaction/achievements/AchievementsManager";
+import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
+import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
+import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
 import { Squad } from "@/engine/core/objects/alife/squad/Squad";

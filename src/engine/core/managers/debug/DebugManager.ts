@@ -12,7 +12,7 @@ import {
 } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EStateActionId } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EActionId } from "@/engine/core/schemes";

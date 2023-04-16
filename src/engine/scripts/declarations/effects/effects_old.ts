@@ -36,15 +36,19 @@ import {
   unregisterHelicopter,
 } from "@/engine/core/database";
 import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
-import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
-import { ENotificationDirection, NotificationManager, TNotificationIcon } from "@/engine/core/managers/notifications";
-import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
-import { SleepManager } from "@/engine/core/managers/SleepManager";
-import { SurgeManager } from "@/engine/core/managers/SurgeManager";
-import { TaskManager } from "@/engine/core/managers/tasks";
-import { TreasureManager } from "@/engine/core/managers/TreasureManager";
-import { WeatherManager } from "@/engine/core/managers/WeatherManager";
+import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
+import { TaskManager } from "@/engine/core/managers/interaction/tasks";
+import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
+import {
+  ENotificationDirection,
+  NotificationManager,
+  TNotificationIcon,
+} from "@/engine/core/managers/interface/notifications";
+import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
+import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
+import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { Stalker } from "@/engine/core/objects/alife/Stalker";

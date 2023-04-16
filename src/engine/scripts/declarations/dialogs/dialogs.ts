@@ -3,9 +3,9 @@
 import { alife, game_object, level, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
-import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
-import { SurgeManager } from "@/engine/core/managers/SurgeManager";
+import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/interface/notifications";
+import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { update_logic } from "@/engine/core/objects/binders/StalkerBinder";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";

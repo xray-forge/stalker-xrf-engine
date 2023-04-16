@@ -2,8 +2,11 @@ import type { XR_CZoneCampfire, XR_game_object } from "xray16";
 
 import type { IRegistryObjectState } from "@/engine/core/database/objects";
 import type { IStoredOfflineObject } from "@/engine/core/database/offline";
-import type { AbstractCoreManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/AbstractCoreManager";
-import type { ITradeManagerDescriptor } from "@/engine/core/managers/TradeManager";
+import type {
+  AbstractCoreManager,
+  TAbstractCoreManagerConstructor,
+} from "@/engine/core/managers/base/AbstractCoreManager";
+import type { ITradeManagerDescriptor } from "@/engine/core/managers/interaction/TradeManager";
 import type {
   Actor,
   AnomalyFieldBinder,

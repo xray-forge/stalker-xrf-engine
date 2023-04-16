@@ -1,7 +1,7 @@
 import { alife, stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionHelpWounded } from "@/engine/core/schemes/help_wounded/actions";
 import { EvaluatorWoundedExist } from "@/engine/core/schemes/help_wounded/evaluators";

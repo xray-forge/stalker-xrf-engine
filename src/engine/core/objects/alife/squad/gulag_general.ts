@@ -11,7 +11,7 @@ import {
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SurgeManager } from "@/engine/core/managers/SurgeManager";
+import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import type { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { accessible_job, get_job_restrictor } from "@/engine/core/objects/alife/squad/combat_restrictor";
 import { abort } from "@/engine/core/utils/assertion";

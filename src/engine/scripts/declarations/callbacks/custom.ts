@@ -1,12 +1,12 @@
 import { game, level } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
-import { EAchievement } from "@/engine/core/managers/achievements/EAchievement";
-import { SleepManager } from "@/engine/core/managers/SleepManager";
-import { sleep_cam_eff_id, SurgeManager } from "@/engine/core/managers/SurgeManager";
-import { TaskManager } from "@/engine/core/managers/tasks";
-import { WeatherManager } from "@/engine/core/managers/WeatherManager";
+import { AchievementsManager } from "@/engine/core/managers/interaction/achievements/AchievementsManager";
+import { EAchievement } from "@/engine/core/managers/interaction/achievements/EAchievement";
+import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
+import { TaskManager } from "@/engine/core/managers/interaction/tasks";
+import { sleep_cam_eff_id, SurgeManager } from "@/engine/core/managers/world/SurgeManager";
+import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { SchemeCutscene } from "@/engine/core/schemes/sr_cutscene/SchemeCutscene";
 import { extern } from "@/engine/core/utils/binding";
 import { executeConsoleCommand } from "@/engine/core/utils/console";

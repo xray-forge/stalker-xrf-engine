@@ -2,7 +2,7 @@ import { alife, time_global, XR_alife_simulator, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
-import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWoundedState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";

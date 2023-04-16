@@ -1,7 +1,7 @@
 import { alife, XR_CTime } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import type { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/alife/types";
 import { LuaLogger } from "@/engine/core/utils/logging";

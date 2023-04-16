@@ -14,7 +14,7 @@ import {
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ENotificationType, ISoundNotification } from "@/engine/core/managers/notifications/types";
+import { ENotificationType, ISoundNotification } from "@/engine/core/managers/interface/notifications/types";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
 import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/objects/sounds/types";
 import { IBaseSchemeState } from "@/engine/core/schemes";

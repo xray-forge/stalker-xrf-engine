@@ -1,4 +1,4 @@
-import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EGameEvent } from "@/engine/core/managers/events/EGameEvent";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";

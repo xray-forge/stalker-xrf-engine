@@ -1,7 +1,7 @@
 import { callback, clsid, XR_game_object } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
+import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
 import { ObjectRestrictionsManager } from "@/engine/core/schemes";
 import { resetScheme } from "@/engine/core/schemes/base/utils/schemes_reset";
 import {

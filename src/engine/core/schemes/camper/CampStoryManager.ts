@@ -1,7 +1,7 @@
 import { time_global, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { IAnimpointAction, ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";

@@ -1,7 +1,7 @@
 import { XR_cse_alife_object } from "xray16";
 
-import { SurgeManager } from "@/engine/core/managers/SurgeManager";
-import { TravelManager } from "@/engine/core/managers/TravelManager";
+import { TravelManager } from "@/engine/core/managers/interaction/TravelManager";
+import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";

@@ -33,8 +33,8 @@ import {
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
-import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { StatisticsManager } from "@/engine/core/managers/StatisticsManager";
+import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
+import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { setupSmartJobsAndLogicOnSpawn, SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { Squad } from "@/engine/core/objects/alife/squad/Squad";
 import { ESchemeEvent } from "@/engine/core/schemes";

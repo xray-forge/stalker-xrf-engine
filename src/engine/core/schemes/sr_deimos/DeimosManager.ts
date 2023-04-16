@@ -1,7 +1,7 @@
 import { device, level, time_global, XR_game_object, XR_vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ActorBinder } from "@/engine/core/objects/binders/ActorBinder";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";

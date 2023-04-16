@@ -1,7 +1,7 @@
 import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } from "xray16";
 
 import { getObjectIdByStoryId } from "@/engine/core/database";
-import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
+import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";

@@ -19,7 +19,7 @@ import {
   portableStoreSet,
   registry,
 } from "@/engine/core/database";
-import { MapDisplayManager } from "@/engine/core/managers/map";
+import { MapDisplayManager } from "@/engine/core/managers/interface";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { showFreeplayDialog } from "@/engine/core/ui/game/FreeplayDialog";
 import { abort } from "@/engine/core/utils/assertion";

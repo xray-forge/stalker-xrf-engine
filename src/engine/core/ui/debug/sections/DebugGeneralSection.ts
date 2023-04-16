@@ -1,6 +1,6 @@
 import { command_line, LuabindClass, ui_events, XR_CScriptXmlInit, XR_CUIStatic } from "xray16";
 
-import { ProfilingManager } from "@/engine/core/managers/ProfilingManager";
+import { ProfilingManager } from "@/engine/core/managers/debug/ProfilingManager";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";

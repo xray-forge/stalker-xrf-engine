@@ -1,6 +1,6 @@
 import { LuabindClass, object_binder, XR_game_object, XR_vector } from "xray16";
 
-import { PhantomManager } from "@/engine/core/managers/PhantomManager";
+import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";
 
 /**
  * todo;

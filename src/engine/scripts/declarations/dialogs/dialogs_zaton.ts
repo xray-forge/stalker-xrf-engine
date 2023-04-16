@@ -4,8 +4,8 @@ import { alife, game, level, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
-import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
-import { TreasureManager } from "@/engine/core/managers/TreasureManager";
+import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/interface/notifications";
+import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { getExtern } from "@/engine/core/utils/binding";
 import { isSquadExisting } from "@/engine/core/utils/check/check";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";

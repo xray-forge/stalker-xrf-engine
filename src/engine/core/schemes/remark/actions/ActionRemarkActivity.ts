@@ -1,7 +1,7 @@
 import { action_base, level, LuabindClass, patrol, XR_game_object, XR_sound_object, XR_vector } from "xray16";
 
 import { getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { IStateManagerCallbackDescriptor } from "@/engine/core/objects/state/StalkerStateManager";

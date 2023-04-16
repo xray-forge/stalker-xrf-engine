@@ -4,7 +4,7 @@ import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } fr
 
 import { registry } from "@/engine/core/database";
 import { portableStoreGet } from "@/engine/core/database/portable_store";
-import { TreasureManager } from "@/engine/core/managers/TreasureManager";
+import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/AnomalyZoneBinder";
 import { getExtern } from "@/engine/core/utils/binding";
 import { isActorEnemyWithFaction } from "@/engine/core/utils/check/check";

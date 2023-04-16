@@ -1,9 +1,9 @@
 import { XR_game_object } from "xray16";
 
-import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/ActorInventoryMenuManager";
-import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
-import { LoadScreenManager } from "@/engine/core/managers/LoadScreenManager";
-import { PdaManager } from "@/engine/core/managers/PdaManager";
+import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
+import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
+import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
+import { PdaManager } from "@/engine/core/managers/interface/PdaManager";
 import { WeaponParams } from "@/engine/core/ui/game/WeaponParams";
 import { extern } from "@/engine/core/utils/binding";
 import { externClassMethod } from "@/engine/core/utils/general";

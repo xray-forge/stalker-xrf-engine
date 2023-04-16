@@ -1,6 +1,11 @@
 import { game, XR_CPhraseDialog, XR_game_object } from "xray16";
 
-import { DialogManager, IPhrasesDescriptor, TPHRTable, TPRTTable } from "@/engine/core/managers/DialogManager";
+import {
+  DialogManager,
+  IPhrasesDescriptor,
+  TPHRTable,
+  TPRTTable,
+} from "@/engine/core/managers/interaction/DialogManager";
 import { SmartTerrain } from "@/engine/core/objects";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { LuaLogger } from "@/engine/core/utils/logging";

@@ -1,7 +1,7 @@
 import { game, get_hud, sound_object, XR_CUIGameCustom, XR_sound_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { getExtern } from "@/engine/core/utils/binding";
 import { disableGameUiOnly } from "@/engine/core/utils/control";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";

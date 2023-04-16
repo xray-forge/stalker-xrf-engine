@@ -1,7 +1,7 @@
 import { action_base, LuabindClass, XR_game_object } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
+import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { associations, IAnimpointDescriptor } from "@/engine/core/schemes/animpoint/animpoint_predicates";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
