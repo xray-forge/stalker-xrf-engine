@@ -32,9 +32,9 @@ jobs:
 
     - run: npm ci
     - run: npm run setup
-    - run: npm run build:gold
     - run: npm run typecheck
-    - run: npm test
+    - run: npm run test
+    - run: npm run build:gold
     - run: npm run lint
 
     - name: Install zip
