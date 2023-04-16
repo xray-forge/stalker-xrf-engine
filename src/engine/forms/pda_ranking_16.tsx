@@ -1,5 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
+import { gameSettingConfig } from "@/engine/lib/configs/GameSettingConfig";
+
 export const IS_XML: boolean = true;
 
 export function create(): JSXNode {
@@ -37,7 +39,7 @@ export function create(): JSXNode {
       </money_caption>
       <money_value x="744" y="103" width="80" height="16">
         <text align="l" font="letterica18" r="170" g="170" b="170">
-          0 RU
+          0 {gameSettingConfig.CURRENCY}
         </text>
       </money_value>
 

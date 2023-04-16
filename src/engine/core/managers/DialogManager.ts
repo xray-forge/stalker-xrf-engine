@@ -3,6 +3,7 @@ import { level, TXR_net_processor, XR_CPhraseDialog, XR_CPhraseScript, XR_game_o
 import { closeLoadMarker, closeSaveMarker, DIALOG_MANAGER_LTX, openSaveMarker, registry } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { abort } from "@/engine/core/utils/assertion";
 import { isObjectWounded } from "@/engine/core/utils/check/check";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
@@ -79,6 +80,10 @@ export class DialogManager extends AbstractCoreManager {
   public override initialize(): void {
     logger.info("Fill phrases table");
 
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.registerCallback(EGameEvent.NPC_INTERACTION, this.onInteractWithObject, this);
+
     let category = "";
 
     for (const it of $range(0, DIALOG_MANAGER_LTX.line_count("list") - 1)) {
@@ -142,6 +147,10 @@ export class DialogManager extends AbstractCoreManager {
 
   public initializeNewDialog(dialog: XR_CPhraseDialog): void {
     logger.info("Init new dialog");
+
+    const eventsManager: EventsManager = EventsManager.getInstance();
+
+    eventsManager.unregisterCallback(EGameEvent.NPC_INTERACTION, this.onInteractWithObject);
 
     const actor_table = ["job", "anomalies", "information"] as unknown as LuaArray<string>;
     const start_phrase_table = [
@@ -439,5 +448,12 @@ export class DialogManager extends AbstractCoreManager {
     reader.r_bool();
 
     closeLoadMarker(reader, DialogManager.name);
+  }
+
+  /**
+   * On interaction with new game object.
+   */
+  public onInteractWithObject(object: XR_game_object, who: XR_game_object): void {
+    registry.activeSpeaker = object;
   }
 }

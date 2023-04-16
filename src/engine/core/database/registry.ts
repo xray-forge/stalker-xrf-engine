@@ -34,6 +34,10 @@ export const registry = {
    */
   actor: null as unknown as XR_game_object,
   /**
+   * Currently active speaker in dialogs.
+   */
+  activeSpeaker: null as Optional<XR_game_object>,
+  /**
    * List of active game managers.
    */
   managers: new LuaTable<TAbstractCoreManagerConstructor, AbstractCoreManager>(),

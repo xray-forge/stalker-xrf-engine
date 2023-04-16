@@ -357,8 +357,6 @@ export class TaskObject {
     }
 
     if (itemsList !== null) {
-      // todo: fix place where speaker is stored.
-      const currentSpeaker: Optional<XR_game_object> = ItemUpgradesManager.getInstance().getCurrentSpeaker();
       const rewardItems: LuaTable<TName, TCount> = new LuaTable();
 
       for (const [index, name] of parseStringsList(itemsList)) {
@@ -370,7 +368,7 @@ export class TaskObject {
       }
 
       for (const [item, count] of rewardItems) {
-        transferItemsToActor(currentSpeaker as XR_game_object, item, count);
+        transferItemsToActor(registry.activeSpeaker as XR_game_object, item, count);
       }
     }
   }

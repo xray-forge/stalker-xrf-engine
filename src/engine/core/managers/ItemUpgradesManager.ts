@@ -5,6 +5,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/AbstractCoreManager"
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseStringsList, TConditionList } from "@/engine/core/utils/parse";
+import { gameSettingConfig } from "@/engine/lib/configs/GameSettingConfig";
 import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
 import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
@@ -25,23 +26,8 @@ export class ItemUpgradesManager extends AbstractCoreManager {
   public static readonly ITEM_REPAIR_PRICE_COEFFICIENT: TRate = 0.6;
 
   public upgradeHints: Optional<LuaArray<TCaption>> = null;
-  public currentSpeaker: Optional<XR_game_object> = null;
   public currentMechanicName: TName = "";
   public currentPriceDiscountRate: TRate = 1;
-
-  /**
-   * todo: Description.
-   */
-  public getCurrentSpeaker(): Optional<XR_game_object> {
-    return this.currentSpeaker;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public setCurrentTech(object: XR_game_object): void {
-    this.currentSpeaker = object;
-  }
 
   /**
    * todo: Description.
@@ -164,25 +150,25 @@ export class ItemUpgradesManager extends AbstractCoreManager {
     const price: TCount = this.getRepairPrice(itemName, itemCondition);
 
     if (registry.actor.money() < price) {
-      return (
-        game.translate_string(captions.st_upgr_cost) +
-        ": " +
-        price +
-        " RU\\n" +
-        game.translate_string(captions.ui_inv_not_enought_money) +
-        ": " +
-        (price - registry.actor.money()) +
-        " RU"
+      // Price is: N $\n
+      // Not enough money: N $
+      return string.format(
+        "%s: %s RU\\n%s: %s %s",
+        game.translate_string(captions.st_upgr_cost),
+        price,
+        game.translate_string(captions.ui_inv_not_enought_money),
+        price - registry.actor.money(),
+        gameSettingConfig.CURRENCY
       );
     }
 
-    return (
-      game.translate_string(captions.st_upgr_cost) +
-      " " +
-      price +
-      " RU. " +
-      game.translate_string(captions.ui_inv_repair) +
-      "?"
+    // Price N $. Repair?
+    return string.format(
+      "%s %s %s. %s?",
+      game.translate_string(captions.st_upgr_cost),
+      price,
+      gameSettingConfig.CURRENCY,
+      game.translate_string(captions.ui_inv_repair)
     );
   }
 
@@ -197,11 +183,11 @@ export class ItemUpgradesManager extends AbstractCoreManager {
         if (param === FALSE) {
           return 1;
         } else if (param !== TRUE) {
-          const possibility_table = parseConditionsList(param);
+          const possibilitiesConditionList = parseConditionsList(param);
           const possibility: Optional<TSection> = pickSectionFromCondList(
             registry.actor,
-            this.currentSpeaker,
-            possibility_table
+            registry.activeSpeaker,
+            possibilitiesConditionList
           );
 
           if (!possibility || possibility === FALSE) {
@@ -241,11 +227,11 @@ export class ItemUpgradesManager extends AbstractCoreManager {
         } else {
           this.upgradeHints = null;
 
-          const possibility_table = parseConditionsList(param);
-          const possibility = pickSectionFromCondList(actor, this.currentSpeaker, possibility_table);
+          const possibilitiesConditionList = parseConditionsList(param);
+          const possibility = pickSectionFromCondList(actor, registry.activeSpeaker, possibilitiesConditionList);
 
           if (!possibility || possibility === FALSE) {
-            label = label + this.getPossibilitiesLabel(this.currentMechanicName, possibility_table);
+            label = label + this.getPossibilitiesLabel(this.currentMechanicName, possibilitiesConditionList);
           }
         }
       }
@@ -253,10 +239,9 @@ export class ItemUpgradesManager extends AbstractCoreManager {
 
     if (actor !== null) {
       const price = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * this.currentPriceDiscountRate);
-      const cash = actor.money();
 
-      if (cash < price) {
-        return label + "\\n - " + game.translate_string(captions.st_upgr_enough_money); // --.." "..price-cash.." RU"
+      if (actor.money() < price) {
+        return string.format("%s\\n - %s", label, game.translate_string(captions.st_upgr_enough_money));
       }
     }
 
@@ -278,27 +263,25 @@ export class ItemUpgradesManager extends AbstractCoreManager {
    * todo: Description.
    */
   public getPropertyFunctorA(data: string, name: TName): TLabel {
-    const prorerty_name = ITEM_UPGRADES.r_string(name, "name");
-    const t_prorerty_name = game.translate_string(prorerty_name);
-    const section_table: LuaArray<TSection> = parseStringsList(data);
-    const section_table_n = section_table.length();
+    const propertyName: TName = ITEM_UPGRADES.r_string(name, "name");
+    const translatedPropertyName: TLabel = game.translate_string(propertyName);
 
-    if (section_table_n === 0) {
+    const sections: LuaArray<TSection> = parseStringsList(data);
+    const sectionsCount = sections.length();
+
+    if (sectionsCount === 0) {
       return "";
     }
 
     let value: string = "0";
     let sum = 0;
 
-    for (const it of $range(1, section_table_n)) {
-      if (
-        !ITEM_UPGRADES.line_exist(section_table.get(it), "value") ||
-        !ITEM_UPGRADES.r_string(section_table.get(it), "value")
-      ) {
-        return t_prorerty_name;
+    for (const it of $range(1, sectionsCount)) {
+      if (!ITEM_UPGRADES.line_exist(sections.get(it), "value") || !ITEM_UPGRADES.r_string(sections.get(it), "value")) {
+        return translatedPropertyName;
       }
 
-      value = ITEM_UPGRADES.r_string(section_table.get(it), "value");
+      value = ITEM_UPGRADES.r_string(sections.get(it), "value");
       if (name !== "prop_night_vision") {
         sum = sum + tonumber(value)!;
       } else {
@@ -313,7 +296,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
     }
 
     if (name === "prop_ammo_size" || name === "prop_artefact") {
-      return t_prorerty_name + " " + value;
+      return translatedPropertyName + " " + value;
     } else if (name === "prop_restore_bleeding" || name === "prop_restore_health" || name === "prop_power") {
       if (name === "prop_power") {
         value = "+" + tonumber(value)! * 2;
@@ -321,22 +304,22 @@ export class ItemUpgradesManager extends AbstractCoreManager {
 
       // --        const str = string.format("%s %4.1f", t_prorerty_name, value)
       // --        return str
-      return t_prorerty_name + " " + value;
+      return translatedPropertyName + " " + value;
     } else if (name === "prop_tonnage" || name === "prop_weightoutfit" || name === "prop_weight") {
-      const str = string.format("%s %5.2f %s", t_prorerty_name, value, game.translate_string("st_kg"));
+      const str = string.format("%s %5.2f %s", translatedPropertyName, value, game.translate_string("st_kg"));
 
       return str;
     } else if (name === "prop_night_vision") {
       if (tonumber(value) === 1) {
-        return t_prorerty_name;
+        return translatedPropertyName;
       } else {
-        return game.translate_string(prorerty_name + "_" + tonumber(value));
+        return game.translate_string(propertyName + "_" + tonumber(value));
       }
     } else if (name === "prop_no_buck" || name === "prop_autofire") {
-      return t_prorerty_name;
+      return translatedPropertyName;
     }
 
-    return t_prorerty_name + " " + value + "%";
+    return translatedPropertyName + " " + value + "%";
   }
 
   /**
@@ -357,18 +340,18 @@ export class ItemUpgradesManager extends AbstractCoreManager {
    * todo: Description.
    */
   public issueProperty(data: string, name: TName): TName {
-    const propertyName: TName = game.translate_string(ITEM_UPGRADES.r_string(name, "name"));
-    const value_table: LuaArray<string> = parseStringsList(data);
-    const section = value_table.get(1);
+    const propertyName: TLabel = game.translate_string(ITEM_UPGRADES.r_string(name, "name"));
+    const values: LuaArray<string> = parseStringsList(data);
+    const section: Optional<TSection> = values.get(1);
 
-    if (section !== null) {
+    if (section === null) {
+      return propertyName;
+    } else {
       if (!ITEM_UPGRADES.line_exist(section, "value") || !ITEM_UPGRADES.r_string(section, "value")) {
         return propertyName;
       }
 
-      return propertyName + " " + string.sub(ITEM_UPGRADES.r_string(section, "value"), 2, -2);
-    } else {
-      return propertyName;
+      return string.format("%s %s", propertyName, string.sub(ITEM_UPGRADES.r_string(section, "value"), 2, -2));
     }
   }
 }

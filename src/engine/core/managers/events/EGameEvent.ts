@@ -67,6 +67,10 @@ export enum EGameEvent {
    */
   HIT,
   /**
+   * On interaction with NPC, when player 'uses' game object.
+   */
+  NPC_INTERACTION,
+  /**
    * todo;
    */
   MONSTER_HIT,

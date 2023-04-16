@@ -45,8 +45,8 @@ import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { DialogManager } from "@/engine/core/managers/DialogManager";
 import { DropManager } from "@/engine/core/managers/DropManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GlobalSoundManager } from "@/engine/core/managers/GlobalSoundManager";
-import { ItemUpgradesManager } from "@/engine/core/managers/ItemUpgradesManager";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/ReleaseBodyManager";
 import { SimulationBoardManager } from "@/engine/core/managers/SimulationBoardManager";
@@ -469,9 +469,9 @@ export class StalkerBinder extends object_binder {
     logger.info("Stalker use:", this.object.name(), "by", who.name());
 
     if (this.object.alive()) {
-      ItemUpgradesManager.getInstance().setCurrentTech(object);
+      EventsManager.getInstance().emitEvent(EGameEvent.NPC_INTERACTION, object, who);
       DialogManager.getInstance().resetForObject(this.object);
-      SchemeMeet.onMeetWithObject(object, who);
+      SchemeMeet.onMeetWithObject(object);
 
       if (this.state.active_section) {
         emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.USE, object, who);

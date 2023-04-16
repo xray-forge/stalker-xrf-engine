@@ -291,7 +291,7 @@ export class SchemeMeet extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static onMeetWithObject(object: XR_game_object, who: XR_game_object): void {
+  public static onMeetWithObject(object: XR_game_object): void {
     if (!object.alive()) {
       return;
     }
