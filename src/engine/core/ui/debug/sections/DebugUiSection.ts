@@ -33,7 +33,7 @@ export class DebugUiSection extends AbstractDebugSection {
   /**
    * todo: Description.
    */
-  public initControls(): void {
+  public initializeControls(): void {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
@@ -54,7 +54,7 @@ export class DebugUiSection extends AbstractDebugSection {
   /**
    * todo: Description.
    */
-  public initCallBacks(): void {
+  public initializeCallBacks(): void {
     this.owner.AddCallback("textures_list", ui_events.LIST_ITEM_SELECT, () => this.onTextureListChange(), this);
     this.owner.AddCallback("textures_list_filter", ui_events.EDIT_TEXT_COMMIT, () => this.updateTexturesList(), this);
   }
@@ -62,7 +62,7 @@ export class DebugUiSection extends AbstractDebugSection {
   /**
    * todo: Description.
    */
-  public initState(): void {
+  public initializeState(): void {
     this.initTexturesList();
   }
 

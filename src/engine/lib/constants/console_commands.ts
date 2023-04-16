@@ -408,6 +408,7 @@ export const consoleCommands = {
   dbg_ph_ik_off: "dbg_ph_ik_off",
   dbg_ph_ladder: "dbg_ph_ladder",
   dbg_ph_obj_collision_damage: "dbg_ph_obj_collision_damage",
+  default_controls: "default_controls",
   /**
    * Disconnect from server / game session.
    */

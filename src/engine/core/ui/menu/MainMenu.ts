@@ -308,7 +308,7 @@ export class MainMenu extends CUIScriptWnd {
       this.uiGameOptionsDialog = new OptionsDialog(this);
     }
 
-    this.uiGameOptionsDialog.SetCurrentValues();
+    this.uiGameOptionsDialog.initializeState();
     this.uiGameOptionsDialog.ShowDialog(true);
 
     this.HideDialog();
@@ -369,8 +369,8 @@ export class MainMenu extends CUIScriptWnd {
       this.uiMultiplayerMenuDialog.OnRadio_NetChanged();
 
       if (this.uiMultiplayerMenuDialog.online) {
-        this.uiMultiplayerMenuDialog.dlg_profile.InitBestScores();
-        this.uiMultiplayerMenuDialog.dlg_profile.FillRewardsTable();
+        this.uiMultiplayerMenuDialog.dialogMultiplayerProfile.InitBestScores();
+        this.uiMultiplayerMenuDialog.dialogMultiplayerProfile.FillRewardsTable();
       }
     }
 

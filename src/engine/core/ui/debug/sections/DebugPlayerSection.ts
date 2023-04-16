@@ -12,13 +12,13 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class DebugPlayerSection extends AbstractDebugSection {
-  public initControls(): void {
+  public initializeControls(): void {
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
   }
 
-  public initCallBacks(): void {}
+  public initializeCallBacks(): void {}
 
-  public initState(): void {}
+  public initializeState(): void {}
 }

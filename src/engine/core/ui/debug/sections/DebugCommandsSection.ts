@@ -28,7 +28,7 @@ export class DebugCommandsSection extends AbstractDebugSection {
   /**
    * todo: Description.
    */
-  public initControls(): void {
+  public initializeControls(): void {
     const console: XR_CConsole = get_console();
 
     resolveXmlFile(base, this.xml);
@@ -42,12 +42,12 @@ export class DebugCommandsSection extends AbstractDebugSection {
   /**
    * todo: Description.
    */
-  public initCallBacks(): void {}
+  public initializeCallBacks(): void {}
 
   /**
    * todo: Description.
    */
-  public initState(): void {}
+  public initializeState(): void {}
 
   /**
    * todo: Description.

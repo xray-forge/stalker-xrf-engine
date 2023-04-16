@@ -23,7 +23,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
   /**
    * todo: Description.
    */
-  public initControls(): void {
+  public initializeControls(): void {
     const xml: XR_CScriptXmlInit = resolveXmlFile(base, this.xml);
 
     xml.InitStatic("lua_version_label", this);
@@ -47,7 +47,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
   /**
    * todo: Description.
    */
-  public initCallBacks(): void {
+  public initializeCallBacks(): void {
     this.owner.AddCallback(
       "refresh_memory_button",
       ui_events.BUTTON_CLICKED,
@@ -79,7 +79,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
   /**
    * todo: Description.
    */
-  public initState(): void {
+  public initializeState(): void {
     const profilingManager: ProfilingManager = ProfilingManager.getInstance();
 
     this.uiMemoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());

@@ -34,7 +34,7 @@ export class DebugObjectSection extends AbstractDebugSection {
   public logRelationsStateButton!: XR_CUI3tButton;
   public logStateManagerReportButton!: XR_CUI3tButton;
 
-  public initControls(): void {
+  public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
     this.nearestStalkerLabel = this.xml.InitStatic("nearest_stalker_label", this);
@@ -54,7 +54,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     this.owner.Register(this.logStateManagerReportButton, "log_state_manager_state");
   }
 
-  public initCallBacks(): void {
+  public initializeCallBacks(): void {
     this.owner.AddCallback("log_planner_state", ui_events.BUTTON_CLICKED, () => this.onPrintActionPlannerState(), this);
     this.owner.AddCallback("log_inventory_state", ui_events.BUTTON_CLICKED, () => this.onPrintInventoryState(), this);
     this.owner.AddCallback("log_relations_state", ui_events.BUTTON_CLICKED, () => this.onPrintRelationsState(), this);
@@ -66,7 +66,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     );
   }
 
-  public initState(): void {
+  public initializeState(): void {
     if (isGameStarted()) {
       const debugManager: DebugManager = DebugManager.getInstance();
       const nearestStalker: Optional<XR_game_object> = debugManager.getNearestClientObject();

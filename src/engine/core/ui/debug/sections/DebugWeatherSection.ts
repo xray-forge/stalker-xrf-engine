@@ -25,7 +25,7 @@ export class DebugWeatherSection extends AbstractDebugSection {
 
   public randomizeWeatherButton!: XR_CUI3tButton;
 
-  public initControls(): void {
+  public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
     this.currentWeatherSectionLabel = this.xml.InitStatic("current_weather_section_label", this);
@@ -42,7 +42,7 @@ export class DebugWeatherSection extends AbstractDebugSection {
     this.owner.Register(this.nextWeatherStateSelect, "next_weather_state_select");
   }
 
-  public initCallBacks(): void {
+  public initializeCallBacks(): void {
     this.owner.AddCallback(
       "randomize_weather_button",
       ui_events.BUTTON_CLICKED,
@@ -65,7 +65,7 @@ export class DebugWeatherSection extends AbstractDebugSection {
     );
   }
 
-  public initState(): void {
+  public initializeState(): void {
     this.currentWeatherStateSelect.ClearList();
     this.nextWeatherStateSelect.ClearList();
 
@@ -114,7 +114,7 @@ export class DebugWeatherSection extends AbstractDebugSection {
     weatherManager.updateWeatherStates();
     weatherManager.updateWeather(true);
 
-    this.initState();
+    this.initializeState();
   }
 
   public onCurrentStateChange(): void {
@@ -127,7 +127,7 @@ export class DebugWeatherSection extends AbstractDebugSection {
       weatherManager.forceWeatherChange();
       weatherManager.updateWeather(true);
 
-      this.initState();
+      this.initializeState();
     }
   }
 
@@ -141,7 +141,7 @@ export class DebugWeatherSection extends AbstractDebugSection {
       weatherManager.forceWeatherChange();
       weatherManager.updateWeather(true);
 
-      this.initState();
+      this.initializeState();
     }
   }
 }

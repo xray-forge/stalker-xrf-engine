@@ -5,14 +5,12 @@ import {
   CUIScriptWnd,
   DIK_keys,
   Frect,
-  get_console,
   is_enough_address_space_available,
   LuabindClass,
   main_menu,
   TXR_DIK_key,
   TXR_ui_event,
   ui_events,
-  XR_CConsole,
   XR_CMainMenu,
   XR_COptionsManager,
   XR_CScriptXmlInit,
@@ -24,6 +22,7 @@ import {
   XR_CUIStatic,
   XR_CUITabControl,
   XR_CUITrackBar,
+  XR_CUIWindow,
   XR_Patch_Dawnload_Progress,
 } from "xray16";
 
@@ -32,55 +31,62 @@ import { OptionsGameplay } from "@/engine/core/ui/menu/options/OptionsGameplay";
 import { OptionsSound } from "@/engine/core/ui/menu/options/OptionsSound";
 import { OptionsVideo } from "@/engine/core/ui/menu/options/OptionsVideo";
 import { OptionsVideoAdvanced } from "@/engine/core/ui/menu/options/OptionsVideoAdvanced";
+import { EGameRenderer, EOptionGroup, optionGroupsMessages } from "@/engine/core/ui/menu/options/types";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
-import { optionGroups, optionGroupsMessages } from "@/engine/lib/constants/option_groups";
+import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
+import { TName, TPath, TRate } from "@/engine/lib/types";
 
-const base: string = "menu\\OptionsDialog.component";
+const base: TPath = "menu\\OptionsDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
 
 @LuabindClass()
 export class OptionsDialog extends CUIScriptWnd {
-  public owner: XR_CUIScriptWnd;
+  public isRestartSystemShown: boolean = false;
 
-  public m_preconditions: Record<string, (ctrl: OptionsDialog, id: number) => void>;
-  public b_restart_system_shown: boolean = false;
+  public owner: XR_CUIScriptWnd;
+  /**
+   * Store map of settings checker to verify whether renderer is correct.
+   */
+  public preconditions: LuaTable<XR_CUIWindow, (control: XR_CUIWindow, renderer: EGameRenderer) => void> =
+    new LuaTable();
 
   public tab!: XR_CUITabControl;
   public dialog!: XR_CUIStatic;
-  public message_box!: XR_CUIMessageBoxEx;
-  public cap_download!: XR_CUIStatic;
-  public text_download!: XR_CUIStatic;
-  public download_progress!: XR_CUIProgressBar;
-  public btn_cancel_download!: XR_CUI3tButton;
+  public messageBox!: XR_CUIMessageBoxEx;
+  public downloadCaption!: XR_CUIStatic;
+  public downloadText!: XR_CUIStatic;
+  public downloadProgress!: XR_CUIProgressBar;
+  public downloadCancelButton!: XR_CUI3tButton;
 
   public dialogVideoSettings!: OptionsVideo;
   public dialogVideoAdvancedSettings!: OptionsVideoAdvanced;
   public dialogSoundSettings!: OptionsSound;
   public dialogGameplaySettings!: OptionsGameplay;
-  public dialogContolsSettings!: OptionsControls;
+  public dialogControlsSettings!: OptionsControls;
 
   // From child sections:
-  public combo_preset!: XR_CUIComboBox;
-  public combo_renderer!: XR_CUIComboBox;
-  public texture_lod_track!: XR_CUITrackBar;
-  public ss_trb!: XR_CUITrackBar;
-  public ss_cb!: XR_CUIComboBox;
+  public currentPresetSelect!: XR_CUIComboBox;
+  public currentRendererSelect!: XR_CUIComboBox;
+  public textureLodTrackBar!: XR_CUITrackBar;
+  public sSamplingTrackBar!: XR_CUITrackBar;
+  public sSamplingComboBox!: XR_CUIComboBox;
 
   public constructor(owner: XR_CUIScriptWnd) {
     super();
 
     this.owner = owner;
-    this.m_preconditions = {};
-    this.InitControls();
-    this.InitCallBacks();
+
+    this.initializeControls();
+    this.initializeCallbacks();
+
     this.tab.SetActiveTab("video");
   }
 
-  public InitControls(): void {
-    logger.info("Init controls");
-
-    this.SetWndRect(new Frect().set(0, 0, 1024, 768));
+  public initializeControls(): void {
+    this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
     this.Enable(true);
 
     const xml: XR_CScriptXmlInit = new CScriptXmlInit();
@@ -110,11 +116,11 @@ export class OptionsDialog extends CUIScriptWnd {
     this.dialog.AttachChild(this.dialogGameplaySettings);
     xml.InitWindow("tab_size", 0, this.dialogGameplaySettings);
 
-    this.dialogContolsSettings = new OptionsControls();
-    this.dialogContolsSettings.initialize(0, 0, xml, this);
-    this.dialogContolsSettings.Show(false);
-    this.dialog.AttachChild(this.dialogContolsSettings);
-    xml.InitWindow("tab_size", 0, this.dialogContolsSettings);
+    this.dialogControlsSettings = new OptionsControls();
+    this.dialogControlsSettings.initialize(0, 0, xml, this);
+    this.dialogControlsSettings.Show(false);
+    this.dialog.AttachChild(this.dialogControlsSettings);
+    xml.InitWindow("tab_size", 0, this.dialogControlsSettings);
 
     this.dialogVideoAdvancedSettings = new OptionsVideoAdvanced();
     this.dialogVideoAdvancedSettings.initialize(0, 0, xml, this);
@@ -128,210 +134,93 @@ export class OptionsDialog extends CUIScriptWnd {
     this.tab = xml.InitTab("main_dialog:tab", this.dialog);
     this.Register(this.tab, "tab");
 
-    this.message_box = new CUIMessageBoxEx();
+    this.messageBox = new CUIMessageBoxEx();
 
-    this.cap_download = xml.InitStatic("download_static", this);
-    this.text_download = xml.InitStatic("download_text", this);
-    this.download_progress = xml.InitProgressBar("progress_download", this);
-    this.btn_cancel_download = xml.Init3tButton("btn_cancel_download", this);
-    this.Register(this.btn_cancel_download, "btn_cancel_download");
+    this.downloadCaption = xml.InitStatic("download_static", this);
+    this.downloadText = xml.InitStatic("download_text", this);
+    this.downloadProgress = xml.InitProgressBar("progress_download", this);
+    this.downloadCancelButton = xml.Init3tButton("btn_cancel_download", this);
+    this.Register(this.downloadCancelButton, "btn_cancel_download");
   }
 
-  public SetCurrentValues(): void {
-    logger.info("Set current values");
+  public initializeState(): void {
+    logger.info("Set and save current values");
 
-    const opt = new COptionsManager();
+    const optionsManager: XR_COptionsManager = new COptionsManager();
 
-    opt.SetCurrentValues(optionGroups.mm_opt_video_preset);
-    opt.SaveBackupValues(optionGroups.mm_opt_video_preset);
+    optionsManager.SetCurrentValues(EOptionGroup.OPTIONS_VIDEO_PRESET);
+    optionsManager.SaveBackupValues(EOptionGroup.OPTIONS_VIDEO_PRESET);
 
-    opt.SetCurrentValues(optionGroups.mm_opt_video);
-    opt.SaveBackupValues(optionGroups.mm_opt_video);
+    optionsManager.SetCurrentValues(EOptionGroup.OPTIONS_VIDEO);
+    optionsManager.SaveBackupValues(EOptionGroup.OPTIONS_VIDEO);
 
-    opt.SetCurrentValues(optionGroups.mm_opt_video_adv);
-    opt.SaveBackupValues(optionGroups.mm_opt_video_adv);
+    optionsManager.SetCurrentValues(EOptionGroup.OPTIONS_VIDEO_ADVANCED);
+    optionsManager.SaveBackupValues(EOptionGroup.OPTIONS_VIDEO_ADVANCED);
 
-    opt.SetCurrentValues(optionGroups.mm_opt_gameplay);
-    opt.SaveBackupValues(optionGroups.mm_opt_gameplay);
+    optionsManager.SetCurrentValues(EOptionGroup.OPTIONS_GAMEPLAY);
+    optionsManager.SaveBackupValues(EOptionGroup.OPTIONS_GAMEPLAY);
 
-    opt.SetCurrentValues(optionGroups.mm_opt_sound);
-    opt.SaveBackupValues(optionGroups.mm_opt_sound);
+    optionsManager.SetCurrentValues(EOptionGroup.OPTIONS_SOUND);
+    optionsManager.SaveBackupValues(EOptionGroup.OPTIONS_SOUND);
 
-    opt.SetCurrentValues(optionGroups.mm_opt_controls);
+    optionsManager.SetCurrentValues(EOptionGroup.OPTIONS_CONTROLS);
+    optionsManager.SetCurrentValues(EOptionGroup.KEY_BINDINGS);
 
-    opt.SetCurrentValues(optionGroups.key_binding);
-
-    this.UpdateDependControls();
+    this.updateControls();
   }
 
-  public UpdateDependControls(): void {
-    const current_id: number = this.combo_renderer.CurrentID();
+  public initializeCallbacks(): void {
+    this.AddCallback("tab", ui_events.TAB_CHANGED, () => this.onTabChanged(), this);
+    this.AddCallback(
+      "btn_advanced_graphic",
+      ui_events.BUTTON_CLICKED,
+      () => this.onShowAdvancedGraphicsClicked(),
+      this
+    );
+    this.AddCallback("btn_accept", ui_events.BUTTON_CLICKED, () => this.onAcceptButtonClicked(), this);
+    this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.onCancelButtonClicked(), this);
+    this.AddCallback(
+      "btn_default_graphic",
+      ui_events.BUTTON_CLICKED,
+      () => this.onDefaultGraphicsButtonClicked(),
+      this
+    );
+    this.AddCallback(
+      "btn_default_sound",
+      ui_events.BUTTON_CLICKED,
+      () => this.onDefaultSoundSettingsButtonClicked(),
+      this
+    );
+    this.AddCallback("combo_preset", ui_events.LIST_ITEM_SELECT, () => this.onPresetChanged(), this);
+    this.AddCallback("btn_simply_graphic", ui_events.BUTTON_CLICKED, () => this.onShowSimpleGraphicsClicked(), this);
+    this.AddCallback("btn_keyb_default", ui_events.BUTTON_CLICKED, () => this.onDefaultKeybindsButtonClicked(), this);
+    this.AddCallback("btn_check_updates", ui_events.BUTTON_CLICKED, () => this.onCheckUpdatesButtonClicked(), this);
+    this.AddCallback("combo_renderer", ui_events.LIST_ITEM_SELECT, () => this.updateControls(), this);
+    this.AddCallback("btn_cancel_download", ui_events.BUTTON_CLICKED, () => this.onCancelDownloadClicked(), this);
+    this.AddCallback("trb_ssample", ui_events.BUTTON_CLICKED, () => this.updateControls(), this);
+    this.AddCallback("cb_ssample", ui_events.LIST_ITEM_SELECT, () => this.updateControls(), this);
+  }
 
-    Object.entries(this.m_preconditions).forEach(([key, value]) => {
-      value(key as any, current_id);
-    });
+  public updateControls(): void {
+    const currentRenderer: EGameRenderer = this.currentRendererSelect.CurrentID();
 
-    const max_texture_lod: number = 4;
-    let min_texture_lod: number = 0;
+    logger.info("Updating controls:", currentRenderer);
 
-    if (current_id !== 0) {
+    for (const [key, value] of this.preconditions) {
+      value(key, currentRenderer);
+    }
+
+    const maxTextureLod: number = 4;
+    let minTextureLod: number = 0;
+
+    if (currentRenderer !== 0) {
       if (!is_enough_address_space_available()) {
-        min_texture_lod = 1;
+        logger.info("Detected not enough address space, reduce lod");
+        minTextureLod = 1;
       }
     }
 
-    this.texture_lod_track.SetOptIBounds(min_texture_lod, max_texture_lod);
-  }
-
-  public InitCallBacks(): void {
-    this.AddCallback("tab", ui_events.TAB_CHANGED, () => this.OnTabChange(), this);
-    this.AddCallback("btn_advanced_graphic", ui_events.BUTTON_CLICKED, () => this.OnBtnAdvGraphic(), this);
-    this.AddCallback("btn_accept", ui_events.BUTTON_CLICKED, () => this.OnBtnAccept(), this);
-    this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.OnBtnCancel(), this);
-    this.AddCallback("btn_default_graphic", ui_events.BUTTON_CLICKED, () => this.OnBtnDefGraph(), this);
-    this.AddCallback("btn_default_sound", ui_events.BUTTON_CLICKED, () => this.OnBtnDefSound(), this);
-    this.AddCallback("combo_preset", ui_events.LIST_ITEM_SELECT, () => this.OnPresetChanged(), this);
-    this.AddCallback("btn_simply_graphic", ui_events.BUTTON_CLICKED, () => this.OnSimplyGraphic(), this);
-    this.AddCallback("btn_keyb_default", ui_events.BUTTON_CLICKED, () => this.OnBtnKeybDefault(), this);
-    this.AddCallback("btn_check_updates", ui_events.BUTTON_CLICKED, () => this.OnBtnCheckUpdates(), this);
-    this.AddCallback("combo_renderer", ui_events.LIST_ITEM_SELECT, () => this.UpdateDependControls(), this);
-    this.AddCallback("btn_cancel_download", ui_events.BUTTON_CLICKED, () => this.OnBtn_CancelDownload(), this);
-    this.AddCallback("trb_ssample", ui_events.BUTTON_CLICKED, () => this.UpdateDependControls(), this);
-    this.AddCallback("cb_ssample", ui_events.LIST_ITEM_SELECT, () => this.UpdateDependControls(), this);
-  }
-
-  public OnBtnCheckUpdates(): void {
-    const console: XR_CConsole = get_console();
-
-    console.execute("check_for_updates 1");
-  }
-
-  public OnBtnKeybDefault(): void {
-    const console: XR_CConsole = get_console();
-
-    console.execute("default_controls");
-
-    const opt: XR_COptionsManager = new COptionsManager();
-
-    opt.SetCurrentValues(optionGroups.mm_opt_controls);
-    opt.SetCurrentValues(optionGroups.key_binding);
-  }
-
-  public OnPresetChanged(): void {
-    const opt: XR_COptionsManager = new COptionsManager();
-
-    opt.SetCurrentValues(optionGroups.mm_opt_video_adv);
-  }
-
-  public OnBtnDefGraph(): void {
-    const opt: XR_COptionsManager = new COptionsManager();
-
-    opt.SendMessage2Group(optionGroups.mm_opt_video, optionGroupsMessages.set_default_value);
-  }
-
-  public OnBtnDefSound(): void {
-    const opt: XR_COptionsManager = new COptionsManager();
-
-    opt.SendMessage2Group(optionGroups.mm_opt_video, optionGroupsMessages.set_default_value);
-  }
-
-  public OnBtnAccept(): void {
-    const opt: XR_COptionsManager = new COptionsManager();
-    const console: XR_CConsole = get_console();
-
-    opt.SaveValues("mm_opt_video_preset");
-    opt.SaveValues("key_binding");
-    opt.SaveValues("mm_opt_video");
-    opt.SaveValues("mm_opt_video_adv");
-    opt.SaveValues("mm_opt_gameplay");
-    opt.SaveValues("mm_opt_sound");
-    opt.SaveValues("mm_opt_controls");
-
-    opt.OptionsPostAccept();
-
-    this.owner.ShowDialog(true);
-    this.HideDialog();
-    this.owner.Show(true);
-
-    if (!this.b_restart_system_shown) {
-      const opt: XR_COptionsManager = new COptionsManager();
-
-      if (opt.NeedSystemRestart()) {
-        this.b_restart_system_shown = true;
-        this.message_box.InitMessageBox("message_box_restart_game");
-        this.message_box.ShowDialog(true);
-      }
-    }
-
-    console.execute("cfg_save");
-  }
-
-  public OnBtnCancel(): void {
-    const opt: XR_COptionsManager = new COptionsManager();
-
-    opt.UndoGroup(optionGroups.mm_opt_video_preset);
-    opt.UndoGroup(optionGroups.mm_opt_video);
-    opt.UndoGroup(optionGroups.mm_opt_video_adv);
-    opt.UndoGroup(optionGroups.mm_opt_sound);
-    opt.OptionsPostAccept();
-
-    this.owner.ShowDialog(true);
-    this.HideDialog();
-    this.owner.Show(true);
-  }
-
-  public OnTabChange(): void {
-    this.dialogVideoSettings.Show(false);
-    this.dialogSoundSettings.Show(false);
-    this.dialogGameplaySettings.Show(false);
-    this.dialogContolsSettings.Show(false);
-    this.dialogVideoAdvancedSettings.Show(false);
-
-    // todo: Use constants for JSX and checks.
-    const id: string = this.tab.GetActiveId();
-
-    if (id === "video") {
-      this.dialogVideoSettings.Show(true);
-    } else if (id === "sound") {
-      this.dialogSoundSettings.Show(true);
-    } else if (id === "gameplay") {
-      this.dialogGameplaySettings.Show(true);
-    } else if (id === "controls") {
-      this.dialogContolsSettings.Show(true);
-    }
-  }
-
-  public OnBtnAdvGraphic(): void {
-    logger.info("Show advanced graphics");
-    this.dialogVideoSettings.Show(false);
-    this.dialogVideoAdvancedSettings.Show(true);
-  }
-
-  public OnSimplyGraphic(): void {
-    logger.info("Show simplified graphics");
-    this.dialogVideoSettings.Show(true);
-    this.dialogVideoAdvancedSettings.Show(false);
-  }
-
-  public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
-    const res: boolean = super.OnKeyboard(key, event);
-
-    if (!res) {
-      if (event === ui_events.WINDOW_KEY_PRESSED) {
-        if (key === DIK_keys.DIK_ESCAPE) {
-          if (this.dialogVideoAdvancedSettings.IsShown()) {
-            this.dialogVideoAdvancedSettings.Show(false);
-            this.dialogVideoSettings.Show(true);
-          } else {
-            this.owner.ShowDialog(true);
-            this.HideDialog();
-            this.owner.Show(true);
-          }
-        }
-      }
-    }
-
-    return res;
+    this.textureLodTrackBar.SetOptIBounds(minTextureLod, maxTextureLod);
   }
 
   public override Update(): void {
@@ -339,30 +228,160 @@ export class OptionsDialog extends CUIScriptWnd {
 
     const mainMenu: XR_CMainMenu = main_menu.get_main_menu();
     const patchDownload: XR_Patch_Dawnload_Progress = mainMenu.GetPatchProgress();
-    const patchProgress: number = patchDownload.GetProgress();
-    const filename: string = patchDownload.GetFlieName();
+    const patchProgress: TRate = patchDownload.GetProgress();
+    const filename: TName = patchDownload.GetFlieName();
 
     if (filename && patchProgress && patchProgress >= 0 && patchProgress <= 100) {
-      this.text_download.Show(true);
-      this.cap_download.Show(true);
-      this.download_progress.Show(true);
-
-      this.download_progress.SetProgressPos(patchProgress);
-
-      const str: string = string.format("%.0f%%(%s)", patchProgress, patchDownload.GetFlieName());
-
-      this.text_download.TextControl().SetText(str);
-      this.btn_cancel_download.Show(true);
+      this.downloadProgress.Show(true);
+      this.downloadProgress.SetProgressPos(patchProgress);
+      this.downloadCancelButton.Show(true);
+      this.downloadCaption.Show(true);
+      this.downloadText.Show(true);
+      this.downloadText.TextControl().SetText(string.format("%.0f%%(%s)", patchProgress, patchDownload.GetFlieName()));
     } else {
-      this.text_download.Show(false);
-      this.cap_download.Show(false);
-      this.download_progress.Show(false);
-      this.btn_cancel_download.Show(false);
+      this.downloadText.Show(false);
+      this.downloadCaption.Show(false);
+      this.downloadProgress.Show(false);
+      this.downloadCancelButton.Show(false);
     }
   }
 
-  public OnBtn_CancelDownload(): void {
+  public onCheckUpdatesButtonClicked(): void {
+    executeConsoleCommand(consoleCommands.check_for_updates, 1);
+  }
+
+  public onDefaultKeybindsButtonClicked(): void {
+    executeConsoleCommand(consoleCommands.default_controls);
+
+    const optionsManager: XR_COptionsManager = new COptionsManager();
+
+    optionsManager.SetCurrentValues(EOptionGroup.OPTIONS_CONTROLS);
+    optionsManager.SetCurrentValues(EOptionGroup.KEY_BINDINGS);
+  }
+
+  public onPresetChanged(): void {
+    const optionsManager: XR_COptionsManager = new COptionsManager();
+
+    optionsManager.SetCurrentValues(EOptionGroup.OPTIONS_VIDEO_ADVANCED);
+  }
+
+  public onDefaultGraphicsButtonClicked(): void {
+    const optionsManager: XR_COptionsManager = new COptionsManager();
+
+    optionsManager.SendMessage2Group(EOptionGroup.OPTIONS_VIDEO, optionGroupsMessages.set_default_value);
+  }
+
+  public onDefaultSoundSettingsButtonClicked(): void {
+    const optionsManager: XR_COptionsManager = new COptionsManager();
+
+    optionsManager.SendMessage2Group(EOptionGroup.OPTIONS_VIDEO, optionGroupsMessages.set_default_value);
+  }
+
+  public onAcceptButtonClicked(): void {
+    const optionsManager: XR_COptionsManager = new COptionsManager();
+
+    optionsManager.SaveValues(EOptionGroup.OPTIONS_VIDEO_PRESET);
+    optionsManager.SaveValues(EOptionGroup.KEY_BINDINGS);
+    optionsManager.SaveValues(EOptionGroup.OPTIONS_VIDEO);
+    optionsManager.SaveValues(EOptionGroup.OPTIONS_VIDEO_ADVANCED);
+    optionsManager.SaveValues(EOptionGroup.OPTIONS_GAMEPLAY);
+    optionsManager.SaveValues(EOptionGroup.OPTIONS_SOUND);
+    optionsManager.SaveValues(EOptionGroup.OPTIONS_CONTROLS);
+
+    optionsManager.OptionsPostAccept();
+
+    this.owner.ShowDialog(true);
+    this.HideDialog();
+    this.owner.Show(true);
+
+    // Check and notify about game restart if needed.
+    if (!this.isRestartSystemShown) {
+      const nextOptionsManager: XR_COptionsManager = new COptionsManager();
+
+      if (nextOptionsManager.NeedSystemRestart()) {
+        this.isRestartSystemShown = true;
+        this.messageBox.InitMessageBox("message_box_restart_game");
+        this.messageBox.ShowDialog(true);
+      }
+    }
+
+    executeConsoleCommand(consoleCommands.cfg_save);
+  }
+
+  public onCancelButtonClicked(): void {
+    const optionsManager: XR_COptionsManager = new COptionsManager();
+
+    optionsManager.UndoGroup(EOptionGroup.OPTIONS_VIDEO_PRESET);
+    optionsManager.UndoGroup(EOptionGroup.OPTIONS_VIDEO);
+    optionsManager.UndoGroup(EOptionGroup.OPTIONS_VIDEO_ADVANCED);
+    optionsManager.UndoGroup(EOptionGroup.OPTIONS_SOUND);
+    optionsManager.OptionsPostAccept();
+
+    this.owner.ShowDialog(true);
+    this.HideDialog();
+    this.owner.Show(true);
+  }
+
+  public onTabChanged(): void {
+    this.dialogVideoSettings.Show(false);
+    this.dialogSoundSettings.Show(false);
+    this.dialogGameplaySettings.Show(false);
+    this.dialogControlsSettings.Show(false);
+    this.dialogVideoAdvancedSettings.Show(false);
+
+    switch (this.tab.GetActiveId()) {
+      case "video":
+        return this.dialogVideoSettings.Show(true);
+
+      case "sound":
+        return this.dialogSoundSettings.Show(true);
+
+      case "gameplay":
+        return this.dialogGameplaySettings.Show(true);
+
+      case "controls":
+        return this.dialogControlsSettings.Show(true);
+    }
+  }
+
+  public onCancelDownloadClicked(): void {
     logger.info("Cancel patch download");
     main_menu.get_main_menu().CancelDownload();
+  }
+
+  public onShowAdvancedGraphicsClicked(): void {
+    logger.info("Show advanced graphics");
+    this.dialogVideoSettings.Show(false);
+    this.dialogVideoAdvancedSettings.Show(true);
+  }
+
+  public onShowSimpleGraphicsClicked(): void {
+    logger.info("Show simplified graphics");
+    this.dialogVideoSettings.Show(true);
+    this.dialogVideoAdvancedSettings.Show(false);
+  }
+
+  /**
+   * Handle keyboard clicks.
+   */
+  public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+    if (!super.OnKeyboard(key, event)) {
+      return false;
+    }
+
+    if (event === ui_events.WINDOW_KEY_PRESSED) {
+      if (key === DIK_keys.DIK_ESCAPE) {
+        if (this.dialogVideoAdvancedSettings.IsShown()) {
+          this.dialogVideoAdvancedSettings.Show(false);
+          this.dialogVideoSettings.Show(true);
+        } else {
+          this.owner.ShowDialog(true);
+          this.HideDialog();
+          this.owner.Show(true);
+        }
+      }
+    }
+
+    return true;
   }
 }

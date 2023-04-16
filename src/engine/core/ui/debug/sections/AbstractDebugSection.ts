@@ -21,23 +21,23 @@ export abstract class AbstractDebugSection extends CUIWindow {
 
     this.SetWindowName(name);
 
-    this.initControls();
-    this.initCallBacks();
-    this.initState();
+    this.initializeControls();
+    this.initializeCallBacks();
+    this.initializeState();
   }
 
   /**
    * todo: Description.
    */
-  public abstract initControls(): void;
+  public abstract initializeControls(): void;
 
   /**
    * todo: Description.
    */
-  public abstract initCallBacks(): void;
+  public abstract initializeCallBacks(): void;
 
   /**
    * todo: Description.
    */
-  public abstract initState(): void;
+  public abstract initializeState(): void;
 }

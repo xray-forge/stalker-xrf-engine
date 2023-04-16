@@ -52,7 +52,7 @@ export class DebugItemsSection extends AbstractDebugSection {
   public itemListDdSize!: XR_vector2;
   public itemSpawnButton!: XR_CUI3tButton;
 
-  public initControls(): void {
+  public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
     this.categoriesList = this.xml.InitComboBox("categories_list", this);
@@ -77,12 +77,12 @@ export class DebugItemsSection extends AbstractDebugSection {
     this.owner.Register(this.itemSpawnButton, "spawn_button");
   }
 
-  public initCallBacks(): void {
+  public initializeCallBacks(): void {
     this.owner.AddCallback("categories_list", ui_events.LIST_ITEM_SELECT, () => this.onCategoryChange(), this);
     this.owner.AddCallback("spawn_button", ui_events.BUTTON_CLICKED, () => this.onItemSpawn(), this);
   }
 
-  public initState(): void {
+  public initializeState(): void {
     Object.values(EItemCategory)
       .sort((a, b) => ((a as unknown as number) > (b as unknown as number) ? 1 : -1))
       .forEach((it, index) => this.categoriesList.AddItem(it, index));

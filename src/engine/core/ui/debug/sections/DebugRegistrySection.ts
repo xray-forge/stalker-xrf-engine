@@ -19,7 +19,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class DebugRegistrySection extends AbstractDebugSection {
   public logGeneralReportButton!: XR_CUI3tButton;
 
-  public initControls(): void {
+  public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
     this.logGeneralReportButton = this.xml.Init3tButton("log_general_report", this);
@@ -27,11 +27,11 @@ export class DebugRegistrySection extends AbstractDebugSection {
     this.owner.Register(this.logGeneralReportButton, "log_general_report");
   }
 
-  public initCallBacks(): void {
+  public initializeCallBacks(): void {
     this.owner.AddCallback("log_general_report", ui_events.BUTTON_CLICKED, () => this.onPrintGeneralReport(), this);
   }
 
-  public initState(): void {}
+  public initializeState(): void {}
 
   /**
    * Report state of the registry.

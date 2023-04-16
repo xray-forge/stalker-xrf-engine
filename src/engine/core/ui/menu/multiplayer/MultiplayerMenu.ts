@@ -48,14 +48,14 @@ import { MultiplayerJoin } from "@/engine/core/ui/menu/multiplayer/MultiplayerJo
 import { MultiplayerOptions } from "@/engine/core/ui/menu/multiplayer/MultiplayerOptions";
 import { MultiplayerProfile } from "@/engine/core/ui/menu/multiplayer/MultiplayerProfile";
 import { MultiplayerServer } from "@/engine/core/ui/menu/multiplayer/MultiplayerServer";
+import { EOptionGroup } from "@/engine/core/ui/menu/options/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { optionGroups } from "@/engine/lib/constants/option_groups";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TPath } from "@/engine/lib/types";
 
-const baseOnline: string = "menu\\multiplayer\\MultiplayerOnline.component";
-const baseOffline: string = "menu\\multiplayer\\MultiplayerOffline.component";
+const baseOnline: TPath = "menu\\multiplayer\\MultiplayerOnline.component";
+const baseOffline: TPath = "menu\\multiplayer\\MultiplayerOffline.component";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
@@ -69,13 +69,13 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public tab!: XR_CUITabControl;
   public message_box!: XR_CUIMessageBoxEx;
   public cdkey!: XR_CUIEditBox;
-  public player_name!: XR_CUIEditBox;
+  public playerNameEditBox!: XR_CUIEditBox;
 
-  public dlg_join!: MultiplayerJoin;
-  public dlg_options!: MultiplayerOptions;
-  public dlg_server!: MultiplayerServer;
-  public dlg_demo!: MultiplayerDemo;
-  public dlg_profile!: MultiplayerProfile;
+  public dialogMultiplayerJoin!: MultiplayerJoin;
+  public dialogMultiplayerOptions!: MultiplayerOptions;
+  public dialogMultiplayerServer!: MultiplayerServer;
+  public dialogMultiplayerDemo!: MultiplayerDemo;
+  public dialogMultiplayerProfile!: MultiplayerProfile;
 
   public server_list!: XR_CServerList;
   public map_list!: XR_CUIMapList;
@@ -167,36 +167,36 @@ export class MultiplayerMenu extends CUIScriptWnd {
       this.Register(this.cdkey, "edit_cd_key");
     } else {
       xml.InitStatic("cap_unique_nick", wrk_area);
-      this.player_name = xml.InitEditBox("edit_player_name", wrk_area);
-      this.Register(this.player_name, "edit_player_name");
+      this.playerNameEditBox = xml.InitEditBox("edit_player_name", wrk_area);
+      this.Register(this.playerNameEditBox, "edit_player_name");
     }
 
     xml.InitStatic("cap_mode", wrk_area);
 
-    this.dlg_join = new MultiplayerJoin(this.online);
-    this.dlg_join.InitControls(0, 0, xml, this);
-    wrk_area.AttachChild(this.dlg_join);
+    this.dialogMultiplayerJoin = new MultiplayerJoin(this.online);
+    this.dialogMultiplayerJoin.InitControls(0, 0, xml, this);
+    wrk_area.AttachChild(this.dialogMultiplayerJoin);
 
-    this.dlg_options = new MultiplayerOptions(this.online);
-    this.dlg_options.InitControls(0, 0, xml, this);
-    this.dlg_options.Show(false);
-    wrk_area.AttachChild(this.dlg_options);
+    this.dialogMultiplayerOptions = new MultiplayerOptions(this.online);
+    this.dialogMultiplayerOptions.InitControls(0, 0, xml, this);
+    this.dialogMultiplayerOptions.Show(false);
+    wrk_area.AttachChild(this.dialogMultiplayerOptions);
 
-    this.dlg_server = new MultiplayerServer();
-    this.dlg_server.initialize(0, 0, xml, this);
-    this.dlg_server.Show(false);
-    wrk_area.AttachChild(this.dlg_server);
+    this.dialogMultiplayerServer = new MultiplayerServer();
+    this.dialogMultiplayerServer.initialize(0, 0, xml, this);
+    this.dialogMultiplayerServer.Show(false);
+    wrk_area.AttachChild(this.dialogMultiplayerServer);
 
-    this.dlg_demo = new MultiplayerDemo();
-    this.dlg_demo.initControls(0, 0, xml, this);
-    this.dlg_demo.Show(false);
-    wrk_area.AttachChild(this.dlg_demo);
+    this.dialogMultiplayerDemo = new MultiplayerDemo();
+    this.dialogMultiplayerDemo.initControls(0, 0, xml, this);
+    this.dialogMultiplayerDemo.Show(false);
+    wrk_area.AttachChild(this.dialogMultiplayerDemo);
 
     if (this.online) {
-      this.dlg_profile = new MultiplayerProfile();
-      this.dlg_profile.InitControls(0, 0, xml, this);
-      this.dlg_profile.Show(false);
-      wrk_area.AttachChild(this.dlg_profile);
+      this.dialogMultiplayerProfile = new MultiplayerProfile();
+      this.dialogMultiplayerProfile.InitControls(0, 0, xml, this);
+      this.dialogMultiplayerProfile.Show(false);
+      wrk_area.AttachChild(this.dialogMultiplayerProfile);
     }
 
     let btn = xml.Init3tButton("btn_create", wrk_area);
@@ -237,7 +237,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     if (this.online) {
       this.cdkey.SetText(mm.GetCDKey());
     } else {
-      this.player_name.SetText(mm.GetPlayerName());
+      this.playerNameEditBox.SetText(mm.GetPlayerName());
     }
 
     this.server_list.SetConnectionErrCb(
@@ -246,22 +246,22 @@ export class MultiplayerMenu extends CUIScriptWnd {
   }
 
   public UpdateControls(): void {
-    const opt: XR_COptionsManager = new COptionsManager();
+    const optionsManager: XR_COptionsManager = new COptionsManager();
 
-    opt.SetCurrentValues(optionGroups.mm_mp_client);
-    opt.SetCurrentValues(optionGroups.mm_mp_server);
-    opt.SetCurrentValues(optionGroups.mm_mp_srv_filter);
+    optionsManager.SetCurrentValues(EOptionGroup.MULTIPLAYER_CLIENT);
+    optionsManager.SetCurrentValues(EOptionGroup.MULTIPLAYER_SERVER);
+    optionsManager.SetCurrentValues(EOptionGroup.MULTIPLAYER_SERVER_FILTER);
 
-    opt.SaveBackupValues(optionGroups.mm_mp_client);
-    opt.SaveBackupValues(optionGroups.mm_mp_server);
-    opt.SaveBackupValues(optionGroups.mm_mp_srv_filter);
+    optionsManager.SaveBackupValues(EOptionGroup.MULTIPLAYER_CLIENT);
+    optionsManager.SaveBackupValues(EOptionGroup.MULTIPLAYER_SERVER);
+    optionsManager.SaveBackupValues(EOptionGroup.MULTIPLAYER_SERVER_FILTER);
 
     this.map_list.ClearList();
     this.map_list.OnModeChange();
-    this.dlg_options.SetGameMode(this.map_list.GetCurGameType(), this);
+    this.dialogMultiplayerOptions.SetGameMode(this.map_list.GetCurGameType(), this);
 
     if (this.online) {
-      this.dlg_profile.UpdateControls();
+      this.dialogMultiplayerProfile.UpdateControls();
     }
 
     const mm = main_menu.get_main_menu();
@@ -269,7 +269,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     if (this.online) {
       this.cdkey.SetText(mm.GetCDKey());
     } else {
-      this.player_name.SetText(mm.GetPlayerName());
+      this.playerNameEditBox.SetText(mm.GetPlayerName());
     }
 
     this.OnGameModeChange();
@@ -287,7 +287,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public InitCallBacks(): void {
     this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.OnBtn_Calncel(), this);
     this.AddCallback("btn_create", ui_events.BUTTON_CLICKED, () => this.OnBtn_Create(), this);
-    this.AddCallback("btn_join", ui_events.BUTTON_CLICKED, () => this.OnBtn_Join(), this);
+    this.AddCallback("btn_join", ui_events.BUTTON_CLICKED, () => this.onJoinButtonClicked(), this);
 
     this.AddCallback("check_empty", ui_events.BUTTON_CLICKED, () => this.OnFilterChange(), this);
     this.AddCallback("check_full", ui_events.BUTTON_CLICKED, () => this.OnFilterChange(), this);
@@ -313,35 +313,45 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.AddCallback("edit_cd_key", ui_events.EDIT_TEXT_COMMIT, () => this.OnCDKeyChanged(), this);
     this.AddCallback("edit_player_name", ui_events.EDIT_TEXT_COMMIT, () => this.OnPlayerNameChanged(), this);
 
-    this.AddCallback("btn_cancel_download", ui_events.BUTTON_CLICKED, () => this.OnBtn_CancelDownload(), this);
+    this.AddCallback("btn_cancel_download", ui_events.BUTTON_CLICKED, () => this.onDownloadCancelButtonClicked(), this);
     // -- demo playing
 
     this.AddCallback(
       "demo_list_window",
       ui_events.LIST_ITEM_CLICKED,
-      () => this.dlg_demo.selectDemoFile(),
-      this.dlg_demo
+      () => this.dialogMultiplayerDemo.selectDemoFile(),
+      this.dialogMultiplayerDemo
     );
     this.AddCallback(
       "demo_list_window",
       ui_events.WINDOW_LBUTTON_DB_CLICK,
-      () => this.dlg_demo.playSelectedDemo(),
-      this.dlg_demo
+      () => this.dialogMultiplayerDemo.playSelectedDemo(),
+      this.dialogMultiplayerDemo
     );
 
-    this.AddCallback("btn_play_demo", ui_events.BUTTON_CLICKED, () => this.dlg_demo.playSelectedDemo(), this.dlg_demo);
-    this.AddCallback("demo_file_name", ui_events.EDIT_TEXT_COMMIT, () => this.dlg_demo.onRenameDemo(), this.dlg_demo);
+    this.AddCallback(
+      "btn_play_demo",
+      ui_events.BUTTON_CLICKED,
+      () => this.dialogMultiplayerDemo.playSelectedDemo(),
+      this.dialogMultiplayerDemo
+    );
+    this.AddCallback(
+      "demo_file_name",
+      ui_events.EDIT_TEXT_COMMIT,
+      () => this.dialogMultiplayerDemo.onRenameDemo(),
+      this.dialogMultiplayerDemo
+    );
     this.AddCallback(
       "demo_message_box",
       ui_events.MESSAGE_BOX_YES_CLICKED,
-      () => this.dlg_demo.onMsgBoxYes(),
-      this.dlg_demo
+      () => this.dialogMultiplayerDemo.onMsgBoxYes(),
+      this.dialogMultiplayerDemo
     );
     this.AddCallback(
       "demo_message_box",
       ui_events.MESSAGE_BOX_OK_CLICKED,
-      () => this.dlg_demo.onMsgBoxYes(),
-      this.dlg_demo
+      () => this.dialogMultiplayerDemo.onMsgBoxYes(),
+      this.dialogMultiplayerDemo
     );
 
     this.AddCallback("check_demosave", ui_events.BUTTON_CLICKED, () => this.OnDemoSaveChange(), this);
@@ -386,7 +396,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public OnPlayerNameChanged(): void {
     logger.info("Player name changed");
 
-    let tmp_player_name = this.player_name.GetText();
+    let tmp_player_name = this.playerNameEditBox.GetText();
 
     if (tmp_player_name === "") {
       tmp_player_name = "noname";
@@ -415,7 +425,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     logger.info("Game mode change");
 
     this.map_list.OnModeChange();
-    this.dlg_options.SetGameMode(this.map_list.GetCurGameType(), this);
+    this.dialogMultiplayerOptions.SetGameMode(this.map_list.GetCurGameType(), this);
   }
 
   public OnFilterChange(): void {
@@ -448,13 +458,13 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public OnTabChange(): void {
     logger.info("Tab changed");
 
-    this.dlg_join.Show(false);
-    this.dlg_options.Show(false);
-    this.dlg_server.Show(false);
-    this.dlg_demo.Show(false);
+    this.dialogMultiplayerJoin.Show(false);
+    this.dialogMultiplayerOptions.Show(false);
+    this.dialogMultiplayerServer.Show(false);
+    this.dialogMultiplayerDemo.Show(false);
 
     if (this.online) {
-      this.dlg_profile.Show(false);
+      this.dialogMultiplayerProfile.Show(false);
     }
 
     this.btn_join.Show(false);
@@ -464,23 +474,23 @@ export class MultiplayerMenu extends CUIScriptWnd {
     const id = this.tab.GetActiveId();
 
     if (id === "client") {
-      this.dlg_join.Show(true);
+      this.dialogMultiplayerJoin.Show(true);
       this.btn_join.Show(true);
     } else if (id === "options") {
-      this.dlg_options.Show(true);
+      this.dialogMultiplayerOptions.Show(true);
       this.btn_create.Show(true);
     } else if (id === "server") {
       this.map_list.LoadMapList();
       this.map_list.OnModeChange();
-      this.dlg_server.Show(true);
+      this.dialogMultiplayerServer.Show(true);
       this.btn_create.Show(true);
     } else if (id === "demo") {
-      this.dlg_demo.fillList();
-      this.dlg_demo.Show(true);
+      this.dialogMultiplayerDemo.fillList();
+      this.dialogMultiplayerDemo.Show(true);
       this.btn_play_demo.Show(true);
     } else if (id === "profile") {
-      this.dlg_profile.Show(true);
-      this.dlg_profile.edit_unique_nick.SetText(this.owner.xrGameSpyProfile!.unique_nick());
+      this.dialogMultiplayerProfile.Show(true);
+      this.dialogMultiplayerProfile.edit_unique_nick.SetText(this.owner.xrGameSpyProfile!.unique_nick());
     }
   }
 
@@ -822,20 +832,20 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.message_box.ShowDialog(true);
   }
 
-  public OnBtn_Join(): void {
+  public onJoinButtonClicked(): void {
     logger.info("Join clicked");
 
-    const opt: XR_COptionsManager = new COptionsManager();
+    const optionsManager: XR_COptionsManager = new COptionsManager();
 
-    opt.SaveValues(optionGroups.mm_mp_client);
-    opt.SaveValues(optionGroups.mm_mp_server);
-    opt.SaveValues(optionGroups.mm_mp_srv_filter);
+    optionsManager.SaveValues(EOptionGroup.MULTIPLAYER_CLIENT);
+    optionsManager.SaveValues(EOptionGroup.MULTIPLAYER_SERVER);
+    optionsManager.SaveValues(EOptionGroup.MULTIPLAYER_SERVER_FILTER);
 
     this.server_list.SetPlayerName(this.owner.xrGameSpyProfile!.unique_nick()); // --this.player_name.GetText())
     this.server_list.ConnectToSelected();
   }
 
-  public OnBtn_CancelDownload(): void {
+  public onDownloadCancelButtonClicked(): void {
     logger.info("Cancel download");
 
     main_menu.get_main_menu().CancelDownload();
