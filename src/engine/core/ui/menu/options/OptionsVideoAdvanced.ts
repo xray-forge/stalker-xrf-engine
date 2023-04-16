@@ -86,6 +86,14 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     owner.preconditions.set(particlesDistanceTrackBar, only2aAndMoreMode);
 
+    /**
+     *
+     *  _st = xml:InitStatic("video_adv:templ_item", nil)
+     *  xml:InitStatic("video_adv:cap_r2_smap_size", _st)
+     *  ctl = xml:InitComboBox("video_adv:list_r2_smap_size", _st)
+     *  table.insert(handler.m_preconditions, {func=all_modes, control=_st})
+     */
+
     const npcTorch = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
     xml.InitStatic("video_adv:cap_npc_torch", npcTorch);
@@ -192,6 +200,21 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     owner.preconditions.set(wetSurfacesCheck, only3andMoreMode);
 
+    /**
+     *
+     *  _st = xml:InitStatic("video_adv:templ_item", nil)
+     *  xml:InitStatic("video_adv:cap_r3_dynamic_wet_surfaces_opt", _st)
+     *  ctl = xml:InitCheck ("video_adv:check_r3_dynamic_wet_surfaces_opt", _st)
+     *  table.insert(handler.m_preconditions, {func=mode_ge_3, control=_st})
+     *
+     *  _st = xml:InitStatic("video_adv:templ_item", nil)
+     *  xml:InitStatic("video_adv:cap_r3_dynamic_wet_surfaces_near", _st)
+     *  ctl = xml:InitTrackBar("video_adv:track_r3_dynamic_wet_surfaces_near", _st)
+     *  handler.track_r3_dyn_wet_surf_near = ctl
+     *  handler:Register(ctl, "track_r3_dyn_wet_surf_near")
+     *  table.insert(handler.m_preconditions, {func=mode_ge_3, control=_st})
+     */
+
     // -- r3_volumetric_smoke		>r25
     const volumetricSmoke = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
@@ -202,32 +225,20 @@ export class OptionsVideoAdvanced extends CUIWindow {
     owner.preconditions.set(volumetricSmokeCheck, only3andMoreMode);
 
     /**
-     * Some section that was never implemented in original game
+     *  _st = xml:InitStatic("video_adv:templ_item", nil)
+     *  xml:InitStatic("video_adv:cap_r3_msaa_opt", _st)
+     *  ctl = xml:InitCheck("video_adv:check_r3_msaa_opt", _st)
+     *  table.insert(handler.m_preconditions, {func=mode_ge_3, control=_st})
+     */
 
-     --[[
-     _st				= xml.InitStatic			("video_adv:templ_item",				this.scroll_v)
-     xml.InitStatic								("video_adv:cap_r3_msaa_alphatest",	_st)
-     ctl			= xml.InitCheck					("video_adv:check_r3_msaa_alphatest",_st)
-     handler.m_preconditions[ctl]		= only_r3_and_r3msaa_more_than_zero
-
-     function only_r3_and_r3msaa_more_than_zero(ctrl: IOptions, _id: EGameRenderer): void {
-      const bEnabled = _id >= 4 && _ssample_cb_val > 0;
-
-      ctrl.Enable(bEnabled);
-    }
-
-     _st				= xml.InitStatic			("video_adv:templ_item",				this.scroll_v)
-     xml.InitStatic								("video_adv:cap_r3_msaa_opt",	_st)
-     ctl			= xml.InitCheck					("video_adv:check_r3_msaa_opt",_st)
-     handler.m_preconditions[ctl]		= dx_level_le_655361
-
-     function dx_level_le_655361(ctrl: IOptions, _id: EGameRenderer): void {
-      const bEnabled: boolean = render_get_dx_level() <= 655361;
-
-      ctrl.Enable(bEnabled);
-    }
-
-     ]]*/
+    /**
+     * -- r4_enable_tessellation    only r4
+     *  _st = xml:InitStatic("video_adv:templ_item", nil)
+     *  xml:InitStatic("video_adv:cap_r4_tessellation", _st)
+     *  ctl = xml:InitCheck("video_adv:check_r4_tessellation", _st)
+     *  table.insert(handler.m_preconditions, {func=mode_4, control=_st})
+     * ---------
+     */
 
     const vSyncSetting = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
@@ -238,6 +249,13 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     xml.InitStatic("video_adv:cap_60hz", only60HZSetting);
     xml.InitCheck("video_adv:check_60hz", only60HZSetting);
+
+    /**
+     *  _st = xml:InitStatic("video_adv:templ_item", nil)
+     *  xml:InitStatic("video_adv:cap_always_active", _st)
+     *  xml:InitCheck("video_adv:check_always_active", _st)
+     *  table.insert(handler.m_preconditions, {func=all_modes, control=_st})
+     */
 
     owner.Register(xml.Init3tButton("video_adv:btn_to_simply", this), "btn_simply_graphic");
   }
@@ -279,4 +297,12 @@ function only3andMoreModeInvisible(control: XR_CUIWindow, id: EGameRenderer): vo
 
   control.Enable(isEnabled);
   control.Show(isEnabled);
+}
+
+function only4(control: XR_CUIWindow, id: EGameRenderer) {
+  return id === EGameRenderer.R4;
+}
+
+function only4andMore(control: XR_CUIWindow, id: EGameRenderer) {
+  return id >= EGameRenderer.R4;
 }
