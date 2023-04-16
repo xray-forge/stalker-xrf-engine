@@ -1,2 +1,2 @@
 export * from "@/engine/core/managers/events/EventsManager";
-export * from "@/engine/core/managers/events/EGameEvent";
+export * from "@/engine/core/managers/events/types";

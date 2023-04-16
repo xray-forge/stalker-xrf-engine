@@ -45,13 +45,14 @@ export function portableStoreSet<T extends TPortableStoreValue>(object: XR_game_
     abort("database/portable store: not registered type tried to set: [%s]:[%s].", key, type(value));
   }
 
-  const objectId: TNumberId = object.id();
+  let portableStore: Optional<LuaTable<TName>> = registry.objects.get(object.id()).portableStore;
 
-  if (registry.objects.get(objectId).portableStore === null) {
-    registry.objects.get(objectId).portableStore = new LuaTable();
+  if (!portableStore) {
+    portableStore = new LuaTable();
+    registry.objects.get(object.id()).portableStore = portableStore;
   }
 
-  registry.objects.get(objectId)!.portableStore!.set(key, value);
+  portableStore.set(key, value);
 }
 
 /**
@@ -68,7 +69,7 @@ export function portableStoreGet<T extends TPortableStoreValue>(
 ): Optional<T> {
   const objectId: TNumberId = object.id();
 
-  if (registry.objects.get(objectId).portableStore !== null) {
+  if (registry.objects.get(objectId).portableStore) {
     const value: Optional<T> = registry.objects.get(objectId).portableStore!.get(key);
 
     if (value !== null) {

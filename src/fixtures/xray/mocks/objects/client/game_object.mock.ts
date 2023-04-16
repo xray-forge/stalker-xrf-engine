@@ -12,19 +12,21 @@ let ID_COUNTER: number = 1000;
 export function mockClientGameObject({
   character_icon = jest.fn(() => "test_character_icon") as <T>() => T,
   clsid = jest.fn(() => -1 as TXR_class_id),
-  disable_info_portion = jest.fn(() => false),
+  disable_info_portion,
   game_vertex_id = jest.fn(() => 512),
   give_game_news = jest.fn(() => {}),
-  give_info_portion = jest.fn(() => false),
-  give_money = jest.fn(),
+  give_info_portion,
+  give_money,
   give_talk_message2 = jest.fn(),
   give_task = jest.fn((task: XR_CGameTask, time: number, shouldCheck: boolean, duration: number) => {}),
-  has_info = jest.fn(() => false),
+  has_info,
   id,
   idOverride = ID_COUNTER++,
+  infoPortions = [],
   inventory = [],
   is_talking = jest.fn(() => false),
   level_vertex_id = jest.fn(() => 255),
+  money,
   name,
   object,
   position = jest.fn(() => MockVector.mock(0.25, 0.25, 0.25)),
@@ -38,27 +40,50 @@ export function mockClientGameObject({
   XR_game_object & {
     idOverride?: number;
     sectionOverride?: string;
+    infoPortions?: Array<string>;
     inventory: Array<[string | number, XR_game_object]>;
   }
 > = {}): XR_game_object {
+  const internalInfos: Array<string> = [...infoPortions];
   const inventoryMap: Map<string | number, XR_game_object> = new Map(inventory);
+  let objectMoney: number = 0;
 
   return {
     ...rest,
     character_icon,
     clsid,
-    disable_info_portion,
+    disable_info_portion:
+      disable_info_portion ||
+      jest.fn((it: string) => {
+        const index = internalInfos.indexOf(it);
+
+        if (index >= 0) {
+          internalInfos.splice(index, 1);
+
+          return true;
+        } else {
+          return false;
+        }
+      }),
     game_vertex_id,
     give_game_news,
-    give_info_portion,
-    give_money,
+    give_info_portion:
+      give_info_portion ||
+      jest.fn((it: string) => {
+        internalInfos.push(it);
+
+        return false;
+      }),
+    give_money: give_money || jest.fn((value: number) => (objectMoney += value)),
     give_talk_message2,
     give_task,
-    has_info,
+    has_info: has_info || jest.fn((it: string) => internalInfos.includes(it)),
     id: id || jest.fn(() => idOverride),
+    infoPortions,
     inventory: inventoryMap,
     is_talking,
     level_vertex_id,
+    money: money || jest.fn(() => objectMoney),
     name: name || jest.fn(() => `${sectionOverride}_${idOverride}`),
     object:
       object ||

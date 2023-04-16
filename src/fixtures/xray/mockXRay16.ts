@@ -1,5 +1,4 @@
 import { jest } from "@jest/globals";
-import { CTime } from "xray16";
 
 import { MockActionBase, MockAnim, MockLook, MockMove } from "@/fixtures/xray/mocks/actions";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
@@ -13,6 +12,7 @@ import { MockFileSystem } from "@/fixtures/xray/mocks/fs/FileSystem.mock";
 import { IniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { mockGameInterface } from "@/fixtures/xray/mocks/interface/gameInterface.mock";
 import { mockLevelInterface } from "@/fixtures/xray/mocks/interface/levelInterface.mock";
+import { mockRelationRegistryInterface } from "@/fixtures/xray/mocks/interface/relationRegistryInterface.mock";
 import { mocksConfig } from "@/fixtures/xray/mocks/MocksConfig";
 import {
   MockAlifeCreatureActor,
@@ -121,6 +121,7 @@ export function mockXRay16({
   move = MockMove,
   object_binder = MockObjectBinder,
   property_evaluator = MockPropertyEvaluator,
+  relation_registry = mockRelationRegistryInterface,
   sound_object = MockSoundObject,
   stalker_ids = mockStalkerIds,
   system_ini = () => mockIniFile("system.ini"),
@@ -187,6 +188,7 @@ export function mockXRay16({
     move,
     object_binder,
     property_evaluator,
+    relation_registry,
     sound_object,
     stalker_ids,
     system_ini,

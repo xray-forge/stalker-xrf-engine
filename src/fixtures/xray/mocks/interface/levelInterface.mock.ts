@@ -8,4 +8,5 @@ export const mockLevelInterface = {
   get_game_difficulty: jest.fn(() => 3),
   map_add_object_spot: jest.fn(),
   get_time_hours: jest.fn(() => 12),
+  get_snd_volume: jest.fn(() => 1),
 };

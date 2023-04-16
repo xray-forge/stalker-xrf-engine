@@ -29,10 +29,27 @@ export class MockLuaTable<K, V> extends Map<K, V> {
   }
 
   /**
+   * Create new map from JS object.
+   */
+  public static fromObject<K extends keyof any, T>(from: Record<K, T>): MockLuaTable<K, T> {
+    const mock: MockLuaTable<K, T> = new MockLuaTable();
+
+    Object.entries(from).forEach(([key, value]) => mock.set(key as K, value as T));
+
+    return mock;
+  }
+
+  /**
    * Create new map from JS array.
    */
   public static mockFromArray<T>(from: Array<unknown>): LuaArray<T> {
     return MockLuaTable.fromArray(from) as unknown as LuaArray<T>;
+  }
+  /**
+   * Create new map from JS array.
+   */
+  public static mockFromObject<K extends keyof any, T>(from: Record<K, T>): LuaTable<K, T> {
+    return MockLuaTable.fromObject(from) as unknown as LuaTable<K, T>;
   }
 
   /**

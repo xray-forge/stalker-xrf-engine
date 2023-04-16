@@ -532,10 +532,7 @@ export class SurgeManager extends AbstractCoreManager {
     if (registry.actor.alive()) {
       if (!coverObject?.inside(registry.actor.position())) {
         if (hasAlifeInfo(infoPortions.anabiotic_in_process)) {
-          const counterName: TName = "actor_marked_by_zone_cnt";
-          const counterValue: TCount = portableStoreGet(registry.actor, counterName, 0);
-
-          portableStoreSet(registry.actor, counterName, counterValue + 1);
+          StatisticsManager.getInstance().incrementAnabioticsUsageCount();
         }
 
         disableGameUiOnly(registry.actor);

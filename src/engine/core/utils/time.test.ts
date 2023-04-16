@@ -14,11 +14,11 @@ describe("'time' utils", () => {
 
     timeToWrite.set(2012, 6, 12, 3, 6, 12, 500);
 
-    expect(timeToWrite.toString()).toBe("y:2012, m:6, d:12, h:6, min:6, sec:12, ms:500");
+    expect(timeToWrite.toString()).toBe("y:2012, m:6, d:12, h:3, min:6, sec:12, ms:500");
 
     writeTimeToPacket(mockNetPacket(netProcessor), timeToWrite);
 
-    expect(netProcessor.dataList).toEqual([12, 6, 12, 6, 6, 12, 500]);
+    expect(netProcessor.dataList).toEqual([12, 6, 12, 3, 6, 12, 500]);
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.U8,
       EPacketDataType.U8,
@@ -32,18 +32,10 @@ describe("'time' utils", () => {
     const timeToRead: Optional<XR_CTime> = readTimeFromPacket(mockNetProcessor(netProcessor));
 
     expect(timeToRead).not.toBeNull();
-    expect(timeToRead?.toString()).toBe("y:2012, m:6, d:12, h:6, min:6, sec:12, ms:500");
+    expect(timeToRead?.toString()).toBe("y:2012, m:6, d:12, h:3, min:6, sec:12, ms:500");
 
     expect(netProcessor.dataList).toEqual([]);
-    expect(netProcessor.readDataOrder).toEqual([
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-    ]);
+    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
   });
 
   it("'writeTimeToPacket' and 'readTimeFromPacket' should handle nulls", () => {
@@ -57,7 +49,7 @@ describe("'time' utils", () => {
     expect(readTimeFromPacket(mockNetProcessor(netProcessor))).toBeNull();
 
     expect(netProcessor.dataList).toEqual([]);
-    expect(netProcessor.readDataOrder).toEqual([EPacketDataType.U8]);
+    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
   });
 
   it("'isInTimeInterval' should correctly check time intervals", () => {

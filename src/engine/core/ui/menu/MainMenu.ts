@@ -27,8 +27,8 @@ import {
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { EGameEvent } from "@/engine/core/managers/events/EGameEvent";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
+import { EGameEvent } from "@/engine/core/managers/events/types";
 import { DebugDialog } from "@/engine/core/ui/debug/DebugDialog";
 import { LoadDialog } from "@/engine/core/ui/menu/load/LoadDialog";
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
@@ -152,7 +152,6 @@ export class MainMenu extends CUIScriptWnd {
       this
     );
     this.AddCallback("btn_options", ui_events.BUTTON_CLICKED, () => this.onButtonClickOptions(), this);
-    this.AddCallback("btn_debug_tools", ui_events.BUTTON_CLICKED, () => this.onButtonClickDevelopmentDebug(), this);
     this.AddCallback("btn_load", ui_events.BUTTON_CLICKED, () => this.onButtonClickLoadGame(), this);
     this.AddCallback("btn_save", ui_events.BUTTON_CLICKED, () => this.onButtonClickSaveGame(), this);
 

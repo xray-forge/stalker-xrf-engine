@@ -1,5 +1,5 @@
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
-import { EGameEvent } from "@/engine/core/managers/events/EGameEvent";
+import { EGameEvent } from "@/engine/core/managers/events/types";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyArgs, AnyCallable, AnyContextualCallable, AnyObject, Optional, TCount } from "@/engine/lib/types";
@@ -12,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 type TEventSubscribersDescriptor = Record<EGameEvent, LuaTable<AnyCallable, { context: Optional<AnyObject> }>>;
 
 /**
- * todo;
+ * Manager to dispatch and subscribe to custom global events.
  */
 export class EventsManager extends AbstractCoreManager {
   // Initialize list of all enum handlers. Note TSTL map created instead for enum.
@@ -25,7 +25,8 @@ export class EventsManager extends AbstractCoreManager {
   }, {} as TEventSubscribersDescriptor);
 
   /**
-   * todo: Description.
+   * Register callback and subscribe to event.
+   * Context parameter is needed to do a proper call of listeners.
    */
   public registerCallback<T>(
     event: EGameEvent,
@@ -39,7 +40,7 @@ export class EventsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo: Description.
+   * Unregister provided callback from event.
    */
   public unregisterCallback<T>(event: EGameEvent, func: AnyContextualCallable<unknown>): void;
   public unregisterCallback<T>(event: EGameEvent, func: AnyCallable): void {
@@ -50,7 +51,7 @@ export class EventsManager extends AbstractCoreManager {
   }
 
   /**
-   * todo: Description.
+   * Emit custom event and trigger all registered callbacks.
    */
   public emitEvent<T>(event: EGameEvent, data: T): void;
   public emitEvent(event: EGameEvent, ...data: AnyArgs): void;

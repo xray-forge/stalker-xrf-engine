@@ -55,7 +55,7 @@ export class MockNetProcessor {
     }
   }
 
-  public r_boolean(): boolean {
+  public r_bool(): boolean {
     this.readDataOrder.push(EPacketDataType.BOOLEAN);
 
     if (this.hasData()) {
@@ -80,7 +80,7 @@ export class MockNetProcessor {
     this.dataList.push(data);
   }
 
-  public w_boolean(data: boolean): void {
+  public w_bool(data: boolean): void {
     this.writeDataOrder.push(EPacketDataType.BOOLEAN);
     this.dataList.push(data);
   }

@@ -1,4 +1,5 @@
 import { jest } from "@jest/globals";
+import { XR_CTime } from "xray16";
 
 /**
  * Mock CTime object.
@@ -10,6 +11,10 @@ export class MockCTime {
     time.set(y, m, d, h, min, sec, ms);
 
     return time;
+  }
+
+  public static mock(y: number, m: number, d: number, h: number, min: number, sec: number, ms: number): XR_CTime {
+    return MockCTime.create(y, m, d, h, min, sec, ms) as unknown as XR_CTime;
   }
 
   public y: number = 2012;
@@ -38,7 +43,7 @@ export class MockCTime {
     this.y = y;
     this.m = m;
     this.d = d;
-    this.h = min;
+    this.h = h;
     this.min = min;
     this.sec = sec;
     this.ms = ms;

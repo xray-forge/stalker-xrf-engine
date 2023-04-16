@@ -9,7 +9,7 @@ import {
   XR_net_packet,
 } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { portableStoreGet, portableStoreSet, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { isStalker } from "@/engine/core/utils/check/is";
@@ -90,6 +90,8 @@ let taken_artefacts = {} as unknown as LuaTable<number, number>;
  * todo;
  */
 export class StatisticsManager extends AbstractCoreManager {
+  public static readonly USED_ANABIOTICS_COUNT_KEY: TName = "anabiotics_used";
+
   public actor_statistic: IActorStatistics = {
     surges: 0,
     completed_quests: 0,
@@ -203,6 +205,26 @@ export class StatisticsManager extends AbstractCoreManager {
   public incrementCollectedSecretsCount(): void {
     logger.info("Increment collected secrets count");
     this.actor_statistic.founded_secrets += 1;
+  }
+
+  /**
+   * todo: Description.
+   */
+  public incrementAnabioticsUsageCount(): void {
+    logger.info("Increment used anabiotics count");
+
+    portableStoreSet(
+      registry.actor,
+      StatisticsManager.USED_ANABIOTICS_COUNT_KEY,
+      portableStoreGet(registry.actor, StatisticsManager.USED_ANABIOTICS_COUNT_KEY, 0) + 1
+    );
+  }
+
+  /**
+   * todo: Description.
+   */
+  public getUsedAnabioticsCount(): TCount {
+    return portableStoreGet(registry.actor, StatisticsManager.USED_ANABIOTICS_COUNT_KEY, 0);
   }
 
   /**

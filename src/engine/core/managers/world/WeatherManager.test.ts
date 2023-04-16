@@ -66,7 +66,7 @@ describe("WeatherManager class", () => {
 
     newWeatherManager.load(mockNetProcessor(netProcessor));
 
-    expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.STRING, EPacketDataType.STRING, EPacketDataType.U16]);
+    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
     expect(newWeatherManager).not.toBe(weatherManager);
     expect(weatherManager.state).toEqual(newWeatherManager.state);

@@ -2,7 +2,7 @@ import { game, level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements/AchievementsManager";
-import { EAchievement } from "@/engine/core/managers/interaction/achievements/EAchievement";
+import { EAchievement } from "@/engine/core/managers/interaction/achievements/types";
 import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { sleep_cam_eff_id, SurgeManager } from "@/engine/core/managers/world/SurgeManager";

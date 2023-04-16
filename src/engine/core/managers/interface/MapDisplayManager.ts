@@ -147,13 +147,13 @@ export class MapDisplayManager extends AbstractCoreManager {
   public removeObjectMapSpot(object: XR_game_object, state: IRegistryObjectState): void {
     logger.info("Remove object spot:", object.name());
 
-    const sim: XR_alife_simulator = alife();
+    const simulator: XR_alife_simulator = alife();
 
-    if (!sim) {
+    if (!simulator) {
       return;
     }
 
-    const objectId: Maybe<TNumberId> = sim.object(object.id())?.id;
+    const objectId: Maybe<TNumberId> = simulator.object(object.id())?.id;
     let mapSpot: Optional<EMapMarkType> = readIniString<EMapMarkType>(
       state.ini,
       state.section_logic,

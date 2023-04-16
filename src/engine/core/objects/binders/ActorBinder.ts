@@ -28,8 +28,8 @@ import { loadPortableStore, savePortableStore } from "@/engine/core/database/por
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { updateSimulationObjectAvailability } from "@/engine/core/database/simulation";
 import { SaveManager } from "@/engine/core/managers";
-import { EGameEvent } from "@/engine/core/managers/events/EGameEvent";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
+import { EGameEvent } from "@/engine/core/managers/events/types";
 import { Actor } from "@/engine/core/objects/alife/Actor";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos/SchemeDeimos";
