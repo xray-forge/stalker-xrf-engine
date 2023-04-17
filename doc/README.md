@@ -18,3 +18,4 @@
 ## 🏗️ Engine
 
 - Scrips execution flow: [link](SCRIPTS_EXECUTION_FLOW.md)
+- Building custom game package: [link](BUILDING_CUSTOM_GAME_PACKAGE.md)

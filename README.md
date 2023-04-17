@@ -17,18 +17,20 @@ XRF template for stalker modifications. <br/>
 - Game configs from dynamic typescript
 - Simple translations generation
 - Game profiling / debugging tools
+- Creation of custom modded game package
 
 ## 📍 Purpose
 
-- Provide a shared template for mods development
+- Provide shared template for mods development
 - Produce documented and readable code, document xray SDK
-- Simplify development process, involve more people
+- Simplify development and building process, involve more people
 
 ---
 
 ## 📦 Main differences with original
 
 The intention of this engine template is to allow easier mod development without introducing breaking changes to the original plot. <br/>
+Optimizations, quality and logics updates are welcome.
 
 ## 📌What is used
 
