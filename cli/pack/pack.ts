@@ -73,7 +73,7 @@ export async function pack(parameters: IPackParameters): Promise<void> {
       log.info("Starting assets DB compress");
       log.pushNewLine();
 
-      await compress({ clean: true, verbose: parameters.verbose });
+      await compress({ clean: true, verbose: parameters.verbose, include: "all" });
     } else {
       log.info("Packaging from already built assets", WARING_SIGN);
     }

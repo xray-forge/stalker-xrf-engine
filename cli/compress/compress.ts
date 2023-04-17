@@ -13,6 +13,7 @@ import { deleteFileIfExists } from "#/utils/fs/delete_file_if_exists";
 const log: NodeLogger = new NodeLogger("COMPRESS");
 
 export interface ICompressParameters {
+  include: "all" | Array<string>;
   verbose?: boolean;
   clean?: boolean;
 }
@@ -35,20 +36,33 @@ export function compress(parameters: ICompressParameters): void {
 
   assert(existsSync(TARGET_GAME_DATA_DIR), "Expected gamedata build directory to exist.");
 
+  if (parameters.include !== "all") {
+    parameters.include.forEach((it) => {
+      assert(
+        config[it],
+        `Expected include to list existing field, got '${it}'. Valid options: '${Object.keys(config).join(",")}'.`
+      );
+    });
+  }
+
   try {
     createDirIfNoExisting(TARGET_DATABASE_DIR);
     copyConfig("fsgame.ltx");
     timeTracker.addMark("COMPRESS_PREPARATION");
 
     for (const [key, descriptor] of Object.entries(config)) {
-      compressWithConfig(key, {
-        fast: Boolean(descriptor["fast"]),
-        store: Boolean(descriptor["store"]),
-        folders: descriptor.folders,
-        files: descriptor.files,
-      });
+      if (parameters.include === "all" || parameters.include.includes(key)) {
+        compressWithConfig(key, {
+          fast: Boolean(descriptor["fast"]),
+          store: Boolean(descriptor["store"]),
+          folders: descriptor.folders,
+          files: descriptor.files,
+        });
 
-      timeTracker.addMark("COMPRESS_" + key.toUpperCase());
+        timeTracker.addMark(`COMPRESS_${key.toUpperCase()}`);
+      } else {
+        timeTracker.addMark(`COMPRESS_${key.toUpperCase()}_SKIP`);
+      }
     }
 
     removeConfig("fsgame.ltx");
