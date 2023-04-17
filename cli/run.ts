@@ -1,6 +1,7 @@
 import { Command } from "commander";
 
 import { setupBuildCommands } from "#/build/run";
+import { setupCompressCommands } from "#/compress/run";
 import { setupEngineCommands } from "#/engine/run";
 import { setupInfoCommands } from "#/info/run";
 import { setupLinkCommands } from "#/link/run";
@@ -14,6 +15,7 @@ import { setupVerifyCommands } from "#/verify/run";
 const program: Command = new Command("cli");
 
 setupBuildCommands(program);
+setupCompressCommands(program);
 setupInfoCommands(program);
 setupEngineCommands(program);
 setupLinkCommands(program);

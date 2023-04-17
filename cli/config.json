@@ -7,6 +7,9 @@
       "..\\..\\gamedata_resources"
     ]
   },
+  "compression": {
+    "XR_COMPRESS_PATH": "./bin/compression/xrCompress.exe"
+  },
   "targets": {
     "STALKER_GAME_FOLDER_PATH": "F:\\Applications\\Steam\\steamapps\\common\\Stalker Call of Pripyat",
     "STALKER_LOGS_FOLDER_PATH": "F:\\Applications\\Steam\\steamapps\\common\\Stalker Call of Pripyat\\_appdata_\\logs",
