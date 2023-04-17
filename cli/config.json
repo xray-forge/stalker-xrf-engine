@@ -4,7 +4,8 @@
   "resources": {
     "MOD_ASSETS_BASE_FOLDER": "..\\src\\resources\\",
     "MOD_ASSETS_OVERRIDE_FOLDERS": [
-      "..\\..\\stalker-xrf-resources-extended"
+      "..\\..\\stalker-xrf-resources-extended",
+      "..\\..\\stalker-xrf-resources-locale-ukr"
     ]
   },
   "compression": {
