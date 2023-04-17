@@ -3,7 +3,7 @@ import path from "path";
 
 import { default as chalk } from "chalk";
 
-import { getEnginesList } from "#/engine/list_engines";
+import { isValidEngine } from "#/engine/list_engines";
 import { GAME_BIN_BACKUP_PATH, GAME_BIN_PATH, OPEN_XRAY_ENGINES_DIR } from "#/globals";
 import { exists, NodeLogger } from "#/utils";
 
@@ -16,9 +16,8 @@ const log: NodeLogger = new NodeLogger("USE_ENGINE");
  */
 export async function useEngine(target: string): Promise<void> {
   const desiredVersion: string = String(target).trim();
-  const engines: Array<string> = await getEnginesList();
 
-  if (engines.includes(desiredVersion)) {
+  if (isValidEngine(desiredVersion)) {
     const engineBinDir: string = path.resolve(OPEN_XRAY_ENGINES_DIR, desiredVersion, "bin");
     const possibleBinDescriptor: string = path.resolve(GAME_BIN_PATH, "bin.json");
     const isBinFolderExist: boolean = await exists(GAME_BIN_PATH);
@@ -42,6 +41,6 @@ export async function useEngine(target: string): Promise<void> {
     log.info("Link result:", chalk.green("OK"), "\n");
   } else {
     log.error("Supplied unknown engine version:", chalk.yellow(desiredVersion));
-    log.error("Only following are available:", engines);
+    log.error("Only following are available:");
   }
 }

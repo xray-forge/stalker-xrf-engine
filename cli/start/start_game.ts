@@ -2,7 +2,7 @@ import * as cp from "child_process";
 
 import { default as chalk } from "chalk";
 
-import { default as config } from "#/config.json";
+import { GAME_EXE_PATH } from "#/globals";
 import { NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("START_GAME");
@@ -13,7 +13,7 @@ const log: NodeLogger = new NodeLogger("START_GAME");
 export async function startGame(): Promise<void> {
   log.info("Starting game:");
 
-  const cmd: string = `"${config.targets.STALKER_GAME_FOLDER_PATH}\\${config.targets.STALKER_GAME_EXE_NAME}"`;
+  const cmd: string = `"${GAME_EXE_PATH}"`;
 
   log.info("Starting game exe:", chalk.yellow(cmd));
 

@@ -1,4 +1,4 @@
-import fsPromises from "fs/promises";
+import * as fs from "fs";
 
 import { default as chalk } from "chalk";
 
@@ -13,7 +13,7 @@ const log: NodeLogger = new NodeLogger("LIST_ENGINES");
 export async function printEnginesList(): Promise<void> {
   log.info("Available engines:");
 
-  const engines: Array<string> = await getEnginesList();
+  const engines: Array<string> = getEnginesList();
 
   engines.forEach((it) => log.info("->", chalk.yellow(it)));
 }
@@ -21,6 +21,13 @@ export async function printEnginesList(): Promise<void> {
 /**
  * Return list of available binaries.
  */
-export async function getEnginesList(): Promise<Array<string>> {
-  return await fsPromises.readdir(OPEN_XRAY_ENGINES_DIR);
+export function getEnginesList(): Array<string> {
+  return fs.readdirSync(OPEN_XRAY_ENGINES_DIR);
+}
+
+/**
+ * Check if engine is valid.
+ */
+export function isValidEngine(engine: string): boolean {
+  return getEnginesList().includes(engine);
 }

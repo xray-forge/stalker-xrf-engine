@@ -52,7 +52,7 @@ export async function build(parameters: IBuildCommandParameters): Promise<void> 
      * Inform about logs strip step.
      */
     if (!parameters.luaLogs) {
-      log.info("Lua logger is disabled");
+      log.info("Lua logger is disabled, strip all calls from resulting LUA bundle");
     }
 
     /**

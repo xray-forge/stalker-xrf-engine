@@ -4,11 +4,15 @@
   "resources": {
     "MOD_ASSETS_BASE_FOLDER": "..\\src\\resources\\",
     "MOD_ASSETS_OVERRIDE_FOLDERS": [
-      "..\\..\\gamedata_resources"
+      "..\\..\\stalker-xrf-resources-extended"
     ]
   },
   "compression": {
     "XR_COMPRESS_PATH": "./bin/compression/xrCompress.exe"
+  },
+  "package": {
+    "engine": "gold",
+    "gamedata": ["lualib_bundle.script", "scripts", "core", "lib"]
   },
   "targets": {
     "STALKER_GAME_FOLDER_PATH": "F:\\Applications\\Steam\\steamapps\\common\\Stalker Call of Pripyat",

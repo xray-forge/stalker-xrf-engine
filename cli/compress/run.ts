@@ -9,6 +9,7 @@ export function setupCompressCommands(command: Command): void {
   command
     .command("compress")
     .description("compress resulting gamedata and pack into archives")
+    .addOption(new Option("-c, --clean", "clean destination directory"))
     .addOption(new Option("--verbose", "verbose logging"))
     .action(compress);
 }

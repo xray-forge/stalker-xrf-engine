@@ -3,10 +3,13 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
+import { default as config } from "#/config.json";
 import {
   CLI_CONFIG,
+  CLI_DIR,
   GAME_BIN_JSON_PATH,
   GAME_BIN_PATH,
+  GAME_EXE_PATH,
   GAME_GAMEDATA_PATH,
   GAME_LOGS_PATH,
   GAME_PATH,
@@ -31,11 +34,15 @@ export async function verify(): Promise<void> {
     await verifyGameEngine();
     await verifyGamedataLink();
     await verifyLogsLink();
+    await verifyAssets();
   } catch (error) {
     log.error("Verification failed:", chalk.red(error.message));
   }
 }
 
+/**
+ * Verify if project config exists.
+ */
 async function verifyConfig(): Promise<void> {
   if (await exists(CLI_CONFIG)) {
     log.info("Project cli/config.json:", chalk.greenBright("OK"));
@@ -44,14 +51,26 @@ async function verifyConfig(): Promise<void> {
   }
 }
 
+/**
+ * Verify if project game path exists and is correct.
+ */
 async function verifyGamePath(): Promise<void> {
   if (await exists(GAME_PATH)) {
     log.info("Game folder:", chalk.greenBright("OK"));
   } else {
     log.warn(chalk.yellow("Game folder is not linked, set path in cli/config.json:"), chalk.yellow(GAME_PATH));
   }
+
+  if (await exists(GAME_EXE_PATH)) {
+    log.info("Game folder:", chalk.greenBright("OK"));
+  } else {
+    log.warn(chalk.yellow("Game folder is not linked, set path in cli/config.json:"), chalk.yellow(GAME_PATH));
+  }
 }
 
+/**
+ * Check if game is linked in gamedata.
+ */
 async function verifyGameLink(): Promise<void> {
   if (await exists(TARGET_GAME_LINK_DIR)) {
     log.info("Game link:", chalk.greenBright("OK"));
@@ -60,6 +79,30 @@ async function verifyGameLink(): Promise<void> {
   }
 }
 
+/**
+ * Check if game assets are linked and extended
+ */
+async function verifyAssets(): Promise<void> {
+  const baseResourcesPath: string = config.resources.MOD_ASSETS_BASE_FOLDER;
+
+  if (await exists(path.resolve(CLI_DIR, config.resources.MOD_ASSETS_BASE_FOLDER))) {
+    log.info("Base game resources:", chalk.yellowBright(baseResourcesPath), chalk.greenBright("OK"));
+  } else {
+    log.warn("Base game resources:", chalk.yellowBright(baseResourcesPath), chalk.yellow("FAIL"), "(issues possible)");
+  }
+
+  for (const entry of config.resources.MOD_ASSETS_OVERRIDE_FOLDERS) {
+    if (await exists(path.resolve(CLI_DIR, entry))) {
+      log.info("Override resources:", chalk.yellowBright(entry), chalk.greenBright("OK"));
+    } else {
+      log.warn("Override resources:", chalk.yellowBright(entry), chalk.yellow("FAIL"), "(packaging issues possible)");
+    }
+  }
+}
+
+/**
+ * Check if any custom engine is used.
+ */
 async function verifyGameEngine(): Promise<void> {
   const isGameDirPresent: boolean = await exists(GAME_PATH);
   const isBinDirPresent: boolean = await exists(GAME_BIN_PATH);
@@ -79,6 +122,9 @@ async function verifyGameEngine(): Promise<void> {
   }
 }
 
+/**
+ * Check if gamedata folders are linked.
+ */
 async function verifyGamedataLink(): Promise<void> {
   try {
     const linkPath: string = await fs.readlink(GAME_GAMEDATA_PATH);
@@ -93,6 +139,9 @@ async function verifyGamedataLink(): Promise<void> {
   }
 }
 
+/**
+ * Check if logs folders are linked.
+ */
 async function verifyLogsLink(): Promise<void> {
   try {
     const linkPath: string = await fs.readlink(TARGET_LOGS_LINK_DIR);

@@ -11,7 +11,7 @@ import { NodeLogger } from "#/utils";
 import { TPath } from "@/engine/lib/types";
 
 const log: NodeLogger = new NodeLogger("BUILD_ASSET_STATICS");
-const EXPECTED_FILES: Array<string> = ["README.md", "LICENSE", ".git", ".gitignore", ".gitattributes"];
+const GENERIC_FILES: Array<string> = ["README.md", "LICENSE", ".git", ".gitignore", ".gitattributes"];
 const UNEXPECTED_DIRECTORIES: Array<string> = ["core", "configs", "forms,", "lib", "scripts"];
 
 /**
@@ -65,8 +65,8 @@ async function copyStaticAssetsFromFolder(resourcesFolderPath: TPath): Promise<v
           return path.join(resourcesFolderPath, dirent.name);
         }
 
-        if (!EXPECTED_FILES.includes(dirent.name)) {
-          log.warn(`Unexpected file in resources folder: '${dirent.name}'. It will be ignored.`);
+        if (!GENERIC_FILES.includes(dirent.name)) {
+          return path.join(resourcesFolderPath, dirent.name);
         }
 
         return null;

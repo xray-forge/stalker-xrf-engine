@@ -1,0 +1,46 @@
+{
+  "configs": {
+    "files": [],
+    "folders": [
+      "configs",
+      "spawns",
+      "anims",
+      "ai"
+    ]
+  },
+  "levels": {
+    "fast": true,
+    "files": [],
+    "folders": [
+      "levels"
+    ]
+  },
+  "resources": {
+    "fast": true,
+    "files": [],
+    "folders": [
+      "textures",
+      "meshes"
+    ]
+  },
+  "shaders": {
+    "files": [
+      "gamemtl.xr",
+      "lanims.xr",
+      "particles.xr",
+      "senvironment.xr",
+      "shaders.xr",
+      "shaders_xrlc.xr"
+    ],
+    "folders": [
+      "shaders"
+    ]
+  },
+  "sounds": {
+    "store": true,
+    "files": [],
+    "folders": [
+      "sounds"
+    ]
+  }
+}

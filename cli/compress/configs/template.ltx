@@ -1,11 +1,12 @@
 ;; Like default game build, include configs and related scripts.
-
 [options]
 exclude_exts = *.txt,*.json
 
+[include_files]
+;$files$
+
 [include_folders]
-;<path> = <recurse>
-configs = true
+;$folders$
 
 [header]
 auto_load = true

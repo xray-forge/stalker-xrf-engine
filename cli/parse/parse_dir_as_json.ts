@@ -4,7 +4,7 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { ROOT_DIR, TARGET_PARSED } from "#/globals/paths";
+import { ROOT_DIR, TARGET_PARSED_DIR } from "#/globals/paths";
 import { NodeLogger, readDirContentFlat } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("PARSE_DIR_AS_JSON");
@@ -19,7 +19,7 @@ interface IParseDirParameters {
 export async function parseDirAsJson(targetPath: string, parameters: IParseDirParameters): Promise<void> {
   if (targetPath) {
     const parseTargetPath: string = path.resolve(ROOT_DIR, targetPath);
-    const targetFilePath: string = path.resolve(TARGET_PARSED, `${path.parse(parseTargetPath).base}.json`);
+    const targetFilePath: string = path.resolve(TARGET_PARSED_DIR, `${path.parse(parseTargetPath).base}.json`);
 
     log.info("Parsing game dir as json:", chalk.yellowBright(parseTargetPath));
 
@@ -31,9 +31,9 @@ export async function parseDirAsJson(targetPath: string, parameters: IParseDirPa
 
     log.info("Writing parsed tree to:", chalk.yellowBright(targetFilePath));
 
-    if (!fs.existsSync(TARGET_PARSED)) {
-      log.debug("MKDIR:", chalk.yellowBright(TARGET_PARSED));
-      fs.mkdirSync(TARGET_PARSED, { recursive: true });
+    if (!fs.existsSync(TARGET_PARSED_DIR)) {
+      log.debug("MKDIR:", chalk.yellowBright(TARGET_PARSED_DIR));
+      fs.mkdirSync(TARGET_PARSED_DIR, { recursive: true });
     }
 
     const resultingObject: Record<string, string> = tree.reduce((acc, it) => {
