@@ -20,8 +20,8 @@ export async function printInfo(): Promise<void> {
   log.info("Project name:", pkg.name);
   log.info(separator);
 
-  log.info("Game folder:", chalk.yellow(config.targets.STALKER_GAME_FOLDER_PATH));
-  log.info("Game exe:", chalk.yellow(config.targets.STALKER_GAME_EXE_NAME));
+  log.info("Game folder:", chalk.yellow(config.targets.stalker_game_folder_path));
+  log.info("Game exe:", chalk.yellow(config.targets.stalker_game_exe_path));
   log.info(separator);
 
   log.info("Target build folder:", chalk.yellow(TARGET_GAME_DATA_DIR));

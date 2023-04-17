@@ -10,8 +10,8 @@ import { readLastLinesOfFile } from "#/utils/fs/read_last_lines_of_file";
 
 import { Optional } from "@/engine/lib/types";
 
-const GAME_DIR: string = path.resolve(config.targets.STALKER_GAME_FOLDER_PATH);
-const GAME_LOGS_DIR: string = path.resolve(config.targets.STALKER_LOGS_FOLDER_PATH);
+const GAME_DIR: string = path.resolve(config.targets.stalker_game_folder_path);
+const GAME_LOGS_DIR: string = path.resolve(config.targets.stalker_logs_folder_path);
 const GAME_BIN_DESCRIPTOR_DIR: string = path.resolve(GAME_DIR, "bin/bin.json");
 
 const log: NodeLogger = new NodeLogger("LOGS");

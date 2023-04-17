@@ -33,12 +33,12 @@ export const TARGET_PACKAGE_DIR: string = path.resolve(TARGET_DIR, "package");
 
 export const TARGET_PREVIEW_DIR: string = path.resolve(TARGET_DIR, "preview");
 
-export const XR_COMPRESS_PATH: string = path.resolve(CLI_DIR, config.compression.XR_COMPRESS_PATH);
+export const XR_COMPRESS_PATH: string = path.resolve(CLI_DIR, config.compression.xr_compress_path);
 
-export const GAME_PATH: string = path.resolve(CLI_DIR, config.targets.STALKER_GAME_FOLDER_PATH);
-export const GAME_EXE_PATH: string = path.resolve(GAME_PATH, config.targets.STALKER_GAME_EXE_NAME);
+export const GAME_PATH: string = path.resolve(CLI_DIR, config.targets.stalker_game_folder_path);
+export const GAME_EXE_PATH: string = path.resolve(GAME_PATH, config.targets.stalker_game_exe_path);
 export const GAME_BIN_PATH: string = path.resolve(GAME_PATH, "bin");
 export const GAME_BIN_BACKUP_PATH: string = path.resolve(GAME_PATH, XR_ENGINE_BACKUP_DIR);
 export const GAME_BIN_JSON_PATH: string = path.resolve(GAME_BIN_PATH, "bin.json");
 export const GAME_GAMEDATA_PATH: string = path.resolve(GAME_PATH, "gamedata");
-export const GAME_LOGS_PATH: string = path.resolve(CLI_DIR, config.targets.STALKER_LOGS_FOLDER_PATH);
+export const GAME_LOGS_PATH: string = path.resolve(CLI_DIR, config.targets.stalker_logs_folder_path);

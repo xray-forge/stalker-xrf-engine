@@ -2,13 +2,11 @@
 
 ## 🧰 Main todos
 
-- Create xrf.ltx config and place configs in it
+- Create xrf.ltx config and place extended game configs in it
 - Scripts to unpack raw_gamedata for observation / usage
 - Rework acdc perl script and add all.spawn editing utils
-- Add scripts to handle xrEngine tools
 - Interop with level editor tools etc
-- Implement OXR versions window and other script additions
-- Add jest tests to verify saving is done in a correct order
+- Add linux/windows custom CLI script
 
 ## 🧰 Requests to open x-ray
 

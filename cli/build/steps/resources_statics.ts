@@ -20,8 +20,8 @@ const UNEXPECTED_DIRECTORIES: Array<string> = ["core", "configs", "forms,", "lib
 export async function buildResourcesStatics(): Promise<void> {
   log.info(chalk.blueBright("Build resources"));
 
-  const configuredDefaultPath: TPath = path.resolve(CLI_DIR, config.resources.MOD_ASSETS_BASE_FOLDER);
-  const configuredTargetPath: Array<TPath> = config.resources.MOD_ASSETS_OVERRIDE_FOLDERS.map((it) => {
+  const configuredDefaultPath: TPath = path.resolve(CLI_DIR, config.resources.mod_assets_base_folder);
+  const configuredTargetPath: Array<TPath> = config.resources.mod_assets_override_folders.map((it) => {
     return path.resolve(CLI_DIR, it);
   });
 

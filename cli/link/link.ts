@@ -33,7 +33,7 @@ export async function linkFolders(): Promise<void> {
 async function linkGamedataFolders(): Promise<void> {
   log.info("Linking gamedata folders");
 
-  const gameGamedataFolderPath: string = path.resolve(config.targets.STALKER_GAME_FOLDER_PATH, "gamedata");
+  const gameGamedataFolderPath: string = path.resolve(config.targets.stalker_game_folder_path, "gamedata");
 
   if (await exists(gameGamedataFolderPath)) {
     if (isForceLink) {
@@ -58,7 +58,7 @@ async function linkGamedataFolders(): Promise<void> {
 async function linkGameFolder(): Promise<void> {
   log.info("Linking game folders");
 
-  const gameFolderPath: string = path.resolve(config.targets.STALKER_GAME_FOLDER_PATH);
+  const gameFolderPath: string = path.resolve(config.targets.stalker_game_folder_path);
 
   if (await exists(TARGET_GAME_LINK_DIR)) {
     if (isForceLink) {
@@ -83,7 +83,7 @@ async function linkGameFolder(): Promise<void> {
 async function linkLogsFolders(): Promise<void> {
   log.info("Linking logs folders");
 
-  const logsFolderPath: string = path.resolve(config.targets.STALKER_LOGS_FOLDER_PATH);
+  const logsFolderPath: string = path.resolve(config.targets.stalker_logs_folder_path);
 
   if (await exists(TARGET_LOGS_LINK_DIR)) {
     if (isForceLink) {

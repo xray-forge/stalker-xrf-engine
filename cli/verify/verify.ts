@@ -83,15 +83,15 @@ async function verifyGameLink(): Promise<void> {
  * Check if game assets are linked and extended
  */
 async function verifyAssets(): Promise<void> {
-  const baseResourcesPath: string = config.resources.MOD_ASSETS_BASE_FOLDER;
+  const baseResourcesPath: string = config.resources.mod_assets_base_folder;
 
-  if (await exists(path.resolve(CLI_DIR, config.resources.MOD_ASSETS_BASE_FOLDER))) {
+  if (await exists(path.resolve(CLI_DIR, config.resources.mod_assets_base_folder))) {
     log.info("Base game resources:", chalk.yellowBright(baseResourcesPath), chalk.greenBright("OK"));
   } else {
     log.warn("Base game resources:", chalk.yellowBright(baseResourcesPath), chalk.yellow("FAIL"), "(issues possible)");
   }
 
-  for (const entry of config.resources.MOD_ASSETS_OVERRIDE_FOLDERS) {
+  for (const entry of config.resources.mod_assets_override_folders) {
     if (await exists(path.resolve(CLI_DIR, entry))) {
       log.info("Override resources:", chalk.yellowBright(entry), chalk.greenBright("OK"));
     } else {

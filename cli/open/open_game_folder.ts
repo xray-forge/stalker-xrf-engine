@@ -14,7 +14,7 @@ export async function openGameFolder(): Promise<void> {
   log.info("Opening game folder");
 
   try {
-    const gameFolderPath: string = path.resolve(config.targets.STALKER_GAME_FOLDER_PATH);
+    const gameFolderPath: string = path.resolve(config.targets.stalker_game_folder_path);
 
     log.info("Open system explorer in:", chalk.yellow(gameFolderPath));
 

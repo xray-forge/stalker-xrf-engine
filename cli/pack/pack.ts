@@ -131,7 +131,7 @@ function copyGameEngine(engine: string): void {
   }
 
   log.info("Copy game executable:", chalk.yellowBright(GAME_EXE_PATH));
-  cpSync(GAME_EXE_PATH, path.resolve(TARGET_PACKAGE_DIR, config.targets.STALKER_GAME_EXE_NAME));
+  cpSync(GAME_EXE_PATH, path.resolve(TARGET_PACKAGE_DIR, config.targets.stalker_game_exe_path));
 }
 
 /**

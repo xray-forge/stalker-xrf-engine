@@ -18,7 +18,7 @@ export async function unlinkFolders(): Promise<void> {
   log.info("Unlinking engine development folders");
 
   try {
-    const gameGamedataFolderPath: string = path.resolve(config.targets.STALKER_GAME_FOLDER_PATH, "gamedata");
+    const gameGamedataFolderPath: string = path.resolve(config.targets.stalker_game_folder_path, "gamedata");
 
     await unlink(gameGamedataFolderPath);
     await unlink(TARGET_LOGS_LINK_DIR);
