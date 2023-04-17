@@ -98,3 +98,10 @@ Optimizations, quality and logics updates are welcome.
 
 - Development and game documentation: [docs](doc/README.md)
 - Types and game bindings: [source](https://github.com/xray-forge/xray-16-types), [docs](https://xray-forge.github.io/xray-16-types/modules.html)
+
+## 🏗️ Assets
+
+- Extended assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-extended](https://gitlab.com/xray-forge/stalker-xrf-resources-extended)
+- EN locale assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-locale-en](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-en)
+- UA locale assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-locale-ukr](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-ukr)
+- RU locale assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-locale-ru](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-ru)
