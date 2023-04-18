@@ -1,0 +1,35 @@
+import { JSXNode, JSXXML } from "jsx-xml";
+
+export const IS_XML: boolean = true;
+
+export function create(): JSXNode {
+  return (
+    <window>
+      <minimap>
+        <level_frame x={0.099} y={0.14} width={0.199} height={0.199} stretch="1" alignment="c" />
+
+        <background width={0.27} height={0.27} stretch="1" alignment="c">
+          <texture>ui_inGame2_Radar_main_window</texture>
+        </background>
+
+        <clock_wnd x="0.15" y="0.86" width="39" height="16" alignment="c">
+          <text x="0" y="0" font="letterica16" color="ui_7" align="c" vert_align="c" />
+        </clock_wnd>
+
+        <compass x="0.15" y="0.11" width="9" height="30" heading="1" alignment="c">
+          <texture>ui_inGame2_Radar_compass</texture>
+        </compass>
+
+        <center width="4" height="4" alignment="c" stretch="1">
+          <texture>ui_minimap_point</texture>
+        </center>
+
+        <static_counter x="0.94" y="0.5" width="18" height="17" alignment="c">
+          <text_static width="18" height="17">
+            <text align="c" font="graffiti19" color="ui_7" />
+          </text_static>
+        </static_counter>
+      </minimap>
+    </window>
+  );
+}

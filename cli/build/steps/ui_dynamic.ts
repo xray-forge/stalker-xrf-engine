@@ -3,6 +3,7 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
+import { IBuildCommandParameters } from "#/build/build";
 import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/globals/paths";
 import { createDirForConfigs, NodeLogger, readDirContent } from "#/utils";
 import { renderJsxToXmlText } from "#/utils/xml";
@@ -15,10 +16,11 @@ const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".tsx", ".ts"];
 /**
  * Build XML game forms from JSX forms.
  */
-export async function buildDynamicUi(): Promise<void> {
+export async function buildDynamicUi(parameters: IBuildCommandParameters): Promise<void> {
   log.info(chalk.blueBright("Build dynamic UI schemas"));
+  log.debug("Parameters:", parameters);
 
-  const xmlConfigs: Array<TFolderReplicationDescriptor> = await getUiConfigs();
+  const xmlConfigs: Array<TFolderReplicationDescriptor> = await getUiConfigs(parameters.filter);
 
   if (xmlConfigs.length > 0) {
     log.info("Found dynamic XML configs");
@@ -54,7 +56,7 @@ export async function buildDynamicUi(): Promise<void> {
 /**
  * Get list of UI config files in engine source files.
  */
-async function getUiConfigs(): Promise<Array<TFolderReplicationDescriptor>> {
+async function getUiConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
   function collectXmlConfigs(
     acc: Array<TFolderReplicationDescriptor>,
     it: TFolderFiles
@@ -64,7 +66,10 @@ async function getUiConfigs(): Promise<Array<TFolderReplicationDescriptor>> {
     } else if (EXPECTED_DYNAMIC_XML_EXTENSIONS.includes(path.extname(it))) {
       const to: string = it.slice(GAME_DATA_UI_DIR.length).replace(/\.[^/.]+$/, "") + ".xml";
 
-      acc.push([it, path.join(TARGET_GAME_DATA_UI_DIR, to)]);
+      // Filter.
+      if (!filters.length || filters.some((filter) => it.match(filter))) {
+        acc.push([it, path.join(TARGET_GAME_DATA_UI_DIR, to)]);
+      }
     }
 
     return acc;

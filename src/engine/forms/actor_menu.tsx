@@ -1,5 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
+import { captions } from "@/engine/lib/constants/captions";
+
 export const IS_XML: boolean = true;
 
 export function create(): JSXNode {
@@ -190,7 +192,7 @@ export function create(): JSXNode {
         <texture>ui_inGame2_center_trade_devider</texture>
         <trade_caption x="147" y="74" width="60" height="16">
           <text align="r" font="letterica16" color="ui_3">
-            ui_total_price
+            {captions.ui_total_price}
           </text>
         </trade_caption>
         <trade_price x="207" y="74" width="50" height="16">

@@ -2,7 +2,6 @@ import * as fs from "fs";
 
 import { default as chalk } from "chalk";
 
-import { IBuildCommandParameters } from "#/build/run";
 import {
   buildDynamicConfigs,
   buildDynamicScripts,
@@ -32,6 +31,15 @@ export enum EBuildTarget {
   UI = "ui",
 }
 
+export interface IBuildCommandParameters {
+  verbose?: boolean;
+  luaLogs?: boolean;
+  clean?: boolean;
+  include: "all" | Array<EBuildTarget>;
+  exclude: Array<EBuildTarget>;
+  filter?: Array<EBuildTarget>;
+}
+
 /**
  * Main workflow for building game assets.
  * Builds separate parts of gamedata and collects log with metadata information.
@@ -53,6 +61,11 @@ export async function build(parameters: IBuildCommandParameters): Promise<void> 
      */
     if (!parameters.luaLogs) {
       log.info("Lua logger is disabled, strip all calls from resulting LUA bundle");
+    }
+
+    // Do not allow filtering 'all' builds.
+    if (parameters.filter?.length && parameters.include.length === 1 && parameters.include[0] === "all") {
+      throw new Error("Provided filter parameter, cannot use it when target is 'all'");
     }
 
     /**
@@ -81,7 +94,7 @@ export async function build(parameters: IBuildCommandParameters): Promise<void> 
      * Build game XML forms from JSX / copy static XML.
      */
     if (buildTargets.includes(EBuildTarget.UI)) {
-      await buildDynamicUi();
+      await buildDynamicUi(parameters);
       timeTracker.addMark("BUILT_DYNAMIC_UI");
       await buildStaticUi();
       timeTracker.addMark("BUILT_STATIC_UI");

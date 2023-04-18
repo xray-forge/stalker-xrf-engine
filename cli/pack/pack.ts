@@ -68,6 +68,7 @@ export async function pack(parameters: IPackParameters): Promise<void> {
         luaLogs: !parameters.optimize,
         include: "all",
         exclude: [],
+        filter: [],
       });
 
       log.info("Starting assets DB compress");
