@@ -10,9 +10,9 @@ and bundled together with custom engine.
 
 Comparing to normal gamedata builds the only needed thing is full assets list. <br/>
 To build package you will need [extended](https://gitlab.com/xray-forge/stalker-xrf-resources-extended) assets
-and one of locales, for example [en](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-en). <br/>
+and one of locales packs, for example [en](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-en). <br/>
 
-After cloning suggested repositories or providing custom assets, you should list them in 'config.json'.
+After cloning suggested repositories or providing custom assets, you should list them in 'config.json' if paths are different from already suggested.
 
 ### 🏗️ Running build
 
@@ -31,7 +31,7 @@ npm run cli pack -- --engine release --build
 ```
 
 
-### 🏗️ Assets
+### 🏗️ Assets links
 
 - Extended assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-extended](https://gitlab.com/xray-forge/stalker-xrf-resources-extended)
 - EN locale assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-locale-en](https://gitlab.com/xray-forge/stalker-xrf-resources-locale-en)

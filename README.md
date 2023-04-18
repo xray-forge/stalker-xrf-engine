@@ -6,7 +6,7 @@
 [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/Neloreck/dreamstate/blob/master/LICENSE)
 
 <p>
-XRF template for stalker modifications. <br/>
+XRF template for stalker mods and modded game packages. <br/>
 </p>
 
 ## 📦 In short
@@ -27,7 +27,7 @@ XRF template for stalker modifications. <br/>
 
 ---
 
-## 📦 Main differences with original
+## 📦 Main differences from original
 
 The intention of this engine template is to allow easier mod development without introducing breaking changes to the original plot. <br/>
 Optimizations, quality and logics updates are welcome.

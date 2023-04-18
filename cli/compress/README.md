@@ -9,6 +9,7 @@ Script to create compressed .db files from built game assets.
 List of arguments:
 
 - `-c, --clean` - perform destination clean
+- `"-i, --include <targets...>` - compress only listed targets
 - `-v, --verbose ` - use verbose logging
 - `-h, --help` - display help for command
 

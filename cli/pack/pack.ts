@@ -10,13 +10,12 @@ import { default as config } from "#/config.json";
 import { isValidEngine } from "#/engine/list_engines";
 import {
   CLI_DIR,
-  GAME_PATH,
   OPEN_XRAY_ENGINES_DIR,
   TARGET_DATABASE_DIR,
   TARGET_GAME_DATA_DIR,
   TARGET_PACKAGE_DIR,
 } from "#/globals";
-import { createDirIfNoExisting, exists, NodeLogger, TimeTracker } from "#/utils";
+import { createDirIfNoExisting, NodeLogger, TimeTracker } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("PACK");
 
@@ -55,7 +54,6 @@ export async function pack(parameters: IPackParameters): Promise<void> {
     }
 
     assert(isValidEngine(engine), `Expected engine to be valid, got '${engine}'.`);
-    assert(await exists(GAME_PATH), "Expected existing game to be linked.");
 
     const timeTracker: TimeTracker = new TimeTracker().start();
 

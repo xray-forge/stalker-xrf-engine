@@ -21,7 +21,7 @@ import { default as pkg } from "#/../package.json";
 const log: NodeLogger = new NodeLogger("BUILD_ALL");
 
 /**
- * todo;
+ * Enumeration of possible gamedata assets to build.
  */
 export enum EBuildTarget {
   CONFIGS = "configs",

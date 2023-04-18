@@ -14,7 +14,8 @@
     "typecheck": "tstl -P ./cli/build/tsconfig.scripts.json --noEmit",
     "format": "prettier --write \"**/*.(js|ts|tsx|md)\" && eslint . --ext .ts,.tsx,.js --fix",
     "lint": "eslint . --ext .ts,.tsx,.js",
-    "test": "jest"
+    "test": "jest",
+    "help": "ts-node -P ./cli/tsconfig.json cli/run.ts -h"
   },
   "jest": {
     "preset": "./cli/test/jest.config.ts"

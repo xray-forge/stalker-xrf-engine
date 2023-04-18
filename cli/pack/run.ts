@@ -8,6 +8,7 @@ import { pack } from "#/pack/pack";
 export function setupPackCommands(command: Command): void {
   command
     .command("pack")
+    .description("create custom game build package")
     .addOption(new Option("-b, --build", "run build before creation"))
     .addOption(new Option("-e, --engine <type>", "use provided engine"))
     .addOption(new Option("-o, --optimize", "use build optimizations"))

@@ -46,9 +46,10 @@ export function compress(parameters: ICompressParameters): void {
   }
 
   try {
+    timeTracker.addMark("COMPRESS_PREPARATION");
+
     createDirIfNoExisting(TARGET_DATABASE_DIR);
     copyConfig("fsgame.ltx");
-    timeTracker.addMark("COMPRESS_PREPARATION");
 
     for (const [key, descriptor] of Object.entries(config)) {
       if (parameters.include === "all" || parameters.include.includes(key)) {
@@ -93,7 +94,9 @@ function compressWithConfig(
   log.info("Folders:", chalk.blue(folders.length));
   log.debug("Folders:", chalk.yellow(JSON.stringify(JSON.stringify(folders))));
 
-  // Create exec config.
+  /**
+   * Create LTX compression config from template.
+   */
   createLtxCompressionConfig(configFileName, { files, folders });
 
   const command: string = `${XR_COMPRESS_PATH} ${TARGET_GAME_DATA_DIR} -ltx ${configFileName} ${fast ? "-fast" : ""} ${
@@ -102,16 +105,22 @@ function compressWithConfig(
 
   log.info("Execute:", chalk.blue(command));
 
-  // Start xrCompress from target directory.
+  /**
+   * Start xrCompress and set CWD to target dir.
+   */
   cp.execSync(command, {
     cwd: TARGET_DIR,
     stdio: NodeLogger.IS_VERBOSE ? "inherit" : "ignore",
   });
 
-  // Remove exec config.
+  /**
+   * Remove generated build ltx.
+   */
   removeConfig(configFileName);
 
-  // Move compressed files to compress dir.
+  /**
+   * Move compressed DB files to target DB directory.
+   */
   readdirSync(TARGET_DIR, { withFileTypes: true }).forEach((it) => {
     if (it.isFile() && it.name.startsWith("gamedata.pack_")) {
       const index: number = Number.parseInt(it.name.match(/\d+/)[0]);
