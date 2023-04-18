@@ -19,16 +19,19 @@ import { mockNetPacket } from "@/fixtures/xray/mocks/save";
 
 describe("SaveManager class", () => {
   const mockLifecycleMethods = () => {
-    const store: Array<string> = [];
+    const saveOrder: Array<TAbstractCoreManagerConstructor> = [];
+    const loadOrder: Array<TAbstractCoreManagerConstructor> = [];
 
     for (const [managerClass, managerInstance] of registry.managers) {
-      (managerClass as AnyObject).save = jest.fn(() => store.push(managerClass.name));
+      (managerClass as AnyObject).save = jest.fn(() => saveOrder.push(managerClass));
+      (managerClass as AnyObject).load = jest.fn(() => loadOrder.push(managerClass));
 
-      managerInstance.save = jest.fn(() => store.push(managerClass.name));
+      managerInstance.save = jest.fn(() => saveOrder.push(managerClass));
+      managerInstance.load = jest.fn(() => loadOrder.push(managerClass));
       managerInstance.initialize = jest.fn();
     }
 
-    return store;
+    return [saveOrder, loadOrder];
   };
 
   beforeEach(() => {
@@ -50,10 +53,19 @@ describe("SaveManager class", () => {
 
     expectedOrder.forEach((it) => initializeManager(it));
 
-    const saveOrder: Array<string> = mockLifecycleMethods();
+    const [saveOrder, loadOrder] = mockLifecycleMethods();
 
     expect(saveOrder).toEqual([]);
+    expect(loadOrder).toEqual([]);
+
     SaveManager.getInstance().save(mockNetPacket());
-    expect(saveOrder).toEqual(expectedOrder.map((it) => it.name));
+
+    expect(saveOrder).toEqual(expectedOrder);
+    expect(loadOrder).toEqual([]);
+
+    SaveManager.getInstance().load(mockNetPacket());
+
+    expect(saveOrder).toEqual(expectedOrder);
+    expect(loadOrder).toEqual(expectedOrder);
   });
 });
