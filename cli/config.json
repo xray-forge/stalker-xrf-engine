@@ -6,8 +6,8 @@
     "mod_assets_override_folders": [
       "..\\..\\stalker-xrf-resources-extended",
       "..\\..\\stalker-xrf-resources-locale-en",
-      "..\\..\\stalker-xrf-resources-locale-ukr",
-      "..\\..\\stalker-xrf-resources-locale-ru"
+      "..\\..\\stalker-xrf-resources-locale-ru",
+      "..\\..\\stalker-xrf-resources-locale-ukr"
     ]
   },
   "compression": {
