@@ -2,7 +2,7 @@
   "name": "stalker-xrf-template",
   "version": "1.0.0",
   "author": "Neloreck",
-  "repository": "https://github.com/xray-forge/stalker-xrs-template",
+  "repository": "https://github.com/xray-forge/stalker-xrf-template",
   "private": true,
   "scripts": {
     "cli": "ts-node -P ./cli/tsconfig.json cli/run.ts",

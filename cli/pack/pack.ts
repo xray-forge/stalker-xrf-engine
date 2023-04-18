@@ -9,7 +9,7 @@ import { compress } from "#/compress/compress";
 import { default as config } from "#/config.json";
 import { isValidEngine } from "#/engine/list_engines";
 import {
-  GAME_EXE_PATH,
+  CLI_DIR,
   GAME_PATH,
   OPEN_XRAY_ENGINES_DIR,
   TARGET_DATABASE_DIR,
@@ -19,6 +19,7 @@ import {
 import { createDirIfNoExisting, exists, NodeLogger, TimeTracker } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("PACK");
+
 const WARING_SIGN: string = chalk.red("[!]");
 
 export interface IPackParameters {
@@ -92,13 +93,13 @@ export async function pack(parameters: IPackParameters): Promise<void> {
     copyGameEngine(engine);
     timeTracker.addMark("PACKAGE_GAME_BIN");
 
-    copyGameResources();
+    copyDatabaseAssets();
     timeTracker.addMark("PACKAGE_DB");
 
     copyGamedataAssets();
     timeTracker.addMark("PACKAGE_GAMEDATA");
 
-    copyGameConfigs();
+    copyRootAssets();
     timeTracker.addMark("PACKAGE_CONFIGS");
 
     timeTracker.end();
@@ -133,9 +134,6 @@ function copyGameEngine(engine: string): void {
   if (existsSync(engineDescriptorPath)) {
     rmSync(engineDescriptorPath);
   }
-
-  log.info("Copy game executable:", chalk.yellowBright(GAME_EXE_PATH));
-  cpSync(GAME_EXE_PATH, path.resolve(TARGET_PACKAGE_DIR, config.targets.stalker_game_exe_path));
 }
 
 /**
@@ -159,7 +157,7 @@ function copyGamedataAssets(): void {
 /**
  * Copy game resources / archives for database.
  */
-function copyGameResources(): void {
+function copyDatabaseAssets(): void {
   const destinationPath: string = path.resolve(TARGET_PACKAGE_DIR, "db");
 
   log.info("Copy game archives:", chalk.yellow(TARGET_DATABASE_DIR), "->", chalk.yellowBright(destinationPath));
@@ -176,20 +174,18 @@ function copyGameResources(): void {
  * Copy game configs for root folder.
  * Default graphics settings and FS mappings.
  */
-function copyGameConfigs(): void {
-  const configs: Array<string> = ["fsgame.ltx", "user.ltx"];
+function copyRootAssets(): void {
+  log.info("Copy static game root assets");
 
-  log.info("Copy static game configs");
+  for (const asset of config.package.rootAssets) {
+    const fromPath: string = path.resolve(CLI_DIR, asset);
+    const toPath: string = path.resolve(TARGET_PACKAGE_DIR, path.basename(fromPath));
 
-  for (const config of configs) {
-    const destinationPath: string = path.resolve(TARGET_PACKAGE_DIR, config);
-    const fsgameLtxPath: string = path.resolve(__dirname, "configs", config);
+    log.info("Copy game root asset:", chalk.yellow(fromPath), "->", chalk.yellowBright(toPath));
 
-    log.info("Copy game config:", config);
+    assert(existsSync(fromPath), `Expected '${asset}' to exist at '${fromPath}'.`);
 
-    assert(existsSync(fsgameLtxPath), `Expected '${config}' file to exist.`);
-
-    log.debug("CP:", destinationPath);
-    cpSync(fsgameLtxPath, destinationPath);
+    log.debug("CP:", toPath);
+    cpSync(fromPath, toPath);
   }
 }

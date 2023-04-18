@@ -11,10 +11,15 @@
     ]
   },
   "compression": {
-    "xr_compress_path": "./bin/compression/xrCompress.exe"
+    "xr_compress_path": ".\\bin\\compression\\xrCompress.exe"
   },
   "package": {
     "engine": "gold",
+    "rootAssets": [
+      ".\\bin\\package\\stalker.exe",
+      ".\\bin\\package\\fsgame.ltx",
+      ".\\bin\\package\\user.ltx"
+    ],
     "gamedata": ["lualib_bundle.script", "scripts", "core", "lib"]
   },
   "targets": {
