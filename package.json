@@ -9,7 +9,7 @@
     "setup": "git submodule init && git submodule update --recursive",
     "verify": "ts-node -P ./cli/tsconfig.json cli/run.ts verify",
     "build": "ts-node -P cli/tsconfig.json cli/run.ts build",
-    "build:gold": "ts-node -P cli/tsconfig.json cli/run.ts build -c -n",
+    "build:gold": "ts-node -P cli/tsconfig.json cli/run.ts build -c --no-lua-logs",
     "watch:scripts": "tstl -P ./cli/build/tsconfig.scripts.json --watch",
     "typecheck": "tstl -P ./cli/build/tsconfig.scripts.json --noEmit",
     "format": "prettier --write \"**/*.(js|ts|tsx|md)\" && eslint . --ext .ts,.tsx,.js --fix",
