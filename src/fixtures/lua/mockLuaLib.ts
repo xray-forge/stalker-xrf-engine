@@ -19,6 +19,18 @@ export function mockLuaLib(): void {
   global.table = table;
   // @ts-ignore
   global.math = math;
+
+  // @ts-ignore
+  global.$range = (start: number, end: number) => {
+    const data: Array<number> = [];
+
+    for (let it = start; it <= end; it++) {
+      data.push(it);
+    }
+
+    return data;
+  };
+
   // @ts-ignore
   global.$multi = (...args: AnyArgs) => [...args];
 

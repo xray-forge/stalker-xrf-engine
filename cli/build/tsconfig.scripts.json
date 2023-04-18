@@ -29,7 +29,8 @@
       { "name": "./plugins/global_declarations_transform.ts" },
       { "name": "./plugins/built_at_info.ts" },
       { "name": "./plugins/strip_lua_logger.ts" },
-      { "name": "./plugins/inject_filename.ts" }
+      { "name": "./plugins/inject_filename.ts" },
+      { "name": "./plugins/from_cast_utils.ts" }
     ]
   }
 }

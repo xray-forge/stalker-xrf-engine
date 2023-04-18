@@ -1,19 +1,4 @@
-import { DiagnosticCategory, getOriginalNode, Node } from "typescript";
-import { createSerialDiagnosticFactory } from "typescript-to-lua/dist/utils";
-
-type MessageProvider<TArgs extends any[]> = string | ((...args: TArgs) => string);
-
-const createDiagnosticFactory = <TArgs extends any[]>(category: DiagnosticCategory, message: MessageProvider<TArgs>) =>
-  createSerialDiagnosticFactory((node: Node, ...args: TArgs) => ({
-    file: getOriginalNode(node).getSourceFile(),
-    start: getOriginalNode(node).getStart(),
-    length: getOriginalNode(node).getWidth(),
-    messageText: typeof message === "string" ? message : message(...args),
-    category,
-  }));
-
-const createErrorDiagnosticFactory = <TArgs extends any[]>(message: MessageProvider<TArgs>) =>
-  createDiagnosticFactory(DiagnosticCategory.Error, message);
+import { createErrorDiagnosticFactory } from "../../utils/diagnostics";
 
 export const unsupportedStaticMethod = createErrorDiagnosticFactory((name?: string) => {
   const nameReference = name ? ` '${name}'` : "";
