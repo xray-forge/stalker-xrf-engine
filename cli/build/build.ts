@@ -32,6 +32,7 @@ export enum EBuildTarget {
 }
 
 export interface IBuildCommandParameters {
+  assetOverrides: boolean;
   verbose?: boolean;
   luaLogs?: boolean;
   clean?: boolean;
@@ -131,7 +132,7 @@ export async function build(parameters: IBuildCommandParameters): Promise<void> 
      * Copy static assets from resources directories.
      */
     if (buildTargets.includes(EBuildTarget.RESOURCES)) {
-      await buildResourcesStatics();
+      await buildResourcesStatics(parameters);
       timeTracker.addMark("BUILT_STATIC_RESOURCES");
     } else {
       log.info("Static resources build steps skipped");

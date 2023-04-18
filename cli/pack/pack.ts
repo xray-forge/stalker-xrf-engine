@@ -35,11 +35,10 @@ export interface IPackParameters {
 export async function pack(parameters: IPackParameters): Promise<void> {
   NodeLogger.IS_VERBOSE = Boolean(parameters.verbose);
 
-  log.info("Packaging new game:", chalk.blue(new Date().toLocaleString()));
-  log.debug("Running with parameters:", parameters);
-
   try {
-    const timeTracker: TimeTracker = new TimeTracker().start();
+    log.info("Packaging new game:", chalk.blue(new Date().toLocaleString()));
+    log.debug("Running with parameters:", parameters);
+
     const engine: string = String(parameters.engine || config.package.engine).trim();
 
     if (parameters.engine) {
@@ -49,13 +48,15 @@ export async function pack(parameters: IPackParameters): Promise<void> {
     }
 
     if (parameters.optimize) {
-      log.info("Using build without optimizations", WARING_SIGN);
-    } else {
       log.info("Using build with optimizations");
+    } else {
+      log.info("Using build without optimizations", WARING_SIGN);
     }
 
     assert(isValidEngine(engine), `Expected engine to be valid, got '${engine}'.`);
     assert(await exists(GAME_PATH), "Expected existing game to be linked.");
+
+    const timeTracker: TimeTracker = new TimeTracker().start();
 
     // If needed, proceed with full build and compression step.
     if (parameters.build) {
@@ -64,6 +65,7 @@ export async function pack(parameters: IPackParameters): Promise<void> {
 
       await build({
         clean: true,
+        assetOverrides: true,
         verbose: parameters.verbose,
         luaLogs: !parameters.optimize,
         include: "all",
@@ -71,8 +73,7 @@ export async function pack(parameters: IPackParameters): Promise<void> {
         filter: [],
       });
 
-      log.info("Starting assets DB compress");
-      log.pushNewLine();
+      log.info("Starting assets DB compress", "\n");
 
       await compress({ clean: true, verbose: parameters.verbose, include: "all" });
     } else {
@@ -126,7 +127,9 @@ function copyGameEngine(engine: string): void {
   createDirIfNoExisting(destinationPath);
   cpSync(enginePath, destinationPath, { recursive: true });
 
-  // Remove bin.json with engine description.
+  /**
+   * Remove bin.json with engine description.
+   */
   if (existsSync(engineDescriptorPath)) {
     rmSync(engineDescriptorPath);
   }
