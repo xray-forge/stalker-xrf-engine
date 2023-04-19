@@ -112,4 +112,4 @@ jobs:
       if: ${{ steps.update-nightly-tag.outcome == 'success' }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: gh release upload --clobber nightly gamedata.release.zip
+      run: gh release upload --clobber nightly target\gamedata.release.zip
