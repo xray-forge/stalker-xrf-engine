@@ -7,14 +7,14 @@ import { get_animpoint_sit_normal_loophole } from "@/engine/core/objects/alife/s
 export function get_smart_cover_animpoint_sit_normal(): ISmartCoverDescriptor {
   return {
     need_weapon: false,
-    loopholes: [
+    loopholes: $fromArray([
       get_animpoint_sit_normal_loophole(
         "animpoint_sit_normal",
         new vector().set(0, 0, 0),
         new vector().set(0, 0, -1),
         new vector().set(0, 0, -1)
       ),
-    ] as any,
+    ]),
     transitions: [
       {
         vertex0: "",

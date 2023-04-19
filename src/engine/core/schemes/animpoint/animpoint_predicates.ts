@@ -7,19 +7,20 @@ import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
+import { LuaArray, Optional, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
-export const smart_table: LuaTable<number, string> = [
-  "zat_stalker_base_smart",
-  "jup_b41",
-  "jup_a6",
-  "pri_a16",
-] as unknown as LuaTable<number, string>;
+export const noWeaponsSmartsList: LuaArray<TStoryName> = $fromArray<TStoryName>([
+  storyNames.zat_stalker_base_smart,
+  storyNames.jup_b41,
+  storyNames.jup_a6,
+  storyNames.pri_a16,
+]);
 
 /**
  * todo;
@@ -256,7 +257,7 @@ function animpoint_predicate_weapon(objectId: TNumberId): boolean {
     const smart: Optional<SmartTerrain> = getObjectBoundSmart(object);
 
     if (smart) {
-      for (const [k, v] of smart_table) {
+      for (const [k, v] of noWeaponsSmartsList) {
         if (smart.name() === v) {
           return false;
         }

@@ -1,11 +1,12 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo;
+ * Lust of story names declared in configs for simpler usage.
  */
 export const storyNames = {
   jup_a10_spot: "jup_a10_spot",
   jup_a12_spot: "jup_a12_spot",
+  jup_a6: "jup_a6",
   jup_a6_spot: "jup_a6_spot",
   jup_a6_sr_sleep_id: "jup_a6_sr_sleep_id",
   jup_a9_spot: "jup_a9_spot",
@@ -23,11 +24,13 @@ export const storyNames = {
   jup_b212_spot: "jup_b212_spot",
   jup_b25_spot: "jup_b25_spot",
   jup_b32_spot: "jup_b32_spot",
+  jup_b41: "jup_b41",
   jup_b43_stalker_assistant_pri: "jup_b43_stalker_assistant_pri",
   jup_b46_spot: "jup_b46_spot",
   jup_b6_spot: "jup_b6_spot",
   jup_b9_spot: "jup_b9_spot",
   pri_a15_door: "pri_a15_door",
+  pri_a16: "pri_a16",
   pri_a16_spot: "pri_a16_spot",
   pri_a16_sr_sleep_id: "pri_a16_sr_sleep_id",
   pri_a17_spot: "pri_a17_spot",
@@ -66,6 +69,7 @@ export const storyNames = {
   zat_b56_spot: "zat_b56_spot",
   zat_b5_spot: "zat_b5_spot",
   zat_b7_spot: "zat_b7_spot",
+  zat_stalker_base_smart: "zat_stalker_base_smart",
 } as const;
 
 export type TStoryNames = typeof storyNames;

@@ -33,7 +33,16 @@ import { outfits, TOutfit } from "@/engine/lib/constants/items/outfits";
 import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { treasures } from "@/engine/lib/constants/treasures";
-import { AnyCallablesModule, AnyObject, LuaArray, Optional, TCount, TIndex } from "@/engine/lib/types";
+import {
+  AnyCallablesModule,
+  AnyObject,
+  LuaArray,
+  Optional,
+  PartialRecord,
+  TCount,
+  TIndex,
+  TName,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -684,12 +693,12 @@ export function jup_a12_actor_do_not_has_15000_money(
 /**
  * todo;
  */
-const jup_a12_af_table = [
+const jup_a12_af_table: LuaArray<TArtefact> = $fromArray<TArtefact>([
   artefacts.af_fire,
   artefacts.af_gold_fish,
   artefacts.af_glass,
   artefacts.af_ice,
-] as unknown as LuaArray<TArtefact>;
+]);
 
 /**
  * todo;
@@ -760,12 +769,12 @@ export function jup_a12_transfer_ransom_from_actor(firstSpeaker: XR_game_object,
     return;
   }
 
-  const jup_a12_info_table = [
+  const jup_a12_info_table: LuaArray<TName> = $fromArray<TName>([
     "jup_a12_af_fire",
     "jup_a12_af_gold_fish",
     "jup_a12_af_glass",
     "jup_a12_af_ice",
-  ] as unknown as LuaArray<TInfoPortion>;
+  ]);
 
   for (const i of $range(1, 4)) {
     if (hasAlifeInfo(jup_a12_info_table.get(i))) {
@@ -1166,11 +1175,11 @@ export function jup_b1_actor_have_good_suit(firstSpeaker: XR_game_object, second
     [outfits.cs_heavy_outfit]: true,
   } as unknown as LuaTable<TOutfit, boolean>;
 
-  const helmets_tbl = {
+  const helmets_tbl: LuaTable<THelmet, boolean | undefined> = $fromObject<PartialRecord<THelmet, boolean>>({
     [helmets.helm_battle]: true,
     [helmets.helm_tactic]: true,
     [helmets.helm_protective]: true,
-  } as unknown as LuaTable<THelmet, boolean>;
+  });
 
   const actor: XR_game_object = registry.actor;
 

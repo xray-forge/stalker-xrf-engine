@@ -518,14 +518,14 @@ describe("AchievementManager class", () => {
     StatisticsManager.getInstance().artefacts_table = MockLuaTable.mockFromObject({
       [artefacts.af_baloon]: true,
       [artefacts.af_blood]: false,
-    }) as LuaTable<TArtefact, boolean>;
+    } as Record<TArtefact, boolean>);
 
     expect(achievementsManager.checkAchievedSeeker()).toBeFalsy();
 
     StatisticsManager.getInstance().artefacts_table = MockLuaTable.mockFromObject({
       [artefacts.af_baloon]: true,
       [artefacts.af_blood]: true,
-    }) as LuaTable<TArtefact, boolean>;
+    } as Record<TArtefact, boolean>);
 
     expect(achievementsManager.checkAchievedSeeker()).toBeTruthy();
     expect(onNotification).toHaveBeenCalledTimes(1);

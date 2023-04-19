@@ -9,23 +9,24 @@ import { isObjectInZone } from "@/engine/core/utils/check/check";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
 import { TRUE } from "@/engine/lib/constants/words";
 import { AnyObject, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const smarts_by_no_assault_zones: LuaTable<TName, string> = {
-  ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",
-  ["jup_a6_sr_no_assault"]: "jup_a6",
-  ["jup_b41_sr_no_assault"]: "jup_b41",
-} as unknown as LuaTable<TName, string>;
+const smartTerrainsNamesByNoAssaultZones: LuaTable<TName, TStoryName> = $fromObject<TName, TStoryName>({
+  ["zat_a2_sr_no_assault"]: storyNames.zat_stalker_base_smart,
+  ["jup_a6_sr_no_assault"]: storyNames.jup_a6,
+  ["jup_b41_sr_no_assault"]: storyNames.jup_b41,
+});
 
-const ignored_smart = {
+const ignoreSmartTerrains: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
   zat_stalker_base_smart: true,
   jup_b41: true,
   jup_a6: true,
   pri_a16: true,
-} as unknown as LuaTable<string, boolean>;
+});
 
 /**
  * todo;
@@ -55,7 +56,7 @@ export class ActionProcessEnemy {
     objectState.enemy_id = enemy.id();
 
     if (enemy.id() !== registry.actor.id()) {
-      for (const [k, v] of smarts_by_no_assault_zones) {
+      for (const [k, v] of smartTerrainsNamesByNoAssaultZones) {
         const zone = registry.zones.get(k);
 
         if (zone && (isObjectInZone(object, zone) || isObjectInZone(enemy, zone))) {
@@ -72,26 +73,25 @@ export class ActionProcessEnemy {
       }
     }
 
-    const se_enemy = alife().object<XR_cse_alife_creature_abstract>(enemy.id());
+    const serverObject: Optional<XR_cse_alife_creature_abstract> = alife().object<XR_cse_alife_creature_abstract>(
+      enemy.id()
+    );
 
-    if (se_enemy !== null && se_enemy.m_smart_terrain_id !== null && se_enemy.m_smart_terrain_id !== 65535) {
-      const enemy_smart: SmartTerrain = alife().object<SmartTerrain>(se_enemy.m_smart_terrain_id) as SmartTerrain;
+    if (
+      serverObject !== null &&
+      serverObject.m_smart_terrain_id !== null &&
+      serverObject.m_smart_terrain_id !== 65535
+    ) {
+      const enemy_smart: SmartTerrain = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id) as SmartTerrain;
       const smart_name: string = enemy_smart.name();
 
-      if (ignored_smart.get(smart_name) === true) {
-        // --            obj:enable_memory_object( enemy, false )
+      if (ignoreSmartTerrains.get(smart_name)) {
         return false;
       }
     }
 
     if (overrides && overrides.combat_ignore) {
-      const ret_value = pickSectionFromCondList(enemy, object, overrides.combat_ignore.condlist);
-
-      if (ret_value === TRUE) {
-        return false;
-      }
-
-      return true;
+      return pickSectionFromCondList(enemy, object, overrides.combat_ignore.condlist) !== TRUE;
     }
 
     return true;

@@ -2124,12 +2124,12 @@ export function burer_force_anti_aim(actor: XR_game_object, npc: XR_game_object)
   npc.set_force_anti_aim(true);
 }
 
-const detectorsOrder = [
+const detectorsOrder: LuaArray<TDetector> = $fromArray<TDetector>([
   detectors.detector_simple,
   detectors.detector_advanced,
   detectors.detector_elite,
   detectors.detector_scientific,
-] as unknown as LuaArray<TDetector>;
+]);
 
 /**
  * todo;

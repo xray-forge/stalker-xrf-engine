@@ -14,3 +14,4 @@ declare function $fromArray<T>(array: Array<T>): LuaTable<number, T>;
  * Just wrapper that is stripped compile time, but simplifies unit testing with TS.
  */
 declare function $fromObject<K extends string | number, T>(object: Record<K, T>): LuaTable<K, T>;
+declare function $fromObject<D>(object: D): LuaTable<keyof D, D[keyof D]>;

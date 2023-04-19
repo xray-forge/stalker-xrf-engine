@@ -25,7 +25,7 @@ import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMe
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TName } from "@/engine/lib/types";
 
 const base: string = "menu\\multiplayer\\MultiplayerAwards.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -242,7 +242,7 @@ export class MultiplayerProfile extends CUIWindow {
 
           const fieldStatic = this.xml.InitStatic("tab_profile:awards_list:field", null);
 
-          this.awards.set(field, { field: fieldStatic } as unknown as LuaTable<string, XR_CUIStatic>);
+          this.awards.set(field, $fromObject<TName, XR_CUIStatic>({ field: fieldStatic }));
           this.awards_list.AddWindow(fieldStatic, true);
         }
 

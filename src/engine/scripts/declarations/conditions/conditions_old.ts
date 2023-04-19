@@ -1685,7 +1685,7 @@ export function zat_b29_anomaly_has_af(actor: XR_game_object, npc: XR_game_objec
  */
 export function jup_b221_who_will_start(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
   const reachable_theme: LuaArray<number> = new LuaTable();
-  const infoPortionsList: LuaArray<TInfoPortion> = [
+  const infoPortionsList: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
     infoPortions.jup_b25_freedom_flint_gone,
     infoPortions.jup_b25_flint_blame_done_to_duty,
     infoPortions.jup_b4_monolith_squad_in_duty,
@@ -1698,7 +1698,7 @@ export function jup_b221_who_will_start(actor: XR_game_object, npc: XR_game_obje
     infoPortions.jup_a6_freedom_leader_bunker_guards_work,
     infoPortions.jup_a6_freedom_leader_employ_work,
     infoPortions.jup_b207_freedom_wins,
-  ] as unknown as LuaArray<TInfoPortion>;
+  ]);
 
   for (const [k, v] of infoPortionsList) {
     const factionsList: LuaArray<string> = new LuaTable();
@@ -1860,23 +1860,23 @@ export function zat_b103_actor_has_needed_food(actor: XR_game_object, npc: XR_ga
  * todo;
  */
 export function zat_b29_rivals_dialog_precond(actor: XR_game_object, npc: XR_game_object): boolean {
-  const squads_table = [
+  const squadsList: LuaArray<TName> = $fromArray<TName>([
     "zat_b29_stalker_rival_default_1_squad",
     "zat_b29_stalker_rival_default_2_squad",
     "zat_b29_stalker_rival_1_squad",
     "zat_b29_stalker_rival_2_squad",
-  ] as unknown as LuaArray<string>;
-  const zonesTable = [
+  ]);
+  const zonesList: LuaArray<TName> = $fromArray([
     zones.zat_b29_sr_1,
     "zat_b29_sr_2",
     "zat_b29_sr_3",
     "zat_b29_sr_4",
     "zat_b29_sr_5",
-  ] as unknown as LuaArray<TName>;
+  ]);
 
   let f_squad: boolean = false;
 
-  for (const [k, v] of squads_table) {
+  for (const [k, v] of squadsList) {
     if (alife().object(alife().object<XR_cse_alife_creature_abstract>(npc.id())!.group_id)!.section_name() === v) {
       f_squad = true;
       break;
@@ -1887,7 +1887,7 @@ export function zat_b29_rivals_dialog_precond(actor: XR_game_object, npc: XR_gam
     return false;
   }
 
-  for (const [k, v] of zonesTable) {
+  for (const [k, v] of zonesList) {
     if (isObjectInZone(npc, registry.zones.get(v))) {
       return true;
     }

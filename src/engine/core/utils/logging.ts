@@ -11,7 +11,87 @@ import { AnyArgs, AnyObject, TLabel, TName } from "@/engine/lib/types";
  * todo: This model does not work with lua and JIT optimisation. Probably should use singleton logger and share logic.
  */
 export class LuaLogger {
-  protected static logAs(method: string, prefix: string, args: LuaTable<number>): void {
+  public readonly prefix: TLabel;
+  protected isEnabled: boolean;
+
+  public constructor(prefix: TLabel, isEnabled: boolean = true) {
+    this.isEnabled = isEnabled;
+    this.prefix = string.format("[%s]", prefix);
+
+    if (gameConfig.DEBUG.IS_RESOLVE_LOG_ENABLED) {
+      this.info("Declared logger: '" + prefix + "'");
+    }
+  }
+
+  /**
+   * Print warn info level message.
+   */
+  public warn(...args: AnyArgs): void {
+    if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
+      this.logAs("[WARN]", this.prefix, $fromArray(args));
+    }
+  }
+
+  /**
+   * Print generic info level message.
+   */
+  public info(...args: AnyArgs): void {
+    if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
+      this.logAs("[INFO]", this.prefix, $fromArray(args));
+    }
+  }
+
+  /**
+   * Print generic error level message.
+   */
+  public error(...args: AnyArgs): void {
+    if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
+      this.logAs("[ERROR]", this.prefix, $fromArray(args));
+    }
+  }
+
+  /**
+   * Print stringified as JSON table into logs file.
+   */
+  public table(table: AnyObject): void;
+  public table(table: LuaTable): void {
+    if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
+      this.logAs("[TABLE]", this.prefix, $fromArray([toJSON(table)]));
+    }
+  }
+
+  /**
+   * Push empty line in logs for readability.
+   */
+  public pushEmptyLine(): void {
+    return this.info(" ");
+  }
+
+  /**
+   * Push line separator in logs for readability.
+   */
+  public pushSeparator(): void {
+    return this.info("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+  }
+
+  /**
+   * Print current lua call stack in game logs.
+   */
+  public printStack(): void {
+    return print_stack();
+  }
+
+  /**
+   * Get full string prefix for current logger instance.
+   */
+  public getFullPrefix(method: TName = "info"): TLabel {
+    return string.format("[%s]%s%s", time_global(), this.prefix, method);
+  }
+
+  /**
+   * Print generic message with provided level of logging and configured prefix.
+   */
+  protected logAs(level: string, prefix: string, args: LuaTable<number>): void {
     // Map some values to successfully print in composed string.
     for (const idx of $range(1, args.length())) {
       const it = args.get(idx);
@@ -30,59 +110,6 @@ export class LuaLogger {
       }
     }
 
-    return log(string.format("[%s]%s%s %s", time_global(), prefix, method, table.concat(args, " ")));
-  }
-
-  public readonly prefix: string;
-  protected isEnabled: boolean;
-
-  public constructor(prefix: string, isEnabled: boolean = true) {
-    this.isEnabled = isEnabled;
-    this.prefix = string.format("[%s]", prefix);
-
-    if (gameConfig.DEBUG.IS_RESOLVE_LOG_ENABLED) {
-      this.info("Declared logger: '" + prefix + "'");
-    }
-  }
-
-  public warn(...args: AnyArgs): void {
-    if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      LuaLogger.logAs("[WARN]", this.prefix, args as unknown as LuaTable<number>);
-    }
-  }
-
-  public info(...args: AnyArgs): void {
-    if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      LuaLogger.logAs("[INFO]", this.prefix, args as unknown as LuaTable<number>);
-    }
-  }
-
-  public error(...args: AnyArgs): void {
-    if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      LuaLogger.logAs("[ERROR]", this.prefix, args as unknown as LuaTable<number>);
-    }
-  }
-
-  public table(table: AnyObject): void;
-  public table(table: LuaTable): void {
-    if (gameConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      LuaLogger.logAs("[TABLE]", this.prefix, [toJSON(table)] as unknown as LuaTable<number>);
-    }
-  }
-
-  public pushEmptyLine(): void {
-    return this.info(" ");
-  }
-
-  public pushSeparator(): void {
-    return this.info("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-  }
-
-  public printStack(): void {
-    return print_stack();
-  }
-
-  public getFullPrefix(method: TName = "info"): TLabel {
-    return string.format("[%s]%s%s", time_global(), this.prefix, method);
+    return log(string.format("[%s]%s%s %s", time_global(), prefix, level, table.concat(args, " ")));
   }
 }

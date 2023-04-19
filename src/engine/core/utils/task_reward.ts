@@ -174,7 +174,7 @@ export function giveItemsToActor(itemSection: TInventoryItem, count: TCount = 1)
  * @returns get medkit or null
  */
 export function getActorAvailableMedKit(
-  list: LuaArray<TSection | TNumberId> = medkits as unknown as LuaArray<TSection | TNumberId>,
+  list: LuaArray<TSection | TNumberId> = $fromObject(medkits) as unknown as LuaArray<TSection | TNumberId>,
   actor: XR_game_object = registry.actor
 ): Optional<TMedkit> {
   for (const [key, medkit] of list) {

@@ -42,7 +42,7 @@ export interface IActorStatistics {
 /**
  * todo;-
  */
-let weaponsTable: LuaTable<TInventoryItem, TCount> = {
+let weaponsTable: LuaTable<TName, TCount> = $fromObject<TName, TCount>({
   abakan: 0,
   ak74: 0,
   ak74u: 0,
@@ -79,12 +79,12 @@ let weaponsTable: LuaTable<TInventoryItem, TCount> = {
   vintorez: 0,
   walther: 0,
   wincheaster1300: 0,
-} as unknown as LuaTable<TInventoryItem, TCount>;
+});
 
 /**
  * todo;
  */
-let taken_artefacts = {} as unknown as LuaTable<number, number>;
+let taken_artefacts: LuaTable<TNumberId, TNumberId> = $fromObject<TNumberId, TNumberId>({});
 
 /**
  * todo;
@@ -104,7 +104,7 @@ export class StatisticsManager extends AbstractCoreManager {
     best_monster_rank: 0,
   };
 
-  public artefacts_table: LuaTable<TArtefact, boolean> = {
+  public artefacts_table: LuaTable<TArtefact, boolean> = $fromObject({
     af_cristall: false,
     af_blood: false,
     af_electra_sparkler: false,
@@ -128,7 +128,7 @@ export class StatisticsManager extends AbstractCoreManager {
     af_fire: false,
     af_glass: false,
     af_ice: false,
-  } as unknown as LuaTable<TArtefact, boolean>;
+  } as Record<TArtefact, boolean>);
 
   public monster_classes: PartialRecord<TXR_class_id, string> = {
     [clsid.bloodsucker_s]: "bloodsucker",
@@ -419,7 +419,7 @@ export class StatisticsManager extends AbstractCoreManager {
 
     for (const [k, v] of this.artefacts_table) {
       packet.w_stringZ(tostring(k));
-      packet.w_bool(v);
+      packet.w_bool(v === true);
     }
 
     const takenArtefactsCount: TCount = getTableSize(taken_artefacts);

@@ -30,7 +30,6 @@ If you want to 'just build' package for testing from existing assets without ful
 npm run cli pack -- --engine release --build
 ```
 
-
 ### 🏗️ Assets links
 
 - Extended assets: [https://gitlab.com/xray-forge/stalker-xrf-resources-extended](https://gitlab.com/xray-forge/stalker-xrf-resources-extended)

@@ -5,7 +5,7 @@ import { PartialRecord } from "@/engine/lib/types";
  * todo;
  */
 export const squadCommunityByBehaviour: Record<TCommunity, TCommunity> = {
-  [communities.none]: null as any,
+  [communities.none]: null as unknown as TCommunity,
   [communities.stalker]: communities.stalker,
   [communities.bandit]: communities.bandit,
   [communities.dolg]: communities.dolg,

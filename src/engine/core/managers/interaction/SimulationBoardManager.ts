@@ -27,13 +27,13 @@ import { LuaArray, Optional, TCount, TName, TNumberId, TRate, TSection, TStringI
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const groupIdByLevelName: LuaTable<TLevel, TNumberId> = {
+const groupIdByLevelName: LuaTable<TLevel, TNumberId> = $fromObject({
   [levels.zaton]: 1,
   [levels.pripyat]: 2,
   [levels.jupiter]: 3,
   [levels.labx8]: 4,
   [levels.jupiter_underground]: 5,
-} as unknown as LuaTable<TLevel, TNumberId>;
+});
 
 /**
  * todo;

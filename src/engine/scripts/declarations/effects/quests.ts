@@ -29,6 +29,7 @@ import { createAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
+import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { drugs } from "@/engine/lib/constants/items/drugs";
@@ -39,7 +40,7 @@ import { weapons } from "@/engine/lib/constants/items/weapons";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { zones } from "@/engine/lib/constants/zones";
-import { LuaArray, Optional, TCount, TDistance, TIndex, TName, TNumberId, TStringId } from "@/engine/lib/types";
+import { LuaArray, Optional, TCount, TDistance, TIndex, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
 import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 import {
   create_squad,
@@ -541,7 +542,7 @@ extern("xr_effects.zat_b202_spawn_random_loot", (actor: XR_game_object, npc: XR_
     [{ item: ["specops_outfit"] }, { item: ["stalker_outfit"] }],
   ] as unknown as LuaArray<LuaArray<{ item: LuaArray<string> }>>;
 
-  const weight_table = [2, 2, 2, 2, 4, 4] as unknown as LuaArray<number>;
+  const weight_table: LuaArray<TRate> = $fromArray<TRate>([2, 2, 2, 2, 4, 4]);
 
   const spawned_item = new LuaTable();
   let max_weight = 12;
@@ -589,26 +590,26 @@ extern("xr_effects.jup_b221_play_main", (actor: XR_game_object, npc: XR_game_obj
   }
 
   if (tostring(p[0]) === "duty") {
-    infoPortionsList = [
+    infoPortionsList = $fromArray<TInfoPortion>([
       infoPortions.jup_b25_freedom_flint_gone,
       infoPortions.jup_b25_flint_blame_done_to_duty,
       infoPortions.jup_b4_monolith_squad_in_duty,
       infoPortions.jup_a6_duty_leader_bunker_guards_work,
       infoPortions.jup_a6_duty_leader_employ_work,
       infoPortions.jup_b207_duty_wins,
-    ] as unknown as LuaArray<TInfoPortion>;
+    ]);
     main_theme = "jup_b221_duty_main_";
     reply_theme = "jup_b221_duty_reply_";
     info_need_reply = infoPortions.jup_b221_duty_reply;
   } else if (tostring(p[0]) === "freedom") {
-    infoPortionsList = [
+    infoPortionsList = $fromArray<TInfoPortion>([
       infoPortions.jup_b207_freedom_know_about_depot,
       infoPortions.jup_b46_duty_founder_pda_to_freedom,
       infoPortions.jup_b4_monolith_squad_in_freedom,
       infoPortions.jup_a6_freedom_leader_bunker_guards_work,
       infoPortions.jup_a6_freedom_leader_employ_work,
       infoPortions.jup_b207_freedom_wins,
-    ] as unknown as LuaArray<TInfoPortion>;
+    ]);
     main_theme = "jup_b221_freedom_main_";
     reply_theme = "jup_b221_freedom_reply_";
     info_need_reply = infoPortions.jup_b221_freedom_reply;
@@ -892,17 +893,17 @@ extern("xr_effects.zat_b33_pic_snag_container", (actor: XR_game_object, npc: XR_
  * todo;
  */
 extern("xr_effects.zat_b202_spawn_b33_loot", (actor: XR_game_object, npc: XR_game_object, p: []) => {
-  const infoPortionsList = [
+  const infoPortionsList: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
     infoPortions.zat_b33_first_item_gived,
     infoPortions.zat_b33_second_item_gived,
     infoPortions.zat_b33_third_item_gived,
     infoPortions.zat_b33_fourth_item_gived,
     infoPortions.zat_b33_fifth_item_gived,
-  ] as unknown as LuaArray<TInfoPortion>;
+  ]);
 
-  const item_table = [
-    [weapons.wpn_fort_snag],
-    [
+  const rewardItems: LuaArray<LuaArray<TInventoryItem>> = $fromArray<LuaArray<TInventoryItem>>([
+    $fromArray<TInventoryItem>([weapons.wpn_fort_snag]),
+    $fromArray<TInventoryItem>([
       drugs.medkit_scientic,
       drugs.medkit_scientic,
       drugs.medkit_scientic,
@@ -914,17 +915,17 @@ extern("xr_effects.zat_b202_spawn_b33_loot", (actor: XR_game_object, npc: XR_gam
       drugs.bandage,
       drugs.bandage,
       drugs.bandage,
-    ],
-    [weapons.wpn_ak74u_snag],
-    [artefacts.af_soul],
-    [helmets.helm_hardhat_snag],
-  ] as unknown as LuaArray<LuaArray<string>>;
+    ]),
+    $fromArray<TInventoryItem>([weapons.wpn_ak74u_snag]),
+    $fromArray<TInventoryItem>([artefacts.af_soul]),
+    $fromArray<TInventoryItem>([helmets.helm_hardhat_snag]),
+  ]);
 
   for (const [index, infoPortion] of infoPortionsList) {
     const objectId: TStringId = index === 1 || index === 3 ? "jup_b202_stalker_snag" : "jup_b202_snag_treasure";
 
     if (!hasAlifeInfo(infoPortion)) {
-      for (const [l, m] of item_table.get(index)) {
+      for (const [l, m] of rewardItems.get(index)) {
         spawn_object_in(actor, npc, [tostring(m), tostring(objectId)]);
       }
     }
@@ -939,23 +940,23 @@ extern("xr_effects.pri_a28_check_zones", (): void => {
   let dist: TDistance = 0;
   let index: TIndex = 0;
 
-  const zonesList: LuaArray<TStringId> = [
+  const zonesList: LuaArray<TStringId> = $fromArray([
     "pri_a28_sr_mono_add_1",
     "pri_a28_sr_mono_add_2",
     "pri_a28_sr_mono_add_3",
-  ] as unknown as LuaArray<TStringId>;
+  ]);
 
-  const infoList: LuaArray<TInfoPortion> = [
+  const infoList: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
     infoPortions.pri_a28_wave_1_spawned,
     infoPortions.pri_a28_wave_2_spawned,
     infoPortions.pri_a28_wave_3_spawned,
-  ] as unknown as LuaArray<TInfoPortion>;
+  ]);
 
-  const squadsList: LuaArray<TStringId> = [
+  const squadsList: LuaArray<TStringId> = $fromArray([
     "pri_a28_heli_mono_add_1",
     "pri_a28_heli_mono_add_2",
     "pri_a28_heli_mono_add_3",
-  ] as unknown as LuaArray<TStringId>;
+  ]);
 
   for (const [itIndex, it] of zonesList) {
     const storyObjectId: Optional<TNumberId> = getObjectIdByStoryId(it);
@@ -1002,7 +1003,7 @@ extern("xr_effects.eat_vodka_script", (): void => {
   }
 });
 
-const materialsTable: LuaArray<TStringId> = [
+const materialsTable: LuaArray<TStringId> = $fromArray([
   "jup_b200_material_1",
   "jup_b200_material_2",
   "jup_b200_material_3",
@@ -1012,7 +1013,7 @@ const materialsTable: LuaArray<TStringId> = [
   "jup_b200_material_7",
   "jup_b200_material_8",
   "jup_b200_material_9",
-] as unknown as LuaArray<TStringId>;
+]);
 
 /**
  * todo;

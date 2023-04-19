@@ -10,7 +10,7 @@ import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { parseInfoPortions1, parseStringsList } from "@/engine/core/utils/parse";
-import { LuaArray, Optional, TNumberId, TRate, TStringId } from "@/engine/lib/types";
+import { LuaArray, Optional, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -18,8 +18,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export interface IPhrasesDescriptor {
-  id: string;
-  name: string;
+  id: TStringId;
+  name: TName;
   npc_community: LuaArray<any> | "not_set";
   level: LuaArray<any> | "not_set";
   actor_community: LuaArray<any> | "not_set" | "all";
@@ -54,25 +54,25 @@ export class DialogManager extends AbstractCoreManager {
   }
 
   // -- temporary table of phrases which have been disabled during a conversation
-  public disabledPhrases: LuaTable<number, LuaTable<string, boolean>> = new LuaTable();
+  public disabledPhrases: LuaTable<TNumberId, LuaTable<string, boolean>> = new LuaTable();
   // -- temporary table of phrases which have been disabled during a conversation | npc id -> phrase id -> boolean
-  public questDisabledPhrases: LuaTable<number, LuaTable<string, boolean>> = new LuaTable();
+  public questDisabledPhrases: LuaTable<TNumberId, LuaTable<string, boolean>> = new LuaTable();
 
-  public phrasesMap = {
-    hello: {},
-    job: {},
-    anomalies: {},
-    place: {},
-    information: {},
-  } as unknown as LuaTable<string, TPHRTable>;
-
-  public priority_table = {
+  public phrasesMap: LuaTable<TName, TPHRTable> = $fromObject<TName, TPHRTable>({
     hello: new LuaTable(),
     job: new LuaTable(),
     anomalies: new LuaTable(),
     place: new LuaTable(),
     information: new LuaTable(),
-  } as unknown as LuaTable<string, TPRTTable>;
+  });
+
+  public priority_table: LuaTable<TName, TPRTTable> = $fromObject<TName, TPRTTable>({
+    hello: new LuaTable(),
+    job: new LuaTable(),
+    anomalies: new LuaTable(),
+    place: new LuaTable(),
+    information: new LuaTable(),
+  });
 
   /**
    * todo;
@@ -152,22 +152,22 @@ export class DialogManager extends AbstractCoreManager {
 
     eventsManager.unregisterCallback(EGameEvent.NPC_INTERACTION, this.onInteractWithObject);
 
-    const actor_table = ["job", "anomalies", "information"] as unknown as LuaArray<string>;
-    const start_phrase_table = [
+    const actor_table: LuaArray<TName> = $fromArray(["job", "anomalies", "information"]);
+    const start_phrase_table: LuaArray<TName> = $fromArray([
       "dm_universal_npc_start_0",
       "dm_universal_npc_start_1",
       "dm_universal_npc_start_2",
       "dm_universal_npc_start_3",
-    ] as unknown as LuaArray<string>;
-    const precond_table = [
+    ]);
+    const precond_table: LuaArray<TName> = $fromArray([
       "dialogs.npc_stalker",
       "dialogs.npc_bandit",
       "dialogs.npc_freedom",
       "dialogs.npc_dolg",
-    ] as unknown as LuaArray<string>;
+    ]);
 
-    const actor_phrase = dialog.AddPhrase("dm_universal_actor_start", tostring(0), "", -10000);
-    const actor_script = actor_phrase.GetPhraseScript();
+    const actorPhrase = dialog.AddPhrase("dm_universal_actor_start", tostring(0), "", -10000);
+    const actorScript = actorPhrase.GetPhraseScript();
 
     for (const j of $range(1, 4)) {
       const npc_phrase = dialog.AddPhrase(start_phrase_table.get(j), tostring(j), tostring(0), -10000);
@@ -254,8 +254,8 @@ export class DialogManager extends AbstractCoreManager {
       if (v.wounded === "true") {
         script.AddPrecondition("dialogs.is_wounded");
 
-        const medkit_id = this.getNextPhraseId();
-        const sorry_id = this.getNextPhraseId();
+        const medkit_id: TNumberId = this.getNextPhraseId();
+        const sorry_id: TNumberId = this.getNextPhraseId();
 
         phrase = dialog.AddPhrase("dm_wounded_medkit", tostring(medkit_id), tostring(v.id), -10000);
         script = phrase.GetPhraseScript();

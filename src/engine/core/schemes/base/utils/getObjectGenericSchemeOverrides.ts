@@ -1,7 +1,7 @@
 import { XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { Optional } from "@/engine/lib/types";
+import { AnyObject, Optional } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -9,5 +9,5 @@ import { Optional } from "@/engine/lib/types";
  * todo;
  */
 export function getObjectGenericSchemeOverrides(object: XR_game_object): Optional<LuaTable<string>> {
-  return registry.objects.get(object.id()).overrides as unknown as LuaTable<string>;
+  return $fromObject(registry.objects.get(object.id()).overrides as AnyObject);
 }
