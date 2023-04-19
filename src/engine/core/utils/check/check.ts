@@ -11,7 +11,7 @@ import {
 } from "xray16";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
-import { Squad } from "@/engine/core/objects/alife/squad/Squad";
+import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { EActionId } from "@/engine/core/schemes/base";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { isStalker } from "@/engine/core/utils/check/is";

@@ -1,12 +1,12 @@
 import { jest } from "@jest/globals";
 import { TXR_class_id, XR_cse_alife_level_changer } from "xray16";
 
-import { AbstractLuabindClass } from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
+import { MockSpaceRestrictor } from "@/fixtures/xray/mocks/objects/server/cse_alife_space_restrictor.mock";
 
 /**
  * todo;
  */
-export class MockAlifeLevelChanger extends AbstractLuabindClass {}
+export class MockAlifeLevelChanger extends MockSpaceRestrictor {}
 
 /**
  * todo;

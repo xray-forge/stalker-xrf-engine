@@ -23,9 +23,9 @@ import { SimulationBoardManager } from "@/engine/core/managers/interaction/Simul
 import { ENotificationDirection } from "@/engine/core/managers/interface/notifications";
 import { NotificationManager } from "@/engine/core/managers/interface/notifications/NotificationManager";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
-import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import { Squad } from "@/engine/core/objects/alife/squad/Squad";
-import { TSimulationObject } from "@/engine/core/objects/alife/types";
+import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { getObjectBoundSmart } from "@/engine/core/utils/gulag";

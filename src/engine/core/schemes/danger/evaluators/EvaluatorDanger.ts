@@ -8,7 +8,7 @@ import {
   XR_cse_alife_creature_abstract,
 } from "xray16";
 
-import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
+import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
 import { ISchemeDangerState } from "@/engine/core/schemes/danger";
 import { SchemeDanger } from "@/engine/core/schemes/danger/SchemeDanger";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";

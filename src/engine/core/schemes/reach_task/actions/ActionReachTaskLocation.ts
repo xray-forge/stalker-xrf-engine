@@ -17,8 +17,8 @@ import {
 
 import { registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
-import { Squad } from "@/engine/core/objects/alife/squad/Squad";
-import { TSimulationObject } from "@/engine/core/objects/alife/types";
+import { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task/ReachTaskPatrolManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";

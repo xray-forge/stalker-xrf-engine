@@ -1,8 +1,8 @@
 import { alife, LuabindClass, property_evaluator } from "xray16";
 
-import type { Actor } from "@/engine/core/objects/alife/Actor";
-import type { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import type { Squad } from "@/engine/core/objects/alife/squad/Squad";
+import type { Actor } from "@/engine/core/objects/server/Actor";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";
 

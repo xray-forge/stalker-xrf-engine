@@ -8,8 +8,8 @@ import {
 } from "xray16";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import type { Squad } from "@/engine/core/objects/alife/squad/Squad";
+import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { getSmartTerrainByName } from "@/engine/core/utils/gulag";
 import { LuaLogger } from "@/engine/core/utils/logging";

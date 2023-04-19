@@ -27,9 +27,9 @@ import { SimulationBoardManager } from "@/engine/core/managers/interaction/Simul
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
-import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
-import { Squad } from "@/engine/core/objects/alife/squad/Squad";
+import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/server/smart/SmartTerrainControl";
+import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { SchemeAnimpoint } from "@/engine/core/schemes/animpoint";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";

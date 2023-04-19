@@ -3,24 +3,24 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
+import { resetFunctionMock } from "@/fixtures/utils/function_mock";
 import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
-import { resetMethodMock } from "@/fixtures/xray/mocks/utils.mock";
 
 describe("'console' utils", () => {
   beforeEach(() => {
-    resetMethodMock(gameConsole.execute);
-    resetMethodMock(gameConsole.get_float);
+    resetFunctionMock(gameConsole.execute);
+    resetFunctionMock(gameConsole.get_float);
   });
 
   it("'executeConsoleCommand' should correctly generate commands", () => {
     executeConsoleCommand(consoleCommands.g_game_difficulty, gameDifficulties.gd_master);
     expect(gameConsole.execute).toHaveBeenCalledWith("g_game_difficulty gd_master");
 
-    resetMethodMock(gameConsole.execute);
+    resetFunctionMock(gameConsole.execute);
     executeConsoleCommand(consoleCommands.disconnect);
     expect(gameConsole.execute).toHaveBeenCalledWith("disconnect");
 
-    resetMethodMock(gameConsole.execute);
+    resetFunctionMock(gameConsole.execute);
     executeConsoleCommand(consoleCommands.start, "server(all/single/alife/new)", "client(localhost)");
     expect(gameConsole.execute).toHaveBeenCalledWith("start server(all/single/alife/new) client(localhost)");
   });

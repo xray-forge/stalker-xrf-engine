@@ -22,7 +22,7 @@ import { ActorSound } from "@/engine/core/objects/sounds/playable_sounds/ActorSo
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { textures } from "@/engine/lib/constants/textures";
-import { resetFunctionMock } from "@/fixtures/utils/reset_mock";
+import { resetFunctionMock } from "@/fixtures/utils/function_mock";
 import { mockClientGameObject } from "@/fixtures/xray";
 import { mockServerAlifeCreatureActor } from "@/fixtures/xray/mocks/objects";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";

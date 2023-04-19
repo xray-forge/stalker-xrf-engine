@@ -28,6 +28,7 @@ export const FILES_MOCKS = {
       story_id: "test-story-id",
     },
   },
+  "object_spawn.ini": {},
   "misc\\script_sound.ltx": {
     list: ["pda_task"],
     pda_task: {

@@ -7,7 +7,7 @@ import { FILES_MOCKS } from "@/fixtures/xray/mocks/ini/files.mock";
 /**
  * todo;
  */
-export class IniFile<T extends AnyObject> {
+export class MockIniFile<T extends AnyObject> {
   public path: TName;
   public data: T;
 
@@ -56,5 +56,5 @@ export class IniFile<T extends AnyObject> {
  * todo;
  */
 export function mockIniFile(path: TPath, data?: AnyObject): XR_ini_file {
-  return new IniFile(path, data) as unknown as XR_ini_file;
+  return new MockIniFile(path, data) as unknown as XR_ini_file;
 }

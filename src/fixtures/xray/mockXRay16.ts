@@ -9,7 +9,7 @@ import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { mockRenderDevice } from "@/fixtures/xray/mocks/device.mock";
 import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
 import { MockFileSystem } from "@/fixtures/xray/mocks/fs/FileSystem.mock";
-import { IniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { mockGameInterface } from "@/fixtures/xray/mocks/interface/gameInterface.mock";
 import { mockLevelInterface } from "@/fixtures/xray/mocks/interface/levelInterface.mock";
 import { mockRelationRegistryInterface } from "@/fixtures/xray/mocks/interface/relationRegistryInterface.mock";
@@ -54,6 +54,8 @@ import {
 import { mockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 import { MockDangerObject } from "@/fixtures/xray/mocks/objects/client/danger_object.mock";
 import { MockObjectBinder } from "@/fixtures/xray/mocks/objects/client/object_binder.mock";
+import { MockAlifeDynamicObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object.mock";
+import { MockAlifeDynamicObjectVisual } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object_visual.mock";
 import { MockCGameTask, MockTask } from "@/fixtures/xray/mocks/objects/task";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
 import { MockSoundObject } from "@/fixtures/xray/mocks/sound/SoundObject.mock";
@@ -79,6 +81,8 @@ export function mockXRay16({
   clsid = mockClsid,
   cse_alife_creature_actor = MockAlifeCreatureActor,
   cse_alife_helicopter = MockAlifeHelicopter,
+  cse_alife_dynamic_object = MockAlifeDynamicObject,
+  cse_alife_dynamic_object_visual = MockAlifeDynamicObjectVisual,
   cse_alife_human_stalker = MockAlifeHumanStalker,
   cse_alife_inventory_box = MockAlifeInventoryBox,
   cse_alife_item = MockAlifeItem,
@@ -115,7 +119,7 @@ export function mockXRay16({
   game_graph = () => new MockCGameGraph(),
   getFS = () => MockFileSystem.getInstance(),
   get_console = mockGetConsole,
-  ini_file = IniFile,
+  ini_file = MockIniFile,
   level = mockLevelInterface,
   look = MockLook,
   move = MockMove,
@@ -146,6 +150,8 @@ export function mockXRay16({
     clsid,
     cse_alife_creature_actor,
     cse_alife_helicopter,
+    cse_alife_dynamic_object,
+    cse_alife_dynamic_object_visual,
     cse_alife_human_stalker,
     cse_alife_inventory_box,
     cse_alife_item,

@@ -1,25 +1,25 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { createAutoSave, createSave } from "@/engine/core/utils/game_save";
+import { resetFunctionMock } from "@/fixtures/utils/function_mock";
 import { gameConsole } from "@/fixtures/xray/mocks/console.mock";
 import { mocksConfig } from "@/fixtures/xray/mocks/MocksConfig";
-import { resetMethodMock } from "@/fixtures/xray/mocks/utils.mock";
 
 describe("'game_save' utils", () => {
   beforeEach(() => {
-    resetMethodMock(gameConsole.execute);
-    resetMethodMock(gameConsole.get_float);
+    resetFunctionMock(gameConsole.execute);
+    resetFunctionMock(gameConsole.get_float);
   });
 
   it("'createSave' should correctly generate commands", () => {
     createSave("test");
     expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - translated_test");
 
-    resetMethodMock(gameConsole.execute);
+    resetFunctionMock(gameConsole.execute);
     createSave("st_another_test");
     expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - translated_st_another_test");
 
-    resetMethodMock(gameConsole.execute);
+    resetFunctionMock(gameConsole.execute);
     createSave("st_another_test", false);
     expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - st_another_test");
 
@@ -42,11 +42,11 @@ describe("'game_save' utils", () => {
     createAutoSave("test");
     expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - translated_test");
 
-    resetMethodMock(gameConsole.execute);
+    resetFunctionMock(gameConsole.execute);
     createAutoSave("st_another_test");
     expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - translated_st_another_test");
 
-    resetMethodMock(gameConsole.execute);
+    resetFunctionMock(gameConsole.execute);
     createAutoSave("st_another_test", false);
     expect(gameConsole.execute).toHaveBeenCalledWith("save os_user_name - st_another_test");
 

@@ -24,7 +24,7 @@ import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsMa
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { AnomalyZoneBinder, SmartTerrain } from "@/engine/core/objects";
-import { Squad } from "@/engine/core/objects/alife/squad/Squad";
+import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import {
   isBlackScreen,
   isImmuneToSurge,

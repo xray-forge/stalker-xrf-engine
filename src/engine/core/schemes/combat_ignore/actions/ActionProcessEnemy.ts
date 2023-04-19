@@ -2,8 +2,8 @@ import { alife, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
-import { SmartTerrain } from "@/engine/core/objects/alife/smart/SmartTerrain";
-import { ESmartTerrainStatus } from "@/engine/core/objects/alife/smart/SmartTerrainControl";
+import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart/SmartTerrainControl";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { isObjectInZone } from "@/engine/core/utils/check/check";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";

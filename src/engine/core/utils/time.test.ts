@@ -4,7 +4,7 @@ import { game, level, XR_CTime } from "xray16";
 import { isInTimeInterval, readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { MAX_I32, MAX_U8, MIN_I32 } from "@/engine/lib/constants/memory";
 import { Optional } from "@/engine/lib/types";
-import { replaceFunctionMock } from "@/fixtures/utils/reset_mock";
+import { replaceFunctionMock } from "@/fixtures/utils/function_mock";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("'time' utils", () => {
