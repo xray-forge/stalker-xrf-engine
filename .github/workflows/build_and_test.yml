@@ -54,7 +54,6 @@ jobs:
     - run: npm run lint
 
   build:
-    needs: [test, check]
     runs-on: ubuntu-latest
 
     strategy:
@@ -90,6 +89,16 @@ jobs:
         name: gamedata.release.zip
         path: target/gamedata.release.zip
         retention-days: 1
+
+  upload-nightly:
+    needs: [test, check, build]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: gamedata.release.zip
+        path: target/gamedata.release.zip
 
     - name: Update nightly tag
       uses: EndBug/latest-tag@latest
