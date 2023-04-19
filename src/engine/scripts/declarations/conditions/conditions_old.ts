@@ -90,13 +90,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-export function always(): boolean {
-  return true;
-}
-
-/**
- * todo;
- */
 export function is_enemy_actor(object: XR_game_object): boolean {
   return isActorEnemy(object);
 }
