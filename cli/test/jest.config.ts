@@ -10,6 +10,7 @@ module.exports = {
       "ts-jest",
       {
         tsconfig: path.resolve(ROOT_DIR, "src/tsconfig.json"),
+        isolatedModules: true,
       },
     ],
   },
