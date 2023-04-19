@@ -47,6 +47,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
+      - run: npm ci
+      - run: npm run setup
       - run: npm run test
 
   check:
@@ -68,6 +70,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
+    - run: npm ci
+    - run: npm run setup
     - run: npm run typecheck
     - run: npm run lint
 
@@ -90,6 +94,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
+    - run: npm ci
+    - run: npm run setup
     - run: npm run build:gold
 
     - name: Install zip
