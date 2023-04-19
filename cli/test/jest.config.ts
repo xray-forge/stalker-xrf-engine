@@ -3,20 +3,18 @@ const path = require("path");
 
 const ROOT_DIR = path.resolve(__dirname, "../../");
 
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
   transform: {
     "^.+\\.tsx?$": [
-      "@swc/jest",
+      "ts-jest",
       {
-        jsc: {
-          parser: {
-            syntax: "typescript",
-            decorators: true,
-          },
-        },
+        tsconfig: path.resolve(ROOT_DIR, "src/tsconfig.json"),
+        isolatedModules: true,
       },
     ],
   },
+  preset: "ts-jest",
   clearMocks: true,
   testEnvironment: "node",
   rootDir: ROOT_DIR,
