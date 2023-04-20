@@ -136,9 +136,9 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public fill(se_obj: XR_cse_alife_object, treasureId: TTreasure): Optional<boolean> {
+  public fill(serverObject: XR_cse_alife_object, treasureId: TTreasure): Optional<boolean> {
     if (this.secrets.get(treasureId) !== null) {
-      const item = this.secrets.get(treasureId).items.get(se_obj.section_name());
+      const item = this.secrets.get(treasureId).items.get(serverObject.section_name());
 
       if (item !== null) {
         for (const it of $range(1, item.length())) {
@@ -149,7 +149,7 @@ export class TreasureManager extends AbstractCoreManager {
           const count: number = item.get(it).item_ids!.length();
 
           if (count < item.get(it).count) {
-            item.get(it).item_ids!.set(count + 1, se_obj.id);
+            item.get(it).item_ids!.set(count + 1, serverObject.id);
 
             return true;
           }
@@ -157,10 +157,10 @@ export class TreasureManager extends AbstractCoreManager {
 
         return null;
       } else {
-        abort("Attempt to register unknown item [%s] in secret [%s]", se_obj.section_name(), treasureId);
+        abort("Attempt to register unknown item [%s] in secret [%s]", serverObject.section_name(), treasureId);
       }
     } else {
-      abort("Attempt to register item [%s] in unexistent secret [%s]", se_obj.name(), treasureId);
+      abort("Attempt to register item [%s] in unexistent secret [%s]", serverObject.name(), treasureId);
     }
   }
 
@@ -168,10 +168,10 @@ export class TreasureManager extends AbstractCoreManager {
    * todo: Description.
    */
   public registerAlifeItem(alifeObject: XR_cse_alife_object): Optional<boolean> {
-    const spawn_ini: XR_ini_file = alifeObject.spawn_ini();
+    const objectSpawnIni: XR_ini_file = alifeObject.spawn_ini();
 
-    if (spawn_ini.section_exist(TreasureManager.SECRET_LTX_SECTION)) {
-      const [result, id, value] = spawn_ini.r_line<string, TTreasure | "">(
+    if (objectSpawnIni.section_exist(TreasureManager.SECRET_LTX_SECTION)) {
+      const [result, id, value] = objectSpawnIni.r_line<string, TTreasure | "">(
         TreasureManager.SECRET_LTX_SECTION,
         0,
         "",

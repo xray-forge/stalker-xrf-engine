@@ -41,7 +41,7 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart/SmartTer
 import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/SquadReachTargetAction";
 import { SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/SquadStayOnTargetAction";
-import { TSimulationObject, TSquadAction } from "@/engine/core/objects/server/types";
+import { ISimulationTarget, TSimulationObject, TSquadAction } from "@/engine/core/objects/server/types";
 import { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
@@ -92,9 +92,7 @@ const smarts_by_no_assault_zones: LuaTable<string, string> = {
  * todo;
  */
 @LuabindClass()
-export class Squad<
-  T extends XR_cse_alife_creature_abstract = XR_cse_alife_creature_abstract
-> extends cse_alife_online_offline_group<T> {
+export class Squad extends cse_alife_online_offline_group implements ISimulationTarget {
   public behaviour: LuaTable<string, string> = new LuaTable();
 
   // todo: Rename.

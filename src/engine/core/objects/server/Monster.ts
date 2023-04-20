@@ -33,9 +33,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class Monster extends cse_alife_monster_base {
-  public ini: Optional<XR_ini_file> = null;
-  public isRegistered: boolean = false;
-
   public constructor(section: TSection) {
     super(section);
     hardResetOfflineObject(this.id);
@@ -94,10 +91,9 @@ export class Monster extends cse_alife_monster_base {
 
   public override on_register(): void {
     super.on_register();
+
     logger.info("Register:", this.id, this.name(), this.section_name());
     registerObjectStoryLinks(this);
-
-    this.isRegistered = true;
 
     const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
 
@@ -131,13 +127,14 @@ export class Monster extends cse_alife_monster_base {
 
     registry.offlineObjects.delete(this.id);
     unregisterStoryLinkByObjectId(this.id);
+
     super.on_unregister();
   }
 
   public override on_death(killer: XR_cse_alife_creature_abstract): void {
-    logger.info("On death:", this.name(), killer?.name());
-
     super.on_death(killer);
+
+    logger.info("On death:", this.name(), killer?.name());
 
     onSmartTerrainObjectDeath(this);
 

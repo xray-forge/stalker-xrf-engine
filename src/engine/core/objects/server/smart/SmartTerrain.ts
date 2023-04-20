@@ -49,7 +49,7 @@ import {
   simulationActivities,
 } from "@/engine/core/objects/server/squad/simulation_activities";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { TSimulationObject } from "@/engine/core/objects/server/types";
+import { ISimulationTarget, TSimulationObject } from "@/engine/core/objects/server/types";
 import {
   activateSchemeBySection,
   getObjectSectionToActivate,
@@ -159,7 +159,7 @@ export enum ESimulationSmartType {
  * todo;
  */
 @LuabindClass()
-export class SmartTerrain extends cse_alife_smart_zone {
+export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTarget {
   public ini!: XR_ini_file;
   public ltxConfig!: XR_ini_file;
   public ltxConfigName!: string;

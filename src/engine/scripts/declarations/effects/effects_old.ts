@@ -985,7 +985,6 @@ export function spawn_npc_in_zone(actor: XR_game_object, obj: XR_game_object, pa
     zone.game_vertex_id()
   );
 
-  spawned_obj.sim_forced_online = true;
   spawned_obj.squad = 1;
   registry.scriptSpawned.set(spawned_obj.id, zone_name);
 }

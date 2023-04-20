@@ -1,12 +1,12 @@
 import { jest } from "@jest/globals";
 import { TXR_class_id, XR_cse_alife_object_physic } from "xray16";
 
-import { AbstractLuabindClass } from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
+import { MockAlifeDynamicObjectVisual } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object_visual.mock";
 
 /**
  * todo;
  */
-export class MockAlifeObjectPhysic extends AbstractLuabindClass {}
+export class MockAlifeObjectPhysic extends MockAlifeDynamicObjectVisual {}
 
 /**
  * todo;

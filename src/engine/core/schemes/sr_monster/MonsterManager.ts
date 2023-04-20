@@ -198,7 +198,6 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
           this.object.level_vertex_id(),
           this.object.game_vertex_id()
         );
-        (this.monster as AnyObject).sim_forced_online = true;
       }
 
       this.appear_snd.play_at_pos(registry.actor, this.current, 0, sound_object.s3d);

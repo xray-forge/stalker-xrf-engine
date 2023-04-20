@@ -24,13 +24,17 @@ import { registerSimulationObject, unregisterSimulationObject } from "@/engine/c
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
 import { ESmartTerrainStatus, getCurrentSmartId } from "@/engine/core/objects/server/smart/SmartTerrainControl";
-import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
+import {
+  ISimulationActivityDescriptor,
+  simulationActivities,
+} from "@/engine/core/objects/server/squad/simulation_activities";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { ISimulationTarget } from "@/engine/core/objects/server/types";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { ACTOR, TRUE } from "@/engine/lib/constants/words";
-import { AnyObject, TStringId } from "@/engine/lib/types";
+import { AnyObject, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -38,7 +42,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 @LuabindClass()
-export class Actor extends cse_alife_creature_actor {
+export class Actor extends cse_alife_creature_actor implements ISimulationTarget {
   public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
   public props!: AnyObject;
 
@@ -83,9 +87,9 @@ export class Actor extends cse_alife_creature_actor {
   }
 
   /**
-   * todo: Description.
+   * Get full actor location.
    */
-  public get_location(): LuaMultiReturn<[XR_vector, number, number]> {
+  public get_location(): LuaMultiReturn<[XR_vector, TNumberId, TNumberId]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   }
 
@@ -99,7 +103,7 @@ export class Actor extends cse_alife_creature_actor {
   /**
    * todo: Description.
    */
-  public on_after_reach(squad: any): void {
+  public on_after_reach(squad: Squad): void {
     /**
      *  --squad.current_target_id = squad.smart_id
      */
@@ -176,15 +180,11 @@ export class Actor extends cse_alife_creature_actor {
   }
 
   /**
-   * todo: Description.
+   * Whether actor can be selected as simulation target by squad.
    */
   public target_precondition(squad: Squad): boolean {
-    const squadParameters = simulationActivities[squad.player_id];
+    const squadParameters: ISimulationActivityDescriptor = simulationActivities[squad.player_id];
 
-    if (squadParameters === null || squadParameters.actor === null || !squadParameters.actor.prec(squad, this)) {
-      return false;
-    }
-
-    return true;
+    return squadParameters !== null && squadParameters.actor !== null && squadParameters.actor.prec(squad, this);
   }
 }

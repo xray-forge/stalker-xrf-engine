@@ -8,7 +8,8 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Hanging lamp object representation.
+ * Generic moving lamp.
  */
 @LuabindClass()
 export class ObjectHangingLamp extends cse_alife_object_hanging_lamp {

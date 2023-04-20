@@ -28,24 +28,17 @@ import { Optional, StringOptional, TName, TNumberId, TSection } from "@/engine/l
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Generic human stalker object server representation.
  */
 @LuabindClass()
 export class Stalker extends cse_alife_human_stalker {
-  public ini: Optional<XR_ini_file> = null;
-
-  public job_online: Optional<boolean> = null;
   public isCorpseLootDropped: boolean = false;
-  public sim_forced_online: boolean = false;
 
   public constructor(section: TSection) {
     super(section);
     registerOfflineObject(this.id);
   }
 
-  /**
-   * todo: Description.
-   */
   public override can_switch_offline(): boolean {
     if (this.group_id !== MAX_U16) {
       return true;
@@ -54,9 +47,6 @@ export class Stalker extends cse_alife_human_stalker {
     return super.can_switch_offline();
   }
 
-  /**
-   * todo: Description.
-   */
   public override can_switch_online(): boolean {
     if (this.group_id !== MAX_U16) {
       return true;
@@ -65,9 +55,6 @@ export class Stalker extends cse_alife_human_stalker {
     return super.can_switch_online();
   }
 
-  /**
-   * todo: Description.
-   */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
@@ -81,9 +68,6 @@ export class Stalker extends cse_alife_human_stalker {
     packet.w_bool(this.isCorpseLootDropped);
   }
 
-  /**
-   * todo: Description.
-   */
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
@@ -92,14 +76,11 @@ export class Stalker extends cse_alife_human_stalker {
     const offlineObject: IStoredOfflineObject = registerOfflineObject(this.id);
 
     offlineObject.active_section = oldSection === NIL ? null : oldSection;
-    offlineObject.level_vertex_id = oldSection === NIL ? null : (tonumber(oldLevelId) as number);
+    offlineObject.level_vertex_id = oldSection === NIL ? null : (tonumber(oldLevelId) as TNumberId);
 
     this.isCorpseLootDropped = packet.r_bool();
   }
 
-  /**
-   * todo: Description.
-   */
   public override on_register(): void {
     super.on_register();
 
@@ -123,9 +104,6 @@ export class Stalker extends cse_alife_human_stalker {
     alife().object<SmartTerrain>(smartTerrain.id)!.register_npc(this);
   }
 
-  /**
-   * todo: Description.
-   */
   public override on_unregister(): void {
     logger.info("Unregister:", this.name());
 
@@ -141,20 +119,15 @@ export class Stalker extends cse_alife_human_stalker {
 
     registry.offlineObjects.delete(this.id);
     unregisterStoryLinkByObjectId(this.id);
+
     super.on_unregister();
   }
 
-  /**
-   * todo: Description.
-   */
   public override on_spawn(): void {
     super.on_spawn();
     logger.info("Spawn:", this.name());
   }
 
-  /**
-   * todo: Description.
-   */
   public override on_death(killer: XR_cse_alife_creature_abstract): void {
     super.on_death(killer);
 

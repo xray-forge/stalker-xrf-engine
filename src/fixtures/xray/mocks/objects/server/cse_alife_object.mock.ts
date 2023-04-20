@@ -41,6 +41,10 @@ export class MockAlifeObject extends AbstractLuabindClass {
     return false;
   }
 
+  public can_switch_online(): boolean {
+    return true;
+  }
+
   public spawn_ini(): MockIniFile<AnyObject> {
     return new MockIniFile<AnyObject>("object_spawn.ini");
   }

@@ -8,15 +8,17 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Generic physic object representation on server side.
+ * Represents static model in game world.
+ *
+ * Examples:
+ * - Static artefacts in scientist bunker
+ * - Detectors to place in anomaly by quest
  */
 @LuabindClass()
 export class ObjectPhysic extends cse_alife_object_physic {
   public isSecretItem: Optional<boolean> = false;
 
-  /**
-   * todo: Description.
-   */
   public override on_register(): void {
     super.on_register();
     logger.info("Register:", this.id, this.name(), this.section_name());
@@ -25,24 +27,15 @@ export class ObjectPhysic extends cse_alife_object_physic {
     this.isSecretItem = TreasureManager.getInstance().registerAlifeItem(this);
   }
 
-  /**
-   * todo: Description.
-   */
   public override on_unregister(): void {
     unregisterStoryLinkByObjectId(this.id);
     super.on_unregister();
   }
 
-  /**
-   * todo: Description.
-   */
   public override keep_saved_data_anyway(): boolean {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override can_switch_online(): boolean {
     if (this.isSecretItem) {
       return false;
