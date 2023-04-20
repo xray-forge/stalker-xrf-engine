@@ -261,7 +261,7 @@ export function teleport_squad(actor: XR_game_object, npc: XR_game_object, param
     abort("There is no squad with story id [%s]", squadStoryId);
   }
 
-  squad.set_squad_position(position);
+  squad.setSquadPosition(position);
 }
 
 /**
@@ -1221,7 +1221,7 @@ export function create_squad_member(
   const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
   const squad: Squad = getServerObjectByStoryId(storyId) as Squad;
   const squadSmartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainDescriptorById(
-    squad.smart_id as TNumberId
+    squad.assignedSmartTerrainId as TNumberId
   )!.smartTerrain;
 
   if (params[2] !== null) {
@@ -1259,7 +1259,7 @@ export function create_squad_member(
     game_vertex_id
   );
 
-  squad.assign_squad_member_to_smart(newSquadMemberId, squadSmartTerrain, null);
+  squad.assignSquadMemberToSmartTerrain(newSquadMemberId, squadSmartTerrain, null);
   simulationBoardManager.setupObjectSquadAndGroup(alife().object(newSquadMemberId) as XR_cse_alife_creature_abstract);
   // --squad_smart.refresh()
   squad.update();

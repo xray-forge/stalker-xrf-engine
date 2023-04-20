@@ -164,7 +164,7 @@ export class MonsterBinder extends object_binder {
         return;
       }
 
-      const [targetPosition] = squad_target.get_location();
+      const [targetPosition] = squad_target.getGameLocation();
 
       scriptCaptureObject(this.object, true, MonsterBinder.__name);
 

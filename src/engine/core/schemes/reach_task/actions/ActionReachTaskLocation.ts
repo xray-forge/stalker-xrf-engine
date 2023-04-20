@@ -125,7 +125,7 @@ export class ActionReachTaskLocation extends action_base {
 
     let squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(objectSquad.assignedTargetId!);
 
-    if (squadTarget === null && objectSquad.get_script_target() !== null) {
+    if (squadTarget === null && objectSquad.getScriptTarget() !== null) {
       squadTarget = alife().object(objectSquad.assignedTargetId!);
     }
 
@@ -154,7 +154,7 @@ export class ActionReachTaskLocation extends action_base {
   public executeSquadCommander(objectSquad: Squad, squadTarget: Optional<TSimulationObject>): void {
     if (squadTarget !== null && !this.object.is_talking()) {
       // eslint-disable-next-line prefer-const
-      let [position, lvi, gvi] = squadTarget.get_location();
+      let [position, lvi, gvi] = squadTarget.getGameLocation();
 
       if (this.object.game_vertex_id() !== gvi) {
         this.object.set_path_type(game_object.game_path);

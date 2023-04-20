@@ -1,6 +1,5 @@
 import {
   alife,
-  anim,
   CALifeSmartTerrainTask,
   clsid,
   cse_alife_online_offline_group,
@@ -8,10 +7,10 @@ import {
   game_graph,
   level,
   LuabindClass,
-  move,
   patrol,
   XR_CALifeSmartTerrainTask,
   XR_cse_alife_creature_abstract,
+  XR_cse_alife_object,
   XR_game_object,
   XR_net_packet,
   XR_vector,
@@ -38,13 +37,16 @@ import { unregisterStoryLinkByObjectId } from "@/engine/core/database/story_obje
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart/SmartTerrainControl";
-import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
+import {
+  ISimActivityPrecondition,
+  ISimulationActivityDescriptor,
+  simulationActivities,
+} from "@/engine/core/objects/server/squad/simulation_activities";
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/SquadReachTargetAction";
 import { SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/SquadStayOnTargetAction";
 import { ISimulationTarget, TSimulationObject, TSquadAction } from "@/engine/core/objects/server/types";
 import { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
-import { EStalkerState } from "@/engine/core/objects/state";
-import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+import { resetObjectAnimation } from "@/engine/core/utils/animation";
 import { abort } from "@/engine/core/utils/assertion";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/check/is";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
@@ -58,6 +60,7 @@ import {
   isFactionsEnemies,
   setObjectsRelation,
   setObjectSympathy,
+  setServerObjectsRelation,
 } from "@/engine/core/utils/relation";
 import { isEmpty } from "@/engine/core/utils/table";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -65,7 +68,7 @@ import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { goodwill, relations, TRelation } from "@/engine/lib/constants/relations";
+import { relations, TRelation } from "@/engine/lib/constants/relations";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
@@ -75,6 +78,7 @@ import {
   Optional,
   StringOptional,
   TCount,
+  TLabel,
   TName,
   TNumberId,
 } from "@/engine/lib/types";
@@ -82,7 +86,7 @@ import { TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const smarts_by_no_assault_zones: LuaTable<string, string> = {
+const smartsByNoAssaultZones: LuaTable<string, string> = {
   ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",
   ["jup_a6_sr_no_assault"]: "jup_a6",
   ["jup_b41_sr_no_assault"]: "jup_b41",
@@ -93,20 +97,20 @@ const smarts_by_no_assault_zones: LuaTable<string, string> = {
  */
 @LuabindClass()
 export class Squad extends cse_alife_online_offline_group implements ISimulationTarget {
+  public isItemListSpawned: Optional<boolean> = null;
+  public isSquadOnline: boolean = false;
+  public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
+  public isMapDisplayHidden: boolean = false;
+  public isAlwaysArrived: boolean = false;
+
+  public faction!: TCommunity;
   public behaviour: LuaTable<string, string> = new LuaTable();
 
-  // todo: Rename.
-  public player_id!: TCommunity;
-  public smart_id: Optional<TNumberId> = null;
+  public assignedSmartTerrainId: Optional<TNumberId> = null;
+  public enteredSmartTerrainId: Optional<TNumberId> = null;
 
   public simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-
-  public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
-  public squad_online: boolean = false;
-  public show_disabled: boolean = false;
-
-  public entered_smart: Optional<number> = null;
-  public items_spawned: Optional<boolean> = null;
+  public simulationProperties!: AnyObject;
 
   public respawn_point_id: Optional<number> = null;
   public respawn_point_prop_section: Optional<string> = null;
@@ -121,69 +125,211 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public soundManager: SoundManager = SoundManager.getSoundManagerForId("squad_" + this.section_name());
 
   public need_free_update: boolean = false;
-  public next_target: Optional<number> = null;
+  public nextTargetId: Optional<TNumberId> = null;
   public parsed_targets: LuaTable<number, string> = new LuaTable();
 
   public invulnerability: Optional<TConditionList> = null;
-  public last_target: Optional<string> = null;
+  public lastTarget: Optional<string> = null;
 
-  public action_condlist: TConditionList = new LuaTable();
-  public death_condlist: TConditionList = new LuaTable();
+  public actionConditionList: TConditionList = new LuaTable();
+  public deathConditionList: TConditionList = new LuaTable();
 
   public sympathy: Optional<TCount> = null;
-  public show_spot: Optional<TConditionList> = null;
+  public isSpotVisible: Optional<TConditionList> = null;
   public relationship: Optional<TRelation> = null;
 
-  public always_walk: boolean = false;
-  public always_arrived: boolean = false;
   public need_to_reset_location_masks: boolean = true;
 
-  public props!: AnyObject;
-
-  /**
-   * todo: Description.
-   */
   public constructor(section: TSection) {
     super(section);
 
-    this.init_squad();
+    this.initialize();
     this.set_squad_behaviour();
   }
 
   /**
    * todo: Description.
    */
-  public init_squad(): void {
+  public override update(): void {
+    super.update();
+    this.refresh();
+
+    updateSimulationObjectAvailability(this);
+
+    this.updateInvulnerability();
+
+    const scriptTarget: Optional<TNumberId> = this.getScriptTarget();
+
+    if (scriptTarget === null) {
+      this.genericUpdate();
+
+      if (this.need_to_reset_location_masks) {
+        this.setLocationTypes();
+        this.need_to_reset_location_masks = false;
+      }
+
+      return;
+    }
+
+    this.soundManager.update();
+
+    let shouldFindNewAction: boolean = false;
+
+    if (this.assignedTargetId !== null && this.assignedTargetId === scriptTarget) {
+      if (this.currentAction !== null) {
+        if (this.currentAction.name === "stay_point") {
+          if (this.isSquadOnPoint()) {
+            shouldFindNewAction = true;
+          } else {
+            shouldFindNewAction = this.updateCurrentAction();
+          }
+        } else {
+          if (this.updateCurrentAction()) {
+            this.isSquadOnPoint();
+            shouldFindNewAction = true;
+          }
+        }
+      } else {
+        this.isSquadOnPoint();
+        shouldFindNewAction = true;
+      }
+    } else {
+      shouldFindNewAction = true;
+    }
+
+    if (shouldFindNewAction) {
+      this.assignedTargetId = scriptTarget;
+
+      if (this.currentAction !== null) {
+        this.currentAction.finalize();
+        this.currentAction = null;
+      }
+
+      this.getNextAction(false);
+    }
+
+    if (this.need_to_reset_location_masks) {
+      this.setLocationTypes();
+      this.need_to_reset_location_masks = false;
+    }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public override STATE_Write(packet: XR_net_packet): void {
+    super.STATE_Write(packet);
+
+    openSaveMarker(packet, Squad.__name);
+
+    packet.w_stringZ(tostring(this.currentTargetId));
+    packet.w_stringZ(tostring(this.respawn_point_id));
+    packet.w_stringZ(tostring(this.respawn_point_prop_section));
+    packet.w_stringZ(tostring(this.assignedSmartTerrainId));
+
+    closeSaveMarker(packet, Squad.__name);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public override STATE_Read(packet: XR_net_packet, size: TCount): void {
+    super.STATE_Read(packet, size);
+
+    openLoadMarker(packet, Squad.__name);
+
+    const currentTargetId: StringOptional = packet.r_stringZ();
+
+    this.currentTargetId = currentTargetId === NIL ? null : (tonumber(currentTargetId) as TNumberId);
+
+    const respawnPointId = packet.r_stringZ();
+
+    this.respawn_point_id = respawnPointId === NIL ? null : (tonumber(respawnPointId) as TNumberId);
+    this.respawn_point_prop_section = packet.r_stringZ();
+
+    if (this.respawn_point_prop_section === NIL) {
+      this.respawn_point_prop_section = null;
+    }
+
+    const smartTerrainId: StringOptional = packet.r_stringZ();
+
+    this.assignedSmartTerrainId = smartTerrainId === NIL ? null : (tonumber(smartTerrainId) as TNumberId);
+
+    this.initializeOnLoad();
+
+    closeLoadMarker(packet, Squad.__name);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public override on_register(): void {
+    super.on_register();
+
+    this.simulationBoardManager.registerSquad(this);
+
+    registerObjectStoryLinks(this);
+    registerSimulationObject(this);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public override on_unregister(): void {
+    super.on_unregister();
+
+    unregisterStoryLinkByObjectId(this.id);
+    unregisterSimulationObject(this);
+
+    this.simulationBoardManager.getSquads().delete(this.id);
+    this.simulationBoardManager.assignSquadToSmartTerrain(this, null);
+
+    if (this.respawn_point_id !== null) {
+      const smartTerrain: Optional<SmartTerrain> = alife().object(this.respawn_point_id)!;
+
+      if (smartTerrain === null) {
+        return;
+      } else {
+        smartTerrain.alreadySpawned.get(this.respawn_point_prop_section!).num -= 1;
+      }
+    }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public initialize(): void {
     const sectionName: TSection = this.section_name();
 
-    this.player_id = readIniString(SYSTEM_INI, sectionName, "faction", true, "") as TCommunity;
-    this.action_condlist = parseConditionsList(readIniString(SYSTEM_INI, sectionName, "target_smart", false, "", ""));
-    this.death_condlist = parseConditionsList(readIniString(SYSTEM_INI, sectionName, "on_death", false, "", ""));
+    this.faction = readIniString(SYSTEM_INI, sectionName, "faction", true, "") as TCommunity;
+    this.actionConditionList = parseConditionsList(
+      readIniString(SYSTEM_INI, sectionName, "target_smart", false, "", "")
+    );
+    this.deathConditionList = parseConditionsList(readIniString(SYSTEM_INI, sectionName, "on_death", false, "", ""));
     this.invulnerability = parseConditionsList(
       readIniString(SYSTEM_INI, sectionName, "invulnerability", false, "", "")
     );
     this.relationship =
       this.relationship || (readIniString(SYSTEM_INI, sectionName, "relationship", false, "", null) as TRelation);
     this.sympathy = readIniNumber(SYSTEM_INI, sectionName, "sympathy", false, null);
-    this.show_spot = parseConditionsList(readIniString(SYSTEM_INI, sectionName, "show_spot", false, "", FALSE));
+    this.isSpotVisible = parseConditionsList(readIniString(SYSTEM_INI, sectionName, "show_spot", false, "", FALSE));
+    this.isAlwaysArrived = readIniBoolean(SYSTEM_INI, sectionName, "always_arrived", false);
 
-    this.always_walk = readIniBoolean(SYSTEM_INI, sectionName, "always_walk", false);
-    this.always_arrived = readIniBoolean(SYSTEM_INI, sectionName, "always_arrived", false);
-    this.set_location_types_section("stalker_terrain");
-    this.set_squad_sympathy();
+    this.setLocationTypesSection("stalker_terrain");
+    this.updateSquadSympathy();
   }
 
   /**
    * todo: Description.
    */
-  public init_squad_on_load(): void {
+  public initializeOnLoad(): void {
     logger.info("Init squad on load:", this.name());
 
-    this.set_squad_sympathy();
-    this.simulationBoardManager.assignSquadToSmartTerrain(this, this.smart_id);
+    this.updateSquadSympathy();
+    this.simulationBoardManager.assignSquadToSmartTerrain(this, this.assignedSmartTerrainId);
 
-    if (this.smart_id !== null) {
-      this.simulationBoardManager.enterSmartTerrain(this, this.smart_id);
+    if (this.assignedSmartTerrainId !== null) {
+      this.simulationBoardManager.enterSmartTerrain(this, this.assignedSmartTerrainId);
     }
 
     this.need_to_reset_location_masks = true;
@@ -195,7 +341,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public set_squad_behaviour(): void {
     this.behaviour = new LuaTable();
 
-    const behaviour_section = readIniString(SYSTEM_INI, this.section_name(), "behaviour", false, "", this.player_id);
+    const behaviour_section = readIniString(SYSTEM_INI, this.section_name(), "behaviour", false, "", this.faction);
 
     if (!SQUAD_BEHAVIOURS_LTX.section_exist(behaviour_section)) {
       abort("There is no section [" + behaviour_section + "] in 'squad_behaviours.ltx'");
@@ -213,35 +359,35 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public get_script_target(): Optional<TNumberId> {
-    const newTarget: Optional<TSection> = pickSectionFromCondList(registry.actor, this, this.action_condlist);
+  public getScriptTarget(): Optional<TNumberId> {
+    const newTarget: Optional<TSection> = pickSectionFromCondList(registry.actor, this, this.actionConditionList);
 
     if (newTarget === null) {
       return null;
     }
 
-    if (newTarget !== this.last_target) {
-      this.last_target = newTarget;
+    if (newTarget !== this.lastTarget) {
+      this.lastTarget = newTarget;
       this.parsed_targets = parseStringsList(newTarget);
 
       if (this.need_free_update !== true) {
-        this.next_target = 1;
+        this.nextTargetId = 1;
       } else {
         this.need_free_update = false;
       }
     }
 
-    if (this.parsed_targets.get(this.next_target as number) === null) {
-      this.next_target = 1;
+    if (this.parsed_targets.get(this.nextTargetId as number) === null) {
+      this.nextTargetId = 1;
     }
 
-    let nextTargetName: StringOptional<TName> = this.pick_next_target();
+    let nextTargetName: StringOptional<TName> = this.selectNextTarget();
 
     if (nextTargetName === NIL) {
       return null;
     } else if (nextTargetName === "loop") {
-      this.next_target = 1;
-      nextTargetName = this.pick_next_target();
+      this.nextTargetId = 1;
+      nextTargetName = this.selectNextTarget();
     }
 
     const point = this.simulationBoardManager.getSmartTerrainByName(nextTargetName);
@@ -256,23 +402,23 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public pick_next_target(): StringOptional<TName> {
-    return this.parsed_targets.get(this.next_target as TNumberId);
+  public selectNextTarget(): StringOptional<TName> {
+    return this.parsed_targets.get(this.nextTargetId as TNumberId);
   }
 
   /**
    * todo: Description.
    */
-  public check_squad_come_to_point(): boolean {
+  public isSquadOnPoint(): boolean {
     if (this.parsed_targets === null) {
       return true;
     }
 
-    const next_target = this.next_target || 0;
+    const nextTargetId: TNumberId = this.nextTargetId || 0;
 
-    if (this.assignedTargetId !== null && this.smart_id === this.assignedTargetId) {
-      if (this.parsed_targets.get(next_target + 1) !== null) {
-        this.next_target = next_target + 1;
+    if (this.assignedTargetId !== null && this.assignedSmartTerrainId === this.assignedTargetId) {
+      if (this.parsed_targets.get(nextTargetId + 1) !== null) {
+        this.nextTargetId = nextTargetId + 1;
 
         return true;
       }
@@ -284,87 +430,14 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public update_current_action(): boolean {
-    const is_finished = this.currentAction!.update(false);
-
-    if (!is_finished) {
-      return false;
-    }
-
-    return true;
+  public updateCurrentAction(): boolean {
+    return this.currentAction!.update(false);
   }
 
   /**
    * todo: Description.
    */
-  public override update(): void {
-    super.update();
-    this.refresh();
-
-    updateSimulationObjectAvailability(this);
-
-    this.check_invulnerability();
-
-    const script_target = this.get_script_target();
-
-    if (script_target === null) {
-      this.generic_update();
-
-      if (this.need_to_reset_location_masks) {
-        this.set_location_types();
-        this.need_to_reset_location_masks = false;
-      }
-
-      return;
-    }
-
-    this.soundManager.update();
-
-    let shouldFindNewAction: boolean = false;
-
-    if (this.assignedTargetId !== null && this.assignedTargetId === script_target) {
-      if (this.currentAction !== null) {
-        if (this.currentAction.name === "stay_point") {
-          if (this.check_squad_come_to_point()) {
-            shouldFindNewAction = true;
-          } else {
-            shouldFindNewAction = this.update_current_action();
-          }
-        } else {
-          if (this.update_current_action()) {
-            this.check_squad_come_to_point();
-            shouldFindNewAction = true;
-          }
-        }
-      } else {
-        this.check_squad_come_to_point();
-        shouldFindNewAction = true;
-      }
-    } else {
-      shouldFindNewAction = true;
-    }
-
-    if (shouldFindNewAction) {
-      this.assignedTargetId = script_target;
-
-      if (this.currentAction !== null) {
-        this.currentAction.finalize();
-        this.currentAction = null;
-      }
-
-      this.get_next_action(false);
-    }
-
-    if (this.need_to_reset_location_masks) {
-      this.set_location_types();
-      this.need_to_reset_location_masks = false;
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public clear_assigned_target(): void {
+  public clearAssignedTarget(): void {
     logger.info("Clear squad assigned target:", this.name());
 
     this.assignedTargetId = null;
@@ -373,31 +446,27 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public assigned_target_avaliable(): boolean {
+  public isAssignedTargetAvailable(): boolean {
     const targetObject: Optional<TSimulationObject> =
       this.assignedTargetId === null ? null : alife().object<TSimulationObject>(this.assignedTargetId);
 
-    if (targetObject === null) {
-      return false;
-    }
-
-    return targetObject.target_precondition(this, true);
+    return targetObject === null ? false : targetObject.isValidSquadTarget(this, true);
   }
 
   /**
    * todo: Description.
    */
-  public generic_update(): void {
+  public genericUpdate(): void {
     this.soundManager.update();
     this.refresh();
 
-    const help_target_id = get_help_target_id(this);
+    const helpTargetId: Optional<TNumberId> = this.getHelpTargetId();
 
-    if (help_target_id) {
-      logger.info("Assign squad new help target_id:", this.name(), help_target_id);
-      this.assignedTargetId = help_target_id;
+    if (helpTargetId) {
+      logger.info("Assign squad new help target_id:", this.name(), helpTargetId);
+      this.assignedTargetId = helpTargetId;
       this.currentAction = null;
-      this.get_next_action(false);
+      this.getNextAction(false);
 
       return;
     }
@@ -412,16 +481,16 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       if (target.clsid() === clsid.online_offline_group_s) {
         this.assignedTargetId = target.id;
         this.currentAction = null;
-        this.get_next_action(true);
+        this.getNextAction(true);
 
         return;
       }
     }
 
-    if (this.currentAction !== null && this.assigned_target_avaliable()) {
-      const is_finished = this.currentAction.update(true);
+    if (this.currentAction !== null && this.isAssignedTargetAvailable()) {
+      const isFinished: boolean = this.currentAction.update(true);
 
-      if (is_finished) {
+      if (isFinished) {
         this.currentAction.finalize();
 
         if (this.currentAction.name === "stay_point" || this.assignedTargetId === null) {
@@ -438,25 +507,25 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       this.assignedTargetId = this.simulationBoardManager.getSquadSimulationTarget(this)!.id;
     }
 
-    this.get_next_action(true);
+    this.getNextAction(true);
   }
 
   /**
    * todo: Description.
    */
-  public get_next_action(under_simulation: boolean): void {
-    const squad_target = alife().object<SmartTerrain>(this.assignedTargetId!);
+  public getNextAction(isUnderSimulation: boolean): void {
+    const squadTarget: Optional<TSimulationObject> = alife().object<TSimulationObject>(this.assignedTargetId!);
 
     if (this.currentTargetId === null) {
-      if (squad_target === null || squad_target.am_i_reached(this)) {
-        if (squad_target !== null) {
-          squad_target.on_reach_target(this);
-          squad_target.on_after_reach(this);
+      if (squadTarget === null || squadTarget.isReachedBySquad(this)) {
+        if (squadTarget !== null) {
+          squadTarget.onReachedBySquad(this);
+          squadTarget.onAfterReachedBySquad(this);
         }
 
         this.currentAction = new SquadStayOnTargetAction(this);
         this.currentTargetId = this.assignedTargetId;
-        this.currentAction.make(under_simulation);
+        this.currentAction.make(isUnderSimulation);
 
         return;
       }
@@ -465,10 +534,10 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     if (this.assignedTargetId === this.currentTargetId || this.assignedTargetId === null) {
       this.currentAction = new SquadStayOnTargetAction(this);
       this.currentTargetId = this.assignedTargetId;
-      this.currentAction.make(under_simulation);
+      this.currentAction.make(isUnderSimulation);
     } else {
       this.currentAction = new SquadReachTargetAction(this);
-      this.currentAction.make(under_simulation);
+      this.currentAction.make(isUnderSimulation);
     }
   }
 
@@ -486,7 +555,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     // Second loop is to prevent iteration breaking when iterating + mutating?
     for (const [id, v] of squadMembers) {
-      const object = alife().object(id);
+      const object: Optional<XR_cse_alife_object> = alife().object(id);
 
       if (object !== null) {
         this.unregister_member(id);
@@ -500,20 +569,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public remove_npc(objectId: TNumberId): void {
-    const npc = alife().object<XR_cse_alife_creature_abstract>(objectId)!;
-
-    logger.info("Remove npc:", this.name(), npc.name());
-
-    this.on_npc_death(npc);
-    alife().release(npc, true);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public on_npc_death(object: XR_cse_alife_creature_abstract): void {
-    logger.info("On npc death:", this.name(), object.name());
+  public onSquadObjectDeath(object: XR_cse_alife_creature_abstract): void {
+    logger.info("On object death:", this.name(), object.name());
 
     this.soundManager.unregisterObject(object.id);
     this.unregister_member(object.id);
@@ -526,8 +583,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         this.currentAction = null;
       }
 
-      if (this.death_condlist !== null) {
-        pickSectionFromCondList(registry.actor, this, this.death_condlist as any);
+      if (this.deathConditionList !== null) {
+        pickSectionFromCondList(registry.actor, this, this.deathConditionList as any);
       }
 
       this.simulationBoardManager.onRemoveSquad(this);
@@ -541,7 +598,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public assign_squad_member_to_smart(
+  public assignSquadMemberToSmartTerrain(
     memberId: TNumberId,
     smartTerrain: Optional<SmartTerrain>,
     oldSmartTerrainId: Optional<TNumberId>
@@ -551,7 +608,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     if (object !== null) {
       logger.info("Assign squad member to squad:", this.name(), smartTerrain?.name(), object.name());
 
-      if (object.m_smart_terrain_id === this.smart_id) {
+      if (object.m_smart_terrain_id === this.assignedSmartTerrainId) {
         return;
       }
 
@@ -575,27 +632,27 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public assign_smart(smartTerrain: Optional<SmartTerrain>) {
+  public assignSmartTerrain(smartTerrain: Optional<SmartTerrain>) {
     if (smartTerrain) {
       logger.info("Assign squad to smart terrain:", this.name(), smartTerrain.name());
     } else {
       logger.info("Unassign squad from smart:", this.name());
     }
 
-    const oldSmartId: TNumberId = this.smart_id!;
+    const oldSmartId: TNumberId = this.assignedSmartTerrainId!;
 
-    this.smart_id = smartTerrain && smartTerrain.id;
+    this.assignedSmartTerrainId = smartTerrain && smartTerrain.id;
 
     for (const squadMember of this.squad_members()) {
-      this.assign_squad_member_to_smart(squadMember.id, smartTerrain, oldSmartId);
+      this.assignSquadMemberToSmartTerrain(squadMember.id, smartTerrain, oldSmartId);
     }
   }
 
   /**
    * todo: Description.
    */
-  public check_invulnerability(): void {
-    if (this.squad_online !== true) {
+  public updateInvulnerability(): void {
+    if (!this.isSquadOnline) {
       return;
     }
 
@@ -621,7 +678,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public set_location_types_section(section: string): void {
+  public setLocationTypesSection(section: TSection): void {
     if (SMART_TERRAIN_MASKS_LTX.section_exist(section)) {
       const [result, id, value] = SMART_TERRAIN_MASKS_LTX.r_line(section, 0, "", "");
 
@@ -632,34 +689,36 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public set_location_types(newSmartName?: TName): void {
-    logger.info("Set location types:", this.name(), newSmartName);
+  public setLocationTypes(newLocationSection?: TSection): void {
+    logger.info("Set location types:", this.name(), newLocationSection);
 
-    const default_location = "stalker_terrain";
+    const default_location: TSection = "stalker_terrain";
 
     this.clear_location_types();
 
     if (alife().object(this.assignedTargetId!)!.clsid() === clsid.smart_terrain) {
-      this.set_location_types_section(default_location);
+      this.setLocationTypesSection(default_location);
 
-      const old_smart_name = this.smart_id && alife().object(this.smart_id) && alife().object(this.smart_id)!.name();
+      const oldSmartName = this.assignedSmartTerrainId !== null && alife().object(this.assignedSmartTerrainId)?.name();
 
-      if (old_smart_name) {
-        this.set_location_types_section(old_smart_name);
+      if (oldSmartName) {
+        this.setLocationTypesSection(oldSmartName);
       }
 
-      if (newSmartName) {
-        this.set_location_types_section(newSmartName);
+      if (newLocationSection) {
+        this.setLocationTypesSection(newLocationSection);
       }
     } else {
-      this.set_location_types_section("squad_terrain");
+      this.setLocationTypesSection("squad_terrain");
 
       for (const [k, v] of registry.simulationObjects) {
         if (alife().object(k)?.clsid() === clsid.smart_terrain) {
-          const props_base = alife().object<SmartTerrain>(k)!.props && alife().object<SmartTerrain>(k)!.props["base"];
+          const propertiesBase =
+            alife().object<SmartTerrain>(k)!.simulationProperties &&
+            alife().object<SmartTerrain>(k)!.simulationProperties["base"];
 
-          if (props_base && tonumber(props_base) === 0) {
-            this.set_location_types_section(alife().object(k)!.name());
+          if (propertiesBase && tonumber(propertiesBase) === 0) {
+            this.setLocationTypesSection(alife().object(k)!.name());
           }
         }
       }
@@ -715,29 +774,29 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       parseConditionsList(spawnPointData)
     )!;
 
-    let base_spawn_position: XR_vector = spawnSmartTerrain.position;
-    let base_lvi = spawnSmartTerrain.m_level_vertex_id;
-    let base_gvi = spawnSmartTerrain.m_game_vertex_id;
+    let baseSpawnPosition: XR_vector = spawnSmartTerrain.position;
+    let baseLevelVertexId: TNumberId = spawnSmartTerrain.m_level_vertex_id;
+    let baseGameVertexId: TNumberId = spawnSmartTerrain.m_game_vertex_id;
 
     if (spawnPoint !== null) {
       if (spawnPoint === "self") {
-        base_spawn_position = spawnSmartTerrain.position;
-        base_lvi = spawnSmartTerrain.m_level_vertex_id;
-        base_gvi = spawnSmartTerrain.m_game_vertex_id;
+        baseSpawnPosition = spawnSmartTerrain.position;
+        baseLevelVertexId = spawnSmartTerrain.m_level_vertex_id;
+        baseGameVertexId = spawnSmartTerrain.m_game_vertex_id;
       } else {
-        base_spawn_position = new patrol(spawnPoint).point(0);
-        base_lvi = new patrol(spawnPoint).level_vertex_id(0);
-        base_gvi = new patrol(spawnPoint).game_vertex_id(0);
+        baseSpawnPosition = new patrol(spawnPoint).point(0);
+        baseLevelVertexId = new patrol(spawnPoint).level_vertex_id(0);
+        baseGameVertexId = new patrol(spawnPoint).game_vertex_id(0);
       }
     } else if (spawnSmartTerrain.spawnPointName !== null) {
-      base_spawn_position = new patrol(spawnSmartTerrain.spawnPointName).point(0);
-      base_lvi = new patrol(spawnSmartTerrain.spawnPointName).level_vertex_id(0);
-      base_gvi = new patrol(spawnSmartTerrain.spawnPointName).game_vertex_id(0);
+      baseSpawnPosition = new patrol(spawnSmartTerrain.spawnPointName).point(0);
+      baseLevelVertexId = new patrol(spawnSmartTerrain.spawnPointName).level_vertex_id(0);
+      baseGameVertexId = new patrol(spawnSmartTerrain.spawnPointName).game_vertex_id(0);
     }
 
     if (spawnSections.length() !== 0) {
       for (const [k, v] of spawnSections) {
-        this.addSquadMember(v, base_spawn_position, base_lvi, base_gvi);
+        this.addSquadMember(v, baseSpawnPosition, baseLevelVertexId, baseGameVertexId);
       }
     }
 
@@ -757,20 +816,20 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       for (const it of $range(1, randomCount)) {
         const random_id = math.random(1, randomSpawn!.length());
 
-        this.addSquadMember(randomSpawn!.get(random_id), base_spawn_position, base_lvi, base_gvi);
+        this.addSquadMember(randomSpawn!.get(random_id), baseSpawnPosition, baseLevelVertexId, baseGameVertexId);
       }
     } else if (spawnSections.length() === 0) {
       abort("You are trying to spawn an empty squad [%s]!", this.section_name());
     }
 
-    this.smart_id = spawnSmartTerrain.id;
+    this.assignedSmartTerrainId = spawnSmartTerrain.id;
     this.refresh();
   }
 
   /**
-   * todo: Description.
+   * Update objects sympathy between objects within squad.
    */
-  public set_squad_sympathy(sympathy?: Optional<TCount>): void {
+  public updateSquadSympathy(sympathy?: Optional<TCount>): void {
     const squadSympathy = sympathy || this.sympathy;
 
     if (squadSympathy !== null) {
@@ -801,38 +860,38 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         if (object !== null) {
           setObjectsRelation(object, registry.actor, relation);
         } else {
-          set_relation(alife().object(squadMember.id), alife().actor(), relation);
+          setServerObjectsRelation(alife().object(squadMember.id), alife().actor(), relation);
         }
       }
     }
   }
 
   /**
-   * todo: Description.
+   * Set squad position in current level by supplied vector.
    */
-  public set_squad_position(position: XR_vector): void {
-    if (this.online === false) {
+  public setSquadPosition(position: XR_vector): void {
+    if (!this.online) {
       this.force_change_position(position);
     }
 
-    for (const k of this.squad_members()) {
-      const cl_object = level.object_by_id(k.id);
+    for (const squadMember of this.squad_members()) {
+      const object: Optional<XR_game_object> = level.object_by_id(squadMember.id);
 
-      registry.offlineObjects.get(k.id).level_vertex_id = level.vertex_id(position);
+      registry.offlineObjects.get(squadMember.id).level_vertex_id = level.vertex_id(position);
 
-      if (cl_object !== null) {
-        resetObjectAnimation(cl_object);
-        cl_object.set_npc_position(position);
+      if (object !== null) {
+        resetObjectAnimation(object);
+        object.set_npc_position(position);
       } else {
-        (k as any).object.position = position;
+        squadMember.object.position = position;
       }
     }
   }
 
   /**
-   * todo: Description.
+   * @returns whether any squad participant has detector.
    */
-  public has_detector(): boolean {
+  public hasDetector(): boolean {
     for (const k of this.squad_members()) {
       const target = alife().object<XR_cse_alife_creature_abstract>(k.id);
 
@@ -845,97 +904,14 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * todo: Description.
+   * @returns squad community section
    */
-  public get_squad_community(): TCommunity {
-    const squad_community = squadCommunityByBehaviour[this.player_id as any as TCommunity];
+  public getSquadCommunity(): TCommunity {
+    const squadCommunity: Optional<TCommunity> = squadCommunityByBehaviour[this.faction as TCommunity];
 
-    if (squad_community === null) {
-      abort("squad community is 'null' for player_id [%s]", this.player_id);
-    }
+    assert(squadCommunity, "Squad community is 'null' for [%s].", this.faction);
 
-    return squad_community;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override STATE_Write(packet: XR_net_packet): void {
-    super.STATE_Write(packet);
-
-    openSaveMarker(packet, Squad.__name);
-
-    packet.w_stringZ(tostring(this.currentTargetId));
-    packet.w_stringZ(tostring(this.respawn_point_id));
-    packet.w_stringZ(tostring(this.respawn_point_prop_section));
-    packet.w_stringZ(tostring(this.smart_id));
-
-    closeSaveMarker(packet, Squad.__name);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override STATE_Read(packet: XR_net_packet, size: TCount): void {
-    super.STATE_Read(packet, size);
-
-    openLoadMarker(packet, Squad.__name);
-
-    const currentTargetId: StringOptional = packet.r_stringZ();
-
-    this.currentTargetId = currentTargetId === NIL ? null : (tonumber(currentTargetId) as TNumberId);
-
-    const respawnPointId = packet.r_stringZ();
-
-    this.respawn_point_id = respawnPointId === NIL ? null : (tonumber(respawnPointId) as TNumberId);
-    this.respawn_point_prop_section = packet.r_stringZ();
-
-    if (this.respawn_point_prop_section === NIL) {
-      this.respawn_point_prop_section = null;
-    }
-
-    const smartTerrainId: StringOptional = packet.r_stringZ();
-
-    this.smart_id = smartTerrainId === NIL ? null : (tonumber(smartTerrainId) as TNumberId);
-
-    this.init_squad_on_load();
-
-    closeLoadMarker(packet, Squad.__name);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override on_register(): void {
-    super.on_register();
-
-    this.simulationBoardManager.registerSquad(this);
-
-    registerObjectStoryLinks(this);
-    registerSimulationObject(this);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override on_unregister(): void {
-    super.on_unregister();
-
-    unregisterStoryLinkByObjectId(this.id);
-    unregisterSimulationObject(this);
-
-    this.simulationBoardManager.getSquads().delete(this.id);
-    this.simulationBoardManager.assignSquadToSmartTerrain(this, null);
-
-    if (this.respawn_point_id !== null) {
-      const smartTerrain: Optional<SmartTerrain> = alife().object(this.respawn_point_id)!;
-
-      if (smartTerrain === null) {
-        return;
-      } else {
-        smartTerrain.alreadySpawned.get(this.respawn_point_prop_section!).num -= 1;
-      }
-    }
+    return squadCommunity;
   }
 
   /**
@@ -969,7 +945,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public show(): void {
-    if (this.show_disabled) {
+    if (this.isMapDisplayHidden) {
       this.hide();
 
       return;
@@ -982,7 +958,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       level.map_has_object_spot(this.commander_id(), "ui_pda2_quest_npc_location") !== 0 ||
       level.map_has_object_spot(this.commander_id(), "ui_pda2_medic_location") !== 0
     ) {
-      this.show_disabled = true;
+      this.isMapDisplayHidden = true;
 
       return;
     }
@@ -997,7 +973,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     let spot: string = "";
 
-    if (!isSquadMonsterCommunity(this.player_id as TCommunity)) {
+    if (!isSquadMonsterCommunity(this.faction as TCommunity)) {
       const relation: TRelation = getSquadIdRelationToActor(this.id);
 
       if (relation === relations.friend) {
@@ -1009,16 +985,16 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     if (spot !== "") {
       if (spot === this.spot_section) {
-        level.map_change_spot_hint(this.current_spot_id, this.spot_section, this.get_squad_props());
+        level.map_change_spot_hint(this.current_spot_id, this.spot_section, this.getMapDisplayHint());
 
         return;
       }
 
       if (this.spot_section === null) {
-        level.map_add_object_spot(this.current_spot_id, spot, this.get_squad_props());
+        level.map_add_object_spot(this.current_spot_id, spot, this.getMapDisplayHint());
       } else {
         level.map_remove_object_spot(this.current_spot_id, this.spot_section);
-        level.map_add_object_spot(this.current_spot_id, spot, this.get_squad_props());
+        level.map_add_object_spot(this.current_spot_id, spot, this.getMapDisplayHint());
       }
 
       this.spot_section = spot;
@@ -1029,11 +1005,11 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * todo: Description.
+   * Get map display hint for debugging and display in game UI map.
    */
-  public get_squad_props() {
+  public getMapDisplayHint(): TLabel {
     if (gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) {
-      let t: string =
+      let t: TLabel =
         "[" +
         tostring(this.name()) +
         "]\\n" +
@@ -1067,9 +1043,66 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
+   * todo;
+   */
+  public getHelpTargetId(): Optional<TNumberId> {
+    if (!this.canHelpActor()) {
+      return null;
+    }
+
+    const currentCommunity: TCommunity = this.getSquadCommunity();
+
+    for (const [id, v] of registry.actorCombat) {
+      const enemySquadId: Optional<TNumberId> = alife().object<XR_cse_alife_creature_abstract>(id)!.group_id;
+
+      if (enemySquadId !== null) {
+        const targetSquad: Optional<Squad> = alife().object<Squad>(enemySquadId);
+
+        if (
+          targetSquad &&
+          this.position.distance_to_sqr(targetSquad.position) < 150 * 150 &&
+          isFactionsEnemies(currentCommunity, targetSquad.getSquadCommunity())
+        ) {
+          return enemySquadId;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * todo;
+   */
+  public canHelpActor(): boolean {
+    if (isEmpty(registry.actorCombat)) {
+      return false;
+    }
+
+    if (
+      game_graph().vertex(this.m_game_vertex_id).level_id() !==
+      game_graph().vertex(alife().actor().m_game_vertex_id).level_id()
+    ) {
+      return false;
+    }
+
+    const currentCommunity: TCommunity = this.getSquadCommunity();
+
+    if (currentCommunity === communities.dolg && hasAlifeInfo(infoPortions.sim_duty_help_harder)) {
+      return true;
+    } else if (currentCommunity === communities.freedom && hasAlifeInfo(infoPortions.sim_freedom_help_harder)) {
+      return true;
+    } else if (currentCommunity === communities.stalker && hasAlifeInfo(infoPortions.sim_stalker_help_harder)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
    * todo: Description.
    */
-  public get_location(): LuaMultiReturn<[XR_vector, TNumberId, TNumberId]> {
+  public getGameLocation(): LuaMultiReturn<[XR_vector, TNumberId, TNumberId]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   }
 
@@ -1100,20 +1133,20 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public am_i_reached(squad: Squad): boolean {
+  public isReachedBySquad(squad: Squad): boolean {
     return this.npc_count() === 0;
   }
 
   /**
    * todo: Description.
    */
-  public on_after_reach(squad: Squad): void {}
+  public onAfterReachedBySquad(squad: Squad): void {}
 
   /**
    * todo: Description.
    */
-  public on_reach_target(squad: Squad): void {
-    squad.set_location_types();
+  public onReachedBySquad(squad: Squad): void {
+    squad.setLocationTypes();
 
     for (const it of squad.squad_members()) {
       softResetOfflineObject(it.id);
@@ -1137,40 +1170,42 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       return false;
     }
 
-    for (const [k, v] of smarts_by_no_assault_zones) {
-      const zone = registry.zones.get(k);
+    for (const [zoneName, smartTerrainName] of smartsByNoAssaultZones) {
+      const zone: XR_game_object = registry.zones.get(zoneName);
 
       if (zone && zone.inside(this.position)) {
-        const smart = SimulationBoardManager.getInstance().getSmartTerrainByName(v);
+        const smartTerrain: Optional<SmartTerrain> =
+          SimulationBoardManager.getInstance().getSmartTerrainByName(smartTerrainName);
 
         if (
-          smart &&
-          smart.smartTerrainActorControl !== null &&
-          smart.smartTerrainActorControl.status !== ESmartTerrainStatus.ALARM
+          smartTerrain &&
+          smartTerrain.smartTerrainActorControl !== null &&
+          smartTerrain.smartTerrainActorControl.status !== ESmartTerrainStatus.ALARM
         ) {
           return false;
         }
       }
     }
 
-    if (this.smart_id === null) {
+    if (this.assignedSmartTerrainId === null) {
       return true;
     }
 
-    const smart: SmartTerrain = alife().object(this.smart_id) as SmartTerrain;
-    const props_base = smart!.props && smart!.props["base"];
+    const assignedSmartTerrain: SmartTerrain = alife().object(this.assignedSmartTerrainId) as SmartTerrain;
+    const smartTerrainBaseProperties =
+      assignedSmartTerrain!.simulationProperties && assignedSmartTerrain!.simulationProperties["base"];
 
-    if (props_base !== null && tonumber(props_base)! > 0) {
+    if (smartTerrainBaseProperties !== null && tonumber(smartTerrainBaseProperties)! > 0) {
       return false;
     }
 
     if (
-      smart.smartTerrainActorControl !== null &&
-      smart.smartTerrainActorControl.status !== ESmartTerrainStatus.NORMAL
+      assignedSmartTerrain.smartTerrainActorControl !== null &&
+      assignedSmartTerrain.smartTerrainActorControl.status !== ESmartTerrainStatus.NORMAL
     ) {
       if (
-        registry.zones.get(smart.smartTerrainActorControl.noweap_zone) === null ||
-        !registry.zones.get(smart.smartTerrainActorControl.noweap_zone).inside(this.position)
+        registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.noweap_zone) === null ||
+        !registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.noweap_zone).inside(this.position)
       ) {
         return false;
       }
@@ -1182,134 +1217,17 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public target_precondition(squad: Squad): boolean {
-    const squad_params = simulationActivities[squad.player_id];
+  public isValidSquadTarget(squad: Squad): boolean {
+    const squadActivityDescriptor: ISimulationActivityDescriptor = simulationActivities[squad.faction];
 
-    if (squad_params === null || squad_params.squad === null) {
+    if (squadActivityDescriptor === null || squadActivityDescriptor.squad === null) {
       return false;
     }
 
-    const this_params = squad_params.squad[this.player_id] as Optional<AnyCallablesModule>;
+    const currentFactionDescriptor: Optional<ISimActivityPrecondition> = squadActivityDescriptor.squad[
+      this.faction
+    ] as Optional<ISimActivityPrecondition>;
 
-    if (this_params === null || this_params.prec(squad, this) === false) {
-      return false;
-    }
-
-    return true;
+    return currentFactionDescriptor !== null && currentFactionDescriptor.prec(squad, this);
   }
-}
-
-/**
- * todo;
- */
-export function get_help_target_id(squad: Squad): Optional<TNumberId> {
-  // log.info("Get help target id:", squad.name());
-
-  if (!can_help_actor(squad)) {
-    return null;
-  }
-
-  for (const [id, v] of registry.actorCombat) {
-    const enemy_squad_id: Optional<number> = alife().object<XR_cse_alife_creature_abstract>(id)!.group_id;
-
-    if (enemy_squad_id !== null) {
-      const target_squad = alife().object<Squad>(enemy_squad_id);
-
-      if (
-        target_squad &&
-        squad.position.distance_to_sqr(target_squad.position) < 150 * 150 &&
-        isFactionsEnemies(squad.get_squad_community(), target_squad.get_squad_community())
-      ) {
-        return enemy_squad_id;
-      }
-    }
-  }
-
-  return null;
-}
-
-/**
- * todo;
- */
-export function can_help_actor(squad: Squad): boolean {
-  if (isEmpty(registry.actorCombat)) {
-    return false;
-  }
-
-  if (
-    game_graph().vertex(squad.m_game_vertex_id).level_id() !==
-    game_graph().vertex(alife().actor().m_game_vertex_id).level_id()
-  ) {
-    return false;
-  }
-
-  if (hasAlifeInfo(infoPortions.sim_duty_help_harder) && squad.get_squad_community() === communities.dolg) {
-    return true;
-  } else if (
-    hasAlifeInfo(infoPortions.sim_freedom_help_harder) &&
-    squad.get_squad_community() === communities.freedom
-  ) {
-    return true;
-  } else if (
-    hasAlifeInfo(infoPortions.sim_stalker_help_harder) &&
-    squad.get_squad_community() === communities.stalker
-  ) {
-    return true;
-  }
-
-  return false;
-}
-
-/**
- * todo;
- */
-function set_relation(
-  npc1: Optional<XR_cse_alife_creature_abstract>,
-  npc2: Optional<XR_cse_alife_creature_abstract>,
-  new_relation: TRelation
-): void {
-  logger.info("Set relation:", npc1?.name(), "->", npc2?.name(), "@", new_relation);
-
-  let reputation: TCount = goodwill.neutral;
-
-  if (new_relation === relations.enemy) {
-    reputation = goodwill.enemy;
-  } else if (new_relation === relations.friend) {
-    reputation = goodwill.friend;
-  }
-
-  if (npc1 !== null && npc2 !== null) {
-    (npc1 as any).force_set_goodwill(reputation, npc2.id);
-  } else {
-    abort("Npc not set in goodwill function!!!");
-  }
-}
-
-/**
- * todo;
- */
-function resetObjectAnimation(object: XR_game_object): void {
-  const stateManager: Optional<StalkerStateManager> = registry.objects.get(object.id()).stateManager!;
-
-  if (stateManager === null) {
-    return;
-  }
-
-  stateManager.animation.setState(null, true);
-  stateManager.animation.setControl();
-  stateManager.animstate.setState(null, true);
-  stateManager.animstate.setControl();
-
-  stateManager.setState(EStalkerState.IDLE, null, null, null, { isForced: true });
-
-  stateManager.update();
-  stateManager.update();
-  stateManager.update();
-  stateManager.update();
-  stateManager.update();
-  stateManager.update();
-  stateManager.update();
-
-  object.set_body_state(move.standing);
-  object.set_mental_state(anim.free);
 }

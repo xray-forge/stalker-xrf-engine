@@ -279,11 +279,12 @@ export class SurgeManager extends AbstractCoreManager {
 
   private canReleaseSquad(squad: Squad): boolean {
     const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
-    const smartTerrain: Optional<SmartTerrain> = squad.smart_id
-      ? (simulationBoardManager.getSmartTerrainDescriptorById(squad.smart_id)?.smartTerrain as Optional<SmartTerrain>)
+    const smartTerrain: Optional<SmartTerrain> = squad.assignedSmartTerrainId
+      ? (simulationBoardManager.getSmartTerrainDescriptorById(squad.assignedSmartTerrainId)
+        ?.smartTerrain as Optional<SmartTerrain>)
       : null;
 
-    return smartTerrain !== null && tonumber(smartTerrain.props["surge"])! <= 0;
+    return smartTerrain !== null && tonumber(smartTerrain.simulationProperties["surge"])! <= 0;
   }
 
   /**

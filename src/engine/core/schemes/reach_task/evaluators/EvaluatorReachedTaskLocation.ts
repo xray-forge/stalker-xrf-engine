@@ -33,7 +33,7 @@ export class EvaluatorReachedTaskLocation extends property_evaluator {
         return false;
       }
 
-      return !squad_target.am_i_reached(squad);
+      return !squad_target.isReachedBySquad(squad);
     }
 
     return false;

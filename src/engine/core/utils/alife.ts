@@ -28,7 +28,7 @@ export function evaluateSimulationPriority(object: TSimulationObject, target: Sq
   let priority: TRate = 3;
 
   // Blocking level traveling and specific preconditions.
-  if (!object.target_precondition(target) || !areObjectsOnSameLevel(object, target)) {
+  if (!object.isValidSquadTarget(target) || !areObjectsOnSameLevel(object, target)) {
     return 0;
   }
 
@@ -36,8 +36,8 @@ export function evaluateSimulationPriority(object: TSimulationObject, target: Sq
     const squadCoefficient: TRate = tonumber(rate) as TRate;
     let targetCoefficient: TRate = 0;
 
-    if (object.props[property] !== null) {
-      targetCoefficient = tonumber(object.props[property])!;
+    if (object.simulationProperties[property] !== null) {
+      targetCoefficient = tonumber(object.simulationProperties[property])!;
     }
 
     priority = priority + squadCoefficient * targetCoefficient;

@@ -128,7 +128,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
     let count: TCount = 0;
 
     for (const [k, squad] of this.smartTerrains.get(smartTerrainId).assignedSquads) {
-      if (squad.get_script_target() !== null) {
+      if (squad.getScriptTarget() !== null) {
         count = count + 1;
       }
     }
@@ -268,7 +268,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   public onRemoveSquad(squad: Squad): void {
     logger.info("Remove squad:", squad.name());
 
-    this.exitSmartTerrain(squad, squad.smart_id);
+    this.exitSmartTerrain(squad, squad.assignedSmartTerrainId);
     this.assignSquadToSmartTerrain(squad, null);
 
     squad.onRemoveSquadFromSimulation();
@@ -290,8 +290,8 @@ export class SimulationBoardManager extends AbstractCoreManager {
 
     let oldSmartTerrainId: Optional<TNumberId> = null;
 
-    if (squad.smart_id !== null) {
-      oldSmartTerrainId = squad.smart_id;
+    if (squad.assignedSmartTerrainId !== null) {
+      oldSmartTerrainId = squad.assignedSmartTerrainId;
     }
 
     if (oldSmartTerrainId !== null && this.smartTerrains.has(oldSmartTerrainId)) {
@@ -300,14 +300,14 @@ export class SimulationBoardManager extends AbstractCoreManager {
     }
 
     if (smartTerrainId === null) {
-      squad.assign_smart(null);
+      squad.assignSmartTerrain(null);
 
       return;
     }
 
     const target: ISmartTerrainDescriptor = this.smartTerrains.get(smartTerrainId);
 
-    squad.assign_smart(target.smartTerrain);
+    squad.assignSmartTerrain(target.smartTerrain);
     target.assignedSquads.set(squad.id, squad);
     target.smartTerrain.refresh();
   }
@@ -320,11 +320,11 @@ export class SimulationBoardManager extends AbstractCoreManager {
       return;
     }
 
-    if (squad.entered_smart !== smartTerrainId) {
+    if (squad.enteredSmartTerrainId !== smartTerrainId) {
       return;
     }
 
-    squad.entered_smart = null;
+    squad.enteredSmartTerrainId = null;
 
     const smart = this.smartTerrains.get(smartTerrainId);
 
@@ -352,12 +352,12 @@ export class SimulationBoardManager extends AbstractCoreManager {
 
     const smartTerrainDescriptor: ISmartTerrainDescriptor = this.smartTerrains.get(smartTerrainId);
 
-    if (squad.entered_smart !== null) {
+    if (squad.enteredSmartTerrainId !== null) {
       abort("Couldn't enter smart, still in old one. Squad: [%s]", squad.name());
     }
 
-    squad.entered_smart = smartTerrainId;
-    squad.items_spawned = false;
+    squad.enteredSmartTerrainId = smartTerrainId;
+    squad.isItemListSpawned = false;
 
     smartTerrainDescriptor.stayingSquadsCount = smartTerrainDescriptor.stayingSquadsCount + 1;
   }
@@ -386,8 +386,8 @@ export class SimulationBoardManager extends AbstractCoreManager {
 
     if (squad.currentAction !== null && squad.currentAction.name === "reach_target") {
       smartTerrain = alife().object<SmartTerrain>(squad.assignedTargetId!);
-    } else if (squad.smart_id !== null) {
-      smartTerrain = alife().object<SmartTerrain>(squad.smart_id);
+    } else if (squad.assignedSmartTerrainId !== null) {
+      smartTerrain = alife().object<SmartTerrain>(squad.assignedSmartTerrainId);
     }
 
     if (smartTerrain === null) {
@@ -434,7 +434,11 @@ export class SimulationBoardManager extends AbstractCoreManager {
       mostPriorityTask = availableTargets.get(math.random(maxId)).target;
     }
 
-    return mostPriorityTask || (squad.smart_id && alife().object<SmartTerrain>(squad.smart_id)) || squad;
+    return (
+      mostPriorityTask ||
+      (squad.assignedSmartTerrainId && alife().object<SmartTerrain>(squad.assignedSmartTerrainId)) ||
+      squad
+    );
   }
 
   /**

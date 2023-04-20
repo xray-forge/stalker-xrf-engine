@@ -38,7 +38,10 @@ describe("'alife' utils", () => {
     MockVector.DEFAULT_DISTANCE = 10;
 
     expect(
-      evaluateSimulationPriority(mockSquad({ behaviour: mockLuaTable([["a", "5"]]), props: { a: 6 } }), mockSquad())
+      evaluateSimulationPriority(
+        mockSquad({ behaviour: mockLuaTable([["a", "5"]]), simulationProperties: { a: 6 } }),
+        mockSquad()
+      )
     ).toBe(29.700000000000003);
   });
 });

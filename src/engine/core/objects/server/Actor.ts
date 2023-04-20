@@ -39,14 +39,13 @@ import { AnyObject, TNumberId, TStringId } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Actor server representation.
+ * Generic registration logic and extension for simulation implementation.
  */
 @LuabindClass()
 export class Actor extends cse_alife_creature_actor implements ISimulationTarget {
   public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
-  public props!: AnyObject;
-
-  protected readonly simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
+  public simulationProperties!: AnyObject;
 
   public override on_register(): void {
     super.on_register();
@@ -56,7 +55,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     registerStoryLink(this.id, ACTOR);
     registerSimulationObject(this);
 
-    this.simulationBoardManager.onActorNetworkRegister();
+    SimulationBoardManager.getInstance().onActorNetworkRegister();
   }
 
   public override on_unregister(): void {
@@ -72,7 +71,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     super.STATE_Write(packet);
 
     openSaveMarker(packet, Actor.__name);
-    this.simulationBoardManager.save(packet);
+    SimulationBoardManager.getInstance().save(packet);
     closeSaveMarker(packet, Actor.__name);
   }
 
@@ -81,7 +80,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
 
     if (registry.actor === null) {
       openLoadMarker(packet, Actor.__name);
-      this.simulationBoardManager.load(packet);
+      SimulationBoardManager.getInstance().load(packet);
       closeLoadMarker(packet, Actor.__name);
     }
   }
@@ -89,48 +88,27 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   /**
    * Get full actor location.
    */
-  public get_location(): LuaMultiReturn<[XR_vector, TNumberId, TNumberId]> {
+  public getGameLocation(): LuaMultiReturn<[XR_vector, TNumberId, TNumberId]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   }
 
   /**
-   * todo: Description.
-   */
-  public am_i_reached(): boolean {
-    return !level.object_by_id(this.id)!.alive();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public on_after_reach(squad: Squad): void {
-    /**
-     *  --squad.current_target_id = squad.smart_id
-     */
-  }
-
-  /**
-   * todo: Description.
-   */
-  public on_reach_target(squad: Squad): void {
-    squad.set_location_types();
-
-    for (const squadMember of squad.squad_members()) {
-      softResetOfflineObject(squadMember.id);
-    }
-
-    SimulationBoardManager.getInstance().assignSquadToSmartTerrain(squad, null);
-  }
-
-  /**
-   * todo: Description.
+   * Get generic task.
    */
   public getAlifeSmartTerrainTask(): XR_CALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
   }
 
   /**
-   * todo: Description.
+   * @returns whether squad completed assigned task to `kill?` actor
+   */
+  public isReachedBySquad(): boolean {
+    return !level.object_by_id(this.id)!.alive();
+  }
+
+  /**
+   * Whether actor is available for simulation.
+   * Exclude from participation when in some safe zones.
    */
   public isSimulationAvailable(): boolean {
     if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== TRUE) {
@@ -182,9 +160,31 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   /**
    * Whether actor can be selected as simulation target by squad.
    */
-  public target_precondition(squad: Squad): boolean {
-    const squadParameters: ISimulationActivityDescriptor = simulationActivities[squad.player_id];
+  public isValidSquadTarget(squad: Squad): boolean {
+    const squadParameters: ISimulationActivityDescriptor = simulationActivities[squad.faction];
 
     return squadParameters !== null && squadParameters.actor !== null && squadParameters.actor.prec(squad, this);
+  }
+
+  /**
+   * When squad already reached actor.
+   */
+  public onAfterReachedBySquad(squad: Squad): void {
+    /**
+     *  --squad.current_target_id = squad.smart_id
+     */
+  }
+
+  /**
+   * When squad reaches actor.
+   */
+  public onReachedBySquad(squad: Squad): void {
+    squad.setLocationTypes();
+
+    for (const squadMember of squad.squad_members()) {
+      softResetOfflineObject(squadMember.id);
+    }
+
+    SimulationBoardManager.getInstance().assignSquadToSmartTerrain(squad, null);
   }
 }

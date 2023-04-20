@@ -37,7 +37,7 @@ export function updateSimulationObjectAvailability(object: TSimulationObject): v
  * todo;
  */
 export function initializeSimulationObjectProperties(simulationObject: TSimulationObject): void {
-  simulationObject.props = new LuaTable();
+  simulationObject.simulationProperties = new LuaTable();
 
   let section: TSection =
     simulationObject.clsid() === clsid.online_offline_group_s
@@ -63,7 +63,7 @@ export function initializeSimulationObjectProperties(simulationObject: TSimulati
     if (propertyName === "sim_avail") {
       simulationObject.isSimulationAvailableConditionList = parseConditionsList(propertyValue);
     } else {
-      simulationObject.props[propertyName] = propertyValue;
+      simulationObject.simulationProperties[propertyName] = propertyValue;
     }
   }
 }

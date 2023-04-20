@@ -46,13 +46,13 @@ export class SquadReachTargetAction {
     }
 
     if (squadTarget === null) {
-      squad.clear_assigned_target();
+      squad.clearAssignedTarget();
 
       return true;
     }
 
-    if (squadTarget.am_i_reached(squad)) {
-      squadTarget.on_after_reach(squad);
+    if (squadTarget.isReachedBySquad(squad)) {
+      squadTarget.onAfterReachedBySquad(squad);
 
       return true;
     }
@@ -70,7 +70,7 @@ export class SquadReachTargetAction {
       : alife().object(squad.assignedTargetId!);
 
     if (target !== null) {
-      target.on_reach_target(squad);
+      target.onReachedBySquad(squad);
     }
 
     for (const squadMember of squad.squad_members()) {

@@ -550,7 +550,7 @@ export class TravelManager extends AbstractCoreManager {
         }
       }
 
-      const currentSmartId: Optional<TNumberId> = this.travelSquad!.smart_id;
+      const currentSmartId: Optional<TNumberId> = this.travelSquad!.assignedSmartTerrainId;
 
       if (currentSmartId !== null) {
         board.assignSquadToSmartTerrain(this.travelSquad!, null);
@@ -559,7 +559,7 @@ export class TravelManager extends AbstractCoreManager {
 
       const position: XR_vector = new patrol(this.travelSquadPath!).point(0);
 
-      this.travelSquad!.set_squad_position(position!);
+      this.travelSquad!.setSquadPosition(position!);
 
       registry.actor.set_actor_direction(direction);
       registry.actor.set_actor_position(point.point(0));

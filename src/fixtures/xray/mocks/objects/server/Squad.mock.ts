@@ -18,9 +18,14 @@ export function mockSquad({
     ["a", "4"],
     ["c", "3"],
   ]),
-  props = { a: 1, c: 2 },
+  simulationProperties = { a: 1, c: 2 },
   clsid = jest.fn(() => -1 as TXR_class_id),
-  target_precondition = () => true,
+  isValidSquadTarget = () => true,
 }: Partial<Squad> = {}): Squad {
-  return { props, clsid, target_precondition, behaviour } as unknown as Squad;
+  return {
+    simulationProperties: simulationProperties,
+    clsid,
+    isValidSquadTarget: isValidSquadTarget,
+    behaviour,
+  } as unknown as Squad;
 }

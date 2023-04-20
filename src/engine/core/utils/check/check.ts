@@ -87,7 +87,7 @@ export function isObjectOnLevel(object: Optional<XR_cse_alife_object>, levelName
  * @returns whether provided community squad is immune to surge.
  */
 export function isImmuneToSurge(object: Squad): boolean {
-  return surgeConfig.IMMUNE_SQUDS[object.player_id] === true;
+  return surgeConfig.IMMUNE_SQUDS[object.faction] === true;
 }
 
 /**

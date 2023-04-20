@@ -4,6 +4,7 @@ import {
   relation_registry,
   TXR_relation,
   XR_cse_alife_creature_abstract,
+  XR_cse_alife_monster_abstract,
   XR_game_object,
 } from "xray16";
 
@@ -15,7 +16,7 @@ import { getSmartTerrainByName } from "@/engine/core/utils/gulag";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { ERelation, relations, TRelation } from "@/engine/lib/constants/relations";
+import { ERelation, goodwill, relations, TRelation } from "@/engine/lib/constants/relations";
 import { Optional, TCount, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -36,13 +37,11 @@ export function getSquadGoodwillToActor(storyId: TStringId): TRelation {
     let goodwill: TRelation = relations.neutral;
 
     if (
-      relation_registry.community_relation(squad.get_squad_community(), alife().actor().community()) >=
-      ERelation.FRIENDS
+      relation_registry.community_relation(squad.getSquadCommunity(), alife().actor().community()) >= ERelation.FRIENDS
     ) {
       goodwill = relations.friend;
     } else if (
-      relation_registry.community_relation(squad.get_squad_community(), alife().actor().community()) <=
-      ERelation.ENEMIES
+      relation_registry.community_relation(squad.getSquadCommunity(), alife().actor().community()) <= ERelation.ENEMIES
     ) {
       goodwill = relations.enemy;
     }
@@ -98,13 +97,11 @@ export function getSquadGoodwillToActorById(squadId: TNumberId): TRelation {
     let goodwill: TRelation = relations.neutral;
 
     if (
-      relation_registry.community_relation(squad.get_squad_community(), alife().actor().community()) >=
-      ERelation.FRIENDS
+      relation_registry.community_relation(squad.getSquadCommunity(), alife().actor().community()) >= ERelation.FRIENDS
     ) {
       goodwill = relations.friend;
     } else if (
-      relation_registry.community_relation(squad.get_squad_community(), alife().actor().community()) <=
-      ERelation.ENEMIES
+      relation_registry.community_relation(squad.getSquadCommunity(), alife().actor().community()) <= ERelation.ENEMIES
     ) {
       goodwill = relations.enemy;
     }
@@ -236,6 +233,32 @@ export function setObjectsRelation(
     first.force_set_goodwill(goodwill, second);
   } else {
     abort("Npc not set in goodwill function!!!");
+  }
+}
+
+/**
+ * todo;
+ * todo: Unify?
+ */
+export function setServerObjectsRelation(
+  first: Optional<XR_cse_alife_monster_abstract>,
+  second: Optional<XR_cse_alife_monster_abstract>,
+  nextRelation: TRelation
+): void {
+  logger.info("Set relation:", first?.name(), "->", second?.name(), "@", nextRelation);
+
+  let reputation: TCount = ERelation.NEUTRALS;
+
+  if (nextRelation === relations.enemy) {
+    reputation = ERelation.ENEMIES;
+  } else if (nextRelation === relations.friend) {
+    reputation = ERelation.FRIENDS;
+  }
+
+  if (first !== null && second !== null) {
+    first.force_set_goodwill(reputation, second.id);
+  } else {
+    abort("Npc not set in goodwill function.");
   }
 }
 
