@@ -75,12 +75,19 @@ jobs:
     - run: npm run setup
     - run: npm run build:gold
 
+    - name: Install zip
+      uses: montudor/action-zip@v1
+
+    - name: Archive build artifacts
+      working-directory: target/
+      run: zip -qq -r gamedata.release.zip gamedata/ xrf_build.log README.md
+
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
         if-no-files-found: error
         name: gamedata-release
-        path: target/
+        path: target/gamedata.release.zip
         retention-days: 1
 
   upload-nightly:
@@ -94,13 +101,6 @@ jobs:
       with:
         name: gamedata-release
 
-    - name: Install zip
-      uses: montudor/action-zip@v1
-
-    - name: Archive build artifacts
-      working-directory: target/
-      run: zip -qq -r gamedata.release.zip gamedata/ xrf_build.log README.md
-
     - name: Update nightly tag
       uses: EndBug/latest-tag@latest
       if: github.ref_name == 'master'
@@ -112,4 +112,4 @@ jobs:
       if: ${{ steps.update-nightly-tag.outcome == 'success' }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: gh release upload --clobber nightly target\gamedata.release.zip
+      run: gh release upload --clobber nightly gamedata.release.zip
