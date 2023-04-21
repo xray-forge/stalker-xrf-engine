@@ -4,8 +4,8 @@ import { XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
-import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { getObjectSmartTerrain } from "@/engine/core/utils/object";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
 import { LuaArray, Optional, TNumberId } from "@/engine/lib/types";
@@ -254,7 +254,7 @@ function animpoint_predicate_weapon(objectId: TNumberId): boolean {
   const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
 
   if (object !== null) {
-    const smart: Optional<SmartTerrain> = getObjectBoundSmart(object);
+    const smart: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
     if (smart) {
       for (const [k, v] of noWeaponsSmartsList) {

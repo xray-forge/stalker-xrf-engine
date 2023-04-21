@@ -15,9 +15,8 @@ import { getExtern } from "@/engine/core/utils/binding";
 import { isObjectWounded, isStalkerAlive } from "@/engine/core/utils/check/check";
 import { disableGameUi } from "@/engine/core/utils/control";
 import { createAutoSave } from "@/engine/core/utils/game_save";
-import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
-import { getCharacterCommunity } from "@/engine/core/utils/object";
+import { getCharacterCommunity, getObjectSmartTerrain } from "@/engine/core/utils/object";
 import {
   actorHasMedKit,
   getActorAvailableMedKit,
@@ -41,7 +40,7 @@ export function is_npc_in_current_smart(
   smart_name: string
 ): boolean {
   const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
-  const smart = getObjectBoundSmart(npc);
+  const smart = getObjectSmartTerrain(npc);
 
   if (!smart) {
     return false;

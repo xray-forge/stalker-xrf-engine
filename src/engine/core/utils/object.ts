@@ -19,6 +19,7 @@ import {
 } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { isCseAlifeObject, isStalker } from "@/engine/core/utils/check/is";
@@ -79,6 +80,22 @@ export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_cr
   }
 
   return null;
+}
+
+/**
+ * Get smart terrain linked to object.
+ *
+ * @param object - client object to check
+ * @returns server representation of smart terrain or null
+ */
+export function getObjectSmartTerrain(object: XR_game_object): Optional<SmartTerrain> {
+  const serverObject: Optional<XR_cse_alife_creature_abstract> = alife().object(object.id());
+
+  if (serverObject === null) {
+    return null;
+  } else {
+    return serverObject.m_smart_terrain_id === MAX_U16 ? null : alife().object(serverObject.m_smart_terrain_id);
+  }
 }
 
 /**

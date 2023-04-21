@@ -53,10 +53,14 @@ import {
   isSquadExisting,
 } from "@/engine/core/utils/check/check";
 import { isMonster, isStalker, isWeapon } from "@/engine/core/utils/check/is";
-import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { anomalyHasArtefact, getCharacterCommunity, getObjectSquad } from "@/engine/core/utils/object";
+import {
+  anomalyHasArtefact,
+  getCharacterCommunity,
+  getObjectSmartTerrain,
+  getObjectSquad,
+} from "@/engine/core/utils/object";
 import {
   isFactionsEnemies,
   isFactionsFriends,
@@ -245,7 +249,7 @@ export function dist_to_actor_ge(actor: XR_game_object, npc: XR_game_object, par
  * todo;
  */
 export function distance_to_obj_on_job_le(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
-  const smart: SmartTerrain = getObjectBoundSmart(npc)!;
+  const smart: SmartTerrain = getObjectSmartTerrain(npc)!;
 
   for (const [k, v] of smart.objectJobDescriptors) {
     const npc_job = smart.jobsData.get(v.job_id);
@@ -265,7 +269,7 @@ export function is_obj_on_job(actor: XR_game_object, npc: XR_game_object, params
   const smart =
     params && params[1]
       ? SimulationBoardManager.getInstance().getSmartTerrainByName(params[1])
-      : getObjectBoundSmart(npc);
+      : getObjectSmartTerrain(npc);
 
   if (smart === null) {
     return false;
@@ -1834,7 +1838,7 @@ export function check_enemy_smart(actor: XR_game_object, npc: XR_game_object, pa
     return false;
   }
 
-  const enemy_smart: Optional<SmartTerrain> = getObjectBoundSmart(enemy);
+  const enemy_smart: Optional<SmartTerrain> = getObjectSmartTerrain(enemy);
 
   return enemy_smart !== null && enemy_smart.name() === params[0];
 }

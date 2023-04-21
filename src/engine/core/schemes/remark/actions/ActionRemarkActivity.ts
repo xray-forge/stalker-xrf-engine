@@ -1,13 +1,13 @@
 import { action_base, level, LuabindClass, patrol, XR_game_object, XR_sound_object, XR_vector } from "xray16";
 
 import { getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
+import { SimulationBoardManager } from "@/engine/core/managers";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { IStateManagerCallbackDescriptor } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark";
 import { abort } from "@/engine/core/utils/assertion";
-import { getSmartTerrainByName } from "@/engine/core/utils/gulag";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
@@ -253,7 +253,7 @@ export function init_target(
     }
   } else if (target_type === "job") {
     const [job, gulag] = parse_target(target);
-    const smartTerrain: SmartTerrain = getSmartTerrainByName(gulag!)!;
+    const smartTerrain: SmartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(gulag!)!;
 
     targetId = smartTerrain.idNPCOnJob(job!);
     isTargetInitialized = targetId !== null && true;

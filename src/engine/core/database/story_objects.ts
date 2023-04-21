@@ -1,4 +1,4 @@
-import { alife, level, XR_cse_abstract, XR_cse_alife_online_offline_group, XR_game_object, XR_ini_file } from "xray16";
+import { alife, level, XR_cse_abstract, XR_cse_alife_object, XR_game_object, XR_ini_file } from "xray16";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini";
 import { registry } from "@/engine/core/database/registry";
@@ -95,7 +95,7 @@ export function getObjectIdByStoryId(storyId: TStringId): Optional<TNumberId> {
 /**
  * todo;
  */
-export function getServerObjectByStoryId<T extends XR_cse_alife_online_offline_group>(storyId: TStringId): Optional<T> {
+export function getServerObjectByStoryId<T extends XR_cse_alife_object>(storyId: TStringId): Optional<T> {
   const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
 
   return objectId === null ? null : alife().object<T>(objectId);

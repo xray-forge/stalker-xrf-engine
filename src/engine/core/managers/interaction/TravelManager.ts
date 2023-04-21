@@ -28,10 +28,14 @@ import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { createAutoSave } from "@/engine/core/utils/game_save";
-import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getAlifeCharacterCommunity, getObjectSquad, getServerDistanceBetween } from "@/engine/core/utils/object";
+import {
+  getAlifeCharacterCommunity,
+  getObjectSmartTerrain,
+  getObjectSquad,
+  getServerDistanceBetween,
+} from "@/engine/core/utils/object";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { captions } from "@/engine/lib/constants/captions/captions";
@@ -211,7 +215,7 @@ export class TravelManager extends AbstractCoreManager {
       return false;
     } else if (npc.character_community() === communities.army) {
       return false;
-    } else if (getObjectBoundSmart(npc)?.name() === zones.jup_b41) {
+    } else if (getObjectSmartTerrain(npc)?.name() === zones.jup_b41) {
       return false;
     }
 

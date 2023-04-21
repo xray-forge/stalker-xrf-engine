@@ -6,11 +6,10 @@ import { ESchemeEvent, TAbstractSchemeConstructor } from "@/engine/core/schemes"
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
 import { resetObjectGenericSchemesOnSectionSwitch } from "@/engine/core/schemes/base/utils/resetObjectGenericSchemesOnSectionSwitch";
 import { abort } from "@/engine/core/utils/assertion";
-import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { getObjectConfigOverrides } from "@/engine/core/utils/ini/config";
 import { getSchemeByIniSection } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
+import { getObjectSmartTerrain, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
 import { NIL } from "@/engine/lib/constants/words";
 import { Optional, TNumberId } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
@@ -53,7 +52,7 @@ export function activateSchemeBySection(
   }
 
   if (section === null) {
-    const currentSmartTerrain: Optional<SmartTerrain> = getObjectBoundSmart(object);
+    const currentSmartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
     if (currentSmartTerrain === null) {
       abort("core/logic: activate_by_section: section is NIL && NPC !in gulag.");

@@ -9,14 +9,11 @@ import {
 } from "xray16";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
-import { getSmartTerrainByName } from "@/engine/core/utils/gulag";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { ERelation, goodwill, relations, TRelation } from "@/engine/lib/constants/relations";
+import { ERelation, relations, TRelation } from "@/engine/lib/constants/relations";
 import { Optional, TCount, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -141,71 +138,6 @@ export function getSquadIdRelationToActor(squad: Squad): TRelation {
   } else {
     return relations.enemy;
   }
-}
-
-/**
- * todo;
- */
-export function setGulagRelationActor(gulagName: TName, relation: TRelation): void {
-  const actor: XR_game_object = registry.actor;
-  const gulag: SmartTerrain = getSmartTerrainByName(gulagName)!;
-
-  let goodwill: ERelation = ERelation.NEUTRALS;
-
-  if (relation === relations.enemy) {
-    goodwill = ERelation.ENEMIES;
-  } else if (relation === relations.friend) {
-    goodwill = ERelation.FRIENDS;
-  }
-
-  for (const [index, npcInfo] of gulag.objectJobDescriptors) {
-    const object: Optional<XR_game_object> = registry.objects.get(npcInfo.se_obj.id)?.object;
-
-    if (object !== null) {
-      object.force_set_goodwill(goodwill, actor);
-      object.set_community_goodwill(getCharacterCommunity(actor), goodwill);
-    }
-  }
-}
-
-/**
- * todo;
- */
-export function getGulagRelationToActor(gulagName: TName, relation: TRelation): boolean {
-  const gulag: Optional<SmartTerrain> = getSmartTerrainByName(gulagName);
-  const actor: XR_game_object = registry.actor;
-
-  if (gulag) {
-    let goodwill: TCount = 0;
-    let npcCount: TCount = 0;
-
-    for (const [id, npcInfo] of gulag.objectJobDescriptors) {
-      const object = registry.objects.get(npcInfo.se_obj.id)?.object;
-
-      if (object !== null && actor !== null) {
-        goodwill = goodwill + object.general_goodwill(actor);
-        npcCount = npcCount + 1;
-      }
-    }
-
-    if (npcCount !== 0) {
-      const averageRelation: TCount = goodwill / npcCount;
-
-      if (relation === relations.enemy && averageRelation <= ERelation.ENEMIES) {
-        return true;
-      } else if (relation === relations.friend && averageRelation >= ERelation.FRIENDS) {
-        return true;
-      } else if (
-        relation === relations.neutral &&
-        averageRelation < ERelation.FRIENDS &&
-        averageRelation > ERelation.ENEMIES
-      ) {
-        return true;
-      }
-    }
-  }
-
-  return false;
 }
 
 /**
@@ -491,9 +423,7 @@ export function setSquadGoodwillToCommunity(
     }
   }
 
-  if (squad === null) {
-    abort("There is no squad [%s] in sim_board.", squadId);
-  }
+  assertDefined(squad, "There is no squad [%s] in simulation board.", squadId);
 
   for (const squadMember of squad.squad_members()) {
     const object: Optional<XR_game_object> = registry.objects.get(squadMember.id).object as Optional<XR_game_object>;

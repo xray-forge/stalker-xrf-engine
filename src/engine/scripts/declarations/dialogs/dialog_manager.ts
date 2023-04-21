@@ -7,9 +7,8 @@ import {
   TPRTTable,
 } from "@/engine/core/managers/interaction/DialogManager";
 import { SmartTerrain } from "@/engine/core/objects";
-import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object";
+import { getCharacterCommunity, getObjectSmartTerrain } from "@/engine/core/utils/object";
 import { getNpcSpeaker } from "@/engine/core/utils/task_reward";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
@@ -412,7 +411,7 @@ export function precondition_anomalies_dialogs(
   id: string
 ): boolean {
   const dialogManager: DialogManager = DialogManager.getInstance();
-  const smartTerrain: Optional<SmartTerrain> = getObjectBoundSmart(object);
+  const smartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
   if (
     smartTerrain !== null &&

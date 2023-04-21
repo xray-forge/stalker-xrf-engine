@@ -7,8 +7,8 @@ import { disableObjectGenericSchemes } from "@/engine/core/schemes/base/utils/di
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
 import { enableObjectGenericSchemes } from "@/engine/core/schemes/base/utils/enableObjectGenericSchemes";
 import { abort } from "@/engine/core/utils/assertion";
-import { getObjectBoundSmart } from "@/engine/core/utils/gulag";
 import { readIniString } from "@/engine/core/utils/ini/getters";
+import { getObjectSmartTerrain } from "@/engine/core/utils/object";
 import { spawnDefaultObjectItems } from "@/engine/core/utils/spawn";
 import { ESchemeType, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
 
@@ -60,7 +60,7 @@ export function configureObjectSchemes(
       return configureObjectSchemes(object, actualIni, actualIniFilename, schemeType, sectionLogic, gulagName);
     } else {
       if (schemeType === ESchemeType.STALKER || schemeType === ESchemeType.MONSTER) {
-        const currentSmart = getObjectBoundSmart(object);
+        const currentSmart = getObjectSmartTerrain(object);
 
         if (currentSmart !== null) {
           const job: any = currentSmart.getJob(objectId);

@@ -1668,7 +1668,7 @@ function isJobAvailableToObject(objectInfo: IObjectJobDescriptor, jobInfo: any, 
 function job_iterator(
   jobs: LuaTable,
   npc_data: IObjectJobDescriptor,
-  selected_job_prior: number,
+  selected_job_prior: TRate,
   smart: SmartTerrain
 ): LuaMultiReturn<[Optional<number>, number, Optional<any>]> {
   let selected_job_id = null;

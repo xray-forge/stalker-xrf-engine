@@ -11,6 +11,7 @@ import {
   move,
   particles_object,
   patrol,
+  TXR_bloodsucker_visibility_state,
   vector,
   XR_action_planner,
   XR_CGameTask,
@@ -65,10 +66,10 @@ import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { isStalker } from "@/engine/core/utils/check/is";
 import { setInactiveInputTime } from "@/engine/core/utils/control";
 import { createAutoSave } from "@/engine/core/utils/game_save";
-import { find_stalker_for_job, switch_to_desired_job as switchToGulagDesiredJob } from "@/engine/core/utils/gulag";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { getObjectSmartTerrain } from "@/engine/core/utils/object";
 import { IConfigSwitchCondition, parseConditionsList } from "@/engine/core/utils/parse";
 import {
   increaseNumberRelationBetweenCommunityAndId,
@@ -76,6 +77,7 @@ import {
   setSquadGoodwill,
   setSquadGoodwillToNpc,
 } from "@/engine/core/utils/relation";
+import { findSmartTerrainJobForObject } from "@/engine/core/utils/smart_terrain_camping";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { TCaption } from "@/engine/lib/constants/captions/captions";
 import { TCommunity } from "@/engine/lib/constants/communities";
@@ -838,14 +840,16 @@ export function on_tutor_gameover_quickload() {
  * todo;
  */
 export function get_stalker_for_new_job(actor: XR_game_object, npc: XR_game_object, p: [string]) {
-  find_stalker_for_job(npc, p[0]);
+  findSmartTerrainJobForObject(npc, p[0]);
 }
 
 /**
  * todo;
  */
 export function switch_to_desired_job(actor: XR_game_object, npc: XR_game_object, p: []) {
-  switchToGulagDesiredJob(npc);
+  const smart: SmartTerrain = getObjectSmartTerrain(npc) as SmartTerrain;
+
+  smart.switch_to_desired_job(npc);
 }
 
 /**
@@ -1802,7 +1806,7 @@ export function set_bloodsucker_state(actor: XR_game_object, npc: XR_game_object
     if (state === "default") {
       npc.force_visibility_state(-1);
     } else {
-      npc.force_visibility_state(tonumber(state)!);
+      npc.force_visibility_state(tonumber(state) as TXR_bloodsucker_visibility_state);
     }
   }
 }
