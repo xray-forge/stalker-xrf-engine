@@ -22,7 +22,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";
-import { EScheme, ESchemeType, Optional, TDistance, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, Optional, TDistance, TName, TSection, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -74,7 +74,7 @@ export class SchemeDanger extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static isDangerObject(object: XR_game_object): boolean {
+  public static isObjectFacingDanger(object: XR_game_object): boolean {
     const bestDanger: Optional<XR_danger_object> = object.best_danger();
 
     if (bestDanger === null) {
@@ -153,30 +153,5 @@ export class SchemeDanger extends AbstractScheme {
      */
 
     return true;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static get_danger_name(best_danger: XR_danger_object): string {
-    let best_danger_object: Optional<XR_game_object> = best_danger.object();
-    const bd_type: TXR_danger_object = best_danger.type();
-
-    if (bd_type !== danger_object.grenade && best_danger.dependent_object() !== null) {
-      best_danger_object = best_danger.dependent_object();
-    }
-
-    return best_danger_object === null ? "none" : best_danger_object.name();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static get_danger_time(danger: XR_danger_object): number {
-    if (danger.type() === danger_object.entity_corpse) {
-      return danger.object().death_time();
-    }
-
-    return danger.time();
   }
 }

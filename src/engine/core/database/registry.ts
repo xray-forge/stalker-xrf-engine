@@ -8,14 +8,13 @@ import type {
 } from "@/engine/core/managers/base/AbstractCoreManager";
 import type { ITradeManagerDescriptor } from "@/engine/core/managers/interaction/TradeManager";
 import type {
-  Actor,
   AnomalyFieldBinder,
   AnomalyZoneBinder,
   LabX8DoorBinder,
   SignalLightBinder,
   SmartCover,
   SmartTerrain,
-  Squad,
+  TSimulationObject,
 } from "@/engine/core/objects";
 import type { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
 import type { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
@@ -41,6 +40,11 @@ export const registry = {
    */
   activeSpeaker: null as Optional<XR_game_object>,
   /**
+   * Currently active smart terrain id.
+   * If not null, assume actor is in it.
+   */
+  activeSmartTerrainId: null as Optional<TNumberId>,
+  /**
    * List of active game managers.
    */
   managers: new LuaTable<TAbstractCoreManagerConstructor, AbstractCoreManager>(),
@@ -63,7 +67,7 @@ export const registry = {
   /**
    * List of objects participating in alife simulation.
    */
-  simulationObjects: new LuaTable<TNumberId, Actor | Squad | SmartTerrain>(),
+  simulationObjects: new LuaTable<TNumberId, TSimulationObject>(),
   /**
    * Story objects mapping to match currently spawned object IDs and unique story objects.
    */

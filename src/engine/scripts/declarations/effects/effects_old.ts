@@ -50,7 +50,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
-import { update_logic } from "@/engine/core/objects/binders/StalkerBinder";
+import { updateObjectLogic } from "@/engine/core/objects/binders/StalkerBinder";
 import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { Stalker } from "@/engine/core/objects/server/Stalker";
@@ -103,7 +103,7 @@ export function update_npc_logic(actor: XR_game_object, npc: XR_game_object, par
     const object: Optional<XR_game_object> = getObjectByStoryId(storyId);
 
     if (object !== null) {
-      update_logic(object);
+      updateObjectLogic(object);
 
       const planner: XR_action_planner = object.motivation_action_manager();
 
@@ -830,17 +830,10 @@ export function on_tutor_gameover_stop() {
 }
 
 /**
- * todo;
+ * todo; extern
  */
 export function on_tutor_gameover_quickload() {
   get_console().execute("load_last_save");
-}
-
-/**
- * todo;
- */
-export function get_stalker_for_new_job(actor: XR_game_object, npc: XR_game_object, p: [string]) {
-  findSmartTerrainJobForObject(npc, p[0]);
 }
 
 /**

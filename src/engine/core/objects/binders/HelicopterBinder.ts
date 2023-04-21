@@ -116,14 +116,6 @@ export class HelicopterBinder extends object_binder {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
     }
 
-    this.object.info_clear();
-
-    const active_section = registry.objects.get(this.object.id()).active_section;
-
-    if (active_section) {
-      this.object.info_add("section -- " + active_section);
-    }
-
     this.check_health();
 
     GlobalSoundManager.getInstance().update(this.object.id());

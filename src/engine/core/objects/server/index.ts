@@ -10,3 +10,5 @@ export * from "@/engine/core/objects/server/Monster";
 export * from "@/engine/core/objects/server/ObjectHangingLamp";
 export * from "@/engine/core/objects/server/ObjectPhysic";
 export * from "@/engine/core/objects/server/Stalker";
+
+export * from "@/engine/core/objects/server/types";

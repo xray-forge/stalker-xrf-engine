@@ -237,16 +237,6 @@ export class PhysicObjectBinder extends object_binder {
       initializeObjectSchemeLogic(this.object, this.state, this.loaded, registry.actor, ESchemeType.ITEM);
     }
 
-    this.object.info_clear();
-
-    const active_section = registry.objects.get(this.object.id()).active_section;
-
-    if (!active_section !== null) {
-      this.object.info_add("section: " + active_section);
-    }
-
-    this.object.info_add("name: [" + this.object.name() + "] id [" + this.object.id() + "]");
-
     const spawn_ini: Optional<XR_ini_file> = this.object.spawn_ini();
 
     if (this.state.active_section !== null || (spawn_ini !== null && spawn_ini.section_exist("drop_box"))) {

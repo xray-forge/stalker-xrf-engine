@@ -28,7 +28,8 @@ import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/manager
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
-import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/server/smart/SmartTerrainControl";
+import { SmartTerrainControl } from "@/engine/core/objects/server/smart/SmartTerrainControl";
+import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart/types";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { SchemeAnimpoint } from "@/engine/core/schemes/animpoint";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
@@ -779,7 +780,7 @@ export function check_smart_alarm_status(
     abort("Cannot calculate 'check_smart_alarm_status' for smart %s", tostring(smartName));
   }
 
-  return smartControl.get_status() === status;
+  return smartControl.getSmartTerrainStatus() === status;
 }
 
 /**

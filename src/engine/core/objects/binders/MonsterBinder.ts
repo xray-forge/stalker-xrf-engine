@@ -115,39 +115,8 @@ export class MonsterBinder extends object_binder {
       squad.update();
     }
 
-    this.object.info_clear();
-
-    const activeSection = this.state.active_section;
-
-    if (activeSection !== null) {
-      this.object.info_add("section: " + activeSection);
-    }
-
-    const bestEnemy: Optional<XR_game_object> = this.object.best_enemy();
-
-    if (bestEnemy) {
-      this.object.info_add("enemy: " + bestEnemy.name());
-    }
-
-    this.object.info_add(
-      this.object.name() + " [" + this.object.team() + "][" + this.object.squad() + "][" + this.object.group() + "]"
-    );
-
     if (alife().object(this.object.id()) === null) {
       return;
-    }
-
-    if (squad !== null) {
-      this.object.info_add("squad_id: " + squad.section_name());
-
-      if (squad.currentAction !== null) {
-        const target =
-          squad.assignedTargetId &&
-          alife().object(squad.assignedTargetId) &&
-          alife().object(squad.assignedTargetId)!.name();
-
-        this.object.info_add("current_action: " + squad.currentAction.name + "[" + tostring(target) + "]");
-      }
     }
 
     if (this.object.get_enemy()) {

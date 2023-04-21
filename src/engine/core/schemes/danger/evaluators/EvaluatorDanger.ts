@@ -1,11 +1,13 @@
 import {
   alife,
+  danger_object,
   LuabindClass,
   property_evaluator,
   stalker_ids,
   time_global,
   XR_action_planner,
   XR_cse_alife_creature_abstract,
+  XR_danger_object,
 } from "xray16";
 
 import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
@@ -22,11 +24,9 @@ import { Optional } from "@/engine/lib/types";
 export class EvaluatorDanger extends property_evaluator {
   private readonly state: ISchemeDangerState;
   private readonly schemeDanger: typeof SchemeDanger;
-  public manager: Optional<XR_action_planner> = null;
 
-  /**
-   * todo: Description.
-   */
+  public actionPlanner: Optional<XR_action_planner> = null;
+
   public constructor(state: ISchemeDangerState, schemeDanger: typeof SchemeDanger) {
     super(null, EvaluatorDanger.__name);
     this.state = state;
@@ -37,30 +37,39 @@ export class EvaluatorDanger extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    if (this.manager === null) {
-      this.manager = this.object.motivation_action_manager();
+    if (this.actionPlanner === null) {
+      this.actionPlanner = this.object.motivation_action_manager();
     }
+
+    const bestDanger: XR_danger_object = this.object.best_danger() as XR_danger_object;
 
     if (
       this.state.danger_time !== null &&
-      this.object.best_danger() !== null &&
+      bestDanger !== null &&
       time_global() - this.state.danger_time < logicsConfig.DANGER_INERTION_TIME
     ) {
       return true;
     }
 
-    if (!this.schemeDanger.isDangerObject(this.object)) {
+    if (!this.schemeDanger.isObjectFacingDanger(this.object)) {
       return false;
     }
 
-    if (this.manager.initialized() && this.manager.current_action_id() === stalker_ids.action_danger_planner) {
-      this.state.danger_time = this.schemeDanger.get_danger_time(this.object.best_danger()!);
+    if (
+      this.actionPlanner.initialized() &&
+      this.actionPlanner.current_action_id() === stalker_ids.action_danger_planner
+    ) {
+      if (bestDanger.type() === danger_object.entity_corpse) {
+        this.state.danger_time = bestDanger.object().death_time();
+      }
+
+      this.state.danger_time = bestDanger.time();
     }
 
-    const serverObject = alife().object<XR_cse_alife_creature_abstract>(this.object.id());
+    const serverObject: Optional<XR_cse_alife_creature_abstract> = alife().object(this.object.id());
 
     if (serverObject && serverObject.m_smart_terrain_id !== MAX_U16) {
-      alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!.set_alarm();
+      alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!.startAlarm();
     }
 
     return true;

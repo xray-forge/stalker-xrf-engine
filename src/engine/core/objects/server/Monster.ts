@@ -18,10 +18,11 @@ import {
 } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { Squad } from "@/engine/core/objects";
-import { onSmartTerrainObjectDeath, SmartTerrain } from "@/engine/core/objects/server/smart";
+import { SmartTerrain } from "@/engine/core/objects/server/smart";
 import { assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { onSmartTerrainObjectDeath } from "@/engine/core/utils/smart_terrain_camping";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TName, TNumberId, TSection } from "@/engine/lib/types";

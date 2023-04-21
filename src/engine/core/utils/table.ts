@@ -67,16 +67,6 @@ export function copyTable(
 }
 
 /**
- * Reset array-style table.
- * todo: description, rename
- */
-export function clearTable(target: LuaTable): void {
-  while (target.length() !== 0) {
-    table.remove(target, target.length());
-  }
-}
-
-/**
  * Reset table values in map-styled table.
  */
 export function resetTable(target: LuaTable<any, any>): void {

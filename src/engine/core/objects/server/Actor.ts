@@ -23,7 +23,7 @@ import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { registerSimulationObject, unregisterSimulationObject } from "@/engine/core/database/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
-import { ESmartTerrainStatus, getCurrentSmartId } from "@/engine/core/objects/server/smart/SmartTerrainControl";
+import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart/types";
 import {
   ISimulationActivityDescriptor,
   simulationActivities,
@@ -140,16 +140,16 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       }
     }
 
-    if (getCurrentSmartId() === null) {
+    if (registry.activeSmartTerrainId === null) {
       return true;
     }
 
-    const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(getCurrentSmartId()!)!;
+    const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(registry.activeSmartTerrainId) as SmartTerrain;
 
     if (
       smartTerrain.smartTerrainActorControl !== null &&
       smartTerrain.smartTerrainActorControl.status === ESmartTerrainStatus.NORMAL &&
-      registry.zones.get(smartTerrain.smartTerrainActorControl.noweap_zone).inside(this.position)
+      registry.zones.get(smartTerrain.smartTerrainActorControl.isNoWeaponZone).inside(this.position)
     ) {
       return false;
     }

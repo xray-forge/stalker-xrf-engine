@@ -42,7 +42,13 @@ import {
   updateSimulationObjectAvailability,
 } from "@/engine/core/database/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
-import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/server/smart/SmartTerrainControl";
+import { SmartTerrainControl } from "@/engine/core/objects/server/smart/SmartTerrainControl";
+import {
+  ESimulationSmartType,
+  ESmartTerrainStatus,
+  IObjectJobDescriptor,
+  ISmartTerrainJob,
+} from "@/engine/core/objects/server/smart/types";
 import { loadGulagJobs } from "@/engine/core/objects/server/squad/gulag_general";
 import {
   ISimulationActivityDescriptor,
@@ -72,6 +78,7 @@ import {
 import { getTableSize, isEmpty } from "@/engine/core/utils/table";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TCaption } from "@/engine/lib/constants/captions/captions";
 import { MAX_U16, MAX_U8 } from "@/engine/lib/constants/memory";
 import { relations, TRelation } from "@/engine/lib/constants/relations";
@@ -99,42 +106,7 @@ import {
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-export const ALARM_TIMEOUT: TDuration = 21_600;
-export const DEATH_IDLE_TIME: TDuration = 600;
-export const RESPAWN_IDLE: TDuration = 1_000;
-
 export const path_fields: LuaArray<string> = $fromArray(["path_walk", "path_main", "path_home", "center_point"]);
-
-/**
- * todo;
- */
-interface IObjectJobDescriptor {
-  se_obj: XR_cse_alife_creature_abstract;
-  is_monster: boolean;
-  need_job: string;
-  job_prior: number;
-  job_id: number;
-  job_link: Optional<{ npc_id: Optional<TNumberId>; job_id: TNumberId; _prior: TRate }>;
-  begin_job: boolean;
-  stype: any;
-}
-
-/**
- * todo;
- */
-export interface ISmartTerrainJob {
-  alife_task: XR_CALifeSmartTerrainTask;
-  _prior: TRate;
-  job_type: string;
-  reserve_job: Optional<boolean>;
-  section: TSection;
-  ini_path: TPath;
-  ini_file: XR_ini_file;
-  prefix_name: TName;
-  game_vertex_id: TNumberId;
-  level_id: TNumberId;
-  position: XR_vector;
-}
 
 /**
  * todo;
@@ -145,16 +117,6 @@ export const valid_territory: LuaTable<string, boolean> = {
   resource: true,
   territory: true,
 } as any;
-
-/**
- * todo;
- */
-export enum ESimulationSmartType {
-  DEFAULT = "default",
-  BASE = "base",
-  resource = "resource",
-  territory = "territory",
-}
 
 /**
  * todo;
@@ -183,13 +145,17 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public isRespawnOnlySmart: boolean = false;
   public areCampfiresOn: boolean = false;
 
+  /**
+   * If smart terrain is attacked, all active squads will react.
+   */
+  public alarmStartedAt: Optional<XR_CTime> = null;
+
   public arrivalDistance: TNumberId = 30;
 
   public population: TCount = 0;
   public maxPopulation: TCount = -1;
 
   public nextCheckAt: TTimestamp = 0;
-  public smartAlarmStartedAt: Optional<XR_CTime> = null;
   public lastRespawnUpdatedAt: Optional<XR_CTime> = null;
 
   public travelerActorPath: TName = "";
@@ -564,7 +530,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     const currentGameTime: XR_CTime = game.get_game_time();
 
     for (const [k, v] of this.jobDeadTimeById) {
-      if (currentGameTime.diffSec(v) >= DEATH_IDLE_TIME) {
+      if (currentGameTime.diffSec(v) >= logicsConfig.SMART_TERRAIN.DEATH_IDLE_TIME) {
         this.jobDeadTimeById.delete(k);
       }
     }
@@ -868,7 +834,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public update_jobs(): void {
-    this.check_alarm();
+    this.updateAlarmStatus();
 
     for (const [id, object] of this.arrivingObjects) {
       if (this.onObjectArrived(object)) {
@@ -1132,7 +1098,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         if (this.lastRespawnUpdatedAt) {
           caption += string.format(
             "\ntime_to_spawn: %.2f\n\n",
-            RESPAWN_IDLE - game.get_game_time().diffSec(this.lastRespawnUpdatedAt)
+            logicsConfig.SMART_TERRAIN.RESPAWN_IDLE - game.get_game_time().diffSec(this.lastRespawnUpdatedAt)
           );
         }
       } else {
@@ -1235,22 +1201,22 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * todo: Description.
+   * Trigger smart terrain alarm.
    */
-  public set_alarm(): void {
-    this.smartAlarmStartedAt = game.get_game_time();
+  public startAlarm(): void {
+    this.alarmStartedAt = game.get_game_time();
   }
 
   /**
    * todo: Description.
    */
-  public check_alarm(): void {
-    if (this.smartAlarmStartedAt === null) {
+  public updateAlarmStatus(): void {
+    if (this.alarmStartedAt === null) {
       return;
     }
 
-    if (game.get_game_time().diffSec(this.smartAlarmStartedAt) > ALARM_TIMEOUT) {
-      this.smartAlarmStartedAt = null;
+    if (game.get_game_time().diffSec(this.alarmStartedAt) > logicsConfig.SMART_TERRAIN.ALARM_SMART_TERRAIN_GENERIC) {
+      this.alarmStartedAt = null;
     }
   }
 
@@ -1350,7 +1316,10 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public tryRespawnSquad(): void {
     const currentTime: XR_CTime = game.get_game_time();
 
-    if (this.lastRespawnUpdatedAt === null || currentTime.diffSec(this.lastRespawnUpdatedAt) > RESPAWN_IDLE) {
+    if (
+      this.lastRespawnUpdatedAt === null ||
+      currentTime.diffSec(this.lastRespawnUpdatedAt) > logicsConfig.SMART_TERRAIN.RESPAWN_IDLE
+    ) {
       this.lastRespawnUpdatedAt = currentTime;
 
       if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== TRUE) {

@@ -319,8 +319,6 @@ export class HeliCombat {
   }
 
   public update_enemy_visibility(): boolean {
-    this.object.info_add("vis=" + this.vis);
-
     if (this.vis >= this.vis_threshold) {
       this.enemy_last_seen_time = time_global();
       this.enemy_last_seen_pos = this.enemy!.position();

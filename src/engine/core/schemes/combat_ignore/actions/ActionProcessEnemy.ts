@@ -3,7 +3,7 @@ import { alife, XR_cse_alife_creature_abstract, XR_game_object, XR_vector } from
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
-import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart/SmartTerrainControl";
+import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart/types";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { isObjectInZone } from "@/engine/core/utils/check/check";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
@@ -129,10 +129,10 @@ export class ActionProcessEnemy {
       if (seObject && seObject.m_smart_terrain_id !== MAX_U16) {
         const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(seObject.m_smart_terrain_id)!;
 
-        smartTerrain.set_alarm();
+        smartTerrain.startAlarm();
 
         if (enemy.id() === registry.actor.id() && smartTerrain.smartTerrainActorControl !== null) {
-          smartTerrain.smartTerrainActorControl.actor_attack();
+          smartTerrain.smartTerrainActorControl.onActorAttackSmartTerrain();
         }
       }
 

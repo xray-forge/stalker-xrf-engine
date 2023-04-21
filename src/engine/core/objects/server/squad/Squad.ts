@@ -36,7 +36,7 @@ import {
 import { unregisterStoryLinkByObjectId } from "@/engine/core/database/story_objects";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
-import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart/SmartTerrainControl";
+import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart/types";
 import {
   ISimActivityPrecondition,
   ISimulationActivityDescriptor,
@@ -1208,8 +1208,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       assignedSmartTerrain.smartTerrainActorControl.status !== ESmartTerrainStatus.NORMAL
     ) {
       if (
-        registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.noweap_zone) === null ||
-        !registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.noweap_zone).inside(this.position)
+        registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.isNoWeaponZone) === null ||
+        !registry.zones.get(assignedSmartTerrain.smartTerrainActorControl.isNoWeaponZone).inside(this.position)
       ) {
         return false;
       }

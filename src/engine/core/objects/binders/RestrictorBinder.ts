@@ -96,14 +96,6 @@ export class RestrictorBinder extends object_binder {
       initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, registry.actor, ESchemeType.RESTRICTOR);
     }
 
-    this.object.info_clear();
-
-    if (activeSection !== null) {
-      this.object.info_add("section: " + activeSection);
-    }
-
-    this.object.info_add("name: [" + this.object.name() + "] id [" + objectId + "]");
-
     if (this.state.active_section !== null) {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
     }

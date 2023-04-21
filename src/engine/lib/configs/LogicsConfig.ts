@@ -31,4 +31,22 @@ export const logicsConfig = {
     MIN: 5_000,
     MAX: 15_000,
   },
+  SMART_TERRAIN: {
+    /**
+     * Timeout for smart terrain controlled base (like Yanov).
+     */
+    ALARM_SMART_TERRAIN_BASE: 2 * 60 * 60,
+    /**
+     * Timeout for smart terrain generic alarm.
+     */
+    ALARM_SMART_TERRAIN_GENERIC: 6 * 60 * 60,
+    /**
+     * Throttle updates on death.
+     */
+    DEATH_IDLE_TIME: 600,
+    /**
+     * Time between respawn attempts for smart terrain.
+     */
+    RESPAWN_IDLE: 1_000,
+  },
 } as const;
