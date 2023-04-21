@@ -50,6 +50,10 @@ export class MockIniFile<T extends AnyObject> {
   private get = jest.fn((section: TSection, field: TName) => {
     return this.data[section][field] === undefined ? null : this.data[section][field];
   });
+
+  public asMock(): XR_ini_file {
+    return this as unknown as XR_ini_file;
+  }
 }
 
 /**

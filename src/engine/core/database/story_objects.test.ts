@@ -13,9 +13,7 @@ import {
   unregisterStoryLinkByObjectId,
   unregisterStoryLinkByStoryId,
 } from "@/engine/core/database/story_objects";
-import { FILES_MOCKS } from "@/fixtures/xray/mocks/ini/files.mock";
-import { mockClientGameObject, mockServerAlifeObject } from "@/fixtures/xray/mocks/objects";
-import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
+import { FILES_MOCKS, MockAlifeSimulator, mockClientGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("'story_objects' module of the database", () => {
   const firstObject: XR_cse_alife_object = mockServerAlifeObject({ id: 12 });

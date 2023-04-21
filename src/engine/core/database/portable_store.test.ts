@@ -10,8 +10,13 @@ import {
   savePortableStore,
   setPortableStoreValue,
 } from "@/engine/core/database/portable_store";
-import { mockClientGameObject } from "@/fixtures/xray";
-import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
+import {
+  EPacketDataType,
+  mockClientGameObject,
+  mockNetPacket,
+  MockNetProcessor,
+  mockNetProcessor,
+} from "@/fixtures/xray";
 
 describe("'portable_store' functionality", () => {
   it("should correctly validate value type", () => {

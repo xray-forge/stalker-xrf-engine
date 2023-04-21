@@ -20,7 +20,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Client-side registry of game objects logics and states.
  */
 export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSchemeState>> {
   object: XR_game_object;
@@ -97,7 +97,8 @@ export function unregisterObject(object: XR_game_object): void {
 }
 
 /**
- * todo;
+ * Reset object state in registry.
+ * Supply partial to override empty state.
  */
 export function resetObject(object: XR_game_object, record: Partial<IRegistryObjectState> = {}): IRegistryObjectState {
   record.object = object;
