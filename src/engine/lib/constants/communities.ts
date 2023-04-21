@@ -34,6 +34,7 @@ export const monsterCommunities = {
 export const communities = {
   ...stalkerCommunities,
   ...monsterCommunities,
+  actor: "actor",
   none: "none",
 } as const;
 

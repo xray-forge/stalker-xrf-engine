@@ -17,7 +17,7 @@ const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".tsx", ".ts"];
  * Build XML game forms from JSX forms.
  */
 export async function buildDynamicUi(parameters: IBuildCommandParameters): Promise<void> {
-  log.info(chalk.blueBright("Build dynamic UI schemas"));
+  log.info(chalk.blueBright("Build dynamic UI schemas:", parameters.filter));
   log.debug("Parameters:", parameters);
 
   const xmlConfigs: Array<TFolderReplicationDescriptor> = await getUiConfigs(parameters.filter);

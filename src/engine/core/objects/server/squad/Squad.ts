@@ -67,21 +67,12 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
+import { mapMarks } from "@/engine/lib/constants/map_marks";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { relations, TRelation } from "@/engine/lib/constants/relations";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import {
-  AnyCallablesModule,
-  AnyObject,
-  LuaArray,
-  Optional,
-  StringOptional,
-  TCount,
-  TLabel,
-  TName,
-  TNumberId,
-} from "@/engine/lib/types";
+import { AnyObject, LuaArray, Optional, StringOptional, TCount, TLabel, TName, TNumberId } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -115,8 +106,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public respawn_point_id: Optional<number> = null;
   public respawn_point_prop_section: Optional<string> = null;
 
-  public current_spot_id: Optional<number> = null;
-  public spot_section: Optional<string> = null;
+  public currentMapSpotId: Optional<TNumberId> = null;
+  public currentMapSpotSection: Optional<TName> = null;
 
   public currentAction: Optional<TSquadAction> = null;
   public currentTargetId: Optional<TNumberId> = null;
@@ -152,7 +143,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    */
   public override update(): void {
     super.update();
-    this.refresh();
+    this.refreshMapDisplay();
 
     updateSimulationObjectAvailability(this);
 
@@ -458,7 +449,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    */
   public genericUpdate(): void {
     this.soundManager.update();
-    this.refresh();
 
     const helpTargetId: Optional<TNumberId> = this.getHelpTargetId();
 
@@ -563,7 +553,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       }
     }
 
-    this.hide();
+    this.hideMapDisplay();
   }
 
   /**
@@ -592,7 +582,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       return;
     }
 
-    this.refresh();
+    this.refreshMapDisplay();
   }
 
   /**
@@ -823,7 +813,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     }
 
     this.assignedSmartTerrainId = spawnSmartTerrain.id;
-    this.refresh();
+    this.refreshMapDisplay();
   }
 
   /**
@@ -906,7 +896,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * @returns squad community section
    */
-  public getSquadCommunity(): TCommunity {
+  public getCommunity(): TCommunity {
     const squadCommunity: Optional<TCommunity> = squadCommunityByBehaviour[this.faction as TCommunity];
 
     assert(squadCommunity, "Squad community is 'null' for [%s].", this.faction);
@@ -917,90 +907,110 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public refresh(): void {
+  public refreshMapDisplay(): void {
     if (this.commander_id() === null) {
-      this.hide();
-
-      return;
+      return this.hideMapDisplay();
     }
 
-    this.show();
+    this.updateMapDisplay();
   }
 
   /**
    * todo: Description.
    */
-  public hide(): void {
-    if (this.current_spot_id === null || this.spot_section === null) {
+  public hideMapDisplay(): void {
+    if (this.currentMapSpotId === null || this.currentMapSpotSection === null) {
       return;
     }
 
-    level.map_remove_object_spot(this.current_spot_id, this.spot_section);
+    level.map_remove_object_spot(this.currentMapSpotId, this.currentMapSpotSection);
 
-    this.current_spot_id = null;
-    this.spot_section = null;
+    this.currentMapSpotId = null;
+    this.currentMapSpotSection = null;
   }
 
   /**
    * todo: Description.
    */
-  public show(): void {
+  public updateMapDisplay(): void {
     if (this.isMapDisplayHidden) {
-      this.hide();
-
-      return;
+      return this.hideMapDisplay();
     }
+
+    const squadCommanderId: TNumberId = this.commander_id();
 
     if (
-      level.map_has_object_spot(this.commander_id(), "ui_pda2_trader_location") !== 0 ||
-      level.map_has_object_spot(this.commander_id(), "ui_pda2_mechanic_location") !== 0 ||
-      level.map_has_object_spot(this.commander_id(), "ui_pda2_scout_location") !== 0 ||
-      level.map_has_object_spot(this.commander_id(), "ui_pda2_quest_npc_location") !== 0 ||
-      level.map_has_object_spot(this.commander_id(), "ui_pda2_medic_location") !== 0
+      level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_trader_location) !== 0 ||
+      level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_mechanic_location) !== 0 ||
+      level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_scout_location) !== 0 ||
+      level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_quest_npc_location) !== 0 ||
+      level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_medic_location) !== 0
     ) {
       this.isMapDisplayHidden = true;
 
       return;
     }
 
-    if (this.current_spot_id !== this.commander_id()) {
-      this.hide();
-      this.current_spot_id = this.commander_id();
-      this.show();
+    if (this.currentMapSpotId !== squadCommanderId) {
+      this.hideMapDisplay();
+      this.currentMapSpotId = squadCommanderId;
+      this.updateMapDisplay();
 
       return;
     }
 
-    let spot: string = "";
+    let spot: Optional<TLabel> = null;
 
-    if (!isSquadMonsterCommunity(this.faction as TCommunity)) {
-      const relation: TRelation = getSquadIdRelationToActor(this.id);
+    /**
+     * In case of debug use map display like in clear sky.
+     */
+    if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
+      if (isSquadMonsterCommunity(this.faction)) {
+        spot = mapMarks.alife_presentation_squad_monster_debug;
+      } else {
+        const relation: TRelation = getSquadIdRelationToActor(this);
 
-      if (relation === relations.friend) {
-        spot = "alife_presentation_squad_friend";
-      } else if (relation === relations.neutral) {
-        spot = "alife_presentation_squad_neutral";
+        if (relation === relations.friend) {
+          spot = mapMarks.alife_presentation_squad_friend_debug;
+        } else if (relation === relations.neutral) {
+          spot = mapMarks.alife_presentation_squad_neutral_debug;
+        } else {
+          spot = mapMarks.alife_presentation_squad_enemy_debug;
+        }
+      }
+    } else {
+      /**
+       * Display only minimap marks.
+       */
+      if (!isSquadMonsterCommunity(this.faction as TCommunity)) {
+        const relation: TRelation = getSquadIdRelationToActor(this);
+
+        if (relation === relations.friend) {
+          spot = mapMarks.alife_presentation_squad_friend;
+        } else if (relation === relations.neutral) {
+          spot = mapMarks.alife_presentation_squad_neutral;
+        }
       }
     }
 
-    if (spot !== "") {
-      if (spot === this.spot_section) {
-        level.map_change_spot_hint(this.current_spot_id, this.spot_section, this.getMapDisplayHint());
+    if (spot) {
+      const hint: TLabel = this.getMapDisplayHint();
 
-        return;
+      if (spot === this.currentMapSpotSection) {
+        return level.map_change_spot_hint(this.currentMapSpotId, this.currentMapSpotSection, hint);
       }
 
-      if (this.spot_section === null) {
-        level.map_add_object_spot(this.current_spot_id, spot, this.getMapDisplayHint());
+      if (this.currentMapSpotSection === null) {
+        level.map_add_object_spot(this.currentMapSpotId, spot, hint);
       } else {
-        level.map_remove_object_spot(this.current_spot_id, this.spot_section);
-        level.map_add_object_spot(this.current_spot_id, spot, this.getMapDisplayHint());
+        level.map_remove_object_spot(this.currentMapSpotId, this.currentMapSpotSection);
+        level.map_add_object_spot(this.currentMapSpotId, spot, hint);
       }
 
-      this.spot_section = spot;
-    } else if (this.spot_section !== null) {
-      level.map_remove_object_spot(this.current_spot_id, this.spot_section);
-      this.spot_section = null;
+      this.currentMapSpotSection = spot;
+    } else if (this.currentMapSpotSection !== null) {
+      level.map_remove_object_spot(this.currentMapSpotId, this.currentMapSpotSection);
+      this.currentMapSpotSection = null;
     }
   }
 
@@ -1008,35 +1018,29 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * Get map display hint for debugging and display in game UI map.
    */
   public getMapDisplayHint(): TLabel {
-    if (gameConfig.DEBUG.IS_SMARTS_DEBUG_ENABLED) {
-      let t: TLabel =
-        "[" +
-        tostring(this.name()) +
-        "]\\n" +
-        "current_target = [" +
+    if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
+      let hint: TLabel = string.format(
+        "[%s]\\ncurrent_target = [%s]\\nassigned_target = [%s]\\ncurrent_action = [%s]\\n",
+        this.name(),
         tostring(
           this.currentTargetId && alife().object(this.currentTargetId) && alife().object(this.currentTargetId)!.name()
-        ) +
-        "]\\n" +
-        "assigned_target = [" +
+        ),
         tostring(
           this.assignedTargetId &&
             alife().object(this.assignedTargetId) &&
             alife().object(this.assignedTargetId)!.name()
-        ) +
-        "]\\n";
+        ),
+        tostring(this.currentAction?.name)
+      );
 
       if (this.currentAction !== null && this.currentAction.name === "stay_point") {
-        t =
-          t +
-          "stay_on_point = [" +
-          tostring(
-            this.currentAction.actionIdleTime - game.get_game_time().diffSec(this.currentAction.actionStartTime!)
-          ) +
-          "]";
+        hint += string.format(
+          "stay_on_point = [%.2f]",
+          this.currentAction.actionIdleTime - game.get_game_time().diffSec(this.currentAction.actionStartTime!)
+        );
       }
 
-      return t;
+      return hint;
     } else {
       return "";
     }
@@ -1050,7 +1054,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       return null;
     }
 
-    const currentCommunity: TCommunity = this.getSquadCommunity();
+    const currentCommunity: TCommunity = this.getCommunity();
 
     for (const [id, v] of registry.actorCombat) {
       const enemySquadId: Optional<TNumberId> = alife().object<XR_cse_alife_creature_abstract>(id)!.group_id;
@@ -1061,7 +1065,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         if (
           targetSquad &&
           this.position.distance_to_sqr(targetSquad.position) < 150 * 150 &&
-          isFactionsEnemies(currentCommunity, targetSquad.getSquadCommunity())
+          isFactionsEnemies(currentCommunity, targetSquad.getCommunity())
         ) {
           return enemySquadId;
         }
@@ -1086,7 +1090,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       return false;
     }
 
-    const currentCommunity: TCommunity = this.getSquadCommunity();
+    const currentCommunity: TCommunity = this.getCommunity();
 
     if (currentCommunity === communities.dolg && hasAlifeInfo(infoPortions.sim_duty_help_harder)) {
       return true;

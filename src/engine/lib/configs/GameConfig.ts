@@ -26,7 +26,7 @@ export const gameConfig = {
     /**
      * Is debug mode for smarts enabled (display on map).
      */
-    IS_SMARTS_DEBUG_ENABLED: false,
+    IS_SIMULATION_DEBUG_ENABLED: false,
     /**
      * Is resolving debug enabled.
      * Printing messages each time logger instance is created.

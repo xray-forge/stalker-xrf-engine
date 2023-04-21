@@ -1,6 +1,6 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-export function MapSpotsRelations(): JSXNode {
+export function MapRelationSpots(): JSXNode {
   return (
     <Fragment>
       <enemy_location hint="enemy" no_offline="1">

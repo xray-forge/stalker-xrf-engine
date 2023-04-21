@@ -77,6 +77,18 @@ export function create(): JSXNode {
         textColor={WHITE}
         texture={textures.ui_inGame2_Mp_bigbuttone}
       />
+
+      <Xr3tButton
+        tag={"debug_simulation_toggle_button"}
+        x={12}
+        y={72}
+        height={16}
+        width={90}
+        label={"Enable simulation debug"}
+        font={fonts.letterica16}
+        textColor={WHITE}
+        texture={textures.ui_inGame2_Mp_bigbuttone}
+      />
     </XrRoot>
   );
 }

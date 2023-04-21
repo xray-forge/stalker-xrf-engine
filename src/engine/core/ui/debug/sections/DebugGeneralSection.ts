@@ -1,9 +1,10 @@
-import { command_line, LuabindClass, ui_events, XR_CScriptXmlInit, XR_CUIStatic } from "xray16";
+import { command_line, LuabindClass, ui_events, XR_CScriptXmlInit, XR_CUI3tButton, XR_CUIStatic } from "xray16";
 
 import { ProfilingManager } from "@/engine/core/managers/debug/ProfilingManager";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
+import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { TPath } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugGeneralSection.component";
@@ -16,8 +17,9 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class DebugGeneralSection extends AbstractDebugSection {
   public uiLuaVersionLabel!: XR_CUIStatic;
   public uiMemoryUsageCountLabel!: XR_CUIStatic;
-  public uiProfilingToggleButton!: XR_CUIStatic;
-  public uiProfilingReportButton!: XR_CUIStatic;
+  public uiProfilingToggleButton!: XR_CUI3tButton;
+  public uiSimulationDebugToggleButton!: XR_CUI3tButton;
+  public uiProfilingReportButton!: XR_CUI3tButton;
   public uiLuaJitLabel!: XR_CUIStatic;
 
   /**
@@ -37,11 +39,13 @@ export class DebugGeneralSection extends AbstractDebugSection {
     this.uiLuaJitLabel = xml.InitStatic("lua_jit_label", this);
     this.uiProfilingToggleButton = xml.Init3tButton("profiling_toggle_button", this);
     this.uiProfilingReportButton = xml.Init3tButton("profiling_log_button", this);
+    this.uiSimulationDebugToggleButton = xml.Init3tButton("debug_simulation_toggle_button", this);
 
     this.owner.Register(xml.Init3tButton("refresh_memory_button", this), "refresh_memory_button");
     this.owner.Register(xml.Init3tButton("collect_memory_button", this), "collect_memory_button");
     this.owner.Register(this.uiProfilingToggleButton, "profiling_toggle_button");
     this.owner.Register(this.uiProfilingReportButton, "profiling_log_button");
+    this.owner.Register(this.uiSimulationDebugToggleButton, "debug_simulation_toggle_button");
   }
 
   /**
@@ -68,16 +72,24 @@ export class DebugGeneralSection extends AbstractDebugSection {
       () => this.onToggleProfilingButtonClick(),
       this
     );
+
     this.owner.AddCallback(
       "profiling_log_button",
       ui_events.BUTTON_CLICKED,
       () => this.onLogProfilingStatsButtonClick(),
       this
     );
+
+    this.owner.AddCallback(
+      "debug_simulation_toggle_button",
+      ui_events.BUTTON_CLICKED,
+      () => this.onToggleSimulationDebugButtonClick(),
+      this
+    );
   }
 
   /**
-   * todo: Description.
+   * Initialize section state from current state.
    */
   public initializeState(): void {
     const profilingManager: ProfilingManager = ProfilingManager.getInstance();
@@ -89,6 +101,10 @@ export class DebugGeneralSection extends AbstractDebugSection {
       .TextControl()
       .SetText(profilingManager.isProfilingStarted ? "Stop profiling" : "Start profiling");
     this.uiProfilingReportButton.Enable(profilingManager.isProfilingStarted);
+
+    this.uiSimulationDebugToggleButton
+      .TextControl()
+      .SetText(gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED ? "Disable simulation debug" : "Enable simulation debug");
   }
 
   /**
@@ -114,9 +130,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
     }
 
     this.uiProfilingReportButton.Enable(profilingManager.isProfilingStarted);
-    this.uiProfilingToggleButton
-      .TextControl()
-      .SetText(profilingManager.isProfilingStarted ? "Stop profiling" : "Start profiling");
+    this.initializeState();
   }
 
   /**
@@ -130,6 +144,15 @@ export class DebugGeneralSection extends AbstractDebugSection {
     } else {
       logger.info("Profiler manager is disabled");
     }
+  }
+
+  /**
+   * Toggle simulation debug with squad / smarts display on map with stats.
+   */
+  public onToggleSimulationDebugButtonClick(): void {
+    gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED = !gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED;
+
+    this.initializeState();
   }
 
   /**

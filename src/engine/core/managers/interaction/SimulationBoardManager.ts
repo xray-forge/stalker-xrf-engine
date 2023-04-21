@@ -296,7 +296,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
 
     if (oldSmartTerrainId !== null && this.smartTerrains.has(oldSmartTerrainId)) {
       this.smartTerrains.get(oldSmartTerrainId).assignedSquads.delete(squad.id);
-      this.smartTerrains.get(oldSmartTerrainId).smartTerrain.refresh();
+      this.smartTerrains.get(oldSmartTerrainId).smartTerrain.updateMapDisplay();
     }
 
     if (smartTerrainId === null) {
@@ -309,7 +309,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
 
     squad.assignSmartTerrain(target.smartTerrain);
     target.assignedSquads.set(squad.id, squad);
-    target.smartTerrain.refresh();
+    target.smartTerrain.updateMapDisplay();
   }
 
   /**

@@ -37,6 +37,7 @@ import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsMa
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { setupSmartJobsAndLogicOnSpawn, SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { emitSchemeEvent, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
@@ -158,13 +159,13 @@ export class MonsterBinder extends object_binder {
     }
 
     if (squad && squad.currentAction && squad.currentAction.name === "reach_target") {
-      const squad_target = registry.simulationObjects.get(squad.assignedTargetId!);
+      const currentTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
 
-      if (squad_target === null) {
+      if (currentTarget === null) {
         return;
       }
 
-      const [targetPosition] = squad_target.getGameLocation();
+      const [targetPosition] = currentTarget.getGameLocation();
 
       scriptCaptureObject(this.object, true, MonsterBinder.__name);
 

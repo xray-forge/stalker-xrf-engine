@@ -1,10 +1,8 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-export function MapSpotsMp(): JSXNode {
+export function MapMultiplayerSpots(): JSXNode {
   return (
     <Fragment>
-      {/** <!-- multiplayer --> */}
-
       <mp_team_base_0_location hint="team_base_1">
         <level_map spot="mp_team_base_2_level_spot" pointer="mp_team_base_2_pointer" />
         <mini_map spot="mp_team_base_2_mini_spot" pointer="mp_team_base_2_pointer" />
