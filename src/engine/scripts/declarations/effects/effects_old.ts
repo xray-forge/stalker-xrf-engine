@@ -36,7 +36,7 @@ import {
   SYSTEM_INI,
   unregisterHelicopter,
 } from "@/engine/core/database";
-import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
+import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
@@ -524,9 +524,9 @@ export function remove_npc(actor: XR_game_object, npc: XR_game_object, p: [Optio
 export function inc_counter(actor: XR_game_object, npc: XR_game_object, p: [Optional<string>, number]) {
   if (p[0]) {
     const inc_value = p[1] || 1;
-    const new_value = portableStoreGet(actor, p[0], 0) + inc_value;
+    const new_value = getPortableStoreValue(actor, p[0], 0) + inc_value;
 
-    portableStoreSet(actor, p[0], new_value);
+    setPortableStoreValue(actor, p[0], new_value);
   }
 }
 
@@ -536,13 +536,13 @@ export function inc_counter(actor: XR_game_object, npc: XR_game_object, p: [Opti
 export function dec_counter(actor: XR_game_object, npc: XR_game_object, p: [Optional<string>, number]) {
   if (p[0]) {
     const dec_value = p[1] || 1;
-    let new_value = portableStoreGet(actor, p[0], 0) - dec_value;
+    let new_value = getPortableStoreValue(actor, p[0], 0) - dec_value;
 
     if (new_value < 0) {
       new_value = 0;
     }
 
-    portableStoreSet(actor, p[0], new_value);
+    setPortableStoreValue(actor, p[0], new_value);
   }
 }
 
@@ -555,7 +555,7 @@ export function set_counter(
   params: [Optional<string>, Optional<number>]
 ): void {
   if (params[0]) {
-    portableStoreSet(actor, params[0], params[1] || 0);
+    setPortableStoreValue(actor, params[0], params[1] || 0);
   }
 }
 

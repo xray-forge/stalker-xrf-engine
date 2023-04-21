@@ -1,6 +1,6 @@
 import { get_hud, level, XR_game_object } from "xray16";
 
-import { portableStoreGet, portableStoreSet, registry } from "@/engine/core/database";
+import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { PsyAntennaManager } from "@/engine/core/managers/world/PsyAntennaManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
@@ -23,7 +23,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
    */
   public override resetScheme(loading?: boolean): void {
     if (loading) {
-      this.antennaState = portableStoreGet(this.object, "inside")!;
+      this.antennaState = getPortableStoreValue(this.object, "inside")!;
     }
 
     if (this.antennaState === state_inside) {
@@ -150,6 +150,6 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
    * todo: Description.
    */
   public save(): void {
-    portableStoreSet(this.object, "inside", this.antennaState);
+    setPortableStoreValue(this.object, "inside", this.antennaState);
   }
 }

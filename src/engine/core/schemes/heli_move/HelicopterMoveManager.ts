@@ -1,6 +1,6 @@
 import { level, patrol, XR_CHelicopter, XR_game_object, XR_patrol, XR_vector } from "xray16";
 
-import { portableStoreGet, portableStoreSet, registry } from "@/engine/core/database";
+import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { get_heli_firer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
@@ -83,12 +83,12 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     this.max_velocity = this.state.max_velocity;
 
     if (loading) {
-      this.heliState = portableStoreGet(this.object, "st");
+      this.heliState = getPortableStoreValue(this.object, "st");
 
-      this.last_index = portableStoreGet(this.object, "li") || null;
-      this.next_index = portableStoreGet(this.object, "ni") || null;
+      this.last_index = getPortableStoreValue(this.object, "li") || null;
+      this.next_index = getPortableStoreValue(this.object, "ni") || null;
 
-      this.was_callback = portableStoreGet(this.object, "wc");
+      this.was_callback = getPortableStoreValue(this.object, "wc");
     } else {
       this.last_index = null;
       this.next_index = null;
@@ -162,12 +162,12 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
    * todo: Description.
    */
   public save(): void {
-    portableStoreSet(this.object, "st", this.heliState);
+    setPortableStoreValue(this.object, "st", this.heliState);
     // ---
-    portableStoreSet(this.object, "li", this.last_index || false);
-    portableStoreSet(this.object, "ni", this.next_index || false);
+    setPortableStoreValue(this.object, "li", this.last_index || false);
+    setPortableStoreValue(this.object, "ni", this.next_index || false);
     // ---
-    portableStoreSet(this.object, "wc", this.was_callback);
+    setPortableStoreValue(this.object, "wc", this.was_callback);
   }
 
   /**

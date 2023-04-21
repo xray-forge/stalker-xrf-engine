@@ -9,7 +9,7 @@ import {
   XR_net_packet,
 } from "xray16";
 
-import { portableStoreGet, portableStoreSet, registry } from "@/engine/core/database";
+import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { isStalker } from "@/engine/core/utils/check/is";
@@ -213,10 +213,10 @@ export class StatisticsManager extends AbstractCoreManager {
   public incrementAnabioticsUsageCount(): void {
     logger.info("Increment used anabiotics count");
 
-    portableStoreSet(
+    setPortableStoreValue(
       registry.actor,
       StatisticsManager.USED_ANABIOTICS_COUNT_KEY,
-      portableStoreGet(registry.actor, StatisticsManager.USED_ANABIOTICS_COUNT_KEY, 0) + 1
+      getPortableStoreValue(registry.actor, StatisticsManager.USED_ANABIOTICS_COUNT_KEY, 0) + 1
     );
   }
 
@@ -224,7 +224,7 @@ export class StatisticsManager extends AbstractCoreManager {
    * todo: Description.
    */
   public getUsedAnabioticsCount(): TCount {
-    return portableStoreGet(registry.actor, StatisticsManager.USED_ANABIOTICS_COUNT_KEY, 0);
+    return getPortableStoreValue(registry.actor, StatisticsManager.USED_ANABIOTICS_COUNT_KEY, 0);
   }
 
   /**

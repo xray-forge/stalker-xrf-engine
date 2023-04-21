@@ -13,7 +13,7 @@ import {
 } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SURGE_MANAGER_LTX } from "@/engine/core/database";
-import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
+import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -281,7 +281,7 @@ export class SurgeManager extends AbstractCoreManager {
     const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
     const smartTerrain: Optional<SmartTerrain> = squad.assignedSmartTerrainId
       ? (simulationBoardManager.getSmartTerrainDescriptorById(squad.assignedSmartTerrainId)
-        ?.smartTerrain as Optional<SmartTerrain>)
+          ?.smartTerrain as Optional<SmartTerrain>)
       : null;
 
     return smartTerrain !== null && tonumber(smartTerrain.simulationProperties["surge"])! <= 0;

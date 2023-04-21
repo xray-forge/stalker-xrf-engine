@@ -36,11 +36,13 @@ export function isValidPortableStoreValue(value: unknown): boolean {
 }
 
 /**
- * todo;
- * todo;
- * todo;
+ * Set value in object portable store by key.
  */
-export function portableStoreSet<T extends TPortableStoreValue>(object: XR_game_object, key: TName, value: T): void {
+export function setPortableStoreValue<T extends TPortableStoreValue>(
+  object: XR_game_object,
+  key: TName,
+  value: T
+): void {
   if (!isValidPortableStoreValue(value)) {
     abort("database/portable store: not registered type tried to set: [%s]:[%s].", key, type(value));
   }
@@ -56,16 +58,18 @@ export function portableStoreSet<T extends TPortableStoreValue>(object: XR_game_
 }
 
 /**
- * todo;
- * todo;
- * todo;
+ * Get value from object portable store.
  */
-export function portableStoreGet<T extends TPortableStoreValue>(object: XR_game_object, key: TName): Optional<T>;
-export function portableStoreGet<T extends TPortableStoreValue>(object: XR_game_object, key: TName, defaultValue: T): T;
-export function portableStoreGet<T extends TPortableStoreValue>(
+export function getPortableStoreValue<T extends TPortableStoreValue>(object: XR_game_object, key: TName): Optional<T>;
+export function getPortableStoreValue<T extends TPortableStoreValue>(
   object: XR_game_object,
   key: TName,
-  defaultValue?: T
+  defaultValue: T
+): T;
+export function getPortableStoreValue<T extends TPortableStoreValue>(
+  object: XR_game_object,
+  key: TName,
+  defaultValue: Optional<T> = null
 ): Optional<T> {
   const objectId: TNumberId = object.id();
 
@@ -81,9 +85,7 @@ export function portableStoreGet<T extends TPortableStoreValue>(
 }
 
 /**
- * todo;
- * todo;
- * todo;
+ * Save object portable store data into net packet.
  */
 export function savePortableStore(object: XR_game_object, packet: XR_net_packet): void {
   const objectId: TNumberId = object.id();
@@ -101,32 +103,36 @@ export function savePortableStore(object: XR_game_object, packet: XR_net_packet)
 
     const valueType: string = type(value);
 
-    if (valueType === "number") {
-      packet.w_u8(EPortableStoreType.NUMBER);
-      packet.w_float(value);
-    } else if (valueType === "string") {
-      packet.w_u8(EPortableStoreType.STRING);
-      packet.w_stringZ(value);
-    } else if (valueType === "boolean") {
-      packet.w_u8(EPortableStoreType.BOOLEAN);
-      packet.w_bool(value);
-    } else {
-      abort("database/portable store: not registered type tried to save: [%s]:[%s].", key, type(value));
+    switch (valueType) {
+      case "number":
+        packet.w_u8(EPortableStoreType.NUMBER);
+        packet.w_float(value);
+        break;
+
+      case "string":
+        packet.w_u8(EPortableStoreType.STRING);
+        packet.w_stringZ(value);
+        break;
+
+      case "boolean":
+        packet.w_u8(EPortableStoreType.BOOLEAN);
+        packet.w_bool(value);
+        break;
+
+      default:
+        abort("database/portable store: not registered type tried to save: [%s]:[%s].", key, type(value));
     }
   }
 }
 
 /**
- * todo
- * todo
- * todo
- * todo
+ * Load object portable store data from net packet.
  */
 export function loadPortableStore(object: XR_game_object, reader: TXR_net_processor): void {
   const objectId: TNumberId = object.id();
   let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).portableStore;
 
-  if (portableStore === null) {
+  if (!portableStore) {
     portableStore = new LuaTable();
     registry.objects.get(objectId).portableStore = portableStore;
   }
@@ -137,14 +143,21 @@ export function loadPortableStore(object: XR_game_object, reader: TXR_net_proces
     const key: TName = reader.r_stringZ();
     const type: EPortableStoreType = reader.r_u8();
 
-    if (type === EPortableStoreType.NUMBER) {
-      portableStore.set(key, reader.r_float());
-    } else if (type === EPortableStoreType.STRING) {
-      portableStore.set(key, reader.r_stringZ());
-    } else if (type === EPortableStoreType.BOOLEAN) {
-      portableStore.set(key, reader.r_bool());
-    } else {
-      abort("database/portable store: not registered type tried to load: [%s]:[%s].", key, type);
+    switch (type) {
+      case EPortableStoreType.NUMBER:
+        portableStore.set(key, reader.r_float());
+        break;
+
+      case EPortableStoreType.BOOLEAN:
+        portableStore.set(key, reader.r_bool());
+        break;
+
+      case EPortableStoreType.STRING:
+        portableStore.set(key, reader.r_stringZ());
+        break;
+
+      default:
+        abort("database/portable store: not registered type tried to load: [%s]:[%s].", key, type);
     }
   }
 }

@@ -3,7 +3,7 @@
 import { alife, game, level, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
+import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/interface/notifications";
 import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { getExtern } from "@/engine/core/utils/binding";
@@ -567,7 +567,7 @@ export function zat_b33_set_counter_10(firstSpeaker: XR_game_object, secondSpeak
 export function zat_b33_counter_ge_2(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const actor = registry.actor;
 
-  return portableStoreGet(actor, "zat_b33_items", 0 as number) >= 2;
+  return getPortableStoreValue(actor, "zat_b33_items", 0 as number) >= 2;
 }
 
 /**
@@ -576,7 +576,7 @@ export function zat_b33_counter_ge_2(firstSpeaker: XR_game_object, secondSpeaker
 export function zat_b33_counter_ge_4(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const actor = registry.actor;
 
-  return portableStoreGet(actor, "zat_b33_items", 0 as number) >= 4;
+  return getPortableStoreValue(actor, "zat_b33_items", 0 as number) >= 4;
 }
 
 /**
@@ -585,7 +585,7 @@ export function zat_b33_counter_ge_4(firstSpeaker: XR_game_object, secondSpeaker
 export function zat_b33_counter_ge_8(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const actor = registry.actor;
 
-  return portableStoreGet(actor, "zat_b33_items", 0 as number) >= 8;
+  return getPortableStoreValue(actor, "zat_b33_items", 0 as number) >= 8;
 }
 
 /**
@@ -642,7 +642,7 @@ export function zat_b33_counter_de_8(firstSpeaker: XR_game_object, secondSpeaker
 export function zat_b33_counter_eq_10(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const actor = registry.actor;
 
-  return portableStoreGet(actor, "zat_b33_items", 0 as number) === 10;
+  return getPortableStoreValue(actor, "zat_b33_items", 0 as number) === 10;
 }
 
 /**
@@ -1011,10 +1011,10 @@ export function zat_b29_actor_exchange(firstSpeaker: XR_game_object, secondSpeak
 export function zat_b30_transfer_percent(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
   const actor: XR_game_object = registry.actor;
   const amount: number = math.random(5, 25) * 100;
-  const days: number = portableStoreGet(actor, "zat_b30_days_cnt", 0);
+  const days: number = getPortableStoreValue(actor, "zat_b30_days_cnt", 0);
 
   giveMoneyToActor(amount * days);
-  portableStoreSet(actor, "zat_b30_days_cnt", 0);
+  setPortableStoreValue(actor, "zat_b30_days_cnt", 0);
 }
 
 /**
@@ -1511,7 +1511,7 @@ export function if_actor_has_toolkit_2(firstSpeaker: XR_game_object, secondSpeak
 export function zat_b215_counter_greater_3(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const actor: XR_game_object = registry.actor;
 
-  return portableStoreGet(actor, "zat_a9_way_to_pripyat_counter", 0 as number) > 3;
+  return getPortableStoreValue(actor, "zat_a9_way_to_pripyat_counter", 0 as number) > 3;
 }
 
 /**
@@ -1732,7 +1732,7 @@ export function zat_b30_transfer_af_from_actor(firstSpeaker: XR_game_object, sec
  */
 export function zat_b30_barmen_has_percent(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const actor = registry.actor;
-  const cnt = portableStoreGet(actor, "zat_b30_days_cnt", 0);
+  const cnt = getPortableStoreValue(actor, "zat_b30_days_cnt", 0);
 
   return cnt > 0;
 }
@@ -1745,7 +1745,7 @@ export function zat_b30_barmen_do_not_has_percent(
   secondSpeaker: XR_game_object
 ): boolean {
   const actor = registry.actor;
-  const cnt = portableStoreGet(actor, "zat_b30_days_cnt", 0);
+  const cnt = getPortableStoreValue(actor, "zat_b30_days_cnt", 0);
 
   return cnt < 1;
 }

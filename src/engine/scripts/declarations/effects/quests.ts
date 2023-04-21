@@ -15,9 +15,9 @@ import {
 import {
   getObjectByStoryId,
   getObjectIdByStoryId,
-  portableStoreGet,
-  portableStoreSet,
+  getPortableStoreValue,
   registry,
+  setPortableStoreValue,
 } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/interface";
 import { EStalkerState } from "@/engine/core/objects/state";
@@ -460,7 +460,7 @@ extern(
     } as unknown as LuaArray<LuaTable<string, number>>;
 
     if (params && params[0] !== null) {
-      const cnt = portableStoreGet(actor, "jup_b10_ufo_counter", 0);
+      const cnt = getPortableStoreValue(actor, "jup_b10_ufo_counter", 0);
 
       if (cnt > 2) {
         return;
@@ -627,7 +627,7 @@ extern("xr_effects.jup_b221_play_main", (actor: XR_game_object, npc: XR_game_obj
     const theme_to_play = reachable_theme.get(math.random(1, reachable_theme.length()));
 
     disableInfo(info_need_reply);
-    portableStoreSet(actor, "jup_b221_played_main_theme", tostring(theme_to_play));
+    setPortableStoreValue(actor, "jup_b221_played_main_theme", tostring(theme_to_play));
     giveInfo((main_theme + tostring(theme_to_play) + "_played") as TInfoPortion);
 
     if (theme_to_play !== 0) {
@@ -636,7 +636,7 @@ extern("xr_effects.jup_b221_play_main", (actor: XR_game_object, npc: XR_game_obj
       abort("No such theme_to_play in function 'jup_b221_play_main'");
     }
   } else {
-    const themeToPlay: TIndex = tonumber(portableStoreGet(actor, "jup_b221_played_main_theme", 0)) as TIndex;
+    const themeToPlay: TIndex = tonumber(getPortableStoreValue(actor, "jup_b221_played_main_theme", 0)) as TIndex;
 
     giveInfo(info_need_reply);
 
@@ -646,7 +646,7 @@ extern("xr_effects.jup_b221_play_main", (actor: XR_game_object, npc: XR_game_obj
       abort("No such theme_to_play in function 'jup_b221_play_main'");
     }
 
-    portableStoreSet(actor, "jup_b221_played_main_theme", "0");
+    setPortableStoreValue(actor, "jup_b221_played_main_theme", "0");
   }
 });
 
@@ -1037,6 +1037,6 @@ extern("xr_effects.jup_b200_count_found", (actor: XR_game_object): void => {
     }
   }
 
-  count = count + portableStoreGet(actor, "jup_b200_tech_materials_brought_counter", 0);
-  portableStoreSet(actor, "jup_b200_tech_materials_found_counter", count);
+  count = count + getPortableStoreValue(actor, "jup_b200_tech_materials_brought_counter", 0);
+  setPortableStoreValue(actor, "jup_b200_tech_materials_found_counter", count);
 });

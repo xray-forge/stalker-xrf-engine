@@ -3,7 +3,7 @@
 import { alife, game_object, XR_cse_alife_creature_abstract, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { portableStoreGet } from "@/engine/core/database/portable_store";
+import { getPortableStoreValue } from "@/engine/core/database/portable_store";
 import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/AnomalyZoneBinder";
 import { getExtern } from "@/engine/core/utils/binding";
@@ -1699,7 +1699,7 @@ export function jup_b43_reward_for_both_artefacts(firstSpeaker: XR_game_object, 
 export function jup_b218_counter_not_3(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const actor = registry.actor;
 
-  return portableStoreGet(actor, "jup_b218_squad_members_count", 0 as number) !== 3;
+  return getPortableStoreValue(actor, "jup_b218_squad_members_count", 0 as number) !== 3;
 }
 
 /**
@@ -1708,7 +1708,7 @@ export function jup_b218_counter_not_3(firstSpeaker: XR_game_object, secondSpeak
 export function jup_b218_counter_equal_3(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
   const actor = registry.actor;
 
-  return portableStoreGet(actor, "jup_b218_squad_members_count", 0 as number) === 3;
+  return getPortableStoreValue(actor, "jup_b218_squad_members_count", 0 as number) === 3;
 }
 
 /**
@@ -1718,7 +1718,7 @@ export function jup_b218_counter_not_0(firstSpeaker: XR_game_object, secondSpeak
   const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
   const actor = registry.actor;
 
-  return portableStoreGet(actor, "jup_b218_squad_members_count", 0 as number) !== 0;
+  return getPortableStoreValue(actor, "jup_b218_squad_members_count", 0 as number) !== 0;
 }
 
 /**

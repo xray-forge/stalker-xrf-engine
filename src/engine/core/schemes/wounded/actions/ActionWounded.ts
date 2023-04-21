@@ -1,7 +1,7 @@
 import { action_base, alife, hit, LuabindClass, time_global, XR_alife_simulator, XR_hit } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
-import { portableStoreGet, portableStoreSet } from "@/engine/core/database/portable_store";
+import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
@@ -52,11 +52,11 @@ export class ActionWounded extends action_base {
 
     if (this.state.autoheal === true) {
       if (woundManager.can_use_medkit !== true) {
-        const begin_wounded: number = portableStoreGet(this.object, "begin_wounded")!;
+        const begin_wounded: number = getPortableStoreValue(this.object, "begin_wounded")!;
         const current_time: number = time_global();
 
         if (begin_wounded === null) {
-          portableStoreSet(this.object, "begin_wounded", current_time);
+          setPortableStoreValue(this.object, "begin_wounded", current_time);
         } else if (current_time - begin_wounded > 60000) {
           const npc = this.object;
 
@@ -66,8 +66,8 @@ export class ActionWounded extends action_base {
       }
     }
 
-    const woundManagerState: EStalkerState = portableStoreGet<EStalkerState>(this.object, "wounded_state")!;
-    const woundManagerSound: string = portableStoreGet(this.object, "wounded_sound")!;
+    const woundManagerState: EStalkerState = getPortableStoreValue<EStalkerState>(this.object, "wounded_state")!;
+    const woundManagerSound: string = getPortableStoreValue(this.object, "wounded_sound")!;
 
     if (woundManagerState === TRUE) {
       const hitObject: XR_hit = new hit();

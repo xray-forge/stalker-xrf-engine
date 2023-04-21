@@ -26,7 +26,17 @@ export class MockNetProcessor {
   }
 
   public r_float(): number {
-    this.readDataOrder.push(EPacketDataType.STRING);
+    this.readDataOrder.push(EPacketDataType.F32);
+
+    if (this.hasData()) {
+      return this.dataList.shift() as number;
+    } else {
+      throw new Error("Unexpected test mock read.");
+    }
+  }
+
+  public r_u32(): number {
+    this.readDataOrder.push(EPacketDataType.U32);
 
     if (this.hasData()) {
       return this.dataList.shift() as number;
@@ -75,8 +85,18 @@ export class MockNetProcessor {
     this.dataList.push(data);
   }
 
+  public w_u32(data: number): void {
+    this.writeDataOrder.push(EPacketDataType.U32);
+    this.dataList.push(data);
+  }
+
   public w_u8(data: number): void {
     this.writeDataOrder.push(EPacketDataType.U8);
+    this.dataList.push(data);
+  }
+
+  public w_float(data: number): void {
+    this.writeDataOrder.push(EPacketDataType.F32);
     this.dataList.push(data);
   }
 

@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator, stalker_ids, XR_action_planner } from "xray16";
 
-import { portableStoreGet } from "@/engine/core/database/portable_store";
+import { getPortableStoreValue } from "@/engine/core/database/portable_store";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
@@ -46,11 +46,11 @@ export class EvaluatorWounded extends property_evaluator {
 
     if (
       this.actionPlanner.evaluator(stalker_ids.property_enemy).evaluate() &&
-      portableStoreGet(this.object, "wounded_fight") === TRUE
+      getPortableStoreValue(this.object, "wounded_fight") === TRUE
     ) {
       return false;
     }
 
-    return tostring(portableStoreGet(this.object, "wounded_state")) !== NIL;
+    return tostring(getPortableStoreValue(this.object, "wounded_state")) !== NIL;
   }
 }
