@@ -48,5 +48,10 @@ export const logicsConfig = {
      * Time between respawn attempts for smart terrain.
      */
     RESPAWN_IDLE: 1_000,
+    /**
+     * Restrict spawn of objects in radius.
+     */
+    RESPAWN_RADIUS_RESTRICTION: 150,
+    RESPAWN_RADIUS_RESTRICTION_SQR: 150 * 150,
   },
 } as const;

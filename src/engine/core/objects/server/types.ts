@@ -17,6 +17,18 @@ export type TSimulationObject = Squad | SmartTerrain | Actor;
 export type TSquadAction = SquadStayOnTargetAction | SquadReachTargetAction;
 
 /**
+ * Type of smart terrain simulation role.
+ */
+export enum ESimulationTerrainRole {
+  DEFAULT = "default",
+  BASE = "base",
+  SURGE = "surge",
+  RESOURCE = "resource",
+  TERRITORY = "territory",
+  LAIR = "lair",
+}
+
+/**
  * Generic simulation target.
  * Used for building game logic with custom alife priorities and decisions.
  */

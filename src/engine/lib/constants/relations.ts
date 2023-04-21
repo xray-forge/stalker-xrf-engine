@@ -8,6 +8,15 @@ export const relations = {
 } as const;
 
 /**
+ * Relation type.
+ */
+export enum ERelation {
+  ENEMY = "enemy",
+  NEUTRAL = "neutral",
+  FRIEND = "friend",
+}
+
+/**
  * todo;
  */
 export type TRelations = typeof relations;
@@ -20,7 +29,7 @@ export type TRelation = TRelations[keyof TRelations];
 /**
  * todo;
  */
-export enum ERelation {
+export enum EGoodwill {
   BEST_FRIENDS = 5000,
   FRIENDS = 1000,
   NEUTRALS = 0,

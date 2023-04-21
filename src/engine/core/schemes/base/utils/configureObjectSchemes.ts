@@ -85,7 +85,7 @@ export function configureObjectSchemes(
   state.active_scheme = null;
   state.gulag_name = gulagName;
 
-  state.stype = schemeType;
+  state.schemeType = schemeType;
   state.ini = actualIni;
   state.ini_filename = actualIniFilename;
   state.section_logic = sectionLogic;

@@ -37,10 +37,11 @@ import {
   getServerDistanceBetween,
 } from "@/engine/core/utils/object";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
+import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { ERelation } from "@/engine/lib/constants/relations";
+import { EGoodwill } from "@/engine/lib/constants/relations";
 import { TRUE } from "@/engine/lib/constants/words";
 import { zones } from "@/engine/lib/constants/zones";
 import {
@@ -77,7 +78,6 @@ export class TravelManager extends AbstractCoreManager {
   public static readonly TRAVELER_LTX_SECTION: TSection = "traveler";
   public static readonly NAME_LTX_SECTION: TSection = "name";
   public static readonly LEVEL_LTX_SECTION: TSection = "level";
-  public static readonly CLOSE_DISTANCE_LTX_SECTION: TSection = "close_distance";
 
   /**
    * Distance considered too close to travel with group of stalkers.
@@ -220,21 +220,6 @@ export class TravelManager extends AbstractCoreManager {
     }
 
     return true;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public isEnemyWithSquadMember(squad: Squad): boolean {
-    const actorId: TNumberId = alife().actor().id;
-
-    for (const squadMember of squad.squad_members()) {
-      if (relation_registry.get_general_goodwill_between(squadMember.id, actorId) <= ERelation.ENEMIES) {
-        return true;
-      }
-    }
-
-    return false;
   }
 
   /**
@@ -548,7 +533,7 @@ export class TravelManager extends AbstractCoreManager {
       const board: SimulationBoardManager = SimulationBoardManager.getInstance();
 
       for (const [k, v] of board.getSmartTerrainDescriptorById(this.travelToSmartId!)!.assignedSquads) {
-        if (getStoryIdByObjectId(v.id) === null && this.isEnemyWithSquadMember(v)) {
+        if (getStoryIdByObjectId(v.id) === null && isAnySquadMemberEnemyToActor(v)) {
           board.exitSmartTerrain(v, this.travelToSmartId);
           board.onRemoveSquad(v);
         }

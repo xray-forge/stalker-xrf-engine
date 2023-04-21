@@ -19,7 +19,7 @@ import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { lootable_table_exclude, TLootableExcludeItem } from "@/engine/lib/constants/items/lootable_table";
 import { TLevel } from "@/engine/lib/constants/levels";
-import { ERelation } from "@/engine/lib/constants/relations";
+import { EGoodwill } from "@/engine/lib/constants/relations";
 import { NIL } from "@/engine/lib/constants/words";
 import { EScheme, Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
@@ -57,14 +57,14 @@ export function isStalkerAlive(targetObject: XR_game_object | XR_cse_alife_human
  * todo;
  */
 export function isActorEnemyWithFaction(faction: TCommunity, actor: XR_game_object = registry.actor): boolean {
-  return relation_registry.community_goodwill(faction, actor.id()) <= ERelation.ENEMIES;
+  return relation_registry.community_goodwill(faction, actor.id()) <= EGoodwill.ENEMIES;
 }
 
 /**
  * todo;
  */
 export function isActorFriendWithFaction(faction: TCommunity, actor: XR_game_object = registry.actor): boolean {
-  return relation_registry.community_goodwill(faction, actor.id()) >= ERelation.FRIENDS;
+  return relation_registry.community_goodwill(faction, actor.id()) >= EGoodwill.FRIENDS;
 }
 
 /**
@@ -73,7 +73,7 @@ export function isActorFriendWithFaction(faction: TCommunity, actor: XR_game_obj
 export function isActorNeutralWithFaction(faction: TCommunity, actor: XR_game_object = registry.actor): boolean {
   const goodwill: number = relation_registry.community_goodwill(faction, actor.id());
 
-  return goodwill > ERelation.ENEMIES && goodwill < ERelation.FRIENDS;
+  return goodwill > EGoodwill.ENEMIES && goodwill < EGoodwill.FRIENDS;
 }
 
 /**

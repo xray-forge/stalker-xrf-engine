@@ -81,10 +81,7 @@ export function distanceBetween(first: XR_game_object, second: XR_game_object): 
  *
  */
 export function graphDistance(vertexId1: TNumberId, vertexId2: TNumberId): TDistance {
-  const point1: XR_vector = game_graph().vertex(vertexId1).game_point();
-  const point2: XR_vector = game_graph().vertex(vertexId2).game_point();
-
-  return point1.distance_to(point2);
+  return game_graph().vertex(vertexId1).game_point().distance_to(game_graph().vertex(vertexId2).game_point());
 }
 
 /**

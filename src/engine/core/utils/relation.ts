@@ -13,7 +13,7 @@ import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { ERelation, relations, TRelation } from "@/engine/lib/constants/relations";
+import { EGoodwill, relations, TRelation } from "@/engine/lib/constants/relations";
 import { Optional, TCount, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -33,10 +33,10 @@ export function getSquadGoodwillToActor(storyId: TStringId): TRelation {
   } else {
     let goodwill: TRelation = relations.neutral;
 
-    if (relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) >= ERelation.FRIENDS) {
+    if (relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) >= EGoodwill.FRIENDS) {
       goodwill = relations.friend;
     } else if (
-      relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) <= ERelation.ENEMIES
+      relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) <= EGoodwill.ENEMIES
     ) {
       goodwill = relations.enemy;
     }
@@ -62,8 +62,23 @@ export function isSquadFriendToActor(storyId: TStringId): boolean {
 /**
  * todo;
  */
-export function isSquadNeutralToActor(squad_name: TName): boolean {
-  return getSquadGoodwillToActor(squad_name) === relations.neutral;
+export function isSquadNeutralToActor(storyId: TName): boolean {
+  return getSquadGoodwillToActor(storyId) === relations.neutral;
+}
+
+/**
+ * Is enemy squad member.
+ */
+export function isAnySquadMemberEnemyToActor(squad: Squad): boolean {
+  const actorId: TNumberId = alife().actor().id;
+
+  for (const squadMember of squad.squad_members()) {
+    if (relation_registry.get_general_goodwill_between(squadMember.id, actorId) <= EGoodwill.ENEMIES) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /**
@@ -91,10 +106,10 @@ export function getSquadGoodwillToActorById(squadId: TNumberId): TRelation {
   } else {
     let goodwill: TRelation = relations.neutral;
 
-    if (relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) >= ERelation.FRIENDS) {
+    if (relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) >= EGoodwill.FRIENDS) {
       goodwill = relations.friend;
     } else if (
-      relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) <= ERelation.ENEMIES
+      relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) <= EGoodwill.ENEMIES
     ) {
       goodwill = relations.enemy;
     }
@@ -104,7 +119,8 @@ export function getSquadGoodwillToActorById(squadId: TNumberId): TRelation {
 }
 
 /**
- * todo;
+ * Returns relation to actor based on average of squad members.
+ * If no squad members present, check relation of faction.
  */
 export function getSquadIdRelationToActor(squad: Squad): TRelation {
   const actor: Optional<XR_game_object> = registry.actor;
@@ -131,9 +147,9 @@ export function getSquadIdRelationToActor(squad: Squad): TRelation {
       ? squadTotalGoodwill / squadMembersCount
       : relation_registry.community_relation(squad.getCommunity(), communities.actor);
 
-  if (averageRelation >= ERelation.FRIENDS) {
+  if (averageRelation >= EGoodwill.FRIENDS) {
     return relations.friend;
-  } else if (averageRelation > ERelation.ENEMIES) {
+  } else if (averageRelation > EGoodwill.ENEMIES) {
     return relations.neutral;
   } else {
     return relations.enemy;
@@ -148,12 +164,12 @@ export function setObjectsRelation(
   second: Optional<XR_game_object>,
   newRelation: TRelation
 ): void {
-  let goodwill: ERelation = ERelation.NEUTRALS;
+  let goodwill: EGoodwill = EGoodwill.NEUTRALS;
 
   if (newRelation === relations.enemy) {
-    goodwill = ERelation.ENEMIES;
+    goodwill = EGoodwill.ENEMIES;
   } else if (newRelation === relations.friend) {
-    goodwill = ERelation.FRIENDS;
+    goodwill = EGoodwill.FRIENDS;
   }
 
   if (first && second) {
@@ -174,12 +190,12 @@ export function setServerObjectsRelation(
 ): void {
   logger.info("Set relation:", first?.name(), "->", second?.name(), "@", nextRelation);
 
-  let reputation: TCount = ERelation.NEUTRALS;
+  let reputation: TCount = EGoodwill.NEUTRALS;
 
   if (nextRelation === relations.enemy) {
-    reputation = ERelation.ENEMIES;
+    reputation = EGoodwill.ENEMIES;
   } else if (nextRelation === relations.friend) {
-    reputation = ERelation.FRIENDS;
+    reputation = EGoodwill.FRIENDS;
   }
 
   if (first !== null && second !== null) {
@@ -210,11 +226,11 @@ export function isSquadRelationBetweenActorAndRelation(squadName: TName, goodwil
     if (goodwill === relations.enemy) {
       const goodwill: Optional<number> = registry.objects.get(squadMember.id)?.object.general_goodwill(actor);
 
-      isEnemy = goodwill === null ? false : goodwill <= ERelation.ENEMIES;
+      isEnemy = goodwill === null ? false : goodwill <= EGoodwill.ENEMIES;
     } else {
       const goodwill: Optional<number> = registry.objects.get(squadMember.id)?.object.general_goodwill(actor);
 
-      isEnemy = goodwill === null ? false : goodwill >= ERelation.ENEMIES;
+      isEnemy = goodwill === null ? false : goodwill >= EGoodwill.ENEMIES;
     }
 
     if (isEnemy) {
@@ -274,7 +290,7 @@ export function getNumberRelationBetweenCommunities(
  */
 export function isFactionsFriends(faction: Optional<TCommunity>, faction_to: TCommunity): boolean {
   if (faction !== null && faction !== communities.none && faction_to !== communities.none) {
-    return relation_registry.community_relation(faction, faction_to) >= ERelation.FRIENDS;
+    return relation_registry.community_relation(faction, faction_to) >= EGoodwill.FRIENDS;
   } else {
     return false;
   }
@@ -285,7 +301,7 @@ export function isFactionsFriends(faction: Optional<TCommunity>, faction_to: TCo
  */
 export function isFactionsEnemies(faction: Optional<TCommunity>, factionTo: TCommunity): boolean {
   if (faction !== null && faction !== communities.none && factionTo !== communities.none) {
-    return relation_registry.community_relation(faction, factionTo) <= ERelation.ENEMIES;
+    return relation_registry.community_relation(faction, factionTo) <= EGoodwill.ENEMIES;
   } else {
     return false;
   }
@@ -303,9 +319,9 @@ export function setRelationBetweenCommunities(
     let community: number = 0;
 
     if (new_community === relations.enemy) {
-      community = ERelation.WORST_ENEMIES;
+      community = EGoodwill.WORST_ENEMIES;
     } else if (new_community === relations.friend) {
-      community = ERelation.BEST_FRIENDS;
+      community = EGoodwill.BEST_FRIENDS;
     }
 
     setNumberRelationBetweenCommunities(faction, faction_to, community);
@@ -367,9 +383,9 @@ export function setSquadGoodwillToNpc(
   let goodwill = 0;
 
   if (newGoodwill === relations.enemy) {
-    goodwill = ERelation.ENEMIES;
+    goodwill = EGoodwill.ENEMIES;
   } else if (newGoodwill === relations.friend) {
-    goodwill = ERelation.FRIENDS;
+    goodwill = EGoodwill.FRIENDS;
   }
 
   let squad: Optional<Squad> = getServerObjectByStoryId(objectId as TStringId);
@@ -404,13 +420,13 @@ export function setSquadGoodwillToCommunity(
   community: TCommunity,
   newGoodwill: TRelation
 ): void {
-  let goodwill: ERelation = ERelation.NEUTRALS;
+  let goodwill: EGoodwill = EGoodwill.NEUTRALS;
 
   // Todo: Probably simple assign?
   if (newGoodwill === relations.enemy) {
-    goodwill = ERelation.ENEMIES;
+    goodwill = EGoodwill.ENEMIES;
   } else if (newGoodwill === relations.friend) {
-    goodwill = ERelation.FRIENDS;
+    goodwill = EGoodwill.FRIENDS;
   }
 
   let squad: Optional<Squad> = getServerObjectByStoryId<Squad>(squadId as TStringId);

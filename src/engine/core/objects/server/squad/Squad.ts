@@ -38,8 +38,8 @@ import { SimulationBoardManager } from "@/engine/core/managers/interaction/Simul
 import type { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart/types";
 import {
-  ISimActivityPrecondition,
   ISimulationActivityDescriptor,
+  ISimulationActivityPrecondition,
   simulationActivities,
 } from "@/engine/core/objects/server/squad/simulation_activities";
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/SquadReachTargetAction";
@@ -69,7 +69,7 @@ import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { relations, TRelation } from "@/engine/lib/constants/relations";
+import { ERelation, TRelation } from "@/engine/lib/constants/relations";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { AnyObject, LuaArray, Optional, StringOptional, TCount, TLabel, TName, TNumberId } from "@/engine/lib/types";
@@ -103,8 +103,11 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
   public simulationProperties!: AnyObject;
 
-  public respawn_point_id: Optional<number> = null;
-  public respawn_point_prop_section: Optional<string> = null;
+  /**
+   * Meta-info about spawn point of the squad.
+   */
+  public respawnPointId: Optional<TNumberId> = null;
+  public respawnPointSection: Optional<TSection> = null;
 
   public currentMapSpotId: Optional<TNumberId> = null;
   public currentMapSpotSection: Optional<TName> = null;
@@ -214,8 +217,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     openSaveMarker(packet, Squad.__name);
 
     packet.w_stringZ(tostring(this.currentTargetId));
-    packet.w_stringZ(tostring(this.respawn_point_id));
-    packet.w_stringZ(tostring(this.respawn_point_prop_section));
+    packet.w_stringZ(tostring(this.respawnPointId));
+    packet.w_stringZ(tostring(this.respawnPointSection));
     packet.w_stringZ(tostring(this.assignedSmartTerrainId));
 
     closeSaveMarker(packet, Squad.__name);
@@ -235,11 +238,11 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     const respawnPointId = packet.r_stringZ();
 
-    this.respawn_point_id = respawnPointId === NIL ? null : (tonumber(respawnPointId) as TNumberId);
-    this.respawn_point_prop_section = packet.r_stringZ();
+    this.respawnPointId = respawnPointId === NIL ? null : (tonumber(respawnPointId) as TNumberId);
+    this.respawnPointSection = packet.r_stringZ();
 
-    if (this.respawn_point_prop_section === NIL) {
-      this.respawn_point_prop_section = null;
+    if (this.respawnPointSection === NIL) {
+      this.respawnPointSection = null;
     }
 
     const smartTerrainId: StringOptional = packet.r_stringZ();
@@ -275,13 +278,13 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     this.simulationBoardManager.getSquads().delete(this.id);
     this.simulationBoardManager.assignSquadToSmartTerrain(this, null);
 
-    if (this.respawn_point_id !== null) {
-      const smartTerrain: Optional<SmartTerrain> = alife().object(this.respawn_point_id)!;
+    if (this.respawnPointId !== null) {
+      const smartTerrain: Optional<SmartTerrain> = alife().object(this.respawnPointId)!;
 
       if (smartTerrain === null) {
         return;
       } else {
-        smartTerrain.alreadySpawned.get(this.respawn_point_prop_section!).num -= 1;
+        smartTerrain.alreadySpawned.get(this.respawnPointSection!).num -= 1;
       }
     }
   }
@@ -897,7 +900,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * @returns squad community section
    */
   public getCommunity(): TCommunity {
-    const squadCommunity: Optional<TCommunity> = squadCommunityByBehaviour[this.faction as TCommunity];
+    const squadCommunity: Optional<TCommunity> = squadCommunityByBehaviour.get(this.faction);
 
     assert(squadCommunity, "Squad community is 'null' for [%s].", this.faction);
 
@@ -970,25 +973,34 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       } else {
         const relation: TRelation = getSquadIdRelationToActor(this);
 
-        if (relation === relations.friend) {
-          spot = mapMarks.alife_presentation_squad_friend_debug;
-        } else if (relation === relations.neutral) {
-          spot = mapMarks.alife_presentation_squad_neutral_debug;
-        } else {
-          spot = mapMarks.alife_presentation_squad_enemy_debug;
+        switch (relation) {
+          case ERelation.FRIEND:
+            spot = mapMarks.alife_presentation_squad_friend_debug;
+            break;
+          case ERelation.NEUTRAL:
+            spot = mapMarks.alife_presentation_squad_neutral_debug;
+            break;
+          case ERelation.ENEMY:
+            spot = mapMarks.alife_presentation_squad_enemy_debug;
+            break;
         }
       }
     } else {
       /**
        * Display only minimap marks.
+       * Do not display for offline objects.
        */
-      if (!isSquadMonsterCommunity(this.faction as TCommunity)) {
+      if (this.online && !isSquadMonsterCommunity(this.faction)) {
         const relation: TRelation = getSquadIdRelationToActor(this);
 
-        if (relation === relations.friend) {
-          spot = mapMarks.alife_presentation_squad_friend;
-        } else if (relation === relations.neutral) {
-          spot = mapMarks.alife_presentation_squad_neutral;
+        switch (relation) {
+          case ERelation.FRIEND:
+            spot = mapMarks.alife_presentation_squad_friend;
+            break;
+
+          case ERelation.NEUTRAL:
+            spot = mapMarks.alife_presentation_squad_neutral;
+            break;
         }
       }
     }
@@ -1008,7 +1020,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       }
 
       this.currentMapSpotSection = spot;
-    } else if (this.currentMapSpotSection !== null) {
+    } else if (this.currentMapSpotSection) {
       level.map_remove_object_spot(this.currentMapSpotId, this.currentMapSpotSection);
       this.currentMapSpotSection = null;
     }
@@ -1020,8 +1032,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public getMapDisplayHint(): TLabel {
     if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
       let hint: TLabel = string.format(
-        "[%s]\\ncurrent_target = [%s]\\nassigned_target = [%s]\\ncurrent_action = [%s]\\n",
+        "[%s]\\nonline = %s\\ncurrent_target = [%s]\\nassigned_target = [%s]\\ncurrent_action = [%s]\\n",
         this.name(),
+        this.online,
         tostring(
           this.currentTargetId && alife().object(this.currentTargetId) && alife().object(this.currentTargetId)!.name()
         ),
@@ -1222,16 +1235,16 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public isValidSquadTarget(squad: Squad): boolean {
-    const squadActivityDescriptor: ISimulationActivityDescriptor = simulationActivities[squad.faction];
+    const squadActivityDescriptor: ISimulationActivityDescriptor = simulationActivities.get(squad.faction);
 
     if (squadActivityDescriptor === null || squadActivityDescriptor.squad === null) {
       return false;
     }
 
-    const currentFactionDescriptor: Optional<ISimActivityPrecondition> = squadActivityDescriptor.squad[
+    const currentFactionDescriptor: Optional<ISimulationActivityPrecondition> = squadActivityDescriptor.squad[
       this.faction
-    ] as Optional<ISimActivityPrecondition>;
+    ] as Optional<ISimulationActivityPrecondition>;
 
-    return currentFactionDescriptor !== null && currentFactionDescriptor.prec(squad, this);
+    return currentFactionDescriptor !== null && currentFactionDescriptor.canSelect(squad, this);
   }
 }

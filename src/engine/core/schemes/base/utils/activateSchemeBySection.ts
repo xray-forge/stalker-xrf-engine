@@ -89,7 +89,7 @@ export function activateSchemeBySection(
   registry.objects.get(objectId).active_section = section;
   registry.objects.get(objectId).active_scheme = scheme;
 
-  if (registry.objects.get(objectId).stype === ESchemeType.STALKER) {
+  if (registry.objects.get(objectId).schemeType === ESchemeType.STALKER) {
     sendToNearestAccessibleVertex(object, object.level_vertex_id());
     emitSchemeEvent(object, registry.objects.get(objectId)[scheme]!, ESchemeEvent.ACTIVATE_SCHEME, loading, object);
   } else {

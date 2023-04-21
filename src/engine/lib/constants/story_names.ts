@@ -4,6 +4,7 @@
  * Lust of story names declared in configs for simpler usage.
  */
 export const storyNames = {
+  jup_a10_smart_terrain: "jup_a10_smart_terrain",
   jup_a10_spot: "jup_a10_spot",
   jup_a12_spot: "jup_a12_spot",
   jup_a6: "jup_a6",

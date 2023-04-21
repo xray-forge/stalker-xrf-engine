@@ -13,7 +13,7 @@ export const stalkerCommunities = {
   monolith: "monolith",
   stalker: "stalker",
   zombied: "zombied",
-};
+} as const;
 
 /**
  * todo;
@@ -26,7 +26,7 @@ export const monsterCommunities = {
   monster_vegetarian: "monster_vegetarian",
   monster_zombied_day: "monster_zombied_day",
   monster_zombied_night: "monster_zombied_night",
-};
+} as const;
 
 /**
  * todo;

@@ -161,9 +161,9 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
    * Whether actor can be selected as simulation target by squad.
    */
   public isValidSquadTarget(squad: Squad): boolean {
-    const squadParameters: ISimulationActivityDescriptor = simulationActivities[squad.faction];
+    const squadParameters: ISimulationActivityDescriptor = simulationActivities.get(squad.faction);
 
-    return squadParameters !== null && squadParameters.actor !== null && squadParameters.actor.prec(squad, this);
+    return squadParameters !== null && squadParameters.actor !== null && squadParameters.actor.canSelect(squad, this);
   }
 
   /**

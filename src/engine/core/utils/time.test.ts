@@ -63,6 +63,9 @@ describe("'time' utils", () => {
     expect(isInTimeInterval(16, 20)).toBeFalsy();
     expect(isInTimeInterval(20, 24)).toBeFalsy();
     expect(isInTimeInterval(24, MAX_I32)).toBeFalsy();
+    expect(isInTimeInterval(24, 2)).toBeFalsy();
+    expect(isInTimeInterval(22, 14)).toBeTruthy();
+    expect(isInTimeInterval(20, 14)).toBeTruthy();
 
     expect(isInTimeInterval(12, 12)).toBeTruthy();
     expect(isInTimeInterval(11.5, 12.5)).toBeTruthy();

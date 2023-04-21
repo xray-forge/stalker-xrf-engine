@@ -4,7 +4,7 @@ import { PartialRecord } from "@/engine/lib/types";
 /**
  * todo;
  */
-export const squadCommunityByBehaviour: Record<TCommunity, TCommunity> = {
+export const squadCommunityByBehaviour: LuaTable<TCommunity, TCommunity> = $fromObject({
   [communities.none]: null as unknown as TCommunity,
   [communities.stalker]: communities.stalker,
   [communities.bandit]: communities.bandit,
@@ -22,7 +22,7 @@ export const squadCommunityByBehaviour: Record<TCommunity, TCommunity> = {
   [communities.monster_zombied_day]: communities.monster,
   [communities.monster_zombied_night]: communities.monster,
   [communities.monster_special]: communities.monster,
-};
+}) as LuaTable<TCommunity, TCommunity>;
 
 /**
  * todo;

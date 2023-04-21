@@ -27,11 +27,11 @@ export function resetObjectGenericSchemesOnSectionSwitch(
 ): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
-  if (state.stype === null) {
+  if (state.schemeType === null) {
     return;
   }
 
-  switch (state.stype) {
+  switch (state.schemeType) {
     case ESchemeType.STALKER: {
       resetScheme(EScheme.MEET, object, schemeToSwitch, state, section);
       resetScheme(EScheme.HELP_WOUNDED, object, schemeToSwitch, state, section);

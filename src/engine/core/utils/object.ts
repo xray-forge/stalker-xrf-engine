@@ -265,6 +265,16 @@ export function getServerDistanceBetween(first: XR_cse_alife_object, second: XR_
 /**
  * todo;
  */
+export function getServerDistanceBetweenSafe(
+  first: Optional<XR_cse_alife_object>,
+  second: Optional<XR_cse_alife_object>
+): Optional<TDistance> {
+  return first && second && graphDistance(first.m_game_vertex_id, second.m_game_vertex_id);
+}
+
+/**
+ * todo;
+ */
 export function areObjectsOnSameLevel(first: XR_cse_alife_object, second: XR_cse_alife_object): boolean {
   return (
     game_graph().vertex(first.m_game_vertex_id).level_id() === game_graph().vertex(second.m_game_vertex_id).level_id()
