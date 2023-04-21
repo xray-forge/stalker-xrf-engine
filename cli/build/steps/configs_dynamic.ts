@@ -4,9 +4,16 @@ import * as path from "path";
 import { default as chalk } from "chalk";
 
 import { GAME_DATA_LTX_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals/paths";
-import { createDirForConfigs, ILtxConfigDescriptor, NodeLogger, readDirContent, renderJsonToLtx } from "#/utils";
-
-import { Optional, TFolderFiles, TFolderReplicationDescriptor } from "@/engine/lib/types";
+import {
+  createDirForConfigs,
+  ILtxConfigDescriptor,
+  NodeLogger,
+  Optional,
+  readDirContent,
+  renderJsonToLtx,
+  TFolderFiles,
+  TFolderReplicationDescriptor,
+} from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_DYNAMIC");
 const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".ts"];

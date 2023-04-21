@@ -6,9 +6,14 @@ import { default as chalk } from "chalk";
 
 import { GAME_DATA_UI_DIR, TARGET_PREVIEW_DIR } from "#/globals/paths";
 import { generateHTMLPreviewFromXMLString } from "#/preview/utils/generate_preview";
-import { NodeLogger, readDirContent, renderJsxToXmlText, TimeTracker } from "#/utils";
-
-import { TFolderFiles, TFolderReplicationDescriptor } from "@/engine/lib/types";
+import {
+  NodeLogger,
+  readDirContent,
+  renderJsxToXmlText,
+  TFolderFiles,
+  TFolderReplicationDescriptor,
+  TimeTracker,
+} from "#/utils";
 
 const EXPECTED_XML_EXTENSIONS = [".tsx", ".xml"];
 const log: NodeLogger = new NodeLogger("PREVIEW");

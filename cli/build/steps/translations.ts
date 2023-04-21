@@ -7,9 +7,14 @@ import { JSXXML } from "jsx-xml";
 
 import { default as cliConfig } from "#/config.json";
 import { GAME_DATA_TRANSLATIONS_DIR, TARGET_GAME_DATA_TRANSLATIONS_DIR } from "#/globals/paths";
-import { NodeLogger, quoted, readDirContent, renderJsxToXmlText } from "#/utils";
-
-import { TFolderFiles, TFolderReplicationDescriptor } from "@/engine/lib/types/general";
+import {
+  NodeLogger,
+  quoted,
+  readDirContent,
+  renderJsxToXmlText,
+  TFolderFiles,
+  TFolderReplicationDescriptor,
+} from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_TRANSLATIONS");
 

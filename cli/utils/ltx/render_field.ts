@@ -1,6 +1,4 @@
-import { ELtxFieldType, ILtxFieldDescriptor } from "#/utils/ltx/types";
-
-import { Optional } from "@/engine/lib/types";
+import { ELtxFieldType, ILtxFieldDescriptor, Optional } from "#/utils";
 
 /**
  * todo;

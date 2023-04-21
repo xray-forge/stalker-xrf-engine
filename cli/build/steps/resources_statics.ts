@@ -9,8 +9,6 @@ import { default as config } from "#/config.json";
 import { CLI_DIR, TARGET_GAME_DATA_DIR } from "#/globals/paths";
 import { NodeLogger } from "#/utils";
 
-import { TPath } from "@/engine/lib/types";
-
 const log: NodeLogger = new NodeLogger("BUILD_ASSET_STATICS");
 
 const GENERIC_FILES: Array<string> = ["README.md", "LICENSE", ".git", ".gitignore", ".gitattributes"];
@@ -22,12 +20,12 @@ const UNEXPECTED_DIRECTORIES: Array<string> = ["core", "configs", "forms,", "lib
 export async function buildResourcesStatics(parameters: IBuildCommandParameters): Promise<void> {
   log.info(chalk.blueBright("Build resources"));
 
-  const configuredDefaultPath: TPath = path.resolve(CLI_DIR, config.resources.mod_assets_base_folder);
-  const configuredTargetPath: Array<TPath> = parameters.assetOverrides
+  const configuredDefaultPath: string = path.resolve(CLI_DIR, config.resources.mod_assets_base_folder);
+  const configuredTargetPath: Array<string> = parameters.assetOverrides
     ? config.resources.mod_assets_override_folders.map((it) => path.resolve(CLI_DIR, it))
     : [];
 
-  const folderToProcess: Array<TPath> = [configuredDefaultPath, ...configuredTargetPath].filter((it) => {
+  const folderToProcess: Array<string> = [configuredDefaultPath, ...configuredTargetPath].filter((it) => {
     log.debug("Resources folder candidate check:", chalk.yellowBright(it));
 
     return fs.existsSync(it);
@@ -47,7 +45,7 @@ export async function buildResourcesStatics(parameters: IBuildCommandParameters)
 /**
  * Copy provided assets directory resources if directory exists.
  */
-async function copyStaticAssetsFromFolder(resourcesFolderPath: TPath): Promise<void> {
+async function copyStaticAssetsFromFolder(resourcesFolderPath: string): Promise<void> {
   log.info("Copy raw assets from:", chalk.yellowBright(resourcesFolderPath));
 
   const contentFolders: Array<string> = await Promise.all(

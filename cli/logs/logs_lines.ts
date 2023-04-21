@@ -5,10 +5,8 @@ import * as path from "path";
 import { default as chalk } from "chalk";
 
 import { default as config } from "#/config.json";
-import { NodeLogger } from "#/utils";
+import { NodeLogger, Optional } from "#/utils";
 import { readLastLinesOfFile } from "#/utils/fs/read_last_lines_of_file";
-
-import { Optional } from "@/engine/lib/types";
 
 const GAME_DIR: string = path.resolve(config.targets.stalker_game_folder_path);
 const GAME_LOGS_DIR: string = path.resolve(config.targets.stalker_logs_folder_path);

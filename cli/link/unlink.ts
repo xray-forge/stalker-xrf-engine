@@ -5,9 +5,7 @@ import { default as chalk } from "chalk";
 
 import { default as config } from "#/config.json";
 import { TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
-import { NodeLogger } from "#/utils";
-
-import { Optional } from "@/engine/lib/types";
+import { NodeLogger, Optional } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("UNLINK");
 

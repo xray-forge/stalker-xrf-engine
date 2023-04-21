@@ -5,9 +5,7 @@ import { default as chalk } from "chalk";
 
 import { isValidEngine } from "#/engine/list_engines";
 import { GAME_BIN_BACKUP_PATH, GAME_BIN_PATH, OPEN_XRAY_ENGINES_DIR } from "#/globals";
-import { exists, NodeLogger } from "#/utils";
-
-import { Optional } from "@/engine/lib/types";
+import { exists, NodeLogger, Optional } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("USE_ENGINE");
 

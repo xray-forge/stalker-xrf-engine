@@ -2,8 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 import { ROOT_DIR } from "#/globals/paths";
-
-import { Optional } from "@/engine/lib/types";
+import { Optional } from "#/utils";
 
 /**
  * Get current repository/branch commit hash.

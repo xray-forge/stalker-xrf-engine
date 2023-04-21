@@ -5,10 +5,8 @@ import { default as chalk } from "chalk";
 
 import { IBuildCommandParameters } from "#/build/build";
 import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/globals/paths";
-import { createDirForConfigs, NodeLogger, readDirContent } from "#/utils";
+import { createDirForConfigs, NodeLogger, readDirContent, TFolderFiles, TFolderReplicationDescriptor } from "#/utils";
 import { renderJsxToXmlText } from "#/utils/xml";
-
-import { TFolderFiles, TFolderReplicationDescriptor } from "@/engine/lib/types/general";
 
 const log: NodeLogger = new NodeLogger("BUILD_UI_DYNAMIC");
 const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".tsx", ".ts"];

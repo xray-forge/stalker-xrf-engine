@@ -3,9 +3,7 @@ import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { NodeLogger } from "#/utils";
-
-import { Optional, TFolderReplicationDescriptor } from "@/engine/lib/types";
+import { NodeLogger, Optional, TFolderReplicationDescriptor } from "#/utils";
 
 /**
  * Sync way for folder creation when needed.
