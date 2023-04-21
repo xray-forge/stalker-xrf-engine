@@ -8,8 +8,7 @@
   "include": [
     "../../src/typedefs",
     "../../src/engine/lib",
-    "../../src/engine/scripts",
-    "../../src/engine/lib/constants"
+    "../../src/engine/scripts"
   ],
   "exclude": [
     "../../**/*.test.ts"
