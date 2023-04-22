@@ -35,7 +35,7 @@ import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { setupSmartJobsAndLogicOnSpawn, SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { setupSmartJobsAndLogicOnSpawn, SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";

@@ -2,7 +2,7 @@ import { XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { registerZone, unregisterZone } from "@/engine/core/database/zones";
-import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 
 /**
  * todo;

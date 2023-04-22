@@ -12,7 +12,7 @@ import {
 
 import { registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
-import type { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { accessible_job, get_job_restrictor } from "@/engine/core/objects/server/squad/combat_restrictor";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";

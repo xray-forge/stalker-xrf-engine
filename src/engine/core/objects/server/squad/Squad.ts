@@ -34,8 +34,8 @@ import {
 } from "@/engine/core/database/simulation";
 import { unregisterStoryLinkByObjectId } from "@/engine/core/database/story_objects";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
-import type { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
-import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart/types";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
 import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
 import {

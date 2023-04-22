@@ -22,7 +22,7 @@ import { SimulationBoardManager } from "@/engine/core/managers/interaction/Simul
 import { ENotificationDirection } from "@/engine/core/managers/interface/notifications";
 import { NotificationManager } from "@/engine/core/managers/interface/notifications/NotificationManager";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
-import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";

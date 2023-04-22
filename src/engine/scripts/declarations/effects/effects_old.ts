@@ -51,7 +51,7 @@ import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { updateObjectLogic } from "@/engine/core/objects/binders/StalkerBinder";
-import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { Stalker } from "@/engine/core/objects/server/Stalker";
 import { EStalkerState } from "@/engine/core/objects/state";

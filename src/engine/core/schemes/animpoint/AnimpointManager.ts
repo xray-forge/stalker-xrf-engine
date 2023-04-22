@@ -8,17 +8,8 @@ import { associations } from "@/engine/core/schemes/animpoint/animpoint_predicat
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { abort } from "@/engine/core/utils/assertion";
+import { angleToDirection } from "@/engine/core/utils/vector";
 import { LuaArray, Optional, TNumberId, TRate } from "@/engine/lib/types";
-
-/**
- * todo;
- */
-function angleToDirection(angle: XR_vector): XR_vector {
-  const yaw: number = angle.y;
-  const pitch: number = angle.x;
-
-  return new vector().setHP(yaw, pitch).normalize();
-}
 
 /**
  * todo;
@@ -64,9 +55,6 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   public npcId: Optional<TNumberId> = null;
   public started: boolean = false;
 
-  /**
-   * todo: Description.
-   */
   public constructor(object: XR_game_object, state: ISchemeAnimpointState) {
     super(object, state);
     this.npcId = object.id();

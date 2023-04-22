@@ -25,8 +25,8 @@ import { registerSimulationObject, unregisterSimulationObject } from "@/engine/c
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
-import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
-import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart/types";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ISimulationTarget } from "@/engine/core/objects/server/types";

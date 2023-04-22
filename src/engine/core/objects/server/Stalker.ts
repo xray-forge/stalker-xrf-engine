@@ -1,3 +1,4 @@
+import { SmartTerrain } from "core/objects/server/smart_terrain";
 import {
   alife,
   cse_alife_human_stalker,
@@ -18,7 +19,6 @@ import {
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { Squad } from "@/engine/core/objects";
-import { SmartTerrain } from "@/engine/core/objects/server/smart";
 import { assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";

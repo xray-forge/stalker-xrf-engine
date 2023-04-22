@@ -1,7 +1,7 @@
 import { XR_CALifeSmartTerrainTask, XR_vector } from "xray16";
 
 import type { Actor } from "@/engine/core/objects";
-import type { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import type { TConditionList } from "@/engine/core/utils/parse";
 import type { TCommunity } from "@/engine/lib/constants/communities";

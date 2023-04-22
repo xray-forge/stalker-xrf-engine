@@ -1,7 +1,7 @@
 import { game, time_global, XR_game_object, XR_ini_file } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ESchemeEvent, TAbstractSchemeConstructor } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
 import { resetObjectGenericSchemesOnSectionSwitch } from "@/engine/core/schemes/base/utils/resetObjectGenericSchemesOnSectionSwitch";

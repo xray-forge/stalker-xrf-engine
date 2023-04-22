@@ -3,7 +3,7 @@ import { action_base, level, LuabindClass, patrol, XR_game_object, XR_sound_obje
 import { getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { IStateManagerCallbackDescriptor } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark";

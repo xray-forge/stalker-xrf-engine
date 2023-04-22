@@ -10,7 +10,7 @@ import {
   XR_danger_object,
 } from "xray16";
 
-import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ISchemeDangerState } from "@/engine/core/schemes/danger";
 import { SchemeDanger } from "@/engine/core/schemes/danger/SchemeDanger";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";

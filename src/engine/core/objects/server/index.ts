@@ -1,7 +1,8 @@
 export * from "@/engine/core/objects/server/items";
 export * from "@/engine/core/objects/server/zones";
 export * from "@/engine/core/objects/server/squad";
-export * from "@/engine/core/objects/server/smart";
+export * from "@/engine/core/objects/server/smart_terrain";
+export * from "@/engine/core/objects/server/smart_cover";
 
 export * from "@/engine/core/objects/server/Actor";
 export * from "@/engine/core/objects/server/Helicopter";

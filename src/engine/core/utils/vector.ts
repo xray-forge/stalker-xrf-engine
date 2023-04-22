@@ -112,11 +112,11 @@ export function angleDiff(a1: XR_vector, a2: XR_vector): number {
  *
  */
 export function angleLeft(dir1: XR_vector, dir2: XR_vector): boolean {
-  const dir_res: XR_vector = new vector();
+  const direction: XR_vector = new vector();
 
-  dir_res.crossproduct(dir1, dir2);
+  direction.crossproduct(dir1, dir2);
 
-  return dir_res.y <= 0;
+  return direction.y <= 0;
 }
 
 /**
@@ -133,6 +133,16 @@ export function angleLeftXZ(dir1: XR_vector, dir2: XR_vector): boolean {
   dir.crossproduct(dir1XZ, dir2XZ);
 
   return dir.y <= 0;
+}
+
+/**
+ * todo;
+ */
+export function angleToDirection(angle: XR_vector): XR_vector {
+  const yaw: number = angle.y;
+  const pitch: number = angle.x;
+
+  return new vector().setHP(yaw, pitch).normalize();
 }
 
 /**

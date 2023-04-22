@@ -3,7 +3,7 @@
 import { XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object";
 import { misc } from "@/engine/lib/constants/items/misc";

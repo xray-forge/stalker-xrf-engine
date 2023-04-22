@@ -52,7 +52,7 @@ import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsMa
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { DropManager } from "@/engine/core/managers/world/DropManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
-import { setupSmartJobsAndLogicOnSpawn, SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { setupSmartJobsAndLogicOnSpawn, SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { addStateManager } from "@/engine/core/objects/state/add_state_manager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
