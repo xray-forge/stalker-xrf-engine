@@ -24,12 +24,9 @@ import { registerSimulationObject, unregisterSimulationObject } from "@/engine/c
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart/types";
-import {
-  ISimulationActivityDescriptor,
-  simulationActivities,
-} from "@/engine/core/objects/server/squad/simulation_activities";
+import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { ISimulationTarget } from "@/engine/core/objects/server/types";
+import { ISimulationActivityDescriptor, ISimulationTarget } from "@/engine/core/objects/server/types";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";

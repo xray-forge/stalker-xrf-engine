@@ -37,12 +37,14 @@ import { SimulationBoardManager } from "@/engine/core/managers/interaction/Simul
 import type { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart/types";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
+import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
 import {
   ISimulationActivityDescriptor,
   ISimulationActivityPrecondition,
-  simulationActivities,
-} from "@/engine/core/objects/server/squad/simulation_activities";
-import { ISimulationTarget, ISquadAction, TSimulationObject } from "@/engine/core/objects/server/types";
+  ISimulationTarget,
+  ISquadAction,
+  TSimulationObject,
+} from "@/engine/core/objects/server/types";
 import { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
 import { resetObjectAnimation } from "@/engine/core/utils/animation";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
@@ -1198,7 +1200,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * todo: Description.
+   * @param squad - another squad checking availability of current instance
+   * @returns whether the squad is valid simulation target for provided squad parameter.
    */
   public isValidSquadTarget(squad: Squad): boolean {
     const squadActivityDescriptor: ISimulationActivityDescriptor = simulationActivities.get(squad.faction);

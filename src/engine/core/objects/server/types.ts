@@ -4,7 +4,9 @@ import type { Actor } from "@/engine/core/objects";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import type { TConditionList } from "@/engine/core/utils/parse";
+import { TCommunity } from "@/engine/lib/constants/communities";
 import type { AnyObject, TName, TNumberId } from "@/engine/lib/types";
+import { Optional, PartialRecord } from "@/engine/lib/types";
 
 /**
  * Simulation interaction object generic.
@@ -95,4 +97,23 @@ export interface ISquadAction {
    * @returns whether action is finished
    */
   update: (isUnderSimulation: boolean) => boolean;
+}
+
+/**
+ * Precondition object describing simulation target checker.
+ */
+export interface ISimulationActivityPrecondition {
+  /**
+   * Whether squad can select target.
+   */
+  canSelect: (squad: Squad, target: ISimulationTarget) => boolean;
+}
+
+/**
+ * Generic faction activity description in terms of target selection.
+ */
+export interface ISimulationActivityDescriptor {
+  squad: Optional<PartialRecord<TCommunity, Optional<ISimulationActivityPrecondition>>>;
+  smart: Optional<PartialRecord<ESimulationTerrainRole, Optional<ISimulationActivityPrecondition>>>;
+  actor: Optional<ISimulationActivityPrecondition>;
 }

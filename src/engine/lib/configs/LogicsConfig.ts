@@ -59,5 +59,6 @@ export const logicsConfig = {
      */
     RESPAWN_RADIUS_RESTRICTION: 150,
     RESPAWN_RADIUS_RESTRICTION_SQR: 150 * 150,
+    DEFAULT_ARRIVAL_DISTANCE: 25,
   },
 } as const;

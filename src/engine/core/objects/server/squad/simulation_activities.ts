@@ -1,7 +1,7 @@
 import { XR_cse_alife_object } from "xray16";
 
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
-import { ESimulationTerrainRole, ISimulationTarget, SmartTerrain } from "@/engine/core/objects";
+import { ISimulationActivityDescriptor, SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -11,25 +11,9 @@ import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";
-import { Optional, PartialRecord, TName } from "@/engine/lib/types";
+import { TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-export interface ISimulationActivityPrecondition {
-  /**
-   * Whether squad can select target.
-   */
-  canSelect: (squad: Squad, target: ISimulationTarget) => boolean;
-}
-
-/**
- * todo;
- */
-export interface ISimulationActivityDescriptor {
-  squad: Optional<PartialRecord<TCommunity, Optional<ISimulationActivityPrecondition>>>;
-  smart: Optional<PartialRecord<ESimulationTerrainRole, Optional<ISimulationActivityPrecondition>>>;
-  actor: Optional<ISimulationActivityPrecondition>;
-}
 
 /**
  * Descriptor of faction activities based on simulation role.

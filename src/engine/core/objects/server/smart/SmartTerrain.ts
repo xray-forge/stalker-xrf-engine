@@ -46,13 +46,15 @@ import { SmartTerrainControl } from "@/engine/core/objects/server/smart/SmartTer
 import { ESmartTerrainStatus, IObjectJobDescriptor, ISmartTerrainJob } from "@/engine/core/objects/server/smart/types";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
 import { loadGulagJobs } from "@/engine/core/objects/server/squad/jobs_general";
+import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
+import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import {
+  ESimulationTerrainRole,
   ISimulationActivityDescriptor,
   ISimulationActivityPrecondition,
-  simulationActivities,
-} from "@/engine/core/objects/server/squad/simulation_activities";
-import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { ESimulationTerrainRole, ISimulationTarget, TSimulationObject } from "@/engine/core/objects/server/types";
+  ISimulationTarget,
+  TSimulationObject,
+} from "@/engine/core/objects/server/types";
 import {
   activateSchemeBySection,
   getObjectSectionToActivate,
@@ -147,7 +149,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    */
   public alarmStartedAt: Optional<XR_CTime> = null;
 
-  public arrivalDistance: TNumberId = 30;
+  public arrivalDistance: TNumberId = logicsConfig.SMART_TERRAIN.DEFAULT_ARRIVAL_DISTANCE;
 
   public population: TCount = 0;
   public maxPopulation: TCount = -1;
@@ -1441,7 +1443,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * todo: Description.
+   * @param squad - squad checking availability of current smart terrain
+   * @param isPopulationDecreaseNeeded - whether population decrease should be estimated with check
+   * @return whether current smart terrain is valid simulation target for provided squad
    */
   public isValidSquadTarget(squad: Squad, isPopulationDecreaseNeeded?: boolean): boolean {
     if (this.isRespawnOnlySmart) {
@@ -1454,7 +1458,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       squadsCount -= 1;
     }
 
-    if (squadsCount !== null && this.maxPopulation <= squadsCount) {
+    // Cannot select smart as target due to max population constraints.
+    if (squadsCount !== null && squadsCount >= this.maxPopulation) {
       return false;
     }
 
@@ -1464,45 +1469,35 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       return false;
     }
 
-    if (tonumber(this.simulationProperties["resource"])! > 0) {
-      const smart_params = squadParameters.smart.resource;
-
-      if (smart_params !== null && smart_params!.canSelect(squad, this)) {
-        return true;
-      }
-    }
-
-    if (tonumber(this.simulationProperties["base"])! > 0) {
-      const smart_params = squadParameters.smart.base;
-
-      if (smart_params !== null && smart_params!.canSelect(squad, this)) {
-        return true;
-      }
-    }
-
-    if (tonumber(this.simulationProperties["lair"])! > 0) {
+    if ((tonumber(this.simulationProperties[ESimulationTerrainRole.RESOURCE]) as number) > 0) {
       const simulationProperties: Optional<ISimulationActivityPrecondition> = squadParameters.smart
-        .lair as Optional<ISimulationActivityPrecondition>;
+        .resource as Optional<ISimulationActivityPrecondition>;
 
-      if (simulationProperties !== null && simulationProperties!.canSelect(squad, this)) {
+      if (simulationProperties?.canSelect(squad, this)) {
         return true;
       }
     }
 
-    if (tonumber(this.simulationProperties["territory"])! > 0) {
-      const smartProperties: Optional<ISimulationActivityPrecondition> = squadParameters.smart
-        .territory as Optional<ISimulationActivityPrecondition>;
-
-      if (smartProperties !== null && smartProperties!.canSelect(squad, this)) {
+    if ((tonumber(this.simulationProperties[ESimulationTerrainRole.BASE]) as number) > 0) {
+      if (squadParameters.smart.base?.canSelect(squad, this)) {
         return true;
       }
     }
 
-    if (tonumber(this.simulationProperties["surge"])! > 0) {
-      const smartProperties: Optional<ISimulationActivityPrecondition> = squadParameters.smart
-        .surge as Optional<ISimulationActivityPrecondition>;
+    if (tonumber(this.simulationProperties[ESimulationTerrainRole.LAIR])! > 0) {
+      if (squadParameters.smart.lair?.canSelect(squad, this)) {
+        return true;
+      }
+    }
 
-      if (smartProperties !== null && smartProperties!.canSelect(squad, this)) {
+    if (tonumber(this.simulationProperties[ESimulationTerrainRole.TERRITORY])! > 0) {
+      if (squadParameters.smart.territory?.canSelect(squad, this)) {
+        return true;
+      }
+    }
+
+    if (tonumber(this.simulationProperties[ESimulationTerrainRole.SURGE])! > 0) {
+      if (squadParameters.smart.surge?.canSelect(squad, this)) {
         return true;
       }
     }
@@ -1513,7 +1508,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public getGameLocation(): LuaMultiReturn<[XR_vector, number, number]> {
+  public getGameLocation(): LuaMultiReturn<[XR_vector, TNumberId, TNumberId]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   }
 
@@ -1521,19 +1516,20 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public isReachedBySquad(squad: Squad): boolean {
-    const [squad_pos, squad_lv_id, squad_gv_id] = squad.getGameLocation();
-    const [target_pos, target_lv_id, target_gv_id] = this.getGameLocation();
+    const [squadPosition, squadLevelVertexId, squadGameVertexId] = squad.getGameLocation();
+    const [targetPosition, targetLevelVertexId, targetVertexId] = this.getGameLocation();
 
-    if (game_graph().vertex(squad_gv_id).level_id() !== game_graph().vertex(target_gv_id).level_id()) {
+    if (game_graph().vertex(squadGameVertexId).level_id() !== game_graph().vertex(targetVertexId).level_id()) {
       return false;
     }
 
     if (isMonster(alife().object(squad.commander_id())!) && squad.getScriptTarget() === null) {
-      return squad_pos.distance_to_sqr(target_pos) <= 25;
+      return squadPosition.distance_to_sqr(targetPosition) <= logicsConfig.SMART_TERRAIN.DEFAULT_ARRIVAL_DISTANCE;
     }
 
     return (
-      squad.isAlwaysArrived || squad_pos.distance_to_sqr(target_pos) <= this.arrivalDistance * this.arrivalDistance
+      squad.isAlwaysArrived ||
+      squadPosition.distance_to_sqr(targetPosition) <= this.arrivalDistance * this.arrivalDistance
     );
   }
 
