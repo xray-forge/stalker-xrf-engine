@@ -22,10 +22,9 @@ import { SmartTerrain } from "@/engine/core/objects/server/smart";
 import { assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { onSmartTerrainObjectDeath } from "@/engine/core/utils/smart_terrain_camping";
+import { parseNumberOptional, parseStringOptional } from "@/engine/core/utils/parse";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { NIL } from "@/engine/lib/constants/words";
-import { Optional, StringOptional, TName, TNumberId, TSection } from "@/engine/lib/types";
+import { Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -60,11 +59,13 @@ export class Stalker extends cse_alife_human_stalker {
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
-    if (this.online) {
-      packet.w_stringZ(tostring(level?.object_by_id(this.id)?.level_vertex_id() !== null));
-    } else {
-      packet.w_stringZ(tostring(registry.offlineObjects.get(this.id).level_vertex_id !== null));
-    }
+    packet.w_stringZ(
+      tostring(
+        this.online
+          ? level?.object_by_id(this.id)?.level_vertex_id()
+          : registry.offlineObjects.get(this.id).level_vertex_id
+      )
+    );
 
     packet.w_stringZ(tostring(registry.offlineObjects.get(this.id).active_section));
     packet.w_bool(this.isCorpseLootDropped);
@@ -73,12 +74,10 @@ export class Stalker extends cse_alife_human_stalker {
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
-    const oldLevelId: StringOptional = packet.r_stringZ();
-    const oldSection: StringOptional = packet.r_stringZ();
     const offlineObject: IStoredOfflineObject = registerOfflineObject(this.id);
 
-    offlineObject.active_section = oldSection === NIL ? null : oldSection;
-    offlineObject.level_vertex_id = oldSection === NIL ? null : (tonumber(oldLevelId) as TNumberId);
+    offlineObject.level_vertex_id = parseNumberOptional(packet.r_stringZ());
+    offlineObject.active_section = parseStringOptional(packet.r_stringZ());
 
     this.isCorpseLootDropped = packet.r_bool();
   }
@@ -125,10 +124,16 @@ export class Stalker extends cse_alife_human_stalker {
   public override on_death(killer: XR_cse_alife_creature_abstract): void {
     super.on_death(killer);
 
-    logger.info("On death:", this.name(), killer.id, killer?.name());
+    logger.info("On stalker death:", this.name(), killer.id, killer?.name());
 
-    onSmartTerrainObjectDeath(this);
+    // Notify assigned smart terrain about abject death.
+    const smartTerrainId: TNumberId = this.smart_terrain_id();
 
+    if (smartTerrainId !== MAX_U16) {
+      (alife().object(smartTerrainId) as SmartTerrain).onObjectDeath(this);
+    }
+
+    // Notify assigned squad about abject death.
     if (this.group_id !== MAX_U16) {
       const squad: Optional<Squad> = alife().object(this.group_id);
 

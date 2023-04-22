@@ -4,11 +4,12 @@ import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trimString } from "@/engine/core/utils/string";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { TRUE } from "@/engine/lib/constants/words";
+import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   AnyArgs,
   LuaArray,
   Optional,
+  StringOptional,
   TCount,
   TDistance,
   TIndex,
@@ -17,6 +18,7 @@ import {
   TProbability,
   TSection,
 } from "@/engine/lib/types";
+import { return_zat_a23_gauss_rifle_docs } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -633,4 +635,32 @@ export function parseData1v(
   }
 
   return target;
+}
+
+/**
+ * Utility shortcut to handle string 'nil' values stored in net packets as string.
+ *
+ * @param value - value to check
+ * @returns value or null in case of `nil` string
+ */
+export function parseStringOptional<T extends StringOptional>(value: T): Optional<T> {
+  if (value === NIL) {
+    return null;
+  } else {
+    return value;
+  }
+}
+
+/**
+ * Utility shortcut to handle number 'nil' values stored in net packets as string.
+ *
+ * @param value - value to check
+ * @returns parsed number value or null in case of `nil` string
+ */
+export function parseNumberOptional<T extends StringOptional>(value: T): Optional<number> {
+  if (value === NIL) {
+    return null;
+  } else {
+    return tonumber(value) as Optional<number>;
+  }
 }

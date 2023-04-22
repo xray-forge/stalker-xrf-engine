@@ -5,6 +5,7 @@ import {
   level,
   LuabindClass,
   XR_CALifeSmartTerrainTask,
+  XR_cse_alife_creature_abstract,
   XR_game_object,
   XR_net_packet,
   XR_vector,
@@ -21,6 +22,7 @@ import {
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { registerSimulationObject, unregisterSimulationObject } from "@/engine/core/database/simulation";
+import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
@@ -79,6 +81,14 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     openLoadMarker(packet, Actor.__name);
     SaveManager.getInstance().readState(packet);
     closeLoadMarker(packet, Actor.__name);
+  }
+
+  public override on_death(killer: XR_cse_alife_creature_abstract): void {
+    super.on_death(killer);
+
+    logger.info("On actor death:", this.name(), killer.id, killer?.name());
+
+    EventsManager.emitEvent(EGameEvent.ACTOR_DEATH, this, killer);
   }
 
   /**

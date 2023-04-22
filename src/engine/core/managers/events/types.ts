@@ -15,6 +15,10 @@ export enum EGameEvent {
    */
   ACTOR_UPDATE,
   /**
+   * Actor death.
+   */
+  ACTOR_DEATH,
+  /**
    * Actor info-portions update.
    */
   ACTOR_INFO_UPDATE,
@@ -98,6 +102,10 @@ export enum EGameEvent {
    * Main menu turned off.
    */
   MAIN_MENU_OFF,
+  /**
+   * Monster death.
+   */
+  MONSTER_DEATH,
   /**
    * Stalker death.
    */

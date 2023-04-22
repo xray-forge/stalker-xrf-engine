@@ -5,6 +5,7 @@ import {
   parseNumbersList,
   parseParameters,
   parseSpawnDetails,
+  parseStringOptional,
   parseStringsList,
 } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
@@ -133,5 +134,13 @@ describe("'ini_data' parsing utils", () => {
         },
       },
     ]);
+  });
+
+  it("'parseStringOptional' should correctly handle values", () => {
+    expect(parseStringOptional(NIL)).toBeNull();
+    expect(parseStringOptional("nil")).toBeNull();
+    expect(parseStringOptional("null")).toBe("null");
+    expect(parseStringOptional("test")).toBe("test");
+    expect(parseStringOptional("12345")).toBe("12345");
   });
 });
