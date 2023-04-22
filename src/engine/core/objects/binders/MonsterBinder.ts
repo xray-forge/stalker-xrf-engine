@@ -75,9 +75,6 @@ export class MonsterBinder extends object_binder {
   public isLoaded: boolean = false;
   public state!: IRegistryObjectState;
 
-  /**
-   * todo: Description.
-   */
   public override reinit(): void {
     super.reinit();
 
@@ -89,9 +86,6 @@ export class MonsterBinder extends object_binder {
     this.object.set_callback(callback.sound, this.hear_callback, this);
   }
 
-  /**
-   * todo: Description.
-   */
   public override update(delta: TDuration): void {
     super.update(delta);
 
@@ -159,9 +153,6 @@ export class MonsterBinder extends object_binder {
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public override save(packet: XR_net_packet): void {
     openSaveMarker(packet, MonsterBinder.__name);
 
@@ -171,9 +162,6 @@ export class MonsterBinder extends object_binder {
     closeSaveMarker(packet, MonsterBinder.__name);
   }
 
-  /**
-   * todo: Description.
-   */
   public override load(reader: XR_reader): void {
     this.isLoaded = true;
 
@@ -185,15 +173,10 @@ export class MonsterBinder extends object_binder {
     closeLoadMarker(reader, MonsterBinder.__name);
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_spawn(object: XR_cse_alife_creature_abstract): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
-
-    logger.info("Net spawn:", object.name());
 
     const state: IRegistryObjectState = registry.objects.get(this.object.id());
     const onOfflineConditionsList: Optional<TConditionList> =
@@ -243,9 +226,6 @@ export class MonsterBinder extends object_binder {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
@@ -274,9 +254,6 @@ export class MonsterBinder extends object_binder {
     super.net_destroy();
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_save_relevant(): boolean {
     return true;
   }

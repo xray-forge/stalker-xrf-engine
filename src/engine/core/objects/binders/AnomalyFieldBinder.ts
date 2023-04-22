@@ -10,32 +10,21 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class AnomalyFieldBinder extends object_binder {
-  /**
-   * todo: Description.
-   */
   public override reinit(): void {
     super.reinit();
     resetObject(this.object);
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
-
-    logger.info("Net spawn:", object.name());
 
     registerAnomalyField(this);
 
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
@@ -44,17 +33,14 @@ export class AnomalyFieldBinder extends object_binder {
     super.net_destroy();
   }
 
-  /**
-   * todo: Description.
-   */
-  public setEnabled(isEnabled: boolean): void {
-    return isEnabled ? this.object.enable_anomaly() : this.object.disable_anomaly();
+  public override net_save_relevant(): boolean {
+    return true;
   }
 
   /**
    * todo: Description.
    */
-  public override net_save_relevant(): boolean {
-    return true;
+  public setEnabled(isEnabled: boolean): void {
+    return isEnabled ? this.object.enable_anomaly() : this.object.disable_anomaly();
   }
 }

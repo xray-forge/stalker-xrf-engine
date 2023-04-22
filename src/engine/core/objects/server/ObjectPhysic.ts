@@ -21,7 +21,6 @@ export class ObjectPhysic extends cse_alife_object_physic {
 
   public override on_register(): void {
     super.on_register();
-    logger.info("Register:", this.id, this.name(), this.section_name());
     registerObjectStoryLinks(this);
 
     this.isSecretItem = TreasureManager.getInstance().registerAlifeItem(this);

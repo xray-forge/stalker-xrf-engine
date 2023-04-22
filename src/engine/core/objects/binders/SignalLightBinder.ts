@@ -36,9 +36,6 @@ export class SignalLightBinder extends object_binder {
   public deltaTime: Optional<TTimestamp> = null;
   public startTime: Optional<TTimestamp> = null;
 
-  /**
-   * todo: Description.
-   */
   public override reinit(): void {
     super.reinit();
 
@@ -46,9 +43,6 @@ export class SignalLightBinder extends object_binder {
     registry.signalLights.set(this.object.name(), this);
   }
 
-  /**
-   * todo: Description.
-   */
   public override update(delta: TDuration): void {
     super.update(delta);
 
@@ -105,24 +99,15 @@ export class SignalLightBinder extends object_binder {
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
 
-    logger.info("Net spawn:", this.object.name());
-
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_destroy(): void {
-    logger.info("Net destroy:", this.object.name());
     registry.signalLights.delete(this.object.name());
     unregisterObject(this.object);
     super.net_destroy();

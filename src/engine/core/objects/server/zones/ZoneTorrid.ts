@@ -16,9 +16,6 @@ export class ZoneTorrid extends cse_torrid_zone {
    */
   public override on_register(): void {
     super.on_register();
-
-    logger.info("Register:", this.id, this.name(), this.section_name());
-
     registerObjectStoryLinks(this);
   }
 }

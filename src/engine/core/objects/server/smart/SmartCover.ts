@@ -44,7 +44,6 @@ export class SmartCover extends cse_smart_cover {
   public override on_register(): void {
     super.on_register();
 
-    logger.info("Register:", this.id, this.name(), this.section_name());
     registerObjectStoryLinks(this);
   }
 

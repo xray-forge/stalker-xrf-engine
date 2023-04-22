@@ -68,12 +68,7 @@ export class ActorBinder extends object_binder {
 
   public eventsManager: EventsManager = EventsManager.getInstance();
 
-  /**
-   * todo: Description.
-   */
   public override net_spawn(data: XR_cse_alife_creature_actor): boolean {
-    logger.info("Net spawn:", data.name());
-
     level.show_indicators();
 
     this.isStartCheckNeeded = true;
@@ -107,9 +102,6 @@ export class ActorBinder extends object_binder {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
 
@@ -135,9 +127,6 @@ export class ActorBinder extends object_binder {
     super.net_destroy();
   }
 
-  /**
-   * todo: Description.
-   */
   public override reinit(): void {
     super.reinit();
 
@@ -167,9 +156,6 @@ export class ActorBinder extends object_binder {
     });
   }
 
-  /**
-   * todo: Description.
-   */
   public override update(delta: TDuration): void {
     super.update(delta);
 
@@ -234,9 +220,6 @@ export class ActorBinder extends object_binder {
     updateSimulationObjectAvailability(alife().actor<Actor>());
   }
 
-  /**
-   * todo: Description.
-   */
   public override save(packet: XR_net_packet): void {
     openSaveMarker(packet, ActorBinder.__name);
 
@@ -281,9 +264,6 @@ export class ActorBinder extends object_binder {
     closeSaveMarker(packet, ActorBinder.__name);
   }
 
-  /**
-   * todo: Description.
-   */
   public override load(reader: XR_reader): void {
     openLoadMarker(reader, ActorBinder.__name);
 

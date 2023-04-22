@@ -113,15 +113,10 @@ export class StalkerBinder extends object_binder {
     this.state.moveManager = new StalkerMoveManager(this.object).initialize();
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_spawn(object: XR_cse_alife_creature_abstract): boolean {
     const objectId: TNumberId = this.object.id();
     const actor: XR_game_object = registry.actor;
     const visual: TName = readIniString(system_ini(), this.object.section(), "set_visual", false, "");
-
-    logger.info("Stalker net spawn:", objectId, this.object.name());
 
     if (visual !== null && visual !== "") {
       if (visual === "actor_visual") {
@@ -230,9 +225,6 @@ export class StalkerBinder extends object_binder {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_destroy(): void {
     logger.info("Stalker net destroy:", this.object.name());
 
@@ -274,9 +266,6 @@ export class StalkerBinder extends object_binder {
     super.net_destroy();
   }
 
-  /**
-   * todo: Description.
-   */
   public override update(delta: TDuration): void {
     super.update(delta);
 
@@ -334,16 +323,10 @@ export class StalkerBinder extends object_binder {
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override save(packet: XR_net_packet): void {
     openSaveMarker(packet, StalkerBinder.__name);
 
@@ -356,9 +339,6 @@ export class StalkerBinder extends object_binder {
     closeSaveMarker(packet, StalkerBinder.__name);
   }
 
-  /**
-   * todo: Description.
-   */
   public override load(reader: XR_reader): void {
     this.isLoaded = true;
 

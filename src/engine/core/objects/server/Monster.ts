@@ -93,7 +93,6 @@ export class Monster extends cse_alife_monster_base {
   public override on_register(): void {
     super.on_register();
 
-    logger.info("Register:", this.id, this.name(), this.section_name());
     registerObjectStoryLinks(this);
 
     const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
@@ -114,8 +113,6 @@ export class Monster extends cse_alife_monster_base {
   }
 
   public override on_unregister(): void {
-    logger.info("Unregister:", this.name());
-
     const smartTerrainId: TNumberId = this.smart_terrain_id();
 
     if (smartTerrainId !== MAX_U16) {

@@ -31,23 +31,15 @@ export class RestrictorBinder extends object_binder {
   public isLoaded: boolean = false;
   public state!: IRegistryObjectState;
 
-  /**
-   * todo: Description.
-   */
   public override reinit(): void {
     super.reinit();
     this.state = resetObject(this.object);
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
-
-    logger.info("Net spawn:", this.object.name());
 
     registerZone(this.object);
 
@@ -63,12 +55,7 @@ export class RestrictorBinder extends object_binder {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_destroy(): void {
-    logger.info("Net destroy:", this.object.name());
-
     GlobalSoundManager.getInstance().stopSoundByObjectId(this.object.id());
 
     const state: IRegistryObjectState = this.state;
@@ -83,9 +70,6 @@ export class RestrictorBinder extends object_binder {
     super.net_destroy();
   }
 
-  /**
-   * todo: Description.
-   */
   public override update(delta: TDuration): void {
     const activeSection: Optional<TSection> = this.state.active_section as Optional<TSection>;
     const objectId: TNumberId = this.object.id();
@@ -103,16 +87,10 @@ export class RestrictorBinder extends object_binder {
     GlobalSoundManager.getInstance().update(objectId);
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override save(packet: XR_net_packet): void {
     openSaveMarker(packet, RestrictorBinder.__name);
 
@@ -122,9 +100,6 @@ export class RestrictorBinder extends object_binder {
     closeSaveMarker(packet, RestrictorBinder.__name);
   }
 
-  /**
-   * todo: Description.
-   */
   public override load(reader: XR_reader): void {
     this.isLoaded = true;
 
