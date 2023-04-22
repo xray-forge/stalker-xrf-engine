@@ -50,7 +50,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
-import { updateObjectLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
+import { updateStalkerLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { Stalker } from "@/engine/core/objects/server/creature/Stalker";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
@@ -102,7 +102,7 @@ export function update_npc_logic(actor: XR_game_object, npc: XR_game_object, par
     const object: Optional<XR_game_object> = getObjectByStoryId(storyId);
 
     if (object !== null) {
-      updateObjectLogic(object);
+      updateStalkerLogic(object);
 
       const planner: XR_action_planner = object.motivation_action_manager();
 

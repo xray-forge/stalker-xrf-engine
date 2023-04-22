@@ -197,11 +197,9 @@ export class ItemUpgradesManager extends AbstractCoreManager {
       }
     }
 
-    const actor = registry.actor;
-
-    if (actor !== null) {
+    if (registry.actor !== null) {
       const price: TCount = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * this.currentPriceDiscountRate);
-      const cash: TCount = actor.money();
+      const cash: TCount = registry.actor.money();
 
       if (cash < price) {
         return 2;

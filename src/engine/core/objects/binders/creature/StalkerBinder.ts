@@ -277,7 +277,7 @@ export class StalkerBinder extends object_binder {
     const object: XR_game_object = this.object;
     const isObjectAlive: boolean = object.alive();
 
-    updateObjectLogic(object);
+    updateStalkerLogic(object);
 
     if (this.isFirstUpdate === false) {
       if (isObjectAlive === false) {
@@ -590,7 +590,7 @@ export class StalkerBinder extends object_binder {
 /**
  * todo: Description.
  */
-export function updateObjectLogic(object: XR_game_object): void {
+export function updateStalkerLogic(object: XR_game_object): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
   const actor: XR_game_object = registry.actor;
   const combatState: IBaseSchemeState = state.combat!;

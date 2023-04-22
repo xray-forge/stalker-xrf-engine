@@ -81,10 +81,10 @@ export class MonsterBinder extends object_binder {
 
     this.state = resetObject(this.object);
 
-    this.object.set_callback(callback.patrol_path_in_point, this.waypoint_callback, this);
-    this.object.set_callback(callback.hit, this.hit_callback, this);
-    this.object.set_callback(callback.death, this.death_callback, this);
-    this.object.set_callback(callback.sound, this.hear_callback, this);
+    this.object.set_callback(callback.patrol_path_in_point, this.onWaypoint, this);
+    this.object.set_callback(callback.hit, this.onHit, this);
+    this.object.set_callback(callback.death, this.onDeath, this);
+    this.object.set_callback(callback.sound, this.onHearSound, this);
   }
 
   public override update(delta: TDuration): void {
@@ -228,8 +228,6 @@ export class MonsterBinder extends object_binder {
   }
 
   public override net_destroy(): void {
-    logger.info("Net destroy:", this.object.name());
-
     this.object.set_callback(callback.death, null);
     this.object.set_callback(callback.patrol_path_in_point, null);
     this.object.set_callback(callback.hit, null);
@@ -260,9 +258,9 @@ export class MonsterBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * On waypoint callback.
    */
-  public waypoint_callback(object: XR_game_object, actionType: number, index: TIndex): void {
+  public onWaypoint(object: XR_game_object, actionType: number, index: TIndex): void {
     if (this.state.active_section !== null) {
       emitSchemeEvent(
         this.object,
@@ -276,14 +274,14 @@ export class MonsterBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * On monster death.
    */
-  public death_callback(victim: XR_game_object, killer: XR_game_object): void {
+  public onDeath(victim: XR_game_object, killer: XR_game_object): void {
     logger.info("Monster death:", this.object.name());
 
     registry.actorCombat.delete(this.object.id());
 
-    this.hit_callback(victim, 1, new vector().set(0, 0, 0), killer, "from_death_callback");
+    this.onHit(victim, 1, new vector().set(0, 0, 0), killer, "from_death_callback");
 
     if (killer.id() === registry.actor.id()) {
       const statisticsManager: StatisticsManager = StatisticsManager.getInstance();
@@ -325,9 +323,9 @@ export class MonsterBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * On monster hit by another object.
    */
-  public hit_callback(
+  public onHit(
     object: XR_game_object,
     amount: TCount,
     direction: XR_vector,
@@ -344,9 +342,9 @@ export class MonsterBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * On monster hear sound.
    */
-  public hear_callback(
+  public onHearSound(
     object: XR_game_object,
     sourceId: TNumberId,
     soundType: TXR_snd_type,

@@ -6,7 +6,7 @@ import { registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/interface/notifications";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
-import { updateObjectLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
+import { updateStalkerLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
@@ -65,7 +65,7 @@ export function update_npc_dialog(firstSpeaker: XR_game_object, secondSpeaker: X
 
   (registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState).meetManager.update();
   SchemeMeet.updateObjectInteractionAvailability(object);
-  updateObjectLogic(object);
+  updateStalkerLogic(object);
 }
 
 /**
