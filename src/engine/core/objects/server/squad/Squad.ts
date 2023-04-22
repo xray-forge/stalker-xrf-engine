@@ -69,17 +69,18 @@ import { mapMarks } from "@/engine/lib/constants/map_marks";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ERelation, TRelation } from "@/engine/lib/constants/relations";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
+import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { AnyObject, LuaArray, Optional, StringOptional, TCount, TLabel, TName, TNumberId } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const smartsByNoAssaultZones: LuaTable<string, string> = {
-  ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",
-  ["jup_a6_sr_no_assault"]: "jup_a6",
-  ["jup_b41_sr_no_assault"]: "jup_b41",
-} as any;
+const smartsByNoAssaultZones: LuaTable<TName, TStoryName> = $fromObject<TName, TStoryName>({
+  ["zat_a2_sr_no_assault"]: storyNames.zat_stalker_base_smart,
+  ["jup_a6_sr_no_assault"]: storyNames.jup_a6,
+  ["jup_b41_sr_no_assault"]: storyNames.jup_b41,
+});
 
 /**
  * todo;
