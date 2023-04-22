@@ -11,4 +11,6 @@ export class MockSoundObject {
   }
 
   public play_at_pos = jest.fn(() => {});
+
+  public stop = jest.fn(() => {});
 }

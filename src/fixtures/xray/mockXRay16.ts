@@ -11,6 +11,7 @@ import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
 import { MockFileSystem } from "@/fixtures/xray/mocks/fs/FileSystem.mock";
 import { MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { mockGameInterface } from "@/fixtures/xray/mocks/interface/gameInterface.mock";
+import { mockGetGameHud } from "@/fixtures/xray/mocks/interface/globalInteraface.mock";
 import { mockLevelInterface } from "@/fixtures/xray/mocks/interface/levelInterface.mock";
 import { mockRelationRegistryInterface } from "@/fixtures/xray/mocks/interface/relationRegistryInterface.mock";
 import { mocksConfig } from "@/fixtures/xray/mocks/MocksConfig";
@@ -119,6 +120,7 @@ export function mockXRay16({
   game_graph = () => new MockCGameGraph(),
   getFS = () => MockFileSystem.getInstance(),
   get_console = mockGetConsole,
+  get_hud = mockGetGameHud,
   ini_file = MockIniFile,
   level = mockLevelInterface,
   look = MockLook,
@@ -188,6 +190,7 @@ export function mockXRay16({
     game_graph,
     getFS,
     get_console,
+    get_hud,
     ini_file,
     level,
     look,
