@@ -252,11 +252,11 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: {},
       _precondition_function: (
-        se_obj: XR_cse_alife_human_abstract,
+        serverObject: XR_cse_alife_human_abstract,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
-        if (se_obj.community() === communities.zombied) {
+        if (serverObject.community() === communities.zombied) {
           return false;
         }
 
@@ -348,15 +348,15 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: {},
       _precondition_function: (
-        se_obj: XR_cse_alife_human_abstract,
+        serverObject: XR_cse_alife_human_abstract,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
-        if (se_obj.community() === communities.zombied) {
+        if (serverObject.community() === communities.zombied) {
           return false;
         }
 
-        const st = registry.objects.get(se_obj.id);
+        const st = registry.objects.get(serverObject.id);
 
         if (st === null) {
           return false;
@@ -459,7 +459,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: {},
       _precondition_function: (
-        se_obj: XR_cse_alife_object,
+        serverObject: XR_cse_alife_object,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
@@ -643,11 +643,11 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: {},
       _precondition_function: (
-        se_obj: XR_cse_alife_human_abstract,
+        serverObject: XR_cse_alife_human_abstract,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
-        return se_obj.community() !== communities.zombied;
+        return serverObject.community() !== communities.zombied;
       },
     };
     table.insert(stalker_jobs.jobs, t);
@@ -709,7 +709,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: {},
       _precondition_function: (
-        se_obj: XR_cse_alife_human_abstract,
+        serverObject: XR_cse_alife_human_abstract,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
@@ -808,7 +808,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: { changing_job: "logic@" + way_name },
       _precondition_function: (
-        se_obj: XR_cse_alife_human_abstract,
+        serverObject: XR_cse_alife_human_abstract,
         smart: SmartTerrain,
         precond_params: AnyObject,
         npc_info: AnyObject
@@ -897,15 +897,15 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: { way_name: way_name },
       _precondition_function: (
-        se_obj: XR_cse_alife_human_abstract,
+        serverObject: XR_cse_alife_human_abstract,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
-        if (se_obj.community() === communities.zombied) {
+        if (serverObject.community() === communities.zombied) {
           return false;
         }
 
-        return isAccessibleJob(se_obj, precond_params.way_name);
+        return isAccessibleJob(serverObject, precond_params.way_name);
       },
     };
     table.insert(stalker_def_sniper.jobs, t);
@@ -981,8 +981,12 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
         job_type: "path_job",
       },
       _precondition_params: { way_name: way_name },
-      _precondition_function: (se_obj: XR_cse_alife_human_abstract, smart: SmartTerrain, precond_params: AnyObject) => {
-        return isAccessibleJob(se_obj, precond_params.way_name);
+      _precondition_function: (
+        serverObject: XR_cse_alife_human_abstract,
+        smart: SmartTerrain,
+        precond_params: AnyObject
+      ) => {
+        return isAccessibleJob(serverObject, precond_params.way_name);
       },
     };
     table.insert(stalker_def_camper.jobs, t);
@@ -1180,11 +1184,11 @@ function addExclusiveJob(
     },
     _precondition_params: { condlist: conditionsList },
     _precondition_function: (
-      se_obj: XR_cse_alife_human_abstract,
+      serverObject: XR_cse_alife_human_abstract,
       smart: SmartTerrain,
       precond_params: AnyObject
     ): boolean => {
-      const result: Optional<string> = pickSectionFromCondList(registry.actor, se_obj, precond_params.condlist);
+      const result: Optional<string> = pickSectionFromCondList(registry.actor, serverObject, precond_params.condlist);
 
       if (result === FALSE || result === null) {
         return false;
@@ -1309,7 +1313,7 @@ function isJobAvailableToObject(objectInfo: IObjectJobDescriptor, jobInfo: any, 
   if (jobInfo._precondition_function !== null) {
     if (
       !(jobInfo._precondition_function as AnyCallable)(
-        objectInfo.se_obj,
+        objectInfo.serverObject,
         smartTerrain,
         jobInfo._precondition_params,
         objectInfo

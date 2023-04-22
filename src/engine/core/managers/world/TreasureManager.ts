@@ -229,13 +229,18 @@ export class TreasureManager extends AbstractCoreManager {
 
           if (prob < itemDescriptor.prob) {
             if (itemDescriptor.item_ids && itemDescriptor.item_ids.get(i)) {
-              const se_obj: XR_cse_alife_object = sim.object(item_params.get(num).item_ids!.get(i))!;
-              const obj = sim.create(item_section, se_obj.position, se_obj.m_level_vertex_id, se_obj.m_game_vertex_id);
+              const serverObject: XR_cse_alife_object = sim.object(item_params.get(num).item_ids!.get(i))!;
+              const object = sim.create(
+                item_section,
+                serverObject.position,
+                serverObject.m_level_vertex_id,
+                serverObject.m_game_vertex_id
+              );
 
-              obj.angle = se_obj.angle;
-              obj.use_ai_locations(se_obj.used_ai_locations());
+              object.angle = serverObject.angle;
+              object.use_ai_locations(serverObject.used_ai_locations());
 
-              this.items_from_secrets.set(obj.id, this.secret_restrs.get(treasureId));
+              this.items_from_secrets.set(object.id, this.secret_restrs.get(treasureId));
 
               secret.to_find = secret.to_find + 1;
             }

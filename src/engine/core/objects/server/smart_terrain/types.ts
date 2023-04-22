@@ -33,7 +33,7 @@ export enum ESmartTerrainStatus {
  */
 export interface IObjectJobDescriptor {
   isMonster: boolean;
-  se_obj: XR_cse_alife_creature_abstract;
+  serverObject: XR_cse_alife_creature_abstract;
   need_job: string;
   job_prior: number;
   job_id: number;

@@ -245,14 +245,14 @@ extern("xr_effects.jup_b219_restore_gate", () => {
   const spawn_sect = "jup_b219_gate";
 
   if (jup_b219_position) {
-    const se_obj = alife().create<XR_cse_alife_object_physic>(
+    const serverObject: XR_cse_alife_object_physic = alife().create<XR_cse_alife_object_physic>(
       spawn_sect,
       new vector().set(jup_b219_position),
       jup_b219_lvid!,
       jup_b219_gvid!
     );
 
-    se_obj.set_yaw((yaw * math.pi) / 180);
+    serverObject.set_yaw((yaw * math.pi) / 180);
   }
 });
 

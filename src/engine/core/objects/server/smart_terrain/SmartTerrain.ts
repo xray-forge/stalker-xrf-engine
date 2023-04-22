@@ -252,7 +252,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * Register provided object in smart terrain.
    */
   public override register_npc(object: XR_cse_alife_creature_abstract): void {
-    logger.info("Register object in smart:", this.name(), object.name());
+    logger.info("Register object in smart:", this.name(), object.name(), this.population);
 
     this.population += 1;
 
@@ -276,12 +276,12 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * todo: Description.
+   * Unregister provided object from current smart.
    */
   public override unregister_npc(object: XR_cse_alife_creature_abstract): void {
-    logger.info("Unregister object:", this.name(), object.name());
+    logger.info("Unregister object:", this.name(), object.name(), this.population);
 
-    this.population = this.population - 1;
+    this.population -= 1;
 
     if (this.objectJobDescriptors.get(object.id) !== null) {
       this.objectJobDescriptors.get(object.id).job_link!.npc_id = null;
@@ -680,7 +680,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     const isObjectStalker: boolean = isStalker(object);
 
     return {
-      se_obj: object,
+      serverObject: object,
       isMonster: !isObjectStalker,
       need_job: NIL,
       job_prior: -1,
@@ -869,7 +869,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       selectedJobId,
       "Insufficient smart_terrain jobs: %s, %s, %s",
       this.name(),
-      objectJobDescriptor.se_obj.id,
+      objectJobDescriptor.serverObject.id,
       this.simulationRole
     );
 
@@ -879,7 +879,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         objectJobDescriptor.job_link.npc_id = null;
       }
 
-      selectedJobLink.npc_id = objectJobDescriptor.se_obj.id;
+      selectedJobLink.npc_id = objectJobDescriptor.serverObject.id;
       this.objectByJobSection.set(this.jobsData.get(selectedJobLink.job_id).section, selectedJobLink.npc_id);
 
       objectJobDescriptor.job_id = selectedJobLink.job_id;
@@ -887,7 +887,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       objectJobDescriptor.begin_job = false;
       objectJobDescriptor.job_link = selectedJobLink;
 
-      const objectState: Optional<IRegistryObjectState> = registry.objects.get(objectJobDescriptor.se_obj.id);
+      const objectState: Optional<IRegistryObjectState> = registry.objects.get(objectJobDescriptor.serverObject.id);
 
       if (objectState !== null) {
         switchObjectSchemeToSection(objectState.object!, this.ltxConfig, NIL);
@@ -897,13 +897,13 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     if (!objectJobDescriptor.begin_job) {
       const job_data = this.jobsData.get(objectJobDescriptor.job_id);
 
-      logger.info("Begin job in smart", this.name(), objectJobDescriptor.se_obj.name(), job_data.section);
+      logger.info("Begin job in smart", this.name(), objectJobDescriptor.serverObject.name(), job_data.section);
 
-      hardResetOfflineObject(objectJobDescriptor.se_obj.id);
+      hardResetOfflineObject(objectJobDescriptor.serverObject.id);
 
       objectJobDescriptor.begin_job = true;
 
-      const objectState: Optional<IRegistryObjectState> = registry.objects.get(objectJobDescriptor.se_obj.id);
+      const objectState: Optional<IRegistryObjectState> = registry.objects.get(objectJobDescriptor.serverObject.id);
 
       if (objectState !== null) {
         this.setupObjectLogic(objectState.object!);
@@ -991,7 +991,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     const selectedJobLink = this.objectJobDescriptors.get(changingObjectId).job_link!;
 
-    selectedJobLink.npc_id = objectInfo.se_obj.id;
+    selectedJobLink.npc_id = objectInfo.serverObject.id;
 
     this.objectByJobSection.set(this.jobsData.get(selectedJobLink.job_id).section, selectedJobLink.npc_id);
 
@@ -1029,7 +1029,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
           findNewJob(job.jobs, objectJobDescriptor);
         } else if (job.job_id === objectJobDescriptor.job_id) {
           objectJobDescriptor.job_link = job;
-          job.npc_id = objectJobDescriptor.se_obj.id;
+          job.npc_id = objectJobDescriptor.serverObject.id;
 
           return logger.info("Update job:", this.name(), job.npc_id);
         }
