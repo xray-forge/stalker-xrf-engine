@@ -112,8 +112,6 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   const stalker_jobs = { _precondition_is_monster: false, priority: 60, jobs: [] };
   const stalker_generic_point = { priority: 3, jobs: [] };
 
-  logger.info("Generic point jobs load:", smartTerrainName);
-
   for (const it of $range(1, 20)) {
     const name = smartTerrainName + "_point_" + it;
 
@@ -165,8 +163,6 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   // ===================================================================================================================
   // = Surge
   // ===================================================================================================================
-
-  logger.info("Surge jobs load:", smartTerrainName);
 
   const stalker_surge = { priority: 50, jobs: [] as Array<AnyObject> };
   let it = 1;
@@ -233,9 +229,6 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   // ===================================================================================================================
   // = Sleep
   // ===================================================================================================================
-
-  logger.info("Sleep jobs load:", smartTerrainName);
-
   const stalker_sleep = { priority: 10, jobs: new LuaTable() };
 
   it = 1;
@@ -329,8 +322,6 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   // ===================================================================================================================
   // = Collector
   // ===================================================================================================================
-
-  logger.info("Collector jobs load:", smartTerrainName);
 
   const stalker_collector = { priority: 25, jobs: [] as Array<AnyObject> };
 
@@ -439,9 +430,6 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   // ===================================================================================================================
   // = Walker
   // ===================================================================================================================
-
-  logger.info("Walker jobs load:", smartTerrainName);
-
   const stalker_walker = { priority: 15, jobs: new LuaTable() };
 
   it = 1;
@@ -535,8 +523,6 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   // ===================================================================================================================
   // = Patrol
   // ===================================================================================================================
-  logger.info("Patrol jobs load:", smartTerrainName);
-
   const stalker_patrol = { priority: 20, jobs: new LuaTable() };
 
   it = 1;
@@ -629,7 +615,6 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   // ===================================================================================================================
   // = Animpoint
   // ===================================================================================================================
-  logger.info("Animpoint jobs load:", smartTerrainName);
   it = 1;
 
   while (registry.smartCovers.get(smartTerrainName + "_animpoint_" + it) !== null) {
@@ -693,8 +678,6 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   // ===================================================================================================================
   // = Guard
   // ===================================================================================================================
-  logger.info("Guard jobs load:", smartTerrainName);
-
   const stalker_guard = { priority: 25, jobs: new LuaTable() };
 
   it = 1;
@@ -872,8 +855,6 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   // = Sniper
   // ===================================================================================================================
 
-  logger.info("Sniper jobs load:", smartTerrainName);
-
   const stalker_def_sniper = { priority: 30, jobs: new LuaTable() };
 
   it = 1;
@@ -950,8 +931,6 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   // ===================================================================================================================
   // = Camper
   // ===================================================================================================================
-
-  logger.info("Camper jobs load:", smartTerrainName);
 
   const stalker_def_camper = { priority: 45, jobs: new LuaTable() };
 
@@ -1040,8 +1019,6 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   // ===================================================================================================================
   // = Mob home
   // ===================================================================================================================
-
-  logger.info("Mob home jobs load:", smartTerrainName);
 
   for (const it of $range(1, 20)) {
     const name = smartTerrainName + "_home_" + it;

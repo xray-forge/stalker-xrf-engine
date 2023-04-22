@@ -13,7 +13,6 @@ postprocess		= postprocess_fuzz ;postprocess_acidic
 shape_transp_color		= 255, 0, 0, 60
 shape_edge_color		= 32, 32, 32, 255
 
-
 ;----------- Anomaly settings -----------------------
 max_start_power		= 0.4
 attenuation			= 1
@@ -36,9 +35,9 @@ blowout_sound		= anomaly\bfuzz_blowout
 hit_sound			= anomaly\bfuzz_hit
 ;entrance_sound		= anomaly\electra_hit
 
-disable_time		= 500	;время игнорирования неживого объекта в зоне (-1 если не нужно)
-disable_time_small	= 500		;время игнорирования маленького неживого объекта в зоне (-1 если не нужно)
-disable_idle_time	= 1000	;время отключения idle партиклов
+disable_time		= 500	;пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ (-1 пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ)
+disable_time_small	= 500		;пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ (-1 пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ)
+disable_idle_time	= 1000	;пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ idle пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 awaking_time				= 0
 blowout_time				= 1000
@@ -56,17 +55,13 @@ idle_light			= off
 
 blowout_wind		= off
 
-
-
 [zone_burning_fuzz_weak]:zone_burning_fuzz
 $spawn 			= "zones\!only_for_groups\burning_fuzz_weak"
 visual			= dynamics\anomaly\topolinypuh_small
 
-
 [zone_burning_fuzz_average]:zone_burning_fuzz
 $spawn 			= "zones\!only_for_groups\burning_fuzz_average"
 visual			= dynamics\anomaly\topolinypuh_middle
-
 
 [zone_burning_fuzz_strong]:zone_burning_fuzz
 $spawn 			= "zones\!only_for_groups\burning_fuzz_strong"

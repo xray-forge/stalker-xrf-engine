@@ -13,7 +13,6 @@ corpse_visual        = monsters\krovosos\krovosos_dead
 icon             = ui_npc_monster_krovosos
 MaxHealthValue         = 2.0              ; range [0..200]
 
-
 ef_creature_type       = 13             ; option for evaluation functions
 ef_weapon_type         = 2
 ef_detector_type       = 1
@@ -92,8 +91,6 @@ ph_skel_fatal_impulse_factor  = 12.0
 ph_after_death_velocity_factor= 0.75
 ph_skel_shot_up_factor        = 0.25
 ;---------------------------------------------------------------------
-
-
 
 ;----------------------------------------------------------------------------
 ; Movement::Velocities & Acceleration
@@ -220,8 +217,6 @@ sound_distant_idle  = monsters\bloodsucker\idle_
 distant_idle_sound_delay  = 80000
 distant_idle_sound_range  = 100.0
 
-
-
 killer_clsids       = Z_MINCER,Z_GALANT,ZS_BFUZZ,ZS_MBALD,ZS_GALAN,ZS_MINCE
 
 ;Frequency of sounds to be played
@@ -240,7 +235,6 @@ Sound_Alien             = monsters\bloodsucker\sucker_breath_
 SoundThreshold        = 0.05                 ; range [0..1]
 max_hear_dist       = 80
 
-
 ;-------------------------------------------------------------------------
 ; Morale
 ;-------------------------------------------------------------------------
@@ -255,7 +249,6 @@ Morale_Despondent_Threashold  = 0.5
 ; Damages
 ;-------------------------------------------------------------------------
 damage          = m_bloodsucker_damage
-
 
 critical_wound_threshold    = -1; 1.1 ;1.1
 critical_wound_decrease_quant = 0.
@@ -283,7 +276,6 @@ bone_spin           = bip01_spine1
 
 ;                 fSearchRange,fOptEnemyDistance,fOptEnemyDistanceWeight,fMinEnemyDistance,fMinEnemyDistanceWeight,fMaxEnemyDistance,fMaxEnemyDistanceWeight
 selector_approach       =      20.0,            1.0,           1000.0,             0.0,               0.0,              1000.0,       10000.0,
-
 
 terrain             = bloodsucker_terrain
 material            = creatures\medium
@@ -327,8 +319,6 @@ Vampire_Distance   = 1 ; may artifact when < 1
 ;-------------------------------------------------------------------------
 Predator_Visual = monsters\krovosos\krovosos_xray
 
-
-
 ;-------------------------------------------------------------------------
 ; Vision
 ;-------------------------------------------------------------------------
@@ -365,7 +355,6 @@ velocity_factor         = 0.5
 luminocity_factor     = 0.5         ; ������ ��������� (������ ��� �����)
 transparency_threshold    = 0.25
 
-
 ;=================================================================================
 ; Bloodsucker Damage
 ;=================================================================================
@@ -380,7 +369,6 @@ bip01_spine2    = 1.0, -1, 0.5
 bip01_spine3    = 1.0, -1, 0.5
 bip01_neck      = 1.0, -1, 1.5
 bip01_head      = 2.0, -1, 0.5
-
 
 [bloodsucker_critical_wound_bones_head]
 bip01_neck
@@ -439,7 +427,6 @@ bip01_r_finger31
 bip01_r_finger4
 bip01_r_finger41
 
-
 [bloodsucker_critical_wound_bones_legs]
 bip01_l_thigh
 bip01_l_calf
@@ -449,9 +436,6 @@ bip01_r_thigh
 bip01_r_calf
 bip01_r_foot
 bip01_r_toe1
-
-
-
 
 ;=================================================================================
 ; Bloodsucker Terrain
@@ -474,7 +458,6 @@ stand_walk_fwd_dmg_0  	= 1,    0.05,    1.0,    0.60,     1.0,
 stand_steal_0   		= 2,    0.15,    0.2,    0.50,     0.2,
 ;stand_drag_0   		= 1,    0.2,     1.0,    0.25,     0.7,
 
-
 ;===========================================================================
 ; Attack Animation Parameters
 ;===========================================================================
@@ -494,7 +477,6 @@ vampire_2   =     	  0.60,   0.5,       50,        0.0, 2.5, 4.50,    -1.2, 1.2,
 stand_run_attack_left_0  = 0.30,   0.4,       50,        3.5, 2.0, 0.5,     -1.0, 1.0, -1.0, 1.0,     2.5
 stand_run_attack_right_0 = 0.30,   0.4,       50,        3.5, 2.0, 0.5,     -1.0, 1.0, -1.0, 1.0,     2.5
 
-
 ;===========================================================================
 ; Immunities
 ;===========================================================================
@@ -508,9 +490,6 @@ telepatic_immunity     	= 0.0
 chemical_burn_immunity 	= 0.1
 explosion_immunity      = 0.1
 fire_wound_immunity     = 0.7
-
-
-
 
 ;===========================================================================
 ; SPECIAL EFFECTORS
@@ -548,27 +527,9 @@ ce_amplitude    = 15;12.0
 ce_period_number = 2.0;3.0
 ce_power      	= 3.0 ;0.7 ; power
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 [bloodsucker_protections]
 skin_armor = 0.5
 hit_fraction_monster = 0.3
-
 
 ;*********************************************************************************
 ; WEAK PROFILE
@@ -612,10 +573,8 @@ stand_attack_1 =      0.30,   0.7,      50,        0.0, 2.0, 4.0,     	-0.8, 0.8
 ;Right hand Strike
 ;vampire_2   =     	  0.60,   0.7,      50,        0.0, 2.5, 4.50,     -1.2, 1.2, -1.2, 1.2,         4.5
 
-
 stand_run_attack_left_0  = 0.30,   0.7,       50,        3.5, 2.0, 0.5,     -1.0, 1.0, -1.0, 1.0,     2.5
 stand_run_attack_right_0 = 0.30,   0.7,       50,        3.5, 2.0, 0.5,     -1.0, 1.0, -1.0, 1.0,     2.5
-
 
 ;*********************************************************************************
 ; NORMAL PROFILE
@@ -625,7 +584,6 @@ $spawn        = "monsters\bloodsuckers\bloodsucker_02_normal"
 visual        = monsters\krovosos\krovosos_green
 corpse_visual        = monsters\krovosos\krovosos_green_dead
 Predator_Visual   = monsters\krovosos\krovosos_green_xray
-
 
 icon        = ui_npc_monster_krovosos
 panic_threshold   = 0.2
@@ -664,8 +622,6 @@ vampire_2   =     	  0.60,   0.8,      50,        0.0, 2.5, 4.50,     -1.2, 1.2,
 
 stand_run_attack_left_0  = 0.30,   0.8,       50,        3.5, 2.0, 0.5,     -1.0, 1.0, -1.0, 1.0,     2.5
 stand_run_attack_right_0 = 0.30,   0.8,       50,        3.5, 2.0, 0.5,     -1.0, 1.0, -1.0, 1.0,     2.5
-
-
 
 ;*********************************************************************************
 ; STRONG PROFILE
@@ -709,11 +665,8 @@ stand_attack_2 =      0.30,   0.9,      50,       -4.0, 2.5, 0.50,   	-1.0, 1.0,
 ;Right hand Strike
 vampire_2      =      0.60,   0.9,    	50,        0.0, 2.5, 4.50,     -1.2, 1.2, -1.2, 1.2,         	4.5
 
-
 stand_run_attack_left_0  = 0.30,   0.9,       50,        3.5, 2.0, 0.5,     -1.0, 1.0, -1.0, 1.0,     2.5
 stand_run_attack_right_0 = 0.30,   0.9,       50,        3.5, 2.0, 0.5,     -1.0, 1.0, -1.0, 1.0,     2.5
-
-
 
 ;*********************************************************************************
 ; CUSTOM PROFILES
