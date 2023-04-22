@@ -21,7 +21,7 @@ import {
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { isCseAlifeObject, isStalker } from "@/engine/core/utils/check/is";
 import { getInfosFromData, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
@@ -64,22 +64,23 @@ export function getObjectPositioning(
 }
 
 /**
- * todo;
+ * Get squad of provided object.
+ *
+ * @param object - server or client object
+ * @return object squad or null
  */
 export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_creature_abstract>): Optional<Squad> {
-  if (object === null) {
-    return abort("Attempt to get squad object from NIL.");
+  assertDefined(object, "Attempt to get squad object from null value.");
+
+  if (type(object.id) === "function") {
+    const serverObject: Optional<XR_cse_alife_creature_abstract> = alife().object((object as XR_game_object).id());
+
+    return !serverObject || serverObject.group_id === MAX_U16 ? null : alife().object<Squad>(serverObject.group_id);
+  } else {
+    return (object as XR_cse_alife_creature_abstract).group_id === MAX_U16
+      ? null
+      : alife().object<Squad>((object as XR_cse_alife_creature_abstract).group_id);
   }
-
-  const objectId: TNumberId =
-    type(object.id) === "function" ? (object as XR_game_object).id() : (object as XR_cse_alife_creature_abstract).id;
-  const serverObject: Optional<XR_cse_alife_creature_abstract> = alife().object(objectId);
-
-  if (serverObject && serverObject.group_id !== MAX_U16) {
-    return alife().object<Squad>(serverObject.group_id);
-  }
-
-  return null;
 }
 
 /**

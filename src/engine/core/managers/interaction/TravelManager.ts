@@ -4,7 +4,6 @@ import {
   game,
   level,
   patrol,
-  relation_registry,
   time_global,
   TXR_class_id,
   XR_CPhrase,
@@ -24,6 +23,7 @@ import { ENotificationDirection } from "@/engine/core/managers/interface/notific
 import { NotificationManager } from "@/engine/core/managers/interface/notifications/NotificationManager";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { abort } from "@/engine/core/utils/assertion";
@@ -41,7 +41,6 @@ import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { EGoodwill } from "@/engine/lib/constants/relations";
 import { TRUE } from "@/engine/lib/constants/words";
 import { zones } from "@/engine/lib/constants/zones";
 import {
@@ -234,7 +233,7 @@ export class TravelManager extends AbstractCoreManager {
     const squad: Squad = getObjectSquad(npc)!;
     const squadTargetId: Optional<TNumberId> = squad.assignedTargetId;
 
-    if (squad.currentAction === null || squad.currentAction.name === "stay_point") {
+    if (squad.currentAction === null || squad.currentAction.name === SquadStayOnTargetAction.ACTION_NAME) {
       return "dm_" + "stalker" + "_doing_nothing_" + tostring(math.random(1, 3)); // -- npc:character_community()
     }
 
@@ -275,7 +274,7 @@ export class TravelManager extends AbstractCoreManager {
   ): boolean {
     const squad: Squad = getObjectSquad(npc)!;
 
-    return !(squad.currentAction === null || squad.currentAction.name === "stay_point");
+    return !(squad.currentAction === null || squad.currentAction.name === SquadStayOnTargetAction.ACTION_NAME);
   }
 
   /**

@@ -1,10 +1,11 @@
 import { alife, LuabindClass, property_evaluator } from "xray16";
 
-import type { Actor } from "@/engine/core/objects/server/Actor";
-import type { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";
+import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -13,9 +14,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class EvaluatorReachedTaskLocation extends property_evaluator {
-  /**
-   * todo: Description.
-   */
   public constructor() {
     super(null, EvaluatorReachedTaskLocation.__name);
   }
@@ -24,16 +22,16 @@ export class EvaluatorReachedTaskLocation extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    const squad = getObjectSquad(this.object);
+    const squad: Optional<Squad> = getObjectSquad(this.object);
 
-    if (squad && squad.currentAction && squad.currentAction.name === "reach_target") {
-      const squad_target = alife().object<Actor | SmartTerrain | Squad>(squad.assignedTargetId!);
+    if (squad?.currentAction?.name === SquadReachTargetAction.ACTION_NAME) {
+      const squadTarget: Optional<TSimulationObject> = alife().object(squad.assignedTargetId!);
 
-      if (squad_target === null) {
+      if (squadTarget === null) {
         return false;
       }
 
-      return !squad_target.isReachedBySquad(squad);
+      return !squadTarget.isReachedBySquad(squad);
     }
 
     return false;

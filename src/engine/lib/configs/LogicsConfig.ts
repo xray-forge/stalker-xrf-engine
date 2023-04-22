@@ -1,5 +1,7 @@
 import { danger_object } from "xray16";
 
+import { TDuration } from "@/engine/lib/types";
+
 /**
  * todo;
  */
@@ -30,6 +32,10 @@ export const logicsConfig = {
   POST_COMBAT_IDLE: {
     MIN: 5_000,
     MAX: 15_000,
+  },
+  SQUAD: {
+    STAY_POINT_IDLE_MIN: 180 * 60,
+    STAY_POINT_IDLE_MAX: 300 * 60,
   },
   SMART_TERRAIN: {
     /**

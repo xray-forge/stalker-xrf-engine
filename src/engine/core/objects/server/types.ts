@@ -1,20 +1,15 @@
 import { XR_CALifeSmartTerrainTask, XR_vector } from "xray16";
 
-import { Actor, SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects";
-import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
-import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { TConditionList } from "@/engine/core/utils/parse";
-import { AnyObject, TNumberId } from "@/engine/lib/types";
+import type { Actor } from "@/engine/core/objects";
+import type { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import type { Squad } from "@/engine/core/objects/server/squad/Squad";
+import type { TConditionList } from "@/engine/core/utils/parse";
+import type { AnyObject, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Simulation interaction object generic.
  */
 export type TSimulationObject = Squad | SmartTerrain | Actor;
-
-/**
- * Squad action type.
- */
-export type TSquadAction = SquadStayOnTargetAction | SquadReachTargetAction;
 
 /**
  * Type of smart terrain simulation role.
@@ -64,11 +59,40 @@ export interface ISimulationTarget {
    */
   isReachedBySquad(squad: Squad): boolean;
   /**
-   * On target reached by squad.
+   * On target started being reached by squad.
    */
-  onReachedBySquad(squad: Squad): void;
+  onStartedBeingReachedBySquad(squad: Squad): void;
   /**
    * On target reached by squad, next action.
    */
-  onAfterReachedBySquad(squad: Squad): void;
+  onEndedBeingReachedBySquad(squad: Squad): void;
+}
+
+/**
+ * Generic squad action interface.
+ */
+export interface ISquadAction {
+  /**
+   * Action name.
+   * Unique identifier of action type.
+   */
+  name: TName;
+  /**
+   * Initialize action.
+   *
+   * @param isUnderSimulation - is squad under simulation
+   */
+  initialize: (isUnderSimulation: boolean) => void;
+  /**
+   * Finalize and destroy everything related to the action.
+   * Called when object drops action instance and finds something new.
+   */
+  finalize: () => void;
+  /**
+   * Perform generic update tick for action.
+   *
+   * @param isUnderSimulation - is squad under simulation
+   * @returns whether action is finished
+   */
+  update: (isUnderSimulation: boolean) => boolean;
 }

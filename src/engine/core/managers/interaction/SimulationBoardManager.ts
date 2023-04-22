@@ -14,6 +14,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreMan
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { evaluateSimulationPriority } from "@/engine/core/utils/alife";
@@ -190,7 +191,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
    * todo: Description.
    */
   public unRegisterSquad(squad: Squad): void {
-    this.squads.set(squad.id, squad);
+    this.squads.delete(squad.id);
   }
 
   /**
@@ -384,7 +385,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
 
     let smartTerrain: Optional<SmartTerrain> = null;
 
-    if (squad.currentAction !== null && squad.currentAction.name === "reach_target") {
+    if (squad.currentAction !== null && squad.currentAction.name === SquadReachTargetAction.ACTION_NAME) {
       smartTerrain = alife().object<SmartTerrain>(squad.assignedTargetId!);
     } else if (squad.assignedSmartTerrainId !== null) {
       smartTerrain = alife().object<SmartTerrain>(squad.assignedSmartTerrainId);

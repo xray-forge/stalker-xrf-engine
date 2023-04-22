@@ -13,7 +13,15 @@ export const config = {
     update_monster_factor: newFloatField(0.1),
     time_factor: newIntegerField(10),
     normal_time_factor: newIntegerField(10),
+    /**
+     * Alife server-client switch distance.
+     */
     switch_distance: newIntegerField(150, { comment: "metres" }),
+    /**
+     * Alife server-client switch multiplier.
+     * Implements gray zone and prevent online-offline switch on active movement.
+     * By default, 10% is considered enough.
+     */
     switch_factor: newFloatField(0.1, { comment: "metres" }),
     start_time: newStringField("9:00:00"),
     start_date: newStringField("03.08.2012"),

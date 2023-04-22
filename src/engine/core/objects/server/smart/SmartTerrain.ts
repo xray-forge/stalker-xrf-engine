@@ -44,7 +44,8 @@ import {
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrainControl } from "@/engine/core/objects/server/smart/SmartTerrainControl";
 import { ESmartTerrainStatus, IObjectJobDescriptor, ISmartTerrainJob } from "@/engine/core/objects/server/smart/types";
-import { loadGulagJobs } from "@/engine/core/objects/server/squad/gulag_general";
+import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
+import { loadGulagJobs } from "@/engine/core/objects/server/squad/jobs_general";
 import {
   ISimulationActivityDescriptor,
   ISimulationActivityPrecondition,
@@ -1405,7 +1406,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       const squad = this.simulationBoardManager.getSquads().get(object.group_id);
 
       if (squad !== null && squad.currentAction) {
-        if (squad.currentAction.name === "reach_target") {
+        if (squad.currentAction.name === SquadReachTargetAction.ACTION_NAME) {
           const squadTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
 
           if (squadTarget !== null) {
@@ -1413,7 +1414,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
           } else {
             return alife().object<SmartTerrain>(squad.assignedTargetId!)!.isReachedBySquad(squad);
           }
-        } else if (squad.currentAction.name === "stay_point") {
+        } else if (squad.currentAction.name === SquadStayOnTargetAction.ACTION_NAME) {
           return true;
         }
       }
@@ -1539,7 +1540,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public onAfterReachedBySquad(squad: Squad): void {
+  public onEndedBeingReachedBySquad(squad: Squad): void {
     for (const squadMember of squad.squad_members()) {
       squad.simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
     }
@@ -1550,7 +1551,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public onReachedBySquad(squad: Squad): void {
+  public onStartedBeingReachedBySquad(squad: Squad): void {
     squad.setLocationTypes(this.name());
     this.simulationBoardManager.assignSquadToSmartTerrain(squad, this.id);
 

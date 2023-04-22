@@ -36,6 +36,7 @@ import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { setupSmartJobsAndLogicOnSpawn, SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
+import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { ESchemeEvent } from "@/engine/core/schemes";
@@ -127,7 +128,7 @@ export class MonsterBinder extends object_binder {
       return;
     }
 
-    if (squad && squad.currentAction && squad.currentAction.name === "reach_target") {
+    if (squad?.currentAction?.name === SquadReachTargetAction.ACTION_NAME) {
       const currentTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
 
       if (currentTarget === null) {

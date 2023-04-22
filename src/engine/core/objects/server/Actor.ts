@@ -169,7 +169,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   /**
    * When squad already reached actor.
    */
-  public onAfterReachedBySquad(squad: Squad): void {
+  public onEndedBeingReachedBySquad(squad: Squad): void {
     /**
      *  --squad.current_target_id = squad.smart_id
      */
@@ -178,7 +178,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   /**
    * When squad reaches actor.
    */
-  public onReachedBySquad(squad: Squad): void {
+  public onStartedBeingReachedBySquad(squad: Squad): void {
     squad.setLocationTypes();
 
     for (const squadMember of squad.squad_members()) {
