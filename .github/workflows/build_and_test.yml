@@ -28,7 +28,14 @@ jobs:
 
       - run: npm ci
       - run: npm run setup
-      - run: npm run test -- --shard=${{ matrix.shard }}/${{ strategy.job-total }}
+
+      - name: Jest cache
+        uses: actions/cache@v3
+        with:
+          path: /tmp/jest_rt
+          key: ${{ hashFiles('**/package-lock.json') }}
+
+      - run: npm run test -- --shard=${{ matrix.shard }}/${{ strategy.job-total }} --maxWorkers=100%
 
   check:
     runs-on: ubuntu-latest
