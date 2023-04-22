@@ -1,31 +1,20 @@
-// todo: Probably pick && move some to globals
-
 import { XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { EStalkerState } from "@/engine/core/objects/state";
+import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
-import { LuaArray, Optional, TNumberId } from "@/engine/lib/types";
+import { LuaArray, Optional, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
-export const noWeaponsSmartsList: LuaArray<TStoryName> = $fromArray<TStoryName>([
-  storyNames.zat_stalker_base_smart,
-  storyNames.jup_b41,
-  storyNames.jup_a6,
-  storyNames.pri_a16,
-]);
-
-/**
- * todo;
- */
-const eatable_visuals = {
+const eatable_visuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
   ["actors\\stalker_hero\\stalker_hero_1"]: true,
   ["actors\\stalker_hero\\stalker_hero_novice_1"]: true,
   ["actors\\stalker_hero\\stalker_hero_stalker_1"]: true,
@@ -78,11 +67,11 @@ const eatable_visuals = {
   ["actors\\stalker_zombied\\stalker_zombied_1"]: true,
   ["actors\\stalker_zombied\\stalker_zombied_3"]: true,
   ["actors\\stalker_neutral\\stalker_neutral_nauchniy_face_2"]: true,
-};
+});
 
 export type TEatableVisual = keyof typeof eatable_visuals;
 
-const harmonica_visuals = {
+const harmonica_visuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
   ["actors\\stalker_hero\\stalker_hero_1"]: true,
   ["actors\\stalker_hero\\stalker_hero_novice_1"]: true,
   ["actors\\stalker_hero\\stalker_hero_stalker_1"]: true,
@@ -143,12 +132,12 @@ const harmonica_visuals = {
   ["actors\\stalker_zombied\\stalker_zombied_3"]: true,
   ["actors\\stalker_zombied\\stalker_zombied_4"]: true,
   ["actors\\stalker_neutral\\stalker_neutral_nauchniy_face_2"]: true,
-};
+});
 
 /**
  * todo;
  */
-function const_predicate_true(npc_id: number) {
+function animpointPredicateAlways(): boolean {
   return true;
 }
 
@@ -157,7 +146,7 @@ function animpoint_predicate_bread(npc_id: number): boolean {
   if (
     registry.objects.get(npc_id) &&
     registry.objects.get(npc_id).object &&
-    eatable_visuals[registry.objects.get(npc_id).object!.get_visual_name<TEatableVisual>()] &&
+    eatable_visuals.get(registry.objects.get(npc_id).object!.get_visual_name()) &&
     registry.objects.get(npc_id).object!.object("bread")
   ) {
     return true;
@@ -173,7 +162,7 @@ function animpoint_predicate_kolbasa(npc_id: number): boolean {
   if (
     registry.objects.get(npc_id) &&
     registry.objects.get(npc_id).object &&
-    eatable_visuals[registry.objects.get(npc_id).object!.get_visual_name<TEatableVisual>()] &&
+    eatable_visuals.get(registry.objects.get(npc_id).object!.get_visual_name()) &&
     registry.objects.get(npc_id).object!.object("kolbasa")
   ) {
     return true;
@@ -189,7 +178,7 @@ function animpoint_predicate_vodka(npc_id: number): boolean {
   if (
     registry.objects.get(npc_id) &&
     registry.objects.get(npc_id).object &&
-    eatable_visuals[registry.objects.get(npc_id).object!.get_visual_name<TEatableVisual>()] &&
+    eatable_visuals.get(registry.objects.get(npc_id).object!.get_visual_name()) &&
     registry.objects.get(npc_id).object!.object("vodka")
   ) {
     return true;
@@ -205,7 +194,7 @@ function animpoint_predicate_energy(npc_id: number): boolean {
   if (
     registry.objects.get(npc_id) &&
     registry.objects.get(npc_id).object &&
-    eatable_visuals[registry.objects.get(npc_id).object!.get_visual_name<TEatableVisual>()] &&
+    eatable_visuals.get(registry.objects.get(npc_id).object!.get_visual_name()) &&
     registry.objects.get(npc_id).object!.object("energy_drink")
   ) {
     return true;
@@ -238,7 +227,7 @@ function animpoint_predicate_harmonica(npc_id: number, is_in_camp?: Optional<boo
     is_in_camp === true &&
     registry.objects.get(npc_id) &&
     registry.objects.get(npc_id).object &&
-    harmonica_visuals[registry.objects.get(npc_id).object!.get_visual_name<TEatableVisual>()] &&
+    harmonica_visuals.get(registry.objects.get(npc_id).object!.get_visual_name()) &&
     registry.objects.get(npc_id).object!.object(misc.harmonica_a)
   ) {
     return true;
@@ -250,15 +239,15 @@ function animpoint_predicate_harmonica(npc_id: number, is_in_camp?: Optional<boo
 /**
  * todo;
  */
-function animpoint_predicate_weapon(objectId: TNumberId): boolean {
+function animpointPredicateWeapon(objectId: TNumberId): boolean {
   const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
 
   if (object !== null) {
-    const smart: Optional<SmartTerrain> = getObjectSmartTerrain(object);
+    const smartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
-    if (smart) {
-      for (const [k, v] of noWeaponsSmartsList) {
-        if (smart.name() === v) {
+    if (smartTerrain) {
+      for (const [index, smartTerrainName] of registry.noWeaponSmartTerrains) {
+        if (smartTerrain.name() === smartTerrainName) {
           return false;
         }
       }
@@ -271,67 +260,62 @@ function animpoint_predicate_weapon(objectId: TNumberId): boolean {
 /**
  * todo;
  */
-export interface IAnimpointDescriptor {
-  predicate: (id?: number) => boolean;
-  name: string;
-}
-
-/**
- * todo;
- */
-export const associations: LuaTable<string, LuaTable<number, IAnimpointDescriptor>> = {
-  animpoint_stay_wall: [
-    { name: "animpoint_stay_wall", predicate: const_predicate_true },
-    { name: "animpoint_stay_wall_eat_bread", predicate: animpoint_predicate_bread },
-    { name: "animpoint_stay_wall_eat_kolbasa", predicate: animpoint_predicate_kolbasa },
-    { name: "animpoint_stay_wall_drink_vodka", predicate: animpoint_predicate_vodka },
-    { name: "animpoint_stay_wall_drink_energy", predicate: animpoint_predicate_energy },
+export const associations: LuaTable<string, LuaArray<IAnimpointAction>> = $fromObject<
+  string,
+  LuaArray<IAnimpointAction>
+>({
+  animpoint_stay_wall: $fromArray<IAnimpointAction>([
+    { name: EStalkerState.ANIMPOINT_STAY_WALL, predicate: animpointPredicateAlways },
+    { name: EStalkerState.ANIMPOINT_STAY_WALL_EAT_BREAD, predicate: animpoint_predicate_bread },
+    { name: EStalkerState.ANIMPOINT_STAY_WALL_EAT_KOLBASA, predicate: animpoint_predicate_kolbasa },
+    { name: EStalkerState.ANIMPOINT_STAY_WALL_DRINK_VODKA, predicate: animpoint_predicate_vodka },
+    { name: EStalkerState.ANIMPOINT_STAY_WALL_DRINK_ENERGY, predicate: animpoint_predicate_energy },
     // --  {name = "animpoint_stay_wall_guitar", predicate: animpoint_predicate_guitar},
     // --  {name = "animpoint_stay_wall_harmonica", predicate: animpoint_predicate_harmonica},
-    { name: "animpoint_stay_wall_weapon", predicate: animpoint_predicate_weapon },
-  ],
-  animpoint_stay_table: [
-    { name: "animpoint_stay_table", predicate: const_predicate_true },
-    { name: "animpoint_stay_table_eat_bread", predicate: animpoint_predicate_bread },
-    { name: "animpoint_stay_table_eat_kolbasa", predicate: animpoint_predicate_kolbasa },
-    { name: "animpoint_stay_table_drink_vodka", predicate: animpoint_predicate_vodka },
-    { name: "animpoint_stay_table_drink_energy", predicate: animpoint_predicate_energy },
+    { name: EStalkerState.ANIMPOINT_STAY_WALL_WEAPON, predicate: animpointPredicateWeapon },
+  ]),
+  animpoint_stay_table: $fromArray<IAnimpointAction>([
+    { name: EStalkerState.ANIMPOINT_STAY_TABLE, predicate: animpointPredicateAlways },
+    { name: EStalkerState.ANIMPOINT_STAY_TABLE_EAT_BREAD, predicate: animpoint_predicate_bread },
+    { name: EStalkerState.ANIMPOINT_STAY_TABLE_EAT_KOLBASA, predicate: animpoint_predicate_kolbasa },
+    { name: EStalkerState.ANIMPOINT_STAY_TABLE_DRINK_VODKA, predicate: animpoint_predicate_vodka },
+    { name: EStalkerState.ANIMPOINT_STAY_TABLE_DRINK_ENERGY, predicate: animpoint_predicate_energy },
     // --  {name = "animpoint_stay_table_guitar", predicate: animpoint_predicate_guitar},
     // --  {name = "animpoint_stay_table_harmonica", predicate: animpoint_predicate_harmonica},
-    { name: "animpoint_stay_table_weapon", predicate: animpoint_predicate_weapon },
-  ],
-  animpoint_sit_high: [
-    { name: "animpoint_sit_high", predicate: const_predicate_true },
-    { name: "animpoint_sit_high_eat_bread", predicate: animpoint_predicate_bread },
-    { name: "animpoint_sit_high_eat_kolbasa", predicate: animpoint_predicate_kolbasa },
-    { name: "animpoint_sit_high_drink_vodka", predicate: animpoint_predicate_vodka },
-    { name: "animpoint_sit_high_drink_energy", predicate: animpoint_predicate_energy },
+    { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: animpointPredicateWeapon },
+  ]),
+  animpoint_sit_high: $fromArray<IAnimpointAction>([
+    { name: EStalkerState.ANIMPOINT_SIT_HIGH, predicate: animpointPredicateAlways },
+    { name: EStalkerState.ANIMPOINT_SIT_HIGH_EAT_BREAD, predicate: animpoint_predicate_bread },
+    { name: EStalkerState.ANIMPOINT_SIT_HIGH_EAT_KOLBASA, predicate: animpoint_predicate_kolbasa },
+    { name: EStalkerState.ANIMPOINT_SIT_HIGH_DRINK_VODKA, predicate: animpoint_predicate_vodka },
+    { name: EStalkerState.ANIMPOINT_SIT_HIGH_DRINK_ENERGY, predicate: animpoint_predicate_energy },
     // --  {name = "animpoint_sit_high_guitar", predicate: animpoint_predicate_guitar},
-    { name: "animpoint_sit_high_harmonica", predicate: animpoint_predicate_harmonica },
+    { name: EStalkerState.ANIMPOINT_SIT_HIGH_HARMONICA, predicate: animpoint_predicate_harmonica },
     // --  {name = "animpoint_sit_high_weapon", predicate: animpoint_predicate_weapon},
-  ],
-  animpoint_sit_normal: [
-    { name: "animpoint_sit_normal", predicate: const_predicate_true },
-    { name: "animpoint_sit_normal_eat_bread", predicate: animpoint_predicate_bread },
-    { name: "animpoint_sit_normal_eat_kolbasa", predicate: animpoint_predicate_kolbasa },
-    { name: "animpoint_sit_normal_drink_vodka", predicate: animpoint_predicate_vodka },
-    { name: "animpoint_sit_normal_drink_energy", predicate: animpoint_predicate_energy },
-    { name: "animpoint_sit_normal_guitar", predicate: animpoint_predicate_guitar },
+  ]),
+  animpoint_sit_normal: $fromArray<IAnimpointAction>([
+    { name: EStalkerState.ANIMPOINT_SIT_NORMAL, predicate: animpointPredicateAlways },
+    { name: EStalkerState.ANIMPOINT_SIT_NORMAL_EAT_BREAD, predicate: animpoint_predicate_bread },
+    { name: EStalkerState.ANIMPOINT_SIT_NORMAL_EAT_KOLBASA, predicate: animpoint_predicate_kolbasa },
+    { name: EStalkerState.ANIMPOINT_SIT_NORMAL_DRINK_VODKA, predicate: animpoint_predicate_vodka },
+    { name: EStalkerState.ANIMPOINT_SIT_NORMAL_DRINK_ENERGY, predicate: animpoint_predicate_energy },
+    { name: EStalkerState.ANIMPOINT_SIT_NORMAL_GUITAR, predicate: animpoint_predicate_guitar },
     // --  {name = "animpoint_sit_normal_harmonica", predicate: animpoint_predicate_harmonica},
     // --  {name = "animpoint_sit_normal_weapon", predicate: animpoint_predicate_weapon},
-  ],
-  animpoint_sit_low: [
-    { name: "animpoint_sit_low", predicate: const_predicate_true },
-    { name: "animpoint_sit_low_eat_bread", predicate: animpoint_predicate_bread },
-    { name: "animpoint_sit_low_eat_kolbasa", predicate: animpoint_predicate_kolbasa },
-    { name: "animpoint_sit_low_drink_vodka", predicate: animpoint_predicate_vodka },
-    { name: "animpoint_sit_low_drink_energy", predicate: animpoint_predicate_energy },
-    { name: "animpoint_sit_low_guitar", predicate: animpoint_predicate_guitar },
-    { name: "animpoint_sit_low_harmonica", predicate: animpoint_predicate_harmonica },
+  ]),
+  animpoint_sit_low: $fromArray<IAnimpointAction>([
+    { name: EStalkerState.ANIMPOINT_SIT_LOW, predicate: animpointPredicateAlways },
+    { name: EStalkerState.ANIMPOINT_SIT_LOW_EAT_BREAD, predicate: animpoint_predicate_bread },
+    { name: EStalkerState.ANIMPOINT_SIT_LOW_EAT_KOLBASA, predicate: animpoint_predicate_kolbasa },
+    { name: EStalkerState.ANIMPOINT_SIT_LOW_DRINK_VODKA, predicate: animpoint_predicate_vodka },
+    { name: EStalkerState.ANIMPOINT_SIT_LOW_DRINK_ENERGY, predicate: animpoint_predicate_energy },
+    { name: EStalkerState.ANIMPOINT_SIT_LOW_GUITAR, predicate: animpoint_predicate_guitar },
+    { name: EStalkerState.ANIMPOINT_SIT_LOW_HARMONICA, predicate: animpoint_predicate_harmonica },
     // --  {name = "animpoint_sit_low_weapon", predicate: animpoint_predicate_weapon},
-  ],
-  walker_camp: [
-    { name: "play_guitar", predicate: animpoint_predicate_guitar },
-    { name: "play_harmonica", predicate: animpoint_predicate_harmonica },
-  ],
-} as any;
+  ]),
+  walker_camp: $fromArray<IAnimpointAction>([
+    { name: EStalkerState.PLAY_GUITAR, predicate: animpoint_predicate_guitar },
+    { name: EStalkerState.PLAY_HARMONICA, predicate: animpoint_predicate_harmonica },
+  ]),
+});

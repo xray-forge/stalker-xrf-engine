@@ -235,7 +235,7 @@ export class ActionSmartCoverActivity extends action_base {
   /**
    * todo: Description.
    */
-  public position_riched(): boolean {
+  public isPositionReached(): boolean {
     return this.object.in_smart_cover();
   }
 

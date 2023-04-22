@@ -1,4 +1,4 @@
-import { IAnimpointDescriptor } from "@/engine/core/schemes/animpoint/animpoint_predicates";
+import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
 import { IWaypointData } from "@/engine/core/utils/parse";
 import { LuaArray, Optional } from "@/engine/lib/types";
@@ -22,5 +22,5 @@ export interface ISchemeWalkerState extends IBaseSchemeState {
   path_look_info: Optional<LuaArray<IWaypointData>>;
   description: Optional<string>;
 
-  approved_actions: LuaArray<IAnimpointDescriptor>;
+  approvedActions: LuaArray<IAnimpointAction>;
 }

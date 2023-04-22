@@ -129,13 +129,13 @@ export function isAmmoSection(section: TSection): section is TAmmoItem {
 }
 
 /**
- * todo;
- * todo;
- * todo;
+ * @param object - object to check
+ * @param section - logic section to check
+ * @returns whether object logics active section is same as provided
  */
 export function isActiveSection(object: XR_game_object, section: Maybe<TSection>): boolean {
   if (!section) {
-    abort("Object %s '%s': section is null", object.name(), section);
+    abort("'isActiveSection' error for '%s', no section defined: '%s'.", object.name(), section);
   }
 
   return section === registry.objects.get(object.id()).active_section;

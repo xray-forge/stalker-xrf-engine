@@ -213,4 +213,13 @@ export const registry = {
     ["jup_a6_sr_no_assault"]: storyNames.jup_a6,
     ["jup_b41_sr_no_assault"]: storyNames.jup_b41,
   }),
+  /**
+   * List of terrains where weapons are not allowed.
+   */
+  noWeaponSmartTerrains: $fromArray<TStoryName>([
+    storyNames.zat_stalker_base_smart,
+    storyNames.jup_b41,
+    storyNames.jup_a6,
+    storyNames.pri_a16,
+  ]),
 };

@@ -1274,7 +1274,7 @@ export function animpoint_reached(actor: XR_game_object, npc: XR_game_object): b
     return false;
   }
 
-  return animpointState.animpoint.position_riched();
+  return animpointState.animpoint.isPositionReached();
 }
 
 /**

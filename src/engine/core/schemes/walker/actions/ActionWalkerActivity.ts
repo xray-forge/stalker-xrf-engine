@@ -3,7 +3,8 @@ import { action_base, LuabindClass, XR_game_object } from "xray16";
 import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { associations, IAnimpointDescriptor } from "@/engine/core/schemes/animpoint/animpoint_predicates";
+import { associations } from "@/engine/core/schemes/animpoint/animpoint_predicates";
+import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -26,7 +27,7 @@ const assoc_tbl = {
 export class ActionWalkerActivity extends action_base {
   public readonly state: ISchemeWalkerState;
   public readonly moveManager: StalkerMoveManager;
-  public avail_actions: LuaTable<number, IAnimpointDescriptor>;
+  public avail_actions: LuaTable<number, IAnimpointAction>;
 
   public in_camp: Optional<boolean> = null;
   public camp: Optional<CampStoryManager> = null;
@@ -42,11 +43,11 @@ export class ActionWalkerActivity extends action_base {
 
     this.state.description = "walker_camp";
     this.avail_actions = associations.get(this.state.description);
-    this.state.approved_actions = new LuaTable();
+    this.state.approvedActions = new LuaTable();
 
     for (const [k, v] of this.avail_actions) {
       if (v.predicate(object.id()) === true) {
-        table.insert(this.state.approved_actions, v);
+        table.insert(this.state.approvedActions, v);
       }
     }
   }
@@ -158,7 +159,7 @@ export class ActionWalkerActivity extends action_base {
   /**
    * todo: Description.
    */
-  public position_riched(): boolean {
+  public isPositionReached(): boolean {
     return this.moveManager.arrived_to_first_waypoint();
   }
 

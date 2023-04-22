@@ -7,7 +7,8 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action with animation scenario logics.
+ * Usually performed on place.
  */
 @LuabindClass()
 export class ActionAnimpoint extends action_base {
@@ -19,7 +20,7 @@ export class ActionAnimpoint extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Start animation on init.
    */
   public override initialize(): void {
     super.initialize();
@@ -27,7 +28,7 @@ export class ActionAnimpoint extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Stop animation on finalize.
    */
   public override finalize(): void {
     this.state.animpoint.stop();
@@ -35,31 +36,31 @@ export class ActionAnimpoint extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Stop animation on net destroy.
    */
   public net_destroy(): void {
     this.state.animpoint.stop();
   }
 
   /**
-   * todo: Description.
+   * On animation execution start, perform animations scenario.
    */
   public override execute(): void {
     super.execute();
 
-    const [pos, dir] = this.state.animpoint.getAnimationParameters();
-
-    if (!this.state.animpoint.started) {
+    if (!this.state.animpoint.isStarted) {
       this.state.animpoint.start();
     }
 
+    const [position, direction] = this.state.animpoint.getAnimationParameters();
+
     setStalkerState(
       this.object,
-      this.state.animpoint.get_action()!,
+      this.state.animpoint.getCurrentAction()!,
       null,
       null,
       { look_position: this.state.animpoint.look_position, look_object: null },
-      { animation_position: pos, animation_direction: dir }
+      { animation_position: position, animation_direction: direction }
     );
   }
 }

@@ -16,14 +16,15 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Logical scheme for stalkers to implement animation.
+ * As example - sitting, standing near table etc.
  */
 export class SchemeAnimpoint extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.ANIMPOINT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
-   * todo: Description.
+   * Activate animation scheme.
    */
   public static override activate(
     object: XR_game_object,
@@ -54,8 +55,9 @@ export class SchemeAnimpoint extends AbstractScheme {
 
     state.avail_animations = rawAvailableAnimations === null ? null : parseStringsList(rawAvailableAnimations);
   }
+
   /**
-   * todo: Description.
+   * Add animation state to object state.
    */
   public static override add(
     object: XR_game_object,

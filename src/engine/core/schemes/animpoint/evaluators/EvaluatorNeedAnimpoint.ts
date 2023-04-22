@@ -7,22 +7,19 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check whether object is performing animation.
  */
 @LuabindClass()
 export class EvaluatorNeedAnimpoint extends property_evaluator {
   public readonly state: ISchemeAnimpointState;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeAnimpointState) {
     super(null, EvaluatorNeedAnimpoint.__name);
     this.state = state;
   }
 
   /**
-   * todo: Description.
+   * @returns whether object is performing animation now
    */
   public override evaluate(): boolean {
     return isActiveSection(this.object, this.state.section);

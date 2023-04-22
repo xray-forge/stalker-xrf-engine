@@ -7,30 +7,28 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action with animation scenario logics.
+ * Usually performed with movement to some position.
  */
 @LuabindClass()
 export class ActionReachAnimpoint extends action_base {
   public readonly state: ISchemeAnimpointState;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeAnimpointState) {
     super(null, ActionReachAnimpoint.__name);
     this.state = state;
   }
 
   /**
-   * todo: Description.
+   * Recalculate position on initialization.
    */
   public override initialize(): void {
     super.initialize();
-    this.state.animpoint!.calculate_position();
+    this.state.animpoint!.calculatePosition();
   }
 
   /**
-   * todo: Description.
+   * Update state on reach target animation.
    */
   public override execute(): void {
     super.execute();
@@ -39,16 +37,16 @@ export class ActionReachAnimpoint extends action_base {
     this.object.set_desired_direction(this.state.animpoint!.smart_direction!);
     this.object.set_path_type(game_object.level_path);
 
-    const distance_reached: boolean =
+    const isDistanceReached: boolean =
       this.object.position().distance_to_sqr(this.state.animpoint!.vertex_position!) <= this.state.reach_distance;
 
-    if (distance_reached) {
+    if (isDistanceReached) {
       setStalkerState(this.object, this.state.reach_movement, null, null, {
         look_position: this.state.animpoint!.look_position,
         look_object: null,
       });
     } else {
-      setStalkerState(this.object, this.state.reach_movement, null, null, null, null);
+      setStalkerState(this.object, this.state.reach_movement);
     }
   }
 }

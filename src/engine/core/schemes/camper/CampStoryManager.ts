@@ -4,7 +4,8 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
 import { ESchemeEvent } from "@/engine/core/schemes";
-import { IAnimpointAction, ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
+import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
+import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
@@ -406,7 +407,7 @@ export class CampStoryManager {
       return EObjectRole.noone;
     }
 
-    const objectActions: LuaArray<IAnimpointAction> = schemeState.approved_actions;
+    const objectActions: LuaArray<IAnimpointAction> = schemeState.approvedActions;
     let description: Optional<TName> = schemeState.description;
 
     if (state === "harmonica" || state === "guitar") {
