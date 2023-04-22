@@ -1,4 +1,4 @@
-export * from "@/engine/core/objects/server/items";
+export * from "core/objects/server/item";
 export * from "@/engine/core/objects/server/zones";
 export * from "@/engine/core/objects/server/squad";
 export * from "@/engine/core/objects/server/smart_terrain";
