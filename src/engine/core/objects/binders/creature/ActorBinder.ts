@@ -30,7 +30,7 @@ import { updateSimulationObjectAvailability } from "@/engine/core/database/simul
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { EGameEvent } from "@/engine/core/managers/events/types";
-import { Actor } from "@/engine/core/objects/server/Actor";
+import { Actor } from "@/engine/core/objects/server/creature/Actor";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos/SchemeDeimos";
 import { SchemeNoWeapon } from "@/engine/core/schemes/sr_no_weapon";

@@ -2,7 +2,7 @@ import { alife, level, XR_game_object, XR_ini_file } from "xray16";
 
 import { DEATH_GENERIC_LTX, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
-import { Stalker } from "@/engine/core/objects/server/Stalker";
+import { Stalker } from "@/engine/core/objects/server/creature/Stalker";
 import { abort } from "@/engine/core/utils/assertion";
 import { isExcludedFromLootDropItem } from "@/engine/core/utils/check/check";
 import { isAmmoItem, isArtefact, isGrenade, isLootableItem, isWeapon } from "@/engine/core/utils/check/is";

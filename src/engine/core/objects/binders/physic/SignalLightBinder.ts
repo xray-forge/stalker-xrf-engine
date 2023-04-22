@@ -25,7 +25,8 @@ import { Optional, TDuration, TTimestamp } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Signal light object.
+ * Shown in the sky when surge happens and safe stalker bases are signaling about secure point.
  */
 @LuabindClass()
 export class SignalLightBinder extends object_binder {

@@ -2,7 +2,7 @@ import { device, level, time_global, XR_game_object, XR_vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { ActorBinder } from "@/engine/core/objects/binders/ActorBinder";
+import { ActorBinder } from "@/engine/core/objects/binders/creature/ActorBinder";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos/ISchemeDeimosState";

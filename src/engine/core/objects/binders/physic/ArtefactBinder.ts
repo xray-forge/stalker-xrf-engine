@@ -10,7 +10,7 @@ import {
 } from "xray16";
 
 import { registerObject, registry, unregisterObject } from "@/engine/core/database";
-import { AnomalyZoneBinder } from "@/engine/core/objects/binders/AnomalyZoneBinder";
+import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TDuration } from "@/engine/lib/types";
 
