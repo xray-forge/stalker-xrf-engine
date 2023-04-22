@@ -77,7 +77,6 @@ import {
   setSquadGoodwill,
   setSquadGoodwillToNpc,
 } from "@/engine/core/utils/relation";
-import { findSmartTerrainJobForObject } from "@/engine/core/utils/smart_terrain_camping";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { TCaption } from "@/engine/lib/constants/captions/captions";
 import { TCommunity } from "@/engine/lib/constants/communities";
