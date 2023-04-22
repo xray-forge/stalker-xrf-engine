@@ -56,7 +56,8 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
 import { parseConditionsList, parseStringsList, TConditionList } from "@/engine/core/utils/parse";
 import {
-  getSquadIdRelationToActor,
+  getSquadMembersRelationToActor,
+  getSquadRelationToActor,
   isFactionsEnemies,
   setObjectsRelation,
   setObjectSympathy,
@@ -938,7 +939,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       if (isSquadMonsterCommunity(this.faction)) {
         spot = mapMarks.alife_presentation_squad_monster_debug;
       } else {
-        const relation: TRelation = getSquadIdRelationToActor(this);
+        const relation: ERelation = getSquadRelationToActor(this);
 
         switch (relation) {
           case ERelation.FRIEND:
@@ -958,7 +959,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
        * Do not display for offline objects.
        */
       if (this.online && !isSquadMonsterCommunity(this.faction)) {
-        const relation: TRelation = getSquadIdRelationToActor(this);
+        const relation: Optional<ERelation> = getSquadMembersRelationToActor(this);
 
         switch (relation) {
           case ERelation.FRIEND:
@@ -976,7 +977,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       const hint: TLabel = this.getMapDisplayHint();
 
       if (spot === this.currentMapSpotSection) {
-        return level.map_change_spot_hint(this.currentMapSpotId, this.currentMapSpotSection, hint);
+        return level.map_change_spot_hint(this.currentMapSpotId, spot, hint);
       }
 
       if (this.currentMapSpotSection === null) {

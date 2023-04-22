@@ -235,7 +235,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       this.initializeObjectsAfterLoad();
     }
 
-    this.register_delayed_npc();
+    this.registerDelayedObjects();
     this.nextCheckAt = time_global();
   }
 
@@ -692,9 +692,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * todo: Description.
+   * Register all objects that were registered before smart terrains.
    */
-  public register_delayed_npc(): void {
+  public registerDelayedObjects(): void {
     logger.info("Registering delayed NPCs:", this.name(), this.objectsToRegister.length);
 
     for (const [k, v] of this.objectsToRegister) {

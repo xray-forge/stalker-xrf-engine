@@ -13,7 +13,7 @@ import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { EGoodwill, relations, TRelation } from "@/engine/lib/constants/relations";
+import { EGoodwill, ERelation, relations, TRelation } from "@/engine/lib/constants/relations";
 import { Optional, TCount, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -122,12 +122,12 @@ export function getSquadGoodwillToActorById(squadId: TNumberId): TRelation {
  * Returns relation to actor based on average of squad members.
  * If no squad members present, check relation of faction.
  */
-export function getSquadIdRelationToActor(squad: Squad): TRelation {
+export function getSquadRelationToActor(squad: Squad): ERelation {
   const actor: Optional<XR_game_object> = registry.actor;
 
   // Actor may be registered after other alife objects.
   if (actor === null) {
-    return relations.neutral;
+    return ERelation.NEUTRAL;
   }
 
   let squadTotalGoodwill: TCount = 0;
@@ -148,11 +148,49 @@ export function getSquadIdRelationToActor(squad: Squad): TRelation {
       : relation_registry.community_relation(squad.getCommunity(), communities.actor);
 
   if (averageRelation >= EGoodwill.FRIENDS) {
-    return relations.friend;
+    return ERelation.FRIEND;
   } else if (averageRelation > EGoodwill.ENEMIES) {
-    return relations.neutral;
+    return ERelation.NEUTRAL;
   } else {
-    return relations.enemy;
+    return ERelation.ENEMY;
+  }
+}
+
+/**
+ * @returns average relation of squad members to actor, `null` if squad is empty
+ */
+export function getSquadMembersRelationToActor(squad: Squad): Optional<ERelation> {
+  const actor: Optional<XR_game_object> = registry.actor;
+
+  // Actor may be registered after other alife objects.
+  if (actor === null) {
+    return ERelation.NEUTRAL;
+  }
+
+  let squadTotalGoodwill: TCount = 0;
+  let squadMembersCount: TCount = 0;
+
+  for (const squadMember of squad.squad_members()) {
+    const object: Optional<XR_game_object> = registry.objects.get(squadMember.id)?.object as Optional<XR_game_object>;
+
+    if (object) {
+      squadTotalGoodwill += object.general_goodwill(actor);
+      squadMembersCount += 1;
+    }
+  }
+
+  if (squadMembersCount <= 0) {
+    return null;
+  }
+
+  const averageRelation: TCount = squadTotalGoodwill / squadMembersCount;
+
+  if (averageRelation >= EGoodwill.FRIENDS) {
+    return ERelation.FRIEND;
+  } else if (averageRelation > EGoodwill.ENEMIES) {
+    return ERelation.NEUTRAL;
+  } else {
+    return ERelation.ENEMY;
   }
 }
 
