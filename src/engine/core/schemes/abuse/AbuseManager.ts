@@ -1,88 +1,96 @@
-import { time_global, XR_game_object } from "xray16";
+import { time_global } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeAbuseState } from "@/engine/core/schemes/abuse/ISchemeAbuseState";
 import { Optional, TCount, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Abuse manager to handle state for an object.
  */
 export class AbuseManager extends AbstractSchemeManager<ISchemeAbuseState> {
-  public enable: boolean = true;
-  public hit_done: boolean = false;
-  public abuse_rate: TRate = 2;
-  public abuse_value: TCount = 0;
-  public abuse_threshold: TRate = 5;
-  public last_update: Optional<TTimestamp> = null;
+  public isEnabled: boolean = true;
+  public isHitDone: boolean = false;
+
+  public abuseRate: TRate = 2;
+  public abuseValue: TCount = 0;
+  public abuseThreshold: TRate = 5;
+
+  public lastUpdatedAt: Optional<TTimestamp> = null;
 
   /**
-   * todo: Description.
-   */
-  public setAbuseRate(rate: TRate): void {
-    this.abuse_rate = rate;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public isAbused(): boolean {
-    return this.abuse_value >= this.abuse_threshold;
-  }
-
-  /**
-   * todo: Description.
+   * @returns whether target is abused
    */
   public override update(): boolean {
-    if (this.last_update === null) {
-      this.last_update = time_global();
+    if (!this.isEnabled) {
+      return false;
     }
 
-    if (this.abuse_value > 0) {
-      this.abuse_value = this.abuse_value - (time_global() - this.last_update) * 0.00005;
+    const now: TTimestamp = time_global();
+
+    if (this.lastUpdatedAt === null) {
+      this.lastUpdatedAt = now;
+    }
+
+    if (this.abuseValue > 0) {
+      this.abuseValue = this.abuseValue - (now - this.lastUpdatedAt) * 0.00005;
     } else {
-      this.abuse_value = 0;
+      this.abuseValue = 0;
     }
 
-    if (this.abuse_value > this.abuse_threshold * 1.1) {
-      this.abuse_value = this.abuse_threshold * 1.1;
+    if (this.abuseValue > this.abuseThreshold * 1.1) {
+      this.abuseValue = this.abuseThreshold * 1.1;
     }
 
-    if (this.hit_done && this.abuse_value < (this.abuse_threshold * 2) / 3) {
-      this.hit_done = false;
+    if (this.isHitDone && this.abuseValue < (this.abuseThreshold * 2) / 3) {
+      this.isHitDone = false;
     }
 
-    this.last_update = time_global();
+    this.lastUpdatedAt = now;
 
     return this.isAbused();
   }
 
   /**
-   * todo: Description.
+   * Change abuse rate for an object.
+   */
+  public setAbuseRate(rate: TRate): void {
+    this.abuseRate = rate;
+  }
+
+  /**
+   * @returns whether object is abused
+   */
+  public isAbused(): boolean {
+    return this.abuseValue >= this.abuseThreshold;
+  }
+
+  /**
+   * Increment abuse count.
    */
   public addAbuse(value: TCount): void {
-    if (this.enable) {
-      this.abuse_value = this.abuse_value + value * this.abuse_rate;
+    if (this.isEnabled) {
+      this.abuseValue = this.abuseValue + value * this.abuseRate;
     }
   }
 
   /**
-   * todo: Description.
+   * Clear object abuse state.
    */
   public clearAbuse(): void {
-    this.abuse_value = 0;
+    this.abuseValue = 0;
   }
 
   /**
-   * todo: Description.
+   * Disable abuse possibility.
    */
   public disableAbuse(): void {
-    this.enable = false;
+    this.isEnabled = false;
   }
 
   /**
-   * todo: Description.
+   * Enable abuse possibility.
    */
   public enableAbuse(): void {
-    this.enable = true;
+    this.isEnabled = true;
   }
 }

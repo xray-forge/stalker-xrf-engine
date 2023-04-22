@@ -5,22 +5,19 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { ISchemeAbuseState } from "@/engine/core/schemes/abuse/ISchemeAbuseState";
 
 /**
- * todo
+ * React to object abuse.
  */
 @LuabindClass()
 export class ActionAbuseHit extends action_base {
   public readonly state: ISchemeAbuseState;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeAbuseState) {
     super(null, ActionAbuseHit.__name);
     this.state = state;
   }
 
   /**
-   * todo: Description.
+   * Perform directional hit if object is abused.
    */
   public override initialize(): void {
     super.initialize();
@@ -36,12 +33,5 @@ export class ActionAbuseHit extends action_base {
       { look_object: registry.actor, look_position: null },
       { animation: true }
     );
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override execute(): void {
-    super.execute();
   }
 }

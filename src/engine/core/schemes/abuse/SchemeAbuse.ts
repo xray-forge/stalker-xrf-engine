@@ -12,20 +12,22 @@ import { EScheme, ESchemeType, Optional, TCount, TSection } from "@/engine/lib/t
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Generic scheme to measure abuse when clicking stalkers for many times.
+ * On abuse, hit abuser.
  */
 export class SchemeAbuse extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.ABUSE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
-   * todo: Description.
+   * Activate abuse scheme.
    */
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     AbstractScheme.assign(object, ini, scheme, section);
   }
+
   /**
-   * todo: Description.
+   * Add scheme to object state.
    */
   public static override add(
     object: XR_game_object,
@@ -54,7 +56,7 @@ export class SchemeAbuse extends AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Reset scheme for an object.
    */
   public static override reset(
     object: XR_game_object,
@@ -64,7 +66,7 @@ export class SchemeAbuse extends AbstractScheme {
   ): void {}
 
   /**
-   * todo: Description.
+   * Increment abuse for object.
    */
   public static addAbuse(object: XR_game_object, value: TCount): void {
     const abuseState: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
@@ -75,7 +77,7 @@ export class SchemeAbuse extends AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Clear abuse state for object.
    */
   public static clearAbuse(object: XR_game_object): void {
     const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
@@ -86,7 +88,7 @@ export class SchemeAbuse extends AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Disable abuse for object.
    */
   public static disableAbuse(object: XR_game_object): void {
     const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
@@ -97,7 +99,7 @@ export class SchemeAbuse extends AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Enable abuse for object.
    */
   public static enableAbuse(object: XR_game_object): void {
     const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
@@ -105,18 +107,5 @@ export class SchemeAbuse extends AbstractScheme {
     ] as ISchemeAbuseState;
 
     state?.abuseManager.enableAbuse();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static isAbuse(object: XR_game_object): boolean {
-    const state = registry.objects.get(object.id())[SchemeAbuse.SCHEME_SECTION] as ISchemeAbuseState;
-
-    if (state === null) {
-      return false;
-    }
-
-    return state.abuseManager.enable;
   }
 }
