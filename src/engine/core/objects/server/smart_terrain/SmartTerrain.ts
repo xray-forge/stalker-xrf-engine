@@ -42,14 +42,19 @@ import {
   updateSimulationObjectAvailability,
 } from "@/engine/core/database/simulation";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import {
+  areOnlyMonstersOnJobs,
+  jobIterator,
+  loadGulagJobs,
+} from "@/engine/core/objects/server/smart_terrain/jobs_general";
 import { SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain/SmartTerrainControl";
 import {
   ESmartTerrainStatus,
   IObjectJobDescriptor,
   ISmartTerrainJob,
+  TJobDescriptor,
 } from "@/engine/core/objects/server/smart_terrain/types";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/server/squad/action";
-import { loadGulagJobs } from "@/engine/core/objects/server/squad/jobs_general";
 import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import {
@@ -84,13 +89,12 @@ import { toJSON } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TCaption } from "@/engine/lib/constants/captions/captions";
-import { MAX_U16, MAX_U8 } from "@/engine/lib/constants/memory";
+import { MAX_U8 } from "@/engine/lib/constants/memory";
 import { relations, TRelation } from "@/engine/lib/constants/relations";
 import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
-  AnyCallable,
   AnyObject,
   ESchemeType,
   LuaArray,
@@ -185,7 +189,13 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
   public smartTerrainAlifeTask!: XR_CALifeSmartTerrainTask;
 
-  public jobs!: LuaTable;
+  /**
+   * Tree-like representation of available smart terrain jobs.
+   */
+  public jobs!: LuaArray<TJobDescriptor>;
+  /**
+   * Flat representation of available smart terrain jobs.
+   */
   public jobsData: LuaArray<ISmartTerrainJob> = new LuaTable();
   public jobDeadTimeById: LuaTable<TNumberId, XR_CTime> = new LuaTable(); // job id -> time
 
@@ -216,7 +226,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     this.smartTerrainAlifeTask = new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
     this.isRegistered = true;
 
-    this.load_jobs();
+    this.loadJobs();
 
     this.simulationBoardManager.initializeSmartTerrain(this);
 
@@ -509,9 +519,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       return;
     }
 
-    if (areOnlyMonstersOnJobs(this.objectJobDescriptors) && this.areCampfiresOn) {
+    if (this.areCampfiresOn && areOnlyMonstersOnJobs(this.objectJobDescriptors)) {
       this.turnOffCampfires();
-    } else if (!areOnlyMonstersOnJobs(this.objectJobDescriptors) && !this.areCampfiresOn) {
+    } else if (!this.areCampfiresOn && !areOnlyMonstersOnJobs(this.objectJobDescriptors)) {
       this.turnOnCampfires();
     }
 
@@ -723,7 +733,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public load_jobs(): void {
+  public loadJobs(): void {
     logger.info("Load jobs:", this.name());
 
     const [jobs, ltxContent] = loadGulagJobs(this);
@@ -733,33 +743,33 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     this.ltxConfig = ltx;
     this.ltxConfigName = ltx_name;
 
-    const sort_jobs = (jobs: LuaTable) => {
-      for (const [k, v] of jobs) {
-        if (v.jobs !== null) {
-          sort_jobs(v.jobs);
+    const sortJobs = (jobs: LuaArray<TJobDescriptor>) => {
+      for (const [index, descriptor] of jobs) {
+        if ("jobs" in descriptor) {
+          sortJobs(descriptor.jobs);
         }
       }
 
-      table.sort(jobs as any, (a: any, b: any) => a._prior > b._prior);
+      table.sort(jobs as any, (a: any, b: any) => a.priority > b.priority);
     };
 
-    sort_jobs(this.jobs);
+    sortJobs(this.jobs);
 
     let id = 0;
 
     this.jobsData = new LuaTable();
 
-    const get_jobs_data = (jobs: LuaTable) => {
+    const initializeJobsData = (jobs: LuaTable<any, any>) => {
       for (const [k, v] of jobs) {
         if (v.jobs !== null) {
-          get_jobs_data(v.jobs);
+          initializeJobsData(v.jobs);
         } else {
           if (v.job_id === null) {
             abort("Incorrect job table");
           }
 
           this.jobsData.set(id, v.job_id);
-          this.jobsData.get(id)._prior = v._prior;
+          this.jobsData.get(id).priority = v.priority;
 
           v.job_id = id;
           id = id + 1;
@@ -767,7 +777,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       }
     };
 
-    get_jobs_data(this.jobs);
+    initializeJobsData(this.jobs);
 
     for (const [index, job] of this.jobsData) {
       const section = job.section;
@@ -853,7 +863,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public selectObjectJob(objectJobDescriptor: IObjectJobDescriptor): void {
-    const [selectedJobId, selectedJobPriority, selectedJobLink] = job_iterator(this.jobs, objectJobDescriptor, 0, this);
+    const [selectedJobId, selectedJobPriority, selectedJobLink] = jobIterator(this, this.jobs, objectJobDescriptor, 0);
 
     assertDefined(
       selectedJobId,
@@ -873,7 +883,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       this.objectByJobSection.set(this.jobsData.get(selectedJobLink.job_id).section, selectedJobLink.npc_id);
 
       objectJobDescriptor.job_id = selectedJobLink.job_id;
-      objectJobDescriptor.job_prior = selectedJobLink._prior;
+      objectJobDescriptor.job_prior = selectedJobLink.priority;
       objectJobDescriptor.begin_job = false;
       objectJobDescriptor.job_link = selectedJobLink;
 
@@ -986,7 +996,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     this.objectByJobSection.set(this.jobsData.get(selectedJobLink.job_id).section, selectedJobLink.npc_id);
 
     objectInfo.job_id = selectedJobLink.job_id;
-    objectInfo.job_prior = selectedJobLink._prior;
+    objectInfo.job_prior = selectedJobLink.priority;
     objectInfo.begin_job = true;
 
     objectInfo.job_link = selectedJobLink;
@@ -1013,7 +1023,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public initializeObjectsAfterLoad(): void {
     logger.info("Initialize objects after load:", this.name());
 
-    const findNewJob = (jobs: LuaTable, objectJobDescriptor: IObjectJobDescriptor) => {
+    const findNewJob = (jobs: LuaTable<any, any>, objectJobDescriptor: IObjectJobDescriptor) => {
       for (const [, job] of jobs) {
         if (job.jobs !== null) {
           findNewJob(job.jobs, objectJobDescriptor);
@@ -1564,125 +1574,4 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public getAlifeSmartTerrainTask(): XR_CALifeSmartTerrainTask {
     return this.smartTerrainAlifeTask;
   }
-}
-
-/**
- * todo;
- */
-export function setupSmartJobsAndLogicOnSpawn(
-  object: XR_game_object,
-  state: IRegistryObjectState,
-  serverObject: Optional<XR_cse_alife_creature_abstract>,
-  schemeType: ESchemeType,
-  isLoaded: boolean
-): void {
-  logger.info("Setup smart terrain logic on spawn:", object.name(), schemeType);
-
-  const alifeSimulator: Optional<XR_alife_simulator> = alife();
-
-  // todo: Why?
-  serverObject = alife()!.object<XR_cse_alife_creature_abstract>(object.id());
-
-  if (alifeSimulator !== null && serverObject !== null) {
-    const smartTerrainId: TNumberId = serverObject.m_smart_terrain_id;
-
-    if (smartTerrainId !== null && smartTerrainId !== MAX_U16) {
-      const smartTerrain: SmartTerrain = alifeSimulator.object(smartTerrainId) as SmartTerrain;
-      const need_setup_logic =
-        !isLoaded &&
-        smartTerrain.objectJobDescriptors.get(object.id()) &&
-        smartTerrain.objectJobDescriptors.get(object.id()).begin_job === true;
-
-      if (need_setup_logic) {
-        smartTerrain.setupObjectLogic(object);
-      } else {
-        initializeObjectSchemeLogic(object, state, isLoaded, registry.actor, schemeType);
-      }
-    } else {
-      initializeObjectSchemeLogic(object, state, isLoaded, registry.actor, schemeType);
-    }
-  } else {
-    initializeObjectSchemeLogic(object, state, isLoaded, registry.actor, schemeType);
-  }
-}
-
-/**
- * todo;
- * todo: gulag general update
- */
-function isJobAvailableToObject(objectInfo: IObjectJobDescriptor, jobInfo: any, smartTerrain: SmartTerrain): boolean {
-  if (smartTerrain.jobDeadTimeById.get(jobInfo.job_id) !== null) {
-    return false;
-  }
-
-  if (jobInfo._precondition_is_monster !== null && jobInfo._precondition_is_monster !== objectInfo.isMonster) {
-    return false;
-  }
-
-  if (jobInfo._precondition_function !== null) {
-    if (
-      !(jobInfo._precondition_function as AnyCallable)(
-        objectInfo.se_obj,
-        smartTerrain,
-        jobInfo._precondition_params,
-        objectInfo
-      )
-    ) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-/**
- * todo;
- */
-function job_iterator(
-  jobs: LuaTable,
-  objectJobDescriptor: IObjectJobDescriptor,
-  selectedJobPriority: TRate,
-  smartTerrain: SmartTerrain
-): LuaMultiReturn<[Optional<TNumberId>, TRate, Optional<any>]> {
-  let selectedJobId: Optional<TNumberId> = null;
-  let currentJobPriority: TRate = selectedJobPriority;
-  let selected_job_link = null;
-
-  for (const [k, jobInfo] of jobs) {
-    if (currentJobPriority > jobInfo._prior) {
-      return $multi(selectedJobId, currentJobPriority, selected_job_link);
-    }
-
-    if (isJobAvailableToObject(objectJobDescriptor, jobInfo, smartTerrain)) {
-      if (jobInfo.job_id === null) {
-        [selectedJobId, currentJobPriority, selected_job_link] = job_iterator(
-          jobInfo.jobs,
-          objectJobDescriptor,
-          selectedJobPriority,
-          smartTerrain
-        );
-      } else {
-        if (jobInfo.npc_id === null) {
-          return $multi(jobInfo.job_id, jobInfo._prior, jobInfo);
-        } else if (jobInfo.job_id === objectJobDescriptor.job_id) {
-          return $multi(jobInfo.job_id, jobInfo._prior, jobInfo);
-        }
-      }
-    }
-  }
-
-  return $multi(selectedJobId, currentJobPriority, selected_job_link);
-}
-
-/**
- * todo;
- */
-function areOnlyMonstersOnJobs(objectInfos: LuaArray<IObjectJobDescriptor>): boolean {
-  for (const [, objectInfo] of objectInfos) {
-    if (!objectInfo.isMonster) {
-      return false;
-    }
-  }
-
-  return true;
 }
