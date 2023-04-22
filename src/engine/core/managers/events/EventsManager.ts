@@ -15,6 +15,18 @@ type TEventSubscribersDescriptor = Record<EGameEvent, LuaTable<AnyCallable, { co
  * Manager to dispatch and subscribe to custom global events.
  */
 export class EventsManager extends AbstractCoreManager {
+  /**
+   * Emit event directly from class statics for simplicity.
+   *
+   * @param event - event type to emit
+   * @param data - event parameters
+   */
+  public static emitEvent<T>(event: EGameEvent, data: T): void;
+  public static emitEvent(event: EGameEvent, ...data: AnyArgs): void;
+  public static emitEvent(event: EGameEvent, ...data: AnyArgs): void {
+    return EventsManager.getInstance().emitEvent(event, ...data);
+  }
+
   // Initialize list of all enum handlers. Note TSTL map created instead for enum.
   public readonly callbacks: TEventSubscribersDescriptor = Object.values(EGameEvent).reduce((acc, it) => {
     if (type(it) === "number") {

@@ -9,17 +9,10 @@ import { isObjectInZone } from "@/engine/core/utils/check/check";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
 import { TRUE } from "@/engine/lib/constants/words";
 import { AnyObject, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-const smartTerrainsNamesByNoAssaultZones: LuaTable<TName, TStoryName> = $fromObject<TName, TStoryName>({
-  ["zat_a2_sr_no_assault"]: storyNames.zat_stalker_base_smart,
-  ["jup_a6_sr_no_assault"]: storyNames.jup_a6,
-  ["jup_b41_sr_no_assault"]: storyNames.jup_b41,
-});
 
 const ignoreSmartTerrains: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
   zat_stalker_base_smart: true,
@@ -56,7 +49,7 @@ export class ActionProcessEnemy {
     objectState.enemy_id = enemy.id();
 
     if (enemy.id() !== registry.actor.id()) {
-      for (const [k, v] of smartTerrainsNamesByNoAssaultZones) {
+      for (const [k, v] of registry.noCombatZones) {
         const zone = registry.zones.get(k);
 
         if (zone && (isObjectInZone(object, zone) || isObjectInZone(enemy, zone))) {

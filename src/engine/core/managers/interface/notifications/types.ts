@@ -1,7 +1,7 @@
 import { XR_CGameTask, XR_game_object } from "xray16";
 
-import { TNotificationIcon } from "@/engine/core/managers";
 import { ETaskState } from "@/engine/core/managers/interaction/tasks/types";
+import { TNotificationIcon } from "@/engine/core/managers/interface/notifications";
 import { TCaption } from "@/engine/lib/constants/captions";
 import {
   Optional,

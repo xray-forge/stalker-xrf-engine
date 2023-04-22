@@ -27,7 +27,7 @@ import { registerActor, unregisterActor } from "@/engine/core/database/actor";
 import { loadPortableStore, savePortableStore } from "@/engine/core/database/portable_store";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { updateSimulationObjectAvailability } from "@/engine/core/database/simulation";
-import { SaveManager } from "@/engine/core/managers";
+import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { EGameEvent } from "@/engine/core/managers/events/types";
 import { Actor } from "@/engine/core/objects/server/Actor";

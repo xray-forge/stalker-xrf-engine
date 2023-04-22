@@ -1,7 +1,8 @@
 import { beforeAll, beforeEach, describe, expect, it } from "@jest/globals";
 
 import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
-import { EventsManager, TaskManager } from "@/engine/core/managers";
+import { EventsManager } from "@/engine/core/managers";
+import { TaskManager } from "@/engine/core/managers/interaction/tasks/TaskManager";
 import { NIL } from "@/engine/lib/constants/words";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { mockClientGameObject } from "@/fixtures/xray";

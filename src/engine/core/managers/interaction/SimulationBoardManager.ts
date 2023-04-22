@@ -465,14 +465,14 @@ export class SimulationBoardManager extends AbstractCoreManager {
   }
 
   /**
-   * todo: Description.
+   * Save simulation data.
    */
   public override save(packet: XR_net_packet): void {
     packet.w_bool(this.areDefaultSimulationSquadsSpawned);
   }
 
   /**
-   * todo: Description.
+   * Load simulation data.
    */
   public override load(reader: TXR_net_processor): void {
     this.areDefaultSimulationSquadsSpawned = reader.r_bool();

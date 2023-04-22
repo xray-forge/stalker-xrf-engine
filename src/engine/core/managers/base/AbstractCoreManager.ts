@@ -52,14 +52,18 @@ export abstract class AbstractCoreManager {
   }
 
   /**
-   * todo: Description.
+   * Generic base method for saving.
+   *
+   * @param packet - net packet to write data
    */
   public save(packet: XR_net_packet): void {
     abort("Save method is not implemented.");
   }
 
   /**
-   * todo: Description.
+   * Generic base method for loading.
+   *
+   * @param reader - net processor to read data from
    */
   public load(reader: TXR_net_processor): void {
     abort("Load method is not implemented.");

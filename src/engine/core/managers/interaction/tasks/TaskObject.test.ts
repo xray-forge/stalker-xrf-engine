@@ -2,7 +2,9 @@ import { beforeAll, describe, expect, it } from "@jest/globals";
 import { CTime } from "xray16";
 
 import { disposeManager, registerActor, registry, TASK_MANAGER_LTX } from "@/engine/core/database";
-import { ETaskStatus, TaskManager, TaskObject } from "@/engine/core/managers";
+import { TaskManager } from "@/engine/core/managers/interaction/tasks/TaskManager";
+import { TaskObject } from "@/engine/core/managers/interaction/tasks/TaskObject";
+import { ETaskStatus } from "@/engine/core/managers/interaction/tasks/types";
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";

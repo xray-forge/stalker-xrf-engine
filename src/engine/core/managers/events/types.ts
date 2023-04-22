@@ -98,4 +98,8 @@ export enum EGameEvent {
    * Main menu turned off.
    */
   MAIN_MENU_OFF,
+  /**
+   * Stalker death.
+   */
+  STALKER_DEATH,
 }

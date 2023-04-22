@@ -24,6 +24,7 @@ import type { PatrolManager } from "@/engine/core/schemes/patrol";
 import type { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task";
 import type { LightManager } from "@/engine/core/schemes/sr_light";
 import type { TRelation } from "@/engine/lib/constants/relations";
+import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
 import type { EScheme, Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
@@ -202,4 +203,14 @@ export const registry = {
     themes: new LuaTable<TName, AbstractPlayableSound>(),
     managers: new LuaTable<TStringId, SoundManager>(),
   },
+  /**
+   * Map of no assault zones.
+   * - key is name of no assault zone
+   * - value is story name of smart terrain
+   */
+  noCombatZones: $fromObject<TName, TStoryName>({
+    ["zat_a2_sr_no_assault"]: storyNames.zat_stalker_base_smart,
+    ["jup_a6_sr_no_assault"]: storyNames.jup_a6,
+    ["jup_b41_sr_no_assault"]: storyNames.jup_b41,
+  }),
 };

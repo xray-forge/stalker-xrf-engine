@@ -4,9 +4,8 @@ import type { Actor } from "@/engine/core/objects";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import type { TConditionList } from "@/engine/core/utils/parse";
-import { TCommunity } from "@/engine/lib/constants/communities";
-import type { AnyObject, TName, TNumberId } from "@/engine/lib/types";
-import { Optional, PartialRecord } from "@/engine/lib/types";
+import type { TCommunity } from "@/engine/lib/constants/communities";
+import type { AnyObject, Optional, PartialRecord, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Simulation interaction object generic.

@@ -71,18 +71,11 @@ import { mapMarks } from "@/engine/lib/constants/map_marks";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ERelation, TRelation } from "@/engine/lib/constants/relations";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
-import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { AnyObject, LuaArray, Optional, StringOptional, TCount, TLabel, TName, TNumberId } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-const smartsByNoAssaultZones: LuaTable<TName, TStoryName> = $fromObject<TName, TStoryName>({
-  ["zat_a2_sr_no_assault"]: storyNames.zat_stalker_base_smart,
-  ["jup_a6_sr_no_assault"]: storyNames.jup_a6,
-  ["jup_b41_sr_no_assault"]: storyNames.jup_b41,
-});
 
 /**
  * todo;
@@ -1155,7 +1148,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       return false;
     }
 
-    for (const [zoneName, smartTerrainName] of smartsByNoAssaultZones) {
+    for (const [zoneName, smartTerrainName] of registry.noCombatZones) {
       const zone: XR_game_object = registry.zones.get(zoneName);
 
       if (zone && zone.inside(this.position)) {

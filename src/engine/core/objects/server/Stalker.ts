@@ -15,6 +15,7 @@ import {
   registry,
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { Squad } from "@/engine/core/objects";
 import { SmartTerrain } from "@/engine/core/objects/server/smart";
@@ -65,7 +66,7 @@ export class Stalker extends cse_alife_human_stalker {
       packet.w_stringZ(tostring(registry.offlineObjects.get(this.id).level_vertex_id !== null));
     }
 
-    packet.w_stringZ(tostring(registry.offlineObjects.get(this.id).active_section !== null));
+    packet.w_stringZ(tostring(registry.offlineObjects.get(this.id).active_section));
     packet.w_bool(this.isCorpseLootDropped);
   }
 
@@ -111,10 +112,10 @@ export class Stalker extends cse_alife_human_stalker {
     const smartTerrainId: TNumberId = this.smart_terrain_id();
 
     if (smartTerrainId !== MAX_U16) {
-      const smart: Optional<SmartTerrain> = alife().object(smartTerrainId);
+      const smartTerrain: Optional<SmartTerrain> = alife().object(smartTerrainId);
 
-      if (smart !== null) {
-        smart.unregister_npc(this);
+      if (smartTerrain !== null) {
+        smartTerrain.unregister_npc(this);
       }
     }
 
@@ -122,11 +123,6 @@ export class Stalker extends cse_alife_human_stalker {
     unregisterStoryLinkByObjectId(this.id);
 
     super.on_unregister();
-  }
-
-  public override on_spawn(): void {
-    super.on_spawn();
-    logger.info("Spawn:", this.name());
   }
 
   public override on_death(killer: XR_cse_alife_creature_abstract): void {
@@ -143,5 +139,7 @@ export class Stalker extends cse_alife_human_stalker {
 
       squad.onSquadObjectDeath(this);
     }
+
+    EventsManager.emitEvent(EGameEvent.STALKER_DEATH, this, killer);
   }
 }

@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { disposeManager, getManagerInstance, registry } from "@/engine/core/database";
-import { EventsManager, IWeatherState, WeatherManager } from "@/engine/core/managers";
+import { EventsManager } from "@/engine/core/managers";
+import { IWeatherState, WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { NIL } from "@/engine/lib/constants/words";
 import { mockLuaTable, MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";

@@ -2,17 +2,13 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { relation_registry } from "xray16";
 
 import { disposeManager, getManagerInstance, registerActor, registry } from "@/engine/core/database";
-import {
-  AchievementsManager,
-  EAchievement,
-  EGameEvent,
-  ENotificationType,
-  EventsManager,
-  ITipNotification,
-  StatisticsManager,
-  WeatherManager,
-} from "@/engine/core/managers";
+import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { achievementIcons } from "@/engine/core/managers/interaction/achievements/AchievementIcons";
+import { AchievementsManager } from "@/engine/core/managers/interaction/achievements/AchievementsManager";
+import { EAchievement } from "@/engine/core/managers/interaction/achievements/types";
+import { ENotificationType, ITipNotification } from "@/engine/core/managers/interface";
+import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
+import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { captions } from "@/engine/lib/constants/captions";
 import { communities } from "@/engine/lib/constants/communities";

@@ -2,13 +2,12 @@ import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { XR_CGameTask } from "xray16";
 
 import { disposeManager, initializeManager, registerActor, registerStoryLink, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers";
+import { ETaskState } from "@/engine/core/managers/interaction/tasks";
 import {
-  EGameEvent,
   ENotificationDirection,
   ENotificationType,
-  ETaskState,
   ETreasureState,
-  EventsManager,
   IItemRelocatedNotification,
   IMoneyRelocatedNotification,
   ISoundNotification,
@@ -16,7 +15,7 @@ import {
   ITipNotification,
   ITreasureNotification,
   NotificationManager,
-} from "@/engine/core/managers";
+} from "@/engine/core/managers/interface";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
 import { ActorSound } from "@/engine/core/objects/sounds/playable_sounds/ActorSound";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";

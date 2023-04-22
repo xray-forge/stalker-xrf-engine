@@ -21,17 +21,18 @@ import {
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { registerSimulationObject, unregisterSimulationObject } from "@/engine/core/database/simulation";
+import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart/types";
 import { simulationActivities } from "@/engine/core/objects/server/squad/simulation_activities";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { ISimulationActivityDescriptor, ISimulationTarget } from "@/engine/core/objects/server/types";
+import { ISimulationTarget } from "@/engine/core/objects/server/types";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { ACTOR, TRUE } from "@/engine/lib/constants/words";
-import { AnyObject, TNumberId, TStringId } from "@/engine/lib/types";
+import { AnyObject, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -68,18 +69,16 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     super.STATE_Write(packet);
 
     openSaveMarker(packet, Actor.__name);
-    SimulationBoardManager.getInstance().save(packet);
+    SaveManager.getInstance().writeState(packet);
     closeSaveMarker(packet, Actor.__name);
   }
 
   public override STATE_Read(packet: XR_net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
-    if (registry.actor === null) {
-      openLoadMarker(packet, Actor.__name);
-      SimulationBoardManager.getInstance().load(packet);
-      closeLoadMarker(packet, Actor.__name);
-    }
+    openLoadMarker(packet, Actor.__name);
+    SaveManager.getInstance().readState(packet);
+    closeLoadMarker(packet, Actor.__name);
   }
 
   /**
@@ -112,12 +111,6 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       return false;
     }
 
-    const smartsByNoAssaultZones = {
-      ["zat_a2_sr_no_assault"]: "zat_stalker_base_smart",
-      ["jup_a6_sr_no_assault"]: "jup_a6",
-      ["jup_b41_sr_no_assault"]: "jup_b41",
-    } as unknown as LuaTable<TStringId, TStringId>;
-
     if (
       registry.smartTerrainNearest.distance < 50 &&
       !registry.simulationObjects.has(registry.smartTerrainNearest.id!)
@@ -125,7 +118,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       return false;
     }
 
-    for (const [zoneName, smartName] of smartsByNoAssaultZones) {
+    for (const [zoneName, smartName] of registry.noCombatZones) {
       const zone: XR_game_object = registry.zones.get(zoneName);
 
       if (zone !== null && zone.inside(this.position)) {
@@ -141,12 +134,13 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       return true;
     }
 
-    const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(registry.activeSmartTerrainId) as SmartTerrain;
+    const activeSmartTerrain: SmartTerrain = alife().object<SmartTerrain>(
+      registry.activeSmartTerrainId
+    ) as SmartTerrain;
 
     if (
-      smartTerrain.smartTerrainActorControl !== null &&
-      smartTerrain.smartTerrainActorControl.status === ESmartTerrainStatus.NORMAL &&
-      registry.zones.get(smartTerrain.smartTerrainActorControl.isNoWeaponZone).inside(this.position)
+      activeSmartTerrain.smartTerrainActorControl?.status === ESmartTerrainStatus.NORMAL &&
+      registry.zones.get(activeSmartTerrain.smartTerrainActorControl.isNoWeaponZone).inside(this.position)
     ) {
       return false;
     }
@@ -158,9 +152,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
    * Whether actor can be selected as simulation target by squad.
    */
   public isValidSquadTarget(squad: Squad): boolean {
-    const squadParameters: ISimulationActivityDescriptor = simulationActivities.get(squad.faction);
-
-    return squadParameters !== null && squadParameters.actor !== null && squadParameters.actor.canSelect(squad, this);
+    return simulationActivities.get(squad.faction)?.actor?.canSelect(squad, this) === true;
   }
 
   /**
@@ -168,7 +160,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
    */
   public onEndedBeingReachedBySquad(squad: Squad): void {
     /**
-     *  --squad.current_target_id = squad.smart_id
+     * Nothing.
      */
   }
 

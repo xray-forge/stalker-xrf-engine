@@ -1,20 +1,20 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { disposeManagers, initializeManager, registry } from "@/engine/core/database";
-import {
-  AchievementsManager,
-  GlobalSoundManager,
-  PsyAntennaManager,
-  ReleaseBodyManager,
-  SaveManager,
-  StatisticsManager,
-  SurgeManager,
-  TaskManager,
-  TreasureManager,
-  WeatherManager,
-} from "@/engine/core/managers";
+import { disposeManagers, initializeManager, registerActor, registry } from "@/engine/core/database";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractCoreManager";
+import { SaveManager } from "@/engine/core/managers/base/SaveManager";
+import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
+import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import { TaskManager } from "@/engine/core/managers/interaction/tasks";
+import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
+import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { PsyAntennaManager } from "@/engine/core/managers/world/PsyAntennaManager";
+import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
+import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
+import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
+import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { AnyObject } from "@/engine/lib/types";
+import { mockClientGameObject } from "@/fixtures/xray";
 import { mockNetPacket } from "@/fixtures/xray/mocks/save";
 
 describe("SaveManager class", () => {
@@ -38,7 +38,7 @@ describe("SaveManager class", () => {
     disposeManagers();
   });
 
-  it("Should save data from managers in a strict order", () => {
+  it("Should save and load data from managers in a strict order", () => {
     const expectedOrder: Array<TAbstractCoreManagerConstructor> = [
       WeatherManager,
       ReleaseBodyManager,
@@ -64,6 +64,29 @@ describe("SaveManager class", () => {
     expect(loadOrder).toEqual([]);
 
     SaveManager.getInstance().load(mockNetPacket());
+
+    expect(saveOrder).toEqual(expectedOrder);
+    expect(loadOrder).toEqual(expectedOrder);
+  });
+
+  it("Should read and write data from managers in a strict order", () => {
+    registerActor(mockClientGameObject());
+
+    const expectedOrder: Array<TAbstractCoreManagerConstructor> = [SimulationBoardManager];
+
+    expectedOrder.forEach((it) => initializeManager(it));
+
+    const [saveOrder, loadOrder] = mockLifecycleMethods();
+
+    expect(saveOrder).toEqual([]);
+    expect(loadOrder).toEqual([]);
+
+    SaveManager.getInstance().writeState(mockNetPacket());
+
+    expect(saveOrder).toEqual(expectedOrder);
+    expect(loadOrder).toEqual([]);
+
+    SaveManager.getInstance().readState(mockNetPacket());
 
     expect(saveOrder).toEqual(expectedOrder);
     expect(loadOrder).toEqual(expectedOrder);

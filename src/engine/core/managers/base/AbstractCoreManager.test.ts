@@ -2,8 +2,8 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
-import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { mockNetPacket, mockNetProcessor } from "@/fixtures/xray/mocks/save";
+import { MockLuaTable } from "@/fixtures/lua";
+import { mockNetPacket, mockNetProcessor } from "@/fixtures/xray";
 
 describe("AbstractCoreManager class", () => {
   class ExampleManager extends AbstractCoreManager {

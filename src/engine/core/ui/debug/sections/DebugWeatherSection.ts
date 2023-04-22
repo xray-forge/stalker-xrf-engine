@@ -1,6 +1,6 @@
 import { LuabindClass, ui_events, XR_CUI3tButton, XR_CUIComboBox, XR_CUIStatic } from "xray16";
 
-import { IWeatherState, WeatherManager } from "@/engine/core/managers";
+import { IWeatherState, WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { isGameStarted } from "@/engine/core/utils/alife";
 import { LuaLogger } from "@/engine/core/utils/logging";
