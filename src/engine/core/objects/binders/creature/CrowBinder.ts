@@ -73,8 +73,6 @@ export class CrowBinder extends object_binder {
       return false;
     }
 
-    logger.info("New crow net spawn");
-
     const objectId: TNumberId = this.object.id();
 
     registerObject(this.object);

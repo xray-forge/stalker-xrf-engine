@@ -1,11 +1,11 @@
 import { XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object";
+import { food } from "@/engine/lib/constants/items/food";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { LuaArray, Optional, TName, TNumberId } from "@/engine/lib/types";
 
@@ -137,18 +137,15 @@ const harmonica_visuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>(
 /**
  * todo;
  */
-function animpointPredicateAlways(): boolean {
+export function animpointPredicateAlways(): boolean {
   return true;
 }
 
 // todo: Optimize.
-function animpoint_predicate_bread(npc_id: number): boolean {
-  if (
-    registry.objects.get(npc_id) &&
-    registry.objects.get(npc_id).object &&
-    eatable_visuals.get(registry.objects.get(npc_id).object!.get_visual_name()) &&
-    registry.objects.get(npc_id).object!.object("bread")
-  ) {
+function animpoint_predicate_bread(objectId: number): boolean {
+  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+
+  if (object && eatable_visuals.get(object.get_visual_name()) && object.object(food.bread)) {
     return true;
   }
 
@@ -158,13 +155,10 @@ function animpoint_predicate_bread(npc_id: number): boolean {
 /**
  * todo;
  */
-function animpoint_predicate_kolbasa(npc_id: number): boolean {
-  if (
-    registry.objects.get(npc_id) &&
-    registry.objects.get(npc_id).object &&
-    eatable_visuals.get(registry.objects.get(npc_id).object!.get_visual_name()) &&
-    registry.objects.get(npc_id).object!.object("kolbasa")
-  ) {
+function animpoint_predicate_kolbasa(objectId: TNumberId): boolean {
+  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+
+  if (object && eatable_visuals.get(object.get_visual_name()) && object.object(food.kolbasa)) {
     return true;
   }
 
@@ -174,13 +168,10 @@ function animpoint_predicate_kolbasa(npc_id: number): boolean {
 /**
  * todo;
  */
-function animpoint_predicate_vodka(npc_id: number): boolean {
-  if (
-    registry.objects.get(npc_id) &&
-    registry.objects.get(npc_id).object &&
-    eatable_visuals.get(registry.objects.get(npc_id).object!.get_visual_name()) &&
-    registry.objects.get(npc_id).object!.object("vodka")
-  ) {
+function animpoint_predicate_vodka(objectId: TNumberId): boolean {
+  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+
+  if (object && eatable_visuals.get(object.get_visual_name()) && object.object(food.vodka)) {
     return true;
   }
 
@@ -190,13 +181,10 @@ function animpoint_predicate_vodka(npc_id: number): boolean {
 /**
  * todo;
  */
-function animpoint_predicate_energy(npc_id: number): boolean {
-  if (
-    registry.objects.get(npc_id) &&
-    registry.objects.get(npc_id).object &&
-    eatable_visuals.get(registry.objects.get(npc_id).object!.get_visual_name()) &&
-    registry.objects.get(npc_id).object!.object("energy_drink")
-  ) {
+function animpoint_predicate_energy(objectId: TNumberId): boolean {
+  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+
+  if (object && eatable_visuals.get(object.get_visual_name()) && object.object(food.energy_drink)) {
     return true;
   }
 
@@ -206,13 +194,10 @@ function animpoint_predicate_energy(npc_id: number): boolean {
 /**
  * todo;
  */
-function animpoint_predicate_guitar(npc_id: number, is_in_camp?: Optional<boolean>): boolean {
-  if (
-    is_in_camp === true &&
-    registry.objects.get(npc_id) &&
-    registry.objects.get(npc_id).object &&
-    registry.objects.get(npc_id).object!.object(misc.guitar_a)
-  ) {
+function animpoint_predicate_guitar(objectId: TNumberId, isInCamp?: Optional<boolean>): boolean {
+  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+
+  if (isInCamp === true && object && object.object(misc.guitar_a)) {
     return true;
   }
 
@@ -222,13 +207,14 @@ function animpoint_predicate_guitar(npc_id: number, is_in_camp?: Optional<boolea
 /**
  * todo;
  */
-function animpoint_predicate_harmonica(npc_id: number, is_in_camp?: Optional<boolean>): boolean {
+function animpoint_predicate_harmonica(objectId: TNumberId, isInCamp?: Optional<boolean>): boolean {
+  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+
   if (
-    is_in_camp === true &&
-    registry.objects.get(npc_id) &&
-    registry.objects.get(npc_id).object &&
-    harmonica_visuals.get(registry.objects.get(npc_id).object!.get_visual_name()) &&
-    registry.objects.get(npc_id).object!.object(misc.harmonica_a)
+    isInCamp === true &&
+    object &&
+    harmonica_visuals.get(object.get_visual_name()) &&
+    object.object(misc.harmonica_a)
   ) {
     return true;
   }
@@ -243,11 +229,11 @@ function animpointPredicateWeapon(objectId: TNumberId): boolean {
   const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
 
   if (object !== null) {
-    const smartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
+    const smartTerrainName: Optional<TName> = getObjectSmartTerrain(object)?.name() as Optional<TName>;
 
-    if (smartTerrain) {
-      for (const [index, smartTerrainName] of registry.noWeaponSmartTerrains) {
-        if (smartTerrain.name() === smartTerrainName) {
+    if (smartTerrainName) {
+      for (const [index, noWeaponSmartTerrainName] of registry.noWeaponSmartTerrains) {
+        if (smartTerrainName === noWeaponSmartTerrainName) {
           return false;
         }
       }

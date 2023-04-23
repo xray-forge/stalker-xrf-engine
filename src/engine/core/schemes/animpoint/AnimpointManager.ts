@@ -4,9 +4,9 @@ import { registry } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { associations } from "@/engine/core/schemes/animpoint/animpoint_predicates";
+import { animpointPredicateAlways, associations } from "@/engine/core/schemes/animpoint/animpoint_predicates";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
-import { IStoryAnimationDescriptor } from "@/engine/core/schemes/animpoint/types";
+import { IAnimpointAction, IStoryAnimationDescriptor } from "@/engine/core/schemes/animpoint/types";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { angleToDirection } from "@/engine/core/utils/vector";
@@ -40,12 +40,12 @@ const associativeTable: LuaTable<TName, IStoryAnimationDescriptor> = $fromObject
 export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointState> {
   public isStarted: boolean = false;
 
-  public objectId: Optional<TNumberId> = null;
-  public current_action: Optional<EStalkerState> = null;
-  public avail_actions: Optional<LuaTable<number>> = null;
+  public objectId: TNumberId;
+  public currentAction: Optional<EStalkerState> = null;
+  public availableActions: Optional<LuaArray<IAnimpointAction>> = null;
 
   public camp: Optional<CampStoryManager> = null;
-  public cover_name: Optional<string> = null;
+  public coverName: Optional<TName> = null;
 
   public position: Optional<XR_vector> = null;
   public position_vertex: Optional<number> = null;
@@ -62,17 +62,17 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
    * todo: Description.
    */
   public initialize(): void {
-    this.state.base_action = null;
+    this.state.actionNameBase = null;
     this.state.approvedActions = new LuaTable();
     this.state.description = null;
     this.camp = null;
-    this.current_action = null;
+    this.currentAction = null;
     this.position = null;
     this.smart_direction = null;
     this.look_position = null;
-    this.avail_actions = new LuaTable();
+    this.availableActions = new LuaTable();
     this.isStarted = false;
-    this.cover_name = null;
+    this.coverName = null;
   }
 
   /**
@@ -83,21 +83,21 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     const description: Optional<EStalkerState> = this.state.description;
 
     if (!this.state.use_camp) {
-      if (this.state.avail_animations === null) {
+      if (this.state.availableAnimations === null) {
         if (this.state.approvedActions === null) {
           abort("animpoint not in camp and approvedActions is null. Name [%s]", this.state.cover_name);
         }
 
-        for (const [k, v] of this.state.approvedActions!) {
-          table.insert(actionsList, v.name);
+        for (const [index, action] of this.state.approvedActions!) {
+          table.insert(actionsList, action.name);
         }
       } else {
-        for (const [k, v] of this.state.avail_animations!) {
-          table.insert(actionsList, v);
+        for (const [index, state] of this.state.availableAnimations!) {
+          table.insert(actionsList, state);
         }
       }
 
-      this.current_action = actionsList.get(math.random(actionsList.length()));
+      this.currentAction = actionsList.get(math.random(actionsList.length()));
 
       return;
     }
@@ -106,10 +106,10 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       abort("Trying to use destroyed object!");
     }
 
-    const [camp_action, is_director] = (
+    const [campAction, isDirector] = (
       this.camp as { get_camp_action: (npcId: number) => LuaMultiReturn<[string, boolean]> }
     ).get_camp_action(this.objectId);
-    const tbl = is_director ? associativeTable.get(camp_action).director : associativeTable.get(camp_action).listener;
+    const tbl = isDirector ? associativeTable.get(campAction).director : associativeTable.get(campAction).listener;
 
     let found = false;
 
@@ -126,27 +126,23 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       table.insert(actionsList, description as EStalkerState);
     }
 
-    const rnd: number = math.random(actionsList.length());
-    let action = actionsList.get(rnd);
+    const randomNumber: number = math.random(actionsList.length());
+    let action = actionsList.get(randomNumber);
 
-    if (this.state.base_action) {
-      if (this.state.base_action === description + "_weapon") {
+    if (this.state.actionNameBase) {
+      if (this.state.actionNameBase === description + "_weapon") {
         action = (description + "_weapon") as EStalkerState;
       }
 
-      if (action === description + "_weapon" && this.state.base_action === description) {
-        table.remove(actionsList, rnd);
+      if (action === description + "_weapon" && this.state.actionNameBase === description) {
+        table.remove(actionsList, randomNumber);
         action = actionsList.get(math.random(actionsList.length()));
       }
     } else {
-      if (action === description + "_weapon") {
-        this.state.base_action = action;
-      } else {
-        this.state.base_action = description;
-      }
+      this.state.actionNameBase = action === description + "_weapon" ? action : description;
     }
 
-    this.current_action = action;
+    this.currentAction = action;
   }
 
   /**
@@ -157,17 +153,17 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     this.calculatePosition();
 
     if (this.isStarted === true) {
-      if (!this.state.use_camp && this.cover_name === this.state.cover_name) {
+      if (!this.state.use_camp && this.coverName === this.state.cover_name) {
         this.fillApprovedActions();
 
         const target_action = this.state.approvedActions!.get(math.random(this.state.approvedActions!.length())).name;
 
         const current_st_animstate = states.get(target_action).animstate;
-        const target_st_animstate = states.get(this.current_action!).animstate;
+        const target_st_animstate = states.get(this.currentAction!).animstate;
 
         if (current_st_animstate === target_st_animstate) {
-          if (target_action !== this.current_action) {
-            this.current_action = this.state.approvedActions!.get(
+          if (target_action !== this.currentAction) {
+            this.currentAction = this.state.approvedActions!.get(
               math.random(this.state.approvedActions!.length())
             ).name;
           }
@@ -204,16 +200,16 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       this.position.z + 10 * look_dir.z
     );
 
-    const description_name: EStalkerState = smartcover.description() as EStalkerState;
+    const descriptionState: EStalkerState = smartcover.description() as EStalkerState;
 
-    if (associations.get(description_name) === null) {
-      if (this.state.avail_animations === null) {
-        abort("Wrong animpoint smart_cover description %s, name %s", tostring(description_name), smartcover.name());
+    if (associations.get(descriptionState) === null) {
+      if (this.state.availableAnimations === null) {
+        abort("Wrong animpoint smart_cover description %s, name %s", tostring(descriptionState), smartcover.name());
       }
     }
 
-    this.state.description = description_name;
-    this.avail_actions = associations.get(description_name);
+    this.state.description = descriptionState;
+    this.availableActions = associations.get(descriptionState);
     this.state.approvedActions = new LuaTable();
   }
 
@@ -228,7 +224,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
    * todo: Description.
    */
   public isPositionReached(): boolean {
-    if (this.current_action !== null) {
+    if (this.currentAction !== null) {
       return true;
     }
 
@@ -258,18 +254,18 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   public fillApprovedActions(): void {
     const isInCamp: boolean = this.camp !== null;
 
-    if (this.state.avail_animations !== null) {
-      for (const [k, v] of this.state.avail_animations!) {
+    if (this.state.availableAnimations !== null) {
+      for (const [k, v] of this.state.availableAnimations!) {
         table.insert(this.state.approvedActions!, {
-          predicate: () => true,
+          predicate: animpointPredicateAlways,
           name: v,
         });
       }
     } else {
-      if (this.avail_actions !== null) {
-        for (const [k, v] of this.avail_actions) {
-          if (v.predicate(this.objectId, isInCamp) === true) {
-            table.insert(this.state.approvedActions!, v);
+      if (this.availableActions !== null) {
+        for (const [k, action] of this.availableActions) {
+          if (action.predicate(this.objectId, isInCamp)) {
+            table.insert(this.state.approvedActions!, action);
           }
         }
       }
@@ -287,6 +283,13 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   /**
    * todo: Description.
    */
+  public getCurrentAction(): Optional<EStalkerState> {
+    return this.currentAction;
+  }
+
+  /**
+   * todo: Description.
+   */
   public start(): void {
     if (this.state.use_camp) {
       this.camp = CampStoryManager.getCurrentCamp(this.position);
@@ -297,11 +300,11 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     if (this.camp !== null) {
       this.camp.register_npc(this.objectId!);
     } else {
-      this.current_action = this.state.approvedActions!.get(math.random(this.state.approvedActions!.length())).name;
+      this.currentAction = this.state.approvedActions!.get(math.random(this.state.approvedActions!.length())).name;
     }
 
     this.isStarted = true;
-    this.cover_name = this.state.cover_name;
+    this.coverName = this.state.cover_name;
   }
 
   /**
@@ -313,13 +316,6 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     }
 
     this.isStarted = false;
-    this.current_action = null;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public getCurrentAction(): Optional<EStalkerState> {
-    return this.current_action;
+    this.currentAction = null;
   }
 }

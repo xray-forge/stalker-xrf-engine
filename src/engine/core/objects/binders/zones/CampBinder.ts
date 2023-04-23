@@ -43,8 +43,6 @@ export class CampBinder extends object_binder {
       return false;
     }
 
-    logger.info("Net spawn camp:", this.object.name());
-
     const ini: XR_ini_file = this.object.spawn_ini();
 
     if (ini.section_exist("camp")) {

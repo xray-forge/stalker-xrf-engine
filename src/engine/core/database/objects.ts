@@ -32,12 +32,12 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    */
   portableStore: Optional<LuaTable<TName>>;
 
+  schemeType: ESchemeType;
   active_section: Optional<TSection>;
   active_scheme: Optional<EScheme>;
   section_logic: Optional<TName>;
   gulag_name: Optional<TName>;
   overrides: Optional<AnyObject>;
-  schemeType: ESchemeType;
 
   activation_time: TTimestamp;
   activation_game_time: XR_CTime;

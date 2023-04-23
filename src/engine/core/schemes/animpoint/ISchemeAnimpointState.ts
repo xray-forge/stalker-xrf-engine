@@ -9,12 +9,12 @@ import type { LuaArray, Optional, TDistance, TName } from "@/engine/lib/types";
  */
 export interface ISchemeAnimpointState extends IBaseSchemeState {
   animpoint: AnimpointManager;
+  actionNameBase: Optional<TName>;
   cover_name: TName;
   use_camp: boolean;
   reach_distance: TDistance;
   reach_movement: EStalkerState;
-  avail_animations: Optional<LuaArray<EStalkerState>>;
-  base_action: Optional<TName>;
   description: Optional<EStalkerState>;
+  availableAnimations: Optional<LuaArray<EStalkerState>>;
   approvedActions: LuaArray<IAnimpointAction>;
 }

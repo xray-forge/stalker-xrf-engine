@@ -60,6 +60,17 @@ export function create(): JSXNode {
         textColor={WHITE}
         font={fonts.letterica16}
       />
+
+      <Xr3tButton
+        tag={"log_state"}
+        label={"Log state"}
+        x={12}
+        y={152}
+        width={72}
+        height={16}
+        textColor={WHITE}
+        font={fonts.letterica16}
+      />
     </XrRoot>
   );
 }

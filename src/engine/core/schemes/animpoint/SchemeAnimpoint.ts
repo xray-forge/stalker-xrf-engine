@@ -33,6 +33,8 @@ export class SchemeAnimpoint extends AbstractScheme {
     section: TSection,
     additional: string
   ): void {
+    logger.info("Activate animpoint scheme for object:", object.name(), scheme, section);
+
     const state: ISchemeAnimpointState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -46,14 +48,13 @@ export class SchemeAnimpoint extends AbstractScheme {
       "",
       EStalkerState.WALK
     ) as EStalkerState;
-    state.reach_distance = readIniNumber(ini, section, "reach_distance", false, 0.75);
 
-    // Calculate for sqr comparison.
-    state.reach_distance = state.reach_distance * state.reach_distance;
+    state.reach_distance = readIniNumber(ini, section, "reach_distance", false, 0.75);
+    state.reach_distance *= state.reach_distance; // Calculate for sqr comparison.
 
     const rawAvailableAnimations = readIniString(ini, section, "avail_animations", false, "", null);
 
-    state.avail_animations = rawAvailableAnimations === null ? null : parseStringsList(rawAvailableAnimations);
+    state.availableAnimations = rawAvailableAnimations === null ? null : parseStringsList(rawAvailableAnimations);
   }
 
   /**

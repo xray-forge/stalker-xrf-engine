@@ -1,23 +1,16 @@
-import { time_global, XR_game_object } from "xray16";
+import { time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeTimerState } from "@/engine/core/schemes/timer/ISchemeTimerState";
-import { timeToString } from "@/engine/core/utils/general";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { globalTimeToString } from "@/engine/core/utils/time";
 
 /**
  * todo;
  */
 export class SchemeTimerManager extends AbstractSchemeManager<ISchemeTimerState> {
-  /**
-   * todo: Description.
-   */
-  public constructor(object: XR_game_object, state: ISchemeTimerState) {
-    super(object, state);
-  }
-
   /**
    * todo: Description.
    */
@@ -36,7 +29,7 @@ export class SchemeTimerManager extends AbstractSchemeManager<ISchemeTimerState>
       value_time = 0;
     }
 
-    this.state.timer.TextControl().SetTextST(timeToString(value_time));
+    this.state.timer.TextControl().SetTextST(globalTimeToString(value_time));
 
     for (const [k, v] of this.state.on_value!) {
       if ((this.state.type === "dec" && value_time <= v.dist) || (this.state.type === "inc" && value_time >= v.dist)) {

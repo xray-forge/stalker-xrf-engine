@@ -33,6 +33,7 @@ export class DebugObjectSection extends AbstractDebugSection {
   public logInventoryStateButton!: XR_CUI3tButton;
   public logRelationsStateButton!: XR_CUI3tButton;
   public logStateManagerReportButton!: XR_CUI3tButton;
+  public logStateButton!: XR_CUI3tButton;
 
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
@@ -46,15 +47,18 @@ export class DebugObjectSection extends AbstractDebugSection {
     this.logInventoryStateButton = this.xml.Init3tButton("log_inventory_state", this);
     this.logRelationsStateButton = this.xml.Init3tButton("log_relations_state", this);
     this.logStateManagerReportButton = this.xml.Init3tButton("log_state_manager_state", this);
+    this.logStateButton = this.xml.Init3tButton("log_state", this);
 
     this.owner.Register(this.useTargetCheck, "use_target_object_check");
     this.owner.Register(this.logPlannerStateButton, "log_planner_state");
     this.owner.Register(this.logInventoryStateButton, "log_inventory_state");
     this.owner.Register(this.logRelationsStateButton, "log_relations_state");
     this.owner.Register(this.logStateManagerReportButton, "log_state_manager_state");
+    this.owner.Register(this.logStateButton, "log_state");
   }
 
   public initializeCallBacks(): void {
+    this.owner.AddCallback("log_state", ui_events.BUTTON_CLICKED, () => this.onPrintState(), this);
     this.owner.AddCallback("log_planner_state", ui_events.BUTTON_CLICKED, () => this.onPrintActionPlannerState(), this);
     this.owner.AddCallback("log_inventory_state", ui_events.BUTTON_CLICKED, () => this.onPrintInventoryState(), this);
     this.owner.AddCallback("log_relations_state", ui_events.BUTTON_CLICKED, () => this.onPrintRelationsState(), this);
@@ -107,6 +111,20 @@ export class DebugObjectSection extends AbstractDebugSection {
       DebugManager.getInstance().logObjectInventoryItems(targetObject);
     } else {
       logger.info("No object found for inventory state print");
+    }
+  }
+
+  public onPrintState(): void {
+    if (!isGameStarted()) {
+      return logger.info("Cannot print while game is not started");
+    }
+
+    const targetObject: Optional<XR_game_object> = this.getCurrentObject();
+
+    if (targetObject) {
+      DebugManager.getInstance().logObjectState(targetObject);
+    } else {
+      logger.info("No object found for scheme state print");
     }
   }
 

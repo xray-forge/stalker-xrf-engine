@@ -301,7 +301,7 @@ export class CampStoryManager {
         if (
           info[this.active_state] === EObjectRole.director &&
           schemeState !== null &&
-          schemeState.base_action === schemeState.description &&
+          schemeState.actionNameBase === schemeState.description &&
           !isObjectMeeting(object)
         ) {
           table.insert(directors, id);
@@ -465,7 +465,7 @@ function sr_camp_guitar_precondition(campStoryManager: CampStoryManager): boolea
         if (
           objectInfo.guitar === EObjectRole.director &&
           schemeState !== null &&
-          schemeState.base_action === schemeState.description &&
+          schemeState.actionNameBase === schemeState.description &&
           object !== null &&
           !isObjectMeeting(object)
         ) {
@@ -525,7 +525,7 @@ function sr_camp_harmonica_precondition(campStoryManager: CampStoryManager): boo
         if (
           info.harmonica === EObjectRole.director &&
           schemeState !== null &&
-          schemeState.base_action === schemeState.description &&
+          schemeState.actionNameBase === schemeState.description &&
           object !== null &&
           !isObjectMeeting(object)
         ) {

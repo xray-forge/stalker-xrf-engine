@@ -365,9 +365,7 @@ export class OptionsDialog extends CUIScriptWnd {
    * Handle keyboard clicks.
    */
   public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
-    if (!super.OnKeyboard(key, event)) {
-      return false;
-    }
+    const result: boolean = super.OnKeyboard(key, event);
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {
       if (key === DIK_keys.DIK_ESCAPE) {
@@ -375,13 +373,11 @@ export class OptionsDialog extends CUIScriptWnd {
           this.dialogVideoAdvancedSettings.Show(false);
           this.dialogVideoSettings.Show(true);
         } else {
-          this.owner.ShowDialog(true);
-          this.HideDialog();
-          this.owner.Show(true);
+          this.onCancelButtonClicked();
         }
       }
     }
 
-    return true;
+    return result;
   }
 }

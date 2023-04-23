@@ -72,23 +72,6 @@ export function vectorToString(vector: Optional<XR_vector>): Optional<string> {
 }
 
 /**
- * @param time - time duration in millis
- * @returns hh:mm:ss formatted time
- */
-export function timeToString(time: number): string {
-  const hours: number = math.floor(time / 3600000);
-  const minutes: number = math.floor(time / 60000 - hours * 60);
-  const seconds: number = math.floor(time / 1000 - hours * 3600 - minutes * 60);
-
-  return string.format(
-    "%s:%s:%s",
-    tostring(hours),
-    (minutes >= 10 ? "" : "0") + tostring(minutes),
-    (seconds >= 10 ? "" : "0") + tostring(seconds)
-  );
-}
-
-/**
  * todo
  */
 export function isSinglePlayerGame(): boolean {

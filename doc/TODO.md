@@ -8,6 +8,12 @@
 - Interop with level editor tools etc
 - Add linux/windows custom CLI script
 
+## 🧰 Tech
+
+- Custom lua loader to support dot separated files
+- Add .dll as example and import it from TS?
+- Add example C imports with TS (luajit)?
+
 ## 🧰 Requests to open x-ray
 
 - With lua bindings generation include all call overrides when output TXT

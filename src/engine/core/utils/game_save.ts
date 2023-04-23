@@ -14,6 +14,7 @@ import {
 import { assert } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { gameTimeToString } from "@/engine/core/utils/time";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
@@ -54,16 +55,8 @@ export function deleteGameSave(filename: TName): void {
 /**
  * todo
  */
-function addTimeDigit(data: string, digit: number): string {
-  return digit > 9 ? data + digit : data + "0" + digit;
-}
-
-/**
- * todo
- */
 export function gatFileDataForGameSave(filename: TName): TLabel {
-  const fs: XR_FS = getFS();
-  const flist: XR_FS_file_list_ex = fs.file_list_open_ex(
+  const flist: XR_FS_file_list_ex = getFS().file_list_open_ex(
     roots.gameSaves,
     bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
     filename + gameConfig.GAME_SAVE_EXTENSION
@@ -72,21 +65,8 @@ export function gatFileDataForGameSave(filename: TName): TLabel {
 
   if (filesCount > 0) {
     const savedGame: XR_CSavedGameWrapper = new CSavedGameWrapper(filename);
-    const [y, m, d, h, min] = savedGame.game_time().get(0, 0, 0, 0, 0, 0, 0);
+    const dateTime: TLabel = gameTimeToString(savedGame.game_time());
 
-    let dateTime: TLabel = "";
-
-    dateTime = addTimeDigit(dateTime, h);
-    dateTime = dateTime + ":";
-    dateTime = addTimeDigit(dateTime, min);
-    dateTime = dateTime + " ";
-    dateTime = addTimeDigit(dateTime, m);
-    dateTime = dateTime + "/";
-    dateTime = addTimeDigit(dateTime, d);
-    dateTime = dateTime + "/";
-    dateTime = dateTime + y;
-
-    // --string.format("[%d/%d/%d %d]",m,d,h,min,y)
     const health = string.format(
       "\\n%s %d%s",
       game.translate_string(captions.st_ui_health_sensor),
@@ -94,14 +74,12 @@ export function gatFileDataForGameSave(filename: TName): TLabel {
       "%"
     );
 
-    return (
-      game.translate_string(captions.st_level) +
-      ": " +
-      game.translate_string(savedGame.level_name()) +
-      "\\n" +
-      game.translate_string(captions.ui_inv_time) +
-      ": " +
-      dateTime +
+    return string.format(
+      "%s: %s\\n%s: %s%s",
+      game.translate_string(captions.st_level),
+      game.translate_string(savedGame.level_name()),
+      game.translate_string(captions.ui_inv_time),
+      dateTime,
       health
     );
   } else {

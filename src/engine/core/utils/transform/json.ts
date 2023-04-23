@@ -8,7 +8,7 @@ export function toJSON(
   maxDepth: number = 7,
   circular: LuaTable<AnyNotNil, boolean> = new LuaTable()
 ): string {
-  if (depth >= maxDepth) {
+  if (depth > maxDepth) {
     return "<depth_limit>";
   }
 
@@ -42,7 +42,7 @@ export function toJSON(
       }
 
       result += string.format(
-        "\"%s\": %s",
+        '"%s": %s',
         stringifyKey(k),
         toJSON(v, separator, depth + 1, maxDepth, circular),
         separator

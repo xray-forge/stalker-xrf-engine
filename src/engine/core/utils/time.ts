@@ -10,9 +10,54 @@ import {
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
-import { Optional, TDuration, TTimestamp } from "@/engine/lib/types";
+import { Optional, TDuration, TLabel, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
+
+/**
+ * todo
+ */
+function addTimeDigit(data: string, digit: number): string {
+  return digit > 9 ? data + digit : data + "0" + digit;
+}
+
+/**
+ * todo;
+ */
+export function gameTimeToString(time: XR_CTime): string {
+  const [y, m, d, h, min] = time.get(0, 0, 0, 0, 0, 0, 0);
+
+  let dateTime: TLabel = "";
+
+  dateTime = addTimeDigit(dateTime, h);
+  dateTime = dateTime + ":";
+  dateTime = addTimeDigit(dateTime, min);
+  dateTime = dateTime + " ";
+  dateTime = addTimeDigit(dateTime, m);
+  dateTime = dateTime + "/";
+  dateTime = addTimeDigit(dateTime, d);
+  dateTime = dateTime + "/";
+  dateTime = dateTime + y;
+
+  return dateTime;
+}
+
+/**
+ * @param time - time duration in millis
+ * @returns hh:mm:ss formatted time
+ */
+export function globalTimeToString(time: number): string {
+  const hours: number = math.floor(time / 3600000);
+  const minutes: number = math.floor(time / 60000 - hours * 60);
+  const seconds: number = math.floor(time / 1000 - hours * 3600 - minutes * 60);
+
+  return string.format(
+    "%s:%s:%s",
+    tostring(hours),
+    (minutes >= 10 ? "" : "0") + tostring(minutes),
+    (seconds >= 10 ? "" : "0") + tostring(seconds)
+  );
+}
 
 /**
  * Check whether current time interval is between desired values.

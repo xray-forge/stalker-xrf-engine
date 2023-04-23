@@ -6,7 +6,7 @@ import { LuaArray, TNumberId } from "@/engine/lib/types";
  */
 export interface IAnimpointAction {
   name: EStalkerState;
-  predicate: (objectId: TNumberId) => boolean;
+  predicate: (this: void, objectId: TNumberId, isInCamp?: boolean) => boolean;
 }
 
 /**
