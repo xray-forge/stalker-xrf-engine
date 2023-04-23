@@ -12,6 +12,7 @@ ef_weapon_type				= 13
 
 postprocess					= postprocess_acidic_mine
 
+
 ;----------- Anomaly settings -----------------------
 max_start_power		= 1.00
 attenuation			= 1
@@ -63,8 +64,10 @@ blowout_wind_time_peak  	= 600
 blowout_wind_time_end		= 899
 blowout_wind_power			= 0.5			;���� ���������� ����� (�� 0 �� 1), � ������ blowout_wind_time_peak
 
+
 shape_transp_color		= 255, 0, 0, 60
 shape_edge_color		= 32, 32, 32, 255
+
 
 [zone_mine_acidic_weak]:zone_mine_acidic
 $spawn 						= "zones\mine_acidic_weak"
@@ -113,6 +116,7 @@ blowout_sound				= anomaly\buzz_hit
 hit_sound					= anomaly\buzz_hit
 entrance_sound				= anomaly\buzz_hit
 
+
 [zone_mine_chemical]:zone_base
 idle_particles				= anomaly2\studen_idle_bottom
 blowout_particles			= anomaly2\studen_blowout
@@ -122,14 +126,19 @@ hit_big_particles			= anomaly2\studen_idle_bottom_00
 idle_small_particles		= anomaly2\studen_idle_bottom_00
 idle_big_particles			= anomaly2\studen_idle_bottom_00
 
+
 [zone_mine_chemical_weak]:zone_mine_acidic_weak, zone_mine_chemical
 $spawn 						= "zones\scenes\mine_chemical_weak"
+
 
 [zone_mine_chemical_average]:zone_mine_acidic_average, zone_mine_chemical
 $spawn 						= "zones\scenes\mine_chemical_average"
 
+
 [zone_mine_chemical_strong]:zone_mine_acidic_strong, zone_mine_chemical
 $spawn 						= "zones\scenes\mine_chemical_strong"
+
+
 
 [zone_buzz]:zone_mine_acidic
 postprocess					= postprocess_flame
@@ -142,6 +151,7 @@ hit_small_particles			= anomaly2\studen_idle_bottom_00
 hit_big_particles			= anomaly2\studen_idle_bottom_00
 idle_small_particles		= anomaly2\studen_idle_bottom_00
 idle_big_particles			= anomaly2\studen_idle_bottom_00
+
 
 [zone_buzz_weak]:zone_buzz
 $spawn 						= "zones\mp\buzz_weak"

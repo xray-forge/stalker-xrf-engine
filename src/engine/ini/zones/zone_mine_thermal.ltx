@@ -11,6 +11,7 @@ postprocess		= postprocess_thermal_mine
 ef_anomaly_type			= 1
 ef_weapon_type			= 13
 
+
 ;----------- Anomaly settings -----------------------
 max_start_power		= 1.00
 attenuation			= 1
@@ -46,6 +47,7 @@ light_range		    = 9.0
 light_time 		    = 10
 light_height		= 2
 
+
 idle_light			= off
 idle_light_range	= 8.0
 idle_light_anim		= koster_01
@@ -59,6 +61,7 @@ blowout_wind		= off
 
 shape_transp_color		= 255, 0, 0, 60
 shape_edge_color		= 32, 32, 32, 255
+
 
 [zone_mine_thermal_weak]:zone_mine_thermal
 $spawn 			= "zones\mine_thermal_weak"
@@ -78,6 +81,7 @@ max_start_power		= 0.2
 use_secondary_hit = true
 secondary_hit_power = 0.008
 
+
 [zone_mine_steam]:zone_base
 postprocess		= postprocess_steam_mine
 
@@ -94,6 +98,7 @@ hit_sound			= anomaly\steam_hit
 entrance_sound		= anomaly\steam_hit
 
 blowout_light		= off
+
 
 [zone_mine_steam_weak]:zone_mine_thermal_weak, zone_mine_steam
 $spawn 			= "zones\scenes\mine_steam_weak"
@@ -113,17 +118,21 @@ max_start_power		= 0.17
 use_secondary_hit = true
 secondary_hit_power = 0.01
 
+
 [zone_zharka_static]:zone_mine_thermal
 postprocess		= postprocess_flame
 idle_sound			= ambient\fire2
+
 
 [zone_zharka_static_weak]:zone_zharka_static
 $spawn 			= "zones\mp\zharka_statik_weak"
 max_start_power		= 0.50
 
+
 [zone_zharka_static_average]:zone_zharka_static
 $spawn 			= "zones\mp\zharka_statik_average"
 max_start_power		= 1.20
+
 
 [zone_zharka_static_strong]:zone_zharka_static
 $spawn 			= "zones\mp\zharka_statik_strong"

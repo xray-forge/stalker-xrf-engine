@@ -43,11 +43,13 @@ $spawn 			= "zones\field_radioactive_weak"
 ;----------- Anomaly settings -----------------------
 max_start_power		= 0.015
 
+
 [zone_field_radioactive_average]:zone_field_radioactive
 $spawn 			= "zones\field_radioactive_average"
 
 ;----------- Anomaly settings -----------------------
 max_start_power		= 0.02
+
 
 [zone_field_radioactive_strong]:zone_field_radioactive
 $spawn 			= "zones\field_radioactive_strong"
@@ -55,15 +57,19 @@ $spawn 			= "zones\field_radioactive_strong"
 ;----------- Anomaly settings -----------------------
 max_start_power		= 0.03
 
+
+
 [zone_radioactive]:zone_field_radioactive
 GroupControlSection	= spawn_group_zone
 $def_sphere = 1
 class			= Z_RADIO
 attenuation			= 0.1
 
+
 [zone_radioactive_weak]:zone_radioactive
 $spawn 			= "zones\mp\radioactive_weak"
 max_start_power		= 0.011
+
 
 [zone_radioactive_average]:zone_radioactive
 $spawn 			= "zones\mp\radioactive_average"
