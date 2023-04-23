@@ -98,6 +98,14 @@ async function verifyAssets(): Promise<void> {
       log.warn("Override resources:", chalk.yellowBright(entry), chalk.yellow("FAIL"), "(packaging issues possible)");
     }
   }
+
+  for (const entry of config.resources.mod_assets_locales[config.locale]) {
+    if (await exists(path.resolve(CLI_DIR, entry))) {
+      log.info("Locale resources:", chalk.yellowBright(entry), chalk.greenBright("OK"));
+    } else {
+      log.warn("Locale resources:", chalk.yellowBright(entry), chalk.yellow("FAIL"), "(packaging issues possible)");
+    }
+  }
 }
 
 /**

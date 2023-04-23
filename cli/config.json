@@ -4,11 +4,14 @@
   "resources": {
     "mod_assets_base_folder": "..\\src\\resources\\",
     "mod_assets_override_folders": [
-      "..\\..\\stalker-xrf-resources-extended",
-      "..\\..\\stalker-xrf-resources-locale-en",
-      "..\\..\\stalker-xrf-resources-locale-ru",
-      "..\\..\\stalker-xrf-resources-locale-ukr"
-    ]
+      "..\\..\\stalker-xrf-resources-extended"
+    ],
+    "mod_assets_locales": {
+      "eng": ["..\\..\\stalker-xrf-resources-locale-en"],
+      "ukr": ["..\\..\\stalker-xrf-resources-locale-ukr"],
+      "rus": ["..\\..\\stalker-xrf-resources-locale-ru"],
+      "pol": []
+    }
   },
   "compression": {
     "xr_compress_path": ".\\bin\\compression\\xrCompress.exe"
