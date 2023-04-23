@@ -33,16 +33,16 @@ export class ActionReachAnimpoint extends action_base {
   public override execute(): void {
     super.execute();
 
-    this.object.set_dest_level_vertex_id(this.state.animpoint!.position_vertex!);
-    this.object.set_desired_direction(this.state.animpoint!.smart_direction!);
+    this.object.set_dest_level_vertex_id(this.state.animpoint!.positionLevelVertexId!);
+    this.object.set_desired_direction(this.state.animpoint!.smartCoverDirection!);
     this.object.set_path_type(game_object.level_path);
 
     const isDistanceReached: boolean =
-      this.object.position().distance_to_sqr(this.state.animpoint!.vertex_position!) <= this.state.reach_distance;
+      this.object.position().distance_to_sqr(this.state.animpoint!.vertexPosition!) <= this.state.reach_distance;
 
     if (isDistanceReached) {
       setStalkerState(this.object, this.state.reach_movement, null, null, {
-        look_position: this.state.animpoint!.look_position,
+        look_position: this.state.animpoint!.lookPosition,
         look_object: null,
       });
     } else {

@@ -2,7 +2,7 @@ import { XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
-import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
+import { IAnimpointAction, IStoryAnimationDescriptor } from "@/engine/core/schemes/animpoint/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object";
 import { food } from "@/engine/lib/constants/items/food";
@@ -14,7 +14,118 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-const eatable_visuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
+export function animpointPredicateAlways(): boolean {
+  return true;
+}
+
+/**
+ * todo;
+ */
+function animpointPredicateBread(objectId: TNumberId): boolean {
+  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+
+  if (object && eatableVisuals.get(object.get_visual_name()) && object.object(food.bread)) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+function animpointPredicateKolbasa(objectId: TNumberId): boolean {
+  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+
+  if (object && eatableVisuals.get(object.get_visual_name()) && object.object(food.kolbasa)) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+function animpointPredicateVodka(objectId: TNumberId): boolean {
+  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+
+  if (object && eatableVisuals.get(object.get_visual_name()) && object.object(food.vodka)) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+function animpointPredicateEnergy(objectId: TNumberId): boolean {
+  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+
+  if (object && eatableVisuals.get(object.get_visual_name()) && object.object(food.energy_drink)) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+function animpointPredicateGuitar(objectId: TNumberId, isInCamp?: Optional<boolean>): boolean {
+  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+
+  if (isInCamp === true && object && object.object(misc.guitar_a)) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+function animpointPredicateHarmonica(objectId: TNumberId, isInCamp?: Optional<boolean>): boolean {
+  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+
+  if (
+    isInCamp === true &&
+    object &&
+    harmonicaVisuals.get(object.get_visual_name()) &&
+    object.object(misc.harmonica_a)
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * todo;
+ */
+function animpointPredicateWeapon(objectId: TNumberId): boolean {
+  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+
+  if (object !== null) {
+    const smartTerrainName: Optional<TName> = getObjectSmartTerrain(object)?.name() as Optional<TName>;
+
+    if (smartTerrainName) {
+      for (const [index, noWeaponSmartTerrainName] of registry.noWeaponSmartTerrains) {
+        if (smartTerrainName === noWeaponSmartTerrainName) {
+          return false;
+        }
+      }
+    }
+  }
+
+  return true;
+}
+
+/**
+ * todo;
+ */
+const eatableVisuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
   ["actors\\stalker_hero\\stalker_hero_1"]: true,
   ["actors\\stalker_hero\\stalker_hero_novice_1"]: true,
   ["actors\\stalker_hero\\stalker_hero_stalker_1"]: true,
@@ -69,9 +180,7 @@ const eatable_visuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
   ["actors\\stalker_neutral\\stalker_neutral_nauchniy_face_2"]: true,
 });
 
-export type TEatableVisual = keyof typeof eatable_visuals;
-
-const harmonica_visuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
+const harmonicaVisuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
   ["actors\\stalker_hero\\stalker_hero_1"]: true,
   ["actors\\stalker_hero\\stalker_hero_novice_1"]: true,
   ["actors\\stalker_hero\\stalker_hero_stalker_1"]: true,
@@ -137,171 +246,87 @@ const harmonica_visuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>(
 /**
  * todo;
  */
-export function animpointPredicateAlways(): boolean {
-  return true;
-}
-
-// todo: Optimize.
-function animpoint_predicate_bread(objectId: number): boolean {
-  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
-
-  if (object && eatable_visuals.get(object.get_visual_name()) && object.object(food.bread)) {
-    return true;
-  }
-
-  return false;
-}
-
-/**
- * todo;
- */
-function animpoint_predicate_kolbasa(objectId: TNumberId): boolean {
-  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
-
-  if (object && eatable_visuals.get(object.get_visual_name()) && object.object(food.kolbasa)) {
-    return true;
-  }
-
-  return false;
-}
+export const associativeTable: LuaTable<TName, IStoryAnimationDescriptor> = $fromObject<
+  TName,
+  IStoryAnimationDescriptor
+>({
+  idle: {
+    director: $fromArray(["", "_eat_bread", "_eat_kolbasa", "_drink_vodka", "_drink_energy", "_weapon"]),
+    listener: $fromArray(["", "_eat_bread", "_eat_kolbasa", "_drink_vodka", "_drink_energy", "_weapon"]),
+  },
+  harmonica: {
+    director: $fromArray(["_harmonica"]),
+    listener: $fromArray(["", "_eat_bread", "_eat_kolbasa", "_drink_vodka", "_drink_energy", "_weapon"]),
+  },
+  guitar: {
+    director: $fromArray(["_guitar"]),
+    listener: $fromArray(["", "_eat_bread", "_eat_kolbasa", "_drink_vodka", "_drink_energy", "_weapon"]),
+  },
+  story: {
+    director: $fromArray(["", "_weapon"]),
+    listener: $fromArray(["", "_eat_bread", "_eat_kolbasa", "_drink_vodka", "_drink_energy", "_weapon"]),
+  },
+});
 
 /**
  * todo;
  */
-function animpoint_predicate_vodka(objectId: TNumberId): boolean {
-  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
-
-  if (object && eatable_visuals.get(object.get_visual_name()) && object.object(food.vodka)) {
-    return true;
-  }
-
-  return false;
-}
-
-/**
- * todo;
- */
-function animpoint_predicate_energy(objectId: TNumberId): boolean {
-  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
-
-  if (object && eatable_visuals.get(object.get_visual_name()) && object.object(food.energy_drink)) {
-    return true;
-  }
-
-  return false;
-}
-
-/**
- * todo;
- */
-function animpoint_predicate_guitar(objectId: TNumberId, isInCamp?: Optional<boolean>): boolean {
-  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
-
-  if (isInCamp === true && object && object.object(misc.guitar_a)) {
-    return true;
-  }
-
-  return false;
-}
-
-/**
- * todo;
- */
-function animpoint_predicate_harmonica(objectId: TNumberId, isInCamp?: Optional<boolean>): boolean {
-  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
-
-  if (
-    isInCamp === true &&
-    object &&
-    harmonica_visuals.get(object.get_visual_name()) &&
-    object.object(misc.harmonica_a)
-  ) {
-    return true;
-  }
-
-  return false;
-}
-
-/**
- * todo;
- */
-function animpointPredicateWeapon(objectId: TNumberId): boolean {
-  const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
-
-  if (object !== null) {
-    const smartTerrainName: Optional<TName> = getObjectSmartTerrain(object)?.name() as Optional<TName>;
-
-    if (smartTerrainName) {
-      for (const [index, noWeaponSmartTerrainName] of registry.noWeaponSmartTerrains) {
-        if (smartTerrainName === noWeaponSmartTerrainName) {
-          return false;
-        }
-      }
-    }
-  }
-
-  return true;
-}
-
-/**
- * todo;
- */
-export const associations: LuaTable<string, LuaArray<IAnimpointAction>> = $fromObject<
-  string,
+export const associations: LuaTable<EStalkerState, LuaArray<IAnimpointAction>> = $fromObject<
+  EStalkerState,
   LuaArray<IAnimpointAction>
 >({
-  animpoint_stay_wall: $fromArray<IAnimpointAction>([
+  [EStalkerState.ANIMPOINT_STAY_WALL]: $fromArray<IAnimpointAction>([
     { name: EStalkerState.ANIMPOINT_STAY_WALL, predicate: animpointPredicateAlways },
-    { name: EStalkerState.ANIMPOINT_STAY_WALL_EAT_BREAD, predicate: animpoint_predicate_bread },
-    { name: EStalkerState.ANIMPOINT_STAY_WALL_EAT_KOLBASA, predicate: animpoint_predicate_kolbasa },
-    { name: EStalkerState.ANIMPOINT_STAY_WALL_DRINK_VODKA, predicate: animpoint_predicate_vodka },
-    { name: EStalkerState.ANIMPOINT_STAY_WALL_DRINK_ENERGY, predicate: animpoint_predicate_energy },
+    { name: EStalkerState.ANIMPOINT_STAY_WALL_EAT_BREAD, predicate: animpointPredicateBread },
+    { name: EStalkerState.ANIMPOINT_STAY_WALL_EAT_KOLBASA, predicate: animpointPredicateKolbasa },
+    { name: EStalkerState.ANIMPOINT_STAY_WALL_DRINK_VODKA, predicate: animpointPredicateVodka },
+    { name: EStalkerState.ANIMPOINT_STAY_WALL_DRINK_ENERGY, predicate: animpointPredicateEnergy },
     // --  {name = "animpoint_stay_wall_guitar", predicate: animpoint_predicate_guitar},
     // --  {name = "animpoint_stay_wall_harmonica", predicate: animpoint_predicate_harmonica},
     { name: EStalkerState.ANIMPOINT_STAY_WALL_WEAPON, predicate: animpointPredicateWeapon },
   ]),
-  animpoint_stay_table: $fromArray<IAnimpointAction>([
+  [EStalkerState.ANIMPOINT_STAY_TABLE]: $fromArray<IAnimpointAction>([
     { name: EStalkerState.ANIMPOINT_STAY_TABLE, predicate: animpointPredicateAlways },
-    { name: EStalkerState.ANIMPOINT_STAY_TABLE_EAT_BREAD, predicate: animpoint_predicate_bread },
-    { name: EStalkerState.ANIMPOINT_STAY_TABLE_EAT_KOLBASA, predicate: animpoint_predicate_kolbasa },
-    { name: EStalkerState.ANIMPOINT_STAY_TABLE_DRINK_VODKA, predicate: animpoint_predicate_vodka },
-    { name: EStalkerState.ANIMPOINT_STAY_TABLE_DRINK_ENERGY, predicate: animpoint_predicate_energy },
+    { name: EStalkerState.ANIMPOINT_STAY_TABLE_EAT_BREAD, predicate: animpointPredicateBread },
+    { name: EStalkerState.ANIMPOINT_STAY_TABLE_EAT_KOLBASA, predicate: animpointPredicateKolbasa },
+    { name: EStalkerState.ANIMPOINT_STAY_TABLE_DRINK_VODKA, predicate: animpointPredicateVodka },
+    { name: EStalkerState.ANIMPOINT_STAY_TABLE_DRINK_ENERGY, predicate: animpointPredicateEnergy },
     // --  {name = "animpoint_stay_table_guitar", predicate: animpoint_predicate_guitar},
     // --  {name = "animpoint_stay_table_harmonica", predicate: animpoint_predicate_harmonica},
     { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: animpointPredicateWeapon },
   ]),
-  animpoint_sit_high: $fromArray<IAnimpointAction>([
+  [EStalkerState.ANIMPOINT_SIT_HIGH]: $fromArray<IAnimpointAction>([
     { name: EStalkerState.ANIMPOINT_SIT_HIGH, predicate: animpointPredicateAlways },
-    { name: EStalkerState.ANIMPOINT_SIT_HIGH_EAT_BREAD, predicate: animpoint_predicate_bread },
-    { name: EStalkerState.ANIMPOINT_SIT_HIGH_EAT_KOLBASA, predicate: animpoint_predicate_kolbasa },
-    { name: EStalkerState.ANIMPOINT_SIT_HIGH_DRINK_VODKA, predicate: animpoint_predicate_vodka },
-    { name: EStalkerState.ANIMPOINT_SIT_HIGH_DRINK_ENERGY, predicate: animpoint_predicate_energy },
+    { name: EStalkerState.ANIMPOINT_SIT_HIGH_EAT_BREAD, predicate: animpointPredicateBread },
+    { name: EStalkerState.ANIMPOINT_SIT_HIGH_EAT_KOLBASA, predicate: animpointPredicateKolbasa },
+    { name: EStalkerState.ANIMPOINT_SIT_HIGH_DRINK_VODKA, predicate: animpointPredicateVodka },
+    { name: EStalkerState.ANIMPOINT_SIT_HIGH_DRINK_ENERGY, predicate: animpointPredicateEnergy },
     // --  {name = "animpoint_sit_high_guitar", predicate: animpoint_predicate_guitar},
-    { name: EStalkerState.ANIMPOINT_SIT_HIGH_HARMONICA, predicate: animpoint_predicate_harmonica },
+    { name: EStalkerState.ANIMPOINT_SIT_HIGH_HARMONICA, predicate: animpointPredicateHarmonica },
     // --  {name = "animpoint_sit_high_weapon", predicate: animpoint_predicate_weapon},
   ]),
-  animpoint_sit_normal: $fromArray<IAnimpointAction>([
+  [EStalkerState.ANIMPOINT_SIT_NORMAL]: $fromArray<IAnimpointAction>([
     { name: EStalkerState.ANIMPOINT_SIT_NORMAL, predicate: animpointPredicateAlways },
-    { name: EStalkerState.ANIMPOINT_SIT_NORMAL_EAT_BREAD, predicate: animpoint_predicate_bread },
-    { name: EStalkerState.ANIMPOINT_SIT_NORMAL_EAT_KOLBASA, predicate: animpoint_predicate_kolbasa },
-    { name: EStalkerState.ANIMPOINT_SIT_NORMAL_DRINK_VODKA, predicate: animpoint_predicate_vodka },
-    { name: EStalkerState.ANIMPOINT_SIT_NORMAL_DRINK_ENERGY, predicate: animpoint_predicate_energy },
-    { name: EStalkerState.ANIMPOINT_SIT_NORMAL_GUITAR, predicate: animpoint_predicate_guitar },
+    { name: EStalkerState.ANIMPOINT_SIT_NORMAL_EAT_BREAD, predicate: animpointPredicateBread },
+    { name: EStalkerState.ANIMPOINT_SIT_NORMAL_EAT_KOLBASA, predicate: animpointPredicateKolbasa },
+    { name: EStalkerState.ANIMPOINT_SIT_NORMAL_DRINK_VODKA, predicate: animpointPredicateVodka },
+    { name: EStalkerState.ANIMPOINT_SIT_NORMAL_DRINK_ENERGY, predicate: animpointPredicateEnergy },
+    { name: EStalkerState.ANIMPOINT_SIT_NORMAL_GUITAR, predicate: animpointPredicateGuitar },
     // --  {name = "animpoint_sit_normal_harmonica", predicate: animpoint_predicate_harmonica},
     // --  {name = "animpoint_sit_normal_weapon", predicate: animpoint_predicate_weapon},
   ]),
-  animpoint_sit_low: $fromArray<IAnimpointAction>([
+  [EStalkerState.ANIMPOINT_SIT_LOW]: $fromArray<IAnimpointAction>([
     { name: EStalkerState.ANIMPOINT_SIT_LOW, predicate: animpointPredicateAlways },
-    { name: EStalkerState.ANIMPOINT_SIT_LOW_EAT_BREAD, predicate: animpoint_predicate_bread },
-    { name: EStalkerState.ANIMPOINT_SIT_LOW_EAT_KOLBASA, predicate: animpoint_predicate_kolbasa },
-    { name: EStalkerState.ANIMPOINT_SIT_LOW_DRINK_VODKA, predicate: animpoint_predicate_vodka },
-    { name: EStalkerState.ANIMPOINT_SIT_LOW_DRINK_ENERGY, predicate: animpoint_predicate_energy },
-    { name: EStalkerState.ANIMPOINT_SIT_LOW_GUITAR, predicate: animpoint_predicate_guitar },
-    { name: EStalkerState.ANIMPOINT_SIT_LOW_HARMONICA, predicate: animpoint_predicate_harmonica },
+    { name: EStalkerState.ANIMPOINT_SIT_LOW_EAT_BREAD, predicate: animpointPredicateBread },
+    { name: EStalkerState.ANIMPOINT_SIT_LOW_EAT_KOLBASA, predicate: animpointPredicateKolbasa },
+    { name: EStalkerState.ANIMPOINT_SIT_LOW_DRINK_VODKA, predicate: animpointPredicateVodka },
+    { name: EStalkerState.ANIMPOINT_SIT_LOW_DRINK_ENERGY, predicate: animpointPredicateEnergy },
+    { name: EStalkerState.ANIMPOINT_SIT_LOW_GUITAR, predicate: animpointPredicateGuitar },
+    { name: EStalkerState.ANIMPOINT_SIT_LOW_HARMONICA, predicate: animpointPredicateHarmonica },
     // --  {name = "animpoint_sit_low_weapon", predicate: animpoint_predicate_weapon},
   ]),
-  walker_camp: $fromArray<IAnimpointAction>([
-    { name: EStalkerState.PLAY_GUITAR, predicate: animpoint_predicate_guitar },
-    { name: EStalkerState.PLAY_HARMONICA, predicate: animpoint_predicate_harmonica },
+  [EStalkerState.WALKER_CAMP]: $fromArray<IAnimpointAction>([
+    { name: EStalkerState.PLAY_GUITAR, predicate: animpointPredicateGuitar },
+    { name: EStalkerState.PLAY_HARMONICA, predicate: animpointPredicateHarmonica },
   ]),
-});
+} as Record<EStalkerState, LuaArray<IAnimpointAction>>);

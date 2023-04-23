@@ -273,7 +273,7 @@ export class DebugManager extends AbstractCoreManager {
 
     logger.pushSeparator();
 
-    logger.info("State of scheme:", toJSON(state.active_scheme ? state[state.active_scheme] : null, " ", 0, 3));
+    logger.info("State of scheme:", toJSON(state.active_scheme ? state[state.active_scheme] : null, "\n", 0, 4));
 
     logger.pushSeparator();
   }

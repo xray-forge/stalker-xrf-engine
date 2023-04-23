@@ -229,6 +229,7 @@ export enum EStalkerState {
   THREAT_NA = "threat_na",
   TRUE = "true",
   WALK = "walk",
+  WALKER_CAMP = "walker_camp",
 }
 
 /**
