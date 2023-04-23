@@ -25,7 +25,7 @@ export async function buildStaticConfigs(): Promise<void> {
     } else if (EXPECTED_CONFIG_EXTENSIONS.includes(path.extname(it))) {
       const relativePath: string = it.slice(GAME_DATA_LTX_CONFIGS_DIR.length);
 
-      acc.push([it, path.resolve(TARGET_GAME_DATA_CONFIGS_DIR, relativePath)]);
+      acc.push([it, path.join(TARGET_GAME_DATA_CONFIGS_DIR, relativePath)]);
     }
 
     return acc;

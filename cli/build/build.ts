@@ -147,11 +147,15 @@ export async function build(parameters: IBuildCommandParameters): Promise<void> 
     await buildMeta({ meta: pkg, timeTracker });
 
     log.info("Successfully executed build command, took:", timeTracker.getDuration() / 1000, "sec");
+
+    await collectLog();
   } catch (error) {
     log.error("Build fail:", error);
     timeTracker.end();
-  } finally {
+
     await collectLog();
+
+    throw error;
   }
 }
 
