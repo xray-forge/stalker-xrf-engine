@@ -33,11 +33,13 @@ export async function buildResourcesStatics(parameters: IBuildCommandParameters)
     log.warn("No locale resources detected for current locale");
   }
 
-  const folderToProcess: Array<string> = [configuredDefaultPath, ...configuredTargetPath].filter((it) => {
-    log.debug("Resources folder candidate check:", chalk.yellowBright(it));
+  const folderToProcess: Array<string> = [configuredDefaultPath, ...configuredTargetPath]
+    .map((it) => path.normalize(it))
+    .filter((it) => {
+      log.debug("Resources folder candidate check:", chalk.yellowBright(it));
 
-    return fs.existsSync(it);
-  });
+      return fs.existsSync(it);
+    });
 
   if (folderToProcess.length) {
     log.info("Process folders with resources:", folderToProcess.length);
