@@ -2,6 +2,7 @@ import { action_base, LuabindClass, XR_game_object } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { associations } from "@/engine/core/schemes/animpoint/animpoint_predicates";
 import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
@@ -41,7 +42,7 @@ export class ActionWalkerActivity extends action_base {
     this.state = state;
     this.moveManager = registry.objects.get(object.id()).moveManager!;
 
-    this.state.description = "walker_camp";
+    this.state.description = EStalkerState.WALKER_CAMP;
     this.avail_actions = associations.get(this.state.description);
     this.state.approvedActions = new LuaTable();
 

@@ -36,6 +36,9 @@ describe("'json' util", () => {
   it("should correctly limit depth", () => {
     const base = { nested: { nested: { nested: { nested: {} } } } };
 
-    expect(toJSON(base, " ", 3)).toBe(`{${quoted("nested")}: {"nested": {"nested": {"nested": <depth_limit>}}}}`);
+    expect(toJSON(base, " ", 0, 3)).toBe(`{${quoted("nested")}: {"nested": {"nested": {"nested": <depth_limit>}}}}`);
+    expect(toJSON(base, " ", 0, 2)).toBe(`{${quoted("nested")}: {"nested": {"nested": <depth_limit>}}}`);
+    expect(toJSON(base, " ", 0, 1)).toBe(`{${quoted("nested")}: {"nested": <depth_limit>}}`);
+    expect(toJSON(base, " ", 0, 0)).toBe(`{${quoted("nested")}: <depth_limit>}`);
   });
 });
