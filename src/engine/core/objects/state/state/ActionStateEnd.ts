@@ -72,11 +72,11 @@ export class ActionStateEnd extends action_base {
     if (targetWeaponState === EWeaponAnimation.FIRE || targetWeaponState === EWeaponAnimation.SNIPER_FIRE) {
       let sniperAimDuration: TDuration = SNIPER_AIM_TIME;
 
-      if (this.stateManager.look_object !== null) {
-        const lookObject: Optional<XR_game_object> = level.object_by_id(this.stateManager.look_object);
+      if (this.stateManager.lookObjectId !== null) {
+        const lookObject: Optional<XR_game_object> = level.object_by_id(this.stateManager.lookObjectId);
 
         if (lookObject === null) {
-          this.stateManager.look_object = null;
+          this.stateManager.lookObjectId = null;
 
           return;
         }
@@ -109,7 +109,7 @@ export class ActionStateEnd extends action_base {
         }
       }
 
-      if (this.stateManager.look_position !== null && this.stateManager.look_object === null) {
+      if (this.stateManager.lookPosition !== null && this.stateManager.lookObjectId === null) {
         if (targetWeaponState === EWeaponAnimation.SNIPER_FIRE) {
           this.object.set_item(object.fire1, this.object.best_weapon(), 1, sniperAimDuration);
         } else {

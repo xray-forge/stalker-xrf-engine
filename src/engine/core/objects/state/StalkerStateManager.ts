@@ -43,33 +43,37 @@ export interface ITargetStateDescriptorExtras {
  */
 export class StalkerStateManager {
   public object: XR_game_object;
-
-  public animation!: StalkerAnimationManager;
-  public animstate!: StalkerAnimationManager;
   public planner: XR_action_planner;
-
-  public targetState: EStalkerState = EStalkerState.IDLE;
 
   public isCombat: boolean = false;
   public isAlife: boolean = true;
-  public isForced: Optional<boolean> = null;
+  public isForced: boolean = false;
 
-  public animation_position: Optional<XR_vector> = null;
-  public animation_direction: Optional<XR_vector> = null;
-  public pos_direction_applied: boolean = false;
-  public look_position: Optional<XR_vector> = null;
-  public point_obj_dir?: boolean;
-  public look_object: Optional<TNumberId> = null;
+  public isObjectPointDirectionLook: boolean = false;
+  public isPositionDirectionApplied: boolean = false;
 
+  public animation!: StalkerAnimationManager;
+  public animstate!: StalkerAnimationManager;
+  public animationPosition: Optional<XR_vector> = null;
+  public animationDirection: Optional<XR_vector> = null;
+
+  public targetState: EStalkerState = EStalkerState.IDLE;
   public callback: Optional<IStateManagerCallbackDescriptor> = null;
 
-  /**
-   * todo: Description.
-   */
+  public lookPosition: Optional<XR_vector> = null;
+  public lookObjectId: Optional<TNumberId> = null;
+
   public constructor(object: XR_game_object) {
     this.object = object;
     this.planner = new action_planner();
     this.planner.setup(object);
+  }
+
+  /**
+   * Get target state of manager.
+   */
+  public getState(): Optional<EStalkerState> {
+    return this.targetState;
   }
 
   /**
@@ -85,16 +89,16 @@ export class StalkerStateManager {
     assert(states.get(stateName), "Invalid set state called: '%s' fo '%s'.", stateName, this.object.name());
 
     if (target !== null) {
-      this.look_position = target.look_position;
+      this.lookPosition = target.look_position;
 
       if (target.look_object !== null) {
-        this.look_object = target.look_object.id();
+        this.lookObjectId = target.look_object.id();
       } else {
-        this.look_object = null;
+        this.lookObjectId = null;
       }
     } else {
-      this.look_position = null;
-      this.look_object = null;
+      this.lookPosition = null;
+      this.lookObjectId = null;
     }
 
     if (this.targetState !== stateName) {
@@ -125,23 +129,23 @@ export class StalkerStateManager {
         this.isForced = extra.isForced === true;
 
         if (
-          this.pos_direction_applied === false ||
-          (this.animation_position !== null &&
+          this.isPositionDirectionApplied === false ||
+          (this.animationPosition !== null &&
             extra.animation_position !== null &&
-            !areSameVectors(this.animation_position, extra.animation_position as XR_vector)) ||
-          (this.animation_direction !== null &&
+            !areSameVectors(this.animationPosition, extra.animation_position as XR_vector)) ||
+          (this.animationDirection !== null &&
             extra.animation_direction !== null &&
-            !areSameVectors(this.animation_direction, extra.animation_direction as XR_vector))
+            !areSameVectors(this.animationDirection, extra.animation_direction as XR_vector))
         ) {
-          this.animation_position = extra.animation_position as Optional<XR_vector>;
-          this.animation_direction = extra.animation_direction as Optional<XR_vector>;
-          this.pos_direction_applied = false;
+          this.animationPosition = extra.animation_position as Optional<XR_vector>;
+          this.animationDirection = extra.animation_direction as Optional<XR_vector>;
+          this.isPositionDirectionApplied = false;
         }
       } else {
-        this.animation_position = null;
-        this.animation_direction = null;
-        this.pos_direction_applied = false;
-        this.isForced = null;
+        this.animationPosition = null;
+        this.animationDirection = null;
+        this.isPositionDirectionApplied = false;
+        this.isForced = false;
       }
 
       this.callback = callback;
@@ -154,13 +158,6 @@ export class StalkerStateManager {
         this.callback.timeout = null;
       }
     }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public getState(): Optional<string> {
-    return this.targetState;
   }
 
   /**

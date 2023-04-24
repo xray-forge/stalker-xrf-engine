@@ -41,11 +41,11 @@ export class EvaluatorDirection extends property_evaluator {
 
     const objectSightType: XR_CSightParams = this.object.sight_params();
 
-    if (this.stateManager.look_object !== null) {
+    if (this.stateManager.lookObjectId !== null) {
       if (
         objectSightType.m_object === null ||
-        objectSightType.m_object.id() !== this.stateManager.look_object ||
-        this.stateManager.point_obj_dir !== getLookObjectType(this.object, this.stateManager)
+        objectSightType.m_object.id() !== this.stateManager.lookObjectId ||
+        this.stateManager.isObjectPointDirectionLook !== getLookObjectType(this.object, this.stateManager)
       ) {
         return false;
       }
@@ -55,14 +55,14 @@ export class EvaluatorDirection extends property_evaluator {
       return true;
     }
 
-    if (this.stateManager.look_position !== null) {
+    if (this.stateManager.lookPosition !== null) {
       if (objectSightType.m_sight_type !== getObjectLookPositionType(this.object, this.stateManager)) {
         return false;
       } else if ((objectSightType.m_sight_type as TXR_SightType) === CSightParams.eSightTypeAnimationDirection) {
         return true;
       }
 
-      const direction: XR_vector = new vector().sub(this.stateManager.look_position!, this.object.position());
+      const direction: XR_vector = new vector().sub(this.stateManager.lookPosition!, this.object.position());
 
       if (getLookObjectType(this.object, this.stateManager)) {
         direction.y = 0;

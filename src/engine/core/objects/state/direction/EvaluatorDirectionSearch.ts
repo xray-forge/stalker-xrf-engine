@@ -21,6 +21,6 @@ export class EvaluatorDirectionSearch extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    return !(this.stateManager.look_position !== null || this.stateManager.look_object !== null);
+    return !(this.stateManager.lookPosition !== null || this.stateManager.lookObjectId !== null);
   }
 }

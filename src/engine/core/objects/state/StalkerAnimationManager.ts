@@ -319,26 +319,26 @@ export class StalkerAnimationManager {
       return;
     }
 
-    if (this.stateManager.animation_position === null || this.stateManager.pos_direction_applied === true) {
+    if (this.stateManager.animationPosition === null || this.stateManager.isPositionDirectionApplied === true) {
       object.add_animation(animation, true, true);
     } else {
-      if (this.stateManager.animation_direction === null) {
+      if (this.stateManager.animationDirection === null) {
         abort("[%s] Animation direction is missing.", object.name());
       }
 
       const rotationY = -math.deg(
-        math.atan2(this.stateManager.animation_direction.x, this.stateManager.animation_direction.z)
+        math.atan2(this.stateManager.animationDirection.x, this.stateManager.animationDirection.z)
       );
 
       object.add_animation(
         animation,
         true,
-        this.stateManager.animation_position,
+        this.stateManager.animationPosition,
         new vector().set(0, rotationY, 0),
         false
       );
 
-      this.stateManager.pos_direction_applied = true;
+      this.stateManager.isPositionDirectionApplied = true;
     }
   }
 

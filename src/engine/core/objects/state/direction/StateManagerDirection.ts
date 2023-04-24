@@ -12,24 +12,24 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export function lookAtObject(object: XR_game_object, stateManager: StalkerStateManager): void {
-  stateManager.point_obj_dir = getLookObjectType(object, stateManager);
+  stateManager.isObjectPointDirectionLook = getLookObjectType(object, stateManager);
 
-  if (stateManager.point_obj_dir === true) {
-    object.set_sight(level.object_by_id(stateManager.look_object!)!, true, false, false);
+  if (stateManager.isObjectPointDirectionLook) {
+    object.set_sight(level.object_by_id(stateManager.lookObjectId!)!, true, false, false);
   } else {
-    object.set_sight(level.object_by_id(stateManager.look_object!)!, true, true);
+    object.set_sight(level.object_by_id(stateManager.lookObjectId!)!, true, true);
   }
 }
 
 /**
  * todo;
  */
-const look_direction_states: LuaTable<string, boolean> = {
+const look_direction_states: LuaTable<string, boolean> = $fromObject<string, boolean>({
   // --	threat = true,
   threat_na: true,
   wait_na: true,
   guard_na: true,
-} as any;
+});
 
 /**
  * todo;
@@ -55,14 +55,14 @@ export function getObjectLookPositionType(object: XR_game_object, stateManager: 
   }
 
   if (!stateManager.planner.evaluator(EStateEvaluatorId.movement_stand).evaluate()) {
-    if (stateManager.look_position !== null) {
+    if (stateManager.lookPosition !== null) {
       return look.direction;
     }
 
     return look.path_dir;
   }
 
-  if (stateManager.look_position !== null) {
+  if (stateManager.lookPosition !== null) {
     return look.direction;
   }
 
@@ -71,22 +71,22 @@ export function getObjectLookPositionType(object: XR_game_object, stateManager: 
 
 // todo: Probably duplicate
 export function turn(object: XR_game_object, stateManager: StalkerStateManager): void {
-  stateManager.point_obj_dir = getLookObjectType(object, stateManager);
+  stateManager.isObjectPointDirectionLook = getLookObjectType(object, stateManager);
 
-  if (stateManager.look_object !== null && level.object_by_id(stateManager.look_object) !== null) {
+  if (stateManager.lookObjectId !== null && level.object_by_id(stateManager.lookObjectId) !== null) {
     logger.info("Look at call for:", object.name());
     lookAtObject(object, stateManager);
-  } else if (stateManager.look_position !== null) {
-    let direction: XR_vector = new vector().sub(stateManager.look_position!, object.position());
+  } else if (stateManager.lookPosition !== null) {
+    let direction: XR_vector = new vector().sub(stateManager.lookPosition!, object.position());
 
-    if (stateManager.point_obj_dir === true) {
+    if (stateManager.isObjectPointDirectionLook) {
       direction.y = 0;
     }
 
     direction.normalize();
 
     if (areSameVectors(direction, new vector().set(0, 0, 0))) {
-      stateManager.look_position = new vector().set(
+      stateManager.lookPosition = new vector().set(
         object.position().x + object.direction().x,
         object.position().y + object.direction().y,
         object.position().z + object.direction().z

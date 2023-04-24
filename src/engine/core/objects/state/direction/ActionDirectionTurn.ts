@@ -40,11 +40,11 @@ export class ActionDirectionTurn extends action_base {
    * todo: Description.
    */
   public turn(): void {
-    this.stateManager.point_obj_dir = getLookObjectType(this.object, this.stateManager);
+    this.stateManager.isObjectPointDirectionLook = getLookObjectType(this.object, this.stateManager);
 
-    if (this.stateManager.look_object !== null && level.object_by_id(this.stateManager.look_object) !== null) {
+    if (this.stateManager.lookObjectId !== null && level.object_by_id(this.stateManager.lookObjectId) !== null) {
       lookAtObject(this.object, this.stateManager);
-    } else if (this.stateManager.look_position !== null) {
+    } else if (this.stateManager.lookPosition !== null) {
       if (states.get(this.stateManager.targetState).direction) {
         this.object.set_sight(CSightParams.eSightTypeAnimationDirection, false, false);
 
@@ -52,9 +52,9 @@ export class ActionDirectionTurn extends action_base {
       }
 
       const objectPosition: XR_vector = this.object.position();
-      let direction: XR_vector = new vector().sub(this.stateManager.look_position, objectPosition);
+      let direction: XR_vector = new vector().sub(this.stateManager.lookPosition, objectPosition);
 
-      if (this.stateManager.point_obj_dir === true) {
+      if (this.stateManager.isObjectPointDirectionLook) {
         direction.y = 0;
       }
 
@@ -63,7 +63,7 @@ export class ActionDirectionTurn extends action_base {
       if (areSameVectors(direction, new vector().set(0, 0, 0))) {
         const objectDirection: XR_vector = this.object.direction();
 
-        this.stateManager.look_position = new vector().set(
+        this.stateManager.lookPosition = new vector().set(
           objectPosition.x + objectDirection.x,
           objectPosition.y + objectDirection.y,
           objectPosition.z + objectDirection.z

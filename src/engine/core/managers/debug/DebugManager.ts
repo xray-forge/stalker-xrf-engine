@@ -190,7 +190,7 @@ export class DebugManager extends AbstractCoreManager {
       logger.info("Target state:", stateManager.targetState);
       logger.info(
         "Look object:",
-        stateManager.look_object ? alife().object(stateManager.look_object)?.name() || NIL : NIL
+        stateManager.lookObjectId ? alife().object(stateManager.lookObjectId)?.name() || NIL : NIL
       );
       logger.info("Callback object:", toJSON(stateManager.callback));
       logger.info("Is combat:", stateManager.isCombat);
