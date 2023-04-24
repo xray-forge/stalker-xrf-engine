@@ -99,7 +99,7 @@ jobs:
       with:
         if-no-files-found: error
         name: gamedata-release
-        path: target/gamedata.release.zip
+        path: target/mod_package/gamedata.release.zip
         retention-days: 1
 
   upload-nightly:
