@@ -85,9 +85,14 @@ jobs:
     - name: Install zip
       uses: montudor/action-zip@v1
 
+    - name: Move build statics
+      run: |
+        mv target/xrf_build.log target/mod_package/xrf_build.log
+        mv target/README.md target/mod_package/README.md
+
     - name: Archive build artifacts
-      working-directory: target/
-      run: zip -qq -r gamedata.release.zip mod_package/ xrf_build.log README.md
+      working-directory: target/mod_package
+      run: zip -qq -r gamedata.release.zip gamedata/ bin/ xrf_build.log README.md
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3

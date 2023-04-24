@@ -7,7 +7,7 @@ import { default as chalk } from "chalk";
 import { IBuildCommandParameters } from "#/build/build";
 import { default as config } from "#/config.json";
 import { CLI_DIR, TARGET_GAME_DATA_DIR } from "#/globals/paths";
-import { NodeLogger } from "#/utils";
+import { NodeLogger, normalizeParameterPath } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_ASSET_STATICS");
 
@@ -20,14 +20,18 @@ const UNEXPECTED_DIRECTORIES: Array<string> = ["core", "configs", "forms,", "lib
 export async function buildResourcesStatics(parameters: IBuildCommandParameters): Promise<void> {
   log.info(chalk.blueBright("Build resources"));
 
-  const configuredDefaultPath: string = path.win32.resolve(CLI_DIR, config.resources.mod_assets_base_folder);
+  const configuredDefaultPath: string = path.resolve(
+    CLI_DIR,
+    normalizeParameterPath(config.resources.mod_assets_base_folder)
+  );
+
   const configuredTargetPath: Array<string> = parameters.assetOverrides
-    ? config.resources.mod_assets_override_folders.map((it) => path.win32.resolve(CLI_DIR, it))
+    ? config.resources.mod_assets_override_folders.map((it) => path.resolve(CLI_DIR, normalizeParameterPath(it)))
     : [];
 
   if (parameters.assetOverrides && config.resources.mod_assets_locales[config.locale]) {
     config.resources.mod_assets_locales[config.locale].forEach((it) => {
-      configuredTargetPath.push(path.win32.resolve(CLI_DIR, it));
+      configuredTargetPath.push(path.resolve(CLI_DIR, normalizeParameterPath(it)));
     });
   } else {
     log.warn("No locale resources detected for current locale");
