@@ -80,14 +80,14 @@ jobs:
 
     - run: npm ci
     - run: npm run setup
-    - run: npm run build:gold
+    - run: npm run pack:mod
 
     - name: Install zip
       uses: montudor/action-zip@v1
 
     - name: Archive build artifacts
       working-directory: target/
-      run: zip -qq -r gamedata.release.zip gamedata/ xrf_build.log README.md
+      run: zip -qq -r gamedata.release.zip mod_package/ xrf_build.log README.md
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3

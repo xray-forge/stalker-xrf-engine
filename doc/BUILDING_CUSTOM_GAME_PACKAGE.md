@@ -19,7 +19,13 @@ After cloning suggested repositories or providing custom assets, you should list
 If assets are downloaded and configured correctly, the only needed thing is:
 
 ```
-npm run cli pack -- --clean --build --optimize
+npm run cli pack game -- --clean --build --optimize
+
+# or
+npm run cli pack game -- -c -b -o
+
+# or
+npm run pack:game
 ```
 
 As result, new package will be created in `target` folder.
@@ -27,7 +33,7 @@ As result, new package will be created in `target` folder.
 If you want to 'just build' package for testing from existing assets without full build cycle, you can use alternative:
 
 ```
-npm run cli pack -- --engine release --build
+npm run cli pack game -- --engine release --build
 ```
 
 ### 🏗️ Assets links

@@ -29,7 +29,8 @@ export const TARGET_GAME_LINK_DIR: string = path.resolve(TARGET_DIR, "game_link"
 export const TARGET_PARSED_DIR: string = path.resolve(TARGET_DIR, "parsed");
 export const TARGET_DATABASE_DIR: string = path.resolve(TARGET_DIR, "db");
 export const TARGET_LOGS_DIR: string = path.resolve(TARGET_DIR, "logs");
-export const TARGET_PACKAGE_DIR: string = path.resolve(TARGET_DIR, "package");
+export const TARGET_GAME_PACKAGE_DIR: string = path.resolve(TARGET_DIR, "game_package");
+export const TARGET_MOD_PACKAGE_DIR: string = path.resolve(TARGET_DIR, "mod_package");
 
 export const TARGET_PREVIEW_DIR: string = path.resolve(TARGET_DIR, "preview");
 

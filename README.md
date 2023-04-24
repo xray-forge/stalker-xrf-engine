@@ -74,6 +74,7 @@ Optimizations, quality and logics updates are welcome.
 - [setup](cli/info/README.md) - setup project and submodules
 - [verify](cli/verify/README.md) - verify project configuration and integrity
 - [build](cli/build/README.md) - build project gamedata with all assets
+- [pack:mod](cli/pack/README.md) - build complete mod package in target/mod_package folder
 - [watch:scripts](cli/build/README.md) - build scripts in watch mode, recompile on changes
 - [test](cli/test/README.md) - run jest tests
 - `typecheck` - verify typescript types
@@ -90,6 +91,7 @@ Optimizations, quality and logics updates are welcome.
 - [open_game_folder](cli/build/README.md) - open game folder in explorer
 - [start_game](cli/build/README.md) - start game with debug flag
 - [build](cli/build/README.md) - build project gamedata with all assets
+- [pack](cli/pack/README.md) - build complete mod or game package depending on provided arguments
 - `help` - print list of commands and information about them
 
 ---

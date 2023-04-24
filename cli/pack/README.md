@@ -18,7 +18,7 @@ List of arguments:
 
 ### Example
 
-- `npm run cli pack -- -h`
-- `npm run cli pack -- -b -o`
-- `npm run cli pack -- -b -e mixed`
-- `npm run cli pack -- --verbose`
+- `npm run cli pack game -- -h`
+- `npm run cli pack game -- -b -o`
+- `npm run cli pack mod -- -b -e mixed`
+- `npm run cli pack mod -- --verbose`
