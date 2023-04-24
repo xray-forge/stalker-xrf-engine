@@ -9,7 +9,11 @@ import { IConstructor, Optional, TDuration } from "@/engine/lib/types";
  */
 export abstract class AbstractCoreManager {
   /**
-   * todo: Description.
+   * Get singleton manager instance from managers registry.
+   * Initialize manager if it was not initialized before.
+   *
+   * @param initialize - whether initialize should be called on manager instance creation, `true` by default
+   * @returns manager instance
    */
   public static getInstance<T extends AbstractCoreManager>(this: IConstructor<T>, initialize: boolean = true): T {
     return getManagerInstance(this, initialize);

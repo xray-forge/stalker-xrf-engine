@@ -18,9 +18,6 @@ export class CampfireBinder extends object_binder {
     this.campfire = object.get_campfire();
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;

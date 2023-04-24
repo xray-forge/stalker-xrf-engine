@@ -106,7 +106,7 @@ export class StalkerMoveManager {
   public path_walk_info!: LuaTable<number, IWaypointData>;
 
   public no_validation: Optional<boolean> = null;
-  public at_terminal_waypoint_flag: Optional<boolean> = null;
+  public isOnTerminalWaypoint: Optional<boolean> = null;
   public current_point_init_time: Optional<number> = null;
   public current_point_index: Optional<TIndex> = null;
   public can_use_get_current_point_index: Optional<boolean> = null;
@@ -229,7 +229,7 @@ export class StalkerMoveManager {
       this.path_look = lookPath;
       this.path_look_info = lookPathInfo;
 
-      this.at_terminal_waypoint_flag = false;
+      this.isOnTerminalWaypoint = false;
 
       this.currentStateStanding = pickSectionFromCondList(
         registry.actor,
@@ -400,9 +400,9 @@ export class StalkerMoveManager {
       const state: LuaTable<number, boolean> = sync.get(this.team);
 
       for (const [id, isFlagged] of state) {
-        const obj = level.object_by_id(id);
+        const object: Optional<XR_game_object> = level.object_by_id(id);
 
-        if (obj && obj.alive()) {
+        if (object?.alive()) {
           if (isFlagged !== true) {
             return false;
           }
@@ -536,9 +536,7 @@ export class StalkerMoveManager {
         return;
       }
 
-      const look_pos = this.patrol_look!.point(this.last_look_index!);
-
-      this.updateStandingState(look_pos);
+      this.updateStandingState(this.patrol_look!.point(this.last_look_index!));
     }
   }
 
@@ -562,7 +560,7 @@ export class StalkerMoveManager {
     this.lastIndex = index;
 
     if (this.patrol_walk!.terminal(index)) {
-      this.at_terminal_waypoint_flag = true;
+      this.isOnTerminalWaypoint = true;
     }
 
     const suggested_state_moving = this.path_walk_info.get(index)["a"];

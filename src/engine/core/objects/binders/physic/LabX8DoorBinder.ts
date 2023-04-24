@@ -50,9 +50,6 @@ export class LabX8DoorBinder extends object_binder {
   public on_stop!: TConditionList;
   public on_start!: TConditionList;
 
-  /**
-   * todo: Description.
-   */
   public constructor(object: XR_game_object) {
     super(object);
 

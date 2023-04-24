@@ -12,22 +12,17 @@ import {
 import { registerObject, registry, unregisterObject } from "@/engine/core/database";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TDuration } from "@/engine/lib/types";
+import { Optional, TDuration, TNumberId, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-const UPDATE_THROTTLE: number = 1_000;
 
 /**
  * todo;
  */
 @LuabindClass()
 export class ArtefactBinder extends object_binder {
-  public delta: TDuration = UPDATE_THROTTLE;
   public isInitializing: boolean = false;
 
-  /**
-   * todo: Description.
-   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -38,12 +33,12 @@ export class ArtefactBinder extends object_binder {
     registerObject(this.object);
 
     const artefact: XR_CArtefact = this.object.get_artefact();
-    const id: number = this.object.id();
+    const id: TNumberId = this.object.id();
 
     if (registry.artefacts.ways.get(id) !== null) {
       const anomalyZone: AnomalyZoneBinder = registry.artefacts.parentZones.get(id);
-      const forceXZ: number = anomalyZone.applyingForceXZ;
-      const forceY: number = anomalyZone.applyingForceY;
+      const forceXZ: TRate = anomalyZone.applyingForceXZ;
+      const forceY: TRate = anomalyZone.applyingForceY;
 
       artefact.FollowByPath(
         registry.artefacts.ways.get(id),
@@ -57,27 +52,13 @@ export class ArtefactBinder extends object_binder {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_destroy(): void {
     unregisterObject(this.object);
     super.net_destroy();
   }
 
-  /**
-   * todo: Description.
-   */
   public override update(delta: TDuration): void {
-    this.delta += delta;
-
-    if (this.delta >= UPDATE_THROTTLE) {
-      super.update(this.delta);
-
-      this.delta = 0;
-    } else {
-      return;
-    }
+    super.update(delta);
 
     if (this.isInitializing) {
       const ini: Optional<XR_ini_file> = this.object.spawn_ini();

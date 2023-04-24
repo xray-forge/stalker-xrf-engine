@@ -244,10 +244,11 @@ export class StalkerBinder extends object_binder {
       emitSchemeEvent(this.object, this.state[EScheme.REACH_TASK], ESchemeEvent.NET_DESTROY, this.object);
     }
 
-    const on_offline_condlist: Optional<TConditionList> = state.overrides?.on_offline_condlist;
+    // Call logics on offline.
+    const onOfflineConditionList: Optional<TConditionList> = state.overrides?.on_offline_condlist;
 
-    if (on_offline_condlist !== null) {
-      pickSectionFromCondList(registry.actor, this.object, on_offline_condlist);
+    if (onOfflineConditionList !== null) {
+      pickSectionFromCondList(registry.actor, this.object, onOfflineConditionList);
     }
 
     if (registry.offlineObjects.get(objectId) !== null) {
