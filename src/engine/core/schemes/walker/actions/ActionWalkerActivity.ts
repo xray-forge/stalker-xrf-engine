@@ -161,7 +161,7 @@ export class ActionWalkerActivity extends action_base {
    * todo: Description.
    */
   public isPositionReached(): boolean {
-    return this.moveManager.arrived_to_first_waypoint();
+    return this.moveManager.isArrivedToFirstWaypoint();
   }
 
   /**

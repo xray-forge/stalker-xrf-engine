@@ -60,7 +60,7 @@ export class ActionAnimpoint extends action_base {
       null,
       null,
       { look_position: this.state.animpoint.lookPosition, look_object: null },
-      { animation_position: position, animation_direction: direction }
+      { animationPosition: position, animationDirection: direction }
     );
   }
 }

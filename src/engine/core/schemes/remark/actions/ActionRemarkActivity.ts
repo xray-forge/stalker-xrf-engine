@@ -41,9 +41,6 @@ export class ActionRemarkActivity extends action_base {
   public snd_started: boolean = false;
   public tips_sound: Optional<XR_sound_object> = null;
 
-  /**
-   * todo
-   */
   public constructor(state: ISchemeRemarkState) {
     super(null, ActionRemarkActivity.__name);
     this.st = state;
@@ -57,6 +54,25 @@ export class ActionRemarkActivity extends action_base {
     this.object.set_desired_position();
     this.object.set_desired_direction();
     // --    GlobalSound:set_sound(this.object, null)
+  }
+
+  /**
+   * todo
+   */
+  public override execute(): void {
+    super.execute();
+    this.update();
+  }
+
+  /**
+   * todo
+   */
+  public override finalize(): void {
+    if (this.tips_sound !== null) {
+      this.tips_sound.stop();
+    }
+
+    super.finalize();
   }
 
   /**
@@ -115,7 +131,7 @@ export class ActionRemarkActivity extends action_base {
   /**
    * todo
    */
-  public time_callback(): void {
+  public onAnimationUpdate(): void {
     this.state = state_sound;
     this.update();
   }
@@ -125,7 +141,7 @@ export class ActionRemarkActivity extends action_base {
    */
   public update(): void {
     if (this.state === state_initial) {
-      const cb: IStateManagerCallbackDescriptor = { obj: this, func: this.time_callback };
+      const cb: IStateManagerCallbackDescriptor = { context: this, callback: this.onAnimationUpdate };
       const target = this.get_target();
 
       if (target === null) {
@@ -167,25 +183,6 @@ export class ActionRemarkActivity extends action_base {
         }
       }
     }
-  }
-
-  /**
-   * todo
-   */
-  public override execute(): void {
-    super.execute();
-    this.update();
-  }
-
-  /**
-   * todo
-   */
-  public override finalize(): void {
-    if (this.tips_sound !== null) {
-      this.tips_sound.stop();
-    }
-
-    super.finalize();
   }
 }
 

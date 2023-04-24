@@ -8,6 +8,7 @@ import {
   XR_vector,
 } from "xray16";
 
+import { EStalkerState } from "@/engine/core/objects/state";
 import {
   getLookObjectType,
   getObjectLookPositionType,
@@ -35,7 +36,7 @@ export class EvaluatorDirection extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    if (this.stateManager.targetState === "smartcover") {
+    if (this.stateManager.targetState === EStalkerState.SMART_COVER) {
       return true;
     }
 
@@ -94,11 +95,11 @@ export class EvaluatorDirection extends property_evaluator {
    * todo: Description.
    */
   public callback(): void {
-    if (this.stateManager.callback !== null && this.stateManager.callback.turn_end_func !== null) {
-      (this.stateManager.callback.turn_end_func as AnyCallable)(this.stateManager.callback.obj);
+    if (this.stateManager.callback !== null && this.stateManager.callback.turnEndCallback !== null) {
+      (this.stateManager.callback.turnEndCallback as AnyCallable)(this.stateManager.callback.context);
 
       if (this.stateManager.callback !== null) {
-        this.stateManager.callback.turn_end_func = null;
+        this.stateManager.callback.turnEndCallback = null;
       }
     }
   }

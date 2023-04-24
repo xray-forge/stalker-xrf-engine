@@ -154,7 +154,7 @@ export class ActionCamperPatrol extends action_base {
     }
 
     if (this.state.shoot === "terminal") {
-      const [isOnTerminalWaypoint] = this.moveManager.standing_on_terminal_waypoint();
+      const [isOnTerminalWaypoint] = this.moveManager.isStandingOnTerminalWaypoint();
 
       return isOnTerminalWaypoint;
     }
@@ -328,7 +328,7 @@ export class ActionCamperPatrol extends action_base {
 
         this.scan(this.state.wp_flag as number);
 
-        const [isOnWaypoint] = this.moveManager.standing_on_terminal_waypoint();
+        const [isOnWaypoint] = this.moveManager.isStandingOnTerminalWaypoint();
 
         if (isOnWaypoint) {
           return;

@@ -11,19 +11,27 @@ import { getObjectAnimationWeapon } from "@/engine/core/objects/state/weapon/Sta
 import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areSameVectors } from "@/engine/core/utils/vector";
-import { AnyCallable, AnyObject, Optional, TDuration, TNumberId, TTimestamp } from "@/engine/lib/types";
+import {
+  AnyCallable,
+  AnyContextualCallable,
+  AnyObject,
+  Optional,
+  TDuration,
+  TNumberId,
+  TTimestamp,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
-export interface IStateManagerCallbackDescriptor {
+export interface IStateManagerCallbackDescriptor<T extends AnyObject = AnyObject> {
   begin?: Optional<TTimestamp>;
   timeout?: Optional<TDuration>;
-  turn_end_func?: Optional<AnyCallable>;
-  func: Optional<AnyCallable>;
-  obj: AnyObject;
+  context: T;
+  callback: Optional<AnyContextualCallable<T>>;
+  turnEndCallback?: Optional<AnyCallable>;
 }
 
 /**
@@ -32,8 +40,8 @@ export interface IStateManagerCallbackDescriptor {
 export interface ITargetStateDescriptorExtras {
   isForced?: boolean;
   animation?: boolean;
-  animation_position?: Optional<XR_vector>;
-  animation_direction?: Optional<XR_vector>;
+  animationPosition?: Optional<XR_vector>;
+  animationDirection?: Optional<XR_vector>;
 }
 
 /**
@@ -131,14 +139,14 @@ export class StalkerStateManager {
         if (
           this.isPositionDirectionApplied === false ||
           (this.animationPosition !== null &&
-            extra.animation_position !== null &&
-            !areSameVectors(this.animationPosition, extra.animation_position as XR_vector)) ||
+            extra.animationPosition !== null &&
+            !areSameVectors(this.animationPosition, extra.animationPosition as XR_vector)) ||
           (this.animationDirection !== null &&
-            extra.animation_direction !== null &&
-            !areSameVectors(this.animationDirection, extra.animation_direction as XR_vector))
+            extra.animationDirection !== null &&
+            !areSameVectors(this.animationDirection, extra.animationDirection as XR_vector))
         ) {
-          this.animationPosition = extra.animation_position as Optional<XR_vector>;
-          this.animationDirection = extra.animation_direction as Optional<XR_vector>;
+          this.animationPosition = extra.animationPosition as Optional<XR_vector>;
+          this.animationDirection = extra.animationDirection as Optional<XR_vector>;
           this.isPositionDirectionApplied = false;
         }
       } else {
@@ -154,7 +162,7 @@ export class StalkerStateManager {
         this.callback!.timeout = timeout;
         this.callback!.begin = null;
       } else if (this.callback) {
-        this.callback.func = null;
+        this.callback.callback = null;
         this.callback.timeout = null;
       }
     }
@@ -165,7 +173,7 @@ export class StalkerStateManager {
    */
   public update(): void {
     if (this.animation.states.currentState === states.get(this.targetState).animation) {
-      if (this.callback !== null && this.callback.func !== null) {
+      if (this.callback !== null && this.callback.callback !== null) {
         const now: TTimestamp = time_global();
 
         if (this.callback.begin === null) {
@@ -174,13 +182,12 @@ export class StalkerStateManager {
           if (now - (this.callback.begin as TTimestamp) >= this.callback.timeout!) {
             logger.info("Animation callback called:", this);
 
-            const callbackFunction = this.callback.func;
-            const callbackParameter = this.callback.obj;
+            const callbackFunction: AnyCallable = this.callback.callback as unknown as AnyCallable;
 
             this.callback.begin = null;
-            this.callback.func = null;
+            this.callback.callback = null;
 
-            callbackFunction(callbackParameter);
+            callbackFunction(this.callback.context);
           }
         }
       }
