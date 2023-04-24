@@ -21,6 +21,6 @@ export class EvaluatorAnimationStateIdleNow extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    return this.stateManager.animstate.states.current_state === null;
+    return this.stateManager.animstate.states.currentState === null;
   }
 }

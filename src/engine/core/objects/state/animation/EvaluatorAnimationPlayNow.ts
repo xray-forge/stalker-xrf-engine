@@ -21,6 +21,6 @@ export class EvaluatorAnimationPlayNow extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    return this.stateManager.animation.states.current_state !== null;
+    return this.stateManager.animation.states.currentState !== null;
   }
 }

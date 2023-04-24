@@ -75,7 +75,7 @@ export class PatrolManager {
       this.commander_id = object.id();
     }
 
-    this.reset_positions();
+    this.resetPositions();
   }
 
   public remove_npc(npc: XR_game_object): void {
@@ -92,11 +92,11 @@ export class PatrolManager {
 
     if (npc.id() === this.commander_id) {
       this.commander_id = -1;
-      this.reset_positions();
+      this.resetPositions();
     }
   }
 
-  public reset_positions(): void {
+  public resetPositions(): void {
     const form_ = formations[this.formation as keyof typeof formations];
     let index = 1;
 
@@ -126,10 +126,10 @@ export class PatrolManager {
     }
 
     this.formation = formation;
-    this.reset_positions();
+    this.resetPositions();
   }
 
-  public get_commander(npc: XR_game_object): void {
+  public getCommander(npc: XR_game_object): void {
     if (npc === null) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.path_name);
     }
@@ -235,20 +235,6 @@ export class PatrolManager {
 
   public is_commander(npc_id: TNumberId): boolean {
     return npc_id === this.commander_id;
-  }
-
-  public is_commander_in_meet(): boolean {
-    if (this.commander_id === -1) {
-      return false;
-    }
-
-    const npc = this.npc_list.get(this.commander_id).soldier;
-
-    if (npc !== null && npc.alive() === true) {
-      return isObjectMeeting(npc);
-    }
-
-    return false;
   }
 
   public update(): void {

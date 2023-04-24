@@ -19,6 +19,7 @@ import { registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task/ReachTaskPatrolManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
@@ -39,10 +40,10 @@ export class ActionReachTaskLocation extends action_base {
   public reachTargetId!: TNumberId;
   public squadId!: TNumberId;
 
-  public currentState!: TName;
+  public currentState!: EStalkerState;
   public formation!: TName;
 
-  public lvi!: TNumberId;
+  public levelVertexId!: TNumberId;
   public direction!: XR_vector;
   public distance!: TNumberId;
 
@@ -72,9 +73,9 @@ export class ActionReachTaskLocation extends action_base {
 
     this.reachTargetId = objectSquad.assignedTargetId!;
     this.squadId = objectSquad.id;
-    this.currentState = "patrol";
+    this.currentState = EStalkerState.PATROL;
     this.formation = "back";
-    this.lvi = -1;
+    this.levelVertexId = -1;
     this.distance = 0;
     this.direction = new vector().set(0, 0, 1);
     this.nextUpdateAt = time_global() + 1000;
@@ -193,7 +194,7 @@ export class ActionReachTaskLocation extends action_base {
 
     this.direction = direction;
     this.currentState = currentState!;
-    this.lvi = sendToNearestAccessibleVertex(this.object, lvi);
+    this.levelVertexId = sendToNearestAccessibleVertex(this.object, lvi);
 
     const desiredDirection: XR_vector = this.direction;
 
@@ -216,13 +217,13 @@ export class ActionReachTaskLocation extends action_base {
     }
 
     if (level.object_by_id(getObjectSquad(this.object)!.commander_id())!.movement_type() === move.stand) {
-      this.lvi = sendToNearestAccessibleVertex(this.object, this.lvi);
+      this.levelVertexId = sendToNearestAccessibleVertex(this.object, this.levelVertexId);
       this.object.set_movement_type(move.stand);
 
       return;
     }
 
-    if (level.vertex_position(this.lvi).distance_to_sqr(this.object.position()) > 25) {
+    if (level.vertex_position(this.levelVertexId).distance_to_sqr(this.object.position()) > 25) {
       this.object.set_movement_type(move.run);
     } else {
       this.object.set_movement_type(move.walk);

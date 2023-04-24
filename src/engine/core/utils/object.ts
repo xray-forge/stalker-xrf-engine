@@ -21,6 +21,7 @@ import {
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { isCseAlifeObject, isStalker } from "@/engine/core/utils/check/is";
 import { getInfosFromData, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
@@ -518,7 +519,7 @@ export function anomalyHasArtefact(
  * todo;
  */
 export function isObjectAsleep(object: XR_game_object): boolean {
-  return registry.objects.get(object.id()).stateManager!.animstate.states.current_state === "sleep";
+  return registry.objects.get(object.id()).stateManager!.animstate.states.currentState === EStalkerState.SLEEP;
 }
 
 /**

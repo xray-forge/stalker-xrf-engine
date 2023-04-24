@@ -77,7 +77,7 @@ export class StalkerStateManager {
   }
 
   /**
-   * todo: Description.
+   * Set object animation state.
    */
   public setState(
     stateName: EStalkerState,
@@ -164,7 +164,7 @@ export class StalkerStateManager {
    * todo: Description.
    */
   public update(): void {
-    if (this.animation.states.current_state === states.get(this.targetState).animation) {
+    if (this.animation.states.currentState === states.get(this.targetState).animation) {
       if (this.callback !== null && this.callback.func !== null) {
         const now: TTimestamp = time_global();
 
@@ -172,7 +172,7 @@ export class StalkerStateManager {
           this.callback.begin = now;
         } else {
           if (now - (this.callback.begin as TTimestamp) >= this.callback.timeout!) {
-            logger.info("Callback called:", this);
+            logger.info("Animation callback called:", this);
 
             const callbackFunction = this.callback.func;
             const callbackParameter = this.callback.obj;
