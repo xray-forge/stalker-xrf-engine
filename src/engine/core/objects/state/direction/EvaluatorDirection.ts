@@ -51,7 +51,7 @@ export class EvaluatorDirection extends property_evaluator {
         return false;
       }
 
-      this.callback();
+      this.onTurnEnd();
 
       return true;
     }
@@ -75,7 +75,7 @@ export class EvaluatorDirection extends property_evaluator {
         return false;
       }
 
-      this.callback();
+      this.onTurnEnd();
 
       return true;
     }
@@ -86,7 +86,7 @@ export class EvaluatorDirection extends property_evaluator {
       return false;
     }
 
-    this.callback();
+    this.onTurnEnd();
 
     return true;
   }
@@ -94,7 +94,7 @@ export class EvaluatorDirection extends property_evaluator {
   /**
    * todo: Description.
    */
-  public callback(): void {
+  public onTurnEnd(): void {
     if (this.stateManager.callback !== null && this.stateManager.callback.turnEndCallback !== null) {
       (this.stateManager.callback.turnEndCallback as AnyCallable)(this.stateManager.callback.context);
 

@@ -21,6 +21,6 @@ export class EvaluatorAnimationLocked extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    return this.stateManager.animation.states.anim_marker !== null;
+    return this.stateManager.animation.states.animationMarker !== null;
   }
 }

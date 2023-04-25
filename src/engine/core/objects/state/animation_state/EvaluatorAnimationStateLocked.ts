@@ -22,8 +22,8 @@ export class EvaluatorAnimationStateLocked extends property_evaluator {
    */
   public override evaluate(): boolean {
     return (
-      this.stateManager.animstate.states.anim_marker !== null &&
-      this.stateManager.animstate.states.anim_marker !== anim.lie_idle
+      this.stateManager.animstate.states.animationMarker !== null &&
+      this.stateManager.animstate.states.animationMarker !== anim.lie_idle
     );
   }
 }

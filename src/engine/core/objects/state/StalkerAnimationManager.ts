@@ -6,7 +6,7 @@ import { EStalkerState, IAnimationDescriptor, IAnimationStateDescriptor } from "
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";
-import { AnyCallable, Optional, TIndex, TName, TNumberId } from "@/engine/lib/types";
+import { AnyCallable, Optional, TIndex, TName, TNumberId, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -23,12 +23,12 @@ enum EAnimationMarker {
  * todo;
  */
 export interface IAnimationManagerStates {
-  last_id: Optional<TNumberId>;
+  lastIndex: Optional<TIndex>;
   currentState: Optional<EStalkerState>;
   targetState: Optional<EStalkerState>;
-  anim_marker: Optional<EAnimationMarker>;
-  next_rnd: Optional<number>;
-  seq_id: TNumberId;
+  animationMarker: Optional<EAnimationMarker>;
+  nextRandomAt: Optional<TTimestamp>;
+  sequenceId: TNumberId;
 }
 
 /**
@@ -54,12 +54,12 @@ export class StalkerAnimationManager {
     this.animations = collection;
 
     this.states = {
-      last_id: null,
+      lastIndex: null,
       currentState: null,
       targetState: null,
-      anim_marker: null,
-      next_rnd: null,
-      seq_id: 1,
+      animationMarker: null,
+      nextRandomAt: null,
+      sequenceId: 1,
     };
 
     assert(collection, "Provided null object for animation instance.");
@@ -72,10 +72,10 @@ export class StalkerAnimationManager {
     this.object.set_callback(callback.script_animation, this.onAnimationCallback, this);
 
     if (this.name === "state_mgr_animation_list") {
-      this.stateManager.animstate.states.anim_marker = null;
+      this.stateManager.animstate.states.animationMarker = null;
     }
 
-    if (this.states.anim_marker === null) {
+    if (this.states.animationMarker === null) {
       this.updateAnimation();
     }
   }
@@ -102,36 +102,36 @@ export class StalkerAnimationManager {
       this.object.clear_animations();
 
       const state =
-        this.states.anim_marker === EAnimationMarker.IN
+        this.states.animationMarker === EAnimationMarker.IN
           ? this.animations.get(this.states.targetState!)
           : this.animations.get(this.states.currentState!);
 
       if (state !== null && state.out !== null) {
-        const wpn_slot = this.getActiveWeaponSlot();
-        const anim_for_slot = this.getAnimationForSlot(wpn_slot, state.out as any);
+        const weaponSlot: TIndex = this.getActiveWeaponSlot();
+        const animationForWeaponSlot = this.getAnimationForSlot(weaponSlot, state.out as any);
 
-        if (anim_for_slot !== null) {
-          for (const [k, next_anim] of anim_for_slot) {
-            if (type(next_anim) === "table") {
-              this.processSpecialAction(next_anim as any);
+        if (animationForWeaponSlot !== null) {
+          for (const [id, nextAnimation] of animationForWeaponSlot) {
+            if (type(nextAnimation) === "table") {
+              this.processSpecialAction(nextAnimation as any);
             }
           }
         }
       }
 
-      this.states.anim_marker = null;
+      this.states.animationMarker = null;
 
       this.states.currentState = newState;
       this.states.targetState = newState;
-      this.states.seq_id = 1;
+      this.states.sequenceId = 1;
 
-      this.states.next_rnd = time_global();
+      this.states.nextRandomAt = time_global();
 
       return;
     }
 
     this.states.targetState = newState;
-    this.states.next_rnd = time_global();
+    this.states.nextRandomAt = time_global();
   }
 
   /**
@@ -146,59 +146,59 @@ export class StalkerAnimationManager {
         const state = this.animations.get(states.currentState!);
 
         if (state.out === null) {
-          states.anim_marker = EAnimationMarker.OUT;
+          states.animationMarker = EAnimationMarker.OUT;
           this.onAnimationCallback(true);
 
           return $multi(null, null);
         }
 
-        states.anim_marker = EAnimationMarker.OUT;
+        states.animationMarker = EAnimationMarker.OUT;
 
-        const wpn_slot = this.getActiveWeaponSlot();
-        const anim_for_slot = this.getAnimationForSlot(wpn_slot, state.out as any);
+        const weaponSlot: TIndex = this.getActiveWeaponSlot();
+        const animationForWeaponSlot = this.getAnimationForSlot(weaponSlot, state.out as any);
 
-        if (anim_for_slot === null) {
-          states.anim_marker = EAnimationMarker.OUT;
+        if (animationForWeaponSlot === null) {
+          states.animationMarker = EAnimationMarker.OUT;
           this.onAnimationCallback(true);
 
           return $multi(null, null);
         }
 
-        const next_anim = anim_for_slot.get(states.seq_id);
+        const nextAnimation = animationForWeaponSlot.get(states.sequenceId);
 
-        if (type(next_anim) === "table") {
-          this.processSpecialAction(next_anim as any);
+        if (type(nextAnimation) === "table") {
+          this.processSpecialAction(nextAnimation as any);
           this.onAnimationCallback();
 
           return $multi(null, null);
         }
 
-        return $multi(next_anim as any as string, state);
+        return $multi(nextAnimation as any as string, state);
       }
 
       if (states.currentState === null) {
         const state = this.animations.get(states.targetState!);
 
         if (state.into === null) {
-          states.anim_marker = EAnimationMarker.IN;
+          states.animationMarker = EAnimationMarker.IN;
           this.onAnimationCallback(true);
 
           return $multi(null, null);
         }
 
-        states.anim_marker = EAnimationMarker.IN;
+        states.animationMarker = EAnimationMarker.IN;
 
-        const wpn_slot = this.getActiveWeaponSlot();
-        const anim_for_slot = this.getAnimationForSlot(wpn_slot, state.into as any);
+        const weaponSlot: TIndex = this.getActiveWeaponSlot();
+        const animationForWeaponSlot = this.getAnimationForSlot(weaponSlot, state.into as any);
 
-        if (anim_for_slot === null) {
-          states.anim_marker = EAnimationMarker.IN;
+        if (animationForWeaponSlot === null) {
+          states.animationMarker = EAnimationMarker.IN;
           this.onAnimationCallback(true);
 
           return $multi(null, null);
         }
 
-        const nextAnimation = anim_for_slot.get(states.seq_id);
+        const nextAnimation = animationForWeaponSlot.get(states.sequenceId);
 
         if (type(nextAnimation) === "table") {
           this.processSpecialAction(nextAnimation as any);
@@ -218,7 +218,7 @@ export class StalkerAnimationManager {
       let animation;
 
       if (state.rnd !== null) {
-        animation = this.selectRandom(state as any, activeWeaponSlot, time_global() >= states.next_rnd!);
+        animation = this.selectRandom(state as any, activeWeaponSlot, time_global() >= states.nextRandomAt!);
       }
 
       if (animation === null && state.idle !== null) {
@@ -226,7 +226,7 @@ export class StalkerAnimationManager {
       }
 
       if (animation !== null) {
-        states.anim_marker = EAnimationMarker.IDLE;
+        states.animationMarker = EAnimationMarker.IDLE;
       }
 
       return $multi(animation, state) as any;
@@ -284,17 +284,17 @@ export class StalkerAnimationManager {
     let index: TIndex;
 
     if (animation.length() > 1) {
-      if (states.last_id === null) {
+      if (states.lastIndex === null) {
         index = math.random(animation.length());
       } else {
         index = math.random(animation.length() - 1);
 
-        if (index >= states.last_id) {
-          index = index + 1;
+        if (index >= states.lastIndex) {
+          index += 1;
         }
       }
 
-      this.states.last_id = index;
+      this.states.lastIndex = index;
     } else {
       index = 1;
     }
@@ -305,7 +305,7 @@ export class StalkerAnimationManager {
   /**
    * todo;
    */
-  public addAnimation(animation: string, state: IAnimationDescriptor): void {
+  public addAnimation(animation: TName, state: IAnimationDescriptor): void {
     const object: XR_game_object = this.object;
     const animationProperties = state.prop;
 
@@ -326,7 +326,7 @@ export class StalkerAnimationManager {
         abort("[%s] Animation direction is missing.", object.name());
       }
 
-      const rotationY = -math.deg(
+      const rotationY: TRate = -math.deg(
         math.atan2(this.stateManager.animationDirection.x, this.stateManager.animationDirection.z)
       );
 
@@ -394,14 +394,14 @@ export class StalkerAnimationManager {
    * todo;
    */
   public onAnimationCallback(skipMultiAnimationCheck?: boolean): void {
-    if (this.states.anim_marker === null || this.object.animation_count() !== 0) {
+    if (this.states.animationMarker === null || this.object.animation_count() !== 0) {
       return;
     }
 
     const states = this.states;
 
-    if (states.anim_marker === EAnimationMarker.IN) {
-      states.anim_marker = null;
+    if (states.animationMarker === EAnimationMarker.IN) {
+      states.animationMarker = null;
 
       if (skipMultiAnimationCheck !== true) {
         let into_table: LuaTable<number, string | LuaTable> = new LuaTable();
@@ -411,30 +411,30 @@ export class StalkerAnimationManager {
           into_table = this.getAnimationForSlot(this.getActiveWeaponSlot(), targetAnimations.into as any) as any;
         }
 
-        if (into_table !== null && into_table.length() > states.seq_id) {
-          states.seq_id = states.seq_id + 1;
+        if (into_table !== null && into_table.length() > states.sequenceId) {
+          states.sequenceId = states.sequenceId + 1;
           this.updateAnimation();
 
           return;
         }
       }
 
-      states.seq_id = 1;
+      states.sequenceId = 1;
       states.currentState = states.targetState;
       this.updateAnimation();
 
       return;
     }
 
-    if (states.anim_marker === EAnimationMarker.IDLE) {
-      states.anim_marker = null;
+    if (states.animationMarker === EAnimationMarker.IDLE) {
+      states.animationMarker = null;
 
       const properties = this.animations.get(states.currentState!).prop;
 
       if (properties.maxidle === 0) {
-        states.next_rnd = time_global() + properties.sumidle * 1000;
+        states.nextRandomAt = time_global() + properties.sumidle * 1000;
       } else {
-        states.next_rnd = time_global() + (properties.sumidle + math.random(properties.maxidle)) * 1000;
+        states.nextRandomAt = time_global() + (properties.sumidle + math.random(properties.maxidle)) * 1000;
       }
 
       this.updateAnimation();
@@ -442,8 +442,8 @@ export class StalkerAnimationManager {
       return;
     }
 
-    if (states.anim_marker === EAnimationMarker.OUT) {
-      states.anim_marker = null;
+    if (states.animationMarker === EAnimationMarker.OUT) {
+      states.animationMarker = null;
 
       if (skipMultiAnimationCheck !== true) {
         let outAnimationList: LuaTable<number, string | LuaTable> = new LuaTable();
@@ -455,15 +455,15 @@ export class StalkerAnimationManager {
           ) as any;
         }
 
-        if (outAnimationList !== null && outAnimationList.length() > states.seq_id) {
-          states.seq_id = states.seq_id + 1;
+        if (outAnimationList !== null && outAnimationList.length() > states.sequenceId) {
+          states.sequenceId = states.sequenceId + 1;
           this.updateAnimation();
 
           return;
         }
       }
 
-      states.seq_id = 1;
+      states.sequenceId = 1;
       states.currentState = null;
 
       if (this.name === "state_mgr_animation_list") {
