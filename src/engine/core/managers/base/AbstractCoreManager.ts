@@ -20,36 +20,41 @@ export abstract class AbstractCoreManager {
   }
 
   /**
-   * todo: Description.
+   * Get singleton manager instance if it exists.
+   * Do not initialize manager if it was not registered before.
+   *
+   * @returns manager instance or `null`
    */
   public static getWeakInstance<T extends AbstractCoreManager>(this: IConstructor<T>): Optional<T> {
     return getWeakManagerInstance(this);
   }
 
   /**
-   * todo: Description.
+   * Dispose manager instance if it is registered.
    */
   public static dispose<T extends AbstractCoreManager>(this: IConstructor<T>): void {
     return disposeManager(this);
   }
 
   /**
-   * todo: Description.
+   * Whether manager was disposed and removed from registry.
    */
   public isDestroyed: boolean = false;
 
   /**
-   * todo: Description.
+   * Manager initialized and registered callback.
    */
   public initialize(): void {}
 
   /**
-   * todo: Description.
+   * Manager destroyed and removed from registry callback.
    */
   public destroy(): void {}
 
   /**
-   * todo: Description.
+   * Generic method for game update tick
+   *
+   * @param delta - delta from previous update
    */
   public update(delta: TDuration): void {
     abort("Update method is not implemented.");

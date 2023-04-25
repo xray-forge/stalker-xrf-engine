@@ -39,31 +39,41 @@ export class EventsManager extends AbstractCoreManager {
   /**
    * Register callback and subscribe to event.
    * Context parameter is needed to do a proper call of listeners.
+   *
+   * @param event - type of event to register callback
+   * @param callback - callback to register for event
+   * @param context to call callback at
    */
   public registerCallback<T>(
     event: EGameEvent,
-    func: (this: T, ...args: AnyArgs) => void,
+    callback: (this: T, ...args: AnyArgs) => void,
     context: Optional<AnyObject> = null
   ): void {
     logger.info("Register callback:", EGameEvent[event]);
 
     this.assertEventIsDeclared(event);
-    this.callbacks[event].set(func as any, { context: context });
+    this.callbacks[event].set(callback as any, { context: context });
   }
 
   /**
    * Unregister provided callback from event.
+   *
+   * @param event - type of event to unregister callback
+   * @param callback - callback to unregister for event
    */
-  public unregisterCallback<T>(event: EGameEvent, func: AnyContextualCallable<unknown>): void;
-  public unregisterCallback<T>(event: EGameEvent, func: AnyCallable): void {
+  public unregisterCallback<T>(event: EGameEvent, callback: AnyContextualCallable<unknown>): void;
+  public unregisterCallback<T>(event: EGameEvent, callback: AnyCallable): void {
     logger.info("Unregister callback:", EGameEvent[event]);
 
     this.assertEventIsDeclared(event);
-    this.callbacks[event].delete(func as AnyCallable);
+    this.callbacks[event].delete(callback as AnyCallable);
   }
 
   /**
    * Emit custom event and trigger all registered callbacks.
+   *
+   * @param event - type of event to emit
+   * @param data - arguments for event emit
    */
   public emitEvent<T>(event: EGameEvent, data: T): void;
   public emitEvent(event: EGameEvent, ...data: AnyArgs): void;
@@ -75,6 +85,8 @@ export class EventsManager extends AbstractCoreManager {
 
   /**
    * Get count of subscribers active in manager.
+   *
+   * @returns subscribers to manager count
    */
   public getSubscribersCount(): TCount {
     return Object.values(this.callbacks).reduce((acc, it) => {
@@ -84,6 +96,9 @@ export class EventsManager extends AbstractCoreManager {
 
   /**
    * Get count of subscribers active in manager.
+   *
+   * @param event - event to check
+   * @returns count of event subscribers
    */
   public getEventSubscribersCount(event: EGameEvent): TCount {
     return this.callbacks[event].length();
@@ -91,6 +106,8 @@ export class EventsManager extends AbstractCoreManager {
 
   /**
    * Assert provided event type is already registered and can be used in game.
+   *
+   * @param event - event to assert declaration in list of callbacks
    */
   public assertEventIsDeclared(event: EGameEvent): void {
     assert(this.callbacks[event], "Callback name '%s' is unknown.", event);

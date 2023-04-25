@@ -70,7 +70,7 @@ export interface ITravelRouteDescriptor {
 }
 
 /**
- * todo;
+ * Manager to handle fast traveling of actor.
  */
 export class TravelManager extends AbstractCoreManager {
   public static readonly LOCATIONS_LTX_SECTION: TSection = "locations";

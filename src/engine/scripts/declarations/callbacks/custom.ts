@@ -5,7 +5,7 @@ import { AchievementsManager } from "@/engine/core/managers/interaction/achievem
 import { EAchievement } from "@/engine/core/managers/interaction/achievements/types";
 import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
-import { sleep_cam_eff_id, SurgeManager } from "@/engine/core/managers/world/SurgeManager";
+import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { SchemeCutscene } from "@/engine/core/schemes/sr_cutscene/SchemeCutscene";
 import { extern } from "@/engine/core/utils/binding";
@@ -39,14 +39,14 @@ extern("engine.on_finish_sleeping", () => SleepManager.getInstance().onFinishSle
 extern("engine.anabiotic_callback", () => {
   level.add_cam_effector(animations.camera_effects_surge_01, 10, false, "engine.anabiotic_callback2");
 
-  const rnd = math.random(35, 45);
+  const random: number = math.random(35, 45);
   const surgeManager: SurgeManager = SurgeManager.getInstance();
 
   if (surgeManager.isStarted) {
     const tf = level.get_time_factor();
     const diff_sec = math.ceil(game.get_game_time().diffSec(surgeManager.initializedAt) / tf);
 
-    if (rnd > ((surgeConfig.DURATION - diff_sec) * tf) / 60) {
+    if (random > ((surgeConfig.DURATION - diff_sec) * tf) / 60) {
       surgeManager.isTimeForwarded = true;
       surgeManager.isUiDisabled = true;
       surgeManager.killAllUnhided();
@@ -54,7 +54,7 @@ extern("engine.anabiotic_callback", () => {
     }
   }
 
-  level.change_game_time(0, 0, rnd);
+  level.change_game_time(0, 0, random);
   WeatherManager.getInstance().forceWeatherChange();
 });
 
@@ -77,7 +77,12 @@ extern("engine.anabiotic_callback2", () => {
  * todo;
  */
 extern("engine.surge_callback", () => {
-  level.add_cam_effector(animations.camera_effects_surge_01, sleep_cam_eff_id, false, "engine.surge_callback2");
+  level.add_cam_effector(
+    animations.camera_effects_surge_01,
+    SurgeManager.SLEEP_CAM_EFFECTOR_ID,
+    false,
+    "engine.surge_callback2"
+  );
 });
 
 /**

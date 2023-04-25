@@ -13,7 +13,6 @@ import {
 } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SURGE_MANAGER_LTX } from "@/engine/core/database";
-import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -55,7 +54,6 @@ import {
   LuaArray,
   Optional,
   PartialRecord,
-  TCount,
   TDistance,
   TDuration,
   TLabel,
@@ -64,11 +62,6 @@ import {
   TSection,
   TTimestamp,
 } from "@/engine/lib/types";
-
-export const surge_shock_pp_eff_id: TNumberId = 1;
-export const earthquake_cam_eff_id: TNumberId = 2;
-export const sleep_cam_eff_id: TNumberId = 3;
-export const sleep_fade_pp_eff_id: TNumberId = 4;
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -81,10 +74,14 @@ export interface ISurgeCoverDescriptor {
 }
 
 /**
- * todo;
  * todo: Separate manager to handle artefacts spawn / ownership etc in parallel, do not mix logic.
  */
 export class SurgeManager extends AbstractCoreManager {
+  public static readonly SURGE_SHOCK_PP_EFFECTOR_ID: TNumberId = 1;
+  public static readonly EARTHQUAKE_CAM_EFFECTOR_ID: TNumberId = 2;
+  public static readonly SLEEP_CAM_EFFECTOR_ID: TNumberId = 3;
+  public static readonly SLEEP_FADE_PP_EFFECTOR_ID: TNumberId = 4;
+
   public respawnArtefactsByLevel: PartialRecord<TLevel, boolean> = {
     [levels.zaton]: false,
     [levels.jupiter]: false,
@@ -430,8 +427,8 @@ export class SurgeManager extends AbstractCoreManager {
       globalSoundManager.stopLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
     }
 
-    level.remove_pp_effector(surge_shock_pp_eff_id);
-    level.remove_cam_effector(earthquake_cam_eff_id);
+    level.remove_pp_effector(SurgeManager.SURGE_SHOCK_PP_EFFECTOR_ID);
+    level.remove_cam_effector(SurgeManager.EARTHQUAKE_CAM_EFFECTOR_ID);
 
     if (manual || (this.isTimeForwarded && WeatherManager.getInstance().weatherFx)) {
       level.stop_weather_fx();
@@ -548,8 +545,13 @@ export class SurgeManager extends AbstractCoreManager {
 
           return;
         } else {
-          level.add_cam_effector(animations.camera_effects_surge_02, sleep_cam_eff_id, false, "engine.surge_callback");
-          level.add_pp_effector(postProcessors.surge_fade, sleep_fade_pp_eff_id, false);
+          level.add_cam_effector(
+            animations.camera_effects_surge_02,
+            SurgeManager.SLEEP_CAM_EFFECTOR_ID,
+            false,
+            "engine.surge_callback"
+          );
+          level.add_pp_effector(postProcessors.surge_fade, SurgeManager.SLEEP_FADE_PP_EFFECTOR_ID, false);
           registry.actor.health = registry.actor.health - 0.05;
         }
       }
@@ -739,12 +741,17 @@ export class SurgeManager extends AbstractCoreManager {
           }
 
           if (this.isEffectorSet) {
-            level.add_pp_effector(postProcessors.surge_shock, surge_shock_pp_eff_id, true);
+            level.add_pp_effector(postProcessors.surge_shock, SurgeManager.SURGE_SHOCK_PP_EFFECTOR_ID, true);
           }
 
           if (this.isSecondMessageGiven) {
             globalSoundManager.playLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
-            level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
+            level.add_cam_effector(
+              animations.camera_effects_earthquake,
+              SurgeManager.EARTHQUAKE_CAM_EFFECTOR_ID,
+              true,
+              ""
+            );
           }
 
           this.isAfterGameLoad = false;
@@ -752,7 +759,7 @@ export class SurgeManager extends AbstractCoreManager {
 
         this.launchSignalRockets();
         if (this.isEffectorSet) {
-          level.set_pp_effector_factor(surge_shock_pp_eff_id, surgeDuration / 90, 0.1);
+          level.set_pp_effector_factor(SurgeManager.SURGE_SHOCK_PP_EFFECTOR_ID, surgeDuration / 90, 0.1);
         }
 
         if (this.isBlowoutSoundEnabled) {
@@ -803,10 +810,15 @@ export class SurgeManager extends AbstractCoreManager {
           }
 
           globalSoundManager.playLoopedSound(registry.actor.id(), "surge_earthquake_sound_looped");
-          level.add_cam_effector(animations.camera_effects_earthquake, earthquake_cam_eff_id, true, "");
+          level.add_cam_effector(
+            animations.camera_effects_earthquake,
+            SurgeManager.EARTHQUAKE_CAM_EFFECTOR_ID,
+            true,
+            ""
+          );
           this.isSecondMessageGiven = true;
         } else if (surgeDuration >= 100 && !this.isEffectorSet) {
-          level.add_pp_effector(postProcessors.surge_shock, surge_shock_pp_eff_id, true);
+          level.add_pp_effector(postProcessors.surge_shock, SurgeManager.SURGE_SHOCK_PP_EFFECTOR_ID, true);
           // --                level.set_pp_effector_factor(surge_shock_pp_eff, 0, 10)
           this.isEffectorSet = true;
         } else if (surgeDuration >= 35 && !this.isBlowoutSoundEnabled) {
