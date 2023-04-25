@@ -1,22 +1,11 @@
-import { game, level } from "xray16";
-
-import { registry } from "@/engine/core/database";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements/AchievementsManager";
 import { EAchievement } from "@/engine/core/managers/interaction/achievements/types";
 import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
-import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { SchemeCutscene } from "@/engine/core/schemes/sr_cutscene/SchemeCutscene";
 import { extern } from "@/engine/core/utils/binding";
-import { executeConsoleCommand } from "@/engine/core/utils/console";
-import { enableGameUi } from "@/engine/core/utils/control";
-import { disableInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
-import { animations } from "@/engine/lib/constants/animation/animations";
-import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { AnyCallable, PartialRecord, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -34,70 +23,29 @@ extern("engine.on_start_sleeping", () => SleepManager.getInstance().onStartSleep
 extern("engine.on_finish_sleeping", () => SleepManager.getInstance().onFinishSleeping());
 
 /**
- * Anabiotic functionality.
+ * On anabiotic used and start sleeping.
  */
-extern("engine.anabiotic_callback", () => {
-  level.add_cam_effector(animations.camera_effects_surge_01, 10, false, "engine.anabiotic_callback2");
+extern("engine.on_anabiotic_sleep", () => SurgeManager.getInstance().onAnabioticSleep());
 
-  const random: number = math.random(35, 45);
-  const surgeManager: SurgeManager = SurgeManager.getInstance();
+/**
+ * On anabiotic used and stop sleeping.
+ */
+extern("engine.on_anabiotic_wake_up", () => SurgeManager.getInstance().onAnabioticWakeUp());
 
-  if (surgeManager.isStarted) {
-    const tf = level.get_time_factor();
-    const diff_sec = math.ceil(game.get_game_time().diffSec(surgeManager.initializedAt) / tf);
+/**
+ * On surviving surge start sleeping.
+ */
+extern("engine.surge_survive_start", () => SurgeManager.getInstance().onSurgeSurviveStart());
 
-    if (random > ((surgeConfig.DURATION - diff_sec) * tf) / 60) {
-      surgeManager.isTimeForwarded = true;
-      surgeManager.isUiDisabled = true;
-      surgeManager.killAllUnhided();
-      surgeManager.endSurge();
-    }
-  }
-
-  level.change_game_time(0, 0, random);
-  WeatherManager.getInstance().forceWeatherChange();
-});
+/**
+ * On surviving surge stop sleeping.
+ */
+extern("engine.surge_survive_end", () => SurgeManager.getInstance().onSurgeSurviveEnd());
 
 /**
  * todo;
  */
-extern("engine.anabiotic_callback2", () => {
-  enableGameUi();
-
-  executeConsoleCommand(consoleCommands.snd_volume_music, registry.sounds.musicVolume);
-  executeConsoleCommand(consoleCommands.snd_volume_eff, registry.sounds.effectsVolume);
-
-  registry.sounds.effectsVolume = 0;
-  registry.sounds.musicVolume = 0;
-
-  disableInfo(infoPortions.anabiotic_in_process);
-});
-
-/**
- * todo;
- */
-extern("engine.surge_callback", () => {
-  level.add_cam_effector(
-    animations.camera_effects_surge_01,
-    SurgeManager.SLEEP_CAM_EFFECTOR_ID,
-    false,
-    "engine.surge_callback2"
-  );
-});
-
-/**
- * todo;
- */
-extern("engine.surge_callback2", () => {
-  enableGameUi();
-});
-
-/**
- * todo;
- */
-extern("engine.is_task_completed", (taskId: TStringId): boolean => {
-  return TaskManager.getInstance().isTaskCompleted(taskId);
-});
+extern("engine.is_task_completed", (taskId: TStringId): boolean => TaskManager.getInstance().isTaskCompleted(taskId));
 
 /**
  * todo;

@@ -32,9 +32,9 @@ import {
 } from "@/engine/core/utils/check/check";
 import { isArtefact, isStoryObject } from "@/engine/core/utils/check/is";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
-import { disableGameUiOnly } from "@/engine/core/utils/control";
+import { disableGameUiOnly, enableGameUi } from "@/engine/core/utils/control";
 import { createAutoSave } from "@/engine/core/utils/game_save";
-import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
@@ -59,6 +59,7 @@ import {
   TLabel,
   TName,
   TNumberId,
+  TRate,
   TSection,
   TTimestamp,
 } from "@/engine/lib/types";
@@ -539,20 +540,21 @@ export class SurgeManager extends AbstractCoreManager {
 
         disableGameUiOnly(registry.actor);
 
-        if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveConditionList) !== TRUE) {
-          this.killAllUnhidedAfterActorDeath();
-          registry.actor.kill(registry.actor);
-
-          return;
-        } else {
+        /**
+         * Whether actor should survive surge.
+         */
+        if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveConditionList) === TRUE) {
           level.add_cam_effector(
             animations.camera_effects_surge_02,
             SurgeManager.SLEEP_CAM_EFFECTOR_ID,
             false,
-            "engine.surge_callback"
+            "engine.surge_survive_start"
           );
           level.add_pp_effector(postProcessors.surge_fade, SurgeManager.SLEEP_FADE_PP_EFFECTOR_ID, false);
-          registry.actor.health = registry.actor.health - 0.05;
+          registry.actor.health -= 0.05;
+        } else {
+          this.killAllUnhidedAfterActorDeath();
+          registry.actor.kill(registry.actor);
         }
       }
     }
@@ -623,7 +625,7 @@ export class SurgeManager extends AbstractCoreManager {
   public processAnabioticItemUsage(): void {
     disableGameUiOnly(registry.actor);
 
-    level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "engine.anabiotic_callback");
+    level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "engine.on_anabiotic_sleep");
     level.add_pp_effector(postProcessors.surge_fade, 11, false);
 
     giveInfo(infoPortions.anabiotic_in_process);
@@ -886,6 +888,67 @@ export class SurgeManager extends AbstractCoreManager {
    */
   public onActorNetworkSpawn(): void {
     this.initializeSurgeCovers();
+  }
+
+  /**
+   * todo: Description.
+   */
+  public onSurgeSurviveStart(): void {
+    level.add_cam_effector(
+      animations.camera_effects_surge_01,
+      SurgeManager.SLEEP_CAM_EFFECTOR_ID,
+      false,
+      "engine.surge_survive_end"
+    );
+  }
+
+  /**
+   * todo: Description.
+   */
+  public onSurgeSurviveEnd(): void {
+    enableGameUi();
+  }
+
+  /**
+   * todo: Description.
+   */
+  public onAnabioticSleep(): void {
+    level.add_cam_effector(animations.camera_effects_surge_01, 10, false, "engine.on_anabiotic_wake_up");
+
+    const random: number = math.random(35, 45);
+    const surgeManager: SurgeManager = SurgeManager.getInstance();
+
+    if (surgeManager.isStarted) {
+      const timeFactor: TRate = level.get_time_factor();
+      const timeDiffInSeconds: TDuration = math.ceil(
+        game.get_game_time().diffSec(surgeManager.initializedAt) / timeFactor
+      );
+
+      if (random > ((surgeConfig.DURATION - timeDiffInSeconds) * timeFactor) / 60) {
+        surgeManager.isTimeForwarded = true;
+        surgeManager.isUiDisabled = true;
+        surgeManager.killAllUnhided();
+        surgeManager.endSurge();
+      }
+    }
+
+    level.change_game_time(0, 0, random);
+    WeatherManager.getInstance().forceWeatherChange();
+  }
+
+  /**
+   * todo: Description.
+   */
+  public onAnabioticWakeUp(): void {
+    enableGameUi();
+
+    executeConsoleCommand(consoleCommands.snd_volume_music, registry.sounds.musicVolume);
+    executeConsoleCommand(consoleCommands.snd_volume_eff, registry.sounds.effectsVolume);
+
+    registry.sounds.effectsVolume = 0;
+    registry.sounds.musicVolume = 0;
+
+    disableInfo(infoPortions.anabiotic_in_process);
   }
 
   /**

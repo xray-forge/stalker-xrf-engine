@@ -12,8 +12,10 @@ describe("'custom' external callbacks", () => {
   it("should correctly inject external methods for game", () => {
     require("@/engine/scripts/declarations/callbacks/custom");
 
-    checkBinding("anabiotic_callback");
-    checkBinding("anabiotic_callback2");
+    checkBinding("on_anabiotic_sleep");
+    checkBinding("on_anabiotic_wake_up");
+    checkBinding("surge_survive_start");
+    checkBinding("surge_survive_end");
     checkBinding("on_start_sleeping");
     checkBinding("on_finish_sleeping");
     checkBinding("is_task_completed");
