@@ -6,7 +6,6 @@ import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenMa
 import { PdaManager } from "@/engine/core/managers/interface/PdaManager";
 import { WeaponParams } from "@/engine/core/ui/game/WeaponParams";
 import { extern } from "@/engine/core/utils/binding";
-import { externClassMethod } from "@/engine/core/utils/general";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TWeapon } from "@/engine/lib/constants/items/weapons";
 import { AnyArgs, AnyObject, TCount, TIndex, TLabel, TName, TSection } from "@/engine/lib/types";
@@ -114,9 +113,13 @@ extern("pda", {
  * Params in weapon menu in inventory.
  */
 extern("ui_wpn_params", {
-  GetRPM: externClassMethod(WeaponParams, WeaponParams.GetRPM),
-  GetDamage: externClassMethod(WeaponParams, WeaponParams.GetDamage),
-  GetDamageMP: externClassMethod(WeaponParams, WeaponParams.GetDamageMP),
-  GetHandling: externClassMethod(WeaponParams, WeaponParams.GetHandling),
-  GetAccuracy: externClassMethod(WeaponParams, WeaponParams.GetAccuracy),
+  GetRPM: (section: TSection, upgradeSections: string): number => WeaponParams.getWeaponRPM(section, upgradeSections),
+  GetDamage: (section: TSection, upgradeSections: string): number =>
+    WeaponParams.getWeaponDamage(section, upgradeSections),
+  GetDamageMP: (section: TSection, upgradeSections: string): number =>
+    WeaponParams.getWeaponDamageMultiplayer(section, upgradeSections),
+  GetHandling: (section: TSection, upgradeSections: string): number =>
+    WeaponParams.getWeaponHandling(section, upgradeSections),
+  GetAccuracy: (section: TSection, upgradeSections: string): number =>
+    WeaponParams.getWeaponAccuracy(section, upgradeSections),
 });

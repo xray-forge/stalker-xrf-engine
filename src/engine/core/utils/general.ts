@@ -1,18 +1,9 @@
 import { alife, device, IsGameTypeSingle, XR_vector } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyArgs, Optional } from "@/engine/lib/types";
+import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo: description
- */
-export function externClassMethod<B, T extends (this: B, ...rest: AnyArgs) => any>(base: B, method: T): T {
-  return function (this: void, ...args: AnyArgs) {
-    return (method as any)(base, ...args);
-  } as any;
-}
 
 /**
  * todo: description
@@ -30,13 +21,6 @@ export function round(value: number): number {
  */
 export function add(x: number): boolean {
   return math.floor(x * 0.5) * 2 === math.floor(x);
-}
-
-/**
- * todo: description
- */
-export function ifThenElse<A, B>(condition: boolean, ifTrue: A, ifFalse: B): A | B {
-  return condition ? ifTrue : ifFalse;
 }
 
 /**
