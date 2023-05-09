@@ -1,8 +1,6 @@
 import {
   alife,
   callback,
-  device,
-  game,
   level,
   LuabindClass,
   object_binder,
@@ -33,17 +31,13 @@ import { EGameEvent } from "@/engine/core/managers/events/types";
 import { Actor } from "@/engine/core/objects/server/creature/Actor";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos/SchemeDeimos";
-import { SchemeNoWeapon } from "@/engine/core/schemes/sr_no_weapon";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
-import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficultiesByNumber } from "@/engine/lib/constants/game_difficulties";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { NIL } from "@/engine/lib/constants/words";
-import { Optional, StringOptional, TCount, TDuration, TIndex, TName } from "@/engine/lib/types";
+import { Optional, TCount, TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -52,17 +46,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ActorBinder extends object_binder {
-  public isStartCheckNeeded: boolean = false;
-  public isLoaded: boolean = false;
-  public isLoadedSlotApplied: boolean = false;
-
-  public isWeaponHidden: boolean = false;
-  public isWeaponHiddenInDialog: boolean = false;
-
-  public spawnFrame: TIndex = 0;
-  public activeItemSlot: TIndex = 3;
-  public lastLevelName: Optional<TName> = null;
-  public deimos_intensity: Optional<number> = null;
+  public isFirstUpdatePerformed: boolean = false;
+  public deimosIntensity: Optional<number> = null;
 
   public state!: IRegistryObjectState;
 
@@ -71,19 +56,15 @@ export class ActorBinder extends object_binder {
   public override net_spawn(data: XR_cse_alife_creature_actor): boolean {
     level.show_indicators();
 
-    this.isStartCheckNeeded = true;
-    this.isWeaponHidden = false;
-    this.isWeaponHiddenInDialog = false;
-
     if (!super.net_spawn(data)) {
       return false;
     }
 
     registerActor(this.object);
 
-    (registry.actor as unknown as ActorBinder).deimos_intensity = this.deimos_intensity;
+    (registry.actor as unknown as ActorBinder).deimosIntensity = this.deimosIntensity;
 
-    this.deimos_intensity = null;
+    this.deimosIntensity = null;
 
     if (this.state.disable_input_time === null) {
       level.enable_input();
@@ -94,10 +75,7 @@ export class ActorBinder extends object_binder {
       this.state.portableStore = new LuaTable();
     }
 
-    this.spawnFrame = device().frame;
-    this.isLoaded = false;
-
-    this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_SPAWN);
+    this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_SPAWN, this);
 
     return true;
   }
@@ -117,7 +95,7 @@ export class ActorBinder extends object_binder {
     this.object.set_callback(callback.take_item_from_box, null);
     this.object.set_callback(callback.use_object, null);
 
-    this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_DESTROY);
+    this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_DESTROY, this);
 
     /**
      * Unregister actor as last step so dependent managers can properly destroy everything.
@@ -159,62 +137,12 @@ export class ActorBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    // Handle input disabling.
-    if (
-      this.state.disable_input_time !== null &&
-      game.get_game_time().diffSec(this.state.disable_input_time) >= (this.state.disable_input_idle as number)
-    ) {
-      level.enable_input();
-      this.state.disable_input_time = null;
+    if (!this.isFirstUpdatePerformed) {
+      this.isFirstUpdatePerformed = true;
+      this.eventsManager.emitEvent(EGameEvent.ACTOR_FIRST_UPDATE, delta, this);
     }
 
-    if (this.object.is_talking()) {
-      if (!this.isWeaponHiddenInDialog) {
-        logger.info("Hiding weapon in dialog");
-        this.object.hide_weapon();
-        this.isWeaponHiddenInDialog = true;
-      }
-    } else {
-      if (this.isWeaponHiddenInDialog) {
-        logger.info("Restoring weapon in dialog");
-        this.object.restore_weapon();
-        this.isWeaponHiddenInDialog = false;
-      }
-    }
-
-    if (SchemeNoWeapon.isInWeaponRestrictionZone()) {
-      if (!this.isWeaponHidden) {
-        logger.info("Hiding weapon");
-        this.object.hide_weapon();
-        this.isWeaponHidden = true;
-      }
-    } else {
-      if (this.isWeaponHidden) {
-        logger.info("Restoring weapon");
-        this.object.restore_weapon();
-        this.isWeaponHidden = false;
-      }
-    }
-
-    if (this.isStartCheckNeeded) {
-      if (!hasAlifeInfo(infoPortions.global_dialogs)) {
-        this.object.give_info_portion(infoPortions.global_dialogs);
-      }
-
-      if (!hasAlifeInfo(infoPortions.level_changer_icons)) {
-        this.object.give_info_portion(infoPortions.level_changer_icons);
-      }
-
-      this.isStartCheckNeeded = false;
-    }
-
-    if (!this.isLoadedSlotApplied) {
-      this.object.activate_slot(this.activeItemSlot);
-      this.isLoadedSlotApplied = true;
-    }
-
-    this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE, delta);
-    this.isLoaded = true;
+    this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE, delta, this);
 
     // todo: Probably part of sim manager?
     updateSimulationObjectAvailability(alife().actor<Actor>());
@@ -237,15 +165,12 @@ export class ActorBinder extends object_binder {
     savePortableStore(this.object, packet);
     SaveManager.getInstance().save(packet);
 
-    packet.w_stringZ(tostring(this.lastLevelName));
     packet.w_u8(getTableSize(registry.scriptSpawned));
 
     for (const [k, v] of registry.scriptSpawned) {
       packet.w_u16(k);
       packet.w_stringZ(v);
     }
-
-    packet.w_u8(this.object.active_slot());
 
     let isDeimosExisting: boolean = false;
 
@@ -269,6 +194,8 @@ export class ActorBinder extends object_binder {
 
     super.load(reader);
 
+    this.isFirstUpdatePerformed = false;
+
     executeConsoleCommand(
       consoleCommands.g_game_difficulty,
       gameDifficultiesByNumber[reader.r_u8() as TXR_game_difficulty]
@@ -281,23 +208,16 @@ export class ActorBinder extends object_binder {
     loadPortableStore(this.object, reader);
     SaveManager.getInstance().load(reader);
 
-    const lastLevelName: StringOptional<TName> = reader.r_stringZ();
-
-    this.lastLevelName = lastLevelName === NIL ? null : lastLevelName;
-
     const scriptsSpawnedCount: TCount = reader.r_u8();
 
     for (const it of $range(1, scriptsSpawnedCount)) {
       registry.scriptSpawned.set(reader.r_u16(), reader.r_stringZ());
     }
 
-    this.activeItemSlot = reader.r_u8();
-    this.isLoadedSlotApplied = false;
-
     const hasDeimos: boolean = reader.r_bool();
 
     if (hasDeimos) {
-      this.deimos_intensity = reader.r_float();
+      this.deimosIntensity = reader.r_float();
     }
 
     closeLoadMarker(reader, ActorBinder.__name);

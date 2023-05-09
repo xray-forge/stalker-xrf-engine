@@ -12,6 +12,6 @@ describe("'managers_registrator' entry point", () => {
   it("'registerSchemeModules' should correctly re-register required managers", () => {
     registerManagers();
 
-    expect((registry.managers as AnyObject).size).toBe(22);
+    expect((registry.managers as AnyObject).size).toBe(23);
   });
 });

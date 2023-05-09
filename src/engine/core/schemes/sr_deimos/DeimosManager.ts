@@ -42,9 +42,9 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
 
     const actorId: number = actor.id();
 
-    if ((actor as unknown as ActorBinder).deimos_intensity) {
-      this.state.intensity = (actor as AnyObject).deimos_intensity;
-      (actor as unknown as ActorBinder).deimos_intensity = null;
+    if ((actor as unknown as ActorBinder).deimosIntensity) {
+      this.state.intensity = (actor as AnyObject).deimosIntensity;
+      (actor as unknown as ActorBinder).deimosIntensity = null;
 
       if (this.state.intensity > this.state.disable_bound) {
         level.add_pp_effector(this.state.pp_effector + ".ppe", pp_effector_id, true);

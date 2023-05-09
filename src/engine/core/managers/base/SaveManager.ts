@@ -4,6 +4,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreMan
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
+import { ActorInputManager } from "@/engine/core/managers/interface";
 import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { PsyAntennaManager } from "@/engine/core/managers/world/PsyAntennaManager";
@@ -29,6 +30,7 @@ export class SaveManager extends AbstractCoreManager {
     TreasureManager.getInstance().save(packet);
     TaskManager.getInstance().save(packet);
     AchievementsManager.getInstance().save(packet);
+    ActorInputManager.getInstance().save(packet);
   }
 
   /**
@@ -44,6 +46,7 @@ export class SaveManager extends AbstractCoreManager {
     TreasureManager.getInstance().load(reader);
     TaskManager.getInstance().load(reader);
     AchievementsManager.getInstance().load(reader);
+    ActorInputManager.getInstance().load(reader);
   }
 
   /**

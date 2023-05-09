@@ -51,6 +51,10 @@ export enum EGameEvent {
    */
   ACTOR_FINISH_SLEEP,
   /**
+   * Actor first update after load / start.
+   */
+  ACTOR_FIRST_UPDATE,
+  /**
    * Surge ended.
    */
   SURGE_ENDED,

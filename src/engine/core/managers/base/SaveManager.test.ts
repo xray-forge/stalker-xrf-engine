@@ -6,6 +6,7 @@ import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
+import { ActorInputManager } from "@/engine/core/managers/interface";
 import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { PsyAntennaManager } from "@/engine/core/managers/world/PsyAntennaManager";
@@ -49,6 +50,7 @@ describe("SaveManager class", () => {
       TreasureManager,
       TaskManager,
       AchievementsManager,
+      ActorInputManager,
     ];
 
     expectedOrder.forEach((it) => initializeManager(it));

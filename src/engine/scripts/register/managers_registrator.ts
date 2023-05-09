@@ -9,7 +9,7 @@ import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
 import { TravelManager } from "@/engine/core/managers/interaction/TravelManager";
-import { MapDisplayManager, NotificationManager } from "@/engine/core/managers/interface";
+import { ActorInputManager, MapDisplayManager, NotificationManager } from "@/engine/core/managers/interface";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
@@ -32,6 +32,7 @@ export function registerManagers(): void {
   const managers: Array<TAbstractCoreManagerConstructor> = [
     AchievementsManager,
     ActorInventoryMenuManager,
+    ActorInputManager,
     DialogManager,
     DynamicMusicManager,
     EventsManager,
