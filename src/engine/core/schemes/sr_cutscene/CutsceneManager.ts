@@ -1,13 +1,13 @@
 import { level, patrol, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { ActorInputManager } from "@/engine/core/managers/interface";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils/trySwitchToAnotherSection";
 import { EEffectorState, effector_sets } from "@/engine/core/schemes/sr_cutscene/cam_effector_sets";
 import { CamEffectorSet } from "@/engine/core/schemes/sr_cutscene/CamEffectorSet";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { getExtern } from "@/engine/core/utils/binding";
-import { disableGameUi, enableGameUi } from "@/engine/core/utils/control";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { AnyCallablesModule, Optional } from "@/engine/lib/types";
@@ -86,7 +86,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
       level.add_pp_effector(this.state.pp_effector, 234, false);
     }
 
-    disableGameUi(actor, false);
+    ActorInputManager.getInstance().disableGameUi(actor, false);
     this.ui_disabled = true;
 
     const time_hours: number = level.get_time_hours();
@@ -145,7 +145,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
 
         if (this.ui_disabled) {
           if (!actor.is_talking() && this.state.enable_ui_on_end) {
-            enableGameUi(false);
+            ActorInputManager.getInstance().enableGameUi(false);
           } else if (this.state.enable_ui_on_end) {
             level.enable_input();
           }

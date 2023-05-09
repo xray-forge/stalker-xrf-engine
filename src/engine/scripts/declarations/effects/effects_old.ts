@@ -40,6 +40,7 @@ import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/data
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
+import { ActorInputManager } from "@/engine/core/managers/interface";
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import {
   ENotificationDirection,
@@ -64,7 +65,6 @@ import { init_target } from "@/engine/core/schemes/remark/actions/ActionRemarkAc
 import { abort } from "@/engine/core/utils/assertion";
 import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { isStalker } from "@/engine/core/utils/check/is";
-import { setInactiveInputTime } from "@/engine/core/utils/control";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
@@ -568,7 +568,7 @@ export function actor_punch(npc: XR_game_object): void {
     return;
   }
 
-  setInactiveInputTime(30);
+  ActorInputManager.getInstance().setInactiveInputTime(30);
   level.add_cam_effector(animations.camera_effects_fusker, 999, false, "");
 
   const active_slot = actor.active_slot();

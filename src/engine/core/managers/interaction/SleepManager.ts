@@ -3,11 +3,11 @@ import { level } from "xray16";
 import { registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { ActorInputManager } from "@/engine/core/managers/interface";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { SleepDialog } from "@/engine/core/ui/interaction/SleepDialog";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
-import { disableGameUi, enableGameUi } from "@/engine/core/utils/control";
 import { disableInfo, giveInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { animations } from "@/engine/lib/constants/animation/animations";
@@ -52,7 +52,7 @@ export class SleepManager extends AbstractCoreManager {
 
     this.nextSleepDuration = hours;
 
-    disableGameUi(registry.actor);
+    ActorInputManager.getInstance().disableGameUi(registry.actor);
 
     level.add_cam_effector(animations.camera_effects_sleep, 10, false, "engine.on_start_sleeping");
     level.add_pp_effector(postProcessors.sleep_fade, 11, false);
@@ -100,7 +100,7 @@ export class SleepManager extends AbstractCoreManager {
   public onFinishSleeping(): void {
     logger.info("On finish sleeping");
 
-    enableGameUi();
+    ActorInputManager.getInstance().enableGameUi();
 
     executeConsoleCommand(consoleCommands.snd_volume_music, registry.sounds.musicVolume);
     executeConsoleCommand(consoleCommands.snd_volume_eff, registry.sounds.effectsVolume);

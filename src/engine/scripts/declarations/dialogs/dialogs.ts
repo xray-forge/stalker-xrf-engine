@@ -4,6 +4,7 @@ import { alife, game_object, level, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
+import { ActorInputManager } from "@/engine/core/managers/interface";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/interface/notifications";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { updateStalkerLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
@@ -13,7 +14,6 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { getExtern } from "@/engine/core/utils/binding";
 import { isObjectWounded, isStalkerAlive } from "@/engine/core/utils/check/check";
-import { disableGameUi } from "@/engine/core/utils/control";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { getCharacterCommunity, getObjectSmartTerrain } from "@/engine/core/utils/object";
@@ -413,14 +413,14 @@ export function have_actor_any_pistol(firstSpeaker: XR_game_object, secondSpeake
  * todo;
  */
 export function disable_ui(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  disableGameUi(firstSpeaker, false);
+  ActorInputManager.getInstance().disableGameUi(firstSpeaker, false);
 }
 
 /**
  * todo;
  */
 export function disable_ui_only(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  disableGameUi(firstSpeaker, false);
+  ActorInputManager.getInstance().disableGameUi(firstSpeaker, false);
 }
 
 /**

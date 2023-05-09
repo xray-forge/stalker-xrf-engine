@@ -16,7 +16,7 @@ describe("ActorInputManager class", () => {
     const actorInputManager: ActorInputManager = getManagerInstance(ActorInputManager);
     const eventsManager: EventsManager = getManagerInstance(EventsManager);
 
-    expect(eventsManager.getSubscribersCount()).toBe(2);
+    expect(eventsManager.getSubscribersCount()).toBe(3);
     expect(actorInputManager.activeItemSlot).toBe(3);
     expect(actorInputManager.isWeaponHidden).toBe(false);
     expect(actorInputManager.isWeaponHiddenInDialog).toBe(false);
@@ -33,10 +33,23 @@ describe("ActorInputManager class", () => {
     registerActor(mockClientGameObject());
     replaceFunctionMock(registry.actor.active_slot, () => 10);
 
+    actorInputManager.setInactiveInputTime(10);
+
     actorInputManager.save(mockNetPacket(netProcessor));
 
-    expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.U8, EPacketDataType.U16]);
-    expect(netProcessor.dataList).toEqual([10, 1]);
+    expect(netProcessor.writeDataOrder).toEqual([
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
+      EPacketDataType.U8,
+      EPacketDataType.U16,
+      EPacketDataType.U8,
+      EPacketDataType.U16,
+    ]);
+    expect(netProcessor.dataList).toEqual([true, 12, 6, 12, 9, 30, 0, 0, 10, 9]);
 
     disposeManager(ActorInputManager);
 

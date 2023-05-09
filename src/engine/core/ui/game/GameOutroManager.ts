@@ -2,8 +2,8 @@ import { game, get_hud, sound_object, XR_CUIGameCustom, XR_sound_object } from "
 
 import { registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { ActorInputManager } from "@/engine/core/managers/interface";
 import { getExtern } from "@/engine/core/utils/binding";
-import { disableGameUiOnly } from "@/engine/core/utils/control";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
@@ -166,7 +166,7 @@ export class GameOutroManager extends AbstractCoreManager {
     const hud: XR_CUIGameCustom = get_hud();
 
     hud.AddCustomStatic("blackscreen", true);
-    disableGameUiOnly(registry.actor);
+    ActorInputManager.getInstance().disableGameUiOnly(registry.actor);
   }
 
   public stop_bk_sound(): void {

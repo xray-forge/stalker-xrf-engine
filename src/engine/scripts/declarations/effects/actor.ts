@@ -1,18 +1,11 @@
 import { device, game, level, XR_game_object } from "xray16";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
+import { ActorInputManager } from "@/engine/core/managers/interface";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import {
-  disableActorNightVision,
-  disableActorTorch,
-  disableGameUi,
-  disableGameUiOnly,
-  enableActorNightVision,
-  enableActorTorch,
-  enableGameUi,
-} from "@/engine/core/utils/control";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { TRUE } from "@/engine/lib/constants/words";
 import { Optional, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -21,21 +14,21 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 extern("xr_effects.disable_ui", (actor: XR_game_object, npc: XR_game_object, p: [string]): void => {
-  disableGameUi(actor, !p || (p && p[0] !== "true"));
+  ActorInputManager.getInstance().disableGameUi(actor, !p || (p && p[0] !== TRUE));
 });
 
 /**
  * todo;
  */
 extern("xr_effects.disable_ui_only", (actor: XR_game_object, npc: XR_game_object): void => {
-  disableGameUiOnly(actor);
+  ActorInputManager.getInstance().disableGameUiOnly(actor);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.enable_ui", (actor: XR_game_object, npc: XR_game_object, p: [string]): void => {
-  enableGameUi(!p || (p && p[0] !== "true"));
+  ActorInputManager.getInstance().enableGameUi(!p || (p && p[0] !== TRUE));
 });
 
 let cam_effector_playing_object_id: Optional<TNumberId> = null;
@@ -79,28 +72,28 @@ extern("xr_effects.stop_cam_effector", (actor: XR_game_object, npc: XR_game_obje
  * todo;
  */
 extern("xr_effects.disable_actor_nightvision", (actor: XR_game_object): void => {
-  disableActorNightVision(actor);
+  ActorInputManager.getInstance().disableActorNightVision(actor);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.enable_actor_nightvision", (actor: XR_game_object): void => {
-  enableActorNightVision(actor);
+  ActorInputManager.getInstance().enableActorNightVision(actor);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.disable_actor_torch", (actor: XR_game_object): void => {
-  disableActorTorch(actor);
+  ActorInputManager.getInstance().disableActorTorch(actor);
 });
 
 /**
  * todo;
  */
 extern("xr_effects.enable_actor_torch", (actor: XR_game_object): void => {
-  enableActorTorch(actor);
+  ActorInputManager.getInstance().enableActorTorch(actor);
 });
 
 /**

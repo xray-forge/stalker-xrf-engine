@@ -7,17 +7,7 @@ import { IBaseSchemeState } from "@/engine/core/schemes";
 import { ObjectRestrictionsManager } from "@/engine/core/schemes/base/ObjectRestrictionsManager";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/danger/ISchemePostCombatIdleState";
 import { IActionSchemeHearState } from "@/engine/core/schemes/hear";
-import {
-  AnyObject,
-  EScheme,
-  ESchemeType,
-  Optional,
-  TDuration,
-  TName,
-  TNumberId,
-  TSection,
-  TTimestamp,
-} from "@/engine/lib/types";
+import { AnyObject, EScheme, ESchemeType, Optional, TName, TNumberId, TSection, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Client-side registry of game objects logics and states.
@@ -47,9 +37,6 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   restrictionsManager: Optional<ObjectRestrictionsManager>;
   hearInfo: Optional<IActionSchemeHearState>;
 
-  // Todo: Try to avoid globals if possible.
-  disable_input_time: Optional<XR_CTime>;
-  disable_input_idle: Optional<TDuration>;
   invulnerable: Optional<boolean>;
   immortal: Optional<boolean>;
   mute: Optional<boolean>;

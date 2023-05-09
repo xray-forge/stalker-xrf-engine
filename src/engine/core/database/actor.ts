@@ -1,15 +1,16 @@
 import { XR_game_object } from "xray16";
 
-import { registerObject, unregisterObject } from "@/engine/core/database/objects";
+import { IRegistryObjectState, registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 
 /**
  * Register new actor entry in db.
  * Usually means that game is loaded or started.
  */
-export function registerActor(object: XR_game_object): void {
+export function registerActor(object: XR_game_object): IRegistryObjectState {
   registry.actor = object;
-  registerObject(object);
+
+  return registerObject(object);
 }
 
 /**

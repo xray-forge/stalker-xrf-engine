@@ -18,6 +18,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreMan
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
+import { ActorInputManager } from "@/engine/core/managers/interface";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
 import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -32,7 +33,6 @@ import {
 } from "@/engine/core/utils/check/check";
 import { isArtefact, isStoryObject } from "@/engine/core/utils/check/is";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
-import { disableGameUiOnly, enableGameUi } from "@/engine/core/utils/control";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
@@ -538,7 +538,7 @@ export class SurgeManager extends AbstractCoreManager {
           StatisticsManager.getInstance().incrementAnabioticsUsageCount();
         }
 
-        disableGameUiOnly(registry.actor);
+        ActorInputManager.getInstance().disableGameUiOnly(registry.actor);
 
         /**
          * Whether actor should survive surge.
@@ -623,7 +623,7 @@ export class SurgeManager extends AbstractCoreManager {
    * todo: Description.
    */
   public processAnabioticItemUsage(): void {
-    disableGameUiOnly(registry.actor);
+    ActorInputManager.getInstance().disableGameUiOnly(registry.actor);
 
     level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "engine.on_anabiotic_sleep");
     level.add_pp_effector(postProcessors.surge_fade, 11, false);
@@ -906,7 +906,7 @@ export class SurgeManager extends AbstractCoreManager {
    * todo: Description.
    */
   public onSurgeSurviveEnd(): void {
-    enableGameUi();
+    ActorInputManager.getInstance().enableGameUi();
   }
 
   /**
@@ -940,7 +940,7 @@ export class SurgeManager extends AbstractCoreManager {
    * todo: Description.
    */
   public onAnabioticWakeUp(): void {
-    enableGameUi();
+    ActorInputManager.getInstance().enableGameUi();
 
     executeConsoleCommand(consoleCommands.snd_volume_music, registry.sounds.musicVolume);
     executeConsoleCommand(consoleCommands.snd_volume_eff, registry.sounds.effectsVolume);

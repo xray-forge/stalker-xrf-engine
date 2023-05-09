@@ -34,7 +34,6 @@ import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos/SchemeDeimos";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficultiesByNumber } from "@/engine/lib/constants/game_difficulties";
 import { Optional, TCount, TDuration } from "@/engine/lib/types";
@@ -49,8 +48,6 @@ export class ActorBinder extends object_binder {
   public isFirstUpdatePerformed: boolean = false;
   public deimosIntensity: Optional<number> = null;
 
-  public state!: IRegistryObjectState;
-
   public eventsManager: EventsManager = EventsManager.getInstance();
 
   public override net_spawn(data: XR_cse_alife_creature_actor): boolean {
@@ -60,19 +57,15 @@ export class ActorBinder extends object_binder {
       return false;
     }
 
-    registerActor(this.object);
+    const state: IRegistryObjectState = registerActor(this.object);
 
     (registry.actor as unknown as ActorBinder).deimosIntensity = this.deimosIntensity;
 
     this.deimosIntensity = null;
 
-    if (this.state.disable_input_time === null) {
-      level.enable_input();
-    }
-
-    // todo: If needed
-    if (this.state.portableStore === null) {
-      this.state.portableStore = new LuaTable();
+    // todo: If needed, probably separate init method
+    if (state.portableStore === null) {
+      state.portableStore = new LuaTable();
     }
 
     this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_SPAWN, this);
@@ -108,8 +101,9 @@ export class ActorBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
 
-    this.state = resetObject(this.object);
-    this.state.portableStore = null;
+    const state: IRegistryObjectState = resetObject(this.object);
+
+    state.portableStore = null;
 
     this.object.set_callback(callback.inventory_info, (object: XR_game_object, info: string) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_INFO_UPDATE, object, info);
@@ -155,13 +149,6 @@ export class ActorBinder extends object_binder {
 
     packet.w_u8(level.get_game_difficulty());
 
-    if (this.state.disable_input_time === null) {
-      packet.w_bool(false);
-    } else {
-      packet.w_bool(true);
-      writeTimeToPacket(packet, this.state.disable_input_time);
-    }
-
     savePortableStore(this.object, packet);
     SaveManager.getInstance().save(packet);
 
@@ -200,10 +187,6 @@ export class ActorBinder extends object_binder {
       consoleCommands.g_game_difficulty,
       gameDifficultiesByNumber[reader.r_u8() as TXR_game_difficulty]
     );
-
-    if (reader.r_bool()) {
-      this.state.disable_input_time = readTimeFromPacket(reader);
-    }
 
     loadPortableStore(this.object, reader);
     SaveManager.getInstance().load(reader);
