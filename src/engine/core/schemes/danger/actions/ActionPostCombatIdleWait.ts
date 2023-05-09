@@ -17,9 +17,6 @@ export class ActionPostCombatIdleWait extends action_base {
   public animationState!: { animstate: { states: { anim_marker: null } } };
   public isAnimationStarted: boolean = false;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemePostCombatIdleState) {
     super(null, ActionPostCombatIdleWait.__name);
     this.state = state;

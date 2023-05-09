@@ -14,7 +14,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export class CrowSpawnerManager extends AbstractSchemeManager<ISchemeCrowSpawnerState> {
-  public spawn_time_constant: number = 120_000;
+  public spawn_time_constant: TDuration = 120_000;
   public time_for_spawn: TDuration = time_global();
   public spawn_points_idle: LuaTable = new LuaTable();
   public spawned_count: Optional<TCount> = null;
@@ -23,7 +23,7 @@ export class CrowSpawnerManager extends AbstractSchemeManager<ISchemeCrowSpawner
    * todo: Description.
    */
   public override resetScheme(): void {
-    for (const [k, v] of this.state.path_table!) {
+    for (const [k, v] of this.state.pathsList!) {
       this.spawn_points_idle.set(v, time_global());
     }
   }
@@ -35,7 +35,7 @@ export class CrowSpawnerManager extends AbstractSchemeManager<ISchemeCrowSpawner
     // -- check for spawn crows on level
     if (this.time_for_spawn < time_global()) {
       this.spawned_count = registry.crows.count;
-      if (this.spawned_count < this.state.max_crows_on_level!) {
+      if (this.spawned_count < this.state.maxCrowsOnLevel!) {
         // -- need to spawn
         this.check_for_spawn_new_crow();
       } else {
@@ -55,9 +55,9 @@ export class CrowSpawnerManager extends AbstractSchemeManager<ISchemeCrowSpawner
   public check_for_spawn_new_crow(): void {
     const path_table: LuaTable<number, string> = new LuaTable();
 
-    copyTable(path_table, this.state.path_table!);
+    copyTable(path_table, this.state.pathsList!);
 
-    for (const it of $range(1, this.state.path_table!.length())) {
+    for (const it of $range(1, this.state.pathsList!.length())) {
       const idx: TIndex = math.random(path_table.length());
       const selected_path = path_table.get(idx);
 

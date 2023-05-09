@@ -1,8 +1,8 @@
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
 
 /**
- * todo;
+ * Gather items scheme state.
  */
 export interface ISchemeGatherItemsState extends IBaseSchemeState {
-  gather_items_enabled: boolean;
+  isGatherItemsEnabled: boolean;
 }

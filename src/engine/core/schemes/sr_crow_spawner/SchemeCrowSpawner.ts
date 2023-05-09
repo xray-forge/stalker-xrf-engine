@@ -7,7 +7,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseStringsList } from "@/engine/core/utils/parse";
-import { EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, Optional, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -25,11 +25,11 @@ export class SchemeCrowSpawner extends AbstractScheme {
     const state: ISchemeCrowSpawnerState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.max_crows_on_level = readIniNumber(ini, section, "max_crows_on_level", false, 16);
+    state.maxCrowsOnLevel = readIniNumber(ini, section, "max_crows_on_level", false, 16);
 
-    const path: Optional<string> = readIniString(ini, section, "spawn_path", false, "", null);
+    const path: Optional<TName> = readIniString(ini, section, "spawn_path", false, "", null);
 
-    state.path_table = parseStringsList(path as string);
+    state.pathsList = parseStringsList(path as TName);
   }
 
   /**

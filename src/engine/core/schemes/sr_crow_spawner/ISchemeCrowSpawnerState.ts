@@ -1,10 +1,10 @@
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { LuaArray, TCount } from "@/engine/lib/types";
+import { LuaArray, TCount, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Crow spawner scheme state.
  */
 export interface ISchemeCrowSpawnerState extends IBaseSchemeState {
-  max_crows_on_level: TCount;
-  path_table: LuaArray<string>;
+  maxCrowsOnLevel: TCount;
+  pathsList: LuaArray<TName>;
 }
