@@ -70,10 +70,7 @@ export class ObjectRestrictionsManager {
     logger.info("Reset restrictions:", this.object.name(), section);
 
     const actual_ini: XR_ini_file = state.ini!;
-    const [out_restr_string] = getParamString(
-      readIniString(actual_ini, section, "out_restr", false, "", ""),
-      this.object
-    );
+    const [out_restr_string] = getParamString(readIniString(actual_ini, section, "out_restr", false, "", ""));
 
     const new_out_restr = parseStringsList(out_restr_string);
     const old_out_restr = parseStringsList(this.object.out_restrictions());
@@ -119,10 +116,7 @@ export class ObjectRestrictionsManager {
       this.object.add_restrictions(v, "");
     }
 
-    const [in_restr_string] = getParamString(
-      readIniString(actual_ini, section, "in_restr", false, "", ""),
-      this.object
-    );
+    const [in_restr_string] = getParamString(readIniString(actual_ini, section, "in_restr", false, "", ""));
     const new_in_restr = parseStringsList(in_restr_string);
     const old_in_restr = parseStringsList(this.object.in_restrictions());
 

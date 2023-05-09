@@ -52,7 +52,6 @@ import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { updateStalkerLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
-import { Stalker } from "@/engine/core/objects/server/creature/Stalker";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { EStalkerState } from "@/engine/core/objects/state";
@@ -951,38 +950,6 @@ export function spawn_object_in(actor: XR_game_object, obj: XR_game_object, p: [
   } else {
     abort("object is null %s", tostring(p[1]));
   }
-}
-
-/**
- * todo;
- */
-export function spawn_npc_in_zone(actor: XR_game_object, obj: XR_game_object, params: [string, TName]): void {
-  const spawn_sect = params[0];
-
-  if (spawn_sect === null) {
-    abort("Wrong spawn section for 'spawn_object' function %s. For object %s", tostring(spawn_sect), obj.name());
-  }
-
-  const zone_name = params[1];
-
-  if (zone_name === null) {
-    abort("Wrong zone_name for 'spawn_object' function %s. For object %s", tostring(zone_name), obj.name());
-  }
-
-  if (registry.zones.get(zone_name) === null) {
-    abort("Zone %s doesnt exist. Function 'spawn_object' for object %s ", tostring(zone_name), obj.name());
-  }
-
-  const zone = registry.zones.get(zone_name);
-  const spawned_obj: Stalker = alife().create(
-    spawn_sect,
-    zone.position(),
-    zone.level_vertex_id(),
-    zone.game_vertex_id()
-  );
-
-  spawned_obj.squad = 1;
-  registry.scriptSpawned.set(spawned_obj.id, zone_name);
 }
 
 /**

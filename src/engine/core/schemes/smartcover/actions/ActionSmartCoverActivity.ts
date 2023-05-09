@@ -96,7 +96,7 @@ export class ActionSmartCoverActivity extends action_base {
     // --object.set_smart_cover_target_selector()
     this.target_enemy_id = null;
 
-    const [cover_name, used] = getParamString(this.state.cover_name as string, object);
+    const [cover_name, used] = getParamString(this.state.cover_name as string);
 
     this.cover_name = cover_name;
 
@@ -149,7 +149,7 @@ export class ActionSmartCoverActivity extends action_base {
     const target_path_section = pickSectionFromCondList(registry.actor, this.object, this.target_path_condlist);
 
     if (target_path_section !== NIL && target_path_section !== null) {
-      const [target_path, used] = getParamString(target_path_section, object);
+      const [target_path, used] = getParamString(target_path_section);
 
       this.target_path = target_path;
 

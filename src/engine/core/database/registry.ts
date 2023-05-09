@@ -165,11 +165,6 @@ export const registry = {
    */
   smartCovers: new LuaTable<TName, SmartCover>(),
   /**
-   * List of objects spawned by scripts execution.
-   * $ key - object id, value - zone name.
-   */
-  scriptSpawned: new LuaTable<TNumberId, TName>(),
-  /**
    * List of active scripted animated doors.
    */
   animatedDoors: new LuaTable<TName, LabX8DoorBinder>(),

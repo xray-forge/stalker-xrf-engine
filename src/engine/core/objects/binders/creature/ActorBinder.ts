@@ -33,10 +33,9 @@ import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos/SchemeDeimos";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getTableSize } from "@/engine/core/utils/table";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficultiesByNumber } from "@/engine/lib/constants/game_difficulties";
-import { Optional, TCount, TDuration } from "@/engine/lib/types";
+import { Optional, TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -152,13 +151,6 @@ export class ActorBinder extends object_binder {
     savePortableStore(this.object, packet);
     SaveManager.getInstance().save(packet);
 
-    packet.w_u8(getTableSize(registry.scriptSpawned));
-
-    for (const [k, v] of registry.scriptSpawned) {
-      packet.w_u16(k);
-      packet.w_stringZ(v);
-    }
-
     let isDeimosExisting: boolean = false;
 
     for (const [k, v] of registry.zones) {
@@ -190,12 +182,6 @@ export class ActorBinder extends object_binder {
 
     loadPortableStore(this.object, reader);
     SaveManager.getInstance().load(reader);
-
-    const scriptsSpawnedCount: TCount = reader.r_u8();
-
-    for (const it of $range(1, scriptsSpawnedCount)) {
-      registry.scriptSpawned.set(reader.r_u16(), reader.r_stringZ());
-    }
 
     const hasDeimos: boolean = reader.r_bool();
 

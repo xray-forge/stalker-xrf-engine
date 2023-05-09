@@ -39,9 +39,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-export function getParamString(data: string, object: XR_game_object): LuaMultiReturn<[string, boolean]> {
-  const scriptId = registry.scriptSpawned.get(object.id());
-  const [outString, num] = string.gsub(data, "%$script_id%$", tostring(scriptId));
+export function getParamString(data: string): LuaMultiReturn<[string, boolean]> {
+  const [outString, num] = string.gsub(data, "%$script_id%$", NIL);
 
   if (num > 0) {
     return $multi(outString, true);

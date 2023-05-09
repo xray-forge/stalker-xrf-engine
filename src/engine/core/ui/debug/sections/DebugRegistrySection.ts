@@ -4,7 +4,6 @@ import { registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { toJSON } from "@/engine/core/utils/transform/json";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { NIL } from "@/engine/lib/constants/words";
 import { TPath } from "@/engine/lib/types";
@@ -61,7 +60,6 @@ export class DebugRegistrySection extends AbstractDebugSection {
     logger.info("Light zones registered:", Object.keys(registry.lightZones).length);
     logger.info("Smart terrains registered:", Object.keys(registry.smartTerrains).length);
     logger.info("Smart covers registered:", Object.keys(registry.smartCovers).length);
-    logger.info("Script spawned:", Object.keys(registry.scriptSpawned).length);
     logger.info("Animated doors registered:", Object.keys(registry.animatedDoors).length);
     logger.info("Save markers registered:", Object.keys(registry.saveMarkers).length);
     logger.info("Signal lights registered:", Object.keys(registry.signalLights).length);
