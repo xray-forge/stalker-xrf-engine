@@ -1,5 +1,6 @@
 import { TXR_net_processor, XR_game_object, XR_net_packet } from "xray16";
 
+import { IRegistryObjectState } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -159,5 +160,27 @@ export function loadPortableStore(object: XR_game_object, reader: TXR_net_proces
       default:
         abort("database/portable store: not registered type tried to load: [%s]:[%s].", key, type);
     }
+  }
+}
+
+/**
+ * Initialize object portable store if it does not exist.
+ */
+export function initializePortableStore(object: XR_game_object): void {
+  const state: IRegistryObjectState = registry.objects.get(object.id());
+
+  if (!state.portableStore) {
+    state.portableStore = new LuaTable();
+  }
+}
+
+/**
+ * Initialize object portable store if it does not exist.
+ */
+export function destroyPortableStore(object: XR_game_object): void {
+  const state: IRegistryObjectState = registry.objects.get(object.id());
+
+  if (state) {
+    state.portableStore = null;
   }
 }

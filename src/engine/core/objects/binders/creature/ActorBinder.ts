@@ -4,7 +4,6 @@ import {
   level,
   LuabindClass,
   object_binder,
-  TXR_game_difficulty,
   TXR_TaskState,
   XR_CGameTask,
   XR_cse_alife_creature_actor,
@@ -16,10 +15,11 @@ import {
 import {
   closeLoadMarker,
   closeSaveMarker,
+  destroyPortableStore,
+  initializePortableStore,
   IRegistryObjectState,
   openSaveMarker,
   registry,
-  resetObject,
 } from "@/engine/core/database";
 import { registerActor, unregisterActor } from "@/engine/core/database/actor";
 import { loadPortableStore, savePortableStore } from "@/engine/core/database/portable_store";
@@ -31,10 +31,7 @@ import { EGameEvent } from "@/engine/core/managers/events/types";
 import { Actor } from "@/engine/core/objects/server/creature/Actor";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos/SchemeDeimos";
-import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { gameDifficultiesByNumber } from "@/engine/lib/constants/game_difficulties";
 import { Optional, TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -45,9 +42,11 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class ActorBinder extends object_binder {
   public isFirstUpdatePerformed: boolean = false;
-  public deimosIntensity: Optional<number> = null;
 
   public eventsManager: EventsManager = EventsManager.getInstance();
+
+  // todo: Move out deimos related logic / data.
+  public deimosIntensity: Optional<number> = null;
 
   public override net_spawn(data: XR_cse_alife_creature_actor): boolean {
     level.show_indicators();
@@ -58,6 +57,9 @@ export class ActorBinder extends object_binder {
 
     const state: IRegistryObjectState = registerActor(this.object);
 
+    initializePortableStore(this.object);
+
+    // todo: Move out deimos related logic / data.
     (registry.actor as unknown as ActorBinder).deimosIntensity = this.deimosIntensity;
 
     this.deimosIntensity = null;
@@ -89,9 +91,6 @@ export class ActorBinder extends object_binder {
 
     this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_DESTROY, this);
 
-    /**
-     * Unregister actor as last step so dependent managers can properly destroy everything.
-     */
     unregisterActor();
 
     super.net_destroy();
@@ -100,9 +99,7 @@ export class ActorBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
 
-    const state: IRegistryObjectState = resetObject(this.object);
-
-    state.portableStore = null;
+    destroyPortableStore(this.object);
 
     this.object.set_callback(callback.inventory_info, (object: XR_game_object, info: string) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_INFO_UPDATE, object, info);
@@ -146,18 +143,20 @@ export class ActorBinder extends object_binder {
 
     super.save(packet);
 
-    packet.w_u8(level.get_game_difficulty());
-
     savePortableStore(this.object, packet);
     SaveManager.getInstance().save(packet);
 
+    // todo: Move out deimos logic.
     let isDeimosExisting: boolean = false;
 
-    for (const [k, v] of registry.zones) {
-      if (registry.objects.get(v.id()) && registry.objects.get(v.id()).active_section === SchemeDeimos.SCHEME_SECTION) {
+    for (const [id, zone] of registry.zones) {
+      if (
+        registry.objects.get(zone.id()) &&
+        registry.objects.get(zone.id()).active_section === SchemeDeimos.SCHEME_SECTION
+      ) {
         isDeimosExisting = true;
         packet.w_bool(true);
-        packet.w_float((registry.objects.get(v.id())[SchemeDeimos.SCHEME_SECTION] as ISchemeDeimosState).intensity);
+        packet.w_float((registry.objects.get(zone.id())[SchemeDeimos.SCHEME_SECTION] as ISchemeDeimosState).intensity);
       }
     }
 
@@ -169,20 +168,16 @@ export class ActorBinder extends object_binder {
   }
 
   public override load(reader: XR_reader): void {
+    this.isFirstUpdatePerformed = false;
+
     openLoadMarker(reader, ActorBinder.__name);
 
     super.load(reader);
 
-    this.isFirstUpdatePerformed = false;
-
-    executeConsoleCommand(
-      consoleCommands.g_game_difficulty,
-      gameDifficultiesByNumber[reader.r_u8() as TXR_game_difficulty]
-    );
-
     loadPortableStore(this.object, reader);
     SaveManager.getInstance().load(reader);
 
+    // todo: Move out deimos logic.
     const hasDeimos: boolean = reader.r_bool();
 
     if (hasDeimos) {

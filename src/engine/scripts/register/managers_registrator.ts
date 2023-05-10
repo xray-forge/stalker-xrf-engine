@@ -11,6 +11,7 @@ import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
 import { TravelManager } from "@/engine/core/managers/interaction/TravelManager";
 import { ActorInputManager, MapDisplayManager, NotificationManager } from "@/engine/core/managers/interface";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
+import { GameSettingsManager } from "@/engine/core/managers/interface/GameSettingsManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
 import { PdaManager } from "@/engine/core/managers/interface/PdaManager";
@@ -31,11 +32,12 @@ const logger: LuaLogger = new LuaLogger($filename);
 export function registerManagers(): void {
   const managers: Array<TAbstractCoreManagerConstructor> = [
     AchievementsManager,
-    ActorInventoryMenuManager,
     ActorInputManager,
+    ActorInventoryMenuManager,
     DialogManager,
     DynamicMusicManager,
     EventsManager,
+    GameSettingsManager,
     GlobalSoundManager,
     ItemUpgradesManager,
     LoadScreenManager,

@@ -1,7 +1,5 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
-import { TNumberId } from "@/engine/lib/types";
-
 /**
  * todo;
  */
@@ -23,11 +21,21 @@ export type TGameDifficulties = typeof gameDifficulties;
 export type TGameDifficulty = TGameDifficulties[keyof TGameDifficulties];
 
 /**
- * todo;
+ * Enum with number representation of game difficulties.
  */
-export const gameDifficultiesByNumber: Record<TNumberId, TGameDifficulty> = {
-  0: gameDifficulties.gd_novice,
-  1: gameDifficulties.gd_stalker,
-  2: gameDifficulties.gd_veteran,
-  3: gameDifficulties.gd_master,
+export enum EGameDifficulty {
+  NOVICE = 0,
+  STALKER = 1,
+  VETERAN = 2,
+  MASTER = 3,
+}
+
+/**
+ * Mapping game difficulties with number-string pairs.
+ */
+export const gameDifficultiesByNumber: Record<EGameDifficulty, TGameDifficulty> = {
+  [EGameDifficulty.NOVICE]: gameDifficulties.gd_novice,
+  [EGameDifficulty.STALKER]: gameDifficulties.gd_stalker,
+  [EGameDifficulty.VETERAN]: gameDifficulties.gd_veteran,
+  [EGameDifficulty.MASTER]: gameDifficulties.gd_master,
 } as const;
