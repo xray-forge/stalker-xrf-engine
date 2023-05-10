@@ -7,12 +7,10 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
+ * todo: On unregister remove story ID from manager?
  */
 @LuabindClass()
 export class ZoneVisual extends cse_zone_visual {
-  /**
-   * todo: Description.
-   */
   public override on_register(): void {
     super.on_register();
     registerObjectStoryLinks(this);

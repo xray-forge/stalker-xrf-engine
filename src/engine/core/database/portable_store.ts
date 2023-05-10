@@ -180,7 +180,7 @@ export function initializePortableStore(object: XR_game_object): void {
 export function destroyPortableStore(object: XR_game_object): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
-  if (state) {
+  if (state !== null) {
     state.portableStore = null;
   }
 }

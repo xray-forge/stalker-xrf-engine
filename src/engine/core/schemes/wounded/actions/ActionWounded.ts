@@ -5,9 +5,11 @@ import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/data
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
+import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
+import { TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -23,9 +25,6 @@ export class ActionWounded extends action_base {
     this.state = storage;
   }
 
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
     super.initialize();
 
@@ -47,17 +46,17 @@ export class ActionWounded extends action_base {
   public override execute(): void {
     super.execute();
 
-    const woundManager = this.state.wound_manager;
+    const woundManager: WoundManager = this.state.woundManager;
     const simulator: XR_alife_simulator = alife();
 
     if (this.state.autoheal === true) {
-      if (woundManager.can_use_medkit !== true) {
-        const begin_wounded: number = getPortableStoreValue(this.object, "begin_wounded")!;
-        const current_time: number = time_global();
+      if (woundManager.canUseMedkit !== true) {
+        const woundedAt: TTimestamp = getPortableStoreValue(this.object, "begin_wounded")!;
+        const now: TTimestamp = time_global();
 
-        if (begin_wounded === null) {
-          setPortableStoreValue(this.object, "begin_wounded", current_time);
-        } else if (current_time - begin_wounded > 60000) {
+        if (woundedAt === null) {
+          setPortableStoreValue(this.object, "begin_wounded", now);
+        } else if (now - woundedAt > 60000) {
           const npc = this.object;
 
           simulator.create("medkit_script", npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());

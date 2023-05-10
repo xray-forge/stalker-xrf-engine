@@ -11,9 +11,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ZoneTorrid extends cse_torrid_zone {
-  /**
-   * todo: Description.
-   */
   public override on_register(): void {
     super.on_register();
     registerObjectStoryLinks(this);

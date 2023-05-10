@@ -131,7 +131,7 @@ export function isObjectWounded(object: XR_game_object): boolean {
   if (state === null) {
     return false;
   } else if (state[EScheme.WOUNDED] !== null) {
-    return tostring((state[EScheme.WOUNDED] as ISchemeWoundedState).wound_manager.wound_state) !== NIL;
+    return tostring((state[EScheme.WOUNDED] as ISchemeWoundedState).woundManager.woundState) !== NIL;
   } else {
     return false;
   }
@@ -159,7 +159,7 @@ export function isHeavilyWounded(objectId: TNumberId): boolean {
   return (
     (state &&
       state[EScheme.WOUNDED] &&
-      tostring((state[EScheme.WOUNDED] as ISchemeWoundedState).wound_manager.wound_state) !== NIL) === true
+      tostring((state[EScheme.WOUNDED] as ISchemeWoundedState).woundManager.woundState) !== NIL) === true
   );
 }
 

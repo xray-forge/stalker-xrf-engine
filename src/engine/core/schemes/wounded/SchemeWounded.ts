@@ -36,7 +36,7 @@ export class SchemeWounded extends AbstractScheme {
   public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeWoundedState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.wound_manager = new WoundManager(object, state);
+    state.woundManager = new WoundManager(object, state);
   }
 
   /**
@@ -95,7 +95,7 @@ export class SchemeWounded extends AbstractScheme {
 
     SchemeWounded.initialize(object, state.ini, woundedSection, state.wounded as ISchemeWoundedState, scheme);
 
-    (state[SchemeWounded.SCHEME_SECTION] as ISchemeWoundedState).wound_manager.hit_callback();
+    (state[SchemeWounded.SCHEME_SECTION] as ISchemeWoundedState).woundManager.hit_callback();
   }
 
   /**
@@ -210,7 +210,7 @@ export class SchemeWounded extends AbstractScheme {
   public static unlockMedkit(object: XR_game_object): void {
     const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
-    (state?.wounded as Maybe<ISchemeWoundedState>)?.wound_manager.unlockMedkit();
+    (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.unlockMedkit();
   }
 
   /**
@@ -219,7 +219,7 @@ export class SchemeWounded extends AbstractScheme {
   public static eatMedkit(object: XR_game_object): void {
     const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
-    (state?.wounded as Maybe<ISchemeWoundedState>)?.wound_manager.eatMedkit();
+    (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.eatMedkit();
   }
 
   /**
@@ -228,7 +228,7 @@ export class SchemeWounded extends AbstractScheme {
   public static hit_callback(objectId: TNumberId): void {
     const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
 
-    (state?.wounded as Maybe<ISchemeWoundedState>)?.wound_manager.hit_callback();
+    (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.hit_callback();
   }
 
   /**
@@ -238,7 +238,7 @@ export class SchemeWounded extends AbstractScheme {
     const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
 
     if (state.wounded !== null) {
-      const woundState = (state?.wounded as Maybe<ISchemeWoundedState>)?.wound_manager.wound_state;
+      const woundState = (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.woundState;
 
       return (
         woundState === "psy_pain" ||

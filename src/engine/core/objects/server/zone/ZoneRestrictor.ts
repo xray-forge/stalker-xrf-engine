@@ -12,18 +12,12 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ZoneRestrictor extends cse_alife_space_restrictor {
-  /**
-   * todo: Description.
-   */
   public override on_register(): void {
     super.on_register();
     registerObjectStoryLinks(this);
     TreasureManager.getInstance().registerAlifeRestrictor(this);
   }
 
-  /**
-   * todo: Description.
-   */
   public override keep_saved_data_anyway(): boolean {
     return true;
   }

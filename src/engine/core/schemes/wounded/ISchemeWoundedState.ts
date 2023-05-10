@@ -6,7 +6,7 @@ import type { LuaArray, Optional, TNumberId } from "@/engine/lib/types";
  * todo;
  */
 export interface ISchemeWoundedState extends IBaseSchemeState {
-  wound_manager: WoundManager;
+  woundManager: WoundManager;
   wounded_set: boolean;
   wounded_section: string;
   hp_state: LuaArray<any>;

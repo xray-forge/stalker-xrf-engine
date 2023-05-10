@@ -16,9 +16,6 @@ export class EvaluatorWounded extends property_evaluator {
   public readonly state: ISchemeWoundedState;
   public actionPlanner: Optional<XR_action_planner> = null;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeWoundedState) {
     super(null, EvaluatorWounded.__name);
     this.state = state;
@@ -34,7 +31,7 @@ export class EvaluatorWounded extends property_evaluator {
       return false;
     }
 
-    this.state.wound_manager.update();
+    this.state.woundManager.update();
 
     if (this.actionPlanner === null) {
       this.actionPlanner = this.object.motivation_action_manager();

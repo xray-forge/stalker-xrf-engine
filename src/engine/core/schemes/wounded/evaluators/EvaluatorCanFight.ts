@@ -20,7 +20,7 @@ export class EvaluatorCanFight extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Evaluate whether object can fight.
    */
   public override evaluate(): boolean {
     if (this.object.critically_wounded()) {

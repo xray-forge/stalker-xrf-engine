@@ -361,8 +361,8 @@ describe("NotificationManager class", () => {
     );
 
     registry.objects.get(registry.actor.id()).wounded = {
-      wound_manager: {
-        wound_state: "heavy",
+      woundManager: {
+        woundState: "heavy",
       },
     } as ISchemeWoundedState;
 

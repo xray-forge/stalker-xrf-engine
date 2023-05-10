@@ -1,4 +1,4 @@
-import { alife, time_global, XR_alife_simulator, XR_game_object } from "xray16";
+import { alife, time_global, XR_alife_simulator } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
@@ -8,26 +8,19 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWounde
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { LuaArray, Optional, TCount, TRate } from "@/engine/lib/types";
+import { LuaArray, Optional, TCount, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
-  public can_use_medkit: boolean = false;
+  public canUseMedkit: boolean = false;
 
   public fight!: string;
   public cover!: string;
   public victim!: string;
   public sound!: string;
-  public wound_state!: string;
-
-  /**
-   * todo: Description.
-   */
-  public constructor(object: XR_game_object, state: ISchemeWoundedState) {
-    super(object, state);
-  }
+  public woundState!: string;
 
   /**
    * todo: Description.
@@ -36,26 +29,26 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
     const hp: TCount = 100 * this.object.health;
     const psy: TCount = 100 * this.object.psy_health;
 
-    const [nState, nSound] = this.process_psy_wound(psy);
+    const [nextState, nextSound] = this.processPsyWound(psy);
 
-    this.wound_state = nState;
-    this.sound = nSound;
+    this.woundState = nextState;
+    this.sound = nextSound;
 
-    if (this.wound_state === NIL && this.sound === NIL) {
-      const [state, sound] = this.process_hp_wound(hp);
+    if (this.woundState === NIL && this.sound === NIL) {
+      const [state, sound] = this.processHPWound(hp);
 
-      this.wound_state = state;
+      this.woundState = state;
       this.sound = sound;
 
       this.fight = this.processFight(hp);
-      this.victim = this.process_victim(hp);
+      this.victim = this.processVictim(hp);
     } else {
       this.fight = FALSE;
       this.cover = FALSE;
       this.victim = NIL;
     }
 
-    setPortableStoreValue(this.object, "wounded_state", this.wound_state);
+    setPortableStoreValue(this.object, "wounded_state", this.woundState);
     setPortableStoreValue(this.object, "wounded_sound", this.sound);
     setPortableStoreValue(this.object, "wounded_fight", this.fight);
     setPortableStoreValue(this.object, "wounded_victim", this.victim);
@@ -65,39 +58,39 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
    * todo: Description.
    */
   public unlockMedkit(): void {
-    this.can_use_medkit = true;
+    this.canUseMedkit = true;
   }
 
   /**
    * todo: Description.
    */
   public eatMedkit(): void {
-    if (this.can_use_medkit) {
+    if (this.canUseMedkit) {
       if (this.object.object("medkit_script") !== null) {
         this.object.eat(this.object.object("medkit_script")!);
       }
 
-      const sim: XR_alife_simulator = alife();
+      const simulator: XR_alife_simulator = alife();
 
       if (this.object.object(drugs.medkit) !== null) {
-        sim.release(sim.object(this.object.object(drugs.medkit)!.id()), true);
+        simulator.release(simulator.object(this.object.object(drugs.medkit)!.id()), true);
       } else if (this.object.object(drugs.medkit_army) !== null) {
-        sim.release(sim.object(this.object.object(drugs.medkit_army)!.id()), true);
+        simulator.release(simulator.object(this.object.object(drugs.medkit_army)!.id()), true);
       } else if (this.object.object(drugs.medkit_scientic) !== null) {
-        sim.release(sim.object(this.object.object(drugs.medkit_scientic)!.id()), true);
+        simulator.release(simulator.object(this.object.object(drugs.medkit_scientic)!.id()), true);
       }
 
-      const current_time: number = time_global();
-      const begin_wounded: Optional<number> = getPortableStoreValue(this.object, "begin_wounded");
+      const now: TTimestamp = time_global();
+      const beginAt: Optional<TTimestamp> = getPortableStoreValue(this.object, "begin_wounded");
 
-      if (begin_wounded !== null && current_time - begin_wounded <= 60000) {
+      if (beginAt !== null && now - beginAt <= 60_000) {
         GlobalSoundManager.getInstance().playSound(this.object.id(), "help_thanks", null, null);
       }
 
       setPortableStoreValue(this.object, "begin_wounded", null);
     }
 
-    this.can_use_medkit = false;
+    this.canUseMedkit = false;
     this.update();
   }
 
@@ -119,7 +112,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   /**
    * todo: Description.
    */
-  public process_victim(hp: TRate): string {
+  public processVictim(hp: TRate): string {
     const key = this.getKeyFromDistance(this.state.hp_victim, hp);
 
     if (key !== null) {
@@ -134,7 +127,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   /**
    * todo: Description.
    */
-  public process_hp_wound(hp: TRate): LuaMultiReturn<[string, string]> {
+  public processHPWound(hp: TRate): LuaMultiReturn<[string, string]> {
     const key = this.getKeyFromDistance(this.state.hp_state, hp);
 
     if (key !== null) {
@@ -168,7 +161,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   /**
    * todo: Description.
    */
-  public process_psy_wound(hp: number): LuaMultiReturn<[string, string]> {
+  public processPsyWound(hp: TCount): LuaMultiReturn<[string, string]> {
     const key = this.getKeyFromDistance(this.state.psy_state, hp);
 
     if (key !== null) {
