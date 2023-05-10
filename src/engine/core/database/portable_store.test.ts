@@ -3,13 +3,16 @@ import { XR_game_object } from "xray16";
 
 import { registerObject } from "@/engine/core/database/objects";
 import {
+  destroyPortableStore,
   EPortableStoreType,
   getPortableStoreValue,
+  initializePortableStore,
   isValidPortableStoreValue,
   loadPortableStore,
   savePortableStore,
   setPortableStoreValue,
 } from "@/engine/core/database/portable_store";
+import { registry } from "@/engine/core/database/registry";
 import {
   EPacketDataType,
   mockClientGameObject,
@@ -33,6 +36,22 @@ describe("'portable_store' functionality", () => {
     expect(isValidPortableStoreValue({})).toBeFalsy();
     expect(isValidPortableStoreValue(new LuaTable())).toBeFalsy();
     expect(isValidPortableStoreValue(undefined)).toBeFalsy();
+  });
+
+  it("should correctly initialize portable store", () => {
+    const object: XR_game_object = mockClientGameObject();
+
+    registerObject(object);
+
+    expect(registry.objects.get(object.id()).portableStore).toBeUndefined();
+
+    initializePortableStore(object);
+
+    expect(registry.objects.get(object.id()).portableStore).toEqual(new LuaTable());
+
+    destroyPortableStore(object);
+
+    expect(registry.objects.get(object.id()).portableStore).toBeNull();
   });
 
   it("should correctly set and get values by key", () => {
