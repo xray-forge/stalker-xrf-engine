@@ -72,11 +72,11 @@ export class Monster extends cse_alife_monster_base {
       tostring(
         this.online
           ? level?.object_by_id(this.id)?.level_vertex_id()
-          : registry.offlineObjects.get(this.id)?.level_vertex_id
+          : registry.offlineObjects.get(this.id)?.levelVertexId
       )
     );
 
-    packet.w_stringZ(tostring(registry.offlineObjects.get(this.id)?.active_section));
+    packet.w_stringZ(tostring(registry.offlineObjects.get(this.id)?.activeSection));
   }
 
   public override STATE_Read(packet: XR_net_packet, size: number): void {
@@ -84,8 +84,8 @@ export class Monster extends cse_alife_monster_base {
 
     const offlineObject: IStoredOfflineObject = registerOfflineObject(this.id);
 
-    offlineObject.level_vertex_id = parseNumberOptional(packet.r_stringZ());
-    offlineObject.active_section = parseStringOptional(packet.r_stringZ());
+    offlineObject.levelVertexId = parseNumberOptional(packet.r_stringZ());
+    offlineObject.activeSection = parseStringOptional(packet.r_stringZ());
   }
 
   public override on_register(): void {

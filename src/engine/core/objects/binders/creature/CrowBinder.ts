@@ -23,51 +23,26 @@ import {
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TDuration, TNumberId, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-const CROW_DISPOSAL_TIMEOUT: TDuration = 120_000;
 
 /**
  * todo;
  */
 @LuabindClass()
 export class CrowBinder extends object_binder {
-  public bodyDisposalTimer: TTimestamp = 0;
+  public diedAt: TTimestamp = 0;
 
-  /**
-   * todo: Description.
-   */
-  public override update(delta: TDuration): void {
-    super.update(delta);
-
-    if (
-      !this.object.alive() &&
-      this.bodyDisposalTimer !== 0 &&
-      time_global() - CROW_DISPOSAL_TIMEOUT >= this.bodyDisposalTimer
-    ) {
-      const sim: XR_alife_simulator = alife();
-
-      logger.info("Release dead crow");
-      sim.release(sim.object(this.object.id()), true);
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
   public override reinit(): void {
     super.reinit();
 
-    this.bodyDisposalTimer = 0;
+    this.diedAt = 0;
 
     resetObject(this.object);
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -80,14 +55,11 @@ export class CrowBinder extends object_binder {
     registry.crows.storage.set(objectId, objectId);
     registry.crows.count += 1;
 
-    this.object.set_callback(callback.death, this.death_callback, this);
+    this.object.set_callback(callback.death, this.onDeath, this);
 
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_destroy(): void {
     logger.info("Crow net destroy");
 
@@ -101,46 +73,52 @@ export class CrowBinder extends object_binder {
     super.net_destroy();
   }
 
-  /**
-   * todo: Description.
-   */
-  public death_callback(victim: XR_game_object, killer: XR_game_object): void {
-    logger.info("Crow death registered");
-
-    this.bodyDisposalTimer = time_global();
-    registry.crows.storage.delete(this.object.id());
-    registry.crows.count -= 1;
-  }
-
-  /**
-   * todo: Description.
-   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
+  public override update(delta: TDuration): void {
+    super.update(delta);
+
+    if (
+      !this.object.alive() &&
+      this.diedAt !== 0 &&
+      time_global() - logicsConfig.CROW_CORPSE_RELEASE_TIMEOUT >= this.diedAt
+    ) {
+      const simulator: XR_alife_simulator = alife();
+
+      logger.info("Release dead crow");
+      simulator.release(simulator.object(this.object.id()), true);
+    }
+  }
+
   public override save(packet: XR_net_packet): void {
     openSaveMarker(packet, CrowBinder.__name);
 
     super.save(packet);
     saveObjectLogic(this.object, packet);
-    packet.w_u32(this.bodyDisposalTimer);
+    packet.w_u32(this.diedAt);
 
     closeSaveMarker(packet, CrowBinder.__name);
   }
 
-  /**
-   * todo: Description.
-   */
   public override load(reader: XR_reader): void {
     openLoadMarker(reader, CrowBinder.__name);
     super.load(reader);
     loadObjectLogic(this.object, reader);
 
-    this.bodyDisposalTimer = reader.r_u32();
+    this.diedAt = reader.r_u32();
     closeLoadMarker(reader, CrowBinder.__name);
+  }
+
+  /**
+   * On crow object death.
+   */
+  public onDeath(victim: XR_game_object, killer: XR_game_object): void {
+    logger.info("Crow death registered");
+
+    this.diedAt = time_global();
+    registry.crows.storage.delete(this.object.id());
+    registry.crows.count -= 1;
   }
 }

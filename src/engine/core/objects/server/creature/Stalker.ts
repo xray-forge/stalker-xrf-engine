@@ -63,11 +63,11 @@ export class Stalker extends cse_alife_human_stalker {
       tostring(
         this.online
           ? level?.object_by_id(this.id)?.level_vertex_id()
-          : registry.offlineObjects.get(this.id).level_vertex_id
+          : registry.offlineObjects.get(this.id).levelVertexId
       )
     );
 
-    packet.w_stringZ(tostring(registry.offlineObjects.get(this.id).active_section));
+    packet.w_stringZ(tostring(registry.offlineObjects.get(this.id).activeSection));
     packet.w_bool(this.isCorpseLootDropped);
   }
 
@@ -76,8 +76,8 @@ export class Stalker extends cse_alife_human_stalker {
 
     const offlineObject: IStoredOfflineObject = registerOfflineObject(this.id);
 
-    offlineObject.level_vertex_id = parseNumberOptional(packet.r_stringZ());
-    offlineObject.active_section = parseStringOptional(packet.r_stringZ());
+    offlineObject.levelVertexId = parseNumberOptional(packet.r_stringZ());
+    offlineObject.activeSection = parseStringOptional(packet.r_stringZ());
 
     this.isCorpseLootDropped = packet.r_bool();
   }

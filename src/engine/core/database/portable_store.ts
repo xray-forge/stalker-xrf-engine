@@ -178,7 +178,7 @@ export function initializePortableStore(object: XR_game_object): void {
  * Initialize object portable store if it does not exist.
  */
 export function destroyPortableStore(object: XR_game_object): void {
-  const state: IRegistryObjectState = registry.objects.get(object.id());
+  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
   if (state) {
     state.portableStore = null;

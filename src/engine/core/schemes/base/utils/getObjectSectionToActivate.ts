@@ -32,10 +32,10 @@ export function getObjectSectionToActivate(
   /**
    * If offline object detected, try to continue previous jon on online switch.
    */
-  if (offlineObjectDescriptor !== null && offlineObjectDescriptor.active_section !== null) {
-    const sectionToRetry: TSection = offlineObjectDescriptor.active_section;
+  if (offlineObjectDescriptor !== null && offlineObjectDescriptor.activeSection !== null) {
+    const sectionToRetry: TSection = offlineObjectDescriptor.activeSection;
 
-    offlineObjectDescriptor.active_section = null;
+    offlineObjectDescriptor.activeSection = null;
 
     if (ini.section_exist(sectionToRetry)) {
       return sectionToRetry;

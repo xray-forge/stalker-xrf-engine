@@ -196,9 +196,9 @@ export class StalkerBinder extends object_binder {
       if (registry.spawnedVertexes.get(serverObject.id) !== null) {
         this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(serverObject.id)));
         registry.spawnedVertexes.delete(serverObject.id);
-      } else if (registry.offlineObjects.get(serverObject.id)?.level_vertex_id !== null) {
+      } else if (registry.offlineObjects.get(serverObject.id)?.levelVertexId !== null) {
         this.object.set_npc_position(
-          level.vertex_position(registry.offlineObjects.get(serverObject.id).level_vertex_id as TNumberId)
+          level.vertex_position(registry.offlineObjects.get(serverObject.id).levelVertexId as TNumberId)
         );
       } else if (serverObject.m_smart_terrain_id !== MAX_U16) {
         const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!;
@@ -252,8 +252,8 @@ export class StalkerBinder extends object_binder {
     }
 
     if (registry.offlineObjects.get(objectId) !== null) {
-      registry.offlineObjects.get(objectId).level_vertex_id = this.object.level_vertex_id();
-      registry.offlineObjects.get(objectId).active_section = registry.objects.get(objectId).active_section as TSection;
+      registry.offlineObjects.get(objectId).levelVertexId = this.object.level_vertex_id();
+      registry.offlineObjects.get(objectId).activeSection = registry.objects.get(objectId).active_section as TSection;
     }
 
     unregisterObject(this.object);

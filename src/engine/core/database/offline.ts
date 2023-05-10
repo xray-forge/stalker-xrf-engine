@@ -5,8 +5,8 @@ import { Optional, TNumberId, TSection } from "@/engine/lib/types";
  * todo;
  */
 export interface IStoredOfflineObject {
-  level_vertex_id: Optional<TNumberId>;
-  active_section: Optional<TSection>;
+  levelVertexId: Optional<TNumberId>;
+  activeSection: Optional<TSection>;
 }
 
 /**
@@ -14,8 +14,8 @@ export interface IStoredOfflineObject {
  */
 export function hardResetOfflineObject(objectId: TNumberId): void {
   registry.offlineObjects.set(objectId, {
-    level_vertex_id: null,
-    active_section: null,
+    levelVertexId: null,
+    activeSection: null,
   });
 }
 
@@ -25,8 +25,8 @@ export function hardResetOfflineObject(objectId: TNumberId): void {
 export function softResetOfflineObject(objectId: TNumberId): void {
   if (registry.offlineObjects.has(objectId)) {
     registry.offlineObjects.set(objectId, {
-      level_vertex_id: null,
-      active_section: null,
+      levelVertexId: null,
+      activeSection: null,
     });
   }
 }
@@ -39,8 +39,8 @@ export function registerOfflineObject(objectId: TNumberId): IStoredOfflineObject
 
   if (offlineRecord === null) {
     offlineRecord = {
-      level_vertex_id: null,
-      active_section: null,
+      levelVertexId: null,
+      activeSection: null,
     };
 
     registry.offlineObjects.set(objectId, offlineRecord);

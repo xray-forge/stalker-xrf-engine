@@ -25,6 +25,7 @@ import {
   closeLoadMarker,
   closeSaveMarker,
   IRegistryObjectState,
+  IStoredOfflineObject,
   openSaveMarker,
   registerObject,
   registry,
@@ -94,10 +95,7 @@ export class MonsterBinder extends object_binder {
       registry.actorCombat.delete(this.object.id());
     }
 
-    const squad: Optional<Squad> = getObjectSquad(this.object);
-    const object_alive: boolean = this.object.alive();
-
-    if (!object_alive) {
+    if (!this.object.alive()) {
       return;
     }
 
@@ -106,6 +104,8 @@ export class MonsterBinder extends object_binder {
     if (this.state.active_scheme !== null) {
       trySwitchToAnotherSection(this.object, this.state[this.state.active_scheme!]!, registry.actor);
     }
+
+    const squad: Optional<Squad> = getObjectSquad(this.object);
 
     if (squad !== null && squad.commander_id() === this.object.id()) {
       squad.update();
@@ -154,26 +154,6 @@ export class MonsterBinder extends object_binder {
     }
   }
 
-  public override save(packet: XR_net_packet): void {
-    openSaveMarker(packet, MonsterBinder.__name);
-
-    super.save(packet);
-    saveObjectLogic(this.object, packet);
-
-    closeSaveMarker(packet, MonsterBinder.__name);
-  }
-
-  public override load(reader: XR_reader): void {
-    this.isLoaded = true;
-
-    openLoadMarker(reader, MonsterBinder.__name);
-
-    super.load(reader);
-    loadObjectLogic(this.object, reader);
-
-    closeLoadMarker(reader, MonsterBinder.__name);
-  }
-
   public override net_spawn(object: XR_cse_alife_creature_abstract): boolean {
     if (!super.net_spawn(object)) {
       return false;
@@ -206,9 +186,9 @@ export class MonsterBinder extends object_binder {
     if (registry.spawnedVertexes.has(serverObject.id)) {
       this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(serverObject.id)));
       registry.spawnedVertexes.delete(serverObject.id);
-    } else if (registry.offlineObjects.get(serverObject.id)?.level_vertex_id !== null) {
+    } else if (registry.offlineObjects.get(serverObject.id)?.levelVertexId !== null) {
       this.object.set_npc_position(
-        level.vertex_position(registry.offlineObjects.get(serverObject.id).level_vertex_id as TNumberId)
+        level.vertex_position(registry.offlineObjects.get(serverObject.id).levelVertexId as TNumberId)
       );
     } else if (serverObject.m_smart_terrain_id !== MAX_U16) {
       const smartTerrain: Optional<SmartTerrain> = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id);
@@ -240,11 +220,11 @@ export class MonsterBinder extends object_binder {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme]!, ESchemeEvent.NET_DESTROY);
     }
 
-    const offlineObject = registry.offlineObjects.get(this.object.id());
+    const offlineObject: IStoredOfflineObject = registry.offlineObjects.get(this.object.id());
 
     if (offlineObject !== null) {
-      offlineObject.level_vertex_id = this.object.level_vertex_id();
-      offlineObject.active_section = this.state.active_section;
+      offlineObject.levelVertexId = this.object.level_vertex_id();
+      offlineObject.activeSection = this.state.active_section;
     }
 
     unregisterObject(this.object);
@@ -255,6 +235,26 @@ export class MonsterBinder extends object_binder {
 
   public override net_save_relevant(): boolean {
     return true;
+  }
+
+  public override save(packet: XR_net_packet): void {
+    openSaveMarker(packet, MonsterBinder.__name);
+
+    super.save(packet);
+    saveObjectLogic(this.object, packet);
+
+    closeSaveMarker(packet, MonsterBinder.__name);
+  }
+
+  public override load(reader: XR_reader): void {
+    this.isLoaded = true;
+
+    openLoadMarker(reader, MonsterBinder.__name);
+
+    super.load(reader);
+    loadObjectLogic(this.object, reader);
+
+    closeLoadMarker(reader, MonsterBinder.__name);
   }
 
   /**

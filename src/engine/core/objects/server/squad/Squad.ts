@@ -838,7 +838,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     for (const squadMember of this.squad_members()) {
       const object: Optional<XR_game_object> = level.object_by_id(squadMember.id);
 
-      registry.offlineObjects.get(squadMember.id).level_vertex_id = level.vertex_id(position);
+      registry.offlineObjects.get(squadMember.id).levelVertexId = level.vertex_id(position);
 
       if (object !== null) {
         resetObjectAnimation(object);
