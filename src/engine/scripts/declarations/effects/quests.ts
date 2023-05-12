@@ -23,10 +23,11 @@ import { MapDisplayManager } from "@/engine/core/managers/interface";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { showFreeplayDialog } from "@/engine/core/ui/game/FreeplayDialog";
 import { abort } from "@/engine/core/utils/assertion";
-import { extern } from "@/engine/core/utils/binding";
+import { extern, getExtern } from "@/engine/core/utils/binding";
 import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { spawnObject, spawnObjectInObject, spawnSquad } from "@/engine/core/utils/spawn";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
@@ -40,17 +41,24 @@ import { weapons } from "@/engine/lib/constants/items/weapons";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { zones } from "@/engine/lib/constants/zones";
-import { LuaArray, Optional, TCount, TDistance, TIndex, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
+import {
+  AnyCallable,
+  LuaArray,
+  Optional,
+  TCount,
+  TDistance,
+  TIndex,
+  TName,
+  TNumberId,
+  TRate,
+  TStringId,
+} from "@/engine/lib/types";
 import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 import {
-  create_squad,
-  destroy_object,
   give_actor,
   pick_artefact_from_anomaly,
   play_sound,
   remove_item,
-  spawn_object,
-  spawn_object_in,
 } from "@/engine/scripts/declarations/effects/effects_old";
 
 /**
@@ -78,8 +86,9 @@ extern("xr_effects.jup_b32_place_scanner", (actor: XR_game_object, npc: XR_game_
     ) {
       giveInfo(("jup_b32_scanner_" + i + "_placed") as TInfoPortion);
       giveInfo(infoPortions.jup_b32_tutorial_done);
+
       remove_item(actor, npc, ["jup_b32_scanner_device"]);
-      spawn_object(actor, null, ["jup_b32_ph_scanner", "jup_b32_scanner_place_" + i, null, null]);
+      spawnObject("jup_b32_ph_scanner", "jup_b32_scanner_place_" + i);
     }
   }
 });
@@ -103,11 +112,16 @@ extern("xr_effects.pri_b306_generator_start", (actor: XR_game_object, npc: XR_ga
 /**
  * todo;
  */
-extern("xr_effects.jup_b206_get_plant", (actor: XR_game_object, npc: XR_game_object): void => {
+extern("xr_effects.jup_b206_get_plant", (actor: XR_game_object, object: XR_game_object): void => {
   if (isActorInZoneWithName(zones.jup_b206_sr_quest_line, actor)) {
     giveInfo(infoPortions.jup_b206_anomalous_grove_has_plant);
-    give_actor(actor, npc, ["jup_b206_plant"]);
-    destroy_object(actor, npc, ["story", "jup_b206_plant_ph", null]);
+    give_actor(actor, object, ["jup_b206_plant"]);
+
+    getExtern<AnyCallable>("destroy_object", getExtern("xr_effects"))(actor, object, [
+      "story",
+      "jup_b206_plant_ph",
+      null,
+    ]);
   }
 });
 
@@ -128,7 +142,7 @@ extern("xr_effects.jup_b209_place_scanner", (actor: XR_game_object, npc: XR_game
     createAutoSave(captions.st_save_jup_b209_placed_mutant_scanner);
     giveInfo(infoPortions.jup_b209_scanner_placed);
     remove_item(actor, npc, ["jup_b209_monster_scanner"]);
-    spawn_object(actor, null, ["jup_b209_ph_scanner", "jup_b209_scanner_place_point", null, null]);
+    spawnObject("jup_b209_ph_scanner", "jup_b209_scanner_place_point");
   }
 });
 
@@ -570,7 +584,7 @@ extern("xr_effects.zat_b202_spawn_random_loot", (actor: XR_game_object, npc: XR_
     const item = math.random(1, si_table.get(n).length());
 
     for (const [k, v] of si_table.get(n).get(item).item) {
-      spawn_object_in(actor, npc, [tostring(v), "jup_b202_snag_treasure"]);
+      spawnObjectInObject(tostring(v), getObjectIdByStoryId("jup_b202_snag_treasure"));
     }
   }
 });
@@ -925,8 +939,8 @@ extern("xr_effects.zat_b202_spawn_b33_loot", (actor: XR_game_object, npc: XR_gam
     const objectId: TStringId = index === 1 || index === 3 ? "jup_b202_stalker_snag" : "jup_b202_snag_treasure";
 
     if (!hasAlifeInfo(infoPortion)) {
-      for (const [l, m] of rewardItems.get(index)) {
-        spawn_object_in(actor, npc, [tostring(m), tostring(objectId)]);
+      for (const [it, itemSection] of rewardItems.get(index)) {
+        spawnObjectInObject(tostring(itemSection), getObjectIdByStoryId(tostring(objectId)));
       }
     }
   }
@@ -989,7 +1003,7 @@ extern("xr_effects.pri_a28_check_zones", (): void => {
     giveInfo(infoList.get(index));
   }
 
-  create_squad(actor, null, [squadsList.get(index), "pri_a28_heli"]);
+  spawnSquad(squadsList.get(index), "pri_a28_heli");
 });
 
 /**
