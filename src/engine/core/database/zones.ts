@@ -1,14 +1,15 @@
 import { XR_game_object } from "xray16";
 
-import { registerObject, unregisterObject } from "@/engine/core/database/objects";
+import { IRegistryObjectState, registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 
 /**
  * todo;
  */
-export function registerZone(zone: XR_game_object): void {
+export function registerZone(zone: XR_game_object): IRegistryObjectState {
   registry.zones.set(zone.name(), zone);
-  registerObject(zone);
+
+  return registerObject(zone);
 }
 
 /**

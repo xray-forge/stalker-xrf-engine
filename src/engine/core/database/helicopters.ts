@@ -1,6 +1,6 @@
 import { XR_game_object } from "xray16";
 
-import { registerObject, unregisterObject } from "@/engine/core/database/objects";
+import { IRegistryObjectState, registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { TIndex } from "@/engine/lib/types";
 
@@ -22,9 +22,10 @@ export function unregisterHelicopterEnemy(enemyIndex: TIndex): void {
 /**
  * todo;
  */
-export function registerHelicopter(object: XR_game_object): void {
-  registerObject(object);
+export function registerHelicopter(object: XR_game_object): IRegistryObjectState {
   registry.helicopter.storage.set(object.id(), object);
+
+  return registerObject(object);
 }
 
 /**

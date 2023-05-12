@@ -1,4 +1,4 @@
-import { clsid, TXR_class_id, XR_game_object, XR_ini_file } from "xray16";
+import { clsid, XR_game_object, XR_ini_file } from "xray16";
 
 import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";

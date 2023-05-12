@@ -1,4 +1,4 @@
-import { registerObject, unregisterObject } from "@/engine/core/database/objects";
+import { IRegistryObjectState, registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { registerZone, unregisterZone } from "@/engine/core/database/zones";
 import { AnomalyFieldBinder } from "@/engine/core/objects";
@@ -7,9 +7,10 @@ import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZo
 /**
  * todo;
  */
-export function registerAnomaly(anomaly: AnomalyZoneBinder): void {
+export function registerAnomaly(anomaly: AnomalyZoneBinder): IRegistryObjectState {
   registry.anomalies.set(anomaly.object.name(), anomaly);
-  registerObject(anomaly.object);
+
+  return registerObject(anomaly.object);
 }
 
 /**
@@ -23,9 +24,10 @@ export function unregisterAnomaly(anomaly: AnomalyZoneBinder): void {
 /**
  * todo;
  */
-export function registerAnomalyField(anomalyField: AnomalyFieldBinder): void {
-  registerZone(anomalyField.object);
+export function registerAnomalyField(anomalyField: AnomalyFieldBinder): IRegistryObjectState {
   registry.anomalyFields.set(anomalyField.object.name(), anomalyField);
+
+  return registerZone(anomalyField.object);
 }
 
 /**

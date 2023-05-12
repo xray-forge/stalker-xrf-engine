@@ -1,15 +1,16 @@
 import { XR_game_object } from "xray16";
 
-import { registerObject, unregisterObject } from "@/engine/core/database/objects";
+import { IRegistryObjectState, registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import type { LabX8DoorBinder } from "@/engine/core/objects/binders/physic/LabX8DoorBinder";
 
 /**
  * todo;
  */
-export function registerDoorObject(object: XR_game_object, doorBinder: LabX8DoorBinder): void {
+export function registerDoorObject(object: XR_game_object, doorBinder: LabX8DoorBinder): IRegistryObjectState {
   registry.animatedDoors.set(object.name(), doorBinder);
-  registerObject(object);
+
+  return registerObject(object);
 }
 
 /**
