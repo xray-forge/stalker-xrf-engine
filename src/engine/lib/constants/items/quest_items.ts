@@ -27,6 +27,8 @@ export const quest_items = {
   jup_b205_sokolov_note: "jup_b205_sokolov_note",
   jup_b206_plant: "jup_b206_plant",
   jup_b207_merc_pda_with_contract: "jup_b207_merc_pda_with_contract",
+  jup_b209_monster_scanner: "jup_b209_monster_scanner",
+  jup_b32_scanner_device: "jup_b32_scanner_device",
   jup_b46_duty_founder_pda: "jup_b46_duty_founder_pda",
   jup_b47_jupiter_products_info: "jup_b47_jupiter_products_info",
   jup_b47_merc_pda: "jup_b47_merc_pda",

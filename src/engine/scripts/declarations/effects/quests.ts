@@ -28,7 +28,7 @@ import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { spawnObject, spawnObjectInObject, spawnSquad } from "@/engine/core/utils/spawn";
-import { giveItemsToActor } from "@/engine/core/utils/task_reward";
+import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/task_reward";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
@@ -56,7 +56,6 @@ import {
   TStringId,
 } from "@/engine/lib/types";
 import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
-import { pick_artefact_from_anomaly, play_sound, remove_item } from "@/engine/scripts/declarations/effects/effects_old";
 
 /**
  * todo;
@@ -84,7 +83,7 @@ extern("xr_effects.jup_b32_place_scanner", (actor: XR_game_object, npc: XR_game_
       giveInfo(("jup_b32_scanner_" + i + "_placed") as TInfoPortion);
       giveInfo(infoPortions.jup_b32_tutorial_done);
 
-      remove_item(actor, npc, ["jup_b32_scanner_device"]);
+      takeItemFromActor(quest_items.jup_b32_scanner_device);
       spawnObject("jup_b32_ph_scanner", "jup_b32_scanner_place_" + i);
     }
   }
@@ -138,7 +137,7 @@ extern("xr_effects.jup_b209_place_scanner", (actor: XR_game_object, npc: XR_game
   if (isActorInZoneWithName(zones.jup_b209_hypotheses)) {
     createAutoSave(captions.st_save_jup_b209_placed_mutant_scanner);
     giveInfo(infoPortions.jup_b209_scanner_placed);
-    remove_item(actor, npc, ["jup_b209_monster_scanner"]);
+    takeItemFromActor(quest_items.jup_b209_monster_scanner);
     spawnObject("jup_b209_ph_scanner", "jup_b209_scanner_place_point");
   }
 });
@@ -365,7 +364,11 @@ extern("xr_effects.give_item_b29", (actor: XR_game_object, npc: XR_game_object, 
         }
       }
 
-      pick_artefact_from_anomaly(actor, null, [p[0], anomalyZoneName, zat_b29_af_table.get(it)]);
+      getExtern<AnyCallable>("pick_artefact_from_anomaly", getExtern("xr_effects"))(actor, null, [
+        p[0],
+        anomalyZoneName,
+        zat_b29_af_table.get(it),
+      ]);
       break;
     }
   }
@@ -642,7 +645,11 @@ extern("xr_effects.jup_b221_play_main", (actor: XR_game_object, npc: XR_game_obj
     giveInfo((main_theme + tostring(theme_to_play) + "_played") as TInfoPortion);
 
     if (theme_to_play !== 0) {
-      play_sound(actor, npc, [main_theme + tostring(theme_to_play), null, null]);
+      getExtern<AnyCallable>("play_sound", getExtern("xr_effects"))(actor, npc, [
+        main_theme + tostring(theme_to_play),
+        null,
+        null,
+      ]);
     } else {
       abort("No such theme_to_play in function 'jup_b221_play_main'");
     }
@@ -652,7 +659,11 @@ extern("xr_effects.jup_b221_play_main", (actor: XR_game_object, npc: XR_game_obj
     giveInfo(info_need_reply);
 
     if (themeToPlay !== 0) {
-      play_sound(actor, npc, [reply_theme + tostring(themeToPlay), null, null]);
+      getExtern<AnyCallable>("play_sound", getExtern("xr_effects"))(actor, npc, [
+        reply_theme + tostring(themeToPlay),
+        null,
+        null,
+      ]);
     } else {
       abort("No such theme_to_play in function 'jup_b221_play_main'");
     }
@@ -896,7 +907,11 @@ extern("xr_effects.zat_b33_pic_snag_container", (actor: XR_game_object, npc: XR_
     giveInfo(infoPortions.zat_b33_find_package);
 
     if (!hasAlifeInfo(infoPortions.zat_b33_safe_container)) {
-      play_sound(actor, registry.zones.get(zones.zat_b33_tutor), [scriptSounds.pda_news, null, null]);
+      getExtern<AnyCallable>("play_sound", getExtern("xr_effects"))(actor, registry.zones.get(zones.zat_b33_tutor), [
+        scriptSounds.pda_news,
+        null,
+        null,
+      ]);
     }
   }
 });

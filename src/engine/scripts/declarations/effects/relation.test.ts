@@ -21,5 +21,6 @@ describe("'relation' effects declaration", () => {
     checkBinding("set_squad_goodwill_to_npc");
     checkBinding("inc_faction_goodwill_to_actor");
     checkBinding("dec_faction_goodwill_to_actor");
+    checkBinding("set_squads_enemies");
   });
 });

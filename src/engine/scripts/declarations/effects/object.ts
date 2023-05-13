@@ -3,6 +3,7 @@ import {
   hit,
   level,
   patrol,
+  TXR_bloodsucker_visibility_state,
   vector,
   XR_action_planner,
   XR_cse_alife_creature_abstract,
@@ -19,6 +20,7 @@ import {
   IRegistryObjectState,
   registry,
   SYSTEM_INI,
+  unregisterHelicopter,
 } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain, Squad, updateStalkerLogic } from "@/engine/core/objects";
@@ -28,11 +30,12 @@ import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/mob/combat";
 import { init_target } from "@/engine/core/schemes/remark/actions";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { getObjectSmartTerrain } from "@/engine/core/utils/object";
 import { IConfigSwitchCondition, parseConditionsList } from "@/engine/core/utils/parse";
 import {
   releaseObject,
@@ -45,6 +48,35 @@ import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { EScheme, LuaArray, Optional, TIndex, TName, TNumberId, TRate, TSection, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
+
+/**
+ * todo;
+ */
+extern("xr_effects.anim_obj_forward", (actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>): void => {
+  for (const [k, v] of p) {
+    if (v !== null) {
+      registry.animatedDoors.get(v).anim_forward();
+    }
+  }
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.anim_obj_backward", (actor: XR_game_object, npc: XR_game_object, p: [string]): void => {
+  if (p[0] !== null) {
+    registry.animatedDoors.get(p[0]).anim_backward();
+  }
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.anim_obj_stop", (actor: XR_game_object, npc: XR_game_object, p: [string]): void => {
+  if (p[0] !== null) {
+    registry.animatedDoors.get(p[0]).anim_stop();
+  }
+});
 
 /**
  * todo;
@@ -713,4 +745,122 @@ extern("xr_effects.set_monster_animation", (actor: XR_game_object, object: XR_ga
  */
 extern("xr_effects.clear_monster_animation", (actor: XR_game_object, object: XR_game_object): void => {
   object.clear_override_animation();
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.switch_to_desired_job", (actor: XR_game_object, object: XR_game_object): void => {
+  (getObjectSmartTerrain(object) as SmartTerrain).switch_to_desired_job(object);
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.spawn_item_to_npc", (actor: XR_game_object, npc: XR_game_object, p: [Optional<string>]): void => {
+  const new_item = p[0];
+
+  if (new_item) {
+    alife().create(new_item, npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());
+  }
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.give_money_to_npc", (actor: XR_game_object, npc: XR_game_object, p: [Optional<number>]): void => {
+  const money = p[0];
+
+  if (money) {
+    npc.give_money(money);
+  }
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.seize_money_to_npc", (actor: XR_game_object, npc: XR_game_object, p: [Optional<number>]): void => {
+  const money = p[0];
+
+  if (money) {
+    npc.give_money(-money);
+  }
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.heli_start_flame", (actor: XR_game_object, npc: XR_game_object): void => {
+  npc.get_helicopter().StartFlame();
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.heli_die", (actor: XR_game_object, npc: XR_game_object): void => {
+  npc.get_helicopter().Die();
+  unregisterHelicopter(npc);
+});
+
+/**
+ * todo;
+ */
+extern(
+  "xr_effects.set_bloodsucker_state",
+  (actor: XR_game_object, object: XR_game_object, p: [string, string]): void => {
+    if ((p && p[0]) === null) {
+      abort("Wrong parameters in function 'set_bloodsucker_state'!!!");
+    }
+
+    let state = p[0];
+
+    if (p[1] !== null) {
+      state = p[1];
+      object = getObjectByStoryId(p[1]) as XR_game_object;
+    }
+
+    if (object !== null) {
+      if (state === "default") {
+        object.force_visibility_state(-1);
+      } else {
+        object.force_visibility_state(tonumber(state) as TXR_bloodsucker_visibility_state);
+      }
+    }
+  }
+);
+
+/**
+ * todo;
+ */
+extern("xr_effects.clear_box", (actor: XR_game_object, npc: XR_game_object, p: [string]) => {
+  logger.info("Clear box");
+
+  if ((p && p[0]) === null) {
+    abort("Wrong parameters in function 'clear_box'!!!");
+  }
+
+  const inventoryBox: Optional<XR_game_object> = getObjectByStoryId(p[0]);
+
+  assertDefined(inventoryBox, "There is no object with story_id [%s]", tostring(p[0]));
+
+  const items_table: LuaArray<XR_game_object> = new LuaTable();
+
+  inventoryBox.iterate_inventory_box((inv_box: XR_game_object, item: XR_game_object) => {
+    table.insert(items_table, item);
+  }, inventoryBox);
+
+  for (const [k, v] of items_table) {
+    alife().release(alife().object(v.id()), true);
+  }
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.polter_actor_ignore", (actor: XR_game_object, npc: XR_game_object, [ignore]: [string]) => {
+  if (ignore === TRUE) {
+    npc.poltergeist_set_actor_ignore(true);
+  } else if (ignore === FALSE) {
+    npc.poltergeist_set_actor_ignore(false);
+  }
 });

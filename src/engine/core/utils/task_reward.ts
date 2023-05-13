@@ -11,7 +11,6 @@ import {
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
-import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { LuaArray, Optional, TCount, TName, TNumberId, TSection } from "@/engine/lib/types";
@@ -163,6 +162,24 @@ export function giveItemsToActor(itemSection: TSection, count: TCount = 1): void
     direction: ENotificationDirection.IN,
     itemSection,
     amount: itemsSpawned,
+  });
+}
+
+/**
+ * Delete items by section for actor.
+ */
+export function takeItemFromActor(itemSection: TSection): void {
+  const inventoryItem: Optional<XR_game_object> = registry.actor.object(itemSection);
+
+  assertDefined(inventoryItem, "Actor has no item '%s' to take.", itemSection);
+
+  alife().release(alife().object(inventoryItem.id()), true);
+
+  EventsManager.getInstance().emitEvent<IItemRelocatedNotification>(EGameEvent.NOTIFICATION, {
+    type: ENotificationType.ITEM,
+    direction: ENotificationDirection.OUT,
+    itemSection,
+    amount: 1,
   });
 }
 

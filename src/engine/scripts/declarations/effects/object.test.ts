@@ -10,6 +10,9 @@ describe("'object' effects declaration", () => {
   it("should correctly inject external methods for game", () => {
     require("@/engine/scripts/declarations/effects/object");
 
+    checkBinding("anim_obj_forward");
+    checkBinding("anim_obj_backward");
+    checkBinding("anim_obj_stop");
     checkBinding("hit_obj");
     checkBinding("hit_npc_from_actor");
     checkBinding("make_enemy");
@@ -44,5 +47,14 @@ describe("'object' effects declaration", () => {
     checkBinding("set_visual_memory_enabled");
     checkBinding("set_monster_animation");
     checkBinding("clear_monster_animation");
+    checkBinding("switch_to_desired_job");
+    checkBinding("spawn_item_to_npc");
+    checkBinding("give_money_to_npc");
+    checkBinding("seize_money_to_npc");
+    checkBinding("heli_start_flame");
+    checkBinding("heli_die");
+    checkBinding("set_bloodsucker_state");
+    checkBinding("clear_box");
+    checkBinding("polter_actor_ignore");
   });
 });

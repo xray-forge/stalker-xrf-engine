@@ -14,6 +14,7 @@ export class MockAlifeItem extends AbstractLuabindClass {}
 export function mockServerAlifeItem({
   m_game_vertex_id = 1,
   clsid = jest.fn(() => -1 as TXR_class_id),
+  ...data
 }: Partial<XR_cse_alife_item> = {}): XR_cse_alife_item {
-  return { m_game_vertex_id, clsid } as unknown as XR_cse_alife_item;
+  return { m_game_vertex_id, clsid, ...data } as unknown as XR_cse_alife_item;
 }

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { XR_game_object } from "xray16";
+import { alife, XR_game_object } from "xray16";
 
 import { disposeManager, registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
@@ -20,16 +20,17 @@ import {
   giveMoneyToActor,
   isObjectName,
   npcHasItem,
+  takeItemFromActor,
   transferItemsFromActor,
   transferItemsToActor,
   transferMoneyFromActor,
 } from "@/engine/core/utils/task_reward";
 import { ammo } from "@/engine/lib/constants/items/ammo";
-import { drugs, medkits } from "@/engine/lib/constants/items/drugs";
+import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { AnyObject, TCount, TSection } from "@/engine/lib/types";
+import { AnyObject, TSection } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { MockAlifeSimulator, mockClientGameObject, mockServerAlifeItem, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("'task_reward' utils", () => {
   const createObjectWithItems = () =>
@@ -216,6 +217,30 @@ describe("'task_reward' utils", () => {
 
     giveItemsToActor("ammo_5.45x39_ap", 300);
 
+    expect(mock).toHaveBeenCalledTimes(1);
+  });
+
+  it("'takeItemFromActor' should correctly delete items and then notify", () => {
+    const eventsManager: EventsManager = EventsManager.getInstance();
+    const itemToTake: XR_game_object = mockClientGameObject();
+    const mock = jest.fn((notification: IItemRelocatedNotification) => {
+      expect(notification.type).toBe(ENotificationType.ITEM);
+      expect(notification.itemSection).toBe("test_section");
+      expect(notification.direction).toBe(ENotificationDirection.OUT);
+    });
+
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock, null);
+
+    expect(() => takeItemFromActor("test_section_none")).toThrow();
+
+    MockAlifeSimulator.addToRegistry(mockServerAlifeObject({ id: itemToTake.id() }));
+
+    expect(alife().object(itemToTake.id())).not.toBeNull();
+
+    registerActor(mockClientGameObject({ object: () => itemToTake }));
+    takeItemFromActor("test_section");
+
+    expect(alife().object(itemToTake.id())).toBeNull();
     expect(mock).toHaveBeenCalledTimes(1);
   });
 

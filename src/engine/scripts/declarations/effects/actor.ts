@@ -1,14 +1,31 @@
-import { device, game, level, XR_game_object, XR_vector } from "xray16";
+import { alife, device, game, level, patrol, XR_CGameTask, XR_game_object, XR_vector } from "xray16";
 
-import { registry, SYSTEM_INI } from "@/engine/core/database";
-import { ActorInputManager } from "@/engine/core/managers/interface";
-import { abort } from "@/engine/core/utils/assertion";
+import { getObjectByStoryId, getServerObjectByStoryId, registry, SYSTEM_INI } from "@/engine/core/database";
+import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
+import { TaskManager } from "@/engine/core/managers/interaction/tasks";
+import {
+  ActorInputManager,
+  ENotificationDirection,
+  NotificationManager,
+  TNotificationIcon,
+} from "@/engine/core/managers/interface";
+import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
+import { Squad } from "@/engine/core/objects";
+import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
+import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveItemsToActor } from "@/engine/core/utils/task_reward";
 import { animations } from "@/engine/lib/constants/animation/animations";
+import { detectors, TDetector } from "@/engine/lib/constants/items/detectors";
+import { helmets } from "@/engine/lib/constants/items/helmets";
+import { misc } from "@/engine/lib/constants/items/misc";
+import { outfits } from "@/engine/lib/constants/items/outfits";
+import { weapons } from "@/engine/lib/constants/items/weapons";
+import { TTreasure } from "@/engine/lib/constants/treasures";
 import { TRUE } from "@/engine/lib/constants/words";
-import { Optional, TIndex, TNumberId, TSection } from "@/engine/lib/types";
+import { TZone, zones } from "@/engine/lib/constants/zones";
+import { LuaArray, Optional, TIndex, TLabel, TName, TNumberId, TSection, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -206,6 +223,60 @@ extern(
 /**
  * todo;
  */
+extern("xr_effects.remove_item", (actor: XR_game_object, object: XR_game_object, p: [TSection]): void => {
+  logger.info("Remove item");
+
+  assert(p && p[0], "Wrong parameters in function 'remove_item'.");
+
+  const section: TSection = p[0];
+  const inventoryItem: Optional<XR_game_object> = actor.object(section);
+
+  if (inventoryItem !== null) {
+    alife().release(alife().object(inventoryItem.id()), true);
+  } else {
+    abort("Actor has no such item!");
+  }
+
+  NotificationManager.getInstance().sendItemRelocatedNotification(ENotificationDirection.OUT, section);
+});
+
+/**
+ * todo;
+ */
+extern(
+  "xr_effects.drop_object_item_on_point",
+  (actor: XR_game_object, object: XR_game_object, p: [number, string]): void => {
+    const drop_object: XR_game_object = actor.object(p[0]) as XR_game_object;
+    const drop_point: XR_vector = new patrol(p[1]).point(0);
+
+    actor.drop_item_and_teleport(drop_object, drop_point);
+  }
+);
+
+/**
+ * todo;
+ */
+extern("xr_effects.relocate_item", (actor: XR_game_object, npc: XR_game_object, params: [string, string, string]) => {
+  logger.info("Relocate item");
+
+  const item = params && params[0];
+  const from_obj = params && getObjectByStoryId(params[1]);
+  const to_obj = params && getObjectByStoryId(params[2]);
+
+  if (to_obj !== null) {
+    if (from_obj !== null && from_obj.object(item) !== null) {
+      from_obj.transfer_item(from_obj.object(item)!, to_obj);
+    } else {
+      alife().create(item, to_obj.position(), to_obj.level_vertex_id(), to_obj.game_vertex_id(), to_obj.id());
+    }
+  } else {
+    abort("Couldn't relocate item to NULL");
+  }
+});
+
+/**
+ * todo;
+ */
 extern("xr_effects.activate_weapon_slot", (actor: XR_game_object, npc: XR_game_object, [index]: [TIndex]): void => {
   actor.activate_slot(index);
 });
@@ -239,15 +310,211 @@ extern("xr_effects.actor_punch", (object: XR_game_object): void => {
   ActorInputManager.getInstance().setInactiveInputTime(30);
   level.add_cam_effector(animations.camera_effects_fusker, 999, false, "");
 
+  // todo: Enum for active object slot.
   const active_slot = actor.active_slot();
 
   if (active_slot !== 2 && active_slot !== 3) {
     return;
   }
 
-  const active_item = actor.active_item();
+  const activeItem: Optional<XR_game_object> = actor.active_item();
 
-  if (active_item) {
-    actor.drop_item(active_item);
+  if (activeItem) {
+    actor.drop_item(activeItem);
   }
 });
+
+/**
+ * todo;
+ */
+extern(
+  "xr_effects.send_tip",
+  (
+    actor: XR_game_object,
+    npc: XR_game_object,
+    [caption, icon, senderId]: [TLabel, TNotificationIcon, TStringId]
+  ): void => {
+    logger.info("Send tip");
+    NotificationManager.getInstance().sendTipNotification(caption, icon, 0, null, senderId);
+  }
+);
+
+/**
+ * todo;
+ */
+extern("xr_effects.give_task", (actor: XR_game_object, object: XR_game_object, [taskId]: [Optional<TStringId>]) => {
+  assertDefined(taskId, "No parameter in give_task effect.");
+  TaskManager.getInstance().giveTask(taskId);
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.set_active_task", (actor: XR_game_object, object: XR_game_object, [taskId]: [TStringId]): void => {
+  logger.info("Set active task:", taskId);
+
+  if (taskId !== null) {
+    const task: Optional<XR_CGameTask> = actor.get_task(tostring(taskId), true);
+
+    if (task) {
+      actor.set_active_task(task);
+    }
+  }
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.kill_actor", (actor: XR_game_object, npc: XR_game_object): void => {
+  logger.info("Kill actor");
+  actor.kill(actor);
+});
+
+/**
+ * todo;
+ */
+extern(
+  "xr_effects.make_actor_visible_to_squad",
+  (actor: XR_game_object, object: XR_game_object, parameters: [TStringId]): void => {
+    const storyId: Optional<TStringId> = parameters && parameters[0];
+    const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
+
+    assertDefined(squad, "There is no squad with id[%s]", storyId);
+
+    for (const squadMember of squad.squad_members()) {
+      const clientObject = level.object_by_id(squadMember.id);
+
+      if (clientObject !== null) {
+        clientObject.make_object_visible_somewhen(actor);
+      }
+    }
+  }
+);
+
+/**
+ * todo;
+ */
+extern("xr_effects.sleep", (actor: XR_game_object): void => {
+  logger.info("Sleep effect");
+
+  // todo: Define sleep zones somewhere in config.
+  const sleepZones: LuaArray<TZone> = $fromArray<TZone>([
+    zones.zat_a2_sr_sleep,
+    zones.jup_a6_sr_sleep,
+    zones.pri_a16_sr_sleep,
+    zones.actor_surge_hide_2,
+  ]);
+
+  for (const [index, zone] of sleepZones) {
+    if (isActorInZoneWithName(zone, actor)) {
+      SleepManager.getInstance().showSleepDialog();
+      break;
+    }
+  }
+});
+
+// todo: To be more generic, pick items from slots and add randomization.
+extern("xr_effects.damage_actor_items_on_start", (actor: XR_game_object): void => {
+  logger.info("Damage actor items on start");
+
+  actor.object(helmets.helm_respirator)?.set_condition(0.8);
+  actor.object(outfits.stalker_outfit)?.set_condition(0.76);
+  actor.object(weapons.wpn_pm_actor)?.set_condition(0.9);
+  actor.object(weapons.wpn_ak74u)?.set_condition(0.7);
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.activate_weapon", (actor: XR_game_object, npc: XR_game_object, p: [string]) => {
+  const object: Optional<XR_game_object> = actor.object(p[0]);
+
+  assertDefined(object, "Actor has no such weapon! [%s]", p[0]);
+
+  if (object !== null) {
+    actor.make_item_active(object);
+  }
+});
+
+/**
+ * todo;
+ */
+extern(
+  "xr_effects.give_treasure",
+  (actor: XR_game_object, object: XR_game_object, parameters: LuaArray<TTreasure>): void => {
+    logger.info("Give treasures");
+
+    assertDefined(parameters, "Required parameter is [NIL].");
+
+    const treasureManager: TreasureManager = TreasureManager.getInstance();
+
+    for (const [index, value] of parameters) {
+      treasureManager.giveActorTreasureCoordinates(value);
+    }
+  }
+);
+
+const detectorsOrder: LuaArray<TDetector> = $fromArray<TDetector>([
+  detectors.detector_simple,
+  detectors.detector_advanced,
+  detectors.detector_elite,
+  detectors.detector_scientific,
+]);
+
+/**
+ * todo;
+ */
+extern("xr_effects.get_best_detector", (actor: XR_game_object): void => {
+  for (const [k, v] of detectorsOrder) {
+    const obj = actor.object(v);
+
+    if (obj !== null) {
+      obj.enable_attachable_item(true);
+
+      return;
+    }
+  }
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.hide_best_detector", (actor: XR_game_object): void => {
+  for (const [k, v] of detectorsOrder) {
+    const item = actor.object(v);
+
+    if (item !== null) {
+      item.enable_attachable_item(false);
+
+      return;
+    }
+  }
+});
+
+/**
+ * todo;
+ */
+extern(
+  "xr_effects.set_torch_state",
+  (actor: XR_game_object, npc: XR_game_object, p: [string, Optional<string>]): void => {
+    if (p === null || p[1] === null) {
+      abort("Not enough parameters in 'set_torch_state' function!");
+    }
+
+    const object: Optional<XR_game_object> = getObjectByStoryId(p[0]);
+
+    if (object === null) {
+      return;
+    }
+
+    const torch = object.object(misc.device_torch);
+
+    if (torch) {
+      if (p[1] === "on") {
+        torch.enable_attachable_item(true);
+      } else if (p[1] === "off") {
+        torch.enable_attachable_item(false);
+      }
+    }
+  }
+);
