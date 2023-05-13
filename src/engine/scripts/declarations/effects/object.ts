@@ -623,15 +623,15 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.burer_force_gravi_attack", (actor: XR_game_object, npc: XR_game_object): void => {
-  npc.burer_set_force_gravi_attack(true);
+extern("xr_effects.burer_force_gravi_attack", (actor: XR_game_object, object: XR_game_object): void => {
+  object.burer_set_force_gravi_attack(true);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.burer_force_anti_aim", (actor: XR_game_object, npc: XR_game_object): void => {
-  npc.set_force_anti_aim(true);
+extern("xr_effects.burer_force_anti_aim", (actor: XR_game_object, object: XR_game_object): void => {
+  object.set_force_anti_aim(true);
 });
 
 /**
@@ -651,14 +651,66 @@ extern(
   "xr_effects.give_item",
   (
     actor: XR_game_object,
-    npc: Optional<XR_game_object> | XR_cse_alife_human_abstract,
+    object: Optional<XR_game_object> | XR_cse_alife_human_abstract,
     [section, objectStoryId]: [TSection, Optional<TStringId>]
   ): void => {
     const objectId: TNumberId =
-      objectStoryId === null ? (npc as XR_game_object).id() : (getObjectIdByStoryId(objectStoryId) as TNumberId);
+      objectStoryId === null ? (object as XR_game_object).id() : (getObjectIdByStoryId(objectStoryId) as TNumberId);
 
     logger.info("Give item to object:", objectId, section);
 
     spawnItemsForObject(alife().object(objectId)!, section);
   }
 );
+
+/**
+ * todo;
+ */
+extern("xr_effects.disable_memory_object", (actor: XR_game_object, object: XR_game_object): void => {
+  const bestEnemy: Optional<XR_game_object> = object.best_enemy();
+
+  if (bestEnemy) {
+    object.enable_memory_object(bestEnemy, false);
+  }
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.set_force_sleep_animation", (actor: XR_game_object, object: XR_game_object, p: [number]) => {
+  object.force_stand_sleep_animation(tonumber(p[0])!);
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.release_force_sleep_animation", (actor: XR_game_object, object: XR_game_object): void => {
+  object.release_stand_sleep_animation();
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.set_visual_memory_enabled", (actor: XR_game_object, object: XR_game_object, p: [number]): void => {
+  if (p && p[0] && tonumber(p[0])! >= 0 && tonumber(p[0])! <= 1) {
+    object.set_visual_memory_enabled(tonumber(p[0]) === 1);
+  }
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.set_monster_animation", (actor: XR_game_object, object: XR_game_object, p: [string]) => {
+  if (!(p && p[0])) {
+    abort("Wrong parameters in function 'set_monster_animation'!!!");
+  }
+
+  object.set_override_animation(p[0]);
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.clear_monster_animation", (actor: XR_game_object, object: XR_game_object): void => {
+  object.clear_override_animation();
+});

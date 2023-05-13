@@ -38,5 +38,11 @@ describe("'object' effects declaration", () => {
     checkBinding("spawn_object_in");
     checkBinding("give_items");
     checkBinding("give_item");
+    checkBinding("disable_memory_object");
+    checkBinding("set_force_sleep_animation");
+    checkBinding("release_force_sleep_animation");
+    checkBinding("set_visual_memory_enabled");
+    checkBinding("set_monster_animation");
+    checkBinding("clear_monster_animation");
   });
 });

@@ -1,4 +1,4 @@
-import { device, game, level, XR_game_object } from "xray16";
+import { device, game, level, XR_game_object, XR_vector } from "xray16";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/interface";
@@ -6,6 +6,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveItemsToActor } from "@/engine/core/utils/task_reward";
+import { animations } from "@/engine/lib/constants/animation/animations";
 import { TRUE } from "@/engine/lib/constants/words";
 import { Optional, TIndex, TNumberId, TSection } from "@/engine/lib/types";
 
@@ -207,4 +208,46 @@ extern(
  */
 extern("xr_effects.activate_weapon_slot", (actor: XR_game_object, npc: XR_game_object, [index]: [TIndex]): void => {
   actor.activate_slot(index);
+});
+
+let actor_position_for_restore: Optional<XR_vector> = null;
+
+/**
+ * todo;
+ */
+extern("xr_effects.save_actor_position", (): void => {
+  actor_position_for_restore = registry.actor.position();
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.restore_actor_position", (): void => {
+  registry.actor.set_actor_position(actor_position_for_restore!);
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.actor_punch", (object: XR_game_object): void => {
+  const actor: XR_game_object = registry.actor;
+
+  if (actor.position().distance_to_sqr(object.position()) > 4) {
+    return;
+  }
+
+  ActorInputManager.getInstance().setInactiveInputTime(30);
+  level.add_cam_effector(animations.camera_effects_fusker, 999, false, "");
+
+  const active_slot = actor.active_slot();
+
+  if (active_slot !== 2 && active_slot !== 3) {
+    return;
+  }
+
+  const active_item = actor.active_item();
+
+  if (active_item) {
+    actor.drop_item(active_item);
+  }
 });

@@ -1,4 +1,4 @@
-import { alife, level, patrol, XR_game_object, XR_patrol, XR_vector } from "xray16";
+import { alife, level, particles_object, patrol, XR_game_object, XR_patrol, XR_vector } from "xray16";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, registry, resetStalkerState } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects";
@@ -106,3 +106,34 @@ extern("xr_effects.teleport_actor", (actor: XR_game_object, object: XR_game_obje
 
   actor.set_actor_position(point.point(0));
 });
+
+/**
+ * todo;
+ */
+extern(
+  "xr_effects.play_particle_on_path",
+  (actor: XR_game_object, object: XR_game_object, p: [string, string, number]) => {
+    const name = p[0];
+    const path = p[1];
+    let point_prob = p[2];
+
+    if (name === null || path === null) {
+      return;
+    }
+
+    if (point_prob === null) {
+      point_prob = 100;
+    }
+
+    const patrolObject: XR_patrol = new patrol(path);
+    const count = patrolObject.count();
+
+    for (const a of $range(0, count - 1)) {
+      const particle = new particles_object(name);
+
+      if (math.random(100) <= point_prob) {
+        particle.play_at_pos(patrolObject.point(a));
+      }
+    }
+  }
+);

@@ -14,5 +14,6 @@ describe("'position' effects declaration", () => {
     checkBinding("teleport_npc_by_story_id");
     checkBinding("teleport_squad");
     checkBinding("teleport_actor");
+    checkBinding("play_particle_on_path");
   });
 });

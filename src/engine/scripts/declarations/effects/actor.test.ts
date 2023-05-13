@@ -26,5 +26,8 @@ describe("'actor' effects declaration", () => {
     checkBinding("run_tutorial");
     checkBinding("give_actor");
     checkBinding("activate_weapon_slot");
+    checkBinding("save_actor_position");
+    checkBinding("restore_actor_position");
+    checkBinding("actor_punch");
   });
 });
