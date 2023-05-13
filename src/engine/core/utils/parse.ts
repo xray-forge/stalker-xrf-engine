@@ -18,7 +18,6 @@ import {
   TProbability,
   TSection,
 } from "@/engine/lib/types";
-import { return_zat_a23_gauss_rifle_docs } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
