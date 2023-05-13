@@ -163,7 +163,7 @@ export class CamEffectorSet {
         if (type(this.set.finish.get(cur_effect).enabled) === "string") {
           const condlist = parseConditionsList(this.set.finish.get(cur_effect).enabled as any);
 
-          if (pickSectionFromCondList(actor, null, condlist) === "false") {
+          if (pickSectionFromCondList(actor, null, condlist) === FALSE) {
             return this.select_effect();
           }
         }

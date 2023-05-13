@@ -67,7 +67,7 @@ import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { relations, TRelation } from "@/engine/lib/constants/relations";
 import { TTreasure } from "@/engine/lib/constants/treasures";
-import { TRUE } from "@/engine/lib/constants/words";
+import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { TZone, zones } from "@/engine/lib/constants/zones";
 import { LuaArray, Optional, TCount, TName, TNumberId, TSection, TStringId } from "@/engine/lib/types";
 
@@ -1245,9 +1245,9 @@ export function mech_discount(actor: XR_game_object, npc: XR_game_object, p: [st
  * todo;
  */
 export function polter_actor_ignore(actor: XR_game_object, npc: XR_game_object, p: [string]) {
-  if (p[0] === "true") {
+  if (p[0] === TRUE) {
     npc.poltergeist_set_actor_ignore(true);
-  } else if (p[0] === "false") {
+  } else if (p[0] === FALSE) {
     npc.poltergeist_set_actor_ignore(false);
   }
 }

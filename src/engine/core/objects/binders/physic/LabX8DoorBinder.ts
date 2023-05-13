@@ -21,7 +21,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
-import { NIL } from "@/engine/lib/constants/words";
+import { NIL, TRUE } from "@/engine/lib/constants/words";
 import { Optional, TName } from "@/engine/lib/types";
 
 const ANIMATED_OBJECT_SECT: string = "animated_object";
@@ -109,9 +109,9 @@ export class LabX8DoorBinder extends object_binder {
 
     this.tip = parseConditionsList(readIniString(ini, ANIMATED_OBJECT_SECT, "tip", false, "", "none"));
 
-    let on_use = "true";
-    let on_start = "true";
-    let on_stop = "true";
+    let on_use: string = TRUE;
+    let on_start: string = TRUE;
+    let on_stop: string = TRUE;
 
     if (ini.line_exist(ANIMATED_OBJECT_SECT, "on_use")) {
       on_use = ini.r_string(ANIMATED_OBJECT_SECT, "on_use");

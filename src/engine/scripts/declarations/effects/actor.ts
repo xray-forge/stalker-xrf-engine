@@ -48,7 +48,7 @@ extern("xr_effects.run_cam_effector", (actor: XR_game_object, npc: XR_game_objec
       num = p[1];
     }
 
-    if (p[2] && p[2] === "true") {
+    if (p[2] && p[2] === TRUE) {
       loop = true;
     }
 

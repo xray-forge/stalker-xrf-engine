@@ -10,6 +10,7 @@ import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { parseInfoPortions1, parseStringsList } from "@/engine/core/utils/parse";
+import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -122,7 +123,7 @@ export class DialogManager extends AbstractCoreManager {
           actor_community: DIALOG_MANAGER_LTX.line_exist(id, "actor_community")
             ? parseStringsList(DIALOG_MANAGER_LTX.r_string(id, "actor_community"))
             : "not_set",
-          wounded: DIALOG_MANAGER_LTX.line_exist(id, "wounded") ? DIALOG_MANAGER_LTX.r_string(id, "wounded") : "false",
+          wounded: DIALOG_MANAGER_LTX.line_exist(id, "wounded") ? DIALOG_MANAGER_LTX.r_string(id, "wounded") : FALSE,
           once: DIALOG_MANAGER_LTX.line_exist(id, "once") ? DIALOG_MANAGER_LTX.r_string(id, "once") : "always",
           info: new LuaTable(),
           smart: null as Optional<string>,
@@ -251,7 +252,7 @@ export class DialogManager extends AbstractCoreManager {
       script.AddPrecondition(string.format("dialog_manager.precondition_%s_dialogs", data));
       script.AddAction(string.format("dialog_manager.action_%s_dialogs", data));
 
-      if (v.wounded === "true") {
+      if (v.wounded === TRUE) {
         script.AddPrecondition("dialogs.is_wounded");
 
         const medkit_id: TNumberId = this.getNextPhraseId();
@@ -353,7 +354,7 @@ export class DialogManager extends AbstractCoreManager {
       }
     }
 
-    if (PTID_subtable.wounded === "true") {
+    if (PTID_subtable.wounded === TRUE) {
       // --if (!(ActionWoundManager.is_heavy_wounded_by_id(npc.id())) {
       if (!isObjectWounded(object)) {
         priority = -1;
@@ -374,7 +375,7 @@ export class DialogManager extends AbstractCoreManager {
     }
 
     if (PRT_subtable.get(object.id()).get("ignore_once") !== null) {
-      if (PTID_subtable.once === "true") {
+      if (PTID_subtable.once === TRUE) {
         priority = -1;
       }
     }

@@ -41,6 +41,7 @@ import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
+import { TRUE } from "@/engine/lib/constants/words";
 import { zones } from "@/engine/lib/constants/zones";
 import {
   AnyCallable,
@@ -63,7 +64,7 @@ import { pick_artefact_from_anomaly, play_sound, remove_item } from "@/engine/sc
 extern(
   "xr_effects.show_freeplay_dialog",
   (actor: XR_game_object, npc: XR_game_object, p: [string, Optional<"true">]) => {
-    if (p[0] && p[1] && p[1] === "true") {
+    if (p[0] && p[1] && p[1] === TRUE) {
       showFreeplayDialog("message_box_yes_no", p[0]);
     } else if (p[0]) {
       showFreeplayDialog("message_box_ok", p[0]);

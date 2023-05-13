@@ -2,6 +2,7 @@ import { log, print_stack, time_global } from "xray16";
 
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { AnyArgs, AnyObject, TLabel, TName } from "@/engine/lib/types";
 
 /**
@@ -97,14 +98,14 @@ export class LuaLogger {
       const it = args.get(idx);
       const itType = type(it);
 
-      if (itType === "nil") {
+      if (itType === NIL) {
         args.set(idx, "<nil>");
       } else if (itType === "string") {
         args.set(idx, it === "" ? "<empty_str>" : it);
       } else if (itType === "number") {
         args.set(idx, it);
       } else if (itType === "boolean") {
-        args.set(idx, string.format("<boolean: %s>", it === true ? "true" : "false"));
+        args.set(idx, string.format("<boolean: %s>", it === true ? TRUE : FALSE));
       } else {
         args.set(idx, string.format("<%s: %s>", itType, tostring(it)));
       }

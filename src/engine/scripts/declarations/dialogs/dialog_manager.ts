@@ -13,6 +13,7 @@ import { getCharacterCommunity, getObjectSmartTerrain } from "@/engine/core/util
 import { getNpcSpeaker } from "@/engine/core/utils/task_reward";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
+import { TRUE } from "@/engine/lib/constants/words";
 import { Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -75,7 +76,7 @@ export function action(
   npc: XR_game_object
 ) {
   if (!PRT_subtable.get(npc.id()).ignore_once) {
-    if (PT_subtable.get(cur_phrase_id).once === "true") {
+    if (PT_subtable.get(cur_phrase_id).once === TRUE) {
       set_phrase_highest_priority(PRT_subtable, npc.id(), cur_phrase_id);
     }
 
