@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { AnyObject } from "@/engine/lib/types";
+import { AnyObject, TName } from "@/engine/lib/types";
 
-describe("'quests' effects declaration", () => {
-  const checkBinding = (name: string, container: AnyObject = global) => {
+describe("'object' effects declaration", () => {
+  const checkBinding = (name: TName, container: AnyObject = global) => {
     expect(container["xr_effects"][name]).toBeDefined();
   };
 
@@ -36,5 +36,7 @@ describe("'quests' effects declaration", () => {
     checkBinding("burer_force_gravi_attack");
     checkBinding("burer_force_anti_aim");
     checkBinding("spawn_object_in");
+    checkBinding("give_items");
+    checkBinding("give_item");
   });
 });

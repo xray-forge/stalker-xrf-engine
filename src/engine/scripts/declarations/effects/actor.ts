@@ -5,8 +5,9 @@ import { ActorInputManager } from "@/engine/core/managers/interface";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { giveItemsToActor } from "@/engine/core/utils/task_reward";
 import { TRUE } from "@/engine/lib/constants/words";
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { Optional, TIndex, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -187,4 +188,23 @@ extern("xr_effects.stop_postprocess", (actor: XR_game_object, npc: XR_game_objec
 extern("xr_effects.run_tutorial", (actor: XR_game_object, npc: XR_game_object, params: [string]): void => {
   logger.info("Run tutorial");
   game.start_tutorial(params[0]);
+});
+
+/**
+ * todo;
+ */
+extern(
+  "xr_effects.give_actor",
+  (actor: XR_game_object, npc: Optional<XR_game_object>, params: Array<TSection>): void => {
+    for (const section of params) {
+      giveItemsToActor(section);
+    }
+  }
+);
+
+/**
+ * todo;
+ */
+extern("xr_effects.activate_weapon_slot", (actor: XR_game_object, npc: XR_game_object, [index]: [TIndex]): void => {
+  actor.activate_slot(index);
 });

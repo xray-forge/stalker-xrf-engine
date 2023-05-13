@@ -1,28 +1,19 @@
 import {
   alife,
-  anim,
-  clsid,
   game,
   game_object,
   get_console,
   get_hud,
-  hit,
   level,
-  move,
   particles_object,
   patrol,
   TXR_bloodsucker_visibility_state,
   vector,
-  XR_action_planner,
   XR_CGameTask,
-  XR_cse_alife_creature_abstract,
   XR_cse_alife_human_abstract,
   XR_cse_alife_item_artefact,
   XR_cse_alife_item_weapon,
-  XR_cse_alife_object,
-  XR_cse_alife_object_physic,
   XR_game_object,
-  XR_hit,
   XR_patrol,
   XR_vector,
 } from "xray16";
@@ -33,7 +24,6 @@ import {
   getServerObjectByStoryId,
   IRegistryObjectState,
   registry,
-  SYSTEM_INI,
   unregisterHelicopter,
 } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
@@ -51,31 +41,21 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
-import { updateStalkerLogic } from "@/engine/core/objects/binders/creature/StalkerBinder";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { EStalkerState } from "@/engine/core/objects/state";
-import { SchemeAbuse } from "@/engine/core/schemes/abuse/SchemeAbuse";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
-import { ISchemeCombatState } from "@/engine/core/schemes/combat";
-import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
-import { ISchemeMobCombatState } from "@/engine/core/schemes/mob/combat";
-import { init_target } from "@/engine/core/schemes/remark/actions/ActionRemarkActivity";
 import { abort } from "@/engine/core/utils/assertion";
 import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { isStalker } from "@/engine/core/utils/check/is";
 import { createAutoSave } from "@/engine/core/utils/game_save";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object";
-import { IConfigSwitchCondition, parseConditionsList } from "@/engine/core/utils/parse";
 import {
   increaseNumberRelationBetweenCommunityAndId,
   setObjectSympathy,
   setSquadGoodwill,
   setSquadGoodwillToNpc,
 } from "@/engine/core/utils/relation";
+import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { TCaption } from "@/engine/lib/constants/captions/captions";
 import { TCommunity } from "@/engine/lib/constants/communities";
@@ -87,166 +67,11 @@ import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { relations, TRelation } from "@/engine/lib/constants/relations";
 import { TTreasure } from "@/engine/lib/constants/treasures";
-import { FALSE, TRUE } from "@/engine/lib/constants/words";
+import { TRUE } from "@/engine/lib/constants/words";
 import { TZone, zones } from "@/engine/lib/constants/zones";
-import { EScheme, LuaArray, Optional, TCount, TIndex, TName, TNumberId, TSection, TStringId } from "@/engine/lib/types";
+import { LuaArray, Optional, TCount, TName, TNumberId, TSection, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo;
- */
-export function teleport_actor(actor: XR_game_object, npc: XR_game_object, params: [string, string]) {
-  const point: XR_patrol = new patrol(params[0]);
-
-  if (params[1] !== null) {
-    const look: XR_patrol = new patrol(params[1]);
-    const dir: number = -look.point(0).sub(point.point(0)).getH();
-
-    actor.set_actor_direction(dir);
-  }
-
-  for (const [k, v] of registry.noWeaponZones) {
-    if (isActorInZoneWithName(k, actor)) {
-      registry.noWeaponZones.set(k, true);
-    }
-  }
-
-  if (npc && npc.name() !== null) {
-    logger.info("Teleporting actor from:", tostring(npc.name()));
-  }
-
-  actor.set_actor_position(point.point(0));
-}
-
-/**
- * todo;
- */
-function reset_animation(npc: XR_game_object): void {
-  const stateManager = registry.objects.get(npc.id()).stateManager!;
-
-  if (stateManager === null) {
-    return;
-  }
-
-  stateManager.animation.setState(null, true);
-  stateManager.animation.setControl();
-  stateManager.animstate.setState(null, true);
-  stateManager.animstate.setControl();
-
-  stateManager.setState(EStalkerState.IDLE, null, null, null, { isForced: true });
-
-  stateManager.update();
-  stateManager.update();
-  stateManager.update();
-  stateManager.update();
-  stateManager.update();
-  stateManager.update();
-  stateManager.update();
-
-  npc.set_body_state(move.standing);
-  npc.set_mental_state(anim.free);
-}
-
-/**
- * todo;
- */
-export function teleport_npc(actor: XR_game_object, npc: XR_game_object, p: [string, number]) {
-  const patrol_point = p[0];
-  const patrol_point_index = p[1] || 0;
-
-  if (patrol_point === null) {
-    abort("Wrong parameters in 'teleport_npc' function!!!");
-  }
-
-  const position: XR_vector = new patrol(patrol_point).point(patrol_point_index);
-
-  reset_animation(npc);
-
-  npc.set_npc_position(position);
-}
-
-/**
- * todo;
- */
-export function teleport_npc_by_story_id(actor: XR_game_object, npc: XR_game_object, p: [TStringId, string, number]) {
-  const storyId: Optional<TStringId> = p[0];
-  const patrolPoint: Optional<TName> = p[1];
-  const patrolPointIndex: TIndex = p[2] || 0;
-
-  if (storyId === null || patrolPoint === null) {
-    abort("Wrong parameters in 'teleport_npc_by_story_id' function!!!");
-  }
-
-  const position: XR_vector = new patrol(tostring(patrolPoint)).point(patrolPointIndex);
-  const objectId: Optional<TNumberId> = getObjectIdByStoryId(storyId);
-
-  if (objectId === null) {
-    abort("There is no story object with id [%s]", storyId);
-  }
-
-  const cl_object = level.object_by_id(objectId);
-
-  if (cl_object) {
-    reset_animation(cl_object);
-    cl_object.set_npc_position(position);
-  } else {
-    alife().object(objectId)!.position = position;
-  }
-}
-
-/**
- * todo;
- */
-export function teleport_squad(actor: XR_game_object, npc: XR_game_object, params: [TStringId, string, number]): void {
-  const squadStoryId: Optional<TStringId> = params[0];
-  const patrolPoint: TStringId = params[1];
-  const patrolPointIndex: TIndex = params[2] || 0;
-
-  if (squadStoryId === null || patrolPoint === null) {
-    abort("Wrong parameters in 'teleport_squad' function!!!");
-  }
-
-  const position: XR_vector = new patrol(patrolPoint).point(patrolPointIndex);
-  const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
-
-  if (squad === null) {
-    abort("There is no squad with story id [%s]", squadStoryId);
-  }
-
-  squad.setSquadPosition(position);
-}
-
-/**
- * todo;
- */
-export function give_items(actor: XR_game_object, npc: XR_game_object, params: Array<string>): void;
-export function give_items(actor: XR_game_object, npc: XR_game_object, params: LuaArray<string> | Array<string>): void {
-  for (const [i, itemSection] of params as LuaArray<string>) {
-    logger.info("Give item to object:", npc.id(), itemSection);
-    alife().create(itemSection, npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());
-  }
-}
-
-// todo: Probably simplify, why accessing alife?
-export function give_item(
-  actor: XR_game_object,
-  npc: Optional<XR_game_object> | XR_cse_alife_human_abstract,
-  p: [string, Optional<string>]
-) {
-  const objectId: TNumberId = p[1] === null ? (npc as XR_game_object).id() : getObjectIdByStoryId(p[1])!;
-  const serverObject: XR_cse_alife_object = alife().object(objectId)!;
-
-  logger.info("Give item:", objectId, p[0]);
-
-  alife().create(
-    p[0],
-    serverObject.position,
-    serverObject.m_level_vertex_id,
-    serverObject.m_game_vertex_id,
-    serverObject.id
-  );
-}
 
 /**
  * todo;
@@ -582,28 +407,6 @@ export function switch_to_desired_job(actor: XR_game_object, npc: XR_game_object
   const smart: SmartTerrain = getObjectSmartTerrain(npc) as SmartTerrain;
 
   smart.switch_to_desired_job(npc);
-}
-
-/**
- * todo;
- */
-export function give_actor(actor: XR_game_object, npc: Optional<XR_game_object>, p: Array<string>): void;
-export function give_actor(
-  actor: XR_game_object,
-  npc: Optional<XR_game_object>,
-  p: LuaArray<string> | Array<string>
-): void {
-  for (const [k, v] of p as LuaArray<string>) {
-    alife().create(v, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
-    NotificationManager.getInstance().sendItemRelocatedNotification(ENotificationDirection.IN, v);
-  }
-}
-
-/**
- * todo;
- */
-export function activate_weapon_slot(actor: XR_game_object, npc: XR_game_object, p: [number]): void {
-  actor.activate_slot(p[0]);
 }
 
 /**
@@ -1308,13 +1111,13 @@ export function stop_tutorial(): void {
 // todo: Rework, looks bad
 export function pick_artefact_from_anomaly(
   actor: XR_game_object,
-  npc: Optional<XR_game_object | XR_cse_alife_human_abstract>,
-  params: [Optional<string>, Optional<TName>, TName]
+  object: Optional<XR_game_object | XR_cse_alife_human_abstract>,
+  params: [Optional<TStringId>, Optional<TName>, TName]
 ) {
   logger.info("Pick artefact from anomaly");
 
   const anomalyZoneName: Optional<TName> = params && params[1];
-  let artefactName: TName = params && params[2];
+  let artefactSection: TSection = params && params[2];
 
   const anomalyZone = registry.anomalies.get(anomalyZoneName as TName);
 
@@ -1325,8 +1128,9 @@ export function pick_artefact_from_anomaly(
       abort("Couldn't relocate item to NULL in function 'pick_artefact_from_anomaly!'");
     }
 
-    npc = alife().object<XR_cse_alife_human_abstract>(objectId);
-    if (npc && (!isStalker(npc) || !npc.alive())) {
+    object = alife().object<XR_cse_alife_human_abstract>(objectId) as XR_cse_alife_human_abstract;
+
+    if (object && (!isStalker(object) || !object.alive())) {
       abort("Couldn't relocate item to NULL (dead || ! stalker) in function 'pick_artefact_from_anomaly!'");
     }
   }
@@ -1343,16 +1147,16 @@ export function pick_artefact_from_anomaly(
   let artefactObject: Optional<XR_cse_alife_item_artefact> = null;
 
   for (const [k, v] of anomalyZone.artefactWaysByArtefactId) {
-    if (alife().object(tonumber(k)!) && artefactName === alife().object(tonumber(k)!)!.section_name()) {
+    if (alife().object(tonumber(k)!) && artefactSection === alife().object(tonumber(k)!)!.section_name()) {
       artefactId = tonumber(k)!;
       artefactObject = alife().object(tonumber(k)!);
       break;
     }
 
-    if (artefactName === null) {
+    if (artefactSection === null) {
       artefactId = tonumber(k)!;
       artefactObject = alife().object(tonumber(k)!);
-      artefactName = artefactObject!.section_name();
+      artefactSection = artefactObject!.section_name();
       break;
     }
   }
@@ -1364,7 +1168,7 @@ export function pick_artefact_from_anomaly(
   anomalyZone.onArtefactTaken(artefactObject as XR_cse_alife_item_artefact);
 
   alife().release(artefactObject!, true);
-  give_item(registry.actor, npc, [artefactName, params[0]]);
+  spawnItemsForObject(object as XR_game_object, artefactSection);
 }
 
 /**

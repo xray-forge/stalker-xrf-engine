@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { AnyObject } from "@/engine/lib/types";
+import { AnyObject, TName } from "@/engine/lib/types";
 
 describe("'actor' effects declaration", () => {
-  const checkBinding = (name: string, container: AnyObject = global) => {
+  const checkBinding = (name: TName, container: AnyObject = global) => {
     expect(container["xr_effects"][name]).toBeDefined();
   };
 
@@ -24,5 +24,7 @@ describe("'actor' effects declaration", () => {
     checkBinding("run_postprocess");
     checkBinding("stop_postprocess");
     checkBinding("run_tutorial");
+    checkBinding("give_actor");
+    checkBinding("activate_weapon_slot");
   });
 });

@@ -28,6 +28,7 @@ import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { spawnObject, spawnObjectInObject, spawnSquad } from "@/engine/core/utils/spawn";
+import { giveItemsToActor } from "@/engine/core/utils/task_reward";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
@@ -54,12 +55,7 @@ import {
   TStringId,
 } from "@/engine/lib/types";
 import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
-import {
-  give_actor,
-  pick_artefact_from_anomaly,
-  play_sound,
-  remove_item,
-} from "@/engine/scripts/declarations/effects/effects_old";
+import { pick_artefact_from_anomaly, play_sound, remove_item } from "@/engine/scripts/declarations/effects/effects_old";
 
 /**
  * todo;
@@ -115,7 +111,7 @@ extern("xr_effects.pri_b306_generator_start", (actor: XR_game_object, npc: XR_ga
 extern("xr_effects.jup_b206_get_plant", (actor: XR_game_object, object: XR_game_object): void => {
   if (isActorInZoneWithName(zones.jup_b206_sr_quest_line, actor)) {
     giveInfo(infoPortions.jup_b206_anomalous_grove_has_plant);
-    give_actor(actor, object, ["jup_b206_plant"]);
+    giveItemsToActor(quest_items.jup_b206_plant);
 
     getExtern<AnyCallable>("destroy_object", getExtern("xr_effects"))(actor, object, [
       "story",
@@ -179,7 +175,7 @@ extern("xr_effects.jup_b8_heli_4_searching", (actor: XR_game_object, npc: XR_gam
 extern("xr_effects.jup_b10_ufo_searching", (actor: XR_game_object, npc: XR_game_object): void => {
   if (isActorInZoneWithName(zones.jup_b10_ufo_restrictor)) {
     giveInfo(infoPortions.jup_b10_ufo_memory_started);
-    give_actor(actor, null, ["jup_b10_ufo_memory"]);
+    giveItemsToActor(quest_items.jup_b10_ufo_memory);
   }
 });
 
@@ -895,8 +891,9 @@ extern("xr_effects.pri_a28_talk_ssu_video_end", (actor: XR_game_object, npc: XR_
  */
 extern("xr_effects.zat_b33_pic_snag_container", (actor: XR_game_object, npc: XR_game_object): void => {
   if (isActorInZoneWithName(zones.zat_b33_tutor)) {
-    give_actor(actor, npc, [quest_items.zat_b33_safe_container]);
+    giveItemsToActor(quest_items.zat_b33_safe_container);
     giveInfo(infoPortions.zat_b33_find_package);
+
     if (!hasAlifeInfo(infoPortions.zat_b33_safe_container)) {
       play_sound(actor, registry.zones.get(zones.zat_b33_tutor), [scriptSounds.pda_news, null, null]);
     }

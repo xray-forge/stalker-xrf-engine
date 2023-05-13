@@ -1,6 +1,5 @@
 import {
   alife,
-  clsid,
   hit,
   level,
   patrol,
@@ -8,8 +7,6 @@ import {
   XR_action_planner,
   XR_cse_alife_creature_abstract,
   XR_cse_alife_human_abstract,
-  XR_cse_alife_object,
-  XR_cse_alife_object_physic,
   XR_game_object,
   XR_hit,
   XR_patrol,
@@ -33,14 +30,20 @@ import { ISchemeMobCombatState } from "@/engine/core/schemes/mob/combat";
 import { init_target } from "@/engine/core/schemes/remark/actions";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { isStalker } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { IConfigSwitchCondition, parseConditionsList } from "@/engine/core/utils/parse";
-import { releaseObject, spawnObject, spawnObjectInObject, spawnSquad } from "@/engine/core/utils/spawn";
+import {
+  releaseObject,
+  spawnItemsForObject,
+  spawnObject,
+  spawnObjectInObject,
+  spawnSquad,
+} from "@/engine/core/utils/spawn";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { EScheme, LuaArray, Optional, TIndex, TName, TNumberId, TRate, TSection, TStringId } from "@/engine/lib/types";
+
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
@@ -630,3 +633,32 @@ extern("xr_effects.burer_force_gravi_attack", (actor: XR_game_object, npc: XR_ga
 extern("xr_effects.burer_force_anti_aim", (actor: XR_game_object, npc: XR_game_object): void => {
   npc.set_force_anti_aim(true);
 });
+
+/**
+ * Give list of items to an object.
+ */
+extern("xr_effects.give_items", (actor: XR_game_object, object: XR_game_object, params: Array<TSection>): void => {
+  for (const section of params) {
+    logger.info("Give item to object:", object.id(), section);
+    spawnItemsForObject(object, section);
+  }
+});
+
+/**
+ * Give specific item to an object by story id.
+ */
+extern(
+  "xr_effects.give_item",
+  (
+    actor: XR_game_object,
+    npc: Optional<XR_game_object> | XR_cse_alife_human_abstract,
+    [section, objectStoryId]: [TSection, Optional<TStringId>]
+  ): void => {
+    const objectId: TNumberId =
+      objectStoryId === null ? (npc as XR_game_object).id() : (getObjectIdByStoryId(objectStoryId) as TNumberId);
+
+    logger.info("Give item to object:", objectId, section);
+
+    spawnItemsForObject(alife().object(objectId)!, section);
+  }
+);

@@ -14,11 +14,10 @@ import {
   XR_patrol,
 } from "xray16";
 
-import { getObjectIdByStoryId, IRegistryObjectState, registry, SYSTEM_INI } from "@/engine/core/database";
+import { IRegistryObjectState, SYSTEM_INI } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain, Squad } from "@/engine/core/objects";
-import { init_target } from "@/engine/core/schemes/remark/actions";
-import { abort, assertDefined } from "@/engine/core/utils/assertion";
+import { assertDefined } from "@/engine/core/utils/assertion";
 import { isAmmoSection, isStalker } from "@/engine/core/utils/check/is";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -54,7 +53,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export function spawnItemsForObject(
   object: AnyGameObject,
-  itemSection: TInventoryItem,
+  itemSection: TSection,
   count: TCount = 1,
   probability: TProbability = 100
 ): TCount {

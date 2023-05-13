@@ -155,7 +155,7 @@ export function transferItemsToActor(from: XR_game_object, itemSection: TSection
 /**
  * Create items by section/count for actor.
  */
-export function giveItemsToActor(itemSection: TInventoryItem, count: TCount = 1): void {
+export function giveItemsToActor(itemSection: TSection, count: TCount = 1): void {
   const itemsSpawned: TCount = spawnItemsForObject(registry.actor, itemSection, count);
 
   EventsManager.getInstance().emitEvent<IItemRelocatedNotification>(EGameEvent.NOTIFICATION, {
