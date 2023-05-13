@@ -11,12 +11,21 @@ import {
   XR_vector,
 } from "xray16";
 
-import { getObjectByStoryId, getObjectIdByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
+import {
+  getObjectByStoryId,
+  getObjectIdByStoryId,
+  getServerObjectByStoryId,
+  IRegistryObjectState,
+  registry,
+} from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
+import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { SmartTerrain, Squad } from "@/engine/core/objects";
+import { ISchemeAnimpointState, SchemeAnimpoint } from "@/engine/core/schemes/animpoint";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { ISchemeHitState } from "@/engine/core/schemes/hit";
+import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import {
@@ -25,17 +34,22 @@ import {
   isHeavilyWounded,
   isObjectInZone,
   isObjectWounded,
+  isPlayingSound,
   isSquadExisting,
 } from "@/engine/core/utils/check/check";
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
+import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain, getObjectSquad } from "@/engine/core/utils/object";
+import { captions, TCaption } from "@/engine/lib/constants/captions";
+import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { FALSE } from "@/engine/lib/constants/words";
 import {
   AnyArgs,
   EScheme,
   LuaArray,
   Optional,
+  TCount,
   TIndex,
   TName,
   TNumberId,
@@ -1054,4 +1068,131 @@ extern("xr_conditions.burer_gravi_attack", (actor: XR_game_object, npc: XR_game_
  */
 extern("xr_conditions.burer_anti_aim", (actor: XR_game_object, npc: XR_game_object): boolean => {
   return npc.burer_get_force_anti_aim();
+});
+
+/**
+ * todo; probably remove.
+ */
+extern("xr_conditions._used", (actor: XR_game_object, npc: XR_game_object): boolean => {
+  return npc.is_talking();
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.is_playing_sound", (actor: XR_game_object, npc: XR_game_object): boolean => {
+  return isPlayingSound(npc);
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.is_door_blocked_by_npc", (actor: XR_game_object, object: XR_game_object): boolean => {
+  return object.is_door_blocked_by_npc();
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.check_deimos_phase", (actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean => {
+  if (params[0] && params[1]) {
+    const obj: IRegistryObjectState = registry.objects.get(npc.id());
+    const delta: boolean = SchemeDeimos.checkIntensityDelta(obj);
+
+    if (params[1] === "increasing" && delta) {
+      return false;
+    } else if (params[1] === "decreasing" && !delta) {
+      return false;
+    }
+
+    if (params[0] === "disable_bound") {
+      if (params[1] === "increasing") {
+        if (!SchemeDeimos.checkDisableBound(obj)) {
+          return true;
+        }
+      } else if (params[1] === "decreasing") {
+        return SchemeDeimos.checkDisableBound(obj);
+      }
+    } else if (params[0] === "lower_bound") {
+      if (params[1] === "increasing") {
+        if (!SchemeDeimos.checkLowerBound(obj)) {
+          return true;
+        }
+      } else if (params[1] === "decreasing") {
+        return SchemeDeimos.checkLowerBound(obj);
+      }
+    } else if (params[0] === "upper_bound") {
+      if (params[1] === "increasing") {
+        if (!SchemeDeimos.checkUpperBound(obj)) {
+          return true;
+        }
+      } else if (params[1] === "decreasing") {
+        return SchemeDeimos.checkUpperBound(obj);
+      }
+    }
+  }
+
+  return false;
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.animpoint_reached", (actor: XR_game_object, npc: XR_game_object): boolean => {
+  const animpointState: Optional<ISchemeAnimpointState> = registry.objects.get(npc.id())[
+    SchemeAnimpoint.SCHEME_SECTION
+  ] as Optional<ISchemeAnimpointState>;
+
+  if (animpointState === null) {
+    return false;
+  }
+
+  return animpointState.animpoint.isPositionReached();
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.upgrade_hint_kardan", (actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean => {
+  const itemUpgradeHints: LuaArray<TCaption> = new LuaTable();
+  const toolsCount: TCount = (params && tonumber(params[0])) || 0;
+  let can_upgrade = 0;
+
+  if (!hasAlifeInfo(infoPortions.zat_b3_all_instruments_brought)) {
+    if (!hasAlifeInfo(infoPortions.zat_b3_tech_instrument_1_brought) && (toolsCount === 0 || toolsCount === 1)) {
+      table.insert(itemUpgradeHints, captions.st_upgr_toolkit_1);
+    } else if (toolsCount === 1) {
+      can_upgrade = can_upgrade + 1;
+    }
+
+    if (!hasAlifeInfo(infoPortions.zat_b3_tech_instrument_2_brought) && (toolsCount === 0 || toolsCount === 2)) {
+      table.insert(itemUpgradeHints, captions.st_upgr_toolkit_2);
+    } else if (toolsCount === 2) {
+      can_upgrade = can_upgrade + 1;
+    }
+
+    if (!hasAlifeInfo(infoPortions.zat_b3_tech_instrument_3_brought) && (toolsCount === 0 || toolsCount === 3)) {
+      table.insert(itemUpgradeHints, captions.st_upgr_toolkit_3);
+    } else if (toolsCount === 3) {
+      can_upgrade = can_upgrade + 1;
+    }
+  } else {
+    can_upgrade = can_upgrade + 1;
+  }
+
+  if (!hasAlifeInfo(infoPortions.zat_b3_tech_see_produce_62)) {
+    if (toolsCount === 1 && !hasAlifeInfo(infoPortions.zat_b3_tech_have_one_dose)) {
+      table.insert(itemUpgradeHints, captions.st_upgr_vodka);
+    } else if (toolsCount !== 1 && !hasAlifeInfo(infoPortions.zat_b3_tech_have_couple_dose)) {
+      table.insert(itemUpgradeHints, captions.st_upgr_vodka);
+    } else {
+      can_upgrade = can_upgrade + 1;
+    }
+  } else {
+    can_upgrade = can_upgrade + 1;
+  }
+
+  ItemUpgradesManager.getInstance().setCurrentHints(itemUpgradeHints);
+
+  return can_upgrade >= 2;
 });

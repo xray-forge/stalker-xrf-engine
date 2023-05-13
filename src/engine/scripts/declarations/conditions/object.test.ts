@@ -80,5 +80,11 @@ describe("'object' conditions declaration", () => {
     checkBinding("polter_ignore_actor");
     checkBinding("burer_gravi_attack");
     checkBinding("burer_anti_aim");
+    checkBinding("_used");
+    checkBinding("is_playing_sound");
+    checkBinding("is_door_blocked_by_npc");
+    checkBinding("check_deimos_phase");
+    checkBinding("animpoint_reached");
+    checkBinding("upgrade_hint_kardan");
   });
 });
