@@ -1,0 +1,201 @@
+import { level, XR_game_object } from "xray16";
+
+import { registry } from "@/engine/core/database";
+import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
+import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
+import { ISchemeDeathState } from "@/engine/core/schemes/death";
+import { ISchemeHitState } from "@/engine/core/schemes/hit";
+import { abort } from "@/engine/core/utils/assertion";
+import { extern } from "@/engine/core/utils/binding";
+import { isActorAlive, isActorEnemy, isObjectInZone } from "@/engine/core/utils/check/check";
+import { isWeapon } from "@/engine/core/utils/check/is";
+import { LuaLogger } from "@/engine/core/utils/logging";
+import { npcInActorFrustum } from "@/engine/core/utils/vector";
+import { AnyArgs, EScheme, LuaArray, Optional, TSection } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
+
+/**
+ * todo;
+ */
+extern("xr_conditions.wealthy_functor", (): boolean => {
+  return AchievementsManager.getInstance().checkAchievedWealthy();
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.information_dealer_functor", (): boolean => {
+  return AchievementsManager.getInstance().checkAchievedInformationDealer();
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.actor_in_surge_cover", (actor: XR_game_object, npc: XR_game_object): boolean => {
+  return SurgeManager.getInstance().isActorInCover();
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.is_enemy_actor", (object: XR_game_object): boolean => {
+  return isActorEnemy(object);
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.actor_alive", (): boolean => {
+  return isActorAlive();
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.actor_see_npc", (actor: XR_game_object, npc: XR_game_object): boolean => {
+  return actor.see(npc);
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.npc_in_actor_frustum", (actor: XR_game_object, npc: XR_game_object): boolean => {
+  return npcInActorFrustum(npc);
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.dist_to_actor_le", (actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean => {
+  const distance: Optional<number> = params[0];
+
+  if (distance === null) {
+    abort("Wrong parameter in 'dist_to_actor_le' function: %s.", distance);
+  }
+
+  return npc.position().distance_to_sqr(actor.position()) <= distance * distance;
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.dist_to_actor_ge", (actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean => {
+  const distance: Optional<number> = params[0];
+
+  if (distance === null) {
+    abort("Wrong parameter in 'dist_to_actor_ge' function: %s.", distance);
+  }
+
+  return npc.position().distance_to_sqr(actor.position()) >= distance * distance;
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.actor_health_le", (actor: XR_game_object, npc: XR_game_object, params: [number]): boolean => {
+  return params[0] !== null && actor.health < params[0];
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.actor_in_zone", (actor: XR_game_object, npc: XR_game_object, params: [string]): boolean => {
+  return isObjectInZone(registry.actor, registry.zones.get(params[0]));
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.heli_see_actor", (actor: XR_game_object, object: XR_game_object): boolean => {
+  return actor !== null && object.get_helicopter().isVisible(actor);
+});
+
+/**
+ * todo;
+ */
+extern(
+  "xr_conditions.actor_has_item",
+  (actor: XR_game_object, npc: XR_game_object, params: [Optional<string>]): boolean => {
+    const story_actor = registry.actor;
+
+    return params[0] !== null && story_actor !== null && story_actor.object(params[0]) !== null;
+  }
+);
+
+/**
+ * todo;
+ */
+extern("xr_conditions.actor_has_item_count", (actor: XR_game_object, npc: XR_game_object, p: [string, string]) => {
+  const item_section: TSection = p[0];
+  const need_count: number = tonumber(p[1])!;
+  let has_count: number = 0;
+
+  actor.iterate_inventory((temp, item) => {
+    if (item.section() === item_section) {
+      has_count = has_count + 1;
+    }
+  }, actor);
+
+  return has_count >= need_count;
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.hit_by_actor", (actor: XR_game_object, npc: XR_game_object): boolean => {
+  const state: Optional<ISchemeHitState> = registry.objects.get(npc.id())[EScheme.HIT] as ISchemeHitState;
+
+  return state !== null && state.who === actor.id();
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.killed_by_actor", (actor: XR_game_object, npc: XR_game_object): boolean => {
+  return (registry.objects.get(npc.id())[EScheme.DEATH] as ISchemeDeathState)?.killer === actor.id();
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.actor_has_weapon", (actor: XR_game_object): boolean => {
+  const obj = actor.active_item();
+
+  if (obj === null || isWeapon(obj) === false) {
+    return false;
+  }
+
+  return true;
+});
+
+/**
+ * todo;
+ */
+extern(
+  "xr_conditions.actor_active_detector",
+  (actor: XR_game_object, npc: XR_game_object, p: Optional<[TSection]>): boolean => {
+    const detector_section = p && p[0];
+
+    if (detector_section === null) {
+      abort("Wrong parameters in function 'actor_active_detector'");
+    }
+
+    const activeDetector = registry.actor.active_detector();
+
+    return activeDetector !== null && activeDetector.section() === detector_section;
+  }
+);
+
+/**
+ * todo;
+ */
+extern("xr_conditions.actor_on_level", (actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>): boolean => {
+  for (const [k, v] of p) {
+    if (v === level.name()) {
+      return true;
+    }
+  }
+
+  return false;
+});

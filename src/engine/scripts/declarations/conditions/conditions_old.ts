@@ -22,7 +22,6 @@ import {
   registry,
 } from "@/engine/core/database";
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
-import { AchievementsManager } from "@/engine/core/managers/interaction/achievements/AchievementsManager";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
@@ -39,11 +38,6 @@ import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos/SchemeDeimos";
 import { abort } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
 import {
-  isActorAlive,
-  isActorEnemy,
-  isActorEnemyWithFaction,
-  isActorFriendWithFaction,
-  isActorNeutralWithFaction,
   isBlackScreen,
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
@@ -91,13 +85,6 @@ import {
 import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo;
- */
-export function is_enemy_actor(object: XR_game_object): boolean {
-  return isActorEnemy(object);
-}
 
 /**
  * todo;
@@ -182,13 +169,6 @@ export function is_playing_sound(actor: XR_game_object, npc: XR_game_object): bo
 /**
  * todo;
  */
-export function actor_alive(): boolean {
-  return isActorAlive();
-}
-
-/**
- * todo;
- */
 export function see_npc(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
   const targetNpc: Optional<XR_game_object> = getObjectByStoryId(params[0]);
 
@@ -202,48 +182,8 @@ export function see_npc(actor: XR_game_object, npc: XR_game_object, params: AnyA
 /**
  * todo;
  */
-export function actor_see_npc(actor: XR_game_object, npc: XR_game_object): boolean {
-  return actor.see(npc);
-}
-
-/**
- * todo;
- */
-export function npc_in_actor_frustum(actor: XR_game_object, npc: XR_game_object): boolean {
-  return npcInActorFrustum(npc);
-}
-
-/**
- * todo;
- */
 export function is_wounded(actor: XR_game_object, npc: XR_game_object): boolean {
   return isObjectWounded(npc);
-}
-
-/**
- * todo;
- */
-export function dist_to_actor_le(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
-  const distance: Optional<number> = params[0];
-
-  if (distance === null) {
-    abort("Wrong parameter in 'dist_to_actor_le' function: %s.", distance);
-  }
-
-  return npc.position().distance_to_sqr(actor.position()) <= distance * distance;
-}
-
-/**
- * todo;
- */
-export function dist_to_actor_ge(actor: XR_game_object, npc: XR_game_object, params: AnyArgs): boolean {
-  const distance: Optional<number> = params[0];
-
-  if (distance === null) {
-    abort("Wrong parameter in 'dist_to_actor_ge' function: %s.", distance);
-  }
-
-  return npc.position().distance_to_sqr(actor.position()) >= distance * distance;
 }
 
 /**
@@ -327,13 +267,6 @@ export function health_le(actor: XR_game_object, npc: XR_game_object, params: [n
 /**
  * todo;
  */
-export function actor_health_le(actor: XR_game_object, npc: XR_game_object, params: [number]): boolean {
-  return params[0] !== null && actor.health < params[0];
-}
-
-/**
- * todo;
- */
 export function heli_health_le(actor: XR_game_object, object: XR_game_object, params: [number]): boolean {
   return params[0] !== null && object.get_helicopter().GetfHealth() < params[0];
 }
@@ -354,13 +287,6 @@ export function story_obj_in_zone_by_name(
   }
 
   return false;
-}
-
-/**
- * todo;
- */
-export function actor_in_zone(actor: XR_game_object, npc: XR_game_object, params: [string]): boolean {
-  return isObjectInZone(registry.actor, registry.zones.get(params[0]));
 }
 
 /**
@@ -403,13 +329,6 @@ export function heli_see_npc(actor: XR_game_object, object: XR_game_object, para
   } else {
     return false;
   }
-}
-
-/**
- * todo;
- */
-export function heli_see_actor(actor: XR_game_object, object: XR_game_object): boolean {
-  return actor !== null && object.get_helicopter().isVisible(actor);
 }
 
 /**
@@ -639,34 +558,8 @@ export function story_object_exist(actor: XR_game_object, npc: XR_game_object, p
 /**
  * todo;
  */
-export function actor_has_item(actor: XR_game_object, npc: XR_game_object, params: [Optional<string>]): boolean {
-  const story_actor = registry.actor;
-
-  return params[0] !== null && story_actor !== null && story_actor.object(params[0]) !== null;
-}
-
-/**
- * todo;
- */
 export function npc_has_item(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
   return p[0] !== null && npc.object(p[0]) !== null;
-}
-
-/**
- * todo;
- */
-export function actor_has_item_count(actor: XR_game_object, npc: XR_game_object, p: [string, string]) {
-  const item_section: TSection = p[0];
-  const need_count: number = tonumber(p[1])!;
-  let has_count: number = 0;
-
-  actor.iterate_inventory((temp, item) => {
-    if (item.section() === item_section) {
-      has_count = has_count + 1;
-    }
-  }, actor);
-
-  return has_count >= need_count;
 }
 
 /**
@@ -786,145 +679,6 @@ export function check_smart_alarm_status(
 /**
  * todo;
  */
-export function is_factions_enemies(actor: XR_game_object, npc: XR_game_object, p: [TCommunity]): boolean {
-  if (p[0] !== null) {
-    return isFactionsEnemies(getCharacterCommunity(actor), p[0]);
-  } else {
-    return false;
-  }
-}
-
-/**
- * todo;
- */
-export function is_factions_neutrals(actor: XR_game_object, npc: XR_game_object, p: [TCommunity]) {
-  return !(is_factions_enemies(actor, npc, p) || is_factions_friends(actor, npc, p));
-}
-
-/**
- * todo;
- */
-export function is_factions_friends(actor: XR_game_object, npc: XR_game_object, p: [TCommunity]) {
-  if (p[0] !== null) {
-    return isFactionsFriends(getCharacterCommunity(actor), p[0]);
-  } else {
-    return false;
-  }
-}
-
-/**
- * todo;
- */
-export function is_faction_enemy_to_actor(actor: XR_game_object, npc: XR_game_object, p: [TCommunity]): boolean {
-  return p[0] === null ? false : isActorEnemyWithFaction(p[0]);
-}
-
-/**
- * todo;
- */
-export function is_faction_friend_to_actor(actor: XR_game_object, npc: XR_game_object, p: [TCommunity]): boolean {
-  return p[0] === null ? false : isActorFriendWithFaction(p[0]);
-}
-
-/**
- * todo;
- */
-export function is_faction_neutral_to_actor(actor: XR_game_object, npc: XR_game_object, p: [TCommunity]): boolean {
-  return p[0] === null ? false : isActorNeutralWithFaction(p[0]);
-}
-
-/**
- * todo;
- */
-export function is_squad_friend_to_actor(actor: XR_game_object, npc: XR_game_object, params: [string]): boolean {
-  if (params[0] !== null) {
-    return isSquadRelationBetweenActorAndRelation(params[0], relations.friend);
-  } else {
-    return false;
-  }
-}
-
-/**
- * todo;
- */
-export function is_squad_enemy_to_actor(actor: XR_game_object, npc: XR_game_object, params: Array<string>): boolean {
-  if (!params) {
-    abort("Not enough arguments in 'is_squad_enemy_to_actor' function!");
-  }
-
-  for (const [k, v] of params as unknown as LuaArray<string>) {
-    if (isSquadRelationBetweenActorAndRelation(v, relations.enemy)) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-/**
- * todo;
- */
-export function is_squad_neutral_to_actor(actor: XR_game_object, npc: XR_game_object, p: [string]): boolean {
-  return !(is_squad_enemy_to_actor(actor, npc, p) || is_squad_friend_to_actor(actor, npc, p));
-}
-
-/**
- * todo;
- */
-export function fighting_actor(actor: XR_game_object, npc: XR_game_object): boolean {
-  const enemy_id: number = registry.objects.get(npc.id()).enemy_id!;
-  const enemy: Optional<XR_game_object> = registry.objects.get(enemy_id)?.object as Optional<XR_game_object>;
-
-  return enemy !== null && enemy.id() === actor.id();
-}
-
-/**
- * todo;
- */
-export function hit_by_actor(actor: XR_game_object, npc: XR_game_object): boolean {
-  const state: Optional<ISchemeHitState> = registry.objects.get(npc.id())[EScheme.HIT] as ISchemeHitState;
-
-  return state !== null && state.who === actor.id();
-}
-
-/**
- * todo;
- */
-export function killed_by_actor(actor: XR_game_object, npc: XR_game_object): boolean {
-  return (registry.objects.get(npc.id())[EScheme.DEATH] as ISchemeDeathState)?.killer === actor.id();
-}
-
-/**
- * todo;
- */
-export function actor_has_weapon(actor: XR_game_object): boolean {
-  const obj = actor.active_item();
-
-  if (obj === null || isWeapon(obj) === false) {
-    return false;
-  }
-
-  return true;
-}
-
-/**
- * todo;
- */
-export function actor_active_detector(actor: XR_game_object, npc: XR_game_object, p: Optional<[TSection]>): boolean {
-  const detector_section = p && p[0];
-
-  if (detector_section === null) {
-    abort("Wrong parameters in function 'actor_active_detector'");
-  }
-
-  const activeDetector = registry.actor.active_detector();
-
-  return activeDetector !== null && activeDetector.section() === detector_section;
-}
-
-/**
- * todo;
- */
 export function heavy_wounded(actor: XR_game_object, npc: XR_game_object): boolean {
   return isHeavilyWounded(npc.id());
 }
@@ -960,19 +714,6 @@ export function mob_was_hit(actor: XR_game_object, npc: XR_game_object): boolean
   const h: XR_MonsterHitInfo = npc.get_monster_hit_info();
 
   return h.who && h.time !== 0;
-}
-
-/**
- * todo;
- */
-export function actor_on_level(actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>): boolean {
-  for (const [k, v] of p) {
-    if (v === level.name()) {
-      return true;
-    }
-  }
-
-  return false;
 }
 
 /**
@@ -2047,13 +1788,6 @@ export function upgrade_hint_kardan(actor: XR_game_object, npc: XR_game_object, 
 /**
  * todo;
  */
-export function actor_in_surge_cover(actor: XR_game_object, npc: XR_game_object): boolean {
-  return SurgeManager.getInstance().isActorInCover();
-}
-
-/**
- * todo;
- */
 export function is_door_blocked_by_npc(actor: XR_game_object, object: XR_game_object): boolean {
   return object.is_door_blocked_by_npc();
 }
@@ -2063,18 +1797,4 @@ export function is_door_blocked_by_npc(actor: XR_game_object, object: XR_game_ob
  */
 export function has_active_tutorial(): boolean {
   return game.has_active_tutorial();
-}
-
-/**
- * todo;
- */
-export function wealthy_functor(): boolean {
-  return AchievementsManager.getInstance().checkAchievedWealthy();
-}
-
-/**
- * todo;
- */
-export function information_dealer_functor(): boolean {
-  return AchievementsManager.getInstance().checkAchievedInformationDealer();
 }
