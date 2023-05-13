@@ -6,7 +6,6 @@ import { registerExternals } from "@/engine/scripts/register/externals_registrat
 describe("'extrnals_registrator' entry point", () => {
   it("'registerExternals' should correctly register globals and mark as called", () => {
     expect(getExtern("areExternalsRegistered")).toBeFalsy();
-
     registerExternals();
 
     expect(getExtern("areExternalsRegistered")).toBeTruthy();

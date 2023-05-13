@@ -1,8 +1,7 @@
-/* eslint @typescript-eslint/explicit-function-return-type: "error" */
-
 import { XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { extern, getExtern } from "@/engine/core/utils/binding";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
@@ -22,21 +21,21 @@ import { helmets } from "@/engine/lib/constants/items/helmets";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { LuaArray, TCount } from "@/engine/lib/types";
+import { AnyCallable, LuaArray, TCount } from "@/engine/lib/types";
 
 const log: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
-export function pri_b301_zulus_reward(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+extern("dialogs_pripyat.pri_b301_zulus_reward", (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_pkm_zulus);
-}
+});
 
 /**
  * todo;
  */
-export function pri_a17_reward(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+extern("dialogs_pripyat.pri_a17_reward", (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
   if (hasAlifeInfo(infoPortions.pri_a17_reward_well)) {
     giveMoneyToActor(7500);
   } else if (hasAlifeInfo(infoPortions.pri_a17_reward_norm)) {
@@ -44,101 +43,131 @@ export function pri_a17_reward(firstSpeaker: XR_game_object, secondSpeaker: XR_g
   } else if (hasAlifeInfo(infoPortions.pri_a17_reward_bad)) {
     giveMoneyToActor(3000);
   }
-}
+});
 
 /**
  * todo;
  */
-export function actor_has_pri_a17_gauss_rifle(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
-  return registry.actor.object("pri_a17_gauss_rifle") !== null;
-}
-
-/**
- * todo;
- */
-export function actor_hasnt_pri_a17_gauss_rifle(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
-  return !actor_has_pri_a17_gauss_rifle(firstSpeaker, secondSpeaker);
-}
-
-/**
- * todo;
- */
-export function transfer_artifact_af_baloon(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_baloon);
-}
-
-/**
- * todo;
- */
-export function pay_cost_to_guide_to_zaton(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  if (hasAlifeInfo(infoPortions.zat_b215_gave_maps)) {
-    transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 1000);
-  } else {
-    transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 3000);
+extern(
+  "dialogs_pripyat.actor_has_pri_a17_gauss_rifle",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean => {
+    return registry.actor.object("pri_a17_gauss_rifle") !== null;
   }
-}
+);
 
 /**
  * todo;
  */
-export function jup_b43_actor_has_10000_money(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
-  if (hasAlifeInfo(infoPortions.zat_b215_gave_maps)) {
-    return registry.actor.money() >= 3000;
+extern(
+  "dialogs_pripyat.actor_hasnt_pri_a17_gauss_rifle",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean => {
+    return !getExtern<AnyCallable>("actor_has_pri_a17_gauss_rifle", getExtern("dialogs_pripyat"))(
+      firstSpeaker,
+      secondSpeaker
+    );
   }
-
-  return registry.actor.money() >= 5000;
-}
+);
 
 /**
  * todo;
  */
-export function jup_b43_actor_do_not_has_10000_money(
-  firstSpeaker: XR_game_object,
-  secondSpeaker: XR_game_object
-): boolean {
-  return !jup_b43_actor_has_10000_money(firstSpeaker, secondSpeaker);
-}
+extern(
+  "dialogs_pripyat.transfer_artifact_af_baloon",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_baloon);
+  }
+);
 
 /**
  * todo;
  */
-export function pay_cost_to_guide_to_jupiter(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 7000);
-}
+extern(
+  "dialogs_pripyat.pay_cost_to_guide_to_zaton",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
+    if (hasAlifeInfo(infoPortions.zat_b215_gave_maps)) {
+      transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 1000);
+    } else {
+      transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 3000);
+    }
+  }
+);
 
 /**
  * todo;
  */
-export function jup_b43_actor_has_7000_money(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
-  return registry.actor.money() >= 7000;
-}
+extern(
+  "dialogs_pripyat.jup_b43_actor_has_10000_money",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean => {
+    if (hasAlifeInfo(infoPortions.zat_b215_gave_maps)) {
+      return registry.actor.money() >= 3000;
+    }
+
+    return registry.actor.money() >= 5000;
+  }
+);
 
 /**
  * todo;
  */
-export function jup_b43_actor_do_not_has_7000_money(
-  firstSpeaker: XR_game_object,
-  secondSpeaker: XR_game_object
-): boolean {
-  return registry.actor.money() < 7000;
-}
+extern(
+  "dialogs_pripyat.jup_b43_actor_do_not_has_10000_money",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean => {
+    return !getExtern<AnyCallable>("jup_b43_actor_has_10000_money", getExtern("dialogs_pripyat"))(
+      firstSpeaker,
+      secondSpeaker
+    );
+  }
+);
 
 /**
  * todo;
  */
-export function pri_b35_transfer_svd(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
+extern(
+  "dialogs_pripyat.pay_cost_to_guide_to_jupiter",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
+    transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 7000);
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
+  "dialogs_pripyat.jup_b43_actor_has_7000_money",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean => {
+    return registry.actor.money() >= 7000;
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
+  "dialogs_pripyat.jup_b43_actor_do_not_has_7000_money",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean => {
+    return registry.actor.money() < 7000;
+  }
+);
+
+/**
+ * todo;
+ */
+extern("dialogs_pripyat.pri_b35_transfer_svd", (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_svd);
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo["ammo_7.62x54_7h1"]);
-}
+});
 
 /**
  * todo;
  */
-export function pri_b35_give_actor_reward(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  const amount = hasAlifeInfo(infoPortions.pri_b35_secondary) ? 3 : 1;
+extern(
+  "dialogs_pripyat.pri_b35_give_actor_reward",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
+    const amount = hasAlifeInfo(infoPortions.pri_b35_secondary) ? 3 : 1;
 
-  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo["ammo_7.62x54_7h1"], amount);
-}
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo["ammo_7.62x54_7h1"], amount);
+  }
+);
 
 /**
  * todo;
@@ -167,25 +196,28 @@ const medicItemsTable = {
 /**
  * todo;
  */
-export function pri_a25_medic_give_kit(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  let kit = "basic";
+extern(
+  "dialogs_pripyat.pri_a25_medic_give_kit",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
+    let kit = "basic";
 
-  if (hasAlifeInfo(infoPortions.pri_a25_actor_needs_medikit_advanced_supply)) {
-    kit = "advanced";
-  } else if (hasAlifeInfo(infoPortions.pri_a25_actor_needs_medikit_elite_supply)) {
-    kit = "elite";
-  }
+    if (hasAlifeInfo(infoPortions.pri_a25_actor_needs_medikit_advanced_supply)) {
+      kit = "advanced";
+    } else if (hasAlifeInfo(infoPortions.pri_a25_actor_needs_medikit_elite_supply)) {
+      kit = "elite";
+    }
 
-  for (const [key, itemsList] of medicItemsTable) {
-    if (key === kit) {
-      for (const [section, count] of itemsList) {
-        transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), section, count);
+    for (const [key, itemsList] of medicItemsTable) {
+      if (key === kit) {
+        for (const [section, count] of itemsList) {
+          transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), section, count);
+        }
+
+        disableInfo(key);
       }
-
-      disableInfo(key);
     }
   }
-}
+);
 
 const suppliesList = {
   ["supply_ammo_1"]: { ["ammo_9x18_fmj"]: 2, ["ammo_9x18_pmm"]: 1 },
@@ -202,30 +234,36 @@ const suppliesList = {
   ["supply_grenade_3"]: { ["ammo_m209"]: 3 },
 } as unknown as LuaTable<TInfoPortion, LuaTable<TAmmoItem, TCount>>;
 
-export function pri_a22_army_signaller_supply(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  for (const [name, itemsList] of suppliesList) {
-    if (hasAlifeInfo(name)) {
-      for (const [section, amount] of itemsList) {
-        transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), section, amount);
-      }
+extern(
+  "dialogs_pripyat.pri_a22_army_signaller_supply",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
+    for (const [name, itemsList] of suppliesList) {
+      if (hasAlifeInfo(name)) {
+        for (const [section, amount] of itemsList) {
+          transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), section, amount);
+        }
 
-      disableInfo(name);
+        disableInfo(name);
+      }
     }
   }
-}
+);
 
 /**
  * todo;
  */
-export function pri_a22_give_actor_outfit(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), outfits.military_outfit);
-  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), helmets.helm_battle);
-}
+extern(
+  "dialogs_pripyat.pri_a22_give_actor_outfit",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), outfits.military_outfit);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), helmets.helm_battle);
+  }
+);
 
 /**
  * todo;
  */
-export function pri_b305_actor_has_strelok_notes(): boolean {
+extern("dialogs_pripyat.pri_b305_actor_has_strelok_notes", (): boolean => {
   const actor: XR_game_object = registry.actor;
 
   return (
@@ -233,12 +271,12 @@ export function pri_b305_actor_has_strelok_notes(): boolean {
     actor.object(quest_items.jup_b10_notes_02) !== null ||
     actor.object(quest_items.jup_b10_notes_03) !== null
   );
-}
+});
 
 /**
  * todo;
  */
-export function pri_b305_actor_has_strelok_note_1(): boolean {
+extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_1", (): boolean => {
   const actor: XR_game_object = registry.actor;
 
   return (
@@ -246,12 +284,12 @@ export function pri_b305_actor_has_strelok_note_1(): boolean {
     actor.object(quest_items.jup_b10_notes_02) === null &&
     actor.object(quest_items.jup_b10_notes_03) === null
   );
-}
+});
 
 /**
  * todo;
  */
-export function pri_b305_actor_has_strelok_note_2(): boolean {
+extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_2", (): boolean => {
   const actor: XR_game_object = registry.actor;
 
   return (
@@ -259,12 +297,12 @@ export function pri_b305_actor_has_strelok_note_2(): boolean {
     actor.object(quest_items.jup_b10_notes_01) === null &&
     actor.object(quest_items.jup_b10_notes_03) === null
   );
-}
+});
 
 /**
  * todo;
  */
-export function pri_b305_actor_has_strelok_note_3(): boolean {
+extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_3", (): boolean => {
   const actor: XR_game_object = registry.actor;
 
   return (
@@ -272,12 +310,12 @@ export function pri_b305_actor_has_strelok_note_3(): boolean {
     actor.object(quest_items.jup_b10_notes_01) === null &&
     actor.object(quest_items.jup_b10_notes_02) === null
   );
-}
+});
 
 /**
  * todo;
  */
-export function pri_b305_actor_has_strelok_note_12(): boolean {
+extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_12", (): boolean => {
   const actor: XR_game_object = registry.actor;
 
   return (
@@ -285,12 +323,12 @@ export function pri_b305_actor_has_strelok_note_12(): boolean {
     actor.object(quest_items.jup_b10_notes_02) !== null &&
     actor.object(quest_items.jup_b10_notes_03) === null
   );
-}
+});
 
 /**
  * todo;
  */
-export function pri_b305_actor_has_strelok_note_13(): boolean {
+extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_13", (): boolean => {
   const actor: XR_game_object = registry.actor;
 
   return (
@@ -298,12 +336,12 @@ export function pri_b305_actor_has_strelok_note_13(): boolean {
     actor.object(quest_items.jup_b10_notes_03) !== null &&
     actor.object(quest_items.jup_b10_notes_02) === null
   );
-}
+});
 
 /**
  * todo;
  */
-export function pri_b305_actor_has_strelok_note_23(): boolean {
+extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_23", (): boolean => {
   const actor: XR_game_object = registry.actor;
 
   return (
@@ -311,12 +349,12 @@ export function pri_b305_actor_has_strelok_note_23(): boolean {
     actor.object(quest_items.jup_b10_notes_03) !== null &&
     actor.object(quest_items.jup_b10_notes_01) === null
   );
-}
+});
 
 /**
  * todo;
  */
-export function pri_b305_actor_has_strelok_note_all(): boolean {
+extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_all", (): boolean => {
   const actor: XR_game_object = registry.actor;
 
   return (
@@ -324,47 +362,53 @@ export function pri_b305_actor_has_strelok_note_all(): boolean {
     actor.object(quest_items.jup_b10_notes_02) !== null &&
     actor.object(quest_items.jup_b10_notes_03) !== null
   );
-}
+});
 
 /**
  * todo;
  */
-export function pri_b305_sell_strelok_notes(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void {
-  const items_table = [
-    quest_items.jup_b10_notes_01,
-    quest_items.jup_b10_notes_02,
-    quest_items.jup_b10_notes_03,
-  ] as unknown as LuaArray<string>;
-  const actor: XR_game_object = registry.actor;
+extern(
+  "dialogs_pripyat.pri_b305_sell_strelok_notes",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
+    const items_table = [
+      quest_items.jup_b10_notes_01,
+      quest_items.jup_b10_notes_02,
+      quest_items.jup_b10_notes_03,
+    ] as unknown as LuaArray<string>;
+    const actor: XR_game_object = registry.actor;
 
-  let amount: number = 0;
+    let amount: number = 0;
 
-  for (const [k, v] of items_table) {
-    if (actor.object(v) !== null) {
-      transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), v);
-      amount = amount + 1;
+    for (const [k, v] of items_table) {
+      if (actor.object(v) !== null) {
+        transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), v);
+        amount = amount + 1;
+      }
+    }
+
+    if (actor.object(weapons.wpn_gauss) !== null) {
+      transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo.ammo_gauss, 2);
+    } else {
+      transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_scientic, 3);
+    }
+
+    if (amount > 1) {
+      transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_fire);
+    }
+
+    if (amount > 2) {
+      transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_glass);
+      giveInfo(infoPortions.pri_b305_all_strelok_notes_given);
     }
   }
-
-  if (actor.object(weapons.wpn_gauss) !== null) {
-    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo.ammo_gauss, 2);
-  } else {
-    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_scientic, 3);
-  }
-
-  if (amount > 1) {
-    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_fire);
-  }
-
-  if (amount > 2) {
-    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_glass);
-    giveInfo(infoPortions.pri_b305_all_strelok_notes_given);
-  }
-}
+);
 
 /**
  * todo;
  */
-export function pri_a17_sokolov_is_not_at_base(firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean {
-  return hasAlifeInfo(infoPortions.pri_a15_sokolov_out) && hasAlifeInfo(infoPortions.pas_b400_sokolov_dead);
-}
+extern(
+  "dialogs_pripyat.pri_a17_sokolov_is_not_at_base",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): boolean => {
+    return hasAlifeInfo(infoPortions.pri_a15_sokolov_out) && hasAlifeInfo(infoPortions.pas_b400_sokolov_dead);
+  }
+);

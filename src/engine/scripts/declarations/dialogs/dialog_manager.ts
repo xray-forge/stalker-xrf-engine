@@ -1,6 +1,5 @@
 import { game, XR_CPhraseDialog, XR_game_object } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import {
   DialogManager,
   IPhrasesDescriptor,
