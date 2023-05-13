@@ -24,5 +24,6 @@ describe("'quests' conditions declaration", () => {
     checkBinding("zat_b7_is_late_attack_time");
     checkBinding("jup_b202_inventory_box_empty");
     checkBinding("jup_b16_is_zone_active");
+    checkBinding("is_jup_a12_mercs_time");
   });
 });

@@ -199,3 +199,73 @@ extern("xr_conditions.actor_on_level", (actor: XR_game_object, npc: XR_game_obje
 
   return false;
 });
+
+/**
+ * todo;
+ */
+extern("xr_conditions.talking", (actor: XR_game_object): boolean => {
+  return actor.is_talking();
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.actor_nomove_nowpn", (): boolean => {
+  return !isWeapon(registry.actor.active_item()) || registry.actor.is_talking();
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.actor_has_nimble_weapon", (actor: XR_game_object, npc: XR_game_object): boolean => {
+  const need_item: LuaTable<string, boolean> = {
+    wpn_groza_nimble: true,
+    wpn_desert_eagle_nimble: true,
+    wpn_fn2000_nimble: true,
+    wpn_g36_nimble: true,
+    wpn_protecta_nimble: true,
+    wpn_mp5_nimble: true,
+    wpn_sig220_nimble: true,
+    wpn_spas12_nimble: true,
+    wpn_usp_nimble: true,
+    wpn_vintorez_nimble: true,
+    wpn_svu_nimble: true,
+    wpn_svd_nimble: true,
+  } as unknown as LuaTable<string, boolean>;
+
+  for (const [k, v] of need_item) {
+    if (actor.object(k) !== null) {
+      return true;
+    }
+  }
+
+  return false;
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.actor_has_active_nimble_weapon", (actor: XR_game_object, npc: XR_game_object): boolean => {
+  const need_item: Record<string, boolean> = {
+    wpn_groza_nimble: true,
+    wpn_desert_eagle_nimble: true,
+    wpn_fn2000_nimble: true,
+    wpn_g36_nimble: true,
+    wpn_protecta_nimble: true,
+    wpn_mp5_nimble: true,
+    wpn_sig220_nimble: true,
+    wpn_spas12_nimble: true,
+    wpn_usp_nimble: true,
+    wpn_vintorez_nimble: true,
+    wpn_svu_nimble: true,
+    wpn_svd_nimble: true,
+  };
+
+  if (actor.item_in_slot(2) !== null && need_item[actor.item_in_slot(2)!.section()] === true) {
+    return true;
+  } else if (actor.item_in_slot(3) !== null && need_item[actor.item_in_slot(3)!.section()] === true) {
+    return true;
+  }
+
+  return false;
+});

@@ -327,3 +327,10 @@ extern("xr_conditions.jup_b202_inventory_box_empty", (actor: XR_game_object, npc
 extern("xr_conditions.jup_b16_is_zone_active", (actor: XR_game_object, npc: XR_game_object): boolean => {
   return hasAlifeInfo(npc.name() as TInfoPortion);
 });
+
+/**
+ * todo;
+ */
+extern("xr_conditions.is_jup_a12_mercs_time", (): boolean => {
+  return registry.actor !== null && level.get_time_hours() >= 1 && level.get_time_hours() < 5;
+});

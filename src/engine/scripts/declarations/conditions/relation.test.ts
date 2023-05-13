@@ -20,5 +20,9 @@ describe("'relation' conditions declaration", () => {
     checkBinding("is_squad_enemy_to_actor");
     checkBinding("is_squad_neutral_to_actor");
     checkBinding("fighting_actor");
+    checkBinding("actor_enemy");
+    checkBinding("actor_friend");
+    checkBinding("actor_neutral");
+    checkBinding("npc_community");
   });
 });

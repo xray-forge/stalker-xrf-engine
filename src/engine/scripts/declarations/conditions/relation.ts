@@ -1,6 +1,7 @@
-import { XR_game_object } from "xray16";
+import { game_object, XR_cse_alife_human_abstract, XR_game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import {
@@ -17,7 +18,7 @@ import {
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { relations } from "@/engine/lib/constants/relations";
-import { AnyCallable, Optional } from "@/engine/lib/types";
+import { AnyCallable, EScheme, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -146,3 +147,52 @@ extern("xr_conditions.fighting_actor", (actor: XR_game_object, npc: XR_game_obje
 
   return enemy !== null && enemy.id() === actor.id();
 });
+
+/**
+ * todo;
+ */
+extern("xr_conditions.actor_enemy", (actor: XR_game_object, npc: XR_game_object): boolean => {
+  const state: Optional<ISchemeDeathState> = registry.objects.get(npc.id())[EScheme.DEATH] as ISchemeDeathState;
+
+  return npc.relation(actor) === game_object.enemy || state?.killer === actor.id();
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.actor_friend", (actor: XR_game_object, npc: XR_game_object): boolean => {
+  return npc.relation(actor) === game_object.friend;
+});
+
+/**
+ * todo;
+ */
+extern("xr_conditions.actor_neutral", (actor: XR_game_object, npc: XR_game_object): boolean => {
+  return npc.relation(actor) === game_object.neutral;
+});
+
+/**
+ * todo;
+ */
+extern(
+  "xr_conditions.npc_community",
+  (actor: XR_game_object, npc: XR_game_object | XR_cse_alife_human_abstract, params: [TCommunity]): boolean => {
+    if (params[0] === null) {
+      abort("Wrong number of params in npc_community");
+    }
+
+    let npc_obj: Optional<XR_game_object> = null;
+
+    if (type(npc.id) !== "function") {
+      npc_obj = registry.objects.get((npc as XR_cse_alife_human_abstract).id)?.object as XR_game_object;
+
+      if (npc_obj === null) {
+        return (npc as XR_cse_alife_human_abstract).community() === params[0];
+      }
+    } else {
+      npc_obj = npc as XR_game_object;
+    }
+
+    return getCharacterCommunity(npc_obj) === params[0];
+  }
+);

@@ -29,5 +29,9 @@ describe("'actor' conditions declaration", () => {
     checkBinding("actor_has_weapon");
     checkBinding("actor_active_detector");
     checkBinding("actor_on_level");
+    checkBinding("talking");
+    checkBinding("actor_nomove_nowpn");
+    checkBinding("actor_has_nimble_weapon");
+    checkBinding("actor_has_active_nimble_weapon");
   });
 });
