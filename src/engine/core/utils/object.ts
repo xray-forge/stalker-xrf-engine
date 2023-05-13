@@ -564,3 +564,12 @@ export function scriptCaptureObject(
 export function isObjectScriptCaptured(object: XR_game_object): boolean {
   return object.get_script() !== null;
 }
+
+/**
+ * todo;
+ */
+export function isObjectInSmart(object: XR_game_object, smartTerrainName: TName): boolean {
+  const smartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
+
+  return smartTerrain ? smartTerrain.name() === smartTerrainName : false;
+}

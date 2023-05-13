@@ -1,0 +1,104 @@
+import { describe, it } from "@jest/globals";
+
+import { AnyObject, TName } from "@/engine/lib/types";
+
+describe("'dialogs' external callbacks", () => {
+  const checkBinding = (name: TName, container: AnyObject = global) => {
+    if (!container["dialogs"][name]) {
+      throw new Error(`Expected '${name}' callback to be declared.`);
+    }
+  };
+
+  it("should correctly inject dialog functors", () => {
+    require("@/engine/scripts/declarations/dialogs/dialogs");
+
+    checkBinding("break_dialog");
+    checkBinding("update_npc_dialog");
+    checkBinding("is_wounded");
+    checkBinding("is_not_wounded");
+    checkBinding("actor_have_medkit");
+    checkBinding("actor_hasnt_medkit");
+    checkBinding("transfer_medkit");
+    checkBinding("actor_have_bandage");
+    checkBinding("transfer_bandage");
+    checkBinding("kill_yourself");
+    checkBinding("allow_wounded_dialog");
+    checkBinding("level_zaton");
+    checkBinding("level_jupiter");
+    checkBinding("level_pripyat");
+    checkBinding("not_level_zaton");
+    checkBinding("not_level_jupiter");
+    checkBinding("not_level_pripyat");
+    checkBinding("is_friend");
+    checkBinding("is_not_friend");
+    checkBinding("become_friend");
+    checkBinding("npc_stalker");
+    checkBinding("npc_bandit");
+    checkBinding("npc_freedom");
+    checkBinding("npc_dolg");
+    checkBinding("npc_army");
+    checkBinding("actor_in_dolg");
+    checkBinding("actor_not_in_dolg");
+    checkBinding("actor_in_freedom");
+    checkBinding("actor_not_in_freedom");
+    checkBinding("actor_in_bandit");
+    checkBinding("actor_not_in_bandit");
+    checkBinding("actor_in_stalker");
+    checkBinding("actor_not_in_stalker");
+    checkBinding("has_2000_money");
+    checkBinding("transfer_any_pistol_from_actor");
+    checkBinding("have_actor_any_pistol");
+    checkBinding("disable_ui");
+    checkBinding("disable_ui_only");
+    checkBinding("is_surge_running");
+    checkBinding("is_surge_not_running");
+    checkBinding("quest_dialog_heli_precond");
+    checkBinding("quest_dialog_military_precond");
+    checkBinding("quest_dialog_squad_precond");
+    checkBinding("quest_dialog_toolkits_precond");
+    checkBinding("monolith_leader_is_alive");
+    checkBinding("monolith_leader_dead_or_hired");
+    checkBinding("monolith_leader_dead_or_dolg");
+    checkBinding("squad_not_in_smart_b101");
+    checkBinding("squad_not_in_smart_b103");
+    checkBinding("squad_not_in_smart_b104");
+    checkBinding("squad_not_in_smart_b213");
+    checkBinding("squad_not_in_smart_b214");
+    checkBinding("squad_not_in_smart_b304");
+    checkBinding("squad_not_in_smart_b303");
+    checkBinding("squad_not_in_smart_b40");
+    checkBinding("squad_not_in_smart_b18");
+    checkBinding("squad_not_in_smart_b6");
+    checkBinding("squad_not_in_smart_b205");
+    checkBinding("squad_not_in_smart_b47");
+    checkBinding("squad_in_smart_zat_base");
+    checkBinding("squad_in_smart_jup_b25");
+    checkBinding("spartak_is_alive");
+    checkBinding("tesak_is_alive");
+    checkBinding("gonta_is_alive");
+    checkBinding("mityay_is_alive");
+    checkBinding("dolg_can_work_for_sci");
+    checkBinding("dolg_can_not_work_for_sci");
+    checkBinding("freedom_can_work_for_sci");
+    checkBinding("freedom_can_not_work_for_sci");
+    checkBinding("monolith_leader_dead_or_freedom");
+    checkBinding("medic_magic_potion");
+    checkBinding("actor_needs_bless");
+    checkBinding("actor_is_damn_healthy");
+    checkBinding("leave_zone_save");
+    checkBinding("save_uni_travel_zat_to_jup");
+    checkBinding("save_uni_travel_zat_to_pri");
+    checkBinding("save_uni_travel_jup_to_zat");
+    checkBinding("save_uni_travel_jup_to_pri");
+    checkBinding("save_uni_travel_pri_to_zat");
+    checkBinding("save_uni_travel_pri_to_jup");
+    checkBinding("save_jup_b218_travel_jup_to_pas");
+    checkBinding("save_pri_a17_hospital_start");
+    checkBinding("save_jup_a10_gonna_return_debt");
+    checkBinding("save_jup_b6_arrived_to_fen");
+    checkBinding("save_jup_b6_arrived_to_ash_heap");
+    checkBinding("save_jup_b19_arrived_to_kopachy");
+    checkBinding("save_zat_b106_arrived_to_chimera_lair");
+    checkBinding("save_zat_b5_met_with_others");
+  });
+});
