@@ -14,7 +14,7 @@ import {
 } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, resetObject } from "@/engine/core/database";
-import { registerDoorObject, unregisterDoorObject } from "@/engine/core/database/doors";
+import { registerDoor, unregisterDoor } from "@/engine/core/database/doors";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
@@ -28,7 +28,8 @@ const ANIMATED_OBJECT_SECT: string = "animated_object";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo
+ * todo;
+ * todo: Rename to animated door?
  */
 @LuabindClass()
 export class LabX8DoorBinder extends object_binder {
@@ -134,23 +135,17 @@ export class LabX8DoorBinder extends object_binder {
     this.start_delay = readIniNumber(ini, ANIMATED_OBJECT_SECT, "start_delay", false, 0);
   }
 
-  /**
-   * todo: Description.
-   */
   public override reinit(): void {
     super.reinit();
     resetObject(this.object);
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_spawn(object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
 
-    registerDoorObject(this.object, this);
+    registerDoor(this);
 
     this.object.get_physics_object().stop_anim();
     this.object.get_physics_object().anim_time_set(0);
@@ -160,9 +155,6 @@ export class LabX8DoorBinder extends object_binder {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_destroy(): void {
     if (this.idle_snd) {
       this.idle_snd.stop();
@@ -177,13 +169,10 @@ export class LabX8DoorBinder extends object_binder {
     }
 
     this.object.set_callback(callback.script_animation, null);
-    unregisterDoorObject(this.object);
+    unregisterDoor(this);
     super.net_destroy();
   }
 
-  /**
-   * todo: Description.
-   */
   public override update(delta: number): void {
     super.update(delta);
 
@@ -218,6 +207,35 @@ export class LabX8DoorBinder extends object_binder {
     } else {
       this.object.set_tip_text("");
     }
+  }
+
+  public override net_save_relevant(): boolean {
+    return true;
+  }
+
+  public override save(packet: XR_net_packet): void {
+    openSaveMarker(packet, LabX8DoorBinder.__name);
+
+    super.save(packet);
+    saveObjectLogic(this.object, packet);
+    packet.w_bool(this.is_idle);
+    packet.w_bool(this.is_play_fwd);
+    packet.w_float(this.object.get_physics_object().anim_time_get());
+
+    closeSaveMarker(packet, LabX8DoorBinder.__name);
+  }
+
+  public override load(reader: XR_reader): void {
+    openLoadMarker(reader, LabX8DoorBinder.__name);
+
+    super.load(reader);
+    loadObjectLogic(this.object, reader);
+    this.is_idle = reader.r_bool();
+    this.is_play_fwd = reader.r_bool();
+    this.anim_time = reader.r_float();
+    this.loaded = true;
+
+    closeLoadMarker(reader, LabX8DoorBinder.__name);
   }
 
   /**
@@ -311,43 +329,5 @@ export class LabX8DoorBinder extends object_binder {
    */
   public use_callback(object: XR_game_object): void {
     pickSectionFromCondList(registry.actor, object, this.on_use);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override net_save_relevant(): boolean {
-    return true;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override save(packet: XR_net_packet): void {
-    openSaveMarker(packet, LabX8DoorBinder.__name);
-
-    super.save(packet);
-    saveObjectLogic(this.object, packet);
-    packet.w_bool(this.is_idle);
-    packet.w_bool(this.is_play_fwd);
-    packet.w_float(this.object.get_physics_object().anim_time_get());
-
-    closeSaveMarker(packet, LabX8DoorBinder.__name);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override load(reader: XR_reader): void {
-    openLoadMarker(reader, LabX8DoorBinder.__name);
-
-    super.load(reader);
-    loadObjectLogic(this.object, reader);
-    this.is_idle = reader.r_bool();
-    this.is_play_fwd = reader.r_bool();
-    this.anim_time = reader.r_float();
-    this.loaded = true;
-
-    closeLoadMarker(reader, LabX8DoorBinder.__name);
   }
 }

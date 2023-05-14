@@ -60,7 +60,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
     logger.info("Light zones registered:", Object.keys(registry.lightZones).length);
     logger.info("Smart terrains registered:", Object.keys(registry.smartTerrains).length);
     logger.info("Smart covers registered:", Object.keys(registry.smartCovers).length);
-    logger.info("Animated doors registered:", Object.keys(registry.animatedDoors).length);
+    logger.info("Animated doors registered:", Object.keys(registry.doors).length);
     logger.info("Save markers registered:", Object.keys(registry.saveMarkers).length);
     logger.info("Signal lights registered:", Object.keys(registry.signalLights).length);
     logger.info("Spawned vertexes registered:", Object.keys(registry.spawnedVertexes).length);

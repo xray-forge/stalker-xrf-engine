@@ -55,7 +55,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 extern("xr_effects.anim_obj_forward", (actor: XR_game_object, npc: XR_game_object, p: LuaArray<string>): void => {
   for (const [k, v] of p) {
     if (v !== null) {
-      registry.animatedDoors.get(v).anim_forward();
+      registry.doors.get(v).anim_forward();
     }
   }
 });
@@ -65,7 +65,7 @@ extern("xr_effects.anim_obj_forward", (actor: XR_game_object, npc: XR_game_objec
  */
 extern("xr_effects.anim_obj_backward", (actor: XR_game_object, npc: XR_game_object, p: [string]): void => {
   if (p[0] !== null) {
-    registry.animatedDoors.get(p[0]).anim_backward();
+    registry.doors.get(p[0]).anim_backward();
   }
 });
 
@@ -74,7 +74,7 @@ extern("xr_effects.anim_obj_backward", (actor: XR_game_object, npc: XR_game_obje
  */
 extern("xr_effects.anim_obj_stop", (actor: XR_game_object, npc: XR_game_object, p: [string]): void => {
   if (p[0] !== null) {
-    registry.animatedDoors.get(p[0]).anim_stop();
+    registry.doors.get(p[0]).anim_stop();
   }
 });
 

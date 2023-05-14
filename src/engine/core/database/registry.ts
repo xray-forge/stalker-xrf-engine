@@ -165,9 +165,10 @@ export const registry = {
    */
   smartCovers: new LuaTable<TName, SmartCover>(),
   /**
-   * List of active scripted animated doors.
+   * List of active scripted doors.
+   * Mainly used for scripted control of state and animation.
    */
-  animatedDoors: new LuaTable<TName, LabX8DoorBinder>(),
+  doors: new LuaTable<TName, LabX8DoorBinder>(),
   /**
    * List of save markers.
    */
