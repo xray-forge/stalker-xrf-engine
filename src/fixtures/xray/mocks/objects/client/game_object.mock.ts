@@ -2,6 +2,7 @@ import { jest } from "@jest/globals";
 import { TXR_callback, TXR_class_id, XR_action_planner, XR_CGameTask, XR_game_object } from "xray16";
 
 import { AnyCallable, AnyContextualCallable, AnyObject, PartialRecord } from "@/engine/lib/types";
+import { MockMove } from "@/fixtures/xray";
 import { MockActionPlanner, mockDefaultActionPlanner } from "@/fixtures/xray/mocks/actions/action_planner.mock";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
@@ -41,6 +42,7 @@ export function mockClientGameObject({
   special_danger_move = jest.fn(() => true),
   transfer_item,
   transfer_money = jest.fn(),
+  weapon_unstrapped = jest.fn(() => false),
   ...rest
 }: Partial<
   XR_game_object & {
@@ -135,6 +137,11 @@ export function mockClientGameObject({
     set_mental_state: rest.set_mental_state || jest.fn(),
     spawn_ini,
     special_danger_move,
+    target_body_state:
+      rest.target_body_state ||
+      jest.fn(() => {
+        return MockMove.standing;
+      }),
     transfer_money,
     transfer_item:
       transfer_item ||
@@ -145,5 +152,6 @@ export function mockClientGameObject({
           }
         }
       }),
+    weapon_unstrapped,
   } as unknown as XR_game_object;
 }
