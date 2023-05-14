@@ -6,6 +6,7 @@ import {
   MockAnim,
   MockLook,
   MockMove,
+  MockPropertyStorage,
   MockWorldProperty,
   MockWorldState,
 } from "@/fixtures/xray/mocks/actions";
@@ -136,6 +137,7 @@ export function mockXRay16({
   move = MockMove,
   object_binder = MockObjectBinder,
   property_evaluator = MockPropertyEvaluator,
+  property_storage = MockPropertyStorage,
   relation_registry = mockRelationRegistryInterface,
   sound_object = MockSoundObject,
   stalker_ids = mockStalkerIds,
@@ -211,6 +213,7 @@ export function mockXRay16({
     move,
     object_binder,
     property_evaluator,
+    property_storage,
     relation_registry,
     sound_object,
     stalker_ids,
