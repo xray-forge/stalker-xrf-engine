@@ -18,8 +18,15 @@ export function registerHelicopter(helicopter: HelicopterBinder): IRegistryObjec
  * Unregister helicopter binder object.
  */
 export function unregisterHelicopter(helicopter: HelicopterBinder): void {
-  unregisterObject(helicopter.object);
-  registry.helicopter.storage.delete(helicopter.object.id());
+  return unregisterHelicopterObject(helicopter.object);
+}
+
+/**
+ * Unregister helicopter object.
+ */
+export function unregisterHelicopterObject(object: XR_game_object): void {
+  unregisterObject(object);
+  registry.helicopter.storage.delete(object.id());
 }
 
 /**

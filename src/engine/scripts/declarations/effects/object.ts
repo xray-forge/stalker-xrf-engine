@@ -20,7 +20,7 @@ import {
   IRegistryObjectState,
   registry,
   SYSTEM_INI,
-  unregisterHelicopter,
+  unregisterHelicopterObject,
 } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain, Squad, updateStalkerLogic } from "@/engine/core/objects";
@@ -797,9 +797,9 @@ extern("xr_effects.heli_start_flame", (actor: XR_game_object, npc: XR_game_objec
 /**
  * todo;
  */
-extern("xr_effects.heli_die", (actor: XR_game_object, npc: XR_game_object): void => {
-  npc.get_helicopter().Die();
-  unregisterHelicopter(npc);
+extern("xr_effects.heli_die", (actor: XR_game_object, object: XR_game_object): void => {
+  object.get_helicopter().Die();
+  unregisterHelicopterObject(object);
 });
 
 /**
