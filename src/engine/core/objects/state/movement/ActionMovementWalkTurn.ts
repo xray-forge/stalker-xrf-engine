@@ -1,6 +1,5 @@
 import { action_base, LuabindClass, move } from "xray16";
 
-import { turn } from "@/engine/core/objects/state/direction/StateManagerDirection";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
@@ -23,7 +22,8 @@ export class ActionMovementWalkTurn extends action_base {
    */
   public override initialize(): void {
     super.initialize();
+
     this.object.set_movement_type(move.walk);
-    turn(this.object, this.stateManager);
+    this.stateManager.turn();
   }
 }

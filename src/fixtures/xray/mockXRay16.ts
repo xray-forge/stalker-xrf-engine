@@ -7,6 +7,7 @@ import {
   MockLook,
   MockMove,
   MockPropertyStorage,
+  MockSightParameters,
   MockWorldProperty,
   MockWorldState,
 } from "@/fixtures/xray/mocks/actions";
@@ -140,6 +141,7 @@ export function mockXRay16({
   property_storage = MockPropertyStorage,
   relation_registry = mockRelationRegistryInterface,
   sound_object = MockSoundObject,
+  sight_params = MockSightParameters,
   stalker_ids = mockStalkerIds,
   system_ini = () => mockIniFile("system.ini"),
   task = MockTask,
@@ -216,6 +218,7 @@ export function mockXRay16({
     property_storage,
     relation_registry,
     sound_object,
+    sight_params,
     stalker_ids,
     system_ini,
     task,

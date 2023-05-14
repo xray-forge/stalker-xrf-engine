@@ -9,10 +9,6 @@ import {
 } from "xray16";
 
 import { EStalkerState } from "@/engine/core/objects/state";
-import {
-  getLookObjectType,
-  getObjectLookPositionType,
-} from "@/engine/core/objects/state/direction/StateManagerDirection";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areSameVectorsByPrecision } from "@/engine/core/utils/vector";
@@ -46,7 +42,7 @@ export class EvaluatorDirection extends property_evaluator {
       if (
         objectSightType.m_object === null ||
         objectSightType.m_object.id() !== this.stateManager.lookObjectId ||
-        this.stateManager.isObjectPointDirectionLook !== getLookObjectType(this.object, this.stateManager)
+        this.stateManager.isObjectPointDirectionLook !== this.stateManager.getLookObjectType()
       ) {
         return false;
       }
@@ -57,7 +53,7 @@ export class EvaluatorDirection extends property_evaluator {
     }
 
     if (this.stateManager.lookPosition !== null) {
-      if (objectSightType.m_sight_type !== getObjectLookPositionType(this.object, this.stateManager)) {
+      if (objectSightType.m_sight_type !== this.stateManager.getObjectLookPositionType()) {
         return false;
       } else if ((objectSightType.m_sight_type as TXR_SightType) === CSightParams.eSightTypeAnimationDirection) {
         return true;
@@ -65,7 +61,7 @@ export class EvaluatorDirection extends property_evaluator {
 
       const direction: XR_vector = new vector().sub(this.stateManager.lookPosition!, this.object.position());
 
-      if (getLookObjectType(this.object, this.stateManager)) {
+      if (this.stateManager.getLookObjectType()) {
         direction.y = 0;
       }
 
@@ -82,7 +78,7 @@ export class EvaluatorDirection extends property_evaluator {
 
     if (objectSightType.m_object !== null) {
       return false;
-    } else if (objectSightType.m_sight_type !== getObjectLookPositionType(this.object, this.stateManager)) {
+    } else if (objectSightType.m_sight_type !== this.stateManager.getObjectLookPositionType()) {
       return false;
     }
 

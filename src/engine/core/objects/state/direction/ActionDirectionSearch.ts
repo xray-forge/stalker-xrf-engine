@@ -1,6 +1,5 @@
 import { action_base, CSightParams, LuabindClass } from "xray16";
 
-import { getObjectLookPositionType } from "@/engine/core/objects/state/direction/StateManagerDirection";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -28,7 +27,7 @@ export class ActionDirectionSearch extends action_base {
     if (states.get(this.stateManager.targetState).direction === CSightParams.eSightTypeAnimationDirection) {
       this.object.set_sight(CSightParams.eSightTypeAnimationDirection, false, false);
     } else {
-      this.object.set_sight(getObjectLookPositionType(this.object, this.stateManager), null, 0);
+      this.object.set_sight(this.stateManager.getObjectLookPositionType(), null, 0);
     }
   }
 }

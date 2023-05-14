@@ -1,6 +1,5 @@
 import { action_base, CSightParams, level, look, LuabindClass, vector, XR_vector } from "xray16";
 
-import { getLookObjectType, lookAtObject } from "@/engine/core/objects/state/direction/StateManagerDirection";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -40,10 +39,10 @@ export class ActionDirectionTurn extends action_base {
    * Perform directional turn based on state manager parameters.
    */
   public turn(): void {
-    this.stateManager.isObjectPointDirectionLook = getLookObjectType(this.object, this.stateManager);
+    this.stateManager.isObjectPointDirectionLook = this.stateManager.getLookObjectType();
 
     if (this.stateManager.lookObjectId !== null && level.object_by_id(this.stateManager.lookObjectId) !== null) {
-      lookAtObject(this.object, this.stateManager);
+      this.stateManager.lookAtObject();
     } else if (this.stateManager.lookPosition !== null) {
       if (states.get(this.stateManager.targetState).direction) {
         this.object.set_sight(CSightParams.eSightTypeAnimationDirection, false, false);

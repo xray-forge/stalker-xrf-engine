@@ -1,9 +1,21 @@
-import { action_planner, object, time_global, XR_action_planner, XR_game_object, XR_vector } from "xray16";
+import {
+  action_planner,
+  level,
+  look,
+  object,
+  time_global,
+  TXR_look,
+  vector,
+  XR_action_planner,
+  XR_game_object,
+  XR_vector,
+} from "xray16";
 
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import {
   EStalkerState,
   EStateActionId,
+  EStateEvaluatorId,
   EWeaponAnimation,
   ITargetStateDescriptor,
 } from "@/engine/core/objects/state/types";
@@ -44,6 +56,15 @@ export interface ITargetStateDescriptorExtras {
   animationPosition?: Optional<XR_vector>;
   animationDirection?: Optional<XR_vector>;
 }
+
+/**
+ * todo;
+ */
+const LOOK_DIRECTION_STATES: LuaTable<EStalkerState, boolean> = $fromObject({
+  threat_na: true,
+  wait_na: true,
+  guard_na: true,
+} as Record<EStalkerState, boolean>);
 
 /**
  * todo:
@@ -211,6 +232,83 @@ export class StalkerStateManager {
       plannerPreviousActionId = plannerCurrentActionId;
       this.planner.update();
       plannerCurrentActionId = this.planner.current_action_id();
+    }
+  }
+
+  /**
+   * todo;
+   */
+  public lookAtObject(): void {
+    this.isObjectPointDirectionLook = this.getLookObjectType();
+
+    if (this.isObjectPointDirectionLook) {
+      this.object.set_sight(level.object_by_id(this.lookObjectId!)!, true, false, false);
+    } else {
+      this.object.set_sight(level.object_by_id(this.lookObjectId!)!, true, true);
+    }
+  }
+
+  /**
+   * todo;
+   */
+  public getLookObjectType(): boolean {
+    if (LOOK_DIRECTION_STATES.get(this.targetState)) {
+      return true;
+    }
+
+    return states.get(this.targetState).animation !== null;
+  }
+
+  /**
+   * todo;
+   */
+  public getObjectLookPositionType(): TXR_look {
+    if (states.get(this.targetState).direction !== null) {
+      return states.get(this.targetState).direction! as TXR_look;
+    }
+
+    if (!this.planner.evaluator(EStateEvaluatorId.movement_stand).evaluate()) {
+      if (this.lookPosition !== null) {
+        return look.direction;
+      }
+
+      return look.path_dir;
+    }
+
+    if (this.lookPosition !== null) {
+      return look.direction;
+    }
+
+    return look.danger;
+  }
+
+  /**
+   * todo;
+   */
+  public turn(): void {
+    this.isObjectPointDirectionLook = this.getLookObjectType();
+
+    if (this.lookObjectId !== null && level.object_by_id(this.lookObjectId) !== null) {
+      this.lookAtObject();
+    } else if (this.lookPosition !== null) {
+      let direction: XR_vector = new vector().sub(this.lookPosition!, this.object.position());
+
+      if (this.isObjectPointDirectionLook) {
+        direction.y = 0;
+      }
+
+      direction.normalize();
+
+      if (areSameVectors(direction, new vector().set(0, 0, 0))) {
+        this.lookPosition = new vector().set(
+          this.object.position().x + this.object.direction().x,
+          this.object.position().y + this.object.direction().y,
+          this.object.position().z + this.object.direction().z
+        );
+        direction = this.object.direction();
+      }
+
+      this.object.set_sight(look.direction, direction, true);
     }
   }
 }

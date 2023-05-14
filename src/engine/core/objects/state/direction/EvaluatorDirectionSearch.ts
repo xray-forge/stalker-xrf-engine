@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check whether direction is set.
  */
 @LuabindClass()
 export class EvaluatorDirectionSearch extends property_evaluator {
@@ -18,9 +18,9 @@ export class EvaluatorDirectionSearch extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Check whether any position for look is set.
    */
   public override evaluate(): boolean {
-    return !(this.stateManager.lookPosition !== null || this.stateManager.lookObjectId !== null);
+    return this.stateManager.lookPosition === null && this.stateManager.lookObjectId === null;
   }
 }

@@ -1,8 +1,16 @@
 import { jest } from "@jest/globals";
-import { TXR_callback, TXR_class_id, vector, XR_action_planner, XR_CGameTask, XR_game_object } from "xray16";
+import {
+  CSightParams,
+  TXR_callback,
+  TXR_class_id,
+  TXR_SightType,
+  XR_action_planner,
+  XR_CGameTask,
+  XR_game_object,
+} from "xray16";
 
 import { AnyCallable, AnyContextualCallable, AnyObject, PartialRecord } from "@/engine/lib/types";
-import { MockMove } from "@/fixtures/xray";
+import { MockMove, MockSightParameters } from "@/fixtures/xray";
 import { MockActionPlanner, mockDefaultActionPlanner } from "@/fixtures/xray/mocks/actions/action_planner.mock";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { CLIENT_SIDE_REGISTRY } from "@/fixtures/xray/mocks/interface/levelInterface.mock";
@@ -56,6 +64,8 @@ export function mockClientGameObject({
   const internalInfos: Array<string> = [...infoPortions];
   const inventoryMap: Map<string | number, XR_game_object> = new Map(inventory);
   let objectMoney: number = 0;
+
+  let sight: TXR_SightType = MockSightParameters.eSightTypeDummy;
 
   const actionManager: XR_action_planner = mockDefaultActionPlanner();
   const callbacks: PartialRecord<TXR_callback, AnyCallable> = {};
@@ -137,7 +147,18 @@ export function mockClientGameObject({
           (callbacks[id] = callback.bind(context))
       ),
     set_mental_state: rest.set_mental_state || jest.fn(),
-    set_sight: rest.set_sight || jest.fn(),
+    sight_params:
+      rest.sight_params ||
+      jest.fn(() => {
+        const params: MockSightParameters = new MockSightParameters();
+
+        params.m_object = gameObject as XR_game_object;
+        params.m_sight_type = sight;
+        params.m_vector = gameObject.direction();
+
+        return params;
+      }),
+    set_sight: rest.set_sight || jest.fn((nextSight: TXR_SightType) => (sight = nextSight)),
     spawn_ini,
     special_danger_move,
     target_body_state:

@@ -56,7 +56,7 @@ export class ActionStateEnd extends action_base {
 
       if (now - (this.stateManager.callback.begin as TTimestamp) >= (this.stateManager.callback.timeout as TDuration)) {
         if (this.stateManager.callback.callback !== null) {
-          this.stateManager.callback.callback(this.stateManager.callback.context);
+          this.stateManager.callback.callback.call(this.stateManager.callback.context);
         }
 
         this.stateManager.callback = null;
