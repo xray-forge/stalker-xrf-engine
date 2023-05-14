@@ -1,26 +1,40 @@
 import { anim, move, XR_game_object } from "xray16";
 
+import { IRegistryObjectState, registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
+import { StalkerBinder } from "@/engine/core/objects";
 import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
 import {
   IStateManagerCallbackDescriptor,
   ITargetStateDescriptorExtras,
   StalkerStateManager,
 } from "@/engine/core/objects/state/StalkerStateManager";
-import { Optional, TDuration, TNumberId } from "@/engine/lib/types";
+import { Optional, TDuration } from "@/engine/lib/types";
 
 /**
- * todo: Description
+ * Register stalker binder object.
+ *
+ * @param stalker - generic stalker binder to register
+ * @returns object registry state
  */
-export function registerStalker(objectId: TNumberId): void {
-  registry.stalkers.set(objectId, true);
+export function registerStalker(stalker: StalkerBinder): IRegistryObjectState {
+  registry.stalkers.set(stalker.object.id(), true);
+
+  return registerObject(stalker.object);
 }
 
 /**
- * todo: Description
+ * Unregister stalker binder object.
+ *
+ * @param stalker - generic stalker binder to unregister
+ * @param destroy - whether object registry state should be also destroyed
  */
-export function unregisterStalker(objectId: TNumberId): void {
-  registry.stalkers.delete(objectId);
+export function unregisterStalker(stalker: StalkerBinder, destroy: boolean = true): void {
+  registry.stalkers.delete(stalker.object.id());
+
+  if (destroy) {
+    unregisterObject(stalker.object);
+  }
 }
 
 /**

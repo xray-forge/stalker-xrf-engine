@@ -3,7 +3,7 @@ import { callback, hit, time_global, vector, XR_game_object, XR_hit } from "xray
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EStalkerState, IAnimationDescriptor, IAnimationStateDescriptor } from "@/engine/core/objects/state/types";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";
 import { AnyCallable, Optional, TIndex, TName, TNumberId, TRate, TTimestamp } from "@/engine/lib/types";
@@ -39,14 +39,14 @@ export class StalkerAnimationManager {
   public object: XR_game_object;
   public stateManager: StalkerStateManager;
 
-  public animations: LuaTable<string, IAnimationDescriptor> | LuaTable<string, IAnimationStateDescriptor>;
+  public animations: LuaTable<EStalkerState, IAnimationDescriptor> | LuaTable<EStalkerState, IAnimationStateDescriptor>;
   public states: IAnimationManagerStates;
 
   public constructor(
     object: XR_game_object,
     stateManager: StalkerStateManager,
     name: TName,
-    collection: LuaTable<string, IAnimationDescriptor> | LuaTable<string, IAnimationStateDescriptor>
+    collection: LuaTable<EStalkerState, IAnimationDescriptor> | LuaTable<EStalkerState, IAnimationStateDescriptor>
   ) {
     this.name = name;
     this.object = object;

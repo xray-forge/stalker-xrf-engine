@@ -1,6 +1,8 @@
 import { jest } from "@jest/globals";
-import { TXR_class_id, XR_CGameTask, XR_game_object } from "xray16";
+import { TXR_callback, TXR_class_id, XR_action_planner, XR_CGameTask, XR_game_object } from "xray16";
 
+import { AnyCallable, AnyContextualCallable, AnyObject, PartialRecord } from "@/engine/lib/types";
+import { MockActionPlanner, mockDefaultActionPlanner } from "@/fixtures/xray/mocks/actions/action_planner.mock";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
@@ -27,12 +29,14 @@ export function mockClientGameObject({
   is_talking = jest.fn(() => false),
   level_vertex_id = jest.fn(() => 255),
   money,
+  motivation_action_manager,
   name,
   object,
   position = jest.fn(() => MockVector.mock(0.25, 0.25, 0.25)),
   section,
   sectionOverride = "section",
   spawn_ini = jest.fn(() => mockIniFile("spawn.ini")),
+  special_danger_move = jest.fn(() => true),
   transfer_item,
   transfer_money = jest.fn(),
   ...rest
@@ -48,11 +52,15 @@ export function mockClientGameObject({
   const inventoryMap: Map<string | number, XR_game_object> = new Map(inventory);
   let objectMoney: number = 0;
 
+  const actionManager: XR_action_planner = mockDefaultActionPlanner();
+  const callbacks: PartialRecord<TXR_callback, AnyCallable> = {};
+
   return {
     ...rest,
     active_slot: rest.active_slot || jest.fn(() => 3),
     character_icon,
     clsid,
+    clear_animations: rest.clear_animations || jest.fn(),
     disable_info_portion:
       disable_info_portion ||
       jest.fn((it: string) => {
@@ -85,6 +93,13 @@ export function mockClientGameObject({
     is_talking,
     level_vertex_id,
     money: money || jest.fn(() => objectMoney),
+    motivation_action_manager:
+      motivation_action_manager ||
+      jest.fn(function (this: XR_game_object) {
+        (actionManager as unknown as MockActionPlanner).object = this;
+
+        return actionManager;
+      }),
     name: name || jest.fn(() => `${sectionOverride}_${idOverride}`),
     object:
       object ||
@@ -106,7 +121,16 @@ export function mockClientGameObject({
     }),
     position,
     section: section || jest.fn(() => sectionOverride),
+    set_body_state: rest.set_body_state || jest.fn(),
+    set_callback:
+      rest.set_callback ||
+      jest.fn(
+        (id: TXR_callback, callback: AnyContextualCallable, context: AnyObject) =>
+          (callbacks[id] = callback.bind(context))
+      ),
+    set_mental_state: rest.set_mental_state || jest.fn(),
     spawn_ini,
+    special_danger_move,
     transfer_money,
     transfer_item:
       transfer_item ||

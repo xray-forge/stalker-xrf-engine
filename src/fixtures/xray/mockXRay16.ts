@@ -1,9 +1,17 @@
 import { jest } from "@jest/globals";
 
-import { MockActionBase, MockAnim, MockLook, MockMove } from "@/fixtures/xray/mocks/actions";
+import {
+  MockActionBase,
+  MockActionPlanner,
+  MockAnim,
+  MockLook,
+  MockMove,
+  MockWorldProperty,
+  MockWorldState,
+} from "@/fixtures/xray/mocks/actions";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
-import { mockClsid } from "@/fixtures/xray/mocks/clsid.mock";
 import { mockGetConsole } from "@/fixtures/xray/mocks/console.mock";
+import { mockCallbacks, mockClsid, mockStalkerIds } from "@/fixtures/xray/mocks/constants";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { mockRenderDevice } from "@/fixtures/xray/mocks/device.mock";
@@ -60,7 +68,6 @@ import { MockAlifeDynamicObjectVisual } from "@/fixtures/xray/mocks/objects/serv
 import { MockCGameTask, MockTask } from "@/fixtures/xray/mocks/objects/task";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
 import { MockSoundObject } from "@/fixtures/xray/mocks/sound/SoundObject.mock";
-import { mockStalkerIds } from "@/fixtures/xray/mocks/stalkerIds.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**
@@ -77,8 +84,10 @@ export function mockXRay16({
   CUIWindow = MockCUIWindow,
   IsImportantSave = jest.fn(() => mocksConfig.isAutoSavingEnabled),
   action_base = MockActionBase,
+  action_planner = MockActionPlanner,
   alife = () => mockAlifeSimulator(),
   anim = MockAnim,
+  callback = mockCallbacks,
   clsid = mockClsid,
   cse_alife_creature_actor = MockAlifeCreatureActor,
   cse_alife_helicopter = MockAlifeHelicopter,
@@ -135,6 +144,8 @@ export function mockXRay16({
   time_global = () => Date.now(),
   user_name = jest.fn(() => "os_user_name"),
   vector = MockVector,
+  world_property = MockWorldProperty,
+  world_state = MockWorldState,
 } = {}): void {
   jest.mock("xray16", () => ({
     CGameTask,
@@ -148,8 +159,10 @@ export function mockXRay16({
     IsImportantSave,
     LuabindClass: () => {},
     action_base,
+    action_planner,
     alife,
     anim,
+    callback,
     clsid,
     cse_alife_creature_actor,
     cse_alife_helicopter,
@@ -206,5 +219,7 @@ export function mockXRay16({
     time_global,
     user_name,
     vector,
+    world_property,
+    world_state,
   }));
 }

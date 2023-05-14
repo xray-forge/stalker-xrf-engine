@@ -1,6 +1,6 @@
 import { XR_game_object } from "xray16";
 
-import { IAnimationDescriptor } from "@/engine/core/objects/state/types";
+import { EStalkerState, IAnimationDescriptor } from "@/engine/core/objects/state/types";
 import { getAnimationListScenario } from "@/engine/core/objects/state_lib/state_manager_scenario";
 import { getAnimpointAnimationList } from "@/engine/core/objects/state_lib/state_mgr_animation_list_animpoint";
 import { add_animation_list_pri_a15 } from "@/engine/core/objects/state_lib/state_mgr_pri_a15";
@@ -11,7 +11,10 @@ import { AnyCallablesModule } from "@/engine/lib/types";
 /**
  * todo;
  */
-export const animations: LuaTable<string, IAnimationDescriptor> = {
+export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromObject<
+  EStalkerState,
+  IAnimationDescriptor
+>({
   idle: {
     prop: {
       maxidle: 5,
@@ -984,7 +987,7 @@ export const animations: LuaTable<string, IAnimationDescriptor> = {
     rnd: null,
     idle: null,
   },
-} as any;
+} as unknown as Record<EStalkerState, IAnimationDescriptor>);
 
 copyTable(animations, getAnimpointAnimationList());
 copyTable(animations, getAnimationListScenario());

@@ -77,7 +77,7 @@ export const registry = {
     idBySid: new LuaTable<TStringId, TNumberId>(),
   },
   /**
-   * Alive stalkers.
+   * Set of alive stalker IDs for easy filtering and iteration.
    */
   stalkers: new LuaTable<TNumberId, boolean>(),
   /**

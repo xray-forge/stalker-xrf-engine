@@ -9,6 +9,7 @@ import {
 } from "@/engine/core/objects/state/types";
 import { getObjectAnimationWeapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
 import { states } from "@/engine/core/objects/state_lib/state_lib";
+import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areSameVectors } from "@/engine/core/utils/vector";
 import {

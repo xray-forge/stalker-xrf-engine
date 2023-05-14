@@ -7,25 +7,29 @@ import { XR_game_object } from "xray16";
 export class MockObjectBinder {
   public constructor(public object: XR_game_object) {}
 
-  public load = jest.fn();
+  public load(): void {}
 
-  public net_Relcase = jest.fn();
+  public net_Relcase(): void {}
 
-  public net_destroy = jest.fn();
+  public net_destroy(): void {}
 
-  public net_export = jest.fn();
+  public net_export(): void {}
 
-  public net_import = jest.fn();
+  public net_import(): void {}
 
-  public net_save_relevant = jest.fn(() => true);
+  public net_save_relevant(): boolean {
+    return true;
+  }
 
-  public net_spawn = jest.fn(() => true);
+  public net_spawn(): boolean {
+    return true;
+  }
 
-  public reinit = jest.fn();
+  public reinit(): void {}
 
-  public reload = jest.fn();
+  public reload(): void {}
 
-  public save = jest.fn();
+  public save(): void {}
 
-  public update = jest.fn();
+  public update(): void {}
 }

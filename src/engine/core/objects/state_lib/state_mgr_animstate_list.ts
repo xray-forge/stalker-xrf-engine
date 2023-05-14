@@ -1,11 +1,14 @@
-import { IAnimationStateDescriptor } from "@/engine/core/objects/state/types";
+import { EStalkerState, IAnimationStateDescriptor } from "@/engine/core/objects/state/types";
 import { add_animstate_animation_list } from "@/engine/core/objects/state_lib/state_mgr_animstate_list_animpoint";
 import { copyTable } from "@/engine/core/utils/table";
 
 /**
  * todo;
  */
-export const animstates: LuaTable<string, IAnimationStateDescriptor> = {
+export const animstates: LuaTable<EStalkerState, IAnimationStateDescriptor> = $fromObject<
+  EStalkerState,
+  IAnimationStateDescriptor
+>({
   sit: {
     prop: {
       maxidle: 5,
@@ -45,6 +48,6 @@ export const animstates: LuaTable<string, IAnimationStateDescriptor> = {
       [0]: ["sit_2_idle_1", "sit_2_idle_2", "sit_2_idle_3"],
     },
   },
-} as any;
+} as unknown as Record<EStalkerState, IAnimationStateDescriptor>);
 
 copyTable(animstates, add_animstate_animation_list());

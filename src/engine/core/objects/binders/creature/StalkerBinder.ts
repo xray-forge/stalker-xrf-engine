@@ -34,11 +34,9 @@ import {
   IRegistryObjectState,
   openSaveMarker,
   registerHelicopterEnemy,
-  registerObject,
   registry,
   resetObject,
   unregisterHelicopterEnemy,
-  unregisterObject,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
@@ -127,13 +125,11 @@ export class StalkerBinder extends object_binder {
       }
     }
 
-    registerStalker(objectId); // todo: Probably register with object?
-
     if (!super.net_spawn(object)) {
       return false;
     }
 
-    registerObject(this.object);
+    registerStalker(this);
 
     this.setupCallbacks();
 
@@ -255,8 +251,7 @@ export class StalkerBinder extends object_binder {
       registry.offlineObjects.get(objectId).activeSection = registry.objects.get(objectId).active_section as TSection;
     }
 
-    unregisterObject(this.object);
-    unregisterStalker(objectId);
+    unregisterStalker(this);
 
     this.resetCallbacks();
 
@@ -454,7 +449,7 @@ export class StalkerBinder extends object_binder {
     DropManager.getInstance().createCorpseReleaseItems(this.object);
 
     unregisterHelicopterEnemy(this.helicopterEnemyIndex!);
-    unregisterStalker(this.object.id());
+    unregisterStalker(this, false);
 
     this.resetCallbacks();
 
