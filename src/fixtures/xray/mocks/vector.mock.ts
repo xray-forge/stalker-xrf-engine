@@ -42,4 +42,6 @@ export class MockVector {
   public distance_to(): number {
     return MockVector.DEFAULT_DISTANCE;
   }
+
+  public normalize(): void {}
 }

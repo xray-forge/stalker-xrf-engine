@@ -21,6 +21,8 @@ export class MockActionBase {
   public add_effect(property: XR_world_property): void {
     this.effects.push(property);
   }
+
+  public execute(): void {}
 }
 
 export function mockActionBase(): XR_action_base {

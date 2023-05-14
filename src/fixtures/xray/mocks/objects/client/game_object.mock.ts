@@ -1,10 +1,11 @@
 import { jest } from "@jest/globals";
-import { TXR_callback, TXR_class_id, XR_action_planner, XR_CGameTask, XR_game_object } from "xray16";
+import { TXR_callback, TXR_class_id, vector, XR_action_planner, XR_CGameTask, XR_game_object } from "xray16";
 
 import { AnyCallable, AnyContextualCallable, AnyObject, PartialRecord } from "@/engine/lib/types";
 import { MockMove } from "@/fixtures/xray";
 import { MockActionPlanner, mockDefaultActionPlanner } from "@/fixtures/xray/mocks/actions/action_planner.mock";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { CLIENT_SIDE_REGISTRY } from "@/fixtures/xray/mocks/interface/levelInterface.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 let ID_COUNTER: number = 1000;
@@ -59,7 +60,7 @@ export function mockClientGameObject({
   const actionManager: XR_action_planner = mockDefaultActionPlanner();
   const callbacks: PartialRecord<TXR_callback, AnyCallable> = {};
 
-  return {
+  const gameObject = {
     ...rest,
     active_item,
     animation_count,
@@ -67,6 +68,7 @@ export function mockClientGameObject({
     character_icon,
     clsid,
     clear_animations: rest.clear_animations || jest.fn(),
+    direction: rest.direction || jest.fn(() => MockVector.mock(1, 1, 1)),
     disable_info_portion:
       disable_info_portion ||
       jest.fn((it: string) => {
@@ -154,5 +156,9 @@ export function mockClientGameObject({
         }
       }),
     weapon_unstrapped,
-  } as unknown as XR_game_object;
+  };
+
+  CLIENT_SIDE_REGISTRY[gameObject.id()] = gameObject as XR_game_object;
+
+  return gameObject as XR_game_object;
 }

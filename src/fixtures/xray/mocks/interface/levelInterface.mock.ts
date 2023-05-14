@@ -1,4 +1,9 @@
 import { jest } from "@jest/globals";
+import { XR_game_object } from "xray16";
+
+import { TNumberId } from "@/engine/lib/types";
+
+export const CLIENT_SIDE_REGISTRY: Record<TNumberId, XR_game_object> = {};
 
 /**
  * Mock game `level` interface.
@@ -10,5 +15,6 @@ export const mockLevelInterface = {
   get_time_hours: jest.fn(() => 12),
   map_add_object_spot: jest.fn(),
   name: jest.fn(() => null),
+  object_by_id: jest.fn((id: TNumberId) => CLIENT_SIDE_REGISTRY[id] || null),
   set_snd_volume: jest.fn((volume: number) => {}),
 };

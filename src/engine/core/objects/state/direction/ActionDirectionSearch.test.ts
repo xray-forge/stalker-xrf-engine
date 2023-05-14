@@ -10,8 +10,8 @@ import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateMan
 import { resetFunctionMock } from "@/fixtures/utils/function_mock";
 import { mockClientGameObject } from "@/fixtures/xray";
 
-describe("ActionAnimationStart class", () => {
-  it("should correctly perform start action", () => {
+describe("ActionDirectionSearch class", () => {
+  it("should correctly perform direction search action", () => {
     const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
 
     registerStalker(stalker);
