@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to change stalker body state to standing.
  */
 @LuabindClass()
 export class ActionBodyStateStanding extends action_base {
@@ -18,7 +18,7 @@ export class ActionBodyStateStanding extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Change stalker body state to standing.
    */
   public override initialize(): void {
     super.initialize();

@@ -7,7 +7,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check whether body state should be changed to crouch.
  */
 @LuabindClass()
 export class EvaluatorBodyStateCrouch extends property_evaluator {

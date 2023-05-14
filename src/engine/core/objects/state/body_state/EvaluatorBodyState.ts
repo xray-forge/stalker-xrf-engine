@@ -7,7 +7,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator whether body state should be changed.
  */
 @LuabindClass()
 export class EvaluatorBodyState extends property_evaluator {
@@ -19,7 +19,7 @@ export class EvaluatorBodyState extends property_evaluator {
   }
 
   /**
-   * Check if changing body state at the moment.
+   * Check if changing body state is needed at the moment.
    */
   public override evaluate(): boolean {
     return (

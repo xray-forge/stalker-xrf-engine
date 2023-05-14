@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to change stalker body state to free.
  */
 @LuabindClass()
 export class ActionBodyStateStandingFree extends action_base {
@@ -18,7 +18,7 @@ export class ActionBodyStateStandingFree extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Change stalker body state to free.
    */
   public override initialize(): void {
     super.initialize();

@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check whether standing right now.
  */
 @LuabindClass()
 export class EvaluatorBodyStateStandingNow extends property_evaluator {
