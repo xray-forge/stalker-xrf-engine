@@ -6,7 +6,7 @@ import { LabX8DoorBinder } from "@/engine/core/objects";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("'doors' module of the database", () => {
-  it("should correctly register actor", () => {
+  it("should correctly register doors", () => {
     const door: LabX8DoorBinder = new LabX8DoorBinder(mockClientGameObject());
 
     registerDoor(door);

@@ -129,7 +129,7 @@ export class HelicopterBinder extends object_binder {
       return false;
     }
 
-    registerHelicopter(this.object);
+    registerHelicopter(this);
 
     return true;
   }
@@ -138,7 +138,7 @@ export class HelicopterBinder extends object_binder {
    * todo: Description.
    */
   public override net_destroy(): void {
-    unregisterHelicopter(this.object);
+    unregisterHelicopter(this);
 
     super.net_destroy();
   }
@@ -194,7 +194,7 @@ export class HelicopterBinder extends object_binder {
 
       if (health <= 0.005 && !this.state.immortal) {
         this.heliObject.Die();
-        unregisterHelicopter(this.object);
+        unregisterHelicopter(this);
       }
     }
   }

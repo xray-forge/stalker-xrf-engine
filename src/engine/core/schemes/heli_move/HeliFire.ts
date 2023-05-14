@@ -216,7 +216,7 @@ export class HeliFire {
     let index: number = 0;
     let min_dist2D: number = MAX_U16;
 
-    while (index < registry.helicopter.enemiesCount) {
+    while (index < registry.helicopter.enemyIndex) {
       if (registry.helicopter.enemies.has(index)) {
         const enemy: XR_game_object = registry.helicopter.enemies.get(index);
 
@@ -234,7 +234,7 @@ export class HeliFire {
 
     const actor: XR_game_object = registry.actor;
 
-    if ((heli.isVisible(actor) && randomChoice(false, true)) || registry.helicopter.enemiesCount === 0) {
+    if ((heli.isVisible(actor) && randomChoice(false, true)) || registry.helicopter.enemyIndex === 0) {
       if (distanceBetween2d(this.object.position(), actor.position()) <= min_dist2D * 2) {
         this.enemy = actor;
       }

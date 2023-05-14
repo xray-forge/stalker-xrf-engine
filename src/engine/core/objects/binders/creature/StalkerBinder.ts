@@ -75,7 +75,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity, getObjectSquad, updateObjectInvulnerability } from "@/engine/core/utils/object";
 import { TConditionList } from "@/engine/core/utils/parse";
 import { setObjectsRelation, setObjectSympathy } from "@/engine/core/utils/relation";
-import { communities } from "@/engine/lib/constants/communities";
+import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { TRelation } from "@/engine/lib/constants/relations";
 import {
@@ -174,8 +174,7 @@ export class StalkerBinder extends object_binder {
       setObjectSympathy(this.object, sympathy);
     }
 
-    registerHelicopterEnemy(this.object);
-    this.helicopterEnemyIndex = registry.helicopter.enemiesCount - 1;
+    this.helicopterEnemyIndex = registerHelicopterEnemy(this.object);
 
     GlobalSoundManager.initializeObjectSounds(this.object);
 
@@ -460,7 +459,7 @@ export class StalkerBinder extends object_binder {
     this.resetCallbacks();
 
     if (actor_stats.remove_from_ranking !== null) {
-      const community = getCharacterCommunity(this.object);
+      const community: TCommunity = getCharacterCommunity(this.object);
 
       if (community === communities.zombied || community === communities.monolith) {
         // placeholder

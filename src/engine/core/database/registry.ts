@@ -104,7 +104,7 @@ export const registry = {
   helicopter: {
     storage: new LuaTable<TNumberId, XR_game_object>(),
     enemies: new LuaTable<TNumberId, XR_game_object>(),
-    enemiesCount: 0,
+    enemyIndex: 0,
   },
   /**
    * Anomaly zones by name.
