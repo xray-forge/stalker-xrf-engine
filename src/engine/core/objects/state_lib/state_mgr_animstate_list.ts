@@ -15,12 +15,12 @@ export const animstates: LuaTable<EStalkerState, IAnimationStateDescriptor> = $f
       sumidle: 3,
       rnd: 80,
     },
-    into: { [0]: ["idle_0_to_sit_0"] },
-    out: { [0]: ["sit_0_to_idle_0"] },
-    idle: { [0]: "sit_0_idle_0" },
-    rnd: {
+    into: $fromObject({ [0]: ["idle_0_to_sit_0"] }),
+    out: $fromObject({ [0]: ["sit_0_to_idle_0"] }),
+    idle: $fromObject({ [0]: "sit_0_idle_0" }),
+    rnd: $fromObject({
       [0]: ["sit_0_idle_1", "sit_0_idle_2", "sit_0_idle_3"],
-    },
+    }),
   },
   sit_knee: {
     prop: {

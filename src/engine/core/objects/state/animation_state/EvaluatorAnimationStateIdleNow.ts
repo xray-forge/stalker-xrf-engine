@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check whether animation current state is idle.
  */
 @LuabindClass()
 export class EvaluatorAnimationStateIdleNow extends property_evaluator {
@@ -18,7 +18,7 @@ export class EvaluatorAnimationStateIdleNow extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Check whether animation current state is idle.
    */
   public override evaluate(): boolean {
     return this.stateManager.animstate.states.currentState === null;

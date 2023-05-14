@@ -1,16 +1,15 @@
 import { describe, expect, it } from "@jest/globals";
-import { vector } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
-import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
+import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { StalkerBinder } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/state";
-import { EvaluatorAnimation } from "@/engine/core/objects/state/animation/EvaluatorAnimation";
+import { EvaluatorAnimationStateIdleNow } from "@/engine/core/objects/state/animation_state/EvaluatorAnimationStateIdleNow";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { mockClientGameObject } from "@/fixtures/xray";
 
-describe("EvaluatorAnimation class", () => {
-  it("should correctly perform animation check", () => {
+describe("EvaluatorAnimationStateIdleNow class", () => {
+  it("should correctly perform animation state idle now", () => {
     const stalker: StalkerBinder = new StalkerBinder(mockClientGameObject());
 
     registerStalker(stalker);
@@ -18,16 +17,15 @@ describe("EvaluatorAnimation class", () => {
     stalker.reinit();
 
     const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
-    const evaluator: EvaluatorAnimation = new EvaluatorAnimation(manager);
+    const evaluator: EvaluatorAnimationStateIdleNow = new EvaluatorAnimationStateIdleNow(manager);
 
     expect(evaluator.evaluate()).toBeTruthy();
 
-    setStalkerState(stalker.object, EStalkerState.BACKOFF, null, null, {
-      look_position: new vector(),
-      look_object: null,
-    });
-
+    manager.animstate.states.currentState = EStalkerState.BACKOFF;
     expect(evaluator.evaluate()).toBeFalsy();
+
+    manager.animstate.states.currentState = null;
+    expect(evaluator.evaluate()).toBeTruthy();
 
     unregisterStalker(stalker);
   });

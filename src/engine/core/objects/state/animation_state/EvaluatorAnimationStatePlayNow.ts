@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check whether anim state is playing now.
  */
 @LuabindClass()
 export class EvaluatorAnimationStatePlayNow extends property_evaluator {
@@ -18,7 +18,7 @@ export class EvaluatorAnimationStatePlayNow extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Check whether anim state is playing now.
    */
   public override evaluate(): boolean {
     return this.stateManager.animstate.states.currentState !== null;

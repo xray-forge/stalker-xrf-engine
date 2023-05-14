@@ -7,7 +7,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to stop animation state.
  */
 @LuabindClass()
 export class ActionAnimationStateStop extends action_base {
@@ -19,7 +19,7 @@ export class ActionAnimationStateStop extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Perform animation state stop.
    */
   public override initialize(): void {
     super.initialize();

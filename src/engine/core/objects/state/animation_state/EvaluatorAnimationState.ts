@@ -7,7 +7,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check whether performing animation state for object.
  */
 @LuabindClass()
 export class EvaluatorAnimationState extends property_evaluator {
@@ -19,7 +19,7 @@ export class EvaluatorAnimationState extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Check whether performing animation state for object.
    */
   public override evaluate(): boolean {
     return states.get(this.stateManager.targetState).animstate === this.stateManager.animstate.states.currentState;

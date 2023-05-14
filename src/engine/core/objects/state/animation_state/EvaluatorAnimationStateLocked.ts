@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check whether anim state is locked now.
  */
 @LuabindClass()
 export class EvaluatorAnimationStateLocked extends property_evaluator {
@@ -18,7 +18,7 @@ export class EvaluatorAnimationStateLocked extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Check whether anim state is locked now.
    */
   public override evaluate(): boolean {
     return (
