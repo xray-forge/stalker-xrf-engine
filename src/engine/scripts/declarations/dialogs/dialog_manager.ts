@@ -7,6 +7,7 @@ import {
   TPRTTable,
 } from "@/engine/core/managers/interaction/DialogManager";
 import { SmartTerrain } from "@/engine/core/objects";
+import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity, getObjectSmartTerrain } from "@/engine/core/utils/object";
 import { getNpcSpeaker } from "@/engine/core/utils/task_reward";
@@ -17,22 +18,8 @@ import { Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-// -- Initialize new actor dialog
-/**
- * todo; #EXTERN
- */
-export function init_new_dialog(dialog: XR_CPhraseDialog): void {
-  DialogManager.getInstance().initializeNewDialog(dialog);
-}
+extern("dialog_manager", {});
 
-/**
- * todo;
- */
-function initializeStartDialogs(dialog: XR_CPhraseDialog, data: string): void {
-  DialogManager.getInstance().initializeStartDialogs(dialog, data);
-}
-
-// -- Calculate phrase's preconditions
 /**
  * todo;
  */
@@ -57,7 +44,6 @@ export function precondition(
   return is_highest_priority_phrase(PT_subtable, PRT_subtable, object, phraseId);
 }
 
-// -- Set phrase end action
 /**
  * todo;
  */
@@ -83,7 +69,6 @@ export function action(
   }
 }
 
-// -- Set the highest priority to selected phrase
 /**
  * todo;
  */
@@ -95,7 +80,6 @@ export function set_phrase_highest_priority(PRT_subtable: TPRTTable, npcId: numb
   PRT_subtable.get(npcId).set(phrase_id, 255);
 }
 
-// -- Reset phrase priority
 /**
  * todo;
  */
@@ -123,7 +107,6 @@ export function reset_phrase_priority(
   }
 }
 
-// -- Is the phrase priority the highest?
 /**
  * todo;
  */
@@ -161,7 +144,6 @@ export function is_highest_priority_phrase(
 /**
  * todo;
  */
-// -- Get the phrase with the highest priority
 export function get_highest_priority_phrase(
   PT_subtable: TPHRTable,
   PRT_subtable: TPRTTable,
@@ -193,186 +175,6 @@ export function get_highest_priority_phrase(
 /**
  * todo;
  */
-export function init_hello_dialogs(dialog: XR_CPhraseDialog): void {
-  initializeStartDialogs(dialog, "hello");
-}
-
-// -- Fill phrase priority table for hello start dialog
-/**
- * todo;
- */
-export function fill_priority_hello_table(
-  actor: XR_game_object,
-  object: XR_game_object,
-  dialogName: string,
-  phraseId: string
-): void {
-  const dialogManager: DialogManager = DialogManager.getInstance();
-
-  dialogManager.fillPriorityTable(
-    object,
-    dialogManager.phrasesMap.get("hello"),
-    dialogManager.priority_table.get("hello")
-  );
-}
-
-// -- Fill phrase priority table for new dialog
-/**
- * todo; #EXTERN
- */
-export function fill_priority_job_table(
-  actor: XR_game_object,
-  npc: XR_game_object,
-  dialog_name: string,
-  phrase_id: string
-): void {
-  const dialogManager: DialogManager = DialogManager.getInstance();
-
-  dialogManager.fillPriorityTable(npc, dialogManager.phrasesMap.get("job"), dialogManager.priority_table.get("job"));
-}
-
-/**
- * todo; #EXTERN
- */
-export function fill_priority_anomalies_table(
-  actor: XR_game_object,
-  object: XR_game_object,
-  dialog_name: string,
-  phrase_id: string
-): void {
-  const dialogManager: DialogManager = DialogManager.getInstance();
-
-  dialogManager.fillPriorityTable(
-    object,
-    dialogManager.phrasesMap.get("anomalies"),
-    dialogManager.priority_table.get("anomalies")
-  );
-}
-
-/**
- * todo; #EXTERN
- */
-export function fill_priority_information_table(
-  actor: XR_game_object,
-  object: XR_game_object,
-  dialogName: string,
-  phraseId: string
-): void {
-  const dialogManager: DialogManager = DialogManager.getInstance();
-
-  dialogManager.fillPriorityTable(
-    object,
-    dialogManager.phrasesMap.get("information"),
-    dialogManager.priority_table.get("information")
-  );
-}
-
-// -- Calculate precondition for phrases in hello start dialog
-/**
- * todo;; #EXTERN
- */
-export function precondition_hello_dialogs(
-  object: XR_game_object,
-  actor: XR_game_object,
-  dialog_name: string,
-  parent_id: string,
-  id: string
-): boolean {
-  const dialogManager: DialogManager = DialogManager.getInstance();
-
-  return precondition(object, dialogManager.phrasesMap.get("hello"), dialogManager.priority_table.get("hello"), id);
-}
-
-// -- Set phrase end action for hello start dialog
-/**
- * todo;; #EXTERN
- */
-export function action_hello_dialogs(
-  object: XR_game_object,
-  actor: XR_game_object,
-  dialog_name: string,
-  id: string
-): void {
-  const dialogManager: DialogManager = DialogManager.getInstance();
-
-  action(dialogManager.phrasesMap.get("hello"), dialogManager.priority_table.get("hello"), id, object);
-}
-
-// -- Calculate precondition for default phrase in occupation dialog
-/**
- * todo;; #EXTERN
- */
-export function precondition_job_dialogs_no_more(
-  npc: XR_game_object,
-  actor: XR_game_object,
-  dialog_name: string,
-  parent_id: string,
-  id: string
-) {
-  const dialogManager: DialogManager = DialogManager.getInstance();
-
-  return dialogManager.isTold(npc, "job");
-}
-
-/**
- * todo;; #EXTERN
- */
-export function precondition_job_dialogs_do_not_know(
-  npc: XR_game_object,
-  actor: XR_game_object,
-  dialog_name: string,
-  parent_id: string,
-  id: string
-) {
-  return precondition_no_more(npc, "job");
-}
-
-// -- Calculate preconditions for phrases in occupation dialog
-/**
- * todo;; #EXTERN
- */
-export function precondition_job_dialogs(
-  object: XR_game_object,
-  actor: XR_game_object,
-  dialog_name: string,
-  parent_id: string,
-  id: string
-): boolean {
-  const dialogManager: DialogManager = DialogManager.getInstance();
-
-  return precondition(object, dialogManager.phrasesMap.get("job"), dialogManager.priority_table.get("job"), id);
-}
-
-// -- Set phrase } action for occupation dialog
-/**
- * todo;; #EXTERN
- */
-export function action_job_dialogs(npc: XR_game_object, actor: XR_game_object, dialog_name: string, id: string): void {
-  const dialogManager: DialogManager = DialogManager.getInstance();
-
-  action(dialogManager.phrasesMap.get("job"), dialogManager.priority_table.get("job"), id, npc);
-  told(dialogManager.priority_table.get("job"), npc);
-}
-
-// -- Calculate precondition for default phrase in anomalies dialog
-/**
- * todo;; #EXTERN
- */
-export function precondition_anomalies_dialogs_no_more(
-  npc: XR_game_object,
-  actor: XR_game_object,
-  dialog_name: string,
-  parent_id: string,
-  id: string
-): boolean {
-  const dialogManager: DialogManager = DialogManager.getInstance();
-
-  return dialogManager.isTold(npc, "anomalies");
-}
-
-/**
- * todo;
- */
 export function precondition_no_more(object: XR_game_object, str: string): boolean {
   const dialogManager: DialogManager = DialogManager.getInstance();
 
@@ -386,215 +188,353 @@ export function precondition_no_more(object: XR_game_object, str: string): boole
 }
 
 /**
- * todo;; #EXTERN
+ * todo;
  */
-export function precondition_anomalies_dialogs_do_not_know(
-  object: XR_game_object,
-  actor: XR_game_object,
-  dialog_name: string,
-  parent_id: string,
-  id: string
-): boolean {
-  const dialogManager: DialogManager = DialogManager.getInstance();
+extern("dialog_manager.init_new_dialog", (dialog: XR_CPhraseDialog): void => {
+  DialogManager.getInstance().initializeNewDialog(dialog);
+});
 
-  return precondition_no_more(object, "anomalies");
-}
-
-// -- Calculate preconditions for phrases in anomalies dialog
 /**
- * todo;; #EXTERN
+ * todo;
  */
-export function precondition_anomalies_dialogs(
-  object: XR_game_object,
-  actor: XR_game_object,
-  dialog_name: string,
-  parent_id: string,
-  id: string
-): boolean {
-  const dialogManager: DialogManager = DialogManager.getInstance();
-  const smartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
+extern("dialog_manager.initializeStartDialogs", (dialog: XR_CPhraseDialog, data: string): void => {
+  DialogManager.getInstance().initializeStartDialogs(dialog, data);
+});
 
-  if (
-    smartTerrain !== null &&
-    tostring(smartTerrain.name()) === dialogManager.phrasesMap.get("anomalies").get(id).smart
-  ) {
-    dialogManager.priority_table.get("anomalies").get(object.id()).id = -1;
+/**
+ * todo;
+ */
+extern("dialog_manager.init_hello_dialogs", (dialog: XR_CPhraseDialog): void => {
+  DialogManager.getInstance().initializeStartDialogs(dialog, "hello");
+});
 
-    return false;
+/**
+ * todo;
+ */
+extern(
+  "dialog_manager.fill_priority_hello_table",
+  (actor: XR_game_object, object: XR_game_object, dialogName: string, phraseId: string): void => {
+    const dialogManager: DialogManager = DialogManager.getInstance();
+
+    dialogManager.fillPriorityTable(
+      object,
+      dialogManager.phrasesMap.get("hello"),
+      dialogManager.priority_table.get("hello")
+    );
   }
+);
 
-  return precondition(
-    object,
-    dialogManager.phrasesMap.get("anomalies"),
-    dialogManager.priority_table.get("anomalies"),
-    id
-  );
-}
-
-// -- Set phrase end action for information dialog
 /**
- * todo;; #EXTERN
+ * todo;
  */
-export function action_anomalies_dialogs(
-  object: XR_game_object,
-  actor: XR_game_object,
-  dialog_name: string,
-  id: string
-): void {
-  const dialogManager: DialogManager = DialogManager.getInstance();
+extern(
+  "dialog_manager.fill_priority_job_table",
+  (actor: XR_game_object, npc: XR_game_object, dialog_name: string, phrase_id: string): void => {
+    const dialogManager: DialogManager = DialogManager.getInstance();
 
-  action(dialogManager.phrasesMap.get("anomalies"), dialogManager.priority_table.get("anomalies"), id, object);
-  told(dialogManager.priority_table.get("anomalies"), object);
-}
+    dialogManager.fillPriorityTable(npc, dialogManager.phrasesMap.get("job"), dialogManager.priority_table.get("job"));
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
+  "dialog_manager.fill_priority_anomalies_table",
+  (actor: XR_game_object, object: XR_game_object, dialog_name: string, phrase_id: string): void => {
+    const dialogManager: DialogManager = DialogManager.getInstance();
+
+    dialogManager.fillPriorityTable(
+      object,
+      dialogManager.phrasesMap.get("anomalies"),
+      dialogManager.priority_table.get("anomalies")
+    );
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
+  "dialog_manager.fill_priority_information_table",
+  (actor: XR_game_object, object: XR_game_object, dialogName: string, phraseId: string): void => {
+    const dialogManager: DialogManager = DialogManager.getInstance();
+
+    dialogManager.fillPriorityTable(
+      object,
+      dialogManager.phrasesMap.get("information"),
+      dialogManager.priority_table.get("information")
+    );
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
+  "dialog_manager.precondition_hello_dialogs",
+  (object: XR_game_object, actor: XR_game_object, dialog_name: string, parent_id: string, id: string): boolean => {
+    const dialogManager: DialogManager = DialogManager.getInstance();
+
+    return precondition(object, dialogManager.phrasesMap.get("hello"), dialogManager.priority_table.get("hello"), id);
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
+  "dialog_manager.action_hello_dialogs",
+  (object: XR_game_object, actor: XR_game_object, dialog_name: string, id: string): void => {
+    const dialogManager: DialogManager = DialogManager.getInstance();
+
+    action(dialogManager.phrasesMap.get("hello"), dialogManager.priority_table.get("hello"), id, object);
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
+  "dialog_manager.precondition_job_dialogs_no_more",
+  (npc: XR_game_object, actor: XR_game_object, dialog_name: string, parent_id: string, id: string) => {
+    const dialogManager: DialogManager = DialogManager.getInstance();
+
+    return dialogManager.isTold(npc, "job");
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
+  "dialog_manager.precondition_job_dialogs_do_not_know",
+  (npc: XR_game_object, actor: XR_game_object, dialog_name: string, parent_id: string, id: string) => {
+    return precondition_no_more(npc, "job");
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
+  "dialog_manager.precondition_job_dialogs",
+  (object: XR_game_object, actor: XR_game_object, dialog_name: string, parent_id: string, id: string): boolean => {
+    const dialogManager: DialogManager = DialogManager.getInstance();
+
+    return precondition(object, dialogManager.phrasesMap.get("job"), dialogManager.priority_table.get("job"), id);
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
+  "dialog_manager.action_job_dialogs",
+  (npc: XR_game_object, actor: XR_game_object, dialog_name: string, id: string): void => {
+    const dialogManager: DialogManager = DialogManager.getInstance();
+
+    action(dialogManager.phrasesMap.get("job"), dialogManager.priority_table.get("job"), id, npc);
+    told(dialogManager.priority_table.get("job"), npc);
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
+  "dialog_manager.precondition_anomalies_dialogs_no_more",
+  (npc: XR_game_object, actor: XR_game_object, dialog_name: string, parent_id: string, id: string): boolean => {
+    return DialogManager.getInstance().isTold(npc, "anomalies");
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
+  "dialog_manager.precondition_anomalies_dialogs_do_not_know",
+  (object: XR_game_object, actor: XR_game_object, dialog_name: string, parent_id: string, id: string): boolean => {
+    const dialogManager: DialogManager = DialogManager.getInstance();
+
+    return precondition_no_more(object, "anomalies");
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
+  "dialog_manager.precondition_anomalies_dialogs",
+  (object: XR_game_object, actor: XR_game_object, dialog_name: string, parent_id: string, id: string): boolean => {
+    const dialogManager: DialogManager = DialogManager.getInstance();
+    const smartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
+
+    if (
+      smartTerrain !== null &&
+      tostring(smartTerrain.name()) === dialogManager.phrasesMap.get("anomalies").get(id).smart
+    ) {
+      dialogManager.priority_table.get("anomalies").get(object.id()).id = -1;
+
+      return false;
+    }
+
+    return precondition(
+      object,
+      dialogManager.phrasesMap.get("anomalies"),
+      dialogManager.priority_table.get("anomalies"),
+      id
+    );
+  }
+);
+
+/**
+ * todo;
+ */
+extern(
+  "dialog_manager.action_anomalies_dialogs",
+  (object: XR_game_object, actor: XR_game_object, dialog_name: string, id: string): void => {
+    const dialogManager: DialogManager = DialogManager.getInstance();
+
+    action(dialogManager.phrasesMap.get("anomalies"), dialogManager.priority_table.get("anomalies"), id, object);
+    told(dialogManager.priority_table.get("anomalies"), object);
+  }
+);
 
 // -- Calculate precondition for default phrase in information dialog
 /**
- * todo; ; #EXTERN
+ * todo;
  */
-export function precondition_information_dialogs_no_more(
-  object: XR_game_object,
-  actor: XR_game_object,
-  dialog_name: string,
-  parent_id: string,
-  id: string
-): boolean {
-  const dialogManager: DialogManager = DialogManager.getInstance();
-
-  return dialogManager.isTold(object, "information");
-}
+extern(
+  "dialog_manager.precondition_information_dialogs_no_more",
+  (object: XR_game_object, actor: XR_game_object, dialog_name: string, parent_id: string, id: string): boolean => {
+    return DialogManager.getInstance().isTold(object, "information");
+  }
+);
 
 /**
- * todo; ; #EXTERN
+ * todo;
  */
-export function precondition_information_dialogs_do_not_know(
-  object: XR_game_object,
-  actor: XR_game_object,
-  dialog_name: string,
-  parent_id: string,
-  id: string
-): boolean {
-  return precondition_no_more(object, "information");
-}
-
-// -- Calculate preconditions for phrases in information dialog
-/**
- * todo;  ; #EXTERN
- */
-export function precondition_information_dialogs(
-  object: XR_game_object,
-  actor: XR_game_object,
-  dialog_name: string,
-  parent_id: string,
-  id: string
-): boolean {
-  const dialogManager: DialogManager = DialogManager.getInstance();
-
-  return precondition(
-    object,
-    dialogManager.phrasesMap.get("information"),
-    dialogManager.priority_table.get("information"),
-    id
-  );
-}
+extern(
+  "dialog_manager.precondition_information_dialogs_do_not_know",
+  (object: XR_game_object, actor: XR_game_object, dialog_name: string, parent_id: string, id: string): boolean => {
+    return precondition_no_more(object, "information");
+  }
+);
 
 /**
- * todo; ; #EXTERN
+ * todo;
  */
-export function action_information_dialogs(
-  object: XR_game_object,
-  actor: XR_game_object,
-  dialog_name: string,
-  id: string
-): void {
-  const dialogManager: DialogManager = DialogManager.getInstance();
+extern(
+  "dialog_manager.precondition_information_dialogs",
+  (object: XR_game_object, actor: XR_game_object, dialog_name: string, parent_id: string, id: string): boolean => {
+    const dialogManager: DialogManager = DialogManager.getInstance();
 
-  action(dialogManager.phrasesMap.get("information"), dialogManager.priority_table.get("information"), id, object);
-  told(dialogManager.priority_table.get("information"), object);
-}
+    return precondition(
+      object,
+      dialogManager.phrasesMap.get("information"),
+      dialogManager.priority_table.get("information"),
+      id
+    );
+  }
+);
 
 /**
- * todo; #EXTERN
+ * todo;
  */
-export function precondition_is_phrase_disabled(
-  firstSpeaker: XR_game_object,
-  secondSpeaker: XR_game_object,
-  dialogName: TName,
-  parentDialogId: TStringId,
-  phraseId: TStringId
-) {
-  const object = getNpcSpeaker(firstSpeaker, secondSpeaker);
+extern(
+  "dialog_manager.action_information_dialogs",
+  (object: XR_game_object, actor: XR_game_object, dialog_name: string, id: string): void => {
+    const dialogManager: DialogManager = DialogManager.getInstance();
 
-  if (phraseId === "") {
-    phraseId = dialogName;
+    action(dialogManager.phrasesMap.get("information"), dialogManager.priority_table.get("information"), id, object);
+    told(dialogManager.priority_table.get("information"), object);
   }
-
-  const dialogManager: DialogManager = DialogManager.getInstance();
-
-  if (
-    (dialogManager.disabledPhrases.get(object.id()) && dialogManager.disabledPhrases.get(object.id()).get(phraseId)) ||
-    (dialogManager.questDisabledPhrases.get(object.id()) &&
-      dialogManager.questDisabledPhrases.get(object.id()).get(phraseId))
-  ) {
-    return false;
-  } else {
-    return true;
-  }
-}
+);
 
 /**
- * todo; #EXTERN
+ * todo;
  */
-export function action_disable_phrase(
-  firstSpeaker: XR_game_object,
-  secondSpeaker: XR_game_object,
-  dialogName: TName,
-  phraseId: TStringId
-): void {
-  const object: XR_game_object = getNpcSpeaker(firstSpeaker, secondSpeaker);
+extern(
+  "dialog_manager.precondition_is_phrase_disabled",
+  (
+    firstSpeaker: XR_game_object,
+    secondSpeaker: XR_game_object,
+    dialogName: TName,
+    parentDialogId: TStringId,
+    phraseId: TStringId
+  ): boolean => {
+    const object: XR_game_object = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
-  if (phraseId === "0") {
-    phraseId = dialogName;
+    if (phraseId === "") {
+      phraseId = dialogName;
+    }
+
+    const dialogManager: DialogManager = DialogManager.getInstance();
+
+    if (
+      (dialogManager.disabledPhrases.get(object.id()) &&
+        dialogManager.disabledPhrases.get(object.id()).get(phraseId)) ||
+      (dialogManager.questDisabledPhrases.get(object.id()) &&
+        dialogManager.questDisabledPhrases.get(object.id()).get(phraseId))
+    ) {
+      return false;
+    } else {
+      return true;
+    }
   }
-
-  const dialogManager = DialogManager.getInstance();
-
-  if (dialogManager.disabledPhrases.get(object.id()) === null) {
-    dialogManager.disabledPhrases.set(object.id(), new LuaTable());
-  }
-
-  dialogManager.disabledPhrases.get(object.id()).set(phraseId, true);
-}
+);
 
 /**
- * todo; #EXTERN
+ * todo;
  */
-export function action_disable_quest_phrase(
-  firstSpeaker: XR_game_object,
-  secondSpeaker: XR_game_object,
-  dialogName: string,
-  phraseId: string
-): void {
-  const object: XR_game_object = getNpcSpeaker(firstSpeaker, secondSpeaker);
+extern(
+  "dialog_manager.action_disable_phrase",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object, dialogName: TName, phraseId: TStringId): void => {
+    const object: XR_game_object = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
-  if (phraseId === "0") {
-    phraseId = dialogName;
+    if (phraseId === "0") {
+      phraseId = dialogName;
+    }
+
+    const dialogManager: DialogManager = DialogManager.getInstance();
+
+    if (dialogManager.disabledPhrases.get(object.id()) === null) {
+      dialogManager.disabledPhrases.set(object.id(), new LuaTable());
+    }
+
+    dialogManager.disabledPhrases.get(object.id()).set(phraseId, true);
   }
+);
 
-  const dialogManager = DialogManager.getInstance();
+/**
+ * todo;
+ */
+extern(
+  "dialog_manager.action_disable_quest_phrase",
+  (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object, dialogName: string, phraseId: string): void => {
+    const object: XR_game_object = getNpcSpeaker(firstSpeaker, secondSpeaker);
 
-  if (dialogManager.questDisabledPhrases.get(object.id()) === null) {
-    dialogManager.questDisabledPhrases.set(object.id(), new LuaTable());
+    if (phraseId === "0") {
+      phraseId = dialogName;
+    }
+
+    const dialogManager = DialogManager.getInstance();
+
+    if (dialogManager.questDisabledPhrases.get(object.id()) === null) {
+      dialogManager.questDisabledPhrases.set(object.id(), new LuaTable());
+    }
+
+    dialogManager.questDisabledPhrases.get(object.id()).set(phraseId, true);
   }
-
-  dialogManager.questDisabledPhrases.get(object.id()).set(phraseId, true);
-}
+);
 
 let rnd: number = 0;
 
 /**
- * todo; #EXTERN
+ * todo;
  */
-export function create_bye_phrase(): string {
+extern("dialog_manager.create_bye_phrase", (): string => {
   logger.info("Create bye phrase");
 
   if (rnd === 0) {
@@ -608,19 +548,22 @@ export function create_bye_phrase(): string {
   } else {
     return game.translate_string(captions.actor_break_dialog_3);
   }
-}
+});
 
 /**
- * todo; #EXTERN
+ * todo;
  */
-export function uni_dialog_precond(first_speaker: XR_game_object, second_speaker: XR_game_object): boolean {
-  const object: XR_game_object = getNpcSpeaker(first_speaker, second_speaker);
-  const community: TCommunity = getCharacterCommunity(object);
+extern(
+  "dialog_manager.uni_dialog_precond",
+  (first_speaker: XR_game_object, second_speaker: XR_game_object): boolean => {
+    const object: XR_game_object = getNpcSpeaker(first_speaker, second_speaker);
+    const community: TCommunity = getCharacterCommunity(object);
 
-  return (
-    community === communities.stalker ||
-    community === communities.bandit ||
-    community === communities.freedom ||
-    community === communities.dolg
-  );
-}
+    return (
+      community === communities.stalker ||
+      community === communities.bandit ||
+      community === communities.freedom ||
+      community === communities.dolg
+    );
+  }
+);

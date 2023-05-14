@@ -29,6 +29,8 @@ import { pistols, TPistol } from "@/engine/lib/constants/items/weapons";
 import { levels } from "@/engine/lib/constants/levels";
 import { EScheme, Optional, TNumberId } from "@/engine/lib/types";
 
+extern("dialogs", {});
+
 /**
  * todo;
  */

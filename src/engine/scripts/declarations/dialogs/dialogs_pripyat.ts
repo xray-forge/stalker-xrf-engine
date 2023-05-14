@@ -25,6 +25,8 @@ import { AnyCallable, LuaArray, TCount } from "@/engine/lib/types";
 
 const log: LuaLogger = new LuaLogger($filename);
 
+extern("dialogs_pripyat", {});
+
 /**
  * todo;
  */

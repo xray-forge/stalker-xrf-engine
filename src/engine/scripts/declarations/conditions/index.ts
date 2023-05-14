@@ -1,3 +1,7 @@
+import { extern } from "@/engine/core/utils/binding";
+
+extern("xr_conditions", {});
+
 require("@/engine/scripts/declarations/conditions/actor");
 require("@/engine/scripts/declarations/conditions/game");
 require("@/engine/scripts/declarations/conditions/object");

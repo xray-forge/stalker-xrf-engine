@@ -40,6 +40,8 @@ import { AnyCallable, AnyCallablesModule, AnyObject, LuaArray, Optional, TCount,
 
 const logger: LuaLogger = new LuaLogger($filename);
 
+extern("dialogs_zaton", {});
+
 /**
  * todo;
  */

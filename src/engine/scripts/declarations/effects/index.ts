@@ -1,3 +1,7 @@
+import { extern } from "@/engine/core/utils/binding";
+
+extern("xr_effects", {});
+
 require("@/engine/scripts/declarations/effects/actor");
 require("@/engine/scripts/declarations/effects/game");
 require("@/engine/scripts/declarations/effects/object");
