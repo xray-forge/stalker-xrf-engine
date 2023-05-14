@@ -135,6 +135,7 @@ export function mockClientGameObject({
           (callbacks[id] = callback.bind(context))
       ),
     set_mental_state: rest.set_mental_state || jest.fn(),
+    set_sight: rest.set_sight || jest.fn(),
     spawn_ini,
     special_danger_move,
     target_body_state:

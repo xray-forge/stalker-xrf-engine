@@ -8,7 +8,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to perform direction change for sight.
  */
 @LuabindClass()
 export class ActionDirectionSearch extends action_base {
