@@ -43,10 +43,10 @@ export function unregisterStalker(stalker: StalkerBinder, destroy: boolean = tru
 export function setStalkerState(
   object: XR_game_object,
   state: EStalkerState,
-  callback?: Optional<IStateManagerCallbackDescriptor>,
-  timeout?: Optional<TDuration>,
-  target?: Optional<ITargetStateDescriptor>,
-  extra?: Optional<ITargetStateDescriptorExtras>
+  callback: Optional<IStateManagerCallbackDescriptor> = null,
+  timeout: Optional<TDuration> = null,
+  target: Optional<ITargetStateDescriptor> = null,
+  extra: Optional<ITargetStateDescriptorExtras> = null
 ): void {
   registry.objects
     .get(object.id())

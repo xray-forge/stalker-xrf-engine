@@ -8,7 +8,7 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to reset and stop current animation.
  */
 @LuabindClass()
 export class ActionAnimationStop extends action_base {
@@ -20,7 +20,7 @@ export class ActionAnimationStop extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Reset current animation state to null.
    */
   public override initialize(): void {
     super.initialize();

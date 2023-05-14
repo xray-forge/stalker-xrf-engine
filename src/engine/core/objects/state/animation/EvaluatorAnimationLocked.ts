@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check whether performed animation is locked and cannot be interrupted at the moment.
  */
 @LuabindClass()
 export class EvaluatorAnimationLocked extends property_evaluator {
@@ -18,7 +18,7 @@ export class EvaluatorAnimationLocked extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Check whether any animation marker is active.
    */
   public override evaluate(): boolean {
     return this.stateManager.animation.states.animationMarker !== null;

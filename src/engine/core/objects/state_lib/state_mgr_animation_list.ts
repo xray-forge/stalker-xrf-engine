@@ -308,7 +308,7 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
     into: null,
     out: null,
     idle: null,
-    rnd: {
+    rnd: $fromObject({
       [0]: null,
       [1]: ["gop_stop_1_0"],
       [2]: ["gop_stop_2_0"],
@@ -317,7 +317,7 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
       [8]: ["gop_stop_8_0"],
       [9]: ["gop_stop_9_0"],
       [10]: ["gop_stop_10_0"],
-    },
+    }),
   },
   backoff: {
     prop: {
@@ -328,7 +328,7 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
     into: null,
     out: null,
     idle: null,
-    rnd: {
+    rnd: $fromObject({
       [0]: ["uhodi_1_0", "uhodi_1_1"],
       [1]: ["uhodi_1_0", "uhodi_1_1"],
       [2]: ["uhodi_2_0", "uhodi_2_1"],
@@ -337,9 +337,8 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
       [8]: ["uhodi_8_0", "uhodi_8_1"],
       [9]: ["uhodi_9_0", "uhodi_9_1"],
       [10]: ["uhodi_10_0", "uhodi_10_1"],
-    },
+    }),
   },
-
   punch: {
     prop: {
       maxidle: 5,

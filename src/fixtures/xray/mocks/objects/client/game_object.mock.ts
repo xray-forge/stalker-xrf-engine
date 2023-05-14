@@ -12,6 +12,8 @@ let ID_COUNTER: number = 1000;
  * todo;
  */
 export function mockClientGameObject({
+  active_item = jest.fn(() => null),
+  animation_count = jest.fn(() => 0),
   character_icon = jest.fn(() => "test_character_icon") as <T>() => T,
   clsid = jest.fn(() => -1 as TXR_class_id),
   disable_info_portion,
@@ -57,6 +59,8 @@ export function mockClientGameObject({
 
   return {
     ...rest,
+    active_item,
+    animation_count,
     active_slot: rest.active_slot || jest.fn(() => 3),
     character_icon,
     clsid,

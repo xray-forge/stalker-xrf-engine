@@ -7,6 +7,8 @@ export class MockActionBase {
   public preconditions: Array<XR_world_property> = [];
   public effects: Array<XR_world_property> = [];
 
+  public initialize(): void {}
+
   public add_precondition(property: XR_world_property): void {
     this.preconditions.push(property);
   }

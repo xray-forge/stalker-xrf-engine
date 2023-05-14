@@ -7,7 +7,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to perform animation start.
  */
 @LuabindClass()
 export class ActionAnimationStart extends action_base {
@@ -19,7 +19,8 @@ export class ActionAnimationStart extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Perform sync of state manager and animation managers.
+   * Set control for animation manager.
    */
   public override initialize(): void {
     super.initialize();

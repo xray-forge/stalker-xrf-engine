@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to check whether no current animation is active.
  */
 @LuabindClass()
 export class EvaluatorAnimationNoneNow extends property_evaluator {
@@ -18,7 +18,7 @@ export class EvaluatorAnimationNoneNow extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Check whether current animation state is not null.
    */
   public override evaluate(): boolean {
     return this.stateManager.animation.states.currentState === null;

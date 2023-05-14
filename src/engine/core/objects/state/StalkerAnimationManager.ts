@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Animation lifecycle marker state.
  */
-enum EAnimationMarker {
+export enum EAnimationMarker {
   IN = 1,
   OUT = 2,
   IDLE = 3,
@@ -218,7 +218,11 @@ export class StalkerAnimationManager {
       let animation;
 
       if (state.rnd !== null) {
-        animation = this.selectRandom(state as any, activeWeaponSlot, time_global() >= states.nextRandomAt!);
+        animation = this.selectRandom(
+          state as IAnimationStateDescriptor,
+          activeWeaponSlot,
+          time_global() >= states.nextRandomAt!
+        );
       }
 
       if (animation === null && state.idle !== null) {
