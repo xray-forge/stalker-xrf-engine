@@ -954,7 +954,7 @@ extern(
 
     zone_name = anomalies_names_tbl.get(zone).get(math.random(1, anomalies_names_tbl.get(zone).length()));
 
-    registry.anomalies.get(zone_name).setForcedSpawnOverride(zat_b29_af_table.get(key as number));
+    registry.anomalyZones.get(zone_name).setForcedSpawnOverride(zat_b29_af_table.get(key as number));
   }
 );
 

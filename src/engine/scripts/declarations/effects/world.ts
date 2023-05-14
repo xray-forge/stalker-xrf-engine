@@ -193,7 +193,7 @@ extern(
     const anomalyZoneName: Optional<TName> = params && params[1];
     let artefactSection: TSection = params && params[2];
 
-    const anomalyZone = registry.anomalies.get(anomalyZoneName as TName);
+    const anomalyZone = registry.anomalyZones.get(anomalyZoneName as TName);
 
     if (params && params[0]) {
       const objectId: Optional<TNumberId> = getObjectIdByStoryId(params[0]);
@@ -250,7 +250,7 @@ extern(
  * todo
  */
 extern("xr_effects.anomaly_turn_off", (actor: XR_game_object, object: XR_game_object, p: [string]): void => {
-  const anomal_zone = registry.anomalies.get(p[0]);
+  const anomal_zone = registry.anomalyZones.get(p[0]);
 
   if (anomal_zone === null) {
     abort("No such anomal zone in function 'anomaly_turn_off!'");
@@ -265,7 +265,7 @@ extern("xr_effects.anomaly_turn_off", (actor: XR_game_object, object: XR_game_ob
 extern(
   "xr_effects.anomaly_turn_on",
   (actor: XR_game_object, object: XR_game_object, p: [string, Optional<string>]): void => {
-    const anomal_zone = registry.anomalies.get(p[0]);
+    const anomal_zone = registry.anomalyZones.get(p[0]);
 
     if (anomal_zone === null) {
       abort("No such anomal zone in function 'anomaly_turn_on!'");

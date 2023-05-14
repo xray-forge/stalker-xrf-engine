@@ -1200,7 +1200,7 @@ extern(
       return true;
     }
 
-    const anomalyZone: AnomalyZoneBinder = registry.anomalies.get(az_table.get(index));
+    const anomalyZone: AnomalyZoneBinder = registry.anomalyZones.get(az_table.get(index));
 
     if (anomalyZone === null) {
       disableInfo(infoPortionsTable.get(index));
@@ -2144,7 +2144,7 @@ extern(
       return false;
     }
 
-    const anomal_zone = registry.anomalies.get(az_table.get(index));
+    const anomal_zone = registry.anomalyZones.get(az_table.get(index));
 
     if (anomal_zone === null) {
       return false;

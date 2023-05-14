@@ -612,7 +612,7 @@ export class SurgeManager extends AbstractCoreManager {
       this.respawnArtefactsByLevel[levelName] = false;
     }
 
-    for (const [, anomalyZone] of registry.anomalies) {
+    for (const [, anomalyZone] of registry.anomalyZones) {
       anomalyZone.respawnArtefactsAndReplaceAnomalyZones();
     }
 

@@ -24,7 +24,7 @@ extern(
     const az_name = p && p[0];
     let af_name: Optional<string> = null;
 
-    const anomal_zone = registry.anomalies.get(az_name as TName);
+    const anomal_zone = registry.anomalyZones.get(az_name as TName);
 
     if (az_name === null || anomal_zone === null || anomal_zone.spawnedArtefactsCount < 1) {
       return false;

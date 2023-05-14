@@ -17,10 +17,10 @@ import {
   closeLoadMarker,
   closeSaveMarker,
   openSaveMarker,
-  registerAnomaly,
+  registerAnomalyZone,
   registry,
   resetObject,
-  unregisterAnomaly,
+  unregisterAnomalyZone,
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
@@ -511,7 +511,7 @@ export class AnomalyZoneBinder extends object_binder {
       return false;
     }
 
-    registerAnomaly(this);
+    registerAnomalyZone(this);
 
     return true;
   }
@@ -520,7 +520,7 @@ export class AnomalyZoneBinder extends object_binder {
    * todo: Description.
    */
   public override net_destroy(): void {
-    unregisterAnomaly(this);
+    unregisterAnomalyZone(this);
 
     registry.objects.delete(this.object.id());
     super.net_destroy();

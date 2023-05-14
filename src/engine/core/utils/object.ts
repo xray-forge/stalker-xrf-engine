@@ -482,7 +482,7 @@ export function anomalyHasArtefact(
 ): LuaMultiReturn<[boolean, Optional<LuaArray<TName>>]> {
   const az_name = params && params[0];
   const af_name = params && params[1];
-  const anomalyZone = registry.anomalies.get(az_name);
+  const anomalyZone = registry.anomalyZones.get(az_name);
 
   if (anomalyZone === null) {
     return $multi(false, null);

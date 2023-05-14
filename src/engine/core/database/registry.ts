@@ -107,9 +107,9 @@ export const registry = {
     enemiesCount: 0,
   },
   /**
-   * List active anomalies by name.
+   * Anomaly zones by name.
    */
-  anomalies: new LuaTable<TName, AnomalyZoneBinder>(),
+  anomalyZones: new LuaTable<TName, AnomalyZoneBinder>(),
   /**
    * Anomaly fields by name.
    */

@@ -53,7 +53,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
     logger.info("Crows count:", registry.crows.count);
     logger.info("Helicopter enemies registered:", Object.keys(registry.helicopter.enemies).length);
     logger.info("Helicopter registered:", Object.keys(registry.helicopter.storage).length);
-    logger.info("Anomalies registered:", Object.keys(registry.anomalies).length);
+    logger.info("Anomalies registered:", Object.keys(registry.anomalyZones).length);
     logger.info("Zones registered:", Object.keys(registry.zones).length);
     logger.info("Silence zones registered:", Object.keys(registry.silenceZones).length);
     logger.info("No weapon zones registered:", Object.keys(registry.noWeaponZones).length);
