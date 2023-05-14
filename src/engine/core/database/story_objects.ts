@@ -79,14 +79,20 @@ export function unregisterStoryLinkByStoryId(storyId: TStringId): void {
 }
 
 /**
- * todo;
+ * Get object story ID by provided game object ID.
+ *
+ * @param objectId - game object ID
+ * @returns story object id
  */
 export function getStoryIdByObjectId(objectId: TNumberId): Optional<TStringId> {
   return registry.storyLink.sidById.get(objectId);
 }
 
 /**
- * todo;
+ * Get game object ID by provided story ID.
+ *
+ * @param storyId - story ID of the object
+ * @returns game object ID
  */
 export function getObjectIdByStoryId(storyId: TStringId): Optional<TNumberId> {
   return registry.storyLink.idBySid.get(storyId);

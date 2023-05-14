@@ -22,11 +22,6 @@ describe("'story_objects' module of the database", () => {
   MockAlifeSimulator.addToRegistry(firstObject);
   MockAlifeSimulator.addToRegistry(secondObject);
 
-  beforeEach(() => {
-    registry.storyLink.idBySid = new LuaTable();
-    registry.storyLink.sidById = new LuaTable();
-  });
-
   it("should correctly register object story links", () => {
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
