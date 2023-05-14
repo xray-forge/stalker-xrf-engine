@@ -9,7 +9,7 @@ import { areSameVectors } from "@/engine/core/utils/vector";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to change object direction based on state manager.
  */
 @LuabindClass()
 export class ActionDirectionTurn extends action_base {
@@ -21,7 +21,7 @@ export class ActionDirectionTurn extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Perform direction turn on init.
    */
   public override initialize(): void {
     super.initialize();
@@ -29,7 +29,7 @@ export class ActionDirectionTurn extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Execute direction turn when action is activated.
    */
   public override execute(): void {
     super.execute();
@@ -37,7 +37,7 @@ export class ActionDirectionTurn extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Perform directional turn based on state manager parameters.
    */
   public turn(): void {
     this.stateManager.isObjectPointDirectionLook = getLookObjectType(this.object, this.stateManager);
