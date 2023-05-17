@@ -1,13 +1,19 @@
 import { cse_smart_cover, LuabindClass, properties_helper, XR_net_packet } from "xray16";
 
-import { registerObjectStoryLinks, registry, unregisterStoryLinkByObjectId } from "@/engine/core/database";
+import {
+  registerObjectStoryLinks,
+  registerSmartCover,
+  unregisterSmartCover,
+  unregisterStoryLinkByObjectId,
+} from "@/engine/core/database";
 import {
   ISmartCoverLoopholeDescriptor,
   smart_covers_list,
 } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
-import { abort } from "@/engine/core/utils/assertion";
+import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TCount, TSection, TStringId } from "@/engine/lib/types";
+import { getTableSize } from "@/engine/core/utils/table";
+import { Optional, TCount, TLabel, TSection, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -17,11 +23,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class SmartCover extends cse_smart_cover {
   public loopholes: LuaTable<TStringId, boolean> = new LuaTable();
-  public last_description: string = "";
+  public lastDescription: TLabel = "";
 
-  /**
-   * todo: Description.
-   */
   public constructor(section: TSection) {
     super(section);
 
@@ -30,126 +33,104 @@ export class SmartCover extends cse_smart_cover {
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public override on_before_register(): void {
     super.on_before_register();
-    registry.smartCovers.set(this.name(), this);
+    registerSmartCover(this);
   }
 
-  /**
-   * todo: Description.
-   */
   public override on_register(): void {
     super.on_register();
 
     registerObjectStoryLinks(this);
   }
 
-  /**
-   * todo: Description.
-   */
   public override on_unregister(): void {
     unregisterStoryLinkByObjectId(this.id);
-    registry.smartCovers.delete(this.name());
+    unregisterSmartCover(this);
 
     super.on_unregister();
   }
 
-  /**
-   * todo: Description.
-   */
-  public override FillProps(pref: string, items: LuaTable<number>): void {
-    super.FillProps(pref, items);
-
-    const prefix = pref + "\\" + this.section_name() + "\\";
-    const smart_cover_description = this.description();
-
-    if (smart_cover_description !== this.last_description) {
-      for (const [k, v] of this.loopholes) {
-        this.loopholes.delete(k);
-      }
-
-      this.last_description = tostring(smart_cover_description);
-    }
-
-    if (smart_cover_description !== null) {
-      const loopholes = smart_covers_list.get(smart_cover_description).loopholes;
-
-      for (const [k, v] of loopholes) {
-        if (this.loopholes.get(v.id) === null) {
-          this.loopholes.set(v.id, true);
-        }
-
-        const h: boolean = new properties_helper().create_bool(
-          items,
-          prefix + "loopholes\\" + v.id,
-          this,
-          this.loopholes,
-          v.id
-        );
-
-        this.set_loopholes_table_checker(h);
-      }
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
   public override STATE_Write(packet: XR_net_packet): void {
     super.STATE_Write(packet);
 
-    packet.w_stringZ(this.last_description);
+    packet.w_stringZ(this.lastDescription);
+    packet.w_u8(getTableSize(this.loopholes));
 
-    let n = 0;
-
-    for (const [k, v] of this.loopholes) {
-      n = n + 1;
-    }
-
-    packet.w_u8(n);
-
-    for (const [k, v] of this.loopholes) {
-      packet.w_stringZ(k);
-      packet.w_bool(v);
+    for (const [id, isEnabled] of this.loopholes) {
+      packet.w_stringZ(id);
+      packet.w_bool(isEnabled);
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public override STATE_Read(packet: XR_net_packet, size: TCount): void {
     super.STATE_Read(packet, size);
 
-    this.last_description = packet.r_stringZ();
+    this.lastDescription = packet.r_stringZ();
 
     const smartCoverDescription: Optional<string> =
-      this.last_description !== "" ? this.last_description : this.description();
-    const existing_loopholes: LuaTable<string, any> = new LuaTable();
+      this.lastDescription !== "" ? this.lastDescription : this.description();
+    const existingLoopholes: LuaTable<TStringId, boolean> = new LuaTable();
 
     if (smartCoverDescription !== null) {
-      if (!smart_covers_list.has(smartCoverDescription)) {
-        abort("smartcover [%s] has wrong description [%s]", this.name(), tostring(smartCoverDescription));
-      }
+      assert(
+        smart_covers_list.has(smartCoverDescription),
+        "SmartCover [%s] has wrong description [%s].",
+        this.name(),
+        tostring(smartCoverDescription)
+      );
 
       const loopholes: LuaTable<number, ISmartCoverLoopholeDescriptor> =
         smart_covers_list.get(smartCoverDescription).loopholes;
 
-      for (const [k, v] of loopholes) {
-        existing_loopholes.set(v.id, true);
+      for (const [, descriptor] of loopholes) {
+        existingLoopholes.set(descriptor.id, true);
       }
 
-      const n = packet.r_u8();
+      const loopholesCount: TCount = packet.r_u8();
 
-      for (const i of $range(1, n)) {
-        const loophole_id: string = packet.r_stringZ();
-        const loophole_exist: boolean = packet.r_bool();
+      for (const it of $range(1, loopholesCount)) {
+        const loopholeId: TStringId = packet.r_stringZ();
+        const isLoopholeExisting: boolean = packet.r_bool();
 
-        if (existing_loopholes.get(loophole_id) !== null) {
-          this.loopholes.set(loophole_id, loophole_exist);
+        if (existingLoopholes.get(loopholeId) !== null) {
+          this.loopholes.set(loopholeId, isLoopholeExisting);
         }
+      }
+    }
+  }
+
+  public override FillProps(pref: string, items: LuaTable<number>): void {
+    super.FillProps(pref, items);
+
+    const prefix: TLabel = pref + "\\" + this.section_name() + "\\";
+    const smartCoverDescription: Optional<TLabel> = this.description();
+
+    if (smartCoverDescription !== this.lastDescription) {
+      for (const [k, v] of this.loopholes) {
+        this.loopholes.delete(k);
+      }
+
+      this.lastDescription = tostring(smartCoverDescription);
+    }
+
+    if (smartCoverDescription !== null) {
+      const loopholes = smart_covers_list.get(smartCoverDescription).loopholes;
+
+      for (const [, descriptor] of loopholes) {
+        if (this.loopholes.get(descriptor.id) === null) {
+          this.loopholes.set(descriptor.id, true);
+        }
+
+        const isLoopholesTableCheckerEnabled: boolean = new properties_helper().create_bool(
+          items,
+          prefix + "loopholes\\" + descriptor.id,
+          this,
+          this.loopholes,
+          descriptor.id
+        );
+
+        this.set_loopholes_table_checker(isLoopholesTableCheckerEnabled);
       }
     }
   }

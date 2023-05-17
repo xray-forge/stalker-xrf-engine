@@ -1,12 +1,14 @@
 import { jest } from "@jest/globals";
 import { TXR_class_id, XR_cse_smart_cover } from "xray16";
 
-import { AbstractLuabindClass } from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
+import { MockAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 
 /**
  * todo;
  */
-export class MockAlifeSmartCover extends AbstractLuabindClass {}
+export class MockAlifeSmartCover extends MockAlifeObject {
+  public set_available_loopholes = jest.fn();
+}
 
 /**
  * todo;

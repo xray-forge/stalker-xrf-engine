@@ -88,9 +88,9 @@ export function loadSchemeImplementations(schemeImplementations: Array<TAbstract
 }
 
 /**
- * todo;
+ * Register logics handling schemes.
  */
-export function registerSchemeModules(): void {
+export function registerSchemes(): void {
   logger.info("Register scheme modules");
 
   loadSchemeImplementations([
