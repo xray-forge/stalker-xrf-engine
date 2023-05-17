@@ -1,7 +1,8 @@
 import { XR_game_object } from "xray16";
 
-import { IRegistryObjectState, registerObject, unregisterObject } from "@/engine/core/database/objects";
+import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
+import { IRegistryObjectState } from "@/engine/core/database/types";
 
 /**
  * Register new actor entry in db.

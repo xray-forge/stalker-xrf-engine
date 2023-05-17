@@ -1,7 +1,7 @@
 import { TXR_net_processor, XR_game_object, XR_net_packet } from "xray16";
 
-import { IRegistryObjectState } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
+import { IRegistryObjectState } from "@/engine/core/database/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
@@ -165,6 +165,8 @@ export function loadPortableStore(object: XR_game_object, reader: TXR_net_proces
 
 /**
  * Initialize object portable store if it does not exist.
+ *
+ * @param object - client game object for portable store initialization
  */
 export function initializePortableStore(object: XR_game_object): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
@@ -176,6 +178,8 @@ export function initializePortableStore(object: XR_game_object): void {
 
 /**
  * Initialize object portable store if it does not exist.
+ *
+ * @param object - client game object for portable store destruction
  */
 export function destroyPortableStore(object: XR_game_object): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());

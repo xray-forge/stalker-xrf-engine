@@ -21,6 +21,7 @@ import {
   openSaveMarker,
   registerObjectStoryLinks,
   registry,
+  resetStalkerState,
   SMART_TERRAIN_MASKS_LTX,
   softResetOfflineObject,
   SQUAD_BEHAVIOURS_LTX,
@@ -46,7 +47,6 @@ import {
   TSimulationObject,
 } from "@/engine/core/objects/server/types";
 import { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
-import { resetObjectAnimation } from "@/engine/core/utils/animation";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/check/is";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
@@ -841,7 +841,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       registry.offlineObjects.get(squadMember.id).levelVertexId = level.vertex_id(position);
 
       if (object !== null) {
-        resetObjectAnimation(object);
+        resetStalkerState(object);
         object.set_npc_position(position);
       } else {
         squadMember.object.position = position;
