@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database/registry";
 
 describe("registry storage", () => {
   it("storage to contain all fields", () => {
-    expect(Object.keys(registry)).toHaveLength(35);
+    expect(Object.keys(registry)).toHaveLength(36);
   });
 
   it("storage to initialize with correct data", () => {
@@ -38,6 +38,7 @@ describe("registry storage", () => {
     expect(registry.signalLights instanceof LuaTable).toBeTruthy();
     expect(registry.noWeaponZones instanceof LuaTable).toBeTruthy();
     expect(registry.lightZones instanceof LuaTable).toBeTruthy();
+    expect(registry.ini instanceof LuaTable).toBeTruthy();
     expect(registry.smartTerrains instanceof LuaTable).toBeTruthy();
     expect(registry.smartTerrainsCampfires instanceof LuaTable).toBeTruthy();
     expect(registry.smartTerrainNearest.id).toBeNull();

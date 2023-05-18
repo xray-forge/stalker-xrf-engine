@@ -1,9 +1,8 @@
 import { game_object, XR_game_object, XR_ini_file } from "xray16";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { getObjectLogicIniConfig, IRegistryObjectState, registry } from "@/engine/core/database";
 import { activateSchemeBySection } from "@/engine/core/schemes/base/utils/activateSchemeBySection";
 import { configureObjectSchemes } from "@/engine/core/schemes/base/utils/configureObjectSchemes";
-import { getObjectSchemeCustomDataOrIniFile } from "@/engine/core/schemes/base/utils/getObjectSchemeCustomDataOrIniFile";
 import { getObjectSectionToActivate } from "@/engine/core/schemes/base/utils/getObjectSectionToActivate";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -31,7 +30,7 @@ export function initializeObjectSchemeLogic(
     const iniFilename: TName = "<customdata>";
     const iniFile: XR_ini_file = configureObjectSchemes(
       object,
-      getObjectSchemeCustomDataOrIniFile(object, iniFilename),
+      getObjectLogicIniConfig(object, iniFilename),
       iniFilename,
       schemeType,
       "logic",
@@ -59,7 +58,7 @@ export function initializeObjectSchemeLogic(
     if (iniFilename !== null) {
       const iniFile: XR_ini_file = configureObjectSchemes(
         object,
-        getObjectSchemeCustomDataOrIniFile(object, iniFilename),
+        getObjectLogicIniConfig(object, iniFilename),
         iniFilename,
         schemeType,
         state.loaded_section_logic as TSection,

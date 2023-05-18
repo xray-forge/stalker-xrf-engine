@@ -19,7 +19,7 @@ import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { mockRenderDevice } from "@/fixtures/xray/mocks/device.mock";
 import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
 import { MockFileSystem } from "@/fixtures/xray/mocks/fs/FileSystem.mock";
-import { MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { mockCreateIniFile, MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { mockGameInterface } from "@/fixtures/xray/mocks/interface/gameInterface.mock";
 import { mockGetGameHud } from "@/fixtures/xray/mocks/interface/globalInteraface.mock";
 import { mockLevelInterface } from "@/fixtures/xray/mocks/interface/levelInterface.mock";
@@ -91,6 +91,7 @@ export function mockXRay16({
   anim = MockAnim,
   callback = mockCallbacks,
   clsid = mockClsid,
+  create_ini_file = mockCreateIniFile,
   cse_alife_creature_actor = MockAlifeCreatureActor,
   cse_alife_helicopter = MockAlifeHelicopter,
   cse_alife_dynamic_object = MockAlifeDynamicObject,
@@ -168,6 +169,7 @@ export function mockXRay16({
     anim,
     callback,
     clsid,
+    create_ini_file,
     cse_alife_creature_actor,
     cse_alife_helicopter,
     cse_alife_dynamic_object,

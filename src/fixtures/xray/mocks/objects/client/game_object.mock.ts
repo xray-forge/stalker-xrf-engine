@@ -7,6 +7,7 @@ import {
   XR_action_planner,
   XR_CGameTask,
   XR_game_object,
+  XR_ini_file,
 } from "xray16";
 
 import { AnyCallable, AnyContextualCallable, AnyObject, PartialRecord } from "@/engine/lib/types";
@@ -48,7 +49,6 @@ export function mockClientGameObject({
   section,
   sectionOverride = "section",
   set_invisible = jest.fn(),
-  spawn_ini = jest.fn(() => mockIniFile("spawn.ini")),
   special_danger_move = jest.fn(() => true),
   transfer_item,
   transfer_money = jest.fn(),
@@ -70,6 +70,7 @@ export function mockClientGameObject({
 
   const actionManager: XR_action_planner = mockDefaultActionPlanner();
   const callbacks: PartialRecord<TXR_callback, AnyCallable> = {};
+  const spawnIni: XR_ini_file = mockIniFile("spawn.ini");
 
   const gameObject = {
     ...rest,
@@ -161,7 +162,7 @@ export function mockClientGameObject({
         return params;
       }),
     set_sight: rest.set_sight || jest.fn((nextSight: TXR_SightType) => (sight = nextSight)),
-    spawn_ini,
+    spawn_ini: rest.spawn_ini || jest.fn(() => spawnIni),
     special_danger_move,
     target_body_state:
       rest.target_body_state ||

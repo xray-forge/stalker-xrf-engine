@@ -1,4 +1,4 @@
-import type { XR_CZoneCampfire, XR_game_object } from "xray16";
+import type { XR_CZoneCampfire, XR_game_object, XR_ini_file } from "xray16";
 
 import type { IRegistryObjectState, IStoredOfflineObject } from "@/engine/core/database/types";
 import type {
@@ -143,13 +143,18 @@ export const registry = {
    */
   lightZones: new LuaTable<number, LightManager>(),
   /**
-   * List of active smart terrains.
+   * List of dynamically created ini files by name.
    */
+  ini: new LuaTable<TName, XR_ini_file>()
+  /**
+   * List of active smart terrains.
+   */,
   smartTerrains: new LuaTable<TNumberId, SmartTerrain>(),
   /**
    * List of campfires by smart terrain name.
    */
   smartTerrainsCampfires: new LuaTable<TName, LuaTable<TNumberId, XR_CZoneCampfire>>(),
+
   /**
    * Nearest to actor smart terrain.
    */

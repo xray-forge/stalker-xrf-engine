@@ -1,57 +1,55 @@
-import { create_ini_file, ini_file, system_ini, XR_ini_file } from "xray16";
+import { create_ini_file, ini_file, XR_game_object, XR_ini_file } from "xray16";
 
-import { abort } from "@/engine/core/utils/assertion";
-import { Optional } from "@/engine/lib/types";
-
-/**
- * Store of dynamically generated LTX files based on content.
- */
-export const DYNAMIC_LTX: LuaTable<string, XR_ini_file> = new LuaTable();
+import { DUMMY_LTX, DYNAMIC_LTX_PREFIX } from "@/engine/core/database/ini_registry";
+import { registry } from "@/engine/core/database/registry";
+import { IRegistryObjectState } from "@/engine/core/database/types";
+import { assertDefined } from "@/engine/core/utils/assertion";
+import { Optional, TName } from "@/engine/lib/types";
 
 /**
- * Create shared registry of dynamic and static LTX.
- * Force initial caching of system LTX/dymmy/etc and add enum to get predefined LTX from registry with some getter.
- * todo;
- * todo;
- * todo;
+ * Create dynamic ini file representation or get existing one from cache.
+ *
+ * @param name - dynamic ini file name
+ * @param content - dynamic ini file content to initialize, if it does not exist
  */
-export const SYSTEM_INI: XR_ini_file = system_ini();
-export const DUMMY_LTX: XR_ini_file = new ini_file("scripts\\dummy.ltx");
-export const GAME_LTX: XR_ini_file = new ini_file("game.ltx");
-export const SIMULATION_LTX: XR_ini_file = new ini_file("misc\\simulation.ltx");
-export const DIALOG_MANAGER_LTX: XR_ini_file = new ini_file("misc\\dialog_manager.ltx");
-export const SCRIPT_SOUND_LTX: XR_ini_file = new ini_file("misc\\script_sound.ltx");
-export const PH_BOX_GENERIC_LTX: XR_ini_file = new ini_file("misc\\ph_box_generic.ltx");
-export const DYNAMIC_WEATHER_GRAPHS: XR_ini_file = new ini_file("environment\\dynamic_weather_graphs.ltx");
-export const SECRETS_LTX: XR_ini_file = new ini_file("misc\\secrets.ltx");
-export const DEATH_GENERIC_LTX: XR_ini_file = new ini_file("misc\\death_generic.ltx");
-export const ITEM_UPGRADES: XR_ini_file = new ini_file("item_upgrades.ltx");
-export const STALKER_UPGRADE_INFO: XR_ini_file = new ini_file("misc\\stalkers_upgrade_info.ltx");
-export const SURGE_MANAGER_LTX: XR_ini_file = new ini_file("misc\\surge_manager.ltx");
-export const SQUAD_BEHAVIOURS_LTX: XR_ini_file = new ini_file("misc\\squad_behaviours.ltx");
-export const SMART_TERRAIN_MASKS_LTX: XR_ini_file = new ini_file("misc\\smart_terrain_masks.ltx");
-export const TASK_MANAGER_LTX: XR_ini_file = new ini_file("misc\\task_manager.ltx");
-export const TRAVEL_MANAGER_LTX: XR_ini_file = new ini_file("misc\\travel_manager.ltx");
-export const SIMULATION_OBJECTS_PROPS_LTX: XR_ini_file = new ini_file("misc\\simulation_objects_props.ltx");
-export const SOUND_STORIES_LTX: XR_ini_file = new ini_file("misc\\sound_stories.ltx");
+export function loadDynamicIni(name: TName, content: Optional<string> = null): LuaMultiReturn<[XR_ini_file, TName]> {
+  const nameKey: TName = DYNAMIC_LTX_PREFIX + name;
+  const existingIniFile: Optional<XR_ini_file> = registry.ini.get(nameKey);
 
-/**
- * todo;
- * todo;
- * todo;
- */
-export function loadDynamicLtx(name: string, content: Optional<string> = null): LuaMultiReturn<[XR_ini_file, string]> {
-  const nameKey: string = "*" + name;
-  let dltx: Optional<XR_ini_file> = DYNAMIC_LTX.get(nameKey);
+  if (existingIniFile !== null) {
+    return $multi(existingIniFile, nameKey);
+  } else {
+    assertDefined(content, "Unexpected, expected data to initialize in new dynamic ini file.");
 
-  if (dltx !== null) {
-    return $multi(dltx, nameKey);
-  } else if (content === null) {
-    abort("Unexpected, missing logic with support of null-defined ini files.");
+    const newIniFile: XR_ini_file = create_ini_file(content);
+
+    registry.ini.set(nameKey, newIniFile);
+
+    return $multi(newIniFile, nameKey);
   }
+}
 
-  dltx = create_ini_file(content);
-  DYNAMIC_LTX.set(nameKey, dltx);
+/**
+ * Get ini file based on active object logic.
+ *
+ * @param object - game object to get matching ini config
+ * @param filename - ini file name
+ * @returns ini file for provided object
+ */
+export function getObjectLogicIniConfig(object: XR_game_object, filename: TName): XR_ini_file {
+  if (filename === "<customdata>") {
+    const ini: Optional<XR_ini_file> = object.spawn_ini();
 
-  return $multi(dltx, nameKey);
+    return ini === null ? DUMMY_LTX : ini;
+  } else if (string.find(filename, DYNAMIC_LTX_PREFIX)[0] === 1) {
+    const state: IRegistryObjectState = registry.objects.get(object.id());
+
+    if (state.job_ini) {
+      return new ini_file(state.job_ini);
+    }
+
+    return loadDynamicIni(string.sub(filename, 2))[0];
+  } else {
+    return new ini_file(filename);
+  }
 }

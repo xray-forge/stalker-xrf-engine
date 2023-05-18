@@ -27,7 +27,7 @@ import {
   closeSaveMarker,
   hardResetOfflineObject,
   IRegistryObjectState,
-  loadDynamicLtx,
+  loadDynamicIni,
   openSaveMarker,
   registerObjectStoryLinks,
   registry,
@@ -737,11 +737,11 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     logger.info("Load jobs:", this.name());
 
     const [jobs, ltxContent] = loadGulagJobs(this);
-    const [ltx, ltx_name] = loadDynamicLtx(this.name(), ltxContent);
+    const [ltx, ltxName] = loadDynamicIni(this.name(), ltxContent);
 
     this.jobs = jobs;
     this.ltxConfig = ltx;
-    this.ltxConfigName = ltx_name;
+    this.ltxConfigName = ltxName;
 
     const sortJobs = (jobs: LuaArray<TJobDescriptor>) => {
       for (const [index, descriptor] of jobs) {

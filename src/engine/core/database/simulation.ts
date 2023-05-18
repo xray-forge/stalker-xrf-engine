@@ -1,6 +1,6 @@
 import { clsid } from "xray16";
 
-import { SIMULATION_OBJECTS_PROPS_LTX } from "@/engine/core/database/ini";
+import { SIMULATION_OBJECTS_PROPS_LTX } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { parseConditionsList } from "@/engine/core/utils/parse";

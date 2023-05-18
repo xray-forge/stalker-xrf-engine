@@ -1,6 +1,6 @@
 import { alife, level, XR_cse_abstract, XR_cse_alife_object, XR_game_object, XR_ini_file } from "xray16";
 
-import { SYSTEM_INI } from "@/engine/core/database/ini";
+import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
@@ -99,7 +99,10 @@ export function getObjectIdByStoryId(storyId: TStringId): Optional<TNumberId> {
 }
 
 /**
- * todo;
+ * Get server object by provided story ID.
+ *
+ * @param storyId - story id to search
+ * @returns existing server object instance or null
  */
 export function getServerObjectByStoryId<T extends XR_cse_alife_object>(storyId: TStringId): Optional<T> {
   const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
@@ -108,10 +111,13 @@ export function getServerObjectByStoryId<T extends XR_cse_alife_object>(storyId:
 }
 
 /**
- * todo;
+ * Get client object by provided story ID.
+ *
+ * @param storyId - story id to search
+ * @returns existing client object instance or null
  */
-export function getObjectByStoryId(storyObjectId: TStringId): Optional<XR_game_object> {
-  const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyObjectId);
+export function getObjectByStoryId(storyId: TStringId): Optional<XR_game_object> {
+  const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
   const possibleObject: Optional<XR_game_object> = (
     objectId === null ? null : registry.objects.get(objectId)?.object
   ) as Optional<XR_game_object>;
