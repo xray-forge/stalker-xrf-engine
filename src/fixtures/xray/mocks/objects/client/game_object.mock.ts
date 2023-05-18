@@ -47,6 +47,7 @@ export function mockClientGameObject({
   position = jest.fn(() => MockVector.mock(0.25, 0.25, 0.25)),
   section,
   sectionOverride = "section",
+  set_invisible = jest.fn(),
   spawn_ini = jest.fn(() => mockIniFile("spawn.ini")),
   special_danger_move = jest.fn(() => true),
   transfer_item,
@@ -147,6 +148,7 @@ export function mockClientGameObject({
           (callbacks[id] = callback.bind(context))
       ),
     set_mental_state: rest.set_mental_state || jest.fn(),
+    set_invisible,
     sight_params:
       rest.sight_params ||
       jest.fn(() => {

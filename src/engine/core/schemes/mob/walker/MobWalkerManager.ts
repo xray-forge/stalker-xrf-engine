@@ -24,6 +24,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { action, isObjectScriptCaptured, scriptCaptureObject } from "@/engine/core/utils/object";
 import { IWaypointData, parsePathWaypoints } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
+import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import { EScheme, LuaArray, Optional, TDuration, TIndex, TName, TNumberId } from "@/engine/lib/types";
 
@@ -57,7 +58,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
    * todo: Description.
    */
   public override resetScheme(): void {
-    setMonsterState(this.object, registry.actor, this.state.state);
+    setMonsterState(this.object, this.state.state);
 
     this.state.signals = new LuaTable();
     scriptCaptureObject(this.object, true);
@@ -154,19 +155,11 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
     const suggested_crouch = this.path_walk_info!.get(index)["c"];
 
-    if (suggested_crouch === TRUE) {
-      this.crouch = true;
-    } else {
-      this.crouch = false;
-    }
+    this.crouch = suggested_crouch === TRUE;
 
     const suggested_running = this.path_walk_info!.get(index)["r"];
 
-    if (suggested_running === TRUE) {
-      this.running = true;
-    } else {
-      this.running = false;
-    }
+    this.running = suggested_running === TRUE;
 
     const signal: Optional<TName> = this.path_walk_info!.get(index)["sig"] as TName;
 
@@ -179,13 +172,9 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       signals.set(signal, true);
     }
 
-    const beh = this.path_walk_info!.get(index)["b"];
+    const beh: Optional<EMonsterState> = this.path_walk_info!.get(index)["b"] as Optional<EMonsterState>;
 
-    if (beh) {
-      setMonsterState(this.object, registry.actor, beh);
-    } else {
-      setMonsterState(this.object, registry.actor, this.state.state);
-    }
+    setMonsterState(this.object, beh ? beh : this.state.state);
 
     const searchForFlags = this.path_walk_info!.get(index)["flags"] as XR_flags32;
 
@@ -227,11 +216,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
       const beh = this.path_walk_info!.get(index)["b"];
 
-      if (beh) {
-        setMonsterState(this.object, registry.actor, beh);
-      } else {
-        setMonsterState(this.object, registry.actor, this.state.state);
-      }
+      setMonsterState(this.object, (beh ? beh : this.state.state) as EMonsterState);
 
       if (pt_chosen_idx !== this.last_look_index) {
         this.look_at_waypoint(pt_chosen_idx);

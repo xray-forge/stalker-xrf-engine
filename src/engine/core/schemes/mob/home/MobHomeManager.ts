@@ -1,6 +1,6 @@
 import { alife, patrol, XR_cse_alife_creature_abstract } from "xray16";
 
-import { registry, setMonsterState } from "@/engine/core/database";
+import { setMonsterState } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/mob/home/ISchemeMobHomeState";
 import { abort } from "@/engine/core/utils/assertion";
@@ -18,7 +18,7 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
    * todo: Description.
    */
   public override resetScheme(): void {
-    setMonsterState(this.object, registry.actor, this.state.state);
+    setMonsterState(this.object, this.state.state);
 
     let minr = def_min_radius;
     let maxr = def_max_radius;

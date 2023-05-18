@@ -36,3 +36,12 @@ export type TMonsters = typeof monsters;
  * todo;
  */
 export type TMonster = TMonsters[keyof TMonsters];
+
+/**
+ * todo;
+ */
+export enum EMonsterState {
+  NONE = "",
+  INVISIBLE = "invis",
+  VISIBLE = "vis",
+}

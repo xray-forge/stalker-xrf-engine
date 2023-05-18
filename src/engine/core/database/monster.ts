@@ -3,40 +3,40 @@ import { clsid, XR_game_object, XR_ini_file } from "xray16";
 import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Read monster state from provided ini file.
+ *
+ * @param ini - config file to read state from
+ * @param section - ini file section to read state field from
+ * @returns monster state from ini config or null
  */
-export function getMonsterState(ini: XR_ini_file, section: TSection): Optional<string> {
-  const state: string = readIniString(ini, section, "state", false, "", "");
+export function getMonsterState(ini: XR_ini_file, section: TSection): Optional<EMonsterState> {
+  const state: EMonsterState = readIniString(ini, section, "state", false, "", "") as EMonsterState;
 
-  return state === "" ? null : state;
+  return state === EMonsterState.NONE ? null : state;
 }
 
 /**
- * todo;
+ * Set monster object state.
+ *
+ * @param object - client game object to set state
+ * @param state - target state to set
  */
-export function setMonsterState(object: XR_game_object, actor: XR_game_object, state: Optional<string>): void {
-  if (state === null) {
+export function setMonsterState(object: XR_game_object, state: Optional<EMonsterState>): void {
+  if (state === null || state === EMonsterState.NONE) {
     return;
   }
 
   if (object.clsid() === clsid.bloodsucker_s) {
-    if (state === "invis") {
-      object.set_invisible(true);
-
-      return;
-    } else if (state === "vis") {
-      object.set_invisible(false);
-
-      return;
-    }
-  } else {
-    if (state === "") {
-      return;
+    if (state === EMonsterState.INVISIBLE) {
+      return object.set_invisible(true);
+    } else if (state === EMonsterState.VISIBLE) {
+      return object.set_invisible(false);
     }
   }
 
