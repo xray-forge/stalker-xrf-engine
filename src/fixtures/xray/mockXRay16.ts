@@ -67,9 +67,9 @@ import { MockDangerObject } from "@/fixtures/xray/mocks/objects/client/danger_ob
 import { MockObjectBinder } from "@/fixtures/xray/mocks/objects/client/object_binder.mock";
 import { MockAlifeDynamicObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object.mock";
 import { MockAlifeDynamicObjectVisual } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object_visual.mock";
+import { MockSoundObject } from "@/fixtures/xray/mocks/objects/sound";
 import { MockCGameTask, MockTask } from "@/fixtures/xray/mocks/objects/task";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
-import { MockSoundObject } from "@/fixtures/xray/mocks/sound/SoundObject.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**

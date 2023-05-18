@@ -1,5 +1,5 @@
 /**
- * todo;
+ * Enumeration of possible playable sounds types.
  */
 export enum EPlayableSound {
   ACTOR = "actor",
