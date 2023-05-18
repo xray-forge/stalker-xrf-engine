@@ -7,6 +7,9 @@ import { IRegistryObjectState } from "@/engine/core/database/types";
 /**
  * Register new actor entry in db.
  * Usually means that game is loaded or started.
+ *
+ * @param object - game object to register as actor
+ * @returns registry object state
  */
 export function registerActor(object: XR_game_object): IRegistryObjectState {
   registry.actor = object;

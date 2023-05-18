@@ -8,7 +8,9 @@ import { ACTOR, DEFAULT } from "@/engine/lib/constants/words";
 import { TCount, TSection } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Register simulation object in registries for participation in game events.
+ *
+ * @param object - simulation object to register
  */
 export function registerSimulationObject(object: TSimulationObject): void {
   initializeSimulationObjectProperties(object);
@@ -16,14 +18,18 @@ export function registerSimulationObject(object: TSimulationObject): void {
 }
 
 /**
- * todo;
+ * Unregister object in simulation registries.
+ *
+ * @param object - simulation object to register
  */
 export function unregisterSimulationObject(object: TSimulationObject): void {
   registry.simulationObjects.delete(object.id);
 }
 
 /**
- * todo;
+ * Update simulation object participation.
+ *
+ * @param object - simulation object to update availability status
  */
 export function updateSimulationObjectAvailability(object: TSimulationObject): void {
   if (object.isSimulationAvailable()) {
@@ -34,7 +40,9 @@ export function updateSimulationObjectAvailability(object: TSimulationObject): v
 }
 
 /**
- * todo;
+ * Initialize simulation object properties.
+ *
+ * @param simulationObject - simulation object to initialize simulation configuration
  */
 export function initializeSimulationObjectProperties(simulationObject: TSimulationObject): void {
   simulationObject.simulationProperties = new LuaTable();

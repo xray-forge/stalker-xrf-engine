@@ -7,8 +7,9 @@ import { readIniString } from "@/engine/core/utils/ini/getters";
 import { Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
- * todo;
- * todo: check whether unregister is needed everywhere it is registered. Looks like currently it is messy.
+ * Register story object link based on ini configuration.
+ *
+ * @param serverObject - server object to register links
  */
 export function registerObjectStoryLinks(serverObject: XR_cse_abstract): void {
   const spawnIni: XR_ini_file = serverObject.spawn_ini();
@@ -33,7 +34,10 @@ export function registerObjectStoryLinks(serverObject: XR_cse_abstract): void {
 }
 
 /**
- * todo;
+ * Register story links based on object information.
+ *
+ * @param objectId - game object ID
+ * @param storyObjectId - game object story ID
  */
 export function registerStoryLink(objectId: TNumberId, storyObjectId: TStringId): void {
   if (registry.storyLink.idBySid.get(storyObjectId) !== null) {
@@ -59,7 +63,9 @@ export function registerStoryLink(objectId: TNumberId, storyObjectId: TStringId)
 }
 
 /**
- * todo;
+ * Unregister story object link by provided object ID.
+ *
+ * @param objectId - game object ID to unregister story links
  */
 export function unregisterStoryLinkByObjectId(objectId: TNumberId): void {
   if (registry.storyLink.sidById.get(objectId) !== null) {
@@ -69,7 +75,9 @@ export function unregisterStoryLinkByObjectId(objectId: TNumberId): void {
 }
 
 /**
- * todo;
+ * Unregister story object link by provided story ID.
+ *
+ * @param storyId - story object ID to unregister story links
  */
 export function unregisterStoryLinkByStoryId(storyId: TStringId): void {
   if (registry.storyLink.idBySid.get(storyId) !== null) {

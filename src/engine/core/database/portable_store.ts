@@ -25,6 +25,9 @@ export enum EPortableStoreType {
 
 /**
  * Check whether provided value is correct for saving in portable store.
+ *
+ * @param value - value to check portable store type validity
+ * @returns whether value is valid to be stored in portable store
  */
 export function isValidPortableStoreValue(value: unknown): boolean {
   if (value === null) {
@@ -38,6 +41,10 @@ export function isValidPortableStoreValue(value: unknown): boolean {
 
 /**
  * Set value in object portable store by key.
+ *
+ * @param object - game object to set portable value for
+ * @param key - portable store key to set
+ * @param value - value to set in portable store
  */
 export function setPortableStoreValue<T extends TPortableStoreValue>(
   object: XR_game_object,
@@ -60,6 +67,9 @@ export function setPortableStoreValue<T extends TPortableStoreValue>(
 
 /**
  * Get value from object portable store.
+ *
+ * @param object - game object to load portable store value from
+ * @param key - portable store key to get value
  */
 export function getPortableStoreValue<T extends TPortableStoreValue>(object: XR_game_object, key: TName): Optional<T>;
 export function getPortableStoreValue<T extends TPortableStoreValue>(
@@ -87,6 +97,9 @@ export function getPortableStoreValue<T extends TPortableStoreValue>(
 
 /**
  * Save object portable store data into net packet.
+ *
+ * @param object - game object to save portable store for
+ * @param packet - net packet to save data in
  */
 export function savePortableStore(object: XR_game_object, packet: XR_net_packet): void {
   const objectId: TNumberId = object.id();
@@ -128,6 +141,9 @@ export function savePortableStore(object: XR_game_object, packet: XR_net_packet)
 
 /**
  * Load object portable store data from net packet.
+ *
+ * @param object - game object to load portable store for
+ * @param reader - net processor to load data from
  */
 export function loadPortableStore(object: XR_game_object, reader: TXR_net_processor): void {
   const objectId: TNumberId = object.id();

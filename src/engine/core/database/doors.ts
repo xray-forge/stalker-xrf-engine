@@ -5,6 +5,9 @@ import type { LabX8DoorBinder } from "@/engine/core/objects/binders/physic/LabX8
 
 /**
  * Register door binder object.
+ *
+ * @param doorBinder - binder object to register
+ * @returns game object registry state
  */
 export function registerDoor(doorBinder: LabX8DoorBinder): IRegistryObjectState {
   registry.doors.set(doorBinder.object.name(), doorBinder);
@@ -14,6 +17,8 @@ export function registerDoor(doorBinder: LabX8DoorBinder): IRegistryObjectState 
 
 /**
  * Unregister door binder object.
+ *
+ * @param doorBinder - binder object to unregister
  */
 export function unregisterDoor(doorBinder: LabX8DoorBinder): void {
   registry.doors.delete(doorBinder.object.name());
