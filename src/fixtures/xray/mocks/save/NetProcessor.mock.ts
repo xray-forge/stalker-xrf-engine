@@ -44,6 +44,15 @@ export class MockNetProcessor {
       throw new Error("Unexpected test mock read.");
     }
   }
+  public r_s32(): number {
+    this.readDataOrder.push(EPacketDataType.I32);
+
+    if (this.hasData()) {
+      return this.dataList.shift() as number;
+    } else {
+      throw new Error("Unexpected test mock read.");
+    }
+  }
 
   public r_u16(): number {
     this.readDataOrder.push(EPacketDataType.U16);
@@ -87,6 +96,11 @@ export class MockNetProcessor {
 
   public w_u32(data: number): void {
     this.writeDataOrder.push(EPacketDataType.U32);
+    this.dataList.push(data);
+  }
+
+  public w_s32(data: number): void {
+    this.writeDataOrder.push(EPacketDataType.I32);
     this.dataList.push(data);
   }
 

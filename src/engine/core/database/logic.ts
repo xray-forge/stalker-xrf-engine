@@ -14,48 +14,16 @@ import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, StringOptional, TName, TNumberId, TPath, TSection, TTimestamp } from "@/engine/lib/types";
+import { Optional, StringOptional, TName, TPath, TSection } from "@/engine/lib/types";
 
 /**
- * todo;
- * todo;
- * todo;
- */
-function saveSchemeActivationDetails(object: XR_game_object, packet: XR_net_packet): void {
-  const objectId: TNumberId = object.id();
-  const now: TTimestamp = time_global();
-
-  let activationTime: Optional<TTimestamp> = registry.objects.get(objectId).activation_time;
-
-  if (activationTime === null) {
-    activationTime = 0;
-  }
-
-  packet.w_s32(activationTime - now);
-  writeTimeToPacket(packet, registry.objects.get(objectId).activation_game_time);
-}
-
-/**
- * todo;
- * todo;
- * todo;
- */
-function loadSchemeActivationDetails(object: XR_game_object, reader: TXR_net_processor): void {
-  const objectId: TNumberId = object.id();
-  const now: TTimestamp = time_global();
-
-  registry.objects.get(objectId).activation_time = reader.r_s32() + now;
-  registry.objects.get(objectId).activation_game_time = readTimeFromPacket(reader) as XR_CTime;
-}
-
-/**
- * todo;
- * todo;
- * todo;
+ * Save game object schemes/logic details.
+ *
+ * @param object - game object to save logic
+ * @param packet - net packet to save login into
  */
 export function saveObjectLogic(object: XR_game_object, packet: XR_net_packet): void {
-  const objectId: TNumberId = object.id();
-  const state: IRegistryObjectState = registry.objects.get(objectId);
+  const state: IRegistryObjectState = registry.objects.get(object.id());
 
   openSaveMarker(packet, "object" + object.name());
 
@@ -65,7 +33,8 @@ export function saveObjectLogic(object: XR_game_object, packet: XR_net_packet): 
   packet.w_stringZ(state.active_section ? state.active_section : "");
   packet.w_stringZ(state.gulag_name ? state.gulag_name : "");
 
-  saveSchemeActivationDetails(object, packet);
+  packet.w_s32((state.activation_time || 0) - time_global());
+  writeTimeToPacket(packet, state.activation_game_time);
 
   if (state.active_scheme) {
     emitSchemeEvent(object, state[state.active_scheme] as IBaseSchemeState, ESchemeEvent.SAVE);
@@ -76,13 +45,13 @@ export function saveObjectLogic(object: XR_game_object, packet: XR_net_packet): 
 }
 
 /**
- * todo;
- * todo;
- * todo;
+ * Load game object schemes/logic details.
+ *
+ * @param object - game object to load logic
+ * @param reader - reader to load data from
  */
 export function loadObjectLogic(object: XR_game_object, reader: TXR_net_processor): void {
-  const objectId: TNumberId = object.id();
-  const state: IRegistryObjectState = registry.objects.get(objectId);
+  const state: IRegistryObjectState = registry.objects.get(object.id());
 
   openLoadMarker(reader, "object" + object.name());
 
@@ -98,7 +67,9 @@ export function loadObjectLogic(object: XR_game_object, reader: TXR_net_processo
   state.loaded_active_section = activeSection === "" ? NIL : activeSection;
   state.loaded_gulag_name = gulagName;
 
-  loadSchemeActivationDetails(object, reader);
+  state.activation_time = reader.r_s32() + time_global();
+  state.activation_game_time = readTimeFromPacket(reader) as XR_CTime;
+
   loadPortableStore(object, reader);
 
   closeLoadMarker(reader, "object" + object.name());

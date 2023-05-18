@@ -145,7 +145,7 @@ export function mockXRay16({
   stalker_ids = mockStalkerIds,
   system_ini = () => mockIniFile("system.ini"),
   task = MockTask,
-  time_global = () => Date.now(),
+  time_global = jest.fn(() => Date.now()),
   user_name = jest.fn(() => "os_user_name"),
   vector = MockVector,
   world_property = MockWorldProperty,

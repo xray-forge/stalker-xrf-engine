@@ -92,7 +92,7 @@ export function savePortableStore(object: XR_game_object, packet: XR_net_packet)
   const objectId: TNumberId = object.id();
   let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).portableStore;
 
-  if (portableStore === null) {
+  if (!portableStore) {
     portableStore = new LuaTable<string>();
     registry.objects.get(objectId).portableStore = portableStore;
   }
