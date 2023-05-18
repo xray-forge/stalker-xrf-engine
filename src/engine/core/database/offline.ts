@@ -3,41 +3,64 @@ import { IStoredOfflineObject } from "@/engine/core/database/types";
 import { Optional, TNumberId } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Register offline object representation in database.
+ *
+ * @param objectId - game object ID to register offline representation
+ * @param state - base offline state to register
+ * @returns stored offline object state representation
  */
-export function hardResetOfflineObject(objectId: TNumberId): void {
-  registry.offlineObjects.set(objectId, {
+export function registerOfflineObject(
+  objectId: TNumberId,
+  state: IStoredOfflineObject = {
     levelVertexId: null,
     activeSection: null,
-  });
-}
-
-/**
- * todo;
- */
-export function softResetOfflineObject(objectId: TNumberId): void {
-  if (registry.offlineObjects.has(objectId)) {
-    registry.offlineObjects.set(objectId, {
-      levelVertexId: null,
-      activeSection: null,
-    });
   }
-}
-
-/**
- * todo;
- */
-export function registerOfflineObject(objectId: TNumberId): IStoredOfflineObject {
+): IStoredOfflineObject {
   let offlineRecord: Optional<IStoredOfflineObject> = registry.offlineObjects.get(objectId);
 
   if (offlineRecord === null) {
-    offlineRecord = {
-      levelVertexId: null,
-      activeSection: null,
-    };
+    offlineRecord = state;
 
     registry.offlineObjects.set(objectId, offlineRecord);
   }
 
   return offlineRecord;
+}
+
+/**
+ * Hard reset offline object state.
+ * Create new representation entry if it was not initialize before.
+ *
+ * @param objectId - game object ID to register offline representation
+ * @param state - base offline state to register
+ * @returns stored offline object state representation
+ */
+export function hardResetOfflineObject(
+  objectId: TNumberId,
+  state: IStoredOfflineObject = {
+    levelVertexId: null,
+    activeSection: null,
+  }
+): void {
+  registry.offlineObjects.set(objectId, state);
+}
+
+/**
+ * Soft reset offline object state.
+ * Do not create new representation entry if it was not initialize before.
+ *
+ * @param objectId - game object ID to register offline representation
+ * @param state - base offline state to register
+ * @returns stored offline object state representation
+ */
+export function softResetOfflineObject(
+  objectId: TNumberId,
+  state: IStoredOfflineObject = {
+    levelVertexId: null,
+    activeSection: null,
+  }
+): void {
+  if (registry.offlineObjects.has(objectId)) {
+    registry.offlineObjects.set(objectId, state);
+  }
 }
