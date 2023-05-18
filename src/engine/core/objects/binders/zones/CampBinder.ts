@@ -28,7 +28,7 @@ export class CampBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
 
-    const camp: Optional<CampStoryManager> = registry.camps.stories.get(this.object.id());
+    const camp: Optional<CampStoryManager> = registry.campsStories.get(this.object.id());
 
     if (camp !== null) {
       camp.object = this.object;
@@ -48,7 +48,7 @@ export class CampBinder extends object_binder {
     if (ini.section_exist("camp")) {
       const filename: Optional<TName> = readIniString(ini, "camp", "cfg", false, "", null);
 
-      registry.camps.stories.set(
+      registry.campsStories.set(
         this.object.id(),
         new CampStoryManager(this.object, filename === null ? ini : new ini_file(filename))
       );
@@ -63,7 +63,7 @@ export class CampBinder extends object_binder {
   public override net_destroy(): void {
     logger.info("Net destroy camp:", this.object.id());
 
-    registry.camps.stories.delete(this.object.id());
+    registry.campsStories.delete(this.object.id());
     super.net_destroy();
   }
 
@@ -71,7 +71,7 @@ export class CampBinder extends object_binder {
    * todo;
    */
   public override update(delta: TDuration): void {
-    const camp: Optional<CampStoryManager> = registry.camps.stories.get(this.object.id());
+    const camp: Optional<CampStoryManager> = registry.campsStories.get(this.object.id());
 
     if (camp !== null) {
       camp.update();

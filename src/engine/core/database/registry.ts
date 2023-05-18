@@ -1,7 +1,6 @@
 import type { XR_CZoneCampfire, XR_game_object } from "xray16";
 
-import type { IStoredOfflineObject } from "@/engine/core/database/offline";
-import type { IRegistryObjectState } from "@/engine/core/database/types";
+import type { IRegistryObjectState, IStoredOfflineObject } from "@/engine/core/database/types";
 import type {
   AbstractCoreManager,
   TAbstractCoreManagerConstructor,
@@ -85,11 +84,9 @@ export const registry = {
    */
   trade: new LuaTable<TNumberId, ITradeManagerDescriptor>(),
   /**
-   * Camp related states.
+   * Camp stories related states.
    */
-  camps: {
-    stories: new LuaTable<TNumberId, CampStoryManager>(),
-  },
+  campsStories: new LuaTable<TNumberId, CampStoryManager>(),
   /**
    * List of current zone crows spawned.
    */

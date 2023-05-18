@@ -49,7 +49,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
     logger.info("Story links:", Object.keys(registry.storyLink.idBySid).length);
     logger.info("Stalkers registered:", Object.keys(registry.stalkers).length);
     logger.info("Trade states registered:", Object.keys(registry.trade).length);
-    logger.info("Camp stories registered:", Object.keys(registry.camps.stories).length);
+    logger.info("Camp stories registered:", Object.keys(registry.campsStories).length);
     logger.info("Crows count:", registry.crows.count);
     logger.info("Helicopter enemies registered:", Object.keys(registry.helicopter.enemies).length);
     logger.info("Helicopter registered:", Object.keys(registry.helicopter.storage).length);

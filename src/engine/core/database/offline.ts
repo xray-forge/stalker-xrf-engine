@@ -1,13 +1,6 @@
 import { registry } from "@/engine/core/database/registry";
-import { Optional, TNumberId, TSection } from "@/engine/lib/types";
-
-/**
- * todo;
- */
-export interface IStoredOfflineObject {
-  levelVertexId: Optional<TNumberId>;
-  activeSection: Optional<TSection>;
-}
+import { IStoredOfflineObject } from "@/engine/core/database/types";
+import { Optional, TNumberId } from "@/engine/lib/types";
 
 /**
  * todo;

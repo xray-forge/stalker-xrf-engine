@@ -54,3 +54,11 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   loaded_active_section: Optional<TSection>;
   loaded_gulag_name: Optional<TName>;
 }
+
+/**
+ * todo;
+ */
+export interface IStoredOfflineObject {
+  levelVertexId: Optional<TNumberId>;
+  activeSection: Optional<TSection>;
+}

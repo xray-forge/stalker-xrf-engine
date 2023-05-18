@@ -40,7 +40,7 @@ export class CampStoryManager {
     }
 
     // todo: Is it too big scope to check?
-    for (const [k, v] of registry.camps.stories) {
+    for (const [k, v] of registry.campsStories) {
       if (v.object!.inside(position)) {
         return v;
       }
@@ -59,7 +59,7 @@ export class CampStoryManager {
       return;
     }
 
-    const camp: CampStoryManager = registry.camps.stories.get(campId);
+    const camp: CampStoryManager = registry.campsStories.get(campId);
 
     camp.sound_manager.setStoryTeller(camp.director);
     camp.sound_manager.setStory(camp.guitar_table.get(math.random(camp.guitar_table.length())));
@@ -77,7 +77,7 @@ export class CampStoryManager {
       return;
     }
 
-    const camp: CampStoryManager = registry.camps.stories.get(campId);
+    const camp: CampStoryManager = registry.campsStories.get(campId);
 
     camp.sound_manager.setStoryTeller(camp.director);
     camp.sound_manager.setStory(camp.harmonica_table.get(math.random(camp.harmonica_table.length())));
