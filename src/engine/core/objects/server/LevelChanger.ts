@@ -19,8 +19,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class LevelChanger extends cse_alife_level_changer {
-  public enabled: boolean = true;
-  public hint: TLabel = "level_changer_invitation";
+  public isEnabled: boolean = true;
+  public invitationHint: TLabel = "level_changer_invitation";
 
   public override on_register(): void {
     super.on_register();
@@ -37,8 +37,8 @@ export class LevelChanger extends cse_alife_level_changer {
     super.STATE_Write(packet);
 
     openSaveMarker(packet, LevelChanger.__name);
-    packet.w_bool(this.enabled);
-    packet.w_stringZ(this.hint);
+    packet.w_bool(this.isEnabled);
+    packet.w_stringZ(this.invitationHint);
     closeSaveMarker(packet, LevelChanger.__name);
   }
 
@@ -46,8 +46,8 @@ export class LevelChanger extends cse_alife_level_changer {
     super.STATE_Read(packet, size);
 
     openLoadMarker(packet, LevelChanger.__name);
-    this.enabled = packet.r_bool();
-    this.hint = packet.r_stringZ();
+    this.isEnabled = packet.r_bool();
+    this.invitationHint = packet.r_stringZ();
     closeLoadMarker(packet, LevelChanger.__name);
   }
 }

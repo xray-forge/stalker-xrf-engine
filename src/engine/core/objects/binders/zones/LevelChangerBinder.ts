@@ -28,17 +28,11 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class LevelChangerBinder extends object_binder {
-  /**
-   * todo: Description.
-   */
   public override reinit(): void {
     super.reinit();
     resetObject(this.object);
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_spawn(cse_object: XR_cse_alife_object): boolean {
     if (!super.net_spawn(cse_object)) {
       return false;
@@ -52,35 +46,26 @@ export class LevelChangerBinder extends object_binder {
 
     registerObject(this.object);
 
-    const s_obj: LevelChanger = alife().object(this.object.id()) as LevelChanger;
+    const serverObject: LevelChanger = alife().object(this.object.id()) as LevelChanger;
 
-    this.object.enable_level_changer(s_obj.enabled);
-    this.object.set_level_changer_invitation(s_obj.hint);
+    this.object.enable_level_changer(serverObject.isEnabled);
+    this.object.set_level_changer_invitation(serverObject.invitationHint);
 
-    logger.info("Net spawned:", this.object.id(), s_obj.enabled, s_obj.hint);
+    logger.info("Net spawned:", this.object.id(), serverObject.isEnabled, serverObject.invitationHint);
 
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_destroy(): void {
     logger.info("Net destroy:", this.object.name());
     unregisterObject(this.object);
     super.net_destroy();
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override save(packet: XR_net_packet): void {
     openSaveMarker(packet, LevelChangerBinder.__name);
 
@@ -90,9 +75,6 @@ export class LevelChangerBinder extends object_binder {
     closeSaveMarker(packet, LevelChangerBinder.__name);
   }
 
-  /**
-   * todo: Description.
-   */
   public override load(reader: XR_reader): void {
     openLoadMarker(reader, LevelChangerBinder.__name);
 

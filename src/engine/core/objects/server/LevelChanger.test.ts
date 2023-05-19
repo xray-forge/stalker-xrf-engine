@@ -9,8 +9,8 @@ describe("LevelChanger server class", () => {
   it("should correctly create generic objects without story links", () => {
     const levelChanger: LevelChanger = new LevelChanger("test-section");
 
-    expect(levelChanger.enabled).toBe(true);
-    expect(levelChanger.hint).toBe("level_changer_invitation");
+    expect(levelChanger.isEnabled).toBe(true);
+    expect(levelChanger.invitationHint).toBe("level_changer_invitation");
 
     expect(levelChanger.section_name()).toBe("test-section");
 
@@ -55,8 +55,8 @@ describe("LevelChanger server class", () => {
     const levelChanger: LevelChanger = new LevelChanger("test-section");
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    levelChanger.enabled = false;
-    levelChanger.hint = "another";
+    levelChanger.isEnabled = false;
+    levelChanger.invitationHint = "another";
 
     levelChanger.STATE_Write(mockNetPacket(netProcessor));
 
@@ -70,7 +70,7 @@ describe("LevelChanger server class", () => {
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toEqual([]);
 
-    expect(anotherLevelChanger.enabled).toBe(false);
-    expect(anotherLevelChanger.hint).toBe("another");
+    expect(anotherLevelChanger.isEnabled).toBe(false);
+    expect(anotherLevelChanger.invitationHint).toBe("another");
   });
 });
