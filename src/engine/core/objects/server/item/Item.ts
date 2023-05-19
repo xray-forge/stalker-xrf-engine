@@ -8,7 +8,7 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Generic item server representation.
  */
 @LuabindClass()
 export class Item extends cse_alife_item {

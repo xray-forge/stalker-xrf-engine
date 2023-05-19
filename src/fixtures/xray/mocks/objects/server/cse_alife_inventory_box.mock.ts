@@ -1,19 +1,20 @@
-import { jest } from "@jest/globals";
-import { TXR_class_id, XR_cse_alife_inventory_box, XR_cse_alife_object } from "xray16";
+import { XR_cse_alife_inventory_box } from "xray16";
 
-import { AbstractLuabindClass } from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
-
-/**
- * todo;
- */
-export class MockAlifeInventoryBox extends AbstractLuabindClass {}
+import {
+  MockAlifeDynamicObjectVisual,
+  mockServerAlifeDynamicObjectVisual,
+} from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object_visual.mock";
 
 /**
  * todo;
  */
-export function mockServerAlifeInventoryBox({
-  m_game_vertex_id = 1,
-  clsid = jest.fn(() => -1 as TXR_class_id),
-}: Partial<XR_cse_alife_object> = {}): XR_cse_alife_inventory_box {
-  return { m_game_vertex_id, clsid } as unknown as XR_cse_alife_inventory_box;
+export class MockAlifeInventoryBox extends MockAlifeDynamicObjectVisual {}
+
+/**
+ * todo;
+ */
+export function mockServerAlifeInventoryBox(
+  base: Partial<XR_cse_alife_inventory_box> = {}
+): XR_cse_alife_inventory_box {
+  return { ...mockServerAlifeDynamicObjectVisual(), ...base } as unknown as XR_cse_alife_inventory_box;
 }

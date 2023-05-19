@@ -8,7 +8,7 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Inventory box server representation.
  */
 @LuabindClass()
 export class InventoryBox extends cse_alife_inventory_box {

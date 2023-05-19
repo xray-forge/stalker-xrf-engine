@@ -1,4 +1,4 @@
-export * from "@/engine/core/objects/server/item/InvertoryBox";
+export * from "@/engine/core/objects/server/item/InventoryBox";
 export * from "@/engine/core/objects/server/item/Item";
 export * from "@/engine/core/objects/server/item/ItemAmmo";
 export * from "@/engine/core/objects/server/item/ItemArtefact";
