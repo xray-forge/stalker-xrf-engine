@@ -8,7 +8,7 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Torch item server representation.
  */
 @LuabindClass()
 export class ItemTorch extends cse_alife_item_torch {

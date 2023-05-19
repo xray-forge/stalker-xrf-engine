@@ -8,7 +8,7 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * PDA item server representation.
  */
 @LuabindClass()
 export class ItemPda extends cse_alife_item_pda {
