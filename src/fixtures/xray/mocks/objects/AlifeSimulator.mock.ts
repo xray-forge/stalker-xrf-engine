@@ -4,7 +4,6 @@ import { XR_alife_simulator, XR_cse_alife_object } from "xray16";
 /**
  * todo;
  */
-
 export class MockAlifeSimulator {
   public static registry: Record<number, XR_cse_alife_object> = {};
 
@@ -15,6 +14,8 @@ export class MockAlifeSimulator {
   public static removeFromRegistry(id: number): void {
     delete MockAlifeSimulator.registry[id];
   }
+
+  public actor = jest.fn(() => MockAlifeSimulator.registry[0] || null);
 
   public object = jest.fn((id: number) => MockAlifeSimulator.registry[id] || null);
 

@@ -1,25 +1,29 @@
-import { jest } from "@jest/globals";
-import { TXR_class_id, XR_cse_alife_creature_actor } from "xray16";
+import { XR_cse_alife_creature_actor } from "xray16";
 
-import { mockServerAlifeObject } from "@/fixtures/xray/mocks/objects";
-import { AbstractLuabindClass } from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
-
-/**
- * todo;
- */
-export class MockAlifeCreatureActor extends AbstractLuabindClass {}
+import { TNumberId } from "@/engine/lib/types";
+import {
+  MockAlifeDynamicObjectVisual,
+  mockServerAlifeDynamicObjectVisual,
+} from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object_visual.mock";
 
 /**
  * todo;
  */
-export function mockServerAlifeCreatureActor({
-  m_game_vertex_id = 1,
-  clsid = jest.fn(() => -1 as TXR_class_id),
-  ...rest
-}: Partial<XR_cse_alife_creature_actor> = {}): XR_cse_alife_creature_actor {
+export class MockAlifeCreatureActor extends MockAlifeDynamicObjectVisual {
+  public override id: TNumberId = 0;
+
+  public asMock(): XR_cse_alife_creature_actor {
+    return this as unknown as XR_cse_alife_creature_actor;
+  }
+}
+
+/**
+ * todo;
+ */
+export function mockServerAlifeCreatureActor(
+  base: Partial<XR_cse_alife_creature_actor> = {}
+): XR_cse_alife_creature_actor {
   return {
-    ...mockServerAlifeObject(rest),
-    m_game_vertex_id,
-    clsid,
+    ...mockServerAlifeDynamicObjectVisual({ ...base, id: 0 }),
   } as unknown as XR_cse_alife_creature_actor;
 }

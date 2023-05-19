@@ -1,10 +1,11 @@
 import { jest } from "@jest/globals";
-import { TXR_class_id, XR_cse_alife_object } from "xray16";
+import { TXR_class_id, XR_cse_alife_object, XR_vector } from "xray16";
 
 import { AnyObject, TSection } from "@/engine/lib/types";
 import { MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { AbstractLuabindClass } from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
+import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 let ID_COUNTER: number = 1000;
 
@@ -14,6 +15,7 @@ let ID_COUNTER: number = 1000;
 export class MockAlifeObject extends AbstractLuabindClass {
   public id: number = ID_COUNTER++;
   public section: TSection;
+  public position: XR_vector = MockVector.mock(0, 0, 0);
 
   public constructor(section: TSection) {
     super();
@@ -42,6 +44,10 @@ export class MockAlifeObject extends AbstractLuabindClass {
   }
 
   public can_switch_online(): boolean {
+    return true;
+  }
+
+  public can_switch_offline(): boolean {
     return true;
   }
 
