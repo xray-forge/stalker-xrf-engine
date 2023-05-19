@@ -232,7 +232,7 @@ export class ObjectSound extends AbstractPlayableSound {
 
     if (schemeState.signals === null) {
       return;
-    } else if (this.playedSoundIndex === this.soundPaths.length() && this.shuffle !== "rnd") {
+    } else if (this.playedSoundIndex === this.soundPaths.length() && this.shuffle !== ESoundPlaylistType.RANDOM) {
       schemeState.signals.set("theme_end", true);
       schemeState.signals.set("sound_end", true);
     } else {

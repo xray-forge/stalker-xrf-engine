@@ -2,7 +2,7 @@ import { time_global, XR_game_object, XR_ini_file, XR_vector } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
+import { StoryManager } from "@/engine/core/objects/sounds/stories/StoryManager";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
@@ -99,7 +99,7 @@ export class CampStoryManager {
   public idle_talker: Optional<number> = null;
 
   public sound_manager_started: boolean = true;
-  public sound_manager: SoundManager;
+  public sound_manager: StoryManager;
 
   public active_state: string = "idle";
   public active_state_time: number = 0;
@@ -132,7 +132,7 @@ export class CampStoryManager {
     this.guitar_table = parseStringsList(guitars);
     this.harmonica_table = parseStringsList(harmonicas);
 
-    this.sound_manager = SoundManager.getSoundManagerForId("camp" + this.object.id());
+    this.sound_manager = StoryManager.getStoryManagerForId("camp" + this.object.id());
 
     this.states = {
       idle: {

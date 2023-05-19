@@ -15,8 +15,8 @@ import type {
   SmartTerrain,
   TSimulationObject,
 } from "@/engine/core/objects";
-import type { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
-import type { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
+import type { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds";
+import type { StoryManager } from "@/engine/core/objects/sounds/stories";
 import type { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import type { CampStoryManager } from "@/engine/core/schemes/camper";
 import type { PatrolManager } from "@/engine/core/schemes/patrol";
@@ -145,11 +145,10 @@ export const registry = {
   /**
    * List of dynamically created ini files by name.
    */
-  ini: new LuaTable<TName, XR_ini_file>()
+  ini: new LuaTable<TName, XR_ini_file>(),
   /**
    * List of active smart terrains.
-   */,
-  smartTerrains: new LuaTable<TNumberId, SmartTerrain>(),
+   */ smartTerrains: new LuaTable<TNumberId, SmartTerrain>(),
   /**
    * List of campfires by smart terrain name.
    */
@@ -199,7 +198,7 @@ export const registry = {
     generic: new LuaTable<TNumberId, AbstractPlayableSound>(),
     looped: new LuaTable<TNumberId, LuaTable<TName, AbstractPlayableSound>>(),
     themes: new LuaTable<TName, AbstractPlayableSound>(),
-    managers: new LuaTable<TStringId, SoundManager>(),
+    managers: new LuaTable<TStringId, StoryManager>(),
   },
   /**
    * Map of no assault zones.

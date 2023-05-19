@@ -46,7 +46,7 @@ import {
   ISquadAction,
   TSimulationObject,
 } from "@/engine/core/objects/server/types";
-import { SoundManager } from "@/engine/core/objects/sounds/SoundManager";
+import { StoryManager } from "@/engine/core/objects/sounds/stories";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/check/is";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
@@ -125,7 +125,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public isSpotVisible: Optional<TConditionList> = null;
   public relationship: Optional<TRelation> = null;
 
-  public readonly soundManager: SoundManager = SoundManager.getSoundManagerForId("squad_" + this.section_name());
+  public readonly soundManager: StoryManager = StoryManager.getStoryManagerForId("squad_" + this.section_name());
 
   public constructor(section: TSection) {
     super(section);

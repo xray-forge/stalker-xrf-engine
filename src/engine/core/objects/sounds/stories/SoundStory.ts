@@ -1,19 +1,11 @@
 import { SOUND_STORIES_LTX } from "@/engine/core/database";
+import { ESoundStoryParticipant, IReplicDescriptor } from "@/engine/core/objects/sounds/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseStringsList } from "@/engine/core/utils/parse";
-import { LuaArray, TCount, TDuration, TIndex, TName, TPath, TStringId } from "@/engine/lib/types";
+import { LuaArray, TCount, TIndex, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo: Description.
- */
-export interface IReplicDescriptor {
-  who: TName;
-  theme: TPath;
-  timeout: TDuration;
-}
 
 /**
  * todo: Description.
@@ -24,16 +16,13 @@ export class SoundStory {
   public maxPhrasesCount: TCount;
   public nextPhraseIndex: TIndex = 0;
 
-  public replicasCount: LuaTable<TIndex, IReplicDescriptor> = new LuaTable(); // 0 based array.
+  public replicas: LuaArray<IReplicDescriptor> = new LuaTable();
 
-  /**
-   * todo: Description.
-   */
   public constructor(storyId: TStringId) {
     logger.info("New sound story:", storyId);
 
     if (!SOUND_STORIES_LTX.section_exist(storyId)) {
-      abort("There is no story [%s] in sound_stories.ltx", tostring(storyId));
+      abort("There is no story [%s] in 'sound_stories.ltx'.", tostring(storyId));
     }
 
     const storyLinesCount: TCount = SOUND_STORIES_LTX.line_count(storyId);
@@ -45,13 +34,17 @@ export class SoundStory {
       const [result, id, value] = SOUND_STORIES_LTX.r_line(storyId, it, "", "");
 
       const params: LuaArray<string> = parseStringsList(value);
-      const who: string = params.get(1);
+      const who: ESoundStoryParticipant = params.get(1) as ESoundStoryParticipant;
 
-      if (who !== "teller" && who !== "reaction" && who !== "reaction_all") {
+      if (
+        who !== ESoundStoryParticipant.TELLER &&
+        who !== ESoundStoryParticipant.REACTION &&
+        who !== ESoundStoryParticipant.REACTION_ALL
+      ) {
         abort("Wrong first field [%s] in story [%s]", tostring(who), tostring(storyId));
       }
 
-      this.replicasCount.set(it, { who: who, theme: params.get(2), timeout: tonumber(params.get(3))! });
+      this.replicas.set(it, { who: who, theme: params.get(2), timeout: tonumber(params.get(3))! });
     }
   }
 
@@ -73,7 +66,7 @@ export class SoundStory {
    * todo: Description.
    */
   public getNextPhraseDescriptor(): IReplicDescriptor {
-    const phrase: IReplicDescriptor = this.replicasCount.get(this.nextPhraseIndex);
+    const phrase: IReplicDescriptor = this.replicas.get(this.nextPhraseIndex);
 
     this.nextPhraseIndex += 1;
 

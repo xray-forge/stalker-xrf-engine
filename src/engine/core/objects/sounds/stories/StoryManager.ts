@@ -2,20 +2,21 @@ import { time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { IReplicDescriptor, SoundStory } from "@/engine/core/objects/sounds/SoundStory";
+import { SoundStory } from "@/engine/core/objects/sounds/stories/SoundStory";
+import { ESoundStoryParticipant, IReplicDescriptor } from "@/engine/core/objects/sounds/types";
 import { NIL } from "@/engine/lib/constants/words";
 import { LuaArray, Optional, TCount, TDuration, TNumberId, TStringId, TTimestamp } from "@/engine/lib/types";
 
 /**
  * todo;
  */
-export class SoundManager {
+export class StoryManager {
   /**
    * Get manager singleton for provided object ID.
    */
-  public static getSoundManagerForId(id: TStringId) {
+  public static getStoryManagerForId(id: TStringId): StoryManager {
     if (registry.sounds.managers.get(id) === null) {
-      registry.sounds.managers.set(id, new SoundManager(id));
+      registry.sounds.managers.set(id, new StoryManager(id));
     }
 
     return registry.sounds.managers.get(id);
@@ -141,13 +142,13 @@ export class SoundManager {
       return;
     }
 
-    if (nextPhraseDescriptor.who === "teller") {
+    if (nextPhraseDescriptor.who === ESoundStoryParticipant.TELLER) {
       if (this.storyteller === null) {
         this.chooseRandomStoryteller();
       }
 
       nextSpeakerObjectId = this.storyteller;
-    } else if (nextPhraseDescriptor.who === "reaction") {
+    } else if (nextPhraseDescriptor.who === ESoundStoryParticipant.REACTION) {
       let tellerId: TNumberId = 0;
 
       for (const [k, v] of this.objects) {
@@ -168,7 +169,7 @@ export class SoundManager {
       } else {
         nextSpeakerObjectId = this.objects.get(1).objectId;
       }
-    } else if (nextPhraseDescriptor.who === "reaction_all") {
+    } else if (nextPhraseDescriptor.who === ESoundStoryParticipant.REACTION_ALL) {
       let objectId: Optional<TNumberId> = null;
 
       for (const [index, descriptor] of this.objects) {
