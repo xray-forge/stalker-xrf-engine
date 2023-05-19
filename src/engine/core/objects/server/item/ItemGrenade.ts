@@ -8,16 +8,16 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Grenade item server representation.
  */
 @LuabindClass()
 export class ItemGrenade extends cse_alife_item_grenade {
-  public isSecretTime: Optional<boolean> = false;
+  public isSecretItem: Optional<boolean> = false;
 
   public override on_register(): void {
     super.on_register();
     registerObjectStoryLinks(this);
-    this.isSecretTime = TreasureManager.getInstance().registerAlifeItem(this);
+    this.isSecretItem = TreasureManager.getInstance().registerAlifeItem(this);
   }
 
   public override on_unregister(): void {
@@ -26,7 +26,7 @@ export class ItemGrenade extends cse_alife_item_grenade {
   }
 
   public override can_switch_online(): boolean {
-    if (this.isSecretTime) {
+    if (this.isSecretItem) {
       return false;
     }
 

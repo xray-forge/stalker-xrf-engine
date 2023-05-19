@@ -1,19 +1,15 @@
-import { jest } from "@jest/globals";
-import { TXR_class_id, XR_cse_alife_item_helmet } from "xray16";
+import { XR_cse_alife_item_helmet } from "xray16";
 
-import { AbstractLuabindClass } from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
-
-/**
- * todo;
- */
-export class MockAlifeItemHelmet extends AbstractLuabindClass {}
+import { MockAlifeItem, mockServerAlifeItem } from "@/fixtures/xray/mocks/objects/server/cse_alife_item.mock";
 
 /**
  * todo;
  */
-export function mockServerAlifeItemHelmet({
-  m_game_vertex_id = 1,
-  clsid = jest.fn(() => -1 as TXR_class_id),
-}: Partial<XR_cse_alife_item_helmet> = {}): XR_cse_alife_item_helmet {
-  return { m_game_vertex_id, clsid } as unknown as XR_cse_alife_item_helmet;
+export class MockAlifeItemHelmet extends MockAlifeItem {}
+
+/**
+ * todo;
+ */
+export function mockServerAlifeItemHelmet(base: Partial<XR_cse_alife_item_helmet> = {}): XR_cse_alife_item_helmet {
+  return { ...mockServerAlifeItem(base) } as unknown as XR_cse_alife_item_helmet;
 }
