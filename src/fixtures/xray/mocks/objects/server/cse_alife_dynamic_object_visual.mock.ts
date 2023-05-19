@@ -16,5 +16,5 @@ export class MockAlifeDynamicObjectVisual extends MockAlifeDynamicObject {}
 export function mockServerAlifeDynamicObjectVisual(
   base: Partial<XR_cse_alife_dynamic_object_visual> = {}
 ): XR_cse_alife_inventory_box {
-  return { ...mockServerAlifeDynamicObject(base) } as unknown as XR_cse_alife_dynamic_object_visual;
+  return mockServerAlifeDynamicObject(base) as XR_cse_alife_dynamic_object_visual;
 }

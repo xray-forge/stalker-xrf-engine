@@ -20,10 +20,9 @@ export class MockAlifeCreatureActor extends MockAlifeDynamicObjectVisual {
 /**
  * todo;
  */
-export function mockServerAlifeCreatureActor(
-  base: Partial<XR_cse_alife_creature_actor> = {}
-): XR_cse_alife_creature_actor {
-  return {
-    ...mockServerAlifeDynamicObjectVisual({ ...base, id: 0 }),
-  } as unknown as XR_cse_alife_creature_actor;
+export function mockServerAlifeCreatureActor({
+  id = 0,
+  ...base
+}: Partial<XR_cse_alife_creature_actor> = {}): XR_cse_alife_creature_actor {
+  return mockServerAlifeDynamicObjectVisual({ id, ...base }) as XR_cse_alife_creature_actor;
 }

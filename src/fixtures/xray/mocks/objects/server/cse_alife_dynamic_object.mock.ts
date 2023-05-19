@@ -13,5 +13,5 @@ export class MockAlifeDynamicObject extends MockAlifeObject {}
 export function mockServerAlifeDynamicObject(
   base: Partial<XR_cse_alife_dynamic_object> = {}
 ): XR_cse_alife_dynamic_object {
-  return { ...mockServerAlifeObject(base) } as unknown as XR_cse_alife_dynamic_object;
+  return mockServerAlifeObject(base) as XR_cse_alife_dynamic_object;
 }
