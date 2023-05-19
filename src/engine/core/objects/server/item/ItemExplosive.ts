@@ -8,7 +8,7 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Explosive item server representation.
  */
 @LuabindClass()
 export class ItemExplosive extends cse_alife_item_explosive {

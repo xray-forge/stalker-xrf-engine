@@ -1,14 +1,12 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { XR_cse_alife_creature_actor } from "xray16";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, registry } from "@/engine/core/database";
-import { Actor } from "@/engine/core/objects";
 import { ItemArtefact } from "@/engine/core/objects/server/item/ItemArtefact";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { MockAlifeCreatureActor, MockAlifeSimulator, mockServerAlifeCreatureActor } from "@/fixtures/xray";
+import { MockAlifeCreatureActor, MockAlifeSimulator } from "@/fixtures/xray";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("Item server class", () => {
+describe("ItemArtefact server class", () => {
   it("should correctly create generic objects without story links", () => {
     const itemArtefact: ItemArtefact = new ItemArtefact("test-section");
 

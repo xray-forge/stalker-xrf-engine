@@ -8,7 +8,7 @@ import { Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Eatable item server representation.
  */
 @LuabindClass()
 export class ItemEatable extends cse_alife_item {

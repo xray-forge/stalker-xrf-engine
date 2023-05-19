@@ -4,7 +4,7 @@ import { getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, r
 import { ItemAmmo } from "@/engine/core/objects/server/item/ItemAmmo";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("Item server class", () => {
+describe("ItemAmmo server class", () => {
   it("should correctly create generic objects without story links", () => {
     const itemAmmo: ItemAmmo = new ItemAmmo("test-section");
 
