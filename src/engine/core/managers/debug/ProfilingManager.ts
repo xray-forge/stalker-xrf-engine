@@ -17,14 +17,14 @@ export interface IProfileSnapshotDescriptor {
 }
 
 /**
- * todo;
+ * Manager to profile lua methods frequency calls and measure duration of functions execution.
  */
 export class ProfilingManager extends AbstractCoreManager {
   public countersMap: LuaTable<AnyCallable, IProfileSnapshotDescriptor> = new LuaTable();
   public namesMap: LuaTable<AnyCallable, debug.FunctionInfo> = new LuaTable();
   public callsCountMap: LuaTable<AnyCallable, { info: debug.FunctionInfo; count: number }> = new LuaTable();
 
-  public profilingTimer = new profile_timer();
+  public profilingTimer: XR_profile_timer = new profile_timer();
   public isProfilingStarted: boolean = false;
 
   /**

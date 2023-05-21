@@ -17,7 +17,7 @@ export class ItemExplosive extends cse_alife_item_explosive {
   public override on_register(): void {
     super.on_register();
     registerObjectStoryLinks(this);
-    this.isSecretItem = TreasureManager.getInstance().registerAlifeItem(this);
+    this.isSecretItem = TreasureManager.registerItem(this);
   }
 
   public override on_unregister(): void {

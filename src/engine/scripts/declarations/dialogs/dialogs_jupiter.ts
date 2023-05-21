@@ -2594,5 +2594,5 @@ extern(
  * todo;
  */
 extern("dialogs_jupiter.jup_b19_reward", (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
-  TreasureManager.giveActorTreasureCoordinates(treasures.jup_hiding_place_38);
+  TreasureManager.giveTreasureCoordinates(treasures.jup_hiding_place_38);
 });

@@ -27,27 +27,27 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> {
    * todo: Description.
    */
   public resetScheme(): void {
-    logger.info("Reset scheme:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
+    logger.info("Reset scheme:", this.state?.scheme, this.object.name());
   }
 
   /**
    * todo: Description.
    */
   public deactivate(): void {
-    logger.info("Deactivate:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
+    logger.info("Deactivate:", this.state?.scheme, this.object.name());
   }
 
   /**
    * todo: Description.
    */
   public net_spawn(): void {
-    logger.info("Net spawn:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
+    logger.info("Net spawn:", this.state?.scheme, this.object.name());
   }
 
   /**
    * todo: Description.
    */
   public net_destroy(): void {
-    logger.info("Net destroy:", this.constructor.prototype.SCHEME_SECTION, this.object.name());
+    logger.info("Net destroy:", this.state?.scheme, this.object.name());
   }
 }

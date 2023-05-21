@@ -14,7 +14,7 @@ export class ZoneRestrictor extends cse_alife_space_restrictor {
   public override on_register(): void {
     super.on_register();
     registerObjectStoryLinks(this);
-    TreasureManager.getInstance().registerAlifeRestrictor(this);
+    TreasureManager.registerRestrictor(this);
   }
 
   public override on_unregister() {

@@ -504,7 +504,7 @@ extern(
       transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), food.vodka, 4);
     }
 
-    TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_29);
+    TreasureManager.giveTreasureCoordinates(treasures.zat_hiding_place_29);
   }
 );
 
@@ -2517,7 +2517,7 @@ extern(
  * todo;
  */
 extern("dialogs_zaton.zat_b106_give_reward", (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
-  TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_50);
+  TreasureManager.giveTreasureCoordinates(treasures.zat_hiding_place_50);
 });
 
 /**
@@ -2580,7 +2580,7 @@ extern(
   "dialogs_zaton.zat_b5_stalker_transfer_money",
   (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
     giveMoneyToActor(2500);
-    TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_7);
+    TreasureManager.giveTreasureCoordinates(treasures.zat_hiding_place_7);
   }
 );
 
@@ -2609,7 +2609,7 @@ extern(
  */
 extern("dialogs_zaton.zat_b5_bandits_revard", (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
   giveMoneyToActor(5_000);
-  TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_20);
+  TreasureManager.giveTreasureCoordinates(treasures.zat_hiding_place_20);
 });
 
 /**
@@ -2641,7 +2641,7 @@ extern(
   "dialogs_zaton.zat_b57_stalker_reward_to_actor_detector",
   (firstSpeaker: XR_game_object, secondSpeaker: XR_game_object): void => {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_elite);
-    TreasureManager.giveActorTreasureCoordinates(treasures.zat_hiding_place_54);
+    TreasureManager.giveTreasureCoordinates(treasures.zat_hiding_place_54);
   }
 );
 

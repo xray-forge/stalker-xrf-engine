@@ -17,7 +17,7 @@ export class ItemAmmo extends cse_alife_item_ammo {
   public override on_register(): void {
     super.on_register();
     registerObjectStoryLinks(this);
-    this.isSecretItem = TreasureManager.getInstance().registerAlifeItem(this);
+    this.isSecretItem = TreasureManager.registerItem(this);
   }
 
   public override on_unregister(): void {
