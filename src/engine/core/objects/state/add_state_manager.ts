@@ -39,29 +39,29 @@ export function addStateManager(object: XR_game_object): StalkerStateManager {
   planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_ITEMS, new EvaluatorStateIdleItems(stateManager));
   planner.add_evaluator(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, new EvaluatorStateLogicActive(stateManager));
 
-  let action = new ActionStateToIdle(stateManager, "CombatToIdle");
+  const actionCombatStateToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "CombatToIdle");
 
-  action.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_COMBAT, false));
-  action.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_COMBAT, true));
-  planner.add_action(EActionId.STATE_TO_IDLE_COMBAT, action);
+  actionCombatStateToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_COMBAT, false));
+  actionCombatStateToIdle.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_COMBAT, true));
+  planner.add_action(EActionId.STATE_TO_IDLE_COMBAT, actionCombatStateToIdle);
 
-  action = new ActionStateToIdle(stateManager, "ItemsToIdle");
+  const actionItemsToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ItemsToIdle");
 
-  action.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ITEMS, false));
-  action.add_precondition(new world_property(stalker_ids.property_items, true));
-  action.add_precondition(new world_property(stalker_ids.property_enemy, false));
-  action.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_ITEMS, true));
-  planner.add_action(EActionId.STATE_TO_IDLE_ITEMS, action);
+  actionItemsToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ITEMS, false));
+  actionItemsToIdle.add_precondition(new world_property(stalker_ids.property_items, true));
+  actionItemsToIdle.add_precondition(new world_property(stalker_ids.property_enemy, false));
+  actionItemsToIdle.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_ITEMS, true));
+  planner.add_action(EActionId.STATE_TO_IDLE_ITEMS, actionItemsToIdle);
 
-  action = new ActionStateToIdle(stateManager, "DangerToIdle");
+  const actionDangerToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "DangerToIdle");
 
-  action.add_precondition(new world_property(stalker_ids.property_enemy, false));
-  action.add_precondition(new world_property(stalker_ids.property_danger, false));
-  action.add_precondition(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
-  action.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, false));
-  action.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, true));
+  actionDangerToIdle.add_precondition(new world_property(stalker_ids.property_enemy, false));
+  actionDangerToIdle.add_precondition(new world_property(stalker_ids.property_danger, false));
+  actionDangerToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
+  actionDangerToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, false));
+  actionDangerToIdle.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, true));
 
-  planner.add_action(EActionId.STATE_TO_IDLE_ALIFE, action);
+  planner.add_action(EActionId.STATE_TO_IDLE_ALIFE, actionDangerToIdle);
 
   planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ALIFE, true));
 
@@ -270,9 +270,6 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: XR_game
     EStateEvaluatorId.in_smartcover,
     new smartCoverManagement.EvaluatorInSmartCover(stateManager)
   );
-
-  // --	st.planner.add_evaluator(EStateManagerProperty.smartcover_locked,
-  // state_mgr_smartcover.eva_state_mgr_smartcover_locked("state_mgr_smartcover_locked", st))
 
   // --************************************************************************************
   // --*                               SMART_ACTIONS                                      *
@@ -551,7 +548,6 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: XR_game
   stateManager.planner.add_action(EStateActionId.mental_free, mentalFreeAction);
 
   // -- DANGER
-
   const mentalDangerAction = new mentalManagement.ActionMentalDanger(stateManager);
 
   mentalDangerAction.add_precondition(new world_property(EStateEvaluatorId.mental, false));
@@ -566,7 +562,6 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: XR_game
   stateManager.planner.add_action(EStateActionId.mental_danger, mentalDangerAction);
 
   // -- PANIC
-
   const mentalPanicAction = new mentalManagement.ActionMentalPanic(stateManager);
 
   mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));

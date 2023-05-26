@@ -13,6 +13,15 @@ interface IXR_EngineBinding {
 }
 
 /**
+ * Mock abstraction for luabind classes.
+ */
+export class MockLuabindClass {
+  public static get __name(): string {
+    return this.name;
+  }
+}
+
+/**
  * todo;
  */
 export function mockLuabindBase({

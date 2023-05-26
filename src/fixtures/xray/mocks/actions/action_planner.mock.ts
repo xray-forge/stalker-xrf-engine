@@ -8,10 +8,12 @@ import {
 } from "xray16";
 
 import { Optional, TNumberId } from "@/engine/lib/types";
-import { mockActionBase } from "@/fixtures/xray";
+import { MockActionBase, mockActionBase } from "@/fixtures/xray";
 import { mockStalkerIds } from "@/fixtures/xray/mocks/constants/stalker_ids.mock";
+import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
+import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
 
-export class MockActionPlanner {
+export class MockActionPlanner extends MockLuabindClass {
   public object!: XR_game_object;
   public storage!: XR_property_storage;
 
@@ -39,20 +41,24 @@ export class MockActionPlanner {
     this.evaluators[id] = evaluator;
   }
 
-  public add_action(id: TNumberId, evaluator: XR_action_base): void {
+  public add_action(id: TNumberId, actionBase: XR_action_base): void {
     if (!id) {
       throw new Error("Unexpected id.");
     }
 
-    this.actions[id] = evaluator;
+    this.actions[id] = actionBase;
   }
 
   public set_goal_world_state(state: XR_world_state): void {
     this.goalWorldState = state;
   }
 
-  public action(id: TNumberId): Optional<XR_action_base> {
-    return this.actions[id] || null;
+  public action(id: TNumberId): Optional<MockActionBase> {
+    return (this.actions[id] as unknown as MockActionBase) || null;
+  }
+
+  public evaluator(id: TNumberId): Optional<MockPropertyEvaluator> {
+    return (this.evaluators[id] as unknown as MockPropertyEvaluator) || null;
   }
 }
 
