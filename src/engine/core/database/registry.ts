@@ -1,5 +1,3 @@
-import type { CZoneCampfire, game_object, ini_file } from "xray16";
-
 import type { IRegistryObjectState, IStoredOfflineObject } from "@/engine/core/database/types";
 import type {
   AbstractCoreManager,
@@ -24,7 +22,16 @@ import type { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task";
 import type { LightManager } from "@/engine/core/schemes/sr_light";
 import type { TRelation } from "@/engine/lib/constants/relations";
 import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
-import type { EScheme, Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
+import type {
+  ClientGameObject,
+  EScheme,
+  IniFile,
+  Optional,
+  TName,
+  TNumberId,
+  TStringId,
+  ZoneCampfire,
+} from "@/engine/lib/types";
 
 /**
  * Global-level registry of objects and references.
@@ -34,11 +41,11 @@ export const registry = {
   /**
    * Current actor, injected on game start.
    */
-  actor: null as unknown as game_object,
+  actor: null as unknown as ClientGameObject,
   /**
    * Currently active speaker in dialogs.
    */
-  activeSpeaker: null as Optional<game_object>,
+  activeSpeaker: null as Optional<ClientGameObject>,
   /**
    * Currently active smart terrain id.
    * If not null, assume actor is in it.
@@ -99,8 +106,8 @@ export const registry = {
    * List of data for game helicopters.
    */
   helicopter: {
-    storage: new LuaTable<TNumberId, game_object>(),
-    enemies: new LuaTable<TNumberId, game_object>(),
+    storage: new LuaTable<TNumberId, ClientGameObject>(),
+    enemies: new LuaTable<TNumberId, ClientGameObject>(),
     enemyIndex: 0,
   },
   /**
@@ -129,7 +136,7 @@ export const registry = {
   /**
    * List of active zones by name.
    */
-  zones: new LuaTable<TName, game_object>(),
+  zones: new LuaTable<TName, ClientGameObject>(),
   /**
    * List of zones under silence restriction, no music is allowed.
    */
@@ -145,14 +152,14 @@ export const registry = {
   /**
    * List of dynamically created ini files by name.
    */
-  ini: new LuaTable<TName, ini_file>(),
+  ini: new LuaTable<TName, IniFile>(),
   /**
    * List of active smart terrains.
    */ smartTerrains: new LuaTable<TNumberId, SmartTerrain>(),
   /**
    * List of campfires by smart terrain name.
    */
-  smartTerrainsCampfires: new LuaTable<TName, LuaTable<TNumberId, CZoneCampfire>>(),
+  smartTerrainsCampfires: new LuaTable<TName, LuaTable<TNumberId, ZoneCampfire>>(),
 
   /**
    * Nearest to actor smart terrain.

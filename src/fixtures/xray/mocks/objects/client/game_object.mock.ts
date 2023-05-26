@@ -1,14 +1,5 @@
 import { jest } from "@jest/globals";
-import {
-  action_planner,
-  CGameTask,
-  CSightParams,
-  game_object,
-  ini_file,
-  TXR_callback,
-  TXR_class_id,
-  TXR_SightType,
-} from "xray16";
+import { action_planner, CGameTask, game_object, ini_file, TXR_callback, TXR_class_id, TXR_SightType } from "xray16";
 
 import { AnyCallable, AnyContextualCallable, AnyObject, PartialRecord } from "@/engine/lib/types";
 import { MockMove, MockSightParameters } from "@/fixtures/xray";

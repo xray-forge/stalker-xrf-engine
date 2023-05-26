@@ -1,5 +1,4 @@
 import { describe, expect, it } from "@jest/globals";
-import { game_object } from "xray16";
 
 import { registerObject } from "@/engine/core/database/objects";
 import {
@@ -13,6 +12,7 @@ import {
   setPortableStoreValue,
 } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
+import { ClientGameObject } from "@/engine/lib/types";
 import {
   EPacketDataType,
   mockClientGameObject,
@@ -39,7 +39,7 @@ describe("'portable_store' functionality", () => {
   });
 
   it("should correctly initialize portable store", () => {
-    const object: game_object = mockClientGameObject();
+    const object: ClientGameObject = mockClientGameObject();
 
     registerObject(object);
 
@@ -55,7 +55,7 @@ describe("'portable_store' functionality", () => {
   });
 
   it("should correctly set and get values by key", () => {
-    const object: game_object = mockClientGameObject();
+    const object: ClientGameObject = mockClientGameObject();
 
     registerObject(object);
 
@@ -88,7 +88,7 @@ describe("'portable_store' functionality", () => {
   });
 
   it("should correctly save and load values", () => {
-    const object: game_object = mockClientGameObject();
+    const object: ClientGameObject = mockClientGameObject();
 
     registerObject(object);
 
@@ -125,7 +125,7 @@ describe("'portable_store' functionality", () => {
       "example",
     ]);
 
-    const nextObject: game_object = mockClientGameObject();
+    const nextObject: ClientGameObject = mockClientGameObject();
 
     registerObject(nextObject);
 

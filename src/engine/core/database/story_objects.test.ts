@@ -1,5 +1,4 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
-import { cse_alife_object, game_object } from "xray16";
+import { describe, expect, it } from "@jest/globals";
 
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
@@ -13,11 +12,12 @@ import {
   unregisterStoryLinkByObjectId,
   unregisterStoryLinkByStoryId,
 } from "@/engine/core/database/story_objects";
+import { ClientGameObject, ServerAlifeObject } from "@/engine/lib/types";
 import { FILES_MOCKS, MockAlifeSimulator, mockClientGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("'story_objects' module of the database", () => {
-  const firstObject: cse_alife_object = mockServerAlifeObject({ id: 12 });
-  const secondObject: cse_alife_object = mockServerAlifeObject({ id: 36 });
+  const firstObject: ServerAlifeObject = mockServerAlifeObject({ id: 12 });
+  const secondObject: ServerAlifeObject = mockServerAlifeObject({ id: 36 });
 
   MockAlifeSimulator.addToRegistry(firstObject);
   MockAlifeSimulator.addToRegistry(secondObject);
@@ -55,7 +55,7 @@ describe("'story_objects' module of the database", () => {
   });
 
   it("should correctly handle lifecycle and get links with utils", () => {
-    const clientObject: game_object = mockClientGameObject({ idOverride: 12 });
+    const clientObject: ClientGameObject = mockClientGameObject({ idOverride: 12 });
 
     registerObject(clientObject);
     registerStoryLink(12, "test-sid");

@@ -1,9 +1,7 @@
-import { net_packet, TXR_net_processor } from "xray16";
-
 import { registry } from "@/engine/core/database/registry";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TCount, TName } from "@/engine/lib/types";
+import { NetPacket, NetProcessor, TCount, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -13,7 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param packet - net packet to save data in
  * @param markerName - net packet transaction marker to verify data integrity
  */
-export function openSaveMarker(packet: net_packet, markerName: TName): void {
+export function openSaveMarker(packet: NetPacket, markerName: TName): void {
   assert(packet.w_tell() < 16_000, "You are saving too much in '%s'.", markerName);
   registry.saveMarkers.set(markerName, packet.w_tell());
 }
@@ -25,7 +23,7 @@ export function openSaveMarker(packet: net_packet, markerName: TName): void {
  * @param markerName - net packet transaction marker to verify data integrity
  * @returns marker transaction saving size
  */
-export function closeSaveMarker(packet: net_packet, markerName: TName): TCount {
+export function closeSaveMarker(packet: NetPacket, markerName: TName): TCount {
   assert(registry.saveMarkers.get(markerName) !== null, "Trying to check without marker: '%s'.", markerName);
 
   const markerDif: TCount = packet.w_tell() - registry.saveMarkers.get(markerName);
@@ -49,7 +47,7 @@ export function closeSaveMarker(packet: net_packet, markerName: TName): TCount {
  * @param reader - reader to load data from
  * @param markerName - reader transaction marker to verify data integrity
  */
-export function openLoadMarker(reader: TXR_net_processor, markerName: TName): void {
+export function openLoadMarker(reader: NetProcessor, markerName: TName): void {
   registry.saveMarkers.set(markerName, reader.r_tell());
 }
 
@@ -60,7 +58,7 @@ export function openLoadMarker(reader: TXR_net_processor, markerName: TName): vo
  * @param markerName - reader transaction marker to verify data integrity
  * @returns marker transaction loading size
  */
-export function closeLoadMarker(reader: TXR_net_processor, markerName: TName): TCount {
+export function closeLoadMarker(reader: NetProcessor, markerName: TName): TCount {
   assert(registry.saveMarkers.get(markerName) !== null, "Trying to check without marker: '%s'", markerName);
 
   const actualDiff: TCount = reader.r_tell() - registry.saveMarkers.get(markerName);

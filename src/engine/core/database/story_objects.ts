@@ -1,18 +1,26 @@
-import { alife, cse_abstract, cse_alife_object, game_object, ini_file, level } from "xray16";
+import { alife, level } from "xray16";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
-import { Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
+import {
+  ClientGameObject,
+  IniFile,
+  Optional,
+  ServerAlifeObject,
+  TName,
+  TNumberId,
+  TStringId,
+} from "@/engine/lib/types";
 
 /**
  * Register story object link based on ini configuration.
  *
  * @param serverObject - server object to register links
  */
-export function registerObjectStoryLinks(serverObject: cse_abstract): void {
-  const spawnIni: ini_file = serverObject.spawn_ini();
+export function registerObjectStoryLinks(serverObject: ServerAlifeObject): void {
+  const spawnIni: IniFile = serverObject.spawn_ini();
 
   if (spawnIni.section_exist("story_object")) {
     const [result, id, value] = spawnIni.r_line("story_object", 0, "", "");
@@ -112,7 +120,7 @@ export function getObjectIdByStoryId(storyId: TStringId): Optional<TNumberId> {
  * @param storyId - story id to search
  * @returns existing server object instance or null
  */
-export function getServerObjectByStoryId<T extends cse_alife_object>(storyId: TStringId): Optional<T> {
+export function getServerObjectByStoryId<T extends ServerAlifeObject>(storyId: TStringId): Optional<T> {
   const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
 
   return objectId === null ? null : alife().object<T>(objectId);
@@ -124,11 +132,11 @@ export function getServerObjectByStoryId<T extends cse_alife_object>(storyId: TS
  * @param storyId - story id to search
  * @returns existing client object instance or null
  */
-export function getObjectByStoryId(storyId: TStringId): Optional<game_object> {
+export function getObjectByStoryId(storyId: TStringId): Optional<ClientGameObject> {
   const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
-  const possibleObject: Optional<game_object> = (
+  const possibleObject: Optional<ClientGameObject> = (
     objectId === null ? null : registry.objects.get(objectId)?.object
-  ) as Optional<game_object>;
+  ) as Optional<ClientGameObject>;
 
   if (possibleObject) {
     return possibleObject;

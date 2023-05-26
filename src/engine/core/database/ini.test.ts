@@ -1,12 +1,12 @@
 import { describe, expect, it } from "@jest/globals";
-import { game_object, ini_file, ini_file } from "xray16";
 
 import { getObjectLogicIniConfig, loadDynamicIni } from "@/engine/core/database/ini";
 import { DUMMY_LTX } from "@/engine/core/database/ini_registry";
 import { registerObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { IRegistryObjectState } from "@/engine/core/database/types";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { ClientGameObject, IniFile } from "@/engine/lib/types";
+import { mockClientGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("'ini' module of database", () => {
   it("should correctly create dynamic ini files", () => {
@@ -24,7 +24,7 @@ describe("'ini' module of database", () => {
       })
     );
 
-    expect(first instanceof ini_file).toBeTruthy();
+    expect(first instanceof MockIniFile).toBeTruthy();
     expect(firstName).toBe("*test.ltx");
     expect(first.r_u32("test", "a")).toBe(1);
     expect(first.r_string("test", "b")).toBe("another");
@@ -39,8 +39,8 @@ describe("'ini' module of database", () => {
   });
 
   it("should correctly load object logic ini file", () => {
-    const withSpawnIni: game_object = mockClientGameObject();
-    const withoutSpawnIni: game_object = mockClientGameObject({ spawn_ini: () => null as unknown as ini_file });
+    const withSpawnIni: ClientGameObject = mockClientGameObject();
+    const withoutSpawnIni: ClientGameObject = mockClientGameObject({ spawn_ini: () => null as unknown as IniFile });
 
     expect(getObjectLogicIniConfig(withSpawnIni, "<customdata>")).toBe(withSpawnIni.spawn_ini());
     expect(getObjectLogicIniConfig(withoutSpawnIni, "<customdata>")).toBe(DUMMY_LTX);
@@ -52,11 +52,11 @@ describe("'ini' module of database", () => {
     registerObject(withSpawnIni);
 
     const [dynamicLtx, dynamicLtxName] = loadDynamicIni("config.ltx", JSON.stringify({ test: { a: 1, b: "test" } }));
-    const logicIni: ini_file = getObjectLogicIniConfig(withSpawnIni, dynamicLtxName);
+    const logicIni: IniFile = getObjectLogicIniConfig(withSpawnIni, dynamicLtxName);
 
     expect(dynamicLtx).toBe(logicIni);
 
-    const another: game_object = mockClientGameObject();
+    const another: ClientGameObject = mockClientGameObject();
     const anotherState: IRegistryObjectState = registerObject(another);
 
     anotherState.job_ini = "jobExample.ltx";

@@ -1,12 +1,12 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
-import { game_object, time_global } from "xray16";
+import { time_global } from "xray16";
 
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { registerObject, resetObject } from "@/engine/core/database/objects";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { IRegistryObjectState } from "@/engine/core/database/types";
 import { IBaseSchemeState } from "@/engine/core/schemes";
-import { EScheme } from "@/engine/lib/types";
+import { ClientGameObject, EScheme } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/utils/function_mock";
 import { EPacketDataType, mockClientGameObject, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
@@ -17,7 +17,7 @@ describe("'logic' database module", () => {
   });
 
   it("should correctly load and save scheme activation info when set state", () => {
-    const object: game_object = mockClientGameObject();
+    const object: ClientGameObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 

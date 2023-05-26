@@ -1,4 +1,4 @@
-import { CTime, game_object, net_packet, time_global, TXR_net_processor } from "xray16";
+import { time_global } from "xray16";
 
 import {
   closeLoadMarker,
@@ -14,7 +14,17 @@ import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, StringOptional, TName, TPath, TSection } from "@/engine/lib/types";
+import {
+  ClientGameObject,
+  NetPacket,
+  NetProcessor,
+  Optional,
+  StringOptional,
+  Time,
+  TName,
+  TPath,
+  TSection,
+} from "@/engine/lib/types";
 
 /**
  * Save game object schemes/logic details.
@@ -22,7 +32,7 @@ import { Optional, StringOptional, TName, TPath, TSection } from "@/engine/lib/t
  * @param object - game object to save logic
  * @param packet - net packet to save login into
  */
-export function saveObjectLogic(object: game_object, packet: net_packet): void {
+export function saveObjectLogic(object: ClientGameObject, packet: NetPacket): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   openSaveMarker(packet, "object" + object.name());
@@ -50,7 +60,7 @@ export function saveObjectLogic(object: game_object, packet: net_packet): void {
  * @param object - game object to load logic
  * @param reader - reader to load data from
  */
-export function loadObjectLogic(object: game_object, reader: TXR_net_processor): void {
+export function loadObjectLogic(object: ClientGameObject, reader: NetProcessor): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   openLoadMarker(reader, "object" + object.name());
@@ -68,7 +78,7 @@ export function loadObjectLogic(object: game_object, reader: TXR_net_processor):
   state.loaded_gulag_name = gulagName;
 
   state.activation_time = reader.r_s32() + time_global();
-  state.activation_game_time = readTimeFromPacket(reader) as CTime;
+  state.activation_game_time = readTimeFromPacket(reader) as Time;
 
   loadPortableStore(object, reader);
 

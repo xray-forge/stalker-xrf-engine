@@ -1,15 +1,15 @@
 import { describe, expect, it } from "@jest/globals";
-import { game_object } from "xray16";
 
 import { registerActor, unregisterActor } from "@/engine/core/database/actor";
 import { registry } from "@/engine/core/database/registry";
+import { ClientGameObject } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("'actor' module of the database", () => {
   it("should correctly register actor", () => {
     expect(registry.actor).toBeNull();
 
-    const actor: game_object = mockClientGameObject({ idOverride: 0, sectionOverride: "actor" });
+    const actor: ClientGameObject = mockClientGameObject({ idOverride: 0, sectionOverride: "actor" });
 
     expect(actor.id()).toBe(0);
 

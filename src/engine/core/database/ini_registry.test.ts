@@ -1,5 +1,4 @@
 import { describe, expect, it } from "@jest/globals";
-import { ini_file, ini_file } from "xray16";
 
 import {
   DEATH_GENERIC_LTX,
@@ -23,6 +22,8 @@ import {
   TASK_MANAGER_LTX,
   TRAVEL_MANAGER_LTX,
 } from "@/engine/core/database/ini_registry";
+import { IniFile } from "@/engine/lib/types";
+import { MockIniFile } from "@/fixtures/xray";
 
 describe("'ini_registry' database module", () => {
   it("should have correct prefix for RAM ini files", () => {
@@ -30,7 +31,7 @@ describe("'ini_registry' database module", () => {
   });
 
   it("should correctly define ini files globals", () => {
-    const expectedIniFiles: Array<ini_file> = [
+    const expectedIniFiles: Array<IniFile> = [
       SYSTEM_INI,
       DUMMY_LTX,
       GAME_LTX,
@@ -52,6 +53,6 @@ describe("'ini_registry' database module", () => {
       SOUND_STORIES_LTX,
     ];
 
-    expectedIniFiles.forEach((it) => expect(it instanceof ini_file).toBeTruthy());
+    expectedIniFiles.forEach((it) => expect(it instanceof MockIniFile).toBeTruthy());
   });
 });

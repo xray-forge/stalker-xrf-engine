@@ -1,8 +1,7 @@
-import { game_object } from "xray16";
-
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { IRegistryObjectState } from "@/engine/core/database/types";
+import { ClientGameObject } from "@/engine/lib/types";
 
 /**
  * Register new actor entry in db.
@@ -11,7 +10,7 @@ import { IRegistryObjectState } from "@/engine/core/database/types";
  * @param object - game object to register as actor
  * @returns registry object state
  */
-export function registerActor(object: game_object): IRegistryObjectState {
+export function registerActor(object: ClientGameObject): IRegistryObjectState {
   registry.actor = object;
 
   return registerObject(object);
@@ -24,5 +23,5 @@ export function registerActor(object: game_object): IRegistryObjectState {
  */
 export function unregisterActor(): void {
   unregisterObject(registry.actor);
-  registry.actor = null as unknown as game_object;
+  registry.actor = null as unknown as ClientGameObject;
 }

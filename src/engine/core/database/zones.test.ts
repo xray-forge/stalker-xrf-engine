@@ -1,8 +1,8 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
-import { game_object } from "xray16";
+import { describe, expect, it } from "@jest/globals";
 
 import { registry } from "@/engine/core/database/registry";
 import { registerZone, unregisterZone } from "@/engine/core/database/zones";
+import { ClientGameObject } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("'zones' module of the database", () => {
@@ -10,8 +10,8 @@ describe("'zones' module of the database", () => {
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
 
-    const firstZone: game_object = mockClientGameObject({ idOverride: 10, sectionOverride: "test_zone" });
-    const secondZone: game_object = mockClientGameObject({ idOverride: 20, sectionOverride: "test_zone" });
+    const firstZone: ClientGameObject = mockClientGameObject({ idOverride: 10, sectionOverride: "test_zone" });
+    const secondZone: ClientGameObject = mockClientGameObject({ idOverride: 20, sectionOverride: "test_zone" });
 
     expect(firstZone.id()).toBe(10);
     expect(firstZone.name()).toBe("test_zone_10");

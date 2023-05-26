@@ -1,5 +1,4 @@
 import { describe, expect, it } from "@jest/globals";
-import { game_object } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import {
@@ -9,12 +8,13 @@ import {
   unregisterSmartTerrain,
 } from "@/engine/core/database/smart";
 import { SmartCover, SmartTerrain } from "@/engine/core/objects";
+import { ClientGameObject } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("'smart' module of the database", () => {
   it("should correctly register smart terrain", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test");
-    const smartObject: game_object = mockClientGameObject();
+    const smartObject: ClientGameObject = mockClientGameObject();
 
     registerSmartTerrain(smartObject, smartTerrain);
 
