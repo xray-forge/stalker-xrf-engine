@@ -1,4 +1,4 @@
-import { action_base, device, LuabindClass, vector, XR_game_object, XR_vector } from "xray16";
+import { action_base, device, game_object, LuabindClass, vector } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
@@ -77,7 +77,7 @@ export class ActionLookAround extends action_base {
         abort("report this error to STALKER-829 bug [%s]", this.object.name());
       }
 
-      let direction: XR_vector = new vector().set(this.state.last_seen_pos).sub(this.object.position());
+      let direction: vector = new vector().set(this.state.last_seen_pos).sub(this.object.position());
 
       direction = vectorRotateY(direction, angle);
 
@@ -106,17 +106,17 @@ export class ActionLookAround extends action_base {
    * todo: Description.
    */
   public hit_callback(
-    object: XR_game_object,
+    object: game_object,
     amount: TCount,
-    const_direction: XR_vector,
-    who: XR_game_object,
+    const_direction: vector,
+    who: game_object,
     bone_index: string
   ): void {
     if (who === null || !this.state.isCamperCombatAction) {
       return;
     }
 
-    const bestEnemy: Optional<XR_game_object> = this.object?.best_enemy();
+    const bestEnemy: Optional<game_object> = this.object?.best_enemy();
 
     if (bestEnemy && who.id() === bestEnemy.id()) {
       this.state.last_seen_pos = bestEnemy.position();

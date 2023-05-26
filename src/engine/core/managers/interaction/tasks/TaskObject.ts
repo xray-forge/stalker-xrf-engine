@@ -1,18 +1,17 @@
 import {
   alife,
   CGameTask,
+  cse_alife_object,
+  CTime,
   game,
   game_graph,
+  game_object,
+  ini_file,
   level,
+  net_packet,
   task,
   time_global,
   TXR_net_processor,
-  XR_CGameTask,
-  XR_cse_alife_object,
-  XR_CTime,
-  XR_game_object,
-  XR_ini_file,
-  XR_net_packet,
 } from "xray16";
 
 import {
@@ -86,16 +85,16 @@ export class TaskObject {
   }
 
   public readonly id: TStringId;
-  public readonly ini: XR_ini_file;
+  public readonly ini: ini_file;
 
-  public gameTask: Optional<XR_CGameTask> = null;
+  public gameTask: Optional<CGameTask> = null;
   /**
    * Task state in list: selected or not.
    */
   public status: ETaskStatus;
   public state: Optional<ETaskState> = null;
 
-  public initializedAt: Optional<XR_CTime> = null;
+  public initializedAt: Optional<CTime> = null;
   public lastCheckedAt: Optional<TTimestamp> = null;
 
   public title: TLabel;
@@ -129,7 +128,7 @@ export class TaskObject {
   public onComplete: TConditionList;
   public onReversed: TConditionList;
 
-  public constructor(ini: XR_ini_file, id: TStringId) {
+  public constructor(ini: ini_file, id: TStringId) {
     this.id = id;
     this.ini = ini;
 
@@ -182,7 +181,7 @@ export class TaskObject {
    * todo: Description.
    */
   public giveTask(): void {
-    const gameTask: XR_CGameTask = new CGameTask();
+    const gameTask: CGameTask = new CGameTask();
 
     gameTask.set_id(tostring(this.id));
 
@@ -237,7 +236,7 @@ export class TaskObject {
     }
 
     if (this.gameTask === null) {
-      this.gameTask = registry.actor?.get_task(this.id, true) as XR_CGameTask;
+      this.gameTask = registry.actor?.get_task(this.id, true) as CGameTask;
 
       return this.state;
     }
@@ -312,11 +311,11 @@ export class TaskObject {
    * todo: Description.
    */
   public checkTaskLevelDirection(target: Optional<TNumberId>): void {
-    if (!target || !level || registry.actor.is_active_task(this.gameTask as XR_CGameTask)) {
+    if (!target || !level || registry.actor.is_active_task(this.gameTask as CGameTask)) {
       return;
     }
 
-    const alifeObject: Optional<XR_cse_alife_object> = alife().object(target);
+    const alifeObject: Optional<cse_alife_object> = alife().object(target);
 
     if (alifeObject !== null) {
       const targetLevel: TLevel = alife().level_name(game_graph().vertex(alifeObject.m_game_vertex_id).level_id());
@@ -367,7 +366,7 @@ export class TaskObject {
       }
 
       for (const [item, count] of rewardItems) {
-        transferItemsToActor(registry.activeSpeaker as XR_game_object, item, count);
+        transferItemsToActor(registry.activeSpeaker as game_object, item, count);
       }
     }
   }
@@ -382,7 +381,7 @@ export class TaskObject {
   /**
    * todo: Description.
    */
-  public deactivateTask(task: XR_CGameTask): void {
+  public deactivateTask(task: CGameTask): void {
     logger.info("Deactivate task:", this.title);
     this.lastCheckedAt = null;
 
@@ -447,7 +446,7 @@ export class TaskObject {
   /**
    * Save task object state.
    */
-  public save(packet: XR_net_packet): void {
+  public save(packet: net_packet): void {
     openSaveMarker(packet, TaskObject.name);
 
     packet.w_u8(this.status);

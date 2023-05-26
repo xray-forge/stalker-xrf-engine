@@ -1,12 +1,12 @@
 import { jest } from "@jest/globals";
-import { TXR_TaskState, XR_CGameTask } from "xray16";
+import { CGameTask, TXR_TaskState } from "xray16";
 
 import { AnyObject, Optional } from "@/engine/lib/types";
 
 /**
  * Mock x-ray task object.
  */
-export class MockCGameTask implements XR_CGameTask {
+export class MockCGameTask implements CGameTask {
   public priority: number = -1;
   public title: string = "test_title";
   public description: string = "test_description";
@@ -94,10 +94,10 @@ export class MockCGameTask implements XR_CGameTask {
 /**
  * Mock task object.
  */
-export function mockCGameTask(overrides: Partial<MockCGameTask> = {}): XR_CGameTask {
+export function mockCGameTask(overrides: Partial<MockCGameTask> = {}): CGameTask {
   const task: MockCGameTask = new MockCGameTask();
 
   Object.entries(overrides).forEach(([key, value]) => ((task as AnyObject)[key] = value));
 
-  return task as XR_CGameTask;
+  return task as CGameTask;
 }

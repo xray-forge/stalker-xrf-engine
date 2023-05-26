@@ -1,4 +1,4 @@
-import { XR_game_object, XR_ini_file } from "xray16";
+import { game_object, ini_file } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeTeleportState, ITeleportPoint } from "@/engine/core/schemes/teleport/ISchemeTeleportState";
@@ -21,7 +21,7 @@ export class SchemeTeleport extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeTeleportState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -51,8 +51,8 @@ export class SchemeTeleport extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeTeleportState

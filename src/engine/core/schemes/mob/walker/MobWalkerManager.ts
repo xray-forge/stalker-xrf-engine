@@ -1,6 +1,8 @@
 import {
   anim,
   cond,
+  flags32,
+  game_object,
   look,
   move,
   patrol,
@@ -9,10 +11,6 @@ import {
   TXR_animation_key,
   TXR_sound_key,
   vector,
-  XR_flags32,
-  XR_game_object,
-  XR_patrol,
-  XR_vector,
 } from "xray16";
 
 import { registry, setMonsterState } from "@/engine/core/database";
@@ -39,8 +37,8 @@ const state_standing: number = 1;
  */
 export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerState> {
   public last_index: Optional<number> = null;
-  public patrol_look: Optional<XR_patrol> = null;
-  public patrol_walk: Optional<XR_patrol> = null;
+  public patrol_look: Optional<patrol> = null;
+  public patrol_walk: Optional<patrol> = null;
   public last_look_index: Optional<number> = null;
   public cur_anim_set: Optional<TXR_animation> = null;
   public scheduled_snd: Optional<TXR_sound_key> = null;
@@ -140,7 +138,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   /**
    * todo: Description.
    */
-  public waypoint_callback(object: XR_game_object, actionType: Optional<TNumberId>, index: Optional<TIndex>): void {
+  public waypoint_callback(object: game_object, actionType: Optional<TNumberId>, index: Optional<TIndex>): void {
     if (index === -1 || index === null) {
       return;
     }
@@ -176,7 +174,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
     setMonsterState(this.object, beh ? beh : this.state.state);
 
-    const searchForFlags = this.path_walk_info!.get(index)["flags"] as XR_flags32;
+    const searchForFlags = this.path_walk_info!.get(index)["flags"] as flags32;
 
     if (searchForFlags.get() === 0) {
       this.update_movement_state();
@@ -299,7 +297,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       return;
     }
 
-    const lookPoint: XR_vector = new vector().set(this.patrol_look.point(pt)).sub(this.object.position());
+    const lookPoint: vector = new vector().set(this.patrol_look.point(pt)).sub(this.object.position());
 
     lookPoint.normalize();
     // --this.object:set_sight(look.direction, look_pt, 0)

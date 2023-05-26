@@ -1,4 +1,4 @@
-import { action_base, CSightParams, level, look, LuabindClass, vector, XR_vector } from "xray16";
+import { action_base, CSightParams, level, look, LuabindClass, vector } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { states } from "@/engine/core/objects/state_lib/state_lib";
@@ -50,8 +50,8 @@ export class ActionDirectionTurn extends action_base {
         return;
       }
 
-      const objectPosition: XR_vector = this.object.position();
-      let direction: XR_vector = new vector().sub(this.stateManager.lookPosition, objectPosition);
+      const objectPosition: vector = this.object.position();
+      let direction: vector = new vector().sub(this.stateManager.lookPosition, objectPosition);
 
       if (this.stateManager.isObjectPointDirectionLook) {
         direction.y = 0;
@@ -60,7 +60,7 @@ export class ActionDirectionTurn extends action_base {
       direction.normalize();
 
       if (areSameVectors(direction, new vector().set(0, 0, 0))) {
-        const objectDirection: XR_vector = this.object.direction();
+        const objectDirection: vector = this.object.direction();
 
         this.stateManager.lookPosition = new vector().set(
           objectPosition.x + objectDirection.x,

@@ -1,4 +1,4 @@
-import { time_global, XR_game_object, XR_object, XR_vector } from "xray16";
+import { game_object, time_global, vector, XR_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -58,8 +58,8 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
   public hit_callback(
     object: XR_object,
     amount: number,
-    local_direction: XR_vector,
-    who: Optional<XR_game_object>,
+    local_direction: vector,
+    who: Optional<game_object>,
     bone_index: TIndex
   ): void {
     return;
@@ -85,7 +85,7 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
   /**
    * todo: Description.
    */
-  public use_callback(object: XR_game_object, who: Optional<XR_game_object>): void {
+  public use_callback(object: game_object, who: Optional<game_object>): void {
     logger.info("Button used:", object.name(), who?.name());
 
     this.try_switch();

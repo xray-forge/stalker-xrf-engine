@@ -1,14 +1,4 @@
-import {
-  action_base,
-  game_object,
-  level,
-  LuabindClass,
-  move,
-  time_global,
-  vector,
-  XR_game_object,
-  XR_vector,
-} from "xray16";
+import { action_base, game_object, level, LuabindClass, move, time_global, vector } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -35,10 +25,10 @@ export class ActionZombieShoot extends action_base {
   public wasHit: boolean = false;
 
   public enemyLastSeenVertexId!: TNumberId;
-  public enemyLastSeenPosition: Optional<XR_vector> = null;
+  public enemyLastSeenPosition: Optional<vector> = null;
   public enemyLastVertexId: Optional<TNumberId> = null;
   public enemyLastAccessibleVertexId: Optional<TNumberId> = null;
-  public enemyLastAccessiblePosition: Optional<XR_vector> = null;
+  public enemyLastAccessiblePosition: Optional<vector> = null;
 
   public hitReactionEndTime: TTimestamp = 0;
   public turnTime: TTimestamp = 0;
@@ -65,7 +55,7 @@ export class ActionZombieShoot extends action_base {
 
     this.previousState = null;
 
-    const bestEnemy: XR_game_object = this.object.best_enemy() as XR_game_object;
+    const bestEnemy: game_object = this.object.best_enemy() as game_object;
 
     this.enemyLastSeenPosition = bestEnemy.position();
     this.enemyLastSeenVertexId = bestEnemy.level_vertex_id();
@@ -85,7 +75,7 @@ export class ActionZombieShoot extends action_base {
   public override execute(): void {
     super.execute();
 
-    const bestEnemy: Optional<XR_game_object> = this.object.best_enemy()!;
+    const bestEnemy: Optional<game_object> = this.object.best_enemy()!;
     const isBestEnemyVisible: boolean = this.object.see(bestEnemy);
 
     if (isBestEnemyVisible) {
@@ -155,7 +145,7 @@ export class ActionZombieShoot extends action_base {
   /**
    * todo: Description.
    */
-  public setState(state: EStalkerState, bestEnemy: Optional<XR_game_object>, position: Optional<XR_vector>): void {
+  public setState(state: EStalkerState, bestEnemy: Optional<game_object>, position: Optional<vector>): void {
     this.targetStateDescriptor.look_object = bestEnemy;
     this.targetStateDescriptor.look_position = bestEnemy ? this.enemyLastSeenPosition : position;
 
@@ -167,9 +157,9 @@ export class ActionZombieShoot extends action_base {
   /**
    * todo: Description.
    */
-  public getRandomLookDirection(): XR_vector {
+  public getRandomLookDirection(): vector {
     const angle: TRate = math.pi * 2 * math.random();
-    const lookPosition: XR_vector = new vector().set(this.object.position());
+    const lookPosition: vector = new vector().set(this.object.position());
 
     lookPosition.x = lookPosition.x + math.cos(angle);
     lookPosition.z = lookPosition.z + math.sin(angle);
@@ -188,19 +178,13 @@ export class ActionZombieShoot extends action_base {
   /**
    * todo: Description.
    */
-  public hit_callback(
-    object: XR_game_object,
-    amount: TRate,
-    direction: XR_vector,
-    who: XR_game_object,
-    bone_id: number
-  ): void {
+  public hit_callback(object: game_object, amount: TRate, direction: vector, who: game_object, bone_id: number): void {
     if (who === null) {
       return;
     }
 
     if (this.state.currentAction === EZombieCombatAction.SHOOT) {
-      const bestEnemy: Optional<XR_game_object> = this.object?.best_enemy();
+      const bestEnemy: Optional<game_object> = this.object?.best_enemy();
 
       if (bestEnemy && bestEnemy.id() === who.id()) {
         this.wasHit = true;

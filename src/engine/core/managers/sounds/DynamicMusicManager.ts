@@ -1,4 +1,4 @@
-import { IsDynamicMusic, level, time_global, XR_game_object, XR_vector } from "xray16";
+import { game_object, IsDynamicMusic, level, time_global, vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -107,7 +107,7 @@ export class DynamicMusicManager extends AbstractCoreManager {
    * todo: Description.
    */
   public isActorInSilenceZone(): boolean {
-    const actorPosition: XR_vector = registry.actor.position();
+    const actorPosition: vector = registry.actor.position();
 
     for (const [zoneId, zoneName] of registry.silenceZones) {
       if (registry.zones.get(zoneName).inside(actorPosition)) {
@@ -177,23 +177,23 @@ export class DynamicMusicManager extends AbstractCoreManager {
    * todo: Description.
    */
   public getThemeState(): Optional<EDynamicMusicState> {
-    const actor: XR_game_object = registry.actor;
+    const actor: game_object = registry.actor;
 
     this.forceFade = false;
 
     if (actor.alive()) {
       if (!this.isActorInSilenceZone()) {
-        const actorPosition: XR_vector = actor.position();
+        const actorPosition: vector = actor.position();
         const actorId: TNumberId = actor.id();
 
-        let nearestEnemy: Optional<XR_game_object> = null;
+        let nearestEnemy: Optional<game_object> = null;
         let nearestEnemyDistanceSqr: TDistance = 10_000;
 
         // todo: No need to check every enemy, just find at least one who meets threshold and flag 'true'
         // todo: No need to check every enemy, just check same location.
         for (const [objectId] of registry.stalkers) {
-          const object: Optional<XR_game_object> = registry.objects.get(objectId).object;
-          const enemy: Optional<XR_game_object> = object.best_enemy();
+          const object: Optional<game_object> = registry.objects.get(objectId).object;
+          const enemy: Optional<game_object> = object.best_enemy();
 
           if (enemy && enemy.id() === actorId) {
             const dist: TDistance = actorPosition.distance_to_sqr(object.position());

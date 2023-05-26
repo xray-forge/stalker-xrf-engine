@@ -1,4 +1,4 @@
-import { XR_vector } from "xray16";
+import { vector } from "xray16";
 
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
 import { Optional, TNumberId } from "@/engine/lib/types";
@@ -8,7 +8,7 @@ import { Optional, TNumberId } from "@/engine/lib/types";
  */
 export interface ISchemeCorpseDetectionState extends IBaseSchemeState {
   vertex_id: TNumberId;
-  vertex_position: Optional<XR_vector>;
+  vertex_position: Optional<vector>;
   selected_corpse_id: Optional<TNumberId>;
   corpse_detection_enabled: Optional<boolean>;
 }

@@ -1,4 +1,4 @@
-import { anim, CSightParams, move, XR_game_object } from "xray16";
+import { anim, CSightParams, game_object, move } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { IStateDescriptor } from "@/engine/core/objects/state/types";
@@ -23,8 +23,8 @@ const weap_table_unstrapped: LuaArray<TName> = [
   "pri_a15_wpn_ak74_unstrapped",
 ] as any;
 
-function unstrap_weapon(object: XR_game_object): void {
-  let item: Optional<XR_game_object> = null;
+function unstrap_weapon(object: game_object): void {
+  let item: Optional<game_object> = null;
   let index: TIndex = 0;
 
   for (const [k, v] of weap_table) {
@@ -42,8 +42,8 @@ function unstrap_weapon(object: XR_game_object): void {
   item.attachable_item_load_attach(weap_table_unstrapped.get(index as number));
 }
 
-function strap_weapon(object: XR_game_object): void {
-  let item: Optional<XR_game_object> = null;
+function strap_weapon(object: game_object): void {
+  let item: Optional<game_object> = null;
   let index: TIndex = 0;
 
   for (const [k, v] of pairs(weap_table)) {
@@ -90,8 +90,8 @@ const cutscene: Record<
         s?: string;
         s1?: string;
         det?: string;
-        f?: (npc: XR_game_object) => void;
-        f1?: (npc: XR_game_object) => void;
+        f?: (npc: game_object) => void;
+        f1?: (npc: game_object) => void;
       }
     >;
   }
@@ -634,7 +634,7 @@ function check_availability(precondition: LuaArray<string>, existing_npc: string
 // --get_sequence_for_npc("vano", "vano")
 
 type TNpcSequence = LuaArray<
-  string | { f: (object: XR_game_object) => void } | { s: string } | { d: string } | { a: string }
+  string | { f: (object: game_object) => void } | { s: string } | { d: string } | { a: string }
 >;
 
 /**

@@ -1,4 +1,4 @@
-import { XR_game_object, XR_ini_file } from "xray16";
+import { game_object, ini_file } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeMonsterState } from "@/engine/core/schemes/sr_monster/ISchemeMonsterState";
@@ -21,7 +21,7 @@ export class SchemeMonster extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeMonsterState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -40,8 +40,8 @@ export class SchemeMonster extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeMonsterState

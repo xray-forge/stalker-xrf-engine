@@ -1,4 +1,4 @@
-import { game, TXR_net_processor, XR_CTime, XR_game_object, XR_ini_file, XR_net_packet } from "xray16";
+import { CTime, game, game_object, ini_file, net_packet, TXR_net_processor } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
@@ -30,11 +30,11 @@ export class SmartTerrainControl {
   public isNoWeaponZone: TName;
   public isIgnoreZone: TName;
 
-  public alarmStartedAt: Optional<XR_CTime> = null;
+  public alarmStartedAt: Optional<CTime> = null;
   public alarmStartSoundConditionList: TConditionList;
   public alarmStopSoundConditionList: TConditionList;
 
-  public constructor(smartTerrain: SmartTerrain, ini: XR_ini_file, section: TSection) {
+  public constructor(smartTerrain: SmartTerrain, ini: ini_file, section: TSection) {
     this.smartTerrain = smartTerrain;
 
     this.isNoWeaponZone = readIniString(ini, section, "noweap_zone", true, "");
@@ -92,7 +92,7 @@ export class SmartTerrainControl {
    * todo: Description.
    */
   public getActorStatus(): boolean {
-    const zoneObject: XR_game_object = registry.zones.get(this.isNoWeaponZone);
+    const zoneObject: game_object = registry.zones.get(this.isNoWeaponZone);
 
     if (zoneObject === null) {
       return false;
@@ -147,7 +147,7 @@ export class SmartTerrainControl {
   /**
    * Load generic information.
    */
-  public save(packet: XR_net_packet): void {
+  public save(packet: net_packet): void {
     openSaveMarker(packet, SmartTerrainControl.name);
 
     packet.w_u8(this.status);

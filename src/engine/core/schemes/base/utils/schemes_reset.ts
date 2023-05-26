@@ -1,4 +1,4 @@
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base/AbstractScheme";
@@ -11,7 +11,7 @@ import { EScheme, TSection } from "@/engine/lib/types/scheme";
  */
 export function resetScheme(
   scheme: EScheme,
-  object: XR_game_object,
+  object: game_object,
   schemeToSwitch: EScheme,
   state: IRegistryObjectState,
   section: TSection

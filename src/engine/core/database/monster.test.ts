@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { clsid, XR_game_object } from "xray16";
+import { clsid, game_object } from "xray16";
 
 import { getMonsterState, setMonsterState } from "@/engine/core/database/monster";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
@@ -19,7 +19,7 @@ describe("'monster' database module", () => {
   });
 
   it("should correctly set monster state", () => {
-    const monster: XR_game_object = mockClientGameObject();
+    const monster: game_object = mockClientGameObject();
 
     setMonsterState(monster, null);
     setMonsterState(monster, EMonsterState.NONE);
@@ -30,7 +30,7 @@ describe("'monster' database module", () => {
     expect(() => setMonsterState(monster, EMonsterState.VISIBLE)).toThrow();
     expect(() => setMonsterState(monster, "SOMETHING" as EMonsterState)).toThrow();
 
-    const bloodsucker: XR_game_object = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
+    const bloodsucker: game_object = mockClientGameObject({ clsid: () => clsid.bloodsucker_s });
 
     setMonsterState(bloodsucker, EMonsterState.VISIBLE);
     expect(bloodsucker.set_invisible).toHaveBeenCalledWith(false);

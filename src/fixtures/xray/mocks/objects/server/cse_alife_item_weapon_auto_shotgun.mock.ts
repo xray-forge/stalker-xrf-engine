@@ -1,4 +1,4 @@
-import { XR_cse_alife_item_weapon_auto_shotgun } from "xray16";
+import { cse_alife_item_weapon_auto_shotgun } from "xray16";
 
 import {
   MockAlifeItemWeapon,
@@ -14,7 +14,7 @@ export class MockAlifeItemWeaponAutoShotgun extends MockAlifeItemWeapon {}
  * todo;
  */
 export function mockServerAlifeItemWeaponAutoShotgun(
-  base: Partial<XR_cse_alife_item_weapon_auto_shotgun> = {}
-): XR_cse_alife_item_weapon_auto_shotgun {
-  return { ...mockServerAlifeItemWeapon(base) } as unknown as XR_cse_alife_item_weapon_auto_shotgun;
+  base: Partial<cse_alife_item_weapon_auto_shotgun> = {}
+): cse_alife_item_weapon_auto_shotgun {
+  return { ...mockServerAlifeItemWeapon(base) } as unknown as cse_alife_item_weapon_auto_shotgun;
 }

@@ -1,10 +1,10 @@
 import {
   CUIListBoxItem,
+  CUITextWnd,
   GetARGB,
   GetFontLetterica16Russian,
   GetFontLetterica18Russian,
   LuabindClass,
-  XR_CUITextWnd,
 } from "xray16";
 
 /**
@@ -12,8 +12,8 @@ import {
  */
 @LuabindClass()
 export class LoadItem extends CUIListBoxItem {
-  public innerNameText: XR_CUITextWnd;
-  public innerAgeText: XR_CUITextWnd;
+  public innerNameText: CUITextWnd;
+  public innerAgeText: CUITextWnd;
 
   public constructor(height: number, dateWidth: number, dateTime: string) {
     super(height);

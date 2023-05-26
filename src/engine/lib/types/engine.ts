@@ -1,6 +1,6 @@
-import { XR_cse_alife_object, XR_game_object } from "xray16";
+import { cse_alife_object, game_object } from "xray16";
 
 /**
  * todo;
  */
-export type AnyGameObject = XR_game_object | XR_cse_alife_object;
+export type AnyGameObject = game_object | cse_alife_object;

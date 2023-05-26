@@ -1,4 +1,4 @@
-import { XR_cse_alife_item_weapon_magazined_w_gl } from "xray16";
+import { cse_alife_item_weapon_magazined_w_gl } from "xray16";
 
 import {
   MockAlifeItemWeapon,
@@ -14,7 +14,7 @@ export class MockAlifeItemWeaponMagazinedWGL extends MockAlifeItemWeapon {}
  * todo;
  */
 export function mockServerAlifeItemWeaponMagazinedWGL(
-  base: Partial<XR_cse_alife_item_weapon_magazined_w_gl> = {}
-): XR_cse_alife_item_weapon_magazined_w_gl {
-  return { ...mockServerAlifeItemWeapon(base) } as unknown as XR_cse_alife_item_weapon_magazined_w_gl;
+  base: Partial<cse_alife_item_weapon_magazined_w_gl> = {}
+): cse_alife_item_weapon_magazined_w_gl {
+  return { ...mockServerAlifeItemWeapon(base) } as unknown as cse_alife_item_weapon_magazined_w_gl;
 }

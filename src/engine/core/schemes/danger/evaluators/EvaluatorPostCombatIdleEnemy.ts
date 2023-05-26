@@ -1,4 +1,4 @@
-import { LuabindClass, property_evaluator, time_global, XR_game_object } from "xray16";
+import { game_object, LuabindClass, property_evaluator, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
@@ -30,7 +30,7 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    const bestEnemy: Optional<XR_game_object> = this.object.best_enemy();
+    const bestEnemy: Optional<game_object> = this.object.best_enemy();
 
     if (
       bestEnemy !== null &&

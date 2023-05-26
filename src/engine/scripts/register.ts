@@ -1,4 +1,4 @@
-import type { XR_object_factory } from "xray16";
+import type { object_factory } from "xray16";
 
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -16,7 +16,7 @@ extern("register", {
   /**
    * todo: Description.
    */
-  registerGameClasses: (factory: XR_object_factory): void => {
+  registerGameClasses: (factory: object_factory): void => {
     (require("@/engine/scripts/register/class_registrator").registerGameClasses as AnyCallable)(factory);
   },
   /**

@@ -1,4 +1,4 @@
-import { alife, game, TXR_net_processor, XR_CTime, XR_net_packet } from "xray16";
+import { alife, CTime, game, net_packet, TXR_net_processor } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -29,8 +29,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo: move to config file generic achievements descriptions
  */
 export class AchievementsManager extends AbstractCoreManager {
-  public lastDetectiveAchievementSpawnTime: Optional<XR_CTime> = null;
-  public lastMutantHunterAchievementSpawnTime: Optional<XR_CTime> = null;
+  public lastDetectiveAchievementSpawnTime: Optional<CTime> = null;
+  public lastMutantHunterAchievementSpawnTime: Optional<CTime> = null;
 
   /**
    * todo: Description.
@@ -690,7 +690,7 @@ export class AchievementsManager extends AbstractCoreManager {
    * todo;
    * todo: Probably named section.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     if (this.lastDetectiveAchievementSpawnTime === null) {
       packet.w_bool(false);
     } else {

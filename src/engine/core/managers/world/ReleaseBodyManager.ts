@@ -1,15 +1,14 @@
 import {
   alife,
+  cse_alife_object,
   game_graph,
+  game_object,
   getFS,
   ini_file,
+  net_packet,
   time_global,
   TXR_net_processor,
-  XR_cse_alife_object,
-  XR_game_object,
-  XR_ini_file,
-  XR_net_packet,
-  XR_vector,
+  vector,
 } from "xray16";
 
 import {
@@ -85,7 +84,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public addDeadBody(object: XR_game_object): void {
+  public addDeadBody(object: game_object): void {
     if (this.inspectionResult(object)) {
       if (this.releaseObjectRegistry.length() > ReleaseBodyManager.MAX_BODY_COUNT) {
         this.tryToReleaseCorpses();
@@ -136,7 +135,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  protected inspectionResult(object: XR_game_object): boolean {
+  protected inspectionResult(object: game_object): boolean {
     if (getStoryIdByObjectId(object.id()) !== null) {
       logger.info("Ignore corpse release, present in story:", object.name());
 
@@ -163,9 +162,9 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  protected checkForKnownInfo(object: XR_game_object): boolean {
-    let characterIni: Optional<XR_ini_file> = null;
-    const objectSpawnIni: Optional<XR_ini_file> = object.spawn_ini();
+  protected checkForKnownInfo(object: game_object): boolean {
+    let characterIni: Optional<ini_file> = null;
+    const objectSpawnIni: Optional<ini_file> = object.spawn_ini();
     const filename: Optional<TName> =
       objectSpawnIni === null ? null : readIniString(objectSpawnIni, "logic", "cfg", false, "");
 
@@ -190,13 +189,13 @@ export class ReleaseBodyManager extends AbstractCoreManager {
    * todo: Description.
    */
   protected findNearestObjectToRelease(releaseObjectsRegistry: LuaArray<IReleaseDescriptor>): Optional<TIndex> {
-    const actorPosition: XR_vector = registry.actor.position();
+    const actorPosition: vector = registry.actor.position();
 
     let releaseObjectIndex: Optional<TIndex> = null;
     let maximalDistance: number = ReleaseBodyManager.MAX_DISTANCE_SQR;
 
     for (const [index, releaseDescriptor] of releaseObjectsRegistry) {
-      const object: Optional<XR_cse_alife_object> = alife().object(releaseDescriptor.id);
+      const object: Optional<cse_alife_object> = alife().object(releaseDescriptor.id);
 
       if (object !== null) {
         const distanceToCorpse: number = actorPosition.distance_to_sqr(object.position);
@@ -220,7 +219,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, ReleaseBodyManager.name);
 
     const count: TCount = this.releaseObjectRegistry.length();

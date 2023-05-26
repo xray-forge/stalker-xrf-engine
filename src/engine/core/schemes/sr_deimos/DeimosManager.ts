@@ -1,4 +1,4 @@
-import { device, level, time_global, XR_game_object, XR_vector } from "xray16";
+import { device, game_object, level, time_global, vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -23,7 +23,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
   /**
    * todo: Description.
    */
-  public constructor(object: XR_game_object, state: ISchemeDeimosState) {
+  public constructor(object: game_object, state: ISchemeDeimosState) {
     super(object, state);
 
     this.state.intensity = 0;
@@ -33,7 +33,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
    * todo: Description.
    */
   public override update(): void {
-    const actor: Optional<XR_game_object> = registry.actor;
+    const actor: Optional<game_object> = registry.actor;
     const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
     if (!actor || device().precache_frame > 1) {
@@ -58,7 +58,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
       }
     }
 
-    const vec: XR_vector = actor.get_movement_speed();
+    const vec: vector = actor.get_movement_speed();
     const cur_speed: number = math.sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
     let intensity_delta: number = (this.state.movement_speed - cur_speed) * 0.005;
 

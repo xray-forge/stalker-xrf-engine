@@ -1,4 +1,4 @@
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -21,7 +21,7 @@ export class CodeManager extends AbstractSchemeManager<ISchemeCodeState> {
   /**
    * todo: Description.
    */
-  public use_callback(object: XR_game_object, who: XR_game_object): void {
+  public use_callback(object: game_object, who: game_object): void {
     const numPadWindow: NumPadWindow = new NumPadWindow(this);
 
     numPadWindow.ShowDialog(true);

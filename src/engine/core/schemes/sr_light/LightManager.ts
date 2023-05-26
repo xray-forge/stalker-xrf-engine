@@ -1,4 +1,4 @@
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -40,7 +40,7 @@ export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
   /**
    * todo: Description.
    */
-  public check_stalker(object: XR_game_object): LuaMultiReturn<[boolean, boolean]> {
+  public check_stalker(object: game_object): LuaMultiReturn<[boolean, boolean]> {
     if (!this.active) {
       return $multi(false, false);
     }

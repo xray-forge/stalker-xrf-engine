@@ -1,15 +1,14 @@
 import {
   alife,
+  cse_alife_object,
+  CTime,
   game,
+  game_object,
   hit,
   level,
+  net_packet,
   TXR_net_processor,
   vector,
-  XR_cse_alife_object,
-  XR_CTime,
-  XR_game_object,
-  XR_hit,
-  XR_net_packet,
 } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SURGE_MANAGER_LTX } from "@/engine/core/database";
@@ -102,8 +101,8 @@ export class SurgeManager extends AbstractCoreManager {
 
   public prev_sec: TTimestamp = 0;
 
-  public initializedAt: XR_CTime = game.CTime();
-  public lastSurgeAt: XR_CTime = game.get_game_time();
+  public initializedAt: CTime = game.CTime();
+  public lastSurgeAt: CTime = game.get_game_time();
 
   /**
    * Delay of next surge happening.
@@ -187,10 +186,10 @@ export class SurgeManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public getNearestAvailableCover(): Optional<XR_game_object> {
-    const actor: XR_game_object = registry.actor;
+  public getNearestAvailableCover(): Optional<game_object> {
+    const actor: game_object = registry.actor;
 
-    let nearestCover: Optional<XR_game_object> = null;
+    let nearestCover: Optional<game_object> = null;
     let nearestCoverDistance: TDistance = MAX_U32;
 
     /**
@@ -200,7 +199,7 @@ export class SurgeManager extends AbstractCoreManager {
      * - Blocked by different conditions
      */
     for (const [index, descriptor] of this.surgeCovers) {
-      const object: Optional<XR_game_object> = registry.zones.get(descriptor.name);
+      const object: Optional<game_object> = registry.zones.get(descriptor.name);
 
       if (object !== null) {
         const isValidCover: boolean =
@@ -257,8 +256,8 @@ export class SurgeManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public getTargetCover(): Optional<XR_game_object> {
-    const coverObject: Optional<XR_game_object> = this.getNearestAvailableCover();
+  public getTargetCover(): Optional<game_object> {
+    const coverObject: Optional<game_object> = this.getNearestAvailableCover();
 
     // No covers or already in cover -> nothing to do.
     if (coverObject === null || coverObject.inside(registry.actor.position())) {
@@ -292,11 +291,11 @@ export class SurgeManager extends AbstractCoreManager {
   /**
    * Return list of game objects representing possible covers.
    */
-  public getCoverObjects(): LuaArray<XR_game_object> {
-    const covers: LuaArray<XR_game_object> = new LuaTable();
+  public getCoverObjects(): LuaArray<game_object> {
+    const covers: LuaArray<game_object> = new LuaTable();
 
     for (const [, descriptor] of this.surgeCovers) {
-      const object: Optional<XR_game_object> = registry.zones.get(descriptor.name);
+      const object: Optional<game_object> = registry.zones.get(descriptor.name);
 
       if (object !== null) {
         table.insert(covers, object);
@@ -464,7 +463,7 @@ export class SurgeManager extends AbstractCoreManager {
   public killAllUnhided(): void {
     logger.info("Kill all surge unhided");
 
-    const surgeHit: XR_hit = new hit();
+    const surgeHit: hit = new hit();
 
     surgeHit.type = hit.fire_wound;
     surgeHit.power = 0.9;
@@ -475,7 +474,7 @@ export class SurgeManager extends AbstractCoreManager {
     logger.info("Kill crows");
 
     for (const [, id] of registry.crows.storage) {
-      const object: Optional<XR_game_object> = registry.objects.get(id)?.object;
+      const object: Optional<game_object> = registry.objects.get(id)?.object;
 
       if (object.alive()) {
         object.hit(surgeHit);
@@ -484,7 +483,7 @@ export class SurgeManager extends AbstractCoreManager {
 
     const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
     const levelName: TLevel = level.name();
-    const surgeCovers: LuaArray<XR_game_object> = this.getCoverObjects();
+    const surgeCovers: LuaArray<game_object> = this.getCoverObjects();
 
     logger.info("Releasing squads:", simulationBoardManager.getSquads().length());
 
@@ -495,7 +494,7 @@ export class SurgeManager extends AbstractCoreManager {
             if (this.canReleaseSquad(squad)) {
               logger.info("Releasing npc from squad because of surge:", member.object.name(), squad.name());
 
-              const clientObject: Optional<XR_game_object> = level.object_by_id(member.object.id);
+              const clientObject: Optional<game_object> = level.object_by_id(member.object.id);
 
               if (clientObject === null) {
                 member.object.kill();
@@ -530,7 +529,7 @@ export class SurgeManager extends AbstractCoreManager {
       }
     }
 
-    const coverObject: Optional<XR_game_object> = this.getNearestAvailableCover();
+    const coverObject: Optional<game_object> = this.getNearestAvailableCover();
 
     if (registry.actor.alive()) {
       if (!coverObject?.inside(registry.actor.position())) {
@@ -567,7 +566,7 @@ export class SurgeManager extends AbstractCoreManager {
     const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
     const levelName: TLevel = level.name();
 
-    const activeCovers: LuaArray<XR_game_object> = this.getCoverObjects();
+    const activeCovers: LuaArray<game_object> = this.getCoverObjects();
 
     for (const [squadId, squad] of simulationBoardManager.getSquads()) {
       if (isObjectOnLevel(squad, levelName) && !isImmuneToSurge(squad)) {
@@ -588,7 +587,7 @@ export class SurgeManager extends AbstractCoreManager {
               squad.name()
             );
 
-            const clientObject: Optional<XR_game_object> = level.object_by_id(member.object.id);
+            const clientObject: Optional<game_object> = level.object_by_id(member.object.id);
 
             // todo: What is the difference here?
             if (clientObject === null) {
@@ -675,7 +674,7 @@ export class SurgeManager extends AbstractCoreManager {
     }
 
     if (!this.isStarted) {
-      const currentGameTime: XR_CTime = game.get_game_time();
+      const currentGameTime: CTime = game.get_game_time();
 
       if (this.isTimeForwarded) {
         const diff = math.abs(this.nextScheduledSurgeDelay - currentGameTime.diffSec(this.lastSurgeAt));
@@ -714,7 +713,7 @@ export class SurgeManager extends AbstractCoreManager {
     if (this.prev_sec !== surgeDuration) {
       this.prev_sec = surgeDuration;
 
-      const coverObject: Optional<XR_game_object> = this.getNearestAvailableCover();
+      const coverObject: Optional<game_object> = this.getNearestAvailableCover();
 
       if (!isSurgeEnabledOnLevel(level.name())) {
         this.endSurge();
@@ -777,7 +776,7 @@ export class SurgeManager extends AbstractCoreManager {
 
           att = att * att * att * 0.3;
 
-          const surgeHit: XR_hit = new hit();
+          const surgeHit: hit = new hit();
 
           surgeHit.type = hit.telepatic;
           surgeHit.power = att;
@@ -848,12 +847,12 @@ export class SurgeManager extends AbstractCoreManager {
    * Handle actor item use.
    * Mainly to intercept and properly handle anabiotic.
    */
-  public onActorUseItem(object: Optional<XR_game_object>): void {
+  public onActorUseItem(object: Optional<game_object>): void {
     if (object === null) {
       return;
     }
 
-    const serverObject: Optional<XR_cse_alife_object> = alife().object(object.id());
+    const serverObject: Optional<cse_alife_object> = alife().object(object.id());
     const serverItemSection: Optional<TInventoryItem> = serverObject?.section_name() as Optional<TInventoryItem>;
 
     if (serverItemSection === drugs.drug_anabiotic) {
@@ -865,7 +864,7 @@ export class SurgeManager extends AbstractCoreManager {
   /**
    * Handle actor taking artefacts.
    */
-  public onActorItemTake(object: XR_game_object): void {
+  public onActorItemTake(object: game_object): void {
     if (isArtefact(object)) {
       logger.info("On artefact take:", object.name());
 
@@ -954,7 +953,7 @@ export class SurgeManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, SurgeManager.name);
 
     packet.w_bool(this.isFinished);

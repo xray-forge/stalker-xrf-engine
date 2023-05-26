@@ -1,4 +1,4 @@
-import { XR_game_object, XR_ini_file } from "xray16";
+import { game_object, ini_file } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMinigunState";
@@ -31,8 +31,8 @@ export class SchemeMinigun extends AbstractScheme {
    * todo: Description.
    */
   public static override activate(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     additional: string
@@ -57,8 +57,8 @@ export class SchemeMinigun extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeMinigunState

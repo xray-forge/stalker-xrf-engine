@@ -1,12 +1,4 @@
-import {
-  CSightParams,
-  LuabindClass,
-  property_evaluator,
-  TXR_SightType,
-  vector,
-  XR_CSightParams,
-  XR_vector,
-} from "xray16";
+import { CSightParams, LuabindClass, property_evaluator, TXR_SightType, vector } from "xray16";
 
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
@@ -36,7 +28,7 @@ export class EvaluatorDirection extends property_evaluator {
       return true;
     }
 
-    const objectSightType: XR_CSightParams = this.object.sight_params();
+    const objectSightType: CSightParams = this.object.sight_params();
 
     if (this.stateManager.lookObjectId !== null) {
       if (
@@ -59,7 +51,7 @@ export class EvaluatorDirection extends property_evaluator {
         return true;
       }
 
-      const direction: XR_vector = new vector().sub(this.stateManager.lookPosition!, this.object.position());
+      const direction: vector = new vector().sub(this.stateManager.lookPosition!, this.object.position());
 
       if (this.stateManager.getLookObjectType()) {
         direction.y = 0;

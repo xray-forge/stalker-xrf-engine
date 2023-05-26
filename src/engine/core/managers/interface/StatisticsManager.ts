@@ -1,12 +1,12 @@
 import {
   alife,
   clsid,
+  cse_alife_creature_abstract,
+  cse_alife_object,
+  game_object,
+  net_packet,
   TXR_class_id,
   TXR_net_processor,
-  XR_cse_alife_creature_abstract,
-  XR_cse_alife_object,
-  XR_game_object,
-  XR_net_packet,
 } from "xray16";
 
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
@@ -181,7 +181,7 @@ export class StatisticsManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public incrementCollectedArtefactsCount(artefact: XR_game_object): void {
+  public incrementCollectedArtefactsCount(artefact: game_object): void {
     logger.info("Increment collected artefacts count");
     // todo: Probably section vs section name should be checked and simplified.
 
@@ -234,7 +234,7 @@ export class StatisticsManager extends AbstractCoreManager {
     const active_item = registry.actor.active_item();
 
     if (active_item) {
-      const serverObject: Optional<XR_cse_alife_object> = alife().object(active_item.id());
+      const serverObject: Optional<cse_alife_object> = alife().object(active_item.id());
 
       if (serverObject) {
         const sectionName: TName = serverObject.section_name();
@@ -271,7 +271,7 @@ export class StatisticsManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public updateBestMonsterKilled(object: XR_game_object): void {
+  public updateBestMonsterKilled(object: game_object): void {
     if (isStalker(object)) {
       // -- actor_statistic.best_monster = "stalker"
     } else {
@@ -285,7 +285,7 @@ export class StatisticsManager extends AbstractCoreManager {
         );
       }
 
-      const serverObject: Optional<XR_cse_alife_creature_abstract> = alife().object<XR_cse_alife_creature_abstract>(
+      const serverObject: Optional<cse_alife_creature_abstract> = alife().object<cse_alife_creature_abstract>(
         object.id()
       );
 
@@ -393,7 +393,7 @@ export class StatisticsManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     packet.w_u16(this.actor_statistic.surges);
     packet.w_u16(this.actor_statistic.completed_quests);
     packet.w_u32(this.actor_statistic.killed_monsters);

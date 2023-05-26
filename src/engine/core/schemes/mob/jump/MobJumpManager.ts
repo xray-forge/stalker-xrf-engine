@@ -1,4 +1,4 @@
-import { cond, look, patrol, vector, XR_patrol, XR_vector } from "xray16";
+import { cond, look, patrol, vector } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/mob/jump/ISchemeMobJumpState";
@@ -14,8 +14,8 @@ const STATE_JUMP = 3;
  * todo;
  */
 export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
-  public jump_path: Optional<XR_patrol> = null;
-  public point: Optional<XR_vector> = null;
+  public jump_path: Optional<patrol> = null;
+  public point: Optional<vector> = null;
   public state_current: Optional<number> = null;
 
   /**

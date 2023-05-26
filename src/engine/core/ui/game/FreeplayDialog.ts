@@ -1,4 +1,4 @@
-import { CUIMessageBoxEx, CUIScriptWnd, Frect, LuabindClass, ui_events, XR_CUIMessageBoxEx } from "xray16";
+import { CUIMessageBoxEx, CUIScriptWnd, Frect, LuabindClass, ui_events } from "xray16";
 
 import { giveInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -12,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class FreeplayDialog extends CUIScriptWnd {
-  public readonly freeplay_mb: XR_CUIMessageBoxEx;
+  public readonly freeplay_mb: CUIMessageBoxEx;
 
   public constructor() {
     super();

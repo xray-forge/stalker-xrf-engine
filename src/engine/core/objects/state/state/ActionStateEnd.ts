@@ -1,4 +1,4 @@
-import { action_base, game_object, level, LuabindClass, object, time_global, XR_game_object } from "xray16";
+import { action_base, game_object, level, LuabindClass, object, time_global } from "xray16";
 
 import { EWeaponAnimation } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
@@ -73,7 +73,7 @@ export class ActionStateEnd extends action_base {
       let sniperAimDuration: TDuration = SNIPER_AIM_TIME;
 
       if (this.stateManager.lookObjectId !== null) {
-        const lookObject: Optional<XR_game_object> = level.object_by_id(this.stateManager.lookObjectId);
+        const lookObject: Optional<game_object> = level.object_by_id(this.stateManager.lookObjectId);
 
         if (lookObject === null) {
           this.stateManager.lookObjectId = null;

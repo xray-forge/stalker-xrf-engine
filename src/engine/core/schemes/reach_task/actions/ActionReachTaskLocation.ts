@@ -11,8 +11,6 @@ import {
   object,
   time_global,
   vector,
-  XR_game_object,
-  XR_vector,
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
@@ -44,7 +42,7 @@ export class ActionReachTaskLocation extends action_base {
   public formation!: TName;
 
   public levelVertexId!: TNumberId;
-  public direction!: XR_vector;
+  public direction!: vector;
   public distance!: TNumberId;
 
   public patrolManager: Optional<ReachTaskPatrolManager> = null;
@@ -196,7 +194,7 @@ export class ActionReachTaskLocation extends action_base {
     this.currentState = currentState!;
     this.levelVertexId = sendToNearestAccessibleVertex(this.object, lvi);
 
-    const desiredDirection: XR_vector = this.direction;
+    const desiredDirection: vector = this.direction;
 
     if (desiredDirection !== null && !areSameVectors(desiredDirection, new vector().set(0, 0, 0))) {
       desiredDirection.normalize();
@@ -233,14 +231,14 @@ export class ActionReachTaskLocation extends action_base {
   /**
    * todo: Description.
    */
-  public death_callback(object: XR_game_object): void {
+  public death_callback(object: game_object): void {
     this.patrolManager?.removeObjectFromPatrol(object);
   }
 
   /**
    * todo: Description.
    */
-  public net_destroy(object: XR_game_object): void {
+  public net_destroy(object: game_object): void {
     this.patrolManager?.removeObjectFromPatrol(object);
   }
 }
@@ -248,7 +246,7 @@ export class ActionReachTaskLocation extends action_base {
 /**
  * todo;
  */
-function updateObjectMovement(object: XR_game_object, target: Optional<TSimulationObject>): void {
+function updateObjectMovement(object: game_object, target: Optional<TSimulationObject>): void {
   if (target !== null && !object.is_talking()) {
     if (SurgeManager.getInstance().isStarted) {
       object.set_movement_type(move.run);

@@ -1,4 +1,4 @@
-import { CScriptXmlInit, LuabindClass, XR_CScriptXmlInit } from "xray16";
+import { CScriptXmlInit, LuabindClass } from "xray16";
 
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -14,7 +14,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class DebugPositionSection extends AbstractDebugSection {
   public initializeControls(): void {
-    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
+    const xml: CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
   }

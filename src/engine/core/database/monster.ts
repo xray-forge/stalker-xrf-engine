@@ -1,4 +1,4 @@
-import { clsid, XR_game_object, XR_ini_file } from "xray16";
+import { clsid, game_object, ini_file } from "xray16";
 
 import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
@@ -15,7 +15,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param section - ini file section to read state field from
  * @returns monster state from ini config or null
  */
-export function getMonsterState(ini: XR_ini_file, section: TSection): Optional<EMonsterState> {
+export function getMonsterState(ini: ini_file, section: TSection): Optional<EMonsterState> {
   const state: EMonsterState = readIniString(ini, section, "state", false, "", "") as EMonsterState;
 
   return state === EMonsterState.NONE ? null : state;
@@ -27,7 +27,7 @@ export function getMonsterState(ini: XR_ini_file, section: TSection): Optional<E
  * @param object - client game object to set state
  * @param state - target state to set
  */
-export function setMonsterState(object: XR_game_object, state: Optional<EMonsterState>): void {
+export function setMonsterState(object: game_object, state: Optional<EMonsterState>): void {
   if (state === null || state === EMonsterState.NONE) {
     return;
   }

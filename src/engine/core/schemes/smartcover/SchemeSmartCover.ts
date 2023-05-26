@@ -1,4 +1,4 @@
-import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
+import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/schemes/base/id";
@@ -24,8 +24,8 @@ export class SchemeSmartCover extends AbstractScheme {
    * todo: Description.
    */
   public static override activate(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     additional: string
@@ -54,13 +54,13 @@ export class SchemeSmartCover extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeSmartCoverState
   ): void {
-    const actionPlanner: XR_action_planner = object.motivation_action_manager();
+    const actionPlanner: action_planner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(EEvaluatorId.IS_SMART_COVER_NEEDED, new EvaluatorNeedSmartCover(state));
     actionPlanner.add_evaluator(EEvaluatorId.CAN_USE_SMART_COVER_IN_COMBAT, new EvaluatorUseSmartCoverInCombat(state));

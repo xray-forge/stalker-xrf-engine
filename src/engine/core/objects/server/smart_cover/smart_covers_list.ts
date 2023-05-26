@@ -1,4 +1,4 @@
-import { TXR_move, XR_vector } from "xray16";
+import { TXR_move, vector } from "xray16";
 
 import { get_smart_cover_anim_pri_a22 } from "@/engine/core/objects/server/smart_cover/smart_covers_anim_pri_a22";
 import { get_smart_cover_animpoint_pri_a15 } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_pri_a15";
@@ -22,12 +22,12 @@ export interface ISmartCoverDescriptor {
       precondition_functor?: string;
       precondition_params?: string;
       animation?: string;
-      position?: XR_vector;
+      position?: vector;
       body_state?: TXR_move;
       movement_type?: TXR_move;
       actions: Array<{
         animation: string;
-        position: XR_vector;
+        position: vector;
         body_state: TXR_move;
         movement_type: TXR_move;
       }>;
@@ -37,10 +37,10 @@ export interface ISmartCoverDescriptor {
 
 export interface ISmartCoverLoopholeDescriptor {
   id: string;
-  fov_position: XR_vector;
-  fov_direction: XR_vector;
-  danger_fov_direction?: XR_vector;
-  enter_direction: XR_vector;
+  fov_position: vector;
+  fov_direction: vector;
+  danger_fov_direction?: vector;
+  enter_direction: vector;
   enterable?: boolean;
   exitable?: boolean;
   usable: boolean;

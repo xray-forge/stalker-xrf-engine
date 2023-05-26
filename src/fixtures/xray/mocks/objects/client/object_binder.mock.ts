@@ -1,11 +1,11 @@
 import { jest } from "@jest/globals";
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 /**
  * todo;
  */
 export class MockObjectBinder {
-  public constructor(public object: XR_game_object) {}
+  public constructor(public object: game_object) {}
 
   public load(): void {}
 

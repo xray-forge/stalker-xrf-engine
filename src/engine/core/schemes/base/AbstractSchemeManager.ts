@@ -1,4 +1,4 @@
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { IBaseSchemeState } from "@/engine/core/schemes/base/IBaseSchemeState";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -10,10 +10,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export abstract class AbstractSchemeManager<T extends IBaseSchemeState> {
-  public readonly object: XR_game_object;
+  public readonly object: game_object;
   public readonly state: T;
 
-  public constructor(object: XR_game_object, state: T) {
+  public constructor(object: game_object, state: T) {
     this.object = object;
     this.state = state;
   }

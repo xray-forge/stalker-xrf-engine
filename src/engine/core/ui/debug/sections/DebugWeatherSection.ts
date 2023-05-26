@@ -1,4 +1,4 @@
-import { LuabindClass, ui_events, XR_CUI3tButton, XR_CUIComboBox, XR_CUIStatic } from "xray16";
+import { CUI3tButton, CUIComboBox, CUIStatic, LuabindClass, ui_events } from "xray16";
 
 import { IWeatherState, WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
@@ -16,14 +16,14 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class DebugWeatherSection extends AbstractDebugSection {
-  public currentWeatherSectionLabel!: XR_CUIStatic;
-  public currentWeatherStateLabel!: XR_CUIStatic;
-  public nextWeatherStateLabel!: XR_CUIStatic;
+  public currentWeatherSectionLabel!: CUIStatic;
+  public currentWeatherStateLabel!: CUIStatic;
+  public nextWeatherStateLabel!: CUIStatic;
 
-  public currentWeatherStateSelect!: XR_CUIComboBox;
-  public nextWeatherStateSelect!: XR_CUIComboBox;
+  public currentWeatherStateSelect!: CUIComboBox;
+  public nextWeatherStateSelect!: CUIComboBox;
 
-  public randomizeWeatherButton!: XR_CUI3tButton;
+  public randomizeWeatherButton!: CUI3tButton;
 
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);

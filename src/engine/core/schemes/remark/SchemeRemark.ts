@@ -1,4 +1,4 @@
-import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
+import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
 
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionRemarkActivity } from "@/engine/core/schemes/remark/actions/ActionRemarkActivity";
@@ -25,8 +25,8 @@ export class SchemeRemark extends AbstractScheme {
    * todo: Description.
    */
   public static override activate(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     additional: string
@@ -52,13 +52,13 @@ export class SchemeRemark extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeRemarkState
   ): void {
-    const actionPlanner: XR_action_planner = object.motivation_action_manager();
+    const actionPlanner: action_planner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(EEvaluatorId.NEED_REMARK, new EvaluatorNeedRemark(state));
 

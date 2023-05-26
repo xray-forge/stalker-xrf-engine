@@ -1,4 +1,4 @@
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { IRegistryObjectState } from "@/engine/core/database/types";
@@ -10,7 +10,7 @@ import { Optional } from "@/engine/lib/types";
  * @param object - client game object to register
  * @returns registry object for provided game object
  */
-export function registerObject(object: XR_game_object): IRegistryObjectState {
+export function registerObject(object: game_object): IRegistryObjectState {
   const stored: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
   if (stored === null) {
@@ -31,7 +31,7 @@ export function registerObject(object: XR_game_object): IRegistryObjectState {
  *
  * @param object - client game object to unregister
  */
-export function unregisterObject(object: XR_game_object): void {
+export function unregisterObject(object: game_object): void {
   registry.objects.delete(object.id());
 }
 
@@ -43,7 +43,7 @@ export function unregisterObject(object: XR_game_object): void {
  * @param state - optional initial state to use for reset
  * @returns new client object state object
  */
-export function resetObject(object: XR_game_object, state: Partial<IRegistryObjectState> = {}): IRegistryObjectState {
+export function resetObject(object: game_object, state: Partial<IRegistryObjectState> = {}): IRegistryObjectState {
   state.object = object;
   registry.objects.set(object.id(), state as IRegistryObjectState);
 

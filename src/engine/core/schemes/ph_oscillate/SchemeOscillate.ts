@@ -1,4 +1,4 @@
-import { XR_game_object, XR_ini_file } from "xray16";
+import { game_object, ini_file } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeOscillateState } from "@/engine/core/schemes/ph_oscillate/ISchemeOscillateState";
@@ -22,8 +22,8 @@ export class SchemeOscillate extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeOscillateState
@@ -35,8 +35,8 @@ export class SchemeOscillate extends AbstractScheme {
    * todo: Description.
    */
   public static override activate(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     gulagName: TName

@@ -1,26 +1,22 @@
 import {
   bit_or,
+  CScriptXmlInit,
+  CUIEditBoxEx,
+  CUIListBox,
+  CUIMapInfo,
   CUIMessageBoxEx,
+  CUIStatic,
+  CUITextWnd,
   CUIWindow,
   Frect,
   FS,
+  FS_file_list_ex,
   game,
   get_console,
   getFS,
   LuabindClass,
   main_menu,
   vector2,
-  XR_CScriptXmlInit,
-  XR_CUIEditBoxEx,
-  XR_CUIListBox,
-  XR_CUIMapInfo,
-  XR_CUIMessageBoxEx,
-  XR_CUIStatic,
-  XR_CUITextWnd,
-  XR_CUIWindow,
-  XR_FS,
-  XR_FS_file_list_ex,
-  XR_vector2,
 } from "xray16";
 
 import { MultiplayerDemoLoadItem } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemoLoadItem";
@@ -40,33 +36,33 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class MultiplayerDemo extends CUIWindow {
   public owner!: MultiplayerMenu;
-  public xml!: XR_CScriptXmlInit;
+  public xml!: CScriptXmlInit;
 
   public on_yes_action: string = "";
   public file_name_to_rename: string = "";
 
-  public file_item_main_sz!: XR_vector2;
-  public file_item_fn_sz!: XR_vector2;
-  public file_item_fd_sz!: XR_vector2;
+  public file_item_main_sz!: vector2;
+  public file_item_fn_sz!: vector2;
+  public file_item_fd_sz!: vector2;
 
-  public player_item_main_sz!: XR_vector2;
-  public player_item_name_sz!: XR_vector2;
-  public player_item_column_sz!: XR_vector2;
+  public player_item_main_sz!: vector2;
+  public player_item_name_sz!: vector2;
+  public player_item_column_sz!: vector2;
 
-  public map_pic!: XR_CUIStatic;
-  public map_info!: XR_CUIMapInfo;
-  public demo_list!: XR_CUIListBox<MultiplayerDemoLoadItem>;
-  public game_type!: XR_CUITextWnd;
-  public players_count!: XR_CUITextWnd;
-  public team_stats!: XR_CUITextWnd;
-  public file_name_edit!: XR_CUIEditBoxEx;
-  public message_box!: XR_CUIMessageBoxEx;
-  public players_list!: XR_CUIListBox;
+  public map_pic!: CUIStatic;
+  public map_info!: CUIMapInfo;
+  public demo_list!: CUIListBox<MultiplayerDemoLoadItem>;
+  public game_type!: CUITextWnd;
+  public players_count!: CUITextWnd;
+  public team_stats!: CUITextWnd;
+  public file_name_edit!: CUIEditBoxEx;
+  public message_box!: CUIMessageBoxEx;
+  public players_list!: CUIListBox;
 
   /**
    * todo: Description.
    */
-  public initControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: MultiplayerMenu): void {
+  public initControls(x: number, y: number, xml: CScriptXmlInit, handler: MultiplayerMenu): void {
     this.SetAutoDelete(true);
     this.owner = handler;
     this.xml = xml;
@@ -84,7 +80,7 @@ export class MultiplayerDemo extends CUIWindow {
     this.demo_list = xml.InitListBox("tab_demo:list", this);
     this.demo_list.ShowSelectedItem(true);
 
-    const ctrl: XR_CUIWindow = new CUIWindow();
+    const ctrl: CUIWindow = new CUIWindow();
 
     xml.InitWindow("tab_demo:file_item_main", 0, ctrl);
 
@@ -135,8 +131,8 @@ export class MultiplayerDemo extends CUIWindow {
   public fillList(): void {
     this.demo_list.RemoveAll();
 
-    const fs: XR_FS = getFS();
-    const filesList: XR_FS_file_list_ex = fs.file_list_open_ex(
+    const fs: FS = getFS();
+    const filesList: FS_file_list_ex = fs.file_list_open_ex(
       roots.logs,
       bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
       "*.demo"
@@ -347,7 +343,7 @@ export class MultiplayerDemo extends CUIWindow {
   public onMsgBoxYes(): void {
     logger.info("Confirm message box");
 
-    const fs: XR_FS = getFS();
+    const fs: FS = getFS();
     const item: Optional<MultiplayerDemoLoadItem> = this.demo_list.GetSelectedItem();
 
     if (item === null) {

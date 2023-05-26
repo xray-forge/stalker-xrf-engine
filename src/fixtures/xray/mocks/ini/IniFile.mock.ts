@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import { XR_ini_file } from "xray16";
+import { ini_file } from "xray16";
 
 import { AnyObject, TName, TNumberId, TPath, TSection } from "@/engine/lib/types";
 import { FILES_MOCKS } from "@/fixtures/xray/mocks/ini/files.mock";
@@ -55,14 +55,14 @@ export class MockIniFile<T extends AnyObject> {
     return this.path;
   });
 
-  public asMock(): XR_ini_file {
-    return this as unknown as XR_ini_file;
+  public asMock(): ini_file {
+    return this as unknown as ini_file;
   }
 }
 
 /**
  * todo;
  */
-export function mockIniFile(path: TPath, data?: AnyObject): XR_ini_file {
-  return new MockIniFile(path, data) as unknown as XR_ini_file;
+export function mockIniFile(path: TPath, data?: AnyObject): ini_file {
+  return new MockIniFile(path, data) as unknown as ini_file;
 }

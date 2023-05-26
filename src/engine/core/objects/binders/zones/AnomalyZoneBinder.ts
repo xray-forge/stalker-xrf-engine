@@ -1,16 +1,14 @@
 import {
   alife,
+  cse_alife_item_artefact,
+  cse_alife_object,
+  game_object,
   ini_file,
   LuabindClass,
+  net_packet,
   object_binder,
   patrol,
-  XR_cse_alife_item_artefact,
-  XR_cse_alife_object,
-  XR_game_object,
-  XR_ini_file,
-  XR_net_packet,
-  XR_patrol,
-  XR_reader,
+  reader,
 } from "xray16";
 
 import {
@@ -47,7 +45,7 @@ const UPDATE_THROTTLE: number = 5_000;
  */
 @LuabindClass()
 export class AnomalyZoneBinder extends object_binder {
-  public readonly ini: XR_ini_file;
+  public readonly ini: ini_file;
 
   public delta: number = UPDATE_THROTTLE;
 
@@ -91,7 +89,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public constructor(object: XR_game_object) {
+  public constructor(object: game_object) {
     super(object);
 
     this.ini = object.spawn_ini()!;
@@ -112,7 +110,7 @@ export class AnomalyZoneBinder extends object_binder {
       this.ini = new ini_file(filename);
     }
 
-    const ini: XR_ini_file = this.ini;
+    const ini: ini_file = this.ini;
 
     this.zoneLayersCount = readIniNumber(ini, ANOMAL_ZONE_SECTION, "layers_count", false, 1);
     this.isCustomPlacement = this.zoneLayersCount > 1;
@@ -431,10 +429,10 @@ export class AnomalyZoneBinder extends object_binder {
     }
 
     const randomPathName: string = this.getRandomArtefactPath();
-    const randomPath: XR_patrol = new patrol(randomPathName);
+    const randomPath: patrol = new patrol(randomPathName);
     const randomPathPoint: number = math.random(0, randomPath.count() - 1);
 
-    const artefactObject: XR_cse_alife_object = alife().create(
+    const artefactObject: cse_alife_object = alife().create(
       randomArtefact,
       randomPath.point(randomPathPoint),
       this.object.level_vertex_id(),
@@ -506,7 +504,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -570,11 +568,10 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public onArtefactTaken(object: XR_game_object | XR_cse_alife_item_artefact): void {
+  public onArtefactTaken(object: game_object | cse_alife_item_artefact): void {
     logger.info("On artefact take:", this.object.name());
 
-    const id: number =
-      type(object.id) === "number" ? (object as XR_cse_alife_object).id : (object as XR_game_object).id();
+    const id: number = type(object.id) === "number" ? (object as cse_alife_object).id : (object as game_object).id();
 
     registry.artefacts.ways.delete(id);
     registry.artefacts.points.delete(id);
@@ -597,7 +594,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, AnomalyZoneBinder.__name);
     super.save(packet);
 
@@ -668,7 +665,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override load(reader: XR_reader): void {
+  public override load(reader: reader): void {
     openLoadMarker(reader, AnomalyZoneBinder.__name);
 
     super.load(reader);

@@ -1,4 +1,4 @@
-import { LuabindClass, object_binder, XR_cse_alife_object } from "xray16";
+import { cse_alife_object, LuabindClass, object_binder } from "xray16";
 
 import { registerAnomalyField, resetObject, unregisterAnomalyField } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -15,7 +15,7 @@ export class AnomalyFieldBinder extends object_binder {
     resetObject(this.object);
   }
 
-  public override net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }

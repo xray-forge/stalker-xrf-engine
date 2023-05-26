@@ -1,4 +1,4 @@
-import { XR_game_object, XR_ini_file, XR_vector } from "xray16";
+import { game_object, ini_file, vector } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
@@ -22,7 +22,7 @@ export class SchemeDeimos extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeDeimosState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -45,8 +45,8 @@ export class SchemeDeimos extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeDeimosState
@@ -60,7 +60,7 @@ export class SchemeDeimos extends AbstractScheme {
   public static checkIntensityDelta(state: IRegistryObjectState): boolean {
     if (state.active_scheme === SchemeDeimos.SCHEME_SECTION) {
       const deimosState: ISchemeDeimosState = state[state.active_scheme] as ISchemeDeimosState;
-      const speedVector: XR_vector = registry.actor.get_movement_speed();
+      const speedVector: vector = registry.actor.get_movement_speed();
       const currentSpeed: TRate = math.sqrt(
         speedVector.x * speedVector.x + speedVector.y * speedVector.y + speedVector.z * speedVector.z
       );

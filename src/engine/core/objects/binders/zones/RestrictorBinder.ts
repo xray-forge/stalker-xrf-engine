@@ -1,4 +1,4 @@
-import { LuabindClass, object_binder, XR_cse_alife_object, XR_net_packet, XR_reader } from "xray16";
+import { cse_alife_object, LuabindClass, net_packet, object_binder, reader } from "xray16";
 
 import {
   closeLoadMarker,
@@ -36,7 +36,7 @@ export class RestrictorBinder extends object_binder {
     this.state = resetObject(this.object);
   }
 
-  public override net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -91,7 +91,7 @@ export class RestrictorBinder extends object_binder {
     return true;
   }
 
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, RestrictorBinder.__name);
 
     super.save(packet);
@@ -100,7 +100,7 @@ export class RestrictorBinder extends object_binder {
     closeSaveMarker(packet, RestrictorBinder.__name);
   }
 
-  public override load(reader: XR_reader): void {
+  public override load(reader: reader): void {
     this.isLoaded = true;
 
     openLoadMarker(reader, RestrictorBinder.__name);

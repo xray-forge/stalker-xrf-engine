@@ -1,4 +1,4 @@
-import { alife, stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
+import { action_planner, alife, game_object, ini_file, stalker_ids, world_property } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -25,12 +25,7 @@ export class SchemeHelpWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(
-    object: XR_game_object,
-    ini: XR_ini_file,
-    scheme: EScheme,
-    section: Optional<TSection>
-  ) {
+  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: Optional<TSection>) {
     AbstractScheme.assign(object, ini, scheme, section);
   }
 
@@ -38,13 +33,13 @@ export class SchemeHelpWounded extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeHelpWoundedState
   ): void {
-    const actionPlanner: XR_action_planner = object.motivation_action_manager();
+    const actionPlanner: action_planner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(EEvaluatorId.IS_WOUNDED_EXISTING, new EvaluatorWoundedExist(state));
 
@@ -68,12 +63,7 @@ export class SchemeHelpWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override reset(
-    object: XR_game_object,
-    scheme: EScheme,
-    state: IRegistryObjectState,
-    section: TSection
-  ) {
+  public static override reset(object: game_object, scheme: EScheme, state: IRegistryObjectState, section: TSection) {
     (state[SchemeHelpWounded.SCHEME_SECTION] as ISchemeHelpWoundedState).help_wounded_enabled = readIniBoolean(
       state.ini!,
       section,
@@ -86,8 +76,8 @@ export class SchemeHelpWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static isUnderHelpWounded(object: XR_game_object): boolean {
-    const actionManager: XR_action_planner = object.motivation_action_manager();
+  public static isUnderHelpWounded(object: game_object): boolean {
+    const actionManager: action_planner = object.motivation_action_manager();
 
     if (!actionManager.initialized()) {
       return false;
@@ -99,10 +89,10 @@ export class SchemeHelpWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static helpWounded(object: XR_game_object): void {
+  public static helpWounded(object: game_object): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());
     const selectedId: TNumberId = (state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState).selected_id;
-    const selectedObject: Optional<XR_game_object> =
+    const selectedObject: Optional<game_object> =
       registry.objects.get(selectedId) && registry.objects.get(selectedId).object!;
 
     if (selectedObject === null) {

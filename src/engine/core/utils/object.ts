@@ -1,21 +1,19 @@
 import {
+  action_planner,
   alife,
+  cse_alife_creature_abstract,
+  cse_alife_human_abstract,
+  cse_alife_object,
+  cse_alife_online_offline_group,
   entity_action,
   game,
   game_graph,
+  game_object,
+  ini_file,
   level,
   stalker_ids,
   TXR_entity_action,
   vector,
-  XR_action_planner,
-  XR_cse_alife_creature_abstract,
-  XR_cse_alife_human_abstract,
-  XR_cse_alife_object,
-  XR_cse_alife_online_offline_group,
-  XR_entity_action,
-  XR_game_object,
-  XR_ini_file,
-  XR_vector,
 } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
@@ -54,9 +52,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param object - any game object used by the game engine.
  * @returns tuple of object position details: id, gvi, lvi, position.
  */
-export function getObjectPositioning(
-  object: AnyGameObject
-): LuaMultiReturn<[TNumberId, TNumberId, TNumberId, XR_vector]> {
+export function getObjectPositioning(object: AnyGameObject): LuaMultiReturn<[TNumberId, TNumberId, TNumberId, vector]> {
   if (isCseAlifeObject(object)) {
     return $multi(object.id, object.m_game_vertex_id, object.m_level_vertex_id, object.position);
   } else {
@@ -70,17 +66,17 @@ export function getObjectPositioning(
  * @param object - server or client object
  * @return object squad or null
  */
-export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_creature_abstract>): Optional<Squad> {
+export function getObjectSquad(object: Optional<game_object | cse_alife_creature_abstract>): Optional<Squad> {
   assertDefined(object, "Attempt to get squad object from null value.");
 
   if (type(object.id) === "function") {
-    const serverObject: Optional<XR_cse_alife_creature_abstract> = alife().object((object as XR_game_object).id());
+    const serverObject: Optional<cse_alife_creature_abstract> = alife().object((object as game_object).id());
 
     return !serverObject || serverObject.group_id === MAX_U16 ? null : alife().object<Squad>(serverObject.group_id);
   } else {
-    return (object as XR_cse_alife_creature_abstract).group_id === MAX_U16
+    return (object as cse_alife_creature_abstract).group_id === MAX_U16
       ? null
-      : alife().object<Squad>((object as XR_cse_alife_creature_abstract).group_id);
+      : alife().object<Squad>((object as cse_alife_creature_abstract).group_id);
   }
 }
 
@@ -90,8 +86,8 @@ export function getObjectSquad(object: Optional<XR_game_object | XR_cse_alife_cr
  * @param object - client object to check
  * @returns server representation of smart terrain or null
  */
-export function getObjectSmartTerrain(object: XR_game_object): Optional<SmartTerrain> {
-  const serverObject: Optional<XR_cse_alife_creature_abstract> = alife().object(object.id());
+export function getObjectSmartTerrain(object: game_object): Optional<SmartTerrain> {
+  const serverObject: Optional<cse_alife_creature_abstract> = alife().object(object.id());
 
   if (serverObject === null) {
     return null;
@@ -106,7 +102,7 @@ export function getObjectSmartTerrain(object: XR_game_object): Optional<SmartTer
  * @param object - client object to change condition
  * @param condition - value from 0 to 100, percents
  */
-export function setItemCondition(object: XR_game_object, condition: TRate): void {
+export function setItemCondition(object: game_object, condition: TRate): void {
   object.set_condition(condition / 100);
 }
 
@@ -150,7 +146,7 @@ export function setCurrentTime(hour: number, min: number, sec: number): void {
 /**
  * todo;
  */
-export function stopObjectPlayingSound(object: XR_game_object): void {
+export function stopObjectPlayingSound(object: game_object): void {
   if (object.alive()) {
     object.set_sound_mask(-1);
     object.set_sound_mask(0);
@@ -166,12 +162,12 @@ export function stopObjectPlayingSound(object: XR_game_object): void {
  *
  */
 export function changeTeamSquadGroup(
-  serverObject: XR_cse_alife_creature_abstract,
+  serverObject: cse_alife_creature_abstract,
   teamId: TNumberId,
   squadId: TNumberId,
   groupId: TNumberId
 ): void {
-  const clientObject: Optional<XR_game_object> = registry.objects.get(serverObject.id)?.object;
+  const clientObject: Optional<game_object> = registry.objects.get(serverObject.id)?.object;
 
   if (clientObject === null) {
     serverObject.team = teamId;
@@ -185,8 +181,8 @@ export function changeTeamSquadGroup(
 /**
  * todo;
  */
-export function action(object: Optional<XR_game_object>, ...actions: Array<TXR_entity_action>): XR_entity_action {
-  const entityAction: XR_entity_action = new entity_action();
+export function action(object: Optional<game_object>, ...actions: Array<TXR_entity_action>): entity_action {
+  const entityAction: entity_action = new entity_action();
   let index: TIndex = 0;
 
   while (actions[index] !== null) {
@@ -205,7 +201,7 @@ export function action(object: Optional<XR_game_object>, ...actions: Array<TXR_e
 /**
  * todo;
  */
-export function resetObjectAction(object: XR_game_object, scriptName: TName): void {
+export function resetObjectAction(object: game_object, scriptName: TName): void {
   if (object.get_script()) {
     object.script(false, scriptName);
   }
@@ -216,7 +212,7 @@ export function resetObjectAction(object: XR_game_object, scriptName: TName): vo
 /**
  * todo;
  */
-export function interruptObjectAction(object: XR_game_object, scriptName: TName): void {
+export function interruptObjectAction(object: game_object, scriptName: TName): void {
   if (object.get_script()) {
     object.script(false, scriptName);
   }
@@ -227,16 +223,16 @@ export function interruptObjectAction(object: XR_game_object, scriptName: TName)
  */
 export function getObjectCommunity(object: AnyGameObject): TCommunity {
   if (type(object.id) === "function") {
-    return getCharacterCommunity(object as XR_game_object);
+    return getCharacterCommunity(object as game_object);
   } else {
-    return getAlifeCharacterCommunity(object as XR_cse_alife_human_abstract);
+    return getAlifeCharacterCommunity(object as cse_alife_human_abstract);
   }
 }
 
 /**
  * todo;
  */
-export function getCharacterCommunity(object: XR_game_object): TCommunity {
+export function getCharacterCommunity(object: game_object): TCommunity {
   if (isStalker(object)) {
     return object.character_community() as TCommunity;
   }
@@ -248,7 +244,7 @@ export function getCharacterCommunity(object: XR_game_object): TCommunity {
  * todo;
  */
 export function getAlifeCharacterCommunity(
-  object: XR_cse_alife_human_abstract | XR_cse_alife_online_offline_group
+  object: cse_alife_human_abstract | cse_alife_online_offline_group
 ): TCommunity {
   if (isStalker(object)) {
     return object.community() as TCommunity;
@@ -260,7 +256,7 @@ export function getAlifeCharacterCommunity(
 /**
  * todo;
  */
-export function getServerDistanceBetween(first: XR_cse_alife_object, second: XR_cse_alife_object): TDistance {
+export function getServerDistanceBetween(first: cse_alife_object, second: cse_alife_object): TDistance {
   return graphDistance(first.m_game_vertex_id, second.m_game_vertex_id);
 }
 
@@ -268,8 +264,8 @@ export function getServerDistanceBetween(first: XR_cse_alife_object, second: XR_
  * todo;
  */
 export function getServerDistanceBetweenSafe(
-  first: Optional<XR_cse_alife_object>,
-  second: Optional<XR_cse_alife_object>
+  first: Optional<cse_alife_object>,
+  second: Optional<cse_alife_object>
 ): Optional<TDistance> {
   return first && second && graphDistance(first.m_game_vertex_id, second.m_game_vertex_id);
 }
@@ -277,7 +273,7 @@ export function getServerDistanceBetweenSafe(
 /**
  * todo;
  */
-export function areObjectsOnSameLevel(first: XR_cse_alife_object, second: XR_cse_alife_object): boolean {
+export function areObjectsOnSameLevel(first: cse_alife_object, second: cse_alife_object): boolean {
   return (
     game_graph().vertex(first.m_game_vertex_id).level_id() === game_graph().vertex(second.m_game_vertex_id).level_id()
   );
@@ -286,7 +282,7 @@ export function areObjectsOnSameLevel(first: XR_cse_alife_object, second: XR_cse
 /**
  * todo;
  */
-export function setObjectInfo(object: XR_game_object, ini: XR_ini_file, section: TSection): void {
+export function setObjectInfo(object: game_object, ini: ini_file, section: TSection): void {
   const inInfosList: LuaArray<TInfoPortion> = getInfosFromData(object, readIniString(ini, section, "in", false, ""));
   const outInfosList: LuaArray<TInfoPortion> = getInfosFromData(object, readIniString(ini, section, "out", false, ""));
 
@@ -302,7 +298,7 @@ export function setObjectInfo(object: XR_game_object, ini: XR_ini_file, section:
 /**
  * todo: rename, update
  */
-export function resetObjectGroup(object: XR_game_object, ini: XR_ini_file, section: TSection): void {
+export function resetObjectGroup(object: game_object, ini: ini_file, section: TSection): void {
   const group: TNumberId = readIniNumber(ini, section, "group", false, -1);
 
   if (group !== -1) {
@@ -314,7 +310,7 @@ export function resetObjectGroup(object: XR_game_object, ini: XR_ini_file, secti
  * todo: rename, update
  */
 export function initializeObjectTakeItemsEnabledState(
-  object: XR_game_object,
+  object: game_object,
   scheme: EScheme,
   state: IRegistryObjectState,
   section: TSection
@@ -330,7 +326,7 @@ export function initializeObjectTakeItemsEnabledState(
  * todo: rename, update
  */
 export function initializeObjectCanSelectWeaponState(
-  object: XR_game_object,
+  object: game_object,
   scheme: EScheme,
   state: IRegistryObjectState,
   section: TSection
@@ -350,7 +346,7 @@ export function initializeObjectCanSelectWeaponState(
 /**
  * todo;
  */
-export function isObjectInvulnerabilityNeeded(object: XR_game_object): boolean {
+export function isObjectInvulnerabilityNeeded(object: game_object): boolean {
   const state: IRegistryObjectState = registry.objects.get(object.id());
   const invulnerability: Optional<string> = readIniString(
     state.ini,
@@ -371,7 +367,7 @@ export function isObjectInvulnerabilityNeeded(object: XR_game_object): boolean {
 /**
  * todo;
  */
-export function resetObjectInvulnerability(object: XR_game_object): void {
+export function resetObjectInvulnerability(object: game_object): void {
   const invulnerability = isObjectInvulnerabilityNeeded(object);
 
   if (object.invulnerable() !== invulnerability) {
@@ -382,14 +378,14 @@ export function resetObjectInvulnerability(object: XR_game_object): void {
 /**
  * todo;
  */
-export function disableObjectInvulnerability(object: XR_game_object): void {
+export function disableObjectInvulnerability(object: game_object): void {
   object.invulnerable(false);
 }
 
 /**
  * todo;
  */
-export function updateObjectInvulnerability(object: XR_game_object): void {
+export function updateObjectInvulnerability(object: game_object): void {
   const isInvulnerabilityNeeded: boolean = isObjectInvulnerabilityNeeded(object);
 
   if (object.invulnerable() !== isInvulnerabilityNeeded) {
@@ -401,7 +397,7 @@ export function updateObjectInvulnerability(object: XR_game_object): void {
  * todo
  */
 export function resetObjectIgnoreThreshold(
-  object: XR_game_object,
+  object: game_object,
   scheme: Optional<EScheme>,
   state: IRegistryObjectState,
   section: TSection
@@ -438,8 +434,8 @@ export function resetObjectIgnoreThreshold(
 /**
  * todo;
  */
-export function isObjectInCombat(object: XR_game_object): boolean {
-  const actionPlanner: XR_action_planner = object.motivation_action_manager();
+export function isObjectInCombat(object: game_object): boolean {
+  const actionPlanner: action_planner = object.motivation_action_manager();
 
   if (!actionPlanner.initialized()) {
     return false;
@@ -455,14 +451,14 @@ export function isObjectInCombat(object: XR_game_object): boolean {
 /**
  * todo: description
  */
-export function isActorSeenByObject(object: XR_game_object): boolean {
+export function isActorSeenByObject(object: game_object): boolean {
   return object.alive() && object.see(registry.actor);
 }
 
 /**
  * todo: description
  */
-export function sendToNearestAccessibleVertex(object: XR_game_object, vertexId: TNumberId): TNumberId {
+export function sendToNearestAccessibleVertex(object: game_object, vertexId: TNumberId): TNumberId {
   if (!object.accessible(vertexId)) {
     vertexId = object.accessible_nearest(level.vertex_position(vertexId), new vector());
   }
@@ -476,8 +472,8 @@ export function sendToNearestAccessibleVertex(object: XR_game_object, vertexId: 
  * todo;
  */
 export function anomalyHasArtefact(
-  actor: XR_game_object,
-  object: Optional<XR_game_object>,
+  actor: game_object,
+  object: Optional<game_object>,
   params: [TName, Optional<TName>]
 ): LuaMultiReturn<[boolean, Optional<LuaArray<TName>>]> {
   const az_name = params && params[0];
@@ -496,7 +492,7 @@ export function anomalyHasArtefact(
     const artefactsList: LuaArray<TName> = new LuaTable();
 
     for (const [k, v] of registry.artefacts.ways) {
-      const artefactObject: Optional<XR_cse_alife_object> = alife().object(tonumber(k)!);
+      const artefactObject: Optional<cse_alife_object> = alife().object(tonumber(k)!);
 
       if (artefactObject) {
         table.insert(artefactsList, artefactObject.section_name());
@@ -518,7 +514,7 @@ export function anomalyHasArtefact(
 /**
  * todo;
  */
-export function isObjectAsleep(object: XR_game_object): boolean {
+export function isObjectAsleep(object: game_object): boolean {
   return registry.objects.get(object.id()).stateManager!.animstate.states.currentState === EStalkerState.SLEEP;
 }
 
@@ -527,7 +523,7 @@ export function isObjectAsleep(object: XR_game_object): boolean {
  * todo;
  * todo;
  */
-export function scriptReleaseObject(object: XR_game_object, scriptName: TName = $filename): void {
+export function scriptReleaseObject(object: game_object, scriptName: TName = $filename): void {
   if (object.get_script()) {
     object.script(false, scriptName);
   }
@@ -539,7 +535,7 @@ export function scriptReleaseObject(object: XR_game_object, scriptName: TName = 
  * todo;
  */
 export function scriptCaptureObject(
-  object: XR_game_object,
+  object: game_object,
   resetActions: Optional<boolean>,
   scriptName: TName = $filename
 ): void {
@@ -561,14 +557,14 @@ export function scriptCaptureObject(
  * todo;
  * todo;
  */
-export function isObjectScriptCaptured(object: XR_game_object): boolean {
+export function isObjectScriptCaptured(object: game_object): boolean {
   return object.get_script() !== null;
 }
 
 /**
  * todo;
  */
-export function isObjectInSmart(object: XR_game_object, smartTerrainName: TName): boolean {
+export function isObjectInSmart(object: game_object, smartTerrainName: TName): boolean {
   const smartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
   return smartTerrain ? smartTerrain.name() === smartTerrainName : false;

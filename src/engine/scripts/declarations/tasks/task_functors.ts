@@ -1,4 +1,4 @@
-import { game, XR_game_object } from "xray16";
+import { game, game_object } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
@@ -144,7 +144,7 @@ extern("task_functors.target_condlist", (id: TStringId, field: string, condition
 extern("task_functors.zat_b29_adv_target", (id: TStringId, field: string, p: string) => {
   let targetObjectId: TStringId = "zat_a2_stalker_barmen";
   let artefact: Optional<TStringId> = null;
-  const actor: XR_game_object = registry.actor;
+  const actor: game_object = registry.actor;
 
   for (const i of $range(16, 23)) {
     if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && actor.object(zat_b29_af_table.get(i))) {

@@ -1,4 +1,4 @@
-import { alife, cse_alife_item_artefact, LuabindClass, XR_cse_alife_creature_actor } from "xray16";
+import { alife, cse_alife_creature_actor, cse_alife_item_artefact, LuabindClass } from "xray16";
 
 import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -23,7 +23,7 @@ export class ItemArtefact extends cse_alife_item_artefact {
   }
 
   public override can_switch_offline(): boolean {
-    const actor: Optional<XR_cse_alife_creature_actor> = alife()?.actor();
+    const actor: Optional<cse_alife_creature_actor> = alife()?.actor();
 
     if (actor !== null && actor.position.distance_to(this.position) <= logicsConfig.ARTEFACT_OFFLINE_DISTANCE) {
       return false;

@@ -1,4 +1,4 @@
-import { XR_CPhraseDialog, XR_game_object } from "xray16";
+import { CPhraseDialog, game_object } from "xray16";
 
 import { TravelManager } from "@/engine/core/managers/interaction/TravelManager";
 import { extern } from "@/engine/core/utils/binding";
@@ -69,41 +69,36 @@ extern("on_actor_psy", () => {
  * todo;
  */
 extern("travel_callbacks", {
-  initializeTravellerDialog: (dialog: XR_CPhraseDialog) =>
-    TravelManager.getInstance().initializeTravellerDialog(dialog),
-  canStartTravelingDialogs: (actor: XR_game_object, npc: XR_game_object) =>
+  initializeTravellerDialog: (dialog: CPhraseDialog) => TravelManager.getInstance().initializeTravellerDialog(dialog),
+  canStartTravelingDialogs: (actor: game_object, npc: game_object) =>
     TravelManager.getInstance().canStartTravelingDialogs(actor, npc),
-  getSquadCurrentActionDescription: (actor: XR_game_object, npc: XR_game_object): TLabel =>
+  getSquadCurrentActionDescription: (actor: game_object, npc: game_object): TLabel =>
     TravelManager.getInstance().getSquadCurrentActionDescription(actor, npc),
-  canActorMoveWithSquad: (actor: XR_game_object, npc: XR_game_object): boolean =>
+  canActorMoveWithSquad: (actor: game_object, npc: game_object): boolean =>
     TravelManager.getInstance().canActorMoveWithSquad(actor, npc),
-  canSquadTakeActor: (actor: XR_game_object, npc: XR_game_object) =>
+  canSquadTakeActor: (actor: game_object, npc: game_object) =>
     TravelManager.getInstance().canSquadTakeActor(actor, npc),
-  cannotSquadTakeActor: (npc: XR_game_object, actor: XR_game_object, dialogId: TStringId, phraseId: TStringId) =>
+  cannotSquadTakeActor: (npc: game_object, actor: game_object, dialogId: TStringId, phraseId: TStringId) =>
     TravelManager.getInstance().cannotSquadTakeActor(npc, actor, dialogId, phraseId),
-  onTravelTogetherWithSquad: (npc: XR_game_object, actor: XR_game_object, dialogId: TStringId, phraseId: TStringId) =>
+  onTravelTogetherWithSquad: (npc: game_object, actor: game_object, dialogId: TStringId, phraseId: TStringId) =>
     TravelManager.getInstance().onTravelTogetherWithSquad(npc, actor, dialogId, phraseId),
-  onTravelToSpecificSmartWithSquad: (
-    actor: XR_game_object,
-    npc: XR_game_object,
-    dialogId: TStringId,
-    phraseId: TStringId
-  ) => TravelManager.getInstance().onTravelToSpecificSmartWithSquad(actor, npc, dialogId, phraseId),
-  canSquadTravel: (npc: XR_game_object, actor: XR_game_object, dialogId: TStringId, phraseId: TStringId) =>
+  onTravelToSpecificSmartWithSquad: (actor: game_object, npc: game_object, dialogId: TStringId, phraseId: TStringId) =>
+    TravelManager.getInstance().onTravelToSpecificSmartWithSquad(actor, npc, dialogId, phraseId),
+  canSquadTravel: (npc: game_object, actor: game_object, dialogId: TStringId, phraseId: TStringId) =>
     TravelManager.getInstance().canSquadTravel(npc, actor, dialogId, phraseId),
   canNegotiateTravelToSmart: (
-    actor: XR_game_object,
-    npc: XR_game_object,
+    actor: game_object,
+    npc: game_object,
     dialogId: TStringId,
     prevPhraseId: TStringId,
     phraseId: TStringId
   ) => TravelManager.getInstance().canNegotiateTravelToSmart(actor, npc, dialogId, prevPhraseId, phraseId),
-  getTravelConst: (actor: XR_game_object, npc: XR_game_object, dialogId: TStringId, phraseId: TStringId): TLabel =>
+  getTravelConst: (actor: game_object, npc: game_object, dialogId: TStringId, phraseId: TStringId): TLabel =>
     TravelManager.getInstance().getTravelConst(actor, npc, dialogId, phraseId),
-  isEnoughMoneyToTravel: (actor: XR_game_object, npc: XR_game_object, dialogId: TStringId, phraseId: TStringId) =>
+  isEnoughMoneyToTravel: (actor: game_object, npc: game_object, dialogId: TStringId, phraseId: TStringId) =>
     TravelManager.getInstance().isEnoughMoneyToTravel(actor, npc, dialogId, phraseId),
-  isNotEnoughMoneyToTravel: (actor: XR_game_object, npc: XR_game_object, dialogId: TStringId, phraseId: TStringId) =>
+  isNotEnoughMoneyToTravel: (actor: game_object, npc: game_object, dialogId: TStringId, phraseId: TStringId) =>
     TravelManager.getInstance().isNotEnoughMoneyToTravel(actor, npc, dialogId, phraseId),
-  cannotSquadTravel: (npc: XR_game_object, actor: XR_game_object, dialogId: TStringId, phraseId: TStringId) =>
+  cannotSquadTravel: (npc: game_object, actor: game_object, dialogId: TStringId, phraseId: TStringId) =>
     TravelManager.getInstance().cannotSquadTravel(npc, actor, dialogId, phraseId),
 });

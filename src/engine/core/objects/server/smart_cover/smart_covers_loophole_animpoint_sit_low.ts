@@ -1,12 +1,12 @@
-import { vector, XR_vector } from "xray16";
+import { vector } from "xray16";
 
 import { ISmartCoverLoopholeDescriptor } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
 
 export function get_animpoint_sit_low_loophole(
   id: string,
-  position: XR_vector,
-  fov_direction: XR_vector,
-  enter_direction: XR_vector
+  position: vector,
+  fov_direction: vector,
+  enter_direction: vector
 ): ISmartCoverLoopholeDescriptor {
   return {
     id: id,

@@ -1,4 +1,4 @@
-import { game_object, XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects";
@@ -20,60 +20,54 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-extern("xr_effects.actor_friend", (actor: XR_game_object, object: XR_game_object): void => {
+extern("xr_effects.actor_friend", (actor: game_object, object: game_object): void => {
   object.force_set_goodwill(1000, actor);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.actor_neutral", (actor: XR_game_object, object: XR_game_object): void => {
+extern("xr_effects.actor_neutral", (actor: game_object, object: game_object): void => {
   object.force_set_goodwill(0, actor);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.actor_enemy", (actor: XR_game_object, object: XR_game_object): void => {
+extern("xr_effects.actor_enemy", (actor: game_object, object: game_object): void => {
   object.force_set_goodwill(-1000, actor);
 });
 
 /**
  * todo;
  */
-extern(
-  "xr_effects.set_squad_neutral_to_actor",
-  (actor: XR_game_object, object: XR_game_object, p: [TStringId]): void => {
-    const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
+extern("xr_effects.set_squad_neutral_to_actor", (actor: game_object, object: game_object, p: [TStringId]): void => {
+  const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
 
-    if (squad === null) {
-      return;
-    } else {
-      squad.updateSquadRelationToActor(relations.neutral);
-    }
+  if (squad === null) {
+    return;
+  } else {
+    squad.updateSquadRelationToActor(relations.neutral);
   }
-);
+});
 
 /**
  * todo;
  */
-extern(
-  "xr_effects.set_squad_friend_to_actor",
-  (actor: XR_game_object, object: XR_game_object, p: [TStringId]): void => {
-    const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
+extern("xr_effects.set_squad_friend_to_actor", (actor: game_object, object: game_object, p: [TStringId]): void => {
+  const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
 
-    if (squad === null) {
-      return;
-    } else {
-      squad.updateSquadRelationToActor(relations.friend);
-    }
+  if (squad === null) {
+    return;
+  } else {
+    squad.updateSquadRelationToActor(relations.friend);
   }
-);
+});
 
 /**
  * todo;
  */
-extern("xr_effects.set_squad_enemy_to_actor", (actor: XR_game_object, object: XR_game_object, p: [TStringId]): void => {
+extern("xr_effects.set_squad_enemy_to_actor", (actor: game_object, object: game_object, p: [TStringId]): void => {
   const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
 
   if (squad === null) {
@@ -86,7 +80,7 @@ extern("xr_effects.set_squad_enemy_to_actor", (actor: XR_game_object, object: XR
 /**
  * todo;
  */
-extern("xr_effects.set_npc_sympathy", (actor: XR_game_object, object: XR_game_object, p: [number]): void => {
+extern("xr_effects.set_npc_sympathy", (actor: game_object, object: game_object, p: [number]): void => {
   if (p[0] !== null) {
     setObjectSympathy(object, p[0]);
   }
@@ -95,21 +89,18 @@ extern("xr_effects.set_npc_sympathy", (actor: XR_game_object, object: XR_game_ob
 /**
  * todo;
  */
-extern(
-  "xr_effects.set_squad_goodwill",
-  (actor: XR_game_object, object: XR_game_object, p: [string, TRelation]): void => {
-    if (p[0] !== null && p[1] !== null) {
-      setSquadGoodwill(p[0], p[1]);
-    }
+extern("xr_effects.set_squad_goodwill", (actor: game_object, object: game_object, p: [string, TRelation]): void => {
+  if (p[0] !== null && p[1] !== null) {
+    setSquadGoodwill(p[0], p[1]);
   }
-);
+});
 
 /**
  * todo;
  */
 extern(
   "xr_effects.set_squad_goodwill_to_npc",
-  (actor: XR_game_object, object: XR_game_object, p: [string, TRelation]): void => {
+  (actor: game_object, object: game_object, p: [string, TRelation]): void => {
     if (p[0] !== null && p[1] !== null) {
       setSquadGoodwillToNpc(object, p[0], p[1]);
     }
@@ -121,7 +112,7 @@ extern(
  */
 extern(
   "xr_effects.inc_faction_goodwill_to_actor",
-  (actor: XR_game_object, object: XR_game_object, p: [Optional<TCommunity>, Optional<number>]): void => {
+  (actor: game_object, object: game_object, p: [Optional<TCommunity>, Optional<number>]): void => {
     const community = p[0];
     const delta = p[1];
 
@@ -138,7 +129,7 @@ extern(
  */
 extern(
   "xr_effects.dec_faction_goodwill_to_actor",
-  (actor: XR_game_object, object: XR_game_object, params: [Optional<TCommunity>, Optional<TCount>]): void => {
+  (actor: game_object, object: game_object, params: [Optional<TCommunity>, Optional<TCount>]): void => {
     const community: Optional<TCommunity> = params[0];
     const delta: Optional<TCount> = params[1];
 
@@ -153,7 +144,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.set_squads_enemies", (actor: XR_game_object, npc: XR_game_object, p: [string, string]) => {
+extern("xr_effects.set_squads_enemies", (actor: game_object, npc: game_object, p: [string, string]) => {
   if (p[0] === null || p[1] === null) {
     abort("Wrong parameters in function set_squad_enemies");
 
@@ -170,11 +161,11 @@ extern("xr_effects.set_squads_enemies", (actor: XR_game_object, npc: XR_game_obj
   }
 
   for (const k of squad_1.squad_members()) {
-    const npc_obj_1 = registry.objects.get(k.id)?.object as Optional<XR_game_object>;
+    const npc_obj_1 = registry.objects.get(k.id)?.object as Optional<game_object>;
 
     if (npc_obj_1 !== null) {
       for (const kk of squad_2.squad_members()) {
-        const npc_obj_2 = registry.objects.get(kk.id).object as Optional<XR_game_object>;
+        const npc_obj_2 = registry.objects.get(kk.id).object as Optional<game_object>;
 
         if (npc_obj_2 !== null) {
           npc_obj_1.set_relation(game_object.enemy, npc_obj_2);

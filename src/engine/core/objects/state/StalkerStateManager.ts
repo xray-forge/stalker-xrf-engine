@@ -1,15 +1,4 @@
-import {
-  action_planner,
-  level,
-  look,
-  object,
-  time_global,
-  TXR_look,
-  vector,
-  XR_action_planner,
-  XR_game_object,
-  XR_vector,
-} from "xray16";
+import { action_planner, game_object, level, look, object, time_global, TXR_look, vector } from "xray16";
 
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import {
@@ -53,8 +42,8 @@ export interface IStateManagerCallbackDescriptor<T extends AnyObject = AnyObject
 export interface ITargetStateDescriptorExtras {
   isForced?: boolean;
   animation?: boolean;
-  animationPosition?: Optional<XR_vector>;
-  animationDirection?: Optional<XR_vector>;
+  animationPosition?: Optional<vector>;
+  animationDirection?: Optional<vector>;
 }
 
 /**
@@ -72,8 +61,8 @@ const LOOK_DIRECTION_STATES: LuaTable<EStalkerState, boolean> = $fromObject({
  * - Simplify creation of actions with some helper function and evaluators descriptor?
  */
 export class StalkerStateManager {
-  public object: XR_game_object;
-  public planner: XR_action_planner;
+  public object: game_object;
+  public planner: action_planner;
 
   public isCombat: boolean = false;
   public isAlife: boolean = true;
@@ -84,16 +73,16 @@ export class StalkerStateManager {
 
   public animation!: StalkerAnimationManager;
   public animstate!: StalkerAnimationManager;
-  public animationPosition: Optional<XR_vector> = null;
-  public animationDirection: Optional<XR_vector> = null;
+  public animationPosition: Optional<vector> = null;
+  public animationDirection: Optional<vector> = null;
 
   public targetState: EStalkerState = EStalkerState.IDLE;
   public callback: Optional<IStateManagerCallbackDescriptor> = null;
 
-  public lookPosition: Optional<XR_vector> = null;
+  public lookPosition: Optional<vector> = null;
   public lookObjectId: Optional<TNumberId> = null;
 
-  public constructor(object: XR_game_object) {
+  public constructor(object: game_object) {
     this.object = object;
     this.planner = new action_planner();
     this.planner.setup(object);
@@ -162,13 +151,13 @@ export class StalkerStateManager {
           this.isPositionDirectionApplied === false ||
           (this.animationPosition !== null &&
             extra.animationPosition !== null &&
-            !areSameVectors(this.animationPosition, extra.animationPosition as XR_vector)) ||
+            !areSameVectors(this.animationPosition, extra.animationPosition as vector)) ||
           (this.animationDirection !== null &&
             extra.animationDirection !== null &&
-            !areSameVectors(this.animationDirection, extra.animationDirection as XR_vector))
+            !areSameVectors(this.animationDirection, extra.animationDirection as vector))
         ) {
-          this.animationPosition = extra.animationPosition as Optional<XR_vector>;
-          this.animationDirection = extra.animationDirection as Optional<XR_vector>;
+          this.animationPosition = extra.animationPosition as Optional<vector>;
+          this.animationDirection = extra.animationDirection as Optional<vector>;
           this.isPositionDirectionApplied = false;
         }
       } else {
@@ -291,7 +280,7 @@ export class StalkerStateManager {
     if (this.lookObjectId !== null && level.object_by_id(this.lookObjectId) !== null) {
       this.lookAtObject();
     } else if (this.lookPosition !== null) {
-      let direction: XR_vector = new vector().sub(this.lookPosition!, this.object.position());
+      let direction: vector = new vector().sub(this.lookPosition!, this.object.position());
 
       if (this.isObjectPointDirectionLook) {
         direction.y = 0;

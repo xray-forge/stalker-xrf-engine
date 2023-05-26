@@ -1,12 +1,12 @@
 import {
+  CUI3tButton,
   CUIListBoxItemMsgChain,
+  CUITextWnd,
   GetARGB,
   GetFontLetterica16Russian,
   LuabindClass,
   ui_events,
   vector2,
-  XR_CUI3tButton,
-  XR_CUITextWnd,
 } from "xray16";
 
 import { MultiplayerDemo } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemo";
@@ -18,9 +18,9 @@ import { MultiplayerDemo } from "@/engine/core/ui/menu/multiplayer/MultiplayerDe
 export class MultiplayerDemoLoadItem extends CUIListBoxItemMsgChain {
   public filename: string;
 
-  public fn: XR_CUITextWnd;
-  public fage: XR_CUITextWnd;
-  public delete_button: XR_CUI3tButton;
+  public fn: CUITextWnd;
+  public fage: CUITextWnd;
+  public delete_button: CUI3tButton;
 
   public constructor(owner: MultiplayerDemo, height: number, w1: number, w2: number) {
     super(height);

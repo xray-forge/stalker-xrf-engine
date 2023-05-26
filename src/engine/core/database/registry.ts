@@ -1,4 +1,4 @@
-import type { XR_CZoneCampfire, XR_game_object, XR_ini_file } from "xray16";
+import type { CZoneCampfire, game_object, ini_file } from "xray16";
 
 import type { IRegistryObjectState, IStoredOfflineObject } from "@/engine/core/database/types";
 import type {
@@ -34,11 +34,11 @@ export const registry = {
   /**
    * Current actor, injected on game start.
    */
-  actor: null as unknown as XR_game_object,
+  actor: null as unknown as game_object,
   /**
    * Currently active speaker in dialogs.
    */
-  activeSpeaker: null as Optional<XR_game_object>,
+  activeSpeaker: null as Optional<game_object>,
   /**
    * Currently active smart terrain id.
    * If not null, assume actor is in it.
@@ -99,8 +99,8 @@ export const registry = {
    * List of data for game helicopters.
    */
   helicopter: {
-    storage: new LuaTable<TNumberId, XR_game_object>(),
-    enemies: new LuaTable<TNumberId, XR_game_object>(),
+    storage: new LuaTable<TNumberId, game_object>(),
+    enemies: new LuaTable<TNumberId, game_object>(),
     enemyIndex: 0,
   },
   /**
@@ -129,7 +129,7 @@ export const registry = {
   /**
    * List of active zones by name.
    */
-  zones: new LuaTable<TName, XR_game_object>(),
+  zones: new LuaTable<TName, game_object>(),
   /**
    * List of zones under silence restriction, no music is allowed.
    */
@@ -145,14 +145,14 @@ export const registry = {
   /**
    * List of dynamically created ini files by name.
    */
-  ini: new LuaTable<TName, XR_ini_file>(),
+  ini: new LuaTable<TName, ini_file>(),
   /**
    * List of active smart terrains.
    */ smartTerrains: new LuaTable<TNumberId, SmartTerrain>(),
   /**
    * List of campfires by smart terrain name.
    */
-  smartTerrainsCampfires: new LuaTable<TName, LuaTable<TNumberId, XR_CZoneCampfire>>(),
+  smartTerrainsCampfires: new LuaTable<TName, LuaTable<TNumberId, CZoneCampfire>>(),
 
   /**
    * Nearest to actor smart terrain.

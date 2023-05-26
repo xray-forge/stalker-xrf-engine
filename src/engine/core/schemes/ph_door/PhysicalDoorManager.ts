@@ -1,11 +1,4 @@
-import {
-  XR_CPhysicObject,
-  XR_game_object,
-  XR_physics_element,
-  XR_physics_joint,
-  XR_physics_shell,
-  XR_vector,
-} from "xray16";
+import { CPhysicObject, game_object, physics_element, physics_joint, physics_shell, vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -26,7 +19,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public block: boolean = false;
   public soundless_block: boolean = false;
   public show_tips: boolean = false;
-  public joint: Optional<XR_physics_joint> = null;
+  public joint: Optional<physics_joint> = null;
 
   public low_limits: number = 0;
   public hi_limits: number = 0;
@@ -39,7 +32,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
 
     this.initialized = false;
 
-    const ph_shell: Optional<XR_physics_shell> = this.object.get_physics_shell();
+    const ph_shell: Optional<physics_shell> = this.object.get_physics_shell();
 
     if (!ph_shell) {
       return;
@@ -166,15 +159,15 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
 
     this.object.set_fastcall(this.open_fastcall, this);
 
-    const physicsShell: Optional<XR_physics_shell> = this.object.get_physics_shell();
+    const physicsShell: Optional<physics_shell> = this.object.get_physics_shell();
 
     if (physicsShell) {
-      const physicsElement: XR_physics_element = physicsShell.get_element_by_bone_name("door");
+      const physicsElement: physics_element = physicsShell.get_element_by_bone_name("door");
 
       if (physicsElement.is_fixed()) {
         physicsElement.release_fixed();
 
-        const physicsObject: XR_CPhysicObject = this.object.get_physics_object();
+        const physicsObject: CPhysicObject = this.object.get_physics_object();
 
         physicsObject.set_door_ignore_dynamics();
       }
@@ -271,7 +264,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   /**
    * todo: Description.
    */
-  public use_callback(target: XR_game_object, who: Optional<XR_game_object>): void {
+  public use_callback(target: game_object, who: Optional<game_object>): void {
     if (this.state.locked) {
       if (this.state.snd_open_start) {
         GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_open_start, null, null);
@@ -285,10 +278,10 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    * todo: Description.
    */
   public hit_callback(
-    object: XR_game_object,
+    object: game_object,
     amount: TCount,
-    const_direction: XR_vector,
-    who: Optional<XR_game_object>,
+    const_direction: vector,
+    who: Optional<game_object>,
     boneIndex: TIndex
   ): void {
     if (this.state.hit_on_bone.has(boneIndex)) {

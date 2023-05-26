@@ -1,4 +1,4 @@
-import { system_ini, XR_ini_file } from "xray16";
+import { ini_file, system_ini } from "xray16";
 
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
@@ -33,7 +33,7 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
   public override initialize(): void {
     logger.info("Initialize actor inventory quick items slots");
 
-    const ini: XR_ini_file = system_ini();
+    const ini: ini_file = system_ini();
 
     executeConsoleCommand(consoleCommands.slot_0, readIniString(ini, ACTOR, "quick_item_1", false, "", ""));
     executeConsoleCommand(consoleCommands.slot_1, readIniString(ini, ACTOR, "quick_item_2", false, "", ""));

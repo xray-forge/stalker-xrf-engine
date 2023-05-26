@@ -1,4 +1,4 @@
-import { action_base, LuabindClass, patrol, XR_game_object } from "xray16";
+import { action_base, game_object, LuabindClass, patrol } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
@@ -35,7 +35,7 @@ export class ActionSleeperActivity extends action_base {
   /**
    * todo: Description.
    */
-  public constructor(state: ISchemeSleeperState, object: XR_game_object) {
+  public constructor(state: ISchemeSleeperState, object: game_object) {
     super(null, ActionSleeperActivity.__name);
 
     this.state = state;

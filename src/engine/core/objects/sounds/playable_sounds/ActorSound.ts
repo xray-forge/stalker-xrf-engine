@@ -1,14 +1,14 @@
 import {
+  FS,
+  game_object,
   get_hud,
   getFS,
+  ini_file,
+  net_packet,
   sound_object,
   time_global,
   TXR_net_processor,
   vector,
-  XR_FS,
-  XR_game_object,
-  XR_ini_file,
-  XR_net_packet,
 } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
@@ -66,7 +66,7 @@ export class ActorSound extends AbstractPlayableSound {
   public maxIdle: TDuration;
   public random: number;
 
-  public constructor(ini: XR_ini_file, section: TSection) {
+  public constructor(ini: ini_file, section: TSection) {
     super(ini, section);
 
     this.isStereo = readIniBoolean(ini, section, "actor_stereo", false, false);
@@ -87,7 +87,7 @@ export class ActorSound extends AbstractPlayableSound {
     this.point = readIniString(ini, section, "point", false, "", "");
     this.message = readIniString(ini, section, "message", false, "", "");
 
-    const fs: XR_FS = getFS();
+    const fs: FS = getFS();
 
     if (fs.exist(roots.gameSounds, this.path + ".ogg") !== null) {
       this.soundPaths.set(1, this.path);
@@ -106,7 +106,7 @@ export class ActorSound extends AbstractPlayableSound {
   /**
    * todo;
    */
-  public play(object: XR_game_object, faction: string, point: string, message: string): boolean {
+  public play(object: game_object, faction: string, point: string, message: string): boolean {
     if (!this.canPlaySound) {
       return false;
     }
@@ -235,7 +235,7 @@ export class ActorSound extends AbstractPlayableSound {
   /**
    * todo;
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     packet.w_stringZ(tostring(this.playedSoundIndex));
   }
 

@@ -1,12 +1,4 @@
-import {
-  ini_file,
-  LuabindClass,
-  object_binder,
-  XR_cse_alife_object,
-  XR_ini_file,
-  XR_net_packet,
-  XR_reader,
-} from "xray16";
+import { cse_alife_object, ini_file, LuabindClass, net_packet, object_binder, reader } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
@@ -38,12 +30,12 @@ export class CampBinder extends object_binder {
   /**
    * todo;
    */
-  public override net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
 
-    const ini: XR_ini_file = this.object.spawn_ini();
+    const ini: ini_file = this.object.spawn_ini();
 
     if (ini.section_exist("camp")) {
       const filename: Optional<TName> = readIniString(ini, "camp", "cfg", false, "", null);
@@ -88,7 +80,7 @@ export class CampBinder extends object_binder {
   /**
    * todo;
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, CampBinder.__name);
     super.save(packet);
     closeSaveMarker(packet, CampBinder.__name);
@@ -97,7 +89,7 @@ export class CampBinder extends object_binder {
   /**
    * todo;
    */
-  public override load(reader: XR_reader): void {
+  public override load(reader: reader): void {
     openLoadMarker(reader, CampBinder.__name);
     super.load(reader);
     closeLoadMarker(reader, CampBinder.__name);

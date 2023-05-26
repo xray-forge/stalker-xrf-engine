@@ -1,4 +1,4 @@
-import { level, XR_game_object, XR_ini_file } from "xray16";
+import { game_object, ini_file, level } from "xray16";
 
 import { PH_BOX_GENERIC_LTX } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
@@ -31,10 +31,10 @@ const community_list: LuaArray<string> = [
  */
 export class PhysicObjectItemBox {
   public static readBoxItemList(
-    spawn_ini: XR_ini_file,
+    spawn_ini: ini_file,
     section: TSection,
     line: string,
-    obj: XR_game_object
+    obj: game_object
   ): Optional<LuaTable<string, { section: TInventoryItem; count: TCount }>> {
     if (spawn_ini.line_exist(section, line)) {
       const t: LuaArray<TInventoryItem> = parseStringsList(spawn_ini.r_string(section, line));
@@ -77,9 +77,9 @@ export class PhysicObjectItemBox {
     return null;
   }
 
-  public object: XR_game_object;
+  public object: game_object;
 
-  public constructor(object: XR_game_object) {
+  public constructor(object: game_object) {
     this.object = object;
 
     for (const [k, v] of pairs(community_list)) {
@@ -139,7 +139,7 @@ export class PhysicObjectItemBox {
   public spawnBoxItems(): void {
     logger.info("Spawn items for:", this.object.name());
 
-    const ini: XR_ini_file = this.object.spawn_ini();
+    const ini: ini_file = this.object.spawn_ini();
     const currentBoxItems = PhysicObjectItemBox.readBoxItemList(ini, "drop_box", "items", this.object);
 
     if (currentBoxItems === null) {

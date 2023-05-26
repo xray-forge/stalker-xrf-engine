@@ -1,4 +1,4 @@
-import { XR_CALifeSmartTerrainTask, XR_vector } from "xray16";
+import { CALifeSmartTerrainTask, vector } from "xray16";
 
 import type { Actor } from "@/engine/core/objects";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
@@ -40,13 +40,13 @@ export interface ISimulationTarget {
   /**
    * Get CObject for smart terrain task.
    */
-  getAlifeSmartTerrainTask(): XR_CALifeSmartTerrainTask;
+  getAlifeSmartTerrainTask(): CALifeSmartTerrainTask;
   /**
    * Get full object location.
    *
    * @returns position, levelVertexId, gameVertexId
    */
-  getGameLocation(): LuaMultiReturn<[XR_vector, TNumberId, TNumberId]>;
+  getGameLocation(): LuaMultiReturn<[vector, TNumberId, TNumberId]>;
   /**
    * @returns whether object can be selected as simulation target by squad
    */

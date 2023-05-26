@@ -1,4 +1,4 @@
-import { XR_vector } from "xray16";
+import { vector } from "xray16";
 
 /**
  * todo;
@@ -14,8 +14,8 @@ export class MockVector {
   /**
    * Create mock vector as mock from coordinates.
    */
-  public static mock(x: number = 0, y: number = 0, z: number = 0): XR_vector {
-    return new MockVector().set(x, y, z) as unknown as XR_vector;
+  public static mock(x: number = 0, y: number = 0, z: number = 0): vector {
+    return new MockVector().set(x, y, z) as unknown as vector;
   }
 
   public static DEFAULT_DISTANCE: number = 20;
@@ -35,7 +35,7 @@ export class MockVector {
     return this;
   }
 
-  public sub(target: XR_vector): XR_vector {
+  public sub(target: vector): vector {
     return MockVector.mock(this.x - target.x, this.y - target.y, this.z - target.z);
   }
 

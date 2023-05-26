@@ -1,17 +1,16 @@
 import {
   alife,
+  alife_simulator,
   clsid,
+  cse_alife_object,
+  cse_alife_object_physic,
   game,
+  game_object,
+  ini_file,
   level,
   patrol,
   system_ini,
   vector,
-  XR_alife_simulator,
-  XR_cse_alife_object,
-  XR_cse_alife_object_physic,
-  XR_game_object,
-  XR_ini_file,
-  XR_patrol,
 } from "xray16";
 
 import { IRegistryObjectState, SYSTEM_INI } from "@/engine/core/database";
@@ -97,7 +96,7 @@ export function spawnAmmoForObject(
   }
 
   const [id, gvid, lvid, position] = getObjectPositioning(object);
-  const ini: XR_ini_file = system_ini();
+  const ini: ini_file = system_ini();
   const countInBox: TCount = ini.r_u32(ammoSection, "box_size");
 
   let ammoSpawned: TCount = 0;
@@ -147,7 +146,7 @@ export function spawnItemsForObjectFromList(
 /**
  * todo: description
  */
-export function spawnDefaultObjectItems(object: XR_game_object, state: IRegistryObjectState): void {
+export function spawnDefaultObjectItems(object: game_object, state: IRegistryObjectState): void {
   logger.info("Spawn default items for object:", object.name());
 
   const itemsToSpawn: LuaTable<TInventoryItem, TCount> = new LuaTable();
@@ -221,7 +220,7 @@ export function spawnSquad(squadId: Optional<TStringId>, smartTerrainName: Optio
 /**
  * Spawn new object.
  */
-export function spawnObject<T extends XR_cse_alife_object>(
+export function spawnObject<T extends cse_alife_object>(
   section: Optional<TSection>,
   pathName: Optional<TName>,
   index: TIndex = 0,
@@ -233,9 +232,9 @@ export function spawnObject<T extends XR_cse_alife_object>(
   assertDefined(pathName, "Wrong spawn pathName for 'spawnObject' function '%s'.", tostring(pathName));
   assert(level.patrol_path_exists(pathName), "Path %s doesnt exist. Function 'spawnObject'.", tostring(pathName));
 
-  const objectPatrol: XR_patrol = new patrol(pathName);
+  const objectPatrol: patrol = new patrol(pathName);
 
-  const serverObject: XR_cse_alife_object = alife().create(
+  const serverObject: cse_alife_object = alife().create(
     section,
     objectPatrol.point(index),
     objectPatrol.level_vertex_id(0),
@@ -245,7 +244,7 @@ export function spawnObject<T extends XR_cse_alife_object>(
   if (isStalker(serverObject)) {
     serverObject.o_torso().yaw = (yaw * math.pi) / 180;
   } else if (serverObject.clsid() === clsid.script_phys) {
-    (serverObject as XR_cse_alife_object_physic).set_yaw((yaw * math.pi) / 180);
+    (serverObject as cse_alife_object_physic).set_yaw((yaw * math.pi) / 180);
   }
 
   return serverObject as T;
@@ -254,7 +253,7 @@ export function spawnObject<T extends XR_cse_alife_object>(
 /**
  * Spawn new object in object (chest, stalker etc).
  */
-export function spawnObjectInObject<T extends XR_cse_alife_object>(
+export function spawnObjectInObject<T extends cse_alife_object>(
   section: Optional<TSection>,
   targetId: Optional<TNumberId>
 ): T {
@@ -263,7 +262,7 @@ export function spawnObjectInObject<T extends XR_cse_alife_object>(
   assertDefined(section, "Wrong spawn section for 'spawnObjectInObject' function '%s'.", tostring(section));
   assertDefined(targetId, "Wrong spawn targetId for 'spawnObjectInObject' function '%s'.", tostring(section));
 
-  const box: Optional<XR_cse_alife_object> = alife().object(targetId);
+  const box: Optional<cse_alife_object> = alife().object(targetId);
 
   assertDefined(box, "Wrong spawn target object for 'spawnObjectInObject' function '%s'.", tostring(section));
 
@@ -277,8 +276,8 @@ export function spawnObjectInObject<T extends XR_cse_alife_object>(
  * @param objectId - object id to release
  */
 export function releaseObject(objectId: TNumberId): void {
-  const simulator: XR_alife_simulator = alife();
-  const serverObject: Optional<XR_cse_alife_object> = simulator.object(objectId);
+  const simulator: alife_simulator = alife();
+  const serverObject: Optional<cse_alife_object> = simulator.object(objectId);
 
   logger.info("Destroying object:", objectId);
 

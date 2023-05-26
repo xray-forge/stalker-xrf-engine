@@ -1,12 +1,4 @@
-import {
-  alife,
-  command_line,
-  LuabindClass,
-  object_binder,
-  XR_cse_alife_object,
-  XR_net_packet,
-  XR_reader,
-} from "xray16";
+import { alife, command_line, cse_alife_object, LuabindClass, net_packet, object_binder, reader } from "xray16";
 
 import {
   closeLoadMarker,
@@ -33,7 +25,7 @@ export class LevelChangerBinder extends object_binder {
     resetObject(this.object);
   }
 
-  public override net_spawn(cse_object: XR_cse_alife_object): boolean {
+  public override net_spawn(cse_object: cse_alife_object): boolean {
     if (!super.net_spawn(cse_object)) {
       return false;
     }
@@ -66,7 +58,7 @@ export class LevelChangerBinder extends object_binder {
     return true;
   }
 
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, LevelChangerBinder.__name);
 
     super.save(packet);
@@ -75,7 +67,7 @@ export class LevelChangerBinder extends object_binder {
     closeSaveMarker(packet, LevelChangerBinder.__name);
   }
 
-  public override load(reader: XR_reader): void {
+  public override load(reader: reader): void {
     openLoadMarker(reader, LevelChangerBinder.__name);
 
     super.load(reader);

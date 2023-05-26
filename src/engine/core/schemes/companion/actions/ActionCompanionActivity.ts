@@ -1,4 +1,4 @@
-import { action_base, game_object, level, LuabindClass, time_global, XR_game_object } from "xray16";
+import { action_base, game_object, level, LuabindClass, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
@@ -68,7 +68,7 @@ export class ActionCompanionActivity extends action_base {
    * todo: Description.
    */
   public beh_walk_simple(): void {
-    const actor: Optional<XR_game_object> = registry.actor;
+    const actor: Optional<game_object> = registry.actor;
     let select_new_pt: boolean = false;
     const dist_from_self_to_actor: number = this.object.position().distance_to(actor.position());
     const dist_from_assist_pt_to_actor: Optional<number> = this.assist_point
@@ -170,7 +170,7 @@ export class ActionCompanionActivity extends action_base {
 /**
  * todo;
  */
-function select_position(object: XR_game_object, state: ISchemeCompanionState) {
+function select_position(object: game_object, state: ISchemeCompanionState) {
   let node_1_vertex_id = null;
   let node_1_distance = null;
   let node_2_vertex_id = null;

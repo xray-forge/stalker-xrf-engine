@@ -1,4 +1,4 @@
-import { game_object, XR_game_object, XR_ini_file } from "xray16";
+import { game_object, ini_file } from "xray16";
 
 import { getObjectLogicIniConfig, IRegistryObjectState, registry } from "@/engine/core/database";
 import { activateSchemeBySection } from "@/engine/core/schemes/base/utils/activateSchemeBySection";
@@ -18,17 +18,17 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export function initializeObjectSchemeLogic(
-  object: XR_game_object,
+  object: game_object,
   state: IRegistryObjectState,
   isLoaded: boolean,
-  actor: XR_game_object,
+  actor: game_object,
   schemeType: ESchemeType
 ): void {
   logger.info("Initialize object:", object.name(), ESchemeType[schemeType], isLoaded);
 
   if (!isLoaded) {
     const iniFilename: TName = "<customdata>";
-    const iniFile: XR_ini_file = configureObjectSchemes(
+    const iniFile: ini_file = configureObjectSchemes(
       object,
       getObjectLogicIniConfig(object, iniFilename),
       iniFilename,
@@ -56,7 +56,7 @@ export function initializeObjectSchemeLogic(
     const iniFilename: Optional<TName> = state.loaded_ini_filename;
 
     if (iniFilename !== null) {
-      const iniFile: XR_ini_file = configureObjectSchemes(
+      const iniFile: ini_file = configureObjectSchemes(
         object,
         getObjectLogicIniConfig(object, iniFilename),
         iniFilename,

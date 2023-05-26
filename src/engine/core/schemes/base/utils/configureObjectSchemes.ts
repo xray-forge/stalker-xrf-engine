@@ -1,4 +1,4 @@
-import { ini_file, XR_game_object, XR_ini_file } from "xray16";
+import { game_object, ini_file } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
@@ -18,13 +18,13 @@ import { ESchemeType, Optional, TName, TNumberId, TSection } from "@/engine/lib/
  * todo;
  */
 export function configureObjectSchemes(
-  object: XR_game_object,
-  ini: XR_ini_file,
+  object: game_object,
+  ini: ini_file,
   iniFilename: TName,
   schemeType: ESchemeType,
   sectionLogic: TSection,
   gulagName: Optional<TName>
-): XR_ini_file {
+): ini_file {
   const objectId: TNumberId = object.id();
   const state: IRegistryObjectState = registry.objects.get(objectId);
 
@@ -32,7 +32,7 @@ export function configureObjectSchemes(
     emitSchemeEvent(object, state[state.active_scheme!]!, ESchemeEvent.DEACTIVATE, object);
   }
 
-  let actualIni: XR_ini_file;
+  let actualIni: ini_file;
   let actualIniFilename: TName;
 
   if (!ini.section_exist(sectionLogic)) {

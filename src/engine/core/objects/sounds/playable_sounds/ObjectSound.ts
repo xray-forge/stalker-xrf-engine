@@ -1,15 +1,14 @@
 import {
+  FS,
+  game_object,
   get_hud,
   getFS,
+  ini_file,
+  net_packet,
   sound_object,
   time_global,
   TXR_net_processor,
   vector,
-  XR_FS,
-  XR_game_object,
-  XR_ini_file,
-  XR_net_packet,
-  XR_sound_object,
 } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
@@ -48,7 +47,7 @@ export class ObjectSound extends AbstractPlayableSound {
 
   public readonly type: EPlayableSound = ObjectSound.type;
   public readonly soundPaths: LuaArray<TPath> = new LuaTable();
-  public pdaSoundObject: Optional<XR_sound_object> = null;
+  public pdaSoundObject: Optional<sound_object> = null;
 
   public shuffle: ESoundPlaylistType;
   public faction: string;
@@ -64,7 +63,7 @@ export class ObjectSound extends AbstractPlayableSound {
   public maxIdle: TDuration;
   public rnd: number;
 
-  public constructor(ini: XR_ini_file, section: TSection) {
+  public constructor(ini: ini_file, section: TSection) {
     super(ini, section);
 
     const interval: LuaArray<string> = parseStringsList(readIniString(ini, section, "idle", false, "", "3,5,100"));
@@ -77,7 +76,7 @@ export class ObjectSound extends AbstractPlayableSound {
     this.point = readIniString(ini, section, "point", false, "", "");
     this.message = readIniString(ini, section, "message", false, "", "");
 
-    const fs: XR_FS = getFS();
+    const fs: FS = getFS();
 
     if (fs.exist(roots.gameSounds, this.path + ".ogg") !== null) {
       this.soundPaths.set(1, this.path);
@@ -97,7 +96,7 @@ export class ObjectSound extends AbstractPlayableSound {
    * todo;
    */
   public play(objectId: TNumberId, faction: string, point: string, message: string): boolean {
-    const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+    const object: Optional<game_object> = registry.objects.get(objectId)?.object;
 
     if (object === null) {
       return false; // No object existing.
@@ -117,7 +116,7 @@ export class ObjectSound extends AbstractPlayableSound {
 
     logger.info("Play object sound:", object.name(), faction, point, message, "#");
 
-    const fs: XR_FS = getFS();
+    const fs: FS = getFS();
     const soundPath: Optional<TPath> = this.soundPaths.get(this.playedSoundIndex!);
 
     // If actor is far from NPC, play pda sounds.
@@ -243,7 +242,7 @@ export class ObjectSound extends AbstractPlayableSound {
   /**
    * todo;
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     packet.w_stringZ(tostring(this.playedSoundIndex));
   }
 

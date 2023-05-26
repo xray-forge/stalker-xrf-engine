@@ -1,13 +1,4 @@
-import {
-  CScriptXmlInit,
-  device,
-  get_hud,
-  getFS,
-  level,
-  XR_CScriptXmlInit,
-  XR_CUIGameCustom,
-  XR_game_object,
-} from "xray16";
+import { CScriptXmlInit, CUIGameCustom, device, game_object, get_hud, getFS, level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
@@ -59,8 +50,8 @@ export function resolveXmlFormPath(path: TPath, hasWideScreenSupport: boolean = 
  * todo;
  */
 export function setUiVisibility(isVisible: boolean): void {
-  const hud: XR_CUIGameCustom = get_hud();
-  const actor: XR_game_object = registry.actor;
+  const hud: CUIGameCustom = get_hud();
+  const actor: game_object = registry.actor;
 
   if (isVisible) {
     logger.info("[setUiVisibility] Showing UI");
@@ -91,7 +82,7 @@ export function setUiVisibility(isVisible: boolean): void {
 /**
  * todo;
  */
-export function resolveXmlFile(path: TPath, xml: XR_CScriptXmlInit = new CScriptXmlInit()): XR_CScriptXmlInit {
+export function resolveXmlFile(path: TPath, xml: CScriptXmlInit = new CScriptXmlInit()): CScriptXmlInit {
   xml.ParseFile(resolveXmlFormPath(path));
 
   return xml;

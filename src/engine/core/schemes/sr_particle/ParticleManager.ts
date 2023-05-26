@@ -1,4 +1,4 @@
-import { particles_object, patrol, time_global, XR_patrol } from "xray16";
+import { particles_object, patrol, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
@@ -12,7 +12,7 @@ import { Optional, TCount, TTimestamp } from "@/engine/lib/types";
  */
 export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState> {
   public particles: LuaTable = new LuaTable();
-  public path: Optional<XR_patrol> = null;
+  public path: Optional<patrol> = null;
   public last_update: number = 0;
   public started: boolean = false;
   public first_played: boolean = false;

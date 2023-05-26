@@ -1,4 +1,4 @@
-import { callback, hit, time_global, vector, XR_game_object, XR_hit } from "xray16";
+import { callback, game_object, hit, time_global, vector } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
@@ -36,14 +36,14 @@ export interface IAnimationManagerStates {
  */
 export class StalkerAnimationManager {
   public name: TName;
-  public object: XR_game_object;
+  public object: game_object;
   public stateManager: StalkerStateManager;
 
   public animations: LuaTable<EStalkerState, IAnimationDescriptor> | LuaTable<EStalkerState, IAnimationStateDescriptor>;
   public states: IAnimationManagerStates;
 
   public constructor(
-    object: XR_game_object,
+    object: game_object,
     stateManager: StalkerStateManager,
     name: TName,
     collection: LuaTable<EStalkerState, IAnimationDescriptor> | LuaTable<EStalkerState, IAnimationStateDescriptor>
@@ -243,7 +243,7 @@ export class StalkerAnimationManager {
    * todo;
    */
   public getActiveWeaponSlot(): TIndex {
-    const weapon: Optional<XR_game_object> = this.object.active_item();
+    const weapon: Optional<game_object> = this.object.active_item();
 
     if (weapon === null || this.object.weapon_strapped()) {
       return 0;
@@ -310,7 +310,7 @@ export class StalkerAnimationManager {
    * todo;
    */
   public addAnimation(animation: TName, state: IAnimationDescriptor): void {
-    const object: XR_game_object = this.object;
+    const object: game_object = this.object;
     const animationProperties = state.prop;
 
     if (!(object.weapon_unstrapped() || object.weapon_strapped())) {
@@ -352,7 +352,7 @@ export class StalkerAnimationManager {
   public processSpecialAction(actionTable: LuaTable): void {
     // Attach.
     if (actionTable.get("a") !== null) {
-      const objectInventoryItem: Optional<XR_game_object> = this.object.object(actionTable.get("a"));
+      const objectInventoryItem: Optional<game_object> = this.object.object(actionTable.get("a"));
 
       if (objectInventoryItem !== null) {
         objectInventoryItem.enable_attachable_item(true);
@@ -361,7 +361,7 @@ export class StalkerAnimationManager {
 
     // Detach.
     if (actionTable.get("d") !== null) {
-      const objectInventoryItem: Optional<XR_game_object> = this.object.object(actionTable.get("d"));
+      const objectInventoryItem: Optional<game_object> = this.object.object(actionTable.get("d"));
 
       if (objectInventoryItem !== null) {
         objectInventoryItem.enable_attachable_item(false);
@@ -375,7 +375,7 @@ export class StalkerAnimationManager {
 
     // Hit object.
     if (actionTable.get("sh") !== null) {
-      const hitObject: XR_hit = new hit();
+      const hitObject: hit = new hit();
 
       hitObject.power = actionTable.get("sh");
       hitObject.direction = vectorRotateY(this.object.direction(), 90);

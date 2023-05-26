@@ -1,4 +1,4 @@
-import { XR_game_object, XR_ini_file } from "xray16";
+import { game_object, ini_file } from "xray16";
 
 import { IStoredOfflineObject, registry } from "@/engine/core/database";
 import { IBaseSchemeLogic } from "@/engine/core/schemes/base";
@@ -18,10 +18,10 @@ import { TSection } from "@/engine/lib/types/scheme";
  * @returns section to activate
  */
 export function getObjectSectionToActivate(
-  object: XR_game_object,
-  ini: XR_ini_file,
+  object: game_object,
+  ini: ini_file,
   sectionLogic: TSection,
-  actor: XR_game_object
+  actor: game_object
 ): TSection {
   if (!ini.section_exist(sectionLogic)) {
     return NIL;

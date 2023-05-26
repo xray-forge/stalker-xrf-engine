@@ -1,4 +1,4 @@
-import { color, hit, noise, time_global, vector, XR_game_object, XR_hit, XR_noise } from "xray16";
+import { color, game_object, hit, noise, time_global, vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -17,7 +17,7 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
   public gray_amplitude: number = 1.0;
 
   public pp!: PPEffector;
-  public noise!: XR_noise;
+  public noise!: noise;
   public gray_color = new color(0.5, 0.5, 0.5);
   public base_color = new color(0.5, 0.5, 0.5);
   public noise_var = new noise(0.9, 0.5, 30);
@@ -129,8 +129,8 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
 
     this.hit_time = time_global();
 
-    const actor: XR_game_object = registry.actor;
-    const h: XR_hit = new hit();
+    const actor: game_object = registry.actor;
+    const h: hit = new hit();
 
     h.power = this.hit_power;
     h.direction = new vector().set(0, 0, 0);

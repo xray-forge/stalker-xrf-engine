@@ -1,4 +1,4 @@
-import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
+import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
@@ -33,7 +33,7 @@ export class SchemeWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeWoundedState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.woundManager = new WoundManager(object, state);
@@ -43,13 +43,13 @@ export class SchemeWounded extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeWoundedState
   ): void {
-    const manager: XR_action_planner = object.motivation_action_manager();
+    const manager: action_planner = object.motivation_action_manager();
 
     manager.add_evaluator(EEvaluatorId.IS_WOUNDED, new EvaluatorWounded(state));
     manager.add_evaluator(EEvaluatorId.CAN_FIGHT, new EvaluatorCanFight(state));
@@ -83,7 +83,7 @@ export class SchemeWounded extends AbstractScheme {
    * todo: Description.
    */
   public static override reset(
-    object: XR_game_object,
+    object: game_object,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
@@ -102,8 +102,8 @@ export class SchemeWounded extends AbstractScheme {
    * todo: Description.
    */
   public static initialize(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     section: TSection,
     state: ISchemeWoundedState,
     scheme: EScheme
@@ -207,7 +207,7 @@ export class SchemeWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static unlockMedkit(object: XR_game_object): void {
+  public static unlockMedkit(object: game_object): void {
     const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
     (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.unlockMedkit();
@@ -216,7 +216,7 @@ export class SchemeWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static eatMedkit(object: XR_game_object): void {
+  public static eatMedkit(object: game_object): void {
     const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
     (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.eatMedkit();

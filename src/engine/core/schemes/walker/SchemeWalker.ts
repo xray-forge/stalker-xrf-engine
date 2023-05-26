@@ -1,4 +1,4 @@
-import { level, stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
+import { action_planner, game_object, ini_file, level, stalker_ids, world_property } from "xray16";
 
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionWalkerActivity } from "@/engine/core/schemes/walker/actions";
@@ -24,8 +24,8 @@ export class SchemeWalker extends AbstractScheme {
    * todo: Description.
    */
   public static override activate(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     gulag_name: string
@@ -68,13 +68,13 @@ export class SchemeWalker extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeWalkerState
   ): void {
-    const actionPlanner: XR_action_planner = object.motivation_action_manager();
+    const actionPlanner: action_planner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(EEvaluatorId.NEED_WALKER, new EvaluatorNeedWalker(state));
 

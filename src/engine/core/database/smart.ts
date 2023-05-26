@@ -1,4 +1,4 @@
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { IRegistryObjectState } from "@/engine/core/database/types";
@@ -13,7 +13,7 @@ import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTe
  * @param smartTerrain - smart terrain server game object
  * @returns object state representation in registry
  */
-export function registerSmartTerrain(object: XR_game_object, smartTerrain: SmartTerrain): IRegistryObjectState {
+export function registerSmartTerrain(object: game_object, smartTerrain: SmartTerrain): IRegistryObjectState {
   registry.smartTerrains.set(smartTerrain.id, smartTerrain);
 
   return registerZone(object);
@@ -25,7 +25,7 @@ export function registerSmartTerrain(object: XR_game_object, smartTerrain: Smart
  * @param object - smart terrain client game object
  * @param smartTerrain - smart terrain server game object
  */
-export function unregisterSmartTerrain(object: XR_game_object, smartTerrain: SmartTerrain): void {
+export function unregisterSmartTerrain(object: game_object, smartTerrain: SmartTerrain): void {
   unregisterZone(object);
   registry.smartTerrains.delete(smartTerrain.id);
 }

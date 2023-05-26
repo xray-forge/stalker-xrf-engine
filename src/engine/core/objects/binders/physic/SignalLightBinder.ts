@@ -1,12 +1,12 @@
 import {
+  cse_alife_object,
+  game_object,
   LuabindClass,
+  net_packet,
   object_binder,
+  reader,
   time_global,
   vector,
-  XR_cse_alife_object,
-  XR_game_object,
-  XR_net_packet,
-  XR_reader,
 } from "xray16";
 
 import {
@@ -100,7 +100,7 @@ export class SignalLightBinder extends object_binder {
     }
   }
 
-  public override net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -118,7 +118,7 @@ export class SignalLightBinder extends object_binder {
    * todo: Description.
    */
   public launch(): boolean {
-    const actor: Optional<XR_game_object> = registry.actor;
+    const actor: Optional<game_object> = registry.actor;
 
     if (actor === null) {
       return false;
@@ -180,7 +180,7 @@ export class SignalLightBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, SignalLightBinder.__name);
 
     super.save(packet);
@@ -199,7 +199,7 @@ export class SignalLightBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override load(reader: XR_reader): void {
+  public override load(reader: reader): void {
     openLoadMarker(reader, SignalLightBinder.__name);
 
     super.load(reader);

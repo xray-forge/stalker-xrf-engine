@@ -1,4 +1,4 @@
-import { stalker_ids, world_property, world_state, XR_action_planner, XR_game_object, XR_world_state } from "xray16";
+import { action_planner, game_object, stalker_ids, world_property, world_state } from "xray16";
 
 import * as animationManagement from "@/engine/core/objects/state/animation";
 import * as animationStateManagement from "@/engine/core/objects/state/animation_state";
@@ -28,8 +28,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Add state manager instance to Stalker object.
  * @param object
  */
-export function addStateManager(object: XR_game_object): StalkerStateManager {
-  const planner: XR_action_planner = object.motivation_action_manager();
+export function addStateManager(object: game_object): StalkerStateManager {
+  const planner: action_planner = object.motivation_action_manager();
   const stateManager: StalkerStateManager = new StalkerStateManager(object);
 
   addBasicManagerGraph(stateManager, object);
@@ -87,7 +87,7 @@ export function addStateManager(object: XR_game_object): StalkerStateManager {
 /**
  * todo;
  */
-function addBasicManagerGraph(stateManager: StalkerStateManager, object: XR_game_object): void {
+function addBasicManagerGraph(stateManager: StalkerStateManager, object: game_object): void {
   stateManager.planner.add_evaluator(EStateEvaluatorId.end, new stateManagement.EvaluatorStateEnd(stateManager));
   stateManager.planner.add_evaluator(EStateEvaluatorId.locked, new stateManagement.EvaluatorStateLocked(stateManager));
   stateManager.planner.add_evaluator(
@@ -761,7 +761,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: XR_game
   endStateAction.add_effect(new world_property(EStateEvaluatorId.end, true));
   stateManager.planner.add_action(EStateActionId.end, endStateAction);
 
-  const goal: XR_world_state = new world_state();
+  const goal: world_state = new world_state();
 
   goal.add_property(new world_property(EStateEvaluatorId.end, true));
   stateManager.planner.set_goal_world_state(goal);

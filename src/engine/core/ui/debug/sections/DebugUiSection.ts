@@ -1,12 +1,4 @@
-import {
-  CScriptXmlInit,
-  LuabindClass,
-  ui_events,
-  XR_CScriptXmlInit,
-  XR_CUIComboBox,
-  XR_CUIEditBox,
-  XR_CUIStatic,
-} from "xray16";
+import { CScriptXmlInit, CUIComboBox, CUIEditBox, CUIStatic, LuabindClass, ui_events } from "xray16";
 
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -21,20 +13,20 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class DebugUiSection extends AbstractDebugSection {
-  public section!: XR_CUIStatic;
-  public texturesList!: XR_CUIComboBox;
-  public texturesListFilter!: XR_CUIEditBox;
-  public texturesListLineDisplay!: XR_CUIStatic;
-  public texturesListSquareBigDisplay!: XR_CUIStatic;
-  public texturesListSquareMediumDisplay!: XR_CUIStatic;
-  public texturesListSquareSmallDisplay!: XR_CUIStatic;
-  public texturesListSquareMiniDisplay!: XR_CUIStatic;
+  public section!: CUIStatic;
+  public texturesList!: CUIComboBox;
+  public texturesListFilter!: CUIEditBox;
+  public texturesListLineDisplay!: CUIStatic;
+  public texturesListSquareBigDisplay!: CUIStatic;
+  public texturesListSquareMediumDisplay!: CUIStatic;
+  public texturesListSquareSmallDisplay!: CUIStatic;
+  public texturesListSquareMiniDisplay!: CUIStatic;
 
   /**
    * todo: Description.
    */
   public initializeControls(): void {
-    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
+    const xml: CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
 

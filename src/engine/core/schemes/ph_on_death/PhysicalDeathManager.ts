@@ -1,4 +1,4 @@
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -13,7 +13,7 @@ export class PhysicalDeathManager extends AbstractSchemeManager<ISchemePhysicalO
   /**
    * todo: Description.
    */
-  public death_callback(object: XR_game_object, who: Optional<XR_game_object>): void {
+  public death_callback(object: game_object, who: Optional<game_object>): void {
     if (registry.objects.get(this.object.id()).active_scheme) {
       if (trySwitchToAnotherSection(object, this.state, registry.actor)) {
         return;

@@ -1,4 +1,4 @@
-import { XR_game_object, XR_ini_file } from "xray16";
+import { game_object, ini_file } from "xray16";
 
 import { SchemeAbuse } from "@/engine/core/schemes/abuse/SchemeAbuse";
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
@@ -27,8 +27,8 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
  * todo
  */
 export function enableObjectGenericSchemes(
-  ini: XR_ini_file,
-  object: XR_game_object,
+  ini: ini_file,
+  object: game_object,
   schemeType: ESchemeType,
   section: TSection
 ): void {

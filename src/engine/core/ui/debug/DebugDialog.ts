@@ -1,17 +1,15 @@
 import {
   CScriptXmlInit,
+  CUI3tButton,
   CUIScriptWnd,
+  CUIScrollView,
+  CUIWindow,
   DIK_keys,
   Frect,
   LuabindClass,
   TXR_DIK_key,
   TXR_ui_event,
   ui_events,
-  XR_CScriptXmlInit,
-  XR_CUI3tButton,
-  XR_CUIScriptWnd,
-  XR_CUIScrollView,
-  XR_CUIWindow,
 } from "xray16";
 
 import { EDebugSection, sectionsMap } from "@/engine/core/ui/debug/types";
@@ -28,16 +26,16 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class DebugDialog extends CUIScriptWnd {
-  public xml!: XR_CScriptXmlInit;
-  public sectionsList: LuaTable<EDebugSection, XR_CUIWindow> = new LuaTable();
+  public xml!: CScriptXmlInit;
+  public sectionsList: LuaTable<EDebugSection, CUIWindow> = new LuaTable();
 
-  public owner: XR_CUIScriptWnd;
-  public scrollList!: XR_CUIScrollView;
-  public cancelButton!: XR_CUI3tButton;
+  public owner: CUIScriptWnd;
+  public scrollList!: CUIScrollView;
+  public cancelButton!: CUI3tButton;
 
   public label: string = "test-test-test";
 
-  public constructor(owner: XR_CUIScriptWnd) {
+  public constructor(owner: CUIScriptWnd) {
     super();
 
     this.owner = owner;
@@ -69,7 +67,7 @@ export class DebugDialog extends CUIScriptWnd {
     Object.entries(EDebugSection)
       .sort(([a], [b]) => ((a as unknown as number) > (b as unknown as number) ? 1 : -1))
       .forEach(([, it]) => {
-        const element: XR_CUI3tButton = this.xml.Init3tButton("frame_menu_item", null);
+        const element: CUI3tButton = this.xml.Init3tButton("frame_menu_item", null);
 
         element.SetText(it);
         element.SetAutoDelete(true);
@@ -99,7 +97,7 @@ export class DebugDialog extends CUIScriptWnd {
     Object.entries(sectionsMap).forEach(([section, factory]) => {
       logger.info("Construct new section component:", section);
 
-      const sectionComponent: XR_CUIWindow = factory(this);
+      const sectionComponent: CUIWindow = factory(this);
 
       sectionComponent.SetAutoDelete(true);
       sectionComponent.Show(false);

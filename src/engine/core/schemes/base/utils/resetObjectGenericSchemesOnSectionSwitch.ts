@@ -1,4 +1,4 @@
-import { callback, clsid, XR_game_object } from "xray16";
+import { callback, clsid, game_object } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
@@ -21,7 +21,7 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
  * todo;
  */
 export function resetObjectGenericSchemesOnSectionSwitch(
-  object: XR_game_object,
+  object: game_object,
   schemeToSwitch: EScheme,
   section: TSection
 ): void {

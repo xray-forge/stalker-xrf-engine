@@ -1,14 +1,4 @@
-import {
-  CUIWindow,
-  LuabindClass,
-  ui_events,
-  vector2,
-  XR_CUI3tButton,
-  XR_CUIComboBox,
-  XR_CUIListBox,
-  XR_CUIWindow,
-  XR_vector2,
-} from "xray16";
+import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, LuabindClass, ui_events, vector2 } from "xray16";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
@@ -45,12 +35,12 @@ enum EItemCategory {
  */
 @LuabindClass()
 export class DebugItemsSection extends AbstractDebugSection {
-  public categoriesList!: XR_CUIComboBox;
-  public itemsList!: XR_CUIListBox<DebugItemListEntry>;
-  public itemListMainSize!: XR_vector2;
-  public itemListNameSize!: XR_vector2;
-  public itemListDdSize!: XR_vector2;
-  public itemSpawnButton!: XR_CUI3tButton;
+  public categoriesList!: CUIComboBox;
+  public itemsList!: CUIListBox<DebugItemListEntry>;
+  public itemListMainSize!: vector2;
+  public itemListNameSize!: vector2;
+  public itemListDdSize!: vector2;
+  public itemSpawnButton!: CUI3tButton;
 
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
@@ -61,7 +51,7 @@ export class DebugItemsSection extends AbstractDebugSection {
     this.itemsList = this.xml.InitListBox("items_list", this);
     this.itemsList.ShowSelectedItem(true);
 
-    const window: XR_CUIWindow = new CUIWindow();
+    const window: CUIWindow = new CUIWindow();
 
     this.xml.InitWindow("spawn_item:main", 0, window);
     this.itemListMainSize = new vector2().set(window.GetWidth(), window.GetHeight());

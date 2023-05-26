@@ -1,4 +1,4 @@
-import { CScriptXmlInit, CUIWindow, LuabindClass, XR_CScriptXmlInit, XR_CUIScriptWnd } from "xray16";
+import { CScriptXmlInit, CUIScriptWnd, CUIWindow, LuabindClass } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TName } from "@/engine/lib/types";
@@ -10,10 +10,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export abstract class AbstractDebugSection extends CUIWindow {
-  public owner: XR_CUIScriptWnd;
-  public xml: XR_CScriptXmlInit;
+  public owner: CUIScriptWnd;
+  public xml: CScriptXmlInit;
 
-  public constructor(owner: XR_CUIScriptWnd, name: TName = AbstractDebugSection.__name) {
+  public constructor(owner: CUIScriptWnd, name: TName = AbstractDebugSection.__name) {
     super();
 
     this.owner = owner;

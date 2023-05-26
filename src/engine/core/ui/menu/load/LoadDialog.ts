@@ -1,14 +1,21 @@
 import {
   alife,
   bit_or,
+  CConsole,
   CScriptXmlInit,
+  CUIListBox,
   CUIMessageBoxEx,
   CUIScriptWnd,
+  CUIStatic,
+  CUITextWnd,
   CUIWindow,
   DIK_keys,
   dik_to_bind,
   Frect,
   FS,
+  FS_file_list_ex,
+  FS_item,
+  game_object,
   get_console,
   getFS,
   key_bindings,
@@ -18,19 +25,6 @@ import {
   ui_events,
   valid_saved_game,
   vector2,
-  XR_CConsole,
-  XR_CScriptXmlInit,
-  XR_CUIListBox,
-  XR_CUIMessageBoxEx,
-  XR_CUIScriptWnd,
-  XR_CUIStatic,
-  XR_CUITextWnd,
-  XR_CUIWindow,
-  XR_FS,
-  XR_FS_file_list_ex,
-  XR_FS_item,
-  XR_game_object,
-  XR_vector2,
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
@@ -51,21 +45,21 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class LoadDialog extends CUIScriptWnd {
-  public owner: XR_CUIScriptWnd;
+  public owner: CUIScriptWnd;
 
-  public fileItemMainSize!: XR_vector2;
-  public fileItemInnerNameTextSize!: XR_vector2;
-  public fileItemDdSize!: XR_vector2;
+  public fileItemMainSize!: vector2;
+  public fileItemInnerNameTextSize!: vector2;
+  public fileItemDdSize!: vector2;
 
-  public form!: XR_CUIStatic;
-  public picture!: XR_CUIStatic;
-  public fileCaption!: XR_CUITextWnd;
-  public fileData!: XR_CUITextWnd;
-  public listBox!: XR_CUIListBox<LoadItem>;
-  public messageBox!: XR_CUIMessageBoxEx;
+  public form!: CUIStatic;
+  public picture!: CUIStatic;
+  public fileCaption!: CUITextWnd;
+  public fileData!: CUITextWnd;
+  public listBox!: CUIListBox<LoadItem>;
+  public messageBox!: CUIMessageBoxEx;
   public messageBoxMode: number = 0;
 
-  public constructor(owner: XR_CUIScriptWnd) {
+  public constructor(owner: CUIScriptWnd) {
     super();
 
     this.owner = owner;
@@ -77,12 +71,12 @@ export class LoadDialog extends CUIScriptWnd {
   public InitControls(): void {
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
 
-    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
+    const xml: CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
     xml.InitStatic("background", this);
 
-    const window: XR_CUIWindow = new CUIWindow();
+    const window: CUIWindow = new CUIWindow();
 
     xml.InitWindow("file_item:main", 0, window);
     this.fileItemMainSize = new vector2().set(window.GetWidth(), window.GetHeight());
@@ -131,8 +125,8 @@ export class LoadDialog extends CUIScriptWnd {
   public FillList(): void {
     this.listBox.RemoveAll();
 
-    const fs: XR_FS = getFS();
-    const fileList: XR_FS_file_list_ex = fs.file_list_open_ex(
+    const fs: FS = getFS();
+    const fileList: FS_file_list_ex = fs.file_list_open_ex(
       roots.gameSaves,
       bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
       "*" + gameConfig.GAME_SAVE_EXTENSION
@@ -141,7 +135,7 @@ export class LoadDialog extends CUIScriptWnd {
     fileList.Sort(FS.FS_sort_by_modif_down);
 
     for (let it = 0; it < fileList.Size(); it += 1) {
-      const file: XR_FS_item = fileList.GetAt(it);
+      const file: FS_item = fileList.GetAt(it);
       const filename: TName = string.sub(
         file.NameFull(),
         0,
@@ -230,7 +224,7 @@ export class LoadDialog extends CUIScriptWnd {
   public load_game_internal(): void {
     logger.info("Load game internal");
 
-    const console: XR_CConsole = get_console();
+    const console: CConsole = get_console();
 
     if (this.listBox.GetSize() === 0) {
       return;
@@ -283,7 +277,7 @@ export class LoadDialog extends CUIScriptWnd {
       return;
     }
 
-    const actor: Optional<XR_game_object> = registry.actor;
+    const actor: Optional<game_object> = registry.actor;
 
     if (actor !== null && !actor.alive()) {
       this.load_game_internal();

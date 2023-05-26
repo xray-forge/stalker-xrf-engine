@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import { TXR_class_id, XR_cse_alife_object, XR_vector } from "xray16";
+import { cse_alife_object, TXR_class_id, vector } from "xray16";
 
 import { AnyObject, TSection } from "@/engine/lib/types";
 import { MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
@@ -15,7 +15,7 @@ let ID_COUNTER: number = 1000;
 export class MockAlifeObject extends AbstractLuabindClass {
   public id: number = ID_COUNTER++;
   public section: TSection;
-  public position: XR_vector = MockVector.mock(0, 0, 0);
+  public position: vector = MockVector.mock(0, 0, 0);
 
   public constructor(section: TSection) {
     super();
@@ -32,7 +32,7 @@ export class MockAlifeObject extends AbstractLuabindClass {
   }
 
   public on_register(): void {
-    MockAlifeSimulator.addToRegistry(this as unknown as XR_cse_alife_object);
+    MockAlifeSimulator.addToRegistry(this as unknown as cse_alife_object);
   }
 
   public on_unregister(): void {
@@ -72,7 +72,7 @@ export function mockServerAlifeObject({
   section_name,
   spawn_ini = jest.fn(() => mockIniFile("spawn.ini")),
   ...rest
-}: Partial<XR_cse_alife_object & { sectionOverride?: string }> = {}): XR_cse_alife_object {
+}: Partial<cse_alife_object & { sectionOverride?: string }> = {}): cse_alife_object {
   return {
     ...rest,
     id,
@@ -81,5 +81,5 @@ export function mockServerAlifeObject({
     name: name || jest.fn(() => `${sectionOverride}_${id}`),
     section_name: section_name || jest.fn(() => sectionOverride),
     spawn_ini,
-  } as unknown as XR_cse_alife_object;
+  } as unknown as cse_alife_object;
 }

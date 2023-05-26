@@ -1,4 +1,4 @@
-import { hit, patrol, vector, XR_hit, XR_vector } from "xray16";
+import { hit, patrol, vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -13,10 +13,10 @@ export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalHit
    * todo: Description.
    */
   public override resetScheme(): void {
-    const p1: XR_vector = new patrol(this.state.dir_path).point(0);
-    const p2: XR_vector = this.object.position();
+    const p1: vector = new patrol(this.state.dir_path).point(0);
+    const p2: vector = this.object.position();
 
-    const hitObject: XR_hit = new hit();
+    const hitObject: hit = new hit();
 
     hitObject.power = this.state.power;
     hitObject.impulse = this.state.impulse;

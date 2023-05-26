@@ -1,4 +1,4 @@
-import { profile_timer, XR_profile_timer } from "xray16";
+import { profile_timer } from "xray16";
 
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { abort } from "@/engine/core/utils/assertion";
@@ -12,8 +12,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 export interface IProfileSnapshotDescriptor {
   count: number;
-  currentTimer: XR_profile_timer;
-  childTimer: XR_profile_timer;
+  currentTimer: profile_timer;
+  childTimer: profile_timer;
 }
 
 /**
@@ -24,7 +24,7 @@ export class ProfilingManager extends AbstractCoreManager {
   public namesMap: LuaTable<AnyCallable, debug.FunctionInfo> = new LuaTable();
   public callsCountMap: LuaTable<AnyCallable, { info: debug.FunctionInfo; count: number }> = new LuaTable();
 
-  public profilingTimer: XR_profile_timer = new profile_timer();
+  public profilingTimer: profile_timer = new profile_timer();
   public isProfilingStarted: boolean = false;
 
   /**

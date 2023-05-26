@@ -1,4 +1,4 @@
-import { alife, level, XR_game_object, XR_ini_file } from "xray16";
+import { alife, game_object, ini_file, level } from "xray16";
 
 import { DEATH_GENERIC_LTX, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -157,7 +157,7 @@ export class DropManager extends AbstractCoreManager {
    * todo;
    * @param object - target object to create release items.
    */
-  public createCorpseReleaseItems(object: XR_game_object): void {
+  public createCorpseReleaseItems(object: game_object): void {
     logger.info("Create corpse release items:", object.name());
 
     const alifeObject: Optional<Stalker> = alife().object<Stalker>(object.id());
@@ -207,9 +207,9 @@ export class DropManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  protected releaseItem(object: XR_game_object, item: XR_game_object): void {
+  protected releaseItem(object: game_object, item: game_object): void {
     const section: TSection = item.section();
-    const ini: XR_ini_file = object.spawn_ini();
+    const ini: ini_file = object.spawn_ini();
 
     if (ini !== null && ini.section_exist("keep_items")) {
       logger.info("Keep item, listed in config:", object.name(), item.name(), section);
@@ -266,7 +266,7 @@ export class DropManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  protected checkItemDependentDrops(object: XR_game_object, section: TSection): boolean {
+  protected checkItemDependentDrops(object: game_object, section: TSection): boolean {
     if (!this.itemsDependencies.has(section)) {
       return true;
     }
@@ -274,7 +274,7 @@ export class DropManager extends AbstractCoreManager {
     let isDependent: boolean = true;
 
     for (const [dependentSection, v] of this.itemsDependencies.get(section)) {
-      const inventoryItem: Optional<XR_game_object> = object.object(dependentSection);
+      const inventoryItem: Optional<game_object> = object.object(dependentSection);
 
       if (inventoryItem !== null && !object.marked_dropped(inventoryItem)) {
         return true;

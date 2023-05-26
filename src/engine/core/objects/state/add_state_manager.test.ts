@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { XR_action_base, XR_game_object } from "xray16";
+import { action_base, game_object } from "xray16";
 
 import { addStateManager } from "@/engine/core/objects/state/add_state_manager";
 import {
@@ -107,8 +107,8 @@ import { mockStalkerIds } from "@/fixtures/xray/mocks/constants";
 
 describe("add_state_manager util", () => {
   const checkAction = (
-    action: Optional<MockActionBase | XR_action_base>,
-    target: string | { new (...args: AnyArgs): XR_action_base },
+    action: Optional<MockActionBase | action_base>,
+    target: string | { new (...args: AnyArgs): action_base },
     properties: Array<[number, boolean]>,
     effects: Array<[number, boolean]>
   ): void => {
@@ -144,7 +144,7 @@ describe("add_state_manager util", () => {
   };
 
   it("should correctly setup object planner evaluators", () => {
-    const object: XR_game_object = mockClientGameObject();
+    const object: game_object = mockClientGameObject();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
     const stateManager: StalkerStateManager = addStateManager(object);
 
@@ -162,7 +162,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup object planner actions", () => {
-    const object: XR_game_object = mockClientGameObject();
+    const object: game_object = mockClientGameObject();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
 
     addStateManager(object);
@@ -227,7 +227,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup state planner evaluators", () => {
-    const object: XR_game_object = mockClientGameObject();
+    const object: game_object = mockClientGameObject();
     const stateManager: StalkerStateManager = addStateManager(object);
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
@@ -304,7 +304,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup state planner weapon actions", () => {
-    const object: XR_game_object = mockClientGameObject();
+    const object: game_object = mockClientGameObject();
     const stateManager: StalkerStateManager = addStateManager(object);
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
@@ -380,7 +380,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup state planner movement actions", () => {
-    const object: XR_game_object = mockClientGameObject();
+    const object: game_object = mockClientGameObject();
     const stateManager: StalkerStateManager = addStateManager(object);
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
@@ -600,7 +600,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup state planner mental actions", () => {
-    const object: XR_game_object = mockClientGameObject();
+    const object: game_object = mockClientGameObject();
     const stateManager: StalkerStateManager = addStateManager(object);
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
@@ -650,7 +650,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup state planner bodystate actions", () => {
-    const object: XR_game_object = mockClientGameObject();
+    const object: game_object = mockClientGameObject();
     const stateManager: StalkerStateManager = addStateManager(object);
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
@@ -718,7 +718,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup state planner animation actions", () => {
-    const object: XR_game_object = mockClientGameObject();
+    const object: game_object = mockClientGameObject();
     const stateManager: StalkerStateManager = addStateManager(object);
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
@@ -822,7 +822,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup state planner lock/end actions", () => {
-    const object: XR_game_object = mockClientGameObject();
+    const object: game_object = mockClientGameObject();
     const stateManager: StalkerStateManager = addStateManager(object);
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 

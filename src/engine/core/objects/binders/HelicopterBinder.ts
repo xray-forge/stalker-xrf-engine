@@ -1,19 +1,19 @@
 import {
   callback,
+  CHelicopter,
   clsid,
+  cse_alife_object,
+  game_object,
+  ini_file,
   level,
   LuabindClass,
+  net_packet,
   object_binder,
+  reader,
   system_ini,
   time_global,
   TXR_class_id,
-  XR_CHelicopter,
-  XR_cse_alife_object,
-  XR_game_object,
-  XR_ini_file,
-  XR_net_packet,
-  XR_reader,
-  XR_vector,
+  vector,
 } from "xray16";
 
 import {
@@ -46,7 +46,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class HelicopterBinder extends object_binder {
-  public readonly ini: XR_ini_file;
+  public readonly ini: ini_file;
 
   public state!: IRegistryObjectState;
   public loaded: boolean = false;
@@ -59,12 +59,12 @@ export class HelicopterBinder extends object_binder {
   public snd_damage!: string;
   public snd_down!: string;
 
-  public heliObject!: XR_CHelicopter;
+  public heliObject!: CHelicopter;
 
   /**
    * todo: Description.
    */
-  public constructor(object: XR_game_object, ini: XR_ini_file) {
+  public constructor(object: game_object, ini: ini_file) {
     super(object);
 
     this.ini = ini;
@@ -88,7 +88,7 @@ export class HelicopterBinder extends object_binder {
 
     this.last_hit_snd_timeout = 0;
 
-    const ltx: XR_ini_file = system_ini();
+    const ltx: ini_file = system_ini();
 
     this.flame_start_health = readIniNumber(ltx, "helicopter", "flame_start_health", true);
 
@@ -105,7 +105,7 @@ export class HelicopterBinder extends object_binder {
   public override update(delta: number): void {
     super.update(delta);
 
-    const actor: Optional<XR_game_object> = registry.actor;
+    const actor: Optional<game_object> = registry.actor;
 
     if (!this.initialized && actor) {
       this.initialized = true;
@@ -124,7 +124,7 @@ export class HelicopterBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -153,7 +153,7 @@ export class HelicopterBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, HelicopterBinder.__name);
     super.save(packet);
     saveObjectLogic(this.object, packet);
@@ -165,7 +165,7 @@ export class HelicopterBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override load(reader: XR_reader): void {
+  public override load(reader: reader): void {
     this.loaded = true;
 
     openLoadMarker(reader, HelicopterBinder.__name);
@@ -203,7 +203,7 @@ export class HelicopterBinder extends object_binder {
    * todo: Description.
    */
   public on_hit(power: TRate, impulse: TRate, hit_type: TNumberId, enemy_id: TNumberId): void {
-    const enemy: Optional<XR_game_object> = level.object_by_id(enemy_id);
+    const enemy: Optional<game_object> = level.object_by_id(enemy_id);
     const enemy_cls_id: Optional<TXR_class_id> = enemy?.clsid() as Optional<TXR_class_id>;
 
     this.heli_fire.enemy = enemy;
@@ -224,7 +224,7 @@ export class HelicopterBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public on_point(distance: TDistance, position: XR_vector, path_idx: TIndex): void {
+  public on_point(distance: TDistance, position: vector, path_idx: TIndex): void {
     if (this.state.active_section !== null) {
       emitSchemeEvent(
         this.object,

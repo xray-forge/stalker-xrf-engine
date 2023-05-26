@@ -1,4 +1,4 @@
-import { CUIWindow, LuabindClass, vector2, XR_CScriptXmlInit, XR_CUIScrollView, XR_CUIStatic } from "xray16";
+import { CScriptXmlInit, CUIScrollView, CUIStatic, CUIWindow, LuabindClass, vector2 } from "xray16";
 
 import { OptionsDialog } from "@/engine/core/ui/menu/options/OptionsDialog";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -10,9 +10,9 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class OptionsGameplay extends CUIWindow {
-  public scrollView!: XR_CUIScrollView;
+  public scrollView!: CUIScrollView;
 
-  public initialize(x: number, y: number, xml: XR_CScriptXmlInit, owner: OptionsDialog): void {
+  public initialize(x: number, y: number, xml: CScriptXmlInit, owner: OptionsDialog): void {
     this.scrollView = xml.InitScrollView("tab_gameplay:scroll_v", this);
 
     this.SetWndPos(new vector2().set(x, y));
@@ -41,24 +41,24 @@ export class OptionsGameplay extends CUIWindow {
     owner.Register(xml.Init3tButton("tab_gameplay:btn_check_updates", this), "btn_check_updates");
   }
 
-  private creatTrackItem(xml: XR_CScriptXmlInit, captionSelector: string, controlSelector: string): void {
-    const item: XR_CUIStatic = xml.InitStatic("tab_gameplay:templ_item", null);
+  private creatTrackItem(xml: CScriptXmlInit, captionSelector: string, controlSelector: string): void {
+    const item: CUIStatic = xml.InitStatic("tab_gameplay:templ_item", null);
 
     xml.InitStatic(captionSelector, item);
     xml.InitTrackBar(controlSelector, item);
     this.scrollView.AddWindow(item, true);
   }
 
-  private createSelectItem(xml: XR_CScriptXmlInit, captionSelector: string, controlSelector: string): void {
-    const item: XR_CUIStatic = xml.InitStatic("tab_gameplay:templ_item", null);
+  private createSelectItem(xml: CScriptXmlInit, captionSelector: string, controlSelector: string): void {
+    const item: CUIStatic = xml.InitStatic("tab_gameplay:templ_item", null);
 
     xml.InitStatic(captionSelector, item);
     xml.InitComboBox(controlSelector, item);
     this.scrollView.AddWindow(item, true);
   }
 
-  private createCheckItem(xml: XR_CScriptXmlInit, captionSelector: string, controlSelector: string): void {
-    const item: XR_CUIStatic = xml.InitStatic("tab_gameplay:templ_item", null);
+  private createCheckItem(xml: CScriptXmlInit, captionSelector: string, controlSelector: string): void {
+    const item: CUIStatic = xml.InitStatic("tab_gameplay:templ_item", null);
 
     xml.InitStatic(captionSelector, item);
     xml.InitCheck(controlSelector, item);

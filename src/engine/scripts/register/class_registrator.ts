@@ -1,4 +1,4 @@
-import { editor, TXR_class_key, XR_object_factory } from "xray16";
+import { editor, object_factory, TXR_class_key } from "xray16";
 
 import {
   Actor,
@@ -53,7 +53,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @noSelf
  * src/xrServerEntities/clsid_game.h
  */
-export function registerGameClasses(factory: XR_object_factory): void {
+export function registerGameClasses(factory: object_factory): void {
   logger.info("Registering game classes bindings");
 
   if (!editor()) {

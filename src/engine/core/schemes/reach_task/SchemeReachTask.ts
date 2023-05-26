@@ -1,12 +1,4 @@
-import {
-  cast_planner,
-  stalker_ids,
-  world_property,
-  XR_action_base,
-  XR_action_planner,
-  XR_game_object,
-  XR_ini_file,
-} from "xray16";
+import { action_base, action_planner, cast_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ActionReachTaskLocation } from "@/engine/core/schemes/reach_task/actions";
@@ -27,7 +19,7 @@ export class SchemeReachTask extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
+  public static override activate(object: game_object, ini: ini_file, scheme: EScheme): void {
     const state: ISchemeReachTaskState = AbstractScheme.assign(object, ini, scheme, null);
   }
 
@@ -35,16 +27,16 @@ export class SchemeReachTask extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeReachTaskState
   ): void {
-    const manager: XR_action_planner = object.motivation_action_manager();
-    const alifeAction: XR_action_base = manager.action(stalker_ids.action_alife_planner);
-    const alifeActionPlanner: XR_action_planner = cast_planner(alifeAction);
-    const newAction: XR_action_base = alifeActionPlanner.action(stalker_ids.action_smart_terrain_task);
+    const manager: action_planner = object.motivation_action_manager();
+    const alifeAction: action_base = manager.action(stalker_ids.action_alife_planner);
+    const alifeActionPlanner: action_planner = cast_planner(alifeAction);
+    const newAction: action_base = alifeActionPlanner.action(stalker_ids.action_smart_terrain_task);
 
     SchemeReachTask.subscribe(object, state, newAction);
   }
@@ -52,10 +44,10 @@ export class SchemeReachTask extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static addReachTaskSchemeAction(object: XR_game_object): void {
-    const actionPlanner: XR_action_planner = object.motivation_action_manager();
-    const alifeAction: XR_action_base = actionPlanner.action(stalker_ids.action_alife_planner);
-    const alifeActionPlanner: XR_action_planner = cast_planner(alifeAction);
+  public static addReachTaskSchemeAction(object: game_object): void {
+    const actionPlanner: action_planner = object.motivation_action_manager();
+    const alifeAction: action_base = actionPlanner.action(stalker_ids.action_alife_planner);
+    const alifeActionPlanner: action_planner = cast_planner(alifeAction);
 
     alifeActionPlanner.remove_evaluator(stalker_ids.property_smart_terrain_task);
     alifeActionPlanner.add_evaluator(stalker_ids.property_smart_terrain_task, new EvaluatorReachedTaskLocation());

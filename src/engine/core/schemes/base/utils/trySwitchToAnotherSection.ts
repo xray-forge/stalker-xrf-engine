@@ -1,4 +1,4 @@
-import { game, level, time_global, XR_game_object } from "xray16";
+import { game, game_object, level, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes";
@@ -20,7 +20,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 const SCHEME_LOGIC_SWITCH: Record<
   ESchemeCondition | typeof NIL,
-  (actor: XR_game_object, object: XR_game_object, state: IBaseSchemeState, logic: IBaseSchemeLogic) => boolean
+  (actor: game_object, object: game_object, state: IBaseSchemeState, logic: IBaseSchemeLogic) => boolean
 > = {
   [NIL]: () => abort("WARNING: try_switch_to_another_section: unknown condition encountered"),
   [ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN]: (actor, object, state, logic) =>
@@ -77,9 +77,9 @@ const SCHEME_LOGIC_SWITCH: Record<
  * todo;
  */
 export function trySwitchToAnotherSection(
-  object: XR_game_object,
+  object: game_object,
   state: IBaseSchemeState,
-  actor: Optional<XR_game_object>
+  actor: Optional<game_object>
 ): boolean {
   const logic: Optional<LuaArray<IBaseSchemeLogic>> = state.logic;
 

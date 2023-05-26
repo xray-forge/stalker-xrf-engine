@@ -1,4 +1,4 @@
-import { level, vector, XR_game_object, XR_vector } from "xray16";
+import { game_object, level, vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartCover } from "@/engine/core/objects";
@@ -31,11 +31,11 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   public camp: Optional<CampStoryManager> = null;
   public coverName: Optional<TName> = null;
 
-  public position: Optional<XR_vector> = null;
+  public position: Optional<vector> = null;
   public positionLevelVertexId: Optional<TNumberId> = null;
-  public vertexPosition: Optional<XR_vector> = null;
-  public smartCoverDirection: Optional<XR_vector> = null;
-  public lookPosition: Optional<XR_vector> = null;
+  public vertexPosition: Optional<vector> = null;
+  public smartCoverDirection: Optional<vector> = null;
+  public lookPosition: Optional<vector> = null;
 
   /**
    * todo: Description.
@@ -117,7 +117,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
 
     this.smartCoverDirection = angleToDirection(smartCover.angle);
 
-    const lookDirection: XR_vector = this.smartCoverDirection!.normalize();
+    const lookDirection: vector = this.smartCoverDirection!.normalize();
 
     this.lookPosition = new vector().set(
       this.position.x + 10 * lookDirection.x,
@@ -141,7 +141,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   /**
    * todo: Description.
    */
-  public getAnimationParameters(): LuaMultiReturn<[Optional<XR_vector>, Optional<XR_vector>]> {
+  public getAnimationParameters(): LuaMultiReturn<[Optional<vector>, Optional<vector>]> {
     return $multi(this.position, this.smartCoverDirection);
   }
 
@@ -157,7 +157,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       return false;
     }
 
-    const object: XR_game_object = registry.objects.get(this.object.id()).object!;
+    const object: game_object = registry.objects.get(this.object.id()).object!;
 
     if (object === null) {
       return false;

@@ -1,4 +1,4 @@
-import { anim, move, object, TXR_object_state, XR_game_object } from "xray16";
+import { anim, game_object, move, object, TXR_object_state } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { EStalkerState, IStateDescriptor } from "@/engine/core/objects/state/types";
@@ -26,11 +26,11 @@ const stateQueueParameters: LuaTable<TName, LuaArray<number>> = {
  * todo;
  */
 export function getStateQueueParams(
-  object: XR_game_object,
+  object: game_object,
   descriptor: IStateDescriptor
 ): LuaMultiReturn<[number, number]> {
   const animation: LuaArray<number> = stateQueueParameters.get(descriptor.animation!);
-  const bestWeapon: XR_game_object = object.best_weapon()!;
+  const bestWeapon: game_object = object.best_weapon()!;
   const objectId: TNumberId = object.id();
   const state: IRegistryObjectState = registry.objects.get(objectId);
 
@@ -63,7 +63,7 @@ export function getStateQueueParams(
 /**
  * todo;
  */
-export function getObjectAnimationWeapon(object: XR_game_object, targetState: EStalkerState): Optional<XR_game_object> {
+export function getObjectAnimationWeapon(object: game_object, targetState: EStalkerState): Optional<game_object> {
   const weaponSlot: Optional<TIndex> = states.get(targetState).weapon_slot as Optional<TIndex>;
 
   return weaponSlot === null ? object.best_weapon() : object.item_in_slot(weaponSlot);

@@ -1,4 +1,4 @@
-import { time_global, TXR_net_processor, XR_CTime, XR_game_object, XR_net_packet } from "xray16";
+import { CTime, game_object, net_packet, time_global, TXR_net_processor } from "xray16";
 
 import {
   closeLoadMarker,
@@ -22,7 +22,7 @@ import { Optional, StringOptional, TName, TPath, TSection } from "@/engine/lib/t
  * @param object - game object to save logic
  * @param packet - net packet to save login into
  */
-export function saveObjectLogic(object: XR_game_object, packet: XR_net_packet): void {
+export function saveObjectLogic(object: game_object, packet: net_packet): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   openSaveMarker(packet, "object" + object.name());
@@ -50,7 +50,7 @@ export function saveObjectLogic(object: XR_game_object, packet: XR_net_packet): 
  * @param object - game object to load logic
  * @param reader - reader to load data from
  */
-export function loadObjectLogic(object: XR_game_object, reader: TXR_net_processor): void {
+export function loadObjectLogic(object: game_object, reader: TXR_net_processor): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   openLoadMarker(reader, "object" + object.name());
@@ -68,7 +68,7 @@ export function loadObjectLogic(object: XR_game_object, reader: TXR_net_processo
   state.loaded_gulag_name = gulagName;
 
   state.activation_time = reader.r_s32() + time_global();
-  state.activation_game_time = readTimeFromPacket(reader) as XR_CTime;
+  state.activation_game_time = readTimeFromPacket(reader) as CTime;
 
   loadPortableStore(object, reader);
 

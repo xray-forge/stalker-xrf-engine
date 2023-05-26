@@ -1,5 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { time_global, XR_sound_object } from "xray16";
+import { sound_object, time_global } from "xray16";
 
 import { registerActor } from "@/engine/core/database";
 import { StereoSound } from "@/engine/core/objects/sounds/StereoSound";
@@ -20,7 +20,7 @@ describe("StereoSound object", () => {
 
     stereoSound.initialize("test/path/file.ogg", 50);
 
-    const previous: XR_sound_object = stereoSound.soundObject as XR_sound_object;
+    const previous: sound_object = stereoSound.soundObject as sound_object;
 
     expect(stereoSound.isPlaying()).toBe(false);
     expect(stereoSound.soundObject).toBeDefined();

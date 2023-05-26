@@ -1,4 +1,4 @@
-import { XR_CTime, XR_game_object, XR_ini_file } from "xray16";
+import { CTime, game_object, ini_file } from "xray16";
 
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
@@ -11,8 +11,8 @@ import { AnyObject, EScheme, ESchemeType, Optional, TName, TNumberId, TSection, 
  * Client-side registry of game objects logics and states.
  */
 export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSchemeState>> {
-  object: XR_game_object;
-  ini: XR_ini_file;
+  object: game_object;
+  ini: ini_file;
   ini_filename: Optional<TName>;
 
   /**
@@ -28,7 +28,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   overrides: Optional<AnyObject>;
 
   activation_time: TTimestamp;
-  activation_game_time: XR_CTime;
+  activation_game_time: CTime;
 
   moveManager: Optional<StalkerMoveManager>;
   stateManager: Optional<StalkerStateManager>;
@@ -44,7 +44,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   post_combat_wait: Optional<ISchemePostCombatIdleState>;
 
   enemy_id: Optional<TNumberId>;
-  enemy: Optional<XR_game_object>;
+  enemy: Optional<game_object>;
   script_combat_type: Optional<TName>;
   registred_camp: Optional<TNumberId>;
 

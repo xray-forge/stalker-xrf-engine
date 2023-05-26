@@ -1,12 +1,12 @@
 import {
   CGameFont,
   CUIListBoxItem,
+  CUIStatic,
+  CUITextWnd,
   GetARGB,
   GetFontLetterica16Russian,
   LuabindClass,
   vector2,
-  XR_CUIStatic,
-  XR_CUITextWnd,
 } from "xray16";
 
 /**
@@ -14,12 +14,12 @@ import {
  */
 @LuabindClass()
 export class MultiplayerDemoPlayerStatItem extends CUIListBoxItem {
-  public name: XR_CUITextWnd;
-  public frags: XR_CUITextWnd;
-  public death: XR_CUITextWnd;
-  public artefacts: XR_CUITextWnd;
-  public spots: XR_CUITextWnd;
-  public rank: XR_CUIStatic;
+  public name: CUITextWnd;
+  public frags: CUITextWnd;
+  public death: CUITextWnd;
+  public artefacts: CUITextWnd;
+  public spots: CUITextWnd;
+  public rank: CUIStatic;
 
   public constructor(height: number, w1: number, w2: number) {
     super(height);

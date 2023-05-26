@@ -1,4 +1,4 @@
-import { XR_game_object, XR_ini_file } from "xray16";
+import { game_object, ini_file } from "xray16";
 
 import { IRegistryObjectState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
@@ -22,7 +22,7 @@ export class SchemeDeath extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
     AbstractScheme.assign(object, ini, scheme, section);
   }
 
@@ -30,8 +30,8 @@ export class SchemeDeath extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeDeathState
@@ -43,7 +43,7 @@ export class SchemeDeath extends AbstractScheme {
    * todo: Description.
    */
   public static override reset(
-    object: XR_game_object,
+    object: game_object,
     scheme: EScheme,
     objectState: IRegistryObjectState,
     section: TSection

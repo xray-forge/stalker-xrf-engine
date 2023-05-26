@@ -1,16 +1,4 @@
-import {
-  alife,
-  cond,
-  game,
-  move,
-  patrol,
-  sound_object,
-  vector,
-  XR_cse_alife_monster_abstract,
-  XR_game_object,
-  XR_sound_object,
-  XR_vector,
-} from "xray16";
+import { alife, cond, cse_alife_monster_abstract, game, game_object, move, patrol, sound_object, vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -19,7 +7,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeMonsterState } from "@/engine/core/schemes/sr_monster/ISchemeMonsterState";
 import { action, scriptCaptureObject, scriptReleaseObject } from "@/engine/core/utils/object";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
-import { AnyObject, Optional } from "@/engine/lib/types";
+import { Optional } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -30,15 +18,15 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   public idle_state: Optional<boolean> = null;
   public path_name: Optional<string> = null;
   public cur_point: Optional<number> = null;
-  public dir!: XR_vector;
-  public current!: XR_vector;
-  public target!: XR_vector;
+  public dir!: vector;
+  public current!: vector;
+  public target!: vector;
 
-  public monster: Optional<XR_cse_alife_monster_abstract> = null;
-  public monster_obj: Optional<XR_game_object> = null;
+  public monster: Optional<cse_alife_monster_abstract> = null;
+  public monster_obj: Optional<game_object> = null;
 
-  public snd_obj: Optional<XR_sound_object> = null;
-  public appear_snd!: XR_sound_object;
+  public snd_obj: Optional<sound_object> = null;
+  public appear_snd!: sound_object;
 
   /**
    * todo: Description.
@@ -192,7 +180,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   public set_positions(): void {
     if (this.next_point() === 0) {
       if (this.monster === null && this.state.monster !== null) {
-        this.monster = alife().create<XR_cse_alife_monster_abstract>(
+        this.monster = alife().create<cse_alife_monster_abstract>(
           this.state.monster,
           this.current,
           this.object.level_vertex_id(),

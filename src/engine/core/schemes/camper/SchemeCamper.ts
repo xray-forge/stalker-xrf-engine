@@ -1,4 +1,4 @@
-import { stalker_ids, world_property, XR_action_base, XR_game_object, XR_ini_file } from "xray16";
+import { action_base, game_object, ini_file, stalker_ids, world_property } from "xray16";
 
 import { EStalkerState } from "@/engine/core/objects/state";
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
@@ -26,8 +26,8 @@ export class SchemeCamper extends AbstractScheme {
    * todo: Description.
    */
   public static override activate(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     additional: string
@@ -91,8 +91,8 @@ export class SchemeCamper extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeCamperState
@@ -128,7 +128,7 @@ export class SchemeCamper extends AbstractScheme {
     manager.action(EActionId.SEARCH_CORPSE).add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
     manager.action(EActionId.HELP_WOUNDED).add_precondition(new world_property(EEvaluatorId.IS_CAMPING_ENDED, true));
 
-    const actionCombatPlanner: XR_action_base = manager.action(stalker_ids.action_combat_planner);
+    const actionCombatPlanner: action_base = manager.action(stalker_ids.action_combat_planner);
 
     actionCombatPlanner.add_precondition(new world_property(EEvaluatorId.IS_CLOSE_COMBAT, true));
     actionCombatPlanner.add_effect(new world_property(EEvaluatorId.IS_CLOSE_COMBAT, false));

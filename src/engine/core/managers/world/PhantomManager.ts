@@ -1,4 +1,4 @@
-import { level, XR_vector } from "xray16";
+import { level, vector } from "xray16";
 
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 
@@ -13,7 +13,7 @@ export class PhantomManager extends AbstractCoreManager {
     this.phantom_count = this.phantom_count - 1;
   }
 
-  public spawn_phantom(position: XR_vector): void {
+  public spawn_phantom(position: vector): void {
     level.spawn_phantom(position);
   }
 }

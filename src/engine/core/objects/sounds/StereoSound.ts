@@ -1,4 +1,4 @@
-import { sound_object, time_global, XR_sound_object } from "xray16";
+import { sound_object, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { assert } from "@/engine/core/utils/assertion";
@@ -11,7 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Stereo sound script object representation.
  */
 export class StereoSound {
-  public soundObject: Optional<XR_sound_object> = null;
+  public soundObject: Optional<sound_object> = null;
   public soundPath: Optional<TPath> = null;
   public soundEndTime: Optional<TTimestamp> = null;
 
@@ -63,13 +63,13 @@ export class StereoSound {
     logger.info("Play stereo sound at time:", sound);
 
     this.soundEndTime = null;
-    (this.soundObject as XR_sound_object).attach_tail(sound);
+    (this.soundObject as sound_object).attach_tail(sound);
 
     if (volume) {
       this.setVolume(volume);
     }
 
-    const nextSound: Optional<XR_sound_object> = new sound_object(sound);
+    const nextSound: Optional<sound_object> = new sound_object(sound);
 
     assert(nextSound, "StereoSound: cannot open sound file '%s'.", sound);
 

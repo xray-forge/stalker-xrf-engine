@@ -1,13 +1,4 @@
-import {
-  game,
-  get_hud,
-  level,
-  TXR_net_processor,
-  XR_CTime,
-  XR_CUIGameCustom,
-  XR_game_object,
-  XR_net_packet,
-} from "xray16";
+import { CTime, CUIGameCustom, game, game_object, get_hud, level, net_packet, TXR_net_processor } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { AbstractCoreManager, EGameEvent, EventsManager } from "@/engine/core/managers";
@@ -40,7 +31,7 @@ export class ActorInputManager extends AbstractCoreManager {
   public activeItemSlot: TIndex = ActorInputManager.DEFAULT_ACTIVE_ITEM_SLOT;
   public memoizedItemSlot: TIndex = ActorInputManager.NONE_ITEM_SLOT;
 
-  public disableInputAt: Optional<XR_CTime> = null;
+  public disableInputAt: Optional<CTime> = null;
   public disableInputDuration: Optional<TDuration> = null;
 
   public override initialize(): void {
@@ -59,7 +50,7 @@ export class ActorInputManager extends AbstractCoreManager {
     eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_SPAWN, this.onNetworkSpawn);
   }
 
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, ActorInputManager.name);
 
     if (this.disableInputAt === null) {
@@ -97,8 +88,8 @@ export class ActorInputManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public disableActorNightVision(actor: XR_game_object = registry.actor): void {
-    const nightVision: Optional<XR_game_object> = actor.object(misc.device_torch);
+  public disableActorNightVision(actor: game_object = registry.actor): void {
+    const nightVision: Optional<game_object> = actor.object(misc.device_torch);
 
     if (nightVision !== null && nightVision.night_vision_enabled()) {
       nightVision.enable_night_vision(false);
@@ -109,8 +100,8 @@ export class ActorInputManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public enableActorNightVision(actor: XR_game_object = registry.actor): void {
-    const nightVision: Optional<XR_game_object> = actor.object(misc.device_torch);
+  public enableActorNightVision(actor: game_object = registry.actor): void {
+    const nightVision: Optional<game_object> = actor.object(misc.device_torch);
 
     if (nightVision !== null && !nightVision.night_vision_enabled() && !this.isActorNightVisionEnabled) {
       nightVision.enable_night_vision(true);
@@ -121,8 +112,8 @@ export class ActorInputManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public disableActorTorch(actor: XR_game_object = registry.actor): void {
-    const torch: Optional<XR_game_object> = actor.object(misc.device_torch);
+  public disableActorTorch(actor: game_object = registry.actor): void {
+    const torch: Optional<game_object> = actor.object(misc.device_torch);
 
     if (torch !== null && torch.torch_enabled()) {
       torch.enable_torch(false);
@@ -133,8 +124,8 @@ export class ActorInputManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public enableActorTorch(actor: XR_game_object = registry.actor): void {
-    const torch: Optional<XR_game_object> = actor.object(misc.device_torch);
+  public enableActorTorch(actor: game_object = registry.actor): void {
+    const torch: Optional<game_object> = actor.object(misc.device_torch);
 
     if (torch !== null && !torch.torch_enabled() && !this.isActorTorchEnabled) {
       torch.enable_torch(true);
@@ -145,7 +136,7 @@ export class ActorInputManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public disableGameUi(actor: XR_game_object, resetSlot: boolean = false): void {
+  public disableGameUi(actor: game_object, resetSlot: boolean = false): void {
     logger.info("Disable game UI");
 
     if (actor.is_talking()) {
@@ -166,7 +157,7 @@ export class ActorInputManager extends AbstractCoreManager {
     level.disable_input();
     level.hide_indicators_safe();
 
-    const hud: XR_CUIGameCustom = get_hud();
+    const hud: CUIGameCustom = get_hud();
 
     hud.HideActorMenu();
     hud.HidePdaMenu();
@@ -203,7 +194,7 @@ export class ActorInputManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public disableGameUiOnly(actor: XR_game_object): void {
+  public disableGameUiOnly(actor: game_object): void {
     logger.info("Disable game UI only");
 
     if (actor.is_talking()) {
@@ -222,7 +213,7 @@ export class ActorInputManager extends AbstractCoreManager {
     level.disable_input();
     level.hide_indicators_safe();
 
-    const hud: XR_CUIGameCustom = get_hud();
+    const hud: CUIGameCustom = get_hud();
 
     hud.HideActorMenu();
     hud.HidePdaMenu();
@@ -232,7 +223,7 @@ export class ActorInputManager extends AbstractCoreManager {
    * Handle generic update from actor input perspective.
    */
   public onUpdate(delta: TDuration): void {
-    const actor: XR_game_object = registry.actor;
+    const actor: game_object = registry.actor;
 
     if (
       this.disableInputAt !== null &&

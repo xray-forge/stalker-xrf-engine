@@ -1,4 +1,4 @@
-import { TXR_animation, TXR_look, TXR_move, TXR_SightType, XR_game_object, XR_vector } from "xray16";
+import { game_object, TXR_animation, TXR_look, TXR_move, TXR_SightType, vector } from "xray16";
 
 import { AnyCallable, LuaArray, Optional } from "@/engine/lib/types";
 
@@ -333,6 +333,6 @@ export interface IStateDescriptor {
  * todo;
  */
 export interface ITargetStateDescriptor {
-  look_object: Optional<XR_game_object>;
-  look_position: Optional<XR_vector>;
+  look_object: Optional<game_object>;
+  look_position: Optional<vector>;
 }

@@ -2,11 +2,11 @@ import {
   actor_stats,
   alife,
   clsid,
+  cse_alife_creature_abstract,
   game_graph,
   level,
+  net_packet,
   TXR_net_processor,
-  XR_cse_alife_creature_abstract,
-  XR_net_packet,
 } from "xray16";
 
 import { registry, SIMULATION_LTX } from "@/engine/core/database";
@@ -367,7 +367,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
    * todo;
    * todo: Seems too complex.
    */
-  public setupObjectSquadAndGroup(object: XR_cse_alife_creature_abstract): void {
+  public setupObjectSquadAndGroup(object: cse_alife_creature_abstract): void {
     const levelName: TLevel = level.name();
     const groupId: TNumberId = groupIdByLevelName.get(levelName) || 0;
 
@@ -467,7 +467,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
   /**
    * Save simulation data.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     packet.w_bool(this.areDefaultSimulationSquadsSpawned);
   }
 

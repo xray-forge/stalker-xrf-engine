@@ -1,4 +1,4 @@
-import { level, XR_game_object, XR_ini_file } from "xray16";
+import { game_object, ini_file, level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
@@ -26,8 +26,8 @@ export class SchemeLight extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeLightState
@@ -38,7 +38,7 @@ export class SchemeLight extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeLightState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -56,12 +56,12 @@ export class SchemeLight extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static checkObjectLight(object: XR_game_object): void {
+  public static checkObjectLight(object: game_object): void {
     if (object === null) {
       return;
     }
 
-    const torch: Optional<XR_game_object> = object.object(misc.device_torch);
+    const torch: Optional<game_object> = object.object(misc.device_torch);
     const isCurrentlyIndoor: boolean = isUndergroundLevel(level.name());
 
     if (torch === null) {

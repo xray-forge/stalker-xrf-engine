@@ -1,17 +1,16 @@
 import {
+  CUIGameCustom,
+  game_object,
   get_hud,
   hit,
   level,
+  net_packet,
   sound_object,
+  StaticDrawableWrapper,
   time_global,
   TXR_net_processor,
   TXR_sound_object_type,
   vector,
-  XR_CUIGameCustom,
-  XR_game_object,
-  XR_net_packet,
-  XR_sound_object,
-  XR_StaticDrawableWrapper,
 } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
@@ -60,7 +59,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public static save(packet: XR_net_packet): void {
+  public static save(packet: net_packet): void {
     openSaveMarker(packet, PsyAntennaManager.name + "_static");
 
     const manager: Optional<PsyAntennaManager> = getWeakManagerInstance(PsyAntennaManager);
@@ -76,8 +75,8 @@ export class PsyAntennaManager extends AbstractCoreManager {
     closeSaveMarker(packet, PsyAntennaManager.name + "_static");
   }
 
-  public readonly sound_obj_right: XR_sound_object = new sound_object(sounds.anomaly_psy_voices_1_r);
-  public readonly sound_obj_left: XR_sound_object = new sound_object(sounds.anomaly_psy_voices_1_l);
+  public readonly sound_obj_right: sound_object = new sound_object(sounds.anomaly_psy_voices_1_r);
+  public readonly sound_obj_left: sound_object = new sound_object(sounds.anomaly_psy_voices_1_l);
 
   public phantom_max: number = 8;
   public phantom_spawn_probability: number = 0;
@@ -153,8 +152,8 @@ export class PsyAntennaManager extends AbstractCoreManager {
    * todo: Description.
    */
   public update_psy_hit(dt: number): void {
-    const hud: XR_CUIGameCustom = get_hud();
-    const custom_static: Optional<XR_StaticDrawableWrapper> = hud.GetCustomStatic("cs_psy_danger");
+    const hud: CUIGameCustom = get_hud();
+    const custom_static: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_psy_danger");
 
     if (this.hit_intensity > 0.0001) {
       if (custom_static === null && !this.no_static) {
@@ -173,7 +172,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
       const power: number = this.hit_amplitude * this.hit_intensity;
 
       if (power > 0.0001) {
-        const actor: XR_game_object = registry.actor;
+        const actor: game_object = registry.actor;
         const psy_hit = new hit();
 
         psy_hit.power = power;
@@ -314,7 +313,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, PsyAntennaManager.name);
 
     packet.w_float(this.hit_intensity);

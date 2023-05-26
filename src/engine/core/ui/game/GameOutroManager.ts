@@ -1,4 +1,4 @@
-import { game, get_hud, sound_object, XR_CUIGameCustom, XR_sound_object } from "xray16";
+import { CUIGameCustom, game, get_hud, sound_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -131,7 +131,7 @@ export class GameOutroManager extends AbstractCoreManager {
     return f;
   }
 
-  public snd: Optional<XR_sound_object> = null;
+  public snd: Optional<sound_object> = null;
 
   public start_outro(): void {
     logger.info("Starting game outro");
@@ -163,7 +163,7 @@ export class GameOutroManager extends AbstractCoreManager {
   public start_bk_sound(): void {
     this.startSound();
 
-    const hud: XR_CUIGameCustom = get_hud();
+    const hud: CUIGameCustom = get_hud();
 
     hud.AddCustomStatic("blackscreen", true);
     ActorInputManager.getInstance().disableGameUiOnly(registry.actor);

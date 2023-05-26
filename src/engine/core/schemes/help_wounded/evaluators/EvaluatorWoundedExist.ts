@@ -1,4 +1,4 @@
-import { level, LuabindClass, property_evaluator, XR_game_object, XR_vector } from "xray16";
+import { game_object, level, LuabindClass, property_evaluator, vector } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/help_wounded";
@@ -29,9 +29,9 @@ export class EvaluatorWoundedExist extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    const object: XR_game_object = this.object;
+    const object: game_object = this.object;
     const objectId: TNumberId = object.id();
-    const objectPosition: XR_vector = object.position();
+    const objectPosition: vector = object.position();
 
     if (!object.alive()) {
       return false;
@@ -55,7 +55,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
     let selectedId = null;
 
     for (const memoryVisibleObject of object.memory_visible_objects()) {
-      const visibleObject: XR_game_object = memoryVisibleObject.object();
+      const visibleObject: game_object = memoryVisibleObject.object();
       const visibleObjectId: TNumberId = visibleObject.id();
       const visibleObjectState: IRegistryObjectState = registry.objects.get(visibleObjectId);
 
@@ -67,7 +67,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
         visibleObject.alive()
       ) {
         if ((visibleObjectState[EScheme.WOUNDED] as ISchemeWoundedState).not_for_help !== true) {
-          const visibleObjectPosition: XR_vector = visibleObject.position();
+          const visibleObjectPosition: vector = visibleObject.position();
           const distanceBetweenObjects: TDistance = objectPosition.distance_to_sqr(visibleObjectPosition);
 
           if (distanceBetweenObjects < nearestDistance) {

@@ -1,4 +1,4 @@
-import { getFS, sound_object, TXR_sound_object_type, XR_game_object, XR_ini_file } from "xray16";
+import { game_object, getFS, ini_file, sound_object, TXR_sound_object_type } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
@@ -18,7 +18,7 @@ export class LoopedSound extends AbstractPlayableSound {
 
   public readonly type: EPlayableSound = LoopedSound.type;
 
-  public constructor(ini: XR_ini_file, section: TSection) {
+  public constructor(ini: ini_file, section: TSection) {
     super(ini, section);
 
     assert(
@@ -32,7 +32,7 @@ export class LoopedSound extends AbstractPlayableSound {
    * todo: Description.
    */
   public play(objectId: TNumberId): boolean {
-    const object: Optional<XR_game_object> = registry.objects.get(objectId).object!;
+    const object: Optional<game_object> = registry.objects.get(objectId).object!;
 
     if (object === null) {
       return false;

@@ -1,4 +1,4 @@
-import { level, XR_game_object } from "xray16";
+import { game_object, level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -44,8 +44,8 @@ extern("xr_conditions.is_dark_night", (): boolean => {
 extern(
   "xr_conditions.anomaly_has_artefact",
   (
-    actor: XR_game_object,
-    npc: XR_game_object,
+    actor: game_object,
+    npc: game_object,
     p: [string, string]
   ): LuaMultiReturn<[boolean, Optional<LuaArray<string>>]> => {
     const [artefact, details] = anomalyHasArtefact(actor, npc, p);
@@ -78,7 +78,7 @@ extern("xr_conditions.surge_kill_all", (): boolean => {
 /**
  * todo;
  */
-extern("xr_conditions.signal_rocket_flying", (actor: XR_game_object, npc: XR_game_object, p: [string]): boolean => {
+extern("xr_conditions.signal_rocket_flying", (actor: game_object, npc: game_object, p: [string]): boolean => {
   if (p === null) {
     abort("Signal rocket name is !set!");
   }
@@ -95,7 +95,7 @@ extern("xr_conditions.signal_rocket_flying", (actor: XR_game_object, npc: XR_gam
 /**
  * todo;
  */
-extern("xr_conditions.time_period", (actor: XR_game_object, npc: XR_game_object, p: [number, number]): boolean => {
+extern("xr_conditions.time_period", (actor: game_object, npc: game_object, p: [number, number]): boolean => {
   const [tshift, period] = p;
 
   if (tshift !== null && period !== null && registry.actor !== null) {
@@ -119,7 +119,7 @@ const alarm_statuses = {
  */
 extern(
   "xr_conditions.check_smart_alarm_status",
-  (actor: XR_game_object, npc: XR_game_object, params: [TName, string]): boolean => {
+  (actor: game_object, npc: game_object, params: [TName, string]): boolean => {
     const smartName: TName = params[0];
     const status: ESmartTerrainStatus = alarm_statuses[params[1] as keyof typeof alarm_statuses];
 

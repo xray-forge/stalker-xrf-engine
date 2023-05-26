@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { hardResetOfflineObject, registerOfflineObject, softResetOfflineObject } from "@/engine/core/database/offline";
 import { registry } from "@/engine/core/database/registry";
@@ -8,7 +8,7 @@ import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("'offline' database module", () => {
   it("should correctly register offline objects state", () => {
-    const object: XR_game_object = mockClientGameObject();
+    const object: game_object = mockClientGameObject();
 
     expect(registerOfflineObject(object.id(), { activeSection: "test", levelVertexId: 1 })).toEqual({
       activeSection: "test",

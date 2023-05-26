@@ -1,4 +1,4 @@
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
@@ -14,7 +14,7 @@ export class MobDeathManager extends AbstractSchemeManager<ISchemeMobDeathState>
   /**
    * todo: Description.
    */
-  public death_callback(victim: XR_game_object, who: Optional<XR_game_object>): void {
+  public death_callback(victim: game_object, who: Optional<game_object>): void {
     let deathState: ISchemeDeathState = registry.objects.get(victim.id())[EScheme.DEATH] as ISchemeDeathState;
 
     if (deathState === null) {

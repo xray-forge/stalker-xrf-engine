@@ -1,4 +1,4 @@
-import { action_base, game_object, LuabindClass, time_global, vector, XR_game_object, XR_vector } from "xray16";
+import { action_base, game_object, LuabindClass, time_global, vector } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
@@ -22,7 +22,7 @@ export class ActionPatrol extends action_base {
 
   public l_vid: TNumberId = -1;
   public dist: TDistance = 0;
-  public dir: XR_vector = new vector().set(0, 0, 1);
+  public dir: vector = new vector().set(0, 0, 1);
   public cur_state: EStalkerState = "cur_state" as unknown as EStalkerState; // todo: probably get rid
   public on_point: boolean = false;
   public time_to_update: TTimestamp = time_global() + 1000;
@@ -30,7 +30,7 @@ export class ActionPatrol extends action_base {
   /**
    * todo: Description.
    */
-  public constructor(state: ISchemePatrolState, object: XR_game_object) {
+  public constructor(state: ISchemePatrolState, object: game_object) {
     super(null, ActionPatrol.__name);
     this.state = state;
     this.moveManager = registry.objects.get(object.id()).moveManager!;
@@ -127,21 +127,21 @@ export class ActionPatrol extends action_base {
   /**
    * todo: Description.
    */
-  public death_callback(npc: XR_game_object): void {
+  public death_callback(npc: game_object): void {
     registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
   }
 
   /**
    * todo: Description.
    */
-  public deactivate(npc: XR_game_object): void {
+  public deactivate(npc: game_object): void {
     registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
   }
 
   /**
    * todo: Description.
    */
-  public net_destroy(npc: XR_game_object): void {
+  public net_destroy(npc: game_object): void {
     this.deactivate(npc);
   }
 }

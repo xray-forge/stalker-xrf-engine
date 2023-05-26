@@ -1,4 +1,4 @@
-import { TXR_net_processor, XR_game_object, XR_net_packet } from "xray16";
+import { game_object, net_packet, TXR_net_processor } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { IRegistryObjectState } from "@/engine/core/database/types";
@@ -46,11 +46,7 @@ export function isValidPortableStoreValue(value: unknown): boolean {
  * @param key - portable store key to set
  * @param value - value to set in portable store
  */
-export function setPortableStoreValue<T extends TPortableStoreValue>(
-  object: XR_game_object,
-  key: TName,
-  value: T
-): void {
+export function setPortableStoreValue<T extends TPortableStoreValue>(object: game_object, key: TName, value: T): void {
   if (!isValidPortableStoreValue(value)) {
     abort("database/portable store: not registered type tried to set: [%s]:[%s].", key, type(value));
   }
@@ -71,14 +67,14 @@ export function setPortableStoreValue<T extends TPortableStoreValue>(
  * @param object - game object to load portable store value from
  * @param key - portable store key to get value
  */
-export function getPortableStoreValue<T extends TPortableStoreValue>(object: XR_game_object, key: TName): Optional<T>;
+export function getPortableStoreValue<T extends TPortableStoreValue>(object: game_object, key: TName): Optional<T>;
 export function getPortableStoreValue<T extends TPortableStoreValue>(
-  object: XR_game_object,
+  object: game_object,
   key: TName,
   defaultValue: T
 ): T;
 export function getPortableStoreValue<T extends TPortableStoreValue>(
-  object: XR_game_object,
+  object: game_object,
   key: TName,
   defaultValue: Optional<T> = null
 ): Optional<T> {
@@ -101,7 +97,7 @@ export function getPortableStoreValue<T extends TPortableStoreValue>(
  * @param object - game object to save portable store for
  * @param packet - net packet to save data in
  */
-export function savePortableStore(object: XR_game_object, packet: XR_net_packet): void {
+export function savePortableStore(object: game_object, packet: net_packet): void {
   const objectId: TNumberId = object.id();
   let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).portableStore;
 
@@ -145,7 +141,7 @@ export function savePortableStore(object: XR_game_object, packet: XR_net_packet)
  * @param object - game object to load portable store for
  * @param reader - net processor to load data from
  */
-export function loadPortableStore(object: XR_game_object, reader: TXR_net_processor): void {
+export function loadPortableStore(object: game_object, reader: TXR_net_processor): void {
   const objectId: TNumberId = object.id();
   let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).portableStore;
 
@@ -184,7 +180,7 @@ export function loadPortableStore(object: XR_game_object, reader: TXR_net_proces
  *
  * @param object - client game object for portable store initialization
  */
-export function initializePortableStore(object: XR_game_object): void {
+export function initializePortableStore(object: game_object): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (!state.portableStore) {
@@ -197,7 +193,7 @@ export function initializePortableStore(object: XR_game_object): void {
  *
  * @param object - client game object for portable store destruction
  */
-export function destroyPortableStore(object: XR_game_object): void {
+export function destroyPortableStore(object: game_object): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
   if (state !== null) {

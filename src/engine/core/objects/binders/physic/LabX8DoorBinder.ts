@@ -1,16 +1,14 @@
 import {
   callback,
+  cse_alife_object,
+  game_object,
   ini_file,
   LuabindClass,
+  net_packet,
   object_binder,
+  reader,
   sound_object,
   TXR_sound_object_type,
-  XR_cse_alife_object,
-  XR_game_object,
-  XR_ini_file,
-  XR_net_packet,
-  XR_reader,
-  XR_sound_object,
 } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, resetObject } from "@/engine/core/database";
@@ -39,9 +37,9 @@ export class LabX8DoorBinder extends object_binder {
   public is_idle: boolean = true;
   public is_play_fwd: boolean = false;
 
-  public idle_snd: Optional<XR_sound_object> = null;
-  public start_snd: Optional<XR_sound_object> = null;
-  public stop_snd: Optional<XR_sound_object> = null;
+  public idle_snd: Optional<sound_object> = null;
+  public start_snd: Optional<sound_object> = null;
+  public stop_snd: Optional<sound_object> = null;
 
   public idle_delay!: number;
   public start_delay!: number;
@@ -51,10 +49,10 @@ export class LabX8DoorBinder extends object_binder {
   public on_stop!: TConditionList;
   public on_start!: TConditionList;
 
-  public constructor(object: XR_game_object) {
+  public constructor(object: game_object) {
     super(object);
 
-    let ini: XR_ini_file = object.spawn_ini()!;
+    let ini: ini_file = object.spawn_ini()!;
 
     if (!ini.section_exist(ANIMATED_OBJECT_SECT)) {
       logger.info("[animated object] no configuration!", object.name());
@@ -140,7 +138,7 @@ export class LabX8DoorBinder extends object_binder {
     resetObject(this.object);
   }
 
-  public override net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -213,7 +211,7 @@ export class LabX8DoorBinder extends object_binder {
     return true;
   }
 
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, LabX8DoorBinder.__name);
 
     super.save(packet);
@@ -225,7 +223,7 @@ export class LabX8DoorBinder extends object_binder {
     closeSaveMarker(packet, LabX8DoorBinder.__name);
   }
 
-  public override load(reader: XR_reader): void {
+  public override load(reader: reader): void {
     openLoadMarker(reader, LabX8DoorBinder.__name);
 
     super.load(reader);
@@ -327,7 +325,7 @@ export class LabX8DoorBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public use_callback(object: XR_game_object): void {
+  public use_callback(object: game_object): void {
     pickSectionFromCondList(registry.actor, object, this.on_use);
   }
 }

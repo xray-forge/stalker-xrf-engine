@@ -1,4 +1,4 @@
-import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
+import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
 
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
@@ -22,12 +22,12 @@ export class SchemeCombatCamper extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeCombatState,
-    planner?: XR_action_planner
+    planner?: action_planner
   ): void {
     if (!planner) {
       abort("Expected planner to be provided for add method call.");

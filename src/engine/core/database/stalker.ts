@@ -1,4 +1,4 @@
-import { anim, move, XR_game_object } from "xray16";
+import { anim, game_object, move } from "xray16";
 
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
@@ -49,7 +49,7 @@ export function unregisterStalker(stalker: StalkerBinder, destroy: boolean = tru
  * @param extra - additional state configuration
  */
 export function setStalkerState(
-  object: XR_game_object,
+  object: game_object,
   state: EStalkerState,
   callback: Optional<IStateManagerCallbackDescriptor> = null,
   timeout: Optional<TDuration> = null,
@@ -73,7 +73,7 @@ export function setStalkerState(
  * @param object - target stalker object to get state from
  * @returns target stalker object current state
  */
-export function getStalkerState(object: XR_game_object): Optional<EStalkerState> {
+export function getStalkerState(object: game_object): Optional<EStalkerState> {
   return registry.objects.get(object.id()).stateManager?.getState() as Optional<EStalkerState>;
 }
 
@@ -82,7 +82,7 @@ export function getStalkerState(object: XR_game_object): Optional<EStalkerState>
  *
  * @param object - target stalker object to reset state
  */
-export function resetStalkerState(object: XR_game_object): void {
+export function resetStalkerState(object: game_object): void {
   const stateManager: StalkerStateManager = registry.objects.get(object.id()).stateManager!;
 
   if (stateManager === null) {

@@ -1,4 +1,4 @@
-import { game, time_global, XR_game_object, XR_ini_file } from "xray16";
+import { game, game_object, ini_file, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
@@ -23,8 +23,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo
  */
 export function activateSchemeBySection(
-  object: XR_game_object,
-  ini: XR_ini_file,
+  object: game_object,
+  ini: ini_file,
   section: TSection,
   additional: Optional<string>,
   loading: boolean

@@ -1,12 +1,12 @@
-import { vector, XR_vector } from "xray16";
+import { vector, vector } from "xray16";
 
 import { ISmartCoverLoopholeDescriptor } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
 
 export function get_crouch_right_loophole(
   id: string,
-  fov_direction: XR_vector,
-  position?: XR_vector,
-  enter_direction?: XR_vector
+  fov_direction: vector,
+  position?: vector,
+  enter_direction?: vector
 ): ISmartCoverLoopholeDescriptor {
   const pos = position || new vector().set(0, 0, 0);
   const enter_dir = enter_direction || new vector().set(-1, 0, 0);

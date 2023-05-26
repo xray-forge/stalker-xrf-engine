@@ -1,4 +1,4 @@
-import { device, level, XR_game_object } from "xray16";
+import { device, game_object, level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import {
@@ -100,7 +100,7 @@ export class CamEffectorSet {
    */
   public select_effect(): Optional<ICamEffectorSetDescriptorItem> {
     const state = this.state;
-    const actor: XR_game_object = registry.actor;
+    const actor: game_object = registry.actor;
     let cur_effect = this.cur_effect;
 
     if (this.looped) {

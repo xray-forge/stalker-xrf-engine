@@ -1,29 +1,25 @@
 import {
+  CMainMenu,
   COptionsManager,
   CScriptXmlInit,
+  CUI3tButton,
+  CUIComboBox,
   CUIMessageBoxEx,
+  CUIProgressBar,
   CUIScriptWnd,
+  CUIStatic,
+  CUITabControl,
+  CUITrackBar,
+  CUIWindow,
   DIK_keys,
   Frect,
   is_enough_address_space_available,
   LuabindClass,
   main_menu,
+  Patch_Dawnload_Progress,
   TXR_DIK_key,
   TXR_ui_event,
   ui_events,
-  XR_CMainMenu,
-  XR_COptionsManager,
-  XR_CScriptXmlInit,
-  XR_CUI3tButton,
-  XR_CUIComboBox,
-  XR_CUIMessageBoxEx,
-  XR_CUIProgressBar,
-  XR_CUIScriptWnd,
-  XR_CUIStatic,
-  XR_CUITabControl,
-  XR_CUITrackBar,
-  XR_CUIWindow,
-  XR_Patch_Dawnload_Progress,
 } from "xray16";
 
 import { OptionsControls } from "@/engine/core/ui/menu/options/OptionsControls";
@@ -46,20 +42,19 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class OptionsDialog extends CUIScriptWnd {
   public isRestartSystemShown: boolean = false;
 
-  public owner: XR_CUIScriptWnd;
+  public owner: CUIScriptWnd;
   /**
    * Store map of settings checker to verify whether renderer is correct.
    */
-  public preconditions: LuaTable<XR_CUIWindow, (control: XR_CUIWindow, renderer: EGameRenderer) => void> =
-    new LuaTable();
+  public preconditions: LuaTable<CUIWindow, (control: CUIWindow, renderer: EGameRenderer) => void> = new LuaTable();
 
-  public tab!: XR_CUITabControl;
-  public dialog!: XR_CUIStatic;
-  public messageBox!: XR_CUIMessageBoxEx;
-  public downloadCaption!: XR_CUIStatic;
-  public downloadText!: XR_CUIStatic;
-  public downloadProgress!: XR_CUIProgressBar;
-  public downloadCancelButton!: XR_CUI3tButton;
+  public tab!: CUITabControl;
+  public dialog!: CUIStatic;
+  public messageBox!: CUIMessageBoxEx;
+  public downloadCaption!: CUIStatic;
+  public downloadText!: CUIStatic;
+  public downloadProgress!: CUIProgressBar;
+  public downloadCancelButton!: CUI3tButton;
 
   public dialogVideoSettings!: OptionsVideo;
   public dialogVideoAdvancedSettings!: OptionsVideoAdvanced;
@@ -68,13 +63,13 @@ export class OptionsDialog extends CUIScriptWnd {
   public dialogControlsSettings!: OptionsControls;
 
   // From child sections:
-  public currentPresetSelect!: XR_CUIComboBox;
-  public currentRendererSelect!: XR_CUIComboBox;
-  public textureLodTrackBar!: XR_CUITrackBar;
-  public sSamplingTrackBar!: XR_CUITrackBar;
-  public sSamplingComboBox!: XR_CUIComboBox;
+  public currentPresetSelect!: CUIComboBox;
+  public currentRendererSelect!: CUIComboBox;
+  public textureLodTrackBar!: CUITrackBar;
+  public sSamplingTrackBar!: CUITrackBar;
+  public sSamplingComboBox!: CUIComboBox;
 
-  public constructor(owner: XR_CUIScriptWnd) {
+  public constructor(owner: CUIScriptWnd) {
     super();
 
     this.owner = owner;
@@ -89,7 +84,7 @@ export class OptionsDialog extends CUIScriptWnd {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
     this.Enable(true);
 
-    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
+    const xml: CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
 
@@ -146,7 +141,7 @@ export class OptionsDialog extends CUIScriptWnd {
   public initializeState(): void {
     logger.info("Set and save current values");
 
-    const optionsManager: XR_COptionsManager = new COptionsManager();
+    const optionsManager: COptionsManager = new COptionsManager();
 
     optionsManager.SetCurrentValues(EOptionGroup.OPTIONS_VIDEO_PRESET);
     optionsManager.SaveBackupValues(EOptionGroup.OPTIONS_VIDEO_PRESET);
@@ -226,8 +221,8 @@ export class OptionsDialog extends CUIScriptWnd {
   public override Update(): void {
     super.Update();
 
-    const mainMenu: XR_CMainMenu = main_menu.get_main_menu();
-    const patchDownload: XR_Patch_Dawnload_Progress = mainMenu.GetPatchProgress();
+    const mainMenu: CMainMenu = main_menu.get_main_menu();
+    const patchDownload: Patch_Dawnload_Progress = mainMenu.GetPatchProgress();
     const patchProgress: TRate = patchDownload.GetProgress();
     const filename: TName = patchDownload.GetFlieName();
 
@@ -253,32 +248,32 @@ export class OptionsDialog extends CUIScriptWnd {
   public onDefaultKeybindsButtonClicked(): void {
     executeConsoleCommand(consoleCommands.default_controls);
 
-    const optionsManager: XR_COptionsManager = new COptionsManager();
+    const optionsManager: COptionsManager = new COptionsManager();
 
     optionsManager.SetCurrentValues(EOptionGroup.OPTIONS_CONTROLS);
     optionsManager.SetCurrentValues(EOptionGroup.KEY_BINDINGS);
   }
 
   public onPresetChanged(): void {
-    const optionsManager: XR_COptionsManager = new COptionsManager();
+    const optionsManager: COptionsManager = new COptionsManager();
 
     optionsManager.SetCurrentValues(EOptionGroup.OPTIONS_VIDEO_ADVANCED);
   }
 
   public onDefaultGraphicsButtonClicked(): void {
-    const optionsManager: XR_COptionsManager = new COptionsManager();
+    const optionsManager: COptionsManager = new COptionsManager();
 
     optionsManager.SendMessage2Group(EOptionGroup.OPTIONS_VIDEO, optionGroupsMessages.set_default_value);
   }
 
   public onDefaultSoundSettingsButtonClicked(): void {
-    const optionsManager: XR_COptionsManager = new COptionsManager();
+    const optionsManager: COptionsManager = new COptionsManager();
 
     optionsManager.SendMessage2Group(EOptionGroup.OPTIONS_VIDEO, optionGroupsMessages.set_default_value);
   }
 
   public onAcceptButtonClicked(): void {
-    const optionsManager: XR_COptionsManager = new COptionsManager();
+    const optionsManager: COptionsManager = new COptionsManager();
 
     optionsManager.SaveValues(EOptionGroup.OPTIONS_VIDEO_PRESET);
     optionsManager.SaveValues(EOptionGroup.KEY_BINDINGS);
@@ -296,7 +291,7 @@ export class OptionsDialog extends CUIScriptWnd {
 
     // Check and notify about game restart if needed.
     if (!this.isRestartSystemShown) {
-      const nextOptionsManager: XR_COptionsManager = new COptionsManager();
+      const nextOptionsManager: COptionsManager = new COptionsManager();
 
       if (nextOptionsManager.NeedSystemRestart()) {
         this.isRestartSystemShown = true;
@@ -309,7 +304,7 @@ export class OptionsDialog extends CUIScriptWnd {
   }
 
   public onCancelButtonClicked(): void {
-    const optionsManager: XR_COptionsManager = new COptionsManager();
+    const optionsManager: COptionsManager = new COptionsManager();
 
     optionsManager.UndoGroup(EOptionGroup.OPTIONS_VIDEO_PRESET);
     optionsManager.UndoGroup(EOptionGroup.OPTIONS_VIDEO);

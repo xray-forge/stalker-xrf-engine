@@ -1,4 +1,4 @@
-import { LuabindClass, property_evaluator, XR_game_object } from "xray16";
+import { game_object, LuabindClass, property_evaluator } from "xray16";
 
 import { EWeaponAnimation } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
@@ -35,8 +35,8 @@ export class EvaluatorWeapon extends property_evaluator {
       return true;
     }
 
-    const bestWeapon: Optional<XR_game_object> = this.object.best_weapon();
-    const activeItem: Optional<XR_game_object> = this.object.active_item();
+    const bestWeapon: Optional<game_object> = this.object.best_weapon();
+    const activeItem: Optional<game_object> = this.object.active_item();
 
     if (
       weaponAnimation === EWeaponAnimation.STRAPPED &&

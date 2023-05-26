@@ -1,4 +1,4 @@
-import { clsid, XR_game_object, XR_ini_file } from "xray16";
+import { clsid, game_object, ini_file } from "xray16";
 
 import {
   ActorBinder,
@@ -33,34 +33,34 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Register binders of engine client side objects.
  */
 extern("bind", {
-  actor: (object: XR_game_object) => object.bind_object(new ActorBinder(object)),
-  anomalyField: (object: XR_game_object) => object.bind_object(new AnomalyFieldBinder(object)),
-  anomalyZone: (object: XR_game_object) => object.bind_object(new AnomalyZoneBinder(object)),
-  arenaZone: (object: XR_game_object) => {
-    const ini: Optional<XR_ini_file> = object.spawn_ini();
+  actor: (object: game_object) => object.bind_object(new ActorBinder(object)),
+  anomalyField: (object: game_object) => object.bind_object(new AnomalyFieldBinder(object)),
+  anomalyZone: (object: game_object) => object.bind_object(new AnomalyZoneBinder(object)),
+  arenaZone: (object: game_object) => {
+    const ini: Optional<ini_file> = object.spawn_ini();
 
     if (ini?.section_exist("arena_zone")) {
       object.bind_object(new ArenaZoneBinder(object));
     }
   },
-  artefact: (object: XR_game_object) => object.bind_object(new ArtefactBinder(object)),
-  camp: (object: XR_game_object) => object.bind_object(new CampBinder(object)),
-  campfire: (object: XR_game_object) => object.bind_object(new CampfireBinder(object)),
-  crow: (object: XR_game_object) => object.bind_object(new CrowBinder(object)),
+  artefact: (object: game_object) => object.bind_object(new ArtefactBinder(object)),
+  camp: (object: game_object) => object.bind_object(new CampBinder(object)),
+  campfire: (object: game_object) => object.bind_object(new CampfireBinder(object)),
+  crow: (object: game_object) => object.bind_object(new CrowBinder(object)),
   // todo: Rename to full name 'helicopter'.
-  heli: (object: XR_game_object) => {
-    const ini: Optional<XR_ini_file> = object.spawn_ini();
+  heli: (object: game_object) => {
+    const ini: Optional<ini_file> = object.spawn_ini();
 
     if (ini?.section_exist("logic")) {
       object.bind_object(new HelicopterBinder(object, ini));
     }
   },
-  labX8Door: (object: XR_game_object) => object.bind_object(new LabX8DoorBinder(object)),
-  levelChanger: (object: XR_game_object) => object.bind_object(new LevelChangerBinder(object)),
-  monster: (object: XR_game_object) => object.bind_object(new MonsterBinder(object)),
-  phantom: (object: XR_game_object) => object.bind_object(new PhantomBinder(object)),
-  physicObject: (object: XR_game_object) => {
-    const ini: Optional<XR_ini_file> = object.spawn_ini();
+  labX8Door: (object: game_object) => object.bind_object(new LabX8DoorBinder(object)),
+  levelChanger: (object: game_object) => object.bind_object(new LevelChangerBinder(object)),
+  monster: (object: game_object) => object.bind_object(new MonsterBinder(object)),
+  phantom: (object: game_object) => object.bind_object(new PhantomBinder(object)),
+  physicObject: (object: game_object) => {
+    const ini: Optional<ini_file> = object.spawn_ini();
 
     if (!ini?.section_exist("logic")) {
       if (object.clsid() !== clsid.inventory_box) {
@@ -70,11 +70,11 @@ extern("bind", {
 
     object.bind_object(new PhysicObjectBinder(object));
   },
-  restrictor: (object: XR_game_object) => object.bind_object(new RestrictorBinder(object)),
-  signalLight: (object: XR_game_object) => object.bind_object(new SignalLightBinder(object)),
-  smartCover: (object: XR_game_object) => object.bind_object(new SmartCoverBinder(object)),
-  smartTerrain: (object: XR_game_object) => {
-    const ini: Optional<XR_ini_file> = object.spawn_ini();
+  restrictor: (object: game_object) => object.bind_object(new RestrictorBinder(object)),
+  signalLight: (object: game_object) => object.bind_object(new SignalLightBinder(object)),
+  smartCover: (object: game_object) => object.bind_object(new SmartCoverBinder(object)),
+  smartTerrain: (object: game_object) => {
+    const ini: Optional<ini_file> = object.spawn_ini();
 
     if (ini !== null && (ini.section_exist("gulag1") || ini.section_exist("smart_terrain"))) {
       if (object.clsid() === clsid.smart_terrain) {
@@ -88,5 +88,5 @@ extern("bind", {
       }
     }
   },
-  stalker: (object: XR_game_object) => object.bind_object(new StalkerBinder(object)),
+  stalker: (object: game_object) => object.bind_object(new StalkerBinder(object)),
 });

@@ -1,4 +1,4 @@
-import { create_ini_file, ini_file, XR_game_object, XR_ini_file } from "xray16";
+import { create_ini_file, game_object, ini_file } from "xray16";
 
 import { DUMMY_LTX, DYNAMIC_LTX_PREFIX } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
@@ -12,16 +12,16 @@ import { Optional, TName } from "@/engine/lib/types";
  * @param name - dynamic ini file name
  * @param content - dynamic ini file content to initialize, if it does not exist
  */
-export function loadDynamicIni(name: TName, content: Optional<string> = null): LuaMultiReturn<[XR_ini_file, TName]> {
+export function loadDynamicIni(name: TName, content: Optional<string> = null): LuaMultiReturn<[ini_file, TName]> {
   const nameKey: TName = DYNAMIC_LTX_PREFIX + name;
-  const existingIniFile: Optional<XR_ini_file> = registry.ini.get(nameKey);
+  const existingIniFile: Optional<ini_file> = registry.ini.get(nameKey);
 
   if (existingIniFile !== null) {
     return $multi(existingIniFile, nameKey);
   } else {
     assertDefined(content, "Unexpected, expected data to initialize in new dynamic ini file.");
 
-    const newIniFile: XR_ini_file = create_ini_file(content);
+    const newIniFile: ini_file = create_ini_file(content);
 
     registry.ini.set(nameKey, newIniFile);
 
@@ -36,9 +36,9 @@ export function loadDynamicIni(name: TName, content: Optional<string> = null): L
  * @param filename - ini file name
  * @returns ini file for provided object
  */
-export function getObjectLogicIniConfig(object: XR_game_object, filename: TName): XR_ini_file {
+export function getObjectLogicIniConfig(object: game_object, filename: TName): ini_file {
   if (filename === "<customdata>") {
-    const ini: Optional<XR_ini_file> = object.spawn_ini();
+    const ini: Optional<ini_file> = object.spawn_ini();
 
     return ini === null ? DUMMY_LTX : ini;
   } else if (string.find(filename, DYNAMIC_LTX_PREFIX)[0] === 1) {

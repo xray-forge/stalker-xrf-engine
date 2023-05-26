@@ -1,4 +1,4 @@
-import { XR_CUIScriptWnd } from "xray16";
+import { CUIScriptWnd } from "xray16";
 
 import { DebugCommandsSection } from "@/engine/core/ui/debug/sections/DebugCommandsSection";
 import { DebugGeneralSection } from "@/engine/core/ui/debug/sections/DebugGeneralSection";
@@ -27,15 +27,15 @@ export enum EDebugSection {
 }
 
 export const sectionsMap = {
-  [EDebugSection.OBJECT]: (owner: XR_CUIScriptWnd) => new DebugObjectSection(owner),
-  [EDebugSection.GENERAL]: (owner: XR_CUIScriptWnd) => new DebugGeneralSection(owner),
-  [EDebugSection.COMMANDS]: (owner: XR_CUIScriptWnd) => new DebugCommandsSection(owner),
-  [EDebugSection.ITEMS]: (owner: XR_CUIScriptWnd) => new DebugItemsSection(owner),
-  [EDebugSection.POSITION]: (owner: XR_CUIScriptWnd) => new DebugPositionSection(owner),
-  [EDebugSection.REGISTRY]: (owner: XR_CUIScriptWnd) => new DebugRegistrySection(owner),
-  [EDebugSection.PLAYER]: (owner: XR_CUIScriptWnd) => new DebugPlayerSection(owner),
-  [EDebugSection.SOUND]: (owner: XR_CUIScriptWnd) => new DebugSoundSection(owner),
-  [EDebugSection.SPAWN]: (owner: XR_CUIScriptWnd) => new DebugSpawnSection(owner),
-  [EDebugSection.UI]: (owner: XR_CUIScriptWnd) => new DebugUiSection(owner),
-  [EDebugSection.WEATHER]: (owner: XR_CUIScriptWnd) => new DebugWeatherSection(owner),
+  [EDebugSection.OBJECT]: (owner: CUIScriptWnd) => new DebugObjectSection(owner),
+  [EDebugSection.GENERAL]: (owner: CUIScriptWnd) => new DebugGeneralSection(owner),
+  [EDebugSection.COMMANDS]: (owner: CUIScriptWnd) => new DebugCommandsSection(owner),
+  [EDebugSection.ITEMS]: (owner: CUIScriptWnd) => new DebugItemsSection(owner),
+  [EDebugSection.POSITION]: (owner: CUIScriptWnd) => new DebugPositionSection(owner),
+  [EDebugSection.REGISTRY]: (owner: CUIScriptWnd) => new DebugRegistrySection(owner),
+  [EDebugSection.PLAYER]: (owner: CUIScriptWnd) => new DebugPlayerSection(owner),
+  [EDebugSection.SOUND]: (owner: CUIScriptWnd) => new DebugSoundSection(owner),
+  [EDebugSection.SPAWN]: (owner: CUIScriptWnd) => new DebugSpawnSection(owner),
+  [EDebugSection.UI]: (owner: CUIScriptWnd) => new DebugUiSection(owner),
+  [EDebugSection.WEATHER]: (owner: CUIScriptWnd) => new DebugWeatherSection(owner),
 };

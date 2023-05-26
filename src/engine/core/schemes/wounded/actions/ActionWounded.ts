@@ -1,4 +1,4 @@
-import { action_base, alife, hit, LuabindClass, time_global, XR_alife_simulator, XR_hit } from "xray16";
+import { action_base, alife, alife_simulator, hit, LuabindClass, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
@@ -47,7 +47,7 @@ export class ActionWounded extends action_base {
     super.execute();
 
     const woundManager: WoundManager = this.state.woundManager;
-    const simulator: XR_alife_simulator = alife();
+    const simulator: alife_simulator = alife();
 
     if (this.state.autoheal === true) {
       if (woundManager.canUseMedkit !== true) {
@@ -69,7 +69,7 @@ export class ActionWounded extends action_base {
     const woundManagerSound: string = getPortableStoreValue(this.object, "wounded_sound")!;
 
     if (woundManagerState === TRUE) {
-      const hitObject: XR_hit = new hit();
+      const hitObject: hit = new hit();
 
       hitObject.power = 0;
       hitObject.direction = this.object.direction();

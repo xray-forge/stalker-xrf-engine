@@ -1,16 +1,16 @@
 import {
   callback,
   clsid,
+  cse_alife_object,
+  game_object,
+  ini_file,
   level,
   LuabindClass,
+  net_packet,
   object_binder,
-  XR_cse_alife_object,
-  XR_game_object,
-  XR_ini_file,
-  XR_net_packet,
-  XR_particles_object,
-  XR_reader,
-  XR_vector,
+  particles_object,
+  reader,
+  vector,
 } from "xray16";
 
 import {
@@ -45,7 +45,7 @@ export class PhysicObjectBinder extends object_binder {
   public initialized: boolean = false;
   public loaded: boolean = false;
 
-  public particle: Optional<XR_particles_object> = null;
+  public particle: Optional<particles_object> = null;
   public itemBox: Optional<PhysicObjectItemBox> = null;
 
   public state!: IRegistryObjectState;
@@ -53,7 +53,7 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public constructor(object: XR_game_object) {
+  public constructor(object: game_object) {
     super(object);
   }
 
@@ -115,7 +115,7 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     super.save(packet);
 
     openSaveMarker(packet, PhysicObjectBinder.__name);
@@ -126,7 +126,7 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override load(reader: XR_reader): void {
+  public override load(reader: reader): void {
     this.loaded = true;
 
     super.load(reader);
@@ -139,7 +139,7 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public use_callback(object: XR_game_object, who: XR_game_object): void {
+  public use_callback(object: game_object, who: game_object): void {
     if (this.state.active_section) {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.USE, object, this);
     }
@@ -149,10 +149,10 @@ export class PhysicObjectBinder extends object_binder {
    * todo: Description.
    */
   public hit_callback(
-    obj: XR_game_object,
+    obj: game_object,
     amount: TCount,
-    const_direction: XR_vector,
-    who: XR_game_object,
+    const_direction: vector,
+    who: game_object,
     bone_index: TIndex
   ): void {
     if (this.state[EScheme.HIT]) {
@@ -185,7 +185,7 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public death_callback(victim: XR_game_object, who: XR_game_object): void {
+  public death_callback(victim: game_object, who: game_object): void {
     if (this.state.active_section) {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, who);
     }
@@ -202,12 +202,12 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
 
-    const spawn_ini: Optional<XR_ini_file> = this.object.spawn_ini();
+    const spawn_ini: Optional<ini_file> = this.object.spawn_ini();
 
     if (spawn_ini !== null) {
       if (spawn_ini.section_exist("drop_box")) {
@@ -237,7 +237,7 @@ export class PhysicObjectBinder extends object_binder {
       initializeObjectSchemeLogic(this.object, this.state, this.loaded, registry.actor, ESchemeType.ITEM);
     }
 
-    const spawn_ini: Optional<XR_ini_file> = this.object.spawn_ini();
+    const spawn_ini: Optional<ini_file> = this.object.spawn_ini();
 
     if (this.state.active_section !== null || (spawn_ini !== null && spawn_ini.section_exist("drop_box"))) {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);

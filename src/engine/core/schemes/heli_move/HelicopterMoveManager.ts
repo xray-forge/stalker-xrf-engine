@@ -1,4 +1,4 @@
-import { level, patrol, XR_CHelicopter, XR_game_object, XR_patrol, XR_vector } from "xray16";
+import { CHelicopter, game_object, level, patrol, vector } from "xray16";
 
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -18,15 +18,15 @@ const state_move: number = 0;
  * todo;
  */
 export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopterMoveState> {
-  public readonly heliObject: XR_CHelicopter;
+  public readonly heliObject: CHelicopter;
 
   public heli_look: HeliLook;
   public heli_fire: HeliFire;
   public heli_fly: HeliFly;
 
-  public patrol_move: Optional<XR_patrol> = null;
+  public patrol_move: Optional<patrol> = null;
   public patrol_move_info!: LuaTable<number>;
-  public patrol_look: Optional<XR_patrol> = null;
+  public patrol_look: Optional<patrol> = null;
 
   public max_velocity!: TRate;
   public heliState: Optional<number> = null;
@@ -35,12 +35,12 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   public _flag_to_wp_callback: Optional<boolean> = null;
   public was_callback: Optional<boolean> = null;
   public by_stop_fire_fly: Optional<boolean> = null;
-  public stop_point: Optional<XR_vector> = null;
+  public stop_point: Optional<vector> = null;
 
   /**
    * todo: Description.
    */
-  public constructor(object: XR_game_object, state: ISchemeHelicopterMoveState) {
+  public constructor(object: game_object, state: ISchemeHelicopterMoveState) {
     super(object, state);
 
     this.heliObject = object.get_helicopter();
@@ -174,7 +174,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
    * todo: Description.
    */
   public override update(delta: number): void {
-    const actor: XR_game_object = registry.actor;
+    const actor: game_object = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       return;
@@ -285,7 +285,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   /**
    * todo: Description.
    */
-  public waypoint_callback(object: XR_game_object, action_type: string, index: number): void {
+  public waypoint_callback(object: game_object, action_type: string, index: number): void {
     if (!this._flag_to_wp_callback) {
       if (this.patrol_move !== null) {
         if (index === this.last_index) {

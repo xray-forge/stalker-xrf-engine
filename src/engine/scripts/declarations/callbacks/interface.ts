@@ -1,4 +1,4 @@
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
@@ -62,7 +62,7 @@ extern("actor_menu", {
  * todo;
  */
 extern("actor_menu_inventory", {
-  CUIActorMenu_OnItemDropped: (from: XR_game_object, to: XR_game_object, oldList: number, newList: number): void => {
+  CUIActorMenu_OnItemDropped: (from: game_object, to: game_object, oldList: number, newList: number): void => {
     return ActorInventoryMenuManager.getInstance().onItemDropped();
   },
 });

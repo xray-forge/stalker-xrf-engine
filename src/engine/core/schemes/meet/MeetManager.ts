@@ -1,4 +1,4 @@
-import { alife, XR_game_object } from "xray16";
+import { alife, game_object } from "xray16";
 
 import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -47,7 +47,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
    * todo: Description.
    */
   public initialize(): void {
-    const actor: Optional<XR_game_object> = registry.actor;
+    const actor: Optional<game_object> = registry.actor;
 
     if (actor === null) {
       this.isHelloPassed = false;
@@ -92,9 +92,9 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
    * todo: Description.
    */
   public activateMeetState(): void {
-    const actor: XR_game_object = registry.actor;
+    const actor: game_object = registry.actor;
     let state: Optional<EStalkerState> = null;
-    let victim: Optional<XR_game_object> = null;
+    let victim: Optional<game_object> = null;
     let victimStoryId: Optional<TStringId> = null;
 
     if (this.currentDistanceToSpeaker === EMeetDistance.CLOSE) {
@@ -130,7 +130,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
    * todo: Description.
    */
   public override update(): void {
-    const actor: XR_game_object = registry.actor;
+    const actor: game_object = registry.actor;
     const distance: TDistance = this.object.position().distance_to(actor.position());
     const isActorVisible: boolean = this.object.see(actor);
 

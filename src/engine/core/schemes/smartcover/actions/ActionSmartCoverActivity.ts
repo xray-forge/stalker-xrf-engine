@@ -1,4 +1,4 @@
-import { action_base, level, LuabindClass, patrol, XR_game_object, XR_vector } from "xray16";
+import { action_base, game_object, level, LuabindClass, patrol, vector } from "xray16";
 
 import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -33,7 +33,7 @@ export class ActionSmartCoverActivity extends action_base {
 
   public cover_state!: StringOptional<ECoverState>;
   public cover_name!: string;
-  public fire_pos!: XR_vector;
+  public fire_pos!: vector;
   public target_path!: string;
 
   /**
@@ -58,7 +58,7 @@ export class ActionSmartCoverActivity extends action_base {
   /**
    * todo: Description.
    */
-  public target_selector(obj: XR_game_object): void {
+  public target_selector(obj: game_object): void {
     if (!obj.alive()) {
       return;
     }
@@ -165,7 +165,7 @@ export class ActionSmartCoverActivity extends action_base {
         }
       }
     } else if (this.state.target_enemy !== null) {
-      const storyObject: Optional<XR_game_object> = getObjectByStoryId(this.state.target_enemy);
+      const storyObject: Optional<game_object> = getObjectByStoryId(this.state.target_enemy);
 
       this.target_enemy_id = storyObject?.id() as Optional<TNumberId>;
 

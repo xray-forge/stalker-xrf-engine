@@ -1,4 +1,4 @@
-import { CUIWindow, GAME_TYPE, LuabindClass, TXR_GAME_TYPE, XR_CScriptXmlInit } from "xray16";
+import { CScriptXmlInit, CUIWindow, GAME_TYPE, LuabindClass, TXR_GAME_TYPE } from "xray16";
 
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -17,7 +17,7 @@ export class MultiplayerOptions extends CUIWindow {
     this.online = online_mode;
   }
 
-  public InitControls(x: number, y: number, xml: XR_CScriptXmlInit, owner: MultiplayerMenu): void {
+  public InitControls(x: number, y: number, xml: CScriptXmlInit, owner: MultiplayerMenu): void {
     this.SetAutoDelete(true);
     xml.InitWindow("tab_options:main", 0, this);
 

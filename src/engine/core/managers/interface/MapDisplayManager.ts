@@ -1,13 +1,4 @@
-import {
-  alife,
-  game,
-  level,
-  time_global,
-  XR_alife_simulator,
-  XR_cse_alife_object,
-  XR_game_object,
-  XR_vector,
-} from "xray16";
+import { alife, alife_simulator, cse_alife_object, game, game_object, level, time_global, vector } from "xray16";
 
 import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -69,7 +60,7 @@ export class MapDisplayManager extends AbstractCoreManager {
    * todo: Description.
    */
   public updateObjectMapSpot(
-    object: XR_game_object,
+    object: game_object,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
@@ -77,7 +68,7 @@ export class MapDisplayManager extends AbstractCoreManager {
     logger.info("Update npc spot:", object.name());
 
     const npcId: TNumberId = object.id();
-    const sim: XR_alife_simulator = alife();
+    const sim: alife_simulator = alife();
 
     if (!sim) {
       return;
@@ -95,7 +86,7 @@ export class MapDisplayManager extends AbstractCoreManager {
       spotSection = TRUE;
     }
 
-    const actor: XR_game_object = registry.actor;
+    const actor: game_object = registry.actor;
     let mapSpot: Optional<EMapMarkType> = readIniString(
       state.ini,
       state.section_logic,
@@ -116,7 +107,7 @@ export class MapDisplayManager extends AbstractCoreManager {
 
     const spotConditionsList: TConditionList = parseConditionsList(spotSection);
     const spot: TSection = pickSectionFromCondList(actor, object, spotConditionsList)!;
-    const obj: Optional<XR_cse_alife_object> = sim.object(object.id());
+    const obj: Optional<cse_alife_object> = sim.object(object.id());
 
     if (obj?.online) {
       obj.visible_for_map(spot !== FALSE);
@@ -144,10 +135,10 @@ export class MapDisplayManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public removeObjectMapSpot(object: XR_game_object, state: IRegistryObjectState): void {
+  public removeObjectMapSpot(object: game_object, state: IRegistryObjectState): void {
     logger.info("Remove object spot:", object.name());
 
-    const simulator: XR_alife_simulator = alife();
+    const simulator: alife_simulator = alife();
 
     if (!simulator) {
       return;
@@ -168,7 +159,7 @@ export class MapDisplayManager extends AbstractCoreManager {
     }
 
     if (mapSpot !== null) {
-      const actor: XR_game_object = registry.actor;
+      const actor: game_object = registry.actor;
       const mapSpotConditionsList: TConditionList = parseConditionsList(mapSpot);
 
       mapSpot = pickSectionFromCondList(actor, object, mapSpotConditionsList);
@@ -208,7 +199,7 @@ export class MapDisplayManager extends AbstractCoreManager {
       const storedObject: Optional<IRegistryObjectState> = objectId ? registry.objects.get(objectId) : null;
 
       if (objectId && storedObject && storedObject.object) {
-        const actorPosition: XR_vector = registry.actor.position();
+        const actorPosition: vector = registry.actor.position();
         const distanceFromActor: TDistance = storedObject.object.position().distance_to(actorPosition);
         const hasSleepSpot: boolean = level.map_has_object_spot(objectId, mapMarks.ui_pda2_actor_sleep_location) !== 0;
 
@@ -241,7 +232,7 @@ export class MapDisplayManager extends AbstractCoreManager {
           const objectId: Optional<number> = getObjectIdByStoryId(scanner.target);
 
           let hint: TLabel = game.translate_string(scanner.hint) + "\\n" + " \\n";
-          const actor: XR_game_object = registry.actor;
+          const actor: game_object = registry.actor;
 
           const [hasArtefact, artefactTable] = anomalyHasArtefact(actor, null, [scanner.zone, null]);
 

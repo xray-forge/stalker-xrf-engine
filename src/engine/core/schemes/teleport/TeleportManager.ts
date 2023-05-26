@@ -1,4 +1,4 @@
-import { level, patrol, sound_object, time_global, vector, XR_game_object, XR_vector } from "xray16";
+import { game_object, level, patrol, sound_object, time_global, vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -26,7 +26,7 @@ export class TeleportManager extends AbstractSchemeManager<ISchemeTeleportState>
    * todo: Description.
    */
   public override update(): void {
-    const actor: Optional<XR_game_object> = registry.actor;
+    const actor: Optional<game_object> = registry.actor;
 
     if (!actor) {
       return;
@@ -75,11 +75,11 @@ export class TeleportManager extends AbstractSchemeManager<ISchemeTeleportState>
   /**
    * todo: Description.
    */
-  public teleportActor(actor: XR_game_object, teleportPoint: ITeleportPoint): void {
+  public teleportActor(actor: game_object, teleportPoint: ITeleportPoint): void {
     logger.info("Teleporting actor:", teleportPoint.point);
 
-    const pointPatrolVector: XR_vector = new patrol(teleportPoint.point).point(0);
-    const lookDirectionVector: XR_vector = new patrol(teleportPoint.look).point(0).sub(pointPatrolVector);
+    const pointPatrolVector: vector = new patrol(teleportPoint.point).point(0);
+    const lookDirectionVector: vector = new patrol(teleportPoint.look).point(0).sub(pointPatrolVector);
 
     actor.set_actor_position(pointPatrolVector);
     actor.set_actor_direction(-lookDirectionVector.getH());

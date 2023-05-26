@@ -1,4 +1,4 @@
-import { TXR_net_processor, XR_net_packet } from "xray16";
+import { net_packet, TXR_net_processor } from "xray16";
 
 import { disposeManager, getManagerInstance, getWeakManagerInstance } from "@/engine/core/database/managers";
 import { abort } from "@/engine/core/utils/assertion";
@@ -65,7 +65,7 @@ export abstract class AbstractCoreManager {
    *
    * @param packet - net packet to write data
    */
-  public save(packet: XR_net_packet): void {
+  public save(packet: net_packet): void {
     abort("Save method is not implemented.");
   }
 

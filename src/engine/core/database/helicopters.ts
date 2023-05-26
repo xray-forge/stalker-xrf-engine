@@ -1,4 +1,4 @@
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
@@ -32,7 +32,7 @@ export function unregisterHelicopter(helicopter: HelicopterBinder): void {
  *
  * @param object - helicopter client object to unregister
  */
-export function unregisterHelicopterObject(object: XR_game_object): void {
+export function unregisterHelicopterObject(object: game_object): void {
   unregisterObject(object);
   registry.helicopter.storage.delete(object.id());
 }
@@ -43,7 +43,7 @@ export function unregisterHelicopterObject(object: XR_game_object): void {
  * @param object - object to register as enemy
  * @returns index of newly added enemy
  */
-export function registerHelicopterEnemy(object: XR_game_object): TIndex {
+export function registerHelicopterEnemy(object: game_object): TIndex {
   const index: TIndex = registry.helicopter.enemyIndex;
 
   registry.helicopter.enemies.set(index, object);

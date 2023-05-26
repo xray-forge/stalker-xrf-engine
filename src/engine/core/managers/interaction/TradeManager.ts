@@ -1,4 +1,4 @@
-import { ini_file, time_global, TXR_net_processor, XR_game_object, XR_ini_file, XR_net_packet } from "xray16";
+import { game_object, ini_file, net_packet, time_global, TXR_net_processor } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
@@ -14,7 +14,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 export interface ITradeManagerDescriptor {
   cfg_ltx: string;
-  config: XR_ini_file;
+  config: ini_file;
   update_time: number;
   buy_condition: LuaTable<number>;
   sell_condition: LuaTable<number>;
@@ -37,7 +37,7 @@ export class TradeManager extends AbstractCoreManager {
   /**
    * todo
    */
-  public initForObject(object: XR_game_object, configFilePath: string): void {
+  public initForObject(object: game_object, configFilePath: string): void {
     logger.info("Init trade  for:", object.name(), configFilePath);
 
     const objectId: TNumberId = object.id();
@@ -77,7 +77,7 @@ export class TradeManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public updateForObject(object: XR_game_object): void {
+  public updateForObject(object: game_object): void {
     const tradeDescriptor: Optional<ITradeManagerDescriptor> = registry.trade.get(object.id());
 
     if (
@@ -175,7 +175,7 @@ export class TradeManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public saveObjectState(object: XR_game_object, packet: XR_net_packet): void {
+  public saveObjectState(object: game_object, packet: net_packet): void {
     const tradeDescriptor: ITradeManagerDescriptor = registry.trade.get(object.id());
 
     openSaveMarker(packet, TradeManager.name);
@@ -228,7 +228,7 @@ export class TradeManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public loadObjectState(reader: TXR_net_processor, object: XR_game_object): void {
+  public loadObjectState(reader: TXR_net_processor, object: game_object): void {
     openLoadMarker(reader, TradeManager.name);
 
     const hasTrade = reader.r_bool();

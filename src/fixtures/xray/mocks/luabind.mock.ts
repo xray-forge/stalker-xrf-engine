@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import type { XR_EngineBinding } from "xray16";
+import type { EngineBinding } from "xray16";
 
 /**
  * todo;
@@ -30,7 +30,7 @@ export function mockLuabindBase({
   __finalize = jest.fn(),
   __call = jest.fn(),
   __tostring = jest.fn(() => "TestBaseToString"),
-}: Partial<XR_EngineBinding> = {}): IXR_EngineBinding {
+}: Partial<EngineBinding> = {}): IXR_EngineBinding {
   return {
     __name,
     __init,

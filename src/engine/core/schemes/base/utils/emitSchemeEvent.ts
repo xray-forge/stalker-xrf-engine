@@ -1,4 +1,4 @@
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base";
 import { AnyArgs, AnyCallable } from "@/engine/lib/types";
@@ -10,7 +10,7 @@ import { AnyArgs, AnyCallable } from "@/engine/lib/types";
  * todo
  */
 export function emitSchemeEvent(
-  object: XR_game_object,
+  object: game_object,
   state: IBaseSchemeState,
   event: ESchemeEvent,
   ...rest: AnyArgs

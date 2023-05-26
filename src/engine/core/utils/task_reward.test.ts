@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { alife, XR_game_object } from "xray16";
+import { alife, game_object } from "xray16";
 
 import { disposeManager, registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
@@ -36,24 +36,24 @@ describe("'task_reward' utils", () => {
   const createObjectWithItems = () =>
     mockClientGameObject({
       inventory: [
-        [1, mockClientGameObject({ sectionOverride: medkits.medkit } as Partial<XR_game_object>)],
-        [2, mockClientGameObject({ sectionOverride: medkits.medkit } as Partial<XR_game_object>)],
-        [3, mockClientGameObject({ sectionOverride: medkits.medkit_army } as Partial<XR_game_object>)],
-        [4, mockClientGameObject({ sectionOverride: medkits.medkit_army } as Partial<XR_game_object>)],
-        [5, mockClientGameObject({ sectionOverride: medkits.medkit_army } as Partial<XR_game_object>)],
-        [40, mockClientGameObject({ sectionOverride: weapons.wpn_svd } as Partial<XR_game_object>)],
-        [41, mockClientGameObject({ sectionOverride: weapons.wpn_svd } as Partial<XR_game_object>)],
-        [50, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<XR_game_object>)],
-        [51, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<XR_game_object>)],
-        [52, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<XR_game_object>)],
-        [53, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<XR_game_object>)],
-        [54, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<XR_game_object>)],
-        [55, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<XR_game_object>)],
+        [1, mockClientGameObject({ sectionOverride: medkits.medkit } as Partial<game_object>)],
+        [2, mockClientGameObject({ sectionOverride: medkits.medkit } as Partial<game_object>)],
+        [3, mockClientGameObject({ sectionOverride: medkits.medkit_army } as Partial<game_object>)],
+        [4, mockClientGameObject({ sectionOverride: medkits.medkit_army } as Partial<game_object>)],
+        [5, mockClientGameObject({ sectionOverride: medkits.medkit_army } as Partial<game_object>)],
+        [40, mockClientGameObject({ sectionOverride: weapons.wpn_svd } as Partial<game_object>)],
+        [41, mockClientGameObject({ sectionOverride: weapons.wpn_svd } as Partial<game_object>)],
+        [50, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<game_object>)],
+        [51, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<game_object>)],
+        [52, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<game_object>)],
+        [53, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<game_object>)],
+        [54, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<game_object>)],
+        [55, mockClientGameObject({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<game_object>)],
       ],
     });
 
-  const getItemsCount = (object: XR_game_object, section: TSection) => {
-    return [...((object as AnyObject).inventory as Map<number, XR_game_object>).entries()].filter(([, it]) => {
+  const getItemsCount = (object: game_object, section: TSection) => {
+    return [...((object as AnyObject).inventory as Map<number, game_object>).entries()].filter(([, it]) => {
       return it.section() === section;
     }).length;
   };
@@ -94,7 +94,7 @@ describe("'task_reward' utils", () => {
 
     eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock, null);
 
-    const destinationObject: XR_game_object = mockClientGameObject();
+    const destinationObject: game_object = mockClientGameObject();
 
     transferMoneyFromActor(destinationObject, 500);
 
@@ -178,7 +178,7 @@ describe("'task_reward' utils", () => {
   it("'transferItemsFromActor' should fail on bad attempts", () => {
     registerActor(createObjectWithItems());
 
-    const to: XR_game_object = mockClientGameObject();
+    const to: game_object = mockClientGameObject();
 
     expect(() => transferItemsFromActor(to, ammo["ammo_5.45x39_ap"], -1)).toThrow();
     expect(() => transferItemsFromActor(to, ammo["ammo_5.45x39_ap"], 0)).toThrow();
@@ -189,7 +189,7 @@ describe("'task_reward' utils", () => {
 
   it("'transferItemsToActor' should take items from object", () => {
     const eventsManager: EventsManager = EventsManager.getInstance();
-    const from: XR_game_object = createObjectWithItems();
+    const from: game_object = createObjectWithItems();
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
       expect(notification.amount).toBe(180);
@@ -222,7 +222,7 @@ describe("'task_reward' utils", () => {
 
   it("'takeItemFromActor' should correctly delete items and then notify", () => {
     const eventsManager: EventsManager = EventsManager.getInstance();
-    const itemToTake: XR_game_object = mockClientGameObject();
+    const itemToTake: game_object = mockClientGameObject();
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
       expect(notification.itemSection).toBe("test_section");
@@ -245,8 +245,8 @@ describe("'task_reward' utils", () => {
   });
 
   it("'getNpcSpeaker' should correctly pick speaker", () => {
-    const first: XR_game_object = mockClientGameObject();
-    const second: XR_game_object = mockClientGameObject();
+    const first: game_object = mockClientGameObject();
+    const second: game_object = mockClientGameObject();
 
     expect(getNpcSpeaker(registry.actor, first)).toBe(first);
     expect(getNpcSpeaker(registry.actor, second)).toBe(second);
@@ -256,7 +256,7 @@ describe("'task_reward' utils", () => {
   });
 
   it("'isObjectName' should correctly check name", () => {
-    const object: XR_game_object = mockClientGameObject({ name: () => "test_complex_name" } as Partial<XR_game_object>);
+    const object: game_object = mockClientGameObject({ name: () => "test_complex_name" } as Partial<game_object>);
 
     expect(object.name()).toBe("test_complex_name");
     expect(isObjectName(object, "another")).toBeFalsy();
@@ -269,7 +269,7 @@ describe("'task_reward' utils", () => {
   });
 
   it("'npcHasItem' should correctly check if object has item", () => {
-    const object: XR_game_object = createObjectWithItems();
+    const object: game_object = createObjectWithItems();
 
     expect(npcHasItem(object, weapons.wpn_svd)).toBeTruthy();
     expect(npcHasItem(object, medkits.medkit)).toBeTruthy();

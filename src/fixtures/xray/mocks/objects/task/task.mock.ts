@@ -1,9 +1,9 @@
-import { XR_task } from "xray16";
+import { task } from "xray16";
 
 /**
  * Task state enumeration mock.
  */
-export class MockTask implements XR_task {
+export class MockTask implements task {
   public static readonly additional: number = 1;
   public static readonly completed: number = 2;
   public static readonly fail: number = 0;

@@ -1,4 +1,4 @@
-import { game, XR_game_object } from "xray16";
+import { game, game_object } from "xray16";
 
 import { ITEM_UPGRADES, registry, STALKER_UPGRADE_INFO, SYSTEM_INI } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -213,7 +213,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
    * todo: Description.
    */
   public getPreRequirementsFunctorA(name: TName, section: TSection): TLabel {
-    const actor: XR_game_object = registry.actor;
+    const actor: game_object = registry.actor;
     let label: TLabel = "";
 
     if (STALKER_UPGRADE_INFO.line_exist(this.currentMechanicName + "_upgr", section)) {

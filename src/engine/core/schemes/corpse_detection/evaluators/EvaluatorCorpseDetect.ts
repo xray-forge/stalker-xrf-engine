@@ -1,4 +1,4 @@
-import { level, LuabindClass, property_evaluator, XR_game_object, XR_vector } from "xray16";
+import { game_object, level, LuabindClass, property_evaluator, vector } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IReleaseDescriptor, ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
@@ -45,11 +45,11 @@ export class EvaluatorCorpseDetect extends property_evaluator {
 
     let nearest_corpse_dist_sqr: number = 400;
     let nearest_corpse_vertex: Optional<number> = null;
-    let nearest_corpse_position: Optional<XR_vector> = null;
+    let nearest_corpse_position: Optional<vector> = null;
     let corpse_id: Optional<number> = null;
 
     let hasValuableLoot: boolean = false;
-    const checkLoot = (npc: XR_game_object, item: XR_game_object) => {
+    const checkLoot = (npc: game_object, item: game_object) => {
       if (isLootableItem(item)) {
         hasValuableLoot = true;
       }
@@ -58,7 +58,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
     for (const it of $range(1, corpses.length())) {
       const id: TNumberId = corpses.get(it).id;
       const registryState: Optional<IRegistryObjectState> = registry.objects.get(id);
-      const corpseObject: Optional<XR_game_object> = registryState !== null ? registryState.object! : null;
+      const corpseObject: Optional<game_object> = registryState !== null ? registryState.object! : null;
 
       if (
         corpseObject &&

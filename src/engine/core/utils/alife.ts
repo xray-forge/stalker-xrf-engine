@@ -1,4 +1,4 @@
-import { alife, XR_cse_alife_object } from "xray16";
+import { alife, cse_alife_object } from "xray16";
 
 import { Squad } from "@/engine/core/objects";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
@@ -15,7 +15,7 @@ export function isGameStarted(): boolean {
 /**
  * todo;
  */
-export function evaluateSimulationPriorityByDistance(target: XR_cse_alife_object, squad: XR_cse_alife_object): TRate {
+export function evaluateSimulationPriorityByDistance(target: cse_alife_object, squad: cse_alife_object): TRate {
   const distance: TDistance = math.max(getServerDistanceBetween(target, squad), 1);
 
   return 1 + 1 / distance;

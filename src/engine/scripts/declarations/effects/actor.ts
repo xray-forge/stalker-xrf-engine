@@ -1,4 +1,4 @@
-import { alife, device, game, level, patrol, XR_CGameTask, XR_game_object, XR_vector } from "xray16";
+import { alife, CGameTask, device, game, game_object, level, patrol, vector } from "xray16";
 
 import { getObjectByStoryId, getServerObjectByStoryId, registry, SYSTEM_INI } from "@/engine/core/database";
 import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
@@ -32,21 +32,21 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-extern("xr_effects.disable_ui", (actor: XR_game_object, npc: XR_game_object, p: [string]): void => {
+extern("xr_effects.disable_ui", (actor: game_object, npc: game_object, p: [string]): void => {
   ActorInputManager.getInstance().disableGameUi(actor, !p || (p && p[0] !== TRUE));
 });
 
 /**
  * todo;
  */
-extern("xr_effects.disable_ui_only", (actor: XR_game_object, npc: XR_game_object): void => {
+extern("xr_effects.disable_ui_only", (actor: game_object, npc: game_object): void => {
   ActorInputManager.getInstance().disableGameUiOnly(actor);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.enable_ui", (actor: XR_game_object, npc: XR_game_object, p: [string]): void => {
+extern("xr_effects.enable_ui", (actor: game_object, npc: game_object, p: [string]): void => {
   ActorInputManager.getInstance().enableGameUi(!p || (p && p[0] !== TRUE));
 });
 
@@ -55,7 +55,7 @@ let cam_effector_playing_object_id: Optional<TNumberId> = null;
 /**
  * todo;
  */
-extern("xr_effects.run_cam_effector", (actor: XR_game_object, npc: XR_game_object, p: [string, number, string]) => {
+extern("xr_effects.run_cam_effector", (actor: game_object, npc: game_object, p: [string, number, string]) => {
   logger.info("Run cam effector");
 
   if (p[0]) {
@@ -79,7 +79,7 @@ extern("xr_effects.run_cam_effector", (actor: XR_game_object, npc: XR_game_objec
 /**
  * todo;
  */
-extern("xr_effects.stop_cam_effector", (actor: XR_game_object, npc: XR_game_object, p: [Optional<number>]): void => {
+extern("xr_effects.stop_cam_effector", (actor: game_object, npc: game_object, p: [Optional<number>]): void => {
   logger.info("Stop cam effector:", p);
 
   if (p[0] && type(p[0]) === "number" && p[0] > 0) {
@@ -90,28 +90,28 @@ extern("xr_effects.stop_cam_effector", (actor: XR_game_object, npc: XR_game_obje
 /**
  * todo;
  */
-extern("xr_effects.disable_actor_nightvision", (actor: XR_game_object): void => {
+extern("xr_effects.disable_actor_nightvision", (actor: game_object): void => {
   ActorInputManager.getInstance().disableActorNightVision(actor);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.enable_actor_nightvision", (actor: XR_game_object): void => {
+extern("xr_effects.enable_actor_nightvision", (actor: game_object): void => {
   ActorInputManager.getInstance().enableActorNightVision(actor);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.disable_actor_torch", (actor: XR_game_object): void => {
+extern("xr_effects.disable_actor_torch", (actor: game_object): void => {
   ActorInputManager.getInstance().disableActorTorch(actor);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.enable_actor_torch", (actor: XR_game_object): void => {
+extern("xr_effects.enable_actor_torch", (actor: game_object): void => {
   ActorInputManager.getInstance().enableActorTorch(actor);
 });
 
@@ -120,7 +120,7 @@ extern("xr_effects.enable_actor_torch", (actor: XR_game_object): void => {
  */
 extern(
   "xr_effects.run_cam_effector_global",
-  (actor: XR_game_object, npc: XR_game_object, params: [string, Optional<number>, Optional<number>]): void => {
+  (actor: game_object, npc: game_object, params: [string, Optional<number>, Optional<number>]): void => {
     logger.info("Run cam effector global");
 
     let num = 1000 + math.random(100);
@@ -171,7 +171,7 @@ extern("xr_effects.cam_effector_callback", (): void => {
 /**
  * todo;
  */
-extern("xr_effects.run_postprocess", (actor: XR_game_object, npc: XR_game_object, p: [string, number]): void => {
+extern("xr_effects.run_postprocess", (actor: game_object, npc: game_object, p: [string, number]): void => {
   logger.info("Run postprocess");
 
   if (p[0]) {
@@ -192,7 +192,7 @@ extern("xr_effects.run_postprocess", (actor: XR_game_object, npc: XR_game_object
 /**
  * todo;
  */
-extern("xr_effects.stop_postprocess", (actor: XR_game_object, npc: XR_game_object, p: [number]): void => {
+extern("xr_effects.stop_postprocess", (actor: game_object, npc: game_object, p: [number]): void => {
   logger.info("Stop postprocess");
 
   if (p[0] && type(p[0]) === "number" && p[0] > 0) {
@@ -203,7 +203,7 @@ extern("xr_effects.stop_postprocess", (actor: XR_game_object, npc: XR_game_objec
 /**
  * todo;
  */
-extern("xr_effects.run_tutorial", (actor: XR_game_object, npc: XR_game_object, params: [string]): void => {
+extern("xr_effects.run_tutorial", (actor: game_object, npc: game_object, params: [string]): void => {
   logger.info("Run tutorial");
   game.start_tutorial(params[0]);
 });
@@ -211,25 +211,22 @@ extern("xr_effects.run_tutorial", (actor: XR_game_object, npc: XR_game_object, p
 /**
  * todo;
  */
-extern(
-  "xr_effects.give_actor",
-  (actor: XR_game_object, npc: Optional<XR_game_object>, params: Array<TSection>): void => {
-    for (const section of params) {
-      giveItemsToActor(section);
-    }
+extern("xr_effects.give_actor", (actor: game_object, npc: Optional<game_object>, params: Array<TSection>): void => {
+  for (const section of params) {
+    giveItemsToActor(section);
   }
-);
+});
 
 /**
  * todo;
  */
-extern("xr_effects.remove_item", (actor: XR_game_object, object: XR_game_object, p: [TSection]): void => {
+extern("xr_effects.remove_item", (actor: game_object, object: game_object, p: [TSection]): void => {
   logger.info("Remove item");
 
   assert(p && p[0], "Wrong parameters in function 'remove_item'.");
 
   const section: TSection = p[0];
-  const inventoryItem: Optional<XR_game_object> = actor.object(section);
+  const inventoryItem: Optional<game_object> = actor.object(section);
 
   if (inventoryItem !== null) {
     alife().release(alife().object(inventoryItem.id()), true);
@@ -243,20 +240,17 @@ extern("xr_effects.remove_item", (actor: XR_game_object, object: XR_game_object,
 /**
  * todo;
  */
-extern(
-  "xr_effects.drop_object_item_on_point",
-  (actor: XR_game_object, object: XR_game_object, p: [number, string]): void => {
-    const drop_object: XR_game_object = actor.object(p[0]) as XR_game_object;
-    const drop_point: XR_vector = new patrol(p[1]).point(0);
+extern("xr_effects.drop_object_item_on_point", (actor: game_object, object: game_object, p: [number, string]): void => {
+  const drop_object: game_object = actor.object(p[0]) as game_object;
+  const drop_point: vector = new patrol(p[1]).point(0);
 
-    actor.drop_item_and_teleport(drop_object, drop_point);
-  }
-);
+  actor.drop_item_and_teleport(drop_object, drop_point);
+});
 
 /**
  * todo;
  */
-extern("xr_effects.relocate_item", (actor: XR_game_object, npc: XR_game_object, params: [string, string, string]) => {
+extern("xr_effects.relocate_item", (actor: game_object, npc: game_object, params: [string, string, string]) => {
   logger.info("Relocate item");
 
   const item = params && params[0];
@@ -277,11 +271,11 @@ extern("xr_effects.relocate_item", (actor: XR_game_object, npc: XR_game_object, 
 /**
  * todo;
  */
-extern("xr_effects.activate_weapon_slot", (actor: XR_game_object, npc: XR_game_object, [index]: [TIndex]): void => {
+extern("xr_effects.activate_weapon_slot", (actor: game_object, npc: game_object, [index]: [TIndex]): void => {
   actor.activate_slot(index);
 });
 
-let actor_position_for_restore: Optional<XR_vector> = null;
+let actor_position_for_restore: Optional<vector> = null;
 
 /**
  * todo;
@@ -300,8 +294,8 @@ extern("xr_effects.restore_actor_position", (): void => {
 /**
  * todo;
  */
-extern("xr_effects.actor_punch", (object: XR_game_object): void => {
-  const actor: XR_game_object = registry.actor;
+extern("xr_effects.actor_punch", (object: game_object): void => {
+  const actor: game_object = registry.actor;
 
   if (actor.position().distance_to_sqr(object.position()) > 4) {
     return;
@@ -317,7 +311,7 @@ extern("xr_effects.actor_punch", (object: XR_game_object): void => {
     return;
   }
 
-  const activeItem: Optional<XR_game_object> = actor.active_item();
+  const activeItem: Optional<game_object> = actor.active_item();
 
   if (activeItem) {
     actor.drop_item(activeItem);
@@ -329,11 +323,7 @@ extern("xr_effects.actor_punch", (object: XR_game_object): void => {
  */
 extern(
   "xr_effects.send_tip",
-  (
-    actor: XR_game_object,
-    npc: XR_game_object,
-    [caption, icon, senderId]: [TLabel, TNotificationIcon, TStringId]
-  ): void => {
+  (actor: game_object, npc: game_object, [caption, icon, senderId]: [TLabel, TNotificationIcon, TStringId]): void => {
     logger.info("Send tip");
     NotificationManager.getInstance().sendTipNotification(caption, icon, 0, null, senderId);
   }
@@ -342,7 +332,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.give_task", (actor: XR_game_object, object: XR_game_object, [taskId]: [Optional<TStringId>]) => {
+extern("xr_effects.give_task", (actor: game_object, object: game_object, [taskId]: [Optional<TStringId>]) => {
   assertDefined(taskId, "No parameter in give_task effect.");
   TaskManager.getInstance().giveTask(taskId);
 });
@@ -350,11 +340,11 @@ extern("xr_effects.give_task", (actor: XR_game_object, object: XR_game_object, [
 /**
  * todo;
  */
-extern("xr_effects.set_active_task", (actor: XR_game_object, object: XR_game_object, [taskId]: [TStringId]): void => {
+extern("xr_effects.set_active_task", (actor: game_object, object: game_object, [taskId]: [TStringId]): void => {
   logger.info("Set active task:", taskId);
 
   if (taskId !== null) {
-    const task: Optional<XR_CGameTask> = actor.get_task(tostring(taskId), true);
+    const task: Optional<CGameTask> = actor.get_task(tostring(taskId), true);
 
     if (task) {
       actor.set_active_task(task);
@@ -365,7 +355,7 @@ extern("xr_effects.set_active_task", (actor: XR_game_object, object: XR_game_obj
 /**
  * todo;
  */
-extern("xr_effects.kill_actor", (actor: XR_game_object, npc: XR_game_object): void => {
+extern("xr_effects.kill_actor", (actor: game_object, npc: game_object): void => {
   logger.info("Kill actor");
   actor.kill(actor);
 });
@@ -375,7 +365,7 @@ extern("xr_effects.kill_actor", (actor: XR_game_object, npc: XR_game_object): vo
  */
 extern(
   "xr_effects.make_actor_visible_to_squad",
-  (actor: XR_game_object, object: XR_game_object, parameters: [TStringId]): void => {
+  (actor: game_object, object: game_object, parameters: [TStringId]): void => {
     const storyId: Optional<TStringId> = parameters && parameters[0];
     const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
@@ -394,7 +384,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.sleep", (actor: XR_game_object): void => {
+extern("xr_effects.sleep", (actor: game_object): void => {
   logger.info("Sleep effect");
 
   // todo: Define sleep zones somewhere in config.
@@ -414,7 +404,7 @@ extern("xr_effects.sleep", (actor: XR_game_object): void => {
 });
 
 // todo: To be more generic, pick items from slots and add randomization.
-extern("xr_effects.damage_actor_items_on_start", (actor: XR_game_object): void => {
+extern("xr_effects.damage_actor_items_on_start", (actor: game_object): void => {
   logger.info("Damage actor items on start");
 
   actor.object(helmets.helm_respirator)?.set_condition(0.8);
@@ -426,8 +416,8 @@ extern("xr_effects.damage_actor_items_on_start", (actor: XR_game_object): void =
 /**
  * todo;
  */
-extern("xr_effects.activate_weapon", (actor: XR_game_object, npc: XR_game_object, p: [string]) => {
-  const object: Optional<XR_game_object> = actor.object(p[0]);
+extern("xr_effects.activate_weapon", (actor: game_object, npc: game_object, p: [string]) => {
+  const object: Optional<game_object> = actor.object(p[0]);
 
   assertDefined(object, "Actor has no such weapon! [%s]", p[0]);
 
@@ -439,20 +429,17 @@ extern("xr_effects.activate_weapon", (actor: XR_game_object, npc: XR_game_object
 /**
  * todo;
  */
-extern(
-  "xr_effects.give_treasure",
-  (actor: XR_game_object, object: XR_game_object, parameters: LuaArray<TTreasure>): void => {
-    logger.info("Give treasures");
+extern("xr_effects.give_treasure", (actor: game_object, object: game_object, parameters: LuaArray<TTreasure>): void => {
+  logger.info("Give treasures");
 
-    assertDefined(parameters, "Required parameter is [NIL].");
+  assertDefined(parameters, "Required parameter is [NIL].");
 
-    const treasureManager: TreasureManager = TreasureManager.getInstance();
+  const treasureManager: TreasureManager = TreasureManager.getInstance();
 
-    for (const [index, value] of parameters) {
-      treasureManager.giveActorTreasureCoordinates(value);
-    }
+  for (const [index, value] of parameters) {
+    treasureManager.giveActorTreasureCoordinates(value);
   }
-);
+});
 
 const detectorsOrder: LuaArray<TDetector> = $fromArray<TDetector>([
   detectors.detector_simple,
@@ -464,7 +451,7 @@ const detectorsOrder: LuaArray<TDetector> = $fromArray<TDetector>([
 /**
  * todo;
  */
-extern("xr_effects.get_best_detector", (actor: XR_game_object): void => {
+extern("xr_effects.get_best_detector", (actor: game_object): void => {
   for (const [k, v] of detectorsOrder) {
     const obj = actor.object(v);
 
@@ -479,7 +466,7 @@ extern("xr_effects.get_best_detector", (actor: XR_game_object): void => {
 /**
  * todo;
  */
-extern("xr_effects.hide_best_detector", (actor: XR_game_object): void => {
+extern("xr_effects.hide_best_detector", (actor: game_object): void => {
   for (const [k, v] of detectorsOrder) {
     const item = actor.object(v);
 
@@ -494,27 +481,24 @@ extern("xr_effects.hide_best_detector", (actor: XR_game_object): void => {
 /**
  * todo;
  */
-extern(
-  "xr_effects.set_torch_state",
-  (actor: XR_game_object, npc: XR_game_object, p: [string, Optional<string>]): void => {
-    if (p === null || p[1] === null) {
-      abort("Not enough parameters in 'set_torch_state' function!");
-    }
+extern("xr_effects.set_torch_state", (actor: game_object, npc: game_object, p: [string, Optional<string>]): void => {
+  if (p === null || p[1] === null) {
+    abort("Not enough parameters in 'set_torch_state' function!");
+  }
 
-    const object: Optional<XR_game_object> = getObjectByStoryId(p[0]);
+  const object: Optional<game_object> = getObjectByStoryId(p[0]);
 
-    if (object === null) {
-      return;
-    }
+  if (object === null) {
+    return;
+  }
 
-    const torch = object.object(misc.device_torch);
+  const torch = object.object(misc.device_torch);
 
-    if (torch) {
-      if (p[1] === "on") {
-        torch.enable_attachable_item(true);
-      } else if (p[1] === "off") {
-        torch.enable_attachable_item(false);
-      }
+  if (torch) {
+    if (p[1] === "on") {
+      torch.enable_attachable_item(true);
+    } else if (p[1] === "off") {
+      torch.enable_attachable_item(false);
     }
   }
-);
+});

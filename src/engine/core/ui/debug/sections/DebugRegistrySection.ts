@@ -1,4 +1,4 @@
-import { LuabindClass, ui_events, XR_CUI3tButton } from "xray16";
+import { CUI3tButton, LuabindClass, ui_events } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -16,7 +16,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class DebugRegistrySection extends AbstractDebugSection {
-  public logGeneralReportButton!: XR_CUI3tButton;
+  public logGeneralReportButton!: CUI3tButton;
 
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);

@@ -1,4 +1,4 @@
-import { LuabindClass, property_evaluator, XR_game_object } from "xray16";
+import { game_object, LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { isStrappableWeapon, isWeapon } from "@/engine/core/utils/check/is";
@@ -23,13 +23,13 @@ export class EvaluatorWeaponStrappedNow extends property_evaluator {
    * Check if weapon is strapped now.
    */
   public override evaluate(): boolean {
-    const bestWeapon: Optional<XR_game_object> = this.object.best_weapon();
+    const bestWeapon: Optional<game_object> = this.object.best_weapon();
 
     if (!isWeapon(bestWeapon)) {
       return true;
     }
 
-    const activeItem: Optional<XR_game_object> = this.object.active_item();
+    const activeItem: Optional<game_object> = this.object.active_item();
 
     return (
       (activeItem === null && !isStrappableWeapon(bestWeapon)) ||

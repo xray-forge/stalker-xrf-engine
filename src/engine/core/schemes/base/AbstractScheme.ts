@@ -1,4 +1,4 @@
-import { XR_game_object, XR_ini_file } from "xray16";
+import { game_object, ini_file } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IBaseSchemeState } from "@/engine/core/schemes/base/IBaseSchemeState";
@@ -25,7 +25,7 @@ export abstract class AbstractScheme {
   /**
    * todo: Description.
    */
-  public static disable(object: XR_game_object, scheme: EScheme): void {
+  public static disable(object: game_object, scheme: EScheme): void {
     abort("Called not implemented 'disable' method: %s, %s.", object.name(), scheme);
   }
 
@@ -33,8 +33,8 @@ export abstract class AbstractScheme {
    * todo: Description.
    */
   public static activate(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     additional: Optional<string>
@@ -46,8 +46,8 @@ export abstract class AbstractScheme {
    * todo: Description.
    */
   protected static assign<T extends IBaseSchemeState>(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: Optional<TSection>
   ): T {
@@ -75,8 +75,8 @@ export abstract class AbstractScheme {
    * Add scheme state to client object.
    */
   public static add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     schemeState: IBaseSchemeState
@@ -87,18 +87,14 @@ export abstract class AbstractScheme {
   /**
    * todo: Description.
    */
-  public static reset(object: XR_game_object, scheme: EScheme, state: IRegistryObjectState, section: TSection): void {
+  public static reset(object: game_object, scheme: EScheme, state: IRegistryObjectState, section: TSection): void {
     abort("Called not implemented 'reset' method: %s, %s, %s.", object.name(), scheme, section);
   }
 
   /**
    * todo: Description.
    */
-  public static subscribe(
-    object: XR_game_object,
-    state: IBaseSchemeState,
-    newAction: TName | AnyObject | LuaTable
-  ): void {
+  public static subscribe(object: game_object, state: IBaseSchemeState, newAction: TName | AnyObject | LuaTable): void {
     if (!state.actions) {
       state.actions = new LuaTable();
     }
@@ -109,7 +105,7 @@ export abstract class AbstractScheme {
   /**
    * todo: Description.
    */
-  public static unsubscribe(object: XR_game_object, state: IBaseSchemeState, action: AnyObject): void {
+  public static unsubscribe(object: game_object, state: IBaseSchemeState, action: AnyObject): void {
     if (state.actions) {
       state.actions.delete(action);
     } else {

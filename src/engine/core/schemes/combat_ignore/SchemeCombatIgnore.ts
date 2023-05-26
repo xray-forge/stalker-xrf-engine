@@ -1,4 +1,4 @@
-import { XR_game_object, XR_ini_file } from "xray16";
+import { game_object, ini_file } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes";
@@ -20,7 +20,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
   /**
    * todo
    */
-  public static override disable(object: XR_game_object, scheme: EScheme): void {
+  public static override disable(object: game_object, scheme: EScheme): void {
     object.set_enemy_callback(null);
 
     const schemeState: Optional<ISchemeCombatIgnoreState> = registry.objects.get(object.id())[
@@ -35,7 +35,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
   /**
    * todo
    */
-  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme): void {
+  public static override activate(object: game_object, ini: ini_file, scheme: EScheme): void {
     AbstractScheme.assign(object, ini, scheme, null);
   }
 
@@ -43,8 +43,8 @@ export class SchemeCombatIgnore extends AbstractScheme {
    * todo
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeCombatIgnoreState
@@ -56,7 +56,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
    * todo
    */
   public static override reset(
-    object: XR_game_object,
+    object: game_object,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection

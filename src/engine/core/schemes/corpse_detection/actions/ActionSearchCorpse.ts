@@ -1,4 +1,4 @@
-import { action_base, LuabindClass, XR_vector } from "xray16";
+import { action_base, LuabindClass, vector } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -51,7 +51,7 @@ export class ActionSearchCorpse extends action_base {
   public override execute(): void {
     super.execute();
 
-    if (this.object.position().distance_to_sqr(this.state.vertex_position as XR_vector) > 2) {
+    if (this.object.position().distance_to_sqr(this.state.vertex_position as vector) > 2) {
       return;
     }
 

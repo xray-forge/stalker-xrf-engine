@@ -1,4 +1,4 @@
-import { level, TXR_net_processor, XR_net_packet } from "xray16";
+import { level, net_packet, TXR_net_processor } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers";
@@ -10,7 +10,7 @@ import { EGameDifficulty, gameDifficultiesByNumber } from "@/engine/lib/constant
  * Manage game settings and options.
  */
 export class GameSettingsManager extends AbstractCoreManager {
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, GameSettingsManager.name);
 
     packet.w_u8(level.get_game_difficulty());

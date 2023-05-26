@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { XR_CGameTask } from "xray16";
+import { CGameTask } from "xray16";
 
 import { disposeManager, initializeManager, registerActor, registerStoryLink, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
@@ -66,7 +66,7 @@ describe("NotificationManager class", () => {
     expect(() => eventsManager.emitEvent(EGameEvent.NOTIFICATION, { type: "random" })).toThrow();
     expect(() => eventsManager.emitEvent(EGameEvent.NOTIFICATION, { type: ENotificationType.TIP })).not.toThrow();
 
-    const task: XR_CGameTask = mockCGameTask();
+    const task: CGameTask = mockCGameTask();
 
     eventsManager.emitEvent<ITaskUpdatedNotification>(EGameEvent.NOTIFICATION, {
       type: ENotificationType.TASK,

@@ -1,4 +1,4 @@
-import { alife, level, XR_cse_abstract, XR_cse_alife_object, XR_game_object, XR_ini_file } from "xray16";
+import { alife, cse_abstract, cse_alife_object, game_object, ini_file, level } from "xray16";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
@@ -11,8 +11,8 @@ import { Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
  *
  * @param serverObject - server object to register links
  */
-export function registerObjectStoryLinks(serverObject: XR_cse_abstract): void {
-  const spawnIni: XR_ini_file = serverObject.spawn_ini();
+export function registerObjectStoryLinks(serverObject: cse_abstract): void {
+  const spawnIni: ini_file = serverObject.spawn_ini();
 
   if (spawnIni.section_exist("story_object")) {
     const [result, id, value] = spawnIni.r_line("story_object", 0, "", "");
@@ -112,7 +112,7 @@ export function getObjectIdByStoryId(storyId: TStringId): Optional<TNumberId> {
  * @param storyId - story id to search
  * @returns existing server object instance or null
  */
-export function getServerObjectByStoryId<T extends XR_cse_alife_object>(storyId: TStringId): Optional<T> {
+export function getServerObjectByStoryId<T extends cse_alife_object>(storyId: TStringId): Optional<T> {
   const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
 
   return objectId === null ? null : alife().object<T>(objectId);
@@ -124,11 +124,11 @@ export function getServerObjectByStoryId<T extends XR_cse_alife_object>(storyId:
  * @param storyId - story id to search
  * @returns existing client object instance or null
  */
-export function getObjectByStoryId(storyId: TStringId): Optional<XR_game_object> {
+export function getObjectByStoryId(storyId: TStringId): Optional<game_object> {
   const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
-  const possibleObject: Optional<XR_game_object> = (
+  const possibleObject: Optional<game_object> = (
     objectId === null ? null : registry.objects.get(objectId)?.object
-  ) as Optional<XR_game_object>;
+  ) as Optional<game_object>;
 
   if (possibleObject) {
     return possibleObject;

@@ -1,4 +1,4 @@
-import { TXR_net_processor, XR_game_object, XR_net_packet, XR_reader, XR_sound_object } from "xray16";
+import { game_object, net_packet, reader, sound_object, TXR_net_processor } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SCRIPT_SOUND_LTX } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
@@ -26,7 +26,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   /**
    * todo: check.
    */
-  public static initializeObjectSounds(object: XR_game_object): void {
+  public static initializeObjectSounds(object: game_object): void {
     for (const [key, sound] of registry.sounds.themes) {
       if (sound.type === NpcSound.type) {
         if ((sound as NpcSound).availableCommunities.has(getCharacterCommunity(object))) {
@@ -102,7 +102,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
     sound: Optional<TStringId>,
     faction: Optional<string> = null,
     point: Optional<TNumberId> = null
-  ): Optional<XR_sound_object> {
+  ): Optional<sound_object> {
     if (sound === null) {
       return null;
     }
@@ -273,7 +273,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, GlobalSoundManager.name + "Actor");
 
     for (const [, playableTheme] of registry.sounds.themes) {
@@ -346,7 +346,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public saveObject(packet: XR_net_packet, object: XR_game_object): void {
+  public saveObject(packet: net_packet, object: game_object): void {
     openSaveMarker(packet, GlobalSoundManager.name + "Object");
 
     for (const [, theme] of registry.sounds.themes) {
@@ -359,7 +359,7 @@ export class GlobalSoundManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public loadObject(reader: XR_reader, object: XR_game_object): void {
+  public loadObject(reader: reader, object: game_object): void {
     openLoadMarker(reader, GlobalSoundManager.name + "Object");
 
     for (const [, theme] of registry.sounds.themes) {

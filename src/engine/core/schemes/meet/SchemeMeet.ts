@@ -1,4 +1,4 @@
-import { game_object, stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
+import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -34,7 +34,7 @@ export class SchemeMeet extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
     AbstractScheme.assign(object, ini, scheme, section);
   }
 
@@ -42,13 +42,13 @@ export class SchemeMeet extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeMeetState
   ): void {
-    const actionPlanner: XR_action_planner = object.motivation_action_manager();
+    const actionPlanner: action_planner = object.motivation_action_manager();
 
     // Evaluators:
     actionPlanner.add_evaluator(EEvaluatorId.IS_MEET_CONTACT, new EvaluatorContact(state));
@@ -86,7 +86,7 @@ export class SchemeMeet extends AbstractScheme {
    * todo: Description.
    */
   public static override reset(
-    object: XR_game_object,
+    object: game_object,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
@@ -102,7 +102,7 @@ export class SchemeMeet extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override disable(object: XR_game_object, scheme: EScheme): void {
+  public static override disable(object: game_object, scheme: EScheme): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());
 
     state[EScheme.ACTOR_DIALOGS] = null;
@@ -112,8 +112,8 @@ export class SchemeMeet extends AbstractScheme {
    * todo: Description.
    */
   public static initializeMeetScheme(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     section: TSection,
     state: ISchemeMeetState,
     scheme: EScheme
@@ -252,7 +252,7 @@ export class SchemeMeet extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static updateObjectInteractionAvailability(object: XR_game_object): void {
+  public static updateObjectInteractionAvailability(object: game_object): void {
     if (isObjectWounded(object)) {
       if (object.relation(registry.actor) === game_object.enemy) {
         object.disable_talk();
@@ -291,7 +291,7 @@ export class SchemeMeet extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static onMeetWithObject(object: XR_game_object): void {
+  public static onMeetWithObject(object: game_object): void {
     if (!object.alive()) {
       return;
     }
@@ -304,7 +304,7 @@ export class SchemeMeet extends AbstractScheme {
 
     logger.info("Activate meet interaction:", object.name());
 
-    const actor: XR_game_object = registry.actor;
+    const actor: game_object = registry.actor;
     const sound: Optional<TName> = pickSectionFromCondList(actor, object, state.snd_on_use);
 
     if (tostring(sound) !== NIL) {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { ini_file, XR_ini_file } from "xray16";
+import { ini_file, ini_file } from "xray16";
 
 import {
   DEATH_GENERIC_LTX,
@@ -30,7 +30,7 @@ describe("'ini_registry' database module", () => {
   });
 
   it("should correctly define ini files globals", () => {
-    const expectedIniFiles: Array<XR_ini_file> = [
+    const expectedIniFiles: Array<ini_file> = [
       SYSTEM_INI,
       DUMMY_LTX,
       GAME_LTX,

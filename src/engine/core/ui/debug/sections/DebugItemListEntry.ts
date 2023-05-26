@@ -1,10 +1,10 @@
 import {
   CUIListBoxItem,
+  CUITextWnd,
   GetARGB,
   GetFontLetterica16Russian,
   GetFontLetterica18Russian,
   LuabindClass,
-  XR_CUITextWnd,
 } from "xray16";
 
 import { TSection } from "@/engine/lib/types";
@@ -14,8 +14,8 @@ import { TSection } from "@/engine/lib/types";
  */
 @LuabindClass()
 export class DebugItemListEntry extends CUIListBoxItem {
-  public innerNameText: XR_CUITextWnd;
-  public innerSectionText: XR_CUITextWnd;
+  public innerNameText: CUITextWnd;
+  public innerSectionText: CUITextWnd;
 
   public constructor(height: number, width: number, section: TSection) {
     super(height);

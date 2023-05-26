@@ -1,14 +1,14 @@
 import {
+  action_planner,
   alife,
+  alife_simulator,
+  cse_alife_creature_actor,
+  cse_alife_object,
+  game_object,
   level,
   relation_registry,
   TXR_class_id,
-  XR_action_planner,
-  XR_alife_simulator,
-  XR_cse_alife_creature_actor,
-  XR_cse_alife_object,
-  XR_game_object,
-  XR_vector,
+  vector,
 } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
@@ -38,20 +38,20 @@ export class DebugManager extends AbstractCoreManager {
   public getNearestServerObject(
     pattern: Optional<TName | TXR_class_id> = null,
     searchOffline: boolean = false
-  ): Optional<XR_cse_alife_object> {
-    const simulator: Optional<XR_alife_simulator> = alife();
-    const actorPosition: XR_vector = registry.actor.position();
+  ): Optional<cse_alife_object> {
+    const simulator: Optional<alife_simulator> = alife();
+    const actorPosition: vector = registry.actor.position();
     const hasFilter: boolean = pattern !== null;
 
     let nearestDistance: Optional<TDistance> = null;
-    let nearest: Optional<XR_cse_alife_object> = null;
+    let nearest: Optional<cse_alife_object> = null;
 
     if (simulator === null) {
       return null;
     }
 
     for (const it of $range(1, MAX_U16)) {
-      const serverObject: Optional<XR_cse_alife_object> = simulator.object(it);
+      const serverObject: Optional<cse_alife_object> = simulator.object(it);
 
       if (serverObject && serverObject.parent_id !== 0) {
         let isMatch: boolean = false;
@@ -82,7 +82,7 @@ export class DebugManager extends AbstractCoreManager {
     }
 
     if (nearest) {
-      if (areObjectsOnSameLevel(nearest, simulator.object(0) as XR_cse_alife_creature_actor)) {
+      if (areObjectsOnSameLevel(nearest, simulator.object(0) as cse_alife_creature_actor)) {
         if (
           searchOffline ||
           (nearestDistance as TDistance) <= simulator.switch_distance() * simulator.switch_distance()
@@ -98,8 +98,8 @@ export class DebugManager extends AbstractCoreManager {
   /**
    * Get nearest to actor object by pattern or just anything near.
    */
-  public getNearestClientObject(pattern: Optional<TName | TXR_class_id> = null): Optional<XR_game_object> {
-    const nearestServerObject: Optional<XR_cse_alife_object> = this.getNearestServerObject(pattern, false);
+  public getNearestClientObject(pattern: Optional<TName | TXR_class_id> = null): Optional<game_object> {
+    const nearestServerObject: Optional<cse_alife_object> = this.getNearestServerObject(pattern, false);
 
     if (nearestServerObject) {
       return level.object_by_id(nearestServerObject.id);
@@ -111,7 +111,7 @@ export class DebugManager extends AbstractCoreManager {
   /**
    * Debug object inventory items.
    */
-  public logObjectInventoryItems(object: XR_game_object): void {
+  public logObjectInventoryItems(object: game_object): void {
     logger.pushSeparator();
     logger.info("Print object inventory report:", object.name());
 
@@ -128,11 +128,11 @@ export class DebugManager extends AbstractCoreManager {
   /**
    * Debug action planner state.
    */
-  public logObjectPlannerState(object: XR_game_object): void {
+  public logObjectPlannerState(object: game_object): void {
     logger.pushSeparator();
     logger.info("Print object planner state report:", object.name());
 
-    const actionPlanner: XR_action_planner = object.motivation_action_manager();
+    const actionPlanner: action_planner = object.motivation_action_manager();
     const currentActionId: Optional<TNumberId> = actionPlanner.current_action_id();
 
     logger.info("Current best enemy:", object.best_enemy()?.name() || NIL);
@@ -157,7 +157,7 @@ export class DebugManager extends AbstractCoreManager {
       logger.info("Print object state planner report:", object.name());
 
       const state: IRegistryObjectState = registry.objects.get(object.id());
-      const actionPlanner: XR_action_planner = state.stateManager!.planner;
+      const actionPlanner: action_planner = state.stateManager!.planner;
       const currentActionId: Optional<TNumberId> = actionPlanner.current_action_id();
 
       logger.info("Current state planner initialized:", actionPlanner.initialized());
@@ -180,7 +180,7 @@ export class DebugManager extends AbstractCoreManager {
   /**
    * Details about state management of the object.
    */
-  public logObjectStateManager(object: XR_game_object): void {
+  public logObjectStateManager(object: game_object): void {
     logger.pushSeparator();
     logger.info("Print object state manager report:", object.name());
 
@@ -207,7 +207,7 @@ export class DebugManager extends AbstractCoreManager {
   /**
    * Details about state management of the object.
    */
-  public logObjectRelations(object: XR_game_object): void {
+  public logObjectRelations(object: game_object): void {
     logger.pushSeparator();
     logger.info("Print object relations report:", object.name());
 
@@ -250,7 +250,7 @@ export class DebugManager extends AbstractCoreManager {
   /**
    * Log object scheme state for easier debug.
    */
-  public logObjectState(object: XR_game_object): void {
+  public logObjectState(object: game_object): void {
     logger.pushSeparator();
     logger.info("Print object scheme state report:", object.name(), object.id());
 

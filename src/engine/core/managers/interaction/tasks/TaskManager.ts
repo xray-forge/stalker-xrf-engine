@@ -1,4 +1,4 @@
-import { task, TXR_net_processor, TXR_TaskState, XR_CGameTask, XR_net_packet } from "xray16";
+import { CGameTask, net_packet, task, TXR_net_processor, TXR_TaskState } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, TASK_MANAGER_LTX } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
@@ -90,7 +90,7 @@ export class TaskManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public onTaskStateUpdate(taskObject: XR_CGameTask, state: TXR_TaskState): void {
+  public onTaskStateUpdate(taskObject: CGameTask, state: TXR_TaskState): void {
     const taskId: TStringId = taskObject.get_id();
 
     logger.info("Task state update:", taskId, state, state !== task.fail);
@@ -113,7 +113,7 @@ export class TaskManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, TaskManager.name);
 
     const count: TCount = getTableSize(this.tasksList);

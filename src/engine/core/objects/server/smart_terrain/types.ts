@@ -1,9 +1,9 @@
 import {
-  XR_CALifeSmartTerrainTask,
-  XR_cse_alife_creature_abstract,
-  XR_cse_alife_human_abstract,
-  XR_ini_file,
-  XR_vector,
+  CALifeSmartTerrainTask,
+  cse_alife_creature_abstract,
+  cse_alife_human_abstract,
+  ini_file,
+  vector,
 } from "xray16";
 
 import { SmartTerrain } from "@/engine/core/objects";
@@ -33,7 +33,7 @@ export enum ESmartTerrainStatus {
  */
 export interface IObjectJobDescriptor {
   isMonster: boolean;
-  serverObject: XR_cse_alife_creature_abstract;
+  serverObject: cse_alife_creature_abstract;
   need_job: string;
   job_prior: number;
   job_id: number;
@@ -46,13 +46,13 @@ export interface IObjectJobDescriptor {
  * todo;
  */
 export interface ISmartTerrainJob extends IJobBase {
-  alife_task: XR_CALifeSmartTerrainTask;
+  alife_task: CALifeSmartTerrainTask;
   priority: TRate;
   reserve_job: Optional<boolean>;
   prefix_name: TName;
   game_vertex_id: TNumberId;
   level_id: TNumberId;
-  position: XR_vector;
+  position: vector;
 }
 
 /**
@@ -63,7 +63,7 @@ export interface IJobBase {
   job_type: string;
   online?: Optional<string>;
   ini_path?: TPath;
-  ini_file?: XR_ini_file;
+  ini_file?: ini_file;
 }
 
 /**
@@ -74,7 +74,7 @@ export interface IJobDescriptor {
   _precondition_is_monster?: Optional<boolean>;
   _precondition_params?: AnyObject;
   _precondition_function?: (
-    serverObject: XR_cse_alife_human_abstract,
+    serverObject: cse_alife_human_abstract,
     smartTerrain: SmartTerrain,
     preconditionParameters: AnyObject,
     npc_info: AnyObject

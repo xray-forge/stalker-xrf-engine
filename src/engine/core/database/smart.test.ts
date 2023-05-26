@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import {
@@ -14,7 +14,7 @@ import { mockClientGameObject } from "@/fixtures/xray";
 describe("'smart' module of the database", () => {
   it("should correctly register smart terrain", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test");
-    const smartObject: XR_game_object = mockClientGameObject();
+    const smartObject: game_object = mockClientGameObject();
 
     registerSmartTerrain(smartObject, smartTerrain);
 

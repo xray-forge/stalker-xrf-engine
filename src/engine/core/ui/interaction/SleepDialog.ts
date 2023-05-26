@@ -1,20 +1,17 @@
 import {
   CScriptXmlInit,
+  CUI3tButton,
   CUIMessageBoxEx,
   CUIScriptWnd,
+  CUIStatic,
+  CUITrackBar,
   Frect,
   game,
+  game_object,
   level,
   LuabindClass,
   ui_events,
   vector2,
-  XR_CScriptXmlInit,
-  XR_CUI3tButton,
-  XR_CUIMessageBoxEx,
-  XR_CUIStatic,
-  XR_CUITrackBar,
-  XR_Frect,
-  XR_game_object,
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
@@ -39,16 +36,16 @@ const isWide: boolean = isWideScreen();
 export class SleepDialog extends CUIScriptWnd {
   public readonly owner: SleepManager;
 
-  public back!: XR_CUIStatic;
-  public sleepStatic!: XR_CUIStatic;
-  public sleepStatic2!: XR_CUIStatic;
-  public staticCover!: XR_CUIStatic;
-  public stMarker!: XR_CUIStatic;
-  public timeTrack!: XR_CUITrackBar;
-  public btnSleep!: XR_CUI3tButton;
-  public btnCancel!: XR_CUI3tButton;
-  public sleepMessageBox!: XR_CUIMessageBoxEx;
-  public sleepStTable!: Record<string, XR_CUIStatic>;
+  public back!: CUIStatic;
+  public sleepStatic!: CUIStatic;
+  public sleepStatic2!: CUIStatic;
+  public staticCover!: CUIStatic;
+  public stMarker!: CUIStatic;
+  public timeTrack!: CUITrackBar;
+  public btnSleep!: CUI3tButton;
+  public btnCancel!: CUI3tButton;
+  public sleepMessageBox!: CUIMessageBoxEx;
+  public sleepStTable!: Record<string, CUIStatic>;
 
   public constructor(owner: SleepManager) {
     super();
@@ -65,7 +62,7 @@ export class SleepDialog extends CUIScriptWnd {
   public InitControls(): void {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
 
-    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
+    const xml: CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base, true));
 
@@ -121,7 +118,7 @@ export class SleepDialog extends CUIScriptWnd {
     }
 
     const delta: number = math.floor((591 / 24) * currentHours);
-    let rect: XR_Frect = new Frect().set(delta, 413, 591, 531);
+    let rect: Frect = new Frect().set(delta, 413, 591, 531);
 
     this.sleepStatic.SetTextureRect(rect);
 
@@ -156,7 +153,7 @@ export class SleepDialog extends CUIScriptWnd {
   public TestAndShow(): void {
     logger.info("Show sleep options");
 
-    const actor: XR_game_object = registry.actor;
+    const actor: game_object = registry.actor;
 
     giveInfo(infoPortions.sleep_active);
 

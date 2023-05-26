@@ -1,18 +1,17 @@
 import {
   alife,
   clsid,
+  CPhrase,
+  CPhraseDialog,
+  CPhraseScript,
+  cse_alife_object,
   game,
+  game_object,
   level,
   patrol,
   time_global,
   TXR_class_id,
-  XR_CPhrase,
-  XR_CPhraseDialog,
-  XR_CPhraseScript,
-  XR_cse_alife_object,
-  XR_game_object,
-  XR_patrol,
-  XR_vector,
+  vector,
 } from "xray16";
 
 import { getStoryIdByObjectId, registry, TRAVEL_MANAGER_LTX } from "@/engine/core/database";
@@ -137,14 +136,14 @@ export class TravelManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public initializeTravellerDialog(dialog: XR_CPhraseDialog): void {
+  public initializeTravellerDialog(dialog: CPhraseDialog): void {
     const npcCommunity: TCommunity = communities.stalker; // -- npc:character_community()
 
-    let actorPhrase: XR_CPhrase = dialog.AddPhrase(captions.dm_traveler_what_are_you_doing, "0", "", -10000);
-    let actorScript: XR_CPhraseScript = actorPhrase.GetPhraseScript();
+    let actorPhrase: CPhrase = dialog.AddPhrase(captions.dm_traveler_what_are_you_doing, "0", "", -10000);
+    let actorScript: CPhraseScript = actorPhrase.GetPhraseScript();
 
-    let npcPhrase: XR_CPhrase = dialog.AddPhrase("if you see this - this is bad", "1", "0", -10000);
-    let npcPhraseScript: XR_CPhraseScript = npcPhrase.GetPhraseScript();
+    let npcPhrase: CPhrase = dialog.AddPhrase("if you see this - this is bad", "1", "0", -10000);
+    let npcPhraseScript: CPhraseScript = npcPhrase.GetPhraseScript();
 
     npcPhraseScript.SetScriptText("travel_callbacks.getSquadCurrentActionDescription");
 
@@ -205,7 +204,7 @@ export class TravelManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public canStartTravelingDialogs(actor: XR_game_object, npc: XR_game_object): boolean {
+  public canStartTravelingDialogs(actor: game_object, npc: game_object): boolean {
     const squad: Optional<Squad> = getObjectSquad(npc);
 
     if (squad !== null && squad.commander_id() !== npc.id()) {
@@ -225,8 +224,8 @@ export class TravelManager extends AbstractCoreManager {
    * todo: Description.
    */
   public getSquadCurrentActionDescription(
-    actor: XR_game_object,
-    npc: XR_game_object,
+    actor: game_object,
+    npc: game_object,
     dialogId?: TStringId,
     phraseId?: TStringId
   ): TLabel {
@@ -267,8 +266,8 @@ export class TravelManager extends AbstractCoreManager {
    * todo: Description.
    */
   public canActorMoveWithSquad(
-    actor: XR_game_object,
-    npc: XR_game_object,
+    actor: game_object,
+    npc: game_object,
     dialogId?: TStringId,
     phraseId?: TStringId
   ): boolean {
@@ -280,14 +279,9 @@ export class TravelManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public canSquadTakeActor(
-    npc: XR_game_object,
-    actor: XR_game_object,
-    dialogId?: TStringId,
-    phraseId?: TStringId
-  ): boolean {
+  public canSquadTakeActor(npc: game_object, actor: game_object, dialogId?: TStringId, phraseId?: TStringId): boolean {
     const squad: Squad = getObjectSquad(npc)!;
-    const squadTargetObject: XR_cse_alife_object = alife().object(squad.assignedTargetId!)!;
+    const squadTargetObject: cse_alife_object = alife().object(squad.assignedTargetId!)!;
     const squadTargetClsId: TXR_class_id = squadTargetObject.clsid();
 
     return squadTargetClsId === clsid.smart_terrain;
@@ -297,8 +291,8 @@ export class TravelManager extends AbstractCoreManager {
    * todo: Description.
    */
   public cannotSquadTakeActor(
-    npc: XR_game_object,
-    actor: XR_game_object,
+    npc: game_object,
+    actor: game_object,
     dialog_id: TStringId,
     phrase_id: TStringId
   ): boolean {
@@ -334,7 +328,7 @@ export class TravelManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public canSquadTravel(npc: XR_game_object, actor: XR_game_object, dialogId: TStringId, phraseId: TStringId): boolean {
+  public canSquadTravel(npc: game_object, actor: game_object, dialogId: TStringId, phraseId: TStringId): boolean {
     const squad: Squad = getObjectSquad(npc)!;
 
     // todo: Filter all squads to current level, do not check other locations.
@@ -350,7 +344,7 @@ export class TravelManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public cannotSquadTravel(npc: XR_game_object, actor: XR_game_object, dialogId: TStringId, phraseId: TStringId) {
+  public cannotSquadTravel(npc: game_object, actor: game_object, dialogId: TStringId, phraseId: TStringId) {
     return !this.canSquadTravel(npc, actor, dialogId, phraseId);
   }
 
@@ -358,8 +352,8 @@ export class TravelManager extends AbstractCoreManager {
    * todo: Description.
    */
   public canNegotiateTravelToSmart(
-    actor: XR_game_object,
-    npc: XR_game_object,
+    actor: game_object,
+    npc: game_object,
     dialogId: TStringId,
     prevPhraseId: TStringId,
     phraseId: TStringId
@@ -387,7 +381,7 @@ export class TravelManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public getTravelConst(actor: XR_game_object, npc: XR_game_object, dialogId: TStringId, phraseId: TStringId): TLabel {
+  public getTravelConst(actor: game_object, npc: game_object, dialogId: TStringId, phraseId: TStringId): TLabel {
     const simBoard: SimulationBoardManager = SimulationBoardManager.getInstance();
     const travelPhraseId: TStringId = string.sub(phraseId, 1, string.len(phraseId) - 2);
     const smartName: TName = this.smartNamesByPhraseId.get(travelPhraseId);
@@ -403,8 +397,8 @@ export class TravelManager extends AbstractCoreManager {
    * todo: Description.
    */
   public isEnoughMoneyToTravel(
-    actor: XR_game_object,
-    npc: XR_game_object,
+    actor: game_object,
+    npc: game_object,
     dialogId: TStringId,
     phraseId: TStringId
   ): boolean {
@@ -422,8 +416,8 @@ export class TravelManager extends AbstractCoreManager {
    * todo: Description.
    */
   public isNotEnoughMoneyToTravel(
-    actor: XR_game_object,
-    npc: XR_game_object,
+    actor: game_object,
+    npc: game_object,
     dialogId: TStringId,
     phraseId: TStringId
   ): boolean {
@@ -435,8 +429,8 @@ export class TravelManager extends AbstractCoreManager {
    * todo;
    */
   public onTravelToSpecificSmartWithSquad(
-    actor: XR_game_object,
-    npc: XR_game_object,
+    actor: game_object,
+    npc: game_object,
     dialogId: TStringId,
     phraseId: TStringId
   ): void {
@@ -479,8 +473,8 @@ export class TravelManager extends AbstractCoreManager {
    * todo;
    */
   public onTravelTogetherWithSquad(
-    actor: XR_game_object,
-    npc: XR_game_object,
+    actor: game_object,
+    npc: game_object,
     dialogId: TStringId,
     phraseId: TStringId
   ): void {
@@ -527,7 +521,7 @@ export class TravelManager extends AbstractCoreManager {
 
       this.isTravelTeleported = true;
 
-      const point: XR_patrol = new patrol(this.travelActorPath!);
+      const point: patrol = new patrol(this.travelActorPath!);
       const direction: TDirection = -point.point(1).sub(point.point(0)).getH();
       const board: SimulationBoardManager = SimulationBoardManager.getInstance();
 
@@ -545,7 +539,7 @@ export class TravelManager extends AbstractCoreManager {
         board.assignSquadToSmartTerrain(this.travelSquad!, currentSmartId);
       }
 
-      const position: XR_vector = new patrol(this.travelSquadPath!).point(0);
+      const position: vector = new patrol(this.travelSquadPath!).point(0);
 
       this.travelSquad!.setSquadPosition(position!);
 

@@ -1,4 +1,4 @@
-import { action_base, LuabindClass, XR_game_object } from "xray16";
+import { action_base, game_object, LuabindClass } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -36,7 +36,7 @@ export class ActionWalkerActivity extends action_base {
   /**
    * todo: Description.
    */
-  public constructor(state: ISchemeWalkerState, object: XR_game_object) {
+  public constructor(state: ISchemeWalkerState, object: game_object) {
     super(null, ActionWalkerActivity.__name);
 
     this.state = state;
@@ -66,7 +66,7 @@ export class ActionWalkerActivity extends action_base {
   /**
    * todo: Description.
    */
-  public activateScheme(isLoading: boolean, object: XR_game_object): void {
+  public activateScheme(isLoading: boolean, object: game_object): void {
     this.state.signals = new LuaTable();
     this.resetScheme(isLoading, object);
   }
@@ -74,7 +74,7 @@ export class ActionWalkerActivity extends action_base {
   /**
    * todo: Description.
    */
-  public resetScheme(loading: Optional<boolean>, npc: XR_game_object): void {
+  public resetScheme(loading: Optional<boolean>, npc: game_object): void {
     if (this.state.path_walk_info === null) {
       this.state.path_walk_info = parsePathWaypoints(this.state.path_walk);
     }
@@ -167,7 +167,7 @@ export class ActionWalkerActivity extends action_base {
   /**
    * todo: Description.
    */
-  public net_destroy(npc: XR_game_object): void {
+  public net_destroy(npc: game_object): void {
     if (this.in_camp === true) {
       this.camp!.unregister_npc(npc.id());
       this.in_camp = null;

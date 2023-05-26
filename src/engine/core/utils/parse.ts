@@ -1,4 +1,4 @@
-import { flags32, patrol, XR_flags32, XR_game_object, XR_ini_file, XR_patrol } from "xray16";
+import { flags32, game_object, ini_file, patrol } from "xray16";
 
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -42,7 +42,7 @@ export interface IWaypointData {
   syn?: string;
   count?: number;
   t?: number | "*";
-  flags: XR_flags32;
+  flags: flags32;
 }
 
 /**
@@ -333,7 +333,7 @@ export function parseFunctionParams(data: string): LuaArray<string | number> {
 /**
  * todo;
  */
-export function parseWaypointData(pathname: TPath, wpflags: XR_flags32, waypointName: TName): IWaypointData {
+export function parseWaypointData(pathname: TPath, wpflags: flags32, waypointName: TName): IWaypointData {
   const waypointData: IWaypointData = {
     flags: wpflags,
   };
@@ -392,7 +392,7 @@ export function parseWaypointData(pathname: TPath, wpflags: XR_flags32, waypoint
 /**
  * todo: Description.
  */
-export function parseIniSectionToArray<T = string>(ini: XR_ini_file, section: TSection): Optional<LuaTable<string, T>> {
+export function parseIniSectionToArray<T = string>(ini: ini_file, section: TSection): Optional<LuaTable<string, T>> {
   if (ini.section_exist(section)) {
     const array: LuaTable<string, T> = new LuaTable();
 
@@ -419,7 +419,7 @@ export function parsePathWaypoints(pathname: Optional<TPath>): Optional<LuaArray
     return null;
   }
 
-  const waypointPatrol: XR_patrol = new patrol(pathname);
+  const waypointPatrol: patrol = new patrol(pathname);
   const count: TCount = waypointPatrol.count();
   const waypointsInfo: LuaArray<IWaypointData> = new LuaTable();
 
@@ -452,7 +452,7 @@ export function parsePathWaypointsFromArgsList(
     return null;
   }
 
-  const waypointPatrol: XR_patrol = new patrol(pathname);
+  const waypointPatrol: patrol = new patrol(pathname);
   const count: TCount = waypointPatrol.count();
 
   if (count !== pointsCount) {
@@ -468,7 +468,7 @@ export function parsePathWaypointsFromArgsList(
       abort("script error [1] while processing point %d of path '%s'", point, pathname);
     }
 
-    const flags: XR_flags32 = new flags32();
+    const flags: flags32 = new flags32();
 
     flags.assign(cur_arg[1]);
 
@@ -488,7 +488,7 @@ export function parsePathWaypointsFromArgsList(
  * todo;
  */
 export function parseData(
-  object: XR_game_object,
+  object: game_object,
   target: Optional<string>
 ): LuaArray<{
   dist: Optional<TDistance>;
@@ -539,7 +539,7 @@ export function parseData(
 
 // todo: Probably same as parseData?
 export function parseTimerData(
-  object: XR_game_object,
+  object: game_object,
   str: Optional<string>
 ): LuaArray<{ dist: TDistance; state: Optional<LuaArray<IConfigSwitchCondition>> }> {
   const data: LuaArray<{ dist: TDistance; state: Optional<LuaArray<IConfigSwitchCondition>> }> = new LuaTable();
@@ -565,7 +565,7 @@ export function parseTimerData(
  * todo;
  */
 export function parseSynData(
-  object: XR_game_object,
+  object: game_object,
   target: Optional<string>
 ): LuaArray<{ zone: null; state: string; sound: string }> {
   const collection: LuaArray<any> = new LuaTable();
@@ -600,7 +600,7 @@ export function parseSynData(
  * todo;
  */
 export function parseData1v(
-  object: XR_game_object,
+  object: game_object,
   data: Optional<string>
 ): LuaArray<{
   dist: Optional<TDistance>;

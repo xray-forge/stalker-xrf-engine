@@ -1,4 +1,4 @@
-import { command_line, LuabindClass, ui_events, XR_CScriptXmlInit, XR_CUI3tButton, XR_CUIStatic } from "xray16";
+import { command_line, CScriptXmlInit, CUI3tButton, CUIStatic, LuabindClass, ui_events } from "xray16";
 
 import { ProfilingManager } from "@/engine/core/managers/debug/ProfilingManager";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
@@ -15,18 +15,18 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class DebugGeneralSection extends AbstractDebugSection {
-  public uiLuaVersionLabel!: XR_CUIStatic;
-  public uiMemoryUsageCountLabel!: XR_CUIStatic;
-  public uiProfilingToggleButton!: XR_CUI3tButton;
-  public uiSimulationDebugToggleButton!: XR_CUI3tButton;
-  public uiProfilingReportButton!: XR_CUI3tButton;
-  public uiLuaJitLabel!: XR_CUIStatic;
+  public uiLuaVersionLabel!: CUIStatic;
+  public uiMemoryUsageCountLabel!: CUIStatic;
+  public uiProfilingToggleButton!: CUI3tButton;
+  public uiSimulationDebugToggleButton!: CUI3tButton;
+  public uiProfilingReportButton!: CUI3tButton;
+  public uiLuaJitLabel!: CUIStatic;
 
   /**
    * todo: Description.
    */
   public initializeControls(): void {
-    const xml: XR_CScriptXmlInit = resolveXmlFile(base, this.xml);
+    const xml: CScriptXmlInit = resolveXmlFile(base, this.xml);
 
     xml.InitStatic("lua_version_label", this);
     xml

@@ -1,4 +1,4 @@
-import { alife, level, particles_object, patrol, XR_game_object, XR_patrol, XR_vector } from "xray16";
+import { alife, game_object, level, particles_object, patrol, vector } from "xray16";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, registry, resetStalkerState } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects";
@@ -15,10 +15,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 extern(
   "xr_effects.teleport_npc",
-  (actor: XR_game_object, object: XR_game_object, [patrolPoint, patrolPointIndex = 0]: [TName, TIndex]): void => {
+  (actor: game_object, object: game_object, [patrolPoint, patrolPointIndex = 0]: [TName, TIndex]): void => {
     assertDefined(patrolPoint, "Wrong parameters in 'teleport_npc' function.");
 
-    const position: XR_vector = new patrol(patrolPoint).point(patrolPointIndex);
+    const position: vector = new patrol(patrolPoint).point(patrolPointIndex);
 
     resetStalkerState(object);
 
@@ -31,7 +31,7 @@ extern(
  */
 extern(
   "xr_effects.teleport_npc_by_story_id",
-  (actor: XR_game_object, object: XR_game_object, p: [TStringId, TName, TIndex]) => {
+  (actor: game_object, object: game_object, p: [TStringId, TName, TIndex]) => {
     const storyId: Optional<TStringId> = p[0];
     const patrolPoint: Optional<TName> = p[1];
     const patrolPointIndex: TIndex = p[2] || 0;
@@ -40,14 +40,14 @@ extern(
       abort("Wrong parameters in 'teleport_npc_by_story_id' function!!!");
     }
 
-    const position: XR_vector = new patrol(tostring(patrolPoint)).point(patrolPointIndex);
+    const position: vector = new patrol(tostring(patrolPoint)).point(patrolPointIndex);
     const objectId: Optional<TNumberId> = getObjectIdByStoryId(storyId);
 
     if (objectId === null) {
       abort("There is no story object with id [%s]", storyId);
     }
 
-    const clientObject: Optional<XR_game_object> = level.object_by_id(objectId);
+    const clientObject: Optional<game_object> = level.object_by_id(objectId);
 
     if (clientObject) {
       resetStalkerState(clientObject);
@@ -63,7 +63,7 @@ extern(
  */
 extern(
   "xr_effects.teleport_squad",
-  (actor: XR_game_object, object: XR_game_object, params: [TStringId, TName, TIndex]): void => {
+  (actor: game_object, object: game_object, params: [TStringId, TName, TIndex]): void => {
     const squadStoryId: Optional<TStringId> = params[0];
     const patrolPoint: TStringId = params[1];
     const patrolPointIndex: TIndex = params[2] || 0;
@@ -72,7 +72,7 @@ extern(
       abort("Wrong parameters in 'teleport_squad' function!!!");
     }
 
-    const position: XR_vector = new patrol(patrolPoint).point(patrolPointIndex);
+    const position: vector = new patrol(patrolPoint).point(patrolPointIndex);
     const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
 
     assertDefined(squad, "There is no squad with story id [%s]", squadStoryId);
@@ -84,11 +84,11 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.teleport_actor", (actor: XR_game_object, object: XR_game_object, params: [TName, TName]): void => {
-  const point: XR_patrol = new patrol(params[0]);
+extern("xr_effects.teleport_actor", (actor: game_object, object: game_object, params: [TName, TName]): void => {
+  const point: patrol = new patrol(params[0]);
 
   if (params[1] !== null) {
-    const look: XR_patrol = new patrol(params[1]);
+    const look: patrol = new patrol(params[1]);
     const dir: number = -look.point(0).sub(point.point(0)).getH();
 
     actor.set_actor_direction(dir);
@@ -110,30 +110,27 @@ extern("xr_effects.teleport_actor", (actor: XR_game_object, object: XR_game_obje
 /**
  * todo;
  */
-extern(
-  "xr_effects.play_particle_on_path",
-  (actor: XR_game_object, object: XR_game_object, p: [string, string, number]) => {
-    const name = p[0];
-    const path = p[1];
-    let point_prob = p[2];
+extern("xr_effects.play_particle_on_path", (actor: game_object, object: game_object, p: [string, string, number]) => {
+  const name = p[0];
+  const path = p[1];
+  let point_prob = p[2];
 
-    if (name === null || path === null) {
-      return;
-    }
+  if (name === null || path === null) {
+    return;
+  }
 
-    if (point_prob === null) {
-      point_prob = 100;
-    }
+  if (point_prob === null) {
+    point_prob = 100;
+  }
 
-    const patrolObject: XR_patrol = new patrol(path);
-    const count = patrolObject.count();
+  const patrolObject: patrol = new patrol(path);
+  const count = patrolObject.count();
 
-    for (const a of $range(0, count - 1)) {
-      const particle = new particles_object(name);
+  for (const a of $range(0, count - 1)) {
+    const particle = new particles_object(name);
 
-      if (math.random(100) <= point_prob) {
-        particle.play_at_pos(patrolObject.point(a));
-      }
+    if (math.random(100) <= point_prob) {
+      particle.play_at_pos(patrolObject.point(a));
     }
   }
-);
+});

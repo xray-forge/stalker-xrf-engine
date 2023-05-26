@@ -1,4 +1,4 @@
-import { get_hud, XR_game_object, XR_ini_file } from "xray16";
+import { game_object, get_hud, ini_file } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeTimerState } from "@/engine/core/schemes/timer/ISchemeTimerState";
@@ -22,7 +22,7 @@ export class SchemeTimer extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
     const state: ISchemeTimerState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -56,8 +56,8 @@ export class SchemeTimer extends AbstractScheme {
    * Add scheme to object binder for initialization.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeTimerState

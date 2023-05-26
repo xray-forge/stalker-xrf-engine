@@ -1,4 +1,4 @@
-import { XR_cse_zone_visual } from "xray16";
+import { cse_zone_visual } from "xray16";
 
 import {
   MockAnomalousZone,
@@ -13,6 +13,6 @@ export class MockZoneVisual extends MockAnomalousZone {}
 /**
  * todo;
  */
-export function mockServerVisual(base: Partial<XR_cse_zone_visual> = {}): XR_cse_zone_visual {
-  return { ...mockServerAnomalousZone(), ...base } as unknown as XR_cse_zone_visual;
+export function mockServerVisual(base: Partial<cse_zone_visual> = {}): cse_zone_visual {
+  return { ...mockServerAnomalousZone(), ...base } as unknown as cse_zone_visual;
 }

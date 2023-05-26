@@ -1,4 +1,4 @@
-import { LuabindClass, object_binder, XR_game_object, XR_vector } from "xray16";
+import { game_object, LuabindClass, object_binder, vector } from "xray16";
 
 import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";
 
@@ -7,7 +7,7 @@ import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";
  */
 @LuabindClass()
 export class PhantomBinder extends object_binder {
-  public constructor(object: XR_game_object) {
+  public constructor(object: game_object) {
     super(object);
     PhantomManager.getInstance().add_phantom();
   }
@@ -22,7 +22,7 @@ export class PhantomBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public spawn_phantom(position: XR_vector): void {
+  public spawn_phantom(position: vector): void {
     PhantomManager.getInstance().spawn_phantom(position);
   }
 

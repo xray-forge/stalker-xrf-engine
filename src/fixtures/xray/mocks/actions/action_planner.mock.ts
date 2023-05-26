@@ -1,11 +1,4 @@
-import {
-  XR_action_base,
-  XR_action_planner,
-  XR_game_object,
-  XR_property_evaluator,
-  XR_property_storage,
-  XR_world_state,
-} from "xray16";
+import { action_base, action_planner, game_object, property_evaluator, property_storage, world_state } from "xray16";
 
 import { Optional, TNumberId } from "@/engine/lib/types";
 import { MockActionBase, mockActionBase } from "@/fixtures/xray";
@@ -14,12 +7,12 @@ import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
 
 export class MockActionPlanner extends MockLuabindClass {
-  public object!: XR_game_object;
-  public storage!: XR_property_storage;
+  public object!: game_object;
+  public storage!: property_storage;
 
-  public evaluators: Record<TNumberId, XR_property_evaluator> = {};
-  public actions: Record<TNumberId, XR_action_base> = {};
-  public goalWorldState: Optional<XR_world_state> = null;
+  public evaluators: Record<TNumberId, property_evaluator> = {};
+  public actions: Record<TNumberId, action_base> = {};
+  public goalWorldState: Optional<world_state> = null;
 
   public isInitialized: boolean = false;
 
@@ -29,11 +22,11 @@ export class MockActionPlanner extends MockLuabindClass {
 
   public update(): void {}
 
-  public setup(object: XR_game_object): void {
+  public setup(object: game_object): void {
     this.object = object;
   }
 
-  public add_evaluator(id: TNumberId, evaluator: XR_property_evaluator): void {
+  public add_evaluator(id: TNumberId, evaluator: property_evaluator): void {
     if (!id) {
       throw new Error("Unexpected id.");
     }
@@ -41,7 +34,7 @@ export class MockActionPlanner extends MockLuabindClass {
     this.evaluators[id] = evaluator;
   }
 
-  public add_action(id: TNumberId, actionBase: XR_action_base): void {
+  public add_action(id: TNumberId, actionBase: action_base): void {
     if (!id) {
       throw new Error("Unexpected id.");
     }
@@ -49,7 +42,7 @@ export class MockActionPlanner extends MockLuabindClass {
     this.actions[id] = actionBase;
   }
 
-  public set_goal_world_state(state: XR_world_state): void {
+  public set_goal_world_state(state: world_state): void {
     this.goalWorldState = state;
   }
 
@@ -65,14 +58,14 @@ export class MockActionPlanner extends MockLuabindClass {
 /**
  * Mock action planner object.
  */
-export function mockActionPlanner(): XR_action_planner {
-  return new MockActionPlanner() as unknown as XR_action_planner;
+export function mockActionPlanner(): action_planner {
+  return new MockActionPlanner() as unknown as action_planner;
 }
 
 /**
  * Mock action planner object.
  */
-export function mockDefaultActionPlanner(): XR_action_planner {
+export function mockDefaultActionPlanner(): action_planner {
   const actionPlanner: MockActionPlanner = new MockActionPlanner();
 
   actionPlanner.add_action(mockStalkerIds.action_alife_planner, mockActionBase());
@@ -82,5 +75,5 @@ export function mockDefaultActionPlanner(): XR_action_planner {
   actionPlanner.add_action(mockStalkerIds.action_accomplish_task, mockActionBase());
   actionPlanner.add_action(mockStalkerIds.action_combat_planner, mockActionBase());
 
-  return actionPlanner as unknown as XR_action_planner;
+  return actionPlanner as unknown as action_planner;
 }

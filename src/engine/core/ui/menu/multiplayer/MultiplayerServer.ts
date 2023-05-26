@@ -1,4 +1,4 @@
-import { CUIWindow, LuabindClass, XR_CScriptXmlInit, XR_CUIMapInfo, XR_CUIStatic } from "xray16";
+import { CScriptXmlInit, CUIMapInfo, CUIStatic, CUIWindow, LuabindClass } from "xray16";
 
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
 
@@ -7,10 +7,10 @@ import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMe
  */
 @LuabindClass()
 export class MultiplayerServer extends CUIWindow {
-  public map_pic!: XR_CUIStatic;
-  public map_info!: XR_CUIMapInfo;
+  public map_pic!: CUIStatic;
+  public map_info!: CUIMapInfo;
 
-  public initialize(x: number, y: number, xml: XR_CScriptXmlInit, owner: MultiplayerMenu): void {
+  public initialize(x: number, y: number, xml: CScriptXmlInit, owner: MultiplayerMenu): void {
     this.SetAutoDelete(true);
 
     xml.InitWindow("tab_server:main", 0, this);

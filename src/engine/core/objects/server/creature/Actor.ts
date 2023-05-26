@@ -1,14 +1,13 @@
 import {
   alife,
   CALifeSmartTerrainTask,
+  cse_alife_creature_abstract,
   cse_alife_creature_actor,
+  game_object,
   level,
   LuabindClass,
-  XR_CALifeSmartTerrainTask,
-  XR_cse_alife_creature_abstract,
-  XR_game_object,
-  XR_net_packet,
-  XR_vector,
+  net_packet,
+  vector,
 } from "xray16";
 
 import {
@@ -67,7 +66,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     unregisterSimulationObject(this);
   }
 
-  public override STATE_Write(packet: XR_net_packet): void {
+  public override STATE_Write(packet: net_packet): void {
     super.STATE_Write(packet);
 
     openSaveMarker(packet, Actor.__name);
@@ -75,7 +74,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     closeSaveMarker(packet, Actor.__name);
   }
 
-  public override STATE_Read(packet: XR_net_packet, size: number): void {
+  public override STATE_Read(packet: net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
     openLoadMarker(packet, Actor.__name);
@@ -83,7 +82,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     closeLoadMarker(packet, Actor.__name);
   }
 
-  public override on_death(killer: XR_cse_alife_creature_abstract): void {
+  public override on_death(killer: cse_alife_creature_abstract): void {
     super.on_death(killer);
 
     logger.info("On actor death:", this.name(), killer.id, killer?.name());
@@ -94,14 +93,14 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   /**
    * Get full actor location.
    */
-  public getGameLocation(): LuaMultiReturn<[XR_vector, TNumberId, TNumberId]> {
+  public getGameLocation(): LuaMultiReturn<[vector, TNumberId, TNumberId]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   }
 
   /**
    * Get generic task.
    */
-  public getAlifeSmartTerrainTask(): XR_CALifeSmartTerrainTask {
+  public getAlifeSmartTerrainTask(): CALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
   }
 
@@ -129,7 +128,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     }
 
     for (const [zoneName, smartName] of registry.noCombatZones) {
-      const zone: XR_game_object = registry.zones.get(zoneName);
+      const zone: game_object = registry.zones.get(zoneName);
 
       if (zone !== null && zone.inside(this.position)) {
         const smart = SimulationBoardManager.getInstance().getSmartTerrainByName(smartName);

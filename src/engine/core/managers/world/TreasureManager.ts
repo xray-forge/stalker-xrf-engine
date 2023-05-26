@@ -1,13 +1,13 @@
 import {
   alife,
+  alife_simulator,
+  cse_alife_object,
+  game_object,
+  ini_file,
   level,
+  net_packet,
   time_global,
   TXR_net_processor,
-  XR_alife_simulator,
-  XR_cse_alife_object,
-  XR_game_object,
-  XR_ini_file,
-  XR_net_packet,
 } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SECRETS_LTX } from "@/engine/core/database";
@@ -72,14 +72,14 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * Register server object in treasure manager.
    */
-  public static registerItem(serverObject: XR_cse_alife_object): Optional<boolean> {
+  public static registerItem(serverObject: cse_alife_object): Optional<boolean> {
     return TreasureManager.getInstance().registerItem(serverObject);
   }
 
   /**
    * Register server restrictor in treasure manager.
    */
-  public static registerRestrictor(serverObject: XR_cse_alife_object): Optional<boolean> {
+  public static registerRestrictor(serverObject: cse_alife_object): Optional<boolean> {
     return TreasureManager.getInstance().registerRestrictor(serverObject);
   }
 
@@ -166,8 +166,8 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public registerItem(serverObject: XR_cse_alife_object): Optional<boolean> {
-    const objectSpawnIni: XR_ini_file = serverObject.spawn_ini();
+  public registerItem(serverObject: cse_alife_object): Optional<boolean> {
+    const objectSpawnIni: ini_file = serverObject.spawn_ini();
 
     if (!objectSpawnIni.section_exist(TreasureManager.SECRET_LTX_SECTION)) {
       return null;
@@ -219,8 +219,8 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public registerRestrictor(serverObject: XR_cse_alife_object): boolean {
-    const spawnIni: XR_ini_file = serverObject.spawn_ini();
+  public registerRestrictor(serverObject: cse_alife_object): boolean {
+    const spawnIni: ini_file = serverObject.spawn_ini();
 
     if (spawnIni.section_exist(TreasureManager.SECRET_LTX_SECTION)) {
       this.secretsRestrictorByName.set(serverObject.name(), serverObject.id);
@@ -245,7 +245,7 @@ export class TreasureManager extends AbstractCoreManager {
       return;
     }
 
-    const simulator: XR_alife_simulator = alife();
+    const simulator: alife_simulator = alife();
     const secret: ITreasureSecret = this.secrets.get(treasureId);
 
     for (const [itemSection, itemParameters] of secret.items) {
@@ -257,8 +257,8 @@ export class TreasureManager extends AbstractCoreManager {
 
           if (probability < itemDescriptor.prob) {
             if (itemDescriptor.item_ids && itemDescriptor.item_ids.get(i)) {
-              const serverObject: XR_cse_alife_object = simulator.object(itemParameters.get(it).item_ids!.get(i))!;
-              const object: XR_cse_alife_object = simulator.create(
+              const serverObject: cse_alife_object = simulator.object(itemParameters.get(it).item_ids!.get(i))!;
+              const object: cse_alife_object = simulator.create(
                 itemSection,
                 serverObject.position,
                 serverObject.m_level_vertex_id,
@@ -386,7 +386,7 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * On item taken by actor, verify it is part of treasure.
    */
-  public onActorItemTake(object: XR_game_object): void {
+  public onActorItemTake(object: game_object): void {
     const objectId: TNumberId = object.id();
     const restrictorId: Optional<TNumberId> = this.secretsRestrictorByItem.get(objectId);
 
@@ -422,7 +422,7 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * Save manager data in network packet.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, TreasureManager.name);
 
     packet.w_bool(this.areItemsSpawned);

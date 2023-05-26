@@ -1,4 +1,4 @@
-import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
+import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
 
 import { EStalkerState } from "@/engine/core/objects/state";
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
@@ -27,8 +27,8 @@ export class SchemeAnimpoint extends AbstractScheme {
    * Activate animation scheme.
    */
   public static override activate(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     additional: string
@@ -61,13 +61,13 @@ export class SchemeAnimpoint extends AbstractScheme {
    * Add animation state to object state.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     schemeState: ISchemeAnimpointState
   ): void {
-    const actionPlanner: XR_action_planner = object.motivation_action_manager();
+    const actionPlanner: action_planner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(EEvaluatorId.IS_ANIMPOINT_NEEDED, new EvaluatorNeedAnimpoint(schemeState));
     actionPlanner.add_evaluator(EEvaluatorId.IS_ANIMPOINT_REACHED, new EvaluatorReachAnimpoint(schemeState));

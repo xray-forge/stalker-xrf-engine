@@ -1,4 +1,4 @@
-import { CUIWindow, LuabindClass, vector2, XR_CScriptXmlInit, XR_CUIScrollView, XR_CUIWindow } from "xray16";
+import { CScriptXmlInit, CUIScrollView, CUIWindow, LuabindClass, vector2 } from "xray16";
 
 import { OptionsDialog } from "@/engine/core/ui/menu/options/OptionsDialog";
 import { EGameRenderer } from "@/engine/core/ui/menu/options/types";
@@ -11,9 +11,9 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class OptionsVideoAdvanced extends CUIWindow {
-  public scrollView!: XR_CUIScrollView;
+  public scrollView!: CUIScrollView;
 
-  public initialize(x: number, y: number, xml: XR_CScriptXmlInit, owner: OptionsDialog): void {
+  public initialize(x: number, y: number, xml: CScriptXmlInit, owner: OptionsDialog): void {
     this.SetWndPos(new vector2().set(x, y));
     this.SetWndSize(new vector2().set(738, 416));
 
@@ -261,48 +261,48 @@ export class OptionsVideoAdvanced extends CUIWindow {
   }
 }
 
-function only1mode(control: XR_CUIWindow, id: EGameRenderer): void {
+function only1mode(control: CUIWindow, id: EGameRenderer): void {
   control.Enable(id === EGameRenderer.R1);
 }
 
 // -- >=R2a
-function only2aAndMoreMode(control: XR_CUIWindow, id: EGameRenderer): void {
+function only2aAndMoreMode(control: CUIWindow, id: EGameRenderer): void {
   control.Enable(id >= EGameRenderer.R2A);
 }
 
 // -- >=R2
-function only2andMoreMode(control: XR_CUIWindow, id: EGameRenderer): void {
+function only2andMoreMode(control: CUIWindow, id: EGameRenderer): void {
   control.Enable(id >= EGameRenderer.R2);
 }
 
 // -- >=R2.5
-function only25andMoreMode(control: XR_CUIWindow, id: EGameRenderer): void {
+function only25andMoreMode(control: CUIWindow, id: EGameRenderer): void {
   control.Enable(id >= EGameRenderer.R25);
 }
 
 // -- >=R3
-function only3andMoreMode(control: XR_CUIWindow, id: EGameRenderer): void {
+function only3andMoreMode(control: CUIWindow, id: EGameRenderer): void {
   control.Enable(id >= EGameRenderer.R3);
 }
 
-function only3andMoreModeVisible(control: XR_CUIWindow, id: EGameRenderer): void {
+function only3andMoreModeVisible(control: CUIWindow, id: EGameRenderer): void {
   const isEnabled: boolean = id >= EGameRenderer.R3;
 
   control.Enable(isEnabled);
   control.Show(isEnabled);
 }
 
-function only3andMoreModeInvisible(control: XR_CUIWindow, id: EGameRenderer): void {
+function only3andMoreModeInvisible(control: CUIWindow, id: EGameRenderer): void {
   const isEnabled: boolean = id < EGameRenderer.R3;
 
   control.Enable(isEnabled);
   control.Show(isEnabled);
 }
 
-function only4(control: XR_CUIWindow, id: EGameRenderer) {
+function only4(control: CUIWindow, id: EGameRenderer) {
   return id === EGameRenderer.R4;
 }
 
-function only4andMore(control: XR_CUIWindow, id: EGameRenderer) {
+function only4andMore(control: CUIWindow, id: EGameRenderer) {
   return id >= EGameRenderer.R4;
 }

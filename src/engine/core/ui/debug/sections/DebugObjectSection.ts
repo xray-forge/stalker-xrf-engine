@@ -1,12 +1,4 @@
-import {
-  level,
-  LuabindClass,
-  ui_events,
-  XR_CUI3tButton,
-  XR_CUICheckButton,
-  XR_CUIStatic,
-  XR_game_object,
-} from "xray16";
+import { CUI3tButton, CUICheckButton, CUIStatic, game_object, level, LuabindClass, ui_events } from "xray16";
 
 import { DebugManager } from "@/engine/core/managers/debug/DebugManager";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
@@ -24,16 +16,16 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class DebugObjectSection extends AbstractDebugSection {
-  public nearestStalkerLabel!: XR_CUIStatic;
-  public targetStalkerLabel!: XR_CUIStatic;
+  public nearestStalkerLabel!: CUIStatic;
+  public targetStalkerLabel!: CUIStatic;
 
-  public useTargetCheck!: XR_CUICheckButton;
-  public useTargetCheckLabel!: XR_CUIStatic;
-  public logPlannerStateButton!: XR_CUI3tButton;
-  public logInventoryStateButton!: XR_CUI3tButton;
-  public logRelationsStateButton!: XR_CUI3tButton;
-  public logStateManagerReportButton!: XR_CUI3tButton;
-  public logStateButton!: XR_CUI3tButton;
+  public useTargetCheck!: CUICheckButton;
+  public useTargetCheckLabel!: CUIStatic;
+  public logPlannerStateButton!: CUI3tButton;
+  public logInventoryStateButton!: CUI3tButton;
+  public logRelationsStateButton!: CUI3tButton;
+  public logStateManagerReportButton!: CUI3tButton;
+  public logStateButton!: CUI3tButton;
 
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
@@ -73,8 +65,8 @@ export class DebugObjectSection extends AbstractDebugSection {
   public initializeState(): void {
     if (isGameStarted()) {
       const debugManager: DebugManager = DebugManager.getInstance();
-      const nearestStalker: Optional<XR_game_object> = debugManager.getNearestClientObject();
-      const targetStalker: Optional<XR_game_object> = level.get_target_obj();
+      const nearestStalker: Optional<game_object> = debugManager.getNearestClientObject();
+      const targetStalker: Optional<game_object> = level.get_target_obj();
 
       this.nearestStalkerLabel.SetText("Nearest: " + (nearestStalker ? nearestStalker.name() : NIL));
       this.targetStalkerLabel.SetText("Target: " + (targetStalker ? targetStalker.name() : NIL));
@@ -91,7 +83,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<XR_game_object> = this.getCurrentObject();
+    const targetObject: Optional<game_object> = this.getCurrentObject();
 
     if (targetObject) {
       DebugManager.getInstance().logObjectPlannerState(targetObject);
@@ -105,7 +97,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<XR_game_object> = this.getCurrentObject();
+    const targetObject: Optional<game_object> = this.getCurrentObject();
 
     if (targetObject) {
       DebugManager.getInstance().logObjectInventoryItems(targetObject);
@@ -119,7 +111,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<XR_game_object> = this.getCurrentObject();
+    const targetObject: Optional<game_object> = this.getCurrentObject();
 
     if (targetObject) {
       DebugManager.getInstance().logObjectState(targetObject);
@@ -133,7 +125,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<XR_game_object> = this.getCurrentObject();
+    const targetObject: Optional<game_object> = this.getCurrentObject();
 
     if (targetObject) {
       DebugManager.getInstance().logObjectRelations(targetObject);
@@ -147,7 +139,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<XR_game_object> = this.getCurrentObject();
+    const targetObject: Optional<game_object> = this.getCurrentObject();
 
     if (targetObject) {
       DebugManager.getInstance().logObjectStateManager(targetObject);
@@ -156,7 +148,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     }
   }
 
-  public getCurrentObject(): Optional<XR_game_object> {
+  public getCurrentObject(): Optional<game_object> {
     return this.useTargetCheck.GetCheck()
       ? level.get_target_obj()
       : DebugManager.getInstance().getNearestClientObject();

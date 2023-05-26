@@ -1,4 +1,4 @@
-import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
+import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -25,8 +25,8 @@ export class SchemeCorpseDetection extends AbstractScheme {
    * todo: Description.
    */
   public static override activate(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: Optional<TSection>
   ): void {
@@ -37,13 +37,13 @@ export class SchemeCorpseDetection extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeCorpseDetectionState
   ): void {
-    const manager: XR_action_planner = object.motivation_action_manager();
+    const manager: action_planner = object.motivation_action_manager();
 
     // Evaluators
     manager.add_evaluator(EEvaluatorId.IS_CORPSE_EXISTING, new EvaluatorCorpseDetect(state));
@@ -74,7 +74,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
    * todo: Description.
    */
   public static override reset(
-    object: XR_game_object,
+    object: game_object,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
@@ -91,7 +91,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static isUnderCorpseDetection(object: XR_game_object): boolean {
+  public static isUnderCorpseDetection(object: game_object): boolean {
     const manager = object.motivation_action_manager();
 
     if (!manager.initialized()) {
@@ -104,11 +104,11 @@ export class SchemeCorpseDetection extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static getAllFromCorpse(object: XR_game_object): void {
+  public static getAllFromCorpse(object: game_object): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());
     const corpseObjectId: Optional<TNumberId> = (state[EScheme.CORPSE_DETECTION] as ISchemeCorpseDetectionState)
       .selected_corpse_id;
-    const corpseObject: Optional<XR_game_object> =
+    const corpseObject: Optional<game_object> =
       corpseObjectId === null ? null : registry.objects.get(corpseObjectId)?.object;
 
     if (corpseObject === null) {

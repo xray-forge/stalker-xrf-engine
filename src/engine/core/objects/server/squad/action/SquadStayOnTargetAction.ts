@@ -1,4 +1,4 @@
-import { game, XR_CTime } from "xray16";
+import { CTime, game } from "xray16";
 
 import { ISquadAction, Squad } from "@/engine/core/objects";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
@@ -17,7 +17,7 @@ export class SquadStayOnTargetAction implements ISquadAction {
     this.squad = squad;
   }
 
-  public actionStartTime: Optional<XR_CTime> = null;
+  public actionStartTime: Optional<CTime> = null;
   public actionIdleTime: TDuration = math.random(
     logicsConfig.SQUAD.STAY_POINT_IDLE_MIN,
     logicsConfig.SQUAD.STAY_POINT_IDLE_MAX

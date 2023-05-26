@@ -1,8 +1,8 @@
-import { XR_CHelicopter, XR_game_object } from "xray16";
+import { CHelicopter, game_object } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 
-export function get_heli_health(heli: XR_CHelicopter, state: IRegistryObjectState): number {
+export function get_heli_health(heli: CHelicopter, state: IRegistryObjectState): number {
   let health: number;
 
   if (state.invulnerable) {
@@ -20,6 +20,6 @@ export function get_heli_health(heli: XR_CHelicopter, state: IRegistryObjectStat
   return health;
 }
 
-export function is_heli_alive(obj: XR_game_object): boolean {
+export function is_heli_alive(obj: game_object): boolean {
   return get_heli_health(obj.get_helicopter(), registry.objects.get(obj.id())) > 0.005;
 }

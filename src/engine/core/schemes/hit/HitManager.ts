@@ -1,4 +1,4 @@
-import { XR_game_object, XR_vector } from "xray16";
+import { game_object, vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -17,10 +17,10 @@ export class HitManager extends AbstractSchemeManager<ISchemeHitState> {
    * todo: Description.
    */
   public hit_callback(
-    object: XR_game_object,
+    object: game_object,
     amount: TCount,
-    local_direction: XR_vector,
-    who: Optional<XR_game_object>,
+    local_direction: vector,
+    who: Optional<game_object>,
     boneIndex: TIndex
   ): void {
     // todo: Probably play around with this and avoid this external refs. this.state?

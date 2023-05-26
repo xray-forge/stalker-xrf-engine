@@ -1,4 +1,4 @@
-import { device, game_graph, vector, XR_game_object, XR_vector } from "xray16";
+import { device, game_graph, game_object, vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -12,7 +12,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo: Description
  */
-export function yaw(v1: XR_vector, v2: XR_vector): TRate {
+export function yaw(v1: vector, v2: vector): TRate {
   return math.acos(
     (v1.x * v2.x + v1.z * v2.z) / (math.sqrt(v1.x * v1.x + v1.z * v1.z) * math.sqrt(v2.x * v2.x + v2.z * v2.z))
   );
@@ -21,7 +21,7 @@ export function yaw(v1: XR_vector, v2: XR_vector): TRate {
 /**
  * todo: Description
  */
-export function yawDegree(v1: XR_vector, v2: XR_vector): TRate {
+export function yawDegree(v1: vector, v2: vector): TRate {
   return (
     math.acos(
       (v1.x * v2.x + v1.z * v2.z) / (math.sqrt(v1.x * v1.x + v1.z * v1.z) * math.sqrt(v2.x * v2.x + v2.z * v2.z))
@@ -32,7 +32,7 @@ export function yawDegree(v1: XR_vector, v2: XR_vector): TRate {
 /**
  * todo: Description
  */
-export function yawDegree3d(v1: XR_vector, v2: XR_vector): TRate {
+export function yawDegree3d(v1: vector, v2: vector): TRate {
   return (
     math.acos(
       (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z) /
@@ -44,14 +44,14 @@ export function yawDegree3d(v1: XR_vector, v2: XR_vector): TRate {
 /**
  * todo: Description
  */
-export function vectorCross(v1: XR_vector, v2: XR_vector): XR_vector {
+export function vectorCross(v1: vector, v2: vector): vector {
   return new vector().set(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x);
 }
 
 /**
  * todo: Description
  */
-export function vectorRotateY(target: XR_vector, angleBase: TRate): XR_vector {
+export function vectorRotateY(target: vector, angleBase: TRate): vector {
   const angle: TRate = angleBase * PI_DEGREE;
   const cos: number = math.cos(angle);
   const sin: number = math.sin(angle);
@@ -63,9 +63,9 @@ export function vectorRotateY(target: XR_vector, angleBase: TRate): XR_vector {
  todo: Description
  todo: Be more generic to object, do not rely on 'npc' part.
  */
-export function npcInActorFrustum(object: XR_game_object): boolean {
-  const actorDirection: XR_vector = device().cam_dir;
-  const npcDirection: XR_vector = object.position().sub(registry.actor.position());
+export function npcInActorFrustum(object: game_object): boolean {
+  const actorDirection: vector = device().cam_dir;
+  const npcDirection: vector = object.position().sub(registry.actor.position());
 
   return yawDegree3d(actorDirection, npcDirection) < logicsConfig.ACTOR_VISIBILITY_FRUSTUM;
 }
@@ -73,7 +73,7 @@ export function npcInActorFrustum(object: XR_game_object): boolean {
 /**
  * todo: Description
  */
-export function distanceBetween(first: XR_game_object, second: XR_game_object): number {
+export function distanceBetween(first: game_object, second: game_object): number {
   return first.position().distance_to(second.position());
 }
 
@@ -101,9 +101,9 @@ export function degreeToRadian(degree: number): number {
 /**
  *
  */
-export function angleDiff(a1: XR_vector, a2: XR_vector): number {
-  const b1: XR_vector = a1.normalize();
-  const b2: XR_vector = a2.normalize();
+export function angleDiff(a1: vector, a2: vector): number {
+  const b1: vector = a1.normalize();
+  const b2: vector = a2.normalize();
 
   return radianToDegree(math.acos(math.abs(b1.dotproduct(b2))));
 }
@@ -111,8 +111,8 @@ export function angleDiff(a1: XR_vector, a2: XR_vector): number {
 /**
  *
  */
-export function angleLeft(dir1: XR_vector, dir2: XR_vector): boolean {
-  const direction: XR_vector = new vector();
+export function angleLeft(dir1: vector, dir2: vector): boolean {
+  const direction: vector = new vector();
 
   direction.crossproduct(dir1, dir2);
 
@@ -122,10 +122,10 @@ export function angleLeft(dir1: XR_vector, dir2: XR_vector): boolean {
 /**
  *
  */
-export function angleLeftXZ(dir1: XR_vector, dir2: XR_vector): boolean {
-  const dir1XZ: XR_vector = new XR_vector().set(dir1);
-  const dir2XZ: XR_vector = new XR_vector().set(dir2);
-  const dir: XR_vector = new vector();
+export function angleLeftXZ(dir1: vector, dir2: vector): boolean {
+  const dir1XZ: vector = new vector().set(dir1);
+  const dir2XZ: vector = new vector().set(dir2);
+  const dir: vector = new vector();
 
   dir1XZ.y = 0;
   dir2XZ.y = 0;
@@ -138,7 +138,7 @@ export function angleLeftXZ(dir1: XR_vector, dir2: XR_vector): boolean {
 /**
  * todo;
  */
-export function angleToDirection(angle: XR_vector): XR_vector {
+export function angleToDirection(angle: vector): vector {
   const yaw: number = angle.y;
   const pitch: number = angle.x;
 
@@ -149,21 +149,21 @@ export function angleToDirection(angle: XR_vector): XR_vector {
  * todo
  * todo
  */
-export function getDistanceBetween(first: XR_game_object, second: XR_game_object): number {
+export function getDistanceBetween(first: game_object, second: game_object): number {
   return first.position().distance_to(second.position());
 }
 
 /**
  * todo: Description
  */
-export function distanceBetween2d(first: XR_vector, second: XR_vector): number {
+export function distanceBetween2d(first: vector, second: vector): number {
   return math.sqrt((second.x - first.x) ** 2 + (second.z - first.z) ** 2);
 }
 
 /**
  * todo: Description
  */
-export function distanceBetweenSafe(first: Optional<XR_game_object>, second: Optional<XR_game_object>): number {
+export function distanceBetweenSafe(first: Optional<game_object>, second: Optional<game_object>): number {
   if (first !== null && second !== null) {
     return first.position().distance_to(second.position());
   }
@@ -175,7 +175,7 @@ export function distanceBetweenSafe(first: Optional<XR_game_object>, second: Opt
  * Check if vectors are same by value.
  * Matches all dimensions with '==='.
  */
-export function areSameVectors(first: XR_vector, second: XR_vector): boolean {
+export function areSameVectors(first: vector, second: vector): boolean {
   return first.x === second.x && first.y === second.y && first.z === second.z;
 }
 
@@ -183,7 +183,7 @@ export function areSameVectors(first: XR_vector, second: XR_vector): boolean {
  * Check if vectors are same by value with precision.
  * Matches all dimensions with eps diff.
  */
-export function areSameVectorsByPrecision(first: XR_vector, second: XR_vector, eps: TRate): boolean {
+export function areSameVectorsByPrecision(first: vector, second: vector, eps: TRate): boolean {
   return (
     math.abs(first.x - second.x) <= eps && math.abs(first.y - second.y) <= eps && math.abs(first.z - second.z) <= eps
   );

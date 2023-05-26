@@ -1,24 +1,21 @@
 import {
   CScriptXmlInit,
+  CUI3tButton,
+  CUICheckButton,
+  CUIEditBox,
   CUIMessageBoxEx,
   CUIMMShniaga,
   CUIScriptWnd,
+  CUITextWnd,
   CUIWindow,
   DIK_keys,
   Frect,
   login_operation_cb,
   LuabindClass,
+  profile,
   TXR_DIK_key,
   TXR_ui_event,
   ui_events,
-  XR_CScriptXmlInit,
-  XR_CUI3tButton,
-  XR_CUICheckButton,
-  XR_CUIEditBox,
-  XR_CUIMessageBoxEx,
-  XR_CUITextWnd,
-  XR_CUIWindow,
-  XR_profile,
 } from "xray16";
 
 import { MainMenu } from "@/engine/core/ui/menu/MainMenu";
@@ -36,13 +33,13 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class MultiplayerLocalnet extends CUIScriptWnd {
   public owner: MainMenu;
 
-  public login_page!: XR_CUIWindow;
-  public btn_login!: XR_CUI3tButton;
-  public btn_cancel!: XR_CUI3tButton;
-  public lp_header_login!: XR_CUITextWnd;
-  public lp_nickname!: XR_CUIEditBox;
-  public gs_login_message_box!: XR_CUIMessageBoxEx;
-  public lp_check_remember_me!: XR_CUICheckButton;
+  public login_page!: CUIWindow;
+  public btn_login!: CUI3tButton;
+  public btn_cancel!: CUI3tButton;
+  public lp_header_login!: CUITextWnd;
+  public lp_nickname!: CUIEditBox;
+  public gs_login_message_box!: CUIMessageBoxEx;
+  public lp_check_remember_me!: CUICheckButton;
 
   /**
    * todo: Description.
@@ -60,7 +57,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
    * todo: Description.
    */
   public initControls(): void {
-    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
+    const xml: CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
 
@@ -121,7 +118,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
   /**
    * todo: Description.
    */
-  public loginOperationResult(profile: Optional<XR_profile>, description: string) {
+  public loginOperationResult(profile: Optional<profile>, description: string) {
     logger.info("Login operation result:", type(profile), type(description));
 
     if (profile === null) {

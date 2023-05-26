@@ -1,13 +1,13 @@
 import {
   CScriptXmlInit,
   CUIScriptWnd,
+  CUIStatic,
   DIK_keys,
   LuabindClass,
   TXR_DIK_key,
   TXR_ui_event,
   ui_events,
   vector2,
-  XR_CUIStatic,
 } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -26,7 +26,7 @@ export interface INumPadWindowOwner {
 export class NumPadWindow extends CUIScriptWnd {
   public owner: Optional<INumPadWindowOwner>;
 
-  public editBox!: XR_CUIStatic;
+  public editBox!: CUIStatic;
 
   public constructor(owner: Optional<INumPadWindowOwner>) {
     super();

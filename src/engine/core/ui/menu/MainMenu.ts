@@ -1,29 +1,27 @@
 import {
+  account_manager,
   alife,
+  CMainMenu,
+  CScriptXmlInit,
   CUIMessageBoxEx,
   CUIMMShniaga,
   CUIScriptWnd,
+  CUIStatic,
   device,
   DIK_keys,
   Frect,
   game,
+  game_object,
   IsGameTypeSingle,
   level,
+  login_manager,
   LuabindClass,
   main_menu,
+  profile,
+  profile_store,
   TXR_DIK_key,
   TXR_ui_event,
   ui_events,
-  XR_account_manager,
-  XR_CMainMenu,
-  XR_CScriptXmlInit,
-  XR_CUIMessageBoxEx,
-  XR_CUIMMShniaga,
-  XR_CUIStatic,
-  XR_game_object,
-  XR_login_manager,
-  XR_profile,
-  XR_profile_store,
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
@@ -61,15 +59,15 @@ enum EMainMenuModalMode {
  */
 @LuabindClass()
 export class MainMenu extends CUIScriptWnd {
-  public readonly xrAccountManager: XR_account_manager;
-  public readonly xrProfileStore: XR_profile_store;
-  public readonly xrLoginManager: XR_login_manager;
-  public xrGameSpyProfile: Optional<XR_profile>;
+  public readonly xrAccountManager: account_manager;
+  public readonly xrProfileStore: profile_store;
+  public readonly xrLoginManager: login_manager;
+  public xrGameSpyProfile: Optional<profile>;
 
-  public readonly xrMenuController: XR_CMainMenu = main_menu.get_main_menu();
-  public xrMenuPageController!: XR_CUIMMShniaga;
+  public readonly xrMenuController: CMainMenu = main_menu.get_main_menu();
+  public xrMenuPageController!: CUIMMShniaga;
 
-  public uiModalBox!: XR_CUIMessageBoxEx;
+  public uiModalBox!: CUIMessageBoxEx;
   public modalBoxMode: EMainMenuModalMode = EMainMenuModalMode.OFF;
 
   public uiMultiplayerMenuDialog: Optional<MultiplayerMenu> = null;
@@ -103,7 +101,7 @@ export class MainMenu extends CUIScriptWnd {
   public initControls(): void {
     this.SetWndRect(new Frect().set(0, 0, gameConfig.UI.BASE_WIDTH, gameConfig.UI.BASE_HEIGHT));
 
-    const xml: XR_CScriptXmlInit = resolveXmlFile(base);
+    const xml: CScriptXmlInit = resolveXmlFile(base);
 
     xml.InitStatic("background", this);
 
@@ -112,7 +110,7 @@ export class MainMenu extends CUIScriptWnd {
 
     this.Register(this.uiModalBox, "msg_box");
 
-    const version: XR_CUIStatic = xml.InitStatic("static_version", this);
+    const version: CUIStatic = xml.InitStatic("static_version", this);
 
     version.TextControl().SetText(string.format(gameConfig.VERSION, this.xrMenuController.GetGSVer()));
 
@@ -482,7 +480,7 @@ export class MainMenu extends CUIScriptWnd {
     if (event === ui_events.WINDOW_KEY_PRESSED) {
       switch (key) {
         case DIK_keys.DIK_ESCAPE: {
-          const actor: Optional<XR_game_object> = registry.actor;
+          const actor: Optional<game_object> = registry.actor;
 
           if (level.present() && ((actor !== null && actor.alive()) || !IsGameTypeSingle())) {
             this.onButtonClickReturnToGame();

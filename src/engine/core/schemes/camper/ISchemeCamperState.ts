@@ -1,4 +1,4 @@
-import { XR_vector } from "xray16";
+import { vector } from "xray16";
 
 import { EStalkerState } from "@/engine/core/objects/state";
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
@@ -9,7 +9,7 @@ import { LuaArray, Optional, TCount, TDistance, TDuration, TIndex, TName, TTimes
  */
 export interface ICampPoint {
   key: number;
-  pos: XR_vector;
+  pos: vector;
 }
 
 /**

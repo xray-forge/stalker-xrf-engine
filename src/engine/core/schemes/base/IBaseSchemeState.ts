@@ -1,4 +1,4 @@
-import type { XR_game_object, XR_ini_file } from "xray16";
+import type { game_object, ini_file } from "xray16";
 
 import type { TConditionList } from "@/engine/core/utils/parse";
 import type {
@@ -27,8 +27,8 @@ export interface IBaseSchemeLogic {
  * todo;
  */
 export interface IBaseSchemeState {
-  npc: XR_game_object;
-  ini: XR_ini_file;
+  npc: game_object;
+  ini: ini_file;
   logic: Optional<LuaArray<IBaseSchemeLogic>>;
   signals: Optional<LuaTable<TName, boolean>>; // Rework with LuaSet?
   scheme: EScheme;

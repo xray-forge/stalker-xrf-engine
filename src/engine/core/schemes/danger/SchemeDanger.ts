@@ -1,14 +1,12 @@
 import {
+  action_base,
+  action_planner,
   cast_planner,
   danger_object,
   game_object,
+  ini_file,
   stalker_ids,
   TXR_danger_object,
-  XR_action_base,
-  XR_action_planner,
-  XR_danger_object,
-  XR_game_object,
-  XR_ini_file,
 } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
@@ -36,7 +34,7 @@ export class SchemeDanger extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
     AbstractScheme.assign(object, ini, scheme, section);
   }
 
@@ -44,15 +42,15 @@ export class SchemeDanger extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeDangerState
   ): void {
-    const actionPlanner: XR_action_planner = object.motivation_action_manager();
-    const dangerAction: XR_action_base = actionPlanner.action(stalker_ids.action_danger_planner);
-    const dangerActionPlanner: XR_action_planner = cast_planner(dangerAction);
+    const actionPlanner: action_planner = object.motivation_action_manager();
+    const dangerAction: action_base = actionPlanner.action(stalker_ids.action_danger_planner);
+    const dangerActionPlanner: action_planner = cast_planner(dangerAction);
 
     actionPlanner.remove_evaluator(stalker_ids.property_danger);
     actionPlanner.add_evaluator(stalker_ids.property_danger, new EvaluatorDanger(state, this));
@@ -65,7 +63,7 @@ export class SchemeDanger extends AbstractScheme {
    * todo: Description.
    */
   public static override reset(
-    object: XR_game_object,
+    object: game_object,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
@@ -74,14 +72,14 @@ export class SchemeDanger extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static isObjectFacingDanger(object: XR_game_object): boolean {
-    const bestDanger: Optional<XR_danger_object> = object.best_danger();
+  public static isObjectFacingDanger(object: game_object): boolean {
+    const bestDanger: Optional<danger_object> = object.best_danger();
 
     if (bestDanger === null) {
       return false;
     }
 
-    let bestDangerObject: Optional<XR_game_object> = bestDanger.object();
+    let bestDangerObject: Optional<game_object> = bestDanger.object();
     const bestDangerType: TXR_danger_object = bestDanger.type();
 
     if (bestDangerType !== danger_object.grenade && bestDanger.dependent_object() !== null) {

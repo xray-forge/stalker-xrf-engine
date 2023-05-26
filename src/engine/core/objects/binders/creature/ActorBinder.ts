@@ -1,15 +1,15 @@
 import {
   alife,
   callback,
+  CGameTask,
+  cse_alife_creature_actor,
+  game_object,
   level,
   LuabindClass,
+  net_packet,
   object_binder,
+  reader,
   TXR_TaskState,
-  XR_CGameTask,
-  XR_cse_alife_creature_actor,
-  XR_game_object,
-  XR_net_packet,
-  XR_reader,
 } from "xray16";
 
 import {
@@ -48,7 +48,7 @@ export class ActorBinder extends object_binder {
   // todo: Move out deimos related logic / data.
   public deimosIntensity: Optional<number> = null;
 
-  public override net_spawn(data: XR_cse_alife_creature_actor): boolean {
+  public override net_spawn(data: cse_alife_creature_actor): boolean {
     level.show_indicators();
 
     if (!super.net_spawn(data)) {
@@ -101,25 +101,25 @@ export class ActorBinder extends object_binder {
 
     destroyPortableStore(this.object);
 
-    this.object.set_callback(callback.inventory_info, (object: XR_game_object, info: string) => {
+    this.object.set_callback(callback.inventory_info, (object: game_object, info: string) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_INFO_UPDATE, object, info);
     });
-    this.object.set_callback(callback.take_item_from_box, (box: XR_game_object, item: XR_game_object) => {
+    this.object.set_callback(callback.take_item_from_box, (box: game_object, item: game_object) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_TAKE_BOX_ITEM, box, item);
     });
-    this.object.set_callback(callback.on_item_drop, (item: XR_game_object) => {
+    this.object.set_callback(callback.on_item_drop, (item: game_object) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_DROP, item);
     });
-    this.object.set_callback(callback.trade_sell_buy_item, (item: XR_game_object, sellBuy: boolean, money: number) => {
+    this.object.set_callback(callback.trade_sell_buy_item, (item: game_object, sellBuy: boolean, money: number) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_TRADE, item, sellBuy, money);
     });
-    this.object.set_callback(callback.task_state, (task: XR_CGameTask, state: TXR_TaskState) => {
+    this.object.set_callback(callback.task_state, (task: CGameTask, state: TXR_TaskState) => {
       this.eventsManager.emitEvent(EGameEvent.TASK_STATE_UPDATE, task, state);
     });
-    this.object.set_callback(callback.on_item_take, (object: XR_game_object) => {
+    this.object.set_callback(callback.on_item_take, (object: game_object) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_TAKE, object);
     });
-    this.object.set_callback(callback.use_object, (object: XR_game_object) => {
+    this.object.set_callback(callback.use_object, (object: game_object) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_USE_ITEM, object);
     });
   }
@@ -138,7 +138,7 @@ export class ActorBinder extends object_binder {
     updateSimulationObjectAvailability(alife().actor<Actor>());
   }
 
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, ActorBinder.__name);
 
     super.save(packet);
@@ -167,7 +167,7 @@ export class ActorBinder extends object_binder {
     closeSaveMarker(packet, ActorBinder.__name);
   }
 
-  public override load(reader: XR_reader): void {
+  public override load(reader: reader): void {
     this.isFirstUpdatePerformed = false;
 
     openLoadMarker(reader, ActorBinder.__name);

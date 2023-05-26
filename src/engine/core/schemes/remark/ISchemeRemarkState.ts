@@ -1,4 +1,4 @@
-import type { XR_vector } from "xray16";
+import type { vector } from "xray16";
 
 import type { IBaseSchemeState } from "@/engine/core/schemes/base";
 import type { IConfigSwitchCondition } from "@/engine/core/utils/parse";
@@ -15,6 +15,6 @@ export interface ISchemeRemarkState extends IBaseSchemeState {
   sender: Optional<TStringId>;
   target: StringOptional;
   target_id: Optional<TNumberId>;
-  target_position: Optional<XR_vector>;
+  target_position: Optional<vector>;
   target_init: Optional<boolean>;
 }

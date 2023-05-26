@@ -1,4 +1,4 @@
-import { stalker_ids, world_property, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
+import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
@@ -22,7 +22,7 @@ export class SchemeAbuse extends AbstractScheme {
   /**
    * Activate abuse scheme.
    */
-  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
     AbstractScheme.assign(object, ini, scheme, section);
   }
 
@@ -30,13 +30,13 @@ export class SchemeAbuse extends AbstractScheme {
    * Add scheme to object state.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeAbuseState
   ): void {
-    const actionPlanner: XR_action_planner = object.motivation_action_manager();
+    const actionPlanner: action_planner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(EEvaluatorId.IS_ABUSED, new EvaluatorAbuse(state));
 
@@ -59,7 +59,7 @@ export class SchemeAbuse extends AbstractScheme {
    * Reset scheme for an object.
    */
   public static override reset(
-    object: XR_game_object,
+    object: game_object,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
@@ -68,7 +68,7 @@ export class SchemeAbuse extends AbstractScheme {
   /**
    * Increment abuse for object.
    */
-  public static addAbuse(object: XR_game_object, value: TCount): void {
+  public static addAbuse(object: game_object, value: TCount): void {
     const abuseState: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
       SchemeAbuse.SCHEME_SECTION
     ] as ISchemeAbuseState;
@@ -79,7 +79,7 @@ export class SchemeAbuse extends AbstractScheme {
   /**
    * Clear abuse state for object.
    */
-  public static clearAbuse(object: XR_game_object): void {
+  public static clearAbuse(object: game_object): void {
     const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
       SchemeAbuse.SCHEME_SECTION
     ] as ISchemeAbuseState;
@@ -90,7 +90,7 @@ export class SchemeAbuse extends AbstractScheme {
   /**
    * Disable abuse for object.
    */
-  public static disableAbuse(object: XR_game_object): void {
+  public static disableAbuse(object: game_object): void {
     const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
       SchemeAbuse.SCHEME_SECTION
     ] as ISchemeAbuseState;
@@ -101,7 +101,7 @@ export class SchemeAbuse extends AbstractScheme {
   /**
    * Enable abuse for object.
    */
-  public static enableAbuse(object: XR_game_object): void {
+  public static enableAbuse(object: game_object): void {
     const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
       SchemeAbuse.SCHEME_SECTION
     ] as ISchemeAbuseState;

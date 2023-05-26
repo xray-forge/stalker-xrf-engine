@@ -1,4 +1,4 @@
-import { XR_CUIGameCustom, XR_CUIStatic } from "xray16";
+import { CUIGameCustom, CUIStatic } from "xray16";
 
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
 import { LuaArray, Optional, TCount, TStringId } from "@/engine/lib/types";
@@ -12,6 +12,6 @@ export interface ISchemeTimerState extends IBaseSchemeState {
   on_value: Optional<LuaArray<any>>;
   timer_id: TStringId;
   string: Optional<string>;
-  ui: XR_CUIGameCustom;
-  timer: XR_CUIStatic;
+  ui: CUIGameCustom;
+  timer: CUIStatic;
 }

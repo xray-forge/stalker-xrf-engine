@@ -1,4 +1,4 @@
-import { TXR_snd_type, XR_game_object, XR_ini_file, XR_vector } from "xray16";
+import { game_object, ini_file, TXR_snd_type, vector } from "xray16";
 
 import { getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes";
@@ -34,12 +34,12 @@ export class ActionSchemeHear extends AbstractScheme {
    * todo: Description.
    */
   public static override reset(
-    object: XR_game_object,
+    object: game_object,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
   ): void {
-    const ini: XR_ini_file = state.ini;
+    const ini: ini_file = state.ini;
 
     if (!ini.section_exist(section)) {
       return;
@@ -69,10 +69,10 @@ export class ActionSchemeHear extends AbstractScheme {
    * todo: Description.
    */
   public static onObjectHearSound(
-    object: XR_game_object,
+    object: game_object,
     whoId: TNumberId,
     soundType: TXR_snd_type,
-    soundPosition: XR_vector,
+    soundPosition: vector,
     soundPower: TRate
   ): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());

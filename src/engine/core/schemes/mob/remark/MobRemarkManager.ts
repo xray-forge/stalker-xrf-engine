@@ -1,4 +1,4 @@
-import { anim, cond, MonsterSpace, sound, TXR_MonsterBodyStateKey, XR_cond } from "xray16";
+import { anim, cond, MonsterSpace, sound, TXR_MonsterBodyStateKey } from "xray16";
 
 import { registry, setMonsterState } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/interface/notifications";
@@ -48,7 +48,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
     }
 
     let tm: number;
-    let cnd: XR_cond;
+    let cnd: cond;
 
     for (const [num, an] of animationsList) {
       sndset = snds.get(num);

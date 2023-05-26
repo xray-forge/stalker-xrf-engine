@@ -1,9 +1,24 @@
 import {
+  CConsole,
+  CMainMenu,
   connect_error_cb,
   COptionsManager,
   CScriptXmlInit,
+  CServerList,
+  CUI3tButton,
+  CUICheckButton,
+  CUIComboBox,
+  CUIEditBox,
+  CUIEditBoxEx,
+  CUIMapList,
   CUIMessageBoxEx,
+  CUIProgressBar,
   CUIScriptWnd,
+  CUISpinFlt,
+  CUISpinNum,
+  CUISpinText,
+  CUIStatic,
+  CUITabControl,
   CUIWindow,
   DIK_keys,
   Frect,
@@ -14,32 +29,12 @@ import {
   login_operation_cb,
   LuabindClass,
   main_menu,
+  Patch_Dawnload_Progress,
+  profile,
   SServerFilters,
   TXR_DIK_key,
   TXR_ui_event,
   ui_events,
-  XR_CConsole,
-  XR_CMainMenu,
-  XR_COptionsManager,
-  XR_CScriptXmlInit,
-  XR_CServerList,
-  XR_CUI3tButton,
-  XR_CUICheckButton,
-  XR_CUIComboBox,
-  XR_CUIEditBox,
-  XR_CUIEditBoxEx,
-  XR_CUIMapList,
-  XR_CUIMessageBoxEx,
-  XR_CUIProgressBar,
-  XR_CUISpinFlt,
-  XR_CUISpinNum,
-  XR_CUISpinText,
-  XR_CUIStatic,
-  XR_CUITabControl,
-  XR_CUIWindow,
-  XR_Patch_Dawnload_Progress,
-  XR_profile,
-  XR_SServerFilters,
 } from "xray16";
 
 import { MainMenu } from "@/engine/core/ui/menu/MainMenu";
@@ -66,10 +61,10 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public owner: MainMenu;
   public online: boolean;
 
-  public tab!: XR_CUITabControl;
-  public message_box!: XR_CUIMessageBoxEx;
-  public cdkey!: XR_CUIEditBox;
-  public playerNameEditBox!: XR_CUIEditBox;
+  public tab!: CUITabControl;
+  public message_box!: CUIMessageBoxEx;
+  public cdkey!: CUIEditBox;
+  public playerNameEditBox!: CUIEditBox;
 
   public dialogMultiplayerJoin!: MultiplayerJoin;
   public dialogMultiplayerOptions!: MultiplayerOptions;
@@ -77,55 +72,55 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public dialogMultiplayerDemo!: MultiplayerDemo;
   public dialogMultiplayerProfile!: MultiplayerProfile;
 
-  public server_list!: XR_CServerList;
-  public map_list!: XR_CUIMapList;
-  public btn_direct_ip!: XR_CUI3tButton;
-  public filters!: Record<string, XR_CUICheckButton>;
-  public spin_max_ping!: XR_CUISpinText;
-  public spin_spectator!: XR_CUISpinNum;
-  public check_dedicated!: XR_CUICheckButton;
-  public check_demosave!: XR_CUICheckButton;
-  public check_spectator!: XR_CUICheckButton;
-  public check_spec_freefly!: XR_CUICheckButton;
-  public check_spec_firsteye!: XR_CUICheckButton;
-  public check_spec_lookat!: XR_CUICheckButton;
-  public check_spec_freelook!: XR_CUICheckButton;
-  public check_spec_teamonly!: XR_CUICheckButton;
-  public check_allow_voting!: XR_CUICheckButton;
-  public check_auto_team_balance!: XR_CUICheckButton;
-  public check_auto_team_swap!: XR_CUICheckButton;
-  public check_damage_block!: XR_CUICheckButton;
-  public check_friendly_indicators!: XR_CUICheckButton;
-  public check_friendly_names!: XR_CUICheckButton;
-  public check_no_anmalies!: XR_CUICheckButton;
-  public check_pda_hunt!: XR_CUICheckButton;
-  public check_activated_return!: XR_CUICheckButton;
-  public spin_artreturn_time!: XR_CUISpinNum;
-  public spin_anomaly_time!: XR_CUISpinNum;
-  public spin_warm_up_time!: XR_CUISpinNum;
-  public spin_rate_of_change!: XR_CUISpinFlt;
-  public spin_damage_block!: XR_CUISpinNum;
-  public spin_frag_limit!: XR_CUISpinNum;
-  public spin_time_limit!: XR_CUISpinNum;
-  public spin_friendly_fire!: XR_CUISpinFlt;
-  public spin_force_respawn!: XR_CUISpinNum;
-  public spin_max_players!: XR_CUISpinNum;
-  public spin_artefacts_num!: XR_CUISpinNum;
-  public spin_artefact_delay!: XR_CUISpinNum;
-  public spin_artefact_stay!: XR_CUISpinNum;
-  public spin_reinforcement!: XR_CUISpinNum;
-  public spin_mode!: XR_CUISpinText;
-  public spin_weather!: XR_CUIComboBox;
-  public tab_respawn!: XR_CUITabControl;
-  public edit_server_name!: XR_CUIEditBoxEx;
-  public edit_password!: XR_CUIEditBox;
-  public cap_download!: XR_CUIStatic;
-  public text_download!: XR_CUIStatic;
-  public download_progress!: XR_CUIProgressBar;
-  public btn_cancel_download!: XR_CUI3tButton;
-  public btn_create!: XR_CUI3tButton;
-  public btn_play_demo!: XR_CUI3tButton;
-  public btn_join!: XR_CUI3tButton;
+  public server_list!: CServerList;
+  public map_list!: CUIMapList;
+  public btn_direct_ip!: CUI3tButton;
+  public filters!: Record<string, CUICheckButton>;
+  public spin_max_ping!: CUISpinText;
+  public spin_spectator!: CUISpinNum;
+  public check_dedicated!: CUICheckButton;
+  public check_demosave!: CUICheckButton;
+  public check_spectator!: CUICheckButton;
+  public check_spec_freefly!: CUICheckButton;
+  public check_spec_firsteye!: CUICheckButton;
+  public check_spec_lookat!: CUICheckButton;
+  public check_spec_freelook!: CUICheckButton;
+  public check_spec_teamonly!: CUICheckButton;
+  public check_allow_voting!: CUICheckButton;
+  public check_auto_team_balance!: CUICheckButton;
+  public check_auto_team_swap!: CUICheckButton;
+  public check_damage_block!: CUICheckButton;
+  public check_friendly_indicators!: CUICheckButton;
+  public check_friendly_names!: CUICheckButton;
+  public check_no_anmalies!: CUICheckButton;
+  public check_pda_hunt!: CUICheckButton;
+  public check_activated_return!: CUICheckButton;
+  public spin_artreturn_time!: CUISpinNum;
+  public spin_anomaly_time!: CUISpinNum;
+  public spin_warm_up_time!: CUISpinNum;
+  public spin_rate_of_change!: CUISpinFlt;
+  public spin_damage_block!: CUISpinNum;
+  public spin_frag_limit!: CUISpinNum;
+  public spin_time_limit!: CUISpinNum;
+  public spin_friendly_fire!: CUISpinFlt;
+  public spin_force_respawn!: CUISpinNum;
+  public spin_max_players!: CUISpinNum;
+  public spin_artefacts_num!: CUISpinNum;
+  public spin_artefact_delay!: CUISpinNum;
+  public spin_artefact_stay!: CUISpinNum;
+  public spin_reinforcement!: CUISpinNum;
+  public spin_mode!: CUISpinText;
+  public spin_weather!: CUIComboBox;
+  public tab_respawn!: CUITabControl;
+  public edit_server_name!: CUIEditBoxEx;
+  public edit_password!: CUIEditBox;
+  public cap_download!: CUIStatic;
+  public text_download!: CUIStatic;
+  public download_progress!: CUIProgressBar;
+  public btn_cancel_download!: CUI3tButton;
+  public btn_create!: CUI3tButton;
+  public btn_play_demo!: CUI3tButton;
+  public btn_join!: CUI3tButton;
 
   public constructor(owner: MainMenu, isOnlineMode: boolean) {
     super();
@@ -142,7 +137,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public InitControls(): void {
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
 
-    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
+    const xml: CScriptXmlInit = new CScriptXmlInit();
 
     if (this.online) {
       xml.ParseFile(resolveXmlFormPath(baseOnline));
@@ -154,7 +149,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
 
     this.Enable(true);
 
-    const wrk_area: XR_CUIWindow = new CUIWindow();
+    const wrk_area: CUIWindow = new CUIWindow();
 
     xml.InitWindow("wrk_area", 0, wrk_area);
     wrk_area.SetAutoDelete(true);
@@ -229,8 +224,8 @@ export class MultiplayerMenu extends CUIScriptWnd {
     this.btn_cancel_download = xml.Init3tButton("btn_cancel_download", wrk_area);
     this.Register(this.btn_cancel_download, "btn_cancel_download");
 
-    const version: XR_CUIStatic = xml.InitStatic("static_version", this);
-    const mm: XR_CMainMenu = main_menu.get_main_menu();
+    const version: CUIStatic = xml.InitStatic("static_version", this);
+    const mm: CMainMenu = main_menu.get_main_menu();
 
     version.TextControl().SetText(string.format(gameConfig.VERSION, mm.GetGSVer()));
 
@@ -246,7 +241,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
   }
 
   public UpdateControls(): void {
-    const optionsManager: XR_COptionsManager = new COptionsManager();
+    const optionsManager: COptionsManager = new COptionsManager();
 
     optionsManager.SetCurrentValues(EOptionGroup.MULTIPLAYER_CLIENT);
     optionsManager.SetCurrentValues(EOptionGroup.MULTIPLAYER_SERVER);
@@ -378,7 +373,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
         "/psw=" +
         this.message_box.GetPassword() +
         ")";
-      const console: XR_CConsole = get_console();
+      const console: CConsole = get_console();
 
       console.execute(cmd);
     }
@@ -388,7 +383,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     logger.info("CD key changed");
 
     const cdKey: string = this.cdkey.GetText();
-    const console: XR_CConsole = get_console();
+    const console: CConsole = get_console();
 
     console.execute("cdkey " + (cdKey === "" ? "clear" : cdKey));
   }
@@ -431,7 +426,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public OnFilterChange(): void {
     logger.info("Filter change");
 
-    const sf: XR_SServerFilters = new SServerFilters();
+    const sf: SServerFilters = new SServerFilters();
 
     sf.empty = this.filters.btn_check_empty.GetCheck();
     sf.full = this.filters.btn_check_full.GetCheck();
@@ -446,7 +441,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public OnDemoSaveChange(): void {
     logger.info("Demo save change");
 
-    const console: XR_CConsole = get_console();
+    const console: CConsole = get_console();
 
     if (this.check_demosave.GetCheck()) {
       console.execute("cl_mpdemosave 1");
@@ -517,7 +512,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public OnBtn_Calncel(): void {
     logger.info("Button cancel");
 
-    const opt: XR_COptionsManager = new COptionsManager();
+    const opt: COptionsManager = new COptionsManager();
 
     opt.UndoGroup("mm_mp_client");
     opt.UndoGroup("mm_mp_server");
@@ -538,14 +533,14 @@ export class MultiplayerMenu extends CUIScriptWnd {
       return;
     }
 
-    const mm: XR_CMainMenu = main_menu.get_main_menu();
-    const gs_profile: Optional<XR_profile> = this.owner.xrLoginManager.get_current_profile();
+    const mm: CMainMenu = main_menu.get_main_menu();
+    const gs_profile: Optional<profile> = this.owner.xrLoginManager.get_current_profile();
 
     if (gs_profile && gs_profile.online() && mm.ValidateCDKey() === false) {
       return;
     }
 
-    const opt: XR_COptionsManager = new COptionsManager();
+    const opt: COptionsManager = new COptionsManager();
 
     opt.SaveValues("mm_mp_server");
     opt.SaveValues("mm_mp_client");
@@ -555,7 +550,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     if (this.check_dedicated.GetCheck()) {
       this.map_list.StartDedicatedServer();
     } else {
-      const console: XR_CConsole = get_console();
+      const console: CConsole = get_console();
       const command: string = this.map_list.GetCommandLine(this.owner.xrGameSpyProfile!.unique_nick());
       // --this.player_name.GetText())
 
@@ -835,7 +830,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public onJoinButtonClicked(): void {
     logger.info("Join clicked");
 
-    const optionsManager: XR_COptionsManager = new COptionsManager();
+    const optionsManager: COptionsManager = new COptionsManager();
 
     optionsManager.SaveValues(EOptionGroup.MULTIPLAYER_CLIENT);
     optionsManager.SaveValues(EOptionGroup.MULTIPLAYER_SERVER);
@@ -868,7 +863,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
   public override Update(): void {
     super.Update();
 
-    const patchDownload: XR_Patch_Dawnload_Progress = main_menu.get_main_menu().GetPatchProgress();
+    const patchDownload: Patch_Dawnload_Progress = main_menu.get_main_menu().GetPatchProgress();
 
     if (patchDownload.GetInProgress()) {
       this.text_download.Show(true);

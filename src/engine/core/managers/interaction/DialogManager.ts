@@ -1,4 +1,4 @@
-import { level, TXR_net_processor, XR_CPhraseDialog, XR_CPhraseScript, XR_game_object, XR_net_packet } from "xray16";
+import { CPhraseDialog, CPhraseScript, game_object, level, net_packet, TXR_net_processor } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, DIALOG_MANAGER_LTX, openSaveMarker, registry } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
@@ -146,7 +146,7 @@ export class DialogManager extends AbstractCoreManager {
     }
   }
 
-  public initializeNewDialog(dialog: XR_CPhraseDialog): void {
+  public initializeNewDialog(dialog: CPhraseDialog): void {
     logger.info("Init new dialog");
 
     const eventsManager: EventsManager = EventsManager.getInstance();
@@ -180,7 +180,7 @@ export class DialogManager extends AbstractCoreManager {
         const index = this.getNextPhraseId();
         const str = actor_table.get(i);
         let phrase = dialog.AddPhrase("dm_" + str + "_general", tostring(index), tostring(j), -10000);
-        let script: XR_CPhraseScript = phrase.GetPhraseScript();
+        let script: CPhraseScript = phrase.GetPhraseScript();
 
         if (str === "anomalies") {
           script.AddPrecondition("dialogs.npc_stalker");
@@ -231,13 +231,13 @@ export class DialogManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public initializeStartDialogs(dialog: XR_CPhraseDialog, data: string): void {
+  public initializeStartDialogs(dialog: CPhraseDialog, data: string): void {
     logger.info("Initialize start dialogs");
 
     dialog.AddPhrase("", tostring(0), "", -10000);
 
     let phrase = dialog.AddPhrase("", tostring(1), tostring(0), -10000);
-    let script: XR_CPhraseScript = phrase.GetPhraseScript();
+    let script: CPhraseScript = phrase.GetPhraseScript();
 
     script.AddAction(string.format("dialog_manager.fill_priority_%s_table", data));
 
@@ -280,7 +280,7 @@ export class DialogManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public fillPriorityTable(object: XR_game_object, PT_subtable: TPHRTable, PRT_subtable: TPRTTable): void {
+  public fillPriorityTable(object: game_object, PT_subtable: TPHRTable, PRT_subtable: TPRTTable): void {
     const objectId: TNumberId = object.id();
 
     if (PRT_subtable.get(objectId) === null) {
@@ -300,7 +300,7 @@ export class DialogManager extends AbstractCoreManager {
   public calculatePhrasePriority(
     PRT_subtable: TPRTTable,
     PTID_subtable: IPhrasesDescriptor,
-    object: XR_game_object,
+    object: game_object,
     phraseId: TStringId
   ): TRate {
     const objectId: TNumberId = object.id();
@@ -408,21 +408,21 @@ export class DialogManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public isTold(object: XR_game_object, phrase: TStringId): boolean {
+  public isTold(object: game_object, phrase: TStringId): boolean {
     return this.priority_table.get(phrase).get(object.id())?.told === true;
   }
 
   /**
    * todo;
    */
-  public resetForObject(object: XR_game_object): void {
+  public resetForObject(object: game_object): void {
     this.disabledPhrases.delete(object.id());
   }
 
   /**
    * todo;
    */
-  public saveObjectDialogs(packet: XR_net_packet, object: XR_game_object): void {
+  public saveObjectDialogs(packet: net_packet, object: game_object): void {
     openSaveMarker(packet, DialogManager.name);
 
     const objectId: TNumberId = object.id();
@@ -439,7 +439,7 @@ export class DialogManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public loadObjectDialogs(reader: TXR_net_processor, object: XR_game_object): void {
+  public loadObjectDialogs(reader: TXR_net_processor, object: game_object): void {
     openLoadMarker(reader, DialogManager.name);
 
     reader.r_bool();
@@ -454,7 +454,7 @@ export class DialogManager extends AbstractCoreManager {
   /**
    * On interaction with new game object.
    */
-  public onInteractWithObject(object: XR_game_object, who: XR_game_object): void {
+  public onInteractWithObject(object: game_object, who: game_object): void {
     registry.activeSpeaker = object;
   }
 }

@@ -1,4 +1,4 @@
-import { game, XR_game_object } from "xray16";
+import { game, game_object } from "xray16";
 
 import { getPortableStoreValue, registry } from "@/engine/core/database";
 import { extern } from "@/engine/core/utils/binding";
@@ -11,7 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-extern("xr_conditions.signal", (actor: XR_game_object, npc: XR_game_object, p: [string]): boolean => {
+extern("xr_conditions.signal", (actor: game_object, npc: game_object, p: [string]): boolean => {
   if (p[0]) {
     const st = registry.objects.get(npc.id());
     const sigs = st[st.active_scheme!]!.signals;
@@ -27,7 +27,7 @@ extern("xr_conditions.signal", (actor: XR_game_object, npc: XR_game_object, p: [
  */
 extern(
   "xr_conditions.counter_greater",
-  (actor: XR_game_object, npc: XR_game_object, p: [Optional<string>, Optional<number>]): boolean => {
+  (actor: game_object, npc: game_object, p: [Optional<string>, Optional<number>]): boolean => {
     if (p[0] && p[1]) {
       return getPortableStoreValue(actor, p[0], 0) > p[1];
     } else {
@@ -41,7 +41,7 @@ extern(
  */
 extern(
   "xr_conditions.counter_equal",
-  (actor: XR_game_object, npc: XR_game_object, p: [Optional<string>, Optional<number>]): boolean => {
+  (actor: game_object, npc: game_object, p: [Optional<string>, Optional<number>]): boolean => {
     if (p[0] && p[1]) {
       return getPortableStoreValue(actor, p[0], 0) === p[1];
     } else {

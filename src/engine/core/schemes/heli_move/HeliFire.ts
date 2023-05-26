@@ -1,14 +1,14 @@
 import {
+  CHelicopter,
   CScriptXmlInit,
+  CUIGameCustom,
+  CUIProgressBar,
+  game_object,
   get_hud,
   level,
+  StaticDrawableWrapper,
   time_global,
-  XR_CHelicopter,
-  XR_CUIGameCustom,
-  XR_CUIProgressBar,
-  XR_game_object,
-  XR_StaticDrawableWrapper,
-  XR_vector,
+  vector,
 } from "xray16";
 
 import { getIdBySid, registry } from "@/engine/core/database";
@@ -25,11 +25,11 @@ const heli_firer: LuaTable<number, HeliFire> = new LuaTable();
 export class HeliFire {
   public static readonly HELI_STATIC_UI_XML_PATH: string = "game\\heli\\heli_progress.xml";
 
-  public object: XR_game_object;
+  public object: game_object;
   public enemy_: Optional<string>;
-  public enemy: Optional<XR_game_object>;
+  public enemy: Optional<game_object>;
   public enemy_id: Optional<number>;
-  public fire_point: Optional<XR_vector>;
+  public fire_point: Optional<vector>;
   public flag_by_enemy: boolean;
   public hit_count: number;
   public fire_id: any;
@@ -38,9 +38,9 @@ export class HeliFire {
   public upd_vis: number;
   public show_health: boolean;
 
-  public heli_progress: Optional<XR_CUIProgressBar> = null;
+  public heli_progress: Optional<CUIProgressBar> = null;
 
-  public constructor(object: XR_game_object) {
+  public constructor(object: game_object) {
     this.object = object;
     this.enemy_ = null;
     this.fire_point = null;
@@ -89,7 +89,7 @@ export class HeliFire {
   }
 
   public cs_heli(): void {
-    const hud: XR_CUIGameCustom = get_hud();
+    const hud: CUIGameCustom = get_hud();
     const custom_static = hud.GetCustomStatic("cs_heli_health");
 
     if (custom_static === null) {
@@ -134,8 +134,8 @@ export class HeliFire {
   }
 
   public cs_remove(): void {
-    const hud: XR_CUIGameCustom = get_hud();
-    const custom_static: Optional<XR_StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
+    const hud: CUIGameCustom = get_hud();
+    const custom_static: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
 
     if (custom_static) {
       hud.RemoveCustomStatic("cs_heli_health");
@@ -212,13 +212,13 @@ export class HeliFire {
   }
 
   public update_enemy_arr(): void {
-    const heli: XR_CHelicopter = this.object.get_helicopter();
+    const heli: CHelicopter = this.object.get_helicopter();
     let index: number = 0;
     let min_dist2D: number = MAX_U16;
 
     while (index < registry.helicopter.enemyIndex) {
       if (registry.helicopter.enemies.has(index)) {
-        const enemy: XR_game_object = registry.helicopter.enemies.get(index);
+        const enemy: game_object = registry.helicopter.enemies.get(index);
 
         if (heli.isVisible(enemy)) {
           if (distanceBetween2d(this.object.position(), enemy.position()) < min_dist2D) {
@@ -232,7 +232,7 @@ export class HeliFire {
       index = index + 1;
     }
 
-    const actor: XR_game_object = registry.actor;
+    const actor: game_object = registry.actor;
 
     if ((heli.isVisible(actor) && randomChoice(false, true)) || registry.helicopter.enemyIndex === 0) {
       if (distanceBetween2d(this.object.position(), actor.position()) <= min_dist2D * 2) {
@@ -242,7 +242,7 @@ export class HeliFire {
   }
 }
 
-export function get_heli_firer(object: XR_game_object): HeliFire {
+export function get_heli_firer(object: game_object): HeliFire {
   if (heli_firer.get(object.id()) === null) {
     heli_firer.set(object.id(), new HeliFire(object));
   }

@@ -1,4 +1,4 @@
-import { get_hud, level, XR_game_object } from "xray16";
+import { game_object, get_hud, level } from "xray16";
 
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { PsyAntennaManager } from "@/engine/core/managers/world/PsyAntennaManager";
@@ -60,7 +60,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   /**
    * todo: Description.
    */
-  public switch_state(actor: XR_game_object): void {
+  public switch_state(actor: game_object): void {
     if (this.antennaState !== state_inside) {
       if (this.object.inside(actor.position())) {
         this.zone_enter();

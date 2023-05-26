@@ -2,9 +2,15 @@ import {
   account_operation_cb,
   account_profiles_cb,
   CScriptXmlInit,
+  CUI3tButton,
+  CUICheckButton,
+  CUIComboBox,
+  CUIEditBox,
   CUIMessageBoxEx,
   CUIMMShniaga,
   CUIScriptWnd,
+  CUIStatic,
+  CUITextWnd,
   CUIWindow,
   DIK_keys,
   found_email_cb,
@@ -12,21 +18,12 @@ import {
   game,
   login_operation_cb,
   LuabindClass,
+  profile,
   store_operation_cb,
   suggest_nicks_cb,
   TXR_DIK_key,
   TXR_ui_event,
   ui_events,
-  XR_CScriptXmlInit,
-  XR_CUI3tButton,
-  XR_CUICheckButton,
-  XR_CUIComboBox,
-  XR_CUIEditBox,
-  XR_CUIMessageBoxEx,
-  XR_CUIStatic,
-  XR_CUITextWnd,
-  XR_CUIWindow,
-  XR_profile,
 } from "xray16";
 
 import { MainMenu } from "@/engine/core/ui/menu/MainMenu";
@@ -56,35 +53,35 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
   public password: string = "";
   public profile_name: string = "";
 
-  public login_page!: XR_CUIWindow;
-  public create_account_page!: XR_CUIWindow;
-  public lp_header_login!: XR_CUITextWnd;
-  public lp_btn_forgot!: XR_CUI3tButton;
-  public lp_password!: XR_CUIEditBox;
-  public lp_email!: XR_CUIEditBox;
-  public lp_check_remember_me!: XR_CUICheckButton;
-  public ca_email!: XR_CUIEditBox;
-  public ca_header_create_acc!: XR_CUITextWnd;
-  public ca_error!: XR_CUITextWnd;
-  public ca_password!: XR_CUIEditBox;
-  public ca_st_password!: XR_CUIStatic;
-  public ca_st_email!: XR_CUIStatic;
-  public ca_confirm_password!: XR_CUIEditBox;
-  public ca_st_confirm_password!: XR_CUIStatic;
-  public ca_unique_nick!: XR_CUIEditBox;
-  public ca_st_unique_nick!: XR_CUIStatic;
-  public ca_combo_aval_unique_nick!: XR_CUIComboBox;
-  public btn_create_acc!: XR_CUI3tButton;
-  public btn_create!: XR_CUI3tButton;
-  public btn_login!: XR_CUI3tButton;
-  public btn_cancel!: XR_CUI3tButton;
-  public gs_message_box!: XR_CUIMessageBoxEx;
-  public gs_mb_create_vnick_cancel!: XR_CUIMessageBoxEx;
-  public gs_mb_create_vemail_cancel!: XR_CUIMessageBoxEx;
-  public gs_create_mb_result!: XR_CUIMessageBoxEx;
-  public gs_login_mb_result!: XR_CUIMessageBoxEx;
-  public gs_login_mb_profnotfound!: XR_CUIMessageBoxEx;
-  public gs_login_mb_cancel!: XR_CUIMessageBoxEx;
+  public login_page!: CUIWindow;
+  public create_account_page!: CUIWindow;
+  public lp_header_login!: CUITextWnd;
+  public lp_btn_forgot!: CUI3tButton;
+  public lp_password!: CUIEditBox;
+  public lp_email!: CUIEditBox;
+  public lp_check_remember_me!: CUICheckButton;
+  public ca_email!: CUIEditBox;
+  public ca_header_create_acc!: CUITextWnd;
+  public ca_error!: CUITextWnd;
+  public ca_password!: CUIEditBox;
+  public ca_st_password!: CUIStatic;
+  public ca_st_email!: CUIStatic;
+  public ca_confirm_password!: CUIEditBox;
+  public ca_st_confirm_password!: CUIStatic;
+  public ca_unique_nick!: CUIEditBox;
+  public ca_st_unique_nick!: CUIStatic;
+  public ca_combo_aval_unique_nick!: CUIComboBox;
+  public btn_create_acc!: CUI3tButton;
+  public btn_create!: CUI3tButton;
+  public btn_login!: CUI3tButton;
+  public btn_cancel!: CUI3tButton;
+  public gs_message_box!: CUIMessageBoxEx;
+  public gs_mb_create_vnick_cancel!: CUIMessageBoxEx;
+  public gs_mb_create_vemail_cancel!: CUIMessageBoxEx;
+  public gs_create_mb_result!: CUIMessageBoxEx;
+  public gs_login_mb_result!: CUIMessageBoxEx;
+  public gs_login_mb_profnotfound!: CUIMessageBoxEx;
+  public gs_login_mb_cancel!: CUIMessageBoxEx;
 
   public constructor(owner: MainMenu) {
     super();
@@ -96,7 +93,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
   }
 
   public InitControls(): void {
-    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
+    const xml: CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
 
@@ -456,7 +453,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     }
   }
 
-  public LoginOperationResult(profile: Optional<XR_profile>, description: string) {
+  public LoginOperationResult(profile: Optional<profile>, description: string) {
     logger.info("Login operation result:", type(profile), description);
     this.gs_login_mb_cancel.HideDialog();
 

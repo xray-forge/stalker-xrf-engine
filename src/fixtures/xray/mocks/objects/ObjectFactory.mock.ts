@@ -1,4 +1,4 @@
-import { TXR_class_key, XR_object_factory } from "xray16";
+import { object_factory, TXR_class_key } from "xray16";
 
 /**
  * todo;
@@ -33,7 +33,7 @@ export class MockObjectFactory {
 /**
  * todo;
  */
-export function mockObjectFactory(): [XR_object_factory, MockObjectFactory] {
+export function mockObjectFactory(): [object_factory, MockObjectFactory] {
   const factory: MockObjectFactory = new MockObjectFactory();
 
   return [factory, factory];

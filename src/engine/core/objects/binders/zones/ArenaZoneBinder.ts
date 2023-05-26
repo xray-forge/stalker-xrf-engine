@@ -1,14 +1,14 @@
 import {
   alife,
+  alife_simulator,
   callback,
   clsid,
+  cse_alife_object,
+  game_object,
   LuabindClass,
+  net_packet,
   object_binder,
-  XR_alife_simulator,
-  XR_cse_alife_object,
-  XR_game_object,
-  XR_net_packet,
-  XR_reader,
+  reader,
 } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
@@ -31,7 +31,7 @@ const arena_zones: LuaTable<string, ArenaZoneBinder> = new LuaTable();
 export class ArenaZoneBinder extends object_binder {
   public savedObjects: LuaTable<TNumberId, boolean> = new LuaTable();
 
-  public constructor(object: XR_game_object) {
+  public constructor(object: game_object) {
     super(object);
     arena_zones.set(object.name(), this);
   }
@@ -39,7 +39,7 @@ export class ArenaZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -64,7 +64,7 @@ export class ArenaZoneBinder extends object_binder {
    * todo: Description.
    */
   public purge_items(): void {
-    const simulator: XR_alife_simulator = alife();
+    const simulator: alife_simulator = alife();
 
     for (const [k, v] of this.savedObjects) {
       const object = simulator.object(k);
@@ -76,7 +76,7 @@ export class ArenaZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     super.save(packet);
 
     openSaveMarker(packet, ArenaZoneBinder.__name);
@@ -93,7 +93,7 @@ export class ArenaZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override load(reader: XR_reader): void {
+  public override load(reader: reader): void {
     super.load(reader);
 
     openLoadMarker(reader, ArenaZoneBinder.__name);
@@ -110,7 +110,7 @@ export class ArenaZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public on_enter(zone: XR_game_object, object: XR_game_object): void {
+  public on_enter(zone: game_object, object: game_object): void {
     if (
       object.id() === registry.actor.id() ||
       object.clsid() === clsid.obj_physic ||
@@ -126,7 +126,7 @@ export class ArenaZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public on_exit(zone: XR_game_object, object: XR_game_object): void {
+  public on_exit(zone: game_object, object: game_object): void {
     if (
       object.id() === registry.actor.id() ||
       object.clsid() === clsid.obj_physic ||

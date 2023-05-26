@@ -2,17 +2,16 @@ import {
   alife,
   CALifeSmartTerrainTask,
   clsid,
+  cse_alife_creature_abstract,
+  cse_alife_object,
   cse_alife_online_offline_group,
   game_graph,
+  game_object,
   level,
   LuabindClass,
+  net_packet,
   patrol,
-  XR_CALifeSmartTerrainTask,
-  XR_cse_alife_creature_abstract,
-  XR_cse_alife_object,
-  XR_game_object,
-  XR_net_packet,
-  XR_vector,
+  vector,
 } from "xray16";
 
 import {
@@ -198,7 +197,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     }
   }
 
-  public override STATE_Write(packet: XR_net_packet): void {
+  public override STATE_Write(packet: net_packet): void {
     super.STATE_Write(packet);
 
     openSaveMarker(packet, Squad.__name);
@@ -211,7 +210,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     closeSaveMarker(packet, Squad.__name);
   }
 
-  public override STATE_Read(packet: XR_net_packet, size: TCount): void {
+  public override STATE_Read(packet: net_packet, size: TCount): void {
     super.STATE_Read(packet, size);
 
     openLoadMarker(packet, Squad.__name);
@@ -516,7 +515,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     // Second loop is to prevent iteration breaking when iterating + mutating?
     for (const [id, v] of squadMembers) {
-      const object: Optional<XR_cse_alife_object> = alife().object(id);
+      const object: Optional<cse_alife_object> = alife().object(id);
 
       if (object !== null) {
         this.unregister_member(id);
@@ -530,7 +529,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public onSquadObjectDeath(object: XR_cse_alife_creature_abstract): void {
+  public onSquadObjectDeath(object: cse_alife_creature_abstract): void {
     logger.info("On object death:", this.name(), object.name());
 
     this.soundManager.unregisterObject(object.id);
@@ -564,7 +563,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     smartTerrain: Optional<SmartTerrain>,
     oldSmartTerrainId: Optional<TNumberId>
   ): void {
-    const object: Optional<XR_cse_alife_creature_abstract> = alife().object<XR_cse_alife_creature_abstract>(memberId);
+    const object: Optional<cse_alife_creature_abstract> = alife().object<cse_alife_creature_abstract>(memberId);
 
     if (object !== null) {
       logger.info("Assign squad member to squad:", this.name(), smartTerrain?.name(), object.name());
@@ -689,7 +688,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public addSquadMember(spawnSection: TSection, spawnPosition: XR_vector, lvi: TNumberId, gvi: TNumberId): TNumberId {
+  public addSquadMember(spawnSection: TSection, spawnPosition: vector, lvi: TNumberId, gvi: TNumberId): TNumberId {
     logger.info("Add squad member:", this.name());
 
     const customData = readIniString(SYSTEM_INI, spawnSection, "custom_data", false, "", "default_custom_data.ltx");
@@ -735,7 +734,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       parseConditionsList(spawnPointData)
     )!;
 
-    let baseSpawnPosition: XR_vector = spawnSmartTerrain.position;
+    let baseSpawnPosition: vector = spawnSmartTerrain.position;
     let baseLevelVertexId: TNumberId = spawnSmartTerrain.m_level_vertex_id;
     let baseGameVertexId: TNumberId = spawnSmartTerrain.m_game_vertex_id;
 
@@ -795,7 +794,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     if (squadSympathy !== null) {
       for (const squadMembers of this.squad_members()) {
-        const object: Optional<XR_game_object> =
+        const object: Optional<game_object> =
           registry.objects.get(squadMembers.id) && registry.objects.get(squadMembers.id).object!;
 
         if (object !== null) {
@@ -816,7 +815,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public updateSquadRelationToActor(relation: Optional<TRelation> = this.relationship): void {
     if (relation !== null) {
       for (const squadMember of this.squad_members()) {
-        const object: Optional<XR_game_object> = registry.objects.get(squadMember.id)?.object;
+        const object: Optional<game_object> = registry.objects.get(squadMember.id)?.object;
 
         if (object !== null) {
           setObjectsRelation(object, registry.actor, relation);
@@ -830,13 +829,13 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * Set squad position in current level by supplied vector.
    */
-  public setSquadPosition(position: XR_vector): void {
+  public setSquadPosition(position: vector): void {
     if (!this.online) {
       this.force_change_position(position);
     }
 
     for (const squadMember of this.squad_members()) {
-      const object: Optional<XR_game_object> = level.object_by_id(squadMember.id);
+      const object: Optional<game_object> = level.object_by_id(squadMember.id);
 
       registry.offlineObjects.get(squadMember.id).levelVertexId = level.vertex_id(position);
 
@@ -854,7 +853,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    */
   public hasDetector(): boolean {
     for (const k of this.squad_members()) {
-      const target = alife().object<XR_cse_alife_creature_abstract>(k.id);
+      const target = alife().object<cse_alife_creature_abstract>(k.id);
 
       if (target !== null && target.has_detector()) {
         return true;
@@ -1032,7 +1031,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     const currentCommunity: TCommunity = this.getCommunity();
 
     for (const [id, v] of registry.actorCombat) {
-      const enemySquadId: Optional<TNumberId> = alife().object<XR_cse_alife_creature_abstract>(id)!.group_id;
+      const enemySquadId: Optional<TNumberId> = alife().object<cse_alife_creature_abstract>(id)!.group_id;
 
       if (enemySquadId !== null) {
         const targetSquad: Optional<Squad> = alife().object<Squad>(enemySquadId);
@@ -1081,14 +1080,14 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public getGameLocation(): LuaMultiReturn<[XR_vector, TNumberId, TNumberId]> {
+  public getGameLocation(): LuaMultiReturn<[vector, TNumberId, TNumberId]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   }
 
   /**
    * todo: Description.
    */
-  public override get_current_task(): XR_CALifeSmartTerrainTask {
+  public override get_current_task(): CALifeSmartTerrainTask {
     if (this.assignedTargetId !== null && alife().object(this.assignedTargetId) !== null) {
       const smartTerrain: Optional<SmartTerrain> = alife().object<SmartTerrain>(this.assignedTargetId)!;
 
@@ -1137,7 +1136,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public getAlifeSmartTerrainTask(): XR_CALifeSmartTerrainTask {
+  public getAlifeSmartTerrainTask(): CALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
   }
 
@@ -1150,7 +1149,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     }
 
     for (const [zoneName, smartTerrainName] of registry.noCombatZones) {
-      const zone: XR_game_object = registry.zones.get(zoneName);
+      const zone: game_object = registry.zones.get(zoneName);
 
       if (zone && zone.inside(this.position)) {
         const smartTerrain: Optional<SmartTerrain> =

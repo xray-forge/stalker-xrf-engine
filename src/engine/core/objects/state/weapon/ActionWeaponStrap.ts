@@ -1,4 +1,4 @@
-import { action_base, LuabindClass, object, XR_game_object } from "xray16";
+import { action_base, game_object, LuabindClass, object } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { getObjectAnimationWeapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
@@ -28,7 +28,7 @@ export class ActionWeaponStrap extends action_base {
 
     super.initialize();
 
-    const weapon: Optional<XR_game_object> = getObjectAnimationWeapon(this.object, this.stateManager.targetState);
+    const weapon: Optional<game_object> = getObjectAnimationWeapon(this.object, this.stateManager.targetState);
 
     if (isStrappableWeapon(weapon)) {
       this.object.set_item(object.strap, weapon);

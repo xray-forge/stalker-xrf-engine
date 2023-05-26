@@ -1,12 +1,4 @@
-import {
-  game,
-  level,
-  time_global,
-  TXR_net_processor,
-  verify_if_thread_is_running,
-  XR_CTime,
-  XR_net_packet,
-} from "xray16";
+import { CTime, game, level, net_packet, time_global, TXR_net_processor, verify_if_thread_is_running } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
@@ -24,7 +16,7 @@ function addTimeDigit(data: string, digit: number): string {
 /**
  * todo;
  */
-export function gameTimeToString(time: XR_CTime): string {
+export function gameTimeToString(time: CTime): string {
   const [y, m, d, h, min] = time.get(0, 0, 0, 0, 0, 0, 0);
 
   let dateTime: TLabel = "";
@@ -109,7 +101,7 @@ export function wait(timeToWait: Optional<TDuration> = null): void {
 /**
  * todo;
  */
-export function writeTimeToPacket(packet: XR_net_packet, time: Optional<XR_CTime>): void {
+export function writeTimeToPacket(packet: net_packet, time: Optional<CTime>): void {
   if (time === null) {
     return packet.w_u8(MAX_U8);
   }
@@ -128,14 +120,14 @@ export function writeTimeToPacket(packet: XR_net_packet, time: Optional<XR_CTime
 /**
  * todo;
  */
-export function readTimeFromPacket(reader: TXR_net_processor): Optional<XR_CTime> {
+export function readTimeFromPacket(reader: TXR_net_processor): Optional<CTime> {
   const Y: number = reader.r_u8();
 
   if (Y === MAX_U8 || Y === 0) {
     return null;
   }
 
-  const time: XR_CTime = game.CTime();
+  const time: CTime = game.CTime();
 
   const M: number = reader.r_u8();
   const D: number = reader.r_u8();

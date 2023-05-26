@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import { TXR_class_id, XR_cse_alife_human_stalker } from "xray16";
+import { cse_alife_human_stalker, TXR_class_id } from "xray16";
 
 import { AbstractLuabindClass } from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
 
@@ -14,6 +14,6 @@ export class MockAlifeHumanStalker extends AbstractLuabindClass {}
 export function mockServerAlifeHumanStalker({
   m_game_vertex_id = 1,
   clsid = jest.fn(() => -1 as TXR_class_id),
-}: Partial<XR_cse_alife_human_stalker> = {}): XR_cse_alife_human_stalker {
-  return { m_game_vertex_id, clsid } as unknown as XR_cse_alife_human_stalker;
+}: Partial<cse_alife_human_stalker> = {}): cse_alife_human_stalker {
+  return { m_game_vertex_id, clsid } as unknown as cse_alife_human_stalker;
 }

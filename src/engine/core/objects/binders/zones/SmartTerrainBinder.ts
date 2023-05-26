@@ -1,4 +1,4 @@
-import { alife, LuabindClass, object_binder, XR_cse_alife_object } from "xray16";
+import { alife, cse_alife_object, LuabindClass, object_binder } from "xray16";
 
 import { registerSmartTerrain, unregisterSmartTerrain } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -18,7 +18,7 @@ export class SmartTerrainBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }

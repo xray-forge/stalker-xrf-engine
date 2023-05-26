@@ -1,4 +1,4 @@
-import { LuabindClass, property_evaluator, stalker_ids, XR_action_planner, XR_game_object } from "xray16";
+import { action_planner, game_object, LuabindClass, property_evaluator, stalker_ids } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
@@ -15,7 +15,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class EvaluatorContact extends property_evaluator {
   public readonly state: ISchemeMeetState;
-  public actionPlanner: Optional<XR_action_planner> = null;
+  public actionPlanner: Optional<action_planner> = null;
 
   public constructor(state: ISchemeMeetState) {
     super(null, EvaluatorContact.__name);
@@ -26,7 +26,7 @@ export class EvaluatorContact extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    const actor: Optional<XR_game_object> = registry.actor;
+    const actor: Optional<game_object> = registry.actor;
 
     if (!actor?.alive()) {
       return false;

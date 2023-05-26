@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import {
   registerHelicopter,
@@ -30,14 +30,14 @@ describe("'helicopters' module of the database", () => {
   });
 
   it("should correctly register helicopter enemies", () => {
-    const first: XR_game_object = mockClientGameObject();
+    const first: game_object = mockClientGameObject();
     const firstIndex: TIndex = registerHelicopterEnemy(first);
 
     expect(firstIndex).toBe(0);
     expect(registry.helicopter.enemyIndex).toBe(1);
     expect(registry.helicopter.enemies.get(firstIndex)).toBe(first);
 
-    const second: XR_game_object = mockClientGameObject();
+    const second: game_object = mockClientGameObject();
     const secondIndex: TIndex = registerHelicopterEnemy(second);
 
     expect(secondIndex).toBe(1);

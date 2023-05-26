@@ -1,4 +1,4 @@
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { EStalkerState, IAnimationDescriptor } from "@/engine/core/objects/state/types";
 import { getAnimationListScenario } from "@/engine/core/objects/state_lib/state_manager_scenario";
@@ -219,7 +219,7 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
         "sit_1_guitar_0_0",
         { a: "guitar_a" },
         {
-          f: (object: XR_game_object) => {
+          f: (object: game_object) => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
 
@@ -244,7 +244,7 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
         "sit_2_harmonica_1_0",
         { a: "harmonica_a" },
         {
-          f: (object: XR_game_object) => {
+          f: (object: game_object) => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
 
@@ -947,7 +947,7 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
       [0]: [
         "dinamit_1",
         {
-          f: (object: XR_game_object) => {
+          f: (object: game_object) => {
             const {
               SchemeCorpseDetection,
               // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -973,7 +973,7 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
       [0]: [
         "dinamit_1",
         {
-          f: (object: XR_game_object) => {
+          f: (object: game_object) => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             const { SchemeHelpWounded } = require("@/engine/core/schemes/help_wounded/SchemeHelpWounded");
 

@@ -1,19 +1,18 @@
 import {
+  FS,
   game,
+  game_object,
   get_hud,
   getFS,
+  ini_file,
+  net_packet,
+  reader,
   snd_type,
   sound_object,
   stalker_ids,
   time_global,
   TXR_net_processor,
   vector,
-  XR_FS,
-  XR_game_object,
-  XR_ini_file,
-  XR_net_packet,
-  XR_reader,
-  XR_sound_object,
 } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
@@ -83,7 +82,7 @@ export class NpcSound extends AbstractPlayableSound {
   public readonly message: string;
 
   public canPlayGroupSound: boolean = true;
-  public pdaSoundObject: Optional<XR_sound_object> = null;
+  public pdaSoundObject: Optional<sound_object> = null;
   public playedSoundIndex: Optional<TIndex> = null;
   public playingStartedAt: Optional<TTimestamp> = null;
   public idleTime: Optional<TDuration> = null;
@@ -93,7 +92,7 @@ export class NpcSound extends AbstractPlayableSound {
   public readonly delay: TDuration;
   public readonly random: number;
 
-  public constructor(soundIni: XR_ini_file, section: string) {
+  public constructor(soundIni: ini_file, section: string) {
     super(soundIni, section);
 
     this.prefix = readIniBoolean(soundIni, section, "npc_prefix", false, false);
@@ -153,7 +152,7 @@ export class NpcSound extends AbstractPlayableSound {
    * todo;
    */
   public override reset(objectId: TNumberId): void {
-    const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+    const object: Optional<game_object> = registry.objects.get(objectId)?.object;
 
     this.playingStartedAt = null;
     this.playedSoundIndex = null;
@@ -175,7 +174,7 @@ export class NpcSound extends AbstractPlayableSound {
    * todo;
    */
   public override isPlaying(objectId: TNumberId): boolean {
-    const obj: Optional<XR_game_object> = registry.objects.get(objectId) && registry.objects.get(objectId).object!;
+    const obj: Optional<game_object> = registry.objects.get(objectId) && registry.objects.get(objectId).object!;
 
     if (obj === null) {
       return false;
@@ -187,7 +186,7 @@ export class NpcSound extends AbstractPlayableSound {
   /**
    * todo;
    */
-  public initializeObject(object: XR_game_object): void {
+  public initializeObject(object: game_object): void {
     const objectId: TNumberId = object.id();
     const objectDescriptor = {
       id: NpcSound.getNextId(),
@@ -211,7 +210,7 @@ export class NpcSound extends AbstractPlayableSound {
       objectDescriptor.max = object.add_sound(this.path, nstl, snd_type.talk, 2, 1, objectDescriptor.id) - 1;
     }
 
-    const fs: XR_FS = getFS();
+    const fs: FS = getFS();
 
     if (fs.exist(roots.gameSounds, object.sound_prefix() + this.path + ".ogg") !== null) {
       this.soundPaths.get(objectId).set(1, object.sound_prefix() + this.path);
@@ -245,7 +244,7 @@ export class NpcSound extends AbstractPlayableSound {
    * todo: Description.
    */
   public play(objectId: TNumberId, faction: string, point: Optional<string>, message: TLabel): boolean {
-    const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+    const object: Optional<game_object> = registry.objects.get(objectId)?.object;
 
     if (object === null) {
       return false;
@@ -286,7 +285,7 @@ export class NpcSound extends AbstractPlayableSound {
 
     const nextIndex: TIndex = this.playedSoundIndex + 1;
     const soundPath: TPath = this.soundPaths.get(objectId).get(nextIndex);
-    const fs: XR_FS = getFS();
+    const fs: FS = getFS();
 
     if (
       soundPath &&
@@ -400,7 +399,7 @@ export class NpcSound extends AbstractPlayableSound {
    * todo;
    */
   public override stop(objectId: TNumberId): void {
-    const object: Optional<XR_game_object> = registry.objects.get(objectId)?.object;
+    const object: Optional<game_object> = registry.objects.get(objectId)?.object;
 
     if (object !== null && object.alive()) {
       object.set_sound_mask(-1);
@@ -459,7 +458,7 @@ export class NpcSound extends AbstractPlayableSound {
   /**
    * todo;
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     packet.w_stringZ(tostring(this.playedSoundIndex));
 
     if (this.isGroupSound) {
@@ -483,7 +482,7 @@ export class NpcSound extends AbstractPlayableSound {
   /**
    * todo;
    */
-  public override saveObject(packet: XR_net_packet, object: XR_game_object): void {
+  public override saveObject(packet: net_packet, object: game_object): void {
     if (!this.isGroupSound) {
       packet.w_bool(this.canPlaySound.get(object.id()) === true);
     }
@@ -492,7 +491,7 @@ export class NpcSound extends AbstractPlayableSound {
   /**
    * todo;
    */
-  public override loadObject(reader: XR_reader, object: XR_game_object): void {
+  public override loadObject(reader: reader, object: game_object): void {
     if (!this.isGroupSound) {
       this.canPlaySound.set(object.id(), reader.r_bool());
     }

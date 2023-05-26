@@ -1,4 +1,4 @@
-import { action_base, LuabindClass, XR_game_object } from "xray16";
+import { action_base, game_object, LuabindClass } from "xray16";
 
 import { getStalkerState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -22,7 +22,7 @@ export class ActionCommander extends action_base {
   /**
    * todo: Description.
    */
-  public constructor(state: ISchemePatrolState, object: XR_game_object) {
+  public constructor(state: ISchemePatrolState, object: game_object) {
     super(null, ActionCommander.__name);
     this.state = state;
     this.moveManager = registry.objects.get(object.id()).moveManager!;
@@ -131,21 +131,21 @@ export class ActionCommander extends action_base {
   /**
    * todo: Description.
    */
-  public deactivate(object: XR_game_object): void {
+  public deactivate(object: game_object): void {
     registry.patrols.generic.get(this.state.patrol_key).remove_npc(object);
   }
 
   /**
    * todo: Description.
    */
-  public death_callback(object: XR_game_object): void {
+  public death_callback(object: game_object): void {
     registry.patrols.generic.get(this.state.patrol_key).remove_npc(object);
   }
 
   /**
    * todo: Description.
    */
-  public net_destroy(object: XR_game_object): void {
+  public net_destroy(object: game_object): void {
     this.deactivate(object);
   }
 

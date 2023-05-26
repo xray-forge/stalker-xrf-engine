@@ -1,4 +1,4 @@
-import { stalker_ids, world_property, XR_action_base, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
+import { action_base, action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme, EEvaluatorId } from "@/engine/core/schemes";
@@ -28,7 +28,7 @@ export class SchemeCombat extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override disable(object: XR_game_object, scheme: EScheme): void {
+  public static override disable(object: game_object, scheme: EScheme): void {
     const state: Optional<ISchemeCombatState> = registry.objects.get(object.id())[scheme] as ISchemeCombatState;
 
     if (state !== null) {
@@ -39,7 +39,7 @@ export class SchemeCombat extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
     const isZombied: boolean = getCharacterCommunity(object) === communities.zombied;
 
     if (section || isZombied) {
@@ -68,17 +68,17 @@ export class SchemeCombat extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeCombatState
   ): void {
-    const actionPlanner: XR_action_planner = object.motivation_action_manager();
+    const actionPlanner: action_planner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(EEvaluatorId.IS_SCRIPTED_COMBAT, new EvaluatorCheckCombat(state));
 
-    const action: XR_action_base = actionPlanner.action(stalker_ids.action_combat_planner);
+    const action: action_base = actionPlanner.action(stalker_ids.action_combat_planner);
 
     action.add_precondition(new world_property(EEvaluatorId.IS_SCRIPTED_COMBAT, false));
 
@@ -89,7 +89,7 @@ export class SchemeCombat extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static setCombatType(object: XR_game_object, actor: XR_game_object, target: Optional<AnyObject>): void {
+  public static setCombatType(object: game_object, actor: game_object, target: Optional<AnyObject>): void {
     if (target === null) {
       return;
     }

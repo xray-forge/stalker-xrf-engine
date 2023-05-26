@@ -1,4 +1,4 @@
-import { cse_alife_level_changer, LuabindClass, XR_net_packet } from "xray16";
+import { cse_alife_level_changer, LuabindClass, net_packet } from "xray16";
 
 import {
   closeLoadMarker,
@@ -33,7 +33,7 @@ export class LevelChanger extends cse_alife_level_changer {
     super.on_unregister();
   }
 
-  public override STATE_Write(packet: XR_net_packet): void {
+  public override STATE_Write(packet: net_packet): void {
     super.STATE_Write(packet);
 
     openSaveMarker(packet, LevelChanger.__name);
@@ -42,7 +42,7 @@ export class LevelChanger extends cse_alife_level_changer {
     closeSaveMarker(packet, LevelChanger.__name);
   }
 
-  public override STATE_Read(packet: XR_net_packet, size: number): void {
+  public override STATE_Read(packet: net_packet, size: number): void {
     super.STATE_Read(packet, size);
 
     openLoadMarker(packet, LevelChanger.__name);

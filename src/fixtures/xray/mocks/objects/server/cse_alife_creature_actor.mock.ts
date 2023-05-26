@@ -1,4 +1,4 @@
-import { XR_cse_alife_creature_actor } from "xray16";
+import { cse_alife_creature_actor } from "xray16";
 
 import { TNumberId } from "@/engine/lib/types";
 import {
@@ -12,8 +12,8 @@ import {
 export class MockAlifeCreatureActor extends MockAlifeDynamicObjectVisual {
   public override id: TNumberId = 0;
 
-  public asMock(): XR_cse_alife_creature_actor {
-    return this as unknown as XR_cse_alife_creature_actor;
+  public asMock(): cse_alife_creature_actor {
+    return this as unknown as cse_alife_creature_actor;
   }
 }
 
@@ -23,6 +23,6 @@ export class MockAlifeCreatureActor extends MockAlifeDynamicObjectVisual {
 export function mockServerAlifeCreatureActor({
   id = 0,
   ...base
-}: Partial<XR_cse_alife_creature_actor> = {}): XR_cse_alife_creature_actor {
-  return mockServerAlifeDynamicObjectVisual({ id, ...base }) as XR_cse_alife_creature_actor;
+}: Partial<cse_alife_creature_actor> = {}): cse_alife_creature_actor {
+  return mockServerAlifeDynamicObjectVisual({ id, ...base }) as cse_alife_creature_actor;
 }

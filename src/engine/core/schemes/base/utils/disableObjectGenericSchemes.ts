@@ -1,4 +1,4 @@
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore/SchemeCombatIgnore";
@@ -14,7 +14,7 @@ import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
  * todo;
  * todo; Use shared generic to disable schemes by type.
  */
-export function disableObjectGenericSchemes(object: XR_game_object, schemeType: ESchemeType): void {
+export function disableObjectGenericSchemes(object: game_object, schemeType: ESchemeType): void {
   switch (schemeType) {
     case ESchemeType.STALKER:
       SchemeCombat.disable(object, EScheme.COMBAT);

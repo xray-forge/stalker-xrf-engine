@@ -1,14 +1,14 @@
 import {
   alife,
+  alife_simulator,
   callback,
+  cse_alife_object,
+  game_object,
   LuabindClass,
+  net_packet,
   object_binder,
+  reader,
   time_global,
-  XR_alife_simulator,
-  XR_cse_alife_object,
-  XR_game_object,
-  XR_net_packet,
-  XR_reader,
 } from "xray16";
 
 import {
@@ -43,7 +43,7 @@ export class CrowBinder extends object_binder {
     resetObject(this.object);
   }
 
-  public override net_spawn(object: XR_cse_alife_object): boolean {
+  public override net_spawn(object: cse_alife_object): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -85,14 +85,14 @@ export class CrowBinder extends object_binder {
       this.diedAt !== 0 &&
       time_global() - logicsConfig.CROW_CORPSE_RELEASE_TIMEOUT >= this.diedAt
     ) {
-      const simulator: XR_alife_simulator = alife();
+      const simulator: alife_simulator = alife();
 
       logger.info("Release dead crow");
       simulator.release(simulator.object(this.object.id()), true);
     }
   }
 
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, CrowBinder.__name);
 
     super.save(packet);
@@ -102,7 +102,7 @@ export class CrowBinder extends object_binder {
     closeSaveMarker(packet, CrowBinder.__name);
   }
 
-  public override load(reader: XR_reader): void {
+  public override load(reader: reader): void {
     openLoadMarker(reader, CrowBinder.__name);
     super.load(reader);
     loadObjectLogic(this.object, reader);
@@ -114,7 +114,7 @@ export class CrowBinder extends object_binder {
   /**
    * On crow object death.
    */
-  public onDeath(victim: XR_game_object, killer: XR_game_object): void {
+  public onDeath(victim: game_object, killer: game_object): void {
     logger.info("Crow death registered");
 
     this.diedAt = time_global();

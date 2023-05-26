@@ -1,8 +1,7 @@
-import { level, vector, XR_game_object, XR_vector } from "xray16";
+import { game_object, level, vector } from "xray16";
 
 import { EStalkerState } from "@/engine/core/objects/state";
 import { abort } from "@/engine/core/utils/assertion";
-import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
 import { Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 
@@ -51,14 +50,14 @@ export class PatrolManager {
   public commander_id: TNumberId = -1;
   public formation: string = "back";
   public commander_lid: TNumberId = -1;
-  public commander_dir: XR_vector = new vector().set(0, 0, 1);
+  public commander_dir: vector = new vector().set(0, 0, 1);
   public npc_count: TCount = 0;
 
   public constructor(pathName: TName) {
     this.path_name = pathName;
   }
 
-  public add_npc(object: XR_game_object, leader: Optional<boolean>): void {
+  public add_npc(object: game_object, leader: Optional<boolean>): void {
     if (object === null || object.alive() === false || this.npc_list.get(object.id()) !== null) {
       return;
     }
@@ -78,7 +77,7 @@ export class PatrolManager {
     this.resetPositions();
   }
 
-  public remove_npc(npc: XR_game_object): void {
+  public remove_npc(npc: game_object): void {
     if (npc === null) {
       return;
     }
@@ -129,7 +128,7 @@ export class PatrolManager {
     this.resetPositions();
   }
 
-  public getCommander(npc: XR_game_object): void {
+  public getCommander(npc: game_object): void {
     if (npc === null) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.path_name);
     }
@@ -151,7 +150,7 @@ export class PatrolManager {
     return commander;
   }
 
-  public get_npc_command(npc: XR_game_object): LuaMultiReturn<[number, XR_vector, EStalkerState]> {
+  public get_npc_command(npc: game_object): LuaMultiReturn<[number, vector, EStalkerState]> {
     if (npc === null) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.path_name);
     }
@@ -170,8 +169,8 @@ export class PatrolManager {
     }
 
     const commander = this.npc_list.get(this.commander_id).soldier;
-    const dir: XR_vector = commander.direction();
-    const pos: XR_vector = new vector().set(0, 0, 0);
+    const dir: vector = commander.direction();
+    const pos: vector = new vector().set(0, 0, 0);
     let vertex_id: number = commander.location_on_path(5, pos);
 
     if (level.vertex_position(vertex_id).distance_to(this.npc_list.get(npc_id).soldier.position()) > 5) {
@@ -211,7 +210,7 @@ export class PatrolManager {
     return $multi(vertex, dir, this.current_state);
   }
 
-  public set_command(object: XR_game_object, command: EStalkerState, formation: string): void {
+  public set_command(object: game_object, command: EStalkerState, formation: string): void {
     if (object === null || object.alive() === false) {
       this.remove_npc(object);
 

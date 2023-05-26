@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import {
@@ -37,7 +37,7 @@ describe("'info_portion' utils", () => {
   });
 
   afterEach(() => {
-    registry.actor = null as unknown as XR_game_object;
+    registry.actor = null as unknown as game_object;
   });
 
   it("'giveInfo' should correctly give info portion for actor", () => {

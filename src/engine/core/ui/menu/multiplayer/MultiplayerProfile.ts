@@ -1,24 +1,20 @@
 import {
   CScriptXmlInit,
+  CUI3tButton,
+  CUIComboBox,
+  CUIEditBox,
   CUIMessageBoxEx,
+  CUIScrollView,
+  CUIStatic,
+  CUITextWnd,
   CUIWindow,
   game,
   login_operation_cb,
   LuabindClass,
+  profile,
   suggest_nicks_cb,
   ui_events,
   vector2,
-  XR_CScriptXmlInit,
-  XR_CUI3tButton,
-  XR_CUIComboBox,
-  XR_CUIEditBox,
-  XR_CUIMessageBoxEx,
-  XR_CUIScrollView,
-  XR_CUIStatic,
-  XR_CUITextWnd,
-  XR_CUIWindow,
-  XR_profile,
-  XR_vector2,
 } from "xray16";
 
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
@@ -29,33 +25,33 @@ import { Optional, TName } from "@/engine/lib/types";
 
 const base: string = "menu\\multiplayer\\MultiplayerAwards.component";
 const logger: LuaLogger = new LuaLogger($filename);
-const awards_xml: XR_CScriptXmlInit = new CScriptXmlInit();
+const awards_xml: CScriptXmlInit = new CScriptXmlInit();
 
 /**
  * todo;
  */
 @LuabindClass()
 export class MultiplayerProfile extends CUIWindow {
-  public awards: LuaTable<number, LuaTable<string, XR_CUIStatic>> = new LuaTable();
+  public awards: LuaTable<number, LuaTable<string, CUIStatic>> = new LuaTable();
 
-  public xml!: XR_CScriptXmlInit;
+  public xml!: CScriptXmlInit;
   public owner!: MultiplayerMenu;
 
-  public awards_window!: XR_CUIWindow;
-  public best_results_list!: XR_CUIWindow;
-  public gs_change_nick_mb_cancel!: XR_CUIMessageBoxEx;
-  public gs_change_nick_mb!: XR_CUIMessageBoxEx;
-  public edit_unique_nick!: XR_CUIEditBox;
-  public btn_avail!: XR_CUI3tButton;
-  public combo_aval_unique_nick!: XR_CUIComboBox;
-  public awards_list!: XR_CUIScrollView;
+  public awards_window!: CUIWindow;
+  public best_results_list!: CUIWindow;
+  public gs_change_nick_mb_cancel!: CUIMessageBoxEx;
+  public gs_change_nick_mb!: CUIMessageBoxEx;
+  public edit_unique_nick!: CUIEditBox;
+  public btn_avail!: CUI3tButton;
+  public combo_aval_unique_nick!: CUIComboBox;
+  public awards_list!: CUIScrollView;
 
   public constructor() {
     super();
     awards_xml.ParseFile(resolveXmlFormPath(base));
   }
 
-  public InitControls(x: number, y: number, xml: XR_CScriptXmlInit, handler: MultiplayerMenu): void {
+  public InitControls(x: number, y: number, xml: CScriptXmlInit, handler: MultiplayerMenu): void {
     this.owner = handler;
     this.xml = xml;
     this.awards = new LuaTable();
@@ -131,7 +127,7 @@ export class MultiplayerProfile extends CUIWindow {
 
     if (this.owner.owner.xrProfileStore !== null) {
       for (const it of this.owner.owner.xrProfileStore.get_best_scores()) {
-        const score_wnd: XR_CUITextWnd = this.xml.InitTextWnd(
+        const score_wnd: CUITextWnd = this.xml.InitTextWnd(
           "tab_profile:best_results_list:cap_score_" + tostring(it.first),
           this.best_results_list
         );
@@ -169,7 +165,7 @@ export class MultiplayerProfile extends CUIWindow {
     this.edit_unique_nick.SetText(this.combo_aval_unique_nick.GetText());
   }
 
-  public ChangeNickOperationResult(profile: Optional<XR_profile>, description: string): void {
+  public ChangeNickOperationResult(profile: Optional<profile>, description: string): void {
     this.gs_change_nick_mb.HideDialog();
     this.combo_aval_unique_nick.Show(false);
     this.gs_change_nick_mb.InitMessageBox("message_box_ok");
@@ -199,7 +195,7 @@ export class MultiplayerProfile extends CUIWindow {
         this.gs_change_nick_mb.ShowDialog(true);
         this.owner.owner.xrLoginManager.set_unique_nick(
           new_unique_nick,
-          new login_operation_cb(this, (profile: Optional<XR_profile>, description: string) => {
+          new login_operation_cb(this, (profile: Optional<profile>, description: string) => {
             this.ChangeNickOperationResult(profile, description);
           })
         );
@@ -229,7 +225,7 @@ export class MultiplayerProfile extends CUIWindow {
 
   public FillRewardsTable() {
     if (this.owner.owner.xrProfileStore !== null) {
-      const pos: XR_vector2 = new vector2().set(0, 0);
+      const pos: vector2 = new vector2().set(0, 0);
 
       let field: number = 1;
       let index: number = 1;
@@ -242,7 +238,7 @@ export class MultiplayerProfile extends CUIWindow {
 
           const fieldStatic = this.xml.InitStatic("tab_profile:awards_list:field", null);
 
-          this.awards.set(field, $fromObject<TName, XR_CUIStatic>({ field: fieldStatic }));
+          this.awards.set(field, $fromObject<TName, CUIStatic>({ field: fieldStatic }));
           this.awards_list.AddWindow(fieldStatic, true);
         }
 

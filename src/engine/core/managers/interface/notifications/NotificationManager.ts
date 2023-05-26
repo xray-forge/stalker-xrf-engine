@@ -1,4 +1,4 @@
-import { alife, game, XR_alife_simulator, XR_CGameTask, XR_game_object } from "xray16";
+import { alife, alife_simulator, CGameTask, game, game_object } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -207,7 +207,7 @@ export class NotificationManager extends AbstractCoreManager {
   /**
    * Send notification about task state update.
    */
-  public sendTaskNotification(newState: ETaskState, task: XR_CGameTask): void {
+  public sendTaskNotification(newState: ETaskState, task: CGameTask): void {
     logger.info("Show task notification:", newState, task.get_id(), task.get_title());
 
     const notificationTaskDescription: Record<ETaskState, TLabel> = {
@@ -242,7 +242,7 @@ export class NotificationManager extends AbstractCoreManager {
    */
   public sendTipNotification(
     caption: TCaption,
-    sender: Optional<TNotificationIcon | XR_game_object> = null,
+    sender: Optional<TNotificationIcon | game_object> = null,
     delay: Optional<TDuration> = 0,
     showtime: Optional<TTimestamp> = NotificationManager.DEFAULT_NOTIFICATION_SHOW_DURATION,
     senderId: Optional<TStringId> = null
@@ -252,7 +252,7 @@ export class NotificationManager extends AbstractCoreManager {
     // Verify whether sender can send notifications.
     // todo: Probably here check ID from sender object if it is provided?
     if (senderId !== null) {
-      const simulator: Optional<XR_alife_simulator> = alife();
+      const simulator: Optional<alife_simulator> = alife();
 
       if (simulator !== null) {
         const serverObject: Stalker = simulator.object(getObjectIdByStoryId(senderId)!) as Stalker;
@@ -278,7 +278,7 @@ export class NotificationManager extends AbstractCoreManager {
     // If sender is game object, check sender character icon to display instead of generic one.
     if (sender !== null) {
       notificationIcon =
-        type(sender) === "string" ? (sender as TNotificationIcon) : (sender as XR_game_object).character_icon();
+        type(sender) === "string" ? (sender as TNotificationIcon) : (sender as game_object).character_icon();
     }
 
     this.onPlayPdaNotificationSound();
@@ -297,7 +297,7 @@ export class NotificationManager extends AbstractCoreManager {
    * Send generic sound notification to replicate what characters say.
    */
   public sendSoundNotification(
-    object: Optional<XR_game_object>,
+    object: Optional<game_object>,
     faction: TName,
     point: Optional<TName | TNumberId>,
     soundPath: TPath,

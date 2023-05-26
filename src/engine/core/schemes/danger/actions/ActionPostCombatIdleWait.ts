@@ -1,4 +1,4 @@
-import { action_base, anim, look, LuabindClass, move, object, XR_game_object } from "xray16";
+import { action_base, anim, game_object, look, LuabindClass, move, object } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/state";
@@ -81,7 +81,7 @@ export class ActionPostCombatIdleWait extends action_base {
 /**
  * todo;
  */
-export function isWeaponLocked(object: XR_game_object): boolean {
+export function isWeaponLocked(object: game_object): boolean {
   const isWeaponStrapped: boolean = object.weapon_strapped();
   const isWeaponUnstrapped: boolean = object.weapon_unstrapped();
 
@@ -89,7 +89,7 @@ export function isWeaponLocked(object: XR_game_object): boolean {
     return true;
   }
 
-  const bestWeapon: Optional<XR_game_object> = object.best_weapon();
+  const bestWeapon: Optional<game_object> = object.best_weapon();
 
   if (bestWeapon === null) {
     return false;

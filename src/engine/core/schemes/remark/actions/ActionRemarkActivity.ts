@@ -1,4 +1,4 @@
-import { action_base, level, LuabindClass, patrol, XR_game_object, XR_sound_object, XR_vector } from "xray16";
+import { action_base, game_object, level, LuabindClass, patrol, sound_object, vector } from "xray16";
 
 import { getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -21,8 +21,8 @@ const state_finish = 3;
 const logger: LuaLogger = new LuaLogger($filename);
 
 interface IDescriptor {
-  look_object: Optional<XR_game_object>;
-  look_position: Optional<XR_vector>;
+  look_object: Optional<game_object>;
+  look_position: Optional<vector>;
 }
 
 /**
@@ -39,7 +39,7 @@ export class ActionRemarkActivity extends action_base {
   public anim_scheduled: boolean = false;
   public snd_scheduled: boolean = false;
   public snd_started: boolean = false;
-  public tips_sound: Optional<XR_sound_object> = null;
+  public tips_sound: Optional<sound_object> = null;
 
   public constructor(state: ISchemeRemarkState) {
     super(null, ActionRemarkActivity.__name);
@@ -102,8 +102,8 @@ export class ActionRemarkActivity extends action_base {
    */
   public get_target(): Optional<IDescriptor> {
     const look_tbl = {
-      look_object: null as Optional<XR_game_object>,
-      look_position: null as Optional<XR_vector>,
+      look_object: null as Optional<game_object>,
+      look_position: null as Optional<vector>,
     };
 
     const [target_position, target_id, target_init] = init_target(this.object, this.st.target);
@@ -190,9 +190,9 @@ export class ActionRemarkActivity extends action_base {
  * todo
  */
 export function init_target(
-  obj: XR_game_object,
+  obj: game_object,
   targetString: string
-): LuaMultiReturn<[Optional<XR_vector>, Optional<number>, Optional<boolean>]> {
+): LuaMultiReturn<[Optional<vector>, Optional<number>, Optional<boolean>]> {
   // todo: Simplify.
   function parse_target(target_str: string): LuaMultiReturn<[Optional<string>, Optional<string>]> {
     const [pos] = string.find(target_str, ",");
@@ -222,7 +222,7 @@ export function init_target(
     return $multi(target_type, target);
   }
 
-  let targetPosition: Optional<XR_vector> = null;
+  let targetPosition: Optional<vector> = null;
   let targetId: Optional<TNumberId> = null;
   let isTargetInitialized: boolean = false;
 
@@ -264,7 +264,7 @@ export function init_target(
 /**
  * todo
  */
-function instruction(object: XR_game_object, data: string): never {
+function instruction(object: game_object, data: string): never {
   abort(
     "\nWrong target field for object [%s] in section [%s]!!!\n" +
       "Field [target] supports following:\n" +

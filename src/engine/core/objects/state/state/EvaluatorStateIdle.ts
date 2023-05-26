@@ -1,4 +1,4 @@
-import { cast_planner, LuabindClass, property_evaluator, stalker_ids, XR_action_planner } from "xray16";
+import { action_planner, cast_planner, LuabindClass, property_evaluator, stalker_ids } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EStalkerState, EStateEvaluatorId } from "@/engine/core/objects/state/types";
@@ -15,8 +15,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class EvaluatorStateIdle extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
 
-  private actionPlanner: Optional<XR_action_planner> = null;
-  private combatPlanner: Optional<XR_action_planner> = null;
+  private actionPlanner: Optional<action_planner> = null;
+  private combatPlanner: Optional<action_planner> = null;
 
   public constructor(stateManager: StalkerStateManager) {
     super(null, EvaluatorStateIdle.__name);

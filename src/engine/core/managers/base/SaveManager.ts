@@ -1,4 +1,4 @@
-import { TXR_net_processor, XR_net_packet } from "xray16";
+import { net_packet, TXR_net_processor } from "xray16";
 
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
@@ -21,7 +21,7 @@ export class SaveManager extends AbstractCoreManager {
   /**
    * Save core managers data.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     WeatherManager.getInstance().save(packet);
     ReleaseBodyManager.getInstance().save(packet);
     SurgeManager.getInstance().save(packet);
@@ -55,7 +55,7 @@ export class SaveManager extends AbstractCoreManager {
   /**
    * Write state for core managers.
    */
-  public writeState(packet: XR_net_packet): void {
+  public writeState(packet: net_packet): void {
     SimulationBoardManager.getInstance().save(packet);
   }
 

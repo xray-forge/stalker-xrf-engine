@@ -1,14 +1,4 @@
-import {
-  action_base,
-  danger_object,
-  game_object,
-  LuabindClass,
-  move,
-  time_global,
-  XR_danger_object,
-  XR_game_object,
-  XR_vector,
-} from "xray16";
+import { action_base, danger_object, game_object, LuabindClass, move, time_global, vector } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
 import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
@@ -35,7 +25,7 @@ export class ActionZombieGoToDanger extends action_base {
   public lastSentVertexId: Optional<TNumberId> = null;
   public bestDangerObjectId: Optional<TNumberId> = null;
 
-  public enemyLastSeenPos: Optional<XR_vector> = null;
+  public enemyLastSeenPos: Optional<vector> = null;
   public enemyLastSeenVid: Optional<TNumberId> = null;
 
   /**
@@ -65,7 +55,7 @@ export class ActionZombieGoToDanger extends action_base {
   /**
    * todo: Description.
    */
-  public setState(state: EStalkerState, bestEnemy: Optional<XR_game_object>, pos: Optional<XR_vector>): void {
+  public setState(state: EStalkerState, bestEnemy: Optional<game_object>, pos: Optional<vector>): void {
     if (state !== this.last_state) {
       this.targetState.look_object = bestEnemy;
       this.targetState.look_position = pos;
@@ -89,8 +79,8 @@ export class ActionZombieGoToDanger extends action_base {
     } else if (this.hitReactionEndTime > now) {
       // -
     } else {
-      const bestDanger: XR_danger_object = this.object.best_danger()!;
-      const object: Optional<XR_game_object> = bestDanger.object();
+      const bestDanger: danger_object = this.object.best_danger()!;
+      const object: Optional<game_object> = bestDanger.object();
 
       if (object && bestDanger.type() !== danger_object.grenade) {
         if (!this.bestDangerObjectId || this.bestDangerObjectId !== object.id()) {
@@ -121,22 +111,16 @@ export class ActionZombieGoToDanger extends action_base {
   /**
    * todo: Description.
    */
-  public hit_callback(
-    object: XR_game_object,
-    amount: TRate,
-    direction: XR_vector,
-    who: XR_game_object,
-    bone_id: TIndex
-  ): void {
+  public hit_callback(object: game_object, amount: TRate, direction: vector, who: game_object, bone_id: TIndex): void {
     if (who === null) {
       return;
     }
 
     if (this.state.currentAction === EZombieCombatAction.DANGER) {
-      const bestDanger: Optional<XR_danger_object> = this.object.best_danger();
+      const bestDanger: Optional<danger_object> = this.object.best_danger();
 
       if (bestDanger) {
-        const bestDangerObject: Optional<XR_game_object> = bestDanger.object();
+        const bestDangerObject: Optional<game_object> = bestDanger.object();
 
         if (bestDangerObject !== null && (bestDanger.type() === danger_object.attacked || amount > 0)) {
           this.enemyLastSeenPos = bestDangerObject.position();

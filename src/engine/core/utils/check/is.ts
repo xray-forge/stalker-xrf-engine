@@ -1,13 +1,13 @@
 import {
   clsid,
+  cse_abstract,
+  cse_alife_human_stalker,
+  cse_alife_item_artefact,
+  cse_alife_monster_abstract,
+  cse_alife_object,
+  game_object,
   system_ini,
   TXR_class_id,
-  XR_cse_abstract,
-  XR_cse_alife_human_stalker,
-  XR_cse_alife_item_artefact,
-  XR_cse_alife_monster_abstract,
-  XR_cse_alife_object,
-  XR_game_object,
 } from "xray16";
 
 import { getStoryIdByObjectId, registry } from "@/engine/core/database";
@@ -23,14 +23,14 @@ import { Maybe, Optional, TNumberId, TSection } from "@/engine/lib/types";
 /**
  * todo;
  */
-export function isCseAlifeObject(object: XR_cse_abstract | XR_game_object): object is XR_cse_alife_object {
+export function isCseAlifeObject(object: cse_abstract | game_object): object is cse_alife_object {
   return type(object.id) === "number";
 }
 
 /**
  * todo;
  */
-export function isMonster(object: XR_game_object | XR_cse_abstract): object is XR_cse_alife_monster_abstract {
+export function isMonster(object: game_object | cse_abstract): object is cse_alife_monster_abstract {
   return monsterClassIds[object.clsid()] === true;
 }
 
@@ -44,7 +44,7 @@ export function isSquadMonsterCommunity(community: TCommunity): boolean {
 /**
  * todo;
  */
-export function isStalker(object: XR_game_object | XR_cse_abstract): object is XR_cse_alife_human_stalker {
+export function isStalker(object: game_object | cse_abstract): object is cse_alife_human_stalker {
   return stalkerClassIds[object.clsid()] === true;
 }
 
@@ -58,7 +58,7 @@ export function isStalkerClassId(classId: TNumberId): boolean {
 /**
  * todo;
  */
-export function isWeapon(object: Optional<XR_game_object | XR_cse_abstract>): boolean {
+export function isWeapon(object: Optional<game_object | cse_abstract>): boolean {
   if (object === null) {
     return false;
   }
@@ -69,7 +69,7 @@ export function isWeapon(object: Optional<XR_game_object | XR_cse_abstract>): bo
 /**
  * todo;
  */
-export function isGrenade(object: Optional<XR_game_object | XR_cse_abstract>): boolean {
+export function isGrenade(object: Optional<game_object | cse_abstract>): boolean {
   if (object === null) {
     return false;
   }
@@ -82,14 +82,14 @@ export function isGrenade(object: Optional<XR_game_object | XR_cse_abstract>): b
 /**
  * Is provided object artefact.
  */
-export function isArtefact(object: XR_game_object | XR_cse_abstract): object is XR_cse_alife_item_artefact {
+export function isArtefact(object: game_object | cse_abstract): object is cse_alife_item_artefact {
   return artefactClassIds[object.clsid()] === true;
 }
 
 /**
  * todo;
  */
-export function isStrappableWeapon(object: Optional<XR_game_object>): object is XR_game_object {
+export function isStrappableWeapon(object: Optional<game_object>): object is game_object {
   return object === null ? false : system_ini().line_exist(object.section(), "strap_bone0");
 }
 
@@ -103,21 +103,21 @@ export function isUndergroundLevel(level: TLevel): boolean {
 /**
  * @returns whether provided object has linked story id.
  */
-export function isStoryObject(object: XR_cse_alife_object): boolean {
+export function isStoryObject(object: cse_alife_object): boolean {
   return getStoryIdByObjectId(object.id) !== null;
 }
 
 /**
  * @returns whether object can be looted by stalkers from corpses.
  */
-export function isLootableItem(object: XR_game_object): boolean {
+export function isLootableItem(object: game_object): boolean {
   return lootable_table[object.section<TLootableItem>()] !== null;
 }
 
 /**
  * @returns whether object is ammo-defined section item.
  */
-export function isAmmoItem(object: XR_game_object): boolean {
+export function isAmmoItem(object: game_object): boolean {
   return ammo[object.section<TAmmoItem>()] !== null;
 }
 
@@ -133,7 +133,7 @@ export function isAmmoSection(section: TSection): section is TAmmoItem {
  * @param section - logic section to check
  * @returns whether object logics active section is same as provided
  */
-export function isActiveSection(object: XR_game_object, section: Maybe<TSection>): boolean {
+export function isActiveSection(object: game_object, section: Maybe<TSection>): boolean {
   if (!section) {
     abort("'isActiveSection' error for '%s', no section defined: '%s'.", object.name(), section);
   }

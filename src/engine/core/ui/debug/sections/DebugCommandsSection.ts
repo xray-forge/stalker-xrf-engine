@@ -1,12 +1,4 @@
-import {
-  get_console,
-  LuabindClass,
-  ui_events,
-  XR_CConsole,
-  XR_CUICheckButton,
-  XR_CUIScrollView,
-  XR_CUIStatic,
-} from "xray16";
+import { CConsole, CUICheckButton, CUIScrollView, CUIStatic, get_console, LuabindClass, ui_events } from "xray16";
 
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
@@ -23,13 +15,13 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class DebugCommandsSection extends AbstractDebugSection {
-  public commandsList!: XR_CUIScrollView;
+  public commandsList!: CUIScrollView;
 
   /**
    * todo: Description.
    */
   public initializeControls(): void {
-    const console: XR_CConsole = get_console();
+    const console: CConsole = get_console();
 
     resolveXmlFile(base, this.xml);
 
@@ -52,10 +44,10 @@ export class DebugCommandsSection extends AbstractDebugSection {
   /**
    * todo: Description.
    */
-  public initEntry(command: TConsoleCommand, console: XR_CConsole, type: "numeric" | "boolean"): void {
-    const item: XR_CUIStatic = this.xml.InitStatic("command_item", this.commandsList);
-    const caption: XR_CUIStatic = this.xml.InitStatic("command_label", item);
-    const check: XR_CUICheckButton = this.xml.InitCheck("command_check", item);
+  public initEntry(command: TConsoleCommand, console: CConsole, type: "numeric" | "boolean"): void {
+    const item: CUIStatic = this.xml.InitStatic("command_item", this.commandsList);
+    const caption: CUIStatic = this.xml.InitStatic("command_label", item);
+    const check: CUICheckButton = this.xml.InitCheck("command_check", item);
 
     const value: Optional<boolean> = console.get_bool(command);
 
@@ -80,7 +72,7 @@ export class DebugCommandsSection extends AbstractDebugSection {
   /**
    * todo: Description.
    */
-  public onCheckboxChange(check: XR_CUICheckButton, command: TConsoleCommand, type: "numeric" | "boolean"): void {
+  public onCheckboxChange(check: CUICheckButton, command: TConsoleCommand, type: "numeric" | "boolean"): void {
     const isEnabled: boolean = check.GetCheck();
     let parameter: string = "";
 

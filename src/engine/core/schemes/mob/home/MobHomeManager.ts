@@ -1,4 +1,4 @@
-import { alife, patrol, XR_cse_alife_creature_abstract } from "xray16";
+import { alife, cse_alife_creature_abstract, patrol } from "xray16";
 
 import { setMonsterState } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -70,9 +70,7 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
     }
 
     if (this.state.gulag_point !== null) {
-      const smrttrn = alife().object(
-        alife().object<XR_cse_alife_creature_abstract>(this.object.id())!.m_smart_terrain_id
-      );
+      const smrttrn = alife().object(alife().object<cse_alife_creature_abstract>(this.object.id())!.m_smart_terrain_id);
       const lvid = smrttrn ? smrttrn.m_level_vertex_id : null;
 
       this.object.set_home(lvid, minr, maxr, this.state.aggressive, midr);

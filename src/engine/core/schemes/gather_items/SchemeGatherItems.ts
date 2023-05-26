@@ -1,4 +1,4 @@
-import { stalker_ids, XR_action_planner, XR_game_object, XR_ini_file } from "xray16";
+import { action_planner, game_object, ini_file, stalker_ids } from "xray16";
 
 import { IRegistryObjectState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
@@ -20,7 +20,7 @@ export class SchemeGatherItems extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: XR_game_object, ini: XR_ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
     AbstractScheme.assign(object, ini, scheme, section);
   }
 
@@ -28,13 +28,13 @@ export class SchemeGatherItems extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: XR_game_object,
-    ini: XR_ini_file,
+    object: game_object,
+    ini: ini_file,
     scheme: EScheme,
     section: TSection,
     state: ISchemeGatherItemsState
   ): void {
-    const actionPlanner: XR_action_planner = object.motivation_action_manager();
+    const actionPlanner: action_planner = object.motivation_action_manager();
 
     actionPlanner.remove_evaluator(stalker_ids.property_items);
     actionPlanner.add_evaluator(stalker_ids.property_items, new EvaluatorGatherItems(state));
@@ -44,7 +44,7 @@ export class SchemeGatherItems extends AbstractScheme {
    * todo: Description.
    */
   public static override reset(
-    object: XR_game_object,
+    object: game_object,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection

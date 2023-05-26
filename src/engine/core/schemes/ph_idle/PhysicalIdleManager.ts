@@ -1,4 +1,4 @@
-import { XR_game_object, XR_vector } from "xray16";
+import { game_object, vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
@@ -40,10 +40,10 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
    * todo: Description.
    */
   public hit_callback(
-    object: XR_game_object,
+    object: game_object,
     amount: TCount,
-    const_direction: XR_vector,
-    who: Optional<XR_game_object>,
+    const_direction: vector,
+    who: Optional<game_object>,
     bone_index: TIndex
   ): void {
     logger.info("Idle hit:", this.object.name());

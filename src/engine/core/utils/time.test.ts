@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { game, level, XR_CTime } from "xray16";
+import { CTime, game, level } from "xray16";
 
 import { isInTimeInterval, readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { MAX_I32, MAX_U8, MIN_I32 } from "@/engine/lib/constants/memory";
@@ -10,7 +10,7 @@ import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } fr
 describe("'time' utils", () => {
   it("'writeTimeToPacket' and 'readTimeFromPacket' should correctly save and load", () => {
     const netProcessor: MockNetProcessor = new MockNetProcessor();
-    const timeToWrite: XR_CTime = game.get_game_time();
+    const timeToWrite: CTime = game.get_game_time();
 
     timeToWrite.set(2012, 6, 12, 3, 6, 12, 500);
 
@@ -29,7 +29,7 @@ describe("'time' utils", () => {
       EPacketDataType.U16,
     ]);
 
-    const timeToRead: Optional<XR_CTime> = readTimeFromPacket(mockNetProcessor(netProcessor));
+    const timeToRead: Optional<CTime> = readTimeFromPacket(mockNetProcessor(netProcessor));
 
     expect(timeToRead).not.toBeNull();
     expect(timeToRead?.toString()).toBe("y:2012, m:6, d:12, h:3, min:6, sec:12, ms:500");

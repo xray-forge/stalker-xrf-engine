@@ -1,4 +1,4 @@
-import { cast_planner, stalker_ids, world_property, XR_action_base, XR_action_planner, XR_game_object } from "xray16";
+import { action_base, action_planner, cast_planner, game_object, stalker_ids, world_property } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { ActionPostCombatIdleWait } from "@/engine/core/schemes/danger/actions";
@@ -15,12 +15,12 @@ export class PostCombatIdle {
   /**
    * todo: Description.
    */
-  public static addPostCombatIdleWait(object: XR_game_object): void {
+  public static addPostCombatIdleWait(object: game_object): void {
     logger.info("Add post-combat idle for:", object.name());
 
-    const actionPlanner: XR_action_planner = object.motivation_action_manager();
-    const combatAction: XR_action_base = actionPlanner.action(stalker_ids.action_combat_planner);
-    const combatActionPlanner: XR_action_planner = cast_planner(combatAction);
+    const actionPlanner: action_planner = object.motivation_action_manager();
+    const combatAction: action_base = actionPlanner.action(stalker_ids.action_combat_planner);
+    const combatActionPlanner: action_planner = cast_planner(combatAction);
 
     const state: ISchemePostCombatIdleState = {
       timer: null,

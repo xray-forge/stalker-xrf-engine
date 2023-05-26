@@ -1,4 +1,4 @@
-import { game, get_hud, XR_CTime, XR_CUIGameCustom, XR_game_object, XR_StaticDrawableWrapper } from "xray16";
+import { CTime, CUIGameCustom, game, game_object, get_hud, StaticDrawableWrapper } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -17,7 +17,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   public static readonly SHOW_CAN_USE_WEAPON_DURATION_SEC: TDuration = 30;
 
   public currentActorState: EActorZoneState = EActorZoneState.NOWHERE;
-  public noWeaponZoneLeftLabelShownAt: XR_CTime = game.CTime();
+  public noWeaponZoneLeftLabelShownAt: CTime = game.CTime();
   public isNoWeaponZoneLeftLabelVisible: boolean = false;
 
   protected scheme: typeof SchemeNoWeapon;
@@ -25,7 +25,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   /**
    * todo: Description.
    */
-  public constructor(object: XR_game_object, state: ISchemeNoWeaponState, scheme: typeof SchemeNoWeapon) {
+  public constructor(object: game_object, state: ISchemeNoWeaponState, scheme: typeof SchemeNoWeapon) {
     super(object, state);
     this.scheme = scheme;
   }
@@ -44,7 +44,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
    * todo: Check frequency of calls.
    */
   public override update(): void {
-    const actor: XR_game_object = registry.actor;
+    const actor: game_object = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       if (this.currentActorState === EActorZoneState.INSIDE) {
@@ -67,7 +67,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   /**
    * Check whether state is up-to-date or change it and fire events.
    */
-  public checkActorState(actor: XR_game_object): void {
+  public checkActorState(actor: game_object): void {
     const currentActorState: EActorZoneState = this.currentActorState;
     const isActorInsideZone: boolean = this.object.inside(actor.center());
 
@@ -86,8 +86,8 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
       return;
     }
 
-    const hud: XR_CUIGameCustom = get_hud();
-    const customStatic: Optional<XR_StaticDrawableWrapper> = hud.GetCustomStatic("can_use_weapon_now");
+    const hud: CUIGameCustom = get_hud();
+    const customStatic: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("can_use_weapon_now");
 
     if (customStatic === null) {
       logger.info("Show can use weapon label");
@@ -104,8 +104,8 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
       return;
     }
 
-    const hud: XR_CUIGameCustom = get_hud();
-    const customStatic: Optional<XR_StaticDrawableWrapper> = hud.GetCustomStatic("can_use_weapon_now");
+    const hud: CUIGameCustom = get_hud();
+    const customStatic: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("can_use_weapon_now");
 
     if (customStatic !== null) {
       logger.info("Remove can use weapon label");

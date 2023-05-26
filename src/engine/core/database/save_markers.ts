@@ -1,4 +1,4 @@
-import { TXR_net_processor, XR_net_packet } from "xray16";
+import { net_packet, TXR_net_processor } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { assert } from "@/engine/core/utils/assertion";
@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param packet - net packet to save data in
  * @param markerName - net packet transaction marker to verify data integrity
  */
-export function openSaveMarker(packet: XR_net_packet, markerName: TName): void {
+export function openSaveMarker(packet: net_packet, markerName: TName): void {
   assert(packet.w_tell() < 16_000, "You are saving too much in '%s'.", markerName);
   registry.saveMarkers.set(markerName, packet.w_tell());
 }
@@ -25,7 +25,7 @@ export function openSaveMarker(packet: XR_net_packet, markerName: TName): void {
  * @param markerName - net packet transaction marker to verify data integrity
  * @returns marker transaction saving size
  */
-export function closeSaveMarker(packet: XR_net_packet, markerName: TName): TCount {
+export function closeSaveMarker(packet: net_packet, markerName: TName): TCount {
   assert(registry.saveMarkers.get(markerName) !== null, "Trying to check without marker: '%s'.", markerName);
 
   const markerDif: TCount = packet.w_tell() - registry.saveMarkers.get(markerName);

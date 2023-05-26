@@ -1,13 +1,13 @@
 import {
+  action_planner,
   alife,
+  alife_simulator,
+  cse_alife_human_abstract,
+  cse_alife_object,
   device,
   game_graph,
+  game_object,
   relation_registry,
-  XR_action_planner,
-  XR_alife_simulator,
-  XR_cse_alife_human_abstract,
-  XR_cse_alife_object,
-  XR_game_object,
 } from "xray16";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
@@ -33,21 +33,21 @@ export function isSquadExisting(squadId: TStringId): boolean {
 /**
  * Is provided target stalker and alive.
  */
-export function isStalkerAlive(targetObject: XR_game_object | XR_cse_alife_human_abstract | TStringId): boolean {
+export function isStalkerAlive(targetObject: game_object | cse_alife_human_abstract | TStringId): boolean {
   let targetId: Optional<TNumberId> = null;
 
   if (type(targetObject) === "string") {
     targetId = getObjectIdByStoryId(targetObject as TStringId);
-  } else if (type((targetObject as XR_cse_alife_human_abstract).id) === "number") {
-    targetId = (targetObject as XR_cse_alife_human_abstract).id;
+  } else if (type((targetObject as cse_alife_human_abstract).id) === "number") {
+    targetId = (targetObject as cse_alife_human_abstract).id;
   } else {
-    targetId = (targetObject as XR_game_object).id();
+    targetId = (targetObject as game_object).id();
   }
 
   if (targetId === null) {
     return false;
   } else {
-    const object: Optional<XR_cse_alife_human_abstract> = alife().object(targetId);
+    const object: Optional<cse_alife_human_abstract> = alife().object(targetId);
 
     return object !== null && isStalker(object) && object.alive();
   }
@@ -56,21 +56,21 @@ export function isStalkerAlive(targetObject: XR_game_object | XR_cse_alife_human
 /**
  * todo;
  */
-export function isActorEnemyWithFaction(faction: TCommunity, actor: XR_game_object = registry.actor): boolean {
+export function isActorEnemyWithFaction(faction: TCommunity, actor: game_object = registry.actor): boolean {
   return relation_registry.community_goodwill(faction, actor.id()) <= EGoodwill.ENEMIES;
 }
 
 /**
  * todo;
  */
-export function isActorFriendWithFaction(faction: TCommunity, actor: XR_game_object = registry.actor): boolean {
+export function isActorFriendWithFaction(faction: TCommunity, actor: game_object = registry.actor): boolean {
   return relation_registry.community_goodwill(faction, actor.id()) >= EGoodwill.FRIENDS;
 }
 
 /**
  * todo;
  */
-export function isActorNeutralWithFaction(faction: TCommunity, actor: XR_game_object = registry.actor): boolean {
+export function isActorNeutralWithFaction(faction: TCommunity, actor: game_object = registry.actor): boolean {
   const goodwill: number = relation_registry.community_goodwill(faction, actor.id());
 
   return goodwill > EGoodwill.ENEMIES && goodwill < EGoodwill.FRIENDS;
@@ -79,7 +79,7 @@ export function isActorNeutralWithFaction(faction: TCommunity, actor: XR_game_ob
 /**
  * @returns whether provided object is on a provided level.
  */
-export function isObjectOnLevel(object: Optional<XR_cse_alife_object>, levelName: TName): boolean {
+export function isObjectOnLevel(object: Optional<cse_alife_object>, levelName: TName): boolean {
   return object !== null && alife().level_name(game_graph().vertex(object.m_game_vertex_id).level_id()) === levelName;
 }
 
@@ -100,7 +100,7 @@ export function isSurgeEnabledOnLevel(levelName: TLevel): boolean {
 /**
  * @returns whether object is excluded from loot drop.
  */
-export function isExcludedFromLootDropItem(object: XR_game_object): boolean {
+export function isExcludedFromLootDropItem(object: game_object): boolean {
   return lootable_table_exclude[object.section<TLootableExcludeItem>()] !== null;
 }
 
@@ -108,7 +108,7 @@ export function isExcludedFromLootDropItem(object: XR_game_object): boolean {
  * @returns whether current game level is changing.
  */
 export function isLevelChanging(): boolean {
-  const simulator: Optional<XR_alife_simulator> = alife();
+  const simulator: Optional<alife_simulator> = alife();
 
   return simulator === null
     ? false
@@ -118,14 +118,14 @@ export function isLevelChanging(): boolean {
 /**
  * @returns whether object is inside another object.
  */
-export function isObjectInZone(object: Optional<XR_game_object>, zone: Optional<XR_game_object>): boolean {
+export function isObjectInZone(object: Optional<game_object>, zone: Optional<game_object>): boolean {
   return object !== null && zone !== null && zone.inside(object.position());
 }
 
 /**
  * @returns whether object is wounded.
  */
-export function isObjectWounded(object: XR_game_object): boolean {
+export function isObjectWounded(object: game_object): boolean {
   const state = registry.objects.get(object.id());
 
   if (state === null) {
@@ -140,8 +140,8 @@ export function isObjectWounded(object: XR_game_object): boolean {
 /**
  * @returns whether object is meeting with someone.
  */
-export function isObjectMeeting(object: XR_game_object): boolean {
-  const actionPlanner: XR_action_planner = object.motivation_action_manager();
+export function isObjectMeeting(object: game_object): boolean {
+  const actionPlanner: action_planner = object.motivation_action_manager();
 
   return (
     actionPlanner !== null &&
@@ -168,8 +168,8 @@ export function isHeavilyWounded(objectId: TNumberId): boolean {
  * todo;
  * todo;
  */
-export function isActorInZone(zone: Optional<XR_game_object>): boolean {
-  const actor: Optional<XR_game_object> = registry.actor;
+export function isActorInZone(zone: Optional<game_object>): boolean {
+  const actor: Optional<game_object> = registry.actor;
 
   return actor !== null && zone !== null && zone.inside(actor.position());
 }
@@ -179,8 +179,8 @@ export function isActorInZone(zone: Optional<XR_game_object>): boolean {
  * todo;
  * todo;
  */
-export function isActorInZoneWithName(zoneName: TName, actor: Optional<XR_game_object> = registry.actor): boolean {
-  const zone: Optional<XR_game_object> = registry.zones.get(zoneName);
+export function isActorInZoneWithName(zoneName: TName, actor: Optional<game_object> = registry.actor): boolean {
+  const zone: Optional<game_object> = registry.zones.get(zoneName);
 
   return actor !== null && zone !== null && zone.inside(actor.position());
 }
@@ -188,7 +188,7 @@ export function isActorInZoneWithName(zoneName: TName, actor: Optional<XR_game_o
 /**
  * @returns whether provided enemy object is actor.
  */
-export function isActorEnemy(object: XR_game_object): boolean {
+export function isActorEnemy(object: game_object): boolean {
   return object.id() === registry.actor.id();
 }
 
@@ -202,7 +202,7 @@ export function isActorAlive(): boolean {
 /**
  * @returns whether actor see the object.
  */
-export function isSeenByActor(object: XR_game_object): boolean {
+export function isSeenByActor(object: game_object): boolean {
   return registry.actor.see(object);
 }
 
@@ -210,8 +210,8 @@ export function isSeenByActor(object: XR_game_object): boolean {
  * @returns whether distance between objects greater or equal.
  */
 export function isDistanceBetweenObjectsGreaterOrEqual(
-  first: XR_game_object,
-  second: XR_game_object,
+  first: game_object,
+  second: game_object,
   distance: number
 ): boolean {
   return first.position().distance_to_sqr(second.position()) >= distance * distance;
@@ -221,8 +221,8 @@ export function isDistanceBetweenObjectsGreaterOrEqual(
  * @returns whether distance between objects less or equal.
  */
 export function isDistanceBetweenObjectsLessOrEqual(
-  first: XR_game_object,
-  second: XR_game_object,
+  first: game_object,
+  second: game_object,
   distance: number
 ): boolean {
   return first.position().distance_to_sqr(second.position()) <= distance * distance;
@@ -231,14 +231,14 @@ export function isDistanceBetweenObjectsLessOrEqual(
 /**
  * @returns whether distance to actor greater or equal.
  */
-export function isDistanceToActorGreaterOrEqual(object: XR_game_object, distance: number): boolean {
+export function isDistanceToActorGreaterOrEqual(object: game_object, distance: number): boolean {
   return object.position().distance_to_sqr(registry.actor.position()) >= distance * distance;
 }
 
 /**
  * @returns whether distance to actor less or equal.
  */
-export function isDistanceToActorLessOrEqual(object: XR_game_object, distance: number): boolean {
+export function isDistanceToActorLessOrEqual(object: game_object, distance: number): boolean {
   return object.position().distance_to_sqr(registry.actor.position()) <= distance * distance;
 }
 
@@ -252,6 +252,6 @@ export function isBlackScreen(): boolean {
 /**
  * @returns whether currently sound is playing.
  */
-export function isPlayingSound(object: XR_game_object): boolean {
+export function isPlayingSound(object: game_object): boolean {
   return registry.sounds.generic.has(object.id());
 }

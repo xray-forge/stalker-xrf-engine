@@ -1,4 +1,4 @@
-import { alife, device, IsGameTypeSingle, XR_vector } from "xray16";
+import { alife, device, IsGameTypeSingle, vector } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional } from "@/engine/lib/types";
@@ -47,7 +47,7 @@ export function randomNumber(min?: number, max?: number): number {
 /**
  * todo:
  */
-export function vectorToString(vector: Optional<XR_vector>): Optional<string> {
+export function vectorToString(vector: Optional<vector>): Optional<string> {
   if (vector === null) {
     return null;
   }

@@ -1,4 +1,4 @@
-import { level, TXR_net_processor, XR_net_packet } from "xray16";
+import { level, net_packet, TXR_net_processor } from "xray16";
 
 import {
   closeLoadMarker,
@@ -312,7 +312,7 @@ export class WeatherManager extends AbstractCoreManager {
   /**
    * Save current state / related info.
    */
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, WeatherManager.name);
 
     packet.w_stringZ(this.getStateAsString());

@@ -1,29 +1,26 @@
 import {
+  action_planner,
   actor_stats,
   alife,
+  CALifeSmartTerrainTask,
   callback,
+  cse_alife_creature_abstract,
+  cse_alife_human_abstract,
   game_graph,
   game_object,
   ini_file,
   level,
   LuabindClass,
+  net_packet,
   object_binder,
   patrol,
   property_evaluator_const,
+  reader,
   stalker_ids,
   system_ini,
   time_global,
   TXR_snd_type,
   vector,
-  XR_action_planner,
-  XR_CALifeSmartTerrainTask,
-  XR_cse_alife_creature_abstract,
-  XR_cse_alife_human_abstract,
-  XR_game_object,
-  XR_ini_file,
-  XR_net_packet,
-  XR_reader,
-  XR_vector,
 } from "xray16";
 
 import {
@@ -112,9 +109,9 @@ export class StalkerBinder extends object_binder {
     this.state.moveManager = new StalkerMoveManager(this.object).initialize();
   }
 
-  public override net_spawn(object: XR_cse_alife_creature_abstract): boolean {
+  public override net_spawn(object: cse_alife_creature_abstract): boolean {
     const objectId: TNumberId = this.object.id();
-    const actor: XR_game_object = registry.actor;
+    const actor: game_object = registry.actor;
     const visual: TName = readIniString(system_ini(), this.object.section(), "set_visual", false, "");
 
     if (visual !== null && visual !== "") {
@@ -136,11 +133,11 @@ export class StalkerBinder extends object_binder {
     this.object.apply_loophole_direction_distance(1.0);
 
     if (!this.isLoaded) {
-      const spawnIni: Optional<XR_ini_file> = this.object.spawn_ini();
+      const spawnIni: Optional<ini_file> = this.object.spawn_ini();
 
       const stalkerIniFilename: Optional<TName> =
         spawnIni === null ? null : readIniString(spawnIni, "logic", "cfg", false, "");
-      let stalkerIni: Optional<XR_ini_file> = null;
+      let stalkerIni: Optional<ini_file> = null;
 
       if (stalkerIniFilename !== null) {
         stalkerIni = new ini_file(stalkerIniFilename);
@@ -176,7 +173,7 @@ export class StalkerBinder extends object_binder {
 
     // todo: Separate place.
     if (getStoryIdByObjectId(objectId) === "zat_b53_artefact_hunter_1") {
-      const actionPlanner: XR_action_planner = this.object.motivation_action_manager();
+      const actionPlanner: action_planner = this.object.motivation_action_manager();
 
       actionPlanner.remove_evaluator(stalker_ids.property_anomaly);
       actionPlanner.add_evaluator(stalker_ids.property_anomaly, new property_evaluator_const(false));
@@ -185,7 +182,7 @@ export class StalkerBinder extends object_binder {
     SchemeReachTask.addReachTaskSchemeAction(this.object);
 
     // todo: Why? Already same ref in parameter?
-    const serverObject: Optional<XR_cse_alife_human_abstract> = alife().object(objectId);
+    const serverObject: Optional<cse_alife_human_abstract> = alife().object(objectId);
 
     if (serverObject !== null) {
       if (registry.spawnedVertexes.get(serverObject.id) !== null) {
@@ -203,7 +200,7 @@ export class StalkerBinder extends object_binder {
           const jobDatas = smartTerrain.objectJobDescriptors;
           const arriving = smartTerrain.arrivingObjects;
           const jobData = smartTerrain.objectJobDescriptors.get(serverObject.id);
-          const smartTask: XR_CALifeSmartTerrainTask = smartTerrain.jobsData.get(jobData?.job_id).alife_task;
+          const smartTask: CALifeSmartTerrainTask = smartTerrain.jobsData.get(jobData?.job_id).alife_task;
 
           this.object.set_npc_position(smartTask.position());
         }
@@ -269,7 +266,7 @@ export class StalkerBinder extends object_binder {
       registry.actorCombat.delete(this.object.id());
     }
 
-    const object: XR_game_object = this.object;
+    const object: game_object = this.object;
     const isObjectAlive: boolean = object.alive();
 
     updateStalkerLogic(object);
@@ -323,7 +320,7 @@ export class StalkerBinder extends object_binder {
     return true;
   }
 
-  public override save(packet: XR_net_packet): void {
+  public override save(packet: net_packet): void {
     openSaveMarker(packet, StalkerBinder.__name);
 
     super.save(packet);
@@ -335,7 +332,7 @@ export class StalkerBinder extends object_binder {
     closeSaveMarker(packet, StalkerBinder.__name);
   }
 
-  public override load(reader: XR_reader): void {
+  public override load(reader: reader): void {
     this.isLoaded = true;
 
     openLoadMarker(reader, StalkerBinder.__name);
@@ -349,7 +346,7 @@ export class StalkerBinder extends object_binder {
     closeLoadMarker(reader, StalkerBinder.__name);
   }
 
-  public initializeInfoPortions(characterIni: XR_ini_file, knownInfoSection: Optional<TSection>): void {
+  public initializeInfoPortions(characterIni: ini_file, knownInfoSection: Optional<TSection>): void {
     knownInfoSection = knownInfoSection === null ? "known_info" : knownInfoSection;
 
     if (characterIni.section_exist(knownInfoSection)) {
@@ -388,10 +385,10 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public onHearSound(
-    target: XR_game_object,
+    target: game_object,
     who_id: TNumberId,
     sound_type: TXR_snd_type,
-    sound_position: XR_vector,
+    sound_position: vector,
     sound_power: TRate
   ): void {
     if (who_id === target.id()) {
@@ -404,7 +401,7 @@ export class StalkerBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public onDeath(victim: XR_game_object, who: Optional<XR_game_object>): void {
+  public onDeath(victim: game_object, who: Optional<game_object>): void {
     logger.info("Stalker death:", this.object.name());
 
     this.onHit(victim, 1, new vector().set(0, 0, 0), who, "from_death_callback");
@@ -469,7 +466,7 @@ export class StalkerBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public onUse(object: XR_game_object, who: XR_game_object): void {
+  public onUse(object: game_object, who: game_object): void {
     logger.info("Stalker use:", this.object.name(), "by", who.name());
 
     if (this.object.alive()) {
@@ -499,13 +496,13 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public onHit(
-    object: XR_game_object,
+    object: game_object,
     amount: TRate,
-    local_direction: XR_vector,
-    who: Optional<XR_game_object>,
+    local_direction: vector,
+    who: Optional<game_object>,
     boneIndex: string | number
   ): void {
-    const actor: XR_game_object = registry.actor;
+    const actor: game_object = registry.actor;
 
     // -- FIXME: �������� ������� ���� �� �������������� � ����� storage, � �� ��������...
     if (who?.id() === actor.id()) {
@@ -585,9 +582,9 @@ export class StalkerBinder extends object_binder {
 /**
  * todo: Description.
  */
-export function updateStalkerLogic(object: XR_game_object): void {
+export function updateStalkerLogic(object: game_object): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
-  const actor: XR_game_object = registry.actor;
+  const actor: game_object = registry.actor;
   const combatState: IBaseSchemeState = state.combat!;
 
   if (state !== null && state.active_scheme !== null && object.alive()) {

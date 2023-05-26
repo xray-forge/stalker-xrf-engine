@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
-import { time_global, XR_game_object } from "xray16";
+import { game_object, time_global } from "xray16";
 
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { registerObject, resetObject } from "@/engine/core/database/objects";
@@ -17,7 +17,7 @@ describe("'logic' database module", () => {
   });
 
   it("should correctly load and save scheme activation info when set state", () => {
-    const object: XR_game_object = mockClientGameObject();
+    const object: game_object = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 

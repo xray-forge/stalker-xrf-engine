@@ -1,12 +1,20 @@
 import {
+  CConsole,
+  CGameFont,
   CScriptXmlInit,
+  CUIEditBox,
+  CUIListBox,
   CUIMessageBoxEx,
   CUIScriptWnd,
+  CUIStatic,
   CUIWindow,
   DIK_keys,
   dik_to_bind,
   Frect,
   FS,
+  FS_file_list,
+  FS_file_list_ex,
+  FS_item,
   get_console,
   GetFontMedium,
   getFS,
@@ -16,20 +24,6 @@ import {
   TXR_ui_event,
   ui_events,
   vector2,
-  XR_CConsole,
-  XR_CGameFont,
-  XR_CScriptXmlInit,
-  XR_CUIEditBox,
-  XR_CUIListBox,
-  XR_CUIMessageBoxEx,
-  XR_CUIScriptWnd,
-  XR_CUIStatic,
-  XR_CUIWindow,
-  XR_FS,
-  XR_FS_file_list,
-  XR_FS_file_list_ex,
-  XR_FS_item,
-  XR_vector2,
 } from "xray16";
 
 import { SaveItem } from "@/engine/core/ui/menu/save/SaveItem";
@@ -38,9 +32,9 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { roots } from "@/engine/lib/constants/roots";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TPath } from "@/engine/lib/types";
 
-const base: string = "menu\\SaveDialog.component";
+const base: TPath = "menu\\SaveDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
@@ -48,24 +42,24 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class SaveDialog extends CUIScriptWnd {
-  public owner: XR_CUIScriptWnd;
+  public owner: CUIScriptWnd;
 
-  public readonly listFileFont: XR_CGameFont = GetFontMedium();
-  public readonly listDateFont: XR_CGameFont = GetFontMedium();
+  public readonly listFileFont: CGameFont = GetFontMedium();
+  public readonly listDateFont: CGameFont = GetFontMedium();
 
-  public fileItemMainSize!: XR_vector2;
-  public fileItemFnSize!: XR_vector2;
-  public fileItemFdSize!: XR_vector2;
+  public fileItemMainSize!: vector2;
+  public fileItemFnSize!: vector2;
+  public fileItemFdSize!: vector2;
 
-  public form!: XR_CUIStatic;
-  public editBox!: XR_CUIEditBox;
-  public listBox!: XR_CUIListBox<SaveItem>;
-  public messageBox!: XR_CUIMessageBoxEx;
+  public form!: CUIStatic;
+  public editBox!: CUIEditBox;
+  public listBox!: CUIListBox<SaveItem>;
+  public messageBox!: CUIMessageBoxEx;
 
   public newSave: string = "";
   public modalBoxMode: number = 0;
 
-  public constructor(owner: XR_CUIScriptWnd) {
+  public constructor(owner: CUIScriptWnd) {
     super();
 
     this.owner = owner;
@@ -78,13 +72,13 @@ export class SaveDialog extends CUIScriptWnd {
   public InitControls(): void {
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
 
-    const xml: XR_CScriptXmlInit = new CScriptXmlInit();
+    const xml: CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
 
     xml.InitWindow("background", 0, this);
 
-    const ctrl: XR_CUIWindow = new CUIWindow();
+    const ctrl: CUIWindow = new CUIWindow();
 
     xml.InitWindow("file_item:main", 0, ctrl);
 
@@ -129,7 +123,7 @@ export class SaveDialog extends CUIScriptWnd {
 
     this.listBox.RemoveAll();
 
-    const fileList: XR_FS_file_list_ex = getFS().file_list_open_ex(
+    const fileList: FS_file_list_ex = getFS().file_list_open_ex(
       roots.gameSaves,
       FS.FS_ListFiles,
       "*" + gameConfig.GAME_SAVE_EXTENSION
@@ -138,7 +132,7 @@ export class SaveDialog extends CUIScriptWnd {
     fileList.Sort(FS.FS_sort_by_modif_down);
 
     for (let it = 0; it < fileList.Size(); it += 1) {
-      const file: XR_FS_item = fileList.GetAt(it);
+      const file: FS_item = fileList.GetAt(it);
       const file_name: string = string.sub(
         file.NameFull(),
         0,
@@ -238,8 +232,8 @@ export class SaveDialog extends CUIScriptWnd {
       return;
     }
 
-    const fs: XR_FS = getFS();
-    const fileList: XR_FS_file_list = fs.file_list_open(roots.gameSaves, FS.FS_ListFiles);
+    const fs: FS = getFS();
+    const fileList: FS_file_list = fs.file_list_open(roots.gameSaves, FS.FS_ListFiles);
     const fileExists: Optional<number> = fs.exist(roots.gameSaves, this.newSave + gameConfig.GAME_SAVE_EXTENSION);
 
     if (fileExists !== null) {
@@ -300,7 +294,7 @@ export class SaveDialog extends CUIScriptWnd {
     logger.info("Save file:", filename);
 
     if (filename !== null) {
-      const console: XR_CConsole = get_console();
+      const console: CConsole = get_console();
 
       console.execute("save " + filename);
     }

@@ -1,4 +1,4 @@
-import { LuabindClass, property_evaluator, XR_action_planner } from "xray16";
+import { action_planner, LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EStalkerState, EStateEvaluatorId } from "@/engine/core/objects/state/types";
@@ -34,7 +34,7 @@ export class EvaluatorStateIdleAlife extends property_evaluator {
 
     this.currentActionId = null;
 
-    const actionPlanner: XR_action_planner = this.object.motivation_action_manager();
+    const actionPlanner: action_planner = this.object.motivation_action_manager();
 
     if (actionPlanner.initialized()) {
       this.currentActionId = actionPlanner.current_action_id();

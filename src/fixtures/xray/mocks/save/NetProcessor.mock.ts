@@ -1,4 +1,4 @@
-import { TXR_net_processor, XR_net_packet } from "xray16";
+import { net_packet, TXR_net_processor } from "xray16";
 
 import { EPacketDataType } from "@/fixtures/xray/mocks/save/types";
 
@@ -136,12 +136,12 @@ export class MockNetProcessor {
  * todo;
  */
 export function mockNetProcessor(packet: MockNetProcessor = new MockNetProcessor()): TXR_net_processor {
-  return packet as unknown as XR_net_packet;
+  return packet as unknown as net_packet;
 }
 
 /**
  * todo;
  */
-export function mockNetPacket(packet: MockNetProcessor = new MockNetProcessor()): XR_net_packet {
-  return packet as unknown as XR_net_packet;
+export function mockNetPacket(packet: MockNetProcessor = new MockNetProcessor()): net_packet {
+  return packet as unknown as net_packet;
 }

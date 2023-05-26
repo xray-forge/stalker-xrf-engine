@@ -1,4 +1,4 @@
-import { XR_game_object } from "xray16";
+import { game_object } from "xray16";
 
 import { IAnimationDescriptor } from "@/engine/core/objects/state/types";
 
@@ -688,7 +688,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           "animpoint_sit_normal_guitar_in_1",
           { a: "guitar_a" },
           {
-            f: (object: XR_game_object) => {
+            f: (object: game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
               const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
 
@@ -701,7 +701,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           "animpoint_sit_normal_guitar_in_1",
           { a: "guitar_a" },
           {
-            f: (object: XR_game_object) => {
+            f: (object: game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
               const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
 
@@ -737,7 +737,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           "animpoint_sit_low_guitar_in_1",
           { a: "guitar_a" },
           {
-            f: (object: XR_game_object) => {
+            f: (object: game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
               const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
 
@@ -750,7 +750,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           "animpoint_sit_low_guitar_in_1",
           { a: "guitar_a" },
           {
-            f: (object: XR_game_object) => {
+            f: (object: game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
               const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
 
@@ -824,7 +824,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           "animpoint_sit_high_harmonica_in_1",
           { a: "harmonica_a" },
           {
-            f: (object: XR_game_object) => {
+            f: (object: game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
               const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
 
@@ -837,7 +837,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           "animpoint_sit_high_harmonica_in_1",
           { a: "harmonica_a" },
           {
-            f: (object: XR_game_object) => {
+            f: (object: game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
               const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
 
@@ -889,7 +889,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           "animpoint_sit_low_harmonica_in_1",
           { a: "harmonica_a" },
           {
-            f: (object: XR_game_object) => {
+            f: (object: game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
               const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
 
@@ -902,7 +902,7 @@ export function getAnimpointAnimationList(): LuaTable<string, IAnimationDescript
           "animpoint_sit_low_harmonica_in_1",
           { a: "harmonica_a" },
           {
-            f: (object: XR_game_object) => {
+            f: (object: game_object) => {
               // eslint-disable-next-line @typescript-eslint/no-var-requires
               const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
 

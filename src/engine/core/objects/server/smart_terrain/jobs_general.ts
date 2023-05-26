@@ -1,16 +1,14 @@
 import {
   alife,
+  alife_simulator,
+  cse_alife_creature_abstract,
+  cse_alife_human_abstract,
+  cse_alife_object,
+  game_object,
   getFS,
   ini_file,
   level,
   patrol,
-  XR_alife_simulator,
-  XR_cse_alife_creature_abstract,
-  XR_cse_alife_human_abstract,
-  XR_cse_alife_object,
-  XR_game_object,
-  XR_ini_file,
-  XR_patrol,
 } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
@@ -245,7 +243,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: {},
       _precondition_function: (
-        serverObject: XR_cse_alife_human_abstract,
+        serverObject: cse_alife_human_abstract,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
@@ -339,7 +337,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: {},
       _precondition_function: (
-        serverObject: XR_cse_alife_human_abstract,
+        serverObject: cse_alife_human_abstract,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
@@ -447,7 +445,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: {},
       _precondition_function: (
-        serverObject: XR_cse_alife_object,
+        serverObject: cse_alife_object,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
@@ -546,7 +544,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
         },
         _precondition_params: {},
         _precondition_function: (
-          serverObject: XR_cse_alife_human_abstract,
+          serverObject: cse_alife_human_abstract,
           smart: SmartTerrain,
           precond_params: AnyObject
         ): boolean => {
@@ -628,7 +626,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: {},
       _precondition_function: (
-        serverObject: XR_cse_alife_human_abstract,
+        serverObject: cse_alife_human_abstract,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
@@ -692,7 +690,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: {},
       _precondition_function: (
-        serverObject: XR_cse_alife_human_abstract,
+        serverObject: cse_alife_human_abstract,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
@@ -791,7 +789,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: { changing_job: "logic@" + way_name },
       _precondition_function: (
-        serverObject: XR_cse_alife_human_abstract,
+        serverObject: cse_alife_human_abstract,
         smart: SmartTerrain,
         precond_params: AnyObject,
         npc_info: AnyObject
@@ -878,7 +876,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: { way_name: way_name },
       _precondition_function: (
-        serverObject: XR_cse_alife_human_abstract,
+        serverObject: cse_alife_human_abstract,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
@@ -961,7 +959,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: { way_name: way_name },
       _precondition_function: (
-        serverObject: XR_cse_alife_human_abstract,
+        serverObject: cse_alife_human_abstract,
         smart: SmartTerrain,
         precond_params: AnyObject
       ) => {
@@ -1067,7 +1065,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   table.insert(jobsList, monster_jobs);
 
   // ===================================================================================================================
-  const smartTerrainIni: XR_ini_file = smartTerrain.ini;
+  const smartTerrainIni: ini_file = smartTerrain.ini;
 
   if (smartTerrainIni.section_exist(SMART_TERRAIN_SECTION)) {
     logger.info("Exclusive jobs load:", smartTerrainName);
@@ -1100,7 +1098,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
 function addExclusiveJob(
   section: TSection,
   work_field: TSection,
-  smartTerrainIni: XR_ini_file,
+  smartTerrainIni: ini_file,
   jobsList: LuaArray<TJobDescriptor>
 ): void {
   const work: Optional<string> = readIniString(smartTerrainIni, section, work_field, false, "");
@@ -1161,7 +1159,7 @@ function addExclusiveJob(
     },
     _precondition_params: { condlist: conditionsList },
     _precondition_function: (
-      serverObject: XR_cse_alife_human_abstract,
+      serverObject: cse_alife_human_abstract,
       smart: SmartTerrain,
       precond_params: AnyObject
     ): boolean => {
@@ -1197,13 +1195,13 @@ export function isJobInRestrictor(smart: SmartTerrain, restrictorName: TName, wa
     return null;
   }
 
-  const restrictor: Optional<XR_game_object> = registry.zones.get(restrictorName);
+  const restrictor: Optional<game_object> = registry.zones.get(restrictorName);
 
   if (restrictor === null) {
     return null;
   }
 
-  const patrolObject: XR_patrol = new patrol(wayName);
+  const patrolObject: patrol = new patrol(wayName);
   const count: TCount = patrolObject.count();
 
   for (const pt of $range(0, count - 1)) {
@@ -1218,7 +1216,7 @@ export function isJobInRestrictor(smart: SmartTerrain, restrictorName: TName, wa
 /**
  * todo;
  */
-export function isAccessibleJob(serverObject: XR_cse_alife_object, wayName: TName): boolean {
+export function isAccessibleJob(serverObject: cse_alife_object, wayName: TName): boolean {
   return registry.objects.get(serverObject.id)?.object !== null;
 }
 
@@ -1307,17 +1305,17 @@ function isJobAvailableToObject(objectInfo: IObjectJobDescriptor, jobInfo: any, 
  * todo;
  */
 export function setupSmartJobsAndLogicOnSpawn(
-  object: XR_game_object,
+  object: game_object,
   state: IRegistryObjectState,
-  serverObject: Optional<XR_cse_alife_creature_abstract>,
+  serverObject: Optional<cse_alife_creature_abstract>,
   schemeType: ESchemeType,
   isLoaded: boolean
 ): void {
   logger.info("Setup smart terrain logic on spawn:", object.name(), schemeType);
 
-  const alifeSimulator: Optional<XR_alife_simulator> = alife();
+  const alifeSimulator: Optional<alife_simulator> = alife();
 
-  serverObject = alife()!.object<XR_cse_alife_creature_abstract>(object.id());
+  serverObject = alife()!.object<cse_alife_creature_abstract>(object.id());
 
   if (alifeSimulator !== null && serverObject !== null) {
     const smartTerrainId: TNumberId = serverObject.m_smart_terrain_id;
