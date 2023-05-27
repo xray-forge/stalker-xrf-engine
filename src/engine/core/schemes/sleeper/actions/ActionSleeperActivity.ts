@@ -1,4 +1,4 @@
-import { action_base, game_object, LuabindClass, patrol } from "xray16";
+import { action_base, LuabindClass, patrol } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
@@ -7,7 +7,7 @@ import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { IWaypointData, parsePathWaypointsFromArgsList } from "@/engine/core/utils/parse";
-import { AnyCallable, LuaArray, Optional } from "@/engine/lib/types";
+import { AnyCallable, ClientObject, LuaArray, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -35,7 +35,7 @@ export class ActionSleeperActivity extends action_base {
   /**
    * todo: Description.
    */
-  public constructor(state: ISchemeSleeperState, object: game_object) {
+  public constructor(state: ISchemeSleeperState, object: ClientObject) {
     super(null, ActionSleeperActivity.__name);
 
     this.state = state;

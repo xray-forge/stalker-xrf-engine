@@ -1,4 +1,4 @@
-import { alife, game_object, level } from "xray16";
+import { alife, level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -27,7 +27,7 @@ import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions
 import { drugs, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { pistols, TPistol } from "@/engine/lib/constants/items/weapons";
 import { levels } from "@/engine/lib/constants/levels";
-import { ClientObject, EScheme, Optional, TNumberId } from "@/engine/lib/types";
+import { ClientObject, EClientObjectRelation, EScheme, Optional, TNumberId } from "@/engine/lib/types";
 
 extern("dialogs", {});
 
@@ -98,8 +98,8 @@ extern("dialogs.transfer_medkit", (firstSpeaker: ClientObject, secondSpeaker: Cl
 
   SchemeWounded.unlockMedkit(secondSpeaker);
 
-  if (secondSpeaker.relation(firstSpeaker) !== game_object.enemy) {
-    secondSpeaker.set_relation(game_object.friend, firstSpeaker);
+  if (secondSpeaker.relation(firstSpeaker) !== EClientObjectRelation.ENEMY) {
+    secondSpeaker.set_relation(EClientObjectRelation.FRIEND, firstSpeaker);
   }
 
   firstSpeaker.change_character_reputation(10);
@@ -117,7 +117,7 @@ extern("dialogs.actor_have_bandage", (firstSpeaker: ClientObject, secondSpeaker:
  */
 extern("dialogs.transfer_bandage", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.bandage);
-  secondSpeaker.set_relation(game_object.friend, firstSpeaker);
+  secondSpeaker.set_relation(EClientObjectRelation.FRIEND, firstSpeaker);
 });
 
 /**
@@ -180,21 +180,21 @@ extern("dialogs.not_level_pripyat", (firstSpeaker: ClientObject, secondSpeaker: 
  * todo;
  */
 extern("dialogs.is_friend", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return firstSpeaker.relation(secondSpeaker) === game_object.friend;
+  return firstSpeaker.relation(secondSpeaker) === EClientObjectRelation.FRIEND;
 });
 
 /**
  * todo;
  */
 extern("dialogs.is_not_friend", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return firstSpeaker.relation(secondSpeaker) !== game_object.friend;
+  return firstSpeaker.relation(secondSpeaker) !== EClientObjectRelation.FRIEND;
 });
 
 /**
  * todo;
  */
 extern("dialogs.become_friend", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  firstSpeaker.set_relation(game_object.friend, secondSpeaker);
+  firstSpeaker.set_relation(EClientObjectRelation.FRIEND, secondSpeaker);
 });
 
 /**

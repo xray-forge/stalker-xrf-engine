@@ -1,4 +1,4 @@
-import { game_object, level } from "xray16";
+import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
@@ -11,7 +11,7 @@ import { isActorAlive, isActorEnemy, isObjectInZone } from "@/engine/core/utils/
 import { isWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { npcInActorFrustum } from "@/engine/core/utils/vector";
-import { AnyArgs, EScheme, LuaArray, Optional, TSection } from "@/engine/lib/types";
+import { AnyArgs, ClientObject, EScheme, LuaArray, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -32,14 +32,14 @@ extern("xr_conditions.information_dealer_functor", (): boolean => {
 /**
  * todo;
  */
-extern("xr_conditions.actor_in_surge_cover", (actor: game_object, npc: game_object): boolean => {
+extern("xr_conditions.actor_in_surge_cover", (actor: ClientObject, npc: ClientObject): boolean => {
   return SurgeManager.getInstance().isActorInCover();
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.is_enemy_actor", (object: game_object): boolean => {
+extern("xr_conditions.is_enemy_actor", (object: ClientObject): boolean => {
   return isActorEnemy(object);
 });
 
@@ -53,21 +53,21 @@ extern("xr_conditions.actor_alive", (): boolean => {
 /**
  * todo;
  */
-extern("xr_conditions.actor_see_npc", (actor: game_object, npc: game_object): boolean => {
+extern("xr_conditions.actor_see_npc", (actor: ClientObject, npc: ClientObject): boolean => {
   return actor.see(npc);
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.npc_in_actor_frustum", (actor: game_object, npc: game_object): boolean => {
+extern("xr_conditions.npc_in_actor_frustum", (actor: ClientObject, npc: ClientObject): boolean => {
   return npcInActorFrustum(npc);
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.dist_to_actor_le", (actor: game_object, npc: game_object, params: AnyArgs): boolean => {
+extern("xr_conditions.dist_to_actor_le", (actor: ClientObject, npc: ClientObject, params: AnyArgs): boolean => {
   const distance: Optional<number> = params[0];
 
   if (distance === null) {
@@ -80,7 +80,7 @@ extern("xr_conditions.dist_to_actor_le", (actor: game_object, npc: game_object, 
 /**
  * todo;
  */
-extern("xr_conditions.dist_to_actor_ge", (actor: game_object, npc: game_object, params: AnyArgs): boolean => {
+extern("xr_conditions.dist_to_actor_ge", (actor: ClientObject, npc: ClientObject, params: AnyArgs): boolean => {
   const distance: Optional<number> = params[0];
 
   if (distance === null) {
@@ -93,37 +93,40 @@ extern("xr_conditions.dist_to_actor_ge", (actor: game_object, npc: game_object, 
 /**
  * todo;
  */
-extern("xr_conditions.actor_health_le", (actor: game_object, npc: game_object, params: [number]): boolean => {
+extern("xr_conditions.actor_health_le", (actor: ClientObject, npc: ClientObject, params: [number]): boolean => {
   return params[0] !== null && actor.health < params[0];
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.actor_in_zone", (actor: game_object, npc: game_object, params: [string]): boolean => {
+extern("xr_conditions.actor_in_zone", (actor: ClientObject, npc: ClientObject, params: [string]): boolean => {
   return isObjectInZone(registry.actor, registry.zones.get(params[0]));
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.heli_see_actor", (actor: game_object, object: game_object): boolean => {
+extern("xr_conditions.heli_see_actor", (actor: ClientObject, object: ClientObject): boolean => {
   return actor !== null && object.get_helicopter().isVisible(actor);
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.actor_has_item", (actor: game_object, npc: game_object, params: [Optional<string>]): boolean => {
-  const story_actor = registry.actor;
+extern(
+  "xr_conditions.actor_has_item",
+  (actor: ClientObject, npc: ClientObject, params: [Optional<string>]): boolean => {
+    const story_actor = registry.actor;
 
-  return params[0] !== null && story_actor !== null && story_actor.object(params[0]) !== null;
-});
+    return params[0] !== null && story_actor !== null && story_actor.object(params[0]) !== null;
+  }
+);
 
 /**
  * todo;
  */
-extern("xr_conditions.actor_has_item_count", (actor: game_object, npc: game_object, p: [string, string]) => {
+extern("xr_conditions.actor_has_item_count", (actor: ClientObject, npc: ClientObject, p: [string, string]) => {
   const item_section: TSection = p[0];
   const need_count: number = tonumber(p[1])!;
   let has_count: number = 0;
@@ -140,7 +143,7 @@ extern("xr_conditions.actor_has_item_count", (actor: game_object, npc: game_obje
 /**
  * todo;
  */
-extern("xr_conditions.hit_by_actor", (actor: game_object, npc: game_object): boolean => {
+extern("xr_conditions.hit_by_actor", (actor: ClientObject, npc: ClientObject): boolean => {
   const state: Optional<ISchemeHitState> = registry.objects.get(npc.id())[EScheme.HIT] as ISchemeHitState;
 
   return state !== null && state.who === actor.id();
@@ -149,14 +152,14 @@ extern("xr_conditions.hit_by_actor", (actor: game_object, npc: game_object): boo
 /**
  * todo;
  */
-extern("xr_conditions.killed_by_actor", (actor: game_object, npc: game_object): boolean => {
+extern("xr_conditions.killed_by_actor", (actor: ClientObject, npc: ClientObject): boolean => {
   return (registry.objects.get(npc.id())[EScheme.DEATH] as ISchemeDeathState)?.killer === actor.id();
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.actor_has_weapon", (actor: game_object): boolean => {
+extern("xr_conditions.actor_has_weapon", (actor: ClientObject): boolean => {
   const obj = actor.active_item();
 
   if (obj === null || isWeapon(obj) === false) {
@@ -171,7 +174,7 @@ extern("xr_conditions.actor_has_weapon", (actor: game_object): boolean => {
  */
 extern(
   "xr_conditions.actor_active_detector",
-  (actor: game_object, npc: game_object, p: Optional<[TSection]>): boolean => {
+  (actor: ClientObject, npc: ClientObject, p: Optional<[TSection]>): boolean => {
     const detector_section = p && p[0];
 
     if (detector_section === null) {
@@ -187,7 +190,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.actor_on_level", (actor: game_object, npc: game_object, p: LuaArray<string>): boolean => {
+extern("xr_conditions.actor_on_level", (actor: ClientObject, npc: ClientObject, p: LuaArray<string>): boolean => {
   for (const [k, v] of p) {
     if (v === level.name()) {
       return true;
@@ -200,7 +203,7 @@ extern("xr_conditions.actor_on_level", (actor: game_object, npc: game_object, p:
 /**
  * todo;
  */
-extern("xr_conditions.talking", (actor: game_object): boolean => {
+extern("xr_conditions.talking", (actor: ClientObject): boolean => {
   return actor.is_talking();
 });
 
@@ -214,7 +217,7 @@ extern("xr_conditions.actor_nomove_nowpn", (): boolean => {
 /**
  * todo;
  */
-extern("xr_conditions.actor_has_nimble_weapon", (actor: game_object, npc: game_object): boolean => {
+extern("xr_conditions.actor_has_nimble_weapon", (actor: ClientObject, npc: ClientObject): boolean => {
   const need_item: LuaTable<string, boolean> = {
     wpn_groza_nimble: true,
     wpn_desert_eagle_nimble: true,
@@ -242,7 +245,7 @@ extern("xr_conditions.actor_has_nimble_weapon", (actor: game_object, npc: game_o
 /**
  * todo;
  */
-extern("xr_conditions.actor_has_active_nimble_weapon", (actor: game_object, npc: game_object): boolean => {
+extern("xr_conditions.actor_has_active_nimble_weapon", (actor: ClientObject, npc: ClientObject): boolean => {
   const need_item: Record<string, boolean> = {
     wpn_groza_nimble: true,
     wpn_desert_eagle_nimble: true,

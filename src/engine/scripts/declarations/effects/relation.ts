@@ -1,5 +1,3 @@
-import { game_object } from "xray16";
-
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects";
 import { abort } from "@/engine/core/utils/assertion";
@@ -13,7 +11,7 @@ import {
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { relations, TRelation } from "@/engine/lib/constants/relations";
-import { ClientObject, Optional, TCount, TStringId } from "@/engine/lib/types";
+import { ClientObject, EClientObjectRelation, Optional, TCount, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -168,8 +166,8 @@ extern("xr_effects.set_squads_enemies", (actor: ClientObject, npc: ClientObject,
         const npc_obj_2 = registry.objects.get(kk.id).object as Optional<ClientObject>;
 
         if (npc_obj_2 !== null) {
-          npc_obj_1.set_relation(game_object.enemy, npc_obj_2);
-          npc_obj_2.set_relation(game_object.enemy, npc_obj_1);
+          npc_obj_1.set_relation(EClientObjectRelation.ENEMY, npc_obj_2);
+          npc_obj_2.set_relation(EClientObjectRelation.ENEMY, npc_obj_1);
         }
       }
     }

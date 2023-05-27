@@ -1,4 +1,4 @@
-import { game_object, stalker_ids, world_property } from "xray16";
+import { stalker_ids, world_property } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -23,6 +23,7 @@ import {
   ActionPlanner,
   AnyObject,
   ClientObject,
+  EClientObjectRelation,
   EScheme,
   ESchemeType,
   IniFile,
@@ -137,7 +138,7 @@ export class SchemeMeet extends AbstractScheme {
     const def: AnyObject = {};
     const relation = getObjectsRelationSafe(object, registry.actor);
 
-    if (relation === game_object.enemy) {
+    if (relation === EClientObjectRelation.ENEMY) {
       def.close_distance = "0";
       def.close_anim = NIL;
       def.close_snd_distance = "0";
@@ -264,7 +265,7 @@ export class SchemeMeet extends AbstractScheme {
    */
   public static updateObjectInteractionAvailability(object: ClientObject): void {
     if (isObjectWounded(object)) {
-      if (object.relation(registry.actor) === game_object.enemy) {
+      if (object.relation(registry.actor) === EClientObjectRelation.ENEMY) {
         object.disable_talk();
       } else {
         const state: Optional<ISchemeWoundedState> = registry.objects.get(object.id())[
@@ -326,7 +327,7 @@ export class SchemeMeet extends AbstractScheme {
     if (
       meetManager.use === FALSE &&
       meetManager.abuseMode === TRUE &&
-      getObjectsRelationSafe(object, actor) !== game_object.enemy
+      getObjectsRelationSafe(object, actor) !== EClientObjectRelation.ENEMY
     ) {
       SchemeAbuse.addAbuse(object, 1);
     }

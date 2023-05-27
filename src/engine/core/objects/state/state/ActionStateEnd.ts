@@ -1,4 +1,4 @@
-import { action_base, game_object, level, LuabindClass, object, time_global } from "xray16";
+import { action_base, level, LuabindClass, object, time_global } from "xray16";
 
 import { EWeaponAnimation } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
@@ -6,7 +6,7 @@ import { getObjectIdleState, getStateQueueParams } from "@/engine/core/objects/s
 import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { isStalker, isWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, Optional, TDuration, TRate, TTimestamp } from "@/engine/lib/types";
+import { ClientObject, EClientObjectRelation, Optional, TDuration, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -83,7 +83,7 @@ export class ActionStateEnd extends action_base {
 
         if (
           this.object.see(lookObject) !== null &&
-          (!isStalker(lookObject) || this.object.relation(lookObject) === game_object.enemy) &&
+          (!isStalker(lookObject) || this.object.relation(lookObject) === EClientObjectRelation.ENEMY) &&
           lookObject.alive()
         ) {
           if (targetWeaponState === EWeaponAnimation.SNIPER_FIRE) {

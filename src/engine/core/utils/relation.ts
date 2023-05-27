@@ -1,4 +1,4 @@
-import { alife, game_object, relation_registry } from "xray16";
+import { alife, relation_registry } from "xray16";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
@@ -8,6 +8,7 @@ import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { EGoodwill, ERelation, relations, TRelation } from "@/engine/lib/constants/relations";
 import {
   ClientObject,
+  EClientObjectRelation,
   Optional,
   ServerCreatureObject,
   TCount,
@@ -374,9 +375,9 @@ export function setRelationBetweenCommunities(
  */
 export function setObjectSympathy(object: Optional<ClientObject>, newSympathy: TCount): void {
   if (newSympathy < 0) {
-    newSympathy = game_object.friend;
+    newSympathy = EClientObjectRelation.FRIEND;
   } else if (newSympathy > 1) {
-    newSympathy = game_object.neutral;
+    newSympathy = EClientObjectRelation.NEUTRAL;
   }
 
   assertDefined(object, "Npc not set in sympathy function.");

@@ -1,4 +1,4 @@
-import { action_base, game_object, LuabindClass, time_global } from "xray16";
+import { action_base, LuabindClass, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
@@ -8,7 +8,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
 import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
-import { ClientObject, TDistance, TNumberId, TTimestamp, Vector } from "@/engine/lib/types";
+import { ClientObject, EClientObjectPath, TDistance, TNumberId, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -103,7 +103,7 @@ export class ActionPatrol extends action_base {
       this.object.set_desired_direction(desiredDirection);
     }
 
-    this.object.set_path_type(game_object.level_path);
+    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
 
     setStalkerState(this.object, this.cur_state, null, null, null, null);
   }

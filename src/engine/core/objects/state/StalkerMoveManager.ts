@@ -1,4 +1,4 @@
-import { callback, game_object, level, move, patrol, time_global } from "xray16";
+import { callback, level, move, patrol, time_global } from "xray16";
 
 import { IRegistryObjectState, registry, setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state/types";
@@ -12,6 +12,7 @@ import {
   AnyCallable,
   AnyObject,
   ClientObject,
+  EClientObjectPath,
   Flags32,
   LuaArray,
   Optional,
@@ -353,14 +354,14 @@ export class StalkerMoveManager {
       sync.get(this.team).delete(this.object.id());
     }
 
-    this.object.set_path_type(game_object.level_path);
+    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
   }
 
   /**
    * todo: Description.
    */
   public setupMovementByPatrolPath(): void {
-    this.object.set_path_type(game_object.patrol_path);
+    this.object.set_path_type(EClientObjectPath.PATROL_PATH);
     this.object.set_detail_path_type(move.line);
 
     if (this.current_point_index) {

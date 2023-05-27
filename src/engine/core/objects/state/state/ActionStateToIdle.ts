@@ -1,10 +1,10 @@
-import { action_base, game_object, LuabindClass } from "xray16";
+import { action_base, LuabindClass } from "xray16";
 
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
-import { TName } from "@/engine/lib/types";
+import { EClientObjectPath, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -49,7 +49,7 @@ export class ActionStateToIdle extends action_base {
 
     sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());
 
-    this.object.set_path_type(game_object.level_path);
+    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
   }
 
   /**
@@ -57,7 +57,7 @@ export class ActionStateToIdle extends action_base {
    */
   public override execute(): void {
     sendToNearestAccessibleVertex(this.object, this.object.level_vertex_id());
-    this.object.set_path_type(game_object.level_path);
+    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
 
     if (this.object.best_enemy()) {
       this.stateManager.setState(EStalkerState.IDLE, null, null, null, { isForced: true });

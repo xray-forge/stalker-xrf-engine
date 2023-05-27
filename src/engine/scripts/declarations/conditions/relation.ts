@@ -1,4 +1,4 @@
-import { cse_alife_human_abstract, game_object } from "xray16";
+import { cse_alife_human_abstract } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
@@ -18,14 +18,14 @@ import {
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { relations } from "@/engine/lib/constants/relations";
-import { AnyCallable, EScheme, Optional } from "@/engine/lib/types";
+import { AnyCallable, ClientObject, EClientObjectRelation, EScheme, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
-extern("xr_conditions.is_factions_enemies", (actor: game_object, npc: game_object, p: [TCommunity]): boolean => {
+extern("xr_conditions.is_factions_enemies", (actor: ClientObject, npc: ClientObject, p: [TCommunity]): boolean => {
   if (p[0] !== null) {
     return isFactionsEnemies(getCharacterCommunity(actor), p[0]);
   } else {
@@ -38,7 +38,7 @@ extern("xr_conditions.is_factions_enemies", (actor: game_object, npc: game_objec
  */
 extern(
   "xr_conditions.is_factions_neutrals",
-  (actor: game_object, npc: game_object, [community]: [TCommunity]): boolean => {
+  (actor: ClientObject, npc: ClientObject, [community]: [TCommunity]): boolean => {
     if (community === null) {
       return true;
     }
@@ -53,7 +53,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.is_factions_friends", (actor: game_object, npc: game_object, p: [TCommunity]): boolean => {
+extern("xr_conditions.is_factions_friends", (actor: ClientObject, npc: ClientObject, p: [TCommunity]): boolean => {
   if (p[0] !== null) {
     return isFactionsFriends(getCharacterCommunity(actor), p[0]);
   } else {
@@ -64,23 +64,29 @@ extern("xr_conditions.is_factions_friends", (actor: game_object, npc: game_objec
 /**
  * todo;
  */
-extern("xr_conditions.is_faction_enemy_to_actor", (actor: game_object, npc: game_object, p: [TCommunity]): boolean => {
-  return p[0] === null ? false : isActorEnemyWithFaction(p[0]);
-});
+extern(
+  "xr_conditions.is_faction_enemy_to_actor",
+  (actor: ClientObject, npc: ClientObject, p: [TCommunity]): boolean => {
+    return p[0] === null ? false : isActorEnemyWithFaction(p[0]);
+  }
+);
 
 /**
  * todo;
  */
-extern("xr_conditions.is_faction_friend_to_actor", (actor: game_object, npc: game_object, p: [TCommunity]): boolean => {
-  return p[0] === null ? false : isActorFriendWithFaction(p[0]);
-});
+extern(
+  "xr_conditions.is_faction_friend_to_actor",
+  (actor: ClientObject, npc: ClientObject, p: [TCommunity]): boolean => {
+    return p[0] === null ? false : isActorFriendWithFaction(p[0]);
+  }
+);
 
 /**
  * todo;
  */
 extern(
   "xr_conditions.is_faction_neutral_to_actor",
-  (actor: game_object, npc: game_object, p: [TCommunity]): boolean => {
+  (actor: ClientObject, npc: ClientObject, p: [TCommunity]): boolean => {
     return p[0] === null ? false : isActorNeutralWithFaction(p[0]);
   }
 );
@@ -88,20 +94,23 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.is_squad_friend_to_actor", (actor: game_object, npc: game_object, params: [string]): boolean => {
-  if (params[0] !== null) {
-    return isSquadRelationBetweenActorAndRelation(params[0], relations.friend);
-  } else {
-    return false;
+extern(
+  "xr_conditions.is_squad_friend_to_actor",
+  (actor: ClientObject, npc: ClientObject, params: [string]): boolean => {
+    if (params[0] !== null) {
+      return isSquadRelationBetweenActorAndRelation(params[0], relations.friend);
+    } else {
+      return false;
+    }
   }
-});
+);
 
 /**
  * todo;
  */
 extern(
   "xr_conditions.is_squad_enemy_to_actor",
-  (actor: game_object, npc: game_object, params: Array<string>): boolean => {
+  (actor: ClientObject, npc: ClientObject, params: Array<string>): boolean => {
     if (!params) {
       abort("Not enough arguments in 'is_squad_enemy_to_actor' function!");
     }
@@ -119,7 +128,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.is_squad_neutral_to_actor", (actor: game_object, npc: game_object, p: [string]): boolean => {
+extern("xr_conditions.is_squad_neutral_to_actor", (actor: ClientObject, npc: ClientObject, p: [string]): boolean => {
   return !(
     getExtern<AnyCallable>("is_squad_enemy_to_actor", getExtern("xr_conditions"))(actor, npc, p) ||
     getExtern<AnyCallable>("is_squad_friend_to_actor", getExtern("xr_conditions"))(actor, npc, p)
@@ -129,9 +138,9 @@ extern("xr_conditions.is_squad_neutral_to_actor", (actor: game_object, npc: game
 /**
  * todo;
  */
-extern("xr_conditions.fighting_actor", (actor: game_object, npc: game_object): boolean => {
+extern("xr_conditions.fighting_actor", (actor: ClientObject, npc: ClientObject): boolean => {
   const enemy_id: number = registry.objects.get(npc.id()).enemy_id!;
-  const enemy: Optional<game_object> = registry.objects.get(enemy_id)?.object as Optional<game_object>;
+  const enemy: Optional<ClientObject> = registry.objects.get(enemy_id)?.object as Optional<ClientObject>;
 
   return enemy !== null && enemy.id() === actor.id();
 });
@@ -139,24 +148,24 @@ extern("xr_conditions.fighting_actor", (actor: game_object, npc: game_object): b
 /**
  * todo;
  */
-extern("xr_conditions.actor_enemy", (actor: game_object, npc: game_object): boolean => {
+extern("xr_conditions.actor_enemy", (actor: ClientObject, npc: ClientObject): boolean => {
   const state: Optional<ISchemeDeathState> = registry.objects.get(npc.id())[EScheme.DEATH] as ISchemeDeathState;
 
-  return npc.relation(actor) === game_object.enemy || state?.killer === actor.id();
+  return npc.relation(actor) === EClientObjectRelation.ENEMY || state?.killer === actor.id();
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.actor_friend", (actor: game_object, npc: game_object): boolean => {
-  return npc.relation(actor) === game_object.friend;
+extern("xr_conditions.actor_friend", (actor: ClientObject, npc: ClientObject): boolean => {
+  return npc.relation(actor) === EClientObjectRelation.FRIEND;
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.actor_neutral", (actor: game_object, npc: game_object): boolean => {
-  return npc.relation(actor) === game_object.neutral;
+extern("xr_conditions.actor_neutral", (actor: ClientObject, npc: ClientObject): boolean => {
+  return npc.relation(actor) === EClientObjectRelation.NEUTRAL;
 });
 
 /**
@@ -164,23 +173,23 @@ extern("xr_conditions.actor_neutral", (actor: game_object, npc: game_object): bo
  */
 extern(
   "xr_conditions.npc_community",
-  (actor: game_object, npc: game_object | cse_alife_human_abstract, params: [TCommunity]): boolean => {
+  (actor: ClientObject, npc: ClientObject | cse_alife_human_abstract, params: [TCommunity]): boolean => {
     if (params[0] === null) {
       abort("Wrong number of params in npc_community");
     }
 
-    let npc_obj: Optional<game_object> = null;
+    let object: Optional<ClientObject> = null;
 
     if (type(npc.id) !== "function") {
-      npc_obj = registry.objects.get((npc as cse_alife_human_abstract).id)?.object as game_object;
+      object = registry.objects.get((npc as cse_alife_human_abstract).id)?.object as ClientObject;
 
-      if (npc_obj === null) {
+      if (object === null) {
         return (npc as cse_alife_human_abstract).community() === params[0];
       }
     } else {
-      npc_obj = npc as game_object;
+      object = npc as ClientObject;
     }
 
-    return getCharacterCommunity(npc_obj) === params[0];
+    return getCharacterCommunity(object) === params[0];
   }
 );

@@ -1,4 +1,4 @@
-import { game_object, TXR_SightType, vector } from "xray16";
+import { ClientObject, TSightType, Vector } from "@/engine/lib/types";
 
 export class MockSightParameters {
   public static readonly eSightTypeDummy: -1;
@@ -15,9 +15,9 @@ export class MockSightParameters {
   public static readonly eSightTypeFirePosition: 10;
   public static readonly eSightTypeAnimationDirection: 11;
 
-  public m_object!: game_object;
-  public m_sight_type!: TXR_SightType;
-  public m_vector!: vector;
+  public m_object!: ClientObject;
+  public m_sight_type!: TSightType;
+  public m_vector!: Vector;
 
   public constructor() {}
 }

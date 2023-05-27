@@ -1,6 +1,6 @@
 /* eslint @typescript-eslint/explicit-function-return-type: "error" */
 
-import { alife, cse_alife_creature_abstract, game_object } from "xray16";
+import { alife } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
@@ -37,9 +37,12 @@ import {
   AnyCallable,
   AnyCallablesModule,
   AnyObject,
+  ClientObject,
+  EClientObjectRelation,
   LuaArray,
   Optional,
   PartialRecord,
+  ServerCreatureObject,
   TCount,
   TIndex,
   TName,
@@ -52,7 +55,7 @@ extern("dialogs_jupiter", {});
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b208_give_reward", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.jup_b208_give_reward", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   giveMoneyToActor(5000);
 
   const treasureManager: TreasureManager = TreasureManager.getInstance();
@@ -67,7 +70,7 @@ extern("dialogs_jupiter.jup_b208_give_reward", (firstSpeaker: game_object, secon
  */
 extern(
   "dialogs_jupiter.jupiter_a9_actor_hasnt_all_mail_items",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jupiter_a9_actor_has_all_mail_items", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -80,8 +83,8 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_a9_actor_has_all_mail_items",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    const actor: game_object = registry.actor;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    const actor: ClientObject = registry.actor;
 
     return (
       actor.object(quest_items.jup_a9_conservation_info) !== null &&
@@ -96,8 +99,8 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_a9_actor_has_any_items",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    const actor: game_object = registry.actor;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    const actor: ClientObject = registry.actor;
 
     return (
       actor.object(quest_items.jup_a9_delivery_info) !== null ||
@@ -116,8 +119,8 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_a9_actor_has_any_mail_items",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    const actor: game_object = registry.actor;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    const actor: ClientObject = registry.actor;
 
     return (
       actor.object(quest_items.jup_a9_conservation_info) !== null ||
@@ -132,8 +135,8 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_a9_actor_has_any_secondary_items",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    const actor: game_object = registry.actor;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    const actor: ClientObject = registry.actor;
 
     return (
       actor.object(quest_items.jup_a9_delivery_info) !== null ||
@@ -149,8 +152,8 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_a9_actor_hasnt_any_mail_items",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    const actor: game_object = registry.actor;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    const actor: ClientObject = registry.actor;
 
     return (
       actor.object(quest_items.jup_a9_conservation_info) === null ||
@@ -165,7 +168,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_a9_freedom_leader_jupiter_delivery",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(500);
   }
 );
@@ -175,7 +178,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_a9_freedom_leader_jupiter_evacuation",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(500);
   }
 );
@@ -185,7 +188,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_a9_freedom_leader_jupiter_losses",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(500);
   }
 );
@@ -195,7 +198,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_a9_freedom_leader_jupiter_meeting",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(500);
   }
 );
@@ -205,7 +208,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_a9_dolg_leader_jupiter_delivery",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(500);
   }
 );
@@ -215,7 +218,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_a9_dolg_leader_jupiter_evacuation",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(500);
   }
 );
@@ -225,7 +228,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_a9_dolg_leader_jupiter_losses",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(500);
   }
 );
@@ -235,7 +238,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_a9_dolg_leader_jupiter_meeting",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(500);
   }
 );
@@ -245,7 +248,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_evacuation_info);
     giveMoneyToActor(750);
     giveInfo(infoPortions.jup_a9_evacuation_info_sold);
@@ -257,7 +260,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a9_owl_stalker_trader_sell_jup_a9_meeting_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_meeting_info);
     giveMoneyToActor(750);
     giveInfo(infoPortions.jup_a9_meeting_info_sold);
@@ -269,7 +272,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a9_owl_stalker_trader_sell_jup_a9_losses_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_losses_info);
     giveMoneyToActor(750);
     giveInfo(infoPortions.jup_a9_losses_info_sold);
@@ -281,7 +284,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_delivery_info);
     giveMoneyToActor(750);
     giveInfo(infoPortions.jup_a9_delivery_info_sold);
@@ -293,7 +296,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_a9_dolg_leader_jupiter_sell_all_secondary_items",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     if (
       getExtern<AnyCallable>("jup_a9_actor_has_evacuation_info", getExtern("dialogs_jupiter"))(
         firstSpeaker,
@@ -350,7 +353,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_a9_freedom_leader_jupiter_sell_all_secondary_items",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     if (
       getExtern<AnyCallable>("jup_a9_actor_has_evacuation_info", getExtern("dialogs_jupiter"))(
         firstSpeaker,
@@ -407,7 +410,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_has_conservation_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(quest_items.jup_a9_conservation_info) !== null;
   }
 );
@@ -417,7 +420,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_hasnt_conservation_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_a9_actor_has_conservation_info", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -430,7 +433,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.actor_relocate_conservation_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_conservation_info);
   }
 );
@@ -440,7 +443,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_has_power_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(quest_items.jup_a9_power_info) !== null;
   }
 );
@@ -450,7 +453,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_hasnt_power_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_a9_actor_has_power_info", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -461,7 +464,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.actor_relocate_power_info", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.actor_relocate_power_info", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_power_info);
 });
 
@@ -470,7 +473,7 @@ extern("dialogs_jupiter.actor_relocate_power_info", (firstSpeaker: game_object, 
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_has_way_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(quest_items.jup_a9_way_info) !== null;
   }
 );
@@ -480,7 +483,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_hasnt_way_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_a9_actor_has_way_info", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -491,7 +494,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.actor_relocate_way_info", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.actor_relocate_way_info", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_way_info);
 });
 
@@ -500,7 +503,7 @@ extern("dialogs_jupiter.actor_relocate_way_info", (firstSpeaker: game_object, se
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_has_meeting_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(quest_items.jup_a9_meeting_info) !== null;
   }
 );
@@ -510,7 +513,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_hasnt_meeting_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_a9_actor_has_meeting_info", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -521,17 +524,20 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.actor_relocate_meeting_info", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
-  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_meeting_info);
-  giveInfo(infoPortions.jup_a9_meeting_info_sold);
-});
+extern(
+  "dialogs_jupiter.actor_relocate_meeting_info",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_meeting_info);
+    giveInfo(infoPortions.jup_a9_meeting_info_sold);
+  }
+);
 
 /**
  * todo;
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_has_delivery_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(quest_items.jup_a9_delivery_info) !== null;
   }
 );
@@ -541,7 +547,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_hasnt_delivery_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_a9_actor_has_delivery_info", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -554,7 +560,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_has_evacuation_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(quest_items.jup_a9_evacuation_info) !== null;
   }
 );
@@ -564,7 +570,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_hasnt_evacuation_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_a9_actor_has_evacuation_info", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -577,7 +583,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.actor_relocate_evacuation_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_evacuation_info);
     giveInfo(infoPortions.jup_a9_evacuation_info_sold);
   }
@@ -588,7 +594,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.actor_relocate_delivery_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_delivery_info);
     giveInfo(infoPortions.jup_a9_delivery_info_sold);
   }
@@ -599,7 +605,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_has_losses_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(quest_items.jup_a9_losses_info) !== null;
   }
 );
@@ -609,7 +615,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_hasnt_losses_info",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_a9_actor_has_losses_info", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -620,22 +626,25 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.actor_relocate_losses_info", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
-  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_losses_info);
-  giveInfo(infoPortions.jup_a9_losses_info_sold);
-});
+extern(
+  "dialogs_jupiter.actor_relocate_losses_info",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_losses_info);
+    giveInfo(infoPortions.jup_a9_losses_info_sold);
+  }
+);
 
 /**
  * todo;
  */
-extern("dialogs_jupiter.actor_has_plant", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+extern("dialogs_jupiter.actor_has_plant", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   return registry.actor.object(quest_items.jup_b206_plant) !== null;
 });
 
 /**
  * todo;
  */
-extern("dialogs_jupiter.actor_relocate_plant", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.actor_relocate_plant", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b206_plant);
 });
 
@@ -644,7 +653,7 @@ extern("dialogs_jupiter.actor_relocate_plant", (firstSpeaker: game_object, secon
  */
 extern(
   "dialogs_jupiter.actor_relocate_trapper_reward",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_wincheaster1300_trapper);
   }
 );
@@ -652,7 +661,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.zat_b106_trapper_reward", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.zat_b106_trapper_reward", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   if (hasAlifeInfo(infoPortions.zat_b106_one_hit)) {
     giveMoneyToActor(3000);
   } else {
@@ -663,7 +672,7 @@ extern("dialogs_jupiter.zat_b106_trapper_reward", (firstSpeaker: game_object, se
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_a10_proverka_wpn", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+extern("dialogs_jupiter.jup_a10_proverka_wpn", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   const table = [
     weapons.wpn_desert_eagle,
     weapons.wpn_desert_eagle_nimble,
@@ -690,7 +699,7 @@ extern("dialogs_jupiter.jup_a10_proverka_wpn", (firstSpeaker: game_object, secon
     weapons.wpn_pkm_zulus,
   ];
 
-  const actor: game_object = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   for (const [k, v] of table) {
     if (actor.item_in_slot(2)?.section() === v || actor.item_in_slot(3)?.section() === v) {
@@ -706,7 +715,7 @@ extern("dialogs_jupiter.jup_a10_proverka_wpn", (firstSpeaker: game_object, secon
  */
 extern(
   "dialogs_jupiter.jup_a10_proverka_wpn_false",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_a10_proverka_wpn", getExtern("dialogs_jupiter"))(firstSpeaker, secondSpeaker);
   }
 );
@@ -714,22 +723,25 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_a10_actor_has_money", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-  const actor: game_object = registry.actor;
+extern(
+  "dialogs_jupiter.jup_a10_actor_has_money",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    const actor: ClientObject = registry.actor;
 
-  if (hasAlifeInfo(infoPortions.jup_a10_debt_wo_percent)) {
-    return actor.money() >= 5000;
-  } else {
-    return actor.money() >= 7000;
+    if (hasAlifeInfo(infoPortions.jup_a10_debt_wo_percent)) {
+      return actor.money() >= 5000;
+    } else {
+      return actor.money() >= 7000;
+    }
   }
-});
+);
 
 /**
  * todo;
  */
 extern(
   "dialogs_jupiter.jup_a10_actor_has_not_money",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_a10_actor_has_money", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -740,7 +752,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_a10_actor_give_money", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.jup_a10_actor_give_money", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   if (hasAlifeInfo(infoPortions.jup_a10_debt_wo_percent)) {
     transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 5000);
     giveInfo(infoPortions.jup_a10_bandit_take_money);
@@ -753,7 +765,7 @@ extern("dialogs_jupiter.jup_a10_actor_give_money", (firstSpeaker: game_object, s
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_a10_vano_give_money", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.jup_a10_vano_give_money", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   giveMoneyToActor(5000);
 });
 
@@ -762,7 +774,7 @@ extern("dialogs_jupiter.jup_a10_vano_give_money", (firstSpeaker: game_object, se
  */
 extern(
   "dialogs_jupiter.jup_a10_actor_give_outfit_money",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 5000);
   }
 );
@@ -772,7 +784,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a10_actor_has_outfit_money",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.money() >= 5000;
   }
 );
@@ -782,7 +794,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a10_actor_has_not_outfit_money",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_a10_actor_has_outfit_money", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -795,7 +807,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.if_actor_has_jup_b16_oasis_artifact",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return firstSpeaker.object(artefacts.af_oasis_heart) !== null;
   }
 );
@@ -805,7 +817,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.if_actor_hasnt_jup_b16_oasis_artifact",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("if_actor_has_jup_b16_oasis_artifact", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -816,23 +828,26 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.jupiter_b16_reward", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.jupiter_b16_reward", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   giveMoneyToActor(7000);
 });
 
 /**
  * todo;
  */
-extern("dialogs_jupiter.give_jup_b16_oasis_artifact", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
-  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_oasis_heart);
-});
+extern(
+  "dialogs_jupiter.give_jup_b16_oasis_artifact",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_oasis_heart);
+  }
+);
 
 /**
  * todo;
  */
 extern(
   "dialogs_jupiter.jup_a12_actor_has_15000_money",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.money() >= 15000;
   }
 );
@@ -842,7 +857,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a12_actor_do_not_has_15000_money",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.money() < 15000;
   }
 );
@@ -862,7 +877,7 @@ const jup_a12_af_table: LuaArray<TArtefact> = $fromArray<TArtefact>([
  */
 extern(
   "dialogs_jupiter.jup_a12_actor_has_artefacts",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     for (const [k, v] of jup_a12_af_table) {
       if (registry.actor.object(v) !== null) {
         return true;
@@ -878,7 +893,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a12_actor_has_artefact_1",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(jup_a12_af_table.get(1)) !== null;
   }
 );
@@ -888,7 +903,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a12_actor_has_artefact_2",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(jup_a12_af_table.get(2)) !== null;
   }
 );
@@ -898,7 +913,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a12_actor_has_artefact_3",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(jup_a12_af_table.get(3)) !== null;
   }
 );
@@ -908,7 +923,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a12_actor_has_artefact_4",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(jup_a12_af_table.get(4)) !== null;
   }
 );
@@ -918,8 +933,8 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a12_actor_do_not_has_artefacts",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    const actor: game_object = registry.actor;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    const actor: ClientObject = registry.actor;
 
     for (const [k, v] of jup_a12_af_table) {
       if (actor.object(v) !== null) {
@@ -936,7 +951,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a12_transfer_ransom_from_actor",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     if (hasAlifeInfo(infoPortions.jup_a12_ransom_by_money)) {
       transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 15000);
 
@@ -965,7 +980,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a12_transfer_5000_money_to_actor",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     const treasureManager: TreasureManager = TreasureManager.getInstance();
 
     giveMoneyToActor(5000);
@@ -979,7 +994,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a12_transfer_artefact_to_actor",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_gold_fish);
 
     if (hasAlifeInfo(infoPortions.jup_a12_stalker_prisoner_free_dialog_done)) {
@@ -996,9 +1011,9 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_a12_transfer_cashier_money_from_actor",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     let amount = math.random(20, 50) * 100;
-    const actor: game_object = registry.actor;
+    const actor: ClientObject = registry.actor;
 
     if (actor.money() < amount) {
       amount = actor.money();
@@ -1011,16 +1026,19 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.zat_b30_transfer_detectors", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
-  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_elite, 3);
-});
+extern(
+  "dialogs_jupiter.zat_b30_transfer_detectors",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_elite, 3);
+  }
+);
 
 /**
  * todo;
  */
 extern(
   "dialogs_jupiter.zat_b30_actor_do_not_has_transfer_items",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("zat_b30_actor_has_transfer_items", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -1033,11 +1051,11 @@ extern(
  */
 extern(
   "dialogs_jupiter.zat_b30_actor_has_transfer_items",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    const actor: game_object = registry.actor;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    const actor: ClientObject = registry.actor;
     let cnt = 0;
 
-    const zat_b30_count = (npc: game_object, item: game_object): void => {
+    const zat_b30_count = (npc: ClientObject, item: ClientObject): void => {
       if (item.section() === "detector_elite") {
         cnt = cnt + 1;
       }
@@ -1054,7 +1072,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b6_scientist_nuclear_physicist_scan_anomaly_precond",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     if (!hasAlifeInfo(infoPortions.jup_b6_b32_quest_active)) {
       return false;
     } else if (hasAlifeInfo(infoPortions.jup_b6_give_task) && hasAlifeInfo(infoPortions.jup_b32_task_addon_start)) {
@@ -1072,7 +1090,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b32_task_give_dialog_precond",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !(hasAlifeInfo(infoPortions.jup_b32_task_start) && !hasAlifeInfo("jup_b32_task_end"));
   }
 );
@@ -1080,23 +1098,26 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b32_transfer_scanners", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.jup_b32_transfer_scanners", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), infoPortions.jup_b32_scanner_device, 3);
 });
 
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b32_transfer_scanners_2", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
-  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), infoPortions.jup_b32_scanner_device, 2);
-});
+extern(
+  "dialogs_jupiter.jup_b32_transfer_scanners_2",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), infoPortions.jup_b32_scanner_device, 2);
+  }
+);
 
 /**
  * todo;
  */
 extern(
   "dialogs_jupiter.jup_b32_give_reward_to_actor",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(5000);
   }
 );
@@ -1106,7 +1127,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b209_get_monster_scanner",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b209_monster_scanner", 1);
   }
 );
@@ -1116,7 +1137,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b209_return_monster_scanner",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b209_monster_scanner", 1);
   }
 );
@@ -1126,7 +1147,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b32_anomaly_do_not_has_af",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     if (hasAlifeInfo("jup_b32_anomaly_true")) {
       disableInfo("jup_b32_anomaly_true");
 
@@ -1184,8 +1205,8 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b207_generic_decrypt_need_dialog_precond",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    const actor: game_object = registry.actor;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    const actor: ClientObject = registry.actor;
 
     if (actor.object(quest_items.jup_b9_blackbox) !== null) {
       return true;
@@ -1204,7 +1225,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b207_actor_has_dealers_pda",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object("device_pda_zat_b5_dealer") !== null;
   }
 );
@@ -1212,7 +1233,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b207_sell_dealers_pda", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.jup_b207_sell_dealers_pda", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "device_pda_zat_b5_dealer");
   giveMoneyToActor(4_000);
   giveInfo(infoPortions.jup_b207_dealers_pda_sold);
@@ -1221,7 +1242,7 @@ extern("dialogs_jupiter.jup_b207_sell_dealers_pda", (firstSpeaker: game_object, 
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b207_give_dealers_pda", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.jup_b207_give_dealers_pda", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "device_pda_zat_b5_dealer");
 });
 
@@ -1230,7 +1251,7 @@ extern("dialogs_jupiter.jup_b207_give_dealers_pda", (firstSpeaker: game_object, 
  */
 extern(
   "dialogs_jupiter.jup_b207_actor_has_merc_pda_with_contract",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object("jup_b207_merc_pda_with_contract") !== null;
   }
 );
@@ -1240,7 +1261,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b207_sell_merc_pda_with_contract",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     const amount = 1000;
 
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b207_merc_pda_with_contract");
@@ -1254,7 +1275,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b207_transfer_blackmail_reward",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b207_merc_pda_with_contract");
   }
 );
@@ -1264,7 +1285,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b207_transfer_blackmail_reward_for_pda",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b207_merc_pda_with_contract");
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "wpn_abakan");
   }
@@ -1273,23 +1294,26 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.give_jup_b1_art", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.give_jup_b1_art", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b1_half_artifact");
 });
 
 /**
  * todo;
  */
-extern("dialogs_jupiter.if_actor_has_jup_b1_art", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-  return registry.actor.object("jup_b1_half_artifact") !== null;
-});
+extern(
+  "dialogs_jupiter.if_actor_has_jup_b1_art",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    return registry.actor.object("jup_b1_half_artifact") !== null;
+  }
+);
 
 /**
  * todo;
  */
 extern(
   "dialogs_jupiter.jup_b1_actor_do_not_have_good_suit",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_b1_actor_have_good_suit", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -1300,15 +1324,15 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b1_reward_actor", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.jup_b1_reward_actor", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   giveMoneyToActor(6000);
 });
 
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b6_actor_outfit_cs", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-  const actor: game_object = registry.actor;
+extern("dialogs_jupiter.jup_b6_actor_outfit_cs", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  const actor: ClientObject = registry.actor;
 
   if (actor.item_in_slot(7) !== null && actor.item_in_slot(7)!.section() === "cs_heavy_outfit") {
     return true;
@@ -1322,7 +1346,7 @@ extern("dialogs_jupiter.jup_b6_actor_outfit_cs", (firstSpeaker: game_object, sec
  */
 extern(
   "dialogs_jupiter.jup_b6_first_reward_for_actor",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(2500);
   }
 );
@@ -1332,7 +1356,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b6_second_reward_for_actor",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(2500);
   }
 );
@@ -1340,16 +1364,19 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b6_all_reward_for_actor", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
-  giveMoneyToActor(5000);
-});
+extern(
+  "dialogs_jupiter.jup_b6_all_reward_for_actor",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+    giveMoneyToActor(5000);
+  }
+);
 
 /**
  * todo;
  */
 extern(
   "dialogs_jupiter.jup_b6_first_reward_for_actor_extra",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(3500);
   }
 );
@@ -1359,7 +1386,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b6_second_reward_for_actor_extra",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(3500);
   }
 );
@@ -1369,7 +1396,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b6_all_reward_for_actor_extra",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(7000);
   }
 );
@@ -1379,7 +1406,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b6_reward_actor_by_detector",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_elite);
   }
 );
@@ -1389,7 +1416,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b1_actor_have_good_suit",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     const suits_tbl = {
       [outfits.scientific_outfit]: true,
       [outfits.military_outfit]: true,
@@ -1406,7 +1433,7 @@ extern(
       [helmets.helm_protective]: true,
     });
 
-    const actor: game_object = registry.actor;
+    const actor: ClientObject = registry.actor;
 
     if (actor.item_in_slot(7) !== null && suits_tbl.get(actor.section())) {
       return true;
@@ -1425,7 +1452,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b6_actor_can_not_start",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_b6_actor_can_start", getExtern("dialogs_jupiter"))(firstSpeaker, secondSpeaker);
   }
 );
@@ -1433,7 +1460,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b6_actor_can_start", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+extern("dialogs_jupiter.jup_b6_actor_can_start", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   if (
     hasAlifeInfo(infoPortions.jup_b1_squad_is_dead) &&
     !(
@@ -1452,22 +1479,25 @@ extern("dialogs_jupiter.jup_b6_actor_can_start", (firstSpeaker: game_object, sec
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b1_stalker_squad_thanks", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
-  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_scientic, 3);
-  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.antirad, 5);
-  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.drug_psy_blockade, 2);
-  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.drug_antidot, 2);
-  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.drug_radioprotector, 2);
-  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.drug_anabiotic);
-  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), helmets.helm_protective);
-});
+extern(
+  "dialogs_jupiter.jup_b1_stalker_squad_thanks",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_scientic, 3);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.antirad, 5);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.drug_psy_blockade, 2);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.drug_antidot, 2);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.drug_radioprotector, 2);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.drug_anabiotic);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), helmets.helm_protective);
+  }
+);
 
 /**
  * todo;
  */
 extern(
   "dialogs_jupiter.jup_b202_actor_has_medkit",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     const actor = registry.actor;
 
     return (
@@ -1483,7 +1513,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b202_hit_bandit_from_actor",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
     const actor = registry.actor;
 
@@ -1499,7 +1529,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b202_medic_dialog_precondition",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     if (hasAlifeInfo(infoPortions.jup_b218_gather_squad_complete)) {
       return !hasAlifeInfo(infoPortions.jup_b202_polustanok);
     } else {
@@ -1513,9 +1543,9 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b6_stalker_dialog_precond",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    const npc: game_object = getNpcSpeaker(firstSpeaker, secondSpeaker);
-    const npcAlife: Optional<cse_alife_creature_abstract> = alife().object<cse_alife_creature_abstract>(npc.id());
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    const npc: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+    const npcAlife: Optional<ServerCreatureObject> = alife().object(npc.id());
 
     if (!npcAlife) {
       return false;
@@ -1562,10 +1592,10 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b217_actor_got_toolkit",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    const actor: game_object = registry.actor as game_object;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    const actor: ClientObject = registry.actor as ClientObject;
 
-    const is_toolkit = (npc: game_object, item: game_object): void => {
+    const is_toolkit = (npc: ClientObject, item: ClientObject): void => {
       const section = item.section();
 
       if (
@@ -1594,7 +1624,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_b200_tech_materials_relocate",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     const need_items = {
       [quest_items.jup_b200_tech_materials_wire]: true,
       [quest_items.jup_b200_tech_materials_acetone]: true,
@@ -1603,11 +1633,11 @@ extern(
       [quest_items.jup_b200_tech_materials_capacitor]: true,
     } as unknown as LuaTable<string, boolean>;
 
-    const actor: game_object = registry.actor;
+    const actor: ClientObject = registry.actor;
     const items_to_relocate: LuaTable<string, number> = new LuaTable();
     let count: number = 0;
 
-    const relocate_and_inc_count = (npc: game_object, item: game_object): void => {
+    const relocate_and_inc_count = (npc: ClientObject, item: ClientObject): void => {
       if (need_items.get(item.section())) {
         const section: string = item.section();
 
@@ -1637,15 +1667,15 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.npc_in_b4_smart", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.npc_in_b4_smart", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   return getExtern<AnyCallablesModule>("dialogs").is_npc_in_current_smart(firstSpeaker, secondSpeaker, "jup_b4");
 });
 
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b202_transfer_medkit", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
-  const actor: game_object = registry.actor;
+extern("dialogs_jupiter.jup_b202_transfer_medkit", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+  const actor: ClientObject = registry.actor;
 
   if (actor.object(drugs.medkit) !== null) {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit);
@@ -1659,26 +1689,29 @@ extern("dialogs_jupiter.jup_b202_transfer_medkit", (firstSpeaker: game_object, s
 /**
  * todo;
  */
-extern("dialogs_jupiter.jupiter_b220_all_hunted", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-  if (
-    hasAlifeInfo(infoPortions.jup_b220_trapper_bloodsucker_lair_hunted_told) &&
-    hasAlifeInfo(infoPortions.jup_b220_trapper_zaton_chimera_hunted_told) &&
-    hasAlifeInfo(infoPortions.jup_b211_swamp_bloodsuckers_hunt_done) &&
-    hasAlifeInfo(infoPortions.jup_b208_burers_hunt_done) &&
-    hasAlifeInfo(infoPortions.jup_b212_jupiter_chimera_hunt_done)
-  ) {
-    return false;
-  }
+extern(
+  "dialogs_jupiter.jupiter_b220_all_hunted",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    if (
+      hasAlifeInfo(infoPortions.jup_b220_trapper_bloodsucker_lair_hunted_told) &&
+      hasAlifeInfo(infoPortions.jup_b220_trapper_zaton_chimera_hunted_told) &&
+      hasAlifeInfo(infoPortions.jup_b211_swamp_bloodsuckers_hunt_done) &&
+      hasAlifeInfo(infoPortions.jup_b208_burers_hunt_done) &&
+      hasAlifeInfo(infoPortions.jup_b212_jupiter_chimera_hunt_done)
+    ) {
+      return false;
+    }
 
-  return true;
-});
+    return true;
+  }
+);
 
 /**
  * todo;
  */
 extern(
   "dialogs_jupiter.jupiter_b220_no_one_hunted",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     if (
       hasAlifeInfo(infoPortions.jup_b220_trapper_about_himself_told) &&
       hasAlifeInfo(infoPortions.zat_b57_den_of_the_bloodsucker_tell_stalkers_about_destroy_lair_give) &&
@@ -1719,7 +1752,7 @@ const money_count_table = [3000, 2850, 2700, 2550, 2400, 2250, 2100, 1950, 1800,
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b9_actor_has_money", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+extern("dialogs_jupiter.jup_b9_actor_has_money", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   let money_count: number = 0;
 
   for (const it of $range(1, 9)) {
@@ -1734,7 +1767,7 @@ extern("dialogs_jupiter.jup_b9_actor_has_money", (firstSpeaker: game_object, sec
 /**
  * todo;
  */
-extern("dialogs_jupiter.jupiter_b9_relocate_money", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.jupiter_b9_relocate_money", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   let moneyCount: TCount = 0;
 
   for (const it of $range(1, 9)) {
@@ -1749,7 +1782,7 @@ extern("dialogs_jupiter.jupiter_b9_relocate_money", (firstSpeaker: game_object, 
 /**
  * todo;
  */
-extern("dialogs_jupiter.give_jup_b9_blackbox", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.give_jup_b9_blackbox", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b9_blackbox);
 });
 
@@ -1758,7 +1791,7 @@ extern("dialogs_jupiter.give_jup_b9_blackbox", (firstSpeaker: game_object, secon
  */
 extern(
   "dialogs_jupiter.jup_b9_actor_has_not_money",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_b9_actor_has_money", getExtern("dialogs_jupiter"))(firstSpeaker, secondSpeaker);
   }
 );
@@ -1768,7 +1801,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.if_actor_has_jup_b9_blackbox",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(quest_items.jup_b9_blackbox) !== null;
   }
 );
@@ -1778,7 +1811,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.if_actor_has_af_mincer_meat",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return firstSpeaker.object(artefacts.af_mincer_meat) !== null;
   }
 );
@@ -1788,7 +1821,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.if_actor_has_af_fuzz_kolobok",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return firstSpeaker.object(artefacts.af_fuzz_kolobok) !== null;
   }
 );
@@ -1798,7 +1831,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.actor_has_first_or_second_artefact",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return (
       firstSpeaker.object(artefacts.af_mincer_meat) !== null || firstSpeaker.object(artefacts.af_fuzz_kolobok) !== null
     );
@@ -1808,16 +1841,16 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.transfer_af_mincer_meat", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.transfer_af_mincer_meat", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_mincer_meat);
 });
 
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b15_dec_counter", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-  const npc: game_object = getNpcSpeaker(firstSpeaker, secondSpeaker);
-  const actor: game_object = registry.actor;
+extern("dialogs_jupiter.jup_b15_dec_counter", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  const npc: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+  const actor: ClientObject = registry.actor;
 
   return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, npc, ["jup_b15_full_drunk_count", 1]);
 });
@@ -1827,7 +1860,7 @@ extern("dialogs_jupiter.jup_b15_dec_counter", (firstSpeaker: game_object, second
  */
 extern(
   "dialogs_jupiter.jup_b46_sell_duty_founder_pda",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     if (hasAlifeInfo(infoPortions.jup_b46_duty_founder_pda_to_freedom)) {
       giveMoneyToActor(4000);
       giveItemsToActor(weapons.wpn_sig550, 1);
@@ -1846,7 +1879,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b46_transfer_duty_founder_pda",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     if (registry.actor.object(quest_items.jup_b46_duty_founder_pda) !== null) {
       transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b46_duty_founder_pda);
     }
@@ -1858,7 +1891,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b46_sell_duty_founder_pda_to_owl",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b46_duty_founder_pda);
     giveMoneyToActor(2500);
     giveInfo(infoPortions.jup_b46_duty_founder_pda_sold);
@@ -1871,7 +1904,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b46_actor_has_founder_pda",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(quest_items.jup_b46_duty_founder_pda) !== null;
   }
 );
@@ -1881,8 +1914,8 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b47_jupiter_docs_enabled",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    const actor: game_object = registry.actor;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    const actor: ClientObject = registry.actor;
     const items_table = [
       "jup_a9_conservation_info",
       "jup_a9_power_info",
@@ -1915,7 +1948,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.transfer_af_fuzz_kolobok", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.transfer_af_fuzz_kolobok", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "af_fuzz_kolobok");
 });
 
@@ -1924,7 +1957,7 @@ extern("dialogs_jupiter.transfer_af_fuzz_kolobok", (firstSpeaker: game_object, s
  */
 extern(
   "dialogs_jupiter.pay_cost_to_guide_to_pripyat",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 5000);
   }
 );
@@ -1934,7 +1967,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b43_actor_has_5000_money",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.money() >= 5000;
   }
 );
@@ -1944,7 +1977,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b43_actor_do_not_has_5000_money",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.money() < 5000;
   }
 );
@@ -1954,7 +1987,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b43_reward_for_first_artefact",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(2500);
   }
 );
@@ -1964,7 +1997,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b43_reward_for_second_artefact",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(3500);
   }
 );
@@ -1974,7 +2007,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b43_reward_for_both_artefacts",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(6000);
   }
 );
@@ -1982,7 +2015,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b218_counter_not_3", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+extern("dialogs_jupiter.jup_b218_counter_not_3", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   const actor = registry.actor;
 
   return getPortableStoreValue(actor, "jup_b218_squad_members_count", 0 as number) !== 3;
@@ -1991,16 +2024,19 @@ extern("dialogs_jupiter.jup_b218_counter_not_3", (firstSpeaker: game_object, sec
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b218_counter_equal_3", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-  const actor = registry.actor;
+extern(
+  "dialogs_jupiter.jup_b218_counter_equal_3",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    const actor = registry.actor;
 
-  return getPortableStoreValue(actor, "jup_b218_squad_members_count", 0 as number) === 3;
-});
+    return getPortableStoreValue(actor, "jup_b218_squad_members_count", 0 as number) === 3;
+  }
+);
 
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b218_counter_not_0", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+extern("dialogs_jupiter.jup_b218_counter_not_0", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
   const actor = registry.actor;
 
@@ -2010,17 +2046,20 @@ extern("dialogs_jupiter.jup_b218_counter_not_0", (firstSpeaker: game_object, sec
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b25_frase_count_inc", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-  const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
-  const actor = registry.actor;
+extern(
+  "dialogs_jupiter.jup_b25_frase_count_inc",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
+    const actor = registry.actor;
 
-  return getExtern<AnyCallablesModule>("xr_effects").inc_counter(actor, npc, ["jup_b25_frase", 1]);
-});
+    return getExtern<AnyCallablesModule>("xr_effects").inc_counter(actor, npc, ["jup_b25_frase", 1]);
+  }
+);
 
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b32_anomaly_has_af", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+extern("dialogs_jupiter.jup_b32_anomaly_has_af", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   const az_table = [
     "jup_b32_anomal_zone",
     "jup_b201_anomal_zone",
@@ -2070,7 +2109,7 @@ extern("dialogs_jupiter.jup_b32_anomaly_has_af", (firstSpeaker: game_object, sec
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_not_enemies_to_freedom",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_b4_is_actor_enemies_to_freedom", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -2083,8 +2122,8 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_enemies_to_freedom",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    return getObjectsRelationSafe(firstSpeaker, secondSpeaker) === game_object.enemy;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    return getObjectsRelationSafe(firstSpeaker, secondSpeaker) === EClientObjectRelation.ENEMY;
   }
 );
 
@@ -2093,8 +2132,8 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_friend_to_freedom",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    return getObjectsRelationSafe(firstSpeaker, secondSpeaker) === game_object.friend;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    return getObjectsRelationSafe(firstSpeaker, secondSpeaker) === EClientObjectRelation.FRIEND;
   }
 );
 
@@ -2103,8 +2142,8 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_neutral_to_freedom",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    return getObjectsRelationSafe(firstSpeaker, secondSpeaker) === game_object.neutral;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    return getObjectsRelationSafe(firstSpeaker, secondSpeaker) === EClientObjectRelation.NEUTRAL;
   }
 );
 
@@ -2113,7 +2152,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_not_enemies_to_dolg",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_b4_is_actor_enemies_to_dolg", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -2126,8 +2165,8 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_enemies_to_dolg",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    return getObjectsRelationSafe(firstSpeaker, secondSpeaker) === game_object.enemy;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    return getObjectsRelationSafe(firstSpeaker, secondSpeaker) === EClientObjectRelation.ENEMY;
   }
 );
 
@@ -2136,8 +2175,8 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_friend_to_dolg",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    return getObjectsRelationSafe(firstSpeaker, secondSpeaker) === game_object.friend;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    return getObjectsRelationSafe(firstSpeaker, secondSpeaker) === EClientObjectRelation.FRIEND;
   }
 );
 
@@ -2146,8 +2185,8 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_neutral_to_dolg",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-    return firstSpeaker.relation(secondSpeaker) === game_object.neutral;
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    return firstSpeaker.relation(secondSpeaker) === EClientObjectRelation.NEUTRAL;
   }
 );
 
@@ -2156,7 +2195,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b47_jupiter_products_info_enabled",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(quest_items.jup_b47_jupiter_products_info) !== null;
   }
 );
@@ -2166,7 +2205,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b47_jupiter_products_info_disabled",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(quest_items.jup_b47_jupiter_products_info) === null;
   }
 );
@@ -2176,7 +2215,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b47_jupiter_products_info_revard",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b47_jupiter_products_info);
 
     giveMoneyToActor(7000);
@@ -2193,7 +2232,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b47_actor_has_merc_pda",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object("jup_b47_merc_pda") !== null;
   }
 );
@@ -2203,7 +2242,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b47_actor_has_not_merc_pda",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_b47_actor_has_merc_pda", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -2214,7 +2253,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b47_merc_pda_revard", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.jup_b47_merc_pda_revard", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b47_merc_pda);
   giveMoneyToActor(2500);
 });
@@ -2224,7 +2263,7 @@ extern("dialogs_jupiter.jup_b47_merc_pda_revard", (firstSpeaker: game_object, se
  */
 extern(
   "dialogs_jupiter.jup_b47_actor_can_take_task",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     const a = hasAlifeInfo(infoPortions.jup_b6_task_done) && !hasAlifeInfo(infoPortions.jup_b6_task_fail);
     const b = hasAlifeInfo(infoPortions.jup_b6_task_fail) && !hasAlifeInfo(infoPortions.jup_b6_task_done);
 
@@ -2235,7 +2274,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b47_employ_squad", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+extern("dialogs_jupiter.jup_b47_employ_squad", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
   const a =
     hasAlifeInfo(infoPortions.jup_b47_bunker_guards_started) && !hasAlifeInfo(infoPortions.jup_b47_bunker_guards_done);
   const b = hasAlifeInfo(infoPortions.jup_b6_employ_stalker) && !hasAlifeInfo(infoPortions.jup_b6_employed_stalker);
@@ -2246,26 +2285,32 @@ extern("dialogs_jupiter.jup_b47_employ_squad", (firstSpeaker: game_object, secon
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b47_bunker_guard_revard", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
-  giveMoneyToActor(4000);
-  giveItemsToActor(drugs.drug_psy_blockade, 2);
-  giveItemsToActor(drugs.drug_antidot, 3);
-  giveItemsToActor(drugs.drug_radioprotector, 3);
-});
+extern(
+  "dialogs_jupiter.jup_b47_bunker_guard_revard",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+    giveMoneyToActor(4000);
+    giveItemsToActor(drugs.drug_psy_blockade, 2);
+    giveItemsToActor(drugs.drug_antidot, 3);
+    giveItemsToActor(drugs.drug_radioprotector, 3);
+  }
+);
 
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b47_gauss_rifle_revard", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
-  giveMoneyToActor(12000);
-});
+extern(
+  "dialogs_jupiter.jup_b47_gauss_rifle_revard",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+    giveMoneyToActor(12000);
+  }
+);
 
 /**
  * todo;
  */
 extern(
   "dialogs_jupiter.jup_b47_actor_has_hauss_rifle_docs",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(quest_items.zat_a23_gauss_rifle_docs) !== null;
   }
 );
@@ -2276,7 +2321,7 @@ extern(
 // -- Jupiter B10 --------------------------------------------------------------
 extern(
   "dialogs_jupiter.jup_b10_ufo_memory_give_to_npc",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b10_ufo_memory);
   }
 );
@@ -2286,7 +2331,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b10_ufo_memory_give_to_actor",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return firstSpeaker.object(quest_items.jup_b10_ufo_memory) !== null;
   }
 );
@@ -2296,7 +2341,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b10_ufo_memory_2_give_to_actor",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b10_ufo_memory_2);
   }
 );
@@ -2306,7 +2351,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b10_ufo_has_money_1000",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.money() >= 1000;
   }
 );
@@ -2316,7 +2361,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b10_ufo_has_money_3000",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.money() >= 2000;
   }
 );
@@ -2326,7 +2371,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b10_ufo_hasnt_money_1000",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_b10_ufo_has_money_1000", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -2339,7 +2384,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b10_ufo_hasnt_money_3000",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_b10_ufo_has_money_3000", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -2352,7 +2397,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b10_ufo_relocate_money_1000",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 1000);
   }
 );
@@ -2362,7 +2407,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b10_ufo_relocate_money_3000",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 2000);
   }
 );
@@ -2372,7 +2417,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b10_actor_has_ufo_memory",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(quest_items.jup_b10_ufo_memory) !== null;
   }
 );
@@ -2382,7 +2427,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b211_kill_bludsuckers_reward",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(3000);
   }
 );
@@ -2392,7 +2437,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b19_transfer_conserva_to_actor",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), food.conserva);
   }
 );
@@ -2402,7 +2447,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jupiter_b6_sell_halfartefact",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     giveMoneyToActor(2000);
   }
 );
@@ -2412,7 +2457,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.pri_a15_sokolov_actor_has_note",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(quest_items.jup_b205_sokolov_note) !== null;
   }
 );
@@ -2422,7 +2467,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.pri_a15_sokolov_actor_has_not_note",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("pri_a15_sokolov_actor_has_note", getExtern("dialogs_jupiter"))(
       firstSpeaker,
       secondSpeaker
@@ -2435,7 +2480,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.pri_a15_sokolov_actor_give_note",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b205_sokolov_note);
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_army);
   }
@@ -2446,7 +2491,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b47_actor_not_enemy_to_freedom",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !isActorEnemyWithFaction(communities.freedom);
   }
 );
@@ -2456,7 +2501,7 @@ extern(
  */
 extern(
   "dialogs_jupiter.jup_b47_actor_not_enemy_to_dolg",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !isActorEnemyWithFaction(communities.dolg);
   }
 );
@@ -2464,16 +2509,19 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b15_actor_sci_outfit", (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
-  return registry.actor.object(outfits.scientific_outfit) !== null;
-});
+extern(
+  "dialogs_jupiter.jup_b15_actor_sci_outfit",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+    return registry.actor.object(outfits.scientific_outfit) !== null;
+  }
+);
 
 /**
  * todo;
  */
 extern(
   "dialogs_jupiter.jup_b15_no_actor_sci_outfit",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object(outfits.scientific_outfit) === null;
   }
 );
@@ -2481,6 +2529,6 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_jupiter.jup_b19_reward", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_jupiter.jup_b19_reward", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   TreasureManager.giveTreasureCoordinates(treasures.jup_hiding_place_38);
 });

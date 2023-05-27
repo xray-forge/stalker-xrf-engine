@@ -1,11 +1,21 @@
-import { action_base, danger_object, game_object, LuabindClass, move, time_global } from "xray16";
+import { action_base, danger_object, LuabindClass, move, time_global } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
 import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
 import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/combat/ISchemeCombatState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
-import { ClientObject, DangerObject, Optional, TIndex, TNumberId, TRate, TTimestamp, Vector } from "@/engine/lib/types";
+import {
+  ClientObject,
+  DangerObject,
+  EClientObjectPath,
+  Optional,
+  TIndex,
+  TNumberId,
+  TRate,
+  TTimestamp,
+  Vector,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -44,7 +54,7 @@ export class ActionZombieGoToDanger extends action_base {
 
     this.object.set_desired_direction();
     this.object.set_detail_path_type(move.line);
-    this.object.set_path_type(game_object.level_path);
+    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
     this.last_state = null;
     this.bestDangerObjectId = null;
     this.bestDangerObjectVertexId = null;

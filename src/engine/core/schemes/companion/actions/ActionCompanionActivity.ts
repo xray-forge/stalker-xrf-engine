@@ -1,11 +1,11 @@
-import { action_base, game_object, level, LuabindClass, time_global } from "xray16";
+import { action_base, level, LuabindClass, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
 import { ISchemeCompanionState } from "@/engine/core/schemes/companion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";
-import { ClientObject, Optional } from "@/engine/lib/types";
+import { ClientObject, EClientObjectPath, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -91,7 +91,7 @@ export class ActionCompanionActivity extends action_base {
       return;
     }
 
-    this.object.set_path_type(game_object.level_path);
+    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
     this.object.set_dest_level_vertex_id(this.assist_point);
 
     const dist_to_assist_pt = level.vertex_position(this.assist_point).distance_to(this.object.position());

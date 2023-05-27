@@ -1,5 +1,3 @@
-import { game_object } from "xray16";
-
 import { registry } from "@/engine/core/database";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
@@ -21,7 +19,7 @@ import { helmets } from "@/engine/lib/constants/items/helmets";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { quest_items } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { AnyCallable, LuaArray, TCount } from "@/engine/lib/types";
+import { AnyCallable, ClientObject, LuaArray, TCount } from "@/engine/lib/types";
 
 const log: LuaLogger = new LuaLogger($filename);
 
@@ -30,14 +28,14 @@ extern("dialogs_pripyat", {});
 /**
  * todo;
  */
-extern("dialogs_pripyat.pri_b301_zulus_reward", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_pripyat.pri_b301_zulus_reward", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_pkm_zulus);
 });
 
 /**
  * todo;
  */
-extern("dialogs_pripyat.pri_a17_reward", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_pripyat.pri_a17_reward", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   if (hasAlifeInfo(infoPortions.pri_a17_reward_well)) {
     giveMoneyToActor(7500);
   } else if (hasAlifeInfo(infoPortions.pri_a17_reward_norm)) {
@@ -52,7 +50,7 @@ extern("dialogs_pripyat.pri_a17_reward", (firstSpeaker: game_object, secondSpeak
  */
 extern(
   "dialogs_pripyat.actor_has_pri_a17_gauss_rifle",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.object("pri_a17_gauss_rifle") !== null;
   }
 );
@@ -62,7 +60,7 @@ extern(
  */
 extern(
   "dialogs_pripyat.actor_hasnt_pri_a17_gauss_rifle",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("actor_has_pri_a17_gauss_rifle", getExtern("dialogs_pripyat"))(
       firstSpeaker,
       secondSpeaker
@@ -73,27 +71,33 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_pripyat.transfer_artifact_af_baloon", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
-  transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_baloon);
-});
+extern(
+  "dialogs_pripyat.transfer_artifact_af_baloon",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_baloon);
+  }
+);
 
 /**
  * todo;
  */
-extern("dialogs_pripyat.pay_cost_to_guide_to_zaton", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
-  if (hasAlifeInfo(infoPortions.zat_b215_gave_maps)) {
-    transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 1000);
-  } else {
-    transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 3000);
+extern(
+  "dialogs_pripyat.pay_cost_to_guide_to_zaton",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+    if (hasAlifeInfo(infoPortions.zat_b215_gave_maps)) {
+      transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 1000);
+    } else {
+      transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 3000);
+    }
   }
-});
+);
 
 /**
  * todo;
  */
 extern(
   "dialogs_pripyat.jup_b43_actor_has_10000_money",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     if (hasAlifeInfo(infoPortions.zat_b215_gave_maps)) {
       return registry.actor.money() >= 3000;
     }
@@ -107,7 +111,7 @@ extern(
  */
 extern(
   "dialogs_pripyat.jup_b43_actor_do_not_has_10000_money",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return !getExtern<AnyCallable>("jup_b43_actor_has_10000_money", getExtern("dialogs_pripyat"))(
       firstSpeaker,
       secondSpeaker
@@ -120,7 +124,7 @@ extern(
  */
 extern(
   "dialogs_pripyat.pay_cost_to_guide_to_jupiter",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 7000);
   }
 );
@@ -130,7 +134,7 @@ extern(
  */
 extern(
   "dialogs_pripyat.jup_b43_actor_has_7000_money",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.money() >= 7000;
   }
 );
@@ -140,7 +144,7 @@ extern(
  */
 extern(
   "dialogs_pripyat.jup_b43_actor_do_not_has_7000_money",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return registry.actor.money() < 7000;
   }
 );
@@ -148,7 +152,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_pripyat.pri_b35_transfer_svd", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_pripyat.pri_b35_transfer_svd", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_svd);
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo["ammo_7.62x54_7h1"]);
 });
@@ -156,7 +160,7 @@ extern("dialogs_pripyat.pri_b35_transfer_svd", (firstSpeaker: game_object, secon
 /**
  * todo;
  */
-extern("dialogs_pripyat.pri_b35_give_actor_reward", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_pripyat.pri_b35_give_actor_reward", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   const amount = hasAlifeInfo(infoPortions.pri_b35_secondary) ? 3 : 1;
 
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo["ammo_7.62x54_7h1"], amount);
@@ -189,7 +193,7 @@ const medicItemsTable = {
 /**
  * todo;
  */
-extern("dialogs_pripyat.pri_a25_medic_give_kit", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_pripyat.pri_a25_medic_give_kit", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   let kit = "basic";
 
   if (hasAlifeInfo(infoPortions.pri_a25_actor_needs_medikit_advanced_supply)) {
@@ -226,7 +230,7 @@ const suppliesList = {
 
 extern(
   "dialogs_pripyat.pri_a22_army_signaller_supply",
-  (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     for (const [name, itemsList] of suppliesList) {
       if (hasAlifeInfo(name)) {
         for (const [section, amount] of itemsList) {
@@ -242,7 +246,7 @@ extern(
 /**
  * todo;
  */
-extern("dialogs_pripyat.pri_a22_give_actor_outfit", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
+extern("dialogs_pripyat.pri_a22_give_actor_outfit", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), outfits.military_outfit);
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), helmets.helm_battle);
 });
@@ -251,7 +255,7 @@ extern("dialogs_pripyat.pri_a22_give_actor_outfit", (firstSpeaker: game_object, 
  * todo;
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_notes", (): boolean => {
-  const actor: game_object = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return (
     actor.object(quest_items.jup_b10_notes_01) !== null ||
@@ -264,7 +268,7 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_notes", (): boolean => {
  * todo;
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_1", (): boolean => {
-  const actor: game_object = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return (
     actor.object(quest_items.jup_b10_notes_01) !== null &&
@@ -277,7 +281,7 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_1", (): boolean => {
  * todo;
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_2", (): boolean => {
-  const actor: game_object = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return (
     actor.object(quest_items.jup_b10_notes_02) !== null &&
@@ -290,7 +294,7 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_2", (): boolean => {
  * todo;
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_3", (): boolean => {
-  const actor: game_object = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return (
     actor.object(quest_items.jup_b10_notes_03) !== null &&
@@ -303,7 +307,7 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_3", (): boolean => {
  * todo;
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_12", (): boolean => {
-  const actor: game_object = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return (
     actor.object(quest_items.jup_b10_notes_01) !== null &&
@@ -316,7 +320,7 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_12", (): boolean => {
  * todo;
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_13", (): boolean => {
-  const actor: game_object = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return (
     actor.object(quest_items.jup_b10_notes_01) !== null &&
@@ -329,7 +333,7 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_13", (): boolean => {
  * todo;
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_23", (): boolean => {
-  const actor: game_object = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return (
     actor.object(quest_items.jup_b10_notes_02) !== null &&
@@ -342,7 +346,7 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_23", (): boolean => {
  * todo;
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_all", (): boolean => {
-  const actor: game_object = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return (
     actor.object(quest_items.jup_b10_notes_01) !== null &&
@@ -354,45 +358,48 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_all", (): boolean => {
 /**
  * todo;
  */
-extern("dialogs_pripyat.pri_b305_sell_strelok_notes", (firstSpeaker: game_object, secondSpeaker: game_object): void => {
-  const items_table = [
-    quest_items.jup_b10_notes_01,
-    quest_items.jup_b10_notes_02,
-    quest_items.jup_b10_notes_03,
-  ] as unknown as LuaArray<string>;
-  const actor: game_object = registry.actor;
+extern(
+  "dialogs_pripyat.pri_b305_sell_strelok_notes",
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
+    const items_table = [
+      quest_items.jup_b10_notes_01,
+      quest_items.jup_b10_notes_02,
+      quest_items.jup_b10_notes_03,
+    ] as unknown as LuaArray<string>;
+    const actor: ClientObject = registry.actor;
 
-  let amount: number = 0;
+    let amount: number = 0;
 
-  for (const [k, v] of items_table) {
-    if (actor.object(v) !== null) {
-      transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), v);
-      amount = amount + 1;
+    for (const [k, v] of items_table) {
+      if (actor.object(v) !== null) {
+        transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), v);
+        amount = amount + 1;
+      }
+    }
+
+    if (actor.object(weapons.wpn_gauss) !== null) {
+      transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo.ammo_gauss, 2);
+    } else {
+      transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_scientic, 3);
+    }
+
+    if (amount > 1) {
+      transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_fire);
+    }
+
+    if (amount > 2) {
+      transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_glass);
+      giveInfo(infoPortions.pri_b305_all_strelok_notes_given);
     }
   }
-
-  if (actor.object(weapons.wpn_gauss) !== null) {
-    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo.ammo_gauss, 2);
-  } else {
-    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_scientic, 3);
-  }
-
-  if (amount > 1) {
-    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_fire);
-  }
-
-  if (amount > 2) {
-    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_glass);
-    giveInfo(infoPortions.pri_b305_all_strelok_notes_given);
-  }
-});
+);
 
 /**
  * todo;
  */
 extern(
   "dialogs_pripyat.pri_a17_sokolov_is_not_at_base",
-  (firstSpeaker: game_object, secondSpeaker: game_object): boolean => {
+  (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     return hasAlifeInfo(infoPortions.pri_a15_sokolov_out) && hasAlifeInfo(infoPortions.pas_b400_sokolov_dead);
   }
 );

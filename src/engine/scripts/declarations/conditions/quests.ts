@@ -1,4 +1,4 @@
-import { alife, alife_simulator, cse_alife_creature_abstract, game_object, level } from "xray16";
+import { alife, level } from "xray16";
 
 import { getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects";
@@ -10,7 +10,16 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { distanceBetween } from "@/engine/core/utils/vector";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { zones } from "@/engine/lib/constants/zones";
-import { AnyCallablesModule, LuaArray, Optional, TDistance, TName } from "@/engine/lib/types";
+import {
+  AlifeSimulator,
+  AnyCallablesModule,
+  ClientObject,
+  LuaArray,
+  Optional,
+  ServerCreatureObject,
+  TDistance,
+  TName,
+} from "@/engine/lib/types";
 import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -18,38 +27,41 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-extern("xr_conditions.zat_b29_anomaly_has_af", (actor: game_object, npc: game_object, p: Optional<string>): boolean => {
-  const az_name = p && p[0];
-  let af_name: Optional<string> = null;
+extern(
+  "xr_conditions.zat_b29_anomaly_has_af",
+  (actor: ClientObject, npc: ClientObject, p: Optional<string>): boolean => {
+    const az_name = p && p[0];
+    let af_name: Optional<string> = null;
 
-  const anomal_zone = registry.anomalyZones.get(az_name as TName);
+    const anomal_zone = registry.anomalyZones.get(az_name as TName);
 
-  if (az_name === null || anomal_zone === null || anomal_zone.spawnedArtefactsCount < 1) {
+    if (az_name === null || anomal_zone === null || anomal_zone.spawnedArtefactsCount < 1) {
+      return false;
+    }
+
+    for (const i of $range(16, 23)) {
+      if (hasAlifeInfo(zat_b29_infop_bring_table.get(i))) {
+        af_name = zat_b29_af_table.get(i);
+        break;
+      }
+    }
+
+    for (const [artefactId] of registry.artefacts.ways) {
+      if (alife().object(tonumber(artefactId)!) && af_name === alife().object(tonumber(artefactId)!)!.section_name()) {
+        registry.actor.give_info_portion(az_name);
+
+        return true;
+      }
+    }
+
     return false;
   }
-
-  for (const i of $range(16, 23)) {
-    if (hasAlifeInfo(zat_b29_infop_bring_table.get(i))) {
-      af_name = zat_b29_af_table.get(i);
-      break;
-    }
-  }
-
-  for (const [artefactId] of registry.artefacts.ways) {
-    if (alife().object(tonumber(artefactId)!) && af_name === alife().object(tonumber(artefactId)!)!.section_name()) {
-      registry.actor.give_info_portion(az_name);
-
-      return true;
-    }
-  }
-
-  return false;
-});
+);
 
 /**
  * todo;
  */
-extern("xr_conditions.jup_b221_who_will_start", (actor: game_object, npc: game_object, p: [string]): boolean => {
+extern("xr_conditions.jup_b221_who_will_start", (actor: ClientObject, npc: ClientObject, p: [string]): boolean => {
   const reachable_theme: LuaArray<number> = new LuaTable();
   const infoPortionsList: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
     infoPortions.jup_b25_freedom_flint_gone,
@@ -107,7 +119,7 @@ extern("xr_conditions.jup_b221_who_will_start", (actor: game_object, npc: game_o
 /**
  * todo;
  */
-extern("xr_conditions.pas_b400_actor_far_forward", (actor: game_object, npc: game_object): boolean => {
+extern("xr_conditions.pas_b400_actor_far_forward", (actor: ClientObject, npc: ClientObject): boolean => {
   const forwardObject = getObjectByStoryId("pas_b400_fwd");
 
   if (forwardObject) {
@@ -125,7 +137,7 @@ extern("xr_conditions.pas_b400_actor_far_forward", (actor: game_object, npc: gam
     return false;
   }
 
-  const squad: Squad = alife().object(alife().object<cse_alife_creature_abstract>(npc.id())!.group_id)!;
+  const squad: Squad = alife().object(alife().object<ServerCreatureObject>(npc.id())!.group_id)!;
 
   for (const squadMember in squad.squad_members()) {
     // todo: Mistake or typedef upd needed.
@@ -142,8 +154,8 @@ extern("xr_conditions.pas_b400_actor_far_forward", (actor: game_object, npc: gam
 /**
  * todo;
  */
-extern("xr_conditions.pas_b400_actor_far_backward", (actor: game_object, npc: game_object): boolean => {
-  const backwardObject: Optional<game_object> = getObjectByStoryId("pas_b400_bwd");
+extern("xr_conditions.pas_b400_actor_far_backward", (actor: ClientObject, npc: ClientObject): boolean => {
+  const backwardObject: Optional<ClientObject> = getObjectByStoryId("pas_b400_bwd");
 
   if (backwardObject !== null) {
     if (distanceBetween(backwardObject, registry.actor) > distanceBetween(backwardObject, npc)) {
@@ -160,8 +172,8 @@ extern("xr_conditions.pas_b400_actor_far_backward", (actor: game_object, npc: ga
     return false;
   }
 
-  const sim: alife_simulator = alife();
-  const squad: Squad = sim.object<Squad>(sim.object<cse_alife_creature_abstract>(npc.id())!.group_id)!;
+  const sim: AlifeSimulator = alife();
+  const squad: Squad = sim.object<Squad>(sim.object<ServerCreatureObject>(npc.id())!.group_id)!;
 
   for (const squadMember of squad.squad_members()) {
     const other_dist = squadMember.object.position.distance_to_sqr(actor.position());
@@ -177,7 +189,7 @@ extern("xr_conditions.pas_b400_actor_far_backward", (actor: game_object, npc: ga
 /**
  * todo;
  */
-extern("xr_conditions.pri_a28_actor_is_far", (actor: game_object, npc: game_object): boolean => {
+extern("xr_conditions.pri_a28_actor_is_far", (actor: ClientObject, npc: ClientObject): boolean => {
   const distance: TDistance = 150 * 150;
   const squad: Optional<Squad> = getServerObjectByStoryId("pri_a16_military_squad")!;
 
@@ -223,7 +235,7 @@ extern("xr_conditions.jup_b25_flint_gone_condition", (): boolean => {
 /**
  * todo;
  */
-extern("xr_conditions.zat_b103_actor_has_needed_food", (actor: game_object, npc: game_object): boolean => {
+extern("xr_conditions.zat_b103_actor_has_needed_food", (actor: ClientObject, npc: ClientObject): boolean => {
   return (
     getExtern<AnyCallablesModule>("dialogs_zaton").zat_b103_actor_has_needed_food(actor, npc) ||
     hasAlifeInfo(infoPortions.zat_b103_merc_task_done)
@@ -233,7 +245,7 @@ extern("xr_conditions.zat_b103_actor_has_needed_food", (actor: game_object, npc:
 /**
  * todo;
  */
-extern("xr_conditions.zat_b29_rivals_dialog_precond", (actor: game_object, npc: game_object): boolean => {
+extern("xr_conditions.zat_b29_rivals_dialog_precond", (actor: ClientObject, npc: ClientObject): boolean => {
   const squadsList: LuaArray<TName> = $fromArray<TName>([
     "zat_b29_stalker_rival_default_1_squad",
     "zat_b29_stalker_rival_default_2_squad",
@@ -251,7 +263,7 @@ extern("xr_conditions.zat_b29_rivals_dialog_precond", (actor: game_object, npc: 
   let f_squad: boolean = false;
 
   for (const [k, v] of squadsList) {
-    if (alife().object(alife().object<cse_alife_creature_abstract>(npc.id())!.group_id)!.section_name() === v) {
+    if (alife().object(alife().object<ServerCreatureObject>(npc.id())!.group_id)!.section_name() === v) {
       f_squad = true;
       break;
     }
@@ -273,7 +285,7 @@ extern("xr_conditions.zat_b29_rivals_dialog_precond", (actor: game_object, npc: 
 /**
  * todo;
  */
-extern("xr_conditions.jup_b202_actor_treasure_not_in_steal", (actor: game_object, npc: game_object) => {
+extern("xr_conditions.jup_b202_actor_treasure_not_in_steal", (actor: ClientObject, npc: ClientObject) => {
   const before: boolean =
     !hasAlifeInfo(infoPortions.jup_b52_actor_items_can_be_stolen) &&
     !hasAlifeInfo(infoPortions.jup_b202_actor_items_returned);
@@ -287,8 +299,8 @@ extern("xr_conditions.jup_b202_actor_treasure_not_in_steal", (actor: game_object
 /**
  * todo;
  */
-extern("xr_conditions.jup_b47_npc_online", (actor: game_object, npc: game_object, params: [string]) => {
-  const storyObject: Optional<game_object> = getObjectByStoryId(params[0]);
+extern("xr_conditions.jup_b47_npc_online", (actor: ClientObject, npc: ClientObject, params: [string]) => {
+  const storyObject: Optional<ClientObject> = getObjectByStoryId(params[0]);
 
   if (storyObject === null) {
     return false;
@@ -314,14 +326,14 @@ extern("xr_conditions.zat_b7_is_late_attack_time", (): boolean => {
 /**
  * todo;
  */
-extern("xr_conditions.jup_b202_inventory_box_empty", (actor: game_object, npc: game_object): boolean => {
+extern("xr_conditions.jup_b202_inventory_box_empty", (actor: ClientObject, npc: ClientObject): boolean => {
   return getObjectByStoryId("jup_b202_actor_treasure")!.is_inv_box_empty();
 });
 
 /**
  * todo;
  */
-extern("xr_conditions.jup_b16_is_zone_active", (actor: game_object, npc: game_object): boolean => {
+extern("xr_conditions.jup_b16_is_zone_active", (actor: ClientObject, npc: ClientObject): boolean => {
   return hasAlifeInfo(npc.name() as TInfoPortion);
 });
 

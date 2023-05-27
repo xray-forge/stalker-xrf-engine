@@ -1,12 +1,12 @@
-import { game_object } from "xray16";
+import { ClientObject } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export class MockPropertyEvaluator {
-  public object!: game_object;
+  public object!: ClientObject;
 
-  public setup(object: game_object): void {
+  public setup(object: ClientObject): void {
     this.object = object;
   }
 }

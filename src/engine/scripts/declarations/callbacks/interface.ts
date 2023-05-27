@@ -1,5 +1,3 @@
-import { game_object } from "xray16";
-
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
@@ -8,7 +6,7 @@ import { WeaponParams } from "@/engine/core/ui/game/WeaponParams";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TWeapon } from "@/engine/lib/constants/items/weapons";
-import { AnyArgs, AnyObject, TCount, TIndex, TLabel, TName, TSection } from "@/engine/lib/types";
+import { AnyArgs, AnyObject, ClientObject, TCount, TIndex, TLabel, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -62,7 +60,7 @@ extern("actor_menu", {
  * todo;
  */
 extern("actor_menu_inventory", {
-  CUIActorMenu_OnItemDropped: (from: game_object, to: game_object, oldList: number, newList: number): void => {
+  CUIActorMenu_OnItemDropped: (from: ClientObject, to: ClientObject, oldList: number, newList: number): void => {
     return ActorInventoryMenuManager.getInstance().onItemDropped();
   },
 });

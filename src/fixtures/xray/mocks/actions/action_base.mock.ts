@@ -1,19 +1,17 @@
-import { action_base, game_object, world_property } from "xray16";
-
-import { Optional } from "@/engine/lib/types";
+import { ActionBase, ClientObject, Optional, WorldProperty } from "@/engine/lib/types";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 
 /**
  * todo;
  */
 export class MockActionBase extends MockLuabindClass {
-  public object: Optional<game_object>;
+  public object: Optional<ClientObject>;
   public name: string;
 
-  public preconditions: Array<world_property> = [];
-  public effects: Array<world_property> = [];
+  public preconditions: Array<WorldProperty> = [];
+  public effects: Array<WorldProperty> = [];
 
-  public constructor(object: Optional<game_object> = null, name: string) {
+  public constructor(object: Optional<ClientObject> = null, name: string) {
     super();
 
     this.object = object;
@@ -24,27 +22,27 @@ export class MockActionBase extends MockLuabindClass {
 
   public execute(): void {}
 
-  public setup(object: game_object): void {
+  public setup(object: ClientObject): void {
     this.object = object;
   }
 
-  public add_precondition(property: world_property): void {
+  public add_precondition(property: WorldProperty): void {
     this.preconditions.push(property);
   }
 
-  public add_effect(property: world_property): void {
+  public add_effect(property: WorldProperty): void {
     this.effects.push(property);
   }
 
-  public getPrecondition(id: number): Optional<world_property> {
+  public getPrecondition(id: number): Optional<WorldProperty> {
     return this.preconditions.find((it) => it.condition() === id) ?? null;
   }
 
-  public getEffect(id: number): Optional<world_property> {
+  public getEffect(id: number): Optional<WorldProperty> {
     return this.effects.find((it) => it.condition() === id) ?? null;
   }
 }
 
-export function mockActionBase(object: Optional<game_object> = null, name: string = "generic"): action_base {
-  return new MockActionBase(object, name) as unknown as action_base;
+export function mockActionBase(object: Optional<ClientObject> = null, name: string = "generic"): ActionBase {
+  return new MockActionBase(object, name) as unknown as ActionBase;
 }

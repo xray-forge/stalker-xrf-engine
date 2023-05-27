@@ -1,4 +1,4 @@
-import { cast_planner, danger_object, game_object, stalker_ids } from "xray16";
+import { cast_planner, danger_object, stalker_ids } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
@@ -16,6 +16,7 @@ import {
   ActionPlanner,
   ClientObject,
   DangerObject,
+  EClientObjectRelation,
   EScheme,
   ESchemeType,
   IniFile,
@@ -98,7 +99,7 @@ export class SchemeDanger extends AbstractScheme {
     if (
       bestDangerType !== danger_object.entity_corpse &&
       bestDangerType !== danger_object.grenade &&
-      object.relation(bestDangerObject) !== game_object.enemy
+      object.relation(bestDangerObject) !== EClientObjectRelation.ENEMY
     ) {
       return false;
     }

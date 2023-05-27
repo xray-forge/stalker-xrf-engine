@@ -1,8 +1,9 @@
-import { action_base, game_object, LuabindClass } from "xray16";
+import { action_base, LuabindClass } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { EClientObjectPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -35,7 +36,7 @@ export class ActionReachAnimpoint extends action_base {
 
     this.object.set_dest_level_vertex_id(this.state.animpoint!.positionLevelVertexId!);
     this.object.set_desired_direction(this.state.animpoint!.smartCoverDirection!);
-    this.object.set_path_type(game_object.level_path);
+    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
 
     const isDistanceReached: boolean =
       this.object.position().distance_to_sqr(this.state.animpoint!.vertexPosition!) <= this.state.reach_distance;

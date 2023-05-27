@@ -1,10 +1,10 @@
-import { action_base, game_object, LuabindClass, object } from "xray16";
+import { action_base, LuabindClass, object } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { getObjectAnimationWeapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
 import { isStrappableWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -28,7 +28,7 @@ export class ActionWeaponStrap extends action_base {
 
     super.initialize();
 
-    const weapon: Optional<game_object> = getObjectAnimationWeapon(this.object, this.stateManager.targetState);
+    const weapon: Optional<ClientObject> = getObjectAnimationWeapon(this.object, this.stateManager.targetState);
 
     if (isStrappableWeapon(weapon)) {
       this.object.set_item(object.strap, weapon);

@@ -1,7 +1,16 @@
 import { jest } from "@jest/globals";
-import { action_planner, CGameTask, game_object, ini_file, TXR_callback, TXR_class_id, TXR_SightType } from "xray16";
+import { TXR_callback, TXR_class_id, TXR_SightType } from "xray16";
 
-import { AnyCallable, AnyContextualCallable, AnyObject, PartialRecord } from "@/engine/lib/types";
+import {
+  ActionPlanner,
+  AnyCallable,
+  AnyContextualCallable,
+  AnyObject,
+  ClientObject,
+  GameTask,
+  IniFile,
+  PartialRecord,
+} from "@/engine/lib/types";
 import { MockMove, MockSightParameters } from "@/fixtures/xray";
 import { MockActionPlanner, mockDefaultActionPlanner } from "@/fixtures/xray/mocks/actions/action_planner.mock";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
@@ -24,7 +33,7 @@ export function mockClientGameObject({
   give_info_portion,
   give_money,
   give_talk_message2 = jest.fn(),
-  give_task = jest.fn((task: CGameTask, time: number, shouldCheck: boolean, duration: number) => {}),
+  give_task = jest.fn((task: GameTask, time: number, shouldCheck: boolean, duration: number) => {}),
   has_info,
   id,
   idOverride = ID_COUNTER++,
@@ -46,22 +55,22 @@ export function mockClientGameObject({
   weapon_unstrapped = jest.fn(() => false),
   ...rest
 }: Partial<
-  game_object & {
+  ClientObject & {
     idOverride?: number;
     sectionOverride?: string;
     infoPortions?: Array<string>;
-    inventory: Array<[string | number, game_object]>;
+    inventory: Array<[string | number, ClientObject]>;
   }
-> = {}): game_object {
+> = {}): ClientObject {
   const internalInfos: Array<string> = [...infoPortions];
-  const inventoryMap: Map<string | number, game_object> = new Map(inventory);
+  const inventoryMap: Map<string | number, ClientObject> = new Map(inventory);
   let objectMoney: number = 0;
 
   let sight: TXR_SightType = MockSightParameters.eSightTypeDummy;
 
-  const actionManager: action_planner = mockDefaultActionPlanner();
+  const actionManager: ActionPlanner = mockDefaultActionPlanner();
   const callbacks: PartialRecord<TXR_callback, AnyCallable> = {};
-  const spawnIni: ini_file = mockIniFile("spawn.ini");
+  const spawnIni: IniFile = mockIniFile("spawn.ini");
 
   const gameObject = {
     ...rest,
@@ -106,7 +115,7 @@ export function mockClientGameObject({
     money: money || jest.fn(() => objectMoney),
     motivation_action_manager:
       motivation_action_manager ||
-      jest.fn(function (this: game_object) {
+      jest.fn(function (this: ClientObject) {
         (actionManager as unknown as MockActionPlanner).object = this;
 
         return actionManager;
@@ -125,7 +134,7 @@ export function mockClientGameObject({
 
         return inventoryMap.get(key) || null;
       }),
-    iterate_inventory: jest.fn((cb: (owner: game_object, item: game_object) => void, owner: game_object) => {
+    iterate_inventory: jest.fn((cb: (owner: ClientObject, item: ClientObject) => void, owner: ClientObject) => {
       for (const [, item] of inventoryMap) {
         cb(owner, item);
       }
@@ -146,7 +155,7 @@ export function mockClientGameObject({
       jest.fn(() => {
         const params: MockSightParameters = new MockSightParameters();
 
-        params.m_object = gameObject as game_object;
+        params.m_object = gameObject as ClientObject;
         params.m_sight_type = sight;
         params.m_vector = gameObject.direction();
 
@@ -163,7 +172,7 @@ export function mockClientGameObject({
     transfer_money,
     transfer_item:
       transfer_item ||
-      jest.fn((item: game_object, to: game_object) => {
+      jest.fn((item: ClientObject, to: ClientObject) => {
         for (const [key, it] of inventoryMap) {
           if (it === item) {
             inventoryMap.delete(key);
@@ -173,7 +182,7 @@ export function mockClientGameObject({
     weapon_unstrapped,
   };
 
-  CLIENT_SIDE_REGISTRY[gameObject.id()] = gameObject as game_object;
+  CLIENT_SIDE_REGISTRY[gameObject.id()] = gameObject as ClientObject;
 
-  return gameObject as game_object;
+  return gameObject as ClientObject;
 }

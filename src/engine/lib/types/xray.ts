@@ -42,6 +42,8 @@ import {
   physics_joint,
   physics_shell,
   profile_timer,
+  property_evaluator,
+  property_storage,
   reader,
   sound_object,
   TXR_animation,
@@ -61,6 +63,7 @@ import {
   TXR_TaskState,
   vector,
   vector2,
+  world_property,
   world_state,
 } from "xray16";
 
@@ -74,8 +77,8 @@ export type ClientObject = game_object;
 export type Color = color;
 export type CoverPoint = cover_point;
 export type DangerObject = danger_object;
-export type EntityAction = entity_action;
 export type EffectorParams = effector_params;
+export type EntityAction = entity_action;
 export type FSFileList = FS_file_list_ex;
 export type Flags32 = flags32;
 export type GameGraphVertex = GameGraph__CVertex;
@@ -97,6 +100,8 @@ export type PhysicsElement = physics_element;
 export type PhysicsJoint = physics_joint;
 export type PhysicsShell = physics_shell;
 export type ProfileTimer = profile_timer;
+export type PropertyEvaluator = property_evaluator;
+export type PropertyStorage = property_storage;
 export type Reader = reader;
 export type SavedGameWrapper = CSavedGameWrapper;
 export type ServerAbstractObject = cse_abstract;
@@ -109,8 +114,8 @@ export type ServerMonsterObject = cse_alife_monster_abstract;
 export type ServerObject = cse_alife_object;
 export type ServerPhysicObject = cse_alife_object_physic;
 export type SoundObject = sound_object;
-export type TAnimationType = TXR_animation;
 export type TAnimationKey = TXR_animation_key;
+export type TAnimationType = TXR_animation;
 export type TClassId = TXR_class_id;
 export type TDangerType = TXR_danger_object;
 export type TEntityActionType = TXR_entity_action;
@@ -125,6 +130,24 @@ export type TTaskState = TXR_TaskState;
 export type Time = CTime;
 export type Vector = vector;
 export type Vector2D = vector2;
+export type WorldProperty = world_property;
 export type WorldState = world_state;
 export type XmlInit = CScriptXmlInit;
 export type ZoneCampfire = CZoneCampfire;
+
+export enum EClientObjectPath {
+  GAME_PATH = game_object.game_path,
+  LEVEL_PATH = game_object.level_path,
+  PATROL_PATH = game_object.patrol_path,
+}
+
+export enum EClientObjectRelation {
+  FRIEND = game_object.friend,
+  NEUTRAL = game_object.neutral,
+  ENEMY = game_object.enemy,
+}
+
+export enum EClientObjectMovementType {
+  MASK = game_object.alifeMovementTypeMask,
+  RANDOM = game_object.alifeMovementTypeRandom,
+}

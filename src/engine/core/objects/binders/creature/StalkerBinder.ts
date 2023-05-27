@@ -3,7 +3,6 @@ import {
   alife,
   callback,
   game_graph,
-  game_object,
   ini_file,
   level,
   LuabindClass,
@@ -70,6 +69,7 @@ import {
   ActionPlanner,
   ALifeSmartTerrainTask,
   ClientObject,
+  EClientObjectRelation,
   EScheme,
   IniFile,
   NetPacket,
@@ -519,7 +519,7 @@ export class StalkerBinder extends object_binder {
             const actorLevelId: TNumberId = game_graph().vertex(alife().actor().m_game_vertex_id).level_id();
 
             if (levelId === actorLevelId && actor.position().distance_to_sqr(smartTerrain.position) <= 6400) {
-              if (this.object.relation(actor) !== game_object.enemy) {
+              if (this.object.relation(actor) !== EClientObjectRelation.ENEMY) {
                 smartTerrain.smartTerrainActorControl.onActorAttackSmartTerrain();
               }
             }

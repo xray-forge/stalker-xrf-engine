@@ -1,16 +1,4 @@
-import {
-  action_base,
-  alife,
-  anim,
-  clsid,
-  game_object,
-  level,
-  look,
-  LuabindClass,
-  move,
-  object,
-  time_global,
-} from "xray16";
+import { action_base, alife, anim, clsid, level, look, LuabindClass, move, object, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
@@ -21,7 +9,16 @@ import { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task/ReachTa
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
 import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
-import { ClientObject, Optional, TName, TNumberId, TTimestamp, Vector } from "@/engine/lib/types";
+import {
+  ClientObject,
+  EClientObjectMovementType,
+  EClientObjectPath,
+  Optional,
+  TName,
+  TNumberId,
+  TTimestamp,
+  Vector,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -75,7 +72,7 @@ export class ActionReachTaskLocation extends action_base {
     this.nextUpdateAt = time_global() + 1000;
 
     this.object.set_desired_direction();
-    this.object.set_movement_selection_type(game_object.alifeMovementTypeMask);
+    this.object.set_movement_selection_type(EClientObjectMovementType.MASK);
     this.object.set_item(object.idle, this.object.best_weapon());
     this.object.set_body_state(move.standing);
     this.object.set_detail_path_type(move.line);
@@ -85,7 +82,7 @@ export class ActionReachTaskLocation extends action_base {
     const reachTarget: TSimulationObject = alife().object(this.reachTargetId)!;
 
     this.object.set_dest_game_vertex_id(reachTarget.m_game_vertex_id);
-    this.object.set_path_type(game_object.game_path);
+    this.object.set_path_type(EClientObjectPath.GAME_PATH);
     this.object.inactualize_patrol_path();
     this.object.set_sight(look.path_dir, null, 0);
 
@@ -137,7 +134,7 @@ export class ActionReachTaskLocation extends action_base {
    * todo: Description.
    */
   public override finalize(): void {
-    this.object.set_movement_selection_type(game_object.alifeMovementTypeRandom);
+    this.object.set_movement_selection_type(EClientObjectMovementType.RANDOM);
     super.finalize();
 
     logger.info("Finalize reach task action:", this.object.name());
@@ -152,7 +149,7 @@ export class ActionReachTaskLocation extends action_base {
       let [position, lvi, gvi] = squadTarget.getGameLocation();
 
       if (this.object.game_vertex_id() !== gvi) {
-        this.object.set_path_type(game_object.game_path);
+        this.object.set_path_type(EClientObjectPath.GAME_PATH);
         this.object.set_dest_game_vertex_id(gvi);
         this.object.set_sight(look.path_dir, null, 0);
 
@@ -163,7 +160,7 @@ export class ActionReachTaskLocation extends action_base {
         return;
       }
 
-      this.object.set_path_type(game_object.level_path);
+      this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
 
       if (!this.object.accessible(position)) {
         lvi = this.object.accessible_nearest(position, createEmptyVector());
@@ -197,7 +194,7 @@ export class ActionReachTaskLocation extends action_base {
       this.object.set_desired_direction(desiredDirection);
     }
 
-    this.object.set_path_type(game_object.level_path);
+    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
 
     if (
       squadTarget === null ||

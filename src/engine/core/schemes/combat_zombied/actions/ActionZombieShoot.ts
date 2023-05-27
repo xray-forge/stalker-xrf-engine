@@ -1,4 +1,4 @@
-import { action_base, game_object, level, LuabindClass, move, time_global } from "xray16";
+import { action_base, level, LuabindClass, move, time_global } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -8,7 +8,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { chance } from "@/engine/core/utils/number";
 import { copyVector, createEmptyVector } from "@/engine/core/utils/vector";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
-import { ClientObject, Optional, TNumberId, TRate, TTimestamp, Vector } from "@/engine/lib/types";
+import { ClientObject, EClientObjectPath, Optional, TNumberId, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -100,7 +100,7 @@ export class ActionZombieShoot extends action_base {
       }
     }
 
-    this.object.set_path_type(game_object.level_path);
+    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
 
     const now: TTimestamp = time_global();
 

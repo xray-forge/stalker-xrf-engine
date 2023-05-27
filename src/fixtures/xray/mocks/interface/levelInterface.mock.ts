@@ -1,9 +1,8 @@
 import { jest } from "@jest/globals";
-import { game_object } from "xray16";
 
-import { TNumberId } from "@/engine/lib/types";
+import { ClientObject, TNumberId } from "@/engine/lib/types";
 
-export const CLIENT_SIDE_REGISTRY: Record<TNumberId, game_object> = {};
+export const CLIENT_SIDE_REGISTRY: Record<TNumberId, ClientObject> = {};
 
 /**
  * Mock game `level` interface.

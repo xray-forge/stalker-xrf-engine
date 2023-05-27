@@ -1,13 +1,11 @@
-import { game_object } from "xray16";
-
 import { getObjectLogicIniConfig, IRegistryObjectState, registry } from "@/engine/core/database";
 import { activateSchemeBySection } from "@/engine/core/schemes/base/utils/activateSchemeBySection";
 import { configureObjectSchemes } from "@/engine/core/schemes/base/utils/configureObjectSchemes";
 import { getObjectSectionToActivate } from "@/engine/core/schemes/base/utils/getObjectSectionToActivate";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TRelation } from "@/engine/lib/constants/relations";
-import { ClientObject, IniFile, Optional, TCount, TName } from "@/engine/lib/types";
+import { ERelation } from "@/engine/lib/constants/relations";
+import { ClientObject, EClientObjectRelation, IniFile, Optional, TCount, TName } from "@/engine/lib/types";
 import { ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -41,10 +39,20 @@ export function initializeObjectSchemeLogic(
 
     activateSchemeBySection(object, iniFile, section, state.gulag_name, false);
 
-    const relation: Optional<TRelation> = readIniString(iniFile, "logic", "relation", false, "") as TRelation;
+    const relation: Optional<ERelation> = readIniString(iniFile, "logic", "relation", false, "") as ERelation;
 
     if (relation !== null) {
-      object.set_relation(game_object[relation as TRelation], registry.actor);
+      switch (relation) {
+        case ERelation.NEUTRAL:
+          object.set_relation(EClientObjectRelation.NEUTRAL, registry.actor);
+          break;
+        case ERelation.ENEMY:
+          object.set_relation(EClientObjectRelation.ENEMY, registry.actor);
+          break;
+        case ERelation.FRIEND:
+          object.set_relation(EClientObjectRelation.FRIEND, registry.actor);
+          break;
+      }
     }
 
     const sympathy: Optional<TCount> = readIniNumber(iniFile, "logic", "sympathy", false);

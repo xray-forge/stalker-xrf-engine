@@ -11,7 +11,6 @@ import {
   DIK_keys,
   Frect,
   game,
-  game_object,
   IsGameTypeSingle,
   level,
   login_manager,
@@ -43,7 +42,7 @@ import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties, TGameDifficulty } from "@/engine/lib/constants/game_difficulties";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
 import { gameTypes } from "@/engine/lib/constants/game_types";
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { ClientObject, Optional, TNumberId } from "@/engine/lib/types";
 
 export const base: string = "menu\\MainMenu.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -480,7 +479,7 @@ export class MainMenu extends CUIScriptWnd {
     if (event === ui_events.WINDOW_KEY_PRESSED) {
       switch (key) {
         case DIK_keys.DIK_ESCAPE: {
-          const actor: Optional<game_object> = registry.actor;
+          const actor: Optional<ClientObject> = registry.actor;
 
           if (level.present() && ((actor !== null && actor.alive()) || !IsGameTypeSingle())) {
             this.onButtonClickReturnToGame();

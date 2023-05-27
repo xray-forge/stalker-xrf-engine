@@ -1,4 +1,4 @@
-import { action_base, game_object, level, LuabindClass } from "xray16";
+import { action_base, level, LuabindClass } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -7,7 +7,7 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { areSameVectors, createEmptyVector, createVector, subVectors } from "@/engine/core/utils/vector";
-import { CoverPoint, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
+import { CoverPoint, EClientObjectPath, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -83,7 +83,7 @@ export class ActionBaseCover extends action_base {
       this.object.set_desired_direction(desired_direction);
     }
 
-    this.object.set_path_type(game_object.level_path);
+    this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
     this.object.set_dest_level_vertex_id(this.cover_vertex_id);
 
     setStalkerState(this.object, EStalkerState.ASSAULT);
