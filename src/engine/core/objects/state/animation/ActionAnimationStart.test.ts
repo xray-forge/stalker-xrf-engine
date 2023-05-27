@@ -1,5 +1,4 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { vector } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
@@ -7,6 +6,7 @@ import { StalkerBinder } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { ActionAnimationStart } from "@/engine/core/objects/state/animation/ActionAnimationStart";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+import { createEmptyVector } from "@/engine/core/utils/vector";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("ActionAnimationStart class", () => {
@@ -23,7 +23,7 @@ describe("ActionAnimationStart class", () => {
     jest.spyOn(manager.animation, "setState");
 
     setStalkerState(stalker.object, EStalkerState.BACKOFF, null, null, {
-      look_position: new vector(),
+      look_position: createEmptyVector(),
       look_object: null,
     });
 

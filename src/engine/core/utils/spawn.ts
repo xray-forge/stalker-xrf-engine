@@ -1,4 +1,4 @@
-import { alife, clsid, game, level, patrol, system_ini, vector } from "xray16";
+import { alife, clsid, game, level, patrol, system_ini } from "xray16";
 
 import { IRegistryObjectState, SYSTEM_INI } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -8,6 +8,7 @@ import { isAmmoSection, isStalker } from "@/engine/core/utils/check/is";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectPositioning } from "@/engine/core/utils/object";
+import { createEmptyVector } from "@/engine/core/utils/vector";
 import { TCaption } from "@/engine/lib/constants/captions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { TAmmoItem } from "@/engine/lib/constants/items/ammo";
@@ -259,7 +260,7 @@ export function spawnObjectInObject<T extends ServerObject>(
 
   assertDefined(box, "Wrong spawn target object for 'spawnObjectInObject' function '%s'.", tostring(section));
 
-  return alife().create(section, new vector(), 0, 0, targetId);
+  return alife().create(section, createEmptyVector(), 0, 0, targetId);
 }
 
 /**

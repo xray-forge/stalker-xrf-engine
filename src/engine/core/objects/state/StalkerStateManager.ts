@@ -1,4 +1,4 @@
-import { action_planner, level, look, object, time_global, vector } from "xray16";
+import { action_planner, level, look, object, time_global } from "xray16";
 
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import {
@@ -12,7 +12,7 @@ import { getObjectAnimationWeapon } from "@/engine/core/objects/state/weapon/Sta
 import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areSameVectors } from "@/engine/core/utils/vector";
+import { areSameVectors, createEmptyVector, createVector, subVectors } from "@/engine/core/utils/vector";
 import {
   ActionPlanner,
   AnyCallable,
@@ -284,7 +284,7 @@ export class StalkerStateManager {
     if (this.lookObjectId !== null && level.object_by_id(this.lookObjectId) !== null) {
       this.lookAtObject();
     } else if (this.lookPosition !== null) {
-      let direction: Vector = new vector().sub(this.lookPosition!, this.object.position());
+      let direction: Vector = subVectors(this.lookPosition!, this.object.position());
 
       if (this.isObjectPointDirectionLook) {
         direction.y = 0;
@@ -292,8 +292,8 @@ export class StalkerStateManager {
 
       direction.normalize();
 
-      if (areSameVectors(direction, new vector().set(0, 0, 0))) {
-        this.lookPosition = new vector().set(
+      if (areSameVectors(direction, createEmptyVector())) {
+        this.lookPosition = createVector(
           this.object.position().x + this.object.direction().x,
           this.object.position().y + this.object.direction().y,
           this.object.position().z + this.object.direction().z

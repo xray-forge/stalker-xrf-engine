@@ -1,9 +1,10 @@
-import { cond, look, patrol, vector } from "xray16";
+import { cond, look, patrol } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/mob/jump/ISchemeMobJumpState";
 import { abort } from "@/engine/core/utils/assertion";
 import { action, scriptCaptureObject, scriptReleaseObject } from "@/engine/core/utils/object";
+import { addVectors } from "@/engine/core/utils/vector";
 import { Optional, Patrol, Vector } from "@/engine/lib/types";
 
 const STATE_START_LOOK = 1;
@@ -40,8 +41,7 @@ export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
       abort("object '%s': unable to find jump_path '%s' on the map", this.object.name(), this.state.jump_path_name);
     }
 
-    this.point = new vector().add(this.jump_path.point(0), this.state.offset);
-
+    this.point = addVectors(this.jump_path.point(0), this.state.offset);
     this.state_current = STATE_START_LOOK;
   }
 

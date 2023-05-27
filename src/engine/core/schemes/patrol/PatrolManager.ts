@@ -1,34 +1,34 @@
-import { level, vector } from "xray16";
+import { level } from "xray16";
 
 import { EStalkerState } from "@/engine/core/objects/state";
 import { abort } from "@/engine/core/utils/assertion";
-import { vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
+import { createEmptyVector, createVector, vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
 import { ClientObject, Optional, TCount, TName, TNumberId, Vector } from "@/engine/lib/types";
 
 const formations = {
   line: [
-    { dir: new vector().set(-1, 0, 0), dist: 2 },
-    { dir: new vector().set(-1, 0, 0), dist: 4 },
-    { dir: new vector().set(-1, 0, 0), dist: 6 },
-    { dir: new vector().set(1, 0, 0), dist: 2 },
-    { dir: new vector().set(1, 0, 0), dist: 4 },
-    { dir: new vector().set(1, 0, 0), dist: 6 },
+    { dir: createVector(-1, 0, 0), dist: 2 },
+    { dir: createVector(-1, 0, 0), dist: 4 },
+    { dir: createVector(-1, 0, 0), dist: 6 },
+    { dir: createVector(1, 0, 0), dist: 2 },
+    { dir: createVector(1, 0, 0), dist: 4 },
+    { dir: createVector(1, 0, 0), dist: 6 },
   ],
   back: [
-    { dir: new vector().set(0.3, 0, -1), dist: 1.2 },
-    { dir: new vector().set(-0.3, 0, -1), dist: 2.4 },
-    { dir: new vector().set(0.3, 0, -1), dist: 3.6 },
-    { dir: new vector().set(-0.3, 0, -1), dist: 4.8 },
-    { dir: new vector().set(0.3, 0, -1), dist: 6 },
-    { dir: new vector().set(-0.3, 0, -1), dist: 7.2 },
+    { dir: createVector(0.3, 0, -1), dist: 1.2 },
+    { dir: createVector(-0.3, 0, -1), dist: 2.4 },
+    { dir: createVector(0.3, 0, -1), dist: 3.6 },
+    { dir: createVector(-0.3, 0, -1), dist: 4.8 },
+    { dir: createVector(0.3, 0, -1), dist: 6 },
+    { dir: createVector(-0.3, 0, -1), dist: 7.2 },
   ],
   around: [
-    { dir: new vector().set(0.44721359, 0, -0.89442718), dist: 2.236068 },
-    { dir: new vector().set(-0.44721359, 0, -0.89442718), dist: 2.236068 },
-    { dir: new vector().set(1.0, 0, 0), dist: 2 },
-    { dir: new vector().set(-1, 0, 0), dist: 2 },
-    { dir: new vector().set(0.44721359, 0, 0.89442718), dist: 2.236068 },
-    { dir: new vector().set(-0.44721359, 0, 0.89442718), dist: 2.236068 },
+    { dir: createVector(0.44721359, 0, -0.89442718), dist: 2.236068 },
+    { dir: createVector(-0.44721359, 0, -0.89442718), dist: 2.236068 },
+    { dir: createVector(1.0, 0, 0), dist: 2 },
+    { dir: createVector(-1, 0, 0), dist: 2 },
+    { dir: createVector(0.44721359, 0, 0.89442718), dist: 2.236068 },
+    { dir: createVector(-0.44721359, 0, 0.89442718), dist: 2.236068 },
   ],
 };
 
@@ -50,7 +50,7 @@ export class PatrolManager {
   public commander_id: TNumberId = -1;
   public formation: string = "back";
   public commander_lid: TNumberId = -1;
-  public commander_dir: Vector = new vector().set(0, 0, 1);
+  public commander_dir: Vector = createVector(0, 0, 1);
   public npc_count: TCount = 0;
 
   public constructor(pathName: TName) {
@@ -66,7 +66,7 @@ export class PatrolManager {
       abort("[XR_PATROL] attempt to add more { 7 npc. [%s]", object.name());
     }
 
-    this.npc_list.set(object.id(), { soldier: object, dir: new vector().set(1, 0, 0), dist: 0 });
+    this.npc_list.set(object.id(), { soldier: object, dir: createVector(1, 0, 0), dist: 0 });
 
     this.npc_count = this.npc_count + 1;
 
@@ -170,7 +170,7 @@ export class PatrolManager {
 
     const commander = this.npc_list.get(this.commander_id).soldier;
     const dir: Vector = commander.direction();
-    const pos: Vector = new vector().set(0, 0, 0);
+    const pos: Vector = createEmptyVector();
     let vertex_id: number = commander.location_on_path(5, pos);
 
     if (level.vertex_position(vertex_id).distance_to(this.npc_list.get(npc_id).soldier.position()) > 5) {
@@ -183,8 +183,8 @@ export class PatrolManager {
     let dir_s = this.npc_list.get(npc_id).dir;
     const dist_s = this.npc_list.get(npc_id).dist;
 
-    let angle = yawDegree(dir_s, new vector().set(0, 0, 1));
-    const vvv = vectorCross(dir_s, new vector().set(0, 0, 1));
+    let angle = yawDegree(dir_s, createVector(0, 0, 1));
+    const vvv = vectorCross(dir_s, createVector(0, 0, 1));
 
     if (vvv.y < 0) {
       angle = -angle;

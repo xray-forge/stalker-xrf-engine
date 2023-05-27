@@ -1,4 +1,4 @@
-import { vector } from "xray16";
+import { Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -14,8 +14,8 @@ export class MockVector {
   /**
    * Create mock vector as mock from coordinates.
    */
-  public static mock(x: number = 0, y: number = 0, z: number = 0): vector {
-    return new MockVector().set(x, y, z) as unknown as vector;
+  public static mock(x: number = 0, y: number = 0, z: number = 0): Vector {
+    return new MockVector().set(x, y, z) as unknown as Vector;
   }
 
   public static DEFAULT_DISTANCE: number = 20;
@@ -27,7 +27,12 @@ export class MockVector {
   /**
    * todo: Description.
    */
-  public set(x: number, y: number, z: number): MockVector {
+  public set(x: number, y: number, z: number): MockVector;
+  public set(x: number | MockVector, y: number, z: number): MockVector {
+    if (x instanceof MockVector) {
+      return new MockVector().set(x.x, x.y, x.z);
+    }
+
     this.x = x;
     this.y = y;
     this.z = z;
@@ -35,8 +40,29 @@ export class MockVector {
     return this;
   }
 
-  public sub(target: vector): vector {
-    return MockVector.mock(this.x - target.x, this.y - target.y, this.z - target.z);
+  /**
+   * todo: Description.
+   */
+  public add(first: MockVector, second: MockVector): MockVector {
+    this.x = first.x + second.x;
+    this.y = first.y + second.y;
+    this.z = first.z + second.z;
+
+    return this;
+  }
+
+  public sub(first: MockVector, second?: MockVector): MockVector {
+    if (second) {
+      this.x = first.x - second.x;
+      this.y = first.y - second.y;
+      this.z = first.z - second.z;
+    } else {
+      this.x -= first.x;
+      this.y -= first.y;
+      this.z -= first.z;
+    }
+
+    return this;
   }
 
   public distance_to(): number {

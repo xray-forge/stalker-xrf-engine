@@ -2,18 +2,70 @@ import { describe, expect, it } from "@jest/globals";
 import { vector } from "xray16";
 
 import {
+  addVectors,
   areSameVectors,
   areSameVectorsByPrecision,
+  copyVector,
+  createEmptyVector,
+  createVector,
   distanceBetween2d,
+  subVectors,
   vectorCross,
   vectorRotateY,
   yaw,
   yawDegree,
   yawDegree3d,
 } from "@/engine/core/utils/vector";
+import { Vector } from "@/engine/lib/types";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("'vector' utils", () => {
+  it("should correctly create empty vectors", () => {
+    expect(areSameVectors(new vector().set(0, 0, 0), createEmptyVector())).toBeTruthy();
+    expect(areSameVectors(new vector().set(1, 0, 0), createEmptyVector())).not.toBeTruthy();
+  });
+
+  it("should correctly create vectors", () => {
+    expect(areSameVectors(new vector().set(0, 0, 0), createVector(0, 0, 0))).toBeTruthy();
+    expect(areSameVectors(new vector().set(1, 0, 1), createVector(1, 0, 1))).toBeTruthy();
+    expect(areSameVectors(new vector().set(55, -5, 25), createVector(55, -5, 25))).toBeTruthy();
+    expect(areSameVectors(new vector().set(55, -5, 25), createVector(createVector(55, -5, 25)))).toBeTruthy();
+  });
+
+  it("should correctly add vectors", () => {
+    const first: Vector = createVector(1, 2, 4);
+    const second: Vector = createVector(3, 6, 9);
+    const result: Vector = addVectors(first, second);
+
+    expect(areSameVectors(result, createVector(4, 8, 13))).toBeTruthy();
+    expect(first).not.toBe(result);
+    expect(second).not.toBe(result);
+  });
+
+  it("should correctly sub vectors", () => {
+    const first: Vector = createVector(25, 50, 100);
+    const second: Vector = createVector(12, 15, 25);
+    const result: Vector = subVectors(first, second);
+
+    expect(areSameVectors(result, createVector(13, 35, 75))).toBeTruthy();
+    expect(first).not.toBe(result);
+    expect(second).not.toBe(result);
+  });
+
+  it("should correctly copy vectors", () => {
+    const first: Vector = new vector().set(1, 2, 3);
+    const second: Vector = new vector().set(-1, -2, -3);
+
+    expect(areSameVectors(first, copyVector(first))).toBeTruthy();
+    expect(areSameVectors(second, copyVector(second))).toBeTruthy();
+
+    const copy: Vector = copyVector(second);
+
+    expect(copy.x).toBe(-1);
+    expect(copy.y).toBe(-2);
+    expect(copy.z).toBe(-3);
+  });
+
   it("should correctly compare same vectors by value", () => {
     expect(areSameVectors(new vector(), new vector())).toBeTruthy();
     expect(areSameVectors(MockVector.mock(1, 2, 3), MockVector.mock(1, 2, 3))).toBeTruthy();

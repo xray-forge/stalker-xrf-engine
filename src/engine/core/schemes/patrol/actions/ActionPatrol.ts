@@ -1,4 +1,4 @@
-import { action_base, game_object, LuabindClass, time_global, vector } from "xray16";
+import { action_base, game_object, LuabindClass, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
@@ -7,7 +7,7 @@ import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
-import { areSameVectors } from "@/engine/core/utils/vector";
+import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import { ClientObject, TDistance, TNumberId, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -22,7 +22,7 @@ export class ActionPatrol extends action_base {
 
   public l_vid: TNumberId = -1;
   public dist: TDistance = 0;
-  public dir: Vector = new vector().set(0, 0, 1);
+  public dir: Vector = createVector(0, 0, 1);
   public cur_state: EStalkerState = "cur_state" as unknown as EStalkerState; // todo: probably get rid
   public on_point: boolean = false;
   public time_to_update: TTimestamp = time_global() + 1000;
@@ -96,11 +96,11 @@ export class ActionPatrol extends action_base {
 
     this.l_vid = sendToNearestAccessibleVertex(this.object, this.l_vid);
 
-    const desired_direction = this.dir;
+    const desiredDirection: Vector = this.dir;
 
-    if (desired_direction !== null && !areSameVectors(desired_direction, new vector().set(0, 0, 0))) {
-      desired_direction.normalize();
-      this.object.set_desired_direction(desired_direction);
+    if (desiredDirection !== null && !areSameVectors(desiredDirection, createEmptyVector())) {
+      desiredDirection.normalize();
+      this.object.set_desired_direction(desiredDirection);
     }
 
     this.object.set_path_type(game_object.level_path);

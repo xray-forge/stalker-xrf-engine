@@ -1,11 +1,11 @@
-import { callback, hit, time_global, vector } from "xray16";
+import { callback, hit, time_global } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EStalkerState, IAnimationDescriptor, IAnimationStateDescriptor } from "@/engine/core/objects/state/types";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { vectorRotateY } from "@/engine/core/utils/vector";
+import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
 import {
   AnyCallable,
   ClientObject,
@@ -344,13 +344,7 @@ export class StalkerAnimationManager {
         math.atan2(this.stateManager.animationDirection.x, this.stateManager.animationDirection.z)
       );
 
-      object.add_animation(
-        animation,
-        true,
-        this.stateManager.animationPosition,
-        new vector().set(0, rotationY, 0),
-        false
-      );
+      object.add_animation(animation, true, this.stateManager.animationPosition, createVector(0, rotationY, 0), false);
 
       this.stateManager.isPositionDirectionApplied = true;
     }

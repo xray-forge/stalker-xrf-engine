@@ -10,6 +10,43 @@ import { ClientObject, Optional, TDistance, TNumberId, TRate, Vector } from "@/e
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
+ * Create empty vector filled with 0 values.
+ */
+export function createEmptyVector(): Vector {
+  return new vector().set(0, 0, 0);
+}
+
+/**
+ * Create vector filled with provided values.
+ */
+export function createVector(vector: Vector): Vector;
+export function createVector(x: number, y: number, z: number): Vector;
+export function createVector(x: number | Vector, y?: number, z?: number): Vector {
+  return new vector().set(x as number, y as number, z as number);
+}
+
+/**
+ * Add vectors and return resulting one.
+ */
+export function addVectors(first: Vector, second: Vector): Vector {
+  return new vector().add(first, second);
+}
+
+/**
+ * Sub vectors and return resulting one.
+ */
+export function subVectors(first: Vector, second: Vector): Vector {
+  return new vector().sub(first, second);
+}
+
+/**
+ * Create new vector based on provided one.
+ */
+export function copyVector(source: Vector): Vector {
+  return new vector().set(source);
+}
+
+/**
  * todo: Description
  */
 export function yaw(v1: Vector, v2: Vector): TRate {

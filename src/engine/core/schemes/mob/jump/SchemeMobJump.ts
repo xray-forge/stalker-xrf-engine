@@ -1,13 +1,12 @@
-import { vector } from "xray16";
-
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/mob/jump/ISchemeMobJumpState";
 import { MobJumpManager } from "@/engine/core/schemes/mob/jump/MobJumpManager";
-import { abort } from "@/engine/core/utils/assertion";
+import { assert } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseStringsList } from "@/engine/core/utils/parse";
+import { createVector } from "@/engine/core/utils/vector";
 import { ClientObject, EScheme, ESchemeType, IniFile, LuaArray, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -38,11 +37,9 @@ export class SchemeMobJump extends AbstractScheme {
     const offsetsData: string = readIniString(ini, section, "offset", true, "");
     const offsets: LuaArray<string> = parseStringsList(offsetsData);
 
-    state.offset = new vector().set(tonumber(offsets.get(1))!, tonumber(offsets.get(2))!, tonumber(offsets.get(3))!);
+    state.offset = createVector(tonumber(offsets.get(1))!, tonumber(offsets.get(2))!, tonumber(offsets.get(3))!);
 
-    if (!ini.line_exist(section, "on_signal")) {
-      abort("Bad jump scheme usage! 'on_signal' line must be specified.");
-    }
+    assert(ini.line_exist(section, "on_signal"), "Bad jump scheme usage! 'on_signal' line must be specified.");
   }
 
   /**

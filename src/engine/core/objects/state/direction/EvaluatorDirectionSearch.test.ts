@@ -1,5 +1,4 @@
 import { describe, expect, it } from "@jest/globals";
-import { vector } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
@@ -7,6 +6,7 @@ import { StalkerBinder } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { EvaluatorDirectionSearch } from "@/engine/core/objects/state/direction/EvaluatorDirectionSearch";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+import { createEmptyVector } from "@/engine/core/utils/vector";
 import { ClientObject } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";
 
@@ -26,7 +26,7 @@ describe("EvaluatorDirectionSearch class", () => {
 
     setStalkerState(stalker.object, EStalkerState.SMART_COVER, null, null, {
       look_object: null,
-      look_position: new vector(),
+      look_position: createEmptyVector(),
     });
 
     expect(evaluator.evaluate()).toBeFalsy();

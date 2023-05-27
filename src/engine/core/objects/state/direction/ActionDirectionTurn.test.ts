@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { CSightParams, property_storage, vector } from "xray16";
+import { CSightParams, property_storage } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
@@ -7,6 +7,7 @@ import { StalkerBinder } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { ActionDirectionTurn } from "@/engine/core/objects/state/direction/ActionDirectionTurn";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+import { createEmptyVector } from "@/engine/core/utils/vector";
 import { ClientObject } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/utils/function_mock";
 import { mockClientGameObject } from "@/fixtures/xray";
@@ -36,7 +37,7 @@ describe("ActionDirectionTurn class", () => {
 
     setStalkerState(stalker.object, EStalkerState.SMART_COVER, null, null, {
       look_object: null,
-      look_position: new vector(),
+      look_position: createEmptyVector(),
     });
 
     action.setup(stalker.object, new property_storage());
@@ -47,7 +48,7 @@ describe("ActionDirectionTurn class", () => {
 
     setStalkerState(stalker.object, EStalkerState.SNEAK_RUN, null, null, {
       look_object: null,
-      look_position: new vector(),
+      look_position: createEmptyVector(),
     });
 
     action.setup(stalker.object, new property_storage());
