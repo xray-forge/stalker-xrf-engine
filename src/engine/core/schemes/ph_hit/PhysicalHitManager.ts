@@ -1,9 +1,10 @@
-import { hit, patrol, vector } from "xray16";
+import { hit, patrol } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePhysicalHitState } from "@/engine/core/schemes/ph_hit/ISchemePhysicalHitState";
+import { copyVector } from "@/engine/core/utils/vector";
 import { Hit, Vector } from "@/engine/lib/types";
 
 /**
@@ -23,7 +24,7 @@ export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalHit
     hitObject.impulse = this.state.impulse;
     hitObject.bone(this.state.bone);
     hitObject.type = hit.strike;
-    hitObject.direction = new vector().set(p1).sub(p2);
+    hitObject.direction = copyVector(p1).sub(p2); // subVectors util?
     hitObject.draftsman = this.object;
     this.object.hit(hitObject);
   }

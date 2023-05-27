@@ -1,4 +1,4 @@
-import { get_hud, hit, level, sound_object, StaticDrawableWrapper, time_global, vector } from "xray16";
+import { get_hud, hit, level, sound_object, StaticDrawableWrapper, time_global } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { getWeakManagerInstance, isManagerInitialized } from "@/engine/core/database/managers";
@@ -9,7 +9,7 @@ import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { isLevelChanging } from "@/engine/core/utils/check/check";
 import { clampNumber } from "@/engine/core/utils/number";
-import { vectorRotateY } from "@/engine/core/utils/vector";
+import { createEmptyVector, createVector, vectorRotateY } from "@/engine/core/utils/vector";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
 import {
   ClientObject,
@@ -176,7 +176,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
         const psyHit: Hit = new hit();
 
         psyHit.power = power;
-        psyHit.direction = new vector().set(0, 0, 0);
+        psyHit.direction = createEmptyVector();
         psyHit.impulse = 0;
         psyHit.draftsman = actor;
 
@@ -233,13 +233,13 @@ export class PsyAntennaManager extends AbstractCoreManager {
     if (!this.sound_initialized) {
       this.sound_obj_left.play_at_pos(
         registry.actor,
-        new vector().set(-1, 0, 1),
+        createVector(-1, 0, 1),
         0,
         (sound_object.s2d + sound_object.looped) as TSoundObjectType
       );
       this.sound_obj_right.play_at_pos(
         registry.actor,
-        new vector().set(1, 0, 1),
+        createVector(1, 0, 1),
         0,
         (sound_object.s2d + sound_object.looped) as TSoundObjectType
       );

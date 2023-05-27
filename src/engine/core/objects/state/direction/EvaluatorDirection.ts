@@ -1,10 +1,10 @@
-import { CSightParams, LuabindClass, property_evaluator, TXR_SightType, vector } from "xray16";
+import { CSightParams, LuabindClass, property_evaluator } from "xray16";
 
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areSameVectorsByPrecision } from "@/engine/core/utils/vector";
-import { AnyCallable } from "@/engine/lib/types";
+import { areSameVectorsByPrecision, subVectors } from "@/engine/core/utils/vector";
+import { AnyCallable, TSightType, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -47,11 +47,11 @@ export class EvaluatorDirection extends property_evaluator {
     if (this.stateManager.lookPosition !== null) {
       if (objectSightType.m_sight_type !== this.stateManager.getObjectLookPositionType()) {
         return false;
-      } else if ((objectSightType.m_sight_type as TXR_SightType) === CSightParams.eSightTypeAnimationDirection) {
+      } else if ((objectSightType.m_sight_type as TSightType) === CSightParams.eSightTypeAnimationDirection) {
         return true;
       }
 
-      const direction: vector = new vector().sub(this.stateManager.lookPosition!, this.object.position());
+      const direction: Vector = subVectors(this.stateManager.lookPosition!, this.object.position());
 
       if (this.stateManager.getLookObjectType()) {
         direction.y = 0;

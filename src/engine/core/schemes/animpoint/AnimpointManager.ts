@@ -1,4 +1,4 @@
-import { level, vector } from "xray16";
+import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartCover } from "@/engine/core/objects";
@@ -14,7 +14,7 @@ import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { angleToDirection } from "@/engine/core/utils/vector";
+import { angleToDirection, createVector } from "@/engine/core/utils/vector";
 import { ClientObject, LuaArray, Optional, TName, TNumberId, TRate, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -119,7 +119,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
 
     const lookDirection: Vector = this.smartCoverDirection!.normalize();
 
-    this.lookPosition = new vector().set(
+    this.lookPosition = createVector(
       this.position.x + 10 * lookDirection.x,
       this.position.y,
       this.position.z + 10 * lookDirection.z

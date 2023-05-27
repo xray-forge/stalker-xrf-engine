@@ -1,4 +1,4 @@
-import { FS, get_hud, getFS, sound_object, time_global, vector } from "xray16";
+import { FS, get_hud, getFS, sound_object, time_global } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -10,6 +10,7 @@ import { assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseStringsList } from "@/engine/core/utils/parse";
+import { createEmptyVector } from "@/engine/core/utils/vector";
 import { roots } from "@/engine/lib/constants/roots";
 import { NIL } from "@/engine/lib/constants/words";
 import {
@@ -120,7 +121,7 @@ export class ObjectSound extends AbstractPlayableSound {
       object.position().distance_to_sqr(registry.actor.position()) >= 5
     ) {
       this.pdaSoundObject = new sound_object(soundPath + "_pda");
-      this.pdaSoundObject.play_at_pos(registry.actor, new vector().set(0, 0, 0), 0, sound_object.s2d);
+      this.pdaSoundObject.play_at_pos(registry.actor, createEmptyVector(), 0, sound_object.s2d);
       this.pdaSoundObject.volume = 0.8;
     }
 

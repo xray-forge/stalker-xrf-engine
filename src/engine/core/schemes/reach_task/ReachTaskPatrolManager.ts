@@ -1,11 +1,11 @@
-import { alife, level, vector } from "xray16";
+import { alife, level } from "xray16";
 
 import { Squad } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";
-import { vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
+import { createEmptyVector, createVector, vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
 import {
   ClientObject,
   Optional,
@@ -24,20 +24,20 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 const formations = {
   back: [
-    { dir: new vector().set(0.3, 0, -1), dist: 1.2 },
-    { dir: new vector().set(-0.3, 0, -1), dist: 1.2 },
-    { dir: new vector().set(0.3, 0, -1), dist: 2.4 },
-    { dir: new vector().set(-0.3, 0, -1), dist: 2.4 },
-    { dir: new vector().set(0.3, 0, -1), dist: 3.6 },
-    { dir: new vector().set(-0.3, 0, -1), dist: 3.6 },
-    { dir: new vector().set(0.3, 0, -1), dist: 4.8 },
-    { dir: new vector().set(-0.3, 0, -1), dist: 4.8 },
-    { dir: new vector().set(0.3, 0, -1), dist: 6 },
-    { dir: new vector().set(-0.3, 0, -1), dist: 6 },
-    { dir: new vector().set(0.3, 0, -1), dist: 7.2 },
-    { dir: new vector().set(-0.3, 0, -1), dist: 7.2 },
-    { dir: new vector().set(0.3, 0, -1), dist: 8.4 },
-    { dir: new vector().set(-0.3, 0, -1), dist: 8.4 },
+    { dir: createVector(0.3, 0, -1), dist: 1.2 },
+    { dir: createVector(-0.3, 0, -1), dist: 1.2 },
+    { dir: createVector(0.3, 0, -1), dist: 2.4 },
+    { dir: createVector(-0.3, 0, -1), dist: 2.4 },
+    { dir: createVector(0.3, 0, -1), dist: 3.6 },
+    { dir: createVector(-0.3, 0, -1), dist: 3.6 },
+    { dir: createVector(0.3, 0, -1), dist: 4.8 },
+    { dir: createVector(-0.3, 0, -1), dist: 4.8 },
+    { dir: createVector(0.3, 0, -1), dist: 6 },
+    { dir: createVector(-0.3, 0, -1), dist: 6 },
+    { dir: createVector(0.3, 0, -1), dist: 7.2 },
+    { dir: createVector(-0.3, 0, -1), dist: 7.2 },
+    { dir: createVector(0.3, 0, -1), dist: 8.4 },
+    { dir: createVector(-0.3, 0, -1), dist: 8.4 },
   ],
 };
 
@@ -66,7 +66,7 @@ export class ReachTaskPatrolManager {
   public commanderId: TNumberId = -1;
   public formation: string = "back";
   public commander_lid: number = -1;
-  public commander_dir: Vector = new vector().set(0, 0, 1);
+  public commander_dir: Vector = createVector(0, 0, 1);
   public objectsCount: TCount = 0;
 
   public constructor(targetId: TNumberId) {
@@ -85,7 +85,7 @@ export class ReachTaskPatrolManager {
 
     this.objectsList.set(object.id(), {
       soldier: object.id(),
-      dir: new vector().set(1, 0, 0),
+      dir: createVector(1, 0, 0),
       dist: 0,
     });
     this.objectsCount = this.objectsCount + 1;
@@ -213,7 +213,7 @@ export class ReachTaskPatrolManager {
     assertDefined(commander, "Commander is nil!");
 
     const direction: Vector = commander.direction();
-    const position: Vector = new vector().set(0, 0, 0);
+    const position: Vector = createEmptyVector();
     let vertexId: TNumberId = commander.location_on_path(5, position);
 
     if (
@@ -229,8 +229,8 @@ export class ReachTaskPatrolManager {
 
     let dir_s = this.objectsList.get(objectId).dir;
     const dist_s = this.objectsList.get(objectId).dist;
-    const vvv = vectorCross(dir_s, new vector().set(0, 0, 1));
-    let angle = yawDegree(dir_s, new vector().set(0, 0, 1));
+    const vvv = vectorCross(dir_s, createVector(0, 0, 1));
+    let angle = yawDegree(dir_s, createVector(0, 0, 1));
 
     if (vvv.y < 0) {
       angle = -angle;

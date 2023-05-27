@@ -1,4 +1,4 @@
-import { action_base, danger_object, LuabindClass, patrol, stalker_ids, time_global, vector } from "xray16";
+import { action_base, danger_object, LuabindClass, patrol, stalker_ids, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -9,6 +9,7 @@ import { SchemeDanger } from "@/engine/core/schemes/danger/SchemeDanger";
 import { abort } from "@/engine/core/utils/assertion";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
+import { createVector } from "@/engine/core/utils/vector";
 import { ClientObject, DangerObject, Optional, Vector } from "@/engine/lib/types";
 
 /**
@@ -234,7 +235,7 @@ export class ActionCamperPatrol extends action_base {
           if (this.state.sniper === true) {
             this.position = this.object.position();
 
-            this.direction = new vector().set(
+            this.direction = createVector(
               this.enemy_position.x - this.position.x,
               0,
               this.enemy_position.z - this.position.z
@@ -243,13 +244,13 @@ export class ActionCamperPatrol extends action_base {
 
             const wide_sight = this.position.distance_to(this.enemy_position) * math.tan(this.state.enemy_disp);
 
-            this.point_0 = new vector().set(
+            this.point_0 = createVector(
               this.enemy_position.x + wide_sight * this.direction.z,
               this.enemy_position.y,
               this.enemy_position.z - wide_sight * this.direction.x
             );
 
-            this.point_2 = new vector().set(
+            this.point_2 = createVector(
               this.enemy_position.x - wide_sight * this.direction.z,
               this.enemy_position.y,
               this.enemy_position.z + wide_sight * this.direction.x
@@ -417,7 +418,7 @@ export class ActionCamperPatrol extends action_base {
 
       this.look_position = this.state.last_look_point.pos;
       this.dest_position = this.next_point.pos;
-      this.look_point = new vector().set(
+      this.look_point = createVector(
         this.look_position!.x +
           (this.state.cur_look_point * (this.dest_position.x - this.look_position!.x)) / this.state.scandelta,
         this.look_position!.y +

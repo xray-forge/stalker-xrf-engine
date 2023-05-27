@@ -1,6 +1,7 @@
-import { CHelicopter, vector } from "xray16";
+import { CHelicopter } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { createEmptyVector } from "@/engine/core/utils/vector";
 import { ClientObject, Optional, Vector } from "@/engine/lib/types";
 
 const heli_looker: LuaTable<number, HeliLook> = new LuaTable();
@@ -13,7 +14,7 @@ export class HeliLook {
 
   public constructor(object: ClientObject) {
     this.object = object;
-    this.look_point = new vector().set(0, 0, 0);
+    this.look_point = createEmptyVector();
     this.look_state = false;
   }
 
@@ -27,7 +28,7 @@ export class HeliLook {
       const curr_heli_direction: Vector = this.object.direction();
       const heli_velocity: number = heli.GetSpeedInDestPoint(0);
       const curr_heli_velocity: number = heli.GetCurrVelocity();
-      const new_direction: Vector = new vector().set(0, 0, 0);
+      const new_direction: Vector = createEmptyVector();
 
       new_direction.x = (dest_point.x - curr_heli_position.x) / dist_to_dest_point;
       new_direction.y = (dest_point.y - curr_heli_position.y) / dist_to_dest_point;

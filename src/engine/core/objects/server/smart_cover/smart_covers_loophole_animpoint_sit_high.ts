@@ -1,18 +1,18 @@
-import { vector } from "xray16";
-
 import { ISmartCoverLoopholeDescriptor } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
+import { createVector } from "@/engine/core/utils/vector";
+import { Vector } from "@/engine/lib/types";
 
 export function get_animpoint_sit_high_loophole(
   id: string,
-  position: vector,
-  fov_direction: vector,
-  enter_direction: vector
+  position: Vector,
+  fov_direction: Vector,
+  enter_direction: Vector
 ): ISmartCoverLoopholeDescriptor {
   return {
     id: id,
     fov_position: position,
     fov_direction: fov_direction,
-    danger_fov_direction: new vector().set(-1, 0, 0),
+    danger_fov_direction: createVector(-1, 0, 0),
     enter_direction: enter_direction,
     usable: true,
     fov: 45.0,

@@ -19,10 +19,8 @@ export function createEmptyVector(): Vector {
 /**
  * Create vector filled with provided values.
  */
-export function createVector(vector: Vector): Vector;
-export function createVector(x: number, y: number, z: number): Vector;
-export function createVector(x: number | Vector, y?: number, z?: number): Vector {
-  return new vector().set(x as number, y as number, z as number);
+export function createVector(x: number, y: number, z: number): Vector {
+  return new vector().set(x, y, z);
 }
 
 /**
@@ -157,7 +155,7 @@ export function angleLeft(dir1: Vector, dir2: Vector): boolean {
 }
 
 /**
- *
+ * todo;
  */
 export function angleLeftXZ(dir1: Vector, dir2: Vector): boolean {
   const dir1XZ: Vector = new vector().set(dir1);

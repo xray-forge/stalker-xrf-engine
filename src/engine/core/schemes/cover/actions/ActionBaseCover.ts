@@ -1,4 +1,4 @@
-import { action_base, game_object, level, LuabindClass, vector } from "xray16";
+import { action_base, game_object, level, LuabindClass } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -6,7 +6,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { EStalkerState } from "@/engine/core/objects/state";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { areSameVectors } from "@/engine/core/utils/vector";
+import { areSameVectors, createEmptyVector, createVector, subVectors } from "@/engine/core/utils/vector";
 import { CoverPoint, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
 
 /**
@@ -43,8 +43,8 @@ export class ActionBaseCover extends action_base {
 
     const base_point = this.board.getSmartTerrainByName(this.state.smart)!.m_level_vertex_id;
 
-    const direction_vector = new vector().set(math.random(-100, 100), 0, math.random(-100, 100));
-    const base_vertex_id = level.vertex_in_direction(
+    const direction_vector: Vector = createVector(math.random(-100, 100), 0, math.random(-100, 100));
+    const base_vertex_id: TNumberId = level.vertex_in_direction(
       base_point,
       direction_vector,
       math.random(this.state.radius_min, this.state.radius_max)
@@ -70,15 +70,15 @@ export class ActionBaseCover extends action_base {
     }
 
     if (!this.object.accessible(this.cover_position)) {
-      const ttp = new vector().set(0, 0, 0);
+      const ttp: Vector = createEmptyVector();
 
       this.cover_vertex_id = this.object.accessible_nearest(this.cover_position, ttp);
       this.cover_position = level.vertex_position(this.cover_vertex_id);
     }
 
-    const desired_direction = new vector().sub(this.cover_position, this.enemy_random_position);
+    const desired_direction: Vector = subVectors(this.cover_position, this.enemy_random_position);
 
-    if (desired_direction !== null && !areSameVectors(desired_direction, new vector().set(0, 0, 0))) {
+    if (desired_direction !== null && !areSameVectors(desired_direction, createEmptyVector())) {
       desired_direction.normalize();
       this.object.set_desired_direction(desired_direction);
     }

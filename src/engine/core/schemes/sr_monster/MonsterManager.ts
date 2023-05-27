@@ -1,4 +1,4 @@
-import { alife, cond, game, move, patrol, sound_object, vector } from "xray16";
+import { alife, cond, game, move, patrol, sound_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -6,6 +6,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeMonsterState } from "@/engine/core/schemes/sr_monster/ISchemeMonsterState";
 import { action, scriptCaptureObject, scriptReleaseObject } from "@/engine/core/utils/object";
+import { copyVector, subVectors } from "@/engine/core/utils/vector";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
 import { ClientObject, Optional, ServerMonsterObject, SoundObject, TIndex, Vector } from "@/engine/lib/types";
 
@@ -94,14 +95,14 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
     }
 
     if (this.is_actor_inside === true && this.monster === null) {
-      const target_pos = new vector().set(this.current);
+      const target_pos: Vector = copyVector(this.current);
 
       target_pos.mad(this.dir, (this.state.sound_slide_vel * delta) / 1000);
       if (target_pos.distance_to(this.current) > this.current.distance_to(this.target)) {
         this.cur_point = this.getNextPoint();
         this.setPositions();
       } else {
-        this.current = new vector().set(target_pos);
+        this.current = copyVector(target_pos);
       }
 
       this.snd_obj = GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_obj, null, null);
@@ -199,6 +200,6 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
 
     this.current = this.state.path.point(this.cur_point as number);
     this.target = this.state.path.point(this.getNextPoint());
-    this.dir = new vector().sub(this.target, this.current).normalize();
+    this.dir = subVectors(this.target, this.current).normalize();
   }
 }

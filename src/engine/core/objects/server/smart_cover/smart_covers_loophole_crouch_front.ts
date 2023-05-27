@@ -1,16 +1,15 @@
-import { vector } from "xray16";
-
 import { ISmartCoverLoopholeDescriptor } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
-import { Optional } from "@/engine/lib/types";
+import { createVector } from "@/engine/core/utils/vector";
+import { Optional, TStringId, Vector } from "@/engine/lib/types";
 
 export function get_crouch_front_loophole(
-  id: string,
-  fov_direction: vector,
-  position?: Optional<vector>,
-  enter_direction?: Optional<vector>
+  id: TStringId,
+  fov_direction: Vector,
+  position?: Optional<Vector>,
+  enter_direction?: Optional<Vector>
 ): ISmartCoverLoopholeDescriptor {
-  const pos = position || new vector().set(0, 0, 0);
-  const enter_dir = enter_direction || new vector().set(-1, 0, 0);
+  const pos = position || createVector(0, 0, 0);
+  const enter_dir = enter_direction || createVector(-1, 0, 0);
 
   return {
     id: id,

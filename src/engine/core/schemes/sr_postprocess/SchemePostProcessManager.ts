@@ -1,4 +1,4 @@
-import { color, hit, noise, time_global, vector } from "xray16";
+import { color, hit, noise, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -6,6 +6,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePostProcessState } from "@/engine/core/schemes/sr_postprocess/ISchemePostProcessState";
 import { PPEffector } from "@/engine/core/schemes/sr_postprocess/PPEffector";
 import { abort } from "@/engine/core/utils/assertion";
+import { createEmptyVector } from "@/engine/core/utils/vector";
 import { ClientObject, Color, Hit, Noise, TDuration } from "@/engine/lib/types";
 
 /**
@@ -133,7 +134,7 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
     const h: Hit = new hit();
 
     h.power = this.hit_power;
-    h.direction = new vector().set(0, 0, 0);
+    h.direction = createEmptyVector();
     h.impulse = 0;
     h.draftsman = registry.actor;
     h.type = hit.radiation;

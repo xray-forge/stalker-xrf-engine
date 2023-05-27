@@ -1,7 +1,7 @@
-import { LuabindClass, object_binder, vector } from "xray16";
+import { LuabindClass, object_binder } from "xray16";
 
 import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";
-import { ClientObject } from "@/engine/lib/types";
+import { ClientObject, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -23,7 +23,7 @@ export class PhantomBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public spawn_phantom(position: vector): void {
+  public spawn_phantom(position: Vector): void {
     PhantomManager.getInstance().spawnPhantom(position);
   }
 

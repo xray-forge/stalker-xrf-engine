@@ -1,4 +1,4 @@
-import { CHelicopter, level, system_ini, time_global, vector } from "xray16";
+import { CHelicopter, level, system_ini, time_global } from "xray16";
 
 import {
   closeLoadMarker,
@@ -16,9 +16,9 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
-import { distanceBetween2d } from "@/engine/core/utils/vector";
+import { copyVector, createEmptyVector, createVector, distanceBetween2d } from "@/engine/core/utils/vector";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { ClientObject, IniFile, NetPacket, Optional, Reader, Vector } from "@/engine/lib/types";
+import { ClientObject, IniFile, NetPacket, Optional, Reader, TRate, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -34,7 +34,7 @@ const combat_type_change_delay = 5000;
 const visibility_delay = 3000;
 const search_shoot_delay = 2000;
 const round_shoot_delay = 2000;
-const dummy_vector = new vector();
+const dummy_vector = createEmptyVector();
 
 export class HeliCombat {
   public readonly object: ClientObject;
@@ -260,7 +260,7 @@ export class HeliCombat {
     if (this.initialized) {
       const t = time_global();
 
-      this.enemy_last_seen_pos = new vector();
+      this.enemy_last_seen_pos = createEmptyVector();
 
       this.enemy_id = reader.r_s16();
       this.enemy_last_seen_time = t - reader.r_u32();
@@ -270,7 +270,7 @@ export class HeliCombat {
       this.combat_type = reader.r_u8();
 
       if (this.combat_type === combat_type_search) {
-        this.center_pos = new vector();
+        this.center_pos = createEmptyVector();
 
         this.change_dir_time = reader.r_u32() + t;
         this.change_pos_time = reader.r_u32() + t;
@@ -767,9 +767,9 @@ export class HeliCombat {
 }
 
 export function cross_ray_circle(p: Vector, v: Vector, o: Vector, r: number): Vector {
-  const po = new vector().set(o).sub(p);
-  const vperp = new vector().set(-v.z, 0, v.x);
-  const l = math.sqrt(r ** 2 - new vector().set(po).dotproduct(vperp) ** 2);
+  const po: Vector = copyVector(o).sub(p);
+  const vperp: Vector = createVector(-v.z, 0, v.x);
+  const l: TRate = math.sqrt(r ** 2 - copyVector(po).dotproduct(vperp) ** 2);
 
-  return new vector().set(p).add(new vector().set(v).mul(new vector().set(po).dotproduct(v) + l));
+  return copyVector(p).add(copyVector(v).mul(copyVector(po).dotproduct(v) + l));
 }

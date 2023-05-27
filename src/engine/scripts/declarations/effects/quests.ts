@@ -1,4 +1,4 @@
-import { alife, particles_object, patrol, sound_object, vector } from "xray16";
+import { alife, particles_object, patrol, sound_object } from "xray16";
 
 import {
   getObjectByStoryId,
@@ -17,6 +17,7 @@ import { createAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { spawnObject, spawnObjectInObject, spawnSquad } from "@/engine/core/utils/spawn";
 import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/task_reward";
+import { copyVector, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
@@ -204,7 +205,7 @@ extern("xr_effects.jup_teleport_actor", (actor: ClientObject, npc: ClientObject)
   const point_in: Vector = new patrol("jup_b16_teleport_in").point(0);
   const point_out: Vector = new patrol("jup_b16_teleport_out").point(0);
   const actor_position: Vector = actor.position();
-  const out_position: Vector = new vector().set(
+  const out_position: Vector = createVector(
     actor_position.x - point_in.x + point_out.x,
     actor_position.y - point_in.y + point_out.y,
     actor_position.z - point_in.z + point_out.z
@@ -248,7 +249,7 @@ extern("xr_effects.jup_b219_restore_gate", () => {
   if (jup_b219_position) {
     const serverObject: ServerPhysicObject = alife().create(
       spawn_sect,
-      new vector().set(jup_b219_position),
+      copyVector(jup_b219_position),
       jup_b219_lvid!,
       jup_b219_gvid!
     );
@@ -482,7 +483,7 @@ extern(
           }
 
           for (const i of $range(1, v)) {
-            alife().create(k, new vector(), 0, 0, targetObjectId);
+            alife().create(k, createEmptyVector(), 0, 0, targetObjectId);
           }
         } else {
           abort("object is null %s", tostring(params[0]));

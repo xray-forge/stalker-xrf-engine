@@ -10,7 +10,6 @@ import {
   move,
   object,
   time_global,
-  vector,
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
@@ -21,7 +20,7 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task/ReachTaskPatrolManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
-import { areSameVectors } from "@/engine/core/utils/vector";
+import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import { ClientObject, Optional, TName, TNumberId, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -72,7 +71,7 @@ export class ActionReachTaskLocation extends action_base {
     this.formation = "back";
     this.levelVertexId = -1;
     this.distance = 0;
-    this.direction = new vector().set(0, 0, 1);
+    this.direction = createVector(0, 0, 1);
     this.nextUpdateAt = time_global() + 1000;
 
     this.object.set_desired_direction();
@@ -167,7 +166,7 @@ export class ActionReachTaskLocation extends action_base {
       this.object.set_path_type(game_object.level_path);
 
       if (!this.object.accessible(position)) {
-        lvi = this.object.accessible_nearest(position, new vector().set(0, 0, 0));
+        lvi = this.object.accessible_nearest(position, createEmptyVector());
         position = level.vertex_position(lvi);
       }
 
@@ -193,7 +192,7 @@ export class ActionReachTaskLocation extends action_base {
 
     const desiredDirection: Vector = this.direction;
 
-    if (desiredDirection !== null && !areSameVectors(desiredDirection, new vector().set(0, 0, 0))) {
+    if (desiredDirection !== null && !areSameVectors(desiredDirection, createEmptyVector())) {
       desiredDirection.normalize();
       this.object.set_desired_direction(desiredDirection);
     }

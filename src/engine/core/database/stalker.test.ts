@@ -1,5 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { anim, move, vector } from "xray16";
+import { anim, move } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import {
@@ -12,6 +12,7 @@ import {
 import { StalkerBinder } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+import { createEmptyVector } from "@/engine/core/utils/vector";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("'stalker' module of the database", () => {
@@ -65,7 +66,7 @@ describe("'stalker' module of the database", () => {
         callback: callbackPlaceholder,
       },
       1000,
-      { look_object: null, look_position: new vector() },
+      { look_object: null, look_position: createEmptyVector() },
       { isForced: true }
     );
 

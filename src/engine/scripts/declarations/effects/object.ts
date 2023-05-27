@@ -1,15 +1,4 @@
-import {
-  action_planner,
-  alife,
-  cse_alife_creature_abstract,
-  cse_alife_human_abstract,
-  game_object,
-  hit,
-  level,
-  patrol,
-  TXR_bloodsucker_visibility_state,
-  vector,
-} from "xray16";
+import { alife, hit, level, patrol, TXR_bloodsucker_visibility_state } from "xray16";
 
 import {
   getObjectByStoryId,
@@ -42,15 +31,30 @@ import {
   spawnObjectInObject,
   spawnSquad,
 } from "@/engine/core/utils/spawn";
+import { createVector, subVectors } from "@/engine/core/utils/vector";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import { EScheme, LuaArray, Optional, TIndex, TName, TNumberId, TRate, TSection, TStringId } from "@/engine/lib/types";
+import {
+  ActionPlanner,
+  ClientObject,
+  EScheme,
+  LuaArray,
+  Optional,
+  ServerCreatureObject,
+  ServerHumanObject,
+  TIndex,
+  TName,
+  TNumberId,
+  TRate,
+  TSection,
+  TStringId,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
-extern("xr_effects.anim_obj_forward", (actor: game_object, npc: game_object, p: LuaArray<string>): void => {
+extern("xr_effects.anim_obj_forward", (actor: ClientObject, npc: ClientObject, p: LuaArray<string>): void => {
   for (const [k, v] of p) {
     if (v !== null) {
       registry.doors.get(v).anim_forward();
@@ -61,7 +65,7 @@ extern("xr_effects.anim_obj_forward", (actor: game_object, npc: game_object, p: 
 /**
  * todo;
  */
-extern("xr_effects.anim_obj_backward", (actor: game_object, npc: game_object, p: [string]): void => {
+extern("xr_effects.anim_obj_backward", (actor: ClientObject, npc: ClientObject, p: [string]): void => {
   if (p[0] !== null) {
     registry.doors.get(p[0]).anim_backward();
   }
@@ -70,7 +74,7 @@ extern("xr_effects.anim_obj_backward", (actor: game_object, npc: game_object, p:
 /**
  * todo;
  */
-extern("xr_effects.anim_obj_stop", (actor: game_object, npc: game_object, p: [string]): void => {
+extern("xr_effects.anim_obj_stop", (actor: ClientObject, npc: ClientObject, p: [string]): void => {
   if (p[0] !== null) {
     registry.doors.get(p[0]).anim_stop();
   }
@@ -81,11 +85,11 @@ extern("xr_effects.anim_obj_stop", (actor: game_object, npc: game_object, p: [st
  */
 extern(
   "xr_effects.hit_obj",
-  (actor: game_object, npc: game_object, params: [string, string, number, number, string, string]) => {
+  (actor: ClientObject, npc: ClientObject, params: [string, string, number, number, string, string]) => {
     logger.info("Hit obj");
 
     const h: hit = new hit();
-    const object: Optional<game_object> = getObjectByStoryId(params[0]);
+    const object: Optional<ClientObject> = getObjectByStoryId(params[0]);
 
     if (!object) {
       return;
@@ -96,9 +100,9 @@ extern(
     h.impulse = params[3];
 
     if (params[4]) {
-      h.direction = new vector().sub(new patrol(params[4]).point(0), object.position());
+      h.direction = subVectors(new patrol(params[4]).point(0), object.position());
     } else {
-      h.direction = new vector().sub(npc.position(), object.position());
+      h.direction = subVectors(npc.position(), object.position());
     }
 
     h.draftsman = npc;
@@ -110,9 +114,9 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.hit_npc_from_actor", (actor: game_object, npc: game_object, p: [Optional<TStringId>]): void => {
+extern("xr_effects.hit_npc_from_actor", (actor: ClientObject, npc: ClientObject, p: [Optional<TStringId>]): void => {
   const h: hit = new hit();
-  let storyObject: Optional<game_object> = null;
+  let storyObject: Optional<ClientObject> = null;
 
   h.draftsman = actor;
   h.type = hit.wound;
@@ -142,7 +146,7 @@ extern("xr_effects.hit_npc_from_actor", (actor: game_object, npc: game_object, p
 /**
  * todo;
  */
-extern("xr_effects.make_enemy", (actor: game_object, npc: game_object, p: [string, string]) => {
+extern("xr_effects.make_enemy", (actor: ClientObject, npc: ClientObject, p: [string, string]) => {
   if (p === null) {
     abort("Invalid parameter in function 'hit_npc_from_npc'!!!!");
   }
@@ -167,7 +171,7 @@ extern("xr_effects.make_enemy", (actor: game_object, npc: game_object, p: [strin
 /**
  * todo;
  */
-extern("xr_effects.sniper_fire_mode", (actor: game_object, npc: game_object, p: [string]): void => {
+extern("xr_effects.sniper_fire_mode", (actor: ClientObject, npc: ClientObject, p: [string]): void => {
   if (p[0] === TRUE) {
     npc.sniper_fire_mode(true);
   } else {
@@ -178,7 +182,7 @@ extern("xr_effects.sniper_fire_mode", (actor: game_object, npc: game_object, p: 
 /**
  * todo;
  */
-extern("xr_effects.kill_npc", (actor: game_object, npc: Optional<game_object>, p: [Optional<TStringId>]) => {
+extern("xr_effects.kill_npc", (actor: ClientObject, npc: Optional<ClientObject>, p: [Optional<TStringId>]) => {
   if (p && p[0]) {
     npc = getObjectByStoryId(p[0]);
   }
@@ -191,7 +195,7 @@ extern("xr_effects.kill_npc", (actor: game_object, npc: Optional<game_object>, p
 /**
  * todo;
  */
-extern("xr_effects.remove_npc", (actor: game_object, npc: game_object, p: [Optional<TStringId>]) => {
+extern("xr_effects.remove_npc", (actor: ClientObject, npc: ClientObject, p: [Optional<TStringId>]) => {
   let objectId: Optional<TNumberId> = null;
 
   if (p && p[0]) {
@@ -206,14 +210,14 @@ extern("xr_effects.remove_npc", (actor: game_object, npc: game_object, p: [Optio
 /**
  * todo;
  */
-extern("xr_effects.clearAbuse", (object: game_object) => {
+extern("xr_effects.clearAbuse", (object: ClientObject) => {
   SchemeAbuse.clearAbuse(object);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.disable_combat_handler", (actor: game_object, npc: game_object): void => {
+extern("xr_effects.disable_combat_handler", (actor: ClientObject, npc: ClientObject): void => {
   const state: IRegistryObjectState = registry.objects.get(npc.id());
 
   if (state[EScheme.COMBAT]) {
@@ -228,7 +232,7 @@ extern("xr_effects.disable_combat_handler", (actor: game_object, npc: game_objec
 /**
  * todo;
  */
-extern("xr_effects.disable_combat_ignore_handler", (actor: game_object, npc: game_object): void => {
+extern("xr_effects.disable_combat_ignore_handler", (actor: ClientObject, npc: ClientObject): void => {
   const state: IRegistryObjectState = registry.objects.get(npc.id());
 
   if (state[EScheme.COMBAT_IGNORE]) {
@@ -242,8 +246,8 @@ extern("xr_effects.disable_combat_ignore_handler", (actor: game_object, npc: gam
 extern(
   "xr_effects.spawn_object",
   (
-    actor: game_object,
-    object: Optional<game_object>,
+    actor: ClientObject,
+    object: Optional<ClientObject>,
     [section, pathName, index, yaw]: [TSection, TName, TIndex, TRate]
   ): void => {
     logger.info("Spawn object");
@@ -256,7 +260,7 @@ extern(
  */
 extern(
   "xr_effects.spawn_object_in",
-  (actor: game_object, object: game_object, [section, storyId]: [TSection, TStringId]): void => {
+  (actor: ClientObject, object: ClientObject, [section, storyId]: [TSection, TStringId]): void => {
     spawnObjectInObject(section, getObjectIdByStoryId(storyId));
   }
 );
@@ -264,7 +268,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.spawn_corpse", (actor: game_object, obj: game_object, params: [string, string, number]): void => {
+extern("xr_effects.spawn_corpse", (actor: ClientObject, obj: ClientObject, params: [string, string, number]): void => {
   logger.info("Spawn corpse:", params[0]);
 
   const spawn_sect = params[0];
@@ -286,7 +290,7 @@ extern("xr_effects.spawn_corpse", (actor: game_object, obj: game_object, params:
   const patrolObject: patrol = new patrol(path_name);
   const index: TIndex = params[2] || 0;
 
-  const serverObject: cse_alife_creature_abstract = alife().create(
+  const serverObject: ServerCreatureObject = alife().create(
     spawn_sect,
     patrolObject.point(index),
     patrolObject.level_vertex_id(0),
@@ -301,7 +305,7 @@ extern("xr_effects.spawn_corpse", (actor: game_object, obj: game_object, params:
  */
 extern(
   "xr_effects.destroy_object",
-  (actor: game_object, object: game_object, p: [string, string, Optional<string>]): void => {
+  (actor: ClientObject, object: ClientObject, p: [string, string, Optional<string>]): void => {
     if (p === null) {
       releaseObject(object.id());
     } else {
@@ -331,7 +335,7 @@ extern(
  */
 extern(
   "xr_effects.create_squad",
-  (actor: game_object, obj: Optional<game_object>, params: [TStringId, TName]): void => {
+  (actor: ClientObject, obj: Optional<ClientObject>, params: [TStringId, TName]): void => {
     spawnSquad(params[0], params[1]);
   }
 );
@@ -341,7 +345,7 @@ extern(
  */
 extern(
   "xr_effects.create_squad_member",
-  (actor: game_object, object: game_object, params: [TSection, TStringId, string]): void => {
+  (actor: ClientObject, object: ClientObject, params: [TSection, TStringId, string]): void => {
     const squad_member_sect = params[0];
     const storyId: Optional<TStringId> = params[1];
 
@@ -380,7 +384,7 @@ extern(
       level_vertex_id = point.level_vertex_id(0);
       game_vertex_id = point.game_vertex_id(0);
     } else {
-      const commander: cse_alife_human_abstract = alife().object(squad.commander_id()) as cse_alife_human_abstract;
+      const commander: ServerHumanObject = alife().object(squad.commander_id()) as ServerHumanObject;
 
       position = commander.position;
       level_vertex_id = commander.m_level_vertex_id;
@@ -395,7 +399,7 @@ extern(
     );
 
     squad.assignSquadMemberToSmartTerrain(newSquadMemberId, squadSmartTerrain, null);
-    simulationBoardManager.setupObjectSquadAndGroup(alife().object(newSquadMemberId) as cse_alife_creature_abstract);
+    simulationBoardManager.setupObjectSquadAndGroup(alife().object(newSquadMemberId) as ServerCreatureObject);
     // --squad_smart.refresh()
     squad.update();
   }
@@ -404,7 +408,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.remove_squad", (actor: game_object, obj: game_object, p: [string]): void => {
+extern("xr_effects.remove_squad", (actor: ClientObject, obj: ClientObject, p: [string]): void => {
   const story_id = p[0];
 
   if (story_id === null) {
@@ -423,7 +427,7 @@ extern("xr_effects.remove_squad", (actor: game_object, obj: game_object, p: [str
 /**
  * todo;
  */
-extern("xr_effects.kill_squad", (actor: game_object, obj: game_object, p: [Optional<TStringId>]): void => {
+extern("xr_effects.kill_squad", (actor: ClientObject, obj: ClientObject, p: [Optional<TStringId>]): void => {
   const storyId: Optional<TStringId> = p[0];
 
   if (storyId === null) {
@@ -443,10 +447,10 @@ extern("xr_effects.kill_squad", (actor: game_object, obj: game_object, p: [Optio
   }
 
   for (const [k, v] of squadObjects) {
-    const clientObject: Optional<game_object> = registry.objects.get(k)?.object;
+    const clientObject: Optional<ClientObject> = registry.objects.get(k)?.object;
 
     if (clientObject === null) {
-      alife().object<cse_alife_human_abstract>(tonumber(k)!)!.kill();
+      alife().object<ServerHumanObject>(tonumber(k)!)!.kill();
     } else {
       clientObject.kill(clientObject);
     }
@@ -456,7 +460,7 @@ extern("xr_effects.kill_squad", (actor: game_object, obj: game_object, p: [Optio
 /**
  * todo;
  */
-extern("xr_effects.heal_squad", (actor: game_object, obj: game_object, params: [TStringId, number]) => {
+extern("xr_effects.heal_squad", (actor: ClientObject, obj: ClientObject, params: [TStringId, number]) => {
   const storyId: Optional<TStringId> = params[0];
   let health_mod = 1;
 
@@ -475,7 +479,7 @@ extern("xr_effects.heal_squad", (actor: game_object, obj: game_object, params: [
   }
 
   for (const k of squad.squad_members()) {
-    const cl_obj = registry.objects.get(k.id)?.object as Optional<game_object>;
+    const cl_obj = registry.objects.get(k.id)?.object as Optional<ClientObject>;
 
     if (cl_obj !== null) {
       cl_obj.health = health_mod;
@@ -486,7 +490,7 @@ extern("xr_effects.heal_squad", (actor: game_object, obj: game_object, params: [
 /**
  * todo;
  */
-extern("xr_effects.clear_smart_terrain", (actor: game_object, object: game_object, p: [string, string]) => {
+extern("xr_effects.clear_smart_terrain", (actor: ClientObject, object: ClientObject, p: [string, string]) => {
   logger.info("Clear smart terrain");
 
   const smartTerrainname: TName = p[0];
@@ -516,14 +520,14 @@ extern("xr_effects.clear_smart_terrain", (actor: game_object, object: game_objec
 /**
  * todo;
  */
-extern("xr_effects.update_npc_logic", (actor: game_object, npc: game_object, params: LuaArray<TStringId>): void => {
+extern("xr_effects.update_npc_logic", (actor: ClientObject, npc: ClientObject, params: LuaArray<TStringId>): void => {
   for (const [index, storyId] of params) {
-    const object: Optional<game_object> = getObjectByStoryId(storyId);
+    const object: Optional<ClientObject> = getObjectByStoryId(storyId);
 
     if (object !== null) {
       updateStalkerLogic(object);
 
-      const planner: action_planner = object.motivation_action_manager();
+      const planner: ActionPlanner = object.motivation_action_manager();
 
       planner.update();
       planner.update();
@@ -546,9 +550,9 @@ extern("xr_effects.update_npc_logic", (actor: game_object, npc: game_object, par
 /**
  * todo;
  */
-extern("xr_effects.update_obj_logic", (actor: game_object, npc: game_object, params: LuaArray<TStringId>): void => {
+extern("xr_effects.update_obj_logic", (actor: ClientObject, npc: ClientObject, params: LuaArray<TStringId>): void => {
   for (const [index, storyId] of params) {
-    const object: Optional<game_object> = getObjectByStoryId(storyId);
+    const object: Optional<ClientObject> = getObjectByStoryId(storyId);
 
     if (object !== null) {
       logger.info("Update object logic:", object.id());
@@ -565,7 +569,7 @@ extern("xr_effects.update_obj_logic", (actor: game_object, npc: game_object, par
  */
 extern(
   "xr_effects.hit_npc",
-  (actor: game_object, npc: game_object, params: [string, string, string, number, number, string]): void => {
+  (actor: ClientObject, npc: ClientObject, params: [string, string, string, number, number, string]): void => {
     logger.info("Hit npc");
 
     const h = new hit();
@@ -574,7 +578,7 @@ extern(
     h.draftsman = npc;
     h.type = hit.wound;
     if (params[0] !== "self") {
-      const hitter: Optional<game_object> = getObjectByStoryId(params[0]);
+      const hitter: Optional<ClientObject> = getObjectByStoryId(params[0]);
 
       if (!hitter) {
         return;
@@ -606,7 +610,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.restore_health", (actor: game_object, npc: game_object): void => {
+extern("xr_effects.restore_health", (actor: ClientObject, npc: ClientObject): void => {
   npc.health = 1;
 });
 
@@ -615,10 +619,10 @@ extern("xr_effects.restore_health", (actor: game_object, npc: game_object): void
  */
 extern(
   "xr_effects.force_obj",
-  (actor: game_object, npc: game_object, p: [string, Optional<number>, Optional<number>]) => {
+  (actor: ClientObject, npc: ClientObject, p: [string, Optional<number>, Optional<number>]) => {
     logger.info("Force object");
 
-    const object: Optional<game_object> = getObjectByStoryId(p[0]);
+    const object: Optional<ClientObject> = getObjectByStoryId(p[0]);
 
     if (!object) {
       abort("'force_obj' Target object does ! exist");
@@ -632,28 +636,28 @@ extern(
       p[2] = 100;
     }
 
-    object.set_const_force(new vector().set(0, 1, 0), p[1], p[2]);
+    object.set_const_force(createVector(0, 1, 0), p[1], p[2]);
   }
 );
 
 /**
  * todo;
  */
-extern("xr_effects.burer_force_gravi_attack", (actor: game_object, object: game_object): void => {
+extern("xr_effects.burer_force_gravi_attack", (actor: ClientObject, object: ClientObject): void => {
   object.burer_set_force_gravi_attack(true);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.burer_force_anti_aim", (actor: game_object, object: game_object): void => {
+extern("xr_effects.burer_force_anti_aim", (actor: ClientObject, object: ClientObject): void => {
   object.set_force_anti_aim(true);
 });
 
 /**
  * Give list of items to an object.
  */
-extern("xr_effects.give_items", (actor: game_object, object: game_object, params: Array<TSection>): void => {
+extern("xr_effects.give_items", (actor: ClientObject, object: ClientObject, params: Array<TSection>): void => {
   for (const section of params) {
     logger.info("Give item to object:", object.id(), section);
     spawnItemsForObject(object, section);
@@ -666,12 +670,12 @@ extern("xr_effects.give_items", (actor: game_object, object: game_object, params
 extern(
   "xr_effects.give_item",
   (
-    actor: game_object,
-    object: Optional<game_object> | cse_alife_human_abstract,
+    actor: ClientObject,
+    object: Optional<ClientObject> | ServerHumanObject,
     [section, objectStoryId]: [TSection, Optional<TStringId>]
   ): void => {
     const objectId: TNumberId =
-      objectStoryId === null ? (object as game_object).id() : (getObjectIdByStoryId(objectStoryId) as TNumberId);
+      objectStoryId === null ? (object as ClientObject).id() : (getObjectIdByStoryId(objectStoryId) as TNumberId);
 
     logger.info("Give item to object:", objectId, section);
 
@@ -682,8 +686,8 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.disable_memory_object", (actor: game_object, object: game_object): void => {
-  const bestEnemy: Optional<game_object> = object.best_enemy();
+extern("xr_effects.disable_memory_object", (actor: ClientObject, object: ClientObject): void => {
+  const bestEnemy: Optional<ClientObject> = object.best_enemy();
 
   if (bestEnemy) {
     object.enable_memory_object(bestEnemy, false);
@@ -693,21 +697,21 @@ extern("xr_effects.disable_memory_object", (actor: game_object, object: game_obj
 /**
  * todo;
  */
-extern("xr_effects.set_force_sleep_animation", (actor: game_object, object: game_object, p: [number]) => {
+extern("xr_effects.set_force_sleep_animation", (actor: ClientObject, object: ClientObject, p: [number]) => {
   object.force_stand_sleep_animation(tonumber(p[0])!);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.release_force_sleep_animation", (actor: game_object, object: game_object): void => {
+extern("xr_effects.release_force_sleep_animation", (actor: ClientObject, object: ClientObject): void => {
   object.release_stand_sleep_animation();
 });
 
 /**
  * todo;
  */
-extern("xr_effects.set_visual_memory_enabled", (actor: game_object, object: game_object, p: [number]): void => {
+extern("xr_effects.set_visual_memory_enabled", (actor: ClientObject, object: ClientObject, p: [number]): void => {
   if (p && p[0] && tonumber(p[0])! >= 0 && tonumber(p[0])! <= 1) {
     object.set_visual_memory_enabled(tonumber(p[0]) === 1);
   }
@@ -716,7 +720,7 @@ extern("xr_effects.set_visual_memory_enabled", (actor: game_object, object: game
 /**
  * todo;
  */
-extern("xr_effects.set_monster_animation", (actor: game_object, object: game_object, p: [string]) => {
+extern("xr_effects.set_monster_animation", (actor: ClientObject, object: ClientObject, p: [string]) => {
   if (!(p && p[0])) {
     abort("Wrong parameters in function 'set_monster_animation'!!!");
   }
@@ -727,21 +731,21 @@ extern("xr_effects.set_monster_animation", (actor: game_object, object: game_obj
 /**
  * todo;
  */
-extern("xr_effects.clear_monster_animation", (actor: game_object, object: game_object): void => {
+extern("xr_effects.clear_monster_animation", (actor: ClientObject, object: ClientObject): void => {
   object.clear_override_animation();
 });
 
 /**
  * todo;
  */
-extern("xr_effects.switch_to_desired_job", (actor: game_object, object: game_object): void => {
+extern("xr_effects.switch_to_desired_job", (actor: ClientObject, object: ClientObject): void => {
   (getObjectSmartTerrain(object) as SmartTerrain).switch_to_desired_job(object);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.spawn_item_to_npc", (actor: game_object, npc: game_object, p: [Optional<string>]): void => {
+extern("xr_effects.spawn_item_to_npc", (actor: ClientObject, npc: ClientObject, p: [Optional<string>]): void => {
   const new_item = p[0];
 
   if (new_item) {
@@ -752,7 +756,7 @@ extern("xr_effects.spawn_item_to_npc", (actor: game_object, npc: game_object, p:
 /**
  * todo;
  */
-extern("xr_effects.give_money_to_npc", (actor: game_object, npc: game_object, p: [Optional<number>]): void => {
+extern("xr_effects.give_money_to_npc", (actor: ClientObject, npc: ClientObject, p: [Optional<number>]): void => {
   const money = p[0];
 
   if (money) {
@@ -763,7 +767,7 @@ extern("xr_effects.give_money_to_npc", (actor: game_object, npc: game_object, p:
 /**
  * todo;
  */
-extern("xr_effects.seize_money_to_npc", (actor: game_object, npc: game_object, p: [Optional<number>]): void => {
+extern("xr_effects.seize_money_to_npc", (actor: ClientObject, npc: ClientObject, p: [Optional<number>]): void => {
   const money = p[0];
 
   if (money) {
@@ -774,14 +778,14 @@ extern("xr_effects.seize_money_to_npc", (actor: game_object, npc: game_object, p
 /**
  * todo;
  */
-extern("xr_effects.heli_start_flame", (actor: game_object, npc: game_object): void => {
+extern("xr_effects.heli_start_flame", (actor: ClientObject, npc: ClientObject): void => {
   npc.get_helicopter().StartFlame();
 });
 
 /**
  * todo;
  */
-extern("xr_effects.heli_die", (actor: game_object, object: game_object): void => {
+extern("xr_effects.heli_die", (actor: ClientObject, object: ClientObject): void => {
   object.get_helicopter().Die();
   unregisterHelicopterObject(object);
 });
@@ -789,7 +793,7 @@ extern("xr_effects.heli_die", (actor: game_object, object: game_object): void =>
 /**
  * todo;
  */
-extern("xr_effects.set_bloodsucker_state", (actor: game_object, object: game_object, p: [string, string]): void => {
+extern("xr_effects.set_bloodsucker_state", (actor: ClientObject, object: ClientObject, p: [string, string]): void => {
   if ((p && p[0]) === null) {
     abort("Wrong parameters in function 'set_bloodsucker_state'!!!");
   }
@@ -798,7 +802,7 @@ extern("xr_effects.set_bloodsucker_state", (actor: game_object, object: game_obj
 
   if (p[1] !== null) {
     state = p[1];
-    object = getObjectByStoryId(p[1]) as game_object;
+    object = getObjectByStoryId(p[1]) as ClientObject;
   }
 
   if (object !== null) {
@@ -813,20 +817,20 @@ extern("xr_effects.set_bloodsucker_state", (actor: game_object, object: game_obj
 /**
  * todo;
  */
-extern("xr_effects.clear_box", (actor: game_object, npc: game_object, p: [string]) => {
+extern("xr_effects.clear_box", (actor: ClientObject, npc: ClientObject, p: [string]) => {
   logger.info("Clear box");
 
   if ((p && p[0]) === null) {
     abort("Wrong parameters in function 'clear_box'!!!");
   }
 
-  const inventoryBox: Optional<game_object> = getObjectByStoryId(p[0]);
+  const inventoryBox: Optional<ClientObject> = getObjectByStoryId(p[0]);
 
   assertDefined(inventoryBox, "There is no object with story_id [%s]", tostring(p[0]));
 
-  const items_table: LuaArray<game_object> = new LuaTable();
+  const items_table: LuaArray<ClientObject> = new LuaTable();
 
-  inventoryBox.iterate_inventory_box((inv_box: game_object, item: game_object) => {
+  inventoryBox.iterate_inventory_box((inv_box: ClientObject, item: ClientObject) => {
     table.insert(items_table, item);
   }, inventoryBox);
 
@@ -838,7 +842,7 @@ extern("xr_effects.clear_box", (actor: game_object, npc: game_object, p: [string
 /**
  * todo;
  */
-extern("xr_effects.polter_actor_ignore", (actor: game_object, npc: game_object, [ignore]: [string]) => {
+extern("xr_effects.polter_actor_ignore", (actor: ClientObject, npc: ClientObject, [ignore]: [string]) => {
   if (ignore === TRUE) {
     npc.poltergeist_set_actor_ignore(true);
   } else if (ignore === FALSE) {

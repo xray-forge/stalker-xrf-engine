@@ -1,4 +1,4 @@
-import { alife, game, hit, level, vector } from "xray16";
+import { alife, game, hit, level } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SURGE_MANAGER_LTX } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
@@ -27,6 +27,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
+import { createVector } from "@/engine/core/utils/vector";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
@@ -463,7 +464,7 @@ export class SurgeManager extends AbstractCoreManager {
     surgeHit.type = hit.fire_wound;
     surgeHit.power = 0.9;
     surgeHit.impulse = 0.0;
-    surgeHit.direction = new vector().set(0, 0, 1);
+    surgeHit.direction = createVector(0, 0, 1);
     surgeHit.draftsman = registry.actor;
 
     logger.info("Kill crows");
@@ -776,7 +777,7 @@ export class SurgeManager extends AbstractCoreManager {
           surgeHit.type = hit.telepatic;
           surgeHit.power = att;
           surgeHit.impulse = 0.0;
-          surgeHit.direction = new vector().set(0, 0, 1);
+          surgeHit.direction = createVector(0, 0, 1);
           surgeHit.draftsman = registry.actor;
 
           if (pickSectionFromCondList(registry.actor, null, this.surgeSurviveConditionList) === TRUE) {
@@ -871,7 +872,7 @@ export class SurgeManager extends AbstractCoreManager {
         registry.artefacts.ways.delete(object.id());
       }
 
-      object.get_artefact().FollowByPath("NULL", 0, new vector().set(500, 500, 500));
+      object.get_artefact().FollowByPath("NULL", 0, createVector(500, 500, 500));
 
       StatisticsManager.getInstance().incrementCollectedArtefactsCount(object);
     }

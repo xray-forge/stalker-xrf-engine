@@ -1,4 +1,4 @@
-import { anim, cond, look, move, patrol, sound, vector } from "xray16";
+import { anim, cond, look, move, patrol, sound } from "xray16";
 
 import { registry, setMonsterState } from "@/engine/core/database";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
@@ -9,6 +9,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { action, isObjectScriptCaptured, scriptCaptureObject } from "@/engine/core/utils/object";
 import { IWaypointData, parsePathWaypoints } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
+import { copyVector } from "@/engine/core/utils/vector";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
@@ -299,7 +300,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       return;
     }
 
-    const lookPoint: Vector = new vector().set(this.patrol_look.point(pt)).sub(this.object.position());
+    const lookPoint: Vector = copyVector(this.patrol_look.point(pt)).sub(this.object.position());
 
     lookPoint.normalize();
     // --this.object:set_sight(look.direction, look_pt, 0)

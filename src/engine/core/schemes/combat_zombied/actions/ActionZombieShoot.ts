@@ -1,4 +1,4 @@
-import { action_base, game_object, level, LuabindClass, move, time_global, vector } from "xray16";
+import { action_base, game_object, level, LuabindClass, move, time_global } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -6,6 +6,7 @@ import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/sta
 import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/combat/ISchemeCombatState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { chance } from "@/engine/core/utils/number";
+import { copyVector, createEmptyVector } from "@/engine/core/utils/vector";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { ClientObject, Optional, TNumberId, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
@@ -90,7 +91,7 @@ export class ActionZombieShoot extends action_base {
       if (!this.object.accessible(this.enemyLastSeenVertexId)) {
         this.enemyLastAccessibleVertexId = this.object.accessible_nearest(
           level.vertex_position(this.enemyLastSeenVertexId),
-          new vector()
+          createEmptyVector()
         );
         this.enemyLastAccessiblePosition = null;
       } else {
@@ -159,7 +160,7 @@ export class ActionZombieShoot extends action_base {
    */
   public getRandomLookDirection(): Vector {
     const angle: TRate = math.pi * 2 * math.random();
-    const lookPosition: Vector = new vector().set(this.object.position());
+    const lookPosition: Vector = copyVector(this.object.position());
 
     lookPosition.x = lookPosition.x + math.cos(angle);
     lookPosition.z = lookPosition.z + math.sin(angle);

@@ -1,8 +1,9 @@
-import { move, vector } from "xray16";
+import { move } from "xray16";
 
 import { ISmartCoverDescriptor } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
 // eslint-disable-next-line max-len
 import { get_animpoint_sit_normal_loophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_animpoint_sit_normal";
+import { createVector } from "@/engine/core/utils/vector";
 
 export function get_smart_cover_animpoint_sit_normal(): ISmartCoverDescriptor {
   return {
@@ -10,9 +11,9 @@ export function get_smart_cover_animpoint_sit_normal(): ISmartCoverDescriptor {
     loopholes: $fromArray([
       get_animpoint_sit_normal_loophole(
         "animpoint_sit_normal",
-        new vector().set(0, 0, 0),
-        new vector().set(0, 0, -1),
-        new vector().set(0, 0, -1)
+        createVector(0, 0, 0),
+        createVector(0, 0, -1),
+        createVector(0, 0, -1)
       ),
     ]),
     transitions: [
@@ -27,7 +28,7 @@ export function get_smart_cover_animpoint_sit_normal(): ISmartCoverDescriptor {
             actions: [
               {
                 animation: "animpoint_sit_normal_in_1",
-                position: new vector().set(0, 0, 0),
+                position: createVector(0, 0, 0),
                 body_state: move.crouch,
                 movement_type: move.run,
               },
@@ -46,7 +47,7 @@ export function get_smart_cover_animpoint_sit_normal(): ISmartCoverDescriptor {
             actions: [
               {
                 animation: "animpoint_sit_normal_out_1",
-                position: new vector().set(0, 0, 0),
+                position: createVector(0, 0, 0),
                 body_state: move.standing,
                 movement_type: move.run,
               },

@@ -1,4 +1,4 @@
-import { LuabindClass, object_binder, time_global, vector } from "xray16";
+import { LuabindClass, object_binder, time_global } from "xray16";
 
 import {
   closeLoadMarker,
@@ -10,6 +10,7 @@ import {
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { createVector } from "@/engine/core/utils/vector";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { ClientObject, NetPacket, Optional, Reader, ServerObject, TDuration, TTimestamp } from "@/engine/lib/types";
 
@@ -59,10 +60,10 @@ export class SignalLightBinder extends object_binder {
       flyTime = now - this.startTime;
 
       if (flyTime < 1500) {
-        this.object.set_const_force(new vector().set(0, 1, 0), 180 + math.floor(flyTime / 5), 1500 - flyTime);
+        this.object.set_const_force(createVector(0, 1, 0), 180 + math.floor(flyTime / 5), 1500 - flyTime);
         this.object.start_particles("weapons\\light_signal", "link");
       } else if (flyTime < 20000) {
-        this.object.set_const_force(new vector().set(0, 1, 0), 33, 20000 - flyTime);
+        this.object.set_const_force(createVector(0, 1, 0), 33, 20000 - flyTime);
         this.object.start_particles("weapons\\light_signal", "link");
       }
 
@@ -119,7 +120,7 @@ export class SignalLightBinder extends object_binder {
       return false;
     }
 
-    this.object.set_const_force(new vector().set(0, 1, 0), 180, 1500);
+    this.object.set_const_force(createVector(0, 1, 0), 180, 1500);
 
     // --obj:start_particles("weapons\\light_signal", "link")
     // --obj:get_hanging_lamp():turn_on()
@@ -135,7 +136,7 @@ export class SignalLightBinder extends object_binder {
    */
   public startSlowFly(): void {
     this.isSlowFlyStarted = true;
-    this.object.set_const_force(new vector().set(0, 1, 0), 30, 20000);
+    this.object.set_const_force(createVector(0, 1, 0), 30, 20_000);
   }
 
   /**

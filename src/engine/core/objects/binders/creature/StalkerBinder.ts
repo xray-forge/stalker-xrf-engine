@@ -13,7 +13,6 @@ import {
   stalker_ids,
   system_ini,
   time_global,
-  vector,
 } from "xray16";
 
 import {
@@ -63,6 +62,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity, getObjectSquad, updateObjectInvulnerability } from "@/engine/core/utils/object";
 import { TConditionList } from "@/engine/core/utils/parse";
 import { setObjectsRelation, setObjectSympathy } from "@/engine/core/utils/relation";
+import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { TRelation } from "@/engine/lib/constants/relations";
@@ -407,7 +407,7 @@ export class StalkerBinder extends object_binder {
   public onDeath(victim: ClientObject, who: Optional<ClientObject>): void {
     logger.info("Stalker death:", this.object.name());
 
-    this.onHit(victim, 1, new vector().set(0, 0, 0), who, "from_death_callback");
+    this.onHit(victim, 1, createEmptyVector(), who, "from_death_callback");
 
     registry.actorCombat.delete(this.object.id());
 

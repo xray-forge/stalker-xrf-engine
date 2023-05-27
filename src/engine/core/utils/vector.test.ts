@@ -29,7 +29,6 @@ describe("'vector' utils", () => {
     expect(areSameVectors(new vector().set(0, 0, 0), createVector(0, 0, 0))).toBeTruthy();
     expect(areSameVectors(new vector().set(1, 0, 1), createVector(1, 0, 1))).toBeTruthy();
     expect(areSameVectors(new vector().set(55, -5, 25), createVector(55, -5, 25))).toBeTruthy();
-    expect(areSameVectors(new vector().set(55, -5, 25), createVector(createVector(55, -5, 25)))).toBeTruthy();
   });
 
   it("should correctly add vectors", () => {
@@ -53,8 +52,8 @@ describe("'vector' utils", () => {
   });
 
   it("should correctly copy vectors", () => {
-    const first: Vector = new vector().set(1, 2, 3);
-    const second: Vector = new vector().set(-1, -2, -3);
+    const first: Vector = createVector(1, 2, 3);
+    const second: Vector = createVector(-1, -2, -3);
 
     expect(areSameVectors(first, copyVector(first))).toBeTruthy();
     expect(areSameVectors(second, copyVector(second))).toBeTruthy();
@@ -67,24 +66,24 @@ describe("'vector' utils", () => {
   });
 
   it("should correctly compare same vectors by value", () => {
-    expect(areSameVectors(new vector(), new vector())).toBeTruthy();
+    expect(areSameVectors(createEmptyVector(), createEmptyVector())).toBeTruthy();
     expect(areSameVectors(MockVector.mock(1, 2, 3), MockVector.mock(1, 2, 3))).toBeTruthy();
-    expect(areSameVectors(MockVector.mock(1, 2, 3), new vector())).toBeFalsy();
+    expect(areSameVectors(MockVector.mock(1, 2, 3), createEmptyVector())).toBeFalsy();
     // Not precision based.
     expect(areSameVectors(MockVector.mock(1, 1, 0.3), MockVector.mock(1, 1, 0.2 + 0.1))).toBeFalsy();
   });
 
   it("should correctly compare same vectors by precision rate", () => {
-    expect(areSameVectorsByPrecision(new vector(), new vector(), 0.001)).toBeTruthy();
+    expect(areSameVectorsByPrecision(createEmptyVector(), createEmptyVector(), 0.001)).toBeTruthy();
     expect(areSameVectorsByPrecision(MockVector.mock(1, 2, 3), MockVector.mock(1, 2, 3), 0.001)).toBeTruthy();
-    expect(areSameVectorsByPrecision(MockVector.mock(1, 2, 3), new vector(), 0.001)).toBeFalsy();
+    expect(areSameVectorsByPrecision(MockVector.mock(1, 2, 3), createEmptyVector(), 0.001)).toBeFalsy();
 
     // Precision based, correct.
     expect(areSameVectorsByPrecision(MockVector.mock(1, 1, 0.3), MockVector.mock(1, 1, 0.2 + 0.1), 0.001)).toBeTruthy();
   });
 
   it("should correctly check 2d distance", () => {
-    expect(distanceBetween2d(new vector(), new vector())).toBe(0);
+    expect(distanceBetween2d(createEmptyVector(), createEmptyVector())).toBe(0);
     expect(distanceBetween2d(MockVector.mock(1, 1, 1), MockVector.mock(-1, -1, -1))).toBe(2.8284271247461903);
     expect(distanceBetween2d(MockVector.mock(1, 1, 0), MockVector.mock(-1, -1, -1))).toBe(2.23606797749979);
     expect(distanceBetween2d(MockVector.mock(1, 1, 0), MockVector.mock(-1, -1, 0))).toBe(2);
@@ -126,7 +125,7 @@ describe("'vector' utils", () => {
     expect(yawDegree3d(MockVector.mock(0, 0, 0), MockVector.mock(0, 0, 0))).toBeNaN();
   });
 
-  it("should correctly calculate vector cross", () => {
+  it("should correctly calculate cross multiplication", () => {
     expect(vectorCross(MockVector.mock(1, -0.1, 0.25), MockVector.mock(0.2, -1, -1))).toEqual(
       MockVector.create(0.35, 1.05, -0.98)
     );

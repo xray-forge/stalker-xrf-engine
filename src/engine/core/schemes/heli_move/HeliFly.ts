@@ -1,6 +1,7 @@
-import { CHelicopter, vector } from "xray16";
+import { CHelicopter } from "xray16";
 
-import { ClientObject, Optional, Vector } from "@/engine/lib/types";
+import { createEmptyVector } from "@/engine/core/utils/vector";
+import { ClientObject, Optional, TRate, Vector } from "@/engine/lib/types";
 
 const heli_flyer: LuaTable<number, HeliFly> = new LuaTable();
 
@@ -24,7 +25,7 @@ export class HeliFly {
     this.max_velocity = 0;
     this.point_arr = new LuaTable();
     this.dest_point = null;
-    this.point_by_look = new vector().set(0, 0, 0);
+    this.point_by_look = createEmptyVector();
   }
 
   public fly_on_point_with_vector(
@@ -42,8 +43,8 @@ export class HeliFly {
     dest_velocity = (dest_velocity * 1000) / 3600;
     if (!flag_to_wp_callback) {
       let time_by_fly: number = 0;
-      let rez_point: Vector = new vector().set(0, 0, 0);
-      let a_speed = 0;
+      let rez_point: Vector = createEmptyVector();
+      let a_speed: TRate = 0;
       let d_path: number;
 
       if (dest_velocity >= curr_heli_velocity) {
@@ -98,7 +99,7 @@ export class HeliFly {
   }
 
   public calc_point(): Vector {
-    const rez_point = new vector().set(0, 0, 0);
+    const rez_point: Vector = createEmptyVector();
     const xxArr: LuaTable<number, number> = new LuaTable();
 
     xxArr.set(0, this.point_arr.get(0).x);

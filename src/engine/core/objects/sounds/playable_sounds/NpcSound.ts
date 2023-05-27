@@ -1,4 +1,4 @@
-import { FS, game, get_hud, getFS, snd_type, sound_object, stalker_ids, time_global, vector } from "xray16";
+import { FS, game, get_hud, getFS, snd_type, sound_object, stalker_ids, time_global } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -10,6 +10,7 @@ import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/util
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { parseStringsList } from "@/engine/core/utils/parse";
+import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { roots } from "@/engine/lib/constants/roots";
 import { NIL } from "@/engine/lib/constants/words";
@@ -287,7 +288,7 @@ export class NpcSound extends AbstractPlayableSound {
       }
 
       this.pdaSoundObject = new sound_object(soundPath + "_pda");
-      this.pdaSoundObject.play_at_pos(registry.actor, new vector().set(0, 0, 0), this.delay, sound_object.s2d);
+      this.pdaSoundObject.play_at_pos(registry.actor, createEmptyVector(), this.delay, sound_object.s2d);
       this.pdaSoundObject.volume = 0.8;
     }
 

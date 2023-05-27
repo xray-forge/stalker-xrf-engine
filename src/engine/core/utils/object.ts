@@ -1,4 +1,4 @@
-import { alife, entity_action, game, game_graph, level, stalker_ids, vector } from "xray16";
+import { alife, entity_action, game, game_graph, level, stalker_ids } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
@@ -11,7 +11,7 @@ import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/util
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { wait } from "@/engine/core/utils/time";
-import { graphDistance } from "@/engine/core/utils/vector";
+import { createEmptyVector, graphDistance } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -452,7 +452,7 @@ export function isActorSeenByObject(object: ClientObject): boolean {
  */
 export function sendToNearestAccessibleVertex(object: ClientObject, vertexId: TNumberId): TNumberId {
   if (!object.accessible(vertexId)) {
-    vertexId = object.accessible_nearest(level.vertex_position(vertexId), new vector());
+    vertexId = object.accessible_nearest(level.vertex_position(vertexId), createEmptyVector());
   }
 
   object.set_dest_level_vertex_id(vertexId);

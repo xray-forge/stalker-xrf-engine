@@ -1,4 +1,4 @@
-import { level, patrol, sound_object, time_global, vector } from "xray16";
+import { level, patrol, sound_object, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -9,6 +9,7 @@ import {
   ITeleportPoint,
 } from "@/engine/core/schemes/teleport/ISchemeTeleportState";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { createEmptyVector } from "@/engine/core/utils/vector";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
 import { ClientObject, Optional, TDuration, Vector } from "@/engine/lib/types";
@@ -84,6 +85,6 @@ export class TeleportManager extends AbstractSchemeManager<ISchemeTeleportState>
     actor.set_actor_position(pointPatrolVector);
     actor.set_actor_direction(-lookDirectionVector.getH());
 
-    new sound_object(sounds.affects_tinnitus3a).play_no_feedback(actor, sound_object.s2d, 0, new vector(), 1.0);
+    new sound_object(sounds.affects_tinnitus3a).play_no_feedback(actor, sound_object.s2d, 0, createEmptyVector(), 1.0);
   }
 }

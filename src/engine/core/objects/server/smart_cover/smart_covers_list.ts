@@ -1,4 +1,4 @@
-import { TXR_move, vector } from "xray16";
+import { TXR_move } from "xray16";
 
 import { get_smart_cover_anim_pri_a22 } from "@/engine/core/objects/server/smart_cover/smart_covers_anim_pri_a22";
 import { get_smart_cover_animpoint_pri_a15 } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_pri_a15";
@@ -10,6 +10,7 @@ import { get_smart_cover_animpoint_stay_wall } from "@/engine/core/objects/serve
 import { get_smart_cover_combat_front } from "@/engine/core/objects/server/smart_cover/smart_covers_combat_front";
 import { get_smart_cover_combat_prone } from "@/engine/core/objects/server/smart_cover/smart_covers_combat_prone";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { Vector } from "@/engine/lib/types";
 
 export interface ISmartCoverDescriptor {
   need_weapon?: boolean;
@@ -22,12 +23,12 @@ export interface ISmartCoverDescriptor {
       precondition_functor?: string;
       precondition_params?: string;
       animation?: string;
-      position?: vector;
+      position?: Vector;
       body_state?: TXR_move;
       movement_type?: TXR_move;
       actions: Array<{
         animation: string;
-        position: vector;
+        position: Vector;
         body_state: TXR_move;
         movement_type: TXR_move;
       }>;
@@ -37,10 +38,10 @@ export interface ISmartCoverDescriptor {
 
 export interface ISmartCoverLoopholeDescriptor {
   id: string;
-  fov_position: vector;
-  fov_direction: vector;
-  danger_fov_direction?: vector;
-  enter_direction: vector;
+  fov_position: Vector;
+  fov_direction: Vector;
+  danger_fov_direction?: Vector;
+  enter_direction: Vector;
   enterable?: boolean;
   exitable?: boolean;
   usable: boolean;
@@ -63,9 +64,9 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
   loopholes: [
     // -- {
     // -- id: "loophole_enter",
-    // -- fov_position: new vector().set(1.1, -.65 ,-1.4),
-    // -- fov_direction: new vector().set(-1,0,0),
-    // -- enter_direction: new vector().set(1,0,0),
+    // -- fov_position: createVector(1.1, -.65 ,-1.4),
+    // -- fov_direction: createVector(-1,0,0),
+    // -- enter_direction: createVector(1,0,0),
     // -- enter_crouching: false,
     // -- enterable: true,
     // -- exitable: false,
@@ -78,9 +79,9 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
     // -- },
     {
       id: "loophole_0",
-      fov_position: new vector().set(1.1, 0, -1.4),
-      fov_direction: new vector().set(-1, 0, 0),
-      enter_direction: new vector().set(1, 0, 0),
+      fov_position: createVector(1.1, 0, -1.4),
+      fov_direction: createVector(-1, 0, 0),
+      enter_direction: createVector(1, 0, 0),
       // --				enterable: false,
       // --				enterable: true,
       // --				enter_crouching: true,
@@ -118,7 +119,7 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
         },
         exit: {
           movement: true,
-          position: new vector().set(0, 0, 2),
+          position: createVector(0, 0, 2),
           animations: {
             idle: ["loophole_1_jump_0"]
           }
@@ -165,8 +166,8 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
     },
     // -- {
     // -- id: "loophole_1",
-    // -- position: new vector().set(0.5,0,2),
-    // -- direction: new vector().set(0,0,-1),
+    // -- position: createVector(0.5,0,2),
+    // -- direction: createVector(0,0,-1),
     // -- enterable: false,
     // -- usable: true,
     // -- fov	= 60.0,
@@ -215,7 +216,7 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
     // -- },
     // -- exit: {
     // -- movement: true,
-    // -- position: new vector().set(0,0,2),
+    // -- position: createVector(0,0,2),
     // -- animations: {
     // -- idle: {
     // -- "loophole_1_attack_idle_0",
@@ -276,9 +277,9 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
     // -- },
     {
       id: "loophole_2",
-      fov_position: new vector().set(1.1, 0, 1.4),
-      fov_direction: new vector().set(-1, 0, 0),
-      enter_direction: new vector().set(1, 0, 0),
+      fov_position: createVector(1.1, 0, 1.4),
+      fov_direction: createVector(-1, 0, 0),
+      enter_direction: createVector(1, 0, 0),
       enterable: true,
       enter_crouching: true,
       exitable: false,
@@ -315,7 +316,7 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
         },
         exit: {
           movement: true,
-          position: new vector().set(0, 0, 2),
+          position: createVector(0, 0, 2),
           animations: {
             idle: ["loophole_3_jump_0"]
           }
@@ -362,8 +363,8 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
     }
     // -- {
     // -- id: "loophole_3",
-    // -- position: new vector().set (-0.5,0,-2),
-    // -- direction: new vector().set(0,0,1),
+    // -- position: createVector (-0.5,0,-2),
+    // -- direction: createVector(0,0,1),
     // -- enterable: false,
     // -- usable: true,
     // -- fov	= 60.0,
@@ -412,7 +413,7 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
     // -- },
     // -- exit: {
     // -- movement: true,
-    // -- position: new vector().set(0,0,2),
+    // -- position: createVector(0,0,2),
     // -- animations: {
     // -- idle: {
     // -- "loophole_1_attack_idle_0",
@@ -479,7 +480,7 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
       weight: 1.0,
       actions: [
         {
-          position: new vector().set(0, -0.67, 1),
+          position: createVector(0, -0.67, 1),
           precondition_functor: "xr_conditions.always",
           precondition_params: "",
           animation: "loophole_1_in_front_0"
@@ -492,7 +493,7 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
       weight: 1.0,
       actions: [
         {
-          position: new vector().set(0, 0, 1),
+          position: createVector(0, 0, 1),
           precondition_functor: "xr_conditions.always",
           precondition_params: "",
           // --body_state: move.standing, movement_type: move.run,
@@ -507,7 +508,7 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
       weight: 1.0,
       actions: [
         {
-          position: new vector().set(0, 0, 1),
+          position: createVector(0, 0, 1),
           precondition_functor: "xr_conditions.always",
           precondition_params: "",
           animation: "loophole_transition_1_to_3"
@@ -520,7 +521,7 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
       weight: 1.1,
       actions: [
         {
-          position: new vector().set(0, 0, 1),
+          position: createVector(0, 0, 1),
           precondition_functor: "xr_conditions.always",
           precondition_params: "",
           animation: "loophole_transition_3_to_1"

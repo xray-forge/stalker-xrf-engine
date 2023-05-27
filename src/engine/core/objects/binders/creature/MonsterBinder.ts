@@ -1,4 +1,4 @@
-import { alife, callback, clsid, cond, hit, level, LuabindClass, move, object_binder, vector } from "xray16";
+import { alife, callback, clsid, cond, hit, level, LuabindClass, move, object_binder } from "xray16";
 
 import {
   closeLoadMarker,
@@ -33,6 +33,7 @@ import {
   scriptReleaseObject,
 } from "@/engine/core/utils/object";
 import { TConditionList } from "@/engine/core/utils/parse";
+import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   ALifeSmartTerrainTask,
@@ -267,7 +268,7 @@ export class MonsterBinder extends object_binder {
 
     registry.actorCombat.delete(this.object.id());
 
-    this.onHit(victim, 1, new vector().set(0, 0, 0), killer, "from_death_callback");
+    this.onHit(victim, 1, createEmptyVector(), killer, "from_death_callback");
 
     if (killer.id() === registry.actor.id()) {
       const statisticsManager: StatisticsManager = StatisticsManager.getInstance();

@@ -1,8 +1,8 @@
-import { device, time_global, vector } from "xray16";
+import { device, time_global } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeOscillateState } from "@/engine/core/schemes/ph_oscillate/ISchemeOscillateState";
-import { vectorRotateY } from "@/engine/core/utils/vector";
+import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
 import { Optional, PhysicsJoint, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
@@ -11,7 +11,7 @@ import { Optional, PhysicsJoint, TRate, TTimestamp, Vector } from "@/engine/lib/
 export class OscillateManager extends AbstractSchemeManager<ISchemeOscillateState> {
   public time: TTimestamp = 0;
   public coefficient: TRate = 0;
-  public dir: Vector = new vector().set(math.random(), 0, math.random()).normalize();
+  public dir: Vector = createVector(math.random(), 0, math.random()).normalize();
   public joint: Optional<PhysicsJoint> = null;
   public pause: boolean = false;
 
@@ -20,7 +20,7 @@ export class OscillateManager extends AbstractSchemeManager<ISchemeOscillateStat
    */
   public override resetScheme(): void {
     this.time = device().time_global();
-    this.dir = new vector().set(math.random(), 0, math.random()).normalize();
+    this.dir = createVector(math.random(), 0, math.random()).normalize();
     this.coefficient = this.state.force / this.state.period;
     this.joint = this.object.get_physics_shell()!.get_joint_by_bone_name(this.state.joint);
     this.time = time_global();
@@ -45,14 +45,14 @@ export class OscillateManager extends AbstractSchemeManager<ISchemeOscillateStat
     if (now - this.time >= this.state.period) {
       this.dir.x = -this.dir.x;
       this.dir.z = -this.dir.z;
-      this.dir = vectorRotateY(new vector().set(-this.dir.x, 0, -this.dir.z), this.state.angle);
+      this.dir = vectorRotateY(createVector(-this.dir.x, 0, -this.dir.z), this.state.angle);
       this.time = now;
       this.pause = true;
 
       return;
     }
 
-    const force = (now - this.time) * this.coefficient;
+    const force: TRate = (now - this.time) * this.coefficient;
 
     this.object.set_const_force(this.dir, force, 2);
   }

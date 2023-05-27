@@ -1,4 +1,4 @@
-import { CCar, level, move, patrol, time_global, vector } from "xray16";
+import { CCar, level, move, patrol, time_global } from "xray16";
 
 import { getObjectByStoryId, registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -10,7 +10,7 @@ import { isActiveSection } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { isObjectScriptCaptured, scriptReleaseObject } from "@/engine/core/utils/object";
 import { TConditionList } from "@/engine/core/utils/parse";
-import { yaw } from "@/engine/core/utils/vector";
+import { createEmptyVector, createVector, yaw } from "@/engine/core/utils/vector";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { Car, ClientObject, Optional, TName, TStringId, Vector } from "@/engine/lib/types";
 
@@ -70,7 +70,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
 
     this.mgun = this.object.get_car();
     this.start_direction = this.object.direction();
-    this.start_look_pos = new vector().set(0, 0, 0);
+    this.start_look_pos = createEmptyVector();
     this.start_look_pos.x = this.object.position().x + 5 * math.sin(this.start_direction.x);
     this.start_look_pos.z = this.object.position().z + 5 * math.cos(this.start_direction.x);
     this.start_look_pos.y = this.object.position().y;
@@ -447,11 +447,12 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
    * todo: Description.
    */
   public angle_xz(npc: ClientObject, target_pos: Vector, start_direction: Vector): number {
-    const dir1 = start_direction;
+    const dir1: Vector = start_direction;
 
     dir1.y = 0;
 
-    const dir2 = new vector().set(target_pos.x, target_pos.y, target_pos.z).sub(npc.position());
+    // todo: just sub vectors?
+    const dir2: Vector = createVector(target_pos.x, target_pos.y, target_pos.z).sub(npc.position());
 
     dir2.y = 0;
 

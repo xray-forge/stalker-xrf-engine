@@ -1,7 +1,7 @@
-import { CSightParams, move, vector } from "xray16";
+import { CSightParams, move } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { createVector } from "@/engine/core/utils/vector";
+import { copyVector } from "@/engine/core/utils/vector";
 import { ClientObject, Patrol, TDistance, TIndex, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -27,7 +27,7 @@ export function stalkerStopMovement(object: ClientObject): void {
  * todo;
  */
 export function stalkerLookAtStalker(object: ClientObject, objectToLook: ClientObject): void {
-  const lookPoint: Vector = createVector(objectToLook.position().sub(object.position()));
+  const lookPoint: Vector = copyVector(objectToLook.position().sub(object.position()));
 
   object.set_sight(CSightParams.eSightTypeDirection, lookPoint, 0);
 }

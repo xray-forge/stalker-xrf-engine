@@ -1,11 +1,11 @@
-import { action_base, device, LuabindClass, vector } from "xray16";
+import { action_base, device, LuabindClass } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { vectorRotateY } from "@/engine/core/utils/vector";
+import { copyVector, vectorRotateY } from "@/engine/core/utils/vector";
 import { ClientObject, Optional, TCount, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -77,7 +77,7 @@ export class ActionLookAround extends action_base {
         abort("report this error to STALKER-829 bug [%s]", this.object.name());
       }
 
-      let direction: Vector = new vector().set(this.state.last_seen_pos).sub(this.object.position());
+      let direction: Vector = copyVector(this.state.last_seen_pos).sub(this.object.position());
 
       direction = vectorRotateY(direction, angle);
 

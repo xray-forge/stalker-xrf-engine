@@ -1,9 +1,10 @@
-import { action_base, CSightParams, level, look, LuabindClass, vector } from "xray16";
+import { action_base, CSightParams, level, look, LuabindClass } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areSameVectors } from "@/engine/core/utils/vector";
+import { areSameVectors, createEmptyVector, createVector, subVectors } from "@/engine/core/utils/vector";
+import { Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -50,8 +51,8 @@ export class ActionDirectionTurn extends action_base {
         return;
       }
 
-      const objectPosition: vector = this.object.position();
-      let direction: vector = new vector().sub(this.stateManager.lookPosition, objectPosition);
+      const objectPosition: Vector = this.object.position();
+      let direction: Vector = subVectors(this.stateManager.lookPosition, objectPosition);
 
       if (this.stateManager.isObjectPointDirectionLook) {
         direction.y = 0;
@@ -59,10 +60,11 @@ export class ActionDirectionTurn extends action_base {
 
       direction.normalize();
 
-      if (areSameVectors(direction, new vector().set(0, 0, 0))) {
-        const objectDirection: vector = this.object.direction();
+      if (areSameVectors(direction, createEmptyVector())) {
+        const objectDirection: Vector = this.object.direction();
 
-        this.stateManager.lookPosition = new vector().set(
+        // todo: just sum vectors?
+        this.stateManager.lookPosition = createVector(
           objectPosition.x + objectDirection.x,
           objectPosition.y + objectDirection.y,
           objectPosition.z + objectDirection.z

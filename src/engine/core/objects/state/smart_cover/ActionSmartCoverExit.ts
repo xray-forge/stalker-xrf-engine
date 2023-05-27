@@ -2,6 +2,7 @@ import { action_base, level, LuabindClass, vector } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { createEmptyVector } from "@/engine/core/utils/vector";
 import { ClientObject, TNumberId, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -36,7 +37,7 @@ export class ActionSmartCoverExit extends action_base {
     if (object.accessible(vertexPosition)) {
       object.set_dest_level_vertex_id(vertexId);
     } else {
-      object.set_dest_level_vertex_id(object.accessible_nearest(vertexPosition, new vector().set(0, 0, 0)));
+      object.set_dest_level_vertex_id(object.accessible_nearest(vertexPosition, createEmptyVector()));
     }
   }
 }

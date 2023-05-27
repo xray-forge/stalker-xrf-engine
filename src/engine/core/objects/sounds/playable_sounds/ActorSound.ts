@@ -1,4 +1,4 @@
-import { FS, get_hud, getFS, sound_object, time_global, vector } from "xray16";
+import { FS, get_hud, getFS, sound_object, time_global } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -10,6 +10,7 @@ import { assert } from "@/engine/core/utils/assertion";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseStringsList } from "@/engine/core/utils/parse";
+import { createEmptyVector } from "@/engine/core/utils/vector";
 import { roots } from "@/engine/lib/constants/roots";
 import { NIL } from "@/engine/lib/constants/words";
 import {
@@ -119,7 +120,7 @@ export class ActorSound extends AbstractPlayableSound {
 
     this.soundObject = new sound_object(soundPath);
     this.soundObject.volume = 0.8;
-    this.soundObject.play_at_pos(registry.actor, new vector().set(0, 0, 0), 0, sound_object.s2d);
+    this.soundObject.play_at_pos(registry.actor, createEmptyVector(), 0, sound_object.s2d);
     this.soundObject.volume = 0.8;
     this.canPlaySound = false;
 

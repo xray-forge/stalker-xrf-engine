@@ -1,8 +1,9 @@
-import { CArtefact, LuabindClass, object_binder, vector } from "xray16";
+import { CArtefact, LuabindClass, object_binder } from "xray16";
 
 import { registerObject, registry, unregisterObject } from "@/engine/core/database";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { createVector } from "@/engine/core/utils/vector";
 import {
   IniFile,
   Optional,
@@ -43,7 +44,7 @@ export class ArtefactBinder extends object_binder {
       artefact.FollowByPath(
         registry.artefacts.ways.get(id),
         registry.artefacts.points.get(id),
-        new vector().set(forceXZ, forceY, forceXZ)
+        createVector(forceXZ, forceY, forceXZ)
       );
     }
 
