@@ -136,18 +136,18 @@ export type XmlInit = CScriptXmlInit;
 export type ZoneCampfire = CZoneCampfire;
 
 export enum EClientObjectPath {
-  GAME_PATH = game_object.game_path,
-  LEVEL_PATH = game_object.level_path,
-  PATROL_PATH = game_object.patrol_path,
+  GAME_PATH = game_object?.game_path || 0,
+  LEVEL_PATH = game_object?.level_path || 1,
+  PATROL_PATH = game_object?.patrol_path || 2,
 }
 
 export enum EClientObjectRelation {
-  FRIEND = game_object.friend,
-  NEUTRAL = game_object.neutral,
-  ENEMY = game_object.enemy,
+  FRIEND = game_object?.friend || 0,
+  NEUTRAL = game_object?.neutral || 1,
+  ENEMY = game_object?.enemy || 2,
 }
 
 export enum EClientObjectMovementType {
-  MASK = game_object.alifeMovementTypeMask,
-  RANDOM = game_object.alifeMovementTypeRandom,
+  MASK = game_object?.alifeMovementTypeMask || 0,
+  RANDOM = game_object?.alifeMovementTypeRandom || 1,
 }

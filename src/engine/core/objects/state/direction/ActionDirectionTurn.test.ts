@@ -7,7 +7,7 @@ import { StalkerBinder } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { ActionDirectionTurn } from "@/engine/core/objects/state/direction/ActionDirectionTurn";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
-import { createEmptyVector } from "@/engine/core/utils/vector";
+import { createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import { ClientObject } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/utils/function_mock";
 import { mockClientGameObject } from "@/fixtures/xray";
@@ -50,6 +50,8 @@ describe("ActionDirectionTurn class", () => {
       look_object: null,
       look_position: createEmptyVector(),
     });
+
+    manager.lookPosition = createVector(0.25, 0.25, 0.25);
 
     action.setup(stalker.object, new property_storage());
     action.execute();
