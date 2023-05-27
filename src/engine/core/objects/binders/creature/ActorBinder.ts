@@ -1,16 +1,4 @@
-import {
-  alife,
-  callback,
-  CGameTask,
-  cse_alife_creature_actor,
-  game_object,
-  level,
-  LuabindClass,
-  net_packet,
-  object_binder,
-  reader,
-  TXR_TaskState,
-} from "xray16";
+import { alife, callback, level, LuabindClass, object_binder } from "xray16";
 
 import {
   closeLoadMarker,
@@ -32,7 +20,16 @@ import { Actor } from "@/engine/core/objects/server/creature/Actor";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos/SchemeDeimos";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TDuration } from "@/engine/lib/types";
+import {
+  ClientObject,
+  GameTask,
+  NetPacket,
+  Optional,
+  Reader,
+  ServerActorObject,
+  TDuration,
+  TTaskState,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -48,7 +45,7 @@ export class ActorBinder extends object_binder {
   // todo: Move out deimos related logic / data.
   public deimosIntensity: Optional<number> = null;
 
-  public override net_spawn(data: cse_alife_creature_actor): boolean {
+  public override net_spawn(data: ServerActorObject): boolean {
     level.show_indicators();
 
     if (!super.net_spawn(data)) {
@@ -101,25 +98,25 @@ export class ActorBinder extends object_binder {
 
     destroyPortableStore(this.object);
 
-    this.object.set_callback(callback.inventory_info, (object: game_object, info: string) => {
+    this.object.set_callback(callback.inventory_info, (object: ClientObject, info: string) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_INFO_UPDATE, object, info);
     });
-    this.object.set_callback(callback.take_item_from_box, (box: game_object, item: game_object) => {
+    this.object.set_callback(callback.take_item_from_box, (box: ClientObject, item: ClientObject) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_TAKE_BOX_ITEM, box, item);
     });
-    this.object.set_callback(callback.on_item_drop, (item: game_object) => {
+    this.object.set_callback(callback.on_item_drop, (item: ClientObject) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_DROP, item);
     });
-    this.object.set_callback(callback.trade_sell_buy_item, (item: game_object, sellBuy: boolean, money: number) => {
+    this.object.set_callback(callback.trade_sell_buy_item, (item: ClientObject, sellBuy: boolean, money: number) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_TRADE, item, sellBuy, money);
     });
-    this.object.set_callback(callback.task_state, (task: CGameTask, state: TXR_TaskState) => {
+    this.object.set_callback(callback.task_state, (task: GameTask, state: TTaskState) => {
       this.eventsManager.emitEvent(EGameEvent.TASK_STATE_UPDATE, task, state);
     });
-    this.object.set_callback(callback.on_item_take, (object: game_object) => {
+    this.object.set_callback(callback.on_item_take, (object: ClientObject) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_TAKE, object);
     });
-    this.object.set_callback(callback.use_object, (object: game_object) => {
+    this.object.set_callback(callback.use_object, (object: ClientObject) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_USE_ITEM, object);
     });
   }
@@ -138,7 +135,7 @@ export class ActorBinder extends object_binder {
     updateSimulationObjectAvailability(alife().actor<Actor>());
   }
 
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     openSaveMarker(packet, ActorBinder.__name);
 
     super.save(packet);
@@ -167,7 +164,7 @@ export class ActorBinder extends object_binder {
     closeSaveMarker(packet, ActorBinder.__name);
   }
 
-  public override load(reader: reader): void {
+  public override load(reader: Reader): void {
     this.isFirstUpdatePerformed = false;
 
     openLoadMarker(reader, ActorBinder.__name);

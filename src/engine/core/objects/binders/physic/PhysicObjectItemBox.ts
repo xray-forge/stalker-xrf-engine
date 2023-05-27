@@ -1,4 +1,4 @@
-import { game_object, ini_file, level } from "xray16";
+import { level } from "xray16";
 
 import { PH_BOX_GENERIC_LTX } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
@@ -7,14 +7,14 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseNumbersList, parseStringsList } from "@/engine/core/utils/parse";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { TInventoryItem } from "@/engine/lib/constants/items";
-import { LuaArray, Optional, TCount, TProbability, TSection } from "@/engine/lib/types";
+import { ClientObject, IniFile, LuaArray, Optional, TCount, TProbability, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const item_by_community: LuaTable<string, LuaTable<TInventoryItem, TCount>> = new LuaTable();
 const mul_by_level: LuaTable<string, number> = new LuaTable();
 const count_by_level: LuaTable<string, { min: number; max: number }> = new LuaTable();
 
-const community_list: LuaArray<string> = [
+const community_list: LuaArray<string> = $fromArray([
   "def_box",
   "small_box_generic",
   "small_box_ussr",
@@ -24,17 +24,17 @@ const community_list: LuaArray<string> = [
   "big_box_generic",
   "big_box_dungeons",
   "big_box_arsenal",
-] as any;
+]);
 
 /**
  * todo;
  */
 export class PhysicObjectItemBox {
   public static readBoxItemList(
-    spawn_ini: ini_file,
+    spawn_ini: IniFile,
     section: TSection,
     line: string,
-    obj: game_object
+    obj: ClientObject
   ): Optional<LuaTable<string, { section: TInventoryItem; count: TCount }>> {
     if (spawn_ini.line_exist(section, line)) {
       const t: LuaArray<TInventoryItem> = parseStringsList(spawn_ini.r_string(section, line));
@@ -77,9 +77,9 @@ export class PhysicObjectItemBox {
     return null;
   }
 
-  public object: game_object;
+  public object: ClientObject;
 
-  public constructor(object: game_object) {
+  public constructor(object: ClientObject) {
     this.object = object;
 
     for (const [k, v] of pairs(community_list)) {
@@ -139,7 +139,7 @@ export class PhysicObjectItemBox {
   public spawnBoxItems(): void {
     logger.info("Spawn items for:", this.object.name());
 
-    const ini: ini_file = this.object.spawn_ini();
+    const ini: IniFile = this.object.spawn_ini();
     const currentBoxItems = PhysicObjectItemBox.readBoxItemList(ini, "drop_box", "items", this.object);
 
     if (currentBoxItems === null) {

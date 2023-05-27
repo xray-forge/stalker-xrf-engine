@@ -1,18 +1,18 @@
-import {
-  CArtefact,
-  cse_alife_object,
-  ini_file,
-  LuabindClass,
-  object_binder,
-  physics_element,
-  physics_shell,
-  vector,
-} from "xray16";
+import { CArtefact, LuabindClass, object_binder, vector } from "xray16";
 
 import { registerObject, registry, unregisterObject } from "@/engine/core/database";
 import { AnomalyZoneBinder } from "@/engine/core/objects/binders/zones/AnomalyZoneBinder";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TDuration, TNumberId, TRate } from "@/engine/lib/types";
+import {
+  IniFile,
+  Optional,
+  PhysicsElement,
+  PhysicsShell,
+  ServerObject,
+  TDuration,
+  TNumberId,
+  TRate,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -23,7 +23,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class ArtefactBinder extends object_binder {
   public isInitializing: boolean = false;
 
-  public override net_spawn(object: cse_alife_object): boolean {
+  public override net_spawn(object: ServerObject): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -61,7 +61,7 @@ export class ArtefactBinder extends object_binder {
     super.update(delta);
 
     if (this.isInitializing) {
-      const ini: Optional<ini_file> = this.object.spawn_ini();
+      const ini: Optional<IniFile> = this.object.spawn_ini();
 
       if (!ini?.section_exist("fixed_bone")) {
         return;
@@ -69,13 +69,13 @@ export class ArtefactBinder extends object_binder {
 
       const boneName: string = ini.r_string("fixed_bone", "name");
 
-      const physicsShell: Optional<physics_shell> = this.object.get_physics_shell();
+      const physicsShell: Optional<PhysicsShell> = this.object.get_physics_shell();
 
       if (!physicsShell) {
         return;
       }
 
-      const physicsElement: physics_element = physicsShell.get_element_by_bone_name(boneName);
+      const physicsElement: PhysicsElement = physicsShell.get_element_by_bone_name(boneName);
 
       if (!physicsElement.is_fixed()) {
         physicsElement.fix();

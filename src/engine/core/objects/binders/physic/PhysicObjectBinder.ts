@@ -1,17 +1,4 @@
-import {
-  callback,
-  clsid,
-  cse_alife_object,
-  game_object,
-  ini_file,
-  level,
-  LuabindClass,
-  net_packet,
-  object_binder,
-  particles_object,
-  reader,
-  vector,
-} from "xray16";
+import { callback, clsid, level, LuabindClass, object_binder } from "xray16";
 
 import {
   closeLoadMarker,
@@ -33,7 +20,21 @@ import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/in
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TConditionList } from "@/engine/core/utils/parse";
-import { EScheme, ESchemeType, Optional, TCount, TDuration, TIndex } from "@/engine/lib/types";
+import {
+  ClientObject,
+  EScheme,
+  ESchemeType,
+  IniFile,
+  NetPacket,
+  Optional,
+  ParticlesObject,
+  Reader,
+  ServerObject,
+  TCount,
+  TDuration,
+  TIndex,
+  Vector,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -45,24 +46,10 @@ export class PhysicObjectBinder extends object_binder {
   public initialized: boolean = false;
   public loaded: boolean = false;
 
-  public particle: Optional<particles_object> = null;
+  public particle: Optional<ParticlesObject> = null;
   public itemBox: Optional<PhysicObjectItemBox> = null;
 
   public state!: IRegistryObjectState;
-
-  /**
-   * todo: Description.
-   */
-  public constructor(object: game_object) {
-    super(object);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override reload(section: string): void {
-    super.reload(section);
-  }
 
   /**
    * todo: Description.
@@ -115,7 +102,7 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     super.save(packet);
 
     openSaveMarker(packet, PhysicObjectBinder.__name);
@@ -126,7 +113,7 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override load(reader: reader): void {
+  public override load(reader: Reader): void {
     this.loaded = true;
 
     super.load(reader);
@@ -139,7 +126,7 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public use_callback(object: game_object, who: game_object): void {
+  public use_callback(object: ClientObject, who: ClientObject): void {
     if (this.state.active_section) {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.USE, object, this);
     }
@@ -149,10 +136,10 @@ export class PhysicObjectBinder extends object_binder {
    * todo: Description.
    */
   public hit_callback(
-    obj: game_object,
+    obj: ClientObject,
     amount: TCount,
-    const_direction: vector,
-    who: game_object,
+    const_direction: Vector,
+    who: ClientObject,
     bone_index: TIndex
   ): void {
     if (this.state[EScheme.HIT]) {
@@ -185,7 +172,7 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public death_callback(victim: game_object, who: game_object): void {
+  public death_callback(victim: ClientObject, who: ClientObject): void {
     if (this.state.active_section) {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, who);
     }
@@ -202,20 +189,20 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override net_spawn(object: cse_alife_object): boolean {
+  public override net_spawn(object: ServerObject): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
 
-    const spawn_ini: Optional<ini_file> = this.object.spawn_ini();
+    const spawnIni: Optional<IniFile> = this.object.spawn_ini();
 
-    if (spawn_ini !== null) {
-      if (spawn_ini.section_exist("drop_box")) {
+    if (spawnIni !== null) {
+      if (spawnIni.section_exist("drop_box")) {
         this.itemBox = new PhysicObjectItemBox(this.object);
       }
 
-      if (spawn_ini.section_exist("level_spot")) {
-        if (spawn_ini.line_exist("level_spot", "actor_box")) {
+      if (spawnIni.section_exist("level_spot")) {
+        if (spawnIni.line_exist("level_spot", "actor_box")) {
           level.map_add_object_spot(this.object.id(), "ui_pda2_actor_box_location", "st_ui_pda_actor_box");
         }
       }
@@ -237,9 +224,9 @@ export class PhysicObjectBinder extends object_binder {
       initializeObjectSchemeLogic(this.object, this.state, this.loaded, registry.actor, ESchemeType.ITEM);
     }
 
-    const spawn_ini: Optional<ini_file> = this.object.spawn_ini();
+    const spawnIni: Optional<IniFile> = this.object.spawn_ini();
 
-    if (this.state.active_section !== null || (spawn_ini !== null && spawn_ini.section_exist("drop_box"))) {
+    if (this.state.active_section !== null || (spawnIni !== null && spawnIni.section_exist("drop_box"))) {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
       this.object.set_callback(callback.hit, this.hit_callback, this);
       this.object.set_callback(callback.death, this.death_callback, this);

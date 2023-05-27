@@ -1,4 +1,4 @@
-import { cse_alife_object, LuabindClass, net_packet, object_binder, reader } from "xray16";
+import { LuabindClass, object_binder } from "xray16";
 
 import {
   closeLoadMarker,
@@ -17,8 +17,8 @@ import { ESchemeEvent } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
 import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TDuration, TNumberId } from "@/engine/lib/types";
-import { ESchemeType, TSection } from "@/engine/lib/types/scheme";
+import { NetPacket, Reader, ServerObject, TDuration, TNumberId } from "@/engine/lib/types";
+import { ESchemeType } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -36,7 +36,7 @@ export class RestrictorBinder extends object_binder {
     this.state = resetObject(this.object);
   }
 
-  public override net_spawn(object: cse_alife_object): boolean {
+  public override net_spawn(object: ServerObject): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -71,7 +71,6 @@ export class RestrictorBinder extends object_binder {
   }
 
   public override update(delta: TDuration): void {
-    const activeSection: Optional<TSection> = this.state.active_section as Optional<TSection>;
     const objectId: TNumberId = this.object.id();
 
     if (!this.isInitialized) {
@@ -91,7 +90,7 @@ export class RestrictorBinder extends object_binder {
     return true;
   }
 
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     openSaveMarker(packet, RestrictorBinder.__name);
 
     super.save(packet);
@@ -100,7 +99,7 @@ export class RestrictorBinder extends object_binder {
     closeSaveMarker(packet, RestrictorBinder.__name);
   }
 
-  public override load(reader: reader): void {
+  public override load(reader: Reader): void {
     this.isLoaded = true;
 
     openLoadMarker(reader, RestrictorBinder.__name);

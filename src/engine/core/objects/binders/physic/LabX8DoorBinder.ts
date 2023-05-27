@@ -1,15 +1,4 @@
-import {
-  callback,
-  cse_alife_object,
-  game_object,
-  ini_file,
-  LuabindClass,
-  net_packet,
-  object_binder,
-  reader,
-  sound_object,
-  TXR_sound_object_type,
-} from "xray16";
+import { callback, ini_file, LuabindClass, object_binder, sound_object } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, resetObject } from "@/engine/core/database";
 import { registerDoor, unregisterDoor } from "@/engine/core/database/doors";
@@ -20,7 +9,17 @@ import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { Optional, TName } from "@/engine/lib/types";
+import {
+  ClientObject,
+  IniFile,
+  NetPacket,
+  Optional,
+  Reader,
+  ServerObject,
+  SoundObject,
+  TName,
+  TSoundObjectType,
+} from "@/engine/lib/types";
 
 const ANIMATED_OBJECT_SECT: string = "animated_object";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -37,9 +36,9 @@ export class LabX8DoorBinder extends object_binder {
   public is_idle: boolean = true;
   public is_play_fwd: boolean = false;
 
-  public idle_snd: Optional<sound_object> = null;
-  public start_snd: Optional<sound_object> = null;
-  public stop_snd: Optional<sound_object> = null;
+  public idle_snd: Optional<SoundObject> = null;
+  public start_snd: Optional<SoundObject> = null;
+  public stop_snd: Optional<SoundObject> = null;
 
   public idle_delay!: number;
   public start_delay!: number;
@@ -49,10 +48,10 @@ export class LabX8DoorBinder extends object_binder {
   public on_stop!: TConditionList;
   public on_start!: TConditionList;
 
-  public constructor(object: game_object) {
+  public constructor(object: ClientObject) {
     super(object);
 
-    let ini: ini_file = object.spawn_ini()!;
+    let ini: IniFile = object.spawn_ini()!;
 
     if (!ini.section_exist(ANIMATED_OBJECT_SECT)) {
       logger.info("[animated object] no configuration!", object.name());
@@ -138,7 +137,7 @@ export class LabX8DoorBinder extends object_binder {
     resetObject(this.object);
   }
 
-  public override net_spawn(object: cse_alife_object): boolean {
+  public override net_spawn(object: ServerObject): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -211,7 +210,7 @@ export class LabX8DoorBinder extends object_binder {
     return true;
   }
 
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     openSaveMarker(packet, LabX8DoorBinder.__name);
 
     super.save(packet);
@@ -223,7 +222,7 @@ export class LabX8DoorBinder extends object_binder {
     closeSaveMarker(packet, LabX8DoorBinder.__name);
   }
 
-  public override load(reader: reader): void {
+  public override load(reader: Reader): void {
     openLoadMarker(reader, LabX8DoorBinder.__name);
 
     super.load(reader);
@@ -255,7 +254,7 @@ export class LabX8DoorBinder extends object_binder {
         this.object,
         this.object.position(),
         (this.start_delay + this.idle_delay) / 1000,
-        (sound_object.s3d + sound_object.looped) as TXR_sound_object_type
+        (sound_object.s3d + sound_object.looped) as TSoundObjectType
       );
     }
 
@@ -284,7 +283,7 @@ export class LabX8DoorBinder extends object_binder {
         this.object,
         this.object.position(),
         (this.start_delay + this.idle_delay) / 1000,
-        (sound_object.s3d + sound_object.looped) as TXR_sound_object_type
+        (sound_object.s3d + sound_object.looped) as TSoundObjectType
       );
     }
 
@@ -325,7 +324,7 @@ export class LabX8DoorBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public use_callback(object: game_object): void {
+  public use_callback(object: ClientObject): void {
     pickSectionFromCondList(registry.actor, object, this.on_use);
   }
 }

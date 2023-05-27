@@ -1,23 +1,4 @@
-import {
-  alife,
-  CALifeSmartTerrainTask,
-  callback,
-  clsid,
-  cond,
-  cse_alife_creature_abstract,
-  cse_alife_object,
-  game_object,
-  hit,
-  level,
-  LuabindClass,
-  move,
-  net_packet,
-  object_binder,
-  reader,
-  TXR_class_id,
-  TXR_snd_type,
-  vector,
-} from "xray16";
+import { alife, callback, clsid, cond, hit, level, LuabindClass, move, object_binder, vector } from "xray16";
 
 import {
   closeLoadMarker,
@@ -54,15 +35,24 @@ import {
 import { TConditionList } from "@/engine/core/utils/parse";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
+  ALifeSmartTerrainTask,
+  ClientObject,
   EScheme,
   ESchemeType,
+  Hit,
+  NetPacket,
   Optional,
+  Reader,
+  ServerCreatureObject,
+  TClassId,
   TCount,
   TDuration,
   TIndex,
   TLabel,
   TNumberId,
   TRate,
+  TSoundType,
+  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -135,7 +125,7 @@ export class MonsterBinder extends object_binder {
       if (squad.commander_id() === this.object.id()) {
         action(this.object, new move(move.walk_with_leader, targetPosition), new cond(cond.move_end));
       } else {
-        const commanderPosition: vector = alife().object(squad.commander_id())!.position;
+        const commanderPosition: Vector = alife().object(squad.commander_id())!.position;
 
         if (commanderPosition.distance_to_sqr(this.object.position()) > 100) {
           action(this.object, new move(move.run_with_leader, targetPosition), new cond(cond.move_end));
@@ -152,7 +142,7 @@ export class MonsterBinder extends object_binder {
     }
   }
 
-  public override net_spawn(object: cse_alife_creature_abstract): boolean {
+  public override net_spawn(object: ServerCreatureObject): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -177,7 +167,7 @@ export class MonsterBinder extends object_binder {
     registerObject(this.object);
 
     // todo: Just use parameter?
-    const serverObject: cse_alife_creature_abstract = alife().object<cse_alife_creature_abstract>(this.object.id())!;
+    const serverObject: ServerCreatureObject = alife().object(this.object.id())!;
 
     if (registry.spawnedVertexes.has(serverObject.id)) {
       this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(serverObject.id)));
@@ -190,7 +180,7 @@ export class MonsterBinder extends object_binder {
       const smartTerrain: Optional<SmartTerrain> = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id);
 
       if (smartTerrain !== null && smartTerrain.arrivingObjects.get(serverObject.id) === null) {
-        const smartTask: CALifeSmartTerrainTask = smartTerrain.jobsData.get(
+        const smartTask: ALifeSmartTerrainTask = smartTerrain.jobsData.get(
           smartTerrain.objectJobDescriptors.get(serverObject.id).job_id
         ).alife_task;
 
@@ -233,7 +223,7 @@ export class MonsterBinder extends object_binder {
     return true;
   }
 
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     openSaveMarker(packet, MonsterBinder.__name);
 
     super.save(packet);
@@ -242,7 +232,7 @@ export class MonsterBinder extends object_binder {
     closeSaveMarker(packet, MonsterBinder.__name);
   }
 
-  public override load(reader: reader): void {
+  public override load(reader: Reader): void {
     this.isLoaded = true;
 
     openLoadMarker(reader, MonsterBinder.__name);
@@ -256,7 +246,7 @@ export class MonsterBinder extends object_binder {
   /**
    * On waypoint callback.
    */
-  public onWaypoint(object: game_object, actionType: number, index: TIndex): void {
+  public onWaypoint(object: ClientObject, actionType: number, index: TIndex): void {
     if (this.state.active_section !== null) {
       emitSchemeEvent(
         this.object,
@@ -272,7 +262,7 @@ export class MonsterBinder extends object_binder {
   /**
    * On monster death.
    */
-  public onDeath(victim: game_object, killer: game_object): void {
+  public onDeath(victim: ClientObject, killer: ClientObject): void {
     logger.info("Monster death:", this.object.name());
 
     registry.actorCombat.delete(this.object.id());
@@ -294,7 +284,7 @@ export class MonsterBinder extends object_binder {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, killer);
     }
 
-    const hitObject: hit = new hit();
+    const hitObject: Hit = new hit();
 
     hitObject.draftsman = this.object;
     hitObject.type = hit.fire_wound;
@@ -305,12 +295,12 @@ export class MonsterBinder extends object_binder {
 
     this.object.hit(hitObject);
 
-    const objectClsId: TXR_class_id = this.object.clsid();
+    const objectClsId: TClassId = this.object.clsid();
 
     if (objectClsId === clsid.poltergeist_s) {
       logger.info("Releasing poltergeist_s:", this.object.name());
 
-      const targetServerObject: Optional<cse_alife_object> = alife().object(this.object.id());
+      const targetServerObject: Optional<ServerCreatureObject> = alife().object(this.object.id());
 
       if (targetServerObject !== null) {
         alife().release(targetServerObject, true);
@@ -322,10 +312,10 @@ export class MonsterBinder extends object_binder {
    * On monster hit by another object.
    */
   public onHit(
-    object: game_object,
+    object: ClientObject,
     amount: TCount,
-    direction: vector,
-    who: game_object,
+    direction: Vector,
+    who: ClientObject,
     boneIndex: TLabel | TIndex
   ): void {
     if (who.id() === registry.actor.id()) {
@@ -341,10 +331,10 @@ export class MonsterBinder extends object_binder {
    * On monster hear sound.
    */
   public onHearSound(
-    object: game_object,
+    object: ClientObject,
     sourceId: TNumberId,
-    soundType: TXR_snd_type,
-    soundPosition: vector,
+    soundType: TSoundType,
+    soundPosition: Vector,
     soundPower: TRate
   ): void {
     if (sourceId !== object.id()) {

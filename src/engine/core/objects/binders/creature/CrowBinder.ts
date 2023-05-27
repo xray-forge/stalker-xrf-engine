@@ -1,15 +1,4 @@
-import {
-  alife,
-  alife_simulator,
-  callback,
-  cse_alife_object,
-  game_object,
-  LuabindClass,
-  net_packet,
-  object_binder,
-  reader,
-  time_global,
-} from "xray16";
+import { alife, callback, LuabindClass, object_binder, time_global } from "xray16";
 
 import {
   closeLoadMarker,
@@ -24,7 +13,16 @@ import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { TDuration, TNumberId, TTimestamp } from "@/engine/lib/types";
+import {
+  AlifeSimulator,
+  ClientObject,
+  NetPacket,
+  Reader,
+  ServerObject,
+  TDuration,
+  TNumberId,
+  TTimestamp,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -43,7 +41,7 @@ export class CrowBinder extends object_binder {
     resetObject(this.object);
   }
 
-  public override net_spawn(object: cse_alife_object): boolean {
+  public override net_spawn(object: ServerObject): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -85,14 +83,14 @@ export class CrowBinder extends object_binder {
       this.diedAt !== 0 &&
       time_global() - logicsConfig.CROW_CORPSE_RELEASE_TIMEOUT >= this.diedAt
     ) {
-      const simulator: alife_simulator = alife();
+      const simulator: AlifeSimulator = alife();
 
       logger.info("Release dead crow");
       simulator.release(simulator.object(this.object.id()), true);
     }
   }
 
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     openSaveMarker(packet, CrowBinder.__name);
 
     super.save(packet);
@@ -102,7 +100,7 @@ export class CrowBinder extends object_binder {
     closeSaveMarker(packet, CrowBinder.__name);
   }
 
-  public override load(reader: reader): void {
+  public override load(reader: Reader): void {
     openLoadMarker(reader, CrowBinder.__name);
     super.load(reader);
     loadObjectLogic(this.object, reader);
@@ -114,7 +112,7 @@ export class CrowBinder extends object_binder {
   /**
    * On crow object death.
    */
-  public onDeath(victim: game_object, killer: game_object): void {
+  public onDeath(victim: ClientObject, killer: ClientObject): void {
     logger.info("Crow death registered");
 
     this.diedAt = time_global();

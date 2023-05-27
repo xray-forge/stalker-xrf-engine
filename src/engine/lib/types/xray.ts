@@ -2,6 +2,7 @@ import {
   action_base,
   action_planner,
   alife_simulator,
+  CALifeSmartTerrainTask,
   CGameTask,
   CPhrase,
   CPhraseDialog,
@@ -27,8 +28,12 @@ import {
   hit,
   ini_file,
   net_packet,
+  particles_object,
   patrol,
+  physics_element,
+  physics_shell,
   profile_timer,
+  reader,
   sound_object,
   TXR_class_id,
   TXR_entity_action,
@@ -40,6 +45,7 @@ import {
   vector,
 } from "xray16";
 
+export type ALifeSmartTerrainTask = CALifeSmartTerrainTask;
 export type ActionBase = action_base;
 export type ActionPlanner = action_planner;
 export type AlifeSimulator = alife_simulator;
@@ -54,19 +60,23 @@ export type Hit = hit;
 export type IniFile = ini_file;
 export type NetPacket = net_packet;
 export type NetProcessor = TXR_net_processor;
+export type ParticlesObject = particles_object;
 export type Patrol = patrol;
 export type Phrase = CPhrase;
 export type PhraseDialog = CPhraseDialog;
 export type PhraseScript = CPhraseScript;
+export type PhysicsElement = physics_element;
+export type PhysicsShell = physics_shell;
 export type ProfileTimer = profile_timer;
+export type Reader = reader;
 export type SavedGameWrapper = CSavedGameWrapper;
 export type ServerAbstractObject = cse_abstract;
 export type ServerActorObject = cse_alife_creature_actor;
-export type ServerMonsterObject = cse_alife_monster_abstract;
 export type ServerArtefactItemObject = cse_alife_item_artefact;
 export type ServerCreatureObject = cse_alife_creature_abstract;
 export type ServerGroupObject = cse_alife_online_offline_group;
 export type ServerHumanObject = cse_alife_human_abstract;
+export type ServerMonsterObject = cse_alife_monster_abstract;
 export type ServerObject = cse_alife_object;
 export type ServerPhysicObject = cse_alife_object_physic;
 export type SoundObject = sound_object;

@@ -13,6 +13,7 @@ import { TInventoryItem } from "@/engine/lib/constants/items";
 import { TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import {
   AlifeSimulator,
+  AnyGameObject,
   ClientObject,
   IniFile,
   LuaArray,
@@ -30,7 +31,6 @@ import {
   TSection,
   TStringId,
 } from "@/engine/lib/types";
-import { AnyGameObject } from "@/engine/lib/types/engine";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

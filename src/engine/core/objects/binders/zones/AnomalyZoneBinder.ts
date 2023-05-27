@@ -1,15 +1,4 @@
-import {
-  alife,
-  cse_alife_item_artefact,
-  cse_alife_object,
-  game_object,
-  ini_file,
-  LuabindClass,
-  net_packet,
-  object_binder,
-  patrol,
-  reader,
-} from "xray16";
+import { alife, ini_file, LuabindClass, object_binder, patrol } from "xray16";
 
 import {
   closeLoadMarker,
@@ -22,13 +11,26 @@ import {
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseNumbersList, parseStringsList, TConditionList } from "@/engine/core/utils/parse";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
-import { Optional, TCount, TDuration, TRate, TSection } from "@/engine/lib/types";
+import {
+  AnyGameObject,
+  ClientObject,
+  IniFile,
+  NetPacket,
+  Optional,
+  Patrol,
+  Reader,
+  ServerObject,
+  TCount,
+  TDuration,
+  TRate,
+  TSection,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -45,7 +47,7 @@ const UPDATE_THROTTLE: number = 5_000;
  */
 @LuabindClass()
 export class AnomalyZoneBinder extends object_binder {
-  public readonly ini: ini_file;
+  public readonly ini: IniFile;
 
   public delta: number = UPDATE_THROTTLE;
 
@@ -89,7 +91,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public constructor(object: game_object) {
+  public constructor(object: ClientObject) {
     super(object);
 
     this.ini = object.spawn_ini()!;
@@ -110,7 +112,7 @@ export class AnomalyZoneBinder extends object_binder {
       this.ini = new ini_file(filename);
     }
 
-    const ini: ini_file = this.ini;
+    const ini: IniFile = this.ini;
 
     this.zoneLayersCount = readIniNumber(ini, ANOMAL_ZONE_SECTION, "layers_count", false, 1);
     this.isCustomPlacement = this.zoneLayersCount > 1;
@@ -429,10 +431,10 @@ export class AnomalyZoneBinder extends object_binder {
     }
 
     const randomPathName: string = this.getRandomArtefactPath();
-    const randomPath: patrol = new patrol(randomPathName);
+    const randomPath: Patrol = new patrol(randomPathName);
     const randomPathPoint: number = math.random(0, randomPath.count() - 1);
 
-    const artefactObject: cse_alife_object = alife().create(
+    const artefactObject: ServerObject = alife().create(
       randomArtefact,
       randomPath.point(randomPathPoint),
       this.object.level_vertex_id(),
@@ -504,7 +506,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override net_spawn(object: cse_alife_object): boolean {
+  public override net_spawn(object: ServerObject): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -568,10 +570,10 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public onArtefactTaken(object: game_object | cse_alife_item_artefact): void {
+  public onArtefactTaken(object: AnyGameObject): void {
     logger.info("On artefact take:", this.object.name());
 
-    const id: number = type(object.id) === "number" ? (object as cse_alife_object).id : (object as game_object).id();
+    const id: number = type(object.id) === "number" ? (object as ServerObject).id : (object as ClientObject).id();
 
     registry.artefacts.ways.delete(id);
     registry.artefacts.points.delete(id);
@@ -594,7 +596,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     openSaveMarker(packet, AnomalyZoneBinder.__name);
     super.save(packet);
 
@@ -665,7 +667,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override load(reader: reader): void {
+  public override load(reader: Reader): void {
     openLoadMarker(reader, AnomalyZoneBinder.__name);
 
     super.load(reader);
@@ -712,8 +714,8 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public getArtefactsListForSection(section: string, defaultArtefacts: Optional<string>): LuaTable<number, string> {
-    const baseArtefactsList: Optional<string> = readIniString(
+  public getArtefactsListForSection(section: TSection, defaultArtefacts: Optional<string>): LuaTable<number, string> {
+    const baseArtefactsList: Optional<TSection> = readIniString(
       this.ini,
       section,
       "artefacts",
@@ -722,9 +724,12 @@ export class AnomalyZoneBinder extends object_binder {
       defaultArtefacts
     );
 
-    if (baseArtefactsList === null) {
-      abort("There is no field 'artefacts' in section [%s] in obj [%s]", section, this.object.name());
-    }
+    assertDefined(
+      baseArtefactsList,
+      "There is no field 'artefacts' in section [%s] in obj [%s]",
+      section,
+      this.object.name()
+    );
 
     return parseStringsList(baseArtefactsList);
   }

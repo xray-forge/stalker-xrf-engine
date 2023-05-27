@@ -1,13 +1,4 @@
-import {
-  cse_alife_object,
-  game_object,
-  LuabindClass,
-  net_packet,
-  object_binder,
-  reader,
-  time_global,
-  vector,
-} from "xray16";
+import { LuabindClass, object_binder, time_global, vector } from "xray16";
 
 import {
   closeLoadMarker,
@@ -20,7 +11,7 @@ import {
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
-import { Optional, TDuration, TTimestamp } from "@/engine/lib/types";
+import { ClientObject, NetPacket, Optional, Reader, ServerObject, TDuration, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -100,7 +91,7 @@ export class SignalLightBinder extends object_binder {
     }
   }
 
-  public override net_spawn(object: cse_alife_object): boolean {
+  public override net_spawn(object: ServerObject): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
@@ -118,7 +109,7 @@ export class SignalLightBinder extends object_binder {
    * todo: Description.
    */
   public launch(): boolean {
-    const actor: Optional<game_object> = registry.actor;
+    const actor: Optional<ClientObject> = registry.actor;
 
     if (actor === null) {
       return false;
@@ -180,7 +171,7 @@ export class SignalLightBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     openSaveMarker(packet, SignalLightBinder.__name);
 
     super.save(packet);
@@ -199,7 +190,7 @@ export class SignalLightBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override load(reader: reader): void {
+  public override load(reader: Reader): void {
     openLoadMarker(reader, SignalLightBinder.__name);
 
     super.load(reader);

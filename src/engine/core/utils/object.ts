@@ -18,6 +18,7 @@ import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   ActionPlanner,
+  AnyGameObject,
   ClientObject,
   EntityAction,
   EScheme,
@@ -38,7 +39,6 @@ import {
   TTimestamp,
   Vector,
 } from "@/engine/lib/types";
-import { AnyGameObject } from "@/engine/lib/types/engine";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

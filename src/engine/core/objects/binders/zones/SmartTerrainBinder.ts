@@ -1,10 +1,10 @@
-import { alife, cse_alife_object, LuabindClass, object_binder } from "xray16";
+import { alife, LuabindClass, object_binder } from "xray16";
 
 import { registerSmartTerrain, unregisterSmartTerrain } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TDuration } from "@/engine/lib/types";
+import { ServerObject, TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -18,7 +18,7 @@ export class SmartTerrainBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public override net_spawn(object: cse_alife_object): boolean {
+  public override net_spawn(object: ServerObject): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
