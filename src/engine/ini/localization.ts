@@ -1,8 +1,6 @@
 import { default as projectConfig } from "#/config.json";
 import { newStringField } from "#/utils";
 
-export const IS_LTX: boolean = true;
-
 /**
  * todo;
  */

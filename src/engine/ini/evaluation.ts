@@ -1,6 +1,4 @@
-import { newStringField, quoted } from "#/utils";
-
-export const IS_LTX: boolean = true;
+import { quoted } from "#/utils";
 
 /**
  * todo;

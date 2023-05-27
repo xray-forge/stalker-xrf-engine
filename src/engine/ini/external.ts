@@ -1,5 +1,3 @@
-export const IS_LTX: boolean = true;
-
 /**
  * todo;
  */

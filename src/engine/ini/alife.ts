@@ -1,7 +1,5 @@
 import { newFloatField, newIntegerField, newStringField } from "#/utils";
 
-export const IS_LTX: boolean = true;
-
 /**
  * todo;
  */

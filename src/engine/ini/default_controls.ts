@@ -3,8 +3,6 @@ import { LTX_ROOT } from "#/utils";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { food } from "@/engine/lib/constants/items/food";
 
-export const IS_LTX: boolean = true;
-
 /**
  * Create config entry to bind keys.
  */

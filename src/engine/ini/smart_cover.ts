@@ -1,17 +1,5 @@
-import {
-  newBooleanField,
-  newFloatField,
-  newFloatsField,
-  newIntegerField,
-  newIntegersField,
-  newStringField,
-} from "#/utils";
+import { newFloatField, newFloatsField, newIntegersField } from "#/utils";
 import { quoted } from "#/utils/string";
-
-/**
- * todo;
- */
-export const IS_LTX: boolean = true;
 
 /**
  * todo;

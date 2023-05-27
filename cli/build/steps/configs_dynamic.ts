@@ -38,7 +38,8 @@ export async function buildDynamicConfigs(): Promise<void> {
       ltxConfigs.map(async ([from, to]) => {
         const ltxSource = await import(from);
         const ltxContent: Optional<ILtxConfigDescriptor> =
-          ltxSource?.IS_LTX && (typeof ltxSource?.create === "function" ? ltxSource?.create() : ltxSource?.config);
+          (ltxSource?.create || ltxSource?.config) &&
+          (typeof ltxSource?.create === "function" ? ltxSource?.create() : ltxSource?.config);
 
         if (ltxContent) {
           log.debug("TRANSFORM:", chalk.blue(to));
