@@ -70,6 +70,7 @@ export function renderField(name: Optional<string>, value: Optional<ILtxFieldDes
 
   switch (value.type) {
     case ELtxFieldType.STRING:
+    case ELtxFieldType.CONDLIST:
       return link(name, String(value.value), value);
 
     case ELtxFieldType.INTEGER:

@@ -1,4 +1,5 @@
-import { ELtxFieldType, ILtxFieldDescriptor, ILtxFieldMeta } from "#/utils/ltx/types";
+import { createCondlist, joinCondlists } from "#/utils/ltx/condlist";
+import { ELtxFieldType, IConditionListDescriptor, ILtxFieldDescriptor, ILtxFieldMeta } from "#/utils/ltx/types";
 
 /**
  * todo;
@@ -32,11 +33,32 @@ export function newIntegerField(value: number, meta: ILtxFieldMeta = {}): ILtxFi
 export function newFloatField(value: number, meta: ILtxFieldMeta = {}): ILtxFieldDescriptor<number> {
   return newField(ELtxFieldType.FLOAT, value, meta);
 }
+
 /**
  * todo;
  */
 export function newBooleanField(value: boolean, meta: ILtxFieldMeta = {}): ILtxFieldDescriptor<boolean> {
   return newField(ELtxFieldType.BOOLEAN, value, meta);
+}
+
+/**
+ * todo;
+ */
+export function newCondlistField(
+  value?: boolean | IConditionListDescriptor,
+  meta: ILtxFieldMeta = {}
+): ILtxFieldDescriptor<string> {
+  return newField(ELtxFieldType.CONDLIST, createCondlist(value), meta);
+}
+
+/**
+ * todo;
+ */
+export function newCondlistsField(
+  value: Array<boolean | IConditionListDescriptor>,
+  meta: ILtxFieldMeta = {}
+): ILtxFieldDescriptor<string> {
+  return newField(ELtxFieldType.CONDLIST, joinCondlists(...value.map(createCondlist)), meta);
 }
 
 /**

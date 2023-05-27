@@ -8,6 +8,7 @@ export enum ELtxFieldType {
   INTEGER,
   BOOLEAN,
   FLOAT,
+  CONDLIST,
   STRING_ARRAY,
   INTEGER_ARRAY,
   FLOAT_ARRAY,
@@ -42,3 +43,12 @@ export interface ILtxConfigDescriptor extends Record<string, Record<string, ILtx
  * todo;
  */
 export const LTX_ROOT: unique symbol = Symbol("LTX_ROOT");
+
+/**
+ * todo;
+ */
+export interface IConditionListDescriptor {
+  condition?: Array<string>;
+  action?: Array<string>;
+  value?: string;
+}
