@@ -1,4 +1,4 @@
-import { alife, game_object } from "xray16";
+import { alife } from "xray16";
 
 import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -12,7 +12,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInCombat } from "@/engine/core/utils/object";
 import { captions } from "@/engine/lib/constants/captions";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { Optional, StringOptional, TDistance, TName, TSection, TStringId } from "@/engine/lib/types";
+import { ClientObject, Optional, StringOptional, TDistance, TName, TSection, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -47,7 +47,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
    * todo: Description.
    */
   public initialize(): void {
-    const actor: Optional<game_object> = registry.actor;
+    const actor: Optional<ClientObject> = registry.actor;
 
     if (actor === null) {
       this.isHelloPassed = false;
@@ -92,9 +92,9 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
    * todo: Description.
    */
   public activateMeetState(): void {
-    const actor: game_object = registry.actor;
+    const actor: ClientObject = registry.actor;
     let state: Optional<EStalkerState> = null;
-    let victim: Optional<game_object> = null;
+    let victim: Optional<ClientObject> = null;
     let victimStoryId: Optional<TStringId> = null;
 
     if (this.currentDistanceToSpeaker === EMeetDistance.CLOSE) {
@@ -130,7 +130,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
    * todo: Description.
    */
   public override update(): void {
-    const actor: game_object = registry.actor;
+    const actor: ClientObject = registry.actor;
     const distance: TDistance = this.object.position().distance_to(actor.position());
     const isActorVisible: boolean = this.object.see(actor);
 

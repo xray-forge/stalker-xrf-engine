@@ -1,10 +1,8 @@
-import { game_object, ini_file } from "xray16";
-
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { activateSchemeBySection } from "@/engine/core/schemes/base/utils/activateSchemeBySection";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
-import { EScheme, Maybe, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, IniFile, Maybe, TSection } from "@/engine/lib/types";
 
 /**
  * Explicitly switch object active scheme to new section.
@@ -12,7 +10,7 @@ import { EScheme, Maybe, TSection } from "@/engine/lib/types";
  *
  * todo: docblock;
  */
-export function switchObjectSchemeToSection(object: game_object, ini: ini_file, section: TSection): boolean {
+export function switchObjectSchemeToSection(object: ClientObject, ini: IniFile, section: TSection): boolean {
   if (section === "" || section === null) {
     return false;
   }

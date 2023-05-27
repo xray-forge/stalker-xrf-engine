@@ -5,7 +5,7 @@ import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { onOffCommands, TConsoleCommand, zeroOneCommands } from "@/engine/lib/constants/console_commands";
-import { Optional, TName, TPath } from "@/engine/lib/types";
+import { Optional, TPath } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugCommandsSection.component";
 const logger: LuaLogger = new LuaLogger($filename);

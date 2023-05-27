@@ -1,5 +1,3 @@
-import { game_object, ini_file } from "xray16";
-
 import { SchemeAbuse } from "@/engine/core/schemes/abuse/SchemeAbuse";
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore/SchemeCombatIgnore";
@@ -17,7 +15,7 @@ import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTas
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { resetObjectInvulnerability, setObjectInfo } from "@/engine/core/utils/object";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, IniFile, Optional } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 /**
@@ -27,8 +25,8 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
  * todo
  */
 export function enableObjectGenericSchemes(
-  ini: ini_file,
-  object: game_object,
+  ini: IniFile,
+  object: ClientObject,
   schemeType: ESchemeType,
   section: TSection
 ): void {

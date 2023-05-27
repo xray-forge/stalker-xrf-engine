@@ -1,4 +1,4 @@
-import { game_object, level, LuabindClass, property_evaluator, vector } from "xray16";
+import { level, LuabindClass, property_evaluator } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/help_wounded";
@@ -6,7 +6,7 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { isObjectWounded } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { communities } from "@/engine/lib/constants/communities";
-import { EScheme, TDistance, TNumberId } from "@/engine/lib/types";
+import { ClientObject, EScheme, TDistance, TNumberId, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -29,9 +29,9 @@ export class EvaluatorWoundedExist extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    const object: game_object = this.object;
+    const object: ClientObject = this.object;
     const objectId: TNumberId = object.id();
-    const objectPosition: vector = object.position();
+    const objectPosition: Vector = object.position();
 
     if (!object.alive()) {
       return false;
@@ -55,7 +55,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
     let selectedId = null;
 
     for (const memoryVisibleObject of object.memory_visible_objects()) {
-      const visibleObject: game_object = memoryVisibleObject.object();
+      const visibleObject: ClientObject = memoryVisibleObject.object();
       const visibleObjectId: TNumberId = visibleObject.id();
       const visibleObjectState: IRegistryObjectState = registry.objects.get(visibleObjectId);
 
@@ -67,7 +67,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
         visibleObject.alive()
       ) {
         if ((visibleObjectState[EScheme.WOUNDED] as ISchemeWoundedState).not_for_help !== true) {
-          const visibleObjectPosition: vector = visibleObject.position();
+          const visibleObjectPosition: Vector = visibleObject.position();
           const distanceBetweenObjects: TDistance = objectPosition.distance_to_sqr(visibleObjectPosition);
 
           if (distanceBetweenObjects < nearestDistance) {

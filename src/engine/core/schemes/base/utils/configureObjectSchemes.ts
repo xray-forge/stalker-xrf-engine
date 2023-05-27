@@ -1,4 +1,4 @@
-import { game_object, ini_file } from "xray16";
+import { ini_file } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
@@ -10,7 +10,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object";
 import { spawnDefaultObjectItems } from "@/engine/core/utils/spawn";
-import { ESchemeType, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
+import { ClientObject, ESchemeType, IniFile, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -18,13 +18,13 @@ import { ESchemeType, Optional, TName, TNumberId, TSection } from "@/engine/lib/
  * todo;
  */
 export function configureObjectSchemes(
-  object: game_object,
-  ini: ini_file,
+  object: ClientObject,
+  ini: IniFile,
   iniFilename: TName,
   schemeType: ESchemeType,
   sectionLogic: TSection,
   gulagName: Optional<TName>
-): ini_file {
+): IniFile {
   const objectId: TNumberId = object.id();
   const state: IRegistryObjectState = registry.objects.get(objectId);
 
@@ -32,7 +32,7 @@ export function configureObjectSchemes(
     emitSchemeEvent(object, state[state.active_scheme!]!, ESchemeEvent.DEACTIVATE, object);
   }
 
-  let actualIni: ini_file;
+  let actualIni: IniFile;
   let actualIniFilename: TName;
 
   if (!ini.section_exist(sectionLogic)) {

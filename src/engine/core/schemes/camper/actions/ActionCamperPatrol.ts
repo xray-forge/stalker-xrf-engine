@@ -1,13 +1,4 @@
-import {
-  action_base,
-  danger_object,
-  game_object,
-  LuabindClass,
-  patrol,
-  stalker_ids,
-  time_global,
-  vector,
-} from "xray16";
+import { action_base, danger_object, LuabindClass, patrol, stalker_ids, time_global, vector } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -18,7 +9,7 @@ import { SchemeDanger } from "@/engine/core/schemes/danger/SchemeDanger";
 import { abort } from "@/engine/core/utils/assertion";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, DangerObject, Optional, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -32,20 +23,20 @@ export class ActionCamperPatrol extends action_base {
   public danger: boolean = false;
   public next_point: Optional<ICampPoint> = null;
   public scantime: Optional<number> = null;
-  public direction: Optional<vector> = null;
-  public position: Optional<vector> = null;
-  public look_position: Optional<vector> = null;
-  public dest_position: Optional<vector> = null;
-  public look_point: Optional<vector> = null;
-  public point_0: Optional<vector> = null;
-  public point_2: Optional<vector> = null;
-  public enemy: Optional<game_object> = null;
-  public enemy_position: Optional<vector> = null;
+  public direction: Optional<Vector> = null;
+  public position: Optional<Vector> = null;
+  public look_position: Optional<Vector> = null;
+  public dest_position: Optional<Vector> = null;
+  public look_point: Optional<Vector> = null;
+  public point_0: Optional<Vector> = null;
+  public point_2: Optional<Vector> = null;
+  public enemy: Optional<ClientObject> = null;
+  public enemy_position: Optional<Vector> = null;
 
   /**
    * todo: Description.
    */
-  public constructor(state: ISchemeCamperState, object: game_object) {
+  public constructor(state: ISchemeCamperState, object: ClientObject) {
     super(null, ActionCamperPatrol.__name);
 
     this.state = state;
@@ -352,7 +343,7 @@ export class ActionCamperPatrol extends action_base {
       return false;
     }
 
-    const bestDanger: Optional<danger_object> = this.object.best_danger();
+    const bestDanger: Optional<DangerObject> = this.object.best_danger();
 
     if (bestDanger === null) {
       return false;

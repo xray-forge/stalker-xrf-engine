@@ -1,4 +1,4 @@
-import { callback, clsid, game_object } from "xray16";
+import { callback, clsid } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
@@ -12,6 +12,7 @@ import {
   resetObjectInvulnerability,
   scriptReleaseObject,
 } from "@/engine/core/utils/object";
+import { ClientObject } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 /**
@@ -21,7 +22,7 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
  * todo;
  */
 export function resetObjectGenericSchemesOnSectionSwitch(
-  object: game_object,
+  object: ClientObject,
   schemeToSwitch: EScheme,
   section: TSection
 ): void {

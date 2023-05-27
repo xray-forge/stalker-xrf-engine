@@ -1,12 +1,10 @@
-import { game_object, ini_file } from "xray16";
-
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { getParamString } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseStringsList } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
-import { TSection } from "@/engine/lib/types";
+import { ClientObject, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -17,7 +15,7 @@ export class ObjectRestrictionsManager {
   /**
    * todo: Description.
    */
-  public static initializeForObject(object: game_object): ObjectRestrictionsManager {
+  public static initializeForObject(object: ClientObject): ObjectRestrictionsManager {
     logger.info("Get restrictor manager for object:", object.name());
 
     const state: IRegistryObjectState = registry.objects.get(object.id());
@@ -32,11 +30,11 @@ export class ObjectRestrictionsManager {
   /**
    * todo: Description.
    */
-  public static resetForObject(object: game_object, state: IRegistryObjectState, section: TSection): void {
+  public static resetForObject(object: ClientObject, state: IRegistryObjectState, section: TSection): void {
     return ObjectRestrictionsManager.initializeForObject(object).reset(state, section);
   }
 
-  public object: game_object;
+  public object: ClientObject;
   public base_out_restrictions: LuaTable<string, boolean>;
   public base_in_restrictions: LuaTable<string, boolean>;
 
@@ -46,7 +44,7 @@ export class ObjectRestrictionsManager {
   /**
    * todo: Description.
    */
-  public constructor(object: game_object) {
+  public constructor(object: ClientObject) {
     this.object = object;
     this.base_out_restrictions = new LuaTable();
     this.base_in_restrictions = new LuaTable();
@@ -69,7 +67,7 @@ export class ObjectRestrictionsManager {
   public reset(state: IRegistryObjectState, section: TSection): void {
     logger.info("Reset restrictions:", this.object.name(), section);
 
-    const actual_ini: ini_file = state.ini!;
+    const actual_ini: IniFile = state.ini!;
     const [out_restr_string] = getParamString(readIniString(actual_ini, section, "out_restr", false, "", ""));
 
     const new_out_restr = parseStringsList(out_restr_string);

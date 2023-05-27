@@ -1,10 +1,8 @@
-import { game_object } from "xray16";
-
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeDeathState } from "@/engine/core/schemes/death/ISchemeDeathState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { EScheme, Optional } from "@/engine/lib/types";
+import { ClientObject, EScheme, Optional } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -13,7 +11,7 @@ export class DeathManager extends AbstractSchemeManager<ISchemeDeathState> {
   /**
    * todo: Description.
    */
-  public death_callback(victim: game_object, who: Optional<game_object>): void {
+  public death_callback(victim: ClientObject, who: Optional<ClientObject>): void {
     (registry.objects.get(victim.id())[EScheme.DEATH] as ISchemeDeathState).killer = who === null ? -1 : who.id();
 
     if (this.state.info) {

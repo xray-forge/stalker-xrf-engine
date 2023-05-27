@@ -1,11 +1,11 @@
-import { command_line, CScriptXmlInit, CUI3tButton, CUIStatic, LuabindClass, ui_events } from "xray16";
+import { command_line, CUI3tButton, CUIStatic, LuabindClass, ui_events } from "xray16";
 
 import { ProfilingManager } from "@/engine/core/managers/debug/ProfilingManager";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { TPath } from "@/engine/lib/types";
+import { TPath, XmlInit } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugGeneralSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -26,7 +26,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
    * todo: Description.
    */
   public initializeControls(): void {
-    const xml: CScriptXmlInit = resolveXmlFile(base, this.xml);
+    const xml: XmlInit = resolveXmlFile(base, this.xml);
 
     xml.InitStatic("lua_version_label", this);
     xml

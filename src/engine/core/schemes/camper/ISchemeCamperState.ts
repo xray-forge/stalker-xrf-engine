@@ -1,15 +1,23 @@
-import { vector } from "xray16";
-
 import { EStalkerState } from "@/engine/core/objects/state";
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { LuaArray, Optional, TCount, TDistance, TDuration, TIndex, TName, TTimestamp } from "@/engine/lib/types";
+import {
+  LuaArray,
+  Optional,
+  TCount,
+  TDistance,
+  TDuration,
+  TIndex,
+  TName,
+  TTimestamp,
+  Vector,
+} from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export interface ICampPoint {
   key: number;
-  pos: vector;
+  pos: Vector;
 }
 
 /**

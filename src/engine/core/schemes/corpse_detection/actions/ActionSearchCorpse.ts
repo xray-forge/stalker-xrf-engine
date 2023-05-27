@@ -1,9 +1,10 @@
-import { action_base, LuabindClass, vector } from "xray16";
+import { action_base, LuabindClass } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection";
+import { Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -12,9 +13,6 @@ import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detect
 export class ActionSearchCorpse extends action_base {
   public readonly state: ISchemeCorpseDetectionState;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeCorpseDetectionState) {
     super(null, ActionSearchCorpse.__name);
     this.state = state;
@@ -51,7 +49,7 @@ export class ActionSearchCorpse extends action_base {
   public override execute(): void {
     super.execute();
 
-    if (this.object.position().distance_to_sqr(this.state.vertex_position as vector) > 2) {
+    if (this.object.position().distance_to_sqr(this.state.vertex_position as Vector) > 2) {
       return;
     }
 

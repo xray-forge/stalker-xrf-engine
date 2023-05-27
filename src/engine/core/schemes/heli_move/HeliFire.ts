@@ -3,12 +3,10 @@ import {
   CScriptXmlInit,
   CUIGameCustom,
   CUIProgressBar,
-  game_object,
   get_hud,
   level,
   StaticDrawableWrapper,
   time_global,
-  vector,
 } from "xray16";
 
 import { getIdBySid, registry } from "@/engine/core/database";
@@ -17,7 +15,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, Optional, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const heli_firer: LuaTable<number, HeliFire> = new LuaTable();
@@ -25,11 +23,11 @@ const heli_firer: LuaTable<number, HeliFire> = new LuaTable();
 export class HeliFire {
   public static readonly HELI_STATIC_UI_XML_PATH: string = "game\\heli\\heli_progress.xml";
 
-  public object: game_object;
+  public object: ClientObject;
   public enemy_: Optional<string>;
-  public enemy: Optional<game_object>;
+  public enemy: Optional<ClientObject>;
   public enemy_id: Optional<number>;
-  public fire_point: Optional<vector>;
+  public fire_point: Optional<Vector>;
   public flag_by_enemy: boolean;
   public hit_count: number;
   public fire_id: any;
@@ -40,7 +38,7 @@ export class HeliFire {
 
   public heli_progress: Optional<CUIProgressBar> = null;
 
-  public constructor(object: game_object) {
+  public constructor(object: ClientObject) {
     this.object = object;
     this.enemy_ = null;
     this.fire_point = null;
@@ -218,7 +216,7 @@ export class HeliFire {
 
     while (index < registry.helicopter.enemyIndex) {
       if (registry.helicopter.enemies.has(index)) {
-        const enemy: game_object = registry.helicopter.enemies.get(index);
+        const enemy: ClientObject = registry.helicopter.enemies.get(index);
 
         if (heli.isVisible(enemy)) {
           if (distanceBetween2d(this.object.position(), enemy.position()) < min_dist2D) {
@@ -232,7 +230,7 @@ export class HeliFire {
       index = index + 1;
     }
 
-    const actor: game_object = registry.actor;
+    const actor: ClientObject = registry.actor;
 
     if ((heli.isVisible(actor) && randomChoice(false, true)) || registry.helicopter.enemyIndex === 0) {
       if (distanceBetween2d(this.object.position(), actor.position()) <= min_dist2D * 2) {
@@ -242,7 +240,7 @@ export class HeliFire {
   }
 }
 
-export function get_heli_firer(object: game_object): HeliFire {
+export function get_heli_firer(object: ClientObject): HeliFire {
   if (heli_firer.get(object.id()) === null) {
     heli_firer.set(object.id(), new HeliFire(object));
   }

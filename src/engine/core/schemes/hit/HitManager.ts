@@ -1,11 +1,9 @@
-import { game_object, vector } from "xray16";
-
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils/trySwitchToAnotherSection";
 import { ISchemeHitState } from "@/engine/core/schemes/hit/ISchemeHitState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, Optional, TCount, TIndex } from "@/engine/lib/types";
+import { ClientObject, EScheme, Optional, TCount, TIndex, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -17,10 +15,10 @@ export class HitManager extends AbstractSchemeManager<ISchemeHitState> {
    * todo: Description.
    */
   public hit_callback(
-    object: game_object,
+    object: ClientObject,
     amount: TCount,
-    local_direction: vector,
-    who: Optional<game_object>,
+    local_direction: Vector,
+    who: Optional<ClientObject>,
     boneIndex: TIndex
   ): void {
     // todo: Probably play around with this and avoid this external refs. this.state?

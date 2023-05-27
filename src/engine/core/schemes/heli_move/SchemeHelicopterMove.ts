@@ -1,5 +1,3 @@
-import { game_object, ini_file } from "xray16";
-
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { HelicopterMoveManager } from "@/engine/core/schemes/heli_move/HelicopterMoveManager";
@@ -7,7 +5,7 @@ import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/heli_move/ISch
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -21,7 +19,7 @@ export class SchemeHelicopterMove extends AbstractScheme {
   /**
    * todo
    */
-  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemeHelicopterMoveState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -53,8 +51,8 @@ export class SchemeHelicopterMove extends AbstractScheme {
    * todo
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeHelicopterMoveState

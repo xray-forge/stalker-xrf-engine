@@ -1,20 +1,11 @@
-import {
-  action_planner,
-  alife,
-  cse_alife_creature_abstract,
-  danger_object,
-  LuabindClass,
-  property_evaluator,
-  stalker_ids,
-  time_global,
-} from "xray16";
+import { alife, danger_object, LuabindClass, property_evaluator, stalker_ids, time_global } from "xray16";
 
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ISchemeDangerState } from "@/engine/core/schemes/danger";
 import { SchemeDanger } from "@/engine/core/schemes/danger/SchemeDanger";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { Optional } from "@/engine/lib/types";
+import { ActionPlanner, DangerObject, Optional, ServerCreatureObject } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -24,7 +15,7 @@ export class EvaluatorDanger extends property_evaluator {
   private readonly state: ISchemeDangerState;
   private readonly schemeDanger: typeof SchemeDanger;
 
-  public actionPlanner: Optional<action_planner> = null;
+  public actionPlanner: Optional<ActionPlanner> = null;
 
   public constructor(state: ISchemeDangerState, schemeDanger: typeof SchemeDanger) {
     super(null, EvaluatorDanger.__name);
@@ -40,7 +31,7 @@ export class EvaluatorDanger extends property_evaluator {
       this.actionPlanner = this.object.motivation_action_manager();
     }
 
-    const bestDanger: danger_object = this.object.best_danger() as danger_object;
+    const bestDanger: DangerObject = this.object.best_danger() as DangerObject;
 
     if (
       this.state.danger_time !== null &&
@@ -65,7 +56,7 @@ export class EvaluatorDanger extends property_evaluator {
       this.state.danger_time = bestDanger.time();
     }
 
-    const serverObject: Optional<cse_alife_creature_abstract> = alife().object(this.object.id());
+    const serverObject: Optional<ServerCreatureObject> = alife().object(this.object.id());
 
     if (serverObject && serverObject.m_smart_terrain_id !== MAX_U16) {
       alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!.startAlarm();

@@ -1,13 +1,4 @@
-import {
-  action_base,
-  action_planner,
-  cast_planner,
-  danger_object,
-  game_object,
-  ini_file,
-  stalker_ids,
-  TXR_danger_object,
-} from "xray16";
+import { cast_planner, danger_object, game_object, stalker_ids } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
@@ -20,7 +11,21 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities } from "@/engine/lib/constants/communities";
-import { EScheme, ESchemeType, Optional, TDistance, TName, TSection, TTimestamp } from "@/engine/lib/types";
+import {
+  ActionBase,
+  ActionPlanner,
+  ClientObject,
+  DangerObject,
+  EScheme,
+  ESchemeType,
+  IniFile,
+  Optional,
+  TDangerType,
+  TDistance,
+  TName,
+  TSection,
+  TTimestamp,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -34,7 +39,7 @@ export class SchemeDanger extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     AbstractScheme.assign(object, ini, scheme, section);
   }
 
@@ -42,15 +47,15 @@ export class SchemeDanger extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeDangerState
   ): void {
-    const actionPlanner: action_planner = object.motivation_action_manager();
-    const dangerAction: action_base = actionPlanner.action(stalker_ids.action_danger_planner);
-    const dangerActionPlanner: action_planner = cast_planner(dangerAction);
+    const actionPlanner: ActionPlanner = object.motivation_action_manager();
+    const dangerAction: ActionBase = actionPlanner.action(stalker_ids.action_danger_planner);
+    const dangerActionPlanner: ActionPlanner = cast_planner(dangerAction);
 
     actionPlanner.remove_evaluator(stalker_ids.property_danger);
     actionPlanner.add_evaluator(stalker_ids.property_danger, new EvaluatorDanger(state, this));
@@ -63,7 +68,7 @@ export class SchemeDanger extends AbstractScheme {
    * todo: Description.
    */
   public static override reset(
-    object: game_object,
+    object: ClientObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
@@ -72,15 +77,15 @@ export class SchemeDanger extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static isObjectFacingDanger(object: game_object): boolean {
-    const bestDanger: Optional<danger_object> = object.best_danger();
+  public static isObjectFacingDanger(object: ClientObject): boolean {
+    const bestDanger: Optional<DangerObject> = object.best_danger();
 
     if (bestDanger === null) {
       return false;
     }
 
-    let bestDangerObject: Optional<game_object> = bestDanger.object();
-    const bestDangerType: TXR_danger_object = bestDanger.type();
+    let bestDangerObject: Optional<ClientObject> = bestDanger.object();
+    const bestDangerType: TDangerType = bestDanger.type();
 
     if (bestDangerType !== danger_object.grenade && bestDanger.dependent_object() !== null) {
       bestDangerObject = bestDanger.dependent_object();

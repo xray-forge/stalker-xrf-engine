@@ -1,4 +1,4 @@
-import { action_planner, game_object, ini_file, stalker_ids } from "xray16";
+import { stalker_ids } from "xray16";
 
 import { IRegistryObjectState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
@@ -6,7 +6,7 @@ import { EvaluatorGatherItems } from "@/engine/core/schemes/gather_items/evaluat
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/gather_items/ISchemeGatherItemsState";
 import { readIniBoolean } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
+import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -20,7 +20,7 @@ export class SchemeGatherItems extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     AbstractScheme.assign(object, ini, scheme, section);
   }
 
@@ -28,13 +28,13 @@ export class SchemeGatherItems extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeGatherItemsState
   ): void {
-    const actionPlanner: action_planner = object.motivation_action_manager();
+    const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
     actionPlanner.remove_evaluator(stalker_ids.property_items);
     actionPlanner.add_evaluator(stalker_ids.property_items, new EvaluatorGatherItems(state));
@@ -44,7 +44,7 @@ export class SchemeGatherItems extends AbstractScheme {
    * todo: Description.
    */
   public static override reset(
-    object: game_object,
+    object: ClientObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection

@@ -1,4 +1,4 @@
-import { CHelicopter, game_object, ini_file, level, net_packet, reader, system_ini, time_global, vector } from "xray16";
+import { CHelicopter, level, system_ini, time_global, vector } from "xray16";
 
 import {
   closeLoadMarker,
@@ -18,7 +18,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, IniFile, NetPacket, Optional, Reader, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -37,7 +37,7 @@ const round_shoot_delay = 2000;
 const dummy_vector = new vector();
 
 export class HeliCombat {
-  public readonly object: game_object;
+  public readonly object: ClientObject;
   public readonly heliObject: CHelicopter;
   public readonly st: IRegistryObjectState;
 
@@ -86,13 +86,13 @@ export class HeliCombat {
 
   public combat_type!: number;
   public enemy_id: Optional<number> = null;
-  public enemy: Optional<game_object> = null;
-  public enemy_last_seen_pos: Optional<vector> = null;
+  public enemy: Optional<ClientObject> = null;
+  public enemy_last_seen_pos: Optional<Vector> = null;
   public enemy_last_seen_time: Optional<number> = null;
   public enemy_last_spot_time: Optional<number> = null;
   public change_combat_type_time: Optional<number> = null;
   public flight_direction!: boolean;
-  public center_pos!: vector;
+  public center_pos!: Vector;
   public speed_is_0!: boolean;
 
   public change_dir_time!: number;
@@ -103,7 +103,7 @@ export class HeliCombat {
 
   public state!: number;
 
-  public constructor(object: game_object, heliObject: CHelicopter) {
+  public constructor(object: ClientObject, heliObject: CHelicopter) {
     this.st = registry.objects.get(object.id());
     this.object = object;
     this.heliObject = heliObject;
@@ -111,7 +111,7 @@ export class HeliCombat {
 
     this.level_max_y = level.get_bounding_volume().max.y;
 
-    const ltx: ini_file = system_ini();
+    const ltx: IniFile = system_ini();
 
     this.flyby_attack_dist = readIniNumber(ltx, "helicopter", "flyby_attack_dist", true);
     this.search_attack_dist = readIniNumber(ltx, "helicopter", "search_attack_dist", true);
@@ -138,7 +138,7 @@ export class HeliCombat {
     this.section_changed = false;
   }
 
-  public read_custom_data(ini: ini_file, section: string): void {
+  public read_custom_data(ini: IniFile, section: string): void {
     this.combat_use_rocket = readIniBoolean(ini, section, "combat_use_rocket", false, true);
     this.combat_use_mgun = readIniBoolean(ini, section, "combat_use_mgun", false, true);
 
@@ -216,7 +216,7 @@ export class HeliCombat {
     this.initialized = true;
   }
 
-  public save(packet: net_packet): void {
+  public save(packet: NetPacket): void {
     openSaveMarker(packet, HeliCombat.name);
 
     if (isLevelChanging()) {
@@ -252,7 +252,7 @@ export class HeliCombat {
     closeSaveMarker(packet, HeliCombat.name);
   }
 
-  public load(reader: reader): void {
+  public load(reader: Reader): void {
     openLoadMarker(reader, HeliCombat.name);
 
     this.initialized = reader.r_bool();
@@ -460,7 +460,7 @@ export class HeliCombat {
     return true;
   }
 
-  public calc_position_in_radius(r: number): vector {
+  public calc_position_in_radius(r: number): Vector {
     const p = this.object.position();
 
     p.y = 0;
@@ -766,7 +766,7 @@ export class HeliCombat {
   }
 }
 
-export function cross_ray_circle(p: vector, v: vector, o: vector, r: number): vector {
+export function cross_ray_circle(p: Vector, v: Vector, o: Vector, r: number): Vector {
   const po = new vector().set(o).sub(p);
   const vperp = new vector().set(-v.z, 0, v.x);
   const l = math.sqrt(r ** 2 - new vector().set(po).dotproduct(vperp) ** 2);

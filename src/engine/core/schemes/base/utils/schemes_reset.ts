@@ -1,9 +1,7 @@
-import { game_object } from "xray16";
-
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base/AbstractScheme";
 import { abort } from "@/engine/core/utils/assertion";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, Optional } from "@/engine/lib/types";
 import { EScheme, TSection } from "@/engine/lib/types/scheme";
 
 /**
@@ -11,7 +9,7 @@ import { EScheme, TSection } from "@/engine/lib/types/scheme";
  */
 export function resetScheme(
   scheme: EScheme,
-  object: game_object,
+  object: ClientObject,
   schemeToSwitch: EScheme,
   state: IRegistryObjectState,
   section: TSection

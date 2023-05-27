@@ -1,12 +1,10 @@
-import { game_object, ini_file } from "xray16";
-
 import { IStoredOfflineObject, registry } from "@/engine/core/database";
 import { IBaseSchemeLogic } from "@/engine/core/schemes/base";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniConditionList } from "@/engine/core/utils/ini/getters";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, IniFile, Optional } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 /**
@@ -18,10 +16,10 @@ import { TSection } from "@/engine/lib/types/scheme";
  * @returns section to activate
  */
 export function getObjectSectionToActivate(
-  object: game_object,
-  ini: ini_file,
+  object: ClientObject,
+  ini: IniFile,
   sectionLogic: TSection,
-  actor: game_object
+  actor: ClientObject
 ): TSection {
   if (!ini.section_exist(sectionLogic)) {
     return NIL;

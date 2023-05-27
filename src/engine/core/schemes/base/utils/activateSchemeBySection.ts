@@ -1,4 +1,4 @@
-import { game, game_object, ini_file, time_global } from "xray16";
+import { game, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
@@ -11,7 +11,7 @@ import { getSchemeByIniSection } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { ClientObject, IniFile, Optional, TNumberId } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -23,8 +23,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo
  */
 export function activateSchemeBySection(
-  object: game_object,
-  ini: ini_file,
+  object: ClientObject,
+  ini: IniFile,
   section: TSection,
   additional: Optional<string>,
   loading: boolean

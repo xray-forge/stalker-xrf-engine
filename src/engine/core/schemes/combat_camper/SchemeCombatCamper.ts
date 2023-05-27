@@ -1,4 +1,4 @@
-import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
+import { stalker_ids, world_property } from "xray16";
 
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
@@ -6,7 +6,7 @@ import { ActionLookAround, ActionShoot } from "@/engine/core/schemes/combat_camp
 import { EvaluatorCombatCamper, EvaluatorSee } from "@/engine/core/schemes/combat_camper/evaluator";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
+import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -22,12 +22,12 @@ export class SchemeCombatCamper extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeCombatState,
-    planner?: action_planner
+    planner?: ActionPlanner
   ): void {
     if (!planner) {
       abort("Expected planner to be provided for add method call.");

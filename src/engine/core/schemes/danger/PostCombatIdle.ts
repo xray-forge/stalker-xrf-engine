@@ -1,10 +1,11 @@
-import { action_base, action_planner, cast_planner, game_object, stalker_ids, world_property } from "xray16";
+import { cast_planner, stalker_ids, world_property } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { ActionPostCombatIdleWait } from "@/engine/core/schemes/danger/actions";
 import { EvaluatorPostCombatIdleEnemy } from "@/engine/core/schemes/danger/evaluators";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/danger/ISchemePostCombatIdleState";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { ActionBase, ActionPlanner, ClientObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -15,12 +16,12 @@ export class PostCombatIdle {
   /**
    * todo: Description.
    */
-  public static addPostCombatIdleWait(object: game_object): void {
+  public static addPostCombatIdleWait(object: ClientObject): void {
     logger.info("Add post-combat idle for:", object.name());
 
-    const actionPlanner: action_planner = object.motivation_action_manager();
-    const combatAction: action_base = actionPlanner.action(stalker_ids.action_combat_planner);
-    const combatActionPlanner: action_planner = cast_planner(combatAction);
+    const actionPlanner: ActionPlanner = object.motivation_action_manager();
+    const combatAction: ActionBase = actionPlanner.action(stalker_ids.action_combat_planner);
+    const combatActionPlanner: ActionPlanner = cast_planner(combatAction);
 
     const state: ISchemePostCombatIdleState = {
       timer: null,

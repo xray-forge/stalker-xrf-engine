@@ -1,4 +1,4 @@
-import { game_object, level, LuabindClass, property_evaluator, vector } from "xray16";
+import { level, LuabindClass, property_evaluator } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IReleaseDescriptor, ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyManager";
@@ -6,7 +6,7 @@ import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detect
 import { isObjectWounded } from "@/engine/core/utils/check/check";
 import { isLootableItem } from "@/engine/core/utils/check/is";
 import { communities } from "@/engine/lib/constants/communities";
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { ClientObject, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -15,9 +15,6 @@ import { Optional, TNumberId } from "@/engine/lib/types";
 export class EvaluatorCorpseDetect extends property_evaluator {
   public readonly state: ISchemeCorpseDetectionState;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeCorpseDetectionState) {
     super(null, EvaluatorCorpseDetect.__name);
     this.state = state;
@@ -43,13 +40,13 @@ export class EvaluatorCorpseDetect extends property_evaluator {
 
     const corpses: LuaTable<number, IReleaseDescriptor> = ReleaseBodyManager.getInstance().releaseObjectRegistry;
 
-    let nearest_corpse_dist_sqr: number = 400;
-    let nearest_corpse_vertex: Optional<number> = null;
-    let nearest_corpse_position: Optional<vector> = null;
-    let corpse_id: Optional<number> = null;
+    let nearest_corpse_dist_sqr: TDistance = 400;
+    let nearest_corpse_vertex: Optional<TNumberId> = null;
+    let nearest_corpse_position: Optional<Vector> = null;
+    let corpse_id: Optional<TNumberId> = null;
 
     let hasValuableLoot: boolean = false;
-    const checkLoot = (npc: game_object, item: game_object) => {
+    const checkLoot = (npc: ClientObject, item: ClientObject) => {
       if (isLootableItem(item)) {
         hasValuableLoot = true;
       }
@@ -58,7 +55,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
     for (const it of $range(1, corpses.length())) {
       const id: TNumberId = corpses.get(it).id;
       const registryState: Optional<IRegistryObjectState> = registry.objects.get(id);
-      const corpseObject: Optional<game_object> = registryState !== null ? registryState.object! : null;
+      const corpseObject: Optional<ClientObject> = registryState !== null ? registryState.object! : null;
 
       if (
         corpseObject &&

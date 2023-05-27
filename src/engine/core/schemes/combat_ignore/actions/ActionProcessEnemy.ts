@@ -1,4 +1,4 @@
-import { alife, cse_alife_creature_abstract, game_object, vector } from "xray16";
+import { alife } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -10,7 +10,16 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { TRUE } from "@/engine/lib/constants/words";
-import { AnyObject, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
+import {
+  AnyObject,
+  ClientObject,
+  Optional,
+  ServerCreatureObject,
+  TCount,
+  TName,
+  TNumberId,
+  Vector,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -25,7 +34,7 @@ const ignoreSmartTerrains: LuaTable<TName, boolean> = $fromObject<TName, boolean
  * todo;
  */
 export class ActionProcessEnemy {
-  public static isEnemy(object: game_object, enemy: game_object, state: ISchemeCombatIgnoreState): boolean {
+  public static isEnemy(object: ClientObject, enemy: ClientObject, state: ISchemeCombatIgnoreState): boolean {
     if (!object.alive()) {
       return false;
     }
@@ -66,7 +75,7 @@ export class ActionProcessEnemy {
       }
     }
 
-    const serverObject: Optional<cse_alife_creature_abstract> = alife().object<cse_alife_creature_abstract>(enemy.id());
+    const serverObject: Optional<ServerCreatureObject> = alife().object(enemy.id());
 
     if (
       serverObject !== null &&
@@ -88,13 +97,13 @@ export class ActionProcessEnemy {
     return true;
   }
 
-  public readonly object: game_object;
+  public readonly object: ClientObject;
   public readonly state: ISchemeCombatIgnoreState;
 
   /**
    * todo: Description.
    */
-  public constructor(object: game_object, state: ISchemeCombatIgnoreState) {
+  public constructor(object: ClientObject, state: ISchemeCombatIgnoreState) {
     this.object = object;
     this.state = state;
   }
@@ -102,7 +111,7 @@ export class ActionProcessEnemy {
   /**
    * todo: Description.
    */
-  public enemy_callback(object: game_object, enemy: game_object): boolean {
+  public enemy_callback(object: ClientObject, enemy: ClientObject): boolean {
     if (enemy.id() === registry.actor.id()) {
       registry.actorCombat.set(object.id(), true);
     }
@@ -110,7 +119,7 @@ export class ActionProcessEnemy {
     const isObjectEnemy: boolean = ActionProcessEnemy.isEnemy(object, enemy, this.state);
 
     if (isObjectEnemy) {
-      const seObject: Optional<cse_alife_creature_abstract> = alife().object<cse_alife_creature_abstract>(object.id());
+      const seObject: Optional<ServerCreatureObject> = alife().object(object.id());
 
       /**
        * Set alarm if object is in smart zone.
@@ -125,9 +134,7 @@ export class ActionProcessEnemy {
         }
       }
 
-      const serverEnemyObject: Optional<cse_alife_creature_abstract> = alife().object<cse_alife_creature_abstract>(
-        enemy.id()
-      );
+      const serverEnemyObject: Optional<ServerCreatureObject> = alife().object(enemy.id());
 
       if (seObject && serverEnemyObject) {
         if (
@@ -149,10 +156,10 @@ export class ActionProcessEnemy {
    * todo: Description.
    */
   public hit_callback(
-    object: game_object,
+    object: ClientObject,
     amount: TCount,
-    direction: vector,
-    who: game_object,
+    direction: Vector,
+    who: ClientObject,
     boneId: TNumberId
   ): void {
     if (who === null || amount === 0) {

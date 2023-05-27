@@ -1,11 +1,8 @@
-import { game_object, ini_file } from "xray16";
-
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IBaseSchemeState } from "@/engine/core/schemes/base/IBaseSchemeState";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { NIL } from "@/engine/lib/constants/words";
-import { AnyObject, Optional, TName } from "@/engine/lib/types";
+import { AnyObject, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -25,7 +22,7 @@ export abstract class AbstractScheme {
   /**
    * todo: Description.
    */
-  public static disable(object: game_object, scheme: EScheme): void {
+  public static disable(object: ClientObject, scheme: EScheme): void {
     abort("Called not implemented 'disable' method: %s, %s.", object.name(), scheme);
   }
 
@@ -33,8 +30,8 @@ export abstract class AbstractScheme {
    * todo: Description.
    */
   public static activate(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     additional: Optional<string>
@@ -46,8 +43,8 @@ export abstract class AbstractScheme {
    * todo: Description.
    */
   protected static assign<T extends IBaseSchemeState>(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: Optional<TSection>
   ): T {
@@ -75,8 +72,8 @@ export abstract class AbstractScheme {
    * Add scheme state to client object.
    */
   public static add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     schemeState: IBaseSchemeState
@@ -87,14 +84,18 @@ export abstract class AbstractScheme {
   /**
    * todo: Description.
    */
-  public static reset(object: game_object, scheme: EScheme, state: IRegistryObjectState, section: TSection): void {
+  public static reset(object: ClientObject, scheme: EScheme, state: IRegistryObjectState, section: TSection): void {
     abort("Called not implemented 'reset' method: %s, %s, %s.", object.name(), scheme, section);
   }
 
   /**
    * todo: Description.
    */
-  public static subscribe(object: game_object, state: IBaseSchemeState, newAction: TName | AnyObject | LuaTable): void {
+  public static subscribe(
+    object: ClientObject,
+    state: IBaseSchemeState,
+    newAction: TName | AnyObject | LuaTable
+  ): void {
     if (!state.actions) {
       state.actions = new LuaTable();
     }
@@ -105,7 +106,7 @@ export abstract class AbstractScheme {
   /**
    * todo: Description.
    */
-  public static unsubscribe(object: game_object, state: IBaseSchemeState, action: AnyObject): void {
+  public static unsubscribe(object: ClientObject, state: IBaseSchemeState, action: AnyObject): void {
     if (state.actions) {
       state.actions.delete(action);
     } else {

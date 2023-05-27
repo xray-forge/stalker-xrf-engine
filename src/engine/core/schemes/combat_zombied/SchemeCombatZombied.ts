@@ -1,4 +1,4 @@
-import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
+import { stalker_ids, world_property } from "xray16";
 
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
@@ -6,6 +6,7 @@ import { ActionZombieGoToDanger, ActionZombieShoot } from "@/engine/core/schemes
 import { EvaluatorCombatZombied } from "@/engine/core/schemes/combat_zombied/evaluators";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { ActionPlanner, ClientObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -22,12 +23,12 @@ export class SchemeCombatZombied extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeCombatState,
-    planner?: action_planner
+    planner?: ActionPlanner
   ): void {
     assertDefined(planner, "Expected planner to be provided for add method call.");
 

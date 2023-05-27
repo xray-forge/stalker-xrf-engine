@@ -1,8 +1,8 @@
-import { game_object, LuabindClass, property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -22,7 +22,7 @@ export class EvaluatorSee extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    const bestEnemy: Optional<game_object> = this.object.best_enemy();
+    const bestEnemy: Optional<ClientObject> = this.object.best_enemy();
 
     if (bestEnemy !== null && this.object.alive() && this.object.see(bestEnemy)) {
       // Side effect of evaluator.

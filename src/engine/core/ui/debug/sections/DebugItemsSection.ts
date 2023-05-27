@@ -16,7 +16,7 @@ import { food } from "@/engine/lib/constants/items/food";
 import { helmets } from "@/engine/lib/constants/items/helmets";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { Optional, TPath, TSection } from "@/engine/lib/types";
+import { Optional, TPath, TSection, Vector2D } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugItemsSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -37,9 +37,9 @@ enum EItemCategory {
 export class DebugItemsSection extends AbstractDebugSection {
   public categoriesList!: CUIComboBox;
   public itemsList!: CUIListBox<DebugItemListEntry>;
-  public itemListMainSize!: vector2;
-  public itemListNameSize!: vector2;
-  public itemListDdSize!: vector2;
+  public itemListMainSize!: Vector2D;
+  public itemListNameSize!: Vector2D;
+  public itemListDdSize!: Vector2D;
   public itemSpawnButton!: CUI3tButton;
 
   public initializeControls(): void {

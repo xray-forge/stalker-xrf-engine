@@ -1,7 +1,5 @@
-import { vector } from "xray16";
-
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { TNumberId } from "@/engine/lib/types";
+import { TNumberId, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -9,6 +7,6 @@ import { TNumberId } from "@/engine/lib/types";
 export interface ISchemeHelpWoundedState extends IBaseSchemeState {
   help_wounded_enabled: boolean;
   vertex_id: TNumberId;
-  vertex_position: vector;
+  vertex_position: Vector;
   selected_id: TNumberId;
 }

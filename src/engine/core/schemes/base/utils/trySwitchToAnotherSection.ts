@@ -1,4 +1,4 @@
-import { game, game_object, level, time_global } from "xray16";
+import { game, level, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes";
@@ -10,7 +10,16 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorSeenByObject } from "@/engine/core/utils/object";
 import { getDistanceBetween } from "@/engine/core/utils/vector";
 import { NIL } from "@/engine/lib/constants/words";
-import { LuaArray, Optional, TDistance, TDuration, TName, TNumberId, TTimestamp } from "@/engine/lib/types";
+import {
+  ClientObject,
+  LuaArray,
+  Optional,
+  TDistance,
+  TDuration,
+  TName,
+  TNumberId,
+  TTimestamp,
+} from "@/engine/lib/types";
 import { ESchemeCondition } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -20,7 +29,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 const SCHEME_LOGIC_SWITCH: Record<
   ESchemeCondition | typeof NIL,
-  (actor: game_object, object: game_object, state: IBaseSchemeState, logic: IBaseSchemeLogic) => boolean
+  (actor: ClientObject, object: ClientObject, state: IBaseSchemeState, logic: IBaseSchemeLogic) => boolean
 > = {
   [NIL]: () => abort("WARNING: try_switch_to_another_section: unknown condition encountered"),
   [ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN]: (actor, object, state, logic) =>
@@ -77,9 +86,9 @@ const SCHEME_LOGIC_SWITCH: Record<
  * todo;
  */
 export function trySwitchToAnotherSection(
-  object: game_object,
+  object: ClientObject,
   state: IBaseSchemeState,
-  actor: Optional<game_object>
+  actor: Optional<ClientObject>
 ): boolean {
   const logic: Optional<LuaArray<IBaseSchemeLogic>> = state.logic;
 

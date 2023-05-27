@@ -4,6 +4,7 @@ import {
   alife_simulator,
   CALifeSmartTerrainTask,
   CGameTask,
+  cover_point,
   CPhrase,
   CPhraseDialog,
   CPhraseScript,
@@ -21,6 +22,7 @@ import {
   CTime,
   CUIGameCustom,
   CZoneCampfire,
+  danger_object,
   entity_action,
   flags32,
   FS_file_list_ex,
@@ -38,6 +40,7 @@ import {
   sound_object,
   TXR_animation,
   TXR_class_id,
+  TXR_danger_object,
   TXR_entity_action,
   TXR_look,
   TXR_move,
@@ -48,6 +51,7 @@ import {
   TXR_sound_object_type,
   TXR_TaskState,
   vector,
+  vector2,
   world_state,
 } from "xray16";
 
@@ -57,6 +61,8 @@ export type ActionPlanner = action_planner;
 export type AlifeSimulator = alife_simulator;
 export type AnyGameObject = game_object | cse_alife_object;
 export type ClientObject = game_object;
+export type CoverPoint = cover_point;
+export type DangerObject = danger_object;
 export type EntityAction = entity_action;
 export type FSFileList = FS_file_list_ex;
 export type Flags32 = flags32;
@@ -89,6 +95,7 @@ export type ServerPhysicObject = cse_alife_object_physic;
 export type SoundObject = sound_object;
 export type TAnimationType = TXR_animation;
 export type TClassId = TXR_class_id;
+export type TDangerType = TXR_danger_object;
 export type TEntityActionType = TXR_entity_action;
 export type TLookType = TXR_look;
 export type TMoveType = TXR_move;
@@ -99,6 +106,7 @@ export type TSoundType = TXR_snd_type;
 export type TTaskState = TXR_TaskState;
 export type Time = CTime;
 export type Vector = vector;
+export type Vector2D = vector2;
 export type WorldState = world_state;
 export type XmlInit = CScriptXmlInit;
 export type ZoneCampfire = CZoneCampfire;

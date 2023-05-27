@@ -1,5 +1,3 @@
-import { game_object, ini_file, TXR_snd_type, vector } from "xray16";
-
 import { getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes";
 import { switchObjectSchemeToSection } from "@/engine/core/schemes/base/utils";
@@ -10,8 +8,10 @@ import { parseConditionsList, parseParameters } from "@/engine/core/utils/parse"
 import { mapSndTypeToSoundType } from "@/engine/core/utils/sound";
 import { ESoundType } from "@/engine/lib/constants/sound/sound_type";
 import {
+  ClientObject,
   EScheme,
   ESchemeType,
+  IniFile,
   LuaArray,
   Optional,
   TCount,
@@ -20,7 +20,9 @@ import {
   TNumberId,
   TRate,
   TSection,
+  TSoundType,
   TStringId,
+  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -34,12 +36,12 @@ export class ActionSchemeHear extends AbstractScheme {
    * todo: Description.
    */
   public static override reset(
-    object: game_object,
+    object: ClientObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
   ): void {
-    const ini: ini_file = state.ini;
+    const ini: IniFile = state.ini;
 
     if (!ini.section_exist(section)) {
       return;
@@ -69,10 +71,10 @@ export class ActionSchemeHear extends AbstractScheme {
    * todo: Description.
    */
   public static onObjectHearSound(
-    object: game_object,
+    object: ClientObject,
     whoId: TNumberId,
-    soundType: TXR_snd_type,
-    soundPosition: vector,
+    soundType: TSoundType,
+    soundPosition: Vector,
     soundPower: TRate
   ): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());

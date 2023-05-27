@@ -1,4 +1,4 @@
-import { action_base, cover_point, game_object, level, LuabindClass, vector } from "xray16";
+import { action_base, game_object, level, LuabindClass, vector } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -7,7 +7,7 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { areSameVectors } from "@/engine/core/utils/vector";
-import { Optional, TDistance } from "@/engine/lib/types";
+import { CoverPoint, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -17,9 +17,9 @@ export class ActionBaseCover extends action_base {
   public readonly state: ISchemeCoverState;
   public board!: SimulationBoardManager;
 
-  public enemy_random_position: Optional<vector> = null;
-  public cover_vertex_id!: number;
-  public cover_position!: vector;
+  public enemy_random_position: Optional<Vector> = null;
+  public cover_vertex_id!: TNumberId;
+  public cover_position!: Vector;
 
   public constructor(state: ISchemeCoverState) {
     super(null, ActionBaseCover.__name);
@@ -53,7 +53,7 @@ export class ActionBaseCover extends action_base {
 
     this.enemy_random_position = this_random_position;
 
-    let cover: Optional<cover_point> = null;
+    let cover: Optional<CoverPoint> = null;
     let cover_dist: TDistance = 2;
 
     while (cover === null && cover_dist <= 4) {

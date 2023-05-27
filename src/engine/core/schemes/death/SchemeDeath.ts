@@ -1,5 +1,3 @@
-import { game_object, ini_file } from "xray16";
-
 import { IRegistryObjectState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { DeathManager } from "@/engine/core/schemes/death/DeathManager";
@@ -8,7 +6,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
-import { EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -22,7 +20,7 @@ export class SchemeDeath extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     AbstractScheme.assign(object, ini, scheme, section);
   }
 
@@ -30,8 +28,8 @@ export class SchemeDeath extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeDeathState
@@ -43,7 +41,7 @@ export class SchemeDeath extends AbstractScheme {
    * todo: Description.
    */
   public static override reset(
-    object: game_object,
+    object: ClientObject,
     scheme: EScheme,
     objectState: IRegistryObjectState,
     section: TSection

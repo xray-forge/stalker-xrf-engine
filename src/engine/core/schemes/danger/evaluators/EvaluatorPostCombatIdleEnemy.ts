@@ -1,4 +1,4 @@
-import { game_object, LuabindClass, property_evaluator, time_global } from "xray16";
+import { LuabindClass, property_evaluator, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
@@ -6,7 +6,7 @@ import { ActionProcessEnemy } from "@/engine/core/schemes/combat_ignore/actions/
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/danger/ISchemePostCombatIdleState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { EScheme, Optional } from "@/engine/lib/types";
+import { ClientObject, EScheme, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -30,7 +30,7 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    const bestEnemy: Optional<game_object> = this.object.best_enemy();
+    const bestEnemy: Optional<ClientObject> = this.object.best_enemy();
 
     if (
       bestEnemy !== null &&

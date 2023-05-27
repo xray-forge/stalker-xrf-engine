@@ -1,21 +1,21 @@
-import { CHelicopter, game_object, vector } from "xray16";
+import { CHelicopter, vector } from "xray16";
 
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, Optional, Vector } from "@/engine/lib/types";
 
 const heli_flyer: LuaTable<number, HeliFly> = new LuaTable();
 
 export class HeliFly {
-  public object: game_object;
-  public point_by_look: vector;
+  public object: ClientObject;
+  public point_by_look: Vector;
   public block_flook: boolean;
   public dist_by_look: number;
   public heliLAccFW: number;
   public heliLAccBW: number;
   public max_velocity: number;
-  public dest_point: Optional<vector>;
-  public point_arr: LuaTable<number, vector>;
+  public dest_point: Optional<Vector>;
+  public point_arr: LuaTable<number, Vector>;
 
-  public constructor(object: game_object) {
+  public constructor(object: ClientObject) {
     this.object = object;
     this.block_flook = false;
     this.dist_by_look = 0;
@@ -28,21 +28,21 @@ export class HeliFly {
   }
 
   public fly_on_point_with_vector(
-    dest_point: vector,
-    dest_direction: vector,
+    dest_point: Vector,
+    dest_direction: Vector,
     dest_velocity: number,
     flag_to_wp_callback: boolean,
     flag_by_null_velocity: boolean
   ): boolean {
     const heli: CHelicopter = this.object.get_helicopter();
-    const curr_heli_position: vector = this.object.position();
-    const curr_heli_direction: vector = this.object.direction();
+    const curr_heli_position: Vector = this.object.position();
+    const curr_heli_direction: Vector = this.object.direction();
     const curr_heli_velocity: number = heli.GetCurrVelocity();
 
     dest_velocity = (dest_velocity * 1000) / 3600;
     if (!flag_to_wp_callback) {
       let time_by_fly: number = 0;
-      let rez_point: vector = new vector().set(0, 0, 0);
+      let rez_point: Vector = new vector().set(0, 0, 0);
       let a_speed = 0;
       let d_path: number;
 
@@ -97,7 +97,7 @@ export class HeliFly {
     return this.block_flook;
   }
 
-  public calc_point(): vector {
+  public calc_point(): Vector {
     const rez_point = new vector().set(0, 0, 0);
     const xxArr: LuaTable<number, number> = new LuaTable();
 
@@ -185,12 +185,12 @@ export class HeliFly {
     this.block_flook = fl_block;
   }
 
-  public set_look_point(l_point: vector): void {
+  public set_look_point(l_point: Vector): void {
     this.point_by_look = l_point;
   }
 }
 
-export function get_heli_flyer(object: game_object): HeliFly {
+export function get_heli_flyer(object: ClientObject): HeliFly {
   if (heli_flyer.get(object.id()) === null) {
     heli_flyer.set(object.id(), new HeliFly(object));
   }

@@ -7,7 +7,7 @@ import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/c
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { chance } from "@/engine/core/utils/number";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
-import { Optional, TNumberId, TRate, TTimestamp } from "@/engine/lib/types";
+import { ClientObject, Optional, TNumberId, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -25,10 +25,10 @@ export class ActionZombieShoot extends action_base {
   public wasHit: boolean = false;
 
   public enemyLastSeenVertexId!: TNumberId;
-  public enemyLastSeenPosition: Optional<vector> = null;
+  public enemyLastSeenPosition: Optional<Vector> = null;
   public enemyLastVertexId: Optional<TNumberId> = null;
   public enemyLastAccessibleVertexId: Optional<TNumberId> = null;
-  public enemyLastAccessiblePosition: Optional<vector> = null;
+  public enemyLastAccessiblePosition: Optional<Vector> = null;
 
   public hitReactionEndTime: TTimestamp = 0;
   public turnTime: TTimestamp = 0;
@@ -55,7 +55,7 @@ export class ActionZombieShoot extends action_base {
 
     this.previousState = null;
 
-    const bestEnemy: game_object = this.object.best_enemy() as game_object;
+    const bestEnemy: ClientObject = this.object.best_enemy() as ClientObject;
 
     this.enemyLastSeenPosition = bestEnemy.position();
     this.enemyLastSeenVertexId = bestEnemy.level_vertex_id();
@@ -75,7 +75,7 @@ export class ActionZombieShoot extends action_base {
   public override execute(): void {
     super.execute();
 
-    const bestEnemy: Optional<game_object> = this.object.best_enemy()!;
+    const bestEnemy: Optional<ClientObject> = this.object.best_enemy()!;
     const isBestEnemyVisible: boolean = this.object.see(bestEnemy);
 
     if (isBestEnemyVisible) {
@@ -145,7 +145,7 @@ export class ActionZombieShoot extends action_base {
   /**
    * todo: Description.
    */
-  public setState(state: EStalkerState, bestEnemy: Optional<game_object>, position: Optional<vector>): void {
+  public setState(state: EStalkerState, bestEnemy: Optional<ClientObject>, position: Optional<Vector>): void {
     this.targetStateDescriptor.look_object = bestEnemy;
     this.targetStateDescriptor.look_position = bestEnemy ? this.enemyLastSeenPosition : position;
 
@@ -157,9 +157,9 @@ export class ActionZombieShoot extends action_base {
   /**
    * todo: Description.
    */
-  public getRandomLookDirection(): vector {
+  public getRandomLookDirection(): Vector {
     const angle: TRate = math.pi * 2 * math.random();
-    const lookPosition: vector = new vector().set(this.object.position());
+    const lookPosition: Vector = new vector().set(this.object.position());
 
     lookPosition.x = lookPosition.x + math.cos(angle);
     lookPosition.z = lookPosition.z + math.sin(angle);
@@ -178,13 +178,19 @@ export class ActionZombieShoot extends action_base {
   /**
    * todo: Description.
    */
-  public hit_callback(object: game_object, amount: TRate, direction: vector, who: game_object, bone_id: number): void {
+  public hit_callback(
+    object: ClientObject,
+    amount: TRate,
+    direction: Vector,
+    who: ClientObject,
+    bone_id: number
+  ): void {
     if (who === null) {
       return;
     }
 
     if (this.state.currentAction === EZombieCombatAction.SHOOT) {
-      const bestEnemy: Optional<game_object> = this.object?.best_enemy();
+      const bestEnemy: Optional<ClientObject> = this.object?.best_enemy();
 
       if (bestEnemy && bestEnemy.id() === who.id()) {
         this.wasHit = true;

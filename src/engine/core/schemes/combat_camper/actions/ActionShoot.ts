@@ -14,9 +14,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class ActionShoot extends action_base {
   public readonly state: ISchemeCombatState;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeCombatState) {
     super(null, ActionShoot.__name);
     this.state = state;

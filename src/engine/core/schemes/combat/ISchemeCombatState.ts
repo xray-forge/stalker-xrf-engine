@@ -1,7 +1,5 @@
-import { vector } from "xray16";
-
 import type { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { AnyObject, Optional } from "@/engine/lib/types";
+import { AnyObject, Optional, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -25,7 +23,7 @@ export interface ISchemeCombatState extends IBaseSchemeState {
   enabled: boolean;
   combat_type: Optional<AnyObject>;
   isCamperCombatAction: Optional<boolean>;
-  last_seen_pos: Optional<vector>;
+  last_seen_pos: Optional<Vector>;
   script_combat_type: Optional<EScriptCombatType>;
   currentAction: Optional<EZombieCombatAction>;
 }

@@ -1,4 +1,4 @@
-import { action_planner, alife, game_object, ini_file, stalker_ids, world_property } from "xray16";
+import { alife, stalker_ids, world_property } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -10,7 +10,7 @@ import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { readIniBoolean } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { ActionPlanner, ClientObject, IniFile, Optional, TNumberId } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -25,7 +25,7 @@ export class SchemeHelpWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: Optional<TSection>) {
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: Optional<TSection>) {
     AbstractScheme.assign(object, ini, scheme, section);
   }
 
@@ -33,13 +33,13 @@ export class SchemeHelpWounded extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeHelpWoundedState
   ): void {
-    const actionPlanner: action_planner = object.motivation_action_manager();
+    const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(EEvaluatorId.IS_WOUNDED_EXISTING, new EvaluatorWoundedExist(state));
 
@@ -63,7 +63,7 @@ export class SchemeHelpWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override reset(object: game_object, scheme: EScheme, state: IRegistryObjectState, section: TSection) {
+  public static override reset(object: ClientObject, scheme: EScheme, state: IRegistryObjectState, section: TSection) {
     (state[SchemeHelpWounded.SCHEME_SECTION] as ISchemeHelpWoundedState).help_wounded_enabled = readIniBoolean(
       state.ini!,
       section,
@@ -76,8 +76,8 @@ export class SchemeHelpWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static isUnderHelpWounded(object: game_object): boolean {
-    const actionManager: action_planner = object.motivation_action_manager();
+  public static isUnderHelpWounded(object: ClientObject): boolean {
+    const actionManager: ActionPlanner = object.motivation_action_manager();
 
     if (!actionManager.initialized()) {
       return false;
@@ -89,10 +89,10 @@ export class SchemeHelpWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static helpWounded(object: game_object): void {
+  public static helpWounded(object: ClientObject): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());
     const selectedId: TNumberId = (state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState).selected_id;
-    const selectedObject: Optional<game_object> =
+    const selectedObject: Optional<ClientObject> =
       registry.objects.get(selectedId) && registry.objects.get(selectedId).object!;
 
     if (selectedObject === null) {

@@ -1,4 +1,4 @@
-import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
+import { stalker_ids, world_property } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -9,7 +9,7 @@ import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detect
 import { isLootableItem } from "@/engine/core/utils/check/is";
 import { readIniBoolean } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { ActionPlanner, ClientObject, IniFile, Optional, TNumberId } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -25,8 +25,8 @@ export class SchemeCorpseDetection extends AbstractScheme {
    * todo: Description.
    */
   public static override activate(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: Optional<TSection>
   ): void {
@@ -37,13 +37,13 @@ export class SchemeCorpseDetection extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeCorpseDetectionState
   ): void {
-    const manager: action_planner = object.motivation_action_manager();
+    const manager: ActionPlanner = object.motivation_action_manager();
 
     // Evaluators
     manager.add_evaluator(EEvaluatorId.IS_CORPSE_EXISTING, new EvaluatorCorpseDetect(state));
@@ -74,7 +74,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
    * todo: Description.
    */
   public static override reset(
-    object: game_object,
+    object: ClientObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
@@ -91,7 +91,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static isUnderCorpseDetection(object: game_object): boolean {
+  public static isUnderCorpseDetection(object: ClientObject): boolean {
     const manager = object.motivation_action_manager();
 
     if (!manager.initialized()) {
@@ -104,11 +104,11 @@ export class SchemeCorpseDetection extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static getAllFromCorpse(object: game_object): void {
+  public static getAllFromCorpse(object: ClientObject): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());
     const corpseObjectId: Optional<TNumberId> = (state[EScheme.CORPSE_DETECTION] as ISchemeCorpseDetectionState)
       .selected_corpse_id;
-    const corpseObject: Optional<game_object> =
+    const corpseObject: Optional<ClientObject> =
       corpseObjectId === null ? null : registry.objects.get(corpseObjectId)?.object;
 
     if (corpseObject === null) {

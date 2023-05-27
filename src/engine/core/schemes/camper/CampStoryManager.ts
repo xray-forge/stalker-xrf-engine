@@ -1,4 +1,4 @@
-import { game_object, ini_file, time_global, vector } from "xray16";
+import { time_global } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -14,7 +14,17 @@ import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseStringsList } from "@/engine/core/utils/parse";
-import { EScheme, LuaArray, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
+import {
+  ClientObject,
+  EScheme,
+  IniFile,
+  LuaArray,
+  Optional,
+  TCount,
+  TName,
+  TNumberId,
+  Vector,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -34,7 +44,7 @@ export class CampStoryManager {
   /**
    * todo: Description.
    */
-  public static getCurrentCamp(position: Optional<vector>): Optional<CampStoryManager> {
+  public static getCurrentCamp(position: Optional<Vector>): Optional<CampStoryManager> {
     if (position === null) {
       return null;
     }
@@ -52,7 +62,7 @@ export class CampStoryManager {
   /**
    * todo: Description.
    */
-  public static start_guitar(object: game_object): void {
+  public static start_guitar(object: ClientObject): void {
     const campId: Optional<TNumberId> = registry.objects.get(object.id()).registred_camp;
 
     if (campId === null) {
@@ -70,7 +80,7 @@ export class CampStoryManager {
   /**
    * todo: Description.
    */
-  public static start_harmonica(object: game_object): void {
+  public static start_harmonica(object: ClientObject): void {
     const campId: Optional<TNumberId> = registry.objects.get(object.id()).registred_camp;
 
     if (campId === null) {
@@ -85,8 +95,8 @@ export class CampStoryManager {
     camp.sound_manager.update();
   }
 
-  public object: game_object;
-  public ini: ini_file;
+  public object: ClientObject;
+  public ini: IniFile;
 
   public story_table: LuaTable<number, string>;
   public guitar_table: LuaTable<number, string>;
@@ -120,7 +130,7 @@ export class CampStoryManager {
   /**
    * todo: Description.
    */
-  public constructor(object: game_object, ini: ini_file) {
+  public constructor(object: ClientObject, ini: IniFile) {
     this.object = object;
     this.ini = ini;
 
@@ -296,7 +306,7 @@ export class CampStoryManager {
       if (state !== null) {
         const schemeState: Optional<ISchemeAnimpointState> =
           state.active_scheme && (state[state.active_scheme] as ISchemeAnimpointState);
-        const object: Optional<game_object> = state.object;
+        const object: Optional<ClientObject> = state.object;
 
         if (
           info[this.active_state] === EObjectRole.director &&
@@ -460,7 +470,7 @@ function sr_camp_guitar_precondition(campStoryManager: CampStoryManager): boolea
         const schemeState: Optional<ISchemeAnimpointState> = state?.active_scheme
           ? (state[state.active_scheme] as ISchemeAnimpointState)
           : null;
-        const object: Optional<game_object> = state?.object;
+        const object: Optional<ClientObject> = state?.object;
 
         if (
           objectInfo.guitar === EObjectRole.director &&
@@ -486,7 +496,7 @@ function sr_camp_story_precondition(campStoryManager: CampStoryManager): boolean
     let count: TCount = 0;
 
     for (const [k, v] of campStoryManager.npc) {
-      const object: Optional<game_object> = registry.objects.get(k)?.object;
+      const object: Optional<ClientObject> = registry.objects.get(k)?.object;
 
       if (object !== null && !isObjectMeeting(object)) {
         count = count + 1;
@@ -520,7 +530,7 @@ function sr_camp_harmonica_precondition(campStoryManager: CampStoryManager): boo
         const schemeState: Optional<ISchemeAnimpointState> = state?.active_scheme
           ? (state[state.active_scheme!] as ISchemeAnimpointState)
           : null;
-        const object: Optional<game_object> = state?.object;
+        const object: Optional<ClientObject> = state?.object;
 
         if (
           info.harmonica === EObjectRole.director &&

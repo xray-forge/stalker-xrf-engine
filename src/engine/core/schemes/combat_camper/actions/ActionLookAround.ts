@@ -1,4 +1,4 @@
-import { action_base, device, game_object, LuabindClass, vector } from "xray16";
+import { action_base, device, LuabindClass, vector } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
@@ -6,7 +6,7 @@ import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";
-import { Optional, TCount, TRate, TTimestamp } from "@/engine/lib/types";
+import { ClientObject, Optional, TCount, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -77,7 +77,7 @@ export class ActionLookAround extends action_base {
         abort("report this error to STALKER-829 bug [%s]", this.object.name());
       }
 
-      let direction: vector = new vector().set(this.state.last_seen_pos).sub(this.object.position());
+      let direction: Vector = new vector().set(this.state.last_seen_pos).sub(this.object.position());
 
       direction = vectorRotateY(direction, angle);
 
@@ -106,17 +106,17 @@ export class ActionLookAround extends action_base {
    * todo: Description.
    */
   public hit_callback(
-    object: game_object,
+    object: ClientObject,
     amount: TCount,
-    const_direction: vector,
-    who: game_object,
+    const_direction: Vector,
+    who: ClientObject,
     bone_index: string
   ): void {
     if (who === null || !this.state.isCamperCombatAction) {
       return;
     }
 
-    const bestEnemy: Optional<game_object> = this.object?.best_enemy();
+    const bestEnemy: Optional<ClientObject> = this.object?.best_enemy();
 
     if (bestEnemy && who.id() === bestEnemy.id()) {
       this.state.last_seen_pos = bestEnemy.position();

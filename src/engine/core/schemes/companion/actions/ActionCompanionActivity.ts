@@ -5,7 +5,7 @@ import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/sta
 import { ISchemeCompanionState } from "@/engine/core/schemes/companion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -68,7 +68,7 @@ export class ActionCompanionActivity extends action_base {
    * todo: Description.
    */
   public beh_walk_simple(): void {
-    const actor: Optional<game_object> = registry.actor;
+    const actor: Optional<ClientObject> = registry.actor;
     let select_new_pt: boolean = false;
     const dist_from_self_to_actor: number = this.object.position().distance_to(actor.position());
     const dist_from_assist_pt_to_actor: Optional<number> = this.assist_point
@@ -170,7 +170,7 @@ export class ActionCompanionActivity extends action_base {
 /**
  * todo;
  */
-function select_position(object: game_object, state: ISchemeCompanionState) {
+function select_position(object: ClientObject, state: ISchemeCompanionState) {
   let node_1_vertex_id = null;
   let node_1_distance = null;
   let node_2_vertex_id = null;

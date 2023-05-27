@@ -1,4 +1,4 @@
-import { game_object, level, vector } from "xray16";
+import { level, vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartCover } from "@/engine/core/objects";
@@ -15,7 +15,7 @@ import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager"
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { angleToDirection } from "@/engine/core/utils/vector";
-import { LuaArray, Optional, TName, TNumberId, TRate } from "@/engine/lib/types";
+import { ClientObject, LuaArray, Optional, TName, TNumberId, TRate, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -31,11 +31,11 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   public camp: Optional<CampStoryManager> = null;
   public coverName: Optional<TName> = null;
 
-  public position: Optional<vector> = null;
+  public position: Optional<Vector> = null;
   public positionLevelVertexId: Optional<TNumberId> = null;
-  public vertexPosition: Optional<vector> = null;
-  public smartCoverDirection: Optional<vector> = null;
-  public lookPosition: Optional<vector> = null;
+  public vertexPosition: Optional<Vector> = null;
+  public smartCoverDirection: Optional<Vector> = null;
+  public lookPosition: Optional<Vector> = null;
 
   /**
    * todo: Description.
@@ -117,7 +117,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
 
     this.smartCoverDirection = angleToDirection(smartCover.angle);
 
-    const lookDirection: vector = this.smartCoverDirection!.normalize();
+    const lookDirection: Vector = this.smartCoverDirection!.normalize();
 
     this.lookPosition = new vector().set(
       this.position.x + 10 * lookDirection.x,
@@ -141,7 +141,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   /**
    * todo: Description.
    */
-  public getAnimationParameters(): LuaMultiReturn<[Optional<vector>, Optional<vector>]> {
+  public getAnimationParameters(): LuaMultiReturn<[Optional<Vector>, Optional<Vector>]> {
     return $multi(this.position, this.smartCoverDirection);
   }
 
@@ -157,7 +157,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       return false;
     }
 
-    const object: game_object = registry.objects.get(this.object.id()).object!;
+    const object: ClientObject = registry.objects.get(this.object.id()).object!;
 
     if (object === null) {
       return false;

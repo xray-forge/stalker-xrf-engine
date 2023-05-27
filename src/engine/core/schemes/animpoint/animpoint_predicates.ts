@@ -1,5 +1,3 @@
-import { game_object } from "xray16";
-
 import { registry } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { IAnimpointAction, IStoryAnimationDescriptor } from "@/engine/core/schemes/animpoint/types";
@@ -7,7 +5,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object";
 import { food } from "@/engine/lib/constants/items/food";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { LuaArray, Optional, TName, TNumberId } from "@/engine/lib/types";
+import { ClientObject, LuaArray, Optional, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -22,7 +20,7 @@ export function animpointPredicateAlways(): boolean {
  * todo;
  */
 function animpointPredicateBread(objectId: TNumberId): boolean {
-  const object: Optional<game_object> = registry.objects.get(objectId)?.object;
+  const object: Optional<ClientObject> = registry.objects.get(objectId)?.object;
 
   if (object && eatableVisuals.get(object.get_visual_name()) && object.object(food.bread)) {
     return true;
@@ -35,7 +33,7 @@ function animpointPredicateBread(objectId: TNumberId): boolean {
  * todo;
  */
 function animpointPredicateKolbasa(objectId: TNumberId): boolean {
-  const object: Optional<game_object> = registry.objects.get(objectId)?.object;
+  const object: Optional<ClientObject> = registry.objects.get(objectId)?.object;
 
   if (object && eatableVisuals.get(object.get_visual_name()) && object.object(food.kolbasa)) {
     return true;
@@ -48,7 +46,7 @@ function animpointPredicateKolbasa(objectId: TNumberId): boolean {
  * todo;
  */
 function animpointPredicateVodka(objectId: TNumberId): boolean {
-  const object: Optional<game_object> = registry.objects.get(objectId)?.object;
+  const object: Optional<ClientObject> = registry.objects.get(objectId)?.object;
 
   if (object && eatableVisuals.get(object.get_visual_name()) && object.object(food.vodka)) {
     return true;
@@ -61,7 +59,7 @@ function animpointPredicateVodka(objectId: TNumberId): boolean {
  * todo;
  */
 function animpointPredicateEnergy(objectId: TNumberId): boolean {
-  const object: Optional<game_object> = registry.objects.get(objectId)?.object;
+  const object: Optional<ClientObject> = registry.objects.get(objectId)?.object;
 
   if (object && eatableVisuals.get(object.get_visual_name()) && object.object(food.energy_drink)) {
     return true;
@@ -74,7 +72,7 @@ function animpointPredicateEnergy(objectId: TNumberId): boolean {
  * todo;
  */
 function animpointPredicateGuitar(objectId: TNumberId, isInCamp?: Optional<boolean>): boolean {
-  const object: Optional<game_object> = registry.objects.get(objectId)?.object;
+  const object: Optional<ClientObject> = registry.objects.get(objectId)?.object;
 
   if (isInCamp === true && object && object.object(misc.guitar_a)) {
     return true;
@@ -87,7 +85,7 @@ function animpointPredicateGuitar(objectId: TNumberId, isInCamp?: Optional<boole
  * todo;
  */
 function animpointPredicateHarmonica(objectId: TNumberId, isInCamp?: Optional<boolean>): boolean {
-  const object: Optional<game_object> = registry.objects.get(objectId)?.object;
+  const object: Optional<ClientObject> = registry.objects.get(objectId)?.object;
 
   if (
     isInCamp === true &&
@@ -105,7 +103,7 @@ function animpointPredicateHarmonica(objectId: TNumberId, isInCamp?: Optional<bo
  * todo;
  */
 function animpointPredicateWeapon(objectId: TNumberId): boolean {
-  const object: Optional<game_object> = registry.objects.get(objectId)?.object;
+  const object: Optional<ClientObject> = registry.objects.get(objectId)?.object;
 
   if (object !== null) {
     const smartTerrainName: Optional<TName> = getObjectSmartTerrain(object)?.name() as Optional<TName>;

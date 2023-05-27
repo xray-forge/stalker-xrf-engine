@@ -1,4 +1,4 @@
-import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
+import { game_object, stalker_ids, world_property } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -19,7 +19,17 @@ import { parseConditionsList } from "@/engine/core/utils/parse";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { AnyObject, EScheme, ESchemeType, Optional, TName, TSection } from "@/engine/lib/types";
+import {
+  ActionPlanner,
+  AnyObject,
+  ClientObject,
+  EScheme,
+  ESchemeType,
+  IniFile,
+  Optional,
+  TName,
+  TSection,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -34,7 +44,7 @@ export class SchemeMeet extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     AbstractScheme.assign(object, ini, scheme, section);
   }
 
@@ -42,13 +52,13 @@ export class SchemeMeet extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeMeetState
   ): void {
-    const actionPlanner: action_planner = object.motivation_action_manager();
+    const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
     // Evaluators:
     actionPlanner.add_evaluator(EEvaluatorId.IS_MEET_CONTACT, new EvaluatorContact(state));
@@ -86,7 +96,7 @@ export class SchemeMeet extends AbstractScheme {
    * todo: Description.
    */
   public static override reset(
-    object: game_object,
+    object: ClientObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
@@ -102,7 +112,7 @@ export class SchemeMeet extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override disable(object: game_object, scheme: EScheme): void {
+  public static override disable(object: ClientObject, scheme: EScheme): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());
 
     state[EScheme.ACTOR_DIALOGS] = null;
@@ -112,8 +122,8 @@ export class SchemeMeet extends AbstractScheme {
    * todo: Description.
    */
   public static initializeMeetScheme(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     section: TSection,
     state: ISchemeMeetState,
     scheme: EScheme
@@ -252,7 +262,7 @@ export class SchemeMeet extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static updateObjectInteractionAvailability(object: game_object): void {
+  public static updateObjectInteractionAvailability(object: ClientObject): void {
     if (isObjectWounded(object)) {
       if (object.relation(registry.actor) === game_object.enemy) {
         object.disable_talk();
@@ -291,7 +301,7 @@ export class SchemeMeet extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static onMeetWithObject(object: game_object): void {
+  public static onMeetWithObject(object: ClientObject): void {
     if (!object.alive()) {
       return;
     }
@@ -304,7 +314,7 @@ export class SchemeMeet extends AbstractScheme {
 
     logger.info("Activate meet interaction:", object.name());
 
-    const actor: game_object = registry.actor;
+    const actor: ClientObject = registry.actor;
     const sound: Optional<TName> = pickSectionFromCondList(actor, object, state.snd_on_use);
 
     if (tostring(sound) !== NIL) {

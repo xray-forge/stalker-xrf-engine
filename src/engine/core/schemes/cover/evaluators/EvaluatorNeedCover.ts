@@ -13,9 +13,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class EvaluatorNeedCover extends property_evaluator {
   public readonly state: ISchemeCoverState;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeCoverState) {
     super(null, EvaluatorNeedCover.__name);
     this.state = state;

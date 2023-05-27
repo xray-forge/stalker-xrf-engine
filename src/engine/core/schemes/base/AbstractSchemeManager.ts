@@ -1,8 +1,6 @@
-import { game_object } from "xray16";
-
 import { IBaseSchemeState } from "@/engine/core/schemes/base/IBaseSchemeState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TCount } from "@/engine/lib/types";
+import { ClientObject, TCount } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -10,10 +8,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export abstract class AbstractSchemeManager<T extends IBaseSchemeState> {
-  public readonly object: game_object;
+  public readonly object: ClientObject;
   public readonly state: T;
 
-  public constructor(object: game_object, state: T) {
+  public constructor(object: ClientObject, state: T) {
     this.object = object;
     this.state = state;
   }

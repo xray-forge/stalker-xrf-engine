@@ -1,11 +1,11 @@
-import { action_base, anim, game_object, look, LuabindClass, move, object } from "xray16";
+import { action_base, anim, look, LuabindClass, move, object } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { animations } from "@/engine/core/objects/state_lib/state_mgr_animation_list";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/danger/ISchemePostCombatIdleState";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, Optional } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -81,7 +81,7 @@ export class ActionPostCombatIdleWait extends action_base {
 /**
  * todo;
  */
-export function isWeaponLocked(object: game_object): boolean {
+export function isWeaponLocked(object: ClientObject): boolean {
   const isWeaponStrapped: boolean = object.weapon_strapped();
   const isWeaponUnstrapped: boolean = object.weapon_unstrapped();
 
@@ -89,7 +89,7 @@ export function isWeaponLocked(object: game_object): boolean {
     return true;
   }
 
-  const bestWeapon: Optional<game_object> = object.best_weapon();
+  const bestWeapon: Optional<ClientObject> = object.best_weapon();
 
   if (bestWeapon === null) {
     return false;

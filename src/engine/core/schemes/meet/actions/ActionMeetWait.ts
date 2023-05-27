@@ -12,9 +12,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class ActionMeetWait extends action_base {
   public readonly state: ISchemeMeetState;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeMeetState) {
     super(null, ActionMeetWait.__name);
     this.state = state;

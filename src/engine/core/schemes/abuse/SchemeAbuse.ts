@@ -1,4 +1,4 @@
-import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
+import { stalker_ids, world_property } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
@@ -7,7 +7,16 @@ import { ActionAbuseHit } from "@/engine/core/schemes/abuse/actions/ActionAbuseH
 import { EvaluatorAbuse } from "@/engine/core/schemes/abuse/evaluators/EvaluatorAbuse";
 import { ISchemeAbuseState } from "@/engine/core/schemes/abuse/ISchemeAbuseState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType, Optional, TCount, TSection } from "@/engine/lib/types";
+import {
+  ActionPlanner,
+  ClientObject,
+  EScheme,
+  ESchemeType,
+  IniFile,
+  Optional,
+  TCount,
+  TSection,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -22,7 +31,7 @@ export class SchemeAbuse extends AbstractScheme {
   /**
    * Activate abuse scheme.
    */
-  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     AbstractScheme.assign(object, ini, scheme, section);
   }
 
@@ -30,13 +39,13 @@ export class SchemeAbuse extends AbstractScheme {
    * Add scheme to object state.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeAbuseState
   ): void {
-    const actionPlanner: action_planner = object.motivation_action_manager();
+    const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(EEvaluatorId.IS_ABUSED, new EvaluatorAbuse(state));
 
@@ -59,7 +68,7 @@ export class SchemeAbuse extends AbstractScheme {
    * Reset scheme for an object.
    */
   public static override reset(
-    object: game_object,
+    object: ClientObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
@@ -68,7 +77,7 @@ export class SchemeAbuse extends AbstractScheme {
   /**
    * Increment abuse for object.
    */
-  public static addAbuse(object: game_object, value: TCount): void {
+  public static addAbuse(object: ClientObject, value: TCount): void {
     const abuseState: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
       SchemeAbuse.SCHEME_SECTION
     ] as ISchemeAbuseState;
@@ -79,7 +88,7 @@ export class SchemeAbuse extends AbstractScheme {
   /**
    * Clear abuse state for object.
    */
-  public static clearAbuse(object: game_object): void {
+  public static clearAbuse(object: ClientObject): void {
     const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
       SchemeAbuse.SCHEME_SECTION
     ] as ISchemeAbuseState;
@@ -90,7 +99,7 @@ export class SchemeAbuse extends AbstractScheme {
   /**
    * Disable abuse for object.
    */
-  public static disableAbuse(object: game_object): void {
+  public static disableAbuse(object: ClientObject): void {
     const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
       SchemeAbuse.SCHEME_SECTION
     ] as ISchemeAbuseState;
@@ -101,7 +110,7 @@ export class SchemeAbuse extends AbstractScheme {
   /**
    * Enable abuse for object.
    */
-  public static enableAbuse(object: game_object): void {
+  public static enableAbuse(object: ClientObject): void {
     const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[
       SchemeAbuse.SCHEME_SECTION
     ] as ISchemeAbuseState;

@@ -1,5 +1,3 @@
-import { game_object } from "xray16";
-
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore/SchemeCombatIgnore";
 import { SchemeHit } from "@/engine/core/schemes/hit/SchemeHit";
@@ -7,6 +5,7 @@ import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { SchemeMobCombat } from "@/engine/core/schemes/mob/combat/SchemeMobCombat";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/ph_on_hit/SchemePhysicalOnHit";
 import { disableObjectInvulnerability } from "@/engine/core/utils/object";
+import { ClientObject } from "@/engine/lib/types";
 import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
 /**
@@ -14,7 +13,7 @@ import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
  * todo;
  * todo; Use shared generic to disable schemes by type.
  */
-export function disableObjectGenericSchemes(object: game_object, schemeType: ESchemeType): void {
+export function disableObjectGenericSchemes(object: ClientObject, schemeType: ESchemeType): void {
   switch (schemeType) {
     case ESchemeType.STALKER:
       SchemeCombat.disable(object, EScheme.COMBAT);
