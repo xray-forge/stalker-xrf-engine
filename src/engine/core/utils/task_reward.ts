@@ -1,4 +1,4 @@
-import { alife, game_object } from "xray16";
+import { alife } from "xray16";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -13,7 +13,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
-import { LuaArray, Optional, TCount, TName, TNumberId, TSection } from "@/engine/lib/types";
+import { ClientObject, LuaArray, Optional, TCount, TName, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -35,7 +35,7 @@ export function giveMoneyToActor(amount: TCount): void {
 /**
  * Transfer provided amount of money from actor to object.
  */
-export function transferMoneyFromActor(to: game_object, amount: TCount): void {
+export function transferMoneyFromActor(to: ClientObject, amount: TCount): void {
   assertDefined(to, "Couldn't relocate money to 'nil'.");
 
   registry.actor.transfer_money(amount, to);
@@ -50,24 +50,24 @@ export function transferMoneyFromActor(to: game_object, amount: TCount): void {
 /**
  * From two possible speakers pick NPC one, omit actor.
  */
-export function getNpcSpeaker(first: game_object, second: game_object): game_object {
+export function getNpcSpeaker(first: ClientObject, second: ClientObject): ClientObject {
   return registry.actor.id() === second.id() ? first : second;
 }
 
 /**
  * Transfer item section with desired count from actor to provided object.
  */
-export function transferItemsFromActor(to: game_object, itemSection: TSection, count: TCount | "all" = 1): void {
+export function transferItemsFromActor(to: ClientObject, itemSection: TSection, count: TCount | "all" = 1): void {
   logger.info("Transfer items from actor:", to.name(), itemSection, count);
 
-  const from: game_object = registry.actor;
+  const from: ClientObject = registry.actor;
   let remaining: TCount = 0;
 
   // Transfer all items.
   if (count === "all") {
     count = 0;
 
-    from.iterate_inventory((owner: game_object, item: game_object) => {
+    from.iterate_inventory((owner: ClientObject, item: ClientObject) => {
       if (item.section() === itemSection) {
         from.transfer_item(item, to);
         count = (count as TCount) + 1;
@@ -77,7 +77,7 @@ export function transferItemsFromActor(to: game_object, itemSection: TSection, c
     // Transfer specified items count.
   } else if (count > 0) {
     remaining = count;
-    from.iterate_inventory((owner: game_object, item: game_object) => {
+    from.iterate_inventory((owner: ClientObject, item: ClientObject) => {
       if (item.section() === itemSection && remaining > 0) {
         from.transfer_item(item, to);
         remaining -= 1;
@@ -113,21 +113,21 @@ export function transferItemsFromActor(to: game_object, itemSection: TSection, c
  * Transfer items by section/count from object to actor.
  * If object is missing some of them, create new ones with server object utils.
  */
-export function transferItemsToActor(from: game_object, itemSection: TSection, count: TCount = 1): void {
-  const actor: game_object = registry.actor;
+export function transferItemsToActor(from: ClientObject, itemSection: TSection, count: TCount = 1): void {
+  const actor: ClientObject = registry.actor;
   let remaining: TCount = 0;
 
   if (count > 1) {
     remaining = count;
 
-    from.iterate_inventory((owner: game_object, item: game_object) => {
+    from.iterate_inventory((owner: ClientObject, item: ClientObject) => {
       if (item.section() === itemSection && remaining !== 0) {
         from.transfer_item(item, actor);
         remaining -= 1;
       }
     }, actor);
   } else if (from.object(itemSection) !== null) {
-    from.transfer_item(from.object(itemSection) as game_object, actor);
+    from.transfer_item(from.object(itemSection) as ClientObject, actor);
   } else {
     alife().create(itemSection, actor.position(), actor.level_vertex_id(), actor.game_vertex_id(), actor.id());
   }
@@ -169,7 +169,7 @@ export function giveItemsToActor(itemSection: TSection, count: TCount = 1): void
  * Delete items by section for actor.
  */
 export function takeItemFromActor(itemSection: TSection): void {
-  const inventoryItem: Optional<game_object> = registry.actor.object(itemSection);
+  const inventoryItem: Optional<ClientObject> = registry.actor.object(itemSection);
 
   assertDefined(inventoryItem, "Actor has no item '%s' to take.", itemSection);
 
@@ -192,7 +192,7 @@ export function takeItemFromActor(itemSection: TSection): void {
  */
 export function getActorAvailableMedKit(
   list: LuaArray<TSection | TNumberId> = $fromObject(medkits) as unknown as LuaArray<TSection | TNumberId>,
-  actor: game_object = registry.actor
+  actor: ClientObject = registry.actor
 ): Optional<TMedkit> {
   for (const [key, medkit] of list) {
     if (actor.object(medkit) !== null) {
@@ -212,7 +212,7 @@ export function getActorAvailableMedKit(
  */
 export function actorHasMedKit(
   list: LuaArray<TSection | TNumberId> = medkits as unknown as LuaArray<TSection | TNumberId>,
-  actor: game_object = registry.actor
+  actor: ClientObject = registry.actor
 ): boolean {
   return actorHasAtLeastOneItem(list, actor);
 }
@@ -224,7 +224,7 @@ export function actorHasMedKit(
  * @param actor - target object to check, gets actor from registry by default
  * @returns whether actor has all of provided items
  */
-export function actorHasItem(itemSection: TSection | TNumberId, actor: game_object = registry.actor): boolean {
+export function actorHasItem(itemSection: TSection | TNumberId, actor: ClientObject = registry.actor): boolean {
   return actor.object(itemSection) !== null;
 }
 
@@ -237,7 +237,7 @@ export function actorHasItem(itemSection: TSection | TNumberId, actor: game_obje
  */
 export function actorHasItems(
   itemSections: LuaArray<TSection | TNumberId> | Array<TSection | TNumberId>,
-  actor: game_object = registry.actor
+  actor: ClientObject = registry.actor
 ): boolean {
   for (const [, section] of itemSections as LuaArray<TSection | TNumberId>) {
     if (actor.object(section) === null) {
@@ -257,7 +257,7 @@ export function actorHasItems(
  */
 export function actorHasAtLeastOneItem(
   itemSections: LuaArray<TSection | TNumberId> | Array<TSection | TNumberId>,
-  actor: game_object = registry.actor
+  actor: ClientObject = registry.actor
 ): boolean {
   for (const [index, section] of itemSections as LuaArray<TSection | TNumberId>) {
     if (actor.object(section) !== null) {
@@ -275,7 +275,7 @@ export function actorHasAtLeastOneItem(
  * @param itemSectionOrId - item section or ID to check in inventory
  * @returns whether npc has item in inventory
  */
-export function npcHasItem(object: game_object, itemSectionOrId: TSection | TNumberId): boolean {
+export function npcHasItem(object: ClientObject, itemSectionOrId: TSection | TNumberId): boolean {
   return object.object(itemSectionOrId) !== null;
 }
 
@@ -286,7 +286,7 @@ export function npcHasItem(object: game_object, itemSectionOrId: TSection | TNum
  * @param name - target name to check
  * @returns whether object name is matching provided string
  */
-export function isObjectName(object: game_object, name: TName): boolean {
+export function isObjectName(object: ClientObject, name: TName): boolean {
   const objectName: Optional<string> = object.name();
 
   return objectName !== null && string.find(objectName, name)[0] !== null;

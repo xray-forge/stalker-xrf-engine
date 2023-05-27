@@ -1,4 +1,4 @@
-import { bit_or, CSavedGameWrapper, FS, FS_file_list_ex, game, getFS, IsImportantSave, user_name } from "xray16";
+import { bit_or, CSavedGameWrapper, FS, game, getFS, IsImportantSave, user_name } from "xray16";
 
 import { assert } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
@@ -8,7 +8,7 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { roots } from "@/engine/lib/constants/roots";
-import { Optional, TCount, TLabel, TName } from "@/engine/lib/types";
+import { FSFileList, Optional, SavedGameWrapper, TCount, TLabel, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -16,7 +16,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo
  */
 export function isGameSaveFileExist(filename: TName): boolean {
-  const filesList: FS_file_list_ex = getFS().file_list_open_ex(
+  const filesList: FSFileList = getFS().file_list_open_ex(
     roots.gameSaves,
     bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
     filename
@@ -45,7 +45,7 @@ export function deleteGameSave(filename: TName): void {
  * todo
  */
 export function gatFileDataForGameSave(filename: TName): TLabel {
-  const flist: FS_file_list_ex = getFS().file_list_open_ex(
+  const flist: FSFileList = getFS().file_list_open_ex(
     roots.gameSaves,
     bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
     filename + gameConfig.GAME_SAVE_EXTENSION
@@ -53,7 +53,7 @@ export function gatFileDataForGameSave(filename: TName): TLabel {
   const filesCount: TCount = flist.Size();
 
   if (filesCount > 0) {
-    const savedGame: CSavedGameWrapper = new CSavedGameWrapper(filename);
+    const savedGame: SavedGameWrapper = new CSavedGameWrapper(filename);
     const dateTime: TLabel = gameTimeToString(savedGame.game_time());
 
     const health = string.format(

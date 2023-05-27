@@ -1,17 +1,4 @@
-import {
-  alife,
-  alife_simulator,
-  clsid,
-  cse_alife_object,
-  cse_alife_object_physic,
-  game,
-  game_object,
-  ini_file,
-  level,
-  patrol,
-  system_ini,
-  vector,
-} from "xray16";
+import { alife, clsid, game, level, patrol, system_ini, vector } from "xray16";
 
 import { IRegistryObjectState, SYSTEM_INI } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -25,8 +12,14 @@ import { TCaption } from "@/engine/lib/constants/captions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import {
+  AlifeSimulator,
+  ClientObject,
+  IniFile,
   LuaArray,
   Optional,
+  Patrol,
+  ServerObject,
+  ServerPhysicObject,
   TCount,
   TIndex,
   TLabel,
@@ -96,7 +89,7 @@ export function spawnAmmoForObject(
   }
 
   const [id, gvid, lvid, position] = getObjectPositioning(object);
-  const ini: ini_file = system_ini();
+  const ini: IniFile = system_ini();
   const countInBox: TCount = ini.r_u32(ammoSection, "box_size");
 
   let ammoSpawned: TCount = 0;
@@ -146,7 +139,7 @@ export function spawnItemsForObjectFromList(
 /**
  * todo: description
  */
-export function spawnDefaultObjectItems(object: game_object, state: IRegistryObjectState): void {
+export function spawnDefaultObjectItems(object: ClientObject, state: IRegistryObjectState): void {
   logger.info("Spawn default items for object:", object.name());
 
   const itemsToSpawn: LuaTable<TInventoryItem, TCount> = new LuaTable();
@@ -220,7 +213,7 @@ export function spawnSquad(squadId: Optional<TStringId>, smartTerrainName: Optio
 /**
  * Spawn new object.
  */
-export function spawnObject<T extends cse_alife_object>(
+export function spawnObject<T extends ServerObject>(
   section: Optional<TSection>,
   pathName: Optional<TName>,
   index: TIndex = 0,
@@ -232,9 +225,9 @@ export function spawnObject<T extends cse_alife_object>(
   assertDefined(pathName, "Wrong spawn pathName for 'spawnObject' function '%s'.", tostring(pathName));
   assert(level.patrol_path_exists(pathName), "Path %s doesnt exist. Function 'spawnObject'.", tostring(pathName));
 
-  const objectPatrol: patrol = new patrol(pathName);
+  const objectPatrol: Patrol = new patrol(pathName);
 
-  const serverObject: cse_alife_object = alife().create(
+  const serverObject: ServerObject = alife().create(
     section,
     objectPatrol.point(index),
     objectPatrol.level_vertex_id(0),
@@ -244,7 +237,7 @@ export function spawnObject<T extends cse_alife_object>(
   if (isStalker(serverObject)) {
     serverObject.o_torso().yaw = (yaw * math.pi) / 180;
   } else if (serverObject.clsid() === clsid.script_phys) {
-    (serverObject as cse_alife_object_physic).set_yaw((yaw * math.pi) / 180);
+    (serverObject as ServerPhysicObject).set_yaw((yaw * math.pi) / 180);
   }
 
   return serverObject as T;
@@ -253,7 +246,7 @@ export function spawnObject<T extends cse_alife_object>(
 /**
  * Spawn new object in object (chest, stalker etc).
  */
-export function spawnObjectInObject<T extends cse_alife_object>(
+export function spawnObjectInObject<T extends ServerObject>(
   section: Optional<TSection>,
   targetId: Optional<TNumberId>
 ): T {
@@ -262,7 +255,7 @@ export function spawnObjectInObject<T extends cse_alife_object>(
   assertDefined(section, "Wrong spawn section for 'spawnObjectInObject' function '%s'.", tostring(section));
   assertDefined(targetId, "Wrong spawn targetId for 'spawnObjectInObject' function '%s'.", tostring(section));
 
-  const box: Optional<cse_alife_object> = alife().object(targetId);
+  const box: Optional<ServerObject> = alife().object(targetId);
 
   assertDefined(box, "Wrong spawn target object for 'spawnObjectInObject' function '%s'.", tostring(section));
 
@@ -276,8 +269,8 @@ export function spawnObjectInObject<T extends cse_alife_object>(
  * @param objectId - object id to release
  */
 export function releaseObject(objectId: TNumberId): void {
-  const simulator: alife_simulator = alife();
-  const serverObject: Optional<cse_alife_object> = simulator.object(objectId);
+  const simulator: AlifeSimulator = alife();
+  const serverObject: Optional<ServerObject> = simulator.object(objectId);
 
   logger.info("Destroying object:", objectId);
 

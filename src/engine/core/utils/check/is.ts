@@ -1,36 +1,38 @@
-import {
-  clsid,
-  cse_abstract,
-  cse_alife_human_stalker,
-  cse_alife_item_artefact,
-  cse_alife_monster_abstract,
-  cse_alife_object,
-  game_object,
-  system_ini,
-  TXR_class_id,
-} from "xray16";
+import { clsid, system_ini } from "xray16";
 
 import { getStoryIdByObjectId, registry } from "@/engine/core/database";
-import { abort } from "@/engine/core/utils/assertion";
+import { assertDefined } from "@/engine/core/utils/assertion";
 import { squadMonsters } from "@/engine/lib/constants/behaviours";
 import { artefactClassIds, monsterClassIds, stalkerClassIds, weaponClassIds } from "@/engine/lib/constants/class_ids";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
 import { lootable_table, TLootableItem } from "@/engine/lib/constants/items/lootable_table";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
-import { Maybe, Optional, TNumberId, TSection } from "@/engine/lib/types";
+import {
+  AnyGameObject,
+  ClientObject,
+  Maybe,
+  Optional,
+  ServerArtefactItemObject,
+  ServerHumanObject,
+  ServerMonsterObject,
+  ServerObject,
+  TClassId,
+  TNumberId,
+  TSection,
+} from "@/engine/lib/types";
 
 /**
  * todo;
  */
-export function isCseAlifeObject(object: cse_abstract | game_object): object is cse_alife_object {
+export function isCseAlifeObject(object: AnyGameObject): object is ServerObject {
   return type(object.id) === "number";
 }
 
 /**
  * todo;
  */
-export function isMonster(object: game_object | cse_abstract): object is cse_alife_monster_abstract {
+export function isMonster(object: AnyGameObject): object is ServerMonsterObject {
   return monsterClassIds[object.clsid()] === true;
 }
 
@@ -44,7 +46,7 @@ export function isSquadMonsterCommunity(community: TCommunity): boolean {
 /**
  * todo;
  */
-export function isStalker(object: game_object | cse_abstract): object is cse_alife_human_stalker {
+export function isStalker(object: AnyGameObject): object is ServerHumanObject {
   return stalkerClassIds[object.clsid()] === true;
 }
 
@@ -58,7 +60,7 @@ export function isStalkerClassId(classId: TNumberId): boolean {
 /**
  * todo;
  */
-export function isWeapon(object: Optional<game_object | cse_abstract>): boolean {
+export function isWeapon(object: Optional<AnyGameObject>): boolean {
   if (object === null) {
     return false;
   }
@@ -69,12 +71,12 @@ export function isWeapon(object: Optional<game_object | cse_abstract>): boolean 
 /**
  * todo;
  */
-export function isGrenade(object: Optional<game_object | cse_abstract>): boolean {
+export function isGrenade(object: Optional<AnyGameObject>): boolean {
   if (object === null) {
     return false;
   }
 
-  const id: TXR_class_id = object.clsid();
+  const id: TClassId = object.clsid();
 
   return id === clsid.wpn_grenade_rgd5_s || id === clsid.wpn_grenade_f1_s;
 }
@@ -82,14 +84,14 @@ export function isGrenade(object: Optional<game_object | cse_abstract>): boolean
 /**
  * Is provided object artefact.
  */
-export function isArtefact(object: game_object | cse_abstract): object is cse_alife_item_artefact {
+export function isArtefact(object: AnyGameObject): object is ServerArtefactItemObject {
   return artefactClassIds[object.clsid()] === true;
 }
 
 /**
  * todo;
  */
-export function isStrappableWeapon(object: Optional<game_object>): object is game_object {
+export function isStrappableWeapon(object: Optional<ClientObject>): object is ClientObject {
   return object === null ? false : system_ini().line_exist(object.section(), "strap_bone0");
 }
 
@@ -103,21 +105,21 @@ export function isUndergroundLevel(level: TLevel): boolean {
 /**
  * @returns whether provided object has linked story id.
  */
-export function isStoryObject(object: cse_alife_object): boolean {
+export function isStoryObject(object: ServerObject): boolean {
   return getStoryIdByObjectId(object.id) !== null;
 }
 
 /**
  * @returns whether object can be looted by stalkers from corpses.
  */
-export function isLootableItem(object: game_object): boolean {
+export function isLootableItem(object: ClientObject): boolean {
   return lootable_table[object.section<TLootableItem>()] !== null;
 }
 
 /**
  * @returns whether object is ammo-defined section item.
  */
-export function isAmmoItem(object: game_object): boolean {
+export function isAmmoItem(object: ClientObject): boolean {
   return ammo[object.section<TAmmoItem>()] !== null;
 }
 
@@ -133,10 +135,8 @@ export function isAmmoSection(section: TSection): section is TAmmoItem {
  * @param section - logic section to check
  * @returns whether object logics active section is same as provided
  */
-export function isActiveSection(object: game_object, section: Maybe<TSection>): boolean {
-  if (!section) {
-    abort("'isActiveSection' error for '%s', no section defined: '%s'.", object.name(), section);
-  }
+export function isActiveSection(object: ClientObject, section: Maybe<TSection>): boolean {
+  assertDefined(section, "'isActiveSection' error for '%s', no section defined: '%s'.", object.name(), section);
 
   return section === registry.objects.get(object.id()).active_section;
 }

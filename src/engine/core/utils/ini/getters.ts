@@ -1,10 +1,8 @@
-import { ini_file } from "xray16";
-
 import { IBaseSchemeLogic } from "@/engine/core/schemes/base";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseParameters, parseStringsList } from "@/engine/core/utils/parse";
-import { EScheme, LuaArray, Optional, TCount, TIndex, TName, TSection } from "@/engine/lib/types";
+import { EScheme, IniFile, LuaArray, Optional, TCount, TIndex, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -20,7 +18,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @returns value from ini file section or default value if section is not declared in ini
  */
 export function readIniString<D = string>(
-  ini: ini_file,
+  ini: IniFile,
   section: Optional<TSection>,
   field: TName,
   required: boolean,
@@ -56,7 +54,7 @@ export function readIniString<D = string>(
  * @returns value from ini file section or default value if section is not declared in ini
  */
 export function readIniNumber<D = number>(
-  ini: ini_file,
+  ini: IniFile,
   section: TSection,
   field: TName,
   required: boolean,
@@ -87,7 +85,7 @@ export function readIniNumber<D = number>(
  * @returns value from ini file section or default value if section is not declared in ini
  */
 export function readIniBoolean(
-  ini: ini_file,
+  ini: IniFile,
   section: Optional<TSection>,
   field: TName,
   required: boolean,
@@ -114,7 +112,7 @@ export function readIniBoolean(
  * todo: Casting verification.
  */
 export function getTwoNumbers(
-  iniFile: ini_file,
+  iniFile: IniFile,
   section: Optional<TName>,
   line: TName,
   default1: number,
@@ -139,7 +137,7 @@ export function getTwoNumbers(
 /**
  * todo
  */
-export function readIniConditionList(ini: ini_file, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
+export function readIniConditionList(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
   const data: Optional<string> = readIniString(ini, section, field, false, "");
 
   if (!data) {
@@ -164,7 +162,7 @@ export function readIniConditionList(ini: ini_file, section: TSection, field: TN
 /**
  * todo;
  */
-export function getConfigStringAndCondList(ini: ini_file, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
+export function getConfigStringAndCondList(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
   const data: string = readIniString(ini, section, field, false, "");
 
   if (!data) {
@@ -209,7 +207,7 @@ export function getSchemeByIniSection(section: TSection): EScheme {
  * todo
  */
 export function getConfigNumberAndConditionList(
-  ini: ini_file,
+  ini: IniFile,
   section: TSection,
   field: TName
 ): Optional<IBaseSchemeLogic> {
@@ -240,7 +238,7 @@ export function getConfigNumberAndConditionList(
  * todo
  */
 export function getConfigStringAndConditionList(
-  ini: ini_file,
+  ini: IniFile,
   section: TSection,
   field: TName
 ): Optional<IBaseSchemeLogic> {
@@ -271,7 +269,7 @@ export function getConfigStringAndConditionList(
  * todo
  */
 export function getConfigTwoStringsAndConditionsList(
-  ini: ini_file,
+  ini: IniFile,
   section: TSection,
   field: TName
 ): Optional<IBaseSchemeLogic> {

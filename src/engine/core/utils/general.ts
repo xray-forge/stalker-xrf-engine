@@ -1,7 +1,7 @@
-import { alife, device, IsGameTypeSingle, vector } from "xray16";
+import { alife, device, IsGameTypeSingle } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
+import { Optional, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -47,7 +47,7 @@ export function randomNumber(min?: number, max?: number): number {
 /**
  * todo:
  */
-export function vectorToString(vector: Optional<vector>): Optional<string> {
+export function vectorToString(vector: Optional<Vector>): Optional<string> {
   if (vector === null) {
     return null;
   }

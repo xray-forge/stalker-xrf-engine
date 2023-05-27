@@ -1,16 +1,16 @@
-import { CSightParams, game_object, move, patrol, vector } from "xray16";
+import { CSightParams, move, vector } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TDistance, TNumberId } from "@/engine/lib/types";
+import { ClientObject, Patrol, TDistance, TIndex, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
-export function isStalkerAtWaypoint(stalker: game_object, patrol_path: patrol, path_point: TNumberId): boolean {
-  const stalker_pos: vector = stalker.position();
-  const distance: TDistance = stalker_pos.distance_to_sqr(patrol_path.point(path_point));
+export function isStalkerAtWaypoint(object: ClientObject, patrolPath: Patrol, pathPointIndex: TIndex): boolean {
+  const objectPosition: Vector = object.position();
+  const distance: TDistance = objectPosition.distance_to_sqr(patrolPath.point(pathPointIndex));
 
   return distance <= 0.13;
 }
@@ -18,15 +18,15 @@ export function isStalkerAtWaypoint(stalker: game_object, patrol_path: patrol, p
 /**
  * todo;
  */
-export function stalkerStopMovement(object: game_object): void {
+export function stalkerStopMovement(object: ClientObject): void {
   object.set_movement_type(move.stand);
 }
 
 /**
  * todo;
  */
-export function stalkerLookAtStalker(object: game_object, objectToLook: game_object): void {
-  const lookPoint: vector = new vector().set(objectToLook.position().sub(object.position()));
+export function stalkerLookAtStalker(object: ClientObject, objectToLook: ClientObject): void {
+  const lookPoint: Vector = new vector().set(objectToLook.position().sub(object.position()));
 
   object.set_sight(CSightParams.eSightTypeDirection, lookPoint, 0);
 }

@@ -1,11 +1,15 @@
-import { bit_and, snd_type, TXR_snd_type } from "xray16";
+import { bit_and, snd_type } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ESoundType } from "@/engine/lib/constants/sound/sound_type";
+import { TSoundType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-export function mapSndTypeToSoundType(sound_type: TXR_snd_type): ESoundType {
+/**
+ * todo;
+ */
+export function mapSndTypeToSoundType(sound_type: TSoundType): ESoundType {
   if (bit_and(sound_type, snd_type.weapon) === snd_type.weapon) {
     if (bit_and(sound_type, snd_type.weapon_shoot) === snd_type.weapon_shoot) {
       return ESoundType.WPN_shoot;

@@ -1,4 +1,4 @@
-import { alife, alife_simulator, cse_alife_object, game_object, ini_file } from "xray16";
+import { alife } from "xray16";
 
 import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { IBaseSchemeLogic } from "@/engine/core/schemes";
@@ -21,11 +21,15 @@ import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NIL } from "@/engine/lib/constants/words";
 import {
+  AlifeSimulator,
   AnyCallablesModule,
   AnyObject,
+  ClientObject,
   ESchemeCondition,
+  IniFile,
   LuaArray,
   Optional,
+  ServerObject,
   TCount,
   TIndex,
   TName,
@@ -52,9 +56,9 @@ export function getParamString(data: string): LuaMultiReturn<[string, boolean]> 
 /**
  * todo;
  */
-export function getInfosFromData(object: game_object, data: Optional<string>): LuaArray<TInfoPortion> {
+export function getInfosFromData(object: ClientObject, data: Optional<string>): LuaArray<TInfoPortion> {
   const infos: LuaArray<TInfoPortion> = new LuaTable();
-  const actor: game_object = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   if (data !== null) {
     for (const name of string.gfind(data, "(%|*[^%|]+%|*)%p*")) {
@@ -73,8 +77,8 @@ export function getInfosFromData(object: game_object, data: Optional<string>): L
  * @returns picked section based on condlist.
  */
 export function pickSectionFromCondList<T extends TSection>(
-  actor: game_object,
-  object: Optional<game_object | cse_alife_object>,
+  actor: ClientObject,
+  object: Optional<ClientObject | ServerObject>,
   condlist: TConditionList
 ): Optional<T> {
   let randomValue: Optional<TRate> = null; // -- math.random(100)
@@ -188,14 +192,14 @@ export function pickSectionFromCondList<T extends TSection>(
  * todo;
  * todo;
  */
-export function getConfigObjectAndZone(ini: ini_file, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
+export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
   const target: Optional<IBaseSchemeLogic> = getConfigTwoStringsAndConditionsList(ini, section, field);
 
   if (target !== null) {
-    const simulator: Optional<alife_simulator> = alife();
+    const simulator: Optional<AlifeSimulator> = alife();
 
     if (simulator !== null) {
-      const serverObject: Optional<cse_alife_object> = simulator.object(getObjectIdByStoryId(target.v1 as string)!);
+      const serverObject: Optional<ServerObject> = simulator.object(getObjectIdByStoryId(target.v1 as string)!);
 
       if (serverObject) {
         target.npc_id = serverObject.id;
@@ -216,7 +220,7 @@ export function getConfigObjectAndZone(ini: ini_file, section: TSection, field: 
  * todo;
  * todo;
  */
-export function getObjectConfigOverrides(ini: ini_file, section: TSection, object: game_object): AnyObject {
+export function getObjectConfigOverrides(ini: IniFile, section: TSection, object: ClientObject): AnyObject {
   const overrides: AnyObject = {};
   const heliHunter: Optional<string> = readIniString(ini, section, "heli_hunter", false, "");
 
@@ -273,7 +277,7 @@ export function getObjectConfigOverrides(ini: ini_file, section: TSection, objec
  * todo
  * todo
  */
-export function getConfigSwitchConditions(ini: ini_file, section: TSection): Optional<LuaArray<IBaseSchemeLogic>> {
+export function getConfigSwitchConditions(ini: IniFile, section: TSection): Optional<LuaArray<IBaseSchemeLogic>> {
   const conditionsList: LuaArray<IBaseSchemeLogic> = new LuaTable();
   let index: TIndex = 1;
 
@@ -284,7 +288,7 @@ export function getConfigSwitchConditions(ini: ini_file, section: TSection): Opt
   const linesCount: TCount = ini.line_count(section);
 
   function add_conditions(
-    func: (ini: ini_file, section: TSection, id: TStringId) => Optional<IBaseSchemeLogic>,
+    func: (ini: IniFile, section: TSection, id: TStringId) => Optional<IBaseSchemeLogic>,
     cond: ESchemeCondition
   ) {
     for (const line_number of $range(0, linesCount - 1)) {

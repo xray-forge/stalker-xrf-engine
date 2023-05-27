@@ -1,5 +1,4 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { game_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import {
@@ -11,6 +10,7 @@ import {
   hasFewAlifeInfos,
 } from "@/engine/core/utils/info_portion";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
+import { ClientObject } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("'info_portion' utils", () => {
@@ -37,7 +37,7 @@ describe("'info_portion' utils", () => {
   });
 
   afterEach(() => {
-    registry.actor = null as unknown as game_object;
+    registry.actor = null as unknown as ClientObject;
   });
 
   it("'giveInfo' should correctly give info portion for actor", () => {

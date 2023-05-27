@@ -1,4 +1,4 @@
-import { flags32, game_object, ini_file, patrol } from "xray16";
+import { flags32, patrol } from "xray16";
 
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -7,8 +7,12 @@ import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   AnyArgs,
+  ClientObject,
+  Flags32,
+  IniFile,
   LuaArray,
   Optional,
+  Patrol,
   StringOptional,
   TCount,
   TDistance,
@@ -42,7 +46,7 @@ export interface IWaypointData {
   syn?: string;
   count?: number;
   t?: number | "*";
-  flags: flags32;
+  flags: Flags32;
 }
 
 /**
@@ -333,7 +337,7 @@ export function parseFunctionParams(data: string): LuaArray<string | number> {
 /**
  * todo;
  */
-export function parseWaypointData(pathname: TPath, wpflags: flags32, waypointName: TName): IWaypointData {
+export function parseWaypointData(pathname: TPath, wpflags: Flags32, waypointName: TName): IWaypointData {
   const waypointData: IWaypointData = {
     flags: wpflags,
   };
@@ -392,7 +396,7 @@ export function parseWaypointData(pathname: TPath, wpflags: flags32, waypointNam
 /**
  * todo: Description.
  */
-export function parseIniSectionToArray<T = string>(ini: ini_file, section: TSection): Optional<LuaTable<string, T>> {
+export function parseIniSectionToArray<T = string>(ini: IniFile, section: TSection): Optional<LuaTable<string, T>> {
   if (ini.section_exist(section)) {
     const array: LuaTable<string, T> = new LuaTable();
 
@@ -419,7 +423,7 @@ export function parsePathWaypoints(pathname: Optional<TPath>): Optional<LuaArray
     return null;
   }
 
-  const waypointPatrol: patrol = new patrol(pathname);
+  const waypointPatrol: Patrol = new patrol(pathname);
   const count: TCount = waypointPatrol.count();
   const waypointsInfo: LuaArray<IWaypointData> = new LuaTable();
 
@@ -452,7 +456,7 @@ export function parsePathWaypointsFromArgsList(
     return null;
   }
 
-  const waypointPatrol: patrol = new patrol(pathname);
+  const waypointPatrol: Patrol = new patrol(pathname);
   const count: TCount = waypointPatrol.count();
 
   if (count !== pointsCount) {
@@ -468,7 +472,7 @@ export function parsePathWaypointsFromArgsList(
       abort("script error [1] while processing point %d of path '%s'", point, pathname);
     }
 
-    const flags: flags32 = new flags32();
+    const flags: Flags32 = new flags32();
 
     flags.assign(cur_arg[1]);
 
@@ -488,7 +492,7 @@ export function parsePathWaypointsFromArgsList(
  * todo;
  */
 export function parseData(
-  object: game_object,
+  object: ClientObject,
   target: Optional<string>
 ): LuaArray<{
   dist: Optional<TDistance>;
@@ -539,7 +543,7 @@ export function parseData(
 
 // todo: Probably same as parseData?
 export function parseTimerData(
-  object: game_object,
+  object: ClientObject,
   str: Optional<string>
 ): LuaArray<{ dist: TDistance; state: Optional<LuaArray<IConfigSwitchCondition>> }> {
   const data: LuaArray<{ dist: TDistance; state: Optional<LuaArray<IConfigSwitchCondition>> }> = new LuaTable();
@@ -565,7 +569,7 @@ export function parseTimerData(
  * todo;
  */
 export function parseSynData(
-  object: game_object,
+  object: ClientObject,
   target: Optional<string>
 ): LuaArray<{ zone: null; state: string; sound: string }> {
   const collection: LuaArray<any> = new LuaTable();
@@ -600,7 +604,7 @@ export function parseSynData(
  * todo;
  */
 export function parseData1v(
-  object: game_object,
+  object: ClientObject,
   data: Optional<string>
 ): LuaArray<{
   dist: Optional<TDistance>;

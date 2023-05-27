@@ -1,11 +1,4 @@
-import {
-  alife,
-  cse_alife_creature_abstract,
-  cse_alife_monster_abstract,
-  game_object,
-  relation_registry,
-  TXR_relation,
-} from "xray16";
+import { alife, game_object, relation_registry } from "xray16";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
@@ -13,7 +6,16 @@ import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { EGoodwill, ERelation, relations, TRelation } from "@/engine/lib/constants/relations";
-import { Optional, TCount, TName, TNumberId, TStringId } from "@/engine/lib/types";
+import {
+  ClientObject,
+  Optional,
+  ServerCreatureObject,
+  TCount,
+  TName,
+  TNumberId,
+  TRelationType,
+  TStringId,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -84,9 +86,9 @@ export function isAnySquadMemberEnemyToActor(squad: Squad): boolean {
  * todo;
  */
 export function getObjectsRelationSafe(
-  first: Optional<game_object>,
-  second: Optional<game_object>
-): Optional<TXR_relation> {
+  first: Optional<ClientObject>,
+  second: Optional<ClientObject>
+): Optional<TRelationType> {
   return first && second && first.relation(second);
 }
 
@@ -122,7 +124,7 @@ export function getSquadGoodwillToActorById(squadId: TNumberId): TRelation {
  * If no squad members present, check relation of faction.
  */
 export function getSquadRelationToActor(squad: Squad): ERelation {
-  const actor: Optional<game_object> = registry.actor;
+  const actor: Optional<ClientObject> = registry.actor;
 
   // Actor may be registered after other alife objects.
   if (actor === null) {
@@ -133,7 +135,7 @@ export function getSquadRelationToActor(squad: Squad): ERelation {
   let squadMembersCount: TCount = 0;
 
   for (const squadMember of squad.squad_members()) {
-    const object: Optional<game_object> = registry.objects.get(squadMember.id)?.object as Optional<game_object>;
+    const object: Optional<ClientObject> = registry.objects.get(squadMember.id)?.object as Optional<ClientObject>;
 
     if (object) {
       squadTotalGoodwill += object.general_goodwill(actor);
@@ -159,7 +161,7 @@ export function getSquadRelationToActor(squad: Squad): ERelation {
  * @returns average relation of squad members to actor, `null` if squad is empty
  */
 export function getSquadMembersRelationToActor(squad: Squad): Optional<ERelation> {
-  const actor: Optional<game_object> = registry.actor;
+  const actor: Optional<ClientObject> = registry.actor;
 
   // Actor may be registered after other alife objects.
   if (actor === null) {
@@ -170,7 +172,7 @@ export function getSquadMembersRelationToActor(squad: Squad): Optional<ERelation
   let squadMembersCount: TCount = 0;
 
   for (const squadMember of squad.squad_members()) {
-    const object: Optional<game_object> = registry.objects.get(squadMember.id)?.object as Optional<game_object>;
+    const object: Optional<ClientObject> = registry.objects.get(squadMember.id)?.object as Optional<ClientObject>;
 
     if (object) {
       squadTotalGoodwill += object.general_goodwill(actor);
@@ -197,8 +199,8 @@ export function getSquadMembersRelationToActor(squad: Squad): Optional<ERelation
  * todo;
  */
 export function setObjectsRelation(
-  first: Optional<game_object>,
-  second: Optional<game_object>,
+  first: Optional<ClientObject>,
+  second: Optional<ClientObject>,
   newRelation: TRelation
 ): void {
   let goodwill: EGoodwill = EGoodwill.NEUTRALS;
@@ -221,8 +223,8 @@ export function setObjectsRelation(
  * todo: Unify?
  */
 export function setServerObjectsRelation(
-  first: Optional<cse_alife_monster_abstract>,
-  second: Optional<cse_alife_monster_abstract>,
+  first: Optional<ServerCreatureObject>,
+  second: Optional<ServerCreatureObject>,
   nextRelation: TRelation
 ): void {
   logger.info("Set relation:", first?.name(), "->", second?.name(), "@", nextRelation);
@@ -247,7 +249,7 @@ export function setServerObjectsRelation(
  */
 export function isSquadRelationBetweenActorAndRelation(squadName: TName, goodwill: TRelation): boolean {
   const squad: Optional<Squad> = getServerObjectByStoryId(squadName);
-  const actor: game_object = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   if (squad === null) {
     return false;
@@ -370,18 +372,16 @@ export function setRelationBetweenCommunities(
 /**
  * todo;
  */
-export function setObjectSympathy(object: Optional<game_object>, newSympathy: TCount): void {
+export function setObjectSympathy(object: Optional<ClientObject>, newSympathy: TCount): void {
   if (newSympathy < 0) {
     newSympathy = game_object.friend;
   } else if (newSympathy > 1) {
     newSympathy = game_object.neutral;
   }
 
-  if (object === null) {
-    abort("Npc not set in sympathy function.");
-  } else {
-    object.set_sympathy(newSympathy);
-  }
+  assertDefined(object, "Npc not set in sympathy function.");
+
+  object.set_sympathy(newSympathy);
 }
 
 /**
@@ -400,18 +400,16 @@ export function setSquadGoodwill(squadId: TStringId | TNumberId, newGoodwill: TR
     }
   }
 
-  if (squad) {
-    squad.updateSquadRelationToActor(newGoodwill);
-  } else {
-    abort("There is no squad [%s] in sim_board", squadId);
-  }
+  assertDefined(squad, "There is no squad [%s] in sim_board", squadId);
+
+  squad.updateSquadRelationToActor(newGoodwill);
 }
 
 /**
  * todo;
  */
 export function setSquadGoodwillToNpc(
-  npc: Optional<game_object>,
+  npc: Optional<ClientObject>,
   objectId: TStringId | TNumberId,
   newGoodwill: TRelation
 ): void {
@@ -441,7 +439,7 @@ export function setSquadGoodwillToNpc(
     for (const squadMember of squad.squad_members()) {
       if (npc !== null) {
         squadMember.object.force_set_goodwill(goodwill, npc.id());
-        alife().object<cse_alife_creature_abstract>(npc.id())!.force_set_goodwill(goodwill, squadMember.id);
+        alife().object<ServerCreatureObject>(npc.id())!.force_set_goodwill(goodwill, squadMember.id);
       }
     }
   } else {
@@ -479,7 +477,7 @@ export function setSquadGoodwillToCommunity(
   assertDefined(squad, "There is no squad [%s] in simulation board.", squadId);
 
   for (const squadMember of squad.squad_members()) {
-    const object: Optional<game_object> = registry.objects.get(squadMember.id).object as Optional<game_object>;
+    const object: Optional<ClientObject> = registry.objects.get(squadMember.id).object as Optional<ClientObject>;
 
     if (object !== null) {
       object.set_community_goodwill(community, goodwill);
