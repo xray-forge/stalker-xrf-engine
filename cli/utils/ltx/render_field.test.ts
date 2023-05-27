@@ -17,6 +17,17 @@ import { renderField } from "#/utils/ltx/render_field";
 describe("'render_field' function", () => {
   const comment: string = "some text";
 
+  it("should correctly generate primitive fields", () => {
+    expect(renderField("test", 1)).toBe("test = 1");
+    expect(renderField("test", 0)).toBe("test = 0");
+    expect(renderField("test", -1)).toBe("test = -1");
+    expect(renderField("test", 25.5)).toBe("test = 25.5");
+    expect(renderField("test", 2000000)).toBe("test = 2000000");
+    expect(renderField("test", "default_string")).toBe("test = default_string");
+    expect(renderField("test", true)).toBe("test = true");
+    expect(renderField("test", false)).toBe("test = false");
+  });
+
   it("should correctly generate string fields", () => {
     expect(renderField("test", newStringField(""))).toBe("test = ");
     expect(renderField("test", newStringField("", { comment }))).toBe(`test =  ; ${comment}`);

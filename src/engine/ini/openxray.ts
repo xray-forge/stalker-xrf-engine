@@ -1,4 +1,4 @@
-import { newBooleanField, newFloatField, newStringField } from "#/utils";
+import { newFloatField } from "#/utils";
 
 export const IS_LTX: boolean = true;
 
@@ -10,7 +10,7 @@ export const config = {
     /**
      * Set to false if you want weather config defined sun movement.
      */
-    dynamic_sun_dir: newBooleanField(true),
+    dynamic_sun_dir: true,
     /**
      * Defines sun movement direction.
      * Useless if dynamic_sun_dir is disabled.
@@ -23,19 +23,19 @@ export const config = {
      * Allowed values: firsteye, freelook, fixedlook.
      * Note, that the player can turn on firsteye himself if you set freelook or fixedlook.
      */
-    actor_death_camera: newStringField("freelook"),
+    actor_death_camera: "freelook",
   },
   lua_scripting: {
     /**
      * This will allow you to skip errors related to wrong arguments passed to functions.
      * WARNING. This may lead to undefined behavior, random crashes and saves corruption
      */
-    allow_nil_conversion: newBooleanField(false),
+    allow_nil_conversion: false,
     /**
      * If false partially disables new LuaJIT escape sequences
      * that break compatibility with original game scripts.
      */
-    allow_escape_sequences: newBooleanField(false),
+    allow_escape_sequences: false,
   },
   compatibility: {
     /**
@@ -43,6 +43,6 @@ export const config = {
      * cop, cs, shoc or soc and unlock.
      * unlock is cop with disabled restrictions.
      */
-    game_mode: newStringField("cop"),
+    game_mode: "cop",
   },
 };

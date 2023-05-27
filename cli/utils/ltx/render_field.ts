@@ -46,13 +46,13 @@ function toFloat(it: number, precision: number = 1): string {
 /**
  * todo;
  */
-function link(name: Optional<string>, data: string, descriptor: Optional<ILtxFieldDescriptor<unknown>>): string {
+function link(name: Optional<string>, data: string, descriptor?: Optional<ILtxFieldDescriptor<unknown>>): string {
   const comment: string = descriptor?.meta?.comment ? ` ; ${descriptor.meta.comment}` : "";
   const key: string = name ? name : "";
 
   if (descriptor === null) {
     return key + comment;
-  } else if (descriptor.meta?.isBinding) {
+  } else if (descriptor?.meta?.isBinding) {
     return (key ? `${key} ${data}` : data) + comment;
   }
 
@@ -62,10 +62,13 @@ function link(name: Optional<string>, data: string, descriptor: Optional<ILtxFie
 /**
  * todo;
  */
+export function renderField(name: Optional<string>, value: any): string;
 export function renderField(name: Optional<string>, value: Optional<ILtxFieldDescriptor<unknown>>): string {
   // In case of empty fields without data or placeholders.
   if (value === null) {
     return link(name, "", value);
+  } else if (typeof value !== "object") {
+    return link(name, String(value));
   }
 
   switch (value.type) {

@@ -8,8 +8,8 @@ export const IS_LTX: boolean = true;
  */
 export const config = {
   evaluation: {
-    line1: newStringField(quoted("")),
-    line2: newStringField(quoted("")),
-    line3: newStringField(quoted("")),
+    line1: quoted(""),
+    line2: quoted(""),
+    line3: quoted(""),
   },
 };

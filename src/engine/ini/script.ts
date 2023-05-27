@@ -1,5 +1,3 @@
-import { newStringField } from "#/utils";
-
 export const IS_LTX: boolean = true;
 
 /**
@@ -7,11 +5,11 @@ export const IS_LTX: boolean = true;
  */
 export const config = {
   common: {
-    script: newStringField("_G"),
+    script: "_G",
     levels: null,
-    class_registrators: newStringField("register.registerGameClasses"),
-    game_type_clsid_factory: newStringField("register.getGameClassId"),
-    ui_type_clsid_factory: newStringField("register.getUiClassId"),
+    class_registrators: "register.registerGameClasses",
+    game_type_clsid_factory: "register.getGameClassId",
+    ui_type_clsid_factory: "register.getUiClassId",
   },
   single: {
     script: null,

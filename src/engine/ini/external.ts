@@ -1,5 +1,3 @@
-import { newStringField } from "#/utils";
-
 export const IS_LTX: boolean = true;
 
 /**
@@ -4084,5 +4082,5 @@ export const config = {
     "wpn\\wpn_winchester1300",
     "wpn\\wpn_winchester1300_bump#",
     "wpn\\wpn_winchester1300_bump",
-  ].map((it) => newStringField(it)),
+  ],
 };

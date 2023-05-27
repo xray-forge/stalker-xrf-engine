@@ -1,4 +1,4 @@
-import { LTX_ROOT, newStringField } from "#/utils";
+import { LTX_ROOT } from "#/utils";
 
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { food } from "@/engine/lib/constants/items/food";
@@ -8,15 +8,15 @@ export const IS_LTX: boolean = true;
 /**
  * Create config entry to bind keys.
  */
-function newKeyBind(action: string, key: string) {
-  return newStringField(`bind ${action} ${key}`);
+function newKeyBind(action: string, key: string): string {
+  return `bind ${action} ${key}`;
 }
 
 /**
  * Create config entry to bind quick slots.
  */
-function newQuickSlotBind(index: number, item: string) {
-  return newStringField(`slot_${index} ${item}`);
+function newQuickSlotBind(index: number, item: string): string {
+  return `slot_${index} ${item}`;
 }
 
 /**

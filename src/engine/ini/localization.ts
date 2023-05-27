@@ -8,7 +8,7 @@ export const IS_LTX: boolean = true;
  */
 export const config = {
   string_table: {
-    language: newStringField(projectConfig.locale),
+    language: projectConfig.locale,
     font_prefix: newStringField("", { comment: "_west | _cent" }),
   },
 };
