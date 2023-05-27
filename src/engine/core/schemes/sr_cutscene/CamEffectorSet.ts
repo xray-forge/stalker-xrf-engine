@@ -1,4 +1,4 @@
-import { device, game_object, level } from "xray16";
+import { device, level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import {
@@ -12,7 +12,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { FALSE } from "@/engine/lib/constants/words";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -99,8 +99,8 @@ export class CamEffectorSet {
    * todo: Description.
    */
   public select_effect(): Optional<ICamEffectorSetDescriptorItem> {
-    const state = this.state;
-    const actor: game_object = registry.actor;
+    const state: EEffectorState = this.state;
+    const actor: ClientObject = registry.actor;
     let cur_effect = this.cur_effect;
 
     if (this.looped) {

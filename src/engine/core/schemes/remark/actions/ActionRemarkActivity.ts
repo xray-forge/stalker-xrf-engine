@@ -1,4 +1,4 @@
-import { action_base, game_object, level, LuabindClass, patrol, sound_object, vector } from "xray16";
+import { action_base, level, LuabindClass, patrol } from "xray16";
 
 import { getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -11,7 +11,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { ClientObject, Optional, SoundObject, TNumberId, Vector } from "@/engine/lib/types";
 
 const state_initial = 0;
 const state_animation = 1;
@@ -21,8 +21,8 @@ const state_finish = 3;
 const logger: LuaLogger = new LuaLogger($filename);
 
 interface IDescriptor {
-  look_object: Optional<game_object>;
-  look_position: Optional<vector>;
+  look_object: Optional<ClientObject>;
+  look_position: Optional<Vector>;
 }
 
 /**
@@ -39,7 +39,7 @@ export class ActionRemarkActivity extends action_base {
   public anim_scheduled: boolean = false;
   public snd_scheduled: boolean = false;
   public snd_started: boolean = false;
-  public tips_sound: Optional<sound_object> = null;
+  public tips_sound: Optional<SoundObject> = null;
 
   public constructor(state: ISchemeRemarkState) {
     super(null, ActionRemarkActivity.__name);
@@ -102,8 +102,8 @@ export class ActionRemarkActivity extends action_base {
    */
   public get_target(): Optional<IDescriptor> {
     const look_tbl = {
-      look_object: null as Optional<game_object>,
-      look_position: null as Optional<vector>,
+      look_object: null as Optional<ClientObject>,
+      look_position: null as Optional<Vector>,
     };
 
     const [target_position, target_id, target_init] = init_target(this.object, this.st.target);
@@ -190,9 +190,9 @@ export class ActionRemarkActivity extends action_base {
  * todo
  */
 export function init_target(
-  obj: game_object,
+  obj: ClientObject,
   targetString: string
-): LuaMultiReturn<[Optional<vector>, Optional<number>, Optional<boolean>]> {
+): LuaMultiReturn<[Optional<Vector>, Optional<number>, Optional<boolean>]> {
   // todo: Simplify.
   function parse_target(target_str: string): LuaMultiReturn<[Optional<string>, Optional<string>]> {
     const [pos] = string.find(target_str, ",");
@@ -222,7 +222,7 @@ export function init_target(
     return $multi(target_type, target);
   }
 
-  let targetPosition: Optional<vector> = null;
+  let targetPosition: Optional<Vector> = null;
   let targetId: Optional<TNumberId> = null;
   let isTargetInitialized: boolean = false;
 
@@ -264,7 +264,7 @@ export function init_target(
 /**
  * todo
  */
-function instruction(object: game_object, data: string): never {
+function instruction(object: ClientObject, data: string): never {
   abort(
     "\nWrong target field for object [%s] in section [%s]!!!\n" +
       "Field [target] supports following:\n" +

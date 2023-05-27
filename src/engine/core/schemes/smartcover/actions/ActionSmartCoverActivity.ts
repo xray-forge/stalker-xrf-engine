@@ -1,4 +1,4 @@
-import { action_base, game_object, level, LuabindClass, patrol, vector } from "xray16";
+import { action_base, level, LuabindClass, patrol } from "xray16";
 
 import { getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -14,7 +14,7 @@ import { getParamString, pickSectionFromCondList } from "@/engine/core/utils/ini
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, StringOptional, TNumberId } from "@/engine/lib/types";
+import { ClientObject, Optional, StringOptional, TNumberId, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -33,7 +33,7 @@ export class ActionSmartCoverActivity extends action_base {
 
   public cover_state!: StringOptional<ECoverState>;
   public cover_name!: string;
-  public fire_pos!: vector;
+  public fire_pos!: Vector;
   public target_path!: string;
 
   /**
@@ -58,24 +58,24 @@ export class ActionSmartCoverActivity extends action_base {
   /**
    * todo: Description.
    */
-  public target_selector(obj: game_object): void {
-    if (!obj.alive()) {
+  public target_selector(object: ClientObject): void {
+    if (!object.alive()) {
       return;
     }
 
     if (this.cover_state === ECoverState.IDLE_TARGET) {
-      obj.set_smart_cover_target_idle();
+      object.set_smart_cover_target_idle();
     } else if (this.cover_state === ECoverState.LOOKOUT_TARGET) {
       this.check_target();
-      obj.set_smart_cover_target_lookout();
+      object.set_smart_cover_target_lookout();
     } else if (this.cover_state === ECoverState.FIRE_TARGET) {
-      obj.set_smart_cover_target_fire();
+      object.set_smart_cover_target_fire();
     } else if (this.cover_state === ECoverState.FIRE_NO_LOOKOUT_TARGET) {
       this.check_target();
-      obj.set_smart_cover_target_fire_no_lookout();
+      object.set_smart_cover_target_fire_no_lookout();
     } else {
       this.check_target();
-      obj.set_smart_cover_target_default(true);
+      object.set_smart_cover_target_default(true);
     }
   }
 
@@ -165,7 +165,7 @@ export class ActionSmartCoverActivity extends action_base {
         }
       }
     } else if (this.state.target_enemy !== null) {
-      const storyObject: Optional<game_object> = getObjectByStoryId(this.state.target_enemy);
+      const storyObject: Optional<ClientObject> = getObjectByStoryId(this.state.target_enemy);
 
       this.target_enemy_id = storyObject?.id() as Optional<TNumberId>;
 

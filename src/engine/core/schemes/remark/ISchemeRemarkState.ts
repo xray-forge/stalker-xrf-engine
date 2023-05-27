@@ -1,8 +1,6 @@
-import type { vector } from "xray16";
-
 import type { IBaseSchemeState } from "@/engine/core/schemes/base";
 import type { IConfigSwitchCondition } from "@/engine/core/utils/parse";
-import type { LuaArray, Optional, StringOptional, TName, TNumberId, TStringId } from "@/engine/lib/types";
+import type { LuaArray, Optional, StringOptional, TName, TNumberId, TStringId, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -15,6 +13,6 @@ export interface ISchemeRemarkState extends IBaseSchemeState {
   sender: Optional<TStringId>;
   target: StringOptional;
   target_id: Optional<TNumberId>;
-  target_position: Optional<vector>;
+  target_position: Optional<Vector>;
   target_init: Optional<boolean>;
 }

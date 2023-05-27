@@ -1,4 +1,4 @@
-import { game_object, level, patrol, sound_object, time_global, vector } from "xray16";
+import { level, patrol, sound_object, time_global, vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -11,7 +11,7 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
-import { Optional, TDuration } from "@/engine/lib/types";
+import { ClientObject, Optional, TDuration, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -26,7 +26,7 @@ export class TeleportManager extends AbstractSchemeManager<ISchemeTeleportState>
    * todo: Description.
    */
   public override update(): void {
-    const actor: Optional<game_object> = registry.actor;
+    const actor: Optional<ClientObject> = registry.actor;
 
     if (!actor) {
       return;
@@ -75,11 +75,11 @@ export class TeleportManager extends AbstractSchemeManager<ISchemeTeleportState>
   /**
    * todo: Description.
    */
-  public teleportActor(actor: game_object, teleportPoint: ITeleportPoint): void {
+  public teleportActor(actor: ClientObject, teleportPoint: ITeleportPoint): void {
     logger.info("Teleporting actor:", teleportPoint.point);
 
-    const pointPatrolVector: vector = new patrol(teleportPoint.point).point(0);
-    const lookDirectionVector: vector = new patrol(teleportPoint.look).point(0).sub(pointPatrolVector);
+    const pointPatrolVector: Vector = new patrol(teleportPoint.point).point(0);
+    const lookDirectionVector: Vector = new patrol(teleportPoint.look).point(0).sub(pointPatrolVector);
 
     actor.set_actor_position(pointPatrolVector);
     actor.set_actor_direction(-lookDirectionVector.getH());

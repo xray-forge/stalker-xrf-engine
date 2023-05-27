@@ -1,4 +1,4 @@
-import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
+import { stalker_ids, world_property } from "xray16";
 
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionRemarkActivity } from "@/engine/core/schemes/remark/actions/ActionRemarkActivity";
@@ -10,7 +10,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
 import { NIL } from "@/engine/lib/constants/words";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
+import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -25,8 +25,8 @@ export class SchemeRemark extends AbstractScheme {
    * todo: Description.
    */
   public static override activate(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     additional: string
@@ -52,13 +52,13 @@ export class SchemeRemark extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeRemarkState
   ): void {
-    const actionPlanner: action_planner = object.motivation_action_manager();
+    const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(EEvaluatorId.NEED_REMARK, new EvaluatorNeedRemark(state));
 

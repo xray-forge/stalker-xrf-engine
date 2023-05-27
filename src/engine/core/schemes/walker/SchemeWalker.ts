@@ -1,4 +1,4 @@
-import { action_planner, game_object, ini_file, level, stalker_ids, world_property } from "xray16";
+import { level, stalker_ids, world_property } from "xray16";
 
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionWalkerActivity } from "@/engine/core/schemes/walker/actions";
@@ -9,6 +9,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
+import { ActionPlanner, ClientObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -24,22 +25,22 @@ export class SchemeWalker extends AbstractScheme {
    * todo: Description.
    */
   public static override activate(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    gulag_name: string
+    additional: string
   ): void {
     const state: ISchemeWalkerState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_walk = readIniString(ini, section, "path_walk", true, gulag_name);
+    state.path_walk = readIniString(ini, section, "path_walk", true, additional);
 
     if (!level.patrol_path_exists(state.path_walk)) {
       abort("there is no patrol path %s", state.path_walk);
     }
 
-    state.path_look = readIniString(ini, section, "path_look", false, gulag_name);
+    state.path_look = readIniString(ini, section, "path_look", false, additional);
 
     if (state.path_walk === state.path_look) {
       abort(
@@ -49,7 +50,7 @@ export class SchemeWalker extends AbstractScheme {
       );
     }
 
-    state.team = readIniString(ini, section, "team", false, gulag_name);
+    state.team = readIniString(ini, section, "team", false, additional);
     state.sound_idle = readIniString(ini, section, "sound_idle", false, "");
     state.use_camp = readIniBoolean(ini, section, "use_camp", false, false);
 
@@ -68,13 +69,13 @@ export class SchemeWalker extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeWalkerState
   ): void {
-    const actionPlanner: action_planner = object.motivation_action_manager();
+    const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(EEvaluatorId.NEED_WALKER, new EvaluatorNeedWalker(state));
 

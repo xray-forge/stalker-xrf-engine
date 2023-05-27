@@ -1,4 +1,4 @@
-import { alife, cse_alife_creature_abstract, game_object, level, vector } from "xray16";
+import { alife, level, vector } from "xray16";
 
 import { Squad } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/state";
@@ -6,7 +6,16 @@ import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";
 import { vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
-import { Optional, TCount, TDistance, TName, TNumberId } from "@/engine/lib/types";
+import {
+  ClientObject,
+  Optional,
+  ServerCreatureObject,
+  TCount,
+  TDistance,
+  TName,
+  TNumberId,
+  Vector,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -49,7 +58,7 @@ const accelerationByCurrentType: LuaTable<EStalkerState, EStalkerState> = $fromO
 export class ReachTaskPatrolManager {
   public objectsList: LuaTable<
     TNumberId,
-    { soldier: number; dir: vector; dist: TDistance; vertex_id?: TNumberId; accepted?: boolean }
+    { soldier: number; dir: Vector; dist: TDistance; vertex_id?: TNumberId; accepted?: boolean }
   > = new LuaTable();
 
   public targetId: TNumberId;
@@ -57,7 +66,7 @@ export class ReachTaskPatrolManager {
   public commanderId: TNumberId = -1;
   public formation: string = "back";
   public commander_lid: number = -1;
-  public commander_dir: vector = new vector().set(0, 0, 1);
+  public commander_dir: Vector = new vector().set(0, 0, 1);
   public objectsCount: TCount = 0;
 
   public constructor(targetId: TNumberId) {
@@ -67,7 +76,7 @@ export class ReachTaskPatrolManager {
   /**
    * todo: Description.
    */
-  public addObjectToPatrol(object: game_object): void {
+  public addObjectToPatrol(object: ClientObject): void {
     if (!object.alive() || this.objectsList.has(object.id())) {
       return;
     }
@@ -91,7 +100,7 @@ export class ReachTaskPatrolManager {
   /**
    * todo: Description.
    */
-  public removeObjectFromPatrol(object: game_object): void {
+  public removeObjectFromPatrol(object: ClientObject): void {
     logger.info("Remove object from patrol:", object.name(), this.targetId);
 
     if (this.objectsList.get(object.id()) === null) {
@@ -117,7 +126,7 @@ export class ReachTaskPatrolManager {
     let index = 1;
 
     for (const [key, data] of this.objectsList) {
-      const serverObject: Optional<cse_alife_creature_abstract> = alife().object(data.soldier)!;
+      const serverObject: Optional<ServerCreatureObject> = alife().object(data.soldier)!;
       const squad: Optional<Squad> = serverObject && getObjectSquad(serverObject);
 
       if (squad === null) {
@@ -159,7 +168,7 @@ export class ReachTaskPatrolManager {
   /**
    * todo: Description.
    */
-  public getCommander(object: game_object): game_object {
+  public getCommander(object: ClientObject): ClientObject {
     if (object === null) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.targetId);
     }
@@ -184,7 +193,7 @@ export class ReachTaskPatrolManager {
   /**
    * todo: Description.
    */
-  public getObjectOrders(object: game_object): LuaMultiReturn<[TNumberId, vector, Optional<EStalkerState>]> {
+  public getObjectOrders(object: ClientObject): LuaMultiReturn<[TNumberId, Vector, Optional<EStalkerState>]> {
     if (object === null) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.targetId);
     }
@@ -199,12 +208,12 @@ export class ReachTaskPatrolManager {
       abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.targetId);
     }
 
-    const commander: Optional<game_object> = level.object_by_id(this.objectsList.get(this.commanderId).soldier);
+    const commander: Optional<ClientObject> = level.object_by_id(this.objectsList.get(this.commanderId).soldier);
 
     assertDefined(commander, "Commander is nil!");
 
-    const direction: vector = commander.direction();
-    const position: vector = new vector().set(0, 0, 0);
+    const direction: Vector = commander.direction();
+    const position: Vector = new vector().set(0, 0, 0);
     let vertexId: TNumberId = commander.location_on_path(5, position);
 
     if (
@@ -252,7 +261,7 @@ export class ReachTaskPatrolManager {
   /**
    * todo: Description.
    */
-  public setObjectOrders(object: game_object, command: EStalkerState, formation: TName): void {
+  public setObjectOrders(object: ClientObject, command: EStalkerState, formation: TName): void {
     if (object === null || !object.alive()) {
       abort("NPC commander possible dead in PatrolManager[%s]", this.targetId);
     }

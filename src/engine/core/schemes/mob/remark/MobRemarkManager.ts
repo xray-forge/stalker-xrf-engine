@@ -1,4 +1,4 @@
-import { anim, cond, MonsterSpace, sound, TXR_MonsterBodyStateKey } from "xray16";
+import { anim, cond, MonsterSpace, sound } from "xray16";
 
 import { registry, setMonsterState } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/interface/notifications";
@@ -9,7 +9,7 @@ import { getExtern } from "@/engine/core/utils/binding";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { action, scriptCaptureObject } from "@/engine/core/utils/object";
 import { parseStringsList } from "@/engine/core/utils/parse";
-import { AnyCallablesModule, LuaArray, Optional, TName } from "@/engine/lib/types";
+import { AnyCallablesModule, LuaArray, MonsterBodyStateKey, Optional, TName } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -81,7 +81,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
           action(
             this.object,
             new anim(an),
-            new sound(snd, "bip01_head", MonsterSpace[this.state.anim_head as TXR_MonsterBodyStateKey]),
+            new sound(snd, "bip01_head", MonsterSpace[this.state.anim_head as MonsterBodyStateKey]),
             cnd
           );
         } else {

@@ -1,4 +1,4 @@
-import { game_object, ini_file, level } from "xray16";
+import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
@@ -10,7 +10,7 @@ import { readIniBoolean } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resetTable } from "@/engine/core/utils/table";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { EScheme, ESchemeType, Optional, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -26,8 +26,8 @@ export class SchemeLight extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeLightState
@@ -38,7 +38,7 @@ export class SchemeLight extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemeLightState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -56,12 +56,12 @@ export class SchemeLight extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static checkObjectLight(object: game_object): void {
+  public static checkObjectLight(object: ClientObject): void {
     if (object === null) {
       return;
     }
 
-    const torch: Optional<game_object> = object.object(misc.device_torch);
+    const torch: Optional<ClientObject> = object.object(misc.device_torch);
     const isCurrentlyIndoor: boolean = isUndergroundLevel(level.name());
 
     if (torch === null) {
@@ -85,7 +85,7 @@ export class SchemeLight extends AbstractScheme {
 
     if (!forced) {
       for (const [k, v] of registry.lightZones) {
-        [light, forced] = v.check_stalker(object);
+        [light, forced] = v.checkStalker(object);
 
         if (forced === true) {
           break;
@@ -110,7 +110,7 @@ export class SchemeLight extends AbstractScheme {
     if (!forced && light === true) {
       const scheme = registry.objects.get(object.id()).active_scheme!;
 
-      if (scheme === "camper" || scheme === "sleeper") {
+      if (scheme === EScheme.CAMPER || scheme === EScheme.SLEEPER) {
         light = false;
         forced = true;
       }

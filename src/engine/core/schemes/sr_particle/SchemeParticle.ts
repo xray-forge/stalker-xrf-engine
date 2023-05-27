@@ -1,5 +1,3 @@
-import { game_object, ini_file } from "xray16";
-
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeParticleState } from "@/engine/core/schemes/sr_particle/ISchemeParticleState";
 import { ParticleManager } from "@/engine/core/schemes/sr_particle/ParticleManager";
@@ -7,7 +5,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType, TName, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -21,7 +19,7 @@ export class SchemeParticle extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemeParticleState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -43,8 +41,8 @@ export class SchemeParticle extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeParticleState

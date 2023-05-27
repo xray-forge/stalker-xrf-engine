@@ -1,5 +1,3 @@
-import { game_object, ini_file } from "xray16";
-
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/ph_door/ISchemePhysicalDoorState";
 import { PhysicalDoorManager } from "@/engine/core/schemes/ph_door/PhysicalDoorManager";
@@ -7,6 +5,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseData1v } from "@/engine/core/utils/parse";
+import { ClientObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -21,7 +20,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemePhysicalDoorState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -57,8 +56,8 @@ export class SchemePhysicalDoor extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemePhysicalDoorState

@@ -1,5 +1,3 @@
-import { game_object, ini_file } from "xray16";
-
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMinigunState";
 import { MinigunManager } from "@/engine/core/schemes/ph_minigun/MinigunManager";
@@ -11,7 +9,7 @@ import {
   readIniString,
 } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
 const def_fire_angle: number = 120;
 const def_min_fire_time: number = 1.0;
@@ -31,8 +29,8 @@ export class SchemeMinigun extends AbstractScheme {
    * todo: Description.
    */
   public static override activate(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     additional: string
@@ -57,8 +55,8 @@ export class SchemeMinigun extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeMinigunState

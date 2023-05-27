@@ -1,4 +1,4 @@
-import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
+import { stalker_ids, world_property } from "xray16";
 
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionSleeperActivity } from "@/engine/core/schemes/sleeper/actions/ActionSleeperActivity";
@@ -8,6 +8,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
+import { ActionPlanner, ClientObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -23,8 +24,8 @@ export class SchemeSleeper extends AbstractScheme {
    * todo: Description.
    */
   public static override activate(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     additional: string
@@ -44,13 +45,13 @@ export class SchemeSleeper extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeSleeperState
   ): void {
-    const actionPlanner: action_planner = object.motivation_action_manager();
+    const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(EEvaluatorId.NEED_SLEEPER, new EvaluatorNeedSleep(state));
 

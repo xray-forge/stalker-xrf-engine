@@ -1,5 +1,3 @@
-import { game_object, ini_file } from "xray16";
-
 import { AbstractScheme, ESchemeEvent } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
 import { CutsceneManager } from "@/engine/core/schemes/sr_cutscene/CutsceneManager";
@@ -9,7 +7,7 @@ import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/util
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseStringsList } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -23,7 +21,7 @@ export class SchemeCutscene extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemeCutsceneState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -40,8 +38,8 @@ export class SchemeCutscene extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeCutsceneState

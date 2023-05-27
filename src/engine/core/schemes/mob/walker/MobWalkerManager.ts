@@ -1,17 +1,4 @@
-import {
-  anim,
-  cond,
-  flags32,
-  game_object,
-  look,
-  move,
-  patrol,
-  sound,
-  TXR_animation,
-  TXR_animation_key,
-  TXR_sound_key,
-  vector,
-} from "xray16";
+import { anim, cond, look, move, patrol, sound, vector } from "xray16";
 
 import { registry, setMonsterState } from "@/engine/core/database";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
@@ -24,10 +11,25 @@ import { IWaypointData, parsePathWaypoints } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { EScheme, LuaArray, Optional, TDuration, TIndex, TName, TNumberId } from "@/engine/lib/types";
+import {
+  ClientObject,
+  EScheme,
+  Flags32,
+  LuaArray,
+  Optional,
+  Patrol,
+  TAnimationKey,
+  TAnimationType,
+  TDuration,
+  TIndex,
+  TName,
+  TNumberId,
+  TSoundKey,
+  Vector,
+} from "@/engine/lib/types";
 
 const default_wait_time: TDuration = 5000;
-const default_anim_standing: TXR_animation = anim.stand_idle;
+const default_anim_standing: TAnimationType = anim.stand_idle;
 
 const state_moving: number = 0;
 const state_standing: number = 1;
@@ -36,12 +38,12 @@ const state_standing: number = 1;
  * todo;
  */
 export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerState> {
-  public last_index: Optional<number> = null;
-  public patrol_look: Optional<patrol> = null;
-  public patrol_walk: Optional<patrol> = null;
-  public last_look_index: Optional<number> = null;
-  public cur_anim_set: Optional<TXR_animation> = null;
-  public scheduled_snd: Optional<TXR_sound_key> = null;
+  public last_index: Optional<TIndex> = null;
+  public patrol_look: Optional<Patrol> = null;
+  public patrol_walk: Optional<Patrol> = null;
+  public last_look_index: Optional<TIndex> = null;
+  public cur_anim_set: Optional<TAnimationType> = null;
+  public scheduled_snd: Optional<TSoundKey> = null;
   public pt_wait_time: Optional<number> = null;
 
   public path_walk_info!: Optional<LuaArray<IWaypointData>>;
@@ -138,14 +140,14 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   /**
    * todo: Description.
    */
-  public waypoint_callback(object: game_object, actionType: Optional<TNumberId>, index: Optional<TIndex>): void {
+  public waypoint_callback(object: ClientObject, actionType: Optional<TNumberId>, index: Optional<TIndex>): void {
     if (index === -1 || index === null) {
       return;
     }
 
     this.last_index = index;
 
-    const suggestedSound = this.path_walk_info!.get(index)["s"] as Optional<TXR_sound_key>;
+    const suggestedSound = this.path_walk_info!.get(index)["s"] as Optional<TSoundKey>;
 
     if (suggestedSound) {
       this.scheduled_snd = suggestedSound;
@@ -174,7 +176,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
     setMonsterState(this.object, beh ? beh : this.state.state);
 
-    const searchForFlags = this.path_walk_info!.get(index)["flags"] as flags32;
+    const searchForFlags = this.path_walk_info!.get(index)["flags"] as Flags32;
 
     if (searchForFlags.get() === 0) {
       this.update_movement_state();
@@ -207,7 +209,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
         }
 
         this.cur_anim_set =
-          anim[pickSectionFromCondList(registry.actor, this.object, suggested_anim_set) as TXR_animation_key];
+          anim[pickSectionFromCondList(registry.actor, this.object, suggested_anim_set) as TAnimationKey];
       } else {
         this.cur_anim_set = default_anim_standing;
       }
@@ -297,7 +299,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       return;
     }
 
-    const lookPoint: vector = new vector().set(this.patrol_look.point(pt)).sub(this.object.position());
+    const lookPoint: Vector = new vector().set(this.patrol_look.point(pt)).sub(this.object.position());
 
     lookPoint.normalize();
     // --this.object:set_sight(look.direction, look_pt, 0)

@@ -1,10 +1,9 @@
-import { game_object, ini_file } from "xray16";
-
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { IdleManager } from "@/engine/core/schemes/sr_idle/IdleManager";
 import { ISchemeIdleState } from "@/engine/core/schemes/sr_idle/ISchemeIdleState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { ClientObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -20,7 +19,7 @@ export class SchemeIdle extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemeIdleState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -30,8 +29,8 @@ export class SchemeIdle extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeIdleState

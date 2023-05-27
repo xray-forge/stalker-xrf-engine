@@ -1,4 +1,4 @@
-import { action_base, game_object, LuabindClass } from "xray16";
+import { action_base, LuabindClass } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -10,7 +10,7 @@ import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager"
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -36,7 +36,7 @@ export class ActionWalkerActivity extends action_base {
   /**
    * todo: Description.
    */
-  public constructor(state: ISchemeWalkerState, object: game_object) {
+  public constructor(state: ISchemeWalkerState, object: ClientObject) {
     super(null, ActionWalkerActivity.__name);
 
     this.state = state;
@@ -66,7 +66,7 @@ export class ActionWalkerActivity extends action_base {
   /**
    * todo: Description.
    */
-  public activateScheme(isLoading: boolean, object: game_object): void {
+  public activateScheme(isLoading: boolean, object: ClientObject): void {
     this.state.signals = new LuaTable();
     this.resetScheme(isLoading, object);
   }
@@ -74,7 +74,7 @@ export class ActionWalkerActivity extends action_base {
   /**
    * todo: Description.
    */
-  public resetScheme(loading: Optional<boolean>, npc: game_object): void {
+  public resetScheme(loading: Optional<boolean>, npc: ClientObject): void {
     if (this.state.path_walk_info === null) {
       this.state.path_walk_info = parsePathWaypoints(this.state.path_walk);
     }
@@ -167,9 +167,9 @@ export class ActionWalkerActivity extends action_base {
   /**
    * todo: Description.
    */
-  public net_destroy(npc: game_object): void {
+  public net_destroy(object: ClientObject): void {
     if (this.in_camp === true) {
-      this.camp!.unregister_npc(npc.id());
+      this.camp!.unregister_npc(object.id());
       this.in_camp = null;
     }
   }

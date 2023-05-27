@@ -8,7 +8,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
 import { areSameVectors } from "@/engine/core/utils/vector";
-import { TDistance, TNumberId, TTimestamp } from "@/engine/lib/types";
+import { ClientObject, TDistance, TNumberId, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -22,7 +22,7 @@ export class ActionPatrol extends action_base {
 
   public l_vid: TNumberId = -1;
   public dist: TDistance = 0;
-  public dir: vector = new vector().set(0, 0, 1);
+  public dir: Vector = new vector().set(0, 0, 1);
   public cur_state: EStalkerState = "cur_state" as unknown as EStalkerState; // todo: probably get rid
   public on_point: boolean = false;
   public time_to_update: TTimestamp = time_global() + 1000;
@@ -30,7 +30,7 @@ export class ActionPatrol extends action_base {
   /**
    * todo: Description.
    */
-  public constructor(state: ISchemePatrolState, object: game_object) {
+  public constructor(state: ISchemePatrolState, object: ClientObject) {
     super(null, ActionPatrol.__name);
     this.state = state;
     this.moveManager = registry.objects.get(object.id()).moveManager!;
@@ -127,21 +127,21 @@ export class ActionPatrol extends action_base {
   /**
    * todo: Description.
    */
-  public death_callback(npc: game_object): void {
+  public death_callback(npc: ClientObject): void {
     registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
   }
 
   /**
    * todo: Description.
    */
-  public deactivate(npc: game_object): void {
+  public deactivate(npc: ClientObject): void {
     registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
   }
 
   /**
    * todo: Description.
    */
-  public net_destroy(npc: game_object): void {
+  public net_destroy(npc: ClientObject): void {
     this.deactivate(npc);
   }
 }

@@ -1,4 +1,4 @@
-import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
+import { stalker_ids, world_property } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
@@ -13,7 +13,7 @@ import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
-import { Optional, TName } from "@/engine/lib/types";
+import { ActionPlanner, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -29,8 +29,8 @@ export class SchemePatrol extends AbstractScheme {
    * todo: Description.
    */
   public static override activate(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     gulagName: TName
@@ -94,13 +94,13 @@ export class SchemePatrol extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemePatrolState
   ): void {
-    const actionPlanner: action_planner = object.motivation_action_manager();
+    const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(EEvaluatorId.IS_PATROL_ENDED, new EvaluatorPatrolEnd(state));
     actionPlanner.add_evaluator(EEvaluatorId.IS_PATROL_COMMANDER, new EvaluatorPatrolComm(state));

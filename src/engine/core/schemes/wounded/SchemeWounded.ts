@@ -1,4 +1,4 @@
-import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
+import { stalker_ids, world_property } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
@@ -12,7 +12,7 @@ import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { parseData, parseSynData } from "@/engine/core/utils/parse";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
-import { AnyObject, Maybe, Optional, TNumberId } from "@/engine/lib/types";
+import { ActionPlanner, AnyObject, ClientObject, IniFile, Maybe, Optional, TNumberId } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const woundedByState: Record<number, string> = {
@@ -33,7 +33,7 @@ export class SchemeWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemeWoundedState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.woundManager = new WoundManager(object, state);
@@ -43,13 +43,13 @@ export class SchemeWounded extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeWoundedState
   ): void {
-    const manager: action_planner = object.motivation_action_manager();
+    const manager: ActionPlanner = object.motivation_action_manager();
 
     manager.add_evaluator(EEvaluatorId.IS_WOUNDED, new EvaluatorWounded(state));
     manager.add_evaluator(EEvaluatorId.CAN_FIGHT, new EvaluatorCanFight(state));
@@ -83,7 +83,7 @@ export class SchemeWounded extends AbstractScheme {
    * todo: Description.
    */
   public static override reset(
-    object: game_object,
+    object: ClientObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
@@ -102,8 +102,8 @@ export class SchemeWounded extends AbstractScheme {
    * todo: Description.
    */
   public static initialize(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     section: TSection,
     state: ISchemeWoundedState,
     scheme: EScheme
@@ -207,7 +207,7 @@ export class SchemeWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static unlockMedkit(object: game_object): void {
+  public static unlockMedkit(object: ClientObject): void {
     const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
     (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.unlockMedkit();
@@ -216,7 +216,7 @@ export class SchemeWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static eatMedkit(object: game_object): void {
+  public static eatMedkit(object: ClientObject): void {
     const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
     (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.eatMedkit();

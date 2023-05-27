@@ -5,14 +5,14 @@ import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeParticleState } from "@/engine/core/schemes/sr_particle/ISchemeParticleState";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
-import { Optional, TCount, TTimestamp } from "@/engine/lib/types";
+import { Optional, Patrol, TCount, TTimestamp } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState> {
   public particles: LuaTable = new LuaTable();
-  public path: Optional<patrol> = null;
+  public path: Optional<Patrol> = null;
   public last_update: number = 0;
   public started: boolean = false;
   public first_played: boolean = false;

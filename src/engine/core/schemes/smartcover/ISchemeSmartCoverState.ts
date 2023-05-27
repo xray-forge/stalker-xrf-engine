@@ -1,7 +1,5 @@
-import { vector } from "xray16";
-
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { Optional, StringOptional, TDuration, TName } from "@/engine/lib/types";
+import { Optional, StringOptional, TDuration, TName, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -42,5 +40,5 @@ export interface ISchemeSmartCoverState extends IBaseSchemeState {
   weapon_type: string;
   moving: string;
   sound_idle: string;
-  target_position: Optional<vector>; // todo: Probably unused and not needed, commented logic originally.
+  target_position: Optional<Vector>; // todo: Probably unused and not needed, commented logic originally.
 }

@@ -1,4 +1,4 @@
-import { alife, alife_simulator, time_global } from "xray16";
+import { alife, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
@@ -8,7 +8,7 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWounde
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { LuaArray, Optional, TCount, TRate, TTimestamp } from "@/engine/lib/types";
+import { AlifeSimulator, LuaArray, Optional, TCount, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -70,7 +70,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
         this.object.eat(this.object.object("medkit_script")!);
       }
 
-      const simulator: alife_simulator = alife();
+      const simulator: AlifeSimulator = alife();
 
       if (this.object.object(drugs.medkit) !== null) {
         simulator.release(simulator.object(this.object.object(drugs.medkit)!.id()), true);

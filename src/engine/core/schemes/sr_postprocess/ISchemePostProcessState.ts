@@ -1,5 +1,5 @@
 import type { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { TRate } from "@/engine/lib/types";
+import type { TRate } from "@/engine/lib/types";
 
 /**
  * todo;

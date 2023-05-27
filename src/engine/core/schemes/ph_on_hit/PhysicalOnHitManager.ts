@@ -1,12 +1,10 @@
-import { game_object, vector } from "xray16";
-
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/ph_on_hit/ISchemePhysicalOnHitState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, TCount, TIndex, TName } from "@/engine/lib/types";
+import { ClientObject, Optional, TCount, TIndex, TName, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -18,10 +16,10 @@ export class PhysicalOnHitManager extends AbstractSchemeManager<ISchemePhysicalO
    * todo: Description.
    */
   public hit_callback(
-    object: game_object,
+    object: ClientObject,
     amount: TCount,
-    local_direction: vector,
-    who: Optional<game_object>,
+    local_direction: Vector,
+    who: Optional<ClientObject>,
     boneIndex: TIndex
   ): void {
     const whoName: TName = who ? who.name() : NIL;

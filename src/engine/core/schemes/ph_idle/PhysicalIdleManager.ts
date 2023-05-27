@@ -1,5 +1,3 @@
-import { game_object, vector } from "xray16";
-
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
@@ -7,7 +5,7 @@ import { ISchemePhysicalIdleState } from "@/engine/core/schemes/ph_idle/ISchemeP
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TConditionList } from "@/engine/core/utils/parse";
-import { Optional, TCount, TIndex, TSection } from "@/engine/lib/types";
+import { ClientObject, Optional, TCount, TIndex, TSection, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -40,10 +38,10 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
    * todo: Description.
    */
   public hit_callback(
-    object: game_object,
+    object: ClientObject,
     amount: TCount,
-    const_direction: vector,
-    who: Optional<game_object>,
+    const_direction: Vector,
+    who: Optional<ClientObject>,
     bone_index: TIndex
   ): void {
     logger.info("Idle hit:", this.object.name());

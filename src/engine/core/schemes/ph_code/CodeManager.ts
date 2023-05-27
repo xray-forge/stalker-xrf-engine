@@ -1,11 +1,9 @@
-import { game_object } from "xray16";
-
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeCodeState } from "@/engine/core/schemes/ph_code/ISchemeCodeState";
 import { NumPadWindow } from "@/engine/core/ui/game/NumPadWindow";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { TLabel } from "@/engine/lib/types";
+import { ClientObject, TLabel } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -21,7 +19,7 @@ export class CodeManager extends AbstractSchemeManager<ISchemeCodeState> {
   /**
    * todo: Description.
    */
-  public use_callback(object: game_object, who: game_object): void {
+  public use_callback(object: ClientObject, who: ClientObject): void {
     const numPadWindow: NumPadWindow = new NumPadWindow(this);
 
     numPadWindow.ShowDialog(true);

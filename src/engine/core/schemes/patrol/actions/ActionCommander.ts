@@ -1,4 +1,4 @@
-import { action_base, game_object, LuabindClass } from "xray16";
+import { action_base, LuabindClass } from "xray16";
 
 import { getStalkerState, registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -6,7 +6,7 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, Optional } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -19,10 +19,7 @@ export class ActionCommander extends action_base {
   public currentState: EStalkerState = EStalkerState.PATROL;
   public previousState: Optional<EStalkerState> = null;
 
-  /**
-   * todo: Description.
-   */
-  public constructor(state: ISchemePatrolState, object: game_object) {
+  public constructor(state: ISchemePatrolState, object: ClientObject) {
     super(null, ActionCommander.__name);
     this.state = state;
     this.moveManager = registry.objects.get(object.id()).moveManager!;
@@ -131,21 +128,21 @@ export class ActionCommander extends action_base {
   /**
    * todo: Description.
    */
-  public deactivate(object: game_object): void {
+  public deactivate(object: ClientObject): void {
     registry.patrols.generic.get(this.state.patrol_key).remove_npc(object);
   }
 
   /**
    * todo: Description.
    */
-  public death_callback(object: game_object): void {
+  public death_callback(object: ClientObject): void {
     registry.patrols.generic.get(this.state.patrol_key).remove_npc(object);
   }
 
   /**
    * todo: Description.
    */
-  public net_destroy(object: game_object): void {
+  public net_destroy(object: ClientObject): void {
     this.deactivate(object);
   }
 

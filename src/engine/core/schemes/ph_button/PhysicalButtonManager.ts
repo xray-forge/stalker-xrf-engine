@@ -1,4 +1,4 @@
-import { game_object, time_global, vector, XR_object } from "xray16";
+import { time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -7,7 +7,7 @@ import { ISchemePhysicalButtonState } from "@/engine/core/schemes/ph_button/ISch
 import { isActiveSection } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TIndex } from "@/engine/lib/types";
+import { ClientObject, Optional, TIndex, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -56,10 +56,10 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
    * todo: Description.
    */
   public hit_callback(
-    object: XR_object,
+    object: ClientObject,
     amount: number,
-    local_direction: vector,
-    who: Optional<game_object>,
+    local_direction: Vector,
+    who: Optional<ClientObject>,
     bone_index: TIndex
   ): void {
     return;
@@ -85,7 +85,7 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
   /**
    * todo: Description.
    */
-  public use_callback(object: game_object, who: Optional<game_object>): void {
+  public use_callback(object: ClientObject, who: Optional<ClientObject>): void {
     logger.info("Button used:", object.name(), who?.name());
 
     this.try_switch();

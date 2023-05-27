@@ -1,5 +1,3 @@
-import { CPhysicObject, game_object, physics_element, physics_joint, physics_shell, vector } from "xray16";
-
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -7,7 +5,17 @@ import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/ph_door/ISchemePhysicalDoorState";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { Optional, TCount, TIndex } from "@/engine/lib/types";
+import {
+  ClientObject,
+  Optional,
+  PhysicObject,
+  PhysicsElement,
+  PhysicsJoint,
+  PhysicsShell,
+  TCount,
+  TIndex,
+  Vector,
+} from "@/engine/lib/types";
 
 /**
  * todo;
@@ -19,7 +27,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public block: boolean = false;
   public soundless_block: boolean = false;
   public show_tips: boolean = false;
-  public joint: Optional<physics_joint> = null;
+  public joint: Optional<PhysicsJoint> = null;
 
   public low_limits: number = 0;
   public hi_limits: number = 0;
@@ -32,7 +40,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
 
     this.initialized = false;
 
-    const ph_shell: Optional<physics_shell> = this.object.get_physics_shell();
+    const ph_shell: Optional<PhysicsShell> = this.object.get_physics_shell();
 
     if (!ph_shell) {
       return;
@@ -159,15 +167,15 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
 
     this.object.set_fastcall(this.open_fastcall, this);
 
-    const physicsShell: Optional<physics_shell> = this.object.get_physics_shell();
+    const physicsShell: Optional<PhysicsShell> = this.object.get_physics_shell();
 
     if (physicsShell) {
-      const physicsElement: physics_element = physicsShell.get_element_by_bone_name("door");
+      const physicsElement: PhysicsElement = physicsShell.get_element_by_bone_name("door");
 
       if (physicsElement.is_fixed()) {
         physicsElement.release_fixed();
 
-        const physicsObject: CPhysicObject = this.object.get_physics_object();
+        const physicsObject: PhysicObject = this.object.get_physics_object();
 
         physicsObject.set_door_ignore_dynamics();
       }
@@ -264,7 +272,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   /**
    * todo: Description.
    */
-  public use_callback(target: game_object, who: Optional<game_object>): void {
+  public use_callback(target: ClientObject, who: Optional<ClientObject>): void {
     if (this.state.locked) {
       if (this.state.snd_open_start) {
         GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_open_start, null, null);
@@ -278,10 +286,10 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    * todo: Description.
    */
   public hit_callback(
-    object: game_object,
+    object: ClientObject,
     amount: TCount,
-    const_direction: vector,
-    who: Optional<game_object>,
+    const_direction: Vector,
+    who: Optional<ClientObject>,
     boneIndex: TIndex
   ): void {
     if (this.state.hit_on_bone.has(boneIndex)) {

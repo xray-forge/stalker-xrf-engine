@@ -1,4 +1,4 @@
-import { game_object, level, patrol } from "xray16";
+import { level, patrol } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/interface";
@@ -10,7 +10,7 @@ import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeC
 import { getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
-import { AnyCallablesModule, Optional } from "@/engine/lib/types";
+import { AnyCallablesModule, ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -18,7 +18,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState> {
-  public static object_cutscene: Optional<game_object> = null;
+  public static object_cutscene: Optional<ClientObject> = null;
   public static storage_scene: Optional<ISchemeCutsceneState> = null;
 
   public ui_disabled: boolean = false;
@@ -30,7 +30,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   /**
    * todo: Description.
    */
-  public constructor(object: game_object, state: ISchemeCutsceneState) {
+  public constructor(object: ClientObject, state: ISchemeCutsceneState) {
     super(object, state);
 
     logger.info("Init new cutscene:", object.name());
@@ -76,7 +76,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   public zone_enter(): void {
     logger.info("Zone enter:", this.object.name());
 
-    const actor: Optional<game_object> = registry.actor;
+    const actor: Optional<ClientObject> = registry.actor;
 
     this.sceneState = "run";
 
@@ -131,7 +131,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   public cutscene_callback(): void {
     logger.info("Cutscene callback:", this.object.name());
 
-    const actor: game_object = registry.actor;
+    const actor: ClientObject = registry.actor;
 
     if (this.motion!.state === EEffectorState.RELEASE) {
       this.motion = null;

@@ -1,5 +1,5 @@
 import type { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { EMonsterState } from "@/engine/lib/constants/monsters";
+import type { EMonsterState } from "@/engine/lib/constants/monsters";
 import type { Optional, TDistance } from "@/engine/lib/types";
 
 /**

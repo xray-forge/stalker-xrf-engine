@@ -1,4 +1,4 @@
-import { alife, cond, cse_alife_monster_abstract, game, game_object, move, patrol, sound_object, vector } from "xray16";
+import { alife, cond, game, move, patrol, sound_object, vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -7,7 +7,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeMonsterState } from "@/engine/core/schemes/sr_monster/ISchemeMonsterState";
 import { action, scriptCaptureObject, scriptReleaseObject } from "@/engine/core/utils/object";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, Optional, ServerMonsterObject, SoundObject, TIndex, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -18,15 +18,15 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   public idle_state: Optional<boolean> = null;
   public path_name: Optional<string> = null;
   public cur_point: Optional<number> = null;
-  public dir!: vector;
-  public current!: vector;
-  public target!: vector;
+  public dir!: Vector;
+  public current!: Vector;
+  public target!: Vector;
 
-  public monster: Optional<cse_alife_monster_abstract> = null;
-  public monster_obj: Optional<game_object> = null;
+  public monster: Optional<ServerMonsterObject> = null;
+  public monster_obj: Optional<ClientObject> = null;
 
-  public snd_obj: Optional<sound_object> = null;
-  public appear_snd!: sound_object;
+  public snd_obj: Optional<SoundObject> = null;
+  public appear_snd!: SoundObject;
 
   /**
    * todo: Description.
@@ -48,7 +48,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
    * todo: Description.
    */
   public override update(delta: number): void {
-    const actor = registry.actor;
+    const actor: ClientObject = registry.actor;
 
     if (this.idle_state) {
       if (this.state.idle_end <= game.time()) {
@@ -66,7 +66,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
 
     if (this.object.inside(actor.position())) {
       if (!this.is_actor_inside) {
-        this.on_enter();
+        this.onEnter();
         this.is_actor_inside = true;
       }
     }
@@ -88,7 +88,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
       this.idle_state = true;
       this.state.idle_end = game.time() + this.state.idle;
       this.is_actor_inside = false;
-      this.reset_path();
+      this.resetPath();
 
       return;
     }
@@ -98,8 +98,8 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
 
       target_pos.mad(this.dir, (this.state.sound_slide_vel * delta) / 1000);
       if (target_pos.distance_to(this.current) > this.current.distance_to(this.target)) {
-        this.cur_point = this.next_point();
-        this.set_positions();
+        this.cur_point = this.getNextPoint();
+        this.setPositions();
       } else {
         this.current = new vector().set(target_pos);
       }
@@ -132,15 +132,15 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   /**
    * todo: Description.
    */
-  public on_enter(): void {
-    this.reset_path();
-    this.set_positions();
+  public onEnter(): void {
+    this.resetPath();
+    this.setPositions();
   }
 
   /**
    * todo: Description.
    */
-  public reset_path(): void {
+  public resetPath(): void {
     this.cur_point = 0;
 
     const path_count = this.state.path_table!.length();
@@ -166,7 +166,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   /**
    * todo: Description.
    */
-  public next_point(): number {
+  public getNextPoint(): TIndex {
     if (this.cur_point! + 1 < this.state.path.count()) {
       return this.cur_point! + 1;
     } else {
@@ -177,10 +177,10 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   /**
    * todo: Description.
    */
-  public set_positions(): void {
-    if (this.next_point() === 0) {
+  public setPositions(): void {
+    if (this.getNextPoint() === 0) {
       if (this.monster === null && this.state.monster !== null) {
-        this.monster = alife().create<cse_alife_monster_abstract>(
+        this.monster = alife().create<ServerMonsterObject>(
           this.state.monster,
           this.current,
           this.object.level_vertex_id(),
@@ -194,11 +194,11 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
         this.snd_obj.stop();
       }
 
-      this.reset_path();
+      this.resetPath();
     }
 
     this.current = this.state.path.point(this.cur_point as number);
-    this.target = this.state.path.point(this.next_point());
+    this.target = this.state.path.point(this.getNextPoint());
     this.dir = new vector().sub(this.target, this.current).normalize();
   }
 }

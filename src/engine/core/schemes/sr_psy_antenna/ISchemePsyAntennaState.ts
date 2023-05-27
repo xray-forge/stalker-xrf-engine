@@ -1,5 +1,5 @@
-import { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { TName, TProbability, TRate } from "@/engine/lib/types";
+import type { IBaseSchemeState } from "@/engine/core/schemes/base";
+import type { TName, TProbability, TRate } from "@/engine/lib/types";
 
 /**
  * todo;

@@ -1,4 +1,4 @@
-import { game_object, ini_file, vector } from "xray16";
+import { vector } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/mob/jump/ISchemeMobJumpState";
@@ -8,7 +8,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseStringsList } from "@/engine/core/utils/parse";
-import { EScheme, ESchemeType, LuaArray, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, LuaArray, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -23,8 +23,8 @@ export class SchemeMobJump extends AbstractScheme {
    * todo: Description.
    */
   public static override activate(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     additional: string
@@ -49,8 +49,8 @@ export class SchemeMobJump extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeMobJumpState

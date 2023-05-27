@@ -4,7 +4,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/mob/jump/ISchemeMobJumpState";
 import { abort } from "@/engine/core/utils/assertion";
 import { action, scriptCaptureObject, scriptReleaseObject } from "@/engine/core/utils/object";
-import { Optional } from "@/engine/lib/types";
+import { Optional, Patrol, Vector } from "@/engine/lib/types";
 
 const STATE_START_LOOK = 1;
 const STATE_WAIT_LOOK_END = 2;
@@ -14,8 +14,8 @@ const STATE_JUMP = 3;
  * todo;
  */
 export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
-  public jump_path: Optional<patrol> = null;
-  public point: Optional<vector> = null;
+  public jump_path: Optional<Patrol> = null;
+  public point: Optional<Vector> = null;
   public state_current: Optional<number> = null;
 
   /**

@@ -4,6 +4,7 @@ import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePhysicalHitState } from "@/engine/core/schemes/ph_hit/ISchemePhysicalHitState";
+import { Hit, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -13,10 +14,10 @@ export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalHit
    * todo: Description.
    */
   public override resetScheme(): void {
-    const p1: vector = new patrol(this.state.dir_path).point(0);
-    const p2: vector = this.object.position();
+    const p1: Vector = new patrol(this.state.dir_path).point(0);
+    const p2: Vector = this.object.position();
 
-    const hitObject: hit = new hit();
+    const hitObject: Hit = new hit();
 
     hitObject.power = this.state.power;
     hitObject.impulse = this.state.impulse;

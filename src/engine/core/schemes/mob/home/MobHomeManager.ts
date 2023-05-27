@@ -1,10 +1,11 @@
-import { alife, cse_alife_creature_abstract, patrol } from "xray16";
+import { alife, patrol } from "xray16";
 
 import { setMonsterState } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/mob/home/ISchemeMobHomeState";
 import { abort } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/parse";
+import { Patrol, ServerCreatureObject } from "@/engine/lib/types";
 
 const def_min_radius: number = 10;
 const def_mid_radius: number = 20;
@@ -24,7 +25,7 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
     let maxr = def_max_radius;
     let midr = def_mid_radius;
 
-    let ptr;
+    let ptr: Patrol;
     let waypointData: Partial<IWaypointData> = {};
     let r = 0;
 
@@ -70,7 +71,7 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
     }
 
     if (this.state.gulag_point !== null) {
-      const smrttrn = alife().object(alife().object<cse_alife_creature_abstract>(this.object.id())!.m_smart_terrain_id);
+      const smrttrn = alife().object(alife().object<ServerCreatureObject>(this.object.id())!.m_smart_terrain_id);
       const lvid = smrttrn ? smrttrn.m_level_vertex_id : null;
 
       this.object.set_home(lvid, minr, maxr, this.state.aggressive, midr);

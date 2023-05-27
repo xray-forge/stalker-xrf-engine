@@ -1,4 +1,4 @@
-import { device, game_object, level, time_global, vector } from "xray16";
+import { device, level, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
@@ -7,7 +7,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos/ISchemeDeimosState";
 import { clampNumber } from "@/engine/core/utils/number";
-import { AnyObject, Optional, TIndex, TNumberId, TTimestamp } from "@/engine/lib/types";
+import { AnyObject, ClientObject, Optional, TIndex, TNumberId, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -23,7 +23,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
   /**
    * todo: Description.
    */
-  public constructor(object: game_object, state: ISchemeDeimosState) {
+  public constructor(object: ClientObject, state: ISchemeDeimosState) {
     super(object, state);
 
     this.state.intensity = 0;
@@ -33,7 +33,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
    * todo: Description.
    */
   public override update(): void {
-    const actor: Optional<game_object> = registry.actor;
+    const actor: Optional<ClientObject> = registry.actor;
     const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
     if (!actor || device().precache_frame > 1) {
@@ -58,9 +58,9 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
       }
     }
 
-    const vec: vector = actor.get_movement_speed();
-    const cur_speed: number = math.sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
-    let intensity_delta: number = (this.state.movement_speed - cur_speed) * 0.005;
+    const vec: Vector = actor.get_movement_speed();
+    const cur_speed: TRate = math.sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+    let intensity_delta: TRate = (this.state.movement_speed - cur_speed) * 0.005;
 
     if (intensity_delta > 0) {
       intensity_delta = this.state.growing_koef * intensity_delta;

@@ -1,4 +1,4 @@
-import { CCar, game_object, level, move, patrol, time_global, vector } from "xray16";
+import { CCar, level, move, patrol, time_global, vector } from "xray16";
 
 import { getObjectByStoryId, registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -12,7 +12,7 @@ import { isObjectScriptCaptured, scriptReleaseObject } from "@/engine/core/utils
 import { TConditionList } from "@/engine/core/utils/parse";
 import { yaw } from "@/engine/core/utils/vector";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { Optional, TName, TStringId } from "@/engine/lib/types";
+import { Car, ClientObject, Optional, TName, TStringId, Vector } from "@/engine/lib/types";
 
 const state_cannon_rotate: number = 1;
 const state_cannon_follow: number = 2;
@@ -28,9 +28,9 @@ const def_max_fc_upd_num: number = 1;
  * todo;
  */
 export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
-  public mgun: CCar;
-  public start_direction: vector;
-  public start_look_pos: vector;
+  public mgun: Car;
+  public start_direction: Vector;
+  public start_look_pos: Vector;
 
   public destroyed: boolean = false;
   public state_cannon: number = -1;
@@ -43,13 +43,13 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   public fc_upd_avg: number = 0;
   public fc_last_upd_tm: number = 0;
 
-  public last_pos: Optional<vector> = null;
+  public last_pos: Optional<Vector> = null;
   public last_pos_time: number = 0;
   public state_delaying: boolean = false;
   public hasWeapon: boolean = false;
 
-  public target_obj: Optional<game_object> = null;
-  public target_fire_pt: Optional<vector> = null;
+  public target_obj: Optional<ClientObject> = null;
+  public target_fire_pt: Optional<Vector> = null;
   public target_fire_pt_idx: number = 0;
   public fire_range_sqr: number = 0;
   public def_fire_time: number = 0;
@@ -58,14 +58,14 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
 
   public fire_track_target: Optional<boolean> = null;
   public path_fire: Optional<string> = null;
-  public path_fire_point: Optional<vector> = null;
-  public on_target_vis: Optional<{ v1: game_object; condlist: TConditionList; name: TName }> = null;
-  public on_target_nvis: Optional<{ v1: game_object; condlist: TConditionList; name: TName }> = null;
+  public path_fire_point: Optional<Vector> = null;
+  public on_target_vis: Optional<{ v1: ClientObject; condlist: TConditionList; name: TName }> = null;
+  public on_target_nvis: Optional<{ v1: ClientObject; condlist: TConditionList; name: TName }> = null;
 
   /**
    * todo: Description.
    */
-  public constructor(object: game_object, state: ISchemeMinigunState) {
+  public constructor(object: ClientObject, state: ISchemeMinigunState) {
     super(object, state);
 
     this.mgun = this.object.get_car();
@@ -115,7 +115,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     this.on_target_vis = null;
     this.on_target_nvis = null;
 
-    const actor: game_object = registry.actor;
+    const actor: ClientObject = registry.actor;
 
     if (this.hasWeapon) {
       if (this.state.fire_target === "points") {
@@ -239,7 +239,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   /**
    * todo: Description.
    */
-  public rot_to_firedir(direction: Optional<vector>): void {
+  public rot_to_firedir(direction: Optional<Vector>): void {
     if (direction) {
       this.mgun.SetParam(CCar.eWpnDesiredPos, direction);
     }
@@ -248,7 +248,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   /**
    * todo: Description.
    */
-  public rot_to_firepoint(pt: Optional<vector>): void {
+  public rot_to_firepoint(pt: Optional<Vector>): void {
     if (pt) {
       this.mgun.SetParam(CCar.eWpnDesiredPos, pt);
     }
@@ -446,7 +446,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   /**
    * todo: Description.
    */
-  public angle_xz(npc: game_object, target_pos: vector, start_direction: vector): number {
+  public angle_xz(npc: ClientObject, target_pos: Vector, start_direction: Vector): number {
     const dir1 = start_direction;
 
     dir1.y = 0;

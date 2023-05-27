@@ -1,4 +1,4 @@
-import { action_planner, game_object, ini_file, stalker_ids, world_property } from "xray16";
+import { stalker_ids, world_property } from "xray16";
 
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { EActionId, EEvaluatorId } from "@/engine/core/schemes/base/id";
@@ -9,7 +9,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
+import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -24,8 +24,8 @@ export class SchemeSmartCover extends AbstractScheme {
    * todo: Description.
    */
   public static override activate(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     additional: string
@@ -54,13 +54,13 @@ export class SchemeSmartCover extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeSmartCoverState
   ): void {
-    const actionPlanner: action_planner = object.motivation_action_manager();
+    const actionPlanner: ActionPlanner = object.motivation_action_manager();
 
     actionPlanner.add_evaluator(EEvaluatorId.IS_SMART_COVER_NEEDED, new EvaluatorNeedSmartCover(state));
     actionPlanner.add_evaluator(EEvaluatorId.CAN_USE_SMART_COVER_IN_COMBAT, new EvaluatorUseSmartCoverInCombat(state));

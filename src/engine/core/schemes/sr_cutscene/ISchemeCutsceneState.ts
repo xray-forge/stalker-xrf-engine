@@ -1,6 +1,6 @@
-import { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { CutsceneManager } from "@/engine/core/schemes/sr_cutscene/CutsceneManager";
-import { LuaArray, StringOptional, TRate } from "@/engine/lib/types";
+import type { IBaseSchemeState } from "@/engine/core/schemes/base";
+import type { CutsceneManager } from "@/engine/core/schemes/sr_cutscene/CutsceneManager";
+import type { LuaArray, StringOptional, TRate } from "@/engine/lib/types";
 
 /**
  * todo;

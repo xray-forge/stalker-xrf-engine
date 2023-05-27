@@ -1,5 +1,3 @@
-import { game_object, ini_file, vector } from "xray16";
-
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { DeimosManager } from "@/engine/core/schemes/sr_deimos/DeimosManager";
@@ -7,7 +5,7 @@ import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos/ISchemeDeimo
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType, TRate, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, TRate, TSection, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -22,7 +20,7 @@ export class SchemeDeimos extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static override activate(object: game_object, ini: ini_file, scheme: EScheme, section: TSection): void {
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemeDeimosState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
@@ -45,8 +43,8 @@ export class SchemeDeimos extends AbstractScheme {
    * todo: Description.
    */
   public static override add(
-    object: game_object,
-    ini: ini_file,
+    object: ClientObject,
+    ini: IniFile,
     scheme: EScheme,
     section: TSection,
     state: ISchemeDeimosState
@@ -60,7 +58,7 @@ export class SchemeDeimos extends AbstractScheme {
   public static checkIntensityDelta(state: IRegistryObjectState): boolean {
     if (state.active_scheme === SchemeDeimos.SCHEME_SECTION) {
       const deimosState: ISchemeDeimosState = state[state.active_scheme] as ISchemeDeimosState;
-      const speedVector: vector = registry.actor.get_movement_speed();
+      const speedVector: Vector = registry.actor.get_movement_speed();
       const currentSpeed: TRate = math.sqrt(
         speedVector.x * speedVector.x + speedVector.y * speedVector.y + speedVector.z * speedVector.z
       );

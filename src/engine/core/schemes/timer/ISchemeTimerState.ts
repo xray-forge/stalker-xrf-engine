@@ -1,7 +1,7 @@
-import { CUIGameCustom, CUIStatic } from "xray16";
+import type { CUIGameCustom, CUIStatic } from "xray16";
 
-import { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { LuaArray, Optional, TCount, TStringId } from "@/engine/lib/types";
+import type { IBaseSchemeState } from "@/engine/core/schemes/base";
+import type { LuaArray, Optional, TCount, TStringId } from "@/engine/lib/types";
 
 /**
  * todo;

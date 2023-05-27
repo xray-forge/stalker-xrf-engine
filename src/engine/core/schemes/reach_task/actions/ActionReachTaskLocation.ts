@@ -22,7 +22,7 @@ import { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task/ReachTa
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
 import { areSameVectors } from "@/engine/core/utils/vector";
-import { Optional, TName, TNumberId, TTimestamp } from "@/engine/lib/types";
+import { ClientObject, Optional, TName, TNumberId, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -42,14 +42,11 @@ export class ActionReachTaskLocation extends action_base {
   public formation!: TName;
 
   public levelVertexId!: TNumberId;
-  public direction!: vector;
+  public direction!: Vector;
   public distance!: TNumberId;
 
   public patrolManager: Optional<ReachTaskPatrolManager> = null;
 
-  /**
-   * todo: Description.
-   */
   public constructor() {
     super(null, ActionReachTaskLocation.__name);
   }
@@ -194,7 +191,7 @@ export class ActionReachTaskLocation extends action_base {
     this.currentState = currentState!;
     this.levelVertexId = sendToNearestAccessibleVertex(this.object, lvi);
 
-    const desiredDirection: vector = this.direction;
+    const desiredDirection: Vector = this.direction;
 
     if (desiredDirection !== null && !areSameVectors(desiredDirection, new vector().set(0, 0, 0))) {
       desiredDirection.normalize();
@@ -231,14 +228,14 @@ export class ActionReachTaskLocation extends action_base {
   /**
    * todo: Description.
    */
-  public death_callback(object: game_object): void {
+  public death_callback(object: ClientObject): void {
     this.patrolManager?.removeObjectFromPatrol(object);
   }
 
   /**
    * todo: Description.
    */
-  public net_destroy(object: game_object): void {
+  public net_destroy(object: ClientObject): void {
     this.patrolManager?.removeObjectFromPatrol(object);
   }
 }
@@ -246,7 +243,7 @@ export class ActionReachTaskLocation extends action_base {
 /**
  * todo;
  */
-function updateObjectMovement(object: game_object, target: Optional<TSimulationObject>): void {
+function updateObjectMovement(object: ClientObject, target: Optional<TSimulationObject>): void {
   if (target !== null && !object.is_talking()) {
     if (SurgeManager.getInstance().isStarted) {
       object.set_movement_type(move.run);

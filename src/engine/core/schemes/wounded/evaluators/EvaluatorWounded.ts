@@ -1,10 +1,10 @@
-import { action_planner, LuabindClass, property_evaluator, stalker_ids } from "xray16";
+import { LuabindClass, property_evaluator, stalker_ids } from "xray16";
 
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { Optional } from "@/engine/lib/types";
+import { ActionPlanner, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -14,7 +14,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class EvaluatorWounded extends property_evaluator {
   public readonly state: ISchemeWoundedState;
-  public actionPlanner: Optional<action_planner> = null;
+  public actionPlanner: Optional<ActionPlanner> = null;
 
   public constructor(state: ISchemeWoundedState) {
     super(null, EvaluatorWounded.__name);

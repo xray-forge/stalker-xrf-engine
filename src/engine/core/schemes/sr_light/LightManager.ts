@@ -1,10 +1,9 @@
-import { game_object } from "xray16";
-
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeLightState } from "@/engine/core/schemes/sr_light/ISchemeLightState";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { ClientObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -40,7 +39,7 @@ export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
   /**
    * todo: Description.
    */
-  public check_stalker(object: game_object): LuaMultiReturn<[boolean, boolean]> {
+  public checkStalker(object: ClientObject): LuaMultiReturn<[boolean, boolean]> {
     if (!this.active) {
       return $multi(false, false);
     }

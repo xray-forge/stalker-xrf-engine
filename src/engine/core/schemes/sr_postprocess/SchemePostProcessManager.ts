@@ -1,4 +1,4 @@
-import { color, game_object, hit, noise, time_global, vector } from "xray16";
+import { color, hit, noise, time_global, vector } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -6,7 +6,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePostProcessState } from "@/engine/core/schemes/sr_postprocess/ISchemePostProcessState";
 import { PPEffector } from "@/engine/core/schemes/sr_postprocess/PPEffector";
 import { abort } from "@/engine/core/utils/assertion";
-import { TDuration } from "@/engine/lib/types";
+import { ClientObject, Color, Hit, Noise, TDuration } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -17,10 +17,10 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
   public gray_amplitude: number = 1.0;
 
   public pp!: PPEffector;
-  public noise!: noise;
-  public gray_color = new color(0.5, 0.5, 0.5);
-  public base_color = new color(0.5, 0.5, 0.5);
-  public noise_var = new noise(0.9, 0.5, 30);
+  public noise!: Noise;
+  public gray_color: Color = new color(0.5, 0.5, 0.5);
+  public base_color: Color = new color(0.5, 0.5, 0.5);
+  public noise_var: Noise = new noise(0.9, 0.5, 30);
 
   public eff_time: number = 0;
   public hit_time: number = 0;
@@ -62,7 +62,7 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
    * todo: Description.
    */
   public override update(delta: TDuration): void {
-    const actor = registry.actor;
+    const actor: ClientObject = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       return;
@@ -129,8 +129,8 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
 
     this.hit_time = time_global();
 
-    const actor: game_object = registry.actor;
-    const h: hit = new hit();
+    const actor: ClientObject = registry.actor;
+    const h: Hit = new hit();
 
     h.power = this.hit_power;
     h.direction = new vector().set(0, 0, 0);

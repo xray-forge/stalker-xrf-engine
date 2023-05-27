@@ -1,4 +1,4 @@
-import { CTime, CUIGameCustom, game, game_object, get_hud, StaticDrawableWrapper } from "xray16";
+import { CUIGameCustom, game, get_hud, StaticDrawableWrapper } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
@@ -6,7 +6,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { EActorZoneState, ISchemeNoWeaponState } from "@/engine/core/schemes/sr_no_weapon/ISchemeNoWeaponState";
 import { SchemeNoWeapon } from "@/engine/core/schemes/sr_no_weapon/SchemeNoWeapon";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TDuration } from "@/engine/lib/types";
+import { ClientObject, Optional, TDuration, Time } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -17,7 +17,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   public static readonly SHOW_CAN_USE_WEAPON_DURATION_SEC: TDuration = 30;
 
   public currentActorState: EActorZoneState = EActorZoneState.NOWHERE;
-  public noWeaponZoneLeftLabelShownAt: CTime = game.CTime();
+  public noWeaponZoneLeftLabelShownAt: Time = game.CTime();
   public isNoWeaponZoneLeftLabelVisible: boolean = false;
 
   protected scheme: typeof SchemeNoWeapon;
@@ -25,7 +25,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   /**
    * todo: Description.
    */
-  public constructor(object: game_object, state: ISchemeNoWeaponState, scheme: typeof SchemeNoWeapon) {
+  public constructor(object: ClientObject, state: ISchemeNoWeaponState, scheme: typeof SchemeNoWeapon) {
     super(object, state);
     this.scheme = scheme;
   }
@@ -44,7 +44,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
    * todo: Check frequency of calls.
    */
   public override update(): void {
-    const actor: game_object = registry.actor;
+    const actor: ClientObject = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       if (this.currentActorState === EActorZoneState.INSIDE) {
@@ -67,7 +67,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   /**
    * Check whether state is up-to-date or change it and fire events.
    */
-  public checkActorState(actor: game_object): void {
+  public checkActorState(actor: ClientObject): void {
     const currentActorState: EActorZoneState = this.currentActorState;
     const isActorInsideZone: boolean = this.object.inside(actor.center());
 
