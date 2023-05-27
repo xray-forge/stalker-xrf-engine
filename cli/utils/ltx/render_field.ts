@@ -69,6 +69,8 @@ export function renderField(name: Optional<string>, value: Optional<ILtxFieldDes
     return link(name, "", value);
   } else if (typeof value !== "object") {
     return link(name, String(value));
+  } else if (Array.isArray(value)) {
+    return link(name, value.join(","));
   }
 
   switch (value.type) {

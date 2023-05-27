@@ -1,4 +1,4 @@
-import { ILtxConfigDescriptor, ILtxFieldDescriptor, LTX_ROOT, renderField } from "#/utils";
+import { ILtxConfigDescriptor, ILtxFieldDescriptor, LTX_EXTENDS, LTX_ROOT, Optional, renderField } from "#/utils";
 
 type TPossibleFieldDescriptorBase = Record<string, ILtxFieldDescriptor<unknown>> | Array<ILtxFieldDescriptor<unknown>>;
 type TPossibleFieldDescriptorFull = TPossibleFieldDescriptorBase | (() => TPossibleFieldDescriptorBase);
@@ -6,8 +6,25 @@ type TPossibleFieldDescriptorFull = TPossibleFieldDescriptorBase | (() => TPossi
 /**
  * todo;
  */
+function renderSectionName(name: string | typeof LTX_ROOT, descriptorRaw: TPossibleFieldDescriptorFull): string {
+  if (name === LTX_ROOT) {
+    return "\n";
+  } else {
+    const extendsMeta: Optional<string | Array<string>> = descriptorRaw[LTX_EXTENDS];
+
+    if (extendsMeta) {
+      return `\n[${name}]` + ":" + (Array.isArray(extendsMeta) ? extendsMeta.join(",") : extendsMeta) + "\n";
+    } else {
+      return `\n[${name}]\n`;
+    }
+  }
+}
+
+/**
+ * todo;
+ */
 function renderLtxSection(name: string | typeof LTX_ROOT, descriptorRaw: TPossibleFieldDescriptorFull): string {
-  const sectionName: string = name === LTX_ROOT ? "\n" : `\n[${name}]\n`;
+  const sectionName: string = renderSectionName(name, descriptorRaw);
   const descriptor: TPossibleFieldDescriptorBase =
     typeof descriptorRaw === "function" ? descriptorRaw() : descriptorRaw;
 

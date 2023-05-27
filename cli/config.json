@@ -13,6 +13,12 @@
       "pol": []
     }
   },
+  "build": {
+    "target": "../target",
+    "configs": "../src/engine/ini",
+    "translations": "../src/engine/translations",
+    "ui": "../src/engine/forms"
+  },
   "compression": {
     "xr_compress_path": ".\\bin\\compression\\xrCompress.exe"
   },

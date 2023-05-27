@@ -47,6 +47,11 @@ export const LTX_ROOT: unique symbol = Symbol("LTX_ROOT");
 /**
  * todo;
  */
+export const LTX_EXTENDS: unique symbol = Symbol("LTX_EXTENDS");
+
+/**
+ * todo;
+ */
 export interface IConditionListDescriptor {
   condition?: Array<string>;
   action?: Array<string>;
