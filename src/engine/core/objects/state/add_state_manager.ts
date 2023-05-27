@@ -1,4 +1,4 @@
-import { action_planner, game_object, stalker_ids, world_property, world_state } from "xray16";
+import { action_planner, stalker_ids, world_property, world_state } from "xray16";
 
 import * as animationManagement from "@/engine/core/objects/state/animation";
 import * as animationStateManagement from "@/engine/core/objects/state/animation_state";
@@ -21,6 +21,7 @@ import { animations } from "@/engine/core/objects/state_lib/state_mgr_animation_
 import { animstates } from "@/engine/core/objects/state_lib/state_mgr_animstate_list";
 import { EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { ActionPlanner, ClientObject, WorldState } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -28,8 +29,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Add state manager instance to Stalker object.
  * @param object
  */
-export function addStateManager(object: game_object): StalkerStateManager {
-  const planner: action_planner = object.motivation_action_manager();
+export function addStateManager(object: ClientObject): StalkerStateManager {
+  const planner: ActionPlanner = object.motivation_action_manager();
   const stateManager: StalkerStateManager = new StalkerStateManager(object);
 
   addBasicManagerGraph(stateManager, object);
@@ -87,7 +88,7 @@ export function addStateManager(object: game_object): StalkerStateManager {
 /**
  * todo;
  */
-function addBasicManagerGraph(stateManager: StalkerStateManager, object: game_object): void {
+function addBasicManagerGraph(stateManager: StalkerStateManager, object: ClientObject): void {
   stateManager.planner.add_evaluator(EStateEvaluatorId.end, new stateManagement.EvaluatorStateEnd(stateManager));
   stateManager.planner.add_evaluator(EStateEvaluatorId.locked, new stateManagement.EvaluatorStateLocked(stateManager));
   stateManager.planner.add_evaluator(
@@ -761,7 +762,7 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: game_ob
   endStateAction.add_effect(new world_property(EStateEvaluatorId.end, true));
   stateManager.planner.add_action(EStateActionId.end, endStateAction);
 
-  const goal: world_state = new world_state();
+  const goal: WorldState = new world_state();
 
   goal.add_property(new world_property(EStateEvaluatorId.end, true));
   stateManager.planner.set_goal_world_state(goal);

@@ -1,4 +1,4 @@
-import { anim, CSightParams, game_object, move } from "xray16";
+import { anim, CSightParams, move } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { IStateDescriptor } from "@/engine/core/objects/state/types";
@@ -7,7 +7,7 @@ import { parseStringsList } from "@/engine/core/utils/parse";
 import { getTableSize } from "@/engine/core/utils/table";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";
-import { LuaArray, Optional, TIndex, TName } from "@/engine/lib/types";
+import { ClientObject, LuaArray, Optional, TIndex, TName } from "@/engine/lib/types";
 
 const weap_table: LuaArray<TName> = [
   "pri_a15_wpn_svu",
@@ -23,8 +23,8 @@ const weap_table_unstrapped: LuaArray<TName> = [
   "pri_a15_wpn_ak74_unstrapped",
 ] as any;
 
-function unstrap_weapon(object: game_object): void {
-  let item: Optional<game_object> = null;
+function unstrap_weapon(object: ClientObject): void {
+  let item: Optional<ClientObject> = null;
   let index: TIndex = 0;
 
   for (const [k, v] of weap_table) {
@@ -42,8 +42,8 @@ function unstrap_weapon(object: game_object): void {
   item.attachable_item_load_attach(weap_table_unstrapped.get(index as number));
 }
 
-function strap_weapon(object: game_object): void {
-  let item: Optional<game_object> = null;
+function strap_weapon(object: ClientObject): void {
+  let item: Optional<ClientObject> = null;
   let index: TIndex = 0;
 
   for (const [k, v] of pairs(weap_table)) {
@@ -90,8 +90,8 @@ const cutscene: Record<
         s?: string;
         s1?: string;
         det?: string;
-        f?: (npc: game_object) => void;
-        f1?: (npc: game_object) => void;
+        f?: (npc: ClientObject) => void;
+        f1?: (npc: ClientObject) => void;
       }
     >;
   }
@@ -634,7 +634,7 @@ function check_availability(precondition: LuaArray<string>, existing_npc: string
 // --get_sequence_for_npc("vano", "vano")
 
 type TNpcSequence = LuaArray<
-  string | { f: (object: game_object) => void } | { s: string } | { d: string } | { a: string }
+  string | { f: (object: ClientObject) => void } | { s: string } | { d: string } | { a: string }
 >;
 
 /**

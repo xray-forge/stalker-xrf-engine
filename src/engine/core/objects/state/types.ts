@@ -1,6 +1,14 @@
-import { game_object, TXR_animation, TXR_look, TXR_move, TXR_SightType, vector } from "xray16";
-
-import { AnyCallable, LuaArray, Optional } from "@/engine/lib/types";
+import {
+  AnyCallable,
+  ClientObject,
+  LuaArray,
+  Optional,
+  TAnimationType,
+  TLookType,
+  TMoveType,
+  TSightType,
+  Vector,
+} from "@/engine/lib/types";
 
 /**
  * Action IDs of state manager evaluators.
@@ -318,13 +326,13 @@ export enum EStalkerState {
  */
 export interface IStateDescriptor {
   weapon: Optional<EWeaponAnimation>;
-  movement?: Optional<TXR_move>;
-  mental: Optional<TXR_animation>;
-  bodystate: Optional<TXR_move>;
+  movement?: Optional<TMoveType>;
+  mental: Optional<TAnimationType>;
+  bodystate: Optional<TMoveType>;
   animstate: Optional<EStalkerState>;
   animation: Optional<EStalkerState>;
   weapon_slot?: Optional<number>;
-  direction?: TXR_look | TXR_SightType;
+  direction?: TLookType | TSightType;
   special_danger_move?: Optional<boolean>;
   isForced: Optional<boolean>;
 }
@@ -333,6 +341,6 @@ export interface IStateDescriptor {
  * todo;
  */
 export interface ITargetStateDescriptor {
-  look_object: Optional<game_object>;
-  look_position: Optional<vector>;
+  look_object: Optional<ClientObject>;
+  look_position: Optional<Vector>;
 }

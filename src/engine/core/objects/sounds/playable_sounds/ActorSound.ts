@@ -1,15 +1,4 @@
-import {
-  FS,
-  game_object,
-  get_hud,
-  getFS,
-  ini_file,
-  net_packet,
-  sound_object,
-  time_global,
-  TXR_net_processor,
-  vector,
-} from "xray16";
+import { FS, get_hud, getFS, sound_object, time_global, vector } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -24,7 +13,11 @@ import { parseStringsList } from "@/engine/core/utils/parse";
 import { roots } from "@/engine/lib/constants/roots";
 import { NIL } from "@/engine/lib/constants/words";
 import {
+  ClientObject,
+  IniFile,
   LuaArray,
+  NetPacket,
+  NetProcessor,
   Optional,
   StringOptional,
   TCount,
@@ -66,7 +59,7 @@ export class ActorSound extends AbstractPlayableSound {
   public maxIdle: TDuration;
   public random: number;
 
-  public constructor(ini: ini_file, section: TSection) {
+  public constructor(ini: IniFile, section: TSection) {
     super(ini, section);
 
     this.isStereo = readIniBoolean(ini, section, "actor_stereo", false, false);
@@ -106,7 +99,7 @@ export class ActorSound extends AbstractPlayableSound {
   /**
    * todo;
    */
-  public play(object: game_object, faction: string, point: string, message: string): boolean {
+  public play(object: ClientObject, faction: string, point: string, message: string): boolean {
     if (!this.canPlaySound) {
       return false;
     }
@@ -235,14 +228,14 @@ export class ActorSound extends AbstractPlayableSound {
   /**
    * todo;
    */
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     packet.w_stringZ(tostring(this.playedSoundIndex));
   }
 
   /**
    * todo;
    */
-  public override load(reader: TXR_net_processor): void {
+  public override load(reader: NetProcessor): void {
     const id: StringOptional<TStringId> = reader.r_stringZ();
 
     this.playedSoundIndex = id === NIL ? null : tonumber(id)!;

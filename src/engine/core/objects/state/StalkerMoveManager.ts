@@ -1,4 +1,4 @@
-import { callback, flags32, game_object, level, move, patrol, time_global, vector } from "xray16";
+import { callback, game_object, level, move, patrol, time_global } from "xray16";
 
 import { IRegistryObjectState, registry, setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state/types";
@@ -8,7 +8,20 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { IWaypointData, parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
 import { TRUE } from "@/engine/lib/constants/words";
-import { AnyCallable, AnyObject, LuaArray, Optional, TDistance, TDuration, TIndex, TName } from "@/engine/lib/types";
+import {
+  AnyCallable,
+  AnyObject,
+  ClientObject,
+  Flags32,
+  LuaArray,
+  Optional,
+  Patrol,
+  TDistance,
+  TDuration,
+  TIndex,
+  TName,
+  Vector,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -43,9 +56,9 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public static chooseLookPoint(
-    patrol_look: patrol,
+    patrol_look: Patrol,
     path_look_info: LuaArray<IWaypointData>,
-    search_for: flags32
+    search_for: Flags32
   ): LuaMultiReturn<[Optional<number>, number]> {
     let this_val;
     let pt_chosen_idx: Optional<TIndex> = null;
@@ -74,7 +87,7 @@ export class StalkerMoveManager {
     return $multi(pt_chosen_idx, num_equal_pts);
   }
 
-  public readonly object: game_object;
+  public readonly object: ClientObject;
 
   public state: Optional<ECurrentState> = null;
   public currentStateMoving!: EStalkerState;
@@ -87,9 +100,9 @@ export class StalkerMoveManager {
   public use_default_sound!: boolean;
   public last_look_index!: Optional<number>;
 
-  public patrol_walk: Optional<patrol> = null;
+  public patrol_walk: Optional<Patrol> = null;
   public path_walk: Optional<string> = null;
-  public patrol_look: Optional<patrol> = null;
+  public patrol_look: Optional<Patrol> = null;
   public path_look: Optional<string> = null;
   public path_look_info: Optional<LuaTable<number, IWaypointData>> = null;
   public path_walk_info!: LuaTable<number, IWaypointData>;
@@ -118,7 +131,7 @@ export class StalkerMoveManager {
   /**
    * todo: Description.
    */
-  public constructor(object: game_object) {
+  public constructor(object: ClientObject) {
     this.object = object;
   }
 
@@ -321,7 +334,7 @@ export class StalkerMoveManager {
   /**
    * todo: Description.
    */
-  public updateStandingState(lookPosition: vector): void {
+  public updateStandingState(lookPosition: Vector): void {
     setStalkerState(
       this.object,
       this.currentStateStanding,
@@ -389,7 +402,7 @@ export class StalkerMoveManager {
       const state: LuaTable<number, boolean> = sync.get(this.team);
 
       for (const [id, isFlagged] of state) {
-        const object: Optional<game_object> = level.object_by_id(id);
+        const object: Optional<ClientObject> = level.object_by_id(id);
 
         if (object?.alive()) {
           if (isFlagged !== true) {
@@ -532,7 +545,7 @@ export class StalkerMoveManager {
   /**
    * todo: Description.
    */
-  public extrapolate_callback(object: game_object): void {
+  public extrapolate_callback(object: ClientObject): void {
     this.can_use_get_current_point_index = true;
     this.current_point_init_time = time_global();
     this.current_point_index = this.object.get_current_point_index();
@@ -541,7 +554,7 @@ export class StalkerMoveManager {
   /**
    * todo: Description.
    */
-  public waypoint_callback(object: game_object, actionType: Optional<number>, index: Optional<number>): void {
+  public waypoint_callback(object: ClientObject, actionType: Optional<number>, index: Optional<TIndex>): void {
     if (index === -1 || index === null) {
       return;
     }

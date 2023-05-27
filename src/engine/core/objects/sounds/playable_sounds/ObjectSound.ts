@@ -1,15 +1,4 @@
-import {
-  FS,
-  game_object,
-  get_hud,
-  getFS,
-  ini_file,
-  net_packet,
-  sound_object,
-  time_global,
-  TXR_net_processor,
-  vector,
-} from "xray16";
+import { FS, get_hud, getFS, sound_object, time_global, vector } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -24,8 +13,13 @@ import { parseStringsList } from "@/engine/core/utils/parse";
 import { roots } from "@/engine/lib/constants/roots";
 import { NIL } from "@/engine/lib/constants/words";
 import {
+  ClientObject,
+  IniFile,
   LuaArray,
+  NetPacket,
+  NetProcessor,
   Optional,
+  SoundObject,
   StringOptional,
   TCount,
   TDuration,
@@ -47,7 +41,7 @@ export class ObjectSound extends AbstractPlayableSound {
 
   public readonly type: EPlayableSound = ObjectSound.type;
   public readonly soundPaths: LuaArray<TPath> = new LuaTable();
-  public pdaSoundObject: Optional<sound_object> = null;
+  public pdaSoundObject: Optional<SoundObject> = null;
 
   public shuffle: ESoundPlaylistType;
   public faction: string;
@@ -63,7 +57,7 @@ export class ObjectSound extends AbstractPlayableSound {
   public maxIdle: TDuration;
   public rnd: number;
 
-  public constructor(ini: ini_file, section: TSection) {
+  public constructor(ini: IniFile, section: TSection) {
     super(ini, section);
 
     const interval: LuaArray<string> = parseStringsList(readIniString(ini, section, "idle", false, "", "3,5,100"));
@@ -96,7 +90,7 @@ export class ObjectSound extends AbstractPlayableSound {
    * todo;
    */
   public play(objectId: TNumberId, faction: string, point: string, message: string): boolean {
-    const object: Optional<game_object> = registry.objects.get(objectId)?.object;
+    const object: Optional<ClientObject> = registry.objects.get(objectId)?.object;
 
     if (object === null) {
       return false; // No object existing.
@@ -242,14 +236,14 @@ export class ObjectSound extends AbstractPlayableSound {
   /**
    * todo;
    */
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     packet.w_stringZ(tostring(this.playedSoundIndex));
   }
 
   /**
    * todo;
    */
-  public override load(reader: TXR_net_processor): void {
+  public override load(reader: NetProcessor): void {
     const id: StringOptional<TStringId> = reader.r_stringZ();
 
     this.playedSoundIndex = id === NIL ? null : tonumber(id)!;

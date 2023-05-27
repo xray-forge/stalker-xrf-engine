@@ -3,7 +3,7 @@ import { sound_object, time_global } from "xray16";
 import { registry } from "@/engine/core/database";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TPath, TRate, TStringId, TTimestamp } from "@/engine/lib/types";
+import { Optional, SoundObject, TPath, TRate, TStringId, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -11,7 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Stereo sound script object representation.
  */
 export class StereoSound {
-  public soundObject: Optional<sound_object> = null;
+  public soundObject: Optional<SoundObject> = null;
   public soundPath: Optional<TPath> = null;
   public soundEndTime: Optional<TTimestamp> = null;
 

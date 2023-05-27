@@ -1,4 +1,4 @@
-import { callback, game_object, hit, time_global, vector } from "xray16";
+import { callback, hit, time_global, vector } from "xray16";
 
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
@@ -6,7 +6,17 @@ import { EStalkerState, IAnimationDescriptor, IAnimationStateDescriptor } from "
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";
-import { AnyCallable, Optional, TIndex, TName, TNumberId, TRate, TTimestamp } from "@/engine/lib/types";
+import {
+  AnyCallable,
+  ClientObject,
+  Hit,
+  Optional,
+  TIndex,
+  TName,
+  TNumberId,
+  TRate,
+  TTimestamp,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -36,14 +46,14 @@ export interface IAnimationManagerStates {
  */
 export class StalkerAnimationManager {
   public name: TName;
-  public object: game_object;
+  public object: ClientObject;
   public stateManager: StalkerStateManager;
 
   public animations: LuaTable<EStalkerState, IAnimationDescriptor> | LuaTable<EStalkerState, IAnimationStateDescriptor>;
   public states: IAnimationManagerStates;
 
   public constructor(
-    object: game_object,
+    object: ClientObject,
     stateManager: StalkerStateManager,
     name: TName,
     collection: LuaTable<EStalkerState, IAnimationDescriptor> | LuaTable<EStalkerState, IAnimationStateDescriptor>
@@ -243,7 +253,7 @@ export class StalkerAnimationManager {
    * todo;
    */
   public getActiveWeaponSlot(): TIndex {
-    const weapon: Optional<game_object> = this.object.active_item();
+    const weapon: Optional<ClientObject> = this.object.active_item();
 
     if (weapon === null || this.object.weapon_strapped()) {
       return 0;
@@ -310,7 +320,7 @@ export class StalkerAnimationManager {
    * todo;
    */
   public addAnimation(animation: TName, state: IAnimationDescriptor): void {
-    const object: game_object = this.object;
+    const object: ClientObject = this.object;
     const animationProperties = state.prop;
 
     if (!(object.weapon_unstrapped() || object.weapon_strapped())) {
@@ -352,7 +362,7 @@ export class StalkerAnimationManager {
   public processSpecialAction(actionTable: LuaTable): void {
     // Attach.
     if (actionTable.get("a") !== null) {
-      const objectInventoryItem: Optional<game_object> = this.object.object(actionTable.get("a"));
+      const objectInventoryItem: Optional<ClientObject> = this.object.object(actionTable.get("a"));
 
       if (objectInventoryItem !== null) {
         objectInventoryItem.enable_attachable_item(true);
@@ -361,7 +371,7 @@ export class StalkerAnimationManager {
 
     // Detach.
     if (actionTable.get("d") !== null) {
-      const objectInventoryItem: Optional<game_object> = this.object.object(actionTable.get("d"));
+      const objectInventoryItem: Optional<ClientObject> = this.object.object(actionTable.get("d"));
 
       if (objectInventoryItem !== null) {
         objectInventoryItem.enable_attachable_item(false);
@@ -375,7 +385,7 @@ export class StalkerAnimationManager {
 
     // Hit object.
     if (actionTable.get("sh") !== null) {
-      const hitObject: hit = new hit();
+      const hitObject: Hit = new hit();
 
       hitObject.power = actionTable.get("sh");
       hitObject.direction = vectorRotateY(this.object.direction(), 90);

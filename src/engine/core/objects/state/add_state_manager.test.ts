@@ -1,5 +1,4 @@
 import { describe, expect, it } from "@jest/globals";
-import { action_base, game_object } from "xray16";
 
 import { addStateManager } from "@/engine/core/objects/state/add_state_manager";
 import {
@@ -101,14 +100,14 @@ import {
   EvaluatorWeaponUnstrappedNow,
 } from "@/engine/core/objects/state/weapon";
 import { EActionId, EEvaluatorId } from "@/engine/core/schemes";
-import { AnyArgs, Optional } from "@/engine/lib/types";
+import { ActionBase, AnyArgs, ClientObject, Optional } from "@/engine/lib/types";
 import { MockActionBase, MockActionPlanner, mockClientGameObject, MockWorldState } from "@/fixtures/xray";
 import { mockStalkerIds } from "@/fixtures/xray/mocks/constants";
 
 describe("add_state_manager util", () => {
   const checkAction = (
-    action: Optional<MockActionBase | action_base>,
-    target: string | { new (...args: AnyArgs): action_base },
+    action: Optional<MockActionBase | ActionBase>,
+    target: string | { new (...args: AnyArgs): ActionBase },
     properties: Array<[number, boolean]>,
     effects: Array<[number, boolean]>
   ): void => {
@@ -144,7 +143,7 @@ describe("add_state_manager util", () => {
   };
 
   it("should correctly setup object planner evaluators", () => {
-    const object: game_object = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
     const stateManager: StalkerStateManager = addStateManager(object);
 
@@ -162,7 +161,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup object planner actions", () => {
-    const object: game_object = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
 
     addStateManager(object);
@@ -227,7 +226,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup state planner evaluators", () => {
-    const object: game_object = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject();
     const stateManager: StalkerStateManager = addStateManager(object);
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
@@ -304,7 +303,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup state planner weapon actions", () => {
-    const object: game_object = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject();
     const stateManager: StalkerStateManager = addStateManager(object);
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
@@ -380,7 +379,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup state planner movement actions", () => {
-    const object: game_object = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject();
     const stateManager: StalkerStateManager = addStateManager(object);
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
@@ -600,7 +599,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup state planner mental actions", () => {
-    const object: game_object = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject();
     const stateManager: StalkerStateManager = addStateManager(object);
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
@@ -650,7 +649,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup state planner bodystate actions", () => {
-    const object: game_object = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject();
     const stateManager: StalkerStateManager = addStateManager(object);
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
@@ -718,7 +717,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup state planner animation actions", () => {
-    const object: game_object = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject();
     const stateManager: StalkerStateManager = addStateManager(object);
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
@@ -822,7 +821,7 @@ describe("add_state_manager util", () => {
   });
 
   it("should correctly setup state planner lock/end actions", () => {
-    const object: game_object = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject();
     const stateManager: StalkerStateManager = addStateManager(object);
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 

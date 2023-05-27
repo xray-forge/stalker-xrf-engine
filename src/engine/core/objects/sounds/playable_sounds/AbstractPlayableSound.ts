@@ -1,8 +1,17 @@
-import { game_object, ini_file, net_packet, sound_object, TXR_net_processor } from "xray16";
-
 import { EPlayableSound } from "@/engine/core/objects/sounds/types";
 import { readIniString } from "@/engine/core/utils/ini/getters";
-import { AnyArgs, Optional, TNumberId, TPath, TRate } from "@/engine/lib/types";
+import {
+  AnyArgs,
+  ClientObject,
+  IniFile,
+  NetPacket,
+  NetProcessor,
+  Optional,
+  SoundObject,
+  TNumberId,
+  TPath,
+  TRate,
+} from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 /**
@@ -12,14 +21,14 @@ export abstract class AbstractPlayableSound {
   public abstract readonly type: EPlayableSound;
 
   public readonly section: TSection;
-  public soundObject: Optional<sound_object> = null;
+  public soundObject: Optional<SoundObject> = null;
   public path: TPath;
   public shouldPlayAlways: boolean = false;
 
   /**
    * todo: Description.
    */
-  public constructor(ini: ini_file, section: TSection) {
+  public constructor(ini: IniFile, section: TSection) {
     this.path = readIniString(ini, section, "path", true, "");
     this.section = section;
   }
@@ -67,20 +76,20 @@ export abstract class AbstractPlayableSound {
   /**
    * todo: Description.
    */
-  public save(packet: net_packet): void {}
+  public save(packet: NetPacket): void {}
 
   /**
    * todo: Description.
    */
-  public load(reader: TXR_net_processor): void {}
+  public load(reader: NetProcessor): void {}
 
   /**
    * todo: Description.
    */
-  public saveObject(packet: net_packet, object: game_object): void {}
+  public saveObject(packet: NetPacket, object: ClientObject): void {}
 
   /**
    * todo: Description.
    */
-  public loadObject(processor: TXR_net_processor, object: game_object): void {}
+  public loadObject(processor: NetProcessor, object: ClientObject): void {}
 }

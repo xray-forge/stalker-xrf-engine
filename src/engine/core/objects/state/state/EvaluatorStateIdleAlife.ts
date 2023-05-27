@@ -5,7 +5,6 @@ import { EStalkerState, EStateEvaluatorId } from "@/engine/core/objects/state/ty
 import { EActionId } from "@/engine/core/schemes";
 import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

@@ -1,4 +1,4 @@
-import { game_object, getFS, ini_file, sound_object, TXR_sound_object_type } from "xray16";
+import { getFS, sound_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractPlayableSound } from "@/engine/core/objects/sounds/playable_sounds/AbstractPlayableSound";
@@ -6,7 +6,7 @@ import { EPlayableSound } from "@/engine/core/objects/sounds/types";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";
-import { Optional, TNumberId, TSection } from "@/engine/lib/types";
+import { ClientObject, IniFile, Optional, TNumberId, TSection, TSoundObjectType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -18,7 +18,7 @@ export class LoopedSound extends AbstractPlayableSound {
 
   public readonly type: EPlayableSound = LoopedSound.type;
 
-  public constructor(ini: ini_file, section: TSection) {
+  public constructor(ini: IniFile, section: TSection) {
     super(ini, section);
 
     assert(
@@ -32,7 +32,7 @@ export class LoopedSound extends AbstractPlayableSound {
    * todo: Description.
    */
   public play(objectId: TNumberId): boolean {
-    const object: Optional<game_object> = registry.objects.get(objectId).object!;
+    const object: Optional<ClientObject> = registry.objects.get(objectId).object!;
 
     if (object === null) {
       return false;
@@ -43,7 +43,7 @@ export class LoopedSound extends AbstractPlayableSound {
         object.position(),
         0,
         // todo: Check if bitmasking originally works. 1+0=1 so probably no point in a such play.
-        (sound_object.s3d + sound_object.looped) as TXR_sound_object_type
+        (sound_object.s3d + sound_object.looped) as TSoundObjectType
       );
 
       return true;

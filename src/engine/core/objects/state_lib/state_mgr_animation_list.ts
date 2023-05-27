@@ -1,12 +1,10 @@
-import { game_object } from "xray16";
-
 import { EStalkerState, IAnimationDescriptor } from "@/engine/core/objects/state/types";
 import { getAnimationListScenario } from "@/engine/core/objects/state_lib/state_manager_scenario";
 import { getAnimpointAnimationList } from "@/engine/core/objects/state_lib/state_mgr_animation_list_animpoint";
 import { add_animation_list_pri_a15 } from "@/engine/core/objects/state_lib/state_mgr_pri_a15";
 import { getExtern } from "@/engine/core/utils/binding";
 import { copyTable } from "@/engine/core/utils/table";
-import { AnyCallablesModule } from "@/engine/lib/types";
+import { AnyCallablesModule, ClientObject } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -219,7 +217,7 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
         "sit_1_guitar_0_0",
         { a: "guitar_a" },
         {
-          f: (object: game_object) => {
+          f: (object: ClientObject) => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
 
@@ -244,7 +242,7 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
         "sit_2_harmonica_1_0",
         { a: "harmonica_a" },
         {
-          f: (object: game_object) => {
+          f: (object: ClientObject) => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
 
@@ -947,7 +945,7 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
       [0]: [
         "dinamit_1",
         {
-          f: (object: game_object) => {
+          f: (object: ClientObject) => {
             const {
               SchemeCorpseDetection,
               // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -973,7 +971,7 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
       [0]: [
         "dinamit_1",
         {
-          f: (object: game_object) => {
+          f: (object: ClientObject) => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             const { SchemeHelpWounded } = require("@/engine/core/schemes/help_wounded/SchemeHelpWounded");
 

@@ -36,14 +36,19 @@ import {
   profile_timer,
   reader,
   sound_object,
+  TXR_animation,
   TXR_class_id,
   TXR_entity_action,
+  TXR_look,
+  TXR_move,
   TXR_net_processor,
   TXR_relation,
+  TXR_SightType,
   TXR_snd_type,
   TXR_sound_object_type,
   TXR_TaskState,
   vector,
+  world_state,
 } from "xray16";
 
 export type ALifeSmartTerrainTask = CALifeSmartTerrainTask;
@@ -82,13 +87,18 @@ export type ServerMonsterObject = cse_alife_monster_abstract;
 export type ServerObject = cse_alife_object;
 export type ServerPhysicObject = cse_alife_object_physic;
 export type SoundObject = sound_object;
+export type TAnimationType = TXR_animation;
 export type TClassId = TXR_class_id;
 export type TEntityActionType = TXR_entity_action;
+export type TLookType = TXR_look;
+export type TMoveType = TXR_move;
 export type TRelationType = TXR_relation;
+export type TSightType = TXR_SightType;
 export type TSoundObjectType = TXR_sound_object_type;
 export type TSoundType = TXR_snd_type;
 export type TTaskState = TXR_TaskState;
 export type Time = CTime;
 export type Vector = vector;
+export type WorldState = world_state;
 export type XmlInit = CScriptXmlInit;
 export type ZoneCampfire = CZoneCampfire;
