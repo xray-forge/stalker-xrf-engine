@@ -1,18 +1,4 @@
-import {
-  alife,
-  CGameTask,
-  cse_alife_object,
-  CTime,
-  game,
-  game_graph,
-  game_object,
-  ini_file,
-  level,
-  net_packet,
-  task,
-  time_global,
-  TXR_net_processor,
-} from "xray16";
+import { alife, CGameTask, game, game_graph, level, task, time_global } from "xray16";
 
 import {
   closeLoadMarker,
@@ -37,11 +23,18 @@ import { storyNames } from "@/engine/lib/constants/story_names";
 import { NIL } from "@/engine/lib/constants/words";
 import {
   AnyCallablesModule,
+  ClientObject,
+  GameTask,
+  IniFile,
   LuaArray,
+  NetPacket,
+  NetProcessor,
   Optional,
+  ServerObject,
   StringOptional,
   TCount,
   TDuration,
+  Time,
   TIndex,
   TLabel,
   TName,
@@ -85,16 +78,16 @@ export class TaskObject {
   }
 
   public readonly id: TStringId;
-  public readonly ini: ini_file;
+  public readonly ini: IniFile;
 
-  public gameTask: Optional<CGameTask> = null;
+  public gameTask: Optional<GameTask> = null;
   /**
    * Task state in list: selected or not.
    */
   public status: ETaskStatus;
   public state: Optional<ETaskState> = null;
 
-  public initializedAt: Optional<CTime> = null;
+  public initializedAt: Optional<Time> = null;
   public lastCheckedAt: Optional<TTimestamp> = null;
 
   public title: TLabel;
@@ -128,7 +121,7 @@ export class TaskObject {
   public onComplete: TConditionList;
   public onReversed: TConditionList;
 
-  public constructor(ini: ini_file, id: TStringId) {
+  public constructor(ini: IniFile, id: TStringId) {
     this.id = id;
     this.ini = ini;
 
@@ -181,7 +174,7 @@ export class TaskObject {
    * todo: Description.
    */
   public giveTask(): void {
-    const gameTask: CGameTask = new CGameTask();
+    const gameTask: GameTask = new CGameTask();
 
     gameTask.set_id(tostring(this.id));
 
@@ -236,7 +229,7 @@ export class TaskObject {
     }
 
     if (this.gameTask === null) {
-      this.gameTask = registry.actor?.get_task(this.id, true) as CGameTask;
+      this.gameTask = registry.actor?.get_task(this.id, true) as GameTask;
 
       return this.state;
     }
@@ -311,11 +304,11 @@ export class TaskObject {
    * todo: Description.
    */
   public checkTaskLevelDirection(target: Optional<TNumberId>): void {
-    if (!target || !level || registry.actor.is_active_task(this.gameTask as CGameTask)) {
+    if (!target || !level || registry.actor.is_active_task(this.gameTask as GameTask)) {
       return;
     }
 
-    const alifeObject: Optional<cse_alife_object> = alife().object(target);
+    const alifeObject: Optional<ServerObject> = alife().object(target);
 
     if (alifeObject !== null) {
       const targetLevel: TLevel = alife().level_name(game_graph().vertex(alifeObject.m_game_vertex_id).level_id());
@@ -366,7 +359,7 @@ export class TaskObject {
       }
 
       for (const [item, count] of rewardItems) {
-        transferItemsToActor(registry.activeSpeaker as game_object, item, count);
+        transferItemsToActor(registry.activeSpeaker as ClientObject, item, count);
       }
     }
   }
@@ -381,7 +374,7 @@ export class TaskObject {
   /**
    * todo: Description.
    */
-  public deactivateTask(task: CGameTask): void {
+  public deactivateTask(task: GameTask): void {
     logger.info("Deactivate task:", this.title);
     this.lastCheckedAt = null;
 
@@ -446,7 +439,7 @@ export class TaskObject {
   /**
    * Save task object state.
    */
-  public save(packet: net_packet): void {
+  public save(packet: NetPacket): void {
     openSaveMarker(packet, TaskObject.name);
 
     packet.w_u8(this.status);
@@ -461,7 +454,7 @@ export class TaskObject {
   /**
    * Load task object state.
    */
-  public load(reader: TXR_net_processor): void {
+  public load(reader: NetProcessor): void {
     openLoadMarker(reader, TaskObject.name);
 
     this.status = reader.r_u8();

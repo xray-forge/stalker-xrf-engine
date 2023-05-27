@@ -1,6 +1,6 @@
-import { CGameTask, net_packet, task, TXR_net_processor, TXR_TaskState } from "xray16";
+import { task } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, TASK_MANAGER_LTX } from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, openSaveMarker, TASK_MANAGER_LTX } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -11,7 +11,7 @@ import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsMa
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
-import { Optional, TCount, TStringId } from "@/engine/lib/types";
+import { GameTask, NetPacket, NetProcessor, Optional, TCount, TStringId, TTaskState } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -90,7 +90,7 @@ export class TaskManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public onTaskStateUpdate(taskObject: CGameTask, state: TXR_TaskState): void {
+  public onTaskStateUpdate(taskObject: GameTask, state: TTaskState): void {
     const taskId: TStringId = taskObject.get_id();
 
     logger.info("Task state update:", taskId, state, state !== task.fail);
@@ -113,7 +113,7 @@ export class TaskManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     openSaveMarker(packet, TaskManager.name);
 
     const count: TCount = getTableSize(this.tasksList);
@@ -131,7 +131,7 @@ export class TaskManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override load(reader: TXR_net_processor): void {
+  public override load(reader: NetProcessor): void {
     openLoadMarker(reader, TaskManager.name);
 
     const count: TCount = reader.r_u16();

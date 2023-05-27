@@ -1,19 +1,32 @@
-import { level, vector } from "xray16";
+import { level } from "xray16";
 
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { TCount, Vector } from "@/engine/lib/types";
 
+/**
+ * todo;
+ */
 export class PhantomManager extends AbstractCoreManager {
-  public phantom_count: number = 0;
+  public phantomsCount: TCount = 0;
 
-  public add_phantom(): void {
-    this.phantom_count = this.phantom_count + 1;
+  /**
+   * todo;
+   */
+  public addPhantom(): void {
+    this.phantomsCount = this.phantomsCount + 1;
   }
 
-  public remove_phantom(): void {
-    this.phantom_count = this.phantom_count - 1;
+  /**
+   * todo;
+   */
+  public removePhantom(): void {
+    this.phantomsCount = this.phantomsCount - 1;
   }
 
-  public spawn_phantom(position: vector): void {
+  /**
+   * todo;
+   */
+  public spawnPhantom(position: Vector): void {
     level.spawn_phantom(position);
   }
 }

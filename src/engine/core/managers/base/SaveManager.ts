@@ -1,5 +1,3 @@
-import { net_packet, TXR_net_processor } from "xray16";
-
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -13,6 +11,7 @@ import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyMana
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
+import { NetPacket, NetProcessor } from "@/engine/lib/types";
 
 /**
  * Manage game saves for other managers / parts.
@@ -21,7 +20,7 @@ export class SaveManager extends AbstractCoreManager {
   /**
    * Save core managers data.
    */
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     WeatherManager.getInstance().save(packet);
     ReleaseBodyManager.getInstance().save(packet);
     SurgeManager.getInstance().save(packet);
@@ -38,7 +37,7 @@ export class SaveManager extends AbstractCoreManager {
   /**
    * Load core managers data.
    */
-  public override load(reader: TXR_net_processor): void {
+  public override load(reader: NetProcessor): void {
     WeatherManager.getInstance().load(reader);
     ReleaseBodyManager.getInstance().load(reader);
     SurgeManager.getInstance().load(reader);
@@ -55,14 +54,14 @@ export class SaveManager extends AbstractCoreManager {
   /**
    * Write state for core managers.
    */
-  public writeState(packet: net_packet): void {
+  public writeState(packet: NetPacket): void {
     SimulationBoardManager.getInstance().save(packet);
   }
 
   /**
    * Read state for core managers.
    */
-  public readState(reader: TXR_net_processor): void {
+  public readState(reader: NetProcessor): void {
     SimulationBoardManager.getInstance().load(reader);
   }
 }

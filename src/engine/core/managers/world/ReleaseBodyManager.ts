@@ -1,15 +1,4 @@
-import {
-  alife,
-  cse_alife_object,
-  game_graph,
-  game_object,
-  getFS,
-  ini_file,
-  net_packet,
-  time_global,
-  TXR_net_processor,
-  vector,
-} from "xray16";
+import { alife, game_graph, getFS, ini_file, time_global } from "xray16";
 
 import {
   closeLoadMarker,
@@ -29,8 +18,13 @@ import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";
 import {
+  ClientObject,
+  IniFile,
   LuaArray,
+  NetPacket,
+  NetProcessor,
   Optional,
+  ServerObject,
   TCount,
   TIndex,
   TName,
@@ -38,6 +32,7 @@ import {
   TSection,
   TStringId,
   TTimestamp,
+  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -84,7 +79,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public addDeadBody(object: game_object): void {
+  public addDeadBody(object: ClientObject): void {
     if (this.inspectionResult(object)) {
       if (this.releaseObjectRegistry.length() > ReleaseBodyManager.MAX_BODY_COUNT) {
         this.tryToReleaseCorpses();
@@ -135,7 +130,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  protected inspectionResult(object: game_object): boolean {
+  protected inspectionResult(object: ClientObject): boolean {
     if (getStoryIdByObjectId(object.id()) !== null) {
       logger.info("Ignore corpse release, present in story:", object.name());
 
@@ -162,9 +157,9 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  protected checkForKnownInfo(object: game_object): boolean {
-    let characterIni: Optional<ini_file> = null;
-    const objectSpawnIni: Optional<ini_file> = object.spawn_ini();
+  protected checkForKnownInfo(object: ClientObject): boolean {
+    let characterIni: Optional<IniFile> = null;
+    const objectSpawnIni: Optional<IniFile> = object.spawn_ini();
     const filename: Optional<TName> =
       objectSpawnIni === null ? null : readIniString(objectSpawnIni, "logic", "cfg", false, "");
 
@@ -189,13 +184,13 @@ export class ReleaseBodyManager extends AbstractCoreManager {
    * todo: Description.
    */
   protected findNearestObjectToRelease(releaseObjectsRegistry: LuaArray<IReleaseDescriptor>): Optional<TIndex> {
-    const actorPosition: vector = registry.actor.position();
+    const actorPosition: Vector = registry.actor.position();
 
     let releaseObjectIndex: Optional<TIndex> = null;
     let maximalDistance: number = ReleaseBodyManager.MAX_DISTANCE_SQR;
 
     for (const [index, releaseDescriptor] of releaseObjectsRegistry) {
-      const object: Optional<cse_alife_object> = alife().object(releaseDescriptor.id);
+      const object: Optional<ServerObject> = alife().object(releaseDescriptor.id);
 
       if (object !== null) {
         const distanceToCorpse: number = actorPosition.distance_to_sqr(object.position);
@@ -219,7 +214,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     openSaveMarker(packet, ReleaseBodyManager.name);
 
     const count: TCount = this.releaseObjectRegistry.length();
@@ -240,7 +235,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override load(reader: TXR_net_processor): void {
+  public override load(reader: NetProcessor): void {
     openLoadMarker(reader, ReleaseBodyManager.name);
 
     const count: TCount = reader.r_u16();

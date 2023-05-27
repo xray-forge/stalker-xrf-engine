@@ -1,4 +1,4 @@
-import { alife, alife_simulator, cse_alife_object, game, game_object, level, time_global, vector } from "xray16";
+import { alife, game, level, time_global } from "xray16";
 
 import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -21,15 +21,19 @@ import { levels } from "@/engine/lib/constants/levels";
 import { EMapMarkType, mapMarks } from "@/engine/lib/constants/map_marks";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
+  AlifeSimulator,
+  ClientObject,
   EScheme,
   Maybe,
   Optional,
+  ServerObject,
   TDistance,
   TDuration,
   TLabel,
   TNumberId,
   TSection,
   TTimestamp,
+  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -60,7 +64,7 @@ export class MapDisplayManager extends AbstractCoreManager {
    * todo: Description.
    */
   public updateObjectMapSpot(
-    object: game_object,
+    object: ClientObject,
     scheme: EScheme,
     state: IRegistryObjectState,
     section: TSection
@@ -68,7 +72,7 @@ export class MapDisplayManager extends AbstractCoreManager {
     logger.info("Update npc spot:", object.name());
 
     const npcId: TNumberId = object.id();
-    const sim: alife_simulator = alife();
+    const sim: AlifeSimulator = alife();
 
     if (!sim) {
       return;
@@ -86,7 +90,7 @@ export class MapDisplayManager extends AbstractCoreManager {
       spotSection = TRUE;
     }
 
-    const actor: game_object = registry.actor;
+    const actor: ClientObject = registry.actor;
     let mapSpot: Optional<EMapMarkType> = readIniString(
       state.ini,
       state.section_logic,
@@ -107,7 +111,7 @@ export class MapDisplayManager extends AbstractCoreManager {
 
     const spotConditionsList: TConditionList = parseConditionsList(spotSection);
     const spot: TSection = pickSectionFromCondList(actor, object, spotConditionsList)!;
-    const obj: Optional<cse_alife_object> = sim.object(object.id());
+    const obj: Optional<ServerObject> = sim.object(object.id());
 
     if (obj?.online) {
       obj.visible_for_map(spot !== FALSE);
@@ -135,10 +139,10 @@ export class MapDisplayManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public removeObjectMapSpot(object: game_object, state: IRegistryObjectState): void {
+  public removeObjectMapSpot(object: ClientObject, state: IRegistryObjectState): void {
     logger.info("Remove object spot:", object.name());
 
-    const simulator: alife_simulator = alife();
+    const simulator: AlifeSimulator = alife();
 
     if (!simulator) {
       return;
@@ -159,7 +163,7 @@ export class MapDisplayManager extends AbstractCoreManager {
     }
 
     if (mapSpot !== null) {
-      const actor: game_object = registry.actor;
+      const actor: ClientObject = registry.actor;
       const mapSpotConditionsList: TConditionList = parseConditionsList(mapSpot);
 
       mapSpot = pickSectionFromCondList(actor, object, mapSpotConditionsList);
@@ -199,7 +203,7 @@ export class MapDisplayManager extends AbstractCoreManager {
       const storedObject: Optional<IRegistryObjectState> = objectId ? registry.objects.get(objectId) : null;
 
       if (objectId && storedObject && storedObject.object) {
-        const actorPosition: vector = registry.actor.position();
+        const actorPosition: Vector = registry.actor.position();
         const distanceFromActor: TDistance = storedObject.object.position().distance_to(actorPosition);
         const hasSleepSpot: boolean = level.map_has_object_spot(objectId, mapMarks.ui_pda2_actor_sleep_location) !== 0;
 
@@ -232,7 +236,7 @@ export class MapDisplayManager extends AbstractCoreManager {
           const objectId: Optional<number> = getObjectIdByStoryId(scanner.target);
 
           let hint: TLabel = game.translate_string(scanner.hint) + "\\n" + " \\n";
-          const actor: game_object = registry.actor;
+          const actor: ClientObject = registry.actor;
 
           const [hasArtefact, artefactTable] = anomalyHasArtefact(actor, null, [scanner.zone, null]);
 

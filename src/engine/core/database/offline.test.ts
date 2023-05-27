@@ -3,12 +3,12 @@ import { describe, expect, it } from "@jest/globals";
 import { hardResetOfflineObject, registerOfflineObject, softResetOfflineObject } from "@/engine/core/database/offline";
 import { registry } from "@/engine/core/database/registry";
 import { MAX_I32 } from "@/engine/lib/constants/memory";
-import { ClientGameObject } from "@/engine/lib/types";
+import { ClientObject } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("'offline' database module", () => {
   it("should correctly register offline objects state", () => {
-    const object: ClientGameObject = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject();
 
     expect(registerOfflineObject(object.id(), { activeSection: "test", levelVertexId: 1 })).toEqual({
       activeSection: "test",

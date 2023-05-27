@@ -1,4 +1,4 @@
-import { CPhraseDialog, CPhraseScript, game_object, level, net_packet, TXR_net_processor } from "xray16";
+import { CPhraseScript, level } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, DIALOG_MANAGER_LTX, openSaveMarker, registry } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
@@ -11,7 +11,20 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object";
 import { parseInfoPortions1, parseStringsList } from "@/engine/core/utils/parse";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import { LuaArray, Optional, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
+import {
+  ClientObject,
+  LuaArray,
+  NetPacket,
+  NetProcessor,
+  Optional,
+  Phrase,
+  PhraseDialog,
+  PhraseScript,
+  TName,
+  TNumberId,
+  TRate,
+  TStringId,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -146,7 +159,7 @@ export class DialogManager extends AbstractCoreManager {
     }
   }
 
-  public initializeNewDialog(dialog: CPhraseDialog): void {
+  public initializeNewDialog(dialog: PhraseDialog): void {
     logger.info("Init new dialog");
 
     const eventsManager: EventsManager = EventsManager.getInstance();
@@ -179,8 +192,8 @@ export class DialogManager extends AbstractCoreManager {
       for (const i of $range(1, actor_table.length())) {
         const index = this.getNextPhraseId();
         const str = actor_table.get(i);
-        let phrase = dialog.AddPhrase("dm_" + str + "_general", tostring(index), tostring(j), -10000);
-        let script: CPhraseScript = phrase.GetPhraseScript();
+        let phrase: Phrase = dialog.AddPhrase("dm_" + str + "_general", tostring(index), tostring(j), -10000);
+        let script: PhraseScript = phrase.GetPhraseScript();
 
         if (str === "anomalies") {
           script.AddPrecondition("dialogs.npc_stalker");
@@ -231,7 +244,7 @@ export class DialogManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public initializeStartDialogs(dialog: CPhraseDialog, data: string): void {
+  public initializeStartDialogs(dialog: PhraseDialog, data: string): void {
     logger.info("Initialize start dialogs");
 
     dialog.AddPhrase("", tostring(0), "", -10000);
@@ -280,7 +293,7 @@ export class DialogManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public fillPriorityTable(object: game_object, PT_subtable: TPHRTable, PRT_subtable: TPRTTable): void {
+  public fillPriorityTable(object: ClientObject, PT_subtable: TPHRTable, PRT_subtable: TPRTTable): void {
     const objectId: TNumberId = object.id();
 
     if (PRT_subtable.get(objectId) === null) {
@@ -300,7 +313,7 @@ export class DialogManager extends AbstractCoreManager {
   public calculatePhrasePriority(
     PRT_subtable: TPRTTable,
     PTID_subtable: IPhrasesDescriptor,
-    object: game_object,
+    object: ClientObject,
     phraseId: TStringId
   ): TRate {
     const objectId: TNumberId = object.id();
@@ -408,21 +421,21 @@ export class DialogManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public isTold(object: game_object, phrase: TStringId): boolean {
+  public isTold(object: ClientObject, phrase: TStringId): boolean {
     return this.priority_table.get(phrase).get(object.id())?.told === true;
   }
 
   /**
    * todo;
    */
-  public resetForObject(object: game_object): void {
+  public resetForObject(object: ClientObject): void {
     this.disabledPhrases.delete(object.id());
   }
 
   /**
    * todo;
    */
-  public saveObjectDialogs(packet: net_packet, object: game_object): void {
+  public saveObjectDialogs(packet: NetPacket, object: ClientObject): void {
     openSaveMarker(packet, DialogManager.name);
 
     const objectId: TNumberId = object.id();
@@ -439,7 +452,7 @@ export class DialogManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public loadObjectDialogs(reader: TXR_net_processor, object: game_object): void {
+  public loadObjectDialogs(reader: NetProcessor, object: ClientObject): void {
     openLoadMarker(reader, DialogManager.name);
 
     reader.r_bool();
@@ -454,7 +467,7 @@ export class DialogManager extends AbstractCoreManager {
   /**
    * On interaction with new game object.
    */
-  public onInteractWithObject(object: game_object, who: game_object): void {
+  public onInteractWithObject(object: ClientObject, who: ClientObject): void {
     registry.activeSpeaker = object;
   }
 }

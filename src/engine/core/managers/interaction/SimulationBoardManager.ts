@@ -1,13 +1,4 @@
-import {
-  actor_stats,
-  alife,
-  clsid,
-  cse_alife_creature_abstract,
-  game_graph,
-  level,
-  net_packet,
-  TXR_net_processor,
-} from "xray16";
+import { actor_stats, alife, clsid, game_graph, level } from "xray16";
 
 import { registry, SIMULATION_LTX } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -24,7 +15,19 @@ import { changeTeamSquadGroup } from "@/engine/core/utils/object";
 import { parseStringsList } from "@/engine/core/utils/parse";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
-import { LuaArray, Optional, TCount, TName, TNumberId, TRate, TSection, TStringId } from "@/engine/lib/types";
+import {
+  LuaArray,
+  NetPacket,
+  NetProcessor,
+  Optional,
+  ServerCreatureObject,
+  TCount,
+  TName,
+  TNumberId,
+  TRate,
+  TSection,
+  TStringId,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -367,7 +370,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
    * todo;
    * todo: Seems too complex.
    */
-  public setupObjectSquadAndGroup(object: cse_alife_creature_abstract): void {
+  public setupObjectSquadAndGroup(object: ServerCreatureObject): void {
     const levelName: TLevel = level.name();
     const groupId: TNumberId = groupIdByLevelName.get(levelName) || 0;
 
@@ -467,14 +470,14 @@ export class SimulationBoardManager extends AbstractCoreManager {
   /**
    * Save simulation data.
    */
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     packet.w_bool(this.areDefaultSimulationSquadsSpawned);
   }
 
   /**
    * Load simulation data.
    */
-  public override load(reader: TXR_net_processor): void {
+  public override load(reader: NetProcessor): void {
     this.areDefaultSimulationSquadsSpawned = reader.r_bool();
   }
 }

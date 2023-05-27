@@ -12,7 +12,7 @@ import {
   setPortableStoreValue,
 } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
-import { ClientGameObject } from "@/engine/lib/types";
+import { ClientObject } from "@/engine/lib/types";
 import {
   EPacketDataType,
   mockClientGameObject,
@@ -39,7 +39,7 @@ describe("'portable_store' functionality", () => {
   });
 
   it("should correctly initialize portable store", () => {
-    const object: ClientGameObject = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject();
 
     registerObject(object);
 
@@ -55,7 +55,7 @@ describe("'portable_store' functionality", () => {
   });
 
   it("should correctly set and get values by key", () => {
-    const object: ClientGameObject = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject();
 
     registerObject(object);
 
@@ -88,7 +88,7 @@ describe("'portable_store' functionality", () => {
   });
 
   it("should correctly save and load values", () => {
-    const object: ClientGameObject = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject();
 
     registerObject(object);
 
@@ -125,7 +125,7 @@ describe("'portable_store' functionality", () => {
       "example",
     ]);
 
-    const nextObject: ClientGameObject = mockClientGameObject();
+    const nextObject: ClientObject = mockClientGameObject();
 
     registerObject(nextObject);
 

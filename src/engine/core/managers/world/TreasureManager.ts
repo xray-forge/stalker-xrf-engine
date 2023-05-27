@@ -1,14 +1,4 @@
-import {
-  alife,
-  alife_simulator,
-  cse_alife_object,
-  game_object,
-  ini_file,
-  level,
-  net_packet,
-  time_global,
-  TXR_net_processor,
-} from "xray16";
+import { alife, level, time_global } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry, SECRETS_LTX } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
@@ -25,8 +15,14 @@ import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { TTreasure } from "@/engine/lib/constants/treasures";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
+  AlifeSimulator,
+  ClientObject,
+  IniFile,
   LuaArray,
+  NetPacket,
+  NetProcessor,
   Optional,
+  ServerObject,
   TCount,
   TName,
   TNumberId,
@@ -72,14 +68,14 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * Register server object in treasure manager.
    */
-  public static registerItem(serverObject: cse_alife_object): Optional<boolean> {
+  public static registerItem(serverObject: ServerObject): Optional<boolean> {
     return TreasureManager.getInstance().registerItem(serverObject);
   }
 
   /**
    * Register server restrictor in treasure manager.
    */
-  public static registerRestrictor(serverObject: cse_alife_object): Optional<boolean> {
+  public static registerRestrictor(serverObject: ServerObject): Optional<boolean> {
     return TreasureManager.getInstance().registerRestrictor(serverObject);
   }
 
@@ -166,8 +162,8 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public registerItem(serverObject: cse_alife_object): Optional<boolean> {
-    const objectSpawnIni: ini_file = serverObject.spawn_ini();
+  public registerItem(serverObject: ServerObject): Optional<boolean> {
+    const objectSpawnIni: IniFile = serverObject.spawn_ini();
 
     if (!objectSpawnIni.section_exist(TreasureManager.SECRET_LTX_SECTION)) {
       return null;
@@ -219,8 +215,8 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public registerRestrictor(serverObject: cse_alife_object): boolean {
-    const spawnIni: ini_file = serverObject.spawn_ini();
+  public registerRestrictor(serverObject: ServerObject): boolean {
+    const spawnIni: IniFile = serverObject.spawn_ini();
 
     if (spawnIni.section_exist(TreasureManager.SECRET_LTX_SECTION)) {
       this.secretsRestrictorByName.set(serverObject.name(), serverObject.id);
@@ -245,7 +241,7 @@ export class TreasureManager extends AbstractCoreManager {
       return;
     }
 
-    const simulator: alife_simulator = alife();
+    const simulator: AlifeSimulator = alife();
     const secret: ITreasureSecret = this.secrets.get(treasureId);
 
     for (const [itemSection, itemParameters] of secret.items) {
@@ -257,8 +253,8 @@ export class TreasureManager extends AbstractCoreManager {
 
           if (probability < itemDescriptor.prob) {
             if (itemDescriptor.item_ids && itemDescriptor.item_ids.get(i)) {
-              const serverObject: cse_alife_object = simulator.object(itemParameters.get(it).item_ids!.get(i))!;
-              const object: cse_alife_object = simulator.create(
+              const serverObject: ServerObject = simulator.object(itemParameters.get(it).item_ids!.get(i))!;
+              const object: ServerObject = simulator.create(
                 itemSection,
                 serverObject.position,
                 serverObject.m_level_vertex_id,
@@ -386,7 +382,7 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * On item taken by actor, verify it is part of treasure.
    */
-  public onActorItemTake(object: game_object): void {
+  public onActorItemTake(object: ClientObject): void {
     const objectId: TNumberId = object.id();
     const restrictorId: Optional<TNumberId> = this.secretsRestrictorByItem.get(objectId);
 
@@ -422,7 +418,7 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * Save manager data in network packet.
    */
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     openSaveMarker(packet, TreasureManager.name);
 
     packet.w_bool(this.areItemsSpawned);
@@ -454,7 +450,7 @@ export class TreasureManager extends AbstractCoreManager {
   /**
    * Load data from network processor.
    */
-  public override load(reader: TXR_net_processor): void {
+  public override load(reader: NetProcessor): void {
     openLoadMarker(reader, TreasureManager.name);
 
     this.areItemsSpawned = reader.r_bool();

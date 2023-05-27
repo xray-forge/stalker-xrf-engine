@@ -1,4 +1,4 @@
-import { game_object, ini_file, net_packet, time_global, TXR_net_processor } from "xray16";
+import { ini_file, time_global } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
@@ -8,13 +8,23 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList } from "@/engine/core/utils/parse";
-import { Optional, TDuration, TNumberId, TSection, TTimestamp } from "@/engine/lib/types";
+import {
+  ClientObject,
+  IniFile,
+  NetPacket,
+  NetProcessor,
+  Optional,
+  TDuration,
+  TNumberId,
+  TSection,
+  TTimestamp,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 export interface ITradeManagerDescriptor {
   cfg_ltx: string;
-  config: ini_file;
+  config: IniFile;
   update_time: number;
   buy_condition: LuaTable<number>;
   sell_condition: LuaTable<number>;
@@ -37,7 +47,7 @@ export class TradeManager extends AbstractCoreManager {
   /**
    * todo
    */
-  public initForObject(object: game_object, configFilePath: string): void {
+  public initForObject(object: ClientObject, configFilePath: string): void {
     logger.info("Init trade  for:", object.name(), configFilePath);
 
     const objectId: TNumberId = object.id();
@@ -77,7 +87,7 @@ export class TradeManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public updateForObject(object: game_object): void {
+  public updateForObject(object: ClientObject): void {
     const tradeDescriptor: Optional<ITradeManagerDescriptor> = registry.trade.get(object.id());
 
     if (
@@ -175,7 +185,7 @@ export class TradeManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public saveObjectState(object: game_object, packet: net_packet): void {
+  public saveObjectState(object: ClientObject, packet: NetPacket): void {
     const tradeDescriptor: ITradeManagerDescriptor = registry.trade.get(object.id());
 
     openSaveMarker(packet, TradeManager.name);
@@ -228,7 +238,7 @@ export class TradeManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public loadObjectState(reader: TXR_net_processor, object: game_object): void {
+  public loadObjectState(reader: NetProcessor, object: ClientObject): void {
     openLoadMarker(reader, TradeManager.name);
 
     const hasTrade = reader.r_bool();

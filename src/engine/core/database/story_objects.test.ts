@@ -12,12 +12,12 @@ import {
   unregisterStoryLinkByObjectId,
   unregisterStoryLinkByStoryId,
 } from "@/engine/core/database/story_objects";
-import { ClientGameObject, ServerAlifeObject } from "@/engine/lib/types";
+import { ClientObject, ServerObject } from "@/engine/lib/types";
 import { FILES_MOCKS, MockAlifeSimulator, mockClientGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("'story_objects' module of the database", () => {
-  const firstObject: ServerAlifeObject = mockServerAlifeObject({ id: 12 });
-  const secondObject: ServerAlifeObject = mockServerAlifeObject({ id: 36 });
+  const firstObject: ServerObject = mockServerAlifeObject({ id: 12 });
+  const secondObject: ServerObject = mockServerAlifeObject({ id: 36 });
 
   MockAlifeSimulator.addToRegistry(firstObject);
   MockAlifeSimulator.addToRegistry(secondObject);
@@ -55,7 +55,7 @@ describe("'story_objects' module of the database", () => {
   });
 
   it("should correctly handle lifecycle and get links with utils", () => {
-    const clientObject: ClientGameObject = mockClientGameObject({ idOverride: 12 });
+    const clientObject: ClientObject = mockClientGameObject({ idOverride: 12 });
 
     registerObject(clientObject);
     registerStoryLink(12, "test-sid");

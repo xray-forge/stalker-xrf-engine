@@ -1,13 +1,4 @@
-import {
-  alife,
-  clsid,
-  cse_alife_creature_abstract,
-  cse_alife_object,
-  game_object,
-  net_packet,
-  TXR_class_id,
-  TXR_net_processor,
-} from "xray16";
+import { alife, clsid } from "xray16";
 
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -20,7 +11,20 @@ import { TArtefact } from "@/engine/lib/constants/items/artefacts";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
 import { TMonster } from "@/engine/lib/constants/monsters";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, PartialRecord, StringOptional, TCount, TName, TNumberId } from "@/engine/lib/types";
+import {
+  ClientObject,
+  NetPacket,
+  NetProcessor,
+  Optional,
+  PartialRecord,
+  ServerCreatureObject,
+  ServerObject,
+  StringOptional,
+  TClassId,
+  TCount,
+  TName,
+  TNumberId,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -130,7 +134,7 @@ export class StatisticsManager extends AbstractCoreManager {
     af_ice: false,
   } as Record<TArtefact, boolean>);
 
-  public monster_classes: PartialRecord<TXR_class_id, string> = {
+  public monster_classes: PartialRecord<TClassId, string> = {
     [clsid.bloodsucker_s]: "bloodsucker",
     [clsid.boar_s]: "boar",
     [clsid.burer_s]: "burer",
@@ -181,7 +185,7 @@ export class StatisticsManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public incrementCollectedArtefactsCount(artefact: game_object): void {
+  public incrementCollectedArtefactsCount(artefact: ClientObject): void {
     logger.info("Increment collected artefacts count");
     // todo: Probably section vs section name should be checked and simplified.
 
@@ -231,10 +235,10 @@ export class StatisticsManager extends AbstractCoreManager {
    * todo: Description.
    */
   public updateBestWeapon(hitAmount: TCount): void {
-    const active_item = registry.actor.active_item();
+    const activeItem: Optional<ClientObject> = registry.actor.active_item();
 
-    if (active_item) {
-      const serverObject: Optional<cse_alife_object> = alife().object(active_item.id());
+    if (activeItem) {
+      const serverObject: Optional<ServerObject> = alife().object(activeItem.id());
 
       if (serverObject) {
         const sectionName: TName = serverObject.section_name();
@@ -271,7 +275,7 @@ export class StatisticsManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public updateBestMonsterKilled(object: game_object): void {
+  public updateBestMonsterKilled(object: ClientObject): void {
     if (isStalker(object)) {
       // -- actor_statistic.best_monster = "stalker"
     } else {
@@ -285,9 +289,7 @@ export class StatisticsManager extends AbstractCoreManager {
         );
       }
 
-      const serverObject: Optional<cse_alife_creature_abstract> = alife().object<cse_alife_creature_abstract>(
-        object.id()
-      );
+      const serverObject: Optional<ServerCreatureObject> = alife().object(object.id());
 
       if (serverObject) {
         const rank = serverObject.rank();
@@ -339,7 +341,7 @@ export class StatisticsManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override load(reader: TXR_net_processor): void {
+  public override load(reader: NetProcessor): void {
     this.actor_statistic = {} as IActorStatistics;
     this.actor_statistic.surges = reader.r_u16();
     this.actor_statistic.completed_quests = reader.r_u16();
@@ -393,7 +395,7 @@ export class StatisticsManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     packet.w_u16(this.actor_statistic.surges);
     packet.w_u16(this.actor_statistic.completed_quests);
     packet.w_u32(this.actor_statistic.killed_monsters);

@@ -1,4 +1,4 @@
-import { game_object, IsDynamicMusic, level, time_global, vector } from "xray16";
+import { IsDynamicMusic, level, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -14,6 +14,7 @@ import { clampNumber } from "@/engine/core/utils/number";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { TSound } from "@/engine/lib/constants/sound/sounds";
 import {
+  ClientObject,
   LuaArray,
   Optional,
   TDistance,
@@ -23,6 +24,7 @@ import {
   TNumberId,
   TRate,
   TTimestamp,
+  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -107,7 +109,7 @@ export class DynamicMusicManager extends AbstractCoreManager {
    * todo: Description.
    */
   public isActorInSilenceZone(): boolean {
-    const actorPosition: vector = registry.actor.position();
+    const actorPosition: Vector = registry.actor.position();
 
     for (const [zoneId, zoneName] of registry.silenceZones) {
       if (registry.zones.get(zoneName).inside(actorPosition)) {
@@ -177,23 +179,23 @@ export class DynamicMusicManager extends AbstractCoreManager {
    * todo: Description.
    */
   public getThemeState(): Optional<EDynamicMusicState> {
-    const actor: game_object = registry.actor;
+    const actor: ClientObject = registry.actor;
 
     this.forceFade = false;
 
     if (actor.alive()) {
       if (!this.isActorInSilenceZone()) {
-        const actorPosition: vector = actor.position();
+        const actorPosition: Vector = actor.position();
         const actorId: TNumberId = actor.id();
 
-        let nearestEnemy: Optional<game_object> = null;
+        let nearestEnemy: Optional<ClientObject> = null;
         let nearestEnemyDistanceSqr: TDistance = 10_000;
 
         // todo: No need to check every enemy, just find at least one who meets threshold and flag 'true'
         // todo: No need to check every enemy, just check same location.
         for (const [objectId] of registry.stalkers) {
-          const object: Optional<game_object> = registry.objects.get(objectId).object;
-          const enemy: Optional<game_object> = object.best_enemy();
+          const object: Optional<ClientObject> = registry.objects.get(objectId).object;
+          const enemy: Optional<ClientObject> = object.best_enemy();
 
           if (enemy && enemy.id() === actorId) {
             const dist: TDistance = actorPosition.distance_to_sqr(object.position());

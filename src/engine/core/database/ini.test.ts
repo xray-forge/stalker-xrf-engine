@@ -5,7 +5,7 @@ import { DUMMY_LTX } from "@/engine/core/database/ini_registry";
 import { registerObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { IRegistryObjectState } from "@/engine/core/database/types";
-import { ClientGameObject, IniFile } from "@/engine/lib/types";
+import { ClientObject, IniFile } from "@/engine/lib/types";
 import { mockClientGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("'ini' module of database", () => {
@@ -39,8 +39,8 @@ describe("'ini' module of database", () => {
   });
 
   it("should correctly load object logic ini file", () => {
-    const withSpawnIni: ClientGameObject = mockClientGameObject();
-    const withoutSpawnIni: ClientGameObject = mockClientGameObject({ spawn_ini: () => null as unknown as IniFile });
+    const withSpawnIni: ClientObject = mockClientGameObject();
+    const withoutSpawnIni: ClientObject = mockClientGameObject({ spawn_ini: () => null as unknown as IniFile });
 
     expect(getObjectLogicIniConfig(withSpawnIni, "<customdata>")).toBe(withSpawnIni.spawn_ini());
     expect(getObjectLogicIniConfig(withoutSpawnIni, "<customdata>")).toBe(DUMMY_LTX);
@@ -56,7 +56,7 @@ describe("'ini' module of database", () => {
 
     expect(dynamicLtx).toBe(logicIni);
 
-    const another: ClientGameObject = mockClientGameObject();
+    const another: ClientObject = mockClientGameObject();
     const anotherState: IRegistryObjectState = registerObject(another);
 
     anotherState.job_ini = "jobExample.ltx";

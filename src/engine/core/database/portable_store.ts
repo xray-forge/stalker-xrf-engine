@@ -3,7 +3,7 @@ import { IRegistryObjectState } from "@/engine/core/database/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
-import { ClientGameObject, NetPacket, NetProcessor, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
+import { ClientObject, NetPacket, NetProcessor, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -44,11 +44,7 @@ export function isValidPortableStoreValue(value: unknown): boolean {
  * @param key - portable store key to set
  * @param value - value to set in portable store
  */
-export function setPortableStoreValue<T extends TPortableStoreValue>(
-  object: ClientGameObject,
-  key: TName,
-  value: T
-): void {
+export function setPortableStoreValue<T extends TPortableStoreValue>(object: ClientObject, key: TName, value: T): void {
   if (!isValidPortableStoreValue(value)) {
     abort("database/portable store: not registered type tried to set: [%s]:[%s].", key, type(value));
   }
@@ -69,14 +65,14 @@ export function setPortableStoreValue<T extends TPortableStoreValue>(
  * @param object - game object to load portable store value from
  * @param key - portable store key to get value
  */
-export function getPortableStoreValue<T extends TPortableStoreValue>(object: ClientGameObject, key: TName): Optional<T>;
+export function getPortableStoreValue<T extends TPortableStoreValue>(object: ClientObject, key: TName): Optional<T>;
 export function getPortableStoreValue<T extends TPortableStoreValue>(
-  object: ClientGameObject,
+  object: ClientObject,
   key: TName,
   defaultValue: T
 ): T;
 export function getPortableStoreValue<T extends TPortableStoreValue>(
-  object: ClientGameObject,
+  object: ClientObject,
   key: TName,
   defaultValue: Optional<T> = null
 ): Optional<T> {
@@ -99,7 +95,7 @@ export function getPortableStoreValue<T extends TPortableStoreValue>(
  * @param object - game object to save portable store for
  * @param packet - net packet to save data in
  */
-export function savePortableStore(object: ClientGameObject, packet: NetPacket): void {
+export function savePortableStore(object: ClientObject, packet: NetPacket): void {
   const objectId: TNumberId = object.id();
   let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).portableStore;
 
@@ -143,7 +139,7 @@ export function savePortableStore(object: ClientGameObject, packet: NetPacket): 
  * @param object - game object to load portable store for
  * @param reader - net processor to load data from
  */
-export function loadPortableStore(object: ClientGameObject, reader: NetProcessor): void {
+export function loadPortableStore(object: ClientObject, reader: NetProcessor): void {
   const objectId: TNumberId = object.id();
   let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).portableStore;
 
@@ -182,7 +178,7 @@ export function loadPortableStore(object: ClientGameObject, reader: NetProcessor
  *
  * @param object - client game object for portable store initialization
  */
-export function initializePortableStore(object: ClientGameObject): void {
+export function initializePortableStore(object: ClientObject): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (!state.portableStore) {
@@ -195,7 +191,7 @@ export function initializePortableStore(object: ClientGameObject): void {
  *
  * @param object - client game object for portable store destruction
  */
-export function destroyPortableStore(object: ClientGameObject): void {
+export function destroyPortableStore(object: ClientObject): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
   if (state !== null) {

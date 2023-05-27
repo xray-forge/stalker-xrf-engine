@@ -23,7 +23,7 @@ import type { LightManager } from "@/engine/core/schemes/sr_light";
 import type { TRelation } from "@/engine/lib/constants/relations";
 import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
 import type {
-  ClientGameObject,
+  ClientObject,
   EScheme,
   IniFile,
   Optional,
@@ -41,11 +41,11 @@ export const registry = {
   /**
    * Current actor, injected on game start.
    */
-  actor: null as unknown as ClientGameObject,
+  actor: null as unknown as ClientObject,
   /**
    * Currently active speaker in dialogs.
    */
-  activeSpeaker: null as Optional<ClientGameObject>,
+  activeSpeaker: null as Optional<ClientObject>,
   /**
    * Currently active smart terrain id.
    * If not null, assume actor is in it.
@@ -106,8 +106,8 @@ export const registry = {
    * List of data for game helicopters.
    */
   helicopter: {
-    storage: new LuaTable<TNumberId, ClientGameObject>(),
-    enemies: new LuaTable<TNumberId, ClientGameObject>(),
+    storage: new LuaTable<TNumberId, ClientObject>(),
+    enemies: new LuaTable<TNumberId, ClientObject>(),
     enemyIndex: 0,
   },
   /**
@@ -136,7 +136,7 @@ export const registry = {
   /**
    * List of active zones by name.
    */
-  zones: new LuaTable<TName, ClientGameObject>(),
+  zones: new LuaTable<TName, ClientObject>(),
   /**
    * List of zones under silence restriction, no music is allowed.
    */

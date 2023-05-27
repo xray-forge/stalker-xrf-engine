@@ -5,7 +5,7 @@ import { ISchemePostCombatIdleState } from "@/engine/core/schemes/danger/IScheme
 import { IActionSchemeHearState } from "@/engine/core/schemes/hear";
 import {
   AnyObject,
-  ClientGameObject,
+  ClientObject,
   EScheme,
   ESchemeType,
   IniFile,
@@ -21,7 +21,7 @@ import {
  * Client-side registry of game objects logics and states.
  */
 export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSchemeState>> {
-  object: ClientGameObject;
+  object: ClientObject;
   ini: IniFile;
   ini_filename: Optional<TName>;
 
@@ -54,7 +54,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   post_combat_wait: Optional<ISchemePostCombatIdleState>;
 
   enemy_id: Optional<TNumberId>;
-  enemy: Optional<ClientGameObject>;
+  enemy: Optional<ClientObject>;
   script_combat_type: Optional<TName>;
   registred_camp: Optional<TNumberId>;
 

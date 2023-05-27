@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 
 import { registry } from "@/engine/core/database/registry";
 import { registerZone, unregisterZone } from "@/engine/core/database/zones";
-import { ClientGameObject } from "@/engine/lib/types";
+import { ClientObject } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("'zones' module of the database", () => {
@@ -10,8 +10,8 @@ describe("'zones' module of the database", () => {
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
 
-    const firstZone: ClientGameObject = mockClientGameObject({ idOverride: 10, sectionOverride: "test_zone" });
-    const secondZone: ClientGameObject = mockClientGameObject({ idOverride: 20, sectionOverride: "test_zone" });
+    const firstZone: ClientObject = mockClientGameObject({ idOverride: 10, sectionOverride: "test_zone" });
+    const secondZone: ClientObject = mockClientGameObject({ idOverride: 20, sectionOverride: "test_zone" });
 
     expect(firstZone.id()).toBe(10);
     expect(firstZone.name()).toBe("test_zone_10");

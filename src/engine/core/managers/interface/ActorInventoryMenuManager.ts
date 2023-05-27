@@ -1,4 +1,4 @@
-import { ini_file, system_ini } from "xray16";
+import { system_ini } from "xray16";
 
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
@@ -6,6 +6,7 @@ import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ACTOR } from "@/engine/lib/constants/words";
+import { IniFile } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -33,7 +34,7 @@ export class ActorInventoryMenuManager extends AbstractCoreManager {
   public override initialize(): void {
     logger.info("Initialize actor inventory quick items slots");
 
-    const ini: ini_file = system_ini();
+    const ini: IniFile = system_ini();
 
     executeConsoleCommand(consoleCommands.slot_0, readIniString(ini, ACTOR, "quick_item_1", false, "", ""));
     executeConsoleCommand(consoleCommands.slot_1, readIniString(ini, ACTOR, "quick_item_2", false, "", ""));

@@ -1,17 +1,4 @@
-import {
-  CUIGameCustom,
-  game_object,
-  get_hud,
-  hit,
-  level,
-  net_packet,
-  sound_object,
-  StaticDrawableWrapper,
-  time_global,
-  TXR_net_processor,
-  TXR_sound_object_type,
-  vector,
-} from "xray16";
+import { get_hud, hit, level, sound_object, StaticDrawableWrapper, time_global, vector } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { getWeakManagerInstance, isManagerInitialized } from "@/engine/core/database/managers";
@@ -24,7 +11,20 @@ import { isLevelChanging } from "@/engine/core/utils/check/check";
 import { clampNumber } from "@/engine/core/utils/number";
 import { vectorRotateY } from "@/engine/core/utils/vector";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
-import { Optional, TDuration } from "@/engine/lib/types";
+import {
+  ClientObject,
+  GameHud,
+  Hit,
+  NetPacket,
+  NetProcessor,
+  Optional,
+  SoundObject,
+  TDistance,
+  TDuration,
+  TRate,
+  TSoundObjectType,
+  Vector,
+} from "@/engine/lib/types";
 
 /**
  * todo;
@@ -42,7 +42,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public static load(reader: TXR_net_processor): void {
+  public static load(reader: NetProcessor): void {
     openLoadMarker(reader, PsyAntennaManager.name + "_static");
 
     if (reader.r_bool()) {
@@ -59,7 +59,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public static save(packet: net_packet): void {
+  public static save(packet: NetPacket): void {
     openSaveMarker(packet, PsyAntennaManager.name + "_static");
 
     const manager: Optional<PsyAntennaManager> = getWeakManagerInstance(PsyAntennaManager);
@@ -75,8 +75,8 @@ export class PsyAntennaManager extends AbstractCoreManager {
     closeSaveMarker(packet, PsyAntennaManager.name + "_static");
   }
 
-  public readonly sound_obj_right: sound_object = new sound_object(sounds.anomaly_psy_voices_1_r);
-  public readonly sound_obj_left: sound_object = new sound_object(sounds.anomaly_psy_voices_1_l);
+  public readonly sound_obj_right: SoundObject = new sound_object(sounds.anomaly_psy_voices_1_r);
+  public readonly sound_obj_left: SoundObject = new sound_object(sounds.anomaly_psy_voices_1_l);
 
   public phantom_max: number = 8;
   public phantom_spawn_probability: number = 0;
@@ -152,7 +152,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
    * todo: Description.
    */
   public update_psy_hit(dt: number): void {
-    const hud: CUIGameCustom = get_hud();
+    const hud: GameHud = get_hud();
     const custom_static: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_psy_danger");
 
     if (this.hit_intensity > 0.0001) {
@@ -172,25 +172,25 @@ export class PsyAntennaManager extends AbstractCoreManager {
       const power: number = this.hit_amplitude * this.hit_intensity;
 
       if (power > 0.0001) {
-        const actor: game_object = registry.actor;
-        const psy_hit = new hit();
+        const actor: ClientObject = registry.actor;
+        const psyHit: Hit = new hit();
 
-        psy_hit.power = power;
-        psy_hit.direction = new vector().set(0, 0, 0);
-        psy_hit.impulse = 0;
-        psy_hit.draftsman = actor;
+        psyHit.power = power;
+        psyHit.direction = new vector().set(0, 0, 0);
+        psyHit.impulse = 0;
+        psyHit.draftsman = actor;
 
         const hit_value: number = (power <= 1 && power) || 1;
 
         if (this.hit_type === "chemical") {
           get_hud().update_fake_indicators(2, hit_value);
-          psy_hit.type = hit.chemical_burn;
+          psyHit.type = hit.chemical_burn;
         } else {
           get_hud().update_fake_indicators(3, hit_value);
-          psy_hit.type = hit.telepatic;
+          psyHit.type = hit.telepatic;
         }
 
-        actor.hit(psy_hit);
+        actor.hit(psyHit);
 
         if (actor.health < 0.0001 && actor.alive()) {
           actor.kill(actor);
@@ -212,15 +212,15 @@ export class PsyAntennaManager extends AbstractCoreManager {
       this.phantom_idle = math.random(5000, 10000);
 
       if (math.random() < this.phantom_spawn_probability) {
-        const actor = registry.actor;
+        const actor: ClientObject = registry.actor;
         const phantomManager: PhantomManager = PhantomManager.getInstance();
 
-        if (phantomManager.phantom_count < this.phantom_max) {
-          const radius = this.phantom_spawn_radius * (math.random() / 2.0 + 0.5);
-          const angle = this.phantom_fov * math.random() - this.phantom_fov * 0.5;
-          const dir = vectorRotateY(actor.direction(), angle);
+        if (phantomManager.phantomsCount < this.phantom_max) {
+          const radius: TDistance = this.phantom_spawn_radius * (math.random() / 2.0 + 0.5);
+          const angle: TRate = this.phantom_fov * math.random() - this.phantom_fov * 0.5;
+          const dir: Vector = vectorRotateY(actor.direction(), angle);
 
-          phantomManager.spawn_phantom(actor.position().add(dir.mul(radius)));
+          phantomManager.spawnPhantom(actor.position().add(dir.mul(radius)));
         }
       }
     }
@@ -235,13 +235,13 @@ export class PsyAntennaManager extends AbstractCoreManager {
         registry.actor,
         new vector().set(-1, 0, 1),
         0,
-        (sound_object.s2d + sound_object.looped) as TXR_sound_object_type
+        (sound_object.s2d + sound_object.looped) as TSoundObjectType
       );
       this.sound_obj_right.play_at_pos(
         registry.actor,
         new vector().set(1, 0, 1),
         0,
-        (sound_object.s2d + sound_object.looped) as TXR_sound_object_type
+        (sound_object.s2d + sound_object.looped) as TSoundObjectType
       );
 
       this.sound_initialized = true;
@@ -313,7 +313,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     openSaveMarker(packet, PsyAntennaManager.name);
 
     packet.w_float(this.hit_intensity);
@@ -340,7 +340,7 @@ export class PsyAntennaManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override load(reader: TXR_net_processor): void {
+  public override load(reader: NetProcessor): void {
     openLoadMarker(reader, PsyAntennaManager.name);
 
     this.hit_intensity = reader.r_float();

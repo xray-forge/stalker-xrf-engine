@@ -9,27 +9,27 @@ import { PhantomManager } from "@/engine/core/managers/world/PhantomManager";
 export class PhantomBinder extends object_binder {
   public constructor(object: game_object) {
     super(object);
-    PhantomManager.getInstance().add_phantom();
+    PhantomManager.getInstance().addPhantom();
   }
 
   /**
    * todo: Description.
    */
   public override net_destroy(): void {
-    PhantomManager.getInstance().remove_phantom();
+    PhantomManager.getInstance().removePhantom();
   }
 
   /**
    * todo: Description.
    */
   public spawn_phantom(position: vector): void {
-    PhantomManager.getInstance().spawn_phantom(position);
+    PhantomManager.getInstance().spawnPhantom(position);
   }
 
   /**
    * todo: Description.
    */
   public phantom_count(): number {
-    return PhantomManager.getInstance().phantom_count;
+    return PhantomManager.getInstance().phantomsCount;
   }
 }

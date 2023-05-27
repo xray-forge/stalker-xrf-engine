@@ -1,9 +1,9 @@
-import { CGameTask, game_object } from "xray16";
-
 import { ETaskState } from "@/engine/core/managers/interaction/tasks/types";
 import { TNotificationIcon } from "@/engine/core/managers/interface/notifications";
 import { TCaption } from "@/engine/lib/constants/captions";
 import {
+  ClientObject,
+  GameTask,
   Optional,
   TCount,
   TDuration,
@@ -74,7 +74,7 @@ export interface IMoneyRelocatedNotification extends INotification {
  */
 export interface ITaskUpdatedNotification extends INotification {
   state: ETaskState;
-  task: CGameTask;
+  task: GameTask;
 }
 /**
  * Treasure update notification.
@@ -89,7 +89,7 @@ export interface ITreasureNotification extends INotification {
 export interface ITipNotification extends INotification {
   caption: TCaption;
   delay?: Optional<TDuration>;
-  sender?: Optional<TNotificationIcon | game_object>;
+  sender?: Optional<TNotificationIcon | ClientObject>;
   showtime?: Optional<TTimestamp>;
   senderId?: Optional<TStringId>;
 }
@@ -98,7 +98,7 @@ export interface ITipNotification extends INotification {
  * Sound play notification.
  */
 export interface ISoundNotification extends INotification {
-  object?: Optional<game_object>;
+  object?: Optional<ClientObject>;
   faction: TName;
   point: Optional<TName | TNumberId>;
   soundPath: TPath;

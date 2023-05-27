@@ -1,15 +1,4 @@
-import {
-  action_planner,
-  alife,
-  alife_simulator,
-  cse_alife_creature_actor,
-  cse_alife_object,
-  game_object,
-  level,
-  relation_registry,
-  TXR_class_id,
-  vector,
-} from "xray16";
+import { alife, level, relation_registry } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -24,7 +13,19 @@ import { toJSON } from "@/engine/core/utils/transform/json";
 import { stalkerCommunities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
-import { ESchemeType, Optional, TDistance, TName, TNumberId } from "@/engine/lib/types";
+import {
+  ActionPlanner,
+  AlifeSimulator,
+  ClientObject,
+  ESchemeType,
+  Optional,
+  ServerObject,
+  TClassId,
+  TDistance,
+  TName,
+  TNumberId,
+  Vector,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -36,22 +37,22 @@ export class DebugManager extends AbstractCoreManager {
    * Get nearest to actor server object by pattern or just anything near.
    */
   public getNearestServerObject(
-    pattern: Optional<TName | TXR_class_id> = null,
+    pattern: Optional<TName | TClassId> = null,
     searchOffline: boolean = false
-  ): Optional<cse_alife_object> {
-    const simulator: Optional<alife_simulator> = alife();
-    const actorPosition: vector = registry.actor.position();
+  ): Optional<ServerObject> {
+    const simulator: Optional<AlifeSimulator> = alife();
+    const actorPosition: Vector = registry.actor.position();
     const hasFilter: boolean = pattern !== null;
 
     let nearestDistance: Optional<TDistance> = null;
-    let nearest: Optional<cse_alife_object> = null;
+    let nearest: Optional<ServerObject> = null;
 
     if (simulator === null) {
       return null;
     }
 
     for (const it of $range(1, MAX_U16)) {
-      const serverObject: Optional<cse_alife_object> = simulator.object(it);
+      const serverObject: Optional<ServerObject> = simulator.object(it);
 
       if (serverObject && serverObject.parent_id !== 0) {
         let isMatch: boolean = false;
@@ -82,7 +83,7 @@ export class DebugManager extends AbstractCoreManager {
     }
 
     if (nearest) {
-      if (areObjectsOnSameLevel(nearest, simulator.object(0) as cse_alife_creature_actor)) {
+      if (areObjectsOnSameLevel(nearest, simulator.object(0) as ServerObject)) {
         if (
           searchOffline ||
           (nearestDistance as TDistance) <= simulator.switch_distance() * simulator.switch_distance()
@@ -98,8 +99,8 @@ export class DebugManager extends AbstractCoreManager {
   /**
    * Get nearest to actor object by pattern or just anything near.
    */
-  public getNearestClientObject(pattern: Optional<TName | TXR_class_id> = null): Optional<game_object> {
-    const nearestServerObject: Optional<cse_alife_object> = this.getNearestServerObject(pattern, false);
+  public getNearestClientObject(pattern: Optional<TName | TClassId> = null): Optional<ClientObject> {
+    const nearestServerObject: Optional<ServerObject> = this.getNearestServerObject(pattern, false);
 
     if (nearestServerObject) {
       return level.object_by_id(nearestServerObject.id);
@@ -111,7 +112,7 @@ export class DebugManager extends AbstractCoreManager {
   /**
    * Debug object inventory items.
    */
-  public logObjectInventoryItems(object: game_object): void {
+  public logObjectInventoryItems(object: ClientObject): void {
     logger.pushSeparator();
     logger.info("Print object inventory report:", object.name());
 
@@ -128,11 +129,11 @@ export class DebugManager extends AbstractCoreManager {
   /**
    * Debug action planner state.
    */
-  public logObjectPlannerState(object: game_object): void {
+  public logObjectPlannerState(object: ClientObject): void {
     logger.pushSeparator();
     logger.info("Print object planner state report:", object.name());
 
-    const actionPlanner: action_planner = object.motivation_action_manager();
+    const actionPlanner: ActionPlanner = object.motivation_action_manager();
     const currentActionId: Optional<TNumberId> = actionPlanner.current_action_id();
 
     logger.info("Current best enemy:", object.best_enemy()?.name() || NIL);
@@ -157,7 +158,7 @@ export class DebugManager extends AbstractCoreManager {
       logger.info("Print object state planner report:", object.name());
 
       const state: IRegistryObjectState = registry.objects.get(object.id());
-      const actionPlanner: action_planner = state.stateManager!.planner;
+      const actionPlanner: ActionPlanner = state.stateManager!.planner;
       const currentActionId: Optional<TNumberId> = actionPlanner.current_action_id();
 
       logger.info("Current state planner initialized:", actionPlanner.initialized());
@@ -180,7 +181,7 @@ export class DebugManager extends AbstractCoreManager {
   /**
    * Details about state management of the object.
    */
-  public logObjectStateManager(object: game_object): void {
+  public logObjectStateManager(object: ClientObject): void {
     logger.pushSeparator();
     logger.info("Print object state manager report:", object.name());
 
@@ -207,7 +208,7 @@ export class DebugManager extends AbstractCoreManager {
   /**
    * Details about state management of the object.
    */
-  public logObjectRelations(object: game_object): void {
+  public logObjectRelations(object: ClientObject): void {
     logger.pushSeparator();
     logger.info("Print object relations report:", object.name());
 
@@ -250,7 +251,7 @@ export class DebugManager extends AbstractCoreManager {
   /**
    * Log object scheme state for easier debug.
    */
-  public logObjectState(object: game_object): void {
+  public logObjectState(object: ClientObject): void {
     logger.pushSeparator();
     logger.info("Print object scheme state report:", object.name(), object.id());
 

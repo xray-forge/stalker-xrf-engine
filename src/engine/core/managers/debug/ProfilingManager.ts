@@ -6,14 +6,14 @@ import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { AnyCallable, Optional, TCount } from "@/engine/lib/types";
+import { AnyCallable, Optional, ProfileTimer, TCount } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 export interface IProfileSnapshotDescriptor {
   count: number;
-  currentTimer: profile_timer;
-  childTimer: profile_timer;
+  currentTimer: ProfileTimer;
+  childTimer: ProfileTimer;
 }
 
 /**
@@ -24,7 +24,7 @@ export class ProfilingManager extends AbstractCoreManager {
   public namesMap: LuaTable<AnyCallable, debug.FunctionInfo> = new LuaTable();
   public callsCountMap: LuaTable<AnyCallable, { info: debug.FunctionInfo; count: number }> = new LuaTable();
 
-  public profilingTimer: profile_timer = new profile_timer();
+  public profilingTimer: ProfileTimer = new profile_timer();
   public isProfilingStarted: boolean = false;
 
   /**

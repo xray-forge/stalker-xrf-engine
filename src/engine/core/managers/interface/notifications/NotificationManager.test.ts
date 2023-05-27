@@ -1,5 +1,4 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { CGameTask } from "xray16";
 
 import { disposeManager, initializeManager, registerActor, registerStoryLink, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
@@ -21,6 +20,7 @@ import { ActorSound } from "@/engine/core/objects/sounds/playable_sounds/ActorSo
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
 import { textures } from "@/engine/lib/constants/textures";
+import { GameTask } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/utils/function_mock";
 import { mockClientGameObject } from "@/fixtures/xray";
 import { mockServerAlifeCreatureActor } from "@/fixtures/xray/mocks/objects";
@@ -66,7 +66,7 @@ describe("NotificationManager class", () => {
     expect(() => eventsManager.emitEvent(EGameEvent.NOTIFICATION, { type: "random" })).toThrow();
     expect(() => eventsManager.emitEvent(EGameEvent.NOTIFICATION, { type: ENotificationType.TIP })).not.toThrow();
 
-    const task: CGameTask = mockCGameTask();
+    const task: GameTask = mockCGameTask();
 
     eventsManager.emitEvent<ITaskUpdatedNotification>(EGameEvent.NOTIFICATION, {
       type: ENotificationType.TASK,

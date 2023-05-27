@@ -4,7 +4,7 @@ import { DUMMY_LTX, DYNAMIC_LTX_PREFIX } from "@/engine/core/database/ini_regist
 import { registry } from "@/engine/core/database/registry";
 import { IRegistryObjectState } from "@/engine/core/database/types";
 import { assertDefined } from "@/engine/core/utils/assertion";
-import { ClientGameObject, IniFile, Optional, TName } from "@/engine/lib/types";
+import { ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
 
 /**
  * Create dynamic ini file representation or get existing one from cache.
@@ -36,7 +36,7 @@ export function loadDynamicIni(name: TName, content: Optional<string> = null): L
  * @param filename - ini file name
  * @returns ini file for provided object
  */
-export function getObjectLogicIniConfig(object: ClientGameObject, filename: TName): IniFile {
+export function getObjectLogicIniConfig(object: ClientObject, filename: TName): IniFile {
   if (filename === "<customdata>") {
     const ini: Optional<IniFile> = object.spawn_ini();
 

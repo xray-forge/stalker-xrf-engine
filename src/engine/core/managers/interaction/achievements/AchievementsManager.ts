@@ -1,4 +1,4 @@
-import { alife, CTime, game, net_packet, TXR_net_processor } from "xray16";
+import { alife, game } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -20,7 +20,7 @@ import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time"
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
-import { Optional, TDuration, TNumberId } from "@/engine/lib/types";
+import { NetPacket, NetProcessor, Optional, TDuration, Time, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -29,8 +29,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo: move to config file generic achievements descriptions
  */
 export class AchievementsManager extends AbstractCoreManager {
-  public lastDetectiveAchievementSpawnTime: Optional<CTime> = null;
-  public lastMutantHunterAchievementSpawnTime: Optional<CTime> = null;
+  public lastDetectiveAchievementSpawnTime: Optional<Time> = null;
+  public lastMutantHunterAchievementSpawnTime: Optional<Time> = null;
 
   /**
    * todo: Description.
@@ -690,7 +690,7 @@ export class AchievementsManager extends AbstractCoreManager {
    * todo;
    * todo: Probably named section.
    */
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     if (this.lastDetectiveAchievementSpawnTime === null) {
       packet.w_bool(false);
     } else {
@@ -709,7 +709,7 @@ export class AchievementsManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public override load(reader: TXR_net_processor): void {
+  public override load(reader: NetProcessor): void {
     const hasSpawnedDetectiveLoot: boolean = reader.r_bool();
 
     if (hasSpawnedDetectiveLoot) {

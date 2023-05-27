@@ -6,7 +6,7 @@ import { registerObject, resetObject } from "@/engine/core/database/objects";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { IRegistryObjectState } from "@/engine/core/database/types";
 import { IBaseSchemeState } from "@/engine/core/schemes";
-import { ClientGameObject, EScheme } from "@/engine/lib/types";
+import { ClientObject, EScheme } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/utils/function_mock";
 import { EPacketDataType, mockClientGameObject, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
@@ -17,7 +17,7 @@ describe("'logic' database module", () => {
   });
 
   it("should correctly load and save scheme activation info when set state", () => {
-    const object: ClientGameObject = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 

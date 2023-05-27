@@ -4,22 +4,14 @@ import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
-import {
-  ClientGameObject,
-  IniFile,
-  Optional,
-  ServerAlifeObject,
-  TName,
-  TNumberId,
-  TStringId,
-} from "@/engine/lib/types";
+import { ClientObject, IniFile, Optional, ServerObject, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
  * Register story object link based on ini configuration.
  *
  * @param serverObject - server object to register links
  */
-export function registerObjectStoryLinks(serverObject: ServerAlifeObject): void {
+export function registerObjectStoryLinks(serverObject: ServerObject): void {
   const spawnIni: IniFile = serverObject.spawn_ini();
 
   if (spawnIni.section_exist("story_object")) {
@@ -120,7 +112,7 @@ export function getObjectIdByStoryId(storyId: TStringId): Optional<TNumberId> {
  * @param storyId - story id to search
  * @returns existing server object instance or null
  */
-export function getServerObjectByStoryId<T extends ServerAlifeObject>(storyId: TStringId): Optional<T> {
+export function getServerObjectByStoryId<T extends ServerObject>(storyId: TStringId): Optional<T> {
   const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
 
   return objectId === null ? null : alife().object<T>(objectId);
@@ -132,11 +124,11 @@ export function getServerObjectByStoryId<T extends ServerAlifeObject>(storyId: T
  * @param storyId - story id to search
  * @returns existing client object instance or null
  */
-export function getObjectByStoryId(storyId: TStringId): Optional<ClientGameObject> {
+export function getObjectByStoryId(storyId: TStringId): Optional<ClientObject> {
   const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
-  const possibleObject: Optional<ClientGameObject> = (
+  const possibleObject: Optional<ClientObject> = (
     objectId === null ? null : registry.objects.get(objectId)?.object
-  ) as Optional<ClientGameObject>;
+  ) as Optional<ClientObject>;
 
   if (possibleObject) {
     return possibleObject;

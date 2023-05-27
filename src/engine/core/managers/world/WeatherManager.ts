@@ -1,4 +1,4 @@
-import { level, net_packet, TXR_net_processor } from "xray16";
+import { level } from "xray16";
 
 import {
   closeLoadMarker,
@@ -19,6 +19,8 @@ import { parseConditionsList, parseIniSectionToArray, TConditionList } from "@/e
 import { NIL } from "@/engine/lib/constants/words";
 import {
   LuaArray,
+  NetPacket,
+  NetProcessor,
   Optional,
   StringOptional,
   TName,
@@ -292,10 +294,10 @@ export class WeatherManager extends AbstractCoreManager {
   /**
    * Load current state / related info.
    */
-  public override load(reader: TXR_net_processor): void {
+  public override load(reader: NetProcessor): void {
     openLoadMarker(reader, WeatherManager.name);
 
-    const stateString = reader.r_stringZ();
+    const stateString: string = reader.r_stringZ();
 
     this.setStateAsString(stateString);
 
@@ -312,7 +314,7 @@ export class WeatherManager extends AbstractCoreManager {
   /**
    * Save current state / related info.
    */
-  public override save(packet: net_packet): void {
+  public override save(packet: NetPacket): void {
     openSaveMarker(packet, WeatherManager.name);
 
     packet.w_stringZ(this.getStateAsString());

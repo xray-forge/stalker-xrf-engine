@@ -8,13 +8,13 @@ import {
   unregisterSmartTerrain,
 } from "@/engine/core/database/smart";
 import { SmartCover, SmartTerrain } from "@/engine/core/objects";
-import { ClientGameObject } from "@/engine/lib/types";
+import { ClientObject } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("'smart' module of the database", () => {
   it("should correctly register smart terrain", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test");
-    const smartObject: ClientGameObject = mockClientGameObject();
+    const smartObject: ClientObject = mockClientGameObject();
 
     registerSmartTerrain(smartObject, smartTerrain);
 

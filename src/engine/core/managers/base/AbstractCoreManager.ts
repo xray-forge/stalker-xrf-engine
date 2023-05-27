@@ -1,8 +1,6 @@
-import { net_packet, TXR_net_processor } from "xray16";
-
 import { disposeManager, getManagerInstance, getWeakManagerInstance } from "@/engine/core/database/managers";
 import { abort } from "@/engine/core/utils/assertion";
-import { IConstructor, Optional, TDuration } from "@/engine/lib/types";
+import { IConstructor, NetPacket, NetProcessor, Optional, TDuration } from "@/engine/lib/types";
 
 /**
  * Abstract class for core manager implementation.
@@ -65,7 +63,7 @@ export abstract class AbstractCoreManager {
    *
    * @param packet - net packet to write data
    */
-  public save(packet: net_packet): void {
+  public save(packet: NetPacket): void {
     abort("Save method is not implemented.");
   }
 
@@ -74,7 +72,7 @@ export abstract class AbstractCoreManager {
    *
    * @param reader - net processor to read data from
    */
-  public load(reader: TXR_net_processor): void {
+  public load(reader: NetProcessor): void {
     abort("Load method is not implemented.");
   }
 }

@@ -10,7 +10,7 @@ import {
   ITargetStateDescriptorExtras,
   StalkerStateManager,
 } from "@/engine/core/objects/state/StalkerStateManager";
-import { ClientGameObject, Optional, TDuration } from "@/engine/lib/types";
+import { ClientObject, Optional, TDuration } from "@/engine/lib/types";
 
 /**
  * Register stalker binder object.
@@ -49,7 +49,7 @@ export function unregisterStalker(stalker: StalkerBinder, destroy: boolean = tru
  * @param extra - additional state configuration
  */
 export function setStalkerState(
-  object: ClientGameObject,
+  object: ClientObject,
   state: EStalkerState,
   callback: Optional<IStateManagerCallbackDescriptor> = null,
   timeout: Optional<TDuration> = null,
@@ -73,7 +73,7 @@ export function setStalkerState(
  * @param object - target stalker object to get state from
  * @returns target stalker object current state
  */
-export function getStalkerState(object: ClientGameObject): Optional<EStalkerState> {
+export function getStalkerState(object: ClientObject): Optional<EStalkerState> {
   return registry.objects.get(object.id()).stateManager?.getState() as Optional<EStalkerState>;
 }
 
@@ -82,7 +82,7 @@ export function getStalkerState(object: ClientGameObject): Optional<EStalkerStat
  *
  * @param object - target stalker object to reset state
  */
-export function resetStalkerState(object: ClientGameObject): void {
+export function resetStalkerState(object: ClientObject): void {
   const stateManager: StalkerStateManager = registry.objects.get(object.id()).stateManager!;
 
   if (stateManager === null) {
