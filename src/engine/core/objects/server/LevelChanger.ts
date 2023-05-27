@@ -1,4 +1,4 @@
-import { cse_alife_level_changer, LuabindClass, net_packet } from "xray16";
+import { cse_alife_level_changer, LuabindClass } from "xray16";
 
 import {
   closeLoadMarker,
@@ -9,7 +9,7 @@ import {
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TLabel } from "@/engine/lib/types";
+import { NetPacket, TLabel } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -33,7 +33,7 @@ export class LevelChanger extends cse_alife_level_changer {
     super.on_unregister();
   }
 
-  public override STATE_Write(packet: net_packet): void {
+  public override STATE_Write(packet: NetPacket): void {
     super.STATE_Write(packet);
 
     openSaveMarker(packet, LevelChanger.__name);
@@ -42,7 +42,7 @@ export class LevelChanger extends cse_alife_level_changer {
     closeSaveMarker(packet, LevelChanger.__name);
   }
 
-  public override STATE_Read(packet: net_packet, size: number): void {
+  public override STATE_Read(packet: NetPacket, size: number): void {
     super.STATE_Read(packet, size);
 
     openLoadMarker(packet, LevelChanger.__name);

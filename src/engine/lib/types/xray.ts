@@ -25,6 +25,7 @@ import {
   flags32,
   FS_file_list_ex,
   game_object,
+  GameGraph__CVertex,
   hit,
   ini_file,
   net_packet,
@@ -54,6 +55,7 @@ export type ClientObject = game_object;
 export type EntityAction = entity_action;
 export type FSFileList = FS_file_list_ex;
 export type Flags32 = flags32;
+export type GameGraphVertex = GameGraph__CVertex;
 export type GameHud = CUIGameCustom;
 export type GameTask = CGameTask;
 export type Hit = hit;

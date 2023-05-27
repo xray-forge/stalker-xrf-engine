@@ -1,12 +1,4 @@
-import {
-  alife,
-  cse_alife_creature_abstract,
-  cse_alife_monster_base,
-  ini_file,
-  level,
-  LuabindClass,
-  net_packet,
-} from "xray16";
+import { alife, cse_alife_monster_base, level, LuabindClass } from "xray16";
 
 import {
   hardResetOfflineObject,
@@ -25,7 +17,7 @@ import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseNumberOptional, parseStringOptional } from "@/engine/core/utils/parse";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
+import { IniFile, NetPacket, Optional, ServerCreatureObject, TName, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -65,7 +57,7 @@ export class Monster extends cse_alife_monster_base {
     super.switch_offline();
   }
 
-  public override STATE_Write(packet: net_packet): void {
+  public override STATE_Write(packet: NetPacket): void {
     super.STATE_Write(packet);
 
     packet.w_stringZ(
@@ -79,7 +71,7 @@ export class Monster extends cse_alife_monster_base {
     packet.w_stringZ(tostring(registry.offlineObjects.get(this.id)?.activeSection));
   }
 
-  public override STATE_Read(packet: net_packet, size: number): void {
+  public override STATE_Read(packet: NetPacket, size: number): void {
     super.STATE_Read(packet, size);
 
     const offlineObject: IStoredOfflineObject = registerOfflineObject(this.id);
@@ -99,7 +91,7 @@ export class Monster extends cse_alife_monster_base {
 
     this.brain().can_choose_alife_tasks(false);
 
-    const objectIni: ini_file = this.spawn_ini();
+    const objectIni: IniFile = this.spawn_ini();
     const smartName: TName = readIniString(objectIni, "logic", "smart_terrain", false, "", "");
     const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName);
 
@@ -127,7 +119,7 @@ export class Monster extends cse_alife_monster_base {
     super.on_unregister();
   }
 
-  public override on_death(killer: cse_alife_creature_abstract): void {
+  public override on_death(killer: ServerCreatureObject): void {
     super.on_death(killer);
 
     logger.info("On monster death:", this.name(), killer.id, killer?.name());

@@ -1,4 +1,4 @@
-import { CTime, game, game_object, ini_file, net_packet, TXR_net_processor } from "xray16";
+import { game } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
@@ -15,7 +15,17 @@ import { setSquadGoodwill } from "@/engine/core/utils/relation";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { relations } from "@/engine/lib/constants/relations";
-import { Optional, TName, TSection, TStringId } from "@/engine/lib/types";
+import {
+  ClientObject,
+  IniFile,
+  NetPacket,
+  NetProcessor,
+  Optional,
+  Time,
+  TName,
+  TSection,
+  TStringId,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -30,11 +40,11 @@ export class SmartTerrainControl {
   public isNoWeaponZone: TName;
   public isIgnoreZone: TName;
 
-  public alarmStartedAt: Optional<CTime> = null;
+  public alarmStartedAt: Optional<Time> = null;
   public alarmStartSoundConditionList: TConditionList;
   public alarmStopSoundConditionList: TConditionList;
 
-  public constructor(smartTerrain: SmartTerrain, ini: ini_file, section: TSection) {
+  public constructor(smartTerrain: SmartTerrain, ini: IniFile, section: TSection) {
     this.smartTerrain = smartTerrain;
 
     this.isNoWeaponZone = readIniString(ini, section, "noweap_zone", true, "");
@@ -92,7 +102,7 @@ export class SmartTerrainControl {
    * todo: Description.
    */
   public getActorStatus(): boolean {
-    const zoneObject: game_object = registry.zones.get(this.isNoWeaponZone);
+    const zoneObject: ClientObject = registry.zones.get(this.isNoWeaponZone);
 
     if (zoneObject === null) {
       return false;
@@ -147,7 +157,7 @@ export class SmartTerrainControl {
   /**
    * Load generic information.
    */
-  public save(packet: net_packet): void {
+  public save(packet: NetPacket): void {
     openSaveMarker(packet, SmartTerrainControl.name);
 
     packet.w_u8(this.status);
@@ -159,7 +169,7 @@ export class SmartTerrainControl {
   /**
    * Save generic information.
    */
-  public load(reader: TXR_net_processor): void {
+  public load(reader: NetProcessor): void {
     openLoadMarker(reader, SmartTerrainControl.name);
 
     this.status = reader.r_u8();

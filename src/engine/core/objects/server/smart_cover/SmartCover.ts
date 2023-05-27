@@ -1,4 +1,4 @@
-import { cse_smart_cover, LuabindClass, net_packet, properties_helper } from "xray16";
+import { cse_smart_cover, LuabindClass, properties_helper } from "xray16";
 
 import {
   registerObjectStoryLinks,
@@ -13,7 +13,7 @@ import {
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
-import { Optional, TCount, TLabel, TSection, TStringId } from "@/engine/lib/types";
+import { NetPacket, Optional, TCount, TLabel, TSection, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -51,7 +51,7 @@ export class SmartCover extends cse_smart_cover {
     super.on_unregister();
   }
 
-  public override STATE_Write(packet: net_packet): void {
+  public override STATE_Write(packet: NetPacket): void {
     super.STATE_Write(packet);
 
     packet.w_stringZ(this.lastDescription);
@@ -63,7 +63,7 @@ export class SmartCover extends cse_smart_cover {
     }
   }
 
-  public override STATE_Read(packet: net_packet, size: TCount): void {
+  public override STATE_Read(packet: NetPacket, size: TCount): void {
     super.STATE_Read(packet, size);
 
     this.lastDescription = packet.r_stringZ();

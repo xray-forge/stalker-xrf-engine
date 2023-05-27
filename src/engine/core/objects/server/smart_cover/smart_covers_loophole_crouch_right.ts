@@ -1,4 +1,4 @@
-import { vector, vector } from "xray16";
+import { vector } from "xray16";
 
 import { ISmartCoverLoopholeDescriptor } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
 

@@ -15,7 +15,7 @@ export class ZoneVisual extends cse_zone_visual {
     registerObjectStoryLinks(this);
   }
 
-  public override on_unregister() {
+  public override on_unregister(): void {
     unregisterStoryLinkByObjectId(this.id);
     super.on_unregister();
   }

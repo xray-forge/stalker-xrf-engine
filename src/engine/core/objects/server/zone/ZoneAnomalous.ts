@@ -15,7 +15,7 @@ export class ZoneAnomalous extends cse_anomalous_zone {
     registerObjectStoryLinks(this);
   }
 
-  public override on_unregister() {
+  public override on_unregister(): void {
     unregisterStoryLinkByObjectId(this.id);
     super.on_unregister();
   }

@@ -1,23 +1,15 @@
 import {
   alife,
-  alife_simulator,
   CALifeSmartTerrainTask,
-  cse_alife_creature_abstract,
   cse_alife_smart_zone,
-  CTime,
-  CZoneCampfire,
   editor,
   game,
   game_graph,
-  game_object,
-  GameGraph__CVertex,
   getFS,
   ini_file,
   level,
   LuabindClass,
-  net_packet,
   time_global,
-  vector,
 } from "xray16";
 
 import {
@@ -93,13 +85,21 @@ import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
+  AlifeSimulator,
+  ALifeSmartTerrainTask,
   AnyObject,
+  ClientObject,
   ESchemeType,
+  GameGraphVertex,
+  IniFile,
   LuaArray,
+  NetPacket,
   Optional,
+  ServerCreatureObject,
   TCount,
   TDistance,
   TDuration,
+  Time,
   TIndex,
   TLabel,
   TName,
@@ -108,6 +108,8 @@ import {
   TSection,
   TStringId,
   TTimestamp,
+  Vector,
+  ZoneCampfire,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -129,8 +131,8 @@ export const valid_territory: LuaTable<string, boolean> = {
  */
 @LuabindClass()
 export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTarget {
-  public ini!: ini_file;
-  public ltxConfig!: ini_file;
+  public ini!: IniFile;
+  public ltxConfig!: IniFile;
   public ltxConfigName!: string;
 
   public squadId: TNumberId = 0;
@@ -153,7 +155,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * If smart terrain is attacked, all active squads will react.
    */
-  public alarmStartedAt: Optional<CTime> = null;
+  public alarmStartedAt: Optional<Time> = null;
 
   public arrivalDistance: TNumberId = logicsConfig.SMART_TERRAIN.DEFAULT_ARRIVAL_DISTANCE;
 
@@ -161,7 +163,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public maxPopulation: TCount = -1;
 
   public nextCheckAt: TTimestamp = 0;
-  public lastRespawnUpdatedAt: Optional<CTime> = null;
+  public lastRespawnUpdatedAt: Optional<Time> = null;
 
   public travelerActorPath: TName = "";
   public travelerSquadPath: TName = "";
@@ -180,12 +182,12 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * Starting working on smart descriptors objects.
    */
-  public arrivingObjects: LuaTable<TNumberId, cse_alife_creature_abstract> = new LuaTable();
+  public arrivingObjects: LuaTable<TNumberId, ServerCreatureObject> = new LuaTable();
 
   public objectByJobSection: LuaTable<TSection, TNumberId> = new LuaTable();
-  public objectsToRegister: LuaTable<TIndex, cse_alife_creature_abstract> = new LuaTable();
+  public objectsToRegister: LuaTable<TIndex, ServerCreatureObject> = new LuaTable();
 
-  public smartTerrainAlifeTask!: CALifeSmartTerrainTask;
+  public smartTerrainAlifeTask!: ALifeSmartTerrainTask;
 
   /**
    * Tree-like representation of available smart terrain jobs.
@@ -195,7 +197,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * Flat representation of available smart terrain jobs.
    */
   public jobsData: LuaArray<ISmartTerrainJob> = new LuaTable();
-  public jobDeadTimeById: LuaTable<TNumberId, CTime> = new LuaTable(); // job id -> time
+  public jobDeadTimeById: LuaTable<TNumberId, Time> = new LuaTable(); // job id -> time
 
   public simulationProperties!: AnyObject;
   public simulationBoardManager!: SimulationBoardManager;
@@ -249,7 +251,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * Register provided object in smart terrain.
    */
-  public override register_npc(object: cse_alife_creature_abstract): void {
+  public override register_npc(object: ServerCreatureObject): void {
     logger.info("Register object in smart:", this.name(), object.name(), this.population);
 
     this.population += 1;
@@ -276,7 +278,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * Unregister provided object from current smart.
    */
-  public override unregister_npc(object: cse_alife_creature_abstract): void {
+  public override unregister_npc(object: ServerCreatureObject): void {
     logger.info("Unregister object:", this.name(), object.name(), this.population);
 
     this.population -= 1;
@@ -315,7 +317,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public override task(object: cse_alife_creature_abstract): Optional<CALifeSmartTerrainTask> {
+  public override task(object: ServerCreatureObject): Optional<CALifeSmartTerrainTask> {
     logger.info("Task:", this.name(), object.name());
 
     if (this.arrivingObjects.get(object.id) !== null) {
@@ -328,7 +330,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public override STATE_Write(packet: net_packet): void {
+  public override STATE_Write(packet: NetPacket): void {
     super.STATE_Write(packet);
 
     openSaveMarker(packet, SmartTerrain.__name);
@@ -394,7 +396,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public override STATE_Read(packet: net_packet, size: number): void {
+  public override STATE_Read(packet: NetPacket, size: number): void {
     super.STATE_Read(packet, size);
 
     if (editor()) {
@@ -412,7 +414,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       const id: TNumberId = packet.r_u16();
 
       // Will be updated with init.
-      this.arrivingObjects.set(id, false as unknown as cse_alife_creature_abstract);
+      this.arrivingObjects.set(id, false as unknown as ServerCreatureObject);
     }
 
     count = packet.r_u8();
@@ -532,7 +534,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       this.nextCheckAt = now + idleTime;
     }
 
-    const currentGameTime: CTime = game.get_game_time();
+    const currentGameTime: Time = game.get_game_time();
 
     for (const [k, v] of this.jobDeadTimeById) {
       if (currentGameTime.diffSec(v) >= logicsConfig.SMART_TERRAIN.DEATH_IDLE_TIME) {
@@ -672,7 +674,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public createObjectSmartJobDescriptor(object: cse_alife_creature_abstract): IObjectJobDescriptor {
+  public createObjectSmartJobDescriptor(object: ServerCreatureObject): IObjectJobDescriptor {
     logger.info("Create object job descriptor:", object.name());
 
     const isObjectStalker: boolean = isStalker(object);
@@ -705,7 +707,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public onObjectDeath(object: cse_alife_creature_abstract): void {
+  public onObjectDeath(object: ServerCreatureObject): void {
     logger.info("Clear dead:", this.name(), object.name());
 
     if (this.objectJobDescriptors.get(object.id) !== null) {
@@ -779,7 +781,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     for (const [index, job] of this.jobsData) {
       const section = job.section;
-      const ltx: ini_file = job.ini_file || this.ltxConfig;
+      const ltx: IniFile = job.ini_file || this.ltxConfig;
 
       if (!ltx.line_exist(section, "active")) {
         abort("gulag: ltx=%s  no 'active' in section %s", this.ltxConfigName, section);
@@ -912,7 +914,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public setupObjectLogic(object: game_object): void {
+  public setupObjectLogic(object: ClientObject): void {
     logger.info("Setup logic:", this.name(), object.name());
 
     const objectJobDescriptor: IObjectJobDescriptor = this.objectJobDescriptors.get(object.id());
@@ -955,7 +957,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public switch_to_desired_job(object: game_object): void {
+  public switch_to_desired_job(object: ClientObject): void {
     logger.info("Switch to desired job:", this.name(), object.name());
 
     const objectId: TNumberId = object.id();
@@ -1034,10 +1036,10 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       }
     };
 
-    const alifeSimulator: alife_simulator = alife();
+    const alifeSimulator: AlifeSimulator = alife();
 
     for (const [id] of this.arrivingObjects) {
-      const serverObject: Optional<cse_alife_creature_abstract> = alifeSimulator.object(id);
+      const serverObject: Optional<ServerCreatureObject> = alifeSimulator.object(id);
 
       if (serverObject !== null) {
         this.arrivingObjects.set(id, serverObject);
@@ -1047,7 +1049,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     }
 
     for (const [objectId, jobDescriptor] of this.objectJobDescriptors) {
-      const serverObject: Optional<cse_alife_creature_abstract> = alifeSimulator.object(objectId);
+      const serverObject: Optional<ServerCreatureObject> = alifeSimulator.object(objectId);
 
       if (serverObject === null) {
         logger.info("Discard job for object:", this.name(), objectId);
@@ -1322,7 +1324,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public tryRespawnSquad(): void {
-    const currentTime: CTime = game.get_game_time();
+    const currentTime: Time = game.get_game_time();
 
     if (
       this.lastRespawnUpdatedAt === null ||
@@ -1357,7 +1359,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public turnOnCampfires(): void {
     logger.info("Turn on campfires for:", this.name());
 
-    const smartTerrainCampfires: Optional<LuaTable<TNumberId, CZoneCampfire>> = registry.smartTerrainsCampfires.get(
+    const smartTerrainCampfires: Optional<LuaTable<TNumberId, ZoneCampfire>> = registry.smartTerrainsCampfires.get(
       this.name()
     );
 
@@ -1378,7 +1380,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public turnOffCampfires(): void {
     logger.info("Turn off campfires for:", this.name());
 
-    const smartTerrainCampfires: Optional<LuaTable<TNumberId, CZoneCampfire>> = registry.smartTerrainsCampfires.get(
+    const smartTerrainCampfires: Optional<LuaTable<TNumberId, ZoneCampfire>> = registry.smartTerrainsCampfires.get(
       this.name()
     );
 
@@ -1396,11 +1398,11 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * When object arrived.
    */
-  public onObjectArrived(object: cse_alife_creature_abstract): boolean {
+  public onObjectArrived(object: ServerCreatureObject): boolean {
     const state: Optional<IRegistryObjectState> = registry.objects.get(object.id);
 
-    let objectGameVertex: GameGraph__CVertex;
-    let objectPosition: vector;
+    let objectGameVertex: GameGraphVertex;
+    let objectPosition: Vector;
 
     if (state === null) {
       objectGameVertex = game_graph().vertex(object.m_game_vertex_id);
@@ -1412,7 +1414,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       objectPosition = it.position();
     }
 
-    const smartTerrainGameVertex: GameGraph__CVertex = game_graph().vertex(this.m_game_vertex_id);
+    const smartTerrainGameVertex: GameGraphVertex = game_graph().vertex(this.m_game_vertex_id);
 
     if (object.group_id !== null) {
       const squad = this.simulationBoardManager.getSquads().get(object.group_id);
@@ -1518,7 +1520,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * todo: Description.
    */
-  public getGameLocation(): LuaMultiReturn<[vector, TNumberId, TNumberId]> {
+  public getGameLocation(): LuaMultiReturn<[Vector, TNumberId, TNumberId]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   }
 

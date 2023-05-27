@@ -1,14 +1,4 @@
-import {
-  alife,
-  CALifeSmartTerrainTask,
-  cse_alife_creature_abstract,
-  cse_alife_creature_actor,
-  game_object,
-  level,
-  LuabindClass,
-  net_packet,
-  vector,
-} from "xray16";
+import { alife, CALifeSmartTerrainTask, cse_alife_creature_actor, level, LuabindClass } from "xray16";
 
 import {
   closeLoadMarker,
@@ -33,7 +23,15 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { ACTOR, TRUE } from "@/engine/lib/constants/words";
-import { AnyObject, TNumberId } from "@/engine/lib/types";
+import {
+  ALifeSmartTerrainTask,
+  AnyObject,
+  ClientObject,
+  NetPacket,
+  ServerCreatureObject,
+  TNumberId,
+  Vector,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -66,7 +64,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     unregisterSimulationObject(this);
   }
 
-  public override STATE_Write(packet: net_packet): void {
+  public override STATE_Write(packet: NetPacket): void {
     super.STATE_Write(packet);
 
     openSaveMarker(packet, Actor.__name);
@@ -74,7 +72,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     closeSaveMarker(packet, Actor.__name);
   }
 
-  public override STATE_Read(packet: net_packet, size: number): void {
+  public override STATE_Read(packet: NetPacket, size: number): void {
     super.STATE_Read(packet, size);
 
     openLoadMarker(packet, Actor.__name);
@@ -82,7 +80,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     closeLoadMarker(packet, Actor.__name);
   }
 
-  public override on_death(killer: cse_alife_creature_abstract): void {
+  public override on_death(killer: ServerCreatureObject): void {
     super.on_death(killer);
 
     logger.info("On actor death:", this.name(), killer.id, killer?.name());
@@ -93,14 +91,14 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   /**
    * Get full actor location.
    */
-  public getGameLocation(): LuaMultiReturn<[vector, TNumberId, TNumberId]> {
+  public getGameLocation(): LuaMultiReturn<[Vector, TNumberId, TNumberId]> {
     return $multi(this.position, this.m_level_vertex_id, this.m_game_vertex_id);
   }
 
   /**
    * Get generic task.
    */
-  public getAlifeSmartTerrainTask(): CALifeSmartTerrainTask {
+  public getAlifeSmartTerrainTask(): ALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
   }
 
@@ -128,7 +126,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     }
 
     for (const [zoneName, smartName] of registry.noCombatZones) {
-      const zone: game_object = registry.zones.get(zoneName);
+      const zone: ClientObject = registry.zones.get(zoneName);
 
       if (zone !== null && zone.inside(this.position)) {
         const smart = SimulationBoardManager.getInstance().getSmartTerrainByName(smartName);

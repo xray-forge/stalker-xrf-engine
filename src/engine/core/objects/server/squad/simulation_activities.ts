@@ -1,5 +1,3 @@
-import { cse_alife_object } from "xray16";
-
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { ISimulationActivityDescriptor, SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
@@ -11,7 +9,7 @@ import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";
-import { TName } from "@/engine/lib/types";
+import { ServerObject, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -46,7 +44,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
         canSelect: () => isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
       resource: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
     },
@@ -55,7 +53,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
   [communities.bandit]: {
     squad: {
       stalker: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(8, 21) &&
           !SurgeManager.getInstance().isStarted &&
           getServerDistanceBetween(squad, target) <= 150,
@@ -63,7 +61,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
     },
     smart: {
       base: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(21, 8) &&
           !SurgeManager.getInstance().isStarted &&
           !isAnySquadMemberEnemyToActor(squad) &&
@@ -76,44 +74,44 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
       resource: null,
     },
     actor: {
-      canSelect: (squad: Squad, target: cse_alife_object) =>
+      canSelect: (squad: Squad, target: ServerObject) =>
         hasAlifeInfo(infoPortions.sim_bandit_attack_harder) && getServerDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.dolg]: {
     squad: {
       freedom: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
           getServerDistanceBetween(squad, target) <= 150,
       },
       monster_predatory_day: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
           getServerDistanceBetween(squad, target) <= 150,
       },
       monster_predatory_night: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
           getServerDistanceBetween(squad, target) <= 150,
       },
       monster_vegetarian: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
           getServerDistanceBetween(squad, target) <= 150,
       },
       monster_zombied_day: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
           getServerDistanceBetween(squad, target) <= 150,
       },
       monster_special: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
           getServerDistanceBetween(squad, target) <= 150,
@@ -121,7 +119,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
     },
     smart: {
       base: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(19, 8) &&
           !SurgeManager.getInstance().isStarted &&
           !isAnySquadMemberEnemyToActor(squad) &&
@@ -140,7 +138,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
   [communities.freedom]: {
     squad: {
       dolg: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(8, 19) &&
           !SurgeManager.getInstance().isStarted &&
           getServerDistanceBetween(squad, target) <= 150,
@@ -148,7 +146,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
     },
     smart: {
       base: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(19, 8) &&
           !SurgeManager.getInstance().isStarted &&
           !isAnySquadMemberEnemyToActor(squad) &&
@@ -173,7 +171,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
       surge: { canSelect: () => SurgeManager.getInstance().isStarted },
     },
     actor: {
-      canSelect: (squad: Squad, target: cse_alife_object) => getServerDistanceBetween(squad, target) <= 150,
+      canSelect: (squad: Squad, target: ServerObject) => getServerDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.zombied]: {
@@ -185,23 +183,23 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
     squad: {
       monster_vegetarian: { canSelect: () => isInTimeInterval(6, 19) },
       stalker: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       bandit: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       dolg: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       freedom: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       killer: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
     },
@@ -212,7 +210,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
       resource: null,
     },
     actor: {
-      canSelect: (squad: Squad, target: cse_alife_object) =>
+      canSelect: (squad: Squad, target: ServerObject) =>
         isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
     },
   },
@@ -220,23 +218,23 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
     squad: {
       monster_vegetarian: { canSelect: () => isInTimeInterval(21, 6) },
       stalker: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       bandit: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       dolg: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       freedom: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       killer: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
     },
@@ -247,7 +245,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
       resource: null,
     },
     actor: {
-      canSelect: (squad: Squad, target: cse_alife_object) =>
+      canSelect: (squad: Squad, target: ServerObject) =>
         isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
     },
   },
@@ -259,30 +257,30 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
       resource: null,
     },
     actor: {
-      canSelect: (squad: Squad, target: cse_alife_object) =>
+      canSelect: (squad: Squad, target: ServerObject) =>
         isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.monster_zombied_day]: {
     squad: {
       stalker: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       bandit: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       dolg: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       freedom: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
       killer: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
       },
     },
@@ -293,30 +291,30 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
       resource: null,
     },
     actor: {
-      canSelect: (squad: Squad, target: cse_alife_object) =>
+      canSelect: (squad: Squad, target: ServerObject) =>
         isInTimeInterval(6, 19) && getServerDistanceBetween(squad, target) <= 150,
     },
   },
   [communities.monster_zombied_night]: {
     squad: {
       stalker: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       bandit: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       dolg: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       freedom: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
       killer: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
       },
     },
@@ -327,7 +325,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
       resource: null,
     },
     actor: {
-      canSelect: (squad: Squad, target: cse_alife_object) =>
+      canSelect: (squad: Squad, target: ServerObject) =>
         isInTimeInterval(19, 6) && getServerDistanceBetween(squad, target) <= 150,
     },
   },
@@ -345,7 +343,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
     squad: null,
     smart: {
       base: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(18, 8) && !SurgeManager.getInstance().isStarted,
       },
       surge: { canSelect: () => SurgeManager.getInstance().isStarted },
@@ -353,7 +351,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
         canSelect: () => isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
       resource: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
     },
@@ -363,7 +361,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
     squad: null,
     smart: {
       base: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(18, 8) && !SurgeManager.getInstance().isStarted,
       },
       surge: { canSelect: () => SurgeManager.getInstance().isStarted },
@@ -371,7 +369,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
         canSelect: () => isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
       resource: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
     },
@@ -381,7 +379,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
     squad: null,
     smart: {
       base: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(18, 8) && !SurgeManager.getInstance().isStarted,
       },
       surge: { canSelect: () => SurgeManager.getInstance().isStarted },
@@ -389,7 +387,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
         canSelect: () => isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
       resource: {
-        canSelect: (squad: Squad, target: cse_alife_object) =>
+        canSelect: (squad: Squad, target: ServerObject) =>
           isInTimeInterval(8, 18) && !SurgeManager.getInstance().isStarted,
       },
     },

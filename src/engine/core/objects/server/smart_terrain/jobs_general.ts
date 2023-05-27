@@ -1,15 +1,4 @@
-import {
-  alife,
-  alife_simulator,
-  cse_alife_creature_abstract,
-  cse_alife_human_abstract,
-  cse_alife_object,
-  game_object,
-  getFS,
-  ini_file,
-  level,
-  patrol,
-} from "xray16";
+import { alife, getFS, ini_file, level, patrol } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
@@ -27,14 +16,21 @@ import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { FALSE } from "@/engine/lib/constants/words";
 import {
+  AlifeSimulator,
   AnyCallable,
   AnyObject,
+  ClientObject,
   EJobType,
   EScheme,
   ESchemeType,
+  IniFile,
   JobTypeByScheme,
   LuaArray,
   Optional,
+  Patrol,
+  ServerCreatureObject,
+  ServerHumanObject,
+  ServerObject,
   TCount,
   TName,
   TNumberId,
@@ -243,7 +239,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: {},
       _precondition_function: (
-        serverObject: cse_alife_human_abstract,
+        serverObject: ServerHumanObject,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
@@ -337,7 +333,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: {},
       _precondition_function: (
-        serverObject: cse_alife_human_abstract,
+        serverObject: ServerHumanObject,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
@@ -444,11 +440,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
         job_type: "path_job",
       },
       _precondition_params: {},
-      _precondition_function: (
-        serverObject: cse_alife_object,
-        smart: SmartTerrain,
-        precond_params: AnyObject
-      ): boolean => {
+      _precondition_function: (serverObject: ServerObject, smart: SmartTerrain, precond_params: AnyObject): boolean => {
         if (smart.alarmStartedAt === null) {
           return true;
         }
@@ -544,7 +536,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
         },
         _precondition_params: {},
         _precondition_function: (
-          serverObject: cse_alife_human_abstract,
+          serverObject: ServerHumanObject,
           smart: SmartTerrain,
           precond_params: AnyObject
         ): boolean => {
@@ -626,7 +618,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: {},
       _precondition_function: (
-        serverObject: cse_alife_human_abstract,
+        serverObject: ServerHumanObject,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
@@ -690,7 +682,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: {},
       _precondition_function: (
-        serverObject: cse_alife_human_abstract,
+        serverObject: ServerHumanObject,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
@@ -789,7 +781,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: { changing_job: "logic@" + way_name },
       _precondition_function: (
-        serverObject: cse_alife_human_abstract,
+        serverObject: ServerHumanObject,
         smart: SmartTerrain,
         precond_params: AnyObject,
         npc_info: AnyObject
@@ -876,7 +868,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
       },
       _precondition_params: { way_name: way_name },
       _precondition_function: (
-        serverObject: cse_alife_human_abstract,
+        serverObject: ServerHumanObject,
         smart: SmartTerrain,
         precond_params: AnyObject
       ): boolean => {
@@ -958,11 +950,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
         job_type: "path_job",
       },
       _precondition_params: { way_name: way_name },
-      _precondition_function: (
-        serverObject: cse_alife_human_abstract,
-        smart: SmartTerrain,
-        precond_params: AnyObject
-      ) => {
+      _precondition_function: (serverObject: ServerHumanObject, smart: SmartTerrain, precond_params: AnyObject) => {
         return isAccessibleJob(serverObject, precond_params.way_name);
       },
     };
@@ -1065,7 +1053,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   table.insert(jobsList, monster_jobs);
 
   // ===================================================================================================================
-  const smartTerrainIni: ini_file = smartTerrain.ini;
+  const smartTerrainIni: IniFile = smartTerrain.ini;
 
   if (smartTerrainIni.section_exist(SMART_TERRAIN_SECTION)) {
     logger.info("Exclusive jobs load:", smartTerrainName);
@@ -1098,7 +1086,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
 function addExclusiveJob(
   section: TSection,
   work_field: TSection,
-  smartTerrainIni: ini_file,
+  smartTerrainIni: IniFile,
   jobsList: LuaArray<TJobDescriptor>
 ): void {
   const work: Optional<string> = readIniString(smartTerrainIni, section, work_field, false, "");
@@ -1159,7 +1147,7 @@ function addExclusiveJob(
     },
     _precondition_params: { condlist: conditionsList },
     _precondition_function: (
-      serverObject: cse_alife_human_abstract,
+      serverObject: ServerHumanObject,
       smart: SmartTerrain,
       precond_params: AnyObject
     ): boolean => {
@@ -1195,13 +1183,13 @@ export function isJobInRestrictor(smart: SmartTerrain, restrictorName: TName, wa
     return null;
   }
 
-  const restrictor: Optional<game_object> = registry.zones.get(restrictorName);
+  const restrictor: Optional<ClientObject> = registry.zones.get(restrictorName);
 
   if (restrictor === null) {
     return null;
   }
 
-  const patrolObject: patrol = new patrol(wayName);
+  const patrolObject: Patrol = new patrol(wayName);
   const count: TCount = patrolObject.count();
 
   for (const pt of $range(0, count - 1)) {
@@ -1216,7 +1204,7 @@ export function isJobInRestrictor(smart: SmartTerrain, restrictorName: TName, wa
 /**
  * todo;
  */
-export function isAccessibleJob(serverObject: cse_alife_object, wayName: TName): boolean {
+export function isAccessibleJob(serverObject: ServerObject, wayName: TName): boolean {
   return registry.objects.get(serverObject.id)?.object !== null;
 }
 
@@ -1305,17 +1293,17 @@ function isJobAvailableToObject(objectInfo: IObjectJobDescriptor, jobInfo: any, 
  * todo;
  */
 export function setupSmartJobsAndLogicOnSpawn(
-  object: game_object,
+  object: ClientObject,
   state: IRegistryObjectState,
-  serverObject: Optional<cse_alife_creature_abstract>,
+  serverObject: Optional<ServerCreatureObject>,
   schemeType: ESchemeType,
   isLoaded: boolean
 ): void {
   logger.info("Setup smart terrain logic on spawn:", object.name(), schemeType);
 
-  const alifeSimulator: Optional<alife_simulator> = alife();
+  const alifeSimulator: Optional<AlifeSimulator> = alife();
 
-  serverObject = alife()!.object<cse_alife_creature_abstract>(object.id());
+  serverObject = alife()!.object(object.id());
 
   if (alifeSimulator !== null && serverObject !== null) {
     const smartTerrainId: TNumberId = serverObject.m_smart_terrain_id;
