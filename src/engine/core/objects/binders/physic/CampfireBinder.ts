@@ -1,8 +1,9 @@
-import { cse_alife_object, CZoneCampfire, game_object, LuabindClass, object_binder } from "xray16";
+import { LuabindClass, object_binder } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { ClientObject, ServerObject, ZoneCampfire } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -11,14 +12,14 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class CampfireBinder extends object_binder {
-  public readonly campfire: CZoneCampfire;
+  public readonly campfire: ZoneCampfire;
 
-  public constructor(object: game_object) {
+  public constructor(object: ClientObject) {
     super(object);
     this.campfire = object.get_campfire();
   }
 
-  public override net_spawn(object: cse_alife_object): boolean {
+  public override net_spawn(object: ServerObject): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }

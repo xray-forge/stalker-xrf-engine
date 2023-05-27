@@ -1,11 +1,11 @@
-import { game_object, LuabindClass, property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
 import { EWeaponAnimation } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { isStrappableWeapon, isWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -35,8 +35,8 @@ export class EvaluatorWeapon extends property_evaluator {
       return true;
     }
 
-    const bestWeapon: Optional<game_object> = this.object.best_weapon();
-    const activeItem: Optional<game_object> = this.object.active_item();
+    const bestWeapon: Optional<ClientObject> = this.object.best_weapon();
+    const activeItem: Optional<ClientObject> = this.object.active_item();
 
     if (
       weaponAnimation === EWeaponAnimation.STRAPPED &&

@@ -7,7 +7,6 @@ import {
   CUITrackBar,
   Frect,
   game,
-  game_object,
   level,
   LuabindClass,
   ui_events,
@@ -22,12 +21,10 @@ import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
-import { TPath } from "@/engine/lib/types";
+import { ClientObject, TPath } from "@/engine/lib/types";
 
 const base: TPath = "interaction\\SleepDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
-
-const isWide: boolean = isWideScreen();
 
 /**
  * todo;
@@ -35,6 +32,8 @@ const isWide: boolean = isWideScreen();
 @LuabindClass()
 export class SleepDialog extends CUIScriptWnd {
   public readonly owner: SleepManager;
+
+  public isWide: boolean = isWideScreen();
 
   public back!: CUIStatic;
   public sleepStatic!: CUIStatic;
@@ -124,7 +123,7 @@ export class SleepDialog extends CUIScriptWnd {
 
     let width = 591 - delta;
 
-    if (isWide) {
+    if (this.isWide) {
       width = width * 0.8;
     }
 
@@ -135,7 +134,7 @@ export class SleepDialog extends CUIScriptWnd {
 
     width = delta;
 
-    if (isWide) {
+    if (this.isWide) {
       width = width * 0.8;
     }
 
@@ -153,7 +152,7 @@ export class SleepDialog extends CUIScriptWnd {
   public TestAndShow(): void {
     logger.info("Show sleep options");
 
-    const actor: game_object = registry.actor;
+    const actor: ClientObject = registry.actor;
 
     giveInfo(infoPortions.sleep_active);
 
@@ -188,7 +187,7 @@ export class SleepDialog extends CUIScriptWnd {
       x = 5;
     }
 
-    if (isWide) {
+    if (this.isWide) {
       x = x * 0.8;
     }
 

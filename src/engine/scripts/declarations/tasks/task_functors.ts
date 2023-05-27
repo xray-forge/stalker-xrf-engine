@@ -1,4 +1,4 @@
-import { game, game_object } from "xray16";
+import { game } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
@@ -7,7 +7,7 @@ import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { captions } from "@/engine/lib/constants/captions/captions";
-import { Optional, TNumberId, TSection, TStringId } from "@/engine/lib/types";
+import { ClientObject, Optional, TNumberId, TSection, TStringId } from "@/engine/lib/types";
 import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 /**
@@ -144,7 +144,7 @@ extern("task_functors.target_condlist", (id: TStringId, field: string, condition
 extern("task_functors.zat_b29_adv_target", (id: TStringId, field: string, p: string) => {
   let targetObjectId: TStringId = "zat_a2_stalker_barmen";
   let artefact: Optional<TStringId> = null;
-  const actor: game_object = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   for (const i of $range(16, 23)) {
     if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && actor.object(zat_b29_af_table.get(i))) {

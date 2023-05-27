@@ -1,10 +1,10 @@
-import { anim, game_object, move, object, TXR_object_state } from "xray16";
+import { anim, move, object, TXR_object_state } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { EStalkerState, IStateDescriptor } from "@/engine/core/objects/state/types";
 import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { LuaArray, Optional, TIndex, TName, TNumberId, TTimestamp } from "@/engine/lib/types";
+import { ClientObject, LuaArray, Optional, TIndex, TName, TNumberId, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -26,11 +26,11 @@ const stateQueueParameters: LuaTable<TName, LuaArray<number>> = {
  * todo;
  */
 export function getStateQueueParams(
-  object: game_object,
+  object: ClientObject,
   descriptor: IStateDescriptor
 ): LuaMultiReturn<[number, number]> {
   const animation: LuaArray<number> = stateQueueParameters.get(descriptor.animation!);
-  const bestWeapon: game_object = object.best_weapon()!;
+  const bestWeapon: ClientObject = object.best_weapon()!;
   const objectId: TNumberId = object.id();
   const state: IRegistryObjectState = registry.objects.get(objectId);
 
@@ -63,7 +63,7 @@ export function getStateQueueParams(
 /**
  * todo;
  */
-export function getObjectAnimationWeapon(object: game_object, targetState: EStalkerState): Optional<game_object> {
+export function getObjectAnimationWeapon(object: ClientObject, targetState: EStalkerState): Optional<ClientObject> {
   const weaponSlot: Optional<TIndex> = states.get(targetState).weapon_slot as Optional<TIndex>;
 
   return weaponSlot === null ? object.best_weapon() : object.item_in_slot(weaponSlot);

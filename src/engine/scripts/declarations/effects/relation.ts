@@ -13,35 +13,35 @@ import {
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { relations, TRelation } from "@/engine/lib/constants/relations";
-import { Optional, TCount, TStringId } from "@/engine/lib/types";
+import { ClientObject, Optional, TCount, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
-extern("xr_effects.actor_friend", (actor: game_object, object: game_object): void => {
+extern("xr_effects.actor_friend", (actor: ClientObject, object: ClientObject): void => {
   object.force_set_goodwill(1000, actor);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.actor_neutral", (actor: game_object, object: game_object): void => {
+extern("xr_effects.actor_neutral", (actor: ClientObject, object: ClientObject): void => {
   object.force_set_goodwill(0, actor);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.actor_enemy", (actor: game_object, object: game_object): void => {
+extern("xr_effects.actor_enemy", (actor: ClientObject, object: ClientObject): void => {
   object.force_set_goodwill(-1000, actor);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.set_squad_neutral_to_actor", (actor: game_object, object: game_object, p: [TStringId]): void => {
+extern("xr_effects.set_squad_neutral_to_actor", (actor: ClientObject, object: ClientObject, p: [TStringId]): void => {
   const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
 
   if (squad === null) {
@@ -54,7 +54,7 @@ extern("xr_effects.set_squad_neutral_to_actor", (actor: game_object, object: gam
 /**
  * todo;
  */
-extern("xr_effects.set_squad_friend_to_actor", (actor: game_object, object: game_object, p: [TStringId]): void => {
+extern("xr_effects.set_squad_friend_to_actor", (actor: ClientObject, object: ClientObject, p: [TStringId]): void => {
   const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
 
   if (squad === null) {
@@ -67,7 +67,7 @@ extern("xr_effects.set_squad_friend_to_actor", (actor: game_object, object: game
 /**
  * todo;
  */
-extern("xr_effects.set_squad_enemy_to_actor", (actor: game_object, object: game_object, p: [TStringId]): void => {
+extern("xr_effects.set_squad_enemy_to_actor", (actor: ClientObject, object: ClientObject, p: [TStringId]): void => {
   const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
 
   if (squad === null) {
@@ -80,7 +80,7 @@ extern("xr_effects.set_squad_enemy_to_actor", (actor: game_object, object: game_
 /**
  * todo;
  */
-extern("xr_effects.set_npc_sympathy", (actor: game_object, object: game_object, p: [number]): void => {
+extern("xr_effects.set_npc_sympathy", (actor: ClientObject, object: ClientObject, p: [number]): void => {
   if (p[0] !== null) {
     setObjectSympathy(object, p[0]);
   }
@@ -89,7 +89,7 @@ extern("xr_effects.set_npc_sympathy", (actor: game_object, object: game_object, 
 /**
  * todo;
  */
-extern("xr_effects.set_squad_goodwill", (actor: game_object, object: game_object, p: [string, TRelation]): void => {
+extern("xr_effects.set_squad_goodwill", (actor: ClientObject, object: ClientObject, p: [string, TRelation]): void => {
   if (p[0] !== null && p[1] !== null) {
     setSquadGoodwill(p[0], p[1]);
   }
@@ -100,7 +100,7 @@ extern("xr_effects.set_squad_goodwill", (actor: game_object, object: game_object
  */
 extern(
   "xr_effects.set_squad_goodwill_to_npc",
-  (actor: game_object, object: game_object, p: [string, TRelation]): void => {
+  (actor: ClientObject, object: ClientObject, p: [string, TRelation]): void => {
     if (p[0] !== null && p[1] !== null) {
       setSquadGoodwillToNpc(object, p[0], p[1]);
     }
@@ -112,7 +112,7 @@ extern(
  */
 extern(
   "xr_effects.inc_faction_goodwill_to_actor",
-  (actor: game_object, object: game_object, p: [Optional<TCommunity>, Optional<number>]): void => {
+  (actor: ClientObject, object: ClientObject, p: [Optional<TCommunity>, Optional<number>]): void => {
     const community = p[0];
     const delta = p[1];
 
@@ -129,7 +129,7 @@ extern(
  */
 extern(
   "xr_effects.dec_faction_goodwill_to_actor",
-  (actor: game_object, object: game_object, params: [Optional<TCommunity>, Optional<TCount>]): void => {
+  (actor: ClientObject, object: ClientObject, params: [Optional<TCommunity>, Optional<TCount>]): void => {
     const community: Optional<TCommunity> = params[0];
     const delta: Optional<TCount> = params[1];
 
@@ -144,7 +144,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.set_squads_enemies", (actor: game_object, npc: game_object, p: [string, string]) => {
+extern("xr_effects.set_squads_enemies", (actor: ClientObject, npc: ClientObject, p: [string, string]) => {
   if (p[0] === null || p[1] === null) {
     abort("Wrong parameters in function set_squad_enemies");
 
@@ -161,11 +161,11 @@ extern("xr_effects.set_squads_enemies", (actor: game_object, npc: game_object, p
   }
 
   for (const k of squad_1.squad_members()) {
-    const npc_obj_1 = registry.objects.get(k.id)?.object as Optional<game_object>;
+    const npc_obj_1 = registry.objects.get(k.id)?.object as Optional<ClientObject>;
 
     if (npc_obj_1 !== null) {
       for (const kk of squad_2.squad_members()) {
-        const npc_obj_2 = registry.objects.get(kk.id).object as Optional<game_object>;
+        const npc_obj_2 = registry.objects.get(kk.id).object as Optional<ClientObject>;
 
         if (npc_obj_2 !== null) {
           npc_obj_1.set_relation(game_object.enemy, npc_obj_2);

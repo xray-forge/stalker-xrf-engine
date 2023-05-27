@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { game_object, vector } from "xray16";
+import { vector } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
@@ -7,6 +7,7 @@ import { StalkerBinder } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { EvaluatorDirectionSearch } from "@/engine/core/objects/state/direction/EvaluatorDirectionSearch";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
+import { ClientObject } from "@/engine/lib/types";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorDirectionSearch class", () => {
@@ -19,7 +20,7 @@ describe("EvaluatorDirectionSearch class", () => {
 
     const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
     const evaluator: EvaluatorDirectionSearch = new EvaluatorDirectionSearch(manager);
-    const lookObject: game_object = mockClientGameObject();
+    const lookObject: ClientObject = mockClientGameObject();
 
     expect(evaluator.evaluate()).toBeTruthy();
 

@@ -1,8 +1,8 @@
-import { game_object, LuabindClass, property_evaluator } from "xray16";
+import { LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
+import { ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -29,7 +29,7 @@ export class EvaluatorWeaponLocked extends property_evaluator {
       return true;
     }
 
-    const bestWeapon: Optional<game_object> = this.object.best_weapon();
+    const bestWeapon: Optional<ClientObject> = this.object.best_weapon();
 
     if (bestWeapon === null) {
       return false;

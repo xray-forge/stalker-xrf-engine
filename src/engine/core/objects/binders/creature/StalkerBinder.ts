@@ -1,7 +1,6 @@
 import {
   actor_stats,
   alife,
-  CALifeSmartTerrainTask,
   callback,
   game_graph,
   game_object,

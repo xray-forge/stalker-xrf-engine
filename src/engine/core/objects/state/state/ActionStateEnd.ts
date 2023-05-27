@@ -6,7 +6,7 @@ import { getObjectIdleState, getStateQueueParams } from "@/engine/core/objects/s
 import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { isStalker, isWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TDuration, TRate, TTimestamp } from "@/engine/lib/types";
+import { ClientObject, Optional, TDuration, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -73,7 +73,7 @@ export class ActionStateEnd extends action_base {
       let sniperAimDuration: TDuration = SNIPER_AIM_TIME;
 
       if (this.stateManager.lookObjectId !== null) {
-        const lookObject: Optional<game_object> = level.object_by_id(this.stateManager.lookObjectId);
+        const lookObject: Optional<ClientObject> = level.object_by_id(this.stateManager.lookObjectId);
 
         if (lookObject === null) {
           this.stateManager.lookObjectId = null;

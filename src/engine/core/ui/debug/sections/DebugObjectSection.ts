@@ -1,4 +1,4 @@
-import { CUI3tButton, CUICheckButton, CUIStatic, game_object, level, LuabindClass, ui_events } from "xray16";
+import { CUI3tButton, CUICheckButton, CUIStatic, level, LuabindClass, ui_events } from "xray16";
 
 import { DebugManager } from "@/engine/core/managers/debug/DebugManager";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
@@ -6,7 +6,7 @@ import { isGameStarted } from "@/engine/core/utils/alife";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, TPath } from "@/engine/lib/types";
+import { ClientObject, Optional, TPath } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugObjectSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -65,8 +65,8 @@ export class DebugObjectSection extends AbstractDebugSection {
   public initializeState(): void {
     if (isGameStarted()) {
       const debugManager: DebugManager = DebugManager.getInstance();
-      const nearestStalker: Optional<game_object> = debugManager.getNearestClientObject();
-      const targetStalker: Optional<game_object> = level.get_target_obj();
+      const nearestStalker: Optional<ClientObject> = debugManager.getNearestClientObject();
+      const targetStalker: Optional<ClientObject> = level.get_target_obj();
 
       this.nearestStalkerLabel.SetText("Nearest: " + (nearestStalker ? nearestStalker.name() : NIL));
       this.targetStalkerLabel.SetText("Target: " + (targetStalker ? targetStalker.name() : NIL));
@@ -83,7 +83,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<game_object> = this.getCurrentObject();
+    const targetObject: Optional<ClientObject> = this.getCurrentObject();
 
     if (targetObject) {
       DebugManager.getInstance().logObjectPlannerState(targetObject);
@@ -97,7 +97,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<game_object> = this.getCurrentObject();
+    const targetObject: Optional<ClientObject> = this.getCurrentObject();
 
     if (targetObject) {
       DebugManager.getInstance().logObjectInventoryItems(targetObject);
@@ -111,7 +111,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<game_object> = this.getCurrentObject();
+    const targetObject: Optional<ClientObject> = this.getCurrentObject();
 
     if (targetObject) {
       DebugManager.getInstance().logObjectState(targetObject);
@@ -125,7 +125,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<game_object> = this.getCurrentObject();
+    const targetObject: Optional<ClientObject> = this.getCurrentObject();
 
     if (targetObject) {
       DebugManager.getInstance().logObjectRelations(targetObject);
@@ -139,7 +139,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<game_object> = this.getCurrentObject();
+    const targetObject: Optional<ClientObject> = this.getCurrentObject();
 
     if (targetObject) {
       DebugManager.getInstance().logObjectStateManager(targetObject);
@@ -148,7 +148,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     }
   }
 
-  public getCurrentObject(): Optional<game_object> {
+  public getCurrentObject(): Optional<ClientObject> {
     return this.useTargetCheck.GetCheck()
       ? level.get_target_obj()
       : DebugManager.getInstance().getNearestClientObject();

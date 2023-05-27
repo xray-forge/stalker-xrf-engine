@@ -13,9 +13,7 @@ import {
   dik_to_bind,
   Frect,
   FS,
-  FS_file_list_ex,
   FS_item,
-  game_object,
   get_console,
   getFS,
   key_bindings,
@@ -35,7 +33,7 @@ import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { roots } from "@/engine/lib/constants/roots";
 import { textures } from "@/engine/lib/constants/textures";
-import { Optional, TLabel, TName } from "@/engine/lib/types";
+import { ClientObject, FSFileList, Optional, TLabel, TName, Vector2D } from "@/engine/lib/types";
 
 const base: string = "menu\\LoadDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -47,9 +45,9 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class LoadDialog extends CUIScriptWnd {
   public owner: CUIScriptWnd;
 
-  public fileItemMainSize!: vector2;
-  public fileItemInnerNameTextSize!: vector2;
-  public fileItemDdSize!: vector2;
+  public fileItemMainSize!: Vector2D;
+  public fileItemInnerNameTextSize!: Vector2D;
+  public fileItemDdSize!: Vector2D;
 
   public form!: CUIStatic;
   public picture!: CUIStatic;
@@ -126,7 +124,7 @@ export class LoadDialog extends CUIScriptWnd {
     this.listBox.RemoveAll();
 
     const fs: FS = getFS();
-    const fileList: FS_file_list_ex = fs.file_list_open_ex(
+    const fileList: FSFileList = fs.file_list_open_ex(
       roots.gameSaves,
       bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
       "*" + gameConfig.GAME_SAVE_EXTENSION
@@ -277,7 +275,7 @@ export class LoadDialog extends CUIScriptWnd {
       return;
     }
 
-    const actor: Optional<game_object> = registry.actor;
+    const actor: Optional<ClientObject> = registry.actor;
 
     if (actor !== null && !actor.alive()) {
       this.load_game_internal();
