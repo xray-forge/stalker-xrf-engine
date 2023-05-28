@@ -1,0 +1,24 @@
+import { LTX_IMPORT } from "#/utils";
+
+export const config = {
+  [LTX_IMPORT]: [
+    "zone_base.ltx",
+    "zone_campfire.ltx",
+
+    "zone_burningfuzz.ltx",
+    "zone_minefield.ltx",
+    "zone_nogravity.ltx",
+    "zone_teleport.ltx",
+    "zone_fireball.ltx",
+
+    "zone_field_acidic.ltx",
+    "zone_field_psychic.ltx",
+    "zone_field_radioactive.ltx",
+    "zone_field_thermal.ltx",
+
+    "zone_mine_acidic.ltx",
+    "zone_mine_electric.ltx",
+    "zone_mine_gravitational.ltx",
+    "zone_mine_thermal.ltx",
+  ],
+};
