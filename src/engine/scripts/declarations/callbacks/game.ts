@@ -2,7 +2,7 @@
  * Outro conditions for game ending based on alife information.
  */
 import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
-import { smart_covers_list } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
+import { smartCoversList } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
 import { GameOutroManager } from "@/engine/core/ui/game/GameOutroManager";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -14,7 +14,7 @@ logger.info("Resolve and bind game externals");
 
 // todo: Check if needed.
 extern("smart_covers", {
-  descriptions: smart_covers_list,
+  descriptions: smartCoversList,
 });
 
 /**

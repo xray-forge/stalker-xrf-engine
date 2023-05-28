@@ -2,18 +2,18 @@ import { ISmartCoverLoopholeDescriptor } from "@/engine/core/objects/server/smar
 import { createVector } from "@/engine/core/utils/vector";
 import { TStringId, Vector } from "@/engine/lib/types";
 
-export function get_anim_pri_a22_loophole(
+export function getAnimPriA22Loophole(
   id: TStringId,
   position: Vector,
-  fov_direction: Vector,
-  enter_direction: Vector
+  fovDirection: Vector,
+  enterDirection: Vector
 ): ISmartCoverLoopholeDescriptor {
   return {
     id: id,
     fov_position: position,
-    fov_direction: fov_direction,
+    fov_direction: fovDirection,
     danger_fov_direction: createVector(-1, 0, 0),
-    enter_direction: enter_direction,
+    enter_direction: enterDirection,
     usable: true,
     fov: 45.0,
     danger_fov: 45.0,

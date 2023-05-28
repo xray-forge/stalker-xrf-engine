@@ -2,21 +2,21 @@ import { ISmartCoverLoopholeDescriptor } from "@/engine/core/objects/server/smar
 import { createVector } from "@/engine/core/utils/vector";
 import { Optional, TStringId, Vector } from "@/engine/lib/types";
 
-export function get_crouch_front_left_loophole(
+export function getCrouchFrontLeftLoophole(
   id: TStringId,
-  fov_direction: Vector,
+  fovDirection: Vector,
   position?: Optional<Vector>,
-  enter_direction?: Optional<Vector>
+  enterDirection?: Optional<Vector>
 ): ISmartCoverLoopholeDescriptor {
   const pos: Optional<Vector> = position || createVector(0, 0, 0);
-  const enter_dir: Optional<Vector> = enter_direction || createVector(-1, 0, 0);
+  const enterDir: Optional<Vector> = enterDirection || createVector(-1, 0, 0);
 
   return {
     id: id,
     fov_position: pos,
-    fov_direction: fov_direction,
+    fov_direction: fovDirection,
     danger_fov_direction: createVector(-1, 0, -1),
-    enter_direction: enter_dir,
+    enter_direction: enterDir,
     enterable: true,
     exitable: true,
     usable: true,

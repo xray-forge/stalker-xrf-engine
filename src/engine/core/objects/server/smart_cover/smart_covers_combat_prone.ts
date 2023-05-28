@@ -3,11 +3,11 @@ import { move } from "xray16";
 import { ISmartCoverDescriptor } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
 import { createVector } from "@/engine/core/utils/vector";
 
-import { get_prone_loophole } from "./smart_covers_loophole_prone";
+import { getProneLoophole } from "./smart_covers_loophole_prone";
 
-export function get_smart_cover_combat_prone(): ISmartCoverDescriptor {
+export function getSmartCoverCombatProne(): ISmartCoverDescriptor {
   return {
-    loopholes: [get_prone_loophole("prone", createVector(-1, 0, 0))] as any,
+    loopholes: [getProneLoophole("prone", createVector(-1, 0, 0))] as any,
     transitions: [
       {
         vertex0: "",

@@ -1,14 +1,14 @@
 import { move } from "xray16";
 
 import { ISmartCoverDescriptor } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
-import { get_anim_pri_a22_loophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_anim_pri_a22";
+import { getAnimPriA22Loophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_anim_pri_a22";
 import { createEmptyVector, createVector } from "@/engine/core/utils/vector";
 
-export function get_smart_cover_anim_pri_a22(): ISmartCoverDescriptor {
+export function getSmartCoverAnimPriA22(): ISmartCoverDescriptor {
   return {
     need_weapon: false,
     loopholes: [
-      get_anim_pri_a22_loophole("anim_pri_a22", createVector(0, 0, 0), createVector(0, 0, -1), createVector(0, 0, -1)),
+      getAnimPriA22Loophole("anim_pri_a22", createVector(0, 0, 0), createVector(0, 0, -1), createVector(0, 0, -1)),
     ] as any,
     transitions: [
       {

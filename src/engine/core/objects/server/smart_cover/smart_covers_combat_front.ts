@@ -1,22 +1,22 @@
 import { move } from "xray16";
 
 import { ISmartCoverDescriptor } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
-import { get_crouch_front_loophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_crouch_front";
-import { get_crouch_front_left_loophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_crouch_front_left";
-import { get_crouch_front_right_loophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_crouch_front_right";
-import { get_stand_front_left_loophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_stand_front_left";
-import { get_stand_front_right_loophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_stand_front_right";
+import { getCrouchFrontLoophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_crouch_front";
+import { getCrouchFrontLeftLoophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_crouch_front_left";
+import { getCrouchFrontRightLoophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_crouch_front_right";
+import { getStandFrontLeftLoophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_stand_front_left";
+import { getStandFrontRightLoophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_stand_front_right";
 import { createVector } from "@/engine/core/utils/vector";
 
-export function get_smart_cover_combat_front(): ISmartCoverDescriptor {
+export function getSmartCoverCombatFront(): ISmartCoverDescriptor {
   return {
     need_weapon: true,
     loopholes: [
-      get_crouch_front_left_loophole("crouch_front_left", createVector(-1, 0, -0.7)),
-      get_crouch_front_loophole("crouch_front", createVector(-1, 0, 0)),
-      get_crouch_front_right_loophole("crouch_front_right", createVector(-1, 0, 0.7)),
-      get_stand_front_left_loophole("stand_front_left", createVector(-1, 0, -0.7)),
-      get_stand_front_right_loophole("stand_front_right", createVector(-1, 0, 0.7)),
+      getCrouchFrontLeftLoophole("crouch_front_left", createVector(-1, 0, -0.7)),
+      getCrouchFrontLoophole("crouch_front", createVector(-1, 0, 0)),
+      getCrouchFrontRightLoophole("crouch_front_right", createVector(-1, 0, 0.7)),
+      getStandFrontLeftLoophole("stand_front_left", createVector(-1, 0, -0.7)),
+      getStandFrontRightLoophole("stand_front_right", createVector(-1, 0, 0.7)),
     ] as any,
     transitions: [
       {

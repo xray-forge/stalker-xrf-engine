@@ -1,12 +1,12 @@
-import { get_smart_cover_anim_pri_a22 } from "@/engine/core/objects/server/smart_cover/smart_covers_anim_pri_a22";
-import { get_smart_cover_animpoint_pri_a15 } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_pri_a15";
-import { get_smart_cover_animpoint_sit_high } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_sit_high";
-import { get_smart_cover_animpoint_sit_low } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_sit_low";
-import { get_smart_cover_animpoint_sit_normal } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_sit_normal";
-import { get_smart_cover_animpoint_stay_table } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_stay_table";
-import { get_smart_cover_animpoint_stay_wall } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_stay_wall";
-import { get_smart_cover_combat_front } from "@/engine/core/objects/server/smart_cover/smart_covers_combat_front";
-import { get_smart_cover_combat_prone } from "@/engine/core/objects/server/smart_cover/smart_covers_combat_prone";
+import { getSmartCoverAnimPriA22 } from "@/engine/core/objects/server/smart_cover/smart_covers_anim_pri_a22";
+import { getSmartCoverAnimpointPriA15 } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_pri_a15";
+import { getSmartCoverAnimpointSitHigh } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_sit_high";
+import { getSmartCoverAnimpointSitLow } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_sit_low";
+import { getSmartCoverAnimpointSitNormal } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_sit_normal";
+import { getSmartCoverAnimpointStayTable } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_stay_table";
+import { getSmartCoverAnimpointStayWall } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_stay_wall";
+import { getSmartCoverCombatFront } from "@/engine/core/objects/server/smart_cover/smart_covers_combat_front";
+import { getSmartCoverCombatProne } from "@/engine/core/objects/server/smart_cover/smart_covers_combat_prone";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TMoveType, TName, Vector } from "@/engine/lib/types";
 
@@ -57,7 +57,7 @@ export interface ISmartCoverLoopholeDescriptor {
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
+export const smartCoversList: LuaTable<string, ISmartCoverDescriptor> = {
   /* --[[duplo: {
   loopholes: [
     // -- {
@@ -530,17 +530,17 @@ export const smart_covers_list: LuaTable<string, ISmartCoverDescriptor> = {
   // --]] */
 
   // --combat 					= smart_covers_combat.get_smart_cover(),
-  combat_prone: get_smart_cover_combat_prone(),
-  combat_front: get_smart_cover_combat_front(),
+  combat_prone: getSmartCoverCombatProne(),
+  combat_front: getSmartCoverCombatFront(),
 
-  animpoint_stay_wall: get_smart_cover_animpoint_stay_wall(),
-  animpoint_stay_table: get_smart_cover_animpoint_stay_table(),
-  animpoint_sit_high: get_smart_cover_animpoint_sit_high(),
-  animpoint_sit_normal: get_smart_cover_animpoint_sit_normal(),
-  animpoint_sit_low: get_smart_cover_animpoint_sit_low(),
+  animpoint_stay_wall: getSmartCoverAnimpointStayWall(),
+  animpoint_stay_table: getSmartCoverAnimpointStayTable(),
+  animpoint_sit_high: getSmartCoverAnimpointSitHigh(),
+  animpoint_sit_normal: getSmartCoverAnimpointSitNormal(),
+  animpoint_sit_low: getSmartCoverAnimpointSitLow(),
 
-  animpoint_pri_a15: get_smart_cover_animpoint_pri_a15(),
-  anim_pri_a22: get_smart_cover_anim_pri_a22(),
+  animpoint_pri_a15: getSmartCoverAnimpointPriA15(),
+  anim_pri_a22: getSmartCoverAnimPriA22(),
 
   // --cover_loophole_1: smart_covers_cover_loophole_1.get_smart_cover_cover_loophole_1(),
   // --cover_loophole_2: smart_covers_cover_loophole_2.get_smart_cover_cover_loophole_2(),

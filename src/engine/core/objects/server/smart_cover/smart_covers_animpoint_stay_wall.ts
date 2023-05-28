@@ -1,14 +1,14 @@
 import { move } from "xray16";
 
 import { ISmartCoverDescriptor } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
-import { get_animpoint_stay_wall_loophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_animpoint_stay_wall";
+import { getAnimpointStayWallLoophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_animpoint_stay_wall";
 import { createVector } from "@/engine/core/utils/vector";
 
-export function get_smart_cover_animpoint_stay_wall(): ISmartCoverDescriptor {
+export function getSmartCoverAnimpointStayWall(): ISmartCoverDescriptor {
   return {
     need_weapon: false,
     loopholes: [
-      get_animpoint_stay_wall_loophole(
+      getAnimpointStayWallLoophole(
         "animpoint_stay_wall",
         createVector(0, 0, 0),
         createVector(0, 0, -1),

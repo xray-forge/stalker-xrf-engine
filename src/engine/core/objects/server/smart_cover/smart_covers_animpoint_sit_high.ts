@@ -1,14 +1,14 @@
 import { move } from "xray16";
 
 import { ISmartCoverDescriptor } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
-import { get_animpoint_sit_high_loophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_animpoint_sit_high";
+import { getAnimpointSitHighLoophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_animpoint_sit_high";
 import { createVector } from "@/engine/core/utils/vector";
 
-export function get_smart_cover_animpoint_sit_high(): ISmartCoverDescriptor {
+export function getSmartCoverAnimpointSitHigh(): ISmartCoverDescriptor {
   return {
     need_weapon: false,
     loopholes: [
-      get_animpoint_sit_high_loophole(
+      getAnimpointSitHighLoophole(
         "animpoint_sit_high",
         createVector(0, 0, 0),
         createVector(0, 0, -1),

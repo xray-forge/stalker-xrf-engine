@@ -8,7 +8,7 @@ import {
 } from "@/engine/core/database";
 import {
   ISmartCoverLoopholeDescriptor,
-  smart_covers_list,
+  smartCoversList,
 } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -74,14 +74,14 @@ export class SmartCover extends cse_smart_cover {
 
     if (smartCoverDescription !== null) {
       assert(
-        smart_covers_list.has(smartCoverDescription),
+        smartCoversList.has(smartCoverDescription),
         "SmartCover [%s] has wrong description [%s].",
         this.name(),
         tostring(smartCoverDescription)
       );
 
       const loopholes: LuaTable<number, ISmartCoverLoopholeDescriptor> =
-        smart_covers_list.get(smartCoverDescription).loopholes;
+        smartCoversList.get(smartCoverDescription).loopholes;
 
       for (const [, descriptor] of loopholes) {
         existingLoopholes.set(descriptor.id, true);
@@ -115,7 +115,7 @@ export class SmartCover extends cse_smart_cover {
     }
 
     if (smartCoverDescription !== null) {
-      const loopholes = smart_covers_list.get(smartCoverDescription).loopholes;
+      const loopholes = smartCoversList.get(smartCoverDescription).loopholes;
 
       for (const [, descriptor] of loopholes) {
         if (this.loopholes.get(descriptor.id) === null) {

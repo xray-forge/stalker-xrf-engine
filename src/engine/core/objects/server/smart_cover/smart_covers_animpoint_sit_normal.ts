@@ -2,14 +2,14 @@ import { move } from "xray16";
 
 import { ISmartCoverDescriptor } from "@/engine/core/objects/server/smart_cover/smart_covers_list";
 // eslint-disable-next-line max-len
-import { get_animpoint_sit_normal_loophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_animpoint_sit_normal";
+import { getAnimpointSitNormalLoophole } from "@/engine/core/objects/server/smart_cover/smart_covers_loophole_animpoint_sit_normal";
 import { createVector } from "@/engine/core/utils/vector";
 
-export function get_smart_cover_animpoint_sit_normal(): ISmartCoverDescriptor {
+export function getSmartCoverAnimpointSitNormal(): ISmartCoverDescriptor {
   return {
     need_weapon: false,
     loopholes: $fromArray([
-      get_animpoint_sit_normal_loophole(
+      getAnimpointSitNormalLoophole(
         "animpoint_sit_normal",
         createVector(0, 0, 0),
         createVector(0, 0, -1),
