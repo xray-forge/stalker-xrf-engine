@@ -36,7 +36,7 @@ import {
 import { MainMenu } from "@/engine/core/ui/menu";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EClientObjectClass, EConfigClassId } from "@/engine/lib/constants/class_ids";
-import { inventory_objects } from "@/engine/lib/constants/items/inventory_objects";
+import { inventoryObjects } from "@/engine/lib/constants/items/inventory_objects";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { ObjectFactory, TClassKey } from "@/engine/lib/types";
@@ -138,24 +138,19 @@ export function registerGameClasses(factory: ObjectFactory): void {
   factory.register(EClientObjectClass.CWeaponAmmo, ItemAmmo.__name, "S_M209", weapons.wpn_ammo_m209_s);
   factory.register(EClientObjectClass.CF1, ItemGrenade.__name, "G_F1_S", weapons.wpn_grenade_f1_s);
   factory.register(EClientObjectClass.CRGD5, ItemGrenade.__name, "G_RGD5_S", weapons.wpn_grenade_rgd5_s);
-  factory.register(EClientObjectClass.CMedkit, ItemEatable.__name, "S_MEDKI", inventory_objects.obj_medkit_s);
-  factory.register(EClientObjectClass.CMedkit, ItemEatable.__name, "S_BANDG", inventory_objects.obj_bandage_s);
-  factory.register(EClientObjectClass.CAntirad, ItemEatable.__name, "S_ANTIR", inventory_objects.obj_antirad_s);
-  factory.register(EClientObjectClass.CFoodItem, ItemEatable.__name, "S_FOOD", inventory_objects.obj_food_s);
-  factory.register(EClientObjectClass.CBottleItem, ItemEatable.__name, "S_BOTTL", inventory_objects.obj_bottle_s);
-  factory.register(
-    EClientObjectClass.CInventoryBox,
-    InventoryBox.__name,
-    "S_INVBOX",
-    inventory_objects.inventory_box_s
-  );
+  factory.register(EClientObjectClass.CMedkit, ItemEatable.__name, "S_MEDKI", inventoryObjects.obj_medkit_s);
+  factory.register(EClientObjectClass.CMedkit, ItemEatable.__name, "S_BANDG", inventoryObjects.obj_bandage_s);
+  factory.register(EClientObjectClass.CAntirad, ItemEatable.__name, "S_ANTIR", inventoryObjects.obj_antirad_s);
+  factory.register(EClientObjectClass.CFoodItem, ItemEatable.__name, "S_FOOD", inventoryObjects.obj_food_s);
+  factory.register(EClientObjectClass.CBottleItem, ItemEatable.__name, "S_BOTTL", inventoryObjects.obj_bottle_s);
+  factory.register(EClientObjectClass.CInventoryBox, InventoryBox.__name, "S_INVBOX", inventoryObjects.inventory_box_s);
   factory.register(
     EClientObjectClass.CExplosiveItem,
     ItemExplosive.__name,
     "S_EXPLO",
-    inventory_objects.obj_explosive_s
+    inventoryObjects.obj_explosive_s
   );
-  factory.register(EClientObjectClass.CPda, ItemPda.__name, "S_PDA", inventory_objects.obj_pda_s);
+  factory.register(EClientObjectClass.CPda, ItemPda.__name, "S_PDA", inventoryObjects.obj_pda_s);
   factory.register(
     EClientObjectClass.CWeaponAutomaticShotgun,
     ItemWeaponAutomaticShotgun.__name,

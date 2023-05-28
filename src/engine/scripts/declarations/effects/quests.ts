@@ -202,21 +202,21 @@ extern("xr_effects.zat_b100_heli_2_searching", (actor: ClientObject, npc: Client
  * todo;
  */
 extern("xr_effects.jup_teleport_actor", (actor: ClientObject, npc: ClientObject): void => {
-  const point_in: Vector = new patrol("jup_b16_teleport_in").point(0);
-  const point_out: Vector = new patrol("jup_b16_teleport_out").point(0);
-  const actor_position: Vector = actor.position();
-  const out_position: Vector = createVector(
-    actor_position.x - point_in.x + point_out.x,
-    actor_position.y - point_in.y + point_out.y,
-    actor_position.z - point_in.z + point_out.z
+  const pointIn: Vector = new patrol("jup_b16_teleport_in").point(0);
+  const pointOut: Vector = new patrol("jup_b16_teleport_out").point(0);
+  const actorPosition: Vector = actor.position();
+  const outPosition: Vector = createVector(
+    actorPosition.x - pointIn.x + pointOut.x,
+    actorPosition.y - pointIn.y + pointOut.y,
+    actorPosition.z - pointIn.z + pointOut.z
   );
 
-  actor.set_actor_position(out_position);
+  actor.set_actor_position(outPosition);
 });
 
-let jup_b219_position: Optional<Vector> = null;
-let jup_b219_lvid: Optional<number> = null;
-let jup_b219_gvid: Optional<number> = null;
+let jupB219Position: Optional<Vector> = null;
+let jupB219LVId: Optional<number> = null;
+let jupB219GVId: Optional<number> = null;
 
 /**
  * todo;
@@ -225,9 +225,9 @@ extern("xr_effects.jup_b219_save_pos", (): void => {
   const object: Optional<ClientObject> = getObjectByStoryId("jup_b219_gate_id");
 
   if (object && object.position()) {
-    jup_b219_position = object.position();
-    jup_b219_lvid = object.level_vertex_id();
-    jup_b219_gvid = object.game_vertex_id();
+    jupB219Position = object.position();
+    jupB219LVId = object.level_vertex_id();
+    jupB219GVId = object.game_vertex_id();
   } else {
     return;
   }
@@ -244,28 +244,28 @@ extern("xr_effects.jup_b219_save_pos", (): void => {
  */
 extern("xr_effects.jup_b219_restore_gate", () => {
   const yaw = 0;
-  const spawn_sect = "jup_b219_gate";
+  const spawnSection = "jup_b219_gate";
 
-  if (jup_b219_position) {
+  if (jupB219Position) {
     const serverObject: ServerPhysicObject = alife().create(
-      spawn_sect,
-      copyVector(jup_b219_position),
-      jup_b219_lvid!,
-      jup_b219_gvid!
+      spawnSection,
+      copyVector(jupB219Position),
+      jupB219LVId!,
+      jupB219GVId!
     );
 
     serverObject.set_yaw((yaw * math.pi) / 180);
   }
 });
 
-let particles_table: Optional<LuaArray<{ particle: ParticlesObject; sound: SoundObject }>> = null;
+let particlesList: Optional<LuaArray<{ particle: ParticlesObject; sound: SoundObject }>> = null;
 
 /**
  * todo;
  */
 extern("xr_effects.jup_b16_play_particle_and_sound", (actor: ClientObject, npc: ClientObject, p: [number]) => {
-  if (particles_table === null) {
-    particles_table = [
+  if (particlesList === null) {
+    particlesList = [
       {
         particle: new particles_object("anomaly2\\teleport_out_00"),
         sound: new sound_object("anomaly\\teleport_incoming"),
@@ -285,7 +285,7 @@ extern("xr_effects.jup_b16_play_particle_and_sound", (actor: ClientObject, npc: 
     ] as unknown as LuaArray<any>;
   }
 
-  particles_table.get(p[0]).particle.play_at_pos(new patrol(npc.name() + "_particle").point(0));
+  particlesList.get(p[0]).particle.play_at_pos(new patrol(npc.name() + "_particle").point(0));
 });
 
 /**
@@ -298,9 +298,9 @@ extern(
       abort("Not enough parameters for zat_b29_create_random_infop!");
     }
 
-    let amountNeeded: number = parameters.get(1) as unknown as number;
-    let current_infop: number = 0;
-    let total_infop: number = 0;
+    let amountNeeded: TCount = parameters.get(1) as unknown as number;
+    let currentInfop: TIndex = 0;
+    let totalInfop: TCount = 0;
 
     if (!amountNeeded || amountNeeded === null) {
       amountNeeded = 1;
@@ -308,20 +308,20 @@ extern(
 
     for (const [index, infoPortion] of parameters) {
       if (index > 1) {
-        total_infop = total_infop + 1;
+        totalInfop = totalInfop + 1;
         disableInfo(infoPortion);
       }
     }
 
-    if (amountNeeded > total_infop) {
-      amountNeeded = total_infop;
+    if (amountNeeded > totalInfop) {
+      amountNeeded = totalInfop;
     }
 
     for (const it of $range(1, amountNeeded)) {
-      current_infop = math.random(1, total_infop);
+      currentInfop = math.random(1, totalInfop);
       for (const [k, v] of parameters) {
         if (k > 1) {
-          if (k === current_infop + 1 && !hasAlifeInfo(v)) {
+          if (k === currentInfop + 1 && !hasAlifeInfo(v)) {
             giveInfo(v);
             break;
           }

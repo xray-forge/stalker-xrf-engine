@@ -943,14 +943,14 @@ extern(
   "dialogs_zaton.zat_b29_linker_give_adv_task",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): string => {
     let result: string = "";
-    let f_first: boolean = true;
+    let isFirst: boolean = true;
 
     for (const i of $range(16, 23)) {
       disableInfo(zatB29InfopBringTable.get(i));
       if (hasAlifeInfo(zatB29InfopTable.get(i))) {
-        if (f_first) {
+        if (isFirst) {
           result = game.translate_string(zatB29AfNamesTable.get(i));
-          f_first = false;
+          isFirst = false;
         } else {
           result = result + ", " + game.translate_string(zatB29AfNamesTable.get(i));
         }

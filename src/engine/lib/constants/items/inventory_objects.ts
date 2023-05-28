@@ -3,7 +3,7 @@
 /**
  * todo;
  */
-export const inventory_objects = {
+export const inventoryObjects = {
   inventory_box_s: "inventory_box_s",
   obj_antirad: "obj_antirad",
   obj_antirad_s: "obj_antirad_s",
@@ -28,7 +28,7 @@ export const inventory_objects = {
 /**
  * todo;
  */
-export type TInventoryObjects = typeof inventory_objects;
+export type TInventoryObjects = typeof inventoryObjects;
 
 /**
  * todo;

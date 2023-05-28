@@ -44,23 +44,23 @@ extern("task_functors.zat_b29_adv_title", (id: TStringId, field: string, p: stri
  */
 extern("task_functors.zat_b29_adv_descr", (id: TStringId, field: string, p: string) => {
   let descr = "";
-  let f_af = 0;
+  let fAf = 0;
   const actor = registry.actor;
 
   for (const i of $range(16, 23)) {
     if (hasAlifeInfo(zatB29InfopBringTable.get(i)) && actor.object(zatB29AfTable.get(i))) {
-      f_af = 1;
+      fAf = 1;
       descr = "zat_b29_simple_bring_text_5";
       if (
         hasAlifeInfo("zat_b29_stalker_rival_1_found_af") &&
         hasAlifeInfo("zat_b29_first_rival_taken_out") &&
-        f_af !== 0
+        fAf !== 0
       ) {
         return descr;
       } else if (
         hasAlifeInfo("zat_b29_stalker_rival_2_found_af") &&
         hasAlifeInfo("zat_b29_second_rival_taken_out") &&
-        f_af !== 0
+        fAf !== 0
       ) {
         return descr;
       } else if (hasAlifeInfo("zat_b29_linker_take_af_from_rival")) {
@@ -80,13 +80,13 @@ extern("task_functors.zat_b29_adv_descr", (id: TStringId, field: string, p: stri
       if (
         hasAlifeInfo("zat_b29_stalker_rival_1_found_af") &&
         hasAlifeInfo("zat_b29_first_rival_taken_out") &&
-        f_af !== 0
+        fAf !== 0
       ) {
         return descr;
       } else if (
         hasAlifeInfo("zat_b29_stalker_rival_2_found_af") &&
         hasAlifeInfo("zat_b29_second_rival_taken_out") &&
-        f_af !== 0
+        fAf !== 0
       ) {
         return descr;
       } else if (hasAlifeInfo("zat_b29_linker_take_af_from_rival")) {
