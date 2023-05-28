@@ -13,7 +13,6 @@ postprocess		= postprocess_fuzz ;postprocess_acidic
 shape_transp_color		= 255, 0, 0, 60
 shape_edge_color		= 32, 32, 32, 255
 
-
 ;----------- Anomaly settings -----------------------
 max_start_power		= 0.4
 attenuation			= 1
@@ -56,17 +55,13 @@ idle_light			= off
 
 blowout_wind		= off
 
-
-
 [zone_burning_fuzz_weak]:zone_burning_fuzz
 $spawn 			= "zones\!only_for_groups\burning_fuzz_weak"
 visual			= dynamics\anomaly\topolinypuh_small
 
-
 [zone_burning_fuzz_average]:zone_burning_fuzz
 $spawn 			= "zones\!only_for_groups\burning_fuzz_average"
 visual			= dynamics\anomaly\topolinypuh_middle
-
 
 [zone_burning_fuzz_strong]:zone_burning_fuzz
 $spawn 			= "zones\!only_for_groups\burning_fuzz_strong"

@@ -5,8 +5,8 @@ export const config = {
     "zone_base.ltx",
     "zone_campfire.ltx",
 
+    "zone_mine_field.ltx",
     "zone_burningfuzz.ltx",
-    "zone_minefield.ltx",
     "zone_nogravity.ltx",
     "zone_teleport.ltx",
     "zone_fireball.ltx",

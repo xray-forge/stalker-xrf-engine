@@ -1,0 +1,31 @@
+import { LTX_EXTEND, quoted } from "#/utils";
+
+export const config = {
+  zone_no_gravity: {
+    [LTX_EXTEND]: "zone_base",
+    GroupControlSection: "spawn_group_zone",
+    $spawn: quoted("zones\\scenes\\no_gravity"),
+    class: "Z_NOGRAV",
+    accamulate_time: 5000,
+    attenuation: 1,
+    awaking_time: 500,
+    blowout_light: "off",
+    blowout_time: 1000,
+    blowout_wind: "off",
+    disable_idle_time: -1,
+    disable_time: -1,
+    disable_time_small: 500,
+    ef_anomaly_type: 7,
+    ef_weapon_type: 19,
+    hit_impulse_scale: 0.5,
+    hit_type: "shock",
+    idle_light: "off",
+    ignore_artefacts: false,
+    ignore_nonalive: false,
+    ignore_small: false,
+    max_start_power: 1.0,
+    postprocess: "postprocess_new",
+    shape_edge_color: [32, 32, 32, 255],
+    shape_transp_color: [255, 0, 0, 60],
+  },
+};
