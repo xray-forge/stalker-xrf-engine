@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
-import { TXR_class_id } from "xray16";
 
 import { Squad } from "@/engine/core/objects";
+import { TClassId } from "@/engine/lib/types";
 import { mockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { AbstractLuabindClass } from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
 
@@ -19,7 +19,7 @@ export function mockSquad({
     ["c", "3"],
   ]),
   simulationProperties = { a: 1, c: 2 },
-  clsid = jest.fn(() => -1 as TXR_class_id),
+  clsid = jest.fn(() => -1 as TClassId),
   isValidSquadTarget = () => true,
 }: Partial<Squad> = {}): Squad {
   return {

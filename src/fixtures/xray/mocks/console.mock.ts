@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
-import type { CConsole } from "xray16";
 
+import { Console } from "@/engine/lib/types";
 import { mockLuabindBase } from "@/fixtures/xray/mocks/luabind.mock";
 
 /**
@@ -17,7 +17,7 @@ export function mockConsole({
   get_integer = jest.fn(() => 1),
   get_string = jest.fn(() => "test"),
   get_token = jest.fn(() => "token"),
-}: Partial<CConsole> = {}): CConsole {
+}: Partial<Console> = {}): Console {
   return {
     ...mockLuabindBase(),
     show,
@@ -36,11 +36,11 @@ export function mockConsole({
 /**
  * todo;
  */
-export const gameConsole: CConsole = mockConsole();
+export const gameConsole: Console = mockConsole();
 
 /**
  * todo;
  */
-export function mockGetConsole(): CConsole {
+export function mockGetConsole(): Console {
   return gameConsole;
 }

@@ -26,7 +26,7 @@ import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { food } from "@/engine/lib/constants/items/food";
 import { helmets } from "@/engine/lib/constants/items/helmets";
-import { quest_items } from "@/engine/lib/constants/items/quest_items";
+import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
@@ -75,7 +75,7 @@ extern("xr_effects.jup_b32_place_scanner", (actor: ClientObject, npc: ClientObje
       giveInfo(("jup_b32_scanner_" + i + "_placed") as TInfoPortion);
       giveInfo(infoPortions.jup_b32_tutorial_done);
 
-      takeItemFromActor(quest_items.jup_b32_scanner_device);
+      takeItemFromActor(questItems.jup_b32_scanner_device);
       spawnObject("jup_b32_ph_scanner", "jup_b32_scanner_place_" + i);
     }
   }
@@ -103,7 +103,7 @@ extern("xr_effects.pri_b306_generator_start", (actor: ClientObject, npc: ClientO
 extern("xr_effects.jup_b206_get_plant", (actor: ClientObject, object: ClientObject): void => {
   if (isActorInZoneWithName(zones.jup_b206_sr_quest_line, actor)) {
     giveInfo(infoPortions.jup_b206_anomalous_grove_has_plant);
-    giveItemsToActor(quest_items.jup_b206_plant);
+    giveItemsToActor(questItems.jup_b206_plant);
 
     getExtern<AnyCallable>("destroy_object", getExtern("xr_effects"))(actor, object, [
       "story",
@@ -129,7 +129,7 @@ extern("xr_effects.jup_b209_place_scanner", (actor: ClientObject, npc: ClientObj
   if (isActorInZoneWithName(zones.jup_b209_hypotheses)) {
     createAutoSave(captions.st_save_jup_b209_placed_mutant_scanner);
     giveInfo(infoPortions.jup_b209_scanner_placed);
-    takeItemFromActor(quest_items.jup_b209_monster_scanner);
+    takeItemFromActor(questItems.jup_b209_monster_scanner);
     spawnObject("jup_b209_ph_scanner", "jup_b209_scanner_place_point");
   }
 });
@@ -167,7 +167,7 @@ extern("xr_effects.jup_b8_heli_4_searching", (actor: ClientObject, npc: ClientOb
 extern("xr_effects.jup_b10_ufo_searching", (actor: ClientObject, npc: ClientObject): void => {
   if (isActorInZoneWithName(zones.jup_b10_ufo_restrictor)) {
     giveInfo(infoPortions.jup_b10_ufo_memory_started);
-    giveItemsToActor(quest_items.jup_b10_ufo_memory);
+    giveItemsToActor(questItems.jup_b10_ufo_memory);
   }
 });
 
@@ -405,7 +405,7 @@ extern("xr_effects.jup_b202_inventory_box_relocate", (actor: ClientObject, npc: 
     abort("No inventory boxes detected to relocate items.");
   }
 
-  inventoryBoxOut.iterate_inventory_box((inv_box_out: ClientObject, item: ClientObject) => {
+  inventoryBoxOut.iterate_inventory_box((invBoxOut: ClientObject, item: ClientObject) => {
     table.insert(itemsToRelocate, item);
   }, inventoryBoxOut);
 
@@ -420,7 +420,7 @@ extern("xr_effects.jup_b202_inventory_box_relocate", (actor: ClientObject, npc: 
 extern(
   "xr_effects.jup_b10_spawn_drunk_dead_items",
   (actor: ClientObject, npc: ClientObject, params: [string]): void => {
-    const items_all = {
+    const itemsAll = {
       [weapons.wpn_ak74]: 1,
       [weapons.wpn_fort]: 1,
       [ammo["ammo_5.45x39_fmj"]]: 5,
@@ -437,7 +437,7 @@ extern(
       [food.vodka]: 3,
       [food.energy_drink]: 2,
       [food.conserva]: 1,
-      [quest_items.jup_b10_ufo_memory_2]: 1,
+      [questItems.jup_b10_ufo_memory_2]: 1,
     } as unknown as LuaTable<string, number>;
 
     const items = {
@@ -490,7 +490,7 @@ extern(
         }
       }
     } else {
-      for (const [k, v] of items_all) {
+      for (const [k, v] of itemsAll) {
         for (const i of $range(1, v)) {
           alife().create(k, npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());
         }
@@ -503,7 +503,7 @@ extern(
  * todo;
  */
 extern("xr_effects.zat_b202_spawn_random_loot", (actor: ClientObject, npc: ClientObject, p: []) => {
-  const si_table = [
+  const spawnItemsList = [
     [
       {
         item: [
@@ -548,34 +548,34 @@ extern("xr_effects.zat_b202_spawn_random_loot", (actor: ClientObject, npc: Clien
     [{ item: ["specops_outfit"] }, { item: ["stalker_outfit"] }],
   ] as unknown as LuaArray<LuaArray<{ item: LuaArray<string> }>>;
 
-  const weight_table: LuaArray<TRate> = $fromArray<TRate>([2, 2, 2, 2, 4, 4]);
+  const weightList: LuaArray<TRate> = $fromArray<TRate>([2, 2, 2, 2, 4, 4]);
 
-  const spawned_item = new LuaTable();
-  let max_weight = 12;
+  const spawnedItems = new LuaTable();
+  let maxWeight: TCount = 12;
 
   // todo: Simplify, seems like too complex...
-  while (max_weight > 0) {
+  while (maxWeight > 0) {
     let n: number = 0;
     let prap: boolean = true;
 
     do {
       prap = true;
-      n = math.random(1, weight_table.length());
+      n = math.random(1, weightList.length());
 
-      for (const [k, v] of spawned_item) {
+      for (const [k, v] of spawnedItems) {
         if (v === n) {
           prap = false;
           break;
         }
       }
-    } while (!(prap && max_weight - weight_table.get(n) >= 0));
+    } while (!(prap && maxWeight - weightList.get(n) >= 0));
 
-    max_weight = max_weight - weight_table.get(n);
-    table.insert(spawned_item, n);
+    maxWeight = maxWeight - weightList.get(n);
+    table.insert(spawnedItems, n);
 
-    const item = math.random(1, si_table.get(n).length());
+    const item = math.random(1, spawnItemsList.get(n).length());
 
-    for (const [k, v] of si_table.get(n).get(item).item) {
+    for (const [k, v] of spawnItemsList.get(n).get(item).item) {
       spawnObjectInObject(tostring(v), getObjectIdByStoryId("jup_b202_snag_treasure"));
     }
   }
@@ -586,10 +586,10 @@ extern("xr_effects.zat_b202_spawn_random_loot", (actor: ClientObject, npc: Clien
  */
 extern("xr_effects.jup_b221_play_main", (actor: ClientObject, npc: ClientObject, p: [string]) => {
   let infoPortionsList: LuaArray<TInfoPortion> = new LuaTable();
-  let main_theme: string;
-  let reply_theme: string;
-  let info_need_reply: TInfoPortion;
-  const reachable_theme: LuaTable = new LuaTable();
+  let mainTheme: string;
+  let replyTheme: string;
+  let infoNeedReply: TInfoPortion;
+  const reachableTheme: LuaTable = new LuaTable();
 
   if ((p && p[0]) === null) {
     abort("No such parameters in function 'jup_b221_play_main'");
@@ -604,9 +604,9 @@ extern("xr_effects.jup_b221_play_main", (actor: ClientObject, npc: ClientObject,
       infoPortions.jup_a6_duty_leader_employ_work,
       infoPortions.jup_b207_duty_wins,
     ]);
-    main_theme = "jup_b221_duty_main_";
-    reply_theme = "jup_b221_duty_reply_";
-    info_need_reply = infoPortions.jup_b221_duty_reply;
+    mainTheme = "jup_b221_duty_main_";
+    replyTheme = "jup_b221_duty_reply_";
+    infoNeedReply = infoPortions.jup_b221_duty_reply;
   } else if (tostring(p[0]) === "freedom") {
     infoPortionsList = $fromArray<TInfoPortion>([
       infoPortions.jup_b207_freedom_know_about_depot,
@@ -616,29 +616,29 @@ extern("xr_effects.jup_b221_play_main", (actor: ClientObject, npc: ClientObject,
       infoPortions.jup_a6_freedom_leader_employ_work,
       infoPortions.jup_b207_freedom_wins,
     ]);
-    main_theme = "jup_b221_freedom_main_";
-    reply_theme = "jup_b221_freedom_reply_";
-    info_need_reply = infoPortions.jup_b221_freedom_reply;
+    mainTheme = "jup_b221_freedom_main_";
+    replyTheme = "jup_b221_freedom_reply_";
+    infoNeedReply = infoPortions.jup_b221_freedom_reply;
   } else {
     abort("Wrong parameters in function 'jup_b221_play_main'");
   }
 
   for (const [k, v] of infoPortionsList) {
-    if (hasAlifeInfo(v) && !hasAlifeInfo((main_theme + tostring(k) + "_played") as TInfoPortion)) {
-      table.insert(reachable_theme, k);
+    if (hasAlifeInfo(v) && !hasAlifeInfo((mainTheme + tostring(k) + "_played") as TInfoPortion)) {
+      table.insert(reachableTheme, k);
     }
   }
 
-  if (reachable_theme.length() !== 0) {
-    const theme_to_play = reachable_theme.get(math.random(1, reachable_theme.length()));
+  if (reachableTheme.length() !== 0) {
+    const themeToPlay = reachableTheme.get(math.random(1, reachableTheme.length()));
 
-    disableInfo(info_need_reply);
-    setPortableStoreValue(actor, "jup_b221_played_main_theme", tostring(theme_to_play));
-    giveInfo((main_theme + tostring(theme_to_play) + "_played") as TInfoPortion);
+    disableInfo(infoNeedReply);
+    setPortableStoreValue(actor, "jup_b221_played_main_theme", tostring(themeToPlay));
+    giveInfo((mainTheme + tostring(themeToPlay) + "_played") as TInfoPortion);
 
-    if (theme_to_play !== 0) {
+    if (themeToPlay !== 0) {
       getExtern<AnyCallable>("play_sound", getExtern("xr_effects"))(actor, npc, [
-        main_theme + tostring(theme_to_play),
+        mainTheme + tostring(themeToPlay),
         null,
         null,
       ]);
@@ -648,11 +648,11 @@ extern("xr_effects.jup_b221_play_main", (actor: ClientObject, npc: ClientObject,
   } else {
     const themeToPlay: TIndex = tonumber(getPortableStoreValue(actor, "jup_b221_played_main_theme", 0)) as TIndex;
 
-    giveInfo(info_need_reply);
+    giveInfo(infoNeedReply);
 
     if (themeToPlay !== 0) {
       getExtern<AnyCallable>("play_sound", getExtern("xr_effects"))(actor, npc, [
-        reply_theme + tostring(themeToPlay),
+        replyTheme + tostring(themeToPlay),
         null,
         null,
       ]);
@@ -676,26 +676,26 @@ extern("xr_effects.zat_a1_tutorial_end_give", (actor: ClientObject, npc: ClientO
 extern("xr_effects.oasis_heal", (): void => {
   const actor: ClientObject = registry.actor;
 
-  const d_health = 0.005;
-  const d_power = 0.01;
-  const d_bleeding = 0.05;
-  const d_radiation = -0.05;
+  const newHealth: TRate = 0.005;
+  const newPower: TRate = 0.01;
+  const newBleeding: TRate = 0.05;
+  const newRadiation: TRate = -0.05;
 
   // todo: Maybe increment?
   if (actor.health < 1) {
-    actor.health = d_health;
+    actor.health = newHealth;
   }
 
   if (actor.power < 1) {
-    actor.power = d_power;
+    actor.power = newPower;
   }
 
   if (actor.radiation > 0) {
-    actor.radiation = d_radiation;
+    actor.radiation = newRadiation;
   }
 
   if (actor.bleeding > 0) {
-    actor.bleeding = d_bleeding;
+    actor.bleeding = newBleeding;
   }
 
   actor.satiety = 0.01;
@@ -719,7 +719,7 @@ extern("xr_effects.pas_b400_stop_particle", (actor: ClientObject, npc: ClientObj
  * todo
  */
 extern("xr_effects.damage_pri_a17_gauss", (): void => {
-  const object: Optional<ClientObject> = getObjectByStoryId(quest_items.pri_a17_gauss_rifle);
+  const object: Optional<ClientObject> = getObjectByStoryId(questItems.pri_a17_gauss_rifle);
 
   if (object !== null) {
     object.set_condition(0.0);
@@ -895,7 +895,7 @@ extern("xr_effects.pri_a28_talk_ssu_video_end", (actor: ClientObject, npc: Clien
  */
 extern("xr_effects.zat_b33_pic_snag_container", (actor: ClientObject, npc: ClientObject): void => {
   if (isActorInZoneWithName(zones.zat_b33_tutor)) {
-    giveItemsToActor(quest_items.zat_b33_safe_container);
+    giveItemsToActor(questItems.zat_b33_safe_container);
     giveInfo(infoPortions.zat_b33_find_package);
 
     if (!hasAlifeInfo(infoPortions.zat_b33_safe_container)) {

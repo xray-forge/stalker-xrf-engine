@@ -8,7 +8,7 @@ import { ISchemeMonsterState } from "@/engine/core/schemes/sr_monster/ISchemeMon
 import { action, scriptCaptureObject, scriptReleaseObject } from "@/engine/core/utils/object";
 import { copyVector, subVectors } from "@/engine/core/utils/vector";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
-import { ClientObject, Optional, ServerMonsterObject, SoundObject, TIndex, Vector } from "@/engine/lib/types";
+import { ClientObject, Optional, ServerMonsterAbstractObject, SoundObject, TIndex, Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -23,7 +23,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   public current!: Vector;
   public target!: Vector;
 
-  public monster: Optional<ServerMonsterObject> = null;
+  public monster: Optional<ServerMonsterAbstractObject> = null;
   public monster_obj: Optional<ClientObject> = null;
 
   public snd_obj: Optional<SoundObject> = null;
@@ -181,7 +181,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   public setPositions(): void {
     if (this.getNextPoint() === 0) {
       if (this.monster === null && this.state.monster !== null) {
-        this.monster = alife().create<ServerMonsterObject>(
+        this.monster = alife().create<ServerMonsterAbstractObject>(
           this.state.monster,
           this.current,
           this.object.level_vertex_id(),

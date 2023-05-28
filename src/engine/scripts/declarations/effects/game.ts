@@ -1,11 +1,13 @@
-import { game, get_console, get_hud, StaticDrawableWrapper } from "xray16";
+import { game, get_hud, StaticDrawableWrapper } from "xray16";
 
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database";
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { extern } from "@/engine/core/utils/binding";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TCaption } from "@/engine/lib/constants/captions";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ClientObject, GameHud, LuaArray, Optional, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -15,10 +17,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 extern("xr_effects.inc_counter", (actor: ClientObject, npc: ClientObject, p: [Optional<string>, number]) => {
   if (p[0]) {
-    const inc_value = p[1] || 1;
-    const new_value = getPortableStoreValue(actor, p[0], 0) + inc_value;
+    const incValue = p[1] || 1;
+    const newValue = getPortableStoreValue(actor, p[0], 0) + incValue;
 
-    setPortableStoreValue(actor, p[0], new_value);
+    setPortableStoreValue(actor, p[0], newValue);
   }
 });
 
@@ -27,14 +29,14 @@ extern("xr_effects.inc_counter", (actor: ClientObject, npc: ClientObject, p: [Op
  */
 extern("xr_effects.dec_counter", (actor: ClientObject, npc: ClientObject, p: [Optional<string>, number]) => {
   if (p[0]) {
-    const dec_value = p[1] || 1;
-    let new_value = getPortableStoreValue(actor, p[0], 0) - dec_value;
+    const decValue = p[1] || 1;
+    let newValue = getPortableStoreValue(actor, p[0], 0) - decValue;
 
-    if (new_value < 0) {
-      new_value = 0;
+    if (newValue < 0) {
+      newValue = 0;
     }
 
-    setPortableStoreValue(actor, p[0], new_value);
+    setPortableStoreValue(actor, p[0], newValue);
   }
 });
 
@@ -55,10 +57,10 @@ extern(
  */
 extern("xr_effects.game_disconnect", (actor: ClientObject, npc: ClientObject): void => {
   logger.info("Game disconnect");
-  get_console().execute("disconnect");
+  executeConsoleCommand(consoleCommands.disconnect);
 });
 
-let gameover_credits_started: boolean = false;
+let isGameoverCreditsStarted: boolean = false;
 
 /**
  * todo;
@@ -66,7 +68,7 @@ let gameover_credits_started: boolean = false;
 extern("xr_effects.game_credits", (actor: ClientObject, npc: ClientObject): void => {
   logger.info("Game credits");
 
-  gameover_credits_started = true;
+  isGameoverCreditsStarted = true;
   game.start_tutorial("credits_seq");
 });
 
@@ -76,39 +78,39 @@ extern("xr_effects.game_credits", (actor: ClientObject, npc: ClientObject): void
 extern("xr_effects.game_over", (actor: ClientObject, npc: ClientObject): void => {
   logger.info("Game over");
 
-  if (gameover_credits_started !== true) {
+  if (isGameoverCreditsStarted !== true) {
     return;
   }
 
-  get_console().execute("main_menu on");
+  executeConsoleCommand(consoleCommands.main_menu, "on");
 });
 
 /**
  * todo;
  */
 extern("xr_effects.after_credits", (actor: ClientObject, npc: ClientObject): void => {
-  get_console().execute("main_menu on");
+  executeConsoleCommand(consoleCommands.main_menu, "on");
 });
 
 /**
  * todo;
  */
 extern("xr_effects.before_credits", (actor: ClientObject, npc: ClientObject): void => {
-  get_console().execute("main_menu off");
+  executeConsoleCommand(consoleCommands.main_menu, "off");
 });
 
 /**
  * todo;
  */
 extern("xr_effects.on_tutor_gameover_stop", () => {
-  get_console().execute("main_menu on");
+  executeConsoleCommand(consoleCommands.main_menu, "on");
 });
 
 /**
  * todo; extern
  */
 extern("xr_effects.on_tutor_gameover_quickload", () => {
-  get_console().execute("load_last_save");
+  executeConsoleCommand(consoleCommands.load_last_save);
 });
 
 /**
@@ -153,15 +155,15 @@ extern(
 extern("xr_effects.add_cs_text", (actor: ClientObject, npc: ClientObject, p: [string]) => {
   if (p[0]) {
     const hud = get_hud();
-    let cs_text = hud.GetCustomStatic("text_on_screen_center");
+    let customText: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("text_on_screen_center");
 
-    if (cs_text) {
+    if (customText) {
       hud.RemoveCustomStatic("text_on_screen_center");
     }
 
     hud.AddCustomStatic("text_on_screen_center", true);
-    cs_text = hud.GetCustomStatic("text_on_screen_center");
-    cs_text!.wnd().TextControl().SetText(game.translate_string(p[0]));
+    customText = hud.GetCustomStatic("text_on_screen_center");
+    customText!.wnd().TextControl().SetText(game.translate_string(p[0]));
   }
 });
 

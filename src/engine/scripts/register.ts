@@ -1,8 +1,6 @@
-import type { object_factory } from "xray16";
-
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyCallable } from "@/engine/lib/types";
+import { AnyCallable, ObjectFactory } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -16,7 +14,7 @@ extern("register", {
   /**
    * todo: Description.
    */
-  registerGameClasses: (factory: object_factory): void => {
+  registerGameClasses: (factory: ObjectFactory): void => {
     (require("@/engine/scripts/register/class_registrator").registerGameClasses as AnyCallable)(factory);
   },
   /**

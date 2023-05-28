@@ -1,18 +1,17 @@
 import { jest } from "@jest/globals";
-import { CGameTask, TXR_TaskState } from "xray16";
 
-import { AnyObject, Optional } from "@/engine/lib/types";
+import { AnyObject, GameTask, Optional, TTaskState } from "@/engine/lib/types";
 
 /**
  * Mock x-ray task object.
  */
-export class MockCGameTask implements CGameTask {
+export class MockCGameTask implements GameTask {
   public priority: number = -1;
   public title: string = "test_title";
   public description: string = "test_description";
   public iconName: string = "test_icon";
   public id: string = "test_id";
-  public state: TXR_TaskState = 1;
+  public state: TTaskState = 1;
 
   public add_complete_func = jest.fn((value: string): void => {});
 
@@ -48,7 +47,7 @@ export class MockCGameTask implements CGameTask {
     return this.priority;
   });
 
-  public get_state = jest.fn((): TXR_TaskState => {
+  public get_state = jest.fn((): TTaskState => {
     return this.state;
   });
 
@@ -94,10 +93,10 @@ export class MockCGameTask implements CGameTask {
 /**
  * Mock task object.
  */
-export function mockCGameTask(overrides: Partial<MockCGameTask> = {}): CGameTask {
+export function mockCGameTask(overrides: Partial<MockCGameTask> = {}): GameTask {
   const task: MockCGameTask = new MockCGameTask();
 
   Object.entries(overrides).forEach(([key, value]) => ((task as AnyObject)[key] = value));
 
-  return task as CGameTask;
+  return task as GameTask;
 }

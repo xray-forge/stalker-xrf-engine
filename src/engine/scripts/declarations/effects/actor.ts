@@ -61,7 +61,7 @@ extern("xr_effects.enable_ui", (actor: ClientObject, npc: ClientObject, p: [stri
   ActorInputManager.getInstance().enableGameUi(!p || (p && p[0] !== TRUE));
 });
 
-let cam_effector_playing_object_id: Optional<TNumberId> = null;
+let camEffectorPlayingObjectId: Optional<TNumberId> = null;
 
 /**
  * todo;
@@ -83,7 +83,7 @@ extern("xr_effects.run_cam_effector", (actor: ClientObject, npc: ClientObject, p
 
     // --level.add_pp_effector(p[1] + ".ppe", num, loop)
     level.add_cam_effector("camera_effects\\" + p[0] + ".anm", num, loop, "xr_effects.cam_effector_callback");
-    cam_effector_playing_object_id = npc.id();
+    camEffectorPlayingObjectId = npc.id();
   }
 });
 
@@ -152,7 +152,7 @@ extern(
       "xr_effects.cam_effector_callback",
       fov
     );
-    cam_effector_playing_object_id = npc.id();
+    camEffectorPlayingObjectId = npc.id();
   }
 );
 
@@ -162,11 +162,11 @@ extern(
 extern("xr_effects.cam_effector_callback", (): void => {
   logger.info("Run cam effector callback");
 
-  if (cam_effector_playing_object_id === null) {
+  if (camEffectorPlayingObjectId === null) {
     return;
   }
 
-  const state = registry.objects.get(cam_effector_playing_object_id);
+  const state = registry.objects.get(camEffectorPlayingObjectId);
 
   if (state === null || state.active_scheme === null) {
     return;
@@ -268,14 +268,14 @@ extern("xr_effects.relocate_item", (actor: ClientObject, npc: ClientObject, para
   logger.info("Relocate item");
 
   const item = params && params[0];
-  const from_obj = params && getObjectByStoryId(params[1]);
-  const to_obj = params && getObjectByStoryId(params[2]);
+  const fromObject: Optional<ClientObject> = params && getObjectByStoryId(params[1]);
+  const toObject: Optional<ClientObject> = params && getObjectByStoryId(params[2]);
 
-  if (to_obj !== null) {
-    if (from_obj !== null && from_obj.object(item) !== null) {
-      from_obj.transfer_item(from_obj.object(item)!, to_obj);
+  if (toObject !== null) {
+    if (fromObject !== null && fromObject.object(item) !== null) {
+      fromObject.transfer_item(fromObject.object(item)!, toObject);
     } else {
-      alife().create(item, to_obj.position(), to_obj.level_vertex_id(), to_obj.game_vertex_id(), to_obj.id());
+      alife().create(item, toObject.position(), toObject.level_vertex_id(), toObject.game_vertex_id(), toObject.id());
     }
   } else {
     abort("Couldn't relocate item to NULL");
@@ -289,20 +289,20 @@ extern("xr_effects.activate_weapon_slot", (actor: ClientObject, npc: ClientObjec
   actor.activate_slot(index);
 });
 
-let actor_position_for_restore: Optional<Vector> = null;
+let actorPositionForRestore: Optional<Vector> = null;
 
 /**
  * todo;
  */
 extern("xr_effects.save_actor_position", (): void => {
-  actor_position_for_restore = registry.actor.position();
+  actorPositionForRestore = registry.actor.position();
 });
 
 /**
  * todo;
  */
 extern("xr_effects.restore_actor_position", (): void => {
-  registry.actor.set_actor_position(actor_position_for_restore!);
+  registry.actor.set_actor_position(actorPositionForRestore!);
 });
 
 /**
@@ -319,9 +319,9 @@ extern("xr_effects.actor_punch", (object: ClientObject): void => {
   level.add_cam_effector(animations.camera_effects_fusker, 999, false, "");
 
   // todo: Enum for active object slot.
-  const active_slot = actor.active_slot();
+  const activeSlot: TIndex = actor.active_slot();
 
-  if (active_slot !== 2 && active_slot !== 3) {
+  if (activeSlot !== 2 && activeSlot !== 3) {
     return;
   }
 

@@ -17,7 +17,7 @@ import { drugs } from "@/engine/lib/constants/items/drugs";
 import { food } from "@/engine/lib/constants/items/food";
 import { helmets } from "@/engine/lib/constants/items/helmets";
 import { outfits } from "@/engine/lib/constants/items/outfits";
-import { quest_items } from "@/engine/lib/constants/items/quest_items";
+import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { AnyCallable, ClientObject, LuaArray, TCount } from "@/engine/lib/types";
 
@@ -258,9 +258,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_notes", (): boolean => {
   const actor: ClientObject = registry.actor;
 
   return (
-    actor.object(quest_items.jup_b10_notes_01) !== null ||
-    actor.object(quest_items.jup_b10_notes_02) !== null ||
-    actor.object(quest_items.jup_b10_notes_03) !== null
+    actor.object(questItems.jup_b10_notes_01) !== null ||
+    actor.object(questItems.jup_b10_notes_02) !== null ||
+    actor.object(questItems.jup_b10_notes_03) !== null
   );
 });
 
@@ -271,9 +271,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_1", (): boolean => {
   const actor: ClientObject = registry.actor;
 
   return (
-    actor.object(quest_items.jup_b10_notes_01) !== null &&
-    actor.object(quest_items.jup_b10_notes_02) === null &&
-    actor.object(quest_items.jup_b10_notes_03) === null
+    actor.object(questItems.jup_b10_notes_01) !== null &&
+    actor.object(questItems.jup_b10_notes_02) === null &&
+    actor.object(questItems.jup_b10_notes_03) === null
   );
 });
 
@@ -284,9 +284,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_2", (): boolean => {
   const actor: ClientObject = registry.actor;
 
   return (
-    actor.object(quest_items.jup_b10_notes_02) !== null &&
-    actor.object(quest_items.jup_b10_notes_01) === null &&
-    actor.object(quest_items.jup_b10_notes_03) === null
+    actor.object(questItems.jup_b10_notes_02) !== null &&
+    actor.object(questItems.jup_b10_notes_01) === null &&
+    actor.object(questItems.jup_b10_notes_03) === null
   );
 });
 
@@ -297,9 +297,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_3", (): boolean => {
   const actor: ClientObject = registry.actor;
 
   return (
-    actor.object(quest_items.jup_b10_notes_03) !== null &&
-    actor.object(quest_items.jup_b10_notes_01) === null &&
-    actor.object(quest_items.jup_b10_notes_02) === null
+    actor.object(questItems.jup_b10_notes_03) !== null &&
+    actor.object(questItems.jup_b10_notes_01) === null &&
+    actor.object(questItems.jup_b10_notes_02) === null
   );
 });
 
@@ -310,9 +310,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_12", (): boolean => {
   const actor: ClientObject = registry.actor;
 
   return (
-    actor.object(quest_items.jup_b10_notes_01) !== null &&
-    actor.object(quest_items.jup_b10_notes_02) !== null &&
-    actor.object(quest_items.jup_b10_notes_03) === null
+    actor.object(questItems.jup_b10_notes_01) !== null &&
+    actor.object(questItems.jup_b10_notes_02) !== null &&
+    actor.object(questItems.jup_b10_notes_03) === null
   );
 });
 
@@ -323,9 +323,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_13", (): boolean => {
   const actor: ClientObject = registry.actor;
 
   return (
-    actor.object(quest_items.jup_b10_notes_01) !== null &&
-    actor.object(quest_items.jup_b10_notes_03) !== null &&
-    actor.object(quest_items.jup_b10_notes_02) === null
+    actor.object(questItems.jup_b10_notes_01) !== null &&
+    actor.object(questItems.jup_b10_notes_03) !== null &&
+    actor.object(questItems.jup_b10_notes_02) === null
   );
 });
 
@@ -336,9 +336,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_23", (): boolean => {
   const actor: ClientObject = registry.actor;
 
   return (
-    actor.object(quest_items.jup_b10_notes_02) !== null &&
-    actor.object(quest_items.jup_b10_notes_03) !== null &&
-    actor.object(quest_items.jup_b10_notes_01) === null
+    actor.object(questItems.jup_b10_notes_02) !== null &&
+    actor.object(questItems.jup_b10_notes_03) !== null &&
+    actor.object(questItems.jup_b10_notes_01) === null
   );
 });
 
@@ -349,9 +349,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_all", (): boolean => {
   const actor: ClientObject = registry.actor;
 
   return (
-    actor.object(quest_items.jup_b10_notes_01) !== null &&
-    actor.object(quest_items.jup_b10_notes_02) !== null &&
-    actor.object(quest_items.jup_b10_notes_03) !== null
+    actor.object(questItems.jup_b10_notes_01) !== null &&
+    actor.object(questItems.jup_b10_notes_02) !== null &&
+    actor.object(questItems.jup_b10_notes_03) !== null
   );
 });
 
@@ -362,9 +362,9 @@ extern(
   "dialogs_pripyat.pri_b305_sell_strelok_notes",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     const items_table = [
-      quest_items.jup_b10_notes_01,
-      quest_items.jup_b10_notes_02,
-      quest_items.jup_b10_notes_03,
+      questItems.jup_b10_notes_01,
+      questItems.jup_b10_notes_02,
+      questItems.jup_b10_notes_03,
     ] as unknown as LuaArray<string>;
     const actor: ClientObject = registry.actor;
 

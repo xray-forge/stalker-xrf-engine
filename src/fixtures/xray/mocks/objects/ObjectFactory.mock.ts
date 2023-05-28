@@ -1,4 +1,4 @@
-import { object_factory, TXR_class_key } from "xray16";
+import { ObjectFactory, TClassKey } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -13,9 +13,9 @@ export class MockObjectFactory {
     client_object_class: string,
     server_object_class: string,
     clsid: string,
-    script_clsid: TXR_class_key
+    script_clsid: TClassKey
   ): void;
-  public register(client_object_class: string, clsid: string, script_clsid: TXR_class_key): void;
+  public register(client_object_class: string, clsid: string, script_clsid: TClassKey): void;
   public register(...args: Array<string>): void {
     this.registeredClientClasses.add(args[0]);
 
@@ -33,7 +33,7 @@ export class MockObjectFactory {
 /**
  * todo;
  */
-export function mockObjectFactory(): [object_factory, MockObjectFactory] {
+export function mockObjectFactory(): [ObjectFactory, MockObjectFactory] {
   const factory: MockObjectFactory = new MockObjectFactory();
 
   return [factory, factory];

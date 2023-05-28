@@ -1,5 +1,4 @@
-import { cse_alife_item_helmet } from "xray16";
-
+import { ServerItemHelmetObject } from "@/engine/lib/types";
 import { MockAlifeItem, mockServerAlifeItem } from "@/fixtures/xray/mocks/objects/server/cse_alife_item.mock";
 
 /**
@@ -10,6 +9,6 @@ export class MockAlifeItemHelmet extends MockAlifeItem {}
 /**
  * todo;
  */
-export function mockServerAlifeItemHelmet(base: Partial<cse_alife_item_helmet> = {}): cse_alife_item_helmet {
-  return { ...mockServerAlifeItem(base) } as unknown as cse_alife_item_helmet;
+export function mockServerAlifeItemHelmet(base: Partial<ServerItemHelmetObject> = {}): ServerItemHelmetObject {
+  return { ...mockServerAlifeItem(base) } as unknown as ServerItemHelmetObject;
 }

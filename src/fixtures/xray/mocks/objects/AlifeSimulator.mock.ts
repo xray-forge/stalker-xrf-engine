@@ -1,13 +1,14 @@
 import { jest } from "@jest/globals";
-import { alife_simulator, cse_alife_object } from "xray16";
+
+import { AlifeSimulator, ServerObject } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export class MockAlifeSimulator {
-  public static registry: Record<number, cse_alife_object> = {};
+  public static registry: Record<number, ServerObject> = {};
 
-  public static addToRegistry(object: cse_alife_object): void {
+  public static addToRegistry(object: ServerObject): void {
     MockAlifeSimulator.registry[object.id] = object;
   }
 
@@ -21,7 +22,7 @@ export class MockAlifeSimulator {
 
   public create_ammo = jest.fn(() => {});
 
-  public release = jest.fn((object: cse_alife_object) => {
+  public release = jest.fn((object: ServerObject) => {
     MockAlifeSimulator.removeFromRegistry(object.id);
   });
 }
@@ -29,6 +30,6 @@ export class MockAlifeSimulator {
 /**
  * todo;
  */
-export function mockAlifeSimulator(): alife_simulator {
-  return new MockAlifeSimulator() as unknown as alife_simulator;
+export function mockAlifeSimulator(): AlifeSimulator {
+  return new MockAlifeSimulator() as unknown as AlifeSimulator;
 }

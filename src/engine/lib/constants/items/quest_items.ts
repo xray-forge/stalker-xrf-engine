@@ -1,6 +1,6 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
-export const quest_items = {
+export const questItems = {
   device_flash_snag: "device_flash_snag",
   device_pda_port_bandit_leader: "device_pda_port_bandit_leader",
   device_pda_zat_b5_dealer: "device_pda_zat_b5_dealer",
@@ -53,6 +53,6 @@ export const quest_items = {
   zat_b57_gas: "zat_b57_gas",
 } as const;
 
-export type TQuestItems = typeof quest_items;
+export type TQuestItems = typeof questItems;
 
 export type TQuestItem = TQuestItems[keyof TQuestItems];

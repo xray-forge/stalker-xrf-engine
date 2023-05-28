@@ -1,5 +1,4 @@
 import { jest } from "@jest/globals";
-import { TXR_callback, TXR_class_id, TXR_SightType } from "xray16";
 
 import {
   ActionPlanner,
@@ -10,6 +9,9 @@ import {
   GameTask,
   IniFile,
   PartialRecord,
+  TCallback,
+  TClassId,
+  TSightType,
 } from "@/engine/lib/types";
 import { MockMove, MockSightParameters } from "@/fixtures/xray";
 import { MockActionPlanner, mockDefaultActionPlanner } from "@/fixtures/xray/mocks/actions/action_planner.mock";
@@ -26,7 +28,7 @@ export function mockClientGameObject({
   active_item = jest.fn(() => null),
   animation_count = jest.fn(() => 0),
   character_icon = jest.fn(() => "test_character_icon") as <T>() => T,
-  clsid = jest.fn(() => -1 as TXR_class_id),
+  clsid = jest.fn(() => -1 as TClassId),
   disable_info_portion,
   game_vertex_id = jest.fn(() => 512),
   give_game_news = jest.fn(() => {}),
@@ -66,10 +68,10 @@ export function mockClientGameObject({
   const inventoryMap: Map<string | number, ClientObject> = new Map(inventory);
   let objectMoney: number = 0;
 
-  let sight: TXR_SightType = MockSightParameters.eSightTypeDummy;
+  let sight: TSightType = MockSightParameters.eSightTypeDummy;
 
   const actionManager: ActionPlanner = mockDefaultActionPlanner();
-  const callbacks: PartialRecord<TXR_callback, AnyCallable> = {};
+  const callbacks: PartialRecord<TCallback, AnyCallable> = {};
   const spawnIni: IniFile = mockIniFile("spawn.ini");
 
   const gameObject = {
@@ -145,8 +147,7 @@ export function mockClientGameObject({
     set_callback:
       rest.set_callback ||
       jest.fn(
-        (id: TXR_callback, callback: AnyContextualCallable, context: AnyObject) =>
-          (callbacks[id] = callback.bind(context))
+        (id: TCallback, callback: AnyContextualCallable, context: AnyObject) => (callbacks[id] = callback.bind(context))
       ),
     set_mental_state: rest.set_mental_state || jest.fn(),
     set_invisible,
@@ -161,7 +162,7 @@ export function mockClientGameObject({
 
         return params;
       }),
-    set_sight: rest.set_sight || jest.fn((nextSight: TXR_SightType) => (sight = nextSight)),
+    set_sight: rest.set_sight || jest.fn((nextSight: TSightType) => (sight = nextSight)),
     spawn_ini: rest.spawn_ini || jest.fn(() => spawnIni),
     special_danger_move,
     target_body_state:

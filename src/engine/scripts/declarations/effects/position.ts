@@ -14,6 +14,7 @@ import {
   TIndex,
   TName,
   TNumberId,
+  TProbability,
   TStringId,
   Vector,
 } from "@/engine/lib/types";
@@ -123,14 +124,14 @@ extern("xr_effects.teleport_actor", (actor: ClientObject, object: ClientObject, 
 extern("xr_effects.play_particle_on_path", (actor: ClientObject, object: ClientObject, p: [string, string, number]) => {
   const name = p[0];
   const path = p[1];
-  let point_prob = p[2];
+  let pointProbability: TProbability = p[2];
 
   if (name === null || path === null) {
     return;
   }
 
-  if (point_prob === null) {
-    point_prob = 100;
+  if (pointProbability === null) {
+    pointProbability = 100;
   }
 
   const patrolObject: Patrol = new patrol(path);
@@ -139,7 +140,7 @@ extern("xr_effects.play_particle_on_path", (actor: ClientObject, object: ClientO
   for (const a of $range(0, count - 1)) {
     const particle: ParticlesObject = new particles_object(name);
 
-    if (math.random(100) <= point_prob) {
+    if (math.random(100) <= pointProbability) {
       particle.play_at_pos(patrolObject.point(a));
     }
   }

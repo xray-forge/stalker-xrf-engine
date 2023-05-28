@@ -1,4 +1,4 @@
-import { alife, hit, level, patrol, TXR_bloodsucker_visibility_state } from "xray16";
+import { alife, hit, level, patrol } from "xray16";
 
 import {
   getObjectByStoryId,
@@ -16,7 +16,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/mob/combat";
-import { init_target } from "@/engine/core/schemes/remark/actions";
+import { initTarget } from "@/engine/core/schemes/remark/actions";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
@@ -37,10 +37,12 @@ import {
   ActionPlanner,
   ClientObject,
   EScheme,
+  Hit,
   LuaArray,
   Optional,
   ServerCreatureObject,
   ServerHumanObject,
+  TBloodsuckerVisibilityState,
   TIndex,
   TName,
   TNumberId,
@@ -151,21 +153,21 @@ extern("xr_effects.make_enemy", (actor: ClientObject, npc: ClientObject, p: [str
     abort("Invalid parameter in function 'hit_npc_from_npc'!!!!");
   }
 
-  const h: hit = new hit();
-  let hitted_npc = npc;
+  const h: Hit = new hit();
+  let objectToHit: ClientObject = npc;
 
   h.draftsman = getObjectByStoryId(p[0]);
 
   if (p[1] !== null) {
-    hitted_npc = getObjectByStoryId(p[1])!;
+    objectToHit = getObjectByStoryId(p[1])!;
   }
 
   h.type = hit.wound;
-  h.direction = h.draftsman!.position().sub(hitted_npc.position());
+  h.direction = h.draftsman!.position().sub(objectToHit.position());
   h.bone("bip01_spine");
   h.power = 0.03;
   h.impulse = 0.03;
-  hitted_npc.hit(h);
+  objectToHit.hit(h);
 });
 
 /**
@@ -271,27 +273,27 @@ extern(
 extern("xr_effects.spawn_corpse", (actor: ClientObject, obj: ClientObject, params: [string, string, number]): void => {
   logger.info("Spawn corpse:", params[0]);
 
-  const spawn_sect = params[0];
+  const spawnSection = params[0];
 
-  if (spawn_sect === null) {
-    abort("Wrong spawn section for 'spawn_corpse' function %s. For object %s", tostring(spawn_sect), obj.name());
+  if (spawnSection === null) {
+    abort("Wrong spawn section for 'spawn_corpse' function %s. For object %s", tostring(spawnSection), obj.name());
   }
 
-  const path_name = params[1];
+  const pathName: Optional<TName> = params[1];
 
-  if (path_name === null) {
-    abort("Wrong path_name for 'spawn_corpse' function %s. For object %s", tostring(path_name), obj.name());
+  if (pathName === null) {
+    abort("Wrong path_name for 'spawn_corpse' function %s. For object %s", tostring(pathName), obj.name());
   }
 
-  if (!level.patrol_path_exists(path_name)) {
-    abort("Path %s doesnt exist. Function 'spawn_corpse' for object %s ", tostring(path_name), obj.name());
+  if (!level.patrol_path_exists(pathName)) {
+    abort("Path %s doesnt exist. Function 'spawn_corpse' for object %s ", tostring(pathName), obj.name());
   }
 
-  const patrolObject: patrol = new patrol(path_name);
+  const patrolObject: patrol = new patrol(pathName);
   const index: TIndex = params[2] || 0;
 
   const serverObject: ServerCreatureObject = alife().create(
-    spawn_sect,
+    spawnSection,
     patrolObject.point(index),
     patrolObject.level_vertex_id(0),
     patrolObject.game_vertex_id(0)
@@ -314,7 +316,7 @@ extern(
       }
 
       const targetString = p[2] !== null ? [0] + "|" + p[1] + "," + p[2] : p[0] + "|" + p[1];
-      const [targetPosition, targetId, targetInit] = init_target(object, targetString);
+      const [targetPosition, targetId, targetInit] = initTarget(object, targetString);
 
       if (targetId === null) {
         logger.info(
@@ -346,12 +348,12 @@ extern(
 extern(
   "xr_effects.create_squad_member",
   (actor: ClientObject, object: ClientObject, params: [TSection, TStringId, string]): void => {
-    const squad_member_sect = params[0];
+    const squadMemberSection: TSection = params[0];
     const storyId: Optional<TStringId> = params[1];
 
     let position = null;
-    let level_vertex_id = null;
-    let game_vertex_id = null;
+    let levelVertexId = null;
+    let gameVertexId = null;
 
     if (storyId === null) {
       abort("Wrong squad identificator [NIL] in 'create_squad_member' function");
@@ -364,7 +366,7 @@ extern(
     )!.smartTerrain;
 
     if (params[2] !== null) {
-      let spawn_point: TStringId;
+      let spawnPoint: TStringId;
 
       if (params[2] === "simulation_point") {
         const data: string = readIniString(SYSTEM_INI, squad.section_name(), "spawn_point", false, "");
@@ -373,30 +375,25 @@ extern(
             ? parseConditionsList(squadSmartTerrain.spawnPointName as string)
             : parseConditionsList(data);
 
-        spawn_point = pickSectionFromCondList(actor, object, condlist) as TStringId;
+        spawnPoint = pickSectionFromCondList(actor, object, condlist) as TStringId;
       } else {
-        spawn_point = params[2];
+        spawnPoint = params[2];
       }
 
-      const point = new patrol(spawn_point);
+      const point = new patrol(spawnPoint);
 
       position = point.point(0);
-      level_vertex_id = point.level_vertex_id(0);
-      game_vertex_id = point.game_vertex_id(0);
+      levelVertexId = point.level_vertex_id(0);
+      gameVertexId = point.game_vertex_id(0);
     } else {
       const commander: ServerHumanObject = alife().object(squad.commander_id()) as ServerHumanObject;
 
       position = commander.position;
-      level_vertex_id = commander.m_level_vertex_id;
-      game_vertex_id = commander.m_game_vertex_id;
+      levelVertexId = commander.m_level_vertex_id;
+      gameVertexId = commander.m_game_vertex_id;
     }
 
-    const newSquadMemberId: TNumberId = squad.addSquadMember(
-      squad_member_sect,
-      position,
-      level_vertex_id,
-      game_vertex_id
-    );
+    const newSquadMemberId: TNumberId = squad.addSquadMember(squadMemberSection, position, levelVertexId, gameVertexId);
 
     squad.assignSquadMemberToSmartTerrain(newSquadMemberId, squadSmartTerrain, null);
     simulationBoardManager.setupObjectSquadAndGroup(alife().object(newSquadMemberId) as ServerCreatureObject);
@@ -409,16 +406,16 @@ extern(
  * todo;
  */
 extern("xr_effects.remove_squad", (actor: ClientObject, obj: ClientObject, p: [string]): void => {
-  const story_id = p[0];
+  const storyId: Optional<TSection> = p[0];
 
-  if (story_id === null) {
+  if (storyId === null) {
     abort("Wrong squad identificator [NIL] in remove_squad function");
   }
 
-  const squad: Optional<Squad> = getServerObjectByStoryId(story_id);
+  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
   if (squad === null) {
-    abort("Wrong squad identificator [%s]. squad doesnt exist", tostring(story_id));
+    abort("Wrong squad identificator [%s]. squad doesnt exist", tostring(storyId));
   }
 
   SimulationBoardManager.getInstance().onRemoveSquad(squad);
@@ -462,10 +459,10 @@ extern("xr_effects.kill_squad", (actor: ClientObject, obj: ClientObject, p: [Opt
  */
 extern("xr_effects.heal_squad", (actor: ClientObject, obj: ClientObject, params: [TStringId, number]) => {
   const storyId: Optional<TStringId> = params[0];
-  let health_mod = 1;
+  let healthMod = 1;
 
   if (params[1] && params[1] !== null) {
-    health_mod = math.ceil(params[1] / 100);
+    healthMod = math.ceil(params[1] / 100);
   }
 
   if (storyId === null) {
@@ -479,10 +476,10 @@ extern("xr_effects.heal_squad", (actor: ClientObject, obj: ClientObject, params:
   }
 
   for (const k of squad.squad_members()) {
-    const cl_obj = registry.objects.get(k.id)?.object as Optional<ClientObject>;
+    const clientObject: Optional<ClientObject> = registry.objects.get(k.id)?.object as Optional<ClientObject>;
 
-    if (cl_obj !== null) {
-      cl_obj.health = health_mod;
+    if (clientObject !== null) {
+      clientObject.health = healthMod;
     }
   }
 });
@@ -809,7 +806,7 @@ extern("xr_effects.set_bloodsucker_state", (actor: ClientObject, object: ClientO
     if (state === "default") {
       object.force_visibility_state(-1);
     } else {
-      object.force_visibility_state(tonumber(state) as TXR_bloodsucker_visibility_state);
+      object.force_visibility_state(tonumber(state) as TBloodsuckerVisibilityState);
     }
   }
 });
@@ -828,13 +825,13 @@ extern("xr_effects.clear_box", (actor: ClientObject, npc: ClientObject, p: [stri
 
   assertDefined(inventoryBox, "There is no object with story_id [%s]", tostring(p[0]));
 
-  const items_table: LuaArray<ClientObject> = new LuaTable();
+  const itemsList: LuaArray<ClientObject> = new LuaTable();
 
-  inventoryBox.iterate_inventory_box((inv_box: ClientObject, item: ClientObject) => {
-    table.insert(items_table, item);
+  inventoryBox.iterate_inventory_box((box: ClientObject, item: ClientObject) => {
+    table.insert(itemsList, item);
   }, inventoryBox);
 
-  for (const [k, v] of items_table) {
+  for (const [k, v] of itemsList) {
     alife().release(alife().object(v.id()), true);
   }
 });

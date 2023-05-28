@@ -1,5 +1,4 @@
-import { cse_alife_item_weapon_magazined } from "xray16";
-
+import { ServerWeaponMagazinedObject } from "@/engine/lib/types";
 import {
   MockAlifeItemWeapon,
   mockServerAlifeItemWeapon,
@@ -14,7 +13,7 @@ export class MockAlifeItemWeaponMagazined extends MockAlifeItemWeapon {}
  * todo;
  */
 export function mockServerAlifeItemWeaponMagazined(
-  base: Partial<cse_alife_item_weapon_magazined> = {}
-): cse_alife_item_weapon_magazined {
-  return { ...mockServerAlifeItemWeapon(base) } as unknown as cse_alife_item_weapon_magazined;
+  base: Partial<ServerWeaponMagazinedObject> = {}
+): ServerWeaponMagazinedObject {
+  return { ...mockServerAlifeItemWeapon(base) } as unknown as ServerWeaponMagazinedObject;
 }

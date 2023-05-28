@@ -1,5 +1,4 @@
-import { cse_alife_item } from "xray16";
-
+import { ServerItemObject } from "@/engine/lib/types";
 import {
   MockAlifeDynamicObjectVisual,
   mockServerAlifeDynamicObjectVisual,
@@ -13,6 +12,6 @@ export class MockAlifeItem extends MockAlifeDynamicObjectVisual {}
 /**
  * todo;
  */
-export function mockServerAlifeItem(base: Partial<cse_alife_item> = {}): cse_alife_item {
-  return { ...mockServerAlifeDynamicObjectVisual(), ...base } as unknown as cse_alife_item;
+export function mockServerAlifeItem(base: Partial<ServerItemObject> = {}): ServerItemObject {
+  return { ...mockServerAlifeDynamicObjectVisual(), ...base } as unknown as ServerItemObject;
 }

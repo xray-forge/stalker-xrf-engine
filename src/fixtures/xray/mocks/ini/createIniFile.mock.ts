@@ -1,10 +1,9 @@
-import { ini_file } from "xray16";
-
+import { IniFile } from "@/engine/lib/types";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 /**
  * Mocked creation of ini file.
  */
-export function mockCreateIniFile(content: string): ini_file {
+export function mockCreateIniFile(content: string): IniFile {
   return mockIniFile("*****", JSON.parse(content));
 }

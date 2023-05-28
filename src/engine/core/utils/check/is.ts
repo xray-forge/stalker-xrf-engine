@@ -15,7 +15,7 @@ import {
   Optional,
   ServerArtefactItemObject,
   ServerHumanObject,
-  ServerMonsterObject,
+  ServerMonsterAbstractObject,
   ServerObject,
   TClassId,
   TNumberId,
@@ -32,7 +32,7 @@ export function isCseAlifeObject(object: AnyGameObject): object is ServerObject 
 /**
  * todo;
  */
-export function isMonster(object: AnyGameObject): object is ServerMonsterObject {
+export function isMonster(object: AnyGameObject): object is ServerMonsterAbstractObject {
   return monsterClassIds[object.clsid()] === true;
 }
 

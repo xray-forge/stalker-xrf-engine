@@ -30,7 +30,7 @@ import { food } from "@/engine/lib/constants/items/food";
 import { helmets, THelmet } from "@/engine/lib/constants/items/helmets";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits, TOutfit } from "@/engine/lib/constants/items/outfits";
-import { quest_items } from "@/engine/lib/constants/items/quest_items";
+import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { treasures } from "@/engine/lib/constants/treasures";
 import {
@@ -87,9 +87,9 @@ extern(
     const actor: ClientObject = registry.actor;
 
     return (
-      actor.object(quest_items.jup_a9_conservation_info) !== null &&
-      actor.object(quest_items.jup_a9_power_info) !== null &&
-      actor.object(quest_items.jup_a9_way_info) !== null
+      actor.object(questItems.jup_a9_conservation_info) !== null &&
+      actor.object(questItems.jup_a9_power_info) !== null &&
+      actor.object(questItems.jup_a9_way_info) !== null
     );
   }
 );
@@ -103,13 +103,13 @@ extern(
     const actor: ClientObject = registry.actor;
 
     return (
-      actor.object(quest_items.jup_a9_delivery_info) !== null ||
-      actor.object(quest_items.jup_a9_evacuation_info) !== null ||
-      actor.object(quest_items.jup_a9_losses_info) !== null ||
-      actor.object(quest_items.jup_a9_power_info) !== null ||
-      actor.object(quest_items.jup_a9_conservation_info) !== null ||
-      actor.object(quest_items.jup_a9_way_info) !== null ||
-      actor.object(quest_items.jup_a9_meeting_info) !== null
+      actor.object(questItems.jup_a9_delivery_info) !== null ||
+      actor.object(questItems.jup_a9_evacuation_info) !== null ||
+      actor.object(questItems.jup_a9_losses_info) !== null ||
+      actor.object(questItems.jup_a9_power_info) !== null ||
+      actor.object(questItems.jup_a9_conservation_info) !== null ||
+      actor.object(questItems.jup_a9_way_info) !== null ||
+      actor.object(questItems.jup_a9_meeting_info) !== null
     );
   }
 );
@@ -123,9 +123,9 @@ extern(
     const actor: ClientObject = registry.actor;
 
     return (
-      actor.object(quest_items.jup_a9_conservation_info) !== null ||
-      actor.object(quest_items.jup_a9_power_info) !== null ||
-      actor.object(quest_items.jup_a9_way_info) !== null
+      actor.object(questItems.jup_a9_conservation_info) !== null ||
+      actor.object(questItems.jup_a9_power_info) !== null ||
+      actor.object(questItems.jup_a9_way_info) !== null
     );
   }
 );
@@ -139,10 +139,10 @@ extern(
     const actor: ClientObject = registry.actor;
 
     return (
-      actor.object(quest_items.jup_a9_delivery_info) !== null ||
-      actor.object(quest_items.jup_a9_evacuation_info) !== null ||
-      actor.object(quest_items.jup_a9_losses_info) !== null ||
-      actor.object(quest_items.jup_a9_meeting_info) !== null
+      actor.object(questItems.jup_a9_delivery_info) !== null ||
+      actor.object(questItems.jup_a9_evacuation_info) !== null ||
+      actor.object(questItems.jup_a9_losses_info) !== null ||
+      actor.object(questItems.jup_a9_meeting_info) !== null
     );
   }
 );
@@ -156,9 +156,9 @@ extern(
     const actor: ClientObject = registry.actor;
 
     return (
-      actor.object(quest_items.jup_a9_conservation_info) === null ||
-      actor.object(quest_items.jup_a9_power_info) === null ||
-      actor.object(quest_items.jup_a9_way_info) === null
+      actor.object(questItems.jup_a9_conservation_info) === null ||
+      actor.object(questItems.jup_a9_power_info) === null ||
+      actor.object(questItems.jup_a9_way_info) === null
     );
   }
 );
@@ -249,7 +249,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_evacuation_info);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_evacuation_info);
     giveMoneyToActor(750);
     giveInfo(infoPortions.jup_a9_evacuation_info_sold);
   }
@@ -261,7 +261,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_a9_owl_stalker_trader_sell_jup_a9_meeting_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_meeting_info);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_meeting_info);
     giveMoneyToActor(750);
     giveInfo(infoPortions.jup_a9_meeting_info_sold);
   }
@@ -273,7 +273,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_a9_owl_stalker_trader_sell_jup_a9_losses_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_losses_info);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_losses_info);
     giveMoneyToActor(750);
     giveInfo(infoPortions.jup_a9_losses_info_sold);
   }
@@ -285,7 +285,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_delivery_info);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_delivery_info);
     giveMoneyToActor(750);
     giveInfo(infoPortions.jup_a9_delivery_info_sold);
   }
@@ -411,7 +411,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_a9_actor_has_conservation_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(quest_items.jup_a9_conservation_info) !== null;
+    return registry.actor.object(questItems.jup_a9_conservation_info) !== null;
   }
 );
 
@@ -434,7 +434,7 @@ extern(
 extern(
   "dialogs_jupiter.actor_relocate_conservation_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_conservation_info);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_conservation_info);
   }
 );
 
@@ -444,7 +444,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_a9_actor_has_power_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(quest_items.jup_a9_power_info) !== null;
+    return registry.actor.object(questItems.jup_a9_power_info) !== null;
   }
 );
 
@@ -465,7 +465,7 @@ extern(
  * todo;
  */
 extern("dialogs_jupiter.actor_relocate_power_info", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_power_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_power_info);
 });
 
 /**
@@ -474,7 +474,7 @@ extern("dialogs_jupiter.actor_relocate_power_info", (firstSpeaker: ClientObject,
 extern(
   "dialogs_jupiter.jup_a9_actor_has_way_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(quest_items.jup_a9_way_info) !== null;
+    return registry.actor.object(questItems.jup_a9_way_info) !== null;
   }
 );
 
@@ -495,7 +495,7 @@ extern(
  * todo;
  */
 extern("dialogs_jupiter.actor_relocate_way_info", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_way_info);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_way_info);
 });
 
 /**
@@ -504,7 +504,7 @@ extern("dialogs_jupiter.actor_relocate_way_info", (firstSpeaker: ClientObject, s
 extern(
   "dialogs_jupiter.jup_a9_actor_has_meeting_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(quest_items.jup_a9_meeting_info) !== null;
+    return registry.actor.object(questItems.jup_a9_meeting_info) !== null;
   }
 );
 
@@ -527,7 +527,7 @@ extern(
 extern(
   "dialogs_jupiter.actor_relocate_meeting_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_meeting_info);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_meeting_info);
     giveInfo(infoPortions.jup_a9_meeting_info_sold);
   }
 );
@@ -538,7 +538,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_a9_actor_has_delivery_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(quest_items.jup_a9_delivery_info) !== null;
+    return registry.actor.object(questItems.jup_a9_delivery_info) !== null;
   }
 );
 
@@ -561,7 +561,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_a9_actor_has_evacuation_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(quest_items.jup_a9_evacuation_info) !== null;
+    return registry.actor.object(questItems.jup_a9_evacuation_info) !== null;
   }
 );
 
@@ -584,7 +584,7 @@ extern(
 extern(
   "dialogs_jupiter.actor_relocate_evacuation_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_evacuation_info);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_evacuation_info);
     giveInfo(infoPortions.jup_a9_evacuation_info_sold);
   }
 );
@@ -595,7 +595,7 @@ extern(
 extern(
   "dialogs_jupiter.actor_relocate_delivery_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_delivery_info);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_delivery_info);
     giveInfo(infoPortions.jup_a9_delivery_info_sold);
   }
 );
@@ -606,7 +606,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_a9_actor_has_losses_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(quest_items.jup_a9_losses_info) !== null;
+    return registry.actor.object(questItems.jup_a9_losses_info) !== null;
   }
 );
 
@@ -629,7 +629,7 @@ extern(
 extern(
   "dialogs_jupiter.actor_relocate_losses_info",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_a9_losses_info);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_losses_info);
     giveInfo(infoPortions.jup_a9_losses_info_sold);
   }
 );
@@ -638,14 +638,14 @@ extern(
  * todo;
  */
 extern("dialogs_jupiter.actor_has_plant", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return registry.actor.object(quest_items.jup_b206_plant) !== null;
+  return registry.actor.object(questItems.jup_b206_plant) !== null;
 });
 
 /**
  * todo;
  */
 extern("dialogs_jupiter.actor_relocate_plant", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b206_plant);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b206_plant);
 });
 
 /**
@@ -1208,7 +1208,7 @@ extern(
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     const actor: ClientObject = registry.actor;
 
-    if (actor.object(quest_items.jup_b9_blackbox) !== null) {
+    if (actor.object(questItems.jup_b9_blackbox) !== null) {
       return true;
     }
 
@@ -1626,11 +1626,11 @@ extern(
   "dialogs_jupiter.jupiter_b200_tech_materials_relocate",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     const need_items = {
-      [quest_items.jup_b200_tech_materials_wire]: true,
-      [quest_items.jup_b200_tech_materials_acetone]: true,
-      [quest_items.jup_b200_tech_materials_textolite]: true,
-      [quest_items.jup_b200_tech_materials_transistor]: true,
-      [quest_items.jup_b200_tech_materials_capacitor]: true,
+      [questItems.jup_b200_tech_materials_wire]: true,
+      [questItems.jup_b200_tech_materials_acetone]: true,
+      [questItems.jup_b200_tech_materials_textolite]: true,
+      [questItems.jup_b200_tech_materials_transistor]: true,
+      [questItems.jup_b200_tech_materials_capacitor]: true,
     } as unknown as LuaTable<string, boolean>;
 
     const actor: ClientObject = registry.actor;
@@ -1783,7 +1783,7 @@ extern("dialogs_jupiter.jupiter_b9_relocate_money", (firstSpeaker: ClientObject,
  * todo;
  */
 extern("dialogs_jupiter.give_jup_b9_blackbox", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b9_blackbox);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b9_blackbox);
 });
 
 /**
@@ -1802,7 +1802,7 @@ extern(
 extern(
   "dialogs_jupiter.if_actor_has_jup_b9_blackbox",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(quest_items.jup_b9_blackbox) !== null;
+    return registry.actor.object(questItems.jup_b9_blackbox) !== null;
   }
 );
 
@@ -1880,8 +1880,8 @@ extern(
 extern(
   "dialogs_jupiter.jup_b46_transfer_duty_founder_pda",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    if (registry.actor.object(quest_items.jup_b46_duty_founder_pda) !== null) {
-      transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b46_duty_founder_pda);
+    if (registry.actor.object(questItems.jup_b46_duty_founder_pda) !== null) {
+      transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b46_duty_founder_pda);
     }
   }
 );
@@ -1892,7 +1892,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_b46_sell_duty_founder_pda_to_owl",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b46_duty_founder_pda);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b46_duty_founder_pda);
     giveMoneyToActor(2500);
     giveInfo(infoPortions.jup_b46_duty_founder_pda_sold);
     giveInfo(infoPortions.jup_b46_duty_founder_pda_to_stalkers);
@@ -1905,7 +1905,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_b46_actor_has_founder_pda",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(quest_items.jup_b46_duty_founder_pda) !== null;
+    return registry.actor.object(questItems.jup_b46_duty_founder_pda) !== null;
   }
 );
 
@@ -2196,7 +2196,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_b47_jupiter_products_info_enabled",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(quest_items.jup_b47_jupiter_products_info) !== null;
+    return registry.actor.object(questItems.jup_b47_jupiter_products_info) !== null;
   }
 );
 
@@ -2206,7 +2206,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_b47_jupiter_products_info_disabled",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(quest_items.jup_b47_jupiter_products_info) === null;
+    return registry.actor.object(questItems.jup_b47_jupiter_products_info) === null;
   }
 );
 
@@ -2216,7 +2216,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_b47_jupiter_products_info_revard",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b47_jupiter_products_info);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b47_jupiter_products_info);
 
     giveMoneyToActor(7000);
     giveItemsToActor(drugs.medkit_scientic, 3);
@@ -2254,7 +2254,7 @@ extern(
  * todo;
  */
 extern("dialogs_jupiter.jup_b47_merc_pda_revard", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b47_merc_pda);
+  transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b47_merc_pda);
   giveMoneyToActor(2500);
 });
 
@@ -2311,7 +2311,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_b47_actor_has_hauss_rifle_docs",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(quest_items.zat_a23_gauss_rifle_docs) !== null;
+    return registry.actor.object(questItems.zat_a23_gauss_rifle_docs) !== null;
   }
 );
 
@@ -2322,7 +2322,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_b10_ufo_memory_give_to_npc",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b10_ufo_memory);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b10_ufo_memory);
   }
 );
 
@@ -2332,7 +2332,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_b10_ufo_memory_give_to_actor",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return firstSpeaker.object(quest_items.jup_b10_ufo_memory) !== null;
+    return firstSpeaker.object(questItems.jup_b10_ufo_memory) !== null;
   }
 );
 
@@ -2342,7 +2342,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_b10_ufo_memory_2_give_to_actor",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b10_ufo_memory_2);
+    transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b10_ufo_memory_2);
   }
 );
 
@@ -2418,7 +2418,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_b10_actor_has_ufo_memory",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(quest_items.jup_b10_ufo_memory) !== null;
+    return registry.actor.object(questItems.jup_b10_ufo_memory) !== null;
   }
 );
 
@@ -2458,7 +2458,7 @@ extern(
 extern(
   "dialogs_jupiter.pri_a15_sokolov_actor_has_note",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(quest_items.jup_b205_sokolov_note) !== null;
+    return registry.actor.object(questItems.jup_b205_sokolov_note) !== null;
   }
 );
 
@@ -2481,7 +2481,7 @@ extern(
 extern(
   "dialogs_jupiter.pri_a15_sokolov_actor_give_note",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), quest_items.jup_b205_sokolov_note);
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b205_sokolov_note);
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_army);
   }
 );

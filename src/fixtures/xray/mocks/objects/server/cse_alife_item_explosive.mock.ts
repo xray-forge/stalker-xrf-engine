@@ -1,5 +1,4 @@
-import { cse_alife_item_ammo, cse_alife_item_explosive } from "xray16";
-
+import { ServerItemAmmoObject } from "@/engine/lib/types";
 import { MockAlifeItem, mockServerAlifeItem } from "@/fixtures/xray/mocks/objects/server/cse_alife_item.mock";
 
 /**
@@ -10,6 +9,6 @@ export class MockAlifeItemExplosive extends MockAlifeItem {}
 /**
  * todo;
  */
-export function mockServerAlifeItemExplosive(base: Partial<cse_alife_item_ammo> = {}): cse_alife_item_explosive {
-  return { ...mockServerAlifeItem(base) } as unknown as cse_alife_item_explosive;
+export function mockServerAlifeItemExplosive(base: Partial<ServerItemAmmoObject> = {}): ServerItemAmmoObject {
+  return { ...mockServerAlifeItem(base) } as unknown as ServerItemAmmoObject;
 }

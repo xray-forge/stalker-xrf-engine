@@ -4,6 +4,7 @@ import {
   alife_simulator,
   CALifeSmartTerrainTask,
   CCar,
+  CConsole,
   CGameTask,
   color,
   cover_point,
@@ -16,12 +17,37 @@ import {
   cse_abstract,
   cse_alife_creature_abstract,
   cse_alife_creature_actor,
+  cse_alife_dynamic_object,
+  cse_alife_dynamic_object_visual,
+  cse_alife_helicopter,
   cse_alife_human_abstract,
+  cse_alife_inventory_box,
+  cse_alife_item,
+  cse_alife_item_ammo,
   cse_alife_item_artefact,
+  cse_alife_item_custom_outfit,
+  cse_alife_item_detector,
+  cse_alife_item_grenade,
+  cse_alife_item_helmet,
+  cse_alife_item_pda,
+  cse_alife_item_torch,
+  cse_alife_item_weapon,
+  cse_alife_item_weapon_auto_shotgun,
+  cse_alife_item_weapon_magazined,
+  cse_alife_item_weapon_magazined_w_gl,
+  cse_alife_item_weapon_shotgun,
+  cse_alife_level_changer,
   cse_alife_monster_abstract,
+  cse_alife_monster_base,
   cse_alife_object,
+  cse_alife_object_hanging_lamp,
   cse_alife_object_physic,
   cse_alife_online_offline_group,
+  cse_alife_space_restrictor,
+  cse_anomalous_zone,
+  cse_smart_cover,
+  cse_torrid_zone,
+  cse_zone_visual,
   CTime,
   CUIGameCustom,
   CZoneCampfire,
@@ -36,6 +62,7 @@ import {
   ini_file,
   net_packet,
   noise,
+  object_factory,
   particles_object,
   patrol,
   physics_element,
@@ -45,10 +72,14 @@ import {
   property_evaluator,
   property_storage,
   reader,
+  render_device,
   sound_object,
   TXR_animation,
   TXR_animation_key,
+  TXR_bloodsucker_visibility_state,
+  TXR_callback,
   TXR_class_id,
+  TXR_class_key,
   TXR_danger_object,
   TXR_entity_action,
   TXR_look,
@@ -75,6 +106,7 @@ export type AnyGameObject = game_object | cse_alife_object;
 export type Car = CCar;
 export type ClientObject = game_object;
 export type Color = color;
+export type Console = CConsole;
 export type CoverPoint = cover_point;
 export type DangerObject = danger_object;
 export type EffectorParams = effector_params;
@@ -90,6 +122,7 @@ export type MonsterBodyStateKey = TXR_MonsterBodyStateKey;
 export type NetPacket = net_packet;
 export type NetProcessor = TXR_net_processor;
 export type Noise = noise;
+export type ObjectFactory = object_factory;
 export type ParticlesObject = particles_object;
 export type Patrol = patrol;
 export type Phrase = CPhrase;
@@ -103,20 +136,50 @@ export type ProfileTimer = profile_timer;
 export type PropertyEvaluator = property_evaluator;
 export type PropertyStorage = property_storage;
 export type Reader = reader;
+export type RenderDevice = render_device;
 export type SavedGameWrapper = CSavedGameWrapper;
 export type ServerAbstractObject = cse_abstract;
 export type ServerActorObject = cse_alife_creature_actor;
+export type ServerAnomalousZoneObject = cse_anomalous_zone;
 export type ServerArtefactItemObject = cse_alife_item_artefact;
 export type ServerCreatureObject = cse_alife_creature_abstract;
+export type ServerDynamicObject = cse_alife_dynamic_object;
+export type ServerDynamicVisualObject = cse_alife_dynamic_object_visual;
 export type ServerGroupObject = cse_alife_online_offline_group;
+export type ServerHangingLampObject = cse_alife_object_hanging_lamp;
+export type ServerHelicopterObject = cse_alife_helicopter;
 export type ServerHumanObject = cse_alife_human_abstract;
-export type ServerMonsterObject = cse_alife_monster_abstract;
+export type ServerInventoryBox = cse_alife_inventory_box;
+export type ServerItemAmmoObject = cse_alife_item_ammo;
+export type ServerItemArtefactObject = cse_alife_item_artefact;
+export type ServerItemDetectorObject = cse_alife_item_detector;
+export type ServerItemGrenadeObject = cse_alife_item_grenade;
+export type ServerItemHelmetObject = cse_alife_item_helmet;
+export type ServerItemObject = cse_alife_item;
+export type ServerItemOutfitObject = cse_alife_item_custom_outfit;
+export type ServerItemPdaObject = cse_alife_item_pda;
+export type ServerItemTorchObject = cse_alife_item_torch;
+export type ServerLevelChangerObject = cse_alife_level_changer;
+export type ServerMonsterAbstractObject = cse_alife_monster_abstract;
+export type ServerMonsterBaseObject = cse_alife_monster_base;
 export type ServerObject = cse_alife_object;
 export type ServerPhysicObject = cse_alife_object_physic;
+export type ServerSmartCoverObject = cse_smart_cover;
+export type ServerSpaceRestrictorObject = cse_alife_space_restrictor;
+export type ServerTorridZoneObject = cse_torrid_zone;
+export type ServerWeaponAutoShotgunObject = cse_alife_item_weapon_auto_shotgun;
+export type ServerWeaponMagazinedObject = cse_alife_item_weapon_magazined;
+export type ServerWeaponMagazinedWGLObject = cse_alife_item_weapon_magazined_w_gl;
+export type ServerWeaponObject = cse_alife_item_weapon;
+export type ServerWeaponShotgunObject = cse_alife_item_weapon_shotgun;
+export type ServerZoneObject = cse_zone_visual;
 export type SoundObject = sound_object;
 export type TAnimationKey = TXR_animation_key;
 export type TAnimationType = TXR_animation;
+export type TBloodsuckerVisibilityState = TXR_bloodsucker_visibility_state;
+export type TCallback = TXR_callback;
 export type TClassId = TXR_class_id;
+export type TClassKey = TXR_class_key;
 export type TDangerType = TXR_danger_object;
 export type TEntityActionType = TXR_entity_action;
 export type TLookType = TXR_look;

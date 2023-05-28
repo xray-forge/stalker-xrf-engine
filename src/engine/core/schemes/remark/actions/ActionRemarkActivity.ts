@@ -106,7 +106,7 @@ export class ActionRemarkActivity extends action_base {
       look_position: null as Optional<Vector>,
     };
 
-    const [target_position, target_id, target_init] = init_target(this.object, this.st.target);
+    const [target_position, target_id, target_init] = initTarget(this.object, this.st.target);
 
     this.st.target_position = target_position;
     this.st.target_id = target_id;
@@ -189,7 +189,7 @@ export class ActionRemarkActivity extends action_base {
 /**
  * todo
  */
-export function init_target(
+export function initTarget(
   obj: ClientObject,
   targetString: string
 ): LuaMultiReturn<[Optional<Vector>, Optional<number>, Optional<boolean>]> {

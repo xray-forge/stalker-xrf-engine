@@ -1,5 +1,4 @@
-import { cse_alife_item_weapon_shotgun } from "xray16";
-
+import { ServerWeaponShotgunObject } from "@/engine/lib/types";
 import {
   MockAlifeItemWeapon,
   mockServerAlifeItemWeapon,
@@ -14,7 +13,7 @@ export class MockAlifeItemWeaponShotgun extends MockAlifeItemWeapon {}
  * todo;
  */
 export function mockServerAlifeItemWeaponShotgun(
-  base: Partial<cse_alife_item_weapon_shotgun> = {}
-): cse_alife_item_weapon_shotgun {
-  return { ...mockServerAlifeItemWeapon(base) } as unknown as cse_alife_item_weapon_shotgun;
+  base: Partial<ServerWeaponShotgunObject> = {}
+): ServerWeaponShotgunObject {
+  return { ...mockServerAlifeItemWeapon(base) } as unknown as ServerWeaponShotgunObject;
 }

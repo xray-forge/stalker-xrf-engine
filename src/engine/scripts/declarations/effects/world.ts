@@ -1,11 +1,11 @@
-import { alife, cse_alife_human_abstract, cse_alife_item_artefact, cse_alife_item_weapon, level, patrol } from "xray16";
+import { alife, level, patrol } from "xray16";
 
 import { getObjectByStoryId, getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
-import { SmartTerrain } from "@/engine/core/objects";
+import { AnomalyZoneBinder, SmartTerrain } from "@/engine/core/objects";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isStalker } from "@/engine/core/utils/check/is";
@@ -13,10 +13,21 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { createVector } from "@/engine/core/utils/vector";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { quest_items } from "@/engine/lib/constants/items/quest_items";
+import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { TRUE } from "@/engine/lib/constants/words";
-import { ClientObject, LuaArray, Optional, TName, TNumberId, TSection, TStringId } from "@/engine/lib/types";
+import {
+  ClientObject,
+  LuaArray,
+  Optional,
+  ServerArtefactItemObject,
+  ServerHumanObject,
+  ServerWeaponObject,
+  TName,
+  TNumberId,
+  TSection,
+  TStringId,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -120,8 +131,8 @@ extern("xr_effects.barrel_explode", (actor: ClientObject, object: ClientObject, 
 extern("xr_effects.set_game_time", (actor: ClientObject, object: ClientObject, params: [string, string]) => {
   logger.info("Set game time:", params[0], params[1]);
 
-  const real_hours = level.get_time_hours();
-  const real_minutes = level.get_time_minutes();
+  const realHours = level.get_time_hours();
+  const realMinutes = level.get_time_minutes();
 
   const hours: number = tonumber(params[0])!;
   let minutes: number = tonumber(params[1])!;
@@ -130,22 +141,22 @@ extern("xr_effects.set_game_time", (actor: ClientObject, object: ClientObject, p
     minutes = 0;
   }
 
-  let hours_to_change: number = hours - real_hours;
+  let hoursToChange: number = hours - realHours;
 
-  if (hours_to_change <= 0) {
-    hours_to_change = hours_to_change + 24;
+  if (hoursToChange <= 0) {
+    hoursToChange = hoursToChange + 24;
   }
 
-  let minutes_to_change = minutes - real_minutes;
+  let minutesToChange = minutes - realMinutes;
 
-  if (minutes_to_change <= 0) {
-    minutes_to_change = minutes_to_change + 60;
-    hours_to_change = hours_to_change - 1;
-  } else if (hours === real_hours) {
-    hours_to_change = hours_to_change - 24;
+  if (minutesToChange <= 0) {
+    minutesToChange = minutesToChange + 60;
+    hoursToChange = hoursToChange - 1;
+  } else if (hours === realHours) {
+    hoursToChange = hoursToChange - 24;
   }
 
-  level.change_game_time(0, hours_to_change, minutes_to_change);
+  level.change_game_time(0, hoursToChange, minutesToChange);
   WeatherManager.getInstance().forceWeatherChange();
   SurgeManager.getInstance().isTimeForwarded = true;
 });
@@ -177,7 +188,7 @@ extern(
   "xr_effects.pick_artefact_from_anomaly",
   (
     actor: ClientObject,
-    object: Optional<ClientObject | cse_alife_human_abstract>,
+    object: Optional<ClientObject | ServerHumanObject>,
     params: [Optional<TStringId>, Optional<TName>, TName]
   ): void => {
     logger.info("Pick artefact from anomaly");
@@ -194,7 +205,7 @@ extern(
         abort("Couldn't relocate item to NULL in function 'pick_artefact_from_anomaly!'");
       }
 
-      object = alife().object<cse_alife_human_abstract>(objectId) as cse_alife_human_abstract;
+      object = alife().object(objectId) as ServerHumanObject;
 
       if (object && (!isStalker(object) || !object.alive())) {
         abort("Couldn't relocate item to NULL (dead || ! stalker) in function 'pick_artefact_from_anomaly!'");
@@ -210,7 +221,7 @@ extern(
     }
 
     let artefactId: Optional<TNumberId> = null;
-    let artefactObject: Optional<cse_alife_item_artefact> = null;
+    let artefactObject: Optional<ServerArtefactItemObject> = null;
 
     for (const [k, v] of anomalyZone.artefactWaysByArtefactId) {
       if (alife().object(tonumber(k)!) && artefactSection === alife().object(tonumber(k)!)!.section_name()) {
@@ -231,7 +242,7 @@ extern(
       return;
     }
 
-    anomalyZone.onArtefactTaken(artefactObject as cse_alife_item_artefact);
+    anomalyZone.onArtefactTaken(artefactObject as ServerArtefactItemObject);
 
     alife().release(artefactObject!, true);
     spawnItemsForObject(object as ClientObject, artefactSection);
@@ -242,13 +253,13 @@ extern(
  * todo
  */
 extern("xr_effects.anomaly_turn_off", (actor: ClientObject, object: ClientObject, p: [string]): void => {
-  const anomal_zone = registry.anomalyZones.get(p[0]);
+  const anomalZone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(p[0]);
 
-  if (anomal_zone === null) {
+  if (anomalZone === null) {
     abort("No such anomal zone in function 'anomaly_turn_off!'");
   }
 
-  anomal_zone.turn_off();
+  anomalZone.turn_off();
 });
 
 /**
@@ -257,16 +268,16 @@ extern("xr_effects.anomaly_turn_off", (actor: ClientObject, object: ClientObject
 extern(
   "xr_effects.anomaly_turn_on",
   (actor: ClientObject, object: ClientObject, p: [string, Optional<string>]): void => {
-    const anomal_zone = registry.anomalyZones.get(p[0]);
+    const anomalyZone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(p[0]);
 
-    if (anomal_zone === null) {
+    if (anomalyZone === null) {
       abort("No such anomal zone in function 'anomaly_turn_on!'");
     }
 
     if (p[1]) {
-      anomal_zone.turn_on(true);
+      anomalyZone.turn_on(true);
     } else {
-      anomal_zone.turn_on(false);
+      anomalyZone.turn_on(false);
     }
   }
 );
@@ -275,7 +286,7 @@ extern(
  * todo;
  */
 extern("xr_effects.turn_off_underpass_lamps", (actor: ClientObject, object: ClientObject): void => {
-  const lamps_table = {
+  const lampsList = {
     ["pas_b400_lamp_start_flash"]: true,
     ["pas_b400_lamp_start_red"]: true,
     ["pas_b400_lamp_elevator_green"]: true,
@@ -300,7 +311,7 @@ extern("xr_effects.turn_off_underpass_lamps", (actor: ClientObject, object: Clie
     ["pas_b400_lamp_way_flash"]: true,
   } as unknown as LuaTable<string, boolean>;
 
-  for (const [k, v] of lamps_table) {
+  for (const [k, v] of lampsList) {
     const object: Optional<ClientObject> = getObjectByStoryId(k);
 
     if (object) {
@@ -504,27 +515,27 @@ extern(
   ): void => {
     logger.info("Create cutscene actor with weapon");
 
-    const spawn_sect: Optional<string> = params[0];
+    const spawnSection: Optional<TSection> = params[0];
 
-    if (spawn_sect === null) {
-      abort("Wrong spawn section for 'spawn_object' function %s. For object %s", tostring(spawn_sect), second.name());
+    if (spawnSection === null) {
+      abort("Wrong spawn section for 'spawn_object' function %s. For object %s", tostring(spawnSection), second.name());
     }
 
-    const path_name = params[1];
+    const pathName: Optional<TName> = params[1];
 
-    if (path_name === null) {
-      abort("Wrong path_name for 'spawn_object' function %s. For object %s", tostring(path_name), second.name());
+    if (pathName === null) {
+      abort("Wrong path_name for 'spawn_object' function %s. For object %s", tostring(pathName), second.name());
     }
 
-    if (!level.patrol_path_exists(path_name)) {
-      abort("Path %s doesnt exist. Function 'spawn_object' for object %s ", tostring(path_name), second.name());
+    if (!level.patrol_path_exists(pathName)) {
+      abort("Path %s doesnt exist. Function 'spawn_object' for object %s ", tostring(pathName), second.name());
     }
 
-    const ptr = new patrol(path_name);
+    const ptr = new patrol(pathName);
     const index = params[2] || 0;
     const yaw = params[3] || 0;
 
-    const npc = alife().create(spawn_sect, ptr.point(index), ptr.level_vertex_id(0), ptr.game_vertex_id(0))!;
+    const npc = alife().create(spawnSection, ptr.point(index), ptr.level_vertex_id(0), ptr.game_vertex_id(0))!;
 
     if (isStalker(npc)) {
       npc.o_torso()!.yaw = (yaw * math.pi) / 180;
@@ -532,51 +543,51 @@ extern(
       npc.angle.y = (yaw * math.pi) / 180;
     }
 
-    const slot_override = params[4] || 0;
+    const slotOverride = params[4] || 0;
 
     const actor: ClientObject = registry.actor;
     let slot: number;
-    let active_item: Optional<ClientObject> = null;
+    let activeItem: Optional<ClientObject> = null;
 
-    if (slot_override === 0) {
+    if (slotOverride === 0) {
       slot = actor.active_slot();
       if (slot !== 2 && slot !== 3) {
         return;
       }
 
-      active_item = actor.active_item();
+      activeItem = actor.active_item();
     } else {
-      if (actor.item_in_slot(slot_override) !== null) {
-        active_item = actor.item_in_slot(slot_override);
+      if (actor.item_in_slot(slotOverride) !== null) {
+        activeItem = actor.item_in_slot(slotOverride);
       } else {
         if (actor.item_in_slot(3) !== null) {
-          active_item = actor.item_in_slot(3);
+          activeItem = actor.item_in_slot(3);
         } else if (actor.item_in_slot(2) !== null) {
-          active_item = actor.item_in_slot(2);
+          activeItem = actor.item_in_slot(2);
         } else {
           return;
         }
       }
     }
 
-    const actor_weapon = alife().object(active_item!.id()) as cse_alife_item_weapon;
-    let section_name = actor_weapon.section_name();
+    const actorWeapon = alife().object(activeItem!.id()) as ServerWeaponObject;
+    let sectionName = actorWeapon.section_name();
 
-    if (section_name === quest_items.pri_a17_gauss_rifle) {
-      section_name = weapons.wpn_gauss;
+    if (sectionName === questItems.pri_a17_gauss_rifle) {
+      sectionName = weapons.wpn_gauss;
     }
 
-    if (active_item) {
-      const new_weapon = alife().create<cse_alife_item_weapon>(
-        section_name,
+    if (activeItem) {
+      const newWeapon: ServerWeaponObject = alife().create<ServerWeaponObject>(
+        sectionName,
         ptr.point(index),
         ptr.level_vertex_id(0),
         ptr.game_vertex_id(0),
         npc.id
       );
 
-      if (section_name !== weapons.wpn_gauss) {
-        new_weapon.clone_addons(actor_weapon);
+      if (sectionName !== weapons.wpn_gauss) {
+        newWeapon.clone_addons(actorWeapon);
       }
     }
   }

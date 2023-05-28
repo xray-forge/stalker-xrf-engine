@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals";
-import { ini_file } from "xray16";
 
-import { AnyObject, TName, TNumberId, TPath, TSection } from "@/engine/lib/types";
+import { AnyObject, IniFile, TName, TNumberId, TPath, TSection } from "@/engine/lib/types";
 import { FILES_MOCKS } from "@/fixtures/xray/mocks/ini/files.mock";
 
 /**
@@ -32,14 +31,14 @@ export class MockIniFile<T extends AnyObject> {
   });
   public section_count = jest.fn((section: TSection) => Object.keys(this.data).length);
   public section_exist = jest.fn((section: TSection) => this.data[section] !== undefined);
-  public r_line = jest.fn((section: TSection, line_number: TNumberId) => {
+  public r_line = jest.fn((section: TSection, lineNumber: TNumberId) => {
     const data = this.data[section];
 
     if (Array.isArray(data)) {
-      return [true, data[line_number], null];
+      return [true, data[lineNumber], null];
     }
 
-    const entry = Object.entries(data)[line_number];
+    const entry = Object.entries(data)[lineNumber];
 
     return [true, entry[0], entry[1]];
   });
@@ -55,14 +54,14 @@ export class MockIniFile<T extends AnyObject> {
     return this.path;
   });
 
-  public asMock(): ini_file {
-    return this as unknown as ini_file;
+  public asMock(): IniFile {
+    return this as unknown as IniFile;
   }
 }
 
 /**
  * todo;
  */
-export function mockIniFile(path: TPath, data?: AnyObject): ini_file {
-  return new MockIniFile(path, data) as unknown as ini_file;
+export function mockIniFile(path: TPath, data?: AnyObject): IniFile {
+  return new MockIniFile(path, data) as unknown as IniFile;
 }

@@ -7,7 +7,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseStringsList, TConditionList } from "@/engine/core/utils/parse";
 import { gameSettingConfig } from "@/engine/lib/configs/GameSettingConfig";
 import { captions, TCaption } from "@/engine/lib/constants/captions/captions";
-import { quest_items } from "@/engine/lib/constants/items/quest_items";
+import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { ClientObject, LuaArray, Optional, TCount, TLabel, TName, TRate } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
@@ -127,7 +127,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
    * todo: Description.
    */
   public isAbleToRepairItem(itemName: TName, itemCondition: number, mechanicName: TName): boolean {
-    if (itemName === quest_items.pri_a17_gauss_rifle) {
+    if (itemName === questItems.pri_a17_gauss_rifle) {
       return false;
     }
 
@@ -143,7 +143,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
     canRepair: boolean,
     mechanicName: TName
   ): TLabel {
-    if (itemName === quest_items.pri_a17_gauss_rifle) {
+    if (itemName === questItems.pri_a17_gauss_rifle) {
       return game.translate_string(captions.st_gauss_cannot_be_repaired);
     }
 

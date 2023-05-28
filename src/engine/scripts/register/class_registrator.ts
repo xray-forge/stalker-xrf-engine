@@ -1,4 +1,4 @@
-import { editor, object_factory, TXR_class_key } from "xray16";
+import { editor } from "xray16";
 
 import {
   Actor,
@@ -39,6 +39,7 @@ import { EClientObjectClass, EConfigClassId } from "@/engine/lib/constants/class
 import { inventory_objects } from "@/engine/lib/constants/items/inventory_objects";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { weapons } from "@/engine/lib/constants/items/weapons";
+import { ObjectFactory, TClassKey } from "@/engine/lib/types";
 
 /**
  * client_object_class - class from C++ code
@@ -53,7 +54,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @noSelf
  * src/xrServerEntities/clsid_game.h
  */
-export function registerGameClasses(factory: object_factory): void {
+export function registerGameClasses(factory: ObjectFactory): void {
   logger.info("Registering game classes bindings");
 
   if (!editor()) {
@@ -87,23 +88,18 @@ export function registerGameClasses(factory: object_factory): void {
   // Devices:
   factory.register(EClientObjectClass.CTorch, ItemTorch.__name, "TORCH_S", misc.device_torch_s);
   factory.register(EClientObjectClass.CScientificDetector, ItemDetector.__name, "DET_SCIE", "detector_scientific_s");
-  factory.register(
-    EClientObjectClass.CEliteDetector,
-    ItemDetector.__name,
-    "DET_ELIT",
-    "detector_elite_s" as TXR_class_key
-  );
+  factory.register(EClientObjectClass.CEliteDetector, ItemDetector.__name, "DET_ELIT", "detector_elite_s" as TClassKey);
   factory.register(
     EClientObjectClass.CAdvancedDetector,
     ItemDetector.__name,
     "DET_ADVA",
-    "detector_advanced_s" as TXR_class_key
+    "detector_advanced_s" as TClassKey
   );
   factory.register(
     EClientObjectClass.CSimpleDetector,
     ItemDetector.__name,
     "DET_SIMP",
-    "detector_simple_s" as TXR_class_key
+    "detector_simple_s" as TClassKey
   );
   factory.register(EClientObjectClass.CScope, Item.__name, "WP_SCOPE", weapons.wpn_scope_s);
   factory.register(EClientObjectClass.CSilencer, Item.__name, "WP_SILEN", weapons.wpn_silencer_s);
