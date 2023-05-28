@@ -26,20 +26,20 @@ import {
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const dist_walk: TDistance = 10;
-const dist_run: TDistance = 2500;
-const walk_min_time: TDuration = 3000;
-const run_min_time: TDuration = 2000;
-const keep_state_min_time: TDuration = 1500;
-const default_wait_time: TDuration = 10000;
+const DIST_WALK: TDistance = 10;
+const DIST_RUN: TDistance = 2500;
+const WALK_MIN_TIME: TDuration = 3000;
+const RUN_MIN_TIME: TDuration = 2000;
+const KEEP_STATE_MIN_TIME: TDuration = 1500;
+const DEFAULT_WAIT_TIME: TDuration = 10000;
 
-const default_state_standing: EStalkerState = EStalkerState.GUARD;
-const default_state_moving1: EStalkerState = EStalkerState.PATROL;
-const default_state_moving2: EStalkerState = EStalkerState.PATROL;
-const default_state_moving3: EStalkerState = EStalkerState.PATROL;
+const DEFAULT_STATE_STANDING: EStalkerState = EStalkerState.GUARD;
+const DEFAULT_STATE_MOVING1: EStalkerState = EStalkerState.PATROL;
+const DEFAULT_STATE_MOVING2: EStalkerState = EStalkerState.PATROL;
+const DEFAULT_STATE_MOVING3: EStalkerState = EStalkerState.PATROL;
 
-const arrival_before_rotation: number = 0;
-const arrival_after_rotation: number = 1;
+const ARRIVAL_BEFORE_ROTATION: number = 0;
+const ARRIVAL_AFTER_ROTATION: number = 1;
 
 enum ECurrentState {
   NONE = 0,
@@ -57,35 +57,35 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public static chooseLookPoint(
-    patrol_look: Patrol,
-    path_look_info: LuaArray<IWaypointData>,
-    search_for: Flags32
+    patrolLook: Patrol,
+    pathLookInfo: LuaArray<IWaypointData>,
+    searchFor: Flags32
   ): LuaMultiReturn<[Optional<number>, number]> {
-    let this_val;
-    let pt_chosen_idx: Optional<TIndex> = null;
+    let patrolChosenIdx: Optional<TIndex> = null;
 
-    let pts_found_total_weight = 0;
-    let num_equal_pts = 0;
+    let ptsFoundTotalWeight = 0;
+    let numEqualPts = 0;
 
-    for (const lookIndex of $range(0, patrol_look.count() - 1)) {
-      this_val = path_look_info.get(lookIndex).flags;
-      if (this_val.equal(search_for)) {
-        num_equal_pts = num_equal_pts + 1;
+    for (const lookIndex of $range(0, patrolLook.count() - 1)) {
+      const thisVal = pathLookInfo.get(lookIndex).flags;
 
-        const probabilityRaw = path_look_info.get(lookIndex)["p"];
+      if (thisVal.equal(searchFor)) {
+        numEqualPts = numEqualPts + 1;
+
+        const probabilityRaw = pathLookInfo.get(lookIndex)["p"];
         const pointLookWeight: number = probabilityRaw === null ? 100 : (tonumber(probabilityRaw) as number);
 
-        pts_found_total_weight = pts_found_total_weight + pointLookWeight;
+        ptsFoundTotalWeight = ptsFoundTotalWeight + pointLookWeight;
 
-        const r = math.random(1, pts_found_total_weight);
+        const r = math.random(1, ptsFoundTotalWeight);
 
         if (r <= pointLookWeight) {
-          pt_chosen_idx = lookIndex;
+          patrolChosenIdx = lookIndex;
         }
       }
     }
 
-    return $multi(pt_chosen_idx, num_equal_pts);
+    return $multi(patrolChosenIdx, numEqualPts);
   }
 
   public readonly object: ClientObject;
@@ -94,40 +94,40 @@ export class StalkerMoveManager {
   public currentStateMoving!: EStalkerState;
   public currentStateStanding!: EStalkerState;
 
-  public pt_wait_time: Optional<number> = null;
-  public suggested_state!: unknown;
-  public syn_signal!: Optional<string>;
-  public syn_signal_set_tm!: number;
-  public use_default_sound!: boolean;
-  public last_look_index!: Optional<number>;
+  public ptWaitTime: Optional<TDuration> = null;
+  public suggestedState!: unknown;
+  public synSignal!: Optional<string>;
+  public synSignalSetTm!: number;
+  public useDefaultSound!: boolean;
+  public lastLookIndex!: Optional<TIndex>;
 
-  public patrol_walk: Optional<Patrol> = null;
-  public path_walk: Optional<string> = null;
-  public patrol_look: Optional<Patrol> = null;
-  public path_look: Optional<string> = null;
-  public path_look_info: Optional<LuaTable<number, IWaypointData>> = null;
-  public path_walk_info!: LuaTable<number, IWaypointData>;
+  public patrolWalk: Optional<Patrol> = null;
+  public pathWalk: Optional<string> = null;
+  public patrolLook: Optional<Patrol> = null;
+  public pathLook: Optional<string> = null;
+  public pathLookInfo: Optional<LuaTable<number, IWaypointData>> = null;
+  public pathWalkInfo!: LuaTable<number, IWaypointData>;
 
-  public no_validation: Optional<boolean> = null;
+  public noValidation: Optional<boolean> = null;
   public isOnTerminalWaypoint: Optional<boolean> = null;
-  public current_point_init_time: Optional<number> = null;
-  public current_point_index: Optional<TIndex> = null;
-  public can_use_get_current_point_index: Optional<boolean> = null;
+  public currentPointInitTime: Optional<number> = null;
+  public currentPointIndex: Optional<TIndex> = null;
+  public canUseGetCurrentPointIndex: Optional<boolean> = null;
 
   public team: Optional<string> = null;
 
   public lastIndex: Optional<TIndex> = null;
 
-  public keep_state_until!: number;
-  public walk_until!: number;
-  public run_until!: number;
-  public retval_after_rotation: Optional<number> = null;
+  public keepStateUntil!: number;
+  public walkUntil!: number;
+  public runUntil!: number;
+  public retvalAfterRotation: Optional<number> = null;
 
-  public default_state_standing!: TConditionList;
-  public default_state_moving1!: TConditionList;
-  public default_state_moving2!: TConditionList;
-  public default_state_moving3!: TConditionList;
-  public move_cb_info: Optional<{ obj: AnyObject; func: AnyCallable }> = null;
+  public defaultStateStanding!: TConditionList;
+  public defaultStateMoving1!: TConditionList;
+  public defaultStateMoving2!: TConditionList;
+  public defaultStateMoving3!: TConditionList;
+  public moveCbInfo: Optional<{ obj: AnyObject; func: AnyCallable }> = null;
 
   /**
    * todo: Description.
@@ -140,7 +140,7 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public initialize(): StalkerMoveManager {
-    this.object.set_callback(callback.patrol_path_in_point, this.waypoint_callback, this as any);
+    this.object.set_callback(callback.patrol_path_in_point, this.onWaypoint, this as any);
 
     return this;
   }
@@ -154,29 +154,29 @@ export class StalkerMoveManager {
     lookPath: Optional<string>,
     lookPathInfo: Optional<LuaArray<IWaypointData>>,
     team: Optional<string>,
-    suggested_state: Optional<any>,
-    move_cb_info: Optional<{ obj: AnyObject; func: AnyCallable }>,
-    no_validation: Optional<boolean>,
+    suggestedState: Optional<any>,
+    moveCbInfo: Optional<{ obj: AnyObject; func: AnyCallable }>,
+    noValidation: Optional<boolean>,
     fplaceholder: Optional<any>,
-    use_default_sound: Optional<boolean>
+    useDefaultSound: Optional<boolean>
   ): void {
-    this.pt_wait_time = default_wait_time;
-    this.suggested_state = suggested_state;
+    this.ptWaitTime = DEFAULT_WAIT_TIME;
+    this.suggestedState = suggestedState;
 
-    const def_state_standing = suggested_state?.standing ? suggested_state.standing : default_state_standing;
-    const def_state_moving1 = suggested_state?.moving ? suggested_state.moving : default_state_moving1;
-    const def_state_moving2 = suggested_state?.moving ? suggested_state.moving : default_state_moving2;
-    const def_state_moving3 = suggested_state?.moving ? suggested_state.moving : default_state_moving3;
+    const defStateStanding = suggestedState?.standing ? suggestedState.standing : DEFAULT_STATE_STANDING;
+    const defStateMoving1 = suggestedState?.moving ? suggestedState.moving : DEFAULT_STATE_MOVING1;
+    const defStateMoving2 = suggestedState?.moving ? suggestedState.moving : DEFAULT_STATE_MOVING2;
+    const defStateMoving3 = suggestedState?.moving ? suggestedState.moving : DEFAULT_STATE_MOVING3;
 
-    this.default_state_standing = parseConditionsList(def_state_standing);
-    this.default_state_moving1 = parseConditionsList(def_state_moving1);
-    this.default_state_moving2 = parseConditionsList(def_state_moving2);
-    this.default_state_moving3 = parseConditionsList(def_state_moving3);
+    this.defaultStateStanding = parseConditionsList(defStateStanding);
+    this.defaultStateMoving1 = parseConditionsList(defStateMoving1);
+    this.defaultStateMoving2 = parseConditionsList(defStateMoving2);
+    this.defaultStateMoving3 = parseConditionsList(defStateMoving3);
 
-    this.syn_signal_set_tm = time_global() + 1000;
-    this.syn_signal = null;
+    this.synSignalSetTm = time_global() + 1000;
+    this.synSignal = null;
 
-    this.move_cb_info = move_cb_info;
+    this.moveCbInfo = moveCbInfo;
 
     if (team !== this.team) {
       this.team = team;
@@ -193,12 +193,12 @@ export class StalkerMoveManager {
       }
     }
 
-    if (this.path_walk !== walkPath || this.path_look !== lookPath) {
-      this.no_validation = no_validation;
+    if (this.pathWalk !== walkPath || this.pathLook !== lookPath) {
+      this.noValidation = noValidation;
 
-      this.path_walk = walkPath;
-      this.patrol_walk = new patrol(walkPath);
-      if (!this.patrol_walk) {
+      this.pathWalk = walkPath;
+      this.patrolWalk = new patrol(walkPath);
+      if (!this.patrolWalk) {
         abort("object '%s': unable to find path_walk '%s' on the map", this.object.name(), walkPath);
       }
 
@@ -210,7 +210,7 @@ export class StalkerMoveManager {
         );
       }
 
-      this.path_walk_info = walkPathInfo!;
+      this.pathWalkInfo = walkPathInfo!;
 
       if (lookPath !== null) {
         if (!lookPathInfo) {
@@ -221,42 +221,38 @@ export class StalkerMoveManager {
           );
         }
 
-        this.patrol_look = new patrol(lookPath);
-        if (!this.patrol_look) {
+        this.patrolLook = new patrol(lookPath);
+        if (!this.patrolLook) {
           abort("object '%s': unable to find path_look '%s' on the map", this.object.name(), lookPath);
         }
       } else {
-        this.patrol_look = null;
+        this.patrolLook = null;
       }
 
-      this.path_look = lookPath;
-      this.path_look_info = lookPathInfo;
+      this.pathLook = lookPath;
+      this.pathLookInfo = lookPathInfo;
 
       this.isOnTerminalWaypoint = false;
 
       this.currentStateStanding = pickSectionFromCondList(
         registry.actor,
         this.object,
-        this.default_state_standing as any
+        this.defaultStateStanding as any
       )!;
-      this.currentStateMoving = pickSectionFromCondList(
-        registry.actor,
-        this.object,
-        this.default_state_moving1 as any
-      )!;
+      this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving1 as any)!;
 
-      this.retval_after_rotation = null;
+      this.retvalAfterRotation = null;
 
-      this.can_use_get_current_point_index = false;
-      this.current_point_index = null;
-      this.walk_until = time_global() + walk_min_time;
-      this.run_until = time_global() + walk_min_time + run_min_time;
-      this.keep_state_until = time_global();
+      this.canUseGetCurrentPointIndex = false;
+      this.currentPointIndex = null;
+      this.walkUntil = time_global() + WALK_MIN_TIME;
+      this.runUntil = time_global() + WALK_MIN_TIME + RUN_MIN_TIME;
+      this.keepStateUntil = time_global();
 
       this.lastIndex = null;
-      this.last_look_index = null;
+      this.lastLookIndex = null;
 
-      this.use_default_sound = use_default_sound!;
+      this.useDefaultSound = useDefaultSound!;
 
       this.object.patrol_path_make_inactual();
     }
@@ -275,39 +271,39 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public update(): void {
-    if (this.syn_signal && time_global() >= this.syn_signal_set_tm) {
+    if (this.synSignal && time_global() >= this.synSignalSetTm) {
       if (this.isSynchronized()) {
-        this.setActiveSchemeSignal(this.syn_signal);
-        this.syn_signal = null;
+        this.setActiveSchemeSignal(this.synSignal);
+        this.synSignal = null;
       }
     }
 
-    if (this.can_use_get_current_point_index && !this.isArrivedToFirstWaypoint()) {
+    if (this.canUseGetCurrentPointIndex && !this.isArrivedToFirstWaypoint()) {
       const t = time_global();
 
-      if (t >= this.keep_state_until) {
-        this.keep_state_until = t + keep_state_min_time;
+      if (t >= this.keepStateUntil) {
+        this.keepStateUntil = t + KEEP_STATE_MIN_TIME;
 
-        const currentPointIndex: TIndex = this.current_point_index!;
-        const dist = this.object.position().distance_to(this.patrol_walk!.point(currentPointIndex));
+        const currentPointIndex: TIndex = this.currentPointIndex!;
+        const dist = this.object.position().distance_to(this.patrolWalk!.point(currentPointIndex));
 
-        if (dist <= dist_walk || t < this.walk_until) {
+        if (dist <= DIST_WALK || t < this.walkUntil) {
           this.currentStateMoving = pickSectionFromCondList(
             registry.actor,
             this.object,
-            this.default_state_moving1 as any
+            this.defaultStateMoving1 as any
           )!;
-        } else if (dist <= dist_run || t < this.run_until) {
+        } else if (dist <= DIST_RUN || t < this.runUntil) {
           this.currentStateMoving = pickSectionFromCondList(
             registry.actor,
             this.object,
-            this.default_state_moving2 as any
+            this.defaultStateMoving2 as any
           )!;
         } else {
           this.currentStateMoving = pickSectionFromCondList(
             registry.actor,
             this.object,
-            this.default_state_moving3 as any
+            this.defaultStateMoving3 as any
           )!;
         }
 
@@ -340,7 +336,7 @@ export class StalkerMoveManager {
       this.object,
       this.currentStateStanding,
       { context: this, callback: this.onAnimationUpdate, turnEndCallback: this.onAnimationTurnEnd },
-      this.pt_wait_time,
+      this.ptWaitTime,
       { lookPosition: lookPosition, lookObject: null },
       null
     );
@@ -364,11 +360,11 @@ export class StalkerMoveManager {
     this.object.set_path_type(EClientObjectPath.PATROL_PATH);
     this.object.set_detail_path_type(move.line);
 
-    if (this.current_point_index) {
-      this.object.set_start_point(this.current_point_index);
-      this.object.set_patrol_path(this.path_walk!, patrol.next, patrol.continue, true);
+    if (this.currentPointIndex) {
+      this.object.set_start_point(this.currentPointIndex);
+      this.object.set_patrol_path(this.pathWalk!, patrol.next, patrol.continue, true);
     } else {
-      this.object.set_patrol_path(this.path_walk!, patrol.nearest, patrol.continue, true);
+      this.object.set_patrol_path(this.pathWalk!, patrol.nearest, patrol.continue, true);
     }
 
     this.state = ECurrentState.MOVING;
@@ -376,7 +372,7 @@ export class StalkerMoveManager {
     const [isTerminalPoint, index] = this.isStandingOnTerminalWaypoint();
 
     if (isTerminalPoint) {
-      this.waypoint_callback(this.object, null, index);
+      this.onWaypoint(this.object, null, index);
     } else {
       this.updateMovementState();
     }
@@ -386,8 +382,8 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public isStandingOnTerminalWaypoint(): LuaMultiReturn<[boolean, Optional<TIndex>]> {
-    for (const idx of $range(0, this.patrol_walk!.count() - 1)) {
-      if (isStalkerAtWaypoint(this.object, this.patrol_walk!, idx) && this.patrol_walk!.terminal(idx)) {
+    for (const idx of $range(0, this.patrolWalk!.count() - 1)) {
+      if (isStalkerAtWaypoint(this.object, this.patrolWalk!, idx) && this.patrolWalk!.terminal(idx)) {
         return $multi(true, idx);
       }
     }
@@ -437,7 +433,7 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public onAnimationUpdate(): void {
-    const sigtm: Optional<TName> = this.path_look_info!.get(this.last_look_index!)["sigtm"] as Optional<TName>;
+    const sigtm: Optional<TName> = this.pathLookInfo!.get(this.lastLookIndex!)["sigtm"] as Optional<TName>;
 
     if (sigtm) {
       this.setActiveSchemeSignal(sigtm);
@@ -447,36 +443,32 @@ export class StalkerMoveManager {
       return;
     }
 
-    if (this.lastIndex && this.patrol_walk!.terminal(this.lastIndex)) {
-      if (isStalkerAtWaypoint(this.object, this.patrol_walk!, this.lastIndex)) {
-        this.waypoint_callback(this.object, null, this.lastIndex);
+    if (this.lastIndex && this.patrolWalk!.terminal(this.lastIndex)) {
+      if (isStalkerAtWaypoint(this.object, this.patrolWalk!, this.lastIndex)) {
+        this.onWaypoint(this.object, null, this.lastIndex);
 
         return;
       }
 
       this.reset(
-        this.path_walk!,
-        this.path_walk_info,
-        this.path_look!,
-        this.path_look_info,
+        this.pathWalk!,
+        this.pathWalkInfo,
+        this.pathLook!,
+        this.pathLookInfo,
         this.team,
-        this.suggested_state,
-        this.move_cb_info,
-        this.no_validation!,
+        this.suggestedState,
+        this.moveCbInfo,
+        this.noValidation!,
         null,
         null
       );
     } else {
       this.updateMovementState();
 
-      const syn = this.path_look_info!.get(this.last_look_index!)["syn"];
+      const syn = this.pathLookInfo!.get(this.lastLookIndex!)["syn"];
 
       if (syn) {
-        abort(
-          "object '%s': path_walk '%s': syn flag used on non-terminal waypoint",
-          this.object.name(),
-          this.path_walk
-        );
+        abort("object '%s': path_walk '%s': syn flag used on non-terminal waypoint", this.object.name(), this.pathWalk);
       }
     }
   }
@@ -485,20 +477,20 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public onAnimationTurnEnd(): void {
-    const syn = this.path_look_info!.get(this.last_look_index!)["syn"];
+    const syn = this.pathLookInfo!.get(this.lastLookIndex!)["syn"];
 
     if (syn) {
-      this.syn_signal = this.path_look_info!.get(this.last_look_index!)["sig"] as string;
+      this.synSignal = this.pathLookInfo!.get(this.lastLookIndex!)["sig"] as string;
 
-      if (!this.syn_signal) {
-        abort("object '%s': path_look '%s': syn flag uset without sig flag", this.object.name(), this.path_look);
+      if (!this.synSignal) {
+        abort("object '%s': path_look '%s': syn flag uset without sig flag", this.object.name(), this.pathLook);
       }
 
       if (this.team) {
         sync.get(this.team).set(this.object.id(), true);
       }
     } else {
-      const sig = this.path_look_info!.get(this.last_look_index!)["sig"];
+      const sig = this.pathLookInfo!.get(this.lastLookIndex!)["sig"];
 
       if (sig) {
         this.setActiveSchemeSignal(sig);
@@ -507,146 +499,135 @@ export class StalkerMoveManager {
       }
     }
 
-    if (this.retval_after_rotation) {
-      if (!this.move_cb_info) {
+    if (this.retvalAfterRotation) {
+      if (!this.moveCbInfo) {
         abort(
           "object '%s': path_look '%s': ret flag is set, but " +
             "callback function wasn't registered in move_mgr.reset()",
           this.object.name(),
-          this.path_look
+          this.pathLook
         );
       }
 
       setStalkerState(this.object, this.currentStateStanding, null, null, null, null);
 
-      if (!this.move_cb_info) {
+      if (!this.moveCbInfo) {
         abort(
           "object '%s': path_look '%s': ret flag is set, but " +
             "callback function wasn't registered in move_mgr.reset()",
           this.object.name(),
-          this.path_look
+          this.pathLook
         );
       }
 
-      if (
-        this.move_cb_info.func(
-          this.move_cb_info.obj,
-          arrival_after_rotation,
-          this.retval_after_rotation,
-          this.lastIndex
-        )
-      ) {
+      if (this.moveCbInfo.func(this.moveCbInfo.obj, ARRIVAL_AFTER_ROTATION, this.retvalAfterRotation, this.lastIndex)) {
         return;
       }
 
-      this.updateStandingState(this.patrol_look!.point(this.last_look_index!));
+      this.updateStandingState(this.patrolLook!.point(this.lastLookIndex!));
     }
   }
 
   /**
    * todo: Description.
    */
-  public extrapolate_callback(object: ClientObject): void {
-    this.can_use_get_current_point_index = true;
-    this.current_point_init_time = time_global();
-    this.current_point_index = this.object.get_current_point_index();
+  public onExtrapolate(object: ClientObject): void {
+    this.canUseGetCurrentPointIndex = true;
+    this.currentPointInitTime = time_global();
+    this.currentPointIndex = this.object.get_current_point_index();
   }
 
   /**
    * todo: Description.
    */
-  public waypoint_callback(object: ClientObject, actionType: Optional<number>, index: Optional<TIndex>): void {
+  public onWaypoint(object: ClientObject, actionType: Optional<number>, index: Optional<TIndex>): void {
     if (index === -1 || index === null) {
       return;
     }
 
     this.lastIndex = index;
 
-    if (this.patrol_walk!.terminal(index)) {
+    if (this.patrolWalk!.terminal(index)) {
       this.isOnTerminalWaypoint = true;
     }
 
-    const suggested_state_moving = this.path_walk_info.get(index)["a"];
+    const suggestedStateMoving = this.pathWalkInfo.get(index)["a"];
 
-    if (suggested_state_moving) {
-      this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, suggested_state_moving as any)!;
+    if (suggestedStateMoving) {
+      this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, suggestedStateMoving as any)!;
       if (tostring(this.currentStateMoving) === TRUE) {
         abort("!!!!!");
       }
     } else {
-      this.currentStateMoving = pickSectionFromCondList(
-        registry.actor,
-        this.object,
-        this.default_state_moving1 as any
-      )!;
+      this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving1 as any)!;
       if (tostring(this.currentStateMoving) === TRUE) {
         abort("!!!!!");
       }
     }
 
-    const retv = this.path_walk_info.get(index)["ret"];
+    const retv = this.pathWalkInfo.get(index)["ret"];
 
     if (retv) {
-      const retv_num = tonumber(retv);
+      const retvNum = tonumber(retv);
 
-      if (!this.move_cb_info) {
+      if (!this.moveCbInfo) {
         abort(
           "object '%s': path_walk '%s': ret flag is set, but " +
             "callback function wasn't registered in move_mgr:reset()",
           this.object.name(),
-          this.path_walk
+          this.pathWalk
         );
       }
 
-      if (this.move_cb_info.func(this.move_cb_info.obj, arrival_before_rotation, retv_num, index)) {
+      if (this.moveCbInfo.func(this.moveCbInfo.obj, ARRIVAL_BEFORE_ROTATION, retvNum, index)) {
         return;
       }
     }
 
-    const sig = this.path_walk_info.get(index)["sig"];
+    const sig = this.pathWalkInfo.get(index)["sig"];
 
     if (sig) {
       this.setActiveSchemeSignal(sig);
-    } else if (index === this.path_walk_info.length() - 1) {
+    } else if (index === this.pathWalkInfo.length() - 1) {
       this.setActiveSchemeSignal("path_end");
     }
 
-    const stopProbability = this.path_walk_info.get(index)["p"];
+    const stopProbability = this.pathWalkInfo.get(index)["p"];
 
-    if (!this.patrol_look || (stopProbability && tonumber(stopProbability)! < math.random(1, 100))) {
+    if (!this.patrolLook || (stopProbability && tonumber(stopProbability)! < math.random(1, 100))) {
       this.updateMovementState();
 
       return;
     }
 
-    const search_for = this.path_walk_info.get(index).flags;
+    const searchFor: Flags32 = this.pathWalkInfo.get(index).flags;
 
-    if (search_for.get() === 0) {
+    if (searchFor.get() === 0) {
       this.updateMovementState();
 
       return;
     }
 
-    const [pt_chosen_idx, num_equal_pts] = StalkerMoveManager.chooseLookPoint(
-      this.patrol_look,
-      this.path_look_info!,
-      search_for
+    const [ptChosenIdx, numEqualPts] = StalkerMoveManager.chooseLookPoint(
+      this.patrolLook,
+      this.pathLookInfo!,
+      searchFor
     );
 
-    if (pt_chosen_idx) {
-      const suggested_anim_set: Optional<string> = this.path_look_info!.get(pt_chosen_idx)["a"];
+    if (ptChosenIdx) {
+      const suggestedAnimationsSet: Optional<string> = this.pathLookInfo!.get(ptChosenIdx)["a"];
 
       this.currentStateStanding = pickSectionFromCondList(
         registry.actor,
         this.object,
-        suggested_anim_set ? suggested_anim_set : (this.default_state_standing as any)
+        suggestedAnimationsSet ? suggestedAnimationsSet : (this.defaultStateStanding as any)
       )!;
 
-      const suggestedWaitTime = this.path_look_info!.get(pt_chosen_idx)["t"];
+      const suggestedWaitTime = this.pathLookInfo!.get(ptChosenIdx)["t"];
 
       if (suggestedWaitTime) {
         if (suggestedWaitTime === "*") {
-          this.pt_wait_time = null;
+          this.ptWaitTime = null;
         } else {
           const tm: number = tonumber(suggestedWaitTime)!;
 
@@ -655,22 +636,22 @@ export class StalkerMoveManager {
               "object '%s': path_look '%s': flag 't':" +
                 " incorrect time specified (* or number in interval [1000, 45000] is expected)",
               this.object.name(),
-              this.path_look
+              this.pathLook
             );
           }
 
-          this.pt_wait_time = tm;
+          this.ptWaitTime = tm;
         }
       } else {
-        this.pt_wait_time = default_wait_time;
+        this.ptWaitTime = DEFAULT_WAIT_TIME;
       }
 
-      const retv = this.path_look_info!.get(pt_chosen_idx)["ret"];
+      const retv = this.pathLookInfo!.get(ptChosenIdx)["ret"];
 
-      this.retval_after_rotation = retv ? tonumber(retv)! : null;
+      this.retvalAfterRotation = retv ? tonumber(retv)! : null;
 
-      this.last_look_index = pt_chosen_idx;
-      this.updateStandingState(this.patrol_look.point(pt_chosen_idx));
+      this.lastLookIndex = ptChosenIdx;
+      this.updateStandingState(this.patrolLook.point(ptChosenIdx));
 
       this.state = ECurrentState.STANDING;
 
@@ -679,9 +660,9 @@ export class StalkerMoveManager {
       abort(
         "object '%s': path_walk '%s', index.ts %d: cannot find corresponding point(s) on path_look '%s'",
         this.object.name(),
-        tostring(this.path_walk),
+        tostring(this.pathWalk),
         tostring(index),
-        tostring(this.path_look)
+        tostring(this.pathLook)
       );
     }
   }

@@ -412,14 +412,14 @@ export class StalkerAnimationManager {
       states.animationMarker = null;
 
       if (skipMultiAnimationCheck !== true) {
-        let into_table: LuaTable<number, string | LuaTable> = new LuaTable();
+        let intoList: LuaTable<number, string | LuaTable> = new LuaTable();
         const targetAnimations = this.animations.get(states.targetState!);
 
         if (targetAnimations !== null && targetAnimations.into !== null) {
-          into_table = this.getAnimationForSlot(this.getActiveWeaponSlot(), targetAnimations.into as any) as any;
+          intoList = this.getAnimationForSlot(this.getActiveWeaponSlot(), targetAnimations.into as any);
         }
 
-        if (into_table !== null && into_table.length() > states.sequenceId) {
+        if (intoList !== null && intoList.length() > states.sequenceId) {
           states.sequenceId = states.sequenceId + 1;
           this.updateAnimation();
 

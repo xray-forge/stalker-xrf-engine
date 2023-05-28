@@ -489,7 +489,7 @@ export class StalkerBinder extends object_binder {
   public onPatrolExtrapolate(currentPoint: TNumberId): boolean {
     if (this.state.active_section) {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.EXTRAPOLATE);
-      this.state.moveManager!.extrapolate_callback(this.object);
+      this.state.moveManager!.onExtrapolate(this.object);
     }
 
     return new patrol(this.object.patrol()!).flags(currentPoint).get() === 0;
