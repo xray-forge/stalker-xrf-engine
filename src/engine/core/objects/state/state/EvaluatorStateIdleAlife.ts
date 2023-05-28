@@ -48,13 +48,13 @@ export class EvaluatorStateIdleAlife extends property_evaluator {
       const isAlifeIdle: boolean =
         this.stateManager.targetState === EStalkerState.IDLE &&
         // --not this.st.planner.evaluator(this.st.properties["locked"]).evaluate() and
-        !this.stateManager.planner.evaluator(EStateEvaluatorId.weapon_locked).evaluate() &&
-        !this.stateManager.planner.evaluator(EStateEvaluatorId.animstate_locked).evaluate() &&
-        !this.stateManager.planner.evaluator(EStateEvaluatorId.animation_locked).evaluate() &&
-        this.stateManager.planner.evaluator(EStateEvaluatorId.movement).evaluate() &&
-        this.stateManager.planner.evaluator(EStateEvaluatorId.animstate).evaluate() &&
-        this.stateManager.planner.evaluator(EStateEvaluatorId.animation).evaluate() &&
-        this.stateManager.planner.evaluator(EStateEvaluatorId.smartcover).evaluate();
+        !this.stateManager.planner.evaluator(EStateEvaluatorId.WEAPON_LOCKED).evaluate() &&
+        !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED).evaluate() &&
+        !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION_LOCKED).evaluate() &&
+        this.stateManager.planner.evaluator(EStateEvaluatorId.MOVEMENT).evaluate() &&
+        this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE).evaluate() &&
+        this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION).evaluate() &&
+        this.stateManager.planner.evaluator(EStateEvaluatorId.SMARTCOVER).evaluate();
 
       if (isAlifeIdle) {
         this.stateManager.isAlife = true;

@@ -219,8 +219,8 @@ export class StalkerStateManager {
 
     while (
       plannerCurrentActionId !== plannerPreviousActionId &&
-      plannerCurrentActionId !== EStateActionId.end &&
-      plannerCurrentActionId !== EStateActionId.locked
+      plannerCurrentActionId !== EStateActionId.END &&
+      plannerCurrentActionId !== EStateActionId.LOCKED
     ) {
       plannerPreviousActionId = plannerCurrentActionId;
       this.planner.update();
@@ -260,7 +260,7 @@ export class StalkerStateManager {
       return states.get(this.targetState).direction! as TLookType;
     }
 
-    if (!this.planner.evaluator(EStateEvaluatorId.movement_stand).evaluate()) {
+    if (!this.planner.evaluator(EStateEvaluatorId.MOVEMENT_STAND).evaluate()) {
       if (this.lookPosition !== null) {
         return look.direction;
       }

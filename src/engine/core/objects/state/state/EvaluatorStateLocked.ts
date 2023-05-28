@@ -24,7 +24,7 @@ export class EvaluatorStateLocked extends property_evaluator {
   public override evaluate(): boolean {
     return (
       this.stateManager.planner.initialized() &&
-      (this.stateManager.planner.evaluator(EStateEvaluatorId.weapon_locked).evaluate() || this.object.is_body_turning())
+      (this.stateManager.planner.evaluator(EStateEvaluatorId.WEAPON_LOCKED).evaluate() || this.object.is_body_turning())
     );
   }
 }

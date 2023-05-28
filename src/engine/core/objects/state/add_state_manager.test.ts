@@ -241,65 +241,65 @@ describe("add_state_manager util", () => {
 
     expect(targetWorldState).not.toBeNull();
     expect(targetWorldState.properties).toHaveLength(1);
-    expect(targetWorldState.properties[0].condition()).toBe(EStateEvaluatorId.end);
+    expect(targetWorldState.properties[0].condition()).toBe(EStateEvaluatorId.END);
     expect(targetWorldState.properties[0].value()).toBe(true);
 
-    expect(planner.evaluator(EStateEvaluatorId.end) instanceof EvaluatorStateEnd).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.locked) instanceof EvaluatorStateLocked).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.locked_external) instanceof EvaluatorStateLockedExternal).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.weapon) instanceof EvaluatorWeapon).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.weapon_locked) instanceof EvaluatorWeaponLocked).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.weapon_strapped) instanceof EvaluatorWeaponStrapped).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.weapon_strapped_now) instanceof EvaluatorWeaponStrappedNow).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.weapon_unstrapped) instanceof EvaluatorWeaponUnstrapped).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.END) instanceof EvaluatorStateEnd).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.LOCKED) instanceof EvaluatorStateLocked).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.LOCKED_EXTERNAL) instanceof EvaluatorStateLockedExternal).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.WEAPON) instanceof EvaluatorWeapon).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.WEAPON_LOCKED) instanceof EvaluatorWeaponLocked).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.WEAPON_STRAPPED) instanceof EvaluatorWeaponStrapped).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.WEAPON_STRAPPED_NOW) instanceof EvaluatorWeaponStrappedNow).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.WEAPON_UNSTRAPPED) instanceof EvaluatorWeaponUnstrapped).toBeTruthy();
     expect(
-      planner.evaluator(EStateEvaluatorId.weapon_unstrapped_now) instanceof EvaluatorWeaponUnstrappedNow
+      planner.evaluator(EStateEvaluatorId.WEAPON_UNSTRAPPED_NOW) instanceof EvaluatorWeaponUnstrappedNow
     ).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.weapon_none) instanceof EvaluatorWeaponNone).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.weapon_none_now) instanceof EvaluatorWeaponNoneNow).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.weapon_drop) instanceof EvaluatorWeaponDrop).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.weapon_fire) instanceof EvaluatorWeaponFire).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.movement) instanceof EvaluatorMovement).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.movement_walk) instanceof EvaluatorMovementWalk).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.movement_run) instanceof EvaluatorMovementRun).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.movement_stand) instanceof EvaluatorMovementStand).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.movement_stand_now) instanceof EvaluatorMovementStandNow).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.mental) instanceof EvaluatorMental).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.mental_free) instanceof EvaluatorMentalFree).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.mental_free_now) instanceof EvaluatorMentalFreeNow).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.mental_danger) instanceof EvaluatorMentalDanger).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.mental_danger_now) instanceof EvaluatorMentalDangerNow).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.mental_panic) instanceof EvaluatorMentalPanic).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.mental_panic_now) instanceof EvaluatorMentalPanicNow).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.bodystate) instanceof EvaluatorBodyState).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.bodystate_crouch) instanceof EvaluatorBodyStateCrouch).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.bodystate_standing) instanceof EvaluatorBodyStateStanding).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.WEAPON_NONE) instanceof EvaluatorWeaponNone).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.WEAPON_NONE_NOW) instanceof EvaluatorWeaponNoneNow).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.WEAPON_DROP) instanceof EvaluatorWeaponDrop).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.WEAPON_FIRE) instanceof EvaluatorWeaponFire).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MOVEMENT) instanceof EvaluatorMovement).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MOVEMENT_WALK) instanceof EvaluatorMovementWalk).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MOVEMENT_RUN) instanceof EvaluatorMovementRun).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MOVEMENT_STAND) instanceof EvaluatorMovementStand).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MOVEMENT_STAND_NOW) instanceof EvaluatorMovementStandNow).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MENTAL) instanceof EvaluatorMental).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MENTAL_FREE) instanceof EvaluatorMentalFree).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MENTAL_FREE_NOW) instanceof EvaluatorMentalFreeNow).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MENTAL_DANGER) instanceof EvaluatorMentalDanger).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MENTAL_DANGER_NOW) instanceof EvaluatorMentalDangerNow).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MENTAL_PANIC) instanceof EvaluatorMentalPanic).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.MENTAL_PANIC_NOW) instanceof EvaluatorMentalPanicNow).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.BODYSTATE) instanceof EvaluatorBodyState).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.BODYSTATE_CROUCH) instanceof EvaluatorBodyStateCrouch).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.BODYSTATE_STANDING) instanceof EvaluatorBodyStateStanding).toBeTruthy();
     expect(
-      planner.evaluator(EStateEvaluatorId.bodystate_crouch_now) instanceof EvaluatorBodyStateCrouchNow
+      planner.evaluator(EStateEvaluatorId.BODYSTATE_CROUCH_NOW) instanceof EvaluatorBodyStateCrouchNow
     ).toBeTruthy();
     expect(
-      planner.evaluator(EStateEvaluatorId.bodystate_standing_now) instanceof EvaluatorBodyStateStandingNow
+      planner.evaluator(EStateEvaluatorId.BODYSTATE_STANDING_NOW) instanceof EvaluatorBodyStateStandingNow
     ).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.direction) instanceof EvaluatorDirection).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.direction_search) instanceof EvaluatorDirectionSearch).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.DIRECTION) instanceof EvaluatorDirection).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.DIRECTION_SEARCH) instanceof EvaluatorDirectionSearch).toBeTruthy();
 
-    expect(planner.evaluator(EStateEvaluatorId.animstate) instanceof EvaluatorAnimationState).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.ANIMSTATE) instanceof EvaluatorAnimationState).toBeTruthy();
     expect(
-      planner.evaluator(EStateEvaluatorId.animstate_idle_now) instanceof EvaluatorAnimationStateIdleNow
+      planner.evaluator(EStateEvaluatorId.ANIMSTATE_IDLE_NOW) instanceof EvaluatorAnimationStateIdleNow
     ).toBeTruthy();
     expect(
-      planner.evaluator(EStateEvaluatorId.animstate_play_now) instanceof EvaluatorAnimationStatePlayNow
+      planner.evaluator(EStateEvaluatorId.ANIMSTATE_PLAY_NOW) instanceof EvaluatorAnimationStatePlayNow
     ).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.animstate_locked) instanceof EvaluatorAnimationStateLocked).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED) instanceof EvaluatorAnimationStateLocked).toBeTruthy();
 
-    expect(planner.evaluator(EStateEvaluatorId.animation) instanceof EvaluatorAnimation).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.animation_play_now) instanceof EvaluatorAnimationPlayNow).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.animation_none_now) instanceof EvaluatorAnimationNoneNow).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.animation_locked) instanceof EvaluatorAnimationLocked).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.ANIMATION) instanceof EvaluatorAnimation).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.ANIMATION_PLAY_NOW) instanceof EvaluatorAnimationPlayNow).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.ANIMATION_NONE_NOW) instanceof EvaluatorAnimationNoneNow).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.ANIMATION_LOCKED) instanceof EvaluatorAnimationLocked).toBeTruthy();
 
-    expect(planner.evaluator(EStateEvaluatorId.smartcover) instanceof EvaluatorSmartCover).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.smartcover_need) instanceof EvaluatorSmartCoverNeed).toBeTruthy();
-    expect(planner.evaluator(EStateEvaluatorId.in_smartcover) instanceof EvaluatorInSmartCover).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.SMARTCOVER) instanceof EvaluatorSmartCover).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.SMARTCOVER_NEED) instanceof EvaluatorSmartCoverNeed).toBeTruthy();
+    expect(planner.evaluator(EStateEvaluatorId.IN_SMARTCOVER) instanceof EvaluatorInSmartCover).toBeTruthy();
   });
 
   it("should correctly setup state planner weapon actions", () => {
@@ -308,73 +308,73 @@ describe("add_state_manager util", () => {
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
     checkAction(
-      planner.action(EStateActionId.weapon_unstrapp),
+      planner.action(EStateActionId.WEAPON_UNSTRAPP),
       ActionWeaponUnstrap,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.movement, true],
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.mental, true],
-        [EStateEvaluatorId.weapon_unstrapped, true],
-        [EStateEvaluatorId.animstate_idle_now, true],
-        [EStateEvaluatorId.animation_none_now, true],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.WEAPON_UNSTRAPPED, true],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ],
-      [[EStateEvaluatorId.weapon, true]]
+      [[EStateEvaluatorId.WEAPON, true]]
     );
 
     checkAction(
-      planner.action(EStateActionId.weapon_strapp),
+      planner.action(EStateActionId.WEAPON_STRAPP),
       ActionWeaponStrap,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.movement, true],
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.mental, true],
-        [EStateEvaluatorId.weapon_strapped, true],
-        [EStateEvaluatorId.animstate_idle_now, true],
-        [EStateEvaluatorId.animation_none_now, true],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.WEAPON_STRAPPED, true],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ],
-      [[EStateEvaluatorId.weapon, true]]
+      [[EStateEvaluatorId.WEAPON, true]]
     );
 
     checkAction(
-      planner.action(EStateActionId.weapon_none),
+      planner.action(EStateActionId.WEAPON_NONE),
       ActionWeaponNone,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.movement, true],
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.mental, true],
-        [EStateEvaluatorId.weapon_none, true],
-        [EStateEvaluatorId.animation_none_now, true],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.WEAPON_NONE, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ],
-      [[EStateEvaluatorId.weapon, true]]
+      [[EStateEvaluatorId.WEAPON, true]]
     );
 
     checkAction(
-      planner.action(EStateActionId.weapon_drop),
+      planner.action(EStateActionId.WEAPON_DROP),
       ActionWeaponDrop,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.movement, true],
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.mental, true],
-        [EStateEvaluatorId.weapon_drop, true],
-        [EStateEvaluatorId.animation_none_now, true],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.WEAPON_DROP, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ],
-      [[EStateEvaluatorId.weapon, true]]
+      [[EStateEvaluatorId.WEAPON, true]]
     );
   });
 
@@ -384,217 +384,217 @@ describe("add_state_manager util", () => {
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
     checkAction(
-      planner.action(EStateActionId.movement_walk),
+      planner.action(EStateActionId.MOVEMENT_WALK),
       ActionMovementWalk,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.movement, false],
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.mental, true],
-        [EStateEvaluatorId.movement_walk, true],
-        [EStateEvaluatorId.animstate_idle_now, true],
-        [EStateEvaluatorId.animation_none_now, true],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.MOVEMENT, false],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.MOVEMENT_WALK, true],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ],
-      [[EStateEvaluatorId.movement, true]]
+      [[EStateEvaluatorId.MOVEMENT, true]]
     );
 
     checkAction(
-      planner.action(EStateActionId.movement_walk_turn),
+      planner.action(EStateActionId.MOVEMENT_WALK_TURN),
       ActionMovementWalkTurn,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.movement, false],
-        [EStateEvaluatorId.direction, false],
-        [EStateEvaluatorId.direction_search, false],
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.mental, true],
-        [EStateEvaluatorId.movement_walk, true],
-        [EStateEvaluatorId.animstate_idle_now, true],
-        [EStateEvaluatorId.animation_none_now, true],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.MOVEMENT, false],
+        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SEARCH, false],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.MOVEMENT_WALK, true],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ],
       [
-        [EStateEvaluatorId.movement, true],
-        [EStateEvaluatorId.direction, true],
+        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.DIRECTION, true],
       ]
     );
 
     checkAction(
-      planner.action(EStateActionId.movement_walk_search),
+      planner.action(EStateActionId.MOVEMENT_WALK_SEARCH),
       ActionMovementWalkSearch,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.movement, false],
-        [EStateEvaluatorId.direction, false],
-        [EStateEvaluatorId.direction_search, true],
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.mental, true],
-        [EStateEvaluatorId.movement_walk, true],
-        [EStateEvaluatorId.animstate_idle_now, true],
-        [EStateEvaluatorId.animation_none_now, true],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.MOVEMENT, false],
+        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SEARCH, true],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.MOVEMENT_WALK, true],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ],
       [
-        [EStateEvaluatorId.direction, true],
-        [EStateEvaluatorId.movement, true],
+        [EStateEvaluatorId.DIRECTION, true],
+        [EStateEvaluatorId.MOVEMENT, true],
       ]
     );
 
     checkAction(
-      planner.action(EStateActionId.movement_run),
+      planner.action(EStateActionId.MOVEMENT_RUN),
       ActionMovementRun,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.movement, false],
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.mental, true],
-        [EStateEvaluatorId.movement_run, true],
-        [EStateEvaluatorId.animstate_idle_now, true],
-        [EStateEvaluatorId.animation_none_now, true],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.MOVEMENT, false],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.MOVEMENT_RUN, true],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ],
-      [[EStateEvaluatorId.movement, true]]
+      [[EStateEvaluatorId.MOVEMENT, true]]
     );
 
     checkAction(
-      planner.action(EStateActionId.movement_run_turn),
+      planner.action(EStateActionId.MOVEMENT_RUN_TURN),
       ActionMovementRunTurn,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.movement, false],
-        [EStateEvaluatorId.direction, false],
-        [EStateEvaluatorId.direction_search, false],
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.mental, true],
-        [EStateEvaluatorId.movement_run, true],
-        [EStateEvaluatorId.animstate_idle_now, true],
-        [EStateEvaluatorId.animation_none_now, true],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.MOVEMENT, false],
+        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SEARCH, false],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.MOVEMENT_RUN, true],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ],
       [
-        [EStateEvaluatorId.movement, true],
-        [EStateEvaluatorId.direction, true],
+        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.DIRECTION, true],
       ]
     );
 
     checkAction(
-      planner.action(EStateActionId.movement_run_search),
+      planner.action(EStateActionId.MOVEMENT_RUN_SEARCH),
       ActionMovementRunSearch,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.movement, false],
-        [EStateEvaluatorId.direction, false],
-        [EStateEvaluatorId.direction_search, true],
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.mental, true],
-        [EStateEvaluatorId.movement_run, true],
-        [EStateEvaluatorId.animstate_idle_now, true],
-        [EStateEvaluatorId.animation_none_now, true],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.MOVEMENT, false],
+        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SEARCH, true],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.MOVEMENT_RUN, true],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ],
       [
-        [EStateEvaluatorId.movement, true],
-        [EStateEvaluatorId.direction, true],
+        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.DIRECTION, true],
       ]
     );
 
     checkAction(
-      planner.action(EStateActionId.movement_stand),
+      planner.action(EStateActionId.MOVEMENT_STAND),
       ActionMovementStand,
       [
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.movement, false],
-        [EStateEvaluatorId.movement_stand, true],
-        [EStateEvaluatorId.mental, true],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.MOVEMENT, false],
+        [EStateEvaluatorId.MOVEMENT_STAND, true],
+        [EStateEvaluatorId.MENTAL, true],
       ],
-      [[EStateEvaluatorId.movement, true]]
+      [[EStateEvaluatorId.MOVEMENT, true]]
     );
 
     checkAction(
-      planner.action(EStateActionId.movement_stand_turn),
+      planner.action(EStateActionId.MOVEMENT_STAND_TURN),
       ActionMovementStandTurn,
       [
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.movement, false],
-        [EStateEvaluatorId.direction, false],
-        [EStateEvaluatorId.direction_search, false],
-        [EStateEvaluatorId.movement_stand, true],
-        [EStateEvaluatorId.mental, true],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.MOVEMENT, false],
+        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SEARCH, false],
+        [EStateEvaluatorId.MOVEMENT_STAND, true],
+        [EStateEvaluatorId.MENTAL, true],
       ],
       [
-        [EStateEvaluatorId.movement, true],
-        [EStateEvaluatorId.direction, true],
+        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.DIRECTION, true],
       ]
     );
 
     checkAction(
-      planner.action(EStateActionId.movement_stand_search),
+      planner.action(EStateActionId.MOVEMENT_STAND_SEARCH),
       ActionMovementStandSearch,
       [
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.movement, false],
-        [EStateEvaluatorId.direction, false],
-        [EStateEvaluatorId.direction_search, true],
-        [EStateEvaluatorId.movement_stand, true],
-        [EStateEvaluatorId.mental, true],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.MOVEMENT, false],
+        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SEARCH, true],
+        [EStateEvaluatorId.MOVEMENT_STAND, true],
+        [EStateEvaluatorId.MENTAL, true],
       ],
       [
-        [EStateEvaluatorId.movement, true],
-        [EStateEvaluatorId.direction, true],
+        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.DIRECTION, true],
       ]
     );
 
     checkAction(
-      planner.action(EStateActionId.direction_turn),
+      planner.action(EStateActionId.DIRECTION_TURN),
       ActionDirectionTurn,
       [
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.direction, false],
-        [EStateEvaluatorId.direction_search, false],
-        [EStateEvaluatorId.weapon, true],
-        [EStateEvaluatorId.animation_none_now, true],
-        [EStateEvaluatorId.animstate_idle_now, true],
-        [EStateEvaluatorId.movement, true],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SEARCH, false],
+        [EStateEvaluatorId.WEAPON, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
+        [EStateEvaluatorId.MOVEMENT, true],
       ],
-      [[EStateEvaluatorId.direction, true]]
+      [[EStateEvaluatorId.DIRECTION, true]]
     );
 
     checkAction(
-      planner.action(EStateActionId.direction_search),
+      planner.action(EStateActionId.DIRECTION_SEARCH),
       ActionDirectionSearch,
       [
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.direction, false],
-        [EStateEvaluatorId.direction_search, true],
-        [EStateEvaluatorId.weapon, true],
-        [EStateEvaluatorId.animation_none_now, true],
-        [EStateEvaluatorId.animstate_idle_now, true],
-        [EStateEvaluatorId.movement, true],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.DIRECTION, false],
+        [EStateEvaluatorId.DIRECTION_SEARCH, true],
+        [EStateEvaluatorId.WEAPON, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
+        [EStateEvaluatorId.MOVEMENT, true],
       ],
-      [[EStateEvaluatorId.direction, true]]
+      [[EStateEvaluatorId.DIRECTION, true]]
     );
   });
 
@@ -604,47 +604,47 @@ describe("add_state_manager util", () => {
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
     checkAction(
-      planner.action(EStateActionId.mental_free),
+      planner.action(EStateActionId.MENTAL_FREE),
       ActionMentalFree,
       [
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.mental, false],
-        [EStateEvaluatorId.animstate_idle_now, true],
-        [EStateEvaluatorId.animation_none_now, true],
-        [EStateEvaluatorId.mental_free, true],
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.bodystate_standing_now, true],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.MENTAL, false],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
+        [EStateEvaluatorId.MENTAL_FREE, true],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_STANDING_NOW, true],
       ],
-      [[EStateEvaluatorId.mental, true]]
+      [[EStateEvaluatorId.MENTAL, true]]
     );
 
     checkAction(
-      planner.action(EStateActionId.mental_danger),
+      planner.action(EStateActionId.MENTAL_DANGER),
       ActionMentalDanger,
       [
-        [EStateEvaluatorId.mental, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.animstate_idle_now, true],
-        [EStateEvaluatorId.animation_none_now, true],
-        [EStateEvaluatorId.mental_danger, true],
+        [EStateEvaluatorId.MENTAL, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
+        [EStateEvaluatorId.MENTAL_DANGER, true],
       ],
       [
-        [EStateEvaluatorId.mental, true],
-        [EStateEvaluatorId.mental_danger_now, true],
+        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.MENTAL_DANGER_NOW, true],
       ]
     );
 
     checkAction(
-      planner.action(EStateActionId.mental_panic),
+      planner.action(EStateActionId.MENTAL_PANIC),
       ActionMentalPanic,
       [
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.mental, false],
-        [EStateEvaluatorId.animstate_idle_now, true],
-        [EStateEvaluatorId.animation_none_now, true],
-        [EStateEvaluatorId.mental_panic, true],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.MENTAL, false],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
+        [EStateEvaluatorId.MENTAL_PANIC, true],
       ],
-      [[EStateEvaluatorId.mental, true]]
+      [[EStateEvaluatorId.MENTAL, true]]
     );
   });
 
@@ -654,64 +654,64 @@ describe("add_state_manager util", () => {
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
     checkAction(
-      planner.action(EStateActionId.bodystate_crouch),
+      planner.action(EStateActionId.BODYSTATE_CROUCH),
       ActionBodyStateCrouch,
       [
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.bodystate, false],
-        [EStateEvaluatorId.bodystate_crouch_now, false],
-        [EStateEvaluatorId.bodystate_crouch, true],
-        [EStateEvaluatorId.mental_danger_now, true],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.BODYSTATE, false],
+        [EStateEvaluatorId.BODYSTATE_CROUCH_NOW, false],
+        [EStateEvaluatorId.BODYSTATE_CROUCH, true],
+        [EStateEvaluatorId.MENTAL_DANGER_NOW, true],
       ],
-      [[EStateEvaluatorId.bodystate, true]]
+      [[EStateEvaluatorId.BODYSTATE, true]]
     );
 
     checkAction(
-      planner.action(EStateActionId.bodystate_crouch_danger),
+      planner.action(EStateActionId.BODYSTATE_CROUCH_DANGER),
       ActionBodyStateCrouchDanger,
       [
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.bodystate, false],
-        [EStateEvaluatorId.mental, false],
-        [EStateEvaluatorId.bodystate_crouch_now, false],
-        [EStateEvaluatorId.bodystate_crouch, true],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.BODYSTATE, false],
+        [EStateEvaluatorId.MENTAL, false],
+        [EStateEvaluatorId.BODYSTATE_CROUCH_NOW, false],
+        [EStateEvaluatorId.BODYSTATE_CROUCH, true],
       ],
       [
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.mental, true],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.MENTAL, true],
       ]
     );
 
     checkAction(
-      planner.action(EStateActionId.bodystate_standing),
+      planner.action(EStateActionId.BODYSTATE_STANDING),
       ActionBodyStateStanding,
       [
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.bodystate, false],
-        [EStateEvaluatorId.bodystate_standing_now, false],
-        [EStateEvaluatorId.bodystate_standing, true],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.BODYSTATE, false],
+        [EStateEvaluatorId.BODYSTATE_STANDING_NOW, false],
+        [EStateEvaluatorId.BODYSTATE_STANDING, true],
       ],
       [
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.bodystate_standing_now, true],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_STANDING_NOW, true],
       ]
     );
 
     checkAction(
-      planner.action(EStateActionId.bodystate_standing_free),
+      planner.action(EStateActionId.BODYSTATE_STANDING_FREE),
       ActionBodyStateStandingFree,
       [
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.bodystate, false],
-        [EStateEvaluatorId.mental, false],
-        [EStateEvaluatorId.bodystate_standing_now, false],
-        [EStateEvaluatorId.bodystate_standing, true],
-        [EStateEvaluatorId.mental_free, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.BODYSTATE, false],
+        [EStateEvaluatorId.MENTAL, false],
+        [EStateEvaluatorId.BODYSTATE_STANDING_NOW, false],
+        [EStateEvaluatorId.BODYSTATE_STANDING, true],
+        [EStateEvaluatorId.MENTAL_FREE, false],
       ],
       [
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.bodystate_standing_now, true],
-        [EStateEvaluatorId.mental, true],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.BODYSTATE_STANDING_NOW, true],
+        [EStateEvaluatorId.MENTAL, true],
       ]
     );
   });
@@ -722,101 +722,101 @@ describe("add_state_manager util", () => {
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
     checkAction(
-      planner.action(EStateActionId.animstate_start),
+      planner.action(EStateActionId.ANIMSTATE_START),
       ActionAnimationStateStart,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.animstate, false],
-        [EStateEvaluatorId.smartcover, true],
-        [EStateEvaluatorId.animation_none_now, true],
-        [EStateEvaluatorId.direction, true],
-        [EStateEvaluatorId.mental, true],
-        [EStateEvaluatorId.weapon, true],
-        [EStateEvaluatorId.movement, true],
-        [EStateEvaluatorId.animstate_play_now, false],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.ANIMSTATE, false],
+        [EStateEvaluatorId.SMARTCOVER, true],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
+        [EStateEvaluatorId.DIRECTION, true],
+        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.WEAPON, true],
+        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.ANIMSTATE_PLAY_NOW, false],
       ],
-      [[EStateEvaluatorId.animstate, true]]
+      [[EStateEvaluatorId.ANIMSTATE, true]]
     );
 
     checkAction(
-      planner.action(EStateActionId.animstate_stop),
+      planner.action(EStateActionId.ANIMSTATE_STOP),
       ActionAnimationStateStop,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.animation_locked, false],
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.animstate_idle_now, false],
-        [EStateEvaluatorId.animation_play_now, false],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.ANIMATION_LOCKED, false],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, false],
+        [EStateEvaluatorId.ANIMATION_PLAY_NOW, false],
       ],
       [
-        [EStateEvaluatorId.animstate, true],
-        [EStateEvaluatorId.animstate_play_now, false],
-        [EStateEvaluatorId.animstate_idle_now, true],
+        [EStateEvaluatorId.ANIMSTATE, true],
+        [EStateEvaluatorId.ANIMSTATE_PLAY_NOW, false],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
       ]
     );
 
     checkAction(
-      planner.action(EStateActionId.animation_start),
+      planner.action(EStateActionId.ANIMATION_START),
       ActionAnimationStart,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.animstate_locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.animstate, true],
-        [EStateEvaluatorId.smartcover, true],
-        [EStateEvaluatorId.in_smartcover, false],
-        [EStateEvaluatorId.direction, true],
-        [EStateEvaluatorId.weapon, true],
-        [EStateEvaluatorId.movement, true],
-        [EStateEvaluatorId.mental, true],
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.animation, false],
-        [EStateEvaluatorId.animation_play_now, false],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.ANIMSTATE_LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.ANIMSTATE, true],
+        [EStateEvaluatorId.SMARTCOVER, true],
+        [EStateEvaluatorId.IN_SMARTCOVER, false],
+        [EStateEvaluatorId.DIRECTION, true],
+        [EStateEvaluatorId.WEAPON, true],
+        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.ANIMATION, false],
+        [EStateEvaluatorId.ANIMATION_PLAY_NOW, false],
       ],
-      [[EStateEvaluatorId.animation, true]]
+      [[EStateEvaluatorId.ANIMATION, true]]
     );
 
     checkAction(
-      planner.action(EStateActionId.animation_stop),
+      planner.action(EStateActionId.ANIMATION_STOP),
       ActionAnimationStop,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.locked_external, false],
-        [EStateEvaluatorId.animation_play_now, true],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.LOCKED_EXTERNAL, false],
+        [EStateEvaluatorId.ANIMATION_PLAY_NOW, true],
       ],
       [
-        [EStateEvaluatorId.animation, true],
-        [EStateEvaluatorId.animation_play_now, false],
-        [EStateEvaluatorId.animation_none_now, true],
+        [EStateEvaluatorId.ANIMATION, true],
+        [EStateEvaluatorId.ANIMATION_PLAY_NOW, false],
+        [EStateEvaluatorId.ANIMATION_NONE_NOW, true],
       ]
     );
 
     checkAction(
-      planner.action(EStateActionId.smartcover_enter),
+      planner.action(EStateActionId.SMARTCOVER_ENTER),
       ActionSmartCoverEnter,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.weapon, true],
-        [EStateEvaluatorId.smartcover_need, true],
-        [EStateEvaluatorId.smartcover, false],
-        [EStateEvaluatorId.animstate_idle_now, true],
-        [EStateEvaluatorId.animation_play_now, false],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.WEAPON, true],
+        [EStateEvaluatorId.SMARTCOVER_NEED, true],
+        [EStateEvaluatorId.SMARTCOVER, false],
+        [EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true],
+        [EStateEvaluatorId.ANIMATION_PLAY_NOW, false],
       ],
-      [[EStateEvaluatorId.smartcover, true]]
+      [[EStateEvaluatorId.SMARTCOVER, true]]
     );
 
     checkAction(
-      planner.action(EStateActionId.smartcover_exit),
+      planner.action(EStateActionId.SMARTCOVER_EXIT),
       ActionSmartCoverExit,
       [
-        [EStateEvaluatorId.locked, false],
-        [EStateEvaluatorId.weapon, true],
-        [EStateEvaluatorId.smartcover_need, false],
-        [EStateEvaluatorId.smartcover, false],
+        [EStateEvaluatorId.LOCKED, false],
+        [EStateEvaluatorId.WEAPON, true],
+        [EStateEvaluatorId.SMARTCOVER_NEED, false],
+        [EStateEvaluatorId.SMARTCOVER, false],
       ],
-      [[EStateEvaluatorId.smartcover, true]]
+      [[EStateEvaluatorId.SMARTCOVER, true]]
     );
   });
 
@@ -826,55 +826,55 @@ describe("add_state_manager util", () => {
     const planner: MockActionPlanner = stateManager.planner as unknown as MockActionPlanner;
 
     checkAction(
-      planner.action(EStateActionId.locked_smartcover),
+      planner.action(EStateActionId.LOCKED_SMARTCOVER),
       "lockedSmartCoverAction",
-      [[EStateEvaluatorId.in_smartcover, true]],
-      [[EStateEvaluatorId.in_smartcover, false]]
+      [[EStateEvaluatorId.IN_SMARTCOVER, true]],
+      [[EStateEvaluatorId.IN_SMARTCOVER, false]]
     );
 
     checkAction(
-      planner.action(EStateActionId.locked),
+      planner.action(EStateActionId.LOCKED),
       "lockedAction",
-      [[EStateEvaluatorId.locked, true]],
-      [[EStateEvaluatorId.locked, false]]
+      [[EStateEvaluatorId.LOCKED, true]],
+      [[EStateEvaluatorId.LOCKED, false]]
     );
 
     checkAction(
-      planner.action(EStateActionId.locked_animation),
+      planner.action(EStateActionId.LOCKED_ANIMATION),
       "lockedAnimationAction",
-      [[EStateEvaluatorId.animation_locked, true]],
-      [[EStateEvaluatorId.animation_locked, false]]
+      [[EStateEvaluatorId.ANIMATION_LOCKED, true]],
+      [[EStateEvaluatorId.ANIMATION_LOCKED, false]]
     );
 
     checkAction(
-      planner.action(EStateActionId.locked_animstate),
+      planner.action(EStateActionId.LOCKED_ANIMSTATE),
       "lockedAnimstateAction",
-      [[EStateEvaluatorId.animstate_locked, true]],
-      [[EStateEvaluatorId.animstate_locked, false]]
+      [[EStateEvaluatorId.ANIMSTATE_LOCKED, true]],
+      [[EStateEvaluatorId.ANIMSTATE_LOCKED, false]]
     );
 
     checkAction(
-      planner.action(EStateActionId.locked_external),
+      planner.action(EStateActionId.LOCKED_EXTERNAL),
       "lockedExternalAction",
-      [[EStateEvaluatorId.locked_external, true]],
-      [[EStateEvaluatorId.locked_external, false]]
+      [[EStateEvaluatorId.LOCKED_EXTERNAL, true]],
+      [[EStateEvaluatorId.LOCKED_EXTERNAL, false]]
     );
 
     checkAction(
-      planner.action(EStateActionId.end),
+      planner.action(EStateActionId.END),
       ActionStateEnd,
       [
-        [EStateEvaluatorId.end, false],
-        [EStateEvaluatorId.weapon, true],
-        [EStateEvaluatorId.movement, true],
-        [EStateEvaluatorId.mental, true],
-        [EStateEvaluatorId.bodystate, true],
-        [EStateEvaluatorId.direction, true],
-        [EStateEvaluatorId.animstate, true],
-        [EStateEvaluatorId.animation, true],
-        [EStateEvaluatorId.smartcover, true],
+        [EStateEvaluatorId.END, false],
+        [EStateEvaluatorId.WEAPON, true],
+        [EStateEvaluatorId.MOVEMENT, true],
+        [EStateEvaluatorId.MENTAL, true],
+        [EStateEvaluatorId.BODYSTATE, true],
+        [EStateEvaluatorId.DIRECTION, true],
+        [EStateEvaluatorId.ANIMSTATE, true],
+        [EStateEvaluatorId.ANIMATION, true],
+        [EStateEvaluatorId.SMARTCOVER, true],
       ],
-      [[EStateEvaluatorId.end, true]]
+      [[EStateEvaluatorId.END, true]]
     );
   });
 });

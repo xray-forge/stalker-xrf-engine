@@ -89,125 +89,125 @@ export function addStateManager(object: ClientObject): StalkerStateManager {
  * todo;
  */
 function addBasicManagerGraph(stateManager: StalkerStateManager, object: ClientObject): void {
-  stateManager.planner.add_evaluator(EStateEvaluatorId.end, new stateManagement.EvaluatorStateEnd(stateManager));
-  stateManager.planner.add_evaluator(EStateEvaluatorId.locked, new stateManagement.EvaluatorStateLocked(stateManager));
+  stateManager.planner.add_evaluator(EStateEvaluatorId.END, new stateManagement.EvaluatorStateEnd(stateManager));
+  stateManager.planner.add_evaluator(EStateEvaluatorId.LOCKED, new stateManagement.EvaluatorStateLocked(stateManager));
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.locked_external,
+    EStateEvaluatorId.LOCKED_EXTERNAL,
     new stateManagement.EvaluatorStateLockedExternal(stateManager)
   );
 
-  stateManager.planner.add_evaluator(EStateEvaluatorId.weapon, new weaponManagement.EvaluatorWeapon(stateManager));
+  stateManager.planner.add_evaluator(EStateEvaluatorId.WEAPON, new weaponManagement.EvaluatorWeapon(stateManager));
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.weapon_locked,
+    EStateEvaluatorId.WEAPON_LOCKED,
     new weaponManagement.EvaluatorWeaponLocked(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.weapon_strapped,
+    EStateEvaluatorId.WEAPON_STRAPPED,
     new weaponManagement.EvaluatorWeaponStrapped(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.weapon_strapped_now,
+    EStateEvaluatorId.WEAPON_STRAPPED_NOW,
     new weaponManagement.EvaluatorWeaponStrappedNow(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.weapon_unstrapped,
+    EStateEvaluatorId.WEAPON_UNSTRAPPED,
     new weaponManagement.EvaluatorWeaponUnstrapped(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.weapon_unstrapped_now,
+    EStateEvaluatorId.WEAPON_UNSTRAPPED_NOW,
     new weaponManagement.EvaluatorWeaponUnstrappedNow(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.weapon_none,
+    EStateEvaluatorId.WEAPON_NONE,
     new weaponManagement.EvaluatorWeaponNone(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.weapon_none_now,
+    EStateEvaluatorId.WEAPON_NONE_NOW,
     new weaponManagement.EvaluatorWeaponNoneNow(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.weapon_drop,
+    EStateEvaluatorId.WEAPON_DROP,
     new weaponManagement.EvaluatorWeaponDrop(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.weapon_fire,
+    EStateEvaluatorId.WEAPON_FIRE,
     new weaponManagement.EvaluatorWeaponFire(stateManager)
   );
 
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.movement,
+    EStateEvaluatorId.MOVEMENT,
     new movementManagement.EvaluatorMovement(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.movement_walk,
+    EStateEvaluatorId.MOVEMENT_WALK,
     new movementManagement.EvaluatorMovementWalk(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.movement_run,
+    EStateEvaluatorId.MOVEMENT_RUN,
     new movementManagement.EvaluatorMovementRun(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.movement_stand,
+    EStateEvaluatorId.MOVEMENT_STAND,
     new movementManagement.EvaluatorMovementStand(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.movement_stand_now,
+    EStateEvaluatorId.MOVEMENT_STAND_NOW,
     new movementManagement.EvaluatorMovementStandNow(stateManager)
   );
 
-  stateManager.planner.add_evaluator(EStateEvaluatorId.mental, new mentalManagement.EvaluatorMental(stateManager));
+  stateManager.planner.add_evaluator(EStateEvaluatorId.MENTAL, new mentalManagement.EvaluatorMental(stateManager));
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.mental_free,
+    EStateEvaluatorId.MENTAL_FREE,
     new mentalManagement.EvaluatorMentalFree(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.mental_free_now,
+    EStateEvaluatorId.MENTAL_FREE_NOW,
     new mentalManagement.EvaluatorMentalFreeNow(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.mental_danger,
+    EStateEvaluatorId.MENTAL_DANGER,
     new mentalManagement.EvaluatorMentalDanger(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.mental_danger_now,
+    EStateEvaluatorId.MENTAL_DANGER_NOW,
     new mentalManagement.EvaluatorMentalDangerNow(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.mental_panic,
+    EStateEvaluatorId.MENTAL_PANIC,
     new mentalManagement.EvaluatorMentalPanic(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.mental_panic_now,
+    EStateEvaluatorId.MENTAL_PANIC_NOW,
     new mentalManagement.EvaluatorMentalPanicNow(stateManager)
   );
 
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.bodystate,
+    EStateEvaluatorId.BODYSTATE,
     new bodyStateManagement.EvaluatorBodyState(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.bodystate_crouch,
+    EStateEvaluatorId.BODYSTATE_CROUCH,
     new bodyStateManagement.EvaluatorBodyStateCrouch(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.bodystate_standing,
+    EStateEvaluatorId.BODYSTATE_STANDING,
     new bodyStateManagement.EvaluatorBodyStateStanding(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.bodystate_crouch_now,
+    EStateEvaluatorId.BODYSTATE_CROUCH_NOW,
     new bodyStateManagement.EvaluatorBodyStateCrouchNow(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.bodystate_standing_now,
+    EStateEvaluatorId.BODYSTATE_STANDING_NOW,
     new bodyStateManagement.EvaluatorBodyStateStandingNow(stateManager)
   );
 
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.direction,
+    EStateEvaluatorId.DIRECTION,
     new directionManagement.EvaluatorDirection(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.direction_search,
+    EStateEvaluatorId.DIRECTION_SEARCH,
     new directionManagement.EvaluatorDirectionSearch(stateManager)
   );
 
@@ -219,19 +219,19 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: ClientO
   );
 
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.animstate,
+    EStateEvaluatorId.ANIMSTATE,
     new animationStateManagement.EvaluatorAnimationState(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.animstate_idle_now,
+    EStateEvaluatorId.ANIMSTATE_IDLE_NOW,
     new animationStateManagement.EvaluatorAnimationStateIdleNow(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.animstate_play_now,
+    EStateEvaluatorId.ANIMSTATE_PLAY_NOW,
     new animationStateManagement.EvaluatorAnimationStatePlayNow(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.animstate_locked,
+    EStateEvaluatorId.ANIMSTATE_LOCKED,
     new animationStateManagement.EvaluatorAnimationStateLocked(stateManager)
   );
 
@@ -243,32 +243,32 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: ClientO
   );
 
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.animation,
+    EStateEvaluatorId.ANIMATION,
     new animationManagement.EvaluatorAnimation(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.animation_play_now,
+    EStateEvaluatorId.ANIMATION_PLAY_NOW,
     new animationManagement.EvaluatorAnimationPlayNow(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.animation_none_now,
+    EStateEvaluatorId.ANIMATION_NONE_NOW,
     new animationManagement.EvaluatorAnimationNoneNow(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.animation_locked,
+    EStateEvaluatorId.ANIMATION_LOCKED,
     new animationManagement.EvaluatorAnimationLocked(stateManager)
   );
 
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.smartcover,
+    EStateEvaluatorId.SMARTCOVER,
     new smartCoverManagement.EvaluatorSmartCover(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.smartcover_need,
+    EStateEvaluatorId.SMARTCOVER_NEED,
     new smartCoverManagement.EvaluatorSmartCoverNeed(stateManager)
   );
   stateManager.planner.add_evaluator(
-    EStateEvaluatorId.in_smartcover,
+    EStateEvaluatorId.IN_SMARTCOVER,
     new smartCoverManagement.EvaluatorInSmartCover(stateManager)
   );
 
@@ -281,221 +281,221 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: ClientO
 
   const unstrapAction = new weaponManagement.ActionWeaponUnstrap(stateManager);
 
-  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.movement, true));
-  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, true));
-  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
-  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.weapon_unstrapped, true));
-  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.animstate_idle_now, true));
-  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  unstrapAction.add_effect(new world_property(EStateEvaluatorId.weapon, true));
-  stateManager.planner.add_action(EStateActionId.weapon_unstrapp, unstrapAction);
+  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
+  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_UNSTRAPPED, true));
+  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
+  unstrapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  unstrapAction.add_effect(new world_property(EStateEvaluatorId.WEAPON, true));
+  stateManager.planner.add_action(EStateActionId.WEAPON_UNSTRAPP, unstrapAction);
 
   // -- STRAPP
   const strapAction = new weaponManagement.ActionWeaponStrap(stateManager);
 
-  strapAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  strapAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  strapAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  strapAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  strapAction.add_precondition(new world_property(EStateEvaluatorId.movement, true));
-  strapAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, true));
-  strapAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
-  strapAction.add_precondition(new world_property(EStateEvaluatorId.weapon_strapped, true));
-  strapAction.add_precondition(new world_property(EStateEvaluatorId.animstate_idle_now, true));
-  strapAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  strapAction.add_effect(new world_property(EStateEvaluatorId.weapon, true));
-  stateManager.planner.add_action(EStateActionId.weapon_strapp, strapAction);
+  strapAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  strapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  strapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  strapAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  strapAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  strapAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  strapAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
+  strapAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_STRAPPED, true));
+  strapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
+  strapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  strapAction.add_effect(new world_property(EStateEvaluatorId.WEAPON, true));
+  stateManager.planner.add_action(EStateActionId.WEAPON_STRAPP, strapAction);
 
   // -- NONE
   const weaponNoneAction = new weaponManagement.ActionWeaponNone(stateManager);
 
-  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.movement, true));
-  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, true));
-  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
-  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.weapon_none, true));
-  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  weaponNoneAction.add_effect(new world_property(EStateEvaluatorId.weapon, true));
-  stateManager.planner.add_action(EStateActionId.weapon_none, weaponNoneAction);
+  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
+  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_NONE, true));
+  weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  weaponNoneAction.add_effect(new world_property(EStateEvaluatorId.WEAPON, true));
+  stateManager.planner.add_action(EStateActionId.WEAPON_NONE, weaponNoneAction);
 
   // -- DROP
   const weaponDropAction = new weaponManagement.ActionWeaponDrop(stateManager);
 
-  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.movement, true));
-  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, true));
-  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
-  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.weapon_drop, true));
-  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  weaponDropAction.add_effect(new world_property(EStateEvaluatorId.weapon, true));
-  stateManager.planner.add_action(EStateActionId.weapon_drop, weaponDropAction);
+  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
+  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_DROP, true));
+  weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  weaponDropAction.add_effect(new world_property(EStateEvaluatorId.WEAPON, true));
+  stateManager.planner.add_action(EStateActionId.WEAPON_DROP, weaponDropAction);
 
   // -- WALK
   const movementWalkAction = new movementManagement.ActionMovementWalk(stateManager);
 
-  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.movement, false));
-  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, true));
-  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
+  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, false));
+  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
-  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.movement_walk, true));
-  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.animstate_idle_now, true));
-  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  movementWalkAction.add_effect(new world_property(EStateEvaluatorId.movement, true));
-  stateManager.planner.add_action(EStateActionId.movement_walk, movementWalkAction);
+  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT_WALK, true));
+  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
+  movementWalkAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  movementWalkAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  stateManager.planner.add_action(EStateActionId.MOVEMENT_WALK, movementWalkAction);
 
   // -- WALK_turn
 
   const movementWalkTurnAction = new movementManagement.ActionMovementWalkTurn(stateManager);
 
-  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.movement, false));
-  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.direction, false));
-  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.direction_search, false));
-  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, true));
-  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
+  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, false));
+  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, false));
+  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION_SEARCH, false));
+  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
-  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.movement_walk, true));
-  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.animstate_idle_now, true));
-  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  movementWalkTurnAction.add_effect(new world_property(EStateEvaluatorId.movement, true));
-  movementWalkTurnAction.add_effect(new world_property(EStateEvaluatorId.direction, true));
-  stateManager.planner.add_action(EStateActionId.movement_walk_turn, movementWalkTurnAction);
+  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT_WALK, true));
+  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
+  movementWalkTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  movementWalkTurnAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  movementWalkTurnAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
+  stateManager.planner.add_action(EStateActionId.MOVEMENT_WALK_TURN, movementWalkTurnAction);
 
   // -- WALK_search
   const movementWalkSearchAction = new movementManagement.ActionMovementWalkSearch(stateManager);
 
-  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.movement, false));
-  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.direction, false));
-  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.direction_search, true));
-  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, true));
-  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
+  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, false));
+  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, false));
+  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION_SEARCH, true));
+  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
-  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.movement_walk, true));
-  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.animstate_idle_now, true));
-  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  movementWalkSearchAction.add_effect(new world_property(EStateEvaluatorId.movement, true));
-  movementWalkSearchAction.add_effect(new world_property(EStateEvaluatorId.direction, true));
-  stateManager.planner.add_action(EStateActionId.movement_walk_search, movementWalkSearchAction);
+  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT_WALK, true));
+  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
+  movementWalkSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  movementWalkSearchAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  movementWalkSearchAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
+  stateManager.planner.add_action(EStateActionId.MOVEMENT_WALK_SEARCH, movementWalkSearchAction);
 
   // -- RUN
   const movementRunAction = new movementManagement.ActionMovementRun(stateManager);
 
-  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.movement, false));
-  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, true));
-  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
+  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, false));
+  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
-  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.movement_run, true));
-  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.animstate_idle_now, true));
-  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  movementRunAction.add_effect(new world_property(EStateEvaluatorId.movement, true));
-  stateManager.planner.add_action(EStateActionId.movement_run, movementRunAction);
+  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT_RUN, true));
+  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
+  movementRunAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  movementRunAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  stateManager.planner.add_action(EStateActionId.MOVEMENT_RUN, movementRunAction);
 
   // -- RUN_turn
   const movementRunTurnAction = new movementManagement.ActionMovementRunTurn(stateManager);
 
-  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.movement, false));
-  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.direction, false));
-  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.direction_search, false));
-  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, true));
-  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
+  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, false));
+  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, false));
+  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION_SEARCH, false));
+  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
-  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.movement_run, true));
-  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.animstate_idle_now, true));
-  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  movementRunTurnAction.add_effect(new world_property(EStateEvaluatorId.movement, true));
-  movementRunTurnAction.add_effect(new world_property(EStateEvaluatorId.direction, true));
-  stateManager.planner.add_action(EStateActionId.movement_run_turn, movementRunTurnAction);
+  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT_RUN, true));
+  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
+  movementRunTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  movementRunTurnAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  movementRunTurnAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
+  stateManager.planner.add_action(EStateActionId.MOVEMENT_RUN_TURN, movementRunTurnAction);
 
   // -- RUN_search
   const movementRunSearchAction = new movementManagement.ActionMovementRunSearch(stateManager);
 
-  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.movement, false));
-  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.direction, false));
-  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.direction_search, true));
-  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, true));
-  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
+  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, false));
+  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, false));
+  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION_SEARCH, true));
+  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
-  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.movement_run, true));
-  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.animstate_idle_now, true));
-  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  movementRunSearchAction.add_effect(new world_property(EStateEvaluatorId.movement, true));
-  movementRunSearchAction.add_effect(new world_property(EStateEvaluatorId.direction, true));
-  stateManager.planner.add_action(EStateActionId.movement_run_search, movementRunSearchAction);
+  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT_RUN, true));
+  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
+  movementRunSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  movementRunSearchAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  movementRunSearchAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
+  stateManager.planner.add_action(EStateActionId.MOVEMENT_RUN_SEARCH, movementRunSearchAction);
 
   // -- STAND
   const movementStandAction = new movementManagement.ActionMovementStand(stateManager);
 
-  movementStandAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  movementStandAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  movementStandAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  movementStandAction.add_precondition(new world_property(EStateEvaluatorId.movement, false));
-  movementStandAction.add_precondition(new world_property(EStateEvaluatorId.movement_stand, true));
-  movementStandAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
-  movementStandAction.add_effect(new world_property(EStateEvaluatorId.movement, true));
-  stateManager.planner.add_action(EStateActionId.movement_stand, movementStandAction);
+  movementStandAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  movementStandAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  movementStandAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  movementStandAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, false));
+  movementStandAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT_STAND, true));
+  movementStandAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
+  movementStandAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  stateManager.planner.add_action(EStateActionId.MOVEMENT_STAND, movementStandAction);
 
   // -- STAND_turn
   const standTurnAction = new movementManagement.ActionMovementStandTurn(stateManager);
 
-  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.movement, false));
-  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.direction, false));
-  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.direction_search, false));
-  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.movement_stand, true));
-  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
-  standTurnAction.add_effect(new world_property(EStateEvaluatorId.movement, true));
-  standTurnAction.add_effect(new world_property(EStateEvaluatorId.direction, true));
-  stateManager.planner.add_action(EStateActionId.movement_stand_turn, standTurnAction);
+  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, false));
+  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, false));
+  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION_SEARCH, false));
+  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT_STAND, true));
+  standTurnAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
+  standTurnAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  standTurnAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
+  stateManager.planner.add_action(EStateActionId.MOVEMENT_STAND_TURN, standTurnAction);
 
   // -- STAND_search
   const movementStandSearchAction = new movementManagement.ActionMovementStandSearch(stateManager);
 
-  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.movement, false));
-  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.direction, false));
-  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.direction_search, true));
-  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.movement_stand, true));
-  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
-  movementStandSearchAction.add_effect(new world_property(EStateEvaluatorId.movement, true));
-  movementStandSearchAction.add_effect(new world_property(EStateEvaluatorId.direction, true));
-  stateManager.planner.add_action(EStateActionId.movement_stand_search, movementStandSearchAction);
+  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, false));
+  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, false));
+  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION_SEARCH, true));
+  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT_STAND, true));
+  movementStandSearchAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
+  movementStandSearchAction.add_effect(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  movementStandSearchAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
+  stateManager.planner.add_action(EStateActionId.MOVEMENT_STAND_SEARCH, movementStandSearchAction);
 
   // -- DIRECTION
 
@@ -503,267 +503,267 @@ function addBasicManagerGraph(stateManager: StalkerStateManager, object: ClientO
   const directionTurnAction = new directionManagement.ActionDirectionTurn(stateManager);
 
   // --action.add_precondition    (new world_property(EStateManagerProperty.locked,                 false))
-  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.direction, false));
-  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.direction_search, false));
-  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.weapon, true)); // --!
-  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.animstate_idle_now, true));
-  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.movement, true));
-  directionTurnAction.add_effect(new world_property(EStateEvaluatorId.direction, true));
-  stateManager.planner.add_action(EStateActionId.direction_turn, directionTurnAction);
+  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, false));
+  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION_SEARCH, false));
+  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON, true)); // --!
+  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
+  directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  directionTurnAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
+  stateManager.planner.add_action(EStateActionId.DIRECTION_TURN, directionTurnAction);
 
   // -- SEARCH
   const directionSearchAction = new directionManagement.ActionDirectionSearch(stateManager);
 
   // --action.add_precondition    (new world_property(EStateManagerProperty.locked,                 false))
-  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.direction, false));
-  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.direction_search, true));
-  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.weapon, true)); // --!
-  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.animstate_idle_now, true));
-  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.movement, true));
-  directionSearchAction.add_effect(new world_property(EStateEvaluatorId.direction, true));
-  stateManager.planner.add_action(EStateActionId.direction_search, directionSearchAction);
+  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, false));
+  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION_SEARCH, true));
+  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON, true)); // --!
+  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
+  directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  directionSearchAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION, true));
+  stateManager.planner.add_action(EStateActionId.DIRECTION_SEARCH, directionSearchAction);
 
   // -- MENTAL STATES
 
   // -- FREE
   const mentalFreeAction = new mentalManagement.ActionMentalFree(stateManager);
 
-  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.mental, false));
+  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
   // --'	action.add_precondition    (new world_property(EStateManagerProperty.movement,               true))
-  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.animstate_idle_now, true));
-  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.mental_free, true));
-  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, true));
-  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.bodystate_standing_now, true));
-  mentalFreeAction.add_effect(new world_property(EStateEvaluatorId.mental, true));
-  stateManager.planner.add_action(EStateActionId.mental_free, mentalFreeAction);
+  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
+  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_FREE, true));
+  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  mentalFreeAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_STANDING_NOW, true));
+  mentalFreeAction.add_effect(new world_property(EStateEvaluatorId.MENTAL, true));
+  stateManager.planner.add_action(EStateActionId.MENTAL_FREE, mentalFreeAction);
 
   // -- DANGER
   const mentalDangerAction = new mentalManagement.ActionMentalDanger(stateManager);
 
-  mentalDangerAction.add_precondition(new world_property(EStateEvaluatorId.mental, false));
-  mentalDangerAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
+  mentalDangerAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, false));
+  mentalDangerAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
   // --'	action.add_precondition    (new world_property(EStateManagerProperty.movement,               true))
-  mentalDangerAction.add_precondition(new world_property(EStateEvaluatorId.animstate_idle_now, true));
-  mentalDangerAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  mentalDangerAction.add_precondition(new world_property(EStateEvaluatorId.mental_danger, true));
-  mentalDangerAction.add_effect(new world_property(EStateEvaluatorId.mental, true));
-  mentalDangerAction.add_effect(new world_property(EStateEvaluatorId.mental_danger_now, true));
-  stateManager.planner.add_action(EStateActionId.mental_danger, mentalDangerAction);
+  mentalDangerAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
+  mentalDangerAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  mentalDangerAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_DANGER, true));
+  mentalDangerAction.add_effect(new world_property(EStateEvaluatorId.MENTAL, true));
+  mentalDangerAction.add_effect(new world_property(EStateEvaluatorId.MENTAL_DANGER_NOW, true));
+  stateManager.planner.add_action(EStateActionId.MENTAL_DANGER, mentalDangerAction);
 
   // -- PANIC
   const mentalPanicAction = new mentalManagement.ActionMentalPanic(stateManager);
 
-  mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.mental, false));
+  mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
-  mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.animstate_idle_now, true));
-  mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.mental_panic, true));
-  mentalPanicAction.add_effect(new world_property(EStateEvaluatorId.mental, true));
-  stateManager.planner.add_action(EStateActionId.mental_panic, mentalPanicAction);
+  mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
+  mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  mentalPanicAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_PANIC, true));
+  mentalPanicAction.add_effect(new world_property(EStateEvaluatorId.MENTAL, true));
+  stateManager.planner.add_action(EStateActionId.MENTAL_PANIC, mentalPanicAction);
 
   // -- BODYSTATES
 
   // -- CROUCH
   const bodyStateStateCrouch = new bodyStateManagement.ActionBodyStateCrouch(stateManager);
 
-  bodyStateStateCrouch.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  bodyStateStateCrouch.add_precondition(new world_property(EStateEvaluatorId.bodystate, false));
+  bodyStateStateCrouch.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  bodyStateStateCrouch.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
   // --'	action.add_precondition    (new world_property(EStateManagerProperty.movement,               true))
-  bodyStateStateCrouch.add_precondition(new world_property(EStateEvaluatorId.bodystate_crouch_now, false));
-  bodyStateStateCrouch.add_precondition(new world_property(EStateEvaluatorId.bodystate_crouch, true));
-  bodyStateStateCrouch.add_precondition(new world_property(EStateEvaluatorId.mental_danger_now, true));
-  bodyStateStateCrouch.add_effect(new world_property(EStateEvaluatorId.bodystate, true));
-  stateManager.planner.add_action(EStateActionId.bodystate_crouch, bodyStateStateCrouch);
+  bodyStateStateCrouch.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_CROUCH_NOW, false));
+  bodyStateStateCrouch.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_CROUCH, true));
+  bodyStateStateCrouch.add_precondition(new world_property(EStateEvaluatorId.MENTAL_DANGER_NOW, true));
+  bodyStateStateCrouch.add_effect(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  stateManager.planner.add_action(EStateActionId.BODYSTATE_CROUCH, bodyStateStateCrouch);
 
   // -- CROUCH_danger
   const bodyStateCrouchDangerAction = new bodyStateManagement.ActionBodyStateCrouchDanger(stateManager);
 
-  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, false));
-  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.mental, false));
+  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, false));
+  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
   // --'	action.add_precondition    (new world_property(EStateManagerProperty.movement,               true))
-  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.bodystate_crouch_now, false));
-  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.bodystate_crouch, true));
-  bodyStateCrouchDangerAction.add_effect(new world_property(EStateEvaluatorId.bodystate, true));
-  bodyStateCrouchDangerAction.add_effect(new world_property(EStateEvaluatorId.mental, true));
-  stateManager.planner.add_action(EStateActionId.bodystate_crouch_danger, bodyStateCrouchDangerAction);
+  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_CROUCH_NOW, false));
+  bodyStateCrouchDangerAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_CROUCH, true));
+  bodyStateCrouchDangerAction.add_effect(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  bodyStateCrouchDangerAction.add_effect(new world_property(EStateEvaluatorId.MENTAL, true));
+  stateManager.planner.add_action(EStateActionId.BODYSTATE_CROUCH_DANGER, bodyStateCrouchDangerAction);
 
   // --  STAND
 
   const bodyStateStandingAction = new bodyStateManagement.ActionBodyStateStanding(stateManager);
 
-  bodyStateStandingAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  bodyStateStandingAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, false));
+  bodyStateStandingAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  bodyStateStandingAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
   // --'	action.add_precondition    (new world_property(EStateManagerProperty.movement,               true))
-  bodyStateStandingAction.add_precondition(new world_property(EStateEvaluatorId.bodystate_standing_now, false));
-  bodyStateStandingAction.add_precondition(new world_property(EStateEvaluatorId.bodystate_standing, true));
-  bodyStateStandingAction.add_effect(new world_property(EStateEvaluatorId.bodystate, true));
-  bodyStateStandingAction.add_effect(new world_property(EStateEvaluatorId.bodystate_standing_now, true));
-  stateManager.planner.add_action(EStateActionId.bodystate_standing, bodyStateStandingAction);
+  bodyStateStandingAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_STANDING_NOW, false));
+  bodyStateStandingAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_STANDING, true));
+  bodyStateStandingAction.add_effect(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  bodyStateStandingAction.add_effect(new world_property(EStateEvaluatorId.BODYSTATE_STANDING_NOW, true));
+  stateManager.planner.add_action(EStateActionId.BODYSTATE_STANDING, bodyStateStandingAction);
 
   // --  STAND_free
 
   const standingFreeAction = new bodyStateManagement.ActionBodyStateStandingFree(stateManager);
 
-  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, false));
-  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.mental, false));
+  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, false));
+  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, false));
   // --	action.add_precondition    (new world_property(EStateManagerProperty.weapon,                 true))
   // --'	action.add_precondition    (new world_property(EStateManagerProperty.movement,               true))
-  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.bodystate_standing_now, false));
-  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.bodystate_standing, true));
-  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.mental_free, false));
-  standingFreeAction.add_effect(new world_property(EStateEvaluatorId.bodystate, true));
-  standingFreeAction.add_effect(new world_property(EStateEvaluatorId.bodystate_standing_now, true));
-  standingFreeAction.add_effect(new world_property(EStateEvaluatorId.mental, true));
-  stateManager.planner.add_action(EStateActionId.bodystate_standing_free, standingFreeAction);
+  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_STANDING_NOW, false));
+  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE_STANDING, true));
+  standingFreeAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL_FREE, false));
+  standingFreeAction.add_effect(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  standingFreeAction.add_effect(new world_property(EStateEvaluatorId.BODYSTATE_STANDING_NOW, true));
+  standingFreeAction.add_effect(new world_property(EStateEvaluatorId.MENTAL, true));
+  stateManager.planner.add_action(EStateActionId.BODYSTATE_STANDING_FREE, standingFreeAction);
 
   // -- ANIMSTATES
   const animationStateStartAction = new animationStateManagement.ActionAnimationStateStart(stateManager);
 
-  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.animstate, false));
-  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.smartcover, true));
-  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.animation_none_now, true));
-  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.direction, true));
-  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
-  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.weapon, true));
-  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.movement, true));
-  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.animstate_play_now, false));
-  animationStateStartAction.add_effect(new world_property(EStateEvaluatorId.animstate, true));
-  stateManager.planner.add_action(EStateActionId.animstate_start, animationStateStartAction);
+  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE, false));
+  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.SMARTCOVER, true));
+  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, true));
+  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
+  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON, true));
+  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  animationStateStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_PLAY_NOW, false));
+  animationStateStartAction.add_effect(new world_property(EStateEvaluatorId.ANIMSTATE, true));
+  stateManager.planner.add_action(EStateActionId.ANIMSTATE_START, animationStateStartAction);
 
   const animationStateStopAction = new animationStateManagement.ActionAnimationStateStop(stateManager);
 
-  animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, false));
-  animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
+  animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
   // --action.add_precondition    (new world_property(EStateManagerProperty.animstate,              false))
-  animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.animstate_idle_now, false));
-  animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.animation_play_now, false));
-  animationStateStopAction.add_effect(new world_property(EStateEvaluatorId.animstate, true));
-  animationStateStopAction.add_effect(new world_property(EStateEvaluatorId.animstate_play_now, false));
-  animationStateStopAction.add_effect(new world_property(EStateEvaluatorId.animstate_idle_now, true));
-  stateManager.planner.add_action(EStateActionId.animstate_stop, animationStateStopAction);
+  animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, false));
+  animationStateStopAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_PLAY_NOW, false));
+  animationStateStopAction.add_effect(new world_property(EStateEvaluatorId.ANIMSTATE, true));
+  animationStateStopAction.add_effect(new world_property(EStateEvaluatorId.ANIMSTATE_PLAY_NOW, false));
+  animationStateStopAction.add_effect(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
+  stateManager.planner.add_action(EStateActionId.ANIMSTATE_STOP, animationStateStopAction);
 
   // -- ANIMATION
 
   // -- START
   const animationStartAction = new animationManagement.ActionAnimationStart(stateManager);
 
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, false));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.animstate, true));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.smartcover, true));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.in_smartcover, false));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.direction, true));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.weapon, true));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.movement, true));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, true));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.animation, false));
-  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.animation_play_now, false));
-  animationStartAction.add_effect(new world_property(EStateEvaluatorId.animation, true));
-  stateManager.planner.add_action(EStateActionId.animation_start, animationStartAction);
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE, true));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.SMARTCOVER, true));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.IN_SMARTCOVER, false));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, true));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON, true));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION, false));
+  animationStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_PLAY_NOW, false));
+  animationStartAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION, true));
+  stateManager.planner.add_action(EStateActionId.ANIMATION_START, animationStartAction);
 
   // -- STOP
   const animationStopAction = new animationManagement.ActionAnimationStop(stateManager);
 
-  animationStopAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  animationStopAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, false));
+  animationStopAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  animationStopAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
   // --action.add_precondition    (new world_property(EStateManagerProperty.animstate,              true))
   // --action.add_precondition    (new world_property(EStateManagerProperty.animation,              false))
-  animationStopAction.add_precondition(new world_property(EStateEvaluatorId.animation_play_now, true));
-  animationStopAction.add_effect(new world_property(EStateEvaluatorId.animation, true));
-  animationStopAction.add_effect(new world_property(EStateEvaluatorId.animation_play_now, false));
-  animationStopAction.add_effect(new world_property(EStateEvaluatorId.animation_none_now, true));
-  stateManager.planner.add_action(EStateActionId.animation_stop, animationStopAction);
+  animationStopAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_PLAY_NOW, true));
+  animationStopAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION, true));
+  animationStopAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION_PLAY_NOW, false));
+  animationStopAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
+  stateManager.planner.add_action(EStateActionId.ANIMATION_STOP, animationStopAction);
 
   const smartCoverEnterAction = new smartCoverManagement.ActionSmartCoverEnter(stateManager);
 
-  smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.weapon, true));
-  smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.smartcover_need, true));
-  smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.smartcover, false));
-  smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.animstate_idle_now, true));
-  smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.animation_play_now, false));
-  smartCoverEnterAction.add_effect(new world_property(EStateEvaluatorId.smartcover, true));
-  stateManager.planner.add_action(EStateActionId.smartcover_enter, smartCoverEnterAction);
+  smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON, true));
+  smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.SMARTCOVER_NEED, true));
+  smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.SMARTCOVER, false));
+  smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_IDLE_NOW, true));
+  smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_PLAY_NOW, false));
+  smartCoverEnterAction.add_effect(new world_property(EStateEvaluatorId.SMARTCOVER, true));
+  stateManager.planner.add_action(EStateActionId.SMARTCOVER_ENTER, smartCoverEnterAction);
 
   const smartCoverExitAction = new smartCoverManagement.ActionSmartCoverExit(stateManager);
 
-  smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.locked, false));
-  smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.weapon, true));
-  smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.smartcover_need, false));
-  smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.smartcover, false));
-  smartCoverExitAction.add_effect(new world_property(EStateEvaluatorId.smartcover, true));
-  stateManager.planner.add_action(EStateActionId.smartcover_exit, smartCoverExitAction);
+  smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
+  smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON, true));
+  smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.SMARTCOVER_NEED, false));
+  smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.SMARTCOVER, false));
+  smartCoverExitAction.add_effect(new world_property(EStateEvaluatorId.SMARTCOVER, true));
+  stateManager.planner.add_action(EStateActionId.SMARTCOVER_EXIT, smartCoverExitAction);
 
   const lockedSmartCoverAction = new stateManagement.ActionStateLocked(stateManager, "lockedSmartCoverAction");
 
-  lockedSmartCoverAction.add_precondition(new world_property(EStateEvaluatorId.in_smartcover, true));
-  lockedSmartCoverAction.add_effect(new world_property(EStateEvaluatorId.in_smartcover, false));
-  stateManager.planner.add_action(EStateActionId.locked_smartcover, lockedSmartCoverAction);
+  lockedSmartCoverAction.add_precondition(new world_property(EStateEvaluatorId.IN_SMARTCOVER, true));
+  lockedSmartCoverAction.add_effect(new world_property(EStateEvaluatorId.IN_SMARTCOVER, false));
+  stateManager.planner.add_action(EStateActionId.LOCKED_SMARTCOVER, lockedSmartCoverAction);
 
   const lockedAction = new stateManagement.ActionStateLocked(stateManager, "lockedAction");
 
-  lockedAction.add_precondition(new world_property(EStateEvaluatorId.locked, true));
-  lockedAction.add_effect(new world_property(EStateEvaluatorId.locked, false));
-  stateManager.planner.add_action(EStateActionId.locked, lockedAction);
+  lockedAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, true));
+  lockedAction.add_effect(new world_property(EStateEvaluatorId.LOCKED, false));
+  stateManager.planner.add_action(EStateActionId.LOCKED, lockedAction);
 
   const lockedAnimationAction = new stateManagement.ActionStateLocked(stateManager, "lockedAnimationAction");
 
-  lockedAnimationAction.add_precondition(new world_property(EStateEvaluatorId.animation_locked, true));
-  lockedAnimationAction.add_effect(new world_property(EStateEvaluatorId.animation_locked, false));
-  stateManager.planner.add_action(EStateActionId.locked_animation, lockedAnimationAction);
+  lockedAnimationAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, true));
+  lockedAnimationAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
+  stateManager.planner.add_action(EStateActionId.LOCKED_ANIMATION, lockedAnimationAction);
 
   const lockedAnimstateAction = new stateManagement.ActionStateLocked(stateManager, "lockedAnimstateAction");
 
-  lockedAnimstateAction.add_precondition(new world_property(EStateEvaluatorId.animstate_locked, true));
-  lockedAnimstateAction.add_effect(new world_property(EStateEvaluatorId.animstate_locked, false));
-  stateManager.planner.add_action(EStateActionId.locked_animstate, lockedAnimstateAction);
+  lockedAnimstateAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, true));
+  lockedAnimstateAction.add_effect(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
+  stateManager.planner.add_action(EStateActionId.LOCKED_ANIMSTATE, lockedAnimstateAction);
 
   const lockedExternalAction = new stateManagement.ActionStateLocked(stateManager, "lockedExternalAction");
 
-  lockedExternalAction.add_precondition(new world_property(EStateEvaluatorId.locked_external, true));
-  lockedExternalAction.add_effect(new world_property(EStateEvaluatorId.locked_external, false));
-  stateManager.planner.add_action(EStateActionId.locked_external, lockedExternalAction);
+  lockedExternalAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, true));
+  lockedExternalAction.add_effect(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
+  stateManager.planner.add_action(EStateActionId.LOCKED_EXTERNAL, lockedExternalAction);
 
   const endStateAction = new stateManagement.ActionStateEnd(stateManager);
 
-  endStateAction.add_precondition(new world_property(EStateEvaluatorId.end, false));
-  endStateAction.add_precondition(new world_property(EStateEvaluatorId.weapon, true));
-  endStateAction.add_precondition(new world_property(EStateEvaluatorId.movement, true));
-  endStateAction.add_precondition(new world_property(EStateEvaluatorId.mental, true));
-  endStateAction.add_precondition(new world_property(EStateEvaluatorId.bodystate, true));
-  endStateAction.add_precondition(new world_property(EStateEvaluatorId.direction, true));
-  endStateAction.add_precondition(new world_property(EStateEvaluatorId.animstate, true));
-  endStateAction.add_precondition(new world_property(EStateEvaluatorId.animation, true));
-  endStateAction.add_precondition(new world_property(EStateEvaluatorId.smartcover, true));
-  endStateAction.add_effect(new world_property(EStateEvaluatorId.end, true));
-  stateManager.planner.add_action(EStateActionId.end, endStateAction);
+  endStateAction.add_precondition(new world_property(EStateEvaluatorId.END, false));
+  endStateAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON, true));
+  endStateAction.add_precondition(new world_property(EStateEvaluatorId.MOVEMENT, true));
+  endStateAction.add_precondition(new world_property(EStateEvaluatorId.MENTAL, true));
+  endStateAction.add_precondition(new world_property(EStateEvaluatorId.BODYSTATE, true));
+  endStateAction.add_precondition(new world_property(EStateEvaluatorId.DIRECTION, true));
+  endStateAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE, true));
+  endStateAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION, true));
+  endStateAction.add_precondition(new world_property(EStateEvaluatorId.SMARTCOVER, true));
+  endStateAction.add_effect(new world_property(EStateEvaluatorId.END, true));
+  stateManager.planner.add_action(EStateActionId.END, endStateAction);
 
   const goal: WorldState = new world_state();
 
-  goal.add_property(new world_property(EStateEvaluatorId.end, true));
+  goal.add_property(new world_property(EStateEvaluatorId.END, true));
   stateManager.planner.set_goal_world_state(goal);
 }

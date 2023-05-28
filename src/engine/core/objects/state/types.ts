@@ -4,6 +4,7 @@ import {
   LuaArray,
   Optional,
   TAnimationType,
+  TIndex,
   TLookType,
   TMoveType,
   TSightType,
@@ -14,65 +15,65 @@ import {
  * Action IDs of state manager evaluators.
  */
 export enum EStateEvaluatorId {
-  end = 1,
-  locked = 2,
-  locked_external = 3,
+  END = 1,
+  LOCKED = 2,
+  LOCKED_EXTERNAL = 3,
 
   // -- WEAPON
-  weapon = 11,
-  weapon_locked = 12,
-  weapon_strapped = 13,
-  weapon_strapped_now = 14,
-  weapon_unstrapped = 15,
-  weapon_unstrapped_now = 16,
-  weapon_none = 17,
-  weapon_none_now = 18,
-  weapon_drop = 19,
-  weapon_fire = 20,
+  WEAPON = 11,
+  WEAPON_LOCKED = 12,
+  WEAPON_STRAPPED = 13,
+  WEAPON_STRAPPED_NOW = 14,
+  WEAPON_UNSTRAPPED = 15,
+  WEAPON_UNSTRAPPED_NOW = 16,
+  WEAPON_NONE = 17,
+  WEAPON_NONE_NOW = 18,
+  WEAPON_DROP = 19,
+  WEAPON_FIRE = 20,
 
   // -- MOVEMENT
-  movement = 21,
-  movement_walk = 22,
-  movement_run = 23,
-  movement_stand = 24,
-  movement_stand_now = 25,
+  MOVEMENT = 21,
+  MOVEMENT_WALK = 22,
+  MOVEMENT_RUN = 23,
+  MOVEMENT_STAND = 24,
+  MOVEMENT_STAND_NOW = 25,
 
   // -- MENTAL STATES
-  mental = 31,
-  mental_free = 32,
-  mental_free_now = 33,
-  mental_danger = 34,
-  mental_danger_now = 35,
-  mental_panic = 36,
-  mental_panic_now = 37,
+  MENTAL = 31,
+  MENTAL_FREE = 32,
+  MENTAL_FREE_NOW = 33,
+  MENTAL_DANGER = 34,
+  MENTAL_DANGER_NOW = 35,
+  MENTAL_PANIC = 36,
+  MENTAL_PANIC_NOW = 37,
 
   // -- BODYSTATES
-  bodystate = 41,
-  bodystate_crouch = 42,
-  bodystate_standing = 43,
-  bodystate_crouch_now = 44,
-  bodystate_standing_now = 45,
+  BODYSTATE = 41,
+  BODYSTATE_CROUCH = 42,
+  BODYSTATE_STANDING = 43,
+  BODYSTATE_CROUCH_NOW = 44,
+  BODYSTATE_STANDING_NOW = 45,
 
   // -- DIRECTION
-  direction = 51,
-  direction_search = 52,
+  DIRECTION = 51,
+  DIRECTION_SEARCH = 52,
 
   // -- ANIMSTATE
-  animstate = 61,
-  animstate_locked = 62,
-  animstate_idle_now = 64,
-  animstate_play_now = 66,
+  ANIMSTATE = 61,
+  ANIMSTATE_LOCKED = 62,
+  ANIMSTATE_IDLE_NOW = 64,
+  ANIMSTATE_PLAY_NOW = 66,
 
   // -- ANIMATION
-  animation = 81,
-  animation_locked = 82,
-  animation_play_now = 84,
-  animation_none_now = 86,
+  ANIMATION = 81,
+  ANIMATION_LOCKED = 82,
+  ANIMATION_PLAY_NOW = 84,
+  ANIMATION_NONE_NOW = 86,
 
   // -- SMARTCOVER
-  smartcover_need = 90,
-  smartcover = 91,
-  in_smartcover = 92,
+  SMARTCOVER_NEED = 90,
+  SMARTCOVER = 91,
+  IN_SMARTCOVER = 92,
   // --    smartcover_locked]           = 92,
 }
 
@@ -80,55 +81,55 @@ export enum EStateEvaluatorId {
  * Action IDs of state manager actions.
  */
 export enum EStateActionId {
-  end = 1,
-  locked = 2,
-  locked_external = 3,
-  locked_animation = 4,
-  locked_animstate = 5,
-  locked_smartcover = 6,
+  END = 1,
+  LOCKED = 2,
+  LOCKED_EXTERNAL = 3,
+  LOCKED_ANIMATION = 4,
+  LOCKED_ANIMSTATE = 5,
+  LOCKED_SMARTCOVER = 6,
 
-  weapon_strapp = 11,
-  weapon_unstrapp = 12,
-  weapon_none = 13,
-  weapon_fire = 14,
-  weapon_drop = 15,
+  WEAPON_STRAPP = 11,
+  WEAPON_UNSTRAPP = 12,
+  WEAPON_NONE = 13,
+  WEAPON_FIRE = 14,
+  WEAPON_DROP = 15,
 
-  movement = 21,
-  movement_walk = 22,
-  movement_run = 23,
-  movement_stand = 24,
-  movement_walk_turn = 25,
-  movement_walk_search = 26,
-  movement_stand_turn = 27,
-  movement_stand_search = 28,
-  movement_run_turn = 29,
-  movement_run_search = 30,
+  MOVEMENT = 21,
+  MOVEMENT_WALK = 22,
+  MOVEMENT_RUN = 23,
+  MOVEMENT_STAND = 24,
+  MOVEMENT_WALK_TURN = 25,
+  MOVEMENT_WALK_SEARCH = 26,
+  MOVEMENT_STAND_TURN = 27,
+  MOVEMENT_STAND_SEARCH = 28,
+  MOVEMENT_RUN_TURN = 29,
+  MOVEMENT_RUN_SEARCH = 30,
 
-  mental_free = 31,
-  mental_danger = 32,
-  mental_panic = 33,
+  MENTAL_FREE = 31,
+  MENTAL_DANGER = 32,
+  MENTAL_PANIC = 33,
 
-  bodystate_crouch = 41,
-  bodystate_standing = 42,
-  bodystate_crouch_danger = 43,
-  bodystate_standing_free = 44,
+  BODYSTATE_CROUCH = 41,
+  BODYSTATE_STANDING = 42,
+  BODYSTATE_CROUCH_DANGER = 43,
+  BODYSTATE_STANDING_FREE = 44,
 
-  direction_turn = 51,
-  direction_search = 52,
+  DIRECTION_TURN = 51,
+  DIRECTION_SEARCH = 52,
 
-  animstate_start = 61,
-  animstate_stop = 62,
+  ANIMSTATE_START = 61,
+  ANIMSTATE_STOP = 62,
 
-  animation_start = 71,
-  animation_stop = 72,
+  ANIMATION_START = 71,
+  ANIMATION_STOP = 72,
 
-  walk_turn = 75,
-  walk_search = 76,
-  stand_turn = 77,
-  stand_search = 78,
+  WALK_TURN = 75,
+  WALK_SEARCH = 76,
+  STAND_TURN = 77,
+  STAND_SEARCH = 78,
 
-  smartcover_enter = 80,
-  smartcover_exit = 81,
+  SMARTCOVER_ENTER = 80,
+  SMARTCOVER_EXIT = 81,
 }
 
 /**
@@ -331,7 +332,7 @@ export interface IStateDescriptor {
   bodystate: Optional<TMoveType>;
   animstate: Optional<EStalkerState>;
   animation: Optional<EStalkerState>;
-  weapon_slot?: Optional<number>;
+  weapon_slot?: Optional<TIndex>;
   direction?: TLookType | TSightType;
   special_danger_move?: Optional<boolean>;
   isForced: Optional<boolean>;
