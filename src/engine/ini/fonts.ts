@@ -1,4 +1,4 @@
-import { LTX_EXTENDS } from "#/utils";
+import { LTX_EXTEND } from "#/utils";
 
 export const config = {
   stat_font: {
@@ -7,7 +7,7 @@ export const config = {
     interval: [0.75, 1],
   },
   hud_font_small: {
-    [LTX_EXTENDS]: "stat_font",
+    [LTX_EXTEND]: "stat_font",
   },
   hud_font_medium: {
     shader: "font",

@@ -1,4 +1,12 @@
-import { ILtxConfigDescriptor, ILtxFieldDescriptor, LTX_EXTENDS, LTX_ROOT, Optional, renderField } from "#/utils";
+import {
+  ILtxConfigDescriptor,
+  ILtxFieldDescriptor,
+  LTX_EXTEND,
+  LTX_IMPORT,
+  LTX_ROOT,
+  Optional,
+  renderField,
+} from "#/utils";
 
 type TPossibleFieldDescriptorBase = Record<string, ILtxFieldDescriptor<unknown>> | Array<ILtxFieldDescriptor<unknown>>;
 type TPossibleFieldDescriptorFull = TPossibleFieldDescriptorBase | (() => TPossibleFieldDescriptorBase);
@@ -10,7 +18,7 @@ function renderSectionName(name: string | typeof LTX_ROOT, descriptorRaw: TPossi
   if (name === LTX_ROOT) {
     return "\n";
   } else {
-    const extendsMeta: Optional<string | Array<string>> = descriptorRaw[LTX_EXTENDS];
+    const extendsMeta: Optional<string | Array<string>> = descriptorRaw[LTX_EXTEND];
 
     if (extendsMeta) {
       return `\n[${name}]` + ":" + (Array.isArray(extendsMeta) ? extendsMeta.join(",") : extendsMeta) + "\n";
@@ -18,6 +26,17 @@ function renderSectionName(name: string | typeof LTX_ROOT, descriptorRaw: TPossi
       return `\n[${name}]\n`;
     }
   }
+}
+
+/**
+ * todo;
+ */
+function renderLtxImports(descriptorRaw: TPossibleFieldDescriptorFull): string {
+  if (!Array.isArray(descriptorRaw)) {
+    throw new Error(`Expected array of files to import, received '${typeof descriptorRaw}' instead.`);
+  }
+
+  return "\n" + descriptorRaw.map((it) => `#include "${it}"`).join("\n") + "\n";
 }
 
 /**
@@ -43,6 +62,10 @@ function renderLtxSection(name: string | typeof LTX_ROOT, descriptorRaw: TPossib
  */
 export function renderJsonToLtx(filename: string, object: ILtxConfigDescriptor): string {
   let header: string = `; ${filename} @ generated ${new Date().toString()}\n`;
+
+  if (object[LTX_IMPORT]) {
+    header += renderLtxImports(object[LTX_IMPORT]);
+  }
 
   if (object[LTX_ROOT]) {
     header += renderLtxSection(LTX_ROOT, object[LTX_ROOT]);

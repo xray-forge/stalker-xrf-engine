@@ -1,4 +1,4 @@
-import { LTX_EXTENDS } from "#/utils";
+import { LTX_EXTEND } from "#/utils";
 
 export const config = {
   hud_base: {
@@ -59,7 +59,7 @@ export const config = {
     zoom_rotate_time: 0.25,
   },
   zero_immunities: {
-    [LTX_EXTENDS]: "identity_immunities",
+    [LTX_EXTEND]: "identity_immunities",
     immunities_sect: "sect_zero_immunities",
   },
   weapon_probability: {
@@ -97,7 +97,7 @@ export const config = {
     ph_character_have_wounded_state: false,
   },
   monster_base: {
-    [LTX_EXTENDS]: "common_ph_friction_params_on_npc_death",
+    [LTX_EXTEND]: "common_ph_friction_params_on_npc_death",
     actor_hit_effect: "effector_monster_hit",
     custom_data: "default_custom_data.ltx",
     feel_enemy_who_made_sound_max_distance: 20,

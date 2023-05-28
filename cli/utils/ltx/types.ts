@@ -47,7 +47,12 @@ export const LTX_ROOT: unique symbol = Symbol("LTX_ROOT");
 /**
  * todo;
  */
-export const LTX_EXTENDS: unique symbol = Symbol("LTX_EXTENDS");
+export const LTX_EXTEND: unique symbol = Symbol("LTX_EXTEND");
+
+/**
+ * todo;
+ */
+export const LTX_IMPORT: unique symbol = Symbol("LTX_IMPORT");
 
 /**
  * todo;

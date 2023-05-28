@@ -1,7 +1,6 @@
 import { quoted } from "#/utils";
 
 /**
- * todo;
  * todo: Probably not used anywhere.
  */
 export const config = {
