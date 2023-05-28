@@ -108,7 +108,7 @@ extern("xr_conditions.time_period", (actor: ClientObject, npc: ClientObject, p: 
 /**
  * todo;
  */
-const alarm_statuses = {
+const ALARM_STATUSES = {
   normal: ESmartTerrainStatus.NORMAL,
   danger: ESmartTerrainStatus.DANGER,
   alarm: ESmartTerrainStatus.ALARM,
@@ -121,7 +121,7 @@ extern(
   "xr_conditions.check_smart_alarm_status",
   (actor: ClientObject, npc: ClientObject, params: [TName, string]): boolean => {
     const smartName: TName = params[0];
-    const status: ESmartTerrainStatus = alarm_statuses[params[1] as keyof typeof alarm_statuses];
+    const status: ESmartTerrainStatus = ALARM_STATUSES[params[1] as keyof typeof ALARM_STATUSES];
 
     if (status === null) {
       abort("Wrong status[%s] in 'check_smart_alarm_status'", tostring(params[1]));

@@ -361,16 +361,16 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_all", (): boolean => {
 extern(
   "dialogs_pripyat.pri_b305_sell_strelok_notes",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    const items_table = [
+    const itemsTable: LuaArray<string> = $fromArray<string>([
       questItems.jup_b10_notes_01,
       questItems.jup_b10_notes_02,
       questItems.jup_b10_notes_03,
-    ] as unknown as LuaArray<string>;
+    ]);
     const actor: ClientObject = registry.actor;
 
     let amount: number = 0;
 
-    for (const [k, v] of items_table) {
+    for (const [k, v] of itemsTable) {
       if (actor.object(v) !== null) {
         transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), v);
         amount = amount + 1;

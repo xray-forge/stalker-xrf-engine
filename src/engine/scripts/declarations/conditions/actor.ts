@@ -11,7 +11,7 @@ import { isActorAlive, isActorEnemy, isObjectInZone } from "@/engine/core/utils/
 import { isWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { npcInActorFrustum } from "@/engine/core/utils/vector";
-import { AnyArgs, ClientObject, EScheme, LuaArray, Optional, TSection } from "@/engine/lib/types";
+import { AnyArgs, ClientObject, EScheme, LuaArray, Optional, TCount, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -117,9 +117,9 @@ extern("xr_conditions.heli_see_actor", (actor: ClientObject, object: ClientObjec
 extern(
   "xr_conditions.actor_has_item",
   (actor: ClientObject, npc: ClientObject, params: [Optional<string>]): boolean => {
-    const story_actor = registry.actor;
+    const storyActor: ClientObject = registry.actor;
 
-    return params[0] !== null && story_actor !== null && story_actor.object(params[0]) !== null;
+    return params[0] !== null && storyActor !== null && storyActor.object(params[0]) !== null;
   }
 );
 
@@ -127,17 +127,17 @@ extern(
  * todo;
  */
 extern("xr_conditions.actor_has_item_count", (actor: ClientObject, npc: ClientObject, p: [string, string]) => {
-  const item_section: TSection = p[0];
-  const need_count: number = tonumber(p[1])!;
-  let has_count: number = 0;
+  const itemSection: TSection = p[0];
+  const neededCount: TCount = tonumber(p[1])!;
+  let hasCount: TCount = 0;
 
   actor.iterate_inventory((temp, item) => {
-    if (item.section() === item_section) {
-      has_count = has_count + 1;
+    if (item.section() === itemSection) {
+      hasCount = hasCount + 1;
     }
   }, actor);
 
-  return has_count >= need_count;
+  return hasCount >= neededCount;
 });
 
 /**
@@ -160,13 +160,9 @@ extern("xr_conditions.killed_by_actor", (actor: ClientObject, npc: ClientObject)
  * todo;
  */
 extern("xr_conditions.actor_has_weapon", (actor: ClientObject): boolean => {
-  const obj = actor.active_item();
+  const object: Optional<ClientObject> = actor.active_item();
 
-  if (obj === null || isWeapon(obj) === false) {
-    return false;
-  }
-
-  return true;
+  return object !== null && isWeapon(object);
 });
 
 /**
@@ -175,15 +171,15 @@ extern("xr_conditions.actor_has_weapon", (actor: ClientObject): boolean => {
 extern(
   "xr_conditions.actor_active_detector",
   (actor: ClientObject, npc: ClientObject, p: Optional<[TSection]>): boolean => {
-    const detector_section = p && p[0];
+    const detectorSection: Optional<TSection> = p && p[0];
 
-    if (detector_section === null) {
+    if (detectorSection === null) {
       abort("Wrong parameters in function 'actor_active_detector'");
     }
 
     const activeDetector = registry.actor.active_detector();
 
-    return activeDetector !== null && activeDetector.section() === detector_section;
+    return activeDetector !== null && activeDetector.section() === detectorSection;
   }
 );
 
@@ -218,7 +214,7 @@ extern("xr_conditions.actor_nomove_nowpn", (): boolean => {
  * todo;
  */
 extern("xr_conditions.actor_has_nimble_weapon", (actor: ClientObject, npc: ClientObject): boolean => {
-  const need_item: LuaTable<string, boolean> = {
+  const neededItems: LuaTable<string, boolean> = {
     wpn_groza_nimble: true,
     wpn_desert_eagle_nimble: true,
     wpn_fn2000_nimble: true,
@@ -233,7 +229,7 @@ extern("xr_conditions.actor_has_nimble_weapon", (actor: ClientObject, npc: Clien
     wpn_svd_nimble: true,
   } as unknown as LuaTable<string, boolean>;
 
-  for (const [k, v] of need_item) {
+  for (const [k, v] of neededItems) {
     if (actor.object(k) !== null) {
       return true;
     }
@@ -246,7 +242,7 @@ extern("xr_conditions.actor_has_nimble_weapon", (actor: ClientObject, npc: Clien
  * todo;
  */
 extern("xr_conditions.actor_has_active_nimble_weapon", (actor: ClientObject, npc: ClientObject): boolean => {
-  const need_item: Record<string, boolean> = {
+  const neededItems: Record<string, boolean> = {
     wpn_groza_nimble: true,
     wpn_desert_eagle_nimble: true,
     wpn_fn2000_nimble: true,
@@ -261,9 +257,9 @@ extern("xr_conditions.actor_has_active_nimble_weapon", (actor: ClientObject, npc
     wpn_svd_nimble: true,
   };
 
-  if (actor.item_in_slot(2) !== null && need_item[actor.item_in_slot(2)!.section()] === true) {
+  if (actor.item_in_slot(2) !== null && neededItems[actor.item_in_slot(2)!.section()] === true) {
     return true;
-  } else if (actor.item_in_slot(3) !== null && need_item[actor.item_in_slot(3)!.section()] === true) {
+  } else if (actor.item_in_slot(3) !== null && neededItems[actor.item_in_slot(3)!.section()] === true) {
     return true;
   }
 

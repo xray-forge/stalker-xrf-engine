@@ -50,7 +50,7 @@ import {
   TStringId,
   Vector,
 } from "@/engine/lib/types";
-import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
+import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 /**
  * todo;
@@ -345,7 +345,7 @@ extern("xr_effects.give_item_b29", (actor: ClientObject, npc: ClientObject, p: [
   ] as unknown as LuaArray<TName>;
 
   for (const it of $range(16, 23)) {
-    if (hasAlifeInfo(zat_b29_infop_bring_table.get(it))) {
+    if (hasAlifeInfo(zatB29InfopBringTable.get(it))) {
       let anomalyZoneName: Optional<TName> = null;
 
       for (const [index, name] of anomalyZonesList) {
@@ -359,7 +359,7 @@ extern("xr_effects.give_item_b29", (actor: ClientObject, npc: ClientObject, p: [
       getExtern<AnyCallable>("pick_artefact_from_anomaly", getExtern("xr_effects"))(actor, null, [
         p[0],
         anomalyZoneName,
-        zat_b29_af_table.get(it),
+        zatB29AfTable.get(it),
       ]);
       break;
     }
@@ -373,8 +373,8 @@ extern("xr_effects.relocate_item_b29", (actor: ClientObject, npc: ClientObject, 
   let item: Optional<string> = null;
 
   for (const it of $range(16, 23)) {
-    if (hasAlifeInfo(zat_b29_infop_bring_table.get(it))) {
-      item = zat_b29_af_table.get(it);
+    if (hasAlifeInfo(zatB29InfopBringTable.get(it))) {
+      item = zatB29AfTable.get(it);
       break;
     }
   }

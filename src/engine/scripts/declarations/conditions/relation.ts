@@ -1,5 +1,3 @@
-import { cse_alife_human_abstract } from "xray16";
-
 import { registry } from "@/engine/core/database";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { abort } from "@/engine/core/utils/assertion";
@@ -18,7 +16,15 @@ import {
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { relations } from "@/engine/lib/constants/relations";
-import { AnyCallable, ClientObject, EClientObjectRelation, EScheme, Optional } from "@/engine/lib/types";
+import {
+  AnyCallable,
+  ClientObject,
+  EClientObjectRelation,
+  EScheme,
+  Optional,
+  ServerHumanObject,
+  TNumberId,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -139,8 +145,8 @@ extern("xr_conditions.is_squad_neutral_to_actor", (actor: ClientObject, npc: Cli
  * todo;
  */
 extern("xr_conditions.fighting_actor", (actor: ClientObject, npc: ClientObject): boolean => {
-  const enemy_id: number = registry.objects.get(npc.id()).enemy_id!;
-  const enemy: Optional<ClientObject> = registry.objects.get(enemy_id)?.object as Optional<ClientObject>;
+  const enemyId: TNumberId = registry.objects.get(npc.id()).enemy_id!;
+  const enemy: Optional<ClientObject> = registry.objects.get(enemyId)?.object as Optional<ClientObject>;
 
   return enemy !== null && enemy.id() === actor.id();
 });
@@ -173,7 +179,7 @@ extern("xr_conditions.actor_neutral", (actor: ClientObject, npc: ClientObject): 
  */
 extern(
   "xr_conditions.npc_community",
-  (actor: ClientObject, npc: ClientObject | cse_alife_human_abstract, params: [TCommunity]): boolean => {
+  (actor: ClientObject, npc: ClientObject | ServerHumanObject, params: [TCommunity]): boolean => {
     if (params[0] === null) {
       abort("Wrong number of params in npc_community");
     }
@@ -181,10 +187,10 @@ extern(
     let object: Optional<ClientObject> = null;
 
     if (type(npc.id) !== "function") {
-      object = registry.objects.get((npc as cse_alife_human_abstract).id)?.object as ClientObject;
+      object = registry.objects.get((npc as ServerHumanObject).id)?.object as ClientObject;
 
       if (object === null) {
-        return (npc as cse_alife_human_abstract).community() === params[0];
+        return (npc as ServerHumanObject).community() === params[0];
       }
     } else {
       object = npc as ClientObject;

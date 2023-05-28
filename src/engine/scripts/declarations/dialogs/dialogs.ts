@@ -348,8 +348,8 @@ extern("dialogs.has_2000_money", (firstSpeaker: ClientObject, secondSpeaker: Cli
  */
 extern("dialogs.transfer_any_pistol_from_actor", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   const actor: ClientObject = registry.actor;
-  const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
-  const pistol: Optional<TPistol> = get_npc_pistol(actor);
+  const npc: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+  const pistol: Optional<TPistol> = getNpcPistol(actor);
 
   if (pistol !== null) {
     actor.transfer_item(actor.object(pistol)!, npc);
@@ -360,7 +360,7 @@ extern("dialogs.transfer_any_pistol_from_actor", (firstSpeaker: ClientObject, se
 /**
  * todo;
  */
-function get_npc_pistol(npc: ClientObject): Optional<TPistol> {
+function getNpcPistol(npc: ClientObject): Optional<TPistol> {
   let pistol: Optional<TPistol> = null;
 
   npc.iterate_inventory((owner, item) => {
@@ -378,7 +378,7 @@ function get_npc_pistol(npc: ClientObject): Optional<TPistol> {
  * todo;
  */
 extern("dialogs.have_actor_any_pistol", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return get_npc_pistol(registry.actor) !== null;
+  return getNpcPistol(registry.actor) !== null;
 });
 
 /**

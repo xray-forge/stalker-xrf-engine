@@ -11,6 +11,7 @@ import { SimulationBoardManager } from "@/engine/core/managers/interaction/Simul
 import { ActorInventoryMenuManager, EActorMenuMode } from "@/engine/core/managers/interface/ActorInventoryMenuManager";
 import { ItemUpgradesManager } from "@/engine/core/managers/interface/ItemUpgradesManager";
 import { SmartTerrain, Squad } from "@/engine/core/objects";
+import { ISmartTerrainJob } from "@/engine/core/objects/server/smart_terrain/types";
 import { ISchemeAnimpointState, SchemeAnimpoint } from "@/engine/core/schemes/animpoint";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { ISchemeHitState } from "@/engine/core/schemes/hit";
@@ -215,9 +216,9 @@ extern(
     const smart: SmartTerrain = getObjectSmartTerrain(npc)!;
 
     for (const [k, descriptor] of smart.objectJobDescriptors) {
-      const npc_job = smart.jobsData.get(descriptor.job_id);
+      const npcJob: ISmartTerrainJob = smart.jobsData.get(descriptor.job_id);
 
-      if (npc_job.section === params[0]) {
+      if (npcJob.section === params[0]) {
         return npc.position().distance_to_sqr(descriptor.serverObject.position) <= params[1] * params[1];
       }
     }
@@ -240,9 +241,9 @@ extern("xr_conditions.is_obj_on_job", (actor: ClientObject, npc: ClientObject, p
   }
 
   for (const [k, v] of smart.objectJobDescriptors) {
-    const npc_job = smart.jobsData.get(v.job_id);
+    const npcJob: ISmartTerrainJob = smart.jobsData.get(v.job_id);
 
-    if (npc_job.section === params[0]) {
+    if (npcJob.section === params[0]) {
       return true;
     }
   }
@@ -573,9 +574,9 @@ extern("xr_conditions.has_enemy", (actor: ClientObject, npc: ClientObject): bool
  * todo;
  */
 extern("xr_conditions.has_actor_enemy", (actor: ClientObject, npc: ClientObject): boolean => {
-  const best_enemy: Optional<ClientObject> = npc.best_enemy();
+  const bestEnemy: Optional<ClientObject> = npc.best_enemy();
 
-  return best_enemy !== null && best_enemy.id() === registry.actor.id();
+  return bestEnemy !== null && bestEnemy.id() === registry.actor.id();
 });
 
 /**
@@ -677,13 +678,13 @@ extern("xr_conditions.squad_has_enemy", (actor: ClientObject, npc: ClientObject,
   }
 
   for (const squadMember of squad.squad_members()) {
-    const npc_obj = level.object_by_id(squadMember.object.id);
+    const npcObject: Optional<ClientObject> = level.object_by_id(squadMember.object.id);
 
-    if (npc_obj === null) {
+    if (npcObject === null) {
       return false;
     }
 
-    if (npc_obj.best_enemy() !== null) {
+    if (npcObject.best_enemy() !== null) {
       return true;
     }
   }
@@ -811,23 +812,23 @@ extern("xr_conditions.squad_exist", (actor: ClientObject, npc: ClientObject, p: 
  * todo;
  */
 extern("xr_conditions.is_squad_commander", (actor: ClientObject, npc: ClientObject | ServerCreatureObject): boolean => {
-  const npc_id: number = type(npc.id) === "number" ? (npc as ServerObject).id : (npc as ClientObject).id();
+  const npcId: TNumberId = type(npc.id) === "number" ? (npc as ServerObject).id : (npc as ClientObject).id();
   const squad: Optional<Squad> = getObjectSquad(npc);
 
-  return squad !== null && squad.commander_id() === npc_id;
+  return squad !== null && squad.commander_id() === npcId;
 });
 
 /**
  * todo;
  */
 extern("xr_conditions.squad_npc_count_ge", (actor: ClientObject, npc: ClientObject, p: [string, string]): boolean => {
-  const story_id: Optional<string> = p[0];
+  const storyId: Optional<TStringId> = p[0];
 
-  if (story_id === null) {
-    abort("Wrong parameter squad_id[%s] in 'squad_npc_count_ge' function", tostring(story_id));
+  if (storyId === null) {
+    abort("Wrong parameter squad_id[%s] in 'squad_npc_count_ge' function", tostring(storyId));
   }
 
-  const squad: Optional<Squad> = getServerObjectByStoryId(story_id) as Optional<Squad>;
+  const squad: Optional<Squad> = getServerObjectByStoryId(storyId) as Optional<Squad>;
 
   if (squad) {
     return squad.npc_count() > tonumber(p[1])!;
@@ -890,7 +891,7 @@ extern("xr_conditions.distance_to_obj_le", (actor: ClientObject, npc: ClientObje
  */
 extern("xr_conditions.active_item", (actor: ClientObject, npc: ClientObject, params: LuaArray<TSection>): boolean => {
   if (params && params.has(1)) {
-    for (const [k, section] of params) {
+    for (const [, section] of params) {
       if (actor.item_in_slot(3) !== null && actor.item_in_slot(3)!.section() === section) {
         return true;
       }
@@ -999,9 +1000,9 @@ extern("xr_conditions.check_enemy_smart", (actor: ClientObject, npc: ClientObjec
     return false;
   }
 
-  const enemy_smart: Optional<SmartTerrain> = getObjectSmartTerrain(enemy);
+  const enemySmartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(enemy);
 
-  return enemy_smart !== null && enemy_smart.name() === params[0];
+  return enemySmartTerrain !== null && enemySmartTerrain.name() === params[0];
 });
 
 /**
@@ -1111,28 +1112,28 @@ extern("xr_conditions.animpoint_reached", (actor: ClientObject, npc: ClientObjec
 extern("xr_conditions.upgrade_hint_kardan", (actor: ClientObject, npc: ClientObject, params: AnyArgs): boolean => {
   const itemUpgradeHints: LuaArray<TCaption> = new LuaTable();
   const toolsCount: TCount = (params && tonumber(params[0])) || 0;
-  let can_upgrade = 0;
+  let canUpgrade = 0;
 
   if (!hasAlifeInfo(infoPortions.zat_b3_all_instruments_brought)) {
     if (!hasAlifeInfo(infoPortions.zat_b3_tech_instrument_1_brought) && (toolsCount === 0 || toolsCount === 1)) {
       table.insert(itemUpgradeHints, captions.st_upgr_toolkit_1);
     } else if (toolsCount === 1) {
-      can_upgrade = can_upgrade + 1;
+      canUpgrade = canUpgrade + 1;
     }
 
     if (!hasAlifeInfo(infoPortions.zat_b3_tech_instrument_2_brought) && (toolsCount === 0 || toolsCount === 2)) {
       table.insert(itemUpgradeHints, captions.st_upgr_toolkit_2);
     } else if (toolsCount === 2) {
-      can_upgrade = can_upgrade + 1;
+      canUpgrade = canUpgrade + 1;
     }
 
     if (!hasAlifeInfo(infoPortions.zat_b3_tech_instrument_3_brought) && (toolsCount === 0 || toolsCount === 3)) {
       table.insert(itemUpgradeHints, captions.st_upgr_toolkit_3);
     } else if (toolsCount === 3) {
-      can_upgrade = can_upgrade + 1;
+      canUpgrade = canUpgrade + 1;
     }
   } else {
-    can_upgrade = can_upgrade + 1;
+    canUpgrade = canUpgrade + 1;
   }
 
   if (!hasAlifeInfo(infoPortions.zat_b3_tech_see_produce_62)) {
@@ -1141,13 +1142,13 @@ extern("xr_conditions.upgrade_hint_kardan", (actor: ClientObject, npc: ClientObj
     } else if (toolsCount !== 1 && !hasAlifeInfo(infoPortions.zat_b3_tech_have_couple_dose)) {
       table.insert(itemUpgradeHints, captions.st_upgr_vodka);
     } else {
-      can_upgrade = can_upgrade + 1;
+      canUpgrade = canUpgrade + 1;
     }
   } else {
-    can_upgrade = can_upgrade + 1;
+    canUpgrade = canUpgrade + 1;
   }
 
   ItemUpgradesManager.getInstance().setCurrentHints(itemUpgradeHints);
 
-  return can_upgrade >= 2;
+  return canUpgrade >= 2;
 });

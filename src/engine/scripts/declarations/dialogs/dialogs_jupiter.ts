@@ -46,6 +46,7 @@ import {
   TCount,
   TIndex,
   TName,
+  TSection,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -865,7 +866,7 @@ extern(
 /**
  * todo;
  */
-const jup_a12_af_table: LuaArray<TArtefact> = $fromArray<TArtefact>([
+const jupA12AfTable: LuaArray<TArtefact> = $fromArray<TArtefact>([
   artefacts.af_fire,
   artefacts.af_gold_fish,
   artefacts.af_glass,
@@ -878,7 +879,7 @@ const jup_a12_af_table: LuaArray<TArtefact> = $fromArray<TArtefact>([
 extern(
   "dialogs_jupiter.jup_a12_actor_has_artefacts",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    for (const [k, v] of jup_a12_af_table) {
+    for (const [k, v] of jupA12AfTable) {
       if (registry.actor.object(v) !== null) {
         return true;
       }
@@ -894,7 +895,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_a12_actor_has_artefact_1",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(jup_a12_af_table.get(1)) !== null;
+    return registry.actor.object(jupA12AfTable.get(1)) !== null;
   }
 );
 
@@ -904,7 +905,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_a12_actor_has_artefact_2",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(jup_a12_af_table.get(2)) !== null;
+    return registry.actor.object(jupA12AfTable.get(2)) !== null;
   }
 );
 
@@ -914,7 +915,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_a12_actor_has_artefact_3",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(jup_a12_af_table.get(3)) !== null;
+    return registry.actor.object(jupA12AfTable.get(3)) !== null;
   }
 );
 
@@ -924,7 +925,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_a12_actor_has_artefact_4",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return registry.actor.object(jup_a12_af_table.get(4)) !== null;
+    return registry.actor.object(jupA12AfTable.get(4)) !== null;
   }
 );
 
@@ -936,7 +937,7 @@ extern(
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     const actor: ClientObject = registry.actor;
 
-    for (const [k, v] of jup_a12_af_table) {
+    for (const [k, v] of jupA12AfTable) {
       if (actor.object(v) !== null) {
         return false;
       }
@@ -958,7 +959,7 @@ extern(
       return;
     }
 
-    const jup_a12_info_table: LuaArray<TName> = $fromArray<TName>([
+    const jupA12InfoTable: LuaArray<TName> = $fromArray<TName>([
       "jup_a12_af_fire",
       "jup_a12_af_gold_fish",
       "jup_a12_af_glass",
@@ -966,8 +967,8 @@ extern(
     ]);
 
     for (const i of $range(1, 4)) {
-      if (hasAlifeInfo(jup_a12_info_table.get(i))) {
-        transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), jup_a12_af_table.get(i));
+      if (hasAlifeInfo(jupA12InfoTable.get(i))) {
+        transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), jupA12AfTable.get(i));
 
         return;
       }
@@ -1055,13 +1056,13 @@ extern(
     const actor: ClientObject = registry.actor;
     let cnt = 0;
 
-    const zat_b30_count = (npc: ClientObject, item: ClientObject): void => {
+    const zatB30Count = (npc: ClientObject, item: ClientObject): void => {
       if (item.section() === "detector_elite") {
         cnt = cnt + 1;
       }
     };
 
-    actor.iterate_inventory(zat_b30_count, actor);
+    actor.iterate_inventory(zatB30Count, actor);
 
     return cnt >= 3;
   }
@@ -1154,7 +1155,7 @@ extern(
       return false;
     }
 
-    const az_table = [
+    const azTable = [
       "jup_b32_anomal_zone",
       "jup_b201_anomal_zone",
       "jup_b209_anomal_zone",
@@ -1182,7 +1183,7 @@ extern(
       return true;
     }
 
-    const anomalyZone: AnomalyZoneBinder = registry.anomalyZones.get(az_table.get(index));
+    const anomalyZone: AnomalyZoneBinder = registry.anomalyZones.get(azTable.get(index));
 
     if (anomalyZone === null) {
       disableInfo(infoPortionsTable.get(index));
@@ -1417,7 +1418,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_b1_actor_have_good_suit",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const suits_tbl = {
+    const suitsList: LuaTable<string, boolean> = $fromObject<string, boolean>({
       [outfits.scientific_outfit]: true,
       [outfits.military_outfit]: true,
       [outfits.dolg_heavy_outfit]: true,
@@ -1425,9 +1426,9 @@ extern(
       [outfits.svoboda_light_outfit]: true,
       [outfits.svoboda_heavy_outfit]: true,
       [outfits.cs_heavy_outfit]: true,
-    } as unknown as LuaTable<TOutfit, boolean>;
+    });
 
-    const helmets_tbl: LuaTable<THelmet, boolean | undefined> = $fromObject<PartialRecord<THelmet, boolean>>({
+    const helmetsList: LuaTable<THelmet, boolean | undefined> = $fromObject<PartialRecord<THelmet, boolean>>({
       [helmets.helm_battle]: true,
       [helmets.helm_tactic]: true,
       [helmets.helm_protective]: true,
@@ -1435,11 +1436,11 @@ extern(
 
     const actor: ClientObject = registry.actor;
 
-    if (actor.item_in_slot(7) !== null && suits_tbl.get(actor.section())) {
+    if (actor.item_in_slot(7) !== null && suitsList.get(actor.section())) {
       return true;
     }
 
-    if (actor.item_in_slot(12) !== null && helmets_tbl.get(actor.item_in_slot(12)!.section())) {
+    if (actor.item_in_slot(12) !== null && helmetsList.get(actor.item_in_slot(12)!.section())) {
       return true;
     }
 
@@ -1555,29 +1556,29 @@ extern(
       return false;
     }
 
-    const squad_name = alife().object(npcAlife.group_id)!.section_name();
+    const squadName: TName = alife().object(npcAlife.group_id)!.section_name();
 
-    if (squad_name !== null && squad_name !== "") {
-      if (!hasAlifeInfo(infoPortions.jup_b1_squad_is_dead) && squad_name === infoPortions.jup_b1_stalker_squad) {
+    if (squadName !== null && squadName !== "") {
+      if (!hasAlifeInfo(infoPortions.jup_b1_squad_is_dead) && squadName === infoPortions.jup_b1_stalker_squad) {
         return true;
       } else if (
         hasAlifeInfo(infoPortions.jup_b6_freedom_employed) &&
-        squad_name === infoPortions.jup_b6_stalker_freedom_squad
+        squadName === infoPortions.jup_b6_stalker_freedom_squad
       ) {
         return true;
       } else if (
         hasAlifeInfo(infoPortions.jup_b6_duty_employed) &&
-        squad_name === infoPortions.jup_b6_stalker_duty_squad
+        squadName === infoPortions.jup_b6_stalker_duty_squad
       ) {
         return true;
       } else if (
         hasAlifeInfo(infoPortions.jup_b6_gonta_employed) &&
-        squad_name === infoPortions.jup_b6_stalker_gonta_squad
+        squadName === infoPortions.jup_b6_stalker_gonta_squad
       ) {
         return true;
       } else if (
         hasAlifeInfo(infoPortions.jup_b6_exprisoner_work_on_sci) &&
-        squad_name === infoPortions.jup_b6_stalker_exprisoner_squad
+        squadName === infoPortions.jup_b6_stalker_exprisoner_squad
       ) {
         return true;
       }
@@ -1595,8 +1596,8 @@ extern(
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     const actor: ClientObject = registry.actor as ClientObject;
 
-    const is_toolkit = (npc: ClientObject, item: ClientObject): void => {
-      const section = item.section();
+    const isToolkit = (npc: ClientObject, item: ClientObject): void => {
+      const section: TSection = item.section();
 
       if (
         (section === misc.toolkit_1 && !hasAlifeInfo(infoPortions.jup_b217_tech_instrument_1_brought)) ||
@@ -1609,7 +1610,7 @@ extern(
       }
     };
 
-    actor.iterate_inventory(is_toolkit, actor);
+    actor.iterate_inventory(isToolkit, actor);
 
     if ((actor as AnyObject).toolkit !== null) {
       return true;
@@ -1625,7 +1626,7 @@ extern(
 extern(
   "dialogs_jupiter.jupiter_b200_tech_materials_relocate",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    const need_items = {
+    const needItems = {
       [questItems.jup_b200_tech_materials_wire]: true,
       [questItems.jup_b200_tech_materials_acetone]: true,
       [questItems.jup_b200_tech_materials_textolite]: true,
@@ -1634,31 +1635,31 @@ extern(
     } as unknown as LuaTable<string, boolean>;
 
     const actor: ClientObject = registry.actor;
-    const items_to_relocate: LuaTable<string, number> = new LuaTable();
+    const itemsToRelocate: LuaTable<string, number> = new LuaTable();
     let count: number = 0;
 
-    const relocate_and_inc_count = (npc: ClientObject, item: ClientObject): void => {
-      if (need_items.get(item.section())) {
+    const relocateAndIncCount = (object: ClientObject, item: ClientObject): void => {
+      if (needItems.get(item.section())) {
         const section: string = item.section();
 
         count = count + 1;
 
-        if (items_to_relocate.get(section) === null) {
-          items_to_relocate.set(section, 1);
+        if (itemsToRelocate.get(section) === null) {
+          itemsToRelocate.set(section, 1);
         } else {
-          items_to_relocate.set(section, items_to_relocate.get(section) + 1);
+          itemsToRelocate.set(section, itemsToRelocate.get(section) + 1);
         }
       }
     };
 
-    actor.iterate_inventory(relocate_and_inc_count, actor);
+    actor.iterate_inventory(relocateAndIncCount, actor);
 
     getExtern<AnyCallablesModule>("xr_effects").inc_counter(actor, null, [
       "jup_b200_tech_materials_brought_counter",
       tostring(count),
     ]);
 
-    for (const [k, v] of items_to_relocate) {
+    for (const [k, v] of itemsToRelocate) {
       transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), k, v);
     }
   }
@@ -1747,21 +1748,21 @@ extern(
 /**
  * todo;
  */
-const money_count_table = [3000, 2850, 2700, 2550, 2400, 2250, 2100, 1950, 1800, 1650] as unknown as LuaArray<number>;
+const moneyCountTable: LuaArray<TCount> = $fromArray([3000, 2850, 2700, 2550, 2400, 2250, 2100, 1950, 1800, 1650]);
 
 /**
  * todo;
  */
 extern("dialogs_jupiter.jup_b9_actor_has_money", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  let money_count: number = 0;
+  let moneyCount: TCount = 0;
 
   for (const it of $range(1, 9)) {
     if (hasAlifeInfo(("jup_b200_tech_materials_brought_counter_" + it) as TInfoPortion)) {
-      money_count = money_count_table.get(it);
+      moneyCount = moneyCountTable.get(it);
     }
   }
 
-  return registry.actor.money() >= money_count;
+  return registry.actor.money() >= moneyCount;
 });
 
 /**
@@ -1772,7 +1773,7 @@ extern("dialogs_jupiter.jupiter_b9_relocate_money", (firstSpeaker: ClientObject,
 
   for (const it of $range(1, 9)) {
     if (hasAlifeInfo(("jup_b200_tech_materials_brought_counter_" + it) as TInfoPortion)) {
-      moneyCount = money_count_table.get(it);
+      moneyCount = moneyCountTable.get(it);
     }
   }
 
@@ -1916,7 +1917,7 @@ extern(
   "dialogs_jupiter.jup_b47_jupiter_docs_enabled",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     const actor: ClientObject = registry.actor;
-    const items_table = [
+    const itemsTable = [
       "jup_a9_conservation_info",
       "jup_a9_power_info",
       "jup_a9_way_info",
@@ -1929,7 +1930,7 @@ extern(
 
     let a = false;
 
-    for (const [k, v] of items_table) {
+    for (const [k, v] of itemsTable) {
       if (actor.object(v) !== null) {
         a = true;
         break;
@@ -2060,25 +2061,25 @@ extern(
  * todo;
  */
 extern("dialogs_jupiter.jup_b32_anomaly_has_af", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const az_table = [
+  const azTable: LuaArray<string> = $fromArray<string>([
     "jup_b32_anomal_zone",
     "jup_b201_anomal_zone",
     "jup_b209_anomal_zone",
     "jup_b211_anomal_zone",
     "jup_b10_anomal_zone",
-  ] as unknown as LuaArray<string>;
-  const infop_table = [
+  ]);
+  const infopTable: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
     infoPortions.jup_b32_anomaly_1,
     infoPortions.jup_b32_anomaly_2,
     infoPortions.jup_b32_anomaly_3,
     infoPortions.jup_b32_anomaly_4,
     infoPortions.jup_b32_anomaly_5,
-  ] as unknown as LuaArray<TInfoPortion>;
+  ]);
 
   let index = 0;
 
-  for (const it of $range(1, infop_table.length())) {
-    if (hasAlifeInfo(infop_table.get(it))) {
+  for (const it of $range(1, infopTable.length())) {
+    if (hasAlifeInfo(infopTable.get(it))) {
       index = it;
       break;
     }
@@ -2088,14 +2089,14 @@ extern("dialogs_jupiter.jup_b32_anomaly_has_af", (firstSpeaker: ClientObject, se
     return false;
   }
 
-  const anomal_zone = registry.anomalyZones.get(az_table.get(index));
+  const anomalZone: AnomalyZoneBinder = registry.anomalyZones.get(azTable.get(index));
 
-  if (anomal_zone === null) {
+  if (anomalZone === null) {
     return false;
   }
 
-  if (anomal_zone.spawnedArtefactsCount > 0) {
-    disableInfo(infop_table.get(index));
+  if (anomalZone.spawnedArtefactsCount > 0) {
+    disableInfo(infopTable.get(index));
     giveInfo(infoPortions.jup_b32_anomaly_true);
 
     return true;

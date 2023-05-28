@@ -8,7 +8,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { ClientObject, Optional, TNumberId, TSection, TStringId } from "@/engine/lib/types";
-import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
+import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 /**
  * todo;
@@ -27,10 +27,10 @@ extern("task_functors.zat_b29_adv_title", (id: TStringId, field: string, p: stri
   let title: Optional<string> = null;
 
   for (const i of $range(16, 23)) {
-    if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && actor.object(zat_b29_af_table.get(i))) {
+    if (hasAlifeInfo(zatB29InfopBringTable.get(i)) && actor.object(zatB29AfTable.get(i))) {
       title = "zat_b29_simple_bring_title_" + i;
       break;
-    } else if (hasAlifeInfo(zat_b29_infop_bring_table.get(i))) {
+    } else if (hasAlifeInfo(zatB29InfopBringTable.get(i))) {
       title = "zat_b29_simple_find_title_" + i;
       break;
     }
@@ -48,7 +48,7 @@ extern("task_functors.zat_b29_adv_descr", (id: TStringId, field: string, p: stri
   const actor = registry.actor;
 
   for (const i of $range(16, 23)) {
-    if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && actor.object(zat_b29_af_table.get(i))) {
+    if (hasAlifeInfo(zatB29InfopBringTable.get(i)) && actor.object(zatB29AfTable.get(i))) {
       f_af = 1;
       descr = "zat_b29_simple_bring_text_5";
       if (
@@ -74,7 +74,7 @@ extern("task_functors.zat_b29_adv_descr", (id: TStringId, field: string, p: stri
       }
 
       break;
-    } else if (hasAlifeInfo(zat_b29_infop_bring_table.get(i))) {
+    } else if (hasAlifeInfo(zatB29InfopBringTable.get(i))) {
       descr = "zat_b29_simple_find_text_5";
 
       if (
@@ -147,8 +147,8 @@ extern("task_functors.zat_b29_adv_target", (id: TStringId, field: string, p: str
   const actor: ClientObject = registry.actor;
 
   for (const i of $range(16, 23)) {
-    if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && actor.object(zat_b29_af_table.get(i))) {
-      artefact = zat_b29_af_table.get(i);
+    if (hasAlifeInfo(zatB29InfopBringTable.get(i)) && actor.object(zatB29AfTable.get(i))) {
+      artefact = zatB29AfTable.get(i);
       break;
     }
   }

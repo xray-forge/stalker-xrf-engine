@@ -1,5 +1,3 @@
-import { TXR_move } from "xray16";
-
 import { get_smart_cover_anim_pri_a22 } from "@/engine/core/objects/server/smart_cover/smart_covers_anim_pri_a22";
 import { get_smart_cover_animpoint_pri_a15 } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_pri_a15";
 import { get_smart_cover_animpoint_sit_high } from "@/engine/core/objects/server/smart_cover/smart_covers_animpoint_sit_high";
@@ -10,7 +8,7 @@ import { get_smart_cover_animpoint_stay_wall } from "@/engine/core/objects/serve
 import { get_smart_cover_combat_front } from "@/engine/core/objects/server/smart_cover/smart_covers_combat_front";
 import { get_smart_cover_combat_prone } from "@/engine/core/objects/server/smart_cover/smart_covers_combat_prone";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Vector } from "@/engine/lib/types";
+import { TMoveType, TName, Vector } from "@/engine/lib/types";
 
 export interface ISmartCoverDescriptor {
   need_weapon?: boolean;
@@ -24,13 +22,13 @@ export interface ISmartCoverDescriptor {
       precondition_params?: string;
       animation?: string;
       position?: Vector;
-      body_state?: TXR_move;
-      movement_type?: TXR_move;
+      body_state?: TMoveType;
+      movement_type?: TMoveType;
       actions: Array<{
-        animation: string;
+        animation: TName;
         position: Vector;
-        body_state: TXR_move;
-        movement_type: TXR_move;
+        body_state: TMoveType;
+        movement_type: TMoveType;
       }>;
     }>;
   }>;

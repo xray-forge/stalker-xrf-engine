@@ -25,67 +25,67 @@ extern("dialog_manager", {});
  */
 export function precondition(
   object: ClientObject,
-  PT_subtable: TPHRTable,
-  PRT_subtable: TPRTTable,
+  PTsubtable: TPHRTable,
+  PRTsubtable: TPRTTable,
   phraseId: TStringId
 ): boolean {
   const objectId: TNumberId = object.id();
 
-  if (PRT_subtable.get(objectId) && PRT_subtable.get(objectId).told && PRT_subtable.get(objectId).told === true) {
+  if (PRTsubtable.get(objectId) && PRTsubtable.get(objectId).told && PRTsubtable.get(objectId).told === true) {
     return false;
   }
 
   const dialogManager: DialogManager = DialogManager.getInstance();
 
   // -- recalculate current phrase priority
-  dialogManager.calculatePhrasePriority(PRT_subtable, PT_subtable.get(phraseId), object, phraseId);
+  dialogManager.calculatePhrasePriority(PRTsubtable, PTsubtable.get(phraseId), object, phraseId);
 
   // -- if (current phrase is with highest priority - show it
-  return is_highest_priority_phrase(PT_subtable, PRT_subtable, object, phraseId);
+  return isHighestPriorityPhrase(PTsubtable, PRTsubtable, object, phraseId);
 }
 
 /**
  * todo;
  */
-export function told(PRT_subtable: TPRTTable, npc: ClientObject): void {
-  PRT_subtable.get(npc.id()).told = true;
+export function told(PRTsubtable: TPRTTable, object: ClientObject): void {
+  PRTsubtable.get(object.id()).told = true;
 }
 
 /**
  * todo;
  */
 export function action(
-  PT_subtable: LuaTable<string, IPhrasesDescriptor>,
-  PRT_subtable: TPRTTable,
-  cur_phrase_id: string,
+  PTsubtable: LuaTable<TStringId, IPhrasesDescriptor>,
+  PRTsubtable: TPRTTable,
+  currentPhraseId: TStringId,
   npc: ClientObject
 ) {
-  if (!PRT_subtable.get(npc.id()).ignore_once) {
-    if (PT_subtable.get(cur_phrase_id).once === TRUE) {
-      set_phrase_highest_priority(PRT_subtable, npc.id(), cur_phrase_id);
+  if (!PRTsubtable.get(npc.id()).ignore_once) {
+    if (PTsubtable.get(currentPhraseId).once === TRUE) {
+      setPhraseHighestPriority(PRTsubtable, npc.id(), currentPhraseId);
     }
 
-    PRT_subtable.get(npc.id()).ignore_once = true;
+    PRTsubtable.get(npc.id()).ignore_once = true;
   }
 }
 
 /**
  * todo;
  */
-export function set_phrase_highest_priority(PRT_subtable: TPRTTable, npcId: number, phrase_id: string) {
-  if (PRT_subtable.get(npcId) === null) {
-    PRT_subtable.set(npcId, new LuaTable());
+export function setPhraseHighestPriority(PRTsubtable: TPRTTable, npcId: TNumberId, phraseId: TStringId) {
+  if (PRTsubtable.get(npcId) === null) {
+    PRTsubtable.set(npcId, new LuaTable());
   }
 
-  PRT_subtable.get(npcId).set(phrase_id, 255);
+  PRTsubtable.get(npcId).set(phraseId, 255);
 }
 
 /**
  * todo;
  */
-export function reset_phrase_priority(
-  PT_subtable: TPHRTable,
-  PRT_subtable: TPRTTable,
+export function resetPhrasePriority(
+  PTsubtable: TPHRTable,
+  PRTsubtable: TPRTTable,
   object: ClientObject,
   phraseId: Optional<string>
 ): void {
@@ -93,16 +93,16 @@ export function reset_phrase_priority(
   const objectId: TNumberId = object.id();
 
   if (phraseId === null) {
-    logger.warn("Null provided for reset_phrase_priority");
+    logger.warn("Null provided for resetPhrasePriority");
   }
 
-  if (PRT_subtable.get(objectId) !== null) {
-    PRT_subtable.get(objectId).set(phraseId!, -1);
+  if (PRTsubtable.get(objectId) !== null) {
+    PRTsubtable.get(objectId).set(phraseId!, -1);
   } else {
-    PRT_subtable.set(objectId, new LuaTable());
-    PRT_subtable.get(objectId).set(
+    PRTsubtable.set(objectId, new LuaTable());
+    PRTsubtable.get(objectId).set(
       phraseId!,
-      dialogManager.calculatePhrasePriority(PRT_subtable, PT_subtable.get(phraseId!), object, phraseId!)
+      dialogManager.calculatePhrasePriority(PRTsubtable, PTsubtable.get(phraseId!), object, phraseId!)
     );
   }
 }
@@ -110,23 +110,23 @@ export function reset_phrase_priority(
 /**
  * todo;
  */
-export function is_highest_priority_phrase(
-  PT_subtable: TPHRTable,
-  PRT_subtable: TPRTTable,
+export function isHighestPriorityPhrase(
+  PTsubtable: TPHRTable,
+  PRTsubtable: TPRTTable,
   object: ClientObject,
-  phrase_id: string
+  phraseId: string
 ) {
   const objectId: TNumberId = object.id();
 
-  if (PRT_subtable.get(objectId) !== null) {
-    const pr = PRT_subtable.get(objectId).get(phrase_id);
+  if (PRTsubtable.get(objectId) !== null) {
+    const pr = PRTsubtable.get(objectId).get(phraseId);
 
     if (pr < 0) {
       return false;
     }
 
-    for (const [phr_id, priority] of PRT_subtable.get(objectId)) {
-      if (phr_id !== "ignore_once" && phr_id !== "told") {
+    for (const [phrId, priority] of PRTsubtable.get(objectId)) {
+      if (phrId !== "ignore_once" && phrId !== "told") {
         if (priority > pr) {
           return false;
         }
@@ -135,7 +135,7 @@ export function is_highest_priority_phrase(
 
     return true;
   } else {
-    reset_phrase_priority(PT_subtable, PRT_subtable, object, phrase_id);
+    resetPhrasePriority(PTsubtable, PRTsubtable, object, phraseId);
 
     return false;
   }
@@ -144,29 +144,29 @@ export function is_highest_priority_phrase(
 /**
  * todo;
  */
-export function get_highest_priority_phrase(
-  PT_subtable: TPHRTable,
-  PRT_subtable: TPRTTable,
+export function getHighestPriorityPhrase(
+  PTsubtable: TPHRTable,
+  PRTsubtable: TPRTTable,
   object: ClientObject
 ): LuaMultiReturn<[number, string | 0]> {
   const objectId: TNumberId = object.id();
 
-  if (PRT_subtable.get(objectId) !== null) {
+  if (PRTsubtable.get(objectId) !== null) {
     let id: string | 0 = 0;
     let pr: number = -1;
 
-    for (const [phr_id, priority] of PRT_subtable.get(objectId)) {
-      if (phr_id !== "ignore_once" && phr_id !== "told") {
+    for (const [phrId, priority] of PRTsubtable.get(objectId)) {
+      if (phrId !== "ignore_once" && phrId !== "told") {
         if (priority > pr) {
           pr = priority;
-          id = phr_id;
+          id = phrId;
         }
       }
     }
 
     return $multi(pr, id);
   } else {
-    reset_phrase_priority(PT_subtable, PRT_subtable, object, null);
+    resetPhrasePriority(PTsubtable, PRTsubtable, object, null);
 
     return $multi(-1, 0);
   }
@@ -175,10 +175,10 @@ export function get_highest_priority_phrase(
 /**
  * todo;
  */
-export function precondition_no_more(object: ClientObject, str: string): boolean {
+export function preconditionNoMore(object: ClientObject, str: string): boolean {
   const dialogManager: DialogManager = DialogManager.getInstance();
 
-  const [priority, id] = get_highest_priority_phrase(
+  const [priority, id] = getHighestPriorityPhrase(
     dialogManager.phrasesMap.get(str),
     dialogManager.priority_table.get(str),
     object
@@ -229,7 +229,7 @@ extern(
  */
 extern(
   "dialog_manager.fill_priority_job_table",
-  (actor: ClientObject, npc: ClientObject, dialog_name: string, phrase_id: string): void => {
+  (actor: ClientObject, npc: ClientObject, dialogName: string, phraseId: string): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     dialogManager.fillPriorityTable(npc, dialogManager.phrasesMap.get("job"), dialogManager.priority_table.get("job"));
@@ -241,7 +241,7 @@ extern(
  */
 extern(
   "dialog_manager.fill_priority_anomalies_table",
-  (actor: ClientObject, object: ClientObject, dialog_name: string, phrase_id: string): void => {
+  (actor: ClientObject, object: ClientObject, dialogName: string, phraseId: string): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     dialogManager.fillPriorityTable(
@@ -273,7 +273,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_hello_dialogs",
-  (object: ClientObject, actor: ClientObject, dialog_name: string, parent_id: string, id: string): boolean => {
+  (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     return precondition(object, dialogManager.phrasesMap.get("hello"), dialogManager.priority_table.get("hello"), id);
@@ -285,7 +285,7 @@ extern(
  */
 extern(
   "dialog_manager.action_hello_dialogs",
-  (object: ClientObject, actor: ClientObject, dialog_name: string, id: string): void => {
+  (object: ClientObject, actor: ClientObject, dialogName: string, id: string): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     action(dialogManager.phrasesMap.get("hello"), dialogManager.priority_table.get("hello"), id, object);
@@ -297,7 +297,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_job_dialogs_no_more",
-  (npc: ClientObject, actor: ClientObject, dialog_name: string, parent_id: string, id: string) => {
+  (npc: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string) => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     return dialogManager.isTold(npc, "job");
@@ -309,8 +309,8 @@ extern(
  */
 extern(
   "dialog_manager.precondition_job_dialogs_do_not_know",
-  (npc: ClientObject, actor: ClientObject, dialog_name: string, parent_id: string, id: string) => {
-    return precondition_no_more(npc, "job");
+  (npc: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string) => {
+    return preconditionNoMore(npc, "job");
   }
 );
 
@@ -319,7 +319,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_job_dialogs",
-  (object: ClientObject, actor: ClientObject, dialog_name: string, parent_id: string, id: string): boolean => {
+  (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     return precondition(object, dialogManager.phrasesMap.get("job"), dialogManager.priority_table.get("job"), id);
@@ -331,7 +331,7 @@ extern(
  */
 extern(
   "dialog_manager.action_job_dialogs",
-  (npc: ClientObject, actor: ClientObject, dialog_name: string, id: string): void => {
+  (npc: ClientObject, actor: ClientObject, dialogName: string, id: string): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     action(dialogManager.phrasesMap.get("job"), dialogManager.priority_table.get("job"), id, npc);
@@ -344,7 +344,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs_no_more",
-  (npc: ClientObject, actor: ClientObject, dialog_name: string, parent_id: string, id: string): boolean => {
+  (npc: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
     return DialogManager.getInstance().isTold(npc, "anomalies");
   }
 );
@@ -354,10 +354,10 @@ extern(
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs_do_not_know",
-  (object: ClientObject, actor: ClientObject, dialog_name: string, parent_id: string, id: string): boolean => {
+  (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    return precondition_no_more(object, "anomalies");
+    return preconditionNoMore(object, "anomalies");
   }
 );
 
@@ -366,7 +366,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs",
-  (object: ClientObject, actor: ClientObject, dialog_name: string, parent_id: string, id: string): boolean => {
+  (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
     const smartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
@@ -393,7 +393,7 @@ extern(
  */
 extern(
   "dialog_manager.action_anomalies_dialogs",
-  (object: ClientObject, actor: ClientObject, dialog_name: string, id: string): void => {
+  (object: ClientObject, actor: ClientObject, dialogName: string, id: string): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     action(dialogManager.phrasesMap.get("anomalies"), dialogManager.priority_table.get("anomalies"), id, object);
@@ -407,7 +407,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_information_dialogs_no_more",
-  (object: ClientObject, actor: ClientObject, dialog_name: string, parent_id: string, id: string): boolean => {
+  (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
     return DialogManager.getInstance().isTold(object, "information");
   }
 );
@@ -417,8 +417,8 @@ extern(
  */
 extern(
   "dialog_manager.precondition_information_dialogs_do_not_know",
-  (object: ClientObject, actor: ClientObject, dialog_name: string, parent_id: string, id: string): boolean => {
-    return precondition_no_more(object, "information");
+  (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
+    return preconditionNoMore(object, "information");
   }
 );
 
@@ -427,7 +427,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_information_dialogs",
-  (object: ClientObject, actor: ClientObject, dialog_name: string, parent_id: string, id: string): boolean => {
+  (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     return precondition(
@@ -444,7 +444,7 @@ extern(
  */
 extern(
   "dialog_manager.action_information_dialogs",
-  (object: ClientObject, actor: ClientObject, dialog_name: string, id: string): void => {
+  (object: ClientObject, actor: ClientObject, dialogName: string, id: string): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     action(dialogManager.phrasesMap.get("information"), dialogManager.priority_table.get("information"), id, object);
@@ -553,8 +553,8 @@ extern("dialog_manager.create_bye_phrase", (): string => {
 /**
  * todo;
  */
-extern("dialog_manager.uni_dialog_precond", (first_speaker: ClientObject, second_speaker: ClientObject): boolean => {
-  const object: ClientObject = getNpcSpeaker(first_speaker, second_speaker);
+extern("dialog_manager.uni_dialog_precond", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
+  const object: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
   const community: TCommunity = getCharacterCommunity(object);
 
   return (

@@ -826,7 +826,7 @@ extern("dialogs_zaton.zat_b33_relocate_money", (firstSpeaker: ClientObject, seco
 /**
  * todo;
  */
-export const zat_b29_af_table = {
+export const zatB29AfTable = {
   [16]: artefacts.af_gravi,
   [17]: artefacts.af_eye,
   [18]: artefacts.af_baloon,
@@ -840,7 +840,7 @@ export const zat_b29_af_table = {
 /**
  * todo;
  */
-export const zat_b29_af_names_table = {
+export const zatB29AfNamesTable = {
   [16]: captions.st_af_gravi_name,
   [17]: captions.st_af_eye_name,
   [18]: captions.st_af_baloon_name,
@@ -854,7 +854,7 @@ export const zat_b29_af_names_table = {
 /**
  * todo;
  */
-export const zat_b29_infop_table = {
+export const zatB29InfopTable = {
   [16]: infoPortions.zat_b29_af_16,
   [17]: infoPortions.zat_b29_af_17,
   [18]: infoPortions.zat_b29_af_18,
@@ -868,7 +868,7 @@ export const zat_b29_infop_table = {
 /**
  * todo;
  */
-export const zat_b29_infop_bring_table = {
+export const zatB29InfopBringTable = {
   [16]: "zat_b29_bring_af_16",
   [17]: "zat_b29_bring_af_17",
   [18]: "zat_b29_bring_af_18",
@@ -922,7 +922,7 @@ extern(
     let zoneName = "";
     let key;
 
-    for (const [k, v] of zat_b29_infop_bring_table) {
+    for (const [k, v] of zatB29InfopBringTable) {
       if (hasAlifeInfo(v)) {
         key = k;
         zone = anomTbl.get(key);
@@ -932,7 +932,7 @@ extern(
 
     zoneName = anomaliesNamesTbl.get(zone).get(math.random(1, anomaliesNamesTbl.get(zone).length()));
 
-    registry.anomalyZones.get(zoneName).setForcedSpawnOverride(zat_b29_af_table.get(key as number));
+    registry.anomalyZones.get(zoneName).setForcedSpawnOverride(zatB29AfTable.get(key as number));
   }
 );
 
@@ -946,13 +946,13 @@ extern(
     let f_first: boolean = true;
 
     for (const i of $range(16, 23)) {
-      disableInfo(zat_b29_infop_bring_table.get(i));
-      if (hasAlifeInfo(zat_b29_infop_table.get(i))) {
+      disableInfo(zatB29InfopBringTable.get(i));
+      if (hasAlifeInfo(zatB29InfopTable.get(i))) {
         if (f_first) {
-          result = game.translate_string(zat_b29_af_names_table.get(i));
+          result = game.translate_string(zatB29AfNamesTable.get(i));
           f_first = false;
         } else {
-          result = result + ", " + game.translate_string(zat_b29_af_names_table.get(i));
+          result = result + ", " + game.translate_string(zatB29AfNamesTable.get(i));
         }
       }
     }
@@ -968,7 +968,7 @@ extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     for (const i of $range(16, 23)) {
-      if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && registry.actor.object(zat_b29_af_table.get(i))) {
+      if (hasAlifeInfo(zatB29InfopBringTable.get(i)) && registry.actor.object(zatB29AfTable.get(i))) {
         return false;
       }
     }
@@ -984,7 +984,7 @@ extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     for (const i of $range(16, 23)) {
-      if (hasAlifeInfo(zat_b29_infop_bring_table.get(i)) && registry.actor.object(zat_b29_af_table.get(i))) {
+      if (hasAlifeInfo(zatB29InfopBringTable.get(i)) && registry.actor.object(zatB29AfTable.get(i))) {
         return true;
       }
     }
@@ -1000,9 +1000,9 @@ extern(
   "dialogs_zaton.zat_b29_linker_get_adv_task_af",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
     for (const i of $range(16, 23)) {
-      if (hasAlifeInfo(zat_b29_infop_bring_table.get(i))) {
+      if (hasAlifeInfo(zatB29InfopBringTable.get(i))) {
         disableInfo("zat_b29_adv_task_given");
-        transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zat_b29_af_table.get(i));
+        transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zatB29AfTable.get(i));
         if (i < 20) {
           if (hasAlifeInfo("zat_b29_linker_take_af_from_rival")) {
             giveMoneyToActor(12000);
@@ -1075,10 +1075,10 @@ extern("dialogs_zaton.zat_b29_actor_exchange", (firstSpeaker: ClientObject, seco
   const actor: ClientObject = registry.actor;
 
   for (const i of $range(16, 23)) {
-    if (hasAlifeInfo(zat_b29_infop_bring_table.get(i))) {
+    if (hasAlifeInfo(zatB29InfopBringTable.get(i))) {
       if ((actor as AnyObject).good_gun !== null) {
         transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), (actor as AnyObject).good_gun);
-        transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zat_b29_af_table.get(i));
+        transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zatB29AfTable.get(i));
 
         (actor as AnyObject).good_gun = null;
         break;
@@ -1276,9 +1276,9 @@ extern("dialogs_zaton.give_compass_to_actor", (firstSpeaker: ClientObject, secon
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_compass);
 });
 
-const item_count_by_category = [3, 3, 3, 3, 1, 1, 1] as unknown as LuaArray<number>;
+const itemCountByCategory = [3, 3, 3, 3, 1, 1, 1] as unknown as LuaArray<number>;
 
-const zat_b51_costs_table = [
+const zatB51CostsTable = [
   { prepay_agreed: 700, prepay_refused: 1400, cost: 2800 },
   { prepay_agreed: 2000, prepay_refused: 4000, cost: 8000 },
   { prepay_agreed: 4000, prepay_refused: 8000, cost: 16000 },
@@ -1288,7 +1288,7 @@ const zat_b51_costs_table = [
   { prepay_agreed: 12000, prepay_refused: 24000, cost: 48000 },
 ] as unknown as LuaArray<{ prepay_agreed: number; prepay_refused: number; cost: number }>;
 
-const zat_b51_buy_item_table = [
+const zatB51BuyItemTable = [
   [
     { item: [weapons.wpn_desert_eagle_nimble] },
     { item: [weapons.wpn_sig220_nimble] },
@@ -1308,11 +1308,11 @@ const zat_b51_buy_item_table = [
 extern("dialogs_zaton.zat_b51_randomize_item", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   for (const it of $range(1, 7)) {
     if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
-      const zat_b51_available_items_table: LuaArray<TCount> = new LuaTable();
+      const zatB51AvailableItemsTable: LuaArray<TCount> = new LuaTable();
 
-      for (const j of $range(1, item_count_by_category.get(it))) {
+      for (const j of $range(1, itemCountByCategory.get(it))) {
         if (!hasAlifeInfo(("zat_b51_done_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion)) {
-          table.insert(zat_b51_available_items_table, j);
+          table.insert(zatB51AvailableItemsTable, j);
         }
       }
 
@@ -1320,9 +1320,7 @@ extern("dialogs_zaton.zat_b51_randomize_item", (firstSpeaker: ClientObject, seco
         ("zat_b51_ordered_item_" +
           tostring(it) +
           "_" +
-          tostring(
-            zat_b51_available_items_table.get(math.random(1, zat_b51_available_items_table.length()))
-          )) as TInfoPortion
+          tostring(zatB51AvailableItemsTable.get(math.random(1, zatB51AvailableItemsTable.length())))) as TInfoPortion
       );
     }
   }
@@ -1337,13 +1335,13 @@ extern("dialogs_zaton.zat_b51_give_prepay", (firstSpeaker: ClientObject, secondS
       if (!hasAlifeInfo(infoPortions.zat_b51_order_refused)) {
         return transferMoneyFromActor(
           getNpcSpeaker(firstSpeaker, secondSpeaker),
-          zat_b51_costs_table.get(it).prepay_agreed
+          zatB51CostsTable.get(it).prepay_agreed
         );
       }
 
       return transferMoneyFromActor(
         getNpcSpeaker(firstSpeaker, secondSpeaker),
-        zat_b51_costs_table.get(it).prepay_refused
+        zatB51CostsTable.get(it).prepay_refused
       );
     }
   }
@@ -1358,10 +1356,10 @@ extern("dialogs_zaton.zat_b51_has_prepay", (firstSpeaker: ClientObject, secondSp
   for (const it of $range(1, 7)) {
     if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
       if (!hasAlifeInfo(infoPortions.zat_b51_order_refused)) {
-        return actor.money() >= zat_b51_costs_table.get(it).prepay_agreed;
+        return actor.money() >= zatB51CostsTable.get(it).prepay_agreed;
       }
 
-      return actor.money() >= zat_b51_costs_table.get(it).prepay_refused;
+      return actor.money() >= zatB51CostsTable.get(it).prepay_refused;
     }
   }
 
@@ -1381,13 +1379,13 @@ extern("dialogs_zaton.zat_b51_hasnt_prepay", (firstSpeaker: ClientObject, second
 extern("dialogs_zaton.zat_b51_buy_item", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   for (const it of $range(1, 7)) {
     if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
-      for (const j of $range(1, zat_b51_buy_item_table.get(it).length())) {
+      for (const j of $range(1, zatB51BuyItemTable.get(it).length())) {
         if (hasAlifeInfo(("zat_b51_ordered_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion)) {
-          for (const [k, v] of zat_b51_buy_item_table.get(it).get(j).item) {
+          for (const [k, v] of zatB51BuyItemTable.get(it).get(j).item) {
             transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), v);
           }
 
-          transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zat_b51_costs_table.get(it).cost);
+          transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zatB51CostsTable.get(it).cost);
           disableInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion);
           disableInfo(("zat_b51_ordered_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion);
           giveInfo(("zat_b51_done_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion);
@@ -1397,7 +1395,7 @@ extern("dialogs_zaton.zat_b51_buy_item", (firstSpeaker: ClientObject, secondSpea
 
       let categoryFinishing: boolean = true;
 
-      for (const j of $range(1, zat_b51_buy_item_table.get(it).length())) {
+      for (const j of $range(1, zatB51BuyItemTable.get(it).length())) {
         if (!hasAlifeInfo(("zat_b51_done_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion)) {
           categoryFinishing = false;
           break;
@@ -1419,7 +1417,7 @@ extern("dialogs_zaton.zat_b51_buy_item", (firstSpeaker: ClientObject, secondSpea
 extern("dialogs_zaton.zat_b51_refuse_item", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   for (const i of $range(1, 7)) {
     if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(i)) as TInfoPortion)) {
-      for (const j of $range(1, zat_b51_buy_item_table.get(i).length())) {
+      for (const j of $range(1, zatB51BuyItemTable.get(i).length())) {
         if (hasAlifeInfo(("zat_b51_ordered_item_" + tostring(i) + "_" + tostring(j)) as TInfoPortion)) {
           disableInfo(("zat_b51_processing_category_" + tostring(i)) as TInfoPortion);
           disableInfo(("zat_b51_ordered_item_" + tostring(i) + "_" + tostring(j)) as TInfoPortion);
@@ -1428,16 +1426,16 @@ extern("dialogs_zaton.zat_b51_refuse_item", (firstSpeaker: ClientObject, secondS
         }
       }
 
-      let category_finishing = true;
+      let categoryFinishing = true;
 
-      for (const j of $range(1, zat_b51_buy_item_table.get(i).length())) {
+      for (const j of $range(1, zatB51BuyItemTable.get(i).length())) {
         if (!hasAlifeInfo(("zat_b51_done_item_" + tostring(i) + "_" + tostring(j)) as TInfoPortion)) {
-          category_finishing = false;
+          categoryFinishing = false;
           break;
         }
       }
 
-      if (category_finishing === true) {
+      if (categoryFinishing === true) {
         giveInfo(("zat_b51_finishing_category_" + tostring(i)) as TInfoPortion);
       }
 
@@ -1454,7 +1452,7 @@ extern("dialogs_zaton.zat_b51_has_item_cost", (firstSpeaker: ClientObject, secon
 
   for (const i of $range(1, 7)) {
     if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(i)) as TInfoPortion)) {
-      return actor.money() >= zat_b51_costs_table.get(i).cost;
+      return actor.money() >= zatB51CostsTable.get(i).cost;
     }
   }
 
@@ -1487,9 +1485,9 @@ extern(
     const npc: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
     const actor: ClientObject = registry.actor;
 
-    const amount_doc1: TCount = 1000;
-    const amount_doc2: TCount = 600;
-    const amount_doc3: TCount = 400;
+    const amountDoc1: TCount = 1000;
+    const amountDoc2: TCount = 600;
+    const amountDoc3: TCount = 400;
 
     let amountTotal: TCount = 0;
     let cnt: TCount = 0;
@@ -1498,7 +1496,7 @@ extern(
     if (actor.object(questItems.zat_b12_documents_1) !== null) {
       transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b12_documents_1);
       giveInfo(infoPortions.zat_b12_documents_sold_1);
-      amountTotal = amountTotal + amount_doc1;
+      amountTotal = amountTotal + amountDoc1;
     }
 
     npc.iterate_inventory((temp, item) => {
@@ -1515,14 +1513,14 @@ extern(
 
     if (actor.object(questItems.zat_b12_documents_2) !== null) {
       if (cnt < 1) {
-        amountTotal = amountTotal + amount_doc2;
+        amountTotal = amountTotal + amountDoc2;
 
         if (cnt2 > 1) {
-          amountTotal = amountTotal + amount_doc3 * (cnt2 - 1);
+          amountTotal = amountTotal + amountDoc3 * (cnt2 - 1);
           giveInfo(infoPortions.zat_b12_documents_sold_2);
         }
       } else {
-        amountTotal = amountTotal + amount_doc3 * cnt2;
+        amountTotal = amountTotal + amountDoc3 * cnt2;
         giveInfo(infoPortions.zat_b12_documents_sold_3);
       }
 
@@ -1660,7 +1658,7 @@ extern("dialogs_zaton.zat_b40_transfer_merc_pda_2", (firstSpeaker: ClientObject,
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_1",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(16)) && !registry.actor.object(zat_b29_af_table.get(16));
+    return hasAlifeInfo(zatB29InfopTable.get(16)) && !registry.actor.object(zatB29AfTable.get(16));
   }
 );
 
@@ -1670,7 +1668,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_2",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(17)) && !registry.actor.object(zat_b29_af_table.get(17));
+    return hasAlifeInfo(zatB29InfopTable.get(17)) && !registry.actor.object(zatB29AfTable.get(17));
   }
 );
 
@@ -1680,7 +1678,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_3",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(18)) && !registry.actor.object(zat_b29_af_table.get(18));
+    return hasAlifeInfo(zatB29InfopTable.get(18)) && !registry.actor.object(zatB29AfTable.get(18));
   }
 );
 
@@ -1690,7 +1688,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_4",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(19)) && !registry.actor.object(zat_b29_af_table.get(19));
+    return hasAlifeInfo(zatB29InfopTable.get(19)) && !registry.actor.object(zatB29AfTable.get(19));
   }
 );
 
@@ -1700,7 +1698,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_5",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(20)) && !registry.actor.object(zat_b29_af_table.get(20));
+    return hasAlifeInfo(zatB29InfopTable.get(20)) && !registry.actor.object(zatB29AfTable.get(20));
   }
 );
 
@@ -1710,7 +1708,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_6",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(21)) && !registry.actor.object(zat_b29_af_table.get(21));
+    return hasAlifeInfo(zatB29InfopTable.get(21)) && !registry.actor.object(zatB29AfTable.get(21));
   }
 );
 
@@ -1720,7 +1718,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_7",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(22)) && !registry.actor.object(zat_b29_af_table.get(22));
+    return hasAlifeInfo(zatB29InfopTable.get(22)) && !registry.actor.object(zatB29AfTable.get(22));
   }
 );
 
@@ -1730,7 +1728,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_8",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(23)) && !registry.actor.object(zat_b29_af_table.get(23));
+    return hasAlifeInfo(zatB29InfopTable.get(23)) && !registry.actor.object(zatB29AfTable.get(23));
   }
 );
 
@@ -1740,7 +1738,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_1",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(16)) && registry.actor.object(zat_b29_af_table.get(16)) !== null;
+    return hasAlifeInfo(zatB29InfopTable.get(16)) && registry.actor.object(zatB29AfTable.get(16)) !== null;
   }
 );
 
@@ -1750,7 +1748,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_2",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(17)) && registry.actor.object(zat_b29_af_table.get(17)) !== null;
+    return hasAlifeInfo(zatB29InfopTable.get(17)) && registry.actor.object(zatB29AfTable.get(17)) !== null;
   }
 );
 
@@ -1760,7 +1758,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_3",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(18)) && registry.actor.object(zat_b29_af_table.get(18)) !== null;
+    return hasAlifeInfo(zatB29InfopTable.get(18)) && registry.actor.object(zatB29AfTable.get(18)) !== null;
   }
 );
 
@@ -1770,7 +1768,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_4",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(19)) && registry.actor.object(zat_b29_af_table.get(19)) !== null;
+    return hasAlifeInfo(zatB29InfopTable.get(19)) && registry.actor.object(zatB29AfTable.get(19)) !== null;
   }
 );
 
@@ -1780,7 +1778,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_5",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(20)) && registry.actor.object(zat_b29_af_table.get(20)) !== null;
+    return hasAlifeInfo(zatB29InfopTable.get(20)) && registry.actor.object(zatB29AfTable.get(20)) !== null;
   }
 );
 
@@ -1790,7 +1788,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_6",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(21)) && registry.actor.object(zat_b29_af_table.get(21)) !== null;
+    return hasAlifeInfo(zatB29InfopTable.get(21)) && registry.actor.object(zatB29AfTable.get(21)) !== null;
   }
 );
 
@@ -1800,7 +1798,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_7",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(22)) && registry.actor.object(zat_b29_af_table.get(22)) !== null;
+    return hasAlifeInfo(zatB29InfopTable.get(22)) && registry.actor.object(zatB29AfTable.get(22)) !== null;
   }
 );
 
@@ -1810,7 +1808,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_8",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    return hasAlifeInfo(zat_b29_infop_table.get(23)) && registry.actor.object(zat_b29_af_table.get(23)) !== null;
+    return hasAlifeInfo(zatB29InfopTable.get(23)) && registry.actor.object(zatB29AfTable.get(23)) !== null;
   }
 );
 

@@ -1,7 +1,7 @@
 import { alife, level } from "xray16";
 
 import { getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
-import { Squad } from "@/engine/core/objects";
+import { AnomalyZoneBinder, Squad } from "@/engine/core/objects";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { isObjectInZone } from "@/engine/core/utils/check/check";
@@ -20,7 +20,7 @@ import {
   TDistance,
   TName,
 } from "@/engine/lib/types";
-import { zat_b29_af_table, zat_b29_infop_bring_table } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
+import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -30,25 +30,25 @@ const logger: LuaLogger = new LuaLogger($filename);
 extern(
   "xr_conditions.zat_b29_anomaly_has_af",
   (actor: ClientObject, npc: ClientObject, p: Optional<string>): boolean => {
-    const az_name = p && p[0];
-    let af_name: Optional<string> = null;
+    const azName: Optional<TName> = p && p[0];
+    let afName: Optional<TName> = null;
 
-    const anomal_zone = registry.anomalyZones.get(az_name as TName);
+    const anomalZone: AnomalyZoneBinder = registry.anomalyZones.get(azName as TName);
 
-    if (az_name === null || anomal_zone === null || anomal_zone.spawnedArtefactsCount < 1) {
+    if (azName === null || anomalZone === null || anomalZone.spawnedArtefactsCount < 1) {
       return false;
     }
 
     for (const i of $range(16, 23)) {
-      if (hasAlifeInfo(zat_b29_infop_bring_table.get(i))) {
-        af_name = zat_b29_af_table.get(i);
+      if (hasAlifeInfo(zatB29InfopBringTable.get(i))) {
+        afName = zatB29AfTable.get(i);
         break;
       }
     }
 
     for (const [artefactId] of registry.artefacts.ways) {
-      if (alife().object(tonumber(artefactId)!) && af_name === alife().object(tonumber(artefactId)!)!.section_name()) {
-        registry.actor.give_info_portion(az_name);
+      if (alife().object(tonumber(artefactId)!) && afName === alife().object(tonumber(artefactId)!)!.section_name()) {
+        registry.actor.give_info_portion(azName);
 
         return true;
       }
@@ -62,7 +62,7 @@ extern(
  * todo;
  */
 extern("xr_conditions.jup_b221_who_will_start", (actor: ClientObject, npc: ClientObject, p: [string]): boolean => {
-  const reachable_theme: LuaArray<number> = new LuaTable();
+  const reachableTheme: LuaArray<number> = new LuaTable();
   const infoPortionsList: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
     infoPortions.jup_b25_freedom_flint_gone,
     infoPortions.jup_b25_flint_blame_done_to_duty,
@@ -99,7 +99,7 @@ extern("xr_conditions.jup_b221_who_will_start", (actor: ClientObject, npc: Clien
           "_played") as TInfoPortion
       )
     ) {
-      table.insert(reachable_theme, k);
+      table.insert(reachableTheme, k);
     }
   }
 
@@ -108,9 +108,9 @@ extern("xr_conditions.jup_b221_who_will_start", (actor: ClientObject, npc: Clien
   }
 
   if (tostring(p[0]) === "ability") {
-    return reachable_theme.length() !== 0;
+    return reachableTheme.length() !== 0;
   } else if (tostring(p[0]) === "choose") {
-    return reachable_theme.get(math.random(1, reachable_theme.length())) <= 6;
+    return reachableTheme.get(math.random(1, reachableTheme.length())) <= 6;
   } else {
     abort("Wrong parameters in function 'jup_b221_who_will_start'");
   }
@@ -120,7 +120,7 @@ extern("xr_conditions.jup_b221_who_will_start", (actor: ClientObject, npc: Clien
  * todo;
  */
 extern("xr_conditions.pas_b400_actor_far_forward", (actor: ClientObject, npc: ClientObject): boolean => {
-  const forwardObject = getObjectByStoryId("pas_b400_fwd");
+  const forwardObject: Optional<ClientObject> = getObjectByStoryId("pas_b400_fwd");
 
   if (forwardObject) {
     if (distanceBetween(forwardObject, registry.actor) > distanceBetween(forwardObject, npc)) {
@@ -130,20 +130,19 @@ extern("xr_conditions.pas_b400_actor_far_forward", (actor: ClientObject, npc: Cl
     return false;
   }
 
-  const distance = 70 * 70;
-  const self_dist = npc.position().distance_to_sqr(actor.position());
+  const distance: TDistance = 70 * 70;
+  const selfDistance: TDistance = npc.position().distance_to_sqr(actor.position());
 
-  if (self_dist < distance) {
+  if (selfDistance < distance) {
     return false;
   }
 
   const squad: Squad = alife().object(alife().object<ServerCreatureObject>(npc.id())!.group_id)!;
 
-  for (const squadMember in squad.squad_members()) {
-    // todo: Mistake or typedef upd needed.
-    const other_dist = (squadMember as any).object.position.distance_to_sqr(actor.position());
+  for (const squadMember of squad.squad_members()) {
+    const otherDistance: TDistance = squadMember.object.position.distance_to_sqr(actor.position());
 
-    if (other_dist < distance) {
+    if (otherDistance < distance) {
       return false;
     }
   }
@@ -165,10 +164,10 @@ extern("xr_conditions.pas_b400_actor_far_backward", (actor: ClientObject, npc: C
     return false;
   }
 
-  const distance = 70 * 70;
-  const self_dist = npc.position().distance_to_sqr(actor.position());
+  const distance: TDistance = 70 * 70;
+  const selfDistance: TDistance = npc.position().distance_to_sqr(actor.position());
 
-  if (self_dist < distance) {
+  if (selfDistance < distance) {
     return false;
   }
 
@@ -176,9 +175,9 @@ extern("xr_conditions.pas_b400_actor_far_backward", (actor: ClientObject, npc: C
   const squad: Squad = sim.object<Squad>(sim.object<ServerCreatureObject>(npc.id())!.group_id)!;
 
   for (const squadMember of squad.squad_members()) {
-    const other_dist = squadMember.object.position.distance_to_sqr(actor.position());
+    const otherDistance: TDistance = squadMember.object.position.distance_to_sqr(actor.position());
 
-    if (other_dist < distance) {
+    if (otherDistance < distance) {
       return false;
     }
   }
@@ -260,16 +259,16 @@ extern("xr_conditions.zat_b29_rivals_dialog_precond", (actor: ClientObject, npc:
     "zat_b29_sr_5",
   ]);
 
-  let f_squad: boolean = false;
+  let isSquad: boolean = false;
 
   for (const [k, v] of squadsList) {
     if (alife().object(alife().object<ServerCreatureObject>(npc.id())!.group_id)!.section_name() === v) {
-      f_squad = true;
+      isSquad = true;
       break;
     }
   }
 
-  if (!f_squad) {
+  if (!isSquad) {
     return false;
   }
 
