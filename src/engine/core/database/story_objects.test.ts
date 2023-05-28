@@ -26,10 +26,10 @@ describe("'story_objects' module of the database", () => {
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
 
-    FILES_MOCKS["spawn.ini"].story_object.story_id = "SID_1";
+    FILES_MOCKS["spawn.ini"].story_object["story_id"] = "SID_1";
     registerObjectStoryLinks(firstObject);
 
-    FILES_MOCKS["spawn.ini"].story_object.story_id = "SID_2";
+    FILES_MOCKS["spawn.ini"].story_object["story_id"] = "SID_2";
     registerObjectStoryLinks(secondObject);
 
     expect(registry.storyLink.idBySid.length()).toBe(2);

@@ -16,6 +16,7 @@ import {
   Optional,
   TDuration,
   TNumberId,
+  TRate,
   TSection,
   TTimestamp,
 } from "@/engine/lib/types";
@@ -99,56 +100,56 @@ export class TradeManager extends AbstractCoreManager {
 
     tradeDescriptor.update_time = time_global() + TradeManager.TRADE_UPDATE_PERIOD;
 
-    const buy_condition = pickSectionFromCondList(registry.actor, object, tradeDescriptor.buy_condition);
+    const buyCondition = pickSectionFromCondList(registry.actor, object, tradeDescriptor.buy_condition);
 
-    if (buy_condition === "" || buy_condition === null) {
+    if (buyCondition === "" || buyCondition === null) {
       abort("Wrong section in buy_condition condlist for npc [%s]!", object.name());
     }
 
-    if (tradeDescriptor.current_buy_condition !== buy_condition) {
-      object.buy_condition(tradeDescriptor.config, buy_condition);
-      tradeDescriptor.current_buy_condition = buy_condition;
+    if (tradeDescriptor.current_buy_condition !== buyCondition) {
+      object.buy_condition(tradeDescriptor.config, buyCondition);
+      tradeDescriptor.current_buy_condition = buyCondition;
     }
 
-    const sell_condition = pickSectionFromCondList(registry.actor, object, tradeDescriptor.sell_condition);
+    const sellCondition = pickSectionFromCondList(registry.actor, object, tradeDescriptor.sell_condition);
 
-    if (sell_condition === "" || sell_condition === null) {
+    if (sellCondition === "" || sellCondition === null) {
       abort("Wrong section in buy_condition condlist for npc [%s]!", object.name());
     }
 
-    if (tradeDescriptor.current_sell_condition !== sell_condition) {
+    if (tradeDescriptor.current_sell_condition !== sellCondition) {
       // --'printf("TRADE [%s]: sell condition = %s", npc.name(), str)
-      object.sell_condition(tradeDescriptor.config, sell_condition);
-      tradeDescriptor.current_sell_condition = sell_condition;
+      object.sell_condition(tradeDescriptor.config, sellCondition);
+      tradeDescriptor.current_sell_condition = sellCondition;
     }
 
-    const buy_item_condition_factor = tonumber(
+    const buyItemConditionFactor: TRate = tonumber(
       pickSectionFromCondList(registry.actor, object, tradeDescriptor.buy_item_condition_factor)
     )!;
 
-    if (tradeDescriptor.current_buy_item_condition_factor !== buy_item_condition_factor) {
-      object.buy_item_condition_factor(buy_item_condition_factor);
-      tradeDescriptor.current_buy_item_condition_factor = buy_item_condition_factor;
+    if (tradeDescriptor.current_buy_item_condition_factor !== buyItemConditionFactor) {
+      object.buy_item_condition_factor(buyItemConditionFactor);
+      tradeDescriptor.current_buy_item_condition_factor = buyItemConditionFactor;
     }
 
     if (tradeDescriptor.buy_supplies === null) {
       return;
     }
 
-    const buy_supplies = pickSectionFromCondList(registry.actor, object, tradeDescriptor.buy_supplies);
+    const buySupplies = pickSectionFromCondList(registry.actor, object, tradeDescriptor.buy_supplies);
 
-    if (buy_supplies === "" || buy_supplies === null) {
+    if (buySupplies === "" || buySupplies === null) {
       abort("Wrong section in buy_condition condlist for npc [%s]!", object.name());
     }
 
-    if (tradeDescriptor.current_buy_supplies !== buy_supplies) {
+    if (tradeDescriptor.current_buy_supplies !== buySupplies) {
       if (tradeDescriptor.resuply_time !== null && tradeDescriptor.resuply_time < time_global()) {
         return;
       }
 
       // --'printf("TRADE [%s]: buy_supplies = %s", npc.name(), str)
-      object.buy_supplies(tradeDescriptor.config, buy_supplies);
-      tradeDescriptor.current_buy_supplies = buy_supplies;
+      object.buy_supplies(tradeDescriptor.config, buySupplies);
+      tradeDescriptor.current_buy_supplies = buySupplies;
       tradeDescriptor.resuply_time = time_global() + TradeManager.TRADE_RESUPPLY_PERIOD;
     }
   }
@@ -218,18 +219,18 @@ export class TradeManager extends AbstractCoreManager {
       packet.w_stringZ(tradeDescriptor.current_buy_supplies);
     }
 
-    const cur_tm = time_global();
+    const now: TTimestamp = time_global();
 
     if (tradeDescriptor.update_time === null) {
       packet.w_s32(-1);
     } else {
-      packet.w_s32(tradeDescriptor.update_time - cur_tm);
+      packet.w_s32(tradeDescriptor.update_time - now);
     }
 
     if (tradeDescriptor.resuply_time === null) {
       packet.w_s32(-1);
     } else {
-      packet.w_s32(tradeDescriptor.resuply_time - cur_tm);
+      packet.w_s32(tradeDescriptor.resuply_time - now);
     }
 
     closeSaveMarker(packet, TradeManager.name);
@@ -274,18 +275,17 @@ export class TradeManager extends AbstractCoreManager {
       tt.current_buy_supplies = a;
     }
 
-    const cur_tm = time_global();
+    const now: TTimestamp = time_global();
+    const updateTime: TTimestamp = reader.r_s32();
 
-    const updTime: number = reader.r_s32();
-
-    if (updTime !== -1) {
-      tt.update_time = cur_tm + updTime;
+    if (updateTime !== -1) {
+      tt.update_time = now + updateTime;
     }
 
     const resuplyTime: TTimestamp = reader.r_s32();
 
     if (resuplyTime !== -1) {
-      tt.resuply_time = cur_tm + resuplyTime;
+      tt.resuply_time = now + resuplyTime;
     }
 
     closeLoadMarker(reader, TradeManager.name);

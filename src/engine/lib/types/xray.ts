@@ -214,3 +214,9 @@ export enum EClientObjectMovementType {
   MASK = game_object?.alifeMovementTypeMask || 0,
   RANDOM = game_object?.alifeMovementTypeRandom || 1,
 }
+
+export enum ESoundObjectType {
+  S3D = sound_object.s3d || 0,
+  LOOPED = sound_object.looped || 1,
+  S2D = sound_object.s2d || 2,
+}

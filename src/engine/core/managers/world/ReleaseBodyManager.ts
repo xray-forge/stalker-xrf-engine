@@ -100,30 +100,30 @@ export class ReleaseBodyManager extends AbstractCoreManager {
   public tryToReleaseCorpses(): void {
     logger.info("Try to release dead bodies:", this.releaseObjectRegistry.length(), ReleaseBodyManager.MAX_BODY_COUNT);
 
-    const overflow_count = this.releaseObjectRegistry.length() - ReleaseBodyManager.MAX_BODY_COUNT;
+    const overflowCount: TCount = this.releaseObjectRegistry.length() - ReleaseBodyManager.MAX_BODY_COUNT;
 
-    for (const it of $range(1, overflow_count)) {
-      const pos_in_table = this.findNearestObjectToRelease(this.releaseObjectRegistry);
+    for (const it of $range(1, overflowCount)) {
+      const positionInList: Optional<TIndex> = this.findNearestObjectToRelease(this.releaseObjectRegistry);
 
-      if (pos_in_table === null) {
+      if (positionInList === null) {
         return;
       }
 
-      const release_object = alife().object(this.releaseObjectRegistry.get(pos_in_table).id);
+      const releaseObject: Optional<ServerObject> = alife().object(this.releaseObjectRegistry.get(positionInList).id);
 
-      if (release_object !== null) {
-        logger.info("Releasing object:", release_object.name());
+      if (releaseObject !== null) {
+        logger.info("Releasing object:", releaseObject.name());
 
-        if (isStalker(release_object) || isMonster(release_object)) {
-          if (release_object.alive()) {
-            logger.warn("Detected alive object in release table:", release_object.name());
+        if (isStalker(releaseObject) || isMonster(releaseObject)) {
+          if (releaseObject.alive()) {
+            logger.warn("Detected alive object in release table:", releaseObject.name());
           } else {
-            alife().release(release_object, true);
+            alife().release(releaseObject, true);
           }
         }
       }
 
-      table.remove(this.releaseObjectRegistry, pos_in_table);
+      table.remove(this.releaseObjectRegistry, positionInList);
     }
   }
 

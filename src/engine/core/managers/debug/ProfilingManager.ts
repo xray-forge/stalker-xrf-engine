@@ -212,7 +212,7 @@ export class ProfilingManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  protected hook(context: string, line_number?: number): void {
+  protected hook(context: string, lineNumber?: number): void {
     const caller = debug.getinfo(3, "f")!;
     const functionInfo: debug.FunctionInfo = debug.getinfo(2)!;
     const functionRef: AnyCallable = functionInfo.func! as AnyCallable;

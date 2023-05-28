@@ -434,7 +434,7 @@ describe("NotificationManager class", () => {
     const notificationManager: NotificationManager = NotificationManager.getInstance();
 
     // Flexible + not talking.
-    registry.actor.is_talking = jest.fn(() => false);
+    jest.spyOn(registry.actor, "is_talking").mockImplementation(() => false);
 
     notificationManager.onSendGenericNotification(true, "test-title", "test-text", "test-icon", 10, 2000, 3);
 
@@ -444,7 +444,7 @@ describe("NotificationManager class", () => {
     resetFunctionMock(registry.actor.give_game_news);
 
     // Flexible + talking.
-    registry.actor.is_talking = jest.fn(() => true);
+    jest.spyOn(registry.actor, "is_talking").mockImplementation(() => true);
 
     notificationManager.onSendGenericNotification(true, "test-title", "test-text", "test-icon", 10, 2000, 3);
 
@@ -458,8 +458,7 @@ describe("NotificationManager class", () => {
 
     resetFunctionMock(registry.actor.give_talk_message2);
 
-    // Not flexible + talking.
-    registry.actor.is_talking = jest.fn(() => true);
+    jest.spyOn(registry.actor, "is_talking").mockImplementation(() => true);
 
     notificationManager.onSendGenericNotification(false, "test-title", "test-text", "test-icon", 10, 2000, 3);
 

@@ -15,3 +15,12 @@ export interface ISchemePsyAntennaState extends IBaseSchemeState {
   hit_type: string;
   hit_freq: TRate;
 }
+
+/**
+ * todo;
+ */
+export enum EAntennaState {
+  OUTSIDE = 0,
+  INSIDE = 1,
+  VOID = 2,
+}

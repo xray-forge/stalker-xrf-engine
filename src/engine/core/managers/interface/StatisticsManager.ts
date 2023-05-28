@@ -88,7 +88,7 @@ let weaponsTable: LuaTable<TName, TCount> = $fromObject<TName, TCount>({
 /**
  * todo;
  */
-let taken_artefacts: LuaTable<TNumberId, TNumberId> = $fromObject<TNumberId, TNumberId>({});
+let takenArtefacts: LuaTable<TNumberId, TNumberId> = $fromObject<TNumberId, TNumberId>({});
 
 /**
  * todo;
@@ -191,9 +191,9 @@ export class StatisticsManager extends AbstractCoreManager {
 
     const art_id: TNumberId = artefact.id();
 
-    if (!taken_artefacts.has(art_id)) {
+    if (!takenArtefacts.has(art_id)) {
       this.actor_statistic.artefacts_founded += 1;
-      taken_artefacts.set(art_id, art_id);
+      takenArtefacts.set(art_id, art_id);
 
       const s_art = alife().object(art_id);
 
@@ -381,14 +381,14 @@ export class StatisticsManager extends AbstractCoreManager {
       this.artefacts_table.set(k, v);
     }
 
-    taken_artefacts = new LuaTable();
+    takenArtefacts = new LuaTable();
 
     const n = reader.r_u8();
 
     for (const i of $range(1, n)) {
       const k: number = reader.r_u32();
 
-      taken_artefacts.set(k, k);
+      takenArtefacts.set(k, k);
     }
   }
 
@@ -424,10 +424,10 @@ export class StatisticsManager extends AbstractCoreManager {
       packet.w_bool(v === true);
     }
 
-    const takenArtefactsCount: TCount = getTableSize(taken_artefacts);
+    const takenArtefactsCount: TCount = getTableSize(takenArtefacts);
 
     packet.w_u8(takenArtefactsCount);
-    for (const [k, v] of taken_artefacts) {
+    for (const [k, v] of takenArtefacts) {
       packet.w_u32(k);
     }
   }

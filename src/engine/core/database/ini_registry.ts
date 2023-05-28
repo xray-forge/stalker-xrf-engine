@@ -24,5 +24,5 @@ export const SQUAD_BEHAVIOURS_LTX: IniFile = new ini_file("misc\\squad_behaviour
 export const SMART_TERRAIN_MASKS_LTX: IniFile = new ini_file("misc\\smart_terrain_masks.ltx");
 export const TASK_MANAGER_LTX: IniFile = new ini_file("misc\\task_manager.ltx");
 export const TRAVEL_MANAGER_LTX: IniFile = new ini_file("misc\\travel_manager.ltx");
-export const SIMULATION_OBJECTS_PROPS_LTX: ini_file = new ini_file("misc\\simulation_objects_props.ltx");
+export const SIMULATION_OBJECTS_PROPS_LTX: IniFile = new ini_file("misc\\simulation_objects_props.ltx");
 export const SOUND_STORIES_LTX: IniFile = new ini_file("misc\\sound_stories.ltx");

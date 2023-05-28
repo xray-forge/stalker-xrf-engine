@@ -13,14 +13,17 @@ import { createEmptyVector, createVector, vectorRotateY } from "@/engine/core/ut
 import { sounds } from "@/engine/lib/constants/sound/sounds";
 import {
   ClientObject,
+  ESoundObjectType,
   GameHud,
   Hit,
   NetPacket,
   NetProcessor,
   Optional,
   SoundObject,
+  TCount,
   TDistance,
   TDuration,
+  TProbability,
   TRate,
   TSoundObjectType,
   Vector,
@@ -30,7 +33,7 @@ import {
  * todo;
  */
 export interface IPsyPostProcessDescriptor {
-  intensity_base: number;
+  intensityBase: number;
   intensity: number;
   idx: number;
 }
@@ -75,45 +78,45 @@ export class PsyAntennaManager extends AbstractCoreManager {
     closeSaveMarker(packet, PsyAntennaManager.name + "_static");
   }
 
-  public readonly sound_obj_right: SoundObject = new sound_object(sounds.anomaly_psy_voices_1_r);
-  public readonly sound_obj_left: SoundObject = new sound_object(sounds.anomaly_psy_voices_1_l);
+  public readonly soundObjectRight: SoundObject = new sound_object(sounds.anomaly_psy_voices_1_r);
+  public readonly soundObjectLeft: SoundObject = new sound_object(sounds.anomaly_psy_voices_1_l);
 
-  public phantom_max: number = 8;
-  public phantom_spawn_probability: number = 0;
-  public phantom_spawn_radius: number = 30.0;
-  public phantom_spawn_height: number = 2.5;
-  public phantom_fov: number = 45;
+  public phantomMax: TCount = 8;
+  public phantomSpawnProbability: TProbability = 0;
+  public phantomSpawnRadius: TDistance = 30.0;
+  public phantomSpawnHeight: number = 2.5;
+  public phantomFov: number = 45;
 
-  public hit_amplitude: number = 1.0;
-  public eff_time: number = 0;
+  public hitAmplitude: number = 1.0;
+  public effTime: number = 0;
 
-  public hit_time: number = 0;
-  public phantom_time: number = 0;
-  public phantom_idle: number = 0;
-  public intensity_inertion: number = 0.05;
-  public hit_intensity: number = 0;
-  public sound_intensity: number = 0;
-  public sound_intensity_base: number = 0;
+  public hitTime: TDuration = 0;
+  public phantomTime: TDuration = 0;
+  public phantomIdle: TDuration = 0;
 
-  public postprocess_count: number = 0;
+  public intensityInertion: TRate = 0.05;
+  public hitIntensity: TRate = 0;
+  public soundIntensity: TRate = 0;
+  public soundIntensityBase: TRate = 0;
+
+  public postprocessCount: TCount = 0;
   public postprocess: LuaTable<string, IPsyPostProcessDescriptor> = new LuaTable();
 
-  public sound_initialized: boolean = false;
+  public soundInitialized: boolean = false;
 
-  public snd_volume: number = level.get_snd_volume();
-  public mute_sound_threshold: number = 0;
-  public max_mumble_volume: number = 10;
+  public sndVolume: TRate = level.get_snd_volume();
+  public muteSoundThreshold: number = 0;
 
-  public no_static: boolean = false;
-  public no_mumble: boolean = false;
-  public hit_type: string = "wound";
-  public hit_freq: number = 5000;
+  public noStatic: boolean = false;
+  public noMumble: boolean = false;
+  public hitType: string = "wound";
+  public hitFreq: number = 5000;
 
   public constructor() {
     super();
 
-    this.sound_obj_left.volume = 0;
-    this.sound_obj_right.volume = 0;
+    this.soundObjectLeft.volume = 0;
+    this.soundObjectRight.volume = 0;
   }
 
   /**
@@ -135,9 +138,9 @@ export class PsyAntennaManager extends AbstractCoreManager {
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_NET_DESTROY, this.dispose);
 
-    this.sound_obj_right.stop();
-    this.sound_obj_left.stop();
-    level.set_snd_volume(this.snd_volume);
+    this.soundObjectRight.stop();
+    this.soundObjectLeft.stop();
+    level.set_snd_volume(this.sndVolume);
     get_hud().enable_fake_indicators(false);
   }
 
@@ -151,25 +154,25 @@ export class PsyAntennaManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public update_psy_hit(dt: number): void {
+  public updatePsyHit(dt: number): void {
     const hud: GameHud = get_hud();
-    const custom_static: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_psy_danger");
+    const customStatic: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_psy_danger");
 
-    if (this.hit_intensity > 0.0001) {
-      if (custom_static === null && !this.no_static) {
+    if (this.hitIntensity > 0.0001) {
+      if (customStatic === null && !this.noStatic) {
         hud.AddCustomStatic("cs_psy_danger", true);
         hud.GetCustomStatic("cs_psy_danger")!.wnd().TextControl().SetTextST("st_psy_danger");
       }
     } else {
-      if (custom_static !== null) {
+      if (customStatic !== null) {
         hud.RemoveCustomStatic("cs_psy_danger");
       }
     }
 
-    if (time_global() - this.hit_time > this.hit_freq) {
-      this.hit_time = time_global();
+    if (time_global() - this.hitTime > this.hitFreq) {
+      this.hitTime = time_global();
 
-      const power: number = this.hit_amplitude * this.hit_intensity;
+      const power: number = this.hitAmplitude * this.hitIntensity;
 
       if (power > 0.0001) {
         const actor: ClientObject = registry.actor;
@@ -180,13 +183,13 @@ export class PsyAntennaManager extends AbstractCoreManager {
         psyHit.impulse = 0;
         psyHit.draftsman = actor;
 
-        const hit_value: number = (power <= 1 && power) || 1;
+        const hitValue: TRate = (power <= 1 && power) || 1;
 
-        if (this.hit_type === "chemical") {
-          get_hud().update_fake_indicators(2, hit_value);
+        if (this.hitType === "chemical") {
+          get_hud().update_fake_indicators(2, hitValue);
           psyHit.type = hit.chemical_burn;
         } else {
-          get_hud().update_fake_indicators(3, hit_value);
+          get_hud().update_fake_indicators(3, hitValue);
           psyHit.type = hit.telepatic;
         }
 
@@ -202,22 +205,22 @@ export class PsyAntennaManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public generate_phantoms(): void {
-    if (this.phantom_idle === null) {
-      this.phantom_idle = math.random(2000, 5000);
+  public generatePhantoms(): void {
+    if (this.phantomIdle === null) {
+      this.phantomIdle = math.random(2000, 5000);
     }
 
-    if (time_global() - this.phantom_time > this.phantom_idle) {
-      this.phantom_time = time_global();
-      this.phantom_idle = math.random(5000, 10000);
+    if (time_global() - this.phantomTime > this.phantomIdle) {
+      this.phantomTime = time_global();
+      this.phantomIdle = math.random(5000, 10000);
 
-      if (math.random() < this.phantom_spawn_probability) {
+      if (math.random() < this.phantomSpawnProbability) {
         const actor: ClientObject = registry.actor;
         const phantomManager: PhantomManager = PhantomManager.getInstance();
 
-        if (phantomManager.phantomsCount < this.phantom_max) {
-          const radius: TDistance = this.phantom_spawn_radius * (math.random() / 2.0 + 0.5);
-          const angle: TRate = this.phantom_fov * math.random() - this.phantom_fov * 0.5;
+        if (phantomManager.phantomsCount < this.phantomMax) {
+          const radius: TDistance = this.phantomSpawnRadius * (math.random() / 2.0 + 0.5);
+          const angle: TRate = this.phantomFov * math.random() - this.phantomFov * 0.5;
           const dir: Vector = vectorRotateY(actor.direction(), angle);
 
           phantomManager.spawnPhantom(actor.position().add(dir.mul(radius)));
@@ -229,42 +232,42 @@ export class PsyAntennaManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public update_sound(): void {
-    if (!this.sound_initialized) {
-      this.sound_obj_left.play_at_pos(
+  public updateSound(): void {
+    if (!this.soundInitialized) {
+      this.soundObjectLeft.play_at_pos(
         registry.actor,
         createVector(-1, 0, 1),
         0,
-        (sound_object.s2d + sound_object.looped) as TSoundObjectType
+        (ESoundObjectType.S2D + ESoundObjectType.LOOPED) as TSoundObjectType
       );
-      this.sound_obj_right.play_at_pos(
+      this.soundObjectRight.play_at_pos(
         registry.actor,
         createVector(1, 0, 1),
         0,
-        (sound_object.s2d + sound_object.looped) as TSoundObjectType
+        (ESoundObjectType.S2D + ESoundObjectType.S3D) as TSoundObjectType
       );
 
-      this.sound_initialized = true;
+      this.soundInitialized = true;
     }
 
-    const vol = 1 - (this.sound_intensity ^ 3) * 0.9;
+    const vol = 1 - (this.soundIntensity ^ 3) * 0.9;
 
-    if (vol < this.mute_sound_threshold) {
-      level.set_snd_volume(this.mute_sound_threshold);
+    if (vol < this.muteSoundThreshold) {
+      level.set_snd_volume(this.muteSoundThreshold);
     } else {
       level.set_snd_volume(vol);
     }
 
-    this.sound_obj_left.volume = 1 / vol - 1;
-    this.sound_obj_right.volume = 1 / vol - 1;
+    this.soundObjectLeft.volume = 1 / vol - 1;
+    this.soundObjectRight.volume = 1 / vol - 1;
   }
 
   /**
    * todo: Description.
    */
-  public update_postprocess(pp: IPsyPostProcessDescriptor): boolean {
+  public updatePostprocess(pp: IPsyPostProcessDescriptor): boolean {
     if (pp.intensity === 0) {
-      this.postprocess_count = this.postprocess_count - 1;
+      this.postprocessCount = this.postprocessCount - 1;
       level.remove_pp_effector(pp.idx);
 
       return false;
@@ -279,35 +282,35 @@ export class PsyAntennaManager extends AbstractCoreManager {
    * todo: Description.
    */
   public override update(delta: TDuration): void {
-    this.eff_time = this.eff_time + delta;
+    this.effTime = this.effTime + delta;
 
-    const update_intensity = (intensity_base: number, intensity: number) => {
-      const di = this.intensity_inertion * delta * 0.01;
-      let ii = intensity_base;
+    const updateIntensity = (intensityBase: TRate, intensity: TRate) => {
+      const di = this.intensityInertion * delta * 0.01;
+      let ii = intensityBase;
 
-      if (math.abs(intensity_base - intensity) >= di) {
-        ii = intensity_base < intensity ? intensity - di : intensity + di;
+      if (math.abs(intensityBase - intensity) >= di) {
+        ii = intensityBase < intensity ? intensity - di : intensity + di;
       }
 
       return clampNumber(ii, 0.0, 1.0);
     };
 
-    this.generate_phantoms();
+    this.generatePhantoms();
 
-    if (!this.no_mumble) {
-      this.sound_intensity = update_intensity(this.sound_intensity_base, this.sound_intensity);
-      this.update_sound();
+    if (!this.noMumble) {
+      this.soundIntensity = updateIntensity(this.soundIntensityBase, this.soundIntensity);
+      this.updateSound();
     }
 
     for (const [k, v] of this.postprocess) {
-      v.intensity = update_intensity(v.intensity_base, v.intensity);
+      v.intensity = updateIntensity(v.intensityBase, v.intensity);
 
-      if (!this.update_postprocess(v)) {
+      if (!this.updatePostprocess(v)) {
         this.postprocess.delete(k);
       }
     }
 
-    this.update_psy_hit(delta);
+    this.updatePsyHit(delta);
   }
 
   /**
@@ -316,21 +319,21 @@ export class PsyAntennaManager extends AbstractCoreManager {
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, PsyAntennaManager.name);
 
-    packet.w_float(this.hit_intensity);
-    packet.w_float(this.sound_intensity);
-    packet.w_float(this.sound_intensity_base);
-    packet.w_float(this.mute_sound_threshold);
-    packet.w_bool(this.no_static);
-    packet.w_bool(this.no_mumble);
-    packet.w_stringZ(this.hit_type);
-    packet.w_u32(this.hit_freq);
+    packet.w_float(this.hitIntensity);
+    packet.w_float(this.soundIntensity);
+    packet.w_float(this.soundIntensityBase);
+    packet.w_float(this.muteSoundThreshold);
+    packet.w_bool(this.noStatic);
+    packet.w_bool(this.noMumble);
+    packet.w_stringZ(this.hitType);
+    packet.w_u32(this.hitFreq);
 
-    packet.w_u8(this.postprocess_count);
+    packet.w_u8(this.postprocessCount);
 
     for (const [k, v] of this.postprocess) {
       packet.w_stringZ(k);
       packet.w_float(v.intensity);
-      packet.w_float(v.intensity_base);
+      packet.w_float(v.intensityBase);
       packet.w_u16(v.idx);
     }
 
@@ -343,26 +346,26 @@ export class PsyAntennaManager extends AbstractCoreManager {
   public override load(reader: NetProcessor): void {
     openLoadMarker(reader, PsyAntennaManager.name);
 
-    this.hit_intensity = reader.r_float();
-    this.sound_intensity = reader.r_float();
-    this.sound_intensity_base = reader.r_float();
-    this.mute_sound_threshold = reader.r_float();
-    this.no_static = reader.r_bool();
-    this.no_mumble = reader.r_bool();
-    this.hit_type = reader.r_stringZ();
-    this.hit_freq = reader.r_u32();
+    this.hitIntensity = reader.r_float();
+    this.soundIntensity = reader.r_float();
+    this.soundIntensityBase = reader.r_float();
+    this.muteSoundThreshold = reader.r_float();
+    this.noStatic = reader.r_bool();
+    this.noMumble = reader.r_bool();
+    this.hitType = reader.r_stringZ();
+    this.hitFreq = reader.r_u32();
 
-    this.postprocess_count = reader.r_u8();
+    this.postprocessCount = reader.r_u8();
 
     this.postprocess = new LuaTable();
 
-    for (const it of $range(1, this.postprocess_count)) {
+    for (const it of $range(1, this.postprocessCount)) {
       const k: string = reader.r_stringZ();
       const ii: number = reader.r_float();
       const ib: number = reader.r_float();
       const idx: number = reader.r_u16();
 
-      this.postprocess.set(k, { intensity_base: ib, intensity: ii, idx: idx });
+      this.postprocess.set(k, { intensityBase: ib, intensity: ii, idx: idx });
       level.add_pp_effector(k, idx, true);
       level.set_pp_effector_factor(idx, ii);
     }
