@@ -59,7 +59,7 @@ export class ActionAnimpoint extends action_base {
       this.state.animpoint.getCurrentAction()!,
       null,
       null,
-      { look_position: this.state.animpoint.lookPosition, look_object: null },
+      { lookPosition: this.state.animpoint.lookPosition, lookObject: null },
       { animationPosition: position, animationDirection: direction }
     );
   }

@@ -6,7 +6,7 @@ import {
   EStateActionId,
   EStateEvaluatorId,
   EWeaponAnimation,
-  ITargetStateDescriptor,
+  ILookTargetDescriptor,
 } from "@/engine/core/objects/state/types";
 import { getObjectAnimationWeapon } from "@/engine/core/objects/state/weapon/StateManagerWeapon";
 import { states } from "@/engine/core/objects/state_lib/state_lib";
@@ -106,16 +106,16 @@ export class StalkerStateManager {
     stateName: EStalkerState,
     callback: Optional<IStateManagerCallbackDescriptor>,
     timeout: Optional<TDuration>,
-    target: Optional<ITargetStateDescriptor>,
+    target: Optional<ILookTargetDescriptor>,
     extra: Optional<ITargetStateDescriptorExtras>
   ): void {
     assert(states.get(stateName), "Invalid set state called: '%s' fo '%s'.", stateName, this.object.name());
 
     if (target !== null) {
-      this.lookPosition = target.look_position;
+      this.lookPosition = target.lookPosition;
 
-      if (target.look_object !== null) {
-        this.lookObjectId = target.look_object.id();
+      if (target.lookObject !== null) {
+        this.lookObjectId = target.lookObject.id();
       } else {
         this.lookObjectId = null;
       }

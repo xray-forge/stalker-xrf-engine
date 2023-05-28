@@ -101,7 +101,7 @@ export class ActionBaseCover extends action_base {
         anim!,
         null,
         null,
-        { look_position: this.enemy_random_position, look_object: null },
+        { lookPosition: this.enemy_random_position, lookObject: null },
         null
       );
     } else {

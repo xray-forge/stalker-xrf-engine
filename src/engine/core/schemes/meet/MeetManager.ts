@@ -115,7 +115,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
     // Look at speaker.
     if (tostring(state) !== NIL) {
-      setStalkerState(this.object, state as EStalkerState, null, null, { look_object: victim, look_position: null });
+      setStalkerState(this.object, state as EStalkerState, null, null, { lookObject: victim, lookPosition: null });
     }
 
     // Say hello.

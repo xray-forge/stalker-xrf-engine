@@ -29,7 +29,7 @@ export class ActionShoot extends action_base {
       EStalkerState.HIDE_FIRE,
       null,
       null,
-      { look_object: this.object.best_enemy(), look_position: null },
+      { lookObject: this.object.best_enemy(), lookPosition: null },
       null
     );
     this.state.isCamperCombatAction = true;

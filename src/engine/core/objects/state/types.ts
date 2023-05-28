@@ -339,9 +339,8 @@ export interface IStateDescriptor {
 
 /**
  * todo;
- * todo: use camelcased variant
  */
-export interface ITargetStateDescriptor {
-  look_object: Optional<ClientObject>;
-  look_position: Optional<Vector>;
+export interface ILookTargetDescriptor {
+  lookObject: Optional<ClientObject>;
+  lookPosition: Optional<Vector>;
 }

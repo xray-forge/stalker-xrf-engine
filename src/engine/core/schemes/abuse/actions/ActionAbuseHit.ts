@@ -30,7 +30,7 @@ export class ActionAbuseHit extends action_base {
       EStalkerState.PUNCH,
       null,
       null,
-      { look_object: registry.actor, look_position: null },
+      { lookObject: registry.actor, lookPosition: null },
       { animation: true }
     );
   }

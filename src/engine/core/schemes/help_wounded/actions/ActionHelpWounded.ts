@@ -47,7 +47,7 @@ export class ActionHelpWounded extends action_base {
       EStalkerState.HELP_WOUNDED,
       null,
       null,
-      { look_position: this.state.vertex_position, look_object: null },
+      { lookPosition: this.state.vertex_position, lookObject: null },
       null
     );
   }

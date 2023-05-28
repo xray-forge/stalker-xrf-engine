@@ -4,7 +4,7 @@ import { getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/d
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
-import { EStalkerState } from "@/engine/core/objects/state";
+import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/state";
 import { IStateManagerCallbackDescriptor } from "@/engine/core/objects/state/StalkerStateManager";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark";
 import { abort } from "@/engine/core/utils/assertion";
@@ -13,17 +13,12 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, SoundObject, TNumberId, Vector } from "@/engine/lib/types";
 
-const state_initial = 0;
-const state_animation = 1;
-const state_sound = 2;
-const state_finish = 3;
+const stateInitial = 0;
+const stateAnimation = 1;
+const stateSound = 2;
+const stateFinish = 3;
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-interface IDescriptor {
-  look_object: Optional<ClientObject>;
-  look_position: Optional<Vector>;
-}
 
 /**
  * todo;
@@ -31,7 +26,7 @@ interface IDescriptor {
 @LuabindClass()
 export class ActionRemarkActivity extends action_base {
   public st: ISchemeRemarkState;
-  public state: number = state_initial;
+  public state: number = stateInitial;
 
   public sound_end_signalled: boolean = false;
   public action_end_signalled: boolean = false;
@@ -93,24 +88,24 @@ export class ActionRemarkActivity extends action_base {
 
     this.snd_started = false;
 
-    this.state = state_initial;
+    this.state = stateInitial;
     this.tips_sound = null;
   }
 
   /**
    * todo
    */
-  public get_target(): Optional<IDescriptor> {
-    const look_tbl = {
-      look_object: null as Optional<ClientObject>,
-      look_position: null as Optional<Vector>,
+  public getTarget(): Optional<ILookTargetDescriptor> {
+    const lookTargetDescriptor: ILookTargetDescriptor = {
+      lookObject: null as Optional<ClientObject>,
+      lookPosition: null as Optional<Vector>,
     };
 
-    const [target_position, target_id, target_init] = initTarget(this.object, this.st.target);
+    const [targetPosition, targetId, targetInit] = initTarget(this.object, this.st.target);
 
-    this.st.target_position = target_position;
-    this.st.target_id = target_id;
-    this.st.target_init = target_init;
+    this.st.target_position = targetPosition;
+    this.st.target_id = targetId;
+    this.st.target_init = targetInit;
 
     if (this.st.target_init === false) {
       // --printf("target_is_ni!!!l")
@@ -118,21 +113,21 @@ export class ActionRemarkActivity extends action_base {
     }
 
     if (this.st.target_id) {
-      look_tbl.look_object = level.object_by_id(this.st.target_id);
+      lookTargetDescriptor.lookObject = level.object_by_id(this.st.target_id);
     }
 
     if (this.st.target_position) {
-      look_tbl.look_position = this.st.target_position;
+      lookTargetDescriptor.lookPosition = this.st.target_position;
     }
 
-    return look_tbl;
+    return lookTargetDescriptor;
   }
 
   /**
    * todo
    */
   public onAnimationUpdate(): void {
-    this.state = state_sound;
+    this.state = stateSound;
     this.update();
   }
 
@@ -140,15 +135,15 @@ export class ActionRemarkActivity extends action_base {
    * todo
    */
   public update(): void {
-    if (this.state === state_initial) {
+    if (this.state === stateInitial) {
       const cb: IStateManagerCallbackDescriptor = { context: this, callback: this.onAnimationUpdate };
-      const target = this.get_target();
+      const target = this.getTarget();
 
       if (target === null) {
         const anim: EStalkerState = pickSectionFromCondList(registry.actor, this.object, this.st.anim)!;
 
         setStalkerState(this.object, anim, cb, 0, null, null);
-        this.state = state_animation;
+        this.state = stateAnimation;
 
         return;
       }
@@ -156,10 +151,10 @@ export class ActionRemarkActivity extends action_base {
       const anim: EStalkerState = pickSectionFromCondList(registry.actor, this.object, this.st.anim)!;
 
       setStalkerState(this.object, anim, cb, 0, target, null);
-      this.state = state_animation;
-    } else if (this.state === state_animation) {
+      this.state = stateAnimation;
+    } else if (this.state === stateAnimation) {
       // Empty.
-    } else if (this.state === state_sound) {
+    } else if (this.state === stateSound) {
       if (this.snd_scheduled === true) {
         this.snd_started = true;
         GlobalSoundManager.getInstance().playSound(this.object.id(), this.st.snd, null, null);
@@ -194,32 +189,32 @@ export function initTarget(
   targetString: string
 ): LuaMultiReturn<[Optional<Vector>, Optional<number>, Optional<boolean>]> {
   // todo: Simplify.
-  function parse_target(target_str: string): LuaMultiReturn<[Optional<string>, Optional<string>]> {
-    const [pos] = string.find(target_str, ",");
+  function parseTarget(targetStr: string): LuaMultiReturn<[Optional<string>, Optional<string>]> {
+    const [pos] = string.find(targetStr, ",");
 
     if (pos !== null) {
-      return $multi(string.sub(target_str, 1, pos - 1), string.sub(target_str, pos + 1));
+      return $multi(string.sub(targetStr, 1, pos - 1), string.sub(targetStr, pos + 1));
     } else {
-      return $multi(target_str, null);
+      return $multi(targetStr, null);
     }
   }
 
   // todo: Simplify.
-  function parse_type(target_str: string): LuaMultiReturn<[string, string]> {
-    const [pos] = string.find(target_str, "|");
+  function parseType(targetStr: string): LuaMultiReturn<[string, string]> {
+    const [pos] = string.find(targetStr, "|");
 
     if (pos === null) {
-      instruction(obj, target_str);
+      instruction(obj, targetStr);
     }
 
-    const target_type = string.sub(target_str, 1, pos - 1);
-    const target = string.sub(target_str, pos + 1);
+    const targetType = string.sub(targetStr, 1, pos - 1);
+    const target = string.sub(targetStr, pos + 1);
 
-    if (target === null || target === "" || target_type === null || target_type === "") {
-      instruction(obj, target_str);
+    if (target === null || target === "" || targetType === null || targetType === "") {
+      instruction(obj, targetStr);
     }
 
-    return $multi(target_type, target);
+    return $multi(targetType, target);
   }
 
   let targetPosition: Optional<Vector> = null;
@@ -232,15 +227,15 @@ export function initTarget(
     instruction(obj, "");
   }
 
-  const [target_type, target] = parse_type(targetString);
+  const [targetType, target] = parseType(targetString);
 
-  if (target_type === "story") {
-    const [story_id] = parse_target(target);
+  if (targetType === "story") {
+    const [storyId] = parseTarget(target);
 
-    targetId = getObjectIdByStoryId(story_id!);
+    targetId = getObjectIdByStoryId(storyId!);
     isTargetInitialized = true;
-  } else if (target_type === "path") {
-    const [path, point] = parse_target(target);
+  } else if (targetType === "path") {
+    const [path, point] = parseTarget(target);
 
     const pointNumber = tonumber(point)!;
 
@@ -248,8 +243,8 @@ export function initTarget(
       targetPosition = new patrol(path!).point(pointNumber);
       isTargetInitialized = true;
     }
-  } else if (target_type === "job") {
-    const [job, gulag] = parse_target(target);
+  } else if (targetType === "job") {
+    const [job, gulag] = parseTarget(target);
     const smartTerrain: SmartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(gulag!)!;
 
     targetId = smartTerrain.idNPCOnJob(job!);

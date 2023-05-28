@@ -2,7 +2,7 @@ import { action_base, level, LuabindClass, move, time_global } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
+import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/state";
 import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/combat/ISchemeCombatState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { chance } from "@/engine/core/utils/number";
@@ -18,9 +18,9 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class ActionZombieShoot extends action_base {
   public state: ISchemeCombatState;
-  public targetStateDescriptor: ITargetStateDescriptor = {
-    look_position: null,
-    look_object: null,
+  public targetStateDescriptor: ILookTargetDescriptor = {
+    lookPosition: null,
+    lookObject: null,
   };
 
   public wasHit: boolean = false;
@@ -147,8 +147,8 @@ export class ActionZombieShoot extends action_base {
    * todo: Description.
    */
   public setState(state: EStalkerState, bestEnemy: Optional<ClientObject>, position: Optional<Vector>): void {
-    this.targetStateDescriptor.look_object = bestEnemy;
-    this.targetStateDescriptor.look_position = bestEnemy ? this.enemyLastSeenPosition : position;
+    this.targetStateDescriptor.lookObject = bestEnemy;
+    this.targetStateDescriptor.lookPosition = bestEnemy ? this.enemyLastSeenPosition : position;
 
     setStalkerState(this.object, state, null, null, this.targetStateDescriptor, null);
 

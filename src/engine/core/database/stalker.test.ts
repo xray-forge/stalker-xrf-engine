@@ -66,7 +66,7 @@ describe("'stalker' module of the database", () => {
         callback: callbackPlaceholder,
       },
       1000,
-      { look_object: null, look_position: createEmptyVector() },
+      { lookObject: null, lookPosition: createEmptyVector() },
       { isForced: true }
     );
 
@@ -83,7 +83,7 @@ describe("'stalker' module of the database", () => {
         turnEndCallback: callbackPlaceholder,
       },
       1000,
-      { look_object: null, look_position: { x: 0, y: 0, z: 0 } },
+      { lookObject: null, lookPosition: { x: 0, y: 0, z: 0 } },
       { isForced: true }
     );
 

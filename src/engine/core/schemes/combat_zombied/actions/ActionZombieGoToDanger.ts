@@ -1,7 +1,7 @@
 import { action_base, danger_object, LuabindClass, move, time_global } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
-import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
+import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/state";
 import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/combat/ISchemeCombatState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
@@ -25,12 +25,12 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class ActionZombieGoToDanger extends action_base {
   public state: ISchemeCombatState;
-  public targetState: ITargetStateDescriptor = { look_object: null, look_position: null };
+  public targetState: ILookTargetDescriptor = { lookObject: null, lookPosition: null };
 
   public wasHit: boolean = false;
   public hitReactionEndTime: TTimestamp = 0;
 
-  public last_state: Optional<EStalkerState> = null;
+  public lastState: Optional<EStalkerState> = null;
   public bestDangerObjectVertexId: Optional<TNumberId> = null;
   public lastSentVertexId: Optional<TNumberId> = null;
   public bestDangerObjectId: Optional<TNumberId> = null;
@@ -55,7 +55,7 @@ export class ActionZombieGoToDanger extends action_base {
     this.object.set_desired_direction();
     this.object.set_detail_path_type(move.line);
     this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
-    this.last_state = null;
+    this.lastState = null;
     this.bestDangerObjectId = null;
     this.bestDangerObjectVertexId = null;
     this.lastSentVertexId = null;
@@ -66,11 +66,11 @@ export class ActionZombieGoToDanger extends action_base {
    * todo: Description.
    */
   public setState(state: EStalkerState, bestEnemy: Optional<ClientObject>, pos: Optional<Vector>): void {
-    if (state !== this.last_state) {
-      this.targetState.look_object = bestEnemy;
-      this.targetState.look_position = pos;
+    if (state !== this.lastState) {
+      this.targetState.lookObject = bestEnemy;
+      this.targetState.lookPosition = pos;
       setStalkerState(this.object, state, null, null, this.targetState, null);
-      this.last_state = state;
+      this.lastState = state;
     }
   }
 
@@ -121,13 +121,7 @@ export class ActionZombieGoToDanger extends action_base {
   /**
    * todo: Description.
    */
-  public hit_callback(
-    object: ClientObject,
-    amount: TRate,
-    direction: Vector,
-    who: ClientObject,
-    bone_id: TIndex
-  ): void {
+  public hit_callback(object: ClientObject, amount: TRate, direction: Vector, who: ClientObject, boneId: TIndex): void {
     if (who === null) {
       return;
     }

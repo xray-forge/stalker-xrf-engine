@@ -4,7 +4,7 @@ import { registerObject, unregisterObject } from "@/engine/core/database/objects
 import { registry } from "@/engine/core/database/registry";
 import { IRegistryObjectState } from "@/engine/core/database/types";
 import { StalkerBinder } from "@/engine/core/objects";
-import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
+import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/state";
 import {
   IStateManagerCallbackDescriptor,
   ITargetStateDescriptorExtras,
@@ -53,7 +53,7 @@ export function setStalkerState(
   state: EStalkerState,
   callback: Optional<IStateManagerCallbackDescriptor> = null,
   timeout: Optional<TDuration> = null,
-  target: Optional<ITargetStateDescriptor> = null,
+  target: Optional<ILookTargetDescriptor> = null,
   extra: Optional<ITargetStateDescriptorExtras> = null
 ): void {
   registry.objects
@@ -62,7 +62,7 @@ export function setStalkerState(
       state,
       callback as Optional<IStateManagerCallbackDescriptor>,
       timeout as Optional<TDuration>,
-      target as Optional<ITargetStateDescriptor>,
+      target as Optional<ILookTargetDescriptor>,
       extra as Optional<ITargetStateDescriptorExtras>
     );
 }

@@ -25,8 +25,8 @@ describe("ActionDirectionTurn class", () => {
     const lookObject: ClientObject = mockClientGameObject();
 
     setStalkerState(stalker.object, EStalkerState.IDLE, null, null, {
-      look_object: lookObject,
-      look_position: null,
+      lookObject: lookObject,
+      lookPosition: null,
     });
 
     action.setup(stalker.object, new property_storage());
@@ -36,8 +36,8 @@ describe("ActionDirectionTurn class", () => {
     resetFunctionMock(stalker.object.set_sight);
 
     setStalkerState(stalker.object, EStalkerState.SMART_COVER, null, null, {
-      look_object: null,
-      look_position: createEmptyVector(),
+      lookObject: null,
+      lookPosition: createEmptyVector(),
     });
 
     action.setup(stalker.object, new property_storage());
@@ -47,8 +47,8 @@ describe("ActionDirectionTurn class", () => {
     resetFunctionMock(stalker.object.set_sight);
 
     setStalkerState(stalker.object, EStalkerState.SNEAK_RUN, null, null, {
-      look_object: null,
-      look_position: createEmptyVector(),
+      lookObject: null,
+      lookPosition: createEmptyVector(),
     });
 
     manager.lookPosition = createVector(0.25, 0.25, 0.25);

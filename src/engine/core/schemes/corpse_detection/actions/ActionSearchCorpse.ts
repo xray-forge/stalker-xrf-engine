@@ -54,8 +54,8 @@ export class ActionSearchCorpse extends action_base {
     }
 
     setStalkerState(this.object, EStalkerState.SEARCH_CORPSE, null, null, {
-      look_position: this.state.vertex_position,
-      look_object: null,
+      lookPosition: this.state.vertex_position,
+      lookObject: null,
     });
     GlobalSoundManager.getInstance().playSound(this.object.id(), "corpse_loot_begin", null, null);
   }

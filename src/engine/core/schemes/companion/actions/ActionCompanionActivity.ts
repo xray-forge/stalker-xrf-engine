@@ -1,7 +1,7 @@
 import { action_base, level, LuabindClass, time_global } from "xray16";
 
 import { registry, setStalkerState } from "@/engine/core/database";
-import { EStalkerState, ITargetStateDescriptor } from "@/engine/core/objects/state";
+import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/state";
 import { ISchemeCompanionState } from "@/engine/core/schemes/companion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";
@@ -96,11 +96,11 @@ export class ActionCompanionActivity extends action_base {
 
     const dist_to_assist_pt = level.vertex_position(this.assist_point).distance_to(this.object.position());
     let nextState: Optional<EStalkerState> = null;
-    let target: Optional<ITargetStateDescriptor> = null;
+    let target: Optional<ILookTargetDescriptor> = null;
 
     if (this.object.level_vertex_id() === this.assist_point) {
       nextState = EStalkerState.THREAT;
-      target = { look_object: registry.actor, look_position: null };
+      target = { lookObject: registry.actor, lookPosition: null };
     } else {
       const t = time_global();
 
@@ -109,7 +109,7 @@ export class ActionCompanionActivity extends action_base {
 
         if (dist_to_assist_pt <= dist_walk) {
           nextState = EStalkerState.RAID;
-          target = { look_object: registry.actor, look_position: null };
+          target = { lookObject: registry.actor, lookPosition: null };
         } else if (dist_to_assist_pt <= dist_run) {
           nextState = EStalkerState.RUSH;
         } else {
@@ -139,7 +139,7 @@ export class ActionCompanionActivity extends action_base {
         nextState,
         null,
         null,
-        { look_object: registry.actor, look_position: null },
+        { lookObject: registry.actor, lookPosition: null },
         { animation: true }
       );
       this.last_state = nextState;

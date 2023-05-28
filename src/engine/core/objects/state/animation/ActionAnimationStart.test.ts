@@ -23,8 +23,8 @@ describe("ActionAnimationStart class", () => {
     jest.spyOn(manager.animation, "setState");
 
     setStalkerState(stalker.object, EStalkerState.BACKOFF, null, null, {
-      look_position: createEmptyVector(),
-      look_object: null,
+      lookPosition: createEmptyVector(),
+      lookObject: null,
     });
 
     const action: ActionAnimationStart = new ActionAnimationStart(manager);

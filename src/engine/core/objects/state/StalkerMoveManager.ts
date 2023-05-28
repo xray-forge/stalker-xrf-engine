@@ -341,7 +341,7 @@ export class StalkerMoveManager {
       this.currentStateStanding,
       { context: this, callback: this.onAnimationUpdate, turnEndCallback: this.onAnimationTurnEnd },
       this.pt_wait_time,
-      { look_position: lookPosition, look_object: null },
+      { lookPosition: lookPosition, lookObject: null },
       null
     );
   }

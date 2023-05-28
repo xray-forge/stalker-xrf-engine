@@ -51,7 +51,7 @@ export class ActionLookAround extends action_base {
       EStalkerState.HIDE,
       null,
       null,
-      { look_position: this.state.last_seen_pos, look_object: null },
+      { lookPosition: this.state.last_seen_pos, lookObject: null },
       null
     );
   }
@@ -86,7 +86,7 @@ export class ActionLookAround extends action_base {
         EStalkerState.HIDE,
         null,
         null,
-        { look_position: this.object.position().add(direction), look_object: null },
+        { lookPosition: this.object.position().add(direction), lookObject: null },
         null
       );
     }

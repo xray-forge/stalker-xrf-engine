@@ -23,8 +23,8 @@ describe("ActionAnimationStateStop class", () => {
     jest.spyOn(manager.animstate, "setState");
 
     setStalkerState(stalker.object, EStalkerState.SIT, null, null, {
-      look_position: createEmptyVector(),
-      look_object: null,
+      lookPosition: createEmptyVector(),
+      lookObject: null,
     });
 
     const action: ActionAnimationStateStop = new ActionAnimationStateStop(manager);
