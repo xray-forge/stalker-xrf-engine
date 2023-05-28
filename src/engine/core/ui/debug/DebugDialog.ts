@@ -7,8 +7,6 @@ import {
   DIK_keys,
   Frect,
   LuabindClass,
-  TXR_DIK_key,
-  TXR_ui_event,
   ui_events,
 } from "xray16";
 
@@ -16,7 +14,7 @@ import { EDebugSection, sectionsMap } from "@/engine/core/ui/debug/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { TPath } from "@/engine/lib/types";
+import { TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -137,7 +135,7 @@ export class DebugDialog extends CUIScriptWnd {
   /**
    * todo: Description.
    */
-  public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+  public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     const result: boolean = super.OnKeyboard(key, event);
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {

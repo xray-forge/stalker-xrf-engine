@@ -1,5 +1,4 @@
 import {
-  CConsole,
   CGameFont,
   CScriptXmlInit,
   CUIEditBox,
@@ -12,27 +11,23 @@ import {
   dik_to_bind,
   Frect,
   FS,
-  FS_file_list,
-  FS_file_list_ex,
-  FS_item,
-  get_console,
   GetFontMedium,
   getFS,
   key_bindings,
   LuabindClass,
-  TXR_DIK_key,
-  TXR_ui_event,
   ui_events,
   vector2,
 } from "xray16";
 
 import { SaveItem } from "@/engine/core/ui/menu/save/SaveItem";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { deleteGameSave } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { roots } from "@/engine/lib/constants/roots";
-import { Optional, TPath } from "@/engine/lib/types";
+import { FSFileList, FSFileListEX, FSItem, Optional, TKeyCode, TName, TPath, TUIEvent } from "@/engine/lib/types";
 
 const base: TPath = "menu\\SaveDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -110,12 +105,12 @@ export class SaveDialog extends CUIScriptWnd {
   }
 
   public InitCallBacks(): void {
-    this.AddCallback("button_ok", ui_events.BUTTON_CLICKED, () => this.OnButton_ok_clicked(), this);
-    this.AddCallback("button_cancel", ui_events.BUTTON_CLICKED, () => this.OnButton_cancel_clicked(), this);
-    this.AddCallback("button_del", ui_events.BUTTON_CLICKED, () => this.OnButton_del_clicked(), this);
+    this.AddCallback("button_ok", ui_events.BUTTON_CLICKED, () => this.onOkButtonClicked(), this);
+    this.AddCallback("button_cancel", ui_events.BUTTON_CLICKED, () => this.onCancelButtonClicked(), this);
+    this.AddCallback("button_del", ui_events.BUTTON_CLICKED, () => this.onDeleteButtonClicked(), this);
 
-    this.AddCallback("message_box", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.OnMsgYes(), this);
-    this.AddCallback("list_window", ui_events.LIST_ITEM_CLICKED, () => this.OnListItemClicked(), this);
+    this.AddCallback("message_box", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.onMessageYesClicked(), this);
+    this.AddCallback("list_window", ui_events.LIST_ITEM_CLICKED, () => this.onListItemClicked(), this);
   }
 
   public FillList(): void {
@@ -123,7 +118,7 @@ export class SaveDialog extends CUIScriptWnd {
 
     this.listBox.RemoveAll();
 
-    const fileList: FS_file_list_ex = getFS().file_list_open_ex(
+    const fileList: FSFileListEX = getFS().file_list_open_ex(
       roots.gameSaves,
       FS.FS_ListFiles,
       "*" + gameConfig.GAME_SAVE_EXTENSION
@@ -132,20 +127,20 @@ export class SaveDialog extends CUIScriptWnd {
     fileList.Sort(FS.FS_sort_by_modif_down);
 
     for (let it = 0; it < fileList.Size(); it += 1) {
-      const file: FS_item = fileList.GetAt(it);
-      const file_name: string = string.sub(
+      const file: FSItem = fileList.GetAt(it);
+      const fileName: TName = string.sub(
         file.NameFull(),
         0,
         string.len(file.NameFull()) - string.len(gameConfig.GAME_SAVE_EXTENSION)
       );
-      const date_time: string = "[" + file.ModifDigitOnly() + "]";
+      const dateTime: string = "[" + file.ModifDigitOnly() + "]";
 
       // --menu_item =  +
-      this.AddItemToList(file_name, date_time);
+      this.AddItemToList(fileName, dateTime);
     }
   }
 
-  public OnListItemClicked(): void {
+  public onListItemClicked(): void {
     logger.info("List item clicked");
 
     if (this.listBox.GetSize() === 0) {
@@ -158,12 +153,12 @@ export class SaveDialog extends CUIScriptWnd {
       return;
     }
 
-    const item_text: string = item.innerNameText.GetText();
+    const itemText: string = item.innerNameText.GetText();
 
-    this.editBox.SetText(item_text);
+    this.editBox.SetText(itemText);
   }
 
-  public OnMsgYes(): void {
+  public onMessageYesClicked(): void {
     logger.info("Message yes clicked:", this.modalBoxMode);
 
     if (this.modalBoxMode === 1) {
@@ -173,11 +168,11 @@ export class SaveDialog extends CUIScriptWnd {
       this.HideDialog();
       this.owner.Show(true);
     } else if (this.modalBoxMode === 2) {
-      this.delete_selected_file();
+      this.onDeleteSelectedFile();
     }
   }
 
-  public OnButton_del_clicked(): void {
+  public onDeleteButtonClicked(): void {
     logger.info("Message delete clicked");
 
     if (this.listBox.GetSize() === 0) {
@@ -195,7 +190,7 @@ export class SaveDialog extends CUIScriptWnd {
     this.messageBox.ShowDialog(true);
   }
 
-  public delete_selected_file(): void {
+  public onDeleteSelectedFile(): void {
     logger.info("Deleting selected file");
 
     if (this.listBox.GetSize() === 0) {
@@ -214,10 +209,10 @@ export class SaveDialog extends CUIScriptWnd {
     deleteGameSave(filename);
 
     this.listBox.RemoveItem(item);
-    this.OnListItemClicked();
+    this.onListItemClicked();
   }
 
-  public OnButton_ok_clicked(): void {
+  public onOkButtonClicked(): void {
     logger.info("OK confirm clicked");
 
     this.newSave = this.editBox.GetText();
@@ -233,7 +228,7 @@ export class SaveDialog extends CUIScriptWnd {
     }
 
     const fs: FS = getFS();
-    const fileList: FS_file_list = fs.file_list_open(roots.gameSaves, FS.FS_ListFiles);
+    const fileList: FSFileList = fs.file_list_open(roots.gameSaves, FS.FS_ListFiles);
     const fileExists: Optional<number> = fs.exist(roots.gameSaves, this.newSave + gameConfig.GAME_SAVE_EXTENSION);
 
     if (fileExists !== null) {
@@ -258,20 +253,20 @@ export class SaveDialog extends CUIScriptWnd {
     logger.info("Saved");
   }
 
-  public OnButton_cancel_clicked(): void {
+  public onCancelButtonClicked(): void {
     logger.info("Cancel clicked");
     this.owner.ShowDialog(true);
     this.HideDialog();
     this.owner.Show(true);
   }
 
-  public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+  public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     super.OnKeyboard(key, event);
 
     if (dik_to_bind(key) === key_bindings.kQUIT) {
-      this.OnButton_cancel_clicked();
+      this.onCancelButtonClicked();
     } else if (key === DIK_keys.DIK_RETURN && event === ui_events.WINDOW_KEY_PRESSED) {
-      this.OnButton_ok_clicked();
+      this.onOkButtonClicked();
     }
 
     return true;
@@ -294,9 +289,7 @@ export class SaveDialog extends CUIScriptWnd {
     logger.info("Save file:", filename);
 
     if (filename !== null) {
-      const console: CConsole = get_console();
-
-      console.execute("save " + filename);
+      executeConsoleCommand(consoleCommands.save, filename);
     }
   }
 }

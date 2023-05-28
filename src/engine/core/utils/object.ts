@@ -468,9 +468,9 @@ export function anomalyHasArtefact(
   object: Optional<ClientObject>,
   params: [TName, Optional<TName>]
 ): LuaMultiReturn<[boolean, Optional<LuaArray<TName>>]> {
-  const az_name = params && params[0];
-  const af_name = params && params[1];
-  const anomalyZone = registry.anomalyZones.get(az_name);
+  const anomalyZoneName = params && params[0];
+  const artefactName = params && params[1];
+  const anomalyZone = registry.anomalyZones.get(anomalyZoneName);
 
   if (anomalyZone === null) {
     return $multi(false, null);
@@ -480,7 +480,7 @@ export function anomalyHasArtefact(
     return $multi(false, null);
   }
 
-  if (af_name === null) {
+  if (artefactName === null) {
     const artefactsList: LuaArray<TName> = new LuaTable();
 
     for (const [k, v] of registry.artefacts.ways) {
@@ -495,7 +495,10 @@ export function anomalyHasArtefact(
   }
 
   for (const [artefactId] of registry.artefacts.ways) {
-    if (alife().object(tonumber(artefactId)!) && af_name === alife().object(tonumber(artefactId)!)!.section_name()) {
+    if (
+      alife().object(tonumber(artefactId)!) &&
+      artefactName === alife().object(tonumber(artefactId)!)!.section_name()
+    ) {
       return $multi(true, null);
     }
   }

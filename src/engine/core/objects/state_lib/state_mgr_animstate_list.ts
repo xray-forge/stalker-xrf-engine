@@ -1,5 +1,5 @@
 import { EStalkerState, IAnimationStateDescriptor } from "@/engine/core/objects/state/types";
-import { add_animstate_animation_list } from "@/engine/core/objects/state_lib/state_mgr_animstate_list_animpoint";
+import { addAnimstateAnimationList } from "@/engine/core/objects/state_lib/state_mgr_animstate_list_animpoint";
 import { copyTable } from "@/engine/core/utils/table";
 
 /**
@@ -50,4 +50,4 @@ export const animstates: LuaTable<EStalkerState, IAnimationStateDescriptor> = $f
   },
 } as unknown as Record<EStalkerState, IAnimationStateDescriptor>);
 
-copyTable(animstates, add_animstate_animation_list());
+copyTable(animstates, addAnimstateAnimationList());

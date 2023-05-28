@@ -7,7 +7,7 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { isStalker } from "@/engine/core/utils/check/is";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { lootable_table_exclude, TLootableExcludeItem } from "@/engine/lib/constants/items/lootable_table";
+import { lootableTableExclude, TLootableExcludeItem } from "@/engine/lib/constants/items/lootable_table";
 import { TLevel } from "@/engine/lib/constants/levels";
 import { EGoodwill } from "@/engine/lib/constants/relations";
 import { NIL } from "@/engine/lib/constants/words";
@@ -102,7 +102,7 @@ export function isSurgeEnabledOnLevel(levelName: TLevel): boolean {
  * @returns whether object is excluded from loot drop.
  */
 export function isExcludedFromLootDropItem(object: ClientObject): boolean {
-  return lootable_table_exclude[object.section<TLootableExcludeItem>()] !== null;
+  return lootableTableExclude[object.section<TLootableExcludeItem>()] !== null;
 }
 
 /**

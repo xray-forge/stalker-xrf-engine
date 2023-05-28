@@ -5,25 +5,25 @@ import { food } from "@/engine/lib/constants/items/food";
 import { helmets } from "@/engine/lib/constants/items/helmets";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits } from "@/engine/lib/constants/items/outfits";
-import { weapon_addons } from "@/engine/lib/constants/items/weapon_addons";
+import { weaponAddons } from "@/engine/lib/constants/items/weapon_addons";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 
-export const lootable_table = {
+export const lootableTable = {
   ...ammo,
   ...detectors,
   ...drugs,
   ...food,
   ...helmets,
   ...outfits,
-  ...weapon_addons,
+  ...weaponAddons,
   ...weapons,
 } as const;
 
-export type TLootableItems = typeof lootable_table;
+export type TLootableItems = typeof lootableTable;
 
 export type TLootableItem = TLootableItems[keyof TLootableItems];
 
-export const lootable_table_exclude = {
+export const lootableTableExclude = {
   [misc.device_pda]: misc.device_pda,
   [misc.guitar_a]: misc.guitar_a,
   [misc.device_torch]: misc.device_torch,
@@ -33,6 +33,6 @@ export const lootable_table_exclude = {
   [weapons.wpn_binocular_s]: weapons.wpn_binocular_s,
 } as const;
 
-export type TLootableExcludeItems = typeof lootable_table_exclude;
+export type TLootableExcludeItems = typeof lootableTableExclude;
 
 export type TLootableExcludeItem = TLootableExcludeItems[keyof TLootableExcludeItems];

@@ -1,4 +1,5 @@
 import {
+  account_manager,
   action_base,
   action_planner,
   alife_simulator,
@@ -55,19 +56,25 @@ import {
   effector_params,
   entity_action,
   flags32,
+  FS_file_list,
   FS_file_list_ex,
+  FS_item,
   game_object,
   GameGraph__CVertex,
   hit,
   ini_file,
+  login_manager,
   net_packet,
   noise,
   object_factory,
   particles_object,
+  Patch_Dawnload_Progress,
   patrol,
   physics_element,
   physics_joint,
   physics_shell,
+  profile,
+  profile_store,
   profile_timer,
   property_evaluator,
   property_storage,
@@ -81,6 +88,7 @@ import {
   TXR_class_id,
   TXR_class_key,
   TXR_danger_object,
+  TXR_DIK_key,
   TXR_entity_action,
   TXR_look,
   TXR_MonsterBodyStateKey,
@@ -92,6 +100,7 @@ import {
   TXR_sound_key,
   TXR_sound_object_type,
   TXR_TaskState,
+  TXR_ui_event,
   vector,
   vector2,
   world_property,
@@ -99,6 +108,7 @@ import {
 } from "xray16";
 
 export type ALifeSmartTerrainTask = CALifeSmartTerrainTask;
+export type AccountManager = account_manager;
 export type ActionBase = action_base;
 export type ActionPlanner = action_planner;
 export type AlifeSimulator = alife_simulator;
@@ -111,19 +121,23 @@ export type CoverPoint = cover_point;
 export type DangerObject = danger_object;
 export type EffectorParams = effector_params;
 export type EntityAction = entity_action;
-export type FSFileList = FS_file_list_ex;
+export type FSFileList = FS_file_list;
+export type FSFileListEX = FS_file_list_ex;
+export type FSItem = FS_item;
 export type Flags32 = flags32;
 export type GameGraphVertex = GameGraph__CVertex;
 export type GameHud = CUIGameCustom;
 export type GameTask = CGameTask;
 export type Hit = hit;
 export type IniFile = ini_file;
+export type LoginManager = login_manager;
 export type MonsterBodyStateKey = TXR_MonsterBodyStateKey;
 export type NetPacket = net_packet;
 export type NetProcessor = TXR_net_processor;
 export type Noise = noise;
 export type ObjectFactory = object_factory;
 export type ParticlesObject = particles_object;
+export type PatchDownloadProgress = Patch_Dawnload_Progress;
 export type Patrol = patrol;
 export type Phrase = CPhrase;
 export type PhraseDialog = CPhraseDialog;
@@ -132,6 +146,8 @@ export type PhysicObject = CPhysicObject;
 export type PhysicsElement = physics_element;
 export type PhysicsJoint = physics_joint;
 export type PhysicsShell = physics_shell;
+export type Profile = profile;
+export type ProfileStore = profile_store;
 export type ProfileTimer = profile_timer;
 export type PropertyEvaluator = property_evaluator;
 export type PropertyStorage = property_storage;
@@ -182,6 +198,7 @@ export type TClassId = TXR_class_id;
 export type TClassKey = TXR_class_key;
 export type TDangerType = TXR_danger_object;
 export type TEntityActionType = TXR_entity_action;
+export type TKeyCode = TXR_DIK_key;
 export type TLookType = TXR_look;
 export type TMoveType = TXR_move;
 export type TRelationType = TXR_relation;
@@ -190,6 +207,7 @@ export type TSoundKey = TXR_sound_key;
 export type TSoundObjectType = TXR_sound_object_type;
 export type TSoundType = TXR_snd_type;
 export type TTaskState = TXR_TaskState;
+export type TUIEvent = TXR_ui_event;
 export type Time = CTime;
 export type Vector = vector;
 export type Vector2D = vector2;

@@ -9,25 +9,25 @@ import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { ClientObject, LuaArray, Optional, TIndex, TName } from "@/engine/lib/types";
 
-const weap_table: LuaArray<TName> = [
+const WEAP_TABLE: LuaArray<TName> = [
   "pri_a15_wpn_svu",
   "pri_a15_wpn_wincheaster1300",
   "pri_a15_wpn_ak74u",
   "pri_a15_wpn_ak74",
 ] as any;
 
-const weap_table_unstrapped: LuaArray<TName> = [
+const WEAP_TABLE_UNSTRAPPED: LuaArray<TName> = [
   "pri_a15_wpn_svu_unstrapped",
   "pri_a15_wpn_wincheaster1300_unstrapped",
   "pri_a15_wpn_ak74u_unstrapped",
   "pri_a15_wpn_ak74_unstrapped",
 ] as any;
 
-function unstrap_weapon(object: ClientObject): void {
+function unstrapWeapon(object: ClientObject): void {
   let item: Optional<ClientObject> = null;
   let index: TIndex = 0;
 
-  for (const [k, v] of weap_table) {
+  for (const [k, v] of WEAP_TABLE) {
     item = object.object(v);
     if (item !== null) {
       index = k;
@@ -39,14 +39,14 @@ function unstrap_weapon(object: ClientObject): void {
     abort("Can not find item in %s", object.name());
   }
 
-  item.attachable_item_load_attach(weap_table_unstrapped.get(index as number));
+  item.attachable_item_load_attach(WEAP_TABLE_UNSTRAPPED.get(index as number));
 }
 
-function strap_weapon(object: ClientObject): void {
+function strapWeapon(object: ClientObject): void {
   let item: Optional<ClientObject> = null;
   let index: TIndex = 0;
 
-  for (const [k, v] of pairs(weap_table)) {
+  for (const [k, v] of pairs(WEAP_TABLE)) {
     item = object.object(v);
     if (item !== null) {
       index = k;
@@ -58,22 +58,22 @@ function strap_weapon(object: ClientObject): void {
     abort("cant find item in %s", object.name());
   }
 
-  item.attachable_item_load_attach(weap_table.get(index));
+  item.attachable_item_load_attach(WEAP_TABLE.get(index));
 }
 
-function break_fence(): void {
+function breakFence(): void {
   registry.doors.get(storyNames.pri_a15_door).forwardAnimation();
 }
 
-function lights_off(): void {
+function lightsOff(): void {
   registry.actor.give_info_portion(infoPortions.pri_a15_lights_off);
 }
 
-function lights_on(): void {
+function lightsOn(): void {
   registry.actor.disable_info_portion(infoPortions.pri_a15_lights_off);
 }
 
-function end_scene(): void {
+function endScene(): void {
   registry.actor.give_info_portion(infoPortions.pri_a15_cutscene_end);
 }
 
@@ -145,7 +145,7 @@ const cutscene: Record<
       sokolov: { a: "pri_a15_cokolov_cam4" },
       zulus: { a: "pri_a15_zulus_cam4" },
       wanderer: { a: "pri_a15_monolit_cam4" },
-      actor: { a: "pri_a15_igrok_cam4", f1: break_fence, f: lights_off },
+      actor: { a: "pri_a15_igrok_cam4", f1: breakFence, f: lightsOff },
       military_tarasov: { a: "pri_a15_soldier_kam_cam4" },
       military_2: { a: "pri_a15_soldier_1_cam4" },
       military_3: { a: "pri_a15_soldier_2_cam4" },
@@ -172,7 +172,7 @@ const cutscene: Record<
       vano: { a: "pri_a15_vano_cam6" },
       sokolov: { a: "pri_a15_cokolov_cam6" },
       zulus: { a: "pri_a15_zulus_cam6" },
-      wanderer: { a: "pri_a15_monolit_cam6_1", f: unstrap_weapon, a2: "pri_a15_monolit_cam6_2" },
+      wanderer: { a: "pri_a15_monolit_cam6_1", f: unstrapWeapon, a2: "pri_a15_monolit_cam6_2" },
       actor: { a: "pri_a15_igrok_cam6" },
       military_tarasov: { a: "pri_a15_soldier_kam_cam6" },
       military_2: { a: "pri_a15_soldier_1_cam6" },
@@ -183,7 +183,7 @@ const cutscene: Record<
   [7]: {
     precondition: ["vano", "wanderer", "zulus"],
     animation: {
-      vano: { a: "pri_a15_vano_cam7_1", f: unstrap_weapon, a2: "pri_a15_vano_cam7_2" },
+      vano: { a: "pri_a15_vano_cam7_1", f: unstrapWeapon, a2: "pri_a15_vano_cam7_2" },
       sokolov: { a: "pri_a15_cokolov_cam7" },
       zulus: { a: "pri_a15_zulus_cam7" },
       wanderer: { a: "pri_a15_monolit_cam7" },
@@ -198,7 +198,7 @@ const cutscene: Record<
     precondition: ["vano", "sokolov"],
     animation: {
       vano: { a: "pri_a15_vano_cam8" },
-      sokolov: { a: "pri_a15_cokolov_cam8_1", f: unstrap_weapon, a2: "pri_a15_cokolov_cam8_2" },
+      sokolov: { a: "pri_a15_cokolov_cam8_1", f: unstrapWeapon, a2: "pri_a15_cokolov_cam8_2" },
       zulus: { a: "pri_a15_zulus_cam8" },
       wanderer: { a: "pri_a15_monolit_cam8" },
       actor: { a: "pri_a15_igrok_cam8" },
@@ -215,7 +215,7 @@ const cutscene: Record<
       sokolov: { a: "pri_a15_cokolov_cam9" },
       zulus: { a: "pri_a15_zulus_cam9" },
       wanderer: { a: "pri_a15_monolit_cam9" },
-      actor: { a: "pri_a15_igrok_cam9_1", f: unstrap_weapon, a2: "pri_a15_igrok_cam9_2" },
+      actor: { a: "pri_a15_igrok_cam9_1", f: unstrapWeapon, a2: "pri_a15_igrok_cam9_2" },
       military_tarasov: { a: "pri_a15_soldier_kam_cam9", s: "pri_a15_army_hide_weapon" },
       military_2: { a: "pri_a15_soldier_1_cam9" },
       military_3: { a: "pri_a15_soldier_2_cam9" },
@@ -230,7 +230,7 @@ const cutscene: Record<
       zulus: { a: "pri_a15_zulus_cam10" },
       wanderer: { a: "pri_a15_monolit_cam10" },
       actor: { a: "pri_a15_igrok_cam10" },
-      military_tarasov: { a: "pri_a15_soldier_kam_cam10", f1: lights_on },
+      military_tarasov: { a: "pri_a15_soldier_kam_cam10", f1: lightsOn },
       military_2: { a: "pri_a15_soldier_1_cam10" },
       military_3: { a: "pri_a15_soldier_2_cam10" },
       military_4: { a: "pri_a15_soldier_3_cam10" },
@@ -243,7 +243,7 @@ const cutscene: Record<
       sokolov: {
         a: "pri_a15_cokolov_cam11_1",
         s: "pri_a15_sokolov_introduce",
-        f: strap_weapon,
+        f: strapWeapon,
         a2: "pri_a15_cokolov_cam11_2",
       },
       zulus: { a: "pri_a15_zulus_cam11" },
@@ -264,7 +264,7 @@ const cutscene: Record<
       wanderer: { a: "pri_a15_monolit_cam12" },
       actor: {
         a: "pri_a15_igrok_cam12",
-        f: strap_weapon,
+        f: strapWeapon,
         s: "pri_a15_actor_need_talk_with_commander",
       },
       military_tarasov: { a: "pri_a15_soldier_kam_cam12" },
@@ -593,7 +593,7 @@ const cutscene: Record<
       sokolov: { a: "" },
       zulus: { a: "" },
       wanderer: { a: "" },
-      actor: { a: "", f: end_scene },
+      actor: { a: "", f: endScene },
       military_tarasov: { a: "" },
       military_2: { a: "" },
       military_3: { a: "" },
@@ -1850,7 +1850,7 @@ export function addStateLibPriA15(): LuaTable<string, IStateDescriptor> {
   } as any;
 }
 
-export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, string>> {
+export function addAnimationListPriA15(): LuaTable<number, LuaTable<number, string>> {
   return {
     pri_a15_idle_none: {
       prop: {
@@ -3544,7 +3544,6 @@ export function add_animation_list_pri_a15(): LuaTable<number, LuaTable<number, 
       idle: null,
       rnd: null,
     },
-
     pri_a15_military_4_all_dead: {
       prop: {
         maxidle: 1,

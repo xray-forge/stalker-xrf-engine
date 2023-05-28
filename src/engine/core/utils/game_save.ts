@@ -8,7 +8,7 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { roots } from "@/engine/lib/constants/roots";
-import { FSFileList, Optional, SavedGameWrapper, TCount, TLabel, TName } from "@/engine/lib/types";
+import { FSFileListEX, Optional, SavedGameWrapper, TCount, TLabel, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -16,7 +16,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo
  */
 export function isGameSaveFileExist(filename: TName): boolean {
-  const filesList: FSFileList = getFS().file_list_open_ex(
+  const filesList: FSFileListEX = getFS().file_list_open_ex(
     roots.gameSaves,
     bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
     filename
@@ -45,7 +45,7 @@ export function deleteGameSave(filename: TName): void {
  * todo
  */
 export function gatFileDataForGameSave(filename: TName): TLabel {
-  const flist: FSFileList = getFS().file_list_open_ex(
+  const flist: FSFileListEX = getFS().file_list_open_ex(
     roots.gameSaves,
     bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
     filename + gameConfig.GAME_SAVE_EXTENSION

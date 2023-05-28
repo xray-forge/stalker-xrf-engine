@@ -82,10 +82,10 @@ export function pickSectionFromCondList<T extends TSection>(
   condlist: TConditionList
 ): Optional<T> {
   let randomValue: Optional<TRate> = null; // -- math.random(100)
-  let infop_conditions_met;
+  let areInfoPortionConditionsMet;
 
   for (const [n, cond] of condlist) {
-    infop_conditions_met = true;
+    areInfoPortionConditionsMet = true;
     for (const [inum, infop] of pairs(cond.infop_check)) {
       if (infop.prob) {
         if (!randomValue) {
@@ -93,7 +93,7 @@ export function pickSectionFromCondList<T extends TSection>(
         }
 
         if (infop.prob < randomValue) {
-          infop_conditions_met = false;
+          areInfoPortionConditionsMet = false;
           break;
         }
       } else if (infop.func) {
@@ -108,38 +108,38 @@ export function pickSectionFromCondList<T extends TSection>(
         if (infop.params) {
           if (getExtern<AnyCallablesModule>("xr_conditions")[infop.func](actor, object, infop.params)) {
             if (!infop.expected) {
-              infop_conditions_met = false;
+              areInfoPortionConditionsMet = false;
               break;
             }
           } else {
             if (infop.expected) {
-              infop_conditions_met = false;
+              areInfoPortionConditionsMet = false;
               break;
             }
           }
         } else {
           if (getExtern<AnyCallablesModule>("xr_conditions")[infop.func](actor, object)) {
             if (!infop.expected) {
-              infop_conditions_met = false;
+              areInfoPortionConditionsMet = false;
               break;
             }
           } else {
             if (infop.expected) {
-              infop_conditions_met = false;
+              areInfoPortionConditionsMet = false;
               break;
             }
           }
         }
       } else if (hasAlifeInfo(infop.name)) {
         if (!infop.required) {
-          infop_conditions_met = false;
+          areInfoPortionConditionsMet = false;
           break;
         } else {
           // -
         }
       } else {
         if (infop.required) {
-          infop_conditions_met = false;
+          areInfoPortionConditionsMet = false;
           break;
         } else {
           // -
@@ -147,7 +147,7 @@ export function pickSectionFromCondList<T extends TSection>(
       }
     }
 
-    if (infop_conditions_met) {
+    if (areInfoPortionConditionsMet) {
       for (const [inum, infop] of pairs(cond.infop_set)) {
         assertDefined(actor, "Trying to set infos when actor is not initialized.");
 
@@ -236,7 +236,7 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (ini.line_exist(state.section_logic, "post_combat_time")) {
-    const [min_post_combat_time, max_post_combat_time] = getTwoNumbers(
+    const [minPostCombatTime, maxPostCombatTime] = getTwoNumbers(
       ini,
       state.section_logic,
       "post_combat_time",
@@ -244,8 +244,8 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
       logicsConfig.POST_COMBAT_IDLE.MAX / 1000
     );
 
-    overrides.min_post_combat_time = min_post_combat_time;
-    overrides.max_post_combat_time = max_post_combat_time;
+    overrides.min_post_combat_time = minPostCombatTime;
+    overrides.max_post_combat_time = maxPostCombatTime;
   } else {
     const [min_post_combat_time, max_post_combat_time] = getTwoNumbers(
       ini,
@@ -287,35 +287,35 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Opti
 
   const linesCount: TCount = ini.line_count(section);
 
-  function add_conditions(
+  function addConditions(
     func: (ini: IniFile, section: TSection, id: TStringId) => Optional<IBaseSchemeLogic>,
     cond: ESchemeCondition
   ) {
-    for (const line_number of $range(0, linesCount - 1)) {
-      const [, id, value] = ini.r_line(section, line_number, "", "");
-      const [search_index] = string.find(id, "^" + cond + "%d*$");
+    for (const lineNumber of $range(0, linesCount - 1)) {
+      const [, id, value] = ini.r_line(section, lineNumber, "", "");
+      const [searchIndex] = string.find(id, "^" + cond + "%d*$");
 
-      if (search_index !== null) {
+      if (searchIndex !== null) {
         index = addCondition(conditionsList, index, func(ini, section, id));
       }
     }
   }
 
   // todo: Move conditions to enum.
-  add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN);
-  add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_AND_VISIBLE);
-  add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN);
-  add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE);
-  add_conditions(getConfigStringAndConditionList, ESchemeCondition.ON_SIGNAL);
-  add_conditions(readIniConditionList, ESchemeCondition.ON_INFO);
-  add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_TIMER);
-  add_conditions(getConfigNumberAndConditionList, ESchemeCondition.ON_GAME_TIMER);
-  add_conditions(getConfigStringAndConditionList, ESchemeCondition.ON_ACTOR_IN_ZONE);
-  add_conditions(getConfigStringAndConditionList, ESchemeCondition.ON_ACTOR_NOT_IN_ZONE);
-  add_conditions(readIniConditionList, ESchemeCondition.ON_ACTOR_INSIDE);
-  add_conditions(readIniConditionList, ESchemeCondition.ON_ACTOR_OUTSIDE);
-  add_conditions(getConfigObjectAndZone, ESchemeCondition.ON_NPC_IN_ZONE);
-  add_conditions(getConfigObjectAndZone, ESchemeCondition.ON_NPC_NOT_IN_ZONE);
+  addConditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN);
+  addConditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_AND_VISIBLE);
+  addConditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN);
+  addConditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE);
+  addConditions(getConfigStringAndConditionList, ESchemeCondition.ON_SIGNAL);
+  addConditions(readIniConditionList, ESchemeCondition.ON_INFO);
+  addConditions(getConfigNumberAndConditionList, ESchemeCondition.ON_TIMER);
+  addConditions(getConfigNumberAndConditionList, ESchemeCondition.ON_GAME_TIMER);
+  addConditions(getConfigStringAndConditionList, ESchemeCondition.ON_ACTOR_IN_ZONE);
+  addConditions(getConfigStringAndConditionList, ESchemeCondition.ON_ACTOR_NOT_IN_ZONE);
+  addConditions(readIniConditionList, ESchemeCondition.ON_ACTOR_INSIDE);
+  addConditions(readIniConditionList, ESchemeCondition.ON_ACTOR_OUTSIDE);
+  addConditions(getConfigObjectAndZone, ESchemeCondition.ON_NPC_IN_ZONE);
+  addConditions(getConfigObjectAndZone, ESchemeCondition.ON_NPC_NOT_IN_ZONE);
 
   return conditionsList;
 }

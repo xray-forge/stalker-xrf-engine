@@ -1,5 +1,4 @@
 import {
-  account_manager,
   alife,
   CMainMenu,
   CScriptXmlInit,
@@ -13,13 +12,8 @@ import {
   game,
   IsGameTypeSingle,
   level,
-  login_manager,
   LuabindClass,
   main_menu,
-  profile,
-  profile_store,
-  TXR_DIK_key,
-  TXR_ui_event,
   ui_events,
 } from "xray16";
 
@@ -42,7 +36,17 @@ import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties, TGameDifficulty } from "@/engine/lib/constants/game_difficulties";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
 import { gameTypes } from "@/engine/lib/constants/game_types";
-import { ClientObject, Optional, TNumberId } from "@/engine/lib/types";
+import {
+  AccountManager,
+  ClientObject,
+  LoginManager,
+  Optional,
+  Profile,
+  ProfileStore,
+  TKeyCode,
+  TNumberId,
+  TUIEvent,
+} from "@/engine/lib/types";
 
 export const base: string = "menu\\MainMenu.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -58,10 +62,10 @@ enum EMainMenuModalMode {
  */
 @LuabindClass()
 export class MainMenu extends CUIScriptWnd {
-  public readonly xrAccountManager: account_manager;
-  public readonly xrProfileStore: profile_store;
-  public readonly xrLoginManager: login_manager;
-  public xrGameSpyProfile: Optional<profile>;
+  public readonly xrAccountManager: AccountManager;
+  public readonly xrProfileStore: ProfileStore;
+  public readonly xrLoginManager: LoginManager;
+  public xrGameSpyProfile: Optional<Profile>;
 
   public readonly xrMenuController: CMainMenu = main_menu.get_main_menu();
   public xrMenuPageController!: CUIMMShniaga;
@@ -341,7 +345,7 @@ export class MainMenu extends CUIScriptWnd {
       this.uiGameSavesLoadDialog = new LoadDialog(this);
     }
 
-    this.uiGameSavesLoadDialog.FillList();
+    this.uiGameSavesLoadDialog.fillList();
     this.uiGameSavesLoadDialog.ShowDialog(true);
     this.HideDialog();
     this.Show(false);
@@ -362,17 +366,17 @@ export class MainMenu extends CUIScriptWnd {
 
     if (!this.uiMultiplayerMenuDialog) {
       this.uiMultiplayerMenuDialog = new MultiplayerMenu(this, this.xrGameSpyProfile?.online() === true);
-      this.uiMultiplayerMenuDialog.OnRadio_NetChanged();
+      this.uiMultiplayerMenuDialog.onRadioNetChanged();
 
       if (this.uiMultiplayerMenuDialog.online) {
         this.uiMultiplayerMenuDialog.dialogMultiplayerProfile.InitBestScores();
-        this.uiMultiplayerMenuDialog.dialogMultiplayerProfile.FillRewardsTable();
+        this.uiMultiplayerMenuDialog.dialogMultiplayerProfile.fillRewardsTable();
       }
     }
 
     logger.info("Updating multiplayer menu");
 
-    this.uiMultiplayerMenuDialog.UpdateControls();
+    this.uiMultiplayerMenuDialog.updateControls();
     this.uiMultiplayerMenuDialog.ShowDialog(true);
 
     this.HideDialog();
@@ -422,8 +426,8 @@ export class MainMenu extends CUIScriptWnd {
   public onButtonClickLocalnet(): void {
     if (!this.uiLocalnetDialog) {
       this.uiLocalnetDialog = new MultiplayerLocalnet(this);
-      this.uiLocalnetDialog.lp_nickname.SetText(this.xrLoginManager.get_nick_from_registry());
-      this.uiLocalnetDialog.lp_check_remember_me.SetCheck(this.xrLoginManager.get_remember_me_from_registry());
+      this.uiLocalnetDialog.lpNickname.SetText(this.xrLoginManager.get_nick_from_registry());
+      this.uiLocalnetDialog.lpCheckRememberMe.SetCheck(this.xrLoginManager.get_remember_me_from_registry());
     }
 
     this.uiLocalnetDialog.ShowDialog(true);
@@ -473,7 +477,7 @@ export class MainMenu extends CUIScriptWnd {
   /**
    * todo: Description.
    */
-  public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+  public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     super.OnKeyboard(key, event);
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {

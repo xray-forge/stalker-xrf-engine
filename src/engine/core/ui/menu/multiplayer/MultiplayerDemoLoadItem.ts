@@ -10,17 +10,18 @@ import {
 } from "xray16";
 
 import { MultiplayerDemo } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemo";
+import { TName } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 @LuabindClass()
 export class MultiplayerDemoLoadItem extends CUIListBoxItemMsgChain {
-  public filename: string;
+  public filename: TName;
 
   public fn: CUITextWnd;
   public fage: CUITextWnd;
-  public delete_button: CUI3tButton;
+  public deleteButton: CUI3tButton;
 
   public constructor(owner: MultiplayerDemo, height: number, w1: number, w2: number) {
     super(height);
@@ -41,9 +42,9 @@ export class MultiplayerDemoLoadItem extends CUIListBoxItemMsgChain {
     this.fage.SetWndSize(new vector2().set(w2, height));
 
     // --this.AttachChild                        (del_btn)
-    this.delete_button = owner.xml.Init3tButton("delete_demo_button", this);
+    this.deleteButton = owner.xml.Init3tButton("delete_demo_button", this);
 
-    handler.Register(this.delete_button, "delete_demo_button");
+    handler.Register(this.deleteButton, "delete_demo_button");
     handler.AddCallback("delete_demo_button", ui_events.BUTTON_CLICKED, () => owner.deleteSelectedDemo(), owner);
   }
 }

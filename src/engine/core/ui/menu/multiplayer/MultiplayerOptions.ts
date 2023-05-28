@@ -10,11 +10,11 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class MultiplayerOptions extends CUIWindow {
-  public online: boolean;
+  public isOnlineMode: boolean;
 
-  public constructor(online_mode: boolean) {
+  public constructor(isOnlineMode: boolean) {
     super();
-    this.online = online_mode;
+    this.isOnlineMode = isOnlineMode;
   }
 
   public InitControls(x: number, y: number, xml: CScriptXmlInit, owner: MultiplayerMenu): void {
@@ -49,60 +49,60 @@ export class MultiplayerOptions extends CUIWindow {
     xml.InitStatic("tab_options:cap_rate_of_change", this);
     xml.InitStatic("tab_options:cap_max_ping", this);
 
-    if (this.online) {
+    if (this.isOnlineMode) {
       xml.InitStatic("tab_options:public_server_t", this);
     } else {
       xml.InitStatic("tab_options:public_server_d", this);
     }
 
     // --    handler.check_public_server            = xml.InitCheck("tab_options:check_public_server",            this)
-    owner.check_spectator = xml.InitCheck("tab_options:check_spectator", this);
-    owner.check_allow_voting = xml.InitCheck("tab_options:check_allow_voting", this);
-    owner.spin_max_ping = xml.InitSpinNum("tab_options:spin_max_ping", this);
+    owner.checkSpectator = xml.InitCheck("tab_options:check_spectator", this);
+    owner.checkAllowVoting = xml.InitCheck("tab_options:check_allow_voting", this);
+    owner.spinMaxPing = xml.InitSpinNum("tab_options:spin_max_ping", this);
 
-    owner.check_damage_block = xml.InitCheck("tab_options:check_damage_block", this);
-    owner.check_auto_team_balance = xml.InitCheck("tab_options:check_auto_team_balance", this);
-    owner.check_auto_team_swap = xml.InitCheck("tab_options:check_auto_team_swap", this);
-    owner.check_friendly_indicators = xml.InitCheck("tab_options:check_friendly_indicators", this);
-    owner.check_friendly_names = xml.InitCheck("tab_options:check_friendly_names", this);
-    owner.check_no_anmalies = xml.InitCheck("tab_options:check_no_anmalies", this);
+    owner.checkDamageBlock = xml.InitCheck("tab_options:check_damage_block", this);
+    owner.checkAutoTeamBalance = xml.InitCheck("tab_options:check_auto_team_balance", this);
+    owner.checkAutoTeamSwap = xml.InitCheck("tab_options:check_auto_team_swap", this);
+    owner.checkFriendlyIndicators = xml.InitCheck("tab_options:check_friendly_indicators", this);
+    owner.checkFriendlyNames = xml.InitCheck("tab_options:check_friendly_names", this);
+    owner.checkNoAnmalies = xml.InitCheck("tab_options:check_no_anmalies", this);
 
-    owner.check_spec_teamonly = xml.InitCheck("tab_options:check_spec_teamonly", this);
-    owner.check_spec_freefly = xml.InitCheck("tab_options:check_spec_freefly", this);
-    owner.check_spec_firsteye = xml.InitCheck("tab_options:check_spec_firsteye", this);
-    owner.check_spec_lookat = xml.InitCheck("tab_options:check_spec_lookat", this);
-    owner.check_spec_freelook = xml.InitCheck("tab_options:check_spec_freelook", this);
+    owner.checkSpecTeamonly = xml.InitCheck("tab_options:check_spec_teamonly", this);
+    owner.checkSpecFreefly = xml.InitCheck("tab_options:check_spec_freefly", this);
+    owner.checkSpecFirsteye = xml.InitCheck("tab_options:check_spec_firsteye", this);
+    owner.checkSpecLookat = xml.InitCheck("tab_options:check_spec_lookat", this);
+    owner.checkSpecFreelook = xml.InitCheck("tab_options:check_spec_freelook", this);
 
-    owner.check_demosave = xml.InitCheck("tab_options:check_demosave", this);
-    owner.Register(owner.check_demosave, "check_demosave");
+    owner.checkDemosave = xml.InitCheck("tab_options:check_demosave", this);
+    owner.Register(owner.checkDemosave, "check_demosave");
 
-    owner.tab_respawn = xml.InitTab("tab_options:radio_tab_respawn_options", this);
+    owner.tabRespawn = xml.InitTab("tab_options:radio_tab_respawn_options", this);
     // -- spin boxes
-    owner.spin_friendly_fire = xml.InitSpinFlt("tab_options:spin_friendly_fire", this);
-    owner.spin_artefacts_num = xml.InitSpinNum("tab_options:spin_artefacts_num", this);
-    owner.spin_spectator = xml.InitSpinNum("tab_options:spin_spectator", this);
-    owner.spin_force_respawn = xml.InitSpinNum("tab_options:spin_force_respawn", this);
-    owner.spin_reinforcement = xml.InitSpinNum("tab_options:spin_reinforcement", this);
+    owner.spinFriendlyFire = xml.InitSpinFlt("tab_options:spin_friendly_fire", this);
+    owner.spinArtefactsNum = xml.InitSpinNum("tab_options:spin_artefacts_num", this);
+    owner.spinSpectator = xml.InitSpinNum("tab_options:spin_spectator", this);
+    owner.spinForceRespawn = xml.InitSpinNum("tab_options:spin_force_respawn", this);
+    owner.spinReinforcement = xml.InitSpinNum("tab_options:spin_reinforcement", this);
 
-    owner.spin_damage_block = xml.InitSpinNum("tab_options:spin_damage_block", this);
-    owner.spin_artreturn_time = xml.InitSpinNum("tab_options:spin_artreturn_time", this);
-    owner.check_activated_return = xml.InitCheck("tab_options:check_activated_return", this);
-    owner.spin_frag_limit = xml.InitSpinNum("tab_options:spin_frag_limit", this);
-    owner.spin_time_limit = xml.InitSpinNum("tab_options:spin_time_limit", this);
-    owner.spin_artefact_stay = xml.InitSpinNum("tab_options:spin_artefact_stay", this);
-    owner.spin_artefact_delay = xml.InitSpinNum("tab_options:spin_artefact_delay", this);
-    owner.spin_anomaly_time = xml.InitSpinNum("tab_options:spin_anomaly_time", this);
-    owner.spin_warm_up_time = xml.InitSpinNum("tab_options:spin_warm_up_time", this);
+    owner.spinDamageBlock = xml.InitSpinNum("tab_options:spin_damage_block", this);
+    owner.spinArtreturnTime = xml.InitSpinNum("tab_options:spin_artreturn_time", this);
+    owner.checkActivatedReturn = xml.InitCheck("tab_options:check_activated_return", this);
+    owner.spinFragLimit = xml.InitSpinNum("tab_options:spin_frag_limit", this);
+    owner.spinTimeLimit = xml.InitSpinNum("tab_options:spin_time_limit", this);
+    owner.spinArtefactStay = xml.InitSpinNum("tab_options:spin_artefact_stay", this);
+    owner.spinArtefactDelay = xml.InitSpinNum("tab_options:spin_artefact_delay", this);
+    owner.spinAnomalyTime = xml.InitSpinNum("tab_options:spin_anomaly_time", this);
+    owner.spinWarmUpTime = xml.InitSpinNum("tab_options:spin_warm_up_time", this);
 
-    owner.check_pda_hunt = xml.InitCheck("tab_options:check_pda_hunt", this);
-    owner.spin_rate_of_change = xml.InitSpinFlt("tab_options:spin_rate_of_change", this);
-    owner.spin_weather = xml.InitComboBox("tab_options:spin_weather", this);
+    owner.checkDdaHunt = xml.InitCheck("tab_options:check_pda_hunt", this);
+    owner.spinRateOfChange = xml.InitSpinFlt("tab_options:spin_rate_of_change", this);
+    owner.spinWeather = xml.InitComboBox("tab_options:spin_weather", this);
 
-    owner.check_spectator.SetDependControl(owner.spin_spectator);
+    owner.checkSpectator.SetDependControl(owner.spinSpectator);
 
     // --    handler.check_public_server.SetDependControl(handler.check_verify_cdkey)
 
-    if (this.online) {
+    if (this.isOnlineMode) {
       // --        handler.check_public_server.SetCheck(true)
     } else {
       // --        handler.check_public_server.SetCheck(false)
@@ -112,93 +112,93 @@ export class MultiplayerOptions extends CUIWindow {
   public SetGameMode(mode: TXR_GAME_TYPE, handler: MultiplayerMenu): void {
     logger.info("Set game mode");
 
-    handler.spin_friendly_fire.Enable(true);
-    handler.check_auto_team_balance.Enable(true);
-    handler.check_auto_team_swap.Enable(true);
-    handler.spin_artefacts_num.Enable(true);
-    handler.spin_artefact_delay.Enable(true);
-    handler.spin_artefact_stay.Enable(true);
-    handler.check_friendly_indicators.Enable(true);
-    handler.check_friendly_names.Enable(true);
-    handler.spin_reinforcement.Enable(true);
-    handler.spin_frag_limit.Enable(true);
-    handler.check_spec_teamonly.Enable(true);
+    handler.spinFriendlyFire.Enable(true);
+    handler.checkAutoTeamBalance.Enable(true);
+    handler.checkAutoTeamSwap.Enable(true);
+    handler.spinArtefactsNum.Enable(true);
+    handler.spinArtefactDelay.Enable(true);
+    handler.spinArtefactStay.Enable(true);
+    handler.checkFriendlyIndicators.Enable(true);
+    handler.checkFriendlyNames.Enable(true);
+    handler.spinReinforcement.Enable(true);
+    handler.spinFragLimit.Enable(true);
+    handler.checkSpecTeamonly.Enable(true);
 
-    handler.spin_artreturn_time.Enable(true);
-    handler.check_activated_return.Enable(true);
+    handler.spinArtreturnTime.Enable(true);
+    handler.checkActivatedReturn.Enable(true);
 
-    const btn_reinforcement = handler.tab_respawn.GetButtonById("reinforcement");
-    const btn_artefactcapture = handler.tab_respawn.GetButtonById("artefactcapture");
+    const btnReinforcement = handler.tabRespawn.GetButtonById("reinforcement");
+    const btnArtefactCapture = handler.tabRespawn.GetButtonById("artefactcapture");
 
-    btn_reinforcement.Enable(true);
-    btn_artefactcapture.Enable(true);
+    btnReinforcement.Enable(true);
+    btnArtefactCapture.Enable(true);
 
     if ((GAME_TYPE.GAME_UNKNOWN as number) !== 0) {
       if (GAME_TYPE.eGameIDDeathmatch === mode) {
-        handler.spin_friendly_fire.Enable(false);
-        handler.check_auto_team_balance.Enable(false);
-        handler.check_auto_team_swap.Enable(false);
-        handler.spin_artefacts_num.Enable(false);
-        handler.spin_artefact_delay.Enable(false);
-        handler.spin_artefact_stay.Enable(false);
-        handler.check_friendly_indicators.Enable(false);
-        handler.check_friendly_names.Enable(false);
-        handler.check_spec_teamonly.Enable(false);
-        handler.spin_reinforcement.Enable(false);
+        handler.spinFriendlyFire.Enable(false);
+        handler.checkAutoTeamBalance.Enable(false);
+        handler.checkAutoTeamSwap.Enable(false);
+        handler.spinArtefactsNum.Enable(false);
+        handler.spinArtefactDelay.Enable(false);
+        handler.spinArtefactStay.Enable(false);
+        handler.checkFriendlyIndicators.Enable(false);
+        handler.checkFriendlyNames.Enable(false);
+        handler.checkSpecTeamonly.Enable(false);
+        handler.spinReinforcement.Enable(false);
         // -- tab
-        handler.tab_respawn.SetActiveTab("forcerespawn");
-        btn_reinforcement.Enable(false);
-        btn_artefactcapture.Enable(false);
-        handler.spin_artreturn_time.Enable(false);
-        handler.check_activated_return.Enable(false);
+        handler.tabRespawn.SetActiveTab("forcerespawn");
+        btnReinforcement.Enable(false);
+        btnArtefactCapture.Enable(false);
+        handler.spinArtreturnTime.Enable(false);
+        handler.checkActivatedReturn.Enable(false);
       } else if (GAME_TYPE.eGameIDTeamDeathmatch === mode) {
-        handler.spin_artefacts_num.Enable(false);
-        handler.spin_artefact_delay.Enable(false);
-        handler.spin_artefact_stay.Enable(false);
+        handler.spinArtefactsNum.Enable(false);
+        handler.spinArtefactDelay.Enable(false);
+        handler.spinArtefactStay.Enable(false);
         // -- tab
-        handler.tab_respawn.SetActiveTab("forcerespawn");
-        btn_reinforcement.Enable(false);
-        btn_artefactcapture.Enable(false);
-        handler.spin_artreturn_time.Enable(false);
-        handler.check_activated_return.Enable(false);
+        handler.tabRespawn.SetActiveTab("forcerespawn");
+        btnReinforcement.Enable(false);
+        btnArtefactCapture.Enable(false);
+        handler.spinArtreturnTime.Enable(false);
+        handler.checkActivatedReturn.Enable(false);
       } else if (GAME_TYPE.eGameIDArtefactHunt === mode) {
-        handler.spin_frag_limit.Enable(false);
-        handler.spin_artreturn_time.Enable(false);
-        handler.check_activated_return.Enable(false);
+        handler.spinFragLimit.Enable(false);
+        handler.spinArtreturnTime.Enable(false);
+        handler.checkActivatedReturn.Enable(false);
       } else if (GAME_TYPE.eGameIDCaptureTheArtefact === mode) {
-        handler.spin_artefact_delay.Enable(false);
-        handler.spin_artefact_stay.Enable(false);
-        handler.spin_frag_limit.Enable(false);
+        handler.spinArtefactDelay.Enable(false);
+        handler.spinArtefactStay.Enable(false);
+        handler.spinFragLimit.Enable(false);
       }
     } else if ((GAME_TYPE.GAME_UNKNOWN as number) === 0) {
-      handler.spin_artreturn_time.Enable(false);
-      handler.check_activated_return.Enable(false);
+      handler.spinArtreturnTime.Enable(false);
+      handler.checkActivatedReturn.Enable(false);
 
       if (GAME_TYPE.GAME_DEATHMATCH === mode) {
-        handler.spin_friendly_fire.Enable(false);
-        handler.check_auto_team_balance.Enable(false);
-        handler.check_auto_team_swap.Enable(false);
-        handler.spin_artefacts_num.Enable(false);
-        handler.spin_artefact_delay.Enable(false);
-        handler.spin_artefact_stay.Enable(false);
-        handler.check_friendly_indicators.Enable(false);
-        handler.check_friendly_names.Enable(false);
-        handler.check_spec_teamonly.Enable(false);
-        handler.spin_reinforcement.Enable(false);
+        handler.spinFriendlyFire.Enable(false);
+        handler.checkAutoTeamBalance.Enable(false);
+        handler.checkAutoTeamSwap.Enable(false);
+        handler.spinArtefactsNum.Enable(false);
+        handler.spinArtefactDelay.Enable(false);
+        handler.spinArtefactStay.Enable(false);
+        handler.checkFriendlyIndicators.Enable(false);
+        handler.checkFriendlyNames.Enable(false);
+        handler.checkSpecTeamonly.Enable(false);
+        handler.spinReinforcement.Enable(false);
         // -- tab
-        handler.tab_respawn.SetActiveTab("forcerespawn");
-        btn_reinforcement.Enable(false);
-        btn_artefactcapture.Enable(false);
+        handler.tabRespawn.SetActiveTab("forcerespawn");
+        btnReinforcement.Enable(false);
+        btnArtefactCapture.Enable(false);
       } else if (GAME_TYPE.GAME_TEAMDEATHMATCH === mode) {
-        handler.spin_artefacts_num.Enable(false);
-        handler.spin_artefact_delay.Enable(false);
-        handler.spin_artefact_stay.Enable(false);
+        handler.spinArtefactsNum.Enable(false);
+        handler.spinArtefactDelay.Enable(false);
+        handler.spinArtefactStay.Enable(false);
         // -- tab
-        handler.tab_respawn.SetActiveTab("forcerespawn");
-        btn_reinforcement.Enable(false);
-        btn_artefactcapture.Enable(false);
+        handler.tabRespawn.SetActiveTab("forcerespawn");
+        btnReinforcement.Enable(false);
+        btnArtefactCapture.Enable(false);
       } else if (GAME_TYPE.GAME_ARTEFACTHUNT === mode) {
-        handler.spin_frag_limit.Enable(false);
+        handler.spinFragLimit.Enable(false);
       }
     }
   }

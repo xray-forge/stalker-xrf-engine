@@ -1,17 +1,7 @@
-import {
-  CScriptXmlInit,
-  CUIScriptWnd,
-  CUIStatic,
-  DIK_keys,
-  LuabindClass,
-  TXR_DIK_key,
-  TXR_ui_event,
-  ui_events,
-  vector2,
-} from "xray16";
+import { CScriptXmlInit, CUIScriptWnd, CUIStatic, DIK_keys, LuabindClass, ui_events, vector2 } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TKeyCode, TUIEvent, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -35,15 +25,15 @@ export class NumPadWindow extends CUIScriptWnd {
 
     this.owner = owner;
 
-    this.InitControls();
-    this.InitCallBacks();
+    this.initControls();
+    this.initCallBacks();
   }
 
-  public InitControls(): void {
+  public initControls(): void {
     this.SetWndPos(new vector2().set(342, 199));
     this.SetWndSize(new vector2().set(339, 369));
 
-    const xml = new CScriptXmlInit();
+    const xml: XmlInit = new CScriptXmlInit();
 
     xml.ParseFile("ui_numpad_wnd.xml");
     xml.InitStatic("background", this);
@@ -68,26 +58,26 @@ export class NumPadWindow extends CUIScriptWnd {
     this.Register(xml.Init3tButton("btn_cancel", this), "btn_cancel");
   }
 
-  public InitCallBacks(): void {
-    this.AddCallback("btn_enter", ui_events.BUTTON_CLICKED, () => this.OnButton_OK_clicked(), this);
-    this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.OnButton_CANCEL_clicked(), this);
+  public initCallBacks(): void {
+    this.AddCallback("btn_enter", ui_events.BUTTON_CLICKED, () => this.onOkButtonClicked(), this);
+    this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.onCancelButtonClicked(), this);
 
-    this.AddCallback("btn_0", ui_events.BUTTON_CLICKED, () => this.AddNumber(0), this);
-    this.AddCallback("btn_1", ui_events.BUTTON_CLICKED, () => this.AddNumber(1), this);
-    this.AddCallback("btn_2", ui_events.BUTTON_CLICKED, () => this.AddNumber(2), this);
-    this.AddCallback("btn_3", ui_events.BUTTON_CLICKED, () => this.AddNumber(3), this);
-    this.AddCallback("btn_4", ui_events.BUTTON_CLICKED, () => this.AddNumber(4), this);
-    this.AddCallback("btn_5", ui_events.BUTTON_CLICKED, () => this.AddNumber(5), this);
-    this.AddCallback("btn_6", ui_events.BUTTON_CLICKED, () => this.AddNumber(6), this);
-    this.AddCallback("btn_7", ui_events.BUTTON_CLICKED, () => this.AddNumber(7), this);
-    this.AddCallback("btn_8", ui_events.BUTTON_CLICKED, () => this.AddNumber(8), this);
-    this.AddCallback("btn_9", ui_events.BUTTON_CLICKED, () => this.AddNumber(9), this);
+    this.AddCallback("btn_0", ui_events.BUTTON_CLICKED, () => this.addNumber(0), this);
+    this.AddCallback("btn_1", ui_events.BUTTON_CLICKED, () => this.addNumber(1), this);
+    this.AddCallback("btn_2", ui_events.BUTTON_CLICKED, () => this.addNumber(2), this);
+    this.AddCallback("btn_3", ui_events.BUTTON_CLICKED, () => this.addNumber(3), this);
+    this.AddCallback("btn_4", ui_events.BUTTON_CLICKED, () => this.addNumber(4), this);
+    this.AddCallback("btn_5", ui_events.BUTTON_CLICKED, () => this.addNumber(5), this);
+    this.AddCallback("btn_6", ui_events.BUTTON_CLICKED, () => this.addNumber(6), this);
+    this.AddCallback("btn_7", ui_events.BUTTON_CLICKED, () => this.addNumber(7), this);
+    this.AddCallback("btn_8", ui_events.BUTTON_CLICKED, () => this.addNumber(8), this);
+    this.AddCallback("btn_9", ui_events.BUTTON_CLICKED, () => this.addNumber(9), this);
 
-    this.AddCallback("btn_c", ui_events.BUTTON_CLICKED, () => this.OnButton_c_clicked(), this);
-    this.AddCallback("btn_backspase", ui_events.BUTTON_CLICKED, () => this.OnButton_backspace_clicked(), this);
+    this.AddCallback("btn_c", ui_events.BUTTON_CLICKED, () => this.onCButtonClicked(), this);
+    this.AddCallback("btn_backspase", ui_events.BUTTON_CLICKED, () => this.onBackspaceButtonClicked(), this);
   }
 
-  public AddNumber(number: number): void {
+  public addNumber(number: number): void {
     const text = this.editBox.TextControl().GetText() || "";
 
     if (string.len(text) > 12) {
@@ -97,7 +87,7 @@ export class NumPadWindow extends CUIScriptWnd {
     }
   }
 
-  public OnButton_backspace_clicked(): void {
+  public onBackspaceButtonClicked(): void {
     const text = this.editBox.TextControl().GetText();
 
     if (text === null) {
@@ -110,11 +100,11 @@ export class NumPadWindow extends CUIScriptWnd {
     this.editBox.TextControl().SetText(string.sub(text, b, e));
   }
 
-  public OnButton_c_clicked(): void {
+  public onCButtonClicked(): void {
     this.editBox.TextControl().SetText("");
   }
 
-  public OnButton_CANCEL_clicked(): void {
+  public onCancelButtonClicked(): void {
     logger.info("Cancel clicked");
 
     if (this.owner) {
@@ -124,7 +114,7 @@ export class NumPadWindow extends CUIScriptWnd {
     this.HideDialog();
   }
 
-  public OnButton_OK_clicked(): void {
+  public onOkButtonClicked(): void {
     logger.info("OK clicked");
 
     this.HideDialog();
@@ -136,7 +126,7 @@ export class NumPadWindow extends CUIScriptWnd {
     }
   }
 
-  public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+  public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     super.OnKeyboard(key, event);
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {
@@ -145,31 +135,31 @@ export class NumPadWindow extends CUIScriptWnd {
       }
 
       if (key === DIK_keys.DIK_0 || key === DIK_keys.DIK_NUMPAD0) {
-        this.AddNumber(0);
+        this.addNumber(0);
       } else if (key === DIK_keys.DIK_1 || key === DIK_keys.DIK_NUMPAD1) {
-        this.AddNumber(1);
+        this.addNumber(1);
       } else if (key === DIK_keys.DIK_2 || key === DIK_keys.DIK_NUMPAD2) {
-        this.AddNumber(2);
+        this.addNumber(2);
       } else if (key === DIK_keys.DIK_3 || key === DIK_keys.DIK_NUMPAD3) {
-        this.AddNumber(3);
+        this.addNumber(3);
       } else if (key === DIK_keys.DIK_4 || key === DIK_keys.DIK_NUMPAD4) {
-        this.AddNumber(4);
+        this.addNumber(4);
       } else if (key === DIK_keys.DIK_5 || key === DIK_keys.DIK_NUMPAD5) {
-        this.AddNumber(5);
+        this.addNumber(5);
       } else if (key === DIK_keys.DIK_6 || key === DIK_keys.DIK_NUMPAD6) {
-        this.AddNumber(6);
+        this.addNumber(6);
       } else if (key === DIK_keys.DIK_7 || key === DIK_keys.DIK_NUMPAD7) {
-        this.AddNumber(7);
+        this.addNumber(7);
       } else if (key === DIK_keys.DIK_8 || key === DIK_keys.DIK_NUMPAD8) {
-        this.AddNumber(8);
+        this.addNumber(8);
       } else if (key === DIK_keys.DIK_9 || key === DIK_keys.DIK_NUMPAD9) {
-        this.AddNumber(9);
+        this.addNumber(9);
       } else if (key === DIK_keys.DIK_BACK) {
-        this.OnButton_backspace_clicked();
+        this.onBackspaceButtonClicked();
       } else if (key === DIK_keys.DIK_RETURN || key === DIK_keys.DIK_NUMPADENTER) {
-        this.OnButton_OK_clicked();
+        this.onOkButtonClicked();
       } else if (key === DIK_keys.DIK_DELETE || key === DIK_keys.DIK_NUMPADCOMMA) {
-        this.OnButton_c_clicked();
+        this.onCButtonClicked();
       }
     }
 

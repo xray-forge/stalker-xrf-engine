@@ -9,11 +9,12 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
-import { AnyCallablesModule, Optional, TName, TRate } from "@/engine/lib/types";
+import { AnyCallablesModule, ESoundObjectType, Optional, SoundObject, TName, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-const volume_max: TRate = 1.0;
-const volume_min: TRate = 0.3;
+
+const VOLUME_MAX: TRate = 1.0;
+const VOLUME_MIN: TRate = 0.3;
 
 /**
  * todo
@@ -102,65 +103,65 @@ export class GameOutroManager extends AbstractCoreManager {
     kovalski_die_cond: () => hasAlifeInfo(infoPortions.pri_a28_koval_dead),
   };
 
-  public static calc_fade(
+  public static calcFade(
     factor: number,
-    fade1_pos: number,
-    fade2_pos: number,
-    fade1_volume: number,
-    fade2_volume: number
+    fade1Pos: number,
+    fade2Pos: number,
+    fade1Volume: number,
+    fade2Volume: number
   ): number {
-    let f = ((factor - fade1_pos) * (fade2_volume - fade1_volume)) / (fade2_pos - fade1_pos) + fade1_volume;
+    let f = ((factor - fade1Pos) * (fade2Volume - fade1Volume)) / (fade2Pos - fade1Pos) + fade1Volume;
 
-    let min_vol = 0.0;
-    let max_vol = 1.0;
+    let minVol = 0.0;
+    let maxVol = 1.0;
 
-    if (fade1_volume > fade2_volume) {
-      max_vol = fade1_volume;
-      min_vol = fade2_volume;
+    if (fade1Volume > fade2Volume) {
+      maxVol = fade1Volume;
+      minVol = fade2Volume;
     } else {
-      max_vol = fade2_volume;
-      min_vol = fade1_volume;
+      maxVol = fade2Volume;
+      minVol = fade1Volume;
     }
 
-    if (f > max_vol) {
-      f = max_vol;
-    } else if (f < min_vol) {
-      f = min_vol;
+    if (f > maxVol) {
+      f = maxVol;
+    } else if (f < minVol) {
+      f = minVol;
     }
 
     return f;
   }
 
-  public snd: Optional<sound_object> = null;
+  public sound: Optional<SoundObject> = null;
 
-  public start_outro(): void {
+  public startOutro(): void {
     logger.info("Starting game outro");
     game.start_tutorial(gameTutorials.outro_game);
   }
 
   public startSound(): void {
     logger.info("start outro sound");
-    this.snd = new sound_object(sounds.music_outro);
-    this.snd.play(null, 0.0, sound_object.s2d);
+    this.sound = new sound_object(sounds.music_outro);
+    this.sound.play(null, 0.0, ESoundObjectType.S2D);
     this.setSoundVolume(1.0);
   }
 
   public stopSound(): void {
     logger.info("Stop outro sound");
 
-    if (this.snd) {
-      this.snd.stop();
-      this.snd = null;
+    if (this.sound) {
+      this.sound.stop();
+      this.sound = null;
     }
   }
 
   public setSoundVolume(volume: number): void {
-    if (this.snd) {
-      this.snd.volume = volume;
+    if (this.sound) {
+      this.sound.volume = volume;
     }
   }
 
-  public start_bk_sound(): void {
+  public startBkSound(): void {
     this.startSound();
 
     const hud: CUIGameCustom = get_hud();
@@ -169,7 +170,7 @@ export class GameOutroManager extends AbstractCoreManager {
     ActorInputManager.getInstance().disableGameUiOnly(registry.actor);
   }
 
-  public stop_bk_sound(): void {
+  public stopBkSound(): void {
     if (this.stopSound !== null) {
       this.stopSound();
     }
@@ -178,26 +179,26 @@ export class GameOutroManager extends AbstractCoreManager {
     getExtern<AnyCallablesModule>("xr_effects").game_credits();
   }
 
-  public update_bk_sound_fade_start(factor: number): void {
-    const start_pt: number = 0.6;
-    const stop_pt: number = 1.0;
+  public updateBkSoundFadeStart(factor: number): void {
+    const startPt: number = 0.6;
+    const stopPt: number = 1.0;
 
-    this.setSoundVolume(GameOutroManager.calc_fade(factor, start_pt, stop_pt, volume_max, volume_min));
+    this.setSoundVolume(GameOutroManager.calcFade(factor, startPt, stopPt, VOLUME_MAX, VOLUME_MIN));
   }
 
-  public update_bk_sound_fade_stop(factor: number): void {
+  public updateBkSoundFadeStop(factor: number): void {
     let f: number = 1.0;
 
     if (factor < 0.5) {
-      const start_pt = 0.0;
-      const stop_pt = 0.12;
+      const startPt = 0.0;
+      const stopPt = 0.12;
 
-      f = GameOutroManager.calc_fade(factor, start_pt, stop_pt, volume_min, volume_max);
+      f = GameOutroManager.calcFade(factor, startPt, stopPt, VOLUME_MIN, VOLUME_MAX);
     } else {
-      const start_pt2 = 0.7;
-      const stop_pt2 = 0.95;
+      const startPt2 = 0.7;
+      const stopPt2 = 0.95;
 
-      f = GameOutroManager.calc_fade(factor, start_pt2, stop_pt2, volume_max, 0.0);
+      f = GameOutroManager.calcFade(factor, startPt2, stopPt2, VOLUME_MAX, 0.0);
     }
 
     this.setSoundVolume(f);

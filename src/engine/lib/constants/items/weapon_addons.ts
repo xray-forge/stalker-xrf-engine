@@ -1,6 +1,6 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
-export const weapon_addons = {
+export const weaponAddons = {
   scope_contrast: "scope_contrast",
   scope_detector: "scope_detector",
   scope_nightvision: "scope_nightvision",
@@ -18,6 +18,6 @@ export const weapon_addons = {
   wpn_addon_silencer: "wpn_addon_silencer",
 } as const;
 
-export type TWeaponAddons = typeof weapon_addons;
+export type TWeaponAddons = typeof weaponAddons;
 
 export type TWeaponAddon = TWeaponAddons[keyof TWeaponAddons];

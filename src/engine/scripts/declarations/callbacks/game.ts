@@ -22,10 +22,10 @@ extern("smart_covers", {
  */
 extern("outro", {
   conditions: GameOutroManager.OUTRO_CONDITIONS,
-  start_bk_sound: () => GameOutroManager.getInstance().start_bk_sound(),
-  stop_bk_sound: () => GameOutroManager.getInstance().stop_bk_sound(),
-  update_bk_sound_fade_start: (factor: number) => GameOutroManager.getInstance().update_bk_sound_fade_start(factor),
-  update_bk_sound_fade_stop: (factor: number) => GameOutroManager.getInstance().update_bk_sound_fade_stop(factor),
+  start_bk_sound: () => GameOutroManager.getInstance().startBkSound(),
+  stop_bk_sound: () => GameOutroManager.getInstance().stopBkSound(),
+  update_bk_sound_fade_start: (factor: number) => GameOutroManager.getInstance().updateBkSoundFadeStart(factor),
+  update_bk_sound_fade_stop: (factor: number) => GameOutroManager.getInstance().updateBkSoundFadeStop(factor),
 });
 
 /**

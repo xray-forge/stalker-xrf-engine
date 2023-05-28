@@ -284,28 +284,28 @@ export function parseInfoPortions1(result: LuaTable, data: Optional<string>): vo
   if (data) {
     for (const s of string.gfind(data, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
       const sign: string = string.sub(s, 1, 1);
-      const infop_name: string = string.sub(s, 2);
+      const infoPortionName: string = string.sub(s, 2);
 
       if (sign === "+") {
         table.insert(result, {
-          name: infop_name,
+          name: infoPortionName,
           required: true,
         });
       } else if (sign === "-") {
         table.insert(result, {
-          name: infop_name,
+          name: infoPortionName,
           required: false,
         });
       } else if (sign === "~") {
-        table.insert(result, { prob: tonumber(infop_name) });
+        table.insert(result, { prob: tonumber(infoPortionName) });
       } else if (sign === "=") {
         table.insert(result, {
-          func: infop_name,
+          func: infoPortionName,
           expected: true,
         });
       } else if (sign === "!") {
         table.insert(result, {
-          func: infop_name,
+          func: infoPortionName,
           expected: false,
         });
       } else {
@@ -346,26 +346,26 @@ export function parseWaypointData(pathname: TPath, wpflags: Flags32, waypointNam
     return waypointData;
   }
 
-  let par_num = 1;
+  let parNum = 1;
   let fld;
   let data: string;
 
   for (const param of string.gfind(waypointName, "([%w%+~_\\%=%{%}%s%!%-%,%*]+)|*")) {
-    if (par_num === 1) {
+    if (parNum === 1) {
       // -- continue
     } else {
       if (param === "") {
         abort("path '%s': waypoint '%s': syntax error in waypoint name", pathname, waypointName);
       }
 
-      const [t_pos] = string.find(param, "=", 1, true);
+      const [position] = string.find(param, "=", 1, true);
 
-      if (t_pos === null) {
+      if (position === null) {
         abort("path '%s': waypoint '%s': syntax error in waypoint name", pathname, waypointName);
       }
 
-      fld = string.sub(param, 1, t_pos - 1);
-      data = string.sub(param, t_pos + 1);
+      fld = string.sub(param, 1, position - 1);
+      data = string.sub(param, position + 1);
 
       if (!fld || fld === "") {
         abort(
@@ -387,7 +387,7 @@ export function parseWaypointData(pathname: TPath, wpflags: Flags32, waypointNam
       }
     }
 
-    par_num = par_num + 1;
+    parNum = parNum + 1;
   }
 
   return waypointData;
@@ -466,17 +466,17 @@ export function parsePathWaypointsFromArgsList(
   const result: LuaArray<IWaypointData> = new LuaTable();
 
   for (const point of $range(0, count - 1)) {
-    const cur_arg = args[point];
+    const currentArgument = args[point];
 
-    if (!cur_arg) {
+    if (!currentArgument) {
       abort("script error [1] while processing point %d of path '%s'", point, pathname);
     }
 
     const flags: Flags32 = new flags32();
 
-    flags.assign(cur_arg[1]);
+    flags.assign(currentArgument[1]);
 
-    const data: IWaypointData = parseWaypointData(pathname, flags, cur_arg[2]);
+    const data: IWaypointData = parseWaypointData(pathname, flags, currentArgument[2]);
 
     if (!data) {
       abort("script error [2] while processing point %d of path '%s'", point, pathname);
@@ -509,19 +509,19 @@ export function parseData(
         sound: null as Optional<LuaArray<IConfigSwitchCondition>>,
       };
 
-      const [t_pos] = string.find(name, "|", 1, true);
-      const [s_pos] = string.find(name, "@", 1, true);
+      const [tPosition] = string.find(name, "|", 1, true);
+      const [sPosition] = string.find(name, "@", 1, true);
 
-      const dist = string.sub(name, 1, t_pos - 1);
+      const dist = string.sub(name, 1, tPosition - 1);
 
       let state: Optional<string> = null;
       let sound: Optional<string> = null;
 
-      if (s_pos !== null) {
-        state = string.sub(name, t_pos + 1, s_pos - 1);
-        sound = string.sub(name, s_pos + 1);
+      if (sPosition !== null) {
+        state = string.sub(name, tPosition + 1, sPosition - 1);
+        sound = string.sub(name, sPosition + 1);
       } else {
-        state = string.sub(name, t_pos + 1);
+        state = string.sub(name, tPosition + 1);
       }
 
       dat.dist = tonumber(dist)!;
@@ -550,10 +550,10 @@ export function parseTimerData(
 
   if (str) {
     for (const name of string.gfind(str, "(%|*%d+%|[^%|]+)%p*")) {
-      const [t_pos] = string.find(name, "|", 1, true);
+      const [position] = string.find(name, "|", 1, true);
 
-      const dist: Optional<string> = string.sub(name, 1, t_pos - 1);
-      const state: Optional<string> = string.sub(name, t_pos + 1);
+      const dist: Optional<string> = string.sub(name, 1, position - 1);
+      const state: Optional<string> = string.sub(name, position + 1);
 
       table.insert(data, {
         dist: tonumber(dist) as TDistance,
@@ -582,11 +582,12 @@ export function parseSynData(
         sound: null as Optional<string>,
       };
 
-      const [t_pos] = string.find(name, "@", 1, true);
-      const [s_pos] = string.find(name, "|", 1, true);
+      const [tPosition] = string.find(name, "@", 1, true);
+      const [sPosition] = string.find(name, "|", 1, true);
 
-      const state = string.sub(name, 1, t_pos - 1);
-      const sound = s_pos !== null ? string.sub(name, t_pos + 1, s_pos - 1) : string.sub(name, t_pos + 1);
+      const state = string.sub(name, 1, tPosition - 1);
+      const sound =
+        sPosition !== null ? string.sub(name, tPosition + 1, sPosition - 1) : string.sub(name, tPosition + 1);
 
       dat.state = state;
       dat.sound = sound;
@@ -622,10 +623,10 @@ export function parseData1v(
         state: null as Optional<LuaArray<IConfigSwitchCondition>>,
       };
 
-      const [t_pos] = string.find(name, "|", 1, true);
+      const [position] = string.find(name, "|", 1, true);
 
-      const dist = string.sub(name, 1, t_pos - 1);
-      const state = string.sub(name, t_pos + 1);
+      const dist = string.sub(name, 1, position - 1);
+      const state = string.sub(name, position + 1);
 
       dat.dist = tonumber(dist)!;
 

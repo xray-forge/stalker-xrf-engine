@@ -16,9 +16,6 @@ import {
   is_enough_address_space_available,
   LuabindClass,
   main_menu,
-  Patch_Dawnload_Progress,
-  TXR_DIK_key,
-  TXR_ui_event,
   ui_events,
 } from "xray16";
 
@@ -33,7 +30,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { TName, TPath, TRate } from "@/engine/lib/types";
+import { PatchDownloadProgress, TKeyCode, TName, TPath, TRate, TUIEvent } from "@/engine/lib/types";
 
 const base: TPath = "menu\\OptionsDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -222,7 +219,7 @@ export class OptionsDialog extends CUIScriptWnd {
     super.Update();
 
     const mainMenu: CMainMenu = main_menu.get_main_menu();
-    const patchDownload: Patch_Dawnload_Progress = mainMenu.GetPatchProgress();
+    const patchDownload: PatchDownloadProgress = mainMenu.GetPatchProgress();
     const patchProgress: TRate = patchDownload.GetProgress();
     const filename: TName = patchDownload.GetFlieName();
 
@@ -359,7 +356,7 @@ export class OptionsDialog extends CUIScriptWnd {
   /**
    * Handle keyboard clicks.
    */
-  public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+  public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     const result: boolean = super.OnKeyboard(key, event);
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {

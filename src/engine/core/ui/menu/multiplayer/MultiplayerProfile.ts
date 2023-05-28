@@ -21,11 +21,11 @@ import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMe
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
-import { Optional, TName } from "@/engine/lib/types";
+import { Optional, TName, TPath, Vector2D } from "@/engine/lib/types";
 
-const base: string = "menu\\multiplayer\\MultiplayerAwards.component";
+const base: TPath = "menu\\multiplayer\\MultiplayerAwards.component";
 const logger: LuaLogger = new LuaLogger($filename);
-const awards_xml: CScriptXmlInit = new CScriptXmlInit();
+const awardsXml: CScriptXmlInit = new CScriptXmlInit();
 
 /**
  * todo;
@@ -37,21 +37,21 @@ export class MultiplayerProfile extends CUIWindow {
   public xml!: CScriptXmlInit;
   public owner!: MultiplayerMenu;
 
-  public awards_window!: CUIWindow;
-  public best_results_list!: CUIWindow;
-  public gs_change_nick_mb_cancel!: CUIMessageBoxEx;
-  public gs_change_nick_mb!: CUIMessageBoxEx;
-  public edit_unique_nick!: CUIEditBox;
-  public btn_avail!: CUI3tButton;
-  public combo_aval_unique_nick!: CUIComboBox;
-  public awards_list!: CUIScrollView;
+  public awardsWindow!: CUIWindow;
+  public bestResultsList!: CUIWindow;
+  public gsChangeNickMbCancel!: CUIMessageBoxEx;
+  public gsChangeNicMb!: CUIMessageBoxEx;
+  public editUniqueNick!: CUIEditBox;
+  public availableButton!: CUI3tButton;
+  public comboAvalUniqueNick!: CUIComboBox;
+  public awardsList!: CUIScrollView;
 
   public constructor() {
     super();
-    awards_xml.ParseFile(resolveXmlFormPath(base));
+    awardsXml.ParseFile(resolveXmlFormPath(base));
   }
 
-  public InitControls(x: number, y: number, xml: CScriptXmlInit, handler: MultiplayerMenu): void {
+  public initControls(x: number, y: number, xml: CScriptXmlInit, handler: MultiplayerMenu): void {
     this.owner = handler;
     this.xml = xml;
     this.awards = new LuaTable();
@@ -60,66 +60,66 @@ export class MultiplayerProfile extends CUIWindow {
     xml.InitWindow("tab_profile:main", 0, this);
 
     xml.InitStatic("tab_profile:cap_unique_nick", this);
-    this.edit_unique_nick = xml.InitEditBox("tab_profile:edit_unique_nick", this);
-    this.owner.Register(this.edit_unique_nick, "edit_unique_nick");
-    this.owner.AddCallback("edit_unique_nick", ui_events.EDIT_TEXT_COMMIT, () => this.OnEditUniqueNickChanged(), this);
+    this.editUniqueNick = xml.InitEditBox("tab_profile:edit_unique_nick", this);
+    this.owner.Register(this.editUniqueNick, "edit_unique_nick");
+    this.owner.AddCallback("edit_unique_nick", ui_events.EDIT_TEXT_COMMIT, () => this.onEditUniqueNickChanged(), this);
 
-    this.btn_avail = xml.Init3tButton("tab_profile:button_avaliability", this);
-    this.owner.Register(this.btn_avail, "btn_avail");
-    this.owner.AddCallback("btn_avail", ui_events.BUTTON_CLICKED, () => this.OnEditUniqueNickChanged(), this);
+    this.availableButton = xml.Init3tButton("tab_profile:button_avaliability", this);
+    this.owner.Register(this.availableButton, "btn_avail");
+    this.owner.AddCallback("btn_avail", ui_events.BUTTON_CLICKED, () => this.onEditUniqueNickChanged(), this);
 
-    this.combo_aval_unique_nick = xml.InitComboBox("tab_profile:combo_aval_unique_nick", this);
-    this.owner.Register(this.combo_aval_unique_nick, "combo_aval_unique_nick");
-    this.owner.AddCallback("combo_aval_unique_nick", ui_events.LIST_ITEM_SELECT, () => this.OnUniqueNickSelect(), this);
+    this.comboAvalUniqueNick = xml.InitComboBox("tab_profile:combo_aval_unique_nick", this);
+    this.owner.Register(this.comboAvalUniqueNick, "combo_aval_unique_nick");
+    this.owner.AddCallback("combo_aval_unique_nick", ui_events.LIST_ITEM_SELECT, () => this.onUniqueNickSelect(), this);
     this.owner.AddCallback(
       "combo_aval_unique_nick",
       ui_events.WINDOW_LBUTTON_DOWN,
-      () => this.OnUniqueNickSelect(),
+      () => this.onUniqueNickSelect(),
       this
     );
-    this.combo_aval_unique_nick.Show(false);
+    this.comboAvalUniqueNick.Show(false);
 
-    this.awards_window = new CUIWindow();
-    xml.InitWindow("tab_profile:awards_list", 0, this.awards_window);
-    this.awards_window.SetAutoDelete(true);
-    this.AttachChild(this.awards_window);
+    this.awardsWindow = new CUIWindow();
+    xml.InitWindow("tab_profile:awards_list", 0, this.awardsWindow);
+    this.awardsWindow.SetAutoDelete(true);
+    this.AttachChild(this.awardsWindow);
 
-    xml.InitFrameLine("tab_profile:awards_list:header", this.awards_window);
-    xml.InitFrame("tab_profile:awards_list:frame", this.awards_window);
+    xml.InitFrameLine("tab_profile:awards_list:header", this.awardsWindow);
+    xml.InitFrame("tab_profile:awards_list:frame", this.awardsWindow);
 
-    this.awards_list = xml.InitScrollView("tab_profile:awards_list:list", this.awards_window);
+    this.awardsList = xml.InitScrollView("tab_profile:awards_list:list", this.awardsWindow);
 
     // -- this.hint_wnd = xml.InitHint("tab_profile:hint_wnd", this)
 
-    this.best_results_list = new CUIWindow();
-    xml.InitWindow("tab_profile:best_results_list", 0, this.best_results_list);
-    this.best_results_list.SetAutoDelete(true);
-    this.AttachChild(this.best_results_list);
+    this.bestResultsList = new CUIWindow();
+    xml.InitWindow("tab_profile:best_results_list", 0, this.bestResultsList);
+    this.bestResultsList.SetAutoDelete(true);
+    this.AttachChild(this.bestResultsList);
 
-    xml.InitFrameLine("tab_profile:best_results_list:header", this.best_results_list);
-    xml.InitFrame("tab_profile:best_results_list:frame", this.best_results_list);
+    xml.InitFrameLine("tab_profile:best_results_list:header", this.bestResultsList);
+    xml.InitFrame("tab_profile:best_results_list:frame", this.bestResultsList);
 
-    xml.InitStatic("tab_profile:best_results_list:cap_cscore_0", this.best_results_list);
-    xml.InitStatic("tab_profile:best_results_list:cap_cscore_1", this.best_results_list);
-    xml.InitStatic("tab_profile:best_results_list:cap_cscore_2", this.best_results_list);
-    xml.InitStatic("tab_profile:best_results_list:cap_cscore_3", this.best_results_list);
-    xml.InitStatic("tab_profile:best_results_list:cap_cscore_4", this.best_results_list);
-    xml.InitStatic("tab_profile:best_results_list:cap_cscore_5", this.best_results_list);
-    xml.InitStatic("tab_profile:best_results_list:cap_cscore_6", this.best_results_list);
+    xml.InitStatic("tab_profile:best_results_list:cap_cscore_0", this.bestResultsList);
+    xml.InitStatic("tab_profile:best_results_list:cap_cscore_1", this.bestResultsList);
+    xml.InitStatic("tab_profile:best_results_list:cap_cscore_2", this.bestResultsList);
+    xml.InitStatic("tab_profile:best_results_list:cap_cscore_3", this.bestResultsList);
+    xml.InitStatic("tab_profile:best_results_list:cap_cscore_4", this.bestResultsList);
+    xml.InitStatic("tab_profile:best_results_list:cap_cscore_5", this.bestResultsList);
+    xml.InitStatic("tab_profile:best_results_list:cap_cscore_6", this.bestResultsList);
 
-    this.gs_change_nick_mb_cancel = new CUIMessageBoxEx();
-    this.owner.Register(this.gs_change_nick_mb_cancel, "gs_change_nick_mb_cancel");
+    this.gsChangeNickMbCancel = new CUIMessageBoxEx();
+    this.owner.Register(this.gsChangeNickMbCancel, "gs_change_nick_mb_cancel");
     this.owner.AddCallback(
       "gs_change_nick_mb_cancel",
       ui_events.BUTTON_CLICKED,
-      () => this.OnCancelChangeUnick(),
+      () => this.onCancelChangeUnick(),
       this
     );
-    this.gs_change_nick_mb_cancel.InitMessageBox("message_box_gs_info");
+    this.gsChangeNickMbCancel.InitMessageBox("message_box_gs_info");
 
-    this.gs_change_nick_mb = new CUIMessageBoxEx();
-    this.owner.Register(this.gs_change_nick_mb, "gs_change_nick_mb");
-    this.gs_change_nick_mb.InitMessageBox("message_box_ok");
+    this.gsChangeNicMb = new CUIMessageBoxEx();
+    this.owner.Register(this.gsChangeNicMb, "gs_change_nick_mb");
+    this.gsChangeNicMb.InitMessageBox("message_box_ok");
   }
 
   public InitBestScores(): void {
@@ -127,105 +127,105 @@ export class MultiplayerProfile extends CUIWindow {
 
     if (this.owner.owner.xrProfileStore !== null) {
       for (const it of this.owner.owner.xrProfileStore.get_best_scores()) {
-        const score_wnd: CUITextWnd = this.xml.InitTextWnd(
+        const scoresWindow: CUITextWnd = this.xml.InitTextWnd(
           "tab_profile:best_results_list:cap_score_" + tostring(it.first),
-          this.best_results_list
+          this.bestResultsList
         );
 
-        this.xml.InitTextWnd("tab_profile:best_results_list:cap_cscore_" + tostring(it.first), this.best_results_list);
-        score_wnd.SetText(tostring(it.second));
+        this.xml.InitTextWnd("tab_profile:best_results_list:cap_cscore_" + tostring(it.first), this.bestResultsList);
+        scoresWindow.SetText(tostring(it.second));
       }
     } else {
       abort("Profile not loaded!");
     }
   }
 
-  public OnEditUniqueNickChanged(): void {
-    this.gs_change_nick_mb_cancel.SetText("ui_mp_gamespy_suggesting_unique_name");
-    this.gs_change_nick_mb_cancel.ShowDialog(true);
+  public onEditUniqueNickChanged(): void {
+    this.gsChangeNickMbCancel.SetText("ui_mp_gamespy_suggesting_unique_name");
+    this.gsChangeNickMbCancel.ShowDialog(true);
     this.owner.owner.xrAccountManager.suggest_unique_nicks(
-      this.edit_unique_nick.GetText(),
-      new suggest_nicks_cb(this, (result, description) => this.OnNickSuggestionComplete(result, description))
+      this.editUniqueNick.GetText(),
+      new suggest_nicks_cb(this, (result, description) => this.onNickSuggestionComplete(result, description))
     );
-    this.combo_aval_unique_nick.Show(true);
-    this.combo_aval_unique_nick.ClearList();
+    this.comboAvalUniqueNick.Show(true);
+    this.comboAvalUniqueNick.ClearList();
   }
 
-  public OnCancelChangeUnick(): void {
+  public onCancelChangeUnick(): void {
     this.owner.owner.xrAccountManager.stop_suggest_unique_nicks();
-    this.gs_change_nick_mb_cancel.HideDialog();
-    this.edit_unique_nick.SetText(this.owner.owner.xrGameSpyProfile!.unique_nick());
+    this.gsChangeNickMbCancel.HideDialog();
+    this.editUniqueNick.SetText(this.owner.owner.xrGameSpyProfile!.unique_nick());
   }
 
-  public UpdateControls(): void {
+  public updateControls(): void {
     // Nothing.
   }
 
-  public OnUniqueNickSelect(): void {
-    this.edit_unique_nick.SetText(this.combo_aval_unique_nick.GetText());
+  public onUniqueNickSelect(): void {
+    this.editUniqueNick.SetText(this.comboAvalUniqueNick.GetText());
   }
 
-  public ChangeNickOperationResult(profile: Optional<profile>, description: string): void {
-    this.gs_change_nick_mb.HideDialog();
-    this.combo_aval_unique_nick.Show(false);
-    this.gs_change_nick_mb.InitMessageBox("message_box_ok");
+  public onChangeNickOperationResult(profile: Optional<profile>, description: string): void {
+    this.gsChangeNicMb.HideDialog();
+    this.comboAvalUniqueNick.Show(false);
+    this.gsChangeNicMb.InitMessageBox("message_box_ok");
 
     if (profile === null) {
-      this.gs_change_nick_mb.SetText(description);
+      this.gsChangeNicMb.SetText(description);
     } else {
-      this.gs_change_nick_mb.SetText(
+      this.gsChangeNicMb.SetText(
         game.translate_string("ui_st_mp_unique_nickname_change") + " " + profile.unique_nick() + "."
       );
     }
 
-    this.edit_unique_nick.SetText(this.owner.owner.xrGameSpyProfile!.unique_nick());
-    this.gs_change_nick_mb.ShowDialog(true);
+    this.editUniqueNick.SetText(this.owner.owner.xrGameSpyProfile!.unique_nick());
+    this.gsChangeNicMb.ShowDialog(true);
   }
 
-  public OnNickSuggestionComplete(result: number, desctiption: string) {
-    this.gs_change_nick_mb_cancel.HideDialog();
+  public onNickSuggestionComplete(result: number, desctiption: string) {
+    this.gsChangeNickMbCancel.HideDialog();
 
-    const new_unique_nick: string = this.edit_unique_nick.GetText();
+    const newUniqueNick: string = this.editUniqueNick.GetText();
     let index: number = 1;
 
     for (const it of this.owner.owner.xrAccountManager.get_suggested_unicks()) {
-      if (it === new_unique_nick) {
-        this.gs_change_nick_mb.InitMessageBox("message_box_gs_changing_unick");
-        this.gs_change_nick_mb.SetText("ui_mp_gamespy_changing_unique_nick");
-        this.gs_change_nick_mb.ShowDialog(true);
+      if (it === newUniqueNick) {
+        this.gsChangeNicMb.InitMessageBox("message_box_gs_changing_unick");
+        this.gsChangeNicMb.SetText("ui_mp_gamespy_changing_unique_nick");
+        this.gsChangeNicMb.ShowDialog(true);
         this.owner.owner.xrLoginManager.set_unique_nick(
-          new_unique_nick,
+          newUniqueNick,
           new login_operation_cb(this, (profile: Optional<profile>, description: string) => {
-            this.ChangeNickOperationResult(profile, description);
+            this.onChangeNickOperationResult(profile, description);
           })
         );
 
         return;
       }
 
-      this.combo_aval_unique_nick.AddItem(it, index);
+      this.comboAvalUniqueNick.AddItem(it, index);
       index += 1;
     }
 
-    this.gs_change_nick_mb.InitMessageBox("message_box_ok");
+    this.gsChangeNicMb.InitMessageBox("message_box_ok");
 
-    const first_name = this.combo_aval_unique_nick.GetTextOf(0);
+    const firstName = this.comboAvalUniqueNick.GetTextOf(0);
 
-    this.combo_aval_unique_nick.SetText(first_name);
+    this.comboAvalUniqueNick.SetText(firstName);
 
     if (result > 0) {
-      this.gs_change_nick_mb.SetText("ui_mp_gamespy_verify_nickname_error1");
+      this.gsChangeNicMb.SetText("ui_mp_gamespy_verify_nickname_error1");
     } else {
-      this.gs_change_nick_mb.SetText(desctiption);
+      this.gsChangeNicMb.SetText(desctiption);
     }
 
-    this.edit_unique_nick.SetText(this.owner.owner.xrGameSpyProfile!.unique_nick());
-    this.gs_change_nick_mb.ShowDialog(true);
+    this.editUniqueNick.SetText(this.owner.owner.xrGameSpyProfile!.unique_nick());
+    this.gsChangeNicMb.ShowDialog(true);
   }
 
-  public FillRewardsTable() {
+  public fillRewardsTable() {
     if (this.owner.owner.xrProfileStore !== null) {
-      const pos: vector2 = new vector2().set(0, 0);
+      const pos: Vector2D = new vector2().set(0, 0);
 
       let field: number = 1;
       let index: number = 1;
@@ -239,33 +239,33 @@ export class MultiplayerProfile extends CUIWindow {
           const fieldStatic = this.xml.InitStatic("tab_profile:awards_list:field", null);
 
           this.awards.set(field, $fromObject<TName, CUIStatic>({ field: fieldStatic }));
-          this.awards_list.AddWindow(fieldStatic, true);
+          this.awardsList.AddWindow(fieldStatic, true);
         }
 
-        const award_name: string = "award_" + k;
-        const reward_name: string = "reward_" + it.first;
+        const awardName: string = "award_" + k;
+        const rewardName: string = "reward_" + it.first;
 
-        let award_xml_name: string = "";
+        let awardXmlName: string = "";
 
         if (it.second.m_count > 0) {
-          award_xml_name = "award_" + it.first + "_active";
+          awardXmlName = "award_" + it.first + "_active";
           // --                award_xml_name        = "award_0_active"
           this.awards
             .get(field)
-            .set(award_name, awards_xml.InitStatic(award_xml_name, this.awards.get(field).get("field")));
+            .set(awardName, awardsXml.InitStatic(awardXmlName, this.awards.get(field).get("field")));
 
-          const rewards_count = awards_xml.InitTextWnd(
-            award_xml_name + ".cap_count",
-            this.awards.get(field).get(award_name)
+          const rewardsCount = awardsXml.InitTextWnd(
+            awardXmlName + ".cap_count",
+            this.awards.get(field).get(awardName)
           );
 
-          rewards_count.SetText(tostring(it.second.m_count));
+          rewardsCount.SetText(tostring(it.second.m_count));
         } else {
-          award_xml_name = "award_" + it.first + "_inactive";
+          awardXmlName = "award_" + it.first + "_inactive";
           // --                award_xml_name        = "award_0_inactive"
           this.awards
             .get(field)
-            .set(award_name, awards_xml.InitStatic(award_xml_name, this.awards.get(field).get("field")));
+            .set(awardName, awardsXml.InitStatic(awardXmlName, this.awards.get(field).get("field")));
         }
 
         let tmp = 0;
@@ -282,7 +282,7 @@ export class MultiplayerProfile extends CUIWindow {
           pos.x = tmp * (k - 1);
         }
 
-        this.awards.get(field).get(award_name).SetWndPos(pos);
+        this.awards.get(field).get(awardName).SetWndPos(pos);
         index += 1;
       }
     } else {

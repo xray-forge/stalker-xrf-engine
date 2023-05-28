@@ -352,6 +352,7 @@
  * };
  */
 export const consoleCommands = {
+  cdkey: "cdkey",
   /**
    * Save options changes.
    */

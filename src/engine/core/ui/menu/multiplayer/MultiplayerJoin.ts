@@ -10,11 +10,11 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class MultiplayerJoin extends CUIWindow {
-  public online: boolean;
+  public isOnlineMode: boolean;
 
-  public constructor(online_mode: boolean) {
+  public constructor(isOnlineMode: boolean) {
     super();
-    this.online = online_mode;
+    this.isOnlineMode = isOnlineMode;
   }
 
   public InitControls(x: number, y: number, xml: CScriptXmlInit, handler: MultiplayerMenu): void {
@@ -24,7 +24,7 @@ export class MultiplayerJoin extends CUIWindow {
     // --    this.bk = xml.InitFrame    ("frame", this)
     // --    xml.InitFrameLine        ("tab_client:vert_separator",this)
 
-    handler.server_list = xml.InitServerList("tab_client:server_list", this);
+    handler.serverList = xml.InitServerList("tab_client:server_list", this);
 
     // --    xml.InitStatic("tab_client:cap_network_connection", this)
     xml.InitStatic("tab_client:cap_server_list", this);
@@ -36,7 +36,7 @@ export class MultiplayerJoin extends CUIWindow {
     const btn = xml.Init3tButton("tab_client:btn_direct_ip", this);
 
     handler.Register(btn, "btn_direct_ip");
-    handler.btn_direct_ip = btn;
+    handler.directIPButton = btn;
     handler.filters = {};
 
     const checkEmpty = xml.InitCheck("tab_client:check_empty", this);

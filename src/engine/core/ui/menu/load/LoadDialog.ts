@@ -33,7 +33,17 @@ import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { roots } from "@/engine/lib/constants/roots";
 import { textures } from "@/engine/lib/constants/textures";
-import { ClientObject, FSFileList, Optional, TLabel, TName, Vector2D } from "@/engine/lib/types";
+import {
+  ClientObject,
+  FSFileListEX,
+  FSItem,
+  Optional,
+  TKeyCode,
+  TLabel,
+  TName,
+  TUIEvent,
+  Vector2D,
+} from "@/engine/lib/types";
 
 const base: string = "menu\\LoadDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -62,11 +72,11 @@ export class LoadDialog extends CUIScriptWnd {
 
     this.owner = owner;
 
-    this.InitControls();
-    this.InitCallBacks();
+    this.initControls();
+    this.initCallbacks();
   }
 
-  public InitControls(): void {
+  public initControls(): void {
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
 
     const xml: CScriptXmlInit = new CScriptXmlInit();
@@ -109,22 +119,22 @@ export class LoadDialog extends CUIScriptWnd {
     this.Register(this.messageBox, "message_box");
   }
 
-  public InitCallBacks(): void {
-    this.AddCallback("button_load", ui_events.BUTTON_CLICKED, () => this.OnButton_load_clicked(), this);
-    this.AddCallback("button_back", ui_events.BUTTON_CLICKED, () => this.OnButton_back_clicked(), this);
-    this.AddCallback("button_del", ui_events.BUTTON_CLICKED, () => this.OnButton_del_clicked(), this);
-    this.AddCallback("message_box", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.OnMsgYes(), this);
-    this.AddCallback("message_box", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.OnMsgYes(), this);
+  public initCallbacks(): void {
+    this.AddCallback("button_load", ui_events.BUTTON_CLICKED, () => this.onLoadButtonClicked(), this);
+    this.AddCallback("button_back", ui_events.BUTTON_CLICKED, () => this.onBackButtonClicked(), this);
+    this.AddCallback("button_del", ui_events.BUTTON_CLICKED, () => this.onDeleteButtonClicked(), this);
+    this.AddCallback("message_box", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.onConfirmedLoad(), this);
+    this.AddCallback("message_box", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.onConfirmedLoad(), this);
 
-    this.AddCallback("list_window", ui_events.LIST_ITEM_CLICKED, () => this.OnListItemClicked(), this);
-    this.AddCallback("list_window", ui_events.WINDOW_LBUTTON_DB_CLICK, () => this.OnListItemDbClicked(), this);
+    this.AddCallback("list_window", ui_events.LIST_ITEM_CLICKED, () => this.onListItemClicked(), this);
+    this.AddCallback("list_window", ui_events.WINDOW_LBUTTON_DB_CLICK, () => this.onListItemDoubleClicked(), this);
   }
 
-  public FillList(): void {
+  public fillList(): void {
     this.listBox.RemoveAll();
 
     const fs: FS = getFS();
-    const fileList: FSFileList = fs.file_list_open_ex(
+    const fileList: FSFileListEX = fs.file_list_open_ex(
       roots.gameSaves,
       bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
       "*" + gameConfig.GAME_SAVE_EXTENSION
@@ -133,7 +143,7 @@ export class LoadDialog extends CUIScriptWnd {
     fileList.Sort(FS.FS_sort_by_modif_down);
 
     for (let it = 0; it < fileList.Size(); it += 1) {
-      const file: FS_item = fileList.GetAt(it);
+      const file: FSItem = fileList.GetAt(it);
       const filename: TName = string.sub(
         file.NameFull(),
         0,
@@ -145,7 +155,7 @@ export class LoadDialog extends CUIScriptWnd {
     }
   }
 
-  public OnListItemClicked(): void {
+  public onListItemClicked(): void {
     logger.info("List item selected");
 
     if (this.listBox.GetSize() === 0) {
@@ -178,7 +188,7 @@ export class LoadDialog extends CUIScriptWnd {
       return;
     }
 
-    const r = this.picture.GetTextureRect();
+    const r: Frect = this.picture.GetTextureRect();
 
     if (isGameSaveFileExist(itemText + ".dds")) {
       this.picture.InitTexture(itemText);
@@ -189,12 +199,12 @@ export class LoadDialog extends CUIScriptWnd {
     this.picture.SetTextureRect(new Frect().set(r.x1, r.y1, r.x2, r.y2));
   }
 
-  public OnListItemDbClicked(): void {
+  public onListItemDoubleClicked(): void {
     logger.info("List item double-clicked");
-    this.OnButton_load_clicked();
+    this.onLoadButtonClicked();
   }
 
-  public OnMsgYes(): void {
+  public onConfirmedLoad(): void {
     logger.info("Message yes confirmed");
 
     const index: number = this.listBox.GetSelectedIndex();
@@ -211,15 +221,15 @@ export class LoadDialog extends CUIScriptWnd {
 
       this.listBox.RemoveItem(item);
 
-      this.OnListItemClicked();
+      this.onListItemClicked();
     } else if (this.messageBoxMode === 2) {
-      this.load_game_internal();
+      this.loadGameInternal();
     }
 
     this.messageBoxMode = 0;
   }
 
-  public load_game_internal(): void {
+  public loadGameInternal(): void {
     logger.info("Load game internal");
 
     const console: CConsole = get_console();
@@ -246,7 +256,7 @@ export class LoadDialog extends CUIScriptWnd {
     }
   }
 
-  public OnButton_load_clicked(): void {
+  public onLoadButtonClicked(): void {
     logger.info("Load game clicked");
 
     if (this.listBox.GetSize() === 0) {
@@ -270,7 +280,7 @@ export class LoadDialog extends CUIScriptWnd {
     }
 
     if (alife() === null) {
-      this.load_game_internal();
+      this.loadGameInternal();
 
       return;
     }
@@ -278,7 +288,7 @@ export class LoadDialog extends CUIScriptWnd {
     const actor: Optional<ClientObject> = registry.actor;
 
     if (actor !== null && !actor.alive()) {
-      this.load_game_internal();
+      this.loadGameInternal();
 
       return;
     }
@@ -288,7 +298,7 @@ export class LoadDialog extends CUIScriptWnd {
     this.messageBox.ShowDialog(true);
   }
 
-  public OnButton_back_clicked(): void {
+  public onBackButtonClicked(): void {
     logger.info("Back clicked");
 
     this.owner.ShowDialog(true);
@@ -296,7 +306,7 @@ export class LoadDialog extends CUIScriptWnd {
     this.owner.Show(true);
   }
 
-  public OnButton_del_clicked(): void {
+  public onDeleteButtonClicked(): void {
     logger.info("Delete clicked");
 
     if (this.listBox.GetSize() === 0) {
@@ -315,17 +325,17 @@ export class LoadDialog extends CUIScriptWnd {
     this.messageBox.ShowDialog(true);
   }
 
-  public override OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean {
+  public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     super.OnKeyboard(key, event);
 
     const bind: number = dik_to_bind(key);
 
     if (bind === key_bindings.kQUIT) {
-      this.OnButton_back_clicked();
+      this.onBackButtonClicked();
     }
 
     if (key === DIK_keys.DIK_RETURN && event === ui_events.WINDOW_KEY_PRESSED) {
-      this.OnButton_load_clicked();
+      this.onLoadButtonClicked();
     }
 
     return true;

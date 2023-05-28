@@ -6,7 +6,7 @@ import { squadMonsters } from "@/engine/lib/constants/behaviours";
 import { artefactClassIds, monsterClassIds, stalkerClassIds, weaponClassIds } from "@/engine/lib/constants/class_ids";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
-import { lootable_table, TLootableItem } from "@/engine/lib/constants/items/lootable_table";
+import { lootableTable, TLootableItem } from "@/engine/lib/constants/items/lootable_table";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import {
   AnyGameObject,
@@ -113,7 +113,7 @@ export function isStoryObject(object: ServerObject): boolean {
  * @returns whether object can be looted by stalkers from corpses.
  */
 export function isLootableItem(object: ClientObject): boolean {
-  return lootable_table[object.section<TLootableItem>()] !== null;
+  return lootableTable[object.section<TLootableItem>()] !== null;
 }
 
 /**

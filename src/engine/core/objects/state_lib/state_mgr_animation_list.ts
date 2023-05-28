@@ -1,7 +1,7 @@
 import { EStalkerState, IAnimationDescriptor } from "@/engine/core/objects/state/types";
 import { getAnimationListScenario } from "@/engine/core/objects/state_lib/state_manager_scenario";
 import { getAnimpointAnimationList } from "@/engine/core/objects/state_lib/state_mgr_animation_list_animpoint";
-import { add_animation_list_pri_a15 } from "@/engine/core/objects/state_lib/state_mgr_pri_a15";
+import { addAnimationListPriA15 } from "@/engine/core/objects/state_lib/state_mgr_pri_a15";
 import { getExtern } from "@/engine/core/utils/binding";
 import { copyTable } from "@/engine/core/utils/table";
 import { AnyCallablesModule, ClientObject } from "@/engine/lib/types";
@@ -988,4 +988,4 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
 
 copyTable(animations, getAnimpointAnimationList());
 copyTable(animations, getAnimationListScenario());
-copyTable(animations, add_animation_list_pri_a15());
+copyTable(animations, addAnimationListPriA15());
