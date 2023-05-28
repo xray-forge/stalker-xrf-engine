@@ -78,6 +78,7 @@ import {
   ServerObject,
   StringOptional,
   TCount,
+  TIndex,
   TLabel,
   TName,
   TNumberId,
@@ -122,7 +123,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public assignedTargetId: Optional<TNumberId> = null;
 
   public nextTargetId: Optional<TNumberId> = null;
-  public parsed_targets: LuaTable<number, string> = new LuaTable();
+  public parsedTargets: LuaTable<number, string> = new LuaTable();
 
   public invulnerability: Optional<TConditionList> = null;
   public lastTarget: Optional<string> = null;
@@ -307,16 +308,23 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public initializeSquadBehaviour(): void {
     this.behaviour = new LuaTable();
 
-    const behaviour_section = readIniString(SYSTEM_INI, this.section_name(), "behaviour", false, "", this.faction);
+    const behaviourSection: TSection = readIniString(
+      SYSTEM_INI,
+      this.section_name(),
+      "behaviour",
+      false,
+      "",
+      this.faction
+    );
 
-    if (!SQUAD_BEHAVIOURS_LTX.section_exist(behaviour_section)) {
-      abort("There is no section [" + behaviour_section + "] in 'squad_behaviours.ltx'");
+    if (!SQUAD_BEHAVIOURS_LTX.section_exist(behaviourSection)) {
+      abort("There is no section [" + behaviourSection + "] in 'squad_behaviours.ltx'");
     }
 
-    const behaviourParametersCount: TCount = SQUAD_BEHAVIOURS_LTX.line_count(behaviour_section);
+    const behaviourParametersCount: TCount = SQUAD_BEHAVIOURS_LTX.line_count(behaviourSection);
 
     for (const it of $range(0, behaviourParametersCount - 1)) {
-      const [result, name, conditionsList] = SQUAD_BEHAVIOURS_LTX.r_line(behaviour_section, it, "", "");
+      const [result, name, conditionsList] = SQUAD_BEHAVIOURS_LTX.r_line(behaviourSection, it, "", "");
 
       this.behaviour.set(name, conditionsList);
     }
@@ -350,11 +358,11 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     if (newTarget !== this.lastTarget) {
       this.lastTarget = newTarget;
-      this.parsed_targets = parseStringsList(newTarget);
+      this.parsedTargets = parseStringsList(newTarget);
       this.nextTargetId = 1;
     }
 
-    if (this.parsed_targets.get(this.nextTargetId as number) === null) {
+    if (this.parsedTargets.get(this.nextTargetId as number) === null) {
       this.nextTargetId = 1;
     }
 
@@ -378,21 +386,21 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public selectNextTarget(): StringOptional<TName> {
-    return this.parsed_targets.get(this.nextTargetId as TNumberId);
+    return this.parsedTargets.get(this.nextTargetId as TNumberId);
   }
 
   /**
    * todo: Description.
    */
   public isSquadOnPoint(): boolean {
-    if (this.parsed_targets === null) {
+    if (this.parsedTargets === null) {
       return true;
     }
 
     const nextTargetId: TNumberId = this.nextTargetId || 0;
 
     if (this.assignedTargetId !== null && this.assignedSmartTerrainId === this.assignedTargetId) {
-      if (this.parsed_targets.get(nextTargetId + 1) !== null) {
+      if (this.parsedTargets.get(nextTargetId + 1) !== null) {
         this.nextTargetId = nextTargetId + 1;
 
         return true;
@@ -662,12 +670,12 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public setLocationTypes(newLocationSection?: TSection): void {
     logger.info("Set location types:", this.name(), newLocationSection);
 
-    const default_location: TSection = "stalker_terrain";
+    const defaultLocation: TSection = "stalker_terrain";
 
     this.clear_location_types();
 
     if (alife().object(this.assignedTargetId!)!.clsid() === clsid.smart_terrain) {
-      this.setLocationTypesSection(default_location);
+      this.setLocationTypesSection(defaultLocation);
 
       const oldSmartName = this.assignedSmartTerrainId !== null && alife().object(this.assignedSmartTerrainId)?.name();
 
@@ -784,9 +792,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       const randomCount: TCount = math.random(countMin, countMax);
 
       for (const it of $range(1, randomCount)) {
-        const random_id = math.random(1, randomSpawn!.length());
+        const randomId: TIndex = math.random(1, randomSpawn!.length());
 
-        this.addSquadMember(randomSpawn!.get(random_id), baseSpawnPosition, baseLevelVertexId, baseGameVertexId);
+        this.addSquadMember(randomSpawn!.get(randomId), baseSpawnPosition, baseLevelVertexId, baseGameVertexId);
       }
     } else if (spawnSections.length() === 0) {
       abort("You are trying to spawn an empty squad [%s]!", this.section_name());

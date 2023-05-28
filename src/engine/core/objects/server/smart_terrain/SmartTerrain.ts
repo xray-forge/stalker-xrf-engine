@@ -140,8 +140,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
   public simulationRole: ESimulationTerrainRole = ESimulationTerrainRole.DEFAULT;
   public smartTerrainDisplayedMapSpot: Optional<TRelation> = null;
-  public respawn_sector: Optional<TConditionList> = null;
-  public forbidden_point: string = "";
+  public respawnSector: Optional<TConditionList> = null;
+  public forbiddenPoint: string = "";
 
   public isRegistered: boolean = false;
   public isRespawnPoint: boolean = false;
@@ -447,10 +447,10 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     this.jobDeadTimeById = new LuaTable();
 
     for (const it of $range(1, count)) {
-      const job_id = packet.r_u8();
-      const dead_time = readTimeFromPacket(packet)!;
+      const jobId = packet.r_u8();
+      const deadTime = readTimeFromPacket(packet)!;
 
-      this.jobDeadTimeById.set(job_id, dead_time);
+      this.jobDeadTimeById.set(jobId, deadTime);
     }
 
     this.isObjectsInitializationNeeded = true;
@@ -605,9 +605,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         respawnSectorData = "all";
       }
 
-      this.respawn_sector = parseConditionsList(respawnSectorData);
+      this.respawnSector = parseConditionsList(respawnSectorData);
     } else {
-      this.respawn_sector = null;
+      this.respawnSector = null;
     }
 
     this.isMutantLair = readIniBoolean(this.ini, SMART_TERRAIN_SECTION, "mutant_lair", false);
@@ -617,7 +617,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       logger.info("Found no mutant point:", this.name());
     }
 
-    this.forbidden_point = readIniString(this.ini, SMART_TERRAIN_SECTION, "forbidden_point", false, "");
+    this.forbiddenPoint = readIniString(this.ini, SMART_TERRAIN_SECTION, "forbidden_point", false, "");
     this.defendRestrictor = readIniString(this.ini, SMART_TERRAIN_SECTION, "def_restr", false, "", null);
     this.attackRestrictor = readIniString(this.ini, SMART_TERRAIN_SECTION, "att_restr", false, "", null);
     this.safeRestrictor = readIniString(this.ini, SMART_TERRAIN_SECTION, "safe_restr", false, "", null);
