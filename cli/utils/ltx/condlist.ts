@@ -11,14 +11,20 @@ export function joinCondlists(...conditionLists: Array<string>): string {
  * todo;
  */
 export function createCondlist(descriptor?: IConditionListDescriptor | boolean): string {
-  if (descriptor === true || !descriptor || (!descriptor.action && !descriptor.action && !descriptor.value)) {
+  if (
+    descriptor === true ||
+    !descriptor ||
+    (!descriptor.condition && !descriptor.action && descriptor.value === undefined)
+  ) {
     return String(true);
   }
+
+  const value: unknown = descriptor.value === null ? "nil" : descriptor.value;
 
   let condlist: string = "";
 
   condlist += descriptor.condition ? `{${descriptor.condition.join(" ")}}` : "";
-  condlist += descriptor.value ? (condlist ? " " : "") + descriptor.value : "";
+  condlist += value !== undefined ? (condlist ? " " : "") + value : "";
   condlist += descriptor.action ? (condlist ? " " : "") + `%${descriptor.action.join(" ")}%` : "";
 
   return condlist;

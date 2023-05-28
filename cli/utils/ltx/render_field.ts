@@ -65,12 +65,12 @@ function link(name: Optional<string>, data: string, descriptor?: Optional<ILtxFi
 export function renderField(name: Optional<string>, value: any): string;
 export function renderField(name: Optional<string>, value: Optional<ILtxFieldDescriptor<unknown>>): string {
   // In case of empty fields without data or placeholders.
-  if (value === null) {
-    return link(name, "", value);
+  if (value === null || value === undefined) {
+    return link(name, "", null);
   } else if (typeof value !== "object") {
     return link(name, String(value));
   } else if (Array.isArray(value)) {
-    return link(name, value.join(","));
+    return link(name, value.join(", "));
   }
 
   switch (value.type) {

@@ -66,17 +66,17 @@ export function renderJsonToLtx(filename: string, object: ILtxConfigDescriptor):
   let header: string = `; ${filename} @ generated ${new Date().toString()}\n`;
 
   if (object[LTX_INCLUDE]) {
-    header += renderLtxImports(object[LTX_INCLUDE]);
+    header += renderLtxImports(object[LTX_INCLUDE] as TPossibleFieldDescriptorFull);
   }
 
   if (object[LTX_ROOT]) {
-    header += renderLtxSection(LTX_ROOT, object[LTX_ROOT]);
+    header += renderLtxSection(LTX_ROOT, object[LTX_ROOT] as TPossibleFieldDescriptorFull);
   }
 
   return (
     header +
     Object.entries(object).reduce((result, [key, object]) => {
-      return result + renderLtxSection(key, object);
+      return result + renderLtxSection(key, object as TPossibleFieldDescriptorFull);
     }, "")
   );
 }

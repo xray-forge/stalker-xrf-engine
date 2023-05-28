@@ -3,6 +3,11 @@ import { Optional } from "#/utils";
 /**
  * todo;
  */
+export type TPrimitive = string | number | boolean | symbol | Array<TPrimitive>;
+
+/**
+ * todo;
+ */
 export enum ELtxFieldType {
   STRING,
   INTEGER,
@@ -35,8 +40,12 @@ export interface ILtxFieldDescriptor<T> {
 /**
  * todo;
  */
-export interface ILtxConfigDescriptor extends Record<string, Record<string, ILtxFieldDescriptor<unknown>>> {
-  [index: symbol]: Record<string, ILtxFieldDescriptor<unknown>>;
+export interface ILtxConfigDescriptor
+  extends Record<
+    string,
+    ILtxConfigDescriptor | Record<string, ILtxFieldDescriptor<unknown> | TPrimitive> | TPrimitive
+  > {
+  [index: symbol]: Record<string, ILtxFieldDescriptor<unknown> | TPrimitive> | TPrimitive;
 }
 
 /**
@@ -60,5 +69,5 @@ export const LTX_INCLUDE: unique symbol = Symbol("LTX_INCLUDE");
 export interface IConditionListDescriptor {
   condition?: Array<string>;
   action?: Array<string>;
-  value?: string;
+  value?: string | number | boolean;
 }
