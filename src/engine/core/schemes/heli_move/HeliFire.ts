@@ -15,10 +15,10 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, Vector } from "@/engine/lib/types";
+import { ClientObject, Optional, TDistance, TIndex, Vector, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-const heli_firer: LuaTable<number, HeliFire> = new LuaTable();
+const heliFirer: LuaTable<number, HeliFire> = new LuaTable();
 
 export class HeliFire {
   public static readonly HELI_STATIC_UI_XML_PATH: string = "game\\heli\\heli_progress.xml";
@@ -26,94 +26,94 @@ export class HeliFire {
   public object: ClientObject;
   public enemy_: Optional<string>;
   public enemy: Optional<ClientObject>;
-  public enemy_id: Optional<number>;
-  public fire_point: Optional<Vector>;
-  public flag_by_enemy: boolean;
-  public hit_count: number;
-  public fire_id: any;
-  public enemy_die: boolean;
-  public enemy_time: number;
-  public upd_vis: number;
-  public show_health: boolean;
+  public enemyId: Optional<number>;
+  public firePoint: Optional<Vector>;
+  public flagByEnemy: boolean;
+  public hitCount: number;
+  public fireId: any;
+  public enemyDie: boolean;
+  public enemyTime: number;
+  public updVis: number;
+  public showHealth: boolean;
 
-  public heli_progress: Optional<CUIProgressBar> = null;
+  public heliProgress: Optional<CUIProgressBar> = null;
 
   public constructor(object: ClientObject) {
     this.object = object;
     this.enemy_ = null;
-    this.fire_point = null;
+    this.firePoint = null;
     this.enemy = null;
-    this.enemy_id = null;
-    this.flag_by_enemy = true;
-    this.hit_count = 0;
-    this.fire_id = null;
-    this.enemy_die = true;
-    this.enemy_time = time_global();
-    this.upd_vis = 0;
-    this.show_health = false;
+    this.enemyId = null;
+    this.flagByEnemy = true;
+    this.hitCount = 0;
+    this.fireId = null;
+    this.enemyDie = true;
+    this.enemyTime = time_global();
+    this.updVis = 0;
+    this.showHealth = false;
   }
 
-  public update_enemy_state(): void {
+  public updateEnemyState(): void {
     const heli = this.object.get_helicopter();
 
     // --'    printf("update_enemy_state()")
-    if (this.hit_count > 2) {
-      this.hit_count = 0;
-      this.flag_by_enemy = true;
+    if (this.hitCount > 2) {
+      this.hitCount = 0;
+      this.flagByEnemy = true;
     }
 
-    if (this.enemy && this.enemy_die && this.enemy_ === "all") {
-      this.update_enemy_arr();
+    if (this.enemy && this.enemyDie && this.enemy_ === "all") {
+      this.updateEnemyArr();
     }
 
-    if (this.enemy && time_global() - this.enemy_time > this.upd_vis * 1000) {
+    if (this.enemy && time_global() - this.enemyTime > this.updVis * 1000) {
       // --'printf("this.upd_vis  = %d", this.upd_vis);
       if (!heli.isVisible(this.enemy)) {
         if (this.enemy_ === "all") {
-          this.update_enemy_arr();
+          this.updateEnemyArr();
         }
       }
 
-      this.enemy_time = time_global();
+      this.enemyTime = time_global();
     }
 
     if (this.enemy) {
       if (!heli.isVisible(this.enemy)) {
-        this.flag_by_enemy = true;
+        this.flagByEnemy = true;
       }
     }
 
-    this.set_enemy();
+    this.setEnemy();
   }
 
-  public cs_heli(): void {
+  public csHeli(): void {
     const hud: CUIGameCustom = get_hud();
-    const custom_static = hud.GetCustomStatic("cs_heli_health");
+    const customStatic = hud.GetCustomStatic("cs_heli_health");
 
-    if (custom_static === null) {
+    if (customStatic === null) {
       hud.AddCustomStatic("cs_heli_health", true);
 
-      const xml = new CScriptXmlInit();
+      const xml: XmlInit = new CScriptXmlInit();
 
       xml.ParseFile(HeliFire.HELI_STATIC_UI_XML_PATH);
 
       const st = hud.GetCustomStatic("cs_heli_health")!;
       const w = st.wnd();
 
-      this.heli_progress = xml.InitProgressBar("heli_health", w);
-      this.set_cs_heli_progress_health();
+      this.heliProgress = xml.InitProgressBar("heli_health", w);
+      this.setCsHeliProgressHealth();
     }
   }
 
-  public set_cs_heli_progress_health(): void {
+  public setCsHeliProgressHealth(): void {
     const heli = this.object.get_helicopter();
     const hud = get_hud();
-    const custom_static = hud.GetCustomStatic("cs_heli_health");
+    const customStatic = hud.GetCustomStatic("cs_heli_health");
     const xml = new CScriptXmlInit();
 
     xml.ParseFile(HeliFire.HELI_STATIC_UI_XML_PATH);
 
-    if (custom_static) {
+    if (customStatic) {
       hud.AddCustomStatic("cs_heli_health", true);
 
       const st = hud.GetCustomStatic("cs_heli_health")!;
@@ -121,36 +121,36 @@ export class HeliFire {
       const _progr = heli.GetfHealth() * 100;
 
       if (_progr > 0) {
-        this.heli_progress!.Show(true);
-        this.heli_progress!.SetProgressPos(_progr);
+        this.heliProgress!.Show(true);
+        this.heliProgress!.SetProgressPos(_progr);
       } else {
-        this.heli_progress!.Show(false);
-        this.show_health = false;
+        this.heliProgress!.Show(false);
+        this.showHealth = false;
         hud.RemoveCustomStatic("cs_heli_health");
       }
     }
   }
 
-  public cs_remove(): void {
+  public csRemove(): void {
     const hud: CUIGameCustom = get_hud();
-    const custom_static: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
+    const customStatic: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
 
-    if (custom_static) {
+    if (customStatic) {
       hud.RemoveCustomStatic("cs_heli_health");
     }
   }
 
-  public set_enemy(): void {
+  public setEnemy(): void {
     const heli = this.object.get_helicopter();
 
-    if (this.flag_by_enemy) {
+    if (this.flagByEnemy) {
       heli.ClearEnemy();
       // --'printf("ClearEnemy()")
-      this.enemy_die = false;
+      this.enemyDie = false;
       if (this.enemy) {
         if (heli.isVisible(this.enemy)) {
           heli.SetEnemy(this.enemy);
-          this.flag_by_enemy = false;
+          this.flagByEnemy = false;
         }
       } else {
         if (this.enemy_) {
@@ -158,11 +158,11 @@ export class HeliFire {
             this.enemy = registry.actor;
           } else {
             if (this.enemy_ === "all") {
-              this.update_enemy_arr();
+              this.updateEnemyArr();
             } else {
               if (this.enemy_ !== NIL) {
-                this.enemy_id = getIdBySid(tonumber(this.enemy_)!);
-                this.enemy = level.object_by_id(this.enemy_id!);
+                this.enemyId = getIdBySid(tonumber(this.enemy_)!);
+                this.enemy = level.object_by_id(this.enemyId!);
               }
             }
           }
@@ -172,78 +172,78 @@ export class HeliFire {
           heli.SetEnemy(this.enemy!);
           // --'printf("set_enemy(this.enemy, actor or SID)")
         } else {
-          this.enemy_die = true;
+          this.enemyDie = true;
         }
 
-        this.flag_by_enemy = false;
+        this.flagByEnemy = false;
       }
     }
 
-    if (!this.enemy_die && this.enemy!.death_time() > 0) {
+    if (!this.enemyDie && this.enemy!.death_time() > 0) {
       // --'printf("ClearEnemy()")
       heli.ClearEnemy();
-      this.enemy_die = true;
+      this.enemyDie = true;
     }
 
-    if (this.enemy_die && this.fire_point) {
-      heli.SetEnemy(this.fire_point);
+    if (this.enemyDie && this.firePoint) {
+      heli.SetEnemy(this.firePoint);
     }
   }
 
-  public update_hit(): void {
-    if (this.show_health) {
-      this.set_cs_heli_progress_health();
+  public updateHit(): void {
+    if (this.showHealth) {
+      this.setCsHeliProgressHealth();
     } else {
-      this.cs_remove();
+      this.csRemove();
     }
 
-    if (this.enemy!.id() === this.fire_id) {
+    if (this.enemy!.id() === this.fireId) {
       if (this.enemy_ !== NIL) {
-        this.hit_count = this.hit_count + 1;
+        this.hitCount = this.hitCount + 1;
       } else {
-        this.hit_count = 0;
+        this.hitCount = 0;
       }
     } else {
-      this.fire_id = this.enemy!.id();
-      this.hit_count = 1;
+      this.fireId = this.enemy!.id();
+      this.hitCount = 1;
     }
   }
 
-  public update_enemy_arr(): void {
+  public updateEnemyArr(): void {
     const heli: CHelicopter = this.object.get_helicopter();
-    let index: number = 0;
-    let min_dist2D: number = MAX_U16;
+    let index: TIndex = 0;
+    let minDist2D: TDistance = MAX_U16;
 
     while (index < registry.helicopter.enemyIndex) {
       if (registry.helicopter.enemies.has(index)) {
         const enemy: ClientObject = registry.helicopter.enemies.get(index);
 
         if (heli.isVisible(enemy)) {
-          if (distanceBetween2d(this.object.position(), enemy.position()) < min_dist2D) {
+          if (distanceBetween2d(this.object.position(), enemy.position()) < minDist2D) {
             this.enemy = enemy;
-            min_dist2D = distanceBetween2d(this.object.position(), enemy.position());
-            this.flag_by_enemy = true;
+            minDist2D = distanceBetween2d(this.object.position(), enemy.position());
+            this.flagByEnemy = true;
           }
         }
       }
 
-      index = index + 1;
+      index += 1;
     }
 
     const actor: ClientObject = registry.actor;
 
     if ((heli.isVisible(actor) && randomChoice(false, true)) || registry.helicopter.enemyIndex === 0) {
-      if (distanceBetween2d(this.object.position(), actor.position()) <= min_dist2D * 2) {
+      if (distanceBetween2d(this.object.position(), actor.position()) <= minDist2D * 2) {
         this.enemy = actor;
       }
     }
   }
 }
 
-export function get_heli_firer(object: ClientObject): HeliFire {
-  if (heli_firer.get(object.id()) === null) {
-    heli_firer.set(object.id(), new HeliFire(object));
+export function getHeliFirer(object: ClientObject): HeliFire {
+  if (heliFirer.get(object.id()) === null) {
+    heliFirer.set(object.id(), new HeliFire(object));
   }
 
-  return heli_firer.get(object.id());
+  return heliFirer.get(object.id());
 }

@@ -11,6 +11,7 @@ import {
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
+import { AnomalyFieldBinder } from "@/engine/core/objects/binders/zones/AnomalyFieldBinder";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
@@ -21,6 +22,7 @@ import {
   AnyGameObject,
   ClientObject,
   IniFile,
+  LuaArray,
   NetPacket,
   Optional,
   Patrol,
@@ -28,6 +30,8 @@ import {
   ServerObject,
   TCount,
   TDuration,
+  TIndex,
+  TName,
   TRate,
   TSection,
 } from "@/engine/lib/types";
@@ -223,9 +227,9 @@ export class AnomalyZoneBinder extends object_binder {
         if (ini.line_count(minesSection) > 0) {
           logger.info("Init mines for section:", section, minesSection);
           for (const i of $range(0, ini.line_count(minesSection) - 1)) {
-            const [temp1, mine_name, temp2] = ini.r_line(minesSection, i, "", "");
+            const [temp1, mineName, temp2] = ini.r_line(minesSection, i, "", "");
 
-            table.insert(this.minesTable.get(section), mine_name);
+            table.insert(this.minesTable.get(section), mineName);
           }
         }
       }
@@ -243,7 +247,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public turn_off(): void {
+  public turnOff(): void {
     logger.info("Turn off zone:", this.object.name());
 
     this.isTurnedOff = true;
@@ -264,7 +268,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public turn_on(forceRespawn: Optional<boolean>): void {
+  public turnOn(forceRespawn: Optional<boolean>): void {
     logger.info("Turn on zone:", this.object.name());
 
     this.isTurnedOff = false;
@@ -343,7 +347,7 @@ export class AnomalyZoneBinder extends object_binder {
   public respawnArtefactsAndReplaceAnomalyZones(): void {
     logger.info("Surge spawn:", this.object.name());
 
-    const anom_fields = registry.anomalyFields;
+    const anomalyFields: LuaTable<TName, AnomalyFieldBinder> = registry.anomalyFields;
 
     this.shouldRespawnArtefactsIfPossible = true;
 
@@ -351,28 +355,28 @@ export class AnomalyZoneBinder extends object_binder {
       let layer: string = this.currentZoneLayer;
 
       for (const [k, v] of this.fieldsTable.get(layer)) {
-        if (anom_fields.get(v) !== null) {
-          anom_fields.get(v).setEnabled(false);
+        if (anomalyFields.get(v) !== null) {
+          anomalyFields.get(v).setEnabled(false);
         }
       }
 
       for (const [k, v] of this.minesTable.get(layer)) {
-        if (anom_fields.get(v) !== null) {
-          anom_fields.get(v).setEnabled(false);
+        if (anomalyFields.get(v) !== null) {
+          anomalyFields.get(v).setEnabled(false);
         }
       }
 
       layer = ANOMAL_ZONE_LAYER + math.random(1, this.zoneLayersCount);
 
       for (const [k, v] of this.fieldsTable.get(layer)) {
-        if (anom_fields.get(v) !== null) {
-          anom_fields.get(v).setEnabled(true);
+        if (anomalyFields.get(v) !== null) {
+          anomalyFields.get(v).setEnabled(true);
         }
       }
 
       for (const [k, v] of this.minesTable.get(layer)) {
-        if (anom_fields.get(v) !== null) {
-          anom_fields.get(v).setEnabled(true);
+        if (anomalyFields.get(v) !== null) {
+          anomalyFields.get(v).setEnabled(true);
         }
       }
 
@@ -430,9 +434,9 @@ export class AnomalyZoneBinder extends object_binder {
       }
     }
 
-    const randomPathName: string = this.getRandomArtefactPath();
+    const randomPathName: TName = this.getRandomArtefactPath();
     const randomPath: Patrol = new patrol(randomPathName);
-    const randomPathPoint: number = math.random(0, randomPath.count() - 1);
+    const randomPathPoint: TIndex = math.random(0, randomPath.count() - 1);
 
     const artefactObject: ServerObject = alife().create(
       randomArtefact,
@@ -458,18 +462,18 @@ export class AnomalyZoneBinder extends object_binder {
   public getRandomArtefactPath(): string {
     logger.info("Get artefact path:", this.object.name());
 
-    const paths: LuaTable<number, string> = new LuaTable();
+    const paths: LuaArray<string> = new LuaTable();
 
     for (const [k, v] of this.artefactsPathsList.get(this.currentZoneLayer)) {
-      let f_spawned = false;
+      let isSpawned: boolean = false;
 
       for (const [kk, vv] of this.artefactWaysByArtefactId) {
         if (vv !== null && v === vv) {
-          f_spawned = true;
+          isSpawned = true;
         }
       }
 
-      if (!f_spawned) {
+      if (!isSpawned) {
         table.insert(paths, v);
       }
     }

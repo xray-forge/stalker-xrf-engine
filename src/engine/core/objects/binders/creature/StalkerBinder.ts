@@ -389,16 +389,16 @@ export class StalkerBinder extends object_binder {
    */
   public onHearSound(
     target: ClientObject,
-    who_id: TNumberId,
-    sound_type: TSoundType,
-    sound_position: Vector,
-    sound_power: TRate
+    whoId: TNumberId,
+    soundType: TSoundType,
+    soundPosition: Vector,
+    soundPower: TRate
   ): void {
-    if (who_id === target.id()) {
+    if (whoId === target.id()) {
       return;
     }
 
-    ActionSchemeHear.onObjectHearSound(target, who_id, sound_type, sound_position, sound_power);
+    ActionSchemeHear.onObjectHearSound(target, whoId, soundType, soundPosition, soundPower);
   }
 
   /**
@@ -501,7 +501,7 @@ export class StalkerBinder extends object_binder {
   public onHit(
     object: ClientObject,
     amount: TRate,
-    local_direction: Vector,
+    localDirection: Vector,
     who: Optional<ClientObject>,
     boneIndex: string | number
   ): void {
@@ -535,7 +535,7 @@ export class StalkerBinder extends object_binder {
         ESchemeEvent.HIT,
         object,
         amount,
-        local_direction,
+        localDirection,
         who,
         boneIndex
       );
@@ -549,27 +549,18 @@ export class StalkerBinder extends object_binder {
         ESchemeEvent.HIT,
         object,
         amount,
-        local_direction,
+        localDirection,
         who,
         boneIndex
       );
     }
 
     if (this.state.combat) {
-      emitSchemeEvent(
-        this.object,
-        this.state.combat,
-        ESchemeEvent.HIT,
-        object,
-        amount,
-        local_direction,
-        who,
-        boneIndex
-      );
+      emitSchemeEvent(this.object, this.state.combat, ESchemeEvent.HIT, object, amount, localDirection, who, boneIndex);
     }
 
     if (this.state.hit) {
-      emitSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, local_direction, who, boneIndex);
+      emitSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, localDirection, who, boneIndex);
     }
 
     if (boneIndex !== 15 && amount > this.object.health * 100) {

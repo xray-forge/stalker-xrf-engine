@@ -16,9 +16,9 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
 import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
-import { get_heli_health } from "@/engine/core/schemes/heli_move/heli_utils";
+import { getHeliHealth } from "@/engine/core/schemes/heli_move/heli_utils";
 import { HeliCombat } from "@/engine/core/schemes/heli_move/HeliCombat";
-import { get_heli_firer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
+import { getHeliFirer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
@@ -49,13 +49,13 @@ export class HelicopterBinder extends object_binder {
   public state!: IRegistryObjectState;
   public loaded: boolean = false;
   public initialized: boolean = false;
-  public heli_fire: HeliFire;
-  public last_hit_snd_timeout: number = 0;
-  public flame_start_health: number = 0;
+  public heliFire: HeliFire;
+  public lastHitSndTimeout: number = 0;
+  public flameStartHealth: number = 0;
 
-  public snd_hit!: string;
-  public snd_damage!: string;
-  public snd_down!: string;
+  public sndHit!: string;
+  public sndDamage!: string;
+  public sndDown!: string;
 
   public heliObject!: CHelicopter;
 
@@ -63,7 +63,7 @@ export class HelicopterBinder extends object_binder {
     super(object);
 
     this.ini = ini;
-    this.heli_fire = get_heli_firer(object);
+    this.heliFire = getHeliFirer(object);
   }
 
   public override reinit(): void {
@@ -72,23 +72,23 @@ export class HelicopterBinder extends object_binder {
     this.state = resetObject(this.object);
     this.heliObject = this.object.get_helicopter();
 
-    this.object.set_callback(callback.helicopter_on_point, this.on_point, this);
-    this.object.set_callback(callback.helicopter_on_hit, this.on_hit, this);
+    this.object.set_callback(callback.helicopter_on_point, this.onPoint, this);
+    this.object.set_callback(callback.helicopter_on_hit, this.onHit, this);
 
     // todo: Needs revisit.
     this.state.combat = new HeliCombat(this.object, this.heliObject) as unknown as IBaseSchemeState;
 
-    this.last_hit_snd_timeout = 0;
+    this.lastHitSndTimeout = 0;
 
     const ltx: IniFile = system_ini();
 
-    this.flame_start_health = readIniNumber(ltx, "helicopter", "flame_start_health", true);
+    this.flameStartHealth = readIniNumber(ltx, "helicopter", "flame_start_health", true);
 
-    const object_ini = this.object.spawn_ini();
+    const objectIni: IniFile = this.object.spawn_ini();
 
-    this.snd_hit = readIniString(object_ini, "helicopter", "snd_hit", false, "", "heli_hit");
-    this.snd_damage = readIniString(object_ini, "helicopter", "snd_damage", false, "", "heli_damaged");
-    this.snd_down = readIniString(object_ini, "helicopter", "snd_down", false, "", "heli_down");
+    this.sndHit = readIniString(objectIni, "helicopter", "snd_hit", false, "", "heli_hit");
+    this.sndDamage = readIniString(objectIni, "helicopter", "snd_damage", false, "", "heli_damaged");
+    this.sndDown = readIniString(objectIni, "helicopter", "snd_down", false, "", "heli_down");
   }
 
   public override update(delta: number): void {
@@ -105,7 +105,7 @@ export class HelicopterBinder extends object_binder {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
     }
 
-    this.check_health();
+    this.checkHealth();
 
     GlobalSoundManager.getInstance().update(this.object.id());
   }
@@ -165,15 +165,15 @@ export class HelicopterBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public check_health(): void {
+  public checkHealth(): void {
     const heli = this.heliObject;
 
     // --printf( "heli health: %d", heli:GetfHealth() )
 
     if (!heli.m_dead) {
-      const health = get_heli_health(this.heliObject, this.state);
+      const health = getHeliHealth(this.heliObject, this.state);
 
-      if (health < this.flame_start_health && !heli.m_flame_started) {
+      if (health < this.flameStartHealth && !heli.m_flame_started) {
         this.heliObject.StartFlame();
         // --        GlobalSound.set_sound_play(this.object:id(), this.snd_damage)
       }
@@ -188,12 +188,12 @@ export class HelicopterBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public on_hit(power: TRate, impulse: TRate, hit_type: TNumberId, enemy_id: TNumberId): void {
-    const enemy: Optional<ClientObject> = level.object_by_id(enemy_id);
+  public onHit(power: TRate, impulse: TRate, hitType: TNumberId, enemyId: TNumberId): void {
+    const enemy: Optional<ClientObject> = level.object_by_id(enemyId);
     const enemyClassId: Optional<TClassId> = enemy?.clsid() as Optional<TClassId>;
 
-    this.heli_fire.enemy = enemy;
-    this.heli_fire.update_hit();
+    this.heliFire.enemy = enemy;
+    this.heliFire.updateHit();
 
     if (enemyClassId === clsid.actor || enemyClassId === clsid.script_stalker) {
       if (this.state.hit) {
@@ -201,16 +201,16 @@ export class HelicopterBinder extends object_binder {
       }
     }
 
-    if (this.last_hit_snd_timeout < time_global()) {
+    if (this.lastHitSndTimeout < time_global()) {
       // -- GlobalSound.set_sound_play(this.object:id(), this.snd_hit)
-      this.last_hit_snd_timeout = time_global() + math.random(4000, 8000);
+      this.lastHitSndTimeout = time_global() + math.random(4000, 8000);
     }
   }
 
   /**
    * todo: Description.
    */
-  public on_point(distance: TDistance, position: Vector, path_idx: TIndex): void {
+  public onPoint(distance: TDistance, position: Vector, pathIndex: TIndex): void {
     if (this.state.active_section !== null) {
       emitSchemeEvent(
         this.object,
@@ -218,7 +218,7 @@ export class HelicopterBinder extends object_binder {
         ESchemeEvent.WAYPOINT,
         this.object,
         null,
-        path_idx
+        pathIndex
       );
     }
   }

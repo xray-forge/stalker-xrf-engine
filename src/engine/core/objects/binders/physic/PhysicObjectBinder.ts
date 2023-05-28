@@ -126,7 +126,7 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public use_callback(object: ClientObject, who: ClientObject): void {
+  public onUse(object: ClientObject, who: ClientObject): void {
     if (this.state.active_section) {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.USE, object, this);
     }
@@ -135,23 +135,23 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public hit_callback(
-    obj: ClientObject,
+  public onHit(
+    object: ClientObject,
     amount: TCount,
-    const_direction: Vector,
+    constDirection: Vector,
     who: ClientObject,
-    bone_index: TIndex
+    boneIndex: TIndex
   ): void {
     if (this.state[EScheme.HIT]) {
       emitSchemeEvent(
         this.object,
         this.state[EScheme.HIT]!,
         ESchemeEvent.HIT,
-        obj,
+        object,
         amount,
-        const_direction,
+        constDirection,
         who,
-        bone_index
+        boneIndex
       );
     }
 
@@ -160,11 +160,11 @@ export class PhysicObjectBinder extends object_binder {
         this.object,
         this.state[this.state.active_scheme!]!,
         ESchemeEvent.HIT,
-        obj,
+        object,
         amount,
-        const_direction,
+        constDirection,
         who,
-        bone_index
+        boneIndex
       );
     }
   }
@@ -172,7 +172,7 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public death_callback(victim: ClientObject, who: ClientObject): void {
+  public onDeath(victim: ClientObject, who: ClientObject): void {
     if (this.state.active_section) {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, who);
     }
@@ -228,13 +228,13 @@ export class PhysicObjectBinder extends object_binder {
 
     if (this.state.active_section !== null || (spawnIni !== null && spawnIni.section_exist("drop_box"))) {
       emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
-      this.object.set_callback(callback.hit, this.hit_callback, this);
-      this.object.set_callback(callback.death, this.death_callback, this);
-      this.object.set_callback(callback.use_object, this.use_callback, this);
+      this.object.set_callback(callback.hit, this.onHit, this);
+      this.object.set_callback(callback.death, this.onDeath, this);
+      this.object.set_callback(callback.use_object, this.onUse, this);
     }
 
     if (this.object.clsid() === clsid.inventory_box) {
-      this.object.set_callback(callback.use_object, this.use_callback, this);
+      this.object.set_callback(callback.use_object, this.onUse, this);
     }
 
     GlobalSoundManager.getInstance().update(this.object.id());

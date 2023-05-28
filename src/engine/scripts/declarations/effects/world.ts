@@ -259,7 +259,7 @@ extern("xr_effects.anomaly_turn_off", (actor: ClientObject, object: ClientObject
     abort("No such anomal zone in function 'anomaly_turn_off!'");
   }
 
-  anomalZone.turn_off();
+  anomalZone.turnOff();
 });
 
 /**
@@ -275,9 +275,9 @@ extern(
     }
 
     if (p[1]) {
-      anomalyZone.turn_on(true);
+      anomalyZone.turnOn(true);
     } else {
-      anomalyZone.turn_on(false);
+      anomalyZone.turnOn(false);
     }
   }
 );

@@ -3,139 +3,139 @@ import { CHelicopter } from "xray16";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { ClientObject, Optional, TRate, Vector } from "@/engine/lib/types";
 
-const heli_flyer: LuaTable<number, HeliFly> = new LuaTable();
+const heliFlyer: LuaTable<number, HeliFly> = new LuaTable();
 
 export class HeliFly {
   public object: ClientObject;
-  public point_by_look: Vector;
-  public block_flook: boolean;
-  public dist_by_look: number;
+  public pointByLook: Vector;
+  public blockFlook: boolean;
+  public distByLook: number;
   public heliLAccFW: number;
   public heliLAccBW: number;
-  public max_velocity: number;
-  public dest_point: Optional<Vector>;
-  public point_arr: LuaTable<number, Vector>;
+  public maxVelocity: number;
+  public destPoint: Optional<Vector>;
+  public pointArr: LuaTable<number, Vector>;
 
   public constructor(object: ClientObject) {
     this.object = object;
-    this.block_flook = false;
-    this.dist_by_look = 0;
+    this.blockFlook = false;
+    this.distByLook = 0;
     this.heliLAccFW = 6;
     this.heliLAccBW = 4;
-    this.max_velocity = 0;
-    this.point_arr = new LuaTable();
-    this.dest_point = null;
-    this.point_by_look = createEmptyVector();
+    this.maxVelocity = 0;
+    this.pointArr = new LuaTable();
+    this.destPoint = null;
+    this.pointByLook = createEmptyVector();
   }
 
-  public fly_on_point_with_vector(
-    dest_point: Vector,
-    dest_direction: Vector,
-    dest_velocity: number,
-    flag_to_wp_callback: boolean,
-    flag_by_null_velocity: boolean
+  public flyOnPointWithVector(
+    destPoint: Vector,
+    destDirection: Vector,
+    destVelocity: number,
+    flagToWpCallback: boolean,
+    flagByNullVelocity: boolean
   ): boolean {
     const heli: CHelicopter = this.object.get_helicopter();
-    const curr_heli_position: Vector = this.object.position();
-    const curr_heli_direction: Vector = this.object.direction();
-    const curr_heli_velocity: number = heli.GetCurrVelocity();
+    const currHeliPosition: Vector = this.object.position();
+    const currHeliDirection: Vector = this.object.direction();
+    const currHeliVelocity: number = heli.GetCurrVelocity();
 
-    dest_velocity = (dest_velocity * 1000) / 3600;
-    if (!flag_to_wp_callback) {
-      let time_by_fly: number = 0;
-      let rez_point: Vector = createEmptyVector();
-      let a_speed: TRate = 0;
-      let d_path: number;
+    destVelocity = (destVelocity * 1000) / 3600;
+    if (!flagToWpCallback) {
+      let timeByFly: number = 0;
+      let rezPoint: Vector = createEmptyVector();
+      let aSpeed: TRate = 0;
+      let dPath: number;
 
-      if (dest_velocity >= curr_heli_velocity) {
-        a_speed = this.heliLAccFW;
-        d_path = (curr_heli_velocity * 2) / a_speed;
+      if (destVelocity >= currHeliVelocity) {
+        aSpeed = this.heliLAccFW;
+        dPath = (currHeliVelocity * 2) / aSpeed;
       } else {
-        a_speed = -this.heliLAccBW;
-        d_path = (-curr_heli_velocity * 2) / a_speed;
+        aSpeed = -this.heliLAccBW;
+        dPath = (-currHeliVelocity * 2) / aSpeed;
       }
 
-      time_by_fly = (dest_velocity - curr_heli_velocity) / a_speed; // -- t=(v2-v1)/a
+      timeByFly = (destVelocity - currHeliVelocity) / aSpeed; // -- t=(v2-v1)/a
 
-      const delta = curr_heli_velocity * time_by_fly + (a_speed * time_by_fly * time_by_fly) / 2;
+      const delta = currHeliVelocity * timeByFly + (aSpeed * timeByFly * timeByFly) / 2;
 
-      if (delta >= d_path) {
-        this.point_arr.set(0, curr_heli_position);
-        this.point_arr.set(1, dest_point);
-        this.point_arr.set(2, curr_heli_direction);
+      if (delta >= dPath) {
+        this.pointArr.set(0, currHeliPosition);
+        this.pointArr.set(1, destPoint);
+        this.pointArr.set(2, currHeliDirection);
 
-        rez_point = this.calc_point();
-        if (!this.block_flook) {
-          rez_point.x = rez_point.x + (curr_heli_direction.x * delta) / 2;
-          rez_point.z = rez_point.z + (curr_heli_direction.z * delta) / 2;
+        rezPoint = this.calcPoint();
+        if (!this.blockFlook) {
+          rezPoint.x = rezPoint.x + (currHeliDirection.x * delta) / 2;
+          rezPoint.z = rezPoint.z + (currHeliDirection.z * delta) / 2;
         }
 
-        flag_to_wp_callback = true;
+        flagToWpCallback = true;
       } else {
-        rez_point = dest_point;
-        flag_to_wp_callback = false;
+        rezPoint = destPoint;
+        flagToWpCallback = false;
       }
 
-      this.dest_point = rez_point;
+      this.destPoint = rezPoint;
       // ------------------------------------------------
     } else {
-      this.dest_point = dest_point;
-      flag_to_wp_callback = false;
+      this.destPoint = destPoint;
+      flagToWpCallback = false;
     }
 
-    heli.SetDestPosition(this.dest_point);
-    this.correct_velocity();
-    if (flag_by_null_velocity) {
+    heli.SetDestPosition(this.destPoint);
+    this.correctVelocity();
+    if (flagByNullVelocity) {
       heli.SetSpeedInDestPoint(0);
     } else {
       heli.SetSpeedInDestPoint(heli.GetMaxVelocity());
     }
 
-    return flag_to_wp_callback;
+    return flagToWpCallback;
   }
 
-  public get_block_flook(): boolean {
-    return this.block_flook;
+  public getBlockFlook(): boolean {
+    return this.blockFlook;
   }
 
-  public calc_point(): Vector {
-    const rez_point: Vector = createEmptyVector();
+  public calcPoint(): Vector {
+    const rezPoint: Vector = createEmptyVector();
     const xxArr: LuaTable<number, number> = new LuaTable();
 
-    xxArr.set(0, this.point_arr.get(0).x);
-    xxArr.set(1, this.point_arr.get(1).x);
-    xxArr.set(2, this.point_arr.get(2).x);
+    xxArr.set(0, this.pointArr.get(0).x);
+    xxArr.set(1, this.pointArr.get(1).x);
+    xxArr.set(2, this.pointArr.get(2).x);
 
     const yyArr: LuaTable<number, number> = new LuaTable();
 
-    yyArr.set(0, this.point_arr.get(0).y);
-    yyArr.set(1, this.point_arr.get(1).y);
-    yyArr.set(2, this.point_arr.get(2).y);
+    yyArr.set(0, this.pointArr.get(0).y);
+    yyArr.set(1, this.pointArr.get(1).y);
+    yyArr.set(2, this.pointArr.get(2).y);
 
     const zzArr: LuaTable<number, number> = new LuaTable();
 
-    zzArr.set(0, this.point_arr.get(0).z);
-    zzArr.set(1, this.point_arr.get(1).z);
-    zzArr.set(2, this.point_arr.get(2).z);
+    zzArr.set(0, this.pointArr.get(0).z);
+    zzArr.set(1, this.pointArr.get(1).z);
+    zzArr.set(2, this.pointArr.get(2).z);
 
-    rez_point.y = (this.point_arr.get(0).y + this.point_arr.get(1).y) / 2;
+    rezPoint.y = (this.pointArr.get(0).y + this.pointArr.get(1).y) / 2;
 
-    if (rez_point.y === this.point_arr.get(0).y) {
-      rez_point.z = (this.point_arr.get(0).z + this.point_arr.get(1).z) / 2;
-      if (rez_point.z === this.point_arr.get(0).z) {
-        rez_point.x = (this.point_arr.get(0).x + this.point_arr.get(1).x) / 2;
-        rez_point.z = this.lagrange(rez_point.x, xxArr, zzArr);
+    if (rezPoint.y === this.pointArr.get(0).y) {
+      rezPoint.z = (this.pointArr.get(0).z + this.pointArr.get(1).z) / 2;
+      if (rezPoint.z === this.pointArr.get(0).z) {
+        rezPoint.x = (this.pointArr.get(0).x + this.pointArr.get(1).x) / 2;
+        rezPoint.z = this.lagrange(rezPoint.x, xxArr, zzArr);
       } else {
-        rez_point.x = this.lagrange(rez_point.z, zzArr, xxArr);
+        rezPoint.x = this.lagrange(rezPoint.z, zzArr, xxArr);
       }
     } else {
-      rez_point.x = this.lagrange(rez_point.y, yyArr, xxArr);
-      rez_point.z = this.lagrange(rez_point.y, yyArr, zzArr);
+      rezPoint.x = this.lagrange(rezPoint.y, yyArr, xxArr);
+      rezPoint.z = this.lagrange(rezPoint.y, yyArr, zzArr);
     }
 
     // --'    printf("fly_point[x=%d; y=%d; z=%d;]",rez_point.x, rez_point.y, rez_point.z);
 
-    return rez_point;
+    return rezPoint;
   }
 
   public lagrange(x: number, xArr: LuaTable<number, number>, yArr: LuaTable<number, number>): number {
@@ -158,43 +158,43 @@ export class HeliFly {
     return s;
   }
 
-  public correct_velocity(): void {
+  public correctVelocity(): void {
     const heli = this.object.get_helicopter();
-    const curr_heli_velocity = heli.GetCurrVelocity();
-    const dist_to_dest_point = heli.GetDistanceToDestPosition();
-    const a_speed = this.heliLAccFW;
-    let dest_velocity = ((2 * a_speed * dist_to_dest_point + curr_heli_velocity) ** 2 / 3) ^ (1 / 2);
+    const currHeliVelocity = heli.GetCurrVelocity();
+    const distToDestPoint = heli.GetDistanceToDestPosition();
+    const aSpeed = this.heliLAccFW;
+    let destVelocity = ((2 * aSpeed * distToDestPoint + currHeliVelocity) ** 2 / 3) ^ (1 / 2);
 
-    if ((this.max_velocity * 1000) / 3600 < dest_velocity) {
-      dest_velocity = (this.max_velocity * 1000) / 3600;
+    if ((this.maxVelocity * 1000) / 3600 < destVelocity) {
+      destVelocity = (this.maxVelocity * 1000) / 3600;
     }
 
-    heli.SetMaxVelocity(dest_velocity);
+    heli.SetMaxVelocity(destVelocity);
     // --'  printf("dist_to_dest_point %s", dist_to_dest_point);
     // --'    printf("dest_velocity } = %d", dest_velocity);
   }
 
-  public look_at_position(): void {
-    if (this.block_flook) {
+  public lookAtPosition(): void {
+    if (this.blockFlook) {
       const heli: CHelicopter = this.object.get_helicopter();
 
-      heli.LookAtPoint(this.point_by_look, true);
+      heli.LookAtPoint(this.pointByLook, true);
     }
   }
 
-  public set_block_flook(fl_block: boolean): void {
-    this.block_flook = fl_block;
+  public setBlockFlook(flBlock: boolean): void {
+    this.blockFlook = flBlock;
   }
 
-  public set_look_point(l_point: Vector): void {
-    this.point_by_look = l_point;
+  public setLookPoint(lPoint: Vector): void {
+    this.pointByLook = lPoint;
   }
 }
 
-export function get_heli_flyer(object: ClientObject): HeliFly {
-  if (heli_flyer.get(object.id()) === null) {
-    heli_flyer.set(object.id(), new HeliFly(object));
+export function getHeliFlyer(object: ClientObject): HeliFly {
+  if (heliFlyer.get(object.id()) === null) {
+    heliFlyer.set(object.id(), new HeliFly(object));
   }
 
-  return heli_flyer.get(object.id());
+  return heliFlyer.get(object.id());
 }

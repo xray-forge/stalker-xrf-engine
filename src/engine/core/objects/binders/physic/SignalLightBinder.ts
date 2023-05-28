@@ -71,19 +71,19 @@ export class SignalLightBinder extends object_binder {
     }
 
     // Magical constants.
-    if (flyTime > 28500) {
+    if (flyTime > 28_500) {
       this.stop();
 
       return;
     }
 
-    if (flyTime > 20500) {
+    if (flyTime > 20_500) {
       this.stopLight();
 
       return;
     }
 
-    if (flyTime > 1500) {
+    if (flyTime > 1_500) {
       if (this.isSlowFlyStarted !== true) {
         this.startSlowFly();
         this.object.start_particles("weapons\\light_signal", "link");

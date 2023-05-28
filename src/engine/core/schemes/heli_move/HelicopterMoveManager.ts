@@ -3,9 +3,9 @@ import { CHelicopter, level, patrol } from "xray16";
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
-import { get_heli_firer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
-import { get_heli_flyer, HeliFly } from "@/engine/core/schemes/heli_move/HeliFly";
-import { get_heli_looker, HeliLook } from "@/engine/core/schemes/heli_move/HeliLook";
+import { getHeliFirer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
+import { getHeliFlyer, HeliFly } from "@/engine/core/schemes/heli_move/HeliFly";
+import { getHeliLooker, HeliLook } from "@/engine/core/schemes/heli_move/HeliLook";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/heli_move/ISchemeHelicopterMoveState";
 import { abort } from "@/engine/core/utils/assertion";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
@@ -20,22 +20,22 @@ const state_move: number = 0;
 export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopterMoveState> {
   public readonly heliObject: CHelicopter;
 
-  public heli_look: HeliLook;
-  public heli_fire: HeliFire;
-  public heli_fly: HeliFly;
+  public heliLook: HeliLook;
+  public heliFire: HeliFire;
+  public heliFly: HeliFly;
 
-  public patrol_move: Optional<Patrol> = null;
-  public patrol_move_info!: LuaTable<number>;
-  public patrol_look: Optional<Patrol> = null;
+  public patrolMove: Optional<Patrol> = null;
+  public patrolMoveInfo!: LuaTable<number>;
+  public patrolLook: Optional<Patrol> = null;
 
-  public max_velocity!: TRate;
+  public maxVelocity!: TRate;
   public heliState: Optional<number> = null;
-  public last_index: Optional<number> = null;
-  public next_index: Optional<number> = null;
-  public _flag_to_wp_callback: Optional<boolean> = null;
-  public was_callback: Optional<boolean> = null;
-  public by_stop_fire_fly: Optional<boolean> = null;
-  public stop_point: Optional<Vector> = null;
+  public lastIndex: Optional<number> = null;
+  public nextIndex: Optional<number> = null;
+  public _flagToWpCallback: Optional<boolean> = null;
+  public wasCallback: Optional<boolean> = null;
+  public byStopFireFly: Optional<boolean> = null;
+  public stopPoint: Optional<Vector> = null;
 
   /**
    * todo: Description.
@@ -45,9 +45,9 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
 
     this.heliObject = object.get_helicopter();
 
-    this.heli_fly = get_heli_flyer(object);
-    this.heli_fire = get_heli_firer(object);
-    this.heli_look = get_heli_looker(object);
+    this.heliFly = getHeliFlyer(object);
+    this.heliFire = getHeliFirer(object);
+    this.heliLook = getHeliLooker(object);
   }
 
   /**
@@ -61,56 +61,56 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
       abort("Patrol path %s doesnt exist", this.state.path_move);
     }
 
-    this.patrol_move = new patrol(this.state.path_move);
-    this.patrol_move_info = parsePathWaypoints(this.state.path_move)!;
+    this.patrolMove = new patrol(this.state.path_move);
+    this.patrolMoveInfo = parsePathWaypoints(this.state.path_move)!;
 
     if (this.state.path_look) {
       if (this.state.path_look === ACTOR) {
-        this.heli_fly.set_look_point(registry.actor.position());
+        this.heliFly.setLookPoint(registry.actor.position());
         this.update_look_state();
       } else {
-        this.patrol_look = new patrol(this.state.path_look);
-        this.heli_fly.set_look_point(this.patrol_look.point(0));
+        this.patrolLook = new patrol(this.state.path_look);
+        this.heliFly.setLookPoint(this.patrolLook.point(0));
         this.update_look_state();
-        if (!this.patrol_look) {
+        if (!this.patrolLook) {
           abort("object '%s': unable to find path_look '%s' on the map", this.object.name(), this.state.path_look);
         }
       }
     } else {
-      this.patrol_look = null;
+      this.patrolLook = null;
     }
 
-    this.max_velocity = this.state.max_velocity;
+    this.maxVelocity = this.state.max_velocity;
 
     if (loading) {
       this.heliState = getPortableStoreValue(this.object, "st");
 
-      this.last_index = getPortableStoreValue(this.object, "li") || null;
-      this.next_index = getPortableStoreValue(this.object, "ni") || null;
+      this.lastIndex = getPortableStoreValue(this.object, "li") || null;
+      this.nextIndex = getPortableStoreValue(this.object, "ni") || null;
 
-      this.was_callback = getPortableStoreValue(this.object, "wc");
+      this.wasCallback = getPortableStoreValue(this.object, "wc");
     } else {
-      this.last_index = null;
-      this.next_index = null;
+      this.lastIndex = null;
+      this.nextIndex = null;
 
-      this.heli_fly.max_velocity = this.max_velocity;
-      this.heli_fly.heliLAccFW = this.max_velocity / 15;
-      this.heli_fly.heliLAccBW = (2 * this.heli_fly.heliLAccFW) / 3;
-      this.heliObject.SetLinearAcc(this.heli_fly.heliLAccFW, this.heli_fly.heliLAccBW);
+      this.heliFly.maxVelocity = this.maxVelocity;
+      this.heliFly.heliLAccFW = this.maxVelocity / 15;
+      this.heliFly.heliLAccBW = (2 * this.heliFly.heliLAccFW) / 3;
+      this.heliObject.SetLinearAcc(this.heliFly.heliLAccFW, this.heliFly.heliLAccBW);
 
-      this.heliObject.SetMaxVelocity(this.max_velocity);
+      this.heliObject.SetMaxVelocity(this.maxVelocity);
 
       this.heliState = null;
-      this.stop_point = null;
-      this.by_stop_fire_fly = false;
+      this.stopPoint = null;
+      this.byStopFireFly = false;
 
-      this.was_callback = false;
-      this._flag_to_wp_callback = false;
-      this.heli_fire.enemy_ = this.state.enemy_;
-      this.heli_fire.enemy = null;
-      this.heli_fire.flag_by_enemy = true;
+      this.wasCallback = false;
+      this._flagToWpCallback = false;
+      this.heliFire.enemy_ = this.state.enemy_;
+      this.heliFire.enemy = null;
+      this.heliFire.flagByEnemy = true;
       if (this.state.fire_point) {
-        this.heli_fire.fire_point = new patrol(this.state.fire_point).point(0);
+        this.heliFire.firePoint = new patrol(this.state.fire_point).point(0);
       }
 
       if (this.state.max_mgun_dist) {
@@ -141,17 +141,17 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
         this.heliObject.m_use_rocket_on_attack = false;
       }
 
-      this.heli_fire.upd_vis = this.state.upd_vis;
-      this.heli_fire.update_enemy_state();
-      this.update_movement_state();
+      this.heliFire.updVis = this.state.upd_vis;
+      this.heliFire.updateEnemyState();
+      this.updateMovementState();
 
       if (this.state.show_health) {
-        this.heli_fire.cs_remove();
-        this.heli_fire.show_health = true;
-        this.heli_fire.cs_heli();
+        this.heliFire.csRemove();
+        this.heliFire.showHealth = true;
+        this.heliFire.csHeli();
       } else {
-        this.heli_fire.show_health = false;
-        this.heli_fire.cs_remove();
+        this.heliFire.showHealth = false;
+        this.heliFire.csRemove();
       }
 
       this.heliObject.UseFireTrail(this.state.fire_trail);
@@ -164,10 +164,10 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   public save(): void {
     setPortableStoreValue(this.object, "st", this.heliState);
     // ---
-    setPortableStoreValue(this.object, "li", this.last_index || false);
-    setPortableStoreValue(this.object, "ni", this.next_index || false);
+    setPortableStoreValue(this.object, "li", this.lastIndex || false);
+    setPortableStoreValue(this.object, "ni", this.nextIndex || false);
     // ---
-    setPortableStoreValue(this.object, "wc", this.was_callback);
+    setPortableStoreValue(this.object, "wc", this.wasCallback);
   }
 
   /**
@@ -181,26 +181,26 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     }
 
     // --this.heli_fire:update_enemy_state()
-    if (this.was_callback) {
-      this.update_movement_state();
-      this.was_callback = false;
+    if (this.wasCallback) {
+      this.updateMovementState();
+      this.wasCallback = false;
     }
 
     if (this.state.path_look) {
       if (this.state.path_look === ACTOR) {
-        this.heli_fly.set_look_point(actor.position());
+        this.heliFly.setLookPoint(actor.position());
         if (this.state.stop_fire) {
           if (this.heliObject.isVisible(actor)) {
-            if (!this.by_stop_fire_fly) {
-              this.stop_point = this.object.position();
-              this.by_stop_fire_fly = true;
-              this.was_callback = true;
+            if (!this.byStopFireFly) {
+              this.stopPoint = this.object.position();
+              this.byStopFireFly = true;
+              this.wasCallback = true;
               // --'printf("Stop Fire!")
             }
           } else {
             // --'printf("Fly to next point!")
-            this.by_stop_fire_fly = false;
-            this.was_callback = true;
+            this.byStopFireFly = false;
+            this.wasCallback = true;
           }
         }
       }
@@ -208,68 +208,68 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
       this.update_look_state();
     }
 
-    if (!this.state.path_look && this.heli_look.look_state) {
-      this.heli_look.calc_look_point(this.heli_fly.dest_point, true);
+    if (!this.state.path_look && this.heliLook.lookState) {
+      this.heliLook.calcLookPoint(this.heliFly.destPoint, true);
     }
   }
 
   /**
    * todo: Description.
    */
-  public update_movement_state(): void {
+  public updateMovementState(): void {
     // --'printf("update_movement_state()")
     this.heliState = state_move;
 
-    if (this.patrol_move !== null) {
-      if (!this.last_index) {
-        this.last_index = 0;
-        this.next_index = 1;
+    if (this.patrolMove !== null) {
+      if (!this.lastIndex) {
+        this.lastIndex = 0;
+        this.nextIndex = 1;
       } else {
-        this.next_index = this.last_index + 1;
+        this.nextIndex = this.lastIndex + 1;
 
-        if (this.next_index >= this.patrol_move.count()) {
-          this.next_index = 0;
+        if (this.nextIndex >= this.patrolMove.count()) {
+          this.nextIndex = 0;
         }
       }
     }
 
-    if (!this.by_stop_fire_fly) {
-      if (this.patrol_move!.count() > 2) {
-        this._flag_to_wp_callback = this.heli_fly.fly_on_point_with_vector(
-          this.patrol_move!.point(this.last_index!),
-          this.patrol_move!.point(this.next_index!),
-          this.max_velocity,
-          this._flag_to_wp_callback!,
+    if (!this.byStopFireFly) {
+      if (this.patrolMove!.count() > 2) {
+        this._flagToWpCallback = this.heliFly.flyOnPointWithVector(
+          this.patrolMove!.point(this.lastIndex!),
+          this.patrolMove!.point(this.nextIndex!),
+          this.maxVelocity,
+          this._flagToWpCallback!,
           false
         );
       } else {
-        if (this.patrol_move!.count() > 1) {
-          this._flag_to_wp_callback = this.heli_fly.fly_on_point_with_vector(
-            this.patrol_move!.point(this.last_index!),
-            this.patrol_move!.point(this.next_index!),
-            this.max_velocity,
+        if (this.patrolMove!.count() > 1) {
+          this._flagToWpCallback = this.heliFly.flyOnPointWithVector(
+            this.patrolMove!.point(this.lastIndex!),
+            this.patrolMove!.point(this.nextIndex!),
+            this.maxVelocity,
             true,
             true
           );
         } else {
-          this._flag_to_wp_callback = this.heli_fly.fly_on_point_with_vector(
-            this.patrol_move!.point(this.last_index!),
-            this.patrol_move!.point(this.last_index!),
-            this.max_velocity,
+          this._flagToWpCallback = this.heliFly.flyOnPointWithVector(
+            this.patrolMove!.point(this.lastIndex!),
+            this.patrolMove!.point(this.lastIndex!),
+            this.maxVelocity,
             true,
             true
           );
         }
       }
     } else {
-      this._flag_to_wp_callback = this.heli_fly.fly_on_point_with_vector(
-        this.stop_point!,
-        this.stop_point!,
-        this.max_velocity,
+      this._flagToWpCallback = this.heliFly.flyOnPointWithVector(
+        this.stopPoint!,
+        this.stopPoint!,
+        this.maxVelocity,
         true,
         false
       );
-      this._flag_to_wp_callback = true;
+      this._flagToWpCallback = true;
     }
   }
 
@@ -278,38 +278,38 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
    */
   public update_look_state(): void {
     // --'    printf("update_look_state()")
-    this.heli_fly.set_block_flook(true);
-    this.heli_fly.look_at_position();
+    this.heliFly.setBlockFlook(true);
+    this.heliFly.lookAtPosition();
   }
 
   /**
    * todo: Description.
    */
   public waypoint_callback(object: ClientObject, action_type: string, index: TIndex): void {
-    if (!this._flag_to_wp_callback) {
-      if (this.patrol_move !== null) {
-        if (index === this.last_index) {
+    if (!this._flagToWpCallback) {
+      if (this.patrolMove !== null) {
+        if (index === this.lastIndex) {
           return;
         }
 
         if (index !== -1) {
-          this.last_index = index;
+          this.lastIndex = index;
         } else {
-          if (this.patrol_move_info.get(this.last_index!) !== null) {
-            const signal = this.patrol_move_info.get(this.last_index!)["sig"];
+          if (this.patrolMoveInfo.get(this.lastIndex!) !== null) {
+            const signal = this.patrolMoveInfo.get(this.lastIndex!)["sig"];
 
             if (signal !== null) {
               this.state.signals!.set(signal, true);
             }
           }
 
-          if (this.patrol_move.count() > 1) {
-            this.last_index = this.next_index;
+          if (this.patrolMove.count() > 1) {
+            this.lastIndex = this.nextIndex;
           }
         }
       }
     }
 
-    this.was_callback = true;
+    this.wasCallback = true;
   }
 }

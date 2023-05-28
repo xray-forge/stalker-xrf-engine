@@ -62,7 +62,7 @@ function strap_weapon(object: ClientObject): void {
 }
 
 function break_fence(): void {
-  registry.doors.get(storyNames.pri_a15_door).anim_forward();
+  registry.doors.get(storyNames.pri_a15_door).forwardAnimation();
 }
 
 function lights_off(): void {
