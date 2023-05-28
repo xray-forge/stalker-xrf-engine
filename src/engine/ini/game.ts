@@ -1,7 +1,7 @@
-import { LTX_IMPORT } from "#/utils";
+import { LTX_INCLUDE } from "#/utils";
 
 export const config = {
-  [LTX_IMPORT]: [
+  [LTX_INCLUDE]: [
     "game\\game_maps_single.ltx",
     "game\\game_maps_mp.ltx",
     "game\\game_levels.ltx",

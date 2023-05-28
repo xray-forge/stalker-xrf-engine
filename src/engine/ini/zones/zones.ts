@@ -1,7 +1,7 @@
-import { LTX_IMPORT } from "#/utils";
+import { LTX_INCLUDE } from "#/utils";
 
 export const config = {
-  [LTX_IMPORT]: [
+  [LTX_INCLUDE]: [
     "zone_base.ltx",
     "zone_campfire.ltx",
 

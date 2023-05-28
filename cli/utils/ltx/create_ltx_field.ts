@@ -1,5 +1,11 @@
 import { createCondlist, joinCondlists } from "#/utils/ltx/condlist";
-import { ELtxFieldType, IConditionListDescriptor, ILtxFieldDescriptor, ILtxFieldMeta } from "#/utils/ltx/types";
+import {
+  ELtxFieldType,
+  IConditionListDescriptor,
+  ILtxFieldDescriptor,
+  ILtxFieldMeta,
+  LTX_EXTEND,
+} from "#/utils/ltx/types";
 
 /**
  * todo;
@@ -83,4 +89,15 @@ export function newIntegersField(value: Array<number>, meta: ILtxFieldMeta = {})
  */
 export function newFloatsField(value: Array<number>, meta: ILtxFieldMeta = {}): ILtxFieldDescriptor<Array<number>> {
   return newField(ELtxFieldType.FLOAT_ARRAY, value, meta);
+}
+
+/**
+ * todo;
+ */
+export function newSection<T>(value: T, ltxExtend?: string | Array<string>): T {
+  if (ltxExtend) {
+    value[LTX_EXTEND] = ltxExtend;
+  }
+
+  return value;
 }

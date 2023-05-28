@@ -52,7 +52,7 @@ export const LTX_EXTEND: unique symbol = Symbol("LTX_EXTEND");
 /**
  * todo;
  */
-export const LTX_IMPORT: unique symbol = Symbol("LTX_IMPORT");
+export const LTX_INCLUDE: unique symbol = Symbol("LTX_INCLUDE");
 
 /**
  * todo;

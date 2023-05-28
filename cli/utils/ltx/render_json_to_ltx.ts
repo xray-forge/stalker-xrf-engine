@@ -2,7 +2,7 @@ import {
   ILtxConfigDescriptor,
   ILtxFieldDescriptor,
   LTX_EXTEND,
-  LTX_IMPORT,
+  LTX_INCLUDE,
   LTX_ROOT,
   Optional,
   renderField,
@@ -48,7 +48,9 @@ function renderLtxSection(name: string | typeof LTX_ROOT, descriptorRaw: TPossib
     typeof descriptorRaw === "function" ? descriptorRaw() : descriptorRaw;
 
   if (Array.isArray(descriptor)) {
-    return sectionName + descriptor.map((it) => renderField(null, it)).join("\n") + "\n";
+    const content: string = descriptor.map((it) => renderField(null, it)).join("\n");
+
+    return `${sectionName}${content ? content + "\n" : ""}`;
   }
 
   return Object.entries(descriptor).reduce(
@@ -63,8 +65,8 @@ function renderLtxSection(name: string | typeof LTX_ROOT, descriptorRaw: TPossib
 export function renderJsonToLtx(filename: string, object: ILtxConfigDescriptor): string {
   let header: string = `; ${filename} @ generated ${new Date().toString()}\n`;
 
-  if (object[LTX_IMPORT]) {
-    header += renderLtxImports(object[LTX_IMPORT]);
+  if (object[LTX_INCLUDE]) {
+    header += renderLtxImports(object[LTX_INCLUDE]);
   }
 
   if (object[LTX_ROOT]) {

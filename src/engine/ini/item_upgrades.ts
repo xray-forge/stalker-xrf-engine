@@ -1,7 +1,7 @@
-import { LTX_IMPORT } from "#/utils";
+import { LTX_INCLUDE } from "#/utils";
 
 export const config = {
-  [LTX_IMPORT]: [
+  [LTX_INCLUDE]: [
     "weapons\\delayed_action_fuse.ltx",
     "weapons\\upgrades_properties.ltx",
 
