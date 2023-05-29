@@ -45,12 +45,10 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     const description: Optional<EStalkerState> = this.state.description;
 
     if (this.state.use_camp) {
-      const [campAction, isDirector] = (
-        this.camp as { get_camp_action: (npcId: number) => LuaMultiReturn<[string, boolean]> }
-      ).get_camp_action(this.object.id());
+      const [campAction, isDirector] = this.camp!.getCampAction(this.object.id());
       const campActionsList = isDirector
-        ? associativeTable.get(campAction).director
-        : associativeTable.get(campAction).listener;
+        ? associativeTable.get(campAction as TName).director
+        : associativeTable.get(campAction as TName).listener;
 
       let isFound: boolean = false;
 
