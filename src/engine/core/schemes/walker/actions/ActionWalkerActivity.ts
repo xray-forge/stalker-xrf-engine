@@ -110,11 +110,11 @@ export class ActionWalkerActivity extends action_base {
 
     if (camp !== null && this.state.use_camp === true) {
       this.campStoryManager = camp;
-      this.campStoryManager.register_npc(this.object.id());
+      this.campStoryManager.registerNpc(this.object.id());
       this.isInCamp = true;
     } else {
       if (this.isInCamp === true) {
-        this.campStoryManager!.unregister_npc(this.object.id());
+        this.campStoryManager!.unregisterNpc(this.object.id());
         this.isInCamp = null;
       }
     }
@@ -132,7 +132,7 @@ export class ActionWalkerActivity extends action_base {
       return;
     }
 
-    const [campAction, isDirector] = this.campStoryManager.get_camp_action(this.object.id());
+    const [campAction, isDirector] = this.campStoryManager.getCampAction(this.object.id());
 
     if (!isDirector) {
       return;
@@ -151,7 +151,7 @@ export class ActionWalkerActivity extends action_base {
     this.moveManager.finalize();
 
     if (this.isInCamp === true) {
-      this.campStoryManager!.unregister_npc(this.object.id());
+      this.campStoryManager!.unregisterNpc(this.object.id());
       this.isInCamp = null;
     }
 
@@ -170,7 +170,7 @@ export class ActionWalkerActivity extends action_base {
    */
   public net_destroy(object: ClientObject): void {
     if (this.isInCamp === true) {
-      this.campStoryManager!.unregister_npc(object.id());
+      this.campStoryManager!.unregisterNpc(object.id());
       this.isInCamp = null;
     }
   }

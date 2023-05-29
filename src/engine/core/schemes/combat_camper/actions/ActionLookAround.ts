@@ -6,7 +6,7 @@ import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { copyVector, vectorRotateY } from "@/engine/core/utils/vector";
-import { ClientObject, Optional, TCount, TRate, TTimestamp, Vector } from "@/engine/lib/types";
+import { ClientObject, Optional, TCount, TIndex, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -16,8 +16,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class ActionLookAround extends action_base {
   public readonly state: ISchemeCombatState;
-  public forget_time: TTimestamp = 0;
-  public change_dir_time: TTimestamp = 0;
+  public forgetTime: TTimestamp = 0;
+  public changeDirTime: TTimestamp = 0;
 
   public constructor(state: ISchemeCombatState) {
     super(null, ActionLookAround.__name);
@@ -39,8 +39,8 @@ export class ActionLookAround extends action_base {
    * todo: Description.
    */
   public reset(): void {
-    this.forget_time = device().time_global() + 30_000;
-    this.change_dir_time = device().time_global() + 15_000;
+    this.forgetTime = device().time_global() + 30_000;
+    this.changeDirTime = device().time_global() + 15_000;
 
     if (!this.state.last_seen_pos && this.object.best_enemy() !== null) {
       this.state.last_seen_pos = this.object.best_enemy()!.position();
@@ -62,14 +62,14 @@ export class ActionLookAround extends action_base {
   public override execute(): void {
     super.execute();
 
-    if (this.forget_time < device().time_global()) {
+    if (this.forgetTime < device().time_global()) {
       this.state.last_seen_pos = null;
 
       return;
     }
 
-    if (this.change_dir_time < device().time_global()) {
-      this.change_dir_time = device().time_global() + math.random(2000, 4000);
+    if (this.changeDirTime < device().time_global()) {
+      this.changeDirTime = device().time_global() + math.random(2000, 4000);
 
       const angle: TRate = math.random(0, 120) - 60;
 
@@ -108,9 +108,9 @@ export class ActionLookAround extends action_base {
   public hit_callback(
     object: ClientObject,
     amount: TCount,
-    const_direction: Vector,
+    constDirection: Vector,
     who: ClientObject,
-    bone_index: string
+    boneIndex: TIndex
   ): void {
     if (who === null || !this.state.isCamperCombatAction) {
       return;

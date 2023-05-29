@@ -7,9 +7,9 @@ import { abort } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/parse";
 import { Patrol, ServerCreatureObject } from "@/engine/lib/types";
 
-const def_min_radius: number = 10;
-const def_mid_radius: number = 20;
-const def_max_radius: number = 70;
+const DEF_MIN_RADIUS: number = 10;
+const DEF_MID_RADIUS: number = 20;
+const DEF_MAX_RADIUS: number = 70;
 
 /**
  * todo;
@@ -21,9 +21,9 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
   public override resetScheme(): void {
     setMonsterState(this.object, this.state.state);
 
-    let minr = def_min_radius;
-    let maxr = def_max_radius;
-    let midr = def_mid_radius;
+    let minr = DEF_MIN_RADIUS;
+    let maxr = DEF_MAX_RADIUS;
+    let midr = DEF_MID_RADIUS;
 
     let ptr: Patrol;
     let waypointData: Partial<IWaypointData> = {};

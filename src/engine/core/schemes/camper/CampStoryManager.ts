@@ -62,7 +62,7 @@ export class CampStoryManager {
   /**
    * todo: Description.
    */
-  public static start_guitar(object: ClientObject): void {
+  public static startPlayingGuitar(object: ClientObject): void {
     const campId: Optional<TNumberId> = registry.objects.get(object.id()).registred_camp;
 
     if (campId === null) {
@@ -71,10 +71,10 @@ export class CampStoryManager {
 
     const camp: CampStoryManager = registry.campsStories.get(campId);
 
-    camp.sound_manager.setStoryTeller(camp.director);
-    camp.sound_manager.setStory(camp.guitar_table.get(math.random(camp.guitar_table.length())));
-    camp.sound_manager_started = true;
-    camp.sound_manager.update();
+    camp.soundManager.setStoryTeller(camp.director);
+    camp.soundManager.setStory(camp.guitarTable.get(math.random(camp.guitarTable.length())));
+    camp.soundManagerStarted = true;
+    camp.soundManager.update();
   }
 
   /**
@@ -89,30 +89,30 @@ export class CampStoryManager {
 
     const camp: CampStoryManager = registry.campsStories.get(campId);
 
-    camp.sound_manager.setStoryTeller(camp.director);
-    camp.sound_manager.setStory(camp.harmonica_table.get(math.random(camp.harmonica_table.length())));
-    camp.sound_manager_started = true;
-    camp.sound_manager.update();
+    camp.soundManager.setStoryTeller(camp.director);
+    camp.soundManager.setStory(camp.harmonicaTable.get(math.random(camp.harmonicaTable.length())));
+    camp.soundManagerStarted = true;
+    camp.soundManager.update();
   }
 
   public object: ClientObject;
   public ini: IniFile;
 
-  public story_table: LuaTable<number, string>;
-  public guitar_table: LuaTable<number, string>;
-  public harmonica_table: LuaTable<number, string>;
+  public storyTable: LuaTable<number, string>;
+  public guitarTable: LuaTable<number, string>;
+  public harmonicaTable: LuaTable<number, string>;
 
   public npc: LuaTable<number, { [index: string]: number | string; state: string }> = new LuaTable();
   public schemes: LuaTable = new LuaTable();
 
   public director: Optional<number> = null;
-  public idle_talker: Optional<number> = null;
+  public idleTalker: Optional<number> = null;
 
-  public sound_manager_started: boolean = true;
-  public sound_manager: StoryManager;
+  public soundManagerStarted: boolean = true;
+  public soundManager: StoryManager;
 
-  public active_state: string = "idle";
-  public active_state_time: number = 0;
+  public activeState: string = "idle";
+  public activeStateTime: number = 0;
   public timeout: number = 0;
   public states: LuaTable<
     string,
@@ -138,11 +138,11 @@ export class CampStoryManager {
     const guitars = readIniString(ini, "camp", "guitar_themes", false, "", "test_guitar");
     const harmonicas = readIniString(ini, "camp", "harmonica_themes", false, "", "test_harmonica");
 
-    this.story_table = parseStringsList(stories);
-    this.guitar_table = parseStringsList(guitars);
-    this.harmonica_table = parseStringsList(harmonicas);
+    this.storyTable = parseStringsList(stories);
+    this.guitarTable = parseStringsList(guitars);
+    this.harmonicaTable = parseStringsList(harmonicas);
 
-    this.sound_manager = StoryManager.getStoryManagerForId("camp" + this.object.id());
+    this.soundManager = StoryManager.getStoryManagerForId("camp" + this.object.id());
 
     this.states = {
       idle: {
@@ -152,7 +152,7 @@ export class CampStoryManager {
         max_time: 40000,
         timeout: 0,
         transitions: { harmonica: 30, guitar: 30, story: 40 },
-        precondition: sr_camp_idle_precondition,
+        precondition: srCampIdlePrecondition,
       },
       harmonica: {
         director_state: "play_harmonica",
@@ -161,7 +161,7 @@ export class CampStoryManager {
         max_time: 11000,
         timeout: 3000,
         transitions: { idle: 100, harmonica: 0, guitar: 0, story: 0 },
-        precondition: sr_camp_harmonica_precondition,
+        precondition: srCampHarmonicaPrecondition,
       },
       guitar: {
         director_state: "play_guitar",
@@ -170,7 +170,7 @@ export class CampStoryManager {
         max_time: 11000,
         timeout: 4500,
         transitions: { idle: 100, harmonica: 0, guitar: 0, story: 0 },
-        precondition: sr_camp_guitar_precondition,
+        precondition: srCampGuitarPrecondition,
       },
       story: {
         director_state: "tell",
@@ -179,7 +179,7 @@ export class CampStoryManager {
         max_time: 11000,
         timeout: 0,
         transitions: { idle: 100, harmonica: 0, guitar: 0, story: 0 },
-        precondition: sr_camp_story_precondition,
+        precondition: srCampStoryPrecondition,
       },
     } as any;
   }
@@ -188,34 +188,34 @@ export class CampStoryManager {
    * todo: Description.
    */
   public update(): void {
-    if (!this.sound_manager.isFinished()) {
-      this.sound_manager.update();
+    if (!this.soundManager.isFinished()) {
+      this.soundManager.update();
 
       return;
     }
 
-    if (!this.sound_manager_started) {
+    if (!this.soundManagerStarted) {
       return;
     }
 
-    if (this.idle_talker !== null) {
-      if (registry.sounds.generic.get(this.idle_talker) !== null) {
+    if (this.idleTalker !== null) {
+      if (registry.sounds.generic.get(this.idleTalker) !== null) {
         return;
       } else {
-        this.idle_talker = null;
+        this.idleTalker = null;
       }
     }
 
-    if (this.active_state_time < time_global()) {
-      this.set_next_state();
-      if (this.get_director() === false) {
-        this.active_state = "idle";
+    if (this.activeStateTime < time_global()) {
+      this.setNextState();
+      if (this.getDirector() === false) {
+        this.activeState = "idle";
         for (const [k, v] of this.npc) {
-          v.state = this.active_state;
+          v.state = this.activeState;
         }
       }
 
-      this.sound_manager_started = false;
+      this.soundManagerStarted = false;
 
       for (const [id, descriptor] of this.npc) {
         if (registry.objects.get(id) !== null) {
@@ -237,22 +237,22 @@ export class CampStoryManager {
     }
 
     if (this.timeout !== 0 && this.timeout <= time_global()) {
-      this.set_story();
+      this.setStory();
       this.timeout = 0;
     }
 
-    if (this.active_state === "idle") {
-      let npc_count: number = 0;
+    if (this.activeState === "idle") {
+      let npcCount: TCount = 0;
       const talkers: LuaTable<number, number> = new LuaTable();
 
       for (const [k, v] of this.npc) {
-        npc_count = npc_count + 1;
+        npcCount = npcCount + 1;
         table.insert(talkers, k);
       }
 
-      if (npc_count !== 0) {
-        this.idle_talker = talkers.get(math.random(talkers.length()));
-        GlobalSoundManager.getInstance().playSound(this.idle_talker, "state", null, null);
+      if (npcCount !== 0) {
+        this.idleTalker = talkers.get(math.random(talkers.length()));
+        GlobalSoundManager.getInstance().playSound(this.idleTalker, "state", null, null);
       }
     }
   }
@@ -260,14 +260,14 @@ export class CampStoryManager {
   /**
    * todo: Description.
    */
-  public set_next_state(): void {
-    const transitions = this.states.get(this.active_state).transitions;
+  public setNextState(): void {
+    const transitions = this.states.get(this.activeState).transitions;
     let rnd: number = math.random(100);
 
     for (const [k, v] of transitions) {
       if (rnd < v) {
         if (this.states.get(k).precondition(this)) {
-          this.active_state = k;
+          this.activeState = k;
           break;
         }
       } else {
@@ -276,20 +276,20 @@ export class CampStoryManager {
     }
 
     for (const [k, v] of this.npc) {
-      v.state = this.active_state;
+      v.state = this.activeState;
     }
 
-    this.active_state_time =
+    this.activeStateTime =
       time_global() +
-      math.random(this.states.get(this.active_state).min_time, this.states.get(this.active_state).max_time);
-    this.timeout = time_global() + this.states.get(this.active_state).timeout;
+      math.random(this.states.get(this.activeState).min_time, this.states.get(this.activeState).max_time);
+    this.timeout = time_global() + this.states.get(this.activeState).timeout;
   }
 
   /**
    * todo: Description.
    */
-  public get_director(): Optional<boolean> {
-    if (this.active_state === "idle") {
+  public getDirector(): Optional<boolean> {
+    if (this.activeState === "idle") {
       this.director = null;
 
       return null;
@@ -309,7 +309,7 @@ export class CampStoryManager {
         const object: Optional<ClientObject> = state.object;
 
         if (
-          info[this.active_state] === EObjectRole.director &&
+          info[this.activeState] === EObjectRole.director &&
           schemeState !== null &&
           schemeState.actionNameBase === schemeState.description &&
           !isObjectMeeting(object)
@@ -335,43 +335,43 @@ export class CampStoryManager {
   /**
    * todo: Description.
    */
-  public set_story(): void {
-    if (this.active_state === "story") {
-      this.sound_manager.setStoryTeller(this.director);
-      this.sound_manager.setStory(this.story_table.get(math.random(this.story_table.length())));
-      this.sound_manager_started = true;
-    } else if (this.active_state === "idle") {
-      this.sound_manager_started = true;
+  public setStory(): void {
+    if (this.activeState === "story") {
+      this.soundManager.setStoryTeller(this.director);
+      this.soundManager.setStory(this.storyTable.get(math.random(this.storyTable.length())));
+      this.soundManagerStarted = true;
+    } else if (this.activeState === "idle") {
+      this.soundManagerStarted = true;
     }
   }
 
   /**
    * todo: Description.
    */
-  public get_camp_action(npc_id: number): LuaMultiReturn<[Optional<string>, Optional<boolean>]> {
-    if (npc_id === null) {
+  public getCampAction(objectId: TNumberId): LuaMultiReturn<[Optional<string>, Optional<boolean>]> {
+    if (objectId === null) {
       abort("Trying to use destroyed object!");
     }
 
-    if (this.npc.get(npc_id) === null) {
+    if (this.npc.get(objectId) === null) {
       return $multi(null, null);
     }
 
-    return $multi(this.npc.get(npc_id)!.state, this.director === npc_id);
+    return $multi(this.npc.get(objectId)!.state, this.director === objectId);
   }
 
   /**
    * todo: Description.
    */
-  public register_npc(objectId: TNumberId): void {
-    this.npc.set(objectId, { state: this.active_state });
+  public registerNpc(objectId: TNumberId): void {
+    this.npc.set(objectId, { state: this.activeState });
 
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
     state.registred_camp = this.object.id();
 
     for (const [k, v] of this.states) {
-      const role = this.get_npc_role(objectId, k);
+      const role = this.getNpcRole(objectId, k);
 
       if (role === EObjectRole.noone) {
         abort("Wrong role for npc[%s] with id[%d] in camp [%s]!!!", "", objectId, this.object.name());
@@ -380,7 +380,7 @@ export class CampStoryManager {
       this.npc.get(objectId)[k] = role;
     }
 
-    this.sound_manager.registerObject(objectId);
+    this.soundManager.registerObject(objectId);
 
     emitSchemeEvent(state.object!, state[state.active_scheme!]!, ESchemeEvent.UPDATE);
   }
@@ -388,27 +388,27 @@ export class CampStoryManager {
   /**
    * todo: Description.
    */
-  public unregister_npc(objectId: TNumberId): void {
+  public unregisterNpc(objectId: TNumberId): void {
     if (this.director === objectId) {
-      this.sound_manager_started = false;
-      this.active_state_time = 0;
+      this.soundManagerStarted = false;
+      this.activeStateTime = 0;
       this.director = null;
 
-      this.active_state = "idle";
+      this.activeState = "idle";
       for (const [k, v] of this.npc) {
-        v.state = this.active_state;
+        v.state = this.activeState;
       }
     }
 
     registry.objects.get(objectId).registred_camp = null;
     this.npc.delete(objectId);
-    this.sound_manager.unregisterObject(objectId);
+    this.soundManager.unregisterObject(objectId);
   }
 
   /**
    * todo: Description.
    */
-  public get_npc_role(objectId: TNumberId, state: TName): number {
+  public getNpcRole(objectId: TNumberId, state: TName): number {
     const schemeState: Optional<ISchemeAnimpointState> = registry.objects.get(objectId)[
       registry.objects.get(objectId).active_scheme!
     ] as ISchemeAnimpointState;
@@ -449,15 +449,15 @@ export class CampStoryManager {
 /**
  * todo;
  */
-function sr_camp_idle_precondition(camp: CampStoryManager): boolean {
+function srCampIdlePrecondition(camp: CampStoryManager): boolean {
   return true;
 }
 
 /**
  * todo;
  */
-function sr_camp_guitar_precondition(campStoryManager: CampStoryManager): boolean {
-  if (campStoryManager.guitar_table.length() > 0) {
+function srCampGuitarPrecondition(campStoryManager: CampStoryManager): boolean {
+  if (campStoryManager.guitarTable.length() > 0) {
     let count: TCount = 0;
 
     for (const [k, v] of campStoryManager.npc) {
@@ -491,8 +491,8 @@ function sr_camp_guitar_precondition(campStoryManager: CampStoryManager): boolea
 /**
  * todo;
  */
-function sr_camp_story_precondition(campStoryManager: CampStoryManager): boolean {
-  if (campStoryManager.story_table.length() > 0) {
+function srCampStoryPrecondition(campStoryManager: CampStoryManager): boolean {
+  if (campStoryManager.storyTable.length() > 0) {
     let count: TCount = 0;
 
     for (const [k, v] of campStoryManager.npc) {
@@ -515,8 +515,8 @@ function sr_camp_story_precondition(campStoryManager: CampStoryManager): boolean
 /**
  * todo;
  */
-function sr_camp_harmonica_precondition(campStoryManager: CampStoryManager): boolean {
-  if (campStoryManager.harmonica_table.length() > 0) {
+function srCampHarmonicaPrecondition(campStoryManager: CampStoryManager): boolean {
+  if (campStoryManager.harmonicaTable.length() > 0) {
     let count: TCount = 0;
 
     // todo: Len util.

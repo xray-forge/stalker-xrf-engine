@@ -221,7 +221,7 @@ export const animations: LuaTable<EStalkerState, IAnimationDescriptor> = $fromOb
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             const { CampStoryManager } = require("@/engine/core/schemes/camper/CampStoryManager");
 
-            CampStoryManager.start_guitar(object);
+            CampStoryManager.startPlayingGuitar(object);
           },
         },
         "sit_1_guitar_0_1",

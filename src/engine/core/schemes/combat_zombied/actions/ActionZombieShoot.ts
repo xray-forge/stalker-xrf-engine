@@ -8,7 +8,16 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { chance } from "@/engine/core/utils/number";
 import { copyVector, createEmptyVector } from "@/engine/core/utils/vector";
 import { scriptSounds } from "@/engine/lib/constants/sound/script_sounds";
-import { ClientObject, EClientObjectPath, Optional, TNumberId, TRate, TTimestamp, Vector } from "@/engine/lib/types";
+import {
+  ClientObject,
+  EClientObjectPath,
+  Optional,
+  TIndex,
+  TNumberId,
+  TRate,
+  TTimestamp,
+  Vector,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -37,9 +46,6 @@ export class ActionZombieShoot extends action_base {
   public isValidPath: boolean = false;
   public previousState: Optional<EStalkerState> = null;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeCombatState) {
     super(null, ActionZombieShoot.__name);
     this.state = state;
@@ -179,13 +185,7 @@ export class ActionZombieShoot extends action_base {
   /**
    * todo: Description.
    */
-  public hit_callback(
-    object: ClientObject,
-    amount: TRate,
-    direction: Vector,
-    who: ClientObject,
-    bone_id: number
-  ): void {
+  public hit_callback(object: ClientObject, amount: TRate, direction: Vector, who: ClientObject, boneId: TIndex): void {
     if (who === null) {
       return;
     }

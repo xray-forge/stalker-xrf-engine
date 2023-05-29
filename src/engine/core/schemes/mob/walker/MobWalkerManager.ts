@@ -29,31 +29,31 @@ import {
   Vector,
 } from "@/engine/lib/types";
 
-const default_wait_time: TDuration = 5000;
-const default_anim_standing: TAnimationType = anim.stand_idle;
+const DEFAULT_WAIT_TIME: TDuration = 5000;
+const DEFAULT_ANIM_STANDING: TAnimationType = anim.stand_idle;
 
-const state_moving: number = 0;
-const state_standing: number = 1;
+const STATE_MOVING: number = 0;
+const STATE_STANDING: number = 1;
 
 /**
  * todo;
  */
 export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerState> {
-  public last_index: Optional<TIndex> = null;
-  public patrol_look: Optional<Patrol> = null;
-  public patrol_walk: Optional<Patrol> = null;
-  public last_look_index: Optional<TIndex> = null;
-  public cur_anim_set: Optional<TAnimationType> = null;
-  public scheduled_snd: Optional<TSoundKey> = null;
-  public pt_wait_time: Optional<number> = null;
+  public lastIndex: Optional<TIndex> = null;
+  public patrolLook: Optional<Patrol> = null;
+  public patrolWalk: Optional<Patrol> = null;
+  public lastLookIndex: Optional<TIndex> = null;
+  public curAnimSet: Optional<TAnimationType> = null;
+  public scheduledSound: Optional<TSoundKey> = null;
+  public ptWaitTime: Optional<number> = null;
 
-  public path_walk_info!: Optional<LuaArray<IWaypointData>>;
+  public pathWalkInfo!: Optional<LuaArray<IWaypointData>>;
 
   public crouch: Optional<boolean> = null;
   public running: Optional<boolean> = null;
-  public mob_state: Optional<number> = null;
+  public mobState: Optional<number> = null;
 
-  public path_look_info: Optional<LuaTable<number, IWaypointData>> = null;
+  public pathLookInfo: Optional<LuaTable<number, IWaypointData>> = null;
 
   /**
    * todo: Description.
@@ -64,39 +64,39 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     this.state.signals = new LuaTable();
     scriptCaptureObject(this.object, true);
 
-    this.patrol_walk = new patrol(this.state.path_walk);
+    this.patrolWalk = new patrol(this.state.path_walk);
 
-    if (!this.patrol_walk) {
+    if (!this.patrolWalk) {
       abort("object '%s': unable to find path_walk '%s' on the map", this.object.name(), this.state.path_walk);
     }
 
     if (this.state.path_look) {
-      this.patrol_look = new patrol(this.state.path_look);
-      if (!this.patrol_look) {
+      this.patrolLook = new patrol(this.state.path_look);
+      if (!this.patrolLook) {
         abort("object '%s': unable to find path_look '%s' on the map", this.object.name(), this.state.path_look);
       }
     } else {
-      this.patrol_look = null;
+      this.patrolLook = null;
     }
 
     if (this.state.path_walk_info === null) {
       this.state.path_walk_info = parsePathWaypoints(this.state.path_walk);
-      this.path_walk_info = this.state.path_walk_info;
+      this.pathWalkInfo = this.state.path_walk_info;
     }
 
     if (this.state.path_look_info === null) {
       this.state.path_look_info = parsePathWaypoints(this.state.path_look);
-      this.path_look_info = this.state.path_look_info;
+      this.pathLookInfo = this.state.path_look_info;
     }
 
-    this.mob_state = state_moving;
+    this.mobState = STATE_MOVING;
     this.crouch = false;
     this.running = false;
-    this.cur_anim_set = default_anim_standing;
-    this.pt_wait_time = default_wait_time;
-    this.scheduled_snd = null;
-    this.last_index = null;
-    this.last_look_index = null;
+    this.curAnimSet = DEFAULT_ANIM_STANDING;
+    this.ptWaitTime = DEFAULT_WAIT_TIME;
+    this.scheduledSound = null;
+    this.lastIndex = null;
+    this.lastLookIndex = null;
 
     action(
       this.object,
@@ -115,17 +115,17 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       return;
     }
 
-    if (this.mob_state === state_standing) {
+    if (this.mobState === STATE_STANDING) {
       if (!this.object.action()) {
-        const patrol_walk_count = this.patrol_walk!.count();
+        const patrolWalkCount = this.patrolWalk!.count();
 
-        if (patrol_walk_count === 1 && isStalkerAtWaypoint(this.object, this.patrol_walk!, 0)) {
-          this.mob_state = state_moving;
-          this.waypoint_callback(this.object, null, this.last_index);
+        if (patrolWalkCount === 1 && isStalkerAtWaypoint(this.object, this.patrolWalk!, 0)) {
+          this.mobState = STATE_MOVING;
+          this.waypoint_callback(this.object, null, this.lastIndex);
         } else {
-          this.last_look_index = null;
-          this.mob_state = state_moving;
-          this.update_movement_state();
+          this.lastLookIndex = null;
+          this.mobState = STATE_MOVING;
+          this.updateMovementState();
         }
       }
     }
@@ -134,8 +134,8 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   /**
    * todo: Description.
    */
-  public arrived_to_first_waypoint(): boolean {
-    return this.last_index !== null;
+  public arrivedToFirstWaypoint(): boolean {
+    return this.lastIndex !== null;
   }
 
   /**
@@ -146,23 +146,23 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       return;
     }
 
-    this.last_index = index;
+    this.lastIndex = index;
 
-    const suggestedSound = this.path_walk_info!.get(index)["s"] as Optional<TSoundKey>;
+    const suggestedSound = this.pathWalkInfo!.get(index)["s"] as Optional<TSoundKey>;
 
     if (suggestedSound) {
-      this.scheduled_snd = suggestedSound;
+      this.scheduledSound = suggestedSound;
     }
 
-    const suggested_crouch = this.path_walk_info!.get(index)["c"];
+    const suggestedCrouch = this.pathWalkInfo!.get(index)["c"];
 
-    this.crouch = suggested_crouch === TRUE;
+    this.crouch = suggestedCrouch === TRUE;
 
-    const suggested_running = this.path_walk_info!.get(index)["r"];
+    const suggestedRunning = this.pathWalkInfo!.get(index)["r"];
 
-    this.running = suggested_running === TRUE;
+    this.running = suggestedRunning === TRUE;
 
-    const signal: Optional<TName> = this.path_walk_info!.get(index)["sig"] as TName;
+    const signal: Optional<TName> = this.pathWalkInfo!.get(index)["sig"] as TName;
 
     if (signal !== null) {
       // -- HACK, fixme:
@@ -173,57 +173,56 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       signals.set(signal, true);
     }
 
-    const beh: Optional<EMonsterState> = this.path_walk_info!.get(index)["b"] as Optional<EMonsterState>;
+    const beh: Optional<EMonsterState> = this.pathWalkInfo!.get(index)["b"] as Optional<EMonsterState>;
 
     setMonsterState(this.object, beh ? beh : this.state.state);
 
-    const searchForFlags = this.path_walk_info!.get(index)["flags"] as Flags32;
+    const searchForFlags = this.pathWalkInfo!.get(index)["flags"] as Flags32;
 
     if (searchForFlags.get() === 0) {
-      this.update_movement_state();
+      this.updateMovementState();
 
       return;
     }
 
-    const [pt_chosen_idx] = StalkerMoveManager.chooseLookPoint(this.patrol_look!, this.path_look_info!, searchForFlags);
+    const [ptChosenIdx] = StalkerMoveManager.chooseLookPoint(this.patrolLook!, this.pathLookInfo!, searchForFlags);
 
-    if (pt_chosen_idx) {
-      const suggested_wait_time = this.path_look_info!.get(pt_chosen_idx)["t"];
+    if (ptChosenIdx) {
+      const suggestedWaitTime = this.pathLookInfo!.get(ptChosenIdx)["t"];
 
-      if (suggested_wait_time) {
-        this.pt_wait_time = tonumber(suggested_wait_time)!;
+      if (suggestedWaitTime) {
+        this.ptWaitTime = tonumber(suggestedWaitTime)!;
       } else {
-        const patrol_walk_count = this.patrol_walk!.count();
+        const patrolWalkCount = this.patrolWalk!.count();
 
-        if (patrol_walk_count === 1 && isStalkerAtWaypoint(this.object, this.patrol_walk!, 0)) {
-          this.pt_wait_time = 100_000_000;
+        if (patrolWalkCount === 1 && isStalkerAtWaypoint(this.object, this.patrolWalk!, 0)) {
+          this.ptWaitTime = 100_000_000;
         } else {
-          this.pt_wait_time = default_wait_time;
+          this.ptWaitTime = DEFAULT_WAIT_TIME;
         }
       }
 
-      let suggested_anim_set = this.path_look_info!.get(pt_chosen_idx)["a"];
+      let suggestedAnimSet = this.pathLookInfo!.get(ptChosenIdx)["a"];
 
-      if (suggested_anim_set) {
-        if (suggested_anim_set === NIL) {
-          suggested_anim_set = null;
+      if (suggestedAnimSet) {
+        if (suggestedAnimSet === NIL) {
+          suggestedAnimSet = null;
         }
 
-        this.cur_anim_set =
-          anim[pickSectionFromCondList(registry.actor, this.object, suggested_anim_set) as TAnimationKey];
+        this.curAnimSet = anim[pickSectionFromCondList(registry.actor, this.object, suggestedAnimSet) as TAnimationKey];
       } else {
-        this.cur_anim_set = default_anim_standing;
+        this.curAnimSet = DEFAULT_ANIM_STANDING;
       }
 
-      const beh = this.path_walk_info!.get(index)["b"];
+      const beh = this.pathWalkInfo!.get(index)["b"];
 
       setMonsterState(this.object, (beh ? beh : this.state.state) as EMonsterState);
 
-      if (pt_chosen_idx !== this.last_look_index) {
-        this.look_at_waypoint(pt_chosen_idx);
+      if (ptChosenIdx !== this.lastLookIndex) {
+        this.lookAtWaypoint(ptChosenIdx);
       }
 
-      this.mob_state = state_standing;
+      this.mobState = STATE_STANDING;
       this.updateStandingState();
 
       this.update();
@@ -235,7 +234,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   /**
    * todo: Description.
    */
-  public update_movement_state(): void {
+  public updateMovementState(): void {
     scriptCaptureObject(this.object, true);
 
     let m;
@@ -248,14 +247,14 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       m = move.walk_fwd;
     }
 
-    if (this.scheduled_snd) {
+    if (this.scheduledSound) {
       action(
         this.object,
         new move(m, new patrol(this.state.path_walk, patrol.next, patrol.continue)),
-        new sound(sound[this.scheduled_snd]),
+        new sound(sound[this.scheduledSound]),
         new cond(cond.move_end)
       );
-      this.scheduled_snd = null;
+      this.scheduledSound = null;
     } else {
       action(
         this.object,
@@ -271,16 +270,16 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   public updateStandingState(): void {
     scriptCaptureObject(this.object, true);
 
-    if (this.scheduled_snd) {
+    if (this.scheduledSound) {
       action(
         this.object,
-        new anim(this.cur_anim_set!, 0),
-        new sound(sound[this.scheduled_snd]),
-        new cond(cond.time_end, this.pt_wait_time!)
+        new anim(this.curAnimSet!, 0),
+        new sound(sound[this.scheduledSound]),
+        new cond(cond.time_end, this.ptWaitTime!)
       );
-      this.scheduled_snd = null;
+      this.scheduledSound = null;
     } else {
-      action(this.object, new anim(this.cur_anim_set!, 0), new cond(cond.time_end, this.pt_wait_time!));
+      action(this.object, new anim(this.curAnimSet!, 0), new cond(cond.time_end, this.ptWaitTime!));
     }
   }
 
@@ -289,18 +288,18 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
    */
   public override deactivate(): void {
     scriptCaptureObject(this.object, true);
-    action(this.object, new move(move.steal, this.patrol_walk!.point(0)), new cond(cond.move_end));
+    action(this.object, new move(move.steal, this.patrolWalk!.point(0)), new cond(cond.move_end));
   }
 
   /**
    * todo: Description.
    */
-  public look_at_waypoint(pt: number): void {
-    if (!this.patrol_look) {
+  public lookAtWaypoint(pt: number): void {
+    if (!this.patrolLook) {
       return;
     }
 
-    const lookPoint: Vector = copyVector(this.patrol_look.point(pt)).sub(this.object.position());
+    const lookPoint: Vector = copyVector(this.patrolLook.point(pt)).sub(this.object.position());
 
     lookPoint.normalize();
     // --this.object:set_sight(look.direction, look_pt, 0)
@@ -308,6 +307,6 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     scriptCaptureObject(this.object, true);
     action(this.object, new look(look.direction, lookPoint), new cond(cond.look_end));
 
-    this.last_look_index = pt;
+    this.lastLookIndex = pt;
   }
 }

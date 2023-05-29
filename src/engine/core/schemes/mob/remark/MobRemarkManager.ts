@@ -15,8 +15,8 @@ import { AnyCallablesModule, LuaArray, MonsterBodyStateKey, Optional, TName } fr
  * todo;
  */
 export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkState> {
-  public tip_sent: Optional<boolean> = null;
-  public action_end_signalled: Optional<boolean> = null;
+  public isTipSent: Optional<boolean> = null;
+  public isActionEndSignalled: Optional<boolean> = null;
 
   /**
    * todo: Description.
@@ -106,10 +106,10 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
       }
     }
 
-    this.tip_sent = false;
+    this.isTipSent = false;
 
     this.state.signals = new LuaTable();
-    this.action_end_signalled = false;
+    this.isActionEndSignalled = false;
   }
 
   /**
@@ -129,16 +129,16 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
       }
     }
 
-    if (!this.tip_sent) {
-      this.tip_sent = true;
+    if (!this.isTipSent) {
+      this.isTipSent = true;
       if (this.state.tip) {
         NotificationManager.getInstance().sendTipNotification(this.state.tip);
       }
     }
 
     if (this.object.get_script() && !this.object.action()) {
-      if (!this.action_end_signalled) {
-        this.action_end_signalled = true;
+      if (!this.isActionEndSignalled) {
+        this.isActionEndSignalled = true;
         this.state.signals!.set("action_end", true);
       }
     }

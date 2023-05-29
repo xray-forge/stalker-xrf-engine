@@ -40,10 +40,10 @@ export class EvaluatorCorpseDetect extends property_evaluator {
 
     const corpses: LuaTable<number, IReleaseDescriptor> = ReleaseBodyManager.getInstance().releaseObjectRegistry;
 
-    let nearest_corpse_dist_sqr: TDistance = 400;
-    let nearest_corpse_vertex: Optional<TNumberId> = null;
-    let nearest_corpse_position: Optional<Vector> = null;
-    let corpse_id: Optional<TNumberId> = null;
+    let nearestCorpseDistSqr: TDistance = 400;
+    let nearestCorpseVertex: Optional<TNumberId> = null;
+    let nearestCorpsePosition: Optional<Vector> = null;
+    let corpseId: Optional<TNumberId> = null;
 
     let hasValuableLoot: boolean = false;
     const checkLoot = (npc: ClientObject, item: ClientObject) => {
@@ -62,35 +62,35 @@ export class EvaluatorCorpseDetect extends property_evaluator {
         this.object.see(corpseObject) &&
         (registryState.corpse_already_selected === null || registryState.corpse_already_selected === this.object.id())
       ) {
-        if (this.object.position().distance_to_sqr(corpseObject.position()) < nearest_corpse_dist_sqr) {
+        if (this.object.position().distance_to_sqr(corpseObject.position()) < nearestCorpseDistSqr) {
           hasValuableLoot = false;
           corpseObject.iterate_inventory(checkLoot, corpseObject);
 
           if (hasValuableLoot) {
-            const corpse_vertex: number = level.vertex_id(corpseObject.position());
+            const corpseVertex: number = level.vertex_id(corpseObject.position());
 
-            if (this.object.accessible(corpse_vertex)) {
-              nearest_corpse_dist_sqr = this.object.position().distance_to_sqr(corpseObject.position());
-              nearest_corpse_vertex = corpse_vertex;
-              nearest_corpse_position = corpseObject.position();
-              corpse_id = id;
+            if (this.object.accessible(corpseVertex)) {
+              nearestCorpseDistSqr = this.object.position().distance_to_sqr(corpseObject.position());
+              nearestCorpseVertex = corpseVertex;
+              nearestCorpsePosition = corpseObject.position();
+              corpseId = id;
             }
           }
         }
       }
     }
 
-    if (nearest_corpse_vertex !== null) {
-      this.state.vertex_id = nearest_corpse_vertex;
-      this.state.vertex_position = nearest_corpse_position;
+    if (nearestCorpseVertex !== null) {
+      this.state.vertex_id = nearestCorpseVertex;
+      this.state.vertex_position = nearestCorpsePosition;
 
-      if (this.state.selected_corpse_id !== null && this.state.selected_corpse_id !== corpse_id) {
+      if (this.state.selected_corpse_id !== null && this.state.selected_corpse_id !== corpseId) {
         if (registry.objects.get(this.state.selected_corpse_id) !== null) {
           registry.objects.get(this.state.selected_corpse_id).corpse_already_selected = null;
         }
       }
 
-      this.state.selected_corpse_id = corpse_id;
+      this.state.selected_corpse_id = corpseId;
       registry.objects.get(this.state.selected_corpse_id!).corpse_already_selected = this.object.id();
 
       return true;

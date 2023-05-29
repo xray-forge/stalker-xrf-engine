@@ -17,7 +17,7 @@ export class HitManager extends AbstractSchemeManager<ISchemeHitState> {
   public hit_callback(
     object: ClientObject,
     amount: TCount,
-    local_direction: Vector,
+    localDirection: Vector,
     who: Optional<ClientObject>,
     boneIndex: TIndex
   ): void {

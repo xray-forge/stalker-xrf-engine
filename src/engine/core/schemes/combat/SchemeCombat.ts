@@ -98,17 +98,17 @@ export class SchemeCombat extends AbstractScheme {
 
     state.enemy = object.best_enemy();
 
-    let script_combat_type = null;
+    let scriptCombatType = null;
 
     if (target.combat_type !== null) {
-      script_combat_type = pickSectionFromCondList(actor, object, target.combat_type.condlist);
+      scriptCombatType = pickSectionFromCondList(actor, object, target.combat_type.condlist);
 
-      if (script_combat_type === NIL) {
-        script_combat_type = null;
+      if (scriptCombatType === NIL) {
+        scriptCombatType = null;
       }
     }
 
-    state.script_combat_type = script_combat_type;
-    target.script_combat_type = script_combat_type;
+    state.script_combat_type = scriptCombatType;
+    target.script_combat_type = scriptCombatType;
   }
 }

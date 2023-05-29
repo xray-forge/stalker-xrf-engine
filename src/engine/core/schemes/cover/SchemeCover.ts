@@ -61,19 +61,19 @@ export class SchemeCover extends AbstractScheme {
 
     actionPlanner.add_evaluator(EEvaluatorId.NEED_COVER, new EvaluatorNeedCover(state));
 
-    const new_action: ActionBaseCover = new ActionBaseCover(state);
+    const newAction: ActionBaseCover = new ActionBaseCover(state);
 
-    new_action.add_precondition(new world_property(stalker_ids.property_alive, true));
-    new_action.add_precondition(new world_property(stalker_ids.property_danger, false));
-    new_action.add_precondition(new world_property(stalker_ids.property_enemy, false));
-    new_action.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    new_action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
-    new_action.add_precondition(new world_property(EEvaluatorId.NEED_COVER, true));
-    new_action.add_effect(new world_property(EEvaluatorId.NEED_COVER, false));
-    new_action.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
-    actionPlanner.add_action(EActionId.COVER_ACTIVITY, new_action);
+    newAction.add_precondition(new world_property(stalker_ids.property_alive, true));
+    newAction.add_precondition(new world_property(stalker_ids.property_danger, false));
+    newAction.add_precondition(new world_property(stalker_ids.property_enemy, false));
+    newAction.add_precondition(new world_property(stalker_ids.property_anomaly, false));
+    newAction.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
+    newAction.add_precondition(new world_property(EEvaluatorId.NEED_COVER, true));
+    newAction.add_effect(new world_property(EEvaluatorId.NEED_COVER, false));
+    newAction.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
+    actionPlanner.add_action(EActionId.COVER_ACTIVITY, newAction);
 
-    SchemeCover.subscribe(object, state, new_action);
+    SchemeCover.subscribe(object, state, newAction);
 
     actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.NEED_COVER, false));
   }

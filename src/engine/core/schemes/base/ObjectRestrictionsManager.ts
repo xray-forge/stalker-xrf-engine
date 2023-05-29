@@ -35,29 +35,26 @@ export class ObjectRestrictionsManager {
   }
 
   public object: ClientObject;
-  public base_out_restrictions: LuaTable<string, boolean>;
-  public base_in_restrictions: LuaTable<string, boolean>;
+  public baseOutRestrictions: LuaTable<string, boolean>;
+  public baseInRestrictions: LuaTable<string, boolean>;
 
-  public in_restrictions: LuaTable<number, string>;
-  public out_restrictions: LuaTable<number, string>;
+  public inRestrictions: LuaTable<number, string>;
+  public outRestrictions: LuaTable<number, string>;
 
-  /**
-   * todo: Description.
-   */
   public constructor(object: ClientObject) {
     this.object = object;
-    this.base_out_restrictions = new LuaTable();
-    this.base_in_restrictions = new LuaTable();
-    this.out_restrictions = parseStringsList(this.object.out_restrictions());
+    this.baseOutRestrictions = new LuaTable();
+    this.baseInRestrictions = new LuaTable();
+    this.outRestrictions = parseStringsList(this.object.out_restrictions());
 
-    for (const [k, v] of this.out_restrictions) {
-      this.base_out_restrictions.set(v, true);
+    for (const [k, v] of this.outRestrictions) {
+      this.baseOutRestrictions.set(v, true);
     }
 
-    this.in_restrictions = parseStringsList(this.object.in_restrictions());
+    this.inRestrictions = parseStringsList(this.object.in_restrictions());
 
-    for (const [k, v] of this.in_restrictions) {
-      this.base_in_restrictions.set(v, true);
+    for (const [k, v] of this.inRestrictions) {
+      this.baseInRestrictions.set(v, true);
     }
   }
 
@@ -67,95 +64,95 @@ export class ObjectRestrictionsManager {
   public reset(state: IRegistryObjectState, section: TSection): void {
     logger.info("Reset restrictions:", this.object.name(), section);
 
-    const actual_ini: IniFile = state.ini!;
-    const [out_restr_string] = getParamString(readIniString(actual_ini, section, "out_restr", false, "", ""));
+    const actualIni: IniFile = state.ini!;
+    const [outRestrString] = getParamString(readIniString(actualIni, section, "out_restr", false, "", ""));
 
-    const new_out_restr = parseStringsList(out_restr_string);
-    const old_out_restr = parseStringsList(this.object.out_restrictions());
-    let ins_restr: LuaTable<number, string> = new LuaTable();
-    let del_restr: LuaTable<number, string> = new LuaTable();
+    const newOutRestr = parseStringsList(outRestrString);
+    const oldOutRestr = parseStringsList(this.object.out_restrictions());
+    let insRestr: LuaTable<number, string> = new LuaTable();
+    let delRestr: LuaTable<number, string> = new LuaTable();
 
     // todo: Intersection with 2x2 loop.
-    for (const [k, v] of old_out_restr) {
-      let exist_rest = false;
+    for (const [k, v] of oldOutRestr) {
+      let existRest = false;
 
-      for (const [kk, vv] of new_out_restr) {
+      for (const [kk, vv] of newOutRestr) {
         if (v === vv) {
-          exist_rest = true;
+          existRest = true;
           break;
         }
       }
 
-      if (exist_rest === false && this.base_out_restrictions.get(v) !== true) {
-        table.insert(del_restr, v);
+      if (existRest === false && this.baseOutRestrictions.get(v) !== true) {
+        table.insert(delRestr, v);
       }
     }
 
-    for (const [k, v] of new_out_restr) {
-      let exist_rest = false;
+    for (const [k, v] of newOutRestr) {
+      let existRest = false;
 
-      for (const [kk, vv] of old_out_restr) {
+      for (const [kk, vv] of oldOutRestr) {
         if (v === vv) {
-          exist_rest = true;
+          existRest = true;
           break;
         }
       }
 
-      if (exist_rest === false && v !== NIL) {
-        table.insert(ins_restr, v);
+      if (existRest === false && v !== NIL) {
+        table.insert(insRestr, v);
       }
     }
 
-    for (const [k, v] of del_restr) {
+    for (const [k, v] of delRestr) {
       this.object.remove_restrictions(v, "");
     }
 
-    for (const [k, v] of ins_restr) {
+    for (const [k, v] of insRestr) {
       this.object.add_restrictions(v, "");
     }
 
-    const [in_restr_string] = getParamString(readIniString(actual_ini, section, "in_restr", false, "", ""));
-    const new_in_restr = parseStringsList(in_restr_string);
-    const old_in_restr = parseStringsList(this.object.in_restrictions());
+    const [inRestrString] = getParamString(readIniString(actualIni, section, "in_restr", false, "", ""));
+    const newInRestr = parseStringsList(inRestrString);
+    const oldInRestr = parseStringsList(this.object.in_restrictions());
 
-    ins_restr = new LuaTable();
-    del_restr = new LuaTable();
+    insRestr = new LuaTable();
+    delRestr = new LuaTable();
 
-    for (const [k, v] of old_in_restr) {
-      let exist_rest: boolean = false;
+    for (const [k, v] of oldInRestr) {
+      let existRest: boolean = false;
 
-      for (const [kk, vv] of new_in_restr) {
+      for (const [kk, vv] of newInRestr) {
         if (v === vv) {
-          exist_rest = true;
+          existRest = true;
           break;
         }
       }
 
-      if (exist_rest === false && this.base_in_restrictions.get(v) !== true) {
-        table.insert(del_restr, v);
+      if (existRest === false && this.baseInRestrictions.get(v) !== true) {
+        table.insert(delRestr, v);
       }
     }
 
-    for (const [k, v] of new_in_restr) {
-      let exist_rest: boolean = false;
+    for (const [k, v] of newInRestr) {
+      let existRest: boolean = false;
 
-      for (const [kk, vv] of old_in_restr) {
+      for (const [kk, vv] of oldInRestr) {
         if (v === vv) {
-          exist_rest = true;
+          existRest = true;
           break;
         }
       }
 
-      if (exist_rest === false && v !== NIL) {
-        table.insert(ins_restr, v);
+      if (existRest === false && v !== NIL) {
+        table.insert(insRestr, v);
       }
     }
 
-    for (const [k, v] of del_restr) {
+    for (const [k, v] of delRestr) {
       this.object.remove_restrictions("", v);
     }
 
-    for (const [k, v] of ins_restr) {
+    for (const [k, v] of insRestr) {
       this.object.add_restrictions("", v);
     }
   }

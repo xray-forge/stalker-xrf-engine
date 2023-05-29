@@ -17,9 +17,9 @@ export class ActionBaseCover extends action_base {
   public readonly state: ISchemeCoverState;
   public board!: SimulationBoardManager;
 
-  public enemy_random_position: Optional<Vector> = null;
-  public cover_vertex_id!: TNumberId;
-  public cover_position!: Vector;
+  public enemyRandomPosition: Optional<Vector> = null;
+  public coverVertexId!: TNumberId;
+  public coverPosition!: Vector;
 
   public constructor(state: ISchemeCoverState) {
     super(null, ActionBaseCover.__name);
@@ -41,50 +41,50 @@ export class ActionBaseCover extends action_base {
     this.state.signals = new LuaTable();
     this.board = SimulationBoardManager.getInstance();
 
-    const base_point = this.board.getSmartTerrainByName(this.state.smart)!.m_level_vertex_id;
+    const basePoint = this.board.getSmartTerrainByName(this.state.smart)!.m_level_vertex_id;
 
-    const direction_vector: Vector = createVector(math.random(-100, 100), 0, math.random(-100, 100));
-    const base_vertex_id: TNumberId = level.vertex_in_direction(
-      base_point,
-      direction_vector,
+    const directionVector: Vector = createVector(math.random(-100, 100), 0, math.random(-100, 100));
+    const baseVertexId: TNumberId = level.vertex_in_direction(
+      basePoint,
+      directionVector,
       math.random(this.state.radius_min, this.state.radius_max)
     );
-    const this_random_position = level.vertex_position(base_vertex_id);
+    const thisRandomPosition = level.vertex_position(baseVertexId);
 
-    this.enemy_random_position = this_random_position;
+    this.enemyRandomPosition = thisRandomPosition;
 
     let cover: Optional<CoverPoint> = null;
-    let cover_dist: TDistance = 2;
+    let coverDistance: TDistance = 2;
 
-    while (cover === null && cover_dist <= 4) {
-      cover = this.object.best_cover(this_random_position, this.enemy_random_position, cover_dist, 1, 150);
-      cover_dist = cover_dist + 1;
+    while (cover === null && coverDistance <= 4) {
+      cover = this.object.best_cover(thisRandomPosition, this.enemyRandomPosition, coverDistance, 1, 150);
+      coverDistance = coverDistance + 1;
     }
 
     if (cover === null) {
-      this.cover_vertex_id = base_vertex_id;
-      this.cover_position = this_random_position;
+      this.coverVertexId = baseVertexId;
+      this.coverPosition = thisRandomPosition;
     } else {
-      this.cover_vertex_id = cover.level_vertex_id();
-      this.cover_position = cover.position();
+      this.coverVertexId = cover.level_vertex_id();
+      this.coverPosition = cover.position();
     }
 
-    if (!this.object.accessible(this.cover_position)) {
+    if (!this.object.accessible(this.coverPosition)) {
       const ttp: Vector = createEmptyVector();
 
-      this.cover_vertex_id = this.object.accessible_nearest(this.cover_position, ttp);
-      this.cover_position = level.vertex_position(this.cover_vertex_id);
+      this.coverVertexId = this.object.accessible_nearest(this.coverPosition, ttp);
+      this.coverPosition = level.vertex_position(this.coverVertexId);
     }
 
-    const desired_direction: Vector = subVectors(this.cover_position, this.enemy_random_position);
+    const desiredDirection: Vector = subVectors(this.coverPosition, this.enemyRandomPosition);
 
-    if (desired_direction !== null && !areSameVectors(desired_direction, createEmptyVector())) {
-      desired_direction.normalize();
-      this.object.set_desired_direction(desired_direction);
+    if (desiredDirection !== null && !areSameVectors(desiredDirection, createEmptyVector())) {
+      desiredDirection.normalize();
+      this.object.set_desired_direction(desiredDirection);
     }
 
     this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
-    this.object.set_dest_level_vertex_id(this.cover_vertex_id);
+    this.object.set_dest_level_vertex_id(this.coverVertexId);
 
     setStalkerState(this.object, EStalkerState.ASSAULT);
   }
@@ -93,7 +93,7 @@ export class ActionBaseCover extends action_base {
    * todo: Description.
    */
   public override execute(): void {
-    if (this.cover_position.distance_to_sqr(this.object.position()) <= 0.4) {
+    if (this.coverPosition.distance_to_sqr(this.object.position()) <= 0.4) {
       const anim: Optional<EStalkerState> = pickSectionFromCondList(registry.actor, this.object, this.state.anim);
 
       setStalkerState(
@@ -101,11 +101,11 @@ export class ActionBaseCover extends action_base {
         anim!,
         null,
         null,
-        { lookPosition: this.enemy_random_position, lookObject: null },
+        { lookPosition: this.enemyRandomPosition, lookObject: null },
         null
       );
     } else {
-      this.object.set_dest_level_vertex_id(this.cover_vertex_id);
+      this.object.set_dest_level_vertex_id(this.coverVertexId);
       setStalkerState(this.object, EStalkerState.ASSAULT);
     }
 
@@ -119,7 +119,7 @@ export class ActionBaseCover extends action_base {
   /**
    * todo: Description.
    */
-  public position_reached(): boolean {
-    return this.cover_position.distance_to_sqr(this.object.position()) <= 0.4;
+  public isPositionReached(): boolean {
+    return this.coverPosition.distance_to_sqr(this.object.position()) <= 0.4;
   }
 }

@@ -163,14 +163,14 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       return false;
     }
 
-    const distance_reached: boolean =
+    const isDistanceReached: boolean =
       object.position().distance_to_sqr(this.vertexPosition!) <= this.state.reach_distance;
     const v1: number = -math.deg(math.atan2(this.smartCoverDirection!.x, this.smartCoverDirection!.z));
     const v2: number = -math.deg(math.atan2(object.direction().x, object.direction().z));
-    const rot_y: TRate = math.min(math.abs(v1 - v2), 360 - math.abs(v1) - math.abs(v2));
-    const direction_reached: boolean = rot_y < 50;
+    const rotY: TRate = math.min(math.abs(v1 - v2), 360 - math.abs(v1) - math.abs(v2));
+    const isDirectionReached: boolean = rotY < 50;
 
-    return distance_reached && direction_reached;
+    return isDistanceReached && isDirectionReached;
   }
 
   /**
@@ -219,7 +219,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     this.fillApprovedActions();
 
     if (this.camp !== null) {
-      this.camp.register_npc(this.object.id());
+      this.camp.registerNpc(this.object.id());
     } else {
       this.currentAction = this.state.approvedActions!.get(math.random(this.state.approvedActions!.length())).name;
     }
@@ -233,7 +233,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
    */
   public stop(): void {
     if (this.camp !== null) {
-      this.camp.unregister_npc(this.object.id());
+      this.camp.unregisterNpc(this.object.id());
     }
 
     this.isStarted = false;

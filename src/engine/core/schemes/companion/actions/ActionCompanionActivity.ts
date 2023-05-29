@@ -5,30 +5,30 @@ import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/stat
 import { ISchemeCompanionState } from "@/engine/core/schemes/companion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";
-import { ClientObject, EClientObjectPath, Optional } from "@/engine/lib/types";
+import { ClientObject, EClientObjectPath, Optional, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const beh_walk_simple = 0;
-const beh_walk_near = 1;
-const beh_walk_ignore = 2;
-const beh_wait_simple = 3;
-const beh_wait_near = 4;
-const beh_wait_ignore = 5;
+const BEH_WALK_SIMPLE = 0;
+const BEH_WALK_NEAR = 1;
+const BEH_WALK_IGNORE = 2;
+const BEH_WAIT_SIMPLE = 3;
+const BEH_WAIT_NEAR = 4;
+const BEH_WAIT_IGNORE = 5;
 
-const mt_stand = 0;
-const mt_walk = 1;
-const mt_run = 2;
-const mt_sprint = 3;
+const MT_STAND = 0;
+const MT_WALK = 1;
+const MT_RUN = 2;
+const MT_SPRINT = 3;
 
-const desired_distance = 1;
-const min_distance = 1;
-const keep_state_min_time = 1000;
+const DESIRED_DISTANCE = 1;
+const MIN_DISTANCE = 1;
+const KEEP_STATE_MIN_TIME = 1000;
 
-const dist_walk = 4;
-const dist_run = 20;
+const DIST_WALK = 4;
+const DIST_RUN = 20;
 
-const sound_wait = "weather,state";
+const SOUND_WAIT = "weather,state";
 
 /**
  * todo;
@@ -37,9 +37,9 @@ const sound_wait = "weather,state";
 export class ActionCompanionActivity extends action_base {
   public state: ISchemeCompanionState;
 
-  public assist_point: Optional<number> = null;
-  public keep_state_until: number = 0;
-  public last_state: EStalkerState = EStalkerState.GUARD_NA;
+  public assistPoint: Optional<number> = null;
+  public keepStateUntil: number = 0;
+  public lastState: EStalkerState = EStalkerState.GUARD_NA;
 
   public constructor(storage: ISchemeCompanionState) {
     super(null, ActionCompanionActivity.__name);
@@ -56,61 +56,61 @@ export class ActionCompanionActivity extends action_base {
     this.object.set_desired_direction();
     this.object.enable_talk();
 
-    this.assist_point = null;
-    this.last_state = EStalkerState.GUARD_NA;
+    this.assistPoint = null;
+    this.lastState = EStalkerState.GUARD_NA;
 
-    setStalkerState(this.object, this.last_state, null, null, null, { animation: true });
+    setStalkerState(this.object, this.lastState, null, null, null, { animation: true });
 
-    this.keep_state_until = time_global();
+    this.keepStateUntil = time_global();
   }
 
   /**
    * todo: Description.
    */
-  public beh_walk_simple(): void {
+  public behWalkSimple(): void {
     const actor: Optional<ClientObject> = registry.actor;
-    let select_new_pt: boolean = false;
-    const dist_from_self_to_actor: number = this.object.position().distance_to(actor.position());
-    const dist_from_assist_pt_to_actor: Optional<number> = this.assist_point
-      ? level.vertex_position(this.assist_point).distance_to(actor.position())
+    let selectNewPt: boolean = false;
+    const distFromSelfToActor: number = this.object.position().distance_to(actor.position());
+    const distFromAssistPtToActor: Optional<number> = this.assistPoint
+      ? level.vertex_position(this.assistPoint).distance_to(actor.position())
       : null;
 
     if (
-      dist_from_self_to_actor >= desired_distance &&
-      (!dist_from_assist_pt_to_actor || dist_from_assist_pt_to_actor >= desired_distance * 2)
+      distFromSelfToActor >= DESIRED_DISTANCE &&
+      (!distFromAssistPtToActor || distFromAssistPtToActor >= DESIRED_DISTANCE * 2)
     ) {
-      select_new_pt = true;
+      selectNewPt = true;
     }
 
-    if (select_new_pt) {
-      this.assist_point = select_position(this.object, this.state);
-      if (!this.assist_point) {
+    if (selectNewPt) {
+      this.assistPoint = selectPosition(this.object, this.state);
+      if (!this.assistPoint) {
         return;
       }
-    } else if (!this.assist_point) {
+    } else if (!this.assistPoint) {
       return;
     }
 
     this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
-    this.object.set_dest_level_vertex_id(this.assist_point);
+    this.object.set_dest_level_vertex_id(this.assistPoint);
 
-    const dist_to_assist_pt = level.vertex_position(this.assist_point).distance_to(this.object.position());
+    const distToAssistPt = level.vertex_position(this.assistPoint).distance_to(this.object.position());
     let nextState: Optional<EStalkerState> = null;
     let target: Optional<ILookTargetDescriptor> = null;
 
-    if (this.object.level_vertex_id() === this.assist_point) {
+    if (this.object.level_vertex_id() === this.assistPoint) {
       nextState = EStalkerState.THREAT;
       target = { lookObject: registry.actor, lookPosition: null };
     } else {
       const t = time_global();
 
-      if (t >= this.keep_state_until) {
-        this.keep_state_until = t + keep_state_min_time;
+      if (t >= this.keepStateUntil) {
+        this.keepStateUntil = t + KEEP_STATE_MIN_TIME;
 
-        if (dist_to_assist_pt <= dist_walk) {
+        if (distToAssistPt <= DIST_WALK) {
           nextState = EStalkerState.RAID;
           target = { lookObject: registry.actor, lookPosition: null };
-        } else if (dist_to_assist_pt <= dist_run) {
+        } else if (distToAssistPt <= DIST_RUN) {
           nextState = EStalkerState.RUSH;
         } else {
           nextState = EStalkerState.ASSAULT;
@@ -118,9 +118,9 @@ export class ActionCompanionActivity extends action_base {
       }
     }
 
-    if (nextState !== null && nextState !== this.last_state) {
+    if (nextState !== null && nextState !== this.lastState) {
       setStalkerState(this.object, nextState, null, null, target, { animation: true });
-      this.last_state = nextState;
+      this.lastState = nextState;
     }
 
     // -- 4. ���� ����� �� ����� - ���� ������� � ������ �����
@@ -130,10 +130,10 @@ export class ActionCompanionActivity extends action_base {
   /**
    * todo: Description.
    */
-  public beh_wait_simple(): void {
+  public behWaitSimple(): void {
     const nextState: EStalkerState = EStalkerState.THREAT;
 
-    if (nextState !== this.last_state) {
+    if (nextState !== this.lastState) {
       setStalkerState(
         this.object,
         nextState,
@@ -142,7 +142,7 @@ export class ActionCompanionActivity extends action_base {
         { lookObject: registry.actor, lookPosition: null },
         { animation: true }
       );
-      this.last_state = nextState;
+      this.lastState = nextState;
     }
   }
 
@@ -152,10 +152,10 @@ export class ActionCompanionActivity extends action_base {
   public override execute(): void {
     super.execute();
 
-    if (this.state.behavior === beh_walk_simple) {
-      this.beh_walk_simple();
-    } else if (this.state.behavior === beh_wait_simple) {
-      this.beh_wait_simple();
+    if (this.state.behavior === BEH_WALK_SIMPLE) {
+      this.behWalkSimple();
+    } else if (this.state.behavior === BEH_WAIT_SIMPLE) {
+      this.behWaitSimple();
     }
   }
 
@@ -170,55 +170,55 @@ export class ActionCompanionActivity extends action_base {
 /**
  * todo;
  */
-function select_position(object: ClientObject, state: ISchemeCompanionState) {
-  let node_1_vertex_id = null;
-  let node_1_distance = null;
-  let node_2_vertex_id = null;
-  let node_2_distance = null;
-  const actor = registry.actor;
+function selectPosition(object: ClientObject, state: ISchemeCompanionState) {
+  let node1VertexId = null;
+  let node1Distance = null;
+  let node2VertexId = null;
+  let node2Distance = null;
+  const actor: ClientObject = registry.actor;
 
-  let desired_direction = vectorRotateY(actor.direction(), math.random(50, 60));
+  let desiredDirection: Vector = vectorRotateY(actor.direction(), math.random(50, 60));
 
-  node_1_vertex_id = level.vertex_in_direction(actor.level_vertex_id(), desired_direction, desired_distance);
+  node1VertexId = level.vertex_in_direction(actor.level_vertex_id(), desiredDirection, DESIRED_DISTANCE);
 
-  if (object.accessible(node_1_vertex_id) !== true || node_1_vertex_id === actor.level_vertex_id()) {
-    node_1_vertex_id = null;
+  if (object.accessible(node1VertexId) !== true || node1VertexId === actor.level_vertex_id()) {
+    node1VertexId = null;
   }
 
-  desired_direction = vectorRotateY(actor.direction(), -math.random(50, 60));
-  node_2_vertex_id = level.vertex_in_direction(actor.level_vertex_id(), desired_direction, desired_distance);
+  desiredDirection = vectorRotateY(actor.direction(), -math.random(50, 60));
+  node2VertexId = level.vertex_in_direction(actor.level_vertex_id(), desiredDirection, DESIRED_DISTANCE);
 
-  if (object.accessible(node_2_vertex_id) !== true || node_2_vertex_id === actor.level_vertex_id()) {
-    node_2_vertex_id = null;
+  if (object.accessible(node2VertexId) !== true || node2VertexId === actor.level_vertex_id()) {
+    node2VertexId = null;
   }
 
-  if (node_1_vertex_id !== null) {
-    node_1_distance = object.position().distance_to_sqr(level.vertex_position(node_1_vertex_id));
+  if (node1VertexId !== null) {
+    node1Distance = object.position().distance_to_sqr(level.vertex_position(node1VertexId));
   } else {
-    node_1_distance = -1;
+    node1Distance = -1;
   }
 
-  if (node_2_vertex_id !== null) {
-    node_2_distance = object.position().distance_to_sqr(level.vertex_position(node_2_vertex_id));
+  if (node2VertexId !== null) {
+    node2Distance = object.position().distance_to_sqr(level.vertex_position(node2VertexId));
   } else {
-    node_2_distance = -1;
+    node2Distance = -1;
   }
 
-  if (node_1_distance === -1 && node_2_distance === -1) {
+  if (node1Distance === -1 && node2Distance === -1) {
     return null;
   }
 
-  if (node_1_distance === -1) {
-    return node_2_vertex_id;
+  if (node1Distance === -1) {
+    return node2VertexId;
   }
 
-  if (node_2_distance === -1) {
-    return node_1_vertex_id;
+  if (node2Distance === -1) {
+    return node1VertexId;
   }
 
-  if (node_1_distance < node_2_distance) {
-    return node_1_vertex_id;
+  if (node1Distance < node2Distance) {
+    return node1VertexId;
   } else {
-    return node_2_vertex_id;
+    return node2VertexId;
   }
 }
