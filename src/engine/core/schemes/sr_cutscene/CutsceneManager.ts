@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/interface";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils/trySwitchToAnotherSection";
-import { EEffectorState, effector_sets } from "@/engine/core/schemes/sr_cutscene/cam_effector_sets";
+import { EEffectorState, effectorSets } from "@/engine/core/schemes/sr_cutscene/cam_effector_sets";
 import { CamEffectorSet } from "@/engine/core/schemes/sr_cutscene/CamEffectorSet";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { getExtern } from "@/engine/core/utils/binding";
@@ -18,12 +18,12 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState> {
-  public static object_cutscene: Optional<ClientObject> = null;
-  public static storage_scene: Optional<ISchemeCutsceneState> = null;
+  public static objectCutscene: Optional<ClientObject> = null;
+  public static storageScene: Optional<ISchemeCutsceneState> = null;
 
-  public ui_disabled: boolean = false;
+  public isUiDisabled: boolean = false;
   public postprocess: boolean = false;
-  public motion_id: number = 1;
+  public motionId: number = 1;
   public motion: Optional<CamEffectorSet> = null;
   public sceneState!: string;
 
@@ -59,7 +59,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
     if (this.motion) {
       this.motion.update();
       if (this.state.signals!.get("cam_effector_stop") !== null) {
-        this.motion.stop_effect();
+        this.motion.stopEffect();
         this.cutscene_callback();
         this.state.signals!.delete("cam_effector_stop");
       }
@@ -87,7 +87,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
     }
 
     ActorInputManager.getInstance().disableGameUi(actor, false);
-    this.ui_disabled = true;
+    this.isUiDisabled = true;
 
     const time_hours: number = level.get_time_hours();
 
@@ -97,17 +97,17 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
       // --level.add_pp_effector("brighten.ppe", 1999, true)
     }
 
-    this.motion_id = 1;
+    this.motionId = 1;
     this.select_next_motion();
 
-    CutsceneManager.object_cutscene = this.object;
-    CutsceneManager.storage_scene = this.state;
+    CutsceneManager.objectCutscene = this.object;
+    CutsceneManager.storageScene = this.state;
   }
 
   public select_next_motion(): void {
-    const motion = this.state.cam_effector!.get(this.motion_id);
+    const motion = this.state.cam_effector!.get(this.motionId);
 
-    if (effector_sets[motion] === null) {
+    if (effectorSets[motion] === null) {
       this.motion = new CamEffectorSet(
         {
           start: new LuaTable(),
@@ -118,14 +118,14 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
         this.state
       );
     } else {
-      this.motion = new CamEffectorSet(effector_sets[motion], this.state);
+      this.motion = new CamEffectorSet(effectorSets[motion], this.state);
     }
 
-    const effect = this.motion.select_effect()!;
+    const effect = this.motion.selectEffect()!;
 
-    this.motion!.start_effect(effect);
+    this.motion!.startEffect(effect);
 
-    this.motion_id = this.motion_id + 1;
+    this.motionId = this.motionId + 1;
   }
 
   public cutscene_callback(): void {
@@ -135,7 +135,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
 
     if (this.motion!.state === EEffectorState.RELEASE) {
       this.motion = null;
-      if (this.motion_id <= this.state.cam_effector!.length()) {
+      if (this.motionId <= this.state.cam_effector!.length()) {
         this.select_next_motion();
       } else {
         if (this.postprocess) {
@@ -143,7 +143,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
           level.remove_complex_effector(1999);
         }
 
-        if (this.ui_disabled) {
+        if (this.isUiDisabled) {
           if (!actor.is_talking() && this.state.enable_ui_on_end) {
             ActorInputManager.getInstance().enableGameUi(false);
           } else if (this.state.enable_ui_on_end) {
@@ -153,17 +153,17 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
           actor.set_actor_direction(
             -new patrol(this.state.look).point(0).sub(new patrol(this.state.point).point(0)).getH()
           );
-          this.ui_disabled = false;
+          this.isUiDisabled = false;
           this.state.signals!.set("cameff_end", true);
         }
       }
     } else {
       this.motion!.playing = false;
 
-      const eff = this.motion!.select_effect();
+      const eff = this.motion!.selectEffect();
 
       if (eff) {
-        this.motion!.start_effect(eff);
+        this.motion!.startEffect(eff);
       }
     }
   }

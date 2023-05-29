@@ -12,7 +12,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
-import { ClientObject, Optional, TDuration, Vector } from "@/engine/lib/types";
+import { ClientObject, ESoundObjectType, Optional, TDuration, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -85,6 +85,12 @@ export class TeleportManager extends AbstractSchemeManager<ISchemeTeleportState>
     actor.set_actor_position(pointPatrolVector);
     actor.set_actor_direction(-lookDirectionVector.getH());
 
-    new sound_object(sounds.affects_tinnitus3a).play_no_feedback(actor, sound_object.s2d, 0, createEmptyVector(), 1.0);
+    new sound_object(sounds.affects_tinnitus3a).play_no_feedback(
+      actor,
+      ESoundObjectType.S2D,
+      0,
+      createEmptyVector(),
+      1.0
+    );
   }
 }

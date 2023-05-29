@@ -5,14 +5,14 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { EStalkerState } from "@/engine/core/objects/state";
 import { ActionSleeperActivity } from "@/engine/core/schemes/sleeper/actions";
 import {
-  cover_substate_table,
+  COVER_SUBSTATE_TABLE,
   ECoverState,
   ISchemeSmartCoverState,
 } from "@/engine/core/schemes/smartcover/ISchemeSmartCoverState";
 import { abort } from "@/engine/core/utils/assertion";
 import { getParamString, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList } from "@/engine/core/utils/parse";
+import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, StringOptional, TNumberId, Vector } from "@/engine/lib/types";
 
@@ -26,19 +26,16 @@ export class ActionSmartCoverActivity extends action_base {
   public readonly state: ISchemeSmartCoverState;
   public initialized: boolean = false;
 
-  public cover_condlist: any;
-  public target_path_condlist: any;
+  public coverСondlist!: TConditionList;
+  public targetPathCondlist!: TConditionList;
 
-  public target_enemy_id: Optional<number> = null;
+  public targetEnemyId: Optional<TNumberId> = null;
 
-  public cover_state!: StringOptional<ECoverState>;
-  public cover_name!: string;
-  public fire_pos!: Vector;
-  public target_path!: string;
+  public coverState!: StringOptional<ECoverState>;
+  public coverName!: string;
+  public firePosition!: Vector;
+  public targetPath!: string;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeSmartCoverState) {
     super(null, ActionSleeperActivity.__name);
     this.state = state;
@@ -58,23 +55,23 @@ export class ActionSmartCoverActivity extends action_base {
   /**
    * todo: Description.
    */
-  public target_selector(object: ClientObject): void {
+  public targetSelector(object: ClientObject): void {
     if (!object.alive()) {
       return;
     }
 
-    if (this.cover_state === ECoverState.IDLE_TARGET) {
+    if (this.coverState === ECoverState.IDLE_TARGET) {
       object.set_smart_cover_target_idle();
-    } else if (this.cover_state === ECoverState.LOOKOUT_TARGET) {
-      this.check_target();
+    } else if (this.coverState === ECoverState.LOOKOUT_TARGET) {
+      this.checkTarget();
       object.set_smart_cover_target_lookout();
-    } else if (this.cover_state === ECoverState.FIRE_TARGET) {
+    } else if (this.coverState === ECoverState.FIRE_TARGET) {
       object.set_smart_cover_target_fire();
-    } else if (this.cover_state === ECoverState.FIRE_NO_LOOKOUT_TARGET) {
-      this.check_target();
+    } else if (this.coverState === ECoverState.FIRE_NO_LOOKOUT_TARGET) {
+      this.checkTarget();
       object.set_smart_cover_target_fire_no_lookout();
     } else {
-      this.check_target();
+      this.checkTarget();
       object.set_smart_cover_target_default(true);
     }
   }
@@ -94,26 +91,26 @@ export class ActionSmartCoverActivity extends action_base {
     object.set_smart_cover_target();
 
     // --object.set_smart_cover_target_selector()
-    this.target_enemy_id = null;
+    this.targetEnemyId = null;
 
-    const [cover_name, used] = getParamString(this.state.cover_name as string);
+    const [coverName, used] = getParamString(this.state.cover_name as string);
 
-    this.cover_name = cover_name;
+    this.coverName = coverName;
 
-    if (this.cover_name !== this.state.cover_name || used === false) {
-      if (registry.smartCovers.get(this.cover_name) === null) {
-        abort("There is no smart_cover with name [%s]", this.cover_name);
+    if (this.coverName !== this.state.cover_name || used === false) {
+      if (registry.smartCovers.get(this.coverName) === null) {
+        abort("There is no smart_cover with name [%s]", this.coverName);
       }
 
       setStalkerState(this.object, EStalkerState.SMART_COVER, null, null, null, null);
 
-      this.target_path_condlist = parseConditionsList(this.state.target_path);
-      this.check_target();
+      this.targetPathCondlist = parseConditionsList(this.state.target_path);
+      this.checkTarget();
 
-      this.cover_condlist = parseConditionsList(this.state.cover_state);
-      this.cover_state = pickSectionFromCondList(registry.actor, object, this.cover_condlist) as ECoverState;
-      this.target_selector(this.object);
-      this.check_target_selector();
+      this.coverСondlist = parseConditionsList(this.state.cover_state);
+      this.coverState = pickSectionFromCondList(registry.actor, object, this.coverСondlist) as ECoverState;
+      this.targetSelector(this.object);
+      this.checkTargetSelector();
 
       object.idle_min_time(this.state.idle_min_time);
       object.idle_max_time(this.state.idle_max_time);
@@ -125,7 +122,7 @@ export class ActionSmartCoverActivity extends action_base {
   /**
    * todo: Description.
    */
-  public check_target_selector(): void {
+  public checkTargetSelector(): void {
     /**
      *   --if object.in_smart_cover() == false {
      *   --    printf("DEFAULT_BEHAVIOUR")
@@ -133,51 +130,51 @@ export class ActionSmartCoverActivity extends action_base {
      *   --}
      */
 
-    if (this.cover_state === NIL) {
+    if (this.coverState === NIL) {
       this.object.set_smart_cover_target_selector();
     } else {
-      this.object.set_smart_cover_target_selector((object) => this.target_selector(object), this);
+      this.object.set_smart_cover_target_selector((object) => this.targetSelector(object), this);
     }
   }
 
   /**
    * todo: Description.
    */
-  public check_target(): boolean {
+  public checkTarget(): boolean {
     const object = this.object;
 
-    const target_path_section = pickSectionFromCondList(registry.actor, this.object, this.target_path_condlist);
+    const targetPathSection = pickSectionFromCondList(registry.actor, this.object, this.targetPathCondlist);
 
-    if (target_path_section !== NIL && target_path_section !== null) {
-      const [target_path, used] = getParamString(target_path_section);
+    if (targetPathSection !== NIL && targetPathSection !== null) {
+      const [targetPath, used] = getParamString(targetPathSection);
 
-      this.target_path = target_path;
+      this.targetPath = targetPath;
 
-      if (this.target_path !== NIL) {
-        if (level.patrol_path_exists(this.target_path)) {
+      if (this.targetPath !== NIL) {
+        if (level.patrol_path_exists(this.targetPath)) {
           // --printf("target_selector:using fire_point[%s] for npc[%s]!!!", this.target_path, this.object.name())
-          object.set_smart_cover_target(new patrol(this.target_path).point(0));
-          this.fire_pos = new patrol(this.target_path).point(0);
+          object.set_smart_cover_target(new patrol(this.targetPath).point(0));
+          this.firePosition = new patrol(this.targetPath).point(0);
 
           return true;
         } else {
-          abort("There is no patrol path [%s] for npc [%s]", this.target_path, object.name());
+          abort("There is no patrol path [%s] for npc [%s]", this.targetPath, object.name());
         }
       }
     } else if (this.state.target_enemy !== null) {
       const storyObject: Optional<ClientObject> = getObjectByStoryId(this.state.target_enemy);
 
-      this.target_enemy_id = storyObject?.id() as Optional<TNumberId>;
+      this.targetEnemyId = storyObject?.id() as Optional<TNumberId>;
 
-      if (this.target_enemy_id !== null && level.object_by_id(this.target_enemy_id)!.alive()) {
-        object.set_smart_cover_target(level.object_by_id(this.target_enemy_id)!);
-        this.fire_pos = level.object_by_id(this.target_enemy_id)!.position();
+      if (this.targetEnemyId !== null && level.object_by_id(this.targetEnemyId)!.alive()) {
+        object.set_smart_cover_target(level.object_by_id(this.targetEnemyId)!);
+        this.firePosition = level.object_by_id(this.targetEnemyId)!.position();
 
         return true;
       }
     } else if (this.state.target_position !== null) {
       object.set_smart_cover_target(this.state.target_position);
-      this.fire_pos = this.state.target_position;
+      this.firePosition = this.state.target_position;
 
       return true;
     }
@@ -194,22 +191,22 @@ export class ActionSmartCoverActivity extends action_base {
     const needCoverState: ECoverState = pickSectionFromCondList(
       registry.actor,
       this.object,
-      this.cover_condlist
+      this.coverСondlist
     ) as ECoverState;
 
     if (
       needCoverState === ("default_behaviour" as any) ||
-      cover_substate_table[this.cover_state as ECoverState] !== cover_substate_table[needCoverState]
+      COVER_SUBSTATE_TABLE[this.coverState as ECoverState] !== COVER_SUBSTATE_TABLE[needCoverState]
     ) {
-      this.cover_state = needCoverState;
+      this.coverState = needCoverState;
     }
 
-    this.check_target_selector();
+    this.checkTargetSelector();
 
-    if (this.target_enemy_id !== null && this.object.in_smart_cover()) {
+    if (this.targetEnemyId !== null && this.object.in_smart_cover()) {
       if (
-        level.object_by_id(this.target_enemy_id) &&
-        this.object.in_current_loophole_fov(level.object_by_id(this.target_enemy_id)!.position()) === true
+        level.object_by_id(this.targetEnemyId) &&
+        this.object.in_current_loophole_fov(level.object_by_id(this.targetEnemyId)!.position()) === true
       ) {
         this.state.signals!.set("enemy_in_fov", true);
         this.state.signals!.delete("enemy_not_in_fov");

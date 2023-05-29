@@ -13,36 +13,36 @@ import { ClientObject, Color, Hit, Noise, TDuration } from "@/engine/lib/types";
  * todo;
  */
 export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostProcessState> {
-  public actor_inside: boolean = false;
+  public isActorInside: boolean = false;
   public gray: number = 1;
-  public gray_amplitude: number = 1.0;
+  public grayAmplitude: number = 1.0;
 
   public pp!: PPEffector;
   public noise!: Noise;
-  public gray_color: Color = new color(0.5, 0.5, 0.5);
-  public base_color: Color = new color(0.5, 0.5, 0.5);
-  public noise_var: Noise = new noise(0.9, 0.5, 30);
+  public grayColor: Color = new color(0.5, 0.5, 0.5);
+  public baseColor: Color = new color(0.5, 0.5, 0.5);
+  public noiseVar: Noise = new noise(0.9, 0.5, 30);
 
-  public eff_time: number = 0;
-  public hit_time: number = 0;
+  public effTime: number = 0;
+  public hitTime: number = 0;
   public intensity: number = 0;
-  public intensity_base: number = 0;
-  public hit_power: number = 0;
-  public intensity_inertion: number = 0;
+  public intensityBase: number = 0;
+  public hitPower: number = 0;
+  public intensityInertion: number = 0;
 
   /**
    * todo: Description.
    */
   public override resetScheme(): void {
-    this.actor_inside = false;
+    this.isActorInside = false;
 
-    this.gray_amplitude = 1.0;
-    this.eff_time = 0;
-    this.hit_time = 0;
+    this.grayAmplitude = 1.0;
+    this.effTime = 0;
+    this.hitTime = 0;
     this.intensity = 0;
-    this.intensity_base = this.state.intensity;
-    this.hit_power = 0;
-    this.intensity_inertion = this.intensity_base < 0.0 ? -this.state.intensity_speed : this.state.intensity_speed;
+    this.intensityBase = this.state.intensity;
+    this.hitPower = 0;
+    this.intensityInertion = this.intensityBase < 0.0 ? -this.state.intensity_speed : this.state.intensity_speed;
 
     this.pp = new PPEffector(this.object.id() + 2000);
     this.pp.params.noise = new noise();
@@ -69,71 +69,67 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
       return;
     }
 
-    this.actor_inside = this.object.inside(actor.position());
+    this.isActorInside = this.object.inside(actor.position());
 
-    const c_time: number = delta * 0.001;
+    const cTime: number = delta * 0.001;
 
-    if (this.actor_inside === true) {
-      this.intensity = this.intensity + this.intensity_inertion * c_time;
-      if (this.intensity_base < 0.0) {
-        if (this.intensity < this.intensity_base) {
-          this.intensity = this.intensity_base;
+    if (this.isActorInside === true) {
+      this.intensity = this.intensity + this.intensityInertion * cTime;
+      if (this.intensityBase < 0.0) {
+        if (this.intensity < this.intensityBase) {
+          this.intensity = this.intensityBase;
         }
       } else {
-        if (this.intensity > this.intensity_base) {
-          this.intensity = this.intensity_base;
+        if (this.intensity > this.intensityBase) {
+          this.intensity = this.intensityBase;
         }
       }
     } else {
-      if (this.intensity_base < 0.0) {
-        this.intensity = this.intensity - this.intensity_inertion * c_time;
+      if (this.intensityBase < 0.0) {
+        this.intensity = this.intensity - this.intensityInertion * cTime;
         if (this.intensity > 0.0) {
           this.intensity = 0.0;
         }
       } else {
-        this.intensity = this.intensity - this.intensity_inertion * c_time;
+        this.intensity = this.intensity - this.intensityInertion * cTime;
         if (this.intensity < 0.0) {
           this.intensity = 0.0;
         }
       }
     }
 
-    this.pp.params.color_base = this.base_color;
+    this.pp.params.color_base = this.baseColor;
     this.pp.params.color_gray = new color(
-      this.gray_color.r + this.intensity,
-      this.gray_color.g + this.intensity,
-      this.gray_color.b + this.intensity
+      this.grayColor.r + this.intensity,
+      this.grayColor.g + this.intensity,
+      this.grayColor.b + this.intensity
     );
-    this.pp.params.gray = this.gray_amplitude * this.intensity;
-    this.pp.params.noise = new noise(
-      this.noise_var.intensity * this.intensity,
-      this.noise_var.grain,
-      this.noise_var.fps
-    );
-    this.update_hit(delta);
+    this.pp.params.gray = this.grayAmplitude * this.intensity;
+    this.pp.params.noise = new noise(this.noiseVar.intensity * this.intensity, this.noiseVar.grain, this.noiseVar.fps);
+    this.updateHit(delta);
   }
 
   /**
    * todo: Description.
    */
-  public update_hit(delta: number): void {
-    if (this.actor_inside === false) {
-      this.hit_power = 0;
+  public updateHit(delta: number): void {
+    if (this.isActorInside === false) {
+      this.hitPower = 0;
 
       return;
     }
 
-    this.hit_power = this.hit_power + delta * 0.001 * this.state.hit_intensity;
-    if (time_global() - this.hit_time < 1000) {
+    this.hitPower = this.hitPower + delta * 0.001 * this.state.hit_intensity;
+    if (time_global() - this.hitTime < 1000) {
       return;
     }
 
-    this.hit_time = time_global();
+    this.hitTime = time_global();
 
     const actor: ClientObject = registry.actor;
     const h: Hit = new hit();
 
-    h.power = this.hit_power;
+    h.power = this.hitPower;
     h.direction = createEmptyVector();
     h.impulse = 0;
     h.draftsman = registry.actor;

@@ -224,7 +224,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       }
 
       this.mob_state = state_standing;
-      this.update_standing_state();
+      this.updateStandingState();
 
       this.update();
     } else {
@@ -264,11 +264,11 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       );
     }
   }
+
   /**
    * todo: Description.
    */
-
-  public update_standing_state(): void {
+  public updateStandingState(): void {
     scriptCaptureObject(this.object, true);
 
     if (this.scheduled_snd) {

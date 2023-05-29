@@ -32,7 +32,7 @@ const formations = {
   ],
 };
 
-const accel_by_curtype = {
+const ACCEL_BY_CURTYPE = {
   walk: EStalkerState.RUN,
   patrol: EStalkerState.RUSH,
   raid: EStalkerState.ASSAULT,
@@ -44,53 +44,53 @@ const accel_by_curtype = {
  * todo;
  */
 export class PatrolManager {
-  public path_name: TName;
-  public npc_list: LuaTable = new LuaTable();
-  public current_state: EStalkerState = EStalkerState.PATROL;
-  public commander_id: TNumberId = -1;
+  public pathName: TName;
+  public npcList: LuaTable = new LuaTable();
+  public currentState: EStalkerState = EStalkerState.PATROL;
+  public commanderId: TNumberId = -1;
   public formation: string = "back";
-  public commander_lid: TNumberId = -1;
-  public commander_dir: Vector = createVector(0, 0, 1);
-  public npc_count: TCount = 0;
+  public commanderLid: TNumberId = -1;
+  public commanderDir: Vector = createVector(0, 0, 1);
+  public npcCount: TCount = 0;
 
   public constructor(pathName: TName) {
-    this.path_name = pathName;
+    this.pathName = pathName;
   }
 
-  public add_npc(object: ClientObject, leader: Optional<boolean>): void {
-    if (object === null || object.alive() === false || this.npc_list.get(object.id()) !== null) {
+  public addNpc(object: ClientObject, leader: Optional<boolean>): void {
+    if (object === null || object.alive() === false || this.npcList.get(object.id()) !== null) {
       return;
     }
 
-    if (this.npc_count === 7) {
+    if (this.npcCount === 7) {
       abort("[XR_PATROL] attempt to add more { 7 npc. [%s]", object.name());
     }
 
-    this.npc_list.set(object.id(), { soldier: object, dir: createVector(1, 0, 0), dist: 0 });
+    this.npcList.set(object.id(), { soldier: object, dir: createVector(1, 0, 0), dist: 0 });
 
-    this.npc_count = this.npc_count + 1;
+    this.npcCount = this.npcCount + 1;
 
-    if (this.npc_count === 1 || leader === true) {
-      this.commander_id = object.id();
+    if (this.npcCount === 1 || leader === true) {
+      this.commanderId = object.id();
     }
 
     this.resetPositions();
   }
 
-  public remove_npc(npc: ClientObject): void {
+  public removeNpc(npc: Optional<ClientObject>): void {
     if (npc === null) {
       return;
     }
 
-    if (this.npc_list.get(npc.id()) === null) {
+    if (this.npcList.get(npc.id()) === null) {
       return;
     }
 
-    this.npc_list.delete(npc.id());
-    this.npc_count = this.npc_count - 1;
+    this.npcList.delete(npc.id());
+    this.npcCount = this.npcCount - 1;
 
-    if (npc.id() === this.commander_id) {
-      this.commander_id = -1;
+    if (npc.id() === this.commanderId) {
+      this.commanderId = -1;
       this.resetPositions();
     }
   }
@@ -99,29 +99,29 @@ export class PatrolManager {
     const form_ = formations[this.formation as keyof typeof formations];
     let index = 1;
 
-    for (const [key, data] of this.npc_list) {
-      if (this.commander_id === -1 && index === 1) {
-        this.commander_id = data.soldier.id();
+    for (const [key, data] of this.npcList) {
+      if (this.commanderId === -1 && index === 1) {
+        this.commanderId = data.soldier.id();
       }
 
-      if (this.commander_id !== this.npc_list.get(key).soldier.id()) {
-        this.npc_list.get(key).dir = form_[index].dir;
-        this.npc_list.get(key).dist = form_[index].dist;
-        this.npc_list.get(key).vertex_id = -1;
-        this.npc_list.get(key).accepted = true;
+      if (this.commanderId !== this.npcList.get(key).soldier.id()) {
+        this.npcList.get(key).dir = form_[index].dir;
+        this.npcList.get(key).dist = form_[index].dist;
+        this.npcList.get(key).vertex_id = -1;
+        this.npcList.get(key).accepted = true;
 
         index = index + 1;
       }
     }
   }
 
-  public set_formation(formation: string): void {
+  public setFormation(formation: string): void {
     if (formation === null) {
-      abort("Invalid formation (null) for PatrolManager[%s]", this.path_name);
+      abort("Invalid formation (null) for PatrolManager[%s]", this.pathName);
     }
 
     if (formation !== "around" && formation !== "back" && formation !== "line") {
-      abort("Invalid formation (%s) for PatrolManager[%s]", formation, this.path_name);
+      abort("Invalid formation (%s) for PatrolManager[%s]", formation, this.pathName);
     }
 
     this.formation = formation;
@@ -130,110 +130,110 @@ export class PatrolManager {
 
   public getCommander(npc: ClientObject): void {
     if (npc === null) {
-      abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.path_name);
+      abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
     }
 
-    if (this.npc_list.get(npc.id()) === null) {
-      abort("NPC with name %s can't present in PatrolManager[%s]", npc.name(), this.path_name);
+    if (this.npcList.get(npc.id()) === null) {
+      abort("NPC with name %s can't present in PatrolManager[%s]", npc.name(), this.pathName);
     }
 
-    if (npc.id() === this.commander_id) {
-      abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.path_name);
+    if (npc.id() === this.commanderId) {
+      abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
     }
 
-    const commander = this.npc_list.get(this.commander_id).soldier;
+    const commander = this.npcList.get(this.commanderId).soldier;
 
     if (commander === null) {
-      abort("Patrol commander not present in PatrolManager[%s]", this.path_name);
+      abort("Patrol commander not present in PatrolManager[%s]", this.pathName);
     }
 
     return commander;
   }
 
-  public get_npc_command(npc: ClientObject): LuaMultiReturn<[number, Vector, EStalkerState]> {
+  public getNpcCommand(npc: ClientObject): LuaMultiReturn<[number, Vector, EStalkerState]> {
     if (npc === null) {
-      abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.path_name);
+      abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
     }
 
     // --'���������� �������� ������
-    const npc_id = npc.id();
+    const npcId = npc.id();
 
     // --'�������� ������ �� ���������� � ������
-    if (this.npc_list.get(npc.id()) === null) {
-      abort("NPC with name %s can't present in PatrolManager[%s]", npc.name(), this.path_name);
+    if (this.npcList.get(npc.id()) === null) {
+      abort("NPC with name %s can't present in PatrolManager[%s]", npc.name(), this.pathName);
     }
 
     // --'��������, ����� �������� �� ������� �������� ������ ��������
-    if (npc.id() === this.commander_id) {
-      abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.path_name);
+    if (npc.id() === this.commanderId) {
+      abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
     }
 
-    const commander = this.npc_list.get(this.commander_id).soldier;
+    const commander = this.npcList.get(this.commanderId).soldier;
     const dir: Vector = commander.direction();
     const pos: Vector = createEmptyVector();
-    let vertex_id: number = commander.location_on_path(5, pos);
+    let vertexId: TNumberId = commander.location_on_path(5, pos);
 
-    if (level.vertex_position(vertex_id).distance_to(this.npc_list.get(npc_id).soldier.position()) > 5) {
-      vertex_id = commander.level_vertex_id();
+    if (level.vertex_position(vertexId).distance_to(this.npcList.get(npcId).soldier.position()) > 5) {
+      vertexId = commander.level_vertex_id();
     }
 
     dir.y = 0;
     dir.normalize();
 
-    let dir_s = this.npc_list.get(npc_id).dir;
-    const dist_s = this.npc_list.get(npc_id).dist;
+    let dirS = this.npcList.get(npcId).dir;
+    const distS = this.npcList.get(npcId).dist;
 
-    let angle = yawDegree(dir_s, createVector(0, 0, 1));
-    const vvv = vectorCross(dir_s, createVector(0, 0, 1));
+    let angle = yawDegree(dirS, createVector(0, 0, 1));
+    const vvv = vectorCross(dirS, createVector(0, 0, 1));
 
     if (vvv.y < 0) {
       angle = -angle;
     }
 
-    dir_s = vectorRotateY(dir, angle);
+    dirS = vectorRotateY(dir, angle);
 
     const d = 2;
-    const vertex = level.vertex_in_direction(level.vertex_in_direction(vertex_id, dir_s, dist_s), dir, d);
+    const vertex = level.vertex_in_direction(level.vertex_in_direction(vertexId, dirS, distS), dir, d);
 
-    this.npc_list.get(npc_id).vertex_id = vertex;
+    this.npcList.get(npcId).vertex_id = vertex;
 
-    const distance = commander.position().distance_to(this.npc_list.get(npc_id).soldier.position());
+    const distance = commander.position().distance_to(this.npcList.get(npcId).soldier.position());
 
-    if (distance > dist_s + 2) {
-      const new_state = accel_by_curtype[this.current_state as keyof typeof accel_by_curtype];
+    if (distance > distS + 2) {
+      const newState: EStalkerState = ACCEL_BY_CURTYPE[this.currentState as keyof typeof ACCEL_BY_CURTYPE];
 
-      if (new_state !== null) {
-        return $multi(vertex, dir, new_state);
+      if (newState !== null) {
+        return $multi(vertex, dir, newState);
       }
     }
 
-    return $multi(vertex, dir, this.current_state);
+    return $multi(vertex, dir, this.currentState);
   }
 
-  public set_command(object: ClientObject, command: EStalkerState, formation: string): void {
+  public setCommand(object: ClientObject, command: EStalkerState, formation: string): void {
     if (object === null || object.alive() === false) {
-      this.remove_npc(object);
+      this.removeNpc(object);
 
       return;
     }
 
-    if (object.id() !== this.commander_id) {
+    if (object.id() !== this.commanderId) {
       return; // --abort ("NPC %s is not commander in PatrolManager[%s]", npc:name (), this.path_name)
     }
 
-    this.current_state = command;
+    this.currentState = command;
     if (this.formation !== formation) {
       this.formation = formation;
-      this.set_formation(formation);
+      this.setFormation(formation);
     }
 
-    this.commander_lid = object.level_vertex_id();
-    this.commander_dir = object.direction();
+    this.commanderLid = object.level_vertex_id();
+    this.commanderDir = object.direction();
     this.update();
   }
 
-  public is_commander(npc_id: TNumberId): boolean {
-    return npc_id === this.commander_id;
+  public isCommander(objectId: TNumberId): boolean {
+    return objectId === this.commanderId;
   }
 
   public update(): void {

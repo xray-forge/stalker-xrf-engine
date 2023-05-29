@@ -20,16 +20,13 @@ export class ActionPatrol extends action_base {
   public readonly state: ISchemePatrolState;
   public readonly moveManager: StalkerMoveManager;
 
-  public l_vid: TNumberId = -1;
+  public levelVertexId: TNumberId = -1;
   public dist: TDistance = 0;
   public dir: Vector = createVector(0, 0, 1);
-  public cur_state: EStalkerState = "cur_state" as unknown as EStalkerState; // todo: probably get rid
-  public on_point: boolean = false;
-  public time_to_update: TTimestamp = time_global() + 1000;
+  public currentState: EStalkerState = "cur_state" as unknown as EStalkerState; // todo: probably get rid
+  public isOnPoint: boolean = false;
+  public timeToUpdate: TTimestamp = time_global() + 1000;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemePatrolState, object: ClientObject) {
     super(null, ActionPatrol.__name);
     this.state = state;
@@ -45,7 +42,7 @@ export class ActionPatrol extends action_base {
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
-    this.on_point = false;
+    this.isOnPoint = false;
   }
 
   /**
@@ -82,19 +79,19 @@ export class ActionPatrol extends action_base {
   public override execute(): void {
     super.execute();
 
-    if (this.time_to_update - time_global() > 0) {
+    if (this.timeToUpdate - time_global() > 0) {
       return;
     }
 
-    this.time_to_update = time_global() + 1000;
+    this.timeToUpdate = time_global() + 1000;
 
-    const [l_vid, dir, cur_state] = registry.patrols.generic.get(this.state.patrol_key).get_npc_command(this.object);
+    const [lvid, dir, currentState] = registry.patrols.generic.get(this.state.patrol_key).getNpcCommand(this.object);
 
-    this.l_vid = l_vid;
+    this.levelVertexId = lvid;
     this.dir = dir;
-    this.cur_state = cur_state;
+    this.currentState = currentState;
 
-    this.l_vid = sendToNearestAccessibleVertex(this.object, this.l_vid);
+    this.levelVertexId = sendToNearestAccessibleVertex(this.object, this.levelVertexId);
 
     const desiredDirection: Vector = this.dir;
 
@@ -105,7 +102,7 @@ export class ActionPatrol extends action_base {
 
     this.object.set_path_type(EClientObjectPath.LEVEL_PATH);
 
-    setStalkerState(this.object, this.cur_state, null, null, null, null);
+    setStalkerState(this.object, this.currentState, null, null, null, null);
   }
 
   /**
@@ -128,14 +125,14 @@ export class ActionPatrol extends action_base {
    * todo: Description.
    */
   public death_callback(npc: ClientObject): void {
-    registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
+    registry.patrols.generic.get(this.state.patrol_key).removeNpc(npc);
   }
 
   /**
    * todo: Description.
    */
   public deactivate(npc: ClientObject): void {
-    registry.patrols.generic.get(this.state.patrol_key).remove_npc(npc);
+    registry.patrols.generic.get(this.state.patrol_key).removeNpc(npc);
   }
 
   /**

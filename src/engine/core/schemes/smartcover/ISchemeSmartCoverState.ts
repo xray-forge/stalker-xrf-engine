@@ -14,7 +14,7 @@ export enum ECoverState {
 /**
  * todo;
  */
-export const cover_substate_table: Record<ECoverState, string> = {
+export const COVER_SUBSTATE_TABLE: Record<ECoverState, string> = {
   [ECoverState.FIRE_TARGET]: "fire",
   [ECoverState.FIRE_NO_LOOKOUT_TARGET]: "fire",
   [ECoverState.IDLE_TARGET]: "idle",

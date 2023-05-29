@@ -21,16 +21,14 @@ import {
  * todo;
  */
 export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDoorState> {
-  public snd_obj: Optional<unknown> = null;
-  public door_action: Optional<PhysicalDoorManager> = this;
-  public initialized: Optional<boolean> = null;
+  public isInitialized: Optional<boolean> = null;
   public block: boolean = false;
-  public soundless_block: boolean = false;
-  public show_tips: boolean = false;
+  public soundlessBlock: boolean = false;
+  public showTips: boolean = false;
   public joint: Optional<PhysicsJoint> = null;
 
-  public low_limits: number = 0;
-  public hi_limits: number = 0;
+  public lowLimits: number = 0;
+  public hiLimits: number = 0;
 
   /**
    * todo: Description.
@@ -38,43 +36,43 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public override resetScheme(loading?: boolean): void {
     this.state.signals = new LuaTable();
 
-    this.initialized = false;
+    this.isInitialized = false;
 
-    const ph_shell: Optional<PhysicsShell> = this.object.get_physics_shell();
+    const physicsShell: Optional<PhysicsShell> = this.object.get_physics_shell();
 
-    if (!ph_shell) {
+    if (!physicsShell) {
       return;
     }
 
-    this.joint = ph_shell.get_joint_by_bone_name("door");
+    this.joint = physicsShell.get_joint_by_bone_name("door");
 
-    [this.low_limits, this.hi_limits] = this.joint.get_limits(this.low_limits, this.hi_limits, 0);
+    [this.lowLimits, this.hiLimits] = this.joint.get_limits(this.lowLimits, this.hiLimits, 0);
 
     this.block = false;
-    this.soundless_block = false;
+    this.soundlessBlock = false;
 
-    this.show_tips = this.state.show_tips;
+    this.showTips = this.state.show_tips;
 
-    let disable_snd: boolean = false;
+    let isSoundDisabled: boolean = false;
 
     if (!this.state.script_used_more_than_once) {
-      disable_snd = true;
+      isSoundDisabled = true;
       this.state.script_used_more_than_once = true;
     }
 
     if (this.state.closed) {
-      if (this.is_closed()) {
-        disable_snd = true;
+      if (this.isClosed()) {
+        isSoundDisabled = true;
       }
 
-      this.close_door(disable_snd);
+      this.closeDoor(isSoundDisabled);
     } else {
-      this.open_door(disable_snd);
+      this.openDoor(isSoundDisabled);
     }
 
     this.object.set_nonscript_usable(false);
 
-    this.initialized = true;
+    this.isInitialized = true;
   }
 
   /**
@@ -82,7 +80,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    */
   public override update(): void {
     // --printf("_bp: action_door:update()", delta)
-    if (!this.initialized) {
+    if (!this.isInitialized) {
       abort("object '%s': door failed to initialize", this.object.name());
     }
 
@@ -95,12 +93,12 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    * todo: Description.
    */
   public fastcall(): boolean {
-    if (!this.initialized) {
+    if (!this.isInitialized) {
       return false;
     }
 
-    if (this.block && this.is_closed()) {
-      this.close_action();
+    if (this.block && this.isClosed()) {
+      this.closeAction();
       this.object.on_door_is_closed();
 
       return true;
@@ -112,12 +110,12 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   /**
    * todo: Description.
    */
-  public open_fastcall(): boolean {
-    if (!this.initialized) {
+  public openFastcall(): boolean {
+    if (!this.isInitialized) {
       return false;
     }
 
-    if (this.is_open()) {
+    if (this.isOpen()) {
       this.object.get_physics_object().unset_door_ignore_dynamics();
       this.object.on_door_is_open();
 
@@ -130,19 +128,19 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   /**
    * todo: Description.
    */
-  public close_action(): void {
+  public closeAction(): void {
     if (this.state.no_force === true) {
       this.joint!.set_max_force_and_velocity(0, 0, 0);
     } else {
       this.joint!.set_max_force_and_velocity(10000, 1, 0);
 
-      const ph_shell = this.object.get_physics_shell();
+      const physicsShell: Optional<PhysicsShell> = this.object.get_physics_shell();
 
-      if (ph_shell) {
-        const ph_element = ph_shell.get_element_by_bone_name("door");
+      if (physicsShell) {
+        const physicsElement: PhysicsElement = physicsShell.get_element_by_bone_name("door");
 
-        if (!ph_element.is_fixed()) {
-          ph_element.fix();
+        if (!physicsElement.is_fixed()) {
+          physicsElement.fix();
         }
       }
     }
@@ -150,7 +148,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     this.object.get_physics_object().unset_door_ignore_dynamics();
     this.block = false;
 
-    if (!this.soundless_block && this.state.snd_close_stop) {
+    if (!this.soundlessBlock && this.state.snd_close_stop) {
       GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_close_stop, null, null);
     }
   }
@@ -158,14 +156,14 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   /**
    * todo: Description.
    */
-  public open_door(disableSound?: boolean): void {
+  public openDoor(disableSound?: boolean): void {
     if (!disableSound) {
       if (this.state.snd_open_start) {
         GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_open_start, null, null);
       }
     }
 
-    this.object.set_fastcall(this.open_fastcall, this);
+    this.object.set_fastcall(this.openFastcall, this);
 
     const physicsShell: Optional<PhysicsShell> = this.object.get_physics_shell();
 
@@ -189,7 +187,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
 
     this.block = false;
 
-    if (this.show_tips && this.state.tip_close) {
+    if (this.showTips && this.state.tip_close) {
       this.object.set_tip_text(this.state.tip_close);
     }
   }
@@ -197,26 +195,26 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   /**
    * todo: Description.
    */
-  public is_closed(): boolean {
+  public isClosed(): boolean {
     const angle = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
 
-    return angle <= this.low_limits + 0.02;
+    return angle <= this.lowLimits + 0.02;
   }
 
   /**
    * todo: Description.
    */
-  public is_open(): boolean {
+  public isOpen(): boolean {
     const angle = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
 
-    return angle >= this.hi_limits - 0.02;
+    return angle >= this.hiLimits - 0.02;
   }
 
   /**
    * todo: Description.
    */
-  public close_door(disable_snd: boolean): void {
-    if (!disable_snd) {
+  public closeDoor(disableSound: boolean): void {
+    if (!disableSound) {
       if (this.state.snd_close_start !== null) {
         GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_close_start, null, null);
       }
@@ -231,13 +229,13 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     }
 
     this.block = true;
-    this.soundless_block = disable_snd;
+    this.soundlessBlock = disableSound;
 
-    const ph_obj = this.object.get_physics_object();
+    const physicObject: PhysicObject = this.object.get_physics_object();
 
-    ph_obj.set_door_ignore_dynamics();
+    physicObject.set_door_ignore_dynamics();
 
-    if (this.show_tips) {
+    if (this.showTips) {
       if (this.state.locked === true && this.state.tip_unlock) {
         this.object.set_tip_text(this.state.tip_unlock);
 
@@ -253,7 +251,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   /**
    * todo: Description.
    */
-  public try_switch(): boolean {
+  public trySwitch(): boolean {
     if (this.state.on_use) {
       if (
         switchObjectSchemeToSection(
@@ -279,7 +277,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
       }
     }
 
-    this.try_switch();
+    this.trySwitch();
   }
 
   /**
@@ -288,7 +286,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public hit_callback(
     object: ClientObject,
     amount: TCount,
-    const_direction: Vector,
+    constDirection: Vector,
     who: Optional<ClientObject>,
     boneIndex: TIndex
   ): void {

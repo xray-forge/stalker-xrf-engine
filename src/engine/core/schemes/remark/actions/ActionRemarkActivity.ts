@@ -28,13 +28,13 @@ export class ActionRemarkActivity extends action_base {
   public st: ISchemeRemarkState;
   public state: number = stateInitial;
 
-  public sound_end_signalled: boolean = false;
-  public action_end_signalled: boolean = false;
-  public anim_end_signalled: boolean = false;
-  public anim_scheduled: boolean = false;
-  public snd_scheduled: boolean = false;
-  public snd_started: boolean = false;
-  public tips_sound: Optional<SoundObject> = null;
+  public soundEndSignalled: boolean = false;
+  public actionEndSignalled: boolean = false;
+  public animEndSignalled: boolean = false;
+  public animScheduled: boolean = false;
+  public sndScheduled: boolean = false;
+  public sndStarted: boolean = false;
+  public tipsSound: Optional<SoundObject> = null;
 
   public constructor(state: ISchemeRemarkState) {
     super(null, ActionRemarkActivity.__name);
@@ -63,8 +63,8 @@ export class ActionRemarkActivity extends action_base {
    * todo
    */
   public override finalize(): void {
-    if (this.tips_sound !== null) {
-      this.tips_sound.stop();
+    if (this.tipsSound !== null) {
+      this.tipsSound.stop();
     }
 
     super.finalize();
@@ -75,21 +75,21 @@ export class ActionRemarkActivity extends action_base {
    */
   public activateScheme(): void {
     this.st.signals = new LuaTable();
-    this.sound_end_signalled = false;
-    this.action_end_signalled = false;
-    this.anim_end_signalled = false;
-    this.anim_scheduled = true;
+    this.soundEndSignalled = false;
+    this.actionEndSignalled = false;
+    this.animEndSignalled = false;
+    this.animScheduled = true;
 
     if (this.st.snd_anim_sync === false && this.st.snd !== null) {
-      this.snd_scheduled = true;
+      this.sndScheduled = true;
     } else {
-      this.snd_scheduled = false;
+      this.sndScheduled = false;
     }
 
-    this.snd_started = false;
+    this.sndStarted = false;
 
     this.state = stateInitial;
-    this.tips_sound = null;
+    this.tipsSound = null;
   }
 
   /**
@@ -155,26 +155,26 @@ export class ActionRemarkActivity extends action_base {
     } else if (this.state === stateAnimation) {
       // Empty.
     } else if (this.state === stateSound) {
-      if (this.snd_scheduled === true) {
-        this.snd_started = true;
+      if (this.sndScheduled === true) {
+        this.sndStarted = true;
         GlobalSoundManager.getInstance().playSound(this.object.id(), this.st.snd, null, null);
       }
 
-      if (this.anim_end_signalled === false) {
-        this.anim_end_signalled = true;
+      if (this.animEndSignalled === false) {
+        this.animEndSignalled = true;
         this.st.signals!.set("anim_end", true);
       }
 
       if (this.st.signals!.get("sound_end") || this.st.signals!.get("theme_end")) {
-        if (this.sound_end_signalled === false) {
-          this.sound_end_signalled = true;
+        if (this.soundEndSignalled === false) {
+          this.soundEndSignalled = true;
         }
       }
 
-      if (this.sound_end_signalled && this.anim_end_signalled) {
-        if (this.action_end_signalled === false) {
+      if (this.soundEndSignalled && this.animEndSignalled) {
+        if (this.actionEndSignalled === false) {
           this.st.signals!.set("action_end", true);
-          this.action_end_signalled = true;
+          this.actionEndSignalled = true;
         }
       }
     }

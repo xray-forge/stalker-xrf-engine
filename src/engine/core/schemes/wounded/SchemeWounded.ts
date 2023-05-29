@@ -234,7 +234,7 @@ export class SchemeWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static is_psy_wounded_by_id(objectId: TNumberId) {
+  public static isPsyWoundedById(objectId: TNumberId): boolean {
     const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
 
     if (state.wounded !== null) {

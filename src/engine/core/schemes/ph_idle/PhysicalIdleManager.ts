@@ -40,17 +40,17 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
   public hit_callback(
     object: ClientObject,
     amount: TCount,
-    const_direction: Vector,
+    constDirection: Vector,
     who: Optional<ClientObject>,
-    bone_index: TIndex
+    boneIndex: TIndex
   ): void {
     logger.info("Idle hit:", this.object.name());
 
-    if (this.state.hit_on_bone.has(bone_index)) {
+    if (this.state.hit_on_bone.has(boneIndex)) {
       const section: TSection = pickSectionFromCondList(
         registry.actor,
         this.object,
-        this.state.hit_on_bone.get(bone_index).state as TConditionList
+        this.state.hit_on_bone.get(boneIndex).state as TConditionList
       )!;
 
       switchObjectSchemeToSection(object, this.state.ini!, section);

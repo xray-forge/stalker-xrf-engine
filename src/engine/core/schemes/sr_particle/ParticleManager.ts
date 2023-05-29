@@ -13,9 +13,10 @@ import { Optional, Patrol, TCount, TTimestamp } from "@/engine/lib/types";
 export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState> {
   public particles: LuaTable = new LuaTable();
   public path: Optional<Patrol> = null;
-  public last_update: number = 0;
+  public lastUpdate: TTimestamp = 0;
   public started: boolean = false;
-  public first_played: boolean = false;
+
+  public isFirstPlayed: boolean = false;
 
   /**
    * todo: Description.
@@ -57,9 +58,9 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
     }
 
     this.state.signals = new LuaTable();
-    this.last_update = 0;
+    this.lastUpdate = 0;
     this.started = false;
-    this.first_played = false;
+    this.isFirstPlayed = false;
   }
 
   /**
@@ -68,14 +69,14 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   public override update(): void {
     const time: number = time_global();
 
-    if (this.last_update !== 0) {
-      if (time - this.last_update < 50) {
+    if (this.lastUpdate !== 0) {
+      if (time - this.lastUpdate < 50) {
         return;
       } else {
-        this.last_update = time;
+        this.lastUpdate = time;
       }
     } else {
-      this.last_update = time;
+      this.lastUpdate = time;
     }
 
     if (this.started) {
@@ -89,16 +90,16 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
         particle.particle.play();
         particle.played = true;
 
-        this.first_played = true;
+        this.isFirstPlayed = true;
       }
 
       return;
     }
 
     if (this.state.mode === 1) {
-      this.update_mode_1();
+      this.updateMode1();
     } else {
-      this.update_mode_2();
+      this.updateMode2();
     }
 
     this.is_end();
@@ -110,7 +111,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
    * todo: Description.
    */
   public is_end(): boolean {
-    if (this.state.looped === true || this.first_played) {
+    if (this.state.looped === true || this.isFirstPlayed) {
       return false;
     }
 
@@ -136,7 +137,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   /**
    * todo: Description.
    */
-  public update_mode_1(): void {
+  public updateMode1(): void {
     if (this.particles.get(1).particle.playing() === false && this.state.looped === true) {
       this.particles.get(1).particle.play();
     }
@@ -145,7 +146,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   /**
    * todo: Description.
    */
-  public update_mode_2(): void {
+  public updateMode2(): void {
     const size = this.particles.length();
 
     if (size === 0) {
@@ -165,7 +166,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
           }
 
           particle.played = true;
-          this.first_played = true;
+          this.isFirstPlayed = true;
         } else {
           if (this.state.looped === true) {
             particle.particle.play_at_pos(this.path!.point(it - 1));

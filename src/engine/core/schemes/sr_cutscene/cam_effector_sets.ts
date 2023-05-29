@@ -223,7 +223,7 @@ export const pri_b305_camera_5: TCamEffectorSetDescriptor = {
   release: new LuaTable(),
 };
 
-export const effector_sets: Record<string, TCamEffectorSetDescriptor> = {
+export const effectorSets: Record<string, TCamEffectorSetDescriptor> = {
   pri_a15_cameffector,
   jup_b219_descent_camera,
   pri_b305_camera_2,

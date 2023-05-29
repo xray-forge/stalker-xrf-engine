@@ -14,6 +14,7 @@ import {
   TDistance,
   TName,
   TNumberId,
+  TRate,
   Vector,
 } from "@/engine/lib/types";
 
@@ -62,11 +63,11 @@ export class ReachTaskPatrolManager {
   > = new LuaTable();
 
   public targetId: TNumberId;
-  public current_state: EStalkerState = EStalkerState.PATROL;
+  public currentState: EStalkerState = EStalkerState.PATROL;
   public commanderId: TNumberId = -1;
   public formation: string = "back";
-  public commander_lid: number = -1;
-  public commander_dir: Vector = createVector(0, 0, 1);
+  public commanderLid: number = -1;
+  public commanderDir: Vector = createVector(0, 0, 1);
   public objectsCount: TCount = 0;
 
   public constructor(targetId: TNumberId) {
@@ -152,7 +153,7 @@ export class ReachTaskPatrolManager {
   /**
    * todo: Description.
    */
-  public set_formation(formation: TName): void {
+  public setFormation(formation: TName): void {
     if (formation === null) {
       abort("Invalid formation (nil) for PatrolManager[%s]", this.targetId);
     }
@@ -201,7 +202,7 @@ export class ReachTaskPatrolManager {
     const objectId: TNumberId = object.id();
 
     if (this.objectsList.get(this.commanderId) === null) {
-      return $multi(object.level_vertex_id(), object.direction(), this.current_state);
+      return $multi(object.level_vertex_id(), object.direction(), this.currentState);
     } else if (this.objectsList.get(object.id()) === null) {
       abort("NPC with name %s can't present in PatrolManager[%s]", object.name(), this.targetId);
     } else if (object.id() === this.commanderId) {
@@ -227,19 +228,19 @@ export class ReachTaskPatrolManager {
     direction.y = 0;
     direction.normalize();
 
-    let dir_s = this.objectsList.get(objectId).dir;
-    const dist_s = this.objectsList.get(objectId).dist;
-    const vvv = vectorCross(dir_s, createVector(0, 0, 1));
-    let angle = yawDegree(dir_s, createVector(0, 0, 1));
+    let dirS: Vector = this.objectsList.get(objectId).dir;
+    const distS: TDistance = this.objectsList.get(objectId).dist;
+    const vvv: Vector = vectorCross(dirS, createVector(0, 0, 1));
+    let angle: TRate = yawDegree(dirS, createVector(0, 0, 1));
 
     if (vvv.y < 0) {
       angle = -angle;
     }
 
-    dir_s = vectorRotateY(direction, angle);
+    dirS = vectorRotateY(direction, angle);
 
     const d = 2;
-    const vertex = level.vertex_in_direction(level.vertex_in_direction(vertexId, dir_s, dist_s), direction, d);
+    const vertex = level.vertex_in_direction(level.vertex_in_direction(vertexId, dirS, distS), direction, d);
 
     this.objectsList.get(objectId).vertex_id = vertex;
 
@@ -247,15 +248,15 @@ export class ReachTaskPatrolManager {
       .position()
       .distance_to(level.object_by_id(this.objectsList.get(objectId).soldier)!.position());
 
-    if (distance > dist_s + 2) {
-      const nextState: EStalkerState = accelerationByCurrentType.get(this.current_state);
+    if (distance > distS + 2) {
+      const nextState: EStalkerState = accelerationByCurrentType.get(this.currentState);
 
       if (nextState !== null) {
         return $multi(vertex, direction, nextState);
       }
     }
 
-    return $multi(vertex, direction, this.current_state);
+    return $multi(vertex, direction, this.currentState);
   }
 
   /**
@@ -270,15 +271,15 @@ export class ReachTaskPatrolManager {
       return; // --abort ("NPC %s is not commander in PatrolManager[%s]", npc.name (), this.target_name)
     }
 
-    this.current_state = command;
+    this.currentState = command;
 
     if (this.formation !== formation) {
       this.formation = formation;
-      this.set_formation(formation);
+      this.setFormation(formation);
     }
 
-    this.commander_lid = object.level_vertex_id();
-    this.commander_dir = object.direction();
+    this.commanderLid = object.level_vertex_id();
+    this.commanderDir = object.direction();
   }
 
   /**

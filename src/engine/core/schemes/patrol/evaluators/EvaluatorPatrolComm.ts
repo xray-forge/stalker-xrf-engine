@@ -19,6 +19,6 @@ export class EvaluatorPatrolComm extends property_evaluator {
   }
 
   public override evaluate(): boolean {
-    return registry.patrols.generic.get(this.state.patrol_key).is_commander(this.object.id());
+    return registry.patrols.generic.get(this.state.patrol_key).isCommander(this.object.id());
   }
 }

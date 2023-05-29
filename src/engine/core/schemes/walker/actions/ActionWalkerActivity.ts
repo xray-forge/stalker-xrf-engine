@@ -14,7 +14,7 @@ import { ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const assoc_tbl = {
+const ASSOC_TBL = {
   idle: { director: ["wait"] },
   harmonica: { director: ["play_harmonica"] },
   guitar: { director: ["play_guitar"] },
@@ -28,10 +28,11 @@ const assoc_tbl = {
 export class ActionWalkerActivity extends action_base {
   public readonly state: ISchemeWalkerState;
   public readonly moveManager: StalkerMoveManager;
-  public avail_actions: LuaTable<number, IAnimpointAction>;
 
-  public in_camp: Optional<boolean> = null;
-  public camp: Optional<CampStoryManager> = null;
+  public availableActions: LuaTable<number, IAnimpointAction>;
+
+  public isInCamp: Optional<boolean> = null;
+  public campStoryManager: Optional<CampStoryManager> = null;
 
   /**
    * todo: Description.
@@ -43,10 +44,10 @@ export class ActionWalkerActivity extends action_base {
     this.moveManager = registry.objects.get(object.id()).moveManager!;
 
     this.state.description = EStalkerState.WALKER_CAMP;
-    this.avail_actions = associations.get(this.state.description);
+    this.availableActions = associations.get(this.state.description);
     this.state.approvedActions = new LuaTable();
 
-    for (const [k, v] of this.avail_actions) {
+    for (const [k, v] of this.availableActions) {
       if (v.predicate(object.id()) === true) {
         table.insert(this.state.approvedActions, v);
       }
@@ -108,17 +109,17 @@ export class ActionWalkerActivity extends action_base {
     const camp = CampStoryManager.getCurrentCamp(this.object.position());
 
     if (camp !== null && this.state.use_camp === true) {
-      this.camp = camp;
-      this.camp.register_npc(this.object.id());
-      this.in_camp = true;
+      this.campStoryManager = camp;
+      this.campStoryManager.register_npc(this.object.id());
+      this.isInCamp = true;
     } else {
-      if (this.in_camp === true) {
-        this.camp!.unregister_npc(this.object.id());
-        this.in_camp = null;
+      if (this.isInCamp === true) {
+        this.campStoryManager!.unregister_npc(this.object.id());
+        this.isInCamp = null;
       }
     }
 
-    if (!this.in_camp && this.state.sound_idle !== null) {
+    if (!this.isInCamp && this.state.sound_idle !== null) {
       GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sound_idle, null, null);
     }
   }
@@ -127,17 +128,17 @@ export class ActionWalkerActivity extends action_base {
    * todo: Description.
    */
   public update(): void {
-    if (this.camp === null) {
+    if (this.campStoryManager === null) {
       return;
     }
 
-    const [camp_action, is_director] = this.camp.get_camp_action(this.object.id());
+    const [campAction, isDirector] = this.campStoryManager.get_camp_action(this.object.id());
 
-    if (!is_director) {
+    if (!isDirector) {
       return;
     }
 
-    const tbl = assoc_tbl[camp_action as keyof typeof assoc_tbl].director as any as LuaTable<number>;
+    const tbl = ASSOC_TBL[campAction as keyof typeof ASSOC_TBL].director as any as LuaTable<number>;
     const anim = tbl.get(math.random(tbl.length()));
 
     setStalkerState(this.object, anim);
@@ -149,9 +150,9 @@ export class ActionWalkerActivity extends action_base {
   public override finalize(): void {
     this.moveManager.finalize();
 
-    if (this.in_camp === true) {
-      this.camp!.unregister_npc(this.object.id());
-      this.in_camp = null;
+    if (this.isInCamp === true) {
+      this.campStoryManager!.unregister_npc(this.object.id());
+      this.isInCamp = null;
     }
 
     super.finalize();
@@ -168,9 +169,9 @@ export class ActionWalkerActivity extends action_base {
    * todo: Description.
    */
   public net_destroy(object: ClientObject): void {
-    if (this.in_camp === true) {
-      this.camp!.unregister_npc(object.id());
-      this.in_camp = null;
+    if (this.isInCamp === true) {
+      this.campStoryManager!.unregister_npc(object.id());
+      this.isInCamp = null;
     }
   }
 }

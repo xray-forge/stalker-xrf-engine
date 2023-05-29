@@ -66,7 +66,7 @@ export class ActionCommander extends action_base {
 
     registry.patrols.generic
       .get(this.state.patrol_key)
-      .set_command(this.object, this.currentState, this.state.formation);
+      .setCommand(this.object, this.currentState, this.state.formation);
   }
 
   /**
@@ -108,7 +108,7 @@ export class ActionCommander extends action_base {
       this.previousState = nextState;
     }
 
-    registry.patrols.generic.get(this.state.patrol_key).set_command(this.object, nextState, this.state.formation);
+    registry.patrols.generic.get(this.state.patrol_key).setCommand(this.object, nextState, this.state.formation);
   }
 
   /**
@@ -118,7 +118,7 @@ export class ActionCommander extends action_base {
     if (this.object.alive() === true) {
       registry.patrols.generic
         .get(this.state.patrol_key)
-        .set_command(this.object, EStalkerState.GUARD, this.state.formation);
+        .setCommand(this.object, EStalkerState.GUARD, this.state.formation);
       this.moveManager.finalize();
     }
 
@@ -129,14 +129,14 @@ export class ActionCommander extends action_base {
    * todo: Description.
    */
   public deactivate(object: ClientObject): void {
-    registry.patrols.generic.get(this.state.patrol_key).remove_npc(object);
+    registry.patrols.generic.get(this.state.patrol_key).removeNpc(object);
   }
 
   /**
    * todo: Description.
    */
   public death_callback(object: ClientObject): void {
-    registry.patrols.generic.get(this.state.patrol_key).remove_npc(object);
+    registry.patrols.generic.get(this.state.patrol_key).removeNpc(object);
   }
 
   /**

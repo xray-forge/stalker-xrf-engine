@@ -54,6 +54,6 @@ export class SchemeCutscene extends AbstractScheme {
    * todo: Description.
    */
   public static onCutsceneEnd(): void {
-    emitSchemeEvent(CutsceneManager.object_cutscene!, CutsceneManager.storage_scene!, ESchemeEvent.CUTSCENE);
+    emitSchemeEvent(CutsceneManager.objectCutscene!, CutsceneManager.storageScene!, ESchemeEvent.CUTSCENE);
   }
 }

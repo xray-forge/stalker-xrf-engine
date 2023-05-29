@@ -87,7 +87,7 @@ export class SchemePatrol extends AbstractScheme {
       registry.patrols.generic.set(state.patrol_key, new PatrolManager(state.path_name));
     }
 
-    registry.patrols.generic.get(state.patrol_key).add_npc(object, state.commander);
+    registry.patrols.generic.get(state.patrol_key).addNpc(object, state.commander);
   }
 
   /**

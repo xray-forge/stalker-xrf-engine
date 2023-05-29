@@ -23,16 +23,16 @@ export class SchemeTimerManager extends AbstractSchemeManager<ISchemeTimerState>
 
     const nn = time_global() - registry.objects.get(this.object.id()).activation_time;
 
-    let value_time = this.state.type === "inc" ? this.state.start_value + nn : this.state.start_value - nn;
+    let valueTime = this.state.type === "inc" ? this.state.start_value + nn : this.state.start_value - nn;
 
-    if (value_time <= 0) {
-      value_time = 0;
+    if (valueTime <= 0) {
+      valueTime = 0;
     }
 
-    this.state.timer.TextControl().SetTextST(globalTimeToString(value_time));
+    this.state.timer.TextControl().SetTextST(globalTimeToString(valueTime));
 
     for (const [k, v] of this.state.on_value!) {
-      if ((this.state.type === "dec" && value_time <= v.dist) || (this.state.type === "inc" && value_time >= v.dist)) {
+      if ((this.state.type === "dec" && valueTime <= v.dist) || (this.state.type === "inc" && valueTime >= v.dist)) {
         switchObjectSchemeToSection(
           this.object,
           this.state.ini!,

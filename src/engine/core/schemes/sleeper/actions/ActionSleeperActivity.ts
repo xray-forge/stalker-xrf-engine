@@ -7,12 +7,12 @@ import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { IWaypointData, parsePathWaypointsFromArgsList } from "@/engine/core/utils/parse";
-import { AnyCallable, ClientObject, LuaArray, Optional } from "@/engine/lib/types";
+import { AnyCallable, ClientObject, LuaArray, Optional, Patrol } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-const state_walking = 0;
-const state_sleeping = 1;
+const STATE_WALKING = 0;
+const STATE_SLEEPING = 1;
 
 /**
  * todo;
@@ -21,8 +21,8 @@ const state_sleeping = 1;
 export class ActionSleeperActivity extends action_base {
   public readonly state: ISchemeSleeperState;
   public readonly moveManager: StalkerMoveManager;
-  public was_reset: boolean = false;
-  public sleeping_state: number = state_walking;
+  public wasReset: boolean = false;
+  public sleepingState: number = STATE_WALKING;
 
   public timer!: {
     begin: Optional<number>;
@@ -32,15 +32,12 @@ export class ActionSleeperActivity extends action_base {
     random: number;
   };
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeSleeperState, object: ClientObject) {
     super(null, ActionSleeperActivity.__name);
 
     this.state = state;
     this.moveManager = registry.objects.get(object.id()).moveManager!;
-    this.was_reset = false;
+    this.wasReset = false;
   }
 
   /**
@@ -68,23 +65,23 @@ export class ActionSleeperActivity extends action_base {
     };
 
     this.state.signals = new LuaTable();
-    this.sleeping_state = state_walking;
+    this.sleepingState = STATE_WALKING;
 
     if (this.state.path_walk_info === null) {
-      const patrol_main = new patrol(this.state.path_main);
+      const patrolMain: Patrol = new patrol(this.state.path_main);
 
-      if (!patrol_main) {
+      if (!patrolMain) {
         abort("object '%s': unable to find path_main '%s' on the map", this.object.name(), this.state.path_main);
       }
 
-      const num_wayp = patrol_main.count();
+      const numWayp = patrolMain.count();
 
-      if (num_wayp === 1) {
+      if (numWayp === 1) {
         this.state.path_walk = this.state.path_main;
         this.state.path_walk_info = parsePathWaypointsFromArgsList(this.state.path_main, 1, [0, "wp00|ret=1"]);
         this.state.path_look = null;
         this.state.path_look_info = null;
-      } else if (num_wayp === 2) {
+      } else if (numWayp === 2) {
         this.state.path_walk = this.state.path_main;
         this.state.path_walk_info = parsePathWaypointsFromArgsList(this.state.path_main, 2, [1, "wp00"], [0, "wp01"]);
         this.state.path_look = this.state.path_main;
@@ -99,7 +96,7 @@ export class ActionSleeperActivity extends action_base {
           "object '%s': path_main '%s' contains %d waypoints, while 1 or 2 were expected",
           this.object.name(),
           this.state.path_main,
-          num_wayp
+          numWayp
         );
       }
     }
@@ -117,21 +114,21 @@ export class ActionSleeperActivity extends action_base {
       null,
       null
     );
-    this.was_reset = true;
+    this.wasReset = true;
   }
 
   /**
    * todo: Description.
    */
   public activateScheme(): void {
-    this.was_reset = false;
+    this.wasReset = false;
   }
 
   /**
    * todo: Description.
    */
   public callback(mode: number, number: number): boolean {
-    this.sleeping_state = state_sleeping;
+    this.sleepingState = STATE_SLEEPING;
 
     const sleepPatrol = new patrol(this.state.path_main);
     const position = sleepPatrol.count() === 2 ? sleepPatrol.point(1) : null;
@@ -150,11 +147,11 @@ export class ActionSleeperActivity extends action_base {
    */
   public override execute(): void {
     super.execute();
-    if (!this.was_reset) {
+    if (!this.wasReset) {
       this.resetScheme();
     }
 
-    if (this.sleeping_state === state_walking) {
+    if (this.sleepingState === STATE_WALKING) {
       this.moveManager.update();
 
       return;

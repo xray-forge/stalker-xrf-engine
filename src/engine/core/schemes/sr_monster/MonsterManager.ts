@@ -8,41 +8,49 @@ import { ISchemeMonsterState } from "@/engine/core/schemes/sr_monster/ISchemeMon
 import { action, scriptCaptureObject, scriptReleaseObject } from "@/engine/core/utils/object";
 import { copyVector, subVectors } from "@/engine/core/utils/vector";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
-import { ClientObject, Optional, ServerMonsterAbstractObject, SoundObject, TIndex, Vector } from "@/engine/lib/types";
+import {
+  ClientObject,
+  ESoundObjectType,
+  Optional,
+  ServerMonsterAbstractObject,
+  SoundObject,
+  TIndex,
+  Vector,
+} from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
-  public is_actor_inside: Optional<boolean> = null;
-  public final_action: Optional<boolean> = null;
-  public idle_state: Optional<boolean> = null;
-  public path_name: Optional<string> = null;
-  public cur_point: Optional<number> = null;
+  public isActorInside: Optional<boolean> = null;
+  public finalAction: Optional<boolean> = null;
+  public idleState: Optional<boolean> = null;
+  public pathName: Optional<string> = null;
+  public curPoint: Optional<number> = null;
   public dir!: Vector;
   public current!: Vector;
   public target!: Vector;
 
   public monster: Optional<ServerMonsterAbstractObject> = null;
-  public monster_obj: Optional<ClientObject> = null;
+  public monsterObject: Optional<ClientObject> = null;
 
-  public snd_obj: Optional<SoundObject> = null;
-  public appear_snd!: SoundObject;
+  public soundObject: Optional<SoundObject> = null;
+  public appearSound!: SoundObject;
 
   /**
    * todo: Description.
    */
   public override resetScheme(): void {
-    this.is_actor_inside = false;
+    this.isActorInside = false;
 
     this.state.idle_end = 0;
     this.state.signals = new LuaTable();
-    this.snd_obj = null;
-    this.final_action = false;
-    this.appear_snd = new sound_object(sounds.monsters_boar_boar_swamp_appear_1);
-    this.idle_state = false;
-    this.path_name = null;
-    this.monster_obj = null;
+    this.soundObject = null;
+    this.finalAction = false;
+    this.appearSound = new sound_object(sounds.monsters_boar_boar_swamp_appear_1);
+    this.idleState = false;
+    this.pathName = null;
+    this.monsterObject = null;
   }
 
   /**
@@ -51,80 +59,80 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   public override update(delta: number): void {
     const actor: ClientObject = registry.actor;
 
-    if (this.idle_state) {
+    if (this.idleState) {
       if (this.state.idle_end <= game.time()) {
-        this.idle_state = false;
+        this.idleState = false;
       }
 
       return;
     }
 
-    if (this.is_actor_inside === null && this.state.monster !== null) {
-      this.is_actor_inside = this.object.inside(actor.position());
+    if (this.isActorInside === null && this.state.monster !== null) {
+      this.isActorInside = this.object.inside(actor.position());
 
       return;
     }
 
     if (this.object.inside(actor.position())) {
-      if (!this.is_actor_inside) {
+      if (!this.isActorInside) {
         this.onEnter();
-        this.is_actor_inside = true;
+        this.isActorInside = true;
       }
     }
 
     if (
-      this.final_action &&
+      this.finalAction &&
       (registry.objects.get(this.monster!.id) === null ||
-        this.monster_obj!.position().distance_to(this.state.path.point(this.state.path.count() - 1)) <= 1)
+        this.monsterObject!.position().distance_to(this.state.path.point(this.state.path.count() - 1)) <= 1)
     ) {
       if (registry.objects.has(this.monster!.id)) {
-        scriptReleaseObject(this.monster_obj!, MonsterManager.name);
+        scriptReleaseObject(this.monsterObject!, MonsterManager.name);
       }
 
       alife().release(this.monster, true);
 
       this.monster = null;
-      this.monster_obj = null;
-      this.final_action = false;
-      this.idle_state = true;
+      this.monsterObject = null;
+      this.finalAction = false;
+      this.idleState = true;
       this.state.idle_end = game.time() + this.state.idle;
-      this.is_actor_inside = false;
+      this.isActorInside = false;
       this.resetPath();
 
       return;
     }
 
-    if (this.is_actor_inside === true && this.monster === null) {
-      const target_pos: Vector = copyVector(this.current);
+    if (this.isActorInside === true && this.monster === null) {
+      const targetPosition: Vector = copyVector(this.current);
 
-      target_pos.mad(this.dir, (this.state.sound_slide_vel * delta) / 1000);
-      if (target_pos.distance_to(this.current) > this.current.distance_to(this.target)) {
-        this.cur_point = this.getNextPoint();
+      targetPosition.mad(this.dir, (this.state.sound_slide_vel * delta) / 1000);
+      if (targetPosition.distance_to(this.current) > this.current.distance_to(this.target)) {
+        this.curPoint = this.getNextPoint();
         this.setPositions();
       } else {
-        this.current = copyVector(target_pos);
+        this.current = copyVector(targetPosition);
       }
 
-      this.snd_obj = GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_obj, null, null);
-      if (this.snd_obj && this.snd_obj.playing()) {
-        this.snd_obj.set_position(this.current);
+      this.soundObject = GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_obj, null, null);
+      if (this.soundObject && this.soundObject.playing()) {
+        this.soundObject.set_position(this.current);
       }
     } else if (
-      this.monster_obj === null &&
+      this.monsterObject === null &&
       this.monster !== null &&
       registry.objects.get(this.monster.id) !== null &&
-      !this.final_action
+      !this.finalAction
     ) {
-      this.monster_obj = registry.objects.get(this.monster.id).object!;
+      this.monsterObject = registry.objects.get(this.monster.id).object!;
 
-      scriptCaptureObject(this.monster_obj, true, MonsterManager.name);
+      scriptCaptureObject(this.monsterObject, true, MonsterManager.name);
 
       action(
-        this.monster_obj,
+        this.monsterObject,
         new move(move.run_fwd, this.state.path.point(this.state.path.count() - 1)),
         new cond(cond.move_end)
       );
-      this.final_action = true;
+      this.finalAction = true;
     }
 
     trySwitchToAnotherSection(this.object, this.state, registry.actor);
@@ -142,34 +150,34 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
    * todo: Description.
    */
   public resetPath(): void {
-    this.cur_point = 0;
+    this.curPoint = 0;
 
-    const path_count = this.state.path_table!.length();
+    const pathCount = this.state.path_table!.length();
 
-    if (path_count === 1) {
-      this.path_name = this.state.path_table!.get(1);
-      this.state.path = new patrol(this.path_name);
+    if (pathCount === 1) {
+      this.pathName = this.state.path_table!.get(1);
+      this.state.path = new patrol(this.pathName);
 
       return;
     }
 
-    let path_name_new = this.path_name;
+    let pathNameNew = this.pathName;
 
     // todo: WTF?
-    while (this.path_name === path_name_new) {
-      path_name_new = this.state.path_table!.get(math.random(1, path_count));
+    while (this.pathName === pathNameNew) {
+      pathNameNew = this.state.path_table!.get(math.random(1, pathCount));
     }
 
-    this.path_name = path_name_new;
-    this.state.path = new patrol(this.path_name!);
+    this.pathName = pathNameNew;
+    this.state.path = new patrol(this.pathName!);
   }
 
   /**
    * todo: Description.
    */
   public getNextPoint(): TIndex {
-    if (this.cur_point! + 1 < this.state.path.count()) {
-      return this.cur_point! + 1;
+    if (this.curPoint! + 1 < this.state.path.count()) {
+      return this.curPoint! + 1;
     } else {
       return 0;
     }
@@ -189,16 +197,16 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
         );
       }
 
-      this.appear_snd.play_at_pos(registry.actor, this.current, 0, sound_object.s3d);
+      this.appearSound.play_at_pos(registry.actor, this.current, 0, ESoundObjectType.S3D);
 
-      if (this.snd_obj !== null) {
-        this.snd_obj.stop();
+      if (this.soundObject !== null) {
+        this.soundObject.stop();
       }
 
       this.resetPath();
     }
 
-    this.current = this.state.path.point(this.cur_point as number);
+    this.current = this.state.path.point(this.curPoint as number);
     this.target = this.state.path.point(this.getNextPoint());
     this.dir = subVectors(this.target, this.current).normalize();
   }
