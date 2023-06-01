@@ -14,6 +14,7 @@ import {
   PhysicsShell,
   TCount,
   TIndex,
+  TRate,
   Vector,
 } from "@/engine/lib/types";
 
@@ -196,7 +197,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    * todo: Description.
    */
   public isClosed(): boolean {
-    const angle = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
+    const angle: TRate = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
 
     return angle <= this.lowLimits + 0.02;
   }
@@ -205,7 +206,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    * todo: Description.
    */
   public isOpen(): boolean {
-    const angle = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
+    const angle: TRate = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
 
     return angle >= this.hiLimits - 0.02;
   }

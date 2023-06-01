@@ -301,7 +301,7 @@ export class CampStoryManager {
     for (const [id, info] of this.npc) {
       objectsCount = objectsCount + 1;
 
-      const state = registry.objects.get(id);
+      const state: IRegistryObjectState = registry.objects.get(id);
 
       if (state !== null) {
         const schemeState: Optional<ISchemeAnimpointState> =

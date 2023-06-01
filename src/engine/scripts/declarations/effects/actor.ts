@@ -39,6 +39,7 @@ import {
   TIndex,
   TLabel,
   TNumberId,
+  TRate,
   TSection,
   TStringId,
   Vector,
@@ -140,8 +141,8 @@ extern(
   (actor: ClientObject, npc: ClientObject, params: [string, Optional<number>, Optional<number>]): void => {
     logger.info("Run cam effector global");
 
-    let num = 1000 + math.random(100);
-    let fov = device().fov;
+    let num: TIndex = 1000 + math.random(100);
+    let fov: TRate = device().fov;
 
     if (params[1] && type(params[1]) === "number" && params[1] > 0) {
       num = params[1];
@@ -273,7 +274,7 @@ extern(
 extern("xr_effects.relocate_item", (actor: ClientObject, npc: ClientObject, params: [string, string, string]) => {
   logger.info("Relocate item");
 
-  const item = params && params[0];
+  const item: Optional<TSection> = params && params[0];
   const fromObject: Optional<ClientObject> = params && getObjectByStoryId(params[1]);
   const toObject: Optional<ClientObject> = params && getObjectByStoryId(params[2]);
 

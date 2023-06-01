@@ -183,7 +183,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
         if (param === FALSE) {
           return 1;
         } else if (param !== TRUE) {
-          const possibilitiesConditionList = parseConditionsList(param);
+          const possibilitiesConditionList: TConditionList = parseConditionsList(param);
           const possibility: Optional<TSection> = pickSectionFromCondList(
             registry.actor,
             registry.activeSpeaker,
@@ -225,8 +225,12 @@ export class ItemUpgradesManager extends AbstractCoreManager {
         } else {
           this.upgradeHints = null;
 
-          const possibilitiesConditionList = parseConditionsList(param);
-          const possibility = pickSectionFromCondList(actor, registry.activeSpeaker, possibilitiesConditionList);
+          const possibilitiesConditionList: TConditionList = parseConditionsList(param);
+          const possibility: Optional<TSection> = pickSectionFromCondList(
+            actor,
+            registry.activeSpeaker,
+            possibilitiesConditionList
+          );
 
           if (!possibility || possibility === FALSE) {
             label = label + this.getPossibilitiesLabel(this.currentMechanicName, possibilitiesConditionList);
@@ -236,7 +240,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
     }
 
     if (actor !== null) {
-      const price = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * this.currentPriceDiscountRate);
+      const price: TCount = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * this.currentPriceDiscountRate);
 
       if (actor.money() < price) {
         return string.format("%s\\n - %s", label, game.translate_string(captions.st_upgr_enough_money));
@@ -265,14 +269,14 @@ export class ItemUpgradesManager extends AbstractCoreManager {
     const translatedPropertyName: TLabel = game.translate_string(propertyName);
 
     const sections: LuaArray<TSection> = parseStringsList(data);
-    const sectionsCount = sections.length();
+    const sectionsCount: TCount = sections.length();
 
     if (sectionsCount === 0) {
       return "";
     }
 
     let value: string = "0";
-    let sum = 0;
+    let sum: TCount = 0;
 
     for (const it of $range(1, sectionsCount)) {
       if (!ITEM_UPGRADES.line_exist(sections.get(it), "value") || !ITEM_UPGRADES.r_string(sections.get(it), "value")) {
@@ -304,7 +308,7 @@ export class ItemUpgradesManager extends AbstractCoreManager {
       // --        return str
       return translatedPropertyName + " " + value;
     } else if (name === "prop_tonnage" || name === "prop_weightoutfit" || name === "prop_weight") {
-      const str = string.format("%s %5.2f %s", translatedPropertyName, value, game.translate_string("st_kg"));
+      const str: string = string.format("%s %5.2f %s", translatedPropertyName, value, game.translate_string("st_kg"));
 
       return str;
     } else if (name === "prop_night_vision") {

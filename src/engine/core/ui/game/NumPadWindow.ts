@@ -1,7 +1,7 @@
 import { CScriptXmlInit, CUIScriptWnd, CUIStatic, DIK_keys, LuabindClass, ui_events, vector2 } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TKeyCode, TUIEvent, XmlInit } from "@/engine/lib/types";
+import { Optional, TKeyCode, TLabel, TUIEvent, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -78,7 +78,7 @@ export class NumPadWindow extends CUIScriptWnd {
   }
 
   public addNumber(number: number): void {
-    const text = this.editBox.TextControl().GetText() || "";
+    const text: TLabel = this.editBox.TextControl().GetText() || "";
 
     if (string.len(text) > 12) {
       return;
@@ -88,14 +88,14 @@ export class NumPadWindow extends CUIScriptWnd {
   }
 
   public onBackspaceButtonClicked(): void {
-    const text = this.editBox.TextControl().GetText();
+    const text: TLabel = this.editBox.TextControl().GetText();
 
     if (text === null) {
       return;
     }
 
-    const b = 1;
-    const e = string.len(text) - 1;
+    const b: number = 1;
+    const e: number = string.len(text) - 1;
 
     this.editBox.TextControl().SetText(string.sub(text, b, e));
   }
@@ -119,7 +119,7 @@ export class NumPadWindow extends CUIScriptWnd {
 
     this.HideDialog();
 
-    const text = this.editBox.TextControl().GetText();
+    const text: TLabel = this.editBox.TextControl().GetText();
 
     if (this.owner) {
       this.owner.OnNumberReceive(text);

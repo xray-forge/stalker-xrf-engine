@@ -6,7 +6,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/sr_crow_spawner/ISchemeCrowSpawnerState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { copyTable } from "@/engine/core/utils/table";
-import { Optional, TCount, TDuration, TIndex } from "@/engine/lib/types";
+import { Optional, Patrol, ServerObject, TCount, TDuration, TIndex, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -59,17 +59,22 @@ export class CrowSpawnerManager extends AbstractSchemeManager<ISchemeCrowSpawner
 
     for (const it of $range(1, this.state.pathsList!.length())) {
       const idx: TIndex = math.random(pathList.length());
-      const selectedPath = pathList.get(idx);
+      const selectedPath: TName = pathList.get(idx);
 
       table.remove(pathList, idx);
       if (this.spawnPointsIdle.get(selectedPath) <= time_global()) {
         // -- if we have not spawned already in this point
-        const ptr = new patrol(selectedPath);
+        const crowPatrol: Patrol = new patrol(selectedPath);
 
-        if (ptr.point(0).distance_to(registry.actor.position()) > 100) {
-          const obj = alife().create("m_crow", ptr.point(0), ptr.level_vertex_id(0), ptr.game_vertex_id(0));
+        if (crowPatrol.point(0).distance_to(registry.actor.position()) > 100) {
+          const object: ServerObject = alife().create(
+            "m_crow",
+            crowPatrol.point(0),
+            crowPatrol.level_vertex_id(0),
+            crowPatrol.game_vertex_id(0)
+          );
 
-          logger.info("Spawn new crow:", obj.id, selectedPath);
+          logger.info("Spawn new crow:", object.id, selectedPath);
 
           this.spawnPointsIdle.set(selectedPath, time_global() + 10000);
 

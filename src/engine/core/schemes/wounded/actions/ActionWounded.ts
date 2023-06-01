@@ -8,7 +8,7 @@ import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { AlifeSimulator, Hit, TTimestamp } from "@/engine/lib/types";
+import { AlifeSimulator, ClientObject, Hit, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -56,7 +56,7 @@ export class ActionWounded extends action_base {
         if (woundedAt === null) {
           setPortableStoreValue(this.object, "begin_wounded", now);
         } else if (now - woundedAt > 60000) {
-          const npc = this.object;
+          const npc: ClientObject = this.object;
 
           simulator.create("medkit_script", npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());
           woundManager.unlockMedkit();

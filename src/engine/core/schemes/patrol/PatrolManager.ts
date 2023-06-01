@@ -3,7 +3,7 @@ import { level } from "xray16";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { abort } from "@/engine/core/utils/assertion";
 import { createEmptyVector, createVector, vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
-import { ClientObject, Optional, TCount, TName, TNumberId, Vector } from "@/engine/lib/types";
+import { ClientObject, Optional, TCount, TDistance, TName, TNumberId, TRate, Vector } from "@/engine/lib/types";
 
 const formations = {
   line: [
@@ -156,7 +156,7 @@ export class PatrolManager {
     }
 
     // --'���������� �������� ������
-    const npcId = npc.id();
+    const npcId: TNumberId = npc.id();
 
     // --'�������� ������ �� ���������� � ������
     if (this.npcList.get(npc.id()) === null) {
@@ -180,11 +180,11 @@ export class PatrolManager {
     dir.y = 0;
     dir.normalize();
 
-    let dirS = this.npcList.get(npcId).dir;
-    const distS = this.npcList.get(npcId).dist;
+    let dirS: Vector = this.npcList.get(npcId).dir;
+    const distS: TDistance = this.npcList.get(npcId).dist;
 
-    let angle = yawDegree(dirS, createVector(0, 0, 1));
-    const vvv = vectorCross(dirS, createVector(0, 0, 1));
+    let angle: TRate = yawDegree(dirS, createVector(0, 0, 1));
+    const vvv: Vector = vectorCross(dirS, createVector(0, 0, 1));
 
     if (vvv.y < 0) {
       angle = -angle;
@@ -192,12 +192,12 @@ export class PatrolManager {
 
     dirS = vectorRotateY(dir, angle);
 
-    const d = 2;
-    const vertex = level.vertex_in_direction(level.vertex_in_direction(vertexId, dirS, distS), dir, d);
+    const d: number = 2;
+    const vertex: TNumberId = level.vertex_in_direction(level.vertex_in_direction(vertexId, dirS, distS), dir, d);
 
     this.npcList.get(npcId).vertex_id = vertex;
 
-    const distance = commander.position().distance_to(this.npcList.get(npcId).soldier.position());
+    const distance: TDistance = commander.position().distance_to(this.npcList.get(npcId).soldier.position());
 
     if (distance > distS + 2) {
       const newState: EStalkerState = ACCEL_BY_CURTYPE[this.currentState as keyof typeof ACCEL_BY_CURTYPE];

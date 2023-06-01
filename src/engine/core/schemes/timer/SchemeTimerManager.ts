@@ -6,6 +6,7 @@ import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine
 import { ISchemeTimerState } from "@/engine/core/schemes/timer/ISchemeTimerState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { globalTimeToString } from "@/engine/core/utils/time";
+import { ClientObject } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -15,15 +16,15 @@ export class SchemeTimerManager extends AbstractSchemeManager<ISchemeTimerState>
    * todo: Description.
    */
   public override update(): void {
-    const actor = registry.actor;
+    const actor: ClientObject = registry.actor;
 
     if (trySwitchToAnotherSection(this.object, this.state, actor)) {
       return;
     }
 
-    const nn = time_global() - registry.objects.get(this.object.id()).activation_time;
+    const nn: number = time_global() - registry.objects.get(this.object.id()).activation_time;
 
-    let valueTime = this.state.type === "inc" ? this.state.start_value + nn : this.state.start_value - nn;
+    let valueTime: number = this.state.type === "inc" ? this.state.start_value + nn : this.state.start_value - nn;
 
     if (valueTime <= 0) {
       valueTime = 0;

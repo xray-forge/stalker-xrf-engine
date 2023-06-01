@@ -8,7 +8,7 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWounde
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { AlifeSimulator, LuaArray, Optional, TCount, TRate, TTimestamp } from "@/engine/lib/types";
+import { AlifeSimulator, LuaArray, Optional, TCount, TIndex, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -98,7 +98,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
    * todo: Description.
    */
   public processFight(hp: TRate): string {
-    const key = this.getKeyFromDistance(this.state.hp_fight, hp);
+    const key: Optional<TIndex> = this.getKeyFromDistance(this.state.hp_fight, hp);
 
     if (key !== null) {
       if (this.state.hp_fight.get(key).state) {
@@ -113,7 +113,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
    * todo: Description.
    */
   public processVictim(hp: TRate): string {
-    const key = this.getKeyFromDistance(this.state.hp_victim, hp);
+    const key: Optional<TIndex> = this.getKeyFromDistance(this.state.hp_victim, hp);
 
     if (key !== null) {
       if (this.state.hp_victim.get(key).state) {
@@ -128,7 +128,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
    * todo: Description.
    */
   public processHPWound(hp: TRate): LuaMultiReturn<[string, string]> {
-    const key = this.getKeyFromDistance(this.state.hp_state, hp);
+    const key: Optional<TIndex> = this.getKeyFromDistance(this.state.hp_state, hp);
 
     if (key !== null) {
       let r1: Optional<string> = null;
@@ -162,7 +162,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
    * todo: Description.
    */
   public processPsyWound(hp: TCount): LuaMultiReturn<[string, string]> {
-    const key = this.getKeyFromDistance(this.state.psy_state, hp);
+    const key: Optional<TIndex> = this.getKeyFromDistance(this.state.psy_state, hp);
 
     if (key !== null) {
       let r1: Optional<string> = null;

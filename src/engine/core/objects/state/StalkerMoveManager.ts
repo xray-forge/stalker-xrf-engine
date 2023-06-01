@@ -21,6 +21,7 @@ import {
   TDuration,
   TIndex,
   TName,
+  TTimestamp,
   Vector,
 } from "@/engine/lib/types";
 
@@ -279,21 +280,21 @@ export class StalkerMoveManager {
     }
 
     if (this.canUseGetCurrentPointIndex && !this.isArrivedToFirstWaypoint()) {
-      const t = time_global();
+      const now: TTimestamp = time_global();
 
-      if (t >= this.keepStateUntil) {
-        this.keepStateUntil = t + KEEP_STATE_MIN_TIME;
+      if (now >= this.keepStateUntil) {
+        this.keepStateUntil = now + KEEP_STATE_MIN_TIME;
 
         const currentPointIndex: TIndex = this.currentPointIndex!;
-        const dist = this.object.position().distance_to(this.patrolWalk!.point(currentPointIndex));
+        const dist: TDistance = this.object.position().distance_to(this.patrolWalk!.point(currentPointIndex));
 
-        if (dist <= DIST_WALK || t < this.walkUntil) {
+        if (dist <= DIST_WALK || now < this.walkUntil) {
           this.currentStateMoving = pickSectionFromCondList(
             registry.actor,
             this.object,
             this.defaultStateMoving1 as any
           )!;
-        } else if (dist <= DIST_RUN || t < this.runUntil) {
+        } else if (dist <= DIST_RUN || now < this.runUntil) {
           this.currentStateMoving = pickSectionFromCondList(
             registry.actor,
             this.object,

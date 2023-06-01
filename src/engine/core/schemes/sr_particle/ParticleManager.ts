@@ -4,8 +4,8 @@ import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeParticleState } from "@/engine/core/schemes/sr_particle/ISchemeParticleState";
-import { parsePathWaypoints } from "@/engine/core/utils/parse";
-import { Optional, Patrol, TCount, TTimestamp } from "@/engine/lib/types";
+import { IWaypointData, parsePathWaypoints } from "@/engine/core/utils/parse";
+import { LuaArray, Optional, Patrol, TCount, TDuration, TTimestamp } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -25,11 +25,11 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
     if (this.state.mode === 2) {
       this.path = new patrol(this.state.path);
 
-      const flags = parsePathWaypoints(this.state.path)!;
-      const count = this.path.count();
+      const flags: LuaArray<IWaypointData> = parsePathWaypoints(this.state.path)!;
+      const count: TCount = this.path.count();
 
       for (const a of $range(1, count)) {
-        let d = 0;
+        let d: TDuration = 0;
 
         if (flags.get(a - 1)["d"]) {
           d = tonumber(flags.get(a - 1)["d"])!;
@@ -147,7 +147,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
    * todo: Description.
    */
   public updateMode2(): void {
-    const size = this.particles.length();
+    const size: TCount = this.particles.length();
 
     if (size === 0) {
       return;

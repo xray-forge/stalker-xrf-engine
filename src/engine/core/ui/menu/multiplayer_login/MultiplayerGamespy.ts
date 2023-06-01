@@ -27,7 +27,7 @@ import {
 import { MainMenu } from "@/engine/core/ui/menu/MainMenu";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
-import { Optional, TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
+import { Optional, TKeyCode, TLabel, TName, TPath, TUIEvent } from "@/engine/lib/types";
 
 const base: TPath = "menu\\multiplayer\\MultiplayerGamespy.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -329,12 +329,12 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
   }
 
   public OnBtnShowCreateAccountPage() {
-    const empty_text = "";
+    const emptyText: string = "";
 
-    this.caEmail.SetText(empty_text);
-    this.caPassword.SetText(empty_text);
-    this.caConfirmPassword.SetText(empty_text);
-    this.caUniqueNick.SetText(empty_text);
+    this.caEmail.SetText(emptyText);
+    this.caPassword.SetText(emptyText);
+    this.caConfirmPassword.SetText(emptyText);
+    this.caUniqueNick.SetText(emptyText);
 
     this.caEmailValid = false;
     this.caPasswordsValid = false;
@@ -345,7 +345,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     this.caStConfirmPassword.InitTexture("ui_inGame2_lamp_OFF");
     this.caStUniqueNick.InitTexture("ui_inGame2_lamp_OFF");
 
-    this.caError.SetText(empty_text);
+    this.caError.SetText(emptyText);
 
     this.createAccountButton.Enable(false);
     this.activePage = "create_account_page";
@@ -609,8 +609,8 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     this.gsLoginMbResult.InitMessageBox("message_box_gs_result");
 
     if (loadResult === true) {
-      const tmpUnick = this.owner.xrGameSpyProfile!.unique_nick();
-      let helloText = game.translate_string("ui_mp_gamespy_loading_rewards_hello") + " " + tmpUnick + "!";
+      const tmpUnick: TName = this.owner.xrGameSpyProfile!.unique_nick();
+      let helloText: TLabel = game.translate_string("ui_mp_gamespy_loading_rewards_hello") + " " + tmpUnick + "!";
 
       if (tmpUnick === "@unregistered") {
         helloText = game.translate_string("mp_gp_unique_nick_not_registred");
@@ -644,7 +644,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
   }
 
   public OnEditCAEmailChanged() {
-    const email = this.caEmail.GetText();
+    const email: TName = this.caEmail.GetText();
 
     if (email !== "") {
       if (this.owner.xrAccountManager.verify_email(email)) {
@@ -665,7 +665,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
   }
 
   public OnEditCAPasswordChanged() {
-    const pass = this.caPassword.GetText();
+    const pass: string = this.caPassword.GetText();
 
     if (this.owner.xrAccountManager.verify_password(pass)) {
       this.caStPassword.InitTexture("ui_inGame2_lamp_GREEN");
@@ -680,8 +680,8 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
   }
 
   public OnEditCAConfirmPasswordChanged() {
-    const pass = this.caPassword.GetText();
-    const confPass = this.caConfirmPassword.GetText();
+    const pass: string = this.caPassword.GetText();
+    const confPass: string = this.caConfirmPassword.GetText();
 
     if (pass === confPass) {
       if (this.owner.xrAccountManager.verify_password(pass)) {
@@ -703,7 +703,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
   }
 
   public OnEditCAUniqueNickChanged() {
-    const nick = this.caUniqueNick.GetText();
+    const nick: TName = this.caUniqueNick.GetText();
 
     if (this.owner.xrAccountManager.verify_unique_nick(nick)) {
       this.gsMbCreateVnickCancel.InitMessageBox("message_box_gs_info");
@@ -796,7 +796,7 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
         index += 1;
       }
 
-      const firstName = this.caComboAvalUniqueNick.GetTextOf(0);
+      const firstName: TName = this.caComboAvalUniqueNick.GetTextOf(0);
 
       this.caComboAvalUniqueNick.SetText(firstName);
       this.caStUniqueNick.InitTexture("ui_inGame2_lamp_RED");

@@ -4,6 +4,7 @@ import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePhysicalForceState } from "@/engine/core/schemes/ph_force/ISchemePhysicalForceState";
+import { Vector } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -41,10 +42,10 @@ export class PhysicalForceManager extends AbstractSchemeManager<ISchemePhysicalF
       }
     }
 
-    const dir = this.state.point.sub(this.object.position());
+    const direction: Vector = this.state.point.sub(this.object.position());
 
-    dir.normalize();
-    this.object.set_const_force(dir, this.state.force, this.state.time);
+    direction.normalize();
+    this.object.set_const_force(direction, this.state.force, this.state.time);
     this.process = true;
   }
 }

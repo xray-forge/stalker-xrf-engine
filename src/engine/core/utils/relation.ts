@@ -261,7 +261,7 @@ export function isSquadRelationBetweenActorAndRelation(squadName: TName, goodwil
   }
 
   for (const squadMember of squad.squad_members()) {
-    let isEnemy;
+    let isEnemy: boolean;
 
     if (goodwill === relations.enemy) {
       const goodwill: Optional<number> = registry.objects.get(squadMember.id)?.object.general_goodwill(actor);
@@ -416,7 +416,7 @@ export function setSquadGoodwillToNpc(
 ): void {
   logger.info("Applying new game relation between squad and npc:", newGoodwill, objectId, npc?.name());
 
-  let goodwill = 0;
+  let goodwill: EGoodwill = EGoodwill.NEUTRALS;
 
   if (newGoodwill === relations.enemy) {
     goodwill = EGoodwill.ENEMIES;

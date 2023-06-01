@@ -480,7 +480,7 @@ export class TravelManager extends AbstractCoreManager {
     createAutoSave(captions.st_save_uni_travel_generic);
 
     const squad: Squad = getObjectSquad(npc)!;
-    const squadTargetId = squad.assignedTargetId;
+    const squadTargetId: Optional<TNumberId> = squad.assignedTargetId;
     const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(squadTargetId!)!;
 
     npc.stop_talk();

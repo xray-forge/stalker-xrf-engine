@@ -14,7 +14,7 @@ import { getParamString, pickSectionFromCondList } from "@/engine/core/utils/ini
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, StringOptional, TNumberId, Vector } from "@/engine/lib/types";
+import { ClientObject, Optional, StringOptional, TName, TNumberId, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -86,9 +86,7 @@ export class ActionSmartCoverActivity extends action_base {
       return;
     }
 
-    const object = this.object;
-
-    object.set_smart_cover_target();
+    this.object.set_smart_cover_target();
 
     // --object.set_smart_cover_target_selector()
     this.targetEnemyId = null;
@@ -108,14 +106,14 @@ export class ActionSmartCoverActivity extends action_base {
       this.checkTarget();
 
       this.coverСondlist = parseConditionsList(this.state.cover_state);
-      this.coverState = pickSectionFromCondList(registry.actor, object, this.coverСondlist) as ECoverState;
+      this.coverState = pickSectionFromCondList(registry.actor, this.object, this.coverСondlist) as ECoverState;
       this.targetSelector(this.object);
       this.checkTargetSelector();
 
-      object.idle_min_time(this.state.idle_min_time);
-      object.idle_max_time(this.state.idle_max_time);
-      object.lookout_min_time(this.state.lookout_min_time);
-      object.lookout_max_time(this.state.lookout_max_time);
+      this.object.idle_min_time(this.state.idle_min_time);
+      this.object.idle_max_time(this.state.idle_max_time);
+      this.object.lookout_min_time(this.state.lookout_min_time);
+      this.object.lookout_max_time(this.state.lookout_max_time);
     }
   }
 
@@ -141,9 +139,13 @@ export class ActionSmartCoverActivity extends action_base {
    * todo: Description.
    */
   public checkTarget(): boolean {
-    const object = this.object;
+    const object: ClientObject = this.object;
 
-    const targetPathSection = pickSectionFromCondList(registry.actor, this.object, this.targetPathCondlist);
+    const targetPathSection: Optional<TName> = pickSectionFromCondList(
+      registry.actor,
+      this.object,
+      this.targetPathCondlist
+    );
 
     if (targetPathSection !== NIL && targetPathSection !== null) {
       const [targetPath, used] = getParamString(targetPathSection);

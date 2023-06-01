@@ -132,7 +132,7 @@ export async function getFolderSizesSummary(directoryTree: Array<string>): Promi
  * Get pretty displayed description of build system info.
  */
 export function getBuildSystemInfo(): Record<string, string | number> {
-  const cpuInfos = os.cpus();
+  const cpuInfos: Array<os.CpuInfo> = os.cpus();
 
   return {
     ["os_system"]: os.type(),

@@ -345,7 +345,7 @@ export class NotificationManager extends AbstractCoreManager {
       textureName = notificationManagerIcons[faction as TNotificationIconKey];
     }
 
-    const notificationTitle = string.format(
+    const notificationTitle: TLabel = string.format(
       "%s %s%s:",
       game.translate_string("st_tip"),
       game.translate_string(faction),

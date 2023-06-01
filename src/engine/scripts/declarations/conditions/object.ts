@@ -231,17 +231,17 @@ extern(
  * todo;
  */
 extern("xr_conditions.is_obj_on_job", (actor: ClientObject, npc: ClientObject, params: AnyArgs): boolean => {
-  const smart =
+  const smartTerrain: Optional<SmartTerrain> =
     params && params[1]
       ? SimulationBoardManager.getInstance().getSmartTerrainByName(params[1])
       : getObjectSmartTerrain(npc);
 
-  if (smart === null) {
+  if (smartTerrain === null) {
     return false;
   }
 
-  for (const [k, v] of smart.objectJobDescriptors) {
-    const npcJob: ISmartTerrainJob = smart.jobsData.get(v.job_id);
+  for (const [k, v] of smartTerrain.objectJobDescriptors) {
+    const npcJob: ISmartTerrainJob = smartTerrain.jobsData.get(v.job_id);
 
     if (npcJob.section === params[0]) {
       return true;
@@ -255,12 +255,12 @@ extern("xr_conditions.is_obj_on_job", (actor: ClientObject, npc: ClientObject, p
  * todo;
  */
 extern("xr_conditions.obj_in_zone", (actor: ClientObject, zone: ClientObject, params: LuaTable): boolean => {
-  const sim: AlifeSimulator = alife();
+  const simulator: AlifeSimulator = alife();
 
   for (const [i, v] of params) {
     const objectId: Optional<TNumberId> = getObjectIdByStoryId(v);
 
-    if (objectId && zone.inside(sim.object(objectId)!.position)) {
+    if (objectId && zone.inside(simulator.object(objectId)!.position)) {
       return true;
     }
   }
@@ -274,10 +274,10 @@ extern("xr_conditions.obj_in_zone", (actor: ClientObject, zone: ClientObject, pa
 extern(
   "xr_conditions.one_obj_in_zone",
   (actor: ClientObject, zone: ClientObject, params: [string, string]): boolean => {
-    const obj1: Optional<number> = getObjectIdByStoryId(params[0]);
+    const object: Optional<TNumberId> = getObjectIdByStoryId(params[0]);
 
-    if (obj1) {
-      return zone.inside(alife().object(obj1)!.position);
+    if (object) {
+      return zone.inside(alife().object(object)!.position);
     } else {
       return params[1] !== FALSE;
     }
@@ -357,9 +357,9 @@ extern("xr_conditions.heli_see_npc", (actor: ClientObject, object: ClientObject,
  * todo;
  */
 extern("xr_conditions.enemy_group", (actor: ClientObject, npc: ClientObject, params: LuaTable<number>): boolean => {
-  const enemyId: number = registry.objects.get(npc.id()).enemy_id as number;
+  const enemyId: TNumberId = registry.objects.get(npc.id()).enemy_id as number;
   const enemy: ClientObject = registry.objects.get(enemyId)?.object as ClientObject;
-  const enemyGroup = enemy?.group();
+  const enemyGroup: TNumberId = enemy?.group();
 
   for (const [i, v] of params) {
     if (v === enemyGroup) {
@@ -432,7 +432,7 @@ extern("xr_conditions.killed_by", (actor: ClientObject, npc: ClientObject, param
 
   if (schemeState !== null) {
     for (const [i, v] of parameters) {
-      const object = getObjectByStoryId(v);
+      const object: Optional<ClientObject> = getObjectByStoryId(v);
 
       if (object && schemeState.killer === object.id()) {
         return true;
@@ -448,7 +448,7 @@ extern("xr_conditions.killed_by", (actor: ClientObject, npc: ClientObject, param
  */
 extern("xr_conditions.is_alive_all", (actor: ClientObject, npc: ClientObject, params: LuaArray<string>): boolean => {
   for (const [i, v] of params) {
-    const npcId = getObjectIdByStoryId(v);
+    const npcId: Optional<TNumberId> = getObjectIdByStoryId(v);
 
     if (npcId === null) {
       return false;
@@ -469,15 +469,15 @@ extern("xr_conditions.is_alive_all", (actor: ClientObject, npc: ClientObject, pa
  */
 extern("xr_conditions.is_alive_one", (actor: ClientObject, npc: ClientObject, p: LuaArray<string>): boolean => {
   for (const [i, v] of p) {
-    const npcId = getObjectIdByStoryId(v);
+    const npcId: Optional<TNumberId> = getObjectIdByStoryId(v);
 
     if (npcId === null) {
       return false;
     }
 
-    const npc1 = alife().object(npcId);
+    const object: Optional<ServerObject> = alife().object(npcId);
 
-    if (npc1 && isStalker(npc1) && npc1.alive()) {
+    if (object && isStalker(object) && object.alive()) {
       return true;
     }
   }
@@ -583,7 +583,7 @@ extern("xr_conditions.has_actor_enemy", (actor: ClientObject, npc: ClientObject)
  * todo;
  */
 extern("xr_conditions.see_enemy", (actor: ClientObject, npc: ClientObject): boolean => {
-  const enemy = npc.best_enemy();
+  const enemy: Optional<ClientObject> = npc.best_enemy();
 
   if (enemy !== null) {
     return npc.see(enemy);
@@ -644,7 +644,7 @@ extern("xr_conditions.squad_in_zone", (actor: ClientObject, npc: ClientObject, p
     return false;
   }
 
-  const zone = registry.zones.get(zoneName);
+  const zone: ClientObject = registry.zones.get(zoneName);
 
   if (zone === null) {
     return false;
@@ -1112,7 +1112,7 @@ extern("xr_conditions.animpoint_reached", (actor: ClientObject, npc: ClientObjec
 extern("xr_conditions.upgrade_hint_kardan", (actor: ClientObject, npc: ClientObject, params: AnyArgs): boolean => {
   const itemUpgradeHints: LuaArray<TCaption> = new LuaTable();
   const toolsCount: TCount = (params && tonumber(params[0])) || 0;
-  let canUpgrade = 0;
+  let canUpgrade: number = 0;
 
   if (!hasAlifeInfo(infoPortions.zat_b3_all_instruments_brought)) {
     if (!hasAlifeInfo(infoPortions.zat_b3_tech_instrument_1_brought) && (toolsCount === 0 || toolsCount === 1)) {

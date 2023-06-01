@@ -4,13 +4,17 @@ import { registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/interface";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils/trySwitchToAnotherSection";
-import { EEffectorState, effectorSets } from "@/engine/core/schemes/sr_cutscene/cam_effector_sets";
+import {
+  EEffectorState,
+  effectorSets,
+  ICamEffectorSetDescriptorItem,
+} from "@/engine/core/schemes/sr_cutscene/cam_effector_sets";
 import { CamEffectorSet } from "@/engine/core/schemes/sr_cutscene/CamEffectorSet";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
-import { AnyCallablesModule, ClientObject, Optional } from "@/engine/lib/types";
+import { AnyCallablesModule, ClientObject, Optional, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -27,9 +31,6 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   public motion: Optional<CamEffectorSet> = null;
   public sceneState!: string;
 
-  /**
-   * todo: Description.
-   */
   public constructor(object: ClientObject, state: ISchemeCutsceneState) {
     super(object, state);
 
@@ -51,11 +52,6 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
    * todo: Description.
    */
   public override update(delta: number): void {
-    const sceneState = this.sceneState;
-    // --    if(state~="run") then
-    // --        this:zone_enter()
-    // --    end
-
     if (this.motion) {
       this.motion.update();
       if (this.state.signals!.get("cam_effector_stop") !== null) {
@@ -89,23 +85,23 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
     ActorInputManager.getInstance().disableGameUi(actor, false);
     this.isUiDisabled = true;
 
-    const time_hours: number = level.get_time_hours();
+    const timeHours: number = level.get_time_hours();
 
-    if (this.state.outdoor && actor !== null && (time_hours < 6 || time_hours > 21)) {
+    if (this.state.outdoor && actor !== null && (timeHours < 6 || timeHours > 21)) {
       this.postprocess = true;
       level.add_complex_effector("brighten", 1999);
       // --level.add_pp_effector("brighten.ppe", 1999, true)
     }
 
     this.motionId = 1;
-    this.select_next_motion();
+    this.selectNextMotion();
 
     CutsceneManager.objectCutscene = this.object;
     CutsceneManager.storageScene = this.state;
   }
 
-  public select_next_motion(): void {
-    const motion = this.state.cam_effector!.get(this.motionId);
+  public selectNextMotion(): void {
+    const motion: TName = this.state.cam_effector!.get(this.motionId);
 
     if (effectorSets[motion] === null) {
       this.motion = new CamEffectorSet(
@@ -121,7 +117,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
       this.motion = new CamEffectorSet(effectorSets[motion], this.state);
     }
 
-    const effect = this.motion.selectEffect()!;
+    const effect: ICamEffectorSetDescriptorItem = this.motion.selectEffect()!;
 
     this.motion!.startEffect(effect);
 
@@ -136,7 +132,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
     if (this.motion!.state === EEffectorState.RELEASE) {
       this.motion = null;
       if (this.motionId <= this.state.cam_effector!.length()) {
-        this.select_next_motion();
+        this.selectNextMotion();
       } else {
         if (this.postprocess) {
           this.postprocess = false;
@@ -160,10 +156,10 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
     } else {
       this.motion!.playing = false;
 
-      const eff = this.motion!.selectEffect();
+      const effect: Optional<ICamEffectorSetDescriptorItem> = this.motion!.selectEffect();
 
-      if (eff) {
-        this.motion!.startEffect(eff);
+      if (effect) {
+        this.motion!.startEffect(effect);
       }
     }
   }

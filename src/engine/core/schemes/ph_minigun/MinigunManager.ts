@@ -12,7 +12,7 @@ import { isObjectScriptCaptured, scriptReleaseObject } from "@/engine/core/utils
 import { TConditionList } from "@/engine/core/utils/parse";
 import { createEmptyVector, createVector, yaw } from "@/engine/core/utils/vector";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { Car, ClientObject, Optional, TName, TSection, TStringId, Vector } from "@/engine/lib/types";
+import { Car, ClientObject, Optional, TName, TSection, TStringId, TTimestamp, Vector } from "@/engine/lib/types";
 
 const STATE_CANNON_ROTATE: number = 1;
 const STATE_CANNON_FOLLOW: number = 2;
@@ -297,7 +297,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     const now: number = time_global();
 
     if (this.fcUpdNum < DEF_MAX_FC_UPD_NUM) {
-      const lastUpdate = this.fcLastUpdTm;
+      const lastUpdate: TTimestamp = this.fcLastUpdTm;
 
       if (lastUpdate !== -1) {
         const n = this.fcUpdNum;

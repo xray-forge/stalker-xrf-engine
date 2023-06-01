@@ -1,4 +1,4 @@
-import { CScriptXmlInit, CUIWindow, GAME_TYPE, LuabindClass, TXR_GAME_TYPE } from "xray16";
+import { CScriptXmlInit, CUITabButton, CUIWindow, GAME_TYPE, LuabindClass, TXR_GAME_TYPE } from "xray16";
 
 import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -127,8 +127,8 @@ export class MultiplayerOptions extends CUIWindow {
     handler.spinArtreturnTime.Enable(true);
     handler.checkActivatedReturn.Enable(true);
 
-    const btnReinforcement = handler.tabRespawn.GetButtonById("reinforcement");
-    const btnArtefactCapture = handler.tabRespawn.GetButtonById("artefactcapture");
+    const btnReinforcement: CUITabButton = handler.tabRespawn.GetButtonById("reinforcement");
+    const btnArtefactCapture: CUITabButton = handler.tabRespawn.GetButtonById("artefactcapture");
 
     btnReinforcement.Enable(true);
     btnArtefactCapture.Enable(true);

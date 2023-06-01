@@ -66,7 +66,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       }
 
       const randomNumber: number = math.random(actionsList.length());
-      let action = actionsList.get(randomNumber);
+      let action: EStalkerState = actionsList.get(randomNumber);
 
       if (this.state.actionNameBase) {
         if (this.state.actionNameBase === description + "_weapon") {

@@ -161,7 +161,7 @@ extern("dialogs_pripyat.pri_b35_transfer_svd", (firstSpeaker: ClientObject, seco
  * todo;
  */
 extern("dialogs_pripyat.pri_b35_give_actor_reward", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  const amount = hasAlifeInfo(infoPortions.pri_b35_secondary) ? 3 : 1;
+  const amount: TCount = hasAlifeInfo(infoPortions.pri_b35_secondary) ? 3 : 1;
 
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo["ammo_7.62x54_7h1"], amount);
 });

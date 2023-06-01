@@ -1,3 +1,4 @@
+import { IBaseSchemeLogic } from "@/engine/core/schemes";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { CodeManager } from "@/engine/core/schemes/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/engine/core/schemes/ph_code/ISchemeCodeState";
@@ -9,7 +10,7 @@ import {
   readIniString,
 } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, EScheme, ESchemeType, IniFile, TIndex, TName, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TIndex, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -39,7 +40,7 @@ export class SchemeCode extends AbstractScheme {
       state.on_check_code = new LuaTable();
 
       let it: TIndex = 1;
-      let cc = getConfigStringAndCondList(ini, section, "on_check_code" + it);
+      let cc: Optional<IBaseSchemeLogic> = getConfigStringAndCondList(ini, section, "on_check_code" + it);
 
       while (cc) {
         state.on_check_code.set(cc.v1 as TName, cc.condlist);

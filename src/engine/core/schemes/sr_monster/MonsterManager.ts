@@ -14,7 +14,9 @@ import {
   Optional,
   ServerMonsterAbstractObject,
   SoundObject,
+  TCount,
   TIndex,
+  TName,
   Vector,
 } from "@/engine/lib/types";
 
@@ -152,7 +154,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   public resetPath(): void {
     this.curPoint = 0;
 
-    const pathCount = this.state.path_table!.length();
+    const pathCount: TCount = this.state.path_table!.length();
 
     if (pathCount === 1) {
       this.pathName = this.state.path_table!.get(1);
@@ -161,7 +163,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
       return;
     }
 
-    let pathNameNew = this.pathName;
+    let pathNameNew: Optional<TName> = this.pathName;
 
     // todo: WTF?
     while (this.pathName === pathNameNew) {

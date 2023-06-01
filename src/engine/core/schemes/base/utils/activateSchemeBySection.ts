@@ -2,6 +2,7 @@ import { game, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
+import { ISmartTerrainJob } from "@/engine/core/objects/server/smart_terrain/types";
 import { ESchemeEvent, TAbstractSchemeConstructor } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
 import { resetObjectGenericSchemesOnSectionSwitch } from "@/engine/core/schemes/base/utils/resetObjectGenericSchemesOnSectionSwitch";
@@ -58,7 +59,7 @@ export function activateSchemeBySection(
       abort("core/logic: activate_by_section: section is NIL && NPC !in gulag.");
     }
 
-    const job = currentSmartTerrain.getJob(objectId)!;
+    const job: ISmartTerrainJob = currentSmartTerrain.getJob(objectId)!;
 
     section = job.section;
   }

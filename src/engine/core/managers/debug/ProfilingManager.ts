@@ -6,7 +6,7 @@ import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { AnyCallable, Optional, ProfileTimer, TCount } from "@/engine/lib/types";
+import { AnyCallable, Optional, ProfileTimer, TCount, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -113,7 +113,7 @@ export class ProfilingManager extends AbstractCoreManager {
     const sortedStats: LuaTable<string, number> = new LuaTable();
 
     for (const [func, funcDetails] of this.callsCountMap) {
-      const name = this.getFunctionName(funcDetails.info);
+      const name: TName = this.getFunctionName(funcDetails.info);
       const count: Optional<number> = sortedStats.get(name);
 
       sortedStats.set(name, count === null ? funcDetails.count : count + funcDetails.count);
@@ -220,14 +220,14 @@ export class ProfilingManager extends AbstractCoreManager {
 
     switch (context) {
       case "return": {
-        const countersRecord = this.countersMap.get(functionRef);
+        const countersRecord: IProfileSnapshotDescriptor = this.countersMap.get(functionRef);
 
         if (countersRecord !== null) {
           countersRecord.currentTimer.stop();
           countersRecord.childTimer.stop();
 
           if (callerRef !== null) {
-            const object = this.countersMap.get(callerRef);
+            const object: IProfileSnapshotDescriptor = this.countersMap.get(callerRef);
 
             if (object !== null) {
               object.currentTimer.start();
@@ -246,7 +246,7 @@ export class ProfilingManager extends AbstractCoreManager {
 
       case "tail return": {
         if (callerRef !== null) {
-          const object = this.countersMap.get(callerRef);
+          const object: IProfileSnapshotDescriptor = this.countersMap.get(callerRef);
 
           if (object !== null) {
             object.currentTimer.start();
@@ -264,7 +264,7 @@ export class ProfilingManager extends AbstractCoreManager {
 
       case "call": {
         if (callerRef !== null) {
-          const object = this.countersMap.get(callerRef);
+          const object: IProfileSnapshotDescriptor = this.countersMap.get(callerRef);
 
           if (object !== null) {
             object.currentTimer.stop();
@@ -278,13 +278,13 @@ export class ProfilingManager extends AbstractCoreManager {
             childTimer: new profile_timer(),
           });
 
-          const object = this.countersMap.get(functionRef);
+          const object: IProfileSnapshotDescriptor = this.countersMap.get(functionRef);
 
           object.childTimer.start();
           object.currentTimer.start();
           this.namesMap.set(functionRef, debug.getinfo(2, "Sn") as debug.FunctionInfo);
         } else {
-          const object = this.countersMap.get(functionRef);
+          const object: IProfileSnapshotDescriptor = this.countersMap.get(functionRef);
 
           object.count = object.count + 1;
           object.childTimer.start();

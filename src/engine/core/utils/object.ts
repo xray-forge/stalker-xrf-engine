@@ -1,7 +1,7 @@
 import { alife, entity_action, game, game_graph, level, stalker_ids } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { SmartTerrain } from "@/engine/core/objects";
+import { AnomalyZoneBinder, SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
@@ -360,10 +360,10 @@ export function isObjectInvulnerabilityNeeded(object: ClientObject): boolean {
  * todo;
  */
 export function resetObjectInvulnerability(object: ClientObject): void {
-  const invulnerability = isObjectInvulnerabilityNeeded(object);
+  const nextInvulnerabilityState: boolean = isObjectInvulnerabilityNeeded(object);
 
-  if (object.invulnerable() !== invulnerability) {
-    object.invulnerable(invulnerability);
+  if (object.invulnerable() !== nextInvulnerabilityState) {
+    object.invulnerable(nextInvulnerabilityState);
   }
 }
 
@@ -468,9 +468,9 @@ export function anomalyHasArtefact(
   object: Optional<ClientObject>,
   params: [TName, Optional<TName>]
 ): LuaMultiReturn<[boolean, Optional<LuaArray<TName>>]> {
-  const anomalyZoneName = params && params[0];
-  const artefactName = params && params[1];
-  const anomalyZone = registry.anomalyZones.get(anomalyZoneName);
+  const anomalyZoneName: TName = params && params[0];
+  const artefactName: Optional<TName> = params && params[1];
+  const anomalyZone: AnomalyZoneBinder = registry.anomalyZones.get(anomalyZoneName);
 
   if (anomalyZone === null) {
     return $multi(false, null);

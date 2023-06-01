@@ -92,7 +92,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
    * todo: Description.
    */
   public static isUnderCorpseDetection(object: ClientObject): boolean {
-    const manager = object.motivation_action_manager();
+    const manager: ActionPlanner = object.motivation_action_manager();
 
     if (!manager.initialized()) {
       return false;

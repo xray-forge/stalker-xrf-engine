@@ -115,7 +115,7 @@ export function parseNumbersList(data: string): LuaArray<number> {
  */
 export function parseSpawnDetails(data: string): LuaArray<{ count: number; probability: number }> {
   const t: LuaArray<TName> = parseStringsList(data);
-  const n = t.length();
+  const n: TCount = t.length();
 
   const result: LuaArray<{ count: TCount; probability: TProbability }> = new LuaTable();
   let k = 1;

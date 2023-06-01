@@ -9,7 +9,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
-import { ActionPlanner, ClientObject, IniFile } from "@/engine/lib/types";
+import { ActionPlanner, ClientObject, IniFile, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -54,7 +54,7 @@ export class SchemeWalker extends AbstractScheme {
     state.sound_idle = readIniString(ini, section, "sound_idle", false, "");
     state.use_camp = readIniBoolean(ini, section, "use_camp", false, false);
 
-    const baseMoving = readIniString(ini, section, "def_state_moving1", false, "");
+    const baseMoving: TName = readIniString(ini, section, "def_state_moving1", false, "");
 
     state.suggested_state = {
       standing: readIniString(ini, section, "def_state_standing", false, ""),

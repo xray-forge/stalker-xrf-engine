@@ -21,7 +21,7 @@ import { isWideScreen, resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
-import { ClientObject, TPath } from "@/engine/lib/types";
+import { ClientObject, TPath, Vector2D } from "@/engine/lib/types";
 
 const base: TPath = "interaction\\SleepDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -121,7 +121,7 @@ export class SleepDialog extends CUIScriptWnd {
 
     this.sleepStatic.SetTextureRect(rect);
 
-    let width = 591 - delta;
+    let width: number = 591 - delta;
 
     if (this.isWide) {
       width = width * 0.8;
@@ -140,10 +140,10 @@ export class SleepDialog extends CUIScriptWnd {
 
     this.sleepStatic2.SetWndSize(new vector2().set(width, 118));
 
-    const pos = this.sleepStatic2.GetWndPos();
+    const position: Vector2D = this.sleepStatic2.GetWndPos();
 
-    pos.x = this.sleepStatic.GetWndPos().x + this.sleepStatic.GetWidth();
-    this.sleepStatic2.SetWndPos(pos);
+    position.x = this.sleepStatic.GetWndPos().x + this.sleepStatic.GetWidth();
+    this.sleepStatic2.SetWndPos(position);
   }
 
   /**

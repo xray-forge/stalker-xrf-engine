@@ -209,7 +209,7 @@ export class MultiplayerProfile extends CUIWindow {
 
     this.gsChangeNicMb.InitMessageBox("message_box_ok");
 
-    const firstName = this.comboAvalUniqueNick.GetTextOf(0);
+    const firstName: TName = this.comboAvalUniqueNick.GetTextOf(0);
 
     this.comboAvalUniqueNick.SetText(firstName);
 
@@ -236,7 +236,7 @@ export class MultiplayerProfile extends CUIWindow {
         if (k === 1) {
           field = field + 1;
 
-          const fieldStatic = this.xml.InitStatic("tab_profile:awards_list:field", null);
+          const fieldStatic: CUIStatic = this.xml.InitStatic("tab_profile:awards_list:field", null);
 
           this.awards.set(field, $fromObject<TName, CUIStatic>({ field: fieldStatic }));
           this.awardsList.AddWindow(fieldStatic, true);
@@ -254,7 +254,7 @@ export class MultiplayerProfile extends CUIWindow {
             .get(field)
             .set(awardName, awardsXml.InitStatic(awardXmlName, this.awards.get(field).get("field")));
 
-          const rewardsCount = awardsXml.InitTextWnd(
+          const rewardsCount: CUITextWnd = awardsXml.InitTextWnd(
             awardXmlName + ".cap_count",
             this.awards.get(field).get(awardName)
           );
@@ -268,7 +268,7 @@ export class MultiplayerProfile extends CUIWindow {
             .set(awardName, awardsXml.InitStatic(awardXmlName, this.awards.get(field).get("field")));
         }
 
-        let tmp = 0;
+        let tmp: number = 0;
 
         if (isWideScreen()) {
           tmp = 96 + 16;

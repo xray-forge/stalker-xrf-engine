@@ -12,7 +12,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { FALSE } from "@/engine/lib/constants/words";
-import { ClientObject, Optional } from "@/engine/lib/types";
+import { ClientObject, Optional, TIndex, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -76,21 +76,21 @@ export class CamEffectorSet {
     }
 
     if (this.playing) {
-      const eff = this.set[this.state].get(this.currentEffect);
+      const effect: ICamEffectorSetDescriptorItem = this.set[this.state].get(this.currentEffect);
 
-      if (eff && eff.looped !== false) {
-        const cond = pickSectionFromCondList(registry.actor, null, this.condlist);
+      if (effect && effect.looped !== false) {
+        const condition: Optional<TSection> = pickSectionFromCondList(registry.actor, null, this.condlist);
 
-        if (cond === FALSE) {
+        if (condition === FALSE) {
           this.looped = false;
           // --                this.stop_effect()
         }
       }
     } else {
-      const eff = this.selectEffect();
+      const effect: Optional<ICamEffectorSetDescriptorItem> = this.selectEffect();
 
-      if (eff) {
-        this.startEffect(eff as any);
+      if (effect) {
+        this.startEffect(effect as any);
       }
     }
   }
@@ -101,7 +101,7 @@ export class CamEffectorSet {
   public selectEffect(): Optional<ICamEffectorSetDescriptorItem> {
     const state: EEffectorState = this.state;
     const actor: ClientObject = registry.actor;
-    let currentEffect = this.currentEffect;
+    let currentEffect: TIndex = this.currentEffect;
 
     if (this.looped) {
       return this.set[state].get(currentEffect);
@@ -161,7 +161,7 @@ export class CamEffectorSet {
         this.currentEffect = currentEffect;
 
         if (type(this.set.finish.get(currentEffect).enabled) === "string") {
-          const condlist = parseConditionsList(this.set.finish.get(currentEffect).enabled as any);
+          const condlist: TConditionList = parseConditionsList(this.set.finish.get(currentEffect).enabled as any);
 
           if (pickSectionFromCondList(actor, null, condlist) === FALSE) {
             return this.selectEffect();

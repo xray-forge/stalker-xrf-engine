@@ -10,6 +10,7 @@ import {
 } from "xray16";
 
 import { MultiplayerDemo } from "@/engine/core/ui/menu/multiplayer/MultiplayerDemo";
+import { MultiplayerMenu } from "@/engine/core/ui/menu/multiplayer/MultiplayerMenu";
 import { TName } from "@/engine/lib/types";
 
 /**
@@ -26,7 +27,7 @@ export class MultiplayerDemoLoadItem extends CUIListBoxItemMsgChain {
   public constructor(owner: MultiplayerDemo, height: number, w1: number, w2: number) {
     super(height);
 
-    const handler = owner.owner;
+    const handler: MultiplayerMenu = owner.owner;
 
     this.filename = "filename";
     this.SetTextColor(GetARGB(255, 255, 255, 255));

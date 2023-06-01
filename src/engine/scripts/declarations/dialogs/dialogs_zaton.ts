@@ -45,6 +45,8 @@ import {
   Optional,
   TCount,
   TIndex,
+  TName,
+  TSection,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -915,8 +917,8 @@ extern(
       },
     } as unknown as LuaTable<string, LuaArray<string>>;
 
-    let zone = "";
-    let zoneName = "";
+    let zone: TSection = "";
+    let zoneName: TName = "";
     let key;
 
     for (const [k, v] of zatB29InfopBringTable) {
@@ -1534,7 +1536,7 @@ extern("dialogs_zaton.zat_b3_actor_got_toolkit", (firstSpeaker: ClientObject, se
   const actor: ClientObject = registry.actor;
 
   actor.iterate_inventory((npc: ClientObject, item: ClientObject) => {
-    const section = item.section();
+    const section: TSection = item.section();
 
     if (
       (section === misc.toolkit_1 && !hasAlifeInfo(infoPortions.zat_b3_tech_instrument_1_brought)) ||
@@ -1858,8 +1860,8 @@ extern(
 extern(
   "dialogs_zaton.zat_b30_barmen_has_percent",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const actor = registry.actor;
-    const cnt = getPortableStoreValue(actor, "zat_b30_days_cnt", 0);
+    const actor: ClientObject = registry.actor;
+    const cnt: TCount = getPortableStoreValue(actor, "zat_b30_days_cnt", 0);
 
     return cnt > 0;
   }
@@ -1870,8 +1872,8 @@ extern(
 extern(
   "dialogs_zaton.zat_b30_barmen_do_not_has_percent",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const actor = registry.actor;
-    const cnt = getPortableStoreValue(actor, "zat_b30_days_cnt", 0);
+    const actor: ClientObject = registry.actor;
+    const cnt: TCount = getPortableStoreValue(actor, "zat_b30_days_cnt", 0);
 
     return cnt < 1;
   }
@@ -2254,9 +2256,9 @@ extern("dialogs_zaton.zat_b44_transfer_pda_both", (firstSpeaker: ClientObject, s
 extern(
   "dialogs_zaton.zat_b44_frends_dialog_enabled",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const a =
+    const a: boolean =
       hasAlifeInfo(infoPortions.zat_b3_tech_have_couple_dose) && hasAlifeInfo(infoPortions.zat_b3_tech_discount_1);
-    const b = !getExtern<AnyCallable>("zat_b44_actor_has_pda_global", getExtern("dialogs_zaton"))(
+    const b: boolean = !getExtern<AnyCallable>("zat_b44_actor_has_pda_global", getExtern("dialogs_zaton"))(
       firstSpeaker,
       secondSpeaker
     );

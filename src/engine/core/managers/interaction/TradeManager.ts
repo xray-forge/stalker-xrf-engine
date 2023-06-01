@@ -242,7 +242,7 @@ export class TradeManager extends AbstractCoreManager {
   public loadObjectState(reader: NetProcessor, object: ClientObject): void {
     openLoadMarker(reader, TradeManager.name);
 
-    const hasTrade = reader.r_bool();
+    const hasTrade: boolean = reader.r_bool();
 
     if (hasTrade === false) {
       return;

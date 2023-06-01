@@ -778,7 +778,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       }
     }
 
-    const randomSpawnConfig = readIniString(SYSTEM_INI, sectionName, "npc_random", false, "", null);
+    const randomSpawnConfig: Optional<string> = readIniString(SYSTEM_INI, sectionName, "npc_random", false, "", null);
 
     if (randomSpawnConfig !== null) {
       const randomSpawn: LuaArray<string> = parseStringsList(randomSpawnConfig)!;
@@ -808,7 +808,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * Update objects sympathy between objects within squad.
    */
   public updateSquadSympathy(sympathy?: Optional<TCount>): void {
-    const squadSympathy = sympathy || this.sympathy;
+    const squadSympathy: Optional<TCount> = sympathy || this.sympathy;
 
     if (squadSympathy !== null) {
       for (const squadMembers of this.squad_members()) {

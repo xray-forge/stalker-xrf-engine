@@ -38,6 +38,7 @@ import {
   FSFileListEX,
   FSItem,
   Optional,
+  TIndex,
   TKeyCode,
   TLabel,
   TName,
@@ -168,15 +169,15 @@ export class LoadDialog extends CUIScriptWnd {
       this.fileCaption.SetText("");
       this.fileData.SetText("");
 
-      const r = this.picture.GetTextureRect();
+      const rect: Frect = this.picture.GetTextureRect();
 
       this.picture.InitTexture(textures.ui_ui_noise);
-      this.picture.SetTextureRect(new Frect().set(r.x1, r.y1, r.x2, r.y2));
+      this.picture.SetTextureRect(new Frect().set(rect.x1, rect.y1, rect.x2, rect.y2));
 
       return;
     }
 
-    const itemText: string = item.innerNameText.GetText();
+    const itemText: TLabel = item.innerNameText.GetText();
 
     this.fileCaption.SetText(itemText);
     this.fileCaption.SetEllipsis(true);
@@ -188,7 +189,7 @@ export class LoadDialog extends CUIScriptWnd {
       return;
     }
 
-    const r: Frect = this.picture.GetTextureRect();
+    const rect: Frect = this.picture.GetTextureRect();
 
     if (isGameSaveFileExist(itemText + ".dds")) {
       this.picture.InitTexture(itemText);
@@ -196,7 +197,7 @@ export class LoadDialog extends CUIScriptWnd {
       this.picture.InitTexture(textures.ui_ui_noise);
     }
 
-    this.picture.SetTextureRect(new Frect().set(r.x1, r.y1, r.x2, r.y2));
+    this.picture.SetTextureRect(new Frect().set(rect.x1, rect.y1, rect.x2, rect.y2));
   }
 
   public onListItemDoubleClicked(): void {
@@ -207,7 +208,7 @@ export class LoadDialog extends CUIScriptWnd {
   public onConfirmedLoad(): void {
     logger.info("Message yes confirmed");
 
-    const index: number = this.listBox.GetSelectedIndex();
+    const index: TIndex = this.listBox.GetSelectedIndex();
 
     if (index === -1) {
       return;
@@ -238,21 +239,20 @@ export class LoadDialog extends CUIScriptWnd {
       return;
     }
 
-    const index = this.listBox.GetSelectedIndex();
+    const index: TIndex = this.listBox.GetSelectedIndex();
 
     if (index === -1) {
       return;
     }
 
-    const item = this.listBox.GetItemByIndex(index);
-
-    const innerNameTextame = item.innerNameText.GetText();
+    const item: LoadItem = this.listBox.GetItemByIndex(index);
+    const innerNameTextName: TName = item.innerNameText.GetText();
 
     if (alife() === null) {
       console.execute("disconnect");
-      console.execute("start server(" + innerNameTextame + "/single/alife/load) client(consthost)");
+      console.execute("start server(" + innerNameTextName + "/single/alife/load) client(consthost)");
     } else {
-      console.execute("load " + innerNameTextame);
+      console.execute("load " + innerNameTextName);
     }
   }
 

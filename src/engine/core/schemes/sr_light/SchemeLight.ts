@@ -68,8 +68,8 @@ export class SchemeLight extends AbstractScheme {
       return;
     }
 
-    let light = false;
-    let forced = false;
+    let light: boolean = false;
+    let forced: boolean = false;
 
     /*
       if (benchmark.light) {

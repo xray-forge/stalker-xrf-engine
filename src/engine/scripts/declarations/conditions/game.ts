@@ -1,10 +1,10 @@
 import { game } from "xray16";
 
-import { getPortableStoreValue, registry } from "@/engine/core/database";
+import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { extern } from "@/engine/core/utils/binding";
 import { isBlackScreen } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, Optional } from "@/engine/lib/types";
+import { ClientObject, Optional, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -13,10 +13,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 extern("xr_conditions.signal", (actor: ClientObject, npc: ClientObject, p: [string]): boolean => {
   if (p[0]) {
-    const st = registry.objects.get(npc.id());
-    const sigs = st[st.active_scheme!]!.signals;
+    const state: IRegistryObjectState = registry.objects.get(npc.id());
+    const sigs: Optional<LuaTable<TName, boolean>> = state[state.active_scheme!]!.signals;
 
-    return sigs !== null && sigs.get(p[0]);
+    return sigs !== null && sigs.get(p[0]) === true;
   } else {
     return false;
   }

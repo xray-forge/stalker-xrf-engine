@@ -192,23 +192,23 @@ export class MultiplayerMenu extends CUIScriptWnd {
       workArea.AttachChild(this.dialogMultiplayerProfile);
     }
 
-    let btn = xml.Init3tButton("btn_create", workArea);
+    let button: CUI3tButton = xml.Init3tButton("btn_create", workArea);
 
-    this.Register(btn, "btn_create");
-    this.createButton = btn;
-    btn.Enable(false);
+    this.Register(button, "btn_create");
+    this.createButton = button;
+    button.Enable(false);
 
-    btn = xml.Init3tButton("btn_play_demo", workArea);
-    this.Register(btn, "btn_play_demo");
-    this.playDemoButton = btn;
-    btn.Enable(false);
+    button = xml.Init3tButton("btn_play_demo", workArea);
+    this.Register(button, "btn_play_demo");
+    this.playDemoButton = button;
+    button.Enable(false);
 
-    btn = xml.Init3tButton("btn_join", workArea);
-    this.Register(btn, "btn_join");
-    this.joinButton = btn;
+    button = xml.Init3tButton("btn_join", workArea);
+    this.Register(button, "btn_join");
+    this.joinButton = button;
 
-    btn = xml.Init3tButton("btn_cancel", workArea);
-    this.Register(btn, "btn_cancel");
+    button = xml.Init3tButton("btn_cancel", workArea);
+    this.Register(button, "btn_cancel");
 
     this.tab = xml.InitTab("tab", workArea);
     this.Register(this.tab, "tab");
@@ -257,7 +257,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
       this.dialogMultiplayerProfile.updateControls();
     }
 
-    const mm = main_menu.get_main_menu();
+    const mm: CMainMenu = main_menu.get_main_menu();
 
     if (this.online) {
       this.cdkey.SetText(mm.GetCDKey());
@@ -588,7 +588,7 @@ export class MultiplayerMenu extends CUIScriptWnd {
     }
 
     // -- spectator options --
-    let tmpNum = 0;
+    let tmpNum: number = 0;
 
     if (this.checkSpecFreefly.GetCheck()) {
       tmpNum = tmpNum + 1;

@@ -1013,7 +1013,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_a12_transfer_cashier_money_from_actor",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    let amount = math.random(20, 50) * 100;
+    let amount: TCount = math.random(20, 50) * 100;
     const actor: ClientObject = registry.actor;
 
     if (actor.money() < amount) {
@@ -1054,7 +1054,7 @@ extern(
   "dialogs_jupiter.zat_b30_actor_has_transfer_items",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     const actor: ClientObject = registry.actor;
-    let cnt = 0;
+    let cnt: TCount = 0;
 
     const zatB30Count = (npc: ClientObject, item: ClientObject): void => {
       if (item.section() === "detector_elite") {
@@ -1155,20 +1155,20 @@ extern(
       return false;
     }
 
-    const azTable = [
+    const azTable: LuaArray<TName> = $fromArray([
       "jup_b32_anomal_zone",
       "jup_b201_anomal_zone",
       "jup_b209_anomal_zone",
       "jup_b211_anomal_zone",
       "jup_b10_anomal_zone",
-    ] as unknown as LuaArray<string>;
-    const infoPortionsTable = [
+    ]);
+    const infoPortionsTable: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
       infoPortions.jup_b32_anomaly_1,
       infoPortions.jup_b32_anomaly_2,
       infoPortions.jup_b32_anomaly_3,
       infoPortions.jup_b32_anomaly_4,
       infoPortions.jup_b32_anomaly_5,
-    ] as unknown as LuaArray<TInfoPortion>;
+    ]);
 
     let index: TIndex = 0;
 
@@ -1263,7 +1263,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_b207_sell_merc_pda_with_contract",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    const amount = 1000;
+    const amount: TCount = 1000;
 
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b207_merc_pda_with_contract");
     giveMoneyToActor(amount);
@@ -1499,7 +1499,7 @@ extern(
 extern(
   "dialogs_jupiter.jup_b202_actor_has_medkit",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const actor = registry.actor;
+    const actor: ClientObject = registry.actor;
 
     return (
       actor.object(drugs.medkit) !== null ||
@@ -1515,8 +1515,8 @@ extern(
 extern(
   "dialogs_jupiter.jup_b202_hit_bandit_from_actor",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
-    const actor = registry.actor;
+    const npc: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+    const actor: ClientObject = registry.actor;
 
     giveInfo(infoPortions.jup_b202_bandit_hited);
     giveInfo(infoPortions.jup_b202_bandit_hited_by_actor);
@@ -1626,17 +1626,17 @@ extern(
 extern(
   "dialogs_jupiter.jupiter_b200_tech_materials_relocate",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    const needItems = {
+    const needItems: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
       [questItems.jup_b200_tech_materials_wire]: true,
       [questItems.jup_b200_tech_materials_acetone]: true,
       [questItems.jup_b200_tech_materials_textolite]: true,
       [questItems.jup_b200_tech_materials_transistor]: true,
       [questItems.jup_b200_tech_materials_capacitor]: true,
-    } as unknown as LuaTable<string, boolean>;
+    });
 
     const actor: ClientObject = registry.actor;
     const itemsToRelocate: LuaTable<string, number> = new LuaTable();
-    let count: number = 0;
+    let count: TCount = 0;
 
     const relocateAndIncCount = (object: ClientObject, item: ClientObject): void => {
       if (needItems.get(item.section())) {
@@ -1917,7 +1917,7 @@ extern(
   "dialogs_jupiter.jup_b47_jupiter_docs_enabled",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     const actor: ClientObject = registry.actor;
-    const itemsTable = [
+    const itemsTable: LuaArray<TName> = $fromArray([
       "jup_a9_conservation_info",
       "jup_a9_power_info",
       "jup_a9_way_info",
@@ -1926,9 +1926,9 @@ extern(
       "jup_a9_losses_info",
       "jup_a9_delivery_info",
       // --						"jup_b47_jupiter_products_info"
-    ];
+    ]);
 
-    let a = false;
+    let a: boolean = false;
 
     for (const [k, v] of itemsTable) {
       if (actor.object(v) !== null) {
@@ -1937,10 +1937,10 @@ extern(
       }
     }
 
-    const b =
+    const b: boolean =
       !hasAlifeInfo(infoPortions.jup_b47_jupiter_products_start) &&
       actor.object(infoPortions.jup_b47_jupiter_products_info) !== null;
-    const c = hasAlifeInfo(infoPortions.jup_b6_scientist_nuclear_physicist_jupiter_docs_talked);
+    const c: boolean = hasAlifeInfo(infoPortions.jup_b6_scientist_nuclear_physicist_jupiter_docs_talked);
 
     return (a || b) && !c;
   }
@@ -2017,7 +2017,7 @@ extern(
  * todo;
  */
 extern("dialogs_jupiter.jup_b218_counter_not_3", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return getPortableStoreValue(actor, "jup_b218_squad_members_count", 0 as number) !== 3;
 });
@@ -2028,7 +2028,7 @@ extern("dialogs_jupiter.jup_b218_counter_not_3", (firstSpeaker: ClientObject, se
 extern(
   "dialogs_jupiter.jup_b218_counter_equal_3",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const actor = registry.actor;
+    const actor: ClientObject = registry.actor;
 
     return getPortableStoreValue(actor, "jup_b218_squad_members_count", 0 as number) === 3;
   }
@@ -2038,8 +2038,7 @@ extern(
  * todo;
  */
 extern("dialogs_jupiter.jup_b218_counter_not_0", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
-  const actor = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return getPortableStoreValue(actor, "jup_b218_squad_members_count", 0 as number) !== 0;
 });
@@ -2050,8 +2049,8 @@ extern("dialogs_jupiter.jup_b218_counter_not_0", (firstSpeaker: ClientObject, se
 extern(
   "dialogs_jupiter.jup_b25_frase_count_inc",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const npc = getNpcSpeaker(firstSpeaker, secondSpeaker);
-    const actor = registry.actor;
+    const npc: ClientObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+    const actor: ClientObject = registry.actor;
 
     return getExtern<AnyCallablesModule>("xr_effects").inc_counter(actor, npc, ["jup_b25_frase", 1]);
   }
@@ -2076,7 +2075,7 @@ extern("dialogs_jupiter.jup_b32_anomaly_has_af", (firstSpeaker: ClientObject, se
     infoPortions.jup_b32_anomaly_5,
   ]);
 
-  let index = 0;
+  let index: TIndex = 0;
 
   for (const it of $range(1, infopTable.length())) {
     if (hasAlifeInfo(infopTable.get(it))) {
@@ -2265,8 +2264,8 @@ extern("dialogs_jupiter.jup_b47_merc_pda_revard", (firstSpeaker: ClientObject, s
 extern(
   "dialogs_jupiter.jup_b47_actor_can_take_task",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const a = hasAlifeInfo(infoPortions.jup_b6_task_done) && !hasAlifeInfo(infoPortions.jup_b6_task_fail);
-    const b = hasAlifeInfo(infoPortions.jup_b6_task_fail) && !hasAlifeInfo(infoPortions.jup_b6_task_done);
+    const a: boolean = hasAlifeInfo(infoPortions.jup_b6_task_done) && !hasAlifeInfo(infoPortions.jup_b6_task_fail);
+    const b: boolean = hasAlifeInfo(infoPortions.jup_b6_task_fail) && !hasAlifeInfo(infoPortions.jup_b6_task_done);
 
     return a || b;
   }
@@ -2276,9 +2275,10 @@ extern(
  * todo;
  */
 extern("dialogs_jupiter.jup_b47_employ_squad", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const a =
+  const a: boolean =
     hasAlifeInfo(infoPortions.jup_b47_bunker_guards_started) && !hasAlifeInfo(infoPortions.jup_b47_bunker_guards_done);
-  const b = hasAlifeInfo(infoPortions.jup_b6_employ_stalker) && !hasAlifeInfo(infoPortions.jup_b6_employed_stalker);
+  const b: boolean =
+    hasAlifeInfo(infoPortions.jup_b6_employ_stalker) && !hasAlifeInfo(infoPortions.jup_b6_employed_stalker);
 
   return a || b;
 });

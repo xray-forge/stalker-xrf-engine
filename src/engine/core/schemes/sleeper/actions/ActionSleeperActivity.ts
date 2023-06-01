@@ -7,7 +7,7 @@ import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { IWaypointData, parsePathWaypointsFromArgsList } from "@/engine/core/utils/parse";
-import { AnyCallable, ClientObject, LuaArray, Optional, Patrol } from "@/engine/lib/types";
+import { AnyCallable, ClientObject, LuaArray, Optional, Patrol, TCount, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -74,7 +74,7 @@ export class ActionSleeperActivity extends action_base {
         abort("object '%s': unable to find path_main '%s' on the map", this.object.name(), this.state.path_main);
       }
 
-      const numWayp = patrolMain.count();
+      const numWayp: TCount = patrolMain.count();
 
       if (numWayp === 1) {
         this.state.path_walk = this.state.path_main;
@@ -130,8 +130,8 @@ export class ActionSleeperActivity extends action_base {
   public callback(mode: number, number: number): boolean {
     this.sleepingState = STATE_SLEEPING;
 
-    const sleepPatrol = new patrol(this.state.path_main);
-    const position = sleepPatrol.count() === 2 ? sleepPatrol.point(1) : null;
+    const sleepPatrol: Patrol = new patrol(this.state.path_main);
+    const position: Optional<Vector> = sleepPatrol.count() === 2 ? sleepPatrol.point(1) : null;
 
     if (this.state.wakeable) {
       setStalkerState(this.object, EStalkerState.SIT, null, null, { lookPosition: position, lookObject: null }, null);

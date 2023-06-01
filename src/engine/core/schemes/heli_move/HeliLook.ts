@@ -4,8 +4,9 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { ClientObject, Optional, TRate, Vector } from "@/engine/lib/types";
 
-const heliLooker: LuaTable<number, HeliLook> = new LuaTable();
 const logger: LuaLogger = new LuaLogger($filename);
+
+const heliLooker: LuaTable<number, HeliLook> = new LuaTable();
 
 export class HeliLook {
   public readonly object: ClientObject;

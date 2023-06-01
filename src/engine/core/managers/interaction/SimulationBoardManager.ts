@@ -173,7 +173,7 @@ export class SimulationBoardManager extends AbstractCoreManager {
             abort("Wrong smart name [%s] in start position", tostring(name));
           }
 
-          const squad = this.createSmartSquad(smartTerrain, id);
+          const squad: Squad = this.createSmartSquad(smartTerrain, id);
 
           this.enterSmartTerrain(squad, smartTerrain.id);
         }
@@ -330,14 +330,14 @@ export class SimulationBoardManager extends AbstractCoreManager {
 
     squad.enteredSmartTerrainId = null;
 
-    const smart = this.smartTerrains.get(smartTerrainId);
+    const smartTerrainDescriptor: Optional<ISmartTerrainDescriptor> = this.smartTerrains.get(smartTerrainId);
 
-    if (smart === null) {
+    if (smartTerrainDescriptor === null) {
       abort("Smart null while smart_id not null [%s]", tostring(smartTerrainId));
     }
 
-    smart.stayingSquadsCount = smart.stayingSquadsCount - 1;
-    smart.assignedSquads.delete(squad.id);
+    smartTerrainDescriptor.stayingSquadsCount = smartTerrainDescriptor.stayingSquadsCount - 1;
+    smartTerrainDescriptor.assignedSquads.delete(squad.id);
   }
 
   /**

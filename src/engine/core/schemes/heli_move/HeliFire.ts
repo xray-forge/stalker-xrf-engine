@@ -3,6 +3,7 @@ import {
   CScriptXmlInit,
   CUIGameCustom,
   CUIProgressBar,
+  CUIStatic,
   get_hud,
   level,
   StaticDrawableWrapper,
@@ -15,7 +16,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, TDistance, TIndex, Vector, XmlInit } from "@/engine/lib/types";
+import { ClientObject, Optional, TDistance, TIndex, TRate, Vector, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const heliFirer: LuaTable<number, HeliFire> = new LuaTable();
@@ -54,7 +55,7 @@ export class HeliFire {
   }
 
   public updateEnemyState(): void {
-    const heli = this.object.get_helicopter();
+    const heli: CHelicopter = this.object.get_helicopter();
 
     // --'    printf("update_enemy_state()")
     if (this.hitCount > 2) {
@@ -88,7 +89,7 @@ export class HeliFire {
 
   public csHeli(): void {
     const hud: CUIGameCustom = get_hud();
-    const customStatic = hud.GetCustomStatic("cs_heli_health");
+    const customStatic: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
 
     if (customStatic === null) {
       hud.AddCustomStatic("cs_heli_health", true);
@@ -97,8 +98,8 @@ export class HeliFire {
 
       xml.ParseFile(HeliFire.HELI_STATIC_UI_XML_PATH);
 
-      const st = hud.GetCustomStatic("cs_heli_health")!;
-      const w = st.wnd();
+      const st: StaticDrawableWrapper = hud.GetCustomStatic("cs_heli_health")!;
+      const w: CUIStatic = st.wnd();
 
       this.heliProgress = xml.InitProgressBar("heli_health", w);
       this.setCsHeliProgressHealth();
@@ -106,23 +107,23 @@ export class HeliFire {
   }
 
   public setCsHeliProgressHealth(): void {
-    const heli = this.object.get_helicopter();
-    const hud = get_hud();
-    const customStatic = hud.GetCustomStatic("cs_heli_health");
-    const xml = new CScriptXmlInit();
+    const heli: CHelicopter = this.object.get_helicopter();
+    const hud: CUIGameCustom = get_hud();
+    const customStatic: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
+    const xml: CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(HeliFire.HELI_STATIC_UI_XML_PATH);
 
     if (customStatic) {
       hud.AddCustomStatic("cs_heli_health", true);
 
-      const st = hud.GetCustomStatic("cs_heli_health")!;
-      const w = st.wnd();
-      const _progr = heli.GetfHealth() * 100;
+      const st: StaticDrawableWrapper = hud.GetCustomStatic("cs_heli_health")!;
+      const w: CUIStatic = st.wnd();
+      const progress: TRate = heli.GetfHealth() * 100;
 
-      if (_progr > 0) {
+      if (progress > 0) {
         this.heliProgress!.Show(true);
-        this.heliProgress!.SetProgressPos(_progr);
+        this.heliProgress!.SetProgressPos(progress);
       } else {
         this.heliProgress!.Show(false);
         this.showHealth = false;
@@ -141,7 +142,7 @@ export class HeliFire {
   }
 
   public setEnemy(): void {
-    const heli = this.object.get_helicopter();
+    const heli: CHelicopter = this.object.get_helicopter();
 
     if (this.flagByEnemy) {
       heli.ClearEnemy();

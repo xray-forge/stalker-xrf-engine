@@ -137,7 +137,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     if (isActorVisible) {
       if (distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.close_snd_distance))!) {
         if (!this.isHelloPassed) {
-          const snd = pickSectionFromCondList(actor, this.object, this.state.close_snd_hello);
+          const snd: Optional<TSection> = pickSectionFromCondList(actor, this.object, this.state.close_snd_hello);
 
           if (tostring(snd) !== NIL && !isObjectInCombat(this.object)) {
             GlobalSoundManager.getInstance().playSound(this.object.id(), snd, null, null);

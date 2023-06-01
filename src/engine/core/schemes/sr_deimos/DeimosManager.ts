@@ -70,9 +70,9 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
 
     this.state.intensity = clampNumber(this.state.intensity + intensityDelta, 0, 1);
 
-    const ppIntensity = this.state.intensity;
-    const noiseIntensity = this.state.intensity;
-    const heartbeetIntensity = this.state.intensity;
+    const ppIntensity: TRate = this.state.intensity;
+    const noiseIntensity: TRate = this.state.intensity;
+    const heartbeetIntensity: TRate = this.state.intensity;
 
     if (this.phase > 0) {
       level.set_pp_effector_factor(DeimosManager.POST_PROCESS_EFFECTOR_ID, ppIntensity);

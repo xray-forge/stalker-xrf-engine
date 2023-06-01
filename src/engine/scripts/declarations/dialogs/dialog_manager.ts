@@ -14,7 +14,7 @@ import { getNpcSpeaker } from "@/engine/core/utils/task_reward";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TRUE } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, PhraseDialog, TName, TNumberId, TStringId } from "@/engine/lib/types";
+import { ClientObject, Optional, PhraseDialog, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -119,7 +119,7 @@ export function isHighestPriorityPhrase(
   const objectId: TNumberId = object.id();
 
   if (PRTsubtable.get(objectId) !== null) {
-    const pr = PRTsubtable.get(objectId).get(phraseId);
+    const pr: TRate = PRTsubtable.get(objectId).get(phraseId);
 
     if (pr < 0) {
       return false;
@@ -519,7 +519,7 @@ extern(
       phraseId = dialogName;
     }
 
-    const dialogManager = DialogManager.getInstance();
+    const dialogManager: DialogManager = DialogManager.getInstance();
 
     if (dialogManager.questDisabledPhrases.get(object.id()) === null) {
       dialogManager.questDisabledPhrases.set(object.id(), new LuaTable());

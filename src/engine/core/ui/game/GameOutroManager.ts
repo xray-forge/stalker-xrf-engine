@@ -110,10 +110,10 @@ export class GameOutroManager extends AbstractCoreManager {
     fade1Volume: number,
     fade2Volume: number
   ): number {
-    let f = ((factor - fade1Pos) * (fade2Volume - fade1Volume)) / (fade2Pos - fade1Pos) + fade1Volume;
+    let f: TRate = ((factor - fade1Pos) * (fade2Volume - fade1Volume)) / (fade2Pos - fade1Pos) + fade1Volume;
 
-    let minVol = 0.0;
-    let maxVol = 1.0;
+    let minVol: TRate = 0.0;
+    let maxVol: TRate = 1.0;
 
     if (fade1Volume > fade2Volume) {
       maxVol = fade1Volume;
@@ -190,13 +190,13 @@ export class GameOutroManager extends AbstractCoreManager {
     let f: number = 1.0;
 
     if (factor < 0.5) {
-      const startPt = 0.0;
-      const stopPt = 0.12;
+      const startPt: TRate = 0.0;
+      const stopPt: TRate = 0.12;
 
       f = GameOutroManager.calcFade(factor, startPt, stopPt, VOLUME_MIN, VOLUME_MAX);
     } else {
-      const startPt2 = 0.7;
-      const stopPt2 = 0.95;
+      const startPt2: TRate = 0.7;
+      const stopPt2: TRate = 0.95;
 
       f = GameOutroManager.calcFade(factor, startPt2, stopPt2, VOLUME_MAX, 0.0);
     }

@@ -20,6 +20,7 @@ import {
   Phrase,
   PhraseDialog,
   PhraseScript,
+  TIndex,
   TName,
   TNumberId,
   TRate,
@@ -98,7 +99,7 @@ export class DialogManager extends AbstractCoreManager {
 
     eventsManager.registerCallback(EGameEvent.NPC_INTERACTION, this.onInteractWithObject, this);
 
-    let category = "";
+    let category: string = "";
 
     for (const it of $range(0, DIALOG_MANAGER_LTX.line_count("list") - 1)) {
       const [temp1, id, temp2] = DIALOG_MANAGER_LTX.r_line("list", it, "", "");
@@ -190,8 +191,8 @@ export class DialogManager extends AbstractCoreManager {
       npcPhraseScript.AddPrecondition(precondTable.get(j));
 
       for (const i of $range(1, actorTable.length())) {
-        const index = this.getNextPhraseId();
-        const str = actorTable.get(i);
+        const index: TIndex = this.getNextPhraseId();
+        const str: string = actorTable.get(i);
         let phrase: Phrase = dialog.AddPhrase("dm_" + str + "_general", tostring(index), tostring(j), -10000);
         let script: PhraseScript = phrase.GetPhraseScript();
 
@@ -249,12 +250,12 @@ export class DialogManager extends AbstractCoreManager {
 
     dialog.AddPhrase("", tostring(0), "", -10000);
 
-    let phrase = dialog.AddPhrase("", tostring(1), tostring(0), -10000);
+    let phrase: Phrase = dialog.AddPhrase("", tostring(1), tostring(0), -10000);
     let script: CPhraseScript = phrase.GetPhraseScript();
 
     script.AddAction(string.format("dialog_manager.fill_priority_%s_table", data));
 
-    let ph = false;
+    let ph: boolean = false;
 
     for (const [k, v] of this.phrasesMap.get(data)) {
       ph = true;
@@ -318,8 +319,8 @@ export class DialogManager extends AbstractCoreManager {
   ): TRate {
     const objectId: TNumberId = object.id();
 
-    let fLevel = false;
-    let fComm = false;
+    let fLevel: boolean = false;
+    let fComm: boolean = false;
     let priority: number = -1;
 
     if (PTIDSubtable.npc_community === "not_set") {
