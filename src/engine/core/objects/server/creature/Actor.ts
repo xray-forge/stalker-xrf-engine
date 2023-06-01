@@ -28,6 +28,7 @@ import {
   AnyObject,
   ClientObject,
   NetPacket,
+  Optional,
   ServerCreatureObject,
   TNumberId,
   Vector,
@@ -129,9 +130,9 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       const zone: ClientObject = registry.zones.get(zoneName);
 
       if (zone !== null && zone.inside(this.position)) {
-        const smart = SimulationBoardManager.getInstance().getSmartTerrainByName(smartName);
+        const smart: Optional<SmartTerrain> = SimulationBoardManager.getInstance().getSmartTerrainByName(smartName);
 
-        if (smart !== null && smart.smartTerrainActorControl.status !== ESmartTerrainStatus.ALARM) {
+        if (smart !== null && smart.smartTerrainActorControl?.status !== ESmartTerrainStatus.ALARM) {
           return false;
         }
       }

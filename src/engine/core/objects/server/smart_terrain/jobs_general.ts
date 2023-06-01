@@ -46,7 +46,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  * todo;
  */
-export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaArray<TJobDescriptor>, string]> {
+export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaArray<TJobDescriptor>, string]> {
   const smartTerrainName: TName = smartTerrain.name();
   const jobsList: LuaArray<TJobDescriptor> = new LuaTable();
 
@@ -103,8 +103,8 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   // = Point job
   // ===================================================================================================================
 
-  const stalkerJobs = { _precondition_is_monster: false, priority: 60, jobs: [] };
-  const stalkerGenericPoint = { priority: 3, jobs: [] };
+  const stalkerJobs = { _precondition_is_monster: false, priority: 60, jobs: new LuaTable() };
+  const stalkerGenericPoint = { priority: 3, jobs: new LuaTable() };
 
   for (const it of $range(1, 20)) {
     const name = smartTerrainName + "_point_" + it;
@@ -158,7 +158,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   // = Surge
   // ===================================================================================================================
 
-  const stalkerSurge = { priority: 50, jobs: [] as Array<AnyObject> };
+  const stalkerSurge = { priority: 50, jobs: new LuaTable() };
   let it = 1;
 
   while (level.patrol_path_exists(smartTerrainName + "_surge_" + it + "_walk")) {
@@ -314,7 +314,7 @@ export function loadGulagJobs(smartTerrain: SmartTerrain): LuaMultiReturn<[LuaAr
   // = Collector
   // ===================================================================================================================
 
-  const stalkerCollector = { priority: 25, jobs: [] as Array<AnyObject> };
+  const stalkerCollector = { priority: 25, jobs: new LuaTable() };
 
   it = 1;
 

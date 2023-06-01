@@ -35,7 +35,7 @@ import { SimulationBoardManager } from "@/engine/core/managers/interaction/Simul
 import {
   areOnlyMonstersOnJobs,
   jobIterator,
-  loadGulagJobs,
+  loadSmartTerrainJobs,
 } from "@/engine/core/objects/server/smart_terrain/jobs_general";
 import { SmartTerrainControl } from "@/engine/core/objects/server/smart_terrain/SmartTerrainControl";
 import {
@@ -173,7 +173,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public safeRestrictor: Optional<TName> = null;
   public spawnPointName: Optional<TName> = null;
 
-  public smartTerrainActorControl!: SmartTerrainControl;
+  public smartTerrainActorControl: Optional<SmartTerrainControl> = null;
 
   /**
    * Already working on smart descriptors.
@@ -457,7 +457,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     if (this.script_version > 9) {
       if (packet.r_bool() === true) {
-        this.smartTerrainActorControl.load(packet);
+        this.smartTerrainActorControl?.load(packet);
       }
     }
 
@@ -736,7 +736,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public loadJobs(): void {
     logger.info("Load jobs:", this.name());
 
-    const [jobs, ltxContent] = loadGulagJobs(this);
+    const [jobs, ltxContent] = loadSmartTerrainJobs(this);
     const [ltx, ltxName] = loadDynamicIni(this.name(), ltxContent);
 
     this.jobs = jobs;

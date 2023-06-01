@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 
-import { ClientObject, TNumberId } from "@/engine/lib/types";
+import { ClientObject, TName, TNumberId } from "@/engine/lib/types";
 
 export const CLIENT_SIDE_REGISTRY: Record<TNumberId, ClientObject> = {};
 
@@ -16,4 +16,7 @@ export const mockLevelInterface = {
   name: jest.fn(() => null),
   object_by_id: jest.fn((id: TNumberId) => CLIENT_SIDE_REGISTRY[id] || null),
   set_snd_volume: jest.fn((volume: number) => {}),
+  patrol_path_exists: jest.fn((name: TName) => {
+    return ["test_smart_surge_1_walk", "test_smart_surge_2_walk", "test_smart_surge_3_walk"].includes(name);
+  }),
 };

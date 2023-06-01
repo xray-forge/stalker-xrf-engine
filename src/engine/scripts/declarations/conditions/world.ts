@@ -128,7 +128,7 @@ extern(
     }
 
     const smart: SmartTerrain = SimulationBoardManager.getInstance().getSmartTerrainByName(smartName)!;
-    const smartControl: SmartTerrainControl = smart.smartTerrainActorControl;
+    const smartControl: Optional<SmartTerrainControl> = smart.smartTerrainActorControl;
 
     if (smartControl === null) {
       abort("Cannot calculate 'check_smart_alarm_status' for smart %s", tostring(smartName));
