@@ -1061,10 +1061,10 @@ extern(
     const actorWeaponsTable: LuaArray<TWeapon> = getGoodGunsInInventory(actor);
 
     if (actorWeaponsTable.length() > 0) {
-      (actor as AnyObject).good_gun = actorWeaponsTable.get(math.random(1, actorWeaponsTable.length()));
+      (actor as AnyObject).goodGun = actorWeaponsTable.get(math.random(1, actorWeaponsTable.length()));
     }
 
-    return (actor as AnyObject).good_gun !== null;
+    return (actor as AnyObject).goodGun !== null;
   }
 );
 
@@ -1076,11 +1076,11 @@ extern("dialogs_zaton.zat_b29_actor_exchange", (firstSpeaker: ClientObject, seco
 
   for (const i of $range(16, 23)) {
     if (hasAlifeInfo(zatB29InfopBringTable.get(i))) {
-      if ((actor as AnyObject).good_gun !== null) {
-        transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), (actor as AnyObject).good_gun);
+      if ((actor as AnyObject).goodGun !== null) {
+        transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), (actor as AnyObject).goodGun);
         transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zatB29AfTable.get(i));
 
-        (actor as AnyObject).good_gun = null;
+        (actor as AnyObject).goodGun = null;
         break;
       }
     }
@@ -1122,10 +1122,10 @@ extern(
 extern("dialogs_zaton.zat_b30_actor_exchange", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   const actor: ClientObject = registry.actor;
 
-  if ((actor as AnyObject).good_gun !== null) {
-    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), (actor as AnyObject).good_gun);
+  if ((actor as AnyObject).goodGun !== null) {
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), (actor as AnyObject).goodGun);
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_scientific);
-    (actor as AnyObject).good_gun = null;
+    (actor as AnyObject).goodGun = null;
   }
 
   if (isObjectName(secondSpeaker, "zat_b29_stalker_rival_1")) {
@@ -1278,15 +1278,15 @@ extern("dialogs_zaton.give_compass_to_actor", (firstSpeaker: ClientObject, secon
 
 const itemCountByCategory = [3, 3, 3, 3, 1, 1, 1] as unknown as LuaArray<number>;
 
-const zatB51CostsTable = [
-  { prepay_agreed: 700, prepay_refused: 1400, cost: 2800 },
-  { prepay_agreed: 2000, prepay_refused: 4000, cost: 8000 },
-  { prepay_agreed: 4000, prepay_refused: 8000, cost: 16000 },
-  { prepay_agreed: 4000, prepay_refused: 8000, cost: 16000 },
-  { prepay_agreed: 8000, prepay_refused: 16000, cost: 32000 },
-  { prepay_agreed: 6000, prepay_refused: 12000, cost: 24000 },
-  { prepay_agreed: 12000, prepay_refused: 24000, cost: 48000 },
-] as unknown as LuaArray<{ prepay_agreed: number; prepay_refused: number; cost: number }>;
+const zatB51CostsTable: LuaArray<{ prepayAgreed: number; prepayRefused: number; cost: number }> = $fromArray([
+  { prepayAgreed: 700, prepayRefused: 1400, cost: 2800 },
+  { prepayAgreed: 2000, prepayRefused: 4000, cost: 8000 },
+  { prepayAgreed: 4000, prepayRefused: 8000, cost: 16000 },
+  { prepayAgreed: 4000, prepayRefused: 8000, cost: 16000 },
+  { prepayAgreed: 8000, prepayRefused: 16000, cost: 32000 },
+  { prepayAgreed: 6000, prepayRefused: 12000, cost: 24000 },
+  { prepayAgreed: 12000, prepayRefused: 24000, cost: 48000 },
+]);
 
 const zatB51BuyItemTable = [
   [
@@ -1335,14 +1335,11 @@ extern("dialogs_zaton.zat_b51_give_prepay", (firstSpeaker: ClientObject, secondS
       if (!hasAlifeInfo(infoPortions.zat_b51_order_refused)) {
         return transferMoneyFromActor(
           getNpcSpeaker(firstSpeaker, secondSpeaker),
-          zatB51CostsTable.get(it).prepay_agreed
+          zatB51CostsTable.get(it).prepayAgreed
         );
       }
 
-      return transferMoneyFromActor(
-        getNpcSpeaker(firstSpeaker, secondSpeaker),
-        zatB51CostsTable.get(it).prepay_refused
-      );
+      return transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zatB51CostsTable.get(it).prepayRefused);
     }
   }
 });
@@ -1356,10 +1353,10 @@ extern("dialogs_zaton.zat_b51_has_prepay", (firstSpeaker: ClientObject, secondSp
   for (const it of $range(1, 7)) {
     if (hasAlifeInfo(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
       if (!hasAlifeInfo(infoPortions.zat_b51_order_refused)) {
-        return actor.money() >= zatB51CostsTable.get(it).prepay_agreed;
+        return actor.money() >= zatB51CostsTable.get(it).prepayAgreed;
       }
 
-      return actor.money() >= zatB51CostsTable.get(it).prepay_refused;
+      return actor.money() >= zatB51CostsTable.get(it).prepayRefused;
     }
   }
 

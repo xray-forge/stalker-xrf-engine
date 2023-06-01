@@ -80,7 +80,7 @@ export class DialogManager extends AbstractCoreManager {
     information: new LuaTable(),
   });
 
-  public priority_table: LuaTable<TName, TPRTTable> = $fromObject<TName, TPRTTable>({
+  public priorityTable: LuaTable<TName, TPRTTable> = $fromObject<TName, TPRTTable>({
     hello: new LuaTable(),
     job: new LuaTable(),
     anomalies: new LuaTable(),
@@ -166,32 +166,32 @@ export class DialogManager extends AbstractCoreManager {
 
     eventsManager.unregisterCallback(EGameEvent.NPC_INTERACTION, this.onInteractWithObject);
 
-    const actor_table: LuaArray<TName> = $fromArray(["job", "anomalies", "information"]);
-    const start_phrase_table: LuaArray<TName> = $fromArray([
+    const actorTable: LuaArray<TName> = $fromArray(["job", "anomalies", "information"]);
+    const startPhraseTable: LuaArray<TName> = $fromArray([
       "dm_universal_npc_start_0",
       "dm_universal_npc_start_1",
       "dm_universal_npc_start_2",
       "dm_universal_npc_start_3",
     ]);
-    const precond_table: LuaArray<TName> = $fromArray([
+    const precondTable: LuaArray<TName> = $fromArray([
       "dialogs.npc_stalker",
       "dialogs.npc_bandit",
       "dialogs.npc_freedom",
       "dialogs.npc_dolg",
     ]);
 
-    const actorPhrase = dialog.AddPhrase("dm_universal_actor_start", tostring(0), "", -10000);
-    const actorScript = actorPhrase.GetPhraseScript();
+    const actorPhrase: Phrase = dialog.AddPhrase("dm_universal_actor_start", tostring(0), "", -10000);
+    const actorScript: PhraseScript = actorPhrase.GetPhraseScript();
 
     for (const j of $range(1, 4)) {
-      const npc_phrase = dialog.AddPhrase(start_phrase_table.get(j), tostring(j), tostring(0), -10000);
-      const npc_phrase_script = npc_phrase.GetPhraseScript();
+      const npcPhrase: Phrase = dialog.AddPhrase(startPhraseTable.get(j), tostring(j), tostring(0), -10000);
+      const npcPhraseScript: PhraseScript = npcPhrase.GetPhraseScript();
 
-      npc_phrase_script.AddPrecondition(precond_table.get(j));
+      npcPhraseScript.AddPrecondition(precondTable.get(j));
 
-      for (const i of $range(1, actor_table.length())) {
+      for (const i of $range(1, actorTable.length())) {
         const index = this.getNextPhraseId();
-        const str = actor_table.get(i);
+        const str = actorTable.get(i);
         let phrase: Phrase = dialog.AddPhrase("dm_" + str + "_general", tostring(index), tostring(j), -10000);
         let script: PhraseScript = phrase.GetPhraseScript();
 
@@ -204,25 +204,25 @@ export class DialogManager extends AbstractCoreManager {
         // --script.AddAction("dialog_manager.action_disable_phrase")
 
         for (const k of $range(1, 3)) {
-          const answer_no_more = dialog.AddPhrase(
+          const answerNoMore: Phrase = dialog.AddPhrase(
             "dm_" + str + "_no_more_" + tostring(k),
             tostring(this.getNextPhraseId()),
             tostring(index),
             -10000
           );
-          const script_no_more = answer_no_more.GetPhraseScript();
+          const scriptNoMore: PhraseScript = answerNoMore.GetPhraseScript();
 
-          script_no_more.AddPrecondition("dialog_manager.precondition_" + str + "_dialogs_no_more");
+          scriptNoMore.AddPrecondition("dialog_manager.precondition_" + str + "_dialogs_no_more");
 
-          const answer_do_not_know = dialog.AddPhrase(
+          const answerDoNotKnow: Phrase = dialog.AddPhrase(
             "dm_" + str + "_do_not_know_" + tostring(k),
             tostring(this.getNextPhraseId()),
             tostring(index),
             -10000
           );
-          const script_do_not_know = answer_do_not_know.GetPhraseScript();
+          const scriptDoNotKnow: PhraseScript = answerDoNotKnow.GetPhraseScript();
 
-          script_do_not_know.AddPrecondition("dialog_manager.precondition_" + str + "_dialogs_do_not_know");
+          scriptDoNotKnow.AddPrecondition("dialog_manager.precondition_" + str + "_dialogs_do_not_know");
         }
 
         for (const [k, v] of this.phrasesMap.get(str)) {
@@ -268,15 +268,15 @@ export class DialogManager extends AbstractCoreManager {
       if (v.wounded === TRUE) {
         script.AddPrecondition("dialogs.is_wounded");
 
-        const medkit_id: TNumberId = this.getNextPhraseId();
-        const sorry_id: TNumberId = this.getNextPhraseId();
+        const medkitId: TNumberId = this.getNextPhraseId();
+        const sorryId: TNumberId = this.getNextPhraseId();
 
-        phrase = dialog.AddPhrase("dm_wounded_medkit", tostring(medkit_id), tostring(v.id), -10000);
+        phrase = dialog.AddPhrase("dm_wounded_medkit", tostring(medkitId), tostring(v.id), -10000);
         script = phrase.GetPhraseScript();
         script.AddPrecondition("dialogs.actor_have_medkit");
         script.AddAction("dialogs.transfer_medkit");
         script.AddAction("dialogs.break_dialog");
-        phrase = dialog.AddPhrase("dm_wounded_sorry", tostring(sorry_id), tostring(v.id), -10000);
+        phrase = dialog.AddPhrase("dm_wounded_sorry", tostring(sorryId), tostring(v.id), -10000);
         script = phrase.GetPhraseScript();
         script.AddAction("dialogs.break_dialog");
       } else {
@@ -293,17 +293,17 @@ export class DialogManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public fillPriorityTable(object: ClientObject, PT_subtable: TPHRTable, PRT_subtable: TPRTTable): void {
+  public fillPriorityTable(object: ClientObject, PTSubtable: TPHRTable, PRTSubtable: TPRTTable): void {
     const objectId: TNumberId = object.id();
 
-    if (PRT_subtable.get(objectId) === null) {
+    if (PRTSubtable.get(objectId) === null) {
       // -- if (subtable for npc is ! set - create it
-      PRT_subtable.set(objectId, new LuaTable());
+      PRTSubtable.set(objectId, new LuaTable());
     }
 
-    for (const [num, phrase] of PT_subtable) {
+    for (const [num, phrase] of PTSubtable) {
       // Calculate priority for each phrase
-      this.calculatePhrasePriority(PRT_subtable, phrase, object, phrase.id);
+      this.calculatePhrasePriority(PRTSubtable, phrase, object, phrase.id);
     }
   }
 
@@ -311,27 +311,27 @@ export class DialogManager extends AbstractCoreManager {
    * todo;
    */
   public calculatePhrasePriority(
-    PRT_subtable: TPRTTable,
-    PTID_subtable: IPhrasesDescriptor,
+    PRTSubtable: TPRTTable,
+    PTIDSubtable: IPhrasesDescriptor,
     object: ClientObject,
     phraseId: TStringId
   ): TRate {
     const objectId: TNumberId = object.id();
 
-    let f_level = false;
-    let f_comm = false;
+    let fLevel = false;
+    let fComm = false;
     let priority: number = -1;
 
-    if (PTID_subtable.npc_community === "not_set") {
-      f_comm = true;
-    } else if (PTID_subtable.npc_community.get(1) === "all") {
+    if (PTIDSubtable.npc_community === "not_set") {
+      fComm = true;
+    } else if (PTIDSubtable.npc_community.get(1) === "all") {
       priority = priority + 1;
-      f_comm = true;
+      fComm = true;
     } else {
-      for (const i of $range(1, PTID_subtable.npc_community.length())) {
-        if (PTID_subtable.npc_community.get(i) === getCharacterCommunity(object)) {
+      for (const i of $range(1, PTIDSubtable.npc_community.length())) {
+        if (PTIDSubtable.npc_community.get(i) === getCharacterCommunity(object)) {
           priority = priority + 2;
-          f_comm = true;
+          fComm = true;
           break;
         }
       }
@@ -339,35 +339,35 @@ export class DialogManager extends AbstractCoreManager {
       priority = priority - 1;
     }
 
-    if (PTID_subtable.level === "not_set") {
-      f_level = true;
-    } else if (PTID_subtable.level.get(1) === "all") {
+    if (PTIDSubtable.level === "not_set") {
+      fLevel = true;
+    } else if (PTIDSubtable.level.get(1) === "all") {
       priority = priority + 1;
-      f_level = true;
+      fLevel = true;
     } else {
-      for (const i of $range(1, PTID_subtable.level.length())) {
-        if (PTID_subtable.level.get(i) === level.name()) {
+      for (const i of $range(1, PTIDSubtable.level.length())) {
+        if (PTIDSubtable.level.get(i) === level.name()) {
           priority = priority + 2;
-          f_level = true;
+          fLevel = true;
           break;
         }
       }
     }
 
-    if (PTID_subtable.actor_community === "not_set") {
+    if (PTIDSubtable.actor_community === "not_set") {
       priority = priority + 0;
-    } else if (PTID_subtable.actor_community === "all") {
+    } else if (PTIDSubtable.actor_community === "all") {
       priority = priority + 1;
     } else {
-      for (const i of $range(1, PTID_subtable.actor_community.length())) {
-        if (PTID_subtable.actor_community.get(i) === getCharacterCommunity(registry.actor)) {
+      for (const i of $range(1, PTIDSubtable.actor_community.length())) {
+        if (PTIDSubtable.actor_community.get(i) === getCharacterCommunity(registry.actor)) {
           priority = priority + 2;
           break;
         }
       }
     }
 
-    if (PTID_subtable.wounded === TRUE) {
+    if (PTIDSubtable.wounded === TRUE) {
       // --if (!(ActionWoundManager.is_heavy_wounded_by_id(npc.id())) {
       if (!isObjectWounded(object)) {
         priority = -1;
@@ -383,21 +383,21 @@ export class DialogManager extends AbstractCoreManager {
       }
     }
 
-    if (f_comm === false || f_level === false) {
+    if (fComm === false || fLevel === false) {
       priority = -1;
     }
 
-    if (PRT_subtable.get(object.id()).get("ignore_once") !== null) {
-      if (PTID_subtable.once === TRUE) {
+    if (PRTSubtable.get(object.id()).get("ignore_once") !== null) {
+      if (PTIDSubtable.once === TRUE) {
         priority = -1;
       }
     }
 
-    if (PRT_subtable.get(objectId).get(phraseId) !== null && PRT_subtable.get(objectId).get(phraseId) === 255) {
+    if (PRTSubtable.get(objectId).get(phraseId) !== null && PRTSubtable.get(objectId).get(phraseId) === 255) {
       priority = 255;
     }
 
-    for (const [k, v] of PTID_subtable.info) {
+    for (const [k, v] of PTIDSubtable.info) {
       if (v.name) {
         if (v.required === true) {
           if (!hasAlifeInfo(v.name)) {
@@ -413,7 +413,7 @@ export class DialogManager extends AbstractCoreManager {
       }
     }
 
-    PRT_subtable.get(objectId).set(phraseId, priority);
+    PRTSubtable.get(objectId).set(phraseId, priority);
 
     return priority;
   }
@@ -422,7 +422,7 @@ export class DialogManager extends AbstractCoreManager {
    * todo;
    */
   public isTold(object: ClientObject, phrase: TStringId): boolean {
-    return this.priority_table.get(phrase).get(object.id())?.told === true;
+    return this.priorityTable.get(phrase).get(object.id())?.told === true;
   }
 
   /**
@@ -440,11 +440,11 @@ export class DialogManager extends AbstractCoreManager {
 
     const objectId: TNumberId = object.id();
 
-    packet.w_bool(this.priority_table.get("hello").get(objectId) !== null);
-    packet.w_bool(this.priority_table.get("job").get(objectId) !== null);
-    packet.w_bool(this.priority_table.get("anomalies").get(objectId) !== null);
-    packet.w_bool(this.priority_table.get("place").get(objectId) !== null);
-    packet.w_bool(this.priority_table.get("information").get(objectId) !== null);
+    packet.w_bool(this.priorityTable.get("hello").get(objectId) !== null);
+    packet.w_bool(this.priorityTable.get("job").get(objectId) !== null);
+    packet.w_bool(this.priorityTable.get("anomalies").get(objectId) !== null);
+    packet.w_bool(this.priorityTable.get("place").get(objectId) !== null);
+    packet.w_bool(this.priorityTable.get("information").get(objectId) !== null);
 
     closeSaveMarker(packet, DialogManager.name);
   }

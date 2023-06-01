@@ -180,7 +180,7 @@ export function preconditionNoMore(object: ClientObject, str: string): boolean {
 
   const [priority, id] = getHighestPriorityPhrase(
     dialogManager.phrasesMap.get(str),
-    dialogManager.priority_table.get(str),
+    dialogManager.priorityTable.get(str),
     object
   );
 
@@ -219,7 +219,7 @@ extern(
     dialogManager.fillPriorityTable(
       object,
       dialogManager.phrasesMap.get("hello"),
-      dialogManager.priority_table.get("hello")
+      dialogManager.priorityTable.get("hello")
     );
   }
 );
@@ -232,7 +232,7 @@ extern(
   (actor: ClientObject, npc: ClientObject, dialogName: string, phraseId: string): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    dialogManager.fillPriorityTable(npc, dialogManager.phrasesMap.get("job"), dialogManager.priority_table.get("job"));
+    dialogManager.fillPriorityTable(npc, dialogManager.phrasesMap.get("job"), dialogManager.priorityTable.get("job"));
   }
 );
 
@@ -247,7 +247,7 @@ extern(
     dialogManager.fillPriorityTable(
       object,
       dialogManager.phrasesMap.get("anomalies"),
-      dialogManager.priority_table.get("anomalies")
+      dialogManager.priorityTable.get("anomalies")
     );
   }
 );
@@ -263,7 +263,7 @@ extern(
     dialogManager.fillPriorityTable(
       object,
       dialogManager.phrasesMap.get("information"),
-      dialogManager.priority_table.get("information")
+      dialogManager.priorityTable.get("information")
     );
   }
 );
@@ -276,7 +276,7 @@ extern(
   (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    return precondition(object, dialogManager.phrasesMap.get("hello"), dialogManager.priority_table.get("hello"), id);
+    return precondition(object, dialogManager.phrasesMap.get("hello"), dialogManager.priorityTable.get("hello"), id);
   }
 );
 
@@ -288,7 +288,7 @@ extern(
   (object: ClientObject, actor: ClientObject, dialogName: string, id: string): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    action(dialogManager.phrasesMap.get("hello"), dialogManager.priority_table.get("hello"), id, object);
+    action(dialogManager.phrasesMap.get("hello"), dialogManager.priorityTable.get("hello"), id, object);
   }
 );
 
@@ -322,7 +322,7 @@ extern(
   (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    return precondition(object, dialogManager.phrasesMap.get("job"), dialogManager.priority_table.get("job"), id);
+    return precondition(object, dialogManager.phrasesMap.get("job"), dialogManager.priorityTable.get("job"), id);
   }
 );
 
@@ -334,8 +334,8 @@ extern(
   (npc: ClientObject, actor: ClientObject, dialogName: string, id: string): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    action(dialogManager.phrasesMap.get("job"), dialogManager.priority_table.get("job"), id, npc);
-    told(dialogManager.priority_table.get("job"), npc);
+    action(dialogManager.phrasesMap.get("job"), dialogManager.priorityTable.get("job"), id, npc);
+    told(dialogManager.priorityTable.get("job"), npc);
   }
 );
 
@@ -374,7 +374,7 @@ extern(
       smartTerrain !== null &&
       tostring(smartTerrain.name()) === dialogManager.phrasesMap.get("anomalies").get(id).smart
     ) {
-      dialogManager.priority_table.get("anomalies").get(object.id()).id = -1;
+      dialogManager.priorityTable.get("anomalies").get(object.id()).id = -1;
 
       return false;
     }
@@ -382,7 +382,7 @@ extern(
     return precondition(
       object,
       dialogManager.phrasesMap.get("anomalies"),
-      dialogManager.priority_table.get("anomalies"),
+      dialogManager.priorityTable.get("anomalies"),
       id
     );
   }
@@ -396,8 +396,8 @@ extern(
   (object: ClientObject, actor: ClientObject, dialogName: string, id: string): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    action(dialogManager.phrasesMap.get("anomalies"), dialogManager.priority_table.get("anomalies"), id, object);
-    told(dialogManager.priority_table.get("anomalies"), object);
+    action(dialogManager.phrasesMap.get("anomalies"), dialogManager.priorityTable.get("anomalies"), id, object);
+    told(dialogManager.priorityTable.get("anomalies"), object);
   }
 );
 
@@ -433,7 +433,7 @@ extern(
     return precondition(
       object,
       dialogManager.phrasesMap.get("information"),
-      dialogManager.priority_table.get("information"),
+      dialogManager.priorityTable.get("information"),
       id
     );
   }
@@ -447,8 +447,8 @@ extern(
   (object: ClientObject, actor: ClientObject, dialogName: string, id: string): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    action(dialogManager.phrasesMap.get("information"), dialogManager.priority_table.get("information"), id, object);
-    told(dialogManager.priority_table.get("information"), object);
+    action(dialogManager.phrasesMap.get("information"), dialogManager.priorityTable.get("information"), id, object);
+    told(dialogManager.priorityTable.get("information"), object);
   }
 );
 

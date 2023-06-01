@@ -743,10 +743,10 @@ extern("xr_effects.switch_to_desired_job", (actor: ClientObject, object: ClientO
  * todo;
  */
 extern("xr_effects.spawn_item_to_npc", (actor: ClientObject, npc: ClientObject, p: [Optional<string>]): void => {
-  const new_item = p[0];
+  const newItem = p[0];
 
-  if (new_item) {
-    alife().create(new_item, npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());
+  if (newItem) {
+    alife().create(newItem, npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());
   }
 });
 
