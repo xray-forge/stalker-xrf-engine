@@ -17,8 +17,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 extern("xr_effects.inc_counter", (actor: ClientObject, npc: ClientObject, p: [Optional<string>, number]) => {
   if (p[0]) {
-    const incValue = p[1] || 1;
-    const newValue = getPortableStoreValue(actor, p[0], 0) + incValue;
+    const incValue: number = p[1] || 1;
+    const newValue: number = getPortableStoreValue(actor, p[0], 0) + incValue;
 
     setPortableStoreValue(actor, p[0], newValue);
   }
@@ -29,8 +29,8 @@ extern("xr_effects.inc_counter", (actor: ClientObject, npc: ClientObject, p: [Op
  */
 extern("xr_effects.dec_counter", (actor: ClientObject, npc: ClientObject, p: [Optional<string>, number]) => {
   if (p[0]) {
-    const decValue = p[1] || 1;
-    let newValue = getPortableStoreValue(actor, p[0], 0) - decValue;
+    const decValue: number = p[1] || 1;
+    let newValue: number = getPortableStoreValue(actor, p[0], 0) - decValue;
 
     if (newValue < 0) {
       newValue = 0;
@@ -154,7 +154,7 @@ extern(
  */
 extern("xr_effects.add_cs_text", (actor: ClientObject, npc: ClientObject, p: [string]) => {
   if (p[0]) {
-    const hud = get_hud();
+    const hud: GameHud = get_hud();
     let customText: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("text_on_screen_center");
 
     if (customText) {

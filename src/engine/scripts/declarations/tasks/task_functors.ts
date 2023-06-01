@@ -7,7 +7,7 @@ import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { captions } from "@/engine/lib/constants/captions/captions";
-import { ClientObject, Optional, TNumberId, TSection, TStringId } from "@/engine/lib/types";
+import { ClientObject, Optional, TLabel, TNumberId, TRate, TSection, TStringId } from "@/engine/lib/types";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 /**
@@ -23,7 +23,7 @@ extern("task_functors.condlist", (id: TStringId, field: string, p: string): Opti
  * todo;
  */
 extern("task_functors.zat_b29_adv_title", (id: TStringId, field: string, p: string): Optional<string> => {
-  const actor = registry.actor;
+  const actor: ClientObject = registry.actor;
   let title: Optional<string> = null;
 
   for (const i of $range(16, 23)) {
@@ -43,9 +43,9 @@ extern("task_functors.zat_b29_adv_title", (id: TStringId, field: string, p: stri
  * todo;
  */
 extern("task_functors.zat_b29_adv_descr", (id: TStringId, field: string, p: string) => {
-  let descr = "";
-  let fAf = 0;
-  const actor = registry.actor;
+  let descr: TLabel = "";
+  let fAf: TRate = 0;
+  const actor: ClientObject = registry.actor;
 
   for (const i of $range(16, 23)) {
     if (hasAlifeInfo(zatB29InfopBringTable.get(i)) && actor.object(zatB29AfTable.get(i))) {

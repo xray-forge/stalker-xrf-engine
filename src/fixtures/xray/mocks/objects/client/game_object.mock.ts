@@ -11,6 +11,7 @@ import {
   PartialRecord,
   TCallback,
   TClassId,
+  TIndex,
   TSightType,
 } from "@/engine/lib/types";
 import { MockMove, MockSightParameters } from "@/fixtures/xray";
@@ -86,7 +87,7 @@ export function mockClientGameObject({
     disable_info_portion:
       disable_info_portion ||
       jest.fn((it: string) => {
-        const index = internalInfos.indexOf(it);
+        const index: TIndex = internalInfos.indexOf(it);
 
         if (index >= 0) {
           internalInfos.splice(index, 1);

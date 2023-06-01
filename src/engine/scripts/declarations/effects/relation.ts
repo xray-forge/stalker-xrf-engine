@@ -111,8 +111,8 @@ extern(
 extern(
   "xr_effects.inc_faction_goodwill_to_actor",
   (actor: ClientObject, object: ClientObject, p: [Optional<TCommunity>, Optional<number>]): void => {
-    const community = p[0];
-    const delta = p[1];
+    const community: Optional<TCommunity> = p[0];
+    const delta: Optional<TCount> = p[1];
 
     if (delta && community) {
       increaseNumberRelationBetweenCommunityAndId(community, actor.id(), tonumber(delta)!);
@@ -159,11 +159,11 @@ extern("xr_effects.set_squads_enemies", (actor: ClientObject, npc: ClientObject,
   }
 
   for (const k of squad1.squad_members()) {
-    const npcObj1 = registry.objects.get(k.id)?.object as Optional<ClientObject>;
+    const npcObj1: Optional<ClientObject> = registry.objects.get(k.id)?.object as Optional<ClientObject>;
 
     if (npcObj1 !== null) {
       for (const kk of squad2.squad_members()) {
-        const npcObj2 = registry.objects.get(kk.id).object as Optional<ClientObject>;
+        const npcObj2: Optional<ClientObject> = registry.objects.get(kk.id).object as Optional<ClientObject>;
 
         if (npcObj2 !== null) {
           npcObj1.set_relation(EClientObjectRelation.ENEMY, npcObj2);

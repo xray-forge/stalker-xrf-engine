@@ -40,15 +40,18 @@ import {
   Hit,
   LuaArray,
   Optional,
+  Patrol,
   ServerCreatureObject,
   ServerHumanObject,
   TBloodsuckerVisibilityState,
+  TCount,
   TIndex,
   TName,
   TNumberId,
   TRate,
   TSection,
   TStringId,
+  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -273,7 +276,7 @@ extern(
 extern("xr_effects.spawn_corpse", (actor: ClientObject, obj: ClientObject, params: [string, string, number]): void => {
   logger.info("Spawn corpse:", params[0]);
 
-  const spawnSection = params[0];
+  const spawnSection: TSection = params[0];
 
   if (spawnSection === null) {
     abort("Wrong spawn section for 'spawn_corpse' function %s. For object %s", tostring(spawnSection), obj.name());
@@ -351,9 +354,9 @@ extern(
     const squadMemberSection: TSection = params[0];
     const storyId: Optional<TStringId> = params[1];
 
-    let position = null;
-    let levelVertexId = null;
-    let gameVertexId = null;
+    let position: Optional<Vector> = null;
+    let levelVertexId: Optional<TNumberId> = null;
+    let gameVertexId: Optional<TNumberId> = null;
 
     if (storyId === null) {
       abort("Wrong squad identificator [NIL] in 'create_squad_member' function");
@@ -380,7 +383,7 @@ extern(
         spawnPoint = params[2];
       }
 
-      const point = new patrol(spawnPoint);
+      const point: Patrol = new patrol(spawnPoint);
 
       position = point.point(0);
       levelVertexId = point.level_vertex_id(0);
@@ -459,7 +462,7 @@ extern("xr_effects.kill_squad", (actor: ClientObject, obj: ClientObject, p: [Opt
  */
 extern("xr_effects.heal_squad", (actor: ClientObject, obj: ClientObject, params: [TStringId, number]) => {
   const storyId: Optional<TStringId> = params[0];
-  let healthMod = 1;
+  let healthMod: TRate = 1;
 
   if (params[1] && params[1] !== null) {
     healthMod = math.ceil(params[1] / 100);
@@ -569,11 +572,11 @@ extern(
   (actor: ClientObject, npc: ClientObject, params: [string, string, string, number, number, string]): void => {
     logger.info("Hit npc");
 
-    const h = new hit();
-    const rev = params[5] && params[5] === TRUE;
+    const targetHit: Hit = new hit();
+    const rev: boolean = params[5] ? params[5] === TRUE : false;
 
-    h.draftsman = npc;
-    h.type = hit.wound;
+    targetHit.draftsman = npc;
+    targetHit.type = hit.wound;
     if (params[0] !== "self") {
       const hitter: Optional<ClientObject> = getObjectByStoryId(params[0]);
 
@@ -582,25 +585,25 @@ extern(
       }
 
       if (rev) {
-        h.draftsman = hitter;
-        h.direction = hitter.position().sub(npc.position());
+        targetHit.draftsman = hitter;
+        targetHit.direction = hitter.position().sub(npc.position());
       } else {
-        h.direction = npc.position().sub(hitter.position());
+        targetHit.direction = npc.position().sub(hitter.position());
       }
     } else {
       if (rev) {
-        h.draftsman = null;
-        h.direction = npc.position().sub(new patrol(params[1]).point(0));
+        targetHit.draftsman = null;
+        targetHit.direction = npc.position().sub(new patrol(params[1]).point(0));
       } else {
-        h.direction = new patrol(params[1]).point(0).sub(npc.position());
+        targetHit.direction = new patrol(params[1]).point(0).sub(npc.position());
       }
     }
 
-    h.bone(params[2]);
-    h.power = params[3];
-    h.impulse = params[4];
+    targetHit.bone(params[2]);
+    targetHit.power = params[3];
+    targetHit.impulse = params[4];
 
-    npc.hit(h);
+    npc.hit(targetHit);
   }
 );
 
@@ -743,7 +746,7 @@ extern("xr_effects.switch_to_desired_job", (actor: ClientObject, object: ClientO
  * todo;
  */
 extern("xr_effects.spawn_item_to_npc", (actor: ClientObject, npc: ClientObject, p: [Optional<string>]): void => {
-  const newItem = p[0];
+  const newItem: Optional<TSection> = p[0];
 
   if (newItem) {
     alife().create(newItem, npc.position(), npc.level_vertex_id(), npc.game_vertex_id(), npc.id());
@@ -754,7 +757,7 @@ extern("xr_effects.spawn_item_to_npc", (actor: ClientObject, npc: ClientObject, 
  * todo;
  */
 extern("xr_effects.give_money_to_npc", (actor: ClientObject, npc: ClientObject, p: [Optional<number>]): void => {
-  const money = p[0];
+  const money: Optional<TCount> = p[0];
 
   if (money) {
     npc.give_money(money);
@@ -765,7 +768,7 @@ extern("xr_effects.give_money_to_npc", (actor: ClientObject, npc: ClientObject, 
  * todo;
  */
 extern("xr_effects.seize_money_to_npc", (actor: ClientObject, npc: ClientObject, p: [Optional<number>]): void => {
-  const money = p[0];
+  const money: Optional<TCount> = p[0];
 
   if (money) {
     npc.give_money(-money);
@@ -795,7 +798,7 @@ extern("xr_effects.set_bloodsucker_state", (actor: ClientObject, object: ClientO
     abort("Wrong parameters in function 'set_bloodsucker_state'!!!");
   }
 
-  let state = p[0];
+  let state: string = p[0];
 
   if (p[1] !== null) {
     state = p[1];

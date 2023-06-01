@@ -20,11 +20,15 @@ import {
   ClientObject,
   LuaArray,
   Optional,
+  Patrol,
   ServerArtefactItemObject,
   ServerHumanObject,
+  ServerObject,
   ServerWeaponObject,
+  TIndex,
   TName,
   TNumberId,
+  TRate,
   TSection,
   TStringId,
 } from "@/engine/lib/types";
@@ -91,8 +95,8 @@ extern(
   "xr_effects.play_sound_by_story",
   (actor: ClientObject, object: ClientObject, p: [string, string, string, TName | number]) => {
     const storyObjectId: Optional<TNumberId> = getObjectIdByStoryId(p[0]);
-    const theme = p[1];
-    const faction = p[2];
+    const theme: TName = p[1];
+    const faction: TName = p[2];
 
     const smartTerrain: Optional<SmartTerrain> = SimulationBoardManager.getInstance().getSmartTerrainByName(
       p[3] as TName
@@ -196,7 +200,7 @@ extern(
     const anomalyZoneName: Optional<TName> = params && params[1];
     let artefactSection: TSection = params && params[2];
 
-    const anomalyZone = registry.anomalyZones.get(anomalyZoneName as TName);
+    const anomalyZone: AnomalyZoneBinder = registry.anomalyZones.get(anomalyZoneName as TName);
 
     if (params && params[0]) {
       const objectId: Optional<TNumberId> = getObjectIdByStoryId(params[0]);
@@ -531,11 +535,16 @@ extern(
       abort("Path %s doesnt exist. Function 'spawn_object' for object %s ", tostring(pathName), second.name());
     }
 
-    const ptr = new patrol(pathName);
-    const index = params[2] || 0;
-    const yaw = params[3] || 0;
+    const ptr: Patrol = new patrol(pathName);
+    const index: TIndex = params[2] || 0;
+    const yaw: TRate = params[3] || 0;
 
-    const npc = alife().create(spawnSection, ptr.point(index), ptr.level_vertex_id(0), ptr.game_vertex_id(0))!;
+    const npc: ServerObject = alife().create(
+      spawnSection,
+      ptr.point(index),
+      ptr.level_vertex_id(0),
+      ptr.game_vertex_id(0)
+    )!;
 
     if (isStalker(npc)) {
       npc.o_torso()!.yaw = (yaw * math.pi) / 180;
@@ -543,7 +552,7 @@ extern(
       npc.angle.y = (yaw * math.pi) / 180;
     }
 
-    const slotOverride = params[4] || 0;
+    const slotOverride: TIndex = params[4] || 0;
 
     const actor: ClientObject = registry.actor;
     let slot: number;
@@ -570,8 +579,8 @@ extern(
       }
     }
 
-    const actorWeapon = alife().object(activeItem!.id()) as ServerWeaponObject;
-    let sectionName = actorWeapon.section_name();
+    const actorWeapon: ServerWeaponObject = alife().object(activeItem!.id()) as ServerWeaponObject;
+    let sectionName: TName = actorWeapon.section_name();
 
     if (sectionName === questItems.pri_a17_gauss_rifle) {
       sectionName = weapons.wpn_gauss;

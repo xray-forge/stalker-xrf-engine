@@ -1,6 +1,12 @@
 import { alife, device, game, level, patrol } from "xray16";
 
-import { getObjectByStoryId, getServerObjectByStoryId, registry, SYSTEM_INI } from "@/engine/core/database";
+import {
+  getObjectByStoryId,
+  getServerObjectByStoryId,
+  IRegistryObjectState,
+  registry,
+  SYSTEM_INI,
+} from "@/engine/core/database";
 import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";
 import {
@@ -166,7 +172,7 @@ extern("xr_effects.cam_effector_callback", (): void => {
     return;
   }
 
-  const state = registry.objects.get(camEffectorPlayingObjectId);
+  const state: IRegistryObjectState = registry.objects.get(camEffectorPlayingObjectId);
 
   if (state === null || state.active_scheme === null) {
     return;
@@ -187,7 +193,7 @@ extern("xr_effects.run_postprocess", (actor: ClientObject, npc: ClientObject, p:
 
   if (p[0]) {
     if (SYSTEM_INI.section_exist(p[0])) {
-      let num = 2000 + math.random(100);
+      let num: number = 2000 + math.random(100);
 
       if (p[1] && type(p[1]) === "number" && p[1] > 0) {
         num = p[1];
@@ -470,10 +476,10 @@ const detectorsOrder: LuaArray<TDetector> = $fromArray<TDetector>([
  */
 extern("xr_effects.get_best_detector", (actor: ClientObject): void => {
   for (const [k, v] of detectorsOrder) {
-    const obj = actor.object(v);
+    const item: Optional<ClientObject> = actor.object(v);
 
-    if (obj !== null) {
-      obj.enable_attachable_item(true);
+    if (item !== null) {
+      item.enable_attachable_item(true);
 
       return;
     }
@@ -485,7 +491,7 @@ extern("xr_effects.get_best_detector", (actor: ClientObject): void => {
  */
 extern("xr_effects.hide_best_detector", (actor: ClientObject): void => {
   for (const [k, v] of detectorsOrder) {
-    const item = actor.object(v);
+    const item: Optional<ClientObject> = actor.object(v);
 
     if (item !== null) {
       item.enable_attachable_item(false);
@@ -509,7 +515,7 @@ extern("xr_effects.set_torch_state", (actor: ClientObject, npc: ClientObject, p:
     return;
   }
 
-  const torch = object.object(misc.device_torch);
+  const torch: Optional<ClientObject> = object.object(misc.device_torch);
 
   if (torch) {
     if (p[1] === "on") {

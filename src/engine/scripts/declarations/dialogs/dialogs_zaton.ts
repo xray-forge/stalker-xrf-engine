@@ -44,6 +44,7 @@ import {
   LuaArray,
   Optional,
   TCount,
+  TIndex,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -56,7 +57,7 @@ extern("dialogs_zaton", {});
 extern(
   "dialogs_zaton.zat_b30_owl_stalker_trader_actor_has_item_to_sell",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const itemsTable: LuaArray<TInventoryItem> = [
+    const itemsTable: LuaArray<TInventoryItem> = $fromArray<TInventoryItem>([
       questItems.zat_b20_noah_pda,
       questItems.zat_b40_notebook,
       questItems.zat_b40_pda_1,
@@ -84,14 +85,14 @@ extern(
       artefacts.af_quest_b14_twisted,
       artefacts.af_oasis_heart,
       detectors.detector_scientific,
-    ] as unknown as LuaArray<TInventoryItem>;
+    ]);
 
-    const infoPortionsTable = {
+    const infoPortionsTable: LuaTable<TInventoryItem, TInfoPortion> = $fromObject({
       [questItems.jup_b1_half_artifact]: infoPortions.zat_b30_owl_stalker_about_halfart_jup_b6_asked,
       [artefacts.af_quest_b14_twisted]: infoPortions.zat_b30_owl_stalker_about_halfart_zat_b14_asked,
       [artefacts.af_oasis_heart]: infoPortions.zat_b30_owl_stalker_trader_about_osis_art,
       [detectors.detector_scientific]: infoPortions.zat_b30_owl_detectors_approached,
-    } as unknown as LuaTable<TInventoryItem, TInfoPortion>;
+    } as Record<TInventoryItem, TInfoPortion>);
 
     const actor: ClientObject = registry.actor;
 
@@ -121,27 +122,27 @@ extern(
 extern(
   "dialogs_zaton.zat_b30_owl_can_say_about_heli",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-    const table = [
+    const table: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
       infoPortions.zat_b28_heli_3_searched,
       infoPortions.zat_b100_heli_2_searched,
       infoPortions.zat_b101_heli_5_searched,
-    ] as unknown as LuaArray<TInfoPortion>;
+    ]);
 
-    const table2 = [
+    const table2: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
       infoPortions.zat_b30_owl_scat_1,
       infoPortions.zat_b30_owl_scat_2,
       infoPortions.zat_b30_owl_scat_3,
-    ] as unknown as LuaArray<TInfoPortion>;
+    ]);
 
-    let cnt: TCount = 3;
+    let count: TCount = 3;
 
     for (const k of $range(1, table.length())) {
       if (hasAlifeInfo(table.get(k)) || hasAlifeInfo(table2.get(k))) {
-        cnt = cnt - 1;
+        count -= 1;
       }
     }
 
-    return cnt > 0;
+    return count > 0;
   }
 );
 
@@ -483,7 +484,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b7_give_stalker_reward_to_actor",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-    const reward = math.random(1, 3);
+    const reward: TIndex = math.random(1, 3);
 
     if (reward === 1) {
       transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.bandage, 6);
@@ -520,7 +521,7 @@ extern(
  * todo;
  */
 extern("dialogs_zaton.zat_b7_rob_actor", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  let amount = math.floor((registry.actor.money() * math.random(75, 100)) / 100);
+  let amount: TCount = math.floor((registry.actor.money() * math.random(75, 100)) / 100);
 
   if (registry.actor.money() < amount) {
     amount = registry.actor.money();
@@ -564,14 +565,10 @@ extern(
     let it: TCount = 6;
 
     const newsManager: NotificationManager = NotificationManager.getInstance();
-    const itemSections: LuaArray<TFoodItem> = [
-      food.conserva,
-      food.kolbasa,
-      food.bread,
-    ] as unknown as LuaArray<TFoodItem>;
+    const itemSections: LuaArray<TFoodItem> = $fromArray<TFoodItem>([food.conserva, food.kolbasa, food.bread]);
 
     for (const [k, section] of itemSections) {
-      const j = it;
+      const j: TCount = it;
 
       actor.iterate_inventory((temp, item) => {
         if (item.section() === section && it !== 0) {
@@ -591,7 +588,7 @@ extern(
  * todo;
  */
 extern("dialogs_zaton.zat_b33_set_counter_10", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
-  const actor = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   getExtern<AnyCallablesModule>("xr_effects").set_counter(actor, null, ["zat_b33_items", 10]);
 });
@@ -600,7 +597,7 @@ extern("dialogs_zaton.zat_b33_set_counter_10", (firstSpeaker: ClientObject, seco
  * todo;
  */
 extern("dialogs_zaton.zat_b33_counter_ge_2", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return getPortableStoreValue(actor, "zat_b33_items", 0 as number) >= 2;
 });
@@ -609,7 +606,7 @@ extern("dialogs_zaton.zat_b33_counter_ge_2", (firstSpeaker: ClientObject, second
  * todo;
  */
 extern("dialogs_zaton.zat_b33_counter_ge_4", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return getPortableStoreValue(actor, "zat_b33_items", 0 as number) >= 4;
 });
@@ -618,7 +615,7 @@ extern("dialogs_zaton.zat_b33_counter_ge_4", (firstSpeaker: ClientObject, second
  * todo;
  */
 extern("dialogs_zaton.zat_b33_counter_ge_8", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return getPortableStoreValue(actor, "zat_b33_items", 0 as number) >= 8;
 });
@@ -651,7 +648,7 @@ extern("dialogs_zaton.zat_b33_counter_le_8", (firstSpeaker: ClientObject, second
  * todo;
  */
 extern("dialogs_zaton.zat_b33_counter_de_2", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, null, ["zat_b33_items", 2]);
 });
@@ -660,7 +657,7 @@ extern("dialogs_zaton.zat_b33_counter_de_2", (firstSpeaker: ClientObject, second
  * todo;
  */
 extern("dialogs_zaton.zat_b33_counter_de_4", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, null, ["zat_b33_items", 4]);
 });
@@ -669,7 +666,7 @@ extern("dialogs_zaton.zat_b33_counter_de_4", (firstSpeaker: ClientObject, second
  * todo;
  */
 extern("dialogs_zaton.zat_b33_counter_de_8", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return getExtern<AnyCallablesModule>("xr_effects").dec_counter(actor, null, ["zat_b33_items", 8]);
 });
@@ -678,7 +675,7 @@ extern("dialogs_zaton.zat_b33_counter_de_8", (firstSpeaker: ClientObject, second
  * todo;
  */
 extern("dialogs_zaton.zat_b33_counter_eq_10", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor = registry.actor;
+  const actor: ClientObject = registry.actor;
 
   return getPortableStoreValue(actor, "zat_b33_items", 0 as number) === 10;
 });
@@ -1276,7 +1273,7 @@ extern("dialogs_zaton.give_compass_to_actor", (firstSpeaker: ClientObject, secon
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_compass);
 });
 
-const itemCountByCategory = [3, 3, 3, 3, 1, 1, 1] as unknown as LuaArray<number>;
+const itemCountByCategory: LuaArray<TCount> = $fromArray([3, 3, 3, 3, 1, 1, 1]);
 
 const zatB51CostsTable: LuaArray<{ prepayAgreed: number; prepayRefused: number; cost: number }> = $fromArray([
   { prepayAgreed: 700, prepayRefused: 1400, cost: 2800 },
@@ -1423,7 +1420,7 @@ extern("dialogs_zaton.zat_b51_refuse_item", (firstSpeaker: ClientObject, secondS
         }
       }
 
-      let categoryFinishing = true;
+      let categoryFinishing: boolean = true;
 
       for (const j of $range(1, zatB51BuyItemTable.get(i).length())) {
         if (!hasAlifeInfo(("zat_b51_done_item_" + tostring(i) + "_" + tostring(j)) as TInfoPortion)) {
@@ -2406,9 +2403,9 @@ extern(
   "dialogs_zaton.zat_b103_actor_has_needed_food",
   (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
     const actor: ClientObject = registry.actor;
-    const itemSections = [food.bread, food.kolbasa, food.conserva] as unknown as LuaArray<TFoodItem>;
+    const itemSections: LuaArray<TFoodItem> = $fromArray<TFoodItem>([food.bread, food.kolbasa, food.conserva]);
 
-    let count = 0;
+    let count: TCount = 0;
 
     for (const [k, itemSection] of itemSections) {
       registry.actor.iterate_inventory((temp, item) => {

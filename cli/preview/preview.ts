@@ -15,7 +15,7 @@ import {
   TimeTracker,
 } from "#/utils";
 
-const EXPECTED_XML_EXTENSIONS = [".tsx", ".xml"];
+const EXPECTED_XML_EXTENSIONS: Array<string> = [".tsx", ".xml"];
 const log: NodeLogger = new NodeLogger("PREVIEW");
 
 interface IGeneratePreviewCommandParameters {

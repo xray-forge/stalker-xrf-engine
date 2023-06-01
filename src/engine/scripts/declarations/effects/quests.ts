@@ -47,6 +47,7 @@ import {
   TName,
   TNumberId,
   TRate,
+  TSection,
   TStringId,
   Vector,
 } from "@/engine/lib/types";
@@ -243,8 +244,8 @@ extern("xr_effects.jup_b219_save_pos", (): void => {
  * todo;
  */
 extern("xr_effects.jup_b219_restore_gate", () => {
-  const yaw = 0;
-  const spawnSection = "jup_b219_gate";
+  const yaw: TRate = 0;
+  const spawnSection: TSection = "jup_b219_gate";
 
   if (jupB219Position) {
     const serverObject: ServerPhysicObject = alife().create(
@@ -466,7 +467,7 @@ extern(
     } as unknown as LuaArray<LuaTable<string, number>>;
 
     if (params && params[0] !== null) {
-      const cnt = getPortableStoreValue(actor, "jup_b10_ufo_counter", 0);
+      const cnt: TCount = getPortableStoreValue(actor, "jup_b10_ufo_counter", 0);
 
       if (cnt > 2) {
         return;
@@ -476,7 +477,7 @@ extern(
         const targetObjectId: Optional<TNumberId> = getObjectIdByStoryId(params[0]);
 
         if (targetObjectId !== null) {
-          const box = alife().object(targetObjectId);
+          const box: Optional<ServerObject> = alife().object(targetObjectId);
 
           if (box === null) {
             abort("There is no such object %s", params[0]);
@@ -1044,7 +1045,7 @@ extern("xr_effects.jup_b200_count_found", (actor: ClientObject): void => {
     const materialObject: Optional<ClientObject> = getObjectByStoryId(materialId);
 
     if (materialObject !== null) {
-      const parent = materialObject.parent();
+      const parent: ClientObject = materialObject.parent();
 
       if (parent !== null) {
         const parentId: TNumberId = parent.id();

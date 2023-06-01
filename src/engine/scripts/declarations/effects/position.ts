@@ -11,6 +11,7 @@ import {
   Optional,
   ParticlesObject,
   Patrol,
+  TCount,
   TIndex,
   TName,
   TNumberId,
@@ -122,8 +123,8 @@ extern("xr_effects.teleport_actor", (actor: ClientObject, object: ClientObject, 
  * todo;
  */
 extern("xr_effects.play_particle_on_path", (actor: ClientObject, object: ClientObject, p: [string, string, number]) => {
-  const name = p[0];
-  const path = p[1];
+  const name: TName = p[0];
+  const path: TName = p[1];
   let pointProbability: TProbability = p[2];
 
   if (name === null || path === null) {
@@ -135,7 +136,7 @@ extern("xr_effects.play_particle_on_path", (actor: ClientObject, object: ClientO
   }
 
   const patrolObject: Patrol = new patrol(path);
-  const count = patrolObject.count();
+  const count: TCount = patrolObject.count();
 
   for (const a of $range(0, count - 1)) {
     const particle: ParticlesObject = new particles_object(name);

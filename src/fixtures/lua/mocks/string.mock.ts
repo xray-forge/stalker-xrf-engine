@@ -1,4 +1,4 @@
-import { ILuaString, lauxlib, lua, lualib, to_jsstring, to_luastring } from "fengari";
+import { ILuaState, ILuaString, lauxlib, lua, lualib, to_jsstring, to_luastring } from "fengari";
 
 import { Optional } from "@/engine/lib/types";
 
@@ -20,7 +20,7 @@ export const string = {
     return result;
   },
   find: (target: string, pattern: string, startIndex?: number): Array<Optional<string | number>> => {
-    const L = lauxlib.luaL_newstate();
+    const L: ILuaState = lauxlib.luaL_newstate();
     const MAX_RETURN_VALUES: number = 16;
 
     lualib.luaL_openlibs(L);
@@ -71,7 +71,7 @@ export const string = {
     return result;
   },
   gsub: (target: string, pattern: string, selector: string): Array<Optional<string | number>> => {
-    const L = lauxlib.luaL_newstate();
+    const L: ILuaState = lauxlib.luaL_newstate();
     const MAX_RETURN_VALUES: number = 2;
 
     lualib.luaL_openlibs(L);
@@ -114,7 +114,7 @@ export const string = {
   },
   gfind: (target: string, pattern: string) => string.gmatch(target, pattern),
   gmatch: (target: string, pattern: string): Array<string> => {
-    const L = lauxlib.luaL_newstate();
+    const L: ILuaState = lauxlib.luaL_newstate();
 
     lualib.luaL_openlibs(L);
 
@@ -140,7 +140,7 @@ export const string = {
     return result;
   },
   sub(target: string, start: number, end: number): Optional<string> {
-    const L = lauxlib.luaL_newstate();
+    const L: ILuaState = lauxlib.luaL_newstate();
 
     lualib.luaL_openlibs(L);
 
@@ -162,7 +162,7 @@ export const string = {
     return matchData ? to_jsstring(matchData) : null;
   },
   len: (target: string): number => {
-    const L = lauxlib.luaL_newstate();
+    const L: ILuaState = lauxlib.luaL_newstate();
 
     lualib.luaL_openlibs(L);
 
