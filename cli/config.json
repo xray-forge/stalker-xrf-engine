@@ -16,6 +16,7 @@
   "build": {
     "target": "../target",
     "configs": "../src/engine/ini",
+    "scripts": "../src/engine/scripts",
     "translations": "../src/engine/translations",
     "ui": "../src/engine/forms"
   },

@@ -2,8 +2,11 @@
 
 ### Description
 
-Script to parse folder files recursively. <br/>
-Useful for parsing of textures/animations for usage in globals files.
+Script to parse game related information. <br/>
+Use `dir_as_json` to parse folder files recursively. <br/>
+Use `externals` to parse externals for scripting/configuration. <br/>
+
+Useful for parsing of textures/animations for usage in globals files or docs generation.
 
 ### Arguments
 
@@ -14,5 +17,6 @@ List of arguments:
 
 ### Example
 
-- `npm run cli parse_dir_as_json ../gamedata_original/anims`
-- `npm run cli parse_dir_as_json ../gamedata_original/textures -- --no-extension`
+- `npm run cli externals`
+- `npm run cli parse dir_as_json ../gamedata_original/anims`
+- `npm run cli parse dir_as_json ../gamedata_original/textures -- --no-extension`

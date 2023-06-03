@@ -5,13 +5,13 @@ import { AchievementsManager } from "@/engine/core/managers/interaction/achievem
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { ISchemeHitState } from "@/engine/core/schemes/hit";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isActorAlive, isActorEnemy, isObjectInZone } from "@/engine/core/utils/check/check";
 import { isWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { npcInActorFrustum } from "@/engine/core/utils/vector";
-import { AnyArgs, ClientObject, EScheme, LuaArray, Optional, TCount, TSection } from "@/engine/lib/types";
+import { AnyArgs, ClientObject, EScheme, LuaArray, Optional, TCount, TDistance, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -51,7 +51,7 @@ extern("xr_conditions.actor_alive", (): boolean => {
 });
 
 /**
- * todo;
+ * Check whether actor sees npc at the moment.
  */
 extern("xr_conditions.actor_see_npc", (actor: ClientObject, npc: ClientObject): boolean => {
   return actor.see(npc);
@@ -65,17 +65,18 @@ extern("xr_conditions.npc_in_actor_frustum", (actor: ClientObject, npc: ClientOb
 });
 
 /**
- * todo;
+ * Check whether distance between actor and object is less or equal.
+ *
+ * @param distance - distance to check
  */
-extern("xr_conditions.dist_to_actor_le", (actor: ClientObject, npc: ClientObject, params: AnyArgs): boolean => {
-  const distance: Optional<number> = params[0];
+extern(
+  "xr_conditions.dist_to_actor_le",
+  (actor: ClientObject, object: ClientObject, [distance]: [Optional<TDistance>]): boolean => {
+    assertDefined(distance, "Wrong parameter in 'dist_to_actor_le' function: %s.", distance);
 
-  if (distance === null) {
-    abort("Wrong parameter in 'dist_to_actor_le' function: %s.", distance);
+    return object.position().distance_to_sqr(actor.position()) <= distance * distance;
   }
-
-  return npc.position().distance_to_sqr(actor.position()) <= distance * distance;
-});
+);
 
 /**
  * todo;
