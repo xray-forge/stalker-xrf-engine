@@ -151,7 +151,10 @@ function copyDatabaseAssets(): void {
 
   log.info("Copy game archives:", chalk.yellow(TARGET_DATABASE_DIR), "->", chalk.yellowBright(destinationPath));
 
-  assert(existsSync(TARGET_DATABASE_DIR), "Expected compressed db directory to exist.");
+  assert(
+    existsSync(TARGET_DATABASE_DIR),
+    "Expected compressed db directory to exist. Did you forget to run compress step?"
+  );
 
   createDirIfNoExisting(destinationPath);
 
