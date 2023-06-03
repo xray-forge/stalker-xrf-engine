@@ -7,7 +7,7 @@ export const config = {
 
     "zone_mine_field.ltx",
     "zone_burningfuzz.ltx",
-    "zone_nogravity.ltx",
+    "zone_no_gravity.ltx",
     "zone_teleport.ltx",
     "zone_fireball.ltx",
 
