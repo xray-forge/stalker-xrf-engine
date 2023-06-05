@@ -1,7 +1,7 @@
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { blue, blueBright } from "chalk";
 
 import { GAME_DATA_LTX_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals/paths";
 import {
@@ -22,7 +22,7 @@ const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".ts"];
  * Transform typescript config files to LTX configs.
  */
 export async function buildDynamicConfigs(): Promise<void> {
-  log.info(chalk.blueBright("Build dynamic configs"));
+  log.info(blueBright("Build dynamic configs"));
 
   const ltxConfigs: Array<TFolderReplicationDescriptor> = await getLtxConfigs();
 
@@ -42,14 +42,14 @@ export async function buildDynamicConfigs(): Promise<void> {
           (typeof ltxSource?.create === "function" ? ltxSource?.create() : ltxSource?.config);
 
         if (ltxContent) {
-          log.debug("TRANSFORM:", chalk.blue(to));
+          log.debug("TRANSFORM:", blue(to));
 
           const filename: string = path.parse(to).base;
 
           await fsPromises.writeFile(to, renderJsonToLtx(filename, ltxContent));
           processedXmlConfigs += 1;
         } else {
-          log.debug("SKIP, not valid LTX source:", chalk.blue(from));
+          log.debug("SKIP, not valid LTX source:", blue(from));
           skippedXmlConfigs += 1;
         }
       })

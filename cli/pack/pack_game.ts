@@ -2,7 +2,7 @@ import { default as assert } from "assert";
 import { cpSync, existsSync, rmSync } from "fs";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { blue, yellow, yellowBright } from "chalk";
 
 import { build } from "#/build/build";
 import { compress } from "#/compress/compress";
@@ -27,15 +27,15 @@ export async function packGame(parameters: IPackParameters): Promise<void> {
   NodeLogger.IS_VERBOSE = Boolean(parameters.verbose);
 
   try {
-    log.info("Packaging new game:", chalk.blue(new Date().toLocaleString()));
+    log.info("Packaging new game:", blue(new Date().toLocaleString()));
     log.debug("Running with parameters:", parameters);
 
     const engine: string = String(parameters.engine || config.package.engine).trim();
 
     if (parameters.engine) {
-      log.info("Using engine override:", chalk.blue(parameters.engine));
+      log.info("Using engine override:", blue(parameters.engine));
     } else {
-      log.info("Using configured engine:", chalk.blue(engine));
+      log.info("Using configured engine:", blue(engine));
     }
 
     if (parameters.optimize) {
@@ -71,7 +71,7 @@ export async function packGame(parameters: IPackParameters): Promise<void> {
     }
 
     if (parameters.clean) {
-      log.info("Perform package cleanup:", chalk.yellowBright(TARGET_GAME_PACKAGE_DIR));
+      log.info("Perform package cleanup:", yellowBright(TARGET_GAME_PACKAGE_DIR));
       rmSync(TARGET_GAME_PACKAGE_DIR, { recursive: true, force: true });
       timeTracker.addMark("PACKAGE_CLEANUP");
     } else {
@@ -94,7 +94,7 @@ export async function packGame(parameters: IPackParameters): Promise<void> {
     timeTracker.end();
 
     log.info("Successfully executed pack command, took:", timeTracker.getDuration() / 1000, "sec");
-    log.info("Check game build at:", chalk.yellowBright(TARGET_GAME_PACKAGE_DIR), "\n");
+    log.info("Check game build at:", yellowBright(TARGET_GAME_PACKAGE_DIR), "\n");
   } catch (error) {
     log.error("Failed to execute packaging command:", error);
   }
@@ -108,9 +108,9 @@ function copyGameEngine(engine: string): void {
   const enginePath: string = path.resolve(OPEN_XRAY_ENGINES_DIR, engine, "bin");
   const engineDescriptorPath: string = path.resolve(destinationPath, "bin.json");
 
-  log.info("Copy game engine binaries:", chalk.yellow(enginePath), "->", chalk.yellowBright(destinationPath));
-  log.info("Using game engine:", chalk.blue(config.package.engine));
-  log.info("Engine path:", chalk.yellowBright(enginePath));
+  log.info("Copy game engine binaries:", yellow(enginePath), "->", yellowBright(destinationPath));
+  log.info("Using game engine:", blue(config.package.engine));
+  log.info("Engine path:", yellowBright(enginePath));
 
   assert(existsSync(enginePath), "Expected engine directory to exist.");
 
@@ -131,7 +131,7 @@ function copyGameEngine(engine: string): void {
 function copyGamedataAssets(): void {
   const destinationPath: string = path.resolve(TARGET_GAME_PACKAGE_DIR, "gamedata");
 
-  log.info("Copy gamedata assets:", chalk.yellow(TARGET_GAME_DATA_DIR), "->", chalk.yellowBright(destinationPath));
+  log.info("Copy gamedata assets:", yellow(TARGET_GAME_DATA_DIR), "->", yellowBright(destinationPath));
 
   assert(existsSync(TARGET_GAME_DATA_DIR), "Expected gamedata directory to exist.");
 
@@ -149,7 +149,7 @@ function copyGamedataAssets(): void {
 function copyDatabaseAssets(): void {
   const destinationPath: string = path.resolve(TARGET_GAME_PACKAGE_DIR, "db");
 
-  log.info("Copy game archives:", chalk.yellow(TARGET_DATABASE_DIR), "->", chalk.yellowBright(destinationPath));
+  log.info("Copy game archives:", yellow(TARGET_DATABASE_DIR), "->", yellowBright(destinationPath));
 
   assert(
     existsSync(TARGET_DATABASE_DIR),
@@ -173,7 +173,7 @@ function copyRootAssets(): void {
     const fromPath: string = path.resolve(CLI_DIR, asset);
     const toPath: string = path.resolve(TARGET_GAME_PACKAGE_DIR, path.basename(fromPath));
 
-    log.info("Copy game root asset:", chalk.yellow(fromPath), "->", chalk.yellowBright(toPath));
+    log.info("Copy game root asset:", yellow(fromPath), "->", yellowBright(toPath));
 
     assert(existsSync(fromPath), `Expected '${asset}' to exist at '${fromPath}'.`);
 

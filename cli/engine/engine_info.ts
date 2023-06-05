@@ -1,6 +1,6 @@
-import path from "path";
+import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { blue, yellow } from "chalk";
 
 import { GAME_BIN_BACKUP_PATH, GAME_BIN_PATH } from "#/globals";
 import { exists, NodeLogger } from "#/utils";
@@ -19,9 +19,9 @@ export async function printEngineInfo(): Promise<void> {
   const isLinkedEngine: boolean = await exists(engineDescriptorPath);
 
   if (isBinBackupExist) {
-    log.info("Backup version of engine exists:", chalk.yellow(GAME_BIN_BACKUP_PATH));
+    log.info("Backup version of engine exists:", yellow(GAME_BIN_BACKUP_PATH));
   } else {
-    log.info("No backup version of engine detected:", chalk.yellow(GAME_BIN_BACKUP_PATH));
+    log.info("No backup version of engine detected:", yellow(GAME_BIN_BACKUP_PATH));
   }
 
   if (isLinkedEngine) {
@@ -29,9 +29,9 @@ export async function printEngineInfo(): Promise<void> {
     const config = require(engineDescriptorPath);
 
     log.info("Linked X-Ray engine detected");
-    log.info("Linked X-Ray variant:", chalk.blue(config.type));
-    log.info("Linked X-Ray version:", chalk.blue(config.version));
-    log.info("Linked X-Ray release:", chalk.blue(config.release));
+    log.info("Linked X-Ray variant:", blue(config.type));
+    log.info("Linked X-Ray version:", blue(config.version));
+    log.info("Linked X-Ray release:", blue(config.release));
   } else {
     log.info("Using not linked engine, manually provided or original X-Ray is active");
   }

@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { blueBright } from "chalk";
 
 import { NodeLogger, Optional, TFolderReplicationDescriptor } from "#/utils";
 
@@ -16,7 +16,7 @@ export function createDirForConfigs(
     const targetDir: string = path.dirname(to);
 
     if (!fs.existsSync(targetDir)) {
-      log?.debug("MKDIR:", chalk.blueBright(targetDir));
+      log?.debug("MKDIR:", blueBright(targetDir));
       fs.mkdirSync(targetDir, { recursive: true });
     }
   });

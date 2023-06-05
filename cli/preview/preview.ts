@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { blue, blueBright, yellow } from "chalk";
 
 import { GAME_DATA_UI_DIR, TARGET_PREVIEW_DIR } from "#/globals/paths";
 import { generateHTMLPreviewFromXMLString } from "#/preview/utils/generate_preview";
@@ -37,7 +37,7 @@ export async function generatePreview(
   log.info("Compiling preview files");
 
   if (parameters.clean) {
-    log.info("Clean destination:", chalk.yellow(TARGET_PREVIEW_DIR));
+    log.info("Clean destination:", yellow(TARGET_PREVIEW_DIR));
     fs.rmSync(TARGET_PREVIEW_DIR, { recursive: true, force: true });
   }
 
@@ -63,15 +63,15 @@ export async function generatePreview(
             xmlSource?.create();
 
           if (jsxContent) {
-            log.debug("COMPILE JSX:", chalk.blue(to));
+            log.debug("COMPILE JSX:", blue(to));
             await fsPromises.writeFile(to, generateHTMLPreviewFromXMLString(renderJsxToXmlText(jsxContent)));
           } else {
-            log.debug("SKIP, not valid source:", chalk.blue(from));
+            log.debug("SKIP, not valid source:", blue(from));
           }
         } else {
           const content: ArrayBuffer = await fsPromises.readFile(from);
 
-          log.debug("COMPILE XML:", chalk.blue(to));
+          log.debug("COMPILE XML:", blue(to));
 
           await fsPromises.writeFile(to, generateHTMLPreviewFromXMLString(content.toString()));
         }
@@ -95,7 +95,7 @@ function createFoldersForConfigs(xmlConfigs: Array<TFolderReplicationDescriptor>
     const targetDir: string = path.dirname(to);
 
     if (!fs.existsSync(targetDir)) {
-      log.debug("MKDIR:", chalk.blueBright(targetDir));
+      log.debug("MKDIR:", blueBright(targetDir));
       fs.mkdirSync(targetDir, { recursive: true });
     }
   });

@@ -1,7 +1,7 @@
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { yellowBright } from "chalk";
 
 import { GAME_DATA_SCRIPTS_DIR, TARGET_PARSED_DIR } from "#/globals";
 import { getExternDocs } from "#/parse/utils/get_extern_docs";
@@ -19,13 +19,13 @@ export async function parseExternals(): Promise<void> {
   const targetDir: string = path.resolve(GAME_DATA_SCRIPTS_DIR, "declarations");
   const targetFilePath: string = path.resolve(TARGET_PARSED_DIR, "externals.html");
 
-  log.info("Parsing game externals:", chalk.yellowBright(targetDir));
+  log.info("Parsing game externals:", yellowBright(targetDir));
 
   const filesToParse: Array<string> = await getSourcesList(targetDir);
   const docs: Array<IExternFileDescriptor> = getExternDocs(filesToParse);
 
   log.info("Parsed externals for files:", filesToParse.length);
-  log.warn("Writing resulting file:", chalk.yellowBright(targetFilePath));
+  log.warn("Writing resulting file:", yellowBright(targetFilePath));
 
   const content: string = renderJsxToXmlText(
     renderExternals(

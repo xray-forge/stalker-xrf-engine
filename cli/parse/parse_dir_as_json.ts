@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { green, yellowBright } from "chalk";
 
 import { ROOT_DIR, TARGET_PARSED_DIR } from "#/globals/paths";
 import { NodeLogger, readDirContentFlat } from "#/utils";
@@ -21,7 +21,7 @@ export async function parseDirAsJson(targetPath: string, parameters: IParseDirPa
     const parseTargetPath: string = path.resolve(ROOT_DIR, targetPath);
     const targetFilePath: string = path.resolve(TARGET_PARSED_DIR, `${path.parse(parseTargetPath).base}.json`);
 
-    log.info("Parsing game dir as json:", chalk.yellowBright(parseTargetPath));
+    log.info("Parsing game dir as json:", yellowBright(parseTargetPath));
 
     const tree: Array<string> = (await readDirContentFlat(parseTargetPath))
       .map((it) => {
@@ -29,10 +29,10 @@ export async function parseDirAsJson(targetPath: string, parameters: IParseDirPa
       })
       .sort();
 
-    log.info("Writing parsed tree to:", chalk.yellowBright(targetFilePath));
+    log.info("Writing parsed tree to:", yellowBright(targetFilePath));
 
     if (!fs.existsSync(TARGET_PARSED_DIR)) {
-      log.debug("MKDIR:", chalk.yellowBright(TARGET_PARSED_DIR));
+      log.debug("MKDIR:", yellowBright(TARGET_PARSED_DIR));
       fs.mkdirSync(TARGET_PARSED_DIR, { recursive: true });
     }
 
@@ -47,9 +47,9 @@ export async function parseDirAsJson(targetPath: string, parameters: IParseDirPa
 
     await fsPromises.writeFile(targetFilePath, JSON.stringify(resultingObject, null, 2));
 
-    log.info(`Result: ${chalk.green("OK")}, entries parsed:`, tree.length, "\n`");
+    log.info(`Result: ${green("OK")}, entries parsed:`, tree.length, "\n`");
   } else {
-    log.error("Path param is not provided, string expected but got:", chalk.yellowBright(targetPath));
+    log.error("Path param is not provided, string expected but got:", yellowBright(targetPath));
 
     throw new Error("Invalid argument supplied.");
   }

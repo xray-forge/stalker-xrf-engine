@@ -1,7 +1,7 @@
 import * as fs from "fs/promises";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { greenBright, red, yellow, yellowBright } from "chalk";
 
 import { default as config } from "#/config.json";
 import {
@@ -36,7 +36,7 @@ export async function verify(): Promise<void> {
     await verifyLogsLink();
     await verifyAssets();
   } catch (error) {
-    log.error("Verification failed:", chalk.red(error.message));
+    log.error("Verification failed:", red(error.message));
   }
 }
 
@@ -45,9 +45,9 @@ export async function verify(): Promise<void> {
  */
 async function verifyConfig(): Promise<void> {
   if (await exists(CLI_CONFIG)) {
-    log.info("Project cli/config.json:", chalk.greenBright("OK"));
+    log.info("Project cli/config.json:", greenBright("OK"));
   } else {
-    log.warn(chalk.yellow("Config not found in cli/config.json:"), chalk.yellow(CLI_CONFIG));
+    log.warn(yellow("Config not found in cli/config.json:"), yellow(CLI_CONFIG));
   }
 }
 
@@ -56,15 +56,15 @@ async function verifyConfig(): Promise<void> {
  */
 async function verifyGamePath(): Promise<void> {
   if (await exists(GAME_PATH)) {
-    log.info("Game folder:", chalk.greenBright("OK"));
+    log.info("Game folder:", greenBright("OK"));
   } else {
-    log.warn(chalk.yellow("Game folder is not linked, set path in cli/config.json:"), chalk.yellow(GAME_PATH));
+    log.warn(yellow("Game folder is not linked, set path in cli/config.json:"), yellow(GAME_PATH));
   }
 
   if (await exists(GAME_EXE_PATH)) {
-    log.info("Game folder:", chalk.greenBright("OK"));
+    log.info("Game folder:", greenBright("OK"));
   } else {
-    log.warn(chalk.yellow("Game folder is not linked, set path in cli/config.json:"), chalk.yellow(GAME_PATH));
+    log.warn(yellow("Game folder is not linked, set path in cli/config.json:"), yellow(GAME_PATH));
   }
 }
 
@@ -73,9 +73,9 @@ async function verifyGamePath(): Promise<void> {
  */
 async function verifyGameLink(): Promise<void> {
   if (await exists(TARGET_GAME_LINK_DIR)) {
-    log.info("Game link:", chalk.greenBright("OK"));
+    log.info("Game link:", greenBright("OK"));
   } else {
-    log.warn("Game link:", chalk.yellow("FAIL"));
+    log.warn("Game link:", yellow("FAIL"));
   }
 }
 
@@ -86,24 +86,24 @@ async function verifyAssets(): Promise<void> {
   const baseResourcesPath: string = config.resources.mod_assets_base_folder;
 
   if (await exists(path.resolve(CLI_DIR, config.resources.mod_assets_base_folder))) {
-    log.info("Base game resources:", chalk.yellowBright(baseResourcesPath), chalk.greenBright("OK"));
+    log.info("Base game resources:", yellowBright(baseResourcesPath), greenBright("OK"));
   } else {
-    log.warn("Base game resources:", chalk.yellowBright(baseResourcesPath), chalk.yellow("FAIL"), "(issues possible)");
+    log.warn("Base game resources:", yellowBright(baseResourcesPath), yellow("FAIL"), "(issues possible)");
   }
 
   for (const entry of config.resources.mod_assets_override_folders) {
     if (await exists(path.resolve(CLI_DIR, entry))) {
-      log.info("Override resources:", chalk.yellowBright(entry), chalk.greenBright("OK"));
+      log.info("Override resources:", yellowBright(entry), greenBright("OK"));
     } else {
-      log.warn("Override resources:", chalk.yellowBright(entry), chalk.yellow("FAIL"), "(packaging issues possible)");
+      log.warn("Override resources:", yellowBright(entry), yellow("FAIL"), "(packaging issues possible)");
     }
   }
 
   for (const entry of config.resources.mod_assets_locales[config.locale]) {
     if (await exists(path.resolve(CLI_DIR, entry))) {
-      log.info("Locale resources:", chalk.yellowBright(entry), chalk.greenBright("OK"));
+      log.info("Locale resources:", yellowBright(entry), greenBright("OK"));
     } else {
-      log.warn("Locale resources:", chalk.yellowBright(entry), chalk.yellow("FAIL"), "(packaging issues possible)");
+      log.warn("Locale resources:", yellowBright(entry), yellow("FAIL"), "(packaging issues possible)");
     }
   }
 }
@@ -117,15 +117,15 @@ async function verifyGameEngine(): Promise<void> {
   const isBinCorrectlyProvided: boolean = await exists(GAME_BIN_JSON_PATH);
 
   if (isGameDirPresent && isBinDirPresent && isBinCorrectlyProvided) {
-    log.info("Game engine link:", chalk.greenBright("OK"));
+    log.info("Game engine link:", greenBright("OK"));
   } else {
     if (!isBinDirPresent) {
       log.warn(
-        chalk.yellow("Game bin folder does not exist, it was corrupted or incorrect path set in cli/config.json:"),
-        chalk.yellow(GAME_BIN_PATH)
+        yellow("Game bin folder does not exist, it was corrupted or incorrect path set in cli/config.json:"),
+        yellow(GAME_BIN_PATH)
       );
     } else {
-      log.warn(chalk.yellow("Open x-ray engine expected, using original in:"), chalk.yellow(GAME_BIN_PATH));
+      log.warn(yellow("Open x-ray engine expected, using original in:"), yellow(GAME_BIN_PATH));
     }
   }
 }
@@ -138,12 +138,12 @@ async function verifyGamedataLink(): Promise<void> {
     const linkPath: string = await fs.readlink(GAME_GAMEDATA_PATH);
 
     if (path.resolve(linkPath) === TARGET_GAME_DATA_DIR) {
-      log.info("Gamedata link:", chalk.greenBright("OK"));
+      log.info("Gamedata link:", greenBright("OK"));
     } else {
-      log.warn("Gamedata link points to unexpected place:", chalk.yellow(linkPath));
+      log.warn("Gamedata link points to unexpected place:", yellow(linkPath));
     }
   } catch (error) {
-    log.info("Gamedata link:", chalk.yellow("FAIL"));
+    log.info("Gamedata link:", yellow("FAIL"));
   }
 }
 
@@ -155,11 +155,11 @@ async function verifyLogsLink(): Promise<void> {
     const linkPath: string = await fs.readlink(TARGET_LOGS_LINK_DIR);
 
     if (path.resolve(linkPath) === GAME_LOGS_PATH) {
-      log.info("Logs link:", chalk.greenBright("OK"));
+      log.info("Logs link:", greenBright("OK"));
     } else {
-      log.warn("Logs link points to unexpected place:", chalk.yellow(linkPath));
+      log.warn("Logs link points to unexpected place:", yellow(linkPath));
     }
   } catch (error) {
-    log.info("Logs link:", chalk.yellow("FAIL"));
+    log.info("Logs link:", yellow("FAIL"));
   }
 }

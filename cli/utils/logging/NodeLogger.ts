@@ -1,4 +1,4 @@
-import { default as chalk } from "chalk";
+import { green } from "chalk";
 
 import { Optional, stringifyValue } from "#/utils";
 
@@ -102,7 +102,7 @@ export class NodeLogger {
       )}`;
 
       if (NodeLogger.IS_CONSOLE_ENABLED && (NodeLogger.IS_VERBOSE ? true : method !== "debug")) {
-        console[method as unknown as "info"](`${timestamp} ${chalk.green(this.prefix)}`, ...args);
+        console[method as unknown as "info"](`${timestamp} ${green(this.prefix)}`, ...args);
       }
 
       if (NodeLogger.IS_FILE_ENABLED) {

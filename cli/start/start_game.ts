@@ -1,6 +1,6 @@
 import * as cp from "child_process";
 
-import { default as chalk } from "chalk";
+import { green, yellow } from "chalk";
 
 import { GAME_EXE_PATH } from "#/globals";
 import { NodeLogger } from "#/utils";
@@ -15,13 +15,13 @@ export async function startGame(): Promise<void> {
 
   const cmd: string = `"${GAME_EXE_PATH}"`;
 
-  log.info("Starting game exe:", chalk.yellow(cmd));
+  log.info("Starting game exe:", yellow(cmd));
 
   cp.exec(cmd, (error, data) => {
     if (error !== null) {
       log.error("Failed to start process:", error, data, "\n");
     } else {
-      log.info("Started process:", chalk.green("OK"), "\n");
+      log.info("Started process:", green("OK"), "\n");
     }
   });
 }

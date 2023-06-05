@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { blueBright, yellow, yellowBright } from "chalk";
 
 import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/globals/paths";
 import { NodeLogger, readDirContent } from "#/utils";
@@ -11,7 +11,7 @@ const log: NodeLogger = new NodeLogger("BUILD_UI_STATIC");
 const EXPECTED_STATIC_XML_EXTENSIONS: Array<string> = [".xml"];
 
 export async function buildStaticUi(): Promise<void> {
-  log.info(chalk.blueBright("Copy static UI schemas"));
+  log.info(blueBright("Copy static UI schemas"));
 
   function collectXmlConfigs(acc: Array<[string, string]>, it: Array<string> | string): Array<[string, string]> {
     if (Array.isArray(it)) {
@@ -37,14 +37,14 @@ export async function buildStaticUi(): Promise<void> {
       const targetDir: string = path.dirname(to);
 
       if (!fs.existsSync(targetDir)) {
-        log.debug("MKDIR:", chalk.yellowBright(targetDir));
+        log.debug("MKDIR:", yellowBright(targetDir));
         fs.mkdirSync(targetDir, { recursive: true });
       }
     });
 
     await Promise.all(
       xmlConfigs.map(([from, to]) => {
-        log.debug("CP:", chalk.yellow(to));
+        log.debug("CP:", yellow(to));
 
         return fsPromises.copyFile(from, to);
       })

@@ -3,7 +3,7 @@ import * as cp from "child_process";
 import { copyFileSync, existsSync, readdirSync, readFileSync, renameSync, rmSync, unlinkSync, writeFileSync } from "fs";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { blue, blueBright, yellow, yellowBright } from "chalk";
 
 import { default as config } from "#/compress/configs/compress.json";
 import { TARGET_DATABASE_DIR, TARGET_DIR, TARGET_GAME_DATA_DIR, TARGET_LOGS_DIR, XR_COMPRESS_PATH } from "#/globals";
@@ -30,7 +30,7 @@ export function compress(parameters: ICompressParameters): void {
   log.debug("Current params:", JSON.stringify(parameters));
 
   if (parameters.clean) {
-    log.info("Perform package cleanup:", chalk.yellowBright(TARGET_DATABASE_DIR));
+    log.info("Perform package cleanup:", yellowBright(TARGET_DATABASE_DIR));
     rmSync(TARGET_DATABASE_DIR, { recursive: true, force: true });
   }
 
@@ -86,13 +86,13 @@ function compressWithConfig(
 ): void {
   const configFileName: string = configName + ".ltx";
 
-  log.info("Starting compression for:", chalk.blue(configName));
-  log.info("Current workdir:", chalk.yellowBright(process.cwd()));
+  log.info("Starting compression for:", blue(configName));
+  log.info("Current workdir:", yellowBright(process.cwd()));
 
-  log.info("Files:", chalk.blue(files.length));
-  log.debug("Files:", chalk.yellow(JSON.stringify(files)));
-  log.info("Folders:", chalk.blue(folders.length));
-  log.debug("Folders:", chalk.yellow(JSON.stringify(JSON.stringify(folders))));
+  log.info("Files:", blue(files.length));
+  log.debug("Files:", yellow(JSON.stringify(files)));
+  log.info("Folders:", blue(folders.length));
+  log.debug("Folders:", yellow(JSON.stringify(JSON.stringify(folders))));
 
   /**
    * Create LTX compression config from template.
@@ -103,7 +103,7 @@ function compressWithConfig(
     store ? "-store" : ""
   }`;
 
-  log.info("Execute:", chalk.blue(command));
+  log.info("Execute:", blue(command));
 
   /**
    * Start xrCompress and set CWD to target dir.
@@ -129,7 +129,7 @@ function compressWithConfig(
     }
   });
 
-  log.info("Compression finished for:", chalk.yellow(configName));
+  log.info("Compression finished for:", yellow(configName));
 }
 
 /**
@@ -201,7 +201,7 @@ export function collectLog(): void {
 
     writeFileSync(fileLogPath, NodeLogger.LOG_FILE_BUFFER.join(""));
 
-    log.info(chalk.blueBright("File log collected:"), chalk.yellowBright(fileLogPath), "\n");
+    log.info(blueBright("File log collected:"), yellowBright(fileLogPath), "\n");
   } catch (error) {
     log.error("Failed to collect log:", error);
   }

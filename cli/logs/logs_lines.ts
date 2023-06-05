@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { yellow } from "chalk";
 
 import { default as config } from "#/config.json";
 import { NodeLogger, Optional } from "#/utils";
@@ -25,7 +25,7 @@ export async function printLastLogLines(count: number): Promise<void> {
   const path: Optional<string> = await getLogFilePath();
 
   if (path) {
-    log.info("Checking logs in:", chalk.yellow(path));
+    log.info("Checking logs in:", yellow(path));
 
     const lines: string = await readLastLinesOfFile(path, linesCount);
 
@@ -47,7 +47,7 @@ async function getLogFilePath(): Promise<Optional<string>> {
   const baseXRayLogPath: string = path.resolve(GAME_LOGS_DIR, `xray_${username}.log`);
 
   if (!fs.existsSync(GAME_LOGS_DIR)) {
-    log.info("Provided invalid game logs folder or log do not exist:", chalk.yellow(GAME_LOGS_DIR));
+    log.info("Provided invalid game logs folder or log do not exist:", yellow(GAME_LOGS_DIR));
 
     return null;
   }
@@ -57,13 +57,13 @@ async function getLogFilePath(): Promise<Optional<string>> {
 
     log.info(
       "Open x-ray engine usage detected:",
-      chalk.yellow(`${binDescriptor.type} ${binDescriptor.version} ${binDescriptor.release}`)
+      yellow(`${binDescriptor.type} ${binDescriptor.version} ${binDescriptor.release}`)
     );
 
     if (fs.existsSync(openXRayLogPath)) {
       return openXRayLogPath;
     } else {
-      log.warn("Using custom engine, but no logs for it found:", chalk.yellow(openXRayLogPath));
+      log.warn("Using custom engine, but no logs for it found:", yellow(openXRayLogPath));
 
       return null;
     }
@@ -72,7 +72,7 @@ async function getLogFilePath(): Promise<Optional<string>> {
   if (fs.existsSync(baseXRayLogPath)) {
     return baseXRayLogPath;
   } else {
-    log.warn("No logs for engine found in:", chalk.yellow(openXRayLogPath));
+    log.warn("No logs for engine found in:", yellow(openXRayLogPath));
 
     return null;
   }

@@ -1,7 +1,7 @@
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { blue, red, yellow, yellowBright } from "chalk";
 
 import { default as config } from "#/config.json";
 import { TARGET_GAME_DATA_DIR, TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
@@ -23,7 +23,7 @@ export async function linkFolders(): Promise<void> {
 
     log.pushNewLine();
   } catch (error) {
-    log.error("Links creation failed:", chalk.red(error.message));
+    log.error("Links creation failed:", red(error.message));
   }
 }
 
@@ -37,11 +37,11 @@ async function linkGamedataFolders(): Promise<void> {
 
   if (await exists(gameGamedataFolderPath)) {
     if (isForceLink) {
-      log.info("Forcing link as it already exists:", chalk.blue(gameGamedataFolderPath));
+      log.info("Forcing link as it already exists:", blue(gameGamedataFolderPath));
 
       await fsPromises.rm(gameGamedataFolderPath, { recursive: true });
     } else {
-      log.warn("Skip, already exists:", chalk.blue(gameGamedataFolderPath));
+      log.warn("Skip, already exists:", blue(gameGamedataFolderPath));
 
       return;
     }
@@ -49,7 +49,7 @@ async function linkGamedataFolders(): Promise<void> {
 
   await fsPromises.symlink(TARGET_GAME_DATA_DIR, gameGamedataFolderPath, "junction");
 
-  log.info("Linked folders:", chalk.yellow(TARGET_GAME_DATA_DIR), "->", chalk.yellowBright(gameGamedataFolderPath));
+  log.info("Linked folders:", yellow(TARGET_GAME_DATA_DIR), "->", yellowBright(gameGamedataFolderPath));
 }
 
 /**
@@ -62,11 +62,11 @@ async function linkGameFolder(): Promise<void> {
 
   if (await exists(TARGET_GAME_LINK_DIR)) {
     if (isForceLink) {
-      log.info("Forcing link as it already exists:", chalk.blue(TARGET_GAME_LINK_DIR));
+      log.info("Forcing link as it already exists:", blue(TARGET_GAME_LINK_DIR));
 
       await fsPromises.rm(TARGET_GAME_LINK_DIR, { recursive: true });
     } else {
-      log.warn("Skip, already exists:", chalk.blue(TARGET_GAME_LINK_DIR));
+      log.warn("Skip, already exists:", blue(TARGET_GAME_LINK_DIR));
 
       return;
     }
@@ -74,7 +74,7 @@ async function linkGameFolder(): Promise<void> {
 
   await fsPromises.symlink(gameFolderPath, TARGET_GAME_LINK_DIR, "junction");
 
-  log.info("Linked folders:", chalk.yellow(gameFolderPath), "->", chalk.yellowBright(TARGET_GAME_LINK_DIR));
+  log.info("Linked folders:", yellow(gameFolderPath), "->", yellowBright(TARGET_GAME_LINK_DIR));
 }
 
 /**
@@ -87,11 +87,11 @@ async function linkLogsFolders(): Promise<void> {
 
   if (await exists(TARGET_LOGS_LINK_DIR)) {
     if (isForceLink) {
-      log.info("Forcing link as it already exists:", chalk.blue(TARGET_LOGS_LINK_DIR));
+      log.info("Forcing link as it already exists:", blue(TARGET_LOGS_LINK_DIR));
 
       await fsPromises.rm(TARGET_LOGS_LINK_DIR, { recursive: true });
     } else {
-      log.warn("Skip, already exists:", chalk.blue(TARGET_LOGS_LINK_DIR));
+      log.warn("Skip, already exists:", blue(TARGET_LOGS_LINK_DIR));
 
       return;
     }
@@ -99,5 +99,5 @@ async function linkLogsFolders(): Promise<void> {
 
   await fsPromises.symlink(logsFolderPath, TARGET_LOGS_LINK_DIR, "junction");
 
-  log.info("Linked folders:", chalk.yellow(logsFolderPath), "->", chalk.yellowBright(TARGET_LOGS_LINK_DIR));
+  log.info("Linked folders:", yellow(logsFolderPath), "->", yellowBright(TARGET_LOGS_LINK_DIR));
 }

@@ -1,6 +1,6 @@
 import * as fs from "fs";
 
-import { default as chalk } from "chalk";
+import { blue, green, yellowBright } from "chalk";
 
 import {
   buildDynamicConfigs,
@@ -53,7 +53,7 @@ export async function build(parameters: IBuildCommandParameters): Promise<void> 
   NodeLogger.IS_VERBOSE = Boolean(parameters.verbose);
 
   try {
-    log.info("XRF build:", chalk.green(pkg?.name), chalk.blue(new Date().toLocaleString()));
+    log.info("XRF build:", green(pkg?.name), blue(new Date().toLocaleString()));
     log.debug("XRF params:", JSON.stringify(parameters));
     log.debug("XRF targets:", buildTargets);
 
@@ -73,7 +73,7 @@ export async function build(parameters: IBuildCommandParameters): Promise<void> 
      * Apply destination clean.
      */
     if (parameters.clean) {
-      log.info("Perform target cleanup:", chalk.yellowBright(TARGET_GAME_DATA_DIR));
+      log.info("Perform target cleanup:", yellowBright(TARGET_GAME_DATA_DIR));
       fs.rmSync(TARGET_GAME_DATA_DIR, { recursive: true, force: true });
       timeTracker.addMark("BUILD_CLEANUP");
     } else {

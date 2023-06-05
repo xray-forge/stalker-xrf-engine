@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { blueBright, yellow, yellowBright } from "chalk";
 
 import { IBuildCommandParameters } from "#/build/build";
 import { default as config } from "#/config.json";
@@ -18,7 +18,7 @@ const UNEXPECTED_DIRECTORIES: Array<string> = ["core", "configs", "forms,", "lib
  * Build mod statics from configured destinations.
  */
 export async function buildResourcesStatics(parameters: IBuildCommandParameters): Promise<void> {
-  log.info(chalk.blueBright("Build resources"));
+  log.info(blueBright("Build resources"));
 
   const configuredDefaultPath: string = path.resolve(
     CLI_DIR,
@@ -38,7 +38,7 @@ export async function buildResourcesStatics(parameters: IBuildCommandParameters)
   }
 
   const folderToProcess: Array<string> = [configuredDefaultPath, ...configuredTargetPath].filter((it) => {
-    log.debug("Resources folder candidate check:", chalk.yellowBright(it));
+    log.debug("Resources folder candidate check:", yellowBright(it));
 
     return fs.existsSync(it);
   });
@@ -58,7 +58,7 @@ export async function buildResourcesStatics(parameters: IBuildCommandParameters)
  * Copy provided assets directory resources if directory exists.
  */
 async function copyStaticAssetsFromFolder(resourcesFolderPath: string): Promise<void> {
-  log.info("Copy raw assets from:", chalk.yellowBright(resourcesFolderPath));
+  log.info("Copy raw assets from:", yellowBright(resourcesFolderPath));
 
   const contentFolders: Array<string> = await Promise.all(
     (
@@ -94,11 +94,11 @@ async function copyStaticAssetsFromFolder(resourcesFolderPath: string): Promise<
       const relativePath: string = it.slice(resourcesFolderPath.length);
       const targetDir: string = path.join(TARGET_GAME_DATA_DIR, relativePath);
 
-      log.debug("CP -R:", chalk.yellow(targetDir));
+      log.debug("CP -R:", yellow(targetDir));
 
       return fsPromises.cp(it, targetDir, { recursive: true });
     })
   );
 
-  log.info("Resource folders processed:", chalk.yellowBright(resourcesFolderPath), contentFolders.length);
+  log.info("Resource folders processed:", yellowBright(resourcesFolderPath), contentFolders.length);
 }

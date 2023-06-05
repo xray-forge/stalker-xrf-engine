@@ -1,7 +1,7 @@
-import fsPromises from "fs/promises";
-import path from "path";
+import * as fsPromises from "fs/promises";
+import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { blue, green, yellow } from "chalk";
 
 import { isValidEngine } from "#/engine/list_engines";
 import { GAME_BIN_BACKUP_PATH, GAME_BIN_PATH, OPEN_XRAY_ENGINES_DIR } from "#/globals";
@@ -22,7 +22,7 @@ export async function useEngine(target: string): Promise<void> {
     const isLinkedEngine: boolean = await exists(possibleBinDescriptor);
     const oldEngine: Optional<string> = isLinkedEngine ? (await import(possibleBinDescriptor)).type : null;
 
-    log.info("Switching engine:", chalk.blue(oldEngine || "original"), "->", chalk.blue(desiredVersion));
+    log.info("Switching engine:", blue(oldEngine || "original"), "->", blue(desiredVersion));
 
     if (isLinkedEngine) {
       log.info("Removing old link");
@@ -30,15 +30,15 @@ export async function useEngine(target: string): Promise<void> {
     } else if (isBinFolderExist) {
       log.info("Unlinked engine detected");
       await fsPromises.rename(GAME_BIN_PATH, GAME_BIN_BACKUP_PATH);
-      log.info("Created backup at:", chalk.yellow(GAME_BIN_BACKUP_PATH));
+      log.info("Created backup at:", yellow(GAME_BIN_BACKUP_PATH));
     }
 
-    log.info("Linking:", chalk.yellow(engineBinDir), "->", chalk.yellow(GAME_BIN_PATH));
+    log.info("Linking:", yellow(engineBinDir), "->", yellow(GAME_BIN_PATH));
     await fsPromises.symlink(engineBinDir, GAME_BIN_PATH, "junction");
 
-    log.info("Link result:", chalk.green("OK"), "\n");
+    log.info("Link result:", green("OK"), "\n");
   } else {
-    log.error("Supplied unknown engine version:", chalk.yellow(desiredVersion));
+    log.error("Supplied unknown engine version:", yellow(desiredVersion));
     log.error("Only following are available:");
   }
 }

@@ -2,7 +2,7 @@ import { default as assert } from "assert";
 import { cpSync, existsSync, rmSync } from "fs";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { blue, red, yellow, yellowBright } from "chalk";
 
 import { build } from "#/build/build";
 import { default as config } from "#/config.json";
@@ -13,7 +13,7 @@ import { createDirIfNoExisting, NodeLogger, TimeTracker } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("PACK_MOD");
 
-const WARNING_SIGN: string = chalk.red("[!]");
+const WARNING_SIGN: string = red("[!]");
 
 /**
  * Pack engine and gamedata into separate mod pack, ensure everything works correctly.
@@ -22,15 +22,15 @@ export async function packMod(parameters: IPackParameters): Promise<void> {
   NodeLogger.IS_VERBOSE = Boolean(parameters.verbose);
 
   try {
-    log.info("Packaging new mod:", chalk.blue(new Date().toLocaleString()));
+    log.info("Packaging new mod:", blue(new Date().toLocaleString()));
     log.debug("Running with parameters:", parameters);
 
     const engine: string = String(parameters.engine || config.package.engine).trim();
 
     if (parameters.engine) {
-      log.info("Using engine override:", chalk.blue(parameters.engine));
+      log.info("Using engine override:", blue(parameters.engine));
     } else {
-      log.info("Using configured engine:", chalk.blue(engine));
+      log.info("Using configured engine:", blue(engine));
     }
 
     if (parameters.optimize) {
@@ -62,7 +62,7 @@ export async function packMod(parameters: IPackParameters): Promise<void> {
     }
 
     if (parameters.clean) {
-      log.info("Perform package cleanup:", chalk.yellowBright(TARGET_MOD_PACKAGE_DIR));
+      log.info("Perform package cleanup:", yellowBright(TARGET_MOD_PACKAGE_DIR));
       rmSync(TARGET_MOD_PACKAGE_DIR, { recursive: true, force: true });
       timeTracker.addMark("PACKAGE_CLEANUP");
     } else {
@@ -79,7 +79,7 @@ export async function packMod(parameters: IPackParameters): Promise<void> {
     timeTracker.end();
 
     log.info("Successfully executed pack command, took:", timeTracker.getDuration() / 1000, "sec");
-    log.info("Check mod build at:", chalk.yellowBright(TARGET_MOD_PACKAGE_DIR), "\n");
+    log.info("Check mod build at:", yellowBright(TARGET_MOD_PACKAGE_DIR), "\n");
   } catch (error) {
     log.error("Failed to execute packaging command:", error);
   }
@@ -93,9 +93,9 @@ function copyGameEngine(engine: string): void {
   const enginePath: string = path.resolve(OPEN_XRAY_ENGINES_DIR, engine, "bin");
   const engineDescriptorPath: string = path.resolve(destinationPath, "bin.json");
 
-  log.info("Copy game engine binaries:", chalk.yellow(enginePath), "->", chalk.yellowBright(destinationPath));
-  log.info("Using game engine:", chalk.blue(config.package.engine));
-  log.info("Engine path:", chalk.yellowBright(enginePath));
+  log.info("Copy game engine binaries:", yellow(enginePath), "->", yellowBright(destinationPath));
+  log.info("Using game engine:", blue(config.package.engine));
+  log.info("Engine path:", yellowBright(enginePath));
 
   assert(existsSync(enginePath), "Expected engine directory to exist.");
 
@@ -116,12 +116,12 @@ function copyGameEngine(engine: string): void {
 function copyGamedataAssets(): void {
   const destinationPath: string = path.resolve(TARGET_MOD_PACKAGE_DIR, "gamedata");
 
-  log.info("Copy gamedata assets:", chalk.yellow(TARGET_GAME_DATA_DIR), "->", chalk.yellowBright(destinationPath));
+  log.info("Copy gamedata assets:", yellow(TARGET_GAME_DATA_DIR), "->", yellowBright(destinationPath));
 
   assert(existsSync(TARGET_GAME_DATA_DIR), "Expected gamedata directory to exist.");
 
   createDirIfNoExisting(destinationPath);
 
-  log.debug("CP:", chalk.yellow(TARGET_GAME_DATA_DIR), "->", chalk.yellowBright(destinationPath));
+  log.debug("CP:", yellow(TARGET_GAME_DATA_DIR), "->", yellowBright(destinationPath));
   cpSync(TARGET_GAME_DATA_DIR, destinationPath, { recursive: true });
 }

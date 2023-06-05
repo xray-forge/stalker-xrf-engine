@@ -1,7 +1,7 @@
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { red, yellow, yellowBright } from "chalk";
 
 import { default as config } from "#/config.json";
 import { TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
@@ -22,7 +22,7 @@ export async function unlinkFolders(): Promise<void> {
     await unlink(TARGET_LOGS_LINK_DIR);
     await unlink(TARGET_GAME_LINK_DIR);
   } catch (error) {
-    log.error("Links removal failed:", chalk.red(error.message));
+    log.error("Links removal failed:", red(error.message));
   }
 }
 
@@ -30,7 +30,7 @@ export async function unlinkFolders(): Promise<void> {
  * Link target gamedata folder for faster / easier development
  */
 async function unlink(target: string): Promise<void> {
-  log.info("Unlinking:", chalk.yellowBright(target));
+  log.info("Unlinking:", yellowBright(target));
 
   const stat: Optional<string> = await fsPromises.readlink(target).catch(() => null);
 
@@ -40,9 +40,9 @@ async function unlink(target: string): Promise<void> {
 
   try {
     await fsPromises.unlink(target);
-    log.info("Unlinked:", chalk.yellow(target));
+    log.info("Unlinked:", yellow(target));
   } catch (error) {
-    log.error("Failed to unlink:", chalk.yellow(target));
+    log.error("Failed to unlink:", yellow(target));
     log.error("Check this folder, probably it was created manually or contains your own gamedata from another mod");
 
     throw error;

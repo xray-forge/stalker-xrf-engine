@@ -1,4 +1,4 @@
-import { default as chalk } from "chalk";
+import { blueBright, red, yellow, yellowBright } from "chalk";
 import * as tstl from "typescript-to-lua";
 
 import { BUILD_LUA_TSCONFIG } from "#/globals/paths";
@@ -10,7 +10,7 @@ const log: NodeLogger = new NodeLogger("BUILD_LUA_SCRIPTS");
  * Transform typescript codebase to lua scripts and replace .lua with .script extensions.
  */
 export async function buildDynamicScripts(): Promise<void> {
-  log.info(chalk.blueBright("Build lua scripts"));
+  log.info(blueBright("Build lua scripts"));
 
   const startedAt: number = Date.now();
   const result = tstl.transpileProject(BUILD_LUA_TSCONFIG, {
@@ -34,17 +34,17 @@ export async function buildDynamicScripts(): Promise<void> {
       }
 
       log.error(
-        chalk.red("Lua issue:"),
+        red("Lua issue:"),
         it.code,
         it.category,
-        chalk.yellowBright(it.file.fileName),
+        yellowBright(it.file.fileName),
         `"${it.file.text.slice(errorLineStartPosition, errorLineStopPosition).trim()}"`,
-        chalk.red(it.messageText)
+        red(it.messageText)
       );
     });
 
     throw new Error(
-      `Lua transpiling failed, got ${result.diagnostics.length} lua issues. Use ${chalk.yellow(
+      `Lua transpiling failed, got ${result.diagnostics.length} lua issues. Use ${yellow(
         "'npm run typecheck'"
       )} for investigation.`
     );

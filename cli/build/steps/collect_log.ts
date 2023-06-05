@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { blueBright, yellowBright } from "chalk";
 
 import { TARGET_DIR } from "#/globals/paths";
 import { NodeLogger } from "#/utils";
@@ -22,7 +22,7 @@ export async function collectLog(): Promise<void> {
 
     await fsPromises.writeFile(fileLogPath, NodeLogger.LOG_FILE_BUFFER.join(""));
 
-    log.info(chalk.blueBright("File log collected:"), chalk.yellowBright(fileLogPath), "\n");
+    log.info(blueBright("File log collected:"), yellowBright(fileLogPath), "\n");
   } catch (error) {
     log.error("Failed to collect log:", error);
   }

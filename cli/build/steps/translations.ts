@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { blueBright, yellowBright } from "chalk";
 import { encode } from "iconv-lite";
 import { JSXXML } from "jsx-xml";
 
@@ -26,8 +26,8 @@ const TARGET_ENCODING: string = "windows-1251";
  * Build different languages translations based on JSON files.
  */
 export async function buildTranslations(): Promise<void> {
-  log.info(chalk.blueBright("Build translations"));
-  log.info("Target encoding:", chalk.yellowBright(TARGET_ENCODING));
+  log.info(blueBright("Build translations"));
+  log.info("Target encoding:", yellowBright(TARGET_ENCODING));
 
   if (LOCALES_TO_PROCESS.length === 0) {
     return log.warn("No languages to translate found in config.json file, skip");
@@ -62,7 +62,7 @@ export async function buildTranslations(): Promise<void> {
       const targetDir: string = path.resolve(TARGET_GAME_DATA_TRANSLATIONS_DIR, locale);
 
       if (!fs.existsSync(targetDir)) {
-        log.debug("MKDIR:", chalk.yellowBright(targetDir));
+        log.debug("MKDIR:", yellowBright(targetDir));
         fs.mkdirSync(targetDir, { recursive: true });
       }
     });

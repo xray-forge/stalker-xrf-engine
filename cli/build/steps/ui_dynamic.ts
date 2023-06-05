@@ -1,7 +1,7 @@
 import * as fsPromises from "fs/promises";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { blue, blueBright } from "chalk";
 
 import { IBuildCommandParameters } from "#/build/build";
 import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/globals/paths";
@@ -15,7 +15,7 @@ const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".tsx", ".ts"];
  * Build XML game forms from JSX forms.
  */
 export async function buildDynamicUi(parameters: IBuildCommandParameters): Promise<void> {
-  log.info(chalk.blueBright("Build dynamic UI schemas:", parameters.filter));
+  log.info(blueBright("Build dynamic UI schemas:", parameters.filter));
   log.debug("Parameters:", parameters);
 
   const xmlConfigs: Array<TFolderReplicationDescriptor> = await getUiConfigs(parameters.filter);
@@ -34,11 +34,11 @@ export async function buildDynamicUi(parameters: IBuildCommandParameters): Promi
         const xmlContent = typeof xmlSource?.create === "function" && xmlSource?.IS_XML && xmlSource?.create();
 
         if (xmlContent) {
-          log.debug("TRANSFORM:", chalk.blue(to));
+          log.debug("TRANSFORM:", blue(to));
           await fsPromises.writeFile(to, renderJsxToXmlText(xmlContent));
           processedXmlConfigs += 1;
         } else {
-          log.debug("SKIP, not valid XML source:", chalk.blue(from));
+          log.debug("SKIP, not valid XML source:", blue(from));
           skippedXmlConfigs += 1;
         }
       })

@@ -1,7 +1,7 @@
 import fsPromises from "fs/promises";
 import path from "path";
 
-import { default as chalk } from "chalk";
+import { yellow } from "chalk";
 
 import { GAME_BIN_BACKUP_PATH, GAME_BIN_PATH } from "#/globals";
 import { exists, NodeLogger } from "#/utils";
@@ -18,7 +18,7 @@ export async function rollbackEngine(): Promise<void> {
   const isLinkedEngine: boolean = await exists(path.resolve(GAME_BIN_PATH, "bin.json"));
 
   if (isBinBackupExist) {
-    log.info("Backup detected:", chalk.yellow(GAME_BIN_BACKUP_PATH));
+    log.info("Backup detected:", yellow(GAME_BIN_BACKUP_PATH));
 
     if (isLinkedEngine) {
       log.info("Perform rollback operation");
@@ -31,6 +31,6 @@ export async function rollbackEngine(): Promise<void> {
       log.info("Seems like 'bin' directory is not linked, no 'bin.json' file in it. Interrupt rollback");
     }
   } else {
-    log.info("Backup folder not found, no way to rollback changes:", chalk.yellow(GAME_BIN_BACKUP_PATH));
+    log.info("Backup folder not found, no way to rollback changes:", yellow(GAME_BIN_BACKUP_PATH));
   }
 }
