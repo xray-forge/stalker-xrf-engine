@@ -12,6 +12,7 @@ export function setupCloneCommands(command: Command): void {
     .addArgument(new Argument("<repository>", "repository to clone").default(null).argOptional())
     .addOption(new Option("-l, --list", "print list of possible options"))
     .addOption(new Option("-v, --verbose", "verbose logging"))
-    .addOption(new Option("-f, --force", "force repository overwrite"))
+    .addOption(new Option("-f, --force", "force repository overwrite").conflicts("safe"))
+    .addOption(new Option("-s, --safe", "handle clone as successful if target already is cloned").conflicts("force"))
     .action(cloneRepository);
 }

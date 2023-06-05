@@ -2,7 +2,7 @@ import * as cp from "child_process";
 import * as fs from "fs";
 import * as path from "path";
 
-import { blue, red, yellowBright } from "chalk";
+import { blue, green, red, yellowBright } from "chalk";
 
 import { default as config } from "#/config.json";
 import { ROOT_DIR } from "#/globals";
@@ -16,6 +16,7 @@ const log: NodeLogger = new NodeLogger("CLONE_REPOSITORY");
 export interface ICloneRepositoryParameters {
   verbose?: boolean;
   force?: boolean;
+  safe?: boolean;
   list?: boolean;
 }
 
@@ -54,14 +55,15 @@ export async function cloneRepository(name: Optional<string>, parameters: IClone
       "Expected valid repository name from list, try checking list of possible options with '--list' command flag."
     );
   } else if (!targetRepositoryUrl) {
-    log.error("Provided option config has no repository link:", red(name), red(config.repositories[name].url));
+    log.error("Provided option config has no repository link:", red(name), red(targetRepositoryUrl));
 
     throw new Error("Possibly corrupted config, no repository link in provided option.");
   }
 
   const pathDetails: path.ParsedPath = path.parse(targetRepositoryUrl);
   const targetRepositoryDirectory: string = path.resolve(cloneDirectoryRoot, pathDetails.name);
-  const command: string = `git clone ${config.repositories[name].url}`;
+  const command: string = `git clone ${targetRepositoryUrl}`;
+  const isAlreadyCloned: boolean = fs.existsSync(targetRepositoryDirectory);
 
   /**
    * Check target destination.
@@ -72,11 +74,17 @@ export async function cloneRepository(name: Optional<string>, parameters: IClone
     if (deleteDirIfExists(targetRepositoryDirectory)) {
       log.info("Successfully removed path:", yellowBright(targetRepositoryDirectory));
     }
-  } else if (fs.existsSync(targetRepositoryDirectory)) {
-    log.error("Directory already exists for provided option:", red(cloneDirectoryRoot), red(pathDetails.name));
-    log.error("Consider removing already existing one");
+  } else if (isAlreadyCloned) {
+    if (parameters.safe) {
+      log.info("Already cloned:", yellowBright(targetRepositoryDirectory), "from", green(targetRepositoryUrl));
 
-    throw new Error("Provided clone option that is already cloned.");
+      return;
+    } else {
+      log.error("Directory already exists for provided option:", red(cloneDirectoryRoot), red(pathDetails.name));
+      log.error("Consider removing already existing one");
+
+      throw new Error("Provided clone option that is already cloned.");
+    }
   }
 
   log.info("Running:", yellowBright(command));
