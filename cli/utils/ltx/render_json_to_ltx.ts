@@ -12,7 +12,8 @@ type TPossibleFieldDescriptorBase = Record<string, ILtxFieldDescriptor<unknown>>
 type TPossibleFieldDescriptorFull = TPossibleFieldDescriptorBase | (() => TPossibleFieldDescriptorBase);
 
 /**
- * todo;
+ * Render section name based on provided descriptors and metadata.
+ * Based on parameters may return section header, empty value for roots and header combined with 'extend' syntax.
  */
 function renderSectionName(name: string | typeof LTX_ROOT, descriptorRaw: TPossibleFieldDescriptorFull): string {
   if (name === LTX_ROOT) {
@@ -29,7 +30,7 @@ function renderSectionName(name: string | typeof LTX_ROOT, descriptorRaw: TPossi
 }
 
 /**
- * todo;
+ * Render list of imports for LTX file.
  */
 function renderLtxImports(descriptorRaw: TPossibleFieldDescriptorFull): string {
   if (!Array.isArray(descriptorRaw)) {
@@ -40,7 +41,7 @@ function renderLtxImports(descriptorRaw: TPossibleFieldDescriptorFull): string {
 }
 
 /**
- * todo;
+ * Render LTX section based on descriptor and metadata.
  */
 function renderLtxSection(name: string | typeof LTX_ROOT, descriptorRaw: TPossibleFieldDescriptorFull): string {
   const sectionName: string = renderSectionName(name, descriptorRaw);
@@ -60,7 +61,7 @@ function renderLtxSection(name: string | typeof LTX_ROOT, descriptorRaw: TPossib
 }
 
 /**
- * todo;
+ * Based on provided JSON/javascript object generate new LTX file content.
  */
 export function renderJsonToLtx(filename: string, object: ILtxConfigDescriptor): string {
   let header: string = `; ${filename} @ generated ${new Date().toString()}\n`;

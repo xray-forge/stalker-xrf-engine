@@ -10,6 +10,9 @@ import { deleteDirIfExists, NodeLogger, Optional } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("CLONE_REPOSITORY");
 
+/**
+ * Parameters of CLI clone command.
+ */
 export interface ICloneRepositoryParameters {
   verbose?: boolean;
   force?: boolean;
@@ -17,7 +20,7 @@ export interface ICloneRepositoryParameters {
 }
 
 /**
- * todo;
+ * Clone provided repository for simplified additional resources usage.
  */
 export async function cloneRepository(name: Optional<string>, parameters: ICloneRepositoryParameters): Promise<void> {
   NodeLogger.IS_VERBOSE = Boolean(parameters.verbose);

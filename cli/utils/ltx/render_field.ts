@@ -1,7 +1,7 @@
 import { ELtxFieldType, ILtxFieldDescriptor, Optional } from "#/utils";
 
 /**
- * todo;
+ * Assert whether provided value is number.
  */
 function assertIsNumber(it: unknown): asserts it is number {
   if (typeof it !== "number") {
@@ -10,7 +10,7 @@ function assertIsNumber(it: unknown): asserts it is number {
 }
 
 /**
- * todo;
+ * Assert whether provided value is boolean.
  */
 function assertIsBoolean(it: unknown): asserts it is boolean {
   if (typeof it !== "boolean") {
@@ -19,7 +19,7 @@ function assertIsBoolean(it: unknown): asserts it is boolean {
 }
 
 /**
- * todo;
+ * Assert whether provided value is array.
  */
 function assertIsArray(it: unknown): asserts it is Array<unknown> {
   if (!Array.isArray(it)) {
@@ -28,7 +28,7 @@ function assertIsArray(it: unknown): asserts it is Array<unknown> {
 }
 
 /**
- * todo;
+ * Assert whether provided value is integer.
  */
 function assertIsInteger(it: unknown): asserts it is number {
   if (typeof it !== "number" || !Number.isInteger(it)) {
@@ -37,14 +37,14 @@ function assertIsInteger(it: unknown): asserts it is number {
 }
 
 /**
- * todo;
+ * Assert whether provided value is float.
  */
 function toFloat(it: number, precision: number = 1): string {
   return Number.isInteger(it) ? it.toFixed(precision) : String(it);
 }
 
 /**
- * todo;
+ * Render LTX field link based on data / descriptor.
  */
 function link(name: Optional<string>, data: string, descriptor?: Optional<ILtxFieldDescriptor<unknown>>): string {
   const comment: string = descriptor?.meta?.comment ? ` ; ${descriptor.meta.comment}` : "";
@@ -60,7 +60,7 @@ function link(name: Optional<string>, data: string, descriptor?: Optional<ILtxFi
 }
 
 /**
- * todo;
+ * Render LTX field for provided section metadata.
  */
 export function renderField(name: Optional<string>, value: any): string;
 export function renderField(name: Optional<string>, value: Optional<ILtxFieldDescriptor<unknown>>): string {

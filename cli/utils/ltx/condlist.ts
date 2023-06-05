@@ -1,14 +1,14 @@
 import { IConditionListDescriptor } from "#/utils/ltx/types";
 
 /**
- * todo;
+ * Join array of condlists and render them to string.
  */
 export function joinCondlists(...conditionLists: Array<string>): string {
   return conditionLists.join(", ");
 }
 
 /**
- * todo;
+ * Create condlist string from provided descriptor.
  */
 export function createCondlist(descriptor?: IConditionListDescriptor | boolean): string {
   if (
@@ -31,21 +31,21 @@ export function createCondlist(descriptor?: IConditionListDescriptor | boolean):
 }
 
 /**
- * todo;
+ * Create condlist condition check string part.
  */
 export function checkCondition(functionName: string, ...params: Array<string | boolean | number>): string {
   return `=${functionName}` + (params.length ? `(${params.join(":")})` : "");
 }
 
 /**
- * todo;
+ * Create condlist no condition check string part.
  */
 export function checkNoCondition(functionName: string, ...params: Array<string | boolean | number>): string {
   return `!${functionName}` + (params.length ? `(${params.join(":")})` : "");
 }
 
 /**
- * todo;
+ * Create condlist chance check string part.
  */
 export function checkChance(chance: number): string {
   if (chance <= 0 || chance >= 100) {
@@ -56,35 +56,35 @@ export function checkChance(chance: number): string {
 }
 
 /**
- * todo;
+ * Create condlist info check string part.
  */
 export function checkHasInfo(info: string): string {
   return `+${info}`;
 }
 
 /**
- * todo;
+ * Create condlist no info check string part.
  */
 export function checkNoInfo(info: string): string {
   return `-${info}`;
 }
 
 /**
- * todo;
+ * Create condlist info addition effect string part.
  */
 export function addInfo(info: string): string {
   return `+${info}`;
 }
 
 /**
- * todo;
+ * Create condlist info removal effect string part.
  */
 export function removeInfo(info: string): string {
   return `-${info}`;
 }
 
 /**
- * todo;
+ * Create condlist effect call string part.
  */
 export function callEffect(functionName: string, ...params: Array<string>): string {
   return `=${functionName}` + (params.length ? `(${params.join(":")})` : "");

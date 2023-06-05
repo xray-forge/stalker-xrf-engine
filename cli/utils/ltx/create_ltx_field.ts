@@ -8,7 +8,7 @@ import {
 } from "#/utils/ltx/types";
 
 /**
- * todo;
+ * Create generic field descriptor.
  */
 export function newField<T>(type: ELtxFieldType, value: T, meta: ILtxFieldMeta = {}): ILtxFieldDescriptor<T> {
   return {
@@ -20,35 +20,35 @@ export function newField<T>(type: ELtxFieldType, value: T, meta: ILtxFieldMeta =
 }
 
 /**
- * todo;
+ * Create string field descriptor.
  */
 export function newStringField<T extends string>(value: T, meta: ILtxFieldMeta = {}): ILtxFieldDescriptor<T> {
   return newField(ELtxFieldType.STRING, value, meta);
 }
 
 /**
- * todo;
+ * Create integer field descriptor.
  */
 export function newIntegerField(value: number, meta: ILtxFieldMeta = {}): ILtxFieldDescriptor<number> {
   return newField(ELtxFieldType.INTEGER, value, meta);
 }
 
 /**
- * todo;
+ * Create float field descriptor.
  */
 export function newFloatField(value: number, meta: ILtxFieldMeta = {}): ILtxFieldDescriptor<number> {
   return newField(ELtxFieldType.FLOAT, value, meta);
 }
 
 /**
- * todo;
+ * Create boolean field descriptor.
  */
 export function newBooleanField(value: boolean, meta: ILtxFieldMeta = {}): ILtxFieldDescriptor<boolean> {
   return newField(ELtxFieldType.BOOLEAN, value, meta);
 }
 
 /**
- * todo;
+ * Create condlist field descriptor.
  */
 export function newCondlistField(
   value?: boolean | IConditionListDescriptor,
@@ -58,7 +58,7 @@ export function newCondlistField(
 }
 
 /**
- * todo;
+ * Create condlist array field descriptor.
  */
 export function newCondlistsField(
   value: Array<boolean | IConditionListDescriptor>,
@@ -68,7 +68,7 @@ export function newCondlistsField(
 }
 
 /**
- * todo;
+ * Create string array field descriptor.
  */
 export function newStringsField<T extends string>(
   value: Array<T>,
@@ -78,21 +78,21 @@ export function newStringsField<T extends string>(
 }
 
 /**
- * todo;
+ * Create integer array field descriptor.
  */
 export function newIntegersField(value: Array<number>, meta: ILtxFieldMeta = {}): ILtxFieldDescriptor<Array<number>> {
   return newField(ELtxFieldType.INTEGER_ARRAY, value, meta);
 }
 
 /**
- * todo;
+ * Create float array field descriptor.
  */
 export function newFloatsField(value: Array<number>, meta: ILtxFieldMeta = {}): ILtxFieldDescriptor<Array<number>> {
   return newField(ELtxFieldType.FLOAT_ARRAY, value, meta);
 }
 
 /**
- * todo;
+ * Create section descriptor.
  */
 export function newSection<T>(value: T, ltxExtend?: string | Array<string>): T {
   if (ltxExtend) {

@@ -23,7 +23,7 @@ import {
   TypeReferenceNode,
 } from "typescript";
 
-import { IExternCallbackDescriptor, IExternFileDescriptor } from "#/parse/utils/types";
+import { IExternCallbackParameterDescriptor, IExternFileDescriptor } from "#/parse/utils/types";
 import { Optional } from "#/utils";
 
 /**
@@ -32,7 +32,8 @@ import { Optional } from "#/utils";
 const EXTERN_METHOD_NAME: string = "extern";
 
 /**
- * todo;
+ * Get list of 'extern' called method metadata.
+ * Collects docs/types/description of externalized methods for provided typescript files list.
  */
 export function getExternDocs(files: Array<string>): Array<IExternFileDescriptor> {
   return files.map((it: string) => {
@@ -64,7 +65,7 @@ export function getExternDocs(files: Array<string>): Array<IExternFileDescriptor
 
         const externName: string = callExpression.arguments[0]["text"];
         let docComment: string = doc ? (doc.comment as string) : "";
-        let callbackDescription: Array<IExternCallbackDescriptor> = [];
+        let callbackDescription: Array<IExternCallbackParameterDescriptor> = [];
 
         if (doc?.tags?.length) {
           docComment +=
@@ -81,7 +82,7 @@ export function getExternDocs(files: Array<string>): Array<IExternFileDescriptor
 
         if (externCallback.parameters?.length) {
           callbackDescription = externCallback.parameters
-            .map((declaration: ParameterDeclaration) => getCallbackDescriptor(declaration))
+            .map((declaration: ParameterDeclaration) => getCallbackParameterDescriptor(declaration))
             .filter(Boolean);
         }
 
@@ -96,7 +97,7 @@ export function getExternDocs(files: Array<string>): Array<IExternFileDescriptor
 }
 
 /**
- * todo;
+ * Get matching type label for provided AST node.
  */
 function getNodeTypeLabel(node: TypeNode): string {
   switch (node.kind) {
@@ -123,6 +124,9 @@ function getNodeTypeLabel(node: TypeNode): string {
   }
 }
 
+/**
+ * Get parameter label for provided AST node.
+ */
 function getNodeName(node: NamedDeclaration): string {
   if ((node.name.kind as SyntaxKind) === SyntaxKind.ArrayBindingPattern) {
     return `[${(node.name as unknown as ArrayBindingPattern).elements
@@ -134,9 +138,9 @@ function getNodeName(node: NamedDeclaration): string {
 }
 
 /**
- * todo;
+ * Get descriptor of callback parameter AST node.
  */
-function getCallbackDescriptor(parameter: ParameterDeclaration): IExternCallbackDescriptor {
+function getCallbackParameterDescriptor(parameter: ParameterDeclaration): IExternCallbackParameterDescriptor {
   switch (parameter.type.kind) {
     case SyntaxKind.NumberKeyword:
     case SyntaxKind.StringKeyword:

@@ -1,5 +1,6 @@
 /**
- * todo;
+ * Normalize node props based on TS calculations to satisfy XRay format.
+ * For example, some boolean fields should be casted to numbers (0, 1) or some numbers should be rounded.
  */
 export function normalizeBaseNodeProps<T extends object>(props: T): T {
   const nextProps: T = { ...props };

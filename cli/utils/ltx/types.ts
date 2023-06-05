@@ -1,12 +1,12 @@
 import { Optional } from "#/utils";
 
 /**
- * todo;
+ * Generic primitive type used in LTX configs.
  */
 export type TPrimitive = string | number | boolean | symbol | Array<TPrimitive>;
 
 /**
- * todo;
+ * Enumeration of possible field descriptor types.
  */
 export enum ELtxFieldType {
   STRING,
@@ -20,7 +20,7 @@ export enum ELtxFieldType {
 }
 
 /**
- * todo;
+ * Field descriptor metadata used for LTX files generation.
  */
 export interface ILtxFieldMeta {
   comment?: Optional<string>;
@@ -28,7 +28,7 @@ export interface ILtxFieldMeta {
 }
 
 /**
- * todo;
+ * Generic field descriptor used for LTX files generation.
  */
 export interface ILtxFieldDescriptor<T> {
   $isField: boolean;
@@ -38,7 +38,7 @@ export interface ILtxFieldDescriptor<T> {
 }
 
 /**
- * todo;
+ * Generic descriptor of config object before transformation to LTX file.
  */
 export interface ILtxConfigDescriptor
   extends Record<
@@ -49,22 +49,22 @@ export interface ILtxConfigDescriptor
 }
 
 /**
- * todo;
+ * Meta symbol to mark LTX root fields not belonging to any section.
  */
 export const LTX_ROOT: unique symbol = Symbol("LTX_ROOT");
 
 /**
- * todo;
+ * Meta symbol to mark LTX extending syntax for custom sections.
  */
 export const LTX_EXTEND: unique symbol = Symbol("LTX_EXTEND");
 
 /**
- * todo;
+ * Meta symbol to mark include section to import other files in built LTX file.
  */
 export const LTX_INCLUDE: unique symbol = Symbol("LTX_INCLUDE");
 
 /**
- * todo;
+ * Descriptor of condition list for building.
  */
 export interface IConditionListDescriptor {
   condition?: Array<string>;
