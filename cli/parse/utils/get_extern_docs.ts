@@ -109,6 +109,9 @@ function getNodeTypeLabel(node: TypeNode): string {
     case SyntaxKind.NullKeyword:
       return "null";
 
+    case SyntaxKind.TypeReference:
+      return ((node as TypeReferenceNode).typeName as Identifier)?.escapedText as string;
+
     case SyntaxKind.TupleType:
       return `[${(node as TupleTypeNode).elements.map((it) => getNodeTypeLabel(it)).join(", ")}]`;
 

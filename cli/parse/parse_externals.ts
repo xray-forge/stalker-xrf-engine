@@ -1,11 +1,14 @@
+import * as fsPromises from "fs/promises";
 import * as path from "path";
 
 import { default as chalk } from "chalk";
 
-import { GAME_DATA_SCRIPTS_DIR } from "#/globals";
+import { GAME_DATA_SCRIPTS_DIR, TARGET_PARSED_DIR } from "#/globals";
 import { getExternDocs } from "#/parse/utils/get_extern_docs";
-import { IExternFileDescriptor } from "#/parse/utils/types";
-import { NodeLogger, readDirContent, TFolderFiles } from "#/utils";
+import { renderExternals } from "#/parse/utils/render_externals";
+import { IExternFileDescriptor, IExternFunction } from "#/parse/utils/types";
+import { createDirIfNoExisting, NodeLogger, quoted, readDirContent, renderJsxToXmlText, TFolderFiles } from "#/utils";
+import { getPathParentFolder } from "#/utils/fs/get_path_parent_folder";
 
 const log: NodeLogger = new NodeLogger("PARSE_DIR_AS_JSON");
 
@@ -14,6 +17,7 @@ const log: NodeLogger = new NodeLogger("PARSE_DIR_AS_JSON");
  */
 export async function parseExternals(): Promise<void> {
   const targetDir: string = path.resolve(GAME_DATA_SCRIPTS_DIR, "declarations");
+  const targetFilePath: string = path.resolve(TARGET_PARSED_DIR, "externals.html");
 
   log.info("Parsing game externals:", chalk.yellowBright(targetDir));
 
@@ -21,9 +25,22 @@ export async function parseExternals(): Promise<void> {
   const docs: Array<IExternFileDescriptor> = getExternDocs(filesToParse);
 
   log.info("Parsed externals for files:", filesToParse.length);
+  log.warn("Writing resulting file:", chalk.yellowBright(targetFilePath));
 
-  // todo: Save in a file
-  // todo: Handle type alias in resulting files
+  const content: string = renderJsxToXmlText(
+    renderExternals(
+      docs.reduce((acc, it: IExternFileDescriptor) => {
+        const moduleName: string = getPathParentFolder(it.file);
+
+        acc[moduleName] = [...(acc[moduleName] ?? []), ...it.extern] as Array<IExternFunction>;
+
+        return acc;
+      }, {})
+    )
+  );
+
+  await createDirIfNoExisting(TARGET_PARSED_DIR);
+  await fsPromises.writeFile(targetFilePath, content);
 }
 
 /**

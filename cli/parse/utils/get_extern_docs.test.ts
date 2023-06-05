@@ -22,6 +22,7 @@ describe("parse_externals utility", () => {
         { parameterName: "a", parameterTypeName: "number" },
         { parameterName: "b", parameterTypeName: "string" },
         { parameterName: "c", parameterTypeName: "boolean" },
+        { parameterName: "d", parameterTypeName: "SomeAlias" },
       ],
     });
 
@@ -58,7 +59,7 @@ describe("parse_externals utility", () => {
       doc: "",
       file: SAMPLE_TS_FILE,
       name: "module_two.callback_name_three",
-      parameters: [{ parameterName: "[e, f]", parameterTypeName: "[number, string]" }],
+      parameters: [{ parameterName: "[e, f]", parameterTypeName: "[number, string, SomeAlias]" }],
     });
   });
 });
