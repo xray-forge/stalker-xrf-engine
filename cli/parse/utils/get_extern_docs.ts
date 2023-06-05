@@ -7,6 +7,9 @@ import {
   createSourceFile,
   ExpressionStatement,
   Identifier,
+  isArrowFunction,
+  isExpressionStatement,
+  isStringLiteral,
   JSDoc,
   JSDocTag,
   NamedDeclaration,
@@ -36,9 +39,9 @@ export function getExternDocs(files: Array<string>): Array<IExternFileDescriptor
     const sourceFile: SourceFile = createSourceFile(it, fs.readFileSync(it).toString(), ScriptTarget.ESNext);
     const extern = sourceFile.statements
       .filter((it: Statement) => {
-        if (it.kind !== SyntaxKind.ExpressionStatement) {
+        if (!isExpressionStatement(it)) {
           return false;
-        } else if ((it as ExpressionStatement).expression?.["expression"]?.["escapedText"] !== EXTERN_METHOD_NAME) {
+        } else if (it.expression?.["expression"]?.escapedText !== EXTERN_METHOD_NAME) {
           return false;
         }
 
@@ -46,9 +49,9 @@ export function getExternDocs(files: Array<string>): Array<IExternFileDescriptor
 
         if (callExpression.arguments.length !== 2) {
           return false;
-        } else if (callExpression.arguments[0] && callExpression.arguments[0].kind !== SyntaxKind.StringLiteral) {
+        } else if (callExpression.arguments[0] && !isStringLiteral(callExpression.arguments[0])) {
           return false;
-        } else if (callExpression.arguments[1] && callExpression.arguments[1].kind !== SyntaxKind.ArrowFunction) {
+        } else if (callExpression.arguments[1] && !isArrowFunction(callExpression.arguments[1])) {
           return false;
         }
 
