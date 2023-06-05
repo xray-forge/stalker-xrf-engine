@@ -83,7 +83,6 @@ Optimizations, quality and logics updates are welcome.
 
 `$ npm run cli COMMAND_NAME`
 
-- [info](cli/info/README.md) - print general information about the project and its configuration.
 - [verify](cli/verify/README.md) - verify project settings and readiness
 - [link](cli/link/README.md) - link target/gamedata and logs folder and stalker folder for faster development
 - [unlink](cli/build/README.md) - unlink target/gamedata and logs folder and stalker folder
@@ -92,6 +91,8 @@ Optimizations, quality and logics updates are welcome.
 - [start_game](cli/build/README.md) - start game with debug flag
 - [build](cli/build/README.md) - build project gamedata with all assets
 - [pack](cli/pack/README.md) - build complete mod or game package depending on provided arguments
+- [clone](cli/clone/README.md) - clone additional resources
+- [parse](cli/parse/README.md) - parsing utils to collect documentation or JSON summaries
 - `help` - print list of commands and information about them
 
 ---

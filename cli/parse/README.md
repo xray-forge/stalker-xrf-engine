@@ -17,6 +17,6 @@ List of arguments:
 
 ### Example
 
-- `npm run cli externals`
+- `npm run cli parse externals`
 - `npm run cli parse dir_as_json ../gamedata_original/anims`
 - `npm run cli parse dir_as_json ../gamedata_original/textures -- --no-extension`

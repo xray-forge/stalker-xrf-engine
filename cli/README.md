@@ -4,6 +4,7 @@ Custom CLI for the engine mod building. <br/>
 All commands are using `ts-node` and simply can be called with `npm run cli $NAME` command from project root.
 
 - [build](build/README.md)
+- [clone](clone/README.md)
 - [compress](compress/README.md)
 - [engine](engine/README.md)
 - [link](link/README.md)

@@ -1,5 +1,7 @@
 export * from "#/utils/fs/create_dir_for_configs";
 export * from "#/utils/fs/create_dir_if_no_existing";
+export * from "#/utils/fs/delete_dir_if_exists";
+export * from "#/utils/fs/delete_file_if_exists";
 export * from "#/utils/fs/exists";
 export * from "#/utils/fs/get_path_parent_folder";
 export * from "#/utils/fs/nornamize_parameter_path";

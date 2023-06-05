@@ -3,7 +3,7 @@ import * as fsPromises from "fs/promises";
 import * as os from "os";
 import * as path from "path";
 
-import { default as chalk } from "chalk";
+import { blueBright, yellow, yellowBright } from "chalk";
 
 import { TARGET_GAME_DATA_DIR, TARGET_GAME_DATA_METADATA_FILE } from "#/globals/paths";
 import { getCommitHash, NodeLogger, readDirContent, TDirectoryFilesTree, TimeTracker } from "#/utils";
@@ -22,7 +22,7 @@ interface IBuildMetaParams {
  * @param timeTracker - build time tracker with performance metrics
  */
 export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promise<void> {
-  log.info(chalk.blueBright("Build metadata"));
+  log.info(blueBright("Build metadata"));
 
   const buildMeta: Record<string, unknown> = {};
 
@@ -52,9 +52,9 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
 
   const assetsSizesMegabytes: string = transformBytesToMegabytes(assetsSizeBytes);
 
-  log.info("Collecting gamedata meta:", chalk.yellowBright(TARGET_GAME_DATA_DIR));
+  log.info("Collecting gamedata meta:", yellowBright(TARGET_GAME_DATA_DIR));
   log.info("Collected files count:", builtFiles.length);
-  log.info("Collected files size:", chalk.yellow(assetsSizesMegabytes), "MB");
+  log.info("Collected files size:", yellow(assetsSizesMegabytes), "MB");
 
   const timingInfo: Record<string, string | number> = getTimingsInfo(timeTracker);
 
@@ -79,9 +79,9 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
   await fsPromises.writeFile(TARGET_GAME_DATA_METADATA_FILE, JSON.stringify(buildMeta, null, 2));
 
   log.info("Timing stats:");
-  Object.entries(timingInfo).forEach(([key, value]) => log.info(`* ${key}:  ${chalk.yellow(value)}`));
+  Object.entries(timingInfo).forEach(([key, value]) => log.info(`* ${key}:  ${yellow(value)}`));
 
-  log.info("Included engine mod metadata:", chalk.yellowBright(TARGET_GAME_DATA_METADATA_FILE));
+  log.info("Included engine mod metadata:", yellowBright(TARGET_GAME_DATA_METADATA_FILE));
 }
 
 /**
