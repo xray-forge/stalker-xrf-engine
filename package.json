@@ -48,6 +48,9 @@
     "typescript": "^5.0.4",
     "typescript-to-lua": "^1.15.1"
   },
+  "bin": {
+    "xrf": "./cli/run.ts"
+  },
   "jest": {
     "preset": "./cli/test/jest.config.ts"
   }

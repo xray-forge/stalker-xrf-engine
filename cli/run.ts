@@ -1,3 +1,5 @@
+#! /usr/bin/env ts-node -P ./cli/tsconfig.json
+
 import { Command } from "commander";
 
 import { setupBuildCommands } from "#/build/run";
