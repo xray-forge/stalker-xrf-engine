@@ -4,13 +4,10 @@ import * as path from "path";
 
 import { yellow } from "chalk";
 
-import { default as config } from "#/config.json";
-import { NodeLogger, Optional } from "#/utils";
-import { readLastLinesOfFile } from "#/utils/fs/read_last_lines_of_file";
+import { GAME_LOGS_PATH, GAME_PATH } from "#/globals";
+import { NodeLogger, Optional, readLastLinesOfFile } from "#/utils";
 
-const GAME_DIR: string = path.resolve(config.targets.stalker_game_folder_path);
-const GAME_LOGS_DIR: string = path.resolve(config.targets.stalker_logs_folder_path);
-const GAME_BIN_DESCRIPTOR_DIR: string = path.resolve(GAME_DIR, "bin/bin.json");
+const GAME_BIN_DESCRIPTOR_DIR: string = path.resolve(GAME_PATH, "bin/bin.json");
 
 const log: NodeLogger = new NodeLogger("LOGS");
 
@@ -43,11 +40,11 @@ export async function printLastLogLines(count: number): Promise<void> {
 async function getLogFilePath(): Promise<Optional<string>> {
   const username: string = os.userInfo().username.toLowerCase();
 
-  const openXRayLogPath: string = path.resolve(GAME_LOGS_DIR, `openxray_${username}.log`);
-  const baseXRayLogPath: string = path.resolve(GAME_LOGS_DIR, `xray_${username}.log`);
+  const openXRayLogPath: string = path.resolve(GAME_LOGS_PATH, `openxray_${username}.log`);
+  const baseXRayLogPath: string = path.resolve(GAME_LOGS_PATH, `xray_${username}.log`);
 
-  if (!fs.existsSync(GAME_LOGS_DIR)) {
-    log.info("Provided invalid game logs folder or log do not exist:", yellow(GAME_LOGS_DIR));
+  if (!fs.existsSync(GAME_LOGS_PATH)) {
+    log.info("Provided invalid game logs folder or log do not exist:", yellow(GAME_LOGS_PATH));
 
     return null;
   }

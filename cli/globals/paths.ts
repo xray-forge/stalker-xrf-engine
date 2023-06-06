@@ -42,4 +42,9 @@ export const GAME_BIN_PATH: string = path.resolve(GAME_PATH, "bin");
 export const GAME_BIN_BACKUP_PATH: string = path.resolve(GAME_PATH, XR_ENGINE_BACKUP_DIR);
 export const GAME_BIN_JSON_PATH: string = path.resolve(GAME_BIN_PATH, "bin.json");
 export const GAME_GAMEDATA_PATH: string = path.resolve(GAME_PATH, "gamedata");
-export const GAME_LOGS_PATH: string = path.resolve(CLI_DIR, config.targets.stalker_logs_folder_path);
+export const GAME_LOGS_PATH: string = path.resolve(
+  CLI_DIR,
+  config.targets.stalker_game_folder_path,
+  "_appdata_",
+  "logs"
+);

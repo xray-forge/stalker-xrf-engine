@@ -34,7 +34,6 @@
   },
   "targets": {
     "stalker_game_folder_path": "F:\\Applications\\Steam\\steamapps\\common\\Stalker Call of Pripyat",
-    "stalker_logs_folder_path": "F:\\Applications\\Steam\\steamapps\\common\\Stalker Call of Pripyat\\_appdata_\\logs",
     "stalker_game_exe_path": "Stalker-COP.exe"
   },
   "repositories": {
