@@ -1,22 +1,24 @@
 import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, LuabindClass, ui_events, vector2 } from "xray16";
 
-import { registry, SYSTEM_INI } from "@/engine/core/database";
+import { registry } from "@/engine/core/database";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemListEntry";
 import { isGameStarted } from "@/engine/core/utils/alife";
 import { isAmmoSection } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import {
+  getAmmoSections,
+  getArtefactsSections,
+  getHelmetsSections,
+  getOutfitSections,
+  getWeaponSections,
+} from "@/engine/core/utils/sections";
 import { getInventoryNameForItemSection, spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { TInventoryItem } from "@/engine/lib/constants/items";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { food } from "@/engine/lib/constants/items/food";
-import { helmets } from "@/engine/lib/constants/items/helmets";
-import { outfits } from "@/engine/lib/constants/items/outfits";
-import { weapons } from "@/engine/lib/constants/items/weapons";
-import { Optional, TPath, TSection, Vector2D } from "@/engine/lib/types";
+import { LuaArray, Optional, TPath, TSection, Vector2D } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugItemsSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
@@ -87,23 +89,24 @@ export class DebugItemsSection extends AbstractDebugSection {
 
     switch (category) {
       case EItemCategory.OUTFITS:
-        this.addItemsToList(Object.values(outfits));
+        this.addItemsToList(getOutfitSections());
         break;
 
       case EItemCategory.HELMETS:
-        this.addItemsToList(Object.values(helmets));
+        this.addItemsToList(getHelmetsSections());
         break;
 
-      case EItemCategory.WEAPONS:
-        this.addItemsToList(Object.values(weapons));
+      case EItemCategory.WEAPONS: {
+        this.addItemsToList(getWeaponSections());
         break;
+      }
 
       case EItemCategory.ARTEFACTS:
-        this.addItemsToList(Object.values(artefacts));
+        this.addItemsToList(getArtefactsSections());
         break;
 
       case EItemCategory.AMMO:
-        this.addItemsToList(Object.values(ammo));
+        this.addItemsToList(getAmmoSections());
         break;
 
       case EItemCategory.CONSUMABLES:
@@ -115,9 +118,8 @@ export class DebugItemsSection extends AbstractDebugSection {
   /**
    * Add item to spawn list UI element.
    */
-  public addItemsToList(sections: Array<TSection>): void {
-    sections
-      .filter((it: TSection) => SYSTEM_INI.section_exist(it))
+  public addItemsToList(sections: Array<TSection> | LuaArray<TSection>): void {
+    (sections as Array<TSection>)
       .sort((a, b) => ((a as unknown as number) > (b as unknown as number) ? 1 : -1))
       .forEach((it) => this.addItemToList(it));
   }

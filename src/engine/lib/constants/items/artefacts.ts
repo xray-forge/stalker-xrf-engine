@@ -27,7 +27,6 @@ export const artefacts = {
   af_mincer_meat: "af_mincer_meat",
   af_night_star: "af_night_star",
   af_oasis_heart: "af_oasis_heart",
-
   af_quest_b14_twisted: "af_quest_b14_twisted",
   af_soul: "af_soul",
   af_vyvert: "af_vyvert",
