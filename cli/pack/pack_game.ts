@@ -47,7 +47,8 @@ export async function packGame(parameters: IPackParameters): Promise<void> {
     assert(isValidEngine(engine), `Expected engine to be valid, got '${engine}'.`);
 
     const timeTracker: TimeTracker = new TimeTracker().start();
-    const isBuildRequired: boolean = !parameters.noBuild;
+    const isBuildRequired: boolean = parameters.build;
+    const isCompressionRequired: boolean = parameters.compress;
 
     if (parameters.clean) {
       log.info("Perform package cleanup:", yellowBright(TARGET_GAME_PACKAGE_DIR));
@@ -73,9 +74,12 @@ export async function packGame(parameters: IPackParameters): Promise<void> {
         filter: [],
       });
 
-      log.info("Starting assets DB compress", "\n");
-
-      await compress({ clean: true, verbose: parameters.verbose, include: "all" });
+      if (isCompressionRequired) {
+        log.info("Starting assets DB compress", "\n");
+        await compress({ clean: true, verbose: parameters.verbose, include: "all" });
+      } else {
+        log.info("Skip compression step");
+      }
     } else {
       log.info("Packaging from already built assets", WARNING_SIGN);
     }
@@ -83,11 +87,18 @@ export async function packGame(parameters: IPackParameters): Promise<void> {
     copyGameEngine(engine);
     timeTracker.addMark("PACKAGE_GAME_BIN");
 
-    copyDatabaseAssets();
-    timeTracker.addMark("PACKAGE_DB");
+    if (isCompressionRequired) {
+      copyDatabaseAssets();
+      timeTracker.addMark("PACKAGE_DB");
 
-    copyGamedataAssets();
-    timeTracker.addMark("PACKAGE_GAMEDATA");
+      copyGamedataAssets();
+      timeTracker.addMark("PACKAGE_GAMEDATA_FILTERED");
+    } else {
+      timeTracker.addMark("SKIP_PACKAGE_DB");
+
+      copyGamedataAssets(false);
+      timeTracker.addMark("PACKAGE_GAMEDATA_ALL");
+    }
 
     copyRootAssets();
     timeTracker.addMark("PACKAGE_CONFIGS");
@@ -128,20 +139,33 @@ function copyGameEngine(engine: string): void {
 
 /**
  * Copy gamedata assets needed for the game build.
+ *
+ * @param isFiltered - whether gamedata should be copied with applied filtering based on compressed DBs
  */
-function copyGamedataAssets(): void {
+function copyGamedataAssets(isFiltered: boolean = true): void {
   const destinationPath: string = path.resolve(TARGET_GAME_PACKAGE_DIR, "gamedata");
 
-  log.info("Copy gamedata assets:", yellow(TARGET_GAME_DATA_DIR), "->", yellowBright(destinationPath));
+  log.info(
+    "Copy gamedata assets:",
+    yellow(TARGET_GAME_DATA_DIR),
+    "->",
+    yellowBright(destinationPath),
+    "mode:",
+    isFiltered ? "filtered" : "all"
+  );
 
   assert(existsSync(TARGET_GAME_DATA_DIR), "Expected gamedata directory to exist.");
 
   createDirIfNoExisting(destinationPath);
 
-  config.package.gamedata.forEach((it) => {
-    log.debug("CP:", it);
-    cpSync(path.resolve(TARGET_GAME_DATA_DIR, it), path.resolve(destinationPath, it), { recursive: true });
-  });
+  if (isFiltered) {
+    config.package.gamedata.forEach((it) => {
+      log.debug("CP:", it);
+      cpSync(path.resolve(TARGET_GAME_DATA_DIR, it), path.resolve(destinationPath, it), { recursive: true });
+    });
+  } else {
+    cpSync(TARGET_GAME_DATA_DIR, destinationPath, { recursive: true });
+  }
 }
 
 /**

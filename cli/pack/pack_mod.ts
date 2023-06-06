@@ -42,7 +42,7 @@ export async function packMod(parameters: IPackParameters): Promise<void> {
     assert(isValidEngine(engine), `Expected engine to be valid, got '${engine}'.`);
 
     const timeTracker: TimeTracker = new TimeTracker().start();
-    const isBuildRequired: boolean = !parameters.noBuild;
+    const isBuildRequired: boolean = parameters.build;
 
     if (parameters.clean) {
       log.info("Perform package cleanup:", yellowBright(TARGET_MOD_PACKAGE_DIR));
