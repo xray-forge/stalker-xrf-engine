@@ -20,6 +20,7 @@ export function setupParseCommands(command: Command): void {
     .command("translation_as_json <path>")
     .description("parse provided path to xml translation as json")
     .option("-l, --language <locale>", "use language as key for translations")
+    .option("-e, --encoding <encoding>", "use specified target XML encoding")
     .option("-v, --verbose", "use verbose logging")
     .action(parseTranslationAsJson);
 

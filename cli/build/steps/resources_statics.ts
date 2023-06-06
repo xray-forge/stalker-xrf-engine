@@ -102,7 +102,7 @@ async function validateResources(folderPath: string): Promise<Array<string>> {
  * Copy provided assets directory resources if directory exists.
  */
 async function copyStaticResources(from: string, to: string): Promise<void> {
-  log.debug("Copy raw assets from:", yellowBright(from), "=>", yellowBright(to));
+  log.debug("Copy assets:", yellowBright(from), "=>", yellowBright(to));
 
   const diffs = await getDiffs(from, to);
   const prefixLen = from.length + path.sep.length;

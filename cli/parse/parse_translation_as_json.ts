@@ -4,6 +4,7 @@ import * as path from "path";
 
 import { green, red, yellow, yellowBright } from "chalk";
 import { XMLParser } from "fast-xml-parser";
+import { decode, encodingExists } from "iconv-lite";
 
 import { default as config } from "#/config.json";
 import { TARGET_PARSED_DIR } from "#/globals";
@@ -14,11 +15,16 @@ import {
   IJsonTranslationSchema,
   IXmlTranslationSchema,
   NodeLogger,
+  Optional,
 } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("PARSE_TRANSLATION_AS_JSON");
 
+const DEFAULT_TARGET_ENCODING: string = "windows-1251";
+const DEFAULT_TARGET_ENCODING_CHECK_LIMIT: number = 64;
+
 interface IParseTranslationParameters {
+  encoding?: string;
   language?: string;
   verbose?: boolean;
 }
@@ -30,12 +36,13 @@ export async function parseTranslationAsJson(file: string, parameters: IParseTra
   NodeLogger.IS_VERBOSE = Boolean(parameters.verbose);
 
   const locale: string = getTargetLocale(parameters);
+  const encoding: string = parameters.encoding;
 
   log.info("Parsing translation:", yellow(file), green(locale));
   log.debug("Running with parameters:", parameters);
 
   if (await exists(file)) {
-    const data: IJsonTranslationSchema = await parseXmlToJson(file);
+    const data: IJsonTranslationSchema = await parseXmlToJson(file, encoding);
 
     await saveResult(file, JSON.stringify(transformXmlToJSON(data, locale), null, 2));
 
@@ -80,11 +87,14 @@ function isValidSchema(record: AnyObject): record is IXmlTranslationSchema {
 /**
  * Parse provided file content to JSON.
  */
-async function parseXmlToJson(file: string): Promise<Record<string, any>> {
+async function parseXmlToJson(file: string, encoding?: string): Promise<Record<string, any>> {
   const parser: XMLParser = new XMLParser({ ignoreAttributes: false, isArray: (tag) => tag === "string" });
   const data: Buffer = fs.readFileSync(file);
+  const usedEncoding: string = encoding ?? readEncodingFromBuffer(data) ?? DEFAULT_TARGET_ENCODING;
 
-  return parser.parse(data);
+  log.info("Parsing file with encoding:", green(usedEncoding));
+
+  return parser.parse(decode(data, usedEncoding));
 }
 
 /**
@@ -98,6 +108,8 @@ async function saveResult(file: string, content: string): Promise<void> {
     log.debug("MKDIR:", yellowBright(TARGET_PARSED_DIR));
   }
 
+  log.debug("Write file:", yellow(target));
+
   await fsp.writeFile(target, content);
 }
 
@@ -108,8 +120,30 @@ function getTargetLocale(parameters: IParseTranslationParameters): string {
   const locale: string = parameters.language ?? config.locale;
 
   if (config.available_locales.includes(locale)) {
+    log.debug("Using parameter locale:", locale);
+
     return locale;
   } else {
+    log.debug("Fallback to default config locale:", config.locale);
+
     return config.locale;
+  }
+}
+
+/**
+ * Try to guess encoding from XML file.
+ */
+function readEncodingFromBuffer(buffer: Buffer): Optional<string> {
+  const beginning: string = buffer.toString("utf-8", 0, DEFAULT_TARGET_ENCODING_CHECK_LIMIT);
+  const matches: RegExpMatchArray = beginning.match(/encoding="(.+)"/);
+
+  if (matches && matches.length > 1 && encodingExists(matches[1])) {
+    log.debug("Guessed encoding from XML heading:", matches[1]);
+
+    return matches[1];
+  } else {
+    log.debug("No matching encoding found in parsed file", buffer.length);
+
+    return null;
   }
 }
