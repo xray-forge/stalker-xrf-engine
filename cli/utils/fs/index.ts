@@ -8,5 +8,7 @@ export * from "#/utils/fs/nornamize_parameter_path";
 export * from "#/utils/fs/open_folder_in_explorer";
 export * from "#/utils/fs/read_dir_content";
 export * from "#/utils/fs/read_dir_content_flat";
+export * from "#/utils/fs/read_dir_content_flat_gen";
+export * from "#/utils/fs/get_diffs";
 export * from "#/utils/fs/read_last_lines_of_file";
 export * from "#/utils/fs/types";

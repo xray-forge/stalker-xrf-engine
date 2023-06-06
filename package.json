@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "cli": "ts-node -P ./cli/tsconfig.json cli/run.ts",
-    "setup": "git submodule init && git submodule update --recursive",
+    "setup": "git submodule update --init --recursive",
     "verify": "ts-node -P ./cli/tsconfig.json cli/run.ts verify",
     "build": "ts-node -P cli/tsconfig.json cli/run.ts build",
     "pack:mod": "ts-node -P cli/tsconfig.json cli/run.ts pack mod -c -o",
