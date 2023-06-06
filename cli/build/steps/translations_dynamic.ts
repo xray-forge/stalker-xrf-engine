@@ -5,7 +5,7 @@ import { blueBright, yellowBright } from "chalk";
 import { encode } from "iconv-lite";
 import { JSXXML } from "jsx-xml";
 
-import { default as cliConfig } from "#/config.json";
+import { default as config } from "#/config.json";
 import { GAME_DATA_TRANSLATIONS_DIR, TARGET_GAME_DATA_TRANSLATIONS_DIR } from "#/globals/paths";
 import {
   NodeLogger,
@@ -19,7 +19,7 @@ import {
 const log: NodeLogger = new NodeLogger("BUILD_TRANSLATIONS_DYNAMIC");
 
 const EXPECTED_CONFIG_EXTENSIONS: Array<string> = [".json"];
-const LOCALES_TO_PROCESS: Array<string> = cliConfig.available_locales;
+const LOCALES_TO_PROCESS: Array<string> = config.available_locales;
 const TARGET_ENCODING: string = "windows-1251";
 
 /**
