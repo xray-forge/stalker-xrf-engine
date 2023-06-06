@@ -20,8 +20,6 @@ export async function linkFolders(): Promise<void> {
     await linkGameFolder();
     await linkGamedataFolders();
     await linkLogsFolders();
-
-    log.pushNewLine();
   } catch (error) {
     log.error("Links creation failed:", red(error.message));
   }

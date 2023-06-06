@@ -22,3 +22,4 @@ List of arguments:
 - `npm run cli link`
 - `npm run cli link --force`
 - `npm run cli unlink`
+- `npm run cli relink`
