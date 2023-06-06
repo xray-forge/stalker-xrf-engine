@@ -16,7 +16,7 @@ import {
   TFolderReplicationDescriptor,
 } from "#/utils";
 
-const log: NodeLogger = new NodeLogger("BUILD_TRANSLATIONS");
+const log: NodeLogger = new NodeLogger("BUILD_TRANSLATIONS_DYNAMIC");
 
 const EXPECTED_CONFIG_EXTENSIONS: Array<string> = [".json"];
 const LOCALES_TO_PROCESS: Array<string> = cliConfig.available_locales;
@@ -25,7 +25,7 @@ const TARGET_ENCODING: string = "windows-1251";
 /**
  * Build different languages translations based on JSON files.
  */
-export async function buildTranslations(): Promise<void> {
+export async function buildDynamicTranslations(): Promise<void> {
   log.info(blueBright("Build translations"));
   log.info("Target encoding:", yellowBright(TARGET_ENCODING));
 
