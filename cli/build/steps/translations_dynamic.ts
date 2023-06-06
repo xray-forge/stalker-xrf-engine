@@ -103,7 +103,9 @@ function createJsonTranslationFiles(descriptor: TFolderReplicationDescriptor): v
 
       Object.entries(data).map(([key, value]) => {
         if (value[locale]) {
-          return JSXXML("string", { id: key }, JSXXML("text", {}, value[locale]));
+          const text: string = Array.isArray(value[locale]) ? value[locale].join("\\n") : value[locale];
+
+          return JSXXML("string", { id: key }, JSXXML("text", {}, text));
         } else {
           return null;
         }

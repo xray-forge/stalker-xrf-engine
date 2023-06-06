@@ -702,10 +702,22 @@
     "ukr": "Торговець інформацією"
   },
   "st_sp_achievement_21_hint": {
-    "eng": "Your relations with stalkers have improved. If you find yourself in a pickle, stalkers will try to help you.\\nStalker medics have agreed to sell you medical supplies at cost price.",
-    "pol": "Twoje stosunki ze stalkerami ulegіy poprawie. Jeњli kiedykolwiek napytasz sobie biedy, bкd№ oni prуbowali ci pomуc. \\nStalkerscy medycy zgodzili siк sprzedawaж ci lekarstwa po kosztach.",
-    "rus": "Ваши отношения со сталкерами улучшились. Если Вы попадёте в неприятности, сталкеры постараются прийти к вам на помощь.\\nСталкеры-медики условились продавать Вам медикаменты по себестоимости.",
-    "ukr": "Ваші відносини зі сталкерами покращилися. Якщо Ви трапите у халепу, сталкери намагатимуться прийти до вас на допомогу.\\nСталкери-медики домовилися продавати Вам медикаменти за собівартістю."
+    "eng": [
+      "Your relations with stalkers have improved. If you find yourself in a pickle, stalkers will try to help you.",
+      "Stalker medics have agreed to sell you medical supplies at cost price."
+    ],
+    "pol": [
+      "Twoje stosunki ze stalkerami ulegіy poprawie. Jeњli kiedykolwiek napytasz sobie biedy, bкd№ oni prуbowali ci pomуc.",
+      "Stalkerscy medycy zgodzili siк sprzedawaж ci lekarstwa po kosztach."
+    ],
+    "rus": [
+      "Ваши отношения со сталкерами улучшились. Если Вы попадёте в неприятности, сталкеры постараются прийти к вам на помощь.",
+      "Сталкеры-медики условились продавать Вам медикаменты по себестоимости."
+    ],
+    "ukr": [
+      "Ваші відносини зі сталкерами покращилися. Якщо Ви трапите у халепу, сталкери намагатимуться прийти до вас на допомогу.",
+      "Сталкери-медики домовилися продавати Вам медикаменти за собівартістю."
+    ]
   },
   "st_sp_achievement_21_descr": {
     "eng": "You’ve always helped out stalkers in trouble. Although their faction is not very tight-knit, you now have allies in the unofficial stalker brotherhood who will help you in combat and afterwards too.",
@@ -732,9 +744,21 @@
     "ukr": "Навіть без прийому препаратів у Вас є шанс пережити викид поза укриттям, якщо Ваше здоров'я нічим не підірване."
   },
   "st_sp_achievement_13_hint": {
-    "eng": "Given how useful you are, Professor Hermann is now offering you medical supplies and equipment intended exclusively for bunker personnel at cost price.\\nNovikov is so used to you that he only wants you to pay for parts when performing modifications.",
-    "pol": "Ze wzglкdu na twoj№ uїytecznoњж, profesor Herman oferuje ci teraz po kosztach њrodki medyczne i wyposaїenie przeznaczone tylko dla personelu bunkra. \\nNowikow na tyle do ciebie przywykі, їe przy wykonywaniu modyfikacji oczekuje tylko zwrotu kosztu uїytych czкњci.",
-    "rus": "Разглядев в Вас ценного помощника, профессор Герман предлагает Вам медикаменты и оборудование, предназначенные только для персонала бункера, по себестоимости.\\nНовиков настолько к Вам привык, что, делая модификации, требует оплату только за расходные материалы.",
-    "ukr": "Розгледівши у Вас цінного помічника, професор Герман пропонує Вам медикаменти та устаткування, призначені лише для персоналу бункера, за собівартістю.\\nНовіков настільки до Вас звик, що, здійснюючи модифікації, вимагає плату лише за витратні матеріали."
+    "eng": [
+      "Given how useful you are, Professor Hermann is now offering you medical supplies and equipment intended exclusively for bunker personnel at cost price.",
+      "Novikov is so used to you that he only wants you to pay for parts when performing modifications."
+    ],
+    "pol": [
+      "Ze wzglкdu na twoj№ uїytecznoњж, profesor Herman oferuje ci teraz po kosztach њrodki medyczne i wyposaїenie przeznaczone tylko dla personelu bunkra.",
+      "Nowikow na tyle do ciebie przywykі, їe przy wykonywaniu modyfikacji oczekuje tylko zwrotu kosztu uїytych czкњci."
+    ],
+    "rus": [
+      "Разглядев в Вас ценного помощника, профессор Герман предлагает Вам медикаменты и оборудование, предназначенные только для персонала бункера, по себестоимости.",
+      "Новиков настолько к Вам привык, что, делая модификации, требует оплату только за расходные материалы."
+    ],
+    "ukr": [
+      "Розгледівши у Вас цінного помічника, професор Герман пропонує Вам медикаменти та устаткування, призначені лише для персоналу бункера, за собівартістю.",
+      "Новіков настільки до Вас звик, що, здійснюючи модифікації, вимагає плату лише за витратні матеріали."
+    ]
   }
 }

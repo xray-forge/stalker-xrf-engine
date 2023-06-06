@@ -44,7 +44,7 @@ export async function parseTranslationAsJson(file: string, parameters: IParseTra
   if (await exists(file)) {
     const data: IJsonTranslationSchema = await parseXmlToJson(file, encoding);
 
-    await saveResult(file, JSON.stringify(transformXmlToJSON(data, locale), null, 2));
+    await saveResult(file, JSON.stringify(transformXmlToJSON(data, locale), null, 2) + "\n");
 
     log.info("Saved resulting file to:", yellow(TARGET_PARSED_DIR));
   } else {
@@ -64,7 +64,11 @@ function transformXmlToJSON(schema: AnyObject, locale: string): IJsonTranslation
 
   return schema["string_table"]["string"].reduce((acc, it) => {
     acc[it["@_id"]] = config.available_locales.reduce((translation, lang) => {
-      translation[lang] = lang === locale ? it.text : it["@_id"];
+      if (lang === locale) {
+        translation[lang] = it.text.includes("\\n") ? it.text.split("\\n") : it.text;
+      } else {
+        translation[lang] = it["@_id"];
+      }
 
       return translation;
     }, {});
