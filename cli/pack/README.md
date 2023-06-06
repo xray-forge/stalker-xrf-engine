@@ -9,8 +9,8 @@ Combines compressed archives, static assets and game engine together.
 
 List of arguments:
 
-- `-c, --clean` - perform destination clean
-- `-b, --build` - run build before creation
+- `-c, --clean` - perform `game_pack` folder clean before building
+- `--nb, --no-build` - prevent run build before creation
 - `-e, --engine <type>` - use provided engine
 - `-o, --optimize ` - use build optimizations
 - `-v, --verbose ` - use verbose logging
@@ -19,6 +19,6 @@ List of arguments:
 ### Example
 
 - `npm run cli pack game -- -h`
-- `npm run cli pack game -- -b -o`
-- `npm run cli pack mod -- -b -e mixed`
+- `npm run cli pack game -- -o`
+- `npm run cli pack mod -- -e mixed`
 - `npm run cli pack mod -- --verbose`

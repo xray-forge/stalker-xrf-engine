@@ -47,9 +47,19 @@ export async function packGame(parameters: IPackParameters): Promise<void> {
     assert(isValidEngine(engine), `Expected engine to be valid, got '${engine}'.`);
 
     const timeTracker: TimeTracker = new TimeTracker().start();
+    const isBuildRequired: boolean = !parameters.noBuild;
+
+    if (parameters.clean) {
+      log.info("Perform package cleanup:", yellowBright(TARGET_GAME_PACKAGE_DIR));
+      rmSync(TARGET_GAME_PACKAGE_DIR, { recursive: true, force: true });
+      timeTracker.addMark("PACKAGE_CLEANUP");
+    } else {
+      log.info("Skip package cleanup:", WARNING_SIGN);
+      timeTracker.addMark("PACKAGE_CLEANUP_SKIP");
+    }
 
     // If needed, proceed with full build and compression step.
-    if (parameters.build) {
+    if (isBuildRequired) {
       log.info("Packaging from new assets, starting build");
       log.pushNewLine();
 
@@ -68,15 +78,6 @@ export async function packGame(parameters: IPackParameters): Promise<void> {
       await compress({ clean: true, verbose: parameters.verbose, include: "all" });
     } else {
       log.info("Packaging from already built assets", WARNING_SIGN);
-    }
-
-    if (parameters.clean) {
-      log.info("Perform package cleanup:", yellowBright(TARGET_GAME_PACKAGE_DIR));
-      rmSync(TARGET_GAME_PACKAGE_DIR, { recursive: true, force: true });
-      timeTracker.addMark("PACKAGE_CLEANUP");
-    } else {
-      log.info("Skip package cleanup:", WARNING_SIGN);
-      timeTracker.addMark("PACKAGE_CLEANUP_SKIP");
     }
 
     copyGameEngine(engine);
