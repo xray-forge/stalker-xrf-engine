@@ -1,13 +1,13 @@
 import * as fs from "fs";
-import * as fsPromises from "fs/promises";
+import * as fsp from "fs/promises";
 import * as path from "path";
 
-import { blueBright, yellow, yellowBright } from "chalk";
+import { blueBright, yellowBright } from "chalk";
 
 import { IBuildCommandParameters } from "#/build/build";
 import { default as config } from "#/config.json";
 import { CLI_DIR, TARGET_GAME_DATA_DIR } from "#/globals/paths";
-import { NodeLogger, normalizeParameterPath } from "#/utils";
+import { getDiffs, NodeLogger, normalizeParameterPath, readFolderGen } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_ASSET_STATICS");
 
@@ -37,68 +37,76 @@ export async function buildResourcesStatics(parameters: IBuildCommandParameters)
     log.warn("No locale resources detected for current locale");
   }
 
-  const folderToProcess: Array<string> = [configuredDefaultPath, ...configuredTargetPath].filter((it) => {
+  const resourceFolders: Array<string> = [configuredDefaultPath, ...configuredTargetPath].filter((it) => {
     log.debug("Resources folder candidate check:", yellowBright(it));
 
     return fs.existsSync(it);
   });
 
-  if (folderToProcess.length) {
-    log.info("Process folders with resources:", folderToProcess.length);
+  if (resourceFolders.length) {
+    log.info("Process folders with resources:", resourceFolders.length);
 
-    for (const it of folderToProcess) {
-      await copyStaticAssetsFromFolder(it);
+    for (const folderPath of resourceFolders) {
+      const sourcePaths = await validateResources(folderPath);
+
+      for (const sourcePath of sourcePaths) {
+        const relativePath = sourcePath.slice(folderPath.length);
+        const targetDir = path.join(TARGET_GAME_DATA_DIR, relativePath);
+
+        await copyStaticResources(sourcePath, targetDir);
+      }
     }
   } else {
     log.info("No resources sources found");
   }
 }
 
+async function validateResources(folderPath: string): Promise<string[]> {
+  const dirents = await fsp.readdir(folderPath, { withFileTypes: true });
+  const allowFiles = (dirent: fs.Dirent) => {
+    const name = dirent.name;
+
+    if (dirent.isDirectory()) {
+      // Do not allow copy of folders that overlap with auto-generated code.
+      if (UNEXPECTED_DIRECTORIES.includes(name)) {
+        throw new Error("Provided not expected directory for resources copy.");
+      }
+
+      // Do not copy hidden folders.
+      if (name.startsWith(".")) {
+        return null;
+      }
+
+      return path.join(folderPath, name);
+    }
+
+    if (!GENERIC_FILES.includes(name)) {
+      return path.join(folderPath, name);
+    }
+
+    return null;
+  };
+
+  return dirents.map(allowFiles).filter(Boolean);
+}
+
 /**
  * Copy provided assets directory resources if directory exists.
  */
-async function copyStaticAssetsFromFolder(resourcesFolderPath: string): Promise<void> {
-  log.info("Copy raw assets from:", yellowBright(resourcesFolderPath));
+async function copyStaticResources(from: string, to: string): Promise<void> {
+  log.info("Copy raw assets from:", yellowBright(from), "=>", yellowBright(to));
 
-  const contentFolders: Array<string> = await Promise.all(
-    (
-      await fsPromises.readdir(resourcesFolderPath, { withFileTypes: true })
-    )
-      .map((dirent) => {
-        if (dirent.isDirectory()) {
-          // Do not allow copy of folders that overlap with auto-generated code.
-          if (UNEXPECTED_DIRECTORIES.includes(dirent.name)) {
-            throw new Error("Provided not expected directory for resources copy.");
-            // Do not copy hidden folders.
-          } else if (dirent.name.startsWith(".")) {
-            return null;
-          }
+  const diffs = await getDiffs(from, to);
+  const prefixLen = from.length + path.sep.length;
+  const additions = new Set(diffs.additions.files.map(path.normalize));
 
-          return path.join(resourcesFolderPath, dirent.name);
-        }
+  for await (const filePath of readFolderGen(from)) {
+    const relPath = filePath.slice(prefixLen);
+    const fromFile = path.join(from, relPath);
+    const toFile = path.join(to, relPath);
 
-        if (!GENERIC_FILES.includes(dirent.name)) {
-          return path.join(resourcesFolderPath, dirent.name);
-        }
-
-        return null;
-      })
-      .filter(Boolean)
-  );
-
-  /**
-   * Copy recursively content.
-   */
-  await Promise.all(
-    contentFolders.map(async (it) => {
-      const relativePath: string = it.slice(resourcesFolderPath.length);
-      const targetDir: string = path.join(TARGET_GAME_DATA_DIR, relativePath);
-
-      log.debug("CP -R:", yellow(targetDir));
-
-      return fsPromises.cp(it, targetDir, { recursive: true });
-    })
-  );
-
-  log.info("Resource folders processed:", yellowBright(resourcesFolderPath), contentFolders.length);
+    if (additions.has(relPath)) {
+      await fsp.cp(fromFile, toFile);
+    }
+  }
 }
