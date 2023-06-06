@@ -5,7 +5,7 @@ import * as path from "path";
 import { green, yellowBright } from "chalk";
 
 import { ROOT_DIR, TARGET_PARSED_DIR } from "#/globals/paths";
-import { NodeLogger, readDirContentFlat } from "#/utils";
+import { createDirIfNoExisting, NodeLogger, readDirContentFlat } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("PARSE_DIR_AS_JSON");
 
@@ -31,9 +31,8 @@ export async function parseDirAsJson(targetPath: string, parameters: IParseDirPa
 
     log.info("Writing parsed tree to:", yellowBright(targetFilePath));
 
-    if (!fs.existsSync(TARGET_PARSED_DIR)) {
+    if (createDirIfNoExisting(TARGET_PARSED_DIR)) {
       log.debug("MKDIR:", yellowBright(TARGET_PARSED_DIR));
-      fs.mkdirSync(TARGET_PARSED_DIR, { recursive: true });
     }
 
     const resultingObject: Record<string, string> = tree.reduce((acc, it) => {

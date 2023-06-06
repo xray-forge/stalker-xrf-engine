@@ -20,3 +20,4 @@ List of arguments:
 - `npm run cli parse externals`
 - `npm run cli parse dir_as_json ../gamedata_original/anims`
 - `npm run cli parse dir_as_json ../gamedata_original/textures -- --no-extension`
+- `npm run cli parse translation_as_json ./some/file.xml -- --language eng`
