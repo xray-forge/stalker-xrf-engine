@@ -47,13 +47,18 @@ export async function buildResourcesStatics(parameters: IBuildCommandParameters)
     log.info("Process folders with resources:", resourceFolders.length);
 
     for (const folderPath of resourceFolders) {
-      const sourcePaths = await validateResources(folderPath);
+      const sourcePaths: Array<string> = await validateResources(folderPath);
 
       for (const sourcePath of sourcePaths) {
-        const relativePath = sourcePath.slice(folderPath.length);
-        const targetDir = path.join(TARGET_GAME_DATA_DIR, relativePath);
+        const relativePath: string = sourcePath.slice(folderPath.length);
+        const targetDir: string = path.join(TARGET_GAME_DATA_DIR, relativePath);
+        const isDirectory: boolean = (await fsp.stat(sourcePath)).isDirectory();
 
-        await copyStaticResources(sourcePath, targetDir);
+        if (isDirectory) {
+          await copyStaticResources(sourcePath, targetDir);
+        } else {
+          await fsp.cp(sourcePath, targetDir);
+        }
       }
     }
   } else {
@@ -61,10 +66,13 @@ export async function buildResourcesStatics(parameters: IBuildCommandParameters)
   }
 }
 
-async function validateResources(folderPath: string): Promise<string[]> {
+/**
+ * Get valid resources paths from provided folder directory.
+ */
+async function validateResources(folderPath: string): Promise<Array<string>> {
   const dirents = await fsp.readdir(folderPath, { withFileTypes: true });
   const allowFiles = (dirent: fs.Dirent) => {
-    const name = dirent.name;
+    const name: string = dirent.name;
 
     if (dirent.isDirectory()) {
       // Do not allow copy of folders that overlap with auto-generated code.
@@ -94,16 +102,16 @@ async function validateResources(folderPath: string): Promise<string[]> {
  * Copy provided assets directory resources if directory exists.
  */
 async function copyStaticResources(from: string, to: string): Promise<void> {
-  log.info("Copy raw assets from:", yellowBright(from), "=>", yellowBright(to));
+  log.debug("Copy raw assets from:", yellowBright(from), "=>", yellowBright(to));
 
   const diffs = await getDiffs(from, to);
   const prefixLen = from.length + path.sep.length;
   const additions = new Set(diffs.additions.files.map(path.normalize));
 
   for await (const filePath of readFolderGen(from)) {
-    const relPath = filePath.slice(prefixLen);
-    const fromFile = path.join(from, relPath);
-    const toFile = path.join(to, relPath);
+    const relPath: string = filePath.slice(prefixLen);
+    const fromFile: string = path.join(from, relPath);
+    const toFile: string = path.join(to, relPath);
 
     if (additions.has(relPath)) {
       await fsp.cp(fromFile, toFile);
