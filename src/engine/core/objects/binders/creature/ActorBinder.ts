@@ -5,7 +5,6 @@ import {
   closeSaveMarker,
   destroyPortableStore,
   initializePortableStore,
-  IRegistryObjectState,
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
@@ -46,14 +45,15 @@ export class ActorBinder extends object_binder {
   public deimosIntensity: Optional<number> = null;
 
   public override net_spawn(data: ServerActorObject): boolean {
+    logger.info("Net spawn");
+
     level.show_indicators();
 
     if (!super.net_spawn(data)) {
       return false;
     }
 
-    const state: IRegistryObjectState = registerActor(this.object);
-
+    registerActor(this.object);
     initializePortableStore(this.object);
 
     // todo: Move out deimos related logic / data.
@@ -61,18 +61,13 @@ export class ActorBinder extends object_binder {
 
     this.deimosIntensity = null;
 
-    // todo: If needed, probably separate init method
-    if (state.portableStore === null) {
-      state.portableStore = new LuaTable();
-    }
-
     this.eventsManager.emitEvent(EGameEvent.ACTOR_NET_SPAWN, this);
 
     return true;
   }
 
   public override net_destroy(): void {
-    logger.info("Net destroy:", this.object.name());
+    logger.info("Net destroy");
 
     level.show_weapon(true);
 
@@ -94,8 +89,11 @@ export class ActorBinder extends object_binder {
   }
 
   public override reinit(): void {
+    logger.info("Reinit");
+
     super.reinit();
 
+    registerActor(this.object);
     destroyPortableStore(this.object);
 
     this.object.set_callback(callback.inventory_info, (object: ClientObject, info: string) => {
@@ -136,6 +134,8 @@ export class ActorBinder extends object_binder {
   }
 
   public override save(packet: NetPacket): void {
+    logger.info("Save");
+
     openSaveMarker(packet, ActorBinder.__name);
 
     super.save(packet);
@@ -165,6 +165,8 @@ export class ActorBinder extends object_binder {
   }
 
   public override load(reader: Reader): void {
+    logger.info("Load");
+
     this.isFirstUpdatePerformed = false;
 
     openLoadMarker(reader, ActorBinder.__name);

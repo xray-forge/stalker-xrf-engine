@@ -11,7 +11,10 @@ import { ReleaseBodyManager } from "@/engine/core/managers/world/ReleaseBodyMana
 import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { NetPacket, NetProcessor } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Manage game saves for other managers / parts.
@@ -21,6 +24,8 @@ export class SaveManager extends AbstractCoreManager {
    * Save core managers data.
    */
   public override save(packet: NetPacket): void {
+    logger.info("Saving");
+
     WeatherManager.getInstance().save(packet);
     ReleaseBodyManager.getInstance().save(packet);
     SurgeManager.getInstance().save(packet);
@@ -38,6 +43,8 @@ export class SaveManager extends AbstractCoreManager {
    * Load core managers data.
    */
   public override load(reader: NetProcessor): void {
+    logger.info("Loading");
+
     WeatherManager.getInstance().load(reader);
     ReleaseBodyManager.getInstance().load(reader);
     SurgeManager.getInstance().load(reader);
