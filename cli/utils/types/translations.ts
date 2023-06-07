@@ -5,3 +5,12 @@ export interface IXmlTranslationSchema {
 export interface IJsonTranslationSchema {
   [key: string]: Record<string, string>;
 }
+
+/**
+ * Enumeration of possible extensions for usage.
+ */
+export enum EEncoding {
+  ASCII = "ascii",
+  WINDOWS_1251 = "windows-1251",
+  UTF_8 = "utf-8",
+}

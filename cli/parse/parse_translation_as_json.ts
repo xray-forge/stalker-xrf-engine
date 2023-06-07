@@ -11,6 +11,8 @@ import { TARGET_PARSED_DIR } from "#/globals";
 import {
   AnyObject,
   createDirIfNoExisting,
+  EAssetExtension,
+  EEncoding,
   exists,
   IJsonTranslationSchema,
   IXmlTranslationSchema,
@@ -20,7 +22,7 @@ import {
 
 const log: NodeLogger = new NodeLogger("PARSE_TRANSLATION_AS_JSON");
 
-const DEFAULT_TARGET_ENCODING: string = "windows-1251";
+const DEFAULT_TARGET_ENCODING: EEncoding = EEncoding.WINDOWS_1251;
 const DEFAULT_TARGET_ENCODING_CHECK_LIMIT: number = 64;
 
 interface IParseTranslationParameters {
@@ -106,7 +108,7 @@ async function parseXmlToJson(file: string, encoding?: string): Promise<Record<s
  */
 async function saveResult(file: string, content: string): Promise<void> {
   const fileDetails: path.ParsedPath = path.parse(file);
-  const target: string = path.resolve(TARGET_PARSED_DIR, `${fileDetails.name}.json`);
+  const target: string = path.resolve(TARGET_PARSED_DIR, `${fileDetails.name}${EAssetExtension.JSON}`);
 
   if (createDirIfNoExisting(TARGET_PARSED_DIR)) {
     log.debug("MKDIR:", yellowBright(TARGET_PARSED_DIR));
@@ -138,7 +140,7 @@ function getTargetLocale(parameters: IParseTranslationParameters): string {
  * Try to guess encoding from XML file.
  */
 function readEncodingFromBuffer(buffer: Buffer): Optional<string> {
-  const beginning: string = buffer.toString("utf-8", 0, DEFAULT_TARGET_ENCODING_CHECK_LIMIT);
+  const beginning: string = buffer.toString(EEncoding.UTF_8, 0, DEFAULT_TARGET_ENCODING_CHECK_LIMIT);
   const matches: RegExpMatchArray = beginning.match(/encoding="(.+)"/);
 
   if (matches && matches.length > 1 && encodingExists(matches[1])) {

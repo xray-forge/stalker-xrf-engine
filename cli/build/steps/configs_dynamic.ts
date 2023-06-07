@@ -7,6 +7,7 @@ import { IBuildCommandParameters } from "#/build/build";
 import { GAME_DATA_LTX_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals/paths";
 import {
   createDirForConfigs,
+  EAssetExtension,
   ILtxConfigDescriptor,
   NodeLogger,
   Optional,
@@ -17,7 +18,6 @@ import {
 } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_DYNAMIC");
-const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".ts"];
 
 /**
  * Transform typescript config files to LTX configs.
@@ -73,8 +73,8 @@ async function getLtxConfigs(filters: Array<string> = []): Promise<Array<TFolder
   ): Array<TFolderReplicationDescriptor> {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectLtxConfigs(acc, nested));
-    } else if (EXPECTED_DYNAMIC_XML_EXTENSIONS.includes(path.extname(it))) {
-      const to: string = it.slice(GAME_DATA_LTX_CONFIGS_DIR.length).replace(/\.[^/.]+$/, "") + ".ltx";
+    } else if (path.extname(it) === EAssetExtension.TS) {
+      const to: string = it.slice(GAME_DATA_LTX_CONFIGS_DIR.length).replace(/\.[^/.]+$/, "") + EAssetExtension.LTX;
 
       // Filter.
       if (!filters.length || filters.some((filter) => it.match(filter))) {

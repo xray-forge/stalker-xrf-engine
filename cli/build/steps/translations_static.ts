@@ -6,7 +6,7 @@ import { blueBright, yellow, yellowBright } from "chalk";
 
 import { default as config } from "#/config.json";
 import { GAME_DATA_TRANSLATIONS_DIR, TARGET_GAME_DATA_TRANSLATIONS_DIR } from "#/globals";
-import { NodeLogger, readDirContent, TFolderFiles, TFolderReplicationDescriptor } from "#/utils";
+import { EAssetExtension, NodeLogger, readDirContent, TFolderFiles, TFolderReplicationDescriptor } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_TRANSLATIONS_DYNAMIC");
 
@@ -59,7 +59,7 @@ function collectTranslations(
 ): Array<TFolderReplicationDescriptor> {
   if (Array.isArray(it)) {
     it.forEach((nested) => collectTranslations(acc, nested));
-  } else if (path.extname(it) === ".xml") {
+  } else if (path.extname(it) === EAssetExtension.XML) {
     const relativePath: string = it.slice(GAME_DATA_TRANSLATIONS_DIR.length);
     const isLocaleBased: boolean = isLocaleBasedXml(relativePath);
 
@@ -80,7 +80,7 @@ function collectTranslations(
  * Check whether provided XML path is locale based.
  */
 function isLocaleBasedXml(name: string): boolean {
-  return config.available_locales.some((it) => name.endsWith(`.${it}.xml`));
+  return config.available_locales.some((it) => name.endsWith(`.${it}${EAssetExtension.XML}`));
 }
 
 /**

@@ -8,6 +8,8 @@ import { JSXXML } from "jsx-xml";
 import { default as config } from "#/config.json";
 import { GAME_DATA_TRANSLATIONS_DIR, TARGET_GAME_DATA_TRANSLATIONS_DIR } from "#/globals/paths";
 import {
+  EAssetExtension,
+  EEncoding,
   NodeLogger,
   quoted,
   readDirContent,
@@ -18,9 +20,9 @@ import {
 
 const log: NodeLogger = new NodeLogger("BUILD_TRANSLATIONS_DYNAMIC");
 
-const EXPECTED_CONFIG_EXTENSIONS: Array<string> = [".json"];
+const EXPECTED_CONFIG_EXTENSIONS: Array<EAssetExtension> = [EAssetExtension.JSON];
 const LOCALES_TO_PROCESS: Array<string> = config.available_locales;
-const TARGET_ENCODING: string = "windows-1251";
+const TARGET_ENCODING: EEncoding = EEncoding.WINDOWS_1251;
 
 /**
  * Build different languages translations based on JSON files.
@@ -39,7 +41,7 @@ export async function buildDynamicTranslations(): Promise<void> {
   ): Array<TFolderReplicationDescriptor> {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectTranslations(acc, nested));
-    } else if (EXPECTED_CONFIG_EXTENSIONS.includes(path.extname(it))) {
+    } else if (EXPECTED_CONFIG_EXTENSIONS.includes(path.extname(it) as EAssetExtension)) {
       const relativePath: string = it.slice(GAME_DATA_TRANSLATIONS_DIR.length);
 
       acc.push([it, path.join(TARGET_GAME_DATA_TRANSLATIONS_DIR, relativePath)]);
@@ -96,7 +98,7 @@ function createJsonTranslationFiles(descriptor: TFolderReplicationDescriptor): v
   log.debug("Processing:", source);
 
   LOCALES_TO_PROCESS.forEach((locale) => {
-    const targetFile: string = path.resolve(TARGET_GAME_DATA_TRANSLATIONS_DIR, locale, filename + ".xml");
+    const targetFile: string = path.resolve(TARGET_GAME_DATA_TRANSLATIONS_DIR, locale, filename + EAssetExtension.XML);
     const targetData = JSXXML(
       "string_table",
       {},

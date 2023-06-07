@@ -5,11 +5,19 @@ import { blue, blueBright } from "chalk";
 
 import { IBuildCommandParameters } from "#/build/build";
 import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/globals/paths";
-import { createDirForConfigs, NodeLogger, readDirContent, TFolderFiles, TFolderReplicationDescriptor } from "#/utils";
+import {
+  createDirForConfigs,
+  EAssetExtension,
+  NodeLogger,
+  readDirContent,
+  TFolderFiles,
+  TFolderReplicationDescriptor,
+} from "#/utils";
 import { renderJsxToXmlText } from "#/utils/xml";
 
 const log: NodeLogger = new NodeLogger("BUILD_UI_DYNAMIC");
-const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".tsx", ".ts"];
+
+const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<EAssetExtension> = [EAssetExtension.TS, EAssetExtension.TSX];
 
 /**
  * Build XML game forms from JSX forms.
@@ -61,8 +69,8 @@ async function getUiConfigs(filters: Array<string> = []): Promise<Array<TFolderR
   ): Array<TFolderReplicationDescriptor> {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectXmlConfigs(acc, nested));
-    } else if (EXPECTED_DYNAMIC_XML_EXTENSIONS.includes(path.extname(it))) {
-      const to: string = it.slice(GAME_DATA_UI_DIR.length).replace(/\.[^/.]+$/, "") + ".xml";
+    } else if (EXPECTED_DYNAMIC_XML_EXTENSIONS.includes(path.extname(it) as EAssetExtension)) {
+      const to: string = it.slice(GAME_DATA_UI_DIR.length).replace(/\.[^/.]+$/, "") + EAssetExtension.XML;
 
       // Filter.
       if (!filters.length || filters.some((filter) => it.match(filter))) {

@@ -7,9 +7,9 @@ import { yellow } from "chalk";
 import { GAME_LOGS_PATH, GAME_PATH } from "#/globals";
 import { NodeLogger, Optional, readLastLinesOfFile } from "#/utils";
 
-const GAME_BIN_DESCRIPTOR_DIR: string = path.resolve(GAME_PATH, "bin/bin.json");
-
 const log: NodeLogger = new NodeLogger("LOGS");
+
+const GAME_BIN_DESCRIPTOR_DIR: string = path.resolve(GAME_PATH, "bin/bin.json");
 
 /**
  * Print last 'n' lines from logs file.

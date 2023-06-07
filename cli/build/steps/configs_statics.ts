@@ -6,11 +6,11 @@ import { blueBright, yellow, yellowBright } from "chalk";
 
 import { IBuildCommandParameters } from "#/build/build";
 import { GAME_DATA_LTX_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals/paths";
-import { NodeLogger, readDirContent, TFolderFiles, TFolderReplicationDescriptor } from "#/utils";
+import { EAssetExtension, NodeLogger, readDirContent, TFolderFiles, TFolderReplicationDescriptor } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_STATICS");
 
-const EXPECTED_CONFIG_EXTENSIONS: Array<string> = [".ltx", ".xml"];
+const EXPECTED_CONFIG_EXTENSIONS: Array<EAssetExtension> = [EAssetExtension.LTX, EAssetExtension.XML];
 
 /**
  * Simply copy .xml and .ltx config statics to resulting gamedata directory.
@@ -59,7 +59,7 @@ async function getStaticConfigs(filters: Array<string> = []): Promise<Array<TFol
   ): Array<TFolderReplicationDescriptor> {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectConfigs(acc, nested));
-    } else if (EXPECTED_CONFIG_EXTENSIONS.includes(path.extname(it))) {
+    } else if (EXPECTED_CONFIG_EXTENSIONS.includes(path.extname(it) as EAssetExtension)) {
       const relativePath: string = it.slice(GAME_DATA_LTX_CONFIGS_DIR.length);
 
       // Filter.

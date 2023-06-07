@@ -6,11 +6,9 @@ import { blueBright, yellow, yellowBright } from "chalk";
 
 import { IBuildCommandParameters } from "#/build/build";
 import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/globals/paths";
-import { NodeLogger, readDirContent, TFolderReplicationDescriptor } from "#/utils";
+import { EAssetExtension, NodeLogger, readDirContent, TFolderReplicationDescriptor } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_UI_STATIC");
-
-const EXPECTED_STATIC_XML_EXTENSIONS: Array<string> = [".xml"];
 
 /**
  * Copy static XML files of UI.
@@ -59,7 +57,7 @@ async function getUiConfigs(filters: Array<string> = []): Promise<Array<TFolderR
   ): Array<TFolderReplicationDescriptor> {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectXmlConfigs(acc, nested));
-    } else if (EXPECTED_STATIC_XML_EXTENSIONS.includes(path.extname(it))) {
+    } else if (path.extname(it) === EAssetExtension.XML) {
       const to: string = it.slice(GAME_DATA_UI_DIR.length);
 
       // Filter.
