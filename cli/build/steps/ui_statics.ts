@@ -4,28 +4,21 @@ import * as path from "path";
 
 import { blueBright, yellow, yellowBright } from "chalk";
 
+import { IBuildCommandParameters } from "#/build/build";
 import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/globals/paths";
-import { NodeLogger, readDirContent } from "#/utils";
+import { NodeLogger, readDirContent, TFolderReplicationDescriptor } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_UI_STATIC");
+
 const EXPECTED_STATIC_XML_EXTENSIONS: Array<string> = [".xml"];
 
-export async function buildStaticUi(): Promise<void> {
+/**
+ * Copy static XML files of UI.
+ */
+export async function buildStaticUi(parameters: IBuildCommandParameters): Promise<void> {
   log.info(blueBright("Copy static UI schemas"));
 
-  function collectXmlConfigs(acc: Array<[string, string]>, it: Array<string> | string): Array<[string, string]> {
-    if (Array.isArray(it)) {
-      it.forEach((nested) => collectXmlConfigs(acc, nested));
-    } else if (EXPECTED_STATIC_XML_EXTENSIONS.includes(path.extname(it))) {
-      const to: string = it.slice(GAME_DATA_UI_DIR.length);
-
-      acc.push([it, path.join(TARGET_GAME_DATA_UI_DIR, to)]);
-    }
-
-    return acc;
-  }
-
-  const xmlConfigs: Array<[string, string]> = (await readDirContent(GAME_DATA_UI_DIR)).reduce(collectXmlConfigs, []);
+  const xmlConfigs: Array<TFolderReplicationDescriptor> = await getUiConfigs(parameters.filter);
 
   if (xmlConfigs.length > 0) {
     log.info("Found static UI configs");
@@ -54,4 +47,29 @@ export async function buildStaticUi(): Promise<void> {
   } else {
     log.info("No static XML configs found");
   }
+}
+
+/**
+ * Get UI configuration files list.
+ */
+async function getUiConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
+  function collectXmlConfigs(
+    acc: Array<TFolderReplicationDescriptor>,
+    it: Array<string> | string
+  ): Array<TFolderReplicationDescriptor> {
+    if (Array.isArray(it)) {
+      it.forEach((nested) => collectXmlConfigs(acc, nested));
+    } else if (EXPECTED_STATIC_XML_EXTENSIONS.includes(path.extname(it))) {
+      const to: string = it.slice(GAME_DATA_UI_DIR.length);
+
+      // Filter.
+      if (!filters.length || filters.some((filter) => it.match(filter))) {
+        acc.push([it, path.join(TARGET_GAME_DATA_UI_DIR, to)]);
+      }
+    }
+
+    return acc;
+  }
+
+  return (await readDirContent(GAME_DATA_UI_DIR)).reduce(collectXmlConfigs, []);
 }

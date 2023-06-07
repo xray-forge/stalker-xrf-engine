@@ -102,7 +102,7 @@ export async function build(parameters: IBuildCommandParameters): Promise<void> 
     if (buildTargets.includes(EBuildTarget.UI)) {
       await buildDynamicUi(parameters);
       timeTracker.addMark("BUILT_DYNAMIC_UI");
-      await buildStaticUi();
+      await buildStaticUi(parameters);
       timeTracker.addMark("BUILT_STATIC_UI");
     } else {
       log.info("UI build steps skipped");
