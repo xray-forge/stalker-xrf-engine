@@ -17,24 +17,22 @@ interface FileStats {
 }
 
 interface DiffOptions {
-  exclusions: string[];
+  exclusions: Array<string>;
   compareSizes: boolean;
 }
 
-interface Diff {
+export interface IDiff {
   totalSize: number;
   files: string[];
 }
 
-interface Diffs {
-  additions: Diff;
-  deletions: Diff;
+export interface IDiffs {
+  additions: IDiff;
+  deletions: IDiff;
 }
 
 function getTime(dateOrDateStr: Date | string): number {
-  return typeof dateOrDateStr === "string" ?
-    Date.parse(dateOrDateStr) :
-    dateOrDateStr.getTime();
+  return typeof dateOrDateStr === "string" ? Date.parse(dateOrDateStr) : dateOrDateStr.getTime();
 }
 
 async function ensureDirAccess(directory: string): Promise<void> {
@@ -61,11 +59,7 @@ async function getFileStats(directory: string, options): Promise<FileStats> {
 
   await ensureDirAccess(dir);
 
-  const {
-    exclusions = [],
-    pathSeparator = path.posix.sep,
-    encodePath = false,
-  } = options;
+  const { exclusions = [], pathSeparator = path.posix.sep, encodePath = false } = options;
   const fileStats = {
     totalSize: 0,
     files: {},
@@ -78,9 +72,8 @@ async function getFileStats(directory: string, options): Promise<FileStats> {
 
     const stats = await fsp.stat(filePath);
     const relativeFilePath = filePath.slice(dir.length + 1);
-    const posixPath = os.platform() === "win32" ?
-      relativeFilePath.split(path.sep).join(pathSeparator) :
-      relativeFilePath;
+    const posixPath =
+      os.platform() === "win32" ? relativeFilePath.split(path.sep).join(pathSeparator) : relativeFilePath;
 
     fileStats.totalSize += stats.size;
     fileStats.files[encodePath ? encodeURIComponent(posixPath) : posixPath] = {
@@ -92,7 +85,7 @@ async function getFileStats(directory: string, options): Promise<FileStats> {
   return fileStats;
 }
 
-export async function getDiffs(base: FilePathMap, target: FilePathMap, options?: DiffOptions): Promise<Diffs> {
+export async function getDiffs(base: FilePathMap, target: FilePathMap, options?: DiffOptions): Promise<IDiffs> {
   const { exclusions = [], compareSizes = true } = options || {};
   const statsOptions = { exclusions };
   let baseFiles = base;
@@ -140,9 +133,7 @@ export async function getDiffs(base: FilePathMap, target: FilePathMap, options?:
       const baseDateModified = getTime(baseDate);
       const targetDateModified = getTime(targetDate);
       const isTargetObsolete = targetDateModified < baseDateModified;
-      const comparison = compareSizes ?
-        (isTargetObsolete || baseSize !== targetSize) :
-        isTargetObsolete;
+      const comparison = compareSizes ? isTargetObsolete || baseSize !== targetSize : isTargetObsolete;
 
       if (comparison) {
         additions.totalSize += baseFileStats.size;

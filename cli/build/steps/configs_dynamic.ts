@@ -3,6 +3,7 @@ import * as path from "path";
 
 import { blue, blueBright } from "chalk";
 
+import { IBuildCommandParameters } from "#/build/build";
 import { GAME_DATA_LTX_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals/paths";
 import {
   createDirForConfigs,
@@ -21,10 +22,10 @@ const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<string> = [".ts"];
 /**
  * Transform typescript config files to LTX configs.
  */
-export async function buildDynamicConfigs(): Promise<void> {
+export async function buildDynamicConfigs(parameters: IBuildCommandParameters): Promise<void> {
   log.info(blueBright("Build dynamic configs"));
 
-  const ltxConfigs: Array<TFolderReplicationDescriptor> = await getLtxConfigs();
+  const ltxConfigs: Array<TFolderReplicationDescriptor> = await getLtxConfigs(parameters.filter);
 
   if (ltxConfigs.length > 0) {
     log.info("Found dynamic LTX configs");
@@ -58,14 +59,14 @@ export async function buildDynamicConfigs(): Promise<void> {
     log.info("TSX files processed:", processedXmlConfigs);
     log.info("TSX files skipped:", skippedXmlConfigs);
   } else {
-    log.info("No dynamic LTX configs found");
+    log.info("No dynamic LTX configs found", parameters.filter);
   }
 }
 
 /**
  * Get list of LTX transformable descriptors.
  */
-async function getLtxConfigs(): Promise<Array<TFolderReplicationDescriptor>> {
+async function getLtxConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
   function collectLtxConfigs(
     acc: Array<TFolderReplicationDescriptor>,
     it: TFolderFiles
@@ -75,7 +76,10 @@ async function getLtxConfigs(): Promise<Array<TFolderReplicationDescriptor>> {
     } else if (EXPECTED_DYNAMIC_XML_EXTENSIONS.includes(path.extname(it))) {
       const to: string = it.slice(GAME_DATA_LTX_CONFIGS_DIR.length).replace(/\.[^/.]+$/, "") + ".ltx";
 
-      acc.push([it, path.join(TARGET_GAME_DATA_CONFIGS_DIR, to)]);
+      // Filter.
+      if (!filters.length || filters.some((filter) => it.match(filter))) {
+        acc.push([it, path.join(TARGET_GAME_DATA_CONFIGS_DIR, to)]);
+      }
     }
 
     return acc;

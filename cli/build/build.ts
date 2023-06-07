@@ -39,7 +39,7 @@ export interface IBuildCommandParameters {
   clean?: boolean;
   include: "all" | Array<EBuildTarget>;
   exclude: Array<EBuildTarget>;
-  filter?: Array<EBuildTarget>;
+  filter?: Array<string>;
 }
 
 /**
@@ -57,6 +57,10 @@ export async function build(parameters: IBuildCommandParameters): Promise<void> 
     log.info("XRF build:", green(pkg?.name), blue(new Date().toLocaleString()));
     log.debug("XRF params:", JSON.stringify(parameters));
     log.debug("XRF targets:", buildTargets);
+
+    if (parameters.filter?.length) {
+      log.info("Apply filters:", parameters.filter);
+    }
 
     /**
      * Inform about logs strip step.
@@ -109,9 +113,9 @@ export async function build(parameters: IBuildCommandParameters): Promise<void> 
      * Build game LTX configs / copy static LTX.
      */
     if (buildTargets.includes(EBuildTarget.CONFIGS)) {
-      await buildDynamicConfigs();
+      await buildDynamicConfigs(parameters);
       timeTracker.addMark("BUILT_DYNAMIC_CONFIGS");
-      await buildStaticConfigs();
+      await buildStaticConfigs(parameters);
       timeTracker.addMark("BUILT_STATIC_CONFIGS");
     } else {
       log.info("Configs build steps skipped");

@@ -4,37 +4,21 @@ import * as path from "path";
 
 import { blueBright, yellow, yellowBright } from "chalk";
 
+import { IBuildCommandParameters } from "#/build/build";
 import { GAME_DATA_LTX_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals/paths";
 import { NodeLogger, readDirContent, TFolderFiles, TFolderReplicationDescriptor } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_STATICS");
+
 const EXPECTED_CONFIG_EXTENSIONS: Array<string> = [".ltx", ".xml"];
 
 /**
  * Simply copy .xml and .ltx config statics to resulting gamedata directory.
  */
-export async function buildStaticConfigs(): Promise<void> {
+export async function buildStaticConfigs(parameters: IBuildCommandParameters): Promise<void> {
   log.info(blueBright("Copy static configs"));
 
-  function collectConfigs(
-    acc: Array<TFolderReplicationDescriptor>,
-    it: TFolderFiles
-  ): Array<TFolderReplicationDescriptor> {
-    if (Array.isArray(it)) {
-      it.forEach((nested) => collectConfigs(acc, nested));
-    } else if (EXPECTED_CONFIG_EXTENSIONS.includes(path.extname(it))) {
-      const relativePath: string = it.slice(GAME_DATA_LTX_CONFIGS_DIR.length);
-
-      acc.push([it, path.join(TARGET_GAME_DATA_CONFIGS_DIR, relativePath)]);
-    }
-
-    return acc;
-  }
-
-  const staticConfigs: Array<TFolderReplicationDescriptor> = (await readDirContent(GAME_DATA_LTX_CONFIGS_DIR)).reduce(
-    collectConfigs,
-    []
-  );
+  const staticConfigs: Array<TFolderReplicationDescriptor> = await getStaticConfigs(parameters.filter);
 
   if (staticConfigs.length > 0) {
     log.info("Found static configs:", staticConfigs.length);
@@ -61,6 +45,31 @@ export async function buildStaticConfigs(): Promise<void> {
 
     log.info("Configs processed:", staticConfigs.length);
   } else {
-    log.info("No static configs found");
+    log.info("No static configs found", parameters.filter);
   }
+}
+
+/**
+ * Get list of static configs.
+ */
+async function getStaticConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
+  function collectConfigs(
+    acc: Array<TFolderReplicationDescriptor>,
+    it: TFolderFiles
+  ): Array<TFolderReplicationDescriptor> {
+    if (Array.isArray(it)) {
+      it.forEach((nested) => collectConfigs(acc, nested));
+    } else if (EXPECTED_CONFIG_EXTENSIONS.includes(path.extname(it))) {
+      const relativePath: string = it.slice(GAME_DATA_LTX_CONFIGS_DIR.length);
+
+      // Filter.
+      if (!filters.length || filters.some((filter) => it.match(filter))) {
+        acc.push([it, path.join(TARGET_GAME_DATA_CONFIGS_DIR, relativePath)]);
+      }
+    }
+
+    return acc;
+  }
+
+  return (await readDirContent(GAME_DATA_LTX_CONFIGS_DIR)).reduce(collectConfigs, []);
 }
