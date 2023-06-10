@@ -7,13 +7,11 @@ import { blue, red, yellow, yellowBright } from "chalk";
 import { build } from "#/build/build";
 import { default as config } from "#/config.json";
 import { isValidEngine } from "#/engine/list_engines";
-import { OPEN_XRAY_ENGINES_DIR, TARGET_GAME_DATA_DIR, TARGET_MOD_PACKAGE_DIR } from "#/globals";
+import { OPEN_XRAY_ENGINES_DIR, TARGET_GAME_DATA_DIR, TARGET_MOD_PACKAGE_DIR, WARNING_SIGN } from "#/globals";
 import { IPackParameters } from "#/pack/pack";
 import { createDirIfNoExisting, NodeLogger, TimeTracker } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("PACK_MOD");
-
-const WARNING_SIGN: string = red("[!]");
 
 /**
  * Pack engine and gamedata into separate mod pack, ensure everything works correctly.

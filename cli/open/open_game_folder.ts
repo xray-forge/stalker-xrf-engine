@@ -1,9 +1,6 @@
-import * as path from "path";
-
 import { red, yellow } from "chalk";
 
-import { default as config } from "#/config.json";
-import { NodeLogger, openFolderInExplorer } from "#/utils";
+import { getGamePaths, NodeLogger, openFolderInExplorer } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("OPEN_GAME_FOLDER");
 
@@ -14,7 +11,7 @@ export async function openGameFolder(): Promise<void> {
   log.info("Opening game folder");
 
   try {
-    const gameFolderPath: string = path.resolve(config.targets.stalker_game_folder_path);
+    const { root: gameFolderPath } = await getGamePaths();
 
     log.info("Open system explorer in:", yellow(gameFolderPath));
 

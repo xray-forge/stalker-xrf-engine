@@ -1,5 +1,3 @@
-import { red } from "chalk";
-
 import { packGame } from "#/pack/pack_game";
 import { packMod } from "#/pack/pack_mod";
 
@@ -20,8 +18,6 @@ export enum EPackageType {
   MOD = "mod",
   GAME = "game",
 }
-
-export const WARNING_SIGN: string = red("[!]");
 
 /**
  * Handle packaging command.

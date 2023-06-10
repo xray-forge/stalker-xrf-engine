@@ -1,11 +1,10 @@
 import * as fsPromises from "fs/promises";
-import * as path from "path";
 
 import { red, yellow, yellowBright } from "chalk";
 
-import { default as config } from "#/config.json";
+import { PLUS_SIGN, SKIP_SIGN, WARNING_SIGN } from "#/globals";
 import { TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
-import { NodeLogger, Optional } from "#/utils";
+import { getGamePaths, NodeLogger, Optional } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("UNLINK");
 
@@ -16,7 +15,7 @@ export async function unlinkFolders(): Promise<void> {
   log.info("Unlinking engine development folders");
 
   try {
-    const gameGamedataFolderPath: string = path.resolve(config.targets.stalker_game_folder_path, "gamedata");
+    const { gamedata: gameGamedataFolderPath } = await getGamePaths();
 
     await unlink(gameGamedataFolderPath);
     await unlink(TARGET_LOGS_LINK_DIR);
@@ -35,14 +34,14 @@ async function unlink(target: string): Promise<void> {
   const stat: Optional<string> = await fsPromises.readlink(target).catch(() => null);
 
   if (!stat) {
-    return log.info("Skip operation, target does not exist");
+    return log.info(SKIP_SIGN, "Skip operation, target does not exist");
   }
 
   try {
     await fsPromises.unlink(target);
-    log.info("Unlinked:", yellow(target));
+    log.info(PLUS_SIGN, "Unlinked:", yellow(target));
   } catch (error) {
-    log.error("Failed to unlink:", yellow(target));
+    log.error(WARNING_SIGN, "Failed to unlink:", yellow(target));
     log.error("Check this folder, probably it was created manually or contains your own gamedata from another mod");
 
     throw error;
