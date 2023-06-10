@@ -1,9 +1,6 @@
-import * as path from "path";
-
 import { blue, yellow } from "chalk";
 
-import { GAME_BIN_BACKUP_PATH, GAME_BIN_PATH } from "#/globals";
-import { exists, NodeLogger } from "#/utils";
+import { exists, getGamePaths, NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("ENGINE_INFO");
 
@@ -13,15 +10,17 @@ const log: NodeLogger = new NodeLogger("ENGINE_INFO");
 export async function printEngineInfo(): Promise<void> {
   log.info("Getting engine info");
 
-  const engineDescriptorPath: string = path.resolve(GAME_BIN_PATH, "bin.json");
+  const { binJson, binXrfBackup } = await getGamePaths();
 
-  const isBinBackupExist: boolean = await exists(GAME_BIN_BACKUP_PATH);
+  const engineDescriptorPath: string = binJson;
+
+  const isBinBackupExist: boolean = await exists(binXrfBackup);
   const isLinkedEngine: boolean = await exists(engineDescriptorPath);
 
   if (isBinBackupExist) {
-    log.info("Backup version of engine exists:", yellow(GAME_BIN_BACKUP_PATH));
+    log.info("Backup version of engine exists:", yellow(binXrfBackup));
   } else {
-    log.info("No backup version of engine detected:", yellow(GAME_BIN_BACKUP_PATH));
+    log.info("No backup version of engine detected:", yellow(binXrfBackup));
   }
 
   if (isLinkedEngine) {

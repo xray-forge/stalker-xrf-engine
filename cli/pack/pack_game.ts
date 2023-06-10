@@ -14,8 +14,9 @@ import {
   TARGET_DATABASE_DIR,
   TARGET_GAME_DATA_DIR,
   TARGET_GAME_PACKAGE_DIR,
+  WARNING_SIGN,
 } from "#/globals";
-import { IPackParameters, WARNING_SIGN } from "#/pack/pack";
+import { IPackParameters } from "#/pack/pack";
 import { createDirIfNoExisting, NodeLogger, TimeTracker } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("PACK_GAME");

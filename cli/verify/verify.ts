@@ -1,23 +1,11 @@
-import * as fs from "fs/promises";
+import * as fsp from "fs/promises";
 import * as path from "path";
 
-import { greenBright, red, yellow, yellowBright } from "chalk";
+import { green, greenBright, red, yellow, yellowBright } from "chalk";
 
 import { default as config } from "#/config.json";
-import {
-  CLI_CONFIG,
-  CLI_DIR,
-  GAME_BIN_JSON_PATH,
-  GAME_BIN_PATH,
-  GAME_EXE_PATH,
-  GAME_GAMEDATA_PATH,
-  GAME_LOGS_PATH,
-  GAME_PATH,
-  TARGET_GAME_DATA_DIR,
-  TARGET_GAME_LINK_DIR,
-  TARGET_LOGS_LINK_DIR,
-} from "#/globals/paths";
-import { exists, NodeLogger } from "#/utils";
+import { CLI_CONFIG, CLI_DIR, TARGET_GAME_DATA_DIR, TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
+import { exists, getGamePaths, NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("VERIFY");
 
@@ -45,9 +33,9 @@ export async function verify(): Promise<void> {
  */
 async function verifyConfig(): Promise<void> {
   if (await exists(CLI_CONFIG)) {
-    log.info("Project cli/config.json:", greenBright("OK"));
+    log.info("Project cli/config.json:", greenBright("OK"), green(CLI_CONFIG));
   } else {
-    log.warn(yellow("Config not found in cli/config.json:"), yellow(CLI_CONFIG));
+    log.warn(yellow("Config not found in cli/config.json:"), yellowBright(CLI_CONFIG));
   }
 }
 
@@ -55,16 +43,18 @@ async function verifyConfig(): Promise<void> {
  * Verify if project game path exists and is correct.
  */
 async function verifyGamePath(): Promise<void> {
-  if (await exists(GAME_PATH)) {
-    log.info("Game folder:", greenBright("OK"));
+  const { root, app } = await getGamePaths();
+
+  if (await exists(root)) {
+    log.info("Game folder:", greenBright("OK"), green(root));
   } else {
-    log.warn(yellow("Game folder is not linked, set path in cli/config.json:"), yellow(GAME_PATH));
+    log.warn(yellow("Game folder is not linked, set path in cli/config.json:"), yellowBright(root));
   }
 
-  if (await exists(GAME_EXE_PATH)) {
-    log.info("Game folder:", greenBright("OK"));
+  if (await exists(app)) {
+    log.info("Game executable:", greenBright("OK"), green(app));
   } else {
-    log.warn(yellow("Game folder is not linked, set path in cli/config.json:"), yellow(GAME_PATH));
+    log.warn(yellow("Game folder is not linked, set path in cli/config.json:"), yellowBright(root));
   }
 }
 
@@ -73,9 +63,9 @@ async function verifyGamePath(): Promise<void> {
  */
 async function verifyGameLink(): Promise<void> {
   if (await exists(TARGET_GAME_LINK_DIR)) {
-    log.info("Game link:", greenBright("OK"));
+    log.info("Game link:", greenBright("OK"), green(TARGET_GAME_LINK_DIR));
   } else {
-    log.warn("Game link:", yellow("FAIL"));
+    log.warn("Game link:", yellow("FAIL"), yellowBright(TARGET_GAME_LINK_DIR));
   }
 }
 
@@ -86,24 +76,24 @@ async function verifyAssets(): Promise<void> {
   const baseResourcesPath: string = config.resources.mod_assets_base_folder;
 
   if (await exists(path.resolve(CLI_DIR, config.resources.mod_assets_base_folder))) {
-    log.info("Base game resources:", yellowBright(baseResourcesPath), greenBright("OK"));
+    log.info("Base game resources:", greenBright("OK"), green(baseResourcesPath));
   } else {
-    log.warn("Base game resources:", yellowBright(baseResourcesPath), yellow("FAIL"), "(issues possible)");
+    log.warn("Base game resources:", yellow("FAIL"), yellowBright(baseResourcesPath), "(issues possible)");
   }
 
   for (const entry of config.resources.mod_assets_override_folders) {
     if (await exists(path.resolve(CLI_DIR, entry))) {
-      log.info("Override resources:", yellowBright(entry), greenBright("OK"));
+      log.info("Override resources:", greenBright("OK"), green(entry));
     } else {
-      log.warn("Override resources:", yellowBright(entry), yellow("FAIL"), "(packaging issues possible)");
+      log.warn("Override resources:", yellow("FAIL"), yellowBright(entry), "(packaging issues possible)");
     }
   }
 
   for (const entry of config.resources.mod_assets_locales[config.locale]) {
     if (await exists(path.resolve(CLI_DIR, entry))) {
-      log.info("Locale resources:", yellowBright(entry), greenBright("OK"));
+      log.info("Locale resources:", greenBright("OK"), green(entry));
     } else {
-      log.warn("Locale resources:", yellowBright(entry), yellow("FAIL"), "(packaging issues possible)");
+      log.warn("Locale resources:", yellow("FAIL"), yellowBright(entry), "(packaging issues possible)");
     }
   }
 }
@@ -112,20 +102,21 @@ async function verifyAssets(): Promise<void> {
  * Check if any custom engine is used.
  */
 async function verifyGameEngine(): Promise<void> {
-  const isGameDirPresent: boolean = await exists(GAME_PATH);
-  const isBinDirPresent: boolean = await exists(GAME_BIN_PATH);
-  const isBinCorrectlyProvided: boolean = await exists(GAME_BIN_JSON_PATH);
+  const { root, bin, binJson } = await getGamePaths();
+  const isGameDirPresent: boolean = await exists(root);
+  const isBinDirPresent: boolean = await exists(bin);
+  const isBinCorrectlyProvided: boolean = await exists(binJson);
 
   if (isGameDirPresent && isBinDirPresent && isBinCorrectlyProvided) {
-    log.info("Game engine link:", greenBright("OK"));
+    log.info("Game engine link:", greenBright("OK"), green(bin));
   } else {
     if (!isBinDirPresent) {
       log.warn(
         yellow("Game bin folder does not exist, it was corrupted or incorrect path set in cli/config.json:"),
-        yellow(GAME_BIN_PATH)
+        yellowBright(bin)
       );
     } else {
-      log.warn(yellow("Open x-ray engine expected, using original in:"), yellow(GAME_BIN_PATH));
+      log.warn(yellow("Open x-ray engine expected, using original in:"), yellowBright(bin));
     }
   }
 }
@@ -135,12 +126,13 @@ async function verifyGameEngine(): Promise<void> {
  */
 async function verifyGamedataLink(): Promise<void> {
   try {
-    const linkPath: string = await fs.readlink(GAME_GAMEDATA_PATH);
+    const { gamedata } = await getGamePaths();
+    const linkPath: string = await fsp.readlink(gamedata);
 
     if (path.resolve(linkPath) === TARGET_GAME_DATA_DIR) {
       log.info("Gamedata link:", greenBright("OK"));
     } else {
-      log.warn("Gamedata link points to unexpected place:", yellow(linkPath));
+      log.warn("Gamedata link points to unexpected place:", yellowBright(linkPath));
     }
   } catch (error) {
     log.info("Gamedata link:", yellow("FAIL"));
@@ -152,12 +144,13 @@ async function verifyGamedataLink(): Promise<void> {
  */
 async function verifyLogsLink(): Promise<void> {
   try {
-    const linkPath: string = await fs.readlink(TARGET_LOGS_LINK_DIR);
+    const { logs } = await getGamePaths();
+    const linkPath: string = await fsp.readlink(TARGET_LOGS_LINK_DIR);
 
-    if (path.resolve(linkPath) === GAME_LOGS_PATH) {
-      log.info("Logs link:", greenBright("OK"));
+    if (path.resolve(linkPath) === logs) {
+      log.info("Logs link:", greenBright("OK"), green(linkPath));
     } else {
-      log.warn("Logs link points to unexpected place:", yellow(linkPath));
+      log.warn("Logs link points to unexpected place:", yellow(linkPath), yellowBright(logs));
     }
   } catch (error) {
     log.info("Logs link:", yellow("FAIL"));
