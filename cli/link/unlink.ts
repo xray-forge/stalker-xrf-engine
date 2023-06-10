@@ -1,11 +1,9 @@
 import * as fsPromises from "fs/promises";
-import * as path from "path";
 
 import { red, yellow, yellowBright } from "chalk";
 
-import { default as config } from "#/config.json";
 import { TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
-import { NodeLogger, Optional } from "#/utils";
+import { getGamePaths, NodeLogger, Optional } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("UNLINK");
 
@@ -16,7 +14,7 @@ export async function unlinkFolders(): Promise<void> {
   log.info("Unlinking engine development folders");
 
   try {
-    const gameGamedataFolderPath: string = path.resolve(config.targets.stalker_game_folder_path, "gamedata");
+    const { gamedata: gameGamedataFolderPath } = await getGamePaths();
 
     await unlink(gameGamedataFolderPath);
     await unlink(TARGET_LOGS_LINK_DIR);

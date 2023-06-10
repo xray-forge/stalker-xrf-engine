@@ -10,4 +10,5 @@ export * from "#/utils/fs/read_dir_content";
 export * from "#/utils/fs/read_dir_content_flat";
 export * from "#/utils/fs/read_dir_content_flat_gen";
 export * from "#/utils/fs/get_diffs";
+export * from "#/utils/fs/get_game_paths";
 export * from "#/utils/fs/types";

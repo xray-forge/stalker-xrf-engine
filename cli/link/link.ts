@@ -1,11 +1,9 @@
 import * as fsPromises from "fs/promises";
-import * as path from "path";
 
 import { blue, red, yellow, yellowBright } from "chalk";
 
-import { default as config } from "#/config.json";
 import { TARGET_GAME_DATA_DIR, TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
-import { exists, NodeLogger } from "#/utils";
+import { exists, getGamePaths, NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("LINK");
 const isForceLink: boolean = process.argv.includes("--force");
@@ -33,7 +31,7 @@ export async function linkFolders(): Promise<void> {
 async function linkGamedataFolders(): Promise<void> {
   log.info("Linking gamedata folders");
 
-  const gameGamedataFolderPath: string = path.resolve(config.targets.stalker_game_folder_path, "gamedata");
+  const { gamedata: gameGamedataFolderPath } = await getGamePaths();
 
   if (await exists(gameGamedataFolderPath)) {
     if (isForceLink) {
@@ -58,7 +56,7 @@ async function linkGamedataFolders(): Promise<void> {
 async function linkGameFolder(): Promise<void> {
   log.info("Linking game folders");
 
-  const gameFolderPath: string = path.resolve(config.targets.stalker_game_folder_path);
+  const { root: gameFolderPath } = await getGamePaths();
 
   if (await exists(TARGET_GAME_LINK_DIR)) {
     if (isForceLink) {
@@ -83,7 +81,7 @@ async function linkGameFolder(): Promise<void> {
 async function linkLogsFolders(): Promise<void> {
   log.info("Linking logs folders");
 
-  const logsFolderPath: string = path.resolve(config.targets.stalker_logs_folder_path);
+  const { logs: logsFolderPath } = await getGamePaths();
 
   if (await exists(TARGET_LOGS_LINK_DIR)) {
     if (isForceLink) {
