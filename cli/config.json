@@ -35,7 +35,6 @@
   "targets": {
     "stalker_game_steam_id": 41700,
     "stalker_game_fallback_path": "Fallback/path/to/Stalker Call of Pripyat",
-    "stalker_logs_path": "_appdata_/logs",
     "stalker_app_path": "Stalker-COP.exe"
   },
   "repositories": {

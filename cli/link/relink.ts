@@ -6,15 +6,19 @@ import { NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("RELINK");
 
+export interface IRelinkCommandParameters {
+  force?: boolean;
+}
+
 /**
  * Re-link gamedata/engine/logs folders.
  */
-export async function relinkFolders(): Promise<void> {
+export async function relinkFolders(parameters: IRelinkCommandParameters): Promise<void> {
   log.info("Performing relink");
 
   try {
     await unlinkFolders();
-    await linkFolders();
+    await linkFolders(parameters);
 
     log.info("Relinked game folders");
   } catch (error) {

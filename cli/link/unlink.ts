@@ -2,6 +2,7 @@ import * as fsPromises from "fs/promises";
 
 import { red, yellow, yellowBright } from "chalk";
 
+import { PLUS_SIGN, SKIP_SIGN, WARNING_SIGN } from "#/globals";
 import { TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
 import { getGamePaths, NodeLogger, Optional } from "#/utils";
 
@@ -33,14 +34,14 @@ async function unlink(target: string): Promise<void> {
   const stat: Optional<string> = await fsPromises.readlink(target).catch(() => null);
 
   if (!stat) {
-    return log.info("Skip operation, target does not exist");
+    return log.info(SKIP_SIGN, "Skip operation, target does not exist");
   }
 
   try {
     await fsPromises.unlink(target);
-    log.info("Unlinked:", yellow(target));
+    log.info(PLUS_SIGN, "Unlinked:", yellow(target));
   } catch (error) {
-    log.error("Failed to unlink:", yellow(target));
+    log.error(WARNING_SIGN, "Failed to unlink:", yellow(target));
     log.error("Check this folder, probably it was created manually or contains your own gamedata from another mod");
 
     throw error;

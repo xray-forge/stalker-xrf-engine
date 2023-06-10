@@ -1,23 +1,27 @@
-import * as fsPromises from "fs/promises";
+import * as fsp from "fs/promises";
 
 import { blue, red, yellow, yellowBright } from "chalk";
 
+import { PLUS_SIGN, SKIP_SIGN, WARNING_SIGN } from "#/globals";
 import { TARGET_GAME_DATA_DIR, TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
-import { exists, getGamePaths, NodeLogger } from "#/utils";
+import { exists, getGamePaths, isSamePath, NodeLogger, Optional } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("LINK");
-const isForceLink: boolean = process.argv.includes("--force");
+
+export interface ILinkCommandParameters {
+  force?: boolean;
+}
 
 /**
  * Link gamedata/engine/logs folders.
  */
-export async function linkFolders(): Promise<void> {
+export async function linkFolders(parameters: ILinkCommandParameters): Promise<void> {
   log.info("Linking engine mod development folders");
 
   try {
-    await linkGameFolder();
-    await linkGamedataFolders();
-    await linkLogsFolders();
+    await linkGameFolder(parameters);
+    await linkGamedataFolders(parameters);
+    await linkLogsFolders(parameters);
   } catch (error) {
     log.error("Links creation failed:", red(error.message));
   }
@@ -26,74 +30,87 @@ export async function linkFolders(): Promise<void> {
 /**
  * Link target gamedata folder for faster / easier development
  */
-async function linkGamedataFolders(): Promise<void> {
+async function linkGamedataFolders(parameters: ILinkCommandParameters): Promise<void> {
   log.info("Linking gamedata folders");
 
   const { gamedata: gameGamedataFolderPath } = await getGamePaths();
 
   if (await exists(gameGamedataFolderPath)) {
-    if (isForceLink) {
+    const linkPath: Optional<string> = await fsp.readlink(gameGamedataFolderPath).catch(() => null);
+    const isLink: boolean = linkPath !== null;
+
+    if (parameters.force) {
       log.info("Forcing link as it already exists:", blue(gameGamedataFolderPath));
 
-      await fsPromises.rm(gameGamedataFolderPath, { recursive: true });
+      if (!isLink) {
+        log.warn(WARNING_SIGN, "Removing already existing gamedata folder");
+      }
+
+      await fsp.rm(gameGamedataFolderPath, { recursive: true });
     } else {
-      log.warn("Skip, already exists:", blue(gameGamedataFolderPath));
+      if (isLink && isSamePath(linkPath, TARGET_GAME_DATA_DIR)) {
+        log.warn(SKIP_SIGN, "Skip, gamedata link already exists:", blue(gameGamedataFolderPath));
+      } else if (isLink) {
+        log.warn(WARNING_SIGN, "Skip, gamedata link already exists but points to another place:", red(linkPath));
+      } else {
+        log.warn(WARNING_SIGN, "Gamedata directory exists and cannot be linked. Remove it manually or use '--force'");
+      }
 
       return;
     }
   }
 
-  await fsPromises.symlink(TARGET_GAME_DATA_DIR, gameGamedataFolderPath, "junction");
+  await fsp.symlink(TARGET_GAME_DATA_DIR, gameGamedataFolderPath, "junction");
 
-  log.info("Linked folders:", yellow(TARGET_GAME_DATA_DIR), "->", yellowBright(gameGamedataFolderPath));
+  log.info(PLUS_SIGN, "Linked folders:", yellow(TARGET_GAME_DATA_DIR), "->", yellowBright(gameGamedataFolderPath));
 }
 
 /**
  * Link game folder.
  */
-async function linkGameFolder(): Promise<void> {
+async function linkGameFolder(parameters: ILinkCommandParameters): Promise<void> {
   log.info("Linking game folders");
 
   const { root: gameFolderPath } = await getGamePaths();
 
   if (await exists(TARGET_GAME_LINK_DIR)) {
-    if (isForceLink) {
-      log.info("Forcing link as it already exists:", blue(TARGET_GAME_LINK_DIR));
+    if (parameters.force) {
+      log.info("Forcing new link creation:", blue(TARGET_GAME_LINK_DIR));
 
-      await fsPromises.rm(TARGET_GAME_LINK_DIR, { recursive: true });
+      await fsp.rm(TARGET_GAME_LINK_DIR, { recursive: true });
     } else {
-      log.warn("Skip, already exists:", blue(TARGET_GAME_LINK_DIR));
+      log.warn(SKIP_SIGN, "Skip, game link already exists:", blue(TARGET_GAME_LINK_DIR));
 
       return;
     }
   }
 
-  await fsPromises.symlink(gameFolderPath, TARGET_GAME_LINK_DIR, "junction");
+  await fsp.symlink(gameFolderPath, TARGET_GAME_LINK_DIR, "junction");
 
-  log.info("Linked folders:", yellow(gameFolderPath), "->", yellowBright(TARGET_GAME_LINK_DIR));
+  log.info(PLUS_SIGN, "Linked folders:", yellow(gameFolderPath), "->", yellowBright(TARGET_GAME_LINK_DIR));
 }
 
 /**
  * Link open-xray logs folder for easier check in project.
  */
-async function linkLogsFolders(): Promise<void> {
+async function linkLogsFolders(parameters: ILinkCommandParameters): Promise<void> {
   log.info("Linking logs folders");
 
   const { logs: logsFolderPath } = await getGamePaths();
 
   if (await exists(TARGET_LOGS_LINK_DIR)) {
-    if (isForceLink) {
-      log.info("Forcing link as it already exists:", blue(TARGET_LOGS_LINK_DIR));
+    if (parameters.force) {
+      log.info("Forcing new link creation:", blue(TARGET_LOGS_LINK_DIR));
 
-      await fsPromises.rm(TARGET_LOGS_LINK_DIR, { recursive: true });
+      await fsp.rm(TARGET_LOGS_LINK_DIR, { recursive: true });
     } else {
-      log.warn("Skip, already exists:", blue(TARGET_LOGS_LINK_DIR));
+      log.warn(SKIP_SIGN, "Skip, logs link already exists:", blue(TARGET_LOGS_LINK_DIR));
 
       return;
     }
   }
 
-  await fsPromises.symlink(logsFolderPath, TARGET_LOGS_LINK_DIR, "junction");
+  await fsp.symlink(logsFolderPath, TARGET_LOGS_LINK_DIR, "junction");
 
-  log.info("Linked folders:", yellow(logsFolderPath), "->", yellowBright(TARGET_LOGS_LINK_DIR));
+  log.info(PLUS_SIGN, "Linked folders:", yellow(logsFolderPath), "->", yellowBright(TARGET_LOGS_LINK_DIR));
 }
