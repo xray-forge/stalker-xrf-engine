@@ -2,8 +2,6 @@ import * as path from "path";
 
 import { default as config } from "#/config.json";
 
-export const XR_ENGINE_BACKUP_DIR: string = "bin_xrf_backup";
-
 export const ROOT_DIR: string = path.resolve(__dirname, "../..");
 export const CLI_DIR: string = path.resolve(ROOT_DIR, "cli");
 export const BIN_DIR: string = path.resolve(CLI_DIR, "bin");

@@ -103,7 +103,7 @@ jobs:
         retention-days: 1
 
   upload-nightly:
-    if: github.ref == 'refs/heads/dev' && github.event_name != 'pull_request'
+    if: ${{ github.ref == 'refs/heads/dev' && github.event_name != 'pull_request' }}
     needs: [test, check, build]
     runs-on: ubuntu-latest
 
