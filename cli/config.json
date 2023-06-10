@@ -33,8 +33,10 @@
     "gamedata": ["lualib_bundle.script", "scripts", "core", "lib"]
   },
   "targets": {
-    "stalker_game_folder_path": "F:\\Applications\\Steam\\steamapps\\common\\Stalker Call of Pripyat",
-    "stalker_game_exe_path": "Stalker-COP.exe"
+    "stalker_game_steam_id": 41700,
+    "stalker_game_fallback_path": "Fallback/path/to/Stalker Call of Pripyat",
+    "stalker_logs_path": "_appdata_/logs",
+    "stalker_app_path": "Stalker-COP.exe"
   },
   "repositories": {
     "extended": {

@@ -1,10 +1,8 @@
 import fsPromises from "fs/promises";
-import path from "path";
 
 import { yellow } from "chalk";
 
-import { GAME_BIN_BACKUP_PATH, GAME_BIN_PATH } from "#/globals";
-import { exists, NodeLogger } from "#/utils";
+import { exists, getGamePaths, NodeLogger } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("ROLLBACK_ENGINE");
 
@@ -14,23 +12,25 @@ const log: NodeLogger = new NodeLogger("ROLLBACK_ENGINE");
 export async function rollbackEngine(): Promise<void> {
   log.info("Rollback engine to backup");
 
-  const isBinBackupExist: boolean = await exists(GAME_BIN_BACKUP_PATH);
-  const isLinkedEngine: boolean = await exists(path.resolve(GAME_BIN_PATH, "bin.json"));
+  const { binXrfBackup, bin, binJson } = await getGamePaths();
+
+  const isBinBackupExist: boolean = await exists(binXrfBackup);
+  const isLinkedEngine: boolean = await exists(binJson);
 
   if (isBinBackupExist) {
-    log.info("Backup detected:", yellow(GAME_BIN_BACKUP_PATH));
+    log.info("Backup detected:", yellow(binXrfBackup));
 
     if (isLinkedEngine) {
       log.info("Perform rollback operation");
 
-      await fsPromises.unlink(GAME_BIN_PATH);
-      await fsPromises.rename(GAME_BIN_BACKUP_PATH, GAME_BIN_PATH);
+      await fsPromises.unlink(bin);
+      await fsPromises.rename(binXrfBackup, bin);
 
       log.info("Rollback performed");
     } else {
       log.info("Seems like 'bin' directory is not linked, no 'bin.json' file in it. Interrupt rollback");
     }
   } else {
-    log.info("Backup folder not found, no way to rollback changes:", yellow(GAME_BIN_BACKUP_PATH));
+    log.info("Backup folder not found, no way to rollback changes:", yellow(binXrfBackup));
   }
 }
