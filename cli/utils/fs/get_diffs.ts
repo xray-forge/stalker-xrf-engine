@@ -147,7 +147,7 @@ export async function getDiffs(base: FilePathMap, target: FilePathMap, options?:
     files: [],
   };
 
-  for (const path in targetFiles) {
+  for (const path of Object.keys(targetFiles)) {
     if (baseFiles[path] === undefined) {
       deletions.totalSize += targetFiles[path].size;
       deletions.files.push(path);
