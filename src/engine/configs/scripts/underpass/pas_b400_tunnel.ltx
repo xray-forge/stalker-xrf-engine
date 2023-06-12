@@ -1,7 +1,7 @@
 #include "pas_b400_general.ltx"
 
 [logic@pas_b400_zulus_tunnel]
-active = walker@zulus_tunnel_1 
+active = walker@zulus_tunnel_1
 suitable = {=check_npc_name(pas_b400_zulus) -pas_b400_tunnel_done} true
 prior = 200
 on_hit = hit@zulus
@@ -64,9 +64,8 @@ on_info = {-pas_b400_zulus_about_train_gates_2 !squad_exist(pas_b400_snork_tunne
 on_info2 = {+pas_b400_sr_tunnel_4} walker@zulus_tunnel_4
 on_info3 = {-pas_b400_zulus_about_train_gates_1_can !squad_exist(pas_b400_snork_tunnel_3) !squad_exist(pas_b400_snork_tunnel_4) -pas_b400_zulus_about_train_gates_1 -pas_b400_tunnel_gates_opened} %+pas_b400_zulus_about_train_gates_1 =play_sound(pas_b400_zulus_about_train_gates_1)%
 
-
 [logic@pas_b400_vano_tunnel]
-active = walker@vano_tunnel_1 
+active = walker@vano_tunnel_1
 suitable = {=check_npc_name(pas_b400_vano) -pas_b400_tunnel_done} true
 prior = 200
 on_hit = hit@vano
@@ -113,10 +112,8 @@ out_restr = pas_b400_sr_tunnel_5
 on_info = {+pas_b400_snork_tunnel_4_spawn -pas_b400_vano_about_snorks_1 !squad_exist(pas_b400_snork_tunnel_4)} %+pas_b400_vano_about_snorks_1 =play_sound(pas_b400_vano_about_snorks_1)%
 on_info2 = {+pas_b400_sr_tunnel_4} walker@vano_tunnel_4
 
-
-
 [logic@pas_b400_sokolov_tunnel]
-active = walker@sokolov_tunnel_1 
+active = walker@sokolov_tunnel_1
 suitable = {=check_npc_name(pas_b400_sokolov) -pas_b400_tunnel_done} true
 prior = 200
 on_hit = hit@sokolov
@@ -172,10 +169,8 @@ combat_ignore_cond = {-pas_b400_tunnel_gates_started_to_open =check_enemy_smart(
 on_signal = path_end | {-pas_b400_sokolov_about_train_gates_1 -pas_b400_tunnel_gates_opened} %+pas_b400_sokolov_about_train_gates_1 =play_sound(pas_b400_sokolov_about_train_gates_1)%
 on_info = {+pas_b400_sr_tunnel_4} walker@sokolov_tunnel_4
 
-
-
 [logic@pas_b400_wanderer_tunnel]
-active = walker@wanderer_tunnel_1 
+active = walker@wanderer_tunnel_1
 suitable = {=check_npc_name(pas_b400_wanderer) -pas_b400_tunnel_done} true
 prior = 200
 on_hit = hit@wanderer
