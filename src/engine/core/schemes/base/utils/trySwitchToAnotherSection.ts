@@ -99,14 +99,7 @@ export function trySwitchToAnotherSection(
     const conditionName: ESchemeCondition = (string.match(condition.name, "([%a_]*)")[0] as ESchemeCondition) || NIL;
 
     if (SCHEME_LOGIC_SWITCH[conditionName](actor, object, state, condition)) {
-      logger.info(
-        "Switch scheme section:",
-        object.name(),
-        conditionName,
-        state.section,
-        "->",
-        registry.objects.get(object.id()).active_section
-      );
+      logger.info("Switch scheme section:", object.name(), conditionName, state.section);
 
       return true;
     }

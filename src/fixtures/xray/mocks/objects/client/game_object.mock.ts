@@ -73,11 +73,28 @@ export function mockClientGameObject({
   const callbacks: PartialRecord<TCallback, AnyCallable> = {};
   const spawnIni: IniFile = mockIniFile("spawn.ini");
 
+  const inRestrictions: Array<string> = ["a", "b", "c"];
+  const outRestrictions: Array<string> = ["d", "e", "f"];
+
   const gameObject = {
     ...rest,
     active_item,
     animation_count,
     active_slot: rest.active_slot || jest.fn(() => 3),
+    add_restrictions:
+      rest.add_restrictions ||
+      jest.fn((outAdd: string, inAdd: string) => {
+        outAdd
+          .split(",")
+          .map((it) => it.trim())
+          .filter(Boolean)
+          .forEach((it) => outRestrictions.push(it));
+        inAdd
+          .split(",")
+          .map((it) => it.trim())
+          .filter(Boolean)
+          .forEach((it) => inRestrictions.push(it));
+      }),
     character_icon,
     clsid,
     clear_animations: rest.clear_animations || jest.fn(),
@@ -135,6 +152,8 @@ export function mockClientGameObject({
 
         return inventoryMap.get(key) || null;
       }),
+    out_restrictions: rest.out_restrictions || jest.fn(() => outRestrictions.join(",")),
+    in_restrictions: rest.in_restrictions || jest.fn(() => inRestrictions.join(",")),
     iterate_inventory: jest.fn((cb: (owner: ClientObject, item: ClientObject) => void, owner: ClientObject) => {
       for (const [, item] of inventoryMap) {
         cb(owner, item);
@@ -142,6 +161,30 @@ export function mockClientGameObject({
     }),
     position,
     remove_home: rest.remove_home || jest.fn(),
+    remove_restrictions:
+      rest.add_restrictions ||
+      jest.fn((outRemove: string, inRemove: string) => {
+        outRemove
+          .split(",")
+          .map((it) => it.trim())
+          .forEach((it) => {
+            const index: number = outRestrictions.indexOf(it);
+
+            if (index !== -1) {
+              outRestrictions.splice(index, 1);
+            }
+          });
+        inRemove
+          .split(",")
+          .map((it) => it.trim())
+          .forEach((it) => {
+            const index: number = inRestrictions.indexOf(it);
+
+            if (index !== -1) {
+              inRestrictions.splice(index, 1);
+            }
+          });
+      }),
     section: section || jest.fn(() => sectionOverride),
     set_body_state: rest.set_body_state || jest.fn(),
     set_callback:
