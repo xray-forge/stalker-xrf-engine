@@ -3,15 +3,13 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-
-
 [logic@zat_b53_artefact_hunter_2]
 suitable = {=check_npc_name(zat_b53_artefact_hunter_2)}
 prior = 70
 active = walker@wait_actor_scene_start
 on_hit = hit
 on_death = death
- 
+
 [walker@wait_actor_scene_start]:walker@def_no_loot
 meet = no_meet
 path_walk = artefact_hunter_2_walk

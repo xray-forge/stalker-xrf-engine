@@ -15,10 +15,8 @@ far_victim 		= nil
 use 			= false
 allow_break 	= false
 
-
-
 [logic@zat_a2_barmen_trade]
-active = walker@zat_a2_barmen_trade 
+active = walker@zat_a2_barmen_trade
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_light) +test_ifoportion_here} true
 prior = 200
 
@@ -28,10 +26,8 @@ prior = 200
 path_walk = barmen_trade_walk
 path_look = barmen_trade_look
 
-
-
 [logic@zat_a2_mechanic_trade]
-active = walker@zat_a2_mechanic_trade 
+active = walker@zat_a2_mechanic_trade
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_light) +test_ifoportion_here} true
 prior = 200
 

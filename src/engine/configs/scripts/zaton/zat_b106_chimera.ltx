@@ -6,7 +6,6 @@ on_death = death
 on_hit = hit
 prior = 200
 
-
 [mob_walker@sleep]
 path_walk = zat_b106_sleeper_chimera_walk
 path_look = zat_b106_sleeper_chimera_look
@@ -56,6 +55,3 @@ on_info = %+zat_b106_chimera_dead%
 
 [hit]
 on_info = {=hit_by_actor =hitted_on_bone(head_boss:boss_jaw:brow:ear_r:eye_l:eye_r:) -zat_b106_one_shot} %+zat_b106_one_shot +zat_b108_actor_damaged_chimera +zat_b106_ahtung%, {=hit_by_actor !hitted_on_bone(head_boss:boss_jaw:brow:ear_r:eye_l:eye_r:) -zat_b108_actor_damaged_chimera} %+zat_b108_actor_damaged_chimera%
-
-
- 

@@ -29,7 +29,7 @@ on_hit = hit@zat_b33_snork_jump_01
 on_info = mob_home@zat_b33_snork_jump_01_02
 
 [mob_walker@zat_b33_snork_jump_01]:mob_walker@zat_b33_snork_jump_gen
-path_walk = snork_jump_01_walk 
+path_walk = snork_jump_01_walk
 path_look = snork_jump_01_02
 on_actor_dist_le_nvis = 4 |  mob_home@zat_b33_snork_jump_01_02
 on_actor_in_zone1 = zat_b33_space_restrictor_snork_jump_01_02 | mob_jump@zat_b33_snork_jump_01_02
@@ -52,10 +52,6 @@ path_home = snork_jump_01_01
 [mob_home@zat_b33_snork_jump_01_02]:mob_home@zat_b33_snork_jump_gen
 path_home = snork_jump_01_02
 
-
-
-
-
 [logic@zat_b33_snork_jump_02]:logic@zat_b33_snork_jump_gen
 active = mob_walker@zat_b33_snork_jump_02
 on_hit = hit@zat_b33_snork_jump_02
@@ -64,7 +60,7 @@ on_hit = hit@zat_b33_snork_jump_02
 on_info = mob_home@zat_b33_snork_jump_02
 
 [mob_walker@zat_b33_snork_jump_02]:mob_walker@zat_b33_snork_jump_gen
-path_walk = snork_jump_02_walk 
+path_walk = snork_jump_02_walk
 path_look = snork_jump_02_01
 on_actor_dist_le_nvis = 15 |  mob_jump@zat_b33_snork_jump_02_01
 on_info = {+zat_b33_snork_jump_05} mob_home@zat_b33_snork_jump_02
@@ -77,9 +73,6 @@ on_signal = jumped | mob_home@zat_b33_snork_jump_02
 [mob_home@zat_b33_snork_jump_02]:mob_home@zat_b33_snork_jump_gen
 path_home = snork_jump_02_01
 
-
-
-
 [logic@zat_b33_snork_jump_03]:logic@zat_b33_snork_jump_gen
 active = mob_walker@zat_b33_snork_jump_03
 on_hit = hit@zat_b33_snork_jump_03
@@ -88,7 +81,7 @@ on_hit = hit@zat_b33_snork_jump_03
 on_info = mob_home@zat_b33_snork_jump_03_01
 
 [mob_walker@zat_b33_snork_jump_03]:mob_walker@zat_b33_snork_jump_gen
-path_walk = snork_jump_03_walk 
+path_walk = snork_jump_03_walk
 path_look = snork_jump_03_01
 on_actor_dist_le_nvis = 2 |  mob_home@zat_b33_snork_jump_03_01
 on_actor_in_zone = zat_b33_space_restrictor_snork_jump_03_01 | mob_jump@zat_b33_snork_jump_03_01
@@ -111,11 +104,6 @@ path_home = snork_jump_03_01
 [mob_home@zat_b33_snork_jump_03_02]:mob_home@zat_b33_snork_jump_gen
 path_home = snork_jump_03_02
 
-
-
-
-
-
 [logic@zat_b33_snork_jump_04]:logic@zat_b33_snork_jump_gen
 active = mob_walker@zat_b33_snork_jump_04
 on_hit = hit@zat_b33_snork_jump_04
@@ -124,7 +112,7 @@ on_hit = hit@zat_b33_snork_jump_04
 on_info = mob_home@zat_b33_snork_jump_04
 
 [mob_walker@zat_b33_snork_jump_04]:mob_walker@zat_b33_snork_jump_gen
-path_walk = snork_jump_04_walk 
+path_walk = snork_jump_04_walk
 path_look = snork_jump_04_01
 on_actor_dist_le_nvis = 16 |  mob_jump@zat_b33_snork_jump_04_01
 on_info = {+zat_b33_snork_jump_05} mob_home@zat_b33_snork_jump_04
@@ -136,12 +124,6 @@ on_signal = jumped | mob_home@zat_b33_snork_jump_04
 
 [mob_home@zat_b33_snork_jump_04]:mob_home@zat_b33_snork_jump_gen
 path_home = snork_jump_04_01
-
-
-
-
-
-
 
 [logic@zat_b33_snork_jump_05]:logic@zat_b33_snork_jump_gen
 active = mob_walker@zat_b33_snork_jump_05
@@ -157,7 +139,7 @@ on_info = mob_home@zat_b33_snork_jump_05
 on_info = %+zat_b33_snork_jump_05_dead%
 
 [mob_walker@zat_b33_snork_jump_05]:mob_walker@zat_b33_snork_jump_gen
-path_walk = snork_jump_05_walk 
+path_walk = snork_jump_05_walk
 path_look = snork_jump_05_01
 out_restr = zat_b33_space_restrictor_05
 on_info = mob_jump@zat_b33_snork_jump_05_01
@@ -175,6 +157,3 @@ path_home = snork_jump_05_01
 home_min_radius = 2
 home_max_radius = 15
 on_info = {-zat_b33_snork_jump_05} %+zat_b33_snork_jump_05%
-
-
-

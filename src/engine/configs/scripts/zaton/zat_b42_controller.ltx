@@ -4,7 +4,7 @@ active = mob_home@2
 monster_job = true
 prior = 100
 on_death = death
-on_combat = combat 
+on_combat = combat
 
 [mob_home@2]
 path_home = mob_home
@@ -23,6 +23,6 @@ on_info = {!actor_in_zone(zat_b42_warning_space_restrictor)} mob_home@2
 
 [combat]
 out_restr = zat_b42_warning_space_restrictor
-	
+
 [death]
 on_info = %+zat_b42_controller_dead%

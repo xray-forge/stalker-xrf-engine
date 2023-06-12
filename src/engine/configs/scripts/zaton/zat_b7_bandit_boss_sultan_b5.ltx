@@ -1,7 +1,7 @@
 [logic@zat_b7_bandit_boss_sultan]
 active = walker@start
 suitable = {=check_npc_name(zat_b5_stalker_raider_leader) +zat_b7_stalker_raider_leader_alive  -zat_b5_sultan_dead} true, {=check_npc_name(zat_b7_bandit_boss_dead) -zat_b7_stalker_raider_leader_alive -zat_b5_sultan_dead} true
-prior = 100 
+prior = 100
 post_combat_time = 0,0
 on_death = death
 ;on_hit = hit
@@ -22,7 +22,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 combat_ignore_cond =   {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
-;--за бандитов ждем игрока----------------------------
+;--пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ----------------------------
 [walker@start_work_bandit]
 path_walk = zat_b5_bandit_sultan_1_walk
 path_look = zat_b5_bandit_sultan_1_look
@@ -54,7 +54,7 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-;--идем к торговцу
+;--пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 [walker@go_to_trader]
 path_walk = zat_b5_bandit_sultan_2_walk
 path_look = zat_b5_bandit_sultan_2_look
@@ -85,7 +85,7 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-;--ждем фразы торговца
+;--пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 [walker@close_by_trader]
 path_walk = zat_b5_bandit_sultan_2_walk
 path_look = zat_b5_bandit_sultan_2_look
@@ -101,7 +101,7 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-;--у нас есть артефакты давай оружие
+;--пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 [remark@speak_trader]
 anim = guard
 target = path | zat_b5_smart_terrain_zat_b5_dolg_trader_1_walk,0
@@ -115,12 +115,12 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-;--ждем атаки сталкеров
+;--пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 [walker@wait]
 path_walk = zat_b5_bandit_sultan_2_walk
 path_look = zat_b5_bandit_sultan_2_look
 out_restr = zat_b5_smart_terrain_attack
-def_state_moving = patrol 
+def_state_moving = patrol
 def_state_standing = guard_na
 meet = no_meet
 on_info = {+zat_b5_dealer_speak_2_done} walker@bandit_wait_see_stalker
@@ -135,7 +135,7 @@ corpse_detection_enabled = false
 path_walk = zat_b5_bandit_sultan_2_walk
 path_look = zat_b5_bandit_sultan_2_look
 out_restr = zat_b5_smart_terrain_attack
-def_state_moving = patrol 
+def_state_moving = patrol
 def_state_standing = guard_na
 meet = no_meet
 on_game_timer = 20 | remark@bandit_see_stalker
@@ -164,7 +164,7 @@ corpse_detection_enabled = false
 path_walk = zat_b5_bandit_sultan_2_walk
 path_look = zat_b5_dealer_assistant_2_walker_11_look
 out_restr = zat_b5_smart_terrain_attack
-def_state_moving = patrol 
+def_state_moving = patrol
 def_state_standing = guard_na
 meet = no_meet
 on_info = {+zat_b5_meat} walker@fight
@@ -195,8 +195,8 @@ out_restr = zat_b5_smart_terrain_attack
 def_state_moving = patrol
 def_state_standing = guard_na
 meet = meet
-on_info = {+zat_b5_actor_help_bandits} walker@go_on 
-on_info2 = {+zat_b5_actor_no_help_bandits} walker@go_on 
+on_info = {+zat_b5_actor_help_bandits} walker@go_on
+on_info2 = {+zat_b5_actor_no_help_bandits} walker@go_on
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
@@ -218,7 +218,7 @@ corpse_detection_enabled = false
 wounded = wounded
 combat_ignore_cond =  {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
-;----------------------------за торговца---------------------
+;----------------------------пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ---------------------
 [walker@start_work_dealer]
 path_walk = zat_b5_bandit_sultan_1_walk
 path_look = zat_b5_bandit_sultan_1_look
@@ -279,7 +279,7 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-;--у нас есть артефакты давай оружие
+;--пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 [remark@dealer_speak_trader]
 anim = guard
 target = path | zat_b5_smart_terrain_zat_b5_dolg_trader_1_walk,0
@@ -293,16 +293,16 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-;--ждем атаки сталкеров
+;--пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 [walker@dealer_wait]
 path_walk = zat_b5_bandit_sultan_2_walk
 path_look = zat_b5_bandit_sultan_2_look
 out_restr = zat_b5_smart_terrain_attack
-def_state_moving = patrol 
+def_state_moving = patrol
 def_state_standing = guard_na
 meet = no_meet
 on_info = {+zat_b5_dealer_speak_2_done} walker@dealer_wait_see_stalker
-on_info2 = {+zat_b5_meat} walker@dealer_fight 
+on_info2 = {+zat_b5_meat} walker@dealer_fight
 combat_ignore_cond = {=check_enemy_name(zat_b5_dealer_assistant:zat_b7_duty_illicit_dealer:zat_b5_actor_with_dealer)} true, {=check_enemy_name(zat_b5_stalker_commander:zat_b5_stalker)} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 danger = danger
 gather_items_enabled = false
@@ -313,7 +313,7 @@ corpse_detection_enabled = false
 path_walk = zat_b5_bandit_sultan_2_walk
 path_look = zat_b5_bandit_sultan_2_look
 out_restr = zat_b5_smart_terrain_attack
-def_state_moving = patrol 
+def_state_moving = patrol
 def_state_standing = guard_na
 meet = no_meet
 on_game_timer = 10 | remark@dealer_see_stalker
@@ -342,7 +342,7 @@ corpse_detection_enabled = false
 path_walk = zat_b5_bandit_sultan_2_walk
 path_look = zat_b5_dealer_assistant_2_walker_11_look
 out_restr = zat_b5_smart_terrain_attack
-def_state_moving = patrol 
+def_state_moving = patrol
 def_state_standing = guard_na
 meet = no_meet
 on_info2 = {+zat_b5_meat} walker@dealer_fight %=actor_enemy%
@@ -364,7 +364,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 combat_ignore_cond =  {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
-;--------------------------за сталкеров---------------
+;--------------------------пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ---------------
 [walker@start_work_stalker]
 path_walk = zat_b5_bandit_sultan_2_walk
 path_look = zat_b5_bandit_sultan_2_look
@@ -380,7 +380,7 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-;--ждем фразы торговца
+;--пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 [walker@stalker_go_to_trader]
 path_walk = zat_b5_bandit_sultan_2_walk
 path_look = zat_b5_bandit_sultan_2_look
@@ -396,13 +396,13 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-;--у нас есть артефакты давай оружие
+;--пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 [remark@stalker_speak_trader]
 anim = guard
 target = path | zat_b5_smart_terrain_zat_b5_dolg_trader_1_walk,0
 on_info = %=play_sound(zat_b5_bandit_dealer_speak_1)%
 on_signal = sound_end  | walker@stalker_wait %+zat_b5_bandit_speak_1_done%
-on_info2 = {+zat_b5_meat} walker@stalker_fight 
+on_info2 = {+zat_b5_meat} walker@stalker_fight
 meet = no_meet
 combat_ignore_cond = {=check_enemy_name(zat_b5_dealer_assistant_1:zat_b7_duty_illicit_dealer)} true, {=check_enemy_name(actor)} true, {=check_enemy_name(zat_b5_stalker_commander::zat_b5_stalker)} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 danger = danger
@@ -410,12 +410,12 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-;--ждем атаки сталкеров
+;--пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 [walker@stalker_wait]
 path_walk = zat_b5_bandit_sultan_2_walk
 path_look = zat_b5_bandit_sultan_2_look
 out_restr = zat_b5_smart_terrain_attack
-def_state_moving = patrol 
+def_state_moving = patrol
 def_state_standing = guard_na
 meet = no_meet
 on_info = {+zat_b5_stalker_attack_dealer} remark@stalker_fire
@@ -443,7 +443,7 @@ corpse_detection_enabled = false
 path_walk = zat_b5_bandit_sultan_2_walk
 path_look = zat_b5_dealer_assistant_2_walker_11_look
 out_restr = zat_b5_smart_terrain_attack
-def_state_moving = patrol 
+def_state_moving = patrol
 def_state_standing = guard_na
 meet = no_meet
 on_info = {+zat_b5_meat} walker@stalker_fight
@@ -488,5 +488,5 @@ ignore_distance = 0
 [hit]
 on_info = {=hit_by_actor -zat_b5_bandit_hit} %+zat_b5_meat +zat_b5_bandit_hit%, %+restore_health%
 
-[death] 
+[death]
 on_info = %=inc_counter(bandits_death) +zat_b5_sultan_dead%

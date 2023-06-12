@@ -86,7 +86,7 @@ path_look = gonta_2_look
 def_state_standing = wait_na
 meet = no_meet
 on_game_timer = 30 | remark@story_calm
-;on_signal = crab_look | remark@story_calm 
+;on_signal = crab_look | remark@story_calm
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 invulnerable = true
@@ -132,7 +132,7 @@ path_look = gonta_1_look
 def_state_standing = wait_na
 meet = no_meet
 on_game_timer = 20 | {!is_playing_sound} remark@to_actor
-;on_signal = actor_look | {!is_playing_sound} remark@story_calm 
+;on_signal = actor_look | {!is_playing_sound} remark@story_calm
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 invulnerable = true
@@ -158,13 +158,13 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 def_state_moving = walk
 
-[walker@wait_actor]                                                             
+[walker@wait_actor]
 path_walk = gonta_1_walk
 path_look = gonta_1_look
 def_state_standing = wait_na
 on_game_timer = 10 | remark@wait_actor
 ;on_info =  {!actor_in_zone(zat_b106_actor_go_on)} walker@story_calm %+zat_b106_gonta_story_calm_done%
-meet = no_meet 
+meet = no_meet
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 invulnerable = true
@@ -194,7 +194,7 @@ path_walk = gonta_4_walk
 path_look = gonta_4_look
 on_signal = gonta_home | animpoint@base
 def_state_standing = guard_na
-meet = no_meet 
+meet = no_meet
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 invulnerable = true
@@ -218,7 +218,6 @@ out_restr = zat_a2_sr_noweap
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
-
 
 [meet@idle]
 close_victim    = actor

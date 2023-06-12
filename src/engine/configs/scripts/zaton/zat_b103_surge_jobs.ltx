@@ -46,9 +46,9 @@ on_signal = sound_end | {=actor_has_weapon} remark@leader_wait, animpoint@leader
 out_restr = zat_surge_hide_b103
 anim = threat
 target = story | actor
-on_game_timer = 50 | {-zat_b103_merc_fight} %+zat_b103_merc_fight% 
+on_game_timer = 50 | {-zat_b103_merc_fight} %+zat_b103_merc_fight%
 
-;JOB HEADERS  
+;JOB HEADERS
 
 [logic@surge_job_1]
 suitable = {!check_npc_name(zat_b103_lost_merc_leader) =surge_started} true
@@ -110,9 +110,7 @@ cover_name = zat_b103_animp_surge_4
 cover_name = zat_b103_animp_surge_5
 
 [animpoint@6]:animpoint@def
-cover_name = zat_b103_animp_surge_6 
+cover_name = zat_b103_animp_surge_6
 
 [animpoint@7]:animpoint@def
 cover_name = zat_b103_animp_surge_7
-
-
