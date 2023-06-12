@@ -10,7 +10,7 @@ import {
   setSquadGoodwillToNpc,
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { relations, TRelation } from "@/engine/lib/constants/relations";
+import { ERelation } from "@/engine/lib/constants/relations";
 import { ClientObject, EClientObjectRelation, Optional, TCount, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -45,7 +45,7 @@ extern("xr_effects.set_squad_neutral_to_actor", (actor: ClientObject, object: Cl
   if (squad === null) {
     return;
   } else {
-    squad.updateSquadRelationToActor(relations.neutral);
+    squad.updateSquadRelationToActor(ERelation.NEUTRAL);
   }
 });
 
@@ -58,7 +58,7 @@ extern("xr_effects.set_squad_friend_to_actor", (actor: ClientObject, object: Cli
   if (squad === null) {
     return;
   } else {
-    squad.updateSquadRelationToActor(relations.friend);
+    squad.updateSquadRelationToActor(ERelation.FRIEND);
   }
 });
 
@@ -71,7 +71,7 @@ extern("xr_effects.set_squad_enemy_to_actor", (actor: ClientObject, object: Clie
   if (squad === null) {
     return;
   } else {
-    squad.updateSquadRelationToActor(relations.enemy);
+    squad.updateSquadRelationToActor(ERelation.ENEMY);
   }
 });
 
@@ -87,7 +87,7 @@ extern("xr_effects.set_npc_sympathy", (actor: ClientObject, object: ClientObject
 /**
  * todo;
  */
-extern("xr_effects.set_squad_goodwill", (actor: ClientObject, object: ClientObject, p: [string, TRelation]): void => {
+extern("xr_effects.set_squad_goodwill", (actor: ClientObject, object: ClientObject, p: [string, ERelation]): void => {
   if (p[0] !== null && p[1] !== null) {
     setSquadGoodwill(p[0], p[1]);
   }
@@ -98,7 +98,7 @@ extern("xr_effects.set_squad_goodwill", (actor: ClientObject, object: ClientObje
  */
 extern(
   "xr_effects.set_squad_goodwill_to_npc",
-  (actor: ClientObject, object: ClientObject, p: [string, TRelation]): void => {
+  (actor: ClientObject, object: ClientObject, p: [string, ERelation]): void => {
     if (p[0] !== null && p[1] !== null) {
       setSquadGoodwillToNpc(object, p[0], p[1]);
     }

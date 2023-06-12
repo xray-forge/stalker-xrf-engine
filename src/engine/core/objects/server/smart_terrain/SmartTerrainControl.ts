@@ -14,7 +14,7 @@ import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { setSquadGoodwill } from "@/engine/core/utils/relation";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { relations } from "@/engine/lib/constants/relations";
+import { ERelation } from "@/engine/lib/constants/relations";
 import {
   ClientObject,
   IniFile,
@@ -78,7 +78,7 @@ export class SmartTerrainControl {
       for (const [id, squad] of SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(
         this.smartTerrain.id
       )!.assignedSquads) {
-        setSquadGoodwill(id, relations.neutral);
+        setSquadGoodwill(id, ERelation.NEUTRAL);
       }
 
       this.alarmStartedAt = null;
@@ -145,7 +145,7 @@ export class SmartTerrainControl {
 
       for (const [squadId] of SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(this.smartTerrain.id)!
         .assignedSquads) {
-        setSquadGoodwill(squadId, relations.enemy);
+        setSquadGoodwill(squadId, ERelation.ENEMY);
       }
     }
 

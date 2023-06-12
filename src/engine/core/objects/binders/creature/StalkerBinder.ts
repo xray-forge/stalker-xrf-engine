@@ -64,7 +64,7 @@ import { setObjectsRelation, setObjectSympathy } from "@/engine/core/utils/relat
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { TRelation } from "@/engine/lib/constants/relations";
+import { ERelation } from "@/engine/lib/constants/relations";
 import {
   ActionPlanner,
   ALifeSmartTerrainTask,
@@ -158,7 +158,7 @@ export class StalkerBinder extends object_binder {
       return true;
     }
 
-    const relation: Optional<TRelation> = registry.goodwill.relations.get(objectId);
+    const relation: Optional<ERelation> = registry.goodwill.relations.get(objectId);
 
     if (relation !== null && actor) {
       setObjectsRelation(this.object, actor, relation);

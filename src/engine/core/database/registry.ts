@@ -20,7 +20,7 @@ import type { CampStoryManager } from "@/engine/core/schemes/camper";
 import type { PatrolManager } from "@/engine/core/schemes/patrol";
 import type { ReachTaskPatrolManager } from "@/engine/core/schemes/reach_task";
 import type { LightManager } from "@/engine/core/schemes/sr_light";
-import type { TRelation } from "@/engine/lib/constants/relations";
+import type { ERelation } from "@/engine/lib/constants/relations";
 import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
 import type {
   ClientObject,
@@ -131,7 +131,7 @@ export const registry = {
    */
   goodwill: {
     sympathy: new LuaTable<TNumberId, number>(),
-    relations: new LuaTable<TNumberId, TRelation>(),
+    relations: new LuaTable<TNumberId, ERelation>(),
   },
   /**
    * List of active zones by name.
