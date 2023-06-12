@@ -337,9 +337,9 @@ export function parseFunctionParams(data: string): LuaArray<string | number> {
 /**
  * todo;
  */
-export function parseWaypointData(pathname: TPath, wpflags: Flags32, waypointName: TName): IWaypointData {
+export function parseWaypointData(pathname: TPath, waypointFlags: Flags32, waypointName: TName): IWaypointData {
   const waypointData: IWaypointData = {
-    flags: wpflags,
+    flags: waypointFlags,
   };
 
   if (string.find(waypointName, "|", undefined, true) === null) {

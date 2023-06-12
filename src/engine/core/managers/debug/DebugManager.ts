@@ -133,7 +133,12 @@ export class DebugManager extends AbstractCoreManager {
     logger.pushSeparator();
     logger.info("Print object planner state report:", object.name());
 
-    const actionPlanner: ActionPlanner = object.motivation_action_manager();
+    const actionPlanner: Optional<ActionPlanner> = object.motivation_action_manager();
+
+    if (actionPlanner === null) {
+      return logger.info("Object does not have action planner, `null` received");
+    }
+
     const currentActionId: Optional<TNumberId> = actionPlanner.current_action_id();
 
     logger.info("Current best enemy:", object.best_enemy()?.name() || NIL);
@@ -258,10 +263,10 @@ export class DebugManager extends AbstractCoreManager {
     const state: IRegistryObjectState = registry.objects.get(object.id());
 
     logger.info("Ini file name:", state.ini_filename);
+    logger.info("Section logic:", state.section_logic);
     logger.info("Scheme type:", ESchemeType[state.schemeType]);
     logger.info("Active scheme:", state.active_scheme);
     logger.info("Active section:", state.active_section);
-    logger.info("Section logic:", state.section_logic);
     logger.info("Active gulag name:", state.gulag_name);
     logger.info("Activation time:", state.activation_time);
     logger.info("Activation game time:", gameTimeToString(state.activation_game_time));

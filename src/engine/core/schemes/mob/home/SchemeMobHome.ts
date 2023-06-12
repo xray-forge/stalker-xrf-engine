@@ -10,39 +10,36 @@ import { ClientObject, EScheme, ESchemeType, IniFile, TName, TSection } from "@/
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme to assign mobs to specific home location and operate only in strict radius range.
  */
 export class SchemeMobHome extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_HOME;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    gulagName: TName
+    pathPrefix: TName
   ): void {
-    logger.info("Set scheme:", object.name(), scheme, section);
+    logger.info("Activate scheme:", object.name(), scheme, section);
 
     const state: ISchemeMobHomeState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.state = getMonsterState(ini, section);
-    state.home = readIniString(ini, section, "path_home", false, gulagName, null);
-    state.gulag_point = readIniBoolean(ini, section, "gulag_point", false, false);
-    state.home_min_radius = readIniNumber(ini, section, "home_min_radius", false); // --, 20)
-    state.home_mid_radius = readIniNumber(ini, section, "home_mid_radius", false); // --, 0)
-    state.home_max_radius = readIniNumber(ini, section, "home_max_radius", false); // --, 40)
-    state.aggressive = readIniBoolean(ini, section, "aggressive", false, false);
+
+    state.monsterState = getMonsterState(ini, section);
+    state.homeWayPoint = readIniString(ini, section, "path_home", false, pathPrefix, null);
+
+    state.isSmartTerrainPoint = readIniBoolean(ini, section, "gulag_point", false, false);
+    state.isAggressive = readIniBoolean(ini, section, "aggressive", false, false);
+
+    state.homeMinRadius = readIniNumber(ini, section, "home_min_radius", false); // --, 20)
+    state.homeMidRadius = readIniNumber(ini, section, "home_mid_radius", false); // --, 0)
+    state.homeMaxRadius = readIniNumber(ini, section, "home_max_radius", false); // --, 40)
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

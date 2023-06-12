@@ -29,6 +29,10 @@ export interface IBaseSchemeLogic {
 export interface IBaseSchemeState {
   npc: ClientObject;
   ini: IniFile;
+  /**
+   * List of switch conditions.
+   * Based on logic check one scheme section can be switched to another if condlists provide next section.
+   */
   logic: Optional<LuaArray<IBaseSchemeLogic>>;
   signals: Optional<LuaTable<TName, boolean>>; // Rework with LuaSet?
   scheme: EScheme;

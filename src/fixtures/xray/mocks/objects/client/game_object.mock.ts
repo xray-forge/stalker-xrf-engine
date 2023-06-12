@@ -51,10 +51,8 @@ export function mockClientGameObject({
   position = jest.fn(() => MockVector.mock(0.25, 0.25, 0.25)),
   section,
   sectionOverride = "section",
-  set_invisible = jest.fn(),
   special_danger_move = jest.fn(() => true),
   transfer_item,
-  transfer_money = jest.fn(),
   weapon_unstrapped = jest.fn(() => false),
   ...rest
 }: Partial<
@@ -143,6 +141,7 @@ export function mockClientGameObject({
       }
     }),
     position,
+    remove_home: rest.remove_home || jest.fn(),
     section: section || jest.fn(() => sectionOverride),
     set_body_state: rest.set_body_state || jest.fn(),
     set_callback:
@@ -151,7 +150,8 @@ export function mockClientGameObject({
         (id: TCallback, callback: AnyContextualCallable, context: AnyObject) => (callbacks[id] = callback.bind(context))
       ),
     set_mental_state: rest.set_mental_state || jest.fn(),
-    set_invisible,
+    set_home: rest.set_home || jest.fn(),
+    set_invisible: rest.set_invisible || jest.fn(),
     sight_params:
       rest.sight_params ||
       jest.fn(() => {
@@ -171,7 +171,7 @@ export function mockClientGameObject({
       jest.fn(() => {
         return MockMove.standing;
       }),
-    transfer_money,
+    transfer_money: rest.transfer_money || jest.fn(),
     transfer_item:
       transfer_item ||
       jest.fn((item: ClientObject, to: ClientObject) => {

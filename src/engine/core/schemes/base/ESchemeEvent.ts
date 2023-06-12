@@ -9,7 +9,7 @@ export enum ESchemeEvent {
   EXTRAPOLATE = "extrapolate_callback",
   NET_DESTROY = "net_destroy",
   HIT = "hit_callback",
-  RESET_SCHEME = "resetScheme",
+  RESET_SCHEME = "resetScheme", // todo: Probably merge with activate scheme.
   SAVE = "save",
   UPDATE = "update",
   USE = "use_callback",

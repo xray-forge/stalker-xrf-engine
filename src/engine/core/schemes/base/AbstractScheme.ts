@@ -28,6 +28,13 @@ export abstract class AbstractScheme {
 
   /**
    * todo: Description.
+   * Activate scheme by parameters.
+   *
+   * @param object - client object to handle with provided scheme
+   * @param ini - ini file with scheme details
+   * @param scheme - name of scheme to activate, `mob_home` as example
+   * @param section - scheme section, `mob_home@2` as example
+   * @param additional - additional scheme data
    */
   public static activate(
     object: ClientObject,
@@ -51,7 +58,7 @@ export abstract class AbstractScheme {
     const objectState: IRegistryObjectState = registry.objects.get(object.id());
     let schemeState: Optional<T> = objectState[scheme] as Optional<T>;
 
-    if (schemeState === null) {
+    if (!schemeState) {
       schemeState = {
         npc: object,
       } as T;
@@ -94,13 +101,13 @@ export abstract class AbstractScheme {
   public static subscribe(
     object: ClientObject,
     state: IBaseSchemeState,
-    newAction: TName | AnyObject | LuaTable
+    subscriber: TName | AnyObject | LuaTable
   ): void {
     if (!state.actions) {
       state.actions = new LuaTable();
     }
 
-    state.actions.set(newAction as any, true);
+    state.actions.set(subscriber as any, true);
   }
 
   /**

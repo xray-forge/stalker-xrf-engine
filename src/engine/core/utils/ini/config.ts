@@ -276,6 +276,8 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
  * todo
  * todo
  * todo
+ * Get switch conditions for provided scheme section like `mob_home@2`.
+ * Parses all possible switch cases for checking and switching later if conditions are satisfied.
  */
 export function getConfigSwitchConditions(ini: IniFile, section: TSection): Optional<LuaArray<IBaseSchemeLogic>> {
   const conditionsList: LuaArray<IBaseSchemeLogic> = new LuaTable();

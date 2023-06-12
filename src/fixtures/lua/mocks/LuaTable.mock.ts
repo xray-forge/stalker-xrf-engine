@@ -68,6 +68,10 @@ export class MockLuaTable<K, V> extends Map<K, V> {
   public length(): number {
     return this.size;
   }
+
+  public getKeysArray(): Array<K> {
+    return [...this.keys()];
+  }
 }
 
 /**
