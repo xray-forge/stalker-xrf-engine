@@ -38,7 +38,7 @@ export function getAmmoSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
 
   SYSTEM_INI.section_for_each((it) => {
-    if (it.startsWith("ammo_")) {
+    if (it.startsWith("ammo_") && it !== "ammo_base") {
       table.insert(list, it);
     }
   });
