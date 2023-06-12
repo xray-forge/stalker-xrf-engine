@@ -4,7 +4,7 @@ import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseStringsList } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, IniFile, LuaArray, TSection } from "@/engine/lib/types";
+import { ClientObject, IniFile, LuaArray, Optional, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -13,14 +13,14 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class ObjectRestrictionsManager {
   /**
-   * todo: Description.
+   * Initialize restrictor manager for game object.
    */
   public static initializeForObject(object: ClientObject): ObjectRestrictionsManager {
     logger.info("Get restrictor manager for object:", object.name());
 
-    const state: IRegistryObjectState = registry.objects.get(object.id());
+    const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
-    if (state.restrictionsManager === null) {
+    if (!state.restrictionsManager) {
       state.restrictionsManager = new ObjectRestrictionsManager(object);
     }
 
@@ -28,132 +28,141 @@ export class ObjectRestrictionsManager {
   }
 
   /**
-   * todo: Description.
+   * Initialize restrictor manager for game object and activate it.
    */
-  public static resetForObject(object: ClientObject, state: IRegistryObjectState, section: TSection): void {
-    return ObjectRestrictionsManager.initializeForObject(object).reset(state, section);
+  public static activateForObject(object: ClientObject, section: TSection): ObjectRestrictionsManager {
+    const manager: ObjectRestrictionsManager = ObjectRestrictionsManager.initializeForObject(object);
+
+    manager.activate(section);
+
+    return manager;
   }
 
   public object: ClientObject;
-  public baseOutRestrictions: LuaTable<string, boolean>;
-  public baseInRestrictions: LuaTable<string, boolean>;
-
-  public inRestrictions: LuaTable<number, string>;
-  public outRestrictions: LuaTable<number, string>;
+  public baseOutRestrictions: LuaTable<string, boolean> = new LuaTable();
+  public baseInRestrictions: LuaTable<string, boolean> = new LuaTable();
 
   public constructor(object: ClientObject) {
     this.object = object;
-    this.baseOutRestrictions = new LuaTable();
-    this.baseInRestrictions = new LuaTable();
-    this.outRestrictions = parseStringsList(this.object.out_restrictions());
 
-    for (const [k, v] of this.outRestrictions) {
-      this.baseOutRestrictions.set(v, true);
+    for (const [, name] of parseStringsList(this.object.out_restrictions())) {
+      this.baseOutRestrictions.set(name, true);
     }
 
-    this.inRestrictions = parseStringsList(this.object.in_restrictions());
-
-    for (const [k, v] of this.inRestrictions) {
-      this.baseInRestrictions.set(v, true);
+    for (const [, name] of parseStringsList(this.object.in_restrictions())) {
+      this.baseInRestrictions.set(name, true);
     }
   }
 
   /**
-   * todo: Description.
+   * Activate restrictions and apply missing ones.
    */
-  public reset(state: IRegistryObjectState, section: TSection): void {
-    logger.info("Reset restrictions:", this.object.name(), section);
+  public activate(section: TSection): void {
+    const objectName: TName = this.object.name();
+    const ini: IniFile = registry.objects.get(this.object.id()).ini;
 
-    const actualIni: IniFile = state.ini!;
-    const [outRestrString] = getParamString(readIniString(actualIni, section, "out_restr", false, "", ""));
+    logger.info("Activate restrictions:", objectName, section);
 
-    const newOutRestr = parseStringsList(outRestrString);
-    const oldOutRestr = parseStringsList(this.object.out_restrictions());
-    let insRestr: LuaArray<string> = new LuaTable();
-    let delRestr: LuaArray<string> = new LuaTable();
+    // Update OUT restrictors based on active / ini restrictors.
+    const [outRestrictorString] = getParamString(readIniString(ini, section, "out_restr", false, "", ""));
+    const newOutRestrictors: LuaArray<TName> = parseStringsList(outRestrictorString);
+    const oldOutRestrictors: LuaArray<TName> = parseStringsList(this.object.out_restrictions());
 
-    // todo: Intersection with 2x2 loop.
-    for (const [k, v] of oldOutRestr) {
-      let existRest = false;
+    let restrictorsToAdd: LuaArray<TName> = new LuaTable();
+    let restrictorsToRemove: LuaArray<TName> = new LuaTable();
 
-      for (const [kk, vv] of newOutRestr) {
-        if (v === vv) {
-          existRest = true;
+    // Get OUT restrictors to remove.
+    for (const [, name] of oldOutRestrictors) {
+      let isExistingRestrictor: boolean = false;
+
+      for (const [, newName] of newOutRestrictors) {
+        if (name === newName) {
+          isExistingRestrictor = true;
           break;
         }
       }
 
-      if (existRest === false && this.baseOutRestrictions.get(v) !== true) {
-        table.insert(delRestr, v);
+      // todo: Probably omit second check.
+      if (!isExistingRestrictor && !this.baseOutRestrictions.get(name)) {
+        table.insert(restrictorsToRemove, name);
       }
     }
 
-    for (const [k, v] of newOutRestr) {
-      let existRest = false;
+    // Get OUT restrictors to add.
+    for (const [, name] of newOutRestrictors) {
+      let isExistingRestrictor: boolean = false;
 
-      for (const [kk, vv] of oldOutRestr) {
-        if (v === vv) {
-          existRest = true;
+      for (const [, oldName] of oldOutRestrictors) {
+        if (name === oldName) {
+          isExistingRestrictor = true;
           break;
         }
       }
 
-      if (existRest === false && v !== NIL) {
-        table.insert(insRestr, v);
+      if (!isExistingRestrictor && name !== NIL) {
+        table.insert(restrictorsToAdd, name);
       }
     }
 
-    for (const [k, v] of delRestr) {
-      this.object.remove_restrictions(v, "");
+    for (const [, name] of restrictorsToRemove) {
+      logger.info("Remove out restriction:", objectName, name);
+      this.object.remove_restrictions(name, "");
     }
 
-    for (const [k, v] of insRestr) {
-      this.object.add_restrictions(v, "");
+    for (const [, name] of restrictorsToAdd) {
+      logger.info("Add out restriction:", objectName, name);
+      this.object.add_restrictions(name, "");
     }
 
-    const [inRestrString] = getParamString(readIniString(actualIni, section, "in_restr", false, "", ""));
-    const newInRestr = parseStringsList(inRestrString);
-    const oldInRestr = parseStringsList(this.object.in_restrictions());
+    // Update IN restrictors based on active / ini restrictors.
+    const [inRestrictorString] = getParamString(readIniString(ini, section, "in_restr", false, "", ""));
+    const newInRestrictor: LuaArray<TName> = parseStringsList(inRestrictorString);
+    const oldInRestrictor: LuaArray<TName> = parseStringsList(this.object.in_restrictions());
 
-    insRestr = new LuaTable();
-    delRestr = new LuaTable();
+    restrictorsToAdd = new LuaTable();
+    restrictorsToRemove = new LuaTable();
 
-    for (const [k, v] of oldInRestr) {
-      let existRest: boolean = false;
+    // Get IN restrictors to remove.
+    for (const [, name] of oldInRestrictor) {
+      let isExisting: boolean = false;
 
-      for (const [kk, vv] of newInRestr) {
-        if (v === vv) {
-          existRest = true;
+      for (const [, newName] of newInRestrictor) {
+        if (name === newName) {
+          isExisting = true;
           break;
         }
       }
 
-      if (existRest === false && this.baseInRestrictions.get(v) !== true) {
-        table.insert(delRestr, v);
+      // todo: Probably omit second check.
+      if (!isExisting && !this.baseInRestrictions.get(name)) {
+        table.insert(restrictorsToRemove, name);
       }
     }
 
-    for (const [k, v] of newInRestr) {
-      let existRest: boolean = false;
+    // Get IN restrictors to add.
+    for (const [, name] of newInRestrictor) {
+      let isExisting: boolean = false;
 
-      for (const [kk, vv] of oldInRestr) {
-        if (v === vv) {
-          existRest = true;
+      for (const [, oldName] of oldInRestrictor) {
+        if (name === oldName) {
+          isExisting = true;
           break;
         }
       }
 
-      if (existRest === false && v !== NIL) {
-        table.insert(insRestr, v);
+      if (!isExisting && name !== NIL) {
+        table.insert(restrictorsToAdd, name);
       }
     }
 
-    for (const [k, v] of delRestr) {
-      this.object.remove_restrictions("", v);
+    for (const [, name] of restrictorsToRemove) {
+      logger.info("Remove in restriction:", objectName, name);
+      this.object.remove_restrictions("", name);
     }
 
-    for (const [k, v] of insRestr) {
-      this.object.add_restrictions("", v);
+    for (const [, name] of restrictorsToAdd) {
+      logger.info("Add in restriction:", objectName, name);
+      this.object.add_restrictions("", name);
     }
   }
 }

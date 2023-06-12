@@ -6,7 +6,7 @@ import { ISmartTerrainJob } from "@/engine/core/objects/server/smart_terrain/typ
 import { ESchemeEvent, TAbstractSchemeConstructor } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
 import { resetObjectGenericSchemesOnSectionSwitch } from "@/engine/core/schemes/base/utils/resetObjectGenericSchemesOnSectionSwitch";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { getObjectConfigOverrides } from "@/engine/core/utils/ini/config";
 import { getSchemeByIniSection } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -30,11 +30,9 @@ export function activateSchemeBySection(
   additional: Optional<string>,
   loading: boolean
 ): void {
-  logger.info("Activate scheme:", section, "->", object.name(), additional);
+  logger.info("Activate scheme:", object.name(), section, additional);
 
-  if (loading === null) {
-    abort("core/logic: activateBySection: loading field is null, true || false expected");
-  }
+  assertDefined(loading, "core/logic: activateBySection: loading field is null, true || false expected");
 
   const objectId: TNumberId = object.id();
 
