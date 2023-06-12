@@ -3,7 +3,7 @@ import { game, level, time_global } from "xray16";
 import { registry } from "@/engine/core/database";
 import { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes";
 import { switchObjectSchemeToSection } from "@/engine/core/schemes/base/utils/switchObjectSchemeToSection";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { isObjectInZone } from "@/engine/core/utils/check/check";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -92,19 +92,22 @@ export function trySwitchToAnotherSection(
 ): boolean {
   const logic: Optional<LuaArray<IBaseSchemeLogic>> = state.logic;
 
-  if (!actor) {
-    abort("trySwitchToAnotherSection(): error in implementation of scheme '%s': actor is null", state.scheme);
-  } else if (!logic) {
-    abort(
-      "Can't find script switching information in storage, scheme '%s'",
-      registry.objects.get(object.id()).active_scheme
-    );
-  }
+  assertDefined(actor, "TrySwitchToAnotherSection(): error in scheme '%s': actor is null", state.scheme);
+  assertDefined(logic, "Can't find `logic` in storage, scheme '%s'.", registry.objects.get(object.id()).active_scheme);
 
-  for (const [index, condition] of logic) {
+  for (const [, condition] of logic) {
     const conditionName: ESchemeCondition = (string.match(condition.name, "([%a_]*)")[0] as ESchemeCondition) || NIL;
 
     if (SCHEME_LOGIC_SWITCH[conditionName](actor, object, state, condition)) {
+      logger.info(
+        "Switch scheme section:",
+        object.name(),
+        conditionName,
+        state.section,
+        "->",
+        registry.objects.get(object.id()).active_section
+      );
+
       return true;
     }
   }

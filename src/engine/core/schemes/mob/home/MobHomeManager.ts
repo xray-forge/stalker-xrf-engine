@@ -1,91 +1,110 @@
 import { alife, patrol } from "xray16";
 
 import { setMonsterState } from "@/engine/core/database";
+import { SmartTerrain } from "@/engine/core/objects";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/mob/home/ISchemeMobHomeState";
-import { abort } from "@/engine/core/utils/assertion";
+import { assert } from "@/engine/core/utils/assertion";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/parse";
-import { Patrol, ServerCreatureObject } from "@/engine/lib/types";
+import { Optional, Patrol, ServerCreatureObject, TDistance, TName, TNumberId } from "@/engine/lib/types";
 
-const DEF_MIN_RADIUS: number = 10;
-const DEF_MID_RADIUS: number = 20;
-const DEF_MAX_RADIUS: number = 70;
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Manager to assign home locations for mobs and guard them.
  */
 export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
-  /**
-   * todo: Description.
-   */
+  public static readonly DEFAULT_MIN_RADIUS: TDistance = 10;
+  public static readonly DEFAULT_MID_RADIUS: TDistance = 20;
+  public static readonly DEFAULT_MAX_RADIUS: TDistance = 70;
+
   public override resetScheme(): void {
-    setMonsterState(this.object, this.state.state);
+    setMonsterState(this.object, this.state.monsterState);
 
-    let minr = DEF_MIN_RADIUS;
-    let maxr = DEF_MAX_RADIUS;
-    let midr = DEF_MID_RADIUS;
+    const [name, minRadius, maxRadius, isAggressive, midRadius] = this.getHomeParameters();
 
-    let ptr: Patrol;
-    let waypointData: Partial<IWaypointData> = {};
-    let r = 0;
+    logger.info("Activate mob home:", this.object.name(), name, minRadius, maxRadius, isAggressive);
+    this.object.set_home(name as TName, minRadius, maxRadius, isAggressive, midRadius);
+  }
 
-    if (this.state.home !== null) {
-      ptr = new patrol(this.state.home);
-      waypointData = parseWaypointData(this.state.home, ptr.flags(0), ptr.name(0));
-    }
+  public override deactivate(): void {
+    logger.info("Deactivate mob home:", this.object.name());
 
-    if (this.state.home_min_radius !== null) {
-      minr = this.state.home_min_radius;
-    } else {
-      if (waypointData.minr !== null) {
-        r = tonumber(waypointData.minr)!;
-        if (r !== null) {
-          minr = r;
-        }
-      }
-    }
-
-    if (this.state.home_max_radius !== null) {
-      maxr = this.state.home_max_radius;
-    } else {
-      if (waypointData.maxr !== null) {
-        r = tonumber(waypointData.maxr)!;
-        if (r !== null) {
-          maxr = r;
-        }
-      }
-    }
-
-    // -- check min and max radius
-    if (minr > maxr) {
-      abort("Mob_Home : Home Min Radius MUST be < Max Radius. Got: min radius = %d, max radius = %d.", minr, maxr);
-    }
-
-    if (this.state.home_mid_radius !== null) {
-      midr = this.state.home_mid_radius;
-      if (midr <= minr || midr >= maxr) {
-        midr = minr + (maxr - minr) / 2;
-      }
-    } else {
-      midr = minr + (maxr - minr) / 2;
-    }
-
-    if (this.state.gulag_point !== null) {
-      const smrttrn = alife().object(alife().object<ServerCreatureObject>(this.object.id())!.m_smart_terrain_id);
-      const lvid = smrttrn ? smrttrn.m_level_vertex_id : null;
-
-      this.object.set_home(lvid, minr, maxr, this.state.aggressive, midr);
-    } else {
-      this.object.set_home(this.state.home, minr, maxr, this.state.aggressive, midr);
-    }
-
-    // --this.object.set_home(this.state.home, minr, maxr, this.state.aggressive)
+    this.object.remove_home();
   }
 
   /**
-   * todo: Description.
+   * Get home parameters based on current schema state.
    */
-  public override deactivate(): void {
-    this.object.remove_home();
+  public getHomeParameters(): LuaMultiReturn<[TNumberId | TName, TDistance, TDistance, boolean, TDistance]> {
+    const isAggressive: boolean = this.state.isAggressive || false;
+
+    let minRadius: TDistance = MobHomeManager.DEFAULT_MIN_RADIUS;
+    let maxRadius: TDistance = MobHomeManager.DEFAULT_MAX_RADIUS;
+    let midRadius: TDistance = MobHomeManager.DEFAULT_MID_RADIUS;
+
+    let waypointData: Partial<IWaypointData> = {};
+    let radius: TDistance = 0;
+
+    if (this.state.homeWayPoint !== null) {
+      const homePatrol: Patrol = new patrol(this.state.homeWayPoint);
+
+      waypointData = parseWaypointData(this.state.homeWayPoint, homePatrol.flags(0), homePatrol.name(0));
+    }
+
+    // Assign min radius.
+    if (this.state.homeMinRadius) {
+      minRadius = this.state.homeMinRadius;
+    } else if (waypointData.minr !== null) {
+      radius = tonumber(waypointData.minr) as TDistance;
+
+      if (radius !== null) {
+        minRadius = radius;
+      }
+    }
+
+    // Assign max radius.
+    if (this.state.homeMaxRadius) {
+      maxRadius = this.state.homeMaxRadius;
+    } else if (waypointData.maxr !== null) {
+      radius = tonumber(waypointData.maxr) as TDistance;
+
+      if (radius !== null) {
+        maxRadius = radius;
+      }
+    }
+
+    assert(
+      maxRadius > minRadius,
+      "MobHome: Home min Radius MUST be < max radius. Got: min radius = %d, max radius = %d.",
+      minRadius,
+      maxRadius
+    );
+
+    // Assign mid radius.
+    if (this.state.homeMidRadius) {
+      midRadius = this.state.homeMidRadius;
+
+      if (midRadius <= minRadius || midRadius >= maxRadius) {
+        midRadius = minRadius + (maxRadius - minRadius) / 2;
+      }
+    } else {
+      midRadius = minRadius + (maxRadius - minRadius) / 2;
+    }
+
+    // Assign mob home.
+    if (this.state.isSmartTerrainPoint) {
+      const smartTerrain: Optional<SmartTerrain> = alife().object(
+        alife().object<ServerCreatureObject>(this.object.id())!.m_smart_terrain_id
+      );
+      const vertexId: Optional<TNumberId> = smartTerrain ? smartTerrain.m_level_vertex_id : null;
+
+      return $multi(vertexId as TNumberId, minRadius, maxRadius, isAggressive, midRadius);
+    }
+
+    logger.info("Activate mob home:", this.object.name(), this.state.homeWayPoint);
+
+    return $multi(this.state.homeWayPoint as TName, minRadius, maxRadius, isAggressive, midRadius);
   }
 }

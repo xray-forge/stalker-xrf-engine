@@ -44,6 +44,7 @@ import {
   cse_alife_object_hanging_lamp,
   cse_alife_object_physic,
   cse_alife_online_offline_group,
+  cse_alife_smart_zone,
   cse_alife_space_restrictor,
   cse_anomalous_zone,
   cse_smart_cover,
@@ -181,6 +182,7 @@ export type ServerMonsterBaseObject = cse_alife_monster_base;
 export type ServerObject = cse_alife_object;
 export type ServerPhysicObject = cse_alife_object_physic;
 export type ServerSmartCoverObject = cse_smart_cover;
+export type ServerSmartZoneObject = cse_alife_smart_zone;
 export type ServerSpaceRestrictorObject = cse_alife_space_restrictor;
 export type ServerTorridZoneObject = cse_torrid_zone;
 export type ServerWeaponAutoShotgunObject = cse_alife_item_weapon_auto_shotgun;

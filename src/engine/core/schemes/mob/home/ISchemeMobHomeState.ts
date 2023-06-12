@@ -6,11 +6,11 @@ import type { Optional, TDistance } from "@/engine/lib/types";
  * todo;
  */
 export interface ISchemeMobHomeState extends IBaseSchemeState {
-  state: Optional<EMonsterState>;
-  home: Optional<string>;
-  gulag_point: boolean;
-  home_min_radius: TDistance;
-  home_mid_radius: TDistance;
-  home_max_radius: TDistance;
-  aggressive: boolean;
+  monsterState: Optional<EMonsterState>;
+  homeWayPoint: Optional<string>;
+  isSmartTerrainPoint: boolean;
+  homeMinRadius: Optional<TDistance>;
+  homeMidRadius: Optional<TDistance>;
+  homeMaxRadius: Optional<TDistance>;
+  isAggressive: boolean;
 }

@@ -1,0 +1,83 @@
+import { describe, expect, it, jest } from "@jest/globals";
+
+import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { ESchemeEvent } from "@/engine/core/schemes";
+import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
+import { ISchemeMobHomeState } from "@/engine/core/schemes/mob/home/ISchemeMobHomeState";
+import { MobHomeManager } from "@/engine/core/schemes/mob/home/MobHomeManager";
+import { SchemeMobHome } from "@/engine/core/schemes/mob/home/SchemeMobHome";
+import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
+import { loadSchemeImplementation } from "@/engine/scripts/register/schemes_registrator";
+import { MockLuaTable } from "@/fixtures/lua";
+import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+
+describe("MobHomeManager functionality", () => {
+  it("should be correctly defined", () => {
+    expect(SchemeMobHome.SCHEME_SECTION).toBe("mob_home");
+    expect(SchemeMobHome.SCHEME_SECTION).toBe(EScheme.MOB_HOME);
+    expect(SchemeMobHome.SCHEME_TYPE).toBe(ESchemeType.MONSTER);
+  });
+
+  it("should correctly activate scheme", () => {
+    const object: ClientObject = mockClientGameObject();
+    const ini: IniFile = mockIniFile("test.ltx", {
+      "mob_home@test": {
+        on_info: "{=actor_in_zone(zat_b42_warning_space_restrictor)} mob_home@1",
+        on_info1: "{=actor_in_zone(zat_b42_warning_space_restrictor)} mob_home@1",
+        gulag_point: true,
+        aggressive: true,
+        path_home: "test-name",
+        home_min_radius: 13,
+        home_mid_radius: 15,
+        home_max_radius: 18,
+      },
+    });
+
+    registerObject(object);
+    loadSchemeImplementation(SchemeMobHome);
+
+    SchemeMobHome.activate(object, ini, SchemeMobHome.SCHEME_SECTION, `${SchemeMobHome.SCHEME_SECTION}@test`, "prefix");
+
+    const state: IRegistryObjectState = registry.objects.get(object.id());
+    const schemeState: ISchemeMobHomeState = state[EScheme.MOB_HOME] as ISchemeMobHomeState;
+
+    expect(schemeState.ini).toBe(ini);
+    expect(schemeState.scheme).toBe("mob_home");
+    expect(schemeState.section).toBe("mob_home@test");
+    expect(schemeState.logic?.length()).toBe(2);
+    expect(schemeState.actions?.length()).toBe(1);
+
+    expect(schemeState.homeWayPoint).toBe("prefix_test-name");
+    expect(schemeState.monsterState).toBeNull();
+    expect(schemeState.isSmartTerrainPoint).toBe(true);
+    expect(schemeState.homeMinRadius).toBe(13);
+    expect(schemeState.homeMidRadius).toBe(15);
+    expect(schemeState.homeMaxRadius).toBe(18);
+  });
+
+  it("should correctly handle events", () => {
+    const object: ClientObject = mockClientGameObject();
+    const ini: IniFile = mockIniFile("test.ltx", {});
+
+    registerObject(object);
+    loadSchemeImplementation(SchemeMobHome);
+
+    SchemeMobHome.activate(object, ini, SchemeMobHome.SCHEME_SECTION, `${SchemeMobHome.SCHEME_SECTION}@test`, "prefix");
+
+    const state: IRegistryObjectState = registry.objects.get(object.id());
+    const schemeState: ISchemeMobHomeState = state[EScheme.MOB_HOME] as ISchemeMobHomeState;
+
+    const mobHomeManager: MobHomeManager = (
+      schemeState.actions as unknown as MockLuaTable<MobHomeManager, boolean>
+    ).getKeysArray()[0];
+
+    jest.spyOn(mobHomeManager, "resetScheme").mockImplementation(jest.fn);
+    jest.spyOn(mobHomeManager, "deactivate").mockImplementation(jest.fn);
+
+    emitSchemeEvent(object, schemeState, ESchemeEvent.RESET_SCHEME);
+    expect(mobHomeManager.resetScheme).toHaveBeenCalledTimes(1);
+
+    emitSchemeEvent(object, schemeState, ESchemeEvent.DEACTIVATE);
+    expect(mobHomeManager.deactivate).toHaveBeenCalledTimes(1);
+  });
+});

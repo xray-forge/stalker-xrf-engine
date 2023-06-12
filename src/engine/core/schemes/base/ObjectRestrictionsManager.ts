@@ -4,7 +4,7 @@ import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseStringsList } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, IniFile, TSection } from "@/engine/lib/types";
+import { ClientObject, IniFile, LuaArray, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -69,8 +69,8 @@ export class ObjectRestrictionsManager {
 
     const newOutRestr = parseStringsList(outRestrString);
     const oldOutRestr = parseStringsList(this.object.out_restrictions());
-    let insRestr: LuaTable<number, string> = new LuaTable();
-    let delRestr: LuaTable<number, string> = new LuaTable();
+    let insRestr: LuaArray<string> = new LuaTable();
+    let delRestr: LuaArray<string> = new LuaTable();
 
     // todo: Intersection with 2x2 loop.
     for (const [k, v] of oldOutRestr) {
