@@ -64,7 +64,7 @@ import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { ERelation, TRelation } from "@/engine/lib/constants/relations";
+import { ERelation } from "@/engine/lib/constants/relations";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
@@ -133,7 +133,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
   public sympathy: Optional<TCount> = null;
   public isSpotVisible: Optional<TConditionList> = null;
-  public relationship: Optional<TRelation> = null;
+  public relationship: Optional<ERelation> = null;
 
   public readonly soundManager: StoryManager = StoryManager.getStoryManagerForId("squad_" + this.section_name());
 
@@ -293,7 +293,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       readIniString(SYSTEM_INI, sectionName, "invulnerability", false, "", "")
     );
     this.relationship =
-      this.relationship || (readIniString(SYSTEM_INI, sectionName, "relationship", false, "", null) as TRelation);
+      this.relationship || (readIniString(SYSTEM_INI, sectionName, "relationship", false, "", null) as ERelation);
     this.sympathy = readIniNumber(SYSTEM_INI, sectionName, "sympathy", false, null);
     this.isSpotVisible = parseConditionsList(readIniString(SYSTEM_INI, sectionName, "show_spot", false, "", FALSE));
     this.isAlwaysArrived = readIniBoolean(SYSTEM_INI, sectionName, "always_arrived", false);
@@ -830,7 +830,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    *
    * @param relation - optional, new relation between squad and actor
    */
-  public updateSquadRelationToActor(relation: Optional<TRelation> = this.relationship): void {
+  public updateSquadRelationToActor(relation: Optional<ERelation> = this.relationship): void {
     if (relation !== null) {
       for (const squadMember of this.squad_members()) {
         const object: Optional<ClientObject> = registry.objects.get(squadMember.id)?.object;

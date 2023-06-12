@@ -1,13 +1,4 @@
 /**
- * todo;
- */
-export const relations = {
-  enemy: "enemy",
-  neutral: "neutral",
-  friend: "friend",
-} as const;
-
-/**
  * Relation type.
  */
 export enum ERelation {
@@ -15,16 +6,6 @@ export enum ERelation {
   NEUTRAL = "neutral",
   FRIEND = "friend",
 }
-
-/**
- * todo;
- */
-export type TRelations = typeof relations;
-
-/**
- * todo;
- */
-export type TRelation = TRelations[keyof TRelations];
 
 /**
  * todo;

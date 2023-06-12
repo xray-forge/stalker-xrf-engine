@@ -80,7 +80,7 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TCaption } from "@/engine/lib/constants/captions/captions";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
-import { relations, TRelation } from "@/engine/lib/constants/relations";
+import { ERelation } from "@/engine/lib/constants/relations";
 import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
@@ -104,7 +104,6 @@ import {
   TLabel,
   TName,
   TNumberId,
-  TRate,
   TSection,
   TStringId,
   TTimestamp,
@@ -139,7 +138,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public level: TName = "";
 
   public simulationRole: ESimulationTerrainRole = ESimulationTerrainRole.DEFAULT;
-  public smartTerrainDisplayedMapSpot: Optional<TRelation> = null;
+  public smartTerrainDisplayedMapSpot: Optional<ERelation> = null;
   public respawnSector: Optional<TConditionList> = null;
   public forbiddenPoint: string = "";
 
@@ -1134,15 +1133,15 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
      * If debug enabled, render map spots.
      */
     if (gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED) {
-      let spot: TRelation = relations.neutral;
+      let spot: ERelation = ERelation.NEUTRAL;
 
       if (
         this.isSimulationAvailableConditionList === null ||
         pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) === TRUE
       ) {
-        spot = relations.friend;
+        spot = ERelation.FRIEND;
       } else {
-        spot = relations.enemy;
+        spot = ERelation.ENEMY;
       }
 
       const previousSelector: TName = string.format(

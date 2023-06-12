@@ -15,7 +15,7 @@ import {
   isSquadRelationBetweenActorAndRelation,
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { relations } from "@/engine/lib/constants/relations";
+import { ERelation } from "@/engine/lib/constants/relations";
 import {
   AnyCallable,
   ClientObject,
@@ -104,7 +104,7 @@ extern(
   "xr_conditions.is_squad_friend_to_actor",
   (actor: ClientObject, npc: ClientObject, params: [string]): boolean => {
     if (params[0] !== null) {
-      return isSquadRelationBetweenActorAndRelation(params[0], relations.friend);
+      return isSquadRelationBetweenActorAndRelation(params[0], ERelation.FRIEND);
     } else {
       return false;
     }
@@ -122,7 +122,7 @@ extern(
     }
 
     for (const v of params) {
-      if (isSquadRelationBetweenActorAndRelation(v, relations.enemy)) {
+      if (isSquadRelationBetweenActorAndRelation(v, ERelation.ENEMY)) {
         return true;
       }
     }
