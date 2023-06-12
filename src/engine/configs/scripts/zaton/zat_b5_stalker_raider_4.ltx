@@ -1,7 +1,7 @@
 [logic@zat_b5_stalker_raider_4]
 active = walker@start
 ;suitable = {=check_npc_name(zat_b5_stalker_raider_4) -zat_b5_leave_for_bandit_quest -zat_b5_actor_help_bandits}
-suitable = {=check_npc_name(zat_b5_stalker_raider_4) -zat_b5_task_end} 
+suitable = {=check_npc_name(zat_b5_stalker_raider_4) -zat_b5_task_end}
 prior = 100
 on_hit = hit
 post_combat_time = 0,0
@@ -71,7 +71,6 @@ danger = danger
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
-
 
 [remark@see_actor]
 anim = guard_na
@@ -149,7 +148,7 @@ corpse_detection_enabled = false
 close_distance = 0
 close_victim = nil
 use = false
-snd_on_use = {=actor_enemy} nil, {=has_enemy} meet_use_no_fight, {!has_enemy} zat_b5_stalkers_refuse_talk 
+snd_on_use = {=actor_enemy} nil, {=has_enemy} meet_use_no_fight, {!has_enemy} zat_b5_stalkers_refuse_talk
 
 [danger]
 ignore_distance = 0
@@ -157,5 +156,5 @@ ignore_distance = 0
 [hit]
 on_info = {=hit_by_actor -zat_b5_bandit_hit} %+zat_b5_bandit_hit +zat_b5_meat%, {-zat_b5_meat} %+zat_b5_meat%
 
-[death] 
+[death]
 on_info = %=inc_counter(bandits_death)%

@@ -1,7 +1,7 @@
 [logic@zat_b5_stalker_raider_1]
 active = walker@start
-;suitable = {=check_npc_name(zat_b5_stalker_raider_1) -zat_b5_leave_for_bandit_quest -zat_b5_actor_help_bandits} 
-suitable = {=check_npc_name(zat_b5_stalker_raider_1)  -zat_b5_task_end} 
+;suitable = {=check_npc_name(zat_b5_stalker_raider_1) -zat_b5_leave_for_bandit_quest -zat_b5_actor_help_bandits}
+suitable = {=check_npc_name(zat_b5_stalker_raider_1)  -zat_b5_task_end}
 prior = 100
 on_hit = hit
 post_combat_time = 0,0
@@ -54,7 +54,6 @@ danger = danger
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
-
 
 [walker@go_to_trader_1]
 path_walk = zat_b5_bandit_1_walker_2_walk
@@ -110,7 +109,7 @@ combat_ignore_cond = {+zat_b5_actor_with_stalkers -zat_b5_stalker_death =check_e
 ;gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
-                                                                
+
 [walker@after_fight]
 path_walk = zat_b5_bandit_1_walker_2_walk
 path_look = zat_b5_bandit_1_walker_2_look
@@ -137,7 +136,6 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
-
 [walker@start_work_stalker]
 path_walk = zat_b5_bandit_1_walker_2_walk
 path_look = zat_b5_bandit_1_walker_2_look
@@ -146,7 +144,7 @@ def_state_moving1 = run
 def_state_standing = guard_na
 meet = no_meet
 ;on_actor_dist_le = 20 | {+zat_b5_actor_with_stalkers} remark@see_actor %+zat_b5_meat%
-on_info =  {+zat_b5_meat} walker@fight 
+on_info =  {+zat_b5_meat} walker@fight
 on_info2 = {=see_actor =actor_see_npc} remark@see_actor %+1see%
 on_actor_in_zone = zat_sr_check_enemy_dist | remark@see_actor ;%+zat_b5_break_cutscene +zat_b5_stalker_attack_dealer%
 on_sound = actor|WPN_shoot|10000|0.1| {=dist_to_actor_le(45)} walker@fight %+zat_b5_meat%
@@ -165,7 +163,7 @@ corpse_detection_enabled = false
 close_distance = 0
 close_victim = nil
 use = false
-snd_on_use = {=actor_enemy} nil, {=has_enemy} meet_use_no_fight, {!has_enemy} zat_b5_stalkers_refuse_talk 
+snd_on_use = {=actor_enemy} nil, {=has_enemy} meet_use_no_fight, {!has_enemy} zat_b5_stalkers_refuse_talk
 
 [danger]
 ignore_distance = 0
@@ -173,5 +171,5 @@ ignore_distance = 0
 [hit]
 on_info = {=hit_by_actor -zat_b5_bandit_hit} %+zat_b5_bandit_hit +zat_b5_meat%, {-zat_b5_meat} %+zat_b5_meat%
 
-[death] 
+[death]
 on_info = %=inc_counter(bandits_death)%

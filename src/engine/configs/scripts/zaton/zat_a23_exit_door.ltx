@@ -1,4 +1,4 @@
-; general section 
+; general section
 
 [ph_door@zat_a23_exit_door_gen]
 locked = false
@@ -19,10 +19,9 @@ on_info = {=actor_in_zone(zat_a23_exit_door_restrictor)} ph_door@closed_in
 [ph_door@open]:ph_door@zat_a23_exit_door_gen
 closed = false
 tip_close = tip_door_close
-on_use = ph_door@closed_in 
+on_use = ph_door@closed_in
 
 [ph_door@closed_in]ph_door@zat_a23_exit_door_gen
 closed = true
 tip_close = tip_door_open
-on_use = ph_door@open 
-
+on_use = ph_door@open

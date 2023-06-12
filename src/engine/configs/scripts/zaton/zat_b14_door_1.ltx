@@ -7,7 +7,7 @@ closed = true
 on_info = {+zat_b14_door_1_unlock} ph_door@close
 snd_open_start = trader_door_locked
 tip_open = zat_b14_door_locked_hint
-not_for_npc = true 
+not_for_npc = true
 
 [ph_door@close]
 locked = false
@@ -16,7 +16,7 @@ snd_open_start = metal_small_open
 snd_close_start = metal_small_close_start
 snd_close_stop = metal_small_close_stop
 on_use = ph_door@open
-not_for_npc = true 
+not_for_npc = true
 
 [ph_door@open]
 locked = false
@@ -26,4 +26,4 @@ snd_close_start = metal_small_close_start
 snd_close_stop = metal_small_close_stop
 on_use = ph_door@close
 on_info = {+zat_b14_take_item -zat_b14_close_door} ph_door@close %+zat_b14_close_door%
-not_for_npc = true 
+not_for_npc = true

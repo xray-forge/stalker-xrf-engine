@@ -2,12 +2,12 @@
 active = ph_door@open
 
 [ph_door@def]
-on_info = {=surge_started =squad_in_zone_all(zat_b103_lost_merc_squad1:zat_surge_hide_b103)} ph_door@lock 
+on_info = {=surge_started =squad_in_zone_all(zat_b103_lost_merc_squad1:zat_surge_hide_b103)} ph_door@lock
 
 [ph_door@close]:ph_door@def
 locked = false
 closed = true
-on_use = ph_door@open 
+on_use = ph_door@open
 
 [ph_door@open]:ph_door@def
 locked = false
@@ -18,6 +18,3 @@ on_use = ph_door@close
 locked = true
 closed = true
 on_info = {=surge_complete} ph_door@open
-
-
-
