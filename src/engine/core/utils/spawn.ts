@@ -1,6 +1,6 @@
 import { alife, clsid, game, level, patrol, system_ini } from "xray16";
 
-import { IRegistryObjectState, SYSTEM_INI } from "@/engine/core/database";
+import { IRegistryObjectState, registry, SYSTEM_INI } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain, Squad } from "@/engine/core/objects";
 import { assertDefined } from "@/engine/core/utils/assertion";
@@ -23,6 +23,7 @@ import {
   ServerObject,
   ServerPhysicObject,
   TCount,
+  TDistance,
   TIndex,
   TLabel,
   TName,
@@ -31,6 +32,7 @@ import {
   TRate,
   TSection,
   TStringId,
+  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -183,14 +185,14 @@ export function getInventoryNameForItemSection(section: TSection): TLabel {
 /**
  * Spawn new squad with provided story id in a smart terrain.
  */
-export function spawnSquad(squadId: Optional<TStringId>, smartTerrainName: Optional<TName>): Squad {
-  assertDefined(squadId, "Wrong squad identifier in spawnSquad function.");
+export function spawnSquadInSmart(section: Optional<TStringId>, smartTerrainName: Optional<TName>): Squad {
+  assertDefined(section, "Wrong squad identifier in spawnSquad function.");
   assertDefined(smartTerrainName, "Wrong squad name in spawnSquad function.");
 
   assert(
-    SYSTEM_INI.section_exist(squadId),
+    SYSTEM_INI.section_exist(section),
     "Wrong squad identifier '%s'. Squad doesnt exist in ini.",
-    tostring(squadId)
+    tostring(section)
   );
 
   const simulationBoardManager: SimulationBoardManager = SimulationBoardManager.getInstance();
@@ -198,7 +200,7 @@ export function spawnSquad(squadId: Optional<TStringId>, smartTerrainName: Optio
 
   assertDefined(smartTerrain, "Wrong smartName '%s' for faction in spawnSquad function", tostring(smartTerrainName));
 
-  const squad: Squad = simulationBoardManager.createSmartSquad(smartTerrain, squadId);
+  const squad: Squad = simulationBoardManager.createSmartSquad(smartTerrain, section);
 
   simulationBoardManager.enterSmartTerrain(squad, smartTerrain.id);
 
@@ -280,4 +282,18 @@ export function releaseObject(objectId: TNumberId): void {
   } else {
     simulator.release(serverObject, true);
   }
+}
+
+/**
+ * Spawn creature based on actor sight direction, near actor.
+ *
+ * @param section - section to spawn
+ * @param distance - distance to spawn from actor
+ */
+export function spawnCreatureNearActor<T extends ServerObject>(section: TSection, distance: TDistance): T {
+  const simulator: AlifeSimulator = alife();
+  const direction: Vector = registry.actor.direction();
+  const position: Vector = registry.actor.position().add(direction.mul(distance));
+
+  return simulator.create(section, position, registry.actor.level_vertex_id(), registry.actor.game_vertex_id());
 }

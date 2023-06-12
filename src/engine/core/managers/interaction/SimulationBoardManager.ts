@@ -244,9 +244,9 @@ export class SimulationBoardManager extends AbstractCoreManager {
   /**
    * todo: Description.
    */
-  public createSmartSquad(smartTerrain: SmartTerrain, squadId: TStringId): Squad {
+  public createSmartSquad(smartTerrain: SmartTerrain, section: TStringId): Squad {
     const squad: Squad = alife().create<Squad>(
-      tostring(squadId),
+      tostring(section),
       smartTerrain.position,
       smartTerrain.m_level_vertex_id,
       smartTerrain.m_game_vertex_id
