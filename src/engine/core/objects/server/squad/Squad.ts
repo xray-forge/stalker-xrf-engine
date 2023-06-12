@@ -927,6 +927,14 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     const squadCommanderId: TNumberId = this.commander_id();
 
+    if (this.currentMapSpotId !== squadCommanderId) {
+      this.hideMapDisplay();
+      this.currentMapSpotId = squadCommanderId;
+      this.updateMapDisplay();
+
+      return;
+    }
+
     if (
       level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_trader_location) !== 0 ||
       level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_mechanic_location) !== 0 ||
@@ -935,14 +943,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       level.map_has_object_spot(squadCommanderId, mapMarks.ui_pda2_medic_location) !== 0
     ) {
       this.isMapDisplayHidden = true;
-
-      return;
-    }
-
-    if (this.currentMapSpotId !== squadCommanderId) {
-      this.hideMapDisplay();
-      this.currentMapSpotId = squadCommanderId;
-      this.updateMapDisplay();
 
       return;
     }
@@ -970,34 +970,33 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
             break;
         }
       }
-    } else {
       /**
        * Display only minimap marks.
        * Do not display for offline objects.
        */
-      if (this.online && !isSquadMonsterCommunity(this.faction)) {
-        const relation: Optional<ERelation> = getSquadMembersRelationToActor(this);
+    } else if (!isSquadMonsterCommunity(this.faction)) {
+      const relation: Optional<ERelation> = getSquadMembersRelationToActor(this);
 
-        switch (relation) {
-          case ERelation.FRIEND:
-            spot = mapMarks.alife_presentation_squad_friend;
-            break;
+      switch (relation) {
+        case ERelation.FRIEND:
+          spot = mapMarks.alife_presentation_squad_friend;
+          break;
 
-          case ERelation.NEUTRAL:
-            spot = mapMarks.alife_presentation_squad_neutral;
-            break;
-        }
+        case ERelation.NEUTRAL:
+          spot = mapMarks.alife_presentation_squad_neutral;
+          break;
       }
     }
 
     if (spot) {
       const hint: TLabel = this.getMapDisplayHint();
+      const hasMapSpot: boolean = level.map_has_object_spot(this.currentMapSpotId, spot) === 1;
 
-      if (spot === this.currentMapSpotSection) {
+      if (spot === this.currentMapSpotSection && hasMapSpot) {
         return level.map_change_spot_hint(this.currentMapSpotId, spot, hint);
       }
 
-      if (this.currentMapSpotSection === null) {
+      if (this.currentMapSpotSection === null || !hasMapSpot) {
         level.map_add_object_spot(this.currentMapSpotId, spot, hint);
       } else {
         level.map_remove_object_spot(this.currentMapSpotId, this.currentMapSpotSection);
