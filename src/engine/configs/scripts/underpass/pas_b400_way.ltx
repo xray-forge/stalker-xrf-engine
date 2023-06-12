@@ -1,7 +1,7 @@
 #include "pas_b400_general.ltx"
 
 [logic@pas_b400_zulus_way]
-active = walker@zulus_way_1 
+active = walker@zulus_way_1
 suitable = {=check_npc_name(pas_b400_zulus) -pas_b400_way_done} true
 prior = 200
 on_hit = hit@zulus
@@ -21,10 +21,8 @@ path_look = zulus_2_look
 out_restr = pas_b400_sr_way_1, pas_b400_sr_way_2
 combat_ignore_cond = {-pas_b400_way_door_opened} true, false
 
-
-
 [logic@pas_b400_vano_way]
-active = walker@vano_way_1 
+active = walker@vano_way_1
 suitable = {=check_npc_name(pas_b400_vano) -pas_b400_way_done} true
 prior = 200
 on_hit = hit@vano
@@ -65,10 +63,8 @@ path_look = vano_2_look
 out_restr = pas_b400_sr_way_1, pas_b400_sr_way_2
 combat_ignore_cond = {-pas_b400_way_door_opened} true, false
 
-
-
 [logic@pas_b400_sokolov_way]
-active = walker@sokolov_way_1 
+active = walker@sokolov_way_1
 suitable = {=check_npc_name(pas_b400_sokolov) -pas_b400_way_done} true
 prior = 200
 on_hit = hit@sokolov
@@ -89,10 +85,8 @@ out_restr = pas_b400_sr_way_1, pas_b400_sr_way_2
 on_info = {+pas_b400_way_door_opened} %=play_sound(pas_b400_sokolov_about_tushkano_1)%
 combat_ignore_cond = {-pas_b400_way_door_opened} true, false
 
-
-
 [logic@pas_b400_wanderer_way]
-active = walker@wanderer_way_1 
+active = walker@wanderer_way_1
 suitable = {=check_npc_name(pas_b400_wanderer) -pas_b400_way_done} true
 prior = 200
 on_hit = hit@wanderer

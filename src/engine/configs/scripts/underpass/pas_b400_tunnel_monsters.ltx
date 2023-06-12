@@ -21,7 +21,6 @@ home_min_radius = 10
 home_max_radius = 30
 aggressive = true
 
-
 [logic@pas_b400_snork_tunnel_2]
 active = mob_walker@snork_tunnel_2_walk
 suitable = {=is_monster_snork =target_squad_name(pas_b400_snork_tunnel_2)} true
@@ -29,20 +28,20 @@ prior = 200
 monster_job = true
 
 [mob_home@snork_tunnel_2_start]
-path_home = snork_tunnel_2_look 
+path_home = snork_tunnel_2_look
 combat_ignore_cond = true
 npc_friendly = true
-on_info = mob_walker@snork_tunnel_2_walk %=teleport_npc(pas_b400_tunnel_snork_tunnel_2_walk)% 
+on_info = mob_walker@snork_tunnel_2_walk %=teleport_npc(pas_b400_tunnel_snork_tunnel_2_walk)%
 
 [mob_walker@snork_tunnel_2_walk]
-path_walk = snork_tunnel_2_walk 
+path_walk = snork_tunnel_2_walk
 path_look = snork_tunnel_2_look
 combat_ignore_cond = true
 npc_friendly = true
 out_restr = pas_b400_sr_tunnel_snork_2_in
 on_info = {=actor_in_zone(pas_b400_sr_tunnel_2)} mob_jump@snork_tunnel_2_jump
 on_info2 = {=mob_was_hit} mob_jump@snork_tunnel_2_jump
-;on_info3 = {!npc_in_zone(pas_b400_sr_tunnel_snork_2_in)} %=teleport_npc(pas_b400_tunnel_snork_tunnel_2_walk)% 
+;on_info3 = {!npc_in_zone(pas_b400_sr_tunnel_snork_2_in)} %=teleport_npc(pas_b400_tunnel_snork_tunnel_2_walk)%
 
 [mob_jump@snork_tunnel_2_jump]
 path_jump = snork_tunnel_2_look
@@ -55,8 +54,6 @@ path_home = snork_tunnel_2_look
 home_min_radius = 10
 home_max_radius = 50
 aggressive = true
-
-
 
 [logic@pas_b400_snork_tunnel_3_1]
 active = mob_walker@snork_tunnel_3_1_walk
@@ -77,8 +74,6 @@ ph_jump_factor = 1.4
 offset = 0,0,0
 on_signal = jumped | mob_home@snork_tunnel_3_home %+pas_b400_snork_tunnel_3_jumped%
 
-
-
 [logic@pas_b400_snork_tunnel_3_2]
 active = mob_walker@snork_tunnel_3_2_walk
 suitable = {=is_monster_snork =target_squad_name(pas_b400_snork_tunnel_3)} true
@@ -86,7 +81,7 @@ prior = 200
 monster_job = true
 
 [mob_walker@snork_tunnel_3_2_walk]
-path_walk = snork_tunnel_3_2_walk 
+path_walk = snork_tunnel_3_2_walk
 path_look = snork_tunnel_3_2_look
 combat_ignore_cond = true
 npc_friendly = true
@@ -98,8 +93,6 @@ ph_jump_factor = 1.1
 offset = 0,0,0
 on_signal = jumped | mob_home@snork_tunnel_3_home %+pas_b400_snork_tunnel_3_jumped%
 
-
-
 [logic@pas_b400_snork_tunnel_3_3]
 active = mob_walker@snork_tunnel_3_3_walk
 suitable = {=is_monster_snork =target_squad_name(pas_b400_snork_tunnel_3)} true
@@ -107,7 +100,7 @@ prior = 200
 monster_job = true
 
 [mob_walker@snork_tunnel_3_3_walk]
-path_walk = snork_tunnel_3_3_walk 
+path_walk = snork_tunnel_3_3_walk
 path_look = snork_tunnel_3_3_look
 combat_ignore_cond = true
 npc_friendly = true
@@ -119,8 +112,6 @@ ph_jump_factor = 0.95
 offset = 0,0,0
 on_signal = jumped | mob_home@snork_tunnel_3_home %+pas_b400_snork_tunnel_3_jumped%
 
-
-
 [logic@pas_b400_snork_tunnel_3_4]
 active = mob_walker@snork_tunnel_3_4_walk
 suitable = {=is_monster_snork =target_squad_name(pas_b400_snork_tunnel_3)} true
@@ -128,7 +119,7 @@ prior = 200
 monster_job = true
 
 [mob_walker@snork_tunnel_3_4_walk]
-path_walk = snork_tunnel_3_4_walk 
+path_walk = snork_tunnel_3_4_walk
 path_look = snork_tunnel_3_4_look
 combat_ignore_cond = true
 npc_friendly = true
@@ -145,8 +136,6 @@ path_home = snork_tunnel_3_home
 home_min_radius = 10
 home_max_radius = 50
 aggressive = true
-
-
 
 [logic@pas_b400_snork_tunnel_4_1]
 active = mob_walker@snork_tunnel_4_walk
@@ -173,7 +162,7 @@ prior = 200
 monster_job = true
 
 [mob_walker@snork_tunnel_4_walk]
-path_walk = snork_tunnel_4_walk 
+path_walk = snork_tunnel_4_walk
 path_look = snork_tunnel_4_look
 out_restr = pas_b400_sr_tunnel_snork_4_in
 on_signal = path_end | mob_jump@snork_tunnel_4_jump
@@ -194,8 +183,6 @@ home_max_radius = 50
 aggressive = true
 out_restr = pas_b400_sr_tunnel_4, pas_b400_sr_tunnel_5
 in_restr = pas_b400_sr_track_door_in
-
-
 
 [logic@pas_b400_snork_tunnel_5_1]
 active = mob_home@snork_tunnel_5_home
@@ -267,4 +254,3 @@ aggressive = true
 
 [hit@pas_b400_snork_tunnel_5_hit]
 on_info = {+pas_b400_tunnel_gates_started_to_open =squad_npc_count_ge(pas_b400_snork_tunnel_5:2)} %=kill_npc%
- 

@@ -1,7 +1,7 @@
 #include "pas_b400_general.ltx"
 
 [logic@pas_b400_zulus_elevator]
-active = walker@zulus_elevator_1 
+active = walker@zulus_elevator_1
 suitable = {=check_npc_name(pas_b400_zulus) -pas_b400_elevator_done} true
 prior = 200
 on_hit = hit@zulus
@@ -39,10 +39,8 @@ path_look = zulus_5_look
 out_restr = pas_b400_sr_elevator_5
 on_info = {+pas_b400_sr_elevator_5_passed -pas_b400_zulus_about_outfits_1} %+pas_b400_zulus_about_outfits_1 =play_sound(pas_b400_zulus_about_outfits_1)%
 
-
-
 [logic@pas_b400_vano_elevator]
-active = walker@vano_elevator_1 
+active = walker@vano_elevator_1
 suitable = {=check_npc_name(pas_b400_vano) -pas_b400_elevator_done} true
 prior = 200
 on_hit = hit@vano
@@ -79,10 +77,8 @@ path_walk = vano_5_walk
 path_look = vano_5_look
 out_restr = pas_b400_sr_elevator_5
 
-
-
 [logic@pas_b400_sokolov_elevator]
-active = walker@sokolov_elevator_1 
+active = walker@sokolov_elevator_1
 suitable = {=check_npc_name(pas_b400_sokolov) -pas_b400_elevator_done} true
 prior = 200
 on_hit = hit@sokolov
@@ -120,10 +116,8 @@ path_walk = sokolov_5_walk
 path_look = sokolov_5_look
 out_restr = pas_b400_sr_elevator_5
 
-
-
 [logic@pas_b400_wanderer_elevator]
-active = walker@wanderer_elevator_1 
+active = walker@wanderer_elevator_1
 suitable = {=check_npc_name(pas_b400_wanderer) -pas_b400_elevator_done} true
 prior = 200
 on_hit = hit@wanderer
