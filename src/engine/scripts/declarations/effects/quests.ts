@@ -15,7 +15,7 @@ import { extern, getExtern } from "@/engine/core/utils/binding";
 import { isActorInZoneWithName } from "@/engine/core/utils/check/check";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
-import { spawnObject, spawnObjectInObject, spawnSquad } from "@/engine/core/utils/spawn";
+import { spawnObject, spawnObjectInObject, spawnSquadInSmart } from "@/engine/core/utils/spawn";
 import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/task_reward";
 import { copyVector, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import { captions } from "@/engine/lib/constants/captions/captions";
@@ -1009,7 +1009,7 @@ extern("xr_effects.pri_a28_check_zones", (): void => {
     giveInfo(infoList.get(index));
   }
 
-  spawnSquad(squadsList.get(index), "pri_a28_heli");
+  spawnSquadInSmart(squadsList.get(index), "pri_a28_heli");
 });
 
 /**

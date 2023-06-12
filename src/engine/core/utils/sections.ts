@@ -84,3 +84,33 @@ export function getOutfitSections(): LuaArray<TSection> {
 
   return list;
 }
+
+/**
+ * Get all stalker sections.
+ */
+export function getSimulationGroupSections(): LuaArray<TSection> {
+  const list: LuaArray<TSection> = new LuaTable();
+
+  SYSTEM_INI.section_for_each((it) => {
+    if (it.startsWith("simulation_") || string.match(it, "._sim_squad_.")[0]) {
+      table.insert(list, it);
+    }
+  });
+
+  return list;
+}
+
+/**
+ * Get all stalker group sections.
+ */
+export function getStalkerSections(): LuaArray<TSection> {
+  const list: LuaArray<TSection> = new LuaTable();
+
+  SYSTEM_INI.section_for_each((it) => {
+    if (it.startsWith("sim_default_")) {
+      table.insert(list, it);
+    }
+  });
+
+  return list;
+}

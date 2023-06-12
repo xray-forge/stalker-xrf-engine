@@ -29,7 +29,7 @@ import {
   spawnItemsForObject,
   spawnObject,
   spawnObjectInObject,
-  spawnSquad,
+  spawnSquadInSmart,
 } from "@/engine/core/utils/spawn";
 import { createVector, subVectors } from "@/engine/core/utils/vector";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
@@ -341,7 +341,7 @@ extern(
 extern(
   "xr_effects.create_squad",
   (actor: ClientObject, obj: Optional<ClientObject>, params: [TStringId, TName]): void => {
-    spawnSquad(params[0], params[1]);
+    spawnSquadInSmart(params[0], params[1]);
   }
 );
 

@@ -16,6 +16,7 @@ import { NIL } from "@/engine/lib/constants/words";
 import {
   ActionPlanner,
   AlifeSimulator,
+  AnyCallable,
   ClientObject,
   ESchemeType,
   Optional,
@@ -37,7 +38,7 @@ export class DebugManager extends AbstractCoreManager {
    * Get nearest to actor server object by pattern or just anything near.
    */
   public getNearestServerObject(
-    pattern: Optional<TName | TClassId> = null,
+    pattern: Optional<TName | TClassId | ((object: ServerObject) => boolean)> = null,
     searchOffline: boolean = false
   ): Optional<ServerObject> {
     const simulator: Optional<AlifeSimulator> = alife();
@@ -62,6 +63,8 @@ export class DebugManager extends AbstractCoreManager {
           if (type(pattern) === "string" && string.find(serverObject.name(), pattern as string)) {
             isMatch = true;
           } else if (type(pattern) === "number" && pattern === serverObject.clsid()) {
+            isMatch = true;
+          } else if (type(pattern) === "function" && (pattern as AnyCallable)(serverObject)) {
             isMatch = true;
           }
         } else {
