@@ -224,7 +224,7 @@ export class ActionReachTaskLocation extends action_base {
   /**
    * todo: Description.
    */
-  public death_callback(object: ClientObject): void {
+  public onDeath(object: ClientObject): void {
     this.patrolManager?.removeObjectFromPatrol(object);
   }
 
