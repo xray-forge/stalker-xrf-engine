@@ -24,3 +24,4 @@
 - Fix saving game / game encoding checks when system is using RU version of the game without installed locale OS / windows-1251 encoding
 - For net packets add w_ctime and r_ctime methods
 - map_has_object_spot -> add has one of
+- iterate_online_objects is using 0xffff iterations, could iterate over simulator registered objects
