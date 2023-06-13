@@ -61,4 +61,11 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> {
   ): void {
     logger.info("Hit:", this.state?.scheme, this.object.name());
   }
+
+  /**
+   * todo: Description.
+   */
+  public onUse(object: ClientObject, who: Optional<ClientObject>): void {
+    logger.info("Use:", this.state?.scheme, this.object.name());
+  }
 }

@@ -60,7 +60,7 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
   /**
    * todo: Description.
    */
-  public use_callback(): Optional<boolean> {
+  public override onUse(): Optional<boolean> {
     logger.info("Idle use:", this.object.name());
 
     if (this.state.on_use) {

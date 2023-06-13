@@ -19,7 +19,7 @@ export class CodeManager extends AbstractSchemeManager<ISchemeCodeState> {
   /**
    * todo: Description.
    */
-  public use_callback(object: ClientObject, who: ClientObject): void {
+  public override onUse(object: ClientObject, who: ClientObject): void {
     const numPadWindow: NumPadWindow = new NumPadWindow(this);
 
     numPadWindow.ShowDialog(true);

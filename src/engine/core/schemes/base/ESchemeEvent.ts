@@ -12,6 +12,6 @@ export enum ESchemeEvent {
   RESET_SCHEME = "resetScheme", // todo: Probably merge with activate scheme.
   SAVE = "save",
   UPDATE = "update",
-  USE = "use_callback",
+  USE = "onUse",
   WAYPOINT = "waypoint_callback",
 }
