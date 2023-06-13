@@ -79,7 +79,7 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
   /**
    * todo: Description.
    */
-  public use_callback(object: ClientObject, who: Optional<ClientObject>): void {
+  public override onUse(object: ClientObject, who: Optional<ClientObject>): void {
     logger.info("Button used:", object.name(), type(who));
 
     this.trySwitch();

@@ -271,7 +271,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   /**
    * todo: Description.
    */
-  public use_callback(target: ClientObject, who: Optional<ClientObject>): void {
+  public override onUse(target: ClientObject, who: Optional<ClientObject>): void {
     if (this.state.locked) {
       if (this.state.snd_open_start) {
         GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.snd_open_start, null, null);
