@@ -326,9 +326,9 @@ export function getNumberRelationBetweenCommunities(
 /**
  * todo;
  */
-export function isFactionsFriends(faction: Optional<TCommunity>, faction_to: TCommunity): boolean {
-  if (faction !== null && faction !== communities.none && faction_to !== communities.none) {
-    return relation_registry.community_relation(faction, faction_to) >= EGoodwill.FRIENDS;
+export function isFactionsFriends(faction: Optional<TCommunity>, factionTo: TCommunity): boolean {
+  if (faction !== null && faction !== communities.none && factionTo !== communities.none) {
+    return relation_registry.community_relation(faction, factionTo) >= EGoodwill.FRIENDS;
   } else {
     return false;
   }
