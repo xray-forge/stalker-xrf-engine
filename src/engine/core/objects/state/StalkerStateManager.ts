@@ -195,7 +195,7 @@ export class StalkerStateManager {
           this.callback.begin = now;
         } else {
           if (now - (this.callback.begin as TTimestamp) >= this.callback.timeout!) {
-            logger.info("Animation callback called:", this);
+            logger.info("Animation callback called:", this.object.name());
 
             const callbackFunction: AnyCallable = this.callback.callback as unknown as AnyCallable;
 

@@ -187,17 +187,18 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       return false;
     }
 
-    const object: ClientObject = registry.objects.get(this.object.id()).object!;
+    const object: ClientObject = registry.objects.get(this.object.id()).object;
 
     if (object === null) {
       return false;
     }
 
-    const isDistanceReached: boolean =
-      object.position().distance_to_sqr(this.vertexPosition!) <= this.state.reachDistance;
     const v1: TRate = -math.deg(math.atan2(this.smartCoverDirection!.x, this.smartCoverDirection!.z));
     const v2: TRate = -math.deg(math.atan2(object.direction().x, object.direction().z));
     const rotY: TRate = math.min(math.abs(v1 - v2), 360 - math.abs(v1) - math.abs(v2));
+
+    const isDistanceReached: boolean =
+      object.position().distance_to_sqr(this.vertexPosition!) <= this.state.reachDistance;
     const isDirectionReached: boolean = rotY < 50;
 
     return isDistanceReached && isDirectionReached;
@@ -260,6 +261,8 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
 
     this.isStarted = true;
     this.coverName = this.state.coverName;
+
+    logger.info("Started:", this.object.name(), this.currentAction, this.coverName);
   }
 
   /**
