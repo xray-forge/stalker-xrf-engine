@@ -102,7 +102,9 @@ export class DebugManager extends AbstractCoreManager {
   /**
    * Get nearest to actor object by pattern or just anything near.
    */
-  public getNearestClientObject(pattern: Optional<TName | TClassId> = null): Optional<ClientObject> {
+  public getNearestClientObject(
+    pattern: Optional<TName | TClassId | ((object: ServerObject) => boolean)> = null
+  ): Optional<ClientObject> {
     const nearestServerObject: Optional<ServerObject> = this.getNearestServerObject(pattern, false);
 
     if (nearestServerObject) {
@@ -261,10 +263,11 @@ export class DebugManager extends AbstractCoreManager {
    */
   public logObjectState(object: ClientObject): void {
     logger.pushSeparator();
-    logger.info("Print object scheme state report:", object.name(), object.id());
+    logger.info("Print object scheme state report:", object.name(), object.id(), object.section());
 
     const state: IRegistryObjectState = registry.objects.get(object.id());
 
+    logger.info("Object section:", object.section());
     logger.info("Ini file name:", state.ini_filename);
     logger.info("Section logic:", state.section_logic);
     logger.info("Scheme type:", ESchemeType[state.schemeType]);

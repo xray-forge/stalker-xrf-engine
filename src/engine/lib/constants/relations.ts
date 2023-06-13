@@ -27,3 +27,13 @@ export const goodwill = {
   friend: 1000,
   neutral: 0,
 } as const;
+
+/**
+ * todo;
+ */
+export const mapRelationTypeToEnum: Record<number, ERelation> = {
+  [0]: ERelation.FRIEND,
+  [1]: ERelation.NEUTRAL,
+  [2]: ERelation.ENEMY,
+  [3]: ERelation.ENEMY,
+};
