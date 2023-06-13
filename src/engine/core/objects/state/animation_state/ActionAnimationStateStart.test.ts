@@ -7,7 +7,7 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { ActionAnimationStateStart } from "@/engine/core/objects/state/animation_state/ActionAnimationStateStart";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockClientGameObject, MockPropertyStorage } from "@/fixtures/xray";
 
 describe("ActionAnimationStateStart class", () => {
   it("should correctly perform animation state start action", () => {
@@ -29,10 +29,11 @@ describe("ActionAnimationStateStart class", () => {
 
     const action: ActionAnimationStateStart = new ActionAnimationStateStart(manager);
 
+    action.setup(stalker.object, MockPropertyStorage.mock());
     action.initialize();
 
     expect(manager.animstate.setControl).toHaveBeenCalled();
-    expect(manager.animstate.setState).toHaveBeenCalledWith(EStalkerState.SIT, null);
+    expect(manager.animstate.setState).toHaveBeenCalledWith(EStalkerState.SIT);
 
     unregisterStalker(stalker);
   });
