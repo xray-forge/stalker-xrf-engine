@@ -8,9 +8,9 @@ Example: traders standing constantly, cop sitting constantly, first scenario in 
 ## ini parameters
 
 ```
-cover_name - string 
-use_camp - boolean 
-reach_movement - string 
-reach_distance - number 
+cover_name - string
+use_camp - boolean
+reach_movement - string
+reach_distance - number
 rawAvailableAnimations - Array<string>
 ```
