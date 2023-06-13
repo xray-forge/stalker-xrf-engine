@@ -57,6 +57,6 @@ describe("registry storage", () => {
     expect(registry.sounds.themes instanceof LuaTable).toBeTruthy();
     expect(registry.sounds.managers instanceof LuaTable).toBeTruthy();
     expect(registry.noCombatZones instanceof LuaTable).toBeTruthy();
-    expect(registry.noWeaponSmartTerrains instanceof LuaTable).toBeTruthy();
+    expect(registry.noCombatZones instanceof LuaTable).toBeTruthy();
   });
 });
