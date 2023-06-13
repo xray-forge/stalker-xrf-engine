@@ -218,12 +218,12 @@ export const registry = {
     ["jup_b41_sr_no_assault"]: storyNames.jup_b41,
   }),
   /**
-   * List of terrains where weapons are not allowed.
+   * Set of terrains where combat is disabled.
    */
-  noWeaponSmartTerrains: $fromArray<TStoryName>([
-    storyNames.zat_stalker_base_smart,
-    storyNames.jup_b41,
-    storyNames.jup_a6,
-    storyNames.pri_a16,
-  ]),
+  noCombatSmartTerrains: $fromObject<TName, boolean>({
+    [storyNames.zat_stalker_base_smart]: true,
+    [storyNames.jup_b41]: true,
+    [storyNames.jup_a6]: true,
+    [storyNames.pri_a16]: true,
+  }),
 };

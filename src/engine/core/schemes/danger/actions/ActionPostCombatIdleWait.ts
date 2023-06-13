@@ -53,7 +53,7 @@ export class ActionPostCombatIdleWait extends action_base {
     super.execute();
 
     if (!this.object.in_smart_cover()) {
-      if (this.isAnimationStarted === false && !isWeaponLocked(this.object)) {
+      if (this.isAnimationStarted === false && !this.isWeaponLocked(this.object)) {
         this.isAnimationStarted = true;
         (this.state.animation as StalkerAnimationManager).setState(EStalkerState.HIDE);
         (this.state.animation as StalkerAnimationManager).setControl();
@@ -76,38 +76,38 @@ export class ActionPostCombatIdleWait extends action_base {
     this.state.animation = null;
     super.finalize();
   }
-}
 
-/**
- * todo;
- */
-export function isWeaponLocked(object: ClientObject): boolean {
-  const isWeaponStrapped: boolean = object.weapon_strapped();
-  const isWeaponUnstrapped: boolean = object.weapon_unstrapped();
+  /**
+   * todo;
+   */
+  public isWeaponLocked(object: ClientObject): boolean {
+    const isWeaponStrapped: boolean = object.weapon_strapped();
+    const isWeaponUnstrapped: boolean = object.weapon_unstrapped();
 
-  if (!(isWeaponUnstrapped || isWeaponStrapped)) {
-    return true;
-  }
+    if (!(isWeaponUnstrapped || isWeaponStrapped)) {
+      return true;
+    }
 
-  const bestWeapon: Optional<ClientObject> = object.best_weapon();
+    const bestWeapon: Optional<ClientObject> = object.best_weapon();
 
-  if (bestWeapon === null) {
+    if (bestWeapon === null) {
+      return false;
+    }
+
+    if (object.active_item() === null) {
+      return false;
+    }
+
+    const isWeaponGoingToBeStrapped: boolean = object.is_weapon_going_to_be_strapped(bestWeapon);
+
+    if (isWeaponGoingToBeStrapped && !isWeaponStrapped) {
+      return true;
+    }
+
+    if (!isWeaponGoingToBeStrapped && !isWeaponUnstrapped) {
+      return true;
+    }
+
     return false;
   }
-
-  if (object.active_item() === null) {
-    return false;
-  }
-
-  const isWeaponGoingToBeStrapped: boolean = object.is_weapon_going_to_be_strapped(bestWeapon);
-
-  if (isWeaponGoingToBeStrapped && !isWeaponStrapped) {
-    return true;
-  }
-
-  if (!isWeaponGoingToBeStrapped && !isWeaponUnstrapped) {
-    return true;
-  }
-
-  return false;
 }

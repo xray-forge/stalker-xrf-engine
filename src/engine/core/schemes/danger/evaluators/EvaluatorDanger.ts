@@ -2,10 +2,10 @@ import { alife, danger_object, LuabindClass, property_evaluator, stalker_ids, ti
 
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ISchemeDangerState } from "@/engine/core/schemes/danger";
-import { SchemeDanger } from "@/engine/core/schemes/danger/SchemeDanger";
+import { isObjectFacingDanger } from "@/engine/core/utils/check/check";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { ActionPlanner, DangerObject, Optional, ServerCreatureObject } from "@/engine/lib/types";
+import { ActionPlanner, DangerObject, Optional, ServerCreatureObject, TTimestamp } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -13,18 +13,16 @@ import { ActionPlanner, DangerObject, Optional, ServerCreatureObject } from "@/e
 @LuabindClass()
 export class EvaluatorDanger extends property_evaluator {
   private readonly state: ISchemeDangerState;
-  private readonly schemeDanger: typeof SchemeDanger;
 
   public actionPlanner: Optional<ActionPlanner> = null;
 
-  public constructor(state: ISchemeDangerState, schemeDanger: typeof SchemeDanger) {
+  public constructor(state: ISchemeDangerState) {
     super(null, EvaluatorDanger.__name);
     this.state = state;
-    this.schemeDanger = schemeDanger;
   }
 
   /**
-   * todo: Description.
+   * Check whether object is facing any danger.
    */
   public override evaluate(): boolean {
     if (this.actionPlanner === null) {
@@ -32,16 +30,17 @@ export class EvaluatorDanger extends property_evaluator {
     }
 
     const bestDanger: DangerObject = this.object.best_danger() as DangerObject;
+    const now: TTimestamp = time_global();
 
     if (
-      this.state.danger_time !== null &&
+      this.state.dangerTime !== null &&
       bestDanger !== null &&
-      time_global() - this.state.danger_time < logicsConfig.DANGER_INERTION_TIME
+      now - this.state.dangerTime < logicsConfig.DANGER_INERTION_TIME
     ) {
       return true;
     }
 
-    if (!this.schemeDanger.isObjectFacingDanger(this.object)) {
+    if (!isObjectFacingDanger(this.object)) {
       return false;
     }
 
@@ -50,10 +49,10 @@ export class EvaluatorDanger extends property_evaluator {
       this.actionPlanner.current_action_id() === stalker_ids.action_danger_planner
     ) {
       if (bestDanger.type() === danger_object.entity_corpse) {
-        this.state.danger_time = bestDanger.object().death_time();
+        this.state.dangerTime = bestDanger.object().death_time();
       }
 
-      this.state.danger_time = bestDanger.time();
+      this.state.dangerTime = bestDanger.time();
     }
 
     const serverObject: Optional<ServerCreatureObject> = alife().object(this.object.id());

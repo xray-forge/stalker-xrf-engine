@@ -2,8 +2,8 @@ import { IBaseSchemeState } from "@/engine/core/schemes/base";
 import { Optional, TTimestamp } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Danger sense scheme state.
  */
 export interface ISchemeDangerState extends IBaseSchemeState {
-  danger_time: Optional<TTimestamp>;
+  dangerTime: Optional<TTimestamp>;
 }

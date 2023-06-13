@@ -61,7 +61,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
   ): void {
     const schemeState: ISchemeCombatIgnoreState = state.combat_ignore as ISchemeCombatIgnoreState;
 
-    object.set_enemy_callback(schemeState.action.enemy_callback, schemeState.action);
+    object.set_enemy_callback(schemeState.action.onObjectEnemy, schemeState.action);
 
     SchemeCombatIgnore.subscribe(object, schemeState, schemeState.action);
 
