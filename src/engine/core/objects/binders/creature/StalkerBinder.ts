@@ -568,7 +568,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (amount > 0) {
-      SchemeWounded.hit_callback(object.id());
+      SchemeWounded.onHit(object.id());
     }
   }
 }

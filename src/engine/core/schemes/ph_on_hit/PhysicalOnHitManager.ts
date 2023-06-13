@@ -15,10 +15,10 @@ export class PhysicalOnHitManager extends AbstractSchemeManager<ISchemePhysicalO
   /**
    * todo: Description.
    */
-  public hit_callback(
+  public override onHit(
     object: ClientObject,
     amount: TCount,
-    local_direction: Vector,
+    direction: Vector,
     who: Optional<ClientObject>,
     boneIndex: TIndex
   ): void {

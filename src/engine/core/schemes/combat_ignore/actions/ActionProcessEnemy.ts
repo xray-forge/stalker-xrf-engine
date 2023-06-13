@@ -71,13 +71,7 @@ export class ActionProcessEnemy {
   /**
    * todo: Description.
    */
-  public hit_callback(
-    object: ClientObject,
-    amount: TCount,
-    direction: Vector,
-    who: ClientObject,
-    boneId: TNumberId
-  ): void {
+  public onHit(object: ClientObject, amount: TCount, direction: Vector, who: ClientObject, boneId: TNumberId): void {
     if (who === null || amount === 0) {
       return;
     }

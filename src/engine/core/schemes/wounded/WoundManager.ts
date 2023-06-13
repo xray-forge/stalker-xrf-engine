@@ -202,7 +202,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   /**
    * todo: Description.
    */
-  public hit_callback(): void {
+  public override onHit(): void {
     if (!this.object.alive()) {
       return;
     }
