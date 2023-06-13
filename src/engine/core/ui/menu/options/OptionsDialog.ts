@@ -32,8 +32,8 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { PatchDownloadProgress, TKeyCode, TName, TPath, TRate, TUIEvent } from "@/engine/lib/types";
 
-const base: TPath = "menu\\OptionsDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
+const base: TPath = "menu\\OptionsDialog.component";
 
 @LuabindClass()
 export class OptionsDialog extends CUIScriptWnd {
@@ -45,26 +45,26 @@ export class OptionsDialog extends CUIScriptWnd {
    */
   public preconditions: LuaTable<CUIWindow, (control: CUIWindow, renderer: EGameRenderer) => void> = new LuaTable();
 
-  public tab!: CUITabControl;
-  public dialog!: CUIStatic;
-  public messageBox!: CUIMessageBoxEx;
-  public downloadCaption!: CUIStatic;
-  public downloadText!: CUIStatic;
-  public downloadProgress!: CUIProgressBar;
-  public downloadCancelButton!: CUI3tButton;
+  public uiTab!: CUITabControl;
+  public uiDialog!: CUIStatic;
+  public uiMessageBox!: CUIMessageBoxEx;
+  public uiDownloadCaption!: CUIStatic;
+  public uiDownloadText!: CUIStatic;
+  public uiDownloadProgress!: CUIProgressBar;
+  public uiDownloadCancelButton!: CUI3tButton;
 
-  public dialogVideoSettings!: OptionsVideo;
-  public dialogVideoAdvancedSettings!: OptionsVideoAdvanced;
-  public dialogSoundSettings!: OptionsSound;
-  public dialogGameplaySettings!: OptionsGameplay;
-  public dialogControlsSettings!: OptionsControls;
+  public uiDialogVideoSettings!: OptionsVideo;
+  public uiDialogVideoAdvancedSettings!: OptionsVideoAdvanced;
+  public uiDialogSoundSettings!: OptionsSound;
+  public uiDialogGameplaySettings!: OptionsGameplay;
+  public uiDialogControlsSettings!: OptionsControls;
 
   // From child sections:
-  public currentPresetSelect!: CUIComboBox;
-  public currentRendererSelect!: CUIComboBox;
-  public textureLodTrackBar!: CUITrackBar;
-  public sSamplingTrackBar!: CUITrackBar;
-  public sSamplingComboBox!: CUIComboBox;
+  public uiCurrentPresetSelect!: CUIComboBox;
+  public uiCurrentRendererSelect!: CUIComboBox;
+  public uiTextureLodTrackBar!: CUITrackBar;
+  public uiSSamplingTrackBar!: CUITrackBar;
+  public uiSSamplingComboBox!: CUIComboBox;
 
   public constructor(owner: CUIScriptWnd) {
     super();
@@ -74,7 +74,7 @@ export class OptionsDialog extends CUIScriptWnd {
     this.initializeControls();
     this.initializeCallbacks();
 
-    this.tab.SetActiveTab("video");
+    this.uiTab.SetActiveTab("video");
   }
 
   public initializeControls(): void {
@@ -86,53 +86,53 @@ export class OptionsDialog extends CUIScriptWnd {
     xml.ParseFile(resolveXmlFormPath(base));
 
     xml.InitStatic("background", this);
-    this.dialog = xml.InitStatic("main_dialog:dialog", this);
+    this.uiDialog = xml.InitStatic("main_dialog:dialog", this);
 
     // --    xml.InitStatic                ("main_dialog:cap_options", this.dialog)
 
-    this.dialogVideoSettings = new OptionsVideo();
-    this.dialogVideoSettings.initialize(0, 0, xml, this);
-    this.dialogVideoSettings.Show(false);
-    this.dialog.AttachChild(this.dialogVideoSettings);
-    xml.InitWindow("tab_size", 0, this.dialogVideoSettings);
+    this.uiDialogVideoSettings = new OptionsVideo();
+    this.uiDialogVideoSettings.initialize(0, 0, xml, this);
+    this.uiDialogVideoSettings.Show(false);
+    this.uiDialog.AttachChild(this.uiDialogVideoSettings);
+    xml.InitWindow("tab_size", 0, this.uiDialogVideoSettings);
 
-    this.dialogSoundSettings = new OptionsSound();
-    this.dialogSoundSettings.initialize(0, 0, xml);
-    this.dialogSoundSettings.Show(false);
-    this.dialog.AttachChild(this.dialogSoundSettings);
-    xml.InitWindow("tab_size", 0, this.dialogSoundSettings);
+    this.uiDialogSoundSettings = new OptionsSound();
+    this.uiDialogSoundSettings.initialize(0, 0, xml);
+    this.uiDialogSoundSettings.Show(false);
+    this.uiDialog.AttachChild(this.uiDialogSoundSettings);
+    xml.InitWindow("tab_size", 0, this.uiDialogSoundSettings);
 
-    this.dialogGameplaySettings = new OptionsGameplay();
-    this.dialogGameplaySettings.initialize(0, 0, xml, this);
-    this.dialogGameplaySettings.Show(false);
-    this.dialog.AttachChild(this.dialogGameplaySettings);
-    xml.InitWindow("tab_size", 0, this.dialogGameplaySettings);
+    this.uiDialogGameplaySettings = new OptionsGameplay();
+    this.uiDialogGameplaySettings.initialize(0, 0, xml, this);
+    this.uiDialogGameplaySettings.Show(false);
+    this.uiDialog.AttachChild(this.uiDialogGameplaySettings);
+    xml.InitWindow("tab_size", 0, this.uiDialogGameplaySettings);
 
-    this.dialogControlsSettings = new OptionsControls();
-    this.dialogControlsSettings.initialize(0, 0, xml, this);
-    this.dialogControlsSettings.Show(false);
-    this.dialog.AttachChild(this.dialogControlsSettings);
-    xml.InitWindow("tab_size", 0, this.dialogControlsSettings);
+    this.uiDialogControlsSettings = new OptionsControls();
+    this.uiDialogControlsSettings.initialize(0, 0, xml, this);
+    this.uiDialogControlsSettings.Show(false);
+    this.uiDialog.AttachChild(this.uiDialogControlsSettings);
+    xml.InitWindow("tab_size", 0, this.uiDialogControlsSettings);
 
-    this.dialogVideoAdvancedSettings = new OptionsVideoAdvanced();
-    this.dialogVideoAdvancedSettings.initialize(0, 0, xml, this);
-    this.dialogVideoAdvancedSettings.Show(false);
-    this.dialog.AttachChild(this.dialogVideoAdvancedSettings);
-    xml.InitWindow("tab_size", 0, this.dialogVideoAdvancedSettings);
+    this.uiDialogVideoAdvancedSettings = new OptionsVideoAdvanced();
+    this.uiDialogVideoAdvancedSettings.initialize(0, 0, xml, this);
+    this.uiDialogVideoAdvancedSettings.Show(false);
+    this.uiDialog.AttachChild(this.uiDialogVideoAdvancedSettings);
+    xml.InitWindow("tab_size", 0, this.uiDialogVideoAdvancedSettings);
 
-    this.Register(xml.Init3tButton("main_dialog:btn_accept", this.dialog), "btn_accept");
-    this.Register(xml.Init3tButton("main_dialog:btn_cancel", this.dialog), "btn_cancel");
+    this.Register(xml.Init3tButton("main_dialog:btn_accept", this.uiDialog), "btn_accept");
+    this.Register(xml.Init3tButton("main_dialog:btn_cancel", this.uiDialog), "btn_cancel");
 
-    this.tab = xml.InitTab("main_dialog:tab", this.dialog);
-    this.Register(this.tab, "tab");
+    this.uiTab = xml.InitTab("main_dialog:tab", this.uiDialog);
+    this.Register(this.uiTab, "tab");
 
-    this.messageBox = new CUIMessageBoxEx();
+    this.uiMessageBox = new CUIMessageBoxEx();
 
-    this.downloadCaption = xml.InitStatic("download_static", this);
-    this.downloadText = xml.InitStatic("download_text", this);
-    this.downloadProgress = xml.InitProgressBar("progress_download", this);
-    this.downloadCancelButton = xml.Init3tButton("btn_cancel_download", this);
-    this.Register(this.downloadCancelButton, "btn_cancel_download");
+    this.uiDownloadCaption = xml.InitStatic("download_static", this);
+    this.uiDownloadText = xml.InitStatic("download_text", this);
+    this.uiDownloadProgress = xml.InitProgressBar("progress_download", this);
+    this.uiDownloadCancelButton = xml.Init3tButton("btn_cancel_download", this);
+    this.Register(this.uiDownloadCancelButton, "btn_cancel_download");
   }
 
   public initializeState(): void {
@@ -194,7 +194,7 @@ export class OptionsDialog extends CUIScriptWnd {
   }
 
   public updateControls(): void {
-    const currentRenderer: EGameRenderer = this.currentRendererSelect.CurrentID();
+    const currentRenderer: EGameRenderer = this.uiCurrentRendererSelect.CurrentID();
 
     logger.info("Updating controls:", currentRenderer);
 
@@ -212,7 +212,7 @@ export class OptionsDialog extends CUIScriptWnd {
       }
     }
 
-    this.textureLodTrackBar.SetOptIBounds(minTextureLod, maxTextureLod);
+    this.uiTextureLodTrackBar.SetOptIBounds(minTextureLod, maxTextureLod);
   }
 
   public override Update(): void {
@@ -224,17 +224,19 @@ export class OptionsDialog extends CUIScriptWnd {
     const filename: TName = patchDownload.GetFlieName();
 
     if (filename && patchProgress && patchProgress >= 0 && patchProgress <= 100) {
-      this.downloadProgress.Show(true);
-      this.downloadProgress.SetProgressPos(patchProgress);
-      this.downloadCancelButton.Show(true);
-      this.downloadCaption.Show(true);
-      this.downloadText.Show(true);
-      this.downloadText.TextControl().SetText(string.format("%.0f%%(%s)", patchProgress, patchDownload.GetFlieName()));
+      this.uiDownloadProgress.Show(true);
+      this.uiDownloadProgress.SetProgressPos(patchProgress);
+      this.uiDownloadCancelButton.Show(true);
+      this.uiDownloadCaption.Show(true);
+      this.uiDownloadText.Show(true);
+      this.uiDownloadText
+        .TextControl()
+        .SetText(string.format("%.0f%%(%s)", patchProgress, patchDownload.GetFlieName()));
     } else {
-      this.downloadText.Show(false);
-      this.downloadCaption.Show(false);
-      this.downloadProgress.Show(false);
-      this.downloadCancelButton.Show(false);
+      this.uiDownloadText.Show(false);
+      this.uiDownloadCaption.Show(false);
+      this.uiDownloadProgress.Show(false);
+      this.uiDownloadCancelButton.Show(false);
     }
   }
 
@@ -292,8 +294,8 @@ export class OptionsDialog extends CUIScriptWnd {
 
       if (nextOptionsManager.NeedSystemRestart()) {
         this.isRestartSystemShown = true;
-        this.messageBox.InitMessageBox("message_box_restart_game");
-        this.messageBox.ShowDialog(true);
+        this.uiMessageBox.InitMessageBox("message_box_restart_game");
+        this.uiMessageBox.ShowDialog(true);
       }
     }
 
@@ -315,24 +317,24 @@ export class OptionsDialog extends CUIScriptWnd {
   }
 
   public onTabChanged(): void {
-    this.dialogVideoSettings.Show(false);
-    this.dialogSoundSettings.Show(false);
-    this.dialogGameplaySettings.Show(false);
-    this.dialogControlsSettings.Show(false);
-    this.dialogVideoAdvancedSettings.Show(false);
+    this.uiDialogVideoSettings.Show(false);
+    this.uiDialogSoundSettings.Show(false);
+    this.uiDialogGameplaySettings.Show(false);
+    this.uiDialogControlsSettings.Show(false);
+    this.uiDialogVideoAdvancedSettings.Show(false);
 
-    switch (this.tab.GetActiveId()) {
+    switch (this.uiTab.GetActiveId()) {
       case "video":
-        return this.dialogVideoSettings.Show(true);
+        return this.uiDialogVideoSettings.Show(true);
 
       case "sound":
-        return this.dialogSoundSettings.Show(true);
+        return this.uiDialogSoundSettings.Show(true);
 
       case "gameplay":
-        return this.dialogGameplaySettings.Show(true);
+        return this.uiDialogGameplaySettings.Show(true);
 
       case "controls":
-        return this.dialogControlsSettings.Show(true);
+        return this.uiDialogControlsSettings.Show(true);
     }
   }
 
@@ -343,14 +345,14 @@ export class OptionsDialog extends CUIScriptWnd {
 
   public onShowAdvancedGraphicsClicked(): void {
     logger.info("Show advanced graphics");
-    this.dialogVideoSettings.Show(false);
-    this.dialogVideoAdvancedSettings.Show(true);
+    this.uiDialogVideoSettings.Show(false);
+    this.uiDialogVideoAdvancedSettings.Show(true);
   }
 
   public onShowSimpleGraphicsClicked(): void {
     logger.info("Show simplified graphics");
-    this.dialogVideoSettings.Show(true);
-    this.dialogVideoAdvancedSettings.Show(false);
+    this.uiDialogVideoSettings.Show(true);
+    this.uiDialogVideoAdvancedSettings.Show(false);
   }
 
   /**
@@ -361,9 +363,9 @@ export class OptionsDialog extends CUIScriptWnd {
 
     if (event === ui_events.WINDOW_KEY_PRESSED) {
       if (key === DIK_keys.DIK_ESCAPE) {
-        if (this.dialogVideoAdvancedSettings.IsShown()) {
-          this.dialogVideoAdvancedSettings.Show(false);
-          this.dialogVideoSettings.Show(true);
+        if (this.uiDialogVideoAdvancedSettings.IsShown()) {
+          this.uiDialogVideoAdvancedSettings.Show(false);
+          this.uiDialogVideoSettings.Show(true);
         } else {
           this.onCancelButtonClicked();
         }

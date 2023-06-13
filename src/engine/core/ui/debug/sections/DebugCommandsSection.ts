@@ -7,15 +7,15 @@ import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { onOffCommands, TConsoleCommand, zeroOneCommands } from "@/engine/lib/constants/console_commands";
 import { Optional, TPath } from "@/engine/lib/types";
 
-const base: TPath = "menu\\debug\\DebugCommandsSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
+const base: TPath = "menu\\debug\\DebugCommandsSection.component";
 
 /**
  * todo;
  */
 @LuabindClass()
 export class DebugCommandsSection extends AbstractDebugSection {
-  public commandsList!: CUIScrollView;
+  public uiCommandsList!: CUIScrollView;
 
   /**
    * todo: Description.
@@ -25,7 +25,7 @@ export class DebugCommandsSection extends AbstractDebugSection {
 
     resolveXmlFile(base, this.xml);
 
-    this.commandsList = this.xml.InitScrollView("commands_list", this);
+    this.uiCommandsList = this.xml.InitScrollView("commands_list", this);
 
     zeroOneCommands.forEach((it) => this.initEntry(it, console, "numeric"));
     onOffCommands.forEach((it) => this.initEntry(it, console, "boolean"));
@@ -45,7 +45,7 @@ export class DebugCommandsSection extends AbstractDebugSection {
    * todo: Description.
    */
   public initEntry(command: TConsoleCommand, console: CConsole, type: "numeric" | "boolean"): void {
-    const item: CUIStatic = this.xml.InitStatic("command_item", this.commandsList);
+    const item: CUIStatic = this.xml.InitStatic("command_item", this.uiCommandsList);
     const caption: CUIStatic = this.xml.InitStatic("command_label", item);
     const check: CUICheckButton = this.xml.InitCheck("command_check", item);
 

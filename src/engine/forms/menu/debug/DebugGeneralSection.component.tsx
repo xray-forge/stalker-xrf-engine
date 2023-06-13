@@ -89,6 +89,18 @@ export function create(): JSXNode {
         textColor={WHITE}
         texture={textures.ui_inGame2_Mp_bigbuttone}
       />
+
+      <Xr3tButton
+        tag={"dump_system_ini_button"}
+        x={12}
+        y={92}
+        height={16}
+        width={90}
+        label={"Dump system.ini"}
+        font={fonts.letterica16}
+        textColor={WHITE}
+        texture={textures.ui_inGame2_Mp_bigbuttone}
+      />
     </XrRoot>
   );
 }

@@ -14,18 +14,18 @@ import { TSection } from "@/engine/lib/types";
  */
 @LuabindClass()
 export class DebugItemListEntry extends CUIListBoxItem {
-  public innerNameText: CUITextWnd;
-  public innerSectionText: CUITextWnd;
+  public uiInnerNameText: CUITextWnd;
+  public uiInnerSectionText: CUITextWnd;
 
   public constructor(height: number, width: number, section: TSection) {
     super(height);
 
     this.SetTextColor(GetARGB(255, 170, 170, 170));
 
-    this.innerNameText = this.GetTextItem();
-    this.innerNameText.SetFont(GetFontLetterica18Russian());
-    this.innerNameText.SetEllipsis(true);
-    this.innerSectionText = this.AddTextField(section, width);
-    this.innerSectionText.SetFont(GetFontLetterica16Russian());
+    this.uiInnerNameText = this.GetTextItem();
+    this.uiInnerNameText.SetFont(GetFontLetterica18Russian());
+    this.uiInnerNameText.SetEllipsis(true);
+    this.uiInnerSectionText = this.AddTextField(section, width);
+    this.uiInnerSectionText.SetFont(GetFontLetterica16Russian());
   }
 }

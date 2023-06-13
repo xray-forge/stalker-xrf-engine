@@ -16,7 +16,7 @@ export interface INumPadWindowOwner {
 export class NumPadWindow extends CUIScriptWnd {
   public owner: Optional<INumPadWindowOwner>;
 
-  public editBox!: CUIStatic;
+  public uiEditBox!: CUIStatic;
 
   public constructor(owner: Optional<INumPadWindowOwner>) {
     super();
@@ -38,8 +38,8 @@ export class NumPadWindow extends CUIScriptWnd {
     xml.ParseFile("ui_numpad_wnd.xml");
     xml.InitStatic("background", this);
 
-    this.editBox = xml.InitStatic("edit_box", this);
-    this.editBox.SetWindowName("edit_window");
+    this.uiEditBox = xml.InitStatic("edit_box", this);
+    this.uiEditBox.SetWindowName("edit_window");
 
     this.Register(xml.Init3tButton("btn_0", this), "btn_0");
     this.Register(xml.Init3tButton("btn_1", this), "btn_1");
@@ -78,17 +78,17 @@ export class NumPadWindow extends CUIScriptWnd {
   }
 
   public addNumber(number: number): void {
-    const text: TLabel = this.editBox.TextControl().GetText() || "";
+    const text: TLabel = this.uiEditBox.TextControl().GetText() || "";
 
     if (string.len(text) > 12) {
       return;
     } else {
-      this.editBox.TextControl().SetText(text + number);
+      this.uiEditBox.TextControl().SetText(text + number);
     }
   }
 
   public onBackspaceButtonClicked(): void {
-    const text: TLabel = this.editBox.TextControl().GetText();
+    const text: TLabel = this.uiEditBox.TextControl().GetText();
 
     if (text === null) {
       return;
@@ -97,11 +97,11 @@ export class NumPadWindow extends CUIScriptWnd {
     const b: number = 1;
     const e: number = string.len(text) - 1;
 
-    this.editBox.TextControl().SetText(string.sub(text, b, e));
+    this.uiEditBox.TextControl().SetText(string.sub(text, b, e));
   }
 
   public onCButtonClicked(): void {
-    this.editBox.TextControl().SetText("");
+    this.uiEditBox.TextControl().SetText("");
   }
 
   public onCancelButtonClicked(): void {
@@ -119,7 +119,7 @@ export class NumPadWindow extends CUIScriptWnd {
 
     this.HideDialog();
 
-    const text: TLabel = this.editBox.TextControl().GetText();
+    const text: TLabel = this.uiEditBox.TextControl().GetText();
 
     if (this.owner) {
       this.owner.OnNumberReceive(text);

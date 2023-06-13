@@ -33,13 +33,13 @@ export class OptionsVideo extends CUIWindow {
     xml.InitComboBox("tab_video:list_resolution", this);
 
     xml.InitStatic("tab_video:cap_preset", this);
-    owner.currentPresetSelect = xml.InitComboBox("tab_video:list_presets", this);
-    owner.Register(owner.currentPresetSelect, "combo_preset");
+    owner.uiCurrentPresetSelect = xml.InitComboBox("tab_video:list_presets", this);
+    owner.Register(owner.uiCurrentPresetSelect, "combo_preset");
 
     xml.InitStatic("tab_video:cap_renderer", this);
-    owner.currentRendererSelect = xml.InitComboBox("tab_video:list_renderer", this);
+    owner.uiCurrentRendererSelect = xml.InitComboBox("tab_video:list_renderer", this);
 
-    owner.Register(owner.currentRendererSelect, "combo_renderer");
+    owner.Register(owner.uiCurrentRendererSelect, "combo_renderer");
     owner.Register(xml.Init3tButton("tab_video:btn_advanced", this), "btn_advanced_graphic");
   }
 }

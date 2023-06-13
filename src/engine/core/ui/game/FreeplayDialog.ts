@@ -12,14 +12,14 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class FreeplayDialog extends CUIScriptWnd {
-  public readonly freeplayMb: CUIMessageBoxEx;
+  public readonly uiFreeplayMb: CUIMessageBoxEx;
 
   public constructor() {
     super();
 
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
-    this.freeplayMb = new CUIMessageBoxEx();
-    this.Register(this.freeplayMb, "freeplay_mb");
+    this.uiFreeplayMb = new CUIMessageBoxEx();
+    this.Register(this.uiFreeplayMb, "freeplay_mb");
 
     this.AddCallback("freeplay_mb", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.OnMsgOk(), this);
     this.AddCallback("freeplay_mb", ui_events.MESSAGE_BOX_YES_CLICKED, () => this.OnMsgYes(), this);
@@ -27,9 +27,9 @@ export class FreeplayDialog extends CUIScriptWnd {
   }
 
   public override Show(selector: boolean | string, text?: string): void {
-    this.freeplayMb.InitMessageBox(tostring(selector));
-    this.freeplayMb.SetText(text || "");
-    this.freeplayMb.ShowDialog(true);
+    this.uiFreeplayMb.InitMessageBox(tostring(selector));
+    this.uiFreeplayMb.SetText(text || "");
+    this.uiFreeplayMb.ShowDialog(true);
   }
 
   public OnMsgYes(): void {

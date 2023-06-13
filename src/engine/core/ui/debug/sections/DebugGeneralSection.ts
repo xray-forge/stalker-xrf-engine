@@ -1,5 +1,6 @@
 import { command_line, CUI3tButton, CUIStatic, LuabindClass, ui_events } from "xray16";
 
+import { SYSTEM_INI } from "@/engine/core/database";
 import { ProfilingManager } from "@/engine/core/managers/debug/ProfilingManager";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -7,8 +8,8 @@ import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { TPath, XmlInit } from "@/engine/lib/types";
 
-const base: TPath = "menu\\debug\\DebugGeneralSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
+const base: TPath = "menu\\debug\\DebugGeneralSection.component";
 
 /**
  * todo;
@@ -20,6 +21,8 @@ export class DebugGeneralSection extends AbstractDebugSection {
   public uiProfilingToggleButton!: CUI3tButton;
   public uiSimulationDebugToggleButton!: CUI3tButton;
   public uiProfilingReportButton!: CUI3tButton;
+  public uiDumpSystemIniButton!: CUI3tButton;
+
   public uiLuaJitLabel!: CUIStatic;
 
   /**
@@ -40,12 +43,14 @@ export class DebugGeneralSection extends AbstractDebugSection {
     this.uiProfilingToggleButton = xml.Init3tButton("profiling_toggle_button", this);
     this.uiProfilingReportButton = xml.Init3tButton("profiling_log_button", this);
     this.uiSimulationDebugToggleButton = xml.Init3tButton("debug_simulation_toggle_button", this);
+    this.uiDumpSystemIniButton = xml.Init3tButton("dump_system_ini_button", this);
 
     this.owner.Register(xml.Init3tButton("refresh_memory_button", this), "refresh_memory_button");
     this.owner.Register(xml.Init3tButton("collect_memory_button", this), "collect_memory_button");
     this.owner.Register(this.uiProfilingToggleButton, "profiling_toggle_button");
     this.owner.Register(this.uiProfilingReportButton, "profiling_log_button");
     this.owner.Register(this.uiSimulationDebugToggleButton, "debug_simulation_toggle_button");
+    this.owner.Register(this.uiDumpSystemIniButton, "dump_system_ini_button");
   }
 
   /**
@@ -86,6 +91,8 @@ export class DebugGeneralSection extends AbstractDebugSection {
       () => this.onToggleSimulationDebugButtonClick(),
       this
     );
+
+    this.owner.AddCallback("dump_system_ini_button", ui_events.BUTTON_CLICKED, () => this.onDumpSystemIni(), this);
   }
 
   /**
@@ -153,6 +160,14 @@ export class DebugGeneralSection extends AbstractDebugSection {
     gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED = !gameConfig.DEBUG.IS_SIMULATION_DEBUG_ENABLED;
 
     this.initializeState();
+  }
+
+  /**
+   * Dump system ini file for exploring.
+   */
+  public onDumpSystemIni(): void {
+    logger.info("Saving system ini as gamedata\\system.ltx");
+    SYSTEM_INI.save_as("gamedata\\system.ltx");
   }
 
   /**

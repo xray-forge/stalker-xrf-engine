@@ -29,8 +29,8 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { Optional, TKeyCode, TLabel, TName, TPath, TUIEvent } from "@/engine/lib/types";
 
-const base: TPath = "menu\\multiplayer\\MultiplayerGamespy.component";
 const logger: LuaLogger = new LuaLogger($filename);
+const base: TPath = "menu\\multiplayer\\MultiplayerGamespy.component";
 
 let ctrl: boolean = false;
 let focusedEb: number = 0;
@@ -51,46 +51,46 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
   public password: string = "";
   public profileName: string = "";
 
-  public loginPage!: CUIWindow;
-  public createAccountPage!: CUIWindow;
-  public lpHeaderLogin!: CUITextWnd;
-  public lpForgotButton!: CUI3tButton;
-  public lpPassword!: CUIEditBox;
-  public lpEmail!: CUIEditBox;
-  public lpCheckRememberMe!: CUICheckButton;
-  public caEmail!: CUIEditBox;
-  public caHeaderCreateAcc!: CUITextWnd;
-  public caError!: CUITextWnd;
-  public caPassword!: CUIEditBox;
-  public caStPassword!: CUIStatic;
-  public caStEmail!: CUIStatic;
-  public caConfirmPassword!: CUIEditBox;
-  public caStConfirmPassword!: CUIStatic;
-  public caUniqueNick!: CUIEditBox;
-  public caStUniqueNick!: CUIStatic;
-  public caComboAvalUniqueNick!: CUIComboBox;
-  public createAccountButton!: CUI3tButton;
-  public createButton!: CUI3tButton;
-  public loginButton!: CUI3tButton;
-  public cancelButton!: CUI3tButton;
-  public gsMessageBox!: CUIMessageBoxEx;
-  public gsMbCreateVnickCancel!: CUIMessageBoxEx;
-  public gsMbCreateVemailCancel!: CUIMessageBoxEx;
-  public gsCreateMbResult!: CUIMessageBoxEx;
-  public gsLoginMbResult!: CUIMessageBoxEx;
-  public gsLoginMbProfnotfound!: CUIMessageBoxEx;
-  public gsLoginMbCancel!: CUIMessageBoxEx;
+  public uiLoginPage!: CUIWindow;
+  public uiCreateAccountPage!: CUIWindow;
+  public uiLpHeaderLogin!: CUITextWnd;
+  public uiLpForgotButton!: CUI3tButton;
+  public uiLpPassword!: CUIEditBox;
+  public uiLpEmail!: CUIEditBox;
+  public uiLpCheckRememberMe!: CUICheckButton;
+  public uiCaEmail!: CUIEditBox;
+  public uiCaHeaderCreateAcc!: CUITextWnd;
+  public uiCaError!: CUITextWnd;
+  public uiCaPassword!: CUIEditBox;
+  public uiCaStPassword!: CUIStatic;
+  public uiCaStEmail!: CUIStatic;
+  public uiCaConfirmPassword!: CUIEditBox;
+  public uiCaStConfirmPassword!: CUIStatic;
+  public uiCaUniqueNick!: CUIEditBox;
+  public uiCaStUniqueNick!: CUIStatic;
+  public uiCaComboAvalUniqueNick!: CUIComboBox;
+  public uiCreateAccountButton!: CUI3tButton;
+  public uiCreateButton!: CUI3tButton;
+  public uiLoginButton!: CUI3tButton;
+  public uiCancelButton!: CUI3tButton;
+  public uiGsMessageBox!: CUIMessageBoxEx;
+  public uiGsMbCreateVnickCancel!: CUIMessageBoxEx;
+  public uiGsMbCreateVemailCancel!: CUIMessageBoxEx;
+  public uiGsCreateMbResult!: CUIMessageBoxEx;
+  public uiGsLoginMbResult!: CUIMessageBoxEx;
+  public uiGsLoginMbProfnotfound!: CUIMessageBoxEx;
+  public uiGsLoginMbCancel!: CUIMessageBoxEx;
 
   public constructor(owner: MainMenu) {
     super();
 
     this.owner = owner;
 
-    this.InitControls();
-    this.InitCallbacks();
+    this.initControls();
+    this.initCallbacks();
   }
 
-  public InitControls(): void {
+  public initControls(): void {
     const xml: CScriptXmlInit = new CScriptXmlInit();
 
     xml.ParseFile(resolveXmlFormPath(base));
@@ -103,199 +103,208 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
 
     button = xml.Init3tButton("button_create_acc", this);
     this.Register(button, "btn_create_acc");
-    this.createAccountButton = button;
+    this.uiCreateAccountButton = button;
 
     button = xml.Init3tButton("button_create", this);
     this.Register(button, "btn_create");
-    this.createButton = button;
+    this.uiCreateButton = button;
 
     button = xml.Init3tButton("button_login", this);
     this.Register(button, "btn_login");
-    this.loginButton = button;
+    this.uiLoginButton = button;
 
     button = xml.Init3tButton("button_cancel", this);
     this.Register(button, "btn_cancel");
-    this.cancelButton = button;
+    this.uiCancelButton = button;
     // --------------------------------------------------------------------------------
-    this.loginPage = new CUIWindow();
-    xml.InitWindow("login_page", 0, this.loginPage);
-    this.loginPage.SetAutoDelete(true);
-    this.AttachChild(this.loginPage);
+    this.uiLoginPage = new CUIWindow();
+    xml.InitWindow("login_page", 0, this.uiLoginPage);
+    this.uiLoginPage.SetAutoDelete(true);
+    this.AttachChild(this.uiLoginPage);
 
-    this.lpHeaderLogin = xml.InitTextWnd("login_page:cap_header_login", this.loginPage);
+    this.uiLpHeaderLogin = xml.InitTextWnd("login_page:cap_header_login", this.uiLoginPage);
 
-    xml.InitTextWnd("login_page:cap_email", this.loginPage);
-    this.lpEmail = xml.InitEditBox("login_page:edit_email", this.loginPage);
-    this.Register(this.lpEmail, "lp_edit_email");
+    xml.InitTextWnd("login_page:cap_email", this.uiLoginPage);
+    this.uiLpEmail = xml.InitEditBox("login_page:edit_email", this.uiLoginPage);
+    this.Register(this.uiLpEmail, "lp_edit_email");
 
-    xml.InitTextWnd("login_page:cap_password", this.loginPage);
-    this.lpPassword = xml.InitEditBox("login_page:edit_password", this.loginPage);
-    this.Register(this.lpPassword, "lp_edit_password");
+    xml.InitTextWnd("login_page:cap_password", this.uiLoginPage);
+    this.uiLpPassword = xml.InitEditBox("login_page:edit_password", this.uiLoginPage);
+    this.Register(this.uiLpPassword, "lp_edit_password");
 
-    button = xml.Init3tButton("login_page:button_forgot", this.loginPage);
+    button = xml.Init3tButton("login_page:button_forgot", this.uiLoginPage);
     this.Register(button, "lp_btn_forgot");
-    this.lpForgotButton = button;
+    this.uiLpForgotButton = button;
 
-    button = xml.InitCheck("login_page:check_remember_me", this.loginPage);
+    button = xml.InitCheck("login_page:check_remember_me", this.uiLoginPage);
     this.Register(button, "lp_check_remember_me");
     button.SetCheck(true);
-    this.lpCheckRememberMe = button;
+    this.uiLpCheckRememberMe = button;
 
-    this.lpEmail.SetNextFocusCapturer(this.lpPassword);
-    this.lpPassword.SetNextFocusCapturer(this.lpEmail);
+    this.uiLpEmail.SetNextFocusCapturer(this.uiLpPassword);
+    this.uiLpPassword.SetNextFocusCapturer(this.uiLpEmail);
     // --------------------------------------------------------------------------------
-    this.createAccountPage = new CUIWindow();
-    xml.InitWindow("create_account_page", 0, this.createAccountPage);
-    this.createAccountPage.SetAutoDelete(true);
-    this.AttachChild(this.createAccountPage);
+    this.uiCreateAccountPage = new CUIWindow();
+    xml.InitWindow("create_account_page", 0, this.uiCreateAccountPage);
+    this.uiCreateAccountPage.SetAutoDelete(true);
+    this.AttachChild(this.uiCreateAccountPage);
 
-    this.caHeaderCreateAcc = xml.InitTextWnd("create_account_page:cap_header_create_account", this.createAccountPage);
-    this.caError = xml.InitTextWnd("create_account_page:cap_error", this.createAccountPage);
+    this.uiCaHeaderCreateAcc = xml.InitTextWnd(
+      "create_account_page:cap_header_create_account",
+      this.uiCreateAccountPage
+    );
+    this.uiCaError = xml.InitTextWnd("create_account_page:cap_error", this.uiCreateAccountPage);
 
-    xml.InitTextWnd("create_account_page:cap_email", this.createAccountPage);
-    this.caEmail = xml.InitEditBox("create_account_page:edit_email", this.createAccountPage);
-    this.Register(this.caEmail, "ca_edit_email");
-    this.caStEmail = xml.InitStatic("create_account_page:static_email", this.createAccountPage);
+    xml.InitTextWnd("create_account_page:cap_email", this.uiCreateAccountPage);
+    this.uiCaEmail = xml.InitEditBox("create_account_page:edit_email", this.uiCreateAccountPage);
+    this.Register(this.uiCaEmail, "ca_edit_email");
+    this.uiCaStEmail = xml.InitStatic("create_account_page:static_email", this.uiCreateAccountPage);
 
-    xml.InitTextWnd("create_account_page:cap_password", this.createAccountPage);
-    this.caPassword = xml.InitEditBox("create_account_page:edit_password", this.createAccountPage);
-    this.Register(this.caPassword, "ca_edit_password");
-    this.caStPassword = xml.InitStatic("create_account_page:static_password", this.createAccountPage);
+    xml.InitTextWnd("create_account_page:cap_password", this.uiCreateAccountPage);
+    this.uiCaPassword = xml.InitEditBox("create_account_page:edit_password", this.uiCreateAccountPage);
+    this.Register(this.uiCaPassword, "ca_edit_password");
+    this.uiCaStPassword = xml.InitStatic("create_account_page:static_password", this.uiCreateAccountPage);
 
-    xml.InitTextWnd("create_account_page:cap_confirm_password", this.createAccountPage);
-    this.caConfirmPassword = xml.InitEditBox("create_account_page:edit_confirm_password", this.createAccountPage);
-    this.Register(this.caConfirmPassword, "ca_edit_confirm_password");
-    this.caStConfirmPassword = xml.InitStatic("create_account_page:static_confirm_password", this.createAccountPage);
+    xml.InitTextWnd("create_account_page:cap_confirm_password", this.uiCreateAccountPage);
+    this.uiCaConfirmPassword = xml.InitEditBox("create_account_page:edit_confirm_password", this.uiCreateAccountPage);
+    this.Register(this.uiCaConfirmPassword, "ca_edit_confirm_password");
+    this.uiCaStConfirmPassword = xml.InitStatic(
+      "create_account_page:static_confirm_password",
+      this.uiCreateAccountPage
+    );
 
-    xml.InitTextWnd("create_account_page:cap_unique_nick", this.createAccountPage);
-    this.caUniqueNick = xml.InitEditBox("create_account_page:edit_unique_nick", this.createAccountPage);
-    this.Register(this.caUniqueNick, "ca_edit_unique_nick");
-    this.caStUniqueNick = xml.InitStatic("create_account_page:static_unique_nick", this.createAccountPage);
+    xml.InitTextWnd("create_account_page:cap_unique_nick", this.uiCreateAccountPage);
+    this.uiCaUniqueNick = xml.InitEditBox("create_account_page:edit_unique_nick", this.uiCreateAccountPage);
+    this.Register(this.uiCaUniqueNick, "ca_edit_unique_nick");
+    this.uiCaStUniqueNick = xml.InitStatic("create_account_page:static_unique_nick", this.uiCreateAccountPage);
 
-    this.caComboAvalUniqueNick = xml.InitComboBox("create_account_page:combo_aval_unique_nick", this.createAccountPage);
-    this.Register(this.caComboAvalUniqueNick, "ca_combo_aval_unique_nick");
+    this.uiCaComboAvalUniqueNick = xml.InitComboBox(
+      "create_account_page:combo_aval_unique_nick",
+      this.uiCreateAccountPage
+    );
+    this.Register(this.uiCaComboAvalUniqueNick, "ca_combo_aval_unique_nick");
 
-    this.caEmail.SetNextFocusCapturer(this.caPassword);
-    this.caPassword.SetNextFocusCapturer(this.caConfirmPassword);
-    this.caConfirmPassword.SetNextFocusCapturer(this.caUniqueNick);
-    this.caUniqueNick.SetNextFocusCapturer(this.caEmail);
+    this.uiCaEmail.SetNextFocusCapturer(this.uiCaPassword);
+    this.uiCaPassword.SetNextFocusCapturer(this.uiCaConfirmPassword);
+    this.uiCaConfirmPassword.SetNextFocusCapturer(this.uiCaUniqueNick);
+    this.uiCaUniqueNick.SetNextFocusCapturer(this.uiCaEmail);
 
     // -- // message boxes
 
-    this.gsLoginMbCancel = new CUIMessageBoxEx();
-    this.Register(this.gsLoginMbCancel, "gs_mb_login_cancel");
+    this.uiGsLoginMbCancel = new CUIMessageBoxEx();
+    this.Register(this.uiGsLoginMbCancel, "gs_mb_login_cancel");
 
-    this.gsLoginMbProfnotfound = new CUIMessageBoxEx();
-    this.Register(this.gsLoginMbProfnotfound, "gs_mb_login_profnotfound");
+    this.uiGsLoginMbProfnotfound = new CUIMessageBoxEx();
+    this.Register(this.uiGsLoginMbProfnotfound, "gs_mb_login_profnotfound");
 
-    this.gsLoginMbResult = new CUIMessageBoxEx();
-    this.Register(this.gsLoginMbResult, "gs_mb_login_result");
+    this.uiGsLoginMbResult = new CUIMessageBoxEx();
+    this.Register(this.uiGsLoginMbResult, "gs_mb_login_result");
 
-    this.gsCreateMbResult = new CUIMessageBoxEx();
-    this.Register(this.gsCreateMbResult, "gs_mb_create_result");
+    this.uiGsCreateMbResult = new CUIMessageBoxEx();
+    this.Register(this.uiGsCreateMbResult, "gs_mb_create_result");
 
-    this.gsMbCreateVemailCancel = new CUIMessageBoxEx();
-    this.Register(this.gsMbCreateVemailCancel, "gs_mb_create_vemail_cancel");
+    this.uiGsMbCreateVemailCancel = new CUIMessageBoxEx();
+    this.Register(this.uiGsMbCreateVemailCancel, "gs_mb_create_vemail_cancel");
 
-    this.gsMbCreateVnickCancel = new CUIMessageBoxEx();
-    this.Register(this.gsMbCreateVnickCancel, "gs_mb_create_vnick_cancel");
+    this.uiGsMbCreateVnickCancel = new CUIMessageBoxEx();
+    this.Register(this.uiGsMbCreateVnickCancel, "gs_mb_create_vnick_cancel");
 
-    this.gsMessageBox = new CUIMessageBoxEx();
-    this.Register(this.gsMessageBox, "gs_message_box");
+    this.uiGsMessageBox = new CUIMessageBoxEx();
+    this.Register(this.uiGsMessageBox, "gs_message_box");
 
     // -- ///////////////
 
-    this.createAccountPage.Show(false);
+    this.uiCreateAccountPage.Show(false);
 
     focusedEb = 0;
 
-    this.ChangeActiveEditBox();
-    this.CheckAccCreationAbility();
+    this.changeActiveEditBox();
+    this.checkAccCreationAbility();
   }
 
-  public InitCallbacks(): void {
-    this.AddCallback("btn_create_acc", ui_events.BUTTON_CLICKED, () => this.OnBtnShowCreateAccountPage(), this);
-    this.AddCallback("btn_create", ui_events.BUTTON_CLICKED, () => this.OnBtnCreateAccount(), this);
+  public initCallbacks(): void {
+    this.AddCallback("btn_create_acc", ui_events.BUTTON_CLICKED, () => this.onBtnShowCreateAccountPage(), this);
+    this.AddCallback("btn_create", ui_events.BUTTON_CLICKED, () => this.onBtnCreateAccount(), this);
 
-    this.AddCallback("btn_login", ui_events.BUTTON_CLICKED, () => this.OnBtnLogin(), this);
-    this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.OnBtnCancel(), this);
-    this.AddCallback("lp_check_remember_me", ui_events.BUTTON_CLICKED, () => this.OnBtnRememberMe(), this);
+    this.AddCallback("btn_login", ui_events.BUTTON_CLICKED, () => this.onBtnLogin(), this);
+    this.AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, () => this.onBtnCancel(), this);
+    this.AddCallback("lp_check_remember_me", ui_events.BUTTON_CLICKED, () => this.onBtnRememberMe(), this);
 
-    this.AddCallback("lp_edit_email", ui_events.EDIT_TEXT_COMMIT, () => this.OnEditLPEmailChanged(), this);
-    this.AddCallback("lp_edit_password", ui_events.EDIT_TEXT_COMMIT, () => this.OnEditLPPasswordChanged(), this);
-    this.AddCallback("lp_btn_forgot", ui_events.BUTTON_CLICKED, () => this.OnBtnLPForgotPassword(), this);
+    this.AddCallback("lp_edit_email", ui_events.EDIT_TEXT_COMMIT, () => this.onEditLPEmailChanged(), this);
+    this.AddCallback("lp_edit_password", ui_events.EDIT_TEXT_COMMIT, () => this.onEditLPPasswordChanged(), this);
+    this.AddCallback("lp_btn_forgot", ui_events.BUTTON_CLICKED, () => this.onBtnLPForgotPassword(), this);
 
-    this.AddCallback("ca_edit_email", ui_events.EDIT_TEXT_COMMIT, () => this.OnEditCAEmailChanged(), this);
-    this.AddCallback("ca_edit_password", ui_events.EDIT_TEXT_COMMIT, () => this.OnEditCAPasswordChanged(), this);
+    this.AddCallback("ca_edit_email", ui_events.EDIT_TEXT_COMMIT, () => this.onEditCAEmailChanged(), this);
+    this.AddCallback("ca_edit_password", ui_events.EDIT_TEXT_COMMIT, () => this.onEditCAPasswordChanged(), this);
     this.AddCallback(
       "ca_edit_confirm_password",
       ui_events.EDIT_TEXT_COMMIT,
-      () => this.OnEditCAConfirmPasswordChanged(),
+      () => this.onEditCAConfirmPasswordChanged(),
       this
     );
-    this.AddCallback("ca_edit_unique_nick", ui_events.EDIT_TEXT_COMMIT, () => this.OnEditCAUniqueNickChanged(), this);
+    this.AddCallback("ca_edit_unique_nick", ui_events.EDIT_TEXT_COMMIT, () => this.onEditCAUniqueNickChanged(), this);
 
-    this.AddCallback("ca_combo_aval_unique_nick", ui_events.LIST_ITEM_SELECT, () => this.OnUniqueNickSelect(), this);
-    this.AddCallback("ca_combo_aval_unique_nick", ui_events.WINDOW_LBUTTON_DOWN, () => this.OnUniqueNickSelect(), this);
+    this.AddCallback("ca_combo_aval_unique_nick", ui_events.LIST_ITEM_SELECT, () => this.onUniqueNickSelect(), this);
+    this.AddCallback("ca_combo_aval_unique_nick", ui_events.WINDOW_LBUTTON_DOWN, () => this.onUniqueNickSelect(), this);
 
     this.AddCallback(
       "gs_mb_login_profnotfound",
       ui_events.MESSAGE_BOX_YES_CLICKED,
-      () => this.LoginProfileUseExist(),
+      () => this.loginProfileUseExist(),
       this
     );
     this.AddCallback(
       "gs_mb_login_profnotfound",
       ui_events.MESSAGE_BOX_NO_CLICKED,
-      () => this.LoginProfileNotFound(),
+      () => this.loginProfileNotFound(),
       this
     );
-    this.AddCallback("gs_mb_login_result", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.OnLoginResultOk(), this);
-    this.AddCallback("gs_mb_create_result", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.CreatedAccount(), this);
+    this.AddCallback("gs_mb_login_result", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.onLoginResultOk(), this);
+    this.AddCallback("gs_mb_create_result", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.createdAccount(), this);
 
-    this.AddCallback("gs_mb_login_cancel", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.TerminateLogin(), this);
+    this.AddCallback("gs_mb_login_cancel", ui_events.MESSAGE_BOX_OK_CLICKED, () => this.terminateLogin(), this);
     this.AddCallback(
       "gs_mb_create_vemail_cancel",
       ui_events.MESSAGE_BOX_OK_CLICKED,
-      () => this.TerminateVerifyEmail(),
+      () => this.terminateVerifyEmail(),
       this
     );
     this.AddCallback(
       "gs_mb_create_vnick_cancel",
       ui_events.MESSAGE_BOX_OK_CLICKED,
-      () => this.TerminateVerifyNick(),
+      () => this.terminateVerifyNick(),
       this
     );
   }
 
-  public ShowLoginPage(): void {
+  public showLoginPage(): void {
     const mail: string = this.owner.xrLoginManager.get_email_from_registry();
     const pass: string = this.owner.xrLoginManager.get_password_from_registry();
 
     if (mail !== "" && pass !== "") {
-      this.lpEmail.SetText(mail);
-      this.lpPassword.SetText(pass);
+      this.uiLpEmail.SetText(mail);
+      this.uiLpPassword.SetText(pass);
     }
 
-    this.lpCheckRememberMe.SetCheck(this.owner.xrLoginManager!.get_remember_me_from_registry());
+    this.uiLpCheckRememberMe.SetCheck(this.owner.xrLoginManager!.get_remember_me_from_registry());
 
-    this.createAccountButton.Show(true);
-    this.loginButton.Show(true);
-    this.createButton.Show(false);
+    this.uiCreateAccountButton.Show(true);
+    this.uiLoginButton.Show(true);
+    this.uiCreateButton.Show(false);
 
     this.activePage = "login_page";
-    this.createAccountPage.Show(false);
-    this.loginPage.Show(true);
+    this.uiCreateAccountPage.Show(false);
+    this.uiLoginPage.Show(true);
 
     focusedEb = 0;
     // --    this.ChangeActiveEditBox()
   }
 
-  public OnBtnCancel(): void {
+  public onBtnCancel(): void {
     logger.info("Button cancel");
 
     if (this.activePage === "create_account_page") {
-      this.ShowLoginPage();
+      this.showLoginPage();
     } else {
       this.HideDialog();
       this.owner.ShowDialog(true);
@@ -303,89 +312,89 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     }
   }
 
-  public OnBtnRememberMe(): void {
+  public onBtnRememberMe(): void {
     logger.info("Button remember me");
-    this.owner.xrLoginManager.save_remember_me_to_registry(this.lpCheckRememberMe.GetCheck());
+    this.owner.xrLoginManager.save_remember_me_to_registry(this.uiLpCheckRememberMe.GetCheck());
   }
 
-  public CheckAccCreationAbility() {
-    this.createButton.Enable(false);
+  public checkAccCreationAbility() {
+    this.uiCreateButton.Enable(false);
     if (this.caEmailValid === true && this.caPasswordsValid === true && this.caUniqueNickValid === true) {
-      this.createButton.Enable(true);
+      this.uiCreateButton.Enable(true);
     }
   }
 
-  public OnBtnCreateAccount() {
-    this.gsMessageBox.InitMessageBox("message_box_gs_acc_creation");
-    this.gsMessageBox.SetText("ui_mp_gamespy_creating_new_profile");
-    this.gsMessageBox.ShowDialog(true);
+  public onBtnCreateAccount() {
+    this.uiGsMessageBox.InitMessageBox("message_box_gs_acc_creation");
+    this.uiGsMessageBox.SetText("ui_mp_gamespy_creating_new_profile");
+    this.uiGsMessageBox.ShowDialog(true);
     this.owner.xrAccountManager.create_profile(
-      this.caEmail.GetText(),
-      this.caUniqueNick.GetText(),
-      this.caEmail.GetText(),
-      this.caPassword.GetText(),
-      new account_operation_cb(this, (code, description) => this.AccountCreationResult(code, description))
+      this.uiCaEmail.GetText(),
+      this.uiCaUniqueNick.GetText(),
+      this.uiCaEmail.GetText(),
+      this.uiCaPassword.GetText(),
+      new account_operation_cb(this, (code, description) => this.accountCreationResult(code, description))
     );
   }
 
-  public OnBtnShowCreateAccountPage() {
+  public onBtnShowCreateAccountPage() {
     const emptyText: string = "";
 
-    this.caEmail.SetText(emptyText);
-    this.caPassword.SetText(emptyText);
-    this.caConfirmPassword.SetText(emptyText);
-    this.caUniqueNick.SetText(emptyText);
+    this.uiCaEmail.SetText(emptyText);
+    this.uiCaPassword.SetText(emptyText);
+    this.uiCaConfirmPassword.SetText(emptyText);
+    this.uiCaUniqueNick.SetText(emptyText);
 
     this.caEmailValid = false;
     this.caPasswordsValid = false;
     this.caUniqueNickValid = false;
 
-    this.caStEmail.InitTexture("ui_inGame2_lamp_OFF");
-    this.caStPassword.InitTexture("ui_inGame2_lamp_OFF");
-    this.caStConfirmPassword.InitTexture("ui_inGame2_lamp_OFF");
-    this.caStUniqueNick.InitTexture("ui_inGame2_lamp_OFF");
+    this.uiCaStEmail.InitTexture("ui_inGame2_lamp_OFF");
+    this.uiCaStPassword.InitTexture("ui_inGame2_lamp_OFF");
+    this.uiCaStConfirmPassword.InitTexture("ui_inGame2_lamp_OFF");
+    this.uiCaStUniqueNick.InitTexture("ui_inGame2_lamp_OFF");
 
-    this.caError.SetText(emptyText);
+    this.uiCaError.SetText(emptyText);
 
-    this.createAccountButton.Enable(false);
+    this.uiCreateAccountButton.Enable(false);
     this.activePage = "create_account_page";
-    this.createAccountPage.Show(true);
-    this.createAccountButton.Show(false);
-    this.caComboAvalUniqueNick.Show(false);
-    this.caComboAvalUniqueNick.ClearList();
-    this.loginButton.Show(false);
-    this.createButton.Show(true);
-    this.loginPage.Show(false);
+    this.uiCreateAccountPage.Show(true);
+    this.uiCreateAccountButton.Show(false);
+    this.uiCaComboAvalUniqueNick.Show(false);
+    this.uiCaComboAvalUniqueNick.ClearList();
+    this.uiLoginButton.Show(false);
+    this.uiCreateButton.Show(true);
+    this.uiLoginPage.Show(false);
 
     focusedEb = 0;
 
-    this.ChangeActiveEditBox();
-    this.CheckAccCreationAbility();
+    this.changeActiveEditBox();
+    this.checkAccCreationAbility();
   }
 
-  public OnBtnLogin(): void {
-    this.email = this.lpEmail.GetText();
-    this.password = this.lpPassword.GetText();
-    this.gsLoginMbCancel.InitMessageBox("message_box_gs_info");
-    this.gsLoginMbCancel.SetText("ui_mp_gamespy_getting_account_profiles");
-    this.gsLoginMbCancel.ShowDialog(true);
+  public onBtnLogin(): void {
+    this.email = this.uiLpEmail.GetText();
+    this.password = this.uiLpPassword.GetText();
+    this.uiGsLoginMbCancel.InitMessageBox("message_box_gs_info");
+    this.uiGsLoginMbCancel.SetText("ui_mp_gamespy_getting_account_profiles");
+    this.uiGsLoginMbCancel.ShowDialog(true);
     this.profileName = "";
     this.owner.xrAccountManager.search_for_email(
       this.email,
-      new found_email_cb(this, (found, description) => this.OnLoginEmailSearchComplete(found, description))
+      new found_email_cb(this, (found, description) => this.onLoginEmailSearchComplete(found, description))
     );
   }
 
-  public OnLoginEmailSearchComplete(found: boolean, description: string) {
+  public onLoginEmailSearchComplete(found: boolean, description: string) {
     if (!found) {
-      this.gsLoginMbCancel.HideDialog();
-      this.gsLoginMbResult.InitMessageBox("message_box_gs_result");
+      this.uiGsLoginMbCancel.HideDialog();
+      this.uiGsLoginMbResult.InitMessageBox("message_box_gs_result");
       if (description === "") {
         description = game.translate_string("mp_gp_unknown_email");
       }
 
-      this.gsLoginMbResult.SetText(description);
-      this.gsLoginMbResult.ShowDialog(true);
+      this.uiGsLoginMbResult.SetText(description);
+      this.uiGsLoginMbResult.ShowDialog(true);
 
       return;
     }
@@ -393,16 +402,16 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     this.owner.xrAccountManager.get_account_profiles(
       this.email,
       this.password,
-      new account_profiles_cb(this, (code, description) => this.GetAccountProfilesResult(code, description))
+      new account_profiles_cb(this, (code, description) => this.getAccountProfilesResult(code, description))
     );
   }
 
-  public GetAccountProfilesResult(profilesCount: number, description: string): void {
+  public getAccountProfilesResult(profilesCount: number, description: string): void {
     logger.info("Got profiles response:", type(profilesCount), description);
 
     if (profilesCount === 0) {
-      this.gsLoginMbCancel.HideDialog();
-      this.gsLoginMbResult.InitMessageBox("message_box_gs_result");
+      this.uiGsLoginMbCancel.HideDialog();
+      this.uiGsLoginMbResult.InitMessageBox("message_box_gs_result");
 
       if (description === "") {
         description = game.translate_string("mp_gp_bad_password");
@@ -410,8 +419,8 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
 
       logger.info("Failed to login: ", description);
 
-      this.gsLoginMbResult.SetText(description);
-      this.gsLoginMbResult.ShowDialog(true);
+      this.uiGsLoginMbResult.SetText(description);
+      this.uiGsLoginMbResult.ShowDialog(true);
     } else {
       for (const it of this.owner.xrAccountManager.get_found_profiles()) {
         if (this.profileName === "") {
@@ -419,21 +428,21 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
         }
 
         if (it === this.email) {
-          this.gsLoginMbCancel.SetText("ui_mp_gamespy_logining_to_profile");
+          this.uiGsLoginMbCancel.SetText("ui_mp_gamespy_logining_to_profile");
           this.owner.xrLoginManager.login(
             this.email,
             // todo: Maybe typo.
             this.email,
             this.password,
-            new login_operation_cb(this, (code, description) => this.LoginOperationResult(code, description))
+            new login_operation_cb(this, (code, description) => this.loginOperationResult(code, description))
           );
 
           return;
         }
       }
 
-      this.gsLoginMbCancel.HideDialog();
-      this.LoginProfileUseExist();
+      this.uiGsLoginMbCancel.HideDialog();
+      this.loginProfileUseExist();
 
       // --this.gs_login_mb_profnotfound.InitMessageBox("message_box_gs_question");
       // --this.gs_login_mb_profnotfound.SetText(game.translate_string("ui_mp_gamespy_use_existing_profile") +
@@ -442,21 +451,21 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     }
   }
 
-  public LoginOperationResult(profile: Optional<profile>, description: string) {
+  public loginOperationResult(profile: Optional<profile>, description: string) {
     logger.info("Login operation result:", type(profile), description);
-    this.gsLoginMbCancel.HideDialog();
+    this.uiGsLoginMbCancel.HideDialog();
 
     if (profile === null) {
       logger.info("Login failed");
 
-      this.gsLoginMbResult.InitMessageBox("message_box_gs_result");
+      this.uiGsLoginMbResult.InitMessageBox("message_box_gs_result");
 
       if (description === "") {
         description = "mp_gp_login_error";
       }
 
-      this.gsLoginMbResult.SetText(description);
-      this.gsLoginMbResult.ShowDialog(true);
+      this.uiGsLoginMbResult.SetText(description);
+      this.uiGsLoginMbResult.ShowDialog(true);
     } else {
       logger.info("Continue with profile info load");
 
@@ -468,18 +477,18 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
       );
       this.owner.xrMenuPageController.ShowPage(CUIMMShniaga.epi_main);
       this.owner.xrProfileStore.load_current_profile(
-        new store_operation_cb(this, (code, description) => this.LoadingProgress(code, description)),
-        new store_operation_cb(this, (code, description) => this.LoadingComplete(code, description))
+        new store_operation_cb(this, (code, description) => this.loadingProgress(code, description)),
+        new store_operation_cb(this, (code, description) => this.loadingComplete(code, description))
       );
 
-      if (this.lpCheckRememberMe.GetCheck()) {
+      if (this.uiLpCheckRememberMe.GetCheck()) {
         this.owner.xrLoginManager.save_email_to_registry(this.email);
         this.owner.xrLoginManager.save_password_to_registry(this.password);
       }
     }
   }
 
-  public TerminateLogin(): void {
+  public terminateLogin(): void {
     logger.info("Terminate login");
 
     if (this.owner.xrGameSpyProfile !== null) {
@@ -500,25 +509,25 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     this.owner.xrGameSpyProfile = null;
   }
 
-  public LoginProfileUseExist(): void {
+  public loginProfileUseExist(): void {
     logger.info("Profile use existing");
 
-    this.gsLoginMbCancel.InitMessageBox("message_box_gs_info");
-    this.gsLoginMbCancel.SetText("ui_mp_gamespy_logining_to_profile");
-    this.gsLoginMbCancel.ShowDialog(true);
+    this.uiGsLoginMbCancel.InitMessageBox("message_box_gs_info");
+    this.uiGsLoginMbCancel.SetText("ui_mp_gamespy_logining_to_profile");
+    this.uiGsLoginMbCancel.ShowDialog(true);
     this.owner.xrLoginManager.login(
       this.email,
       this.profileName,
       this.password,
-      new login_operation_cb(this, (profile, description) => this.LoginOperationResult(profile, description))
+      new login_operation_cb(this, (profile, description) => this.loginOperationResult(profile, description))
     );
   }
 
-  public LoginProfileNotFound(): void {
-    this.OnBtnShowCreateAccountPage();
+  public loginProfileNotFound(): void {
+    this.onBtnShowCreateAccountPage();
   }
 
-  public OnLoginResultOk() {
+  public onLoginResultOk(): void {
     if (this.owner.xrGameSpyProfile) {
       this.HideDialog();
       this.owner.ShowDialog(true);
@@ -527,33 +536,33 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     }
   }
 
-  public CreatedAccount() {
-    this.ShowLoginPage();
-    this.lpEmail.SetText(this.caEmail.GetText());
-    this.lpPassword.SetText(this.caPassword.GetText());
+  public createdAccount(): void {
+    this.showLoginPage();
+    this.uiLpEmail.SetText(this.uiCaEmail.GetText());
+    this.uiLpPassword.SetText(this.uiCaPassword.GetText());
     // --this.OnBtnLogin();
   }
 
-  public OnMsgYes() {
-    this.gsLoginMbCancel.InitMessageBox("message_box_gs_info");
-    this.gsLoginMbCancel.SetText("ui_mp_gamespy_logining_to_profile");
-    this.gsLoginMbCancel.ShowDialog(true);
+  public onMsgYes(): void {
+    this.uiGsLoginMbCancel.InitMessageBox("message_box_gs_info");
+    this.uiGsLoginMbCancel.SetText("ui_mp_gamespy_logining_to_profile");
+    this.uiGsLoginMbCancel.ShowDialog(true);
     this.owner.xrLoginManager.login(
       this.email,
       this.profileName,
       this.password,
-      new login_operation_cb(this, (profile, description) => this.LoginOperationResult(profile, description))
+      new login_operation_cb(this, (profile, description) => this.loginOperationResult(profile, description))
     );
   }
 
-  public OnMsgNo() {
-    this.caEmail.SetText(this.email);
-    this.caStEmail.InitTexture("ui_inGame2_lamp_GREEN");
-    this.caPassword.SetText(this.password);
-    this.caStPassword.InitTexture("ui_inGame2_lamp_GREEN");
-    this.caConfirmPassword.SetText(this.password);
-    this.caStConfirmPassword.InitTexture("ui_inGame2_lamp_GREEN");
-    this.OnBtnShowCreateAccountPage();
+  public onMsgNo() {
+    this.uiCaEmail.SetText(this.email);
+    this.uiCaStEmail.InitTexture("ui_inGame2_lamp_GREEN");
+    this.uiCaPassword.SetText(this.password);
+    this.uiCaStPassword.InitTexture("ui_inGame2_lamp_GREEN");
+    this.uiCaConfirmPassword.SetText(this.password);
+    this.uiCaStConfirmPassword.InitTexture("ui_inGame2_lamp_GREEN");
+    this.onBtnShowCreateAccountPage();
   }
 
   public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
@@ -567,13 +576,13 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
       if (key === DIK_keys.DIK_LCONTROL) {
         ctrl = true;
       } else if (key === DIK_keys.DIK_ESCAPE) {
-        this.OnBtnCancel();
+        this.onBtnCancel();
       } else if (key === DIK_keys.DIK_TAB) {
         if (ctrl) {
           if (this.activePage === "login_page") {
-            this.OnBtnShowCreateAccountPage();
+            this.onBtnShowCreateAccountPage();
           } else {
-            this.OnBtnLogin();
+            this.onBtnLogin();
           }
         }
       }
@@ -582,31 +591,31 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
     return true;
   }
 
-  public OnEditLPEmailChanged(): void {
+  public onEditLPEmailChanged(): void {
     // --this.OnBtnLogin();
   }
 
-  public OnEditLPPasswordChanged(): void {
+  public onEditLPPasswordChanged(): void {
     // --this.OnBtnLogin();
   }
 
-  public OnBtnLPForgotPassword(): void {
+  public onBtnLPForgotPassword(): void {
     this.owner.xrLoginManager.forgot_password("https://login.gamespy.com/lostpassword.aspx");
   }
 
-  public LoadingProgress(fakeBool: any, progressString: string) {
-    if (this.gsLoginMbCancel.IsShown()) {
-      this.gsLoginMbCancel.HideDialog();
+  public loadingProgress(fakeBool: any, progressString: string) {
+    if (this.uiGsLoginMbCancel.IsShown()) {
+      this.uiGsLoginMbCancel.HideDialog();
     }
 
-    this.gsLoginMbCancel.InitMessageBox("message_box_gs_info");
-    this.gsLoginMbCancel.SetText(progressString);
-    this.gsLoginMbCancel.ShowDialog(true);
+    this.uiGsLoginMbCancel.InitMessageBox("message_box_gs_info");
+    this.uiGsLoginMbCancel.SetText(progressString);
+    this.uiGsLoginMbCancel.ShowDialog(true);
   }
 
-  public LoadingComplete(loadResult: number | boolean, descr: string): void {
-    this.gsLoginMbCancel.HideDialog();
-    this.gsLoginMbResult.InitMessageBox("message_box_gs_result");
+  public loadingComplete(loadResult: number | boolean, descr: string): void {
+    this.uiGsLoginMbCancel.HideDialog();
+    this.uiGsLoginMbResult.InitMessageBox("message_box_gs_result");
 
     if (loadResult === true) {
       const tmpUnick: TName = this.owner.xrGameSpyProfile!.unique_nick();
@@ -620,198 +629,198 @@ export class MultiplayerGameSpy extends CUIScriptWnd {
         helloText = game.translate_string("mp_gp_unique_nick_has_expired");
       }
 
-      this.gsLoginMbResult.SetText(helloText);
+      this.uiGsLoginMbResult.SetText(helloText);
     } else {
-      this.gsLoginMbResult.SetText(descr);
+      this.uiGsLoginMbResult.SetText(descr);
     }
 
-    this.gsLoginMbResult.ShowDialog(true);
+    this.uiGsLoginMbResult.ShowDialog(true);
   }
 
-  public ChangeActiveEditBox(): void {
-    this.lpEmail.CaptureFocus(false);
-    this.lpPassword.CaptureFocus(false);
-    this.caEmail.CaptureFocus(false);
-    this.caPassword.CaptureFocus(false);
-    this.caConfirmPassword.CaptureFocus(false);
-    this.caUniqueNick.CaptureFocus(false);
+  public changeActiveEditBox(): void {
+    this.uiLpEmail.CaptureFocus(false);
+    this.uiLpPassword.CaptureFocus(false);
+    this.uiCaEmail.CaptureFocus(false);
+    this.uiCaPassword.CaptureFocus(false);
+    this.uiCaConfirmPassword.CaptureFocus(false);
+    this.uiCaUniqueNick.CaptureFocus(false);
 
     if (this.activePage === "login_page") {
-      this.lpEmail.CaptureFocus(true);
+      this.uiLpEmail.CaptureFocus(true);
     } else {
-      this.caPassword.CaptureFocus(true);
+      this.uiCaPassword.CaptureFocus(true);
     }
   }
 
-  public OnEditCAEmailChanged() {
-    const email: TName = this.caEmail.GetText();
+  public onEditCAEmailChanged(): void {
+    const email: TName = this.uiCaEmail.GetText();
 
     if (email !== "") {
       if (this.owner.xrAccountManager.verify_email(email)) {
-        this.gsMbCreateVemailCancel.InitMessageBox("message_box_gs_info");
-        this.gsMbCreateVemailCancel.SetText("ui_mp_gamespy_verify_email");
-        this.gsMbCreateVemailCancel.ShowDialog(true);
+        this.uiGsMbCreateVemailCancel.InitMessageBox("message_box_gs_info");
+        this.uiGsMbCreateVemailCancel.SetText("ui_mp_gamespy_verify_email");
+        this.uiGsMbCreateVemailCancel.ShowDialog(true);
         this.owner.xrAccountManager.search_for_email(
-          this.caEmail.GetText(),
-          new found_email_cb(this, (found, description) => this.OnEmailSearchComplete(found, description))
+          this.uiCaEmail.GetText(),
+          new found_email_cb(this, (found, description) => this.onEmailSearchComplete(found, description))
         );
       } else {
-        this.caStEmail.InitTexture("ui_inGame2_lamp_RED");
-        this.caError.SetText(game.translate_string(this.owner.xrAccountManager.get_verify_error_descr()));
+        this.uiCaStEmail.InitTexture("ui_inGame2_lamp_RED");
+        this.uiCaError.SetText(game.translate_string(this.owner.xrAccountManager.get_verify_error_descr()));
       }
     }
 
-    this.CheckAccCreationAbility();
+    this.checkAccCreationAbility();
   }
 
-  public OnEditCAPasswordChanged() {
-    const pass: string = this.caPassword.GetText();
+  public onEditCAPasswordChanged(): void {
+    const pass: string = this.uiCaPassword.GetText();
 
     if (this.owner.xrAccountManager.verify_password(pass)) {
-      this.caStPassword.InitTexture("ui_inGame2_lamp_GREEN");
-      this.caError.SetText("");
+      this.uiCaStPassword.InitTexture("ui_inGame2_lamp_GREEN");
+      this.uiCaError.SetText("");
     } else {
-      this.caStPassword.InitTexture("ui_inGame2_lamp_RED");
-      this.caError.SetText(game.translate_string(this.owner.xrAccountManager.get_verify_error_descr()));
+      this.uiCaStPassword.InitTexture("ui_inGame2_lamp_RED");
+      this.uiCaError.SetText(game.translate_string(this.owner.xrAccountManager.get_verify_error_descr()));
       this.caPasswordsValid = false;
     }
 
-    this.CheckAccCreationAbility();
+    this.checkAccCreationAbility();
   }
 
-  public OnEditCAConfirmPasswordChanged() {
-    const pass: string = this.caPassword.GetText();
-    const confPass: string = this.caConfirmPassword.GetText();
+  public onEditCAConfirmPasswordChanged(): void {
+    const pass: string = this.uiCaPassword.GetText();
+    const confPass: string = this.uiCaConfirmPassword.GetText();
 
     if (pass === confPass) {
       if (this.owner.xrAccountManager.verify_password(pass)) {
-        this.caStConfirmPassword.InitTexture("ui_inGame2_lamp_GREEN");
-        this.caError.SetText("");
+        this.uiCaStConfirmPassword.InitTexture("ui_inGame2_lamp_GREEN");
+        this.uiCaError.SetText("");
         this.caPasswordsValid = true;
       } else {
-        this.caStConfirmPassword.InitTexture("ui_inGame2_lamp_RED");
-        this.caError.SetText(game.translate_string(this.owner.xrAccountManager.get_verify_error_descr()));
+        this.uiCaStConfirmPassword.InitTexture("ui_inGame2_lamp_RED");
+        this.uiCaError.SetText(game.translate_string(this.owner.xrAccountManager.get_verify_error_descr()));
         this.caPasswordsValid = false;
       }
     } else {
-      this.caStConfirmPassword.InitTexture("ui_inGame2_lamp_RED");
-      this.caError.SetText(game.translate_string("ui_mp_gamespy_verify_password_error1"));
+      this.uiCaStConfirmPassword.InitTexture("ui_inGame2_lamp_RED");
+      this.uiCaError.SetText(game.translate_string("ui_mp_gamespy_verify_password_error1"));
       this.caPasswordsValid = false;
     }
 
-    this.CheckAccCreationAbility();
+    this.checkAccCreationAbility();
   }
 
-  public OnEditCAUniqueNickChanged() {
-    const nick: TName = this.caUniqueNick.GetText();
+  public onEditCAUniqueNickChanged(): void {
+    const nick: TName = this.uiCaUniqueNick.GetText();
 
     if (this.owner.xrAccountManager.verify_unique_nick(nick)) {
-      this.gsMbCreateVnickCancel.InitMessageBox("message_box_gs_info");
-      this.gsMbCreateVnickCancel.SetText("ui_mp_gamespy_suggesting_unique_name");
-      this.gsMbCreateVnickCancel.ShowDialog(true);
+      this.uiGsMbCreateVnickCancel.InitMessageBox("message_box_gs_info");
+      this.uiGsMbCreateVnickCancel.SetText("ui_mp_gamespy_suggesting_unique_name");
+      this.uiGsMbCreateVnickCancel.ShowDialog(true);
       this.owner.xrAccountManager.suggest_unique_nicks(
         nick,
         new suggest_nicks_cb(this, (code: number, description: string) => {
-          this.OnNickSuggestionComplete(code, description);
+          this.onNickSuggestionComplete(code, description);
         })
       );
-      this.caComboAvalUniqueNick.Show(true);
-      this.caComboAvalUniqueNick.ClearList();
+      this.uiCaComboAvalUniqueNick.Show(true);
+      this.uiCaComboAvalUniqueNick.ClearList();
     } else {
-      this.caStUniqueNick.InitTexture("ui_inGame2_lamp_RED");
-      this.caError.SetText(game.translate_string(this.owner.xrAccountManager.get_verify_error_descr()));
+      this.uiCaStUniqueNick.InitTexture("ui_inGame2_lamp_RED");
+      this.uiCaError.SetText(game.translate_string(this.owner.xrAccountManager.get_verify_error_descr()));
     }
   }
 
-  public TerminateVerifyEmail(): void {
+  public terminateVerifyEmail(): void {
     this.owner.xrAccountManager.stop_searching_email();
-    this.caStEmail.InitTexture("ui_inGame2_lamp_RED");
+    this.uiCaStEmail.InitTexture("ui_inGame2_lamp_RED");
     this.caEmailValid = false;
   }
 
-  public OnEmailSearchComplete(found: boolean, description: string): void {
-    this.gsMbCreateVemailCancel.HideDialog();
+  public onEmailSearchComplete(found: boolean, description: string): void {
+    this.uiGsMbCreateVemailCancel.HideDialog();
 
     if (found) {
-      this.caStEmail.InitTexture("ui_inGame2_lamp_RED");
-      this.caError.SetText(game.translate_string("ui_mp_gamespy_email_already_exist"));
+      this.uiCaStEmail.InitTexture("ui_inGame2_lamp_RED");
+      this.uiCaError.SetText(game.translate_string("ui_mp_gamespy_email_already_exist"));
       this.caEmailValid = false;
     } else {
-      this.caStEmail.InitTexture("ui_inGame2_lamp_GREEN");
-      this.caError.SetText("");
+      this.uiCaStEmail.InitTexture("ui_inGame2_lamp_GREEN");
+      this.uiCaError.SetText("");
       this.caEmailValid = true;
     }
 
-    this.CheckAccCreationAbility();
+    this.checkAccCreationAbility();
   }
 
-  public TerminateVerifyNick() {
+  public terminateVerifyNick(): void {
     this.owner.xrAccountManager.stop_suggest_unique_nicks();
-    this.caStUniqueNick.InitTexture("ui_inGame2_lamp_RED");
+    this.uiCaStUniqueNick.InitTexture("ui_inGame2_lamp_RED");
     this.caUniqueNickValid = false;
   }
 
-  public OnUniqueNickSelect(): void {
-    this.caUniqueNick.SetText(this.caComboAvalUniqueNick.GetText());
-    this.OnEditCAUniqueNickChanged();
-    this.CheckAccCreationAbility();
+  public onUniqueNickSelect(): void {
+    this.uiCaUniqueNick.SetText(this.uiCaComboAvalUniqueNick.GetText());
+    this.onEditCAUniqueNickChanged();
+    this.checkAccCreationAbility();
   }
 
-  public AccountCreationResult(tmp: number, descr: string): void {
-    this.gsMessageBox.HideDialog();
+  public accountCreationResult(tmp: number, descr: string): void {
+    this.uiGsMessageBox.HideDialog();
 
     if (descr === "") {
-      this.gsCreateMbResult.InitMessageBox("message_box_gs_result");
-      this.gsCreateMbResult.SetText("ui_mp_gamespy_profile_created");
-      this.gsCreateMbResult.ShowDialog(true);
+      this.uiGsCreateMbResult.InitMessageBox("message_box_gs_result");
+      this.uiGsCreateMbResult.SetText("ui_mp_gamespy_profile_created");
+      this.uiGsCreateMbResult.ShowDialog(true);
     } else {
-      this.gsMessageBox.InitMessageBox("message_box_gs_result");
-      this.gsMessageBox.SetText(descr);
-      this.gsMessageBox.ShowDialog(true);
+      this.uiGsMessageBox.InitMessageBox("message_box_gs_result");
+      this.uiGsMessageBox.SetText(descr);
+      this.uiGsMessageBox.ShowDialog(true);
     }
   }
 
-  public OnNickSuggestionComplete(result: number, description: string): void {
+  public onNickSuggestionComplete(result: number, description: string): void {
     logger.info("On nick suggestion complete:", description);
 
-    this.gsMbCreateVnickCancel.HideDialog();
-    this.createAccountButton.Enable(false);
+    this.uiGsMbCreateVnickCancel.HideDialog();
+    this.uiCreateAccountButton.Enable(false);
 
     if (result > 0) {
       let index: number = 1;
 
       for (const it of this.owner.xrAccountManager.get_suggested_unicks()) {
-        if (it === this.caUniqueNick.GetText()) {
-          this.caStUniqueNick.InitTexture("ui_inGame2_lamp_GREEN");
+        if (it === this.uiCaUniqueNick.GetText()) {
+          this.uiCaStUniqueNick.InitTexture("ui_inGame2_lamp_GREEN");
           this.caUniqueNickValid = true;
-          this.createAccountButton.Enable(true);
-          this.caComboAvalUniqueNick.Show(false);
-          this.CheckAccCreationAbility();
+          this.uiCreateAccountButton.Enable(true);
+          this.uiCaComboAvalUniqueNick.Show(false);
+          this.checkAccCreationAbility();
 
           return;
         }
 
-        this.caComboAvalUniqueNick.AddItem(it, index);
+        this.uiCaComboAvalUniqueNick.AddItem(it, index);
 
         index += 1;
       }
 
-      const firstName: TName = this.caComboAvalUniqueNick.GetTextOf(0);
+      const firstName: TName = this.uiCaComboAvalUniqueNick.GetTextOf(0);
 
-      this.caComboAvalUniqueNick.SetText(firstName);
-      this.caStUniqueNick.InitTexture("ui_inGame2_lamp_RED");
-      this.gsMessageBox.InitMessageBox("message_box_gs_result");
-      this.gsMessageBox.SetText("ui_mp_gamespy_verify_nickname_error1");
-      this.gsMessageBox.ShowDialog(true);
+      this.uiCaComboAvalUniqueNick.SetText(firstName);
+      this.uiCaStUniqueNick.InitTexture("ui_inGame2_lamp_RED");
+      this.uiGsMessageBox.InitMessageBox("message_box_gs_result");
+      this.uiGsMessageBox.SetText("ui_mp_gamespy_verify_nickname_error1");
+      this.uiGsMessageBox.ShowDialog(true);
       this.caUniqueNickValid = false;
     } else {
-      this.caStUniqueNick.InitTexture("ui_inGame2_lamp_RED");
-      this.gsMessageBox.InitMessageBox("message_box_gs_result");
-      this.gsMessageBox.SetText(description);
-      this.gsMessageBox.ShowDialog(true);
+      this.uiCaStUniqueNick.InitTexture("ui_inGame2_lamp_RED");
+      this.uiGsMessageBox.InitMessageBox("message_box_gs_result");
+      this.uiGsMessageBox.SetText(description);
+      this.uiGsMessageBox.ShowDialog(true);
       this.caUniqueNickValid = false;
     }
 
-    this.CheckAccCreationAbility();
+    this.checkAccCreationAbility();
   }
 }

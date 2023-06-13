@@ -40,8 +40,8 @@ export class SleepManager extends AbstractCoreManager {
       this.sleepDialog = new SleepDialog(this);
     }
 
-    this.sleepDialog.timeTrack.SetCurrentValue();
-    this.sleepDialog.TestAndShow();
+    this.sleepDialog.uiTimeTrack.SetCurrentValue();
+    this.sleepDialog.testAndShow();
   }
 
   /**

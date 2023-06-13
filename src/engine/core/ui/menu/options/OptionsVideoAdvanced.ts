@@ -34,7 +34,7 @@ export class OptionsVideoAdvanced extends CUIWindow {
     const textureLod = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
     xml.InitStatic("video_adv:cap_texture_lod", textureLod);
-    owner.textureLodTrackBar = xml.InitTrackBar("video_adv:track_texture_lod", textureLod);
+    owner.uiTextureLodTrackBar = xml.InitTrackBar("video_adv:track_texture_lod", textureLod);
 
     const anisotropicFiltering = xml.InitStatic("video_adv:templ_item", this.scrollView);
 
@@ -47,13 +47,13 @@ export class OptionsVideoAdvanced extends CUIWindow {
 
     const sSamplingTrack = xml.InitTrackBar("video_adv:track_ssample", sSampling);
 
-    owner.sSamplingTrackBar = sSamplingTrack;
+    owner.uiSSamplingTrackBar = sSamplingTrack;
     owner.Register(sSamplingTrack, "trb_ssample");
     owner.preconditions.set(sSamplingTrack, only3andMoreModeInvisible);
 
     const sSamplingComboBox = xml.InitComboBox("video_adv:combo_ssample", sSampling);
 
-    owner.sSamplingComboBox = sSamplingComboBox;
+    owner.uiSSamplingComboBox = sSamplingComboBox;
     owner.Register(sSamplingComboBox, "cb_ssample");
     owner.preconditions.set(sSamplingComboBox, only3andMoreModeVisible);
 

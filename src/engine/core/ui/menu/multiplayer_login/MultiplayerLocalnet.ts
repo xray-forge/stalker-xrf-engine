@@ -19,10 +19,10 @@ import {
 import { MainMenu } from "@/engine/core/ui/menu/MainMenu";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
-import { Optional, TKeyCode, TUIEvent } from "@/engine/lib/types";
+import { Optional, TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
 
-const base: string = "menu\\multiplayer\\MultiplayerLocalnet.component";
 const logger: LuaLogger = new LuaLogger($filename);
+const base: TPath = "menu\\multiplayer\\MultiplayerLocalnet.component";
 
 /**
  * todo;
@@ -31,15 +31,15 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class MultiplayerLocalnet extends CUIScriptWnd {
   public owner: MainMenu;
 
-  public loginPage!: CUIWindow;
-  public loginButton!: CUI3tButton;
-  public cancelButton!: CUI3tButton;
+  public uiLoginPage!: CUIWindow;
+  public uiLoginButton!: CUI3tButton;
+  public uiCancelButton!: CUI3tButton;
 
-  public lpHeaderLogin!: CUITextWnd;
-  public lpNickname!: CUIEditBox;
-  public lpCheckRememberMe!: CUICheckButton;
+  public uiLpHeaderLogin!: CUITextWnd;
+  public uiLpNickname!: CUIEditBox;
+  public uiLpCheckRememberMe!: CUICheckButton;
 
-  public gsLoginMessageBox!: CUIMessageBoxEx;
+  public uiGsLoginMessageBox!: CUIMessageBoxEx;
 
   /**
    * todo: Description.
@@ -65,31 +65,31 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
     this.Enable(true);
     xml.InitStatic("background", this);
 
-    this.loginButton = xml.Init3tButton("button_login", this);
-    this.Register(this.loginButton, "btn_login");
+    this.uiLoginButton = xml.Init3tButton("button_login", this);
+    this.Register(this.uiLoginButton, "btn_login");
 
-    this.cancelButton = xml.Init3tButton("button_cancel", this);
-    this.Register(this.cancelButton, "btn_cancel");
+    this.uiCancelButton = xml.Init3tButton("button_cancel", this);
+    this.Register(this.uiCancelButton, "btn_cancel");
 
-    this.loginPage = new CUIWindow();
-    xml.InitWindow("login_page", 0, this.loginPage);
-    this.loginPage.SetAutoDelete(true);
-    this.AttachChild(this.loginPage);
+    this.uiLoginPage = new CUIWindow();
+    xml.InitWindow("login_page", 0, this.uiLoginPage);
+    this.uiLoginPage.SetAutoDelete(true);
+    this.AttachChild(this.uiLoginPage);
 
-    xml.InitWindow("login_page", 0, this.loginPage);
-    this.lpHeaderLogin = xml.InitTextWnd("login_page:cap_header_login", this.loginPage);
+    xml.InitWindow("login_page", 0, this.uiLoginPage);
+    this.uiLpHeaderLogin = xml.InitTextWnd("login_page:cap_header_login", this.uiLoginPage);
 
-    xml.InitTextWnd("login_page:cap_nickname", this.loginPage);
-    this.lpNickname = xml.InitEditBox("login_page:edit_nickname", this.loginPage);
-    this.Register(this.lpNickname, "lp_edit_nickname");
+    xml.InitTextWnd("login_page:cap_nickname", this.uiLoginPage);
+    this.uiLpNickname = xml.InitEditBox("login_page:edit_nickname", this.uiLoginPage);
+    this.Register(this.uiLpNickname, "lp_edit_nickname");
 
-    this.gsLoginMessageBox = new CUIMessageBoxEx();
-    this.Register(this.gsLoginMessageBox, "gs_message_box");
+    this.uiGsLoginMessageBox = new CUIMessageBoxEx();
+    this.Register(this.uiGsLoginMessageBox, "gs_message_box");
 
-    this.lpCheckRememberMe = xml.InitCheck("login_page:check_remember_me", this.loginPage);
-    this.Register(this.lpCheckRememberMe, "lp_check_remember_me");
+    this.uiLpCheckRememberMe = xml.InitCheck("login_page:check_remember_me", this.uiLoginPage);
+    this.Register(this.uiLpCheckRememberMe, "lp_check_remember_me");
 
-    this.lpNickname.CaptureFocus(true);
+    this.uiLpNickname.CaptureFocus(true);
   }
 
   /**
@@ -110,7 +110,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
     logger.info("On button login");
 
     this.owner.xrLoginManager.login_offline(
-      this.lpNickname.GetText(),
+      this.uiLpNickname.GetText(),
       new login_operation_cb(this, (profile, description) => this.loginOperationResult(profile, description))
     );
   }
@@ -123,9 +123,9 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
 
     if (profile === null) {
       logger.info("No profile");
-      this.gsLoginMessageBox.InitMessageBox("message_box_gs_result");
-      this.gsLoginMessageBox.SetText(description);
-      this.gsLoginMessageBox.ShowDialog(true);
+      this.uiGsLoginMessageBox.InitMessageBox("message_box_gs_result");
+      this.uiGsLoginMessageBox.SetText(description);
+      this.uiGsLoginMessageBox.ShowDialog(true);
     } else {
       logger.info("With profile");
       this.owner.xrGameSpyProfile = profile;
@@ -137,7 +137,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
       );
       this.owner.xrMenuPageController.ShowPage(CUIMMShniaga.epi_main);
 
-      if (this.lpCheckRememberMe.GetCheck()) {
+      if (this.uiLpCheckRememberMe.GetCheck()) {
         logger.info("Saving to registry:", profile === null);
         this.owner.xrLoginManager.save_nick_to_registry(profile.unique_nick());
       }
@@ -171,7 +171,7 @@ export class MultiplayerLocalnet extends CUIScriptWnd {
    */
   public onBtnRememberMe(): void {
     logger.info("On button remember me");
-    this.owner.xrLoginManager.save_remember_me_to_registry(this.lpCheckRememberMe.GetCheck());
+    this.owner.xrLoginManager.save_remember_me_to_registry(this.uiLpCheckRememberMe.GetCheck());
   }
 
   /**

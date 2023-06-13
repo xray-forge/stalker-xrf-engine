@@ -27,10 +27,20 @@ import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { roots } from "@/engine/lib/constants/roots";
-import { FSFileList, FSFileListEX, FSItem, Optional, TKeyCode, TName, TPath, TUIEvent } from "@/engine/lib/types";
+import {
+  FSFileList,
+  FSFileListEX,
+  FSItem,
+  Optional,
+  TKeyCode,
+  TName,
+  TPath,
+  TUIEvent,
+  Vector2D,
+} from "@/engine/lib/types";
 
-const base: TPath = "menu\\SaveDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
+const base: TPath = "menu\\SaveDialog.component";
 
 /**
  * todo;
@@ -42,14 +52,14 @@ export class SaveDialog extends CUIScriptWnd {
   public readonly listFileFont: CGameFont = GetFontMedium();
   public readonly listDateFont: CGameFont = GetFontMedium();
 
-  public fileItemMainSize!: vector2;
-  public fileItemFnSize!: vector2;
-  public fileItemFdSize!: vector2;
+  public fileItemMainSize!: Vector2D;
+  public fileItemFnSize!: Vector2D;
+  public fileItemFdSize!: Vector2D;
 
-  public form!: CUIStatic;
-  public editBox!: CUIEditBox;
-  public listBox!: CUIListBox<SaveItem>;
-  public messageBox!: CUIMessageBoxEx;
+  public uiForm!: CUIStatic;
+  public uiEditBox!: CUIEditBox;
+  public uiListBox!: CUIListBox<SaveItem>;
+  public uiMessageBox!: CUIMessageBoxEx;
 
   public newSave: string = "";
   public modalBoxMode: number = 0;
@@ -59,12 +69,12 @@ export class SaveDialog extends CUIScriptWnd {
 
     this.owner = owner;
 
-    this.InitControls();
-    this.InitCallBacks();
-    this.FillList();
+    this.initControls();
+    this.initCallBacks();
+    this.fillList();
   }
 
-  public InitControls(): void {
+  public initControls(): void {
     this.SetWndRect(new Frect().set(0, 0, 1024, 768));
 
     const xml: CScriptXmlInit = new CScriptXmlInit();
@@ -85,26 +95,26 @@ export class SaveDialog extends CUIScriptWnd {
     xml.InitWindow("file_item:fd", 0, ctrl);
     this.fileItemFdSize = new vector2().set(ctrl.GetWidth(), ctrl.GetHeight());
 
-    this.form = xml.InitStatic("form", this);
-    xml.InitTextWnd("form:caption", this.form);
+    this.uiForm = xml.InitStatic("form", this);
+    xml.InitTextWnd("form:caption", this.uiForm);
 
-    this.editBox = xml.InitEditBox("form:edit", this.form);
-    this.Register(this.editBox, "edit_filename");
+    this.uiEditBox = xml.InitEditBox("form:edit", this.uiForm);
+    this.Register(this.uiEditBox, "edit_filename");
 
-    xml.InitFrame("form:list_frame", this.form);
-    this.listBox = xml.InitListBox("form:list", this.form);
-    this.listBox.ShowSelectedItem(true);
-    this.Register(this.listBox, "list_window");
+    xml.InitFrame("form:list_frame", this.uiForm);
+    this.uiListBox = xml.InitListBox("form:list", this.uiForm);
+    this.uiListBox.ShowSelectedItem(true);
+    this.Register(this.uiListBox, "list_window");
 
-    this.Register(xml.Init3tButton("form:btn_save", this.form), "button_ok");
-    this.Register(xml.Init3tButton("form:btn_delete", this.form), "button_del");
-    this.Register(xml.Init3tButton("form:btn_cancel", this.form), "button_cancel");
+    this.Register(xml.Init3tButton("form:btn_save", this.uiForm), "button_ok");
+    this.Register(xml.Init3tButton("form:btn_delete", this.uiForm), "button_del");
+    this.Register(xml.Init3tButton("form:btn_cancel", this.uiForm), "button_cancel");
 
-    this.messageBox = new CUIMessageBoxEx();
-    this.Register(this.messageBox, "message_box");
+    this.uiMessageBox = new CUIMessageBoxEx();
+    this.Register(this.uiMessageBox, "message_box");
   }
 
-  public InitCallBacks(): void {
+  public initCallBacks(): void {
     this.AddCallback("button_ok", ui_events.BUTTON_CLICKED, () => this.onOkButtonClicked(), this);
     this.AddCallback("button_cancel", ui_events.BUTTON_CLICKED, () => this.onCancelButtonClicked(), this);
     this.AddCallback("button_del", ui_events.BUTTON_CLICKED, () => this.onDeleteButtonClicked(), this);
@@ -113,10 +123,10 @@ export class SaveDialog extends CUIScriptWnd {
     this.AddCallback("list_window", ui_events.LIST_ITEM_CLICKED, () => this.onListItemClicked(), this);
   }
 
-  public FillList(): void {
+  public fillList(): void {
     logger.info("Fill list");
 
-    this.listBox.RemoveAll();
+    this.uiListBox.RemoveAll();
 
     const fileList: FSFileListEX = getFS().file_list_open_ex(
       roots.gameSaves,
@@ -136,33 +146,33 @@ export class SaveDialog extends CUIScriptWnd {
       const dateTime: string = "[" + file.ModifDigitOnly() + "]";
 
       // --menu_item =  +
-      this.AddItemToList(fileName, dateTime);
+      this.addItemToList(fileName, dateTime);
     }
   }
 
   public onListItemClicked(): void {
     logger.info("List item clicked");
 
-    if (this.listBox.GetSize() === 0) {
+    if (this.uiListBox.GetSize() === 0) {
       return;
     }
 
-    const item = this.listBox.GetSelectedItem();
+    const item = this.uiListBox.GetSelectedItem();
 
     if (item === null) {
       return;
     }
 
-    const itemText: string = item.innerNameText.GetText();
+    const itemText: string = item.uiInnerNameText.GetText();
 
-    this.editBox.SetText(itemText);
+    this.uiEditBox.SetText(itemText);
   }
 
   public onMessageYesClicked(): void {
     logger.info("Message yes clicked:", this.modalBoxMode);
 
     if (this.modalBoxMode === 1) {
-      this.SaveFile(this.newSave);
+      this.saveFile(this.newSave);
 
       this.owner.ShowDialog(true);
       this.HideDialog();
@@ -175,54 +185,54 @@ export class SaveDialog extends CUIScriptWnd {
   public onDeleteButtonClicked(): void {
     logger.info("Message delete clicked");
 
-    if (this.listBox.GetSize() === 0) {
+    if (this.uiListBox.GetSize() === 0) {
       return;
     }
 
-    const item: Optional<SaveItem> = this.listBox.GetSelectedItem();
+    const item: Optional<SaveItem> = this.uiListBox.GetSelectedItem();
 
     if (item === null) {
       return;
     }
 
     this.modalBoxMode = 2;
-    this.messageBox.InitMessageBox("message_box_delete_file_name");
-    this.messageBox.ShowDialog(true);
+    this.uiMessageBox.InitMessageBox("message_box_delete_file_name");
+    this.uiMessageBox.ShowDialog(true);
   }
 
   public onDeleteSelectedFile(): void {
     logger.info("Deleting selected file");
 
-    if (this.listBox.GetSize() === 0) {
+    if (this.uiListBox.GetSize() === 0) {
       return;
     }
 
-    const index: number = this.listBox.GetSelectedIndex();
+    const index: number = this.uiListBox.GetSelectedIndex();
 
     if (index === -1) {
       return;
     }
 
-    const item: SaveItem = this.listBox.GetItemByIndex(index);
-    const filename: string = item.innerNameText.GetText();
+    const item: SaveItem = this.uiListBox.GetItemByIndex(index);
+    const filename: string = item.uiInnerNameText.GetText();
 
     deleteGameSave(filename);
 
-    this.listBox.RemoveItem(item);
+    this.uiListBox.RemoveItem(item);
     this.onListItemClicked();
   }
 
   public onOkButtonClicked(): void {
     logger.info("OK confirm clicked");
 
-    this.newSave = this.editBox.GetText();
+    this.newSave = this.uiEditBox.GetText();
 
     if (string.len(this.newSave) === 0) {
       logger.info("Save name is empty");
 
       this.modalBoxMode = 0;
-      this.messageBox.InitMessageBox("message_box_empty_file_name");
-      this.messageBox.ShowDialog(true);
+      this.uiMessageBox.InitMessageBox("message_box_empty_file_name");
+      this.uiMessageBox.ShowDialog(true);
 
       return;
     }
@@ -235,8 +245,8 @@ export class SaveDialog extends CUIScriptWnd {
       logger.info("File already exists");
 
       this.modalBoxMode = 1;
-      this.messageBox.InitMessageBox("message_box_file_already_exist");
-      this.messageBox.ShowDialog(true);
+      this.uiMessageBox.InitMessageBox("message_box_file_already_exist");
+      this.uiMessageBox.ShowDialog(true);
 
       fileList.Free();
 
@@ -244,7 +254,7 @@ export class SaveDialog extends CUIScriptWnd {
     }
 
     fileList.Free();
-    this.SaveFile(this.newSave);
+    this.saveFile(this.newSave);
 
     this.owner.ShowDialog(true);
     this.HideDialog();
@@ -272,20 +282,20 @@ export class SaveDialog extends CUIScriptWnd {
     return true;
   }
 
-  public AddItemToList(filename: string, datetime: string): void {
+  public addItemToList(filename: string, datetime: string): void {
     const saveItem: SaveItem = new SaveItem(this.fileItemMainSize.y, this.fileItemFdSize.x, datetime);
 
     saveItem.SetWndSize(this.fileItemMainSize);
 
-    saveItem.innerNameText.SetWndPos(new vector2().set(0, 0));
-    saveItem.innerNameText.SetWndSize(this.fileItemFnSize);
-    saveItem.innerNameText.SetText(filename);
-    saveItem.innerAgeText.SetWndPos(new vector2().set(this.fileItemFnSize.x + 4, 0));
+    saveItem.uiInnerNameText.SetWndPos(new vector2().set(0, 0));
+    saveItem.uiInnerNameText.SetWndSize(this.fileItemFnSize);
+    saveItem.uiInnerNameText.SetText(filename);
+    saveItem.uiInnerAgeText.SetWndPos(new vector2().set(this.fileItemFnSize.x + 4, 0));
 
-    this.listBox.AddExistingItem(saveItem);
+    this.uiListBox.AddExistingItem(saveItem);
   }
 
-  public SaveFile(filename: string): void {
+  public saveFile(filename: string): void {
     logger.info("Save file:", filename);
 
     if (filename !== null) {

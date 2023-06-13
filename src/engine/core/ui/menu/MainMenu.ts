@@ -45,11 +45,13 @@ import {
   ProfileStore,
   TKeyCode,
   TNumberId,
+  TPath,
   TUIEvent,
 } from "@/engine/lib/types";
 
-export const base: string = "menu\\MainMenu.component";
 const logger: LuaLogger = new LuaLogger($filename);
+
+export const base: TPath = "menu\\MainMenu.component";
 
 enum EMainMenuModalMode {
   OFF,
@@ -294,7 +296,7 @@ export class MainMenu extends CUIScriptWnd {
       this.uiGameSavesSaveDialog = new SaveDialog(this);
     }
 
-    this.uiGameSavesSaveDialog.FillList();
+    this.uiGameSavesSaveDialog.fillList();
     this.uiGameSavesSaveDialog.ShowDialog(true);
     this.HideDialog();
     this.Show(false);
@@ -411,7 +413,7 @@ export class MainMenu extends CUIScriptWnd {
       this.uiGamespyDialog = new MultiplayerGameSpy(this);
     }
 
-    this.uiGamespyDialog.ShowLoginPage();
+    this.uiGamespyDialog.showLoginPage();
     this.uiGamespyDialog.ShowDialog(true);
 
     this.HideDialog();
@@ -426,8 +428,8 @@ export class MainMenu extends CUIScriptWnd {
   public onButtonClickLocalnet(): void {
     if (!this.uiLocalnetDialog) {
       this.uiLocalnetDialog = new MultiplayerLocalnet(this);
-      this.uiLocalnetDialog.lpNickname.SetText(this.xrLoginManager.get_nick_from_registry());
-      this.uiLocalnetDialog.lpCheckRememberMe.SetCheck(this.xrLoginManager.get_remember_me_from_registry());
+      this.uiLocalnetDialog.uiLpNickname.SetText(this.xrLoginManager.get_nick_from_registry());
+      this.uiLocalnetDialog.uiLpCheckRememberMe.SetCheck(this.xrLoginManager.get_remember_me_from_registry());
     }
 
     this.uiLocalnetDialog.ShowDialog(true);

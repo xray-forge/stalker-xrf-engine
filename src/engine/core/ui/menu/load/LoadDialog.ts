@@ -13,13 +13,10 @@ import {
   dik_to_bind,
   Frect,
   FS,
-  FS_item,
   get_console,
   getFS,
   key_bindings,
   LuabindClass,
-  TXR_DIK_key,
-  TXR_ui_event,
   ui_events,
   valid_saved_game,
   vector2,
@@ -42,12 +39,13 @@ import {
   TKeyCode,
   TLabel,
   TName,
+  TPath,
   TUIEvent,
   Vector2D,
 } from "@/engine/lib/types";
 
-const base: string = "menu\\LoadDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
+const base: TPath = "menu\\LoadDialog.component";
 
 /**
  * todo;
@@ -60,12 +58,12 @@ export class LoadDialog extends CUIScriptWnd {
   public fileItemInnerNameTextSize!: Vector2D;
   public fileItemDdSize!: Vector2D;
 
-  public form!: CUIStatic;
-  public picture!: CUIStatic;
-  public fileCaption!: CUITextWnd;
-  public fileData!: CUITextWnd;
-  public listBox!: CUIListBox<LoadItem>;
-  public messageBox!: CUIMessageBoxEx;
+  public uiForm!: CUIStatic;
+  public uiPicture!: CUIStatic;
+  public uiFileCaption!: CUITextWnd;
+  public uiFileData!: CUITextWnd;
+  public uiListBox!: CUIListBox<LoadItem>;
+  public uiMessageBox!: CUIMessageBoxEx;
   public messageBoxMode: number = 0;
 
   public constructor(owner: CUIScriptWnd) {
@@ -96,28 +94,28 @@ export class LoadDialog extends CUIScriptWnd {
     xml.InitWindow("file_item:fd", 0, window);
     this.fileItemDdSize = new vector2().set(window.GetWidth(), window.GetHeight());
 
-    this.form = xml.InitStatic("form", this);
-    xml.InitStatic("form:caption", this.form);
+    this.uiForm = xml.InitStatic("form", this);
+    xml.InitStatic("form:caption", this.uiForm);
 
-    this.picture = xml.InitStatic("form:picture", this.form);
+    this.uiPicture = xml.InitStatic("form:picture", this.uiForm);
 
     // -- xml.InitStatic("form:file_info", this.form);
 
-    this.fileCaption = xml.InitTextWnd("form:file_caption", this.form);
-    this.fileData = xml.InitTextWnd("form:file_data", this.form);
+    this.uiFileCaption = xml.InitTextWnd("form:file_caption", this.uiForm);
+    this.uiFileData = xml.InitTextWnd("form:file_data", this.uiForm);
 
-    xml.InitFrame("form:list_frame", this.form);
+    xml.InitFrame("form:list_frame", this.uiForm);
 
-    this.listBox = xml.InitListBox("form:list", this.form);
-    this.listBox.ShowSelectedItem(true);
+    this.uiListBox = xml.InitListBox("form:list", this.uiForm);
+    this.uiListBox.ShowSelectedItem(true);
 
-    this.Register(this.listBox, "list_window");
-    this.Register(xml.Init3tButton("form:btn_load", this.form), "button_load");
-    this.Register(xml.Init3tButton("form:btn_delete", this.form), "button_del");
-    this.Register(xml.Init3tButton("form:btn_cancel", this.form), "button_back");
+    this.Register(this.uiListBox, "list_window");
+    this.Register(xml.Init3tButton("form:btn_load", this.uiForm), "button_load");
+    this.Register(xml.Init3tButton("form:btn_delete", this.uiForm), "button_del");
+    this.Register(xml.Init3tButton("form:btn_cancel", this.uiForm), "button_back");
 
-    this.messageBox = new CUIMessageBoxEx();
-    this.Register(this.messageBox, "message_box");
+    this.uiMessageBox = new CUIMessageBoxEx();
+    this.Register(this.uiMessageBox, "message_box");
   }
 
   public initCallbacks(): void {
@@ -132,7 +130,7 @@ export class LoadDialog extends CUIScriptWnd {
   }
 
   public fillList(): void {
-    this.listBox.RemoveAll();
+    this.uiListBox.RemoveAll();
 
     const fs: FS = getFS();
     const fileList: FSFileListEX = fs.file_list_open_ex(
@@ -152,52 +150,52 @@ export class LoadDialog extends CUIScriptWnd {
       );
       const datetime: TLabel = "[" + file.ModifDigitOnly() + "]";
 
-      this.AddItemToList(filename, datetime);
+      this.addItemToList(filename, datetime);
     }
   }
 
   public onListItemClicked(): void {
     logger.info("List item selected");
 
-    if (this.listBox.GetSize() === 0) {
+    if (this.uiListBox.GetSize() === 0) {
       return;
     }
 
-    const item: Optional<LoadItem> = this.listBox.GetSelectedItem();
+    const item: Optional<LoadItem> = this.uiListBox.GetSelectedItem();
 
     if (item === null) {
-      this.fileCaption.SetText("");
-      this.fileData.SetText("");
+      this.uiFileCaption.SetText("");
+      this.uiFileData.SetText("");
 
-      const rect: Frect = this.picture.GetTextureRect();
+      const rect: Frect = this.uiPicture.GetTextureRect();
 
-      this.picture.InitTexture(textures.ui_ui_noise);
-      this.picture.SetTextureRect(new Frect().set(rect.x1, rect.y1, rect.x2, rect.y2));
+      this.uiPicture.InitTexture(textures.ui_ui_noise);
+      this.uiPicture.SetTextureRect(new Frect().set(rect.x1, rect.y1, rect.x2, rect.y2));
 
       return;
     }
 
-    const itemText: TLabel = item.innerNameText.GetText();
+    const itemText: TLabel = item.uiInnerNameText.GetText();
 
-    this.fileCaption.SetText(itemText);
-    this.fileCaption.SetEllipsis(true);
-    this.fileData.SetText(gatFileDataForGameSave(itemText));
+    this.uiFileCaption.SetText(itemText);
+    this.uiFileCaption.SetEllipsis(true);
+    this.uiFileData.SetText(gatFileDataForGameSave(itemText));
 
     if (!isGameSaveFileExist(itemText + gameConfig.GAME_SAVE_EXTENSION)) {
-      this.listBox.RemoveItem(item);
+      this.uiListBox.RemoveItem(item);
 
       return;
     }
 
-    const rect: Frect = this.picture.GetTextureRect();
+    const rect: Frect = this.uiPicture.GetTextureRect();
 
     if (isGameSaveFileExist(itemText + ".dds")) {
-      this.picture.InitTexture(itemText);
+      this.uiPicture.InitTexture(itemText);
     } else {
-      this.picture.InitTexture(textures.ui_ui_noise);
+      this.uiPicture.InitTexture(textures.ui_ui_noise);
     }
 
-    this.picture.SetTextureRect(new Frect().set(rect.x1, rect.y1, rect.x2, rect.y2));
+    this.uiPicture.SetTextureRect(new Frect().set(rect.x1, rect.y1, rect.x2, rect.y2));
   }
 
   public onListItemDoubleClicked(): void {
@@ -208,19 +206,19 @@ export class LoadDialog extends CUIScriptWnd {
   public onConfirmedLoad(): void {
     logger.info("Message yes confirmed");
 
-    const index: TIndex = this.listBox.GetSelectedIndex();
+    const index: TIndex = this.uiListBox.GetSelectedIndex();
 
     if (index === -1) {
       return;
     }
 
     if (this.messageBoxMode === 1) {
-      const item: LoadItem = this.listBox.GetItemByIndex(index);
-      const innerNameTextame: string = item.innerNameText.GetText();
+      const item: LoadItem = this.uiListBox.GetItemByIndex(index);
+      const innerNameTextame: string = item.uiInnerNameText.GetText();
 
       deleteGameSave(innerNameTextame);
 
-      this.listBox.RemoveItem(item);
+      this.uiListBox.RemoveItem(item);
 
       this.onListItemClicked();
     } else if (this.messageBoxMode === 2) {
@@ -235,18 +233,18 @@ export class LoadDialog extends CUIScriptWnd {
 
     const console: CConsole = get_console();
 
-    if (this.listBox.GetSize() === 0) {
+    if (this.uiListBox.GetSize() === 0) {
       return;
     }
 
-    const index: TIndex = this.listBox.GetSelectedIndex();
+    const index: TIndex = this.uiListBox.GetSelectedIndex();
 
     if (index === -1) {
       return;
     }
 
-    const item: LoadItem = this.listBox.GetItemByIndex(index);
-    const innerNameTextName: TName = item.innerNameText.GetText();
+    const item: LoadItem = this.uiListBox.GetItemByIndex(index);
+    const innerNameTextName: TName = item.uiInnerNameText.GetText();
 
     if (alife() === null) {
       console.execute("disconnect");
@@ -259,22 +257,22 @@ export class LoadDialog extends CUIScriptWnd {
   public onLoadButtonClicked(): void {
     logger.info("Load game clicked");
 
-    if (this.listBox.GetSize() === 0) {
+    if (this.uiListBox.GetSize() === 0) {
       return;
     }
 
-    const item = this.listBox.GetSelectedItem();
+    const item = this.uiListBox.GetSelectedItem();
 
     if (item === null) {
       return;
     }
 
-    const innerNameTextame: string = item.innerNameText.GetText();
+    const innerNameTextame: string = item.uiInnerNameText.GetText();
 
     if (!valid_saved_game(innerNameTextame)) {
       this.messageBoxMode = 0;
-      this.messageBox.InitMessageBox("message_box_invalid_saved_game");
-      this.messageBox.ShowDialog(true);
+      this.uiMessageBox.InitMessageBox("message_box_invalid_saved_game");
+      this.uiMessageBox.ShowDialog(true);
 
       return;
     }
@@ -294,8 +292,8 @@ export class LoadDialog extends CUIScriptWnd {
     }
 
     this.messageBoxMode = 2;
-    this.messageBox.InitMessageBox("message_box_confirm_load_save");
-    this.messageBox.ShowDialog(true);
+    this.uiMessageBox.InitMessageBox("message_box_confirm_load_save");
+    this.uiMessageBox.ShowDialog(true);
   }
 
   public onBackButtonClicked(): void {
@@ -309,11 +307,11 @@ export class LoadDialog extends CUIScriptWnd {
   public onDeleteButtonClicked(): void {
     logger.info("Delete clicked");
 
-    if (this.listBox.GetSize() === 0) {
+    if (this.uiListBox.GetSize() === 0) {
       return;
     }
 
-    const index = this.listBox.GetSelectedIndex();
+    const index = this.uiListBox.GetSelectedIndex();
 
     if (index === -1) {
       return;
@@ -321,8 +319,8 @@ export class LoadDialog extends CUIScriptWnd {
 
     this.messageBoxMode = 1;
 
-    this.messageBox.InitMessageBox("message_box_delete_file_name");
-    this.messageBox.ShowDialog(true);
+    this.uiMessageBox.InitMessageBox("message_box_delete_file_name");
+    this.uiMessageBox.ShowDialog(true);
   }
 
   public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
@@ -341,16 +339,16 @@ export class LoadDialog extends CUIScriptWnd {
     return true;
   }
 
-  public AddItemToList(filename: string, datetime: string): void {
+  public addItemToList(filename: string, datetime: string): void {
     const loadItem: LoadItem = new LoadItem(this.fileItemMainSize.y, this.fileItemDdSize.x, datetime);
 
     loadItem.SetWndSize(this.fileItemMainSize);
-    loadItem.innerNameText.SetWndPos(new vector2().set(0, 0));
-    loadItem.innerNameText.SetWndSize(this.fileItemInnerNameTextSize);
-    loadItem.innerNameText.SetText(filename);
-    loadItem.innerAgeText.SetWndPos(new vector2().set(this.fileItemInnerNameTextSize.x + 4, 0));
-    loadItem.innerAgeText.SetWndSize(this.fileItemDdSize);
+    loadItem.uiInnerNameText.SetWndPos(new vector2().set(0, 0));
+    loadItem.uiInnerNameText.SetWndSize(this.fileItemInnerNameTextSize);
+    loadItem.uiInnerNameText.SetText(filename);
+    loadItem.uiInnerAgeText.SetWndPos(new vector2().set(this.fileItemInnerNameTextSize.x + 4, 0));
+    loadItem.uiInnerAgeText.SetWndSize(this.fileItemDdSize);
 
-    this.listBox.AddExistingItem(loadItem);
+    this.uiListBox.AddExistingItem(loadItem);
   }
 }
