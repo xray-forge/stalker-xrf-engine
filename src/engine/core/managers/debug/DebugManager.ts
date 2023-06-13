@@ -1,4 +1,4 @@
-import { alife, level, relation_registry } from "xray16";
+import { alife, relation_registry } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
@@ -6,27 +6,12 @@ import { EStateActionId } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EActionId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
 import { getNumberRelationBetweenCommunities } from "@/engine/core/utils/relation";
 import { gameTimeToString } from "@/engine/core/utils/time";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { stalkerCommunities, TCommunity } from "@/engine/lib/constants/communities";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
-import {
-  ActionPlanner,
-  AlifeSimulator,
-  AnyCallable,
-  ClientObject,
-  ESchemeType,
-  Optional,
-  ServerObject,
-  TClassId,
-  TDistance,
-  TName,
-  TNumberId,
-  Vector,
-} from "@/engine/lib/types";
+import { ActionPlanner, ClientObject, ESchemeType, Optional, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -34,86 +19,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Debug manager to work with UI overlay components / console commands and help debugging the game.
  */
 export class DebugManager extends AbstractCoreManager {
-  /**
-   * Get nearest to actor server object by pattern or just anything near.
-   */
-  public getNearestServerObject(
-    pattern: Optional<TName | TClassId | ((object: ServerObject) => boolean)> = null,
-    searchOffline: boolean = false
-  ): Optional<ServerObject> {
-    const simulator: Optional<AlifeSimulator> = alife();
-    const actorPosition: Vector = registry.actor.position();
-    const hasFilter: boolean = pattern !== null;
-
-    let nearestDistance: Optional<TDistance> = null;
-    let nearest: Optional<ServerObject> = null;
-
-    if (simulator === null) {
-      return null;
-    }
-
-    for (const it of $range(1, MAX_U16)) {
-      const serverObject: Optional<ServerObject> = simulator.object(it);
-
-      if (serverObject && serverObject.parent_id !== 0) {
-        let isMatch: boolean = false;
-
-        // Filter objects if pattern is provided.
-        if (hasFilter) {
-          if (type(pattern) === "string" && string.find(serverObject.name(), pattern as string)) {
-            isMatch = true;
-          } else if (type(pattern) === "number" && pattern === serverObject.clsid()) {
-            isMatch = true;
-          } else if (type(pattern) === "function" && (pattern as AnyCallable)(serverObject)) {
-            isMatch = true;
-          }
-        } else {
-          isMatch = true;
-        }
-
-        if (isMatch) {
-          const distanceToSqr: TDistance = serverObject.position.distance_to_sqr(actorPosition);
-
-          if (!nearestDistance) {
-            nearestDistance = distanceToSqr;
-            nearest = serverObject;
-          } else if (distanceToSqr < nearestDistance) {
-            nearestDistance = distanceToSqr;
-            nearest = serverObject;
-          }
-        }
-      }
-    }
-
-    if (nearest) {
-      if (areObjectsOnSameLevel(nearest, simulator.object(0) as ServerObject)) {
-        if (
-          searchOffline ||
-          (nearestDistance as TDistance) <= simulator.switch_distance() * simulator.switch_distance()
-        ) {
-          return nearest;
-        }
-      }
-    }
-
-    return null;
-  }
-
-  /**
-   * Get nearest to actor object by pattern or just anything near.
-   */
-  public getNearestClientObject(
-    pattern: Optional<TName | TClassId | ((object: ServerObject) => boolean)> = null
-  ): Optional<ClientObject> {
-    const nearestServerObject: Optional<ServerObject> = this.getNearestServerObject(pattern, false);
-
-    if (nearestServerObject) {
-      return level.object_by_id(nearestServerObject.id);
-    } else {
-      return null;
-    }
-  }
-
   /**
    * Debug object inventory items.
    */

@@ -9,7 +9,7 @@ import { ISchemeMeetState } from "@/engine/core/schemes/meet/ISchemeMeetState";
 import { isBlackScreen, isObjectWounded } from "@/engine/core/utils/check/check";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectInCombat } from "@/engine/core/utils/object";
+import { isObjectInCombat } from "@/engine/core/utils/object/object_general";
 import { captions } from "@/engine/lib/constants/captions";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, StringOptional, TDistance, TName, TSection, TStringId } from "@/engine/lib/types";

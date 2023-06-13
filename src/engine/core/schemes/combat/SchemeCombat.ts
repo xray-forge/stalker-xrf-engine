@@ -9,7 +9,7 @@ import { SchemeCombatZombied } from "@/engine/core/schemes/combat_zombied/Scheme
 import { getConfigSwitchConditions, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniConditionList } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object";
+import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { communities } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";

@@ -22,7 +22,7 @@ import { extern } from "@/engine/core/utils/binding";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain } from "@/engine/core/utils/object";
+import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_general";
 import { IConfigSwitchCondition, parseConditionsList } from "@/engine/core/utils/parse";
 import {
   releaseObject,

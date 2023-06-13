@@ -10,7 +10,7 @@ import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { getObjectConfigOverrides } from "@/engine/core/utils/ini/config";
 import { getSchemeByIniSection } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain, sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
+import { getObjectSmartTerrain, sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_general";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, IniFile, Optional, TNumberId } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";

@@ -11,7 +11,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad } from "@/engine/core/utils/object";
+import { getObjectSquad } from "@/engine/core/utils/object/object_general";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
 import { ActionPlanner, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";

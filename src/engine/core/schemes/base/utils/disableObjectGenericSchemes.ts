@@ -4,7 +4,7 @@ import { SchemeHit } from "@/engine/core/schemes/hit/SchemeHit";
 import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { SchemeMobCombat } from "@/engine/core/schemes/mob/combat/SchemeMobCombat";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/ph_on_hit/SchemePhysicalOnHit";
-import { disableObjectInvulnerability } from "@/engine/core/utils/object";
+import { disableObjectInvulnerability } from "@/engine/core/utils/object/object_general";
 import { ClientObject } from "@/engine/lib/types";
 import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 

@@ -47,7 +47,7 @@ import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { getTwoNumbers, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
+import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_general";
 import { parseConditionsList, parseStringsList, TConditionList } from "@/engine/core/utils/parse";
 import {
   getSquadMembersRelationToActor,

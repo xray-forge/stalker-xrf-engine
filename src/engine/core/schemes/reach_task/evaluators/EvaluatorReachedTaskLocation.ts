@@ -4,7 +4,7 @@ import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/actio
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad } from "@/engine/core/utils/object";
+import { getObjectSquad } from "@/engine/core/utils/object/object_general";
 import { Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

@@ -8,7 +8,7 @@ import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/objects/sounds
 import { abort } from "@/engine/core/utils/assertion";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object";
+import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
 import { parseStringsList } from "@/engine/core/utils/parse";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";

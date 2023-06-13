@@ -3,7 +3,7 @@ import { ISimulationActivityDescriptor, SmartTerrain } from "@/engine/core/objec
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getServerDistanceBetween } from "@/engine/core/utils/object";
+import { getServerDistanceBetween } from "@/engine/core/utils/object/object_general";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";

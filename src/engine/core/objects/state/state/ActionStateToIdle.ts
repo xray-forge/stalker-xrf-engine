@@ -3,7 +3,7 @@ import { action_base, LuabindClass } from "xray16";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object";
+import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_general";
 import { EClientObjectPath, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

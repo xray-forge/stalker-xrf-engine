@@ -1,11 +1,11 @@
 import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, LuabindClass, ui_events, vector2 } from "xray16";
 
-import { DebugManager } from "@/engine/core/managers/debug/DebugManager";
 import { Squad } from "@/engine/core/objects";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemListEntry";
 import { isGameStarted } from "@/engine/core/utils/alife";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { getNearestServerObject } from "@/engine/core/utils/object/object_find";
 import { getSimulationGroupSections, getStalkerSections } from "@/engine/core/utils/sections";
 import { getInventoryNameForItemSection, spawnCreatureNearActor, spawnSquadInSmart } from "@/engine/core/utils/spawn";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
@@ -148,7 +148,7 @@ export class DebugSpawnSection extends AbstractDebugSection {
 
         logger.info("Spawned:", object.name());
       } else {
-        const nearestSmart: Optional<ServerObject> = DebugManager.getInstance().getNearestServerObject(
+        const nearestSmart: Optional<ServerObject> = getNearestServerObject(
           (it: ServerObject): boolean => it.section_name() === "smart_terrain",
           true
         );

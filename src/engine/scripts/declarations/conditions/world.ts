@@ -7,7 +7,7 @@ import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { anomalyHasArtefact } from "@/engine/core/utils/object";
+import { anomalyHasArtefact } from "@/engine/core/utils/object/object_general";
 import { ClientObject, LuaArray, Optional, TName } from "@/engine/lib/types";
 
 /**

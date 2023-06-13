@@ -7,7 +7,7 @@ import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { isObjectInZone } from "@/engine/core/utils/check/check";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isActorSeenByObject } from "@/engine/core/utils/object";
+import { isActorSeenByObject } from "@/engine/core/utils/object/object_general";
 import { getDistanceBetween } from "@/engine/core/utils/vector";
 import { NIL } from "@/engine/lib/constants/words";
 import {

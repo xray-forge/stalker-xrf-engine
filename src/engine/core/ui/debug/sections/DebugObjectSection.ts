@@ -6,7 +6,8 @@ import { Squad } from "@/engine/core/objects";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { isGameStarted } from "@/engine/core/utils/alife";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSquad } from "@/engine/core/utils/object";
+import { getNearestClientObject } from "@/engine/core/utils/object/object_find";
+import { getObjectSquad } from "@/engine/core/utils/object/object_general";
 import { getObjectsRelationSafe, getSquadRelationToActor, setObjectsRelation } from "@/engine/core/utils/relation";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { ERelation } from "@/engine/lib/constants/relations";
@@ -104,8 +105,7 @@ export class DebugObjectSection extends AbstractDebugSection {
 
   public initializeState(): void {
     if (isGameStarted()) {
-      const debugManager: DebugManager = DebugManager.getInstance();
-      const nearestStalker: Optional<ClientObject> = debugManager.getNearestClientObject();
+      const nearestStalker: Optional<ClientObject> = getNearestClientObject();
       const targetStalker: Optional<ClientObject> = level.get_target_obj();
       const squad: Optional<Squad> = targetStalker ? getObjectSquad(targetStalker) : null;
 
@@ -212,8 +212,6 @@ export class DebugObjectSection extends AbstractDebugSection {
   }
 
   public getCurrentObject(): Optional<ClientObject> {
-    return this.useTargetCheck.GetCheck()
-      ? level.get_target_obj()
-      : DebugManager.getInstance().getNearestClientObject();
+    return this.useTargetCheck.GetCheck() ? level.get_target_obj() : getNearestClientObject();
   }
 }

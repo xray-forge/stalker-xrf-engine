@@ -14,7 +14,7 @@ import { extern, getExtern } from "@/engine/core/utils/binding";
 import { isObjectWounded, isStalkerAlive } from "@/engine/core/utils/check/check";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
-import { getCharacterCommunity, isObjectInSmart } from "@/engine/core/utils/object";
+import { getCharacterCommunity, isObjectInSmart } from "@/engine/core/utils/object/object_general";
 import {
   actorHasMedKit,
   getActorAvailableMedKit,

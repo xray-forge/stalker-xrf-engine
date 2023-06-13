@@ -66,7 +66,7 @@ import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { getSchemeByIniSection, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
+import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_general";
 import {
   IConfigSwitchCondition,
   parseConditionsList,

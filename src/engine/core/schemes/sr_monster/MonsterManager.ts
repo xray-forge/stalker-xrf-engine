@@ -5,7 +5,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeMonsterState } from "@/engine/core/schemes/sr_monster/ISchemeMonsterState";
-import { action, scriptCaptureObject, scriptReleaseObject } from "@/engine/core/utils/object";
+import { action, scriptCaptureObject, scriptReleaseObject } from "@/engine/core/utils/object/object_general";
 import { copyVector, subVectors } from "@/engine/core/utils/vector";
 import { sounds } from "@/engine/lib/constants/sound/sounds";
 import {
