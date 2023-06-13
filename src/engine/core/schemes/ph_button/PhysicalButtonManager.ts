@@ -7,7 +7,7 @@ import { ISchemePhysicalButtonState } from "@/engine/core/schemes/ph_button/ISch
 import { isActiveSection } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, Optional, TIndex, TTimestamp, Vector } from "@/engine/lib/types";
+import { ClientObject, Optional, TIndex, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -17,18 +17,12 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysicalButtonState> {
   public lastHitAt: Optional<TTimestamp> = null;
 
-  /**
-   * todo: Description.
-   */
   public override resetScheme(): void {
     this.object.play_cycle(this.state.anim, this.state.blending);
 
     this.lastHitAt = time_global();
   }
 
-  /**
-   * todo: Description.
-   */
   public override update(): void {
     trySwitchToAnotherSection(this.object, this.state, registry.actor);
   }
@@ -55,10 +49,10 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
   /**
    * todo: Description.
    */
-  public hit_callback(
+  public override onHit(
     object: ClientObject,
-    amount: number,
-    localDirection: Vector,
+    amount: TRate,
+    direction: Vector,
     who: Optional<ClientObject>,
     boneIndex: TIndex
   ): void {
@@ -70,7 +64,7 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
         who_name = "nil"
       end
 
-      printf("_bp: ph_button:hit_callback: obj='%s', amount=%d, who='%s'", obj:name(), amount, who_name)
+      printf("_bp: ph_button:onHit: obj='%s', amount=%d, who='%s'", obj:name(), amount, who_name)
 
       if time_global() - this.last_hit_tm > 500 then
         this.last_hit_tm = time_global()

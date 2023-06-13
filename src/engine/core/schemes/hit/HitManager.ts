@@ -14,7 +14,7 @@ export class HitManager extends AbstractSchemeManager<ISchemeHitState> {
   /**
    * todo: Description.
    */
-  public hit_callback(
+  public override onHit(
     object: ClientObject,
     amount: TCount,
     localDirection: Vector,

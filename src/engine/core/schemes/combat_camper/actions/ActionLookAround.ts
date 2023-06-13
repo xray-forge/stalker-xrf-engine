@@ -105,7 +105,7 @@ export class ActionLookAround extends action_base {
   /**
    * todo: Description.
    */
-  public hit_callback(
+  public onHit(
     object: ClientObject,
     amount: TCount,
     constDirection: Vector,

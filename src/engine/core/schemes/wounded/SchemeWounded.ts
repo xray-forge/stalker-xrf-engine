@@ -95,7 +95,7 @@ export class SchemeWounded extends AbstractScheme {
 
     SchemeWounded.initialize(object, state.ini, woundedSection, state.wounded as ISchemeWoundedState, scheme);
 
-    (state[SchemeWounded.SCHEME_SECTION] as ISchemeWoundedState).woundManager.hit_callback();
+    (state[SchemeWounded.SCHEME_SECTION] as ISchemeWoundedState).woundManager.onHit();
   }
 
   /**
@@ -225,10 +225,10 @@ export class SchemeWounded extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static hit_callback(objectId: TNumberId): void {
+  public static onHit(objectId: TNumberId): void {
     const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
 
-    (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.hit_callback();
+    (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.onHit();
   }
 
   /**

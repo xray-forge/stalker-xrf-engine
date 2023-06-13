@@ -185,7 +185,7 @@ export class ActionZombieShoot extends action_base {
   /**
    * todo: Description.
    */
-  public hit_callback(object: ClientObject, amount: TRate, direction: Vector, who: ClientObject, boneId: TIndex): void {
+  public onHit(object: ClientObject, amount: TRate, direction: Vector, who: ClientObject, boneId: TIndex): void {
     if (who === null) {
       return;
     }

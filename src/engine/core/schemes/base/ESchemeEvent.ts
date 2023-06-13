@@ -8,7 +8,7 @@ export enum ESchemeEvent {
   CUTSCENE = "cutscene_callback",
   EXTRAPOLATE = "extrapolate_callback",
   NET_DESTROY = "net_destroy",
-  HIT = "hit_callback",
+  HIT = "onHit",
   RESET_SCHEME = "resetScheme", // todo: Probably merge with activate scheme.
   SAVE = "save",
   UPDATE = "update",

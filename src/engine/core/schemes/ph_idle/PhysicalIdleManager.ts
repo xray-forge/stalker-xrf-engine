@@ -37,10 +37,10 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
   /**
    * todo: Description.
    */
-  public hit_callback(
+  public override onHit(
     object: ClientObject,
     amount: TCount,
-    constDirection: Vector,
+    direction: Vector,
     who: Optional<ClientObject>,
     boneIndex: TIndex
   ): void {

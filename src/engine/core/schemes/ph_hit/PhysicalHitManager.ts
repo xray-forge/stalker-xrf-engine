@@ -38,7 +38,7 @@ export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalHit
 
   /**
    * --[[
-   * function action_hit:hit_callback(door, actor)
+   * function action_hit:onHit(door, actor)
    *    if this.state.locked then
    *        if this.state.snd_open_start then
    *            this:door_play_snd_from_set(this.state.snd_open_start)

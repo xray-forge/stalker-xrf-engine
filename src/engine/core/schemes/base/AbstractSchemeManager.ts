@@ -1,6 +1,6 @@
 import { IBaseSchemeState } from "@/engine/core/schemes/base/IBaseSchemeState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, TCount } from "@/engine/lib/types";
+import { ClientObject, Optional, TCount, TIndex, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -47,5 +47,18 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> {
    */
   public net_destroy(): void {
     logger.info("Net destroy:", this.state?.scheme, this.object.name());
+  }
+
+  /**
+   * todo: Description.
+   */
+  public onHit(
+    object: ClientObject,
+    amount: TCount,
+    direction: Vector,
+    who: Optional<ClientObject>,
+    boneIndex: TIndex
+  ): void {
+    logger.info("Hit:", this.state?.scheme, this.object.name());
   }
 }
