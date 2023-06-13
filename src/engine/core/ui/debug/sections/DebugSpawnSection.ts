@@ -121,14 +121,14 @@ export class DebugSpawnSection extends AbstractDebugSection {
   }
 
   /**
-   * Change category of item lists.
+   * Change category of spawn lists.
    */
   public onCategoryChange(): void {
     this.fillItemsList(this.uiCategoriesList.GetText() as ESpawnCategory);
   }
 
   /**
-   * Spawn item for actor.
+   * Spawn creatures before actor / in nearest smart.
    */
   public onCreatureSpawn(): void {
     if (!isGameStarted()) {

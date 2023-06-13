@@ -1,8 +1,8 @@
-import { CSightParams, move } from "xray16";
+import { alife, CSightParams, game_graph, move } from "xray16";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { copyVector } from "@/engine/core/utils/vector";
-import { ClientObject, Patrol, TDistance, TIndex, Vector } from "@/engine/lib/types";
+import { ClientObject, Patrol, TDistance, TIndex, TName, TNumberId, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -30,4 +30,11 @@ export function stalkerLookAtStalker(object: ClientObject, objectToLook: ClientO
   const lookPoint: Vector = copyVector(objectToLook.position().sub(object.position()));
 
   object.set_sight(CSightParams.eSightTypeDirection, lookPoint, 0);
+}
+
+/**
+ * todo;
+ */
+export function isGameVertexFromLevel(targetLevelName: TName, gameVertexId: TNumberId): boolean {
+  return targetLevelName === alife().level_name(game_graph().vertex(gameVertexId).level_id());
 }

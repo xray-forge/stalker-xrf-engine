@@ -30,7 +30,7 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
   /**
    * todo: Description.
    */
-  public try_switch(): boolean {
+  public trySwitch(): boolean {
     if (isActiveSection(this.object, this.state.section) && this.state.on_press) {
       if (
         switchObjectSchemeToSection(
@@ -80,8 +80,8 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
    * todo: Description.
    */
   public use_callback(object: ClientObject, who: Optional<ClientObject>): void {
-    logger.info("Button used:", object.name(), who?.name());
+    logger.info("Button used:", object.name(), type(who));
 
-    this.try_switch();
+    this.trySwitch();
   }
 }
