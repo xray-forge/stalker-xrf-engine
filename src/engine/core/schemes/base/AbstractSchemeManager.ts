@@ -1,6 +1,6 @@
 import { IBaseSchemeState } from "@/engine/core/schemes/base/IBaseSchemeState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, Optional, TCount, TIndex, Vector } from "@/engine/lib/types";
+import { ClientObject, Optional, TCount, TIndex, TName, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -67,5 +67,12 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> {
    */
   public onUse(object: ClientObject, who: Optional<ClientObject>): void {
     logger.info("Use:", this.state?.scheme, this.object.name());
+  }
+
+  /**
+   * todo: Description.
+   */
+  public onWaypoint(object: ClientObject, actionType: TName, index: TIndex): void {
+    logger.info("Waypoint:", this.state?.scheme, this.object.name());
   }
 }

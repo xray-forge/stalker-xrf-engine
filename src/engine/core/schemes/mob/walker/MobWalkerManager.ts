@@ -121,7 +121,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
         if (patrolWalkCount === 1 && isStalkerAtWaypoint(this.object, this.patrolWalk!, 0)) {
           this.mobState = STATE_MOVING;
-          this.waypoint_callback(this.object, null, this.lastIndex);
+          this.onWaypoint(this.object, null, this.lastIndex);
         } else {
           this.lastLookIndex = null;
           this.mobState = STATE_MOVING;
@@ -141,7 +141,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   /**
    * todo: Description.
    */
-  public waypoint_callback(object: ClientObject, actionType: Optional<TNumberId>, index: Optional<TIndex>): void {
+  public override onWaypoint(object: ClientObject, actionType: Optional<TName>, index: Optional<TIndex>): void {
     if (index === -1 || index === null) {
       return;
     }

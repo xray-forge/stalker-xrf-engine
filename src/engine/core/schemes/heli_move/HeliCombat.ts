@@ -284,7 +284,7 @@ export class HeliCombat {
     closeLoadMarker(reader, HeliCombat.name);
   }
 
-  public waypoint_callback(): boolean {
+  public onWaypoint(): boolean {
     if (this.enemyId && !this.combatIgnoreCheck()) {
       this.wasCallback = true;
 
