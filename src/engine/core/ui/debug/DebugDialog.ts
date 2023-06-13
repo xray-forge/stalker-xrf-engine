@@ -16,8 +16,8 @@ import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
 
-const base: TPath = "menu\\debug\\DebugDialog.component";
 const logger: LuaLogger = new LuaLogger($filename);
+const base: TPath = "menu\\debug\\DebugDialog.component";
 
 /**
  * todo;
@@ -28,10 +28,8 @@ export class DebugDialog extends CUIScriptWnd {
   public sectionsList: LuaTable<EDebugSection, CUIWindow> = new LuaTable();
 
   public owner: CUIScriptWnd;
-  public scrollList!: CUIScrollView;
-  public cancelButton!: CUI3tButton;
-
-  public label: string = "test-test-test";
+  public uiScrollList!: CUIScrollView;
+  public uiCancelButton!: CUI3tButton;
 
   public constructor(owner: CUIScriptWnd) {
     super();
@@ -58,8 +56,8 @@ export class DebugDialog extends CUIScriptWnd {
     this.xml.InitStatic("section_background", this);
     this.xml.InitStatic("frame_menu_background", this);
 
-    this.scrollList = this.xml.InitScrollView("frame_menu_scroll", this);
-    this.cancelButton = this.xml.Init3tButton("cancel_button", this);
+    this.uiScrollList = this.xml.InitScrollView("frame_menu_scroll", this);
+    this.uiCancelButton = this.xml.Init3tButton("cancel_button", this);
 
     // Add section switchers.
     Object.entries(EDebugSection)
@@ -70,11 +68,11 @@ export class DebugDialog extends CUIScriptWnd {
         element.SetText(it);
         element.SetAutoDelete(true);
 
-        this.scrollList.AddWindow(element, true);
+        this.uiScrollList.AddWindow(element, true);
         this.Register(element, "section_" + it);
       });
 
-    this.Register(this.cancelButton, "cancel_button");
+    this.Register(this.uiCancelButton, "cancel_button");
   }
 
   /**

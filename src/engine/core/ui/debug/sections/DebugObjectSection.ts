@@ -22,53 +22,53 @@ const base: TPath = "menu\\debug\\DebugObjectSection.component";
  */
 @LuabindClass()
 export class DebugObjectSection extends AbstractDebugSection {
-  public nearestStalkerLabel!: CUIStatic;
-  public targetStalkerLabel!: CUIStatic;
-  public targetStalkerRelationLabel!: CUIStatic;
-  public targetStalkerSquadRelationLabel!: CUIStatic;
+  public uiNearestStalkerLabel!: CUIStatic;
+  public uiTargetStalkerLabel!: CUIStatic;
+  public uiTargetStalkerRelationLabel!: CUIStatic;
+  public uiTargetStalkerSquadRelationLabel!: CUIStatic;
 
-  public useTargetCheck!: CUICheckButton;
-  public useTargetCheckLabel!: CUIStatic;
-  public logPlannerStateButton!: CUI3tButton;
-  public logInventoryStateButton!: CUI3tButton;
-  public logRelationsStateButton!: CUI3tButton;
-  public logStateManagerReportButton!: CUI3tButton;
-  public logStateButton!: CUI3tButton;
+  public uiUseTargetCheck!: CUICheckButton;
+  public uiUseTargetCheckLabel!: CUIStatic;
+  public uiLogPlannerStateButton!: CUI3tButton;
+  public uiLogInventoryStateButton!: CUI3tButton;
+  public uiLogRelationsStateButton!: CUI3tButton;
+  public uiLogStateManagerReportButton!: CUI3tButton;
+  public uiLogStateButton!: CUI3tButton;
 
-  public setFriendButton!: CUI3tButton;
-  public setNeutralButton!: CUI3tButton;
-  public setEnemyButton!: CUI3tButton;
+  public uiSetFriendButton!: CUI3tButton;
+  public uiSetNeutralButton!: CUI3tButton;
+  public uiSetEnemyButton!: CUI3tButton;
 
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
-    this.nearestStalkerLabel = this.xml.InitStatic("nearest_stalker_label", this);
-    this.targetStalkerLabel = this.xml.InitStatic("target_stalker_label", this);
-    this.targetStalkerRelationLabel = this.xml.InitStatic("target_stalker_relation_label", this);
-    this.targetStalkerSquadRelationLabel = this.xml.InitStatic("target_stalker_squad_relation_label", this);
-    this.useTargetCheckLabel = this.xml.InitStatic("use_target_object_label", this);
-    this.useTargetCheck = this.xml.InitCheck("use_target_object_check", this);
+    this.uiNearestStalkerLabel = this.xml.InitStatic("nearest_stalker_label", this);
+    this.uiTargetStalkerLabel = this.xml.InitStatic("target_stalker_label", this);
+    this.uiTargetStalkerRelationLabel = this.xml.InitStatic("target_stalker_relation_label", this);
+    this.uiTargetStalkerSquadRelationLabel = this.xml.InitStatic("target_stalker_squad_relation_label", this);
+    this.uiUseTargetCheckLabel = this.xml.InitStatic("use_target_object_label", this);
+    this.uiUseTargetCheck = this.xml.InitCheck("use_target_object_check", this);
 
-    this.logPlannerStateButton = this.xml.Init3tButton("log_planner_state", this);
-    this.logInventoryStateButton = this.xml.Init3tButton("log_inventory_state", this);
-    this.logRelationsStateButton = this.xml.Init3tButton("log_relations_state", this);
-    this.logStateManagerReportButton = this.xml.Init3tButton("log_state_manager_state", this);
-    this.logStateButton = this.xml.Init3tButton("log_state", this);
+    this.uiLogPlannerStateButton = this.xml.Init3tButton("log_planner_state", this);
+    this.uiLogInventoryStateButton = this.xml.Init3tButton("log_inventory_state", this);
+    this.uiLogRelationsStateButton = this.xml.Init3tButton("log_relations_state", this);
+    this.uiLogStateManagerReportButton = this.xml.Init3tButton("log_state_manager_state", this);
+    this.uiLogStateButton = this.xml.Init3tButton("log_state", this);
 
-    this.setFriendButton = this.xml.Init3tButton("set_friend_button", this);
-    this.setNeutralButton = this.xml.Init3tButton("set_neutral_button", this);
-    this.setEnemyButton = this.xml.Init3tButton("set_enemy_button", this);
+    this.uiSetFriendButton = this.xml.Init3tButton("set_friend_button", this);
+    this.uiSetNeutralButton = this.xml.Init3tButton("set_neutral_button", this);
+    this.uiSetEnemyButton = this.xml.Init3tButton("set_enemy_button", this);
 
-    this.owner.Register(this.useTargetCheck, "use_target_object_check");
-    this.owner.Register(this.logPlannerStateButton, "log_planner_state");
-    this.owner.Register(this.logInventoryStateButton, "log_inventory_state");
-    this.owner.Register(this.logRelationsStateButton, "log_relations_state");
-    this.owner.Register(this.logStateManagerReportButton, "log_state_manager_state");
-    this.owner.Register(this.logStateButton, "log_state");
+    this.owner.Register(this.uiUseTargetCheck, "use_target_object_check");
+    this.owner.Register(this.uiLogPlannerStateButton, "log_planner_state");
+    this.owner.Register(this.uiLogInventoryStateButton, "log_inventory_state");
+    this.owner.Register(this.uiLogRelationsStateButton, "log_relations_state");
+    this.owner.Register(this.uiLogStateManagerReportButton, "log_state_manager_state");
+    this.owner.Register(this.uiLogStateButton, "log_state");
 
-    this.owner.Register(this.setFriendButton, "set_friend_button");
-    this.owner.Register(this.setNeutralButton, "set_neutral_button");
-    this.owner.Register(this.setEnemyButton, "set_enemy_button");
+    this.owner.Register(this.uiSetFriendButton, "set_friend_button");
+    this.owner.Register(this.uiSetNeutralButton, "set_neutral_button");
+    this.owner.Register(this.uiSetEnemyButton, "set_enemy_button");
   }
 
   public initializeCallBacks(): void {
@@ -109,20 +109,22 @@ export class DebugObjectSection extends AbstractDebugSection {
       const targetStalker: Optional<ClientObject> = level.get_target_obj();
       const squad: Optional<Squad> = targetStalker ? getObjectSquad(targetStalker) : null;
 
-      this.nearestStalkerLabel.SetText("Nearest: " + (nearestStalker ? nearestStalker.name() : NIL));
-      this.targetStalkerLabel.SetText("Target: " + (targetStalker ? targetStalker.name() : NIL));
-      this.targetStalkerRelationLabel.SetText(
+      this.uiNearestStalkerLabel.SetText("Nearest: " + (nearestStalker ? nearestStalker.name() : NIL));
+      this.uiTargetStalkerLabel.SetText("Target: " + (targetStalker ? targetStalker.name() : NIL));
+      this.uiTargetStalkerRelationLabel.SetText(
         "object relation: " + getObjectsRelationSafe(targetStalker, registry.actor)
       );
-      this.targetStalkerSquadRelationLabel.SetText("squad relation: " + (squad ? getSquadRelationToActor(squad) : NIL));
+      this.uiTargetStalkerSquadRelationLabel.SetText(
+        "squad relation: " + (squad ? getSquadRelationToActor(squad) : NIL)
+      );
     } else {
-      this.nearestStalkerLabel.SetText("Nearest: " + NIL);
-      this.targetStalkerLabel.SetText("Target: " + NIL);
-      this.targetStalkerRelationLabel.SetText("object relation: " + NIL);
-      this.targetStalkerSquadRelationLabel.SetText("squad relation: " + NIL);
+      this.uiNearestStalkerLabel.SetText("Nearest: " + NIL);
+      this.uiTargetStalkerLabel.SetText("Target: " + NIL);
+      this.uiTargetStalkerRelationLabel.SetText("object relation: " + NIL);
+      this.uiTargetStalkerSquadRelationLabel.SetText("squad relation: " + NIL);
     }
 
-    this.useTargetCheck.SetCheck(true);
+    this.uiUseTargetCheck.SetCheck(true);
   }
 
   public onPrintActionPlannerState(): void {
@@ -212,6 +214,6 @@ export class DebugObjectSection extends AbstractDebugSection {
   }
 
   public getCurrentObject(): Optional<ClientObject> {
-    return this.useTargetCheck.GetCheck() ? level.get_target_obj() : getNearestClientObject();
+    return this.uiUseTargetCheck.GetCheck() ? level.get_target_obj() : getNearestClientObject();
   }
 }

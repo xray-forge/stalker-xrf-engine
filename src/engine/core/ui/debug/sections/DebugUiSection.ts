@@ -5,22 +5,22 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { textures } from "@/engine/lib/constants/textures";
 
-const base: string = "menu\\debug\\DebugUiSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
+const base: string = "menu\\debug\\DebugUiSection.component";
 
 /**
  * todo;
  */
 @LuabindClass()
 export class DebugUiSection extends AbstractDebugSection {
-  public section!: CUIStatic;
-  public texturesList!: CUIComboBox;
-  public texturesListFilter!: CUIEditBox;
-  public texturesListLineDisplay!: CUIStatic;
-  public texturesListSquareBigDisplay!: CUIStatic;
-  public texturesListSquareMediumDisplay!: CUIStatic;
-  public texturesListSquareSmallDisplay!: CUIStatic;
-  public texturesListSquareMiniDisplay!: CUIStatic;
+  public uiSection!: CUIStatic;
+  public uiTexturesList!: CUIComboBox;
+  public uiTexturesListFilter!: CUIEditBox;
+  public uiTexturesListLineDisplay!: CUIStatic;
+  public uiTexturesListSquareBigDisplay!: CUIStatic;
+  public uiTexturesListSquareMediumDisplay!: CUIStatic;
+  public uiTexturesListSquareSmallDisplay!: CUIStatic;
+  public uiTexturesListSquareMiniDisplay!: CUIStatic;
 
   /**
    * todo: Description.
@@ -30,17 +30,17 @@ export class DebugUiSection extends AbstractDebugSection {
 
     xml.ParseFile(resolveXmlFormPath(base));
 
-    this.section = xml.InitStatic("section", this);
-    this.texturesList = xml.InitComboBox("section:textures_list", this);
-    this.texturesListFilter = xml.InitEditBox("section:textures_list_filter", this);
-    this.texturesListSquareBigDisplay = xml.InitStatic("section:textures_picture_square_big", this);
-    this.texturesListSquareMediumDisplay = xml.InitStatic("section:textures_picture_square_medium", this);
-    this.texturesListSquareSmallDisplay = xml.InitStatic("section:textures_picture_square_small", this);
-    this.texturesListSquareMiniDisplay = xml.InitStatic("section:textures_picture_square_mini", this);
-    this.texturesListLineDisplay = xml.InitStatic("section:textures_picture_line", this);
+    this.uiSection = xml.InitStatic("section", this);
+    this.uiTexturesList = xml.InitComboBox("section:textures_list", this);
+    this.uiTexturesListFilter = xml.InitEditBox("section:textures_list_filter", this);
+    this.uiTexturesListSquareBigDisplay = xml.InitStatic("section:textures_picture_square_big", this);
+    this.uiTexturesListSquareMediumDisplay = xml.InitStatic("section:textures_picture_square_medium", this);
+    this.uiTexturesListSquareSmallDisplay = xml.InitStatic("section:textures_picture_square_small", this);
+    this.uiTexturesListSquareMiniDisplay = xml.InitStatic("section:textures_picture_square_mini", this);
+    this.uiTexturesListLineDisplay = xml.InitStatic("section:textures_picture_line", this);
 
-    this.owner.Register(this.texturesList, "textures_list");
-    this.owner.Register(this.texturesListFilter, "textures_list_filter");
+    this.owner.Register(this.uiTexturesList, "textures_list");
+    this.owner.Register(this.uiTexturesListFilter, "textures_list_filter");
   }
 
   /**
@@ -62,7 +62,7 @@ export class DebugUiSection extends AbstractDebugSection {
    * todo: Description.
    */
   public initTexturesList(): void {
-    const filterMask: string = this.texturesListFilter.GetText();
+    const filterMask: string = this.uiTexturesListFilter.GetText();
     const hasMask: boolean = filterMask !== null && filterMask !== "";
 
     logger.info("Init textures list, filter:", filterMask);
@@ -73,7 +73,7 @@ export class DebugUiSection extends AbstractDebugSection {
         return;
       }
 
-      this.texturesList.AddItem(it, index + 1);
+      this.uiTexturesList.AddItem(it, index + 1);
     });
   }
 
@@ -81,7 +81,7 @@ export class DebugUiSection extends AbstractDebugSection {
    * todo: Description.
    */
   public updateTexturesList(): void {
-    this.texturesList.ClearList();
+    this.uiTexturesList.ClearList();
     this.initTexturesList();
   }
 
@@ -89,14 +89,14 @@ export class DebugUiSection extends AbstractDebugSection {
    * todo: Description.
    */
   public onTextureListChange(): void {
-    const texture: string = this.texturesList.GetText();
+    const texture: string = this.uiTexturesList.GetText();
 
-    logger.info("Change texture to:", texture, " # ", this.texturesList.CurrentID());
+    logger.info("Change texture to:", texture, " # ", this.uiTexturesList.CurrentID());
 
-    this.texturesListSquareBigDisplay.InitTexture(texture);
-    this.texturesListSquareMediumDisplay.InitTexture(texture);
-    this.texturesListSquareSmallDisplay.InitTexture(texture);
-    this.texturesListSquareMiniDisplay.InitTexture(texture);
-    this.texturesListLineDisplay.InitTexture(texture);
+    this.uiTexturesListSquareBigDisplay.InitTexture(texture);
+    this.uiTexturesListSquareMediumDisplay.InitTexture(texture);
+    this.uiTexturesListSquareSmallDisplay.InitTexture(texture);
+    this.uiTexturesListSquareMiniDisplay.InitTexture(texture);
+    this.uiTexturesListLineDisplay.InitTexture(texture);
   }
 }

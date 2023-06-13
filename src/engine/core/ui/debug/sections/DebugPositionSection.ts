@@ -5,8 +5,8 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 import { TPath } from "@/engine/lib/types";
 
-const base: TPath = "menu\\debug\\DebugPositionSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
+const base: TPath = "menu\\debug\\DebugPositionSection.component";
 
 /**
  * todo;

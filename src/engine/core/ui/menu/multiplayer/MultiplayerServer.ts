@@ -16,15 +16,15 @@ export class MultiplayerServer extends CUIWindow {
     xml.InitWindow("tab_server:main", 0, this);
 
     // -- SPIN BOXES
-    owner.spinMaxPlayers = xml.InitSpinNum("tab_server:spin_max_players", this);
+    owner.uiSpinMaxPlayers = xml.InitSpinNum("tab_server:spin_max_players", this);
     // --    handler.spin_mode = xml.InitSpinText("tab_server:spin_game_mode", this)
-    owner.spinMode = xml.InitComboBox("tab_server:spin_game_mode", this);
-    owner.Register(owner.spinMode, "spin_game_mode");
+    owner.uiSpinMode = xml.InitComboBox("tab_server:spin_game_mode", this);
+    owner.Register(owner.uiSpinMode, "spin_game_mode");
 
     const mapList: CUIMapList = xml.InitMapList("tab_server:map_list", this);
 
-    mapList.SetWeatherSelector(owner.spinWeather);
-    mapList.SetModeSelector(owner.spinMode);
+    mapList.SetWeatherSelector(owner.uiSpinWeather);
+    mapList.SetModeSelector(owner.uiSpinMode);
 
     xml.InitStatic("tab_server:static_map_pic_fore", this);
     this.mapPic = xml.InitStatic("tab_server:static_map_pic", this);
@@ -33,7 +33,7 @@ export class MultiplayerServer extends CUIWindow {
     mapList.SetMapPic(this.mapPic);
     mapList.SetMapInfo(this.mapInfo);
 
-    owner.mapList = mapList;
+    owner.uiMapList = mapList;
     xml.InitFrameLine("tab_server:cap_server_settings", this);
     xml.InitStatic("tab_server:cap_server_name", this);
     xml.InitStatic("tab_server:cap_password", this);
@@ -46,9 +46,9 @@ export class MultiplayerServer extends CUIWindow {
     xml.InitStatic("tab_server:btn_down_static", this);
 
     // -- CHECK BOXES
-    owner.checkDedicated = xml.InitCheck("tab_server:check_dedicated", this);
+    owner.uiCheckDedicated = xml.InitCheck("tab_server:check_dedicated", this);
     // -- EDIT BOXES
-    owner.editServerName = xml.InitEditBox("tab_server:edit_server_name", this);
-    owner.editPassword = xml.InitEditBox("tab_server:edit_password", this);
+    owner.uiEditServerName = xml.InitEditBox("tab_server:edit_server_name", this);
+    owner.uiEditPassword = xml.InitEditBox("tab_server:edit_password", this);
   }
 }

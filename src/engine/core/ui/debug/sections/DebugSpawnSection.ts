@@ -25,36 +25,36 @@ enum ESpawnCategory {
  */
 @LuabindClass()
 export class DebugSpawnSection extends AbstractDebugSection {
-  public categoriesList!: CUIComboBox;
-  public itemsList!: CUIListBox<DebugItemListEntry>;
-  public itemListMainSize!: Vector2D;
-  public itemListNameSize!: Vector2D;
-  public itemListDdSize!: Vector2D;
-  public itemSpawnButton!: CUI3tButton;
+  public uiCategoriesList!: CUIComboBox;
+  public uiItemsList!: CUIListBox<DebugItemListEntry>;
+  public uiItemListMainSize!: Vector2D;
+  public uiItemListNameSize!: Vector2D;
+  public uiItemListDdSize!: Vector2D;
+  public uiItemSpawnButton!: CUI3tButton;
 
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
-    this.categoriesList = this.xml.InitComboBox("creatures_categories_list", this);
+    this.uiCategoriesList = this.xml.InitComboBox("creatures_categories_list", this);
 
     this.xml.InitFrame("items_list_frame", this);
-    this.itemsList = this.xml.InitListBox("items_list", this);
-    this.itemsList.ShowSelectedItem(true);
+    this.uiItemsList = this.xml.InitListBox("items_list", this);
+    this.uiItemsList.ShowSelectedItem(true);
 
     const window: CUIWindow = new CUIWindow();
 
     this.xml.InitWindow("spawn_item:main", 0, window);
-    this.itemListMainSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.uiItemListMainSize = new vector2().set(window.GetWidth(), window.GetHeight());
     this.xml.InitWindow("spawn_item:fn", 0, window);
-    this.itemListNameSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.uiItemListNameSize = new vector2().set(window.GetWidth(), window.GetHeight());
     this.xml.InitWindow("spawn_item:fd", 0, window);
-    this.itemListDdSize = new vector2().set(window.GetWidth(), window.GetHeight());
+    this.uiItemListDdSize = new vector2().set(window.GetWidth(), window.GetHeight());
 
-    this.itemSpawnButton = this.xml.Init3tButton("spawn_creature_button", this);
+    this.uiItemSpawnButton = this.xml.Init3tButton("spawn_creature_button", this);
 
-    this.owner.Register(this.itemsList, "items_list");
-    this.owner.Register(this.categoriesList, "creatures_categories_list");
-    this.owner.Register(this.itemSpawnButton, "spawn_creature_button");
+    this.owner.Register(this.uiItemsList, "items_list");
+    this.owner.Register(this.uiCategoriesList, "creatures_categories_list");
+    this.owner.Register(this.uiItemSpawnButton, "spawn_creature_button");
   }
 
   public initializeCallBacks(): void {
@@ -70,15 +70,15 @@ export class DebugSpawnSection extends AbstractDebugSection {
   public initializeState(): void {
     Object.values(ESpawnCategory)
       .sort((a, b) => ((a as unknown as number) > (b as unknown as number) ? 1 : -1))
-      .forEach((it, index) => this.categoriesList.AddItem(it, index));
+      .forEach((it, index) => this.uiCategoriesList.AddItem(it, index));
 
-    this.categoriesList.SetCurrentID(0);
+    this.uiCategoriesList.SetCurrentID(0);
 
-    this.fillItemsList(this.categoriesList.GetText() as ESpawnCategory);
+    this.fillItemsList(this.uiCategoriesList.GetText() as ESpawnCategory);
   }
 
   public fillItemsList(category: ESpawnCategory): void {
-    this.itemsList.RemoveAll();
+    this.uiItemsList.RemoveAll();
 
     switch (category) {
       case ESpawnCategory.SIMULATION_GROUP:
@@ -105,26 +105,26 @@ export class DebugSpawnSection extends AbstractDebugSection {
    */
   public addItemToList(section: TSection): void {
     const spawnItem: DebugItemListEntry = new DebugItemListEntry(
-      this.itemListMainSize.y,
-      this.itemListDdSize.x,
+      this.uiItemListMainSize.y,
+      this.uiItemListDdSize.x,
       section
     );
 
-    spawnItem.SetWndSize(this.itemListMainSize);
-    spawnItem.innerNameText.SetWndPos(new vector2().set(0, 0));
-    spawnItem.innerNameText.SetWndSize(this.itemListNameSize);
-    spawnItem.innerNameText.SetText(getInventoryNameForItemSection(section));
-    spawnItem.innerSectionText.SetWndPos(new vector2().set(this.itemListNameSize.x + 4, 0));
-    spawnItem.innerSectionText.SetWndSize(this.itemListDdSize);
+    spawnItem.SetWndSize(this.uiItemListMainSize);
+    spawnItem.uiInnerNameText.SetWndPos(new vector2().set(0, 0));
+    spawnItem.uiInnerNameText.SetWndSize(this.uiItemListNameSize);
+    spawnItem.uiInnerNameText.SetText(getInventoryNameForItemSection(section));
+    spawnItem.uiInnerSectionText.SetWndPos(new vector2().set(this.uiItemListNameSize.x + 4, 0));
+    spawnItem.uiInnerSectionText.SetWndSize(this.uiItemListDdSize);
 
-    this.itemsList.AddExistingItem(spawnItem);
+    this.uiItemsList.AddExistingItem(spawnItem);
   }
 
   /**
    * Change category of item lists.
    */
   public onCategoryChange(): void {
-    this.fillItemsList(this.categoriesList.GetText() as ESpawnCategory);
+    this.fillItemsList(this.uiCategoriesList.GetText() as ESpawnCategory);
   }
 
   /**
@@ -135,9 +135,9 @@ export class DebugSpawnSection extends AbstractDebugSection {
       return logger.info("Cannot spawn, game is not started");
     }
 
-    const category: ESpawnCategory = this.categoriesList.GetText() as ESpawnCategory;
-    const itemSelected: Optional<DebugItemListEntry> = this.itemsList.GetSelectedItem();
-    const section: Optional<TInventoryItem> = itemSelected?.innerSectionText.GetText() as Optional<TInventoryItem>;
+    const category: ESpawnCategory = this.uiCategoriesList.GetText() as ESpawnCategory;
+    const itemSelected: Optional<DebugItemListEntry> = this.uiItemsList.GetSelectedItem();
+    const section: Optional<TInventoryItem> = itemSelected?.uiInnerSectionText.GetText() as Optional<TInventoryItem>;
 
     if (section) {
       logger.info("Spawn:", section);

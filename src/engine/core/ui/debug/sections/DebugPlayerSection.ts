@@ -4,8 +4,8 @@ import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDe
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
 
-const base: string = "menu\\debug\\DebugPlayerSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
+const base: string = "menu\\debug\\DebugPlayerSection.component";
 
 /**
  * todo;

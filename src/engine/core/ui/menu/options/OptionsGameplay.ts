@@ -10,10 +10,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class OptionsGameplay extends CUIWindow {
-  public scrollView!: CUIScrollView;
+  public uiScrollView!: CUIScrollView;
 
   public initialize(x: number, y: number, xml: CScriptXmlInit, owner: OptionsDialog): void {
-    this.scrollView = xml.InitScrollView("tab_gameplay:scroll_v", this);
+    this.uiScrollView = xml.InitScrollView("tab_gameplay:scroll_v", this);
 
     this.SetWndPos(new vector2().set(x, y));
     this.SetWndSize(new vector2().set(738, 416));
@@ -46,7 +46,7 @@ export class OptionsGameplay extends CUIWindow {
 
     xml.InitStatic(captionSelector, item);
     xml.InitTrackBar(controlSelector, item);
-    this.scrollView.AddWindow(item, true);
+    this.uiScrollView.AddWindow(item, true);
   }
 
   private createSelectItem(xml: CScriptXmlInit, captionSelector: string, controlSelector: string): void {
@@ -54,7 +54,7 @@ export class OptionsGameplay extends CUIWindow {
 
     xml.InitStatic(captionSelector, item);
     xml.InitComboBox(controlSelector, item);
-    this.scrollView.AddWindow(item, true);
+    this.uiScrollView.AddWindow(item, true);
   }
 
   private createCheckItem(xml: CScriptXmlInit, captionSelector: string, controlSelector: string): void {
@@ -62,6 +62,6 @@ export class OptionsGameplay extends CUIWindow {
 
     xml.InitStatic(captionSelector, item);
     xml.InitCheck(controlSelector, item);
-    this.scrollView.AddWindow(item, true);
+    this.uiScrollView.AddWindow(item, true);
   }
 }

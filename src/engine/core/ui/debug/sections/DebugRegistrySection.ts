@@ -8,22 +8,22 @@ import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { NIL } from "@/engine/lib/constants/words";
 import { TPath } from "@/engine/lib/types";
 
-const base: TPath = "menu\\debug\\DebugRegistrySection.component";
 const logger: LuaLogger = new LuaLogger($filename);
+const base: TPath = "menu\\debug\\DebugRegistrySection.component";
 
 /**
  * todo;
  */
 @LuabindClass()
 export class DebugRegistrySection extends AbstractDebugSection {
-  public logGeneralReportButton!: CUI3tButton;
+  public uiLogGeneralReportButton!: CUI3tButton;
 
   public initializeControls(): void {
     resolveXmlFile(base, this.xml);
 
-    this.logGeneralReportButton = this.xml.Init3tButton("log_general_report", this);
+    this.uiLogGeneralReportButton = this.xml.Init3tButton("log_general_report", this);
 
-    this.owner.Register(this.logGeneralReportButton, "log_general_report");
+    this.owner.Register(this.uiLogGeneralReportButton, "log_general_report");
   }
 
   public initializeCallBacks(): void {

@@ -12,18 +12,18 @@ import {
  */
 @LuabindClass()
 export class SaveItem extends CUIListBoxItem {
-  public innerNameText: CUITextWnd;
-  public innerAgeText: CUITextWnd;
+  public uiInnerNameText: CUITextWnd;
+  public uiInnerAgeText: CUITextWnd;
 
   public constructor(height: number, ageFieldWidth: number, dataTime: string) {
     super(height);
 
     this.SetTextColor(GetARGB(255, 170, 170, 170));
-    this.innerNameText = this.GetTextItem();
-    this.innerNameText.SetFont(GetFontLetterica18Russian());
-    this.innerNameText.SetEllipsis(true);
+    this.uiInnerNameText = this.GetTextItem();
+    this.uiInnerNameText.SetFont(GetFontLetterica18Russian());
+    this.uiInnerNameText.SetEllipsis(true);
 
-    this.innerAgeText = this.AddTextField(dataTime, ageFieldWidth);
-    this.innerAgeText.SetFont(GetFontLetterica16Russian());
+    this.uiInnerAgeText = this.AddTextField(dataTime, ageFieldWidth);
+    this.uiInnerAgeText.SetFont(GetFontLetterica16Russian());
   }
 }
