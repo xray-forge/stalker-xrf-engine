@@ -7,7 +7,7 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { ActionAnimationStateStop } from "@/engine/core/objects/state/animation_state/ActionAnimationStateStop";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockClientGameObject, MockPropertyStorage } from "@/fixtures/xray";
 
 describe("ActionAnimationStateStop class", () => {
   it("should correctly perform stop animation state action", () => {
@@ -29,6 +29,7 @@ describe("ActionAnimationStateStop class", () => {
 
     const action: ActionAnimationStateStop = new ActionAnimationStateStop(manager);
 
+    action.setup(stalker.object, MockPropertyStorage.mock());
     action.initialize();
 
     expect(manager.animstate.setControl).toHaveBeenCalled();
