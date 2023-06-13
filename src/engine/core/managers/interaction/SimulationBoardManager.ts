@@ -11,7 +11,7 @@ import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { evaluateSimulationPriority } from "@/engine/core/utils/alife";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { changeTeamSquadGroup } from "@/engine/core/utils/object";
+import { changeTeamSquadGroup } from "@/engine/core/utils/object/object_general";
 import { parseStringsList } from "@/engine/core/utils/parse";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { levels, TLevel } from "@/engine/lib/constants/levels";

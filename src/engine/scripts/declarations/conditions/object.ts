@@ -30,7 +30,7 @@ import {
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain, getObjectSquad } from "@/engine/core/utils/object";
+import { getObjectSmartTerrain, getObjectSquad } from "@/engine/core/utils/object/object_general";
 import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { FALSE } from "@/engine/lib/constants/words";

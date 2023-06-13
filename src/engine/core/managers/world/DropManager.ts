@@ -7,7 +7,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { isExcludedFromLootDropItem } from "@/engine/core/utils/check/check";
 import { isAmmoItem, isArtefact, isGrenade, isLootableItem, isWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity, setItemCondition } from "@/engine/core/utils/object";
+import { getCharacterCommunity, setItemCondition } from "@/engine/core/utils/object/object_general";
 import { parseNumbersList, parseStringsList } from "@/engine/core/utils/parse";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";

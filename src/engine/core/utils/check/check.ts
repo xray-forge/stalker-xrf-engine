@@ -10,7 +10,7 @@ import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { isStalker } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getCharacterCommunity } from "@/engine/core/utils/object";
+import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";

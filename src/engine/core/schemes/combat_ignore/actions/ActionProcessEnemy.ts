@@ -26,8 +26,6 @@ export class ActionProcessEnemy {
    * todo: Description.
    */
   public onObjectEnemy(object: ClientObject, enemy: ClientObject): boolean {
-    logger.info("On object enemy:", object.name(), enemy.name());
-
     if (enemy.id() === registry.actor.id()) {
       registry.actorCombat.set(object.id(), true);
     }

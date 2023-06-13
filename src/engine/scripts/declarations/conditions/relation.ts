@@ -8,7 +8,7 @@ import {
   isActorNeutralWithFaction,
 } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object";
+import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
 import {
   isFactionsEnemies,
   isFactionsFriends,

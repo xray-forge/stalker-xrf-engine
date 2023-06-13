@@ -31,7 +31,7 @@ import {
   isObjectScriptCaptured,
   scriptCaptureObject,
   scriptReleaseObject,
-} from "@/engine/core/utils/object";
+} from "@/engine/core/utils/object/object_general";
 import { TConditionList } from "@/engine/core/utils/parse";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";

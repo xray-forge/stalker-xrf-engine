@@ -9,7 +9,7 @@ import {
 import { SmartTerrain } from "@/engine/core/objects";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity, getObjectSmartTerrain } from "@/engine/core/utils/object";
+import { getCharacterCommunity, getObjectSmartTerrain } from "@/engine/core/utils/object/object_general";
 import { getNpcSpeaker } from "@/engine/core/utils/task_reward";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";

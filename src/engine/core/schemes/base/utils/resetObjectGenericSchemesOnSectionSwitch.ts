@@ -11,7 +11,7 @@ import {
   resetObjectIgnoreThreshold,
   resetObjectInvulnerability,
   scriptReleaseObject,
-} from "@/engine/core/utils/object";
+} from "@/engine/core/utils/object/object_general";
 import { ClientObject } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 

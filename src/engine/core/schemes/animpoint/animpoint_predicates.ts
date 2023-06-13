@@ -2,7 +2,7 @@ import { registry } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { IAnimpointAction, IStoryAnimationDescriptor } from "@/engine/core/schemes/animpoint/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain } from "@/engine/core/utils/object";
+import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_general";
 import { food } from "@/engine/lib/constants/items/food";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { ClientObject, LuaArray, Optional, TName, TNumberId } from "@/engine/lib/types";

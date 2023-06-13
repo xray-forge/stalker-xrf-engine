@@ -8,7 +8,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { isObjectWounded } from "@/engine/core/utils/check/check";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object";
+import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
 import { parseInfoPortions1, parseStringsList } from "@/engine/core/utils/parse";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import {

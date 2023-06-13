@@ -7,7 +7,7 @@ import { ISchemeMobRemarkState } from "@/engine/core/schemes/mob/remark/ISchemeM
 import { abort } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { action, scriptCaptureObject } from "@/engine/core/utils/object";
+import { action, scriptCaptureObject } from "@/engine/core/utils/object/object_general";
 import { parseStringsList } from "@/engine/core/utils/parse";
 import { AnyCallablesModule, LuaArray, MonsterBodyStateKey, Optional, TName } from "@/engine/lib/types";
 

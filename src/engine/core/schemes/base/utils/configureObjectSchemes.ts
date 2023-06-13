@@ -8,7 +8,7 @@ import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEven
 import { enableObjectGenericSchemes } from "@/engine/core/schemes/base/utils/enableObjectGenericSchemes";
 import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
-import { getObjectSmartTerrain } from "@/engine/core/utils/object";
+import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_general";
 import { spawnDefaultObjectItems } from "@/engine/core/utils/spawn";
 import { ClientObject, ESchemeType, IniFile, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
 

@@ -2,7 +2,7 @@ import { alife } from "xray16";
 
 import { Squad } from "@/engine/core/objects";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
-import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/core/utils/object";
+import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/core/utils/object/object_general";
 import { ServerObject, TDistance, TRate } from "@/engine/lib/types";
 
 /**
