@@ -25,6 +25,8 @@ export class ActionAnimationStop extends action_base {
   public override initialize(): void {
     super.initialize();
 
+    logger.info("Stop animation for:", this.object.name(), this.stateManager.animation.states.currentState);
+
     this.stateManager.animation.setState(
       null,
       (this.stateManager.isForced || states.get(this.stateManager.targetState).isForced) as Optional<boolean>

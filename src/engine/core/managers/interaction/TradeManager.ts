@@ -49,7 +49,7 @@ export class TradeManager extends AbstractCoreManager {
    * todo
    */
   public initForObject(object: ClientObject, configFilePath: string): void {
-    logger.info("Init trade  for:", object.name(), configFilePath);
+    logger.info("Init trade for:", object.name(), configFilePath);
 
     const objectId: TNumberId = object.id();
 

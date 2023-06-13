@@ -1,6 +1,7 @@
 import { action_base, LuabindClass } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
+import { EStalkerState } from "@/engine/core/objects/state";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
@@ -23,6 +24,8 @@ export class ActionAnimpoint extends action_base {
    * Start animation on init.
    */
   public override initialize(): void {
+    logger.info("Starting animpoint:", this.object.name(), this.state.animpoint.currentAction);
+
     super.initialize();
     this.state.animpoint.start();
   }
@@ -31,6 +34,8 @@ export class ActionAnimpoint extends action_base {
    * Stop animation on finalize.
    */
   public override finalize(): void {
+    logger.info("Ending animpoint:", this.object.name(), this.state.animpoint.currentAction);
+
     this.state.animpoint.stop();
     super.finalize();
   }
@@ -56,7 +61,7 @@ export class ActionAnimpoint extends action_base {
 
     setStalkerState(
       this.object,
-      this.state.animpoint.getCurrentAction()!,
+      this.state.animpoint.getCurrentAction() as EStalkerState,
       null,
       null,
       { lookPosition: this.state.animpoint.lookPosition, lookObject: null },

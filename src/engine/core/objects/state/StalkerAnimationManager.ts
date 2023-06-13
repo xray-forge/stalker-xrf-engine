@@ -105,6 +105,8 @@ export class StalkerAnimationManager {
    * todo;
    */
   public setState(newState: Optional<EStalkerState>, isForced: Optional<boolean> = false): void {
+    const now: TTimestamp = time_global();
+
     /**
      * Force animation over existing ones.
      */
@@ -135,20 +137,20 @@ export class StalkerAnimationManager {
       this.states.targetState = newState;
       this.states.sequenceId = 1;
 
-      this.states.nextRandomAt = time_global();
+      this.states.nextRandomAt = now;
 
       return;
     }
 
     this.states.targetState = newState;
-    this.states.nextRandomAt = time_global();
+    this.states.nextRandomAt = now;
   }
 
   /**
    * todo;
    */
   public selectAnimation(): LuaMultiReturn<[Optional<string>, any]> {
-    const states = this.states;
+    const states: IAnimationManagerStates = this.states;
 
     // New animation detected:
     if (states.targetState !== states.currentState) {
@@ -294,7 +296,7 @@ export class StalkerAnimationManager {
       return null;
     }
 
-    const states = this.states;
+    const states: IAnimationManagerStates = this.states;
     let index: TIndex;
 
     if (animation.length() > 1) {
@@ -406,7 +408,7 @@ export class StalkerAnimationManager {
       return;
     }
 
-    const states = this.states;
+    const states: IAnimationManagerStates = this.states;
 
     if (states.animationMarker === EAnimationMarker.IN) {
       states.animationMarker = null;

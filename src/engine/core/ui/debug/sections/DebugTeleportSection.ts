@@ -152,7 +152,7 @@ export class DebugTeleportSection extends AbstractDebugSection {
     const itemSelected: Optional<DebugTeleportListEntry> = this.uiItemsList.GetSelectedItem();
 
     if (itemSelected) {
-      logger.info("Teleporting:", vectorToString(itemSelected.position), itemSelected.gvid, itemSelected.lvid);
+      logger.info("Teleporting actor:", vectorToString(itemSelected.position), itemSelected.gvid, itemSelected.lvid);
 
       level.add_pp_effector(postProcessors.teleport, 2006, false);
 

@@ -666,7 +666,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     }
 
     if (!SMART_TERRAIN_MASKS_LTX.section_exist(this.name())) {
-      logger.warn("No terrain_mask section in smart_terrain_masks.ltx:", this.name());
+      // logger.warn("No terrain_mask section in smart_terrain_masks.ltx:", this.name());
     }
   }
 
