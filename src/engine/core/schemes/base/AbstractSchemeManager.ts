@@ -82,4 +82,11 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> {
   public onDeath(victim: ClientObject, who: Optional<ClientObject>): void {
     logger.info("Death:", this.state?.scheme, this.object.name());
   }
+
+  /**
+   * todo: Description.
+   */
+  public onCutscene(): void {
+    logger.info("Cutscene:", this.state?.scheme, this.object.name());
+  }
 }

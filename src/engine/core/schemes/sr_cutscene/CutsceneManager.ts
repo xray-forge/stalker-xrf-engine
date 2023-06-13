@@ -56,7 +56,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
       this.motion.update();
       if (this.state.signals!.get("cam_effector_stop") !== null) {
         this.motion.stopEffect();
-        this.cutscene_callback();
+        this.onCutscene();
         this.state.signals!.delete("cam_effector_stop");
       }
     }
@@ -124,7 +124,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
     this.motionId = this.motionId + 1;
   }
 
-  public cutscene_callback(): void {
+  public override onCutscene(): void {
     logger.info("Cutscene callback:", this.object.name());
 
     const actor: ClientObject = registry.actor;

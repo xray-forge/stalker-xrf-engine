@@ -5,8 +5,8 @@ export enum ESchemeEvent {
   ACTIVATE_SCHEME = "activateScheme",
   DEACTIVATE = "deactivate",
   DEATH = "onDeath",
-  CUTSCENE = "cutscene_callback",
-  EXTRAPOLATE = "extrapolate_callback",
+  CUTSCENE = "onCutscene",
+  EXTRAPOLATE = "onExtrapolate",
   NET_DESTROY = "net_destroy",
   HIT = "onHit",
   RESET_SCHEME = "resetScheme", // todo: Probably merge with activate scheme.
