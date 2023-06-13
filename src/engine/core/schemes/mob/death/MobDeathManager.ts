@@ -12,7 +12,7 @@ export class MobDeathManager extends AbstractSchemeManager<ISchemeMobDeathState>
   /**
    * todo: Description.
    */
-  public death_callback(victim: ClientObject, who: Optional<ClientObject>): void {
+  public override onDeath(victim: ClientObject, who: Optional<ClientObject>): void {
     let deathState: ISchemeDeathState = registry.objects.get(victim.id())[EScheme.DEATH] as ISchemeDeathState;
 
     if (deathState === null) {

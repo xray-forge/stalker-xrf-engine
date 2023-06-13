@@ -75,4 +75,11 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> {
   public onWaypoint(object: ClientObject, actionType: TName, index: TIndex): void {
     logger.info("Waypoint:", this.state?.scheme, this.object.name());
   }
+
+  /**
+   * todo: Description.
+   */
+  public onDeath(victim: ClientObject, who: Optional<ClientObject>): void {
+    logger.info("Death:", this.state?.scheme, this.object.name());
+  }
 }

@@ -11,7 +11,7 @@ export class PhysicalDeathManager extends AbstractSchemeManager<ISchemePhysicalO
   /**
    * todo: Description.
    */
-  public death_callback(object: ClientObject, who: Optional<ClientObject>): void {
+  public override onDeath(object: ClientObject, who: Optional<ClientObject>): void {
     if (registry.objects.get(this.object.id()).active_scheme) {
       if (trySwitchToAnotherSection(object, this.state, registry.actor)) {
         return;

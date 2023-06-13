@@ -4,7 +4,7 @@
 export enum ESchemeEvent {
   ACTIVATE_SCHEME = "activateScheme",
   DEACTIVATE = "deactivate",
-  DEATH = "death_callback",
+  DEATH = "onDeath",
   CUTSCENE = "cutscene_callback",
   EXTRAPOLATE = "extrapolate_callback",
   NET_DESTROY = "net_destroy",

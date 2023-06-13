@@ -124,7 +124,7 @@ export class ActionPatrol extends action_base {
   /**
    * todo: Description.
    */
-  public death_callback(npc: ClientObject): void {
+  public onDeath(npc: ClientObject): void {
     registry.patrols.generic.get(this.state.patrol_key).removeNpc(npc);
   }
 
