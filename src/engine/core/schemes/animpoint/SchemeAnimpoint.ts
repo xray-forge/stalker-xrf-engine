@@ -11,7 +11,7 @@ import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/util
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseStringsList } from "@/engine/core/utils/parse";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
-import { ActionPlanner, ClientObject, IniFile } from "@/engine/lib/types";
+import { ActionPlanner, ClientObject, IniFile, Optional } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -27,21 +27,15 @@ export class SchemeAnimpoint extends AbstractScheme {
   /**
    * Activate animation scheme.
    */
-  public static override activate(
-    object: ClientObject,
-    ini: IniFile,
-    scheme: EScheme,
-    section: TSection,
-    additional: string
-  ): void {
-    logger.info("Activate animpoint scheme for object:", object.name(), scheme, section);
+  public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+    logger.info("Activate scheme:", object.name(), scheme, section);
 
     const state: ISchemeAnimpointState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.cover_name = readIniString(ini, section, "cover_name", false, "", "$script_id$_cover");
-    state.use_camp = readIniBoolean(ini, section, "use_camp", false, true);
-    state.reach_movement = readIniString<EStalkerState>(
+    state.coverName = readIniString(ini, section, "cover_name", false, "", "$script_id$_cover");
+    state.useCamp = readIniBoolean(ini, section, "use_camp", false, true);
+    state.reachMovement = readIniString<EStalkerState>(
       ini,
       section,
       "reach_movement",
@@ -50,10 +44,10 @@ export class SchemeAnimpoint extends AbstractScheme {
       EStalkerState.WALK
     ) as EStalkerState;
 
-    state.reach_distance = readIniNumber(ini, section, "reach_distance", false, 0.75);
-    state.reach_distance *= state.reach_distance; // Calculate for sqr comparison.
+    state.reachDistance = readIniNumber(ini, section, "reach_distance", false, 0.75);
+    state.reachDistance *= state.reachDistance; // Calculate for sqr comparison.
 
-    const rawAvailableAnimations = readIniString(ini, section, "avail_animations", false, "", null);
+    const rawAvailableAnimations: Optional<string> = readIniString(ini, section, "avail_animations", false, "", null);
 
     state.availableAnimations = rawAvailableAnimations === null ? null : parseStringsList(rawAvailableAnimations);
   }

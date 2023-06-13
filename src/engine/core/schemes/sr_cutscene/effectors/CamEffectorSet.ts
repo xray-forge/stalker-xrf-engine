@@ -2,11 +2,10 @@ import { device, level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import {
-  EEffectorState,
   ICamEffectorSetDescriptorItem,
   TCamEffectorSetDescriptor,
-} from "@/engine/core/schemes/sr_cutscene/cam_effector_sets";
-import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
+} from "@/engine/core/schemes/sr_cutscene/effectors/camera_effector_sets";
+import { EEffectorState, ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
@@ -90,7 +89,7 @@ export class CamEffectorSet {
       const effect: Optional<ICamEffectorSetDescriptorItem> = this.selectEffect();
 
       if (effect) {
-        this.startEffect(effect as any);
+        this.startEffect(effect);
       }
     }
   }

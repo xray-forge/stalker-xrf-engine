@@ -1,19 +1,35 @@
 import type { IBaseSchemeState } from "@/engine/core/schemes/base";
-import type { CutsceneManager } from "@/engine/core/schemes/sr_cutscene/CutsceneManager";
 import type { LuaArray, StringOptional, TRate } from "@/engine/lib/types";
 
 /**
  * todo;
  */
+export enum EEffectorState {
+  START = "start",
+  RELEASE = "release",
+  FINISH = "finish",
+  IDLE = "idle",
+}
+
+/**
+ * todo;
+ */
+export enum ESceneState {
+  NONE = "",
+  RUN = "run",
+}
+
+/**
+ * State of cutscene scheme.
+ */
 export interface ISchemeCutsceneState extends IBaseSchemeState {
-  cutscene_action: CutsceneManager; // todo: Rename.
+  ppEffector: StringOptional;
+  cameraEffector: LuaArray<string>;
+  fov: TRate;
   state: string;
   look: string;
   point: string;
-  global_cameffect: boolean;
-  pp_effector: StringOptional;
-  cam_effector: LuaArray<string>;
-  fov: TRate;
-  enable_ui_on_end: boolean;
-  outdoor: boolean;
+  shouldEnableUiOnEnd: boolean;
+  isGlobalCameraEffect: boolean;
+  isOutdoor: boolean;
 }

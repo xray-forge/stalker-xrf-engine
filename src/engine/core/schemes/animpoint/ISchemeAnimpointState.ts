@@ -1,19 +1,19 @@
-import { EStalkerState } from "@/engine/core/objects/state";
+import type { EStalkerState } from "@/engine/core/objects/state";
 import type { AnimpointManager } from "@/engine/core/schemes/animpoint/AnimpointManager";
-import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
+import type { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
 import type { IBaseSchemeState } from "@/engine/core/schemes/base";
 import type { LuaArray, Optional, TDistance, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State of animpoint scheme.
  */
 export interface ISchemeAnimpointState extends IBaseSchemeState {
   animpoint: AnimpointManager;
   actionNameBase: Optional<TName>;
-  cover_name: TName;
-  use_camp: boolean;
-  reach_distance: TDistance;
-  reach_movement: EStalkerState;
+  coverName: TName;
+  useCamp: boolean;
+  reachDistance: TDistance; // Already squared.
+  reachMovement: EStalkerState;
   description: Optional<EStalkerState>;
   availableAnimations: Optional<LuaArray<EStalkerState>>;
   approvedActions: LuaArray<IAnimpointAction>;

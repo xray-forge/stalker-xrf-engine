@@ -161,6 +161,7 @@ export class ActorSound extends AbstractPlayableSound {
     const schemeState: IBaseSchemeState = objectState[objectState.active_scheme] as IBaseSchemeState;
 
     if (this.playedSoundIndex === this.soundPaths.length() && this.shuffle !== "rnd") {
+      logger.info("Emit sound end signal:", objectState.object.name());
       schemeState.signals!.set("theme_end", true);
       schemeState.signals!.set("sound_end", true);
     } else {

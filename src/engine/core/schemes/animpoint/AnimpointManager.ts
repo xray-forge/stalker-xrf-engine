@@ -3,6 +3,7 @@ import { level } from "xray16";
 import { registry } from "@/engine/core/database";
 import { SmartCover } from "@/engine/core/objects";
 import { EStalkerState } from "@/engine/core/objects/state";
+import { states } from "@/engine/core/objects/state_lib/state_lib";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import {
   animpointPredicateAlways,
@@ -37,14 +38,40 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   public smartCoverDirection: Optional<Vector> = null;
   public lookPosition: Optional<Vector> = null;
 
-  /**
-   * todo: Description.
-   */
+  public override activateScheme(isLoading: boolean, object: ClientObject): void {
+    this.state.signals = new LuaTable();
+
+    this.calculatePosition();
+
+    if (this.isStarted) {
+      if (!this.state.useCamp && this.coverName === this.state.coverName) {
+        this.fillApprovedActions();
+
+        const targetAction: EStalkerState = this.state.approvedActions.get(
+          math.random(this.state.approvedActions.length())
+        ).name;
+
+        const currentStateAnimstate: Optional<EStalkerState> = states.get(targetAction).animstate;
+        const targetStateAnimstate: Optional<EStalkerState> = states.get(this.currentAction as EStalkerState).animstate;
+
+        if (currentStateAnimstate === targetStateAnimstate) {
+          if (targetAction !== this.currentAction) {
+            this.currentAction = this.state.approvedActions.get(math.random(this.state.approvedActions.length())).name;
+          }
+
+          return;
+        }
+      }
+
+      this.stop();
+    }
+  }
+
   public override update(): void {
     const actionsList: LuaArray<EStalkerState> = new LuaTable();
     const description: Optional<EStalkerState> = this.state.description;
 
-    if (this.state.use_camp) {
+    if (this.state.useCamp) {
       const [campAction, isDirector] = this.camp!.getCampAction(this.object.id());
       const campActionsList = isDirector
         ? associativeTable.get(campAction as TName).director
@@ -84,9 +111,11 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       this.currentAction = action;
     } else {
       if (this.state.availableAnimations === null) {
-        if (this.state.approvedActions === null) {
-          abort("animpoint not in camp and approvedActions is null. Name [%s]", this.state.cover_name);
-        }
+        assertDefined(
+          this.state.approvedActions,
+          "animpoint not in camp and approvedActions is null. Name [%s]",
+          this.state.coverName
+        );
 
         for (const [index, action] of this.state.approvedActions!) {
           table.insert(actionsList, action.name);
@@ -105,11 +134,11 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
    * todo: Description.
    */
   public calculatePosition(): void {
-    const smartCover: Optional<SmartCover> = registry.smartCovers.get(this.state.cover_name);
+    const smartCover: Optional<SmartCover> = registry.smartCovers.get(this.state.coverName);
 
-    assertDefined(smartCover, "There is no smart_cover with name [%s]", this.state.cover_name);
+    assertDefined(smartCover, "There is no smart_cover with name [%s]", this.state.coverName);
 
-    this.position = registry.smartCovers.get(this.state.cover_name).position;
+    this.position = registry.smartCovers.get(this.state.coverName).position;
     this.positionLevelVertexId = level.vertex_id(this.position);
     this.vertexPosition = level.vertex_position(this.positionLevelVertexId);
 
@@ -126,9 +155,12 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     const descriptionState: EStalkerState = smartCover.description() as EStalkerState;
 
     if (associations.get(descriptionState) === null) {
-      if (this.state.availableAnimations === null) {
-        abort("Wrong animpoint smart_cover description %s, name %s", tostring(descriptionState), smartCover.name());
-      }
+      assertDefined(
+        this.state.availableAnimations,
+        "Wrong animpoint smart_cover description %s, name %s",
+        tostring(descriptionState),
+        smartCover.name()
+      );
     }
 
     this.state.description = descriptionState;
@@ -162,9 +194,9 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     }
 
     const isDistanceReached: boolean =
-      object.position().distance_to_sqr(this.vertexPosition!) <= this.state.reach_distance;
-    const v1: number = -math.deg(math.atan2(this.smartCoverDirection!.x, this.smartCoverDirection!.z));
-    const v2: number = -math.deg(math.atan2(object.direction().x, object.direction().z));
+      object.position().distance_to_sqr(this.vertexPosition!) <= this.state.reachDistance;
+    const v1: TRate = -math.deg(math.atan2(this.smartCoverDirection!.x, this.smartCoverDirection!.z));
+    const v2: TRate = -math.deg(math.atan2(object.direction().x, object.direction().z));
     const rotY: TRate = math.min(math.abs(v1 - v2), 360 - math.abs(v1) - math.abs(v2));
     const isDirectionReached: boolean = rotY < 50;
 
@@ -178,8 +210,8 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     const isInCamp: boolean = this.camp !== null;
 
     if (this.state.availableAnimations !== null) {
-      for (const [k, v] of this.state.availableAnimations!) {
-        table.insert(this.state.approvedActions!, {
+      for (const [k, v] of this.state.availableAnimations) {
+        table.insert(this.state.approvedActions, {
           predicate: animpointPredicateAlways,
           name: v,
         });
@@ -188,15 +220,17 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       if (this.availableActions !== null) {
         for (const [k, action] of this.availableActions) {
           if (action.predicate(this.object.id(), isInCamp)) {
-            table.insert(this.state.approvedActions!, action);
+            table.insert(this.state.approvedActions, action);
           }
         }
       }
     }
 
-    if (this.state.approvedActions!.length() === 0) {
+    if (this.state.approvedActions.length() === 0) {
       abort("There is no approved actions for stalker[%s] in animpoint", this.object.name());
     }
+
+    logger.info("Filled approved actions:", this.object.name(), this.state.approvedActions.length());
   }
 
   /**
@@ -210,7 +244,9 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
    * todo: Description.
    */
   public start(): void {
-    if (this.state.use_camp) {
+    logger.info("Start:", this.object.name());
+
+    if (this.state.useCamp) {
       this.camp = CampStoryManager.getCurrentCamp(this.position);
     }
 
@@ -223,13 +259,15 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     }
 
     this.isStarted = true;
-    this.coverName = this.state.cover_name;
+    this.coverName = this.state.coverName;
   }
 
   /**
    * todo: Description.
    */
   public stop(): void {
+    logger.info("Stop:", this.object.name());
+
     if (this.camp !== null) {
       this.camp.unregisterNpc(this.object.id());
     }
