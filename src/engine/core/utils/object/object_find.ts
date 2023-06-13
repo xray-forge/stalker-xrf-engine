@@ -2,7 +2,6 @@ import { alife, level } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_general";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   AlifeSimulator,
   AnyCallable,
@@ -34,10 +33,8 @@ export function getNearestServerObject(
     return null;
   }
 
-  for (const it of $range(1, MAX_U16)) {
-    const serverObject: Optional<ServerObject> = simulator.object(it);
-
-    if (serverObject && serverObject.parent_id !== 0) {
+  simulator.iterate_objects((serverObject: ServerObject): void => {
+    if (serverObject.parent_id !== 0) {
       let isMatch: boolean = false;
 
       // Filter objects if pattern is provided.
@@ -65,13 +62,13 @@ export function getNearestServerObject(
         }
       }
     }
-  }
+  });
 
   if (nearest) {
     if (areObjectsOnSameLevel(nearest, simulator.object(0) as ServerObject)) {
       if (
         searchOffline ||
-        (nearestDistance as TDistance) <= simulator.switch_distance() * simulator.switch_distance()
+        (nearestDistance as unknown as TDistance) <= simulator.switch_distance() * simulator.switch_distance()
       ) {
         return nearest;
       }
@@ -110,10 +107,8 @@ export function getServerObjects<T extends ServerObject>(
     return list;
   }
 
-  for (const it of $range(1, MAX_U16)) {
-    const serverObject: Optional<ServerObject> = simulator.object(it);
-
-    if (serverObject && serverObject.parent_id !== 0) {
+  simulator.iterate_objects((serverObject: ServerObject) => {
+    if (serverObject.parent_id !== 0) {
       let isMatch: boolean = false;
 
       // Filter objects if pattern is provided.
@@ -134,7 +129,7 @@ export function getServerObjects<T extends ServerObject>(
         table.insert(list, serverObject as T);
       }
     }
-  }
+  });
 
   return list;
 }
@@ -152,10 +147,9 @@ export function getClientObjects(
     return list;
   }
 
-  for (const it of $range(1, MAX_U16)) {
-    const serverObject: Optional<ServerObject> = simulator.object(it);
+  simulator.iterate_objects((serverObject: ServerObject) => {
     const clientObject: Optional<ClientObject> =
-      serverObject && serverObject.parent_id !== 0 ? level.object_by_id(serverObject.id) : null;
+      serverObject.parent_id !== 0 ? level.object_by_id(serverObject.id) : null;
 
     if (clientObject) {
       let isMatch: boolean = false;
@@ -178,7 +172,7 @@ export function getClientObjects(
         table.insert(list, clientObject);
       }
     }
-  }
+  });
 
   return list;
 }
