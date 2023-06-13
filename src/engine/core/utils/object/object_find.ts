@@ -140,18 +140,10 @@ export function getServerObjects<T extends ServerObject>(
 export function getClientObjects(
   pattern: Optional<TName | TClassId | ((object: ClientObject) => boolean)> = null
 ): LuaArray<ClientObject> {
-  const simulator: Optional<AlifeSimulator> = alife();
   const list: LuaArray<ClientObject> = new LuaTable();
 
-  if (simulator === null) {
-    return list;
-  }
-
-  simulator.iterate_objects((serverObject: ServerObject) => {
-    const clientObject: Optional<ClientObject> =
-      serverObject.parent_id !== 0 ? level.object_by_id(serverObject.id) : null;
-
-    if (clientObject) {
+  level.iterate_online_objects((clientObject: ClientObject) => {
+    if (clientObject.parent() !== registry.actor) {
       let isMatch: boolean = false;
 
       // Filter objects if pattern is provided.
