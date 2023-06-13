@@ -12,31 +12,29 @@ import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Cutscenes implementing scheme.
+ * Allows disabling input and controlling camera for some time.
  */
 export class SchemeCutscene extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_CUTSCENE;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
+    logger.info("Activate scheme:", object.name(), scheme, section);
+
     const state: ISchemeCutsceneState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.point = readIniString(ini, section, "point", true, "", "none");
     state.look = readIniString(ini, section, "look", true, "", "none");
-    state.global_cameffect = readIniBoolean(ini, section, "global_cameffect", false, false);
-    state.pp_effector = readIniString(ini, section, "pp_effector", false, "", NIL) + ".ppe";
-    state.cam_effector = parseStringsList(readIniString(ini, section, "cam_effector", true, ""));
+    state.isGlobalCameraEffect = readIniBoolean(ini, section, "global_cameffect", false, false);
+    state.ppEffector = readIniString(ini, section, "pp_effector", false, "", NIL) + ".ppe";
+    state.cameraEffector = parseStringsList(readIniString(ini, section, "cam_effector", true, ""));
     state.fov = readIniNumber(ini, section, "fov", true);
-    state.enable_ui_on_end = readIniBoolean(ini, section, "enable_ui_on_end", false, true);
-    state.outdoor = readIniBoolean(ini, section, "outdoor", false, false);
+    state.shouldEnableUiOnEnd = readIniBoolean(ini, section, "enable_ui_on_end", false, true);
+    state.isOutdoor = readIniBoolean(ini, section, "outdoor", false, false);
   }
-  /**
-   * todo: Description.
-   */
+
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -46,7 +44,6 @@ export class SchemeCutscene extends AbstractScheme {
   ): void {
     const cutsceneManager: CutsceneManager = new CutsceneManager(object, state);
 
-    state.cutscene_action = cutsceneManager;
     SchemeCutscene.subscribe(object, state, cutsceneManager);
   }
 
@@ -54,6 +51,7 @@ export class SchemeCutscene extends AbstractScheme {
    * todo: Description.
    */
   public static onCutsceneEnd(): void {
+    logger.info("Cutscene stage ended");
     emitSchemeEvent(CutsceneManager.objectCutscene!, CutsceneManager.storageScene!, ESchemeEvent.CUTSCENE);
   }
 }

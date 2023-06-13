@@ -4,17 +4,20 @@ import { registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/interface";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils/trySwitchToAnotherSection";
+import { CamEffectorSet } from "@/engine/core/schemes/sr_cutscene/effectors/CamEffectorSet";
 import {
-  EEffectorState,
   effectorSets,
   ICamEffectorSetDescriptorItem,
-} from "@/engine/core/schemes/sr_cutscene/cam_effector_sets";
-import { CamEffectorSet } from "@/engine/core/schemes/sr_cutscene/CamEffectorSet";
-import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
+} from "@/engine/core/schemes/sr_cutscene/effectors/camera_effector_sets";
+import {
+  EEffectorState,
+  ESceneState,
+  ISchemeCutsceneState,
+} from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
-import { AnyCallablesModule, ClientObject, Optional, TName } from "@/engine/lib/types";
+import { AnyCallablesModule, ClientObject, Optional, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -26,31 +29,21 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   public static storageScene: Optional<ISchemeCutsceneState> = null;
 
   public isUiDisabled: boolean = false;
-  public postprocess: boolean = false;
-  public motionId: number = 1;
+  public isPostprocess: boolean = false;
+  public motionId: TNumberId = 1;
   public motion: Optional<CamEffectorSet> = null;
-  public sceneState!: string;
+  public sceneState: ESceneState = ESceneState.NONE;
 
-  public constructor(object: ClientObject, state: ISchemeCutsceneState) {
-    super(object, state);
-
-    logger.info("Init new cutscene:", object.name());
-  }
-
-  /**
-   * todo: Description.
-   */
   public override resetScheme(): void {
-    this.sceneState = "";
+    logger.info("Reset scheme");
+
+    this.sceneState = ESceneState.NONE;
     this.state.signals = new LuaTable();
     this.motion = null;
 
-    this.zone_enter();
+    this.onZoneEnter();
   }
 
-  /**
-   * todo: Description.
-   */
   public override update(delta: number): void {
     if (this.motion) {
       this.motion.update();
@@ -69,17 +62,17 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   /**
    * todo: Description.
    */
-  public zone_enter(): void {
+  public onZoneEnter(): void {
     logger.info("Zone enter:", this.object.name());
 
     const actor: Optional<ClientObject> = registry.actor;
 
-    this.sceneState = "run";
+    this.sceneState = ESceneState.RUN;
 
     getExtern<AnyCallablesModule>("xr_effects").teleport_actor(actor, this.object, [this.state.point, this.state.look]);
 
-    if (this.state.pp_effector !== postProcessors.nil) {
-      level.add_pp_effector(this.state.pp_effector, 234, false);
+    if (this.state.ppEffector !== postProcessors.nil) {
+      level.add_pp_effector(this.state.ppEffector, 234, false);
     }
 
     ActorInputManager.getInstance().disableGameUi(actor, false);
@@ -87,8 +80,8 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
 
     const timeHours: number = level.get_time_hours();
 
-    if (this.state.outdoor && actor !== null && (timeHours < 6 || timeHours > 21)) {
-      this.postprocess = true;
+    if (this.state.isOutdoor && actor !== null && (timeHours < 6 || timeHours > 21)) {
+      this.isPostprocess = true;
       level.add_complex_effector("brighten", 1999);
       // --level.add_pp_effector("brighten.ppe", 1999, true)
     }
@@ -101,13 +94,15 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   }
 
   public selectNextMotion(): void {
-    const motion: TName = this.state.cam_effector!.get(this.motionId);
+    logger.info("Select next cutscene motion");
+
+    const motion: TName = this.state.cameraEffector!.get(this.motionId);
 
     if (effectorSets[motion] === null) {
       this.motion = new CamEffectorSet(
         {
           start: new LuaTable(),
-          idle: [{ anim: motion, looped: false, global_cameffect: this.state.global_cameffect }] as any,
+          idle: [{ anim: motion, looped: false, global_cameffect: this.state.isGlobalCameraEffect }] as any,
           finish: new LuaTable(),
           release: new LuaTable(),
         },
@@ -131,18 +126,18 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
 
     if (this.motion!.state === EEffectorState.RELEASE) {
       this.motion = null;
-      if (this.motionId <= this.state.cam_effector!.length()) {
+      if (this.motionId <= this.state.cameraEffector!.length()) {
         this.selectNextMotion();
       } else {
-        if (this.postprocess) {
-          this.postprocess = false;
+        if (this.isPostprocess) {
+          this.isPostprocess = false;
           level.remove_complex_effector(1999);
         }
 
         if (this.isUiDisabled) {
-          if (!actor.is_talking() && this.state.enable_ui_on_end) {
+          if (!actor.is_talking() && this.state.shouldEnableUiOnEnd) {
             ActorInputManager.getInstance().enableGameUi(false);
-          } else if (this.state.enable_ui_on_end) {
+          } else if (this.state.shouldEnableUiOnEnd) {
             level.enable_input();
           }
 

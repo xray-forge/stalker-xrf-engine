@@ -1,12 +1,6 @@
+import { EEffectorState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { TAnimation } from "@/engine/lib/constants/animation/animations";
 import { FALSE } from "@/engine/lib/constants/words";
-
-export enum EEffectorState {
-  START = "start",
-  RELEASE = "release",
-  FINISH = "finish",
-  IDLE = "idle",
-}
 
 export interface ICamEffectorSetDescriptorItem {
   anim: TAnimation;

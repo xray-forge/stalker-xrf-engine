@@ -24,6 +24,13 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> {
   /**
    * todo: Description.
    */
+  public activateScheme(isLoading: boolean, object: ClientObject): void {
+    logger.info("Activate scheme:", this.state?.scheme, this.object.name());
+  }
+
+  /**
+   * todo: Description.
+   */
   public resetScheme(): void {
     logger.info("Reset scheme:", this.state?.scheme, this.object.name());
   }

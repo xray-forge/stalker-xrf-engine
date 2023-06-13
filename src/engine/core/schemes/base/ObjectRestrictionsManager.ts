@@ -105,12 +105,12 @@ export class ObjectRestrictionsManager {
     }
 
     for (const [, name] of restrictorsToRemove) {
-      logger.info("Remove out restriction:", objectName, name);
+      logger.info("Remove 'OUT' restriction:", objectName, name);
       this.object.remove_restrictions(name, "");
     }
 
     for (const [, name] of restrictorsToAdd) {
-      logger.info("Add out restriction:", objectName, name);
+      logger.info("Add 'OUT' restriction:", objectName, name);
       this.object.add_restrictions(name, "");
     }
 
@@ -156,12 +156,12 @@ export class ObjectRestrictionsManager {
     }
 
     for (const [, name] of restrictorsToRemove) {
-      logger.info("Remove in restriction:", objectName, name);
+      logger.info("Remove 'IN' restriction:", objectName, name);
       this.object.remove_restrictions("", name);
     }
 
     for (const [, name] of restrictorsToAdd) {
-      logger.info("Add in restriction:", objectName, name);
+      logger.info("Add 'IN' restriction:", objectName, name);
       this.object.add_restrictions("", name);
     }
   }

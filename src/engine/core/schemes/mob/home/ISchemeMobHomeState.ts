@@ -3,7 +3,7 @@ import type { EMonsterState } from "@/engine/lib/constants/monsters";
 import type { Optional, TDistance } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State of home parameters for mob home scheme.
  */
 export interface ISchemeMobHomeState extends IBaseSchemeState {
   monsterState: Optional<EMonsterState>;
