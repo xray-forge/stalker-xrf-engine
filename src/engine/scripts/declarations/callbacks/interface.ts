@@ -85,13 +85,13 @@ extern("pda", {
     return 10;
   },
   actor_menu_mode: (...args: AnyArgs): void => {
-    logger.info("Pda actor menu mode:", ...args);
+    logger.info("Pda actor menu mode changed");
   },
   property_box_clicked: (...args: AnyArgs): void => {
-    logger.info("Pda box property clicked:", ...args);
+    logger.info("Pda box property clicked");
   },
   property_box_add_properties: (...args: AnyArgs): void => {
-    logger.info("Pda box property added:", ...args);
+    logger.info("Pda box property added");
   },
   get_monster_back: () => {
     return PdaManager.getInstance().getMonsterBackground();

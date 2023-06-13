@@ -9,6 +9,7 @@ import { DebugPositionSection } from "@/engine/core/ui/debug/sections/DebugPosit
 import { DebugRegistrySection } from "@/engine/core/ui/debug/sections/DebugRegistrySection";
 import { DebugSoundSection } from "@/engine/core/ui/debug/sections/DebugSoundSection";
 import { DebugSpawnSection } from "@/engine/core/ui/debug/sections/DebugSpawnSection";
+import { DebugTeleportSection } from "@/engine/core/ui/debug/sections/DebugTeleportSection";
 import { DebugUiSection } from "@/engine/core/ui/debug/sections/DebugUiSection";
 import { DebugWeatherSection } from "@/engine/core/ui/debug/sections/DebugWeatherSection";
 
@@ -22,6 +23,7 @@ export enum EDebugSection {
   REGISTRY = "registry",
   SOUND = "sound",
   SPAWN = "spawn",
+  TELEPORT = "teleport",
   UI = "ui",
   WEATHER = "weather",
 }
@@ -36,6 +38,7 @@ export const sectionsMap = {
   [EDebugSection.PLAYER]: (owner: CUIScriptWnd) => new DebugPlayerSection(owner),
   [EDebugSection.SOUND]: (owner: CUIScriptWnd) => new DebugSoundSection(owner),
   [EDebugSection.SPAWN]: (owner: CUIScriptWnd) => new DebugSpawnSection(owner),
+  [EDebugSection.TELEPORT]: (owner: CUIScriptWnd) => new DebugTeleportSection(owner),
   [EDebugSection.UI]: (owner: CUIScriptWnd) => new DebugUiSection(owner),
   [EDebugSection.WEATHER]: (owner: CUIScriptWnd) => new DebugWeatherSection(owner),
 };
