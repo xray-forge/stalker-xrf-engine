@@ -111,7 +111,7 @@ export interface ISimulationActivityPrecondition {
   /**
    * Whether squad can select target.
    */
-  canSelect: (squad: Squad, target: ISimulationTarget) => boolean;
+  canSelect: (this: void, squad: Squad, target: ISimulationTarget) => boolean;
 }
 
 /**
