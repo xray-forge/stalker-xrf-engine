@@ -13,5 +13,5 @@ export enum ESchemeEvent {
   SAVE = "save",
   UPDATE = "update",
   USE = "onUse",
-  WAYPOINT = "waypoint_callback",
+  WAYPOINT = "onWaypoint",
 }

@@ -10,7 +10,7 @@ import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/heli_move/ISch
 import { abort } from "@/engine/core/utils/assertion";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
 import { ACTOR } from "@/engine/lib/constants/words";
-import { ClientObject, Optional, Patrol, TIndex, TRate, Vector } from "@/engine/lib/types";
+import { ClientObject, Optional, Patrol, TIndex, TName, TRate, Vector } from "@/engine/lib/types";
 
 const state_move: number = 0;
 
@@ -285,7 +285,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   /**
    * todo: Description.
    */
-  public waypoint_callback(object: ClientObject, action_type: string, index: TIndex): void {
+  public override onWaypoint(object: ClientObject, actionType: TName, index: TIndex): void {
     if (!this._flagToWpCallback) {
       if (this.patrolMove !== null) {
         if (index === this.lastIndex) {
