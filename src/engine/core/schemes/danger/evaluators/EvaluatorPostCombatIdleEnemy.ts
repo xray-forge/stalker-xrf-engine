@@ -2,11 +2,11 @@ import { LuabindClass, property_evaluator, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
-import { ActionProcessEnemy } from "@/engine/core/schemes/combat_ignore/actions/ActionProcessEnemy";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/danger/ISchemePostCombatIdleState";
+import { isObjectEnemy } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { ClientObject, EScheme, Optional } from "@/engine/lib/types";
+import { ClientObject, EScheme, Optional, TDistance } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -34,7 +34,7 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
 
     if (
       bestEnemy !== null &&
-      !ActionProcessEnemy.isEnemy(
+      !isObjectEnemy(
         this.object,
         bestEnemy,
         registry.objects.get(this.object.id())[EScheme.COMBAT_IGNORE] as ISchemeCombatIgnoreState
@@ -53,8 +53,8 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
 
     if (bestEnemy === null && this.state.timer === null) {
       const overrides = registry.objects.get(this.object.id()).overrides;
-      const min = (overrides && overrides.min_post_combat_time * 1000) || logicsConfig.POST_COMBAT_IDLE.MIN;
-      const max = (overrides && overrides.max_post_combat_time * 1000) || logicsConfig.POST_COMBAT_IDLE.MAX;
+      const min: TDistance = (overrides && overrides.min_post_combat_time * 1000) || logicsConfig.POST_COMBAT_IDLE.MIN;
+      const max: TDistance = (overrides && overrides.max_post_combat_time * 1000) || logicsConfig.POST_COMBAT_IDLE.MAX;
 
       if (this.state.last_best_enemy_id === registry.actor.id()) {
         this.state.timer = time_global();

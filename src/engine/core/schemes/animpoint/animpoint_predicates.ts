@@ -108,12 +108,8 @@ function animpointPredicateWeapon(objectId: TNumberId): boolean {
   if (object !== null) {
     const smartTerrainName: Optional<TName> = getObjectSmartTerrain(object)?.name() as Optional<TName>;
 
-    if (smartTerrainName) {
-      for (const [index, noWeaponSmartTerrainName] of registry.noWeaponSmartTerrains) {
-        if (smartTerrainName === noWeaponSmartTerrainName) {
-          return false;
-        }
-      }
+    if (smartTerrainName && registry.noCombatSmartTerrains.get(smartTerrainName)) {
+      return false;
     }
   }
 

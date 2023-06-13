@@ -16,7 +16,7 @@ export const logicsConfig = {
     [danger_object.bullet_ricochet]: 2,
     [danger_object.enemy_sound]: 0,
     [danger_object.attack_sound]: 20,
-    [danger_object.entity_death]: 4,
+    [danger_object.entity_death]: 10,
   },
   /**
    * Timeout to release crow corpse after death.

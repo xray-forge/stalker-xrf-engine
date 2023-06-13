@@ -5,8 +5,8 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/camper/ISchemeCamperState";
-import { SchemeDanger } from "@/engine/core/schemes/danger/SchemeDanger";
 import { abort } from "@/engine/core/utils/assertion";
+import { isObjectFacingDanger } from "@/engine/core/utils/check/check";
 import { parsePathWaypoints } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
 import { createVector } from "@/engine/core/utils/vector";
@@ -340,7 +340,7 @@ export class ActionCamperPatrol extends action_base {
    * todo: Description.
    */
   public processDanger(): boolean {
-    if (!SchemeDanger.isObjectFacingDanger(this.object)) {
+    if (!isObjectFacingDanger(this.object)) {
       return false;
     }
 
