@@ -8,7 +8,7 @@ import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEven
 import { resetObjectGenericSchemesOnSectionSwitch } from "@/engine/core/schemes/base/utils/resetObjectGenericSchemesOnSectionSwitch";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { getObjectConfigOverrides } from "@/engine/core/utils/ini/config";
-import { getSchemeByIniSection } from "@/engine/core/utils/ini/getters";
+import { getSchemeByIniSection } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain, sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_general";
 import { NIL } from "@/engine/lib/constants/words";
@@ -68,9 +68,7 @@ export function activateSchemeBySection(
 
   const scheme: Optional<EScheme> = getSchemeByIniSection(section);
 
-  if (scheme === null) {
-    abort("object '%s': unable to determine scheme name from section name '%s'", object.name(), section);
-  }
+  assertDefined(scheme, "object '%s': unable to determine scheme name from section name '%s'", object.name(), section);
 
   registry.objects.get(objectId).overrides = getObjectConfigOverrides(ini, section, object) as any;
 

@@ -1,3 +1,4 @@
+import { AnyObject, Optional } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
 /**
@@ -10,6 +11,33 @@ export function luaTableToArray<T>(value: LuaTable<number, T>): Array<T> {
     });
   } else {
     throw new Error(`Unexpected type instance provided for casting utility: '${typeof value}'.`);
+  }
+}
+
+/**
+ * Transform in a recursive way lua tables to JS arrays for easier testing/verification.
+ */
+export function luaTableToObject(value: Optional<LuaTable | AnyObject | Array<unknown>>): Optional<AnyObject> {
+  if (value === null) {
+    return value;
+  }
+
+  if (value instanceof MockLuaTable) {
+    return [...value.entries()].reduce((acc, [key, value]) => {
+      acc[key] = luaTableToObject(value);
+
+      return acc;
+    }, {} as AnyObject);
+  } else if (Array.isArray(value)) {
+    return value.map((it) => luaTableToObject(value));
+  } else if (typeof value === "object") {
+    return Object.entries(value).reduce((acc, [key, value]) => {
+      acc[key as unknown as string] = luaTableToObject(value);
+
+      return acc;
+    }, {} as AnyObject);
+  } else {
+    return value;
   }
 }
 

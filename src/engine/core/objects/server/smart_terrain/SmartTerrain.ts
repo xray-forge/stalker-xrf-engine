@@ -64,8 +64,9 @@ import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/in
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getSchemeByIniSection, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import {
+  getSchemeByIniSection,
   IConfigSwitchCondition,
   parseConditionsList,
   parseStringsList,
@@ -917,14 +918,14 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     logger.info("Setup logic:", this.name(), object.name());
 
     const objectJobDescriptor: IObjectJobDescriptor = this.objectJobDescriptors.get(object.id());
-    const job = this.jobsData.get(objectJobDescriptor.job_id);
-    const ltx = job.ini_file || this.ltxConfig;
-    const ltx_name = job.ini_path || this.ltxConfigName;
+    const job: ISmartTerrainJob = this.jobsData.get(objectJobDescriptor.job_id);
+    const ltx: IniFile = job.ini_file || this.ltxConfig;
+    const ltxName: TName = job.ini_path || this.ltxConfigName;
 
     configureObjectSchemes(
       object,
       ltx,
-      ltx_name,
+      ltxName,
       objectJobDescriptor.schemeType,
       job.section,
       job.prefix_name || this.name()
@@ -932,9 +933,12 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     const section: TSection = getObjectSectionToActivate(object, ltx, job.section, registry.actor);
 
-    if (getSchemeByIniSection(job.section) === NIL) {
-      abort("[smart_terrain %s] section=%s, don't use section 'null'!", this.name(), section);
-    }
+    assertDefined(
+      getSchemeByIniSection(job.section),
+      "[smart_terrain %s] section=%s, don't use section 'null'!",
+      this.name(),
+      section
+    );
 
     activateSchemeBySection(object, ltx, section, job.prefix_name || this.name(), false);
   }
