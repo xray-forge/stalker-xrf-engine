@@ -8,7 +8,7 @@ import { associations } from "@/engine/core/schemes/animpoint/animpoint_predicat
 import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker";
-import { parsePathWaypoints } from "@/engine/core/utils/ini/parse";
+import { parseWaypointsData } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, Optional } from "@/engine/lib/types";
 
@@ -77,11 +77,11 @@ export class ActionWalkerActivity extends action_base {
    */
   public resetScheme(loading: Optional<boolean>, npc: ClientObject): void {
     if (this.state.path_walk_info === null) {
-      this.state.path_walk_info = parsePathWaypoints(this.state.path_walk);
+      this.state.path_walk_info = parseWaypointsData(this.state.path_walk);
     }
 
     if (this.state.path_look_info === null) {
-      this.state.path_look_info = parsePathWaypoints(this.state.path_look);
+      this.state.path_look_info = parseWaypointsData(this.state.path_look);
     }
 
     this.moveManager.reset(

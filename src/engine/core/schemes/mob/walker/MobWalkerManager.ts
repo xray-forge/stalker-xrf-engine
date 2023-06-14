@@ -6,7 +6,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob/walker/ISchemeMobWalkerState";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parsePathWaypoints } from "@/engine/core/utils/ini/parse";
+import { parseWaypointsData } from "@/engine/core/utils/ini/parse";
 import { IWaypointData } from "@/engine/core/utils/ini/types";
 import { action, isObjectScriptCaptured, scriptCaptureObject } from "@/engine/core/utils/object/object_general";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
@@ -80,12 +80,12 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     }
 
     if (this.state.path_walk_info === null) {
-      this.state.path_walk_info = parsePathWaypoints(this.state.path_walk);
+      this.state.path_walk_info = parseWaypointsData(this.state.path_walk);
       this.pathWalkInfo = this.state.path_walk_info;
     }
 
-    if (this.state.path_look_info === null) {
-      this.state.path_look_info = parsePathWaypoints(this.state.path_look);
+    if (this.state.path_look_info === null && this.state.path_look !== null) {
+      this.state.path_look_info = parseWaypointsData(this.state.path_look);
       this.pathLookInfo = this.state.path_look_info;
     }
 

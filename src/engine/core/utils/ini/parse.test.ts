@@ -12,6 +12,7 @@ import {
   parseStringOptional,
   parseStringsList,
   parseWaypointData,
+  parseWaypointsData,
 } from "@/engine/core/utils/ini/parse";
 import { IConfigCondition } from "@/engine/core/utils/ini/types";
 import { NIL } from "@/engine/lib/constants/words";
@@ -224,7 +225,111 @@ describe("'ini_data' parsing utils", () => {
   it("'parseWaypointData' should correctly parse generic paths to waypoint data", () => {
     const flags: Flags32 = MockFlags32.mock();
 
-    expect(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp00")).toEqual({ flags });
+    expect(luaTableToObject(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp00"))).toEqual({ flags });
+    expect(luaTableToObject(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp02|a=patrol"))).toEqual({
+      flags,
+      a: {
+        "1": {
+          infop_check: {},
+          infop_set: {},
+          section: "patrol",
+        },
+      },
+    });
+    expect(luaTableToObject(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp00|p=30|t=10000"))).toEqual({
+      flags,
+      p: "30",
+      t: "10000",
+    });
+    expect(luaTableToObject(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp09|p=70|t=10000"))).toEqual({
+      flags,
+      p: "70",
+      t: "10000",
+    });
+    expect(
+      luaTableToObject(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp10|t=10000|a=search"))
+    ).toEqual({
+      flags,
+      a: {
+        "1": {
+          infop_check: {},
+          infop_set: {},
+          section: "search",
+        },
+      },
+      t: "10000",
+    });
+  });
+
+  it("'parseWaypointData' should correctly parse generic paths to waypoint data", () => {
+    const flags: Flags32 = MockFlags32.mock();
+
+    expect(luaTableToObject(parseWaypointsData("zat_b40_smart_terrain_zat_b40_merc_01_walk"))).toEqual({
+      "0": {
+        a: {
+          "1": {
+            infop_check: {},
+            infop_set: {},
+            section: "patrol",
+          },
+        },
+        flags,
+      },
+      "1": {
+        a: {
+          "1": {
+            infop_check: {},
+            infop_set: {},
+            section: "patrol",
+          },
+        },
+        flags,
+      },
+      "2": {
+        a: {
+          "1": {
+            infop_check: {},
+            infop_set: {},
+            section: "patrol",
+          },
+        },
+        flags,
+      },
+    });
+
+    expect(luaTableToObject(parseWaypointsData("zat_b40_smart_terrain_zat_b40_merc_02_look"))).toEqual({
+      "0": {
+        flags: {},
+        p: "30",
+        t: "10000",
+      },
+      "1": {
+        flags: {},
+        p: "70",
+        t: "10000",
+      },
+      "2": {
+        flags: {},
+        p: "30",
+        t: "10000",
+      },
+      "3": {
+        flags: {},
+        p: "50",
+        t: "10000",
+      },
+      "4": {
+        a: {
+          "1": {
+            infop_check: {},
+            infop_set: {},
+            section: "search",
+          },
+        },
+        flags: {},
+        t: "10000",
+      },
+    });
   });
 
   it("'parseAllSectionToTable' should correctly parse ini section to matching lua table", () => {

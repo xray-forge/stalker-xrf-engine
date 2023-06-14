@@ -4,7 +4,7 @@ import { registry, setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
-import { parsePathWaypoints } from "@/engine/core/utils/ini/parse";
+import { parseWaypointsData } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_general";
 import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
@@ -52,11 +52,11 @@ export class ActionPatrol extends action_base {
     this.state.signals = new LuaTable();
 
     if (this.state.path_walk_info === null) {
-      this.state.path_walk_info = parsePathWaypoints(this.state.path_walk);
+      this.state.path_walk_info = parseWaypointsData(this.state.path_walk);
     }
 
     if (this.state.path_look_info === null) {
-      this.state.path_look_info = parsePathWaypoints(this.state.path_look);
+      this.state.path_look_info = parseWaypointsData(this.state.path_look);
     }
 
     this.moveManager.reset(

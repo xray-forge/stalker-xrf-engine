@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeParticleState } from "@/engine/core/schemes/sr_particle/ISchemeParticleState";
-import { parsePathWaypoints } from "@/engine/core/utils/ini/parse";
+import { parseWaypointsData } from "@/engine/core/utils/ini/parse";
 import { IWaypointData } from "@/engine/core/utils/ini/types";
 import { LuaArray, Optional, Patrol, TCount, TDuration, TTimestamp } from "@/engine/lib/types";
 
@@ -26,7 +26,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
     if (this.state.mode === 2) {
       this.path = new patrol(this.state.path);
 
-      const flags: LuaArray<IWaypointData> = parsePathWaypoints(this.state.path)!;
+      const flags: LuaArray<IWaypointData> = parseWaypointsData(this.state.path)!;
       const count: TCount = this.path.count();
 
       for (const a of $range(1, count)) {
