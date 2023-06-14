@@ -291,30 +291,30 @@ export function parseFunctionParams(data: string): LuaArray<string | number> {
 /**
  * Parse waypoint data from string.
  *
- * @param waypointName - name of waypoint
+ * @param patrolName - name of waypoint
  * @param patrolFlags - patrol flags32
- * @param patrolName - patrol name, source of data to parse
+ * @param pointName - patrol name, source of data to parse
  * @returns parsed waypoint data
  */
-export function parseWaypointData(waypointName: TPath, patrolFlags: Flags32, patrolName: TName): IWaypointData {
+export function parseWaypointData(patrolName: TPath, patrolFlags: Flags32, pointName: TName): IWaypointData {
   const waypointData: IWaypointData = {
     flags: patrolFlags,
   };
 
-  if (string.find(patrolName, "|", undefined, true) === null) {
+  if (string.find(pointName, "|", undefined, true) === null) {
     return waypointData;
   }
 
   let index: TIndex = 1;
 
-  for (const parameter of string.gfind(patrolName, "([%w%+~_\\%=%{%}%s%!%-%,%*]+)|*")) {
+  for (const parameter of string.gfind(pointName, "([%w%+~_\\%=%{%}%s%!%-%,%*]+)|*")) {
     // Skip first iteration.
     if (index !== 1) {
-      assert(parameter !== "", "path '%s': waypoint '%s': syntax error in waypoint name", waypointName, patrolName);
+      assert(parameter !== "", "path '%s': waypoint '%s': syntax error in waypoint name", patrolName, pointName);
 
       const [position] = string.find(parameter, "=", 1, true);
 
-      assertDefined(position, "path '%s': waypoint '%s': syntax error in waypoint name", waypointName, patrolName);
+      assertDefined(position, "path '%s': waypoint '%s': syntax error in waypoint name", patrolName, pointName);
 
       const field: string = string.sub(parameter, 1, position - 1);
       let parsed: string = string.sub(parameter, position + 1);
@@ -322,8 +322,8 @@ export function parseWaypointData(waypointName: TPath, patrolFlags: Flags32, pat
       assert(
         field && field !== "",
         "path '%s': waypoint '%s': syntax error while parsing the param '%s': no field specified",
-        waypointName,
         patrolName,
+        pointName,
         parameter
       );
 
@@ -342,6 +342,10 @@ export function parseWaypointData(waypointName: TPath, patrolFlags: Flags32, pat
 
 /**
  * Parse all lines from ini file section to lua table.
+ *
+ * @param ini - ini file to parse
+ * @param section - section name to parse
+ * @returns table matching ini file section where field is key and value is matching ini counterpart
  */
 export function parseAllSectionToTable<T = string>(ini: IniFile, section: TSection): Optional<LuaTable<string, T>> {
   if (ini.section_exist(section)) {
@@ -363,32 +367,30 @@ export function parseAllSectionToTable<T = string>(ini: IniFile, section: TSecti
 }
 
 /**
- * todo;
+ * Parse patrol waypoints data.
+ * Collects all waypoints from patrol and maps to waypoint data.
+ *
+ * @param patrolName - name of patrol to parse
+ * @returns list of waypoint descriptors
  */
-export function parsePathWaypoints(pathname: Optional<TPath>): Optional<LuaArray<IWaypointData>> {
-  if (!pathname) {
-    return null;
-  }
-
-  const waypointPatrol: Patrol = new patrol(pathname);
+export function parseWaypointsData(patrolName: TPath): LuaArray<IWaypointData> {
+  const waypointPatrol: Patrol = new patrol(patrolName);
   const count: TCount = waypointPatrol.count();
-  const waypointsInfo: LuaArray<IWaypointData> = new LuaTable();
+  const waypointsData: LuaArray<IWaypointData> = new LuaTable();
 
   for (const point of $range(0, count - 1)) {
     const data: Optional<IWaypointData> = parseWaypointData(
-      pathname,
+      patrolName,
       waypointPatrol.flags(point),
       waypointPatrol.name(point)
     );
 
-    if (!data) {
-      abort("error while parsing point %d of path '%s'", point, pathname);
-    }
+    assert(data, "Error while parsing point '%d' of path '%s'.", point, patrolName);
 
-    waypointsInfo.set(point, data);
+    waypointsData.set(point, data);
   }
 
-  return waypointsInfo;
+  return waypointsData;
 }
 
 /**

@@ -1,4 +1,4 @@
-export * from "@/fixtures/xray/mocks/objects/Patrol.mock";
+export * from "@/fixtures/xray/mocks/objects/path/Patrol.mock";
 
 export * from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
 export * from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
