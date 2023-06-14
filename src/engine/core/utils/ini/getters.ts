@@ -1,5 +1,5 @@
 import { IBaseSchemeLogic } from "@/engine/core/schemes/base";
-import { abort, assertDefined } from "@/engine/core/utils/assertion";
+import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { parseConditionsList, parseNumbersList, parseParameters } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, IniFile, LuaArray, Optional, TCount, TIndex, TName, TSection } from "@/engine/lib/types";
@@ -109,33 +109,34 @@ export function readIniBoolean(
 }
 
 /**
- * todo: Casting verification.
+ * Get two numbers from ini line.
+ *
+ * @param ini - config file to read
+ * @param section - config section to read
+ * @param field - section field to read
+ * @param default1 - first default value if config is missing
+ * @param default2 - second default value if config is missing
+ * @returns two numbers as multi return
  */
 export function getTwoNumbers(
-  iniFile: IniFile,
+  ini: IniFile,
   section: Optional<TName>,
-  line: TName,
+  field: TName,
   default1: number,
   default2: number
 ): LuaMultiReturn<[number, number]> {
-  if (iniFile.line_exist(section, line)) {
-    const numbersList: LuaArray<number> = parseNumbersList(iniFile.r_string(section as TName, line));
-    const count: TCount = numbersList.length();
+  if (ini.line_exist(section, field)) {
+    const numbersList: LuaArray<number> = parseNumbersList(ini.r_string(section as TName, field));
 
-    if (count === 0) {
-      return $multi(default1, default2);
-    } else if (count === 1) {
-      return $multi(numbersList.get(1), default2);
-    } else {
-      return $multi(numbersList.get(1), numbersList.get(2));
-    }
+    return $multi(numbersList.get(1) || default1, numbersList.get(2) || default2);
   } else {
     return $multi(default1, default2);
   }
 }
 
 /**
- * todo
+ * Read conditions list from ini file section.
+ * todo: Probably should be removed in favor of other methods.
  */
 export function readIniConditionList(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
   const data: Optional<string> = readIniString(ini, section, field, false, "");
@@ -146,9 +147,7 @@ export function readIniConditionList(ini: IniFile, section: TSection, field: TNa
 
   const parameters: LuaArray<string> = parseParameters(data);
 
-  if (!parameters.get(1)) {
-    abort("Invalid syntax in conditions list.");
-  }
+  assertDefined(parameters.get(1), "Invalid syntax in conditions list.");
 
   return {
     name: field,
@@ -160,9 +159,15 @@ export function readIniConditionList(ini: IniFile, section: TSection, field: TNa
 }
 
 /**
- * todo;
+ * Read from ini config number and following conditions list after it.
+ * Sample data format: `string | condlist`
+ *
+ * @param ini - config file to read
+ * @param section - config section to read
+ * @param field - section field to read
+ * @returns logics scheme object
  */
-export function getConfigStringAndCondList(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
+export function readConfigStringAndCondList(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
   const data: string = readIniString(ini, section, field, false, "");
 
   if (!data) {
@@ -171,9 +176,7 @@ export function getConfigStringAndCondList(ini: IniFile, section: TSection, fiel
 
   const parameters: LuaArray<string> = parseParameters(data);
 
-  if (!parameters.get(1) || !parameters.get(2)) {
-    abort("Invalid syntax in condlist");
-  }
+  assert(parameters.get(1) && parameters.get(2), "Invalid syntax in condlist.");
 
   return {
     name: field,
@@ -185,28 +188,15 @@ export function getConfigStringAndCondList(ini: IniFile, section: TSection, fiel
 }
 
 /**
- * todo
- * todo
- * todo
+ * Read from ini config number and following conditions list after it.
+ * Sample data format: `number | condlist`
+ *
+ * @param ini - config file to read
+ * @param section - config section to read
+ * @param field - section field to read
+ * @returns logics scheme object
  */
-export function getSchemeByIniSection(section: TSection): EScheme {
-  const [scheme] = string.gsub(section, "%d", "");
-  const [at, to] = string.find(scheme, "@", 1, true);
-
-  if (at !== null && to !== null) {
-    return string.sub(scheme, 1, at - 1) as EScheme;
-  }
-
-  return scheme as EScheme;
-}
-
-/**
- * todo
- * todo
- * todo
- * todo
- */
-export function getConfigNumberAndConditionList(
+export function readConfigNumberAndConditionList(
   ini: IniFile,
   section: TSection,
   field: TName
@@ -217,17 +207,15 @@ export function getConfigNumberAndConditionList(
     return null;
   }
 
-  const params: LuaArray<string> = parseParameters(data);
+  const parameters: LuaArray<string> = parseParameters(data);
 
-  if (!params.get(1) || !params.get(2)) {
-    abort("Invalid condlist: %s", data);
-  }
+  assert(parameters.get(1) && parameters.get(2), "Invalid syntax in condlist.");
 
   return {
     name: field,
-    v1: tonumber(params.get(1))!,
-    condlist: parseConditionsList(params.get(2)),
+    condlist: parseConditionsList(parameters.get(2)),
     npc_id: null,
+    v1: tonumber(parameters.get(1))!,
     v2: null,
   };
 }

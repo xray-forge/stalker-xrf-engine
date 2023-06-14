@@ -8,6 +8,7 @@ import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   AnyArgs,
   ClientObject,
+  EScheme,
   Flags32,
   IniFile,
   LuaArray,
@@ -670,5 +671,27 @@ export function parseNumberOptional<T extends StringOptional>(value: T): Optiona
     return null;
   } else {
     return tonumber(value) as Optional<number>;
+  }
+}
+
+/**
+ * Get scheme name from full section name.
+ *
+ * @param section - full section name
+ * @returns scheme name
+ * @example some_name@parameter -> some_name
+ */
+export function getSchemeByIniSection(section: TSection): Optional<EScheme> {
+  let [scheme] = string.gsub(section, "%d", "");
+  const [at, to] = string.find(scheme, "@", 1, true);
+
+  if (at !== null && to !== null) {
+    scheme = string.sub(scheme, 1, at - 1) as EScheme;
+  }
+
+  if (scheme === "" || scheme === null) {
+    return null;
+  } else {
+    return scheme as EScheme;
   }
 }

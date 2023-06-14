@@ -7,10 +7,10 @@ import { getExtern } from "@/engine/core/utils/binding";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import {
   addCondition,
-  getConfigNumberAndConditionList,
   getConfigStringAndConditionList,
   getConfigTwoStringsAndConditionsList,
   getTwoNumbers,
+  readConfigNumberAndConditionList,
   readIniBoolean,
   readIniConditionList,
   readIniString,
@@ -304,14 +304,14 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Opti
   }
 
   // todo: Move conditions to enum.
-  addConditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN);
-  addConditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_AND_VISIBLE);
-  addConditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN);
-  addConditions(getConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE);
+  addConditions(readConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN);
+  addConditions(readConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_AND_VISIBLE);
+  addConditions(readConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN);
+  addConditions(readConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE);
   addConditions(getConfigStringAndConditionList, ESchemeCondition.ON_SIGNAL);
   addConditions(readIniConditionList, ESchemeCondition.ON_INFO);
-  addConditions(getConfigNumberAndConditionList, ESchemeCondition.ON_TIMER);
-  addConditions(getConfigNumberAndConditionList, ESchemeCondition.ON_GAME_TIMER);
+  addConditions(readConfigNumberAndConditionList, ESchemeCondition.ON_TIMER);
+  addConditions(readConfigNumberAndConditionList, ESchemeCondition.ON_GAME_TIMER);
   addConditions(getConfigStringAndConditionList, ESchemeCondition.ON_ACTOR_IN_ZONE);
   addConditions(getConfigStringAndConditionList, ESchemeCondition.ON_ACTOR_NOT_IN_ZONE);
   addConditions(readIniConditionList, ESchemeCondition.ON_ACTOR_INSIDE);

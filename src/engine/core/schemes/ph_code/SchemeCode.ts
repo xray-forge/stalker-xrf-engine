@@ -4,7 +4,7 @@ import { CodeManager } from "@/engine/core/schemes/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/engine/core/schemes/ph_code/ISchemeCodeState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import {
-  getConfigStringAndCondList,
+  readConfigStringAndCondList,
   readIniConditionList,
   readIniNumber,
   readIniString,
@@ -40,12 +40,12 @@ export class SchemeCode extends AbstractScheme {
       state.on_check_code = new LuaTable();
 
       let it: TIndex = 1;
-      let cc: Optional<IBaseSchemeLogic> = getConfigStringAndCondList(ini, section, "on_check_code" + it);
+      let cc: Optional<IBaseSchemeLogic> = readConfigStringAndCondList(ini, section, "on_check_code" + it);
 
       while (cc) {
         state.on_check_code.set(cc.v1 as TName, cc.condlist);
         it += 1;
-        cc = getConfigStringAndCondList(ini, section, "on_check_code" + it);
+        cc = readConfigStringAndCondList(ini, section, "on_check_code" + it);
       }
     }
   }

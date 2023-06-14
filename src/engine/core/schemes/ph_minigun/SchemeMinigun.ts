@@ -3,7 +3,7 @@ import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMin
 import { MinigunManager } from "@/engine/core/schemes/ph_minigun/MinigunManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import {
-  getConfigStringAndCondList,
+  readConfigStringAndCondList,
   readIniBoolean,
   readIniNumber,
   readIniString,
@@ -47,8 +47,8 @@ export class SchemeMinigun extends AbstractScheme {
     state.fire_track_target = readIniBoolean(ini, section, "track_target", false, false);
     state.fire_angle = readIniNumber(ini, section, "fire_angle", false, DEF_FIRE_ANGLE);
     state.shoot_only_on_visible = readIniBoolean(ini, section, "shoot_only_on_visible", false, true);
-    state.on_target_vis = getConfigStringAndCondList(ini, section, "on_target_vis");
-    state.on_target_nvis = getConfigStringAndCondList(ini, section, "on_target_nvis");
+    state.on_target_vis = readConfigStringAndCondList(ini, section, "on_target_vis");
+    state.on_target_nvis = readConfigStringAndCondList(ini, section, "on_target_nvis");
   }
 
   /**
