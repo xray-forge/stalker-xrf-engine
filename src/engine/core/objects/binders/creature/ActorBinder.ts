@@ -128,6 +128,7 @@ export class ActorBinder extends object_binder {
     }
 
     this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE, delta, this);
+    this.eventsManager.tick();
 
     // todo: Probably part of sim manager?
     updateSimulationObjectAvailability(alife().actor<Actor>());

@@ -1,3 +1,5 @@
+import { AnyCallable, TDuration, TTimestamp } from "@/engine/lib/types";
+
 /**
  * List of event to emit across the core.
  */
@@ -118,4 +120,22 @@ export enum EGameEvent {
    * Game started.
    */
   GAME_STARTED,
+}
+
+/**
+ * Descriptor of interval to process on game ticks.
+ */
+export interface IIntervalDescriptor {
+  callback: AnyCallable;
+  period: TDuration;
+  last: TTimestamp;
+}
+
+/**
+ * Descriptor of timeout to process on game ticks.
+ */
+export interface ITimeoutDescriptor {
+  callback: AnyCallable;
+  delay: TDuration;
+  last: TTimestamp;
 }
