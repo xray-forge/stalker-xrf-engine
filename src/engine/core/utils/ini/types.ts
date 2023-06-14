@@ -1,5 +1,5 @@
 import type { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import type { Flags32, LuaArray, Optional, TName, TProbability, TSection } from "@/engine/lib/types";
+import type { Flags32, LuaArray, Optional, TCount, TName, TProbability, TSection } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -23,6 +23,14 @@ export interface IWaypointData {
   count?: number;
   t?: number | "*";
   flags: Flags32;
+}
+
+/**
+ * todo;
+ */
+export interface ISpawnDescriptor {
+  count: TCount;
+  probability: TProbability;
 }
 
 /**
