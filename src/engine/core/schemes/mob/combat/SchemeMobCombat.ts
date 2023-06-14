@@ -15,9 +15,6 @@ export class SchemeMobCombat extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_COMBAT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemeMobCombatState = AbstractScheme.assign(object, ini, scheme, section);
 
@@ -25,9 +22,6 @@ export class SchemeMobCombat extends AbstractScheme {
     state.enabled = true;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -42,9 +36,6 @@ export class SchemeMobCombat extends AbstractScheme {
     SchemeMobCombat.subscribe(object, state, newAction);
   }
 
-  /**
-   * todo: Description.
-   */
   public static override disable(object: ClientObject, scheme: EScheme): void {
     const state: Optional<ISchemeMobCombatState> = registry.objects.get(object.id())[scheme] as ISchemeMobCombatState;
 

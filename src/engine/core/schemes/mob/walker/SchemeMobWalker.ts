@@ -17,9 +17,6 @@ export class SchemeMobWalker extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.MOB_WALKER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.MONSTER;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
@@ -47,9 +44,6 @@ export class SchemeMobWalker extends AbstractScheme {
     state.path_look_info = null;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

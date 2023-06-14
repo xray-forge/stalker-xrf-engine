@@ -49,7 +49,7 @@ import {
   trySwitchToAnotherSection,
 } from "@/engine/core/schemes/base/utils";
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
-import { PostCombatIdle } from "@/engine/core/schemes/danger/PostCombatIdle";
+import { PostCombatIdle } from "@/engine/core/schemes/combat_idle/PostCombatIdle";
 import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
 import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTask";

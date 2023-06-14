@@ -21,9 +21,6 @@ export class SchemeWalker extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.WALKER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
@@ -65,9 +62,6 @@ export class SchemeWalker extends AbstractScheme {
     state.path_look_info = null;
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

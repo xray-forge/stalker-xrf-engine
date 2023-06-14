@@ -6,7 +6,7 @@ import { danger_object } from "xray16";
 export const logicsConfig = {
   ACTOR_VISIBILITY_FRUSTUM: 35,
   ARTEFACT_OFFLINE_DISTANCE: 150,
-  DANGER_INERTION_TIME: 30_000,
+  DANGER_INERTION_TIME: 15_000,
   DANGER_IGNORE_DISTANCE_GENERAL: 150,
   DANGER_IGNORE_DISTANCE_BY_TYPE: {
     [danger_object.grenade]: 15,
@@ -32,6 +32,13 @@ export const logicsConfig = {
       MAX: 80,
     },
   },
+  COMBAT: {
+    ATTACK_DISTANCE_SQR: 60 * 60,
+    BULLET_REACT_DISTANCE_SQR: 2 * 2,
+    ALLIES_SHOOTING_ASSIST_DISTANCE_SQR: 40 * 40,
+    MONSTER_REACT_DISTANCE_SQR: 30 * 30,
+    BULLET_CONFUSED_DISTANCE_SQR: 50 * 50,
+  },
   COMBAT_SEARCH: {
     LAST_SEEN_POSITION_TIMEOUT: 30_000,
     SEARCH_DIRECTION_CHANGE_TIMEOUT: 10_000,
@@ -40,7 +47,7 @@ export const logicsConfig = {
   },
   POST_COMBAT_IDLE: {
     MIN: 5_000,
-    MAX: 15_000,
+    MAX: 10_000,
   },
   SQUAD: {
     STAY_POINT_IDLE_MIN: 180 * 60,

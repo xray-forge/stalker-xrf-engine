@@ -2,6 +2,7 @@ import { cast_planner, stalker_ids } from "xray16";
 
 import { IRegistryObjectState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
+import { DangerManager } from "@/engine/core/schemes/danger/DangerManager";
 import { EvaluatorDanger } from "@/engine/core/schemes/danger/evaluators";
 import { ISchemeDangerState } from "@/engine/core/schemes/danger/ISchemeDangerState";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -36,6 +37,9 @@ export class SchemeDanger extends AbstractScheme {
 
     dangerActionPlanner.remove_evaluator(stalker_ids.property_danger);
     dangerActionPlanner.add_evaluator(stalker_ids.property_danger, new EvaluatorDanger(state));
+
+    // Assign manager to handle danger events.
+    state.dangerManager = new DangerManager(object, state);
   }
 
   public static override reset(
