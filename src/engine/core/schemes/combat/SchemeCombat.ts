@@ -13,7 +13,7 @@ import { getCharacterCommunity } from "@/engine/core/utils/object/object_general
 import { parseConditionsList } from "@/engine/core/utils/parse";
 import { communities } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionBase, ActionPlanner, AnyObject, ClientObject, IniFile, Optional } from "@/engine/lib/types";
+import { ActionBase, ActionPlanner, AnyObject, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -25,9 +25,6 @@ export class SchemeCombat extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
   public static override disable(object: ClientObject, scheme: EScheme): void {
     const state: Optional<ISchemeCombatState> = registry.objects.get(object.id())[scheme] as ISchemeCombatState;
 
@@ -36,13 +33,12 @@ export class SchemeCombat extends AbstractScheme {
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const isZombied: boolean = getCharacterCommunity(object) === communities.zombied;
 
     if (section || isZombied) {
+      logger.info("Activate scheme:", object.name());
+
       const state: ISchemeCombatState = AbstractScheme.assign(object, ini, scheme, section);
 
       state.logic = getConfigSwitchConditions(ini, section);
@@ -89,8 +85,8 @@ export class SchemeCombat extends AbstractScheme {
   /**
    * todo: Description.
    */
-  public static setCombatType(object: ClientObject, actor: ClientObject, target: Optional<AnyObject>): void {
-    if (target === null) {
+  public static setCombatType(object: ClientObject, actor: ClientObject, overrides: Optional<AnyObject>): void {
+    if (overrides === null) {
       return;
     }
 
@@ -98,10 +94,10 @@ export class SchemeCombat extends AbstractScheme {
 
     state.enemy = object.best_enemy();
 
-    let scriptCombatType = null;
+    let scriptCombatType: Optional<TName> = null;
 
-    if (target.combat_type !== null) {
-      scriptCombatType = pickSectionFromCondList(actor, object, target.combat_type.condlist);
+    if (overrides.combat_type !== null) {
+      scriptCombatType = pickSectionFromCondList(actor, object, overrides.combat_type.condlist);
 
       if (scriptCombatType === NIL) {
         scriptCombatType = null;
@@ -109,6 +105,6 @@ export class SchemeCombat extends AbstractScheme {
     }
 
     state.script_combat_type = scriptCombatType;
-    target.script_combat_type = scriptCombatType;
+    overrides.script_combat_type = scriptCombatType;
   }
 }

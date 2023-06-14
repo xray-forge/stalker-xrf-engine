@@ -19,26 +19,21 @@ export class ActionShoot extends action_base {
     this.state = state;
   }
 
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
     super.initialize();
-    setStalkerState(
-      this.object,
-      EStalkerState.HIDE_FIRE,
-      null,
-      null,
-      { lookObject: this.object.best_enemy(), lookPosition: null },
-      null
-    );
+
+    logger.info("Start camper shooting:", this.object.name());
+
+    setStalkerState(this.object, EStalkerState.HIDE_FIRE, null, null, {
+      lookObject: this.object.best_enemy(),
+      lookPosition: null,
+    });
     this.state.isCamperCombatAction = true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override finalize(): void {
+    logger.info("Stop camper shooting:", this.object.name());
+
     super.finalize();
     this.state.isCamperCombatAction = false;
   }

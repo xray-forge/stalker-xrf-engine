@@ -7,7 +7,8 @@ import { ClientObject, Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluator to verify whether object sees enemy.
+ * Also remembers last seen position.
  */
 @LuabindClass()
 export class EvaluatorSee extends property_evaluator {
@@ -19,14 +20,14 @@ export class EvaluatorSee extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Check whether object see enemy.
    */
   public override evaluate(): boolean {
     const bestEnemy: Optional<ClientObject> = this.object.best_enemy();
 
+    // Side effect of evaluator.
     if (bestEnemy !== null && this.object.alive() && this.object.see(bestEnemy)) {
-      // Side effect of evaluator.
-      this.state.last_seen_pos = bestEnemy.position();
+      this.state.lastSeenEnemyAtPosition = bestEnemy.position();
 
       return true;
     } else {

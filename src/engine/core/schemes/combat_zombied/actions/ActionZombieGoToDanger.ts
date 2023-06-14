@@ -38,9 +38,6 @@ export class ActionZombieGoToDanger extends action_base {
   public enemyLastSeenPos: Optional<Vector> = null;
   public enemyLastSeenVid: Optional<TNumberId> = null;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeCombatState) {
     super(null, ActionZombieGoToDanger.__name);
     this.state = state;
@@ -50,6 +47,8 @@ export class ActionZombieGoToDanger extends action_base {
    * todo: Description.
    */
   public override initialize(): void {
+    logger.info("Go to danger:", this.object.name());
+
     super.initialize();
 
     this.object.set_desired_direction();
@@ -65,11 +64,11 @@ export class ActionZombieGoToDanger extends action_base {
   /**
    * todo: Description.
    */
-  public setState(state: EStalkerState, bestEnemy: Optional<ClientObject>, pos: Optional<Vector>): void {
+  public setState(state: EStalkerState, bestEnemy: Optional<ClientObject>, position: Optional<Vector>): void {
     if (state !== this.lastState) {
       this.targetState.lookObject = bestEnemy;
-      this.targetState.lookPosition = pos;
-      setStalkerState(this.object, state, null, null, this.targetState, null);
+      this.targetState.lookPosition = position;
+      setStalkerState(this.object, state, null, null, this.targetState);
       this.lastState = state;
     }
   }
@@ -114,6 +113,8 @@ export class ActionZombieGoToDanger extends action_base {
    * todo: Description.
    */
   public override finalize(): void {
+    logger.info("Stop going to danger:", this.object.name());
+
     super.finalize();
     this.state.currentAction = null;
   }

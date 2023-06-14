@@ -4,7 +4,7 @@ import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ActionLookAround, ActionShoot } from "@/engine/core/schemes/combat_camper/actions";
 import { EvaluatorCombatCamper, EvaluatorSee } from "@/engine/core/schemes/combat_camper/evaluator";
-import { abort } from "@/engine/core/utils/assertion";
+import { assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
@@ -18,9 +18,6 @@ export class SchemeCombatCamper extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COMBAT_CAMPER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -29,9 +26,7 @@ export class SchemeCombatCamper extends AbstractScheme {
     state: ISchemeCombatState,
     planner?: ActionPlanner
   ): void {
-    if (!planner) {
-      abort("Expected planner to be provided for add method call.");
-    }
+    assertDefined(planner, "Expected planner to be provided for add method call.");
 
     planner.add_evaluator(EEvaluatorId.IS_COMBAT_CAMPING_ENABLED, new EvaluatorCombatCamper(state));
     planner.add_evaluator(EEvaluatorId.SEE_ENEMY, new EvaluatorSee(state));

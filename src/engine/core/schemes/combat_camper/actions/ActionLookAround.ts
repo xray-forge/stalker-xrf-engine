@@ -1,17 +1,18 @@
-import { action_base, device, LuabindClass } from "xray16";
+import { action_base, LuabindClass, time_global } from "xray16";
 
 import { setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
-import { abort } from "@/engine/core/utils/assertion";
+import { assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { copyVector, vectorRotateY } from "@/engine/core/utils/vector";
-import { ClientObject, Optional, TCount, TIndex, TRate, TTimestamp, Vector } from "@/engine/lib/types";
+import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { ClientObject, Optional, TCount, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Action to help remembering where enemy was and search for enemy near last location.
  */
 @LuabindClass()
 export class ActionLookAround extends action_base {
@@ -24,10 +25,9 @@ export class ActionLookAround extends action_base {
     this.state = state;
   }
 
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
+    logger.info("Start look around:", this.object.name());
+
     super.initialize();
 
     this.state.isCamperCombatAction = true;
@@ -36,82 +36,78 @@ export class ActionLookAround extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Reset state of search and timeouts.
    */
   public reset(): void {
-    this.forgetTime = device().time_global() + 30_000;
-    this.changeDirTime = device().time_global() + 15_000;
+    const now: TTimestamp = time_global();
+    const bestEnemy: Optional<ClientObject> = this.object.best_enemy();
 
-    if (!this.state.last_seen_pos && this.object.best_enemy() !== null) {
-      this.state.last_seen_pos = this.object.best_enemy()!.position();
+    this.forgetTime = now + logicsConfig.COMBAT_SEARCH.LAST_SEEN_POSITION_TIMEOUT;
+    this.changeDirTime = now + logicsConfig.COMBAT_SEARCH.SEARCH_DIRECTION_CHANGE_TIMEOUT;
+
+    if (!this.state.lastSeenEnemyAtPosition && bestEnemy) {
+      this.state.lastSeenEnemyAtPosition = bestEnemy.position();
     }
 
-    setStalkerState(
-      this.object,
-      EStalkerState.HIDE,
-      null,
-      null,
-      { lookPosition: this.state.last_seen_pos, lookObject: null },
-      null
-    );
+    setStalkerState(this.object, EStalkerState.HIDE, null, null, {
+      lookPosition: this.state.lastSeenEnemyAtPosition,
+      lookObject: null,
+    });
   }
 
   /**
-   * todo: Description.
+   * Forget about search position or look for target in different direction.
    */
   public override execute(): void {
     super.execute();
 
-    if (this.forgetTime < device().time_global()) {
-      this.state.last_seen_pos = null;
+    const now: TTimestamp = time_global();
+
+    // Forget about place where to search.
+    if (this.forgetTime < now) {
+      this.state.lastSeenEnemyAtPosition = null;
 
       return;
     }
 
-    if (this.changeDirTime < device().time_global()) {
-      this.changeDirTime = device().time_global() + math.random(2000, 4000);
+    // Should change direction to search for enemy.
+    if (this.changeDirTime < now) {
+      this.changeDirTime = now + math.random(2000, 4000);
 
-      const angle: TRate = math.random(0, 120) - 60;
-
-      if (this.state.last_seen_pos === null) {
-        abort("report this error to STALKER-829 bug [%s]", this.object.name());
-      }
-
-      let direction: Vector = copyVector(this.state.last_seen_pos).sub(this.object.position());
-
-      direction = vectorRotateY(direction, angle);
-
-      setStalkerState(
-        this.object,
-        EStalkerState.HIDE,
-        null,
-        null,
-        { lookPosition: this.object.position().add(direction), lookObject: null },
-        null
+      assertDefined(
+        this.state.lastSeenEnemyAtPosition,
+        "report this error to STALKER-829 bug [%s]",
+        this.object.name()
       );
+
+      const direction: Vector = vectorRotateY(
+        copyVector(this.state.lastSeenEnemyAtPosition).sub(this.object.position()),
+        math.random(
+          logicsConfig.COMBAT_SEARCH.SEARCH_DIRECTION_ROTATION_RANGE.MIN,
+          logicsConfig.COMBAT_SEARCH.SEARCH_DIRECTION_ROTATION_RANGE.MAX
+        )
+      );
+
+      setStalkerState(this.object, EStalkerState.HIDE, null, null, {
+        lookPosition: this.object.position().add(direction),
+        lookObject: null,
+      });
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public override finalize(): void {
+    logger.info("End look around:", this.object.name());
+
     super.finalize();
 
-    this.state.last_seen_pos = null;
+    this.state.lastSeenEnemyAtPosition = null;
     this.state.isCamperCombatAction = false;
   }
 
   /**
-   * todo: Description.
+   * Handle object hit callback and reset search on hit.
    */
-  public onHit(
-    object: ClientObject,
-    amount: TCount,
-    constDirection: Vector,
-    who: ClientObject,
-    boneIndex: TIndex
-  ): void {
+  public onHit(object: ClientObject, amount: TCount, direction: Vector, who: ClientObject): void {
     if (who === null || !this.state.isCamperCombatAction) {
       return;
     }
@@ -119,7 +115,7 @@ export class ActionLookAround extends action_base {
     const bestEnemy: Optional<ClientObject> = this.object?.best_enemy();
 
     if (bestEnemy && who.id() === bestEnemy.id()) {
-      this.state.last_seen_pos = bestEnemy.position();
+      this.state.lastSeenEnemyAtPosition = bestEnemy.position();
       this.reset();
     }
   }
