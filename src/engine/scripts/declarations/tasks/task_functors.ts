@@ -5,7 +5,7 @@ import { SurgeManager } from "@/engine/core/managers/world/SurgeManager";
 import { extern } from "@/engine/core/utils/binding";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
+import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini/parse";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { ClientObject, Optional, TLabel, TNumberId, TRate, TSection, TStringId } from "@/engine/lib/types";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";

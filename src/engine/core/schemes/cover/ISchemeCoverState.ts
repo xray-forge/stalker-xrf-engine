@@ -1,5 +1,5 @@
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { TConditionList } from "@/engine/core/utils/parse";
+import { TConditionList } from "@/engine/core/utils/ini/parse";
 import { TDistance } from "@/engine/lib/types";
 
 /**

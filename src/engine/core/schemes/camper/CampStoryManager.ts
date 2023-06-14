@@ -12,8 +12,8 @@ import { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { readIniString } from "@/engine/core/utils/ini/getters";
+import { parseStringsList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseStringsList } from "@/engine/core/utils/parse";
 import {
   ClientObject,
   EScheme,

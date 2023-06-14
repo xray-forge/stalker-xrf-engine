@@ -4,9 +4,9 @@ import { registry, setStalkerState } from "@/engine/core/database";
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
+import { parsePathWaypoints } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_general";
-import { parsePathWaypoints } from "@/engine/core/utils/parse";
 import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import { ClientObject, EClientObjectPath, TDistance, TNumberId, TTimestamp, Vector } from "@/engine/lib/types";
 

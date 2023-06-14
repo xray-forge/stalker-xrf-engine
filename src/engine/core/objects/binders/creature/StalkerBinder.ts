@@ -57,13 +57,13 @@ import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
+import { TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   getCharacterCommunity,
   getObjectSquad,
   updateObjectInvulnerability,
 } from "@/engine/core/utils/object/object_general";
-import { TConditionList } from "@/engine/core/utils/parse";
 import { setObjectsRelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";

@@ -23,6 +23,8 @@ export class ActionSmartCoverExit extends action_base {
    * todo: Description.
    */
   public override initialize(): void {
+    logger.info("Exist smart cover:", this.object.name());
+
     super.initialize();
 
     const object: ClientObject = this.object;

@@ -11,8 +11,8 @@ import {
 } from "@/engine/core/schemes/smartcover/ISchemeSmartCoverState";
 import { abort } from "@/engine/core/utils/assertion";
 import { getParamString, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, StringOptional, TName, TNumberId, Vector } from "@/engine/lib/types";
 

@@ -1,5 +1,5 @@
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { TConditionList } from "@/engine/core/utils/parse";
+import { TConditionList } from "@/engine/core/utils/ini/parse";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { Optional, TName } from "@/engine/lib/types";
 

@@ -8,8 +8,8 @@ import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/objects/sounds
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
 import { assert } from "@/engine/core/utils/assertion";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
+import { parseStringsList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseStringsList } from "@/engine/core/utils/parse";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { roots } from "@/engine/lib/constants/roots";
 import { NIL } from "@/engine/lib/constants/words";

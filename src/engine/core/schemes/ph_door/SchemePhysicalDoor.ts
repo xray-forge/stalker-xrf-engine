@@ -3,8 +3,8 @@ import { ISchemePhysicalDoorState } from "@/engine/core/schemes/ph_door/ISchemeP
 import { PhysicalDoorManager } from "@/engine/core/schemes/ph_door/PhysicalDoorManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/getters";
+import { parseData1v } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseData1v } from "@/engine/core/utils/parse";
 import { ClientObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 

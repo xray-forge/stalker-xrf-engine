@@ -4,8 +4,8 @@ import { IRegistryObjectState, registry, setStalkerState } from "@/engine/core/d
 import { EStalkerState } from "@/engine/core/objects/state/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { IWaypointData, parseConditionsList, TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { IWaypointData, parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
 import { TRUE } from "@/engine/lib/constants/words";
 import {

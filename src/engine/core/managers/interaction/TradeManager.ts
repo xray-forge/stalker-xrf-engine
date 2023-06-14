@@ -6,8 +6,8 @@ import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreMan
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
+import { parseConditionsList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList } from "@/engine/core/utils/parse";
 import {
   ClientObject,
   IniFile,

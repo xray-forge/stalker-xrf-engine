@@ -24,6 +24,7 @@ import { ESchemeEvent } from "@/engine/core/schemes";
 import { emitSchemeEvent, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   action,
@@ -32,7 +33,6 @@ import {
   scriptCaptureObject,
   scriptReleaseObject,
 } from "@/engine/core/utils/object/object_general";
-import { TConditionList } from "@/engine/core/utils/parse";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {

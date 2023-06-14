@@ -1,11 +1,12 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
+import { getTwoNumbers, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
+import { IniFile } from "@/engine/lib/types";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("'getters' utils for ini file", () => {
   it("'readIniString' utils should correctly get data from ini files", () => {
-    const iniFile = mockIniFile("example.ltx", {
+    const iniFile: IniFile = mockIniFile("example.ltx", {
       section1: {
         a: "a1",
         b: "b2",
@@ -24,7 +25,7 @@ describe("'getters' utils for ini file", () => {
   });
 
   it("'readIniNumber' utils should correctly get data from ini files", () => {
-    const iniFile = mockIniFile("example.ltx", {
+    const iniFile: IniFile = mockIniFile("example.ltx", {
       section1: {
         a: 1,
         b: 2,
@@ -39,7 +40,7 @@ describe("'getters' utils for ini file", () => {
   });
 
   it("'readIniBoolean' utils should correctly get data from ini files", () => {
-    const iniFile = mockIniFile("example.ltx", {
+    const iniFile: IniFile = mockIniFile("example.ltx", {
       section1: {
         a: true,
         b: false,
@@ -53,5 +54,22 @@ describe("'getters' utils for ini file", () => {
 
     expect(() => readIniBoolean(iniFile, "section2", "a", true)).toThrow();
     expect(() => readIniBoolean(iniFile, "section2", "a", false)).not.toThrow();
+  });
+
+  it("'getTwoNumbers' util should get two numbers correctly", () => {
+    const iniFile: IniFile = mockIniFile("example.ltx", {
+      section1: {
+        a: "-4.3, 2",
+        b: "10 -5",
+        c: "10",
+        d: "",
+      },
+    });
+
+    expect(getTwoNumbers(iniFile, "section1", "a", 1, 1)).toEqual([-4.3, 2]);
+    expect(getTwoNumbers(iniFile, "section1", "b", 1, 1)).toEqual([10, -5]);
+    expect(getTwoNumbers(iniFile, "section1", "c", 1, 1)).toEqual([10, 1]);
+    expect(getTwoNumbers(iniFile, "section1", "d", 1, 1)).toEqual([1, 1]);
+    expect(getTwoNumbers(iniFile, "section1", "e", 1, 1)).toEqual([1, 1]);
   });
 });

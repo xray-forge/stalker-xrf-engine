@@ -42,8 +42,8 @@ import {
 /**
  * todo;
  */
-export function isSquadExisting(squadId: TStringId): boolean {
-  return getServerObjectByStoryId(squadId) !== null;
+export function isSquadExisting(squadStoryId: TStringId): boolean {
+  return getServerObjectByStoryId(squadStoryId) !== null;
 }
 
 /**
@@ -142,7 +142,7 @@ export function isObjectInZone(object: Optional<ClientObject>, zone: Optional<Cl
  * @returns whether object is wounded.
  */
 export function isObjectWounded(object: ClientObject): boolean {
-  const state = registry.objects.get(object.id());
+  const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (state === null) {
     return false;
@@ -380,7 +380,7 @@ export function isSeenByActor(object: ClientObject): boolean {
 export function isDistanceBetweenObjectsGreaterOrEqual(
   first: ClientObject,
   second: ClientObject,
-  distance: number
+  distance: TDistance
 ): boolean {
   return first.position().distance_to_sqr(second.position()) >= distance * distance;
 }
@@ -391,7 +391,7 @@ export function isDistanceBetweenObjectsGreaterOrEqual(
 export function isDistanceBetweenObjectsLessOrEqual(
   first: ClientObject,
   second: ClientObject,
-  distance: number
+  distance: TDistance
 ): boolean {
   return first.position().distance_to_sqr(second.position()) <= distance * distance;
 }
@@ -399,14 +399,14 @@ export function isDistanceBetweenObjectsLessOrEqual(
 /**
  * @returns whether distance to actor greater or equal.
  */
-export function isDistanceToActorGreaterOrEqual(object: ClientObject, distance: number): boolean {
+export function isDistanceToActorGreaterOrEqual(object: ClientObject, distance: TDistance): boolean {
   return object.position().distance_to_sqr(registry.actor.position()) >= distance * distance;
 }
 
 /**
  * @returns whether distance to actor less or equal.
  */
-export function isDistanceToActorLessOrEqual(object: ClientObject, distance: number): boolean {
+export function isDistanceToActorLessOrEqual(object: ClientObject, distance: TDistance): boolean {
   return object.position().distance_to_sqr(registry.actor.position()) <= distance * distance;
 }
 

@@ -5,8 +5,8 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper";
 import { abort } from "@/engine/core/utils/assertion";
+import { IWaypointData, parsePathWaypointsFromArgsList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { IWaypointData, parsePathWaypointsFromArgsList } from "@/engine/core/utils/parse";
 import { AnyCallable, ClientObject, LuaArray, Optional, Patrol, TCount, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

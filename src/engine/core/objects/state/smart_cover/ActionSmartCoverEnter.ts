@@ -24,6 +24,8 @@ export class ActionSmartCoverEnter extends action_base {
    * todo: Description.
    */
   public override initialize(): void {
+    logger.info("Enter smart cover:", this.object.name());
+
     super.initialize();
 
     const smartCoverState: ISchemeSmartCoverState = registry.objects.get(this.object.id())[

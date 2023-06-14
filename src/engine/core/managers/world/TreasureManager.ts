@@ -8,8 +8,8 @@ import { ETreasureState, NotificationManager } from "@/engine/core/managers/inte
 import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { parseConditionsList, parseSpawnDetails, TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList, parseSpawnDetails, TConditionList } from "@/engine/core/utils/parse";
 import { getTableSize } from "@/engine/core/utils/table";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { TTreasure } from "@/engine/lib/constants/treasures";
