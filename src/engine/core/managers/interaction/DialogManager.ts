@@ -7,7 +7,8 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { abort } from "@/engine/core/utils/assertion";
 import { isObjectWounded } from "@/engine/core/utils/check/check";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
-import { parseInfoPortions1, parseStringsList } from "@/engine/core/utils/ini/parse";
+import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini/parse";
+import { IConfigCondition } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
@@ -40,7 +41,7 @@ export interface IPhrasesDescriptor {
   actor_community: LuaArray<any> | "not_set" | "all";
   wounded: string;
   once: string;
-  info: LuaTable;
+  info: LuaArray<IConfigCondition>;
   smart: Optional<string>;
   told?: boolean;
 }
@@ -144,7 +145,7 @@ export class DialogManager extends AbstractCoreManager {
         };
 
         if (DIALOG_MANAGER_LTX.line_exist(id, "info") && DIALOG_MANAGER_LTX.r_string(id, "info") !== "") {
-          parseInfoPortions1(phrases.info, DIALOG_MANAGER_LTX.r_string(id, "info"));
+          parseInfoPortions(phrases.info, DIALOG_MANAGER_LTX.r_string(id, "info"));
         }
 
         if (category === "anomalies" || category === "place") {
@@ -398,15 +399,15 @@ export class DialogManager extends AbstractCoreManager {
       priority = 255;
     }
 
-    for (const [k, v] of PTIDSubtable.info) {
-      if (v.name) {
-        if (v.required === true) {
-          if (!hasAlifeInfo(v.name)) {
+    for (const [k, condition] of PTIDSubtable.info) {
+      if (condition.name) {
+        if (condition.required === true) {
+          if (!hasAlifeInfo(condition.name)) {
             priority = -1;
             break;
           }
         } else {
-          if (hasAlifeInfo(v.name)) {
+          if (hasAlifeInfo(condition.name)) {
             priority = -1;
             break;
           }

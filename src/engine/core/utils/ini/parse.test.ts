@@ -3,6 +3,7 @@ import { describe, expect, it } from "@jest/globals";
 import {
   getSchemeFromSection,
   parseConditionsList,
+  parseFunctionParams,
   parseInfoPortions,
   parseNumbersList,
   parseParameters,
@@ -205,6 +206,15 @@ describe("'ini_data' parsing utils", () => {
 
     expect(parseInfoPortions(third, null)).toBe(third);
     expect(luaTableToObject(parseInfoPortions(third, null))).toEqual({});
+  });
+
+  it("'parseFunctionParams' should correctly parse list of parameters for condlists", () => {
+    expect(luaTableToArray(parseFunctionParams("zat_b42_mayron:zat_b42_mayron_walk"))).toEqual([
+      "zat_b42_mayron",
+      "zat_b42_mayron_walk",
+    ]);
+    expect(luaTableToArray(parseFunctionParams("1:zat_b42_mayron_walk:2"))).toEqual([1, "zat_b42_mayron_walk", 2]);
+    expect(luaTableToArray(parseFunctionParams("1:-2:3.5:-5.5:-2.3a:c"))).toEqual([1, -2, 3.5, -5.5, "-2.3a", "c"]);
   });
 
   it("'parseStringOptional' should correctly handle values", () => {
