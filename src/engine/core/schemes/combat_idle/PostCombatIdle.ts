@@ -1,9 +1,9 @@
+import { ActionPostCombatIdleWait } from "core/schemes/combat_idle/actions";
 import { cast_planner, stalker_ids, world_property } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { ActionPostCombatIdleWait } from "@/engine/core/schemes/danger/actions";
-import { EvaluatorPostCombatIdleEnemy } from "@/engine/core/schemes/danger/evaluators";
-import { ISchemePostCombatIdleState } from "@/engine/core/schemes/danger/ISchemePostCombatIdleState";
+import { EvaluatorPostCombatIdleEnemy } from "@/engine/core/schemes/combat_idle/evaluators";
+import { ISchemePostCombatIdleState } from "@/engine/core/schemes/combat_idle/ISchemePostCombatIdleState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionBase, ActionPlanner, ClientObject } from "@/engine/lib/types";
 

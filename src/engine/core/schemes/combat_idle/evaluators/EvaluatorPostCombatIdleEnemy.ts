@@ -1,12 +1,12 @@
 import { LuabindClass, property_evaluator, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { ISchemePostCombatIdleState } from "@/engine/core/schemes/combat_idle/ISchemePostCombatIdleState";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
-import { ISchemePostCombatIdleState } from "@/engine/core/schemes/danger/ISchemePostCombatIdleState";
 import { isObjectEnemy } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { ClientObject, EScheme, Optional, TDistance } from "@/engine/lib/types";
+import { ClientObject, EScheme, Optional, TDistance, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -17,9 +17,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
   public readonly state: ISchemePostCombatIdleState;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemePostCombatIdleState) {
     super(null, EvaluatorPostCombatIdleEnemy.__name);
     this.state = state;
@@ -51,15 +48,17 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
       return true;
     }
 
+    const now: TTimestamp = time_global();
+
     if (bestEnemy === null && this.state.timer === null) {
       const overrides = registry.objects.get(this.object.id()).overrides;
       const min: TDistance = (overrides && overrides.min_post_combat_time * 1000) || logicsConfig.POST_COMBAT_IDLE.MIN;
       const max: TDistance = (overrides && overrides.max_post_combat_time * 1000) || logicsConfig.POST_COMBAT_IDLE.MAX;
 
       if (this.state.last_best_enemy_id === registry.actor.id()) {
-        this.state.timer = time_global();
+        this.state.timer = now;
       } else {
-        this.state.timer = time_global() + math.random(min, max);
+        this.state.timer = now + math.random(min, max);
       }
     }
 
@@ -67,7 +66,7 @@ export class EvaluatorPostCombatIdleEnemy extends property_evaluator {
       return bestEnemy !== null;
     }
 
-    if (time_global() < this.state.timer) {
+    if (now < this.state.timer) {
       return true;
     }
 

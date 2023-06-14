@@ -1,11 +1,12 @@
 import { getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes";
 import { switchObjectSchemeToSection } from "@/engine/core/schemes/base/utils";
+import { ISchemeDangerState } from "@/engine/core/schemes/danger";
 import { IActionSchemeHearState } from "@/engine/core/schemes/hear/IActionSchemeHearState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { parseConditionsList, parseParameters } from "@/engine/core/utils/parse";
-import { mapSndTypeToSoundType } from "@/engine/core/utils/sound";
+import { mapSoundMaskToSoundType } from "@/engine/core/utils/sound";
 import { ESoundType } from "@/engine/lib/constants/sound/sound_type";
 import {
   ClientObject,
@@ -78,13 +79,18 @@ export class ActionSchemeHear extends AbstractScheme {
     soundPower: TRate
   ): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());
+    const dangerState: Optional<ISchemeDangerState> = state[EScheme.DANGER] as Optional<ISchemeDangerState>;
+
+    if (dangerState) {
+      dangerState.dangerManager.onHear(object, whoId, soundType, soundPosition, soundPower);
+    }
 
     if (state.hearInfo === null) {
       return;
     }
 
     const storyId: TStringId = getStoryIdByObjectId(whoId) || "any";
-    const soundClassType: ESoundType = mapSndTypeToSoundType(soundType);
+    const soundClassType: ESoundType = mapSoundMaskToSoundType(soundType);
     const classTypeParameters = state.hearInfo[storyId] ? state.hearInfo[storyId][soundClassType] : null;
 
     if (classTypeParameters) {

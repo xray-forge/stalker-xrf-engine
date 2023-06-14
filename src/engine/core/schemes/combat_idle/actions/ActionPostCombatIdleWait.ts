@@ -4,8 +4,11 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerAnimationManager } from "@/engine/core/objects/state/StalkerAnimationManager";
 import { animations } from "@/engine/core/objects/state_lib/state_mgr_animation_list";
-import { ISchemePostCombatIdleState } from "@/engine/core/schemes/danger/ISchemePostCombatIdleState";
+import { ISchemePostCombatIdleState } from "@/engine/core/schemes/combat_idle/ISchemePostCombatIdleState";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, Optional } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
@@ -22,10 +25,9 @@ export class ActionPostCombatIdleWait extends action_base {
     this.state = state;
   }
 
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
+    logger.info("Start post combat idle state:", this.object.name());
+
     super.initialize();
 
     this.object.set_item(object.idle, this.object.best_weapon());
@@ -49,6 +51,22 @@ export class ActionPostCombatIdleWait extends action_base {
   /**
    * todo: Description.
    */
+  public override finalize(): void {
+    logger.info("End post combat idle state:", this.object.name());
+
+    GlobalSoundManager.getInstance().playSound(this.object.id(), "post_combat_relax", null, null);
+
+    if (this.isAnimationStarted) {
+      (this.state.animation as StalkerAnimationManager).setState(null, true);
+    }
+
+    this.state.animation = null;
+    super.finalize();
+  }
+
+  /**
+   * todo: Description.
+   */
   public override execute(): void {
     super.execute();
 
@@ -61,20 +79,6 @@ export class ActionPostCombatIdleWait extends action_base {
     }
 
     GlobalSoundManager.getInstance().playSound(this.object.id(), "post_combat_wait", null, null);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override finalize(): void {
-    GlobalSoundManager.getInstance().playSound(this.object.id(), "post_combat_relax", null, null);
-
-    if (this.isAnimationStarted) {
-      (this.state.animation as StalkerAnimationManager).setState(null, true);
-    }
-
-    this.state.animation = null;
-    super.finalize();
   }
 
   /**

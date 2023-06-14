@@ -6,6 +6,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore/index";
 import { isObjectEnemy } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { AnyObject, ClientObject, Optional, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
@@ -44,14 +45,10 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
 
       const serverEnemyObject: Optional<ServerCreatureObject> = alife().object(enemy.id());
 
-      // todo: Intention of this check?
+      // todo: Do timer based.
       if (serverObject && serverEnemyObject) {
         if (
-          serverObject.group_id !== MAX_U16 &&
-          registry.simulationObjects.get(serverObject.group_id) !== null &&
-          serverEnemyObject.group_id !== MAX_U16 &&
-          registry.simulationObjects.get(serverEnemyObject.group_id) === null &&
-          serverObject.position.distance_to_sqr(serverEnemyObject.position) > 9_00
+          serverObject.position.distance_to_sqr(serverEnemyObject.position) > logicsConfig.COMBAT.ATTACK_DISTANCE_SQR
         ) {
           return false;
         }

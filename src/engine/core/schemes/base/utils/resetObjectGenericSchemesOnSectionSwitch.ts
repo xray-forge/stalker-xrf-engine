@@ -74,11 +74,6 @@ export function resetObjectGenericSchemesOnSectionSwitch(
     case ESchemeType.ITEM: {
       object.set_callback(callback.use_object, null);
       object.set_nonscript_usable(true);
-      if (object.clsid() === clsid.car) {
-        // todo: What is this?
-        (object as any).destroy_car();
-        scriptReleaseObject(object, "");
-      }
 
       return;
     }
