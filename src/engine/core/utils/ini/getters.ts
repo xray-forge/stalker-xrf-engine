@@ -281,22 +281,3 @@ export function getConfigTwoStringsAndConditionsList(
     v2: parameters.get(2),
   };
 }
-
-/**
- * todo;
- * todo;
- * todo;
- */
-export function addCondition(
-  conditionsList: LuaArray<IBaseSchemeLogic>,
-  at: TIndex,
-  conditions: Optional<IBaseSchemeLogic>
-): TIndex {
-  if (conditions) {
-    conditionsList.set(at, conditions);
-
-    return at + 1;
-  }
-
-  return at;
-}
