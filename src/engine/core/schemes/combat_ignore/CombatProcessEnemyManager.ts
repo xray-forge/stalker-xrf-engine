@@ -2,44 +2,38 @@ import { alife } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
-import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
+import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore/index";
 import { isObjectEnemy } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { ClientObject, Optional, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
+import { AnyObject, ClientObject, Optional, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
-export class ActionProcessEnemy {
-  public readonly object: ClientObject;
-  public readonly state: ISchemeCombatIgnoreState;
-
-  public constructor(object: ClientObject, state: ISchemeCombatIgnoreState) {
-    this.object = object;
-    this.state = state;
-  }
-
+export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeCombatIgnoreState> {
   /**
    * todo: Description.
    */
   public onObjectEnemy(object: ClientObject, enemy: ClientObject): boolean {
-    if (enemy.id() === registry.actor.id()) {
+    if (enemy.id() === ACTOR_ID) {
       registry.actorCombat.set(object.id(), true);
     }
 
     const isEnemy: boolean = isObjectEnemy(object, enemy, this.state);
 
     if (isEnemy) {
-      const seObject: Optional<ServerCreatureObject> = alife().object(object.id());
+      const serverObject: Optional<ServerCreatureObject> = alife().object(object.id());
 
       /**
        * Set alarm if object is in smart zone.
        */
-      if (seObject && seObject.m_smart_terrain_id !== MAX_U16) {
-        const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(seObject.m_smart_terrain_id)!;
+      if (serverObject && serverObject.m_smart_terrain_id !== MAX_U16) {
+        const smartTerrain: SmartTerrain = alife().object<SmartTerrain>(serverObject.m_smart_terrain_id)!;
 
         smartTerrain.startAlarm();
 
@@ -50,13 +44,14 @@ export class ActionProcessEnemy {
 
       const serverEnemyObject: Optional<ServerCreatureObject> = alife().object(enemy.id());
 
-      if (seObject && serverEnemyObject) {
+      // todo: Intention of this check?
+      if (serverObject && serverEnemyObject) {
         if (
-          seObject.group_id !== MAX_U16 &&
-          registry.simulationObjects.get(seObject.group_id) !== null &&
+          serverObject.group_id !== MAX_U16 &&
+          registry.simulationObjects.get(serverObject.group_id) !== null &&
           serverEnemyObject.group_id !== MAX_U16 &&
           registry.simulationObjects.get(serverEnemyObject.group_id) === null &&
-          seObject.position.distance_to_sqr(serverEnemyObject.position) > 900
+          serverObject.position.distance_to_sqr(serverEnemyObject.position) > 9_00
         ) {
           return false;
         }
@@ -69,13 +64,21 @@ export class ActionProcessEnemy {
   /**
    * todo: Description.
    */
-  public onHit(object: ClientObject, amount: TCount, direction: Vector, who: ClientObject, boneId: TNumberId): void {
+  public override onHit(
+    object: ClientObject,
+    amount: TCount,
+    direction: Vector,
+    who: ClientObject,
+    boneId: TNumberId
+  ): void {
     if (who === null || amount === 0) {
       return;
     }
 
-    if (who.id() === registry.actor.id()) {
-      if (!this.state.overrides?.combat_ignore_keep_when_attacked) {
+    if (who.id() === ACTOR_ID) {
+      const overrides: Optional<AnyObject> = this.state.overrides;
+
+      if (!overrides || !overrides.combat_ignore_keep_when_attacked) {
         this.state.enabled = false;
       }
     }

@@ -8,7 +8,7 @@ import { communities } from "@/engine/lib/constants/communities";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Checker to verify whether zombied combat style is applied.
  */
 @LuabindClass()
 export class EvaluatorCombatZombied extends property_evaluator {
@@ -20,7 +20,7 @@ export class EvaluatorCombatZombied extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Check whether zombied combat should be applied.
    */
   public override evaluate(): boolean {
     return getCharacterCommunity(this.object) === communities.zombied;

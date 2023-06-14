@@ -23,7 +23,7 @@ export interface ISchemeCombatState extends IBaseSchemeState {
   enabled: boolean;
   combat_type: Optional<AnyObject>;
   isCamperCombatAction: Optional<boolean>;
-  last_seen_pos: Optional<Vector>;
+  lastSeenEnemyAtPosition: Optional<Vector>;
   script_combat_type: Optional<EScriptCombatType>;
   currentAction: Optional<EZombieCombatAction>;
 }

@@ -107,7 +107,7 @@ export abstract class AbstractScheme {
       state.actions = new LuaTable();
     }
 
-    state.actions.set(subscriber as any, true);
+    state.actions.set(subscriber as unknown as AnyObject, true);
   }
 
   /**

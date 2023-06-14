@@ -14,6 +14,7 @@ import { getCharacterCommunity } from "@/engine/core/utils/object/object_general
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { lootableTableExclude, TLootableExcludeItem } from "@/engine/lib/constants/items/lootable_table";
 import { TLevel } from "@/engine/lib/constants/levels";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -289,7 +290,7 @@ export function isObjectEnemy(object: ClientObject, enemy: ClientObject, state: 
 
   objectState.enemy_id = enemy.id();
 
-  if (enemy.id() !== registry.actor.id()) {
+  if (enemy.id() !== ACTOR_ID) {
     for (const [k, v] of registry.noCombatZones) {
       const zone = registry.zones.get(k);
 
