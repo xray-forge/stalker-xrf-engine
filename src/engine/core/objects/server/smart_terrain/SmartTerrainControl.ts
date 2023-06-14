@@ -8,8 +8,9 @@ import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTe
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { isWeapon } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { readIniString } from "@/engine/core/utils/ini/getters";
-import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini/parse";
+import { parseConditionsList } from "@/engine/core/utils/ini/parse";
+import { readIniString } from "@/engine/core/utils/ini/read";
+import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { setSquadGoodwill } from "@/engine/core/utils/relation";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";

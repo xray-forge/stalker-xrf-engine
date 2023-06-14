@@ -2,7 +2,7 @@ import { IStoredOfflineObject, registry } from "@/engine/core/database";
 import { IBaseSchemeLogic } from "@/engine/core/schemes/base";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { readIniConditionList } from "@/engine/core/utils/ini/getters";
+import { readIniConditionList } from "@/engine/core/utils/ini/read";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, IniFile, Optional } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";

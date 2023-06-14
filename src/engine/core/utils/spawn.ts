@@ -5,7 +5,7 @@ import { SimulationBoardManager } from "@/engine/core/managers/interaction/Simul
 import { SmartTerrain, Squad } from "@/engine/core/objects";
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { isAmmoSection, isStalker } from "@/engine/core/utils/check/is";
-import { readIniString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectPositioning } from "@/engine/core/utils/object/object_general";
 import { createEmptyVector } from "@/engine/core/utils/vector";

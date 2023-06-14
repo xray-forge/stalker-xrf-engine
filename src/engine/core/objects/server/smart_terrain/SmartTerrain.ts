@@ -64,14 +64,9 @@ import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/in
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
-import {
-  getSchemeByIniSection,
-  IConfigSwitchCondition,
-  parseConditionsList,
-  parseStringsList,
-  TConditionList,
-} from "@/engine/core/utils/ini/parse";
+import { getSchemeFromSection, parseConditionsList, parseStringsList } from "@/engine/core/utils/ini/parse";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
+import { IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_general";
 import { getTableSize, isEmpty } from "@/engine/core/utils/table";
@@ -934,7 +929,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     const section: TSection = getObjectSectionToActivate(object, ltx, job.section, registry.actor);
 
     assertDefined(
-      getSchemeByIniSection(job.section),
+      getSchemeFromSection(job.section),
       "[smart_terrain %s] section=%s, don't use section 'null'!",
       this.name(),
       section

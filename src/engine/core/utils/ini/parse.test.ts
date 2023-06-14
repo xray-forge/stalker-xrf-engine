@@ -1,6 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import {
+  getSchemeFromSection,
   parseConditionsList,
   parseNumbersList,
   parseParameters,
@@ -150,5 +151,14 @@ describe("'ini_data' parsing utils", () => {
     expect(parseStringOptional("null")).toBe("null");
     expect(parseStringOptional("test")).toBe("test");
     expect(parseStringOptional("12345")).toBe("12345");
+  });
+
+  it("'getSchemeFromSection' should correctly return scheme", () => {
+    expect(getSchemeFromSection("test")).toBe("test");
+    expect(getSchemeFromSection("test@example")).toBe("test");
+    expect(getSchemeFromSection("combat@first")).toBe("combat");
+    expect(getSchemeFromSection("")).toBeNull();
+    expect(getSchemeFromSection("@")).toBeNull();
+    expect(getSchemeFromSection("@abc")).toBeNull();
   });
 });

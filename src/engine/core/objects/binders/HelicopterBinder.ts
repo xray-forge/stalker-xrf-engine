@@ -19,7 +19,7 @@ import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/in
 import { getHeliHealth } from "@/engine/core/schemes/heli_move/heli_utils";
 import { HeliCombat } from "@/engine/core/schemes/heli_move/HeliCombat";
 import { getHeliFirer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   ClientObject,

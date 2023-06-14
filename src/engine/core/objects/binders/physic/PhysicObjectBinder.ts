@@ -18,7 +18,7 @@ import { ESchemeEvent } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
 import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { TConditionList } from "@/engine/core/utils/ini/parse";
+import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   ClientObject,
@@ -51,17 +51,11 @@ export class PhysicObjectBinder extends object_binder {
 
   public state!: IRegistryObjectState;
 
-  /**
-   * todo: Description.
-   */
   public override reinit(): void {
     super.reinit();
     this.state = resetObject(this.object);
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_destroy(): void {
     if (level.map_has_object_spot(this.object.id(), "ui_pda2_actor_box_location") !== 0) {
       level.map_remove_object_spot(this.object.id(), "ui_pda2_actor_box_location");
@@ -92,16 +86,10 @@ export class PhysicObjectBinder extends object_binder {
     super.net_destroy();
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override save(packet: NetPacket): void {
     super.save(packet);
 
@@ -110,9 +98,6 @@ export class PhysicObjectBinder extends object_binder {
     closeSaveMarker(packet, PhysicObjectBinder.__name);
   }
 
-  /**
-   * todo: Description.
-   */
   public override load(reader: Reader): void {
     this.loaded = true;
 
@@ -121,6 +106,60 @@ export class PhysicObjectBinder extends object_binder {
     openLoadMarker(reader, PhysicObjectBinder.__name);
     loadObjectLogic(this.object, reader);
     closeLoadMarker(reader, PhysicObjectBinder.__name);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public override net_spawn(object: ServerObject): boolean {
+    if (!super.net_spawn(object)) {
+      return false;
+    }
+
+    const spawnIni: Optional<IniFile> = this.object.spawn_ini();
+
+    if (spawnIni !== null) {
+      if (spawnIni.section_exist("drop_box")) {
+        this.itemBox = new PhysicObjectItemBox(this.object);
+      }
+
+      if (spawnIni.section_exist("level_spot")) {
+        if (spawnIni.line_exist("level_spot", "actor_box")) {
+          level.map_add_object_spot(this.object.id(), "ui_pda2_actor_box_location", "st_ui_pda_actor_box");
+        }
+      }
+    }
+
+    registerObject(this.object);
+
+    return true;
+  }
+
+  /**
+   * todo: Description.
+   */
+  public override update(delta: TDuration): void {
+    super.update(delta);
+
+    if (!this.initialized) {
+      this.initialized = true;
+      initializeObjectSchemeLogic(this.object, this.state, this.loaded, registry.actor, ESchemeType.ITEM);
+    }
+
+    const spawnIni: Optional<IniFile> = this.object.spawn_ini();
+
+    if (this.state.active_section !== null || (spawnIni !== null && spawnIni.section_exist("drop_box"))) {
+      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
+      this.object.set_callback(callback.hit, this.onHit, this);
+      this.object.set_callback(callback.death, this.onDeath, this);
+      this.object.set_callback(callback.use_object, this.onUse, this);
+    }
+
+    if (this.object.clsid() === clsid.inventory_box) {
+      this.object.set_callback(callback.use_object, this.onUse, this);
+    }
+
+    GlobalSoundManager.getInstance().update(this.object.id());
   }
 
   /**
@@ -184,59 +223,5 @@ export class PhysicObjectBinder extends object_binder {
     if (this.itemBox !== null) {
       this.itemBox.spawnBoxItems();
     }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override net_spawn(object: ServerObject): boolean {
-    if (!super.net_spawn(object)) {
-      return false;
-    }
-
-    const spawnIni: Optional<IniFile> = this.object.spawn_ini();
-
-    if (spawnIni !== null) {
-      if (spawnIni.section_exist("drop_box")) {
-        this.itemBox = new PhysicObjectItemBox(this.object);
-      }
-
-      if (spawnIni.section_exist("level_spot")) {
-        if (spawnIni.line_exist("level_spot", "actor_box")) {
-          level.map_add_object_spot(this.object.id(), "ui_pda2_actor_box_location", "st_ui_pda_actor_box");
-        }
-      }
-    }
-
-    registerObject(this.object);
-
-    return true;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override update(delta: TDuration): void {
-    super.update(delta);
-
-    if (!this.initialized) {
-      this.initialized = true;
-      initializeObjectSchemeLogic(this.object, this.state, this.loaded, registry.actor, ESchemeType.ITEM);
-    }
-
-    const spawnIni: Optional<IniFile> = this.object.spawn_ini();
-
-    if (this.state.active_section !== null || (spawnIni !== null && spawnIni.section_exist("drop_box"))) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
-      this.object.set_callback(callback.hit, this.onHit, this);
-      this.object.set_callback(callback.death, this.onDeath, this);
-      this.object.set_callback(callback.use_object, this.onUse, this);
-    }
-
-    if (this.object.clsid() === clsid.inventory_box) {
-      this.object.set_callback(callback.use_object, this.onUse, this);
-    }
-
-    GlobalSoundManager.getInstance().update(this.object.id());
   }
 }

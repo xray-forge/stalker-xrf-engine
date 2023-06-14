@@ -5,8 +5,8 @@ import { ActionRemarkActivity } from "@/engine/core/schemes/remark/actions/Actio
 import { EvaluatorNeedRemark } from "@/engine/core/schemes/remark/evaluators/EvaluatorNeedRemark";
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark/ISchemeRemarkState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
 import { parseConditionsList } from "@/engine/core/utils/ini/parse";
+import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
 import { NIL } from "@/engine/lib/constants/words";

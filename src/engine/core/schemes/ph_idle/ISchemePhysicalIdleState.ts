@@ -1,6 +1,6 @@
-import type { IBaseSchemeState } from "@/engine/core/schemes/base";
-import type { TConditionList } from "@/engine/core/utils/ini/parse";
-import type { LuaArray, Optional, TDistance, TName } from "@/engine/lib/types";
+import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes/base";
+import type { TConditionList } from "@/engine/core/utils/ini/types";
+import type { LuaArray, Optional, TDistance } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -11,6 +11,6 @@ export interface ISchemePhysicalIdleState extends IBaseSchemeState {
     state: Optional<TConditionList>;
   }>;
   nonscript_usable: boolean;
-  on_use: Optional<{ name: TName; condlist: TConditionList }>;
+  on_use: Optional<IBaseSchemeLogic>;
   tips: string;
 }

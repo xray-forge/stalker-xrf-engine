@@ -9,7 +9,7 @@ import { NpcSound } from "@/engine/core/objects/sounds/playable_sounds/NpcSound"
 import { ObjectSound } from "@/engine/core/objects/sounds/playable_sounds/ObjectSound";
 import { EPlayableSound } from "@/engine/core/objects/sounds/types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
-import { readIniString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
 import { getTableSize, resetTable } from "@/engine/core/utils/table";

@@ -9,7 +9,7 @@ import { ISchemePatrolState } from "@/engine/core/schemes/patrol/ISchemePatrolSt
 import { PatrolManager } from "@/engine/core/schemes/patrol/PatrolManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object/object_general";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";

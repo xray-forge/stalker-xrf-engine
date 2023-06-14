@@ -24,7 +24,8 @@ import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/uti
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini/parse";
+import { parseConditionsList } from "@/engine/core/utils/ini/parse";
+import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { createVector } from "@/engine/core/utils/vector";

@@ -1,7 +1,7 @@
 import type { Actor } from "@/engine/core/objects";
 import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
-import type { TConditionList } from "@/engine/core/utils/ini/parse";
+import type { TConditionList } from "@/engine/core/utils/ini/types";
 import type { TCommunity } from "@/engine/lib/constants/communities";
 import type {
   ALifeSmartTerrainTask,

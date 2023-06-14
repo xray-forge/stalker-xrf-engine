@@ -7,7 +7,8 @@ import {
 } from "@/engine/core/schemes/sr_cutscene/effectors/camera_effector_sets";
 import { EEffectorState, ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini/parse";
+import { parseConditionsList } from "@/engine/core/utils/ini/parse";
+import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { FALSE } from "@/engine/lib/constants/words";

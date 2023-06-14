@@ -5,8 +5,8 @@ import { ISchemeTimerState } from "@/engine/core/schemes/timer/ISchemeTimerState
 import { SchemeTimerManager } from "@/engine/core/schemes/timer/SchemeTimerManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { parseTimerData } from "@/engine/core/utils/ini/parse";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";

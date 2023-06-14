@@ -1,5 +1,5 @@
 import type { IBaseSchemeState } from "@/engine/core/schemes/base";
-import type { IConfigSwitchCondition } from "@/engine/core/utils/ini/parse";
+import type { IConfigSwitchCondition } from "@/engine/core/utils/ini/types";
 import type { LuaArray, Optional, StringOptional, TName, TNumberId, TStringId, Vector } from "@/engine/lib/types";
 
 /**

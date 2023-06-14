@@ -12,8 +12,8 @@ import { SimulationBoardManager } from "@/engine/core/managers/interaction/Simul
 import { Squad } from "@/engine/core/objects";
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain";
 import { assert } from "@/engine/core/utils/assertion";
-import { readIniString } from "@/engine/core/utils/ini/getters";
 import { parseNumberOptional, parseStringOptional } from "@/engine/core/utils/ini/parse";
+import { readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { IniFile, NetPacket, Optional, ServerCreatureObject, TName, TNumberId, TSection } from "@/engine/lib/types";

@@ -1,4 +1,4 @@
-import type { TConditionList } from "@/engine/core/utils/ini/parse";
+import type { TConditionList } from "@/engine/core/utils/ini/types";
 import type {
   AnyObject,
   ClientObject,

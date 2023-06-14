@@ -5,7 +5,7 @@ import { ISchemePhysicalForceState } from "@/engine/core/schemes/ph_force/ISchem
 import { PhysicalForceManager } from "@/engine/core/schemes/ph_force/PhysicalForceManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 

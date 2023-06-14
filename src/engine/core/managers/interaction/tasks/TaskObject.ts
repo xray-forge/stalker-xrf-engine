@@ -13,8 +13,9 @@ import { NotificationManager } from "@/engine/core/managers/interface/notificati
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
-import { parseConditionsList, parseStringsList, TConditionList } from "@/engine/core/utils/ini/parse";
+import { parseConditionsList, parseStringsList } from "@/engine/core/utils/ini/parse";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
+import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveMoneyToActor, transferItemsToActor } from "@/engine/core/utils/task_reward";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";

@@ -1,12 +1,12 @@
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { IConfigSwitchCondition } from "@/engine/core/utils/ini/parse";
-import { LuaArray, Optional, TLabel, TName } from "@/engine/lib/types";
+import { IConfigSwitchConditionsDescriptor } from "@/engine/core/utils/ini/types";
+import { Optional, TLabel } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export interface ISchemePhysicalButtonState extends IBaseSchemeState {
-  on_press: Optional<{ name: TName; condlist: LuaArray<IConfigSwitchCondition> }>;
+  on_press: Optional<IConfigSwitchConditionsDescriptor>;
   tooltip: Optional<TLabel>;
   anim: TLabel;
   blending: boolean;

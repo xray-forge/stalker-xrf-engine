@@ -4,7 +4,8 @@ import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeParticleState } from "@/engine/core/schemes/sr_particle/ISchemeParticleState";
-import { IWaypointData, parsePathWaypoints } from "@/engine/core/utils/ini/parse";
+import { parsePathWaypoints } from "@/engine/core/utils/ini/parse";
+import { IWaypointData } from "@/engine/core/utils/ini/types";
 import { LuaArray, Optional, Patrol, TCount, TDuration, TTimestamp } from "@/engine/lib/types";
 
 /**
