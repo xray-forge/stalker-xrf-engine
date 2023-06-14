@@ -1,5 +1,6 @@
 import { device } from "xray16";
 
+import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { registerManagers } from "@/engine/scripts/register/managers_registrator";
@@ -22,5 +23,7 @@ extern("start", {
 
     registerManagers();
     registerSchemes();
+
+    EventsManager.emitEvent(EGameEvent.GAME_STARTED);
   },
 });

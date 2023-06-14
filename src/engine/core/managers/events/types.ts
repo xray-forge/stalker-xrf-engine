@@ -114,4 +114,8 @@ export enum EGameEvent {
    * Stalker death.
    */
   STALKER_DEATH,
+  /**
+   * Game started.
+   */
+  GAME_STARTED,
 }
