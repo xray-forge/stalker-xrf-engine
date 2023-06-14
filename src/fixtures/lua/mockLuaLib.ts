@@ -1,3 +1,5 @@
+import { ILuaState, lauxlib, lua, lualib, to_jsstring, to_luastring } from "fengari";
+
 import { AnyArgs } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { math } from "@/fixtures/lua/mocks/math.mocks";
@@ -36,13 +38,18 @@ export function mockLuaLib(): void {
 
   // @ts-ignore
   global.tonumber = (value: unknown) => {
-    const result: number = Number.parseFloat(String(value));
+    const L: ILuaState = lauxlib.luaL_newstate();
 
-    if (Number.isNaN(result)) {
-      return null;
-    } else {
-      return result;
-    }
+    lualib.luaL_openlibs(L);
+
+    lua.lua_getglobal(L, "tonumber");
+    lua.lua_pushstring(L, to_luastring(String(value)));
+    lua.lua_call(L, 1, 1);
+
+    const result: string = to_jsstring(lauxlib.luaL_tolstring(L, -1));
+    const parsed: number = Number.parseFloat(result);
+
+    return Number.isNaN(parsed) ? null : parsed;
   };
   // @ts-ignore
   global.tostring = jest.fn(mockToString);

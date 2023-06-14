@@ -265,60 +265,19 @@ export function parseInfoPortions(
 }
 
 /**
- * todo
- * todo
- * todo
- * todo
- */
-export function parseInfoPortions1(result: LuaTable, data: Optional<string>): void {
-  if (data) {
-    for (const s of string.gfind(data, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
-      const sign: string = string.sub(s, 1, 1);
-      const infoPortionName: string = string.sub(s, 2);
-
-      if (sign === "+") {
-        table.insert(result, {
-          name: infoPortionName,
-          required: true,
-        });
-      } else if (sign === "-") {
-        table.insert(result, {
-          name: infoPortionName,
-          required: false,
-        });
-      } else if (sign === "~") {
-        table.insert(result, { prob: tonumber(infoPortionName) });
-      } else if (sign === "=") {
-        table.insert(result, {
-          func: infoPortionName,
-          expected: true,
-        });
-      } else if (sign === "!") {
-        table.insert(result, {
-          func: infoPortionName,
-          expected: false,
-        });
-      } else {
-        abort("Syntax error in condition: %s", data);
-      }
-    }
-  }
-}
-
-/**
- * todo;
+ * Parse part of condlist - function params.
+ * Example: `1:zat_b42_mayron_walk:2` or `a:b:c:10:-10:10.5`.
+ *
+ * @param data - string to parse
+ * @return list of parameters parsed as strings or numbers
  */
 export function parseFunctionParams(data: string): LuaArray<string | number> {
   const list: LuaArray<string | number> = new LuaTable();
 
   for (const parameter of string.gfind(data, "%s*([^:]+)%s*")) {
-    const number = tonumber(parameter);
+    const parsed: Optional<number> = tonumber(parameter) as number;
 
-    if (number !== null) {
-      table.insert(list, number!);
-    } else {
-      table.insert(list, parameter);
-    }
+    table.insert(list, parsed === null ? parameter : parsed);
   }
 
   return list;

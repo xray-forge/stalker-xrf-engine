@@ -86,4 +86,18 @@ describe("'lua' VM mocks to test libraries", () => {
       new MockLuaTable([["a", new MockLuaTable([["a", 1]])]])
     );
   });
+
+  it("should mock tonumber", () => {
+    expect(tonumber("1")).toBe(1);
+    expect(tonumber("1.5")).toBe(1.5);
+    expect(tonumber("-1.5")).toBe(-1.5);
+    expect(tonumber("-1.5a")).toBeNull();
+    expect(tonumber("abc")).toBeNull();
+    expect(tonumber("")).toBeNull();
+    expect(tonumber(true)).toBeNull();
+    expect(tonumber(false)).toBeNull();
+    expect(tonumber(null)).toBeNull();
+    expect(tonumber(NaN)).toBeNull();
+    expect(tonumber(undefined)).toBeNull();
+  });
 });
