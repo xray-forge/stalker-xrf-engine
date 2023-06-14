@@ -2,8 +2,8 @@ import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeMonsterState } from "@/engine/core/schemes/sr_monster/ISchemeMonsterState";
 import { MonsterManager } from "@/engine/core/schemes/sr_monster/MonsterManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { parseStringsList } from "@/engine/core/utils/ini/parse";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 

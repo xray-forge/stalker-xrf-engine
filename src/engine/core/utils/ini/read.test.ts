@@ -9,13 +9,12 @@ import {
   readIniString,
   readIniStringAndCondList,
   readIniTwoNumbers,
-} from "@/engine/core/utils/ini/getters";
-import { getSchemeByIniSection } from "@/engine/core/utils/ini/parse";
+} from "@/engine/core/utils/ini/read";
 import { IniFile, Optional } from "@/engine/lib/types";
 import { luaTableToObject } from "@/fixtures/lua/mocks/utils";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("'getters' utils for ini file", () => {
+describe("'read' utils for ini file", () => {
   it("'readIniString' utils should correctly get data from ini files", () => {
     const ini: IniFile = mockIniFile("example.ltx", {
       section1: {
@@ -131,15 +130,6 @@ describe("'getters' utils for ini file", () => {
       v1: null,
       v2: null,
     });
-  });
-
-  it("'getSchemeByIniSection' should correctly return scheme", () => {
-    expect(getSchemeByIniSection("test")).toBe("test");
-    expect(getSchemeByIniSection("test@example")).toBe("test");
-    expect(getSchemeByIniSection("combat@first")).toBe("combat");
-    expect(getSchemeByIniSection("")).toBeNull();
-    expect(getSchemeByIniSection("@")).toBeNull();
-    expect(getSchemeByIniSection("@abc")).toBeNull();
   });
 
   it("'readIniNumberAndConditionList' should correctly parse data", () => {

@@ -56,8 +56,8 @@ import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTas
 import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { readIniString } from "@/engine/core/utils/ini/getters";
-import { TConditionList } from "@/engine/core/utils/ini/parse";
+import { readIniString } from "@/engine/core/utils/ini/read";
+import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   getCharacterCommunity,

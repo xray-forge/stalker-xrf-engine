@@ -14,7 +14,8 @@ import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini/parse";
+import { parseConditionsList } from "@/engine/core/utils/ini/parse";
+import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   getAlifeCharacterCommunity,

@@ -1,7 +1,7 @@
-import { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { IWaypointData } from "@/engine/core/utils/ini/parse";
-import { EMonsterState } from "@/engine/lib/constants/monsters";
-import { LuaArray, Optional } from "@/engine/lib/types";
+import type { IBaseSchemeState } from "@/engine/core/schemes/base";
+import type { IWaypointData } from "@/engine/core/utils/ini/types";
+import type { EMonsterState } from "@/engine/lib/constants/monsters";
+import type { LuaArray, Optional } from "@/engine/lib/types";
 
 /**
  * todo;

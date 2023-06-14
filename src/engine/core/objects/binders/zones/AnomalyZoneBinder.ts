@@ -14,8 +14,9 @@ import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayMa
 import { AnomalyFieldBinder } from "@/engine/core/objects/binders/zones/AnomalyFieldBinder";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
-import { parseConditionsList, parseNumbersList, parseStringsList, TConditionList } from "@/engine/core/utils/ini/parse";
+import { parseConditionsList, parseNumbersList, parseStringsList } from "@/engine/core/utils/ini/parse";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
+import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
 import {
@@ -190,7 +191,7 @@ export class AnomalyZoneBinder extends object_binder {
 
       const coeffsSection: string = readIniString(ini, section, "coeffs_section", false, "", defaultCoeffSectionName);
       const conditionsList: TConditionList = parseConditionsList(coeffsSection);
-      const coeffsSectionName = pickSectionFromCondList(registry.actor, null, conditionsList)!;
+      const coeffsSectionName: string = pickSectionFromCondList(registry.actor, null, conditionsList)!;
       const coeffs: Optional<string> = readIniString(ini, section, coeffsSectionName, false, "", defaultCoeffs);
       /**
        * end todo;

@@ -4,7 +4,7 @@ import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob/walker/ISchemeM
 import { MobWalkerManager } from "@/engine/core/schemes/mob/walker/MobWalkerManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 

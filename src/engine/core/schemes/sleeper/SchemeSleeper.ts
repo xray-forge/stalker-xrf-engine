@@ -5,7 +5,7 @@ import { ActionSleeperActivity } from "@/engine/core/schemes/sleeper/actions/Act
 import { EvaluatorNeedSleep } from "@/engine/core/schemes/sleeper/evaluators/EvaluatorNeedSleep";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper/ISchemeSleeperState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
 import { ActionPlanner, ClientObject, IniFile } from "@/engine/lib/types";

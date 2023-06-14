@@ -8,7 +8,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { isHeavilyWounded } from "@/engine/core/utils/check/check";
 import { isActiveSection } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { TConditionList } from "@/engine/core/utils/ini/parse";
+import { TConditionList } from "@/engine/core/utils/ini/types";
 import { isObjectScriptCaptured, scriptReleaseObject } from "@/engine/core/utils/object/object_general";
 import { createEmptyVector, createVector, yaw } from "@/engine/core/utils/vector";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";

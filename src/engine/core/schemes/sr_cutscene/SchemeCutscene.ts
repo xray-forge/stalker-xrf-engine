@@ -3,8 +3,8 @@ import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEven
 import { CutsceneManager } from "@/engine/core/schemes/sr_cutscene/CutsceneManager";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { parseStringsList } from "@/engine/core/utils/ini/parse";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";

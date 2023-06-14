@@ -2,8 +2,8 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { CrowSpawnerManager } from "@/engine/core/schemes/sr_crow_spawner/CrowSpawnerManager";
 import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/sr_crow_spawner/ISchemeCrowSpawnerState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
 import { parseStringsList } from "@/engine/core/utils/ini/parse";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TName, TSection } from "@/engine/lib/types";
 

@@ -2,7 +2,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalHitState } from "@/engine/core/schemes/ph_hit/ISchemePhysicalHitState";
 import { PhysicalHitManager } from "@/engine/core/schemes/ph_hit/PhysicalHitManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 

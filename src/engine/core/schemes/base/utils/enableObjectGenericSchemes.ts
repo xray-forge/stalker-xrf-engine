@@ -13,7 +13,7 @@ import { SchemeMobDeath } from "@/engine/core/schemes/mob/death/SchemeMobDeath";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/ph_on_hit/SchemePhysicalOnHit";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTask";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
-import { readIniString } from "@/engine/core/utils/ini/getters";
+import { readIniString } from "@/engine/core/utils/ini/read";
 import { resetObjectInvulnerability, setObjectInfo } from "@/engine/core/utils/object/object_general";
 import { ClientObject, IniFile, Optional } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";

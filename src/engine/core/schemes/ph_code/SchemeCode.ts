@@ -8,7 +8,7 @@ import {
   readIniNumber,
   readIniString,
   readIniStringAndCondList,
-} from "@/engine/core/utils/ini/getters";
+} from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TIndex, TName, TSection } from "@/engine/lib/types";
 

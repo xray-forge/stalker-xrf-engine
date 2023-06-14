@@ -2,7 +2,7 @@ import { getObjectLogicIniConfig, IRegistryObjectState, registry } from "@/engin
 import { activateSchemeBySection } from "@/engine/core/schemes/base/utils/activateSchemeBySection";
 import { configureObjectSchemes } from "@/engine/core/schemes/base/utils/configureObjectSchemes";
 import { getObjectSectionToActivate } from "@/engine/core/schemes/base/utils/getObjectSectionToActivate";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ERelation } from "@/engine/lib/constants/relations";
 import { ClientObject, EClientObjectRelation, IniFile, Optional, TCount, TName } from "@/engine/lib/types";

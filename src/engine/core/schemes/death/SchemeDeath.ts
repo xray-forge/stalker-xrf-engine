@@ -3,8 +3,8 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { DeathManager } from "@/engine/core/schemes/death/DeathManager";
 import { ISchemeDeathState } from "@/engine/core/schemes/death/ISchemeDeathState";
 import { abort } from "@/engine/core/utils/assertion";
-import { readIniString } from "@/engine/core/utils/ini/getters";
 import { parseConditionsList } from "@/engine/core/utils/ini/parse";
+import { readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
 

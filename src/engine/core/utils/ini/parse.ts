@@ -1,6 +1,7 @@
 import { flags32, patrol } from "xray16";
 
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
+import { IConfigCondition, IConfigSwitchCondition, IWaypointData, TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trimString } from "@/engine/core/utils/string";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
@@ -25,56 +26,6 @@ import {
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo;
- */
-export interface IWaypointData {
-  a?: any;
-  s?: string;
-  b?: string;
-  r?: string;
-  ret?: string;
-  p?: string;
-  d?: string;
-  radius?: number;
-  state?: string;
-  sigtm?: string;
-  minr?: string;
-  maxr?: string;
-  c?: string;
-  sig?: string;
-  syn?: string;
-  count?: number;
-  t?: number | "*";
-  flags: Flags32;
-}
-
-/**
- * todo;
- */
-export interface IConfigCondition {
-  name?: TInfoPortion;
-  func?: TName;
-  required?: boolean;
-  expected?: boolean;
-  prob?: TProbability;
-  params?: Optional<LuaArray<string | number>>;
-}
-
-/**
- * todo;
- */
-export interface IConfigSwitchCondition {
-  readonly section: TSection;
-  readonly infop_check: LuaArray<IConfigCondition>;
-  readonly infop_set: LuaArray<IConfigCondition>;
-}
-
-/**
- * todo;
- */
-export type TConditionList = LuaArray<IConfigSwitchCondition>;
 
 /**
  * Parse list of strings separated by commas and whitespaces.
@@ -656,11 +607,7 @@ export function parseData1v(
  * @returns value or null in case of `nil` string
  */
 export function parseStringOptional<T extends StringOptional>(value: T): Optional<T> {
-  if (value === NIL) {
-    return null;
-  } else {
-    return value;
-  }
+  return value === NIL ? null : value;
 }
 
 /**
@@ -670,11 +617,7 @@ export function parseStringOptional<T extends StringOptional>(value: T): Optiona
  * @returns parsed number value or null in case of `nil` string
  */
 export function parseNumberOptional<T extends StringOptional>(value: T): Optional<number> {
-  if (value === NIL) {
-    return null;
-  } else {
-    return tonumber(value) as Optional<number>;
-  }
+  return value === NIL ? null : (tonumber(value) as number);
 }
 
 /**
@@ -684,7 +627,7 @@ export function parseNumberOptional<T extends StringOptional>(value: T): Optiona
  * @returns scheme name
  * @example some_name@parameter -> some_name
  */
-export function getSchemeByIniSection(section: TSection): Optional<EScheme> {
+export function getSchemeFromSection(section: TSection): Optional<EScheme> {
   let [scheme] = string.gsub(section, "%d", "");
   const [at, to] = string.find(scheme, "@", 1, true);
 
@@ -692,9 +635,5 @@ export function getSchemeByIniSection(section: TSection): Optional<EScheme> {
     scheme = string.sub(scheme, 1, at - 1) as EScheme;
   }
 
-  if (scheme === "" || scheme === null) {
-    return null;
-  } else {
-    return scheme as EScheme;
-  }
+  return scheme === "" || scheme === null ? null : (scheme as EScheme);
 }

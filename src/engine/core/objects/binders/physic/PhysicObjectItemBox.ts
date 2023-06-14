@@ -2,8 +2,8 @@ import { level } from "xray16";
 
 import { PH_BOX_GENERIC_LTX } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
-import { readIniString } from "@/engine/core/utils/ini/getters";
 import { parseNumbersList, parseStringsList } from "@/engine/core/utils/ini/parse";
+import { readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { TInventoryItem } from "@/engine/lib/constants/items";

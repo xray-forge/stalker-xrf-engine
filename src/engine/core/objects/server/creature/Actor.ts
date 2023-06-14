@@ -20,7 +20,8 @@ import { simulationActivities } from "@/engine/core/objects/server/squad/simulat
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { ISimulationTarget } from "@/engine/core/objects/server/types";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini/parse";
+import { parseConditionsList } from "@/engine/core/utils/ini/parse";
+import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR, TRUE } from "@/engine/lib/constants/words";
 import {

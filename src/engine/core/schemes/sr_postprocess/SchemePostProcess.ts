@@ -2,7 +2,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePostProcessState } from "@/engine/core/schemes/sr_postprocess/ISchemePostProcessState";
 import { SchemePostProcessManager } from "@/engine/core/schemes/sr_postprocess/SchemePostProcessManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniNumber } from "@/engine/core/utils/ini/getters";
+import { readIniNumber } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 

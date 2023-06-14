@@ -3,7 +3,7 @@ import { ISchemeParticleState } from "@/engine/core/schemes/sr_particle/ISchemeP
 import { ParticleManager } from "@/engine/core/schemes/sr_particle/ParticleManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, TName, TSection } from "@/engine/lib/types";
 

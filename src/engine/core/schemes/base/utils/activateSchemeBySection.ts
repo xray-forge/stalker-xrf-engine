@@ -8,7 +8,7 @@ import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEven
 import { resetObjectGenericSchemesOnSectionSwitch } from "@/engine/core/schemes/base/utils/resetObjectGenericSchemesOnSectionSwitch";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { getObjectConfigOverrides } from "@/engine/core/utils/ini/config";
-import { getSchemeByIniSection } from "@/engine/core/utils/ini/parse";
+import { getSchemeFromSection } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain, sendToNearestAccessibleVertex } from "@/engine/core/utils/object/object_general";
 import { NIL } from "@/engine/lib/constants/words";
@@ -66,7 +66,7 @@ export function activateSchemeBySection(
     abort("object '%s': activate_by_section: section '%s' does !exist", object.name(), section);
   }
 
-  const scheme: Optional<EScheme> = getSchemeByIniSection(section);
+  const scheme: Optional<EScheme> = getSchemeFromSection(section);
 
   assertDefined(scheme, "object '%s': unable to determine scheme name from section name '%s'", object.name(), section);
 

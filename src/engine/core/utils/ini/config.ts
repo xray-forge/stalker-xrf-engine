@@ -5,6 +5,7 @@ import { IBaseSchemeLogic } from "@/engine/core/schemes";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { parseConditionsList } from "@/engine/core/utils/ini/parse";
 import {
   readIniBoolean,
   readIniConditionList,
@@ -13,8 +14,8 @@ import {
   readIniStringAndCondList,
   readIniTwoNumbers,
   readIniTwoStringsAndConditionsList,
-} from "@/engine/core/utils/ini/getters";
-import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini/parse";
+} from "@/engine/core/utils/ini/read";
+import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
@@ -45,7 +46,11 @@ const logger: LuaLogger = new LuaLogger($filename);
 export function getParametersString(data: string): LuaMultiReturn<[string, boolean]> {
   const [outString, num] = string.gsub(data, "%$script_id%$", NIL);
 
-  return num > 0 ? $multi(outString, true) : $multi(data, false);
+  if (num > 0) {
+    return $multi(outString, true);
+  } else {
+    return $multi(data, false);
+  }
 }
 
 /**

@@ -3,7 +3,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/ph_idle/ISchemePhysicalIdleState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { TConditionList } from "@/engine/core/utils/ini/parse";
+import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, Optional, TCount, TIndex, TSection, Vector } from "@/engine/lib/types";
 
@@ -13,30 +13,18 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalIdleState> {
-  /**
-   * todo: Description.
-   */
   public override resetScheme(): void {
     this.object.set_nonscript_usable(this.state.nonscript_usable);
   }
 
-  /**
-   * todo: Description.
-   */
   public override update(): void {
     trySwitchToAnotherSection(this.object, this.state, registry.actor);
   }
 
-  /**
-   * todo: Description.
-   */
   public override deactivate(): void {
     this.object.set_tip_text("");
   }
 
-  /**
-   * todo: Description.
-   */
   public override onHit(
     object: ClientObject,
     amount: TCount,
@@ -57,9 +45,6 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
     }
   }
 
-  /**
-   * todo: Description.
-   */
   public override onUse(): Optional<boolean> {
     logger.info("Idle use:", this.object.name());
 

@@ -2,8 +2,8 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/ph_idle/ISchemePhysicalIdleState";
 import { PhysicalIdleManager } from "@/engine/core/schemes/ph_idle/PhysicalIdleManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/getters";
 import { parseData1v } from "@/engine/core/utils/ini/parse";
+import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 

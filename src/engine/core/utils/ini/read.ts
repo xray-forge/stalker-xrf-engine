@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param section - config section to read
  * @param field - section field to read
  * @param required - whether field is required, throw exception if field is required and not present
- * @param prefix - ?, probably to remove
+ * @param prefix - prefix for return values
  * @param defaultValue - value to use in case if ini field is missing
  * @returns value from ini file section or default value if section is not declared in ini
  */

@@ -6,13 +6,9 @@ import type { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/Sm
 import { IJobDescriptor, IObjectJobDescriptor, TJobDescriptor } from "@/engine/core/objects/server/smart_terrain/types";
 import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
-import {
-  getSchemeByIniSection,
-  parseConditionsList,
-  parseWaypointData,
-  TConditionList,
-} from "@/engine/core/utils/ini/parse";
+import { getSchemeFromSection, parseConditionsList, parseWaypointData } from "@/engine/core/utils/ini/parse";
+import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
+import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities } from "@/engine/lib/constants/communities";
@@ -1091,7 +1087,7 @@ function addExclusiveJob(
   const jobSuitable = readIniString(jobIniFile, "logic@" + workField, "suitable", false, "");
   const isMonster = readIniBoolean(jobIniFile, "logic@" + workField, "monster_job", false, false);
   const activeSection = readIniString(jobIniFile, "logic@" + workField, "active", false, "");
-  const scheme: Optional<EScheme> = getSchemeByIniSection(activeSection) as EScheme;
+  const scheme: Optional<EScheme> = getSchemeFromSection(activeSection) as EScheme;
 
   let jobType: EJobType = JobTypeByScheme[scheme] as EJobType;
 
