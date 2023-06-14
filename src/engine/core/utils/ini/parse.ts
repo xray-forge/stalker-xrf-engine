@@ -1,7 +1,13 @@
 import { flags32, patrol } from "xray16";
 
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
-import { IConfigCondition, IConfigSwitchCondition, IWaypointData, TConditionList } from "@/engine/core/utils/ini/types";
+import {
+  IConfigCondition,
+  IConfigSwitchCondition,
+  ISpawnDescriptor,
+  IWaypointData,
+  TConditionList,
+} from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trimString } from "@/engine/core/utils/string";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
@@ -63,43 +69,48 @@ export function parseNumbersList(data: string): LuaArray<number> {
 
 /**
  * Parse pairs of spawn details from string to number.
- *
  * Example input values:
  * - "1,1"
  * - "2,1"
  * - "1,0.5,1,1"
+ *
+ * todo: Just simplify and expect even number of parameters after parse or throw.
+ *
+ * @param data - string to parse
+ * @returns list of spawn details
  */
-export function parseSpawnDetails(data: string): LuaArray<{ count: number; probability: number }> {
-  const t: LuaArray<TName> = parseStringsList(data);
-  const n: TCount = t.length();
+export function parseSpawnDetails(data: string): LuaArray<ISpawnDescriptor> {
+  const list: LuaArray<ISpawnDescriptor> = new LuaTable();
+  const parameters: LuaArray<TName> = parseStringsList(data);
+  const count: TCount = parameters.length();
 
-  const result: LuaArray<{ count: TCount; probability: TProbability }> = new LuaTable();
-  let k = 1;
+  let index: TIndex = 1;
 
-  while (k <= n) {
-    const spawn: { count: TCount; probability: TProbability } = {} as any;
+  // Parse pairs of probabilities.
+  while (index <= count) {
+    const spawn: ISpawnDescriptor = {
+      count: tonumber(parameters.get(index)) as TCount,
+    } as ISpawnDescriptor;
 
-    spawn.count = tonumber(t.get(k)) as number;
-
-    if (t.get(k + 1) !== null) {
-      const p: TProbability = tonumber(t.get(k + 1)) as number;
-
-      if (p !== null) {
-        spawn.probability = p;
-        k = k + 2;
-      } else {
-        spawn.probability = 1;
-        k = k + 1;
-      }
-    } else {
+    if (parameters.get(index + 1) === null) {
       spawn.probability = 1;
-      k = k + 1;
+      index += 1;
+    } else {
+      const probability: Optional<TProbability> = tonumber(parameters.get(index + 1)) as TProbability;
+
+      if (probability === null) {
+        spawn.probability = 1;
+        index += 1;
+      } else {
+        spawn.probability = probability;
+        index += 2;
+      }
     }
 
-    table.insert(result, spawn);
+    table.insert(list, spawn);
   }
 
-  return result;
+  return list;
 }
 
 /**
@@ -107,6 +118,9 @@ export function parseSpawnDetails(data: string): LuaArray<{ count: number; proba
  *
  * Example: "a|b|c" ==> { 1 = "a", 2 = "b", 3 = "c" }
  * todo: trim parameters
+ *
+ * @param data - string to parse
+ * @returns array of parsed parameters separated with `|`
  */
 export function parseParameters<T extends string>(data: T): LuaArray<T> {
   const result: LuaArray<T> = new LuaTable();
@@ -129,6 +143,9 @@ export function parseParameters<T extends string>(data: T): LuaArray<T> {
  * -- }
  *
  * todo: trimming of whitespaces
+ *
+ * @param data - string to parse
+ * @returns parsed condlist
  */
 export function parseConditionsList(data: string): TConditionList {
   const result: LuaArray<IConfigSwitchCondition> = new LuaTable();
@@ -170,18 +187,25 @@ export function parseConditionsList(data: string): TConditionList {
 }
 
 /**
- * todo;
+ * Parse condlist infoPortions/conditions/effects section.
+ * Has side effect - modifies provided destination lua array.
+ * Example: `+save_zat_b42_arrived_to_controler_lair =scenario_autosave(st_save_zat_b42_arrived_to_controler_lair)`.
+ *
+ * @param destination - target array for insertion
+ * @param data - condlist part to parse
+ * @returns modified list of config conditions
  */
 export function parseInfoPortions(
-  result: LuaArray<IConfigCondition>,
+  destination: LuaArray<IConfigCondition>,
   data: Optional<string | number>
 ): LuaArray<IConfigCondition> {
   if (data === null) {
-    return result;
+    return destination;
   }
 
   for (const infoPortionRaw of string.gfind(data, "%s*([%-%+%~%=%!][^%-%+%~%=%!%s]+)%s*")) {
     const sign: string = string.sub(infoPortionRaw, 1, 1);
+
     let infoPortion: TInfoPortion = string.sub(infoPortionRaw, 2) as TInfoPortion;
     let params: Optional<LuaArray<string | number>> = null;
 
@@ -201,36 +225,43 @@ export function parseInfoPortions(
       infoPortion = string.sub(infoPortion, 1, (at as TIndex) - 1) as TInfoPortion;
     }
 
-    if (sign === "+") {
-      table.insert(result, {
-        name: infoPortion,
-        required: true,
-      });
-    } else if (sign === "-") {
-      table.insert(result, {
-        name: infoPortion,
-        required: false,
-      });
-    } else if (sign === "~") {
-      table.insert(result, { prob: tonumber(infoPortion) });
-    } else if (sign === "=") {
-      table.insert(result, {
-        func: infoPortion,
-        expected: true,
-        params: params,
-      });
-    } else if (sign === "!") {
-      table.insert(result, {
-        func: infoPortion,
-        expected: false,
-        params: params,
-      });
-    } else {
-      abort("Syntax error in switch condition.");
+    switch (sign) {
+      case "+":
+        table.insert(destination, {
+          name: infoPortion,
+          required: true,
+        });
+        break;
+      case "-":
+        table.insert(destination, {
+          name: infoPortion,
+          required: false,
+        });
+        break;
+      case "~":
+        table.insert(destination, { prob: tonumber(infoPortion) });
+        break;
+      case "=":
+        table.insert(destination, {
+          func: infoPortion,
+          expected: true,
+          params: params,
+        });
+        break;
+      case "!":
+        table.insert(destination, {
+          func: infoPortion,
+          expected: false,
+          params: params,
+        });
+        break;
+      default:
+        abort("Syntax error in switch condition.");
+        break;
     }
   }
 
-  return result;
+  return destination;
 }
 
 /**

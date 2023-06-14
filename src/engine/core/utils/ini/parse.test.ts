@@ -3,14 +3,17 @@ import { describe, expect, it } from "@jest/globals";
 import {
   getSchemeFromSection,
   parseConditionsList,
+  parseInfoPortions,
   parseNumbersList,
   parseParameters,
   parseSpawnDetails,
   parseStringOptional,
   parseStringsList,
 } from "@/engine/core/utils/ini/parse";
+import { IConfigCondition } from "@/engine/core/utils/ini/types";
 import { NIL } from "@/engine/lib/constants/words";
-import { luaTableToArray } from "@/fixtures/lua/mocks/utils";
+import { LuaArray } from "@/engine/lib/types";
+import { luaTableToArray, luaTableToObject } from "@/fixtures/lua/mocks/utils";
 
 describe("'ini_data' parsing utils", () => {
   it("Should correctly parse names array", () => {
@@ -66,6 +69,10 @@ describe("'ini_data' parsing utils", () => {
     expect(luaTableToArray(parseParameters(NIL))).toEqual([NIL]);
     expect(luaTableToArray(parseParameters("abcd"))).toEqual(["abcd"]);
     expect(luaTableToArray(parseParameters("a|b|c|d"))).toEqual(["a", "b", "c", "d"]);
+    expect(luaTableToArray(parseParameters("a|{+ex_info =some_cb(true:d:1) !is_rainy} abc"))).toEqual([
+      "a",
+      "{+ex_info =some_cb(true:d:1) !is_rainy} abc",
+    ]);
   });
 
   it("Should correctly parse condition lists", () => {
@@ -143,6 +150,61 @@ describe("'ini_data' parsing utils", () => {
         },
       },
     ]);
+  });
+
+  it("'parseInfoPortions' should correctly parse info", () => {
+    const first: LuaArray<IConfigCondition> = parseInfoPortions(
+      new LuaTable(),
+      "=spawn_corpse(zat_b42_mayron:zat_b42_mayron_walk)+zat_b42_mayron_spawn"
+    );
+
+    expect(luaTableToObject(first)).toEqual({
+      "1": {
+        expected: true,
+        func: "spawn_corpse",
+        params: {
+          "1": "zat_b42_mayron",
+          "2": "zat_b42_mayron_walk",
+        },
+      },
+      "2": {
+        name: "zat_b42_mayron_spawn",
+        required: true,
+      },
+    });
+
+    const second: LuaArray<IConfigCondition> = parseInfoPortions(
+      new LuaTable(),
+      "+save_zat_b42_arrived_to_controler_lair =scenario_autosave(st_save_zat_b42_arrived_to_controler_lair)" +
+        " ~50 !another"
+    );
+
+    expect(luaTableToObject(second)).toEqual({
+      "1": {
+        name: "save_zat_b42_arrived_to_controler_lair",
+        required: true,
+      },
+      "2": {
+        expected: true,
+        func: "scenario_autosave",
+        params: {
+          "1": "st_save_zat_b42_arrived_to_controler_lair",
+        },
+      },
+      "3": {
+        prob: 50,
+      },
+      "4": {
+        expected: false,
+        func: "another",
+        params: null,
+      },
+    });
+
+    const third: LuaArray<IConfigCondition> = new LuaTable();
+
+    expect(parseInfoPortions(third, null)).toBe(third);
+    expect(luaTableToObject(parseInfoPortions(third, null))).toEqual({});
   });
 
   it("'parseStringOptional' should correctly handle values", () => {

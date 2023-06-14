@@ -9,7 +9,7 @@ import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsMa
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseConditionsList, parseSpawnDetails } from "@/engine/core/utils/ini/parse";
-import { TConditionList } from "@/engine/core/utils/ini/types";
+import { ISpawnDescriptor, TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableSize } from "@/engine/core/utils/table";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -127,7 +127,7 @@ export class TreasureManager extends AbstractCoreManager {
         } else {
           this.secrets.get(treasureSection).items.set(itemSection, new LuaTable());
 
-          const spawnDetails = parseSpawnDetails(data);
+          const spawnDetails: LuaArray<ISpawnDescriptor> = parseSpawnDetails(data);
 
           assert(
             spawnDetails.length() !== 0,
