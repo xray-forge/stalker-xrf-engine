@@ -13,7 +13,7 @@ import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreMan
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { assert } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList, parseIniSectionToArray } from "@/engine/core/utils/ini/parse";
+import { parseAllSectionToTable, parseConditionsList } from "@/engine/core/utils/ini/parse";
 import { readIniString } from "@/engine/core/utils/ini/read";
 import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -261,7 +261,7 @@ export class WeatherManager extends AbstractCoreManager {
    */
   protected getGraphByName(name: TName): LuaTable<TName, TProbability> {
     if (!this.graphs.has(name)) {
-      this.graphs.set(name, parseIniSectionToArray(DYNAMIC_WEATHER_GRAPHS, name));
+      this.graphs.set(name, parseAllSectionToTable(DYNAMIC_WEATHER_GRAPHS, name));
     }
 
     return this.graphs.get(name) as LuaTable<TName, TProbability>;

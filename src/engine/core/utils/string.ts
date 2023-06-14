@@ -1,6 +1,7 @@
 /**
  * Trim provided string, remove spaces from start and end.
  * todo: Description.
+ * todo: use from lua extensions string.trim
  */
 export function trimString(target: string): string {
   const [trimmed] = string.gsub(target, "^%s*(.-)%s*$", "%1");

@@ -341,22 +341,22 @@ export function parseWaypointData(waypointName: TPath, patrolFlags: Flags32, pat
 }
 
 /**
- * todo: Description.
+ * Parse all lines from ini file section to lua table.
  */
-export function parseIniSectionToArray<T = string>(ini: IniFile, section: TSection): Optional<LuaTable<string, T>> {
+export function parseAllSectionToTable<T = string>(ini: IniFile, section: TSection): Optional<LuaTable<string, T>> {
   if (ini.section_exist(section)) {
-    const array: LuaTable<string, T> = new LuaTable();
+    const parsed: LuaTable<string, T> = new LuaTable();
 
-    for (const a of $range(0, ini.line_count(section) - 1)) {
-      const [result, id, value] = ini.r_line(section, a, "", "");
-      const cleanId: Optional<string> = trimString(id);
+    for (const index of $range(0, ini.line_count(section) - 1)) {
+      const [, field, value] = ini.r_line(section, index, "", "");
+      const trimmed: Optional<string> = trimString(field);
 
-      if (id !== null && trimString(id) !== "") {
-        array.set(cleanId, trimString(value) as T);
+      if (field !== null && trimmed !== "") {
+        parsed.set(trimmed, trimString(value) as T);
       }
     }
 
-    return array;
+    return parsed;
   } else {
     return null;
   }
