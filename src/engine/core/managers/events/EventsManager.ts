@@ -1,4 +1,4 @@
-import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
+import { AbstractTimersManager } from "@/engine/core/managers/events/AbstractTimersManager";
 import { EGameEvent } from "@/engine/core/managers/events/types";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -14,7 +14,7 @@ type TEventSubscribersDescriptor = Record<EGameEvent, LuaTable<AnyCallable, { co
 /**
  * Manager to dispatch and subscribe to custom global events.
  */
-export class EventsManager extends AbstractCoreManager {
+export class EventsManager extends AbstractTimersManager {
   /**
    * Emit event directly from class statics for simplicity.
    *
