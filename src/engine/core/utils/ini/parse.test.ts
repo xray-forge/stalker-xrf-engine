@@ -13,6 +13,7 @@ import {
   parseStringsList,
   parseWaypointData,
   parseWaypointsData,
+  parseWaypointsDataFromList,
 } from "@/engine/core/utils/ini/parse";
 import { IConfigCondition } from "@/engine/core/utils/ini/types";
 import { NIL } from "@/engine/lib/constants/words";
@@ -328,6 +329,53 @@ describe("'ini_data' parsing utils", () => {
         },
         flags: {},
         t: "10000",
+      },
+    });
+  });
+
+  it("'parseWaypointsDataFromList' should correctly parse generic paths to waypoint data", () => {
+    const flags: Flags32 = MockFlags32.mock();
+
+    expect(
+      luaTableToObject(
+        parseWaypointsDataFromList(
+          "zat_b40_smart_terrain_zat_b40_merc_01_walk",
+          3,
+          [0, "wp55|a=patrol"],
+          [1, "wp66|a=patrol"],
+          [2, "wp77|a=patrol"]
+        )
+      )
+    ).toEqual({
+      "0": {
+        a: {
+          "1": {
+            infop_check: {},
+            infop_set: {},
+            section: "patrol",
+          },
+        },
+        flags,
+      },
+      "1": {
+        a: {
+          "1": {
+            infop_check: {},
+            infop_set: {},
+            section: "patrol",
+          },
+        },
+        flags,
+      },
+      "2": {
+        a: {
+          "1": {
+            infop_check: {},
+            infop_set: {},
+            section: "patrol",
+          },
+        },
+        flags,
       },
     });
   });

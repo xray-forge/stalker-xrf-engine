@@ -5,7 +5,7 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper";
 import { abort } from "@/engine/core/utils/assertion";
-import { parsePathWaypointsFromArgsList } from "@/engine/core/utils/ini/parse";
+import { parseWaypointsDataFromList } from "@/engine/core/utils/ini/parse";
 import { IWaypointData } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyCallable, ClientObject, LuaArray, Optional, Patrol, TCount, Vector } from "@/engine/lib/types";
@@ -79,19 +79,14 @@ export class ActionSleeperActivity extends action_base {
 
       if (numWayp === 1) {
         this.state.path_walk = this.state.path_main;
-        this.state.path_walk_info = parsePathWaypointsFromArgsList(this.state.path_main, 1, [0, "wp00|ret=1"]);
+        this.state.path_walk_info = parseWaypointsDataFromList(this.state.path_main, 1, [0, "wp00|ret=1"]);
         this.state.path_look = null;
         this.state.path_look_info = null;
       } else if (numWayp === 2) {
         this.state.path_walk = this.state.path_main;
-        this.state.path_walk_info = parsePathWaypointsFromArgsList(this.state.path_main, 2, [1, "wp00"], [0, "wp01"]);
+        this.state.path_walk_info = parseWaypointsDataFromList(this.state.path_main, 2, [1, "wp00"], [0, "wp01"]);
         this.state.path_look = this.state.path_main;
-        this.state.path_look_info = parsePathWaypointsFromArgsList(
-          this.state.path_main,
-          2,
-          [0, "wp00"],
-          [1, "wp01|ret=1"]
-        );
+        this.state.path_look_info = parseWaypointsDataFromList(this.state.path_main, 2, [0, "wp00"], [1, "wp01|ret=1"]);
       } else {
         abort(
           "object '%s': path_main '%s' contains %d waypoints, while 1 or 2 were expected",
