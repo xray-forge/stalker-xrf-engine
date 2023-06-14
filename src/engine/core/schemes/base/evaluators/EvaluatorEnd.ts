@@ -7,22 +7,19 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Evaluate whether section is still active.
  */
 @LuabindClass()
 export class EvaluatorEnd extends property_evaluator {
   public readonly state: IBaseSchemeState;
 
-  /**
-   * todo: Description.
-   */
-  public constructor(storage: IBaseSchemeState) {
+  public constructor(state: IBaseSchemeState) {
     super(null, EvaluatorEnd.__name);
-    this.state = storage;
+    this.state = state;
   }
 
   /**
-   * todo: Description.
+   * Check whether evaluator scheme state is still active or ended.
    */
   public override evaluate(): boolean {
     return !isActiveSection(this.object, this.state.section);

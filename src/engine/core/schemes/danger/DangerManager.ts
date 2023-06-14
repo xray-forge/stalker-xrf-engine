@@ -41,8 +41,6 @@ export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
       return;
     }
 
-    logger.info("HEAR SOUND:", object.name(), who.name(), soundType, soundPower);
-
     // Set danger state by hearing weapon bullets.
     if (isSoundType(soundType, snd_type.weapon_bullet_hit)) {
       const isSoundNear: boolean =
