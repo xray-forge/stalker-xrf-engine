@@ -2,6 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 
 import {
   getSchemeFromSection,
+  parseAllSectionToTable,
   parseConditionsList,
   parseFunctionParams,
   parseInfoPortions,
@@ -14,8 +15,9 @@ import {
 } from "@/engine/core/utils/ini/parse";
 import { IConfigCondition } from "@/engine/core/utils/ini/types";
 import { NIL } from "@/engine/lib/constants/words";
-import { Flags32, LuaArray } from "@/engine/lib/types";
+import { Flags32, IniFile, LuaArray } from "@/engine/lib/types";
 import { luaTableToArray, luaTableToObject } from "@/fixtures/lua/mocks/utils";
+import { mockIniFile } from "@/fixtures/xray";
 import { MockFlags32 } from "@/fixtures/xray/mocks/objects/Flags32.mock";
 
 describe("'ini_data' parsing utils", () => {
@@ -223,6 +225,37 @@ describe("'ini_data' parsing utils", () => {
     const flags: Flags32 = MockFlags32.mock();
 
     expect(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp00")).toEqual({ flags });
+  });
+
+  it("'parseAllSectionToTable' should correctly parse ini section to matching lua table", () => {
+    const ini: IniFile = mockIniFile("example.ltx", {
+      section1: {
+        a: "a1",
+        b: "b2",
+        "": "",
+        " ": "",
+        c: "c",
+        d: "10",
+      },
+      section2: {
+        a: "a1",
+        " ": "",
+        d: "10",
+      },
+    });
+
+    expect(luaTableToObject(parseAllSectionToTable(ini, "section1"))).toEqual({
+      a: "a1",
+      b: "b2",
+      c: "c",
+      d: 10,
+    });
+    expect(luaTableToObject(parseAllSectionToTable(ini, "section2"))).toEqual({
+      a: "a1",
+      d: 10,
+    });
+    expect(luaTableToObject(parseAllSectionToTable(ini, "section3"))).toBeNull();
+    expect(luaTableToObject(parseAllSectionToTable(ini, "section4"))).toBeNull();
   });
 
   it("'parseStringOptional' should correctly handle values", () => {
