@@ -13,7 +13,7 @@ describe("EventsManager class", () => {
   it("should correctly initialize", () => {
     const manager: EventsManager = getManagerInstance(EventsManager);
 
-    expect(MockLuaTable.getMockSize(manager.callbacks)).toBe(28);
+    expect(MockLuaTable.getMockSize(manager.callbacks)).toBe(29);
 
     Object.keys(manager.callbacks).forEach((it) => {
       expect(MockLuaTable.getMockSize(manager.callbacks[it as unknown as EGameEvent])).toBe(0);
