@@ -4,8 +4,8 @@ import { DeathManager } from "@/engine/core/schemes/death/DeathManager";
 import { ISchemeDeathState } from "@/engine/core/schemes/death/ISchemeDeathState";
 import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/getters";
+import { parseConditionsList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList } from "@/engine/core/utils/parse";
 import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

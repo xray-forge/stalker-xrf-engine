@@ -9,8 +9,8 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/
 import { isWeapon } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
+import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { setSquadGoodwill } from "@/engine/core/utils/relation";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";

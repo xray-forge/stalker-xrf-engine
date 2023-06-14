@@ -7,9 +7,9 @@ import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/wound
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWoundedState";
 import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
+import { parseData, parseSynData } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
-import { parseData, parseSynData } from "@/engine/core/utils/parse";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
 import { ActionPlanner, AnyObject, ClientObject, IniFile, Maybe, Optional, TNumberId } from "@/engine/lib/types";

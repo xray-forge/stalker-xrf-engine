@@ -14,6 +14,7 @@ import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   getAlifeCharacterCommunity,
@@ -21,7 +22,6 @@ import {
   getObjectSquad,
   getServerDistanceBetween,
 } from "@/engine/core/utils/object/object_general";
-import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { captions } from "@/engine/lib/constants/captions/captions";

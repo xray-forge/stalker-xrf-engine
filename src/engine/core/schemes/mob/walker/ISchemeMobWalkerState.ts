@@ -1,5 +1,5 @@
 import { IBaseSchemeState } from "@/engine/core/schemes/base";
-import { IWaypointData } from "@/engine/core/utils/parse";
+import { IWaypointData } from "@/engine/core/utils/ini/parse";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { LuaArray, Optional } from "@/engine/lib/types";
 

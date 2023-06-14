@@ -5,7 +5,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
-import { parsePathWaypoints } from "@/engine/core/utils/parse";
+import { parsePathWaypoints } from "@/engine/core/utils/ini/parse";
 import { ClientObject, Optional } from "@/engine/lib/types";
 
 /**

@@ -1,8 +1,8 @@
 import { SOUND_STORIES_LTX } from "@/engine/core/database";
 import { ESoundStoryParticipant, IReplicDescriptor } from "@/engine/core/objects/sounds/types";
 import { abort } from "@/engine/core/utils/assertion";
+import { parseStringsList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseStringsList } from "@/engine/core/utils/parse";
 import { LuaArray, TCount, TIndex, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

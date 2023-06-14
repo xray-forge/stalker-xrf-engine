@@ -6,8 +6,8 @@ import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
+import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,

@@ -6,8 +6,8 @@ import { EvaluatorNeedRemark } from "@/engine/core/schemes/remark/evaluators/Eva
 import { ISchemeRemarkState } from "@/engine/core/schemes/remark/ISchemeRemarkState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/getters";
+import { parseConditionsList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList } from "@/engine/core/utils/parse";
 import { addCommonPrecondition } from "@/engine/core/utils/scheme";
 import { NIL } from "@/engine/lib/constants/words";
 import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";

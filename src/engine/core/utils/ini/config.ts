@@ -15,8 +15,8 @@ import {
   readIniConditionList,
   readIniString,
 } from "@/engine/core/utils/ini/getters";
+import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList, TConditionList } from "@/engine/core/utils/parse";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NIL } from "@/engine/lib/constants/words";

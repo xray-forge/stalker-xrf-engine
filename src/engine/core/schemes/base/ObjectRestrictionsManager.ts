@@ -1,8 +1,8 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { getParamString } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
+import { parseStringsList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseStringsList } from "@/engine/core/utils/parse";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, IniFile, LuaArray, Optional, TName, TSection } from "@/engine/lib/types";
 

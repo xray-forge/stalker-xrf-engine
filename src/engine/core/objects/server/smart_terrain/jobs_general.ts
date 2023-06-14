@@ -7,8 +7,8 @@ import { IJobDescriptor, IObjectJobDescriptor, TJobDescriptor } from "@/engine/c
 import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { getSchemeByIniSection, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
+import { parseConditionsList, parseWaypointData, TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList, parseWaypointData, TConditionList } from "@/engine/core/utils/parse";
 import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";

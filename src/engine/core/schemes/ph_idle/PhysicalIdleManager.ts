@@ -3,8 +3,8 @@ import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/ph_idle/ISchemePhysicalIdleState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TConditionList } from "@/engine/core/utils/parse";
 import { ClientObject, Optional, TCount, TIndex, TSection, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

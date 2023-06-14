@@ -5,8 +5,8 @@ import { SmartTerrain } from "@/engine/core/objects";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/mob/home/ISchemeMobHomeState";
 import { assert } from "@/engine/core/utils/assertion";
+import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { IWaypointData, parseWaypointData } from "@/engine/core/utils/parse";
 import { Optional, Patrol, ServerCreatureObject, TDistance, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

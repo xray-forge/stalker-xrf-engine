@@ -3,8 +3,8 @@ import { ISchemePhysicalIdleState } from "@/engine/core/schemes/ph_idle/ISchemeP
 import { PhysicalIdleManager } from "@/engine/core/schemes/ph_idle/PhysicalIdleManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/getters";
+import { parseData1v } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseData1v } from "@/engine/core/utils/parse";
 import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

@@ -1,7 +1,7 @@
 import { IBaseSchemeLogic } from "@/engine/core/schemes/base";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
+import { parseConditionsList, parseNumbersList, parseParameters } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList, parseParameters, parseStringsList } from "@/engine/core/utils/parse";
 import { EScheme, IniFile, LuaArray, Optional, TCount, TIndex, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -119,15 +119,15 @@ export function getTwoNumbers(
   default2: number
 ): LuaMultiReturn<[number, number]> {
   if (iniFile.line_exist(section, line)) {
-    const stringList: LuaArray<string> = parseStringsList(iniFile.r_string(section as TName, line));
-    const count: TCount = stringList.length();
+    const numbersList: LuaArray<number> = parseNumbersList(iniFile.r_string(section as TName, line));
+    const count: TCount = numbersList.length();
 
     if (count === 0) {
       return $multi(default1, default2);
     } else if (count === 1) {
-      return $multi(stringList.get(1) as any, default2);
+      return $multi(numbersList.get(1), default2);
     } else {
-      return $multi(stringList.get(1) as any, stringList.get(2) as any);
+      return $multi(numbersList.get(1), numbersList.get(2));
     }
   } else {
     return $multi(default1, default2);

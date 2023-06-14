@@ -15,8 +15,8 @@ import { AnomalyFieldBinder } from "@/engine/core/objects/binders/zones/AnomalyF
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
+import { parseConditionsList, parseNumbersList, parseStringsList, TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parseConditionsList, parseNumbersList, parseStringsList, TConditionList } from "@/engine/core/utils/parse";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
 import {
   AnyGameObject,

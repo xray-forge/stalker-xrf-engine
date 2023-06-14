@@ -8,8 +8,8 @@ import { associations } from "@/engine/core/schemes/animpoint/animpoint_predicat
 import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker";
+import { parsePathWaypoints } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { parsePathWaypoints } from "@/engine/core/utils/parse";
 import { ClientObject, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

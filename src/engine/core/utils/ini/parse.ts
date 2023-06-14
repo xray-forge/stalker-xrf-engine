@@ -76,7 +76,10 @@ export interface IConfigSwitchCondition {
 export type TConditionList = LuaArray<IConfigSwitchCondition>;
 
 /**
- * todo;
+ * Parse list of strings separated by commas and whitespaces.
+ *
+ * @param data - string to parse
+ * @returns list of parsed strings
  */
 export function parseStringsList<T extends string = string>(data: string): LuaArray<T> {
   const result: LuaArray<T> = new LuaTable();
@@ -91,6 +94,7 @@ export function parseStringsList<T extends string = string>(data: string): LuaAr
 /**
  * Parse util to transform string of numbers to array.
  * Example: "1, 2, 3" -> [1, 2, 3].
+ *
  * @param base - string to parse.
  * @returns parsed array of numbers.
  */

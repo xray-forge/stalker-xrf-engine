@@ -18,8 +18,8 @@ import { ESchemeEvent } from "@/engine/core/schemes";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
 import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TConditionList } from "@/engine/core/utils/parse";
 import {
   ClientObject,
   EScheme,
