@@ -10,11 +10,13 @@ import {
   parseSpawnDetails,
   parseStringOptional,
   parseStringsList,
+  parseWaypointData,
 } from "@/engine/core/utils/ini/parse";
 import { IConfigCondition } from "@/engine/core/utils/ini/types";
 import { NIL } from "@/engine/lib/constants/words";
-import { LuaArray } from "@/engine/lib/types";
+import { Flags32, LuaArray } from "@/engine/lib/types";
 import { luaTableToArray, luaTableToObject } from "@/fixtures/lua/mocks/utils";
+import { MockFlags32 } from "@/fixtures/xray/mocks/objects/Flags32.mock";
 
 describe("'ini_data' parsing utils", () => {
   it("Should correctly parse names array", () => {
@@ -215,6 +217,12 @@ describe("'ini_data' parsing utils", () => {
     ]);
     expect(luaTableToArray(parseFunctionParams("1:zat_b42_mayron_walk:2"))).toEqual([1, "zat_b42_mayron_walk", 2]);
     expect(luaTableToArray(parseFunctionParams("1:-2:3.5:-5.5:-2.3a:c"))).toEqual([1, -2, 3.5, -5.5, "-2.3a", "c"]);
+  });
+
+  it("'parseWaypointData' should correctly parse generic paths to waypoint data", () => {
+    const flags: Flags32 = MockFlags32.mock();
+
+    expect(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp00")).toEqual({ flags });
   });
 
   it("'parseStringOptional' should correctly handle values", () => {

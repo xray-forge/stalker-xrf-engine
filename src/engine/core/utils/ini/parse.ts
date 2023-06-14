@@ -1,6 +1,6 @@
 import { flags32, patrol } from "xray16";
 
-import { abort, assertDefined } from "@/engine/core/utils/assertion";
+import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import {
   IConfigCondition,
   IConfigSwitchCondition,
@@ -232,15 +232,18 @@ export function parseInfoPortions(
           required: true,
         });
         break;
+
       case "-":
         table.insert(destination, {
           name: infoPortion,
           required: false,
         });
         break;
+
       case "~":
         table.insert(destination, { prob: tonumber(infoPortion) });
         break;
+
       case "=":
         table.insert(destination, {
           func: infoPortion,
@@ -248,6 +251,7 @@ export function parseInfoPortions(
           params: params,
         });
         break;
+
       case "!":
         table.insert(destination, {
           func: infoPortion,
@@ -255,6 +259,7 @@ export function parseInfoPortions(
           params: params,
         });
         break;
+
       default:
         abort("Syntax error in switch condition.");
         break;
@@ -284,59 +289,52 @@ export function parseFunctionParams(data: string): LuaArray<string | number> {
 }
 
 /**
- * todo;
+ * Parse waypoint data from string.
+ *
+ * @param waypointName - name of waypoint
+ * @param patrolFlags - patrol flags32
+ * @param patrolName - patrol name, source of data to parse
+ * @returns parsed waypoint data
  */
-export function parseWaypointData(pathname: TPath, waypointFlags: Flags32, waypointName: TName): IWaypointData {
+export function parseWaypointData(waypointName: TPath, patrolFlags: Flags32, patrolName: TName): IWaypointData {
   const waypointData: IWaypointData = {
-    flags: waypointFlags,
+    flags: patrolFlags,
   };
 
-  if (string.find(waypointName, "|", undefined, true) === null) {
+  if (string.find(patrolName, "|", undefined, true) === null) {
     return waypointData;
   }
 
-  let parNum = 1;
-  let fld;
-  let data: string;
+  let index: TIndex = 1;
 
-  for (const param of string.gfind(waypointName, "([%w%+~_\\%=%{%}%s%!%-%,%*]+)|*")) {
-    if (parNum === 1) {
-      // -- continue
-    } else {
-      if (param === "") {
-        abort("path '%s': waypoint '%s': syntax error in waypoint name", pathname, waypointName);
+  for (const parameter of string.gfind(patrolName, "([%w%+~_\\%=%{%}%s%!%-%,%*]+)|*")) {
+    // Skip first iteration.
+    if (index !== 1) {
+      assert(parameter !== "", "path '%s': waypoint '%s': syntax error in waypoint name", waypointName, patrolName);
+
+      const [position] = string.find(parameter, "=", 1, true);
+
+      assertDefined(position, "path '%s': waypoint '%s': syntax error in waypoint name", waypointName, patrolName);
+
+      const field: string = string.sub(parameter, 1, position - 1);
+      let parsed: string = string.sub(parameter, position + 1);
+
+      assert(
+        field && field !== "",
+        "path '%s': waypoint '%s': syntax error while parsing the param '%s': no field specified",
+        waypointName,
+        patrolName,
+        parameter
+      );
+
+      if (!parsed || parsed === "") {
+        parsed = TRUE;
       }
 
-      const [position] = string.find(param, "=", 1, true);
-
-      if (position === null) {
-        abort("path '%s': waypoint '%s': syntax error in waypoint name", pathname, waypointName);
-      }
-
-      fld = string.sub(param, 1, position - 1);
-      data = string.sub(param, position + 1);
-
-      if (!fld || fld === "") {
-        abort(
-          "path '%s': waypoint '%s': syntax error while parsing the param '%s': no field specified",
-          pathname,
-          waypointName,
-          param
-        );
-      }
-
-      if (!data || data === "") {
-        data = TRUE;
-      }
-
-      if (fld === "a") {
-        waypointData[fld] = parseConditionsList(data);
-      } else {
-        waypointData[fld as keyof IWaypointData] = data;
-      }
+      waypointData[field as keyof IWaypointData] = field === "a" ? parseConditionsList(parsed) : parsed;
     }
 
-    parNum = parNum + 1;
+    index += 1;
   }
 
   return waypointData;
