@@ -341,39 +341,13 @@ export function parseWaypointData(patrolName: TPath, patrolFlags: Flags32, point
 }
 
 /**
- * Parse all lines from ini file section to lua table.
- *
- * @param ini - ini file to parse
- * @param section - section name to parse
- * @returns table matching ini file section where field is key and value is matching ini counterpart
- */
-export function parseAllSectionToTable<T = string>(ini: IniFile, section: TSection): Optional<LuaTable<string, T>> {
-  if (ini.section_exist(section)) {
-    const parsed: LuaTable<string, T> = new LuaTable();
-
-    for (const index of $range(0, ini.line_count(section) - 1)) {
-      const [, field, value] = ini.r_line(section, index, "", "");
-      const trimmed: Optional<string> = trimString(field);
-
-      if (field !== null && trimmed !== "") {
-        parsed.set(trimmed, trimString(value) as T);
-      }
-    }
-
-    return parsed;
-  } else {
-    return null;
-  }
-}
-
-/**
  * Parse patrol waypoints data.
  * Collects all waypoints from patrol and maps to waypoint data.
  *
  * @param patrolName - name of patrol to parse
  * @returns list of waypoint descriptors
  */
-export function parseWaypointsData(patrolName: TPath): LuaArray<IWaypointData> {
+export function parseWaypointsData(patrolName: TPath): LuaTable<TIndex, IWaypointData> {
   const waypointPatrol: Patrol = new patrol(patrolName);
   const count: TCount = waypointPatrol.count();
   const waypointsData: LuaArray<IWaypointData> = new LuaTable();
@@ -394,47 +368,44 @@ export function parseWaypointsData(patrolName: TPath): LuaArray<IWaypointData> {
 }
 
 /**
- * todo;
+ * Parse waypoints data based on parameters overrides.
+ * Same as parsing from path patrol, but requires variadic arguments with overrides of index/name.
+ *
+ * @param patrolName - name of patrol
+ * @param pointsCount - count of points in patrol
+ * @param args - variadic list of points overrides
+ * @returns list of waypoint descriptors
  */
-export function parsePathWaypointsFromArgsList(
-  pathname: TPath,
+export function parseWaypointsDataFromList(
+  patrolName: TName,
   pointsCount: TCount,
-  ...args: AnyArgs
-): Optional<LuaArray<IWaypointData>> {
-  if (!pathname) {
-    return null;
-  }
-
-  const waypointPatrol: Patrol = new patrol(pathname);
+  ...args: Array<[TIndex, TName]>
+): Optional<LuaTable<TIndex, IWaypointData>> {
+  const waypointPatrol: Patrol = new patrol(patrolName);
   const count: TCount = waypointPatrol.count();
+  const list: LuaArray<IWaypointData> = new LuaTable();
 
-  if (count !== pointsCount) {
-    abort("path '%s' has %d points, but %d points were expected", pathname, count, pointsCount);
-  }
-
-  const result: LuaArray<IWaypointData> = new LuaTable();
+  assert(
+    count === pointsCount,
+    "Path '%s' has %d points, but %d points were expected.",
+    patrolName,
+    count,
+    pointsCount
+  );
 
   for (const point of $range(0, count - 1)) {
     const currentArgument = args[point];
 
-    if (!currentArgument) {
-      abort("script error [1] while processing point %d of path '%s'", point, pathname);
-    }
+    assertDefined(currentArgument, "script error [1] while processing point %d of path '%s'", point, patrolName);
 
     const flags: Flags32 = new flags32();
 
-    flags.assign(currentArgument[1]);
+    flags.assign(currentArgument[0]);
 
-    const data: IWaypointData = parseWaypointData(pathname, flags, currentArgument[2]);
-
-    if (!data) {
-      abort("script error [2] while processing point %d of path '%s'", point, pathname);
-    }
-
-    result.set(point, data);
+    list.set(point, parseWaypointData(patrolName, flags, currentArgument[1]));
   }
 
-  return result;
+  return list;
 }
 
 /**
@@ -588,6 +559,32 @@ export function parseData1v(
   }
 
   return target;
+}
+
+/**
+ * Parse all lines from ini file section to lua table.
+ *
+ * @param ini - ini file to parse
+ * @param section - section name to parse
+ * @returns table matching ini file section where field is key and value is matching ini counterpart
+ */
+export function parseAllSectionToTable<T = string>(ini: IniFile, section: TSection): Optional<LuaTable<string, T>> {
+  if (ini.section_exist(section)) {
+    const parsed: LuaTable<string, T> = new LuaTable();
+
+    for (const index of $range(0, ini.line_count(section) - 1)) {
+      const [, field, value] = ini.r_line(section, index, "", "");
+      const trimmed: Optional<string> = trimString(field);
+
+      if (field !== null && trimmed !== "") {
+        parsed.set(trimmed, trimString(value) as T);
+      }
+    }
+
+    return parsed;
+  } else {
+    return null;
+  }
 }
 
 /**

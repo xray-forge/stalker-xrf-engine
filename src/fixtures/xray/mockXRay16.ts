@@ -66,6 +66,7 @@ import {
 import { mockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 import { MockDangerObject } from "@/fixtures/xray/mocks/objects/client/danger_object.mock";
 import { MockObjectBinder } from "@/fixtures/xray/mocks/objects/client/object_binder.mock";
+import { MockFlags32 } from "@/fixtures/xray/mocks/objects/Flags32.mock";
 import { MockAlifeDynamicObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object.mock";
 import { MockAlifeDynamicObjectVisual } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object_visual.mock";
 import { MockSoundObject } from "@/fixtures/xray/mocks/objects/sound";
@@ -129,6 +130,7 @@ export function mockXRay16({
   device = jest.fn(() => mockRenderDevice()),
   editor = jest.fn(() => false),
   effector = MockEffector,
+  flags32 = MockFlags32,
   game = mockGameInterface,
   game_graph = () => new MockCGameGraph(),
   getFS = () => MockFileSystem.getInstance(),
@@ -208,6 +210,7 @@ export function mockXRay16({
     device,
     editor,
     effector,
+    flags32,
     game,
     game_graph,
     getFS,
