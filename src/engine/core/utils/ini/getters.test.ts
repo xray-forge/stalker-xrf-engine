@@ -2,12 +2,13 @@ import { describe, expect, it } from "@jest/globals";
 
 import { IBaseSchemeLogic } from "@/engine/core/schemes";
 import {
-  getTwoNumbers,
-  readConfigNumberAndConditionList,
   readIniBoolean,
   readIniConditionList,
   readIniNumber,
+  readIniNumberAndConditionList,
   readIniString,
+  readIniStringAndCondList,
+  readIniTwoNumbers,
 } from "@/engine/core/utils/ini/getters";
 import { getSchemeByIniSection } from "@/engine/core/utils/ini/parse";
 import { IniFile, Optional } from "@/engine/lib/types";
@@ -66,7 +67,7 @@ describe("'getters' utils for ini file", () => {
     expect(() => readIniBoolean(ini, "section2", "a", false)).not.toThrow();
   });
 
-  it("'getTwoNumbers' util should get two numbers correctly", () => {
+  it("'readIniTwoNumbers' util should get two numbers correctly", () => {
     const ini: IniFile = mockIniFile("example.ltx", {
       section1: {
         a: "-4.3, 2",
@@ -76,11 +77,11 @@ describe("'getters' utils for ini file", () => {
       },
     });
 
-    expect(getTwoNumbers(ini, "section1", "a", 1, 1)).toEqual([-4.3, 2]);
-    expect(getTwoNumbers(ini, "section1", "b", 1, 1)).toEqual([10, -5]);
-    expect(getTwoNumbers(ini, "section1", "c", 1, 1)).toEqual([10, 1]);
-    expect(getTwoNumbers(ini, "section1", "d", 1, 1)).toEqual([1, 1]);
-    expect(getTwoNumbers(ini, "section1", "e", 1, 1)).toEqual([1, 1]);
+    expect(readIniTwoNumbers(ini, "section1", "a", 1, 1)).toEqual([-4.3, 2]);
+    expect(readIniTwoNumbers(ini, "section1", "b", 1, 1)).toEqual([10, -5]);
+    expect(readIniTwoNumbers(ini, "section1", "c", 1, 1)).toEqual([10, 1]);
+    expect(readIniTwoNumbers(ini, "section1", "d", 1, 1)).toEqual([1, 1]);
+    expect(readIniTwoNumbers(ini, "section1", "e", 1, 1)).toEqual([1, 1]);
   });
 
   it("'readIniConditionList' should correctly parse data", () => {
@@ -141,7 +142,7 @@ describe("'getters' utils for ini file", () => {
     expect(getSchemeByIniSection("@abc")).toBeNull();
   });
 
-  it("'getConfigNumberAndConditionList' should correctly parse data", () => {
+  it("'readIniNumberAndConditionList' should correctly parse data", () => {
     const ini: IniFile = mockIniFile("example.ltx", {
       section1: {
         a: "5 | {-jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%",
@@ -149,7 +150,7 @@ describe("'getters' utils for ini file", () => {
       },
     });
 
-    expect(luaTableToObject(readConfigNumberAndConditionList(ini, "section1", "a"))).toEqual({
+    expect(luaTableToObject(readIniNumberAndConditionList(ini, "section1", "a"))).toEqual({
       name: "a",
       condlist: {
         "1": {
@@ -168,13 +169,12 @@ describe("'getters' utils for ini file", () => {
           section: "",
         },
       },
-
       npc_id: null,
       v1: 5,
       v2: null,
     });
 
-    expect(luaTableToObject(readConfigNumberAndConditionList(ini, "section1", "b"))).toEqual({
+    expect(luaTableToObject(readIniNumberAndConditionList(ini, "section1", "b"))).toEqual({
       name: "b",
       condlist: {
         "1": {
@@ -193,9 +193,108 @@ describe("'getters' utils for ini file", () => {
           section: "",
         },
       },
-
       npc_id: null,
       v1: 150,
+      v2: null,
+    });
+  });
+
+  it("'readIniStringAndCondList' should correctly parse data", () => {
+    const ini: IniFile = mockIniFile("example.ltx", {
+      section1: {
+        a: "lx8_sr_lab | sr_idle@two %+lx8_lab_tushkano_spawn =create_squad(lx8_tushkano_lab_squad:lx8_smart_terrain)%",
+        b: "path_end | camper@military_2_heli_2_fight",
+      },
+    });
+
+    expect(luaTableToObject(readIniStringAndCondList(ini, "section1", "a"))).toEqual({
+      name: "a",
+      condlist: {
+        "1": {
+          infop_check: {},
+          infop_set: {
+            "1": {
+              name: "lx8_lab_tushkano_spawn",
+              required: true,
+            },
+            "2": {
+              expected: true,
+              func: "create_squad",
+              params: {
+                "1": "lx8_tushkano_lab_squad",
+                "2": "lx8_smart_terrain",
+              },
+            },
+          },
+          section: "sr_idle@two ",
+        },
+      },
+      npc_id: null,
+      v1: "lx8_sr_lab ",
+      v2: null,
+    });
+
+    expect(luaTableToObject(readIniStringAndCondList(ini, "section1", "b"))).toEqual({
+      name: "b",
+      condlist: {
+        "1": {
+          infop_check: {},
+          infop_set: {},
+          section: "camper@military_2_heli_2_fight",
+        },
+      },
+      npc_id: null,
+      v1: "path_end ",
+      v2: null,
+    });
+  });
+
+  it("'readIniConditionList' should correctly parse data", () => {
+    const ini: IniFile = mockIniFile("example.ltx", {
+      section1: {
+        a: "sr_idle@two %+lx8_lab_tushkano_spawn =create_squad(lx8_tushkano_lab_squad:lx8_smart_terrain)%",
+        b: "camper@military_2_heli_2_fight",
+      },
+    });
+
+    expect(luaTableToObject(readIniConditionList(ini, "section1", "a"))).toEqual({
+      name: "a",
+      condlist: {
+        "1": {
+          infop_check: {},
+          infop_set: {
+            "1": {
+              name: "lx8_lab_tushkano_spawn",
+              required: true,
+            },
+            "2": {
+              expected: true,
+              func: "create_squad",
+              params: {
+                "1": "lx8_tushkano_lab_squad",
+                "2": "lx8_smart_terrain",
+              },
+            },
+          },
+          section: "sr_idle@two ",
+        },
+      },
+      npc_id: null,
+      v1: null,
+      v2: null,
+    });
+
+    expect(luaTableToObject(readIniConditionList(ini, "section1", "b"))).toEqual({
+      name: "b",
+      condlist: {
+        "1": {
+          infop_check: {},
+          infop_set: {},
+          section: "camper@military_2_heli_2_fight",
+        },
+      },
+      npc_id: null,
+      v1: null,
       v2: null,
     });
   });

@@ -4,10 +4,10 @@ import { CodeManager } from "@/engine/core/schemes/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/engine/core/schemes/ph_code/ISchemeCodeState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import {
-  readConfigStringAndCondList,
   readIniConditionList,
   readIniNumber,
   readIniString,
+  readIniStringAndCondList,
 } from "@/engine/core/utils/ini/getters";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TIndex, TName, TSection } from "@/engine/lib/types";
@@ -40,12 +40,12 @@ export class SchemeCode extends AbstractScheme {
       state.on_check_code = new LuaTable();
 
       let it: TIndex = 1;
-      let cc: Optional<IBaseSchemeLogic> = readConfigStringAndCondList(ini, section, "on_check_code" + it);
+      let cc: Optional<IBaseSchemeLogic> = readIniStringAndCondList(ini, section, "on_check_code" + it);
 
       while (cc) {
         state.on_check_code.set(cc.v1 as TName, cc.condlist);
         it += 1;
-        cc = readConfigStringAndCondList(ini, section, "on_check_code" + it);
+        cc = readIniStringAndCondList(ini, section, "on_check_code" + it);
       }
     }
   }

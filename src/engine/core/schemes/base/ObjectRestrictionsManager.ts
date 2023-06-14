@@ -1,5 +1,5 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { getParamString } from "@/engine/core/utils/ini/config";
+import { getParametersString } from "@/engine/core/utils/ini/config";
 import { readIniString } from "@/engine/core/utils/ini/getters";
 import { parseStringsList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -64,7 +64,7 @@ export class ObjectRestrictionsManager {
     logger.info("Activate restrictions:", objectName, section);
 
     // Update OUT restrictors based on active / ini restrictors.
-    const [outRestrictorString] = getParamString(readIniString(ini, section, "out_restr", false, "", ""));
+    const [outRestrictorString] = getParametersString(readIniString(ini, section, "out_restr", false, "", ""));
     const newOutRestrictors: LuaArray<TName> = parseStringsList(outRestrictorString);
     const oldOutRestrictors: LuaArray<TName> = parseStringsList(this.object.out_restrictions());
 
@@ -115,7 +115,7 @@ export class ObjectRestrictionsManager {
     }
 
     // Update IN restrictors based on active / ini restrictors.
-    const [inRestrictorString] = getParamString(readIniString(ini, section, "in_restr", false, "", ""));
+    const [inRestrictorString] = getParametersString(readIniString(ini, section, "in_restr", false, "", ""));
     const newInRestrictor: LuaArray<TName> = parseStringsList(inRestrictorString);
     const oldInRestrictor: LuaArray<TName> = parseStringsList(this.object.in_restrictions());
 
