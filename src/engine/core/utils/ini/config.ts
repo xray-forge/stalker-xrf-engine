@@ -6,7 +6,6 @@ import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import {
-  addCondition,
   getConfigStringAndConditionList,
   getConfigTwoStringsAndConditionsList,
   getTwoNumbers,
@@ -298,7 +297,7 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Opti
       const [searchIndex] = string.find(id, "^" + cond + "%d*$");
 
       if (searchIndex !== null) {
-        index = addCondition(conditionsList, index, func(ini, section, id));
+        index = addConditionToList(conditionsList, index, func(ini, section, id));
       }
     }
   }
@@ -320,4 +319,26 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Opti
   addConditions(getConfigObjectAndZone, ESchemeCondition.ON_NPC_NOT_IN_ZONE);
 
   return conditionsList;
+}
+
+/**
+ * Add condition to list.
+ *
+ * @param conditionsList - list to insert new scheme
+ * @param at - index to insert at
+ * @param conditionScheme - scheme to insert in list
+ * @returns index where next element should be inserted
+ */
+export function addConditionToList(
+  conditionsList: LuaArray<IBaseSchemeLogic>,
+  at: TIndex,
+  conditionScheme: Optional<IBaseSchemeLogic>
+): TIndex {
+  if (conditionScheme) {
+    conditionsList.set(at, conditionScheme);
+
+    return at + 1;
+  }
+
+  return at;
 }
