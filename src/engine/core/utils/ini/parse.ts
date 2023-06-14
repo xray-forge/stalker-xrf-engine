@@ -155,6 +155,7 @@ export function parseSpawnDetails(data: string): LuaArray<{ count: number; proba
  * Parse function call parameters separated with pipe.
  *
  * Example: "a|b|c" ==> { 1 = "a", 2 = "b", 3 = "c" }
+ * todo: trim parameters
  */
 export function parseParameters<T extends string>(data: T): LuaArray<T> {
   const result: LuaArray<T> = new LuaTable();
@@ -175,6 +176,8 @@ export function parseParameters<T extends string>(data: T): LuaArray<T> {
  * --   1 = { infop_check = { 1 = {"infop1" = true} }, infop_set = { 1 = {"infop2" = false } }, section = "section1" },
  * --   2 = { infop_check = { 1 = {"infop3" = true}, 2 = {"infop4" = false} }, infop_set = {}, section = "section2" },
  * -- }
+ *
+ * todo: trimming of whitespaces
  */
 export function parseConditionsList(data: string): TConditionList {
   const result: LuaArray<IConfigSwitchCondition> = new LuaTable();

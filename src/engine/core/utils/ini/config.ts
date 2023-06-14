@@ -6,13 +6,13 @@ import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import {
-  getConfigStringAndConditionList,
-  getConfigTwoStringsAndConditionsList,
-  getTwoNumbers,
-  readConfigNumberAndConditionList,
   readIniBoolean,
   readIniConditionList,
+  readIniNumberAndConditionList,
   readIniString,
+  readIniStringAndCondList,
+  readIniTwoNumbers,
+  readIniTwoStringsAndConditionsList,
 } from "@/engine/core/utils/ini/getters";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -42,14 +42,10 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-export function getParamString(data: string): LuaMultiReturn<[string, boolean]> {
+export function getParametersString(data: string): LuaMultiReturn<[string, boolean]> {
   const [outString, num] = string.gsub(data, "%$script_id%$", NIL);
 
-  if (num > 0) {
-    return $multi(outString, true);
-  } else {
-    return $multi(data, false);
-  }
+  return num > 0 ? $multi(outString, true) : $multi(data, false);
 }
 
 /**
@@ -192,7 +188,7 @@ export function pickSectionFromCondList<T extends TSection>(
  * todo;
  */
 export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
-  const target: Optional<IBaseSchemeLogic> = getConfigTwoStringsAndConditionsList(ini, section, field);
+  const target: Optional<IBaseSchemeLogic> = readIniTwoStringsAndConditionsList(ini, section, field);
 
   if (target !== null) {
     const simulator: Optional<AlifeSimulator> = alife();
@@ -235,7 +231,7 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (ini.line_exist(state.section_logic, "post_combat_time")) {
-    const [minPostCombatTime, maxPostCombatTime] = getTwoNumbers(
+    const [minPostCombatTime, maxPostCombatTime] = readIniTwoNumbers(
       ini,
       state.section_logic,
       "post_combat_time",
@@ -246,7 +242,7 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
     overrides.min_post_combat_time = minPostCombatTime;
     overrides.max_post_combat_time = maxPostCombatTime;
   } else {
-    const [min_post_combat_time, max_post_combat_time] = getTwoNumbers(
+    const [min_post_combat_time, max_post_combat_time] = readIniTwoNumbers(
       ini,
       section,
       "post_combat_time",
@@ -291,7 +287,7 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Opti
   function addConditions(
     func: (ini: IniFile, section: TSection, id: TStringId) => Optional<IBaseSchemeLogic>,
     cond: ESchemeCondition
-  ) {
+  ): void {
     for (const lineNumber of $range(0, linesCount - 1)) {
       const [, id, value] = ini.r_line(section, lineNumber, "", "");
       const [searchIndex] = string.find(id, "^" + cond + "%d*$");
@@ -303,16 +299,16 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Opti
   }
 
   // todo: Move conditions to enum.
-  addConditions(readConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN);
-  addConditions(readConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_AND_VISIBLE);
-  addConditions(readConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN);
-  addConditions(readConfigNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE);
-  addConditions(getConfigStringAndConditionList, ESchemeCondition.ON_SIGNAL);
+  addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN);
+  addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_AND_VISIBLE);
+  addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN);
+  addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE);
+  addConditions(readIniStringAndCondList, ESchemeCondition.ON_SIGNAL);
   addConditions(readIniConditionList, ESchemeCondition.ON_INFO);
-  addConditions(readConfigNumberAndConditionList, ESchemeCondition.ON_TIMER);
-  addConditions(readConfigNumberAndConditionList, ESchemeCondition.ON_GAME_TIMER);
-  addConditions(getConfigStringAndConditionList, ESchemeCondition.ON_ACTOR_IN_ZONE);
-  addConditions(getConfigStringAndConditionList, ESchemeCondition.ON_ACTOR_NOT_IN_ZONE);
+  addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_TIMER);
+  addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_GAME_TIMER);
+  addConditions(readIniStringAndCondList, ESchemeCondition.ON_ACTOR_IN_ZONE);
+  addConditions(readIniStringAndCondList, ESchemeCondition.ON_ACTOR_NOT_IN_ZONE);
   addConditions(readIniConditionList, ESchemeCondition.ON_ACTOR_INSIDE);
   addConditions(readIniConditionList, ESchemeCondition.ON_ACTOR_OUTSIDE);
   addConditions(getConfigObjectAndZone, ESchemeCondition.ON_NPC_IN_ZONE);

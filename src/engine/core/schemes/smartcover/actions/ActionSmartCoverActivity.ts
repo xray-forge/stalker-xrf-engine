@@ -10,7 +10,7 @@ import {
   ISchemeSmartCoverState,
 } from "@/engine/core/schemes/smartcover/ISchemeSmartCoverState";
 import { abort } from "@/engine/core/utils/assertion";
-import { getParamString, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { getParametersString, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
@@ -91,7 +91,7 @@ export class ActionSmartCoverActivity extends action_base {
     // --object.set_smart_cover_target_selector()
     this.targetEnemyId = null;
 
-    const [coverName, used] = getParamString(this.state.cover_name as string);
+    const [coverName, used] = getParametersString(this.state.cover_name as string);
 
     this.coverName = coverName;
 
@@ -148,7 +148,7 @@ export class ActionSmartCoverActivity extends action_base {
     );
 
     if (targetPathSection !== NIL && targetPathSection !== null) {
-      const [targetPath, used] = getParamString(targetPathSection);
+      const [targetPath, used] = getParametersString(targetPathSection);
 
       this.targetPath = targetPath;
 

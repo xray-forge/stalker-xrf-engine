@@ -45,7 +45,7 @@ import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/check/is";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getTwoNumbers, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/getters";
+import { readIniBoolean, readIniNumber, readIniString, readIniTwoNumbers } from "@/engine/core/utils/ini/getters";
 import { parseConditionsList, parseStringsList, TConditionList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_general";
@@ -783,7 +783,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     if (randomSpawnConfig !== null) {
       const randomSpawn: LuaArray<string> = parseStringsList(randomSpawnConfig)!;
 
-      const [countMin, countMax] = getTwoNumbers(SYSTEM_INI, sectionName, "npc_in_squad", 1 as any, 2 as any);
+      const [countMin, countMax] = readIniTwoNumbers(SYSTEM_INI, sectionName, "npc_in_squad", 1 as any, 2 as any);
 
       if (countMin > countMax) {
         abort("min_count can't be greater then max_count [%s]!", this.section_name());
