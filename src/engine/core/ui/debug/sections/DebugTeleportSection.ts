@@ -1,16 +1,4 @@
-import {
-  alife,
-  CUI3tButton,
-  CUIComboBox,
-  CUIListBox,
-  CUIWindow,
-  game,
-  game_graph,
-  level,
-  LuabindClass,
-  ui_events,
-  vector2,
-} from "xray16";
+import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, game, level, LuabindClass, ui_events, vector2 } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
@@ -23,7 +11,7 @@ import { getServerObjects } from "@/engine/core/utils/object/object_find";
 import { isGameVertexFromLevel } from "@/engine/core/utils/position";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
-import { LuaArray, Optional, TName, TPath, Vector2D } from "@/engine/lib/types";
+import { LuaArray, Optional, TPath, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugTeleportSection.component";
