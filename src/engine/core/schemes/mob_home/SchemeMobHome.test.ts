@@ -1,14 +1,10 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
-import { ESchemeEvent } from "@/engine/core/schemes";
-import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
-import { ISchemeMobHomeState } from "@/engine/core/schemes/mob/home/ISchemeMobHomeState";
-import { MobHomeManager } from "@/engine/core/schemes/mob/home/MobHomeManager";
-import { SchemeMobHome } from "@/engine/core/schemes/mob/home/SchemeMobHome";
+import { ISchemeMobHomeState } from "@/engine/core/schemes/mob_home/ISchemeMobHomeState";
+import { SchemeMobHome } from "@/engine/core/schemes/mob_home/SchemeMobHome";
 import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
 import { loadSchemeImplementation } from "@/engine/scripts/register/schemes_registrator";
-import { MockLuaTable } from "@/fixtures/lua";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeMobHome functionality", () => {

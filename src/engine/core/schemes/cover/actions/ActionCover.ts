@@ -13,7 +13,7 @@ import { CoverPoint, EClientObjectPath, Optional, TDistance, TNumberId, Vector }
  * todo;
  */
 @LuabindClass()
-export class ActionBaseCover extends action_base {
+export class ActionCover extends action_base {
   public readonly state: ISchemeCoverState;
   public board!: SimulationBoardManager;
 
@@ -22,13 +22,10 @@ export class ActionBaseCover extends action_base {
   public coverPosition!: Vector;
 
   public constructor(state: ISchemeCoverState) {
-    super(null, ActionBaseCover.__name);
+    super(null, ActionCover.__name);
     this.state = state;
   }
 
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
     super.initialize();
     this.board = SimulationBoardManager.getInstance();
@@ -37,19 +34,58 @@ export class ActionBaseCover extends action_base {
   /**
    * todo: Description.
    */
+  public override execute(): void {
+    if (this.coverPosition.distance_to_sqr(this.object.position()) <= 0.4) {
+      const targetState: Optional<EStalkerState> = pickSectionFromCondList(
+        registry.actor,
+        this.object,
+        this.state.animationConditionList
+      );
+
+      setStalkerState(
+        this.object,
+        targetState!,
+        null,
+        null,
+        { lookPosition: this.enemyRandomPosition, lookObject: null },
+        null
+      );
+    } else {
+      this.object.set_dest_level_vertex_id(this.coverVertexId);
+      setStalkerState(this.object, EStalkerState.ASSAULT);
+    }
+
+    if (this.state.soundIdle !== null) {
+      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.soundIdle);
+    }
+
+    super.execute();
+  }
+
+  /**
+   * todo: Description.
+   */
+  public isPositionReached(): boolean {
+    return this.coverPosition.distance_to_sqr(this.object.position()) <= 0.4;
+  }
+
+  /**
+   * todo: Description.
+   */
   public activateScheme(): void {
     this.state.signals = new LuaTable();
-    this.board = SimulationBoardManager.getInstance();
 
-    const basePoint = this.board.getSmartTerrainByName(this.state.smart)!.m_level_vertex_id;
+    const smartTerrainVertexId: TNumberId = this.board.getSmartTerrainByName(
+      this.state.smartTerrainName
+    )!.m_level_vertex_id;
 
     const directionVector: Vector = createVector(math.random(-100, 100), 0, math.random(-100, 100));
     const baseVertexId: TNumberId = level.vertex_in_direction(
-      basePoint,
+      smartTerrainVertexId,
       directionVector,
-      math.random(this.state.radius_min, this.state.radius_max)
+      math.random(this.state.radiusMin, this.state.radiusMax)
     );
-    const thisRandomPosition = level.vertex_position(baseVertexId);
+    const thisRandomPosition: Vector = level.vertex_position(baseVertexId);
 
     this.enemyRandomPosition = thisRandomPosition;
 
@@ -58,7 +94,7 @@ export class ActionBaseCover extends action_base {
 
     while (cover === null && coverDistance <= 4) {
       cover = this.object.best_cover(thisRandomPosition, this.enemyRandomPosition, coverDistance, 1, 150);
-      coverDistance = coverDistance + 1;
+      coverDistance += 1;
     }
 
     if (cover === null) {
@@ -87,39 +123,5 @@ export class ActionBaseCover extends action_base {
     this.object.set_dest_level_vertex_id(this.coverVertexId);
 
     setStalkerState(this.object, EStalkerState.ASSAULT);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override execute(): void {
-    if (this.coverPosition.distance_to_sqr(this.object.position()) <= 0.4) {
-      const anim: Optional<EStalkerState> = pickSectionFromCondList(registry.actor, this.object, this.state.anim);
-
-      setStalkerState(
-        this.object,
-        anim!,
-        null,
-        null,
-        { lookPosition: this.enemyRandomPosition, lookObject: null },
-        null
-      );
-    } else {
-      this.object.set_dest_level_vertex_id(this.coverVertexId);
-      setStalkerState(this.object, EStalkerState.ASSAULT);
-    }
-
-    if (this.state.sound_idle !== null) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sound_idle, null, null);
-    }
-
-    super.execute();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public isPositionReached(): boolean {
-    return this.coverPosition.distance_to_sqr(this.object.position()) <= 0.4;
   }
 }

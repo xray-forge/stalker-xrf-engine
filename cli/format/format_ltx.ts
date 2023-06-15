@@ -1,6 +1,8 @@
 import * as fsp from "fs/promises";
 import * as path from "path";
 
+import { yellowBright } from "chalk";
+
 import { GAME_DATA_LTX_CONFIGS_DIR } from "#/globals";
 import { EAssetExtension, NodeLogger, readDirContent, TFolderFiles } from "#/utils";
 
@@ -27,7 +29,7 @@ export async function formatLtx(parameters: IFormatLtxParameters): Promise<void>
  * Format specific file by path.
  */
 async function formatLtxFile(file: string): Promise<void> {
-  log.info("Format:", file);
+  log.info("Format:", yellowBright(file));
 
   const buffer: Buffer = await fsp.readFile(file);
   const formatted: string = buffer

@@ -3,7 +3,7 @@ import { alife, patrol } from "xray16";
 import { setMonsterState } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { ISchemeMobHomeState } from "@/engine/core/schemes/mob/home/ISchemeMobHomeState";
+import { ISchemeMobHomeState } from "@/engine/core/schemes/mob_home/ISchemeMobHomeState";
 import { assert } from "@/engine/core/utils/assertion";
 import { parseWaypointData } from "@/engine/core/utils/ini/parse";
 import { IWaypointData } from "@/engine/core/utils/ini/types";

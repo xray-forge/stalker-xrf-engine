@@ -15,7 +15,7 @@ import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
-import { ISchemeMobCombatState } from "@/engine/core/schemes/mob/combat";
+import { ISchemeMobCombatState } from "@/engine/core/schemes/mob_combat";
 import { initTarget } from "@/engine/core/schemes/remark/actions";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";

@@ -7,7 +7,7 @@ import { isSchemeActive } from "@/engine/core/utils/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Check whether cover needed.
  */
 @LuabindClass()
 export class EvaluatorNeedCover extends property_evaluator {
@@ -19,7 +19,7 @@ export class EvaluatorNeedCover extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Check whether cover scheme is active.
    */
   public override evaluate(): boolean {
     return isSchemeActive(this.object, this.state);

@@ -2,7 +2,7 @@ import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore/SchemeCombatIgnore";
 import { SchemeHit } from "@/engine/core/schemes/hit/SchemeHit";
 import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
-import { SchemeMobCombat } from "@/engine/core/schemes/mob/combat/SchemeMobCombat";
+import { SchemeMobCombat } from "@/engine/core/schemes/mob_combat/SchemeMobCombat";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/ph_on_hit/SchemePhysicalOnHit";
 import { disableObjectInvulnerability } from "@/engine/core/utils/object/object_general";
 import { ClientObject } from "@/engine/lib/types";

@@ -1,6 +1,6 @@
 import { AbstractScheme } from "@/engine/core/schemes/base";
-import { ISchemeMobJumpState } from "@/engine/core/schemes/mob/jump/ISchemeMobJumpState";
-import { MobJumpManager } from "@/engine/core/schemes/mob/jump/MobJumpManager";
+import { ISchemeMobJumpState } from "@/engine/core/schemes/mob_jump/ISchemeMobJumpState";
+import { MobJumpManager } from "@/engine/core/schemes/mob_jump/MobJumpManager";
 import { assert } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { parseStringsList } from "@/engine/core/utils/ini/parse";

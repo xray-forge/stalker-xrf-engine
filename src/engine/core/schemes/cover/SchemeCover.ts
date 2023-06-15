@@ -1,10 +1,10 @@
 import { stalker_ids, world_property } from "xray16";
 
 import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
-import { ActionBaseCover } from "@/engine/core/schemes/cover/actions";
+import { ActionCover } from "@/engine/core/schemes/cover/actions";
 import { EvaluatorNeedCover } from "@/engine/core/schemes/cover/evaluators";
 import { ISchemeCoverState } from "@/engine/core/schemes/cover/ISchemeCoverState";
-import { abort } from "@/engine/core/utils/assertion";
+import { assertDefined } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { parseConditionsList } from "@/engine/core/utils/ini/parse";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
@@ -20,9 +20,6 @@ export class SchemeCover extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.COVER;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(
     object: ClientObject,
     ini: IniFile,
@@ -33,23 +30,18 @@ export class SchemeCover extends AbstractScheme {
     const state: ISchemeCoverState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.smart = readIniString(ini, section, "smart", false, "");
-    state.anim = parseConditionsList(readIniString(ini, section, "anim", false, "", "hide"));
-    state.sound_idle = readIniString(ini, section, "sound_idle", false, "");
+    state.smartTerrainName = readIniString(ini, section, "smart", false, "");
+    state.animationConditionList = parseConditionsList(readIniString(ini, section, "anim", false, "", "hide"));
+    state.soundIdle = readIniString(ini, section, "sound_idle", false, "");
 
-    if (state.smart === null) {
-      abort("There is no path_walk and smart in ActionCover.");
-    }
+    assertDefined(state.smartTerrainName, "There is no path_walk and smart in ActionCover.");
 
-    state.use_attack_direction = readIniBoolean(ini, section, "use_attack_direction", false, true);
+    state.useAttackDirection = readIniBoolean(ini, section, "use_attack_direction", false, true);
 
-    state.radius_min = readIniNumber(ini, section, "radius_min", false, 3);
-    state.radius_max = readIniNumber(ini, section, "radius_max", false, 5);
+    state.radiusMin = readIniNumber(ini, section, "radius_min", false, 3);
+    state.radiusMax = readIniNumber(ini, section, "radius_max", false, 5);
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -61,7 +53,7 @@ export class SchemeCover extends AbstractScheme {
 
     actionPlanner.add_evaluator(EEvaluatorId.NEED_COVER, new EvaluatorNeedCover(state));
 
-    const newAction: ActionBaseCover = new ActionBaseCover(state);
+    const newAction: ActionCover = new ActionCover(state);
 
     newAction.add_precondition(new world_property(stalker_ids.property_alive, true));
     newAction.add_precondition(new world_property(stalker_ids.property_danger, false));

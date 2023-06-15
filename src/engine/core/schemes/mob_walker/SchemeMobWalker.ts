@@ -1,7 +1,7 @@
 import { getMonsterState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes";
-import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob/walker/ISchemeMobWalkerState";
-import { MobWalkerManager } from "@/engine/core/schemes/mob/walker/MobWalkerManager";
+import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob_walker/ISchemeMobWalkerState";
+import { MobWalkerManager } from "@/engine/core/schemes/mob_walker/MobWalkerManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";

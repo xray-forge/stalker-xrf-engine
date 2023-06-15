@@ -3,7 +3,7 @@ import { anim, cond, look, move, patrol, sound } from "xray16";
 import { registry, setMonsterState } from "@/engine/core/database";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob/walker/ISchemeMobWalkerState";
+import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob_walker/ISchemeMobWalkerState";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseWaypointsData } from "@/engine/core/utils/ini/parse";

@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { ISchemeMobHomeState } from "@/engine/core/schemes/mob/home/ISchemeMobHomeState";
-import { MobHomeManager } from "@/engine/core/schemes/mob/home/MobHomeManager";
+import { ISchemeMobHomeState } from "@/engine/core/schemes/mob_home/ISchemeMobHomeState";
+import { MobHomeManager } from "@/engine/core/schemes/mob_home/MobHomeManager";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import {
   ClientObject,
