@@ -1,7 +1,7 @@
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { ISchemeTeleportState, ITeleportPoint } from "@/engine/core/schemes/teleport/ISchemeTeleportState";
-import { TeleportManager } from "@/engine/core/schemes/teleport/TeleportManager";
-import { abort } from "@/engine/core/utils/assertion";
+import { ISchemeTeleportState, ITeleportPoint } from "@/engine/core/schemes/sr_teleport/ISchemeTeleportState";
+import { TeleportManager } from "@/engine/core/schemes/sr_teleport/TeleportManager";
+import { assert } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -11,27 +11,26 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Scheme logic implementation for restrictors teleportation.
+ * Allows teleporting on reaching specific location.
  */
 export class SchemeTeleport extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_TELEPORT;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.RESTRICTOR;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemeTeleportState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.timeout = readIniNumber(ini, section, "timeout", false, 900);
     state.points = new LuaTable();
+    state.maxTotalProbability = 0;
 
     for (const it of $range(1, 10)) {
       const teleportPoint: ITeleportPoint = {
         point: readIniString(ini, section, "point" + tostring(it), false, "", "none"),
         look: readIniString(ini, section, "look" + tostring(it), false, "", "none"),
-        prob: readIniNumber(ini, section, "prob" + tostring(it), false, 100),
+        probability: readIniNumber(ini, section, "prob" + tostring(it), false, 100),
       };
 
       if (teleportPoint.point === "none" || teleportPoint.look === "none") {
@@ -39,16 +38,13 @@ export class SchemeTeleport extends AbstractScheme {
       }
 
       table.insert(state.points, teleportPoint);
+
+      state.maxTotalProbability += teleportPoint.probability;
     }
 
-    if (state.points.length() === 0) {
-      abort("Wrong point in teleport scheme: [%s].", tostring(section));
-    }
+    assert(state.points.length() > 0, "Wrong point in teleport scheme: [%s].", tostring(section));
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,

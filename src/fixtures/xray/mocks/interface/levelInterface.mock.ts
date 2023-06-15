@@ -8,6 +8,7 @@ export const CLIENT_SIDE_REGISTRY: Record<TNumberId, ClientObject> = {};
  * Mock game `level` interface.
  */
 export const mockLevelInterface = {
+  add_pp_effector: jest.fn(),
   disable_input: jest.fn(),
   get_game_difficulty: jest.fn(() => 3),
   get_snd_volume: jest.fn(() => 1),

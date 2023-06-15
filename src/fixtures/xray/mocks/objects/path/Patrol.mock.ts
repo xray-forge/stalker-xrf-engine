@@ -45,8 +45,8 @@ export class MockPatrol {
     return this.patrolMock.points[index].name;
   }
 
-  public point(index: TIndex): Vector {
-    return MockVector.mock(1, 1, 1);
+  public point(index: TIndex): MockVector {
+    return this.patrolMock.points[index].position;
   }
 
   public count(): TCount {

@@ -85,14 +85,9 @@ const SCHEME_LOGIC_SWITCH: Record<
 /**
  * todo;
  */
-export function trySwitchToAnotherSection(
-  object: ClientObject,
-  state: IBaseSchemeState,
-  actor: Optional<ClientObject>
-): boolean {
+export function trySwitchToAnotherSection(object: ClientObject, state: IBaseSchemeState, actor: ClientObject): boolean {
   const logic: Optional<LuaArray<IBaseSchemeLogic>> = state.logic;
 
-  assertDefined(actor, "TrySwitchToAnotherSection(): error in scheme '%s': actor is null", state.scheme);
   assertDefined(logic, "Can't find `logic` in storage, scheme '%s'.", registry.objects.get(object.id()).active_scheme);
 
   for (const [, condition] of logic) {

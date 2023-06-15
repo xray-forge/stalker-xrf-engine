@@ -22,6 +22,10 @@ export class MockSoundObject {
     this.isPlaying = true;
   });
 
+  public play_no_feedback = jest.fn(() => {
+    this.isPlaying = true;
+  });
+
   public stop = jest.fn(() => {
     this.isPlaying = false;
   });

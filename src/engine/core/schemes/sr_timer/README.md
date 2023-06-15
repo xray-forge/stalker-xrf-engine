@@ -2,7 +2,7 @@
 
 Scheme is implementing timers on screen and allows using timed logic. <br/>
 
-Example: in CoC everything related to time near psy-labs, bloodsuckers lair, helicopters evacuation limits
+Example: in ShoC everything related to time near psy-labs, bloodsuckers lair, helicopters evacuation limits
 
 ## ini parameters
 
