@@ -210,33 +210,33 @@ npc_in_squad = 2, 3
 ;--------------- zombied simulation squads -----------------------
 
 [simulation_zombied_1]:online_offline_group
-faction 		= zombied
-npc_random 		= sim_default_zombied_1, sim_default_zombied_1, sim_default_zombied_2, sim_default_zombied_2, sim_default_zombied_3
+faction = zombied
+npc_random = sim_default_zombied_1, sim_default_zombied_1, sim_default_zombied_2, sim_default_zombied_2, sim_default_zombied_3
 npc_in_squad = 2, 3
 
 [simulation_zombied_2]:online_offline_group
-faction 		= zombied
-npc_random 		= sim_default_zombied_2, sim_default_zombied_2, sim_default_zombied_3, sim_default_zombied_3
+faction = zombied
+npc_random = sim_default_zombied_2, sim_default_zombied_2, sim_default_zombied_3, sim_default_zombied_3
 npc_in_squad = 2, 3
 
 [simulation_zombied_3]:online_offline_group
-faction 		= zombied
-npc_random 		= sim_default_zombied_3, sim_default_zombied_4
+faction = zombied
+npc_random = sim_default_zombied_3, sim_default_zombied_4
 npc_in_squad = 2, 3
 
 [zombied_sim_squad_novice]:online_offline_group
-faction 		= zombied
-npc_random 		= sim_default_zombied_1, sim_default_zombied_2
+faction = zombied
+npc_random = sim_default_zombied_1, sim_default_zombied_2
 npc_in_squad = 2, 3
 
 [zombied_sim_squad_advanced]:online_offline_group
-faction 		= zombied
-npc_random 		= sim_default_zombied_2, sim_default_zombied_3
+faction = zombied
+npc_random = sim_default_zombied_2, sim_default_zombied_3
 npc_in_squad = 2, 3
 
 [zombied_sim_squad_veteran]:online_offline_group
-faction 		= zombied
-npc_random 		= sim_default_zombied_3, sim_default_zombied_4
+faction = zombied
+npc_random = sim_default_zombied_3, sim_default_zombied_4
 npc_in_squad = 2, 3
 
 ;--------------- monster simulation squads -----------------------
@@ -406,7 +406,6 @@ faction = freedom
 npc = sim_default_freedom_1
 target_smart = smart_3:smart_1
 
-
 ;[pl]:online_offline_group
 ;faction = freedom
 ;npc = sim_default_freedom_2, sim_default_freedom_2, sim_default_freedom_2, sim_default_freedom_2, sim_default_freedom_2
@@ -512,9 +511,9 @@ target_smart = pl_selo_smart
 spawn_point = way
 
 [sim_stalker_squad_1]:online_offline_group
-faction 		= freedom
-npc 			= sim_default_freedom_2,sim_default_freedom_2,sim_default_freedom_2
-;npc_random 		= sim_default_zombied_1
+faction = freedom
+npc = sim_default_freedom_2,sim_default_freedom_2,sim_default_freedom_2
+;npc_random = sim_default_zombied_1
 target_smart = nil
 ;run_string xr_effects.create_squad_member(nil,nil,{"sim_default_freedom_2", "sim_stalker_squad_1"})
 ;run_string alife():object(57):remove_squad()

@@ -85,13 +85,12 @@ spawning = 0.0, "", 1.0, 1.0, 0.5, 0.0, "", "idle"
 ;----------------------------------------------------------------------------------------------------------------------------------------
 starting = 5.0, anomaly\bfuzz_blowout, 0.8, 1.0, 1.5, 5.0, "anomaly2\artefact_electra_blast_start", "idle"
 flying = 2.0, anomaly\electra_idle1, 1.0, 1.0, 1.0, 5.0, "artefact\artefact_electra", "idle"
-idle_before_spawning = 0.0, "",  1.0, 1.0, 2.5, 0, "", "idle"
+idle_before_spawning = 0.0, "", 1.0, 1.0, 2.5, 0, "", "idle"
 spawning = 2, "anomaly\pux_blast", 1.0, 1.0, 1.5, 5.0, "anomaly2\artefact_electra_blast_finished", "idle"
-
 
 [af_base]:identity_immunities
 GroupControlSection = spawn_group
-cform  = skeleton
+cform = skeleton
 hud = artefact_hud
 animation_slot = 11
 allow_inertion = true
@@ -113,13 +112,13 @@ det_hide_snd = anomaly\pux_blast
 
 af_rank = 1
 can_be_controlled = true
-script_binding  = bind.artefact
+script_binding = bind.artefact
 particles_bone = link
 additional_inventory_weight = 0
 idle_light_shadow = false
 
 [artefact_hud]:hud_base
-item_visual  = dynamics\artefacts\artefact_electra_blue_hud
+item_visual = dynamics\artefacts\artefact_electra_blue_hud
 attach_place_idx = 0
 
 hands_position = 0,0,0
@@ -283,7 +282,6 @@ lights_enabled = true
 
 trail_light_color = 0.4,0.4,0 ;0.6,0.7,0.5
 trail_light_range = 2.0
-
 
 artefact_activation_seq = af_activation_bold
 
@@ -558,7 +556,6 @@ lights_enabled = true
 trail_light_color = 0.9,0.4,0.2
 trail_light_range = 2.0
 
-
 ;�������� ���������� (����������)
 health_restore_speed = 0
 radiation_restore_speed = 0.002
@@ -613,7 +610,6 @@ lights_enabled = true
 trail_light_color = 0.9,0.4,0.2
 trail_light_range = 2.0
 
-
 ;�������� ���������� (����������)
 health_restore_speed = 0
 radiation_restore_speed = 0.001
@@ -666,7 +662,6 @@ lights_enabled = true
 trail_light_color = 0.9,0.4,0.2
 trail_light_range = 2.0
 
-
 ;�������� ���������� (����������)
 health_restore_speed = 0
 radiation_restore_speed = 0.002
@@ -718,7 +713,6 @@ lights_enabled = true
 
 trail_light_color = 0.9,0.4,0.2
 trail_light_range = 2.0
-
 
 ;�������� ���������� (����������)
 health_restore_speed = 0
@@ -883,7 +877,6 @@ lights_enabled = true
 trail_light_color = 0.5,0.7,0.2
 trail_light_range = 2.0
 
-
 artefact_activation_seq = af_activation_mincer
 
 ;�������� ���������� (����������)
@@ -937,7 +930,6 @@ lights_enabled = true
 trail_light_color = 0.5,0.7,0.2
 trail_light_range = 2.0
 
-
 ;�������� ���������� (����������)
 health_restore_speed = 0.0006
 radiation_restore_speed = 0.002
@@ -989,7 +981,6 @@ lights_enabled = true
 trail_light_color = 0.5,0.7,0.2
 trail_light_range = 2.0
 
-
 ;�������� ���������� (����������)
 health_restore_speed = 0
 radiation_restore_speed = -0.004
@@ -1040,7 +1031,6 @@ lights_enabled = true
 
 trail_light_color = 0.5,0.7,0.2
 trail_light_range = 2.0
-
 
 ;�������� ���������� (����������)
 health_restore_speed = 0.0009
@@ -1310,7 +1300,6 @@ lights_enabled = true
 trail_light_color = 0.6,0.7,0.9
 trail_light_range = 2.0
 
-
 ;�������� ���������� (����������)
 health_restore_speed = 0
 radiation_restore_speed = 0.002
@@ -1362,7 +1351,6 @@ lights_enabled = true
 trail_light_color = 0.6,0.7,0.9
 trail_light_range = 2.0
 
-
 ;�������� ���������� (����������)
 health_restore_speed = 0
 radiation_restore_speed = 0.003
@@ -1391,7 +1379,6 @@ fire_wound_immunity = 0
 ;------------------------------------------------------------------------------------------
 ;------------------------------------------------------------------------------------------
 ;------------------------------------------------------------------------------------------
-
 
 [af_compass]:af_base
 $spawn = "artefacts\compass"
