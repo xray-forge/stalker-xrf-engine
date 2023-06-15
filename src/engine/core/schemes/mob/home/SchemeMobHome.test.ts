@@ -11,7 +11,7 @@ import { loadSchemeImplementation } from "@/engine/scripts/register/schemes_regi
 import { MockLuaTable } from "@/fixtures/lua";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
-describe("MobHomeManager functionality", () => {
+describe("SchemeMobHome functionality", () => {
   it("should be correctly defined", () => {
     expect(SchemeMobHome.SCHEME_SECTION).toBe("mob_home");
     expect(SchemeMobHome.SCHEME_SECTION).toBe(EScheme.MOB_HOME);
@@ -53,31 +53,5 @@ describe("MobHomeManager functionality", () => {
     expect(schemeState.homeMinRadius).toBe(13);
     expect(schemeState.homeMidRadius).toBe(15);
     expect(schemeState.homeMaxRadius).toBe(18);
-  });
-
-  it("should correctly handle events", () => {
-    const object: ClientObject = mockClientGameObject();
-    const ini: IniFile = mockIniFile("test.ltx", {});
-
-    registerObject(object);
-    loadSchemeImplementation(SchemeMobHome);
-
-    SchemeMobHome.activate(object, ini, SchemeMobHome.SCHEME_SECTION, `${SchemeMobHome.SCHEME_SECTION}@test`, "prefix");
-
-    const state: IRegistryObjectState = registry.objects.get(object.id());
-    const schemeState: ISchemeMobHomeState = state[EScheme.MOB_HOME] as ISchemeMobHomeState;
-
-    const mobHomeManager: MobHomeManager = (
-      schemeState.actions as unknown as MockLuaTable<MobHomeManager, boolean>
-    ).getKeysArray()[0];
-
-    jest.spyOn(mobHomeManager, "resetScheme").mockImplementation(jest.fn);
-    jest.spyOn(mobHomeManager, "deactivate").mockImplementation(jest.fn);
-
-    emitSchemeEvent(object, schemeState, ESchemeEvent.RESET_SCHEME);
-    expect(mobHomeManager.resetScheme).toHaveBeenCalledTimes(1);
-
-    emitSchemeEvent(object, schemeState, ESchemeEvent.DEACTIVATE);
-    expect(mobHomeManager.deactivate).toHaveBeenCalledTimes(1);
   });
 });

@@ -2,7 +2,10 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { activateSchemeBySection } from "@/engine/core/schemes/base/utils/activateSchemeBySection";
 import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
-import { ClientObject, EScheme, IniFile, Maybe, TSection } from "@/engine/lib/types";
+import { LuaLogger } from "@/engine/core/utils/logging";
+import { ClientObject, EScheme, IniFile, Optional, TSection } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Explicitly switch object active scheme to new section.
@@ -10,13 +13,13 @@ import { ClientObject, EScheme, IniFile, Maybe, TSection } from "@/engine/lib/ty
  *
  * todo: docblock;
  */
-export function switchObjectSchemeToSection(object: ClientObject, ini: IniFile, section: TSection): boolean {
+export function switchObjectSchemeToSection(object: ClientObject, ini: IniFile, section: Optional<TSection>): boolean {
   if (section === "" || section === null) {
     return false;
   }
 
   const state: IRegistryObjectState = registry.objects.get(object.id());
-  const activeSection: Maybe<EScheme> = state.active_section as EScheme;
+  const activeSection: Optional<TSection> = state.active_section as TSection;
 
   if (activeSection === section) {
     return false;
@@ -24,7 +27,7 @@ export function switchObjectSchemeToSection(object: ClientObject, ini: IniFile, 
 
   // Notify schemes about deactivation.
   if (activeSection !== null) {
-    emitSchemeEvent(object, state[activeSection]!, ESchemeEvent.DEACTIVATE, object);
+    emitSchemeEvent(object, state[state.active_scheme as EScheme]!, ESchemeEvent.DEACTIVATE, object);
   }
 
   state.active_section = null;

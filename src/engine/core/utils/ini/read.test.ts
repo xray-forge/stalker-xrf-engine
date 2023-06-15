@@ -137,6 +137,9 @@ describe("'read' utils for ini file", () => {
       section1: {
         a: "5 | {-jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%",
         b: "150 | {-jup_b4_actor_go_away} %+jup_b4_actor_go_away%",
+        c:
+          "0 | sr_idle@end {!squad_exist(zat_b38_bloodsuckers_sleepers)} %+zat_b57_gas_running_stop" +
+          " +zat_b57_den_of_the_bloodsucker_tell_stalkers_about_destroy_lair_give%",
       },
     });
 
@@ -185,6 +188,38 @@ describe("'read' utils for ini file", () => {
       },
       npc_id: null,
       v1: 150,
+      v2: null,
+    });
+
+    expect(luaTableToObject(readIniNumberAndConditionList(ini, "section1", "c"))).toEqual({
+      name: "c",
+      condlist: {
+        "1": {
+          infop_check: {
+            "1": {
+              expected: false,
+              func: "squad_exist",
+              params: {
+                "1": "zat_b38_bloodsuckers_sleepers",
+              },
+            },
+          },
+          infop_set: {
+            "1": {
+              name: "zat_b57_gas_running_stop",
+              required: true,
+            },
+
+            "2": {
+              name: "zat_b57_den_of_the_bloodsucker_tell_stalkers_about_destroy_lair_give",
+              required: true,
+            },
+          },
+          section: "sr_idle@end  ",
+        },
+      },
+      npc_id: null,
+      v1: 0,
       v2: null,
     });
   });

@@ -411,10 +411,38 @@ export function parseWaypointsDataFromList(
 /**
  * todo;
  */
-export function parseData(
-  object: ClientObject,
-  target: Optional<string>
-): LuaArray<{
+export function parseSynData(target: Optional<string>): LuaArray<{ zone: null; state: string; sound: string }> {
+  const collection: LuaArray<any> = new LuaTable();
+
+  if (target) {
+    for (const name of string.gfind(target, "(%|*[^%|]+%|*)%p*")) {
+      const dat = {
+        zone: null,
+        state: null as Optional<string>,
+        sound: null as Optional<string>,
+      };
+
+      const [tPosition] = string.find(name, "@", 1, true);
+      const [sPosition] = string.find(name, "|", 1, true);
+
+      const state = string.sub(name, 1, tPosition - 1);
+      const sound =
+        sPosition !== null ? string.sub(name, tPosition + 1, sPosition - 1) : string.sub(name, tPosition + 1);
+
+      dat.state = state;
+      dat.sound = sound;
+
+      table.insert(collection, dat);
+    }
+  }
+
+  return collection;
+}
+
+/**
+ * todo;
+ */
+export function parseData(target: Optional<string>): LuaArray<{
   dist: Optional<TDistance>;
   state: Optional<LuaArray<IConfigSwitchCondition>>;
   sound: Optional<LuaArray<IConfigSwitchCondition>>;
@@ -453,64 +481,6 @@ export function parseData(
       if (sound !== null) {
         dat.sound = parseConditionsList(sound);
       }
-
-      table.insert(collection, dat);
-    }
-  }
-
-  return collection;
-}
-
-// todo: Probably same as parseData?
-export function parseTimerData(
-  object: ClientObject,
-  str: Optional<string>
-): LuaArray<{ dist: TDistance; state: Optional<LuaArray<IConfigSwitchCondition>> }> {
-  const data: LuaArray<{ dist: TDistance; state: Optional<LuaArray<IConfigSwitchCondition>> }> = new LuaTable();
-
-  if (str) {
-    for (const name of string.gfind(str, "(%|*%d+%|[^%|]+)%p*")) {
-      const [position] = string.find(name, "|", 1, true);
-
-      const dist: Optional<string> = string.sub(name, 1, position - 1);
-      const state: Optional<string> = string.sub(name, position + 1);
-
-      table.insert(data, {
-        dist: tonumber(dist) as TDistance,
-        state: state === null ? null : parseConditionsList(state),
-      });
-    }
-  }
-
-  return data;
-}
-
-/**
- * todo;
- */
-export function parseSynData(
-  object: ClientObject,
-  target: Optional<string>
-): LuaArray<{ zone: null; state: string; sound: string }> {
-  const collection: LuaArray<any> = new LuaTable();
-
-  if (target) {
-    for (const name of string.gfind(target, "(%|*[^%|]+%|*)%p*")) {
-      const dat = {
-        zone: null,
-        state: null as Optional<string>,
-        sound: null as Optional<string>,
-      };
-
-      const [tPosition] = string.find(name, "@", 1, true);
-      const [sPosition] = string.find(name, "|", 1, true);
-
-      const state = string.sub(name, 1, tPosition - 1);
-      const sound =
-        sPosition !== null ? string.sub(name, tPosition + 1, sPosition - 1) : string.sub(name, tPosition + 1);
-
-      dat.state = state;
-      dat.sound = sound;
 
       table.insert(collection, dat);
     }

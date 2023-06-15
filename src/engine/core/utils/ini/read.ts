@@ -70,8 +70,7 @@ export function readIniNumber<D = number>(
     return defaultValue as number;
   }
 
-  // todo: Throw error?
-  return null as unknown as D;
+  abort("Attempt to read a non-existent number field '%s' in section '%s'.", field, section);
 }
 
 /**
