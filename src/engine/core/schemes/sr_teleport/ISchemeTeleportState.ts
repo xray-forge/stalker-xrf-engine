@@ -2,7 +2,8 @@ import type { IBaseSchemeState } from "@/engine/core/schemes/base";
 import type { LuaArray, TDuration, TName, TProbability } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Teleport state.
+ * Allows handling active/inactive state for restrictor.
  */
 export enum ETeleportState {
   IDLE,
@@ -10,18 +11,19 @@ export enum ETeleportState {
 }
 
 /**
- * todo;
+ * Possible teleport point from restrictor.
  */
 export interface ITeleportPoint {
   point: TName;
   look: TName;
-  prob: TProbability;
+  probability: TProbability;
 }
 
 /**
- * todo;
+ * Teleport scheme state.
  */
 export interface ISchemeTeleportState extends IBaseSchemeState {
   timeout: TDuration;
   points: LuaArray<ITeleportPoint>;
+  maxTotalProbability: TProbability; // Sum of all points probability.
 }

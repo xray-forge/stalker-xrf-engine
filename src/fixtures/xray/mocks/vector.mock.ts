@@ -70,4 +70,18 @@ export class MockVector {
   }
 
   public normalize(): void {}
+
+  public getH(): number {
+    if (this.x === 0 && this.z === 0) {
+      return 0.0;
+    } else {
+      if (this.z === 0) {
+        return this.x > 0 ? -(Math.PI / 2) : Math.PI / 2;
+      } else if (this.z < 0) {
+        return -(Math.atan(this.x / this.z) - Math.PI);
+      } else {
+        return -Math.atan(this.x / this.z);
+      }
+    }
+  }
 }

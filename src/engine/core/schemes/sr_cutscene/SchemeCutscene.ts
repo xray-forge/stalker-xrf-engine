@@ -30,7 +30,7 @@ export class SchemeCutscene extends AbstractScheme {
     state.isGlobalCameraEffect = readIniBoolean(ini, section, "global_cameffect", false, false);
     state.ppEffector = readIniString(ini, section, "pp_effector", false, "", NIL) + ".ppe";
     state.cameraEffector = parseStringsList(readIniString(ini, section, "cam_effector", true, ""));
-    state.fov = readIniNumber(ini, section, "fov", true);
+    state.fov = readIniNumber(ini, section, "fov", false);
     state.shouldEnableUiOnEnd = readIniBoolean(ini, section, "enable_ui_on_end", false, true);
     state.isOutdoor = readIniBoolean(ini, section, "outdoor", false, false);
   }

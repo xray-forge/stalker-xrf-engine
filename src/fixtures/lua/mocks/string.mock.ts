@@ -113,6 +113,7 @@ export const string = {
     return result;
   },
   gfind: (target: string, pattern: string) => string.gmatch(target, pattern),
+  match: (target: string, pattern: string) => string.gmatch(target, pattern),
   gmatch: (target: string, pattern: string): Array<string> => {
     const L: ILuaState = lauxlib.luaL_newstate();
 

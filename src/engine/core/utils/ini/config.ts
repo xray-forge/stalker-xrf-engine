@@ -82,11 +82,11 @@ export function pickSectionFromCondList<T extends TSection>(
   condlist: TConditionList
 ): Optional<T> {
   let randomValue: Optional<TRate> = null; // -- math.random(100)
-  let areInfoPortionConditionsMet;
 
-  for (const [n, cond] of condlist) {
-    areInfoPortionConditionsMet = true;
-    for (const [inum, infop] of pairs(cond.infop_check)) {
+  for (const [, switchCondition] of condlist) {
+    let areInfoPortionConditionsMet = true;
+
+    for (const [, infop] of switchCondition.infop_check) {
       if (infop.prob) {
         if (!randomValue) {
           randomValue = math.random(100);
@@ -148,7 +148,7 @@ export function pickSectionFromCondList<T extends TSection>(
     }
 
     if (areInfoPortionConditionsMet) {
-      for (const [inum, infop] of pairs(cond.infop_set)) {
+      for (const [inum, infop] of pairs(switchCondition.infop_set)) {
         assertDefined(actor, "Trying to set infos when actor is not initialized.");
 
         if (infop.func) {
@@ -176,10 +176,10 @@ export function pickSectionFromCondList<T extends TSection>(
         }
       }
 
-      if (cond.section === "never") {
+      if (switchCondition.section === "never") {
         return null;
       } else {
-        return cond.section as T;
+        return switchCondition.section as T;
       }
     }
   }

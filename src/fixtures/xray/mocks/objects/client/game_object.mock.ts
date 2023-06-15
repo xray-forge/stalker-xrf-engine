@@ -13,6 +13,7 @@ import {
   TClassId,
   TIndex,
   TSightType,
+  Vector,
 } from "@/engine/lib/types";
 import { MockMove, MockSightParameters } from "@/fixtures/xray";
 import { MockActionPlanner, mockDefaultActionPlanner } from "@/fixtures/xray/mocks/actions/action_planner.mock";
@@ -48,7 +49,6 @@ export function mockClientGameObject({
   motivation_action_manager,
   name,
   object,
-  position = jest.fn(() => MockVector.mock(0.25, 0.25, 0.25)),
   section,
   sectionOverride = "section",
   special_danger_move = jest.fn(() => true),
@@ -65,6 +65,9 @@ export function mockClientGameObject({
 > = {}): ClientObject {
   const internalInfos: Array<string> = [...infoPortions];
   const inventoryMap: Map<string | number, ClientObject> = new Map(inventory);
+
+  let objectPosition: Vector = MockVector.mock(0.25, 0.25, 0.25);
+  let objectDirection: Vector = MockVector.mock(1, 1, 1);
   let objectMoney: number = 0;
 
   let sight: TSightType = MockSightParameters.eSightTypeDummy;
@@ -98,7 +101,7 @@ export function mockClientGameObject({
     character_icon,
     clsid,
     clear_animations: rest.clear_animations || jest.fn(),
-    direction: rest.direction || jest.fn(() => MockVector.mock(1, 1, 1)),
+    direction: rest.direction || jest.fn(() => objectDirection),
     disable_info_portion:
       disable_info_portion ||
       jest.fn((it: string) => {
@@ -127,6 +130,7 @@ export function mockClientGameObject({
     has_info: has_info || jest.fn((it: string) => internalInfos.includes(it)),
     id: id || jest.fn(() => idOverride),
     infoPortions,
+    inside: rest.inside || jest.fn(() => false),
     inventory: inventoryMap,
     is_talking,
     level_vertex_id,
@@ -159,7 +163,7 @@ export function mockClientGameObject({
         cb(owner, item);
       }
     }),
-    position,
+    position: rest.position || jest.fn(() => objectPosition),
     remove_home: rest.remove_home || jest.fn(),
     remove_restrictions:
       rest.add_restrictions ||
@@ -207,6 +211,16 @@ export function mockClientGameObject({
         return params;
       }),
     set_sight: rest.set_sight || jest.fn((nextSight: TSightType) => (sight = nextSight)),
+    set_actor_position:
+      rest.set_actor_position ||
+      jest.fn((it: Vector) => {
+        objectPosition = it;
+      }),
+    set_actor_direction:
+      rest.set_actor_direction ||
+      jest.fn((it: number) => {
+        objectDirection = objectDirection.set(it, objectDirection.y, objectDirection.z);
+      }),
     spawn_ini: rest.spawn_ini || jest.fn(() => spawnIni),
     special_danger_move,
     target_body_state:
