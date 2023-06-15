@@ -43,16 +43,16 @@ cover_name = jup_b1_st_1_hide_1
 cover_state = default_behaviour
 on_info = {+jup_b1_zomb_is_dead} walker@stay, {+jup_b1_kill_zombie} smartcover@first_kill_zomb, {=npc_in_zone(jup_b1_st_1_hide)} %+jup_b1_st_1_at_pos%, {+jup_b1_zomb_be_fucked} walker@stay
 meet = no_meet
-combat_ignore_cond = true 
+combat_ignore_cond = true
 
 [smartcover@first_kill_zomb]:walker@generic
 cover_name = jup_b1_st_1_hide_1
-cover_state = fire_target 
+cover_state = fire_target
 on_info = {+jup_b1_zomb_is_dead} walker@stay
 use_in_combat = true
 target_enemy = jup_b1_zombie_1
 meet = no_meet
-combat_ignore_cond = true 
+combat_ignore_cond = true
 
 [walker@stay]:walker@generic
 def_state_moving1 = assault
@@ -90,8 +90,8 @@ anim = psy_pain
 target = path | jup_b1_st_1_zombie_look, 0
 on_timer = 7500 | remark@thanks
 meet = no_meet
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 
 [remark@thanks]:walker@generic
 anim = guard
@@ -144,7 +144,7 @@ commander = true
 formation = back
 on_signal = at_pos | %-jup_b1_st_mission%
 meet = no_meet
-on_info = {=health_le(0.5) !actor_enemy} %=restore_health% 
+on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 
 ;--------------------- ����������� � �����
 
@@ -164,9 +164,9 @@ on_game_timer = 10 | remark@psy_wounded %+jup_b1_spawn_controller%
 radius = 0
 no_retreat = true
 meet = no_meet
-show_spot = false 
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+show_spot = false
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 on_info = {+jup_b1_go_from_task} patrol@go_to_base, {=dist_to_actor_ge(140)} %=kill_npc%
 
 [remark@psy_wounded]:walker@generic
@@ -174,10 +174,10 @@ anim = psy_pain
 target = path | jup_b1_st_1_zombie_look, 0
 on_info = {-jup_b1_st_warn =actor_in_zone(jup_b1_zombie_start_zone) !is_playing_sound} remark@turnin_zombie %=play_sound(jup_b1_stalker_warning) +jup_b1_st_warn%
 on_info2 = {=dist_to_actor_ge(140)} %=kill_npc%
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 meet = no_meet
-show_spot = false 
+show_spot = false
 
 [remark@turnin_zombie]:walker@generic
 anim = psy_pain
@@ -185,14 +185,14 @@ target = path | jup_b1_st_1_zombie_look, 0
 on_info = {+jup_b1_controller_is_dead} remark@psy_back %=set_squad_goodwill(jup_b1_stalker_squad:friend)%
 on_info2 = {=dist_to_actor_ge(140)} %=kill_npc%
 on_timer = 24000 | walker@zombied %=set_squad_goodwill(jup_b1_stalker_squad:enemy)%
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 meet = no_meet
 
 [walker@zombied]:walker@generic
 path_walk = st_1_zombie_walk
 on_info = {+jup_b1_controller_is_dead} remark@psy_back %=set_squad_goodwill(jup_b1_stalker_squad:friend)%
-on_info2 = {=health_le(0.2)} %=restore_health% 
+on_info2 = {=health_le(0.2)} %=restore_health%
 on_info3 = {=dist_to_actor_ge(140)} %=kill_npc%
 meet = no_meet
 in_restr = jup_b1_anomal_place

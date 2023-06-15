@@ -61,7 +61,7 @@ commander = true
 formation = back
 on_signal = at_pos | %+jup_b1_st_mission -jup_b1_go_on_task%
 meet = no_meet
-on_info = {=health_le(0.5) !actor_enemy} %=restore_health% 
+on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 on_info2 = {=dist_to_actor_ge(140) =dist_to_story_obj_ge(jup_b1_half_artifact:260) -jup_b1_teleport_squad_only} %+jup_b1_teleport_squad_only%
 
 [animpoint@jup_b41_stalker_1_reach_hide]

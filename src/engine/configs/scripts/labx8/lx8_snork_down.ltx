@@ -1,11 +1,11 @@
 [logic@snork]
 active = mob_walker@wait
-suitable = {=check_npc_name(lx8_snork)} 
+suitable = {=check_npc_name(lx8_snork)}
 prior = 50
 monster_job = true
 
 [mob_walker@wait]
-path_walk = snork_jump_01_walk 
+path_walk = snork_jump_01_walk
 path_look = snork_jump_01_look
 combat_ignore_cond = true
 on_info = {=actor_in_zone(lx8_sr_up_ladder)} mob_walker@run
@@ -13,7 +13,7 @@ on_info2 = {=actor_in_zone(lx8_sr_close_combat)} mob_home@combat
 ;out_restr = lx8_sr_close_combat
 
 [mob_walker@run]
-path_walk = snork_jump_02_walk 
+path_walk = snork_jump_02_walk
 path_look = snork_jump_02_look
 combat_ignore_cond = true
 on_signal = kill | %=kill_npc%

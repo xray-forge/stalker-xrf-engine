@@ -15,7 +15,7 @@ on_info2 = {+pri_b35_attack_started} sr_idle@hunt_started
 on_info3 = {!actor_in_zone(pri_b35_sr_actor_position)} sr_idle@rendevous
 
 [sr_idle@rendevous]
-on_info = {+pri_b35_rendevous_in_process} sr_idle@rendevous_done %=play_sound(pri_b35_rendevous_in_process)% 
+on_info = {+pri_b35_rendevous_in_process} sr_idle@rendevous_done %=play_sound(pri_b35_rendevous_in_process)%
 on_info2 = {+pri_b35_attack_started} sr_idle@hunt_started
 on_info3 = {!actor_in_zone(pri_b35_sr_actor_position)} sr_idle@rendevous_done
 
@@ -23,7 +23,7 @@ on_info3 = {!actor_in_zone(pri_b35_sr_actor_position)} sr_idle@rendevous_done
 on_info = {+pri_b35_attack_started} sr_idle@hunt_started
 on_info2 = {+pri_b35_rendevous_done} sr_idle@hunt_started %=play_sound(pri_b35_rendevous_done)%
 
-[sr_idle@hunt_started] 
+[sr_idle@hunt_started]
 on_info = {+pri_b35_envoy_out +pri_b35_target_envoy} %=play_sound(pri_b35_primary_target_down)%, {+pri_b35_envoy_out -pri_b35_target_envoy} %=play_sound(pri_b35_secondary_target_down)%
 on_info2 = {+pri_b35_merc_leader_out +pri_b35_target_merc} %=play_sound(pri_b35_primary_target_down)%, {+pri_b35_merc_leader_out -pri_b35_target_merc} %=play_sound(pri_b35_secondary_target_down)%
 on_info3 = {+pri_b35_envoy_escape +pri_b35_target_envoy -pri_b35_merc_leader_escape} sr_idle@nil %=play_sound(pri_b35_primary_target_lost_end)%

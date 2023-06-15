@@ -13,7 +13,7 @@ corpse_detection_enabled = false
 gather_items_enabled = false
 help_wounded_enabled = false
 combat_ignore_cond = true
-combat_ignore_keep_when_attacked = true 
+combat_ignore_keep_when_attacked = true
 on_info = %=play_sound(pri_a21_sentr_crazy_1)%
 on_info2 = {=dist_to_actor_le(10)} remark@self_murder
 on_info3 = {-pri_a21_once_autosave =dist_to_actor_le(30)} %+pri_a21_once_autosave =scenario_autosave(st_save_pri_a21_approached_mad_sentry)%
@@ -25,7 +25,7 @@ corpse_detection_enabled = false
 gather_items_enabled = false
 help_wounded_enabled = false
 combat_ignore_cond = true
-combat_ignore_keep_when_attacked = true 
+combat_ignore_keep_when_attacked = true
 on_signal = anim_end | %=stop_sound =kill_npc%
 on_info = %=play_sound(pri_a21_sentr_crazy_2)%
 

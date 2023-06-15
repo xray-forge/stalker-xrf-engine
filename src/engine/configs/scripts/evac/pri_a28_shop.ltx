@@ -1,7 +1,7 @@
 #include "pri_a28_general.ltx"
 
 [logic@pri_a28_kovalski_shop]
-active = camper@kovalski_shop_1 
+active = camper@kovalski_shop_1
 suitable = {-pri_a28_shop_done =check_npc_name(kovalski)} true
 prior = 200
 on_hit = hit@def
@@ -50,7 +50,7 @@ on_info2 = {=in_dest_smart_cover !has_enemy_in_current_loopholes_fov} walker@kov
 [walker@kovalski_shop_1_fight]:walker@kovalski_fight
 path_walk = kovalski_1_walk
 path_look = kovalski_1_look
-out_restr = pri_a28_sr_shop_1_small 
+out_restr = pri_a28_sr_shop_1_small
 on_game_timer = 210 | {-pri_a28_shop_1_leave} %+pri_a28_shop_1_leave%
 on_info = {+pri_a28_shop_1_leave} camper@kovalski_shop_2_go %=disable_memory_object%
 
@@ -70,7 +70,7 @@ on_info = {=npc_in_zone(pri_a28_sr_shop_2)} walker@kovalski_shop_2_fight
 
 [walker@kovalski_shop_2_fight]:walker@kovalski_fight
 path_walk = kovalski_2_walk
-path_look = kovalski_2_look 
+path_look = kovalski_2_look
 def_state_standing = hide_na
 out_restr = pri_a28_sr_shop_3_small
 in_restr = pri_a28_sr_shop_in
@@ -79,7 +79,7 @@ on_game_timer = 200 | {-pri_a28_shop_3_leave} %+pri_a28_shop_3_leave%
 on_info = {+pri_a28_shop_3_leave} %=play_sound(pri_a28_colonel_zombied_attack)%
 
 [logic@pri_a28_medic_shop]
-active = smartcover@medic_shop_1 
+active = smartcover@medic_shop_1
 suitable = {-pri_a28_shop_done =check_npc_name(base_medic)} true
 prior = 200
 on_hit = hit@def
@@ -116,7 +116,7 @@ on_info2 = {=in_dest_smart_cover !has_enemy_in_current_loopholes_fov} walker@med
 [walker@medic_shop_1_fight]:walker@fight
 path_walk = medic_1_walk
 path_look = medic_1_look
-out_restr = pri_a28_sr_shop_1_small 
+out_restr = pri_a28_sr_shop_1_small
 on_game_timer = 250 | {-pri_a28_shop_1_leave} %+pri_a28_shop_1_leave%
 on_info = {+pri_a28_shop_1_leave} camper@medic_shop_2_go %=disable_memory_object%
 
@@ -136,14 +136,14 @@ on_info = {=npc_in_zone(pri_a28_sr_shop_2)} walker@medic_shop_2_fight
 
 [walker@medic_shop_2_fight]:walker@fight
 path_walk = medic_2_walk
-path_look = medic_2_look 
+path_look = medic_2_look
 def_state_standing = hide_na
 out_restr = pri_a28_sr_shop_3_small
 in_restr = pri_a28_sr_shop_in
 on_game_timer = 200 | {-pri_a28_shop_3_leave} %+pri_a28_shop_3_leave%
 
 [logic@pri_a28_strelok_shop]
-active = smartcover@strelok_shop_1 
+active = smartcover@strelok_shop_1
 suitable = {-pri_a28_shop_done =check_npc_name(strelok)} true
 prior = 200
 on_hit = hit@def
@@ -175,7 +175,7 @@ on_info2 = {=in_dest_smart_cover !has_enemy_in_current_loopholes_fov} walker@str
 [walker@strelok_shop_1_fight]:walker@fight
 path_walk = strelok_1_walk
 path_look = strelok_1_look
-out_restr = pri_a28_sr_shop_1_small 
+out_restr = pri_a28_sr_shop_1_small
 on_game_timer = 250 | {-pri_a28_shop_1_leave} %+pri_a28_shop_1_leave%
 on_info = {+pri_a28_shop_1_leave} camper@strelok_shop_2_go %=disable_memory_object%
 
@@ -195,14 +195,14 @@ on_info = {=npc_in_zone(pri_a28_sr_shop_2)} walker@strelok_shop_2_fight
 
 [walker@strelok_shop_2_fight]:walker@fight
 path_walk = strelok_2_walk
-path_look = strelok_2_look 
+path_look = strelok_2_look
 def_state_standing = hide_na
 out_restr = pri_a28_sr_shop_3_small
 in_restr = pri_a28_sr_shop_in
 on_game_timer = 200 | {-pri_a28_shop_3_leave} %+pri_a28_shop_3_leave%
 
 [logic@pri_a28_military_1_shop]
-active = walker@military_1_shop_1 
+active = walker@military_1_shop_1
 suitable = {-pri_a28_shop_done =target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(base_medic) !check_npc_name(kovalski)} true
 prior = 110
 on_hit = hit@def
@@ -232,19 +232,19 @@ on_info = {+pri_a28_shop_2_leave} camper@military_1_shop_2 %=disable_memory_obje
 
 [camper@military_1_shop_2]:walker@ignore
 path_walk = military_1_2_walk
-path_look = military_1_2_look 
+path_look = military_1_2_look
 out_restr = pri_a28_sr_shop_3_small
 in_restr = pri_a28_sr_shop_in
 on_signal = path_end | camper@military_1_shop_3
 
 [camper@military_1_shop_3]:walker@fight
 path_walk = military_1_3_walk
-path_look = military_1_3_look 
+path_look = military_1_3_look
 out_restr = pri_a28_sr_arch_1
 in_restr = pri_a28_sr_shop_in
 
 [logic@pri_a28_military_2_shop]
-active = walker@military_2_shop_1 
+active = walker@military_2_shop_1
 suitable = {-pri_a28_shop_done =target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(base_medic) !check_npc_name(kovalski)} true
 prior = 100
 on_hit = hit@def
@@ -274,19 +274,19 @@ on_info = {+pri_a28_shop_2_leave} camper@military_2_shop_2 %=disable_memory_obje
 
 [camper@military_2_shop_2]:walker@ignore
 path_walk = military_2_2_walk
-path_look = military_2_2_look 
+path_look = military_2_2_look
 out_restr = pri_a28_sr_shop_3_small
 in_restr = pri_a28_sr_shop_in
 on_signal = path_end | camper@military_2_shop_3
 
 [camper@military_2_shop_3]:walker@fight
 path_walk = military_2_3_walk
-path_look = military_2_3_look 
+path_look = military_2_3_look
 out_restr = pri_a28_sr_arch_1
 in_restr = pri_a28_sr_shop_in
 
 [logic@pri_a28_military_3_shop]
-active = walker@military_3_shop_1 
+active = walker@military_3_shop_1
 suitable = {-pri_a28_shop_done =target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(base_medic) !check_npc_name(kovalski)} true
 prior = 100
 on_hit = hit@def
@@ -316,19 +316,19 @@ on_info = {+pri_a28_shop_2_leave} camper@military_3_shop_2 %=disable_memory_obje
 
 [camper@military_3_shop_2]:walker@ignore
 path_walk = military_3_2_walk
-path_look = military_3_2_look 
+path_look = military_3_2_look
 out_restr = pri_a28_sr_shop_3_small
 in_restr = pri_a28_sr_shop_in
 on_signal = path_end | camper@military_3_shop_3
 
 [camper@military_3_shop_3]:walker@fight
 path_walk = military_3_3_walk
-path_look = military_3_3_look 
+path_look = military_3_3_look
 out_restr = pri_a28_sr_arch_1
 in_restr = pri_a28_sr_shop_in
 
 [logic@pri_a28_military_4_shop]
-active = walker@military_4_shop_1 
+active = walker@military_4_shop_1
 suitable = {-pri_a28_shop_done =target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(base_medic) !check_npc_name(kovalski)} true
 prior = 90
 on_hit = hit@def
@@ -358,19 +358,19 @@ on_info = {+pri_a28_shop_2_leave} camper@military_4_shop_2 %=disable_memory_obje
 
 [camper@military_4_shop_2]:walker@ignore
 path_walk = military_4_2_walk
-path_look = military_4_2_look 
+path_look = military_4_2_look
 out_restr = pri_a28_sr_shop_3_small
 in_restr = pri_a28_sr_shop_in
 on_signal = path_end | camper@military_4_shop_3
 
 [camper@military_4_shop_3]:walker@fight
 path_walk = military_4_3_walk
-path_look = military_4_3_look 
+path_look = military_4_3_look
 out_restr = pri_a28_sr_arch_1
 in_restr = pri_a28_sr_shop_in
 
 [logic@pri_a28_military_5_shop]
-active = camper@military_5_shop_1 
+active = camper@military_5_shop_1
 suitable = {-pri_a28_shop_done =target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(base_medic) !check_npc_name(kovalski)} true
 prior = 90
 on_hit = hit@def
@@ -387,7 +387,7 @@ on_info = {+pri_a28_army_zombied_in_building} walker@military_5_shop_1_fight
 [walker@military_5_shop_1_fight]:walker@fight
 path_walk = military_5_1_walk
 path_look = military_5_1_look
-out_restr = pri_a28_sr_shop_1_small 
+out_restr = pri_a28_sr_shop_1_small
 on_game_timer = 250 | {-pri_a28_shop_1_leave} %+pri_a28_shop_1_leave%
 on_info = {+pri_a28_shop_1_leave} camper@military_5_shop_2_go %=disable_memory_object%
 
@@ -407,7 +407,7 @@ on_info = {=npc_in_zone(pri_a28_sr_shop_2)} walker@military_5_shop_2_fight
 
 [walker@military_5_shop_2_fight]:walker@fight
 path_walk = military_5_2_walk
-path_look = military_5_2_look 
+path_look = military_5_2_look
 def_state_standing = hide_na
 out_restr = pri_a28_sr_shop_3_small
 in_restr = pri_a28_sr_shop_in

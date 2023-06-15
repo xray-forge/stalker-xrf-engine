@@ -12,8 +12,8 @@ on_game_timer = 5 | sr_idle@start %=teleport_actor(pri_a15_actor_walk:pri_a15_ac
 [sr_idle@start]
 on_info = {+pas_b400_done} sr_idle@give_info
 ;�������
-on_info2 = {-pas_b400_done} sr_idle@nil %+pri_a15_cutscene_end =teleport_actor(pri_a15_actor_start_walk:pri_a15_actor_start_look)% 
-;on_info2 = {-pas_b400_done} %+pas_b400_done% 
+on_info2 = {-pas_b400_done} sr_idle@nil %+pri_a15_cutscene_end =teleport_actor(pri_a15_actor_start_walk:pri_a15_actor_start_look)%
+;on_info2 = {-pas_b400_done} %+pas_b400_done%
 
 [sr_idle@give_info]
 on_info = { -pri_a15_vano_out -pri_a15_sokolov_out -pri_a15_zulus_out -pri_a15_wanderer_out} sr_idle@spawn_military %+pri_a15_all_alive%

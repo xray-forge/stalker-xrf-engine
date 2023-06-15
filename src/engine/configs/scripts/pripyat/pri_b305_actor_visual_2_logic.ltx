@@ -9,7 +9,7 @@ def_state_standing = ward
 out_restr = pri_a16_sr_noweap
 on_info = {+pri_b305_kovalskiy_think_of_attack_done_end -pri_b305_actor_check_signal_done} %=play_sound(pri_b305_actor_check_signal) +pri_b305_actor_check_signal_done%
 on_signal = sound_end | {-pri_b305_actor_check_signal_done_end} %+pri_b305_actor_check_signal_done_end%
-on_info2 = {+pri_b305_second_cam_end} %=destroy_object -pri_b305_2_cam_actor% 
+on_info2 = {+pri_b305_second_cam_end} %=destroy_object -pri_b305_2_cam_actor%
 meet = no_meet
 use_camp = false
 combat_ignore_cond = true

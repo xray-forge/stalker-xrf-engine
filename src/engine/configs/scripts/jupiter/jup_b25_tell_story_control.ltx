@@ -18,26 +18,26 @@ on_game_timer = 3600 | {=jup_b221_who_will_start(ability)} sr_idle@choose
 on_info = {=jup_b221_who_will_start(choose)} sr_idle@a, sr_idle@d
 
 [sr_idle@a]
-on_info = {+jup_b221_spawn_more_freedom} %=create_squad(jup_b221_freedom_squad:jup_a6) -jup_b221_spawn_more_freedom%, {+jup_b221_spawn_more_duty} %=create_squad(jup_b221_duty_squad:jup_a6) -jup_b221_spawn_more_duty%;������ ��� �����! 
+on_info = {+jup_b221_spawn_more_freedom} %=create_squad(jup_b221_freedom_squad:jup_a6) -jup_b221_spawn_more_freedom%, {+jup_b221_spawn_more_duty} %=create_squad(jup_b221_duty_squad:jup_a6) -jup_b221_spawn_more_duty%;������ ��� �����!
 on_actor_inside = {=is_obj_on_job(logic@jup_b221_duty_01:jup_a6) =is_obj_on_job(logic@jup_b221_duty_02:jup_a6) =is_obj_on_job(logic@jup_b221_duty_03:jup_a6) =is_obj_on_job(logic@jup_b221_freedom_01:jup_a6) =is_obj_on_job(logic@jup_b221_freedom_02:jup_a6) =is_obj_on_job(logic@jup_b221_freedom_02:jup_a6)} sr_idle@b %+jup_b221_duty_main%
 
 [sr_idle@b]
-on_info = {-jup_b221_duty_main} sr_idle@c1 
+on_info = {-jup_b221_duty_main} sr_idle@c1
 
-[sr_idle@c1] 
+[sr_idle@c1]
 on_game_timer = 2 | {-jup_b221_duty_reply} sr_idle@c2 %+jup_b221_duty_reaction_01%, sr_idle@g
 
 [sr_idle@c2]
 on_game_timer = 10 | {-jup_b221_duty_reply} sr_idle@c3 %+jup_b221_duty_reaction_02%, sr_idle@g
 
 [sr_idle@c3]
-on_game_timer = 10 | {-jup_b221_duty_reply} sr_idle@d, sr_idle@g 
+on_game_timer = 10 | {-jup_b221_duty_reply} sr_idle@d, sr_idle@g
 
 [sr_idle@d]
 on_actor_inside = {=is_obj_on_job(logic@jup_b221_duty_01:jup_a6) =is_obj_on_job(logic@jup_b221_duty_02:jup_a6) =is_obj_on_job(logic@jup_b221_duty_03:jup_a6) =is_obj_on_job(logic@jup_b221_freedom_01:jup_a6) =is_obj_on_job(logic@jup_b221_freedom_02:jup_a6) =is_obj_on_job(logic@jup_b221_freedom_02:jup_a6)} sr_idle@e %+jup_b221_freedom_main%
 
 [sr_idle@e]
-on_info = {-jup_b221_freedom_main} sr_idle@f1 
+on_info = {-jup_b221_freedom_main} sr_idle@f1
 
 [sr_idle@f1]
 on_game_timer = 3 | {-jup_b221_freedom_reply} sr_idle@f2 %+jup_b221_freedom_reaction_01%, sr_idle@g

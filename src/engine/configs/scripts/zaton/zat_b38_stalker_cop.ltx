@@ -42,7 +42,7 @@ on_hit = hit
 
 [death@lair]
 on_info = {-zat_b38_stalker_cop_death} %+zat_b38_stalker_cop_death =stop_sound%
-on_info2 = {+zat_b38_lift_open} %+zat_b38_underground_door_open =stop_sound% 
+on_info2 = {+zat_b38_lift_open} %+zat_b38_underground_door_open =stop_sound%
 
 [hit]
 on_info = {=hit_by_actor !deadly_hit =counter_equal(zat_b38_cop_abuse:0) -zat_b38_stalker_cop_death} %=play_sound(zat_b38_stalker_cop_hit_1) +zat_b38_cop_hit_1%
@@ -95,7 +95,7 @@ path_walk = research_first_hall_walk
 path_look = research_first_hall_look
 def_state_standing = guard_na
 on_signal = vnz_first_point | remark@see
-on_info = {!npc_in_zone(zat_b38_quest_line) -zat_b38_cop_on_job} %=teleport_npc(zat_b38_research_first_hall_walk:1) +zat_b38_cop_on_job% 
+on_info = {!npc_in_zone(zat_b38_quest_line) -zat_b38_cop_on_job} %=teleport_npc(zat_b38_research_first_hall_walk:1) +zat_b38_cop_on_job%
 on_info66 = {+zat_b38_cop_hit_1 -zat_b38_cop_hit_1_done} %=inc_counter(zat_b38_cop_abuse) =actor_neutral +zat_b38_cop_hit_1_done%
 on_info77 = {+zat_b38_cop_hit_2 -zat_b38_cop_hit_2_done} %=inc_counter(zat_b38_cop_abuse) =actor_neutral +zat_b38_cop_hit_2_done%
 combat_ignore_cond = true
@@ -133,7 +133,7 @@ out_restr = zat_b38_vnz_out_restr
 meet = no_meet
 combat_ignore_cond = {-zat_b38_fight_started} true
 on_signal = zat_b38_scary_sound | {-zat_b38_scary_sound} remark@illusion %+zat_b38_scary_sound +zat_b38_illusion%
-on_signal2 = zat_b38_monster_1 | {-zat_b38_monster_1} %+zat_b38_monster_1% 
+on_signal2 = zat_b38_monster_1 | {-zat_b38_monster_1} %+zat_b38_monster_1%
 on_info2 = {+zat_b38_monster_1 -zat_b38_stalker_cop_see_bloodsucker_done -zat_b38_bloodscuker_1_death} remark@monster_1 %=play_sound(zat_b38_stalker_cop_see_bloodsucker) +zat_b38_stalker_cop_see_bloodsucker_done%
 on_info3 = {+zat_b38_bloodscuker_1_death -zat_b38_bloodscuker_2_death -zat_b38_stalker_cop_kill_1_done +zat_b38_we_fight_monster_1} %=play_sound(zat_b38_stalker_cop_kill_1) +zat_b38_stalker_cop_kill_1_done =clearAbuse%
 on_signal3 = zat_b38_monster_2 | {-zat_b38_monster_2} %+zat_b38_monster_2%
@@ -154,7 +154,7 @@ target = story | zat_hiding_place_46
 on_info = {+zat_b38_bloodscuker_1_death} walker@research_first_hall
 on_info2 = {-zat_b38_we_fight_monster_1} %+zat_b38_we_fight_monster_1%
 combat_ignore_cond = false
-on_info4 = {+zat_b38_fight_started} remark@monster_1_aim 
+on_info4 = {+zat_b38_fight_started} remark@monster_1_aim
 
 [remark@monster_1_aim]:remark
 out_restr = zat_b38_vnz_out_restr
@@ -325,7 +325,7 @@ on_actor_dist_ge_nvis = 100 | %+zat_b38_cop_passed_away +zat_b38_disappearance_s
 on_info2 = {+actor_is_sleeping} %+zat_b38_cop_passed_away +zat_b38_disappearance_stalkers_meet_cop_later_give =destroy_object(story:zat_cop_id)%
 on_info3 = {=surge_started -zat_b38_disappearance_stalkers_meet_cop_later_give} walker@return %=play_sound(zat_b38_stalker_cop_tell_about_quest)%
 
-[walker@return]:walker 
+[walker@return]:walker
 path_walk = tp_walk
 path_look = tp_look
 out_restr = zat_b38_vnz_out_restr

@@ -1,4 +1,4 @@
-[logic] 
+[logic]
 active = sr_idle@jup_b217_welcome_cameff_begin
 
 [sr_idle@jup_b217_welcome_cameff_begin]
@@ -12,7 +12,7 @@ cam_effector = scenario_cam\jupiter\jup_b217_welcome_cameff
 enable_ui_on_end = true
 global_cameffect = true
 on_info = {+jup_b217_welcome_tech_talked} %=stop_sr_cutscene =run_postprocess(fade_in_out)%
-on_signal = cameff_end | sr_idle@jup_b217_give_task 
+on_signal = cameff_end | sr_idle@jup_b217_give_task
 
 [sr_idle@jup_b217_give_task]
 ;on_game_timer = 10 | {-jup_b217_pp_out} %+jup_b217_pp_out =run_postprocess(black:1245:true)%

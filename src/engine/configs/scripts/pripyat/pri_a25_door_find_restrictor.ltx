@@ -15,11 +15,11 @@ on_game_timer = 20 | sr_cutscene@start %=run_postprocess(black:4411) =create_cut
 enable_ui_on_end = false
 global_cameffect = true
 outdoor = true
-point = pri_a25_actor_walk 
+point = pri_a25_actor_walk
 look = pri_a25_actor_look
 cam_effector = scenario_cam\pripyat\pri_a25_find_door_without_explosive_cameff
 on_game_timer = 10 | sr_cutscene@start %=stop_postprocess(4410) =stop_postprocess(4411)%
-on_signal = cameff_end | sr_idle@cutscene_end_postprocess %=run_postprocess(black:4413:true) +pri_a25_destr_cutsc_actor =teleport_actor(pri_a25_smart_terrain_cutscene_actor_walk:pri_a25_smart_terrain_cutscene_actor_look)% 
+on_signal = cameff_end | sr_idle@cutscene_end_postprocess %=run_postprocess(black:4413:true) +pri_a25_destr_cutsc_actor =teleport_actor(pri_a25_smart_terrain_cutscene_actor_walk:pri_a25_smart_terrain_cutscene_actor_look)%
 on_info = {+pri_a25_find_explosive -pri_a25_fade} %=run_postprocess(fade_in:4412) +pri_a25_fade%
 on_info2 = {+pri_a25_cam_stop} %=stop_sr_cutscene%
 

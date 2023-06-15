@@ -19,7 +19,7 @@ combat_ignore_cond = {-jup_b202_bandit_hited} true, false
 [remark@jup_b202_stalker_bandit_gen]:remark@jup_b202_stalker_snag_wounded_gen
 target = story | jup_b202_stalker_snag
 combat_ignore_cond = {-jup_b202_bandit_hited} true, false
-meet = no_meet 
+meet = no_meet
 on_info = {+jup_b202_bandit_hited +jup_b202_bandit_hited_by_actor} walker@jup_b202_stalker_bandit_end_no_talk
 
 [walker@jup_b202_stalker_bandit_leave_gen]:walker@jup_b202_stalker_bandit_gen
@@ -97,13 +97,13 @@ on_hit = hit@jup_b202_stalker_bandit
 on_info = {=hit_by_actor} %+jup_b202_bandit_hited +jup_b202_bandit_hited_by_actor%, %+jup_b202_bandit_hited%
 
 [walker@jup_b202_stalker_bandit_teleport]:walker@jup_b202_stalker_bandit_gen
-path_walk = snag_wounded_look 
+path_walk = snag_wounded_look
 path_look = snag_wounded_walk
 def_state_standing = threat
 on_info = walker@jup_b202_stalker_bandit %=teleport_npc(jup_b202_snag_wounded_look)%
 
 [walker@jup_b202_stalker_bandit]:walker@jup_b202_stalker_bandit_gen
-path_walk = snag_wounded_look 
+path_walk = snag_wounded_look
 path_look = snag_wounded_walk
 def_state_standing = threat
 on_actor_dist_le_nvis = 24 | {=counter_equal(jup_b202_sound_count:2)} remark@jup_b202_stalker_bandit_talk, remark@jup_b202_stalker_bandit_fire %=inc_counter(jup_b202_sound_count:1)%
@@ -117,10 +117,10 @@ on_signal = sound_end | walker@jup_b202_stalker_bandit
 anim = guard_na
 on_info2 = %=play_sound(jup_b202_bandit_to_snag)%
 on_signal = theme_end | walker@jup_b202_stalker_bandit_end
- 
+
 [walker@jup_b202_stalker_bandit_end]:walker@jup_b202_stalker_bandit_leave_gen
 meet = meet@jup_b202_stalker_bandit
-on_actor_dist_le = 5 | %+jup_b202_bandit_meet_actor% 
+on_actor_dist_le = 5 | %+jup_b202_bandit_meet_actor%
 on_info = {+jup_b202_bandit_talked_with_actor} walker@jup_b202_stalker_bandit_end_no_talk
 
 [walker@jup_b202_stalker_bandit_end_no_talk]:walker@jup_b202_stalker_bandit_leave_gen

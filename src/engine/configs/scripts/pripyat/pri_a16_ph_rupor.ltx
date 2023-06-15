@@ -4,7 +4,7 @@ active = ph_idle@cut
 [ph_idle@cut]
 on_info = {+pri_a15_cutscene_end} ph_idle@wait
 
-[ph_idle@wait] 
+[ph_idle@wait]
 on_info = {=actor_in_zone(pri_a16_sr_noweap) !actor_in_zone(pri_a16_sr_light) !check_smart_alarm_status(pri_a16:normal)} ph_idle@pleaseplease
 on_info2 = {+pri_b305_third_cam_end} ph_idle@nil, {+pri_b305_fifth_cam_end} ph_idle@nil
 

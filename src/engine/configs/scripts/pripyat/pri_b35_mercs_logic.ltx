@@ -20,14 +20,14 @@ on_info2 = {-pri_b35_envoy_sighted =see_npc(pri_b35_envoy)} %+pri_b35_envoy_sigh
 on_info3 = {-pri_b35_merc_leader_sighted =npc_in_zone(pri_b35_sr_mercs)} %+pri_b35_merc_leader_sighted%
 ;on_info4 = {-pri_b35_merc_leader_sighted =actor_see_npc} %+pri_b35_merc_leader_sighted%
 on_info5 = {+pri_b35_attack_started} walker@leader_after %+pri_b35_rendevous_done%
-on_info6 = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started% 
+on_info6 = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started%
 
 [walker@rendevous]
 path_walk = leader_rendevous_walk
 path_look = leader_rendevous_look
 on_info = {+pri_b35_rendevous_in_process} remark@rendevous
 on_info2 = {+pri_b35_attack_started} walker@leader_after %+pri_b35_rendevous_done%
-on_info3 = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started% 
+on_info3 = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started%
 
 [remark@rendevous]
 anim = wait_na
@@ -38,7 +38,7 @@ target = story | pri_b35_envoy
 path_walk = leader_after_walk
 combat_ignore_cond = true
 out_restr = pri_b35_sr_mercs_escape
-on_info = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started% 
+on_info = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started%
 on_info2 = {+pri_b35_attack_started} walker@leader_after_rush
 def_state_moving = assault
 wounded = wounded@no_wound
@@ -47,7 +47,7 @@ wounded = wounded@no_wound
 path_walk = leader_after_walk
 combat_ignore_cond = true
 out_restr = pri_b35_sr_mercs_escape
-on_info = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started% 
+on_info = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started%
 def_state_moving = rush
 wounded = wounded@no_wound
 

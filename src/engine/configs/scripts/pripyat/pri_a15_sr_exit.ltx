@@ -32,10 +32,10 @@ enable_ui_on_end = false
 outdoor = true
 
 [sr_idle@fade]
-on_info = sr_idle@after %=remove_squad(pri_a15_squad) =remove_squad(pri_a15_military_squad) =forward_game_time(0:20)% 
+on_info = sr_idle@after %=remove_squad(pri_a15_squad) =remove_squad(pri_a15_military_squad) =forward_game_time(0:20)%
 
 [sr_idle@after]
-on_info = {=squad_exist(pri_a16_wanderer_squad)} %=set_squad_goodwill(pri_a16_wanderer_squad:friend)% 
+on_info = {=squad_exist(pri_a16_wanderer_squad)} %=set_squad_goodwill(pri_a16_wanderer_squad:friend)%
 on_info2 = sr_idle@wait_for_end
 
 [sr_idle@wait_for_end]

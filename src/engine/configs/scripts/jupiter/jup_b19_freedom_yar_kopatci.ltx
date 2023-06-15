@@ -29,8 +29,8 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 attack_sound = false
-no_retreat = true 
-wounded = wounded 
+no_retreat = true
+wounded = wounded
 on_info2 = {+jup_b19_yar_enemy_or_dead =is_alive} %=kill_npc%
 on_offline = {-jup_b19_yar_enemy_or_dead} %+jup_b19_yar_enemy_or_dead%
 
@@ -67,7 +67,7 @@ corpse_detection_enabled = false
 path_walk = yar_2_walk
 path_look = yar_2_look
 on_info = {+jup_b19_actor_damaged_zombied} camper@move_to_position %=play_sound(jup_b19_freedom_yar_zombie_hit)%
-on_signal = point2 | walker@move_to_position_2 
+on_signal = point2 | walker@move_to_position_2
 meet = no_meet
 
 [walker@move_to_position_2]:walker@gen
@@ -132,7 +132,7 @@ path_walk = yar_12_walk
 path_look = yar_15_look
 def_state_standing = hide_na
 on_game_timer = 40 | walker@ready %=play_sound(jup_b19_freedom_yar_suspense)%
-combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_merc)} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true 
+combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_merc)} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 danger = danger
 meet = no_meet
 wounded = wounded
@@ -145,8 +145,8 @@ out_restr = jup_b19_sr_actor_close_by_yar
 path_walk = yar_12_walk
 path_look = yar_15_look
 combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_merc)} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
-on_info = {+jup_b19_mercs_can_fight} remark@fight 
-on_info2 = {+jup_b19_fight_begun} remark@fight 
+on_info = {+jup_b19_mercs_can_fight} remark@fight
+on_info2 = {+jup_b19_fight_begun} remark@fight
 danger = danger
 def_state_standing = hide_na
 meet = no_meet
@@ -165,8 +165,8 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_merc)} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
-danger = danger 
-meet = no_meet 
+danger = danger
+meet = no_meet
 wounded = wounded
 out_restr = jup_b19_sr_actor_close_by_yar
 
@@ -174,7 +174,7 @@ out_restr = jup_b19_sr_actor_close_by_yar
 path_walk = yar_12_walk
 path_look = yar_15_look
 radius = 0
-no_retreat = true 
+no_retreat = true
 def_state_moving = sneak
 def_state_moving_fire = sneak_fire
 def_state_campering = hide_na
@@ -199,10 +199,10 @@ def_state_moving = assault
 def_state_standing = guard_na
 on_signal = remark | remark@after_fire
 combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
-on_info = {+jup_b19_actor_damaged_zombied =squad_exist(jup_b19_kopatci_zombied_squad)} camper@fight %=play_sound(jup_b19_freedom_yar_zombie_hit)% 
+on_info = {+jup_b19_actor_damaged_zombied =squad_exist(jup_b19_kopatci_zombied_squad)} camper@fight %=play_sound(jup_b19_freedom_yar_zombie_hit)%
 danger = danger
-meet = no_meet 
-wounded = wounded 
+meet = no_meet
+wounded = wounded
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
@@ -212,8 +212,8 @@ corpse_detection_enabled = false
 anim = guard_na
 target = story | actor
 on_info = {-jup_b19_freedom_yar_explanations_done} %=play_sound(jup_b19_freedom_yar_explanations) +jup_b19_freedom_yar_explanations_done%
-on_signal = sound_end | walker@after_remark 
-on_info2 = {+jup_b19_actor_damaged_zombied =squad_exist(jup_b19_kopatci_zombied_squad) =is_playing_sound} camper@fight %=stop_sound%, {+jup_b19_actor_damaged_zombied =squad_exist(jup_b19_kopatci_zombied_squad) !is_playing_sound} camper@fight 
+on_signal = sound_end | walker@after_remark
+on_info2 = {+jup_b19_actor_damaged_zombied =squad_exist(jup_b19_kopatci_zombied_squad) =is_playing_sound} camper@fight %=stop_sound%, {+jup_b19_actor_damaged_zombied =squad_exist(jup_b19_kopatci_zombied_squad) !is_playing_sound} camper@fight
 ;on_info3 = {+jup_b19_freedom_yar_explanations_done} walker@after_remark
 meet = no_meet
 combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
@@ -234,17 +234,17 @@ on_info2 = {+jup_b19_actor_damaged_zombied -jup_b19_zombied_dead} camper@fight
 ;on_info3 = {+jup_b19_yar_switch_smart_terrain} %=teleport_npc(jup_a6_spawn_point)%
 combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 danger = danger
-meet = meet@final 
-wounded = wounded 
+meet = meet@final
+wounded = wounded
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 ;out_restr = jup_b19_sr_actor_close_by_yar
- 
+
 [walker@checkpoint]
 path_walk = yar_comeback_2_walk
 path_look = yar_comeback_2_look
-combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true 
+combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 def_state_moving = rush
 def_state_standing = guard_na
 on_signal = check | walker@go_to_yanov
@@ -257,7 +257,7 @@ corpse_detection_enabled = false
 [walker@go_to_yanov]
 path_walk = yar_comeback_1_walk
 path_look = yar_comeback_1_look
-combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true 
+combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 def_state_moving = rush
 def_state_standing = guard_na
 on_signal = switch | %+jup_b19_yar_switch_smart_terrain%

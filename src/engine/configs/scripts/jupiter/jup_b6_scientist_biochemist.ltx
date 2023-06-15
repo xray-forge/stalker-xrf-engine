@@ -9,8 +9,8 @@ path_look = bio_look
 def_state_standing = wait_trade
 def_state_moving = walk_noweap
 combat_ignore_cond = {=check_enemy_smart(jup_b41)} true
-on_info = {-jup_b1_sci_task_controller_start} %+jup_b1_sci_task_controller_start =set_counter(jup_b1_sci_task_controller_count:0)% 
-on_info2 = {+jup_b46_spatial_bubble_reported -jup_b1_sci_task_controller_4_done} %=inc_counter(jup_b1_sci_task_controller_count:1) +jup_b1_sci_task_controller_4_done% 
+on_info = {-jup_b1_sci_task_controller_start} %+jup_b1_sci_task_controller_start =set_counter(jup_b1_sci_task_controller_count:0)%
+on_info2 = {+jup_b46_spatial_bubble_reported -jup_b1_sci_task_controller_4_done} %=inc_counter(jup_b1_sci_task_controller_count:1) +jup_b1_sci_task_controller_4_done%
 on_info3 = {!npc_in_zone(jup_b41_sr_light)} %=teleport_npc(jup_b41_bio_walk)%
 meet = meet
 combat_ignore_cond = true

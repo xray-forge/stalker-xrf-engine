@@ -7,7 +7,7 @@ on_info2 = {+pri_b305_fifth_cam_end =actor_in_zone(pri_a28_scene_end_zone) +pri_
 on_info3 = {+pri_b305_fifth_cam_end +pri_a28_squad_dead} sr_idle@helis_want_to_leave
 on_info4 = {+pri_a28_helis_leave !actor_in_zone(pri_a28_scene_end_zone)} sr_idle@cut_2_save
 ;�������
-on_info5 = {+pri_a28_cutscene_start} sr_idle@cut_1_save %=clear_smart_terrain(pri_sim_2)% 
+on_info5 = {+pri_a28_cutscene_start} sr_idle@cut_1_save %=clear_smart_terrain(pri_sim_2)%
 
 [sr_idle@helis_want_to_leave]
 on_game_timer = 30 | %=play_sound(pri_a28_evac_com_helicopter_run_time)%
@@ -55,7 +55,7 @@ enable_ui_on_end = false
 outdoor = true
 cam_effector = scenario_cam\pripyat\pri_a28_evac_cam_1
 on_signal = cam_effector_stop | sr_idle@freeplay_dialog %=run_postprocess(black:3009:true) -pri_a28_cam_started%
-on_signal2 = cameff_end | sr_idle@freeplay_dialog %+pri_a28_cut_1_end =run_postprocess(black:3009:true) -pri_a28_cam_started% 
+on_signal2 = cameff_end | sr_idle@freeplay_dialog %+pri_a28_cut_1_end =run_postprocess(black:3009:true) -pri_a28_cam_started%
 on_info = {-pri_a28_cam_started} %+pri_a28_cam_started =stop_postprocess(3009)%
 on_info2 = {+pri_a28_cut_1_end} %=stop_sr_cutscene%
 

@@ -4,7 +4,7 @@
 on_info = {=fighting_actor} %+zat_b40_merc_in_combat%
 
 [camper@zat_b40_mercs_gen]
-radius = 50 
+radius = 50
 def_state_moving = sprint
 combat_ignore_cond = true
 on_actor_dist_le1 = 100 | %+zat_b40_actor_find_mer_camp%
@@ -32,7 +32,7 @@ combat_ignore_cond = true
 corpse_detection_enabled = false
 on_sound = actor|WPN_shoot|10000|0.0| %+zat_b40_merc_in_combat%
 on_info = %=play_sound(zat_b40_merc_go_away)%
-on_signal = theme_end | %+zat_b40_start_worning_time% 
+on_signal = theme_end | %+zat_b40_start_worning_time%
 
 [camper@zat_b40_surge_gen]:camper@zat_b40_mercs_gen
 def_state_standing = sit_knee
@@ -98,70 +98,70 @@ path_walk = zat_b40_merc_squad_leader_1_walk
 path_look = zat_b40_merc_squad_leader_1_look
 on_info = {=surge_started} camper@zat_b40_surge_09
 on_info2 = {+zat_b40_actor_find_mer_camp -zat_b40_merc_in_combat -zat_b40_warning} remark@zat_b40_warning_09 %+zat_b40_warning%
-on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_09 
+on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_09
 
 [camper@zat_b40_guard_leader_02]:camper@zat_b40_mercs_gen
 path_walk = zat_b40_merc_squad_leader_2_walk
 path_look = zat_b40_merc_squad_leader_2_look
 on_info = {=surge_started} camper@zat_b40_surge_10
 on_info2 = {+zat_b40_actor_find_mer_camp -zat_b40_merc_in_combat -zat_b40_warning} remark@zat_b40_warning_10 %+zat_b40_warning%
-on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_10 
+on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_10
 
 [camper@zat_b40_guard_01]:camper@zat_b40_mercs_gen
 path_walk = zat_b40_merc_01_walk
 path_look = zat_b40_merc_01_look
 on_info = {=surge_started} camper@zat_b40_surge_01
 on_info2 = {+zat_b40_actor_find_mer_camp -zat_b40_merc_in_combat -zat_b40_warning} remark@zat_b40_warning_01 %+zat_b40_warning%
-on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_01 
+on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_01
 
 [camper@zat_b40_guard_02]:camper@zat_b40_mercs_gen
 path_walk = zat_b40_merc_02_walk
 path_look = zat_b40_merc_02_look
 on_info = {=surge_started} camper@zat_b40_surge_02
 on_info2 = {+zat_b40_actor_find_mer_camp -zat_b40_merc_in_combat -zat_b40_warning} remark@zat_b40_warning_02 %+zat_b40_warning%
-on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_02 
+on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_02
 
 [camper@zat_b40_guard_03]:camper@zat_b40_mercs_gen
 path_walk = zat_b40_merc_03_walk
 path_look = zat_b40_merc_03_look
 on_info = {=surge_started} camper@zat_b40_surge_03
 on_info2 = {+zat_b40_actor_find_mer_camp -zat_b40_merc_in_combat -zat_b40_warning} remark@zat_b40_warning_03 %+zat_b40_warning%
-on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_03 
+on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_03
 
 [camper@zat_b40_guard_04]:camper@zat_b40_mercs_gen
 path_walk = zat_b40_merc_04_walk
 path_look = zat_b40_merc_04_look
 on_info = {=surge_started} camper@zat_b40_surge_04
 on_info2 = {+zat_b40_actor_find_mer_camp -zat_b40_merc_in_combat -zat_b40_warning} remark@zat_b40_warning_04 %+zat_b40_warning%
-on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_04 
+on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_04
 
 [camper@zat_b40_guard_05]:camper@zat_b40_mercs_gen
 path_walk = zat_b40_merc_05_walk
 path_look = zat_b40_merc_05_look
 on_info = {=surge_started} camper@zat_b40_surge_05
 on_info2 = {+zat_b40_actor_find_mer_camp -zat_b40_merc_in_combat -zat_b40_warning} remark@zat_b40_warning_05 %+zat_b40_warning%
-on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_05 
+on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_05
 
 [camper@zat_b40_guard_06]:camper@zat_b40_mercs_gen
 path_walk = zat_b40_merc_06_walk
 path_look = zat_b40_merc_06_look
 on_info = {=surge_started} camper@zat_b40_surge_06
 on_info2 = {+zat_b40_actor_find_mer_camp -zat_b40_merc_in_combat -zat_b40_warning} remark@zat_b40_warning_06 %+zat_b40_warning%
-on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_06 
+on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_06
 
 [camper@zat_b40_guard_07]:camper@zat_b40_mercs_gen
 path_walk = zat_b40_merc_07_walk
 path_look = zat_b40_merc_07_look
 on_info = {=surge_started} camper@zat_b40_surge_07
 on_info2 = {+zat_b40_actor_find_mer_camp -zat_b40_merc_in_combat -zat_b40_warning} remark@zat_b40_warning_07 %+zat_b40_warning%
-on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_07 
+on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_07
 
 [camper@zat_b40_guard_08]:camper@zat_b40_mercs_gen
 path_walk = zat_b40_merc_08_walk
 path_look = zat_b40_merc_08_look
 on_info = {=surge_started} camper@zat_b40_surge_08
 on_info2 = {+zat_b40_actor_find_mer_camp -zat_b40_merc_in_combat -zat_b40_warning} remark@zat_b40_warning_08 %+zat_b40_warning%
-on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_08 
+on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_08
 
 ;walker
 

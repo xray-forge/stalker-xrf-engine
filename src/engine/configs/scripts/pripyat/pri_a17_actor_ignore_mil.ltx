@@ -14,7 +14,7 @@ on_info3 = {=actor_in_zone(pri_a17_first_floor)} %+pri_a17_actor_find_ambush%, {
 [sr_idle@actor_ignore_task]
 on_info = {+pri_a17_mon_ambush_start} sr_idle@end, {=actor_in_zone(pri_a17_hosp_square)} sr_idle@actor_ignore_task_2, {+pri_a17_actor_attack_military} sr_idle@badend %+pri_a17_mon_ambush_start%
 on_game_timer = 600 | sr_idle@end %+pri_a17_mon_ambush_start%
-on_game_timer2 = 21600 | {=distance_to_obj_ge(pri_a17_recon_squad:100)} sr_idle@end %+pri_a17_actor_leaver +pri_a17_actor_find_ambush% 
+on_game_timer2 = 21600 | {=distance_to_obj_ge(pri_a17_recon_squad:100)} sr_idle@end %+pri_a17_actor_leaver +pri_a17_actor_find_ambush%
 
 [sr_idle@actor_ignore_task_2]
 on_info = {+pri_a17_mon_ambush_start} sr_idle@end, {!actor_in_zone(pri_a17_hosp_square)} sr_idle@chek, {+pri_a17_actor_attack_military} sr_idle@badend %+pri_a17_mon_ambush_start%

@@ -30,7 +30,7 @@ on_game_timer = 60 | {+pri_a28_scene_end -pri_a28_commander_on_position} smartco
 
 [smartcover@evac_comm_snd]:smartcover@evac_comm
 on_game_timer = 70 | %=play_sound(pri_a28_evac_com_ready)%
-on_signal = sound_end | %+pri_a28_evac_com_ready% 
+on_signal = sound_end | %+pri_a28_evac_com_ready%
 on_info = {+pri_a28_final_actor_speech_done +pri_a28_strelok_dead} walker@evac_comm_run %=play_sound(pri_a28_evac_com_scene_end_when_strelok_dead)%
 on_info2 = {+pri_a28_final_actor_speech_done -pri_a28_strelok_dead} walker@evac_comm_run
 

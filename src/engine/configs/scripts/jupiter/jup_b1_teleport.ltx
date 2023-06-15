@@ -26,7 +26,7 @@ on_info = {=actor_has_item(jup_b1_half_artifact) =squad_exist(jup_b1_stalker_squ
 on_info2 = {!squad_exist(jup_b1_stalker_squad)} sr_idle@nil
 
 [sr_idle@zombie]
-on_game_timer = 1 | sr_idle@teleport_wait_to_go_home 
+on_game_timer = 1 | sr_idle@teleport_wait_to_go_home
 on_info = {-jup_b1_stalker_1_is_dead -jup_b1_st_1_teleported_to_zombied} %=teleport_npc_by_story_id(jup_b1_stalker_1:jup_b1_st_1_zombie_stay) +jup_b1_st_1_teleported_to_zombied%
 on_info2 = {-jup_b1_stalker_2_is_dead -jup_b1_st_2_teleported_to_zombied} %=teleport_npc_by_story_id(jup_b1_stalker_2:jup_b1_st_2_zombie_stay) +jup_b1_st_2_teleported_to_zombied%
 on_info3 = {-jup_b1_stalker_3_is_dead -jup_b1_st_3_teleported_to_zombied} %=teleport_npc_by_story_id(jup_b1_stalker_3:jup_b1_st_3_zombie_stay) +jup_b1_st_3_teleported_to_zombied%

@@ -59,9 +59,9 @@ use = false
 anim = threat_fire
 target = story | jup_b1_tushkano_target
 on_game_timer = 30 | walker@camp2
-invulnerable = true 
+invulnerable = true
 combat_ignore_cond = true
-combat_ignore_keep_when_attacked = true 
+combat_ignore_keep_when_attacked = true
 
 [walker@camp2]:walker@generic
 def_state_moving1 = patrol
@@ -76,8 +76,8 @@ anim = psy_pain
 target = path | jup_b1_st_3_zombie_look, 0
 on_timer = 10000 | remark@thanks
 meet = no_meet
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 
 [remark@thanks]:walker@generic
 anim = hide_no_wpn
@@ -128,10 +128,10 @@ path_walk = patrol_to_the_home
 formation = back
 on_signal = at_pos | %-jup_b1_st_mission%
 meet = no_meet
-on_info = {=health_le(0.5) !actor_enemy} %=restore_health% 
+on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 
 ;--------------------����������� � �����
-[logic@jup_b1_zomb_stalker_3] 
+[logic@jup_b1_zomb_stalker_3]
 suitable = {=check_npc_name(jup_b1_stalker_3) =actor_has_item(jup_b1_half_artifact)} true
 prior = 70
 active = camper@zombie
@@ -147,19 +147,19 @@ radius = 0
 no_retreat = true
 on_info = {+jup_b1_go_from_task} patrol@go_to_base, {=dist_to_actor_ge(140)} %=kill_npc%
 meet = no_meet
-show_spot = false 
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+show_spot = false
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 
 [remark@psy_wounded]:walker@generic
 anim = psy_pain
 target = path | jup_b1_st_3_zombie_look, 0
 on_info = {=actor_in_zone(jup_b1_zombie_start_zone)} remark@turnin_zombie
 on_info2 = {=dist_to_actor_ge(140)} %=kill_npc%
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 meet = no_meet
-show_spot = false 
+show_spot = false
 
 [remark@turnin_zombie]:walker@generic
 anim = psy_pain
@@ -167,8 +167,8 @@ target = path | jup_b1_st_3_zombie_look, 0
 on_info = {+jup_b1_controller_is_dead} remark@psy_back %=set_squad_goodwill(jup_b1_stalker_squad:friend)%
 on_info2 = {=dist_to_actor_ge(140)} %=kill_npc%
 on_timer = 19000 | walker@zombied %=set_squad_goodwill(jup_b1_stalker_squad:enemy)%
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 meet = no_meet
 
 [walker@zombied]:walker@generic

@@ -8,8 +8,8 @@ on_death = death
 path_walk = zombie_spawn
 path_look = st_4_look_2
 on_info = {=dist_to_actor_le(12)} walker@angry %+jup_b1_zomb_be_fucked%, {+jup_b1_st_1_at_pos +jup_b1_st_2_at_pos} walker@go, {+jup_b1_zomb_2_is_dead} walker@angry, {+jup_b1_zomb_3_is_dead} walker@angry
-combat_ignore_cond = true 
-show_spot = false 
+combat_ignore_cond = true
+show_spot = false
 wounded = wounded
 gather_items_enabled = false
 help_wounded_enabled = false
@@ -17,8 +17,8 @@ corpse_detection_enabled = false
 
 [walker@go]
 path_walk = zombie_go
-on_info = {=npc_in_zone(jup_b1_zombie_kill_zone)} %+jup_b1_kill_zombie_sound% 
-combat_ignore_cond = true 
+on_info = {=npc_in_zone(jup_b1_zombie_kill_zone)} %+jup_b1_kill_zombie_sound%
+combat_ignore_cond = true
 wounded = wounded
 gather_items_enabled = false
 help_wounded_enabled = false
@@ -26,7 +26,7 @@ corpse_detection_enabled = false
 
 [walker@angry]
 path_walk = zombie_go
-on_info = {=npc_in_zone(jup_b1_zombie_kill_zone)} %+jup_b1_kill_zombie_sound% 
+on_info = {=npc_in_zone(jup_b1_zombie_kill_zone)} %+jup_b1_kill_zombie_sound%
 wounded = wounded
 gather_items_enabled = false
 help_wounded_enabled = false
@@ -52,8 +52,8 @@ on_death = death@1
 [walker@stay_2]
 path_walk = zombie_stay_1
 on_info = {=dist_to_actor_le(12)} walker@angry_2, {+jup_b1_zomb_is_dead} walker@angry_2, {+jup_b1_zomb_3_is_dead} walker@angry_2
-combat_ignore_cond = true 
-show_spot = false 
+combat_ignore_cond = true
+show_spot = false
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
@@ -77,8 +77,8 @@ on_death = death@2
 [walker@stay_3]
 path_walk = zombie_stay_2
 on_info = {=dist_to_actor_le(12)} walker@angry_3, {+jup_b1_zomb_is_dead} walker@angry_3, {+jup_b1_zomb_2_is_dead} walker@angry_3
-combat_ignore_cond = true 
-show_spot = false 
+combat_ignore_cond = true
+show_spot = false
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false

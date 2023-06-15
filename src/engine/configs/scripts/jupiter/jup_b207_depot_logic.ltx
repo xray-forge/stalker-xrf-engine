@@ -1,6 +1,6 @@
 ;Mercs with (M)organ
 [logic@jup_b207_depot_merc_leader]
-active = walker@merc_leader_stand 
+active = walker@merc_leader_stand
 suitable = {=check_npc_name(zat_b7_duty_illicit_dealer)} true
 prior = 200
 on_combat = combat
@@ -23,7 +23,7 @@ def_state_standing = hide_na
 combat_ignore_cond = {=check_enemy_name(sim_default_killer)} true, false
 
 [logic@jup_b207_merc_1]
-active = walker@merc_1 
+active = walker@merc_1
 suitable = {!check_npc_name(zat_b7_duty_illicit_dealer) =target_squad_name(jup_b207_zat_b7_duty_illicit_dealer_depot)} true
 prior = 200
 on_combat = combat
@@ -51,7 +51,7 @@ path_look = merc_5_look
 combat_ignore_cond = {=check_enemy_name(zat_b7_duty_illicit_dealer)} true, false
 
 [logic@jup_b207_merc_2]
-active = walker@merc_2 
+active = walker@merc_2
 suitable = {!check_npc_name(zat_b7_duty_illicit_dealer) =target_squad_name(jup_b207_zat_b7_duty_illicit_dealer_depot)} true
 prior = 200
 on_combat = combat
@@ -79,7 +79,7 @@ path_look = merc_5_look
 combat_ignore_cond = {=check_enemy_name(zat_b7_duty_illicit_dealer)} true, false
 
 [logic@jup_b207_merc_3]
-active = walker@merc_3 
+active = walker@merc_3
 suitable = {!check_npc_name(zat_b7_duty_illicit_dealer) =target_squad_name(jup_b207_zat_b7_duty_illicit_dealer_depot)} true
 prior = 200
 on_combat = combat
@@ -107,7 +107,7 @@ path_look = merc_5_look
 combat_ignore_cond = {=check_enemy_name(zat_b7_duty_illicit_dealer)} true, false
 
 [logic@jup_b207_merc_4]
-active = walker@merc_4 
+active = walker@merc_4
 suitable = {!check_npc_name(zat_b7_duty_illicit_dealer) =target_squad_name(jup_b207_zat_b7_duty_illicit_dealer_depot)} true
 prior = 200
 on_combat = combat
@@ -135,7 +135,7 @@ path_look = merc_5_look
 combat_ignore_cond = {=check_enemy_name(zat_b7_duty_illicit_dealer)} true, false
 
 [logic@jup_b207_merc_5]
-active = camper@merc_5 
+active = camper@merc_5
 suitable = {=target_squad_name(jup_b207_depot_mercs)} true
 prior = 200
 
@@ -154,7 +154,7 @@ path_walk = merc_5_walk
 combat_ignore_cond = {=check_enemy_name(zat_b7_duty_illicit_dealer)} true, false
 
 [logic@jup_b207_merc_6]
-active = camper@merc_6 
+active = camper@merc_6
 suitable = {=target_squad_name(jup_b207_depot_mercs)} true
 prior = 200
 
@@ -174,7 +174,7 @@ combat_ignore_cond = {=check_enemy_name(zat_b7_duty_illicit_dealer)} true, false
 
 ;Attack depot duty squad in depot attack smart
 [logic@jup_b207_duty_leader]
-active = walker@duty_leader_position 
+active = walker@duty_leader_position
 suitable = {=check_npc_name(jup_b207_duty_security_squad_leader)} true
 prior = 200
 
@@ -190,19 +190,19 @@ meet = no_meet
 [remark@duty_leader_ask]
 anim = threat_na
 on_info = {=dist_to_actor_le(75)} %=play_sound(jup_b207_duty_security_squad_to_freedom_leave)%
-on_signal = sound_end | remark@duty_leader_play %+jup_b207_duty_asked_to_leave% 
+on_signal = sound_end | remark@duty_leader_play %+jup_b207_duty_asked_to_leave%
 combat_ignore_cond = {=check_enemy_smart(jup_b207)} true, false
 meet = no_meet
 
 [remark@duty_leader_play]
 on_info = {+jup_b207_freedom_refused_to_leave} %=play_sound(jup_b207_duty_security_squad_to_freedom_start_attack)%; +jup_b207_attack_started%
-on_signal = sound_end | %+jup_b207_attack_started% 
+on_signal = sound_end | %+jup_b207_attack_started%
 anim = threat_na
 combat_ignore_cond = {=check_enemy_smart(jup_b207)} true, false
 meet = no_meet
 
 [logic@jup_b207_duty_1]
-active = walker@duty_1_position 
+active = walker@duty_1_position
 suitable = {!check_npc_name(jup_b207_duty_security_squad_leader)} true
 prior = 200
 
@@ -214,7 +214,7 @@ combat_ignore_cond = {=check_enemy_smart(jup_b207)} true, false
 meet = no_meet
 
 [logic@jup_b207_duty_2]
-active = walker@duty_2_position 
+active = walker@duty_2_position
 suitable = {!check_npc_name(jup_b207_duty_security_squad_leader)} true
 prior = 200
 
@@ -227,7 +227,7 @@ combat_ignore_cond = {=check_enemy_smart(jup_b207)} true, false
 meet = no_meet
 
 [logic@jup_b207_duty_3]
-active = walker@duty_3_position 
+active = walker@duty_3_position
 suitable = {!check_npc_name(jup_b207_duty_security_squad_leader)} true
 prior = 200
 
@@ -240,7 +240,7 @@ combat_ignore_cond = {=check_enemy_smart(jup_b207)} true, false
 meet = no_meet
 
 [logic@jup_b207_duty_4]
-active = walker@duty_4_position 
+active = walker@duty_4_position
 suitable = {!check_npc_name(jup_b207_duty_security_squad_leader)} true
 prior = 200
 
@@ -253,7 +253,7 @@ combat_ignore_cond = {=check_enemy_smart(jup_b207)} true, false
 meet = no_meet
 
 [logic@jup_b207_duty_5]
-active = walker@duty_5_position 
+active = walker@duty_5_position
 suitable = {!check_npc_name(jup_b207_duty_security_squad_leader)} true
 prior = 200
 
@@ -316,7 +316,7 @@ combat_ignore_cond = {-jup_b207_attack_started =check_enemy_smart(jup_b207_depot
 [remark@freedom_refuse]
 anim = hide_na
 on_info = %=play_sound(jup_b207_freedom_recon_squad_refuse)%
-on_signal = sound_end | camper@freedom_leader %+jup_b207_freedom_refused_to_leave% 
+on_signal = sound_end | camper@freedom_leader %+jup_b207_freedom_refused_to_leave%
 combat_ignore_cond = {-jup_b207_attack_started =check_enemy_smart(jup_b207_depot_attack)} true, false
 meet = no_meet
 

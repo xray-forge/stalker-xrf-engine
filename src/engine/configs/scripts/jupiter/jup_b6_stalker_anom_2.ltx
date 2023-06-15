@@ -100,7 +100,7 @@ path_look = st_3_scan_look
 def_state_moving = run
 meet = no_meet
 combat_ignore_cond = {=fighting_dist_ge(20)} true
-combat_ignore_keep_when_attacked = false 
+combat_ignore_keep_when_attacked = false
 on_game_timer = 15 |{-jup_b6_anom_2_st_3_work} %+jup_b6_anom_2_st_3_work =inc_counter(jup_b6_anom_2_st_count)%
 on_info = {=has_enemy -jup_b6_anom_2_alarm} camper@fighter_3 %-jup_b6_anom_2_st_3_work =dec_counter(jup_b6_anom_2_st_count) +jup_b6_anom_2_alarm%, {+jup_b6_anom_2_alarm} camper@fighter_3 %-jup_b6_anom_2_st_3_work =dec_counter(jup_b6_anom_2_st_count)%
 on_game_timer2 = 15 | {-jup_b6_anom_2_snd_beg} %+jup_b6_anom_2_snd_beg =play_sound(jup_b6_stalker_1_first_measurement_begin)%

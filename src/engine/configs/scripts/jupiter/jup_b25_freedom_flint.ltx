@@ -51,8 +51,8 @@ on_info6 = {-jup_b25_third_story =counter_equal(jup_b25_stories:3)} %+jup_b25_th
 [animpoint@jup_b25_case_story]:animpoint@jup_b25_flint_gen
 meet = meet@jup_b25_flint
 on_info = {+jup_b25_play_reaction} %-jup_b25_play_reaction%
-on_actor_in_zone1 = jup_b25_tell_story_control | {+jup_b25_found_senya -jup_b25_story_artefact_played -zat_b106_found_soroka} animpoint@jup_b25_stoy_artefact 
-on_actor_in_zone2 = jup_b25_tell_story_control | {+jup_b16_oasis_found -jup_b25_story_oasis_played -zat_b106_found_soroka} animpoint@jup_b25_stoy_oasis 
+on_actor_in_zone1 = jup_b25_tell_story_control | {+jup_b25_found_senya -jup_b25_story_artefact_played -zat_b106_found_soroka} animpoint@jup_b25_stoy_artefact
+on_actor_in_zone2 = jup_b25_tell_story_control | {+jup_b16_oasis_found -jup_b25_story_oasis_played -zat_b106_found_soroka} animpoint@jup_b25_stoy_oasis
 on_actor_in_zone3 = jup_b25_tell_story_control | {+zat_b57_bloodsucker_lair_clear -jup_b25_story_bloodsucker_played -zat_b106_found_soroka} animpoint@jup_b25_stoy_bloodsucker
 on_actor_in_zone4 = jup_b25_tell_story_control | {+jup_b6_complete_end -jup_b25_story_scientist_played -zat_b106_found_soroka} animpoint@jup_b25_stoy_scientist
 on_actor_in_zone5 = jup_b25_tell_story_control | {+zat_b215_gave_maps -jup_b25_story_guide_played -zat_b106_found_soroka} animpoint@jup_b25_stoy_guide
@@ -61,7 +61,7 @@ on_actor_in_zone6 = jup_b25_tell_story_control | {+jup_b25_blame_story_end -jup_
 [animpoint@jup_b25_stoy_oasis]:animpoint@jup_b25_flint_gen
 on_actor_in_zone = jup_b25_tell_story_control | {-jup_b25_story_oasis_played} %=play_sound(jup_b25_story_oasis)%
 on_signal = theme_end | animpoint@jup_b25_reaction_story %+jup_b25_story_oasis_played =inc_counter(jup_b25_stories) +jup_b25_play_reaction%
-on_info = {+zat_b215_guide_to_zaton} animpoint@jup_b25_reaction_story %+jup_b25_story_oasis_played =inc_counter(jup_b25_stories) +jup_b25_play_reaction% 
+on_info = {+zat_b215_guide_to_zaton} animpoint@jup_b25_reaction_story %+jup_b25_story_oasis_played =inc_counter(jup_b25_stories) +jup_b25_play_reaction%
 
 [animpoint@jup_b25_stoy_bloodsucker]:animpoint@jup_b25_flint_gen
 on_actor_in_zone = jup_b25_tell_story_control | {-jup_b25_story_bloodsucker_played} %=play_sound(jup_b25_story_bloodsucker)%

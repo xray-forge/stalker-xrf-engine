@@ -28,7 +28,7 @@ def_state_moving1 = sneak_run
 path_walk = st_2_go_2
 path_look = st_2_look_2
 on_signal = at_pos | walker@stay_2 %+jup_b1_st_2_at_pos%
-combat_ignore_cond = true 
+combat_ignore_cond = true
 on_info = {+jup_b1_zomb_is_dead +jup_b1_zomb_3_is_dead +jup_b1_zomb_2_is_dead} walker@camp, {+jup_b1_zomb_is_dead} walker@camp
 meet = no_meet
 
@@ -36,7 +36,7 @@ meet = no_meet
 path_walk = st_2_go_2
 path_look = st_2_look_2
 on_signal = sound_end | remark@kill_zomb %+jup_b1_kill_zombie%
-combat_ignore_cond = true 
+combat_ignore_cond = true
 on_info = {+jup_b1_zomb_is_dead} walker@camp, {+jup_b1_kill_zombie_sound !is_playing_sound} %=play_sound(jup_b1_stalkers_see_zombied)%, {+jup_b1_zomb_be_fucked} walker@camp
 meet = no_meet
 
@@ -61,8 +61,8 @@ anim = psy_pain
 target = path | jup_b1_st_2_zombie_look, 0
 on_timer = 11000 | remark@thanks
 meet = no_meet
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 
 [remark@thanks]:walker@generic
 anim = caution
@@ -114,7 +114,7 @@ path_walk = patrol_to_the_home
 formation = back
 on_signal = at_pos | %-jup_b1_st_mission%
 meet = no_meet
-on_info = {=health_le(0.5) !actor_enemy} %=restore_health% 
+on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 
 ;--------------------- ����������� � �����
 [logic@jup_b1_zomb_stalker_2]
@@ -133,19 +133,19 @@ radius = 0
 no_retreat = true
 on_info = {+jup_b1_go_from_task} patrol@go_to_base, {=dist_to_actor_ge(140)} %=kill_npc%
 meet = no_meet
-show_spot = false 
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+show_spot = false
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 
 [remark@psy_wounded]:walker@generic
 anim = psy_pain
 target = path | jup_b1_st_2_zombie_look, 0
 on_info = {=actor_in_zone(jup_b1_zombie_start_zone)} remark@turnin_zombie
 on_info2 = {=dist_to_actor_ge(140)} %=kill_npc%
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 meet = no_meet
-show_spot = false 
+show_spot = false
 
 [remark@turnin_zombie]:walker@generic
 anim = psy_pain
@@ -153,8 +153,8 @@ target = path | jup_b1_st_2_zombie_look, 0
 on_info = {+jup_b1_controller_is_dead} remark@psy_back %=set_squad_goodwill(jup_b1_stalker_squad:friend)%
 on_info2 = {=dist_to_actor_ge(140)} %=kill_npc%
 on_timer = 13000 | walker@zombied %=set_squad_goodwill(jup_b1_stalker_squad:enemy) =play_sound(jup_b1_stalkers_psy_wound_1)%
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 meet = no_meet
 
 [walker@zombied]:walker@generic

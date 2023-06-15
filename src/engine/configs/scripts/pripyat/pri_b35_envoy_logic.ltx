@@ -26,14 +26,14 @@ on_info2 = {-pri_b35_envoy_sighted =see_npc(pri_b35_merc_leader)} %+pri_b35_envo
 on_info3 = {-pri_b35_envoy_sighted =npc_in_zone(pri_b35_sr_mercs)} %+pri_b35_envoy_sighted%
 on_info4 = {-pri_b35_envoy_sighted =actor_see_npc} %+pri_b35_envoy_sighted%
 on_info5 = {+pri_b35_attack_started} %+pri_b35_rendevous_done +pri_b35_rendevous_in_process%
-on_info6 = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started% 
+on_info6 = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started%
 on_signal = path_end | %+pri_b35_rendevous_in_process%
 
 [remark@rendevous]
 anim = wait_na
 on_game_timer = 100 | %+pri_b35_rendevous_done%
 on_info = {+pri_b35_attack_started} %+pri_b35_rendevous_done%
-on_info2 = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started% 
+on_info2 = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started%
 target = story | pri_b35_merc_leader
 
 [death]

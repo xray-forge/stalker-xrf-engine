@@ -8,7 +8,7 @@ on_info = {+zat_b38_cop_passed_away =story_object_exist(zat_b22_stalker_medic) -
 on_info = {-zat_b22_stalker_hunter_hit =story_object_exist(zat_b22_stalker_hunter_dead)} %=hit_obj(zat_b22_stalker_hunter_dead:bip01_head:5:500:zat_b22_stalker_hunter_dead) +zat_b22_stalker_hunter_hit%
 on_actor_in_zone = zat_b22_stalker_medic_identified | sr_idle@6 %+zat_b38_disappearance_stalkers_deal_with_medic_give +zat_b22_stalker_vampire%
 on_game_timer = 86400 | sr_idle@3 %+zat_b38_disappearance_stalkers_meet_cop_24h_past_give%
- 
+
 [sr_idle@3]
 on_info = {+zat_b22_stalker_cop_place} sr_idle@4 %+zat_b38_disappearance_stalkers_find_out_where_is_cop_give%
 on_actor_in_zone = zat_b22_stalker_medic_identified | sr_idle@6 %+zat_b38_disappearance_stalkers_deal_with_medic_give +zat_b22_stalker_vampire%

@@ -140,7 +140,7 @@ path_walk = zat_b5_dealer_assistant_1_walker_3_walk
 path_look = zat_b5_dolg_trader_3_look
 def_state_moving1 = patrol
 def_state_standing = guard_na
-on_signal = dealer_3 | walker@move_to_position_3 
+on_signal = dealer_3 | walker@move_to_position_3
 on_info = {+zat_b5_meat} walker@dealer_fight
 on_info2 = {+zat_b5_dolg_enemy} walker@dealer_fight %=actor_enemy%
 meet = no_meet
@@ -171,7 +171,7 @@ path_look = zat_b5_dealer_assistant_1_walker_10_look
 def_state_moving1 = walk
 def_state_standing = guard_na
 on_info = {+zat_b5_sultan_speak_for_stalkers} walker@dealer_fear
-on_info2 = {+zat_b5_meat} walker@dealer_fear 
+on_info2 = {+zat_b5_meat} walker@dealer_fear
 on_info3 = {+zat_b5_dolg_enemy} walker@dealer_fight %=actor_enemy%
 meet = no_meet
 combat_ignore_cond = {=check_enemy_name(zat_b7_duty_illicit_dealer:zat_b5_actor_with_dealer)} true, {=check_enemy_name(actor:zat_b5_stalker_raider:zat_b7_bandit_boss)} true, {=check_enemy_name(zat_b5_stalker_commander:zat_b5_stalker)} true, {=check_enemy_name(sim_default)} true
@@ -183,7 +183,7 @@ corpse_detection_enabled = false
 [walker@dealer_fear]
 path_walk = zat_b5_dealer_assistant_1_walker_10_walk
 path_look = zat_b5_dealer_assistant_1_walker_11_look
-on_info = {+zat_b5_meat} walker@dealer_fight 
+on_info = {+zat_b5_meat} walker@dealer_fight
 on_info2 = {+zat_b5_dolg_enemy} walker@dealer_fight %=actor_enemy%
 meet = no_meet
 combat_ignore_cond = {=check_enemy_name(zat_b7_duty_illicit_dealer:zat_b5_actor_with_dealer)} true, {=check_enemy_name(actor:zat_b5_stalker_raider:zat_b7_bandit_boss)} true, {=check_enemy_name(zat_b5_stalker_commander:zat_b5_stalker)} true, {=check_enemy_name(sim_default)} true
@@ -238,5 +238,5 @@ on_info = {=hit_by_actor -zat_b5_dolg_enemy} %+zat_b5_dolg_enemy +zat_b5_meat%, 
 [danger]
 ignore_distance = 0
 
-[death] 
+[death]
 on_info = %=inc_counter(killer_death)%

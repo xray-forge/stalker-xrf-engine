@@ -1,7 +1,7 @@
-[logic] 
+[logic]
 active = sr_idle@teleport_to
 
-[sr_idle@teleport_to] ;������� � ����� �� ��� ����� �������� 
+[sr_idle@teleport_to] ;������� � ����� �� ��� ����� ��������
 on_info = {+jup_b6_go_to_anom_1 -jup_b6_to_anom_1_teleported} sr_idle@teleportin %=run_postprocess(fade_in:8610) =disable_ui() +jup_b6_st_mission +jup_b6_to_anom_1_teleported +jup_b6_anom_1 -jup_b6_anom_2 -jup_b6_travel%
 on_info2 = {+jup_b6_go_to_anom_2 -jup_b6_to_anom_2_teleported} sr_idle@teleportin_2 %=run_postprocess(fade_in:8611) =disable_ui() +jup_b6_st_mission +jup_b6_to_anom_2_teleported +jup_b6_anom_2 -jup_b6_anom_1 -jup_b6_travel%
 on_info3 = {+jup_b6_go_to_home} sr_idle@teleportin_home %=run_postprocess(fade_in:8614) =disable_ui() -jup_b6_st_mission -jup_b6_anom_1 -jup_b6_anom_2%
@@ -18,7 +18,7 @@ on_info9 = {+jup_b6_two_anomaly_learned +jup_b6_complete_end -jup_b6_st_mission}
 
 [sr_idle@teleportin]
 on_info = {-jup_b6_fade_in_1} %=run_postprocess(black:8612:true) +jup_b6_fade_in_1%
-on_game_timer = 20 | %+jup_b6_teleport_1% 
+on_game_timer = 20 | %+jup_b6_teleport_1%
 
 on_info = {-jup_b1_squad_is_dead +jup_b6_teleport_1} sr_idle@teleport_post %=teleport_squad(jup_b1_stalker_squad:jup_b211_stalker_spawn) +jup_b6_start%
 on_info2 = {+jup_b6_freedom_employed +jup_b6_teleport_1} sr_idle@teleport_post %=teleport_squad(jup_b6_stalker_freedom_squad:jup_b211_stalker_spawn) +jup_b6_start%
