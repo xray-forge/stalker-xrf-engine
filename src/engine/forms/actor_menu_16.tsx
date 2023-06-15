@@ -1,5 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
+import { captions } from "@/engine/lib/constants/captions";
+
 export const IS_XML: boolean = true;
 
 export function create(): JSXNode {
@@ -96,22 +98,22 @@ export function create(): JSXNode {
 
       <quick_slot1_text x="386" y="446" width="14" height="13">
         <text align="c" font="letterica16">
-          quick_use_str_1
+          {captions.quick_use_str_1}
         </text>
       </quick_slot1_text>
       <quick_slot2_text x="451" y="446" width="14" height="13">
         <text align="c" font="letterica16">
-          quick_use_str_2
+          {captions.quick_use_str_2}
         </text>
       </quick_slot2_text>
       <quick_slot3_text x="516" y="446" width="14" height="13">
         <text align="c" font="letterica16">
-          quick_use_str_3
+          {captions.quick_use_str_3}
         </text>
       </quick_slot3_text>
       <quick_slot4_text x="580" y="446" width="14" height="13">
         <text align="c" font="letterica16">
-          quick_use_str_4
+          {captions.quick_use_str_4}
         </text>
       </quick_slot4_text>
 
@@ -158,7 +160,7 @@ export function create(): JSXNode {
 
       <actor_weight_caption x="750" y="736" width="57" height="16">
         <text align="r" font="letterica16" color="ui_3">
-          ui_total_weight
+          {captions.ui_total_weight}
         </text>
       </actor_weight_caption>
       <actor_weight x="807" y="736" width="35" height="16">
@@ -170,7 +172,7 @@ export function create(): JSXNode {
 
       <partner_weight_caption x="174" y="738" width="68" height="14">
         <text align="r" font="letterica16" color="ui_3">
-          ui_total_weight
+          {captions.ui_total_weight}
         </text>
       </partner_weight_caption>
       <partner_weight x="342" y="738" width="36" height="14">
@@ -181,7 +183,7 @@ export function create(): JSXNode {
         <texture>ui_inGame2_center_trade_devider</texture>
         <trade_caption x="118" y="74" width="48" height="16">
           <text align="l" font="letterica16" color="ui_3">
-            ui_total_price
+            {captions.ui_total_price}
           </text>
         </trade_caption>
         <trade_price x="166" y="74" width="13" height="16">
@@ -196,7 +198,7 @@ export function create(): JSXNode {
         <texture>ui_inGame2_center_trade_devider</texture>
         <trade_caption x="118" y="74" width="48" height="16">
           <text align="r" font="letterica16" color="ui_3">
-            ui_total_price
+            {captions.ui_total_price}
           </text>
         </trade_caption>
         <trade_price x="166" y="74" width="40" height="16">
@@ -432,7 +434,7 @@ export function create(): JSXNode {
         <window_name>trade_buy_button</window_name>
         <texture>ui_inGame2_inventory_button</texture>
         <text font="graffiti22" align="c">
-          ui_st_buy
+          {captions.ui_st_buy}
         </text>
         <text_color>
           <e color="ui_6" />
@@ -446,7 +448,7 @@ export function create(): JSXNode {
         <window_name>trade_sell_button</window_name>
         <texture>ui_inGame2_inventory_button</texture>
         <text font="graffiti22" align="c">
-          ui_st_sell
+          {captions.ui_st_sell}
         </text>
         <text_color>
           <e color="ui_6" />
@@ -460,7 +462,7 @@ export function create(): JSXNode {
         <window_name>takeall_button</window_name>
         <texture>ui_inGame2_big_inventory_button</texture>
         <text font="graffiti22" align="c">
-          ui_st_take_all
+          {captions.ui_st_take_all}
         </text>
         <text_color>
           <e color="ui_6" />
@@ -474,7 +476,7 @@ export function create(): JSXNode {
         <window_name>exit_button</window_name>
         <texture>ui_inGame2_big_inventory_button</texture>
         <text font="graffiti22" align="c">
-          ui_inv_exit
+          {captions.ui_inv_exit}
         </text>
         <text_color>
           <e color="ui_6" />
