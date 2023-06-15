@@ -43,7 +43,7 @@ export class MockIniFile<T extends AnyObject> {
     return [true, entry[0], entry[1]];
   });
   public line_exist = jest.fn((section: TSection, param: TName) => {
-    return this.data[section][param] !== undefined;
+    return this.data[section]?.[param] !== undefined;
   });
 
   private get = jest.fn((section: TSection, field: TName) => {

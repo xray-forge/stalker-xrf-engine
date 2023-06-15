@@ -169,13 +169,13 @@ export class SchemeWounded extends AbstractScheme {
 
     // Initialize state:
     if (tostring(section) === NIL) {
-      state.hp_state = parseData(object, defaults.hp_state);
-      state.hp_state_see = parseData(object, defaults.hp_state_see);
-      state.psy_state = parseData(object, defaults.psy_state);
-      state.hp_victim = parseData(object, defaults.hp_victim);
-      state.hp_cover = parseData(object, defaults.hp_cover);
-      state.hp_fight = parseData(object, defaults.hp_fight);
-      state.syndata = parseSynData(object, defaults.syndata);
+      state.hp_state = parseData(defaults.hp_state);
+      state.hp_state_see = parseData(defaults.hp_state_see);
+      state.psy_state = parseData(defaults.psy_state);
+      state.hp_victim = parseData(defaults.hp_victim);
+      state.hp_cover = parseData(defaults.hp_cover);
+      state.hp_fight = parseData(defaults.hp_fight);
+      state.syndata = parseSynData(defaults.syndata);
       state.help_dialog = defaults.help_dialog;
       state.help_start_dialog = null;
       state.use_medkit = defaults.use_medkit;
@@ -183,16 +183,13 @@ export class SchemeWounded extends AbstractScheme {
       state.enable_talk = true;
       state.not_for_help = defaults.not_for_help;
     } else {
-      state.hp_state = parseData(object, readIniString(ini, section, "hp_state", false, "", defaults.hp_state));
-      state.hp_state_see = parseData(
-        object,
-        readIniString(ini, section, "hp_state_see", false, "", defaults.hp_state_see)
-      );
-      state.psy_state = parseData(object, readIniString(ini, section, "psy_state", false, "", defaults.psy_state));
-      state.hp_victim = parseData(object, readIniString(ini, section, "hp_victim", false, "", defaults.hp_victim));
-      state.hp_cover = parseData(object, readIniString(ini, section, "hp_cover", false, "", defaults.hp_cover));
-      state.hp_fight = parseData(object, readIniString(ini, section, "hp_fight", false, "", defaults.hp_fight));
-      state.syndata = parseSynData(object, readIniString(ini, section, "syndata", false, "", defaults.syndata));
+      state.hp_state = parseData(readIniString(ini, section, "hp_state", false, "", defaults.hp_state));
+      state.hp_state_see = parseData(readIniString(ini, section, "hp_state_see", false, "", defaults.hp_state_see));
+      state.psy_state = parseData(readIniString(ini, section, "psy_state", false, "", defaults.psy_state));
+      state.hp_victim = parseData(readIniString(ini, section, "hp_victim", false, "", defaults.hp_victim));
+      state.hp_cover = parseData(readIniString(ini, section, "hp_cover", false, "", defaults.hp_cover));
+      state.hp_fight = parseData(readIniString(ini, section, "hp_fight", false, "", defaults.hp_fight));
+      state.syndata = parseSynData(readIniString(ini, section, "syndata", false, "", defaults.syndata));
       state.help_dialog = readIniString(ini, section, "help_dialog", false, "", defaults.help_dialog);
       state.help_start_dialog = readIniString(ini, section, "help_start_dialog", false, "", null);
       state.use_medkit = readIniBoolean(ini, section, "use_medkit", false, defaults.use_medkit);

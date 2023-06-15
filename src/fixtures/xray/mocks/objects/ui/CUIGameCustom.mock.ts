@@ -1,17 +1,28 @@
 import { jest } from "@jest/globals";
 import { CUIWindow } from "xray16";
 
+import { MockStaticDrawableWrapper } from "@/fixtures/xray/mocks/objects/ui/StaticDrawableWrapper.mock";
+
 /**
  * Mock game hud UI element.
  */
 export class MockCUIGameCustom {
-  public AddCustomStatic = jest.fn((id: string, b: boolean, n: number) => null);
+  public customStatic: Record<string, MockStaticDrawableWrapper> = {};
+
+  public AddCustomStatic = jest.fn((id: string, b: boolean, n: number) => {
+    this.customStatic[id] = new MockStaticDrawableWrapper(id);
+  });
+  public RemoveCustomStatic = jest.fn((id: string) => {
+    delete this.customStatic[id];
+  });
+
   public AddDialogToRender = jest.fn((window: CUIWindow) => null);
   public CurrentItemAtCell = jest.fn(() => null);
-  public GetCustomStatic = jest.fn((value: string) => null);
+  public GetCustomStatic = jest.fn((id: string) => {
+    return this.customStatic[id] || null;
+  });
   public HideActorMenu = jest.fn(() => {});
   public HidePdaMenu = jest.fn(() => {});
-  public RemoveCustomStatic = jest.fn((id: string) => {});
   public RemoveDialogToRender = jest.fn((window: CUIWindow) => {});
   public UpdateActorMenu = jest.fn(() => {});
   public enable_fake_indicators = jest.fn((enabled: boolean) => {});

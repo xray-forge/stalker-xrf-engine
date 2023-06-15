@@ -1,5 +1,5 @@
 /**
- * todo;
+ * Mock default lua library.
  */
 export const math = {
   pi: Math.PI,
@@ -9,6 +9,7 @@ export const math = {
   cos: (value: number) => Math.cos(value),
   sin: (value: number) => Math.sin(value),
   random: (max: number) => 1 + Math.random() * (max - 1),
+  floor: (value: number) => Math.floor(value),
   /**
    * value – a number representing a cosine, where x is between -1 and 1
    */

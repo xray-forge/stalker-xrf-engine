@@ -1,5 +1,8 @@
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyArgs, AnyCallable, ClientObject } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo
