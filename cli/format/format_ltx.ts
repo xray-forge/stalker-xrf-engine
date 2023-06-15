@@ -36,7 +36,9 @@ async function formatLtxFile(file: string): Promise<void> {
     .replace(/([\x09 ])+/g, " ") // Replace all duplicated whitespaces with single spaces.
     .replace(/(\r\n){2,}/g, "\r\n\r\n"); // Replace duplicated new lines with single \n.
 
-  await fsp.writeFile(file, formatted);
+  const isEndingWithNewLine: boolean = formatted.endsWith("\r\n");
+
+  await fsp.writeFile(file, isEndingWithNewLine ? formatted : formatted + "\r\n");
 }
 
 /**
