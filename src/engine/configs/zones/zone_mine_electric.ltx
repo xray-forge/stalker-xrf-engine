@@ -12,7 +12,6 @@ ef_weapon_type = 13
 
 postprocess = postprocess_electra_mine
 
-
 ;----------- Anomaly settings -----------------------
 max_start_power = 1.00
 attenuation = 1
@@ -66,55 +65,42 @@ blowout_wind_power = 0.2 ;ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï
 shape_transp_color = 255, 0, 0, 60
 shape_edge_color = 32, 32, 32, 255
 
-
 [zone_mine_electric_weak]:zone_mine_electric
 $spawn = "zones\mine_electric_weak"
 max_start_power = 0.8
-
 
 [zone_mine_electric_average]:zone_mine_electric
 $spawn = "zones\mine_electric_average"
 max_start_power = 0.8
 
-
 [zone_mine_electric_strong]:zone_mine_electric
 $spawn = "zones\mine_electric_strong"
 max_start_power = 0.8
-
-
 
 [zone_mine_static]:zone_base
 postprocess = postprocess_electra_mine
 idle_particles = anomaly2\electra_idle
 
-
 [zone_mine_static_weak]:zone_mine_electric_weak, zone_mine_static
 $spawn = "zones\scenes\mine_static_weak"
-
 
 [zone_mine_static_average]:zone_mine_electric_average, zone_mine_static
 $spawn = "zones\scenes\mine_static_average"
 
-
 [zone_mine_static_strong]:zone_mine_electric_strong, zone_mine_static
 $spawn = "zones\scenes\mine_static_strong"
-
-
 
 [zone_witches_galantine]:zone_mine_electric
 postprocess = postprocess_electra
 idle_particles = anomaly2\electra_idle
 
-
 [zone_witches_galantine_weak]:zone_witches_galantine
 $spawn = "zones\mp\witches_galantine_weak"
 max_start_power = 0.50
 
-
 [zone_witches_galantine_average]:zone_witches_galantine
 $spawn = "zones\mp\witches_galantine_average"
 max_start_power = 1.20
-
 
 [zone_witches_galantine_strong]:zone_witches_galantine
 $spawn = "zones\mp\witches_galantine_strong"

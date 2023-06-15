@@ -33,7 +33,8 @@ async function formatLtxFile(file: string): Promise<void> {
   const formatted: string = buffer
     .toString()
     // eslint-disable-next-line no-control-regex
-    .replace(/([\x09 ])+/g, " "); // Replace all duplicated whitespaces with single spaces
+    .replace(/([\x09 ])+/g, " ") // Replace all duplicated whitespaces with single spaces.
+    .replace(/(\r\n){2,}/g, "\r\n\r\n"); // Replace duplicated new lines with single \n.
 
   await fsp.writeFile(file, formatted);
 }
