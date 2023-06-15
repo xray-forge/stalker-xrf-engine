@@ -65,24 +65,24 @@ wound_2_immunity = 0.0
 ; danger
 ;; crouch
 ;;; walk
-danger_crouch_walk_forward	= 0.8
-danger_crouch_walk_backward	= 0.575
+danger_crouch_walk_forward = 0.8
+danger_crouch_walk_backward = 0.575
 danger_crouch_walk_left = 0.8
-danger_crouch_walk_right	= 0.8
+danger_crouch_walk_right = 0.8
 ;;; run
-danger_crouch_run_forward	= 0.8
-danger_crouch_run_backward	= 0.575
+danger_crouch_run_forward = 0.8
+danger_crouch_run_backward = 0.575
 danger_crouch_run_left = 0.8
 danger_crouch_run_right = 0.8
 ;; stand
 ;;; walk
-danger_stand_walk_forward	= 0.8
-danger_stand_walk_backward	= 0.8
+danger_stand_walk_forward = 0.8
+danger_stand_walk_backward = 0.8
 danger_stand_walk_left = 0.8
 danger_stand_walk_right = 0.8
 ;;; run
-danger_stand_run_forward	= 0.8
-danger_stand_run_backward	= 0.8
+danger_stand_run_forward = 0.8
+danger_stand_run_backward = 0.8
 danger_stand_run_left = 0.8
 danger_stand_run_right = 0.8
 ; free
@@ -98,7 +98,7 @@ panic_stand_run_forward = 7.0
 
 [stalker_zombied]:stalker
 ;---LEVEL EDITOR------------------------------------------------------
-$spawn = "stalkers\stalker_zombied"	; option for Level Editor
+$spawn = "stalkers\stalker_zombied" ; option for Level Editor
 attachable_items = device_torch,attachable_item
 
 ;---SECTIONS----------------------------------------------------------
@@ -130,18 +130,18 @@ sound_panic_human = ;states\panic_human\stalker\panic_
 sound_panic_monster = ;states\panic_monster\stalker\panic_
 sound_tolls = ;fight\tolls\tolls_
 sound_grenade_alarm = ;fight\grenade\grenade_
-sound_friendly_grenade_alarm	= ;fight\friendly_grenade\friendly_grenade_
-sound_need_backup    = ;fight\attack\attack_ ;fight\cover_fire\cover_fire_
+sound_friendly_grenade_alarm = ;fight\friendly_grenade\friendly_grenade_
+sound_need_backup = ;fight\attack\attack_ ;fight\cover_fire\cover_fire_
 sound_running_in_danger = ;states\breath\stalker\breath_1
 sound_walking_in_danger = ;states\breath\stalker\breath_2
 
 sound_kill_wounded = ;help\wounded\kill_wounded_
-sound_enemy_critically_wounded	= ;fight\enemy_hit\enemy_hit_
-sound_enemy_killed_or_wounded	= ;fight\enemy_down\enemy_down_
+sound_enemy_critically_wounded = ;fight\enemy_hit\enemy_hit_
+sound_enemy_killed_or_wounded = ;fight\enemy_down\enemy_down_
 
 sound_attack_no_allies = ;fight\fire\fire_,fight\threat\threat_distant_
-sound_attack_allies_single_enemy	= ;fight\attack\attack_,fight\attack\attack_one_,fight\fire\fire_
-sound_attack_allies_several_enemies	= ;fight\attack\attack_,fight\attack\attack_many_,fight\fire\fire_
+sound_attack_allies_single_enemy = ;fight\attack\attack_,fight\attack\attack_one_,fight\fire\fire_
+sound_attack_allies_several_enemies = ;fight\attack\attack_,fight\attack\attack_many_,fight\fire\fire_
 sound_search1_no_allies = ;fight\threat\threat_distant_
 sound_search1_with_allies = ;fight\searching_enemy\search_,fight\searching_enemy\enemy_lost_
 sound_throw_grenade = ;fight\grenade\grenade_ready_
@@ -164,17 +164,17 @@ species = zombie
 
 ;---CRITICAL WOUND------------------------------------------------------------------
 critical_wound_threshold = 1.1
-critical_wound_decrease_quant	= 0.
+critical_wound_decrease_quant = 0.
 body_parts_section_id = critical_wound_body_parts_section
 
 [stalker_fresh_zombied]:stalker_zombied
 ;---LEVEL EDITOR------------------------------------------------------
-$spawn = "stalkers\stalker_fresh_zombied"	; option for Level Editor
+$spawn = "stalkers\stalker_fresh_zombied" ; option for Level Editor
 
 ;---MOVEMENT----------------------------------------------------------
 movement_speeds = stalker_movement_speeds
 
 ;---CRITICAL WOUND------------------------------------------------------------------
 critical_wound_threshold = 1.1
-critical_wound_decrease_quant	= 0.
+critical_wound_decrease_quant = 0.
 body_parts_section_id = critical_wound_body_parts_section

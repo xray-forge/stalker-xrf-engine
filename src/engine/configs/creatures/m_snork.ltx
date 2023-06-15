@@ -78,7 +78,7 @@ destroyed_vis_name = dynamics\Dead_Body\skelet_crash
 ph_skeleton_airr_lin_factor = 2.0 ;550.0 (������� ��-�� ����, ��� ������ ���������� ����������� 0.002 �� ����)
 ph_skeleton_airr_ang_factor = 0.0 ;0.0 (������� ��-�� ����, ��� ������ ���������� �� ����������� 0.3 �� ���� (0.0*0.3=0.0))
 ph_skeleton_hinger_factor1 = 1.0 ;1.0 (������� ��-�� ����, ��� ������ ���������� �� ����������� 5.0 �� ����)
-ph_skeleton_ddelay  = 15.0 ;����� ��������� �������� ������ � ������� � ������� �������� �����, ���
+ph_skeleton_ddelay = 15.0 ;����� ��������� �������� ������ � ������� � ������� �������� �����, ���
 
 ph_skel_fatal_impulse_factor = 6.0
 ph_after_death_velocity_factor= 0.75
@@ -117,7 +117,7 @@ hit_type = wound ; type of attack
 ; Attack On Move
 ;------------------------------------------------------------------------
 aom_enabled = 1
-aom_animation_left  = stand_run_attack_right_
+aom_animation_left = stand_run_attack_right_
 aom_animation_right = stand_run_attack_left_ ; stand_attack_
 aom_far_radius = 5 ;10 ;12
 aom_max_go_close_time = 8
@@ -200,7 +200,6 @@ sound_bkgnd = monsters\biting\def_
 ;sound_threaten = monsters\biting\def_ ; threaten_
 sound_threaten = monsters\snork\snork_attack_
 
-
 sound_landing = monsters\biting\def_
 sound_steal = monsters\biting\def_
 sound_panic = monsters\snork\snork_idle_ ; hit_
@@ -218,7 +217,7 @@ sound_distant_idle = monsters\snork\snork_idle_
 distant_idle_sound_delay = 80000
 distant_idle_sound_range = 100.0
 
-SoundThreshold = 0.02  ; range [0..1]
+SoundThreshold = 0.02 ; range [0..1]
 max_hear_dist = 60
 
 ;-------------------------------------------------------------------------
