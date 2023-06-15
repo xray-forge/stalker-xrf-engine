@@ -1,6 +1,7 @@
 import { alife, level } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_general";
 import {
   AlifeSimulator,
@@ -14,6 +15,8 @@ import {
   TName,
   Vector,
 } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Get nearest to actor server object by pattern or just anything near.
