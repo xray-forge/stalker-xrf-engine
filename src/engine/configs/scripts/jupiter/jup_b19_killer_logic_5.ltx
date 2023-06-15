@@ -44,7 +44,7 @@ corpse_detection_enabled = false
 [walker@walk4]
 path_walk = merc5_4_walk
 path_look = merc5_4_look
-on_signal = merc1_4 | {-jup_b19_mercs_can_fight} walker@walk5  %+jup_b19_mercs_can_fight%
+on_signal = merc1_4 | {-jup_b19_mercs_can_fight} walker@walk5 %+jup_b19_mercs_can_fight%
 on_info = {+jup_b19_mercs_can_fight} walker@walk5
 on_info2 = {+jup_b19_fight_begun} walker@walk5
 def_state_moving1 = rush
@@ -65,7 +65,6 @@ combat_ignore_cond = {=check_enemy_name(jup_b19_freedom_yar:actor:jup_b19_zombie
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
-
 
 [wounded]
 hp_state = 0|wounded_heavy@help_heavy

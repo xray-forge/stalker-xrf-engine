@@ -13,6 +13,6 @@ on_info = {-pri_a25_once_autosave =actor_in_zone(pri_a25_door_find_restrictor)} 
 on_game_timer = 50 | ph_idle@explosion %=spawn_object(pri_a25_enter_door_explosive_grenade:pri_a25_smart_terrain_pri_a25_enter_door_explosive_grenade_spawn_point)%
 
 [ph_idle@explosion]
-on_info = {=object_exist(pri_a25_enter_door_explosive_grenade)} ph_idle@nil  %=stop_sound(pri_a25_blow_up_door_peep) =barrel_explode(pri_a25_enter_door_explosive_grenade) =destroy_object(story:pri_a25_explosive_charge_id) +pri_a25_find_antenna%
+on_info = {=object_exist(pri_a25_enter_door_explosive_grenade)} ph_idle@nil %=stop_sound(pri_a25_blow_up_door_peep) =barrel_explode(pri_a25_enter_door_explosive_grenade) =destroy_object(story:pri_a25_explosive_charge_id) +pri_a25_find_antenna%
 
 [ph_idle@nil]

@@ -9,8 +9,6 @@ close_victim = nil
 use = false
 abuse = false
 
-
-
 ;Hits
 [hit@def]
 on_info = {!has_enemy =hit_by_actor =counter_greater(pri_a28_friendly_hit:7) =squad_exist(pri_a16_military_squad)} %=set_squad_enemy_to_actor(pri_a16_military_squad) +pri_a28_actor_enemy%
@@ -20,8 +18,6 @@ on_info2 = {!has_enemy =hit_by_actor !counter_greater(pri_a28_friendly_hit:7) =s
 [death@def]
 on_info = %=stop_sound%
 on_info2 = {=has_enemy =killed_by_actor !counter_greater(pri_a28_friendly_hit:7)} %=inc_counter(pri_a28_friendly_hit)%, {=killed_by_actor =squad_exist(pri_a16_military_squad)} %=set_squad_enemy_to_actor(pri_a16_military_squad) +pri_a28_actor_enemy%
-
-
 
 ;Sounds
 [walker@fight]
@@ -42,14 +38,11 @@ combat_ignore_cond = {+pri_a28_actor_enemy} false, true
 combat_ignore_keep_when_attacked = true
 radius = 15
 
-
 [walker@kovalski_fight]:walker@fight
 on_info99 = {-pri_a28_actor_enemy -pri_a28_colonel_strelok_out +pri_a28_strelok_dead} %+pri_a28_colonel_strelok_out =play_sound(pri_a28_colonel_strelok_out)%
 
 [walker@kovalski_ignore]:walker@ignore
 on_info99 = {-pri_a28_actor_enemy -pri_a28_colonel_strelok_out +pri_a28_strelok_dead} %+pri_a28_colonel_strelok_out =play_sound(pri_a28_colonel_strelok_out)%
-
-
 
 ;Wounded - no wounds
 [wounded@no_wound]

@@ -18,7 +18,7 @@ path_walk = bloodsucker_1_wait_walk
 path_look = bloodsucker_1_wait_look
 combat_ignore_cond = true
 on_info2 = {=dist_to_actor_le(5)} mob_home@actor1 %+zat_b38_fight_started%
-on_info3  = {+zat_b38_attacker_wake_1} mob_home@actor1
+on_info3 = {+zat_b38_attacker_wake_1} mob_home@actor1
 on_info4 = {+zat_b38_stalker_cop_see_bloodsucker_done} mob_home@angry1
 on_info5 = {=jup_b47_npc_online(zat_b38_bloodsucker_1) -zat_b38_bl1_on_job} %=teleport_npc(zat_b38_bloodsucker_1_wait_walk) +zat_b38_bl1_on_job%
 on_actor_in_zone = zat_b38 | mob_home@angry2 %=teleport_npc(zat_b38_bloodsucker_2_wait_look) =hit_npc_from_actor%

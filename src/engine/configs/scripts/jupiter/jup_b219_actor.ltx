@@ -32,18 +32,17 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-
 [animpoint@start]:animpoint@actor
 avail_animations = pri_a15_idle_none
-on_info = {+jup_b219_start_one} 				animpoint@start_one
-on_info2 = {+jup_b219_start_one_vano} 			animpoint@start_one_vano
-on_info3 = {+jup_b219_start_one_monolith} 		animpoint@start_one_monolith
-on_info4 = {+jup_b219_start_one_soldier} 		animpoint@start_one_soldier
-on_info5 = {+jup_b219_start_all} 				animpoint@start_all
-on_info6 = {+jup_b219_start_soldier_vano} 		animpoint@start_soldier_vano
-on_info7 = {+jup_b219_start_soldier_monolith} 	animpoint@start_soldier_monolith
-on_info8 = {+jup_b219_start_vano_monolith} 		animpoint@start_vano_monolith
-on_info9  = {+jup_b219_destroy_actor} %=destroy_object% 
+on_info = {+jup_b219_start_one} animpoint@start_one
+on_info2 = {+jup_b219_start_one_vano} animpoint@start_one_vano
+on_info3 = {+jup_b219_start_one_monolith} animpoint@start_one_monolith
+on_info4 = {+jup_b219_start_one_soldier} animpoint@start_one_soldier
+on_info5 = {+jup_b219_start_all} animpoint@start_all
+on_info6 = {+jup_b219_start_soldier_vano} animpoint@start_soldier_vano
+on_info7 = {+jup_b219_start_soldier_monolith} animpoint@start_soldier_monolith
+on_info8 = {+jup_b219_start_vano_monolith} animpoint@start_vano_monolith
+on_info9 = {+jup_b219_destroy_actor} %=destroy_object% 
 
  
 [animpoint@start_one]:animpoint@actor
@@ -78,12 +77,10 @@ on_info = {+jup_b219_destroy_actor} %=destroy_object%
 avail_animations = jup_b219_actor_vano_monolith
 on_info = {+jup_b219_destroy_actor} %=destroy_object% 
 
-
 [danger]
 ignore_distance = 0
 danger_inertion_time_grenade = 0
 danger_inertion_time_hit = 0
 danger_inertion_time_sound = 0
 danger_inertion_time_ricochet = 0
-
 

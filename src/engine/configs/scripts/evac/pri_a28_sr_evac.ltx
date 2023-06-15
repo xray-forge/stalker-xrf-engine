@@ -6,10 +6,8 @@ on_info = {+pri_b305_fifth_cam_end =actor_in_zone(pri_a28_scene_end_zone) +pri_a
 on_info2 = {+pri_b305_fifth_cam_end =actor_in_zone(pri_a28_scene_end_zone) +pri_a28_strelok_dead} sr_idle@helis_reached_save
 on_info3 = {+pri_b305_fifth_cam_end +pri_a28_squad_dead} sr_idle@helis_want_to_leave
 on_info4 = {+pri_a28_helis_leave !actor_in_zone(pri_a28_scene_end_zone)} sr_idle@cut_2_save
-;затычка
+;пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 on_info5 = {+pri_a28_cutscene_start} sr_idle@cut_1_save %=clear_smart_terrain(pri_sim_2)% 
-
-
 
 [sr_idle@helis_want_to_leave]
 on_game_timer = 30 | %=play_sound(pri_a28_evac_com_helicopter_run_time)%
@@ -22,14 +20,10 @@ on_value = 0 | {+pri_a28_evacuation_end =actor_in_zone(pri_a28_scene_end_zone)} 
 on_info = {-pri_a28_evacuation_end =actor_in_zone(pri_a28_scene_end_zone)} %+pri_a28_evacuation_end =scenario_autosave(st_save_pri_a28_evacuation_end)%
 on_info2 = {+pri_a28_helis_leave !actor_in_zone(pri_a28_scene_end_zone)} sr_idle@cut_2_save
 
-
-
 [sr_idle@helis_reached_save]
 on_info = {-pri_a28_evacuation_end =actor_alive} %+pri_a28_evacuation_end =scenario_autosave(st_save_pri_a28_evacuation_end)%
 on_info2 = {+pri_a28_evacuation_end +pri_a28_waves_end =actor_in_zone(pri_a28_scene_end_zone)} sr_idle@cut_1_save
 on_info3 = {+pri_a28_helis_leave !actor_in_zone(pri_a28_scene_end_zone)} sr_idle@cut_2_save
-
-
 
 [sr_idle@cut_1_save]
 on_info = {-pri_a28_evacuation_heli =actor_alive} %+pri_a28_evacuation_heli =scenario_autosave(st_save_pri_a28_evacuation_heli)%
@@ -69,8 +63,6 @@ on_info2 = {+pri_a28_cut_1_end} %=stop_sr_cutscene%
 on_game_timer = 10 | {-pri_a28_show_freeplay_dialog} %+pri_a28_show_freeplay_dialog =enable_ui =show_freeplay_dialog(st_freeplay_text_yes_no:true)%
 on_info = {+pri_a28_actor_in_zone_stay} sr_idle@check_sokolov %+pri_a28_helis_leave =disable_ui%
 on_info2 = {+pri_a28_actor_in_zone_leave} sr_idle@check_sokolov %+pri_a28_helis_leave =disable_ui%
-
-
 
 [sr_idle@cut_2_save]
 on_info = {-pri_a28_evacuation_heli =actor_alive} %+pri_a28_evacuation_heli =scenario_autosave(st_save_pri_a28_evacuation_heli)%

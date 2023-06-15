@@ -14,9 +14,6 @@ on_info = {+leader_achievement_gained +pri_a18_sokolov_exist -pri_a18_once_sokol
 on_info2 = {+leader_achievement_gained +pri_a18_vano_exist -pri_a18_once_vano_create} %=create_squad(pri_a16_vano_squad_strong:pri_b35_mercs) +pri_a18_once_vano_create%, {+pri_a18_vano_exist -pri_a18_once_vano_create} %=create_squad(pri_a16_vano_squad:pri_b35_mercs) +pri_a18_once_vano_create%
 on_info3 = sr_idle@skelja_merkulov_recreate_1 %+pri_a18_skelja_merkulov_can_work%
 
-
-
-
 [sr_idle@skelja_merkulov_recreate_1]
 on_info = {+pri_a18_sokolov_exist -pri_a18_vano_exist =squad_exist(pri_a22_military_merkulov_squad) -pri_a18_once_merkulov_remove} %=remove_squad(pri_a22_military_merkulov_squad) +pri_a18_once_merkulov_remove%
 on_info2 = {+pri_a18_vano_exist -pri_a18_sokolov_exist =squad_exist(pri_a22_military_skelja_squad) -pri_a18_once_skelja_remove} %=remove_squad(pri_a22_military_skelja_squad) +pri_a18_once_skelja_remove%
@@ -42,6 +39,5 @@ on_info6 = {+pri_a18_actor_enemy +pri_a18_vano_exist =squad_exist(pri_a16_vano_s
 on_info7 = {+pri_a18_actor_enemy +pri_a18_once_merkulov_create =squad_exist(pri_a22_military_merkulov_squad) =dist_to_story_obj_ge(pri_a22_military_merkulov_squad:100)} %=kill_squad(pri_a22_military_merkulov_squad) +pri_a18_vano_or_merkulov_killed%
 on_info8 = {+pri_a18_actor_enemy +pri_a18_once_merkulov_create =squad_exist(pri_a22_military_merkulov_squad_strong) =dist_to_story_obj_ge(pri_a22_military_merkulov_squad_strong:100)} %=kill_squad(pri_a22_military_merkulov_squad_strong) +pri_a18_vano_or_merkulov_killed%
 on_info9 = {+pri_a18_sokolov_or_skelja_killed +pri_a18_vano_or_merkulov_killed} sr_idle@nil
-
 
 [sr_idle@nil]

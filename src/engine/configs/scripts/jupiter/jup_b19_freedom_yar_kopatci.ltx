@@ -6,7 +6,6 @@ prior = 200
 on_death = death
 on_hit = hit
 
-
 [walker@gen]
 def_state_moving = patrol
 def_state_standing = guard_na
@@ -18,7 +17,6 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 on_info2 = {+jup_b19_yar_enemy_or_dead =is_alive} %=kill_npc%
 on_offline = {-jup_b19_yar_enemy_or_dead} %+jup_b19_yar_enemy_or_dead%
-
 
 [camper@gen]
 radius = 1
@@ -32,10 +30,9 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 attack_sound = false
 no_retreat = true 
-wounded = wounded         
+wounded = wounded 
 on_info2 = {+jup_b19_yar_enemy_or_dead =is_alive} %=kill_npc%
 on_offline = {-jup_b19_yar_enemy_or_dead} %+jup_b19_yar_enemy_or_dead%
-
 
 [walker@start];:walker@gen
 path_walk = yar_1_walk
@@ -130,13 +127,12 @@ on_info = {!actor_in_zone(jup_b19_sr_actor_close_by_yar)} %=play_sound(jup_b19_f
 meet = no_meet
 out_restr = jup_b19_sr_actor_close_by_yar
 
-
 [walker@timer_to_ready]
 path_walk = yar_12_walk
 path_look = yar_15_look
 def_state_standing = hide_na
 on_game_timer = 40 | walker@ready %=play_sound(jup_b19_freedom_yar_suspense)%
-combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_merc)} true,  {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true 
+combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_merc)} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true 
 danger = danger
 meet = no_meet
 wounded = wounded
@@ -169,7 +165,7 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_merc)} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
-danger = danger	
+danger = danger 
 meet = no_meet 
 wounded = wounded
 out_restr = jup_b19_sr_actor_close_by_yar
@@ -196,7 +192,6 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 out_restr = jup_b19_sr_actor_close_by_yar
 
-
 [walker@after_fire]
 path_walk = yar_13_walk
 path_look = yar_13_look
@@ -206,13 +201,12 @@ on_signal = remark | remark@after_fire
 combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 on_info = {+jup_b19_actor_damaged_zombied =squad_exist(jup_b19_kopatci_zombied_squad)} camper@fight %=play_sound(jup_b19_freedom_yar_zombie_hit)% 
 danger = danger
-meet = no_meet    
-wounded = wounded         
+meet = no_meet 
+wounded = wounded 
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 ;out_restr = jup_b19_sr_actor_close_by_yar
-
 
 [remark@after_fire]
 anim = guard_na
@@ -240,13 +234,13 @@ on_info2 = {+jup_b19_actor_damaged_zombied -jup_b19_zombied_dead} camper@fight
 ;on_info3 = {+jup_b19_yar_switch_smart_terrain} %=teleport_npc(jup_a6_spawn_point)%
 combat_ignore_cond = {=check_enemy_name(jup_b19_zombied_1) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(jup_b19_zombied_2) -jup_b19_actor_damaged_zombied} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 danger = danger
-meet = meet@final   
-wounded = wounded    
+meet = meet@final 
+wounded = wounded 
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 ;out_restr = jup_b19_sr_actor_close_by_yar
-        
+ 
 [walker@checkpoint]
 path_walk = yar_comeback_2_walk
 path_look = yar_comeback_2_look
@@ -259,7 +253,6 @@ wounded = wounded
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
-
 
 [walker@go_to_yanov]
 path_walk = yar_comeback_1_walk
@@ -275,55 +268,54 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 out_restr = jup_a6_sr_noweap
 
-
 [meet@hunter]
-close_anim		= guard_na
-close_victim    = actor
-close_distance  = 3
+close_anim = guard_na
+close_victim = actor
+close_distance = 3
 close_snd_hello = {=actor_has_weapon} meet_hide_weapon, nil
-close_snd_bye   = nil
-abuse			= true
-use				= {+jup_b19_ui_input_enabled} self, false
-trade_enable 	= false
-allow_break 	= false
-meet_dialog		= {+jup_b19_arrived -jup_b19_following_yar} jup_b19_freedom_yar_prepare_start
+close_snd_bye = nil
+abuse = true
+use = {+jup_b19_ui_input_enabled} self, false
+trade_enable = false
+allow_break = false
+meet_dialog = {+jup_b19_arrived -jup_b19_following_yar} jup_b19_freedom_yar_prepare_start
 
 [meet@final]
-close_anim		= guard_na
-close_victim    = actor
-close_distance  = 3
+close_anim = guard_na
+close_victim = actor
+close_distance = 3
 close_snd_hello = {=actor_has_weapon} meet_hide_weapon, nil
-close_snd_bye   = nil
-;use			= {=actor_has_weapon} false, true
-use				= true
-abuse			= true
-trade_enable 	= false
-allow_break 	= false
-meet_dialog		= jup_b19_freedom_yar_done_start
+close_snd_bye = nil
+;use = {=actor_has_weapon} false, true
+use = true
+abuse = true
+trade_enable = false
+allow_break = false
+meet_dialog = jup_b19_freedom_yar_done_start
 
 [meet@camper]
-close_distance  = 0
+close_distance = 0
 close_snd_hello = nil
-close_snd_bye   = nil
+close_snd_bye = nil
 use = false
-snd_on_use =  {=has_enemy} meet_use_no_fight, {!has_enemy} nil
-abuse           = false
+snd_on_use = {=has_enemy} meet_use_no_fight, {!has_enemy} nil
+abuse = false
 ;snd_on_use = {=has_enemy} meet_use_no_fight, nil
 
 [meet]
-;close_anim      = guard
-close_victim    = actor
-use			= {=actor_enemy} false, true
-abuse			= true
-trade_enable 	= false
-allow_break 	= false
+;close_anim = guard
+close_victim = actor
+use = {=actor_enemy} false, true
+abuse = true
+trade_enable = false
+allow_break = false
 
 [wounded]
-hp_state 		= 0|wounded_heavy@help_heavy
-hp_state_see 	= 0|wounded_heavy@help_heavy
-hp_victim 		= 0|nil
-hp_fight 		= 0|false
-hp_cover		= 0|false
+hp_state = 0|wounded_heavy@help_heavy
+hp_state_see = 0|wounded_heavy@help_heavy
+hp_victim = 0|nil
+hp_fight = 0|false
+hp_cover = 0|false
 
 [danger]
 ignore_distance = 0
@@ -333,7 +325,7 @@ ignore_distance_hit = 0
 ignore_distance_sound = 0
 
 [hit]
-on_info =  {!actor_enemy} %=restore_health =stop_sound%, %=stop_sound%
+on_info = {!actor_enemy} %=restore_health =stop_sound%, %=stop_sound%
 
 [death]
 on_info = %+jup_b19_yar_enemy_or_dead =stop_sound%

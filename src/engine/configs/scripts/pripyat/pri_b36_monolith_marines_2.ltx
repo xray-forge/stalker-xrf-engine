@@ -10,7 +10,7 @@ def_state_standing = wait
 on_info = {+pri_b36_ahtung} walker@walk ;camper@walk
 on_info2 = {=health_le(0.5) !actor_enemy} %=restore_health%
 on_sound = actor|WPN_shoot|10000|0.2| {=dist_to_actor_le(70)} walker@walk %+pri_b36_ahtung%
-on_sound2 = actor|MST_step|35|0.2| walker@walk  %+zat_b5_meat%
+on_sound2 = actor|MST_step|35|0.2| walker@walk %+zat_b5_meat%
 on_sound3 = actor|WPN_empty|30|0.1| walker@walk %+pri_b36_ahtung%
 on_sound4 = actor|WPN_reload|20|0.2| walker@walk %+pri_b36_ahtung%
 on_sound5 = actor|MST_damage|30|0.1| walker@walk %+pri_b36_ahtung%
@@ -19,7 +19,7 @@ on_sound6 = actor|WPN_hit|30|0.1| walker@walk %+pri_b36_ahtung%
 help_wounded_enabled = false
 corpse_detection_enabled = false
 out_restr = pri_b36_zombied_restrictor
-combat_ignore_cond =  {=check_enemy_name(sim_default)} true
+combat_ignore_cond = {=check_enemy_name(sim_default)} true
 
 [walker@walk]
 path_walk = marine_2_2_walk
@@ -29,7 +29,7 @@ on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
-combat_ignore_cond =  {=check_enemy_name(sim_default)} true
+combat_ignore_cond = {=check_enemy_name(sim_default)} true
 
 [camper@walk]
 path_walk = marine_2_2_walk
@@ -45,4 +45,4 @@ on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
-combat_ignore_cond =  {=check_enemy_name(sim_default)} true
+combat_ignore_cond = {=check_enemy_name(sim_default)} true

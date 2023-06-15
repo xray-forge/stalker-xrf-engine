@@ -5,7 +5,6 @@ prior = 35
 on_hit = hit1
 on_death = death1
 
-
 [walker@zombied1];:walker@z
 path_walk = zombied1_1_walk
 path_look = zombied1_1_look
@@ -34,7 +33,6 @@ suitable = {=check_npc_name(jup_b19_zombied) +jup_b19_destroy_yar} true, {=targe
 prior = 35
 on_hit = hit2
 on_death = death2
-
 
 [walker@zombied2]
 path_walk = zombied2_1_walk
@@ -225,9 +223,6 @@ danger = danger
 corpse_detection_enabled = false
 wounded = wounded
 
-
-
-
 [hit8]
 on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%, {=hitted_by(jup_b19_merc_1:jup_b19_merc_2:jup_b19_merc_3:jup_b19_merc_4:jup_b19_merc_5)} %+jup_b19_mercs_damaged_zombied%
 
@@ -295,8 +290,6 @@ on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged
 
 [death10] 
 on_info = %=inc_counter(zombied_dead)%
-
-
 
 [wounded]
 hp_state = 0|wounded_heavy@help_heavy

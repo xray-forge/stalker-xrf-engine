@@ -2,7 +2,7 @@
 active = sr_idle@spawn_barge
 
 [sr_idle@spawn_barge]
-on_info  = {-zat_b44_stalker_barge_spawned} sr_idle@barge_pda_story %+zat_b44_stalker_barge_spawned =spawn_corpse(zat_b44_stalker_barge:zat_b44_stalker_barge_dead_walk)%
+on_info = {-zat_b44_stalker_barge_spawned} sr_idle@barge_pda_story %+zat_b44_stalker_barge_spawned =spawn_corpse(zat_b44_stalker_barge:zat_b44_stalker_barge_dead_walk)%
 
 [sr_idle@barge_pda_story]
 on_info = {=actor_has_item(zat_b44_barge_pda) -zat_b44_stalker_barge_body_searched} %=play_sound(zat_b44_stalker_barge_pda) +zat_b44_stalker_barge_body_searched%

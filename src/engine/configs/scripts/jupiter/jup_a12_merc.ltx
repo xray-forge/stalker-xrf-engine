@@ -5,8 +5,6 @@ hp_victim = 0 | nil
 hp_cover = 0 | false
 hp_fight = 0 | false
 
-
-
 [logic@jup_a12_merc_cover]
 active = walker@merc_cover_start
 post_combat_time = 0, 0
@@ -29,7 +27,7 @@ wounded = wounded@no_wound
 meet_dialog = jup_a12_stalker_give_art_dialog
 trade_enable = false
 snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {=has_enemy} meet_use_no_fight, {=actor_has_weapon} meet_use_no_weapon
-use		   = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, true
+use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, true
 
 [walker@cover_walk_to_position]
 path_walk = cover_to_position_walk
@@ -60,15 +58,13 @@ wounded = wounded@no_wound
 [remark@cover_attack_guard]
 anim = threat_fire
 on_game_timer = 100 | %+jup_a12_bandit_guard_killed%
-target =  story | jup_a12_bandit_guard
+target = story | jup_a12_bandit_guard
 on_info = {+jup_a12_merc_attack_started} %=play_sound(jup_a12_merc_attack_started)%
 combat_ignore_cond = true
 meet = no_meet
 gather_items_enabled = false
 corpse_detection_enabled = false
 wounded = wounded@no_wound
-
-
 
 [logic@jup_a12_merc_cover_attack]
 active = camper@cover_attack_containers
@@ -105,7 +101,7 @@ def_state_moving = assault
 meet_dialog = jup_a12_merc_done_dialog
 trade_enable = false
 snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {=has_enemy} meet_use_no_fight, {=actor_has_weapon} meet_use_no_weapon
-use		   = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, true
+use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, true
 
 [walker@cover_merc_kamp_after]
 path_walk = merc_kamp_walker_walk
@@ -113,8 +109,6 @@ path_look = merc_kamp_walker_look
 def_state_moving = assault
 meet = no_meet
 wounded = wounded@no_wound
-
-
 
 [logic@jup_a12_merc_left]
 active = walker@merc_left_start
@@ -159,8 +153,6 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 wounded = wounded@no_wound
 
-
-
 [logic@jup_a12_merc_left_attack]
 active = camper@left_attack_containers
 post_combat_time = 0, 0
@@ -197,8 +189,6 @@ path_look = merc_kamp_walker_look
 def_state_moving = assault
 meet = no_meet
 wounded = wounded@no_wound
-
-
 
 [logic@jup_a12_merc_right]
 active = walker@merc_right_start
@@ -242,8 +232,6 @@ combat_ignore_condition = {=check_enemy_smart(jup_a12)} true, false
 gather_items_enabled = false
 corpse_detection_enabled = false
 wounded = wounded@no_wound
-
-
 
 [logic@jup_a12_merc_right_attack]
 active = camper@right_attack_containers

@@ -5,12 +5,12 @@ active = walker@jup_a10_bandit_guard_2
 
 [walker@jup_a10_bandit_guard_2]
 path_walk = jup_a10_bandit_guard_2_walk
-path_look  = jup_a10_bandit_guard_2_look
+path_look = jup_a10_bandit_guard_2_look
 on_actor_dist_le = 20 | {=actor_has_weapon} remark
 
 [remark]
 anim = backoff2
 target = story | actor
 snd = jup_a10_bandits_warn
-on_timer = 5000 | {-jup_a10_hit_bandit_guard_1}  %=hit_npc_from_actor +jup_a10_hit_bandit_guard_1%
+on_timer = 5000 | {-jup_a10_hit_bandit_guard_1} %=hit_npc_from_actor +jup_a10_hit_bandit_guard_1%
 on_info = {!actor_has_weapon} walker@jup_a10_bandit_guard_2

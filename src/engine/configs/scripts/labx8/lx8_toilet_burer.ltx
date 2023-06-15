@@ -19,13 +19,11 @@ path_look = toilet_burer_1_look
 out_restr = lx8_sr_toilet_out_restr
 on_info = {=actor_see_npc =see_actor} mob_walker@timer_gravi_attack %=burer_force_anti_aim%
 
-
 [mob_walker@timer_gravi_attack]
 path_walk = toilet_burer_1_walk 
 path_look = toilet_burer_1_look
 out_restr = lx8_sr_toilet_out_restr
 on_timer = 2000 | mob_home@stay %+lx8_toilet_door_close =burer_force_gravi_attack%
-
 
 [mob_home@stay]
 ;[mob_walker@stay]

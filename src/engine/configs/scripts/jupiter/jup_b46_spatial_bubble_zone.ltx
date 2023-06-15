@@ -2,7 +2,7 @@
 active = sr_idle@jup_b46_sos_sound
 
 [sr_idle@jup_b46_sos_sound]
-on_info  = {+jup_b46_spatial_bubble_started -jup_b46_task_gived -jup_b46_spatial_bubble_ruptured} %+jup_b46_task_gived =give_task(jup_b46_spatial_bubble)% 
+on_info = {+jup_b46_spatial_bubble_started -jup_b46_task_gived -jup_b46_spatial_bubble_ruptured} %+jup_b46_task_gived =give_task(jup_b46_spatial_bubble)% 
 on_info2 = {=distance_to_obj_le(jup_b46_spatial_bubble_zone:50)} %=play_sound(jup_b46_spatial_bubble_sos)%
 on_info3 = {+jup_b46_spatial_bubble_ruptured} sr_idle@jup_b46_rupture %=stop_sound%
 

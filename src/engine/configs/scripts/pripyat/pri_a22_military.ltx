@@ -4,8 +4,6 @@ combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true 
 meet = no_meet
 
-
-
 [logic@pri_a22_military_yarmoshuk]
 active = walker@base_1
 suitable = {+pri_a25_task_start =check_npc_name(pri_a22_military_yarmoshuk)} true
@@ -25,8 +23,6 @@ on_game_timer = 8 | nil %=kill_npc%
 [known_info@1]
 pri_a22_yarmoshuk_body_search
 
-
-
 [logic@pri_a22_military_skelja]
 active = walker@base_2
 suitable = {+pri_a25_task_start =check_npc_name(pri_a22_military_skelja)} true
@@ -42,8 +38,6 @@ on_info = {-pri_a22_skelja_spawned} %+pri_a22_skelja_spawned%
 
 [walker@death_2]:walker@base_2
 on_game_timer = 8 | nil %=kill_npc%
-
-
 
 [logic@pri_a22_military_merkulov]
 active = walker@base_3

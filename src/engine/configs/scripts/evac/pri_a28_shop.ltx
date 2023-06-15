@@ -78,8 +78,6 @@ on_signal = sound_end | %+pri_a28_shop_done%
 on_game_timer = 200 | {-pri_a28_shop_3_leave} %+pri_a28_shop_3_leave%
 on_info = {+pri_a28_shop_3_leave} %=play_sound(pri_a28_colonel_zombied_attack)%
 
-
-
 [logic@pri_a28_medic_shop]
 active = smartcover@medic_shop_1 
 suitable = {-pri_a28_shop_done =check_npc_name(base_medic)} true
@@ -144,8 +142,6 @@ out_restr = pri_a28_sr_shop_3_small
 in_restr = pri_a28_sr_shop_in
 on_game_timer = 200 | {-pri_a28_shop_3_leave} %+pri_a28_shop_3_leave%
 
-
-
 [logic@pri_a28_strelok_shop]
 active = smartcover@strelok_shop_1 
 suitable = {-pri_a28_shop_done =check_npc_name(strelok)} true
@@ -205,8 +201,6 @@ out_restr = pri_a28_sr_shop_3_small
 in_restr = pri_a28_sr_shop_in
 on_game_timer = 200 | {-pri_a28_shop_3_leave} %+pri_a28_shop_3_leave%
 
-
-
 [logic@pri_a28_military_1_shop]
 active = walker@military_1_shop_1 
 suitable = {-pri_a28_shop_done =target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(base_medic) !check_npc_name(kovalski)} true
@@ -248,8 +242,6 @@ path_walk = military_1_3_walk
 path_look = military_1_3_look 
 out_restr = pri_a28_sr_arch_1
 in_restr = pri_a28_sr_shop_in
-
-
 
 [logic@pri_a28_military_2_shop]
 active = walker@military_2_shop_1 
@@ -293,8 +285,6 @@ path_look = military_2_3_look
 out_restr = pri_a28_sr_arch_1
 in_restr = pri_a28_sr_shop_in
 
-
-
 [logic@pri_a28_military_3_shop]
 active = walker@military_3_shop_1 
 suitable = {-pri_a28_shop_done =target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(base_medic) !check_npc_name(kovalski)} true
@@ -337,8 +327,6 @@ path_look = military_3_3_look
 out_restr = pri_a28_sr_arch_1
 in_restr = pri_a28_sr_shop_in
 
-
-
 [logic@pri_a28_military_4_shop]
 active = walker@military_4_shop_1 
 suitable = {-pri_a28_shop_done =target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(base_medic) !check_npc_name(kovalski)} true
@@ -380,8 +368,6 @@ path_walk = military_4_3_walk
 path_look = military_4_3_look 
 out_restr = pri_a28_sr_arch_1
 in_restr = pri_a28_sr_shop_in
-
-
 
 [logic@pri_a28_military_5_shop]
 active = camper@military_5_shop_1 

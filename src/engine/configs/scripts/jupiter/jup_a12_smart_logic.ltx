@@ -28,7 +28,6 @@ active = walker@walker_6
 suitable = {-jup_a12_actor_enemy_to_bandits} true
 prior = 65
 
-
 [logic@guard_1]
 active = camper@guard_1
 suitable = {-jup_a12_actor_enemy_to_bandits} true
@@ -58,7 +57,6 @@ prior = 90
 active = camper@guard_6
 suitable = {-jup_a12_actor_enemy_to_bandits} true
 prior = 90
-
 
 [walker@walker_1]
 path_walk = walker_1_walk
@@ -100,7 +98,6 @@ combat_ignore_cond = {=check_enemy_name(jup_a12_stalker_prisoner) -jup_a12_actor
 path_walk = walker_6_walk
 combat_ignore_cond = {=check_enemy_name(jup_a12_stalker_prisoner) -jup_a12_actor_enemy_to_bandits} true, {-jup_a12_merc_attack_started =check_enemy_smart(jup_a12_merc)} true, false
 
-
 [camper@guard_1]
 path_walk = guard_1_walk
 path_look = guard_1_look
@@ -121,10 +118,9 @@ far_anim = {+jup_a12_actor_has_pass_to_containers} guard, threat
 far_victim = actor
 far_snd = nil
 snd_on_use = nil
-use	= {!actor_enemy !actor_has_weapon} true
-meet_dialog	= {+jup_a12_actor_has_pass_to_containers} jup_a12_bandit_guard_visited, jup_a12_bandit_guard_start
+use = {!actor_enemy !actor_has_weapon} true
+meet_dialog = {+jup_a12_actor_has_pass_to_containers} jup_a12_bandit_guard_visited, jup_a12_bandit_guard_start
 trade_enable = false
-
 
 [camper@guard_2]
 path_walk = guard_2_walk
@@ -171,9 +167,6 @@ on_info = {=dist_to_actor_le(15) +jup_a12_actor_paid_to_cashier -jup_a12_bandit_
 on_actor_in_zone = jup_a12_sr_containers_kampzone | {-jup_a12_actor_has_pass_to_containers} %+jup_a12_actor_enemy_to_bandits%
 on_info2 = {-jup_a12_actor_has_pass_to_containers -jup_a12_bandits_warning_actor =dist_to_actor_le(22)} %+jup_a12_bandits_warning_actor =play_sound(jup_a12_bandits_warning_actor)%
 
-
-
-
 [walker@jup_a12_surge_def]
 ;path_walk = surge_hide_1_walk
 ;path_look = surge_hide_1_look
@@ -186,9 +179,6 @@ def_state_moving = assault
 ;active = walker@jup_a12_surge_work_1
 suitable = {=check_npc_name(bandit) =surge_started} true
 prior = 100
-
-
-
 
 [logic@jup_a12_surge_work_1]:logic@jup_a12_surge_def
 active = walker@jup_a12_surge_work_1
@@ -231,8 +221,6 @@ active = walker@jup_a12_surge_work_13
 
 [logic@jup_a12_surge_work_14]:logic@jup_a12_surge_def
 active = walker@jup_a12_surge_work_14
-
-
 
 [walker@jup_a12_surge_work_1]:walker@jup_a12_surge_def
 path_walk = surge_hide_1_walk

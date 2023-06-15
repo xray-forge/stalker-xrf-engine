@@ -5,8 +5,6 @@ hp_victim = 0 | nil
 hp_cover = 0 | false
 hp_fight = 0 | false
 
-
-
 [logic@pri_b35_merc_leader]
 active = walker@leader_walk
 suitable = {=check_npc_name(pri_b35_merc_leader)}
@@ -61,8 +59,6 @@ on_info = %+pri_b35_merc_leader_out +pri_b35_attack_started%
 
 [combat]
 on_info = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started%
-
-
 
 [logic@pri_b35_merc_1]
 active = walker@merc_1
@@ -125,7 +121,6 @@ on_info2 = {+pri_b35_attack_started =check_npc_name(pri_b35_merc_grenade_launche
 on_info3 = {+pri_b35_attack_started =check_npc_name(pri_b35_merc_grenade_launcher_2) =npc_in_zone(pri_b35_sr_mercs)} remark@shoot_actor_2
 def_state_moving = patrol
 wounded = wounded@no_wound
-
 
 [logic@pri_b35_merc_5]
 active = walker@merc_5

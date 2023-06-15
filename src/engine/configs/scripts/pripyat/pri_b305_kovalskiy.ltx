@@ -37,13 +37,13 @@ meet = meet@col
 [meet@col]
 close_snd_hello = nil
 close_snd_bye = nil
-close_anim 		= nil
-close_victim 	= nil
-far_anim 		= nil
-far_victim 		= nil
+close_anim = nil
+close_victim = nil
+far_anim = nil
+far_victim = nil
 use = {=actor_enemy} false, true
-trade_enable 	= false
-allow_break 	= false
+trade_enable = false
+allow_break = false
 meet_on_talking = false
 
 ;************************************
@@ -104,27 +104,27 @@ on_game_timer = 30 | remark@strelok_operation_start
 
 [remark@strelok_operation_start]:remark@def
 target = path | pri_a16_pri_b305_strelok_operation_walk, 0
-anim   = threat
+anim = threat
 on_info = {+pri_b305_strelok_give_up_done_end -pri_b305_kovalskiy_who_are_you_done} %=play_sound(pri_b305_kovalskiy_who_are_you) +pri_b305_kovalskiy_who_are_you_done%
 on_signal = sound_end | remark@strelok_operation_sound2 %+pri_b305_kovalskiy_who_are_you_done_end%
 meet = no_meet
 
 [remark@strelok_operation_sound2]:remark@def
 target = path | pri_a16_pri_b305_strelok_operation_walk, 0
-anim   = threat
+anim = threat
 on_info = {+pri_b305_strelok_about_zone_destroying_done_end} remark@strelok_operation_weapon_down
 meet = no_meet
 
 [remark@strelok_operation_weapon_down]:remark@def
 target = path | pri_a16_pri_b305_strelok_operation_walk, 0
-anim   = ward
+anim = ward
 on_info = {+pri_b305_actor_emission_starts_done_end -pri_b305_kovalskiy_talk_in_safe_place_done} %=play_sound(pri_b305_kovalskiy_talk_in_safe_place) +pri_b305_kovalskiy_talk_in_safe_place_done%
 on_signal = sound_end | remark@wait %+pri_b305_kovalskiy_talk_in_safe_place_done_end%
 meet = no_meet
 
 [remark@wait]:remark@def
 target = path | pri_a16_pri_b305_strelok_operation_walk, 0
-anim   = threat
+anim = threat
 meet = no_meet
 on_info = {+pri_b305_fifth_cam_start -pri_b305_kovalskiy_tp} walker@deal_talk %+pri_b305_kovalskiy_tp =teleport_npc(pri_a16_pri_b305_kovalskiy_walk)%
 

@@ -6,7 +6,7 @@ on_death = mob_death
 monster_job = true
 
 [mob_home]
-path_home  = tushkano_spawn
+path_home = tushkano_spawn
 braindead = true
 combat_ignore_cond = true 
 combat_ignore_keep_when_attacked = true 
@@ -15,11 +15,10 @@ on_info = {+jup_b1_actor_atk_squad} mob_home@2
 on_timer = 7500 | %=kill_npc%
 
 [mob_home@2]
-path_home  = bad_stalker_spawn
+path_home = bad_stalker_spawn
 
 [mob_death]
 on_info = %=inc_counter(jup_b1_tushkano_death)%
-
 
 ;--------------------------------------------------
 

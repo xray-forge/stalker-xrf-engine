@@ -23,9 +23,9 @@ on_info = {=actor_in_zone(zat_b103_merc_inside_yard) -zat_b103_merc_task_done} %
 ;LEADER JOB
 
 [logic@surge_job_leader]
-suitable   = {=check_npc_name(zat_b103_lost_merc_leader) =surge_started}
-active     = animpoint@leader
-prior      = 200
+suitable = {=check_npc_name(zat_b103_lost_merc_leader) =surge_started}
+active = animpoint@leader
+prior = 200
 on_hit = hit
 
 [animpoint@leader]

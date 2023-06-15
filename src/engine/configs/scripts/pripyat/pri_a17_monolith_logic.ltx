@@ -17,7 +17,7 @@ on_hit = hit@preacher
 path_walk = mon_preacher_stay
 path_look = mon_preacher_shoot
 out_restr = pri_a17_preacher_outrestr
-on_signal = preacher_ready | remark@shoot_ice  
+on_signal = preacher_ready | remark@shoot_ice 
 on_info = {+pri_a17_ice_dead} animpoint@pray
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
@@ -26,7 +26,7 @@ meet = no_meet
 
 [remark@shoot_ice]:walker@generic
 anim = threat_fire
-target =  story | pri_a17_military_sergeant_morozov
+target = story | pri_a17_military_sergeant_morozov
 on_signal = anim_end | remark@shoot_ice2
 out_restr = pri_a17_preacher_outrestr
 combat_ignore_cond = true
@@ -37,7 +37,7 @@ on_info = {+pri_a17_ice_dead} animpoint@pray
 
 [remark@shoot_ice2]:walker@generic
 anim = threat_fire
-target =  story | pri_a17_military_sergeant_morozov
+target = story | pri_a17_military_sergeant_morozov
 on_game_timer = 15 | animpoint@pray %+pri_a17_ice_is_fucked%
 on_info = {+pri_a17_ice_dead} animpoint@pray 
 out_restr = pri_a17_preacher_outrestr
@@ -52,7 +52,7 @@ avail_animations = pri_a17_pray_in
 reach_movement = patrol
 on_game_timer = 20 | {-pri_a17_monolith_preacher_done} %=play_sound(pri_a17_monolith_preacher) +pri_a17_monolith_preacher_done% 
 on_game_timer2 = 180| camper@angry_preacher
-on_info = {+pri_a17_preacher_hitted_by_actor}  camper@angry_preacher, {=counter_equal(pri_a17_monolith_amb_death:10)} camper@angry_preacher 
+on_info = {+pri_a17_preacher_hitted_by_actor} camper@angry_preacher, {=counter_equal(pri_a17_monolith_amb_death:10)} camper@angry_preacher 
 out_restr = pri_a17_preacher_outrestr
 meet = no_meet
 combat_ignore_cond = true
@@ -94,7 +94,7 @@ on_info = {+pri_a17_actor_attack_military} walker@ambusher_1, {+pri_a17_mon_ambu
 [walker@ambusher_1]:walker@generic
 path_walk = mon_amb_1
 path_look = mon_amb_1_look
-def_state_moving1 = assault	
+def_state_moving1 = assault 
 def_state_moving2 = assault
 def_state_moving3 = assault
 out_restr = pri_a17_tunnel_top
@@ -121,7 +121,7 @@ on_info = {+pri_a17_actor_attack_military} walker@ambusher_2, {+pri_a17_mon_ambu
 [walker@ambusher_2]:walker@generic
 path_walk = mon_amb_2
 path_look = mon_amb_2_look
-def_state_moving1 = assault	
+def_state_moving1 = assault 
 def_state_moving2 = assault
 def_state_moving3 = assault
 out_restr = pri_a17_tunnel_buttom
@@ -145,7 +145,7 @@ on_info = {+pri_a17_actor_attack_military} walker@ambusher_3, {+pri_a17_mon_ambu
 [walker@ambusher_3]:walker@generic
 path_walk = mon_amb_3
 path_look = mon_amb_3_look
-def_state_moving1 = assault	
+def_state_moving1 = assault 
 def_state_moving2 = assault
 def_state_moving3 = assault
 out_restr = pri_a17_monolith_attack_zone
@@ -169,7 +169,7 @@ on_info = {+pri_a17_actor_attack_military} walker@ambusher_4, {+pri_a17_mon_ambu
 [walker@ambusher_4]:walker@generic
 path_walk = mon_amb_4
 path_look = mon_amb_4_look
-def_state_moving1 = assault	
+def_state_moving1 = assault 
 def_state_moving2 = assault
 def_state_moving3 = assault
 out_restr = pri_a17_monolith_attack_zone
@@ -193,7 +193,7 @@ on_info = {+pri_a17_actor_attack_military} walker@ambusher_5, {+pri_a17_mon_ambu
 [walker@ambusher_5]:walker@generic
 path_walk = mon_amb_5
 path_look = mon_amb_5_look
-def_state_moving1 = assault	
+def_state_moving1 = assault 
 def_state_moving2 = assault
 def_state_moving3 = assault
 out_restr = pri_a17_hosp_build_1
@@ -209,7 +209,7 @@ on_death = death
 [walker@ambusher_6]:walker@generic
 path_walk = mon_amb_6
 path_look = mon_amb_6_look
-def_state_moving1 = assault	
+def_state_moving1 = assault 
 def_state_moving2 = assault
 def_state_moving3 = assault
 
@@ -223,7 +223,7 @@ on_death = death
 [walker@ambusher_7]:walker@generic
 path_walk = mon_amb_7
 path_look = mon_amb_7_look
-def_state_moving1 = assault	
+def_state_moving1 = assault 
 def_state_moving2 = assault
 def_state_moving3 = assault
 
@@ -238,7 +238,7 @@ on_death = death
 [walker@ambusher_8]:walker@generic
 path_walk = mon_amb_8
 path_look = mon_amb_8_look
-def_state_moving1 = assault	
+def_state_moving1 = assault 
 def_state_moving2 = assault
 def_state_moving3 = assault
 out_restr = pri_a17_hosp_build_1
@@ -254,7 +254,7 @@ on_death = death
 [walker@ambusher_9]:walker@generic
 path_walk = mon_amb_9
 path_look = mon_amb_9_look
-def_state_moving1 = assault	
+def_state_moving1 = assault 
 def_state_moving2 = assault
 def_state_moving3 = assault
 
@@ -269,7 +269,7 @@ on_death = death
 [walker@ambusher_10]:walker@generic
 path_walk = mon_amb_10
 path_look = mon_amb_10_look
-def_state_moving1 = assault	
+def_state_moving1 = assault 
 def_state_moving2 = assault
 def_state_moving3 = assault
 out_restr = pri_a17_monolith_attack_zone
@@ -296,11 +296,11 @@ on_info = {+pri_a17_actor_attack_military} walker@attack_1, {+pri_a17_patrol_go}
 path_walk = monolith_patrol_1
 formation = back
 
-on_sound =  actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_1 %+pri_a17_mon_atk%
+on_sound = actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_1 %+pri_a17_mon_atk%
 on_sound2 = actor|WPN_hit|8|0.0| walker@attack_1 %+pri_a17_mon_atk%
-on_sound3 = actor|MST_step|10|0.0| walker@attack_1  %+pri_a17_mon_atk%
-on_sound4 = actor|WPN_empty|15|0.0| walker@attack_1  %+pri_a17_mon_atk%
-on_sound5 = actor|WPN_reload|15|0.0| walker@attack_1  %+pri_a17_mon_atk%
+on_sound3 = actor|MST_step|10|0.0| walker@attack_1 %+pri_a17_mon_atk%
+on_sound4 = actor|WPN_empty|15|0.0| walker@attack_1 %+pri_a17_mon_atk%
+on_sound5 = actor|WPN_reload|15|0.0| walker@attack_1 %+pri_a17_mon_atk%
 
 combat_ignore_cond = {=check_enemy_name(pri_a17_military_sergeant_morozov)} true, {=check_enemy_name(pri_a17_military_captain_tarasov)} true
 on_info = {+pri_a17_patrol_go_2} patrol@patrol_1_2, {+pri_a17_mon_ambush_start} walker@attack_1, {+pri_a17_mon_atk} walker@attack_1, {+pri_a17_atk_mon_pat} walker@attack_1
@@ -314,11 +314,11 @@ corpse_detection_enabled = false
 path_walk = monolith_patrol_2
 formation = back
 
-on_sound =  actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_1 %+pri_a17_mon_atk%
+on_sound = actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_1 %+pri_a17_mon_atk%
 on_sound2 = actor|WPN_hit|8|0.0| walker@attack_1 %+pri_a17_mon_atk%
-on_sound3 = actor|MST_step|10|0.0| walker@attack_1  %+pri_a17_mon_atk%
-on_sound4 = actor|WPN_empty|15|0.0| walker@attack_1  %+pri_a17_mon_atk%
-on_sound5 = actor|WPN_reload|15|0.0| walker@attack_1  %+pri_a17_mon_atk%
+on_sound3 = actor|MST_step|10|0.0| walker@attack_1 %+pri_a17_mon_atk%
+on_sound4 = actor|WPN_empty|15|0.0| walker@attack_1 %+pri_a17_mon_atk%
+on_sound5 = actor|WPN_reload|15|0.0| walker@attack_1 %+pri_a17_mon_atk%
 
 combat_ignore_cond = {=check_enemy_name(pri_a17_military_sergeant_morozov)} true, {=check_enemy_name(pri_a17_military_captain_tarasov)} true
 on_info = {+pri_a17_mon_ambush_start} walker@attack_1, {+pri_a17_mon_atk} walker@attack_1, {+pri_a17_atk_mon_pat} walker@attack_1
@@ -356,19 +356,17 @@ path_look = patrol_trans_look
 def_state_standing = trans_0
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true 
-on_info =  {+pri_a17_actor_attack_military} walker@attack_2, {+pri_a17_patrol_go} patrol@patrol_2, {+pri_a17_actor_find_ambush} patrol@patrol_2
+on_info = {+pri_a17_actor_attack_military} walker@attack_2, {+pri_a17_patrol_go} patrol@patrol_2, {+pri_a17_actor_find_ambush} patrol@patrol_2
 
 [patrol@patrol_2]:walker@generic
 path_walk = monolith_patrol_1
 formation = back
 
-
-on_sound =  actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_2 %+pri_a17_mon_atk%
+on_sound = actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_2 %+pri_a17_mon_atk%
 on_sound2 = actor|WPN_hit|8|0.0| walker@attack_2 %+pri_a17_mon_atk%
-on_sound3 = actor|MST_step|10|0.0| walker@attack_2  %+pri_a17_mon_atk%
-on_sound4 = actor|WPN_empty|15|0.0| walker@attack_2  %+pri_a17_mon_atk%
-on_sound5 = actor|WPN_reload|15|0.0| walker@attack_2  %+pri_a17_mon_atk%
-
+on_sound3 = actor|MST_step|10|0.0| walker@attack_2 %+pri_a17_mon_atk%
+on_sound4 = actor|WPN_empty|15|0.0| walker@attack_2 %+pri_a17_mon_atk%
+on_sound5 = actor|WPN_reload|15|0.0| walker@attack_2 %+pri_a17_mon_atk%
 
 combat_ignore_cond = {=check_enemy_name(pri_a17_military_sergeant_morozov)} true, {=check_enemy_name(pri_a17_military_captain_tarasov)} true
 on_info = {+pri_a17_patrol_go_2} patrol@patrol_2_2, {+pri_a17_mon_ambush_start} walker@attack_2, {+pri_a17_mon_atk} walker@attack_2, {+pri_a17_atk_mon_pat} walker@attack_2
@@ -378,11 +376,11 @@ on_signal = path_end | patrol@patrol_2_2
 path_walk = monolith_patrol_2
 formation = back
 
-on_sound =  actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_2 %+pri_a17_mon_atk%
+on_sound = actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_2 %+pri_a17_mon_atk%
 on_sound2 = actor|WPN_hit|8|0.0| walker@attack_2 %+pri_a17_mon_atk%
-on_sound3 = actor|MST_step|10|0.0| walker@attack_2  %+pri_a17_mon_atk%
-on_sound4 = actor|WPN_empty|15|0.0| walker@attack_2  %+pri_a17_mon_atk%
-on_sound5 = actor|WPN_reload|15|0.0| walker@attack_2  %+pri_a17_mon_atk%
+on_sound3 = actor|MST_step|10|0.0| walker@attack_2 %+pri_a17_mon_atk%
+on_sound4 = actor|WPN_empty|15|0.0| walker@attack_2 %+pri_a17_mon_atk%
+on_sound5 = actor|WPN_reload|15|0.0| walker@attack_2 %+pri_a17_mon_atk%
 
 combat_ignore_cond = {=check_enemy_name(pri_a17_military_sergeant_morozov)} true, {=check_enemy_name(pri_a17_military_captain_tarasov)} true
 on_info = {+pri_a17_mon_ambush_start} walker@attack_2, {+pri_a17_mon_atk} walker@attack_2, {+pri_a17_atk_mon_pat} walker@attack_2
@@ -411,20 +409,20 @@ path_look = patrol_trans_look
 def_state_standing = trans_1
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true 
-on_info =  {+pri_a17_actor_attack_military} walker@attack_lead, {+pri_a17_patrol_go} patrol@patrol_lead, {+pri_a17_actor_find_ambush} patrol@patrol_lead
+on_info = {+pri_a17_actor_attack_military} walker@attack_lead, {+pri_a17_patrol_go} patrol@patrol_lead, {+pri_a17_actor_find_ambush} patrol@patrol_lead
 
 [patrol@patrol_lead]:walker@generic
 path_walk = monolith_patrol_1
 formation = back
 commander = true
 
-on_sound =  actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_lead %+pri_a17_mon_atk%
+on_sound = actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_lead %+pri_a17_mon_atk%
 on_sound2 = actor|WPN_hit|8|0.0| walker@attack_lead %+pri_a17_mon_atk%
-on_sound3 = actor|MST_step|10|0.0| walker@attack_lead  %+pri_a17_mon_atk%
-on_sound4 = actor|WPN_empty|15|0.0| walker@attack_lead  %+pri_a17_mon_atk%
-on_sound5 = actor|WPN_reload|15|0.0| walker@attack_lead  %+pri_a17_mon_atk%
+on_sound3 = actor|MST_step|10|0.0| walker@attack_lead %+pri_a17_mon_atk%
+on_sound4 = actor|WPN_empty|15|0.0| walker@attack_lead %+pri_a17_mon_atk%
+on_sound5 = actor|WPN_reload|15|0.0| walker@attack_lead %+pri_a17_mon_atk%
 
-on_info  =  {=npc_in_zone(pri_a17_mon_pat_1)} %+pri_a17_mon_pat_1 +pri_a17_mon_pat_sound1 %
+on_info = {=npc_in_zone(pri_a17_mon_pat_1)} %+pri_a17_mon_pat_1 +pri_a17_mon_pat_sound1 %
 on_info2 = {+pri_a17_mon_ambush_start} walker@attack_lead, {+pri_a17_mon_atk} walker@attack_lead, {+pri_a17_atk_mon_pat} walker@attack_lead
 on_signal = path_end | patrol@patrol_lead_2 %+pri_a17_patrol_go_2%
 combat_ignore_cond = {=check_enemy_name(pri_a17_military_sergeant_morozov)} true, {=check_enemy_name(pri_a17_military_captain_tarasov)} true
@@ -434,13 +432,13 @@ path_walk = monolith_patrol_2
 formation = back
 commander = true
 
-on_sound =  actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_lead %+pri_a17_mon_atk%
+on_sound = actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_lead %+pri_a17_mon_atk%
 on_sound2 = actor|WPN_hit|8|0.0| walker@attack_lead %+pri_a17_mon_atk%
-on_sound3 = actor|MST_step|10|0.0| walker@attack_lead  %+pri_a17_mon_atk%
-on_sound4 = actor|WPN_empty|15|0.0| walker@attack_lead  %+pri_a17_mon_atk%
-on_sound5 = actor|WPN_reload|15|0.0| walker@attack_lead  %+pri_a17_mon_atk%
+on_sound3 = actor|MST_step|10|0.0| walker@attack_lead %+pri_a17_mon_atk%
+on_sound4 = actor|WPN_empty|15|0.0| walker@attack_lead %+pri_a17_mon_atk%
+on_sound5 = actor|WPN_reload|15|0.0| walker@attack_lead %+pri_a17_mon_atk%
 
-on_info =  {=npc_in_zone(pri_a17_mon_pat_1)} %+pri_a17_mon_pat_1 +pri_a17_mon_pat_sound1%
+on_info = {=npc_in_zone(pri_a17_mon_pat_1)} %+pri_a17_mon_pat_1 +pri_a17_mon_pat_sound1%
 on_info2 = {=npc_in_zone(pri_a17_mon_pat_2)} %+pri_a17_mon_pat_2 +pri_a17_mon_pat_sound2%
 on_info3 = {=npc_in_zone(pri_a17_mon_pat_3)} %+pri_a17_mon_pat_3 +pri_a17_mon_pat_sound3%
 on_info4 = {=npc_in_zone(pri_a17_mon_pat_4)} %+pri_a17_mon_pat_4 +pri_a17_mon_pat_sound4%
@@ -455,7 +453,7 @@ path_look = patrol_3_look
 combat_ignore_cond = {=check_enemy_name(pri_a17_military_sergeant_morozov)} true
 
 [death@patrol_3]
-on_info = %=inc_counter(pri_a17_monolith_death:1) +pri_a17_mon_atk  +pri_a17_mon_pat_lead_dead%
+on_info = %=inc_counter(pri_a17_monolith_death:1) +pri_a17_mon_atk +pri_a17_mon_pat_lead_dead%
 ;----------------------------------------------------------
 
 [logic@pri_a17_monolith_patrol_1_dead]
@@ -551,7 +549,7 @@ combat_ignore_cond = {=fighting_dist_ge (20)} true
 [camper@sniper_1]:walker@generic
 path_walk = mon_sni_1
 path_look = mon_snilook_1
-def_state_moving1 = assault	
+def_state_moving1 = assault 
 def_state_moving2 = assault
 def_state_moving3 = assault
 def_state_campering = threat
@@ -642,8 +640,8 @@ no_retreat = true
 ;-------------------------------------------------------------
 
 [wounded]
-hp_state 		= 0|wounded_heavy@help_heavy
-hp_state_see 	= 0|wounded_heavy@help_heavy
-hp_victim 		= 0|nil
-hp_fight 		= 0|false
-hp_cover		= 0|false
+hp_state = 0|wounded_heavy@help_heavy
+hp_state_see = 0|wounded_heavy@help_heavy
+hp_victim = 0|nil
+hp_fight = 0|false
+hp_cover = 0|false
