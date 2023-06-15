@@ -1,5 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
+import { captions } from "@/engine/lib/constants/captions";
+
 export const IS_XML: boolean = true;
 
 export function create(): JSXNode {
@@ -9,7 +11,7 @@ export function create(): JSXNode {
 
       <rank_caption x="121" y="0" width="100" height="15">
         <text align="l" x="0" y="0" font="letterica16" r="128" g="128" b="128">
-          ui_st_rank
+          {captions.ui_st_rank}
         </text>
       </rank_caption>
       <rank_static x="121" y="15" width="100" height="15">
@@ -18,7 +20,7 @@ export function create(): JSXNode {
 
       <reputation_caption x="121" y="90" width="100" height="15">
         <text x="0" y="0" font="letterica16" r="128" g="128" b="128" a="255">
-          ui_st_reputation
+          {captions.ui_st_reputation}
         </text>
       </reputation_caption>
       <reputation_static x="121" y="104" width="100" height="15">
@@ -27,7 +29,7 @@ export function create(): JSXNode {
 
       <community_caption x="121" y="44" width="100" height="15">
         <text align="l" x="0" y="0" font="letterica16" r="128" g="128" b="128" a="255">
-          ui_st_community
+          {captions.ui_st_community}
         </text>
       </community_caption>
       <community_static x="121" y="59" width="100" height="15">

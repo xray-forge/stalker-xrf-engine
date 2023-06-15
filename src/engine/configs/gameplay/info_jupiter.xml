@@ -199,7 +199,6 @@
 	<info_portion id="jup_b19_yar_in_pripyat_met"></info_portion>
 	<info_portion id="jup_b19_yar_in_pripyat_about_told"></info_portion>
 
-
 	<!--B206-->
 
 	<!-- dialogs infos -->
@@ -251,6 +250,5 @@
 	<info_portion id="jup_a10_debt_wo_percent"></info_portion>
 	<info_portion id="jup_a10_threatened"></info_portion>
 	<info_portion id="jup_a10_bandit_about_percent_asked"></info_portion>
-
 
 </game_information_portions>
