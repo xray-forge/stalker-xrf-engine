@@ -1,11 +1,20 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import {
+  IRegistryObjectState,
+  IStoredOfflineObject,
+  registerActor,
+  registerObject,
+  registerOfflineObject,
+  registry,
+} from "@/engine/core/database";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
-import { emitSchemeEvent, isSectionActive } from "@/engine/core/utils/scheme/logic";
-import { ClientObject, EScheme } from "@/engine/lib/types";
+import { disableInfo, giveInfo } from "@/engine/core/utils/info_portion";
+import { emitSchemeEvent, getSectionToActivate, isSectionActive } from "@/engine/core/utils/scheme/logic";
+import { NIL } from "@/engine/lib/constants/words";
+import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine/mocks";
-import { mockClientGameObject } from "@/fixtures/xray";
+import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("'scheme logic' utils", () => {
   it("'isSectionActive' should correctly check scheme activity", () => {
@@ -91,5 +100,49 @@ describe("'scheme logic' utils", () => {
 
     emitSchemeEvent(object, schemeState, ESchemeEvent.WAYPOINT);
     expect(mockAction.onWaypoint).toHaveBeenCalledTimes(1);
+  });
+
+  it("'getSectionToActivate' should correctly determine active section", () => {
+    const actor: ClientObject = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject();
+
+    const ini: IniFile = mockIniFile("test.ltx", {
+      "sr_idle@empty": {},
+      "sr_idle@fallback": {},
+      "sr_idle@previous": {},
+      "sr_idle@bad": {
+        active: "{+test_condition} sr_idle@desired",
+      },
+      "sr_idle@desired": {
+        active: "{+test_condition} sr_idle@desired, sr_idle@fallback",
+      },
+    });
+
+    registerActor(actor);
+
+    expect(getSectionToActivate(object, ini, "sr_idle@not_existing")).toBe(NIL);
+    expect(getSectionToActivate(object, ini, "sr_idle@empty")).toBe(NIL);
+    expect(getSectionToActivate(object, ini, "sr_idle@desired")).toBe("sr_idle@fallback");
+
+    expect(() => getSectionToActivate(object, ini, "sr_idle@bad")).toThrow();
+
+    giveInfo("test_condition");
+    expect(getSectionToActivate(object, ini, "sr_idle@desired")).toBe("sr_idle@desired");
+
+    disableInfo("test_condition");
+    expect(getSectionToActivate(object, ini, "sr_idle@desired")).toBe("sr_idle@fallback");
+
+    const offlineState: IStoredOfflineObject = registerOfflineObject(object.id(), {
+      activeSection: "sr_idle@not_existing",
+      levelVertexId: 123,
+    });
+
+    expect(getSectionToActivate(object, ini, "sr_idle@desired")).toBe("sr_idle@fallback");
+
+    offlineState.activeSection = "sr_idle@previous";
+
+    expect(getSectionToActivate(object, ini, "sr_idle@desired")).toBe("sr_idle@previous");
+
+    expect(registry.offlineObjects.get(object.id()).activeSection).toBeNull();
   });
 });

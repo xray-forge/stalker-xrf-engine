@@ -54,11 +54,7 @@ import {
   ISimulationTarget,
   TSimulationObject,
 } from "@/engine/core/objects/server/types";
-import {
-  activateSchemeBySection,
-  getObjectSectionToActivate,
-  switchObjectSchemeToSection,
-} from "@/engine/core/schemes/base/utils";
+import { activateSchemeBySection, switchObjectSchemeToSection } from "@/engine/core/schemes/base/utils";
 import { configureObjectSchemes } from "@/engine/core/schemes/base/utils/configureObjectSchemes";
 import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
@@ -69,6 +65,7 @@ import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/util
 import { IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_general";
+import { getSectionToActivate } from "@/engine/core/utils/scheme/logic";
 import { getTableSize, isEmpty } from "@/engine/core/utils/table";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { toJSON } from "@/engine/core/utils/transform/json";
@@ -926,7 +923,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       job.prefix_name || this.name()
     );
 
-    const section: TSection = getObjectSectionToActivate(object, ltx, job.section, registry.actor);
+    const section: TSection = getSectionToActivate(object, ltx, job.section);
 
     assertDefined(
       getSchemeFromSection(job.section),

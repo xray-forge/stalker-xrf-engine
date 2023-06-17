@@ -1,9 +1,9 @@
 import { getObjectLogicIniConfig, IRegistryObjectState, registry } from "@/engine/core/database";
 import { activateSchemeBySection } from "@/engine/core/schemes/base/utils/activateSchemeBySection";
 import { configureObjectSchemes } from "@/engine/core/schemes/base/utils/configureObjectSchemes";
-import { getObjectSectionToActivate } from "@/engine/core/schemes/base/utils/getObjectSectionToActivate";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { getSectionToActivate } from "@/engine/core/utils/scheme/logic";
 import { ERelation } from "@/engine/lib/constants/relations";
 import { ClientObject, EClientObjectRelation, IniFile, Optional, TCount, TName } from "@/engine/lib/types";
 import { ESchemeType, TSection } from "@/engine/lib/types/scheme";
@@ -35,7 +35,7 @@ export function initializeObjectSchemeLogic(
       ""
     );
 
-    const section: TSection = getObjectSectionToActivate(object, iniFile, "logic", actor);
+    const section: TSection = getSectionToActivate(object, iniFile, "logic");
 
     activateSchemeBySection(object, iniFile, section, state.gulag_name, false);
 
