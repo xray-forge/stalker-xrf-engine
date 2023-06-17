@@ -268,12 +268,12 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
    * todo: Description.
    */
   public override update(): void {
-    if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
     }
 
     if (this.destroyed) {
-      switchObjectSchemeToSection(this.object, this.state.ini!, NIL);
+      switchObjectSchemeToSection(this.object, this.state.ini, NIL);
 
       return;
     }

@@ -1,6 +1,5 @@
 import { particles_object, patrol, time_global } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeParticleState } from "@/engine/core/schemes/sr_particle/ISchemeParticleState";
 import { parseWaypointsData } from "@/engine/core/utils/ini/parse";
@@ -105,7 +104,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
 
     this.is_end();
 
-    trySwitchToAnotherSection(this.object, this.state, registry.actor);
+    trySwitchToAnotherSection(this.object, this.state);
   }
 
   /**

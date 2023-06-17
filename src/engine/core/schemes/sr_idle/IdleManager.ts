@@ -1,4 +1,3 @@
-import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeIdleState } from "@/engine/core/schemes/sr_idle/ISchemeIdleState";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
@@ -14,6 +13,6 @@ export class IdleManager extends AbstractSchemeManager<ISchemeIdleState> {
 
   public override update(delta: TCount): void {
     // Nothing to do, just, try switching to anything else.
-    trySwitchToAnotherSection(this.object, this.state, registry.actor);
+    trySwitchToAnotherSection(this.object, this.state);
   }
 }

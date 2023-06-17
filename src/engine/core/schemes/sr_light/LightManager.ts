@@ -25,7 +25,7 @@ export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
    * todo: Description.
    */
   public override update(): void {
-    if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state)) {
       this.active = false;
 
       registry.lightZones.delete(this.object.id());
@@ -45,7 +45,7 @@ export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
     }
 
     if (this.object.inside(object.position())) {
-      return $multi(this.state.light!, true);
+      return $multi(this.state.light, true);
     }
 
     return $multi(false, false);

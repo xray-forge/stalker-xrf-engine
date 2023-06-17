@@ -43,7 +43,7 @@ export class TimerManager extends AbstractSchemeManager<ISchemeTimerState> {
   }
 
   public override update(): void {
-    if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
     }
 

@@ -1,6 +1,5 @@
 import { time_global } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemePhysicalForceState } from "@/engine/core/schemes/ph_force/ISchemePhysicalForceState";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
@@ -28,7 +27,7 @@ export class PhysicalForceManager extends AbstractSchemeManager<ISchemePhysicalF
    * todo: Description.
    */
   public override update(): void {
-    if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
     }
 

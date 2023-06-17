@@ -59,6 +59,6 @@ export class TeleportManager extends AbstractSchemeManager<ISchemeTeleportState>
       }
     }
 
-    trySwitchToAnotherSection(this.object, this.state, actor);
+    trySwitchToAnotherSection(this.object, this.state);
   }
 }

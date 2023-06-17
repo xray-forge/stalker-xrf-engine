@@ -24,7 +24,7 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
   }
 
   public override update(): void {
-    trySwitchToAnotherSection(this.object, this.state, registry.actor);
+    trySwitchToAnotherSection(this.object, this.state);
   }
 
   /**

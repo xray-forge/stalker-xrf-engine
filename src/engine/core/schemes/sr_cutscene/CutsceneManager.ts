@@ -54,7 +54,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
       }
     }
 
-    if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
     }
   }

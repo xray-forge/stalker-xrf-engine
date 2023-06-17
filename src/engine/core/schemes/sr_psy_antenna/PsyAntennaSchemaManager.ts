@@ -45,13 +45,11 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
    * todo: Description.
    */
   public override update(): void {
-    const actor: ClientObject = registry.actor;
-
-    if (trySwitchToAnotherSection(this.object, this.state, actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
     }
 
-    this.switchState(actor);
+    this.switchState(registry.actor);
   }
 
   /**

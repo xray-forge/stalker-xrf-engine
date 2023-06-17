@@ -20,7 +20,7 @@ import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTe
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
-import { ESchemeEvent } from "@/engine/core/schemes";
+import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { TConditionList } from "@/engine/core/utils/ini/types";
@@ -92,7 +92,7 @@ export class MonsterBinder extends object_binder {
     this.object.set_tip_text("");
 
     if (this.state.active_scheme !== null) {
-      trySwitchToAnotherSection(this.object, this.state[this.state.active_scheme!]!, registry.actor);
+      trySwitchToAnotherSection(this.object, this.state[this.state.active_scheme as EScheme] as IBaseSchemeState);
     }
 
     const squad: Optional<Squad> = getObjectSquad(this.object);

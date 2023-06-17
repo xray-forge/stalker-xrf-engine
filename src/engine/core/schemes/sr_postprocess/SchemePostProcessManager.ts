@@ -65,7 +65,7 @@ export class SchemePostProcessManager extends AbstractSchemeManager<ISchemePostP
   public override update(delta: TDuration): void {
     const actor: ClientObject = registry.actor;
 
-    if (trySwitchToAnotherSection(this.object, this.state, actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
     }
 

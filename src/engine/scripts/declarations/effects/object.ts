@@ -11,6 +11,7 @@ import {
 } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain, Squad, updateStalkerLogic } from "@/engine/core/objects";
+import { IBaseSchemeState } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
@@ -560,7 +561,7 @@ extern("xr_effects.update_obj_logic", (actor: ClientObject, npc: ClientObject, p
 
       const state: IRegistryObjectState = registry.objects.get(object.id());
 
-      trySwitchToAnotherSection(object, state[state.active_scheme!]!, actor);
+      trySwitchToAnotherSection(object, state[state.active_scheme as EScheme] as IBaseSchemeState);
     }
   }
 });

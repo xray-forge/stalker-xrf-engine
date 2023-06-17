@@ -28,7 +28,7 @@ export class MobDeathManager extends AbstractSchemeManager<ISchemeMobDeathState>
       deathState.killer_name = null;
     }
 
-    if (trySwitchToAnotherSection(victim, this.state, registry.actor)) {
+    if (trySwitchToAnotherSection(victim, this.state)) {
       return;
     }
   }

@@ -137,7 +137,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
       this.finalAction = true;
     }
 
-    trySwitchToAnotherSection(this.object, this.state, registry.actor);
+    trySwitchToAnotherSection(this.object, this.state);
   }
 
   /**

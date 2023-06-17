@@ -174,9 +174,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
    * todo: Description.
    */
   public override update(delta: number): void {
-    const actor: ClientObject = registry.actor;
-
-    if (trySwitchToAnotherSection(this.object, this.state, actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
     }
 
@@ -187,6 +185,8 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     }
 
     if (this.state.path_look) {
+      const actor: ClientObject = registry.actor;
+
       if (this.state.path_look === ACTOR) {
         this.heliFly.setLookPoint(actor.position());
         if (this.state.stop_fire) {

@@ -86,9 +86,13 @@ const SCHEME_LOGIC_SWITCH: Record<
 };
 
 /**
- * todo;
+ * Try switching of active object scheme based on configured logic.
+ * Checks object active logics conditions and verifies whether it should stay the same or pick new logics section.
+ *
+ * @param object - client object to try switching
+ * @param state - current scheme state
  */
-export function trySwitchToAnotherSection(object: ClientObject, state: IBaseSchemeState, actor: ClientObject): boolean {
+export function trySwitchToAnotherSection(object: ClientObject, state: IBaseSchemeState): boolean {
   const logic: Optional<LuaArray<IBaseSchemeLogic>> = state.logic;
 
   assert(logic, "Can't find `logic` in state, scheme '%s'.", registry.objects.get(object.id()).active_scheme);
@@ -96,7 +100,7 @@ export function trySwitchToAnotherSection(object: ClientObject, state: IBaseSche
   for (const [, condition] of logic) {
     const conditionName: ESchemeCondition = (string.match(condition.name, "([%a_]*)")[0] as ESchemeCondition) || NIL;
 
-    if (SCHEME_LOGIC_SWITCH[conditionName](actor, object, state, condition)) {
+    if (SCHEME_LOGIC_SWITCH[conditionName](registry.actor, object, state, condition)) {
       return true;
     }
   }
@@ -106,9 +110,13 @@ export function trySwitchToAnotherSection(object: ClientObject, state: IBaseSche
 
 /**
  * Explicitly switch object active scheme to new section.
- * Force active scheme to deactivate if it exists and is active.
+ * Force active scheme to deactivate if it exists and is active - emit deactivation signal and proceed with switch.
+ * If new section is invalid or matches active, skip any actions.
  *
- * todo: docblock;
+ * @param object - object to switch
+ * @param ini - object spawn ini
+ * @param section - next active section
+ * @returns whether scheme switch happened
  */
 export function switchObjectSchemeToSection(object: ClientObject, ini: IniFile, section: Optional<TSection>): boolean {
   if (section === "" || section === null) {

@@ -595,7 +595,7 @@ export function updateStalkerLogic(object: ClientObject): void {
         }
 
         if (combatState && combatState.logic) {
-          if (!trySwitchToAnotherSection(object, combatState, actor)) {
+          if (!trySwitchToAnotherSection(object, combatState)) {
             if (overrides.get("combat_type")) {
               SchemeCombat.setCombatType(object, actor, overrides);
             }
@@ -609,7 +609,7 @@ export function updateStalkerLogic(object: ClientObject): void {
     }
 
     if (!switched) {
-      trySwitchToAnotherSection(object, state[state.active_scheme!]!, actor);
+      trySwitchToAnotherSection(object, state[state.active_scheme as EScheme] as IBaseSchemeState);
     }
   } else {
     SchemeCombat.setCombatType(object, actor, combatState);

@@ -135,7 +135,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
       }
     }
 
-    if (trySwitchToAnotherSection(this.object, this.state, actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state)) {
       if (this.phase > 0) {
         globalSoundManager.stopLoopedSound(actorId, this.state.noise_sound);
         level.remove_pp_effector(DeimosManager.POST_PROCESS_EFFECTOR_ID);

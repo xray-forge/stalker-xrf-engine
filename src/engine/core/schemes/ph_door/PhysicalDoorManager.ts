@@ -80,12 +80,11 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    * todo: Description.
    */
   public override update(): void {
-    // --printf("_bp: action_door:update()", delta)
     if (!this.isInitialized) {
       abort("object '%s': door failed to initialize", this.object.name());
     }
 
-    if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
     }
   }

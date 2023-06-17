@@ -18,7 +18,7 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
   }
 
   public override update(): void {
-    trySwitchToAnotherSection(this.object, this.state, registry.actor);
+    trySwitchToAnotherSection(this.object, this.state);
   }
 
   public override deactivate(): void {
@@ -41,7 +41,7 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
         this.state.hit_on_bone.get(boneIndex).state as TConditionList
       )!;
 
-      switchObjectSchemeToSection(object, this.state.ini!, section);
+      switchObjectSchemeToSection(object, this.state.ini, section);
     }
   }
 

@@ -90,7 +90,7 @@ export function emitSchemeEvent(
 
   // todo: Probably it is Set and `isHandlerActive` check is not needed.
   for (const [actionHandler, isHandlerActive] of state.actions) {
-    if (isHandlerActive && actionHandler[event] !== null) {
+    if (isHandlerActive && actionHandler[event]) {
       (actionHandler[event] as AnyContextualCallable).apply(actionHandler, rest);
     }
   }
@@ -195,7 +195,7 @@ export function activateSchemeBySection(
 
   const schemeImplementation: Optional<TAbstractSchemeConstructor> = registry.schemes.get(scheme);
 
-  assert(schemeImplementation, "core/logic: scheme '%s' is !registered in modules.script", scheme);
+  assert(schemeImplementation, "scheme/logic: scheme '%s' is not registered.", scheme);
 
   logger.info("Set active scheme:", scheme, "->", object.name(), section, additional);
 
