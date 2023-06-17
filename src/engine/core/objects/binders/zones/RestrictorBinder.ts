@@ -14,9 +14,8 @@ import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ESchemeEvent } from "@/engine/core/schemes";
-import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
+import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme/logic";
 import { NetPacket, Reader, ServerObject, TDuration, TNumberId } from "@/engine/lib/types";
 import { ESchemeType } from "@/engine/lib/types/scheme";
 

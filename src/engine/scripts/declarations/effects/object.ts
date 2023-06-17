@@ -12,7 +12,6 @@ import {
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SmartTerrain, Squad, updateStalkerLogic } from "@/engine/core/objects";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/mob_combat";
@@ -25,6 +24,7 @@ import { readIniString } from "@/engine/core/utils/ini/read";
 import { IConfigSwitchCondition } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_general";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import {
   releaseObject,
   spawnItemsForObject,

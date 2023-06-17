@@ -3,8 +3,8 @@ import { get_hud, level } from "xray16";
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { PsyAntennaManager } from "@/engine/core/managers/world/PsyAntennaManager";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { EAntennaState, ISchemePsyAntennaState } from "@/engine/core/schemes/sr_psy_antenna/ISchemePsyAntennaState";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject } from "@/engine/lib/types";
 

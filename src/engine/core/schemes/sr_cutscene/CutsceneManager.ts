@@ -3,7 +3,6 @@ import { level, patrol } from "xray16";
 import { registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/interface";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils/trySwitchToAnotherSection";
 import { CamEffectorSet } from "@/engine/core/schemes/sr_cutscene/effectors/CamEffectorSet";
 import {
   effectorSets,
@@ -16,6 +15,7 @@ import {
 } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
 import { getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { AnyCallablesModule, ClientObject, Optional, TName, TNumberId } from "@/engine/lib/types";
 

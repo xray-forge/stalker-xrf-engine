@@ -1,8 +1,8 @@
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils/trySwitchToAnotherSection";
 import { ISchemeHitState } from "@/engine/core/schemes/hit/ISchemeHitState";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { ClientObject, EScheme, Optional, TCount, TIndex, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

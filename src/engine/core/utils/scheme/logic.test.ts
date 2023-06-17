@@ -145,4 +145,24 @@ describe("'scheme logic' utils", () => {
 
     expect(registry.offlineObjects.get(object.id()).activeSection).toBeNull();
   });
+
+  it("'activateSchemeBySection' should correctly activate scheme for objects", () => {
+    // todo;
+  });
+
+  it("'configureObjectSchemes' should correctly configure scheme for objects", () => {
+    // todo;
+  });
+
+  it("'getObjectGenericSchemeOverrides' should correctly get overrides", () => {
+    // todo;
+  });
+
+  it("'initializeObjectSchemeLogic' should correctly initialize scheme logic", () => {
+    // todo;
+  });
+
+  it("'resetObjectGenericSchemesOnSectionSwitch' should correctly reset base schemes", () => {
+    // todo;
+  });
 });

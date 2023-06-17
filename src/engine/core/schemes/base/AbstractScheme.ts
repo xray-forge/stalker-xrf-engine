@@ -1,16 +1,11 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { IBaseSchemeState } from "@/engine/core/schemes/base/IBaseSchemeState";
+import { IBaseSchemeState } from "@/engine/core/schemes/base/types";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyObject, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo;
- */
-export type TAbstractSchemeConstructor = typeof AbstractScheme;
 
 /**
  * todo;
@@ -41,7 +36,7 @@ export abstract class AbstractScheme {
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    additional: Optional<string>
+    additional?: Optional<string>
   ): void {
     abort("Called not implemented 'activate' method: %s, %s", object.name(), scheme);
   }

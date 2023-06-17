@@ -95,26 +95,3 @@ export function disableObjectBaseSchemes(object: ClientObject, schemeType: ESche
       return;
   }
 }
-
-/**
- * Reset scheme for provided object.
- *
- * @param scheme - scheme implementation name
- * @param object - client object for scheme reset
- * @param schemeToSwitch - ???
- * @param state - client object registry state
- * @param section - ???
- */
-export function resetScheme(
-  scheme: EScheme,
-  object: ClientObject,
-  schemeToSwitch: EScheme,
-  state: IRegistryObjectState,
-  section: TSection
-): void {
-  const schemeImplementation: Optional<TAbstractSchemeConstructor> = registry.schemes.get(scheme);
-
-  assert(schemeImplementation, "Could not find implementation for provided scheme: '%s'.", scheme);
-
-  schemeImplementation.reset(object, schemeToSwitch, state, section);
-}

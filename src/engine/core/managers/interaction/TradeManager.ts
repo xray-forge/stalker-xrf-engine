@@ -16,6 +16,7 @@ import {
   Optional,
   TDuration,
   TNumberId,
+  TPath,
   TRate,
   TSection,
   TTimestamp,
@@ -48,7 +49,7 @@ export class TradeManager extends AbstractCoreManager {
   /**
    * todo
    */
-  public initForObject(object: ClientObject, configFilePath: string): void {
+  public initForObject(object: ClientObject, configFilePath: TPath): void {
     logger.info("Init trade for:", object.name(), configFilePath);
 
     const objectId: TNumberId = object.id();

@@ -1,11 +1,11 @@
 import { getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes";
-import { switchObjectSchemeToSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeDangerState } from "@/engine/core/schemes/danger";
 import { IActionSchemeHearState } from "@/engine/core/schemes/hear/IActionSchemeHearState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseConditionsList, parseParameters } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { switchObjectSchemeToSection } from "@/engine/core/utils/scheme/switch";
 import { mapSoundMaskToSoundType } from "@/engine/core/utils/sound";
 import { ESoundType } from "@/engine/lib/constants/sound/sound_type";
 import {

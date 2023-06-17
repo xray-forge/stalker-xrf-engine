@@ -1,1 +1,1 @@
-export * from "@/fixtures/xray/mocks/utils.mock";
+export * from "@/fixtures/utils/function_mock";

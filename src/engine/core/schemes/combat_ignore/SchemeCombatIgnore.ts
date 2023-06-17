@@ -1,9 +1,9 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes";
-import { getObjectGenericSchemeOverrides } from "@/engine/core/schemes/base/utils/getObjectGenericSchemeOverrides";
 import { CombatProcessEnemyManager } from "@/engine/core/schemes/combat_ignore/CombatProcessEnemyManager";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore/ISchemeCombatIgnoreState";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { getObjectGenericSchemeOverrides } from "@/engine/core/utils/scheme/logic";
 import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

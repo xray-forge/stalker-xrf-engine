@@ -1,3 +1,4 @@
+import type { AbstractScheme } from "@/engine/core/schemes";
 import type { TConditionList } from "@/engine/core/utils/ini/types";
 import type {
   AnyObject,
@@ -11,6 +12,11 @@ import type {
   TSection,
   TTimestamp,
 } from "@/engine/lib/types";
+
+/**
+ * todo;
+ */
+export type TAbstractSchemeConstructor = typeof AbstractScheme;
 
 /**
  * todo;
@@ -40,4 +46,22 @@ export interface IBaseSchemeState {
   actions?: LuaTable<AnyObject, boolean>;
   idle_end: TTimestamp;
   overrides: Optional<AnyObject>;
+}
+
+/**
+ * todo;
+ */
+export enum ESchemeEvent {
+  ACTIVATE_SCHEME = "activateScheme",
+  DEACTIVATE = "deactivate", // todo: Rename to deactivate scheme
+  DEATH = "onDeath",
+  CUTSCENE = "onCutscene",
+  EXTRAPOLATE = "onExtrapolate",
+  NET_DESTROY = "net_destroy",
+  HIT = "onHit",
+  RESET_SCHEME = "resetScheme", // todo: Probably merge with activate scheme or rename it to activateRestrictorScheme
+  SAVE = "save",
+  UPDATE = "update",
+  USE = "onUse",
+  WAYPOINT = "onWaypoint",
 }

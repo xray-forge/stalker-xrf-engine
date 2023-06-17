@@ -43,7 +43,6 @@ import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTe
 import { addStateManager } from "@/engine/core/objects/state/add_state_manager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
-import { getObjectGenericSchemeOverrides, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
 import { PostCombatIdle } from "@/engine/core/schemes/combat_idle/PostCombatIdle";
 import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
@@ -61,7 +60,8 @@ import {
   updateObjectInvulnerability,
 } from "@/engine/core/utils/object/object_general";
 import { setObjectsRelation, setObjectSympathy } from "@/engine/core/utils/relation";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
+import { emitSchemeEvent, getObjectGenericSchemeOverrides } from "@/engine/core/utils/scheme/logic";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -584,7 +584,7 @@ export function updateStalkerLogic(object: ClientObject): void {
 
   if (state !== null && state.active_scheme !== null && object.alive()) {
     let switched: boolean = false;
-    const manager = object.motivation_action_manager();
+    const manager: ActionPlanner = object.motivation_action_manager();
 
     if (manager.initialized() && manager.current_action_id() === stalker_ids.action_combat_planner) {
       const overrides = getObjectGenericSchemeOverrides(object);

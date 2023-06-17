@@ -21,7 +21,6 @@ import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/actio
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { ESchemeEvent } from "@/engine/core/schemes";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { TConditionList } from "@/engine/core/utils/ini/types";
@@ -34,6 +33,7 @@ import {
   scriptReleaseObject,
 } from "@/engine/core/utils/object/object_general";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {

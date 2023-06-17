@@ -31,13 +31,26 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   portableStore: Optional<LuaTable<TName>>;
 
   schemeType: ESchemeType;
+  /**
+   * Currently active logic section of the object.
+   */
   active_section: Optional<TSection>;
+  /**
+   * Currently active logic scheme of the object.
+   */
   active_scheme: Optional<EScheme>;
+
   section_logic: Optional<TName>;
   gulag_name: Optional<TName>;
   overrides: Optional<AnyObject>;
 
+  /**
+   * Time of logics section activation - absolute.
+   */
   activation_time: TTimestamp;
+  /**
+   * Time of logics section activation - in-game time.
+   */
   activation_game_time: Time;
 
   moveManager: Optional<StalkerMoveManager>;

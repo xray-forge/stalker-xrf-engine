@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { stalker_ids } from "xray16";
 
-import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { registry } from "@/engine/core/database";
 import { EEvaluatorId, TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import { SchemeCombat } from "@/engine/core/schemes/combat";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore";
@@ -14,9 +14,8 @@ import {
   disableObjectBaseSchemes,
   loadSchemeImplementation,
   loadSchemeImplementations,
-  resetScheme,
 } from "@/engine/core/utils/scheme/setup";
-import { ActionBase, ClientObject, EScheme, ESchemeType } from "@/engine/lib/types";
+import { ActionBase, EScheme, ESchemeType } from "@/engine/lib/types";
 import { MockActionBase, mockClientGameObject } from "@/fixtures/xray";
 
 describe("'scheme setup' utils", () => {
@@ -153,20 +152,5 @@ describe("'scheme setup' utils", () => {
     expect(action.preconditions[4].value()).toBe(false);
     expect(action.preconditions[5].condition()).toBe(stalker_ids.property_items);
     expect(action.preconditions[5].value()).toBe(false);
-  });
-
-  it("'resetScheme' should correctly call reset method", () => {
-    jest.spyOn(SchemeMeet, "reset").mockImplementation(jest.fn());
-
-    const object: ClientObject = mockClientGameObject();
-    const state: IRegistryObjectState = registerObject(object);
-
-    loadSchemeImplementation(SchemeMeet);
-
-    expect(() => resetScheme(EScheme.SR_TIMER, object, EScheme.SR_TIMER, state, "sr_timer@test")).toThrow();
-
-    resetScheme(EScheme.MEET, object, EScheme.MEET, state, "meet@test");
-
-    expect(SchemeMeet.reset).toHaveBeenCalledTimes(1);
   });
 });

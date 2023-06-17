@@ -2,10 +2,10 @@ import { CUIGameCustom, game, get_hud, StaticDrawableWrapper } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { EActorZoneState, ISchemeNoWeaponState } from "@/engine/core/schemes/sr_no_weapon/ISchemeNoWeaponState";
 import { SchemeNoWeapon } from "@/engine/core/schemes/sr_no_weapon/SchemeNoWeapon";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { ClientObject, Optional, TDuration, Time } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -22,9 +22,6 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
 
   protected scheme: typeof SchemeNoWeapon;
 
-  /**
-   * todo: Description.
-   */
   public constructor(object: ClientObject, state: ISchemeNoWeaponState, scheme: typeof SchemeNoWeapon) {
     super(object, state);
     this.scheme = scheme;

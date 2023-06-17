@@ -2,10 +2,10 @@ import { CUIGameCustom, get_hud, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/sr_timer/ISchemeTimerState";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { globalTimeToString } from "@/engine/core/utils/time";
 import { Optional, TSection, TTimestamp } from "@/engine/lib/types";
 

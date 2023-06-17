@@ -2,9 +2,9 @@ import { alife, patrol, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/sr_crow_spawner/ISchemeCrowSpawnerState";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { copyTable } from "@/engine/core/utils/table";
 import { Optional, Patrol, ServerObject, TCount, TDuration, TIndex, TName } from "@/engine/lib/types";
 

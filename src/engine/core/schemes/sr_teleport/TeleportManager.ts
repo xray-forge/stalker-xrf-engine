@@ -2,10 +2,10 @@ import { level, patrol, time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ETeleportState, ISchemeTeleportState } from "@/engine/core/schemes/sr_teleport/ISchemeTeleportState";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { teleportActorWithEffects } from "@/engine/core/utils/position";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { ClientObject, Optional, TProbability, TTimestamp, Vector } from "@/engine/lib/types";
 

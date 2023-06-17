@@ -72,10 +72,10 @@ export class MapDisplayManager extends AbstractCoreManager {
   ): void {
     logger.info("Update npc spot:", object.name());
 
-    const npcId: TNumberId = object.id();
-    const sim: AlifeSimulator = alife();
+    const objectId: TNumberId = object.id();
+    const simulator: AlifeSimulator = alife();
 
-    if (!sim) {
+    if (!simulator) {
       return;
     }
 
@@ -112,25 +112,25 @@ export class MapDisplayManager extends AbstractCoreManager {
 
     const spotConditionsList: TConditionList = parseConditionsList(spotSection);
     const spot: TSection = pickSectionFromCondList(actor, object, spotConditionsList)!;
-    const obj: Optional<ServerObject> = sim.object(object.id());
+    const serverObject: Optional<ServerObject> = simulator.object(object.id());
 
-    if (obj?.online) {
-      obj.visible_for_map(spot !== FALSE);
+    if (serverObject?.online) {
+      serverObject.visible_for_map(spot !== FALSE);
 
       if (mapSpot !== null) {
         const descriptor = mapNpcMarks[mapSpot];
 
-        if (level.map_has_object_spot(npcId, descriptor.map_location) !== 0) {
-          level.map_remove_object_spot(npcId, descriptor.map_location);
+        if (level.map_has_object_spot(objectId, descriptor.map_location) !== 0) {
+          level.map_remove_object_spot(objectId, descriptor.map_location);
         }
 
         if (actor && object && object.general_goodwill(actor) > -1000) {
-          level.map_add_object_spot(npcId, descriptor.map_location, descriptor.hint);
+          level.map_add_object_spot(objectId, descriptor.map_location, descriptor.hint);
         }
       } else {
         Object.values(mapMarks).forEach((it) => {
-          if (level.map_has_object_spot(npcId, it) !== 0) {
-            level.map_remove_object_spot(npcId, it);
+          if (level.map_has_object_spot(objectId, it) !== 0) {
+            level.map_remove_object_spot(objectId, it);
           }
         });
       }

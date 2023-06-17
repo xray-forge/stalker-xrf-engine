@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/schemes/base";
+import type { IBaseSchemeState } from "@/engine/core/schemes/base/types";
 
 /**
  * todo;
