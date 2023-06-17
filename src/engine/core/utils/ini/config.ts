@@ -305,9 +305,9 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Opti
 
   // todo: Move conditions to enum.
   addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN);
-  addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_AND_VISIBLE);
+  addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE);
   addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN);
-  addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE);
+  addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_NOT_VISIBLE);
   addConditions(readIniStringAndCondList, ESchemeCondition.ON_SIGNAL);
   addConditions(readIniConditionList, ESchemeCondition.ON_INFO);
   addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_TIMER);

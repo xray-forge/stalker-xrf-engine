@@ -1,5 +1,6 @@
 import { jest } from "@jest/globals";
-import { CTime } from "xray16";
+
+import { Time } from "@/engine/lib/types";
 
 /**
  * Mock CTime object.
@@ -13,8 +14,14 @@ export class MockCTime {
     return time;
   }
 
-  public static mock(y: number, m: number, d: number, h: number, min: number, sec: number, ms: number): CTime {
-    return MockCTime.create(y, m, d, h, min, sec, ms) as unknown as CTime;
+  public static mock(y: number, m: number, d: number, h: number, min: number, sec: number, ms: number): Time {
+    return MockCTime.create(y, m, d, h, min, sec, ms) as unknown as Time;
+  }
+
+  public static nowTime: MockCTime = MockCTime.create(2012, 6, 12, 9, 30, 0, 0);
+
+  public static now(): MockCTime {
+    return MockCTime.nowTime;
   }
 
   public y: number = 2012;
@@ -48,6 +55,26 @@ export class MockCTime {
     this.sec = sec;
     this.ms = ms;
   });
+
+  public diffSec = jest.fn((target: MockCTime): number => {
+    return Math.abs(
+      this.sec -
+        target.sec +
+        (this.min - target.min) * 60 +
+        (this.h - target.h) * 3_600 +
+        (this.d - target.d) * 86_400 +
+        (this.m - target.m) * 2_592_000 +
+        (this.y - target.y) * 31_104_000
+    );
+  });
+
+  public copy(): MockCTime {
+    const time: MockCTime = new MockCTime();
+
+    time.set(this.y, this.m, this.d, this.h, this.min, this.sec, this.ms);
+
+    return time;
+  }
 
   public toString(): string {
     return `y:${this.y}, m:${this.m}, d:${this.d}, h:${this.h}, min:${this.min}, sec:${this.sec}, ms:${this.ms}`;

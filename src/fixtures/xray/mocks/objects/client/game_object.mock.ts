@@ -83,6 +83,7 @@ export function mockClientGameObject({
     ...rest,
     active_item,
     animation_count,
+    alive: rest.alive || jest.fn(() => true),
     active_slot: rest.active_slot || jest.fn(() => 3),
     add_restrictions:
       rest.add_restrictions ||
@@ -191,6 +192,7 @@ export function mockClientGameObject({
           });
       }),
     section: section || jest.fn(() => sectionOverride),
+    see: rest.see || jest.fn(() => false),
     set_body_state: rest.set_body_state || jest.fn(),
     set_callback:
       rest.set_callback ||
@@ -242,7 +244,7 @@ export function mockClientGameObject({
     weapon_unstrapped,
   };
 
-  CLIENT_SIDE_REGISTRY[gameObject.id()] = gameObject as ClientObject;
+  CLIENT_SIDE_REGISTRY.set(gameObject.id(), gameObject as ClientObject);
 
   return gameObject as ClientObject;
 }

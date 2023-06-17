@@ -28,7 +28,12 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Cached switcher to check conditions based on scheme logic condition type.
+ * Lua does not support switch cases so instead of 10+ IFs one callback from mapped object is called.
+ * Comparing to original logic where for loop also calls 10+ IFs it is considered optimization.
+ *
+ * key - scheme condition type
+ * value - callback checker+switcher, returns whether switch is activated
  */
 const SCHEME_LOGIC_SWITCH: Record<
   ESchemeCondition | typeof NIL,
@@ -39,19 +44,18 @@ const SCHEME_LOGIC_SWITCH: Record<
     isActorSeenByObject(object) &&
     getDistanceBetween(actor, object) <= (logic.v1 as TDistance) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
-  [ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_AND_VISIBLE]: (actor, object, state, logic) =>
+  [ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE]: (actor, object, state, logic) =>
     getDistanceBetween(actor, object) <= (logic.v1 as TDistance) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN]: (actor, object, state, logic) =>
     isActorSeenByObject(object) &&
     getDistanceBetween(actor, object) > (logic.v1 as TDistance) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
-  [ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE]: (actor, object, state, logic) =>
+  [ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_NOT_VISIBLE]: (actor, object, state, logic) =>
     getDistanceBetween(actor, object) > (logic.v1 as TDistance) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_SIGNAL]: (actor, object, state, logic) =>
-    (state.signals &&
-      state.signals.get(logic.v1 as TName) &&
+    (state.signals?.get(logic.v1 as TName) &&
       switchObjectSchemeToSection(
         object,
         state.ini,
@@ -95,7 +99,7 @@ const SCHEME_LOGIC_SWITCH: Record<
 export function trySwitchToAnotherSection(object: ClientObject, state: IBaseSchemeState): boolean {
   const logic: Optional<LuaArray<IBaseSchemeLogic>> = state.logic;
 
-  assert(logic, "Can't find `logic` in state, scheme '%s'.", registry.objects.get(object.id()).active_scheme);
+  assert(logic, "Can't find `logic` in state, section '%s'.", state.section);
 
   for (const [, condition] of logic) {
     const conditionName: ESchemeCondition = (string.match(condition.name, "([%a_]*)")[0] as ESchemeCondition) || NIL;

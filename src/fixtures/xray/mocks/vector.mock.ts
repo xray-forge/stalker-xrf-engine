@@ -1,3 +1,5 @@
+import { jest } from "@jest/globals";
+
 import { Vector } from "@/engine/lib/types";
 
 /**

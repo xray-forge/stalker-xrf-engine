@@ -68,7 +68,8 @@ export enum EScheme {
 }
 
 /**
- * todo;
+ * Applied scheme type.
+ * Describes with what object type scheme logic works.
  */
 export enum ESchemeType {
   STALKER = 1,
@@ -79,23 +80,37 @@ export enum ESchemeType {
 }
 
 /**
- * todo;
+ * Scheme conditions enum for active section toggling.
  */
 export enum ESchemeCondition {
+  // Check whether some scheme signal is received and activated.
   ON_SIGNAL = "on_signal",
+  // Check whether info portions are matching in condlist (executes section pick from condlist).
   ON_INFO = "on_info",
+  // Check whether desired time passed since already applied scheme activation, expects milliseconds.
   ON_TIMER = "on_timer",
+  // Check whether desired time passed in game world, expects in-game seconds.
   ON_GAME_TIMER = "on_game_timer",
+  // Check whether actor is in zone by zone name.
   ON_ACTOR_IN_ZONE = "on_actor_in_zone",
+  // Check whether actor is not in zone by zone name.
   ON_ACTOR_NOT_IN_ZONE = "on_actor_not_in_zone",
+  // Check whether NPC is in zone by zone name.
   ON_NPC_IN_ZONE = "on_npc_in_zone",
+  // Check whether NPC is not in zone by zone name.
   ON_NPC_NOT_IN_ZONE = "on_npc_not_in_zone",
+  // Check whether actor is in object restrictor.
   ON_ACTOR_INSIDE = "on_actor_inside",
+  // Check whether actor is outside of object restrictor.
   ON_ACTOR_OUTSIDE = "on_actor_outside",
+  // Check whether object see actor + distance is greater/equal than parameter, assumes object is alive.
   ON_ACTOR_DISTANCE_GREATER_THAN = "on_actor_dist_ge",
-  ON_ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE = "on_actor_dist_ge_nvis",
+  // Check whether distance is greater/equal than parameter, do not check visibility or object state.
+  ON_ACTOR_DISTANCE_GREATER_THAN_NOT_VISIBLE = "on_actor_dist_ge_nvis",
+  // Check whether object see actor + distance is less/equal than parameter, assumes object is alive.
   ON_ACTOR_DISTANCE_LESS_THAN = "on_actor_dist_le",
-  ON_ACTOR_DISTANCE_LESS_THAN_AND_VISIBLE = "on_actor_dist_le_nvis",
+  // Check whether distance is less/equal than parameter, do not check visibility or object state.
+  ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE = "on_actor_dist_le_nvis",
 }
 
 /**

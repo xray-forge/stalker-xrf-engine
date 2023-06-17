@@ -10,18 +10,26 @@ import { mockIniFile } from "@/fixtures/xray";
 export function mockSchemeState<T extends IBaseSchemeState>(
   object: ClientObject,
   scheme: EScheme,
-  base: Partial<T> = {}
+  {
+    ini = mockIniFile("scheme.ltx"),
+    logic = new LuaTable(),
+    signals = new LuaTable(),
+    idle_end = 0,
+    npc,
+    overrides = null,
+    ...base
+  }: Partial<T> = {}
 ): T {
   return {
     ...(base as T),
-    idle_end: 0,
-    ini: base.ini || mockIniFile("scheme.ltx"),
-    logic: new LuaTable(),
-    npc: object,
-    overrides: null,
+    idle_end,
+    ini,
+    logic,
+    npc,
+    overrides,
     scheme: base.scheme || scheme,
     section: base.section || scheme + "@test",
-    signals: new LuaTable(),
+    signals,
   };
 }
 
