@@ -7,8 +7,8 @@ import { ETeleportState, ISchemeTeleportState } from "@/engine/core/schemes/sr_t
 import { SchemeTeleport } from "@/engine/core/schemes/sr_teleport/SchemeTeleport";
 import { TeleportManager } from "@/engine/core/schemes/sr_teleport/TeleportManager";
 import { giveInfo } from "@/engine/core/utils/info_portion";
+import { loadSchemeImplementation } from "@/engine/core/utils/scheme/setup";
 import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
-import { loadSchemeImplementation } from "@/engine/scripts/register/schemes_registrator";
 import { getSchemeAction } from "@/fixtures/engine/mocks";
 import { replaceFunctionMock } from "@/fixtures/utils/function_mock";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";

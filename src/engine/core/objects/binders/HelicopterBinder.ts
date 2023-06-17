@@ -14,13 +14,13 @@ import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
-import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
 import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { getHeliHealth } from "@/engine/core/schemes/heli_move/heli_utils";
 import { HeliCombat } from "@/engine/core/schemes/heli_move/HeliCombat";
 import { getHeliFirer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
 import {
   ClientObject,
   ESchemeType,

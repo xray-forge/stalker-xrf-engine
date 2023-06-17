@@ -3,12 +3,12 @@ import { ini_file } from "xray16";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
 import { ESchemeEvent } from "@/engine/core/schemes";
-import { disableObjectGenericSchemes } from "@/engine/core/schemes/base/utils/disableObjectGenericSchemes";
-import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
 import { enableObjectGenericSchemes } from "@/engine/core/schemes/base/utils/enableObjectGenericSchemes";
 import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/read";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_general";
+import { emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
+import { disableObjectBaseSchemes } from "@/engine/core/utils/scheme/setup";
 import { spawnDefaultObjectItems } from "@/engine/core/utils/spawn";
 import { ClientObject, ESchemeType, IniFile, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
 
@@ -78,7 +78,7 @@ export function configureObjectSchemes(
     }
   }
 
-  disableObjectGenericSchemes(object, schemeType);
+  disableObjectBaseSchemes(object, schemeType);
   enableObjectGenericSchemes(actualIni, object, schemeType, sectionLogic);
 
   state.active_section = null;

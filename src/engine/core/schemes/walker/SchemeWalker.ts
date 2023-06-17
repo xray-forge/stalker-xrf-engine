@@ -8,7 +8,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { addCommonPrecondition } from "@/engine/core/utils/scheme";
+import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/setup";
 import { ActionPlanner, ClientObject, IniFile, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -81,7 +81,7 @@ export class SchemeWalker extends AbstractScheme {
     actionWalkerActivity.add_precondition(new world_property(stalker_ids.property_anomaly, false));
     actionWalkerActivity.add_precondition(new world_property(EEvaluatorId.NEED_WALKER, true));
 
-    addCommonPrecondition(actionWalkerActivity);
+    addCommonActionPreconditions(actionWalkerActivity);
 
     actionWalkerActivity.add_effect(new world_property(EEvaluatorId.NEED_WALKER, false));
     actionWalkerActivity.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));

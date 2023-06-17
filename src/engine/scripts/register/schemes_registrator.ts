@@ -1,4 +1,3 @@
-import { registry } from "@/engine/core/database";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { SchemeAnimpoint } from "@/engine/core/schemes/animpoint";
 import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
@@ -54,38 +53,10 @@ import { SchemeTeleport } from "@/engine/core/schemes/sr_teleport";
 import { SchemeTimer } from "@/engine/core/schemes/sr_timer";
 import { SchemeWalker } from "@/engine/core/schemes/walker";
 import { SchemeWounded } from "@/engine/core/schemes/wounded";
-import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
+import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/utils/scheme/setup";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo;
- */
-export function loadSchemeImplementation(
-  schemeImplementation: TAbstractSchemeConstructor,
-  schemeNameOverride?: EScheme
-): void {
-  const targetSchemeName: EScheme = schemeNameOverride || schemeImplementation.SCHEME_SECTION;
-
-  logger.info("Loading scheme implementation:", targetSchemeName, ESchemeType[schemeImplementation.SCHEME_TYPE]);
-
-  if (targetSchemeName === null) {
-    abort("Invalid scheme section name provided: '%s'.", schemeImplementation.SCHEME_SECTION);
-  } else if (schemeImplementation.SCHEME_TYPE === null) {
-    abort("Invalid scheme type provided: '%s'.", schemeImplementation.SCHEME_TYPE);
-  }
-
-  registry.schemes.set(schemeNameOverride || schemeImplementation.SCHEME_SECTION, schemeImplementation);
-}
-
-/**
- * todo;
- */
-export function loadSchemeImplementations(schemeImplementations: Array<TAbstractSchemeConstructor>): void {
-  schemeImplementations.forEach((it) => loadSchemeImplementation(it));
-}
 
 /**
  * Register logics handling schemes.
@@ -93,62 +64,64 @@ export function loadSchemeImplementations(schemeImplementations: Array<TAbstract
 export function registerSchemes(): void {
   logger.info("Register scheme modules");
 
-  loadSchemeImplementations([
-    ActionSchemeHear,
-    SchemeAbuse,
-    SchemeAnimpoint,
-    SchemeCamper,
-    SchemeCode,
-    SchemeCombat,
-    SchemeCombatIgnore,
-    SchemeCombatZombied,
-    SchemeCombatCamper,
-    SchemeCompanion,
-    SchemeCorpseDetection,
-    SchemeCover,
-    SchemeCrowSpawner,
-    SchemeCutscene,
-    SchemeDanger,
-    SchemeDeath,
-    SchemeDeimos,
-    SchemeGatherItems,
-    SchemeHelicopterMove,
-    SchemeHelpWounded,
-    SchemeHit,
-    SchemeIdle,
-    SchemeLight,
-    SchemeMeet,
-    SchemeMinigun,
-    SchemeMobCombat,
-    SchemeMobDeath,
-    SchemeMobHome,
-    SchemeMobJump,
-    SchemeMobRemark,
-    SchemeMobWalker,
-    SchemeMonster,
-    SchemeNoWeapon,
-    SchemeOscillate,
-    SchemeParticle,
-    SchemePatrol,
-    SchemePhysicalButton,
-    SchemePhysicalDoor,
-    SchemePhysicalForce,
-    SchemePhysicalHit,
-    SchemePhysicalIdle,
-    SchemePhysicalOnDeath,
-    SchemePhysicalOnHit,
-    SchemePostProcess,
-    SchemePsyAntenna,
-    SchemeReachTask,
-    SchemeRemark,
-    SchemeSilence,
-    SchemeSleeper,
-    SchemeSmartCover,
-    SchemeTeleport,
-    SchemeTimer,
-    SchemeWalker,
-    SchemeWounded,
-  ]);
+  loadSchemeImplementations(
+    $fromArray([
+      ActionSchemeHear,
+      SchemeAbuse,
+      SchemeAnimpoint,
+      SchemeCamper,
+      SchemeCode,
+      SchemeCombat,
+      SchemeCombatIgnore,
+      SchemeCombatZombied,
+      SchemeCombatCamper,
+      SchemeCompanion,
+      SchemeCorpseDetection,
+      SchemeCover,
+      SchemeCrowSpawner,
+      SchemeCutscene,
+      SchemeDanger,
+      SchemeDeath,
+      SchemeDeimos,
+      SchemeGatherItems,
+      SchemeHelicopterMove,
+      SchemeHelpWounded,
+      SchemeHit,
+      SchemeIdle,
+      SchemeLight,
+      SchemeMeet,
+      SchemeMinigun,
+      SchemeMobCombat,
+      SchemeMobDeath,
+      SchemeMobHome,
+      SchemeMobJump,
+      SchemeMobRemark,
+      SchemeMobWalker,
+      SchemeMonster,
+      SchemeNoWeapon,
+      SchemeOscillate,
+      SchemeParticle,
+      SchemePatrol,
+      SchemePhysicalButton,
+      SchemePhysicalDoor,
+      SchemePhysicalForce,
+      SchemePhysicalHit,
+      SchemePhysicalIdle,
+      SchemePhysicalOnDeath,
+      SchemePhysicalOnHit,
+      SchemePostProcess,
+      SchemePsyAntenna,
+      SchemeReachTask,
+      SchemeRemark,
+      SchemeSilence,
+      SchemeSleeper,
+      SchemeSmartCover,
+      SchemeTeleport,
+      SchemeTimer,
+      SchemeWalker,
+      SchemeWounded,
+    ] as Array<TAbstractSchemeConstructor>)
+  );
 
   loadSchemeImplementation(SchemeMeet, SchemeMeet.SCHEME_SECTION_ACTOR_DIALOGS);
 }

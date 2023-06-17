@@ -3,7 +3,6 @@ import { callback, clsid } from "xray16";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
 import { ObjectRestrictionsManager } from "@/engine/core/schemes";
-import { resetScheme } from "@/engine/core/schemes/base/utils/schemes_reset";
 import {
   initializeObjectCanSelectWeaponState,
   initializeObjectTakeItemsEnabledState,
@@ -12,6 +11,7 @@ import {
   resetObjectInvulnerability,
   scriptReleaseObject,
 } from "@/engine/core/utils/object/object_general";
+import { resetScheme } from "@/engine/core/utils/scheme/setup";
 import { ClientObject } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 

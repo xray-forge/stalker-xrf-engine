@@ -3,8 +3,8 @@ import { describe, expect, it } from "@jest/globals";
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/mob_home/ISchemeMobHomeState";
 import { SchemeMobHome } from "@/engine/core/schemes/mob_home/SchemeMobHome";
+import { loadSchemeImplementation } from "@/engine/core/utils/scheme/setup";
 import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
-import { loadSchemeImplementation } from "@/engine/scripts/register/schemes_registrator";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeMobHome functionality", () => {

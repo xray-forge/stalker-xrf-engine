@@ -8,7 +8,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { parseConditionsList } from "@/engine/core/utils/ini/parse";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { addCommonPrecondition } from "@/engine/core/utils/scheme";
+import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/setup";
 import { NIL } from "@/engine/lib/constants/words";
 import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
@@ -69,7 +69,7 @@ export class SchemeRemark extends AbstractScheme {
     actionRemarkActivity.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionRemarkActivity.add_precondition(new world_property(stalker_ids.property_anomaly, false));
     actionRemarkActivity.add_precondition(new world_property(EEvaluatorId.NEED_REMARK, true));
-    addCommonPrecondition(actionRemarkActivity);
+    addCommonActionPreconditions(actionRemarkActivity);
     actionRemarkActivity.add_effect(new world_property(EEvaluatorId.NEED_REMARK, false));
     actionRemarkActivity.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     actionPlanner.add_action(EActionId.REMARK_ACTIVITY, actionRemarkActivity);

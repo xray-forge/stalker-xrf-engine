@@ -6,7 +6,6 @@ import { StoryManager } from "@/engine/core/objects/sounds/stories/StoryManager"
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/animpoint/ISchemeAnimpointState";
 import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
-import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { MeetManager } from "@/engine/core/schemes/meet/MeetManager";
 import { abort } from "@/engine/core/utils/assertion";
@@ -14,6 +13,7 @@ import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { parseStringsList } from "@/engine/core/utils/ini/parse";
 import { readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
 import {
   ClientObject,
   EScheme,

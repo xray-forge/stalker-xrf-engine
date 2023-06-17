@@ -1,8 +1,8 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { activateSchemeBySection } from "@/engine/core/schemes/base/utils/activateSchemeBySection";
-import { emitSchemeEvent } from "@/engine/core/schemes/base/utils/emitSchemeEvent";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
 import { ClientObject, EScheme, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

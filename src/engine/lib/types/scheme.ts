@@ -71,11 +71,11 @@ export enum EScheme {
  * todo;
  */
 export enum ESchemeType {
-  STALKER = 0,
-  MONSTER = 1,
-  ITEM = 2,
-  HELI = 3,
-  RESTRICTOR = 4,
+  STALKER = 1,
+  MONSTER = 2,
+  ITEM = 3,
+  HELI = 4,
+  RESTRICTOR = 5,
 }
 
 /**

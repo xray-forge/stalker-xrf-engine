@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isSchemeActive } from "@/engine/core/utils/scheme";
+import { isSectionActive } from "@/engine/core/utils/scheme/logic";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -25,6 +25,6 @@ export class EvaluatorNeedSleep extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    return isSchemeActive(this.object, this.state);
+    return isSectionActive(this.object, this.state);
   }
 }

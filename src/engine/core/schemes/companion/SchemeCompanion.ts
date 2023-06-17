@@ -6,7 +6,7 @@ import { EvaluatorNeedCompanion } from "@/engine/core/schemes/companion/evaluato
 import { ISchemeCompanionState } from "@/engine/core/schemes/companion/ISchemeCompanionState";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { addCommonPrecondition } from "@/engine/core/utils/scheme";
+import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/setup";
 import { ActionPlanner, ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -53,7 +53,7 @@ export class SchemeCompanion extends AbstractScheme {
     actionCompanionActivity.add_precondition(new world_property(stalker_ids.property_alive, true));
     actionCompanionActivity.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionCompanionActivity.add_precondition(new world_property(EEvaluatorId.NEED_COMPANION, true));
-    addCommonPrecondition(actionCompanionActivity);
+    addCommonActionPreconditions(actionCompanionActivity);
     actionCompanionActivity.add_effect(new world_property(EEvaluatorId.NEED_COMPANION, false));
     actionCompanionActivity.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     actionPlanner.add_action(EActionId.COMPANION_ACTIVITY, actionCompanionActivity);

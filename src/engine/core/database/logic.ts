@@ -11,7 +11,7 @@ import {
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
-import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
+import { emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { NIL } from "@/engine/lib/constants/words";
 import {
@@ -46,6 +46,7 @@ export function saveObjectLogic(object: ClientObject, packet: NetPacket): void {
   packet.w_s32((state.activation_time || 0) - time_global());
   writeTimeToPacket(packet, state.activation_game_time);
 
+  // todo: Active section or active scheme?
   if (state.active_scheme) {
     emitSchemeEvent(object, state[state.active_scheme] as IBaseSchemeState, ESchemeEvent.SAVE);
   }

@@ -158,6 +158,7 @@ export function mockClientGameObject({
       }),
     out_restrictions: rest.out_restrictions || jest.fn(() => outRestrictions.join(",")),
     in_restrictions: rest.in_restrictions || jest.fn(() => inRestrictions.join(",")),
+    invulnerable: rest.invulnerable || jest.fn(),
     iterate_inventory: jest.fn((cb: (owner: ClientObject, item: ClientObject) => void, owner: ClientObject) => {
       for (const [, item] of inventoryMap) {
         cb(owner, item);

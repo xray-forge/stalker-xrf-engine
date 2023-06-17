@@ -43,11 +43,7 @@ import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTe
 import { addStateManager } from "@/engine/core/objects/state/add_state_manager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
-import {
-  emitSchemeEvent,
-  getObjectGenericSchemeOverrides,
-  trySwitchToAnotherSection,
-} from "@/engine/core/schemes/base/utils";
+import { getObjectGenericSchemeOverrides, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
 import { PostCombatIdle } from "@/engine/core/schemes/combat_idle/PostCombatIdle";
 import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
@@ -65,6 +61,7 @@ import {
   updateObjectInvulnerability,
 } from "@/engine/core/utils/object/object_general";
 import { setObjectsRelation, setObjectSympathy } from "@/engine/core/utils/relation";
+import { emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";

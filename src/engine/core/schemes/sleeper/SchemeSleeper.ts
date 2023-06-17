@@ -7,7 +7,7 @@ import { ISchemeSleeperState } from "@/engine/core/schemes/sleeper/ISchemeSleepe
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { addCommonPrecondition } from "@/engine/core/utils/scheme";
+import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/setup";
 import { ActionPlanner, ClientObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -63,7 +63,7 @@ export class SchemeSleeper extends AbstractScheme {
     actionSleeper.add_precondition(new world_property(stalker_ids.property_anomaly, false));
     actionSleeper.add_precondition(new world_property(EEvaluatorId.NEED_SLEEPER, true));
 
-    addCommonPrecondition(actionSleeper);
+    addCommonActionPreconditions(actionSleeper);
 
     actionSleeper.add_effect(new world_property(EEvaluatorId.NEED_SLEEPER, false));
     actionSleeper.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
