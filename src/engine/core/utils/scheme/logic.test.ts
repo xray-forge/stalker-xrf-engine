@@ -1,4 +1,4 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, clsid } from "xray16";
 
 import {
@@ -10,6 +10,8 @@ import {
   registry,
 } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/interface";
+import { SmartTerrain } from "@/engine/core/objects";
+import { ISmartTerrainJob } from "@/engine/core/objects/server/smart_terrain/types";
 import {
   ESchemeEvent,
   IBaseSchemeState,
@@ -24,22 +26,56 @@ import { SchemeDeath } from "@/engine/core/schemes/death";
 import { SchemeGatherItems } from "@/engine/core/schemes/gather_items";
 import { SchemeHear } from "@/engine/core/schemes/hear";
 import { SchemeHelpWounded } from "@/engine/core/schemes/help_wounded";
+import { SchemeHit } from "@/engine/core/schemes/hit";
+import { HitManager } from "@/engine/core/schemes/hit/HitManager";
 import { SchemeMeet } from "@/engine/core/schemes/meet";
+import { SchemePatrol } from "@/engine/core/schemes/patrol";
+import { SchemeIdle } from "@/engine/core/schemes/sr_idle";
+import { IdleManager } from "@/engine/core/schemes/sr_idle/IdleManager";
 import { SchemeWounded } from "@/engine/core/schemes/wounded";
 import { disableInfo, giveInfo } from "@/engine/core/utils/info_portion";
 import {
+  activateSchemeBySection,
   emitSchemeEvent,
   getSectionToActivate,
   isSectionActive,
   resetObjectGenericSchemesOnSectionSwitch,
 } from "@/engine/core/utils/scheme/logic";
-import { loadSchemeImplementations } from "@/engine/core/utils/scheme/setup";
+import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/utils/scheme/setup";
 import { NIL } from "@/engine/lib/constants/words";
-import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
-import { mockSchemeState } from "@/fixtures/engine/mocks";
-import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { ClientObject, EScheme, ESchemeType, IniFile, ServerHumanObject } from "@/engine/lib/types";
+import { getSchemeAction, mockSchemeState } from "@/fixtures/engine/mocks";
+import { luaTableToObject } from "@/fixtures/lua/mocks/utils";
+import { MockAlifeSimulator, mockClientGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
 describe("'scheme logic' utils", () => {
+  function loadGenericSchemes(): Array<TAbstractSchemeConstructor> {
+    const schemes: Array<TAbstractSchemeConstructor> = [
+      SchemeMeet,
+      SchemeHelpWounded,
+      SchemeCorpseDetection,
+      SchemeAbuse,
+      SchemeWounded,
+      SchemeDeath,
+      SchemeDanger,
+      SchemeGatherItems,
+      SchemeCombatIgnore,
+      SchemeHear,
+    ];
+
+    schemes.forEach((it) => jest.spyOn(it, "reset").mockImplementation(jest.fn()));
+
+    loadSchemeImplementations($fromArray(schemes));
+
+    return schemes;
+  }
+
+  beforeEach(() => {
+    registry.schemes = new LuaTable();
+    registry.actor = null as unknown as ClientObject;
+  });
+
   it("'isSectionActive' should correctly check scheme activity", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
@@ -169,8 +205,146 @@ describe("'scheme logic' utils", () => {
     expect(registry.offlineObjects.get(object.id()).activeSection).toBeNull();
   });
 
-  it("'activateSchemeBySection' should correctly activate scheme for objects", () => {
-    // todo;
+  it("'activateSchemeBySection' should correctly activate NIL scheme", () => {
+    const first: ClientObject = mockClientGameObject();
+    const firstState: IRegistryObjectState = registerObject(first);
+    const second: ClientObject = mockClientGameObject();
+    const secondState: IRegistryObjectState = registerObject(second);
+
+    const ini: IniFile = mockIniFile("test.ltx", {
+      "sr_idle@test": {},
+    });
+
+    jest.spyOn(Date, "now").mockImplementation(() => 3000);
+
+    firstState.ini = ini;
+    secondState.ini = ini;
+
+    firstState.schemeType = ESchemeType.ITEM;
+    secondState.schemeType = ESchemeType.ITEM;
+
+    // If initialing.
+    activateSchemeBySection(first, ini, NIL, null, false);
+    expect(firstState.activationTime).toBe(3000);
+    expect(firstState.activationGameTime).toBe(MockCTime.nowTime);
+    expect(first.set_nonscript_usable).toHaveBeenCalled();
+
+    // If loading.
+    activateSchemeBySection(second, ini, NIL, null, true);
+    expect(secondState.activationTime).toBeUndefined();
+    expect(secondState.activationGameTime).toBeUndefined();
+    expect(first.set_nonscript_usable).toHaveBeenCalled();
+  });
+
+  it("'activateSchemeBySection' should correctly assign smart terrain jobs", () => {
+    const object: ClientObject = mockClientGameObject();
+    const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({ id: object.id() });
+    const state: IRegistryObjectState = registerObject(object);
+    const smartTerrain: SmartTerrain = new SmartTerrain("smart_terrain");
+
+    registerActor(mockClientGameObject());
+
+    MockAlifeSimulator.addToRegistry(serverObject);
+    MockAlifeSimulator.addToRegistry(smartTerrain);
+
+    serverObject.m_smart_terrain_id = smartTerrain.id;
+
+    loadGenericSchemes();
+    loadSchemeImplementation(SchemePatrol);
+
+    jest.spyOn(SchemePatrol, "activate").mockImplementation(() => {});
+    jest.spyOn(smartTerrain, "getJob").mockImplementation(
+      () =>
+        ({
+          section: "patrol@test",
+        } as ISmartTerrainJob)
+    );
+
+    const ini: IniFile = mockIniFile("test.ltx", {
+      "patrol@test": {},
+    });
+
+    state.ini = ini;
+    state.schemeType = ESchemeType.STALKER;
+
+    activateSchemeBySection(object, ini, null, null, false);
+
+    expect(SchemePatrol.activate).toHaveBeenCalledWith(object, ini, EScheme.PATROL, "patrol@test", null);
+    expect(state.activeSection).toBe("patrol@test");
+    expect(state.activeScheme).toBe(EScheme.PATROL);
+  });
+
+  it("'activateSchemeBySection' should correctly activate schemes for restrictors", () => {
+    const object: ClientObject = mockClientGameObject();
+    const state: IRegistryObjectState = registerObject(object);
+    const ini: IniFile = mockIniFile("test.ltx", {
+      "sr_idle@test": {},
+    });
+
+    registerActor(mockClientGameObject());
+
+    state.ini = ini;
+    state.schemeType = ESchemeType.RESTRICTOR;
+
+    jest.spyOn(SchemeIdle, "activate");
+    jest.spyOn(IdleManager.prototype, "resetScheme");
+
+    expect(() => activateSchemeBySection(object, ini, "sr_idle@test", null, false)).toThrow();
+
+    loadGenericSchemes();
+    loadSchemeImplementation(SchemeIdle);
+
+    expect(() => activateSchemeBySection(object, ini, "sr_idle@not_existing", null, false)).toThrow();
+    activateSchemeBySection(object, ini, "sr_idle@test", null, false);
+
+    expect(state.activeSection).toBe("sr_idle@test");
+    expect(state.activeScheme).toBe(EScheme.SR_IDLE);
+    expect(SchemeIdle.activate).toHaveBeenCalledWith(object, ini, EScheme.SR_IDLE, "sr_idle@test", null);
+    expect(getSchemeAction(state[EScheme.SR_IDLE] as IBaseSchemeState).resetScheme).toHaveBeenCalledWith(false, object);
+  });
+
+  it("'activateSchemeBySection' should correctly change generic sections", () => {
+    const object: ClientObject = mockClientGameObject();
+    const state: IRegistryObjectState = registerObject(object);
+    const ini: IniFile = mockIniFile("test.ltx", {
+      "hit@test": {},
+    });
+
+    registerActor(mockClientGameObject());
+
+    state.ini = ini;
+    state.schemeType = ESchemeType.STALKER;
+
+    jest.spyOn(SchemeHit, "activate");
+    jest.spyOn(HitManager.prototype, "activateScheme");
+    jest.spyOn(MapDisplayManager.getInstance(), "updateObjectMapSpot").mockImplementation(jest.fn());
+
+    loadGenericSchemes();
+    loadSchemeImplementation(SchemeHit);
+    activateSchemeBySection(object, ini, "hit@test", null, false);
+
+    expect(state.activeSection).toBe("hit@test");
+    expect(state.activeScheme).toBe(EScheme.HIT);
+    expect(SchemeHit.activate).toHaveBeenCalledWith(object, ini, EScheme.HIT, "hit@test", null);
+    expect(object.set_dest_level_vertex_id).toHaveBeenCalledWith(255);
+    expect(getSchemeAction(state[EScheme.HIT] as IBaseSchemeState).activateScheme).toHaveBeenCalledWith(false, object);
+
+    expect(luaTableToObject(state.overrides)).toEqual({
+      combat_ignore: null,
+      combat_ignore_keep_when_attacked: false,
+      combat_type: null,
+      max_post_combat_time: 10,
+      min_post_combat_time: 5,
+      on_combat: null,
+      on_offline_condlist: {
+        "1": {
+          infop_check: {},
+          infop_set: {},
+          section: NIL,
+        },
+      },
+      soundgroup: null,
+    });
   });
 
   it("'configureObjectSchemes' should correctly configure scheme for objects", () => {
@@ -182,6 +356,8 @@ describe("'scheme logic' utils", () => {
   });
 
   it("'resetObjectGenericSchemesOnSectionSwitch' should correctly reset base schemes", () => {
+    registerActor(mockClientGameObject());
+
     const stalker: ClientObject = mockClientGameObject();
     const stalkerState: IRegistryObjectState = registerObject(stalker);
     const monster: ClientObject = mockClientGameObject();
@@ -225,23 +401,10 @@ describe("'scheme logic' utils", () => {
     // Not registered schemes.
     expect(() => resetObjectGenericSchemesOnSectionSwitch(stalker, EScheme.SR_IDLE, "sr_idle@test")).toThrow();
 
-    const schemes: Array<TAbstractSchemeConstructor> = [
-      SchemeMeet,
-      SchemeHelpWounded,
-      SchemeCorpseDetection,
-      SchemeAbuse,
-      SchemeWounded,
-      SchemeDeath,
-      SchemeDanger,
-      SchemeGatherItems,
-      SchemeCombatIgnore,
-      SchemeHear,
-    ];
-
+    const schemes: Array<TAbstractSchemeConstructor> = loadGenericSchemes();
     const mockRestrictorGetter = jest.fn(() => new ObjectRestrictionsManager(stalker));
 
     jest.spyOn(ObjectRestrictionsManager, "activateForObject").mockImplementation(mockRestrictorGetter);
-    schemes.forEach((it) => jest.spyOn(it, "reset").mockImplementation(jest.fn()));
     jest.spyOn(MapDisplayManager.getInstance(), "updateObjectMapSpot").mockImplementation(jest.fn());
 
     loadSchemeImplementations($fromArray(schemes));
@@ -307,6 +470,8 @@ describe("'scheme logic' utils", () => {
         can_select_weapon: false,
       },
     });
+
+    loadGenericSchemes();
 
     resetObjectGenericSchemesOnSectionSwitch(monster, EScheme.SR_IDLE, "sr_idle@test");
     expect(monster.set_manual_invisibility).toHaveBeenNthCalledWith(1, true);

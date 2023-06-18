@@ -235,6 +235,7 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
 
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
+  // todo: use ternary for state.section_logic
   if (ini.line_exist(state.section_logic, "post_combat_time")) {
     const [minPostCombatTime, maxPostCombatTime] = readIniTwoNumbers(
       ini,

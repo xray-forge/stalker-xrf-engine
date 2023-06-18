@@ -45,7 +45,6 @@ export function mockClientGameObject({
   infoPortions = [],
   inventory = [],
   is_talking = jest.fn(() => false),
-  level_vertex_id = jest.fn(() => 255),
   money,
   motivation_action_manager,
   name,
@@ -82,6 +81,7 @@ export function mockClientGameObject({
 
   const gameObject = {
     ...rest,
+    accessible: rest.accessible || jest.fn(() => true),
     active_item,
     animation_count,
     alive: rest.alive || jest.fn(() => true),
@@ -139,7 +139,7 @@ export function mockClientGameObject({
     inside: rest.inside || jest.fn(() => false),
     inventory: inventoryMap,
     is_talking,
-    level_vertex_id,
+    level_vertex_id: rest.level_vertex_id || jest.fn(() => 255),
     max_ignore_monster_distance: rest.max_ignore_monster_distance || jest.fn(),
     money: money || jest.fn(() => objectMoney),
     motivation_action_manager:
@@ -225,6 +225,7 @@ export function mockClientGameObject({
 
         return params;
       }),
+    set_dest_level_vertex_id: rest.set_dest_level_vertex_id || jest.fn(),
     set_sight: rest.set_sight || jest.fn((nextSight: TSightType) => (sight = nextSight)),
     set_actor_position:
       rest.set_actor_position ||

@@ -131,53 +131,61 @@ export function getSectionToActivate(object: ClientObject, ini: IniFile, section
 }
 
 /**
- * todo
- * todo
- * todo
- * todo
+ * Activate logics section for an object.
+ * Respect resetting of shared generic schemes, game loading logic.
+ * If no section provided (null), try to find any section from active smart terrain.
+ * Emit activation signal for new scheme implementation.
+ *
+ * @param object - target client object
+ * @param ini - target object logics ini file
+ * @param section - target section to activate
+ * @param additional - additional information, usually parent smart terrain name
+ * @param isLoading - whether loading object on game load, `false` means manual scheme switch
  */
 export function activateSchemeBySection(
   object: ClientObject,
   ini: IniFile,
-  section: TSection,
+  section: Optional<TSection>,
   additional: Optional<string>,
-  loading: boolean
+  isLoading: boolean
 ): void {
   logger.info("Activate scheme:", object.name(), section, additional);
 
-  assertDefined(loading, "scheme/logic: activateBySection: loading field is null, true || false expected.");
+  assertDefined(isLoading, "scheme/logic: activateBySection: loading field is null, true || false expected.");
 
-  const objectId: TNumberId = object.id();
-  const state: IRegistryObjectState = registry.objects.get(objectId);
+  const state: IRegistryObjectState = registry.objects.get(object.id());
 
-  if (!loading) {
+  if (!isLoading) {
     state.activationTime = time_global();
     state.activationGameTime = game.get_game_time();
   }
 
   if (section === NIL) {
     state.overrides = null;
+
     resetObjectGenericSchemesOnSectionSwitch(object, EScheme.NIL, NIL);
+
     state.activeSection = null;
     state.activeScheme = null;
 
     return;
   }
 
+  // Assign scheme with smart terrain jobs.
   if (section === null) {
     const currentSmartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
     assert(currentSmartTerrain, "scheme/logic: activate_by_section: section is NIL && NPC !in smart.");
 
-    const job: ISmartTerrainJob = currentSmartTerrain.getJob(objectId)!;
+    const job: ISmartTerrainJob = currentSmartTerrain.getJob(object.id()) as ISmartTerrainJob;
 
     section = job.section;
   }
 
   const scheme: Optional<EScheme> = getSchemeFromSection(section);
 
-  assert(ini.section_exist(section), "'%s': activate_by_section section '%s' does not exist.", object.name(), section);
   assert(scheme, "object '%s': unable to determine scheme name from section name '%s'", object.name(), section);
+  assert(ini.section_exist(section), "'%s': activate_by_section section '%s' does not exist.", object.name(), section);
 
   state.overrides = getObjectConfigOverrides(ini, section, object);
 
@@ -197,9 +205,9 @@ export function activateSchemeBySection(
   // todo: Unify activate and reset events.
   if (state.schemeType === ESchemeType.STALKER) {
     sendToNearestAccessibleVertex(object, object.level_vertex_id());
-    emitSchemeEvent(object, state[scheme] as IBaseSchemeState, ESchemeEvent.ACTIVATE_SCHEME, loading, object);
+    emitSchemeEvent(object, state[scheme] as IBaseSchemeState, ESchemeEvent.ACTIVATE_SCHEME, isLoading, object);
   } else {
-    emitSchemeEvent(object, state[scheme] as IBaseSchemeState, ESchemeEvent.RESET_SCHEME, loading, object);
+    emitSchemeEvent(object, state[scheme] as IBaseSchemeState, ESchemeEvent.RESET_SCHEME, isLoading, object);
   }
 }
 

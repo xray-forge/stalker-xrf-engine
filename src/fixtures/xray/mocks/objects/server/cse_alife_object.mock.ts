@@ -1,18 +1,18 @@
 import { jest } from "@jest/globals";
 
-import { AnyObject, ServerObject, TClassId, TSection, Vector } from "@/engine/lib/types";
+import { AnyObject, ServerObject, TClassId, TNumberId, TSection, Vector } from "@/engine/lib/types";
 import { MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { AbstractLuabindClass } from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
-let ID_COUNTER: number = 1000;
+let ID_COUNTER: number = 100_000;
 
 /**
  * todo;
  */
 export class MockAlifeObject extends AbstractLuabindClass {
-  public id: number = ID_COUNTER++;
+  public id: TNumberId = ID_COUNTER++;
   public section: TSection;
   public position: Vector = MockVector.mock(0, 0, 0);
 

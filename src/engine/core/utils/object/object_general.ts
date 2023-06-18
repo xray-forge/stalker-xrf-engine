@@ -19,6 +19,7 @@ import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   ActionPlanner,
+  AlifeSimulator,
   AnyGameObject,
   ClientObject,
   EntityAction,
@@ -82,12 +83,13 @@ export function getObjectSquad(object: Optional<ClientObject | ServerCreatureObj
  * @returns server representation of smart terrain or null
  */
 export function getObjectSmartTerrain(object: ClientObject): Optional<SmartTerrain> {
-  const serverObject: Optional<ServerCreatureObject> = alife().object(object.id());
+  const simulator: AlifeSimulator = alife();
+  const serverObject: Optional<ServerCreatureObject> = simulator.object(object.id());
 
   if (serverObject === null) {
     return null;
   } else {
-    return serverObject.m_smart_terrain_id === MAX_U16 ? null : alife().object(serverObject.m_smart_terrain_id);
+    return serverObject.m_smart_terrain_id === MAX_U16 ? null : simulator.object(serverObject.m_smart_terrain_id);
   }
 }
 
