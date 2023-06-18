@@ -29,7 +29,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 // Todo: move to scheme.
-export class ActionSchemeHear extends AbstractScheme {
+export class SchemeHear extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.HEAR;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER; // And monsters.
 

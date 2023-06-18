@@ -121,7 +121,7 @@ export const string = {
 
     lua.lua_getglobal(L, "string");
     lua.lua_getfield(L, -1, "gmatch");
-    lua.lua_pushstring(L, to_luastring(target));
+    lua.lua_pushstring(L, to_luastring(String(target)));
     lua.lua_pushstring(L, to_luastring(pattern));
     lua.lua_call(L, 2, 1);
 

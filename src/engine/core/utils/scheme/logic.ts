@@ -510,6 +510,7 @@ export function initializeObjectSchemeLogic(
  * todo;
  * todo;
  * todo;
+ * ??? is called right after scheme switch for synchronization?
  */
 export function resetObjectGenericSchemesOnSectionSwitch(
   object: ClientObject,
@@ -539,7 +540,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(
 
       resetObjectIgnoreThreshold(object, scheme, state, section);
       resetObjectInvulnerability(object);
-      resetObjectGroup(object, state.ini!, section);
+      resetObjectGroup(object, state.ini, section);
       initializeObjectTakeItemsEnabledState(object, scheme, state, section);
       initializeObjectCanSelectWeaponState(object, scheme, state, section);
       ObjectRestrictionsManager.activateForObject(object, section);
@@ -549,6 +550,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(
 
     case ESchemeType.MONSTER: {
       scriptReleaseObject(object, ""); // ???
+
       if (object.clsid() === clsid.bloodsucker_s) {
         object.set_manual_invisibility(scheme !== EScheme.NIL);
       }

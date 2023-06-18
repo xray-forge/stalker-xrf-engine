@@ -45,7 +45,7 @@ import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManag
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
 import { PostCombatIdle } from "@/engine/core/schemes/combat_idle/PostCombatIdle";
-import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
+import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
 import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTask";
 import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
@@ -399,7 +399,7 @@ export class StalkerBinder extends object_binder {
       return;
     }
 
-    ActionSchemeHear.onObjectHearSound(target, whoId, soundType, soundPosition, soundPower);
+    SchemeHear.onObjectHearSound(target, whoId, soundType, soundPosition, soundPower);
   }
 
   /**

@@ -400,7 +400,7 @@ export function resetObjectIgnoreThreshold(
       ? readIniString(state.ini, state.section_logic, "threshold", false, "")
       : readIniString(state.ini, section, "threshold", false, "");
 
-  if (thresholdSection !== null) {
+  if (thresholdSection) {
     const maxIgnoreDistance: Optional<TDistance> = readIniNumber(
       state.ini,
       thresholdSection,

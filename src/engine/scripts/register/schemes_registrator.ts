@@ -12,7 +12,7 @@ import { SchemeCover } from "@/engine/core/schemes/cover";
 import { SchemeDanger } from "@/engine/core/schemes/danger";
 import { SchemeDeath } from "@/engine/core/schemes/death";
 import { SchemeGatherItems } from "@/engine/core/schemes/gather_items";
-import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
+import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
 import { SchemeHelicopterMove } from "@/engine/core/schemes/heli_move";
 import { SchemeHelpWounded } from "@/engine/core/schemes/help_wounded";
 import { SchemeHit } from "@/engine/core/schemes/hit";
@@ -66,7 +66,7 @@ export function registerSchemes(): void {
 
   loadSchemeImplementations(
     $fromArray([
-      ActionSchemeHear,
+      SchemeHear,
       SchemeAbuse,
       SchemeAnimpoint,
       SchemeCamper,

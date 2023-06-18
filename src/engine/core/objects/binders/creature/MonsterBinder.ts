@@ -21,7 +21,7 @@ import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/actio
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
-import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
+import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -340,7 +340,7 @@ export class MonsterBinder extends object_binder {
     soundPower: TRate
   ): void {
     if (sourceId !== object.id()) {
-      ActionSchemeHear.onObjectHearSound(object, sourceId, soundType, soundPosition, soundPower);
+      SchemeHear.onObjectHearSound(object, sourceId, soundType, soundPosition, soundPower);
     }
   }
 }
