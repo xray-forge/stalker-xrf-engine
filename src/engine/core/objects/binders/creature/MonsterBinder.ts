@@ -91,8 +91,8 @@ export class MonsterBinder extends object_binder {
 
     this.object.set_tip_text("");
 
-    if (this.state.active_scheme !== null) {
-      trySwitchToAnotherSection(this.object, this.state[this.state.active_scheme as EScheme] as IBaseSchemeState);
+    if (this.state.activeScheme !== null) {
+      trySwitchToAnotherSection(this.object, this.state[this.state.activeScheme as EScheme] as IBaseSchemeState);
     }
 
     const squad: Optional<Squad> = getObjectSquad(this.object);
@@ -139,8 +139,8 @@ export class MonsterBinder extends object_binder {
       return;
     }
 
-    if (this.state.active_section !== null) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
+    if (this.state.activeSection !== null) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.UPDATE, delta);
     }
   }
 
@@ -204,15 +204,15 @@ export class MonsterBinder extends object_binder {
     GlobalSoundManager.getInstance().stopSoundByObjectId(this.object.id());
     registry.actorCombat.delete(this.object.id());
 
-    if (this.state.active_scheme !== null) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme]!, ESchemeEvent.NET_DESTROY);
+    if (this.state.activeScheme !== null) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme]!, ESchemeEvent.NET_DESTROY);
     }
 
     const offlineObject: IStoredOfflineObject = registry.offlineObjects.get(this.object.id());
 
     if (offlineObject !== null) {
       offlineObject.levelVertexId = this.object.level_vertex_id();
-      offlineObject.activeSection = this.state.active_section;
+      offlineObject.activeSection = this.state.activeSection;
     }
 
     unregisterObject(this.object);
@@ -249,10 +249,10 @@ export class MonsterBinder extends object_binder {
    * On waypoint callback.
    */
   public onWaypoint(object: ClientObject, actionType: number, index: TIndex): void {
-    if (this.state.active_section !== null) {
+    if (this.state.activeSection !== null) {
       emitSchemeEvent(
         this.object,
-        this.state[this.state.active_scheme!]!,
+        this.state[this.state.activeScheme!]!,
         ESchemeEvent.WAYPOINT,
         object,
         actionType,
@@ -282,8 +282,8 @@ export class MonsterBinder extends object_binder {
       emitSchemeEvent(this.object, this.state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, victim, killer);
     }
 
-    if (this.state.active_section) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, killer);
+    if (this.state.activeSection) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.DEATH, victim, killer);
     }
 
     const hitObject: Hit = new hit();

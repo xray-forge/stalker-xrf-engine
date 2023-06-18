@@ -72,27 +72,27 @@ describe("'switch logic' utils", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    objectState.active_scheme = EScheme.SR_IDLE;
-    objectState.active_section = "sr_idle@default";
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
 
     expect(actor.position().distance_to(object.position())).toBe(20);
 
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     replaceFunctionMock(object.see, () => true);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     replaceFunctionMock(object.alive, () => false);
     jest.spyOn(actor.position(), "distance_to").mockImplementation(() => 10);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
     expect(actor.position().distance_to(object.position())).toBe(10);
 
     replaceFunctionMock(object.alive, () => true);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@next");
+    expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
   it("'trySwitchToAnotherSection' should correctly check ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE", () => {
@@ -116,19 +116,19 @@ describe("'switch logic' utils", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    objectState.active_scheme = EScheme.SR_IDLE;
-    objectState.active_section = "sr_idle@default";
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
 
     expect(actor.position().distance_to(object.position())).toBe(20);
 
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     jest.spyOn(actor.position(), "distance_to").mockImplementation(() => 10);
     trySwitchToAnotherSection(object, schemeState);
     expect(actor.position().distance_to(object.position())).toBe(10);
     expect(object.see(actor)).toBe(false);
-    expect(objectState.active_section).toBe("sr_idle@next");
+    expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
   it("'trySwitchToAnotherSection' should correctly check ON_ACTOR_DISTANCE_GREATER_THAN", () => {
@@ -152,27 +152,27 @@ describe("'switch logic' utils", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    objectState.active_scheme = EScheme.SR_IDLE;
-    objectState.active_section = "sr_idle@default";
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
 
     expect(actor.position().distance_to(object.position())).toBe(20);
 
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     replaceFunctionMock(object.see, () => true);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     replaceFunctionMock(object.alive, () => false);
     jest.spyOn(actor.position(), "distance_to").mockImplementation(() => 31);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
     expect(actor.position().distance_to(object.position())).toBe(31);
 
     replaceFunctionMock(object.alive, () => true);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@next");
+    expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
   it("'trySwitchToAnotherSection' should correctly check ON_ACTOR_DISTANCE_GREATER_THAN_NOT_VISIBLE", () => {
@@ -196,19 +196,19 @@ describe("'switch logic' utils", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    objectState.active_scheme = EScheme.SR_IDLE;
-    objectState.active_section = "sr_idle@default";
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
 
     expect(actor.position().distance_to(object.position())).toBe(20);
 
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     jest.spyOn(actor.position(), "distance_to").mockImplementation(() => 31);
     trySwitchToAnotherSection(object, schemeState);
     expect(actor.position().distance_to(object.position())).toBe(31);
     expect(object.see(actor)).toBe(false);
-    expect(objectState.active_section).toBe("sr_idle@next");
+    expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
   it("'trySwitchToAnotherSection' should correctly check ON_ACTOR_INSIDE", () => {
@@ -231,17 +231,17 @@ describe("'switch logic' utils", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    objectState.active_scheme = EScheme.SR_IDLE;
-    objectState.active_section = "sr_idle@default";
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
 
     expect(object.inside(actor.position())).toBe(false);
 
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     replaceFunctionMock(object.inside, () => true);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@next");
+    expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
   it("'trySwitchToAnotherSection' should correctly check ON_ACTOR_OUTSIDE", () => {
@@ -264,18 +264,18 @@ describe("'switch logic' utils", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    objectState.active_scheme = EScheme.SR_IDLE;
-    objectState.active_section = "sr_idle@default";
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
 
     replaceFunctionMock(object.inside, () => true);
     expect(object.inside(actor.position())).toBe(true);
 
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     replaceFunctionMock(object.inside, () => false);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@next");
+    expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
   it("'trySwitchToAnotherSection' should correctly check ON_SIGNAL", () => {
@@ -300,20 +300,20 @@ describe("'switch logic' utils", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    objectState.active_scheme = EScheme.SR_IDLE;
-    objectState.active_section = "sr_idle@default";
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
 
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     schemeState.signals = new LuaTable();
     schemeState.signals.set("another", true);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     schemeState.signals.set("expected", true);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@next");
+    expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
   it("'trySwitchToAnotherSection' should correctly check ON_INFO", () => {
@@ -336,19 +336,19 @@ describe("'switch logic' utils", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    objectState.active_scheme = EScheme.SR_IDLE;
-    objectState.active_section = "sr_idle@default";
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
 
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     giveInfo("expected_info");
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     giveInfo("additional_info");
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@next");
+    expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
   it("'trySwitchToAnotherSection' should correctly check ON_TIMER", () => {
@@ -374,20 +374,20 @@ describe("'switch logic' utils", () => {
 
     jest.spyOn(Date, "now").mockImplementation(() => 12_000);
 
-    objectState.activation_time = 10_000;
-    objectState.active_scheme = EScheme.SR_IDLE;
-    objectState.active_section = "sr_idle@default";
+    objectState.activationTime = 10_000;
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
 
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     jest.spyOn(Date, "now").mockImplementation(() => 14_999);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     jest.spyOn(Date, "now").mockImplementation(() => 15_000);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@next");
+    expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
   it("'trySwitchToAnotherSection' should correctly check ON_GAME_TIMER", () => {
@@ -413,20 +413,20 @@ describe("'switch logic' utils", () => {
 
     jest.spyOn(game, "get_game_time").mockImplementation(() => MockCTime.mock(1, 1, 1, 1, 30, 60, 500));
 
-    objectState.activation_game_time = game.get_game_time();
-    objectState.active_scheme = EScheme.SR_IDLE;
-    objectState.active_section = "sr_idle@default";
+    objectState.activationGameTime = game.get_game_time();
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
 
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     jest.spyOn(game, "get_game_time").mockImplementation(() => MockCTime.mock(1, 1, 1, 1, 33, 60, 500));
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     jest.spyOn(game, "get_game_time").mockImplementation(() => MockCTime.mock(1, 1, 1, 1, 35, 60, 500));
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@next");
+    expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
   it("'trySwitchToAnotherSection' should correctly check ON_ACTOR_IN_ZONE", () => {
@@ -454,17 +454,17 @@ describe("'switch logic' utils", () => {
 
     registerZone(zone);
 
-    objectState.active_scheme = EScheme.SR_IDLE;
-    objectState.active_section = "sr_idle@default";
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
 
     expect(zone.inside(actor.position())).toBe(false);
 
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     replaceFunctionMock(zone.inside, () => true);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@next");
+    expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
   it("'trySwitchToAnotherSection' should correctly check ON_ACTOR_NOT_IN_ZONE", () => {
@@ -492,18 +492,18 @@ describe("'switch logic' utils", () => {
 
     registerZone(zone);
 
-    objectState.active_scheme = EScheme.SR_IDLE;
-    objectState.active_section = "sr_idle@default";
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
 
     replaceFunctionMock(zone.inside, () => true);
     expect(zone.inside(actor.position())).toBe(true);
 
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     replaceFunctionMock(zone.inside, () => false);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@next");
+    expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
   it("'trySwitchToAnotherSection' should correctly check ON_NPC_IN_ZONE", () => {
@@ -534,18 +534,18 @@ describe("'switch logic' utils", () => {
 
     registerZone(zone);
 
-    objectState.active_scheme = EScheme.SR_IDLE;
-    objectState.active_section = "sr_idle@default";
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
 
     replaceFunctionMock(zone.inside, () => false);
     expect(zone.inside(targetObject.position())).toBe(false);
 
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     replaceFunctionMock(zone.inside, () => true);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@next");
+    expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
   it("'trySwitchToAnotherSection' should correctly check ON_NPC_NOT_IN_ZONE", () => {
@@ -576,18 +576,18 @@ describe("'switch logic' utils", () => {
 
     registerZone(zone);
 
-    objectState.active_scheme = EScheme.SR_IDLE;
-    objectState.active_section = "sr_idle@default";
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
 
     replaceFunctionMock(zone.inside, () => true);
     expect(zone.inside(targetObject.position())).toBe(true);
 
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     replaceFunctionMock(zone.inside, () => false);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@next");
+    expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
   it("'trySwitchToAnotherSection' should correctly handle multiple conditions", () => {
@@ -618,19 +618,19 @@ describe("'switch logic' utils", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    objectState.active_scheme = EScheme.SR_IDLE;
-    objectState.active_section = "sr_idle@default";
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
 
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@default");
+    expect(objectState.activeSection).toBe("sr_idle@default");
 
     giveInfo("expected_info");
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@second");
+    expect(objectState.activeSection).toBe("sr_idle@second");
 
     schemeState.signals?.set("test_signal", true);
     trySwitchToAnotherSection(object, schemeState);
-    expect(objectState.active_section).toBe("sr_idle@first");
+    expect(objectState.activeSection).toBe("sr_idle@first");
   });
 
   it("'switchObjectSchemeToSection' should correctly reset base schemes", () => {
@@ -647,8 +647,8 @@ describe("'switch logic' utils", () => {
     loadSchemeImplementation(SchemeIdle);
     loadSchemeImplementation(SchemeTimer);
 
-    state.active_scheme = EScheme.SR_IDLE;
-    state.active_section = "sr_idle@active";
+    state.activeScheme = EScheme.SR_IDLE;
+    state.activeSection = "sr_idle@active";
     state[EScheme.SR_IDLE] = schemeState;
 
     const handler = {
@@ -666,8 +666,8 @@ describe("'switch logic' utils", () => {
 
     expect(switchObjectSchemeToSection(object, ini, "sr_timer@next")).toBe(true);
     expect(handler.deactivate).toHaveBeenCalledTimes(1);
-    expect(state.active_scheme).toBe(EScheme.SR_TIMER);
-    expect(state.active_section).toBe("sr_timer@next");
+    expect(state.activeScheme).toBe(EScheme.SR_TIMER);
+    expect(state.activeSection).toBe("sr_timer@next");
     expect(state[EScheme.SR_TIMER]).toBeDefined();
     expect(getSchemeAction(state[EScheme.SR_TIMER] as IBaseSchemeState).resetScheme).toHaveBeenCalledTimes(1);
   });

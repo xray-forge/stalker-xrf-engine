@@ -91,8 +91,8 @@ describe("TimerManager class", () => {
 
     expect(schemeState.timer.TextControl().GetText()).toBe("0:00:00");
     expect(timerManager.deactivate).toHaveBeenCalled();
-    expect(state.active_scheme).toBeNull();
-    expect(state.active_section).toBeNull();
-    expect(state.activation_time).toBe(95_000);
+    expect(state.activeScheme).toBeNull();
+    expect(state.activeSection).toBeNull();
+    expect(state.activationTime).toBe(95_000);
   });
 });

@@ -154,11 +154,11 @@ export class ActorSound extends AbstractPlayableSound {
 
     const objectState: IRegistryObjectState = registry.objects.get(objectId);
 
-    if (!objectState.active_scheme || objectState[objectState.active_scheme!]!.signals === null) {
+    if (!objectState.activeScheme || objectState[objectState.activeScheme!]!.signals === null) {
       return;
     }
 
-    const schemeState: IBaseSchemeState = objectState[objectState.active_scheme] as IBaseSchemeState;
+    const schemeState: IBaseSchemeState = objectState[objectState.activeScheme] as IBaseSchemeState;
 
     if (this.playedSoundIndex === this.soundPaths.length() && this.shuffle !== "rnd") {
       logger.info("Emit sound end signal:", objectState.object.name());

@@ -36,7 +36,7 @@ export class HitManager extends AbstractSchemeManager<ISchemeHitState> {
       state.who = -1;
     }
 
-    if (registry.objects.get(this.object.id()).active_scheme) {
+    if (registry.objects.get(this.object.id()).activeScheme) {
       state.deadly_hit = amount >= this.object.health * 100;
 
       if (trySwitchToAnotherSection(object, state)) {

@@ -44,7 +44,7 @@ describe("'scheme logic' utils", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
-    state.active_section = "sr_idle@test";
+    state.activeSection = "sr_idle@test";
 
     expect(isSectionActive(object, mockSchemeState(object, EScheme.SR_TELEPORT, { section: "sr_teleport@test" }))).toBe(
       false
@@ -53,7 +53,7 @@ describe("'scheme logic' utils", () => {
       true
     );
 
-    state.active_section = "sr_teleport@test";
+    state.activeSection = "sr_teleport@test";
 
     expect(isSectionActive(object, mockSchemeState(object, EScheme.SR_TELEPORT, { section: "sr_teleport@test" }))).toBe(
       true
@@ -207,8 +207,8 @@ describe("'scheme logic' utils", () => {
       },
     });
 
-    stalkerState.active_section = "sr_idle@test";
-    monsterState.active_section = "sr_idle@test";
+    stalkerState.activeSection = "sr_idle@test";
+    monsterState.activeSection = "sr_idle@test";
 
     stalkerState.ini = ini;
     monsterState.ini = ini;

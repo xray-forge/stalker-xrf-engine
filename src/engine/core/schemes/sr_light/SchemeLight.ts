@@ -108,7 +108,7 @@ export class SchemeLight extends AbstractScheme {
     }
 
     if (!forced && light === true) {
-      const scheme = registry.objects.get(object.id()).active_scheme!;
+      const scheme = registry.objects.get(object.id()).activeScheme!;
 
       if (scheme === EScheme.CAMPER || scheme === EScheme.SLEEPER) {
         light = false;

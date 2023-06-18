@@ -57,7 +57,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export function isSectionActive(object: ClientObject, state: IBaseSchemeState): boolean {
   assertDefined(state.section, "Object %s '%s': state.section is null.", object.name(), state.section);
 
-  return state.section === registry.objects.get(object.id()).active_section;
+  return state.section === registry.objects.get(object.id()).activeSection;
 }
 
 /**
@@ -148,17 +148,18 @@ export function activateSchemeBySection(
   assertDefined(loading, "scheme/logic: activateBySection: loading field is null, true || false expected.");
 
   const objectId: TNumberId = object.id();
+  const state: IRegistryObjectState = registry.objects.get(objectId);
 
   if (!loading) {
-    registry.objects.get(objectId).activation_time = time_global();
-    registry.objects.get(objectId).activation_game_time = game.get_game_time();
+    state.activationTime = time_global();
+    state.activationGameTime = game.get_game_time();
   }
 
   if (section === NIL) {
-    registry.objects.get(objectId).overrides = null;
+    state.overrides = null;
     resetObjectGenericSchemesOnSectionSwitch(object, EScheme.NIL, NIL);
-    registry.objects.get(objectId).active_section = null;
-    registry.objects.get(objectId).active_scheme = null;
+    state.activeSection = null;
+    state.activeScheme = null;
 
     return;
   }
@@ -173,13 +174,12 @@ export function activateSchemeBySection(
     section = job.section;
   }
 
-  assert(ini.section_exist(section), "'%s': activate_by_section section '%s' does not exist.", object.name(), section);
-
   const scheme: Optional<EScheme> = getSchemeFromSection(section);
 
+  assert(ini.section_exist(section), "'%s': activate_by_section section '%s' does not exist.", object.name(), section);
   assert(scheme, "object '%s': unable to determine scheme name from section name '%s'", object.name(), section);
 
-  registry.objects.get(objectId).overrides = getObjectConfigOverrides(ini, section, object);
+  state.overrides = getObjectConfigOverrides(ini, section, object);
 
   resetObjectGenericSchemesOnSectionSwitch(object, scheme, section);
 
@@ -191,15 +191,15 @@ export function activateSchemeBySection(
 
   schemeImplementation.activate(object, ini, scheme, section as TSection, additional);
 
-  registry.objects.get(objectId).active_section = section;
-  registry.objects.get(objectId).active_scheme = scheme;
+  state.activeSection = section;
+  state.activeScheme = scheme;
 
   // todo: Unify activate and reset events.
-  if (registry.objects.get(objectId).schemeType === ESchemeType.STALKER) {
+  if (state.schemeType === ESchemeType.STALKER) {
     sendToNearestAccessibleVertex(object, object.level_vertex_id());
-    emitSchemeEvent(object, registry.objects.get(objectId)[scheme]!, ESchemeEvent.ACTIVATE_SCHEME, loading, object);
+    emitSchemeEvent(object, state[scheme] as IBaseSchemeState, ESchemeEvent.ACTIVATE_SCHEME, loading, object);
   } else {
-    emitSchemeEvent(object, registry.objects.get(objectId)[scheme]!, ESchemeEvent.RESET_SCHEME, loading, object);
+    emitSchemeEvent(object, state[scheme] as IBaseSchemeState, ESchemeEvent.RESET_SCHEME, loading, object);
   }
 }
 
@@ -220,8 +220,8 @@ export function configureObjectSchemes(
   const state: IRegistryObjectState = registry.objects.get(objectId);
 
   // Deactivate previous scheme section.
-  if (state.active_section) {
-    emitSchemeEvent(object, state[state.active_scheme!]!, ESchemeEvent.DEACTIVATE, object);
+  if (state.activeSection) {
+    emitSchemeEvent(object, state[state.activeScheme!]!, ESchemeEvent.DEACTIVATE, object);
   }
 
   let actualIni: IniFile;
@@ -277,8 +277,8 @@ export function configureObjectSchemes(
   disableObjectBaseSchemes(object, schemeType);
   enableObjectGenericSchemes(actualIni, object, schemeType, sectionLogic);
 
-  state.active_section = null;
-  state.active_scheme = null;
+  state.activeSection = null;
+  state.activeScheme = null;
   state.gulag_name = gulagName;
 
   state.schemeType = schemeType;

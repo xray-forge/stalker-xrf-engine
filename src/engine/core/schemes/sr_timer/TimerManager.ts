@@ -47,7 +47,7 @@ export class TimerManager extends AbstractSchemeManager<ISchemeTimerState> {
       return;
     }
 
-    const sinceActivation: TTimestamp = time_global() - registry.objects.get(this.object.id()).activation_time;
+    const sinceActivation: TTimestamp = time_global() - registry.objects.get(this.object.id()).activationTime;
 
     let valueTime: TTimestamp =
       this.state.type === ETimerType.INCREMENT

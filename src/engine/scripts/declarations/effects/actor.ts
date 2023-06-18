@@ -175,15 +175,15 @@ extern("xr_effects.cam_effector_callback", (): void => {
 
   const state: IRegistryObjectState = registry.objects.get(camEffectorPlayingObjectId);
 
-  if (state === null || state.active_scheme === null) {
+  if (state === null || state.activeScheme === null) {
     return;
   }
 
-  if (state[state.active_scheme!]!.signals === null) {
+  if (state[state.activeScheme!]!.signals === null) {
     return;
   }
 
-  state[state.active_scheme!]!.signals!.set("cameff_end", true);
+  state[state.activeScheme!]!.signals!.set("cameff_end", true);
 });
 
 /**

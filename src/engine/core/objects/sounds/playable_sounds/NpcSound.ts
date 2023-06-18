@@ -427,11 +427,11 @@ export class NpcSound extends AbstractPlayableSound {
 
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
-    if (state.active_scheme === null) {
+    if (state.activeScheme === null) {
       return;
     }
 
-    const signals: Optional<LuaTable<TName, boolean>> = state[state.active_scheme]!.signals;
+    const signals: Optional<LuaTable<TName, boolean>> = state[state.activeScheme]!.signals;
 
     if (signals === null || this.objects.get(objectId) === null) {
       return;

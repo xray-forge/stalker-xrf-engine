@@ -64,8 +64,8 @@ export class PhysicObjectBinder extends object_binder {
 
     const state: IRegistryObjectState = registry.objects.get(this.object.id());
 
-    if (state.active_scheme) {
-      emitSchemeEvent(this.object, state[state.active_scheme]!, ESchemeEvent.NET_DESTROY);
+    if (state.activeScheme) {
+      emitSchemeEvent(this.object, state[state.activeScheme]!, ESchemeEvent.NET_DESTROY);
     }
 
     const on_offline_condlist: Optional<TConditionList> = state?.overrides?.on_offline_condlist;
@@ -147,8 +147,8 @@ export class PhysicObjectBinder extends object_binder {
 
     const spawnIni: Optional<IniFile> = this.object.spawn_ini();
 
-    if (this.state.active_section !== null || (spawnIni !== null && spawnIni.section_exist("drop_box"))) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
+    if (this.state.activeSection !== null || (spawnIni !== null && spawnIni.section_exist("drop_box"))) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.UPDATE, delta);
       this.object.set_callback(callback.hit, this.onHit, this);
       this.object.set_callback(callback.death, this.onDeath, this);
       this.object.set_callback(callback.use_object, this.onUse, this);
@@ -165,8 +165,8 @@ export class PhysicObjectBinder extends object_binder {
    * todo: Description.
    */
   public onUse(object: ClientObject, who: ClientObject): void {
-    if (this.state.active_section) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.USE, object, this);
+    if (this.state.activeSection) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.USE, object, this);
     }
   }
 
@@ -193,10 +193,10 @@ export class PhysicObjectBinder extends object_binder {
       );
     }
 
-    if (this.state.active_section) {
+    if (this.state.activeSection) {
       emitSchemeEvent(
         this.object,
-        this.state[this.state.active_scheme!]!,
+        this.state[this.state.activeScheme!]!,
         ESchemeEvent.HIT,
         object,
         amount,
@@ -211,8 +211,8 @@ export class PhysicObjectBinder extends object_binder {
    * todo: Description.
    */
   public onDeath(victim: ClientObject, who: ClientObject): void {
-    if (this.state.active_section) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, who);
+    if (this.state.activeSection) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.DEATH, victim, who);
     }
 
     if (this.particle !== null) {

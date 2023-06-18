@@ -328,7 +328,7 @@ extern(
           "You are trying to set non-existant target [%s] for object [%s] in section [%s]:",
           targetString,
           targetId,
-          registry.objects.get(object.id()).active_section
+          registry.objects.get(object.id()).activeSection
         );
       }
 
@@ -561,7 +561,7 @@ extern("xr_effects.update_obj_logic", (actor: ClientObject, npc: ClientObject, p
 
       const state: IRegistryObjectState = registry.objects.get(object.id());
 
-      trySwitchToAnotherSection(object, state[state.active_scheme as EScheme] as IBaseSchemeState);
+      trySwitchToAnotherSection(object, state[state.activeScheme as EScheme] as IBaseSchemeState);
     }
   }
 });

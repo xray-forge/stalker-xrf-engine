@@ -14,7 +14,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 extern("xr_conditions.signal", (actor: ClientObject, npc: ClientObject, p: [string]): boolean => {
   if (p[0]) {
     const state: IRegistryObjectState = registry.objects.get(npc.id());
-    const sigs: Optional<LuaTable<TName, boolean>> = state[state.active_scheme!]!.signals;
+    const sigs: Optional<LuaTable<TName, boolean>> = state[state.activeScheme!]!.signals;
 
     return sigs !== null && sigs.get(p[0]) === true;
   } else {

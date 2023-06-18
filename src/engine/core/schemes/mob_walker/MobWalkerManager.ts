@@ -167,7 +167,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     if (signal !== null) {
       // -- HACK, fixme:
       const objectId = this.object.id();
-      const scheme: EScheme = registry.objects.get(objectId)["active_scheme"]!;
+      const scheme: EScheme = registry.objects.get(objectId)["activeScheme"]!;
       const signals: LuaTable<TName, boolean> = registry.objects.get(objectId)[scheme!]!.signals!;
 
       signals.set(signal, true);

@@ -40,7 +40,7 @@ describe("TeleportManager class", () => {
     const schemeState: ISchemeTeleportState = state[EScheme.SR_TELEPORT] as ISchemeTeleportState;
     const teleportManager: TeleportManager = getSchemeAction(schemeState);
 
-    expect(state.active_section).toBe("sr_teleport@test");
+    expect(state.activeSection).toBe("sr_teleport@test");
 
     jest.spyOn(Date, "now").mockImplementation(() => 20_000);
     teleportManager.update();
@@ -71,14 +71,14 @@ describe("TeleportManager class", () => {
     expect(teleportManager.teleportState).toBe(ETeleportState.IDLE);
     expect(registry.actor.set_actor_direction).toHaveBeenCalledTimes(1);
     expect(registry.actor.set_actor_position).toHaveBeenCalledTimes(1);
-    expect(state.active_section).toBe("sr_teleport@test");
+    expect(state.activeSection).toBe("sr_teleport@test");
 
     jest.spyOn(Date, "now").mockImplementation(() => 100_000);
     giveInfo("finish");
 
     teleportManager.update();
-    expect(state.active_section).toBeNull();
-    expect(state.active_scheme).toBeNull();
-    expect(state.activation_time).toBe(100_000);
+    expect(state.activeSection).toBeNull();
+    expect(state.activeScheme).toBeNull();
+    expect(state.activationTime).toBe(100_000);
   });
 });

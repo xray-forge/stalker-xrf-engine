@@ -150,7 +150,7 @@ export class ActorBinder extends object_binder {
     for (const [id, zone] of registry.zones) {
       if (
         registry.objects.get(zone.id()) &&
-        registry.objects.get(zone.id()).active_section === SchemeDeimos.SCHEME_SECTION
+        registry.objects.get(zone.id()).activeSection === SchemeDeimos.SCHEME_SECTION
       ) {
         isDeimosExisting = true;
         packet.w_bool(true);

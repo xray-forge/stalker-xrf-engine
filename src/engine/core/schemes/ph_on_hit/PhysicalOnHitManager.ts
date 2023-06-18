@@ -26,7 +26,7 @@ export class PhysicalOnHitManager extends AbstractSchemeManager<ISchemePhysicalO
 
     logger.info("Object hit:", object.name(), "<-", whoName, amount);
 
-    if (registry.objects.get(this.object.id()).active_scheme) {
+    if (registry.objects.get(this.object.id()).activeScheme) {
       if (trySwitchToAnotherSection(object, this.state)) {
         return;
       }

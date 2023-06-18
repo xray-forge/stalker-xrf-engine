@@ -44,11 +44,11 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   /**
    * Currently active logic section of the object.
    */
-  active_section: Optional<TSection>;
+  activeSection: Optional<TSection>;
   /**
    * Currently active logic scheme of the object.
    */
-  active_scheme: Optional<EScheme>;
+  activeScheme: Optional<EScheme>;
   /**
    * todo;
    */
@@ -64,11 +64,12 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   /**
    * Time of logics section activation - absolute.
    */
-  activation_time: TTimestamp;
+  activationTime: TTimestamp;
   /**
    * Time of logics section activation - in-game time.
    */
-  activation_game_time: Time;
+  activationGameTime: Time;
+
   /**
    * todo;
    */

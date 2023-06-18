@@ -233,8 +233,8 @@ export class StalkerBinder extends object_binder {
 
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
-    if (state.active_scheme) {
-      emitSchemeEvent(this.object, state[state.active_scheme]!, ESchemeEvent.NET_DESTROY, this.object);
+    if (state.activeScheme) {
+      emitSchemeEvent(this.object, state[state.activeScheme]!, ESchemeEvent.NET_DESTROY, this.object);
     }
 
     if (this.state[EScheme.REACH_TASK]) {
@@ -250,7 +250,7 @@ export class StalkerBinder extends object_binder {
 
     if (registry.offlineObjects.get(objectId) !== null) {
       registry.offlineObjects.get(objectId).levelVertexId = this.object.level_vertex_id();
-      registry.offlineObjects.get(objectId).activeSection = registry.objects.get(objectId).active_section as TSection;
+      registry.offlineObjects.get(objectId).activeSection = registry.objects.get(objectId).activeSection as TSection;
     }
 
     unregisterStalker(this);
@@ -443,8 +443,8 @@ export class StalkerBinder extends object_binder {
       emitSchemeEvent(this.object, this.state[EScheme.DEATH], ESchemeEvent.DEATH, victim, who);
     }
 
-    if (this.state.active_section) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, who);
+    if (this.state.activeSection) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.DEATH, victim, who);
     }
 
     SchemeLight.checkObjectLight(this.object);
@@ -479,8 +479,8 @@ export class StalkerBinder extends object_binder {
       DialogManager.getInstance().resetForObject(this.object);
       SchemeMeet.onMeetWithObject(object);
 
-      if (this.state.active_section) {
-        emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.USE, object, who);
+      if (this.state.activeSection) {
+        emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.USE, object, who);
       }
     }
   }
@@ -489,8 +489,8 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public onPatrolExtrapolate(currentPoint: TNumberId): boolean {
-    if (this.state.active_section) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.EXTRAPOLATE);
+    if (this.state.activeSection) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.EXTRAPOLATE);
       this.state.moveManager!.onExtrapolate(this.object);
     }
 
@@ -530,10 +530,10 @@ export class StalkerBinder extends object_binder {
       }
     }
 
-    if (this.state.active_section) {
+    if (this.state.activeSection) {
       emitSchemeEvent(
         this.object,
-        this.state[this.state.active_scheme!]!,
+        this.state[this.state.activeScheme!]!,
         ESchemeEvent.HIT,
         object,
         amount,
@@ -583,7 +583,7 @@ export function updateStalkerLogic(object: ClientObject): void {
   const actor: ClientObject = registry.actor;
   const combatState: IBaseSchemeState = state.combat!;
 
-  if (state !== null && state.active_scheme !== null && object.alive()) {
+  if (state !== null && state.activeScheme !== null && object.alive()) {
     let switched: boolean = false;
     const manager: ActionPlanner = object.motivation_action_manager();
 
@@ -610,7 +610,7 @@ export function updateStalkerLogic(object: ClientObject): void {
     }
 
     if (!switched) {
-      trySwitchToAnotherSection(object, state[state.active_scheme as EScheme] as IBaseSchemeState);
+      trySwitchToAnotherSection(object, state[state.activeScheme as EScheme] as IBaseSchemeState);
     }
   } else {
     SchemeCombat.setCombatType(object, actor, combatState);

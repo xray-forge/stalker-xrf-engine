@@ -646,7 +646,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
         if (
           object.invulnerable() !== invulnerability &&
-          readIniString(objectState.ini, objectState.active_section!, "invulnerable", false, "", null) === null
+          readIniString(objectState.ini, objectState.activeSection!, "invulnerable", false, "", null) === null
         ) {
           object.invulnerable(invulnerability);
         }

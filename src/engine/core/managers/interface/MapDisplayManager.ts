@@ -160,7 +160,7 @@ export class MapDisplayManager extends AbstractCoreManager {
 
     // todo: Retry, probably not needed at all.
     if (mapSpot === null) {
-      mapSpot = readIniString<EMapMarkType>(state.ini, state.active_section, "level_spot", false, "") as EMapMarkType;
+      mapSpot = readIniString<EMapMarkType>(state.ini, state.activeSection, "level_spot", false, "") as EMapMarkType;
     }
 
     if (mapSpot !== null) {

@@ -222,7 +222,7 @@ export class CampStoryManager {
           // todo: Optimize call.
           emitSchemeEvent(
             registry.objects.get(id).object!,
-            registry.objects.get(id)[registry.objects.get(id).active_scheme!]!,
+            registry.objects.get(id)[registry.objects.get(id).activeScheme!]!,
             ESchemeEvent.UPDATE
           );
         }
@@ -305,7 +305,7 @@ export class CampStoryManager {
 
       if (state !== null) {
         const schemeState: Optional<ISchemeAnimpointState> =
-          state.active_scheme && (state[state.active_scheme] as ISchemeAnimpointState);
+          state.activeScheme && (state[state.activeScheme] as ISchemeAnimpointState);
         const object: Optional<ClientObject> = state.object;
 
         if (
@@ -382,7 +382,7 @@ export class CampStoryManager {
 
     this.soundManager.registerObject(objectId);
 
-    emitSchemeEvent(state.object!, state[state.active_scheme!]!, ESchemeEvent.UPDATE);
+    emitSchemeEvent(state.object!, state[state.activeScheme!]!, ESchemeEvent.UPDATE);
   }
 
   /**
@@ -410,7 +410,7 @@ export class CampStoryManager {
    */
   public getNpcRole(objectId: TNumberId, state: TName): number {
     const schemeState: Optional<ISchemeAnimpointState> = registry.objects.get(objectId)[
-      registry.objects.get(objectId).active_scheme!
+      registry.objects.get(objectId).activeScheme!
     ] as ISchemeAnimpointState;
 
     if (schemeState === null) {
@@ -467,8 +467,8 @@ function srCampGuitarPrecondition(campStoryManager: CampStoryManager): boolean {
     if (count > 1) {
       for (const [objectId, objectInfo] of campStoryManager.npc) {
         const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
-        const schemeState: Optional<ISchemeAnimpointState> = state?.active_scheme
-          ? (state[state.active_scheme] as ISchemeAnimpointState)
+        const schemeState: Optional<ISchemeAnimpointState> = state?.activeScheme
+          ? (state[state.activeScheme] as ISchemeAnimpointState)
           : null;
         const object: Optional<ClientObject> = state?.object;
 
@@ -527,8 +527,8 @@ function srCampHarmonicaPrecondition(campStoryManager: CampStoryManager): boolea
     if (count > 1) {
       for (const [id, info] of campStoryManager.npc) {
         const state: Optional<IRegistryObjectState> = registry.objects.get(id);
-        const schemeState: Optional<ISchemeAnimpointState> = state?.active_scheme
-          ? (state[state.active_scheme!] as ISchemeAnimpointState)
+        const schemeState: Optional<ISchemeAnimpointState> = state?.activeScheme
+          ? (state[state.activeScheme!] as ISchemeAnimpointState)
           : null;
         const object: Optional<ClientObject> = state?.object;
 

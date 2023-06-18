@@ -138,5 +138,5 @@ export function isAmmoSection(section: TSection): section is TAmmoItem {
 export function isActiveSection(object: ClientObject, section: Maybe<TSection>): boolean {
   assertDefined(section, "'isActiveSection' error for '%s', no section defined: '%s'.", object.name(), section);
 
-  return section === registry.objects.get(object.id()).active_section;
+  return section === registry.objects.get(object.id()).activeSection;
 }

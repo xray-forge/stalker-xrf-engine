@@ -13,7 +13,7 @@ export class MobCombatManager extends AbstractSchemeManager<ISchemeMobCombatStat
   // todo: Is it needed at all?
   public combat_callback(): void {
     if (this.state.enabled && this.object.get_enemy() !== null) {
-      if (registry.objects.get(this.object.id()).active_scheme !== null) {
+      if (registry.objects.get(this.object.id()).activeScheme !== null) {
         if (trySwitchToAnotherSection(this.object, this.state)) {
           return;
         }

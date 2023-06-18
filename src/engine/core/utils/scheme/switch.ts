@@ -64,10 +64,10 @@ const SCHEME_LOGIC_SWITCH: Record<
   [ESchemeCondition.ON_INFO]: (actor, object, state, logic) =>
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_TIMER]: (actor, object, state, logic) =>
-    time_global() >= registry.objects.get(object.id()).activation_time + (logic.v1 as TDuration) &&
+    time_global() >= registry.objects.get(object.id()).activationTime + (logic.v1 as TDuration) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_GAME_TIMER]: (actor, object, state, logic) =>
-    game.get_game_time().diffSec(registry.objects.get(object.id()).activation_game_time) >= (logic.v1 as TTimestamp) &&
+    game.get_game_time().diffSec(registry.objects.get(object.id()).activationGameTime) >= (logic.v1 as TTimestamp) &&
     switchObjectSchemeToSection(object, state.ini, pickSectionFromCondList(actor, object, logic.condlist)),
   [ESchemeCondition.ON_ACTOR_IN_ZONE]: (actor, object, state, logic) =>
     isObjectInZone(actor, registry.zones.get(logic.v1 as TName)) &&
@@ -128,7 +128,7 @@ export function switchObjectSchemeToSection(object: ClientObject, ini: IniFile, 
   }
 
   const state: IRegistryObjectState = registry.objects.get(object.id());
-  const activeSection: Optional<TSection> = state.active_section as TSection;
+  const activeSection: Optional<TSection> = state.activeSection as TSection;
 
   if (activeSection === section) {
     return false;
@@ -136,11 +136,11 @@ export function switchObjectSchemeToSection(object: ClientObject, ini: IniFile, 
 
   // Notify schemes about deactivation.
   if (activeSection !== null) {
-    emitSchemeEvent(object, state[state.active_scheme as EScheme] as IBaseSchemeState, ESchemeEvent.DEACTIVATE, object);
+    emitSchemeEvent(object, state[state.activeScheme as EScheme] as IBaseSchemeState, ESchemeEvent.DEACTIVATE, object);
   }
 
-  state.active_section = null;
-  state.active_scheme = null;
+  state.activeSection = null;
+  state.activeScheme = null;
 
   activateSchemeBySection(object, ini, section, state.gulag_name, false);
 

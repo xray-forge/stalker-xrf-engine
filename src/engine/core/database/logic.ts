@@ -40,15 +40,15 @@ export function saveObjectLogic(object: ClientObject, packet: NetPacket): void {
   packet.w_stringZ(state.job_ini ? state.job_ini : "");
   packet.w_stringZ(state.ini_filename ? state.ini_filename : "");
   packet.w_stringZ(state.section_logic ? state.section_logic : "");
-  packet.w_stringZ(state.active_section ? state.active_section : "");
+  packet.w_stringZ(state.activeSection ? state.activeSection : "");
   packet.w_stringZ(state.gulag_name ? state.gulag_name : "");
 
-  packet.w_s32((state.activation_time || 0) - time_global());
-  writeTimeToPacket(packet, state.activation_game_time);
+  packet.w_s32((state.activationTime || 0) - time_global());
+  writeTimeToPacket(packet, state.activationGameTime);
 
   // todo: Active section or active scheme?
-  if (state.active_scheme) {
-    emitSchemeEvent(object, state[state.active_scheme] as IBaseSchemeState, ESchemeEvent.SAVE);
+  if (state.activeScheme) {
+    emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SAVE);
   }
 
   savePortableStore(object, packet);
@@ -78,8 +78,8 @@ export function loadObjectLogic(object: ClientObject, reader: NetProcessor): voi
   state.loaded_active_section = activeSection === "" ? NIL : activeSection;
   state.loaded_gulag_name = gulagName;
 
-  state.activation_time = reader.r_s32() + time_global();
-  state.activation_game_time = readTimeFromPacket(reader) as Time;
+  state.activationTime = reader.r_s32() + time_global();
+  state.activationGameTime = readTimeFromPacket(reader) as Time;
 
   loadPortableStore(object, reader);
 

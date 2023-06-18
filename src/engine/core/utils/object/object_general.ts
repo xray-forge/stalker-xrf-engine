@@ -343,7 +343,7 @@ export function isObjectInvulnerabilityNeeded(object: ClientObject): boolean {
   const state: IRegistryObjectState = registry.objects.get(object.id());
   const invulnerability: Optional<string> = readIniString(
     state.ini,
-    state.active_section,
+    state.activeSection,
     "invulnerable",
     false,
     "",

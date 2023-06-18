@@ -22,6 +22,6 @@ export class EvaluatorStateLogicActive extends property_evaluator {
    * todo: Description.
    */
   public override evaluate(): boolean {
-    return registry.objects.get(this.object.id()).active_section !== null;
+    return registry.objects.get(this.object.id()).activeSection !== null;
   }
 }

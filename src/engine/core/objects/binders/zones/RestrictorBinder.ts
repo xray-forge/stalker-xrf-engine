@@ -59,8 +59,8 @@ export class RestrictorBinder extends object_binder {
 
     const state: IRegistryObjectState = this.state;
 
-    if (state.active_scheme !== null) {
-      emitSchemeEvent(this.object, state[state.active_scheme!]!, ESchemeEvent.NET_DESTROY);
+    if (state.activeScheme !== null) {
+      emitSchemeEvent(this.object, state[state.activeScheme!]!, ESchemeEvent.NET_DESTROY);
     }
 
     unregisterZone(this.object);
@@ -78,8 +78,8 @@ export class RestrictorBinder extends object_binder {
       initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, registry.actor, ESchemeType.RESTRICTOR);
     }
 
-    if (this.state.active_section !== null) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
+    if (this.state.activeSection !== null) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.UPDATE, delta);
     }
 
     GlobalSoundManager.getInstance().update(objectId);

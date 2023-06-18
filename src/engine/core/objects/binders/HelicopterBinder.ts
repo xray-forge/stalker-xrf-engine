@@ -100,8 +100,8 @@ export class HelicopterBinder extends object_binder {
       initializeObjectSchemeLogic(this.object, this.state, this.loaded, actor, ESchemeType.HELI);
     }
 
-    if (this.state.active_section !== null) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
+    if (this.state.activeSection !== null) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.UPDATE, delta);
     }
 
     this.checkHealth();
@@ -210,10 +210,10 @@ export class HelicopterBinder extends object_binder {
    * todo: Description.
    */
   public onPoint(distance: TDistance, position: Vector, pathIndex: TIndex): void {
-    if (this.state.active_section !== null) {
+    if (this.state.activeSection !== null) {
       emitSchemeEvent(
         this.object,
-        this.state[this.state.active_scheme!]!,
+        this.state[this.state.activeScheme!]!,
         ESchemeEvent.WAYPOINT,
         this.object,
         null,
