@@ -3,7 +3,6 @@ import { AbstractScheme } from "@/engine/core/schemes";
 import { CombatProcessEnemyManager } from "@/engine/core/schemes/combat_ignore/CombatProcessEnemyManager";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore/ISchemeCombatIgnoreState";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectGenericSchemeOverrides } from "@/engine/core/utils/scheme/logic";
 import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -54,6 +53,6 @@ export class SchemeCombatIgnore extends AbstractScheme {
     SchemeCombatIgnore.subscribe(object, schemeState, schemeState.action);
 
     schemeState.enabled = true;
-    schemeState.overrides = getObjectGenericSchemeOverrides(object);
+    schemeState.overrides = state.overrides;
   }
 }

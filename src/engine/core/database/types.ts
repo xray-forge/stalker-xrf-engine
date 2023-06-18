@@ -21,15 +21,25 @@ import {
  * Client-side registry of game objects logics and states.
  */
 export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSchemeState>> {
+  /**
+   * Client object reference to owner of the registry state.
+   */
   object: ClientObject;
+  /**
+   * todo;
+   */
   ini: IniFile;
+  /**
+   * todo;
+   */
   ini_filename: Optional<TName>;
-
   /**
    * Dynamically stored flags / variables.
    */
   portableStore: Optional<LuaTable<TName>>;
-
+  /**
+   * Based on object type, marks compatible scheme types.
+   */
   schemeType: ESchemeType;
   /**
    * Currently active logic section of the object.
@@ -39,11 +49,18 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    * Currently active logic scheme of the object.
    */
   active_scheme: Optional<EScheme>;
-
+  /**
+   * todo;
+   */
   section_logic: Optional<TName>;
+  /**
+   * todo;
+   */
   gulag_name: Optional<TName>;
+  /**
+   * todo;
+   */
   overrides: Optional<AnyObject>;
-
   /**
    * Time of logics section activation - absolute.
    */
@@ -52,29 +69,85 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    * Time of logics section activation - in-game time.
    */
   activation_game_time: Time;
-
+  /**
+   * todo;
+   */
   moveManager: Optional<StalkerMoveManager>;
+  /**
+   * todo;
+   */
   stateManager: Optional<StalkerStateManager>;
+  /**
+   * todo;
+   */
   restrictionsManager: Optional<ObjectRestrictionsManager>;
+  /**
+   * todo;
+   */
   hearInfo: Optional<IActionSchemeHearState>;
-
+  /**
+   * todo;
+   */
   invulnerable: Optional<boolean>;
+  /**
+   * todo;
+   */
   immortal: Optional<boolean>;
+  /**
+   * todo;
+   */
   mute: Optional<boolean>;
+  /**
+   * todo;
+   */
   corpse_already_selected: Optional<TNumberId>;
+  /**
+   * todo;
+   */
   wounded_already_selected: Optional<TNumberId>;
+  /**
+   * todo;
+   */
   old_aim_time: Optional<TTimestamp>;
+  /**
+   * todo;
+   */
   post_combat_wait: Optional<ISchemePostCombatIdleState>;
-
+  /**
+   * todo;
+   */
   enemy_id: Optional<TNumberId>;
+  /**
+   * todo;
+   */
   enemy: Optional<ClientObject>;
+  /**
+   * todo;
+   */
   script_combat_type: Optional<TName>;
+  /**
+   * todo;
+   */
   registred_camp: Optional<TNumberId>;
-
+  /**
+   * todo;
+   */
   job_ini: Optional<TName>;
+  /**
+   * todo;
+   */
   loaded_ini_filename: Optional<TName>;
+  /**
+   * todo;
+   */
   loaded_section_logic: Optional<TSection>;
+  /**
+   * todo;
+   */
   loaded_active_section: Optional<TSection>;
+  /**
+   * todo;
+   */
   loaded_gulag_name: Optional<TName>;
 }
 

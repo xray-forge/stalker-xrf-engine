@@ -72,6 +72,12 @@ export abstract class AbstractScheme {
 
   /**
    * Add scheme state to client object.
+   *
+   * @param object - target client object
+   * @param ini - ini file describing object logic
+   * @param scheme - new scheme type
+   * @param section - new logic section
+   * @param schemeState - state of new scheme
    */
   public static add(
     object: ClientObject,
@@ -84,7 +90,14 @@ export abstract class AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Reset schemes on activation of new section.
+   * Scheme may be different or same, but expected section is different.
+   * Mainly used for shared generic schemes that are always active.
+   *
+   * @param object - target client object
+   * @param scheme - new scheme type
+   * @param state - target object registry state
+   * @param section - new active section
    */
   public static reset(object: ClientObject, scheme: EScheme, state: IRegistryObjectState, section: TSection): void {
     abort("Called not implemented 'reset' method: %s, %s, %s.", object.name(), scheme, section);

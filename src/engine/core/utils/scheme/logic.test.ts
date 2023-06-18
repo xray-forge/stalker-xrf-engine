@@ -177,10 +177,6 @@ describe("'scheme logic' utils", () => {
     // todo;
   });
 
-  it("'getObjectGenericSchemeOverrides' should correctly get overrides", () => {
-    // todo;
-  });
-
   it("'initializeObjectSchemeLogic' should correctly initialize scheme logic", () => {
     // todo;
   });

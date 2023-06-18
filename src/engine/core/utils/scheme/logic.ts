@@ -35,7 +35,6 @@ import { NIL } from "@/engine/lib/constants/words";
 import {
   AnyArgs,
   AnyContextualCallable,
-  AnyObject,
   ClientObject,
   EClientObjectRelation,
   EScheme,
@@ -50,15 +49,6 @@ import {
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo;
- * todo;
- * todo; probably remove
- */
-export function getObjectGenericSchemeOverrides(object: ClientObject): Optional<LuaTable<string>> {
-  return $fromObject(registry.objects.get(object.id()).overrides as AnyObject);
-}
 
 /**
  * Check if provided scheme state is active.
@@ -506,11 +496,12 @@ export function initializeObjectSchemeLogic(
 }
 
 /**
- * todo;
- * todo;
- * todo;
- * todo;
- * ??? is called right after scheme switch for synchronization?
+ * Reset generic schemes on activation of new scheme.
+ * Called after scheme switch to new section.
+ *
+ * @param object - target client object
+ * @param scheme - new active scheme type
+ * @param section - new active section
  */
 export function resetObjectGenericSchemesOnSectionSwitch(
   object: ClientObject,

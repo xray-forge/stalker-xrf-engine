@@ -60,7 +60,7 @@ import {
   updateObjectInvulnerability,
 } from "@/engine/core/utils/object/object_general";
 import { setObjectsRelation, setObjectSympathy } from "@/engine/core/utils/relation";
-import { emitSchemeEvent, getObjectGenericSchemeOverrides } from "@/engine/core/utils/scheme/logic";
+import { emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
@@ -69,6 +69,7 @@ import { ERelation } from "@/engine/lib/constants/relations";
 import {
   ActionPlanner,
   ALifeSmartTerrainTask,
+  AnyObject,
   ClientObject,
   EClientObjectRelation,
   EScheme,
@@ -587,16 +588,16 @@ export function updateStalkerLogic(object: ClientObject): void {
     const manager: ActionPlanner = object.motivation_action_manager();
 
     if (manager.initialized() && manager.current_action_id() === stalker_ids.action_combat_planner) {
-      const overrides = getObjectGenericSchemeOverrides(object);
+      const overrides: Optional<AnyObject> = state.overrides;
 
       if (overrides !== null) {
-        if (overrides.get("on_combat")) {
-          pickSectionFromCondList(actor, object, overrides.get("on_combat").condlist);
+        if (overrides["on_combat"]) {
+          pickSectionFromCondList(actor, object, overrides["on_combat"].condlist);
         }
 
         if (combatState && combatState.logic) {
           if (!trySwitchToAnotherSection(object, combatState)) {
-            if (overrides.get("combat_type")) {
+            if (overrides["combat_type"]) {
               SchemeCombat.setCombatType(object, actor, overrides);
             }
           } else {
