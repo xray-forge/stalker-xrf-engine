@@ -3,8 +3,6 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { XrComponent } from "@/engine/forms/components/base";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
 
-export const IS_XML: boolean = true;
-
 /**
  * Scopes rendering for 16/9.
  */

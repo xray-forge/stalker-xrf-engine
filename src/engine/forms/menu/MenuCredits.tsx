@@ -1,7 +1,5 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-export const IS_XML: boolean = true;
-
 export function MenuCredits(): JSXNode {
   return (
     <Fragment>

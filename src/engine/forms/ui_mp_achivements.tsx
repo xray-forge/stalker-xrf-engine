@@ -1,7 +1,5 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-export const IS_XML: boolean = true;
-
 /**
  *  Used.
  *  Defined in C++ codebase: src/xrGame/UIAchivementsIndicator.h

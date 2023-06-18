@@ -1,7 +1,5 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-export const IS_XML: boolean = true;
-
 export function create(): JSXNode {
   // <!-- For applying specified color insert "%cColorName" into the text -->
   // <!-- Use "%cDEFAULT" color when need to switch to default color of UI element -->

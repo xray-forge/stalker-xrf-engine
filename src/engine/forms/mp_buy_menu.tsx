@@ -2,8 +2,6 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { MultiplayerBuyButtons } from "@/engine/forms/menu/multiplayer/MultiplayerBuyButtons";
 
-export const IS_XML: boolean = true;
-
 export function create(): JSXNode {
   return (
     <w>

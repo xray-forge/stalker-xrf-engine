@@ -6,8 +6,6 @@ import { OptionsSounds } from "@/engine/forms/menu/options/OptionsSounds.part";
 import { OptionsVideo } from "@/engine/forms/menu/options/OptionsVideo.part";
 import { OptionsVideoAdvanced } from "@/engine/forms/menu/options/OptionsVideoAdvanced.part";
 
-export const IS_XML: boolean = true;
-
 export function create(): JSXNode {
   return (
     <w>

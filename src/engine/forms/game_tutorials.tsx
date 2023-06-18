@@ -8,9 +8,7 @@ import {
   GameQuestsObjectsInteractionTips,
   GameStartIntro,
   GameVendorsIntro,
-} from "@/engine/forms/game_tutorials/index";
-
-export const IS_XML: boolean = true;
+} from "@/engine/forms/tutorials";
 
 export function create(): JSXNode {
   return (

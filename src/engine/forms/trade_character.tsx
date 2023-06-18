@@ -1,7 +1,5 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-export const IS_XML: boolean = true;
-
 // <!-- REMOVE THIS FILE -->-->
 export function create(): JSXNode {
   /**

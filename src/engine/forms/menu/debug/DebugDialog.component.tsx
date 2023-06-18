@@ -11,8 +11,6 @@ import { fonts } from "@/engine/lib/constants/fonts";
 import { textures } from "@/engine/lib/constants/textures";
 import { IRgbColor } from "@/engine/lib/types";
 
-export const IS_XML: boolean = true;
-
 const BASE_WIDTH: number = gameConfig.UI.BASE_WIDTH;
 const BASE_HEIGHT: number = gameConfig.UI.BASE_HEIGHT;
 

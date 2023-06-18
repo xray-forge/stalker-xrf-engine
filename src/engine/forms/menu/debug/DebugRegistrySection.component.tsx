@@ -4,8 +4,6 @@ import { Xr3tButton } from "@/engine/forms/components/base";
 import { WHITE } from "@/engine/lib/constants/colors";
 import { fonts } from "@/engine/lib/constants/fonts";
 
-export const IS_XML: boolean = true;
-
 export function create(): JSXNode {
   return (
     <w>

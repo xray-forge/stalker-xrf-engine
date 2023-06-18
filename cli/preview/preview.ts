@@ -17,7 +17,7 @@ import {
 } from "#/utils";
 
 const log: NodeLogger = new NodeLogger("PREVIEW");
-const EXPECTED_XML_EXTENSIONS: Array<EAssetExtension> = [EAssetExtension.TSX, EAssetExtension.XML];
+const EXPECTED_XML_EXTENSIONS: Array<EAssetExtension> = [EAssetExtension.TSX, EAssetExtension.TS, EAssetExtension.XML];
 
 interface IGeneratePreviewCommandParameters {
   clean?: boolean;
@@ -55,13 +55,15 @@ export async function generatePreview(
 
     await Promise.all(
       xmlConfigs.map(async ([from, to]) => {
-        if (from.endsWith(".tsx")) {
+        if (from.endsWith(EAssetExtension.XML)) {
+          const content: ArrayBuffer = await fsp.readFile(from);
+
+          log.debug("COMPILE XML:", blue(to));
+
+          await fsp.writeFile(to, generateHTMLPreviewFromXMLString(content.toString()));
+        } else {
           const xmlSource = await import(from);
-          const jsxContent =
-            from.endsWith(".tsx") &&
-            typeof xmlSource?.create === "function" &&
-            xmlSource?.IS_XML &&
-            xmlSource?.create();
+          const jsxContent = typeof xmlSource?.create === "function" && xmlSource.create();
 
           if (jsxContent) {
             log.debug("COMPILE JSX:", blue(to));
@@ -69,12 +71,6 @@ export async function generatePreview(
           } else {
             log.debug("SKIP, not valid source:", blue(from));
           }
-        } else {
-          const content: ArrayBuffer = await fsp.readFile(from);
-
-          log.debug("COMPILE XML:", blue(to));
-
-          await fsp.writeFile(to, generateHTMLPreviewFromXMLString(content.toString()));
         }
       })
     );
@@ -110,7 +106,7 @@ async function getUiConfigs(filters: Array<string> = []): Promise<Array<TFolderR
     if (Array.isArray(it)) {
       it.forEach((nested) => collectXmlConfigs(acc, nested));
     } else if (EXPECTED_XML_EXTENSIONS.includes(path.extname(it) as EAssetExtension)) {
-      const to: string = it.slice(GAME_DATA_UI_DIR.length).replace(/\.[^/.]+$/, "") + ".html";
+      const to: string = it.slice(GAME_DATA_UI_DIR.length).replace(/\.[^/.]+$/, "") + EAssetExtension.HTML;
 
       if (!filters.length || filters.some((filter) => it.match(filter))) {
         acc.push([it, path.join(TARGET_PREVIEW_DIR, to)]);
