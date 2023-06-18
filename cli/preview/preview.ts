@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as fsPromises from "fs/promises";
+import * as fsp from "fs/promises";
 import * as path from "path";
 
 import { blue, blueBright, yellow } from "chalk";
@@ -7,6 +7,7 @@ import { blue, blueBright, yellow } from "chalk";
 import { GAME_DATA_UI_DIR, TARGET_PREVIEW_DIR } from "#/globals/paths";
 import { generateHTMLPreviewFromXMLString } from "#/preview/utils/generate_preview";
 import {
+  EAssetExtension,
   NodeLogger,
   readDirContent,
   renderJsxToXmlText,
@@ -15,8 +16,8 @@ import {
   TimeTracker,
 } from "#/utils";
 
-const EXPECTED_XML_EXTENSIONS: Array<string> = [".tsx", ".xml"];
 const log: NodeLogger = new NodeLogger("PREVIEW");
+const EXPECTED_XML_EXTENSIONS: Array<EAssetExtension> = [EAssetExtension.TSX, EAssetExtension.XML];
 
 interface IGeneratePreviewCommandParameters {
   clean?: boolean;
@@ -64,16 +65,16 @@ export async function generatePreview(
 
           if (jsxContent) {
             log.debug("COMPILE JSX:", blue(to));
-            await fsPromises.writeFile(to, generateHTMLPreviewFromXMLString(renderJsxToXmlText(jsxContent)));
+            await fsp.writeFile(to, generateHTMLPreviewFromXMLString(renderJsxToXmlText(jsxContent)));
           } else {
             log.debug("SKIP, not valid source:", blue(from));
           }
         } else {
-          const content: ArrayBuffer = await fsPromises.readFile(from);
+          const content: ArrayBuffer = await fsp.readFile(from);
 
           log.debug("COMPILE XML:", blue(to));
 
-          await fsPromises.writeFile(to, generateHTMLPreviewFromXMLString(content.toString()));
+          await fsp.writeFile(to, generateHTMLPreviewFromXMLString(content.toString()));
         }
       })
     );
@@ -108,7 +109,7 @@ async function getUiConfigs(filters: Array<string> = []): Promise<Array<TFolderR
   ): Array<TFolderReplicationDescriptor> {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectXmlConfigs(acc, nested));
-    } else if (EXPECTED_XML_EXTENSIONS.includes(path.extname(it))) {
+    } else if (EXPECTED_XML_EXTENSIONS.includes(path.extname(it) as EAssetExtension)) {
       const to: string = it.slice(GAME_DATA_UI_DIR.length).replace(/\.[^/.]+$/, "") + ".html";
 
       if (!filters.length || filters.some((filter) => it.match(filter))) {
