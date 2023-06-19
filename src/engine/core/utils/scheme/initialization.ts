@@ -36,16 +36,22 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
- * todo;
- * todo;
+ * Configure object schemes and get ini config describing object scripts.
+ *
+ * @param object - target client object
+ * @param ini - ini file containing object spawn or job info
+ * @param iniName - ini file name
+ * @param schemeType - object scheme type
+ * @param logicsSection - section describing object initial logic
+ * @param smartTerrainName - object smart terrain name
+ * @returns ini file containing object logics
  */
 export function configureObjectSchemes(
   object: ClientObject,
   ini: IniFile,
   iniName: TName,
   schemeType: ESchemeType,
-  section: TSection,
+  logicsSection: TSection,
   smartTerrainName: Optional<TName>
 ): IniFile {
   const state: IRegistryObjectState = registry.objects.get(object.id());
@@ -58,29 +64,31 @@ export function configureObjectSchemes(
   let actualIni: IniFile;
   let actualIniFilename: TName;
 
-  if (ini.section_exist(section)) {
-    const filename: Optional<TName> = readIniString(ini, section, "cfg", false, "");
+  if (ini.section_exist(logicsSection)) {
+    // Read target configuration object in a recursive way and then `configureObjectSchemes` with final ini file.
+    const filename: Optional<TName> = readIniString(ini, logicsSection, "cfg", false, "");
 
-    if (filename !== null) {
+    // Read ini file if section `cfg` exists and load it.
+    if (filename) {
       actualIniFilename = filename;
       actualIni = new ini_file(filename);
 
       assert(
-        actualIni.section_exist(section),
+        actualIni.section_exist(logicsSection),
         "object '%s' configuration file [%s] !FOUND || section [logic] isn't assigned ",
         object.name(),
         filename
       );
 
-      return configureObjectSchemes(object, actualIni, actualIniFilename, schemeType, section, smartTerrainName);
+      return configureObjectSchemes(object, actualIni, actualIniFilename, schemeType, logicsSection, smartTerrainName);
     } else {
       if (schemeType === ESchemeType.STALKER || schemeType === ESchemeType.MONSTER) {
         const currentSmart: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
-        if (currentSmart !== null) {
+        if (currentSmart) {
           const job: Optional<ISmartTerrainJob> = currentSmart.getJob(object.id());
 
-          state.job_ini = job ? (job.ini_path as TName) : null;
+          state.jobIni = job ? (job.ini_path as TName) : null;
         }
       }
 
@@ -92,7 +100,7 @@ export function configureObjectSchemes(
       smartTerrainName === "",
       "Object '%s': unable to find section '%s' in '%s' and has no assigned smart terrain.",
       object.name(),
-      section,
+      logicsSection,
       iniName
     );
 
@@ -101,22 +109,21 @@ export function configureObjectSchemes(
   }
 
   disableObjectBaseSchemes(object, schemeType);
-  enableObjectBaseSchemes(object, actualIni, schemeType, section);
+  enableObjectBaseSchemes(object, actualIni, schemeType, logicsSection);
 
   state.activeSection = null;
   state.activeScheme = null;
   state.smartTerrainName = smartTerrainName;
-
   state.schemeType = schemeType;
+  state.sectionLogic = logicsSection;
   state.ini = actualIni;
   state.iniFilename = actualIniFilename;
-  state.sectionLogic = section;
 
   // todo: Move to separate activation methods?
   if (schemeType === ESchemeType.STALKER) {
     const tradeIni: TPath = readIniString(
       actualIni,
-      section,
+      logicsSection,
       "trade",
       false,
       "",
@@ -204,7 +211,10 @@ export function initializeObjectSchemeLogic(
 
 /**
  * Spawn object items on logics section change for an object.
- * todo: description
+ * Allows giving items to objects on specific logics activation.
+ *
+ * @param object - target client object
+ * @param state - object registry state
  */
 export function initializeObjectSectionItems(object: ClientObject, state: IRegistryObjectState): void {
   const spawnItemsSection: Optional<TSection> = readIniString(state.ini, state.sectionLogic, "spawn", false, "", null);

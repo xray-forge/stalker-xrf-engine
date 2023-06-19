@@ -22,11 +22,11 @@ import {
  */
 export interface IRegistryObjectStateLogic {
   /**
-   * todo;
+   * State logic containing ini file.
    */
   ini: IniFile;
   /**
-   * todo;
+   * File name of state logic ini.
    */
   iniFilename: Optional<TName>;
   /**
@@ -65,9 +65,9 @@ export interface IRegistryObjectStateLogic {
    */
   activationGameTime: Time;
   /**
-   * todo;
+   * Assigned job ini file from parent smart terrain object.
    */
-  job_ini: Optional<TName>;
+  jobIni: Optional<TName>;
   /**
    * Describes last active logic file name when game was saved.
    */

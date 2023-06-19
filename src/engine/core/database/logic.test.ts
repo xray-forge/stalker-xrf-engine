@@ -31,7 +31,7 @@ describe("'logic' database module", () => {
       actions,
     } as IBaseSchemeState;
 
-    state.job_ini = "test.ltx";
+    state.jobIni = "test.ltx";
     state.iniFilename = "test2.ltx";
     state.sectionLogic = "section_ex";
     state.activeSection = "active_sect_ex";
@@ -123,7 +123,7 @@ describe("'logic' database module", () => {
       EPacketDataType.U16,
     ]);
 
-    expect(nextState.job_ini).toBe("test.ltx");
+    expect(nextState.jobIni).toBe("test.ltx");
     expect(nextState.loadedIniFilename).toBe("test2.ltx");
     expect(nextState.loadedSectionLogic).toBe("section_ex");
     expect(nextState.loadedActiveSection).toBe("active_sect_ex");

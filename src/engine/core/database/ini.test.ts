@@ -59,7 +59,7 @@ describe("'ini' module of database", () => {
     const another: ClientObject = mockClientGameObject();
     const anotherState: IRegistryObjectState = registerObject(another);
 
-    anotherState.job_ini = "jobExample.ltx";
+    anotherState.jobIni = "jobExample.ltx";
 
     expect(getObjectLogicIniConfig(another, "*jobExample.ltx").fname()).toBe("jobExample.ltx");
   });

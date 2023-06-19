@@ -20,6 +20,8 @@ export class MockAlifeObject extends AbstractLuabindClass {
     super();
 
     this.section = section;
+
+    MockAlifeSimulator.addToRegistry(this as unknown as ServerObject);
   }
 
   public name(): string {
@@ -30,13 +32,9 @@ export class MockAlifeObject extends AbstractLuabindClass {
     return this.section;
   }
 
-  public on_register(): void {
-    MockAlifeSimulator.addToRegistry(this as unknown as ServerObject);
-  }
+  public on_register(): void {}
 
-  public on_unregister(): void {
-    MockAlifeSimulator.removeFromRegistry(this.id);
-  }
+  public on_unregister(): void {}
 
   public keep_saved_data_anyway(): boolean {
     return false;
@@ -72,7 +70,7 @@ export function mockServerAlifeObject({
   spawn_ini = jest.fn(() => mockIniFile("spawn.ini")),
   ...rest
 }: Partial<ServerObject & { sectionOverride?: string }> = {}): ServerObject {
-  return {
+  const object: ServerObject = {
     ...rest,
     id,
     clsid,
@@ -81,4 +79,8 @@ export function mockServerAlifeObject({
     section_name: section_name || jest.fn(() => sectionOverride),
     spawn_ini,
   } as unknown as ServerObject;
+
+  MockAlifeSimulator.addToRegistry(object);
+
+  return object;
 }

@@ -14,9 +14,8 @@ export class MockAlifeSmartZone extends MockAlifeObject {
  * todo;
  */
 export function mockServerAlifeSmartZone(base: Partial<ServerSmartZoneObject> = {}): ServerSmartZoneObject {
-  return {
-    ...mockServerAlifeObject(),
+  return mockServerAlifeObject({
     ...base,
     m_level_vertex_id: base.m_level_vertex_id || 430,
-  } as unknown as ServerSmartZoneObject;
+  }) as unknown as ServerSmartZoneObject;
 }

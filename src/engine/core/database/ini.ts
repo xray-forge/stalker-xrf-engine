@@ -56,8 +56,8 @@ export function getObjectLogicIniConfig(object: ClientObject, filename: TName): 
   } else if (string.find(filename, DYNAMIC_LTX_PREFIX)[0] === 1) {
     const state: IRegistryObjectState = registry.objects.get(object.id());
 
-    if (state.job_ini) {
-      return new ini_file(state.job_ini);
+    if (state.jobIni) {
+      return new ini_file(state.jobIni);
     }
 
     return loadDynamicIni(string.sub(filename, 2))[0];

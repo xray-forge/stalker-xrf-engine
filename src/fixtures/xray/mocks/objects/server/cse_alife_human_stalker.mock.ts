@@ -11,5 +11,5 @@ export class MockAlifeHumanStalker extends AbstractLuabindClass {}
  * todo;
  */
 export function mockServerAlifeHumanStalker(base: Partial<ServerHumanObject> = {}): ServerHumanObject {
-  return { ...mockServerAlifeDynamicObjectVisual(), ...base } as unknown as ServerHumanObject;
+  return mockServerAlifeDynamicObjectVisual(base) as unknown as ServerHumanObject;
 }

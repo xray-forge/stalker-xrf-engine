@@ -37,7 +37,7 @@ export function saveObjectLogic(object: ClientObject, packet: NetPacket): void {
 
   openSaveMarker(packet, "object" + object.name());
 
-  packet.w_stringZ(state.job_ini ? state.job_ini : "");
+  packet.w_stringZ(state.jobIni ? state.jobIni : "");
   packet.w_stringZ(state.iniFilename ? state.iniFilename : "");
   packet.w_stringZ(state.sectionLogic ? state.sectionLogic : "");
   packet.w_stringZ(state.activeSection ? state.activeSection : "");
@@ -72,7 +72,7 @@ export function loadObjectLogic(object: ClientObject, reader: NetProcessor): voi
   const activeSection: StringOptional = reader.r_stringZ();
   const gulagName: TName = reader.r_stringZ();
 
-  state.job_ini = jobIni === "" ? null : jobIni;
+  state.jobIni = jobIni === "" ? null : jobIni;
   state.loadedIniFilename = iniFilename === "" ? null : iniFilename;
   state.loadedSectionLogic = sectionLogic === "" ? null : sectionLogic;
   state.loadedActiveSection = activeSection === "" ? NIL : activeSection;

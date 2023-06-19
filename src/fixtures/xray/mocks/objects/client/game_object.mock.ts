@@ -214,7 +214,7 @@ export function mockClientGameObject({
     set_nonscript_usable: rest.set_nonscript_usable || jest.fn(),
     set_home: rest.set_home || jest.fn(),
     set_invisible: rest.set_invisible || jest.fn(),
-    set_relation: rest.set_relation || jest.fn(() => console.error("A")),
+    set_relation: rest.set_relation || jest.fn(),
     set_sympathy: rest.set_sympathy || jest.fn(),
     sight_params:
       rest.sight_params ||

@@ -2,17 +2,32 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { alife } from "xray16";
 
 import { CUSTOM_DATA, IRegistryObjectState, registerActor, registerObject, registry } from "@/engine/core/database";
+import { SmartTerrain } from "@/engine/core/objects";
+import { ISmartTerrainJob } from "@/engine/core/objects/server/smart_terrain/types";
 import { TAbstractSchemeConstructor } from "@/engine/core/schemes";
+import { SchemeAbuse } from "@/engine/core/schemes/abuse";
+import { SchemeCombat } from "@/engine/core/schemes/combat";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore";
+import { SchemeCorpseDetection } from "@/engine/core/schemes/corpse_detection";
 import { SchemeDanger } from "@/engine/core/schemes/danger";
 import { SchemeDeath } from "@/engine/core/schemes/death";
+import { SchemeGatherItems } from "@/engine/core/schemes/gather_items";
 import { SchemeHear } from "@/engine/core/schemes/hear";
+import { SchemeHelpWounded } from "@/engine/core/schemes/help_wounded";
+import { SchemeHit } from "@/engine/core/schemes/hit";
+import { SchemeMeet } from "@/engine/core/schemes/meet";
 import { SchemeMobCombat } from "@/engine/core/schemes/mob_combat";
-import { initializeObjectSchemeLogic, initializeObjectSectionItems } from "@/engine/core/utils/scheme/initialization";
-import { loadSchemeImplementations } from "@/engine/core/utils/scheme/setup";
+import { SchemeReachTask } from "@/engine/core/schemes/reach_task";
+import { SchemeWounded } from "@/engine/core/schemes/wounded";
+import {
+  configureObjectSchemes,
+  initializeObjectSchemeLogic,
+  initializeObjectSectionItems,
+} from "@/engine/core/utils/scheme/initialization";
+import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/utils/scheme/setup";
 import { AnyObject, ClientObject, EClientObjectRelation, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/utils";
-import { FILES_MOCKS, mockClientGameObject, mockIniFile } from "@/fixtures/xray";
+import { FILES_MOCKS, mockClientGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("'scheme initialization' utils", () => {
   beforeEach(() => {
@@ -20,8 +35,140 @@ describe("'scheme initialization' utils", () => {
     registry.actor = null as unknown as ClientObject;
   });
 
-  it("'configureObjectSchemes' should correctly configure scheme for objects", () => {
-    // todo;
+  it("'configureObjectSchemes' should correctly configure scheme for objects if section does not exist", () => {
+    const object: ClientObject = mockClientGameObject();
+    const state: IRegistryObjectState = registerObject(object);
+    const ini: IniFile = mockIniFile("test.ltx", {});
+
+    const schemes: Array<TAbstractSchemeConstructor> = [
+      SchemeAbuse,
+      SchemeCombat,
+      SchemeCombatIgnore,
+      SchemeCorpseDetection,
+      SchemeDanger,
+      SchemeDeath,
+      SchemeGatherItems,
+      SchemeHear,
+      SchemeHelpWounded,
+      SchemeHit,
+      SchemeMeet,
+      SchemeWounded,
+      SchemeReachTask,
+    ];
+
+    schemes.forEach((it) => {
+      jest.spyOn(it, "disable").mockImplementation(() => {});
+      jest.spyOn(it, "activate").mockImplementation(() => {});
+      jest.spyOn(it, "reset").mockImplementation(() => {});
+    });
+
+    resetFunctionMock(alife().create);
+
+    loadSchemeImplementations($fromArray(schemes));
+    loadSchemeImplementation(SchemeMeet, EScheme.ACTOR_DIALOGS);
+
+    expect(() => {
+      configureObjectSchemes(object, ini, "test.ltx", ESchemeType.STALKER, "logics", "test-smart");
+    }).toThrow();
+    configureObjectSchemes(object, ini, "test.ltx", ESchemeType.STALKER, "logics", "");
+
+    expect(state.iniFilename).toBe("test.ltx");
+    expect(state.sectionLogic).toBe("logics");
+    expect(state.jobIni).toBeUndefined();
+    expect(state.activeSection).toBeNull();
+
+    expect(SchemeAbuse.activate).toHaveBeenCalled();
+    expect(SchemeCombat.activate).toHaveBeenCalled();
+    expect(SchemeCombatIgnore.activate).toHaveBeenCalled();
+    expect(SchemeCorpseDetection.activate).toHaveBeenCalled();
+    expect(SchemeDanger.activate).toHaveBeenCalled();
+    expect(SchemeDeath.activate).toHaveBeenCalled();
+    expect(SchemeGatherItems.activate).toHaveBeenCalled();
+    expect(SchemeHelpWounded.activate).toHaveBeenCalled();
+    expect(SchemeMeet.activate).toHaveBeenCalled();
+    expect(SchemeWounded.activate).toHaveBeenCalled();
+    expect(SchemeReachTask.activate).toHaveBeenCalled();
+
+    expect(registry.trade.get(object.id())).toBeDefined();
+    expect(alife().create).not.toHaveBeenCalled();
+  });
+
+  it("'configureObjectSchemes' should correctly configure scheme for objects if cfg section exists", () => {
+    const object: ClientObject = mockClientGameObject();
+    const smartTerrain: SmartTerrain = new SmartTerrain("smart_terrain");
+
+    mockServerAlifeHumanStalker({
+      id: object.id(),
+      m_smart_terrain_id: smartTerrain.id,
+    });
+
+    const state: IRegistryObjectState = registerObject(object);
+    const ini: IniFile = mockIniFile("test.ltx", {
+      logics: { cfg: "logics-descriptor.ltx" },
+    });
+
+    (FILES_MOCKS as Record<string, AnyObject>)["logics-descriptor.ltx"] = {
+      logics: {
+        spawn: "list",
+      },
+      list: {
+        ak74: 2,
+      },
+    };
+
+    const schemes: Array<TAbstractSchemeConstructor> = [
+      SchemeAbuse,
+      SchemeCombat,
+      SchemeCombatIgnore,
+      SchemeCorpseDetection,
+      SchemeDanger,
+      SchemeDeath,
+      SchemeGatherItems,
+      SchemeHear,
+      SchemeHelpWounded,
+      SchemeHit,
+      SchemeMeet,
+      SchemeWounded,
+      SchemeReachTask,
+    ];
+
+    schemes.forEach((it) => {
+      jest.spyOn(it, "disable").mockImplementation(() => {});
+      jest.spyOn(it, "activate").mockImplementation(() => {});
+      jest.spyOn(it, "reset").mockImplementation(() => {});
+    });
+
+    jest.spyOn(smartTerrain, "getJob").mockImplementation(() => ({ ini_path: "job_test.ltx" } as ISmartTerrainJob));
+
+    resetFunctionMock(alife().create);
+
+    loadSchemeImplementations($fromArray(schemes));
+    loadSchemeImplementation(SchemeMeet, EScheme.ACTOR_DIALOGS);
+
+    expect(() => {
+      configureObjectSchemes(object, ini, "test.ltx", ESchemeType.STALKER, "logics_not_existing", "test-smart");
+    }).toThrow();
+    configureObjectSchemes(object, ini, "test.ltx", ESchemeType.STALKER, "logics", "test-smart");
+
+    expect(state.iniFilename).toBe("logics-descriptor.ltx");
+    expect(state.sectionLogic).toBe("logics");
+    expect(state.jobIni).toBe("job_test.ltx");
+    expect(state.activeSection).toBeNull();
+
+    expect(SchemeAbuse.activate).toHaveBeenCalled();
+    expect(SchemeCombat.activate).toHaveBeenCalled();
+    expect(SchemeCombatIgnore.activate).toHaveBeenCalled();
+    expect(SchemeCorpseDetection.activate).toHaveBeenCalled();
+    expect(SchemeDanger.activate).toHaveBeenCalled();
+    expect(SchemeDeath.activate).toHaveBeenCalled();
+    expect(SchemeGatherItems.activate).toHaveBeenCalled();
+    expect(SchemeHelpWounded.activate).toHaveBeenCalled();
+    expect(SchemeMeet.activate).toHaveBeenCalled();
+    expect(SchemeWounded.activate).toHaveBeenCalled();
+    expect(SchemeReachTask.activate).toHaveBeenCalled();
+
+    expect(registry.trade.get(object.id())).toBeDefined();
+    expect(alife().create).toHaveBeenCalledTimes(2);
   });
 
   it("'initializeObjectSchemeLogic' should correctly initialize scheme logic on init", () => {
