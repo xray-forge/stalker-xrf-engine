@@ -175,7 +175,7 @@ export class ReleaseBodyManager extends AbstractCoreManager {
 
     const state: IRegistryObjectState = registry.objects.get(object.id());
     const knownInfo: TSection =
-      readIniString(characterIni, state.section_logic, "known_info", false, "", null) || "known_info";
+      readIniString(characterIni, state.sectionLogic, "known_info", false, "", null) || "known_info";
 
     return characterIni.section_exist(knownInfo);
   }

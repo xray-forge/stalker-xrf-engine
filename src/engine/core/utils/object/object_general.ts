@@ -312,7 +312,7 @@ export function initializeObjectTakeItemsEnabledState(
 ): void {
   const isTakeItemsEnabled: boolean = state.ini.line_exist(section, "take_items")
     ? readIniBoolean(state.ini, section, "take_items", false, true)
-    : readIniBoolean(state.ini, state.section_logic, "take_items", false, true);
+    : readIniBoolean(state.ini, state.sectionLogic, "take_items", false, true);
 
   object.take_items_enabled(isTakeItemsEnabled);
 }
@@ -329,7 +329,7 @@ export function initializeObjectCanSelectWeaponState(
   let data: string = readIniString(state.ini, section, "can_select_weapon", false, "", "");
 
   if (data === "") {
-    data = readIniString(state.ini, state.section_logic, "can_select_weapon", false, "", TRUE);
+    data = readIniString(state.ini, state.sectionLogic, "can_select_weapon", false, "", TRUE);
   }
 
   const conditionsList: TConditionList = parseConditionsList(data);
@@ -399,7 +399,7 @@ export function resetObjectIgnoreThreshold(
 ): void {
   const thresholdSection: Optional<TSection> =
     scheme === null || scheme === NIL
-      ? readIniString(state.ini, state.section_logic, "threshold", false, "")
+      ? readIniString(state.ini, state.sectionLogic, "threshold", false, "")
       : readIniString(state.ini, section, "threshold", false, "");
 
   if (thresholdSection) {

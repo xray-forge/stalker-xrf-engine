@@ -48,7 +48,7 @@ export class SchemeDeath extends AbstractScheme {
   ): void {
     const deathSection: Optional<TSection> = readIniString(
       objectState.ini!,
-      objectState.section_logic,
+      objectState.sectionLogic,
       "on_death",
       false,
       "",

@@ -3,7 +3,7 @@ import { ini_file, time_global } from "xray16";
 import { closeLoadMarker, closeSaveMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseConditionsList } from "@/engine/core/utils/ini/parse";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
@@ -41,16 +41,25 @@ export interface ITradeManagerDescriptor {
 
 /**
  * todo;
+ * todo: Move periods to logicsConfig.TRADE
  */
 export class TradeManager extends AbstractCoreManager {
   public static readonly TRADE_UPDATE_PERIOD: TDuration = 3_600_000;
   public static readonly TRADE_RESUPPLY_PERIOD: TDuration = 24 * 3_600_000;
 
   /**
-   * todo
+   * todo;
    */
-  public initForObject(object: ClientObject, configFilePath: TPath): void {
-    logger.info("Init trade for:", object.name(), configFilePath);
+  public static initializeForObject(object: ClientObject, iniFilePath: TPath): void {
+    TradeManager.getInstance().initializeForObject(object, iniFilePath);
+  }
+
+  /**
+   * todo
+   * todo: Do not reuse data variable.
+   */
+  public initializeForObject(object: ClientObject, configFilePath: TPath): void {
+    logger.info("Initialize trade for:", object.name(), configFilePath);
 
     const objectId: TNumberId = object.id();
 
@@ -60,9 +69,7 @@ export class TradeManager extends AbstractCoreManager {
 
     let data = readIniString(registry.trade.get(objectId).config, "trader", "buy_condition", true, "");
 
-    if (data === null) {
-      abort("Incorrect trader settings. Cannot find buy_condition. [%s]->[%s]", object.name(), configFilePath);
-    }
+    assert(data, "Incorrect trader settings. Cannot find buy_condition. [%s]->[%s].", object.name(), configFilePath);
 
     registry.trade.get(objectId).buy_condition = parseConditionsList(data);
 
@@ -155,6 +162,9 @@ export class TradeManager extends AbstractCoreManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public getBuyDiscountForObject(objectId: TNumberId): number {
     const tradeDescriptor: ITradeManagerDescriptor = registry.trade.get(objectId);
     const data: string = readIniString(tradeDescriptor.config, "trader", "discounts", false, "", "");

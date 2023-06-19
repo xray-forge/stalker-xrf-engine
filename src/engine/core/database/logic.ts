@@ -38,10 +38,10 @@ export function saveObjectLogic(object: ClientObject, packet: NetPacket): void {
   openSaveMarker(packet, "object" + object.name());
 
   packet.w_stringZ(state.job_ini ? state.job_ini : "");
-  packet.w_stringZ(state.ini_filename ? state.ini_filename : "");
-  packet.w_stringZ(state.section_logic ? state.section_logic : "");
+  packet.w_stringZ(state.iniFilename ? state.iniFilename : "");
+  packet.w_stringZ(state.sectionLogic ? state.sectionLogic : "");
   packet.w_stringZ(state.activeSection ? state.activeSection : "");
-  packet.w_stringZ(state.gulag_name ? state.gulag_name : "");
+  packet.w_stringZ(state.smartTerrainName ? state.smartTerrainName : "");
 
   packet.w_s32((state.activationTime || 0) - time_global());
   writeTimeToPacket(packet, state.activationGameTime);
@@ -73,10 +73,10 @@ export function loadObjectLogic(object: ClientObject, reader: NetProcessor): voi
   const gulagName: TName = reader.r_stringZ();
 
   state.job_ini = jobIni === "" ? null : jobIni;
-  state.loaded_ini_filename = iniFilename === "" ? null : iniFilename;
-  state.loaded_section_logic = sectionLogic === "" ? null : sectionLogic;
-  state.loaded_active_section = activeSection === "" ? NIL : activeSection;
-  state.loaded_gulag_name = gulagName;
+  state.loadedIniFilename = iniFilename === "" ? null : iniFilename;
+  state.loadedSectionLogic = sectionLogic === "" ? null : sectionLogic;
+  state.loadedActiveSection = activeSection === "" ? NIL : activeSection;
+  state.loadedSmartTerrainName = gulagName;
 
   state.activationTime = reader.r_s32() + time_global();
   state.activationGameTime = readTimeFromPacket(reader) as Time;

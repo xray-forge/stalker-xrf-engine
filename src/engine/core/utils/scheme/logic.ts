@@ -1,7 +1,6 @@
-import { callback, clsid, game, ini_file, time_global } from "xray16";
+import { callback, clsid, game, time_global } from "xray16";
 
-import { getObjectLogicIniConfig, IRegistryObjectState, IStoredOfflineObject, registry } from "@/engine/core/database";
-import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
+import { IRegistryObjectState, IStoredOfflineObject, registry } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
 import { SmartTerrain } from "@/engine/core/objects";
 import { ISmartTerrainJob } from "@/engine/core/objects/server/smart_terrain/types";
@@ -12,10 +11,10 @@ import {
   ObjectRestrictionsManager,
   TAbstractSchemeConstructor,
 } from "@/engine/core/schemes";
-import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
+import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import { getObjectConfigOverrides, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { getSchemeFromSection } from "@/engine/core/utils/ini/parse";
-import { readIniConditionList, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
+import { readIniConditionList, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   getObjectSmartTerrain,
@@ -28,23 +27,15 @@ import {
   sendToNearestAccessibleVertex,
   setObjectInfo,
 } from "@/engine/core/utils/object/object_general";
-import { disableObjectBaseSchemes } from "@/engine/core/utils/scheme/setup";
-import { spawnDefaultObjectItems } from "@/engine/core/utils/spawn";
-import { ERelation } from "@/engine/lib/constants/relations";
 import { NIL } from "@/engine/lib/constants/words";
 import {
   AnyArgs,
   AnyContextualCallable,
   ClientObject,
-  EClientObjectRelation,
   EScheme,
   ESchemeType,
   IniFile,
   Optional,
-  TCount,
-  TName,
-  TNumberId,
-  TPath,
   TSection,
 } from "@/engine/lib/types";
 
@@ -212,102 +203,14 @@ export function activateSchemeBySection(
 }
 
 /**
- * todo;
- * todo;
- * todo;
- */
-export function configureObjectSchemes(
-  object: ClientObject,
-  ini: IniFile,
-  iniName: TName,
-  schemeType: ESchemeType,
-  section: TSection,
-  smartTerrainName: Optional<TName>
-): IniFile {
-  const objectId: TNumberId = object.id();
-  const state: IRegistryObjectState = registry.objects.get(objectId);
-
-  // Deactivate previous scheme section.
-  if (state.activeSection) {
-    emitSchemeEvent(object, state[state.activeScheme!]!, ESchemeEvent.DEACTIVATE, object);
-  }
-
-  let actualIni: IniFile;
-  let actualIniFilename: TName;
-
-  if (!ini.section_exist(section)) {
-    if (smartTerrainName === "") {
-      actualIniFilename = iniName;
-      actualIni = ini;
-    } else {
-      abort("ERROR: object '%s': unable to find section '%s' in '%s'", object.name(), section, tostring(iniName));
-    }
-  } else {
-    const filename: Optional<TName> = readIniString(ini, section, "cfg", false, "");
-
-    if (filename !== null) {
-      actualIniFilename = filename;
-      actualIni = new ini_file(filename);
-
-      assert(
-        actualIni.section_exist(section),
-        "object '%s' configuration file [%s] !FOUND || section [logic] isn't assigned ",
-        object.name(),
-        filename
-      );
-
-      return configureObjectSchemes(object, actualIni, actualIniFilename, schemeType, section, smartTerrainName);
-    } else {
-      if (schemeType === ESchemeType.STALKER || schemeType === ESchemeType.MONSTER) {
-        const currentSmart: Optional<SmartTerrain> = getObjectSmartTerrain(object);
-
-        if (currentSmart !== null) {
-          const job: any = currentSmart.getJob(objectId);
-
-          if (job) {
-            state.job_ini = job.ini_path;
-          } else {
-            state.job_ini = null;
-          }
-        }
-      }
-
-      actualIniFilename = iniName;
-      actualIni = ini;
-    }
-  }
-
-  disableObjectBaseSchemes(object, schemeType);
-  enableObjectGenericSchemes(object, actualIni, schemeType, section);
-
-  state.activeSection = null;
-  state.activeScheme = null;
-  state.gulag_name = smartTerrainName;
-
-  state.schemeType = schemeType;
-  state.ini = actualIni;
-  state.ini_filename = actualIniFilename;
-  state.section_logic = section;
-
-  if (schemeType === ESchemeType.STALKER) {
-    const tradeIni: TPath = readIniString(actualIni, section, "trade", false, "", "misc\\trade\\trade_generic.ltx");
-
-    TradeManager.getInstance().initForObject(object, tradeIni);
-    spawnDefaultObjectItems(object, state);
-  }
-
-  return state.ini;
-}
-
-/**
- * Enable generic schemes for object on logics activation.
+ * Enable generic base schemes for object on logics activation.
  *
  * @param object - target client object
  * @param ini - target object ini configuration
  * @param schemeType - type of object applied scheme
  * @param section - next active logic section
  */
-export function enableObjectGenericSchemes(
+export function enableObjectBaseSchemes(
   object: ClientObject,
   ini: IniFile,
   schemeType: ESchemeType,
@@ -426,74 +329,6 @@ export function enableObjectGenericSchemes(
 }
 
 /**
- * todo;
- * todo;
- * todo; Move to initialize.ts file.
- */
-export function initializeObjectSchemeLogic(
-  object: ClientObject,
-  state: IRegistryObjectState,
-  isLoaded: boolean,
-  actor: ClientObject,
-  schemeType: ESchemeType
-): void {
-  logger.info("Initialize object:", object.name(), ESchemeType[schemeType], isLoaded);
-
-  if (isLoaded) {
-    const iniFilename: Optional<TName> = state.loaded_ini_filename;
-
-    if (iniFilename) {
-      const iniFile: IniFile = configureObjectSchemes(
-        object,
-        getObjectLogicIniConfig(object, iniFilename),
-        iniFilename,
-        schemeType,
-        state.loaded_section_logic as TSection,
-        state.loaded_gulag_name
-      );
-
-      activateSchemeBySection(object, iniFile, state.loaded_active_section as TSection, state.loaded_gulag_name, true);
-    }
-  } else {
-    const iniFilename: TName = "<customdata>";
-    const iniFile: IniFile = configureObjectSchemes(
-      object,
-      getObjectLogicIniConfig(object, iniFilename),
-      iniFilename,
-      schemeType,
-      "logic",
-      ""
-    );
-
-    const section: TSection = getSectionToActivate(object, iniFile, "logic");
-
-    activateSchemeBySection(object, iniFile, section, state.gulag_name, false);
-
-    const relation: Optional<ERelation> = readIniString(iniFile, "logic", "relation", false, "") as ERelation;
-
-    if (relation !== null) {
-      switch (relation) {
-        case ERelation.NEUTRAL:
-          object.set_relation(EClientObjectRelation.NEUTRAL, registry.actor);
-          break;
-        case ERelation.ENEMY:
-          object.set_relation(EClientObjectRelation.ENEMY, registry.actor);
-          break;
-        case ERelation.FRIEND:
-          object.set_relation(EClientObjectRelation.FRIEND, registry.actor);
-          break;
-      }
-    }
-
-    const sympathy: Optional<TCount> = readIniNumber(iniFile, "logic", "sympathy", false);
-
-    if (sympathy !== null) {
-      object.set_sympathy(sympathy);
-    }
-  }
-}
-
-/**
  * Reset generic schemes on activation of new scheme.
  * Called after scheme switch to new section.
  *
@@ -538,7 +373,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(
     }
 
     case ESchemeType.MONSTER: {
-      scriptReleaseObject(object, ""); // ???
+      scriptReleaseObject(object, ""); // ???, todo: need details
 
       if (object.clsid() === clsid.bloodsucker_s) {
         object.set_manual_invisibility(scheme !== EScheme.NIL);

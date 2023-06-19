@@ -64,6 +64,7 @@ export function spawnItemsForObject(
 
   for (const it of $range(1, count)) {
     if (math.random(100) <= probability) {
+      // todo: Get simulator only once?
       alife().create(itemSection, position, lvid, gvid, id);
       itemsSpawned += 1;
     }
@@ -135,34 +136,6 @@ export function spawnItemsForObjectFromList(
       spawnAmmoForObject(object, section, 1);
     } else {
       spawnItemsForObject(object, section, 1);
-    }
-  }
-}
-
-/**
- * todo: description
- */
-export function spawnDefaultObjectItems(object: ClientObject, state: IRegistryObjectState): void {
-  logger.info("Spawn default items for object:", object.name());
-
-  const itemsToSpawn: LuaTable<TInventoryItem, TCount> = new LuaTable();
-  const spawnItemsSection: Optional<TSection> = readIniString(state.ini, state.section_logic, "spawn", false, "", null);
-
-  if (spawnItemsSection === null) {
-    return;
-  }
-
-  const itemSectionsCount: TCount = state.ini.line_count(spawnItemsSection);
-
-  for (const it of $range(0, itemSectionsCount - 1)) {
-    const [result, id, value] = state.ini.r_line(spawnItemsSection, it, "", "");
-
-    itemsToSpawn.set(id as TInventoryItem, value === "" ? 1 : tonumber(value)!);
-  }
-
-  for (const [id, count] of itemsToSpawn) {
-    if (object.object(id) === null) {
-      spawnItemsForObject(object, id, count);
     }
   }
 }

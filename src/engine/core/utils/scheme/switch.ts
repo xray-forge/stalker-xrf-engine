@@ -142,7 +142,7 @@ export function switchObjectSchemeToSection(object: ClientObject, ini: IniFile, 
   state.activeSection = null;
   state.activeScheme = null;
 
-  activateSchemeBySection(object, ini, section, state.gulag_name, false);
+  activateSchemeBySection(object, ini, section, state.smartTerrainName, false);
 
   return true;
 }

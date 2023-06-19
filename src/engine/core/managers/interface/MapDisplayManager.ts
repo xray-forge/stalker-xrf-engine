@@ -82,7 +82,7 @@ export class MapDisplayManager extends AbstractCoreManager {
     let spotSection;
 
     if (scheme === null || scheme === NIL) {
-      spotSection = readIniString(state.ini, state.section_logic, "show_spot", false, "");
+      spotSection = readIniString(state.ini, state.sectionLogic, "show_spot", false, "");
     } else {
       spotSection = readIniString(state.ini, section, "show_spot", false, "");
     }
@@ -94,7 +94,7 @@ export class MapDisplayManager extends AbstractCoreManager {
     const actor: ClientObject = registry.actor;
     let mapSpot: Optional<EMapMarkType> = readIniString(
       state.ini,
-      state.section_logic,
+      state.sectionLogic,
       "level_spot",
       false,
       ""
@@ -152,7 +152,7 @@ export class MapDisplayManager extends AbstractCoreManager {
     const objectId: Maybe<TNumberId> = simulator.object(object.id())?.id;
     let mapSpot: Optional<EMapMarkType> = readIniString<EMapMarkType>(
       state.ini,
-      state.section_logic,
+      state.sectionLogic,
       "level_spot",
       false,
       ""

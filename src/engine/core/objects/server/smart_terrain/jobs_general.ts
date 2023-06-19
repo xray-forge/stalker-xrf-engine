@@ -9,7 +9,7 @@ import { getSchemeFromSection, parseConditionsList, parseWaypointData } from "@/
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { initializeObjectSchemeLogic } from "@/engine/core/utils/scheme/logic";
+import { initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -55,7 +55,7 @@ export function loadSmartTerrainJobs(smartTerrain: SmartTerrain): LuaMultiReturn
 
   logger.info("Load job for smart:", smartTerrainName);
 
-  let ltx =
+  let ltx: string =
     "[meet@generic_lager]\n" +
     "close_distance = {=is_wounded} 0, 2\n" +
     "close_anim = {=is_wounded} nil, {!is_squad_commander} nil, {=actor_has_weapon} threat_na, talk_default\n" +
@@ -1300,12 +1300,12 @@ export function setupSmartJobsAndLogicOnSpawn(
       if (needSetupLogic) {
         smartTerrain.setupObjectLogic(object);
       } else {
-        initializeObjectSchemeLogic(object, state, isLoaded, registry.actor, schemeType);
+        initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
       }
     } else {
-      initializeObjectSchemeLogic(object, state, isLoaded, registry.actor, schemeType);
+      initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
     }
   } else {
-    initializeObjectSchemeLogic(object, state, isLoaded, registry.actor, schemeType);
+    initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
   }
 }

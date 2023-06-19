@@ -19,7 +19,7 @@ import { HeliCombat } from "@/engine/core/schemes/heli_move/HeliCombat";
 import { getHeliFirer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme/logic";
+import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import {
   ClientObject,
   ESchemeType,
@@ -97,7 +97,7 @@ export class HelicopterBinder extends object_binder {
 
     if (!this.initialized && actor) {
       this.initialized = true;
-      initializeObjectSchemeLogic(this.object, this.state, this.loaded, actor, ESchemeType.HELI);
+      initializeObjectSchemeLogic(this.object, this.state, this.loaded, ESchemeType.HELI);
     }
 
     if (this.state.activeSection !== null) {

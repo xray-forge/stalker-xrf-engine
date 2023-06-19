@@ -42,7 +42,7 @@ import { disableInfo, giveInfo } from "@/engine/core/utils/info_portion";
 import {
   activateSchemeBySection,
   emitSchemeEvent,
-  enableObjectGenericSchemes,
+  enableObjectBaseSchemes,
   getSectionToActivate,
   isSectionActive,
   resetObjectGenericSchemesOnSectionSwitch,
@@ -353,7 +353,7 @@ describe("'scheme logic' utils", () => {
     });
   });
 
-  it("'enableObjectGenericSchemes' should correctly enables schemes for heli", () => {
+  it("'enableObjectBaseSchemes' should correctly enables schemes for heli", () => {
     const object: ClientObject = mockClientGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@first": {},
@@ -366,14 +366,14 @@ describe("'scheme logic' utils", () => {
 
     loadSchemeImplementation(SchemeHit);
 
-    enableObjectGenericSchemes(object, ini, ESchemeType.HELI, "sr_idle@first");
+    enableObjectBaseSchemes(object, ini, ESchemeType.HELI, "sr_idle@first");
     expect(SchemeHit.activate).not.toHaveBeenCalled();
 
-    enableObjectGenericSchemes(object, ini, ESchemeType.HELI, "sr_idle@second");
+    enableObjectBaseSchemes(object, ini, ESchemeType.HELI, "sr_idle@second");
     expect(SchemeHit.activate).toHaveBeenCalledWith(object, ini, EScheme.HIT, "hit@another");
   });
 
-  it("'enableObjectGenericSchemes' should correctly enables schemes for items", () => {
+  it("'enableObjectBaseSchemes' should correctly enables schemes for items", () => {
     const object: ClientObject = mockClientGameObject();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@first": {},
@@ -386,14 +386,14 @@ describe("'scheme logic' utils", () => {
 
     loadSchemeImplementation(SchemePhysicalOnHit);
 
-    enableObjectGenericSchemes(object, ini, ESchemeType.ITEM, "sr_idle@first");
+    enableObjectBaseSchemes(object, ini, ESchemeType.ITEM, "sr_idle@first");
     expect(SchemePhysicalOnHit.activate).not.toHaveBeenCalled();
 
-    enableObjectGenericSchemes(object, ini, ESchemeType.ITEM, "sr_idle@second");
+    enableObjectBaseSchemes(object, ini, ESchemeType.ITEM, "sr_idle@second");
     expect(SchemePhysicalOnHit.activate).toHaveBeenCalledWith(object, ini, EScheme.PH_ON_HIT, "ph_on_hit@another");
   });
 
-  it("'enableObjectGenericSchemes' should correctly enables schemes for monsters", () => {
+  it("'enableObjectBaseSchemes' should correctly enables schemes for monsters", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
@@ -417,14 +417,14 @@ describe("'scheme logic' utils", () => {
       $fromArray<TAbstractSchemeConstructor>([SchemeMobCombat, SchemeMobDeath, SchemeHit, SchemeCombatIgnore])
     );
 
-    enableObjectGenericSchemes(object, ini, ESchemeType.MONSTER, "sr_idle@first");
+    enableObjectBaseSchemes(object, ini, ESchemeType.MONSTER, "sr_idle@first");
     expect(SchemeHit.activate).not.toHaveBeenCalled();
     expect(SchemeMobCombat.activate).not.toHaveBeenCalled();
     expect(SchemeMobDeath.activate).not.toHaveBeenCalled();
     expect(SchemeCombatIgnore.activate).toHaveBeenCalledWith(object, ini, EScheme.COMBAT_IGNORE, null);
     expect(object.invulnerable).toHaveBeenCalledTimes(2);
 
-    enableObjectGenericSchemes(object, ini, ESchemeType.MONSTER, "sr_idle@second");
+    enableObjectBaseSchemes(object, ini, ESchemeType.MONSTER, "sr_idle@second");
     expect(SchemeHit.activate).toHaveBeenCalledWith(object, ini, EScheme.HIT, "hit@another");
     expect(SchemeMobCombat.activate).toHaveBeenCalledWith(object, ini, EScheme.MOB_COMBAT, "mob_combat@another");
     expect(SchemeMobDeath.activate).toHaveBeenCalledWith(object, ini, EScheme.MOB_DEATH, "mob_death@another");
@@ -432,7 +432,7 @@ describe("'scheme logic' utils", () => {
     expect(object.invulnerable).toHaveBeenCalledTimes(4);
   });
 
-  it("'enableObjectGenericSchemes' should correctly enables schemes for stalkers", () => {
+  it("'enableObjectBaseSchemes' should correctly enables schemes for stalkers", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
@@ -472,7 +472,7 @@ describe("'scheme logic' utils", () => {
     loadSchemeImplementations($fromArray<TAbstractSchemeConstructor>(schemes));
     registerActor(mockClientGameObject());
 
-    enableObjectGenericSchemes(object, ini, ESchemeType.STALKER, "sr_idle@first");
+    enableObjectBaseSchemes(object, ini, ESchemeType.STALKER, "sr_idle@first");
     expect(SchemeAbuse.activate).toHaveBeenCalledWith(object, ini, EScheme.ABUSE, "sr_idle@first");
     expect(SchemeWounded.activate).toHaveBeenCalledWith(object, ini, EScheme.WOUNDED, null);
     expect(SchemeHelpWounded.activate).toHaveBeenCalledWith(object, ini, EScheme.HELP_WOUNDED, null);
@@ -487,7 +487,7 @@ describe("'scheme logic' utils", () => {
     expect(SchemeMeet.activate).toHaveBeenCalledWith(object, ini, EScheme.MEET, null);
     expect(SchemeReachTask.activate).toHaveBeenCalledWith(object, ini, EScheme.REACH_TASK, null);
 
-    enableObjectGenericSchemes(object, ini, ESchemeType.STALKER, "sr_idle@second");
+    enableObjectBaseSchemes(object, ini, ESchemeType.STALKER, "sr_idle@second");
     expect(SchemeAbuse.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.ABUSE, "sr_idle@second");
     expect(SchemeWounded.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.WOUNDED, "wounded@another");
     expect(SchemeHelpWounded.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.HELP_WOUNDED, null);
@@ -506,14 +506,6 @@ describe("'scheme logic' utils", () => {
     expect(object.give_info_portion).toHaveBeenNthCalledWith(2, "b");
     expect(object.disable_info_portion).toHaveBeenNthCalledWith(1, "c");
     expect(object.disable_info_portion).toHaveBeenNthCalledWith(2, "d");
-  });
-
-  it("'configureObjectSchemes' should correctly configure scheme for objects", () => {
-    // todo;
-  });
-
-  it("'initializeObjectSchemeLogic' should correctly initialize scheme logic", () => {
-    // todo;
   });
 
   it("'resetObjectGenericSchemesOnSectionSwitch' should correctly reset base schemes", () => {

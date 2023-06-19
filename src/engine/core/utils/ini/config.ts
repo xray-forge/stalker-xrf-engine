@@ -83,8 +83,6 @@ export function pickSectionFromCondList<T extends TSection>(
   object: Optional<ClientObject | ServerObject>,
   condlist: TConditionList
 ): Optional<T> {
-  assert(actor, "Trying to pick section from condlist when actor is not initialized.");
-
   let randomValue: Optional<TRate> = null; // -- math.random(100)
 
   for (const [, switchCondition] of condlist) {
@@ -152,7 +150,7 @@ export function pickSectionFromCondList<T extends TSection>(
     }
 
     if (areInfoPortionConditionsMet) {
-      for (const [inum, infop] of pairs(switchCondition.infop_set)) {
+      for (const [, infop] of switchCondition.infop_set) {
         if (infop.func) {
           if (!getExtern<AnyCallablesModule>("xr_effects")[infop.func]) {
             abort(
@@ -238,10 +236,10 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   // todo: use ternary for state.section_logic
-  if (ini.line_exist(state.section_logic, "post_combat_time")) {
+  if (ini.line_exist(state.sectionLogic, "post_combat_time")) {
     const [minPostCombatTime, maxPostCombatTime] = readIniTwoNumbers(
       ini,
-      state.section_logic,
+      state.sectionLogic,
       "post_combat_time",
       logicsConfig.POST_COMBAT_IDLE.MIN / 1000,
       logicsConfig.POST_COMBAT_IDLE.MAX / 1000
@@ -266,7 +264,7 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
     overrides.on_offline_condlist = parseConditionsList(readIniString(ini, section, "on_offline", false, "", NIL));
   } else {
     overrides.on_offline_condlist = parseConditionsList(
-      readIniString(ini, state.section_logic, "on_offline", false, "", NIL)
+      readIniString(ini, state.sectionLogic, "on_offline", false, "", NIL)
     );
   }
 

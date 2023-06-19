@@ -104,7 +104,7 @@ export class SchemeMeet extends AbstractScheme {
   ): void {
     const meetSection: TSection =
       scheme === null || scheme === NIL
-        ? readIniString(state.ini, state.section_logic, SchemeMeet.SCHEME_SECTION, false, "")
+        ? readIniString(state.ini, state.sectionLogic, SchemeMeet.SCHEME_SECTION, false, "")
         : readIniString(state.ini, section, SchemeMeet.SCHEME_SECTION, false, "");
 
     SchemeMeet.initializeMeetScheme(object, state.ini, meetSection, state.meet as ISchemeMeetState, scheme);

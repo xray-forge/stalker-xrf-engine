@@ -427,7 +427,7 @@ export class StalkerBinder extends object_binder {
       statisticsManager.updateBestMonsterKilled(npc);
     }
 
-    const knownInfo: Optional<TName> = readIniString(state.ini!, state.section_logic, "known_info", false, "", null);
+    const knownInfo: Optional<TName> = readIniString(state.ini!, state.sectionLogic, "known_info", false, "", null);
 
     this.initializeInfoPortions(state.ini!, knownInfo);
 

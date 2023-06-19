@@ -67,8 +67,8 @@ import {
   configureObjectSchemes,
   getSectionToActivate,
   initializeObjectSchemeLogic,
-} from "@/engine/core/utils/scheme/logic";
-import { switchObjectSchemeToSection } from "@/engine/core/utils/scheme/switch";
+  switchObjectSchemeToSection,
+} from "@/engine/core/utils/scheme";
 import { getTableSize, isEmpty } from "@/engine/core/utils/table";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { toJSON } from "@/engine/core/utils/transform/json";
@@ -291,7 +291,6 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
           registryState.object,
           registryState,
           false,
-          registry.actor,
           isStalker(object) ? ESchemeType.STALKER : ESchemeType.MONSTER
         );
       }
@@ -882,32 +881,33 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       objectJobDescriptor.begin_job = false;
       objectJobDescriptor.job_link = selectedJobLink;
 
-      const objectState: Optional<IRegistryObjectState> = registry.objects.get(objectJobDescriptor.serverObject.id);
+      const state: Optional<IRegistryObjectState> = registry.objects.get(objectJobDescriptor.serverObject.id);
 
-      if (objectState !== null) {
-        switchObjectSchemeToSection(objectState.object!, this.ltxConfig, NIL);
+      if (state !== null) {
+        switchObjectSchemeToSection(state.object, this.ltxConfig, NIL);
       }
     }
 
     if (!objectJobDescriptor.begin_job) {
-      const job_data = this.jobsData.get(objectJobDescriptor.job_id);
+      const jobData: ISmartTerrainJob = this.jobsData.get(objectJobDescriptor.job_id);
 
-      logger.info("Begin job in smart", this.name(), objectJobDescriptor.serverObject.name(), job_data.section);
+      logger.info("Begin job in smart", this.name(), objectJobDescriptor.serverObject.name(), jobData.section);
 
       hardResetOfflineObject(objectJobDescriptor.serverObject.id);
 
       objectJobDescriptor.begin_job = true;
 
-      const objectState: Optional<IRegistryObjectState> = registry.objects.get(objectJobDescriptor.serverObject.id);
+      const state: Optional<IRegistryObjectState> = registry.objects.get(objectJobDescriptor.serverObject.id);
 
-      if (objectState !== null) {
-        this.setupObjectLogic(objectState.object!);
+      if (state !== null) {
+        this.setupObjectLogic(state.object!);
       }
     }
   }
 
   /**
    * todo: Description.
+   * todo: Move to scheme utils as separate function, it is not method of smart terrain.
    */
   public setupObjectLogic(object: ClientObject): void {
     logger.info("Setup logic:", this.name(), object.name());

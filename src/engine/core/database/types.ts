@@ -18,13 +18,9 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * Client-side registry of game objects logics and states.
+ * Client objects registry state logics descriptor.
  */
-export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSchemeState>> {
-  /**
-   * Client object reference to owner of the registry state.
-   */
-  object: ClientObject;
+export interface IRegistryObjectStateLogic {
   /**
    * todo;
    */
@@ -32,11 +28,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   /**
    * todo;
    */
-  ini_filename: Optional<TName>;
-  /**
-   * Dynamically stored flags / variables.
-   */
-  portableStore: Optional<LuaTable<TName>>;
+  iniFilename: Optional<TName>;
   /**
    * Based on object type, marks compatible scheme types.
    */
@@ -52,11 +44,13 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   /**
    * todo;
    */
-  section_logic: Optional<TName>;
+  sectionLogic: Optional<TName>;
   /**
-   * todo;
+   * Object smart terrain name.
+   * Used as base for schemes to pick up logic when smart terrains are capturing objects/squads.
+   * Having smart terrain allows selecting generic schemes defined for smart terrain.
    */
-  gulag_name: Optional<TName>;
+  smartTerrainName: Optional<TName>;
   /**
    * todo;
    */
@@ -69,7 +63,40 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    * Time of logics section activation - in-game time.
    */
   activationGameTime: Time;
+  /**
+   * todo;
+   */
+  job_ini: Optional<TName>;
+  /**
+   * Describes last active logic file name when game was saved.
+   */
+  loadedIniFilename: Optional<TName>;
+  /**
+   * Describes last active section logic section when game was saved.
+   */
+  loadedSectionLogic: Optional<TSection>;
+  /**
+   * Describes last active logic section when game was saved.
+   */
+  loadedActiveSection: Optional<TSection>;
+  /**
+   * Describes last active smart terrain name when game was saved.
+   */
+  loadedSmartTerrainName: Optional<TName>;
+}
 
+/**
+ * Client objects registry state describing logics and state.
+ */
+export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSchemeState>>, IRegistryObjectStateLogic {
+  /**
+   * Client object reference to owner of the registry state.
+   */
+  object: ClientObject;
+  /**
+   * Dynamically stored flags / variables.
+   */
+  portableStore: Optional<LuaTable<TName>>;
   /**
    * todo;
    */
@@ -130,30 +157,11 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    * todo;
    */
   registred_camp: Optional<TNumberId>;
-  /**
-   * todo;
-   */
-  job_ini: Optional<TName>;
-  /**
-   * todo;
-   */
-  loaded_ini_filename: Optional<TName>;
-  /**
-   * todo;
-   */
-  loaded_section_logic: Optional<TSection>;
-  /**
-   * todo;
-   */
-  loaded_active_section: Optional<TSection>;
-  /**
-   * todo;
-   */
-  loaded_gulag_name: Optional<TName>;
 }
 
 /**
- * todo;
+ * Offline object state descriptor.
+ * Remember object active section when object switched offline.
  */
 export interface IStoredOfflineObject {
   levelVertexId: Optional<TNumberId>;

@@ -15,7 +15,7 @@ import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ESchemeEvent } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme/logic";
+import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import { NetPacket, Reader, ServerObject, TDuration, TNumberId } from "@/engine/lib/types";
 import { ESchemeType } from "@/engine/lib/types/scheme";
 
@@ -75,7 +75,7 @@ export class RestrictorBinder extends object_binder {
     if (!this.isInitialized) {
       this.isInitialized = true;
 
-      initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, registry.actor, ESchemeType.RESTRICTOR);
+      initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, ESchemeType.RESTRICTOR);
     }
 
     if (this.state.activeSection !== null) {

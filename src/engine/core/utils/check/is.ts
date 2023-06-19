@@ -113,21 +113,21 @@ export function isStoryObject(object: ServerObject): boolean {
  * @returns whether object can be looted by stalkers from corpses.
  */
 export function isLootableItem(object: ClientObject): boolean {
-  return lootableTable[object.section<TLootableItem>()] !== null;
+  return object.section<TLootableItem>() in lootableTable;
 }
 
 /**
  * @returns whether object is ammo-defined section item.
  */
 export function isAmmoItem(object: ClientObject): boolean {
-  return ammo[object.section<TAmmoItem>()] !== null;
+  return object.section<TAmmoItem>() in ammo;
 }
 
 /**
  * @returns whether section is ammo-defined.
  */
 export function isAmmoSection(section: TSection): section is TAmmoItem {
-  return ammo[section as TAmmoItem] !== null;
+  return section in ammo;
 }
 
 /**

@@ -6,7 +6,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -22,15 +22,15 @@ export class SchemeMobWalker extends AbstractScheme {
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    gulag_name: string
+    smartTerrainName: TName
   ): void {
     const state: ISchemeMobWalkerState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.state = getMonsterState(ini, section);
     state.no_reset = readIniBoolean(ini, section, "no_reset", false);
-    state.path_walk = readIniString(ini, section, "path_walk", true, gulag_name);
-    state.path_look = readIniString(ini, section, "path_look", false, gulag_name);
+    state.path_walk = readIniString(ini, section, "path_walk", true, smartTerrainName);
+    state.path_look = readIniString(ini, section, "path_look", false, smartTerrainName);
 
     if (state.path_walk === state.path_look) {
       abort(

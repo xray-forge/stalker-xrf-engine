@@ -18,7 +18,7 @@ import { ESchemeEvent } from "@/engine/core/schemes";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme/logic";
+import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import {
   ClientObject,
   EScheme,
@@ -142,7 +142,7 @@ export class PhysicObjectBinder extends object_binder {
 
     if (!this.initialized) {
       this.initialized = true;
-      initializeObjectSchemeLogic(this.object, this.state, this.loaded, registry.actor, ESchemeType.ITEM);
+      initializeObjectSchemeLogic(this.object, this.state, this.loaded, ESchemeType.ITEM);
     }
 
     const spawnIni: Optional<IniFile> = this.object.spawn_ini();
