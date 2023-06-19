@@ -177,9 +177,9 @@ export function activateSchemeBySection(
 
     assert(currentSmartTerrain, "scheme/logic: activate_by_section: section is NIL && NPC !in smart.");
 
-    const job: ISmartTerrainJob = currentSmartTerrain.getJob(object.id()) as ISmartTerrainJob;
+    const job: Optional<ISmartTerrainJob> = currentSmartTerrain.getJob(object.id());
 
-    section = job.section;
+    section = job?.section as TSection;
   }
 
   const scheme: Optional<EScheme> = getSchemeFromSection(section);
@@ -219,10 +219,10 @@ export function activateSchemeBySection(
 export function configureObjectSchemes(
   object: ClientObject,
   ini: IniFile,
-  iniFilename: TName,
+  iniName: TName,
   schemeType: ESchemeType,
-  sectionLogic: TSection,
-  gulagName: Optional<TName>
+  section: TSection,
+  smartTerrainName: Optional<TName>
 ): IniFile {
   const objectId: TNumberId = object.id();
   const state: IRegistryObjectState = registry.objects.get(objectId);
@@ -235,33 +235,28 @@ export function configureObjectSchemes(
   let actualIni: IniFile;
   let actualIniFilename: TName;
 
-  if (!ini.section_exist(sectionLogic)) {
-    if (gulagName === "") {
-      actualIniFilename = iniFilename;
+  if (!ini.section_exist(section)) {
+    if (smartTerrainName === "") {
+      actualIniFilename = iniName;
       actualIni = ini;
     } else {
-      abort(
-        "ERROR: object '%s': unable to find section '%s' in '%s'",
-        object.name(),
-        sectionLogic,
-        tostring(iniFilename)
-      );
+      abort("ERROR: object '%s': unable to find section '%s' in '%s'", object.name(), section, tostring(iniName));
     }
   } else {
-    const filename: Optional<TName> = readIniString(ini, sectionLogic, "cfg", false, "");
+    const filename: Optional<TName> = readIniString(ini, section, "cfg", false, "");
 
     if (filename !== null) {
       actualIniFilename = filename;
       actualIni = new ini_file(filename);
 
       assert(
-        actualIni.section_exist(sectionLogic),
+        actualIni.section_exist(section),
         "object '%s' configuration file [%s] !FOUND || section [logic] isn't assigned ",
         object.name(),
         filename
       );
 
-      return configureObjectSchemes(object, actualIni, actualIniFilename, schemeType, sectionLogic, gulagName);
+      return configureObjectSchemes(object, actualIni, actualIniFilename, schemeType, section, smartTerrainName);
     } else {
       if (schemeType === ESchemeType.STALKER || schemeType === ESchemeType.MONSTER) {
         const currentSmart: Optional<SmartTerrain> = getObjectSmartTerrain(object);
@@ -277,32 +272,25 @@ export function configureObjectSchemes(
         }
       }
 
-      actualIniFilename = iniFilename;
+      actualIniFilename = iniName;
       actualIni = ini;
     }
   }
 
   disableObjectBaseSchemes(object, schemeType);
-  enableObjectGenericSchemes(actualIni, object, schemeType, sectionLogic);
+  enableObjectGenericSchemes(object, actualIni, schemeType, section);
 
   state.activeSection = null;
   state.activeScheme = null;
-  state.gulag_name = gulagName;
+  state.gulag_name = smartTerrainName;
 
   state.schemeType = schemeType;
   state.ini = actualIni;
   state.ini_filename = actualIniFilename;
-  state.section_logic = sectionLogic;
+  state.section_logic = section;
 
   if (schemeType === ESchemeType.STALKER) {
-    const tradeIni: TPath = readIniString(
-      actualIni,
-      sectionLogic,
-      "trade",
-      false,
-      "",
-      "misc\\trade\\trade_generic.ltx"
-    );
+    const tradeIni: TPath = readIniString(actualIni, section, "trade", false, "", "misc\\trade\\trade_generic.ltx");
 
     TradeManager.getInstance().initForObject(object, tradeIni);
     spawnDefaultObjectItems(object, state);
@@ -312,14 +300,16 @@ export function configureObjectSchemes(
 }
 
 /**
- * todo
- * todo
- * todo
- * todo
+ * Enable generic schemes for object on logics activation.
+ *
+ * @param object - target client object
+ * @param ini - target object ini configuration
+ * @param schemeType - type of object applied scheme
+ * @param section - next active logic section
  */
 export function enableObjectGenericSchemes(
-  ini: IniFile,
   object: ClientObject,
+  ini: IniFile,
   schemeType: ESchemeType,
   section: TSection
 ): void {

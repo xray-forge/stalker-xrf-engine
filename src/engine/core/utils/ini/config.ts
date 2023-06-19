@@ -2,7 +2,7 @@ import { alife } from "xray16";
 
 import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { IBaseSchemeLogic } from "@/engine/core/schemes";
-import { abort, assertDefined } from "@/engine/core/utils/assertion";
+import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini/parse";
@@ -55,13 +55,15 @@ export function getParametersString(data: string): LuaMultiReturn<[string, boole
 
 /**
  * todo;
+ * todo: Probably not used anywhere, check. Original regexp - "(%|*[^%|]+%|*)%p*".
  */
 export function getInfosFromData(object: ClientObject, data: Optional<string>): LuaArray<TInfoPortion> {
   const infos: LuaArray<TInfoPortion> = new LuaTable();
   const actor: ClientObject = registry.actor;
 
   if (data !== null) {
-    for (const name of string.gfind(data, "(%|*[^%|]+%|*)%p*")) {
+    // todo: Trim parsed.
+    for (const name of string.gfind(data, "%s*([^|]+)%s*")) {
       const conditionsList: Optional<TConditionList> = parseConditionsList(name);
 
       if (conditionsList !== null) {
@@ -81,6 +83,8 @@ export function pickSectionFromCondList<T extends TSection>(
   object: Optional<ClientObject | ServerObject>,
   condlist: TConditionList
 ): Optional<T> {
+  assert(actor, "Trying to pick section from condlist when actor is not initialized.");
+
   let randomValue: Optional<TRate> = null; // -- math.random(100)
 
   for (const [, switchCondition] of condlist) {
@@ -149,8 +153,6 @@ export function pickSectionFromCondList<T extends TSection>(
 
     if (areInfoPortionConditionsMet) {
       for (const [inum, infop] of pairs(switchCondition.infop_set)) {
-        assertDefined(actor, "Trying to set infos when actor is not initialized.");
-
         if (infop.func) {
           if (!getExtern<AnyCallablesModule>("xr_effects")[infop.func]) {
             abort(

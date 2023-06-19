@@ -19,6 +19,7 @@ import {
   TAbstractSchemeConstructor,
 } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
+import { SchemeCombat } from "@/engine/core/schemes/combat";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore";
 import { SchemeCorpseDetection } from "@/engine/core/schemes/corpse_detection";
 import { SchemeDanger } from "@/engine/core/schemes/danger";
@@ -29,7 +30,11 @@ import { SchemeHelpWounded } from "@/engine/core/schemes/help_wounded";
 import { SchemeHit } from "@/engine/core/schemes/hit";
 import { HitManager } from "@/engine/core/schemes/hit/HitManager";
 import { SchemeMeet } from "@/engine/core/schemes/meet";
+import { SchemeMobCombat } from "@/engine/core/schemes/mob_combat";
+import { SchemeMobDeath } from "@/engine/core/schemes/mob_death";
 import { SchemePatrol } from "@/engine/core/schemes/patrol";
+import { SchemePhysicalOnHit } from "@/engine/core/schemes/ph_on_hit";
+import { SchemeReachTask } from "@/engine/core/schemes/reach_task";
 import { SchemeIdle } from "@/engine/core/schemes/sr_idle";
 import { IdleManager } from "@/engine/core/schemes/sr_idle/IdleManager";
 import { SchemeWounded } from "@/engine/core/schemes/wounded";
@@ -37,6 +42,7 @@ import { disableInfo, giveInfo } from "@/engine/core/utils/info_portion";
 import {
   activateSchemeBySection,
   emitSchemeEvent,
+  enableObjectGenericSchemes,
   getSectionToActivate,
   isSectionActive,
   resetObjectGenericSchemesOnSectionSwitch,
@@ -345,6 +351,161 @@ describe("'scheme logic' utils", () => {
       },
       soundgroup: null,
     });
+  });
+
+  it("'enableObjectGenericSchemes' should correctly enables schemes for heli", () => {
+    const object: ClientObject = mockClientGameObject();
+    const ini: IniFile = mockIniFile("test.ltx", {
+      "sr_idle@first": {},
+      "sr_idle@second": {
+        on_hit: "hit@another",
+      },
+    });
+
+    jest.spyOn(SchemeHit, "activate").mockImplementation(() => {});
+
+    loadSchemeImplementation(SchemeHit);
+
+    enableObjectGenericSchemes(object, ini, ESchemeType.HELI, "sr_idle@first");
+    expect(SchemeHit.activate).not.toHaveBeenCalled();
+
+    enableObjectGenericSchemes(object, ini, ESchemeType.HELI, "sr_idle@second");
+    expect(SchemeHit.activate).toHaveBeenCalledWith(object, ini, EScheme.HIT, "hit@another");
+  });
+
+  it("'enableObjectGenericSchemes' should correctly enables schemes for items", () => {
+    const object: ClientObject = mockClientGameObject();
+    const ini: IniFile = mockIniFile("test.ltx", {
+      "sr_idle@first": {},
+      "sr_idle@second": {
+        on_hit: "ph_on_hit@another",
+      },
+    });
+
+    jest.spyOn(SchemePhysicalOnHit, "activate").mockImplementation(() => {});
+
+    loadSchemeImplementation(SchemePhysicalOnHit);
+
+    enableObjectGenericSchemes(object, ini, ESchemeType.ITEM, "sr_idle@first");
+    expect(SchemePhysicalOnHit.activate).not.toHaveBeenCalled();
+
+    enableObjectGenericSchemes(object, ini, ESchemeType.ITEM, "sr_idle@second");
+    expect(SchemePhysicalOnHit.activate).toHaveBeenCalledWith(object, ini, EScheme.PH_ON_HIT, "ph_on_hit@another");
+  });
+
+  it("'enableObjectGenericSchemes' should correctly enables schemes for monsters", () => {
+    const object: ClientObject = mockClientGameObject();
+    const state: IRegistryObjectState = registerObject(object);
+    const ini: IniFile = mockIniFile("test.ltx", {
+      "sr_idle@first": {},
+      "sr_idle@second": {
+        invulnerable: true,
+        on_combat: "mob_combat@another",
+        on_death: "mob_death@another",
+        on_hit: "hit@another",
+      },
+    });
+
+    state.ini = ini;
+
+    jest.spyOn(SchemeHit, "activate").mockImplementation(() => {});
+    jest.spyOn(SchemeMobCombat, "activate").mockImplementation(() => {});
+    jest.spyOn(SchemeMobDeath, "activate").mockImplementation(() => {});
+    jest.spyOn(SchemeCombatIgnore, "activate").mockImplementation(() => {});
+
+    loadSchemeImplementations(
+      $fromArray<TAbstractSchemeConstructor>([SchemeMobCombat, SchemeMobDeath, SchemeHit, SchemeCombatIgnore])
+    );
+
+    enableObjectGenericSchemes(object, ini, ESchemeType.MONSTER, "sr_idle@first");
+    expect(SchemeHit.activate).not.toHaveBeenCalled();
+    expect(SchemeMobCombat.activate).not.toHaveBeenCalled();
+    expect(SchemeMobDeath.activate).not.toHaveBeenCalled();
+    expect(SchemeCombatIgnore.activate).toHaveBeenCalledWith(object, ini, EScheme.COMBAT_IGNORE, null);
+    expect(object.invulnerable).toHaveBeenCalledTimes(2);
+
+    enableObjectGenericSchemes(object, ini, ESchemeType.MONSTER, "sr_idle@second");
+    expect(SchemeHit.activate).toHaveBeenCalledWith(object, ini, EScheme.HIT, "hit@another");
+    expect(SchemeMobCombat.activate).toHaveBeenCalledWith(object, ini, EScheme.MOB_COMBAT, "mob_combat@another");
+    expect(SchemeMobDeath.activate).toHaveBeenCalledWith(object, ini, EScheme.MOB_DEATH, "mob_death@another");
+    expect(SchemeCombatIgnore.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.COMBAT_IGNORE, null);
+    expect(object.invulnerable).toHaveBeenCalledTimes(4);
+  });
+
+  it("'enableObjectGenericSchemes' should correctly enables schemes for stalkers", () => {
+    const object: ClientObject = mockClientGameObject();
+    const state: IRegistryObjectState = registerObject(object);
+    const ini: IniFile = mockIniFile("test.ltx", {
+      "sr_idle@first": {},
+      "sr_idle@second": {
+        on_hit: "hit@another",
+        on_combat: "combat@another",
+        wounded: "wounded@another",
+        meet: "meet@another",
+        on_death: "death@another",
+        info: "info_list",
+      },
+      info_list: {
+        in: "a|b",
+        out: "c|d",
+      },
+    });
+
+    state.ini = ini;
+
+    const schemes: Array<TAbstractSchemeConstructor> = [
+      SchemeAbuse,
+      SchemeCombat,
+      SchemeCombatIgnore,
+      SchemeCorpseDetection,
+      SchemeDanger,
+      SchemeDeath,
+      SchemeGatherItems,
+      SchemeHelpWounded,
+      SchemeHit,
+      SchemeMeet,
+      SchemeReachTask,
+      SchemeWounded,
+    ];
+
+    schemes.forEach((it) => jest.spyOn(it, "activate").mockImplementation(() => {}));
+    loadSchemeImplementations($fromArray<TAbstractSchemeConstructor>(schemes));
+    registerActor(mockClientGameObject());
+
+    enableObjectGenericSchemes(object, ini, ESchemeType.STALKER, "sr_idle@first");
+    expect(SchemeAbuse.activate).toHaveBeenCalledWith(object, ini, EScheme.ABUSE, "sr_idle@first");
+    expect(SchemeWounded.activate).toHaveBeenCalledWith(object, ini, EScheme.WOUNDED, null);
+    expect(SchemeHelpWounded.activate).toHaveBeenCalledWith(object, ini, EScheme.HELP_WOUNDED, null);
+    expect(SchemeAbuse.activate).toHaveBeenCalledWith(object, ini, EScheme.ABUSE, "sr_idle@first");
+    expect(SchemeCombat.activate).toHaveBeenCalledWith(object, ini, EScheme.COMBAT, null);
+    expect(SchemeCombatIgnore.activate).toHaveBeenCalledWith(object, ini, EScheme.COMBAT_IGNORE, null);
+    expect(SchemeCorpseDetection.activate).toHaveBeenCalledWith(object, ini, EScheme.CORPSE_DETECTION, null);
+    expect(SchemeDanger.activate).toHaveBeenCalledWith(object, ini, EScheme.DANGER, "danger");
+    expect(SchemeDeath.activate).toHaveBeenCalledWith(object, ini, EScheme.DEATH, null);
+    expect(SchemeGatherItems.activate).toHaveBeenCalledWith(object, ini, EScheme.GATHER_ITEMS, "gather_items");
+    expect(SchemeHit.activate).not.toHaveBeenCalled();
+    expect(SchemeMeet.activate).toHaveBeenCalledWith(object, ini, EScheme.MEET, null);
+    expect(SchemeReachTask.activate).toHaveBeenCalledWith(object, ini, EScheme.REACH_TASK, null);
+
+    enableObjectGenericSchemes(object, ini, ESchemeType.STALKER, "sr_idle@second");
+    expect(SchemeAbuse.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.ABUSE, "sr_idle@second");
+    expect(SchemeWounded.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.WOUNDED, "wounded@another");
+    expect(SchemeHelpWounded.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.HELP_WOUNDED, null);
+    expect(SchemeAbuse.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.ABUSE, "sr_idle@second");
+    expect(SchemeCombat.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.COMBAT, "combat@another");
+    expect(SchemeCombatIgnore.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.COMBAT_IGNORE, null);
+    expect(SchemeCorpseDetection.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.CORPSE_DETECTION, null);
+    expect(SchemeDanger.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.DANGER, "danger");
+    expect(SchemeDeath.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.DEATH, "death@another");
+    expect(SchemeGatherItems.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.GATHER_ITEMS, "gather_items");
+    expect(SchemeHit.activate).toHaveBeenCalledWith(object, ini, EScheme.HIT, "hit@another");
+    expect(SchemeMeet.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.MEET, "meet@another");
+    expect(SchemeReachTask.activate).toHaveBeenNthCalledWith(2, object, ini, EScheme.REACH_TASK, null);
+
+    expect(object.give_info_portion).toHaveBeenNthCalledWith(1, "a");
+    expect(object.give_info_portion).toHaveBeenNthCalledWith(2, "b");
+    expect(object.disable_info_portion).toHaveBeenNthCalledWith(1, "c");
+    expect(object.disable_info_portion).toHaveBeenNthCalledWith(2, "d");
   });
 
   it("'configureObjectSchemes' should correctly configure scheme for objects", () => {
