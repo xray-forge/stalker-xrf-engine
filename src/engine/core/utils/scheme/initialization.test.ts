@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { alife } from "xray16";
 
-import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { CUSTOM_DATA, IRegistryObjectState, registerActor, registerObject, registry } from "@/engine/core/database";
 import { TAbstractSchemeConstructor } from "@/engine/core/schemes";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore";
 import { SchemeDanger } from "@/engine/core/schemes/danger";
@@ -10,7 +10,7 @@ import { SchemeHear } from "@/engine/core/schemes/hear";
 import { SchemeMobCombat } from "@/engine/core/schemes/mob_combat";
 import { initializeObjectSchemeLogic, initializeObjectSectionItems } from "@/engine/core/utils/scheme/initialization";
 import { loadSchemeImplementations } from "@/engine/core/utils/scheme/setup";
-import { AnyObject, ClientObject, ESchemeType } from "@/engine/lib/types";
+import { AnyObject, ClientObject, EClientObjectRelation, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/utils";
 import { FILES_MOCKS, mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
@@ -24,7 +24,56 @@ describe("'scheme initialization' utils", () => {
     // todo;
   });
 
-  it("'initializeObjectSchemeLogic' should correctly initialize scheme logic on init", () => {});
+  it("'initializeObjectSchemeLogic' should correctly initialize scheme logic on init", () => {
+    const ini: IniFile = mockIniFile("object-test.ltx", {
+      logic: {
+        active: "mob_combat@test",
+        relation: "enemy",
+        sympathy: 1250,
+      },
+      "mob_combat@test": {},
+    });
+    const actor: ClientObject = mockClientGameObject();
+    const object: ClientObject = mockClientGameObject({
+      spawn_ini: () => ini,
+    });
+    const state: IRegistryObjectState = registerObject(object);
+    const schemes: Array<TAbstractSchemeConstructor> = [
+      SchemeMobCombat,
+      SchemeCombatIgnore,
+      SchemeDeath,
+      SchemeDanger,
+      SchemeHear,
+    ];
+
+    registerActor(actor);
+    loadSchemeImplementations($fromArray(schemes));
+
+    schemes.forEach((it) => {
+      jest.spyOn(it, "disable").mockImplementation(() => {});
+      jest.spyOn(it, "activate").mockImplementation(() => {});
+      jest.spyOn(it, "reset").mockImplementation(() => {});
+    });
+
+    initializeObjectSchemeLogic(object, state, false, ESchemeType.MONSTER);
+
+    expect(state.activeScheme).toBe(EScheme.MOB_COMBAT);
+    expect(state.activeSection).toBe("mob_combat@test");
+    expect(state.schemeType).toBe(ESchemeType.MONSTER);
+    expect(state.iniFilename).toBe(CUSTOM_DATA);
+    expect(state.ini).toBe(ini);
+    expect(state.sectionLogic).toBe("logic");
+
+    expect(object.set_relation).toHaveBeenCalledWith(EClientObjectRelation.ENEMY, actor);
+    expect(object.set_sympathy).toHaveBeenCalledWith(1250);
+
+    expect(SchemeMobCombat.disable).toHaveBeenCalled();
+    expect(SchemeCombatIgnore.disable).toHaveBeenCalled();
+    expect(SchemeCombatIgnore.activate).toHaveBeenCalled();
+    expect(SchemeCombatIgnore.reset).toHaveBeenCalled();
+    expect(SchemeHear.reset).toHaveBeenCalled();
+    expect(SchemeMobCombat.activate).toHaveBeenCalled();
+  });
 
   it("'initializeObjectSchemeLogic' should correctly initialize scheme logic on load", () => {
     const object: ClientObject = mockClientGameObject();
@@ -63,7 +112,6 @@ describe("'scheme initialization' utils", () => {
 
     expect(SchemeMobCombat.disable).toHaveBeenCalled();
     expect(SchemeCombatIgnore.disable).toHaveBeenCalled();
-
     expect(SchemeCombatIgnore.activate).toHaveBeenCalled();
     expect(SchemeCombatIgnore.reset).toHaveBeenCalled();
     expect(SchemeHear.reset).toHaveBeenCalled();

@@ -42,7 +42,8 @@ export interface IRegistryObjectStateLogic {
    */
   activeScheme: Optional<EScheme>;
   /**
-   * todo;
+   * Describes INI file section with initial logic.
+   * By default, it is `logic` or smart terrain job section name.
    */
   sectionLogic: Optional<TName>;
   /**
@@ -72,7 +73,7 @@ export interface IRegistryObjectStateLogic {
    */
   loadedIniFilename: Optional<TName>;
   /**
-   * Describes last active section logic section when game was saved.
+   * Describes last active section logic section, source of initial object logic when game was saved.
    */
   loadedSectionLogic: Optional<TSection>;
   /**

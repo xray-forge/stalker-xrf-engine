@@ -1,6 +1,6 @@
 import { ini_file } from "xray16";
 
-import { getObjectLogicIniConfig, IRegistryObjectState, registry } from "@/engine/core/database";
+import { CUSTOM_DATA, getObjectLogicIniConfig, IRegistryObjectState, registry } from "@/engine/core/database";
 import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
 import { SmartTerrain } from "@/engine/core/objects";
 import { ISmartTerrainJob } from "@/engine/core/objects/server/smart_terrain/types";
@@ -58,18 +58,7 @@ export function configureObjectSchemes(
   let actualIni: IniFile;
   let actualIniFilename: TName;
 
-  if (!ini.section_exist(section)) {
-    assert(
-      smartTerrainName === "",
-      "Object '%s': unable to find section '%s' in '%s' and has no assigned smart terrain.",
-      object.name(),
-      section,
-      iniName
-    );
-
-    actualIniFilename = iniName;
-    actualIni = ini;
-  } else {
+  if (ini.section_exist(section)) {
     const filename: Optional<TName> = readIniString(ini, section, "cfg", false, "");
 
     if (filename !== null) {
@@ -98,6 +87,17 @@ export function configureObjectSchemes(
       actualIniFilename = iniName;
       actualIni = ini;
     }
+  } else {
+    assert(
+      smartTerrainName === "",
+      "Object '%s': unable to find section '%s' in '%s' and has no assigned smart terrain.",
+      object.name(),
+      section,
+      iniName
+    );
+
+    actualIniFilename = iniName;
+    actualIni = ini;
   }
 
   disableObjectBaseSchemes(object, schemeType);
@@ -167,11 +167,10 @@ export function initializeObjectSchemeLogic(
       );
     }
   } else {
-    const iniFilename: TName = "<customdata>";
     const iniFile: IniFile = configureObjectSchemes(
       object,
-      getObjectLogicIniConfig(object, iniFilename),
-      iniFilename,
+      getObjectLogicIniConfig(object, CUSTOM_DATA),
+      CUSTOM_DATA,
       schemeType,
       "logic",
       ""
@@ -183,18 +182,16 @@ export function initializeObjectSchemeLogic(
 
     const relation: Optional<ERelation> = readIniString(iniFile, "logic", "relation", false, "") as ERelation;
 
-    if (relation !== null) {
-      switch (relation) {
-        case ERelation.NEUTRAL:
-          object.set_relation(EClientObjectRelation.NEUTRAL, registry.actor);
-          break;
-        case ERelation.ENEMY:
-          object.set_relation(EClientObjectRelation.ENEMY, registry.actor);
-          break;
-        case ERelation.FRIEND:
-          object.set_relation(EClientObjectRelation.FRIEND, registry.actor);
-          break;
-      }
+    switch (relation) {
+      case ERelation.NEUTRAL:
+        object.set_relation(EClientObjectRelation.NEUTRAL, registry.actor);
+        break;
+      case ERelation.ENEMY:
+        object.set_relation(EClientObjectRelation.ENEMY, registry.actor);
+        break;
+      case ERelation.FRIEND:
+        object.set_relation(EClientObjectRelation.FRIEND, registry.actor);
+        break;
     }
 
     const sympathy: Optional<TCount> = readIniNumber(iniFile, "logic", "sympathy", false);

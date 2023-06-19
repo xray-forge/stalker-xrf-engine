@@ -7,6 +7,12 @@ import { assertDefined } from "@/engine/core/utils/assertion";
 import { ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
 
 /**
+ * Generic name of spawn ini configs flag.
+ * When supplied as file path, will try to get object spawn ini instead of db/actual ini file.
+ */
+export const CUSTOM_DATA: TName = "<customdata>";
+
+/**
  * Create dynamic ini file representation or get existing one from cache.
  * Used to create in-memory ini files based on string content.
  * Usually describes smart terrain job logic for an object based on assigned smart terrain.
@@ -43,7 +49,7 @@ export function loadDynamicIni(name: TName, content: Optional<string> = null): L
  * @returns ini file for provided object
  */
 export function getObjectLogicIniConfig(object: ClientObject, filename: TName): IniFile {
-  if (filename === "<customdata>") {
+  if (filename === CUSTOM_DATA) {
     const ini: Optional<IniFile> = object.spawn_ini();
 
     return ini === null ? DUMMY_LTX : ini;
