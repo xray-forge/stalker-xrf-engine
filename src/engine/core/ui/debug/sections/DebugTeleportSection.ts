@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugTeleportListEntry } from "@/engine/core/ui/debug/sections/DebugTeleportListEntry";
-import { isGameStarted } from "@/engine/core/utils/alife";
+import { isGameStarted } from "@/engine/core/utils/check";
 import { vectorToString } from "@/engine/core/utils/general";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getServerObjects } from "@/engine/core/utils/object/object_find";

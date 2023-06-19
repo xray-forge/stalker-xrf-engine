@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { DebugManager } from "@/engine/core/managers/debug/DebugManager";
 import { Squad } from "@/engine/core/objects";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
-import { isGameStarted } from "@/engine/core/utils/alife";
+import { isGameStarted } from "@/engine/core/utils/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNearestClientObject } from "@/engine/core/utils/object/object_find";
 import { getObjectSquad } from "@/engine/core/utils/object/object_general";

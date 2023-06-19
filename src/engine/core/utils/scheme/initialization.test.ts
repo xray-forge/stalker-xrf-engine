@@ -269,9 +269,9 @@ describe("'scheme initialization' utils", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
-    state.sectionLogic = "active@test";
+    state.sectionLogic = "logics";
     state.ini = mockIniFile("test.ltx", {
-      "active@test": {},
+      logics: {},
     });
 
     resetFunctionMock(alife().create);
@@ -283,9 +283,9 @@ describe("'scheme initialization' utils", () => {
     const object: ClientObject = mockClientGameObject();
     const state: IRegistryObjectState = registerObject(object);
 
-    state.sectionLogic = "active@test";
+    state.sectionLogic = "logics";
     state.ini = mockIniFile("test.ltx", {
-      "active@test": {
+      logics: {
         spawn: "spawn@test",
       },
       "spawn@test": {

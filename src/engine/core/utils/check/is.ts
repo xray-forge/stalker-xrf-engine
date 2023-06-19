@@ -1,4 +1,4 @@
-import { clsid, system_ini } from "xray16";
+import { alife, clsid, system_ini } from "xray16";
 
 import { getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { assertDefined } from "@/engine/core/utils/assertion";
@@ -21,6 +21,13 @@ import {
   TNumberId,
   TSection,
 } from "@/engine/lib/types";
+
+/**
+ * todo;
+ */
+export function isGameStarted(): boolean {
+  return alife() !== null;
+}
 
 /**
  * todo;

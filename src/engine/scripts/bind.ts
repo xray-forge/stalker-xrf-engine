@@ -21,9 +21,9 @@ import {
   SmartTerrainBinder,
   StalkerBinder,
 } from "@/engine/core/objects/binders";
-import { isGameStarted } from "@/engine/core/utils/alife";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
+import { isGameStarted } from "@/engine/core/utils/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, IniFile, Optional } from "@/engine/lib/types";
 
