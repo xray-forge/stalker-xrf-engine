@@ -428,7 +428,7 @@ export function enableObjectGenericSchemes(
 /**
  * todo;
  * todo;
- * todo;
+ * todo; Move to initialize.ts file.
  */
 export function initializeObjectSchemeLogic(
   object: ClientObject,
@@ -439,7 +439,22 @@ export function initializeObjectSchemeLogic(
 ): void {
   logger.info("Initialize object:", object.name(), ESchemeType[schemeType], isLoaded);
 
-  if (!isLoaded) {
+  if (isLoaded) {
+    const iniFilename: Optional<TName> = state.loaded_ini_filename;
+
+    if (iniFilename) {
+      const iniFile: IniFile = configureObjectSchemes(
+        object,
+        getObjectLogicIniConfig(object, iniFilename),
+        iniFilename,
+        schemeType,
+        state.loaded_section_logic as TSection,
+        state.loaded_gulag_name
+      );
+
+      activateSchemeBySection(object, iniFile, state.loaded_active_section as TSection, state.loaded_gulag_name, true);
+    }
+  } else {
     const iniFilename: TName = "<customdata>";
     const iniFile: IniFile = configureObjectSchemes(
       object,
@@ -474,21 +489,6 @@ export function initializeObjectSchemeLogic(
 
     if (sympathy !== null) {
       object.set_sympathy(sympathy);
-    }
-  } else {
-    const iniFilename: Optional<TName> = state.loaded_ini_filename;
-
-    if (iniFilename !== null) {
-      const iniFile: IniFile = configureObjectSchemes(
-        object,
-        getObjectLogicIniConfig(object, iniFilename),
-        iniFilename,
-        schemeType,
-        state.loaded_section_logic as TSection,
-        state.loaded_gulag_name
-      );
-
-      activateSchemeBySection(object, iniFile, state.loaded_active_section as TSection, state.loaded_gulag_name, true);
     }
   }
 }
