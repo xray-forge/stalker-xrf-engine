@@ -30,7 +30,7 @@ import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { DialogManager } from "@/engine/core/managers/interaction/DialogManager";
+import { DialogManager } from "@/engine/core/managers/interaction/dialog/DialogManager";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";

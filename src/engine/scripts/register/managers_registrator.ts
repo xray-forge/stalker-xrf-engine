@@ -3,7 +3,7 @@ import { EventsManager } from "@/engine/core/managers";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractCoreManager";
 import { SaveManager } from "@/engine/core/managers/base/SaveManager";
 import { AchievementsManager } from "@/engine/core/managers/interaction/achievements";
-import { DialogManager } from "@/engine/core/managers/interaction/DialogManager";
+import { DialogManager } from "@/engine/core/managers/interaction/dialog/DialogManager";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { SleepManager } from "@/engine/core/managers/interaction/SleepManager";
 import { TaskManager } from "@/engine/core/managers/interaction/tasks";

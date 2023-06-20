@@ -560,9 +560,13 @@ export function isObjectScriptCaptured(object: ClientObject): boolean {
 }
 
 /**
- * todo;
+ * Check whether object is in provided smart terrain (name).
+ *
+ * @param object - client object to check
+ * @param smartTerrainName - desired smart terrain to check
+ * @returns whether object is assigned to smart terrain with desired name
  */
-export function isObjectInSmart(object: ClientObject, smartTerrainName: TName): boolean {
+export function isObjectInSmartTerrain(object: ClientObject, smartTerrainName: TName): boolean {
   const smartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
   return smartTerrain ? smartTerrain.name() === smartTerrainName : false;

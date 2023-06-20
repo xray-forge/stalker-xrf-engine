@@ -30,6 +30,13 @@ export function isGameStarted(): boolean {
 }
 
 /**
+ * Check whether actor is absolutely healthy - without radiation/bleeding/damaged health.
+ */
+export function isActorAbsolutelyHealthy(actor: ClientObject = registry.actor): boolean {
+  return actor.health < 1 || actor.radiation > 0 || actor.bleeding > 0;
+}
+
+/**
  * todo;
  */
 export function isCseAlifeObject(object: AnyGameObject): object is ServerObject {

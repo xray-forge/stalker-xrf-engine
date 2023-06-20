@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="windows-1251" ?>
+
 <game_dialogs>
     <dialog id="zat_b51_stalker_nimble_get_order">
         <has_info>zat_b51_order_ready</has_info>

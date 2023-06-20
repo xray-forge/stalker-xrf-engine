@@ -26,6 +26,7 @@ import {
   Optional,
   ServerObject,
   TCount,
+  TDistance,
   TIndex,
   TName,
   TNumberId,
@@ -192,8 +193,9 @@ export class ReleaseBodyManager extends AbstractCoreManager {
     for (const [index, releaseDescriptor] of releaseObjectsRegistry) {
       const object: Optional<ServerObject> = alife().object(releaseDescriptor.id);
 
-      if (object !== null) {
-        const distanceToCorpse: number = actorPosition.distance_to_sqr(object.position);
+      // May also contain objects that are being registered after game load.
+      if (object) {
+        const distanceToCorpse: TDistance = actorPosition.distance_to_sqr(object.position);
 
         if (
           distanceToCorpse > maximalDistance &&
@@ -203,8 +205,6 @@ export class ReleaseBodyManager extends AbstractCoreManager {
           maximalDistance = distanceToCorpse;
           releaseObjectIndex = index;
         }
-      } else {
-        logger.warn("Captured not present in alife object for release:", releaseDescriptor.id);
       }
     }
 

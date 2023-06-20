@@ -4,11 +4,16 @@ import { closeLoadMarker, closeSaveMarker, DIALOG_MANAGER_LTX, openSaveMarker, r
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { abort } from "@/engine/core/utils/assertion";
+import {
+  EGenericDialogCategory,
+  IPhrasesDescriptor,
+  TPHRTable,
+  TPRTTable,
+} from "@/engine/core/managers/interaction/dialog/types";
+import { assert } from "@/engine/core/utils/assertion";
 import { isObjectWounded } from "@/engine/core/utils/check/check";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini/parse";
-import { IConfigCondition } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
@@ -33,35 +38,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-export interface IPhrasesDescriptor {
-  id: TStringId;
-  name: TName;
-  npc_community: LuaArray<any> | "not_set";
-  level: LuaArray<any> | "not_set";
-  actor_community: LuaArray<any> | "not_set" | "all";
-  wounded: string;
-  once: string;
-  info: LuaArray<IConfigCondition>;
-  smart: Optional<string>;
-  told?: boolean;
-}
-
-/**
- * todo;
- */
-export type TPHRTable = LuaTable<string, IPhrasesDescriptor>;
-
-/**
- * todo;
- */
-export type TPRTTable = LuaTable<
-  number,
-  LuaTable<string, number> & { told?: boolean; ignore_once?: Optional<boolean>; id?: -1 }
->;
-
-/**
- * todo;
- */
 export class DialogManager extends AbstractCoreManager {
   private static ID_COUNTER: TNumberId = 5;
 
@@ -74,21 +50,21 @@ export class DialogManager extends AbstractCoreManager {
   // -- temporary table of phrases which have been disabled during a conversation | npc id -> phrase id -> boolean
   public questDisabledPhrases: LuaTable<TNumberId, LuaTable<string, boolean>> = new LuaTable();
 
-  public phrasesMap: LuaTable<TName, TPHRTable> = $fromObject<TName, TPHRTable>({
+  public phrasesMap: LuaTable<EGenericDialogCategory, TPHRTable> = $fromObject({
     hello: new LuaTable(),
     job: new LuaTable(),
     anomalies: new LuaTable(),
     place: new LuaTable(),
     information: new LuaTable(),
-  });
+  } as Record<EGenericDialogCategory, TPHRTable>);
 
-  public priorityTable: LuaTable<TName, TPRTTable> = $fromObject<TName, TPRTTable>({
+  public priorityTable: LuaTable<EGenericDialogCategory, TPRTTable> = $fromObject({
     hello: new LuaTable(),
     job: new LuaTable(),
     anomalies: new LuaTable(),
     place: new LuaTable(),
     information: new LuaTable(),
-  });
+  } as Record<EGenericDialogCategory, TPRTTable>);
 
   /**
    * todo;
@@ -100,32 +76,28 @@ export class DialogManager extends AbstractCoreManager {
 
     eventsManager.registerCallback(EGameEvent.NPC_INTERACTION, this.onInteractWithObject, this);
 
-    let category: string = "";
-
     for (const it of $range(0, DIALOG_MANAGER_LTX.line_count("list") - 1)) {
-      const [temp1, id, temp2] = DIALOG_MANAGER_LTX.r_line("list", it, "", "");
+      const [, id] = DIALOG_MANAGER_LTX.r_line("list", it, "", "");
 
-      if (DIALOG_MANAGER_LTX.line_exist(id, "category")) {
-        category = DIALOG_MANAGER_LTX.r_string(id, "category");
+      assert(DIALOG_MANAGER_LTX.line_exist(id, "category"), "Dialog manager error. ! categoried section [%s].", id);
 
-        if (category === "hello") {
-          category = "hello";
-        } else if (category === "anomalies") {
-          category = "anomalies";
-        } else if (category === "place") {
-          category = "place";
-        } else if (category === "job") {
-          category = "job";
-        } else if (category === "information") {
-          category = "information";
-        } else {
-          category = "default";
-        }
-      } else {
-        abort("Dialog manager error. ! categoried section [%s].", id);
+      let category: EGenericDialogCategory = DIALOG_MANAGER_LTX.r_string(id, "category") as EGenericDialogCategory;
+
+      switch (category) {
+        case EGenericDialogCategory.HELLO:
+        case EGenericDialogCategory.ANOMALIES:
+        case EGenericDialogCategory.PLACE:
+        case EGenericDialogCategory.JOB:
+        case EGenericDialogCategory.INFORMATION:
+          // nothing
+          break;
+
+        default:
+          category = EGenericDialogCategory.DEFAULT;
+          break;
       }
 
-      if (category !== "default") {
+      if (category !== EGenericDialogCategory.DEFAULT) {
         const phrases: IPhrasesDescriptor = {
           id: tostring(this.getNextPhraseId()),
           name: id,
@@ -141,19 +113,15 @@ export class DialogManager extends AbstractCoreManager {
           wounded: DIALOG_MANAGER_LTX.line_exist(id, "wounded") ? DIALOG_MANAGER_LTX.r_string(id, "wounded") : FALSE,
           once: DIALOG_MANAGER_LTX.line_exist(id, "once") ? DIALOG_MANAGER_LTX.r_string(id, "once") : "always",
           info: new LuaTable(),
-          smart: null as Optional<string>,
+          smart: null as Optional<TName>,
         };
 
         if (DIALOG_MANAGER_LTX.line_exist(id, "info") && DIALOG_MANAGER_LTX.r_string(id, "info") !== "") {
           parseInfoPortions(phrases.info, DIALOG_MANAGER_LTX.r_string(id, "info"));
         }
 
-        if (category === "anomalies" || category === "place") {
-          if (DIALOG_MANAGER_LTX.line_exist(id, "smart")) {
-            phrases.smart = DIALOG_MANAGER_LTX.r_string(id, "smart");
-          } else {
-            phrases.smart = "";
-          }
+        if (category === EGenericDialogCategory.ANOMALIES || category === EGenericDialogCategory.PLACE) {
+          phrases.smart = DIALOG_MANAGER_LTX.line_exist(id, "smart") ? DIALOG_MANAGER_LTX.r_string(id, "smart") : "";
         }
 
         this.phrasesMap.get(category).set(phrases.id, phrases);
@@ -168,7 +136,11 @@ export class DialogManager extends AbstractCoreManager {
 
     eventsManager.unregisterCallback(EGameEvent.NPC_INTERACTION, this.onInteractWithObject);
 
-    const actorTable: LuaArray<TName> = $fromArray(["job", "anomalies", "information"]);
+    const actorTable: LuaArray<EGenericDialogCategory> = $fromArray<EGenericDialogCategory>([
+      EGenericDialogCategory.JOB,
+      EGenericDialogCategory.ANOMALIES,
+      EGenericDialogCategory.INFORMATION,
+    ]);
     const startPhraseTable: LuaArray<TName> = $fromArray([
       "dm_universal_npc_start_0",
       "dm_universal_npc_start_1",
@@ -191,13 +163,13 @@ export class DialogManager extends AbstractCoreManager {
 
       npcPhraseScript.AddPrecondition(precondTable.get(j));
 
-      for (const i of $range(1, actorTable.length())) {
+      for (const it of $range(1, actorTable.length())) {
         const index: TIndex = this.getNextPhraseId();
-        const str: string = actorTable.get(i);
+        const str: string = actorTable.get(it);
         let phrase: Phrase = dialog.AddPhrase("dm_" + str + "_general", tostring(index), tostring(j), -10000);
         let script: PhraseScript = phrase.GetPhraseScript();
 
-        if (str === "anomalies") {
+        if (str === EGenericDialogCategory.ANOMALIES) {
           script.AddPrecondition("dialogs.npc_stalker");
         }
 
@@ -227,8 +199,8 @@ export class DialogManager extends AbstractCoreManager {
           scriptDoNotKnow.AddPrecondition("dialog_manager.precondition_" + str + "_dialogs_do_not_know");
         }
 
-        for (const [k, v] of this.phrasesMap.get(str)) {
-          phrase = dialog.AddPhrase(v.name, tostring(v.id), tostring(index), -10000);
+        for (const [, phraseDescriptor] of this.phrasesMap.get(str as EGenericDialogCategory)) {
+          phrase = dialog.AddPhrase(phraseDescriptor.name, tostring(phraseDescriptor.id), tostring(index), -10000);
 
           // todo: Unreal condition?
           if (phrase !== null) {
@@ -246,8 +218,8 @@ export class DialogManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public initializeStartDialogs(dialog: PhraseDialog, data: string): void {
-    logger.info("Initialize start dialogs");
+  public initializeStartDialogs(dialog: PhraseDialog, data: EGenericDialogCategory): void {
+    logger.info("Initialize start dialogs:", data);
 
     dialog.AddPhrase("", tostring(0), "", -10000);
 
@@ -258,27 +230,27 @@ export class DialogManager extends AbstractCoreManager {
 
     let ph: boolean = false;
 
-    for (const [k, v] of this.phrasesMap.get(data)) {
+    for (const [, phraseDescriptor] of this.phrasesMap.get(data)) {
       ph = true;
 
-      phrase = dialog.AddPhrase(v.name, tostring(v.id), tostring(1), -10000);
+      phrase = dialog.AddPhrase(phraseDescriptor.name, tostring(phraseDescriptor.id), tostring(1), -10000);
 
       script = phrase.GetPhraseScript();
       script.AddPrecondition(string.format("dialog_manager.precondition_%s_dialogs", data));
       script.AddAction(string.format("dialog_manager.action_%s_dialogs", data));
 
-      if (v.wounded === TRUE) {
+      if (phraseDescriptor.wounded === TRUE) {
         script.AddPrecondition("dialogs.is_wounded");
 
         const medkitId: TNumberId = this.getNextPhraseId();
         const sorryId: TNumberId = this.getNextPhraseId();
 
-        phrase = dialog.AddPhrase("dm_wounded_medkit", tostring(medkitId), tostring(v.id), -10000);
+        phrase = dialog.AddPhrase("dm_wounded_medkit", tostring(medkitId), tostring(phraseDescriptor.id), -10000);
         script = phrase.GetPhraseScript();
         script.AddPrecondition("dialogs.actor_have_medkit");
         script.AddAction("dialogs.transfer_medkit");
         script.AddAction("dialogs.break_dialog");
-        phrase = dialog.AddPhrase("dm_wounded_sorry", tostring(sorryId), tostring(v.id), -10000);
+        phrase = dialog.AddPhrase("dm_wounded_sorry", tostring(sorryId), tostring(phraseDescriptor.id), -10000);
         script = phrase.GetPhraseScript();
         script.AddAction("dialogs.break_dialog");
       } else {
@@ -371,18 +343,10 @@ export class DialogManager extends AbstractCoreManager {
 
     if (PTIDSubtable.wounded === TRUE) {
       // --if (!(ActionWoundManager.is_heavy_wounded_by_id(npc.id())) {
-      if (!isObjectWounded(object)) {
-        priority = -1;
-      } else {
-        priority = priority + 1;
-      }
+      priority = isObjectWounded(object) ? priority + 1 : -1;
     } else {
       // --if(ActionWoundManager.is_heavy_wounded_by_id(npc.id())) {
-      if (isObjectWounded(object)) {
-        priority = -1;
-      } else {
-        priority = priority + 1;
-      }
+      priority = isObjectWounded(object) ? -1 : priority + 1;
     }
 
     if (fComm === false || fLevel === false) {
@@ -423,7 +387,7 @@ export class DialogManager extends AbstractCoreManager {
   /**
    * todo;
    */
-  public isTold(object: ClientObject, phrase: TStringId): boolean {
+  public isTold(object: ClientObject, phrase: EGenericDialogCategory): boolean {
     return this.priorityTable.get(phrase).get(object.id())?.told === true;
   }
 
@@ -442,11 +406,11 @@ export class DialogManager extends AbstractCoreManager {
 
     const objectId: TNumberId = object.id();
 
-    packet.w_bool(this.priorityTable.get("hello").get(objectId) !== null);
-    packet.w_bool(this.priorityTable.get("job").get(objectId) !== null);
-    packet.w_bool(this.priorityTable.get("anomalies").get(objectId) !== null);
-    packet.w_bool(this.priorityTable.get("place").get(objectId) !== null);
-    packet.w_bool(this.priorityTable.get("information").get(objectId) !== null);
+    packet.w_bool(this.priorityTable.get(EGenericDialogCategory.HELLO).get(objectId) !== null);
+    packet.w_bool(this.priorityTable.get(EGenericDialogCategory.JOB).get(objectId) !== null);
+    packet.w_bool(this.priorityTable.get(EGenericDialogCategory.ANOMALIES).get(objectId) !== null);
+    packet.w_bool(this.priorityTable.get(EGenericDialogCategory.PLACE).get(objectId) !== null);
+    packet.w_bool(this.priorityTable.get(EGenericDialogCategory.INFORMATION).get(objectId) !== null);
 
     closeSaveMarker(packet, DialogManager.name);
   }

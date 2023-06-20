@@ -10,11 +10,13 @@ import { ISchemeMeetState } from "@/engine/core/schemes/meet";
 import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
-import { extern, getExtern } from "@/engine/core/utils/binding";
+import { extern } from "@/engine/core/utils/binding";
+import { isActorAbsolutelyHealthy } from "@/engine/core/utils/check";
 import { isObjectWounded, isStalkerAlive } from "@/engine/core/utils/check/check";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
-import { getCharacterCommunity, isObjectInSmart } from "@/engine/core/utils/object/object_general";
+import { LuaLogger } from "@/engine/core/utils/logging";
+import { getCharacterCommunity, isObjectInSmartTerrain } from "@/engine/core/utils/object/object_general";
 import {
   actorHasMedKit,
   getActorAvailableMedKit,
@@ -28,6 +30,8 @@ import { drugs, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { pistols, TPistol } from "@/engine/lib/constants/items/weapons";
 import { levels } from "@/engine/lib/constants/levels";
 import { ClientObject, EClientObjectRelation, EScheme, Optional, TNumberId } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 extern("dialogs", {});
 
@@ -541,98 +545,98 @@ extern("dialogs.monolith_leader_dead_or_dolg", (firstSpeaker: ClientObject, seco
  * todo;
  */
 extern("dialogs.squad_not_in_smart_b101", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return !isObjectInSmart(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b101");
+  return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b101");
 });
 
 /**
  * todo;
  */
 extern("dialogs.squad_not_in_smart_b103", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return !isObjectInSmart(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b103");
+  return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b103");
 });
 
 /**
  * todo;
  */
 extern("dialogs.squad_not_in_smart_b104", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return !isObjectInSmart(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b104");
+  return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b104");
 });
 
 /**
  * todo;
  */
 extern("dialogs.squad_not_in_smart_b213", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return !isObjectInSmart(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b213");
+  return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b213");
 });
 
 /**
  * todo;
  */
 extern("dialogs.squad_not_in_smart_b214", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return !isObjectInSmart(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b214");
+  return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b214");
 });
 
 /**
  * todo;
  */
 extern("dialogs.squad_not_in_smart_b304", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return !isObjectInSmart(getNpcSpeaker(firstSpeaker, secondSpeaker), "pri_b304_monsters_smart_terrain");
+  return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "pri_b304_monsters_smart_terrain");
 });
 
 /**
  * todo;
  */
 extern("dialogs.squad_not_in_smart_b303", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return !isObjectInSmart(getNpcSpeaker(firstSpeaker, secondSpeaker), "pri_b303");
+  return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "pri_b303");
 });
 
 /**
  * todo;
  */
 extern("dialogs.squad_not_in_smart_b40", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return !isObjectInSmart(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b40_smart_terrain");
+  return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b40_smart_terrain");
 });
 
 /**
  * todo;
  */
 extern("dialogs.squad_not_in_smart_b18", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return !isObjectInSmart(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b18");
+  return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b18");
 });
 
 /**
  * todo;
  */
 extern("dialogs.squad_not_in_smart_b6", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return !isObjectInSmart(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b41");
+  return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b41");
 });
 
 /**
  * todo;
  */
 extern("dialogs.squad_not_in_smart_b205", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return !isObjectInSmart(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b205_smart_terrain");
+  return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b205_smart_terrain");
 });
 
 /**
  * todo;
  */
 extern("dialogs.squad_not_in_smart_b47", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return !isObjectInSmart(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b47");
+  return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b47");
 });
 
 /**
  * todo;
  */
 extern("dialogs.squad_in_smart_zat_base", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return isObjectInSmart(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_stalker_base_smart");
+  return isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_stalker_base_smart");
 });
 
 /**
  * todo;
  */
 extern("dialogs.squad_in_smart_jup_b25", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return isObjectInSmart(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_a6");
+  return isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_a6");
 });
 
 /**
@@ -733,7 +737,7 @@ extern(
 );
 
 /**
- * todo;
+ * Heal actor, stop bleeding and radiation, restore power.
  */
 extern("dialogs.medic_magic_potion", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): void => {
   const actor: ClientObject = registry.actor;
@@ -745,19 +749,17 @@ extern("dialogs.medic_magic_potion", (firstSpeaker: ClientObject, secondSpeaker:
 });
 
 /**
- * todo;
+ * Check whether actor needs healing, radiation or bleeding help.
  */
 extern("dialogs.actor_needs_bless", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  const actor: ClientObject = registry.actor;
-
-  return actor.health < 1 || actor.radiation > 0 || actor.bleeding > 0;
+  return isActorAbsolutelyHealthy();
 });
 
 /**
- * todo;
+ * Check whether actor is absolutely healthy, without bleeding and radiation contamination.
  */
 extern("dialogs.actor_is_damn_healthy", (firstSpeaker: ClientObject, secondSpeaker: ClientObject): boolean => {
-  return !getExtern("actor_needs_bless", getExtern("dialogs"));
+  return !isActorAbsolutelyHealthy();
 });
 
 /**
