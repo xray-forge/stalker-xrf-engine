@@ -17,7 +17,7 @@ import { ISchemeCombatState } from "@/engine/core/schemes/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/mob_combat";
 import { initTarget } from "@/engine/core/schemes/remark/actions";
-import { abort, assertDefined } from "@/engine/core/utils/assertion";
+import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseConditionsList } from "@/engine/core/utils/ini/parse";
@@ -119,71 +119,57 @@ extern(
 );
 
 /**
- * todo;
+ * Hit target from name of actor.
+ * Usually used to become enemies based on hit.
  */
-extern("xr_effects.hit_npc_from_actor", (actor: ClientObject, npc: ClientObject, p: [Optional<TStringId>]): void => {
-  const h: hit = new hit();
-  let storyObject: Optional<ClientObject> = null;
+extern(
+  "xr_effects.hit_npc_from_actor",
+  (actor: ClientObject, object: ClientObject, [storyId]: [Optional<TStringId>] = [null]): void => {
+    const hitObject: Hit = new hit();
+    const target: ClientObject = storyId ? (getObjectByStoryId(storyId) as ClientObject) : object;
 
-  h.draftsman = actor;
-  h.type = hit.wound;
+    hitObject.direction = actor.position().sub(target.position());
+    hitObject.draftsman = actor;
+    hitObject.type = hit.wound;
+    hitObject.power = 0.001;
+    hitObject.impulse = 0.001;
+    hitObject.bone("bip01_spine");
 
-  if (p[0]) {
-    storyObject = getObjectByStoryId(p[0]);
-
-    if (storyObject) {
-      h.direction = actor.position().sub(storyObject.position());
-    }
-
-    if (!storyObject) {
-      h.direction = actor.position().sub(npc.position());
-    }
-  } else {
-    h.direction = actor.position().sub(npc.position());
-    storyObject = npc;
+    target.hit(hitObject);
   }
-
-  h.bone("bip01_spine");
-  h.power = 0.001;
-  h.impulse = 0.001;
-
-  storyObject!.hit(h);
-});
+);
 
 /**
- * todo;
+ * Make objects enemies.
+ * Hit object or second parameter story ID from name of first story ID parameter.
  */
-extern("xr_effects.make_enemy", (actor: ClientObject, npc: ClientObject, p: [string, string]) => {
-  if (p === null) {
-    abort("Invalid parameter in function 'hit_npc_from_npc'!!!!");
+extern(
+  "xr_effects.make_enemy",
+  (actor: ClientObject, object: ClientObject, parameters: [TStringId, Optional<TStringId>]): void => {
+    assert(parameters, "Invalid parameter in function 'hit_npc_from_npc'.");
+
+    const [from, to] = parameters;
+
+    const target: ClientObject = to ? (getObjectByStoryId(to) as ClientObject) : object;
+    const hitObject: Hit = new hit();
+
+    hitObject.draftsman = getObjectByStoryId(from);
+
+    hitObject.type = hit.wound;
+    hitObject.direction = hitObject.draftsman!.position().sub(target.position());
+    hitObject.bone("bip01_spine");
+    hitObject.power = 0.03;
+    hitObject.impulse = 0.03;
+
+    target.hit(hitObject);
   }
-
-  const h: Hit = new hit();
-  let objectToHit: ClientObject = npc;
-
-  h.draftsman = getObjectByStoryId(p[0]);
-
-  if (p[1] !== null) {
-    objectToHit = getObjectByStoryId(p[1])!;
-  }
-
-  h.type = hit.wound;
-  h.direction = h.draftsman!.position().sub(objectToHit.position());
-  h.bone("bip01_spine");
-  h.power = 0.03;
-  h.impulse = 0.03;
-  objectToHit.hit(h);
-});
+);
 
 /**
- * todo;
+ * Set sniper fire mode for an object.
  */
-extern("xr_effects.sniper_fire_mode", (actor: ClientObject, npc: ClientObject, p: [string]): void => {
-  if (p[0] === TRUE) {
-    npc.sniper_fire_mode(true);
-  } else {
-    npc.sniper_fire_mode(false);
-  }
+extern("xr_effects.sniper_fire_mode", (actor: ClientObject, object: ClientObject, parameters: [string]): void => {
+  object.sniper_fire_mode(parameters[0] === TRUE);
 });
 
 /**
