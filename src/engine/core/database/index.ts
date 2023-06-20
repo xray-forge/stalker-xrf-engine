@@ -4,6 +4,7 @@ export * from "@/engine/core/database/doors";
 export * from "@/engine/core/database/helicopters";
 export * from "@/engine/core/database/ini";
 export * from "@/engine/core/database/ini_registry";
+export * from "@/engine/core/database/logic";
 export * from "@/engine/core/database/managers";
 export * from "@/engine/core/database/monster";
 export * from "@/engine/core/database/objects";

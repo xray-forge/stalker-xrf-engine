@@ -23,21 +23,13 @@ import {
   resetObjectGroup,
   resetObjectIgnoreThreshold,
   resetObjectInvulnerability,
-  scriptReleaseObject,
   sendToNearestAccessibleVertex,
   setObjectInfo,
 } from "@/engine/core/utils/object/object_general";
+import { emitSchemeEvent } from "@/engine/core/utils/scheme/event";
+import { scriptReleaseMonster } from "@/engine/core/utils/scheme/monster";
 import { NIL } from "@/engine/lib/constants/words";
-import {
-  AnyArgs,
-  AnyContextualCallable,
-  ClientObject,
-  EScheme,
-  ESchemeType,
-  IniFile,
-  Optional,
-  TSection,
-} from "@/engine/lib/types";
+import { ClientObject, EScheme, ESchemeType, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -49,32 +41,6 @@ export function isSectionActive(object: ClientObject, state: IBaseSchemeState): 
   assertDefined(state.section, "Object %s '%s': state.section is null.", object.name(), state.section);
 
   return state.section === registry.objects.get(object.id()).activeSection;
-}
-
-/**
- * Emit scheme event for active `actions` list in scheme state.
- *
- * @param object - client object working on scheme
- * @param state - scheme state for emitting
- * @param event - event type to emit
- * @param rest - event args
- */
-export function emitSchemeEvent(
-  object: ClientObject,
-  state: IBaseSchemeState,
-  event: ESchemeEvent,
-  ...rest: AnyArgs
-): void {
-  if (!state || !state.actions) {
-    return;
-  }
-
-  // todo: Probably it is Set and `isHandlerActive` check is not needed.
-  for (const [actionHandler, isHandlerActive] of state.actions) {
-    if (isHandlerActive && actionHandler[event]) {
-      (actionHandler[event] as AnyContextualCallable).apply(actionHandler, rest);
-    }
-  }
 }
 
 /**
@@ -373,7 +339,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(
     }
 
     case ESchemeType.MONSTER: {
-      scriptReleaseObject(object, ""); // ???, todo: need details
+      scriptReleaseMonster(object);
 
       if (object.clsid() === clsid.bloodsucker_s) {
         object.set_manual_invisibility(scheme !== EScheme.NIL);

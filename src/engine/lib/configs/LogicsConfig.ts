@@ -80,4 +80,5 @@ export const logicsConfig = {
   TRADE: {
     DEFAULT_TRADE_LTX_PATH: "misc\\trade\\trade_generic.ltx",
   },
+  MONSTER_CAPTURE_SCRIPT_NAME: "xrf",
 } as const;

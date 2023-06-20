@@ -121,6 +121,7 @@ export function mockClientGameObject({
       }),
     game_vertex_id,
     get_script: rest.get_script || jest.fn(() => false),
+    get_script_name: rest.get_script_name || jest.fn(() => null),
     give_game_news,
     give_info_portion:
       give_info_portion ||
@@ -197,6 +198,7 @@ export function mockClientGameObject({
             }
           });
       }),
+    script: rest.script || jest.fn(),
     section: section || jest.fn(() => sectionOverride),
     see: rest.see || jest.fn(() => false),
     set_body_state: rest.set_body_state || jest.fn(),

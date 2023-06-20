@@ -13,7 +13,7 @@ import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { parseStringsList } from "@/engine/core/utils/ini/parse";
 import { readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
+import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import {
   ClientObject,
   EScheme,

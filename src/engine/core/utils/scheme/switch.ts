@@ -7,7 +7,8 @@ import { isObjectInZone } from "@/engine/core/utils/check/check";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorSeenByObject } from "@/engine/core/utils/object/object_general";
-import { activateSchemeBySection, emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
+import { emitSchemeEvent } from "@/engine/core/utils/scheme/event";
+import { activateSchemeBySection } from "@/engine/core/utils/scheme/logic";
 import { getDistanceBetween } from "@/engine/core/utils/vector";
 import { NIL } from "@/engine/lib/constants/words";
 import {

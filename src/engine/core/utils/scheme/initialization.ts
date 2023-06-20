@@ -9,9 +9,9 @@ import { assert } from "@/engine/core/utils/assertion";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_general";
+import { emitSchemeEvent } from "@/engine/core/utils/scheme/event";
 import {
   activateSchemeBySection,
-  emitSchemeEvent,
   enableObjectBaseSchemes,
   getSectionToActivate,
 } from "@/engine/core/utils/scheme/logic";

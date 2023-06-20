@@ -1,14 +1,13 @@
 import { CCar, level, move, patrol, time_global } from "xray16";
 
 import { getObjectByStoryId, registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMinigunState";
 import { abort } from "@/engine/core/utils/assertion";
 import { isHeavilyWounded } from "@/engine/core/utils/check/check";
 import { isActiveSection } from "@/engine/core/utils/check/is";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { TConditionList } from "@/engine/core/utils/ini/types";
-import { isObjectScriptCaptured, scriptReleaseObject } from "@/engine/core/utils/object/object_general";
+import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
+import { isMonsterScriptCaptured, scriptReleaseMonster } from "@/engine/core/utils/scheme";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { createEmptyVector, createVector, yaw } from "@/engine/core/utils/vector";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
@@ -311,7 +310,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     }
 
     if (this.stateCannon === STATE_CANNON_STOP && this.stateFiretarget === STATE_NONE) {
-      if (isObjectScriptCaptured(this.object) && !this.object.action()) {
+      if (isMonsterScriptCaptured(this.object) && !this.object.action()) {
         this.destroyCar();
 
         return true;
@@ -439,7 +438,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     this.mgun.Action(CCar.eWpnAutoFire, 0);
     this.setShooting(this.stateShooting);
 
-    scriptReleaseObject(this.object, MinigunManager.name);
+    scriptReleaseMonster(this.object);
 
     if (this.state.on_death_info !== null) {
       registry.actor.give_info_portion(this.state.on_death_info);

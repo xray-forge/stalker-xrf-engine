@@ -4,7 +4,7 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AnomalyZoneBinder, SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { EStalkerState } from "@/engine/core/objects/state";
-import { abort, assertDefined } from "@/engine/core/utils/assertion";
+import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import { isCseAlifeObject, isStalker } from "@/engine/core/utils/check/is";
 import { getInfosFromData, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseConditionsList } from "@/engine/core/utils/ini/parse";
@@ -198,9 +198,9 @@ export function action(object: Optional<ClientObject>, ...actions: Array<TEntity
 /**
  * todo;
  */
-export function resetObjectAction(object: ClientObject, scriptName: TName): void {
+export function resetMonsterAction(object: ClientObject, scriptName: TName): void {
   if (object.get_script()) {
-    object.script(false, scriptName);
+    object.script(false, object.get_script_name());
   }
 
   object.script(true, scriptName);
@@ -514,49 +514,6 @@ export function anomalyHasArtefact(
  */
 export function isObjectAsleep(object: ClientObject): boolean {
   return registry.objects.get(object.id()).stateManager!.animstate.states.currentState === EStalkerState.SLEEP;
-}
-
-/**
- * todo;
- * todo;
- * todo;
- */
-export function scriptReleaseObject(object: ClientObject, scriptName: TName = $filename): void {
-  if (object.get_script()) {
-    object.script(false, scriptName);
-  }
-}
-
-/**
- * todo;
- * todo;
- * todo;
- */
-export function scriptCaptureObject(
-  object: ClientObject,
-  resetActions: Optional<boolean>,
-  scriptName: TName = $filename
-): void {
-  if (resetActions === null) {
-    abort("mob_capture: reset_actions parameter's value is !specified");
-  }
-
-  if (resetActions !== null) {
-    resetObjectAction(object, scriptName);
-  } else {
-    if (!object.get_script()) {
-      object.script(true, scriptName);
-    }
-  }
-}
-
-/**
- * todo;
- * todo;
- * todo;
- */
-export function isObjectScriptCaptured(object: ClientObject): boolean {
-  return object.get_script() !== null;
 }
 
 /**

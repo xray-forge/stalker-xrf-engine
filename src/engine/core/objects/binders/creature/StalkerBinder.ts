@@ -60,8 +60,7 @@ import {
   updateObjectInvulnerability,
 } from "@/engine/core/utils/object/object_general";
 import { setObjectsRelation, setObjectSympathy } from "@/engine/core/utils/relation";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
+import { emitSchemeEvent, trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";

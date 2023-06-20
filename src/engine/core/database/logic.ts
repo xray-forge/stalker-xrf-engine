@@ -1,17 +1,11 @@
 import { time_global } from "xray16";
 
-import {
-  closeLoadMarker,
-  closeSaveMarker,
-  IRegistryObjectState,
-  loadPortableStore,
-  openSaveMarker,
-  registry,
-  savePortableStore,
-} from "@/engine/core/database";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
-import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
+import { loadPortableStore, savePortableStore } from "@/engine/core/database/portable_store";
+import { registry } from "@/engine/core/database/registry";
+import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from "@/engine/core/database/save_markers";
+import { IRegistryObjectState } from "@/engine/core/database/types";
+import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes/base/types";
+import { emitSchemeEvent } from "@/engine/core/utils/scheme/event";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { NIL } from "@/engine/lib/constants/words";
 import {

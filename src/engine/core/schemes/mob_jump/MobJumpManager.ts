@@ -3,7 +3,8 @@ import { cond, look, patrol } from "xray16";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/mob_jump/ISchemeMobJumpState";
 import { abort } from "@/engine/core/utils/assertion";
-import { action, scriptCaptureObject, scriptReleaseObject } from "@/engine/core/utils/object/object_general";
+import { action } from "@/engine/core/utils/object/object_general";
+import { scriptCaptureMonster, scriptReleaseMonster } from "@/engine/core/utils/scheme";
 import { addVectors } from "@/engine/core/utils/vector";
 import { Optional, Patrol, Vector } from "@/engine/lib/types";
 
@@ -23,7 +24,7 @@ export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
    * todo: Description.
    */
   public override resetScheme(): void {
-    scriptCaptureObject(this.object, true, MobJumpManager.name);
+    scriptCaptureMonster(this.object, true, MobJumpManager.name);
 
     // -- reset signals
     this.state.signals = new LuaTable();
@@ -64,7 +65,7 @@ export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
     if (this.stateCurrent === STATE_JUMP) {
       this.object.jump(this.point!, this.state.ph_jump_factor);
       this.state.signals!.set("jumped", true);
-      scriptReleaseObject(this.object, MobJumpManager.name);
+      scriptReleaseMonster(this.object);
     }
   }
 }

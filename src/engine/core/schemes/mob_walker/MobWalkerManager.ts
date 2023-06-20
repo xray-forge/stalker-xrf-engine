@@ -2,14 +2,14 @@ import { anim, cond, look, move, patrol, sound } from "xray16";
 
 import { registry, setMonsterState } from "@/engine/core/database";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
-import { AbstractSchemeManager } from "@/engine/core/schemes";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/mob_walker/ISchemeMobWalkerState";
 import { abort } from "@/engine/core/utils/assertion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseWaypointsData } from "@/engine/core/utils/ini/parse";
+import { parseWaypointsData, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { IWaypointData } from "@/engine/core/utils/ini/types";
-import { action, isObjectScriptCaptured, scriptCaptureObject } from "@/engine/core/utils/object/object_general";
+import { action } from "@/engine/core/utils/object/object_general";
 import { isStalkerAtWaypoint } from "@/engine/core/utils/position";
+import { isMonsterScriptCaptured, scriptCaptureMonster } from "@/engine/core/utils/scheme/monster";
 import { copyVector } from "@/engine/core/utils/vector";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
@@ -62,7 +62,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     setMonsterState(this.object, this.state.state);
 
     this.state.signals = new LuaTable();
-    scriptCaptureObject(this.object, true);
+    scriptCaptureMonster(this.object, true);
 
     this.patrolWalk = new patrol(this.state.path_walk);
 
@@ -109,7 +109,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
    * todo: Description.
    */
   public update(): void {
-    if (!isObjectScriptCaptured(this.object)) {
+    if (!isMonsterScriptCaptured(this.object)) {
       this.resetScheme();
 
       return;
@@ -235,7 +235,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
    * todo: Description.
    */
   public updateMovementState(): void {
-    scriptCaptureObject(this.object, true);
+    scriptCaptureMonster(this.object, true);
 
     let m;
 
@@ -268,7 +268,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
    * todo: Description.
    */
   public updateStandingState(): void {
-    scriptCaptureObject(this.object, true);
+    scriptCaptureMonster(this.object, true);
 
     if (this.scheduledSound) {
       action(
@@ -287,7 +287,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
    * todo: Description.
    */
   public override deactivate(): void {
-    scriptCaptureObject(this.object, true);
+    scriptCaptureMonster(this.object, true);
     action(this.object, new move(move.steal, this.patrolWalk!.point(0)), new cond(cond.move_end));
   }
 
@@ -304,7 +304,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     lookPoint.normalize();
     // --this.object:set_sight(look.direction, look_pt, 0)
 
-    scriptCaptureObject(this.object, true);
+    scriptCaptureMonster(this.object, true);
     action(this.object, new look(look.direction, lookPoint), new cond(cond.look_end));
 
     this.lastLookIndex = pt;

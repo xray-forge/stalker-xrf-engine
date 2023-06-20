@@ -1,11 +1,10 @@
 import { AbstractScheme, ESchemeEvent } from "@/engine/core/schemes";
 import { CutsceneManager } from "@/engine/core/schemes/sr_cutscene/CutsceneManager";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/sr_cutscene/ISchemeCutsceneState";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { parseStringsList } from "@/engine/core/utils/ini/parse";
+import { getConfigSwitchConditions, parseStringsList } from "@/engine/core/utils/ini";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
+import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, EScheme, ESchemeType, IniFile, TSection } from "@/engine/lib/types";
 

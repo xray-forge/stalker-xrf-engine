@@ -8,7 +8,8 @@ import { abort } from "@/engine/core/utils/assertion";
 import { getExtern } from "@/engine/core/utils/binding";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseStringsList } from "@/engine/core/utils/ini/parse";
-import { action, scriptCaptureObject } from "@/engine/core/utils/object/object_general";
+import { action } from "@/engine/core/utils/object/object_general";
+import { scriptCaptureMonster } from "@/engine/core/utils/scheme/monster";
 import { AnyCallablesModule, LuaArray, MonsterBodyStateKey, Optional, TName } from "@/engine/lib/types";
 
 /**
@@ -26,7 +27,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
 
     this.object.disable_talk();
 
-    scriptCaptureObject(this.object, !this.state.no_reset);
+    scriptCaptureMonster(this.object, !this.state.no_reset);
 
     const animationsList: LuaArray<TName> = parseStringsList(this.state.anim);
 

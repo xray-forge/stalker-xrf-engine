@@ -5,14 +5,15 @@ import {
   closeSaveMarker,
   IRegistryObjectState,
   IStoredOfflineObject,
+  loadObjectLogic,
+  openLoadMarker,
   openSaveMarker,
   registerObject,
   registry,
   resetObject,
+  saveObjectLogic,
   unregisterObject,
 } from "@/engine/core/database";
-import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { setupSmartJobsAndLogicOnSpawn } from "@/engine/core/objects/server/smart_terrain/jobs_general";
@@ -22,18 +23,17 @@ import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { action, getObjectSquad } from "@/engine/core/utils/object/object_general";
 import {
-  action,
-  getObjectSquad,
-  isObjectScriptCaptured,
-  scriptCaptureObject,
-  scriptReleaseObject,
-} from "@/engine/core/utils/object/object_general";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme/logic";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
+  emitSchemeEvent,
+  isMonsterScriptCaptured,
+  scriptCaptureMonster,
+  scriptReleaseMonster,
+  trySwitchToAnotherSection,
+} from "@/engine/core/utils/scheme";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
@@ -106,8 +106,8 @@ export class MonsterBinder extends object_binder {
     }
 
     if (this.object.get_enemy()) {
-      if (isObjectScriptCaptured(this.object)) {
-        scriptReleaseObject(this.object, MonsterBinder.__name);
+      if (isMonsterScriptCaptured(this.object)) {
+        scriptReleaseMonster(this.object);
       }
 
       return;
@@ -122,7 +122,7 @@ export class MonsterBinder extends object_binder {
 
       const [targetPosition] = currentTarget.getGameLocation();
 
-      scriptCaptureObject(this.object, true, MonsterBinder.__name);
+      scriptCaptureMonster(this.object, true);
 
       if (squad.commander_id() === this.object.id()) {
         action(this.object, new move(move.walk_with_leader, targetPosition), new cond(cond.move_end));
