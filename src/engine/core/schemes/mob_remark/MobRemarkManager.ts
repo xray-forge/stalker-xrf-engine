@@ -115,7 +115,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
   /**
    * todo: Description.
    */
-  public override update(): void {
+  public update(): void {
     if (
       this.state.dialog_cond &&
       pickSectionFromCondList(registry.actor, this.object, this.state.dialog_cond.condlist) !== null

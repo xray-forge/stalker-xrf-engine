@@ -66,7 +66,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   /**
    * todo: Description.
    */
-  public override update(): void {
+  public update(): void {
     const time: number = time_global();
 
     if (this.lastUpdate !== 0) {

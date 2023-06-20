@@ -7,22 +7,19 @@ import { isSectionActive } from "@/engine/core/utils/scheme/logic";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Check whether walker scheme is active.
  */
 @LuabindClass()
 export class EvaluatorNeedWalker extends property_evaluator {
   public readonly state: ISchemeWalkerState;
 
-  /**
-   * todo: Description.
-   */
   public constructor(storage: ISchemeWalkerState) {
     super(null, EvaluatorNeedWalker.__name);
     this.state = storage;
   }
 
   /**
-   * todo: Description.
+   * Check whether walker scheme is active and should still continue processing.
    */
   public override evaluate(): boolean {
     return isSectionActive(this.object, this.state);

@@ -17,7 +17,7 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
     this.object.set_nonscript_usable(this.state.nonscript_usable);
   }
 
-  public override update(): void {
+  public update(): void {
     trySwitchToAnotherSection(this.object, this.state);
   }
 

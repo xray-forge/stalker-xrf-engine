@@ -11,7 +11,7 @@ export class IdleManager extends AbstractSchemeManager<ISchemeIdleState> {
     this.state.signals = new LuaTable();
   }
 
-  public override update(delta: TCount): void {
+  public update(delta: TCount): void {
     // Nothing to do, just, try switching to anything else.
     trySwitchToAnotherSection(this.object, this.state);
   }

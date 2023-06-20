@@ -347,7 +347,13 @@ export function parseWaypointData(patrolName: TPath, patrolFlags: Flags32, point
  * @param patrolName - name of patrol to parse
  * @returns list of waypoint descriptors
  */
-export function parseWaypointsData(patrolName: TPath): LuaTable<TIndex, IWaypointData> {
+export function parseWaypointsData(patrolName: null): null;
+export function parseWaypointsData(patrolName: TPath): LuaTable<TIndex, IWaypointData>;
+export function parseWaypointsData(patrolName: Optional<TPath>): Optional<LuaTable<TIndex, IWaypointData>> {
+  if (!patrolName) {
+    return null;
+  }
+
   const waypointPatrol: Patrol = new patrol(patrolName);
   const count: TCount = waypointPatrol.count();
   const waypointsData: LuaArray<IWaypointData> = new LuaTable();

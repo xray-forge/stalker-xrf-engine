@@ -108,7 +108,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   /**
    * todo: Description.
    */
-  public override update(): void {
+  public update(): void {
     if (!isObjectScriptCaptured(this.object)) {
       this.resetScheme();
 

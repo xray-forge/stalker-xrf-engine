@@ -205,7 +205,7 @@ export class MonsterBinder extends object_binder {
     registry.actorCombat.delete(this.object.id());
 
     if (this.state.activeScheme !== null) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme]!, ESchemeEvent.NET_DESTROY);
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme]!, ESchemeEvent.NET_DESTROY, this.object);
     }
 
     const offlineObject: IStoredOfflineObject = registry.offlineObjects.get(this.object.id());

@@ -173,7 +173,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   /**
    * todo: Description.
    */
-  public override update(delta: number): void {
+  public update(delta: number): void {
     if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
     }

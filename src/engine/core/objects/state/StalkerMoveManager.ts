@@ -151,7 +151,7 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public reset(
-    walkPath: string,
+    walkPath: TName,
     walkPathInfo: LuaArray<IWaypointData>,
     lookPath: Optional<string>,
     lookPathInfo: Optional<LuaArray<IWaypointData>>,

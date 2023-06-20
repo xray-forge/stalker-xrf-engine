@@ -15,7 +15,6 @@ import { CoverPoint, EClientObjectPath, Optional, TDistance, TNumberId, Vector }
 @LuabindClass()
 export class ActionCover extends action_base {
   public readonly state: ISchemeCoverState;
-  public board!: SimulationBoardManager;
 
   public enemyRandomPosition: Optional<Vector> = null;
   public coverVertexId!: TNumberId;
@@ -24,11 +23,6 @@ export class ActionCover extends action_base {
   public constructor(state: ISchemeCoverState) {
     super(null, ActionCover.__name);
     this.state = state;
-  }
-
-  public override initialize(): void {
-    super.initialize();
-    this.board = SimulationBoardManager.getInstance();
   }
 
   /**
@@ -75,7 +69,7 @@ export class ActionCover extends action_base {
   public activateScheme(): void {
     this.state.signals = new LuaTable();
 
-    const smartTerrainVertexId: TNumberId = this.board.getSmartTerrainByName(
+    const smartTerrainVertexId: TNumberId = SimulationBoardManager.getInstance().getSmartTerrainByName(
       this.state.smartTerrainName
     )!.m_level_vertex_id;
 
@@ -106,9 +100,7 @@ export class ActionCover extends action_base {
     }
 
     if (!this.object.accessible(this.coverPosition)) {
-      const ttp: Vector = createEmptyVector();
-
-      this.coverVertexId = this.object.accessible_nearest(this.coverPosition, ttp);
+      this.coverVertexId = this.object.accessible_nearest(this.coverPosition, createEmptyVector());
       this.coverPosition = level.vertex_position(this.coverVertexId);
     }
 

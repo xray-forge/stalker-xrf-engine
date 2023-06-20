@@ -31,7 +31,7 @@ export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalHit
   /**
    * todo: Description.
    */
-  public override update(): void {
+  public update(): void {
     trySwitchToAnotherSection(this.object, this.state);
   }
 

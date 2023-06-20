@@ -40,7 +40,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   /**
    * todo: Check frequency of calls.
    */
-  public override update(): void {
+  public update(): void {
     if (trySwitchToAnotherSection(this.object, this.state)) {
       if (this.currentActorState === EActorZoneState.INSIDE) {
         this.onZoneLeave();

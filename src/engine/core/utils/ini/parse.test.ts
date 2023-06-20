@@ -265,6 +265,7 @@ describe("'ini_data' parsing utils", () => {
   it("'parseWaypointData' should correctly parse generic paths to waypoint data", () => {
     const flags: Flags32 = MockFlags32.mock();
 
+    expect(parseWaypointsData(null)).toBeNull();
     expect(luaTableToObject(parseWaypointsData("zat_b40_smart_terrain_zat_b40_merc_01_walk"))).toEqual({
       "0": {
         a: {

@@ -6,6 +6,7 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { associations } from "@/engine/core/schemes/animpoint/animpoint_predicates";
 import { IAnimpointAction } from "@/engine/core/schemes/animpoint/types";
+import { ISchemeEventHandler } from "@/engine/core/schemes/base";
 import { CampStoryManager } from "@/engine/core/schemes/camper/CampStoryManager";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker";
 import { parseWaypointsData } from "@/engine/core/utils/ini/parse";
@@ -25,7 +26,7 @@ const ASSOC_TBL = {
  * todo;
  */
 @LuabindClass()
-export class ActionWalkerActivity extends action_base {
+export class ActionWalkerActivity extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemeWalkerState;
   public readonly moveManager: StalkerMoveManager;
 
@@ -34,9 +35,6 @@ export class ActionWalkerActivity extends action_base {
   public isInCamp: Optional<boolean> = null;
   public campStoryManager: Optional<CampStoryManager> = null;
 
-  /**
-   * todo: Description.
-   */
   public constructor(state: ISchemeWalkerState, object: ClientObject) {
     super(null, ActionWalkerActivity.__name);
 
@@ -47,55 +45,40 @@ export class ActionWalkerActivity extends action_base {
     this.availableActions = associations.get(this.state.description);
     this.state.approvedActions = new LuaTable();
 
-    for (const [k, v] of this.availableActions) {
-      if (v.predicate(object.id()) === true) {
-        table.insert(this.state.approvedActions, v);
+    for (const [, animpointAction] of this.availableActions) {
+      if (animpointAction.predicate(object.id())) {
+        table.insert(this.state.approvedActions, animpointAction);
       }
     }
   }
 
   /**
-   * todo: Description.
+   * Initialize action and start processing of walker action.
    */
   public override initialize(): void {
+    logger.info("Activate walker scheme:", this.object.name());
+
     super.initialize();
+
     this.object.set_desired_position();
     this.object.set_desired_direction();
-    this.resetScheme(null, this.object);
+    this.resetScheme(false, this.object);
   }
 
   /**
    * todo: Description.
    */
-  public activateScheme(isLoading: boolean, object: ClientObject): void {
-    this.state.signals = new LuaTable();
-    this.resetScheme(isLoading, object);
-  }
+  public override finalize(): void {
+    logger.info("Deactivate walker scheme:", this.object.name());
 
-  /**
-   * todo: Description.
-   */
-  public resetScheme(loading: Optional<boolean>, npc: ClientObject): void {
-    if (this.state.path_walk_info === null) {
-      this.state.path_walk_info = parseWaypointsData(this.state.path_walk);
+    this.moveManager.finalize();
+
+    if (this.isInCamp === true) {
+      this.campStoryManager!.unregisterNpc(this.object.id());
+      this.isInCamp = null;
     }
 
-    if (this.state.path_look_info === null) {
-      this.state.path_look_info = parseWaypointsData(this.state.path_look);
-    }
-
-    this.moveManager.reset(
-      this.state.path_walk,
-      this.state.path_walk_info as any, // todo cmp of string and table?
-      this.state.path_look,
-      this.state.path_look_info,
-      this.state.team,
-      this.state.suggested_state,
-      null,
-      null,
-      null,
-      null
-    );
+    super.finalize();
   }
 
   /**
@@ -120,7 +103,7 @@ export class ActionWalkerActivity extends action_base {
     }
 
     if (!this.isInCamp && this.state.sound_idle !== null) {
-      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sound_idle, null, null);
+      GlobalSoundManager.getInstance().playSound(this.object.id(), this.state.sound_idle);
     }
   }
 
@@ -138,24 +121,10 @@ export class ActionWalkerActivity extends action_base {
       return;
     }
 
-    const tbl = ASSOC_TBL[campAction as keyof typeof ASSOC_TBL].director as any as LuaTable<number>;
-    const anim = tbl.get(math.random(tbl.length()));
+    const list = ASSOC_TBL[campAction as keyof typeof ASSOC_TBL].director as any as LuaTable<number>;
+    const anim = list.get(math.random(list.length()));
 
     setStalkerState(this.object, anim);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override finalize(): void {
-    this.moveManager.finalize();
-
-    if (this.isInCamp === true) {
-      this.campStoryManager!.unregisterNpc(this.object.id());
-      this.isInCamp = null;
-    }
-
-    super.finalize();
   }
 
   /**
@@ -173,5 +142,39 @@ export class ActionWalkerActivity extends action_base {
       this.campStoryManager!.unregisterNpc(object.id());
       this.isInCamp = null;
     }
+  }
+
+  /**
+   * todo: Description.
+   */
+  public activateScheme(isLoading: boolean, object: ClientObject): void {
+    this.state.signals = new LuaTable();
+    this.resetScheme(isLoading, object);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public resetScheme(isLoading: boolean, object: ClientObject): void {
+    if (this.state.path_walk_info === null) {
+      this.state.path_walk_info = parseWaypointsData(this.state.path_walk);
+    }
+
+    if (this.state.path_look_info === null) {
+      this.state.path_look_info = parseWaypointsData(this.state.path_look);
+    }
+
+    this.moveManager.reset(
+      this.state.path_walk,
+      this.state.path_walk_info,
+      this.state.path_look,
+      this.state.path_look_info,
+      this.state.team,
+      this.state.suggested_state,
+      null,
+      null,
+      null,
+      null
+    );
   }
 }

@@ -44,7 +44,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   /**
    * todo: Description.
    */
-  public override update(): void {
+  public update(): void {
     if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
     }

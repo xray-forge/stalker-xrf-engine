@@ -58,7 +58,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   /**
    * todo: Description.
    */
-  public override update(delta: number): void {
+  public update(delta: number): void {
     const actor: ClientObject = registry.actor;
 
     if (this.idleState) {

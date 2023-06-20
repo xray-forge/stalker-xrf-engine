@@ -18,7 +18,7 @@ export class TeleportManager extends AbstractSchemeManager<ISchemeTeleportState>
   public teleportState: ETeleportState = ETeleportState.IDLE;
   public timer: TTimestamp = 0;
 
-  public override update(): void {
+  public update(): void {
     const actor: Optional<ClientObject> = registry.actor;
     const now: TTimestamp = time_global();
 

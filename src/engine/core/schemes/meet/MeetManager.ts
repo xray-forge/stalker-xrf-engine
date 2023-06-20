@@ -129,7 +129,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   /**
    * todo: Description.
    */
-  public override update(): void {
+  public update(): void {
     const actor: ClientObject = registry.actor;
     const distance: TDistance = this.object.position().distance_to(actor.position());
     const isActorVisible: boolean = this.object.see(actor);

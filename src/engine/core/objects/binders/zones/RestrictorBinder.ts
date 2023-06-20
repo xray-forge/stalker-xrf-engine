@@ -60,7 +60,7 @@ export class RestrictorBinder extends object_binder {
     const state: IRegistryObjectState = this.state;
 
     if (state.activeScheme !== null) {
-      emitSchemeEvent(this.object, state[state.activeScheme!]!, ESchemeEvent.NET_DESTROY);
+      emitSchemeEvent(this.object, state[state.activeScheme!]!, ESchemeEvent.NET_DESTROY, this.object);
     }
 
     unregisterZone(this.object);

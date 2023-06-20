@@ -24,7 +24,7 @@ export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
   /**
    * todo: Description.
    */
-  public override update(): void {
+  public update(): void {
     if (trySwitchToAnotherSection(this.object, this.state)) {
       this.active = false;
 

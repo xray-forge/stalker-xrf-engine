@@ -23,7 +23,7 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
     this.lastHitAt = time_global();
   }
 
-  public override update(): void {
+  public update(): void {
     trySwitchToAnotherSection(this.object, this.state);
   }
 

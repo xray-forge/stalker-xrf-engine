@@ -48,7 +48,7 @@ export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
   /**
    * todo: Description.
    */
-  public override update(delta: number): void {
+  public update(delta: number): void {
     if (this.stateCurrent === STATE_START_LOOK) {
       if (!this.object.action()) {
         action(this.object, new look(look.point, this.point!), new cond(cond.look_end));

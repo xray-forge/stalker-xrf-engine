@@ -42,7 +42,7 @@ export class TimerManager extends AbstractSchemeManager<ISchemeTimerState> {
     }
   }
 
-  public override update(): void {
+  public update(): void {
     if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
     }
