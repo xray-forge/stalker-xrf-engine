@@ -186,6 +186,14 @@ export class MainMenu extends CUIScriptWnd {
   /**
    * todo: Description.
    */
+  public close(): void {
+    executeConsoleCommand(consoleCommands.main_menu, "off");
+    EventsManager.getInstance().emitEvent(EGameEvent.MAIN_MENU_OFF);
+  }
+
+  /**
+   * todo: Description.
+   */
   public onStartNewGame(difficulty: TGameDifficulty): void {
     executeConsoleCommand(consoleCommands.g_game_difficulty, difficulty);
 
@@ -284,8 +292,7 @@ export class MainMenu extends CUIScriptWnd {
    * todo: Description.
    */
   public onButtonClickReturnToGame(): void {
-    executeConsoleCommand(consoleCommands.main_menu, "off");
-    EventsManager.getInstance().emitEvent(EGameEvent.MAIN_MENU_OFF);
+    this.close();
   }
 
   /**

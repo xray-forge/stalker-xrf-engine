@@ -1,16 +1,19 @@
 import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, game, level, LuabindClass, ui_events, vector2 } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers";
 import { SmartTerrain } from "@/engine/core/objects";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugTeleportListEntry } from "@/engine/core/ui/debug/sections/DebugTeleportListEntry";
 import { isGameStarted } from "@/engine/core/utils/check";
+import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { vectorToString } from "@/engine/core/utils/general";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getServerObjects } from "@/engine/core/utils/object/object_find";
 import { isGameVertexFromLevel } from "@/engine/core/utils/position";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { LuaArray, Optional, TPath, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -65,6 +68,7 @@ export class DebugTeleportSection extends AbstractDebugSection {
       this
     );
     this.owner.AddCallback("teleport_button", ui_events.BUTTON_CLICKED, () => this.onTeleport(), this);
+    this.owner.AddCallback("items_list", ui_events.WINDOW_LBUTTON_DB_CLICK, () => this.onTeleport(true), this);
   }
 
   public initializeState(): void {
@@ -79,13 +83,10 @@ export class DebugTeleportSection extends AbstractDebugSection {
 
   public fillItemsList(category: ETeleportCategory): void {
     this.uiItemsList.RemoveAll();
-    logger.info("GOT INIT", category);
 
     switch (category) {
       case ETeleportCategory.SMART_TERRAIN: {
         const smartTerrains: LuaArray<SmartTerrain> = getServerObjects((it) => it.section_name() === "smart_terrain");
-
-        logger.info("GOT INIT", smartTerrains.length());
 
         (smartTerrains as unknown as Array<SmartTerrain>)
           .sort((a, b) => ((a.name() as unknown as number) > (b.name() as unknown as number) ? 1 : -1))
@@ -132,7 +133,7 @@ export class DebugTeleportSection extends AbstractDebugSection {
   /**
    * Spawn item for actor.
    */
-  public onTeleport(): void {
+  public onTeleport(isInstant?: boolean): void {
     if (!isGameStarted()) {
       return logger.info("Cannot teleport, game is not started");
     }
@@ -149,8 +150,17 @@ export class DebugTeleportSection extends AbstractDebugSection {
       } else {
         game.jump_to_level(itemSelected.position, itemSelected.lvid, itemSelected.gvid);
       }
+
+      if (isInstant) {
+        this.closeMenu();
+      }
     } else {
       logger.info("No selected target for teleport");
     }
+  }
+
+  public closeMenu(): void {
+    executeConsoleCommand(consoleCommands.main_menu, "off");
+    EventsManager.getInstance().emitEvent(EGameEvent.MAIN_MENU_OFF);
   }
 }

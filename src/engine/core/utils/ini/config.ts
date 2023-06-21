@@ -2,8 +2,7 @@ import { alife } from "xray16";
 
 import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { IBaseSchemeLogic } from "@/engine/core/schemes";
-import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
-import { getExtern } from "@/engine/core/utils/binding";
+import { abort } from "@/engine/core/utils/assertion";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini/parse";
 import {
@@ -22,7 +21,7 @@ import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NIL } from "@/engine/lib/constants/words";
 import {
   AlifeSimulator,
-  AnyCallablesModule,
+  AnyCallable,
   AnyObject,
   ClientObject,
   ESchemeCondition,
@@ -88,59 +87,61 @@ export function pickSectionFromCondList<T extends TSection>(
   for (const [, switchCondition] of condlist) {
     let areInfoPortionConditionsMet = true;
 
-    for (const [, infop] of switchCondition.infop_check) {
-      if (infop.prob) {
+    for (const [, configCondition] of switchCondition.infop_check) {
+      if (configCondition.prob) {
         if (!randomValue) {
           randomValue = math.random(100);
         }
 
-        if (infop.prob < randomValue) {
+        if (configCondition.prob < randomValue) {
           areInfoPortionConditionsMet = false;
           break;
         }
-      } else if (infop.func) {
-        if (!getExtern<AnyCallablesModule>("xr_conditions")[infop.func]) {
+      } else if (configCondition.func) {
+        const condition: Optional<AnyCallable> = (_G as AnyObject)["xr_conditions"][configCondition.func];
+
+        if (!condition) {
           abort(
-            "object '%s': pick_section_from_condlist: function '%s' is " + "not defined in xr_conditions.script",
+            "object '%s': pickSectionFromCondList: function '%s' is not defined in xr_conditions.",
             object?.name(),
-            infop.func
+            configCondition.func
           );
         }
 
-        if (infop.params) {
-          if (getExtern<AnyCallablesModule>("xr_conditions")[infop.func](actor, object, infop.params)) {
-            if (!infop.expected) {
+        if (configCondition.params) {
+          if (condition(actor, object, configCondition.params)) {
+            if (!configCondition.expected) {
               areInfoPortionConditionsMet = false;
               break;
             }
           } else {
-            if (infop.expected) {
+            if (configCondition.expected) {
               areInfoPortionConditionsMet = false;
               break;
             }
           }
         } else {
-          if (getExtern<AnyCallablesModule>("xr_conditions")[infop.func](actor, object)) {
-            if (!infop.expected) {
+          if (condition(actor, object)) {
+            if (!configCondition.expected) {
               areInfoPortionConditionsMet = false;
               break;
             }
           } else {
-            if (infop.expected) {
+            if (configCondition.expected) {
               areInfoPortionConditionsMet = false;
               break;
             }
           }
         }
-      } else if (hasAlifeInfo(infop.name)) {
-        if (!infop.required) {
+      } else if (hasAlifeInfo(configCondition.name)) {
+        if (!configCondition.required) {
           areInfoPortionConditionsMet = false;
           break;
         } else {
           // -
         }
       } else {
-        if (infop.required) {
+        if (configCondition.required) {
           areInfoPortionConditionsMet = false;
           break;
         } else {
@@ -152,19 +153,17 @@ export function pickSectionFromCondList<T extends TSection>(
     if (areInfoPortionConditionsMet) {
       for (const [, infop] of switchCondition.infop_set) {
         if (infop.func) {
-          if (!getExtern<AnyCallablesModule>("xr_effects")[infop.func]) {
+          const effect: Optional<AnyCallable> = (_G as AnyObject)["xr_effects"][infop.func];
+
+          if (!effect) {
             abort(
-              "object '%s': pick_section_from_condlist: function '%s' is " + "not defined in xr_effects.script",
+              "object '%s': pickSectionFromCondList: function '%s' is not defined in xr_effects.",
               object?.name(),
               infop.func
             );
           }
 
-          if (infop.params) {
-            getExtern<AnyCallablesModule>("xr_effects")[infop.func](actor, object, infop.params);
-          } else {
-            getExtern<AnyCallablesModule>("xr_effects")[infop.func](actor, object);
-          }
+          effect(actor, object, infop.params);
         } else if (infop.required) {
           if (!hasAlifeInfo(infop.name)) {
             giveInfo(infop.name);

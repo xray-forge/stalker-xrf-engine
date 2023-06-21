@@ -116,13 +116,15 @@ export const config = {
     stop_burn_size: 0.0001,
     min_burn_time: 10000,
   },
+  /**
+   * Crosshair configuration.
+   */
   hud_cursor: {
+    // All sizes are relative to screen size
     cross_length: 0.015,
     min_radius: 0.0,
     max_radius: 1.0,
-    radius_lerp_speed: 0.08,
     cross_color: [0.7, 0.7, 0.7, 0.5],
-    disp_scale: 0.08,
   },
   hud_hitmark: {
     hit_mark_texture: "ui\\ui_hud_hit_mark",
