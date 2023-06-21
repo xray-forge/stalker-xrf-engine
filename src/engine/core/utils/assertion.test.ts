@@ -1,12 +1,18 @@
 import { describe, expect, it } from "@jest/globals";
+import { print_stack } from "xray16";
 
 import { abort, assert, assertBoolean, assertDefined } from "@/engine/core/utils/assertion";
 
 describe("'debug' utils", () => {
   it("'abort' should correctly throw exceptions", () => {
     expect(() => abort("Basic.")).toThrow("Basic.");
+    expect(print_stack).toHaveBeenCalledTimes(1);
+
     expect(() => abort("Basic: '%s'.", "reason")).toThrow("Basic: 'reason'.");
+    expect(print_stack).toHaveBeenCalledTimes(2);
+
     expect(() => abort("Complex: '%s', '%s', '%s'.", "reason", 1, true)).toThrow("Complex: 'reason', '1', 'true'.");
+    expect(print_stack).toHaveBeenCalledTimes(3);
   });
 
   it("'assert' should correctly check and throw exceptions", () => {
