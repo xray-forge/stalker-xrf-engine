@@ -30,7 +30,7 @@ import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { DialogManager } from "@/engine/core/managers/interaction/DialogManager";
+import { DialogManager } from "@/engine/core/managers/interaction/dialog/DialogManager";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
 import { TradeManager } from "@/engine/core/managers/interaction/TradeManager";
 import { MapDisplayManager } from "@/engine/core/managers/interface/MapDisplayManager";
@@ -43,14 +43,9 @@ import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTe
 import { addStateManager } from "@/engine/core/objects/state/add_state_manager";
 import { StalkerMoveManager } from "@/engine/core/objects/state/StalkerMoveManager";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
-import {
-  emitSchemeEvent,
-  getObjectGenericSchemeOverrides,
-  trySwitchToAnotherSection,
-} from "@/engine/core/schemes/base/utils";
 import { SchemeCombat } from "@/engine/core/schemes/combat/SchemeCombat";
 import { PostCombatIdle } from "@/engine/core/schemes/combat_idle/PostCombatIdle";
-import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
+import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
 import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { SchemeReachTask } from "@/engine/core/schemes/reach_task/SchemeReachTask";
 import { SchemeLight } from "@/engine/core/schemes/sr_light/SchemeLight";
@@ -65,6 +60,7 @@ import {
   updateObjectInvulnerability,
 } from "@/engine/core/utils/object/object_general";
 import { setObjectsRelation, setObjectSympathy } from "@/engine/core/utils/relation";
+import { emitSchemeEvent, trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
@@ -72,6 +68,7 @@ import { ERelation } from "@/engine/lib/constants/relations";
 import {
   ActionPlanner,
   ALifeSmartTerrainTask,
+  AnyObject,
   ClientObject,
   EClientObjectRelation,
   EScheme,
@@ -235,8 +232,8 @@ export class StalkerBinder extends object_binder {
 
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
-    if (state.active_scheme) {
-      emitSchemeEvent(this.object, state[state.active_scheme]!, ESchemeEvent.NET_DESTROY, this.object);
+    if (state.activeScheme) {
+      emitSchemeEvent(this.object, state[state.activeScheme]!, ESchemeEvent.NET_DESTROY, this.object);
     }
 
     if (this.state[EScheme.REACH_TASK]) {
@@ -252,7 +249,7 @@ export class StalkerBinder extends object_binder {
 
     if (registry.offlineObjects.get(objectId) !== null) {
       registry.offlineObjects.get(objectId).levelVertexId = this.object.level_vertex_id();
-      registry.offlineObjects.get(objectId).activeSection = registry.objects.get(objectId).active_section as TSection;
+      registry.offlineObjects.get(objectId).activeSection = registry.objects.get(objectId).activeSection as TSection;
     }
 
     unregisterStalker(this);
@@ -402,7 +399,7 @@ export class StalkerBinder extends object_binder {
       return;
     }
 
-    ActionSchemeHear.onObjectHearSound(target, whoId, soundType, soundPosition, soundPower);
+    SchemeHear.onObjectHearSound(target, whoId, soundType, soundPosition, soundPower);
   }
 
   /**
@@ -429,7 +426,7 @@ export class StalkerBinder extends object_binder {
       statisticsManager.updateBestMonsterKilled(npc);
     }
 
-    const knownInfo: Optional<TName> = readIniString(state.ini!, state.section_logic, "known_info", false, "", null);
+    const knownInfo: Optional<TName> = readIniString(state.ini!, state.sectionLogic, "known_info", false, "", null);
 
     this.initializeInfoPortions(state.ini!, knownInfo);
 
@@ -445,8 +442,8 @@ export class StalkerBinder extends object_binder {
       emitSchemeEvent(this.object, this.state[EScheme.DEATH], ESchemeEvent.DEATH, victim, who);
     }
 
-    if (this.state.active_section) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, who);
+    if (this.state.activeSection) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.DEATH, victim, who);
     }
 
     SchemeLight.checkObjectLight(this.object);
@@ -481,8 +478,8 @@ export class StalkerBinder extends object_binder {
       DialogManager.getInstance().resetForObject(this.object);
       SchemeMeet.onMeetWithObject(object);
 
-      if (this.state.active_section) {
-        emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.USE, object, who);
+      if (this.state.activeSection) {
+        emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.USE, object, who);
       }
     }
   }
@@ -491,8 +488,8 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public onPatrolExtrapolate(currentPoint: TNumberId): boolean {
-    if (this.state.active_section) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.EXTRAPOLATE);
+    if (this.state.activeSection) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.EXTRAPOLATE);
       this.state.moveManager!.onExtrapolate(this.object);
     }
 
@@ -532,10 +529,10 @@ export class StalkerBinder extends object_binder {
       }
     }
 
-    if (this.state.active_section) {
+    if (this.state.activeSection) {
       emitSchemeEvent(
         this.object,
-        this.state[this.state.active_scheme!]!,
+        this.state[this.state.activeScheme!]!,
         ESchemeEvent.HIT,
         object,
         amount,
@@ -585,21 +582,21 @@ export function updateStalkerLogic(object: ClientObject): void {
   const actor: ClientObject = registry.actor;
   const combatState: IBaseSchemeState = state.combat!;
 
-  if (state !== null && state.active_scheme !== null && object.alive()) {
+  if (state !== null && state.activeScheme !== null && object.alive()) {
     let switched: boolean = false;
-    const manager = object.motivation_action_manager();
+    const manager: ActionPlanner = object.motivation_action_manager();
 
     if (manager.initialized() && manager.current_action_id() === stalker_ids.action_combat_planner) {
-      const overrides = getObjectGenericSchemeOverrides(object);
+      const overrides: Optional<AnyObject> = state.overrides;
 
       if (overrides !== null) {
-        if (overrides.get("on_combat")) {
-          pickSectionFromCondList(actor, object, overrides.get("on_combat").condlist);
+        if (overrides["on_combat"]) {
+          pickSectionFromCondList(actor, object, overrides["on_combat"].condlist);
         }
 
         if (combatState && combatState.logic) {
-          if (!trySwitchToAnotherSection(object, combatState, actor)) {
-            if (overrides.get("combat_type")) {
+          if (!trySwitchToAnotherSection(object, combatState)) {
+            if (overrides["combat_type"]) {
               SchemeCombat.setCombatType(object, actor, overrides);
             }
           } else {
@@ -612,7 +609,7 @@ export function updateStalkerLogic(object: ClientObject): void {
     }
 
     if (!switched) {
-      trySwitchToAnotherSection(object, state[state.active_scheme!]!, actor);
+      trySwitchToAnotherSection(object, state[state.activeScheme as EScheme] as IBaseSchemeState);
     }
   } else {
     SchemeCombat.setCombatType(object, actor, combatState);

@@ -21,8 +21,6 @@ hp_victim = 0 | nil
 hp_cover = 0 | false
 hp_fight = 0 | false
 
-
-
 [logic@pri_a28_heli_mono_def]
 suitable = {-pri_a28_cutscenes_end =target_squad_name(pri_a28_heli_mono_default) +pri_b305_fifth_cam_end} true
 prior = 200
@@ -30,8 +28,6 @@ on_death = death@heli_mono
 
 [death@heli_mono]
 on_info = %=dec_counter(pri_a28_heli_mono_cnt)%
-
-
 
 [logic@pri_a28_mono_1_heli]:logic@pri_a28_heli_mono_def
 active = walker@pri_a28_mono_1_heli_jump
@@ -65,8 +61,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_1_heli_fake
 target = path | pri_a28_heli_fake_look_1, 0
 anim = hide_fire
 
-
-
 [logic@pri_a28_mono_2_heli]:logic@pri_a28_heli_mono_def
 active = walker@pri_a28_mono_2_heli_jump
 
@@ -98,8 +92,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_2_heli_fake
 [remark@pri_a28_mono_2_heli_fake]:walker@ignore
 target = path | pri_a28_heli_fake_look_4, 0
 anim = threat_fire
-
-
 
 [logic@pri_a28_mono_3_heli]:logic@pri_a28_heli_mono_def
 active = walker@pri_a28_mono_3_heli_jump
@@ -133,8 +125,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_3_heli_fake
 target = path | pri_a28_heli_fake_look_2, 0
 anim = hide_fire
 
-
-
 [logic@pri_a28_mono_4_heli]:logic@pri_a28_heli_mono_def
 active = walker@pri_a28_mono_4_heli_jump
 
@@ -166,8 +156,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_4_heli_fake
 [remark@pri_a28_mono_4_heli_fake]:walker@ignore
 target = path | pri_a28_heli_fake_look_1, 0
 anim = threat_fire
-
-
 
 [logic@pri_a28_mono_5_heli]:logic@pri_a28_heli_mono_def
 active = walker@pri_a28_mono_5_heli_jump
@@ -201,8 +189,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_5_heli_fake
 target = path | pri_a28_heli_fake_look_2, 0
 anim = hide_fire
 
-
-
 [logic@pri_a28_mono_6_heli]:logic@pri_a28_heli_mono_def
 active = walker@pri_a28_mono_6_heli_jump
 
@@ -234,8 +220,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_6_heli_fake
 [remark@pri_a28_mono_6_heli_fake]:walker@ignore
 target = path | pri_a28_heli_fake_look_3, 0
 anim = threat_fire
-
-
 
 [logic@pri_a28_mono_7_heli]:logic@pri_a28_heli_mono_def
 active = walker@pri_a28_mono_7_heli_jump
@@ -269,8 +253,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_7_heli_fake
 target = path | pri_a28_heli_fake_look_4, 0
 anim = hide_fire
 
-
-
 [logic@pri_a28_mono_8_heli]:logic@pri_a28_heli_mono_def
 active = walker@pri_a28_mono_8_heli_jump
 
@@ -302,8 +284,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_8_heli_fake
 [remark@pri_a28_mono_8_heli_fake]:walker@ignore
 target = path | pri_a28_heli_fake_look_2, 0
 anim = threat_fire
-
-
 
 [logic@pri_a28_mono_9_heli]:logic@pri_a28_heli_mono_def
 active = walker@pri_a28_mono_9_heli_jump
@@ -337,8 +317,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_9_heli_fake
 target = path | pri_a28_heli_fake_look_2, 0
 anim = hide_fire
 
-
-
 [logic@pri_a28_mono_10_heli]:logic@pri_a28_heli_mono_def
 active = walker@pri_a28_mono_10_heli_jump
 
@@ -370,8 +348,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_10_heli_fake
 [remark@pri_a28_mono_10_heli_fake]:walker@ignore
 target = path | pri_a28_heli_fake_look_3, 0
 anim = threat_fire
-
-
 
 [logic@pri_a28_mono_11_heli]:logic@pri_a28_heli_mono_def
 active = walker@pri_a28_mono_11_heli_jump
@@ -405,8 +381,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_11_heli_fake
 target = path | pri_a28_heli_fake_look_4, 0
 anim = hide_fire
 
-
-
 [logic@pri_a28_mono_12_heli]:logic@pri_a28_heli_mono_def
 active = walker@pri_a28_mono_12_heli_jump
 
@@ -439,13 +413,9 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_12_heli_fake
 target = path | pri_a28_heli_fake_look_2, 0
 anim = threat_fire
 
-
-
 [logic@pri_a28_heli_mono_sniper_def]
 suitable = {=target_squad_name(pri_a28_heli_mono_snipers) +pri_b305_fifth_cam_end} true
 prior = 200
-
-
 
 [logic@pri_a28_mono_sniper_1_heli]:logic@pri_a28_heli_mono_sniper_def
 active = walker@pri_a28_mono_sniper_1_heli_jump
@@ -483,8 +453,6 @@ on_info = {+pri_a28_cutscenes_end} camper@pri_a28_mono_sniper_1_heli_attack
 [death@heli_mono_sniper_1]
 on_info = {+pri_a28_evac_leave +pri_a28_heli_mono_sniper_3_out} %=dec_counter(pri_a28_heli_mono_cnt)%
 
-
-
 [logic@pri_a28_mono_sniper_2_heli]:logic@pri_a28_heli_mono_sniper_def
 active = walker@pri_a28_mono_sniper_2_heli_jump
 on_death = death@heli_mono_sniper_2
@@ -520,8 +488,6 @@ on_info = {+pri_a28_cutscenes_end} camper@pri_a28_mono_sniper_2_heli_attack
 
 [death@heli_mono_sniper_2]
 on_info = {+pri_a28_evac_leave +pri_a28_heli_mono_sniper_3_out} %=dec_counter(pri_a28_heli_mono_cnt) +pri_a28_heli_mono_sniper_2_out%, %+pri_a28_heli_mono_sniper_2_out%
-
-
 
 [logic@pri_a28_mono_sniper_3_heli]:logic@pri_a28_heli_mono_sniper_def
 active = walker@pri_a28_mono_sniper_3_heli_jump
@@ -559,8 +525,6 @@ on_info = {+pri_a28_cutscenes_end} camper@pri_a28_mono_sniper_3_heli_attack
 [death@heli_mono_sniper_3]
 on_info = {+pri_a28_evac_squad_active} %=dec_counter(pri_a28_heli_mono_cnt) +pri_a28_heli_mono_sniper_3_out%, %+pri_a28_heli_mono_sniper_3_out%
 
-
-
 [logic@pri_a28_mono_sniper_4_heli]:logic@pri_a28_heli_mono_sniper_def
 active = walker@pri_a28_mono_sniper_4_heli_jump
 on_death = death@heli_mono_sniper_4
@@ -597,17 +561,10 @@ on_info = {+pri_a28_cutscenes_end} camper@pri_a28_mono_sniper_4_heli_attack
 [death@heli_mono_sniper_4]
 on_info = {+pri_a28_evac_com_to_helicopter +pri_a28_heli_mono_sniper_2_out} %=dec_counter(pri_a28_heli_mono_cnt)%
 
-
-
-
-
-
 [logic@pri_a28_heli_mono_add_1_def]
 suitable = {-pri_a28_cutscenes_end =target_squad_name(pri_a28_heli_mono_add_1) +pri_b305_fifth_cam_end} true
 prior = 200
 on_death = death@heli_mono
-
-
 
 [logic@pri_a28_mono_add_1_1_heli]:logic@pri_a28_heli_mono_add_1_def
 active = walker@pri_a28_mono_add_1_1_heli_jump
@@ -637,8 +594,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_1_1_heli_fake
 target = path | pri_a28_heli_fake_look_1, 0
 anim = threat_fire
 
-
-
 [logic@pri_a28_mono_add_1_2_heli]:logic@pri_a28_heli_mono_add_1_def
 active = walker@pri_a28_mono_add_1_2_heli_jump
 
@@ -666,8 +621,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_1_2_heli_fake
 [remark@pri_a28_mono_add_1_2_heli_fake]:walker@ignore
 target = path | pri_a28_heli_fake_look_3, 0
 anim = threat_fire
-
-
 
 [logic@pri_a28_mono_add_1_3_heli]:logic@pri_a28_heli_mono_add_1_def
 active = walker@pri_a28_mono_add_1_3_heli_jump
@@ -697,8 +650,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_1_3_heli_fake
 target = path | pri_a28_heli_fake_look_2, 0
 anim = hide_fire
 
-
-
 [logic@pri_a28_mono_add_1_4_heli]:logic@pri_a28_heli_mono_add_1_def
 active = walker@pri_a28_mono_add_1_4_heli_jump
 
@@ -726,8 +677,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_1_4_heli_fake
 [remark@pri_a28_mono_add_1_4_heli_fake]:walker@ignore
 target = path | pri_a28_heli_fake_look_1, 0
 anim = threat_fire
-
-
 
 [logic@pri_a28_mono_add_1_5_heli]:logic@pri_a28_heli_mono_add_1_def
 active = walker@pri_a28_mono_add_1_5_heli_jump
@@ -757,8 +706,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_1_5_heli_fake
 target = path | pri_a28_heli_fake_look_3, 0
 anim = threat_fire
 
-
-
 [logic@pri_a28_mono_add_1_6_heli]:logic@pri_a28_heli_mono_add_1_def
 active = walker@pri_a28_mono_add_1_6_heli_jump
 
@@ -787,14 +734,10 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_1_6_heli_fake
 target = path | pri_a28_heli_fake_look_4, 0
 anim = hide_fire
 
-
-
 [logic@pri_a28_heli_mono_add_2_def]
 suitable = {-pri_a28_cutscenes_end =target_squad_name(pri_a28_heli_mono_add_2) +pri_b305_fifth_cam_end} true
 prior = 200
 on_death = death@heli_mono
-
-
 
 [logic@pri_a28_mono_add_2_1_heli]:logic@pri_a28_heli_mono_add_2_def
 active = walker@pri_a28_mono_add_2_1_heli_jump
@@ -824,8 +767,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_2_1_heli_fake
 target = path | pri_a28_heli_fake_look_2, 0
 anim = threat_fire
 
-
-
 [logic@pri_a28_mono_add_2_2_heli]:logic@pri_a28_heli_mono_add_2_def
 active = walker@pri_a28_mono_add_2_2_heli_jump
 
@@ -853,8 +794,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_2_2_heli_fake
 [remark@pri_a28_mono_add_2_2_heli_fake]:walker@ignore
 target = path | pri_a28_heli_fake_look_1, 0
 anim = threat_fire
-
-
 
 [logic@pri_a28_mono_add_2_3_heli]:logic@pri_a28_heli_mono_add_2_def
 active = walker@pri_a28_mono_add_2_3_heli_jump
@@ -884,8 +823,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_2_3_heli_fake
 target = path | pri_a28_heli_fake_look_2, 0
 anim = hide_fire
 
-
-
 [logic@pri_a28_mono_add_2_4_heli]:logic@pri_a28_heli_mono_add_2_def
 active = walker@pri_a28_mono_add_2_4_heli_jump
 
@@ -913,8 +850,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_2_4_heli_fake
 [remark@pri_a28_mono_add_2_4_heli_fake]:walker@ignore
 target = path | pri_a28_heli_fake_look_1, 0
 anim = threat_fire
-
-
 
 [logic@pri_a28_mono_add_2_5_heli]:logic@pri_a28_heli_mono_add_2_def
 active = walker@pri_a28_mono_add_2_5_heli_jump
@@ -944,8 +879,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_2_5_heli_fake
 target = path | pri_a28_heli_fake_look_2, 0
 anim = threat_fire
 
-
-
 [logic@pri_a28_mono_add_2_6_heli]:logic@pri_a28_heli_mono_add_2_def
 active = walker@pri_a28_mono_add_2_6_heli_jump
 
@@ -974,14 +907,10 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_2_6_heli_fake
 target = path | pri_a28_heli_fake_look_4, 0
 anim = hide_fire
 
-
-
 [logic@pri_a28_heli_mono_add_3_def]
 suitable = {-pri_a28_cutscenes_end =target_squad_name(pri_a28_heli_mono_add_3) +pri_b305_fifth_cam_end} true
 prior = 200
 on_death = death@heli_mono
-
-
 
 [logic@pri_a28_mono_add_3_1_heli]:logic@pri_a28_heli_mono_add_3_def
 active = walker@pri_a28_mono_add_3_1_heli_jump
@@ -1011,8 +940,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_3_1_heli_fake
 target = path | pri_a28_heli_fake_look_3, 0
 anim = threat_fire
 
-
-
 [logic@pri_a28_mono_add_3_2_heli]:logic@pri_a28_heli_mono_add_3_def
 active = walker@pri_a28_mono_add_3_2_heli_jump
 
@@ -1040,8 +967,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_3_2_heli_fake
 [remark@pri_a28_mono_add_3_2_heli_fake]:walker@ignore
 target = path | pri_a28_heli_fake_look_2, 0
 anim = threat_fire
-
-
 
 [logic@pri_a28_mono_add_3_3_heli]:logic@pri_a28_heli_mono_add_3_def
 active = walker@pri_a28_mono_add_3_3_heli_jump
@@ -1071,8 +996,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_3_3_heli_fake
 target = path | pri_a28_heli_fake_look_1, 0
 anim = hide_fire
 
-
-
 [logic@pri_a28_mono_add_3_4_heli]:logic@pri_a28_heli_mono_add_3_def
 active = walker@pri_a28_mono_add_3_4_heli_jump
 
@@ -1101,8 +1024,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_3_4_heli_fake
 target = path | pri_a28_heli_fake_look_2, 0
 anim = threat_fire
 
-
-
 [logic@pri_a28_mono_add_3_5_heli]:logic@pri_a28_heli_mono_add_3_def
 active = walker@pri_a28_mono_add_3_5_heli_jump
 
@@ -1130,8 +1051,6 @@ on_info = {+pri_a28_scene_end} remark@pri_a28_mono_add_3_5_heli_fake
 [remark@pri_a28_mono_add_3_5_heli_fake]:walker@ignore
 target = path | pri_a28_heli_fake_look_1, 0
 anim = threat_fire
-
-
 
 [logic@pri_a28_mono_add_3_6_heli]:logic@pri_a28_heli_mono_add_3_def
 active = walker@pri_a28_mono_add_3_6_heli_jump

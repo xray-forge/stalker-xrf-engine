@@ -3,3 +3,6 @@ node_modules/
 
 target/*
 !target/README.md
+
+/.idea/*
+!/.idea/runConfigurations

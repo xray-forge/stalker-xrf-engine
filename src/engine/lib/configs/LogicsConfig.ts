@@ -4,6 +4,10 @@ import { danger_object } from "xray16";
  * todo;
  */
 export const logicsConfig = {
+  ALIFE: {
+    OBJECT_INITIAL_SPAWN_BUFFER_TIME: 2_000,
+    OBJECTS_PER_UPDATE: 20,
+  },
   ACTOR_VISIBILITY_FRUSTUM: 35,
   ARTEFACT_OFFLINE_DISTANCE: 150,
   DANGER_INERTION_TIME: 15_000,
@@ -77,4 +81,8 @@ export const logicsConfig = {
     RESPAWN_RADIUS_RESTRICTION_SQR: 150 * 150,
     DEFAULT_ARRIVAL_DISTANCE: 25,
   },
+  TRADE: {
+    DEFAULT_TRADE_LTX_PATH: "misc\\trade\\trade_generic.ltx",
+  },
+  MONSTER_CAPTURE_SCRIPT_NAME: "xrf",
 } as const;

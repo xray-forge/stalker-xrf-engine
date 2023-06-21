@@ -1,10 +1,8 @@
 [walker@def]
 corpse_detection_enabled = false
 combat_ignore_cond = true
-combat_ignore_keep_when_attacked = true 
+combat_ignore_keep_when_attacked = true
 meet = no_meet
-
-
 
 [logic@pri_a20_missing_military_recon_leader]
 active = walker@base_1
@@ -26,8 +24,6 @@ on_game_timer = 5 | nil %=kill_npc%
 [known_info]
 pri_a20_recon_squad_info
 
-
-
 [logic@pri_a20_missing_military_recon_1]
 active = walker@base_2
 suitable = {+pri_a17_actor_has_gauss_rifle =target_squad_name(pri_a20_missing_military_recon)} true
@@ -45,8 +41,6 @@ on_game_timer = 30 | walker@death_2 %=hit_npc(self:pri_a20_deadman_military_2_im
 [walker@death_2]:walker@base_2
 on_game_timer = 5 | nil %=kill_npc%
 
-
-
 [logic@pri_a20_missing_military_recon_2]
 active = walker@base_3
 suitable = {+pri_a17_actor_has_gauss_rifle =target_squad_name(pri_a20_missing_military_recon)} true
@@ -63,8 +57,6 @@ on_game_timer = 30 | walker@death_3 %=hit_npc(self:pri_a20_deadman_military_3_im
 
 [walker@death_3]:walker@base_3
 on_game_timer = 5 | nil %=kill_npc%
-
-
 
 [logic@pri_a20_missing_military_recon_3]
 active = walker@base_4

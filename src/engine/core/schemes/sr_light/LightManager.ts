@@ -1,8 +1,8 @@
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeLightState } from "@/engine/core/schemes/sr_light/ISchemeLightState";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { ClientObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -24,8 +24,8 @@ export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
   /**
    * todo: Description.
    */
-  public override update(): void {
-    if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
+  public update(): void {
+    if (trySwitchToAnotherSection(this.object, this.state)) {
       this.active = false;
 
       registry.lightZones.delete(this.object.id());
@@ -45,7 +45,7 @@ export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
     }
 
     if (this.object.inside(object.position())) {
-      return $multi(this.state.light!, true);
+      return $multi(this.state.light, true);
     }
 
     return $multi(false, false);

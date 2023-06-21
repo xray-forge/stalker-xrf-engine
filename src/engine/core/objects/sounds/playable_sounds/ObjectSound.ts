@@ -218,11 +218,11 @@ export class ObjectSound extends AbstractPlayableSound {
 
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
-    if (state.active_scheme === null) {
+    if (state.activeScheme === null) {
       return;
     }
 
-    const schemeState: IBaseSchemeState = state[state.active_scheme] as IBaseSchemeState;
+    const schemeState: IBaseSchemeState = state[state.activeScheme] as IBaseSchemeState;
 
     if (schemeState.signals === null) {
       return;

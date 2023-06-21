@@ -5,8 +5,6 @@ hp_victim = 0 | nil
 hp_cover = 0 | false
 hp_fight = 0 | false
 
-
-
 [logic@jup_a12_stalker_prisoner]
 active = walker@stand_prisoner
 on_hit = hit
@@ -96,8 +94,8 @@ meet_dialog = jup_a12_stalker_prisoner_hide_until_walk_out_dialog
 trade_enable = false
 snd_on_use = nil
 close_snd_hello = nil
-close_snd_bye 	= nil
-use		   = {=is_wounded} false, {=actor_enemy} false, true
+close_snd_bye = nil
+use = {=is_wounded} false, {=actor_enemy} false, true
 
 [walker@out_of_prison]
 path_walk = stalker_prisoner_thank_to_actor_walk
@@ -116,7 +114,7 @@ wounded = wounded@no_wound
 [remark@thank_to_actor]
 target = story | actor
 on_signal = sound_end | %+jup_a12_stalker_prisoner_wait_for_dialog%
-on_info = %=play_sound(jup_a12_stalker_prisoner_thanks_actor)% 
+on_info = %=play_sound(jup_a12_stalker_prisoner_thanks_actor)%
 on_info2 = {+jup_a12_stalker_prisoner_wait_for_dialog} walker@thank_to_actor
 combat_ignore_cond = {!actor_enemy} true, {-jup_a12_actor_enemy_to_bandits} true, false
 combat_ignore_keep_when_attacked = true
@@ -142,13 +140,13 @@ wounded = wounded@no_wound
 
 [meet@thank_to_actor]
 close_snd_hello = nil
-close_snd_bye 	= nil
+close_snd_bye = nil
 close_victim = actor
 close_anim = wait_na
 meet_dialog = jup_a12_stalker_prisoner_thank_bandits_base_dialog
 trade_enable = false
 snd_on_use = nil
-use		   = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, true
+use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, true
 
 [walker@out_of_hangar]
 path_walk = stalker_prisoner_out_of_hangar_walk
@@ -163,7 +161,7 @@ on_info3 = {+jup_a12_stalker_prisoner_out_of_hangar +jup_a12_actor_paid_to_cashi
 on_info4 = {+jup_a12_actor_did_not_pay_to_cashier} walker@hide %+jup_a12_stalker_prisoner_out_of_hangar =disable_memory_object%
 on_info5 = {+jup_a12_stalker_prisoner_hit_by_actor} walker@quick_get_out_of_base
 on_info6 = {+jup_a12_stalker_prisoner_out_of_hangar !is_alive(jup_a12_bandit_cashier)} walker@out_of_containers
-meet = no_meet 
+meet = no_meet
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
@@ -197,7 +195,7 @@ on_signal = path_end | %+jup_a12_stalker_prisoner_out_of_containers%
 on_info = {+jup_a12_stalker_prisoner_out_of_containers} walker@out_of_containers
 ;on_info2 = {-jup_a12_stalker_prisoner_says_we_can_run_from_here} %+jup_a12_stalker_prisoner_says_we_can_run_from_here =play_sound(jup_a12_stalker_prisoner_says_we_can_run_from_here)%
 on_info3 = {-jup_a12_stalker_prisoner_out_of_containers =npc_in_zone(jup_a12_sr_containers_warnzone)} %+jup_a12_stalker_prisoner_out_of_containers%
-meet = no_meet 
+meet = no_meet
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
@@ -221,29 +219,21 @@ wounded = wounded@no_wound
 
 [meet@going_out_of_containers_meet]
 close_snd_hello = nil
-close_snd_bye 	= nil
+close_snd_bye = nil
 close_victim = nil
 close_distance = 0
 far_distance = 0
-meet_dialog = {+jup_a12_stalker_prisoner_out_of_containers} jup_a12_stalker_prisoner_free_dialog, jup_a12_stalker_prisoner_thank_bandits_base_dialog 
+meet_dialog = {+jup_a12_stalker_prisoner_out_of_containers} jup_a12_stalker_prisoner_free_dialog, jup_a12_stalker_prisoner_thank_bandits_base_dialog
 trade_enable = false
 allow_break = false
 snd_on_use = nil
-use		   = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, true
-
+use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, true
 
 [hit]
 on_info = {+jup_a12_prisoner_invul}, {-jup_a12_stalker_prisoner_free -jup_a12_prisoner_free_with_stalkers -jup_a12_stalker_prisoner_dead} %+jup_a12_stalker_prisoner_dead =kill_npc%
 
 [death]
 on_info = %+jup_a12_stalker_prisoner_dead +pri_a12_stalker_prisoner_free +jup_a12_stalker_prisoner_free%
-
-
-
-
-
-
-
 
 [logic@jup_a12_prisoner_free]
 active = walker@already_out_of_containers
@@ -275,7 +265,7 @@ wounded = wounded@no_wound
 
 [remark@out_of_containers]
 target = story | actor
-on_info = %=play_sound(jup_a12_stalkers_to_actor_meet_on_base)% 
+on_info = %=play_sound(jup_a12_stalkers_to_actor_meet_on_base)%
 on_info2 = {+jup_a12_stalker_prisoner_free_dialog_done} walker@get_out_far_away
 on_info3 = {-jup_a12_stalker_prisoner_free_dialog_done =dist_to_actor_ge(75)} %+jup_a12_stalker_prisoner_free_dialog_done%
 combat_ignore_cond = {!actor_enemy} true, {-jup_a12_actor_enemy_to_bandits} true, false
@@ -289,14 +279,14 @@ wounded = wounded@no_wound
 
 [meet@out_of_containers_meet]
 close_snd_hello = nil
-close_snd_bye 	= nil
+close_snd_bye = nil
 close_victim = actor
 close_anim = wait_na
-meet_dialog = {+jup_a12_stalker_prisoner_out_of_containers} jup_a12_stalker_prisoner_free_dialog, jup_a12_stalker_prisoner_thank_bandits_base_dialog 
+meet_dialog = {+jup_a12_stalker_prisoner_out_of_containers} jup_a12_stalker_prisoner_free_dialog, jup_a12_stalker_prisoner_thank_bandits_base_dialog
 trade_enable = false
 allow_break = false
 snd_on_use = nil
-use		   = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {=dist_to_actor_le(3) +jup_a12_stalker_prisoner_out_of_containers -jup_a12_stalker_prisoner_free_dialog_done !actor_has_weapon} self, {!actor_enemy =actor_has_weapon} true, true
+use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {=dist_to_actor_le(3) +jup_a12_stalker_prisoner_out_of_containers -jup_a12_stalker_prisoner_free_dialog_done !actor_has_weapon} self, {!actor_enemy =actor_has_weapon} true, true
 
 [walker@get_out_far_away]
 path_walk = stalker_prisoner_base_walk
@@ -324,12 +314,6 @@ corpse_detection_enabled = false
 on_info = {=has_enemy} walker@get_out_far_away, {=dist_to_actor_ge(5)} walker@get_out_far_away
 wounded = wounded@no_wound
 
-
-
-
-
-
-
 [logic@jup_a12_stalker_prisoner_base]
 active = animpoint@go_to_base_done
 on_hit = hit
@@ -356,13 +340,13 @@ wounded = wounded@no_wound
 
 [meet@base_meet]
 close_snd_hello = nil
-close_snd_bye 	= nil
-close_anim 		= nil
-close_victim 	= nil
-far_anim 		= nil
-far_victim 		= nil
-close_distance  = 0
-far_distance 	= 0
+close_snd_bye = nil
+close_anim = nil
+close_victim = nil
+far_anim = nil
+far_victim = nil
+close_distance = 0
+far_distance = 0
 use = {=actor_enemy} false, true
 allow_break = false
 trade_enable = false

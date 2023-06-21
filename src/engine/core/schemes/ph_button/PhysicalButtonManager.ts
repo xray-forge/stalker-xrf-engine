@@ -2,11 +2,11 @@ import { time_global } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePhysicalButtonState } from "@/engine/core/schemes/ph_button/ISchemePhysicalButtonState";
 import { isActiveSection } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { ClientObject, Optional, TIndex, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -23,8 +23,8 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
     this.lastHitAt = time_global();
   }
 
-  public override update(): void {
-    trySwitchToAnotherSection(this.object, this.state, registry.actor);
+  public update(): void {
+    trySwitchToAnotherSection(this.object, this.state);
   }
 
   /**

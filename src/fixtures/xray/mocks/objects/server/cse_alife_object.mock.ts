@@ -1,18 +1,18 @@
 import { jest } from "@jest/globals";
 
-import { AnyObject, ServerObject, TClassId, TSection, Vector } from "@/engine/lib/types";
+import { AnyObject, ServerObject, TClassId, TNumberId, TSection, Vector } from "@/engine/lib/types";
 import { MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
 import { AbstractLuabindClass } from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
-let ID_COUNTER: number = 1000;
+let ID_COUNTER: number = 100_000;
 
 /**
  * todo;
  */
 export class MockAlifeObject extends AbstractLuabindClass {
-  public id: number = ID_COUNTER++;
+  public id: TNumberId = ID_COUNTER++;
   public section: TSection;
   public position: Vector = MockVector.mock(0, 0, 0);
 
@@ -20,6 +20,8 @@ export class MockAlifeObject extends AbstractLuabindClass {
     super();
 
     this.section = section;
+
+    MockAlifeSimulator.addToRegistry(this as unknown as ServerObject);
   }
 
   public name(): string {
@@ -30,13 +32,9 @@ export class MockAlifeObject extends AbstractLuabindClass {
     return this.section;
   }
 
-  public on_register(): void {
-    MockAlifeSimulator.addToRegistry(this as unknown as ServerObject);
-  }
+  public on_register(): void {}
 
-  public on_unregister(): void {
-    MockAlifeSimulator.removeFromRegistry(this.id);
-  }
+  public on_unregister(): void {}
 
   public keep_saved_data_anyway(): boolean {
     return false;
@@ -72,7 +70,7 @@ export function mockServerAlifeObject({
   spawn_ini = jest.fn(() => mockIniFile("spawn.ini")),
   ...rest
 }: Partial<ServerObject & { sectionOverride?: string }> = {}): ServerObject {
-  return {
+  const object: ServerObject = {
     ...rest,
     id,
     clsid,
@@ -81,4 +79,8 @@ export function mockServerAlifeObject({
     section_name: section_name || jest.fn(() => sectionOverride),
     spawn_ini,
   } as unknown as ServerObject;
+
+  MockAlifeSimulator.addToRegistry(object);
+
+  return object;
 }

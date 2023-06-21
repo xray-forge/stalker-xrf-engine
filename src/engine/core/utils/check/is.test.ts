@@ -1,11 +1,16 @@
 import { describe, expect, it } from "@jest/globals";
-import { TXR_class_id } from "xray16";
+import { alife, TXR_class_id } from "xray16";
 
-import { isWeapon } from "@/engine/core/utils/check/is";
+import { isGameStarted, isWeapon } from "@/engine/core/utils/check/is";
 import { classIds } from "@/engine/lib/constants/class_ids";
 import { mockClientGameObject } from "@/fixtures/xray";
 
 describe("'is' utils", () => {
+  it("'isGameStarted' should check alife", () => {
+    expect(isGameStarted()).toBe(true);
+    expect(alife()).toBeDefined();
+  });
+
   it("'isWeapon' utils should correctly check object class ids", () => {
     const mockClassIdObject = (classId: number) => {
       return mockClientGameObject({ clsid: () => classId as TXR_class_id });

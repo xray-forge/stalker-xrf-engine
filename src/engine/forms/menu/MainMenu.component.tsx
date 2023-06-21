@@ -4,8 +4,6 @@ import { captions } from "@/engine/lib/constants/captions/captions";
 import { fonts } from "@/engine/lib/constants/fonts";
 import { textures } from "@/engine/lib/constants/textures";
 
-export const IS_XML: boolean = true;
-
 export function create(): JSXNode {
   return (
     <w>

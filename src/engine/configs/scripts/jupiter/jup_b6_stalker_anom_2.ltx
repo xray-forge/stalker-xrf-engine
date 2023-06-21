@@ -25,15 +25,15 @@ combat_ignore_cond = {=fighting_dist_ge(20)} true
 combat_ignore_keep_when_attacked = false
 on_game_timer = 15 |{-jup_b6_anom_2_st_1_work} %+jup_b6_anom_2_st_1_work =inc_counter(jup_b6_anom_2_st_count)%
 on_info = {=has_enemy -jup_b6_anom_2_alarm} camper@fighter_1 %-jup_b6_anom_2_st_1_work =dec_counter(jup_b6_anom_2_st_count) +jup_b6_anom_2_alarm%, {+jup_b6_anom_2_alarm} camper@fighter_1 %-jup_b6_anom_2_st_1_work =dec_counter(jup_b6_anom_2_st_count)%
-on_game_timer2 = 15 | {=check_npc_name(jup_b1_stalker_1) -jup_b6_anom_2_snd_beg}  %+jup_b6_anom_2_snd_beg =play_sound(jup_b6_stalker_1_first_measurement_begin)%
-on_info2 = {=counter_greater(jup_b6_anom_2_count_1:80) -jup_b6_anom_2_snd_1}  %+jup_b6_anom_2_snd_1 =play_sound(jup_b6_stalker_1_first_measurement_done)%
-on_info3 = {=counter_greater(jup_b6_anom_2_count_1:40) -jup_b6_anom_2_snd_5}  %+jup_b6_anom_2_snd_5 =play_sound(jup_b6_stalker_1_first_measurement_in_progress)%
-on_info4 = {=counter_greater(jup_b6_anom_2_count_2:100) -jup_b6_anom_2_snd_2}  %+jup_b6_anom_2_snd_2 =play_sound(jup_b6_stalker_1_second_measurement_done)%
-on_info5 = {=counter_greater(jup_b6_anom_2_count_2:50) -jup_b6_anom_2_snd_6}  %+jup_b6_anom_2_snd_6 =play_sound(jup_b6_stalker_1_second_measurement_in_progress)%
-on_info6 = {=counter_greater(jup_b6_anom_2_count_3:120) -jup_b6_anom_2_snd_3}  %+jup_b6_anom_2_snd_3 =play_sound(jup_b6_stalker_1_third_measurement_done)%
-on_info7 = {=counter_greater(jup_b6_anom_2_count_3:60) -jup_b6_anom_2_snd_7}  %+jup_b6_anom_2_snd_7 =play_sound(jup_b6_stalker_1_third_measurement_in_progress)%
-on_info8 = {=counter_greater(jup_b6_anom_2_count_4:140) -jup_b6_anom_2_snd_4}  %+jup_b6_anom_2_snd_4 =play_sound(jup_b6_stalker_1_fourth_measurement_done)%
-on_info9 = {=counter_greater(jup_b6_anom_2_count_4:70) -jup_b6_anom_2_snd_8}  %+jup_b6_anom_2_snd_8 =play_sound(jup_b6_stalker_1_fourth_measurement_in_progress)%
+on_game_timer2 = 15 | {=check_npc_name(jup_b1_stalker_1) -jup_b6_anom_2_snd_beg} %+jup_b6_anom_2_snd_beg =play_sound(jup_b6_stalker_1_first_measurement_begin)%
+on_info2 = {=counter_greater(jup_b6_anom_2_count_1:80) -jup_b6_anom_2_snd_1} %+jup_b6_anom_2_snd_1 =play_sound(jup_b6_stalker_1_first_measurement_done)%
+on_info3 = {=counter_greater(jup_b6_anom_2_count_1:40) -jup_b6_anom_2_snd_5} %+jup_b6_anom_2_snd_5 =play_sound(jup_b6_stalker_1_first_measurement_in_progress)%
+on_info4 = {=counter_greater(jup_b6_anom_2_count_2:100) -jup_b6_anom_2_snd_2} %+jup_b6_anom_2_snd_2 =play_sound(jup_b6_stalker_1_second_measurement_done)%
+on_info5 = {=counter_greater(jup_b6_anom_2_count_2:50) -jup_b6_anom_2_snd_6} %+jup_b6_anom_2_snd_6 =play_sound(jup_b6_stalker_1_second_measurement_in_progress)%
+on_info6 = {=counter_greater(jup_b6_anom_2_count_3:120) -jup_b6_anom_2_snd_3} %+jup_b6_anom_2_snd_3 =play_sound(jup_b6_stalker_1_third_measurement_done)%
+on_info7 = {=counter_greater(jup_b6_anom_2_count_3:60) -jup_b6_anom_2_snd_7} %+jup_b6_anom_2_snd_7 =play_sound(jup_b6_stalker_1_third_measurement_in_progress)%
+on_info8 = {=counter_greater(jup_b6_anom_2_count_4:140) -jup_b6_anom_2_snd_4} %+jup_b6_anom_2_snd_4 =play_sound(jup_b6_stalker_1_fourth_measurement_done)%
+on_info9 = {=counter_greater(jup_b6_anom_2_count_4:70) -jup_b6_anom_2_snd_8} %+jup_b6_anom_2_snd_8 =play_sound(jup_b6_stalker_1_fourth_measurement_in_progress)%
 
 [camper@fighter_1]:walker@generic
 path_walk = st_1_def
@@ -44,7 +44,7 @@ combat_ignore_cond = {=fighting_dist_ge(55)} true
 def_state_moving = assault
 meet = no_meet
 on_info = {!has_enemy -jup_b6_anom_2_alarm} walker@anom_1 %-jup_b6_stalkers_under_attack -jup_b6_anom_2_guard%
-on_game_timer = 15 | {-jup_b6_stalkers_under_attack}  %+jup_b6_stalkers_under_attack =play_sound(jup_b6_stalker_1_monsters_coming_) +jup_b6_anom_2_guard%
+on_game_timer = 15 | {-jup_b6_stalkers_under_attack} %+jup_b6_stalkers_under_attack =play_sound(jup_b6_stalker_1_monsters_coming_) +jup_b6_anom_2_guard%
 
 ;-------------------------------------------------------
 
@@ -63,16 +63,16 @@ meet = no_meet
 combat_ignore_cond = {=fighting_dist_ge(20)} true
 combat_ignore_keep_when_attacked = false
 on_game_timer = 15 |{-jup_b6_anom_2_st_2_work} %+jup_b6_anom_2_st_2_work =inc_counter(jup_b6_anom_2_st_count)%
-on_info =  {=has_enemy -jup_b6_anom_2_alarm} camper@fighter_2 %-jup_b6_anom_2_st_2_work =dec_counter(jup_b6_anom_2_st_count) +jup_b6_anom_2_alarm%, {+jup_b6_anom_2_alarm} camper@fighter_2 %-jup_b6_anom_2_st_2_work =dec_counter(jup_b6_anom_2_st_count)%
-on_game_timer2 = 15 | {-jup_b6_anom_2_snd_beg}  %+jup_b6_anom_2_snd_beg =play_sound(jup_b6_stalker_1_first_measurement_begin)%
-on_info2 = {=counter_greater(jup_b6_anom_2_count_1:80) -jup_b6_anom_2_snd_1}  %+jup_b6_anom_2_snd_1 =play_sound(jup_b6_stalker_1_first_measurement_done)%
-on_info3 = {=counter_greater(jup_b6_anom_2_count_1:40) -jup_b6_anom_2_snd_5}  %+jup_b6_anom_2_snd_5 =play_sound(jup_b6_stalker_1_first_measurement_in_progress)%
-on_info4 = {=counter_greater(jup_b6_anom_2_count_2:100) -jup_b6_anom_2_snd_2}  %+jup_b6_anom_2_snd_2 =play_sound(jup_b6_stalker_1_second_measurement_done)%
-on_info5 = {=counter_greater(jup_b6_anom_2_count_2:50) -jup_b6_anom_2_snd_6}  %+jup_b6_anom_2_snd_6 =play_sound(jup_b6_stalker_1_second_measurement_in_progress)%
-on_info6 = {=counter_greater(jup_b6_anom_2_count_3:120) -jup_b6_anom_2_snd_3}  %+jup_b6_anom_2_snd_3 =play_sound(jup_b6_stalker_1_third_measurement_done)%
-on_info7 = {=counter_greater(jup_b6_anom_2_count_3:60) -jup_b6_anom_2_snd_7}  %+jup_b6_anom_2_snd_7 =play_sound(jup_b6_stalker_1_third_measurement_in_progress)%
-on_info8 = {=counter_greater(jup_b6_anom_2_count_4:140) -jup_b6_anom_2_snd_4}  %+jup_b6_anom_2_snd_4 =play_sound(jup_b6_stalker_1_fourth_measurement_done)%
-on_info9 = {=counter_greater(jup_b6_anom_2_count_4:70) -jup_b6_anom_2_snd_8}  %+jup_b6_anom_2_snd_8 =play_sound(jup_b6_stalker_1_fourth_measurement_in_progress)%
+on_info = {=has_enemy -jup_b6_anom_2_alarm} camper@fighter_2 %-jup_b6_anom_2_st_2_work =dec_counter(jup_b6_anom_2_st_count) +jup_b6_anom_2_alarm%, {+jup_b6_anom_2_alarm} camper@fighter_2 %-jup_b6_anom_2_st_2_work =dec_counter(jup_b6_anom_2_st_count)%
+on_game_timer2 = 15 | {-jup_b6_anom_2_snd_beg} %+jup_b6_anom_2_snd_beg =play_sound(jup_b6_stalker_1_first_measurement_begin)%
+on_info2 = {=counter_greater(jup_b6_anom_2_count_1:80) -jup_b6_anom_2_snd_1} %+jup_b6_anom_2_snd_1 =play_sound(jup_b6_stalker_1_first_measurement_done)%
+on_info3 = {=counter_greater(jup_b6_anom_2_count_1:40) -jup_b6_anom_2_snd_5} %+jup_b6_anom_2_snd_5 =play_sound(jup_b6_stalker_1_first_measurement_in_progress)%
+on_info4 = {=counter_greater(jup_b6_anom_2_count_2:100) -jup_b6_anom_2_snd_2} %+jup_b6_anom_2_snd_2 =play_sound(jup_b6_stalker_1_second_measurement_done)%
+on_info5 = {=counter_greater(jup_b6_anom_2_count_2:50) -jup_b6_anom_2_snd_6} %+jup_b6_anom_2_snd_6 =play_sound(jup_b6_stalker_1_second_measurement_in_progress)%
+on_info6 = {=counter_greater(jup_b6_anom_2_count_3:120) -jup_b6_anom_2_snd_3} %+jup_b6_anom_2_snd_3 =play_sound(jup_b6_stalker_1_third_measurement_done)%
+on_info7 = {=counter_greater(jup_b6_anom_2_count_3:60) -jup_b6_anom_2_snd_7} %+jup_b6_anom_2_snd_7 =play_sound(jup_b6_stalker_1_third_measurement_in_progress)%
+on_info8 = {=counter_greater(jup_b6_anom_2_count_4:140) -jup_b6_anom_2_snd_4} %+jup_b6_anom_2_snd_4 =play_sound(jup_b6_stalker_1_fourth_measurement_done)%
+on_info9 = {=counter_greater(jup_b6_anom_2_count_4:70) -jup_b6_anom_2_snd_8} %+jup_b6_anom_2_snd_8 =play_sound(jup_b6_stalker_1_fourth_measurement_in_progress)%
 
 [camper@fighter_2]:walker@generic
 path_walk = st_2_def
@@ -83,7 +83,7 @@ combat_ignore_cond = {=fighting_dist_ge(55)} true
 def_state_moving = assault
 meet = no_meet
 on_info = {!has_enemy -jup_b6_anom_2_alarm} walker@anom_2 %-jup_b6_stalkers_under_attack -jup_b6_anom_2_guard%
-on_game_timer = 15 | {-jup_b6_stalkers_under_attack }  %+jup_b6_stalkers_under_attack =play_sound(jup_b6_stalker_1_monsters_coming_) +jup_b6_anom_2_guard%
+on_game_timer = 15 | {-jup_b6_stalkers_under_attack } %+jup_b6_stalkers_under_attack =play_sound(jup_b6_stalker_1_monsters_coming_) +jup_b6_anom_2_guard%
 
 ;-------------------------------------------------------
 
@@ -100,18 +100,18 @@ path_look = st_3_scan_look
 def_state_moving = run
 meet = no_meet
 combat_ignore_cond = {=fighting_dist_ge(20)} true
-combat_ignore_keep_when_attacked = false 
+combat_ignore_keep_when_attacked = false
 on_game_timer = 15 |{-jup_b6_anom_2_st_3_work} %+jup_b6_anom_2_st_3_work =inc_counter(jup_b6_anom_2_st_count)%
-on_info =  {=has_enemy -jup_b6_anom_2_alarm} camper@fighter_3 %-jup_b6_anom_2_st_3_work =dec_counter(jup_b6_anom_2_st_count) +jup_b6_anom_2_alarm%, {+jup_b6_anom_2_alarm} camper@fighter_3 %-jup_b6_anom_2_st_3_work =dec_counter(jup_b6_anom_2_st_count)%
-on_game_timer2 = 15 | {-jup_b6_anom_2_snd_beg}  %+jup_b6_anom_2_snd_beg =play_sound(jup_b6_stalker_1_first_measurement_begin)%
-on_info2 = {=counter_greater(jup_b6_anom_2_count_1:80) -jup_b6_anom_2_snd_1}  %+jup_b6_anom_2_snd_1 =play_sound(jup_b6_stalker_1_first_measurement_done)%
-on_info3 = {=counter_greater(jup_b6_anom_2_count_1:40) -jup_b6_anom_2_snd_5}  %+jup_b6_anom_2_snd_5 =play_sound(jup_b6_stalker_1_first_measurement_in_progress)%
-on_info4 = {=counter_greater(jup_b6_anom_2_count_2:100) -jup_b6_anom_2_snd_2}  %+jup_b6_anom_2_snd_2 =play_sound(jup_b6_stalker_1_second_measurement_done)%
-on_info5 = {=counter_greater(jup_b6_anom_2_count_2:50) -jup_b6_anom_2_snd_6}  %+jup_b6_anom_2_snd_6 =play_sound(jup_b6_stalker_1_second_measurement_in_progress)%
-on_info6 = {=counter_greater(jup_b6_anom_2_count_3:120) -jup_b6_anom_2_snd_3}  %+jup_b6_anom_2_snd_3 =play_sound(jup_b6_stalker_1_third_measurement_done)%
-on_info7 = {=counter_greater(jup_b6_anom_2_count_3:60) -jup_b6_anom_2_snd_7}  %+jup_b6_anom_2_snd_7 =play_sound(jup_b6_stalker_1_third_measurement_in_progress)%
-on_info8 = {=counter_greater(jup_b6_anom_2_count_4:140) -jup_b6_anom_2_snd_4}  %+jup_b6_anom_2_snd_4 =play_sound(jup_b6_stalker_1_fourth_measurement_done)%
-on_info9 = {=counter_greater(jup_b6_anom_2_count_4:70) -jup_b6_anom_2_snd_8}  %+jup_b6_anom_2_snd_8 =play_sound(jup_b6_stalker_1_fourth_measurement_in_progress)%
+on_info = {=has_enemy -jup_b6_anom_2_alarm} camper@fighter_3 %-jup_b6_anom_2_st_3_work =dec_counter(jup_b6_anom_2_st_count) +jup_b6_anom_2_alarm%, {+jup_b6_anom_2_alarm} camper@fighter_3 %-jup_b6_anom_2_st_3_work =dec_counter(jup_b6_anom_2_st_count)%
+on_game_timer2 = 15 | {-jup_b6_anom_2_snd_beg} %+jup_b6_anom_2_snd_beg =play_sound(jup_b6_stalker_1_first_measurement_begin)%
+on_info2 = {=counter_greater(jup_b6_anom_2_count_1:80) -jup_b6_anom_2_snd_1} %+jup_b6_anom_2_snd_1 =play_sound(jup_b6_stalker_1_first_measurement_done)%
+on_info3 = {=counter_greater(jup_b6_anom_2_count_1:40) -jup_b6_anom_2_snd_5} %+jup_b6_anom_2_snd_5 =play_sound(jup_b6_stalker_1_first_measurement_in_progress)%
+on_info4 = {=counter_greater(jup_b6_anom_2_count_2:100) -jup_b6_anom_2_snd_2} %+jup_b6_anom_2_snd_2 =play_sound(jup_b6_stalker_1_second_measurement_done)%
+on_info5 = {=counter_greater(jup_b6_anom_2_count_2:50) -jup_b6_anom_2_snd_6} %+jup_b6_anom_2_snd_6 =play_sound(jup_b6_stalker_1_second_measurement_in_progress)%
+on_info6 = {=counter_greater(jup_b6_anom_2_count_3:120) -jup_b6_anom_2_snd_3} %+jup_b6_anom_2_snd_3 =play_sound(jup_b6_stalker_1_third_measurement_done)%
+on_info7 = {=counter_greater(jup_b6_anom_2_count_3:60) -jup_b6_anom_2_snd_7} %+jup_b6_anom_2_snd_7 =play_sound(jup_b6_stalker_1_third_measurement_in_progress)%
+on_info8 = {=counter_greater(jup_b6_anom_2_count_4:140) -jup_b6_anom_2_snd_4} %+jup_b6_anom_2_snd_4 =play_sound(jup_b6_stalker_1_fourth_measurement_done)%
+on_info9 = {=counter_greater(jup_b6_anom_2_count_4:70) -jup_b6_anom_2_snd_8} %+jup_b6_anom_2_snd_8 =play_sound(jup_b6_stalker_1_fourth_measurement_in_progress)%
 
 [camper@fighter_3]:walker@generic
 path_walk = st_3_def
@@ -122,7 +122,7 @@ combat_ignore_cond = {=fighting_dist_ge(55)} true
 def_state_moving = assault
 meet = no_meet
 on_info = {!has_enemy -jup_b6_anom_2_alarm} walker@anom_3 %-jup_b6_stalkers_under_attack -jup_b6_anom_2_guard%
-on_game_timer = 15 | {-jup_b6_stalkers_under_attack }  %+jup_b6_stalkers_under_attack =play_sound(jup_b6_stalker_1_monsters_coming_) +jup_b6_anom_2_guard%
+on_game_timer = 15 | {-jup_b6_stalkers_under_attack } %+jup_b6_stalkers_under_attack =play_sound(jup_b6_stalker_1_monsters_coming_) +jup_b6_anom_2_guard%
 
 ;-------------------------------------------------------
 
@@ -141,16 +141,16 @@ meet = no_meet
 combat_ignore_cond = {=fighting_dist_ge(20)} true
 combat_ignore_keep_when_attacked = false
 on_game_timer = 15 |{-jup_b6_anom_2_st_4_work} %+jup_b6_anom_2_st_4_work =inc_counter(jup_b6_anom_2_st_count)%
-on_info =  {=has_enemy -jup_b6_anom_2_alarm} camper@fighter_4 %-jup_b6_anom_2_st_4_work =dec_counter(jup_b6_anom_2_st_count) +jup_b6_anom_2_alarm%, {+jup_b6_anom_2_alarm} camper@fighter_4 %-jup_b6_anom_2_st_4_work =dec_counter(jup_b6_anom_2_st_count)%
-on_game_timer2 = 15 | {-jup_b6_anom_2_snd_beg}  %+jup_b6_anom_2_snd_beg =play_sound(jup_b6_stalker_1_first_measurement_begin)%
-on_info2 = {=counter_greater(jup_b6_anom_2_count_1:80) -jup_b6_anom_2_snd_1}  %+jup_b6_anom_2_snd_1 =play_sound(jup_b6_stalker_1_first_measurement_done)%
-on_info3 = {=counter_greater(jup_b6_anom_2_count_1:40) -jup_b6_anom_2_snd_5}  %+jup_b6_anom_2_snd_5 =play_sound(jup_b6_stalker_1_first_measurement_in_progress)%
-on_info4 = {=counter_greater(jup_b6_anom_2_count_2:100) -jup_b6_anom_2_snd_2}  %+jup_b6_anom_2_snd_2 =play_sound(jup_b6_stalker_1_second_measurement_done)%
-on_info5 = {=counter_greater(jup_b6_anom_2_count_2:50) -jup_b6_anom_2_snd_6}  %+jup_b6_anom_2_snd_6 =play_sound(jup_b6_stalker_1_second_measurement_in_progress)%
-on_info6 = {=counter_greater(jup_b6_anom_2_count_3:120) -jup_b6_anom_2_snd_3}  %+jup_b6_anom_2_snd_3 =play_sound(jup_b6_stalker_1_third_measurement_done)%
-on_info7 = {=counter_greater(jup_b6_anom_2_count_3:60) -jup_b6_anom_2_snd_7}  %+jup_b6_anom_2_snd_7 =play_sound(jup_b6_stalker_1_third_measurement_in_progress)%
-on_info8 = {=counter_greater(jup_b6_anom_2_count_4:140) -jup_b6_anom_2_snd_4}  %+jup_b6_anom_2_snd_4 =play_sound(jup_b6_stalker_1_fourth_measurement_done)%
-on_info9 = {=counter_greater(jup_b6_anom_2_count_4:70) -jup_b6_anom_2_snd_8}  %+jup_b6_anom_2_snd_8 =play_sound(jup_b6_stalker_1_fourth_measurement_in_progress)%
+on_info = {=has_enemy -jup_b6_anom_2_alarm} camper@fighter_4 %-jup_b6_anom_2_st_4_work =dec_counter(jup_b6_anom_2_st_count) +jup_b6_anom_2_alarm%, {+jup_b6_anom_2_alarm} camper@fighter_4 %-jup_b6_anom_2_st_4_work =dec_counter(jup_b6_anom_2_st_count)%
+on_game_timer2 = 15 | {-jup_b6_anom_2_snd_beg} %+jup_b6_anom_2_snd_beg =play_sound(jup_b6_stalker_1_first_measurement_begin)%
+on_info2 = {=counter_greater(jup_b6_anom_2_count_1:80) -jup_b6_anom_2_snd_1} %+jup_b6_anom_2_snd_1 =play_sound(jup_b6_stalker_1_first_measurement_done)%
+on_info3 = {=counter_greater(jup_b6_anom_2_count_1:40) -jup_b6_anom_2_snd_5} %+jup_b6_anom_2_snd_5 =play_sound(jup_b6_stalker_1_first_measurement_in_progress)%
+on_info4 = {=counter_greater(jup_b6_anom_2_count_2:100) -jup_b6_anom_2_snd_2} %+jup_b6_anom_2_snd_2 =play_sound(jup_b6_stalker_1_second_measurement_done)%
+on_info5 = {=counter_greater(jup_b6_anom_2_count_2:50) -jup_b6_anom_2_snd_6} %+jup_b6_anom_2_snd_6 =play_sound(jup_b6_stalker_1_second_measurement_in_progress)%
+on_info6 = {=counter_greater(jup_b6_anom_2_count_3:120) -jup_b6_anom_2_snd_3} %+jup_b6_anom_2_snd_3 =play_sound(jup_b6_stalker_1_third_measurement_done)%
+on_info7 = {=counter_greater(jup_b6_anom_2_count_3:60) -jup_b6_anom_2_snd_7} %+jup_b6_anom_2_snd_7 =play_sound(jup_b6_stalker_1_third_measurement_in_progress)%
+on_info8 = {=counter_greater(jup_b6_anom_2_count_4:140) -jup_b6_anom_2_snd_4} %+jup_b6_anom_2_snd_4 =play_sound(jup_b6_stalker_1_fourth_measurement_done)%
+on_info9 = {=counter_greater(jup_b6_anom_2_count_4:70) -jup_b6_anom_2_snd_8} %+jup_b6_anom_2_snd_8 =play_sound(jup_b6_stalker_1_fourth_measurement_in_progress)%
 wounded = wounded
 
 [camper@fighter_4]:walker@generic
@@ -162,7 +162,7 @@ combat_ignore_cond = {=fighting_dist_ge(55)} true
 def_state_moving = assault
 meet = no_meet
 on_info = {!has_enemy -jup_b6_anom_2_alarm} walker@anom_4 %-jup_b6_stalkers_under_attack -jup_b6_anom_2_guard%
-on_game_timer = 15 | {-jup_b6_stalkers_under_attack }  %+jup_b6_stalkers_under_attack =play_sound(jup_b6_stalker_1_monsters_coming_) +jup_b6_anom_2_guard%
+on_game_timer = 15 | {-jup_b6_stalkers_under_attack } %+jup_b6_stalkers_under_attack =play_sound(jup_b6_stalker_1_monsters_coming_) +jup_b6_anom_2_guard%
 
 ;-------------------------------------------------------
 
@@ -177,13 +177,13 @@ path_walk = st_1_def
 path_look = st_1_def_look
 def_state_moving = assault
 combat_ignore_cond = {=fighting_dist_ge(55)} true
-on_info = {+jup_b6_anom_2_count_end  !has_enemy} camper@ready_to_go_1
+on_info = {+jup_b6_anom_2_count_end !has_enemy} camper@ready_to_go_1
 meet = no_meet
 
 [camper@ready_to_go_1]:walker@generic
 path_walk = st_1_def
 path_look = st_1_def_look
-on_game_timer = 20 | {-jup_b6_anom_2_ready_to_go}  %+jup_b6_anom_2_ready_to_go =play_sound(jup_b6_stalker_1_measurements_done)%
+on_game_timer = 20 | {-jup_b6_anom_2_ready_to_go} %+jup_b6_anom_2_ready_to_go =play_sound(jup_b6_stalker_1_measurements_done)%
 on_info = {=dist_to_actor_ge(130)} %-jup_b6_anom_2%
 def_state_campering = threat
 def_state_campering_fire = threat_fire
@@ -202,13 +202,13 @@ path_walk = st_2_def
 path_look = st_2_def_look
 def_state_moving = assault
 combat_ignore_cond = {=fighting_dist_ge(55)} true
-on_info = {+jup_b6_anom_2_count_end  !has_enemy} camper@ready_to_go_2
+on_info = {+jup_b6_anom_2_count_end !has_enemy} camper@ready_to_go_2
 meet = no_meet
 
 [camper@ready_to_go_2]:walker@generic
 path_walk = st_2_def
 path_look = st_2_def_look
-on_game_timer = 20 | {-jup_b6_anom_2_ready_to_go}  %+jup_b6_anom_2_ready_to_go =play_sound(jup_b6_stalker_1_measurements_done)%
+on_game_timer = 20 | {-jup_b6_anom_2_ready_to_go} %+jup_b6_anom_2_ready_to_go =play_sound(jup_b6_stalker_1_measurements_done)%
 on_info = {=dist_to_actor_ge(130)} %-jup_b6_anom_2%
 def_state_campering = threat
 def_state_campering_fire = threat_fire
@@ -226,14 +226,14 @@ post_combat_time = 0, 0
 path_walk = st_3_def
 path_look = st_3_def_look
 def_state_moving = assault
-on_info = {+jup_b6_anom_2_count_end  !has_enemy} camper@ready_to_go_3
+on_info = {+jup_b6_anom_2_count_end !has_enemy} camper@ready_to_go_3
 meet = no_meet
 combat_ignore_cond = {=fighting_dist_ge(55)} true
 
 [camper@ready_to_go_3]:walker@generic
 path_walk = st_3_def
 path_look = st_3_def_look
-on_game_timer = 20 | {-jup_b6_anom_2_ready_to_go}  %+jup_b6_anom_2_ready_to_go =play_sound(jup_b6_stalker_1_measurements_done)%
+on_game_timer = 20 | {-jup_b6_anom_2_ready_to_go} %+jup_b6_anom_2_ready_to_go =play_sound(jup_b6_stalker_1_measurements_done)%
 on_info = {=dist_to_actor_ge(130)} %-jup_b6_anom_2%
 def_state_campering = threat
 def_state_campering_fire = threat_fire
@@ -251,14 +251,14 @@ post_combat_time = 0, 0
 path_walk = st_4_def
 path_look = st_4_def_look
 def_state_moving = assault
-on_info = {+jup_b6_anom_2_count_end  !has_enemy} camper@ready_to_go_4
+on_info = {+jup_b6_anom_2_count_end !has_enemy} camper@ready_to_go_4
 meet = no_meet
 combat_ignore_cond = {=fighting_dist_ge(55)} true
 
 [camper@ready_to_go_4]:walker@generic
 path_walk = st_4_def
 path_look = st_4_def_look
-on_game_timer = 20 | {-jup_b6_anom_2_ready_to_go }  %+jup_b6_anom_2_ready_to_go =play_sound(jup_b6_stalker_1_measurements_done)%
+on_game_timer = 20 | {-jup_b6_anom_2_ready_to_go } %+jup_b6_anom_2_ready_to_go =play_sound(jup_b6_stalker_1_measurements_done)%
 on_info = {=dist_to_actor_ge(130)} %-jup_b6_anom_2%
 def_state_campering = threat
 def_state_campering_fire = threat_fire
@@ -267,8 +267,8 @@ combat_ignore_cond = {=fighting_dist_ge(55)} true
 ;-------------------------------------------------------------
 
 [wounded]
-hp_state 		= 0|wounded_heavy@help_heavy
-hp_state_see 	= 0|wounded_heavy@help_heavy
-hp_victim 		= 0|nil
-hp_fight 		= 0|false
-hp_cover		= 0|false
+hp_state = 0|wounded_heavy@help_heavy
+hp_state_see = 0|wounded_heavy@help_heavy
+hp_victim = 0|nil
+hp_fight = 0|false
+hp_cover = 0|false

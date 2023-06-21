@@ -6,7 +6,6 @@ on_hit = hit
 post_combat_time = 0,0
 on_death = death
 
-
 [walker]
 path_walk = zat_b5_stalker_2_walker_1_walk
 path_look = zat_b5_stalker_2_walker_1_look
@@ -90,7 +89,7 @@ path_walk = zat_b5_bandit_2_walker_2_walk
 path_look = zat_b5_bandit_2_walker_2_look
 out_restr = zat_b5_smart_terrain_attack
 meet = no_meet
-combat_ignore_cond =  {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
+combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 ;gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
@@ -189,8 +188,6 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-
-
 [camper@fight]
 path_walk = zat_b5_stalker_2_camper_1_walk
 path_look = zat_b5_stalker_2_camper_1_look
@@ -198,7 +195,7 @@ on_signal = stalker_1_cam_end | walker@stalker_fight
 on_game_timer = 100 | walker@stalker_fight
 def_state_moving1 = sneak_run
 def_state_moving_fire = sneak_fire
-combat_ignore_cond =  {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
+combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 radius = 5
 no_retreat = true
 meet = no_meet
@@ -214,7 +211,7 @@ path_look = zat_b5_bandit_2_walker_2_look
 out_restr = zat_b5_smart_terrain_attack
 meet = no_meet
 on_info = {+zat_b5_actor_help_stalkers} walker@stalker_after_fight
-combat_ignore_cond =  {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
+combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 ;wounded = wounded
 ;gather_items_enabled = false
 help_wounded_enabled = false
@@ -229,7 +226,7 @@ meet = no_meet
 gather_items_enabled = false
 ;help_wounded_enabled = false
 corpse_detection_enabled = false
-combat_ignore_cond =  {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
+combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
 [wounded]
 hp_state = 0|wounded_heavy@help_heavy

@@ -56,8 +56,8 @@ export class SchemeDeimos extends AbstractScheme {
    * todo: Description.
    */
   public static checkIntensityDelta(state: IRegistryObjectState): boolean {
-    if (state.active_scheme === SchemeDeimos.SCHEME_SECTION) {
-      const deimosState: ISchemeDeimosState = state[state.active_scheme] as ISchemeDeimosState;
+    if (state.activeScheme === SchemeDeimos.SCHEME_SECTION) {
+      const deimosState: ISchemeDeimosState = state[state.activeScheme] as ISchemeDeimosState;
       const speedVector: Vector = registry.actor.get_movement_speed();
       const currentSpeed: TRate = math.sqrt(
         speedVector.x * speedVector.x + speedVector.y * speedVector.y + speedVector.z * speedVector.z
@@ -74,8 +74,8 @@ export class SchemeDeimos extends AbstractScheme {
    * todo: Description.
    */
   public static checkDisableBound(state: IRegistryObjectState): boolean {
-    if (state.active_scheme === SchemeDeimos.SCHEME_SECTION) {
-      const deimosState: ISchemeDeimosState = state[state.active_scheme] as ISchemeDeimosState;
+    if (state.activeScheme === SchemeDeimos.SCHEME_SECTION) {
+      const deimosState: ISchemeDeimosState = state[state.activeScheme] as ISchemeDeimosState;
 
       return deimosState.intensity < deimosState.disable_bound;
     }
@@ -87,8 +87,8 @@ export class SchemeDeimos extends AbstractScheme {
    * todo: Description.
    */
   public static checkLowerBound(state: IRegistryObjectState): boolean {
-    if (state.active_scheme === SchemeDeimos.SCHEME_SECTION) {
-      const deimosState: ISchemeDeimosState = state[state.active_scheme] as ISchemeDeimosState;
+    if (state.activeScheme === SchemeDeimos.SCHEME_SECTION) {
+      const deimosState: ISchemeDeimosState = state[state.activeScheme] as ISchemeDeimosState;
 
       return deimosState.intensity < deimosState.switch_lower_bound;
     }
@@ -100,8 +100,8 @@ export class SchemeDeimos extends AbstractScheme {
    * todo: Description.
    */
   public static checkUpperBound(state: IRegistryObjectState): boolean {
-    if (state.active_scheme === SchemeDeimos.SCHEME_SECTION) {
-      const deimosState: ISchemeDeimosState = state[state.active_scheme] as ISchemeDeimosState;
+    if (state.activeScheme === SchemeDeimos.SCHEME_SECTION) {
+      const deimosState: ISchemeDeimosState = state[state.activeScheme] as ISchemeDeimosState;
 
       return deimosState.intensity < deimosState.switch_upper_bound;
     }

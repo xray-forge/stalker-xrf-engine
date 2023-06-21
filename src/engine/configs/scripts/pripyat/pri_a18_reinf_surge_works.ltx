@@ -1,7 +1,6 @@
 [hit]
 on_info = {=hit_by_actor} %+pri_a18_actor_enemy%
 
-
 [logic@pri_a18_vano_surge]
 active = walker@surge_1
 suitable = {=check_npc_name(vano) +pri_a18_surge_started} true
@@ -19,11 +18,6 @@ def_state_moving = assault
 combat_ignore_cond = {-pri_a18_actor_enemy} true
 on_info = {+pri_a18_actor_enemy} %=actor_enemy%
 on_info2 = {=surge_complete} %-pri_a18_surge_started%
-
-
-
-
-
 
 [logic@pri_a18_sokolov_surge]
 active = walker@surge_2
@@ -43,10 +37,6 @@ combat_ignore_cond = {-pri_a18_actor_enemy} true
 on_info = {+pri_a18_actor_enemy} %=actor_enemy%
 on_info2 = {=surge_complete} %-pri_a18_surge_started%
 
-
-
-
-
 [logic@pri_a18_merkulov_surge]
 active = walker@surge_3
 suitable = {=check_npc_name(pri_a22_military_merkulov) +pri_a18_surge_started} true
@@ -64,9 +54,6 @@ def_state_moving = assault
 combat_ignore_cond = {-pri_a18_actor_enemy} true
 on_info = {+pri_a18_actor_enemy} %=actor_enemy%
 on_info2 = {=surge_complete} %-pri_a18_surge_started%
-
-
-
 
 [logic@pri_a18_skelja_surge]
 active = walker@surge_4

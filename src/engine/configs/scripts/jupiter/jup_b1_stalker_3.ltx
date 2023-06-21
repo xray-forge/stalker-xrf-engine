@@ -47,21 +47,21 @@ path_walk = st_3_go_3
 path_look = st_3_look_3
 meet = meet@for_art
 on_info = {+jup_b1_kill_tuskano} remark@shoot_tushkano
-on_info2 = {=dist_to_actor_le(3) -jup_b1_sd_4}  %=play_sound(jup_b1_stalkers_first_stay) +jup_b1_sd_4%
+on_info2 = {=dist_to_actor_le(3) -jup_b1_sd_4} %=play_sound(jup_b1_stalkers_first_stay) +jup_b1_sd_4%
 
 [meet@for_art]
-close_distance  = 4
-close_anim      = hide
-abuse           = false
+close_distance = 4
+close_anim = hide
+abuse = false
 use = false
 
 [remark@shoot_tushkano]:walker@generic
 anim = threat_fire
-target =  story | jup_b1_tushkano_target
+target = story | jup_b1_tushkano_target
 on_game_timer = 30 | walker@camp2
-invulnerable = true 
+invulnerable = true
 combat_ignore_cond = true
-combat_ignore_keep_when_attacked = true 
+combat_ignore_keep_when_attacked = true
 
 [walker@camp2]:walker@generic
 def_state_moving1 = patrol
@@ -69,15 +69,15 @@ path_walk = st_3_go_3
 path_look = st_3_look_3
 meet = no_meet
 
-;---------------------------------- возврат в нормальное состояние из зомби
+;---------------------------------- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
 [remark@psy_back]:walker@generic
 anim = psy_pain
 target = path | jup_b1_st_3_zombie_look, 0
 on_timer = 10000 | remark@thanks
 meet = no_meet
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 
 [remark@thanks]:walker@generic
 anim = hide_no_wpn
@@ -92,13 +92,13 @@ on_timer = 15000 | {!talking} walker@on_air
 close_snd_hello = nil
 close_snd_bye = nil
 snd_on_use = nil
-close_distance  = 10
-close_anim      = guard
-close_victim    = actor
-abuse           = false
-meet_dialog	= jup_b1_st_go_to_exit
-trade_enable	= false
-allow_break     = false
+close_distance = 10
+close_anim = guard
+close_victim = actor
+abuse = false
+meet_dialog = jup_b1_st_go_to_exit
+trade_enable = false
+allow_break = false
 
 [walker@on_air]:walker@generic
 def_state_moving1 = assault
@@ -115,23 +115,23 @@ on_info = {=dist_to_actor_ge(75)} patrol@go_to_base %+jup_b1_go_from_task%, {+ju
 meet = meet@go_home
 
 [meet@go_home]
-close_distance  = 10
-close_anim      = guard
-close_victim    = actor
-use 			= true
-abuse           = false
-trade_enable	= false
-allow_break     = false
+close_distance = 10
+close_anim = guard
+close_victim = actor
+use = true
+abuse = false
+trade_enable = false
+allow_break = false
 
 [patrol@go_to_base]:walker@generic
 path_walk = patrol_to_the_home
 formation = back
 on_signal = at_pos | %-jup_b1_st_mission%
 meet = no_meet
-on_info = {=health_le(0.5) !actor_enemy} %=restore_health% 
+on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 
-;--------------------превращение в зомби
-[logic@jup_b1_zomb_stalker_3] 
+;--------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
+[logic@jup_b1_zomb_stalker_3]
 suitable = {=check_npc_name(jup_b1_stalker_3) =actor_has_item(jup_b1_half_artifact)} true
 prior = 70
 active = camper@zombie
@@ -145,21 +145,21 @@ path_look = st_3_zombie_look
 on_game_timer = 10 | remark@psy_wounded %+jup_b1_spawn_controller%
 radius = 0
 no_retreat = true
-on_info =  {+jup_b1_go_from_task} patrol@go_to_base, {=dist_to_actor_ge(140)} %=kill_npc%
+on_info = {+jup_b1_go_from_task} patrol@go_to_base, {=dist_to_actor_ge(140)} %=kill_npc%
 meet = no_meet
-show_spot = false 
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+show_spot = false
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 
 [remark@psy_wounded]:walker@generic
 anim = psy_pain
 target = path | jup_b1_st_3_zombie_look, 0
 on_info = {=actor_in_zone(jup_b1_zombie_start_zone)} remark@turnin_zombie
 on_info2 = {=dist_to_actor_ge(140)} %=kill_npc%
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 meet = no_meet
-show_spot = false 
+show_spot = false
 
 [remark@turnin_zombie]:walker@generic
 anim = psy_pain
@@ -167,8 +167,8 @@ target = path | jup_b1_st_3_zombie_look, 0
 on_info = {+jup_b1_controller_is_dead} remark@psy_back %=set_squad_goodwill(jup_b1_stalker_squad:friend)%
 on_info2 = {=dist_to_actor_ge(140)} %=kill_npc%
 on_timer = 19000 | walker@zombied %=set_squad_goodwill(jup_b1_stalker_squad:enemy)%
-combat_ignore_cond = true 
-combat_ignore_keep_when_attacked = true 
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
 meet = no_meet
 
 [walker@zombied]:walker@generic
@@ -189,14 +189,14 @@ ignore_distance_hit = 0
 ignore_distance_sound = 0
 
 [wounded]
-hp_state 		= 0|wounded_heavy@help_heavy
-hp_state_see 	= 0|wounded_heavy@help_heavy
-hp_victim 		= 0|nil
-hp_fight 		= 0|false
-hp_cover		= 0|false
+hp_state = 0|wounded_heavy@help_heavy
+hp_state_see = 0|wounded_heavy@help_heavy
+hp_victim = 0|nil
+hp_fight = 0|false
+hp_cover = 0|false
 
 [combat]
 on_info = {=actor_enemy} %+jup_b1_actor_atk_squad%
 
 [death]
-on_info = {=killed_by_actor -jup_b1_give_task =squad_exist(jup_b1_stalker_squad)} %+jup_b1_actor_atk_squad +jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_3_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) =stop_sound%, {-jup_b1_give_task =squad_exist(jup_b1_stalker_squad)} %+jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_3_is_dead =stop_sound%, {-jup_b1_give_task  +jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_4_is_dead} %+jup_1_stalker_squad_killed_before_mission +jup_b1_squad_is_dead  +jup_b1_stalker_3_is_dead =stop_sound%, {+jup_b1_give_task  +jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_4_is_dead} %+jup_b1_squad_is_dead +jup_b1_stalker_3_is_dead =stop_sound%, {=killed_by_actor =squad_exist(jup_b1_stalker_squad)} %+jup_b1_stalker_3_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) =stop_sound%, %+jup_b1_stalker_3_is_dead =stop_sound%
+on_info = {=killed_by_actor -jup_b1_give_task =squad_exist(jup_b1_stalker_squad)} %+jup_b1_actor_atk_squad +jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_3_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) =stop_sound%, {-jup_b1_give_task =squad_exist(jup_b1_stalker_squad)} %+jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_3_is_dead =stop_sound%, {-jup_b1_give_task +jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_4_is_dead} %+jup_1_stalker_squad_killed_before_mission +jup_b1_squad_is_dead +jup_b1_stalker_3_is_dead =stop_sound%, {+jup_b1_give_task +jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_4_is_dead} %+jup_b1_squad_is_dead +jup_b1_stalker_3_is_dead =stop_sound%, {=killed_by_actor =squad_exist(jup_b1_stalker_squad)} %+jup_b1_stalker_3_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) =stop_sound%, %+jup_b1_stalker_3_is_dead =stop_sound%

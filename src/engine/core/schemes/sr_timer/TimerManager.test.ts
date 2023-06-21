@@ -1,13 +1,12 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { CUIGameCustom, get_hud } from "xray16";
 
-import { IRegistryObjectState, registerActor, registerObject, registry } from "@/engine/core/database";
-import { activateSchemeBySection } from "@/engine/core/schemes/base/utils";
+import { IRegistryObjectState, registerActor, registerObject } from "@/engine/core/database";
 import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/sr_timer/ISchemeTimerState";
 import { SchemeTimer } from "@/engine/core/schemes/sr_timer/SchemeTimer";
 import { TimerManager } from "@/engine/core/schemes/sr_timer/TimerManager";
+import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ClientObject, EScheme, IniFile } from "@/engine/lib/types";
-import { loadSchemeImplementation } from "@/engine/scripts/register/schemes_registrator";
 import { getSchemeAction, mockSchemeState } from "@/fixtures/engine/mocks";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
@@ -92,8 +91,8 @@ describe("TimerManager class", () => {
 
     expect(schemeState.timer.TextControl().GetText()).toBe("0:00:00");
     expect(timerManager.deactivate).toHaveBeenCalled();
-    expect(state.active_scheme).toBeNull();
-    expect(state.active_section).toBeNull();
-    expect(state.activation_time).toBe(95_000);
+    expect(state.activeScheme).toBeNull();
+    expect(state.activeSection).toBeNull();
+    expect(state.activationTime).toBe(95_000);
   });
 });

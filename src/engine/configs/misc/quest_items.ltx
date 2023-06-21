@@ -1,5 +1,5 @@
 ;*************************************************************************
-;** 	Jupiter
+;** Jupiter
 ;*************************************************************************
 
 [jup_a9_conservation_info]:device_pda
@@ -199,9 +199,9 @@ inv_grid_y = 22
 [jup_b206_plant]:device_pda
 $spawn = "quest_items\jup_b206_plant"
 $prefetch = 16
-visual   = dynamics\equipments\quest\anomaly_plant.ogf
+visual = dynamics\equipments\quest\anomaly_plant.ogf
 inv_weight = 0.5
-startup_animation 	 = idle
+startup_animation = idle
 inv_name = st_jup_b206_plant_name
 inv_name_short = st_jup_b206_plant_name
 description = st_jup_b206_plant_desc
@@ -212,7 +212,7 @@ inv_grid_y = 22
 cost = 0
 can_trade = false
 quest_item = true
-custom_data  = models\objects\ignore_static.ltx
+custom_data = models\objects\ignore_static.ltx
 
 [jup_b209_monster_scanner]:device_pda
 $spawn = "quest_items\jup_b209_monster_scanner"
@@ -227,7 +227,7 @@ inv_grid_width = 1
 inv_grid_height = 2
 inv_grid_x = 10
 inv_grid_y = 23
-custom_data  = models\objects\ignore_static.ltx
+custom_data = models\objects\ignore_static.ltx
 
 [jup_b200_tech_materials_wire]:device_pda
 $spawn = "quest_items\jup_b200_tech_materials_wire"
@@ -296,7 +296,7 @@ description = jup_b9_blackbox_descr
 visual = dynamics\equipments\quest\box_black.ogf
 inv_weight = 3
 inv_name = jup_b9_blackbox
-quest_item 	= true
+quest_item = true
 can_trade = false
 inv_grid_width = 2
 inv_grid_height = 2
@@ -317,7 +317,7 @@ inv_grid_y = 23
 cost = 0
 can_trade = false
 quest_item = true
-custom_data  = models\objects\ignore_static.ltx
+custom_data = models\objects\ignore_static.ltx
 
 [jup_b46_duty_founder_pda]:device_pda
 $spawn = "quest_items\jup_b46_duty_founder_pda"
@@ -369,12 +369,12 @@ quest_item = true
 story_id = jup_b47_merc_pda
 
 ;*************************************************************************
-;** 	Zaton
+;** Zaton
 ;*************************************************************************
 
 [toolkit_2]:device_pda
 $spawn = "quest_items\toolkit_2"
-;story_id  = toolkit_2
+;story_id = toolkit_2
 visual = dynamics\equipments\quest\box_toolkit_2.ogf
 inv_name = st_toolkit_2_name
 inv_name_short = st_toolkit_2_name
@@ -389,7 +389,7 @@ quest_item = true
 
 [toolkit_1]:device_pda
 $spawn = "quest_items\toolkit_1"
-;story_id  = toolkit_1
+;story_id = toolkit_1
 visual = dynamics\equipments\quest\box_toolkit_1.ogf
 inv_name = st_toolkit_1_name
 inv_name_short = st_toolkit_1_name
@@ -404,7 +404,7 @@ quest_item = true
 
 [zat_b33_safe_container]:device_pda
 $spawn = "quest_items\zat_b33_safe_container"
-story_id  = zat_b33_safe_container
+story_id = zat_b33_safe_container
 visual = dynamics\equipments\quest\safe_container.ogf
 inv_name = zat_b33_safe_container_name
 inv_name_short = zat_b33_safe_container_name_short
@@ -422,7 +422,7 @@ quest_item = false
 $spawn = "quest_items\zat_b57_gas"
 $prefetch = 16
 visual = dynamics\equipments\quest\balloon_poison_gas.ogf
-story_id  = zat_b57_gas
+story_id = zat_b57_gas
 inv_name = st_zat_b57_gas_name
 inv_name_short = st_zat_b57_gas_name
 description = st_zat_b57_gas_desc
@@ -433,8 +433,8 @@ inv_grid_x = 8
 inv_grid_y = 23
 cost = 0
 can_trade = false
-quest_item 	= false
-custom_data  = models\objects\ignore_static.ltx
+quest_item = false
+custom_data = models\objects\ignore_static.ltx
 
 [zat_b12_key_1]:dev_flash_1
 $spawn = "quest_items\zat_b12_key_1"
@@ -443,7 +443,7 @@ description = st_zat_b12_key_1_descr
 inv_name = st_zat_b12_key_1
 inv_name_short = st_zat_b12_key_1
 can_trade = false
-quest_item  = true
+quest_item = true
 cost = 0
 inv_grid_width = 1
 inv_grid_height = 1
@@ -457,7 +457,7 @@ description = st_zat_b12_key_2_descr
 inv_name = st_zat_b12_key_2
 inv_name_short = st_zat_b12_key_2
 can_trade = false
-quest_item  = true
+quest_item = true
 cost = 0
 inv_grid_width = 1
 inv_grid_height = 1
@@ -502,7 +502,7 @@ description = st_device_pda_port_bandit_leader_descr
 inv_name = st_device_pda_port_bandit_leader
 inv_name_short = st_device_pda_port_bandit_leader
 can_trade = false
-quest_item 	= true
+quest_item = true
 cost = 0
 
 [device_flash_snag]:device_pda
@@ -593,7 +593,7 @@ inv_grid_height = 1
 inv_grid_x = 18
 inv_grid_y = 21
 can_trade = false
-quest_item  = true
+quest_item = true
 cost = 0
 
 [zat_a23_gauss_rifle_docs]:device_pda
@@ -640,19 +640,18 @@ can_trade = false
 cost = 20
 quest_item = true
 
-
 ;*************************************************************************
-;** 	Pripyat
+;** Pripyat
 ;*************************************************************************
 
 [pri_a15_wpn_svu]:identity_immunities
 GroupControlSection = spawn_group
-discovery_dependency	=
-$spawn 	= "weapons\wpn_svu_a"
-cform    = skeleton
-class 	= II_ATTCH
-visual   = dynamics\weapons\wpn_svu\wpn_svu.ogf
-cost 	= 17500
+discovery_dependency =
+$spawn = "weapons\wpn_svu_a"
+cform = skeleton
+class = II_ATTCH
+visual = dynamics\weapons\wpn_svu\wpn_svu.ogf
+cost = 17500
 inv_name = st_wpn_svu
 inv_name_short = st_wpn_svu
 description = st_wpn_svu_descr
@@ -665,26 +664,26 @@ auto_attach = false
 ;Strap postion
 attach_bone_name = bip01_spine2
 ;variation 1 - better
-attach_position_offset	= -0.245, -0.11, -0.265
+attach_position_offset = -0.245, -0.11, -0.265
 attach_angle_offset = 1.326452, -0.15708, 1.919862
 ;variation 2 - from weapons ltx
-;attach_position_offset	= -0.25, -0.11, -0.26
+;attach_position_offset = -0.25, -0.11, -0.26
 ;attach_angle_offset = 1.308999, -0.15708, 1.919862
 
 [pri_a15_wpn_svu_unstrapped]
 ;Hands position
 attach_angle_offset = -1.570796, 0.0, 0.0
-attach_position_offset	= 0, -0.084, 0.026
+attach_position_offset = 0, -0.084, 0.026
 attach_bone_name = bip01_r_finger1
 
 [pri_a15_wpn_wincheaster1300]:identity_immunities
 GroupControlSection = spawn_group
-discovery_dependency	=
-$spawn 	= "weapons\wpn_wincheaster1300_a"
-cform    = skeleton
-class 	= II_ATTCH
-visual   = dynamics\weapons\wpn_winchester1300\wpn_winchester1300.ogf
-cost 	= 1250
+discovery_dependency =
+$spawn = "weapons\wpn_wincheaster1300_a"
+cform = skeleton
+class = II_ATTCH
+visual = dynamics\weapons\wpn_winchester1300\wpn_winchester1300.ogf
+cost = 1250
 inv_name = st_wpn_wincheaster1300
 inv_name_short = st_wpn_wincheaster1300
 description = st_wpn_wincheaster1300_descr
@@ -696,7 +695,7 @@ inv_grid_y = 5
 auto_attach = false
 ;Strap position
 attach_bone_name = bip01_spine2
-attach_position_offset	= -0.05, -0.10, -0.26
+attach_position_offset = -0.05, -0.10, -0.26
 ;variation 1 - both bad
 attach_angle_offset = 1.343905, -0.122173, 1.919862
 ;variation 2 - from weapons ltx
@@ -705,17 +704,17 @@ attach_angle_offset = 1.343905, -0.122173, 1.919862
 [pri_a15_wpn_wincheaster1300_unstrapped]
 ;Hands position
 attach_angle_offset = -1.570796, -0.069813, 0.0
-attach_position_offset	= 0.0, -0.097, 0.024
+attach_position_offset = 0.0, -0.097, 0.024
 attach_bone_name = bip01_r_finger1
 
 [pri_a15_wpn_ak74u]:identity_immunities
 GroupControlSection = spawn_group
-discovery_dependency	=
-$spawn 	= "weapons\wpn_ak74u_a"
-cform    = skeleton
-class 	= II_ATTCH
-visual   = dynamics\weapons\wpn_ak74u\wpn_ak74u.ogf
-cost 	= 2100
+discovery_dependency =
+$spawn = "weapons\wpn_ak74u_a"
+cform = skeleton
+class = II_ATTCH
+visual = dynamics\weapons\wpn_ak74u\wpn_ak74u.ogf
+cost = 2100
 inv_name = st_wpn_ak74u
 inv_name_short = st_wpn_ak74u
 description = st_wpn_ak74u_descr
@@ -727,7 +726,7 @@ inv_grid_y = 16
 auto_attach = false
 ;Strap position
 attach_bone_name = bip01_spine2
-attach_position_offset	= -0.20, -0.45, -0.18
+attach_position_offset = -0.20, -0.45, -0.18
 ;variation 1 - better
 attach_angle_offset = 1.413716, -0.087266, 0.174533
 ;variation 2 - from weapons ltx
@@ -736,17 +735,17 @@ attach_angle_offset = 1.413716, -0.087266, 0.174533
 [pri_a15_wpn_ak74u_unstrapped]
 ;Hands position
 attach_angle_offset = -1.570796, 0.0, 0.0
-attach_position_offset	= 0.0, -0.215, 0.026
+attach_position_offset = 0.0, -0.215, 0.026
 attach_bone_name = bip01_r_finger1
 
 [pri_a15_wpn_ak74]:identity_immunities
 GroupControlSection = spawn_group
-discovery_dependency	=
-$spawn 	= "weapons\wpn_ak74_a"
-cform    = skeleton
-class 	= II_ATTCH
-visual   = dynamics\weapons\wpn_ak74\wpn_ak74.ogf
-cost 	= 4000
+discovery_dependency =
+$spawn = "weapons\wpn_ak74_a"
+cform = skeleton
+class = II_ATTCH
+visual = dynamics\weapons\wpn_ak74\wpn_ak74.ogf
+cost = 4000
 inv_name = st_wpn_ak74
 inv_name_short = st_wpn_ak74
 description = st_wpn_ak74_descr
@@ -759,20 +758,20 @@ auto_attach = false
 ;Strap position
 attach_bone_name = bip01_spine2
 ;variation 1 - better
-attach_position_offset	= -0.245, -0.105, -0.27
+attach_position_offset = -0.245, -0.105, -0.27
 attach_angle_offset = 1.343905, -0.122173, 1.919862
 ;variation 2 - from weapons ltx
-;attach_position_offset	= -0.25, -0.11, -0.26
+;attach_position_offset = -0.25, -0.11, -0.26
 ;attach_angle_offset = 1.308999, -0.15708, 1.919862
 
 [pri_a15_wpn_ak74_unstrapped]
 ;Hands position
 attach_angle_offset = -1.570796, 0.0, 0.0
-attach_position_offset	= 0.0, -0.175, 0.026
+attach_position_offset = 0.0, -0.175, 0.026
 attach_bone_name = bip01_r_finger1
 
 [pri_a15_documents]:identity_immunities
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "quest_items\pri_a15_documents"
 class = II_ATTCH
@@ -790,13 +789,13 @@ inv_grid_y = 23
 cost = 100
 
 attach_angle_offset = -1.903, -1.493, 0.998
-attach_position_offset	= 0.09, 0.051, 0.03
+attach_position_offset = 0.09, 0.051, 0.03
 attach_bone_name = bip01_l_hand
 auto_attach = false
 
 [toolkit_3]:device_pda
 $spawn = "quest_items\toolkit_3"
-;story_id  = toolkit_3
+;story_id = toolkit_3
 visual = dynamics\equipments\quest\box_toolkit_3.ogf
 inv_name = st_toolkit_3_name
 inv_name_short = st_toolkit_3_name
@@ -847,7 +846,7 @@ quest_item = true
 
 [pri_a25_explosive_charge_item]:identity_immunities
 quest_item = true
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency=
 $spawn = "dynamic_objects\scene_objects\pri_a25_explosive_gift"
 $prefetch = 16
@@ -863,13 +862,13 @@ control_inertion_factor = 1
 script_binding = bind.physicObject
 inv_name = pri_a25_explosive_name
 inv_name_short = pri_a25_explosive_name
-inv_weight = 3.5	;0.2
+inv_weight = 3.5 ;0.2
 inv_grid_width = 1
 inv_grid_height = 2
 inv_grid_x = 5
 inv_grid_y = 23
 cost = 20
-attach_angle_offset = 3.080506,-1.493053,-1.202040  ;��������������� � �������� Angle*PI/180
+attach_angle_offset = 3.080506,-1.493053,-1.202040 ;��������������� � �������� Angle*PI/180
 attach_position_offset = 0.080000,0.021273,0.100000
 attach_bone_name = bip01_r_hand
 auto_attach = false

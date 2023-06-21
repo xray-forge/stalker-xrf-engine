@@ -64,6 +64,7 @@ export function spawnItemsForObject(
 
   for (const it of $range(1, count)) {
     if (math.random(100) <= probability) {
+      // todo: Get simulator only once?
       alife().create(itemSection, position, lvid, gvid, id);
       itemsSpawned += 1;
     }
@@ -140,34 +141,6 @@ export function spawnItemsForObjectFromList(
 }
 
 /**
- * todo: description
- */
-export function spawnDefaultObjectItems(object: ClientObject, state: IRegistryObjectState): void {
-  logger.info("Spawn default items for object:", object.name());
-
-  const itemsToSpawn: LuaTable<TInventoryItem, TCount> = new LuaTable();
-  const spawnItemsSection: Optional<TSection> = readIniString(state.ini, state.section_logic, "spawn", false, "", null);
-
-  if (spawnItemsSection === null) {
-    return;
-  }
-
-  const itemSectionsCount: TCount = state.ini.line_count(spawnItemsSection);
-
-  for (const it of $range(0, itemSectionsCount - 1)) {
-    const [result, id, value] = state.ini.r_line(spawnItemsSection, it, "", "");
-
-    itemsToSpawn.set(id as TInventoryItem, value === "" ? 1 : tonumber(value)!);
-  }
-
-  for (const [id, count] of itemsToSpawn) {
-    if (object.object(id) === null) {
-      spawnItemsForObject(object, id, count);
-    }
-  }
-}
-
-/**
  * Get matching translation for section if it exists.
  *
  * @returns translated item name if translation is declared
@@ -222,7 +195,7 @@ export function spawnObject<T extends ServerObject>(
   index: TIndex = 0,
   yaw: TRate = 0
 ): T {
-  logger.info("Spawn object");
+  logger.info("Spawn object:", section, pathName);
 
   assertDefined(section, "Wrong spawn section for 'spawnObject' function '%s'.", tostring(section));
   assertDefined(pathName, "Wrong spawn pathName for 'spawnObject' function '%s'.", tostring(pathName));
@@ -253,7 +226,7 @@ export function spawnObjectInObject<T extends ServerObject>(
   section: Optional<TSection>,
   targetId: Optional<TNumberId>
 ): T {
-  logger.info("Spawn object");
+  logger.info("Spawn in object:", section, targetId);
 
   assertDefined(section, "Wrong spawn section for 'spawnObjectInObject' function '%s'.", tostring(section));
   assertDefined(targetId, "Wrong spawn targetId for 'spawnObjectInObject' function '%s'.", tostring(section));

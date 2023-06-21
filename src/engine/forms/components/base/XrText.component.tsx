@@ -7,7 +7,7 @@ import { IBaseXmlNode, IRgbColor, Optional, TTextAlign } from "@/engine/lib/type
 
 export interface IXrTextProps extends IBaseXmlNode {
   tag?: string;
-  color?: IRgbColor;
+  color?: IRgbColor | string;
   label?: Optional<string>;
   children?: string;
   font?: TFontId;
@@ -34,14 +34,15 @@ export function XrText(props: IXrTextProps): JSXNode {
   return JSXXML(
     tag,
     {
+      color: typeof color === "string" ? color : undefined,
       font,
       align,
       vert_align: vertAlign,
       x,
       y,
-      r: color?.r,
-      g: color?.g,
-      b: color?.b,
+      r: typeof color === "object" ? color.r : undefined,
+      g: typeof color === "object" ? color.g : undefined,
+      b: typeof color === "object" ? color.b : undefined,
     },
     label || children
   );

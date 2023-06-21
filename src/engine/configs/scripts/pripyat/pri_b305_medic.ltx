@@ -27,7 +27,7 @@ def_state_standing = wait_na
 invulnerable = true
 
 [remark@answer_1]:remark@def
-on_info   = {+pri_b305_kirilov_where_you_been_done_end -pri_b305_medik_in_freezer_done} %=play_sound(pri_b305_medik_in_freezer) +pri_b305_medik_in_freezer_done%
+on_info = {+pri_b305_kirilov_where_you_been_done_end -pri_b305_medik_in_freezer_done} %=play_sound(pri_b305_medik_in_freezer) +pri_b305_medik_in_freezer_done%
 on_signal = sound_end | {-pri_b305_medik_in_freezer_done_end} remark@answer_2 %+pri_b305_medik_in_freezer_done_end%
 on_info2 = {+pri_b305_second_cam_end} animpoint@base
 meet = no_meet
@@ -70,12 +70,12 @@ corpse_detection_enabled = false
 
 [meet]
 close_snd_hello = nil
-close_snd_bye 	= nil
-close_anim 		= nil
-close_victim 	= nil
-far_anim 		= nil
-far_victim 		= nil
+close_snd_bye = nil
+close_anim = nil
+close_victim = nil
+far_anim = nil
+far_victim = nil
 use = {=actor_enemy} false, true
-trade_enable 	= false
-allow_break 	= false
+trade_enable = false
+allow_break = false
 meet_on_talking = false

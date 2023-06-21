@@ -2,7 +2,7 @@
 active = sr_idle@kovalski_office_cutscene
 
 [sr_idle@kovalski_office_cutscene]
-on_info = {+pri_a17_actor_has_gauss_rifle} sr_idle@wait_cutscene %=remove_squad(pri_a20_missing_military_recon)% 
+on_info = {+pri_a17_actor_has_gauss_rifle} sr_idle@wait_cutscene %=remove_squad(pri_a20_missing_military_recon)%
 
 [sr_idle@wait_cutscene]
 on_game_timer = 50 | {+pri_a20_cutscene_start} sr_idle@fade %=disable_ui =create_squad(pri_a20_missing_military_recon:pri_b35_mercs) =run_postprocess(fade_in:2121)%

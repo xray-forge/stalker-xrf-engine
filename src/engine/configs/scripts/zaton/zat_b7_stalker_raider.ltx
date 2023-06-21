@@ -78,8 +78,6 @@ use = {-zat_b7_raider_plan} false, {!actor_enemy} true
 snd_on_use = {-zat_b7_raider_plan} meet_use_no_talk_leader
 abuse = false
 
-
-
 [logic@zat_b7_stalker_raider_leader_attack]
 active = walker@leader_attack
 prior = 200
@@ -106,8 +104,8 @@ close_snd_hello = nil
 close_snd_bye = nil
 close_victim = actor
 trade_enable = false
-close_distance 	= 0
-far_distance 	= 0
+close_distance = 0
+far_distance = 0
 snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {=has_enemy} meet_use_no_fight
 use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {-zat_b7_stalkers_raiders_attack_started} true, {+zat_b7_stalkers_raiders_attack_started} false
 meet_dialog = zat_b7_stalkers_raiders_dialog
@@ -116,7 +114,7 @@ meet_dialog = zat_b7_stalkers_raiders_dialog
 path_walk = leader_to_position_walk
 path_look = leader_to_position_look
 on_signal = position | {!actor_enemy} %+zat_b7_stalker_raider_leader_on_position =play_sound(zat_b7_raiders_attack)%
-on_info =  {+zat_b7_stalker_raider_leader_on_position} camper@leader_attack
+on_info = {+zat_b7_stalker_raider_leader_on_position} camper@leader_attack
 on_info2 = {+zat_b7_attack_started -zat_b7_victims_disappeared -zat_b7_actor_killed_victims_self} camper@leader_attack
 on_info3 = {=is_squad_enemy_to_actor(zat_b7_stalkers_victims_1)} camper@leader_attack
 on_info4 = {=squad_in_zone_all(zat_b7_stalkers_raiders:zat_b7_prepared_for_attack) !actor_enemy} %+zat_b7_stalker_raider_leader_on_position =play_sound(zat_b7_raiders_attack)%
@@ -164,7 +162,7 @@ path_walk = leader_attack_walk
 path_look = leader_attack_look
 def_state_moving = assault
 def_state_standing = threat
-on_actor_dist_ge_nvis = 50 | %+zat_b7_actor_refused_to_be_robbed%  
+on_actor_dist_ge_nvis = 50 | %+zat_b7_actor_refused_to_be_robbed%
 meet = meet@leader_rob_actor
 use_camp = false
 gather_items_enabled = false
@@ -178,8 +176,6 @@ use = {!actor_enemy -zat_b7_actor_robbed =dist_to_actor_le(25) =see_actor} self,
 trade_enable = false
 allow_break = false
 meet_dialog = zat_b7_stalkers_raiders_dialog
-
-
 
 [logic@zat_b7_stalker_raider_leader_after]
 active = walker@leader_after
@@ -215,11 +211,9 @@ close_victim = nil
 far_distance = 10
 trade_enable = false
 close_victim = actor
-use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {+zat_b7_actor_robbed} false, true 
+use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {+zat_b7_actor_robbed} false, true
 meet_dialog = zat_b7_stalkers_raiders_dialog
 snd_on_use = nil
-
-
 
 ;Raider 1
 [logic@zat_b7_stalker_raider_1_attack]
@@ -276,8 +270,6 @@ use_camp = false
 gather_items_enabled = false
 corpse_detection_enabled = false
 
-
-
 ;Raider 2
 [logic@zat_b7_stalker_raider_2_attack]
 active = walker@attack_2
@@ -332,8 +324,6 @@ def_state_moving = assault
 use_camp = false
 gather_items_enabled = false
 corpse_detection_enabled = false
-
-
 
 ;Raider 3
 [logic@zat_b7_stalker_raider_3_attack]

@@ -21,37 +21,37 @@
 #include "outfit_upgrades\helm_tactic_up.ltx"
 
 [outfit_base]
-; delete full_scale_icon	next update- obsolete, use full_icon_name instead !!!
+; delete full_scale_icon next update- obsolete, use full_icon_name instead !!!
 
 additional_inventory_weight = 0 ; +max_walk_weight
-additional_inventory_weight2	= 0 ;	+40 kg
+additional_inventory_weight2 = 0 ; +40 kg
 full_icon_name = npc_icon_without_outfit
 
 default_to_ruck = false
 sprint_allowed = true
 control_inertion_factor = 1
-;player_hud_section	= actor_hud_05
+;player_hud_section = actor_hud_05
 
 [without_outfit]:outfit_base
 ;������� ������ �������� - ������ �������. ������� ������ ������� - ���������+������
 full_scale_icon = 6,6
-;player_hud_section	= actor_hud_05
+;player_hud_section = actor_hud_05
 
 ;---------------------------------------------------------------------------------------------
 ; ������ �������
 ;---------------------------------------------------------------------------------------------
 [novice_outfit]:outfit_base
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\novice_outfit"
 ;$prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\novice_outfit
-actor_visual	= actors\stalker_hero\stalker_hero_novice_1.ogf
-player_hud_section	= actor_hud_01
+actor_visual = actors\stalker_hero\stalker_hero_novice_1.ogf
+player_hud_section = actor_hud_01
 
-ef_equipment_type	= 3
+ef_equipment_type = 3
 
 inv_name = novice_outfit_name
 inv_name_short = novice_outfit_name
@@ -59,10 +59,9 @@ description = novice_outfit_description
 inv_weight = 4.0
 
 ;inv_grid_width = 2
-;inv_grid_height	= 2
+;inv_grid_height = 2
 ;inv_grid_x = 12
 ;inv_grid_y = 0
-
 
 inv_grid_width = 2
 inv_grid_height = 2
@@ -127,17 +126,17 @@ fire_wound_immunity = -0.005
 ; ������ ������������ ��������
 ;---------------------------------------------------------------------------------------------
 [stalker_outfit]:outfit_base
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\stalker_outfit"
 ;$prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\stalker_outfit
-actor_visual	= actors\stalker_hero\stalker_hero_stalker_1.ogf
-player_hud_section	= actor_hud_05
+actor_visual = actors\stalker_hero\stalker_hero_stalker_1.ogf
+player_hud_section = actor_hud_05
 
-ef_equipment_type	= 3
+ef_equipment_type = 3
 
 inv_name = stalker_outfit_name
 inv_name_short = stalker_outfit_name
@@ -160,12 +159,11 @@ slot = 6
 full_scale_icon = 14,11 ;������ �������� � ������� � ������ ����
 
 additional_inventory_weight = 0 ; +max_walk_weight
-additional_inventory_weight2	= 0 ;	+40 kg
+additional_inventory_weight2 = 0 ; +40 kg
 artefact_count = 2
 
 default_to_ruck = false
 immunities_sect = sect_stalker_outfit_immunities
-
 
 ; LOW RESISTANCE
 burn_protection = 0.0650
@@ -213,17 +211,17 @@ fire_wound_immunity = -0.005
 ; ������ ������ �������
 ;---------------------------------------------------------------------------------------------
 [svoboda_light_outfit]:outfit_base
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\svoboda_light_outfit"
 ;$prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\svoboda_light_outfit
-actor_visual	= actors\stalker_hero\stalker_hero_freedom_1.ogf
-player_hud_section	= actor_hud_03
+actor_visual = actors\stalker_hero\stalker_hero_freedom_1.ogf
+player_hud_section = actor_hud_03
 
-ef_equipment_type	= 3
+ef_equipment_type = 3
 
 inv_name = svoboda_light_outfit_name
 inv_name_short = svoboda_light_outfit_name
@@ -295,17 +293,17 @@ fire_wound_immunity = -0.005
 ; ������� ������ �����
 ;---------------------------------------------------------------------------------------------
 [dolg_outfit]:outfit_base
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\dolg_outfit"
 ;$prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\dolg_outfit
-actor_visual	= actors\stalker_hero\stalker_hero_dolg_1.ogf
-player_hud_section	= actor_hud_02
+actor_visual = actors\stalker_hero\stalker_hero_dolg_1.ogf
+player_hud_section = actor_hud_02
 
-ef_equipment_type	= 3
+ef_equipment_type = 3
 
 inv_name = dolg_outfit_name
 inv_name_short = dolg_outfit_name
@@ -377,17 +375,17 @@ fire_wound_immunity = -0.003
 ; ������� ������
 ;---------------------------------------------------------------------------------------------
 [scientific_outfit]:outfit_base
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\scientific_outfit"
 $prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\scientific_outfit
-actor_visual	= actors\stalker_hero\stalker_hero_neutral_nauchniy.ogf
-player_hud_section	= actor_hud_07
+actor_visual = actors\stalker_hero\stalker_hero_neutral_nauchniy.ogf
+player_hud_section = actor_hud_07
 
-ef_equipment_type	= 2
+ef_equipment_type = 2
 
 inv_name = scientific_outfit_name
 inv_name_short = scientific_outfit_name
@@ -411,8 +409,7 @@ cost = 25000
 full_scale_icon = 12,11 ;������ �������� � ������� � ������ ����
 
 immunities_sect = sect_scientific_outfit_immunities
-helmet_avaliable	 = false
-
+helmet_avaliable = false
 
 ; MEDIUM RESISTANCE
 burn_protection = 0.0875
@@ -461,17 +458,17 @@ fire_wound_immunity = -0.0025
 ; ������� ������ ��
 ;---------------------------------------------------------------------------------------------
 [cs_heavy_outfit]:outfit_base
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\cs_heavy_outfit"
 ;$prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\cs_heavy_outfit
-actor_visual	= actors\stalker_hero\stalker_hero_cs_heavy.ogf
-player_hud_section	= actor_hud_04
+actor_visual = actors\stalker_hero\stalker_hero_cs_heavy.ogf
+player_hud_section = actor_hud_04
 
-ef_equipment_type	= 3
+ef_equipment_type = 3
 
 inv_name = csky_heavy_outfit_name
 inv_name_short = csky_heavy_outfit_name
@@ -511,7 +508,7 @@ hit_fraction_actor = 0.45
 bones_koeff_protection = actor_armor_medium
 
 artefact_count = 1
-control_inertion_factor	= 1.5
+control_inertion_factor = 1.5
 
 upgrades = up_gr_firstab_cs_heavy_outfit, up_gr_seconab_cs_heavy_outfit, up_gr_thirdab_cs_heavy_outfit, up_gr_fourtab_cs_heavy_outfit
 installed_upgrades =
@@ -539,23 +536,22 @@ chemical_burn_immunity = -0.01
 explosion_immunity = -0.01
 fire_wound_immunity = -0.0025
 
-
 ;---------------------------------------------------------------------------------------------
 ; ������� ������ �������
 ;---------------------------------------------------------------------------------------------
 
 [svoboda_heavy_outfit]:outfit_base
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\svoboda_heavy_outfit"
 ;$prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\svoboda_heavy_outfit
-actor_visual	= actors\stalker_hero\stalker_hero_freedom_2.ogf
-player_hud_section	= actor_hud_03
+actor_visual = actors\stalker_hero\stalker_hero_freedom_2.ogf
+player_hud_section = actor_hud_03
 
-ef_equipment_type	= 3
+ef_equipment_type = 3
 
 inv_name = svoboda_heavy_outfit_name
 inv_name_short = svoboda_heavy_outfit_name
@@ -626,17 +622,17 @@ fire_wound_immunity = -0.003
 ; ������ �������� ��������
 ;---------------------------------------------------------------------------------------------
 [specops_outfit]:outfit_base
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\specops_outfit"
 ;$prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\specops_outfit
-actor_visual	= actors\stalker_hero\stalker_hero_specops.ogf
-player_hud_section	= actor_hud_06
+actor_visual = actors\stalker_hero\stalker_hero_specops.ogf
+player_hud_section = actor_hud_06
 
-ef_equipment_type	= 3
+ef_equipment_type = 3
 
 inv_name = specops_outfit_name
 inv_name_short = specops_outfit_name
@@ -707,18 +703,18 @@ fire_wound_immunity = -0.0025
 ; ������ ��������
 ;---------------------------------------------------------------------------------------------
 [military_outfit]:outfit_base
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\military_outfit"
 ;$prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\military_outfit
-actor_visual	= actors\stalker_hero\stalker_hero_military.ogf
-;actor_visual	= actors\stalker_soldier\stalker_soldier_4.ogf
-player_hud_section	= actor_hud_06
+actor_visual = actors\stalker_hero\stalker_hero_military.ogf
+;actor_visual = actors\stalker_soldier\stalker_soldier_4.ogf
+player_hud_section = actor_hud_06
 
-ef_equipment_type	= 4
+ef_equipment_type = 4
 
 inv_name = military_outfit_name
 inv_name_short = military_outfit_name
@@ -789,17 +785,17 @@ fire_wound_immunity = -0.002
 ; ������� ������ �����
 ;---------------------------------------------------------------------------------------------
 [dolg_heavy_outfit]:outfit_base
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\dolg_heavy_outfit"
 $prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\dolg_heavy_outfit
-actor_visual	= actors\stalker_hero\stalker_hero_dolg_2.ogf
-player_hud_section	= actor_hud_02
+actor_visual = actors\stalker_hero\stalker_hero_dolg_2.ogf
+player_hud_section = actor_hud_02
 
-ef_equipment_type	= 4
+ef_equipment_type = 4
 
 inv_name = dolg_heavy_outfit_name
 inv_name_short = dolg_heavy_outfit_name
@@ -837,7 +833,7 @@ hit_fraction_actor = 0.35
 bones_koeff_protection = actor_armor_heavy
 
 additional_inventory_weight = 10
-additional_inventory_weight2	= 10
+additional_inventory_weight2 = 10
 artefact_count = 0
 control_inertion_factor = 1.8
 power_loss = 1.0
@@ -872,18 +868,18 @@ fire_wound_immunity = -0.002
 ; ���������� ������������ ��������
 ;---------------------------------------------------------------------------------------------
 [exo_outfit]:outfit_base
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\exo_outfit"
 $prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\exo_outfit
-actor_visual	= actors\stalker_hero\stalker_hero_exo.ogf
-;actor_visual	= actors\stalker_neutral\stalker_neutral_4.ogf
-player_hud_section	= actor_hud_exo
+actor_visual = actors\stalker_hero\stalker_hero_exo.ogf
+;actor_visual = actors\stalker_neutral\stalker_neutral_4.ogf
+player_hud_section = actor_hud_exo
 
-ef_equipment_type	= 5
+ef_equipment_type = 5
 
 inv_name = exo_outfit_name
 inv_name_short = exo_outfit_name
@@ -927,7 +923,7 @@ sprint_allowed = false
 helmet_avaliable = false
 power_loss = 1.0
 additional_inventory_weight = 30
-additional_inventory_weight2	= 30
+additional_inventory_weight2 = 30
 artefact_count = 1
 control_inertion_factor = 2.5
 
@@ -962,7 +958,7 @@ fire_wound_immunity = -0.0025
 ;---------------------------------------------------------------------------------------------
 
 [helmet]
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 ;$spawn = "outfit\helmet"
 $prefetch = 32
@@ -972,7 +968,7 @@ visual = dynamics\outfit\scientific_outfit
 slot = 11
 default_to_ruck = false
 sprint_allowed = true
-control_inertion_factor	= 1.0
+control_inertion_factor = 1.0
 inv_name = st_helmet
 inv_name_short = st_helmet
 description = st_helmet_descr
@@ -1007,7 +1003,7 @@ bones_koeff_protection = actor_helm_respirator
 [helm_respirator]:helmet
 $spawn = "outfit\helm_respirator"
 visual = dynamics\outfit\helm_respirator
-control_inertion_factor	= 1.0
+control_inertion_factor = 1.0
 inv_name = st_helm_respirator
 inv_name_short = st_helm_respirator
 description = st_helm_respirator_descr
@@ -1045,7 +1041,7 @@ wound_immunity = 0.0
 wound_2_immunity = 0.0
 radiation_immunity = 0.0
 telepatic_immunity = 0.0
-chemical_burn_immunity	= 0.04
+chemical_burn_immunity = 0.04
 explosion_immunity = 0.04
 fire_wound_immunity = 0.04
 
@@ -1056,7 +1052,7 @@ fire_wound_immunity = 0.04
 [helm_hardhat]:helmet
 $spawn = "outfit\helm_hardhat"
 visual = dynamics\outfit\helm_hardhat
-control_inertion_factor	= 1.0
+control_inertion_factor = 1.0
 inv_name = st_helm_hardhat
 inv_name_short = st_helm_hardhat
 description = st_helm_hardhat_descr
@@ -1095,7 +1091,7 @@ wound_immunity = 0.0
 wound_2_immunity = 0.0
 radiation_immunity = 0.0
 telepatic_immunity = 0.0
-chemical_burn_immunity	= 0.03
+chemical_burn_immunity = 0.03
 explosion_immunity = 0.03
 fire_wound_immunity = 0.025
 
@@ -1106,7 +1102,7 @@ fire_wound_immunity = 0.025
 [helm_protective]:helmet
 $spawn = "outfit\helm_protective"
 visual = dynamics\outfit\helm_protective
-control_inertion_factor	= 1.0
+control_inertion_factor = 1.0
 inv_name = st_helm_protective
 inv_name_short = st_helm_protective
 description = st_helm_protective_descr
@@ -1144,7 +1140,7 @@ wound_immunity = 0.0
 wound_2_immunity = 0.0
 radiation_immunity = 0.0
 telepatic_immunity = 0.0
-chemical_burn_immunity	= 0.0
+chemical_burn_immunity = 0.0
 explosion_immunity = 0.03
 fire_wound_immunity = 0.035
 
@@ -1155,7 +1151,7 @@ fire_wound_immunity = 0.035
 [helm_tactic]:helmet
 $spawn = "outfit\helm_tactic"
 visual = dynamics\outfit\helm_tactic
-control_inertion_factor	= 1.0
+control_inertion_factor = 1.0
 inv_name = st_helm_tactic
 inv_name_short = st_helm_tactic
 description = st_helm_tactic_descr
@@ -1174,7 +1170,7 @@ upgr_icon_height = 143
 
 cost = 7000
 
-nightvision_sect	= effector_nightvision_1
+nightvision_sect = effector_nightvision_1
 
 immunities_sect = sect_helm_tactic_immunities
 bones_koeff_protection = actor_helm_tactic
@@ -1186,7 +1182,7 @@ strike_protection = 0.0
 explosion_protection = 0.0
 wound_protection = 0.0
 
-;nearest_enemies_show_dist	= 20
+;nearest_enemies_show_dist = 20
 
 upgrades = up_gr_firstab_helm_tactic, up_gr_seconab_helm_tactic
 installed_upgrades =
@@ -1200,7 +1196,7 @@ wound_immunity = 0.0
 wound_2_immunity = 0.0
 radiation_immunity = 0.0
 telepatic_immunity = 0.0
-chemical_burn_immunity	= 0.02
+chemical_burn_immunity = 0.02
 explosion_immunity = 0.02
 fire_wound_immunity = 0.015
 
@@ -1211,7 +1207,7 @@ fire_wound_immunity = 0.015
 [helm_battle]:helmet
 $spawn = "outfit\helm_battle"
 visual = dynamics\outfit\helm_battle
-control_inertion_factor	= 1.0
+control_inertion_factor = 1.0
 inv_name = st_helm_battle
 inv_name_short = st_helm_battle
 description = st_helm_battle_descr
@@ -1230,7 +1226,7 @@ upgr_icon_height = 143
 
 cost = 6000
 
-nightvision_sect	= effector_nightvision_2
+nightvision_sect = effector_nightvision_2
 
 immunities_sect = sect_helm_battle_immunities
 bones_koeff_protection = actor_helm_battle
@@ -1254,7 +1250,7 @@ wound_immunity = 0.0
 wound_2_immunity = 0.0
 radiation_immunity = 0.0
 telepatic_immunity = 0.0
-chemical_burn_immunity	= 0.02
+chemical_burn_immunity = 0.02
 explosion_immunity = 0.01
 fire_wound_immunity = 0.01
 
@@ -1263,7 +1259,7 @@ fire_wound_immunity = 0.01
 ;*****************************************************************
 
 [stalker_outfit_barge]:stalker_outfit
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\stalker_outfit_barge"
 
@@ -1274,7 +1270,7 @@ installed_upgrades = up_firsta_stalker_outfit, up_firstc_stalker_outfit, up_seco
 upgrade_scheme = upgrade_scheme_stalker_outfit
 
 [helm_hardhat_snag]:helm_hardhat
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\helm_hardhat_snag"
 
@@ -1285,7 +1281,7 @@ installed_upgrades = up_firsta_helm_hardhat
 upgrade_scheme = upgrade_scheme_helm_hardhat
 
 [helm_respirator_joker]:helm_respirator
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\helm_respirator_joker"
 

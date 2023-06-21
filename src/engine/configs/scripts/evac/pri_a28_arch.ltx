@@ -26,13 +26,13 @@ on_info = {+pri_a28_colonel_ok_go_here} camper@kovalski_arch_2
 
 [camper@kovalski_arch_2]:walker@kovalski_ignore
 path_walk = kovalski_2_walk
-path_look = kovalski_2_look 
+path_look = kovalski_2_look
 out_restr = pri_a28_sr_arch_2
 on_signal = path_end | camper@kovalski_arch_2_wait
 
 [camper@kovalski_arch_2_wait]:walker@kovalski_ignore
 path_walk = kovalski_2_walk
-path_look = kovalski_2_look 
+path_look = kovalski_2_look
 out_restr = pri_a28_sr_arch_2
 on_info = {+pri_a28_evac_com_where_you} remark@kovalski_arch_2
 
@@ -74,8 +74,6 @@ out_restr = pri_a28_sr_arch_2
 on_signal = sound_end | %+pri_a28_arch_done%
 on_game_timer = 10 | %=play_sound(pri_a28_colonel_ready_to_go)%
 
-
-
 [logic@pri_a28_strelok_arch]
 active = camper@strelok_arch_1
 suitable = {-pri_a28_arch_done =check_npc_name(strelok)} true
@@ -100,10 +98,8 @@ on_info = {+pri_a28_colonel_ok_go_here} camper@strelok_arch_2 %=disable_memory_o
 
 [camper@strelok_arch_2]:walker@ignore
 path_walk = strelok_2_walk
-path_look = strelok_2_look 
+path_look = strelok_2_look
 out_restr = pri_a28_sr_arch_2
-
-
 
 [logic@pri_a28_military_1_arch]
 active = camper@military_1_arch_1
@@ -128,10 +124,8 @@ on_info = {+pri_a28_colonel_ok_go_here} camper@military_1_arch_2 %=disable_memor
 
 [camper@military_1_arch_2]:walker@ignore
 path_walk = military_1_2_walk
-path_look = military_1_2_look 
+path_look = military_1_2_look
 out_restr = pri_a28_sr_arch_2
-
-
 
 [logic@pri_a28_military_2_arch]
 active = camper@military_2_arch_1
@@ -156,10 +150,8 @@ on_info = {+pri_a28_colonel_ok_go_here} camper@military_2_arch_2 %=disable_memor
 
 [camper@military_2_arch_2]:walker@ignore
 path_walk = military_2_2_walk
-path_look = military_2_2_look 
+path_look = military_2_2_look
 out_restr = pri_a28_sr_arch_2
-
-
 
 [logic@pri_a28_military_3_arch]
 active = camper@military_3_arch_1_fight
@@ -182,8 +174,6 @@ path_look = military_3_2_look
 no_retreat = false
 out_restr = pri_a28_sr_arch_2
 
-
-
 [logic@pri_a28_military_4_arch]
 active = camper@military_4_arch_1_fight
 suitable = {-pri_a28_arch_done =target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(kovalski)} true
@@ -205,8 +195,6 @@ path_look = military_4_2_look
 no_retreat = false
 out_restr = pri_a28_sr_arch_2
 
-
-
 [logic@pri_a28_military_5_arch]
 active = camper@military_5_arch_1_fight
 suitable = {-pri_a28_arch_done =target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(kovalski)} true
@@ -227,8 +215,6 @@ path_walk = military_5_2_walk
 path_look = military_5_2_look
 no_retreat = false
 out_restr = pri_a28_sr_arch_2
-
-
 
 [logic@pri_a28_military_6_arch]
 active = camper@military_6_arch_1_fight

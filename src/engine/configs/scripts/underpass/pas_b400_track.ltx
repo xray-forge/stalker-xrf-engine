@@ -1,7 +1,7 @@
 #include "pas_b400_general.ltx"
 
 [logic@pas_b400_zulus_track]
-active = walker@zulus_track_1 
+active = walker@zulus_track_1
 suitable = {=check_npc_name(pas_b400_zulus) -pas_b400_track_done} true
 prior = 200
 on_hit = hit@zulus
@@ -59,10 +59,8 @@ out_restr = pas_b400_sr_track_4
 on_signal = path_end | {-pas_b400_zulus_about_obstacle_2} %=play_sound(pas_b400_zulus_about_obstacle_2) +pas_b400_zulus_about_obstacle_2%
 combat_ignore_cond = {-pas_b400_track_door_opened =check_enemy_smart(pas_b400_downstairs)} true, false
 
-
-
 [logic@pas_b400_vano_track]
-active = walker@vano_track_1 
+active = walker@vano_track_1
 suitable = {=check_npc_name(pas_b400_vano) -pas_b400_track_done} true
 prior = 200
 on_hit = hit@vano
@@ -104,7 +102,7 @@ on_signal = path_end | remark@vano_track_3_2
 target = path | pas_b400_track_vano_3_2_look, 0
 anim = pas_b400_vano_probe
 out_restr = pas_b400_sr_track_3_1
-on_game_timer = 25 | %=play_sound(pas_b400_vano_about_anomaly_first_3)% 
+on_game_timer = 25 | %=play_sound(pas_b400_vano_about_anomaly_first_3)%
 on_signal = anim_end | walker@vano_track_3_3 %+pas_b400_track_anomaly_done%
 
 [walker@vano_track_3_3]:walker@vano_def
@@ -139,10 +137,8 @@ path_look = vano_5_1_look
 out_restr = pas_b400_sr_track_4
 combat_ignore_cond = {-pas_b400_track_door_opened =check_enemy_smart(pas_b400_downstairs)} true, false
 
-
-
 [logic@pas_b400_sokolov_track]
-active = walker@sokolov_track_1 
+active = walker@sokolov_track_1
 suitable = {=check_npc_name(pas_b400_sokolov) -pas_b400_track_done} true
 prior = 200
 on_hit = hit@sokolov
@@ -190,10 +186,8 @@ path_look = sokolov_5_1_look
 out_restr = pas_b400_sr_track_4
 combat_ignore_cond = {-pas_b400_track_door_opened =check_enemy_smart(pas_b400_downstairs)} true, false
 
-
-
 [logic@pas_b400_wanderer_track]
-active = walker@wanderer_track_1 
+active = walker@wanderer_track_1
 suitable = {=check_npc_name(pas_b400_wanderer) -pas_b400_track_done} true
 prior = 200
 on_hit = hit@wanderer

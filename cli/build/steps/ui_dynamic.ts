@@ -39,7 +39,7 @@ export async function buildDynamicUi(parameters: IBuildCommandParameters): Promi
     await Promise.all(
       xmlConfigs.map(async ([from, to]) => {
         const xmlSource = await import(from);
-        const xmlContent = typeof xmlSource?.create === "function" && xmlSource?.IS_XML && xmlSource?.create();
+        const xmlContent = typeof xmlSource?.create === "function" && xmlSource?.create();
 
         if (xmlContent) {
           log.debug("TRANSFORM:", blue(to));

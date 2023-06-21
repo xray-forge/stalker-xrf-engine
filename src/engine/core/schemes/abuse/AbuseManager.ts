@@ -20,7 +20,7 @@ export class AbuseManager extends AbstractSchemeManager<ISchemeAbuseState> {
   /**
    * @returns whether target is abused
    */
-  public override update(): boolean {
+  public update(): boolean {
     if (!this.isEnabled) {
       return false;
     }

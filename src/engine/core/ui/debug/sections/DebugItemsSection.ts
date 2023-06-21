@@ -3,8 +3,7 @@ import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, LuabindClass, ui_event
 import { registry } from "@/engine/core/database";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemListEntry";
-import { isGameStarted } from "@/engine/core/utils/alife";
-import { isAmmoSection } from "@/engine/core/utils/check/is";
+import { isAmmoSection, isGameStarted } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   getAmmoSections,

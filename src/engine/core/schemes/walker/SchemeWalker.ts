@@ -4,11 +4,11 @@ import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionWalkerActivity } from "@/engine/core/schemes/walker/actions";
 import { EvaluatorNeedWalker } from "@/engine/core/schemes/walker/evaluators";
 import { ISchemeWalkerState } from "@/engine/core/schemes/walker/ISchemeWalkerState";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { addCommonPrecondition } from "@/engine/core/utils/scheme";
+import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/setup";
 import { ActionPlanner, ClientObject, IniFile, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -26,28 +26,27 @@ export class SchemeWalker extends AbstractScheme {
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    additional: string
+    smartTerrain: TName
   ): void {
+    logger.info("Activate scheme:", object.name());
+
     const state: ISchemeWalkerState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.path_walk = readIniString(ini, section, "path_walk", true, additional);
+    state.path_walk = readIniString(ini, section, "path_walk", true, smartTerrain);
 
-    if (!level.patrol_path_exists(state.path_walk)) {
-      abort("there is no patrol path %s", state.path_walk);
-    }
+    assert(level.patrol_path_exists(state.path_walk), "There is no patrol path %s", state.path_walk);
 
-    state.path_look = readIniString(ini, section, "path_look", false, additional);
+    state.path_look = readIniString(ini, section, "path_look", false, smartTerrain);
 
-    if (state.path_walk === state.path_look) {
-      abort(
-        "You are trying to set 'path_look' equal to 'path_walk' in section [%s] for npc [%s]",
-        section,
-        object.name()
-      );
-    }
+    assert(
+      state.path_walk !== state.path_look,
+      "You are trying to set 'path_look' equal to 'path_walk' in section [%s] for npc [%s]",
+      section,
+      object.name()
+    );
 
-    state.team = readIniString(ini, section, "team", false, additional);
+    state.team = readIniString(ini, section, "team", false, smartTerrain);
     state.sound_idle = readIniString(ini, section, "sound_idle", false, "");
     state.use_camp = readIniBoolean(ini, section, "use_camp", false, false);
 
@@ -81,7 +80,7 @@ export class SchemeWalker extends AbstractScheme {
     actionWalkerActivity.add_precondition(new world_property(stalker_ids.property_anomaly, false));
     actionWalkerActivity.add_precondition(new world_property(EEvaluatorId.NEED_WALKER, true));
 
-    addCommonPrecondition(actionWalkerActivity);
+    addCommonActionPreconditions(actionWalkerActivity);
 
     actionWalkerActivity.add_effect(new world_property(EEvaluatorId.NEED_WALKER, false));
     actionWalkerActivity.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));

@@ -23,6 +23,7 @@ import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { NIL } from "@/engine/lib/constants/words";
 import {
+  AlifeSimulator,
   AnyCallablesModule,
   ClientObject,
   GameTask,
@@ -189,7 +190,7 @@ export class TaskObject {
     gameTask.set_description(this.currentDescription);
     gameTask.set_priority(this.priority);
     gameTask.set_icon_name(this.icon);
-    // todo: Rename callbacks.
+
     gameTask.add_complete_func("engine.is_task_completed");
     gameTask.add_fail_func("engine.is_task_failed");
 
@@ -309,10 +310,11 @@ export class TaskObject {
       return;
     }
 
-    const alifeObject: Optional<ServerObject> = alife().object(target);
+    const simulator: AlifeSimulator = alife();
+    const alifeObject: Optional<ServerObject> = simulator.object(target);
 
     if (alifeObject !== null) {
-      const targetLevel: TLevel = alife().level_name(game_graph().vertex(alifeObject.m_game_vertex_id).level_id());
+      const targetLevel: TLevel = simulator.level_name(game_graph().vertex(alifeObject.m_game_vertex_id).level_id());
       const levelName: TLevel = level.name();
 
       if (levelName === targetLevel) {

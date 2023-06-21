@@ -33,8 +33,6 @@ aggressive = true
 [hit@pri_a28_snork_hit]
 on_info = {~33 +pri_a28_colonel_about_snork} %=kill_npc%
 
-
-
 [logic@pri_a28_snork_2_school]
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_school_snorks_1)} true
 prior = 100
@@ -58,8 +56,6 @@ ph_jump_factor = 1
 on_signal = jumped | mob_home@pri_a28_snork_2_school_home
 
 [mob_home@pri_a28_snork_2_school_home]:mob_home@pri_a28_snork_1_school_home
-
-
 
 [logic@pri_a28_snork_3_school]
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_school_snorks_1)} true
@@ -85,8 +81,6 @@ on_signal = jumped | mob_home@pri_a28_snork_3_school_home
 
 [mob_home@pri_a28_snork_3_school_home]:mob_home@pri_a28_snork_1_school_home
 
-
-
 [logic@pri_a28_snork_4_school]
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_school_snorks_1)} true
 prior = 100
@@ -110,11 +104,6 @@ ph_jump_factor = 0.95
 on_signal = jumped | mob_home@pri_a28_snork_4_school_home
 
 [mob_home@pri_a28_snork_4_school_home]:mob_home@pri_a28_snork_1_school_home
-
-
-
-
-
 
 [logic@pri_a28_snork_5_school]
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_school_snorks_2)} true
@@ -152,8 +141,6 @@ path_home = snork_2_attack
 aggressive = true
 on_game_timer = 25 | {=npc_in_zone(pri_a28_school_in_restrictor)} mob_jump@pri_a28_snork_5_school_jump
 
-
-
 [logic@pri_a28_snork_6_school]
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_school_snorks_2)} true
 prior = 100
@@ -180,8 +167,6 @@ on_signal = jumped | mob_home@pri_a28_snork_6_school_home
 
 [mob_home@pri_a28_snork_6_school_home]:mob_home@pri_a28_snork_5_school_home
 on_game_timer = 25 | {=npc_in_zone(pri_a28_school_in_restrictor)} mob_jump@pri_a28_snork_6_school_jump
-
-
 
 [logic@pri_a28_snork_7_school]
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_school_snorks_2)} true
@@ -210,8 +195,6 @@ on_signal = jumped | mob_home@pri_a28_snork_7_school_home
 [mob_home@pri_a28_snork_7_school_home]:mob_home@pri_a28_snork_5_school_home
 on_game_timer = 25 | {=npc_in_zone(pri_a28_school_in_restrictor)} mob_jump@pri_a28_snork_7_school_jump
 
-
-
 [logic@pri_a28_snork_8_school]
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_school_snorks_2)} true
 prior = 100
@@ -238,8 +221,6 @@ on_signal = jumped | mob_home@pri_a28_snork_8_school_home
 
 [mob_home@pri_a28_snork_8_school_home]:mob_home@pri_a28_snork_5_school_home
 on_game_timer = 25 | {=npc_in_zone(pri_a28_school_in_restrictor)} mob_jump@pri_a28_snork_8_school_jump
-
-
 
 [logic@pri_a28_snork_9_school]
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_school_snorks_2)} true

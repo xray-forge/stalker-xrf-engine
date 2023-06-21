@@ -1,10 +1,10 @@
 [meet@jup_b41_animpoint_meet]
-close_anim 		= nil
-close_victim 	= nil
-far_anim 		= nil
-far_victim 		= nil
-close_distance 	= 0
-far_distance 	= 0
+close_anim = nil
+close_victim = nil
+far_anim = nil
+far_victim = nil
+close_distance = 0
+far_distance = 0
 snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {=has_enemy} meet_use_no_fight, {=actor_has_weapon} meet_use_no_weapon, {!dist_to_actor_le(3)} nil
 use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false
 meet_on_talking = false
@@ -35,14 +35,14 @@ in_restr = jup_b41_sr_light
 meet = meet@default
 
 [meet@default]
-close_anim 		= nil
-close_victim 	= nil
-far_anim 		= nil
-far_victim 		= nil
-close_distance  = 2
-far_distance 	= 0
+close_anim = nil
+close_victim = nil
+far_anim = nil
+far_victim = nil
+close_distance = 2
+far_distance = 0
 close_snd_distance = 2
-use =  true
+use = true
 allow_break = false
 trade_enable = false
 
@@ -61,7 +61,7 @@ commander = true
 formation = back
 on_signal = at_pos | %+jup_b1_st_mission -jup_b1_go_on_task%
 meet = no_meet
-on_info = {=health_le(0.5) !actor_enemy} %=restore_health% 
+on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 on_info2 = {=dist_to_actor_ge(140) =dist_to_story_obj_ge(jup_b1_half_artifact:260) -jup_b1_teleport_squad_only} %+jup_b1_teleport_squad_only%
 
 [animpoint@jup_b41_stalker_1_reach_hide]
@@ -74,8 +74,8 @@ on_info2 = {=has_enemy} walker@jup_b1_stalker_1_home
 out_restr = jup_b41_sr_light
 
 [meet@stalker_1]
-close_distance 	= 0
-far_distance 	= 0
+close_distance = 0
+far_distance = 0
 
 [animpoint@jup_b41_stalker_1_hide]
 cover_name = jup_b41_animp_surge_1
@@ -92,8 +92,7 @@ on_info = {=surge_complete} walker@jup_b1_stalker_1_home
 on_info = {=actor_enemy} %+jup_b1_actor_atk_squad%
 
 [death@stalker_1]
-on_info = {=killed_by_actor -jup_b1_st_mission +jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead +jup_b1_stalker_4_is_dead} %+jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_1_is_dead +jup_b1_squad_is_dead  =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, {-jup_b1_st_mission +jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead +jup_b1_stalker_4_is_dead} %+jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_1_is_dead +jup_b1_squad_is_dead%, {=killed_by_actor +jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead +jup_b1_stalker_4_is_dead} %+jup_b1_squad_is_dead +jup_b1_stalker_1_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, {+jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead +jup_b1_stalker_4_is_dead} %+jup_b1_squad_is_dead +jup_b1_stalker_1_is_dead%, {=killed_by_actor} %+jup_b1_stalker_1_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, %+jup_b1_stalker_1_is_dead%
-
+on_info = {=killed_by_actor -jup_b1_st_mission +jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead +jup_b1_stalker_4_is_dead} %+jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_1_is_dead +jup_b1_squad_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, {-jup_b1_st_mission +jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead +jup_b1_stalker_4_is_dead} %+jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_1_is_dead +jup_b1_squad_is_dead%, {=killed_by_actor +jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead +jup_b1_stalker_4_is_dead} %+jup_b1_squad_is_dead +jup_b1_stalker_1_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, {+jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead +jup_b1_stalker_4_is_dead} %+jup_b1_squad_is_dead +jup_b1_stalker_1_is_dead%, {=killed_by_actor} %+jup_b1_stalker_1_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, %+jup_b1_stalker_1_is_dead%
 
 [logic@jup_b1_stalker_2_home]
 suitable = {=check_npc_name(jup_b1_stalker_2)} true, {=check_npc_name(jup_b6_freedom_stalker_2)} true, {=check_npc_name(jup_b6_duty_stalker_2)} true, {=check_npc_name(jup_b6_stalker_garmata)} true, {=check_npc_name(jup_b6_stalker_assaulter)} true
@@ -120,7 +119,6 @@ on_info = {=surge_complete} animpoint@jup_b1_stalker_2_home
 [death@stalker_2]
 on_info = {=killed_by_actor -jup_b1_st_mission +jup_b1_stalker_1_is_dead +jup_b1_stalker_3_is_dead +jup_b1_stalker_4_is_dead} %+jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_2_is_dead +jup_b1_squad_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, {-jup_b1_st_mission +jup_b1_stalker_1_is_dead +jup_b1_stalker_3_is_dead +jup_b1_stalker_4_is_dead} %+jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_2_is_dead +jup_b1_squad_is_dead%, {=killed_by_actor +jup_b1_stalker_1_is_dead +jup_b1_stalker_3_is_dead +jup_b1_stalker_4_is_dead} %+jup_b1_squad_is_dead +jup_b1_stalker_2_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, {+jup_b1_stalker_1_is_dead +jup_b1_stalker_3_is_dead +jup_b1_stalker_4_is_dead} %+jup_b1_squad_is_dead +jup_b1_stalker_2_is_dead%, {=killed_by_actor} %+jup_b1_stalker_2_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, %+jup_b1_stalker_2_is_dead%
 
-
 [logic@jup_b1_stalker_3_home]
 suitable = {=check_npc_name(jup_b1_stalker_3)} true, {=check_npc_name(jup_b6_freedom_stalker_3)} true, {=check_npc_name(jup_b6_duty_stalker_3)} true
 prior = 65
@@ -146,9 +144,8 @@ on_info = {=surge_complete} animpoint@jup_b1_stalker_3_home
 [death@stalker_3]
 on_info = {=killed_by_actor -jup_b1_st_mission +jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_4_is_dead} %+jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_3_is_dead +jup_b1_squad_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, {-jup_b1_st_mission +jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_4_is_dead} %+jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_3_is_dead +jup_b1_squad_is_dead%, {=killed_by_actor +jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_4_is_dead} %+jup_b1_squad_is_dead +jup_b1_stalker_3_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, {+jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_4_is_dead} %+jup_b1_squad_is_dead +jup_b1_stalker_3_is_dead%, {=killed_by_actor} %+jup_b1_stalker_3_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, %+jup_b1_stalker_3_is_dead%
 
-
-[logic@jup_b1_stalker_4_home] ;у бункера
-suitable = {=check_npc_name(jup_b1_stalker_4)} true, {=check_npc_name(jup_b6_freedom_stalker_4)} true, {=check_npc_name(jup_b6_duty_stalker_4)} true, {=check_npc_name(jup_b6_stalker_crab)} true,  {=check_npc_name(jup_b6_stalker_diplomat)} true
+[logic@jup_b1_stalker_4_home] ;пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+suitable = {=check_npc_name(jup_b1_stalker_4)} true, {=check_npc_name(jup_b6_freedom_stalker_4)} true, {=check_npc_name(jup_b6_duty_stalker_4)} true, {=check_npc_name(jup_b6_stalker_crab)} true, {=check_npc_name(jup_b6_stalker_diplomat)} true
 prior = 70
 active = animpoint@jup_b1_stalker_4_home
 on_death = death@stalker_4
@@ -169,11 +166,10 @@ on_info2 = {=has_enemy} animpoint@jup_b1_stalker_4_home
 cover_name = jup_b41_animp_surge_4
 on_info = {=surge_complete} animpoint@jup_b1_stalker_4_home
 
-
 [death@stalker_4]
 on_info = {=killed_by_actor -jup_b1_st_mission +jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead} %+jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_4_is_dead +jup_b1_squad_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, {-jup_b1_st_mission +jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead} %+jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_4_is_dead +jup_b1_squad_is_dead%, {=killed_by_actor +jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead} %+jup_b1_squad_is_dead +jup_b1_stalker_4_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, {+jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead} %+jup_b1_squad_is_dead +jup_b1_stalker_4_is_dead%, {=killed_by_actor} %+jup_b1_stalker_4_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, %+jup_b1_stalker_4_is_dead%
 
-;---------------------------------------------------------------------Научная группа---------------------------------------------------------------------
+;---------------------------------------------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ---------------------------------------------------------------------
 [animpoint@jup_b41_animp_gen_pro]
 reach_movement = walk
 use_camp = false

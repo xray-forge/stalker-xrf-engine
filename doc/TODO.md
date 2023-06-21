@@ -3,10 +3,7 @@
 ## 🧰 Main todos
 
 - Create xrf.ltx config and place extended game configs in it
-- Scripts to unpack raw_gamedata for observation / usage
-- Rework acdc perl script and add all.spawn editing utils
-- Interop with level editor tools etc
-- Add linux/windows custom CLI script
+- Update statistics measurements to be more generic and less hardcoded
 
 ## 🧰 Tech
 

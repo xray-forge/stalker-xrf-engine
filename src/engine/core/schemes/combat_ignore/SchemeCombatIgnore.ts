@@ -1,6 +1,5 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes";
-import { getObjectGenericSchemeOverrides } from "@/engine/core/schemes/base/utils/getObjectGenericSchemeOverrides";
 import { CombatProcessEnemyManager } from "@/engine/core/schemes/combat_ignore/CombatProcessEnemyManager";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore/ISchemeCombatIgnoreState";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -54,6 +53,6 @@ export class SchemeCombatIgnore extends AbstractScheme {
     SchemeCombatIgnore.subscribe(object, schemeState, schemeState.action);
 
     schemeState.enabled = true;
-    schemeState.overrides = getObjectGenericSchemeOverrides(object);
+    schemeState.overrides = state.overrides;
   }
 }

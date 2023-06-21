@@ -7,8 +7,6 @@ import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDi
 import { WHITE } from "@/engine/lib/constants/colors";
 import { textures } from "@/engine/lib/constants/textures";
 
-export const IS_XML: boolean = true;
-
 export function create(): JSXNode {
   return (
     <XrRoot>

@@ -173,14 +173,14 @@ export class DebugManager extends AbstractCoreManager {
     const state: IRegistryObjectState = registry.objects.get(object.id());
 
     logger.info("Object section:", object.section());
-    logger.info("Ini file name:", state.ini_filename);
-    logger.info("Section logic:", state.section_logic);
+    logger.info("Ini file name:", state.iniFilename);
+    logger.info("Section logic:", state.sectionLogic);
     logger.info("Scheme type:", ESchemeType[state.schemeType]);
-    logger.info("Active scheme:", state.active_scheme);
-    logger.info("Active section:", state.active_section);
-    logger.info("Active gulag name:", state.gulag_name);
-    logger.info("Activation time:", state.activation_time);
-    logger.info("Activation game time:", gameTimeToString(state.activation_game_time));
+    logger.info("Active scheme:", state.activeScheme);
+    logger.info("Active section:", state.activeSection);
+    logger.info("Smart terrain name:", state.smartTerrainName);
+    logger.info("Activation time:", state.activationTime);
+    logger.info("Activation game time:", gameTimeToString(state.activationGameTime));
     logger.info("Portable store:", toJSON(state.portableStore));
     logger.info("State overrides:", toJSON(state.overrides));
     logger.info("Enemy id:", state.enemy_id);
@@ -190,7 +190,7 @@ export class DebugManager extends AbstractCoreManager {
 
     logger.pushSeparator();
 
-    logger.info("State of scheme:", toJSON(state.active_scheme ? state[state.active_scheme] : null, "\n", 0, 4));
+    logger.info("State of scheme:", toJSON(state.activeScheme ? state[state.activeScheme] : null, "\n", 0, 4));
 
     logger.pushSeparator();
   }

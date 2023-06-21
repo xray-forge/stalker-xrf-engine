@@ -1,7 +1,7 @@
 [logic@zat_b5_stalker_raider_1]
 active = walker@start
 ;suitable = {=check_npc_name(zat_b5_stalker_raider_1) -zat_b5_leave_for_bandit_quest -zat_b5_actor_help_bandits}
-suitable = {=check_npc_name(zat_b5_stalker_raider_1)  -zat_b5_task_end}
+suitable = {=check_npc_name(zat_b5_stalker_raider_1) -zat_b5_task_end}
 prior = 100
 on_hit = hit
 post_combat_time = 0,0
@@ -22,7 +22,7 @@ danger = danger
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
-combat_ignore_cond =  {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
+combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
 [walker@start_work_bandit]
 path_walk = zat_b5_bandit_1_walker_1_walk
@@ -89,7 +89,7 @@ corpse_detection_enabled = false
 anim = guard_na
 target = story | actor
 on_info = %=play_sound(zat_b5_bandits_see_actor)%
-on_signal = sound_end  | walker@fight %+zat_b5_meat%
+on_signal = sound_end | walker@fight %+zat_b5_meat%
 meet = no_meet
 combat_ignore_cond = {=check_enemy_name(zat_b5_dealer_assistant:zat_b7_duty_illicit_dealer:zat_b5_actor_with_bandits:zat_b5_actor_with_dealer)} true, {=check_enemy_name(zat_b5_stalker_commander:zat_b5_stalker)} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 danger = danger
@@ -144,7 +144,7 @@ def_state_moving1 = run
 def_state_standing = guard_na
 meet = no_meet
 ;on_actor_dist_le = 20 | {+zat_b5_actor_with_stalkers} remark@see_actor %+zat_b5_meat%
-on_info =  {+zat_b5_meat} walker@fight
+on_info = {+zat_b5_meat} walker@fight
 on_info2 = {=see_actor =actor_see_npc} remark@see_actor %+1see%
 on_actor_in_zone = zat_sr_check_enemy_dist | remark@see_actor ;%+zat_b5_break_cutscene +zat_b5_stalker_attack_dealer%
 on_sound = actor|WPN_shoot|10000|0.1| {=dist_to_actor_le(45)} walker@fight %+zat_b5_meat%

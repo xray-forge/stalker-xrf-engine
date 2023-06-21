@@ -5,7 +5,7 @@ active = sr_idle@wait_cam_3
 on_info = {+pri_b305_third_cam_start} sr_idle@cam_3_sound_1
 
 [sr_idle@cam_3_sound_1]
-on_game_timer  = 20 | {-pri_b305_kirilov_signal_next_to_actor_done} %=play_sound(pri_b305_kirilov_signal_next_to_actor) +pri_b305_kirilov_signal_next_to_actor_done%
+on_game_timer = 20 | {-pri_b305_kirilov_signal_next_to_actor_done} %=play_sound(pri_b305_kirilov_signal_next_to_actor) +pri_b305_kirilov_signal_next_to_actor_done%
 on_signal = sound_end | {-pri_b305_kirilov_signal_next_to_actor_done_end} sr_idle@cam_3_sound_2 %+pri_b305_kirilov_signal_next_to_actor_done_end%
 
 [sr_idle@cam_3_sound_2]

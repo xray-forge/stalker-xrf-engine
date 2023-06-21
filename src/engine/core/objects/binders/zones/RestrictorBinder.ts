@@ -14,9 +14,8 @@ import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ESchemeEvent } from "@/engine/core/schemes";
-import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
-import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import { NetPacket, Reader, ServerObject, TDuration, TNumberId } from "@/engine/lib/types";
 import { ESchemeType } from "@/engine/lib/types/scheme";
 
@@ -60,8 +59,8 @@ export class RestrictorBinder extends object_binder {
 
     const state: IRegistryObjectState = this.state;
 
-    if (state.active_scheme !== null) {
-      emitSchemeEvent(this.object, state[state.active_scheme!]!, ESchemeEvent.NET_DESTROY);
+    if (state.activeScheme !== null) {
+      emitSchemeEvent(this.object, state[state.activeScheme!]!, ESchemeEvent.NET_DESTROY, this.object);
     }
 
     unregisterZone(this.object);
@@ -76,11 +75,11 @@ export class RestrictorBinder extends object_binder {
     if (!this.isInitialized) {
       this.isInitialized = true;
 
-      initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, registry.actor, ESchemeType.RESTRICTOR);
+      initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, ESchemeType.RESTRICTOR);
     }
 
-    if (this.state.active_section !== null) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
+    if (this.state.activeSection !== null) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.UPDATE, delta);
     }
 
     GlobalSoundManager.getInstance().update(objectId);

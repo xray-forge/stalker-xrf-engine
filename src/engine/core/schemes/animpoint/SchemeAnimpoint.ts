@@ -10,7 +10,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { parseStringsList } from "@/engine/core/utils/ini/parse";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { addCommonPrecondition } from "@/engine/core/utils/scheme";
+import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/setup";
 import { ActionPlanner, ClientObject, IniFile, Optional } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -78,7 +78,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     actionReachAnimpoint.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, true));
     actionReachAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_REACHED, false));
-    addCommonPrecondition(actionReachAnimpoint);
+    addCommonActionPreconditions(actionReachAnimpoint);
     actionReachAnimpoint.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, false));
     actionReachAnimpoint.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     actionPlanner.add_action(EActionId.ANIMPOINT_REACH, actionReachAnimpoint);
@@ -92,7 +92,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     actionAnimpoint.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, true));
     actionAnimpoint.add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_REACHED, true));
-    addCommonPrecondition(actionAnimpoint);
+    addCommonActionPreconditions(actionAnimpoint);
     actionAnimpoint.add_effect(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, false));
     actionAnimpoint.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
     actionPlanner.add_action(EActionId.ANIMPOINT_ACTIVITY, actionAnimpoint);

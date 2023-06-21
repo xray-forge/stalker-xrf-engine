@@ -1,4 +1,5 @@
-import { ActionBase, ClientObject, Optional, WorldProperty } from "@/engine/lib/types";
+import { ActionBase, ClientObject, Optional } from "@/engine/lib/types";
+import { MockWorldProperty } from "@/fixtures/xray/mocks/actions";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 
 /**
@@ -8,8 +9,8 @@ export class MockActionBase extends MockLuabindClass {
   public object: Optional<ClientObject>;
   public name: string;
 
-  public preconditions: Array<WorldProperty> = [];
-  public effects: Array<WorldProperty> = [];
+  public preconditions: Array<MockWorldProperty> = [];
+  public effects: Array<MockWorldProperty> = [];
 
   public constructor(object: Optional<ClientObject> = null, name: string) {
     super();
@@ -26,19 +27,19 @@ export class MockActionBase extends MockLuabindClass {
     this.object = object;
   }
 
-  public add_precondition(property: WorldProperty): void {
+  public add_precondition(property: MockWorldProperty): void {
     this.preconditions.push(property);
   }
 
-  public add_effect(property: WorldProperty): void {
+  public add_effect(property: MockWorldProperty): void {
     this.effects.push(property);
   }
 
-  public getPrecondition(id: number): Optional<WorldProperty> {
+  public getPrecondition(id: number): Optional<MockWorldProperty> {
     return this.preconditions.find((it) => it.condition() === id) ?? null;
   }
 
-  public getEffect(id: number): Optional<WorldProperty> {
+  public getEffect(id: number): Optional<MockWorldProperty> {
     return this.effects.find((it) => it.condition() === id) ?? null;
   }
 }

@@ -2,349 +2,339 @@
 skin_path = actors\stalker_mp\
 
 [mp_actor]:common_ph_friction_params_on_npc_death
-GroupControlSection   = spawn_group
-$spawn          = "mp_actor"
-$ed_icon        = ed\ed_actor
-$player         = on
-$prefetch         = 16
-cform                   = skeleton
-class                   = O_ACTOR
-money         = 200;
-rank          = 3;
-jump_speed              = 6.1 ;6 
-crouch_coef       =  0.45 ; 0.2
-climb_coef        = 0.9
-air_control_param   = 0.05 ;0.03 ;0.1
-max_item_mass     = 0 ;35.0;40.0
-run_coef                = 2.7 ;2.6 ;2.5  
-sprint_koef         = 1.8 ;2.15 ; 2.5 1.6 ;1.5 ; было 2.0
-run_back_coef     = 1.8
-walk_back_coef      = 0.9
-walk_strafe_coef    = 0.6 ;0.8 ;0.9 
-run_strafe_coef     = 0.7
-visual          = actors\stalker_hero\stalker_hero_1.ogf
-destroyed_vis_name    = dynamics\Dead_Body\skelet_crash
-walk_accel              = 22 ;19 
-texture_prefetch    = actors\stalker_mp\mp_team_green_1, actors\stalker_mp\mp_team_green_2, actors\stalker_mp\mp_team_green_3, actors\stalker_mp\mp_team_green_4, actors\stalker_mp\mp_team_blue_1, actors\stalker_mp\mp_team_blue_2, actors\stalker_mp\mp_team_blue_3, actors\stalker_mp\mp_team_blue_4, actors\stalker_mp\mp_team_green_addon_fr, actors\stalker_mp\mp_team_green_addon_uk, actors\stalker_mp\mp_team_blue_addon_de, actors\stalker_mp\mp_team_blue_addon_us, actors\stalker_mp\mp_team_green_armor_military, actors\stalker_mp\mp_team_green_armor_sci, actors\stalker_mp\mp_team_green_armor_exo, actors\stalker_mp\mp_team_blue_armor_military, actors\stalker_mp\mp_team_blue_armor_sci, actors\stalker_mp\mp_team_blue_armor_exo
+GroupControlSection = spawn_group
+$spawn = "mp_actor"
+$ed_icon = ed\ed_actor
+$player = on
+$prefetch = 16
+cform = skeleton
+class = O_ACTOR
+money = 200;
+rank = 3;
+jump_speed = 6.1 ;6
+crouch_coef = 0.45 ; 0.2
+climb_coef = 0.9
+air_control_param = 0.05 ;0.03 ;0.1
+max_item_mass = 0 ;35.0;40.0
+run_coef = 2.7 ;2.6 ;2.5
+sprint_koef = 1.8 ;2.15 ; 2.5 1.6 ;1.5 ; пїЅпїЅпїЅпїЅ 2.0
+run_back_coef = 1.8
+walk_back_coef = 0.9
+walk_strafe_coef = 0.6 ;0.8 ;0.9
+run_strafe_coef = 0.7
+visual = actors\stalker_hero\stalker_hero_1.ogf
+destroyed_vis_name = dynamics\Dead_Body\skelet_crash
+walk_accel = 22 ;19
+texture_prefetch = actors\stalker_mp\mp_team_green_1, actors\stalker_mp\mp_team_green_2, actors\stalker_mp\mp_team_green_3, actors\stalker_mp\mp_team_green_4, actors\stalker_mp\mp_team_blue_1, actors\stalker_mp\mp_team_blue_2, actors\stalker_mp\mp_team_blue_3, actors\stalker_mp\mp_team_blue_4, actors\stalker_mp\mp_team_green_addon_fr, actors\stalker_mp\mp_team_green_addon_uk, actors\stalker_mp\mp_team_blue_addon_de, actors\stalker_mp\mp_team_blue_addon_us, actors\stalker_mp\mp_team_green_armor_military, actors\stalker_mp\mp_team_green_armor_sci, actors\stalker_mp\mp_team_green_armor_exo, actors\stalker_mp\mp_team_blue_armor_military, actors\stalker_mp\mp_team_blue_armor_sci, actors\stalker_mp\mp_team_blue_armor_exo
 
-;радиус в котром над предметами выводятся их названия
-pickup_info_radius                = 5        ;3
-feel_grenade               = 30.0 ; это нужно удалить
-feel_grenade_radius               = 30.0    ;расстояние (в метрах) на котором актер чувствует гранату (любую)
-feel_grenade_time                 = 0.6     ;время гранаты (сек) после которого актер чувствует гранату
+;пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+pickup_info_radius = 5 ;3
+feel_grenade = 30.0 ; пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+feel_grenade_radius = 30.0 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ) пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ)
+feel_grenade_time = 0.6 ;пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ) пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-Invincibility_Shield_3rd  = anomaly2\burer_shield_01
-Invincibility_Shield_1st  = anomaly2\burer_shield_01
-HeadShotParticle      = hit_fx\hit_flesh_headshot
-;HeadShotParticle     = hit_fx\hit_dust_00
+Invincibility_Shield_3rd = anomaly2\burer_shield_01
+Invincibility_Shield_1st = anomaly2\burer_shield_01
+HeadShotParticle = hit_fx\hit_flesh_headshot
+;HeadShotParticle = hit_fx\hit_dust_00
 
-;радиус в котром над предметами выводятся их названия
-pickup_info_radius    = 5 ;3
+;пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+pickup_info_radius = 5 ;3
 
-ef_creature_type    = 17            ; option for evaluation functions
+ef_creature_type = 17 ; option for evaluation functions
 
 ; attach params
-attachable_items    = mp_device_torch,attachable_item,hand_radio
+attachable_items = mp_device_torch,attachable_item,hand_radio
 
-ph_box0_center      = 0.0,  0.9,  0.0
-ph_box0_size      = 0.35, 0.9,  0.35
-ph_box1_center      = 0.0,  0.6,  0.0
-ph_box1_size      = 0.40, 0.6,  0.40
-ph_box2_center      = 0.0,  0.3,  0.0
-ph_box2_size      = 0.40, 0.3,  0.40
-restrictor_radius         = 0.9;delete
-stalker_restrictor_radius     = 0.9
-medium_monster_restrictor_radius  = 0.7
-ph_crash_speed_min                              = 15
-ph_crash_speed_max                              = 23
-ph_collision_damage_factor                        = 1.0
-ph_mass         = 80
+ph_box0_center = 0.0, 0.9, 0.0
+ph_box0_size = 0.35, 0.9, 0.35
+ph_box1_center = 0.0, 0.6, 0.0
+ph_box1_size = 0.40, 0.6, 0.40
+ph_box2_center = 0.0, 0.3, 0.0
+ph_box2_size = 0.40, 0.3, 0.40
+restrictor_radius = 0.9;delete
+stalker_restrictor_radius = 0.9
+medium_monster_restrictor_radius = 0.7
+ph_crash_speed_min = 15
+ph_crash_speed_max = 23
+ph_collision_damage_factor = 1.0
+ph_mass = 80
 
 ;----------------
-feel_grenade      = 10.0    ;расстояние (в метрах) на котором актер чувствует гранату (любую)
-player_hud_section    = actor_hud
+feel_grenade = 10.0 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ) пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ)
+player_hud_section = actor_hud
 
 ;---------------------------------------------------------------------
-ph_skeleton_airr_lin_factor   = 0.5 ;550.0 (изменно из-за того, что убрано домножение коэффициент 0.002 из кода)
-ph_skeleton_airr_ang_factor   = 0.0 ;0.0 (изменно из-за того, что убрано домножение на коэффициент 0.3 из кода (0.0*0.3=0.0))
-ph_skeleton_hinger_factor1    = 1.0 ;1.0 (изменно из-за того, что убрано домножение на коэффициент 5.0 из кода)
-ph_skeleton_ddelay          = 15.0 ;Время изменения значения трения в суставе с момента создания шелла, сек
+ph_skeleton_airr_lin_factor = 0.5 ;550.0 (пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 0.002 пїЅпїЅ пїЅпїЅпїЅпїЅ)
+ph_skeleton_airr_ang_factor = 0.0 ;0.0 (пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 0.3 пїЅпїЅ пїЅпїЅпїЅпїЅ (0.0*0.3=0.0))
+ph_skeleton_hinger_factor1 = 1.0 ;1.0 (пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 5.0 пїЅпїЅ пїЅпїЅпїЅпїЅ)
+ph_skeleton_ddelay = 15.0 ;пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ
 
-ph_skel_fatal_impulse_factor  = 8.0
+ph_skel_fatal_impulse_factor = 8.0
 ph_after_death_velocity_factor= 0.75
-ph_skel_shot_up_factor        = 0.25
+ph_skel_shot_up_factor = 0.25
 ;---------------------------------------------------------------------
 
-weapon_bone0       = bip01_r_finger1
-weapon_bone1       = bip01_l_finger1
-weapon_bone2       = bip01_r_finger11
+weapon_bone0 = bip01_r_finger1
+weapon_bone1 = bip01_l_finger1
+weapon_bone2 = bip01_r_finger11
 
-damage       = mp_actor_damage
-hit_sounds      = actor_hit_snds
-hit_probability_novice    = 1.00
-hit_probability_stalker   = 1.00
-hit_probability_veteran   = 1.00
-hit_probability_master    = 1.00
+damage = mp_actor_damage
+hit_sounds = actor_hit_snds
+hit_probability_novice = 1.00
+hit_probability_stalker = 1.00
+hit_probability_veteran = 1.00
+hit_probability_master = 1.00
 ;---------------------------------------------------------------------
 ;actor condition
 
-immunities_sect       = mp_actor_immunities
-condition_sect        = mp_actor_condition
+immunities_sect = mp_actor_immunities
+condition_sect = mp_actor_condition
 
-heavy_breath_snd  = actor\breath_1    ;звук тяжелого дыхания при усталости
-heavy_blood_snd   = heart\8
-heavy_danger_snd        = affects\heartbeat
-medkit = 0.3          ;временно! вместо аптечки
-medkit_wound = 0.2        ;сколько процентов кровотечения оставливает аптечка
-antirad = 0.3         ;временно! вместо антирада
-material        = creatures\human
-camera_height_factor  = 0.85
+heavy_breath_snd = actor\breath_1 ;пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+heavy_blood_snd = heart\8
+heavy_danger_snd = affects\heartbeat
+medkit = 0.3 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ! пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+medkit_wound = 0.2 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+antirad = 0.3 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ! пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+material = creatures\human
+camera_height_factor = 0.85
 
-;дисперсия стрельбы с учетом ходьбы и бега
-disp_base         = 0.65;0.8    ;угол (в градусах) разлета пуль, когда актер стоит на месте
-disp_aim          = 0.01;0.04
-disp_vel_factor       = 2.0;2.5   ;на сколько увеличится дисперсия при скрости в 10 м/с (не обязательно при беге)
-disp_accel_factor     = 2.5;3.0; 2.0    ;еще на сколько увеличится, если актер бежит (+ скорость)
-disp_crouch_factor      = -0.35;-0.5;-0.2   ;уменьшение если актер сидит
-disp_crouch_no_acc_factor = -0.75;-1.0;-0.4   ;уменьшение если актер сидит + no acceleration
-disp_jump_factor      = 30.0;7.0; 2.0
+;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
+disp_base = 0.65;0.8 ;пїЅпїЅпїЅпїЅ (пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ) пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+disp_aim = 0.01;0.04
+disp_vel_factor = 2.0;2.5 ;пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ 10 пїЅ/пїЅ (пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ)
+disp_accel_factor = 2.5;3.0; 2.0 ;пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (+ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+disp_crouch_factor = -0.35;-0.5;-0.2 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+disp_crouch_no_acc_factor = -0.75;-1.0;-0.4 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ + no acceleration
+disp_jump_factor = 30.0;7.0; 2.0
 
-body_remove_time = 5000        ;время уничтожения трупа (с учетом TimeFactor)
-sleep_time_factor = 400   ;во сколько раз время идет быстрее, когда актер спит
+body_remove_time = 5000 ;пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ TimeFactor)
+sleep_time_factor = 400 ;пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
 ;---STEP MANAGER------------------------------------------------------
-LegsCount           = 2
-step_params           = mp_stalker_step_manager
-foot_bones            = stalker_foot_bones
+LegsCount = 2
+step_params = mp_stalker_step_manager
+foot_bones = stalker_foot_bones
 
 ; visibility parameters
-DynamicObjectsCount     = 32
-min_view_distance       = 0.8       ; коэффициент, который множится на eye_range, в зависимости от угла
-max_view_distance     = 1.0       ; коэффициент, который множится на eye_range, в зависимости от угла
-visibility_threshold    = 100.0       ; значение, при достижении суммой которого объект считается видимым
-always_visible_distance   = 0.3
-time_quant          = 0.005
-decrease_value        = 0.1       ; значение, на которое уменьшается вес, если объект попал в фрустум, но отсёкся по каким-то причинам
-velocity_factor         = 0.5
-luminocity_factor     = 0.5;0       ; фактор освещения (только для Актёра)
-transparency_threshold    = 0.4       ; 0.25
+DynamicObjectsCount = 32
+min_view_distance = 0.8 ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ eye_range, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
+max_view_distance = 1.0 ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ eye_range, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
+visibility_threshold = 100.0 ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+always_visible_distance = 0.3
+time_quant = 0.005
+decrease_value = 0.1 ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+velocity_factor = 0.5
+luminocity_factor = 0.5;0 ; пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ)
+transparency_threshold = 0.4 ; 0.25
 
 ;species of monster
-species       = human
+species = human
 
 ;autopickup
-AutoPickUp_AABB = 0.2, 0.1, 0.2;  AABB бокс автоподбора предметов
-AutoPickUp_AABB_offs = 0.0, 0.1, 0.0; смещение бокса автоподбора предметов относительно позиции игрока
+AutoPickUp_AABB = 0.2, 0.1, 0.2; AABB пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+AutoPickUp_AABB_offs = 0.0, 0.1, 0.0; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
 ;spawn effect
 ;spawn_effect = anomaly2\electra2_blast
 
 [mp_actor_damage]
-;bone_name     = <hit_scale>,<fwd_damage_anim_index>,<wound_scale>,<bonepassbullet>
-;<hit_scale> - коэфф. изменения хита (уменьшения здоровья)
-;<wound_scale> - коэфф. изменения величины открытой раны
-;<bone_pass_bullet> - 0 - после попадания пули в эту кость, эта пуля больше не наносит актеру повреждений
-;         1 - пуля наносит актеру повреждения как обычно
-;-1 - нет анимаций, четный номер - спереди, нечетный номер - сзади, УКАЗЫВАЕТСЯ ТОЛЬКО ПЕРЕДНИЙ!!! ЗАДНИЙ НА АВТОМАТЕ
-default      = 1.0, -1, 0.1
-bip01_pelvis     = 0.25, 15, 0.8  ;от ядра до пояса
-bip01_spine      = 0.3, 15, 0.8 ;в основном без шейпа
-bip01_spine1     = 0.4, 15, 0.8 ;торс до шеи
-bip01_spine2     = 0.4, 15, 0.8
-bip01_neck       = 1.25, 5, 0.1 ;в основном без шейпа
-bip01_head       = 2, 5, 0.1  ;очень большой шейп
-eye_left       = 3, 5, 0.1  ;глаза
-eye_right        = 3, 5, 0.1  ;глаза
-jaw_1        = 1.25, 5, 0.1 ;рот от шеи до носа
+;bone_name = <hit_scale>,<fwd_damage_anim_index>,<wound_scale>,<bonepassbullet>
+;<hit_scale> - пїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+;<wound_scale> - пїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+;<bone_pass_bullet> - 0 - пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+; 1 - пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+;-1 - пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!!! пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+default = 1.0, -1, 0.1
+bip01_pelvis = 0.25, 15, 0.8 ;пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+bip01_spine = 0.3, 15, 0.8 ;пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+bip01_spine1 = 0.4, 15, 0.8 ;пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ
+bip01_spine2 = 0.4, 15, 0.8
+bip01_neck = 1.25, 5, 0.1 ;пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+bip01_head = 2, 5, 0.1 ;пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+eye_left = 3, 5, 0.1 ;пїЅпїЅпїЅпїЅпїЅ
+eye_right = 3, 5, 0.1 ;пїЅпїЅпїЅпїЅпїЅ
+jaw_1 = 1.25, 5, 0.1 ;пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
 
-bip01_l_clavicle   = 0.4, 15, 0.8 ;плечо + bip01_spine1
-bip01_l_upperarm   = 0.3, 6, 0.6, 1 ;0.2
-bip01_l_forearm    = 0.3, 6, 0.5, 1 ;
-bip01_l_hand     = 0.2, 6, 0.2, 1 ;было 0.15
-bip01_l_finger0    = 0.2, 6, 0.2, 1
-bip01_l_finger1    = 0.2, 6, 0.2, 1
-bip01_l_finger2    = 0.2, 6, 0.2, 1
+bip01_l_clavicle = 0.4, 15, 0.8 ;пїЅпїЅпїЅпїЅпїЅ + bip01_spine1
+bip01_l_upperarm = 0.3, 6, 0.6, 1 ;0.2
+bip01_l_forearm = 0.3, 6, 0.5, 1 ;
+bip01_l_hand = 0.2, 6, 0.2, 1 ;пїЅпїЅпїЅпїЅ 0.15
+bip01_l_finger0 = 0.2, 6, 0.2, 1
+bip01_l_finger1 = 0.2, 6, 0.2, 1
+bip01_l_finger2 = 0.2, 6, 0.2, 1
 
+bip01_r_clavicle = 0.4, 15, 0.8 ;пїЅпїЅпїЅпїЅпїЅ + bip01_spine1
+bip01_r_upperarm = 0.3, 4, 0.6, 1
+bip01_r_forearm = 0.3, 4, 0.5, 1
+bip01_r_hand = 0.2, 4, 0.2, 1
+bip01_r_finger0 = 0.2, 4, 0.2, 1
+bip01_r_finger1 = 0.2, 4, 0.2, 1
+bip01_r_finger2 = 0.2, 4, 0.2, 1
 
-bip01_r_clavicle   = 0.4, 15, 0.8 ;плечо + bip01_spine1
-bip01_r_upperarm   = 0.3, 4, 0.6, 1
-bip01_r_forearm    = 0.3, 4, 0.5, 1
-bip01_r_hand     = 0.2, 4, 0.2, 1
-bip01_r_finger0    = 0.2, 4, 0.2, 1
-bip01_r_finger1    = 0.2, 4, 0.2, 1
-bip01_r_finger2    = 0.2, 4, 0.2, 1
-
-bip01_l_thigh    = 0.3, 12, 0.5 ;бедро
-bip01_l_calf     = 0.25, 12, 0.4  ;голень
-bip01_l_foot     = 0.15, 12, 0.3  ;пятка,1
-bip01_l_toe0     = 0.15, 12, 0.2  ;пальцы,1
-bip01_r_thigh    = 0.3, 9, 0.5  ;бедро
-bip01_r_calf     = 0.25, 9, 0.4 ;голень
-bip01_r_foot     = 0.15, 9, 0.3 ;пятка,1
-bip01_r_toe0     = 0.15, 9, 0.2 ;пальцы,1
-
+bip01_l_thigh = 0.3, 12, 0.5 ;пїЅпїЅпїЅпїЅпїЅ
+bip01_l_calf = 0.25, 12, 0.4 ;пїЅпїЅпїЅпїЅпїЅпїЅ
+bip01_l_foot = 0.15, 12, 0.3 ;пїЅпїЅпїЅпїЅпїЅ,1
+bip01_l_toe0 = 0.15, 12, 0.2 ;пїЅпїЅпїЅпїЅпїЅпїЅ,1
+bip01_r_thigh = 0.3, 9, 0.5 ;пїЅпїЅпїЅпїЅпїЅ
+bip01_r_calf = 0.25, 9, 0.4 ;пїЅпїЅпїЅпїЅпїЅпїЅ
+bip01_r_foot = 0.15, 9, 0.3 ;пїЅпїЅпїЅпїЅпїЅ,1
+bip01_r_toe0 = 0.15, 9, 0.2 ;пїЅпїЅпїЅпїЅпїЅпїЅ,1
 
 [mp_actor_immunities]
-burn_immunity         = 0.4 ;1.0        ;коэффициенты иммунитета
-strike_immunity       = 0.98 ;1.0
-shock_immunity        = 0.4 ;1.0
-wound_immunity        = 1.0
-radiation_immunity      = 2.5
-telepatic_immunity      = 1.0
-chemical_burn_immunity    = 1.0
-explosion_immunity      = 1.0
-fire_wound_immunity     = 1.0
+burn_immunity = 0.4 ;1.0 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+strike_immunity = 0.98 ;1.0
+shock_immunity = 0.4 ;1.0
+wound_immunity = 1.0
+radiation_immunity = 2.5
+telepatic_immunity = 1.0
+chemical_burn_immunity = 1.0
+explosion_immunity = 1.0
+fire_wound_immunity = 1.0
 
 [mp_actor_condition]:actor_condition
-satiety_v         = 0.0         ;скорость уменьшения сытости со временем
-radiation_v         = 0.01        ;скорость уменьшения радиации
-satiety_power_v       = 0.00055       ;увеличение силы при уменьшении сытости
-satiety_health_v      = 0.0005        ;увеличение здоровья при уменьшении сытости
-satiety_critical      = 0.0         ;критическое значения сытости (в процентах от 0..1) когда здоровье начианает уменьшаться
-radiation_health_v          = 0.06                                        ;уменьшение здоровья при воздействии радиации
-morale_v          = 0.001       ;скорость восстановления морали
-health_hit_part       = 1.0         ;процент хита, уходящий на отнимание здоровья
-power_hit_part        = 0.1;0.01          ;процент хита, уходящий на отнимание силы
-psy_health_v        = 0.1         ;скорость восстановления psy-здоровья
-alcohol_v         = -0.03
-max_walk_weight       = 60
+satiety_v = 0.0 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+radiation_v = 0.01 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+satiety_power_v = 0.00055 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+satiety_health_v = 0.0005 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+satiety_critical = 0.0 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 0..1) пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+radiation_health_v = 0.06 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+morale_v = 0.001 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+health_hit_part = 1.0 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+power_hit_part = 0.1;0.01 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+psy_health_v = 0.1 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ psy-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+alcohol_v = -0.03
+max_walk_weight = 60
 
-;открытые раны
-bleeding_v          = 0.05          ;потеря крови при номинальной ране в секунду
-wound_incarnation_v     = 0.25          ;крутизна кривой заживления (какой процент раны заживет в игровую секунду)
-min_wound_size        = 0.03          ;минимальный размер раны, после которого она считается зажившей
+;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+bleeding_v = 0.05 ;пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+wound_incarnation_v = 0.25 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+min_wound_size = 0.03 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-sleep_health        = 1.0   ;1.5    ;коэффициенты скоростей изменения параметров во время сна
-sleep_power         = 1.0   ;1.5
-sleep_satiety       = 1.0   ;0.8
-sleep_radiation       = 1.0   ;1.1
-sleep_psy_health      = 1.0
+sleep_health = 1.0 ;1.5 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+sleep_power = 1.0 ;1.5
+sleep_satiety = 1.0 ;0.8
+sleep_radiation = 1.0 ;1.1
+sleep_psy_health = 1.0
 
 ;;;;;;;;
 ;actor_condition only
 
-jump_power        = 0.15 ;0.07 ;              ;умешьшение силы с прыжком без учета веса ноши
-jump_weight_power     = 0.0       ;0.045          ;умешьшение силы с прыжком с учетом веса ноши, для максимального допустимого веса
-overweight_jump_k     = 0       ;10         ;коэффициент влияние перегрузки прыжок с весом (умножается на jump_weight_power)
+jump_power = 0.15 ;0.07 ; ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+jump_weight_power = 0.0 ;0.045 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+overweight_jump_k = 0 ;10 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ jump_weight_power)
 
-stand_power       = -0.23;
-walk_power        = -0.14;      ;умешьшение силы за секнду во время ходьбы без учета веса ноши
+stand_power = -0.23;
+walk_power = -0.14; ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
+walk_weight_power = 0.00 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+overweight_walk_k = 0 ; ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ walk_weight_power)
+accel_k = 0.0 ;0 ;пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ walk_power, walk_weight_power)
+sprint_k = -1.7 ; ; -1.5 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ "sprint" пїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ walk_power, walk_weight_power)
 
-walk_weight_power     = 0.00      ;умешьшение силы за секнду во время ходьбы с учетом веса ноши, для максимального допустимого веса
-overweight_walk_k     = 0       ;         ;коэффициент влияние перегрузки ноши (умножается на walk_weight_power)
-accel_k       = 0.0       ;0            ;коэффициент на бег (умножается walk_power, walk_weight_power)
-sprint_k        = -1.7 ;            ; -1.5 коэффициент на "sprint" бег (умножается walk_power, walk_weight_power)
+; пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+limping_health_begin = 0.1;0.2 ;пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+limping_health_end = 0.11;0.21 ;пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+limping_power_begin = 0.1 ;пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+limping_power_end = 0.2 ;пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+use_limping_state = on
 
+cant_walk_power_begin = 0.00 ;пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+cant_walk_power_end = 0.10 ;пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-; хромота
-limping_health_begin =  0.1;0.2   ;порог здоровья меньше которого актер начинает хромать
-limping_health_end   =  0.11;0.21   ;порог здоровья больше которого актер перестает хромать
-limping_power_begin  =  0.1   ;порог силы меньше которого актер начинает хромать
-limping_power_end  =  0.2   ;порог силы больше которого актер перестает хромать
-use_limping_state  = on
-
-cant_walk_power_begin = 0.00  ;порог силы меньше которого актер не может двигаться
-cant_walk_power_end   = 0.10  ;порог силы больше которого актер сможет двигаться
-
-cant_sprint_power_begin = 0.20  ;порог силы меньше которого актер не может бежать в спринте
-cant_sprint_power_end   = 0.30  ;порог силы больше которого актер сможет бежать в спринте
-
-
-
+cant_sprint_power_begin = 0.20 ;пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+cant_sprint_power_end = 0.30 ;пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 ;--------------------------------------------------------------------------------------------------------------------
-;--         АНИМАЦИИ ДЛЯ СМЕРТИ
+;-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 ;--------------------------------------------------------------------------------------------------------------------
-;cлучайные
+;cпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 ;random_death_animations = ragdoll_burst_front_0,ragdoll_burst_front_1,ragdoll_burst_back_0,ragdoll_burst_left_0,ragdoll_burst_right_0 ;norm_2_reg_doll_0,norm_2_reg_doll_1,norm_2_reg_doll_2,norm_2_reg_doll_3,norm_2_reg_doll_4,norm_2_reg_doll_5
 
-;по типам от 0 до 7
-;порядок по направлениям - front/back/left/right
-; В голову, когда персонаж бежит на нас.
-kill_enertion           = ragdoll_inertion_front_0/ragdoll_inertion_front_3/ragdoll_inertion_front_2/ragdoll_inertion_front_1
+;пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 0 пїЅпїЅ 7
+;пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - front/back/left/right
+; пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ.
+kill_enertion = ragdoll_inertion_front_0/ragdoll_inertion_front_3/ragdoll_inertion_front_2/ragdoll_inertion_front_1
 
-; Смерть от автоматной очереди
-;kill_burst       = ragdoll_burst_front_0,ragdoll_burst_front_1/ragdoll_burst_back_0/ragdoll_burst_left_0/ragdoll_burst_right_0
+; пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+;kill_burst = ragdoll_burst_front_0,ragdoll_burst_front_1/ragdoll_burst_back_0/ragdoll_burst_left_0/ragdoll_burst_right_0
 
-; Смерть от выстрела из дробовика
-kill_shortgun         = ragdoll_shortgun_front_0,ragdoll_shortgun_front_1,ragdoll_shortgun_front_2,ragdoll_shortgun_front_3,ragdoll_shortgun_front_4,ragdoll_shortgun_front_5,ragdoll_shortgun_front_6,ragdoll_shortgun_front_7,ragdoll_shortgun_front_8/ragdoll_shortgun_back_0,ragdoll_shortgun_back_1,ragdoll_shortgun_back_2,ragdoll_shortgun_back_3,ragdoll_shortgun_back_4,ragdoll_shortgun_back_5/ragdoll_shortgun_left_0,ragdoll_shortgun_left_1,ragdoll_shortgun_left_2/ragdoll_shortgun_right_0
+; пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+kill_shortgun = ragdoll_shortgun_front_0,ragdoll_shortgun_front_1,ragdoll_shortgun_front_2,ragdoll_shortgun_front_3,ragdoll_shortgun_front_4,ragdoll_shortgun_front_5,ragdoll_shortgun_front_6,ragdoll_shortgun_front_7,ragdoll_shortgun_front_8/ragdoll_shortgun_back_0,ragdoll_shortgun_back_1,ragdoll_shortgun_back_2,ragdoll_shortgun_back_3,ragdoll_shortgun_back_4,ragdoll_shortgun_back_5/ragdoll_shortgun_left_0,ragdoll_shortgun_left_1,ragdoll_shortgun_left_2/ragdoll_shortgun_right_0
 
-; Смерть хедшотом
-kill_headshot     = ragdoll_headshot_front_0,ragdoll_headshot_front_1,ragdoll_headshot_front_2,ragdoll_headshot_front_3,ragdoll_headshot_front_4,ragdoll_headshot_front_5,ragdoll_headshot_front_6,ragdoll_headshot_front_7,ragdoll_headshot_front_8,ragdoll_headshot_front_9,ragdoll_headshot_front_10/ragdoll_headshot_back_0,ragdoll_headshot_back_1,ragdoll_headshot_back_2,ragdoll_headshot_back_3,ragdoll_headshot_back_4,ragdoll_headshot_back_5/ragdoll_headshot_left_0,ragdoll_headshot_left_1,ragdoll_headshot_left_2,ragdoll_headshot_left_3,ragdoll_headshot_left_4,ragdoll_headshot_left_5,ragdoll_headshot_left_6,ragdoll_headshot_left_7/ragdoll_headshot_right_0,ragdoll_headshot_right_1,ragdoll_headshot_right_2,ragdoll_headshot_right_3
+; пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+kill_headshot = ragdoll_headshot_front_0,ragdoll_headshot_front_1,ragdoll_headshot_front_2,ragdoll_headshot_front_3,ragdoll_headshot_front_4,ragdoll_headshot_front_5,ragdoll_headshot_front_6,ragdoll_headshot_front_7,ragdoll_headshot_front_8,ragdoll_headshot_front_9,ragdoll_headshot_front_10/ragdoll_headshot_back_0,ragdoll_headshot_back_1,ragdoll_headshot_back_2,ragdoll_headshot_back_3,ragdoll_headshot_back_4,ragdoll_headshot_back_5/ragdoll_headshot_left_0,ragdoll_headshot_left_1,ragdoll_headshot_left_2,ragdoll_headshot_left_3,ragdoll_headshot_left_4,ragdoll_headshot_left_5,ragdoll_headshot_left_6,ragdoll_headshot_left_7/ragdoll_headshot_right_0,ragdoll_headshot_right_1,ragdoll_headshot_right_2,ragdoll_headshot_right_3
 
-; Смерть хедшотом из снайперки
-kill_sniper_headshot  = ragdoll_sniper_headshot_front_0,ragdoll_sniper_headshot_front_1,ragdoll_sniper_headshot_front_2/ragdoll_sniper_headshot_back_0/ragdoll_sniper_headshot_left_0/ragdoll_sniper_headshot_right_0
+; пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+kill_sniper_headshot = ragdoll_sniper_headshot_front_0,ragdoll_sniper_headshot_front_1,ragdoll_sniper_headshot_front_2/ragdoll_sniper_headshot_back_0/ragdoll_sniper_headshot_left_0/ragdoll_sniper_headshot_right_0
 
-; Смерть от снайперки в тело
-kill_sniper_body    = ragdoll_sniper_body_front_0,ragdoll_sniper_body_front_1,ragdoll_sniper_body_front_2/ragdoll_sniper_body_back_0,ragdoll_sniper_body_back_1,ragdoll_sniper_body_back_2,ragdoll_sniper_body_back_3/ragdoll_sniper_body_left_0/ragdoll_sniper_body_right_0
+; пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
+kill_sniper_body = ragdoll_sniper_body_front_0,ragdoll_sniper_body_front_1,ragdoll_sniper_body_front_2/ragdoll_sniper_body_back_0,ragdoll_sniper_body_back_1,ragdoll_sniper_body_back_2,ragdoll_sniper_body_back_3/ragdoll_sniper_body_left_0/ragdoll_sniper_body_right_0
 
-; Смерть от взрывной волны гранаты
-kill_grenade            = ragdoll_grenade_front_0/ragdoll_grenade_back_0/ragdoll_grenade_left_0/ragdoll_grenade_right_0
+; пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+kill_grenade = ragdoll_grenade_front_0/ragdoll_grenade_back_0/ragdoll_grenade_left_0/ragdoll_grenade_right_0
 
 ;front-norm_2_rag_doll_front_0,norm_2_rag_doll_front_1,norm_2_rag_doll_front_2/back-norm_2_rag_doll_back_0,norm_2_rag_doll_back_1,norm_2_rag_doll_back_2/right-norm_2_rag_doll_right_0/left-norm_2_rag_doll_left_0
 
 ;--------------------------------------------------------------------------------------------------------------------
 
-
 [mp_stalker_step_manager]
 ; order: left, right
 ;--------------------------------------------------------------------------
-; animation       Cycles  | time1 | power1 | time2 | power2 |
+; animation Cycles | time1 | power1 | time2 | power2 |
 ;--------------------------------------------------------------------------
-dmg_norm_escape_0     = 1,    0.2,      1.3,   0.65,     1.3
+dmg_norm_escape_0 = 1, 0.2, 1.3, 0.65, 1.3
 
-dmg_norm_walk_fwd_1     = 1,    0.2,      0.2,   0.65,     0.2
-dmg_norm_run_fwd_1      = 1,    0.2,      1,     0.65,     1
+dmg_norm_walk_fwd_1 = 1, 0.2, 0.2, 0.65, 0.2
+dmg_norm_run_fwd_1 = 1, 0.2, 1, 0.65, 1
 
-dmg_norm_walk_fwd_0     = 1,    0.2,      0.2,   0.65,     0.2
-dmg_norm_walk_back_0    = 1,    0.2,      0.2,   0.65,     0.2
-dmg_norm_walk_ls_0      = 1,    0.2,      0.2,   0.65,     0.2
-dmg_norm_walk_rs_0      = 1,    0.2,      0.2,   0.65,     0.2
+dmg_norm_walk_fwd_0 = 1, 0.2, 0.2, 0.65, 0.2
+dmg_norm_walk_back_0 = 1, 0.2, 0.2, 0.65, 0.2
+dmg_norm_walk_ls_0 = 1, 0.2, 0.2, 0.65, 0.2
+dmg_norm_walk_rs_0 = 1, 0.2, 0.2, 0.65, 0.2
 
-dmg_norm_run_fwd_0      = 1,    0.2,      1,     0.65,     1
-dmg_norm_run_back_0     = 1,    0.2,      1,     0.65,     1
-dmg_norm_run_ls_0     = 1,    0.2,      1,     0.65,     1
-dmg_norm_run_rs_0     = 1,    0.2,      1,     0.65,     1
+dmg_norm_run_fwd_0 = 1, 0.2, 1, 0.65, 1
+dmg_norm_run_back_0 = 1, 0.2, 1, 0.65, 1
+dmg_norm_run_ls_0 = 1, 0.2, 1, 0.65, 1
+dmg_norm_run_rs_0 = 1, 0.2, 1, 0.65, 1
 
-dmg_norm_turn_left_0    = 1,    0.2,      0.2,   0.65,     0.2
-dmg_norm_turn_right_0   = 1,    0.2,      0.2,   0.65,     0.2
+dmg_norm_turn_left_0 = 1, 0.2, 0.2, 0.65, 0.2
+dmg_norm_turn_right_0 = 1, 0.2, 0.2, 0.65, 0.2
 
-norm_escape_0       = 1,    0.2,      1.1,   0.65,     1.1
-norm_escape_00        = 1,    0.2,      1.1,   0.65,     1.1
-norm_escape_00        = 1,    0.2,      1.1,   0.65,     1.1
+norm_escape_0 = 1, 0.2, 1.1, 0.65, 1.1
+norm_escape_00 = 1, 0.2, 1.1, 0.65, 1.1
+norm_escape_00 = 1, 0.2, 1.1, 0.65, 1.1
 
-norm_walk_fwd_1       = 1,    0.2,      0.25,  0.65,     0.25
-norm_jump_end       = 1,    0.2,      1.2,   0.21,     1.2
+norm_walk_fwd_1 = 1, 0.2, 0.25, 0.65, 0.25
+norm_jump_end = 1, 0.2, 1.2, 0.21, 1.2
 
-norm_walk_fwd_0       = 1,    0.2,      0.25,   0.65,     0.25
-norm_walk_back_0      = 1,    0.2,      0.25,   0.65,     0.25
-norm_walk_ls_0        = 1,    0.2,      0.25,   0.65,     0.25
-norm_walk_rs_0        = 1,    0.2,      0.25,   0.65,     0.25
+norm_walk_fwd_0 = 1, 0.2, 0.25, 0.65, 0.25
+norm_walk_back_0 = 1, 0.2, 0.25, 0.65, 0.25
+norm_walk_ls_0 = 1, 0.2, 0.25, 0.65, 0.25
+norm_walk_rs_0 = 1, 0.2, 0.25, 0.65, 0.25
 
-norm_run_fwd_0        = 1,    0.2,      0.9,   0.65,     0.9
-norm_run_back_0       = 1,    0.2,      0.8,   0.65,     0.8
-norm_run_ls_0       = 1,    0.2,      0.8,   0.65,     0.8
-norm_run_rs_0       = 1,    0.2,      0.8,   0.65,     0.8
+norm_run_fwd_0 = 1, 0.2, 0.9, 0.65, 0.9
+norm_run_back_0 = 1, 0.2, 0.8, 0.65, 0.8
+norm_run_ls_0 = 1, 0.2, 0.8, 0.65, 0.8
+norm_run_rs_0 = 1, 0.2, 0.8, 0.65, 0.8
 
-norm_run_fwd_1        = 1,    0.2,      0.9,   0.65,     0.9
-norm_turn_left_1      = 1,    0.2,      0.2,   0.65,     0.2
-norm_turn_right_1     = 1,    0.2,      0.2,   0.65,     0.2
+norm_run_fwd_1 = 1, 0.2, 0.9, 0.65, 0.9
+norm_turn_left_1 = 1, 0.2, 0.2, 0.65, 0.2
+norm_turn_right_1 = 1, 0.2, 0.2, 0.65, 0.2
 
-norm_turn_left_0      = 1,    0.2,      0.2,   0.65,     0.2
-norm_turn_right_0     = 1,    0.2,      0.2,   0.65,     0.2
+norm_turn_left_0 = 1, 0.2, 0.2, 0.65, 0.2
+norm_turn_right_0 = 1, 0.2, 0.2, 0.65, 0.2
 
-cr_walk_fwd_0       = 1,    0.2,      0.01,   0.65,     0.01
-cr_walk_back_0        = 1,    0.2,      0.01,   0.65,     0.01
-cr_walk_ls_0        = 1,    0.2,      0.01,   0.65,     0.01
-cr_walk_rs_0        = 1,    0.2,      0.01,   0.65,     0.01
+cr_walk_fwd_0 = 1, 0.2, 0.01, 0.65, 0.01
+cr_walk_back_0 = 1, 0.2, 0.01, 0.65, 0.01
+cr_walk_ls_0 = 1, 0.2, 0.01, 0.65, 0.01
+cr_walk_rs_0 = 1, 0.2, 0.01, 0.65, 0.01
 
-cr_run_fwd_0        = 1,    0.2,      0.1,   0.65,     0.1
-cr_run_back_0       = 1,    0.2,      0.1,   0.65,     0.1
-cr_run_ls_0       = 1,    0.2,      0.1,   0.65,     0.1
-cr_run_rs_0       = 1,    0.2,      0.1,   0.65,     0.1
+cr_run_fwd_0 = 1, 0.2, 0.1, 0.65, 0.1
+cr_run_back_0 = 1, 0.2, 0.1, 0.65, 0.1
+cr_run_ls_0 = 1, 0.2, 0.1, 0.65, 0.1
+cr_run_rs_0 = 1, 0.2, 0.1, 0.65, 0.1
 
-cr_turn_left_0        = 1,    0.2,      0.1,   0.65,     0.1
-cr_turn_right_0       = 1,    0.2,      0.1,   0.65,     0.1
-
-
+cr_turn_left_0 = 1, 0.2, 0.1, 0.65, 0.1
+cr_turn_right_0 = 1, 0.2, 0.1, 0.65, 0.1

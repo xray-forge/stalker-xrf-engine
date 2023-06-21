@@ -14,7 +14,6 @@ def_state_standing = probe_stand
 meet = meet@rival
 on_info = {!npc_has_item(detector_advanced) !npc_has_item(detector_scientific)} %=give_item(detector_advanced)%
 
-
 [logic@zat_b29_stalker_rival_2]
 suitable = {=target_squad_name(zat_b29_stalker_rival) !check_npc_name(zat_b29_stalker_rival)} true
 prior = 200
@@ -40,7 +39,6 @@ def_state_moving = walk
 def_state_standing = probe_crouch
 meet = meet@rival
 on_info = {!npc_has_item(detector_advanced) !npc_has_item(detector_scientific)} %=give_item(detector_advanced)%
-
 
 ;On stalkers base, with af
 [logic@zat_b29_stalker_rival]

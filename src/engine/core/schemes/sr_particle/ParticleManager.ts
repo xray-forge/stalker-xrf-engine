@@ -1,11 +1,10 @@
 import { particles_object, patrol, time_global } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeParticleState } from "@/engine/core/schemes/sr_particle/ISchemeParticleState";
 import { parseWaypointsData } from "@/engine/core/utils/ini/parse";
 import { IWaypointData } from "@/engine/core/utils/ini/types";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { LuaArray, Optional, Patrol, TCount, TDuration, TTimestamp } from "@/engine/lib/types";
 
 /**
@@ -67,7 +66,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   /**
    * todo: Description.
    */
-  public override update(): void {
+  public update(): void {
     const time: number = time_global();
 
     if (this.lastUpdate !== 0) {
@@ -105,7 +104,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
 
     this.is_end();
 
-    trySwitchToAnotherSection(this.object, this.state, registry.actor);
+    trySwitchToAnotherSection(this.object, this.state);
   }
 
   /**

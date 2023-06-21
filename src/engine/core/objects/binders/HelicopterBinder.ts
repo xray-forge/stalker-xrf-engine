@@ -14,13 +14,12 @@ import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
-import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
-import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { getHeliHealth } from "@/engine/core/schemes/heli_move/heli_utils";
 import { HeliCombat } from "@/engine/core/schemes/heli_move/HeliCombat";
 import { getHeliFirer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import {
   ClientObject,
   ESchemeType,
@@ -98,11 +97,11 @@ export class HelicopterBinder extends object_binder {
 
     if (!this.initialized && actor) {
       this.initialized = true;
-      initializeObjectSchemeLogic(this.object, this.state, this.loaded, actor, ESchemeType.HELI);
+      initializeObjectSchemeLogic(this.object, this.state, this.loaded, ESchemeType.HELI);
     }
 
-    if (this.state.active_section !== null) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
+    if (this.state.activeSection !== null) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.UPDATE, delta);
     }
 
     this.checkHealth();
@@ -211,10 +210,10 @@ export class HelicopterBinder extends object_binder {
    * todo: Description.
    */
   public onPoint(distance: TDistance, position: Vector, pathIndex: TIndex): void {
-    if (this.state.active_section !== null) {
+    if (this.state.activeSection !== null) {
       emitSchemeEvent(
         this.object,
-        this.state[this.state.active_scheme!]!,
+        this.state[this.state.activeScheme!]!,
         ESchemeEvent.WAYPOINT,
         this.object,
         null,

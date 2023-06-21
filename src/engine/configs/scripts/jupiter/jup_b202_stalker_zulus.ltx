@@ -1,4 +1,4 @@
-; сюда Зулуса не переводить
+; пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 [animpoint@zulus_basic]
 cover_name = jup_b15_sc_zulus
 avail_animations = jup_b15_zulus_sit_idle
@@ -36,19 +36,19 @@ on_info4 = {-jup_b15_actor_drink +jup_b15_zulus_drink_anim_info} %-jup_b15_zulus
 meet = meet@drink
 
 [animpoint@drink_anim]:animpoint@zulus_basic
-avail_animations = jup_b15_zulus_sit_drink 
+avail_animations = jup_b15_zulus_sit_drink
 on_info = {+jup_b15_zulus_drink_anim_info} animpoint@drink
 on_game_timer = 180 | {-jup_b15_zulus_drink_anim_info} %+jup_b15_zulus_drink_anim_info%
 meet = no_meet
 
 [animpoint@wait]:animpoint@zulus_basic
-on_info2  = {+jup_b218_vano_tp +jup_b218_pause_done -jup_b218_zulus_see_vano} animpoint@timer %+jup_b218_zulus_see_vano -jup_b218_pause_done%
+on_info2 = {+jup_b218_vano_tp +jup_b218_pause_done -jup_b218_zulus_see_vano} animpoint@timer %+jup_b218_zulus_see_vano -jup_b218_pause_done%
 on_info3 = {+jup_b218_sokolov_tp +jup_b218_pause_done -jup_b218_zulus_see_sokolov} animpoint@timer %+jup_b218_zulus_see_sokolov -jup_b218_pause_done%
 on_info4 = {+jup_b218_monolith_fr_tp +jup_b218_pause_done -jup_b218_zulus_see_monolith} animpoint@timer %+jup_b218_zulus_see_monolith -jup_b218_pause_done%
 on_info5 = {+jup_b218_monolith_du_tp +jup_b218_pause_done -jup_b218_zulus_see_monolith} animpoint@timer %+jup_b218_zulus_see_monolith -jup_b218_pause_done%
 
 [animpoint@timer]:animpoint@zulus_basic
-on_game_timer = 50 | {+jup_b218_vano_tp -jup_b218_vano_tp_pause} animpoint@vano %+jup_b218_vano_tp_pause =enable_ui%, {+jup_b218_sokolov_tp -jup_b218_sokolov_tp_pause} animpoint@sokolov %+jup_b218_sokolov_tp_pause =enable_ui%, {+jup_b218_monolith_fr_tp -jup_b218_monolith_fr_tp_pause} animpoint@monolith %+jup_b218_monolith_fr_tp_pause =enable_ui%,  {+jup_b218_monolith_du_tp -jup_b218_monolith_du_tp_pause} animpoint@monolith %+jup_b218_monolith_du_tp_pause =enable_ui%
+on_game_timer = 50 | {+jup_b218_vano_tp -jup_b218_vano_tp_pause} animpoint@vano %+jup_b218_vano_tp_pause =enable_ui%, {+jup_b218_sokolov_tp -jup_b218_sokolov_tp_pause} animpoint@sokolov %+jup_b218_sokolov_tp_pause =enable_ui%, {+jup_b218_monolith_fr_tp -jup_b218_monolith_fr_tp_pause} animpoint@monolith %+jup_b218_monolith_fr_tp_pause =enable_ui%, {+jup_b218_monolith_du_tp -jup_b218_monolith_du_tp_pause} animpoint@monolith %+jup_b218_monolith_du_tp_pause =enable_ui%
 
 [animpoint@vano]:animpoint@zulus_basic
 meet = meet@vano
@@ -63,15 +63,15 @@ meet = meet@monolith
 on_info2 = {+jup_b15_zulus_group_monolith_start_told} animpoint@wait
 
 [meet]
-close_anim 		= nil
-close_victim 	= nil
-far_anim 		= nil
-far_victim 		= nil
-close_distance  = 0
-far_distance 	= 0
+close_anim = nil
+close_victim = nil
+far_anim = nil
+far_victim = nil
+close_distance = 0
+far_distance = 0
 close_snd_distance = 3
 close_snd_hello = {+jup_b218_gather_squad} jup_b15_zulus_greeting, nil
-close_snd_bye   = nil
+close_snd_bye = nil
 use = {=actor_enemy} false, true
 allow_break = false
 trade_enable = false
@@ -83,12 +83,12 @@ allow_break = false
 
 [meet@vano]:meet
 use = {!actor_enemy} self
-meet_dialog     = jup_b15_zulus_group_stalker_start
+meet_dialog = jup_b15_zulus_group_stalker_start
 
 [meet@sokolov]:meet
 use = {!actor_enemy} self
-meet_dialog     = jup_b15_zulus_group_soldier_start
+meet_dialog = jup_b15_zulus_group_soldier_start
 
 [meet@monolith]:meet
 use = {!actor_enemy} self
-meet_dialog     = jup_b15_zulus_group_monolith_start
+meet_dialog = jup_b15_zulus_group_monolith_start

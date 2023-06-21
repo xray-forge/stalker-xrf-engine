@@ -15,11 +15,10 @@ import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { PhysicObjectItemBox } from "@/engine/core/objects/binders/physic/PhysicObjectItemBox";
 import { ESchemeEvent } from "@/engine/core/schemes";
-import { emitSchemeEvent } from "@/engine/core/schemes/base/utils";
-import { initializeObjectSchemeLogic } from "@/engine/core/schemes/base/utils/initializeObjectSchemeLogic";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import {
   ClientObject,
   EScheme,
@@ -65,8 +64,8 @@ export class PhysicObjectBinder extends object_binder {
 
     const state: IRegistryObjectState = registry.objects.get(this.object.id());
 
-    if (state.active_scheme) {
-      emitSchemeEvent(this.object, state[state.active_scheme]!, ESchemeEvent.NET_DESTROY);
+    if (state.activeScheme) {
+      emitSchemeEvent(this.object, state[state.activeScheme]!, ESchemeEvent.NET_DESTROY, this.object);
     }
 
     const on_offline_condlist: Optional<TConditionList> = state?.overrides?.on_offline_condlist;
@@ -143,13 +142,13 @@ export class PhysicObjectBinder extends object_binder {
 
     if (!this.initialized) {
       this.initialized = true;
-      initializeObjectSchemeLogic(this.object, this.state, this.loaded, registry.actor, ESchemeType.ITEM);
+      initializeObjectSchemeLogic(this.object, this.state, this.loaded, ESchemeType.ITEM);
     }
 
     const spawnIni: Optional<IniFile> = this.object.spawn_ini();
 
-    if (this.state.active_section !== null || (spawnIni !== null && spawnIni.section_exist("drop_box"))) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
+    if (this.state.activeSection !== null || (spawnIni !== null && spawnIni.section_exist("drop_box"))) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.UPDATE, delta);
       this.object.set_callback(callback.hit, this.onHit, this);
       this.object.set_callback(callback.death, this.onDeath, this);
       this.object.set_callback(callback.use_object, this.onUse, this);
@@ -166,8 +165,8 @@ export class PhysicObjectBinder extends object_binder {
    * todo: Description.
    */
   public onUse(object: ClientObject, who: ClientObject): void {
-    if (this.state.active_section) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.USE, object, this);
+    if (this.state.activeSection) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.USE, object, this);
     }
   }
 
@@ -194,10 +193,10 @@ export class PhysicObjectBinder extends object_binder {
       );
     }
 
-    if (this.state.active_section) {
+    if (this.state.activeSection) {
       emitSchemeEvent(
         this.object,
-        this.state[this.state.active_scheme!]!,
+        this.state[this.state.activeScheme!]!,
         ESchemeEvent.HIT,
         object,
         amount,
@@ -212,8 +211,8 @@ export class PhysicObjectBinder extends object_binder {
    * todo: Description.
    */
   public onDeath(victim: ClientObject, who: ClientObject): void {
-    if (this.state.active_section) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, who);
+    if (this.state.activeSection) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.DEATH, victim, who);
     }
 
     if (this.particle !== null) {

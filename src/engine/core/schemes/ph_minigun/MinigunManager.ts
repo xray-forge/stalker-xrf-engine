@@ -1,15 +1,14 @@
 import { CCar, level, move, patrol, time_global } from "xray16";
 
 import { getObjectByStoryId, registry } from "@/engine/core/database";
-import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMinigunState";
 import { abort } from "@/engine/core/utils/assertion";
 import { isHeavilyWounded } from "@/engine/core/utils/check/check";
 import { isActiveSection } from "@/engine/core/utils/check/is";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { TConditionList } from "@/engine/core/utils/ini/types";
-import { isObjectScriptCaptured, scriptReleaseObject } from "@/engine/core/utils/object/object_general";
+import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
+import { isMonsterScriptCaptured, scriptReleaseMonster } from "@/engine/core/utils/scheme";
+import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { createEmptyVector, createVector, yaw } from "@/engine/core/utils/vector";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { Car, ClientObject, Optional, TName, TSection, TStringId, TTimestamp, Vector } from "@/engine/lib/types";
@@ -62,9 +61,6 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   public onTargetVis: Optional<{ v1: ClientObject; condlist: TConditionList; name: TName }> = null;
   public onTargetNvis: Optional<{ v1: ClientObject; condlist: TConditionList; name: TName }> = null;
 
-  /**
-   * todo: Description.
-   */
   public constructor(object: ClientObject, state: ISchemeMinigunState) {
     super(object, state);
 
@@ -270,13 +266,13 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   /**
    * todo: Description.
    */
-  public override update(): void {
-    if (trySwitchToAnotherSection(this.object, this.state, registry.actor)) {
+  public update(): void {
+    if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
     }
 
     if (this.destroyed) {
-      switchObjectSchemeToSection(this.object, this.state.ini!, NIL);
+      switchObjectSchemeToSection(this.object, this.state.ini, NIL);
 
       return;
     }
@@ -314,7 +310,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     }
 
     if (this.stateCannon === STATE_CANNON_STOP && this.stateFiretarget === STATE_NONE) {
-      if (isObjectScriptCaptured(this.object) && !this.object.action()) {
+      if (isMonsterScriptCaptured(this.object) && !this.object.action()) {
         this.destroyCar();
 
         return true;
@@ -442,7 +438,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     this.mgun.Action(CCar.eWpnAutoFire, 0);
     this.setShooting(this.stateShooting);
 
-    scriptReleaseObject(this.object, MinigunManager.name);
+    scriptReleaseMonster(this.object);
 
     if (this.state.on_death_info !== null) {
       registry.actor.give_info_portion(this.state.on_death_info);
@@ -454,13 +450,13 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   /**
    * todo: Description.
    */
-  public getAngleXZ(npc: ClientObject, targetPosition: Vector, startDirection: Vector): number {
-    const dir1: Vector = startDirection;
+  public getAngleXZ(object: ClientObject, position: Vector, direction: Vector): number {
+    const dir1: Vector = direction;
 
     dir1.y = 0;
 
     // todo: just sub vectors?
-    const dir2: Vector = createVector(targetPosition.x, targetPosition.y, targetPosition.z).sub(npc.position());
+    const dir2: Vector = createVector(position.x, position.y, position.z).sub(object.position());
 
     dir2.y = 0;
 

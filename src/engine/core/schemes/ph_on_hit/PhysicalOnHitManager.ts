@@ -1,8 +1,8 @@
 import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/ph_on_hit/ISchemePhysicalOnHitState";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, TCount, TIndex, TName, Vector } from "@/engine/lib/types";
 
@@ -26,8 +26,8 @@ export class PhysicalOnHitManager extends AbstractSchemeManager<ISchemePhysicalO
 
     logger.info("Object hit:", object.name(), "<-", whoName, amount);
 
-    if (registry.objects.get(this.object.id()).active_scheme) {
-      if (trySwitchToAnotherSection(object, this.state, registry.actor)) {
+    if (registry.objects.get(this.object.id()).activeScheme) {
+      if (trySwitchToAnotherSection(object, this.state)) {
         return;
       }
     }

@@ -31,14 +31,14 @@ describe("'logic' database module", () => {
       actions,
     } as IBaseSchemeState;
 
-    state.job_ini = "test.ltx";
-    state.ini_filename = "test2.ltx";
-    state.section_logic = "section_ex";
-    state.active_section = "active_sect_ex";
-    state.gulag_name = "gulag_name_ex";
-    state.active_scheme = EScheme.COMBAT;
-    state.activation_time = 15_000;
-    state.activation_game_time = time;
+    state.jobIni = "test.ltx";
+    state.iniFilename = "test2.ltx";
+    state.sectionLogic = "section_ex";
+    state.activeSection = "active_sect_ex";
+    state.smartTerrainName = "gulag_name_ex";
+    state.activeScheme = EScheme.COMBAT;
+    state.activationTime = 15_000;
+    state.activationGameTime = time;
 
     setPortableStoreValue(object, "test-key-1", "test-val");
     setPortableStoreValue(object, "test-key-2", 255);
@@ -123,13 +123,13 @@ describe("'logic' database module", () => {
       EPacketDataType.U16,
     ]);
 
-    expect(nextState.job_ini).toBe("test.ltx");
-    expect(nextState.loaded_ini_filename).toBe("test2.ltx");
-    expect(nextState.loaded_section_logic).toBe("section_ex");
-    expect(nextState.loaded_active_section).toBe("active_sect_ex");
-    expect(nextState.loaded_gulag_name).toBe("gulag_name_ex");
-    expect(nextState.activation_time).toBe(15_000);
-    expect(nextState.activation_game_time.toString()).toBe(time.toString());
+    expect(nextState.jobIni).toBe("test.ltx");
+    expect(nextState.loadedIniFilename).toBe("test2.ltx");
+    expect(nextState.loadedSectionLogic).toBe("section_ex");
+    expect(nextState.loadedActiveSection).toBe("active_sect_ex");
+    expect(nextState.loadedSmartTerrainName).toBe("gulag_name_ex");
+    expect(nextState.activationTime).toBe(15_000);
+    expect(nextState.activationGameTime.toString()).toBe(time.toString());
 
     expect(getPortableStoreValue(object, "test-key-1")).toBe("test-val");
     expect(getPortableStoreValue(object, "test-key-2")).toBe(255);

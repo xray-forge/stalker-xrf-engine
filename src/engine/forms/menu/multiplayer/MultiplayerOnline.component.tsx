@@ -6,8 +6,6 @@ import { MultiplayerTabOptions } from "@/engine/forms/menu/multiplayer/tabs/Mult
 import { MultiplayerTabProfile } from "@/engine/forms/menu/multiplayer/tabs/MultiplayerTabProfile.part";
 import { MultiplayerTabServer } from "@/engine/forms/menu/multiplayer/tabs/MultiplayerTabServer.part";
 
-export const IS_XML: boolean = true;
-
 export function create(): JSXNode {
   return (
     <w>

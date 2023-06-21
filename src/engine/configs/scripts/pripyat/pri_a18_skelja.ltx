@@ -187,7 +187,7 @@ meet = no_meet
 cover_name = pri_a18_idolroom_door_smartcover_2
 loophole_name = crouch_front_left
 use_in_combat = true
-combat_ignore_cond = {-pri_a18_actor_enemy} true 
+combat_ignore_cond = {-pri_a18_actor_enemy} true
 on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 on_info2 = {=actor_in_zone(pri_a18_monolith_trance_restrictor) !squad_exist(pri_a18_monolith_2nd_corridor_squad)} camper@idol_room
 on_info3 = {+pri_a18_actor_enemy} %=actor_enemy%
@@ -199,7 +199,7 @@ meet = no_meet
 def_state_moving = raid
 def_state_campering_fire = threat_fire
 radius = 0
-combat_ignore_cond = {-pri_a18_actor_enemy -pri_a18_hit_pray_squad} true 
+combat_ignore_cond = {-pri_a18_actor_enemy -pri_a18_hit_pray_squad} true
 path_walk = pri_a18_reinforcement_2_ready_kill_walk
 path_look = pri_a18_reinforcement_2_ready_kill_look
 on_signal = pri_a18_play_kill_snd_2 | {-pri_a18_hit_pray_squad} %=play_sound(pri_a18_sokolov_fight)%
@@ -214,7 +214,7 @@ meet = no_meet
 def_state_moving = raid
 def_state_campering_fire = threat_fire
 radius = 0
-combat_ignore_cond = {-pri_a18_actor_enemy -pri_a18_hit_pray_squad} true 
+combat_ignore_cond = {-pri_a18_actor_enemy -pri_a18_hit_pray_squad} true
 path_walk = pri_a18_reinforcement_2_ready_kill_walk
 path_look = pri_a18_reinforcement_2_ready_kill_look
 on_game_timer = 70 | {+pri_a18_vano_lets_kill_snd_done} %+pri_a18_hit_pray_squad%

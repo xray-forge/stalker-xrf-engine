@@ -7,7 +7,7 @@ locked = false
 on_use = ph_door@open %+pri_a16_base_main_door_open%
 on_info = {!check_smart_alarm_status(pri_a16:normal) -pri_a16_wait_for_stalkers} ph_door@locked
 on_info2 = {+pri_b305_fifth_cam_end -pri_a28_update_task_cover_strelok} ph_door@locked_pri_a28
-on_info3 = {+pri_a16_base_main_door_open !is_door_blocked_by_npc} ph_door@open 
+on_info3 = {+pri_a16_base_main_door_open !is_door_blocked_by_npc} ph_door@open
 on_info4 = {+pri_b305_third_cam_go -pri_b305_quest_completed} ph_door@closed_b305
 
 [ph_door@open]
@@ -56,7 +56,7 @@ closed = true
 locked = false
 on_use = ph_door@open_regular %+pri_a16_base_main_door_open%
 on_info = {-pri_a16_wait_for_stalkers} ph_door@locked
-on_info2 = {+pri_a16_base_main_door_open !is_door_blocked_by_npc} ph_door@open_regular 
+on_info2 = {+pri_a16_base_main_door_open !is_door_blocked_by_npc} ph_door@open_regular
 
 [ph_door@open_regular]
 closed = false

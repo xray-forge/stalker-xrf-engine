@@ -608,7 +608,7 @@ extern(
 extern("xr_effects.stop_sr_cutscene", (actor: ClientObject, npc: ClientObject, parameters: []) => {
   const state: IRegistryObjectState = registry.objects.get(npc.id());
 
-  if (state.active_scheme !== null) {
-    state[state.active_scheme]!.signals!.set("cam_effector_stop", true);
+  if (state.activeScheme !== null) {
+    state[state.activeScheme]!.signals!.set("cam_effector_stop", true);
   }
 });

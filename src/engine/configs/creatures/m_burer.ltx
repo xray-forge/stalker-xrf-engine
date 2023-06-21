@@ -43,8 +43,8 @@ Human = off ; option for ALife Simulator
 Health = 400 ; option for ALife Simulator
 MinSpeed = 1.0 ; option for ALife Simulator
 MaxSpeed = 5.0 ; option for ALife Simulator
-going_speed = 3;4.5   ; option for ALife Simulator
-search_speed = 1.5   ; option for ALife Simulator
+going_speed = 3;4.5 ; option for ALife Simulator
+search_speed = 1.5 ; option for ALife Simulator
 smart_terrain_choose_interval = 00:15:00
 
 ;---------------------------------------------------------------------
@@ -89,7 +89,6 @@ Velocity_Steal = 1.5, 3.0, 3.0, 1, 1
 Accel_Generic = 1.5
 Accel_Calm = 1.5
 Accel_Aggressive = 200 ;6.5
-
 
 runaway_distance = 7
 normal_distance = 11
@@ -172,13 +171,11 @@ idle_sound_delay = 55000;5000
 eat_sound_delay = 3000
 attack_sound_delay = 14000;4000
 
-
 sound_distant_idle = monsters\burer\burer_idle_
 distant_idle_sound_delay = 80000
 distant_idle_sound_range = 100.0
 
-
-SoundThreshold = 0.06  ; range [0..1]
+SoundThreshold = 0.06 ; range [0..1]
 max_hear_dist = 60
 
 ;-------------------------------------------------------------------------
@@ -245,7 +242,6 @@ Tele_Object_Height = 3 ;2
 sound_tele_hold = monsters\burer\burer_tele_hold
 sound_tele_throw = monsters\burer\burer_tele_throw
 
-
 ;-------------------------------------------------------------------------
 ; Scanner
 ;-------------------------------------------------------------------------
@@ -264,8 +260,6 @@ scan_effector_section = m_burer_scan_effector
 Particle_Tele_Object = static\fire_distort
 Particle_Gravi_Wave = anomaly2\burer_wave
 Particle_Gravi_Prepare = anomaly2\burer_prepare
-
-
 
 ;-------------------------------------------------------------------------
 ; Other Stuff (refactoring needed)
@@ -289,10 +283,9 @@ bone_fire = head ; bone name
 weapon_usage = 0 ; boolean
 actor_restrictor = medium_monster ;medium_monster,stalker,none
 
-
 distance_to_corpse = 1.2 ; ����. �� �����, ��� ������� �� ��������� � ��������� ���
 
-selector_approach = 20.0,  1.0,   1000.0,  0.0,  0.0,  1000.0, 10000.0,
+selector_approach = 20.0, 1.0, 1000.0, 0.0, 0.0, 1000.0, 10000.0,
 terrain = burer_terrain
 hit_type = wound
 
@@ -309,7 +302,6 @@ rank = 19
 spec_rank = weak
 community = burer
 monster_type = indoor
-
 
 protections_sect = burer_protections
 immunities_sect = burer_immunities
@@ -342,8 +334,6 @@ chemical_burn_immunity = 1.0
 explosion_immunity = 0.5
 fire_wound_immunity = 0.7
 
-
-
 [burer_vision_free]
 min_view_distance = 0.6 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
 max_view_distance = 1.0 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
@@ -375,7 +365,7 @@ transparency_threshold = 0.25
 ;---------------------------------------------------------------------------------------------------------------------------------------------
 ;Left hand Strike
 stand_attack_0 = 0.4, 0.70, 100, 2.0, 1.0, 0.5, -1.6, 1.6, -1.6, 1.6, 2.5
-stand_stamina_attack_0 = 0.4, 0.0, 0,  2.0, 1.0, 0.5, -1.6, 1.6, -1.6, 1.6, 2.5
+stand_stamina_attack_0 = 0.4, 0.0, 0, 2.0, 1.0, 0.5, -1.6, 1.6, -1.6, 1.6, 2.5
 
 ;=================================================================================
 ; Burer Attack Effector

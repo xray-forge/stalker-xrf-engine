@@ -2,13 +2,13 @@ import { CHelicopter, level, patrol } from "xray16";
 
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { getHeliFirer, HeliFire } from "@/engine/core/schemes/heli_move/HeliFire";
 import { getHeliFlyer, HeliFly } from "@/engine/core/schemes/heli_move/HeliFly";
 import { getHeliLooker, HeliLook } from "@/engine/core/schemes/heli_move/HeliLook";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/heli_move/ISchemeHelicopterMoveState";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsData } from "@/engine/core/utils/ini/parse";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { ACTOR } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, Patrol, TIndex, TName, TRate, Vector } from "@/engine/lib/types";
 
@@ -173,10 +173,8 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   /**
    * todo: Description.
    */
-  public override update(delta: number): void {
-    const actor: ClientObject = registry.actor;
-
-    if (trySwitchToAnotherSection(this.object, this.state, actor)) {
+  public update(delta: number): void {
+    if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
     }
 
@@ -187,6 +185,8 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     }
 
     if (this.state.path_look) {
+      const actor: ClientObject = registry.actor;
+
       if (this.state.path_look === ACTOR) {
         this.heliFly.setLookPoint(actor.position());
         if (this.state.stop_fire) {

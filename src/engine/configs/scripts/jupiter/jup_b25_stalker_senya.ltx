@@ -1,7 +1,7 @@
 ; general section
 
 [remark@jup_b25_stalker_senya_wounded_gen]
-on_info1 = {+jup_b25_found_senya -jup_b25_senya_task_gived} %+jup_b25_senya_task_gived =give_task(jup_b25_revenge_senya)% 
+on_info1 = {+jup_b25_found_senya -jup_b25_senya_task_gived} %+jup_b25_senya_task_gived =give_task(jup_b25_revenge_senya)%
 on_info2 = {+jup_b25_first_blame +jup_b25_second_blame +jup_b25_third_blame +jup_b25_blame_story_end} %=destroy_object +jup_b25_senya_dead%
 on_info3 = {+jup_b25_actor_refused_senya !actor_see_npc} remark@jup_b25_stalker_senya_wounded_refused, {+jup_b25_actor_refused_senya =distance_to_obj_ge(jup_b25_stalker_senya:3)} remark@jup_b25_stalker_senya_wounded_refused
 on_info4 = {+jup_b25_found_senya !actor_see_npc} remark@jup_b25_stalker_senya_wounded_acepted, {+jup_b25_found_senya =distance_to_obj_ge(jup_b25_stalker_senya:3)} remark@jup_b25_stalker_senya_wounded_acepted

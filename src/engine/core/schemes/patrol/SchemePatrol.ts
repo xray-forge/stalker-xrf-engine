@@ -12,7 +12,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/object/object_general";
-import { addCommonPrecondition } from "@/engine/core/utils/scheme";
+import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/setup";
 import { ActionPlanner, ClientObject, IniFile, Optional, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -111,7 +111,7 @@ export class SchemePatrol extends AbstractScheme {
     actionCommander.add_precondition(new world_property(stalker_ids.property_danger, false));
     actionCommander.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionCommander.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    addCommonPrecondition(actionCommander);
+    addCommonActionPreconditions(actionCommander);
     actionCommander.add_precondition(new world_property(EEvaluatorId.IS_PATROL_ENDED, false));
     actionCommander.add_precondition(new world_property(EEvaluatorId.IS_PATROL_COMMANDER, true));
     actionCommander.add_effect(new world_property(EEvaluatorId.IS_PATROL_ENDED, true));
@@ -125,7 +125,7 @@ export class SchemePatrol extends AbstractScheme {
     actionPatrol.add_precondition(new world_property(stalker_ids.property_danger, false));
     actionPatrol.add_precondition(new world_property(stalker_ids.property_enemy, false));
     actionPatrol.add_precondition(new world_property(stalker_ids.property_anomaly, false));
-    addCommonPrecondition(actionPatrol);
+    addCommonActionPreconditions(actionPatrol);
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_PATROL_ENDED, false));
     actionPatrol.add_precondition(new world_property(EEvaluatorId.IS_PATROL_COMMANDER, false));
     actionPatrol.add_effect(new world_property(EEvaluatorId.IS_PATROL_ENDED, true));

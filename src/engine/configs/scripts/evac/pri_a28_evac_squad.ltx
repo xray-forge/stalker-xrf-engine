@@ -25,8 +25,6 @@ on_info = {+pri_a28_evac_come_close} %=play_sound(pri_a28_evac_come_close)%
 on_info2 = {+pri_a28_evac_com_to_helicopter} %=play_sound(pri_a28_evac_com_to_helicopter)%
 on_signal = sound_end | {-pri_a28_evac_come_close_done} %+pri_a28_evac_come_close_done%
 
-
-
 [logic@pri_a28_evac_military_2]
 active = camper@pri_a28_evac_military_2_wait
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_evac_squad) !check_npc_name(pri_a28_evac_com)} true, {+pri_b305_fifth_cam_end !is_alive(pri_a28_evac_com) =target_squad_name(pri_a28_evac_squad) !is_squad_commander} true
@@ -46,8 +44,6 @@ path_look = evac_military_2_look
 def_state_standing = hide_na
 out_restr = pri_a28_scene_end_zone
 
-
-
 [logic@pri_a28_evac_military_3]
 active = camper@pri_a28_evac_military_3_wait
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_evac_squad) !check_npc_name(pri_a28_evac_com)} true, {+pri_b305_fifth_cam_end !is_alive(pri_a28_evac_com) =target_squad_name(pri_a28_evac_squad) !is_squad_commander} true
@@ -66,8 +62,6 @@ path_walk = evac_military_3_walk
 path_look = evac_military_3_look
 def_state_standing = hide_na
 out_restr = pri_a28_scene_end_zone
-
-
 
 [logic@pri_a28_evac_military_4]
 active = camper@pri_a28_evac_military_4_wait

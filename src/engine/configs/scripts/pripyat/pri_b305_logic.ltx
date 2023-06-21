@@ -1,8 +1,8 @@
 [logic]
-active = sr_idle@start 
+active = sr_idle@start
 
 [sr_idle@start]
-on_info  = {+pri_a25_rfi_source_eliminated -pri_a28_evacuation_start} sr_idle@management %=run_postprocess(fade_in) =spawn_object(pri_b305_signal_man:pri_b305_signal_temp_walk) =create_squad(pri_b305_dogs_squad:pri_b305_dogs)%
+on_info = {+pri_a25_rfi_source_eliminated -pri_a28_evacuation_start} sr_idle@management %=run_postprocess(fade_in) =spawn_object(pri_b305_signal_man:pri_b305_signal_temp_walk) =create_squad(pri_b305_dogs_squad:pri_b305_dogs)%
 
 [sr_idle@management]
 on_info = %=run_postprocess(black:5612:true)%
@@ -17,19 +17,19 @@ on_info2 = {+pri_b305_2_cam_actor} sr_idle@cam2_timer %=run_postprocess(black:56
 ;on_info3 = {+pri_b305_third_cam_prepare} %=run_postprocess(black)%
 
 [sr_idle@cam1_timer]
-on_game_timer = 80 | sr_cutscene@cam1 
+on_game_timer = 80 | sr_cutscene@cam1
 
 [sr_idle@cam2_timer]
-on_game_timer = 50 | sr_cutscene@cam2_p1 
+on_game_timer = 50 | sr_cutscene@cam2_p1
 
 [sr_cutscene@cam1]
 point = pri_a16_pri_b305_actor_walk
 look = pri_a16_pri_b305_actor_walk
-cam_effector = scenario_cam\pripyat\pri_b305_catscene_1_medik_back	
+cam_effector = scenario_cam\pripyat\pri_b305_catscene_1_medik_back
 global_cameffect = true
 on_game_timer = 10 | {-pri_b305_first_cam_ready} %+pri_b305_first_cam_ready =stop_postprocess(5612)%
 on_info = {+pri_b305_actor_understand_done_end} %=stop_sr_cutscene =enable_ui +pri_b305_first_cam_end%
-on_signal = cameff_end | sr_idle@save_for_a25 %+pri_b305_first_cam_end  =give_task(pri_b305_kovalskiy_talk)% 
+on_signal = cameff_end | sr_idle@save_for_a25 %+pri_b305_first_cam_end =give_task(pri_b305_kovalskiy_talk)%
 
 [sr_idle@save_for_a25]
 on_info = {-save_pri_a25_freed_medic} %+save_pri_a25_freed_medic =scenario_autosave(st_save_pri_a25_freed_medic)%
@@ -49,14 +49,14 @@ on_info2 = {+pri_b305_actor_check_signal_done_end} %=stop_sr_cutscene +pri_b305_
 on_signal = cameff_end | sr_idle@keeper_of_secrets_archievement %+pri_b305_second_cam_end =give_task(pri_b305_check_unknown_signal)%
 
 ;*************************************************************************************************************
-; Логика бонуса за ачивку "Хранитель тайн"
+; пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ"
 ;*************************************************************************************************************
 [sr_idle@keeper_of_secrets_archievement]
 on_info = {+keeper_of_secrets_achievement_gained} sr_idle@strelok_regeneration_timer
 
 [sr_idle@strelok_regeneration_timer]
-on_game_timer = 100 | sr_idle@strelok_regeneration  
+on_game_timer = 100 | sr_idle@strelok_regeneration
 
 [sr_idle@strelok_regeneration]
-on_info = sr_idle@strelok_regeneration_timer %=heal_squad(pri_a16_military_squad)% 
+on_info = sr_idle@strelok_regeneration_timer %=heal_squad(pri_a16_military_squad)%
 ;*************************************************************************************************************

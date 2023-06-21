@@ -1,4 +1,3 @@
-
 ;-------------------------------------����� ������--------------------------------------------
 
 [logic@port_bandit_1_leader]
@@ -42,12 +41,12 @@ on_info2 = {+zat_b52_robbery_no} walker@fight %=set_squad_enemy_to_actor(zat_b52
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 
 [meet@robbery] ;������ ������ ������ ������
-close_victim 	= actor
-far_victim 	    = actor
-close_distance 	= 6
-far_distance 	= 10
-far_anim 		= nil
-close_anim 		= nil
+close_victim = actor
+far_victim = actor
+close_distance = 6
+far_distance = 10
+far_anim = nil
+close_anim = nil
 use = {=has_enemy} false, {=actor_enemy} false, self
 allow_break = false
 trade_enable = false

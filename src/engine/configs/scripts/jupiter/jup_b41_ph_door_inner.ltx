@@ -15,13 +15,13 @@ snd_close_stop = trader_door_close_stop
 [ph_door@open]
 closed = false
 locked = false
-on_use = ph_door@closed  %-jup_b41_inner_door_open%
+on_use = ph_door@closed %-jup_b41_inner_door_open%
 on_info = {!check_smart_alarm_status(jup_b41:normal)} ph_door@locked %-jup_b41_inner_door_open%
 on_info2 = {+jup_b41_outer_door_open} ph_door@locked %-jup_b41_inner_door_open%
 snd_open_start = trader_door_open_start
 snd_close_start = trader_door_close_start
 snd_close_stop = trader_door_close_stop
-on_game_timer = 40 | ph_door@closed  %-jup_b41_inner_door_open%
+on_game_timer = 40 | ph_door@closed %-jup_b41_inner_door_open%
 
 [ph_door@locked]
 closed = true

@@ -4,7 +4,6 @@ active = sr_idle@quest
 [sr_idle@quest]
 on_actor_in_zone = labx8_sr_quest | sr_idle@one %=set_counter(lx8_documents)%
 
-
 [sr_idle@one]
 on_info = {=counter_equal(lx8_documents:1)} sr_idle@two %+lx8_doc_1%
 

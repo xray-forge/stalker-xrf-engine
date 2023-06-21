@@ -27,7 +27,7 @@ corpse_detection_enabled = false
 gather_items_enabled = false
 meet = no_meet
 combat_ignore_cond = {-pri_a18_actor_enemy} true
-use_camp = false 
+use_camp = false
 path_walk = pri_a18_reinforcement_1_go_post_walk_2_2
 on_signal = pri_a18_reinforcement_1_go_post_walk_2_2_sig | remark@hello_snd %+pri_a18_near_bus%
 on_info = {=health_le(0.99) !actor_enemy} %=restore_health%
@@ -39,7 +39,7 @@ on_info5 = {+pri_a18_post_guard_combat} walker@go_shop %+pri_a18_get_reinforceme
 [remark@hello_snd]:remark@def_go_base
 corpse_detection_enabled = false
 gather_items_enabled = false
-use_camp = false 
+use_camp = false
 meet = no_meet
 anim = guard_na
 target = story | actor
@@ -54,7 +54,7 @@ on_info6 = {-pri_a18_once_scenario_autosave} %+pri_a18_once_scenario_autosave =s
 [remark@hello_snd_timer]:remark@def_go_base
 corpse_detection_enabled = false
 gather_items_enabled = false
-use_camp = false 
+use_camp = false
 meet = no_meet
 anim = guard_na
 target = story | actor
@@ -72,7 +72,7 @@ corpse_detection_enabled = false
 gather_items_enabled = false
 meet = no_meet
 combat_ignore_cond = {-pri_a18_actor_enemy} true
-use_camp = false 
+use_camp = false
 path_walk = pri_a18_reinforcement_1_go_post_walk_2_3
 in_restr = pri_a18_in_anom_in_restr
 on_signal = pri_a18_reinforcement_smartcover_2_1 | smartcover@near_shop_enter
@@ -84,20 +84,20 @@ on_info4 = {+pri_a18_actor_enemy} %=actor_enemy%
 corpse_detection_enabled = false
 gather_items_enabled = false
 meet = no_meet
-use_camp = false 
+use_camp = false
 combat_ignore_cond = {-pri_a18_actor_enemy} true
 def_state_moving = sneak_run
 path_walk = pri_a18_reinforcement_1_go_post_walk_2_3
 on_signal = pri_a18_reinforcement_smartcover_2_1 | smartcover@near_shop_enter
 on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
-on_info2 = {+pri_a18_actor_enemy} %=actor_enemy% 
+on_info2 = {+pri_a18_actor_enemy} %=actor_enemy%
 
 [smartcover@near_shop_enter]:smartcover@def_go_base
 combat_ignore_cond = {-pri_a18_actor_enemy} true
 corpse_detection_enabled = false
 gather_items_enabled = false
 meet = no_meet
-use_camp = false 
+use_camp = false
 cover_name = pri_a18_near_shop_enter_smart_cover_2_1
 loophole_name = crouch_front_right
 use_in_combat = true
@@ -111,7 +111,7 @@ on_info5 = {+pri_a18_actor_enemy} %=actor_enemy%
 def_state_moving = sneak_run
 corpse_detection_enabled = false
 gather_items_enabled = false
-use_camp = false 
+use_camp = false
 meet = no_meet
 combat_ignore_cond = {-pri_a18_actor_enemy} true
 path_walk = pri_a18_reinforcement_near_shop_enter_walk_2
@@ -134,7 +134,7 @@ out_restr = pri_a18_post_quard_out_restrictor
 path_walk = pri_a18_reinforcement_in_hall_walk_1
 path_look = pri_a18_reinforcement_corridor_look
 corpse_detection_enabled = false
-use_camp = false 
+use_camp = false
 gather_items_enabled = false
 meet = no_meet
 def_state_moving = assault
@@ -149,7 +149,7 @@ on_info4 = {+pri_a18_actor_enemy} %=actor_enemy%
 out_restr = pri_surge_hide_a18_2
 combat_ignore_cond = {-pri_a18_actor_enemy !is_alive(pri_a18_monolith_2nd_corridor_1)} true
 corpse_detection_enabled = false
-use_camp = false 
+use_camp = false
 gather_items_enabled = false
 meet = no_meet
 def_state_moving = assault
@@ -167,7 +167,7 @@ combat_ignore_cond = {-pri_a18_actor_enemy !is_alive(pri_a18_monolith_2nd_corrid
 corpse_detection_enabled = false
 gather_items_enabled = false
 meet = no_meet
-use_camp = false 
+use_camp = false
 def_state_moving = sneak_run
 def_state_standing = hide
 path_walk = pri_a18_reinf_near_idol_room_2
@@ -180,7 +180,7 @@ on_info4 = {+pri_a18_actor_enemy} %=actor_enemy%
 [walker@idolroom_door]:walker@def_go_base
 combat_ignore_cond = {-pri_a18_actor_enemy} true
 corpse_detection_enabled = false
-use_camp = false 
+use_camp = false
 gather_items_enabled = false
 meet = no_meet
 def_state_moving = sneak_run
@@ -198,7 +198,7 @@ meet = no_meet
 cover_name = pri_a18_idolroom_door_smartcover_2
 loophole_name = crouch_front_left
 use_in_combat = true
-combat_ignore_cond = {-pri_a18_actor_enemy} true 
+combat_ignore_cond = {-pri_a18_actor_enemy} true
 on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 on_info2 = {=actor_in_zone(pri_a18_monolith_trance_restrictor) !squad_exist(pri_a18_monolith_2nd_corridor_squad)} camper@idol_room
 on_info3 = {+pri_a18_actor_enemy} %=actor_enemy%
@@ -210,7 +210,7 @@ meet = no_meet
 def_state_moving = raid
 def_state_campering_fire = threat_fire
 radius = 0
-combat_ignore_cond = {-pri_a18_actor_enemy -pri_a18_hit_pray_squad} true 
+combat_ignore_cond = {-pri_a18_actor_enemy -pri_a18_hit_pray_squad} true
 path_walk = pri_a18_reinforcement_2_ready_kill_walk
 path_look = pri_a18_reinforcement_2_ready_kill_look
 on_signal = pri_a18_play_kill_snd_2 | {-pri_a18_hit_pray_squad} %=play_sound(pri_a18_sokolov_fight)%
@@ -225,7 +225,7 @@ meet = no_meet
 def_state_moving = raid
 def_state_campering_fire = threat_fire
 radius = 0
-combat_ignore_cond = {-pri_a18_actor_enemy -pri_a18_hit_pray_squad} true 
+combat_ignore_cond = {-pri_a18_actor_enemy -pri_a18_hit_pray_squad} true
 path_walk = pri_a18_reinforcement_2_ready_kill_walk
 path_look = pri_a18_reinforcement_2_ready_kill_look
 on_game_timer = 70 | {+pri_a18_vano_lets_kill_snd_done} %+pri_a18_hit_pray_squad%
@@ -246,7 +246,7 @@ on_info2 = {+pri_a18_actor_enemy} %=actor_enemy%
 meet = meet
 path_walk = pri_a18_in_hall_after_fighting_wait_walk_2
 path_look = pri_a18_in_hall_after_fighting_wait_look_2
-use_camp = false 
+use_camp = false
 corpse_detection_enabled = false
 gather_items_enabled = false
 on_info = {=health_le(0.5) !actor_enemy} %=restore_health%

@@ -22,9 +22,9 @@ corpse_detection_enabled = false
 target = path | pri_a16_pri_b305_kirillov_closer_walk, 0
 anim = wait_na
 out_restr = pri_a16_sr_noweap
-on_info = {+pri_b305_kirilov_about_garik_vano_done_end -pri_b305_actor_understand_done} %=play_sound(pri_b305_actor_understand) +pri_b305_actor_understand_done%  
-on_signal = theme_end | {-pri_b305_actor_understand_done_end} %+pri_b305_actor_understand_done_end% 
-on_info2 = {+pri_b305_first_cam_end} %=destroy_object -pri_b305_1_cam_actor% 
+on_info = {+pri_b305_kirilov_about_garik_vano_done_end -pri_b305_actor_understand_done} %=play_sound(pri_b305_actor_understand) +pri_b305_actor_understand_done%
+on_signal = theme_end | {-pri_b305_actor_understand_done_end} %+pri_b305_actor_understand_done_end%
+on_info2 = {+pri_b305_first_cam_end} %=destroy_object -pri_b305_1_cam_actor%
 meet = no_meet
 use_camp = false
 combat_ignore_cond = true
@@ -33,4 +33,3 @@ invulnerable = true
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
-

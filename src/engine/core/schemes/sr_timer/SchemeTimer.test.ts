@@ -3,8 +3,8 @@ import { describe, expect, it } from "@jest/globals";
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/sr_timer/ISchemeTimerState";
 import { SchemeTimer } from "@/engine/core/schemes/sr_timer/SchemeTimer";
+import { loadSchemeImplementation } from "@/engine/core/utils/scheme/setup";
 import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
-import { loadSchemeImplementation } from "@/engine/scripts/register/schemes_registrator";
 import { luaTableToObject } from "@/fixtures/lua/mocks/utils";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 

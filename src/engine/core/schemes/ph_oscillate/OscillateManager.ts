@@ -30,7 +30,7 @@ export class OscillateManager extends AbstractSchemeManager<ISchemeOscillateStat
   /**
    * todo: Description.
    */
-  public override update(): void {
+  public update(): void {
     const now: TTimestamp = time_global();
 
     if (this.pause === true) {

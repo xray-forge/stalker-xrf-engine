@@ -2,8 +2,7 @@ import { alife } from "xray16";
 
 import { getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { IBaseSchemeLogic } from "@/engine/core/schemes";
-import { abort, assertDefined } from "@/engine/core/utils/assertion";
-import { getExtern } from "@/engine/core/utils/binding";
+import { abort } from "@/engine/core/utils/assertion";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini/parse";
 import {
@@ -22,7 +21,7 @@ import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NIL } from "@/engine/lib/constants/words";
 import {
   AlifeSimulator,
-  AnyCallablesModule,
+  AnyCallable,
   AnyObject,
   ClientObject,
   ESchemeCondition,
@@ -55,13 +54,15 @@ export function getParametersString(data: string): LuaMultiReturn<[string, boole
 
 /**
  * todo;
+ * todo: Probably not used anywhere, check. Original regexp - "(%|*[^%|]+%|*)%p*".
  */
 export function getInfosFromData(object: ClientObject, data: Optional<string>): LuaArray<TInfoPortion> {
   const infos: LuaArray<TInfoPortion> = new LuaTable();
   const actor: ClientObject = registry.actor;
 
   if (data !== null) {
-    for (const name of string.gfind(data, "(%|*[^%|]+%|*)%p*")) {
+    // todo: Trim parsed.
+    for (const name of string.gfind(data, "%s*([^|]+)%s*")) {
       const conditionsList: Optional<TConditionList> = parseConditionsList(name);
 
       if (conditionsList !== null) {
@@ -86,59 +87,61 @@ export function pickSectionFromCondList<T extends TSection>(
   for (const [, switchCondition] of condlist) {
     let areInfoPortionConditionsMet = true;
 
-    for (const [, infop] of switchCondition.infop_check) {
-      if (infop.prob) {
+    for (const [, configCondition] of switchCondition.infop_check) {
+      if (configCondition.prob) {
         if (!randomValue) {
           randomValue = math.random(100);
         }
 
-        if (infop.prob < randomValue) {
+        if (configCondition.prob < randomValue) {
           areInfoPortionConditionsMet = false;
           break;
         }
-      } else if (infop.func) {
-        if (!getExtern<AnyCallablesModule>("xr_conditions")[infop.func]) {
+      } else if (configCondition.func) {
+        const condition: Optional<AnyCallable> = (_G as AnyObject)["xr_conditions"][configCondition.func];
+
+        if (!condition) {
           abort(
-            "object '%s': pick_section_from_condlist: function '%s' is " + "not defined in xr_conditions.script",
+            "object '%s': pickSectionFromCondList: function '%s' is not defined in xr_conditions.",
             object?.name(),
-            infop.func
+            configCondition.func
           );
         }
 
-        if (infop.params) {
-          if (getExtern<AnyCallablesModule>("xr_conditions")[infop.func](actor, object, infop.params)) {
-            if (!infop.expected) {
+        if (configCondition.params) {
+          if (condition(actor, object, configCondition.params)) {
+            if (!configCondition.expected) {
               areInfoPortionConditionsMet = false;
               break;
             }
           } else {
-            if (infop.expected) {
+            if (configCondition.expected) {
               areInfoPortionConditionsMet = false;
               break;
             }
           }
         } else {
-          if (getExtern<AnyCallablesModule>("xr_conditions")[infop.func](actor, object)) {
-            if (!infop.expected) {
+          if (condition(actor, object)) {
+            if (!configCondition.expected) {
               areInfoPortionConditionsMet = false;
               break;
             }
           } else {
-            if (infop.expected) {
+            if (configCondition.expected) {
               areInfoPortionConditionsMet = false;
               break;
             }
           }
         }
-      } else if (hasAlifeInfo(infop.name)) {
-        if (!infop.required) {
+      } else if (hasAlifeInfo(configCondition.name)) {
+        if (!configCondition.required) {
           areInfoPortionConditionsMet = false;
           break;
         } else {
           // -
         }
       } else {
-        if (infop.required) {
+        if (configCondition.required) {
           areInfoPortionConditionsMet = false;
           break;
         } else {
@@ -148,23 +151,19 @@ export function pickSectionFromCondList<T extends TSection>(
     }
 
     if (areInfoPortionConditionsMet) {
-      for (const [inum, infop] of pairs(switchCondition.infop_set)) {
-        assertDefined(actor, "Trying to set infos when actor is not initialized.");
-
+      for (const [, infop] of switchCondition.infop_set) {
         if (infop.func) {
-          if (!getExtern<AnyCallablesModule>("xr_effects")[infop.func]) {
+          const effect: Optional<AnyCallable> = (_G as AnyObject)["xr_effects"][infop.func];
+
+          if (!effect) {
             abort(
-              "object '%s': pick_section_from_condlist: function '%s' is " + "not defined in xr_effects.script",
+              "object '%s': pickSectionFromCondList: function '%s' is not defined in xr_effects.",
               object?.name(),
               infop.func
             );
           }
 
-          if (infop.params) {
-            getExtern<AnyCallablesModule>("xr_effects")[infop.func](actor, object, infop.params);
-          } else {
-            getExtern<AnyCallablesModule>("xr_effects")[infop.func](actor, object);
-          }
+          effect(actor, object, infop.params);
         } else if (infop.required) {
           if (!hasAlifeInfo(infop.name)) {
             giveInfo(infop.name);
@@ -235,10 +234,11 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
 
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
-  if (ini.line_exist(state.section_logic, "post_combat_time")) {
+  // todo: use ternary for state.section_logic
+  if (ini.line_exist(state.sectionLogic, "post_combat_time")) {
     const [minPostCombatTime, maxPostCombatTime] = readIniTwoNumbers(
       ini,
-      state.section_logic,
+      state.sectionLogic,
       "post_combat_time",
       logicsConfig.POST_COMBAT_IDLE.MIN / 1000,
       logicsConfig.POST_COMBAT_IDLE.MAX / 1000
@@ -263,7 +263,7 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
     overrides.on_offline_condlist = parseConditionsList(readIniString(ini, section, "on_offline", false, "", NIL));
   } else {
     overrides.on_offline_condlist = parseConditionsList(
-      readIniString(ini, state.section_logic, "on_offline", false, "", NIL)
+      readIniString(ini, state.sectionLogic, "on_offline", false, "", NIL)
     );
   }
 
@@ -305,9 +305,9 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Opti
 
   // todo: Move conditions to enum.
   addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN);
-  addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_AND_VISIBLE);
+  addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE);
   addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN);
-  addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_AND_VISIBLE);
+  addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN_NOT_VISIBLE);
   addConditions(readIniStringAndCondList, ESchemeCondition.ON_SIGNAL);
   addConditions(readIniConditionList, ESchemeCondition.ON_INFO);
   addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_TIMER);

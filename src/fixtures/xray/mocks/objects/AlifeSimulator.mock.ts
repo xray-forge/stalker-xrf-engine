@@ -1,11 +1,12 @@
 import { jest } from "@jest/globals";
 
-import { AlifeSimulator, ServerObject } from "@/engine/lib/types";
+import { AlifeSimulator, Optional, ServerObject } from "@/engine/lib/types";
 
 /**
  * todo;
  */
 export class MockAlifeSimulator {
+  public static simulator: Optional<MockAlifeSimulator> = null;
   public static registry: Record<number, ServerObject> = {};
 
   public static addToRegistry(object: ServerObject): void {
@@ -16,9 +17,19 @@ export class MockAlifeSimulator {
     delete MockAlifeSimulator.registry[id];
   }
 
+  public static getInstance(): MockAlifeSimulator {
+    if (!MockAlifeSimulator.simulator) {
+      MockAlifeSimulator.simulator = new MockAlifeSimulator();
+    }
+
+    return MockAlifeSimulator.simulator;
+  }
+
   public actor = jest.fn(() => MockAlifeSimulator.registry[0] || null);
 
   public object = jest.fn((id: number) => MockAlifeSimulator.registry[id] || null);
+
+  public create = jest.fn(() => {});
 
   public create_ammo = jest.fn(() => {});
 
@@ -31,5 +42,5 @@ export class MockAlifeSimulator {
  * todo;
  */
 export function mockAlifeSimulator(): AlifeSimulator {
-  return new MockAlifeSimulator() as unknown as AlifeSimulator;
+  return MockAlifeSimulator.getInstance() as unknown as AlifeSimulator;
 }

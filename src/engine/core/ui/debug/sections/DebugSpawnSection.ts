@@ -3,7 +3,7 @@ import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, LuabindClass, ui_event
 import { Squad } from "@/engine/core/objects";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemListEntry";
-import { isGameStarted } from "@/engine/core/utils/alife";
+import { isGameStarted } from "@/engine/core/utils/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNearestServerObject } from "@/engine/core/utils/object/object_find";
 import { getSimulationGroupSections, getStalkerSections } from "@/engine/core/utils/sections";

@@ -14,7 +14,7 @@ on_info51 = {-pas_b400_sokolov_about_door_1 !is_alive_one(pas_b400_zulus:pas_b40
 on_info50 = {-pas_b400_about_door !is_alive_one(pas_b400_zulus:pas_b400_vano) +pas_b400_hall_door_opened +pas_b400_hall_monolith_snipers_dead} %+pas_b400_about_door =play_sound(pas_b400_wanderer_about_door_1)%
 
 [logic@pas_b400_zulus_hall]
-active = walker@zulus_hall_enter 
+active = walker@zulus_hall_enter
 suitable = {=check_npc_name(pas_b400_zulus) -pas_b400_hall_done} true
 prior = 200
 on_hit = hit@zulus
@@ -175,10 +175,8 @@ on_info4 = {+pas_b400_hall_monolith_squad_attacked -pas_b400_hall_monolith_squad
 on_info5 = {-pas_b400_control_down_door_opened =npc_in_zone(pas_b400_sr_hall_12) -pas_b400_about_railway} %+pas_b400_about_railway =play_sound(pas_b400_zulus_about_railway_1)%
 on_info6 = {-pas_b400_hall_door_opened +pas_b400_control_down_door_opened =npc_in_zone(pas_b400_sr_hall_12) !squad_has_enemy(pas_b400_stalkers_squad) -pas_b400_about_control_gates} %+pas_b400_about_control_gates =play_sound(pas_b400_zulus_about_control_gates_1)%
 
-
-
 [logic@pas_b400_vano_hall]
-active = walker@vano_hall_enter 
+active = walker@vano_hall_enter
 suitable = {=check_npc_name(pas_b400_vano) -pas_b400_hall_done} true
 prior = 200
 on_hit = hit@vano
@@ -296,7 +294,7 @@ on_info4 = {+pas_b400_sr_hall_7} walker@vano_hall_7
 on_info5 = {+pas_b400_hall_monolith_snipers_attacked -pas_b400_hall_monolith_snipers_dead} walker@vano_hall_6_defence
 on_info6 = {-pas_b400_about_cover !is_alive(pas_b400_zulus) =npc_in_zone(pas_b400_sr_hall_6) =actor_in_zone(pas_b400_sr_control_stairs) !squad_has_enemy(pas_b400_stalkers_squad)} %+pas_b400_about_cover =play_sound(pas_b400_vano_about_cover_1)%
 on_game_timer = 150 | {-pas_b400_control_down_door_opened} walker@vano_hall_6
-on_signal = path_end | {-pas_b400_vano_about_room_closed -pas_b400_control_down_door_opened} %+pas_b400_vano_about_room_closed =play_sound(pas_b400_vano_about_room_closed)%, {-pas_b400_vano_about_room_open +pas_b400_control_down_door_opened} %+pas_b400_vano_about_room_open =play_sound(pas_b400_vano_about_room_open)% 
+on_signal = path_end | {-pas_b400_vano_about_room_closed -pas_b400_control_down_door_opened} %+pas_b400_vano_about_room_closed =play_sound(pas_b400_vano_about_room_closed)%, {-pas_b400_vano_about_room_open +pas_b400_control_down_door_opened} %+pas_b400_vano_about_room_open =play_sound(pas_b400_vano_about_room_open)%
 
 [walker@vano_hall_6_defence]:walker@vano_hall_def
 path_walk = vano_6_defence_walk
@@ -358,7 +356,7 @@ on_info5 = {+pas_b400_about_railway !is_alive_one(pas_b400_zulus:pas_b400_wander
 [remark@vano_hall_transformer]:walker@vano_hall_def
 target = path | pas_b400_hall_transformer_look, 0
 anim = threat_na
-on_signal = sound_end |  walker@vano_hall_11 %+pas_b400_about_transformer%
+on_signal = sound_end | walker@vano_hall_11 %+pas_b400_about_transformer%
 out_restr = pas_b400_sr_hall_11
 on_info = %=play_sound(pas_b400_vano_about_transformer_1)%
 
@@ -381,10 +379,8 @@ on_info5 = {+pas_b400_vano_about_railway_1_can =npc_in_zone(pas_b400_sr_hall_12)
 on_info6 = {-pas_b400_control_down_door_opened =npc_in_zone(pas_b400_sr_hall_12) !is_alive_one(pas_b400_zulus:pas_b400_sokolov:pas_b400_wanderer) -pas_b400_vano_about_railway_1} %+pas_b400_about_railway +pas_b400_vano_about_railway_1 =play_sound(pas_b400_vano_about_railway_1)%
 on_info7 = {-pas_b400_hall_door_opened +pas_b400_control_down_door_opened =npc_in_zone(pas_b400_sr_hall_12) !is_alive_one(pas_b400_sokolov:pas_b400_zulus) !squad_has_enemy(pas_b400_stalkers_squad) -pas_b400_about_control_gates} %+pas_b400_about_control_gates =play_sound(pas_b400_vano_about_control_gates_1)%
 
-
-
 [logic@pas_b400_sokolov_hall]
-active = walker@sokolov_hall_enter 
+active = walker@sokolov_hall_enter
 suitable = {=check_npc_name(pas_b400_sokolov) -pas_b400_hall_done} true
 prior = 200
 on_hit = hit@sokolov
@@ -541,10 +537,8 @@ on_info4 = {+pas_b400_hall_monolith_squad_attacked -pas_b400_hall_monolith_squad
 on_info5 = {-pas_b400_control_down_door_opened =npc_in_zone(pas_b400_sr_hall_12) !is_alive(pas_b400_zulus) -pas_b400_about_railway} %+pas_b400_about_railway =play_sound(pas_b400_sokolov_about_railway_1)%
 on_info6 = {-pas_b400_hall_door_opened +pas_b400_control_down_door_opened =npc_in_zone(pas_b400_sr_hall_12) !is_alive(pas_b400_zulus) !squad_has_enemy(pas_b400_stalkers_squad) -pas_b400_about_control_gates} %+pas_b400_about_control_gates =play_sound(pas_b400_sokolov_about_control_gates_1)%
 
-
-
 [logic@pas_b400_wanderer_hall]
-active = walker@wanderer_hall_enter 
+active = walker@wanderer_hall_enter
 suitable = {=check_npc_name(pas_b400_wanderer) -pas_b400_hall_done} true
 prior = 200
 on_hit = hit@wanderer

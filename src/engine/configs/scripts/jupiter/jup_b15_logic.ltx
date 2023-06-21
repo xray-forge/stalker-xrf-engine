@@ -20,19 +20,19 @@ look = jup_b15_cut_actor_look
 cam_effector = scenario_cam\Jupiter\jup_b15_sleep
 global_cameffect = false
 enable_ui_on_end = false
-on_signal = cameff_end | sr_cutscene@wake %=run_postprocess(fade_in_out) =set_game_time(06:00)%	
+on_signal = cameff_end | sr_cutscene@wake %=run_postprocess(fade_in_out) =set_game_time(06:00)%
 
 [sr_cutscene@wake]
 point = jup_b15_cut_actor_walk
 look = jup_b15_cut_actor_look
 cam_effector = scenario_cam\Jupiter\jup_b15_wake_up
 global_cameffect = false
-on_info = {-jup_b15_alcohol} %+jup_b15_alcohol%	
+on_info = {-jup_b15_alcohol} %+jup_b15_alcohol%
 on_signal = cameff_end | sr_idle@b218 %+jup_b15_cameff_end =set_counter(jup_b218_squad_members_count:0)%
 
 [sr_idle@b218]
 on_info8 = {-jup_b15_drunk_with_zulu_saved} %+jup_b15_drunk_with_zulu_saved =scenario_autosave(st_save_jup_b15_drunk_with_zulu)%
-on_info  = {+jup_b218_vano_tp -jup_b218_zulus_met_vano} %+jup_b218_zulus_met_vano =inc_counter(jup_b218_squad_members_count) =scenario_autosave(st_save_jup_b218_vano_in_squad)%
+on_info = {+jup_b218_vano_tp -jup_b218_zulus_met_vano} %+jup_b218_zulus_met_vano =inc_counter(jup_b218_squad_members_count) =scenario_autosave(st_save_jup_b218_vano_in_squad)%
 on_info2 = {+jup_b218_sokolov_tp -jup_b218_zulus_met_sokolov} %+jup_b218_zulus_met_sokolov =inc_counter(jup_b218_squad_members_count) =scenario_autosave(st_save_jup_b218_sokolov_in_squad)%
 on_info3 = {+jup_b218_monolith_fr_tp -jup_b218_zulus_met_monolith} %+jup_b218_zulus_met_monolith =inc_counter(jup_b218_squad_members_count) =scenario_autosave(st_save_jup_b218_strider_in_squad)%
 on_info4 = {+jup_b218_monolith_du_tp -jup_b218_zulus_met_monolith} %+jup_b218_zulus_met_monolith =inc_counter(jup_b218_squad_members_count) =scenario_autosave(st_save_jup_b218_strider_in_squad)%

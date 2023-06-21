@@ -1,6 +1,8 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-export const IS_XML: boolean = true;
+import { XrComponent, XrText } from "@/engine/forms/components/base";
+import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
+import { fonts } from "@/engine/lib/constants/fonts";
 
 export function create(): JSXNode {
   return <BoosterParams />;
@@ -8,170 +10,60 @@ export function create(): JSXNode {
 
 export function BoosterParams(): JSXNode {
   return (
-    <booster_params x="0" y="0" width="217" height="20">
-      <prop_line x="0" y="0" width="208" height="9" stretch="1">
-        <texture>ui_inGame2_hint_wnd_Properties</texture>
-      </prop_line>
+    <XrComponent tag={"booster_params"} x={0} y={0} width={217} height={20}>
+      <XrComponent tag={"prop_line"} x={0} y={0} width={208} height={9} stretch={true}>
+        <XrTexture id={"ui_inGame2_hint_wnd_Properties"} />
+      </XrComponent>
 
-      <boost_health_restore x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_propery_05</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="10000">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_health_restore>
+      <BoosterParam name={"boost_health_restore"} texture={"ui_am_propery_05"} magnitude={10000} />
+      <BoosterParam name={"boost_radiation_restore"} texture={"ui_am_propery_09"} magnitude={1000} />
+      <BoosterParam name={"boost_satiety"} texture={"ui_am_prop_satiety_restore_speed"} magnitude={10} />
+      <BoosterParam name={"boost_anabiotic"} texture={"ui_am_prop_Vibros"} magnitude={100} />
+      <BoosterParam name={"boost_power_restore"} texture={"ui_am_propery_07"} magnitude={2000} />
+      <BoosterParam name={"boost_bleeding_restore"} texture={"ui_am_prop_restore_bleeding"} magnitude={1000} />
+      <BoosterParam name={"boost_radiation_protection"} texture={"ui_am_propery_09"} magnitude={300} />
+      <BoosterParam name={"boost_telepat_protection"} texture={"ui_am_propery_11"} magnitude={300} />
+      <BoosterParam name={"boost_chemburn_protection"} texture={"ui_am_prop_chem"} magnitude={300} />
+      <BoosterParam name={"boost_burn_immunity"} texture={"ui_am_prop_thermo"} magnitude={30} />
+      <BoosterParam name={"boost_shock_immunity"} texture={"ui_am_prop_electro"} magnitude={48} />
+      <BoosterParam name={"boost_radiation_immunity"} texture={"ui_am_propery_09"} magnitude={30} />
+      <BoosterParam name={"boost_telepat_immunity"} texture={"ui_am_propery_11"} magnitude={30} />
+      <BoosterParam name={"boost_chemburn_immunity"} texture={"ui_am_prop_chem"} magnitude={30} />
+      <BoosterParam name={"boost_max_weight"} texture={"ui_am_propery_08"} magnitude={1} unitStr={"st_kg"} />
+      <BoosterParam
+        name={"boost_time"}
+        texture={"ui_am_prop_time_period"}
+        magnitude={1}
+        showSign={0}
+        unitStr={"ui_inv_seconds_short"}
+      />
+    </XrComponent>
+  );
+}
 
-      <boost_radiation_restore x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_propery_09</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="1000">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_radiation_restore>
+function BoosterParam({
+  name,
+  texture,
+  magnitude,
+  unitStr,
+  showSign,
+}: {
+  name: string;
+  texture: string;
+  magnitude: number;
+  unitStr?: string;
+  showSign?: number;
+}): JSXNode {
+  return (
+    <XrComponent tag={name} x={0} y={0} width={214} height={20}>
+      <caption x={0} y={0} width={15} height={20} stretch={1}>
+        <XrTexture id={texture} />
+        <XrText color={"ui_3"} font={fonts.letterica16} vertAlign={"c"} x={18} y={0} />
+      </caption>
 
-      <boost_satiety x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_prop_satiety_restore_speed</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="10">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_satiety>
-
-      <boost_anabiotic x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_prop_Vibros</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="100">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_anabiotic>
-
-      <boost_power_restore x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_propery_07</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="2000">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_power_restore>
-
-      <boost_bleeding_restore x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_prop_restore_bleeding</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="1000">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_bleeding_restore>
-
-      <boost_radiation_protection x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_propery_09</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="300">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_radiation_protection>
-
-      <boost_telepat_protection x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_propery_11</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="300">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_telepat_protection>
-
-      <boost_chemburn_protection x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_prop_chem</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="300">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_chemburn_protection>
-
-      <boost_burn_immunity x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_prop_thermo</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="30">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_burn_immunity>
-
-      <boost_shock_immunity x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_prop_electro</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="48">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_shock_immunity>
-
-      <boost_radiation_immunity x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_propery_09</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="30">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_radiation_immunity>
-
-      <boost_telepat_immunity x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_propery_11</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="30">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_telepat_immunity>
-
-      <boost_chemburn_immunity x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_prop_chem</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="30">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_chemburn_immunity>
-
-      <boost_max_weight x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_propery_08</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="1" unit_str="st_kg">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_max_weight>
-
-      <boost_time x="0" y="0" width="214" height="20">
-        <caption x="0" y="0" width="15" height="20" stretch="1">
-          <texture>ui_am_prop_time_period</texture>
-          <text color="ui_3" font="letterica16" vert_align="c" x="18" y="0" />
-        </caption>
-        <value x="117" y="0" width="30" height="20" magnitude="1" show_sign="0" unit_str="ui_inv_seconds_short">
-          <text font="letterica16" vert_align="c" />
-        </value>
-      </boost_time>
-    </booster_params>
+      <value x={117} y={0} width={30} height={20} magnitude={magnitude} show_sign={showSign} unit_str={unitStr}>
+        <XrText font={fonts.letterica16} vertAlign={"c"} />
+      </value>
+    </XrComponent>
   );
 }

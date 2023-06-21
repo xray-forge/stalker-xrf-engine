@@ -2,15 +2,15 @@
 active = sr_idle@no_task
 
 [sr_idle@no_task]
-on_info = {+jup_b6_give_task} sr_idle@cont 
+on_info = {+jup_b6_give_task} sr_idle@cont
 on_info2 = {-jup_b6_employed_stalker +jup_b6_employ_stalker} sr_idle@wait_for_employ_done %=give_task(jup_b6_employ_stalkers)%
-on_info3 = {=is_squad_enemy_to_actor(jup_b6_stalker_freedom_squad) +jup_b6_freedom_employed} sr_idle@nil %+jup_b6_task_fail%, {=is_squad_enemy_to_actor(jup_b6_stalker_duty_squad) +jup_b6_duty_employed} sr_idle@nil %+jup_b6_task_fail%, {=is_squad_enemy_to_actor(jup_b6_stalker_gonta_squad) +jup_b6_gonta_employed} sr_idle@nil %+jup_b6_task_fail%, {=is_squad_enemy_to_actor(jup_b6_stalker_exprisoner_squad) +jup_b6_exprisoner_work_on_sci} sr_idle@nil %+jup_b6_task_fail% 
+on_info3 = {=is_squad_enemy_to_actor(jup_b6_stalker_freedom_squad) +jup_b6_freedom_employed} sr_idle@nil %+jup_b6_task_fail%, {=is_squad_enemy_to_actor(jup_b6_stalker_duty_squad) +jup_b6_duty_employed} sr_idle@nil %+jup_b6_task_fail%, {=is_squad_enemy_to_actor(jup_b6_stalker_gonta_squad) +jup_b6_gonta_employed} sr_idle@nil %+jup_b6_task_fail%, {=is_squad_enemy_to_actor(jup_b6_stalker_exprisoner_squad) +jup_b6_exprisoner_work_on_sci} sr_idle@nil %+jup_b6_task_fail%
 
 [sr_idle@wait_for_employ_done]
 on_info = {+jup_b6_employed_stalker} sr_idle@spawn
 
 [sr_idle@spawn]
-on_info  = {+jup_b6_freedom_employed} sr_idle@no_task %=create_squad(jup_b6_stalker_freedom_squad:jup_b41)%
+on_info = {+jup_b6_freedom_employed} sr_idle@no_task %=create_squad(jup_b6_stalker_freedom_squad:jup_b41)%
 on_info2 = {+jup_b6_duty_employed} sr_idle@no_task %=create_squad(jup_b6_stalker_duty_squad:jup_b41)%
 on_info3 = {+jup_b6_gonta_employed} sr_idle@check_gonta_on_zaton %=create_squad(jup_b6_stalker_gonta_squad:jup_b41)%
 on_info4 = {+jup_b6_exprisoner_work_on_sci} sr_idle@no_task %=create_squad(jup_b6_stalker_exprisoner_squad:jup_b41)%

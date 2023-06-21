@@ -67,7 +67,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     }
   }
 
-  public override update(): void {
+  public update(): void {
     const actionsList: LuaArray<EStalkerState> = new LuaTable();
     const description: Optional<EStalkerState> = this.state.description;
 

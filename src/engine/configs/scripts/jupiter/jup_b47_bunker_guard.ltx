@@ -12,23 +12,20 @@ snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {=has_enemy} meet_use_no_fig
 use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, {=dist_to_actor_ge(3)} false, true
 trade_enable = false
 
-
 [meet@animpoint_def]
-close_anim 		= nil
-close_victim 	= nil
-far_anim 		= nil
-far_victim 		= nil
-close_distance 	= 0
-far_distance 	= 0
+close_anim = nil
+close_victim = nil
+far_anim = nil
+far_victim = nil
+close_distance = 0
+far_distance = 0
 snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {=has_enemy} meet_use_no_fight, {=actor_has_weapon} meet_use_no_weapon
 use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, true
-trade_enable    = false
+trade_enable = false
 
 [death@jup_b41_bunker_guard_gen]
 on_info = %=inc_counter(jup_b47_bunker_guard_dead:1)%
-on_info2 = {+jup_b47_no_bunker_guard =counter_greater(jup_b47_bunker_guard_dead:4)} %+jup_b41_bunker_guards_dead%, {=counter_greater(jup_b47_bunker_guard_dead:4)} %+jup_b47_all_merc_dead +jup_b47_no_bunker_guard =set_counter(jup_b47_bunker_guard_dead:0)% 
-
-
+on_info2 = {+jup_b47_no_bunker_guard =counter_greater(jup_b47_bunker_guard_dead:4)} %+jup_b41_bunker_guards_dead%, {=counter_greater(jup_b47_bunker_guard_dead:4)} %+jup_b47_all_merc_dead +jup_b47_no_bunker_guard =set_counter(jup_b47_bunker_guard_dead:0)%
 
 ;guard works
 [logic@jup_b47_bunker_guard_01]
@@ -77,8 +74,6 @@ combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 invulnerable = true
 
-
-
 [logic@jup_b47_bunker_guard_02]
 suitable = {=target_squad_name(jup_b47_bunker_guard)} true, {=target_squad_name(jup_b47_merc_guard_squad) !check_npc_name(jup_b47_merc_01)} true
 active = walker@jup_b47_bunker_guard_02_down
@@ -113,8 +108,6 @@ on_info3 = {=npc_in_zone(jup_b41_sr_guards)} walker@jup_b47_bunker_guard_02
 path_walk = surge_walk_2
 path_look = surge_look_2
 on_info = {=surge_complete} walker@jup_b47_bunker_guard_02_down
-
-
 
 [logic@jup_b47_bunker_guard_03]
 suitable = {=target_squad_name(jup_b47_bunker_guard)} true, {=target_squad_name(jup_b47_merc_guard_squad) !check_npc_name(jup_b47_merc_01)} true
@@ -151,8 +144,6 @@ path_walk = surge_walk_3
 path_look = surge_look_3
 on_info = {=surge_complete} walker@jup_b47_bunker_guard_03_down
 
-
-
 [logic@jup_b47_bunker_guard_04]
 suitable = {=target_squad_name(jup_b47_bunker_guard)} true, {=target_squad_name(jup_b47_merc_guard_squad) !check_npc_name(jup_b47_merc_01)} true
 active = walker@jup_b47_bunker_guard_04
@@ -178,8 +169,6 @@ combat_ignore_keep_when_attacked = true
 invulnerable = true
 out_restr = jup_b41_sr_light
 on_info = {=surge_complete} walker@jup_b47_bunker_guard_04
-
-
 
 [logic@jup_b47_bunker_guard_05]
 suitable = {=target_squad_name(jup_b47_bunker_guard)} true, {=target_squad_name(jup_b47_merc_guard_squad) !check_npc_name(jup_b47_merc_01)} true

@@ -47,14 +47,12 @@ Optimizations, quality and logics updates are welcome.
 
 - [NodeJS](https://nodejs.org/en/) 14 or later
 - [Stalker-COP](https://store.steampowered.com/app/41700/STALKER_Call_of_Pripyat/) game
-- `cli/config.json` file should be edited to match your system paths
 
 ## 💿 Start development
 
 - DOWNLOAD [the game](https://store.steampowered.com/app/41700/STALKER_Call_of_Pripyat/)
 - RUN `git clone https://github.com/xray-forge/stalker-xrf-template.git` - clone repository
 - RUN `cd stalker-xrf-template` - cd to project folder
-- EDIT `cli/config.json` - correct paths to match your local system (game path, logs path, resources path)
 - RUN `npm install` - install all the dependencies
 - RUN `npm run setup` - set up the project, install submodules
 - RUN `npm run cli link` - link gamedata to the game folder

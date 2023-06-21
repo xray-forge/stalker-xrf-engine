@@ -4,9 +4,9 @@ import { registry } from "@/engine/core/database";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ActorBinder } from "@/engine/core/objects/binders/creature/ActorBinder";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos/ISchemeDeimosState";
 import { clampNumber } from "@/engine/core/utils/number";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { AnyObject, ClientObject, Optional, TIndex, TNumberId, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
@@ -32,7 +32,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
   /**
    * todo: Description.
    */
-  public override update(): void {
+  public update(): void {
     const actor: Optional<ClientObject> = registry.actor;
     const globalSoundManager: GlobalSoundManager = GlobalSoundManager.getInstance();
 
@@ -135,7 +135,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
       }
     }
 
-    if (trySwitchToAnotherSection(this.object, this.state, actor)) {
+    if (trySwitchToAnotherSection(this.object, this.state)) {
       if (this.phase > 0) {
         globalSoundManager.stopLoopedSound(actorId, this.state.noise_sound);
         level.remove_pp_effector(DeimosManager.POST_PROCESS_EFFECTOR_ID);

@@ -109,7 +109,7 @@ on_info = {=squad_exist(zat_b5_dolg_squad)} sr_idle@stalker_kill_dealer %=kill_s
 ;on_info = {=squad_exist(zat_b5_dolg_squad)} sr_idle@stalker_kill_dealer %=destroy_object(story:device_pda_zat_b5_dealer_id)%, {!squad_exist(zat_b5_dolg_squad)} sr_idle@nil %=kill_squad(zat_b5_dolg_assist_squad)%
 
 [sr_idle@stalker_kill_dealer]
-on_info  = {=squad_exist(zat_b5_dolg_assist_squad)}  sr_idle@nil %=kill_squad(zat_b5_dolg_assist_squad)%, {!squad_exist(zat_b5_dolg_assist_squad)} sr_idle@nil
+on_info = {=squad_exist(zat_b5_dolg_assist_squad)} sr_idle@nil %=kill_squad(zat_b5_dolg_assist_squad)%, {!squad_exist(zat_b5_dolg_assist_squad)} sr_idle@nil
 
 [sr_idle@destroy_stalkers]
 on_info = {=squad_exist(zat_b5_stalkers_squad)} sr_idle@nil %+zat_b5_task_end =remove_squad(zat_b5_stalkers_squad)%, {!squad_exist(zat_b5_stalkers_squad)} sr_idle@nil

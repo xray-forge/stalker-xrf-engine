@@ -1,9 +1,8 @@
 import { hit, patrol } from "xray16";
 
-import { registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
-import { trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
 import { ISchemePhysicalHitState } from "@/engine/core/schemes/ph_hit/ISchemePhysicalHitState";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/switch";
 import { copyVector } from "@/engine/core/utils/vector";
 import { Hit, Vector } from "@/engine/lib/types";
 
@@ -32,8 +31,8 @@ export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalHit
   /**
    * todo: Description.
    */
-  public override update(): void {
-    trySwitchToAnotherSection(this.object, this.state, registry.actor);
+  public update(): void {
+    trySwitchToAnotherSection(this.object, this.state);
   }
 
   /**

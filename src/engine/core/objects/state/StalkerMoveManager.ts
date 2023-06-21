@@ -151,7 +151,7 @@ export class StalkerMoveManager {
    * todo: Description.
    */
   public reset(
-    walkPath: string,
+    walkPath: TName,
     walkPathInfo: LuaArray<IWaypointData>,
     lookPath: Optional<string>,
     lookPathInfo: Optional<LuaArray<IWaypointData>>,
@@ -422,8 +422,8 @@ export class StalkerMoveManager {
   public setActiveSchemeSignal(signal: TName): void {
     const state: IRegistryObjectState = registry.objects.get(this.object.id());
 
-    if (state !== null && state[state.active_scheme!] !== null) {
-      const signals: Optional<LuaTable<TName, boolean>> = state[state.active_scheme!]!.signals;
+    if (state !== null && state[state.activeScheme!] !== null) {
+      const signals: Optional<LuaTable<TName, boolean>> = state[state.activeScheme!]!.signals;
 
       if (signals !== null) {
         signals.set(signal, true);
@@ -441,7 +441,7 @@ export class StalkerMoveManager {
       this.setActiveSchemeSignal(sigtm);
     }
 
-    if (registry.objects.get(this.object.id()).active_scheme === null) {
+    if (registry.objects.get(this.object.id()).activeScheme === null) {
       return;
     }
 

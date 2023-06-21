@@ -646,7 +646,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
         if (
           object.invulnerable() !== invulnerability &&
-          readIniString(objectState.ini, objectState.active_section!, "invulnerable", false, "", null) === null
+          readIniString(objectState.ini, objectState.activeSection!, "invulnerable", false, "", null) === null
         ) {
           object.invulnerable(invulnerability);
         }
@@ -669,8 +669,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public setLocationTypes(newLocationSection?: TSection): void {
-    logger.info("Set location types:", this.name(), newLocationSection);
-
     const defaultLocation: TSection = "stalker_terrain";
 
     this.clear_location_types();

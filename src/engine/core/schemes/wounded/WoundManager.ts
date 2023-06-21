@@ -25,7 +25,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   /**
    * todo: Description.
    */
-  public override update(): void {
+  public update(): void {
     const hp: TCount = 100 * this.object.health;
     const psy: TCount = 100 * this.object.psy_health;
 

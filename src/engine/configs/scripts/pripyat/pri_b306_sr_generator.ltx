@@ -1,7 +1,7 @@
 [logic]
 active = sr_idle@wait_for_start
 
-[sr_idle@wait_for_start] 
+[sr_idle@wait_for_start]
 on_actor_inside = sr_idle@run %=run_tutorial(pri_b306_generator)%
 on_info = {+pri_b306_lift_generator_used} sr_idle@end %=play_sound(pri_b306_generator_start)%
 

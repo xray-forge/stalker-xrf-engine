@@ -1,27 +1,27 @@
 [sim_faction]
-GroupControlSection	=
-$spawn 			= "ai\DO_NOT_USE"
-class			= SCRIPTZN
-;script_binding	= bind_faction.bind
+GroupControlSection =
+$spawn = "ai\DO_NOT_USE"
+class = SCRIPTZN
+;script_binding = bind_faction.bind
 
-shape_transp_color		= 0, 0, 255, 60 ;0x1800FF00
-shape_edge_color		= 32, 32, 32, 255 ;0xFF202020
+shape_transp_color = 0, 0, 255, 60 ;0x1800FF00
+shape_edge_color = 32, 32, 32, 255 ;0xFF202020
 
 [smart_terrain]
-GroupControlSection	=
-$spawn 			= "ai\smart_terrain"
-;$prefetch 		= 4
-$def_sphere		= 2
-class			= SMRTTRRN
-script_binding	= bind.smartTerrain
+GroupControlSection =
+$spawn = "ai\smart_terrain"
+;$prefetch = 4
+$def_sphere = 2
+class = SMRTTRRN
+script_binding = bind.smartTerrain
 
-shape_transp_color		= 100, 100, 180, 60 ;0x1800FF00
-shape_edge_color		= 32, 32, 32, 255 ;0xFF202020
+shape_transp_color = 100, 100, 180, 60 ;0x1800FF00
+shape_edge_color = 32, 32, 32, 255 ;0xFF202020
 
 [smart_terrain_stay_time]
-quick   = 2,  5
-medium  = 6,  8
-long    = 12, 14
+quick = 2, 5
+medium = 6, 8
+long = 12, 14
 default = 10000, 10001
 
 ;� simulation.ltx �������� ���� [start_position_<��� ������>]
@@ -243,7 +243,7 @@ pri_a17_recon_squad = pri_a16
 sim_stalker_squad_1 = sim_smart_1
 sim_stalker_squad_2 = sim_smart_2
 ;sim_stalker_squad_4 = sim_smart_8
-;sim_snork_4			= sim_smart_6
+;sim_snork_4 = sim_smart_6
 ;sim_monolith_squad_3= sim_smart_base
 
 ;run_string bind_camfire.campfire_table_by_smart_names["sim_smart_5"][40]:turn_on()
@@ -259,7 +259,6 @@ lx8_burers_squad = lx8_smart_terrain
 lx8_toilet_burer_squad = lx8_smart_terrain
 lx8_tushkano_1_squad = lx8_smart_terrain
 lx8_tushkano_2_squad = lx8_smart_terrain
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; hein_selo ;;;;;;;;;;;;;;;;;;;;;
 [start_position_hein_selo]
@@ -315,7 +314,6 @@ test_squad_zulus_for_renderman = alex_selo_smart_terrain
 
 [start_position_alex_selo]
 alex_selo_squad_1 = alex_selo_smart
-
 
 [start_position_bes_selo_zaton]
 zat_b18_noah_squad = zat_b18

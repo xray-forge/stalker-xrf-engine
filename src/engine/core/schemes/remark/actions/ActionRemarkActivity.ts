@@ -269,7 +269,7 @@ function instruction(object: ClientObject, data: string): never {
       "Your target field:\n" +
       "   target = %s",
     object.name(),
-    registry.objects.get(object.id()).active_section,
+    registry.objects.get(object.id()).activeSection,
     data
   );
 }

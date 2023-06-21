@@ -1,4 +1,4 @@
-import * as fsPromises from "fs/promises";
+import * as fsp from "fs/promises";
 import * as path from "path";
 
 import { yellowBright } from "chalk";
@@ -7,7 +7,7 @@ import { GAME_DATA_SCRIPTS_DIR, TARGET_PARSED_DIR } from "#/globals";
 import { getExternDocs } from "#/parse/utils/get_extern_docs";
 import { renderExternals } from "#/parse/utils/render_externals";
 import { IExternFileDescriptor, IExternFunction } from "#/parse/utils/types";
-import { createDirIfNoExisting, NodeLogger, quoted, readDirContent, renderJsxToXmlText, TFolderFiles } from "#/utils";
+import { createDirIfNoExisting, NodeLogger, readDirContent, renderJsxToXmlText, TFolderFiles } from "#/utils";
 import { getPathParentFolder } from "#/utils/fs/get_path_parent_folder";
 
 const log: NodeLogger = new NodeLogger("PARSE_DIR_AS_JSON");
@@ -40,7 +40,7 @@ export async function parseExternals(): Promise<void> {
   );
 
   await createDirIfNoExisting(TARGET_PARSED_DIR);
-  await fsPromises.writeFile(targetFilePath, content);
+  await fsp.writeFile(targetFilePath, content);
 }
 
 /**

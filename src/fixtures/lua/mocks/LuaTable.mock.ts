@@ -6,6 +6,10 @@ import { AnyObject, LuaArray } from "@/engine/lib/types";
  * todo;
  */
 export class MockLuaTable<K, V> extends Map<K, V> {
+  public static mock<K extends AnyNotNil, V>(): LuaTable<K, V> {
+    return new MockLuaTable() as unknown as LuaTable<K, V>;
+  }
+
   /**
    * Get mock size in unified way.
    */

@@ -43,6 +43,7 @@ export class ProfilingManager extends AbstractCoreManager {
       return;
     }
 
+    // If settings allow, start profiling from init process.
     logger.info("Initialize profiling manager in mode:", this.mode);
 
     if (jit !== null) {
@@ -110,17 +111,17 @@ export class ProfilingManager extends AbstractCoreManager {
 
     this.clearHook();
 
-    const sortedStats: LuaTable<string, number> = new LuaTable();
+    const sortedStats: LuaTable<TName, TCount> = new LuaTable();
 
     for (const [func, funcDetails] of this.callsCountMap) {
       const name: TName = this.getFunctionName(funcDetails.info);
-      const count: Optional<number> = sortedStats.get(name);
+      const count: Optional<TCount> = sortedStats.get(name);
 
       sortedStats.set(name, count === null ? funcDetails.count : count + funcDetails.count);
     }
 
     let totalCallsCount: number = 0;
-    const outStats: LuaTable<number, { name: string; count: number }> = new LuaTable();
+    const outStats: LuaTable<number, { name: TName; count: TCount }> = new LuaTable();
 
     for (const [name, count] of sortedStats) {
       table.insert(outStats, { name: name === "[[C]]:-1" ? "#uncrecognized C/C++ stuff" : name, count: count });

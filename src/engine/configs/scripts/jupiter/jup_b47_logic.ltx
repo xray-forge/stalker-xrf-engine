@@ -1,4 +1,3 @@
-
 ; gen section
 
 [sr_idle@jup_b47_gen]
@@ -13,7 +12,7 @@ active = sr_idle@jup_b47_spawn_docs
 on_info = sr_idle@jup_b47_wait_actor %=set_counter(jup_b47_bunker_guard_dead:0)%
 
 [sr_idle@jup_b47_wait_actor]:sr_idle@jup_b47_gen
-on_info2 = {+jup_b47_jupiter_products_start -jup_b47_jupiter_products_gived} %+jup_b47_jupiter_products_gived =give_task(jup_b47_jupiter_products)% 
+on_info2 = {+jup_b47_jupiter_products_start -jup_b47_jupiter_products_gived} %+jup_b47_jupiter_products_gived =give_task(jup_b47_jupiter_products)%
 on_info3 = {=actor_has_item(jup_b47_merc_pda) -jup_b47_actor_pick_pda} %+jup_b47_actor_pick_pda%
 
 on_info4 = {+jup_b47_bunker_guards_started -jup_b47_bunker_guards_gived} %+jup_b47_bunker_guards_gived =give_task(jup_b47_bunker_guards)%

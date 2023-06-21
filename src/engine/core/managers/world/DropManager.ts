@@ -184,7 +184,7 @@ export class DropManager extends AbstractCoreManager {
 
     const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
-    if (state.ini?.line_exist(state.section_logic, DropManager.DONT_SPAWN_LOOT_LTX_SECTION)) {
+    if (state.ini?.line_exist(state.sectionLogic, DropManager.DONT_SPAWN_LOOT_LTX_SECTION)) {
       return;
     }
 

@@ -5,10 +5,10 @@ active = sr_idle@turn_lamps_off
 on_info = sr_idle@prestart %=run_postprocess(black:3009:true) =disable_ui =turn_off_underpass_lamps%
 
 [sr_idle@prestart]
-;затычка
+;пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 ;on_info = {-leader_achievement_gained} %+jup_a10_vano_agree_go_und +jup_b218_soldier_hired +jup_b218_monolith_hired +leader_achievement_gained%
-on_info2 = {+leader_achievement_gained} sr_idle@start %=create_squad(pas_b400_stalkers_squad_strong:pas_b400_elevator)% 
-on_info3 = {-leader_achievement_gained} sr_idle@start %=create_squad(pas_b400_stalkers_squad:pas_b400_elevator)% 
+on_info2 = {+leader_achievement_gained} sr_idle@start %=create_squad(pas_b400_stalkers_squad_strong:pas_b400_elevator)%
+on_info3 = {-leader_achievement_gained} sr_idle@start %=create_squad(pas_b400_stalkers_squad:pas_b400_elevator)%
 
 [sr_idle@start]
 on_info = sr_idle@spawn_vano %=teleport_actor(pas_b400_elevator_actor_1_walk:pas_b400_elevator_actor_1_look)%
@@ -63,7 +63,7 @@ on_info3 = {-pas_b400_track_button_pressed =squad_in_zone_all(pas_b400_stalkers_
 [sr_idle@track_talk]
 on_info = {=actor_in_zone(pas_b400_sr_downstairs_1)} sr_idle@tunnel %+pas_b400_track_done%
 on_info2 = {-pas_b400_sr_track_4 =actor_in_zone(pas_b400_sr_track_4_in)} %+pas_b400_sr_track_4%
-on_game_timer = 150 | {=is_alive(pas_b400_zulus) -pas_b400_zulus_about_obstacle_2} sr_idle@track 
+on_game_timer = 150 | {=is_alive(pas_b400_zulus) -pas_b400_zulus_about_obstacle_2} sr_idle@track
 on_game_timer2 = 150 | {-pas_b400_track_button_pressed -pas_b400_about_gates !is_alive(pas_b400_zulus)} sr_idle@track %+pas_b400_about_gates%
 on_game_timer3 = 150 | {-pas_b400_track_button_pressed -pas_b400_about_gates +pas_b400_zulus_about_obstacle_2} sr_idle@track %+pas_b400_about_gates%
 

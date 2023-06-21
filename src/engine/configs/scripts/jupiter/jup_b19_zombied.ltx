@@ -5,7 +5,6 @@ prior = 35
 on_hit = hit1
 on_death = death1
 
-
 [walker@zombied1];:walker@z
 path_walk = zombied1_1_walk
 path_look = zombied1_1_look
@@ -24,7 +23,7 @@ wounded = wounded
 [hit1]
 on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%, {=hitted_by(jup_b19_merc_1:jup_b19_merc_2:jup_b19_merc_3:jup_b19_merc_4:jup_b19_merc_5)} %+jup_b19_mercs_damaged_zombied%
 
-[death1] 
+[death1]
 on_info = %=inc_counter(zombied_dead)%
 ;------------------------- 2 ------------------------------
 
@@ -34,7 +33,6 @@ suitable = {=check_npc_name(jup_b19_zombied) +jup_b19_destroy_yar} true, {=targe
 prior = 35
 on_hit = hit2
 on_death = death2
-
 
 [walker@zombied2]
 path_walk = zombied2_1_walk
@@ -54,7 +52,7 @@ wounded = wounded
 [hit2]
 on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%, {=hitted_by(jup_b19_merc_1:jup_b19_merc_2:jup_b19_merc_3:jup_b19_merc_4:jup_b19_merc_5)} %+jup_b19_mercs_damaged_zombied%
 
-[death2] 
+[death2]
 on_info = %=inc_counter(zombied_dead)%
 ;------------------------- 3 ------------------------------
 
@@ -83,7 +81,7 @@ wounded = wounded
 [hit3]
 on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%, {=hitted_by(jup_b19_merc_1:jup_b19_merc_2:jup_b19_merc_3:jup_b19_merc_4:jup_b19_merc_5)} %+jup_b19_mercs_damaged_zombied%
 
-[death3] 
+[death3]
 on_info = %=inc_counter(zombied_dead)%
 ;------------------------- 4 ------------------------------
 
@@ -112,7 +110,7 @@ wounded = wounded
 [hit4]
 on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%, {=hitted_by(jup_b19_merc_1:jup_b19_merc_2:jup_b19_merc_3:jup_b19_merc_4:jup_b19_merc_5)} %+jup_b19_mercs_damaged_zombied%
 
-[death4] 
+[death4]
 on_info = %=inc_counter(zombied_dead)%
 ;------------------------- 5 ------------------------------
 
@@ -141,7 +139,7 @@ wounded = wounded
 [hit5]
 on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%, {=hitted_by(jup_b19_merc_1:jup_b19_merc_2:jup_b19_merc_3:jup_b19_merc_4:jup_b19_merc_5)} %+jup_b19_mercs_damaged_zombied%
 
-[death5] 
+[death5]
 on_info = %=inc_counter(zombied_dead)%
 ;------------------------- 6 ------------------------------
 
@@ -170,7 +168,7 @@ wounded = wounded
 [hit6]
 on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%, {=hitted_by(jup_b19_merc_1:jup_b19_merc_2:jup_b19_merc_3:jup_b19_merc_4:jup_b19_merc_5)} %+jup_b19_mercs_damaged_zombied%
 
-[death6] 
+[death6]
 on_info = %=inc_counter(zombied_dead)%
 ;----------------------- 7 ----------------------
 
@@ -199,7 +197,7 @@ wounded = wounded
 [hit7]
 on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%, {=hitted_by(jup_b19_merc_1:jup_b19_merc_2:jup_b19_merc_3:jup_b19_merc_4:jup_b19_merc_5)} %+jup_b19_mercs_damaged_zombied%
 
-[death7] 
+[death7]
 on_info = %=inc_counter(zombied_dead)%
 ;----------------------- 8 ----------------------
 
@@ -225,13 +223,10 @@ danger = danger
 corpse_detection_enabled = false
 wounded = wounded
 
-
-
-
 [hit8]
 on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%, {=hitted_by(jup_b19_merc_1:jup_b19_merc_2:jup_b19_merc_3:jup_b19_merc_4:jup_b19_merc_5)} %+jup_b19_mercs_damaged_zombied%
 
-[death8] 
+[death8]
 on_info = %=inc_counter(zombied_dead)%
 ;----------------------- 9 ----------------------
 
@@ -260,7 +255,7 @@ wounded = wounded
 [hit9]
 on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%, {=hitted_by(jup_b19_merc_1:jup_b19_merc_2:jup_b19_merc_3:jup_b19_merc_4:jup_b19_merc_5)} %+jup_b19_mercs_damaged_zombied%
 
-[death9] 
+[death9]
 on_info = %=inc_counter(zombied_dead)%
 
 ;----------------------- 10 ----------------------
@@ -293,10 +288,8 @@ ignore_distance = 0
 [hit10]
 on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%, {=hitted_by(jup_b19_merc_1:jup_b19_merc_2:jup_b19_merc_3:jup_b19_merc_4:jup_b19_merc_5)} %+jup_b19_mercs_damaged_zombied%
 
-[death10] 
+[death10]
 on_info = %=inc_counter(zombied_dead)%
-
-
 
 [wounded]
 hp_state = 0|wounded_heavy@help_heavy

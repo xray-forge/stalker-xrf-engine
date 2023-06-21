@@ -2,7 +2,7 @@
 active = sr_idle@pre_controler_dead_cutscene
 
 [sr_idle@pre_controler_dead_cutscene]
-on_info = {+pri_a21_kontro_dead} sr_idle@timer_before_cutscene 
+on_info = {+pri_a21_kontro_dead} sr_idle@timer_before_cutscene
 
 [sr_idle@timer_before_cutscene]
 on_game_timer = 20 | sr_idle@cutscene_start %=disable_ui =run_postprocess(fade_in:2023)%
@@ -32,5 +32,3 @@ on_info = {-pri_a21_once_autosave_2} %+pri_a21_once_autosave_2 =scenario_autosav
 on_info2 = {+pri_a21_once_autosave_2} sr_idle@nil
 
 [sr_idle@nil]
-
- 

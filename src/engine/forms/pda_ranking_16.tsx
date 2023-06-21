@@ -2,8 +2,6 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { gameSettingConfig } from "@/engine/lib/configs/GameSettingConfig";
 
-export const IS_XML: boolean = true;
-
 export function create(): JSXNode {
   return (
     <w>

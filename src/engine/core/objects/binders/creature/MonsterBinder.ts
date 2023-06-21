@@ -5,14 +5,15 @@ import {
   closeSaveMarker,
   IRegistryObjectState,
   IStoredOfflineObject,
+  loadObjectLogic,
+  openLoadMarker,
   openSaveMarker,
   registerObject,
   registry,
   resetObject,
+  saveObjectLogic,
   unregisterObject,
 } from "@/engine/core/database";
-import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { setupSmartJobsAndLogicOnSpawn } from "@/engine/core/objects/server/smart_terrain/jobs_general";
@@ -20,19 +21,19 @@ import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTe
 import { SquadReachTargetAction } from "@/engine/core/objects/server/squad/action";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
-import { ESchemeEvent } from "@/engine/core/schemes";
-import { emitSchemeEvent, trySwitchToAnotherSection } from "@/engine/core/schemes/base/utils";
-import { ActionSchemeHear } from "@/engine/core/schemes/hear/ActionSchemeHear";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
+import { SchemeHear } from "@/engine/core/schemes/hear/SchemeHear";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { action, getObjectSquad } from "@/engine/core/utils/object/object_general";
 import {
-  action,
-  getObjectSquad,
-  isObjectScriptCaptured,
-  scriptCaptureObject,
-  scriptReleaseObject,
-} from "@/engine/core/utils/object/object_general";
+  emitSchemeEvent,
+  isMonsterScriptCaptured,
+  scriptCaptureMonster,
+  scriptReleaseMonster,
+  trySwitchToAnotherSection,
+} from "@/engine/core/utils/scheme";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
@@ -90,8 +91,8 @@ export class MonsterBinder extends object_binder {
 
     this.object.set_tip_text("");
 
-    if (this.state.active_scheme !== null) {
-      trySwitchToAnotherSection(this.object, this.state[this.state.active_scheme!]!, registry.actor);
+    if (this.state.activeScheme !== null) {
+      trySwitchToAnotherSection(this.object, this.state[this.state.activeScheme as EScheme] as IBaseSchemeState);
     }
 
     const squad: Optional<Squad> = getObjectSquad(this.object);
@@ -105,8 +106,8 @@ export class MonsterBinder extends object_binder {
     }
 
     if (this.object.get_enemy()) {
-      if (isObjectScriptCaptured(this.object)) {
-        scriptReleaseObject(this.object, MonsterBinder.__name);
+      if (isMonsterScriptCaptured(this.object)) {
+        scriptReleaseMonster(this.object);
       }
 
       return;
@@ -121,7 +122,7 @@ export class MonsterBinder extends object_binder {
 
       const [targetPosition] = currentTarget.getGameLocation();
 
-      scriptCaptureObject(this.object, true, MonsterBinder.__name);
+      scriptCaptureMonster(this.object, true);
 
       if (squad.commander_id() === this.object.id()) {
         action(this.object, new move(move.walk_with_leader, targetPosition), new cond(cond.move_end));
@@ -138,8 +139,8 @@ export class MonsterBinder extends object_binder {
       return;
     }
 
-    if (this.state.active_section !== null) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.UPDATE, delta);
+    if (this.state.activeSection !== null) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.UPDATE, delta);
     }
   }
 
@@ -203,15 +204,15 @@ export class MonsterBinder extends object_binder {
     GlobalSoundManager.getInstance().stopSoundByObjectId(this.object.id());
     registry.actorCombat.delete(this.object.id());
 
-    if (this.state.active_scheme !== null) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme]!, ESchemeEvent.NET_DESTROY);
+    if (this.state.activeScheme !== null) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme]!, ESchemeEvent.NET_DESTROY, this.object);
     }
 
     const offlineObject: IStoredOfflineObject = registry.offlineObjects.get(this.object.id());
 
     if (offlineObject !== null) {
       offlineObject.levelVertexId = this.object.level_vertex_id();
-      offlineObject.activeSection = this.state.active_section;
+      offlineObject.activeSection = this.state.activeSection;
     }
 
     unregisterObject(this.object);
@@ -248,10 +249,10 @@ export class MonsterBinder extends object_binder {
    * On waypoint callback.
    */
   public onWaypoint(object: ClientObject, actionType: number, index: TIndex): void {
-    if (this.state.active_section !== null) {
+    if (this.state.activeSection !== null) {
       emitSchemeEvent(
         this.object,
-        this.state[this.state.active_scheme!]!,
+        this.state[this.state.activeScheme!]!,
         ESchemeEvent.WAYPOINT,
         object,
         actionType,
@@ -281,8 +282,8 @@ export class MonsterBinder extends object_binder {
       emitSchemeEvent(this.object, this.state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, victim, killer);
     }
 
-    if (this.state.active_section) {
-      emitSchemeEvent(this.object, this.state[this.state.active_scheme!]!, ESchemeEvent.DEATH, victim, killer);
+    if (this.state.activeSection) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.DEATH, victim, killer);
     }
 
     const hitObject: Hit = new hit();
@@ -339,7 +340,7 @@ export class MonsterBinder extends object_binder {
     soundPower: TRate
   ): void {
     if (sourceId !== object.id()) {
-      ActionSchemeHear.onObjectHearSound(object, sourceId, soundType, soundPosition, soundPower);
+      SchemeHear.onObjectHearSound(object, sourceId, soundType, soundPosition, soundPower);
     }
   }
 }

@@ -6,6 +6,7 @@ export interface IBaseXmlNode {
   width?: number;
   height?: number;
   tag?: string;
+  stretch?: boolean;
   children?: JSXNode;
 }
 

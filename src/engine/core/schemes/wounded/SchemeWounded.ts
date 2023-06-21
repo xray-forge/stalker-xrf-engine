@@ -90,7 +90,7 @@ export class SchemeWounded extends AbstractScheme {
   ): void {
     const woundedSection: TSection =
       scheme === null || scheme === EScheme.NIL
-        ? readIniString(state.ini, state.section_logic, "wounded", false, "")
+        ? readIniString(state.ini, state.sectionLogic, "wounded", false, "")
         : readIniString(state.ini, section, "wounded", false, "");
 
     SchemeWounded.initialize(object, state.ini, woundedSection, state.wounded as ISchemeWoundedState, scheme);

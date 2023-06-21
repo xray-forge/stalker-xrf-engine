@@ -5,8 +5,6 @@ hp_victim = 0 | nil
 hp_cover = 0 | false
 hp_fight = 0 | false
 
-
-
 [logic@pri_b35_envoy]
 active = walker@leader_start
 suitable = {-pri_b35_rendevous_done =check_npc_name(pri_b35_envoy)} true
@@ -28,14 +26,14 @@ on_info2 = {-pri_b35_envoy_sighted =see_npc(pri_b35_merc_leader)} %+pri_b35_envo
 on_info3 = {-pri_b35_envoy_sighted =npc_in_zone(pri_b35_sr_mercs)} %+pri_b35_envoy_sighted%
 on_info4 = {-pri_b35_envoy_sighted =actor_see_npc} %+pri_b35_envoy_sighted%
 on_info5 = {+pri_b35_attack_started} %+pri_b35_rendevous_done +pri_b35_rendevous_in_process%
-on_info6 = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started% 
+on_info6 = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started%
 on_signal = path_end | %+pri_b35_rendevous_in_process%
 
 [remark@rendevous]
 anim = wait_na
 on_game_timer = 100 | %+pri_b35_rendevous_done%
 on_info = {+pri_b35_attack_started} %+pri_b35_rendevous_done%
-on_info2 = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started% 
+on_info2 = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started%
 target = story | pri_b35_merc_leader
 
 [death]
@@ -43,8 +41,6 @@ on_info = %+pri_b35_envoy_out +pri_b35_rendevous_done +pri_b35_rendevous_in_proc
 
 [combat]
 on_info = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started%
-
-
 
 [logic@pri_b35_envoy_after]
 active = walker@envoy_after
@@ -60,7 +56,6 @@ out_restr = pri_b35_sr_envoy_escape
 def_state_moving = rush
 wounded = wounded@no_wound
 on_info = {=npc_in_zone(pri_b35_sr_envoy_escape)} %=destroy_object +pri_b35_envoy_escape%
-
 
 [logic@pri_b35_envoy_squad_1]
 active = walker@envoy_squad_after_no_attack
@@ -94,7 +89,6 @@ combat_ignore_cond = true
 def_state_moving = patrol
 wounded = wounded@no_wound
 
-
 [logic@pri_b35_envoy_1]
 active = walker@envoy_1_start
 suitable = {-pri_b35_rendevous_done !check_npc_name(pri_b35_envoy) =target_squad_name(pri_b35_envoy_squad)} true
@@ -109,8 +103,6 @@ on_info = walker@envoy_1
 path_walk = envoy_1_walk
 path_look = envoy_1_look
 combat_ignore_cond = true
-
-
 
 [logic@pri_b35_envoy_2]
 active = walker@envoy_2_start

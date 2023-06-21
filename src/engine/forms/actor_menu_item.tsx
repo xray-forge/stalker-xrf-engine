@@ -3,8 +3,6 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { ArtefactParams } from "@/engine/forms/af_params";
 import { BoosterParams } from "@/engine/forms/booster_params";
 
-export const IS_XML: boolean = true;
-
 export function create(): JSXNode {
   return (
     <w>

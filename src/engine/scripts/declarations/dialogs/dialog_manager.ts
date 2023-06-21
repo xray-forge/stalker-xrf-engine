@@ -2,10 +2,11 @@ import { game } from "xray16";
 
 import {
   DialogManager,
+  EGenericDialogCategory,
   IPhrasesDescriptor,
   TPHRTable,
   TPRTTable,
-} from "@/engine/core/managers/interaction/DialogManager";
+} from "@/engine/core/managers/interaction/dialog";
 import { SmartTerrain } from "@/engine/core/objects";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -152,19 +153,19 @@ export function getHighestPriorityPhrase(
   const objectId: TNumberId = object.id();
 
   if (PRTsubtable.get(objectId) !== null) {
-    let id: string | 0 = 0;
-    let pr: number = -1;
+    let id: TStringId | 0 = 0;
+    let priority: TRate = -1;
 
-    for (const [phrId, priority] of PRTsubtable.get(objectId)) {
-      if (phrId !== "ignore_once" && phrId !== "told") {
-        if (priority > pr) {
-          pr = priority;
-          id = phrId;
+    for (const [phraseId, phrasePriority] of PRTsubtable.get(objectId)) {
+      if (phraseId !== "ignore_once" && phraseId !== "told") {
+        if (phrasePriority > priority) {
+          priority = phrasePriority;
+          id = phraseId;
         }
       }
     }
 
-    return $multi(pr, id);
+    return $multi(priority, id);
   } else {
     resetPhrasePriority(PTsubtable, PRTsubtable, object, null);
 
@@ -175,12 +176,12 @@ export function getHighestPriorityPhrase(
 /**
  * todo;
  */
-export function preconditionNoMore(object: ClientObject, str: string): boolean {
+export function preconditionNoMore(object: ClientObject, category: EGenericDialogCategory): boolean {
   const dialogManager: DialogManager = DialogManager.getInstance();
 
   const [priority, id] = getHighestPriorityPhrase(
-    dialogManager.phrasesMap.get(str),
-    dialogManager.priorityTable.get(str),
+    dialogManager.phrasesMap.get(category),
+    dialogManager.priorityTable.get(category),
     object
   );
 
@@ -197,7 +198,7 @@ extern("dialog_manager.init_new_dialog", (dialog: PhraseDialog): void => {
 /**
  * todo;
  */
-extern("dialog_manager.initializeStartDialogs", (dialog: PhraseDialog, data: string): void => {
+extern("dialog_manager.initializeStartDialogs", (dialog: PhraseDialog, data: EGenericDialogCategory): void => {
   DialogManager.getInstance().initializeStartDialogs(dialog, data);
 });
 
@@ -205,7 +206,7 @@ extern("dialog_manager.initializeStartDialogs", (dialog: PhraseDialog, data: str
  * todo;
  */
 extern("dialog_manager.init_hello_dialogs", (dialog: PhraseDialog): void => {
-  DialogManager.getInstance().initializeStartDialogs(dialog, "hello");
+  DialogManager.getInstance().initializeStartDialogs(dialog, EGenericDialogCategory.HELLO);
 });
 
 /**
@@ -218,8 +219,8 @@ extern(
 
     dialogManager.fillPriorityTable(
       object,
-      dialogManager.phrasesMap.get("hello"),
-      dialogManager.priorityTable.get("hello")
+      dialogManager.phrasesMap.get(EGenericDialogCategory.HELLO),
+      dialogManager.priorityTable.get(EGenericDialogCategory.HELLO)
     );
   }
 );
@@ -229,10 +230,14 @@ extern(
  */
 extern(
   "dialog_manager.fill_priority_job_table",
-  (actor: ClientObject, npc: ClientObject, dialogName: string, phraseId: string): void => {
+  (actor: ClientObject, npc: ClientObject, dialogName: TName, phraseId: TStringId): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    dialogManager.fillPriorityTable(npc, dialogManager.phrasesMap.get("job"), dialogManager.priorityTable.get("job"));
+    dialogManager.fillPriorityTable(
+      npc,
+      dialogManager.phrasesMap.get(EGenericDialogCategory.JOB),
+      dialogManager.priorityTable.get(EGenericDialogCategory.JOB)
+    );
   }
 );
 
@@ -241,13 +246,13 @@ extern(
  */
 extern(
   "dialog_manager.fill_priority_anomalies_table",
-  (actor: ClientObject, object: ClientObject, dialogName: string, phraseId: string): void => {
+  (actor: ClientObject, object: ClientObject, dialogName: TName, phraseId: TStringId): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     dialogManager.fillPriorityTable(
       object,
-      dialogManager.phrasesMap.get("anomalies"),
-      dialogManager.priorityTable.get("anomalies")
+      dialogManager.phrasesMap.get(EGenericDialogCategory.ANOMALIES),
+      dialogManager.priorityTable.get(EGenericDialogCategory.ANOMALIES)
     );
   }
 );
@@ -257,13 +262,13 @@ extern(
  */
 extern(
   "dialog_manager.fill_priority_information_table",
-  (actor: ClientObject, object: ClientObject, dialogName: string, phraseId: string): void => {
+  (actor: ClientObject, object: ClientObject, dialogName: TName, phraseId: TStringId): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     dialogManager.fillPriorityTable(
       object,
-      dialogManager.phrasesMap.get("information"),
-      dialogManager.priorityTable.get("information")
+      dialogManager.phrasesMap.get(EGenericDialogCategory.INFORMATION),
+      dialogManager.priorityTable.get(EGenericDialogCategory.INFORMATION)
     );
   }
 );
@@ -273,10 +278,15 @@ extern(
  */
 extern(
   "dialog_manager.precondition_hello_dialogs",
-  (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
+  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    return precondition(object, dialogManager.phrasesMap.get("hello"), dialogManager.priorityTable.get("hello"), id);
+    return precondition(
+      object,
+      dialogManager.phrasesMap.get(EGenericDialogCategory.HELLO),
+      dialogManager.priorityTable.get(EGenericDialogCategory.HELLO),
+      id
+    );
   }
 );
 
@@ -285,10 +295,15 @@ extern(
  */
 extern(
   "dialog_manager.action_hello_dialogs",
-  (object: ClientObject, actor: ClientObject, dialogName: string, id: string): void => {
+  (object: ClientObject, actor: ClientObject, dialogName: TName, id: TStringId): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    action(dialogManager.phrasesMap.get("hello"), dialogManager.priorityTable.get("hello"), id, object);
+    action(
+      dialogManager.phrasesMap.get(EGenericDialogCategory.HELLO),
+      dialogManager.priorityTable.get(EGenericDialogCategory.HELLO),
+      id,
+      object
+    );
   }
 );
 
@@ -297,10 +312,10 @@ extern(
  */
 extern(
   "dialog_manager.precondition_job_dialogs_no_more",
-  (npc: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string) => {
+  (npc: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId) => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    return dialogManager.isTold(npc, "job");
+    return dialogManager.isTold(npc, EGenericDialogCategory.JOB);
   }
 );
 
@@ -309,8 +324,8 @@ extern(
  */
 extern(
   "dialog_manager.precondition_job_dialogs_do_not_know",
-  (npc: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string) => {
-    return preconditionNoMore(npc, "job");
+  (npc: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId) => {
+    return preconditionNoMore(npc, EGenericDialogCategory.JOB);
   }
 );
 
@@ -319,10 +334,15 @@ extern(
  */
 extern(
   "dialog_manager.precondition_job_dialogs",
-  (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
+  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    return precondition(object, dialogManager.phrasesMap.get("job"), dialogManager.priorityTable.get("job"), id);
+    return precondition(
+      object,
+      dialogManager.phrasesMap.get(EGenericDialogCategory.JOB),
+      dialogManager.priorityTable.get(EGenericDialogCategory.JOB),
+      id
+    );
   }
 );
 
@@ -334,8 +354,13 @@ extern(
   (npc: ClientObject, actor: ClientObject, dialogName: string, id: string): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    action(dialogManager.phrasesMap.get("job"), dialogManager.priorityTable.get("job"), id, npc);
-    told(dialogManager.priorityTable.get("job"), npc);
+    action(
+      dialogManager.phrasesMap.get(EGenericDialogCategory.JOB),
+      dialogManager.priorityTable.get(EGenericDialogCategory.JOB),
+      id,
+      npc
+    );
+    told(dialogManager.priorityTable.get(EGenericDialogCategory.JOB), npc);
   }
 );
 
@@ -344,8 +369,8 @@ extern(
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs_no_more",
-  (npc: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
-    return DialogManager.getInstance().isTold(npc, "anomalies");
+  (npc: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
+    return DialogManager.getInstance().isTold(npc, EGenericDialogCategory.ANOMALIES);
   }
 );
 
@@ -354,10 +379,10 @@ extern(
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs_do_not_know",
-  (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
+  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    return preconditionNoMore(object, "anomalies");
+    return preconditionNoMore(object, EGenericDialogCategory.ANOMALIES);
   }
 );
 
@@ -366,23 +391,23 @@ extern(
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs",
-  (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
+  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
     const smartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
     if (
       smartTerrain !== null &&
-      tostring(smartTerrain.name()) === dialogManager.phrasesMap.get("anomalies").get(id).smart
+      tostring(smartTerrain.name()) === dialogManager.phrasesMap.get(EGenericDialogCategory.ANOMALIES).get(id).smart
     ) {
-      dialogManager.priorityTable.get("anomalies").get(object.id()).id = -1;
+      dialogManager.priorityTable.get(EGenericDialogCategory.ANOMALIES).get(object.id()).id = -1;
 
       return false;
     }
 
     return precondition(
       object,
-      dialogManager.phrasesMap.get("anomalies"),
-      dialogManager.priorityTable.get("anomalies"),
+      dialogManager.phrasesMap.get(EGenericDialogCategory.ANOMALIES),
+      dialogManager.priorityTable.get(EGenericDialogCategory.ANOMALIES),
       id
     );
   }
@@ -393,11 +418,16 @@ extern(
  */
 extern(
   "dialog_manager.action_anomalies_dialogs",
-  (object: ClientObject, actor: ClientObject, dialogName: string, id: string): void => {
+  (object: ClientObject, actor: ClientObject, dialogName: TName, id: TStringId): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    action(dialogManager.phrasesMap.get("anomalies"), dialogManager.priorityTable.get("anomalies"), id, object);
-    told(dialogManager.priorityTable.get("anomalies"), object);
+    action(
+      dialogManager.phrasesMap.get(EGenericDialogCategory.ANOMALIES),
+      dialogManager.priorityTable.get(EGenericDialogCategory.ANOMALIES),
+      id,
+      object
+    );
+    told(dialogManager.priorityTable.get(EGenericDialogCategory.ANOMALIES), object);
   }
 );
 
@@ -407,8 +437,8 @@ extern(
  */
 extern(
   "dialog_manager.precondition_information_dialogs_no_more",
-  (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
-    return DialogManager.getInstance().isTold(object, "information");
+  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
+    return DialogManager.getInstance().isTold(object, EGenericDialogCategory.INFORMATION);
   }
 );
 
@@ -417,8 +447,8 @@ extern(
  */
 extern(
   "dialog_manager.precondition_information_dialogs_do_not_know",
-  (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
-    return preconditionNoMore(object, "information");
+  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
+    return preconditionNoMore(object, EGenericDialogCategory.INFORMATION);
   }
 );
 
@@ -427,13 +457,13 @@ extern(
  */
 extern(
   "dialog_manager.precondition_information_dialogs",
-  (object: ClientObject, actor: ClientObject, dialogName: string, parentId: string, id: string): boolean => {
+  (object: ClientObject, actor: ClientObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
     return precondition(
       object,
-      dialogManager.phrasesMap.get("information"),
-      dialogManager.priorityTable.get("information"),
+      dialogManager.phrasesMap.get(EGenericDialogCategory.INFORMATION),
+      dialogManager.priorityTable.get(EGenericDialogCategory.INFORMATION),
       id
     );
   }
@@ -444,11 +474,16 @@ extern(
  */
 extern(
   "dialog_manager.action_information_dialogs",
-  (object: ClientObject, actor: ClientObject, dialogName: string, id: string): void => {
+  (object: ClientObject, actor: ClientObject, dialogName: TName, id: TStringId): void => {
     const dialogManager: DialogManager = DialogManager.getInstance();
 
-    action(dialogManager.phrasesMap.get("information"), dialogManager.priorityTable.get("information"), id, object);
-    told(dialogManager.priorityTable.get("information"), object);
+    action(
+      dialogManager.phrasesMap.get(EGenericDialogCategory.INFORMATION),
+      dialogManager.priorityTable.get(EGenericDialogCategory.INFORMATION),
+      id,
+      object
+    );
+    told(dialogManager.priorityTable.get(EGenericDialogCategory.INFORMATION), object);
   }
 );
 
@@ -533,6 +568,7 @@ let rnd: number = 0;
 
 /**
  * todo;
+ * todo: Just use 'pick random' from list.
  */
 extern("dialog_manager.create_bye_phrase", (): string => {
   logger.info("Create bye phrase");

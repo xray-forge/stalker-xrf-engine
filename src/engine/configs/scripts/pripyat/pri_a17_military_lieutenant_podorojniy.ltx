@@ -26,14 +26,14 @@ meet = no_meet
 [smartcover@start]:walker@generic
 def_state_moving1 = assault
 cover_name = pri_a17_pod_cover_start
-cover_state = idle_target 
+cover_state = idle_target
 combat_ignore_cond = {=fighting_dist_ge (15)} true
 on_info = {+pri_a17_mon_ambush_killed} walker@safe, {+pri_a17_patrol_dead} walker@squad_go_check, {+pri_a17_squad_go_1} walker@tocover1
 meet = no_meet
 
 [walker@tocover1]:walker@generic
 path_walk = pod_go_1
-def_state_moving1 = assault 
+def_state_moving1 = assault
 combat_ignore_cond = {=fighting_dist_ge (15)} true
 on_signal = at_position | smartcover@pod_first_cover
 meet = no_meet
@@ -56,7 +56,7 @@ meet = no_meet
 
 [smartcover@ready_to_attack]:walker@generic
 cover_name = pri_a17_pod_cover_2
-cover_state = idle_target 
+cover_state = idle_target
 combat_ignore_cond = {=fighting_dist_ge (15)} true
 on_info = {+pri_a17_mon_atk} camper@attack %=make_enemy(pri_a17_monolith_patrol_1)%
 meet = no_meet
@@ -67,17 +67,17 @@ path_look = pod_pat_look
 def_state_moving1 = assault
 def_state_campering = threat_na
 def_state_campering_fire = threat_fire
-no_retreat = true 
+no_retreat = true
 def_state_moving1 = assault
 out_restr = pri_a17_pod_chek_fight_zone
-on_info = {+pri_a17_patrol_dead +pri_a17_squad_move} walker@squad_go_check 
+on_info = {+pri_a17_patrol_dead +pri_a17_squad_move} walker@squad_go_check
 on_info2 = {+pri_a17_ice_dead} walker@defend
 meet = no_meet
 combat_ignore_cond = {=check_enemy_name(pri_a17_monolith_preacher)} true
 
 [walker@squad_go_check]:walker@generic
 path_walk = pod_chek_sit
-path_look = pod_chek_look  
+path_look = pod_chek_look
 def_state_moving1 = assault
 on_info = {+pri_a17_ice_dead} walker@defend
 combat_ignore_cond = {=fighting_dist_ge (25)} true, {=check_enemy_name(pri_a17_monolith_preacher)} true
@@ -88,9 +88,9 @@ path_walk = pod_chek_fight
 path_look = pod_pat_look
 out_restr = pri_a17_pod_chek_fight_zone
 on_info = {=counter_greater(pri_a17_monolith_amb_death:11) !squad_has_enemy(pri_a17_recon_squad) +pri_a17_actor_has_gauss_rifle} walker@safe, {+pri_a17_mon_ambush_killed} walker@safe
-on_info2 = {=health_le(0.4) !actor_enemy} %=restore_health% 
+on_info2 = {=health_le(0.4) !actor_enemy} %=restore_health%
 combat_ignore_cond = {=check_enemy_name(pri_a17_monolith_preacher)} true
-def_state_moving1 = assault 
+def_state_moving1 = assault
 meet = no_meet
 combat_ignore_cond = {=check_enemy_name(pri_a17_monolith_preacher)} true
 
@@ -101,14 +101,14 @@ on_info = {+pri_a17_actor_has_gauss_rifle} walker@fintalk
 meet = meet@get_f_gauss
 
 [meet@get_f_gauss]
-meet_state 	= 15| guard
-meet_state_wpn 	= 15| guard
-victim 		= 15| actor
-victim_wpn 	= 15| actor
-use			= true
-use_wpn		= true
-meet_dialog	= pri_a17_military_recon_squad_after_scene_dialog 
-trade_enable	= false
+meet_state = 15| guard
+meet_state_wpn = 15| guard
+victim = 15| actor
+victim_wpn = 15| actor
+use = true
+use_wpn = true
+meet_dialog = pri_a17_military_recon_squad_after_scene_dialog
+trade_enable = false
 
 [walker@fintalk]:walker@generic
 path_walk = pod_final_sit
@@ -135,11 +135,11 @@ out_restr = pri_a16_sr_noweap
 ;-------------------------------------------------------------
 
 [wounded]
-hp_state 		= 0|wounded_heavy@help_heavy
-hp_state_see 	= 0|wounded_heavy@help_heavy
-hp_victim 		= 0|nil
-hp_fight 		= 0|false
-hp_cover		= 0|false
+hp_state = 0|wounded_heavy@help_heavy
+hp_state_see = 0|wounded_heavy@help_heavy
+hp_victim = 0|nil
+hp_fight = 0|false
+hp_cover = 0|false
 
 [combat]
 on_info = {=actor_enemy} %+pri_a17_actor_attack_military%
@@ -150,9 +150,9 @@ on_info = {=killed_by_actor =squad_exist(pri_a17_recon_squad)} %+pri_a17_actor_a
 [known_info]
 pri_a17_pod_is_dead
 
-;-------------------------------------------Актер бросил отряд--------------------------------------------
+;-------------------------------------------пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ--------------------------------------------
 [logic@pri_a17_military_lieutenant_podorojniy_dead]:walker@generic
-suitable = {+pri_a17_actor_leaver  =check_npc_name(pri_a17_military_lieutenant_podorojniy)} true
+suitable = {+pri_a17_actor_leaver =check_npc_name(pri_a17_military_lieutenant_podorojniy)} true
 prior = 70
 active = walker@pod_dead
 on_death = death

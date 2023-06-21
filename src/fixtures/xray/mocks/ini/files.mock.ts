@@ -76,4 +76,13 @@ export const FILES_MOCKS = {
       condlist_0: "{+zat_b28_heli_3_searched} complete",
     },
   },
+  "misc\\trade\\trade_generic.ltx": {
+    trader: {
+      buy_condition: "generic_buy",
+      sell_condition: "generic_sell",
+    },
+    buy_item_condition_factor: 0.7,
+    generic_buy: {},
+    generic_sell: {},
+  },
 };

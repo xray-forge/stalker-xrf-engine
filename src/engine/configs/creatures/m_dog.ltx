@@ -1,5 +1,5 @@
 [m_dog_e]:monster_base
-GroupControlSection	= spawn_group
+GroupControlSection = spawn_group
 SpaceRestrictionSection = space_restrictor,zone_mosquito_bald
 ;$spawn = "monsters\dog" ; option for Level Editor
 $npc = on ; option for Level Editor
@@ -17,7 +17,7 @@ corpse_visual = monsters\dog\dog_dead
 icon = ui_npc_monster_dog
 MaxHealthValue = 100 ; range [0..200]
 DynamicObjectsCount = 32
-smart_terrain_choose_interval	= 00:15:00
+smart_terrain_choose_interval = 00:15:00
 
 Spawn_Inventory_Item_Section = mutant_dog_tail
 Spawn_Inventory_Item_Probability = 0.0
@@ -41,34 +41,34 @@ weapon_usage = 0 ; boolean
 ; Influences
 ;------------------------------------------------------------------------
 
-fire_max_distance =	0
-fire_max_power =	5
-fire_linear_factor =	0
-fire_quadratic_factor =	0.025
+fire_max_distance = 0
+fire_max_power = 5
+fire_linear_factor = 0
+fire_quadratic_factor = 0.025
 
-psy_max_distance =	0
-psy_max_power =	5
-psy_linear_factor =	0.05
-psy_quadratic_factor =	0
+psy_max_distance = 0
+psy_max_power = 5
+psy_linear_factor = 0.05
+psy_quadratic_factor = 0
 
-radiation_max_distance =	0
-radiation_max_power =	0.01
-radiation_linear_factor =	1
-radiation_quadratic_factor	=	1
-radiation_pp_effector_name	= postprocess_rad
+radiation_max_distance = 0
+radiation_max_power = 0.01
+radiation_linear_factor = 1
+radiation_quadratic_factor = 1
+radiation_pp_effector_name = postprocess_rad
 radiation_pp_highest_at = 0.02
 
 ;---------------------------------------------------------------------
 ; Physics
 ;---------------------------------------------------------------------
-ph_box0_center = 0.0, 0.2, 0.0	;0.0, 0.9, 0.0
-ph_box0_size = 0.35, 0.4, 0.35	;0.35, 0.9, 0.35
+ph_box0_center = 0.0, 0.2, 0.0 ;0.0, 0.9, 0.0
+ph_box0_size = 0.35, 0.4, 0.35 ;0.35, 0.9, 0.35
 ph_box1_center = 0.0, 0.2, 0.0
 ph_box1_size = 0.35, 0.4, 0.35
 ph_crash_speed_min = 10
 ph_crash_speed_max = 30
-ph_collision_damage_factor	= 0.1
-ph_mass = 40	;70
+ph_collision_damage_factor = 0.1
+ph_mass = 40 ;70
 actor_restrictor = medium_monster ;medium_monster,stalker,none
 destroyed_vis_name = dynamics\Dead_Body\skelet_crash_monster
 
@@ -94,11 +94,11 @@ separate_range = 1 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿
 ;----------------------------------------------------------------------------
 ; speed factors linear | angular_real | angular_path | min | max
 Velocity_Stand = 0, 3.4, 3.2, 1, 1
-Velocity_WalkFwdNormal	= 1.45, 3.5, 3.3, 0.2,	1.5
-Velocity_WalkFwdDamaged	= 1.3, 3.5, 3.3, 0.2,	1
-Velocity_RunFwdNormal	= 6.5, 4.5, 4.3, 0.21,	1
-Velocity_RunFwdDamaged	= 4.5, 4.5, 4.3, 0.18,	1
-Velocity_WalkSmelling	= 0.8, 3.0, 3.0, 1, 1
+Velocity_WalkFwdNormal = 1.45, 3.5, 3.3, 0.2, 1.5
+Velocity_WalkFwdDamaged = 1.3, 3.5, 3.3, 0.2, 1
+Velocity_RunFwdNormal = 6.5, 4.5, 4.3, 0.21, 1
+Velocity_RunFwdDamaged = 4.5, 4.5, 4.3, 0.18, 1
+Velocity_WalkSmelling = 0.8, 3.0, 3.0, 1, 1
 Velocity_WalkGrowl = 0.6, 3.0, 3.0, 1, 1
 Velocity_Drag = 0.6, 3.0, 3.0, 1, 1
 Velocity_Steal = 1.5, 3.0, 3.0, 1, 1
@@ -112,7 +112,7 @@ Accel_Aggressive = 14.5
 ; Mob-home parameters
 ;--------------------------------------------------------------------------
 anim_factor = 50 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ vs ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1..100
-corpse_use_timeout	= 10 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½.
+corpse_use_timeout = 10 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½.
 min_life_time = 10 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ min_life_time + rand(10) * min_life_time)
 min_sleep_time = 5 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½. (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ min_sleep_time + rand(5) * min_sleep_time)
 drive_out_time = 5 ;ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
@@ -128,21 +128,21 @@ hit_type = wound
 as_min_dist = 1.2
 as_step = 0.4
 
-Melee_Rotation_Factor	= 2.6
+Melee_Rotation_Factor = 2.6
 
 ;------------------------------------------------------------------------
 ; Attack On Move
 ;------------------------------------------------------------------------
 
-aom_enabled =	1
-aom_animation_left =	stand_attack_
-aom_animation_right =	stand_attack_
-aom_far_radius =	6
-aom_max_go_close_time =	6
-aom_prepare_time =	3
-aom_attack_radius =	0.3
-aom_update_side_period =	3
-aom_prediction_factor =	1.2
+aom_enabled = 1
+aom_animation_left = stand_attack_
+aom_animation_right = stand_attack_
+aom_far_radius = 6
+aom_max_go_close_time = 6
+aom_prepare_time = 3
+aom_attack_radius = 0.3
+aom_update_side_period = 3
+aom_prediction_factor = 1.2
 
 ;--------------------------------------------------------------------------
 ; Jump parameters
@@ -151,13 +151,12 @@ jump_delay = 3000
 jump_factor = 1
 jump_ground_trace_range = 1.0
 jump_hit_trace_range = 2.0
-jump_build_line_distance	= 1.0
+jump_build_line_distance = 1.0
 jump_min_distance = 4.0
 jump_max_distance = 7.0
 jump_max_angle = 0.1
 jump_max_height = 2.5
 jump_auto_aim_factor = 3
-
 
 ;-------------------------------------------------------------------------
 ; Entity Conditions
@@ -165,9 +164,9 @@ jump_auto_aim_factor = 3
 satiety_v = 0.0001 ;0.01 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 radiation_v = 0.00001 ;0.004 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 satiety_power_v = 0.005 ;0.01 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-satiety_health_v = 0.005	;0.03 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+satiety_health_v = 0.005 ;0.03 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 satiety_critical = -1.0 ;0.25 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 0..1) ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-radiation_health_v = 0.01	;0.006 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+radiation_health_v = 0.01 ;0.006 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 morale_v = 0.01 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 health_hit_part = 1.0 ;0.8 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 power_hit_part = 1.0 ;0.9 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
@@ -181,12 +180,12 @@ min_wound_size = 0.01
 sleep_health = 1.0 ;1.5 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½v ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 sleep_power = 1.0 ;1.5
 sleep_satiety = 1.0 ;0.8
-sleep_radiation = 1.0	;1.1
+sleep_radiation = 1.0 ;1.1
 sleep_psy_health = 1.0
 
-eat_freq =	5.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½
-eat_slice =	0.01	; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½
-eat_slice_weight	=	10.0	; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½v ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+eat_freq = 5.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½
+eat_slice = 0.01 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½
+eat_slice_weight = 10.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½v ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 
 satiety_threshold = 0.5 ; below this value monster fill hunger
 
@@ -198,7 +197,7 @@ Morale_Attack_Success_Quant = 0.1
 Morale_Take_Heart_Speed = 0.1
 Morale_Despondent_Speed = 0.1
 Morale_Stable_Speed = 0.01
-Morale_Despondent_Threashold	= 0.4
+Morale_Despondent_Threashold = 0.4
 
 ;---------------------------------------------------------
 ; Sounds and sound parameters
@@ -216,21 +215,17 @@ sound_landing = monsters\biting\def_
 sound_steal = monsters\biting\def_; monsters\dog\bdog_idle_
 sound_panic = monsters\dog\bdog_panic_
 sound_growling = monsters\bdog_growl_
-sound_die_in_anomaly	= monsters\dog\bdog_die_
-sound_distant_idle = monsters\dog\bdog_distant_	; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 200ï¿½
+sound_die_in_anomaly = monsters\dog\bdog_die_
+sound_distant_idle = monsters\dog\bdog_distant_ ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 200ï¿½
 
 killer_clsids = Z_MINCER,Z_GALANT,ZS_BFUZZ,ZS_MBALD,ZS_GALAN,ZS_MINCE
 
-
-
-idle_sound_delay = 80000;50000	;20000	;15000
-eat_sound_delay = 2000	;3000
-attack_sound_delay = 5000	;2000; 5000	;2000
+idle_sound_delay = 80000;50000 ;20000 ;15000
+eat_sound_delay = 2000 ;3000
+attack_sound_delay = 5000 ;2000; 5000 ;2000
 
 distant_idle_sound_delay = 80000
 distant_idle_sound_range = 30.0
-
-
 
 SoundThreshold = 0.04 ; range [0..1]
 max_hear_dist = 100
@@ -241,33 +236,32 @@ max_hear_dist = 100
 DamagedThreshold = 0.3
 damage = m_dog_damage
 
+critical_wound_threshold = 0.3 ;1.1
+critical_wound_decrease_quant = 0.
 
-critical_wound_threshold = 0.3	;1.1
-critical_wound_decrease_quant	= 0.
+critical_wound_anim_head = critical_hit_head_0
+critical_wound_bones_head = dog_critical_wound_bones_head
 
-critical_wound_anim_head	= critical_hit_head_0
-critical_wound_bones_head	= dog_critical_wound_bones_head
+critical_wound_anim_torso = critical_hit_torso_0
+critical_wound_bones_torso = dog_critical_wound_bones_torso
 
-critical_wound_anim_torso	= critical_hit_torso_0
-critical_wound_bones_torso	= dog_critical_wound_bones_torso
-
-critical_wound_anim_legs	= critical_hit_torso_0
-critical_wound_bones_legs	= dog_critical_wound_bones_legs
+critical_wound_anim_legs = critical_hit_torso_0
+critical_wound_bones_legs = dog_critical_wound_bones_legs
 
 ;-------------------------------------------------------------------------
 ; Other Stuff (refactoring needed)
 ;-------------------------------------------------------------------------
-DayTime_Begin = 0	;6 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+DayTime_Begin = 0 ;6 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 DayTime_End = 21 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-Min_Satiety = 0.5	;0.06 ; ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½vï¿½)
-Max_Satiety = 1.0	;0.9 ; ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½vï¿½)
+Min_Satiety = 0.5 ;0.06 ; ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½vï¿½)
+Max_Satiety = 1.0 ;0.9 ; ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½vï¿½)
 
-distance_to_corpse	= 1.3 ; ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½v
+distance_to_corpse = 1.3 ; ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½v
 
 material = creatures\medium
 DynamicObjectsCount = 32
 
-squad_attack_algorithm	= 1
+squad_attack_algorithm = 1
 
 attack_effector = m_dog_attack_effector
 
@@ -276,19 +270,17 @@ LegsCount = 4
 ;species of monster
 species = dog
 
-
 terrain = dog_terrain
 immunities_sect = dog_immunities
 protections_sect = dog_protections
 attack_params = m_dog_attack_params
 step_params = m_dog_step_params
 
-
 ;-------------------------------------------------------------------------
 ; Vision
 ;-------------------------------------------------------------------------
-eye_fov = 160	;140
-eye_range = 50	;50	;40;
+eye_fov = 160 ;140
+eye_range = 50 ;50 ;40;
 
 vision_free_section = dog_vision_free
 vision_danger_section = dog_vision_danger
@@ -318,10 +310,8 @@ velocity_factor = 1.0
 luminocity_factor = 0.7 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½)
 transparency_threshold = 0.4
 
-
-
 [dog_terrain]
-	255,000,255,255
+255,000,255,255
 
 [dog_protections]
 skin_armor = 0.1
@@ -331,8 +321,8 @@ hit_fraction_monster = 0.5
 burn_immunity = 1.0 ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 strike_immunity = 1.0
 shock_immunity = 1.0
-wound_immunity = 0.9	;0.75	;1.0
-radiation_immunity = 0.001	;0.5
+wound_immunity = 0.9 ;0.75 ;1.0
+radiation_immunity = 0.001 ;0.5
 telepatic_immunity = 1.0
 chemical_burn_immunity = 1.0
 explosion_immunity = 1.0
@@ -343,16 +333,14 @@ fire_wound_immunity = 1.0
 ;=================================================================================
 [m_Dog_damage]
 ;bone_name = <hit_scale>,-1,<wound_scale>
-;<hit_scale>	- ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
-;<wound_scale>	- ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-default = 0.5,	-1,	0.2
+;<hit_scale> - ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+;<wound_scale> - ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+default = 0.5, -1, 0.2
 bip01_pelvis = 1.0, -1, 0.5
 bip01_spine = 1.0, -1, 0.5
 bip01_spine1 = 1.0, -1, 0.5
 bip01_neck = 1.0, -1, 1.5
 bip01_head = 2.0, -1, 0.5, 10
-
-
 
 ;===========================================================================
 ; Attack Animation Parameters
@@ -360,7 +348,7 @@ bip01_head = 2.0, -1, 0.5, 10
 [m_dog_attack_params]
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------
-;	anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) |	Field of hit_test (left,right, top, bottom) |	Test Dist|
+; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, top, bottom) | Test Dist|
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------
 ;Bite
 stand_attack_0 = 0.01, 0.10, 50, 0.0, 1.0, 0.0, -1.6, 1.6, -1.6, 1.6, 3.5
@@ -371,7 +359,7 @@ stand_attack_3 = 0.01, 0.15, 50, 0.0, 1.0, 0.0, -1.6, 1.6, -1.6, 1.6, 3.5
 ;Jump attack
 jump_ataka_02 = 0.01, 0.15, 100, 0.0, 1.0, 4.0, -1.8, 1.8, -1.8, 1.8, 1.0
 
-stand_atack_run_0 =	0.5, 0.15, 300, 0.0, 1.0, 1.0, -1.6, 1.6, -1.6, 1.6, 3.5
+stand_atack_run_0 = 0.5, 0.15, 300, 0.0, 1.0, 1.0, -1.6, 1.6, -1.6, 1.6, 3.5
 
 [m_dog_attack_effector]
 
@@ -392,7 +380,7 @@ time_release = 0.25 ; fade out
 ; camera effects
 ce_time = 0.35 ;time
 ce_amplitude = 5.0
-ce_period_number	= 2.0
+ce_period_number = 2.0
 ce_power = 0.7 ; power
 
 ;===========================================================================
@@ -400,14 +388,14 @@ ce_power = 0.7 ; power
 ;===========================================================================
 [m_dog_step_params] fwdleftleg fwdrightleg backrightleg backleftleg
 ;------------------------------------------------------------------------------------------------------------
-;	anim Cycles | time1 | power1 | time2 | power2 | time3 | power3 | time4 | power4 |
+; anim Cycles | time1 | power1 | time2 | power2 | time3 | power3 | time4 | power4 |
 ;------------------------------------------------------------------------------------------------------------
-stand_walk_fwd_0	= 1,	0.2, 0.75, 0.4, 0.7, 0.6, 0.75, 0.8, 0.75
-stand_walk_dmg_0	= 1,	0.4, 0.75, 0.2, 0.7, 0.45, 0.75, 0.7, 0.75
-stand_run_0 =	1,	0.25, 0.75, 0.20, 0.7, 0.6, 0.75, 0.67, 0.75
-stand_run_dmg_0 =	1,	0.4, 0.75, 0.20, 0.7, 0.7, 0.75, 0.7, 0.75
-stand_steal_0 =	1,	0.2, 0.75, 0.25, 0.7, 0.7, 0.75, 0.7, 0.75
-stand_drag_0 =	1,	0.2, 0.75, 0.25, 0.7, 0.7, 0.75, 0.7, 0.75
+stand_walk_fwd_0 = 1, 0.2, 0.75, 0.4, 0.7, 0.6, 0.75, 0.8, 0.75
+stand_walk_dmg_0 = 1, 0.4, 0.75, 0.2, 0.7, 0.45, 0.75, 0.7, 0.75
+stand_run_0 = 1, 0.25, 0.75, 0.20, 0.7, 0.6, 0.75, 0.67, 0.75
+stand_run_dmg_0 = 1, 0.4, 0.75, 0.20, 0.7, 0.7, 0.75, 0.7, 0.75
+stand_steal_0 = 1, 0.2, 0.75, 0.25, 0.7, 0.7, 0.75, 0.7, 0.75
+stand_drag_0 = 1, 0.2, 0.75, 0.25, 0.7, 0.7, 0.75, 0.7, 0.75
 
 [dog_critical_wound_bones_head]
 bip01_neck
@@ -448,13 +436,6 @@ bip01_r_finger0
 bip01_r_finger01
 bip01_l_thigh
 
-
-
-
-
-
-
-
 ;*********************************************************************************
 ; NORMAL PROFILE
 ;*********************************************************************************
@@ -477,13 +458,13 @@ shock_immunity = 0.7
 wound_immunity = 0.7
 radiation_immunity = 0.0
 telepatic_immunity = 0.0
-chemical_burn_immunity	= 0.7
+chemical_burn_immunity = 0.7
 explosion_immunity = 0.85
 fire_wound_immunity = 1.5
 
 [dog_attack_params_normal]
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------
-;	anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) |	Field of hit_test (left,right, top, bottom) |	Test Dist|
+; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, top, bottom) | Test Dist|
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------
 ;Bite
 stand_attack_0 = 0.2, 0.45, 50, 0.0, 0.1, 0.0, -0.5, 0.5, -1.0, 1.0, 1.8
@@ -494,7 +475,7 @@ stand_attack_3 = 0.2, 0.45, 50, 0.0, 0.1, 0.0, -0.5, 0.5, -1.0, 1.0, 1.8
 ;Jump attack
 jump_ataka_02 = 0.2, 0.45, 100, 0.0, 1.0, 4.0, -1.8, 1.8, -1.8, 1.8, 1.0
 
-stand_atack_run_0 =	0.5, 0.45, 300, 0.0, 1.0, 1.0, -1.6, 1.6, -1.6, 1.6, 3.5
+stand_atack_run_0 = 0.5, 0.45, 300, 0.0, 1.0, 1.0, -1.6, 1.6, -1.6, 1.6, 3.5
 
 [dog_weak]:dog_normal
 $spawn = "monsters\dogs\dog_01_weak"

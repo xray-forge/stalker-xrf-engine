@@ -2,8 +2,6 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { MenuCredits } from "@/engine/forms/menu/MenuCredits";
 
-export const IS_XML: boolean = true;
-
 export function create(): JSXNode {
   return (
     <credits_seq>

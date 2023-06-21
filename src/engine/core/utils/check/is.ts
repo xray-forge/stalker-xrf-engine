@@ -1,4 +1,4 @@
-import { clsid, system_ini } from "xray16";
+import { alife, clsid, system_ini } from "xray16";
 
 import { getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { assertDefined } from "@/engine/core/utils/assertion";
@@ -21,6 +21,20 @@ import {
   TNumberId,
   TSection,
 } from "@/engine/lib/types";
+
+/**
+ * todo;
+ */
+export function isGameStarted(): boolean {
+  return alife() !== null;
+}
+
+/**
+ * Check whether actor is absolutely healthy - without radiation/bleeding/damaged health.
+ */
+export function isActorAbsolutelyHealthy(actor: ClientObject = registry.actor): boolean {
+  return actor.health < 1 || actor.radiation > 0 || actor.bleeding > 0;
+}
 
 /**
  * todo;
@@ -113,21 +127,21 @@ export function isStoryObject(object: ServerObject): boolean {
  * @returns whether object can be looted by stalkers from corpses.
  */
 export function isLootableItem(object: ClientObject): boolean {
-  return lootableTable[object.section<TLootableItem>()] !== null;
+  return object.section<TLootableItem>() in lootableTable;
 }
 
 /**
  * @returns whether object is ammo-defined section item.
  */
 export function isAmmoItem(object: ClientObject): boolean {
-  return ammo[object.section<TAmmoItem>()] !== null;
+  return object.section<TAmmoItem>() in ammo;
 }
 
 /**
  * @returns whether section is ammo-defined.
  */
 export function isAmmoSection(section: TSection): section is TAmmoItem {
-  return ammo[section as TAmmoItem] !== null;
+  return section in ammo;
 }
 
 /**
@@ -138,5 +152,5 @@ export function isAmmoSection(section: TSection): section is TAmmoItem {
 export function isActiveSection(object: ClientObject, section: Maybe<TSection>): boolean {
   assertDefined(section, "'isActiveSection' error for '%s', no section defined: '%s'.", object.name(), section);
 
-  return section === registry.objects.get(object.id()).active_section;
+  return section === registry.objects.get(object.id()).activeSection;
 }

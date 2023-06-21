@@ -2,14 +2,28 @@ import { alife } from "xray16";
 
 import { Squad } from "@/engine/core/objects";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/core/utils/object/object_general";
+import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
+import { MAX_I32 } from "@/engine/lib/constants/memory";
 import { ServerObject, TDistance, TRate } from "@/engine/lib/types";
 
+const logger: LuaLogger = new LuaLogger($filename);
+
 /**
- * todo;
+ * Force updating all alife objects at once for instant and smooth alife spawn.
  */
-export function isGameStarted(): boolean {
-  return alife() !== null;
+export function setUnlimitedAlifeObjectsUpdate(): void {
+  logger.info("Allow unlimited alife batched updates:", MAX_I32);
+  alife().set_objects_per_update(MAX_I32);
+}
+
+/**
+ * Force updating stable count of alife objects.
+ */
+export function setStableAlifeObjectsUpdate(): void {
+  logger.info("Set stable alife updating:", logicsConfig.ALIFE.OBJECTS_PER_UPDATE);
+  alife().set_objects_per_update(logicsConfig.ALIFE.OBJECTS_PER_UPDATE);
 }
 
 /**

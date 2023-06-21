@@ -16,18 +16,16 @@ invulnerable = false
 
 [meet@jup_a6_animpoint_meet]
 close_snd_hello = {=check_npc_name(monolith)} nil, {=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} meet_hide_weapon, meet_hello
-close_snd_bye 	= {=check_npc_name(monolith)} nil, {=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} nil, meet_hello
-close_anim 		= nil
-close_victim 	= nil
-far_anim 		= nil
-far_victim 		= nil
-close_distance 	= 0
-far_distance 	= 0
+close_snd_bye = {=check_npc_name(monolith)} nil, {=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} nil, meet_hello
+close_anim = nil
+close_victim = nil
+far_anim = nil
+far_victim = nil
+close_distance = 0
+far_distance = 0
 use = {=actor_enemy} false, {=dist_to_actor_le(3)} true, false
 snd_on_use = {!dist_to_actor_le(3)} nil
 meet_on_talking = false
-
-
 
 [logic@jup_a6_animp_01]
 active = animpoint@jup_a6_animp_01
@@ -99,8 +97,6 @@ active = animpoint@jup_a6_animp_93
 suitable = {-jup_b25_freedom_flint_gone =npc_community(dolg) =npc_in_zone(jup_a6_sr_noweap)} true
 prior = 100
 
-
-
 [logic@jup_a6_animp_05]
 active = animpoint@jup_a6_animp_05
 suitable = {=npc_community(stalker) =npc_in_zone(jup_a6_sr_noweap)} true, {=npc_community(freedom) =npc_in_zone(jup_a6_sr_noweap)} true
@@ -150,8 +146,6 @@ prior = 85
 active = animpoint@jup_a6_animp_21
 suitable = {=npc_community(stalker) =npc_in_zone(jup_a6_sr_noweap)} true, {=npc_community(freedom) =npc_in_zone(jup_a6_sr_noweap)} true
 prior = 80
-
-
 
 [animpoint@jup_a6_animp_01]:animpoint@jup_a6_animp_gen_reach
 cover_name = jup_a6_animp_01
@@ -259,8 +253,6 @@ on_info = {=npc_in_zone(jup_a6_sr_light)} animpoint@jup_a6_animp_92_reached
 cover_name = jup_b221_duty_03
 on_info = {=npc_in_zone(jup_a6_sr_light)} animpoint@jup_a6_animp_93_reached
 
-
-
 [animpoint@jup_a6_animp_01_reached]:animpoint@jup_a6_animp_gen
 cover_name = jup_a6_animp_01
 use_camp = true
@@ -342,8 +334,6 @@ cover_name = jup_b221_duty_02
 
 [animpoint@jup_a6_animp_93_reached]:animpoint@jup_a6_animp_gen
 cover_name = jup_b221_duty_03
-			
-
 
 [logic@jup_a6_duty_guard]
 active = walker@jup_a6_duty_guard_reach
@@ -377,7 +367,6 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 use_camp = false
 
-
 [logic@jup_a6_duty_guarder]
 active = walker@jup_a6_duty_guarder
 suitable = {=target_squad_name(b207)} false, {=check_npc_name(monolith)} false, {=is_factions_enemies(dolg)} false, {=npc_community(dolg) =npc_in_zone(jup_a6_sr_noweap) !surge_started} true
@@ -402,8 +391,6 @@ out_restr = jup_a6_sr_noweap
 in_restr = jup_a6_sr_light
 meet = no_meet
 
-
-
 [logic@jup_a6_freedom_guarder]
 active = walker@jup_a6_freedom_guarder
 suitable = {=target_squad_name(b207)} false, {=check_npc_name(monolith)} false, {=is_factions_enemies(freedom)} false, {=npc_community(freedom) =npc_in_zone(jup_a6_sr_noweap) !surge_started} true
@@ -427,8 +414,6 @@ combat_ignore_cond = {=check_enemy_name(duty)} true, {=npc_in_zone(jup_a6_sr_lig
 out_restr = jup_a6_sr_noweap
 in_restr = jup_a6_sr_light
 meet = no_meet
-
-
 
 [logic@jup_a6_animp_freedom_guard]
 active = animpoint@jup_a6_animp_freedom_guard

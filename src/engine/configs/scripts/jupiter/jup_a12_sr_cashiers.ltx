@@ -20,7 +20,7 @@ on_info5 = {+jup_a12_stalkers_on_base} sr_idle@nil, {+jup_a12_stalker_prisoner_d
 on_info6 = {-jup_a12_gave_artefact_for_hostage -jup_a12_stalker_prisoner_dead +jup_a12_stalker_prisoner_free !talking} %+jup_a12_gave_artefact_for_hostage =scenario_autosave(st_save_jup_a12_gave_artefact_for_hostage)%
 
 [sr_idle@end]
-on_info = {+jup_a12_actor_enemy_to_bandits} sr_idle@after %=set_squad_enemy_to_actor(jup_a12_bandit_guard_squad) =set_squad_enemy_to_actor(jup_a12_bandit_chief_squad) =set_squad_enemy_to_actor(jup_a12_bandit_cashier_squad) =set_squad_enemy_to_actor(jup_a12_bandit_sim_squad)% 
+on_info = {+jup_a12_actor_enemy_to_bandits} sr_idle@after %=set_squad_enemy_to_actor(jup_a12_bandit_guard_squad) =set_squad_enemy_to_actor(jup_a12_bandit_chief_squad) =set_squad_enemy_to_actor(jup_a12_bandit_cashier_squad) =set_squad_enemy_to_actor(jup_a12_bandit_sim_squad)%
 on_info2 = {-jup_a12_actor_enemy_to_bandits =is_squad_enemy_to_actor(jup_a12_bandit_cashier_squad)} %+jup_a12_actor_enemy_to_bandits%
 on_info3 = {+jup_a12_stalkers_on_base} sr_idle@nil, {+jup_a12_stalker_prisoner_dead} sr_idle@nil
 
