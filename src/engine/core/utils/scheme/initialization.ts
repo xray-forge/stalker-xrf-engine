@@ -6,9 +6,10 @@ import { SmartTerrain } from "@/engine/core/objects";
 import { ISmartTerrainJob } from "@/engine/core/objects/server/smart_terrain/types";
 import { ESchemeEvent, IBaseSchemeState } from "@/engine/core/schemes";
 import { assert } from "@/engine/core/utils/assertion";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/object/object_general";
+import { ERelation } from "@/engine/core/utils/relation";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/event";
 import {
   activateSchemeBySection,
@@ -19,7 +20,6 @@ import { disableObjectBaseSchemes } from "@/engine/core/utils/scheme/setup";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInventoryItem } from "@/engine/lib/constants/items";
-import { ERelation } from "@/engine/lib/constants/relations";
 import {
   ClientObject,
   EClientObjectRelation,

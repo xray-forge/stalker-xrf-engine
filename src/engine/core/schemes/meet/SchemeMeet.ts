@@ -16,7 +16,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseConditionsList } from "@/engine/core/utils/ini/parse";
 import { readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
+import { getObjectsRelationSafe } from "@/engine/core/utils/relation/relation";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {

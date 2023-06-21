@@ -10,12 +10,12 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
 import {
+  ERelation,
   isFactionsEnemies,
   isFactionsFriends,
   isSquadRelationBetweenActorAndRelation,
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { ERelation } from "@/engine/lib/constants/relations";
 import {
   AnyCallable,
   ClientObject,
@@ -29,15 +29,18 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Check whether actor faction is enemy with provided parameter.
  */
-extern("xr_conditions.is_factions_enemies", (actor: ClientObject, npc: ClientObject, p: [TCommunity]): boolean => {
-  if (p[0] !== null) {
-    return isFactionsEnemies(getCharacterCommunity(actor), p[0]);
-  } else {
-    return false;
+extern(
+  "xr_conditions.is_factions_enemies",
+  (actor: ClientObject, object: ClientObject, [community]: [TCommunity]): boolean => {
+    if (community === null) {
+      return false;
+    } else {
+      return isFactionsEnemies(getCharacterCommunity(actor), community);
+    }
   }
-});
+);
 
 /**
  * todo;

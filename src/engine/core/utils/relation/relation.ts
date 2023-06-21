@@ -2,17 +2,16 @@ import { alife, relation_registry } from "xray16";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { abort, assertDefined } from "@/engine/core/utils/assertion";
+import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { EGoodwill, ERelation } from "@/engine/core/utils/relation/types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { EGoodwill, ERelation } from "@/engine/lib/constants/relations";
 import {
   ClientObject,
   EClientObjectRelation,
   Optional,
   ServerCreatureObject,
   TCount,
-  TName,
   TNumberId,
   TRelationType,
   TStringId,
@@ -21,101 +20,13 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
- */
-export function getSquadGoodwillToActor(storyId: TStringId): ERelation {
-  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
-
-  assertDefined(squad, "No such squad %s in board", tostring(storyId));
-
-  if (squad.relationship !== null) {
-    return squad.relationship;
-  } else {
-    let goodwill: ERelation = ERelation.NEUTRAL;
-
-    if (relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) >= EGoodwill.FRIENDS) {
-      goodwill = ERelation.FRIEND;
-    } else if (
-      relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) <= EGoodwill.ENEMIES
-    ) {
-      goodwill = ERelation.ENEMY;
-    }
-
-    return goodwill;
-  }
-}
-
-/**
- * todo;
- */
-export function isSquadEnemyToActor(storyId: TStringId): boolean {
-  return getSquadGoodwillToActor(storyId) === ERelation.ENEMY;
-}
-
-/**
- * todo;
- */
-export function isSquadFriendToActor(storyId: TStringId): boolean {
-  return getSquadGoodwillToActor(storyId) === ERelation.FRIEND;
-}
-
-/**
- * todo;
- */
-export function isSquadNeutralToActor(storyId: TName): boolean {
-  return getSquadGoodwillToActor(storyId) === ERelation.NEUTRAL;
-}
-
-/**
- * Is enemy squad member.
- */
-export function isAnySquadMemberEnemyToActor(squad: Squad): boolean {
-  const actorId: TNumberId = alife().actor().id;
-
-  for (const squadMember of squad.squad_members()) {
-    if (relation_registry.get_general_goodwill_between(squadMember.id, actorId) <= EGoodwill.ENEMIES) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-/**
- * todo;
+ * Get relation type between objects with safe null check.
  */
 export function getObjectsRelationSafe(
-  first: Optional<ClientObject>,
-  second: Optional<ClientObject>
+  from: Optional<ClientObject>,
+  to: Optional<ClientObject>
 ): Optional<TRelationType> {
-  return first && second && first.relation(second);
-}
-
-/**
- * todo;
- */
-export function getSquadGoodwillToActorById(squadId: TNumberId): ERelation {
-  const squad: Optional<Squad> = alife().object<Squad>(squadId);
-
-  if (squad === null) {
-    abort("No such squad %s in board", tostring(squadId));
-  }
-
-  if (squad.relationship !== null) {
-    return squad.relationship;
-  } else {
-    let goodwill: ERelation = ERelation.NEUTRAL;
-
-    if (relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) >= EGoodwill.FRIENDS) {
-      goodwill = ERelation.FRIEND;
-    } else if (
-      relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) <= EGoodwill.ENEMIES
-    ) {
-      goodwill = ERelation.ENEMY;
-    }
-
-    return goodwill;
-  }
+  return from && to && from.relation(to);
 }
 
 /**
@@ -197,11 +108,13 @@ export function getSquadMembersRelationToActor(squad: Squad): Optional<ERelation
 /**
  * todo;
  */
-export function setObjectsRelation(
-  first: Optional<ClientObject>,
-  second: Optional<ClientObject>,
+export function setClientObjectsRelation(
+  from: Optional<ClientObject>,
+  to: Optional<ClientObject>,
   newRelation: ERelation
 ): void {
+  assert(from && to, "One of objects is not set in c-goodwill function.");
+
   let goodwill: EGoodwill = EGoodwill.NEUTRALS;
 
   if (newRelation === ERelation.ENEMY) {
@@ -210,11 +123,7 @@ export function setObjectsRelation(
     goodwill = EGoodwill.FRIENDS;
   }
 
-  if (first && second) {
-    first.force_set_goodwill(goodwill, second);
-  } else {
-    abort("Npc not set in goodwill function!!!");
-  }
+  from.force_set_goodwill(goodwill, to);
 }
 
 /**
@@ -222,61 +131,21 @@ export function setObjectsRelation(
  * todo: Unify?
  */
 export function setServerObjectsRelation(
-  first: Optional<ServerCreatureObject>,
-  second: Optional<ServerCreatureObject>,
+  from: Optional<ServerCreatureObject>,
+  to: Optional<ServerCreatureObject>,
   nextRelation: ERelation
 ): void {
-  logger.info("Set relation:", first?.name(), "->", second?.name(), "@", nextRelation);
+  assert(from && to, "One of objects is not set in s-goodwill function.");
 
-  let reputation: TCount = EGoodwill.NEUTRALS;
+  let goodwill: EGoodwill = EGoodwill.NEUTRALS;
 
   if (nextRelation === ERelation.ENEMY) {
-    reputation = EGoodwill.ENEMIES;
+    goodwill = EGoodwill.ENEMIES;
   } else if (nextRelation === ERelation.FRIEND) {
-    reputation = EGoodwill.FRIENDS;
+    goodwill = EGoodwill.FRIENDS;
   }
 
-  if (first !== null && second !== null) {
-    first.force_set_goodwill(reputation, second.id);
-  } else {
-    abort("Npc not set in goodwill function.");
-  }
-}
-
-/**
- * todo;
- */
-export function isSquadRelationBetweenActorAndRelation(squadName: TName, goodwill: ERelation): boolean {
-  const squad: Optional<Squad> = getServerObjectByStoryId(squadName);
-  const actor: ClientObject = registry.actor;
-
-  if (squad === null) {
-    return false;
-  }
-
-  if (actor === null) {
-    return false;
-  }
-
-  for (const squadMember of squad.squad_members()) {
-    let isEnemy: boolean;
-
-    if (goodwill === ERelation.ENEMY) {
-      const goodwill: Optional<number> = registry.objects.get(squadMember.id)?.object.general_goodwill(actor);
-
-      isEnemy = goodwill === null ? false : goodwill <= EGoodwill.ENEMIES;
-    } else {
-      const goodwill: Optional<number> = registry.objects.get(squadMember.id)?.object.general_goodwill(actor);
-
-      isEnemy = goodwill === null ? false : goodwill >= EGoodwill.ENEMIES;
-    }
-
-    if (isEnemy) {
-      return true;
-    }
-  }
-
-  return false;
+  from.force_set_goodwill(goodwill, to.id);
 }
 
 /**
@@ -326,28 +195,6 @@ export function getNumberRelationBetweenCommunities(
 /**
  * todo;
  */
-export function isFactionsFriends(faction: Optional<TCommunity>, factionTo: TCommunity): boolean {
-  if (faction !== null && faction !== communities.none && factionTo !== communities.none) {
-    return relation_registry.community_relation(faction, factionTo) >= EGoodwill.FRIENDS;
-  } else {
-    return false;
-  }
-}
-
-/**
- * todo;
- */
-export function isFactionsEnemies(faction: Optional<TCommunity>, factionTo: TCommunity): boolean {
-  if (faction !== null && faction !== communities.none && factionTo !== communities.none) {
-    return relation_registry.community_relation(faction, factionTo) <= EGoodwill.ENEMIES;
-  } else {
-    return false;
-  }
-}
-
-/**
- * todo;
- */
 export function setRelationBetweenCommunities(
   faction: Optional<TCommunity>,
   faction_to: TCommunity,
@@ -372,13 +219,14 @@ export function setRelationBetweenCommunities(
  * todo;
  */
 export function setObjectSympathy(object: Optional<ClientObject>, newSympathy: TCount): void {
+  assert(object, "Object not set in sympathy function.");
+
+  // todo: Probably does not make sense and should be aligned with actual values.
   if (newSympathy < 0) {
     newSympathy = EClientObjectRelation.FRIEND;
   } else if (newSympathy > 1) {
     newSympathy = EClientObjectRelation.NEUTRAL;
   }
-
-  assertDefined(object, "Npc not set in sympathy function.");
 
   object.set_sympathy(newSympathy);
 }
@@ -386,80 +234,40 @@ export function setObjectSympathy(object: Optional<ClientObject>, newSympathy: T
 /**
  * todo;
  */
-export function setSquadGoodwill(squadId: TStringId | TNumberId, newGoodwill: ERelation): void {
-  logger.info("Applying new game relation between squad and actor:", squadId, newGoodwill);
+export function getSquadCommunityRelationToActor(storyId: TStringId): ERelation {
+  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
-  let squad: Optional<Squad> = getServerObjectByStoryId<Squad>(squadId as TStringId);
+  assertDefined(squad, "No such squad %s in board", tostring(storyId));
 
-  if (squad === null) {
-    if (type(squadId) === "string") {
-      return logger.warn("there is no story squad with id [%s]", squadId);
-    } else {
-      squad = alife().object(squadId as TNumberId);
-    }
-  }
-
-  assertDefined(squad, "There is no squad [%s] in sim_board", squadId);
-
-  squad.updateSquadRelationToActor(newGoodwill);
-}
-
-/**
- * todo;
- */
-export function setSquadGoodwillToNpc(
-  npc: Optional<ClientObject>,
-  objectId: TStringId | TNumberId,
-  newGoodwill: ERelation
-): void {
-  logger.info("Applying new game relation between squad and npc:", newGoodwill, objectId, npc?.name());
-
-  let goodwill: EGoodwill = EGoodwill.NEUTRALS;
-
-  if (newGoodwill === ERelation.ENEMY) {
-    goodwill = EGoodwill.ENEMIES;
-  } else if (newGoodwill === ERelation.FRIEND) {
-    goodwill = EGoodwill.FRIENDS;
-  }
-
-  let squad: Optional<Squad> = getServerObjectByStoryId(objectId as TStringId);
-
-  if (squad === null) {
-    if (type(objectId) === "string") {
-      logger.info("there is no story squad with id [%s]", objectId);
-
-      return;
-    } else {
-      squad = alife().object(objectId as TNumberId);
-    }
-  }
-
-  if (squad) {
-    for (const squadMember of squad.squad_members()) {
-      if (npc !== null) {
-        squadMember.object.force_set_goodwill(goodwill, npc.id());
-        alife().object<ServerCreatureObject>(npc.id())!.force_set_goodwill(goodwill, squadMember.id);
-      }
-    }
+  if (squad.relationship !== null) {
+    return squad.relationship;
   } else {
-    abort("There is no squad [%s] in sim_board", objectId);
+    if (relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) >= EGoodwill.FRIENDS) {
+      return ERelation.FRIEND;
+    } else if (
+      relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) <= EGoodwill.ENEMIES
+    ) {
+      return ERelation.ENEMY;
+    }
+
+    return ERelation.NEUTRAL;
   }
 }
 
 /**
  * todo;
  */
-export function setSquadGoodwillToCommunity(
+export function setSquadRelationToCommunity(
   squadId: TNumberId | TStringId,
   community: TCommunity,
-  newGoodwill: ERelation
+  newRelation: ERelation
 ): void {
   let goodwill: EGoodwill = EGoodwill.NEUTRALS;
 
   // Todo: Probably simple assign?
-  if (newGoodwill === ERelation.ENEMY) {
+  if (newRelation === ERelation.ENEMY) {
     goodwill = EGoodwill.ENEMIES;
-  } else if (newGoodwill === ERelation.FRIEND) {
+  } else if (newRelation === ERelation.FRIEND) {
     goodwill = EGoodwill.FRIENDS;
   }
 
@@ -481,5 +289,93 @@ export function setSquadGoodwillToCommunity(
     if (object !== null) {
       object.set_community_goodwill(community, goodwill);
     }
+  }
+}
+
+/**
+ * todo;
+ */
+export function setSquadRelationToObject(
+  object: Optional<ClientObject>,
+  objectId: TStringId | TNumberId,
+  newRelation: ERelation
+): void {
+  logger.info("Applying new game relation between squad and npc:", newRelation, objectId, object?.name());
+
+  let goodwill: EGoodwill = EGoodwill.NEUTRALS;
+
+  if (newRelation === ERelation.ENEMY) {
+    goodwill = EGoodwill.ENEMIES;
+  } else if (newRelation === ERelation.FRIEND) {
+    goodwill = EGoodwill.FRIENDS;
+  }
+
+  let squad: Optional<Squad> = getServerObjectByStoryId(objectId as TStringId);
+
+  if (squad === null) {
+    if (type(objectId) === "string") {
+      logger.info("there is no story squad with id [%s]", objectId);
+
+      return;
+    } else {
+      squad = alife().object(objectId as TNumberId);
+    }
+  }
+
+  if (squad) {
+    for (const squadMember of squad.squad_members()) {
+      if (object !== null) {
+        squadMember.object.force_set_goodwill(goodwill, object.id());
+        alife().object<ServerCreatureObject>(object.id())!.force_set_goodwill(goodwill, squadMember.id);
+      }
+    }
+  } else {
+    abort("There is no squad [%s] in sim_board", objectId);
+  }
+}
+
+/**
+ * todo;
+ */
+export function setSquadRelationToActorById(squadId: TStringId | TNumberId, newRelation: ERelation): void {
+  logger.info("Applying new game relation between squad and actor:", squadId, newRelation);
+
+  let squad: Optional<Squad> = getServerObjectByStoryId<Squad>(squadId as TStringId);
+
+  if (squad === null) {
+    if (type(squadId) === "string") {
+      return logger.warn("there is no story squad with id [%s]", squadId);
+    } else {
+      squad = alife().object(squadId as TNumberId);
+    }
+  }
+
+  assert(squad, "There is no squad [%s] in sim_board.", squadId);
+
+  squad.updateSquadRelationToActor(newRelation);
+}
+
+/**
+ * todo;
+ */
+export function getSquadRelationToActorById(squadId: TNumberId): ERelation {
+  const squad: Optional<Squad> = alife().object<Squad>(squadId);
+
+  assert(squad, "No such squad %s in board.", squadId);
+
+  if (squad.relationship === null) {
+    let goodwill: ERelation = ERelation.NEUTRAL;
+
+    if (relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) >= EGoodwill.FRIENDS) {
+      goodwill = ERelation.FRIEND;
+    } else if (
+      relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) <= EGoodwill.ENEMIES
+    ) {
+      goodwill = ERelation.ENEMY;
+    }
+
+    return goodwill;
+  } else {
+    return squad.relationship;
   }
 }

@@ -7,15 +7,11 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { SmartTerrain } from "@/engine/core/objects/server/smart_terrain/SmartTerrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/server/smart_terrain/types";
 import { isWeapon } from "@/engine/core/utils/check/is";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList } from "@/engine/core/utils/ini/parse";
-import { readIniString } from "@/engine/core/utils/ini/read";
-import { TConditionList } from "@/engine/core/utils/ini/types";
+import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { setSquadGoodwill } from "@/engine/core/utils/relation";
+import { ERelation, setSquadRelationToActorById } from "@/engine/core/utils/relation";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
-import { ERelation } from "@/engine/lib/constants/relations";
 import {
   ClientObject,
   IniFile,
@@ -79,7 +75,7 @@ export class SmartTerrainControl {
       for (const [id, squad] of SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(
         this.smartTerrain.id
       )!.assignedSquads) {
-        setSquadGoodwill(id, ERelation.NEUTRAL);
+        setSquadRelationToActorById(id, ERelation.NEUTRAL);
       }
 
       this.alarmStartedAt = null;
@@ -146,7 +142,7 @@ export class SmartTerrainControl {
 
       for (const [squadId] of SimulationBoardManager.getInstance().getSmartTerrainDescriptorById(this.smartTerrain.id)!
         .assignedSquads) {
-        setSquadGoodwill(squadId, ERelation.ENEMY);
+        setSquadRelationToActorById(squadId, ERelation.ENEMY);
       }
     }
 

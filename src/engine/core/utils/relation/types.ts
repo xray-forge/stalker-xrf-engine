@@ -1,5 +1,7 @@
+import type { TRelationType } from "@/engine/lib/types";
+
 /**
- * Relation type.
+ * Relation type between two game objects.
  */
 export enum ERelation {
   ENEMY = "enemy",
@@ -8,7 +10,7 @@ export enum ERelation {
 }
 
 /**
- * todo;
+ * Goodwill breakpoints for relation points between game objects.
  */
 export enum EGoodwill {
   BEST_FRIENDS = 5000,
@@ -19,19 +21,9 @@ export enum EGoodwill {
 }
 
 /**
- * todo;
- * todo: Probably duplicates ERelation.
+ * Map for simple transformation of TRelationType enum to ERelation.
  */
-export const goodwill = {
-  enemy: -1000,
-  friend: 1000,
-  neutral: 0,
-} as const;
-
-/**
- * todo;
- */
-export const mapRelationTypeToEnum: Record<number, ERelation> = {
+export const mapRelationTypeToEnum: Record<TRelationType, ERelation> = {
   [0]: ERelation.FRIEND,
   [1]: ERelation.NEUTRAL,
   [2]: ERelation.ENEMY,

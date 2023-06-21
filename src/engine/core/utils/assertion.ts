@@ -15,7 +15,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export function abort(format: string, ...rest: AnyArgs): never {
   const reason: string = string.format(format, ...rest);
 
-  logger.error("[abort] Aborting:", reason);
+  logger.error("Aborting:", reason);
 
   print_stack();
   error(reason, 1);

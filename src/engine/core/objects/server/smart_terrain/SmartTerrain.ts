@@ -56,12 +56,20 @@ import {
 } from "@/engine/core/objects/server/types";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { getSchemeFromSection, parseConditionsList, parseStringsList } from "@/engine/core/utils/ini/parse";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
-import { IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/types";
+import {
+  getSchemeFromSection,
+  IConfigSwitchCondition,
+  parseConditionsList,
+  parseStringsList,
+  pickSectionFromCondList,
+  readIniBoolean,
+  readIniNumber,
+  readIniString,
+  TConditionList,
+} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_general";
+import { ERelation } from "@/engine/core/utils/relation";
 import {
   activateSchemeBySection,
   configureObjectSchemes,
@@ -76,7 +84,6 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TCaption } from "@/engine/lib/constants/captions/captions";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
-import { ERelation } from "@/engine/lib/constants/relations";
 import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { NIL, TRUE } from "@/engine/lib/constants/words";

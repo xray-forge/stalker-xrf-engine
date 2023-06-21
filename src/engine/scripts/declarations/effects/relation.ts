@@ -4,92 +4,105 @@ import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
+  EGoodwill,
+  ERelation,
   increaseNumberRelationBetweenCommunityAndId,
   setObjectSympathy,
-  setSquadGoodwill,
-  setSquadGoodwillToNpc,
+  setSquadRelationToActorById,
+  setSquadRelationToObject,
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { ERelation } from "@/engine/lib/constants/relations";
 import { ClientObject, EClientObjectRelation, Optional, TCount, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Set object goodwill as friendly to actor.
  */
 extern("xr_effects.actor_friend", (actor: ClientObject, object: ClientObject): void => {
-  object.force_set_goodwill(1000, actor);
+  object.force_set_goodwill(EGoodwill.FRIENDS, actor);
 });
 
 /**
- * todo;
+ * Set object goodwill as neutral to actor.
  */
 extern("xr_effects.actor_neutral", (actor: ClientObject, object: ClientObject): void => {
-  object.force_set_goodwill(0, actor);
+  object.force_set_goodwill(EGoodwill.NEUTRALS, actor);
 });
 
 /**
- * todo;
+ * Set object goodwill as enemy to actor.
  */
 extern("xr_effects.actor_enemy", (actor: ClientObject, object: ClientObject): void => {
-  object.force_set_goodwill(-1000, actor);
+  object.force_set_goodwill(EGoodwill.ENEMIES, actor);
 });
+
+/**
+ * Set squad relation to actor as neutral by story ID.
+ */
+extern(
+  "xr_effects.set_squad_neutral_to_actor",
+  (actor: ClientObject, object: ClientObject, [squadStoryId]: [TStringId]): void => {
+    const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
+
+    if (squad === null) {
+      return;
+    } else {
+      squad.updateSquadRelationToActor(ERelation.NEUTRAL);
+    }
+  }
+);
+
+/**
+ * Set squad relation to actor as friendly by story ID.
+ */
+extern(
+  "xr_effects.set_squad_friend_to_actor",
+  (actor: ClientObject, object: ClientObject, [squadStoryId]: [TStringId]): void => {
+    const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
+
+    if (squad === null) {
+      return;
+    } else {
+      squad.updateSquadRelationToActor(ERelation.FRIEND);
+    }
+  }
+);
+
+/**
+ * Set squad relation to actor as enemy by story ID.
+ */
+extern(
+  "xr_effects.set_squad_enemy_to_actor",
+  (actor: ClientObject, object: ClientObject, [squadStoryId]: [TStringId]): void => {
+    const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
+
+    if (squad === null) {
+      return;
+    } else {
+      squad.updateSquadRelationToActor(ERelation.ENEMY);
+    }
+  }
+);
 
 /**
  * todo;
  */
-extern("xr_effects.set_squad_neutral_to_actor", (actor: ClientObject, object: ClientObject, p: [TStringId]): void => {
-  const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
-
-  if (squad === null) {
-    return;
-  } else {
-    squad.updateSquadRelationToActor(ERelation.NEUTRAL);
+extern(
+  "xr_effects.set_npc_sympathy",
+  (actor: ClientObject, object: ClientObject, [sympathy]: [Optional<TCount>]): void => {
+    if (sympathy !== null) {
+      setObjectSympathy(object, sympathy);
+    }
   }
-});
-
-/**
- * todo;
- */
-extern("xr_effects.set_squad_friend_to_actor", (actor: ClientObject, object: ClientObject, p: [TStringId]): void => {
-  const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
-
-  if (squad === null) {
-    return;
-  } else {
-    squad.updateSquadRelationToActor(ERelation.FRIEND);
-  }
-});
-
-/**
- * todo;
- */
-extern("xr_effects.set_squad_enemy_to_actor", (actor: ClientObject, object: ClientObject, p: [TStringId]): void => {
-  const squad: Optional<Squad> = getServerObjectByStoryId(p[0]);
-
-  if (squad === null) {
-    return;
-  } else {
-    squad.updateSquadRelationToActor(ERelation.ENEMY);
-  }
-});
-
-/**
- * todo;
- */
-extern("xr_effects.set_npc_sympathy", (actor: ClientObject, object: ClientObject, p: [number]): void => {
-  if (p[0] !== null) {
-    setObjectSympathy(object, p[0]);
-  }
-});
+);
 
 /**
  * todo;
  */
 extern("xr_effects.set_squad_goodwill", (actor: ClientObject, object: ClientObject, p: [string, ERelation]): void => {
   if (p[0] !== null && p[1] !== null) {
-    setSquadGoodwill(p[0], p[1]);
+    setSquadRelationToActorById(p[0], p[1]);
   }
 });
 
@@ -100,7 +113,7 @@ extern(
   "xr_effects.set_squad_goodwill_to_npc",
   (actor: ClientObject, object: ClientObject, p: [string, ERelation]): void => {
     if (p[0] !== null && p[1] !== null) {
-      setSquadGoodwillToNpc(object, p[0], p[1]);
+      setSquadRelationToObject(object, p[0], p[1]);
     }
   }
 );
