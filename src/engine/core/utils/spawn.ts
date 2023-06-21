@@ -195,7 +195,7 @@ export function spawnObject<T extends ServerObject>(
   index: TIndex = 0,
   yaw: TRate = 0
 ): T {
-  logger.info("Spawn object");
+  logger.info("Spawn object:", section, pathName);
 
   assertDefined(section, "Wrong spawn section for 'spawnObject' function '%s'.", tostring(section));
   assertDefined(pathName, "Wrong spawn pathName for 'spawnObject' function '%s'.", tostring(pathName));
@@ -226,7 +226,7 @@ export function spawnObjectInObject<T extends ServerObject>(
   section: Optional<TSection>,
   targetId: Optional<TNumberId>
 ): T {
-  logger.info("Spawn object");
+  logger.info("Spawn in object:", section, targetId);
 
   assertDefined(section, "Wrong spawn section for 'spawnObjectInObject' function '%s'.", tostring(section));
   assertDefined(targetId, "Wrong spawn targetId for 'spawnObjectInObject' function '%s'.", tostring(section));

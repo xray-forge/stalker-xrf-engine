@@ -1,3 +1,5 @@
+import { print_stack } from "xray16";
+
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyArgs, Optional, TCount } from "@/engine/lib/types";
 
@@ -14,8 +16,8 @@ export function abort(format: string, ...rest: AnyArgs): never {
   const reason: string = string.format(format, ...rest);
 
   logger.error("[abort] Aborting:", reason);
-  logger.printStack();
 
+  print_stack();
   error(reason, 1);
 }
 

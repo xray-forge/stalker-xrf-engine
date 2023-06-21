@@ -243,7 +243,6 @@ extern(
     object: Optional<ClientObject>,
     [section, pathName, index, yaw]: [TSection, TName, TIndex, TRate]
   ): void => {
-    logger.info("Spawn object");
     spawnObject(section, pathName, index, yaw);
   }
 );

@@ -669,8 +669,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public setLocationTypes(newLocationSection?: TSection): void {
-    logger.info("Set location types:", this.name(), newLocationSection);
-
     const defaultLocation: TSection = "stalker_terrain";
 
     this.clear_location_types();

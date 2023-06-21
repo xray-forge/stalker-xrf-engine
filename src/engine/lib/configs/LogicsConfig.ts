@@ -4,6 +4,10 @@ import { danger_object } from "xray16";
  * todo;
  */
 export const logicsConfig = {
+  ALIFE: {
+    OBJECT_INITIAL_SPAWN_BUFFER_TIME: 2_000,
+    OBJECTS_PER_UPDATE: 15,
+  },
   ACTOR_VISIBILITY_FRUSTUM: 35,
   ARTEFACT_OFFLINE_DISTANCE: 150,
   DANGER_INERTION_TIME: 15_000,

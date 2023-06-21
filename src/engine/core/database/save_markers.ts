@@ -12,7 +12,9 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param markerName - net packet transaction marker to verify data integrity
  */
 export function openSaveMarker(packet: NetPacket, markerName: TName): void {
-  assert(packet.w_tell() < 16_000, "You are saving too much in '%s'.", markerName);
+  const packetSize: TCount = packet.w_tell();
+
+  assert(packetSize < 20_480, "You are saving too much in '%s' - '%s'.", markerName, packetSize);
   registry.saveMarkers.set(markerName, packet.w_tell());
 }
 
@@ -28,12 +30,10 @@ export function closeSaveMarker(packet: NetPacket, markerName: TName): TCount {
 
   const markerDif: TCount = packet.w_tell() - registry.saveMarkers.get(markerName);
 
-  if (markerDif >= 8000) {
-    logger.info("Saving more than 8000:", markerName, markerDif);
-  }
-
-  if (markerDif >= 10240) {
+  if (markerDif >= 10_240) {
     logger.info("Saving more than 10240:", markerName, markerDif);
+  } else if (markerDif >= 8000) {
+    logger.info("Saving more than 8000:", markerName, markerDif);
   }
 
   packet.w_u16(markerDif);

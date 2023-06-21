@@ -18,7 +18,9 @@ import { EGameEvent } from "@/engine/core/managers/events/types";
 import { Actor } from "@/engine/core/objects/server/creature/Actor";
 import { ISchemeDeimosState } from "@/engine/core/schemes/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos/SchemeDeimos";
+import { setStableAlifeObjectsUpdate, setUnlimitedAlifeObjectsUpdate } from "@/engine/core/utils/alife";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import {
   ClientObject,
   GameTask,
@@ -89,7 +91,7 @@ export class ActorBinder extends object_binder {
   }
 
   public override reinit(): void {
-    logger.info("Reinit");
+    logger.info("Re-init");
 
     super.reinit();
 
@@ -117,6 +119,13 @@ export class ActorBinder extends object_binder {
     this.object.set_callback(callback.use_object, (object: ClientObject) => {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_USE_ITEM, object);
     });
+
+    // At re-init allow alife to do batched updates.
+    setUnlimitedAlifeObjectsUpdate();
+    this.eventsManager.registerGameTimeout(
+      () => setStableAlifeObjectsUpdate(),
+      logicsConfig.ALIFE.OBJECT_INITIAL_SPAWN_BUFFER_TIME
+    );
   }
 
   public override update(delta: TDuration): void {
