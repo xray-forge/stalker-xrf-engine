@@ -1,3 +1,4 @@
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ServerActorObject, TNumberId } from "@/engine/lib/types";
 import {
   MockAlifeDynamicObjectVisual,
@@ -16,8 +17,11 @@ export class MockAlifeCreatureActor extends MockAlifeDynamicObjectVisual {
 }
 
 /**
- * todo;
+ * Mock generic actor object.
  */
-export function mockServerAlifeCreatureActor({ id = 0, ...base }: Partial<ServerActorObject> = {}): ServerActorObject {
+export function mockServerAlifeCreatureActor({
+  id = ACTOR_ID,
+  ...base
+}: Partial<ServerActorObject> = {}): ServerActorObject {
   return mockServerAlifeDynamicObjectVisual({ id, ...base }) as ServerActorObject;
 }

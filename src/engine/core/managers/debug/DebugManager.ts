@@ -6,7 +6,7 @@ import { EStateActionId } from "@/engine/core/objects/state";
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EActionId } from "@/engine/core/schemes";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getNumberRelationBetweenCommunities } from "@/engine/core/utils/relation/relation";
+import { getNumberRelationBetweenCommunities } from "@/engine/core/utils/relation/get";
 import { gameTimeToString } from "@/engine/core/utils/time";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { stalkerCommunities, TCommunity } from "@/engine/lib/constants/communities";

@@ -64,6 +64,7 @@ import {
   GameGraph__CVertex,
   hit,
   ini_file,
+  IXR_squad_member,
   login_manager,
   net_packet,
   noise,
@@ -184,6 +185,8 @@ export type ServerPhysicObject = cse_alife_object_physic;
 export type ServerSmartCoverObject = cse_smart_cover;
 export type ServerSmartZoneObject = cse_alife_smart_zone;
 export type ServerSpaceRestrictorObject = cse_alife_space_restrictor;
+export type ServerSquadMemberDescriptor<T extends cse_alife_creature_abstract = cse_alife_creature_abstract> =
+  IXR_squad_member<T>;
 export type ServerTorridZoneObject = cse_torrid_zone;
 export type ServerWeaponAutoShotgunObject = cse_alife_item_weapon_auto_shotgun;
 export type ServerWeaponMagazinedObject = cse_alife_item_weapon_magazined;

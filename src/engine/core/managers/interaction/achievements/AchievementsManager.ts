@@ -14,7 +14,7 @@ import {
 import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
 import { giveInfo, hasAlifeInfo, hasAlifeInfos, hasFewAlifeInfos } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { increaseNumberRelationBetweenCommunityAndId } from "@/engine/core/utils/relation/relation";
+import { increaseNumberRelationBetweenCommunityAndId } from "@/engine/core/utils/relation";
 import { spawnItemsForObjectFromList } from "@/engine/core/utils/spawn";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { captions } from "@/engine/lib/constants/captions/captions";

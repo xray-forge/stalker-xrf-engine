@@ -15,9 +15,9 @@ export function registerObjectStoryLinks(serverObject: ServerObject): void {
   const spawnIni: IniFile = serverObject.spawn_ini();
 
   if (spawnIni.section_exist("story_object")) {
-    const [result, id, value] = spawnIni.r_line("story_object", 0, "", "");
+    const [, field, value] = spawnIni.r_line("story_object", 0, "", "");
 
-    assert(id === "story_id", "There is no 'story_id' field in [story_object] section [%s].", serverObject.name());
+    assert(field === "story_id", "There is no 'story_id' field in [story_object] section [%s].", serverObject.name());
     assert(value !== "", "Field 'story_id' in [story_object] section got no value: [%s].", serverObject.name());
 
     registerStoryLink(serverObject.id, value);

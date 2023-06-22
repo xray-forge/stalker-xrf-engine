@@ -1,58 +1,77 @@
 import { relation_registry } from "xray16";
 
-import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects";
-import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/relation";
+import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/get";
 import { EGoodwill, ERelation } from "@/engine/core/utils/relation/types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ClientObject, Optional, TName, TStringId } from "@/engine/lib/types";
+import { Optional, TStringId } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Check whether squad is enemy to actor.
+ *
+ * @param squadStoryId - squad story id
+ * @returns whether actor is enemy to squad
  */
-export function isSquadEnemyToActor(storyId: TStringId): boolean {
-  return getSquadCommunityRelationToActor(storyId) === ERelation.ENEMY;
+export function isSquadCommunityEnemyToActor(squadStoryId: TStringId): boolean {
+  return getSquadCommunityRelationToActor(squadStoryId) === ERelation.ENEMY;
 }
 
 /**
- * todo;
+ * Check whether squad is friend to actor.
+ *
+ * @param squadStoryId - squad story id
+ * @returns whether actor is friend to squad
  */
-export function isSquadFriendToActor(storyId: TStringId): boolean {
-  return getSquadCommunityRelationToActor(storyId) === ERelation.FRIEND;
+export function isSquadCommunityFriendToActor(squadStoryId: TStringId): boolean {
+  return getSquadCommunityRelationToActor(squadStoryId) === ERelation.FRIEND;
 }
 
 /**
- * todo;
+ * Check whether squad is neutral to actor.
+ *
+ * @param squadStoryId - squad story id
+ * @returns whether actor is neutral to squad
  */
-export function isSquadNeutralToActor(storyId: TName): boolean {
-  return getSquadCommunityRelationToActor(storyId) === ERelation.NEUTRAL;
+export function isSquadCommunityNeutralToActor(squadStoryId: TStringId): boolean {
+  return getSquadCommunityRelationToActor(squadStoryId) === ERelation.NEUTRAL;
 }
 
 /**
- * todo;
+ * Check general goodwill level between factions and assume whether they are friends.
+ *
+ * @param from - community relation check from
+ * @param to - community relation check to
+ * @returns whether faction `from` considers `to` friend
  */
-export function isFactionsFriends(faction: Optional<TCommunity>, factionTo: TCommunity): boolean {
-  if (faction !== null && faction !== communities.none && factionTo !== communities.none) {
-    return relation_registry.community_relation(faction, factionTo) >= EGoodwill.FRIENDS;
+export function areCommunitiesFriendly(from: Optional<TCommunity>, to: TCommunity): boolean {
+  if (from !== null && from !== communities.none && to !== communities.none) {
+    return relation_registry.community_relation(from, to) >= EGoodwill.FRIENDS;
   } else {
     return false;
   }
 }
 
 /**
- * todo;
+ * Check general goodwill level between factions and assume whether they are enemies.
+ *
+ * @param from - community relation check from
+ * @param to - community relation check to
+ * @returns whether faction `from` considers `to` enemy
  */
-export function isFactionsEnemies(faction: Optional<TCommunity>, factionTo: TCommunity): boolean {
-  if (faction !== null && faction !== communities.none && factionTo !== communities.none) {
-    return relation_registry.community_relation(faction, factionTo) <= EGoodwill.ENEMIES;
+export function areCommunitiesEnemies(from: Optional<TCommunity>, to: TCommunity): boolean {
+  if (from !== null && from !== communities.none && to !== communities.none) {
+    return relation_registry.community_relation(from, to) <= EGoodwill.ENEMIES;
   } else {
     return false;
   }
 }
 
 /**
- * Is enemy any squad member.
+ * Check if anyone from squad is enemy to actor.
+ *
+ * @param squad - target squad to check
+ * @returns whether any member is enemy to actor
  */
 export function isAnySquadMemberEnemyToActor(squad: Squad): boolean {
   for (const squadMember of squad.squad_members()) {
@@ -65,30 +84,14 @@ export function isAnySquadMemberEnemyToActor(squad: Squad): boolean {
 }
 
 /**
- * todo;
+ * Check if anyone from squad is friend to actor.
+ *
+ * @param squad - target squad to check
+ * @returns whether any member is friend to actor
  */
-export function isSquadRelationBetweenActorAndRelation(squadName: TName, relation: ERelation): boolean {
-  const squad: Optional<Squad> = getServerObjectByStoryId(squadName);
-  const actor: Optional<ClientObject> = registry.actor;
-
-  if (!squad || !actor) {
-    return false;
-  }
-
+export function isAnySquadMemberFriendToActor(squad: Squad): boolean {
   for (const squadMember of squad.squad_members()) {
-    let isEnemy: boolean;
-
-    if (relation === ERelation.ENEMY) {
-      const goodwill: Optional<number> = registry.objects.get(squadMember.id)?.object.general_goodwill(actor);
-
-      isEnemy = goodwill === null ? false : goodwill <= EGoodwill.ENEMIES;
-    } else {
-      const goodwill: Optional<number> = registry.objects.get(squadMember.id)?.object.general_goodwill(actor);
-
-      isEnemy = goodwill === null ? false : goodwill >= EGoodwill.ENEMIES;
-    }
-
-    if (isEnemy) {
+    if (relation_registry.get_general_goodwill_between(squadMember.id, ACTOR_ID) >= EGoodwill.FRIENDS) {
       return true;
     }
   }

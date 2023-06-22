@@ -57,10 +57,10 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_general";
 import {
+  areCommunitiesEnemies,
   ERelation,
   getSquadMembersRelationToActor,
   getSquadRelationToActor,
-  isFactionsEnemies,
   setClientObjectsRelation,
   setObjectSympathy,
   setServerObjectsRelation,
@@ -1065,7 +1065,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         if (
           targetSquad &&
           this.position.distance_to_sqr(targetSquad.position) < 150 * 150 &&
-          isFactionsEnemies(currentCommunity, targetSquad.getCommunity())
+          areCommunitiesEnemies(currentCommunity, targetSquad.getCommunity())
         ) {
           return enemySquadId;
         }

@@ -13,97 +13,10 @@ import {
   ServerCreatureObject,
   TCount,
   TNumberId,
-  TRelationType,
   TStringId,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * Get relation type between objects with safe null check.
- */
-export function getObjectsRelationSafe(
-  from: Optional<ClientObject>,
-  to: Optional<ClientObject>
-): Optional<TRelationType> {
-  return from && to && from.relation(to);
-}
-
-/**
- * Returns relation to actor based on average of squad members.
- * If no squad members present, check relation of faction.
- */
-export function getSquadRelationToActor(squad: Squad): ERelation {
-  const actor: Optional<ClientObject> = registry.actor;
-
-  // Actor may be registered after other alife objects.
-  if (actor === null) {
-    return ERelation.NEUTRAL;
-  }
-
-  let squadTotalGoodwill: TCount = 0;
-  let squadMembersCount: TCount = 0;
-
-  for (const squadMember of squad.squad_members()) {
-    const object: Optional<ClientObject> = registry.objects.get(squadMember.id)?.object as Optional<ClientObject>;
-
-    if (object) {
-      squadTotalGoodwill += object.general_goodwill(actor);
-      squadMembersCount += 1;
-    }
-  }
-
-  const averageRelation: TCount =
-    squadMembersCount > 0
-      ? squadTotalGoodwill / squadMembersCount
-      : relation_registry.community_relation(squad.getCommunity(), communities.actor);
-
-  if (averageRelation >= EGoodwill.FRIENDS) {
-    return ERelation.FRIEND;
-  } else if (averageRelation > EGoodwill.ENEMIES) {
-    return ERelation.NEUTRAL;
-  } else {
-    return ERelation.ENEMY;
-  }
-}
-
-/**
- * @returns average relation of squad members to actor, `null` if squad is empty
- */
-export function getSquadMembersRelationToActor(squad: Squad): Optional<ERelation> {
-  const actor: Optional<ClientObject> = registry.actor;
-
-  // Actor may be registered after other alife objects.
-  if (actor === null) {
-    return ERelation.NEUTRAL;
-  }
-
-  let squadTotalGoodwill: TCount = 0;
-  let squadMembersCount: TCount = 0;
-
-  for (const squadMember of squad.squad_members()) {
-    const object: Optional<ClientObject> = registry.objects.get(squadMember.id)?.object as Optional<ClientObject>;
-
-    if (object) {
-      squadTotalGoodwill += object.general_goodwill(actor);
-      squadMembersCount += 1;
-    }
-  }
-
-  if (squadMembersCount <= 0) {
-    return null;
-  }
-
-  const averageRelation: TCount = squadTotalGoodwill / squadMembersCount;
-
-  if (averageRelation >= EGoodwill.FRIENDS) {
-    return ERelation.FRIEND;
-  } else if (averageRelation > EGoodwill.ENEMIES) {
-    return ERelation.NEUTRAL;
-  } else {
-    return ERelation.ENEMY;
-  }
-}
 
 /**
  * todo;
@@ -181,20 +94,6 @@ export function increaseNumberRelationBetweenCommunityAndId(
 /**
  * todo;
  */
-export function getNumberRelationBetweenCommunities(
-  from: Optional<TCommunity>,
-  to: Optional<TCommunity>
-): Optional<TCount> {
-  if (from !== null && to !== null && from !== communities.none && to !== communities.none) {
-    return relation_registry.community_relation(from, to);
-  } else {
-    return null;
-  }
-}
-
-/**
- * todo;
- */
 export function setRelationBetweenCommunities(
   faction: Optional<TCommunity>,
   faction_to: TCommunity,
@@ -229,29 +128,6 @@ export function setObjectSympathy(object: Optional<ClientObject>, newSympathy: T
   }
 
   object.set_sympathy(newSympathy);
-}
-
-/**
- * todo;
- */
-export function getSquadCommunityRelationToActor(storyId: TStringId): ERelation {
-  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
-
-  assertDefined(squad, "No such squad %s in board", tostring(storyId));
-
-  if (squad.relationship !== null) {
-    return squad.relationship;
-  } else {
-    if (relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) >= EGoodwill.FRIENDS) {
-      return ERelation.FRIEND;
-    } else if (
-      relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) <= EGoodwill.ENEMIES
-    ) {
-      return ERelation.ENEMY;
-    }
-
-    return ERelation.NEUTRAL;
-  }
 }
 
 /**
@@ -353,29 +229,4 @@ export function setSquadRelationToActorById(squadId: TStringId | TNumberId, newR
   assert(squad, "There is no squad [%s] in sim_board.", squadId);
 
   squad.updateSquadRelationToActor(newRelation);
-}
-
-/**
- * todo;
- */
-export function getSquadRelationToActorById(squadId: TNumberId): ERelation {
-  const squad: Optional<Squad> = alife().object<Squad>(squadId);
-
-  assert(squad, "No such squad %s in board.", squadId);
-
-  if (squad.relationship === null) {
-    let goodwill: ERelation = ERelation.NEUTRAL;
-
-    if (relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) >= EGoodwill.FRIENDS) {
-      goodwill = ERelation.FRIEND;
-    } else if (
-      relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) <= EGoodwill.ENEMIES
-    ) {
-      goodwill = ERelation.ENEMY;
-    }
-
-    return goodwill;
-  } else {
-    return squad.relationship;
-  }
 }
