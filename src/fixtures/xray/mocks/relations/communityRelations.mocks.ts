@@ -7,7 +7,7 @@ import { TCount, TName, TNumberId } from "@/engine/lib/types";
 export const communityGoodwill: Record<TName, Record<TName, TCount>> = {
   [communities.actor]: {
     [communities.actor]: 1000,
-    [communities.stalker]: 0,
+    [communities.stalker]: 250,
     [communities.bandit]: 0,
     [communities.army]: 1000,
     [communities.monolith]: -1000,
@@ -15,7 +15,7 @@ export const communityGoodwill: Record<TName, Record<TName, TCount>> = {
   },
   [communities.stalker]: {
     [communities.stalker]: 1000,
-    [communities.actor]: 500,
+    [communities.actor]: 200,
     [communities.bandit]: -1000,
     [communities.army]: 0,
     [communities.monolith]: -1000,

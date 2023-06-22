@@ -107,17 +107,22 @@ export function getSquadMembersRelationToActor(squad: Squad): Optional<ERelation
 }
 
 /**
- * todo;
+ * Get relation value between communities.
+ * Handle possible exceptional cases.
+ *
+ * @param from - community from
+ * @param to - community to
+ * @returns goodwill value from community to another one
  */
 export function getNumberRelationBetweenCommunities(
   from: Optional<TCommunity>,
   to: Optional<TCommunity>
 ): Optional<TCount> {
-  if (from !== null && to !== null && from !== communities.none && to !== communities.none) {
-    return relation_registry.community_relation(from, to);
-  } else {
+  if (!from || !to || from === communities.none || to === communities.none) {
     return null;
   }
+
+  return relation_registry.community_relation(from, to);
 }
 
 /**
@@ -153,21 +158,19 @@ export function getSquadCommunityRelationToActor(squadStoryId: TStringId): ERela
 export function getSquadRelationToActorById(squadId: TNumberId): ERelation {
   const squad: Optional<Squad> = alife().object<Squad>(squadId);
 
-  assert(squad, "No such squad %s in board.", squadId);
+  assert(squad, "Squad with id '%s' is not found.", squadId);
 
-  if (squad.relationship === null) {
-    let goodwill: ERelation = ERelation.NEUTRAL;
-
-    if (relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) >= EGoodwill.FRIENDS) {
-      goodwill = ERelation.FRIEND;
-    } else if (
-      relation_registry.community_relation(squad.getCommunity(), alife().actor().community()) <= EGoodwill.ENEMIES
-    ) {
-      goodwill = ERelation.ENEMY;
-    }
-
-    return goodwill;
-  } else {
+  if (squad.relationship) {
     return squad.relationship;
+  } else {
+    const goodwill: TCount = relation_registry.community_relation(squad.getCommunity(), alife().actor().community());
+
+    if (goodwill >= EGoodwill.FRIENDS) {
+      return ERelation.FRIEND;
+    } else if (goodwill <= EGoodwill.ENEMIES) {
+      return ERelation.ENEMY;
+    } else {
+      return ERelation.NEUTRAL;
+    }
   }
 }

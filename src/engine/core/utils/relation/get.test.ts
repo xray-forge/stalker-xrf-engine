@@ -1,12 +1,14 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registerActor, registerStoryLink, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects";
 import {
+  getNumberRelationBetweenCommunities,
   getObjectsRelationSafe,
   getSquadCommunityRelationToActor,
   getSquadMembersRelationToActor,
   getSquadMembersRelationToActorSafe,
+  getSquadRelationToActorById,
 } from "@/engine/core/utils/relation/get";
 import { ERelation } from "@/engine/core/utils/relation/types";
 import { communities } from "@/engine/lib/constants/communities";
@@ -84,7 +86,17 @@ describe("'relation/get' utils", () => {
   });
 
   it("'getNumberRelationBetweenCommunities' should correctly check relation", () => {
-    // todo;
+    expect(getNumberRelationBetweenCommunities(null, null)).toBeNull();
+    expect(getNumberRelationBetweenCommunities(null, communities.stalker)).toBeNull();
+    expect(getNumberRelationBetweenCommunities(communities.stalker, null)).toBeNull();
+    expect(getNumberRelationBetweenCommunities(communities.none, communities.stalker)).toBeNull();
+    expect(getNumberRelationBetweenCommunities(communities.stalker, communities.none)).toBeNull();
+
+    expect(getNumberRelationBetweenCommunities(communities.actor, communities.actor)).toBe(1000);
+    expect(getNumberRelationBetweenCommunities(communities.actor, communities.stalker)).toBe(250);
+    expect(getNumberRelationBetweenCommunities(communities.stalker, communities.actor)).toBe(200);
+    expect(getNumberRelationBetweenCommunities(communities.monolith, communities.monster)).toBe(-1000);
+    expect(getNumberRelationBetweenCommunities(communities.monster, communities.bandit)).toBe(-5000);
   });
 
   it("'getSquadCommunityRelationToActor' should correctly get realation of squad community", () => {
@@ -121,6 +133,23 @@ describe("'relation/get' utils", () => {
   });
 
   it("'getSquadRelationToActorById' should correctly check relation", () => {
-    // todo;
+    const { emptyMonolithSquad, emptyArmySquad, neutralSquad, friendlySquad, mixedSquad, enemySquad } =
+      mockRelationsSquads();
+
+    mockServerAlifeCreatureActor();
+
+    expect(() => getSquadRelationToActorById(10002000)).toThrow("Squad with id '10002000' is not found.");
+    expect(getSquadRelationToActorById(emptyMonolithSquad.id)).toBe(ERelation.ENEMY);
+    expect(getSquadRelationToActorById(emptyArmySquad.id)).toBe(ERelation.FRIEND);
+    expect(getSquadRelationToActorById(friendlySquad.id)).toBe(ERelation.FRIEND);
+    expect(getSquadRelationToActorById(neutralSquad.id)).toBe(ERelation.NEUTRAL);
+    expect(getSquadRelationToActorById(enemySquad.id)).toBe(ERelation.ENEMY);
+
+    mixedSquad.relationship = ERelation.FRIEND;
+    expect(getSquadRelationToActorById(mixedSquad.id)).toBe(ERelation.FRIEND);
+    mixedSquad.relationship = ERelation.NEUTRAL;
+    expect(getSquadRelationToActorById(mixedSquad.id)).toBe(ERelation.NEUTRAL);
+    mixedSquad.relationship = ERelation.ENEMY;
+    expect(getSquadRelationToActorById(mixedSquad.id)).toBe(ERelation.ENEMY);
   });
 });
