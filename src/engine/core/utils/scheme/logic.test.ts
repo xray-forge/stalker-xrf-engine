@@ -50,7 +50,7 @@ import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/co
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, EScheme, ESchemeType, IniFile, ServerHumanObject } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState } from "@/fixtures/engine/mocks";
-import { luaTableToObject } from "@/fixtures/lua/mocks/utils";
+import { luaTableToObject } from "@/fixtures/lua/mocks/lua_utils";
 import { MockAlifeSimulator, mockClientGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 

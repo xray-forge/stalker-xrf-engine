@@ -23,8 +23,13 @@ export function getObjectsRelationSafe(
 /**
  * Returns relation to actor based on average of squad members.
  * If no squad members present, check relation of faction.
+ *
+ * Offline squad may be empty.
+ *
+ * @param squad - target squad to check
+ * @returns relation of squad members to actor or squad community relation is squad is empty
  */
-export function getSquadRelationToActor(squad: Squad): ERelation {
+export function getSquadMembersRelationToActorSafe(squad: Squad): ERelation {
   const actor: Optional<ClientObject> = registry.actor;
 
   // Actor may be registered after other alife objects.
@@ -59,6 +64,11 @@ export function getSquadRelationToActor(squad: Squad): ERelation {
 }
 
 /**
+ * Returns relation to actor based on average of squad members.
+ * If no squad members present, return `null`.
+ *
+ * Offline squad may be empty.
+ *
  * @returns average relation of squad members to actor, `null` if squad is empty
  */
 export function getSquadMembersRelationToActor(squad: Squad): Optional<ERelation> {

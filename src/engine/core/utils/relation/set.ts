@@ -21,7 +21,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-export function setClientObjectsRelation(
+export function setClientObjectRelation(
   from: Optional<ClientObject>,
   to: Optional<ClientObject>,
   newRelation: ERelation
@@ -43,7 +43,7 @@ export function setClientObjectsRelation(
  * todo;
  * todo: Unify?
  */
-export function setServerObjectsRelation(
+export function setServerObjectRelation(
   from: Optional<ServerCreatureObject>,
   to: Optional<ServerCreatureObject>,
   nextRelation: ERelation

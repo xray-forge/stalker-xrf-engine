@@ -1,5 +1,6 @@
 import { jest } from "@jest/globals";
 
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   ActionPlanner,
   AnyCallable,
@@ -16,10 +17,14 @@ import {
   TSightType,
   Vector,
 } from "@/engine/lib/types";
-import { MockMove, MockSightParameters } from "@/fixtures/xray";
-import { MockActionPlanner, mockDefaultActionPlanner } from "@/fixtures/xray/mocks/actions/action_planner.mock";
+import {
+  MockActionPlanner,
+  mockDefaultActionPlanner,
+  MockMove,
+  MockSightParameters,
+} from "@/fixtures/xray/mocks/actions";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
-import { CLIENT_SIDE_REGISTRY } from "@/fixtures/xray/mocks/interface/levelInterface.mock";
+import { CLIENT_SIDE_REGISTRY, mockRelationRegistryInterface } from "@/fixtures/xray/mocks/interface";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 let ID_COUNTER: TNumberId = 1000;
@@ -120,6 +125,11 @@ export function mockClientGameObject({
         }
       }),
     game_vertex_id,
+    general_goodwill:
+      rest.general_goodwill ||
+      jest.fn((to: ClientObject) => {
+        return mockRelationRegistryInterface.get_general_goodwill_between(id ? id() : idOverride, to.id());
+      }),
     get_script: rest.get_script || jest.fn(() => false),
     get_script_name: rest.get_script_name || jest.fn(() => null),
     give_game_news,
@@ -173,6 +183,11 @@ export function mockClientGameObject({
       }
     }),
     position: rest.position || jest.fn(() => objectPosition),
+    relation:
+      rest.relation ||
+      jest.fn(() => {
+        return 0;
+      }),
     remove_home: rest.remove_home || jest.fn(),
     remove_restrictions:
       rest.add_restrictions ||
@@ -267,4 +282,11 @@ export function mockClientGameObject({
   CLIENT_SIDE_REGISTRY.set(gameObject.id(), gameObject as ClientObject);
 
   return gameObject as ClientObject;
+}
+
+/**
+ * Mock client game object.
+ */
+export function mockActorClientGameObject(base: Partial<ClientObject> = {}): ClientObject {
+  return mockClientGameObject({ ...base, idOverride: ACTOR_ID });
 }

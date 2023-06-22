@@ -1,5 +1,5 @@
 import { ActionBase, ClientObject, Optional } from "@/engine/lib/types";
-import { MockWorldProperty } from "@/fixtures/xray/mocks/actions";
+import { MockWorldProperty } from "@/fixtures/xray/mocks/actions/world_property.mock";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 
 /**

@@ -18,7 +18,7 @@ import {
 import { IConfigCondition } from "@/engine/core/utils/ini/types";
 import { NIL } from "@/engine/lib/constants/words";
 import { Flags32, IniFile, LuaArray } from "@/engine/lib/types";
-import { luaTableToArray, luaTableToObject } from "@/fixtures/lua/mocks/utils";
+import { luaTableToArray, luaTableToObject } from "@/fixtures/lua/mocks/lua_utils";
 import { mockIniFile } from "@/fixtures/xray";
 import { MockFlags32 } from "@/fixtures/xray/mocks/objects/Flags32.mock";
 

@@ -60,10 +60,10 @@ import {
   areCommunitiesEnemies,
   ERelation,
   getSquadMembersRelationToActor,
-  getSquadRelationToActor,
-  setClientObjectsRelation,
+  getSquadMembersRelationToActorSafe,
+  setClientObjectRelation,
   setObjectSympathy,
-  setServerObjectsRelation,
+  setServerObjectRelation,
 } from "@/engine/core/utils/relation";
 import { isEmpty } from "@/engine/core/utils/table";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -844,9 +844,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         const object: Optional<ClientObject> = registry.objects.get(squadMember.id)?.object;
 
         if (object !== null) {
-          setClientObjectsRelation(object, registry.actor, relation);
+          setClientObjectRelation(object, registry.actor, relation);
         } else {
-          setServerObjectsRelation(simulator.object(squadMember.id), simulator.actor(), relation);
+          setServerObjectRelation(simulator.object(squadMember.id), simulator.actor(), relation);
         }
       }
     }
@@ -964,7 +964,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       if (isSquadMonsterCommunity(this.faction)) {
         spot = mapMarks.alife_presentation_squad_monster_debug;
       } else {
-        const relation: ERelation = getSquadRelationToActor(this);
+        const relation: ERelation = getSquadMembersRelationToActorSafe(this);
 
         switch (relation) {
           case ERelation.FRIEND:

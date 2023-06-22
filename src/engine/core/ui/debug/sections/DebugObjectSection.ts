@@ -11,8 +11,8 @@ import { getObjectSquad } from "@/engine/core/utils/object/object_general";
 import {
   ERelation,
   getObjectsRelationSafe,
-  getSquadRelationToActor,
-  setClientObjectsRelation,
+  getSquadMembersRelationToActorSafe,
+  setClientObjectRelation,
 } from "@/engine/core/utils/relation";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { NIL } from "@/engine/lib/constants/words";
@@ -119,7 +119,7 @@ export class DebugObjectSection extends AbstractDebugSection {
         "object relation: " + getObjectsRelationSafe(targetStalker, registry.actor)
       );
       this.uiTargetStalkerSquadRelationLabel.SetText(
-        "squad relation: " + (squad ? getSquadRelationToActor(squad) : NIL)
+        "squad relation: " + (squad ? getSquadMembersRelationToActorSafe(squad) : NIL)
       );
     } else {
       this.uiNearestStalkerLabel.SetText("Nearest: " + NIL);
@@ -210,7 +210,7 @@ export class DebugObjectSection extends AbstractDebugSection {
 
     if (targetObject) {
       logger.info("Set actor relation for:", targetObject.name(), relation);
-      setClientObjectsRelation(targetObject, registry.actor, relation);
+      setClientObjectRelation(targetObject, registry.actor, relation);
       this.initializeState();
     } else {
       logger.info("No object found for relation change");

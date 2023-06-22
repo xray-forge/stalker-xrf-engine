@@ -97,7 +97,7 @@ extern(
  */
 extern(
   "xr_conditions.is_faction_neutral_to_actor",
-  (actor: ClientObject, ob: ClientObject, p: [TCommunity]): boolean => {
+  (actor: ClientObject, object: ClientObject, p: [TCommunity]): boolean => {
     return p[0] === null ? false : isActorNeutralWithFaction(p[0]);
   }
 );

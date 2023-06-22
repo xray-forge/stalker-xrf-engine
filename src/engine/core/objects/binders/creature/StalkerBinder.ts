@@ -59,7 +59,7 @@ import {
   getObjectSquad,
   updateObjectInvulnerability,
 } from "@/engine/core/utils/object/object_general";
-import { ERelation, setClientObjectsRelation, setObjectSympathy } from "@/engine/core/utils/relation";
+import { ERelation, setClientObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { emitSchemeEvent, trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
@@ -161,7 +161,7 @@ export class StalkerBinder extends object_binder {
     const relation: Optional<ERelation> = registry.goodwill.relations.get(objectId);
 
     if (relation !== null && actor) {
-      setClientObjectsRelation(this.object, actor, relation);
+      setClientObjectRelation(this.object, actor, relation);
     }
 
     const sympathy: Optional<TCount> = registry.goodwill.sympathy.get(objectId);

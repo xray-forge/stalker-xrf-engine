@@ -27,7 +27,7 @@ export const mockRelationRegistryInterface: IXR_relation_registry = {
       return charactersGoodwill[from][to];
     }
 
-    throw new Error("Unexpected mock check.");
+    throw new Error(`Unexpected mock check: '${from}' to '${to}'.`);
   }),
   set_community_goodwill: jest.fn((community_a: string, value2: number, value3: number): void => {}),
   set_community_relation: jest.fn((community_a: string, community_b: string, value3: number): void => {}),

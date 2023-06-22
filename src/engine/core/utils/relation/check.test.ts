@@ -12,15 +12,9 @@ import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/g
 import { ERelation } from "@/engine/core/utils/relation/types";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ServerGroupObject, ServerHumanObject } from "@/engine/lib/types";
-import {
-  MockAlifeOnlineOfflineGroup,
-  MockAlifeSimulator,
-  mockServerAlifeCreatureActor,
-  mockServerAlifeHumanStalker,
-  mockServerAlifeOnlineOfflineGroup,
-} from "@/fixtures/xray";
-import { mockCharactersGoodwill } from "@/fixtures/xray/mocks/relations";
+import { ServerGroupObject } from "@/engine/lib/types";
+import { mockRelationsSquads } from "@/fixtures/engine";
+import { MockAlifeSimulator, mockServerAlifeCreatureActor, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
 
 describe("'relation/check' utils", () => {
   beforeEach(() => {
@@ -98,84 +92,22 @@ describe("'relation/check' utils", () => {
   });
 
   it("'isAnySquadMemberEnemyToActor' should correctly check relation of squad members", () => {
-    const emptyGroup: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
-    const friendlyGroup: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
-    const neutralGroup: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
-    const mixedGroup: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
-    const enemyGroup: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
+    const { emptyMonolithSquad, neutralSquad, enemySquad, friendlySquad, mixedSquad } = mockRelationsSquads();
 
-    const friend: ServerHumanObject = mockServerAlifeHumanStalker();
-    const enemy: ServerHumanObject = mockServerAlifeHumanStalker();
-    const neutral: ServerHumanObject = mockServerAlifeHumanStalker();
-    const almostEnemy: ServerHumanObject = mockServerAlifeHumanStalker();
-    const almostFriend: ServerHumanObject = mockServerAlifeHumanStalker();
-
-    mockCharactersGoodwill(friend.id, ACTOR_ID, 1000);
-    mockCharactersGoodwill(enemy.id, ACTOR_ID, -1000);
-    mockCharactersGoodwill(neutral.id, ACTOR_ID, 0);
-    mockCharactersGoodwill(almostEnemy.id, ACTOR_ID, -999);
-    mockCharactersGoodwill(almostFriend.id, ACTOR_ID, 999);
-
-    friendlyGroup.addSquadMember(friend);
-    friendlyGroup.addSquadMember(friend);
-    friendlyGroup.addSquadMember(friend);
-
-    neutralGroup.addSquadMember(neutral);
-    neutralGroup.addSquadMember(almostEnemy);
-    neutralGroup.addSquadMember(almostFriend);
-
-    enemyGroup.addSquadMember(enemy);
-    enemyGroup.addSquadMember(enemy);
-
-    mixedGroup.addSquadMember(friend);
-    mixedGroup.addSquadMember(neutral);
-    mixedGroup.addSquadMember(enemy);
-
-    expect(isAnySquadMemberEnemyToActor(emptyGroup.asSquad())).toBeFalsy();
-    expect(isAnySquadMemberEnemyToActor(neutralGroup.asSquad())).toBeFalsy();
-    expect(isAnySquadMemberEnemyToActor(friendlyGroup.asSquad())).toBeFalsy();
-    expect(isAnySquadMemberEnemyToActor(enemyGroup.asSquad())).toBeTruthy();
-    expect(isAnySquadMemberEnemyToActor(mixedGroup.asSquad())).toBeTruthy();
+    expect(isAnySquadMemberEnemyToActor(emptyMonolithSquad)).toBeFalsy();
+    expect(isAnySquadMemberEnemyToActor(neutralSquad)).toBeFalsy();
+    expect(isAnySquadMemberEnemyToActor(friendlySquad)).toBeFalsy();
+    expect(isAnySquadMemberEnemyToActor(enemySquad)).toBeTruthy();
+    expect(isAnySquadMemberEnemyToActor(mixedSquad)).toBeTruthy();
   });
 
   it("'isAnySquadMemberFriendToActor' should correctly check relation of squad members", () => {
-    const emptyGroup: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
-    const friendlyGroup: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
-    const neutralGroup: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
-    const mixedGroup: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
-    const enemyGroup: MockAlifeOnlineOfflineGroup = new MockAlifeOnlineOfflineGroup("test");
+    const { emptyMonolithSquad, neutralSquad, enemySquad, friendlySquad, mixedSquad } = mockRelationsSquads();
 
-    const friend: ServerHumanObject = mockServerAlifeHumanStalker();
-    const enemy: ServerHumanObject = mockServerAlifeHumanStalker();
-    const neutral: ServerHumanObject = mockServerAlifeHumanStalker();
-    const almostEnemy: ServerHumanObject = mockServerAlifeHumanStalker();
-    const almostFriend: ServerHumanObject = mockServerAlifeHumanStalker();
-
-    mockCharactersGoodwill(friend.id, ACTOR_ID, 1000);
-    mockCharactersGoodwill(enemy.id, ACTOR_ID, -1000);
-    mockCharactersGoodwill(neutral.id, ACTOR_ID, 0);
-    mockCharactersGoodwill(almostEnemy.id, ACTOR_ID, -999);
-    mockCharactersGoodwill(almostFriend.id, ACTOR_ID, 999);
-
-    friendlyGroup.addSquadMember(friend);
-    friendlyGroup.addSquadMember(friend);
-    friendlyGroup.addSquadMember(friend);
-
-    neutralGroup.addSquadMember(neutral);
-    neutralGroup.addSquadMember(almostEnemy);
-    neutralGroup.addSquadMember(almostFriend);
-
-    enemyGroup.addSquadMember(enemy);
-    enemyGroup.addSquadMember(enemy);
-
-    mixedGroup.addSquadMember(friend);
-    mixedGroup.addSquadMember(neutral);
-    mixedGroup.addSquadMember(enemy);
-
-    expect(isAnySquadMemberFriendToActor(emptyGroup.asSquad())).toBeFalsy();
-    expect(isAnySquadMemberFriendToActor(neutralGroup.asSquad())).toBeFalsy();
-    expect(isAnySquadMemberFriendToActor(enemyGroup.asSquad())).toBeFalsy();
-    expect(isAnySquadMemberFriendToActor(friendlyGroup.asSquad())).toBeTruthy();
-    expect(isAnySquadMemberFriendToActor(mixedGroup.asSquad())).toBeTruthy();
+    expect(isAnySquadMemberFriendToActor(emptyMonolithSquad)).toBeFalsy();
+    expect(isAnySquadMemberFriendToActor(neutralSquad)).toBeFalsy();
+    expect(isAnySquadMemberFriendToActor(enemySquad)).toBeFalsy();
+    expect(isAnySquadMemberFriendToActor(friendlySquad)).toBeTruthy();
+    expect(isAnySquadMemberFriendToActor(mixedSquad)).toBeTruthy();
   });
 });
