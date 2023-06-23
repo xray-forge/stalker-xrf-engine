@@ -8,7 +8,7 @@ import {
   TNumberId,
   WorldState,
 } from "@/engine/lib/types";
-import { MockActionBase, mockActionBase } from "@/fixtures/xray";
+import { MockActionBase, mockActionBase } from "@/fixtures/xray/mocks/actions/action_base.mock";
 import { mockStalkerIds } from "@/fixtures/xray/mocks/constants/stalker_ids.mock";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";

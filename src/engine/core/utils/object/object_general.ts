@@ -65,11 +65,14 @@ export function getObjectPositioning(object: AnyGameObject): LuaMultiReturn<[TNu
 export function getObjectSquad(object: Optional<ClientObject | ServerCreatureObject>): Optional<Squad> {
   assertDefined(object, "Attempt to get squad object from null value.");
 
+  // Get for client object.
   if (type(object.id) === "function") {
     const serverObject: Optional<ServerCreatureObject> = alife().object((object as ClientObject).id());
 
     return !serverObject || serverObject.group_id === MAX_U16 ? null : alife().object<Squad>(serverObject.group_id);
   } else {
+    // Get for server object.
+
     return (object as ServerCreatureObject).group_id === MAX_U16
       ? null
       : alife().object<Squad>((object as ServerCreatureObject).group_id);

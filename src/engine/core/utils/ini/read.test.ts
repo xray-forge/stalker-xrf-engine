@@ -11,7 +11,7 @@ import {
   readIniTwoNumbers,
 } from "@/engine/core/utils/ini/read";
 import { IniFile, Optional } from "@/engine/lib/types";
-import { luaTableToObject } from "@/fixtures/lua/mocks/utils";
+import { luaTableToObject } from "@/fixtures/lua/mocks/lua_utils";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("'read' utils for ini file", () => {

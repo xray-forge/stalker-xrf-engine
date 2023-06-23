@@ -14,7 +14,7 @@ import {
 import { StatisticsManager } from "@/engine/core/managers/interface/StatisticsManager";
 import { giveInfo, hasAlifeInfo, hasAlifeInfos, hasFewAlifeInfos } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { increaseNumberRelationBetweenCommunityAndId } from "@/engine/core/utils/relation";
+import { increaseCommunityGoodwillToId } from "@/engine/core/utils/relation";
 import { spawnItemsForObjectFromList } from "@/engine/core/utils/spawn";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { captions } from "@/engine/lib/constants/captions/captions";
@@ -246,7 +246,7 @@ export class AchievementsManager extends AbstractCoreManager {
     }
 
     giveInfo(infoPortions.sim_bandit_attack_harder);
-    increaseNumberRelationBetweenCommunityAndId(communities.stalker, registry.actor.id(), 200);
+    increaseCommunityGoodwillToId(communities.stalker, registry.actor.id(), 200);
 
     EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
       type: ENotificationType.TIP,
@@ -364,10 +364,10 @@ export class AchievementsManager extends AbstractCoreManager {
 
         const actorId: TNumberId = registry.actor.id();
 
-        increaseNumberRelationBetweenCommunityAndId(communities.stalker, actorId, 200);
-        increaseNumberRelationBetweenCommunityAndId(communities.freedom, actorId, 200);
-        increaseNumberRelationBetweenCommunityAndId(communities.dolg, actorId, 200);
-        increaseNumberRelationBetweenCommunityAndId(communities.bandit, actorId, 200);
+        increaseCommunityGoodwillToId(communities.stalker, actorId, 200);
+        increaseCommunityGoodwillToId(communities.freedom, actorId, 200);
+        increaseCommunityGoodwillToId(communities.dolg, actorId, 200);
+        increaseCommunityGoodwillToId(communities.bandit, actorId, 200);
 
         EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,
@@ -605,7 +605,7 @@ export class AchievementsManager extends AbstractCoreManager {
         ])
       ) {
         giveInfo(infoPortions.sim_stalker_help_harder);
-        increaseNumberRelationBetweenCommunityAndId(communities.stalker, registry.actor.id(), 100);
+        increaseCommunityGoodwillToId(communities.stalker, registry.actor.id(), 100);
 
         EventsManager.getInstance().emitEvent<ITipNotification>(EGameEvent.NOTIFICATION, {
           type: ENotificationType.TIP,

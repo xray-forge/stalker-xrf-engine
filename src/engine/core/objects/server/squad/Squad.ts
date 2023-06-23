@@ -44,19 +44,26 @@ import { StoryManager } from "@/engine/core/objects/sounds/stories";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/check/is";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList, parseStringsList } from "@/engine/core/utils/ini/parse";
-import { readIniBoolean, readIniNumber, readIniString, readIniTwoNumbers } from "@/engine/core/utils/ini/read";
-import { TConditionList } from "@/engine/core/utils/ini/types";
+import {
+  parseConditionsList,
+  parseStringsList,
+  pickSectionFromCondList,
+  readIniBoolean,
+  readIniNumber,
+  readIniString,
+  readIniTwoNumbers,
+  TConditionList,
+} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_general";
 import {
+  areCommunitiesEnemies,
+  ERelation,
   getSquadMembersRelationToActor,
-  getSquadRelationToActor,
-  isFactionsEnemies,
-  setObjectsRelation,
+  getSquadMembersRelationToActorSafe,
+  setClientObjectRelation,
   setObjectSympathy,
-  setServerObjectsRelation,
+  setServerObjectRelation,
 } from "@/engine/core/utils/relation";
 import { isEmpty } from "@/engine/core/utils/table";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
@@ -65,10 +72,10 @@ import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { ERelation } from "@/engine/lib/constants/relations";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
+  AlifeSimulator,
   ALifeSmartTerrainTask,
   AnyObject,
   ClientObject,
@@ -824,26 +831,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * Set relation of squad to object with desired parameter.
-   * In case of no parameter provided squad members relation will be updated with already in-memory stored value.
-   *
-   * @param relation - optional, new relation between squad and actor
-   */
-  public updateSquadRelationToActor(relation: Optional<ERelation> = this.relationship): void {
-    if (relation !== null) {
-      for (const squadMember of this.squad_members()) {
-        const object: Optional<ClientObject> = registry.objects.get(squadMember.id)?.object;
-
-        if (object !== null) {
-          setObjectsRelation(object, registry.actor, relation);
-        } else {
-          setServerObjectsRelation(alife().object(squadMember.id), alife().actor(), relation);
-        }
-      }
-    }
-  }
-
-  /**
    * Set squad position in current level by supplied vector.
    */
   public setSquadPosition(position: Vector): void {
@@ -955,7 +942,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       if (isSquadMonsterCommunity(this.faction)) {
         spot = mapMarks.alife_presentation_squad_monster_debug;
       } else {
-        const relation: ERelation = getSquadRelationToActor(this);
+        const relation: ERelation = getSquadMembersRelationToActorSafe(this);
 
         switch (relation) {
           case ERelation.FRIEND:
@@ -1056,7 +1043,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         if (
           targetSquad &&
           this.position.distance_to_sqr(targetSquad.position) < 150 * 150 &&
-          isFactionsEnemies(currentCommunity, targetSquad.getCommunity())
+          areCommunitiesEnemies(currentCommunity, targetSquad.getCommunity())
         ) {
           return enemySquadId;
         }

@@ -1,6 +1,7 @@
-import { registry } from "@/engine/core/database";
+import { getServerObjectByStoryId, registry } from "@/engine/core/database";
+import { Squad } from "@/engine/core/objects";
 import { ISchemeDeathState } from "@/engine/core/schemes/death";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import {
   isActorEnemyWithFaction,
@@ -10,12 +11,12 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
 import {
-  isFactionsEnemies,
-  isFactionsFriends,
-  isSquadRelationBetweenActorAndRelation,
+  areCommunitiesEnemies,
+  areCommunitiesFriendly,
+  isAnySquadMemberEnemyToActor,
+  isAnySquadMemberFriendToActor,
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { ERelation } from "@/engine/lib/constants/relations";
 import {
   AnyCallable,
   ClientObject,
@@ -24,20 +25,24 @@ import {
   Optional,
   ServerHumanObject,
   TNumberId,
+  TStringId,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Check whether actor faction is enemy with provided parameter.
  */
-extern("xr_conditions.is_factions_enemies", (actor: ClientObject, npc: ClientObject, p: [TCommunity]): boolean => {
-  if (p[0] !== null) {
-    return isFactionsEnemies(getCharacterCommunity(actor), p[0]);
-  } else {
-    return false;
+extern(
+  "xr_conditions.is_factions_enemies",
+  (actor: ClientObject, object: ClientObject, [community]: [TCommunity]): boolean => {
+    if (community === null) {
+      return false;
+    } else {
+      return areCommunitiesEnemies(getCharacterCommunity(actor), community);
+    }
   }
-});
+);
 
 /**
  * todo;
@@ -50,8 +55,8 @@ extern(
     }
 
     return !(
-      isFactionsEnemies(getCharacterCommunity(actor), community) ||
-      isFactionsFriends(getCharacterCommunity(actor), community)
+      areCommunitiesEnemies(getCharacterCommunity(actor), community) ||
+      areCommunitiesFriendly(getCharacterCommunity(actor), community)
     );
   }
 );
@@ -61,7 +66,7 @@ extern(
  */
 extern("xr_conditions.is_factions_friends", (actor: ClientObject, npc: ClientObject, p: [TCommunity]): boolean => {
   if (p[0] !== null) {
-    return isFactionsFriends(getCharacterCommunity(actor), p[0]);
+    return areCommunitiesFriendly(getCharacterCommunity(actor), p[0]);
   } else {
     return false;
   }
@@ -82,7 +87,7 @@ extern(
  */
 extern(
   "xr_conditions.is_faction_friend_to_actor",
-  (actor: ClientObject, npc: ClientObject, p: [TCommunity]): boolean => {
+  (actor: ClientObject, object: ClientObject, p: [TCommunity]): boolean => {
     return p[0] === null ? false : isActorFriendWithFaction(p[0]);
   }
 );
@@ -92,19 +97,23 @@ extern(
  */
 extern(
   "xr_conditions.is_faction_neutral_to_actor",
-  (actor: ClientObject, npc: ClientObject, p: [TCommunity]): boolean => {
+  (actor: ClientObject, object: ClientObject, p: [TCommunity]): boolean => {
     return p[0] === null ? false : isActorNeutralWithFaction(p[0]);
   }
 );
 
 /**
- * todo;
+ * Check whether squad is friendly to actor.
+ *
+ * @param squadStoryId - target squad story id
  */
 extern(
   "xr_conditions.is_squad_friend_to_actor",
-  (actor: ClientObject, npc: ClientObject, params: [string]): boolean => {
-    if (params[0] !== null) {
-      return isSquadRelationBetweenActorAndRelation(params[0], ERelation.FRIEND);
+  (actor: ClientObject, object: ClientObject, [squadStoryId]: [Optional<TStringId>]): boolean => {
+    if (squadStoryId) {
+      const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
+
+      return squad ? isAnySquadMemberFriendToActor(squad) : false;
     } else {
       return false;
     }
@@ -112,17 +121,19 @@ extern(
 );
 
 /**
- * todo;
+ * Check whether squads are enemy to actor.
+ *
+ * @param params - list of story IDs to check for enemy relation
  */
 extern(
   "xr_conditions.is_squad_enemy_to_actor",
-  (actor: ClientObject, npc: ClientObject, params: Array<string>): boolean => {
-    if (!params) {
-      abort("Not enough arguments in 'is_squad_enemy_to_actor' function!");
-    }
+  (actor: ClientObject, object: ClientObject, params: Array<TStringId>): boolean => {
+    assert(params, "Not enough arguments in 'is_squad_enemy_to_actor' function.");
 
-    for (const v of params) {
-      if (isSquadRelationBetweenActorAndRelation(v, ERelation.ENEMY)) {
+    for (const squadStoryId of params) {
+      const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
+
+      if (squad && isAnySquadMemberEnemyToActor(squad)) {
         return true;
       }
     }

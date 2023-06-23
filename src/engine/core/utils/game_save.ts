@@ -45,18 +45,18 @@ export function deleteGameSave(filename: TName): void {
  * todo
  */
 export function gatFileDataForGameSave(filename: TName): TLabel {
-  const flist: FSFileListEX = getFS().file_list_open_ex(
+  const fileList: FSFileListEX = getFS().file_list_open_ex(
     roots.gameSaves,
     bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
     filename + gameConfig.GAME_SAVE_EXTENSION
   );
-  const filesCount: TCount = flist.Size();
+  const filesCount: TCount = fileList.Size();
 
   if (filesCount > 0) {
     const savedGame: SavedGameWrapper = new CSavedGameWrapper(filename);
     const dateTime: TLabel = gameTimeToString(savedGame.game_time());
 
-    const health = string.format(
+    const health: TLabel = string.format(
       "\\n%s %d%s",
       game.translate_string(captions.st_ui_health_sensor),
       savedGame.actor_health() * 100,

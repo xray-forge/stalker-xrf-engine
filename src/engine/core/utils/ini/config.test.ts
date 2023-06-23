@@ -3,7 +3,7 @@ import { describe, expect, it } from "@jest/globals";
 import { IBaseSchemeLogic } from "@/engine/core/schemes";
 import { addConditionToList } from "@/engine/core/utils/ini/config";
 import { LuaArray, TIndex } from "@/engine/lib/types";
-import { luaTableToObject } from "@/fixtures/lua/mocks/utils";
+import { luaTableToObject } from "@/fixtures/lua/mocks/lua_utils";
 
 describe("'config' utils for ini file", () => {
   it("'addCondition' util should fill table and return new index", () => {

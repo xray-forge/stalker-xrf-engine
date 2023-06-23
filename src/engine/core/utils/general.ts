@@ -48,11 +48,7 @@ export function randomNumber(min?: number, max?: number): number {
  * todo:
  */
 export function vectorToString(target: Optional<Vector>): Optional<string> {
-  if (target === null) {
-    return null;
-  }
-
-  return string.format("[%s:%s:%s]", target.x, target.y, target.z);
+  return target === null ? null : string.format("[%s:%s:%s]", target.x, target.y, target.z);
 }
 
 /**
