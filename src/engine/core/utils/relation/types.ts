@@ -1,5 +1,3 @@
-import type { TRelationType } from "@/engine/lib/types";
-
 /**
  * Relation type between two game objects.
  */
@@ -21,11 +19,10 @@ export enum EGoodwill {
 }
 
 /**
- * Map for simple transformation of TRelationType enum to ERelation.
+ * Map for simple transformation of ERelation enum to EGoodwill.
  */
-export const mapRelationTypeToEnum: Record<TRelationType, ERelation> = {
-  [0]: ERelation.FRIEND,
-  [1]: ERelation.NEUTRAL,
-  [2]: ERelation.ENEMY,
-  [3]: ERelation.ENEMY,
-};
+export const mapRelationToGoodwill: LuaTable<ERelation, EGoodwill> = $fromObject<ERelation, EGoodwill>({
+  [ERelation.ENEMY]: EGoodwill.ENEMIES,
+  [ERelation.FRIEND]: EGoodwill.FRIENDS,
+  [ERelation.NEUTRAL]: EGoodwill.NEUTRALS,
+});

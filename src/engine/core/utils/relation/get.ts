@@ -153,7 +153,10 @@ export function getSquadCommunityRelationToActor(squadStoryId: TStringId): ERela
 }
 
 /**
- * todo;
+ * Get squad relation to actor based on config preference or squad/actor community relation.
+ *
+ * @param squadId - target squad id
+ * @returns relation type of squad to actor based on community
  */
 export function getSquadRelationToActorById(squadId: TNumberId): ERelation {
   const squad: Optional<Squad> = alife().object<Squad>(squadId);

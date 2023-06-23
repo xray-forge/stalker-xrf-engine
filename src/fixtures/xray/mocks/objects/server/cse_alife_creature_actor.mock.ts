@@ -31,8 +31,9 @@ export function mockServerAlifeCreatureActor({
   ...base
 }: Partial<ServerActorObject> = {}): ServerActorObject {
   return mockServerAlifeDynamicObjectVisual({
-    id,
-    community: jest.fn(() => communities.actor),
     ...base,
-  }) as ServerActorObject;
+    id,
+    force_set_goodwill: base.force_set_goodwill || jest.fn(),
+    community: base.community || jest.fn(() => communities.actor),
+  } as ServerActorObject) as ServerActorObject;
 }

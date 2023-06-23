@@ -124,6 +124,7 @@ export function mockClientGameObject({
           return false;
         }
       }),
+    force_set_goodwill: rest.force_set_goodwill || jest.fn(),
     game_vertex_id,
     general_goodwill:
       rest.general_goodwill ||
@@ -256,6 +257,7 @@ export function mockClientGameObject({
       jest.fn((it: number) => {
         objectDirection = objectDirection.set(it, objectDirection.y, objectDirection.z);
       }),
+    set_community_goodwill: rest.set_community_goodwill || jest.fn(),
     spawn_ini: rest.spawn_ini || jest.fn(() => spawnIni),
     squad: rest.squad || jest.fn(() => 150),
     special_danger_move,

@@ -1,14 +1,17 @@
 import { jest } from "@jest/globals";
 
-import { Squad } from "@/engine/core/objects";
-import { TClassId } from "@/engine/lib/types";
+import type { Squad } from "@/engine/core/objects";
+import { ServerGroupObject, TClassId } from "@/engine/lib/types";
 import { mockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { AbstractLuabindClass } from "@/fixtures/xray/mocks/objects/AbstractLuabindClass";
+import {
+  MockAlifeOnlineOfflineGroup,
+  mockServerAlifeOnlineOfflineGroup,
+} from "@/fixtures/xray/mocks/objects/server/cse_alife_online_offline_group.mock";
 
 /**
  * todo
  */
-export class MockSquad extends AbstractLuabindClass {}
+export class MockSquad extends MockAlifeOnlineOfflineGroup {}
 
 /**
  * todo;
@@ -22,10 +25,10 @@ export function mockSquad({
   clsid = jest.fn(() => -1 as TClassId),
   isValidSquadTarget = () => true,
 }: Partial<Squad> = {}): Squad {
-  return {
+  return mockServerAlifeOnlineOfflineGroup({
     simulationProperties: simulationProperties,
     clsid,
     isValidSquadTarget: isValidSquadTarget,
     behaviour,
-  } as unknown as Squad;
+  } as Partial<ServerGroupObject>) as unknown as Squad;
 }

@@ -28,6 +28,8 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
     return communities.stalker;
   }
 
+  public updateSquadRelationToActor(): void {}
+
   public asSquad(): Squad {
     return this as unknown as Squad;
   }

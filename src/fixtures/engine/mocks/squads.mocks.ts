@@ -61,6 +61,10 @@ export function mockRelationsSquads(): IMockedSquads {
   jest.spyOn(neutralSquad, "getCommunity").mockImplementation(() => communities.stalker);
   jest.spyOn(mixedSquad, "getCommunity").mockImplementation(() => communities.bandit);
 
+  [emptyMonolithSquad, emptyArmySquad, friendlySquad, enemySquad, neutralSquad, mixedSquad].forEach((it) => {
+    jest.spyOn(it, "updateSquadRelationToActor").mockImplementation(() => {});
+  });
+
   friendlySquad.addSquadMember(friend);
   friendlySquad.addSquadMember(friend);
   friendlySquad.addSquadMember(friend);
@@ -73,7 +77,6 @@ export function mockRelationsSquads(): IMockedSquads {
   enemySquad.addSquadMember(enemy);
 
   mixedSquad.addSquadMember(friend);
-  mixedSquad.addSquadMember(neutral);
   mixedSquad.addSquadMember(enemy);
 
   return {

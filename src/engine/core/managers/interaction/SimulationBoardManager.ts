@@ -13,6 +13,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini/parse";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { changeTeamSquadGroup } from "@/engine/core/utils/object/object_general";
+import { setSquadRelationToActor } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import {
@@ -255,7 +256,10 @@ export class SimulationBoardManager extends AbstractCoreManager {
     logger.info("Creating squad in smart:", squad.name(), smartTerrain.name());
 
     squad.createSquadMembers(smartTerrain);
-    squad.updateSquadRelationToActor();
+
+    if (squad.relationship) {
+      setSquadRelationToActor(squad, squad.relationship);
+    }
 
     this.assignSquadToSmartTerrain(squad, smartTerrain.id);
 

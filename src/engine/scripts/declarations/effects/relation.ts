@@ -6,10 +6,11 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   EGoodwill,
   ERelation,
-  increaseNumberRelationBetweenCommunityAndId,
+  increaseCommunityGoodwillToId,
   setObjectSympathy,
-  setSquadRelationToActorById,
-  setSquadRelationToObject,
+  setSquadRelationToActor,
+  setSquadRelationWithObject,
+  updateSquadIdRelationToActor,
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { ClientObject, EClientObjectRelation, Optional, TCount, TStringId } from "@/engine/lib/types";
@@ -48,7 +49,7 @@ extern(
     if (squad === null) {
       return;
     } else {
-      squad.updateSquadRelationToActor(ERelation.NEUTRAL);
+      setSquadRelationToActor(squad, ERelation.NEUTRAL);
     }
   }
 );
@@ -64,7 +65,7 @@ extern(
     if (squad === null) {
       return;
     } else {
-      squad.updateSquadRelationToActor(ERelation.FRIEND);
+      setSquadRelationToActor(squad, ERelation.FRIEND);
     }
   }
 );
@@ -80,7 +81,7 @@ extern(
     if (squad === null) {
       return;
     } else {
-      squad.updateSquadRelationToActor(ERelation.ENEMY);
+      setSquadRelationToActor(squad, ERelation.ENEMY);
     }
   }
 );
@@ -100,20 +101,31 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.set_squad_goodwill", (actor: ClientObject, object: ClientObject, p: [string, ERelation]): void => {
-  if (p[0] !== null && p[1] !== null) {
-    setSquadRelationToActorById(p[0], p[1]);
+extern(
+  "xr_effects.set_squad_goodwill",
+  (
+    actor: ClientObject,
+    object: ClientObject,
+    [storyId, relation]: [Optional<TStringId>, Optional<ERelation>]
+  ): void => {
+    if (storyId !== null && relation !== null) {
+      updateSquadIdRelationToActor(storyId, relation);
+    }
   }
-});
+);
 
 /**
  * todo;
  */
 extern(
   "xr_effects.set_squad_goodwill_to_npc",
-  (actor: ClientObject, object: ClientObject, p: [string, ERelation]): void => {
-    if (p[0] !== null && p[1] !== null) {
-      setSquadRelationToObject(object, p[0], p[1]);
+  (
+    actor: ClientObject,
+    object: ClientObject,
+    [storyId, relation]: [Optional<TStringId>, Optional<ERelation>]
+  ): void => {
+    if (storyId !== null && relation !== null) {
+      setSquadRelationWithObject(storyId, object, relation);
     }
   }
 );
@@ -128,7 +140,7 @@ extern(
     const delta: Optional<TCount> = p[1];
 
     if (delta && community) {
-      increaseNumberRelationBetweenCommunityAndId(community, actor.id(), tonumber(delta)!);
+      increaseCommunityGoodwillToId(community, actor.id(), tonumber(delta)!);
     } else {
       abort("Wrong parameters in function 'inc_faction_goodwill_to_actor'");
     }
@@ -145,7 +157,7 @@ extern(
     const delta: Optional<TCount> = params[1];
 
     if (delta && community) {
-      increaseNumberRelationBetweenCommunityAndId(community, actor.id(), -tonumber(delta)!);
+      increaseCommunityGoodwillToId(community, actor.id(), -tonumber(delta)!);
     } else {
       abort("Wrong parameters in function 'dec_faction_goodwill_to_actor'");
     }

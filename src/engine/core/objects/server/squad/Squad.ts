@@ -831,28 +831,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * Set relation of squad to object with desired parameter.
-   * In case of no parameter provided squad members relation will be updated with already in-memory stored value.
-   *
-   * @param relation - optional, new relation between squad and actor
-   */
-  public updateSquadRelationToActor(relation: Optional<ERelation> = this.relationship): void {
-    if (relation !== null) {
-      const simulator: AlifeSimulator = alife();
-
-      for (const squadMember of this.squad_members()) {
-        const object: Optional<ClientObject> = registry.objects.get(squadMember.id)?.object;
-
-        if (object !== null) {
-          setClientObjectRelation(object, registry.actor, relation);
-        } else {
-          setServerObjectRelation(simulator.object(squadMember.id), simulator.actor(), relation);
-        }
-      }
-    }
-  }
-
-  /**
    * Set squad position in current level by supplied vector.
    */
   public setSquadPosition(position: Vector): void {
