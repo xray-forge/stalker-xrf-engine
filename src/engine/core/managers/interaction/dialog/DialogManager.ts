@@ -1,7 +1,13 @@
 import { CPhraseScript, level } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, DIALOG_MANAGER_LTX, openSaveMarker, registry } from "@/engine/core/database";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  DIALOG_MANAGER_LTX,
+  openLoadMarker,
+  openSaveMarker,
+  registry,
+} from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
@@ -11,11 +17,10 @@ import {
   TPRTTable,
 } from "@/engine/core/managers/interaction/dialog/types";
 import { assert } from "@/engine/core/utils/assertion";
-import { isObjectWounded } from "@/engine/core/utils/check/check";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
-import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini/parse";
+import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
+import { getCharacterCommunity, isObjectWounded } from "@/engine/core/utils/object";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import {
   ClientObject,

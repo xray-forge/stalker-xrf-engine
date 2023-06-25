@@ -3,8 +3,8 @@ import { LuabindClass, property_evaluator, time_global } from "xray16";
 import { registry } from "@/engine/core/database";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/combat_idle/ISchemePostCombatIdleState";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/combat_ignore";
-import { isObjectEnemy } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isObjectEnemy } from "@/engine/core/utils/object";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { ClientObject, EScheme, Optional, TDistance, TTimestamp } from "@/engine/lib/types";
 

@@ -18,16 +18,11 @@ import { ISchemeHitState } from "@/engine/core/schemes/hit";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import {
-  isHeavilyWounded,
-  isObjectWounded,
-  isPlayingSound,
-  isStoryObjectExisting,
-} from "@/engine/core/utils/check/check";
+import { isPlayingSound, isStoryObjectExisting } from "@/engine/core/utils/check/check";
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain, getObjectSquad } from "@/engine/core/utils/object/object_general";
+import { getObjectSmartTerrain, getObjectSquad, isHeavilyWounded, isObjectWounded } from "@/engine/core/utils/object";
 import {
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
@@ -192,21 +187,19 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.see_npc", (actor: ClientObject, npc: ClientObject, params: AnyArgs): boolean => {
-  const targetNpc: Optional<ClientObject> = getObjectByStoryId(params[0]);
+extern("xr_conditions.see_npc", (actor: ClientObject, object: ClientObject, [storyId]: [TStringId]): boolean => {
+  const targetObject: Optional<ClientObject> = getObjectByStoryId(storyId);
 
-  if (npc && targetNpc) {
-    return npc.see(targetNpc);
-  } else {
-    return false;
-  }
+  return object && targetObject ? object.see(targetObject) : false;
 });
 
 /**
- * todo;
+ * Check whether object is wounded.
+ *
+ * @returns whether object is currently wounded and using wounded scheme
  */
-extern("xr_conditions.is_wounded", (actor: ClientObject, npc: ClientObject): boolean => {
-  return isObjectWounded(npc);
+extern("xr_conditions.is_wounded", (actor: ClientObject, object: ClientObject): boolean => {
+  return isObjectWounded(object);
 });
 
 /**
@@ -597,8 +590,8 @@ extern("xr_conditions.see_enemy", (actor: ClientObject, npc: ClientObject): bool
 /**
  * todo;
  */
-extern("xr_conditions.heavy_wounded", (actor: ClientObject, npc: ClientObject): boolean => {
-  return isHeavilyWounded(npc.id());
+extern("xr_conditions.heavy_wounded", (actor: ClientObject, object: ClientObject): boolean => {
+  return isHeavilyWounded(object.id());
 });
 
 /**

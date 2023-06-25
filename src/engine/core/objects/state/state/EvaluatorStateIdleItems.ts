@@ -2,8 +2,8 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/objects/state/StalkerStateManager";
 import { EStalkerState, EStateEvaluatorId } from "@/engine/core/objects/state/types";
-import { isObjectMeeting } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isObjectMeeting } from "@/engine/core/utils/object";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

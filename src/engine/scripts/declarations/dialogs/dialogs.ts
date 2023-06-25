@@ -12,11 +12,11 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { extern } from "@/engine/core/utils/binding";
 import { isActorAbsolutelyHealthy } from "@/engine/core/utils/check";
-import { isObjectWounded, isStalkerAlive } from "@/engine/core/utils/check/check";
+import { isStalkerAlive } from "@/engine/core/utils/check/check";
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity, isObjectInSmartTerrain } from "@/engine/core/utils/object";
+import { getCharacterCommunity, isObjectInSmartTerrain, isObjectWounded } from "@/engine/core/utils/object";
 import {
   actorHasMedKit,
   getActorAvailableMedKit,
