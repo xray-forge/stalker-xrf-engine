@@ -33,7 +33,6 @@ import {
   TIndex,
   TName,
   TProbability,
-  TRate,
   TSection,
   TStringId,
 } from "@/engine/lib/types";
@@ -41,12 +40,14 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
- * todo: Probably not used anywhere, check. Original regexp - "(%|*[^%|]+%|*)%p*".
+ * Parse array of `|` separated condition lists.
+ * Original regexp - "(%|*[^%|]+%|*)%p*".
  *
- *
+ * @param object - target client object
+ * @param data - target data list string to parse
+ * @returns parsed list of sections from processed condition lists
  */
-export function getInfosFromData(object: ClientObject, data: Optional<string>): LuaArray<TInfoPortion> {
+export function getSectionsFromConditionLists(object: ClientObject, data: Optional<string>): LuaArray<TInfoPortion> {
   const infos: LuaArray<TInfoPortion> = new LuaTable();
   const actor: ClientObject = registry.actor;
 
@@ -175,17 +176,21 @@ export function pickSectionFromCondList<T extends TSection>(
 }
 
 /**
- * todo;
- * todo;
- * todo;
+ * Parse config field containing zone name, story ID and condlist.
+ * Example: `zat_cop_id|zat_b38_actor_jump_down|walker@get_out`.
+ *
+ * @param ini - target ini file to read
+ * @param section - target section to read
+ * @param field - section field name to read
+ * @returns parse scheme logic descriptor
  */
 export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
   const target: Optional<IBaseSchemeLogic> = readIniTwoStringsAndConditionsList(ini, section, field);
 
-  if (target !== null) {
+  if (target) {
     const simulator: Optional<AlifeSimulator> = alife();
 
-    if (simulator !== null) {
+    if (simulator) {
       const serverObject: Optional<ServerObject> = simulator.object(getObjectIdByStoryId(target.v1 as string)!);
 
       if (serverObject) {
@@ -202,10 +207,12 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
 }
 
 /**
- * todo;
- * todo;
- * todo;
- * todo;
+ * Get config overrides from object logics section.
+ *
+ * @param ini - target ini file
+ * @param section - section name to read from ini file
+ * @param object - target client object
+ * @returns overrides object
  */
 export function getObjectConfigOverrides(ini: IniFile, section: TSection, object: ClientObject): AnyObject {
   const overrides: AnyObject = {};

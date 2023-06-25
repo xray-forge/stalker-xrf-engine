@@ -1,19 +1,123 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { registerStoryLink } from "@/engine/core/database";
+import { registerActor, registerObject, registerStoryLink } from "@/engine/core/database";
 import { IBaseSchemeLogic } from "@/engine/core/schemes";
+import { giveInfo } from "@/engine/core/utils/info_portion";
 import {
   addConditionToList,
+  getConfigObjectAndZone,
   getConfigSwitchConditions,
-  getParametersString,
+  getObjectConfigOverrides,
+  getSectionsFromConditionLists,
   parseConditionsList,
 } from "@/engine/core/utils/ini";
-import { LuaArray, ServerObject, TIndex } from "@/engine/lib/types";
+import { NIL } from "@/engine/lib/constants/words";
+import { ClientObject, LuaArray, ServerObject, TIndex } from "@/engine/lib/types";
 import { mockBaseSchemeLogic } from "@/fixtures/engine";
-import { mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
+import { mockActorClientGameObject, mockClientGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("'config' utils for ini file", () => {
-  it("'addCondition' util should fill table and return new index", () => {
+  it("getInfosFromData should correctly parse data list of condition lists", () => {
+    registerActor(mockActorClientGameObject());
+    giveInfo("test");
+
+    expect(getSectionsFromConditionLists(mockClientGameObject(), "a|b|c")).toEqualLuaArrays(["a", "b", "c"]);
+    expect(getSectionsFromConditionLists(mockClientGameObject(), "a|{+not_existing}b,c|{+test}d,e")).toEqualLuaArrays([
+      "a",
+      "c",
+      "d",
+    ]);
+  });
+
+  it("getConfigObjectAndZone should correctly parse story id and zone pair", () => {
+    const serverObject: ServerObject = mockServerAlifeObject();
+
+    registerStoryLink(serverObject.id, "zat_cop_id");
+
+    expect(
+      getConfigObjectAndZone(
+        mockIniFile("test.ltx", {
+          test: {
+            key: "zat_cop_id|zat_b38_actor_jump_down|{+a -b}walker@get_out",
+          },
+        }),
+        "test",
+        "key"
+      )
+    ).toEqualLuaTables({
+      condlist: parseConditionsList("{+a -b} walker@get_out"),
+      name: "key",
+      npc_id: 100000,
+      v1: "zat_cop_id",
+      v2: "zat_b38_actor_jump_down",
+    });
+  });
+
+  it("getObjectConfigOverrides should correctly parse overrides", () => {
+    const object: ClientObject = mockClientGameObject();
+
+    registerObject(object);
+
+    expect(getObjectConfigOverrides(mockIniFile("test.ltx", { empty: {} }), "empty", object)).toEqualLuaTables({
+      combat_ignore: null,
+      combat_ignore_keep_when_attacked: false,
+      combat_type: null,
+      max_post_combat_time: 10,
+      min_post_combat_time: 5,
+      on_combat: null,
+      on_offline_condlist: parseConditionsList(NIL),
+      soundgroup: null,
+    });
+
+    expect(
+      getObjectConfigOverrides(
+        mockIniFile("test.ltx", {
+          empty: {
+            heli_hunter: "first",
+            combat_ignore_cond: "second",
+            combat_ignore_keep_when_attacked: "third",
+            combat_type: "fourth",
+            on_combat: "fifth",
+            post_combat_time: "10, 50",
+            on_offline: "sixth",
+            soundgroup: "seventh",
+          },
+        }),
+        "empty",
+        object
+      )
+    ).toEqualLuaTables({
+      combat_ignore: {
+        condlist: parseConditionsList("second"),
+        name: "combat_ignore_cond",
+        npc_id: null,
+        v1: null,
+        v2: null,
+      },
+      combat_ignore_keep_when_attacked: "third",
+      combat_type: {
+        condlist: parseConditionsList("fourth"),
+        name: "combat_type",
+        npc_id: null,
+        v1: null,
+        v2: null,
+      },
+      heli_hunter: parseConditionsList("first"),
+      max_post_combat_time: 50,
+      min_post_combat_time: 10,
+      on_combat: {
+        condlist: parseConditionsList("fifth"),
+        name: "on_combat",
+        npc_id: null,
+        v1: null,
+        v2: null,
+      },
+      on_offline_condlist: parseConditionsList("sixth"),
+      soundgroup: "seventh",
+    });
+  });
+
+  it("addCondition util should fill table and return new index", () => {
     const list: LuaArray<IBaseSchemeLogic> = new LuaTable();
 
     expect(addConditionToList(list, 1, null)).toBe(1);

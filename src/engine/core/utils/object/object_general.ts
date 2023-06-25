@@ -4,9 +4,9 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AnomalyZoneBinder, SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
 import { EStalkerState } from "@/engine/core/objects/state";
-import { assert, assertDefined } from "@/engine/core/utils/assertion";
+import { assertDefined } from "@/engine/core/utils/assertion";
 import { isCseAlifeObject, isStalker } from "@/engine/core/utils/check/is";
-import { getInfosFromData, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
+import { getSectionsFromConditionLists, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { parseConditionsList } from "@/engine/core/utils/ini/parse";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/read";
 import { TConditionList } from "@/engine/core/utils/ini/types";
@@ -281,8 +281,14 @@ export function areObjectsOnSameLevel(first: ServerObject, second: ServerObject)
  * todo;
  */
 export function setObjectInfo(object: ClientObject, ini: IniFile, section: TSection): void {
-  const inInfosList: LuaArray<TInfoPortion> = getInfosFromData(object, readIniString(ini, section, "in", false, ""));
-  const outInfosList: LuaArray<TInfoPortion> = getInfosFromData(object, readIniString(ini, section, "out", false, ""));
+  const inInfosList: LuaArray<TInfoPortion> = getSectionsFromConditionLists(
+    object,
+    readIniString(ini, section, "in", false, "")
+  );
+  const outInfosList: LuaArray<TInfoPortion> = getSectionsFromConditionLists(
+    object,
+    readIniString(ini, section, "out", false, "")
+  );
 
   for (const [index, infoPortion] of inInfosList) {
     object.give_info_portion(infoPortion);
