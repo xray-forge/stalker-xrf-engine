@@ -254,32 +254,6 @@ export function getAlifeCharacterCommunity(object: ServerHumanObject | ServerGro
 /**
  * todo;
  */
-export function getServerDistanceBetween(first: ServerObject, second: ServerObject): TDistance {
-  return graphDistance(first.m_game_vertex_id, second.m_game_vertex_id);
-}
-
-/**
- * todo;
- */
-export function getServerDistanceBetweenSafe(
-  first: Optional<ServerObject>,
-  second: Optional<ServerObject>
-): Optional<TDistance> {
-  return first && second && graphDistance(first.m_game_vertex_id, second.m_game_vertex_id);
-}
-
-/**
- * todo;
- */
-export function areObjectsOnSameLevel(first: ServerObject, second: ServerObject): boolean {
-  return (
-    game_graph().vertex(first.m_game_vertex_id).level_id() === game_graph().vertex(second.m_game_vertex_id).level_id()
-  );
-}
-
-/**
- * todo;
- */
 export function setObjectInfo(object: ClientObject, ini: IniFile, section: TSection): void {
   const inInfosList: LuaArray<TInfoPortion> = getSectionsFromConditionLists(
     object,
@@ -516,24 +490,4 @@ export function anomalyHasArtefact(
   }
 
   return $multi(false, null);
-}
-
-/**
- * todo;
- */
-export function isObjectAsleep(object: ClientObject): boolean {
-  return registry.objects.get(object.id()).stateManager!.animstate.states.currentState === EStalkerState.SLEEP;
-}
-
-/**
- * Check whether object is in provided smart terrain (name).
- *
- * @param object - client object to check
- * @param smartTerrainName - desired smart terrain to check
- * @returns whether object is assigned to smart terrain with desired name
- */
-export function isObjectInSmartTerrain(object: ClientObject, smartTerrainName: TName): boolean {
-  const smartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
-
-  return smartTerrain ? smartTerrain.name() === smartTerrainName : false;
 }

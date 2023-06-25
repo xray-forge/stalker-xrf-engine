@@ -113,10 +113,20 @@ export function distanceBetween(first: ClientObject, second: ClientObject): numb
 }
 
 /**
- *
+ * Get graph distance between two vertexes.
  */
-export function graphDistance(vertexId1: TNumberId, vertexId2: TNumberId): TDistance {
-  return game_graph().vertex(vertexId1).game_point().distance_to(game_graph().vertex(vertexId2).game_point());
+export function graphDistance(firstVertexId: TNumberId, secondVertexId: TNumberId): TDistance {
+  return game_graph().vertex(firstVertexId).game_point().distance_to(game_graph().vertex(secondVertexId).game_point());
+}
+
+/**
+ * Get graph distance between two vertexes in sqr.
+ */
+export function graphDistanceSqr(firstVertexId: TNumberId, secondVertexId: TNumberId): TDistance {
+  return game_graph()
+    .vertex(firstVertexId)
+    .game_point()
+    .distance_to_sqr(game_graph().vertex(secondVertexId).game_point());
 }
 
 /**

@@ -16,7 +16,7 @@ import { isObjectWounded, isStalkerAlive } from "@/engine/core/utils/check/check
 import { createAutoSave } from "@/engine/core/utils/game_save";
 import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity, isObjectInSmartTerrain } from "@/engine/core/utils/object/object_general";
+import { getCharacterCommunity, isObjectInSmartTerrain } from "@/engine/core/utils/object";
 import {
   actorHasMedKit,
   getActorAvailableMedKit,

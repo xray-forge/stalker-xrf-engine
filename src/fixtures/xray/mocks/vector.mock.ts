@@ -1,5 +1,3 @@
-import { jest } from "@jest/globals";
-
 import { Vector } from "@/engine/lib/types";
 
 /**
@@ -69,6 +67,10 @@ export class MockVector {
 
   public distance_to(): number {
     return MockVector.DEFAULT_DISTANCE;
+  }
+
+  public distance_to_sqr(): number {
+    return this.distance_to() * this.distance_to();
   }
 
   public normalize(): void {}

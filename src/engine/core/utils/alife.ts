@@ -3,7 +3,7 @@ import { alife } from "xray16";
 import { Squad } from "@/engine/core/objects";
 import { TSimulationObject } from "@/engine/core/objects/server/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/core/utils/object/object_general";
+import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/core/utils/object/object_location";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { MAX_I32 } from "@/engine/lib/constants/memory";
 import { ServerObject, TDistance, TRate } from "@/engine/lib/types";

@@ -68,7 +68,7 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel } from "@/engine/core/utils/object/object_general";
+import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
 import { ERelation } from "@/engine/core/utils/relation";
 import {
   activateSchemeBySection,

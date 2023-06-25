@@ -20,7 +20,7 @@ import {
   getObjectSmartTerrain,
   getObjectSquad,
   getServerDistanceBetween,
-} from "@/engine/core/utils/object/object_general";
+} from "@/engine/core/utils/object";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 import { postProcessors } from "@/engine/lib/constants/animation/post_processors";
 import { captions } from "@/engine/lib/constants/captions/captions";
