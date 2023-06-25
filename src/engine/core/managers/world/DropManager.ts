@@ -129,24 +129,24 @@ export class DropManager extends AbstractCoreManager {
     const itemsDropCountByDifficulty: TCount = DEATH_GENERIC_LTX.line_count(itemsDropSectionByDifficulty);
 
     for (const it of $range(0, itemsDropCountByDifficulty - 1)) {
-      const [result, id, value] = DEATH_GENERIC_LTX.r_line(itemsDropSectionByDifficulty, it, "", "");
-      const sectionDropCount: [Optional<TProbability>, Optional<TProbability>] = parseNumbersList(value);
+      const [, key, value] = DEATH_GENERIC_LTX.r_line(itemsDropSectionByDifficulty, it, "", "");
+      const sectionDropCount: LuaArray<TProbability> = parseNumbersList(value);
 
-      if (sectionDropCount[0] === null) {
-        abort("Error on [death_ini] declaration. Section [%s], line [%s]", itemsDropSectionByDifficulty, tostring(id));
+      if (sectionDropCount.has(1)) {
+        abort("Error on [death_ini] declaration. Section [%s], line [%s]", itemsDropSectionByDifficulty, tostring(key));
       }
 
       // Do not drop in level if not registered, declare as 0.
-      if (!this.itemsLevelDropMultiplayer.has(id)) {
-        this.itemsLevelDropMultiplayer.set(id, 0);
+      if (!this.itemsLevelDropMultiplayer.has(key)) {
+        this.itemsLevelDropMultiplayer.set(key, 0);
       }
 
-      const min: TCount = sectionDropCount[0];
-      const max: TCount = sectionDropCount[1] === null ? min : sectionDropCount[1];
+      const min: TCount = sectionDropCount.get(1);
+      const max: TCount = sectionDropCount.has(2) ? sectionDropCount.get(2) : min;
 
-      this.itemsDropCountByLevel.set(id, {
-        min: tonumber(min)! * this.itemsLevelDropMultiplayer.get(id),
-        max: tonumber(max)! * this.itemsLevelDropMultiplayer.get(id),
+      this.itemsDropCountByLevel.set(key, {
+        min: tonumber(min)! * this.itemsLevelDropMultiplayer.get(key),
+        max: tonumber(max)! * this.itemsLevelDropMultiplayer.get(key),
       });
     }
 

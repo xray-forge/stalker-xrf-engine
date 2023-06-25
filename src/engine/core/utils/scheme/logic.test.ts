@@ -12,12 +12,7 @@ import {
 import { MapDisplayManager } from "@/engine/core/managers/interface";
 import { SmartTerrain } from "@/engine/core/objects";
 import { ISmartTerrainJob } from "@/engine/core/objects/server/smart_terrain/types";
-import {
-  ESchemeEvent,
-  IBaseSchemeState,
-  ObjectRestrictionsManager,
-  TAbstractSchemeConstructor,
-} from "@/engine/core/schemes";
+import { IBaseSchemeState, ObjectRestrictionsManager, TAbstractSchemeConstructor } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { SchemeCombat } from "@/engine/core/schemes/combat";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/combat_ignore";
@@ -50,7 +45,6 @@ import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/co
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, EScheme, ESchemeType, IniFile, ServerHumanObject } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState } from "@/fixtures/engine/mocks";
-import { luaTableToObject } from "@/fixtures/lua/mocks/lua_utils";
 import { MockAlifeSimulator, mockClientGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
@@ -272,7 +266,7 @@ describe("'scheme logic' utils", () => {
     expect(object.set_dest_level_vertex_id).toHaveBeenCalledWith(255);
     expect(getSchemeAction(state[EScheme.HIT] as IBaseSchemeState).activateScheme).toHaveBeenCalledWith(false, object);
 
-    expect(luaTableToObject(state.overrides)).toEqual({
+    expect(state.overrides).toEqualLuaTables({
       combat_ignore: null,
       combat_ignore_keep_when_attacked: false,
       combat_type: null,

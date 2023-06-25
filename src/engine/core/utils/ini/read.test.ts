@@ -11,7 +11,6 @@ import {
   readIniTwoNumbers,
 } from "@/engine/core/utils/ini/read";
 import { IniFile, Optional } from "@/engine/lib/types";
-import { luaTableToObject } from "@/fixtures/lua/mocks/lua_utils";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("'read' utils for ini file", () => {
@@ -95,7 +94,7 @@ describe("'read' utils for ini file", () => {
 
     const firstScheme: Optional<IBaseSchemeLogic> = readIniConditionList(ini, "section1", "a");
 
-    expect(luaTableToObject(firstScheme)).toEqual({
+    expect(firstScheme).toEqualLuaTables({
       name: "a",
       condlist: {
         "1": {
@@ -116,7 +115,7 @@ describe("'read' utils for ini file", () => {
 
     const secondScheme: Optional<IBaseSchemeLogic> = readIniConditionList(ini, "section1", "b");
 
-    expect(luaTableToObject(secondScheme)).toEqual({
+    expect(secondScheme).toEqualLuaTables({
       name: "b",
       condlist: {
         "1": {
@@ -143,7 +142,7 @@ describe("'read' utils for ini file", () => {
       },
     });
 
-    expect(luaTableToObject(readIniNumberAndConditionList(ini, "section1", "a"))).toEqual({
+    expect(readIniNumberAndConditionList(ini, "section1", "a")).toEqualLuaTables({
       name: "a",
       condlist: {
         "1": {
@@ -167,7 +166,7 @@ describe("'read' utils for ini file", () => {
       v2: null,
     });
 
-    expect(luaTableToObject(readIniNumberAndConditionList(ini, "section1", "b"))).toEqual({
+    expect(readIniNumberAndConditionList(ini, "section1", "b")).toEqualLuaTables({
       name: "b",
       condlist: {
         "1": {
@@ -191,7 +190,7 @@ describe("'read' utils for ini file", () => {
       v2: null,
     });
 
-    expect(luaTableToObject(readIniNumberAndConditionList(ini, "section1", "c"))).toEqual({
+    expect(readIniNumberAndConditionList(ini, "section1", "c")).toEqualLuaTables({
       name: "c",
       condlist: {
         "1": {
@@ -232,7 +231,7 @@ describe("'read' utils for ini file", () => {
       },
     });
 
-    expect(luaTableToObject(readIniStringAndCondList(ini, "section1", "a"))).toEqual({
+    expect(readIniStringAndCondList(ini, "section1", "a")).toEqualLuaTables({
       name: "a",
       condlist: {
         "1": {
@@ -259,7 +258,7 @@ describe("'read' utils for ini file", () => {
       v2: null,
     });
 
-    expect(luaTableToObject(readIniStringAndCondList(ini, "section1", "b"))).toEqual({
+    expect(readIniStringAndCondList(ini, "section1", "b")).toEqualLuaTables({
       name: "b",
       condlist: {
         "1": {
@@ -282,7 +281,7 @@ describe("'read' utils for ini file", () => {
       },
     });
 
-    expect(luaTableToObject(readIniConditionList(ini, "section1", "a"))).toEqual({
+    expect(readIniConditionList(ini, "section1", "a")).toEqualLuaTables({
       name: "a",
       condlist: {
         "1": {
@@ -309,7 +308,7 @@ describe("'read' utils for ini file", () => {
       v2: null,
     });
 
-    expect(luaTableToObject(readIniConditionList(ini, "section1", "b"))).toEqual({
+    expect(readIniConditionList(ini, "section1", "b")).toEqualLuaTables({
       name: "b",
       condlist: {
         "1": {

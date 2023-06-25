@@ -5,7 +5,6 @@ import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/sr_timer/IS
 import { SchemeTimer } from "@/engine/core/schemes/sr_timer/SchemeTimer";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/setup";
 import { ClientObject, EScheme, ESchemeType, IniFile } from "@/engine/lib/types";
-import { luaTableToObject } from "@/fixtures/lua/mocks/lua_utils";
 import { mockClientGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeTimer functionality", () => {
@@ -60,7 +59,7 @@ describe("SchemeTimer functionality", () => {
     expect(schemeState.startValue).toBe(15_000);
     expect(schemeState.timerId).toBe("timerId123");
     expect(schemeState.string).toBe("label");
-    expect(luaTableToObject(schemeState.onValue)).toEqual({
+    expect(schemeState.onValue).toEqualLuaTables({
       condlist: {
         "1": {
           infop_check: {

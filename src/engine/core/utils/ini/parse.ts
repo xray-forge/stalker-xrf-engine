@@ -2,6 +2,7 @@ import { flags32, patrol } from "xray16";
 
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import {
+  IBoneStateDescriptor,
   IConfigCondition,
   IConfigSwitchCondition,
   ISpawnDescriptor,
@@ -13,8 +14,6 @@ import { trimString } from "@/engine/core/utils/string";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
-  AnyArgs,
-  ClientObject,
   EScheme,
   Flags32,
   IniFile,
@@ -53,15 +52,14 @@ export function parseStringsList<T extends string = string>(data: string): LuaAr
  * Parse util to transform string of numbers to array.
  * Example: "1, 2, 3" -> [1, 2, 3].
  *
- * @param base - string to parse.
+ * @param data - string to parse.
  * @returns parsed array of numbers.
  */
-export function parseNumbersList<T = LuaArray<number>>(base: string): T;
-export function parseNumbersList(data: string): LuaArray<number> {
-  const result: LuaArray<number> = new LuaTable();
+export function parseNumbersList<T extends number = number>(data: string): LuaArray<T> {
+  const result: LuaArray<T> = new LuaTable();
 
   for (const it of string.gfind(data, "([%-%d%.]+)%,*")) {
-    table.insert(result, tonumber(it) as number);
+    table.insert(result, tonumber(it) as T);
   }
 
   return result;
@@ -136,16 +134,17 @@ export function parseParameters<T extends string>(data: T): LuaArray<T> {
  * Parse condition list supplied from game ltx files.
  * Used as conditional descriptor of actions/info portions/effects and things to switch engine logic based on state.
  *
- * -- {+infop1} section1 %-infop2%, {+infop3 -infop4} section2 ...
- * -- {
- * --   1 = { infop_check = { 1 = {"infop1" = true} }, infop_set = { 1 = {"infop2" = false } }, section = "section1" },
- * --   2 = { infop_check = { 1 = {"infop3" = true}, 2 = {"infop4" = false} }, infop_set = {}, section = "section2" },
- * -- }
+ * Example:
+ * {+infop1} section1 %-infop2%, {+infop3 -infop4} section2 ...
+ * {
+ *   1 = { infop_check = { 1 = {"infop1" = true} }, infop_set = { 1 = {"infop2" = false } }, section = "section1" },
+ *   2 = { infop_check = { 1 = {"infop3" = true}, 2 = {"infop4" = false} }, infop_set = {}, section = "section2" },
+ * }
  *
  * todo: trimming of whitespaces
  *
- * @param data - string to parse
- * @returns parsed condlist
+ * @param data - raw string from config to parse
+ * @returns parsed condlist descriptor
  */
 export function parseConditionsList(data: string): TConditionList {
   const result: LuaArray<IConfigSwitchCondition> = new LuaTable();
@@ -417,37 +416,6 @@ export function parseWaypointsDataFromList(
 /**
  * todo;
  */
-export function parseSynData(target: Optional<string>): LuaArray<{ zone: null; state: string; sound: string }> {
-  const collection: LuaArray<any> = new LuaTable();
-
-  if (target) {
-    for (const name of string.gfind(target, "(%|*[^%|]+%|*)%p*")) {
-      const dat = {
-        zone: null,
-        state: null as Optional<string>,
-        sound: null as Optional<string>,
-      };
-
-      const [tPosition] = string.find(name, "@", 1, true);
-      const [sPosition] = string.find(name, "|", 1, true);
-
-      const state = string.sub(name, 1, tPosition - 1);
-      const sound =
-        sPosition !== null ? string.sub(name, tPosition + 1, sPosition - 1) : string.sub(name, tPosition + 1);
-
-      dat.state = state;
-      dat.sound = sound;
-
-      table.insert(collection, dat);
-    }
-  }
-
-  return collection;
-}
-
-/**
- * todo;
- */
 export function parseData(target: Optional<string>): LuaArray<{
   dist: Optional<TDistance>;
   state: Optional<LuaArray<IConfigSwitchCondition>>;
@@ -496,41 +464,25 @@ export function parseData(target: Optional<string>): LuaArray<{
 }
 
 /**
- * todo;
- * todo;
- * todo;
+ * Parse descriptors for bone index.
+ * Matches bone index to related state condlist.
+ *
+ * @param data - input string to parse
+ * @returns list of bone state descriptors
  */
-export function parseData1v(
-  object: ClientObject,
-  data: Optional<string>
-): LuaArray<{
-  dist: Optional<TDistance>;
-  state: Optional<TConditionList>;
-}> {
-  const target: LuaArray<{
-    dist: Optional<TDistance>;
-    state: Optional<LuaArray<IConfigSwitchCondition>>;
-  }> = new LuaTable();
+export function parseBoneStateDescriptors(data: Optional<string>): LuaArray<IBoneStateDescriptor> {
+  const target: LuaArray<IBoneStateDescriptor> = new LuaTable();
 
   if (data) {
     for (const name of string.gfind(data, "(%|*%d+%|[^%|]+)%p*")) {
-      const dat = {
-        dist: null as Optional<TDistance>,
-        state: null as Optional<LuaArray<IConfigSwitchCondition>>,
-      };
-
       const [position] = string.find(name, "|", 1, true);
+      const index: TIndex = tonumber(string.sub(name, 1, position - 1)) as TIndex;
+      const state: Optional<TName> = string.sub(name, position + 1);
 
-      const dist = string.sub(name, 1, position - 1);
-      const state = string.sub(name, position + 1);
-
-      dat.dist = tonumber(dist)!;
-
-      if (state !== null) {
-        dat.state = parseConditionsList(state);
-      }
-
-      target.set(tonumber(dist)!, dat);
+      target.set(index, {
+        index: index,
+        state: state !== null ? parseConditionsList(state) : null,
+      });
     }
   }
 

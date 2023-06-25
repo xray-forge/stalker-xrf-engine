@@ -6,7 +6,7 @@ import { ActionWounded } from "@/engine/core/schemes/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/wounded/evaluators";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWoundedState";
 import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
-import { parseData, parseSynData } from "@/engine/core/utils/ini/parse";
+import { parseData } from "@/engine/core/utils/ini/parse";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
@@ -175,7 +175,6 @@ export class SchemeWounded extends AbstractScheme {
       state.hp_victim = parseData(defaults.hp_victim);
       state.hp_cover = parseData(defaults.hp_cover);
       state.hp_fight = parseData(defaults.hp_fight);
-      state.syndata = parseSynData(defaults.syndata);
       state.help_dialog = defaults.help_dialog;
       state.help_start_dialog = null;
       state.use_medkit = defaults.use_medkit;
@@ -189,7 +188,6 @@ export class SchemeWounded extends AbstractScheme {
       state.hp_victim = parseData(readIniString(ini, section, "hp_victim", false, "", defaults.hp_victim));
       state.hp_cover = parseData(readIniString(ini, section, "hp_cover", false, "", defaults.hp_cover));
       state.hp_fight = parseData(readIniString(ini, section, "hp_fight", false, "", defaults.hp_fight));
-      state.syndata = parseSynData(readIniString(ini, section, "syndata", false, "", defaults.syndata));
       state.help_dialog = readIniString(ini, section, "help_dialog", false, "", defaults.help_dialog);
       state.help_start_dialog = readIniString(ini, section, "help_start_dialog", false, "", null);
       state.use_medkit = readIniBoolean(ini, section, "use_medkit", false, defaults.use_medkit);

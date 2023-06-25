@@ -1,5 +1,5 @@
 import type { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import type { Flags32, LuaArray, Optional, TCount, TName, TProbability, TSection } from "@/engine/lib/types";
+import type { Flags32, LuaArray, Optional, TCount, TIndex, TName, TProbability, TSection } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -66,3 +66,11 @@ export interface IConfigSwitchConditionsDescriptor {
  * todo;
  */
 export type TConditionList = LuaArray<IConfigSwitchCondition>;
+
+/**
+ * todo;
+ */
+export interface IBoneStateDescriptor {
+  index: Optional<TIndex>; // Bone index.
+  state: Optional<TConditionList>; // Matching state.
+}

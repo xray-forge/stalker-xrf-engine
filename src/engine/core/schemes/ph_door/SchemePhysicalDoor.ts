@@ -2,7 +2,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/ph_door/ISchemePhysicalDoorState";
 import { PhysicalDoorManager } from "@/engine/core/schemes/ph_door/PhysicalDoorManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/config";
-import { parseData1v } from "@/engine/core/utils/ini/parse";
+import { parseBoneStateDescriptors } from "@/engine/core/utils/ini/parse";
 import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, IniFile } from "@/engine/lib/types";
@@ -49,7 +49,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
       }
     }
 
-    state.hit_on_bone = parseData1v(object, readIniString(ini, section, "hit_on_bone", false, ""));
+    state.hit_on_bone = parseBoneStateDescriptors(readIniString(ini, section, "hit_on_bone", false, ""));
   }
 
   /**
