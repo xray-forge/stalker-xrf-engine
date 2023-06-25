@@ -2,7 +2,12 @@ import { describe, expect, it } from "@jest/globals";
 
 import { registerStoryLink } from "@/engine/core/database";
 import { IBaseSchemeLogic } from "@/engine/core/schemes";
-import { addConditionToList, getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
+import {
+  addConditionToList,
+  getConfigSwitchConditions,
+  getParametersString,
+  parseConditionsList,
+} from "@/engine/core/utils/ini";
 import { LuaArray, ServerObject, TIndex } from "@/engine/lib/types";
 import { mockBaseSchemeLogic } from "@/fixtures/engine";
 import { mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";

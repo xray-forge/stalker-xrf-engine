@@ -1,5 +1,9 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it, jest } from "@jest/globals";
 
+import { registerActor } from "@/engine/core/database";
+import { extern } from "@/engine/core/utils/binding";
+import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/info_portion";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import {
   getSchemeFromSection,
   parseAllSectionToTable,
@@ -18,11 +22,11 @@ import {
 } from "@/engine/core/utils/ini/parse";
 import { IConfigCondition } from "@/engine/core/utils/ini/types";
 import { NIL } from "@/engine/lib/constants/words";
-import { Flags32, IniFile, LuaArray } from "@/engine/lib/types";
-import { MockFlags32, mockIniFile } from "@/fixtures/xray";
+import { ClientObject, Flags32, IniFile, LuaArray } from "@/engine/lib/types";
+import { mockActorClientGameObject, mockClientGameObject, MockFlags32, mockIniFile } from "@/fixtures/xray";
 
 describe("'ini_data' parsing utils", () => {
-  it("Should correctly parse names array", () => {
+  it("'parseStringsList' should correctly parse names array", () => {
     expect(parseStringsList("a, b, c")).toEqualLuaArrays(["a", "b", "c"]);
     expect(parseStringsList("a b c")).toEqualLuaArrays(["a", "b", "c"]);
     expect(parseStringsList("name_1, example_b, name_complex_here")).toEqualLuaArrays([
@@ -36,7 +40,7 @@ describe("'ini_data' parsing utils", () => {
     expect(parseStringsList("a_b, c_d")).toEqualLuaArrays(["a_b", "c_d"]);
   });
 
-  it("Should correctly parse numbers array", () => {
+  it("'parseNumbersList' should correctly parse numbers array", () => {
     expect(parseNumbersList("1, 2, 3, 4")).toEqualLuaArrays([1, 2, 3, 4]);
     expect(parseNumbersList("1.5, 2.33, 3.0")).toEqualLuaArrays([1.5, 2.33, 3.0]);
     expect(parseNumbersList("1.5 2.33 3.0")).toEqualLuaArrays([1.5, 2.33, 3.0]);
@@ -45,7 +49,7 @@ describe("'ini_data' parsing utils", () => {
     expect(parseNumbersList("15 0 -43 9999")).toEqualLuaArrays([15, 0, -43, 9999]);
   });
 
-  it("Should correctly parse spawn details", () => {
+  it("'parseSpawnDetails' should correctly parse spawn details", () => {
     expect(parseSpawnDetails("")).toEqualLuaArrays([]);
     expect(parseSpawnDetails("1,1")).toEqualLuaArrays([
       {
@@ -71,7 +75,7 @@ describe("'ini_data' parsing utils", () => {
     ]);
   });
 
-  it("Should correctly parse call parameters", () => {
+  it("'parseParameters' should correctly parse call parameters", () => {
     expect(parseParameters(NIL)).toEqualLuaArrays([NIL]);
     expect(parseParameters("abcd")).toEqualLuaArrays(["abcd"]);
     expect(parseParameters("a|b|c|d")).toEqualLuaArrays(["a", "b", "c", "d"]);
@@ -81,7 +85,9 @@ describe("'ini_data' parsing utils", () => {
     ]);
   });
 
-  it("Should correctly parse condition lists", () => {
+  it("'parseConditionsList' should correctly parse condition lists", () => {
+    // Memo check.
+    expect(parseConditionsList("{+zat_b104_task_end}4,0")).toBe(parseConditionsList("{+zat_b104_task_end}4,0"));
     expect(parseConditionsList("{+zat_b104_task_end}4,0")).toStrictEqualLuaArrays([
       { infop_check: { 1: { name: "zat_b104_task_end", required: true } }, infop_set: {}, section: "4" },
       { infop_check: {}, section: "0", infop_set: {} },
@@ -391,6 +397,144 @@ describe("'ini_data' parsing utils", () => {
       { index: 1, state: parseConditionsList("ph_door@free") },
       { index: 2, state: parseConditionsList("ph_door@free") },
     ]);
+  });
+
+  it("'pickSectionFromCondList' should correctly throw on unexpected callbacks", () => {
+    const actor: ClientObject = mockActorClientGameObject();
+    const target: ClientObject = mockClientGameObject();
+
+    registerActor(actor);
+
+    expect(() => pickSectionFromCondList(actor, target, parseConditionsList("{=not_existing_cb}simple"))).toThrow();
+    expect(() => {
+      pickSectionFromCondList(actor, target, parseConditionsList("simple%=not_existing_cb(a|b)%"));
+    }).toThrow();
+  });
+
+  it("pickSectionFromCondList should correctly check probability", () => {
+    const actor: ClientObject = mockActorClientGameObject();
+    const target: ClientObject = mockClientGameObject();
+
+    registerActor(actor);
+
+    jest.spyOn(math, "random").mockImplementation(() => 50);
+
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{~10}a,{~100}b, c"))).toBe("b");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{~10}a,{~10}b, c"))).toBe("c");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{~10}a,{~1000}b, c"))).toBe("b");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{~100}a,{~1000}b, c"))).toBe("a");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{~40}a,{~50}b, c"))).toBe("b");
+
+    jest.spyOn(math, "random").mockImplementation(() => 70);
+
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{~60}a,{~50}b, {~75}c, d"))).toBe("c");
+  });
+
+  it("'pickSectionFromCondList' should correctly check condition callbacks and call effects", () => {
+    const actor: ClientObject = mockActorClientGameObject();
+    const target: ClientObject = mockClientGameObject();
+
+    registerActor(actor);
+
+    const firstEffect = jest.fn();
+    const secondEffect = jest.fn();
+    const thirdEffect = jest.fn();
+
+    extern("xr_effects.first", firstEffect);
+    extern("xr_effects.second", secondEffect);
+    extern("xr_effects.third", secondEffect);
+
+    const firstCondition = jest.fn(() => true);
+    const secondCondition = jest.fn(() => false);
+
+    extern("xr_conditions.first", firstCondition);
+    extern("xr_conditions.second", secondCondition);
+
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{=first !second}a,b"))).toBe("a");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{!first !second}a,b"))).toBe("b");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{!first =second}a,b"))).toBe("b");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{=first =second}a,b"))).toBe("b");
+
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{=first !second}a%=first(a:1)%,b"))).toBe("a");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{!first !second}a,b%=second%"))).toBe("b");
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{!first =second}a%=third%,b"))).toBe("b");
+
+    expect(firstEffect.mock.calls[0]).toEqualLuaArrays([actor, target, { "1": "a", "2": 1 }]);
+    expect(secondEffect).toHaveBeenCalledWith(actor, target, null);
+    expect(thirdEffect).not.toHaveBeenCalled();
+  });
+
+  it("'pickSectionFromCondList' should correctly pick and process info from list", () => {
+    const actor: ClientObject = mockActorClientGameObject();
+    const target: ClientObject = mockClientGameObject();
+
+    registerActor(actor);
+
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("simple"))).toBe("simple");
+    expect(
+      pickSectionFromCondList(
+        actor,
+        target,
+        parseConditionsList("{+test_info -unexpected_info} simple %+another_info -available_info%, fallback")
+      )
+    ).toBe("fallback");
+
+    giveInfo("available_info");
+    giveInfo("test_info");
+    giveInfo("unexpected_info");
+
+    expect(
+      pickSectionFromCondList(
+        actor,
+        target,
+        parseConditionsList("{+test_info -unexpected_info} simple %+another_info -available_info%, fallback")
+      )
+    ).toBe("fallback");
+
+    disableInfo("unexpected_info");
+
+    expect(hasAlifeInfo("test_info")).toBe(true);
+    expect(hasAlifeInfo("unexpected_info")).toBe(false);
+    expect(hasAlifeInfo("available_info")).toBe(true);
+    expect(
+      pickSectionFromCondList(
+        actor,
+        target,
+        parseConditionsList("{+test_info -unexpected_info} simple %+another_info -available_info%, fallback")
+      )
+    ).toBe("simple ");
+
+    expect(hasAlifeInfo("another_info")).toBe(true);
+    expect(hasAlifeInfo("available_info")).toBe(false);
+  });
+
+  it("'pickSectionFromCondList' should correctly handle combination of all factors", () => {
+    const actor: ClientObject = mockActorClientGameObject();
+    const target: ClientObject = mockClientGameObject();
+
+    registerActor(actor);
+    giveInfo("test_info");
+
+    jest.spyOn(math, "random").mockImplementation(() => 50);
+
+    const firstEffect = jest.fn();
+    const firstCondition = jest.fn(() => true);
+    const secondCondition = jest.fn(() => false);
+
+    extern("xr_effects.first", firstEffect);
+    extern("xr_conditions.first", firstCondition);
+    extern("xr_conditions.second", secondCondition);
+
+    expect(
+      pickSectionFromCondList(
+        actor,
+        target,
+        parseConditionsList(
+          "{+test_info -unexpected_info =first !second ~45}a,{+test_info +unexpected_info ~60}b," +
+            "{+test_info -unexpected_info =first =second}c,{+test_info -unexpected_info =first !second ~51}d,e"
+        )
+      )
+    ).toBe("d");
   });
 
   it("'parseAllSectionToTable' should correctly parse ini section to matching lua table", () => {

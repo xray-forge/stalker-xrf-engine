@@ -10,9 +10,7 @@ import {
   ISchemeSmartCoverState,
 } from "@/engine/core/schemes/smartcover/ISchemeSmartCoverState";
 import { abort } from "@/engine/core/utils/assertion";
-import { getParametersString, pickSectionFromCondList } from "@/engine/core/utils/ini/config";
-import { parseConditionsList } from "@/engine/core/utils/ini/parse";
-import { TConditionList } from "@/engine/core/utils/ini/types";
+import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
 import { ClientObject, Optional, StringOptional, TName, TNumberId, Vector } from "@/engine/lib/types";
@@ -42,9 +40,6 @@ export class ActionSmartCoverActivity extends action_base {
     this.state = state;
   }
 
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
     super.initialize();
 
@@ -92,30 +87,26 @@ export class ActionSmartCoverActivity extends action_base {
     // --object.set_smart_cover_target_selector()
     this.targetEnemyId = null;
 
-    const [coverName, used] = getParametersString(this.state.cover_name as string);
+    this.coverName = this.state.cover_name as string;
 
-    this.coverName = coverName;
-
-    if (this.coverName !== this.state.cover_name || used === false) {
-      if (registry.smartCovers.get(this.coverName) === null) {
-        abort("There is no smart_cover with name [%s]", this.coverName);
-      }
-
-      setStalkerState(this.object, EStalkerState.SMART_COVER, null, null, null, null);
-
-      this.targetPathCondlist = parseConditionsList(this.state.target_path);
-      this.checkTarget();
-
-      this.coverСondlist = parseConditionsList(this.state.cover_state);
-      this.coverState = pickSectionFromCondList(registry.actor, this.object, this.coverСondlist) as ECoverState;
-      this.targetSelector(this.object);
-      this.checkTargetSelector();
-
-      this.object.idle_min_time(this.state.idle_min_time);
-      this.object.idle_max_time(this.state.idle_max_time);
-      this.object.lookout_min_time(this.state.lookout_min_time);
-      this.object.lookout_max_time(this.state.lookout_max_time);
+    if (registry.smartCovers.get(this.coverName) === null) {
+      abort("There is no smart_cover with name [%s]", this.coverName);
     }
+
+    setStalkerState(this.object, EStalkerState.SMART_COVER, null, null, null, null);
+
+    this.targetPathCondlist = parseConditionsList(this.state.target_path);
+    this.checkTarget();
+
+    this.coverСondlist = parseConditionsList(this.state.cover_state);
+    this.coverState = pickSectionFromCondList(registry.actor, this.object, this.coverСondlist) as ECoverState;
+    this.targetSelector(this.object);
+    this.checkTargetSelector();
+
+    this.object.idle_min_time(this.state.idle_min_time);
+    this.object.idle_max_time(this.state.idle_max_time);
+    this.object.lookout_min_time(this.state.lookout_min_time);
+    this.object.lookout_max_time(this.state.lookout_max_time);
   }
 
   /**
@@ -149,9 +140,7 @@ export class ActionSmartCoverActivity extends action_base {
     );
 
     if (targetPathSection !== NIL && targetPathSection !== null) {
-      const [targetPath, used] = getParametersString(targetPathSection);
-
-      this.targetPath = targetPath;
+      this.targetPath = targetPathSection;
 
       if (this.targetPath !== NIL) {
         if (level.patrol_path_exists(this.targetPath)) {

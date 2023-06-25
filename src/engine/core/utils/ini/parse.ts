@@ -1,5 +1,6 @@
 import { flags32, patrol } from "xray16";
 
+import { registry } from "@/engine/core/database/registry";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
 import {
   IBoneStateDescriptor,
@@ -22,7 +23,6 @@ import {
   Patrol,
   StringOptional,
   TCount,
-  TDistance,
   TIndex,
   TName,
   TPath,
@@ -141,12 +141,18 @@ export function parseParameters<T extends string>(data: T): LuaArray<T> {
  *   2 = { infop_check = { 1 = {"infop3" = true}, 2 = {"infop4" = false} }, infop_set = {}, section = "section2" },
  * }
  *
- * todo: trimming of whitespaces
+ * todo: trimming of whitespaces in names
+ * todo: throw on empty string?
  *
  * @param data - raw string from config to parse
  * @returns parsed condlist descriptor
  */
 export function parseConditionsList(data: string): TConditionList {
+  // All condition lists are just readonly descriptors. Cache them.
+  if (registry.conditionLists.has(data)) {
+    return registry.conditionLists.get(data);
+  }
+
   const result: LuaArray<IConfigSwitchCondition> = new LuaTable();
 
   for (const condition of string.gfind(data, "%s*([^,]+)%s*")) {
@@ -181,6 +187,9 @@ export function parseConditionsList(data: string): TConditionList {
       infop_set: parseInfoPortions(new LuaTable(), infoPortionsSetList),
     });
   }
+
+  // Memoize condlist.
+  registry.conditionLists.set(data, result);
 
   return result;
 }
@@ -411,56 +420,6 @@ export function parseWaypointsDataFromList(
   }
 
   return list;
-}
-
-/**
- * todo;
- */
-export function parseData(target: Optional<string>): LuaArray<{
-  dist: Optional<TDistance>;
-  state: Optional<LuaArray<IConfigSwitchCondition>>;
-  sound: Optional<LuaArray<IConfigSwitchCondition>>;
-}> {
-  const collection: LuaArray<any> = new LuaTable();
-
-  if (target) {
-    for (const name of string.gfind(target, "(%|*%d+%|[^%|]+)%p*")) {
-      const dat = {
-        dist: null as Optional<number>,
-        state: null as Optional<LuaArray<IConfigSwitchCondition>>,
-        sound: null as Optional<LuaArray<IConfigSwitchCondition>>,
-      };
-
-      const [tPosition] = string.find(name, "|", 1, true);
-      const [sPosition] = string.find(name, "@", 1, true);
-
-      const dist = string.sub(name, 1, tPosition - 1);
-
-      let state: Optional<string> = null;
-      let sound: Optional<string> = null;
-
-      if (sPosition !== null) {
-        state = string.sub(name, tPosition + 1, sPosition - 1);
-        sound = string.sub(name, sPosition + 1);
-      } else {
-        state = string.sub(name, tPosition + 1);
-      }
-
-      dat.dist = tonumber(dist)!;
-
-      if (state !== null) {
-        dat.state = parseConditionsList(state);
-      }
-
-      if (sound !== null) {
-        dat.sound = parseConditionsList(sound);
-      }
-
-      table.insert(collection, dat);
-    }
-  }
-
-  return collection;
 }
 
 /**

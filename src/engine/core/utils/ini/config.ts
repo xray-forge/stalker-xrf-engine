@@ -18,7 +18,7 @@ import { TConditionList } from "@/engine/core/utils/ini/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { NIL } from "@/engine/lib/constants/words";
+import { NEVER, NIL } from "@/engine/lib/constants/words";
 import {
   AlifeSimulator,
   AnyCallable,
@@ -32,6 +32,7 @@ import {
   TCount,
   TIndex,
   TName,
+  TProbability,
   TRate,
   TSection,
   TStringId,
@@ -41,20 +42,9 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
- */
-export function getParametersString(data: string): LuaMultiReturn<[string, boolean]> {
-  const [outString, num] = string.gsub(data, "%$script_id%$", NIL);
-
-  if (num > 0) {
-    return $multi(outString, true);
-  } else {
-    return $multi(data, false);
-  }
-}
-
-/**
- * todo;
  * todo: Probably not used anywhere, check. Original regexp - "(%|*[^%|]+%|*)%p*".
+ *
+ *
  */
 export function getInfosFromData(object: ClientObject, data: Optional<string>): LuaArray<TInfoPortion> {
   const infos: LuaArray<TInfoPortion> = new LuaTable();
@@ -75,23 +65,25 @@ export function getInfosFromData(object: ClientObject, data: Optional<string>): 
 }
 
 /**
- * @returns picked section based on condlist.
+ * Pick resulting scheme based on info portions and xr_conditions requirements.
+ * Process side effects of such checks and give needed infos and call effects on switch.
+ *
+ * @param actor - actor client object
+ * @param object - target client object
+ * @param condlist - target condlist to process
+ * @returns picked section based on condlist and actual checks
  */
 export function pickSectionFromCondList<T extends TSection>(
   actor: ClientObject,
   object: Optional<ClientObject | ServerObject>,
   condlist: TConditionList
 ): Optional<T> {
-  let randomValue: Optional<TRate> = null; // -- math.random(100)
-
   for (const [, switchCondition] of condlist) {
     let areInfoPortionConditionsMet = true;
 
     for (const [, configCondition] of switchCondition.infop_check) {
       if (configCondition.prob) {
-        if (!randomValue) {
-          randomValue = math.random(100);
-        }
+        const randomValue: TProbability = math.random(100);
 
         if (configCondition.prob < randomValue) {
           areInfoPortionConditionsMet = false;
@@ -151,35 +143,31 @@ export function pickSectionFromCondList<T extends TSection>(
     }
 
     if (areInfoPortionConditionsMet) {
-      for (const [, infop] of switchCondition.infop_set) {
-        if (infop.func) {
-          const effect: Optional<AnyCallable> = (_G as AnyObject)["xr_effects"][infop.func];
+      for (const [, configCondition] of switchCondition.infop_set) {
+        if (configCondition.func) {
+          const effect: Optional<AnyCallable> = (_G as AnyObject)["xr_effects"][configCondition.func];
 
           if (!effect) {
             abort(
               "object '%s': pickSectionFromCondList: function '%s' is not defined in xr_effects.",
               object?.name(),
-              infop.func
+              configCondition.func
             );
           }
 
-          effect(actor, object, infop.params);
-        } else if (infop.required) {
-          if (!hasAlifeInfo(infop.name)) {
-            giveInfo(infop.name);
+          effect(actor, object, configCondition.params);
+        } else if (configCondition.required) {
+          if (!hasAlifeInfo(configCondition.name)) {
+            giveInfo(configCondition.name);
           }
         } else {
-          if (hasAlifeInfo(infop.name)) {
-            disableInfo(infop.name);
+          if (hasAlifeInfo(configCondition.name)) {
+            disableInfo(configCondition.name);
           }
         }
       }
 
-      if (switchCondition.section === "never") {
-        return null;
-      } else {
-        return switchCondition.section as T;
-      }
+      return switchCondition.section === NEVER ? null : (switchCondition.section as T);
     }
   }
 

@@ -132,7 +132,7 @@ export class DropManager extends AbstractCoreManager {
       const [, key, value] = DEATH_GENERIC_LTX.r_line(itemsDropSectionByDifficulty, it, "", "");
       const sectionDropCount: LuaArray<TProbability> = parseNumbersList(value);
 
-      if (sectionDropCount.has(1)) {
+      if (!sectionDropCount.has(1)) {
         abort("Error on [death_ini] declaration. Section [%s], line [%s]", itemsDropSectionByDifficulty, tostring(key));
       }
 

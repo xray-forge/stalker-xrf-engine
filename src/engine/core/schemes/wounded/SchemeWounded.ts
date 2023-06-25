@@ -6,13 +6,22 @@ import { ActionWounded } from "@/engine/core/schemes/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/wounded/evaluators";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded/ISchemeWoundedState";
 import { WoundManager } from "@/engine/core/schemes/wounded/WoundManager";
-import { parseData } from "@/engine/core/utils/ini/parse";
-import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/read";
+import { IConfigSwitchCondition, parseConditionsList, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, AnyObject, ClientObject, IniFile, Maybe, Optional, TNumberId } from "@/engine/lib/types";
+import {
+  ActionPlanner,
+  AnyObject,
+  ClientObject,
+  IniFile,
+  LuaArray,
+  Maybe,
+  Optional,
+  TDistance,
+  TNumberId,
+} from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const woundedByState: Record<number, string> = {
@@ -30,18 +39,12 @@ export class SchemeWounded extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.WOUNDED;
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
-  /**
-   * todo: Description.
-   */
   public static override activate(object: ClientObject, ini: IniFile, scheme: EScheme, section: TSection): void {
     const state: ISchemeWoundedState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.woundManager = new WoundManager(object, state);
   }
 
-  /**
-   * todo: Description.
-   */
   public static override add(
     object: ClientObject,
     ini: IniFile,
@@ -79,9 +82,6 @@ export class SchemeWounded extends AbstractScheme {
       .add_precondition(new world_property(EEvaluatorId.CAN_FIGHT, true));
   }
 
-  /**
-   * todo: Description.
-   */
   public static override reset(
     object: ClientObject,
     scheme: EScheme,
@@ -169,12 +169,12 @@ export class SchemeWounded extends AbstractScheme {
 
     // Initialize state:
     if (tostring(section) === NIL) {
-      state.hp_state = parseData(defaults.hp_state);
-      state.hp_state_see = parseData(defaults.hp_state_see);
-      state.psy_state = parseData(defaults.psy_state);
-      state.hp_victim = parseData(defaults.hp_victim);
-      state.hp_cover = parseData(defaults.hp_cover);
-      state.hp_fight = parseData(defaults.hp_fight);
+      state.hp_state = SchemeWounded.parseData(defaults.hp_state);
+      state.hp_state_see = SchemeWounded.parseData(defaults.hp_state_see);
+      state.psy_state = SchemeWounded.parseData(defaults.psy_state);
+      state.hp_victim = SchemeWounded.parseData(defaults.hp_victim);
+      state.hp_cover = SchemeWounded.parseData(defaults.hp_cover);
+      state.hp_fight = SchemeWounded.parseData(defaults.hp_fight);
       state.help_dialog = defaults.help_dialog;
       state.help_start_dialog = null;
       state.use_medkit = defaults.use_medkit;
@@ -182,12 +182,18 @@ export class SchemeWounded extends AbstractScheme {
       state.enable_talk = true;
       state.not_for_help = defaults.not_for_help;
     } else {
-      state.hp_state = parseData(readIniString(ini, section, "hp_state", false, "", defaults.hp_state));
-      state.hp_state_see = parseData(readIniString(ini, section, "hp_state_see", false, "", defaults.hp_state_see));
-      state.psy_state = parseData(readIniString(ini, section, "psy_state", false, "", defaults.psy_state));
-      state.hp_victim = parseData(readIniString(ini, section, "hp_victim", false, "", defaults.hp_victim));
-      state.hp_cover = parseData(readIniString(ini, section, "hp_cover", false, "", defaults.hp_cover));
-      state.hp_fight = parseData(readIniString(ini, section, "hp_fight", false, "", defaults.hp_fight));
+      state.hp_state = SchemeWounded.parseData(readIniString(ini, section, "hp_state", false, "", defaults.hp_state));
+      state.hp_state_see = SchemeWounded.parseData(
+        readIniString(ini, section, "hp_state_see", false, "", defaults.hp_state_see)
+      );
+      state.psy_state = SchemeWounded.parseData(
+        readIniString(ini, section, "psy_state", false, "", defaults.psy_state)
+      );
+      state.hp_victim = SchemeWounded.parseData(
+        readIniString(ini, section, "hp_victim", false, "", defaults.hp_victim)
+      );
+      state.hp_cover = SchemeWounded.parseData(readIniString(ini, section, "hp_cover", false, "", defaults.hp_cover));
+      state.hp_fight = SchemeWounded.parseData(readIniString(ini, section, "hp_fight", false, "", defaults.hp_fight));
       state.help_dialog = readIniString(ini, section, "help_dialog", false, "", defaults.help_dialog);
       state.help_start_dialog = readIniString(ini, section, "help_start_dialog", false, "", null);
       state.use_medkit = readIniBoolean(ini, section, "use_medkit", false, defaults.use_medkit);
@@ -245,5 +251,55 @@ export class SchemeWounded extends AbstractScheme {
     }
 
     return false;
+  }
+
+  /**
+   * todo;
+   */
+  private static parseData(target: Optional<string>): LuaArray<{
+    dist: Optional<TDistance>;
+    state: Optional<LuaArray<IConfigSwitchCondition>>;
+    sound: Optional<LuaArray<IConfigSwitchCondition>>;
+  }> {
+    const collection: LuaArray<any> = new LuaTable();
+
+    if (target) {
+      for (const name of string.gfind(target, "(%|*%d+%|[^%|]+)%p*")) {
+        const dat = {
+          dist: null as Optional<number>,
+          state: null as Optional<LuaArray<IConfigSwitchCondition>>,
+          sound: null as Optional<LuaArray<IConfigSwitchCondition>>,
+        };
+
+        const [tPosition] = string.find(name, "|", 1, true);
+        const [sPosition] = string.find(name, "@", 1, true);
+
+        const dist = string.sub(name, 1, tPosition - 1);
+
+        let state: Optional<string> = null;
+        let sound: Optional<string> = null;
+
+        if (sPosition !== null) {
+          state = string.sub(name, tPosition + 1, sPosition - 1);
+          sound = string.sub(name, sPosition + 1);
+        } else {
+          state = string.sub(name, tPosition + 1);
+        }
+
+        dat.dist = tonumber(dist)!;
+
+        if (state !== null) {
+          dat.state = parseConditionsList(state);
+        }
+
+        if (sound !== null) {
+          dat.sound = parseConditionsList(sound);
+        }
+
+        table.insert(collection, dat);
+      }
+    }
+
+    return collection;
   }
 }
