@@ -1,11 +1,47 @@
 import { relation_registry } from "xray16";
 
+import { registry } from "@/engine/core/database/registry";
 import { Squad } from "@/engine/core/objects";
 import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/get";
 import { EGoodwill, ERelation } from "@/engine/core/utils/relation/types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { Optional, TStringId } from "@/engine/lib/types";
+import { ClientObject, Optional, TCount, TStringId } from "@/engine/lib/types";
+
+/**
+ * Check whether is enemy with faction.
+ *
+ * @param faction - target faction to check
+ * @param actor - optional actor object override
+ * @returns whether actor is enemy with faction
+ */
+export function isActorEnemyWithFaction(faction: TCommunity, actor: ClientObject = registry.actor): boolean {
+  return relation_registry.community_goodwill(faction, actor.id()) <= EGoodwill.ENEMIES;
+}
+
+/**
+ * Check whether is friend with faction.
+ *
+ * @param faction - target faction to check
+ * @param actor - optional actor object override
+ * @returns whether actor is friend with faction
+ */
+export function isActorFriendWithFaction(faction: TCommunity, actor: ClientObject = registry.actor): boolean {
+  return relation_registry.community_goodwill(faction, actor.id()) >= EGoodwill.FRIENDS;
+}
+
+/**
+ * Check whether is neutral with faction.
+ *
+ * @param faction - target faction to check
+ * @param actor - optional actor object override
+ * @returns whether actor is neutral with faction
+ */
+export function isActorNeutralWithFaction(faction: TCommunity, actor: ClientObject = registry.actor): boolean {
+  const goodwill: TCount = relation_registry.community_goodwill(faction, actor.id());
+
+  return goodwill > EGoodwill.ENEMIES && goodwill < EGoodwill.FRIENDS;
+}
 
 /**
  * Check whether squad is enemy to actor.

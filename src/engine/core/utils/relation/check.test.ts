@@ -1,10 +1,13 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { registerStoryLink, registry } from "@/engine/core/database";
+import { registerActor, registerStoryLink, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects";
 import {
   areCommunitiesEnemies,
   areCommunitiesFriendly,
+  isActorEnemyWithFaction,
+  isActorFriendWithFaction,
+  isActorNeutralWithFaction,
   isAnySquadMemberEnemyToActor,
   isAnySquadMemberFriendToActor,
 } from "@/engine/core/utils/relation/check";
@@ -13,7 +16,7 @@ import { ERelation } from "@/engine/core/utils/relation/types";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ServerGroupObject } from "@/engine/lib/types";
-import { mockRelationsSquads } from "@/fixtures/engine";
+import { mockRegisteredActor, mockRelationsSquads } from "@/fixtures/engine";
 import { MockAlifeSimulator, mockServerAlifeCreatureActor, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
 
 describe("'relation/check' utils", () => {
@@ -22,6 +25,37 @@ describe("'relation/check' utils", () => {
     registry.storyLink.sidById = new LuaTable();
     registry.storyLink.idBySid = new LuaTable();
     MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
+  });
+
+  it("'isActorEnemyWithFaction' should check object faction relation", () => {
+    mockRegisteredActor();
+
+    expect(isActorEnemyWithFaction(communities.army)).toBe(false);
+    expect(isActorEnemyWithFaction(communities.stalker)).toBe(false);
+    expect(isActorEnemyWithFaction(communities.bandit)).toBe(false);
+    expect(isActorEnemyWithFaction(communities.monolith)).toBe(true);
+    expect(isActorEnemyWithFaction(communities.monster)).toBe(true);
+  });
+
+  it("'isActorFriendWithFaction' should check object faction relation", () => {
+    mockRegisteredActor();
+
+    expect(isActorFriendWithFaction(communities.actor)).toBe(true);
+    expect(isActorFriendWithFaction(communities.army)).toBe(true);
+    expect(isActorFriendWithFaction(communities.stalker)).toBe(false);
+    expect(isActorFriendWithFaction(communities.bandit)).toBe(false);
+    expect(isActorFriendWithFaction(communities.monolith)).toBe(false);
+    expect(isActorFriendWithFaction(communities.monster)).toBe(false);
+  });
+
+  it("'isActorNeutralWithFaction' should check object faction relation", () => {
+    mockRegisteredActor();
+
+    expect(isActorNeutralWithFaction(communities.army)).toBe(false);
+    expect(isActorNeutralWithFaction(communities.stalker)).toBe(true);
+    expect(isActorNeutralWithFaction(communities.bandit)).toBe(true);
+    expect(isActorNeutralWithFaction(communities.monolith)).toBe(false);
+    expect(isActorNeutralWithFaction(communities.monster)).toBe(false);
   });
 
   it("'isSquadCommunityEnemyToActor' should correctly check relation", () => {

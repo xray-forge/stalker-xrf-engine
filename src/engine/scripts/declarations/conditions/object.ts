@@ -25,7 +25,7 @@ import {
   isObjectInZone,
   isObjectWounded,
   isPlayingSound,
-  isSquadExisting,
+  isStoryObjectExisting,
 } from "@/engine/core/utils/check/check";
 import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
@@ -804,7 +804,7 @@ extern("xr_conditions.squad_exist", (actor: ClientObject, npc: ClientObject, p: 
   if (storyId === null) {
     abort("Wrong parameter story_id[%s] in squad_exist function", tostring(storyId));
   } else {
-    return isSquadExisting(storyId);
+    return isStoryObjectExisting(storyId);
   }
 });
 

@@ -1,4 +1,4 @@
-import { alife, danger_object, device, game_graph, relation_registry } from "xray16";
+import { alife, danger_object, device, game_graph } from "xray16";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { SimulationBoardManager } from "@/engine/core/managers/interaction/SimulationBoardManager";
@@ -11,10 +11,9 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { isStalker } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
-import { EGoodwill } from "@/engine/core/utils/relation/types";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
-import { communities, TCommunity } from "@/engine/lib/constants/communities";
+import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { lootableTableExclude, TLootableExcludeItem } from "@/engine/lib/constants/items/lootable_table";
 import { TLevel } from "@/engine/lib/constants/levels";
@@ -40,14 +39,20 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Check whether story object exists.
+ *
+ * @param storyId - story ID to check existing
+ * @returns whether story object exists
  */
-export function isSquadExisting(squadStoryId: TStringId): boolean {
-  return getServerObjectByStoryId(squadStoryId) !== null;
+export function isStoryObjectExisting(storyId: TStringId): boolean {
+  return getServerObjectByStoryId(storyId) !== null;
 }
 
 /**
  * Is provided target stalker and alive.
+ *
+ * @param targetObject - client/server object or story ID to check
+ * @returns whether target stalker object is alive
  */
 export function isStalkerAlive(targetObject: ClientObject | ServerHumanObject | TStringId): boolean {
   let targetId: Optional<TNumberId> = null;
@@ -67,29 +72,6 @@ export function isStalkerAlive(targetObject: ClientObject | ServerHumanObject | 
 
     return object !== null && isStalker(object) && object.alive();
   }
-}
-
-/**
- * todo;
- */
-export function isActorEnemyWithFaction(faction: TCommunity, actor: ClientObject = registry.actor): boolean {
-  return relation_registry.community_goodwill(faction, actor.id()) <= EGoodwill.ENEMIES;
-}
-
-/**
- * todo;
- */
-export function isActorFriendWithFaction(faction: TCommunity, actor: ClientObject = registry.actor): boolean {
-  return relation_registry.community_goodwill(faction, actor.id()) >= EGoodwill.FRIENDS;
-}
-
-/**
- * todo;
- */
-export function isActorNeutralWithFaction(faction: TCommunity, actor: ClientObject = registry.actor): boolean {
-  const goodwill: number = relation_registry.community_goodwill(faction, actor.id());
-
-  return goodwill > EGoodwill.ENEMIES && goodwill < EGoodwill.FRIENDS;
 }
 
 /**
