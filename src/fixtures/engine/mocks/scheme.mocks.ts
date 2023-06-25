@@ -46,6 +46,17 @@ export function mockCondition(base: Partial<IConfigSwitchCondition> = {}): IConf
 }
 
 /**
+ * Mock generic switch condition.
+ */
+export function mockSwitchCondition({
+  section = "test-section",
+  infop_check = new LuaTable(),
+  infop_set = new LuaTable(),
+}: Partial<IConfigSwitchCondition>): IConfigSwitchCondition {
+  return { infop_check, infop_set, section };
+}
+
+/**
  * Mock whole condlist.
  */
 export function mockCondlist(...conditions: Array<IConfigSwitchCondition>): TConditionList {

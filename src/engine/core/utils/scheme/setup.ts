@@ -1,6 +1,6 @@
 import { stalker_ids, world_property } from "xray16";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { registry } from "@/engine/core/database";
 import { EEvaluatorId, TAbstractSchemeConstructor } from "@/engine/core/schemes";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";

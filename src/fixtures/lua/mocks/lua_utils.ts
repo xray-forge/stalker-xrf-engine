@@ -1,10 +1,10 @@
-import { AnyObject, Optional } from "@/engine/lib/types";
+import { AnyObject, LuaArray, Optional } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
 /**
  * todo;
  */
-export function luaTableToArray<T>(value: LuaTable<number, T>): Array<T> {
+export function luaTableToArray<T>(value: Optional<LuaArray<T>>): Array<T> {
   if (value instanceof MockLuaTable) {
     return [...(value as unknown as Map<number, T>).values()].map((it) => {
       return mapFromLua<any>(it);

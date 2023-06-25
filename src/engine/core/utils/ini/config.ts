@@ -273,37 +273,38 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
 }
 
 /**
- * todo
- * todo
- * todo
  * Get switch conditions for provided scheme section like `mob_home@2`.
  * Parses all possible switch cases for checking and switching later if conditions are satisfied.
+ *
+ * @param ini - target ini config file
+ * @param section - section in ini file to read
+ * @return optional list of scheme logic switcher descriptors
  */
 export function getConfigSwitchConditions(ini: IniFile, section: TSection): Optional<LuaArray<IBaseSchemeLogic>> {
   const conditionsList: LuaArray<IBaseSchemeLogic> = new LuaTable();
-  let index: TIndex = 1;
 
   if (!ini.section_exist(tostring(section))) {
     return null;
   }
 
   const linesCount: TCount = ini.line_count(section);
+  let index: TIndex = 1;
 
   function addConditions(
     func: (ini: IniFile, section: TSection, id: TStringId) => Optional<IBaseSchemeLogic>,
     cond: ESchemeCondition
   ): void {
     for (const lineNumber of $range(0, linesCount - 1)) {
-      const [, id, value] = ini.r_line(section, lineNumber, "", "");
-      const [searchIndex] = string.find(id, "^" + cond + "%d*$");
+      const [, key] = ini.r_line(section, lineNumber, "", "");
+      const [searchIndex] = string.find(key, "^" + cond + "%d*$");
 
       if (searchIndex !== null) {
-        index = addConditionToList(conditionsList, index, func(ini, section, id));
+        index = addConditionToList(conditionsList, index, func(ini, section, key));
       }
     }
   }
 
-  // todo: Move conditions to enum.
+  // todo: Move conditions to enum/switcher object?
   addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN);
   addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE);
   addConditions(readIniNumberAndConditionList, ESchemeCondition.ON_ACTOR_DISTANCE_GREATER_THAN);
