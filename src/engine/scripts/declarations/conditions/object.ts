@@ -19,10 +19,7 @@ import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import {
-  isDistanceBetweenObjectsGreaterOrEqual,
-  isDistanceBetweenObjectsLessOrEqual,
   isHeavilyWounded,
-  isObjectInZone,
   isObjectWounded,
   isPlayingSound,
   isStoryObjectExisting,
@@ -31,6 +28,11 @@ import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain, getObjectSquad } from "@/engine/core/utils/object/object_general";
+import {
+  isDistanceBetweenObjectsGreaterOrEqual,
+  isDistanceBetweenObjectsLessOrEqual,
+  isObjectInZone,
+} from "@/engine/core/utils/object/object_location";
 import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { FALSE } from "@/engine/lib/constants/words";

@@ -37,6 +37,8 @@ export class MockAlifeSimulator {
 
   public create_ammo = jest.fn(() => {});
 
+  public level_name = jest.fn(() => "pripyat");
+
   public release = jest.fn((object: ServerObject) => {
     MockAlifeSimulator.removeFromRegistry(object.id);
   });

@@ -7,10 +7,12 @@ import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { ISchemeHitState } from "@/engine/core/schemes/hit";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { isActorAlive, isActorEnemy, isObjectInZone } from "@/engine/core/utils/check/check";
+import { isActorAlive } from "@/engine/core/utils/check/check";
 import { isWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isObjectInZone } from "@/engine/core/utils/object/object_location";
 import { npcInActorFrustum } from "@/engine/core/utils/vector";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { AnyArgs, ClientObject, EScheme, LuaArray, Optional, TCount, TDistance, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -40,7 +42,8 @@ extern("xr_conditions.actor_in_surge_cover", (actor: ClientObject, npc: ClientOb
  * todo;
  */
 extern("xr_conditions.is_enemy_actor", (object: ClientObject): boolean => {
-  return isActorEnemy(object);
+  // todo: Probably always true.
+  return object.id() === ACTOR_ID;
 });
 
 /**

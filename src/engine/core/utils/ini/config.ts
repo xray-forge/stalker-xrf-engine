@@ -190,7 +190,7 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
   if (target) {
     const simulator: Optional<AlifeSimulator> = alife();
 
-    if (simulator) {
+    if (simulator !== null) {
       const serverObject: Optional<ServerObject> = simulator.object(getObjectIdByStoryId(target.v1 as string)!);
 
       if (serverObject) {

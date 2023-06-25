@@ -11,6 +11,7 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { isStalker } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/config";
 import { getCharacterCommunity } from "@/engine/core/utils/object/object_general";
+import { isObjectInZone } from "@/engine/core/utils/object/object_location";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { communities } from "@/engine/lib/constants/communities";
@@ -30,10 +31,8 @@ import {
   Optional,
   ServerCreatureObject,
   ServerHumanObject,
-  ServerObject,
   TDangerType,
   TDistance,
-  TName,
   TNumberId,
   TStringId,
 } from "@/engine/lib/types";
@@ -75,13 +74,6 @@ export function isStalkerAlive(targetObject: ClientObject | ServerHumanObject | 
 }
 
 /**
- * @returns whether provided object is on a provided level.
- */
-export function isObjectOnLevel(object: Optional<ServerObject>, levelName: TName): boolean {
-  return object !== null && alife().level_name(game_graph().vertex(object.m_game_vertex_id).level_id()) === levelName;
-}
-
-/**
  * @returns whether provided community squad is immune to surge.
  */
 export function isImmuneToSurge(object: Squad): boolean {
@@ -111,13 +103,6 @@ export function isLevelChanging(): boolean {
   return simulator === null
     ? false
     : game_graph().vertex(simulator.actor().m_game_vertex_id).level_id() !== simulator.level_id();
-}
-
-/**
- * @returns whether object is inside another object.
- */
-export function isObjectInZone(object: Optional<ClientObject>, zone: Optional<ClientObject>): boolean {
-  return object !== null && zone !== null && zone.inside(object.position());
 }
 
 /**
@@ -314,35 +299,6 @@ export function isObjectEnemy(object: ClientObject, enemy: ClientObject, state: 
 }
 
 /**
- * todo;
- * todo;
- * todo;
- */
-export function isActorInZone(zone: Optional<ClientObject>): boolean {
-  const actor: Optional<ClientObject> = registry.actor;
-
-  return actor !== null && zone !== null && zone.inside(actor.position());
-}
-
-/**
- * todo;
- * todo;
- * todo;
- */
-export function isActorInZoneWithName(zoneName: TName, actor: Optional<ClientObject> = registry.actor): boolean {
-  const zone: Optional<ClientObject> = registry.zones.get(zoneName);
-
-  return actor !== null && zone !== null && zone.inside(actor.position());
-}
-
-/**
- * @returns whether provided enemy object is actor.
- */
-export function isActorEnemy(object: ClientObject): boolean {
-  return object.id() === registry.actor.id();
-}
-
-/**
  * @returns whether actor is alive.
  */
 export function isActorAlive(): boolean {
@@ -354,42 +310,6 @@ export function isActorAlive(): boolean {
  */
 export function isSeenByActor(object: ClientObject): boolean {
   return registry.actor.see(object);
-}
-
-/**
- * @returns whether distance between objects greater or equal.
- */
-export function isDistanceBetweenObjectsGreaterOrEqual(
-  first: ClientObject,
-  second: ClientObject,
-  distance: TDistance
-): boolean {
-  return first.position().distance_to_sqr(second.position()) >= distance * distance;
-}
-
-/**
- * @returns whether distance between objects less or equal.
- */
-export function isDistanceBetweenObjectsLessOrEqual(
-  first: ClientObject,
-  second: ClientObject,
-  distance: TDistance
-): boolean {
-  return first.position().distance_to_sqr(second.position()) <= distance * distance;
-}
-
-/**
- * @returns whether distance to actor greater or equal.
- */
-export function isDistanceToActorGreaterOrEqual(object: ClientObject, distance: TDistance): boolean {
-  return object.position().distance_to_sqr(registry.actor.position()) >= distance * distance;
-}
-
-/**
- * @returns whether distance to actor less or equal.
- */
-export function isDistanceToActorLessOrEqual(object: ClientObject, distance: TDistance): boolean {
-  return object.position().distance_to_sqr(registry.actor.position()) <= distance * distance;
 }
 
 /**

@@ -4,9 +4,9 @@ import { getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine
 import { AnomalyZoneBinder, Squad } from "@/engine/core/objects";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
-import { isObjectInZone } from "@/engine/core/utils/check/check";
 import { hasAlifeInfo } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isObjectInZone } from "@/engine/core/utils/object/object_location";
 import { distanceBetween } from "@/engine/core/utils/vector";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { zones } from "@/engine/lib/constants/zones";
