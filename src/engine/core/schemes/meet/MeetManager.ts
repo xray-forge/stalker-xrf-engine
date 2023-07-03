@@ -6,7 +6,7 @@ import { EStalkerState } from "@/engine/core/objects/state";
 import { AbstractSchemeManager } from "@/engine/core/schemes";
 import { SchemeAbuse } from "@/engine/core/schemes/abuse";
 import { ISchemeMeetState } from "@/engine/core/schemes/meet/ISchemeMeetState";
-import { isBlackScreen } from "@/engine/core/utils/check/check";
+import { isBlackScreen } from "@/engine/core/utils/game";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInCombat, isObjectWounded } from "@/engine/core/utils/object";

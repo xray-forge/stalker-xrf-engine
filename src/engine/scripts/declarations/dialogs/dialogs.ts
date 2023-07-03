@@ -11,21 +11,24 @@ import { SchemeMeet } from "@/engine/core/schemes/meet/SchemeMeet";
 import { ISchemeWoundedState } from "@/engine/core/schemes/wounded";
 import { SchemeWounded } from "@/engine/core/schemes/wounded/SchemeWounded";
 import { extern } from "@/engine/core/utils/binding";
-import { isObjectInjured } from "@/engine/core/utils/check";
-import { isStalkerAlive } from "@/engine/core/utils/check/check";
-import { createAutoSave } from "@/engine/core/utils/game/game_save";
+import { createAutoSave } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity, isObjectInSmartTerrain, isObjectWounded } from "@/engine/core/utils/object";
-import { giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
   actorHasMedKit,
   getActorAvailableMedKit,
+  getCharacterCommunity,
   getNpcSpeaker,
+  giveInfo,
+  hasAlifeInfo,
+  isObjectInjured,
+  isObjectInSmartTerrain,
+  isObjectWounded,
+  isStalkerAlive,
   transferItemsFromActor,
-} from "@/engine/core/utils/task_reward";
+} from "@/engine/core/utils/object";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { communities } from "@/engine/lib/constants/communities";
-import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
+import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { drugs, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { pistols, TPistol } from "@/engine/lib/constants/items/weapons";
 import { levels } from "@/engine/lib/constants/levels";

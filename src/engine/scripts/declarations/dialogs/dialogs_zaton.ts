@@ -7,23 +7,25 @@ import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/data
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/interface/notifications";
 import { TreasureManager } from "@/engine/core/managers/world/TreasureManager";
 import { extern, getExtern } from "@/engine/core/utils/binding";
-import { isStoryObjectExisting } from "@/engine/core/utils/check/check";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
   actorHasAtLeastOneItem,
   actorHasItem,
+  disableInfo,
   getNpcSpeaker,
+  giveInfo,
   giveItemsToActor,
   giveMoneyToActor,
+  hasAlifeInfo,
   isObjectName,
+  isStoryObjectExisting,
   npcHasItem,
   transferItemsFromActor,
   transferItemsToActor,
   transferMoneyFromActor,
-} from "@/engine/core/utils/task_reward";
+} from "@/engine/core/utils/object";
 import { captions } from "@/engine/lib/constants/captions/captions";
-import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
+import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { artefacts, TArtefact } from "@/engine/lib/constants/items/artefacts";

@@ -2,7 +2,7 @@ import { alife } from "xray16";
 
 import { SmartTerrain, Squad } from "@/engine/core/objects";
 import { assertDefined } from "@/engine/core/utils/assertion";
-import { isStalker } from "@/engine/core/utils/check";
+import { isStalker } from "@/engine/core/utils/object/object_check";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {

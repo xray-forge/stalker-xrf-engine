@@ -5,12 +5,12 @@ import {
   closeSaveMarker,
   getIdBySid,
   IRegistryObjectState,
+  openLoadMarker,
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { getHeliHealth } from "@/engine/core/schemes/heli_move/heli_utils";
-import { isLevelChanging } from "@/engine/core/utils/check/check";
+import { isGameLevelChanging } from "@/engine/core/utils/game";
 import {
   parseConditionsList,
   pickSectionFromCondList,
@@ -224,7 +224,7 @@ export class HeliCombat {
   public save(packet: NetPacket): void {
     openSaveMarker(packet, HeliCombat.name);
 
-    if (isLevelChanging()) {
+    if (isGameLevelChanging()) {
       packet.w_bool(false);
       closeSaveMarker(packet, HeliCombat.name);
 

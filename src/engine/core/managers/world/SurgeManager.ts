@@ -19,15 +19,20 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { AnomalyZoneBinder, SmartTerrain } from "@/engine/core/objects";
 import { Squad } from "@/engine/core/objects/server/squad/Squad";
-import { isBlackScreen, isImmuneToSurge, isSurgeEnabledOnLevel } from "@/engine/core/utils/check/check";
-import { isArtefact, isStoryObject } from "@/engine/core/utils/check/is";
+import { isBlackScreen } from "@/engine/core/utils/game";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/game/game_console";
 import { createAutoSave } from "@/engine/core/utils/game/game_save";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/game/game_time";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import {
+  isArtefact,
+  isImmuneToSurge,
+  isObjectOnLevel,
+  isStoryObject,
+  isSurgeEnabledOnLevel,
+} from "@/engine/core/utils/object";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
-import { isObjectOnLevel } from "@/engine/core/utils/object/object_location";
 import { createVector } from "@/engine/core/utils/vector";
 import { surgeConfig } from "@/engine/lib/configs/SurgeConfig";
 import { animations } from "@/engine/lib/constants/animation/animations";

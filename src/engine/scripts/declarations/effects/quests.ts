@@ -16,7 +16,7 @@ import { createAutoSave } from "@/engine/core/utils/game/game_save";
 import { isObjectInZone } from "@/engine/core/utils/object";
 import { disableInfo, giveInfo, hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import { spawnObject, spawnObjectInObject, spawnSquadInSmart } from "@/engine/core/utils/object/object_spawn";
-import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/task_reward";
+import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/object/object_task_reward";
 import { copyVector, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import { captions } from "@/engine/lib/constants/captions/captions";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";

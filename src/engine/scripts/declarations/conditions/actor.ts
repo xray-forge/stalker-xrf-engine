@@ -7,10 +7,8 @@ import { ISchemeDeathState } from "@/engine/core/schemes/death";
 import { ISchemeHitState } from "@/engine/core/schemes/hit";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { isActorAlive } from "@/engine/core/utils/check/check";
-import { isWeapon } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectInZone } from "@/engine/core/utils/object/object_location";
+import { isObjectInZone, isWeapon } from "@/engine/core/utils/object";
 import { npcInActorFrustum } from "@/engine/core/utils/vector";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { AnyArgs, ClientObject, EScheme, LuaArray, Optional, TCount, TDistance, TSection } from "@/engine/lib/types";
@@ -50,7 +48,7 @@ extern("xr_conditions.is_enemy_actor", (object: ClientObject): boolean => {
  * todo;
  */
 extern("xr_conditions.actor_alive", (): boolean => {
-  return isActorAlive();
+  return registry.actor.alive();
 });
 
 /**

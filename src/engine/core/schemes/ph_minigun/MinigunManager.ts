@@ -4,9 +4,8 @@ import { getObjectByStoryId, registry } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeMinigunState } from "@/engine/core/schemes/ph_minigun/ISchemeMinigunState";
 import { abort } from "@/engine/core/utils/assertion";
-import { isActiveSection } from "@/engine/core/utils/check/is";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
-import { isObjectWounded } from "@/engine/core/utils/object";
+import { isActiveSection, isObjectWounded } from "@/engine/core/utils/object";
 import {
   isMonsterScriptCaptured,
   scriptReleaseMonster,

@@ -23,7 +23,7 @@ import {
 } from "@/engine/core/objects/binders";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { isGameStarted } from "@/engine/core/utils/check";
+import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, IniFile, Optional } from "@/engine/lib/types";
 

@@ -12,6 +12,7 @@ import {
 import {
   closeLoadMarker,
   closeSaveMarker,
+  openLoadMarker,
   openSaveMarker,
   registerObjectStoryLinks,
   registry,
@@ -21,7 +22,6 @@ import {
   SQUAD_BEHAVIOURS_LTX,
   SYSTEM_INI,
 } from "@/engine/core/database";
-import { openLoadMarker } from "@/engine/core/database/save_markers";
 import {
   registerSimulationObject,
   unregisterSimulationObject,
@@ -42,7 +42,6 @@ import {
 } from "@/engine/core/objects/server/types";
 import { StoryManager } from "@/engine/core/objects/sounds/stories";
 import { abort, assertDefined } from "@/engine/core/utils/assertion";
-import { isSquadMonsterCommunity } from "@/engine/core/utils/check/is";
 import {
   parseConditionsList,
   parseStringsList,
@@ -54,8 +53,7 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areObjectsOnSameLevel } from "@/engine/core/utils/object";
-import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
+import { areObjectsOnSameLevel, hasAlifeInfo, isSquadMonsterCommunity } from "@/engine/core/utils/object";
 import {
   areCommunitiesEnemies,
   ERelation,

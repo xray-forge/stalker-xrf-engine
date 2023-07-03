@@ -8,7 +8,7 @@ import {
   transferItemsFromActor,
   transferItemsToActor,
   transferMoneyFromActor,
-} from "@/engine/core/utils/task_reward";
+} from "@/engine/core/utils/object/object_task_reward";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";

@@ -4,12 +4,19 @@ import { DEATH_GENERIC_LTX, IRegistryObjectState, registry } from "@/engine/core
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { Stalker } from "@/engine/core/objects/server/creature/Stalker";
 import { abort } from "@/engine/core/utils/assertion";
-import { isExcludedFromLootDropItem } from "@/engine/core/utils/check/check";
-import { isAmmoItem, isArtefact, isGrenade, isLootableItem, isWeapon } from "@/engine/core/utils/check/is";
 import { parseNumbersList, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getCharacterCommunity, setItemCondition } from "@/engine/core/utils/object";
-import { spawnItemsForObject } from "@/engine/core/utils/object/object_spawn";
+import {
+  getCharacterCommunity,
+  isAmmoItem,
+  isArtefact,
+  isExcludedFromLootDropItem,
+  isGrenade,
+  isLootableItem,
+  isWeapon,
+  setItemCondition,
+  spawnItemsForObject,
+} from "@/engine/core/utils/object";
 import { logicsConfig } from "@/engine/lib/configs/LogicsConfig";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { TInventoryItem } from "@/engine/lib/constants/items";

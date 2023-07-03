@@ -6,9 +6,9 @@ import { AbstractScheme, EActionId, EEvaluatorId } from "@/engine/core/schemes";
 import { ActionSearchCorpse } from "@/engine/core/schemes/corpse_detection/actions";
 import { EvaluatorCorpseDetect } from "@/engine/core/schemes/corpse_detection/evaluators";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/corpse_detection/ISchemeCorpseDetectionState";
-import { isLootableItem } from "@/engine/core/utils/check/is";
-import { readIniBoolean } from "@/engine/core/utils/ini/ini_read";
+import { readIniBoolean } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isLootableItem } from "@/engine/core/utils/object";
 import { ActionPlanner, ClientObject, IniFile, Optional, TNumberId } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 

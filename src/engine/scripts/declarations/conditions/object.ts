@@ -18,16 +18,20 @@ import { ISchemeHitState } from "@/engine/core/schemes/hit";
 import { SchemeDeimos } from "@/engine/core/schemes/sr_deimos";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { isPlayingSound, isStoryObjectExisting } from "@/engine/core/utils/check/check";
-import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain, getObjectSquad, isObjectWounded } from "@/engine/core/utils/object";
-import { hasAlifeInfo } from "@/engine/core/utils/object/object_info_portion";
 import {
+  getObjectSmartTerrain,
+  getObjectSquad,
+  hasAlifeInfo,
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
+  isMonster,
   isObjectInZone,
-} from "@/engine/core/utils/object/object_location";
+  isObjectWounded,
+  isPlayingSound,
+  isStalker,
+  isStoryObjectExisting,
+} from "@/engine/core/utils/object";
 import { captions, TCaption } from "@/engine/lib/constants/captions";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { FALSE } from "@/engine/lib/constants/words";

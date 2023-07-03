@@ -23,7 +23,7 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { giveMoneyToActor, transferItemsToActor } from "@/engine/core/utils/task_reward";
+import { giveMoneyToActor, transferItemsToActor } from "@/engine/core/utils/object/object_task_reward";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { NIL } from "@/engine/lib/constants/words";

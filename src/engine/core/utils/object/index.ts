@@ -1,3 +1,4 @@
+export * from "@/engine/core/utils/object/object_alife";
 export * from "@/engine/core/utils/object/object_action";
 export * from "@/engine/core/utils/object/object_anomaly";
 export * from "@/engine/core/utils/object/object_check";
@@ -10,3 +11,4 @@ export * from "@/engine/core/utils/object/object_state";
 export * from "@/engine/core/utils/object/object_info_portion";
 export * from "@/engine/core/utils/object/object_spawn";
 export * from "@/engine/core/utils/object/object_find";
+export * from "@/engine/core/utils/object/object_task_reward";

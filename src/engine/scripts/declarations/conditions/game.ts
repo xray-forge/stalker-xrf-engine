@@ -2,7 +2,7 @@ import { game } from "xray16";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { extern } from "@/engine/core/utils/binding";
-import { isBlackScreen } from "@/engine/core/utils/check/check";
+import { isBlackScreen } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ClientObject, Optional, TName } from "@/engine/lib/types";
 

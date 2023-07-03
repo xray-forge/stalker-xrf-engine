@@ -2,7 +2,7 @@ import { CUI3tButton, CUIComboBox, CUIStatic, LuabindClass, ui_events } from "xr
 
 import { IWeatherState, WeatherManager } from "@/engine/core/managers/world/WeatherManager";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
-import { isGameStarted } from "@/engine/core/utils/check";
+import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { NIL } from "@/engine/lib/constants/words";

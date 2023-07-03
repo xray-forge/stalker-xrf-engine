@@ -1,8 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { evaluateSimulationPriority, evaluateSimulationPriorityByDistance } from "@/engine/core/utils/alife";
+import {
+  evaluateSimulationPriority,
+  evaluateSimulationPriorityByDistance,
+} from "@/engine/core/utils/object/object_alife";
 import { mockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { MockCVertex } from "@/fixtures/xray/mocks/CVertex.mock";
 import { mockServerAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 import { mockSquad } from "@/fixtures/xray/mocks/objects/server/Squad.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
@@ -21,7 +23,6 @@ describe("'alife' utils", () => {
 
   it("'evaluateSimulationPriority' utils should correctly evaluate priority", () => {
     MockVector.DEFAULT_DISTANCE = 20;
-    MockCVertex.DEFAULT_LEVEL_ID = 5;
 
     expect(evaluateSimulationPriority(mockSquad(), mockSquad())).toBe(13.65);
 

@@ -13,9 +13,9 @@ import {
 } from "@/engine/core/database";
 import { AbstractCoreManager } from "@/engine/core/managers/base/AbstractCoreManager";
 import { abort } from "@/engine/core/utils/assertion";
-import { isMonster, isStalker } from "@/engine/core/utils/check/is";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isMonster, isStalker } from "@/engine/core/utils/object";
 import { roots } from "@/engine/lib/constants/roots";
 import {
   ClientObject,

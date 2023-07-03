@@ -3,16 +3,16 @@ import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, LuabindClass, ui_event
 import { registry } from "@/engine/core/database";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemListEntry";
-import { isAmmoSection, isGameStarted } from "@/engine/core/utils/check/is";
-import { LuaLogger } from "@/engine/core/utils/logging";
-import { getInventoryNameForItemSection, spawnItemsForObject } from "@/engine/core/utils/object/object_spawn";
+import { isGameStarted } from "@/engine/core/utils/game";
 import {
   getAmmoSections,
   getArtefactsSections,
   getHelmetsSections,
   getOutfitSections,
   getWeaponSections,
-} from "@/engine/core/utils/sections";
+} from "@/engine/core/utils/ini";
+import { LuaLogger } from "@/engine/core/utils/logging";
+import { getInventoryNameForItemSection, isAmmoSection, spawnItemsForObject } from "@/engine/core/utils/object";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { drugs } from "@/engine/lib/constants/items/drugs";

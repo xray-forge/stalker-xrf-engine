@@ -1,8 +1,8 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
 import { ISchemePatrolState } from "@/engine/core/schemes/patrol";
-import { isActiveSection } from "@/engine/core/utils/check/is";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { isActiveSection } from "@/engine/core/utils/object";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

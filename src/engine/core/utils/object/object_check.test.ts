@@ -1,20 +1,11 @@
 import { describe, expect, it } from "@jest/globals";
-import { alife, TXR_class_id } from "xray16";
+import { TXR_class_id } from "xray16";
 
-import { isGameStarted, isObjectInjured, isWeapon } from "@/engine/core/utils/check/is";
+import { isObjectInjured, isWeapon } from "@/engine/core/utils/object/object_check";
 import { classIds } from "@/engine/lib/constants/class_ids";
-import { replaceFunctionMock } from "@/fixtures/utils";
-import { mockAlifeSimulator, mockClientGameObject } from "@/fixtures/xray";
+import { mockClientGameObject } from "@/fixtures/xray";
 
-describe("'is' utils", () => {
-  it("'isGameStarted' should check alife", () => {
-    replaceFunctionMock(alife, () => null);
-    expect(isGameStarted()).toBe(false);
-
-    replaceFunctionMock(alife, mockAlifeSimulator);
-    expect(isGameStarted()).toBe(true);
-  });
-
+describe("'alife' utils", () => {
   it("'isObjectInjured' should correctly check objects", () => {
     expect(isObjectInjured(mockClientGameObject())).toBe(false);
     expect(isObjectInjured(mockClientGameObject({ radiation: -1, health: 100, bleeding: -1 }))).toBe(false);

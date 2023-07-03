@@ -1,5 +1,4 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { alife } from "xray16";
 
 import { disposeManager, registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers";
@@ -24,13 +23,14 @@ import {
   transferItemsFromActor,
   transferItemsToActor,
   transferMoneyFromActor,
-} from "@/engine/core/utils/task_reward";
+} from "@/engine/core/utils/object/object_task_reward";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { AnyObject, ClientObject, TSection } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { MockAlifeSimulator, mockClientGameObject, mockServerAlifeItem, mockServerAlifeObject } from "@/fixtures/xray";
+import { alife } from "@/typedefs/xray16";
 
 describe("'task_reward' utils", () => {
   const createObjectWithItems = () =>
